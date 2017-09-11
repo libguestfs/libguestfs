@@ -37,6 +37,8 @@
 
 #include <libxml/uri.h>
 
+#include <yajl/yajl_tree.h>
+
 #include "full-write.h"
 #include "ignore-value.h"
 
@@ -51,9 +53,11 @@ struct qemu_data {
 
   char *qemu_help;              /* Output of qemu -help. */
   char *qemu_devices;           /* Output of qemu -device ? */
+  char *qmp_schema;             /* Output of QMP query-qmp-schema. */
 
   /* The following fields are derived from the fields above. */
   struct version qemu_version;  /* Parsed qemu version number. */
+  yajl_val qmp_schema_tree;     /* qmp_schema parsed into a JSON tree */
 
   int virtio_scsi;              /* See function
                                    guestfs_int_qemu_supports_virtio_scsi */
@@ -65,12 +69,17 @@ static int write_cache_qemu_help (guestfs_h *g, const struct qemu_data *data, co
 static int test_qemu_devices (guestfs_h *g, struct qemu_data *data);
 static int read_cache_qemu_devices (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qemu_devices (guestfs_h *g, const struct qemu_data *data, const char *filename);
+static int test_qmp_schema (guestfs_h *g, struct qemu_data *data);
+static int read_cache_qmp_schema (guestfs_h *g, struct qemu_data *data, const char *filename);
+static int write_cache_qmp_schema (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static int read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static void parse_qemu_version (guestfs_h *g, const char *, struct version *qemu_version);
+static void parse_json (guestfs_h *g, const char *, yajl_val *);
 static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 static int generic_read_cache (guestfs_h *g, const char *filename, char **strp);
 static int generic_write_cache (guestfs_h *g, const char *filename, const char *str);
+static int generic_qmp_test (guestfs_h *g, struct qemu_data *data, const char *qmp_command, char **outp);
 
 /* This structure abstracts the data we are reading from qemu and how
  * we get it.
@@ -96,6 +105,8 @@ static const struct qemu_fields {
     test_qemu_help, read_cache_qemu_help, write_cache_qemu_help },
   { "devices",
     test_qemu_devices, read_cache_qemu_devices, write_cache_qemu_devices },
+  { "qmp-schema",
+    test_qmp_schema, read_cache_qmp_schema, write_cache_qmp_schema },
 };
 #define NR_FIELDS (sizeof qemu_fields / sizeof qemu_fields[0])
 
@@ -104,7 +115,7 @@ static const struct qemu_fields {
  * this to discard any memoized data cached by previous versions of
  * libguestfs.
  */
-#define MEMO_GENERATION 1
+#define MEMO_GENERATION 2
 
 /**
  * Test that the qemu binary (or wrapper) runs, and do C<qemu -help>
@@ -159,8 +170,16 @@ guestfs_int_test_qemu (guestfs_h *g)
     r = qemu_fields[i].read_cache (g, data, filename);
     if (r == -1)
       goto error;
-    if (r == 0) /* cache gone, maybe deleted by the tmp cleaner */
+    if (r == 0) {
+      /* Cache gone, maybe deleted by the tmp cleaner, so we must run
+       * the full tests.  We will have a partially filled qemu_data
+       * structure.  The safest way to deal with that is to free
+       * it and start again.
+       */
+      guestfs_int_free_qemu_data (data);
+      data = safe_calloc (g, 1, sizeof *data);
       goto do_test;
+    }
   }
 
   goto out;
@@ -193,6 +212,7 @@ guestfs_int_test_qemu (guestfs_h *g)
  out:
   /* Derived fields. */
   parse_qemu_version (g, data->qemu_help, &data->qemu_version);
+  parse_json (g, data->qmp_schema, &data->qmp_schema_tree);
 
   return data;
 
@@ -283,6 +303,26 @@ write_cache_qemu_devices (guestfs_h *g, const struct qemu_data *data,
 }
 
 static int
+test_qmp_schema (guestfs_h *g, struct qemu_data *data)
+{
+  return generic_qmp_test (g, data, "query-qmp-schema", &data->qmp_schema);
+}
+
+static int
+read_cache_qmp_schema (guestfs_h *g, struct qemu_data *data,
+                       const char *filename)
+{
+  return generic_read_cache (g, filename, &data->qmp_schema);
+}
+
+static int
+write_cache_qmp_schema (guestfs_h *g, const struct qemu_data *data,
+                        const char *filename)
+{
+  return generic_write_cache (g, filename, data->qmp_schema);
+}
+
+static int
 read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data,
                       const char *filename)
 {
@@ -345,6 +385,27 @@ parse_qemu_version (guestfs_h *g, const char *qemu_help,
 }
 
 /**
+ * Parse the json output from QMP.  But don't fail if parsing
+ * is not possible.
+ */
+static void
+parse_json (guestfs_h *g, const char *json, yajl_val *treep)
+{
+  char parse_error[256] = "";
+
+  if (!json)
+    return;
+
+  *treep = yajl_tree_parse (json, parse_error, sizeof parse_error);
+  if (*treep == NULL) {
+    if (strlen (parse_error) > 0)
+      debug (g, "QMP parse error: %s (ignored)", parse_error);
+    else
+      debug (g, "QMP unknown parse error (ignored)");
+  }
+}
+
+/**
  * Generic functions for reading and writing the cache files, used
  * where we are just reading and writing plain text strings.
  */
@@ -361,7 +422,7 @@ generic_read_cache (guestfs_h *g, const char *filename, char **strp)
 static int
 generic_write_cache (guestfs_h *g, const char *filename, const char *str)
 {
-  CLEANUP_CLOSE int fd = -1;
+  int fd;
   size_t len;
 
   fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
@@ -373,7 +434,96 @@ generic_write_cache (guestfs_h *g, const char *filename, const char *str)
   len = strlen (str);
   if (full_write (fd, str, len) != len) {
     perrorf (g, "%s: write", filename);
+    close (fd);
     return -1;
+  }
+
+  if (close (fd) == -1) {
+    perrorf (g, "%s: close", filename);
+    return -1;
+  }
+  return 0;
+}
+
+/**
+ * Run a generic QMP test on the QEMU binary.
+ */
+static int
+generic_qmp_test (guestfs_h *g, struct qemu_data *data,
+                  const char *qmp_command,
+                  char **outp)
+{
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
+  int r, fd;
+  CLEANUP_FCLOSE FILE *fp = NULL;
+  CLEANUP_FREE char *line = NULL;
+  size_t allocsize = 0;
+  ssize_t len;
+
+  guestfs_int_cmd_add_string_unquoted (cmd, "echo ");
+  /* QMP is modal.  You have to send the qmp_capabilities command first. */
+  guestfs_int_cmd_add_string_unquoted (cmd, "'{ \"execute\": \"qmp_capabilities\" }' ");
+  guestfs_int_cmd_add_string_unquoted (cmd, "'{ \"execute\": \"");
+  guestfs_int_cmd_add_string_unquoted (cmd, qmp_command);
+  guestfs_int_cmd_add_string_unquoted (cmd, "\" }' ");
+  /* Exit QEMU after sending the commands. */
+  guestfs_int_cmd_add_string_unquoted (cmd, "'{ \"execute\": \"quit\" }' ");
+  guestfs_int_cmd_add_string_unquoted (cmd, " | ");
+  guestfs_int_cmd_add_string_quoted (cmd, g->hv);
+  guestfs_int_cmd_add_string_unquoted (cmd, " -display none");
+  guestfs_int_cmd_add_string_unquoted (cmd, " -machine ");
+  guestfs_int_cmd_add_string_quoted (cmd,
+#ifdef MACHINE_TYPE
+                                     MACHINE_TYPE ","
+#endif
+                                     "accel=kvm:tcg");
+  guestfs_int_cmd_add_string_unquoted (cmd, " -qmp stdio");
+  guestfs_int_cmd_clear_capture_errors (cmd);
+
+  fd = guestfs_int_cmd_pipe_run (cmd, "r");
+  if (fd == -1)
+    return -1;
+
+  /* Read the output line by line.  We expect to see:
+   * line 1: {"QMP": {"version": ... } }   # greeting from QMP
+   * line 2: {"return": {}}                # output from qmp_capabilities
+   * line 3: {"return": ... }              # the data from our qmp_command
+   * line 4: {"return": {}}                # output from quit
+   * line 5: {"timestamp": ...}            # shutdown event
+   */
+  fp = fdopen (fd, "r");        /* this will close (fd) at end of scope */
+  if (fp == NULL) {
+    perrorf (g, "fdopen");
+    return -1;
+  }
+  len = getline (&line, &allocsize, fp); /* line 1 */
+  if (len == -1 || strstr (line, "\"QMP\"") == NULL) {
+  parse_failure:
+    debug (g, "did not understand QMP monitor output from %s (ignored)",
+           g->hv);
+    /* QMP tests are optional, don't fail if we cannot parse the
+     * output.  However we MUST return an empty string on non-error
+     * paths.
+     */
+    *outp = safe_strdup (g, "");
+    return 0;
+  }
+  len = getline (&line, &allocsize, fp); /* line 2 */
+  if (len == -1 || strstr (line, "\"return\"") == NULL)
+    goto parse_failure;
+  len = getline (&line, &allocsize, fp); /* line 3 */
+  if (len == -1 || strstr (line, "\"return\"") == NULL)
+    goto parse_failure;
+  *outp = safe_strdup (g, line);
+  /* The other lines we don't care about, so finish parsing here. */
+  ignore_value (getline (&line, &allocsize, fp)); /* line 4 */
+  ignore_value (getline (&line, &allocsize, fp)); /* line 5 */
+
+  r = guestfs_int_cmd_pipe_wait (cmd);
+  /* QMP tests are optional, don't fail if the tests fail. */
+  if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    debug (g, "%s wait failed or unexpected exit status (ignored)", g->hv);
+    return 0;
   }
 
   return 0;
@@ -805,6 +955,8 @@ guestfs_int_free_qemu_data (struct qemu_data *data)
   if (data) {
     free (data->qemu_help);
     free (data->qemu_devices);
+    free (data->qmp_schema);
+    yajl_tree_free (data->qmp_schema_tree);
     free (data);
   }
 }
