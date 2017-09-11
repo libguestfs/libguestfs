@@ -632,6 +632,71 @@ guestfs_int_qemu_supports_virtio_scsi (guestfs_h *g, struct qemu_data *data,
   return data->virtio_scsi == 1;
 }
 
+/* GCC can't work out that the YAJL_IS_<foo> test is sufficient to
+ * ensure that YAJL_GET_<foo> later doesn't return NULL.
+ */
+#pragma GCC diagnostic push
+#if defined(__GNUC__) && __GNUC__ >= 6 /* gcc >= 6 */
+#pragma GCC diagnostic ignored "-Wnull-dereference"
+#endif
+
+/**
+ * Test if the qemu binary uses mandatory file locking, added in
+ * QEMU >= 2.10 (but sometimes disabled).
+ */
+int
+guestfs_int_qemu_mandatory_locking (guestfs_h *g,
+                                    const struct qemu_data *data)
+{
+  const char *return_path[] = { "return", NULL };
+  const char *meta_type_path[] = { "meta-type", NULL };
+  const char *members_path[] = { "members", NULL };
+  const char *name_path[] = { "name", NULL };
+  yajl_val schema, v, meta_type, members, m, name;
+  size_t i, j;
+
+  /* If there's no QMP schema, fall back to checking the version. */
+  if (!data->qmp_schema_tree) {
+  fallback:
+    return guestfs_int_version_ge (&data->qemu_version, 2, 10, 0);
+  }
+
+  /* Top element of qmp_schema_tree is the { "return": ... } wrapper.
+   * Extract the schema from the wrapper.  Note the returned ‘schema’
+   * will be an array.
+   */
+  schema = yajl_tree_get (data->qmp_schema_tree, return_path, yajl_t_array);
+  if (schema == NULL)
+    goto fallback;
+  assert (YAJL_IS_ARRAY(schema));
+
+  /* Now look for any member of the array which has:
+   * { "meta-type": "object",
+   *   "members": [ ... { "name": "locking", ... } ... ] ... }
+   */
+  for (i = 0; i < YAJL_GET_ARRAY(schema)->len; ++i) {
+    v = YAJL_GET_ARRAY(schema)->values[i];
+    meta_type = yajl_tree_get (v, meta_type_path, yajl_t_string);
+    if (meta_type && YAJL_IS_STRING (meta_type) &&
+        STREQ (YAJL_GET_STRING (meta_type), "object")) {
+      members = yajl_tree_get (v, members_path, yajl_t_array);
+      if (members) {
+        for (j = 0; j < YAJL_GET_ARRAY(members)->len; ++j) {
+          m = YAJL_GET_ARRAY(members)->values[j];
+          name = yajl_tree_get (m, name_path, yajl_t_string);
+          if (name && YAJL_IS_STRING (name) &&
+              STREQ (YAJL_GET_STRING (name), "locking"))
+            return 1;
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+#pragma GCC diagnostic pop
+
 /**
  * Escape a qemu parameter.
  *
