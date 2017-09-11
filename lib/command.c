@@ -791,6 +791,9 @@ guestfs_int_cmd_pipe_run (struct command *cmd, const char *mode)
 
   finish_command (cmd);
 
+  if (cmd->g->verbose)
+    debug_command (cmd);
+
   /* Various options cannot be used here. */
   assert (!cmd->capture_errors);
   assert (!cmd->stdout_callback);
