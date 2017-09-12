@@ -66,6 +66,7 @@ struct backend_direct_data {
   pid_t recoverypid;            /* Recovery process PID. */
 
   struct version qemu_version;  /* qemu version (0 if unable to parse). */
+  int qemu_mandatory_locking;   /* qemu >= 2.10 does mandatory locking */
   struct qemu_data *qemu_data;  /* qemu -help output etc. */
 
   char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
@@ -255,11 +256,13 @@ add_drive_standard_params (guestfs_h *g, struct backend_direct_data *data,
   }
   else {
     /* Writable qcow2 overlay on top of read-only drive. */
-    append_list_format ("file=%s", drv->overlay);
+    append_list_format ("file.file.filename=%s", drv->overlay);
+    append_list ("file.driver=qcow2");
     append_list ("cache=unsafe");
-    append_list ("format=qcow2");
     if (drv->disk_label)
       append_list_format ("serial=%s", drv->disk_label);
+    if (data->qemu_mandatory_locking)
+      append_list ("file.backing.file.locking=off");
   }
 
   append_list_format ("id=hd%zu", i);
@@ -408,6 +411,10 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     data->qemu_version = guestfs_int_qemu_version (g, data->qemu_data);
     debug (g, "qemu version: %d.%d",
            data->qemu_version.v_major, data->qemu_version.v_minor);
+    data->qemu_mandatory_locking =
+      guestfs_int_qemu_mandatory_locking (g, data->qemu_data);
+    debug (g, "qemu mandatory locking: %s",
+           data->qemu_mandatory_locking ? "yes" : "no");
   }
 
   /* Using virtio-serial, we need to create a local Unix domain socket
