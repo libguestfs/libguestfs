@@ -54,6 +54,7 @@ struct backend_direct_data {
   pid_t recoverypid;            /* Recovery process PID. */
 
   struct version qemu_version;  /* qemu version (0 if unable to parse). */
+  int qemu_mandatory_locking;   /* qemu >= 2.10 does mandatory locking */
   struct qemu_data *qemu_data;  /* qemu -help output etc. */
 
   char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
@@ -286,6 +287,10 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     data->qemu_version = guestfs_int_qemu_version (g, data->qemu_data);
     debug (g, "qemu version: %d.%d",
            data->qemu_version.v_major, data->qemu_version.v_minor);
+    data->qemu_mandatory_locking =
+      guestfs_int_qemu_mandatory_locking (g, data->qemu_data);
+    debug (g, "qemu mandatory locking: %s",
+           data->qemu_mandatory_locking ? "yes" : "no");
   }
 
   /* Using virtio-serial, we need to create a local Unix domain socket
@@ -526,10 +531,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       /* Writable qcow2 overlay on top of read-only drive. */
       escaped_file = guestfs_int_qemu_escape_param (g, drv->overlay);
       param = safe_asprintf
-        (g, "file=%s,cache=unsafe,format=qcow2%s%s,id=hd%zu",
+        (g, "file.file.filename=%s,cache=unsafe,file.driver=qcow2%s%s%s,id=hd%zu",
          escaped_file,
          drv->disk_label ? ",serial=" : "",
          drv->disk_label ? drv->disk_label : "",
+         data->qemu_mandatory_locking ? ",file.backing.file.locking=off" : "",
          i);
     }
 
@@ -1037,6 +1043,10 @@ max_disks_direct (guestfs_h *g, void *datav)
     data->qemu_version = guestfs_int_qemu_version (g, data->qemu_data);
     debug (g, "qemu version: %d.%d",
            data->qemu_version.v_major, data->qemu_version.v_minor);
+    data->qemu_mandatory_locking =
+      guestfs_int_qemu_mandatory_locking (g, data->qemu_data);
+    debug (g, "qemu mandatory locking: %s",
+           data->qemu_mandatory_locking ? "yes" : "no");
   }
 
   if (guestfs_int_qemu_supports_virtio_scsi (g, data->qemu_data,
