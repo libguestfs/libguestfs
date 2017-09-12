@@ -60,6 +60,7 @@ struct qemu_data {
   yajl_val qmp_schema_tree;     /* qmp_schema parsed into a JSON tree */
 };
 
+static char *cache_filename (guestfs_h *g, const char *cachedir, const struct stat *, const char *suffix);
 static int test_qemu_help (guestfs_h *g, struct qemu_data *data);
 static int read_cache_qemu_help (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qemu_help (guestfs_h *g, const struct qemu_data *data, const char *filename);
@@ -107,7 +108,7 @@ static const struct qemu_fields {
 };
 #define NR_FIELDS (sizeof qemu_fields / sizeof qemu_fields[0])
 
-/* This is saved in the qemu.stat file, so if we decide to change the
+/* This is saved in the qemu-*.stat file, so if we decide to change the
  * test_qemu memoization format/data in future, we should increment
  * this to discard any memoized data cached by previous versions of
  * libguestfs.
@@ -147,7 +148,7 @@ guestfs_int_test_qemu (guestfs_h *g)
 
   data = safe_calloc (g, 1, sizeof *data);
 
-  stat_filename = safe_asprintf (g, "%s/qemu.stat", cachedir);
+  stat_filename = cache_filename (g, cachedir, &statbuf, "stat");
   r = read_cache_qemu_stat (g, data, stat_filename);
   if (r == -1)
     goto error;
@@ -163,7 +164,7 @@ guestfs_int_test_qemu (guestfs_h *g)
 
   for (i = 0; i < NR_FIELDS; ++i) {
     CLEANUP_FREE char *filename =
-      safe_asprintf (g, "%s/qemu.%s", cachedir, qemu_fields[i].name);
+      cache_filename (g, cachedir, &statbuf, qemu_fields[i].name);
     r = qemu_fields[i].read_cache (g, data, filename);
     if (r == -1)
       goto error;
@@ -192,7 +193,7 @@ guestfs_int_test_qemu (guestfs_h *g)
 
   for (i = 0; i < NR_FIELDS; ++i) {
     CLEANUP_FREE char *filename =
-      safe_asprintf (g, "%s/qemu.%s", cachedir, qemu_fields[i].name);
+      cache_filename (g, cachedir, &statbuf, qemu_fields[i].name);
     if (qemu_fields[i].write_cache (g, data, filename) == -1)
       goto error;
   }
@@ -216,6 +217,24 @@ guestfs_int_test_qemu (guestfs_h *g)
  error:
   guestfs_int_free_qemu_data (data);
   return NULL;
+}
+
+/**
+ * Generate the filenames, for the stat file and the other cache
+ * files.
+ *
+ * By including the size and mtime in the filename we also ensure that
+ * the same user can use multiple versions of qemu without conflicts.
+ */
+static char *
+cache_filename (guestfs_h *g, const char *cachedir,
+                const struct stat *statbuf, const char *suffix)
+{
+  return safe_asprintf (g, "%s/qemu-%" PRIu64 "-%" PRIu64 ".%s",
+                        cachedir,
+                        (uint64_t) statbuf->st_size,
+                        (uint64_t) statbuf->st_mtime,
+                        suffix);
 }
 
 static int
