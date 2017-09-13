@@ -36,10 +36,14 @@ add-drive-opts $f format:raw readonly:true
 
 run
 
+# Read some of the backing file to ensure reads don't modify it.
+download-offset /dev/sda - 10M 10M | cat >/dev/null
+
 part-disk /dev/sda mbr
 mkfs ext2 /dev/sda1
 mount /dev/sda1 /
 write /test This_is_a_test
+fill-pattern abc 5M /test2
 
 # Really try hard to force writes to the disk.
 umount-all
