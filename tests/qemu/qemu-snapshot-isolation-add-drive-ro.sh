@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2011 Red Hat Inc.
+# Copyright (C) 2011-2017 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,55 +25,21 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-# UML backend doesn't support qcow2 format.
-supports_qcow2=yes
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    supports_qcow2=no
-fi
+f=isolation-add-drive-ro.img
+rm -f $f
 
-rm -f isolation1.img isolation2.img isolation3.img
+guestfish sparse $f 100M
+md5sum="$(do_md5 $f)"
 
-guestfish sparse isolation1.img 100M
-isolation1_md5sum="$(do_md5 isolation1.img)"
-guestfish sparse isolation2.img 100M
-isolation2_md5sum="$(do_md5 isolation2.img)"
-
-if [ "$supports_qcow2" = "yes" ]; then
-    guestfish \
-        disk-create isolation3.img qcow2 100M preallocation:metadata
-    isolation3_md5sum="$(do_md5 isolation3.img)"
-    add3="add-drive-opts isolation3.img format:qcow2 readonly:true"
-    cmds3="
-      part-disk /dev/sdc mbr
-      mkfs ext2 /dev/sdc1
-      mkmountpoint /c
-      mount /dev/sdc1 /c
-      write /c/test This_is_a_test
-    "
-fi
-
-# The vitally important calls are 'add-drive-ro' and
-# 'add-drive-opts ... readonly:true'.
 guestfish <<EOF
-add-drive-ro isolation1.img
-add-drive-opts isolation2.img format:raw readonly:true
-$add3
+add-drive-ro $f
 
 run
 
 part-disk /dev/sda mbr
 mkfs ext2 /dev/sda1
-mkmountpoint /a
-mount /dev/sda1 /a
-write /a/test This_is_a_test
-
-part-disk /dev/sdb mbr
-mkfs ext2 /dev/sdb1
-mkmountpoint /b
-mount /dev/sdb1 /b
-write /b/test This_is_a_test
-
-$cmds3
+mount /dev/sda1 /
+write /test This_is_a_test
 
 # Really try hard to force writes to the disk.
 umount-all
@@ -95,18 +61,8 @@ function serious_error
     exit 1
 }
 
-if [ "$(do_md5 isolation1.img)" != "$isolation1_md5sum" ]; then
-    serious_error
-fi
-if [ "$(do_md5 isolation2.img)" != "$isolation2_md5sum" ]; then
-    serious_error
-fi
-if [ "$supports_qcow2" = "yes" -a \
-     "$(do_md5 isolation3.img)" != "$isolation3_md5sum" ]; then
+if [ "$(do_md5 $f)" != "$md5sum" ]; then
     serious_error
 fi
 
-rm isolation1.img isolation2.img
-if [ "$supports_qcow2" = "yes" ]; then
-    rm isolation3.img
-fi
+rm $f
