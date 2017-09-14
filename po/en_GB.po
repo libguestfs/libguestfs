@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-09-04 17:20+0100\n"
+"POT-Creation-Date: 2017-09-14 17:57+0100\n"
 "PO-Revision-Date: 2015-02-21 10:48-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
@@ -680,6 +680,13 @@ msgstr ""
 #: ../v2v/parse_libvirt_xml.ml:383
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
+msgstr ""
+
+#: ../v2v/input_libvirt_vddk.ml:132
+msgid ""
+"<vmware:moref> was not found in the output of ‘virsh dumpxml \"%s\"’.  The "
+"most likely reason is that libvirt is too old, try upgrading libvirt to ≥ "
+"3.7."
 msgstr ""
 
 #. ../customize/customize_main.ml:75
@@ -2556,6 +2563,12 @@ msgstr ""
 msgid "Using prebuilt file %s as overlay"
 msgstr ""
 
+#: ../v2v/input_libvirt_vddk.ml:54
+msgid ""
+"VDDK library path %s not found or not a directory.  See \"INPUT FROM VDDK\" "
+"in the virt-v2v(1) manual."
+msgstr ""
+
 #: ../dib/output_format_vhd.ml:38
 msgid ""
 "VHD output not produced, most probably vhd-util is old or not patched for "
@@ -2600,6 +2613,13 @@ msgstr ""
 msgid ""
 "You cannot use --shrink when there is no deficit (see ‘deficit’ in the virt-"
 "resize(1) man page)."
+msgstr ""
+
+#: ../v2v/input_libvirt_vddk.ml:102
+msgid ""
+"You must pass the ‘--vddk-thumbprint’ option with the SSL thumbprint of the "
+"VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) "
+"manual.  See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
 msgstr ""
 
 #: ../sysprep/sysprep_operation_yum_uuid.ml:35
@@ -3427,6 +3447,52 @@ msgid ""
 "twice"
 msgstr ""
 
+#: ../v2v/input_libvirt_vddk.ml:92
+msgid ""
+"nbdkit VDDK plugin is not installed or not working.  It is required if you "
+"want to use VDDK.\n"
+"\n"
+"It looks like you did not set the right path in the ‘--vddk’ option, or your "
+"copy of the VDDK directory is incomplete.  There should be a library called "
+"’%s/libvixDiskLib.so.?’.\n"
+"\n"
+"See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
+msgstr ""
+
+#: ../v2v/input_libvirt_vddk.ml:86
+msgid ""
+"nbdkit VDDK plugin is not installed or not working.  It is required if you "
+"want to use VDDK.\n"
+"\n"
+"The VDDK plugin is not enabled by default when you compile nbdkit.  You have "
+"to read the instructions in the nbdkit sources under ‘plugins/vddk/README."
+"VDDK’ to find out how to enable the VDDK plugin.\n"
+"\n"
+"See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
+msgstr ""
+
+#: ../v2v/input_libvirt_vddk.ml:281
+msgid "nbdkit did not start up.  See previous debugging messages for problems."
+msgstr ""
+
+#: ../v2v/input_libvirt_vddk.ml:283
+msgid ""
+"nbdkit did not start up.  There may be errors printed by nbdkit above.\n"
+"\n"
+"If the messages above are not sufficient to diagnose the problem then add "
+"the ‘virt-v2v -v -x’ options and examine the debugging output carefully."
+msgstr ""
+
+#: ../v2v/input_libvirt_vddk.ml:61
+msgid ""
+"nbdkit is not installed or not working.  It is required to use ‘--vddk’.  "
+"See \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
+msgstr ""
+
+#: ../v2v/input_libvirt_vddk.ml:71
+msgid "nbdkit is not new enough, you need to upgrade to nbdkit ≥ 1.1.14"
+msgstr ""
+
 #: ../v2v/cmdline.ml:121
 msgid "network"
 msgstr ""
@@ -3741,7 +3807,7 @@ msgstr ""
 msgid "source and fingerprint lists are not the same length"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:106
+#: ../v2v/input_libvirt_vddk.ml:234 ../v2v/input_libvirt_vcenter_https.ml:106
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
@@ -4339,10 +4405,26 @@ msgid ""
 "further information."
 msgstr ""
 
+#: ../v2v/input_libvirt_vddk.ml:171
+msgid ""
+"you must use the ‘-ic’ parameter.  See \"INPUT FROM VDDK\" in the virt-"
+"v2v(1) manual."
+msgstr ""
+
+#: ../v2v/input_libvirt_vddk.ml:51
+msgid ""
+"‘--vddk %s’ does not point to a directory.  See \"INPUT FROM VDDK\" in the "
+"virt-v2v(1) manual."
+msgstr ""
+
 #: ../v2v/cmdline.ml:316
 msgid ""
 "‘--vddk-*’ options should only be used when conversion via the nbdkit VDDK "
 "plugin has been enabled, ie. using ‘--vddk’."
+msgstr ""
+
+#: ../v2v/input_libvirt_vddk.ml:168
+msgid "‘-ic %s’ URL does not contain a host name field"
 msgstr ""
 
 #: align/scan.c:80 cat/cat.c:59 cat/filesystems.c:94 cat/log.c:69 cat/ls.c:96
@@ -8872,7 +8954,7 @@ msgid ""
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: lib/launch-direct.c:163
+#: lib/launch-direct.c:164
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -8881,11 +8963,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:369 lib/launch-uml.c:155
+#: lib/launch-direct.c:372 lib/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:889 lib/launch-libvirt.c:681
+#: lib/launch-direct.c:899 lib/launch-libvirt.c:681
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -8964,7 +9046,7 @@ msgstr ""
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1500 lib/qemu.c:395
+#: lib/launch-libvirt.c:1500 lib/qemu.c:740
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
@@ -9312,35 +9394,35 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: lib/qemu.c:577
+#: lib/qemu.c:922
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: lib/qemu.c:586
+#: lib/qemu.c:931
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:593
+#: lib/qemu.c:938
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:601
+#: lib/qemu.c:946
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: lib/qemu.c:609
+#: lib/qemu.c:954
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:632
+#: lib/qemu.c:977
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
