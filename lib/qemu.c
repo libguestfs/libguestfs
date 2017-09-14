@@ -638,6 +638,7 @@ guestfs_int_qemu_supports_virtio_scsi (guestfs_h *g, struct qemu_data *data,
 #pragma GCC diagnostic push
 #if defined(__GNUC__) && __GNUC__ >= 6 /* gcc >= 6 */
 #pragma GCC diagnostic ignored "-Wnull-dereference"
+#pragma GCC diagnostic ignored "-Wnonnull"
 #endif
 
 /**
