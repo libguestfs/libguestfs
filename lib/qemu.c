@@ -586,6 +586,7 @@ guestfs_int_qemu_supports_device (guestfs_h *g,
 #pragma GCC diagnostic push
 #if defined(__GNUC__) && __GNUC__ >= 6 /* gcc >= 6 */
 #pragma GCC diagnostic ignored "-Wnull-dereference"
+#pragma GCC diagnostic ignored "-Wnonnull"
 #endif
 
 /**
