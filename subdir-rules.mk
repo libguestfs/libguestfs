@@ -79,12 +79,19 @@ guestfs_am_v_jar = $(guestfs_am_v_jar_@AM_V@)
 guestfs_am_v_jar_ = $(guestfs_am_v_jar_@AM_DEFAULT_V@)
 guestfs_am_v_jar_0 = @echo "  JAR     " $@;
 
-.mli.cmi:
+# We must always choose the .mli.cmi rule over the .ml.cmi rule if the
+# .mli file exists.  The .mli.cmi rule is listed first because:
+# "If more than one pattern rule has the shortest stem, make will
+# choose the first one found in the makefile."
+# (https://www.gnu.org/software/make/manual/make.html#Pattern-Match)
+%.cmi: %.mli
 	$(guestfs_am_v_ocamlcmi)$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
-.ml.cmo:
+%.cmi: %.ml
+	$(guestfs_am_v_ocamlcmi)$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
+%.cmo: %.ml
 	$(guestfs_am_v_ocamlc)$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 if HAVE_OCAMLOPT
-.ml.cmx:
+%.cmx: %.ml
 	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 endif
 
