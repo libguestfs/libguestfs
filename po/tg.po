@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-06-22 10:19+0100\n"
+"POT-Creation-Date: 2017-09-15 20:13+0100\n"
 "PO-Revision-Date: 2015-02-21 10:53-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Tajik (http://www.transifex.com/projects/p/libguestfs/"
@@ -125,7 +125,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:938
+#: ../v2v/convert_linux.ml:943
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -594,11 +594,11 @@ msgstr ""
 msgid "-B must be specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:339
+#: ../v2v/cmdline.ml:341
 msgid "-o %s: %s option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:344
+#: ../v2v/cmdline.ml:346
 msgid "-o and --in-place cannot be used at the same time"
 msgstr ""
 
@@ -627,31 +627,31 @@ msgid ""
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:374
+#: ../v2v/cmdline.ml:376
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:402
+#: ../v2v/cmdline.ml:404
 msgid "-o qemu: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:413
+#: ../v2v/cmdline.ml:415
 msgid "-o rhv: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:431
+#: ../v2v/cmdline.ml:433
 msgid "-o vdsm: --vdsm-image-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:434
+#: ../v2v/cmdline.ml:436
 msgid "-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:424
+#: ../v2v/cmdline.ml:426
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:404 ../v2v/cmdline.ml:376
+#: ../v2v/cmdline.ml:406 ../v2v/cmdline.ml:378
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
@@ -1165,11 +1165,11 @@ msgstr ""
 msgid "Expanded elements: %s"
 msgstr ""
 
-#: ../resize/resize.ml:1381
+#: ../resize/resize.ml:1392
 msgid "Expanding %s using the '%s' method"
 msgstr ""
 
-#: ../resize/resize.ml:1362
+#: ../resize/resize.ml:1373
 msgid "Expanding %s%s using the '%s' method"
 msgstr ""
 
@@ -1531,7 +1531,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../customize/firstboot.ml:247
+#: ../customize/firstboot.ml:255
 msgid ""
 "One of rhsrvany.exe or pvvxsvc.exe is missing in %s.  One of them is "
 "required in order to install Windows firstboot scripts.  You can get one by "
@@ -1639,7 +1639,7 @@ msgstr ""
 msgid "POD notes for %s must not end with newline"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:389
+#: ../v2v/convert_linux.ml:394
 msgid ""
 "Parallels tools was detected, but uninstallation failed. The error message "
 "was: %s (ignored)"
@@ -1912,7 +1912,7 @@ msgstr ""
 msgid "Repo and tag for docker"
 msgstr ""
 
-#: ../resize/resize.ml:1411
+#: ../resize/resize.ml:1422
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -2253,7 +2253,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:727
+#: ../v2v/convert_linux.ml:732
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2447,6 +2447,10 @@ msgstr ""
 msgid "USER[:SELECTOR]"
 msgstr ""
 
+#: ../resize/resize.ml:1361
+msgid "UUID in swap partition %s changed from ‘%s’ to ‘%s’"
+msgstr ""
+
 #: ../dib/dib.ml:923
 msgid "Umounting the disks"
 msgstr ""
@@ -2517,7 +2521,7 @@ msgid ""
 "'convert'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:311
+#: ../v2v/convert_linux.ml:316
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
@@ -2665,7 +2669,7 @@ msgid ""
 "Use --list to list available guest types."
 msgstr ""
 
-#: ../customize/firstboot.ml:229
+#: ../customize/firstboot.ml:237
 msgid ""
 "cannot finish firstboot installation by running '%s' because host cpu (%s) "
 "and guest arch (%s) are not compatible.  The firstboot service may not run "
@@ -2747,7 +2751,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:206
+#: ../v2v/output_libvirt.ml:204
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -2773,7 +2777,7 @@ msgid ""
 "\\CurrentVersion"
 msgstr ""
 
-#: ../customize/firstboot.ml:226
+#: ../customize/firstboot.ml:234
 msgid ""
 "could not finish firstboot installation by running '%s' because the command "
 "failed: %s"
@@ -2814,7 +2818,7 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:166
+#: ../v2v/output_libvirt.ml:164
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
@@ -2913,7 +2917,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:832
+#: ../v2v/convert_linux.ml:837
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -2978,19 +2982,19 @@ msgid ""
 "string: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:304
+#: ../v2v/cmdline.ml:306
 msgid "expecting a disk image (filename) on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:325
+#: ../v2v/cmdline.ml:327
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:316
+#: ../v2v/cmdline.ml:318
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:334
+#: ../v2v/cmdline.ml:336
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
@@ -3018,7 +3022,7 @@ msgstr ""
 msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
 msgstr ""
 
-#: ../v2v/utils.ml:170
+#: ../v2v/utils.ml:173
 msgid "failed to parse line returned by tar: %S"
 msgstr ""
 
@@ -3046,7 +3050,7 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../customize/firstboot.ml:142
+#: ../customize/firstboot.ml:146
 msgid ""
 "firstboot: unknown version for old firstboot.service file %s (md5=%s), it "
 "will not be removed"
@@ -3123,11 +3127,11 @@ msgid ""
 "\" in the virt-v2v(1) manual for a workaround."
 msgstr ""
 
-#: ../customize/firstboot.ml:158
+#: ../customize/firstboot.ml:166
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:360
+#: ../customize/firstboot.ml:368
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -3263,7 +3267,7 @@ msgstr ""
 msgid "invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/utils.ml:155
+#: ../v2v/utils.ml:158
 msgid "invalid offset returned by tar: %S"
 msgstr ""
 
@@ -3271,7 +3275,7 @@ msgstr ""
 msgid "invalid password selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/utils.ml:160
+#: ../v2v/utils.ml:163
 msgid "invalid size returned by tar: %S"
 msgstr ""
 
@@ -3383,7 +3387,7 @@ msgid ""
 "vulnerable to Man-In-The-Middle attacks."
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:359
+#: ../v2v/linux_bootloaders.ml:370
 msgid "no bootloader detected"
 msgstr ""
 
@@ -3469,7 +3473,7 @@ msgid ""
 "the output."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:403
+#: ../v2v/convert_linux.ml:408
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -3930,6 +3934,12 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
+#: ../v2v/parse_libvirt_xml.ml:417
+msgid "this guest has a passthrough host device which will be ignored"
+msgid_plural "this guest has passthrough host devices which will be ignored"
+msgstr[0] ""
+msgstr[1] ""
+
 #: ../v2v/parse_libvirt_xml.ml:216 ../v2v/copy_to_local.ml:289
 msgid "this guest has no non-removable disks"
 msgstr ""
@@ -3952,7 +3962,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:766
+#: ../v2v/convert_linux.ml:771
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3971,13 +3981,13 @@ msgstr ""
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:611
+#: ../v2v/convert_linux.ml:616
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:528
+#: ../v2v/convert_linux.ml:533
 msgid ""
 "unable to rebuild initrd (%s) because update-initramfs was not found in the "
 "guest"
@@ -8667,8 +8677,8 @@ msgstr ""
 
 #: lib/inspect-fs-unix.c:164 lib/inspect-fs-unix.c:314
 #: lib/inspect-fs-unix.c:389 lib/inspect-fs-unix.c:1247
-#: lib/inspect-fs-unix.c:2034 lib/inspect-fs.c:624 lib/inspect-fs.c:670
-#: lib/inspect.c:770
+#: lib/inspect-fs-unix.c:2034 lib/inspect-fs.c:598 lib/inspect-fs.c:644
+#: lib/inspect.c:771
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -8678,49 +8688,49 @@ msgstr ""
 msgid "%s:%s:%s: augeas parse failure: %s"
 msgstr ""
 
-#: lib/inspect-fs.c:419 lib/inspect-fs.c:432
+#: lib/inspect.c:428
+msgid "not a Windows guest, or systemroot could not be determined"
+msgstr ""
+
+#: lib/inspect.c:443
+msgid "not a Windows guest, or software hive not found"
+msgstr ""
+
+#: lib/inspect.c:458
+msgid "not a Windows guest, or system hive not found"
+msgstr ""
+
+#: lib/inspect.c:474
+msgid "not a Windows guest, or CurrentControlSet could not be determined"
+msgstr ""
+
+#: lib/inspect.c:810 lib/inspect.c:823
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: lib/inspect.c:427
-msgid "not a Windows guest, or systemroot could not be determined"
-msgstr ""
-
-#: lib/inspect.c:442
-msgid "not a Windows guest, or software hive not found"
-msgstr ""
-
-#: lib/inspect.c:457
-msgid "not a Windows guest, or system hive not found"
-msgstr ""
-
-#: lib/inspect.c:473
-msgid "not a Windows guest, or CurrentControlSet could not be determined"
-msgstr ""
-
-#: lib/inspect.c:808
+#: lib/inspect.c:835
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: lib/inspect.c:818
+#: lib/inspect.c:845
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: lib/launch-direct.c:124
+#: lib/launch-direct.c:125
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: lib/launch-direct.c:143
+#: lib/launch-direct.c:144
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: lib/launch-direct.c:210
+#: lib/launch-direct.c:211
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -8729,11 +8739,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:247 lib/launch-uml.c:155
+#: lib/launch-direct.c:248 lib/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:845 lib/launch-libvirt.c:676
+#: lib/launch-direct.c:856 lib/launch-libvirt.c:676
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -8812,7 +8822,7 @@ msgstr ""
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1478 lib/qemu.c:438
+#: lib/launch-libvirt.c:1478 lib/qemu.c:791
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -8823,28 +8833,28 @@ msgid ""
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1902
+#: lib/launch-libvirt.c:1903
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1913
+#: lib/launch-libvirt.c:1914
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1917
+#: lib/launch-libvirt.c:1918
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1938
+#: lib/launch-libvirt.c:1939
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:1951
+#: lib/launch-libvirt.c:1952
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2061
+#: lib/launch-libvirt.c:2062
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -8860,20 +8870,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: lib/launch-libvirt.c:2164
+#: lib/launch-libvirt.c:2165
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2185 lib/launch-libvirt.c:2218
+#: lib/launch-libvirt.c:2186 lib/launch-libvirt.c:2219
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2284
+#: lib/launch-libvirt.c:2285
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2315
+#: lib/launch-libvirt.c:2316
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -9154,35 +9164,35 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: lib/qemu.c:620
+#: lib/qemu.c:973
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: lib/qemu.c:629
+#: lib/qemu.c:982
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:636
+#: lib/qemu.c:989
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:644
+#: lib/qemu.c:997
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: lib/qemu.c:652
+#: lib/qemu.c:1005
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: lib/qemu.c:675
+#: lib/qemu.c:1028
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
