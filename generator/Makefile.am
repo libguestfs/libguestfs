@@ -207,5 +207,3 @@ stamp-generator: generator
 CLEANFILES += $(noinst_DATA) $(noinst_PROGRAM)
 
 DISTCLEANFILES += .pod2text.data.version.2
-
-SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly

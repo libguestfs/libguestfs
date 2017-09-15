@@ -51,3 +51,9 @@ CLEANFILES += bindtests.tmp
 
 # Files that should be universally removed by 'make distclean'.
 DISTCLEANFILES = .depend stamp-*
+
+# Special suffixes used by OCaml.
+SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly
+
+# Special suffixes used by PO files.
+SUFFIXES += .po .gmo

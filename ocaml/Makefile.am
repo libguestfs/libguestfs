@@ -189,8 +189,6 @@ endif
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 
-SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly
-
 # Run ocamlfind to perform the install.  ocamlfind refuses to install
 # the package if it is already installed, so remove the old package
 # first.
