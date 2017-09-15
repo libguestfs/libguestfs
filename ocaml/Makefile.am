@@ -38,8 +38,7 @@ CLEANFILES += t/*.annot t/*.cmi t/*.cmo t/*.cmx t/*.o t/*.a t/*.so
 
 if HAVE_OCAML
 
-OCAMLCFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
-OCAMLOPTFLAGS = $(OCAMLCFLAGS)
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 noinst_DATA = mlguestfs.cma META
 if HAVE_OCAMLOPT
@@ -161,30 +160,17 @@ endif
 
 %.bc: %.cmo mlguestfs.cma
 	$(guestfs_am_v_ocamlc)$(top_builddir)/libtool -dlopen $(top_builddir)/lib/.libs/libguestfs.la --mode=execute \
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -I . -package unix -linkpkg mlguestfs.cma $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) -I . -package unix -linkpkg mlguestfs.cma $< -o $@
 
 if HAVE_OCAMLOPT
 %.opt: %.cmx mlguestfs.cmxa
-	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/lib/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
+	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) -cclib -L$(top_builddir)/lib/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 endif
 
 check-valgrind:
 	$(MAKE) VG="@VG@" TESTS="$(test_progs_all)" check
 
 # Dependencies.
-%.cmi: %.mli
-	$(guestfs_am_v_ocamlc)$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $@
-guestfs.cmo: guestfs.ml
-	$(guestfs_am_v_ocamlc)$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $@
-%.cmo: %.ml mlguestfs.cma
-	$(guestfs_am_v_ocamlc)$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $@
-if HAVE_OCAMLOPT
-guestfs.cmx: guestfs.ml
-	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix -c $< -o $@
-%.cmx: %.ml mlguestfs.cmxa
-	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix -c $< -o $@
-endif
-
 .depend: *.mli *.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
