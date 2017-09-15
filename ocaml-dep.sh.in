@@ -54,9 +54,6 @@ done
 
 rm -f $output $output-t
 
-@OCAMLFIND@ ocamldep $includes "$@" |
-    @SED@ 's/ *$//' |
-    @SED@ -e :a -e '/ *\\$/N; s/ *\\\n */ /; ta' |
-    sort > $output-t
+@OCAMLFIND@ ocamldep @OCAMLDEP_ALL@ @OCAMLDEP_ONE_LINE@ $includes "$@" > $output-t
 
 mv $output-t $output

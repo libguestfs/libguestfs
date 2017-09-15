@@ -56,6 +56,26 @@ AM_CONDITIONAL([HAVE_OCAMLOPT],
 AM_CONDITIONAL([HAVE_OCAMLDOC],
                [test "x$OCAMLDOC" != "xno"])
 
+dnl Check if ocamldep has options -all and -one-line (not present in RHEL 6).
+AC_MSG_CHECKING([if ocamldep has the ‘-all’ option])
+if ocamldep -all >&AS_MESSAGE_LOG_FD 2>&1; then
+    AC_MSG_RESULT([yes])
+    OCAMLDEP_ALL="-all"
+else
+    AC_MSG_RESULT([no])
+    OCAMLDEP_ALL=""
+fi
+AC_SUBST([OCAMLDEP_ALL])
+AC_MSG_CHECKING([if ocamldep has the ‘-one-line’ option])
+if ocamldep -one-line >&AS_MESSAGE_LOG_FD 2>&1; then
+    AC_MSG_RESULT([yes])
+    OCAMLDEP_ONE_LINE="-one-line"
+else
+    AC_MSG_RESULT([no])
+    OCAMLDEP_ONE_LINE=""
+fi
+AC_SUBST([OCAMLDEP_ONE_LINE])
+
 if test "x$enable_daemon" = "xyes"; then
     OCAML_PKG_hivex=no
     AC_CHECK_OCAML_PKG(hivex)
