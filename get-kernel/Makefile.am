@@ -126,7 +126,7 @@ stamp-virt-get-kernel.pod: virt-get-kernel.pod
 	touch $@
 
 # OCaml dependencies.
-.depend: *.mli *.ml
+.depend: *.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 

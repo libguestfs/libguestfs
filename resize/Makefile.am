@@ -137,7 +137,7 @@ check-valgrind:
 	$(MAKE) VG="@VG@" check
 
 # Dependencies.
-.depend: *.mli *.ml
+.depend: *.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 
