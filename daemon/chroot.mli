@@ -16,11 +16,30 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** This is a generic module for running functions in a chroot.
-    The function runs in a forked subprocess too so that we can
-    restore the root afterwards.
+(** This is a generic module for running functions in a chroot directory.
 
-    It handles passing the parameter, forking, running the
+    It is normally used where we want to run a function on files mounted
+    under [Sysroot.sysroot ()] (normally [/sysroot]), ie. in the
+    libguestfs namespace.
+
+    The function runs in a forked subprocess, ensuring that the main
+    daemon process does not chroot so everything is restored properly
+    afterwards.  (Note this is different from how the legacy
+    C [CHROOT_IN] and [CHROOT_OUT] macros work).
+
+    Basic usage is:
+
+{v
+  let chroot = Chroot.create ~name:(sprintf "lstat: %s" path) () in
+  let statbuf = Chroot.f chroot lstat path in
+  ...
+v}
+
+    After this runs, [statbuf] will contain the results of [lstat]
+    on [Sysroot.sysroot () // path].  (Any exception thrown by [lstat]
+    will be rethrown in the main process.)
+
+    This module handles passing the parameter, forking, running the
     function and marshalling the result or any exceptions. *)
 
 type t
