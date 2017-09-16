@@ -16,6 +16,7 @@ common/edit/file-edit.c
 common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
 common/miniexpect/miniexpect.c
+common/mlaugeas/augeas-c.c
 common/mlpcre/dummy.c
 common/mlpcre/pcre-c.c
 common/mlprogress/progress-c.c
@@ -372,13 +373,8 @@ lib/file.c
 lib/fuse.c
 lib/guid.c
 lib/handle.c
-lib/hivex.c
 lib/info.c
 lib/inspect-apps.c
-lib/inspect-fs-cd.c
-lib/inspect-fs-unix.c
-lib/inspect-fs-windows.c
-lib/inspect-fs.c
 lib/inspect-icon.c
 lib/inspect.c
 lib/journal.c
@@ -393,7 +389,6 @@ lib/libvirt-is-version.c
 lib/lpj.c
 lib/match.c
 lib/mountable.c
-lib/osinfo.c
 lib/private-data.c
 lib/proto.c
 lib/qemu.c
