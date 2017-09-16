@@ -20,8 +20,6 @@
 
 type t
 
-exception Error of string
-
 type flag =
   | AugSaveBackup
   | AugSaveNewFile
@@ -29,6 +27,28 @@ type flag =
   | AugNoStdinc
   | AugSaveNoop
   | AugNoLoad
+
+type error_code =
+  | AugErrInternal
+  | AugErrPathX
+  | AugErrNoMatch
+  | AugErrMMatch
+  | AugErrSyntax
+  | AugErrNoLens
+  | AugErrMXfm
+  | AugErrNoSpan
+  | AugErrMvDesc
+  | AugErrCmdRun
+  | AugErrBadArg
+  | AugErrLabel
+  | AugErrCpDesc
+  | AugErrUnknown of int
+
+type transform_mode =
+  | Include
+  | Exclude
+
+exception Error of error_code * string * string * string
 
 type path = string
 
@@ -54,6 +74,12 @@ external save : t -> unit
   = "ocaml_augeas_save"
 external load : t -> unit
   = "ocaml_augeas_load"
+external set : t -> path -> value option -> unit
+  = "ocaml_augeas_set"
+external transform : t -> string -> string -> transform_mode -> unit
+  = "ocaml_augeas_transform"
+external source : t -> path -> path option
+  = "ocaml_augeas_source"
 
 let () =
-  Callback.register_exception "Augeas.Error" (Error "")
+  Callback.register_exception "Augeas.Error" (Error (AugErrInternal, "", "", ""))

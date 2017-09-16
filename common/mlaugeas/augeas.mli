@@ -21,10 +21,6 @@
 type t
   (** Augeas library handle. *)
 
-exception Error of string
-  (** This exception is thrown when the underlying Augeas library
-      returns an error. *)
-
 type flag =
   | AugSaveBackup			(** Rename original with .augsave *)
   | AugSaveNewFile			(** Save changes to .augnew *)
@@ -33,6 +29,37 @@ type flag =
   | AugSaveNoop
   | AugNoLoad
   (** Flags passed to the {!create} function. *)
+
+type error_code =
+  | AugErrInternal		(** Internal error (bug) *)
+  | AugErrPathX			(** Invalid path expression *)
+  | AugErrNoMatch		(** No match for path expression *)
+  | AugErrMMatch		(** Too many matches for path expression *)
+  | AugErrSyntax		(** Syntax error in lens file *)
+  | AugErrNoLens		(** Lens lookup failed *)
+  | AugErrMXfm			(** Multiple transforms *)
+  | AugErrNoSpan		(** No span for this node *)
+  | AugErrMvDesc		(** Cannot move node into its descendant *)
+  | AugErrCmdRun		(** Failed to execute command *)
+  | AugErrBadArg		(** Invalid argument in funcion call *)
+  | AugErrLabel			(** Invalid label *)
+  | AugErrCpDesc		(** Cannot copy node into its descendant *)
+  | AugErrUnknown of int
+  (** Possible error codes. *)
+
+type transform_mode =
+  | Include
+  | Exclude
+  (** The operation mode for the {!transform} function. *)
+
+exception Error of error_code * string * string * string
+  (** This exception is thrown when the underlying Augeas library
+      returns an error.  The tuple represents:
+      - the Augeas error code
+      - the ocaml-augeas error string
+      - the human-readable explanation of the Augeas error, if available
+      - a string with details of the Augeas error
+   *)
 
 type path = string
   (** A path expression.
@@ -93,3 +120,15 @@ val save : t -> unit
 
 val load : t -> unit
   (** [load t] loads files into the tree. *)
+
+val set : t -> path -> value option -> unit
+  (** [set t path] sets [value] as new value at [path]. *)
+
+val transform : t -> string -> string -> transform_mode -> unit
+  (** [transform t lens file mode] adds or removes (depending on
+      [mode]) the transformation of the specified [lens] for [file]. *)
+
+val source : t -> path -> path option
+  (** [source t path] returns the path to the node representing the
+      file to which [path] belongs, or [None] if [path] does not
+      represent any file. *)
