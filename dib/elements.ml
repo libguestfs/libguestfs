@@ -34,14 +34,9 @@ and hooks_map = (string, string list) Hashtbl.t  (* hook name, scripts *)
 
 exception Duplicate_script of string * string (* hook, script *)
 
-(* These are the elements which we don't ever try to use. *)
 let builtin_elements_blacklist = [
 ]
 
-(* These are the scripts which we don't ever try to run.
- * Usual reason could be that they are not compatible the way virt-dib works:
- * e.g. they expect the tree of elements outside the chroot, which is not
- * available in the appliance. *)
 let builtin_scripts_blacklist = [
   "01-sahara-version";            (* Gets the Git commit ID of the d-i-b and
                                    * sahara-image-elements repositories. *)

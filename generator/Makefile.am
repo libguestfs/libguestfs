@@ -84,6 +84,7 @@ sources = \
 	lua.ml \
 	lua.mli \
 	main.ml \
+	main.mli \
 	OCaml.ml \
 	OCaml.mli \
 	optgroups.ml \
@@ -107,6 +108,7 @@ sources = \
 	tests_c_api.ml \
 	tests_c_api.mli \
 	types.ml \
+	types.mli \
 	UEFI.ml \
 	UEFI.mli \
 	utils.ml \

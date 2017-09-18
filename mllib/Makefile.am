@@ -28,6 +28,7 @@ EXTRA_DIST = \
 
 SOURCES_MLI = \
 	checksums.mli \
+	common_gettext.mli \
 	common_utils.mli \
 	curl.mli \
 	getopt.mli \

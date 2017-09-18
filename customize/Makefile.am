@@ -38,6 +38,7 @@ SOURCES_MLI = \
 	append_line.mli \
 	crypt.mli \
 	customize_cmdline.mli \
+	customize_main.mli \
 	customize_run.mli \
 	firstboot.mli \
 	hostname.mli \

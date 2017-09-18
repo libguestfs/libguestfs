@@ -181,10 +181,12 @@ Makefile.in
 /daemon/optgroups.c
 /daemon/optgroups.h
 /daemon/optgroups.ml
+/daemon/optgroups.mli
 /daemon/stamp-guestfsd.pod
 /daemon/structs-cleanups.c
 /daemon/structs-cleanups.h
 /daemon/structs.ml
+/daemon/structs.mli
 /daemon/stubs-?.c
 /daemon/stubs.h
 /daemon/types.ml
@@ -193,6 +195,7 @@ Makefile.in
 /df/virt-df
 /df/virt-df.1
 /dib/.depend
+/dib/output_format_*.mli
 /dib/stamp-virt-dib.pod
 /dib/virt-dib
 /dib/virt-dib.1
@@ -376,6 +379,7 @@ Makefile.in
 /missing
 /mllib/.depend
 /mllib/common_gettext.ml
+/mllib/common_gettext.mli
 /mllib/common_utils_tests
 /mllib/getopt_tests
 /mllib/JSON_tests
@@ -551,6 +555,7 @@ Makefile.in
 /sysprep/stamp-virt-sysprep.pod
 /sysprep/sysprep-extra-options.pod
 /sysprep/sysprep-operations.pod
+/sysprep/sysprep_operation_*.mli
 /sysprep/virt-sysprep
 /sysprep/virt-sysprep.1
 /tests/c-api/test-add-drive-opts

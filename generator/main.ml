@@ -147,6 +147,8 @@ Run it from the top source directory using the command
             Daemon.generate_daemon_optgroups_h;
   output_to "daemon/optgroups.ml"
             Daemon.generate_daemon_optgroups_ml;
+  output_to "daemon/optgroups.mli"
+            Daemon.generate_daemon_optgroups_mli;
   output_to "daemon/lvm-tokenization.c"
             Daemon.generate_daemon_lvm_tokenization;
   output_to "daemon/structs-cleanups.c"
@@ -192,6 +194,8 @@ Run it from the top source directory using the command
   output_to "ocaml/guestfs-c-errnos.c"
             OCaml.generate_ocaml_c_errnos;
   output_to "daemon/structs.ml"
+            OCaml.generate_ocaml_daemon_structs;
+  output_to "daemon/structs.mli"
             OCaml.generate_ocaml_daemon_structs;
   output_to "ocaml/bindtests.ml"
             Bindtests.generate_ocaml_bindtests;

@@ -1152,6 +1152,14 @@ let generate_daemon_optgroups_ml () =
       pr "  \"guestfs_int_daemon_optgroup_%s_available\" \"noalloc\"\n" group
   ) optgroups_names
 
+let generate_daemon_optgroups_mli () =
+  generate_header OCamlStyle GPLv2plus;
+
+  List.iter (
+    fun group ->
+      pr "val %s_available : unit -> bool\n" group
+  ) optgroups_names
+
 (* Generate structs-cleanups.c file. *)
 let generate_daemon_structs_cleanups_c () =
   generate_header CStyle GPLv2plus;

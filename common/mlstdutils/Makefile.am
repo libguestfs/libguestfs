@@ -23,6 +23,7 @@ EXTRA_DIST = \
 	std_utils_tests.ml
 
 SOURCES_MLI = \
+	guestfs_config.mli \
 	std_utils.mli \
 	stringMap.mli \
 	stringSet.mli

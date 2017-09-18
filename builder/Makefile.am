@@ -42,6 +42,7 @@ EXTRA_DIST = \
 	yajl_tests.ml
 
 SOURCES_MLI = \
+	builder.mli \
 	cache.mli \
 	cmdline.mli \
 	downloader.mli \
@@ -50,11 +51,13 @@ SOURCES_MLI = \
 	ini_reader.mli \
 	languages.mli \
 	list_entries.mli \
+	paths.mli \
 	pxzcat.mli \
 	setlocale.mli \
 	sigchecker.mli \
 	simplestreams_parser.mli \
 	sources.mli \
+	utils.mli \
 	yajl.mli
 
 SOURCES_ML = \

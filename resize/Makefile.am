@@ -23,7 +23,8 @@ EXTRA_DIST = \
 	test-virt-resize-docs.sh \
 	virt-resize.pod
 
-SOURCES_MLI =
+SOURCES_MLI = \
+	resize.mli
 
 SOURCES_ML = \
 	resize.ml
@@ -137,7 +138,7 @@ check-valgrind:
 	$(MAKE) VG="@VG@" check
 
 # Dependencies.
-.depend: *.ml
+.depend: *.ml *.mli
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 

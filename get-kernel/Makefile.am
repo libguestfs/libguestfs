@@ -18,9 +18,12 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	$(SOURCES_ML) $(SOURCES_C) \
+	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	test-virt-get-kernel-docs.sh \
 	virt-get-kernel.pod
+
+SOURCES_MLI = \
+	get_kernel.mli
 
 SOURCES_ML = \
 	get_kernel.ml
@@ -126,7 +129,7 @@ stamp-virt-get-kernel.pod: virt-get-kernel.pod
 	touch $@
 
 # OCaml dependencies.
-.depend: *.ml
+.depend: *.ml *.mli
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 

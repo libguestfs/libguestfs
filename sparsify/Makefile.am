@@ -26,7 +26,11 @@ EXTRA_DIST = \
 	virt-sparsify.pod
 
 SOURCES_MLI = \
-	cmdline.mli
+	cmdline.mli \
+	copying.mli \
+	in_place.mli \
+	sparsify.mli \
+	utils.mli
 
 SOURCES_ML = \
 	utils.ml \

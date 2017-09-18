@@ -20,6 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	copy_to_local.ml \
+	copy_to_local.mli \
 	v2v_unit_tests.ml \
 	virt-v2v.pod \
 	virt-v2v-copy-to-local.pod
@@ -63,6 +64,7 @@ SOURCES_MLI = \
 	types.mli \
 	uefi.mli \
 	utils.mli \
+	v2v.mli \
 	vCenter.mli \
 	windows.mli \
 	windows_virtio.mli

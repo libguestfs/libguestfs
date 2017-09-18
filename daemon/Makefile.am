@@ -36,7 +36,11 @@ BUILT_SOURCES = \
 
 generator_built = \
 	$(BUILT_SOURCES) \
-	callbacks.ml
+	callbacks.ml \
+	optgroups.ml \
+	optgroups.mli \
+	structs.ml \
+	structs.mli
 
 EXTRA_DIST = \
 	$(generator_built) \
@@ -245,8 +249,9 @@ guestfsd_CFLAGS = \
 SOURCES_MLI = \
 	blkid.mli \
 	btrfs.mli \
+	callbacks.mli \
 	chroot.mli \
-	sysroot.mli \
+	daemon.mli \
 	devsparts.mli \
 	file.mli \
 	filearch.mli \
@@ -266,8 +271,11 @@ SOURCES_MLI = \
 	md.mli \
 	mount.mli \
 	mountable.mli \
+	optgroups.mli \
 	parted.mli \
 	realpath.mli \
+	structs.mli \
+	sysroot.mli \
 	utils.mli
 
 SOURCES_ML = \
