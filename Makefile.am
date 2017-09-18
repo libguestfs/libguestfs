@@ -211,6 +211,7 @@ EXTRA_DIST = \
 	autogen.sh \
 	bindtests \
 	cfg.mk \
+	check-mli.sh \
 	contrib/autobuild/autobuild.sh \
 	contrib/intro/libguestfs-intro.html \
 	contrib/intro/overview.png \
@@ -535,6 +536,10 @@ check-root: build-test-guests
 
 build-test-guests:
 	$(MAKE) -C test-data/phony-guests check
+
+# Some tests which run at the top level.
+
+TESTS = check-mli.sh
 
 # Print subdirs.
 #
