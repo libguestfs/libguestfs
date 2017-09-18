@@ -93,15 +93,13 @@ AC_CHECK_LIB([cap],[cap_from_text],[
     ], [])
 ],[AC_MSG_WARN([Linux capabilities library (libcap) not found])])
 
-dnl hivex library (highly recommended)
-dnl This used to be a part of libguestfs, but was spun off into its
-dnl own separate upstream project in libguestfs 1.0.85.
+dnl hivex library (required)
 PKG_CHECK_MODULES([HIVEX], [hivex],[
     AC_SUBST([HIVEX_CFLAGS])
     AC_SUBST([HIVEX_LIBS])
     AC_DEFINE([HAVE_HIVEX],[1],[hivex library found at compile time.])
 ],
-    [AC_MSG_WARN([hivex not found, some core features will be disabled])])
+    [AC_MSG_FAILURE([hivex library is required])])
 AM_CONDITIONAL([HAVE_HIVEX],[test "x$HIVEX_LIBS" != "x"])
 
 dnl systemd journal library (optional)
