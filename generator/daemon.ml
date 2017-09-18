@@ -471,9 +471,6 @@ let generate_daemon_stubs actions () =
       pr "}\n\n";
   ) (actions |> daemon_functions |> sort)
 
-let generate_daemon_caml_types_ml () =
-  generate_header OCamlStyle GPLv2plus
-
 let generate_daemon_caml_callbacks_ml () =
   generate_header OCamlStyle GPLv2plus;
 

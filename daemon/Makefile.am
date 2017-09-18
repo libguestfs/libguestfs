@@ -36,8 +36,7 @@ BUILT_SOURCES = \
 
 generator_built = \
 	$(BUILT_SOURCES) \
-	callbacks.ml \
-	types.ml
+	callbacks.ml
 
 EXTRA_DIST = \
 	$(generator_built) \
@@ -272,7 +271,6 @@ SOURCES_MLI = \
 	utils.mli
 
 SOURCES_ML = \
-	types.ml \
 	utils.ml \
 	structs.ml \
 	optgroups.ml \
