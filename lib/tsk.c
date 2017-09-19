@@ -43,7 +43,7 @@ guestfs_impl_filesystem_walk (guestfs_h *g, const char *mountable)
   int ret = 0;
   CLEANUP_UNLINK_FREE char *tmpfile = NULL;
 
-  tmpfile = guestfs_int_make_temp_path (g, "filesystem_walk");
+  tmpfile = guestfs_int_make_temp_path (g, "filesystem_walk", NULL);
   if (tmpfile == NULL)
     return NULL;
 
@@ -60,7 +60,7 @@ guestfs_impl_find_inode (guestfs_h *g, const char *mountable, int64_t inode)
   int ret = 0;
   CLEANUP_UNLINK_FREE char *tmpfile = NULL;
 
-  tmpfile = guestfs_int_make_temp_path (g, "find_inode");
+  tmpfile = guestfs_int_make_temp_path (g, "find_inode", NULL);
   if (tmpfile == NULL)
     return NULL;
 

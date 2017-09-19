@@ -421,7 +421,7 @@ create_drive_dev_null (guestfs_h *g,
     data->format = "raw";
   }
 
-  tmpfile = guestfs_int_make_temp_path (g, "devnull");
+  tmpfile = guestfs_int_make_temp_path (g, "devnull", "img");
   if (tmpfile == NULL)
     return NULL;
 

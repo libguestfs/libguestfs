@@ -86,7 +86,7 @@ guestfs_impl_read_file (guestfs_h *g, const char *path, size_t *size_r)
   char *ret = NULL;
   struct stat statbuf;
 
-  tmpfile = guestfs_int_make_temp_path (g, "cat");
+  tmpfile = guestfs_int_make_temp_path (g, "cat", NULL);
   if (tmpfile == NULL)
     goto err;
 
@@ -212,7 +212,7 @@ guestfs_impl_find (guestfs_h *g, const char *directory)
   char **ret = NULL;
   size_t i, count, size;
 
-  tmpfile = guestfs_int_make_temp_path (g, "find");
+  tmpfile = guestfs_int_make_temp_path (g, "find", "txt");
   if (tmpfile == NULL)
     goto err;
 
@@ -316,7 +316,7 @@ write_or_append (guestfs_h *g, const char *path,
       (g, path, content, size);
 
   /* Write the content out to a temporary file. */
-  tmpfile = guestfs_int_make_temp_path (g, "write");
+  tmpfile = guestfs_int_make_temp_path (g, "write", NULL);
   if (tmpfile == NULL)
     goto err;
 
@@ -512,7 +512,7 @@ guestfs_impl_ls (guestfs_h *g, const char *directory)
   char **ret = NULL;
   size_t i, count, size;
 
-  tmpfile = guestfs_int_make_temp_path (g, "ls");
+  tmpfile = guestfs_int_make_temp_path (g, "ls", "txt");
   if (tmpfile == NULL)
     goto err;
 

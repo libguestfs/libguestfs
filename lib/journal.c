@@ -66,7 +66,7 @@ guestfs_impl_journal_get (guestfs_h *g)
   size_t i, j, size;
   uint64_t len;
 
-  tmpfile = guestfs_int_make_temp_path (g, "journal");
+  tmpfile = guestfs_int_make_temp_path (g, "journal", NULL);
   if (tmpfile == NULL)
     goto err;
 
