@@ -661,7 +661,7 @@ extern int guestfs_int_set_env_tmpdir (guestfs_h *g, const char *envname, const 
 extern int guestfs_int_set_env_runtimedir (guestfs_h *g, const char *envname, const char *runtimedir);
 extern int guestfs_int_lazy_make_tmpdir (guestfs_h *g);
 extern int guestfs_int_lazy_make_sockdir (guestfs_h *g);
-extern char *guestfs_int_make_temp_path (guestfs_h *g, const char *name);
+extern char *guestfs_int_make_temp_path (guestfs_h *g, const char *name, const char *extension);
 extern char *guestfs_int_lazy_make_supermin_appliance_dir (guestfs_h *g);
 extern void guestfs_int_remove_tmpdir (guestfs_h *g);
 extern void guestfs_int_remove_sockdir (guestfs_h *g);

@@ -43,7 +43,7 @@ guestfs_impl_yara_scan (guestfs_h *g, const char *path)
   int r;
   CLEANUP_UNLINK_FREE char *tmpfile = NULL;
 
-  tmpfile = guestfs_int_make_temp_path (g, "yara_scan");
+  tmpfile = guestfs_int_make_temp_path (g, "yara_scan", NULL);
   if (tmpfile == NULL)
     return NULL;
 

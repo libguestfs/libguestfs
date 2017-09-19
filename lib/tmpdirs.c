@@ -228,7 +228,8 @@ guestfs_int_lazy_make_sockdir (guestfs_h *g)
  * Returns a unique path or NULL on error.
  */
 char *
-guestfs_int_make_temp_path (guestfs_h *g, const char *name)
+guestfs_int_make_temp_path (guestfs_h *g,
+                            const char *name, const char *extension)
 {
   int ret = 0;
 
@@ -236,7 +237,10 @@ guestfs_int_make_temp_path (guestfs_h *g, const char *name)
   if (ret < 0)
     return NULL;
 
-  return safe_asprintf (g, "%s/%s%d", g->tmpdir, name, ++g->unique);
+  return safe_asprintf (g, "%s/%s%d%s%s",
+                        g->tmpdir, name, ++g->unique,
+                        extension ? "." : "",
+                        extension ? extension : "");
 }
 
 /**
