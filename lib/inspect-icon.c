@@ -20,8 +20,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <inttypes.h>
 #include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <libintl.h>
 #include <sys/wait.h>
 
 #include "guestfs.h"
@@ -643,4 +646,73 @@ case_sensitive_path_silently (guestfs_h *g, const char *path)
   guestfs_pop_error_handler (g);
 
   return ret;
+}
+
+/**
+ * Download a guest file to a local temporary file.  The file is
+ * cached in the temporary directory using C<basename>, and is not
+ * downloaded again.
+ *
+ * The name of the temporary (downloaded) file is returned.  The
+ * caller must free the pointer, but does I<not> need to delete the
+ * temporary file.  It will be deleted when the handle is closed.
+ *
+ * Refuse to download the guest file if it is larger than C<max_size>.
+ * On this and other errors, C<NULL> is returned.
+ *
+ * XXX Prior to commit 65cfecb0f5344ec92d3f0d3c2ec0538b6b2726e2 this
+ * function used different basenames for each inspection root.  After
+ * this commit icons probably won't work properly.  Needs fixing.
+ */
+char *
+guestfs_int_download_to_tmp (guestfs_h *g,
+			     const char *filename,
+			     const char *basename, uint64_t max_size)
+{
+  char *r;
+  int fd;
+  char devfd[32];
+  int64_t size;
+
+  if (asprintf (&r, "%s/%s", g->tmpdir, basename) == -1) {
+    perrorf (g, "asprintf");
+    return NULL;
+  }
+
+  /* Check size of remote file. */
+  size = guestfs_filesize (g, filename);
+  if (size == -1)
+    /* guestfs_filesize failed and has already set error in handle */
+    goto error;
+  if ((uint64_t) size > max_size) {
+    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+           filename, size);
+    goto error;
+  }
+
+  fd = open (r, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0600);
+  if (fd == -1) {
+    perrorf (g, "open: %s", r);
+    goto error;
+  }
+
+  snprintf (devfd, sizeof devfd, "/dev/fd/%d", fd);
+
+  if (guestfs_download (g, filename, devfd) == -1) {
+    unlink (r);
+    close (fd);
+    goto error;
+  }
+
+  if (close (fd) == -1) {
+    perrorf (g, "close: %s", r);
+    unlink (r);
+    goto error;
+  }
+
+  return r;
+
+ error:
+  free (r);
+  return NULL;
 }

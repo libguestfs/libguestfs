@@ -376,7 +376,6 @@ lib/handle.c
 lib/info.c
 lib/inspect-apps.c
 lib/inspect-icon.c
-lib/inspect.c
 lib/journal.c
 lib/launch-direct.c
 lib/launch-libvirt.c

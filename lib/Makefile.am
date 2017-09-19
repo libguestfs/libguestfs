@@ -93,7 +93,6 @@ libguestfs_la_SOURCES = \
 	guid.c \
 	handle.c \
 	info.c \
-	inspect.c \
 	inspect-apps.c \
 	inspect-icon.c \
 	journal.c \
