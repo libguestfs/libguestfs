@@ -270,7 +270,7 @@ get_png (guestfs_h *g, struct inspect_fs *fs, const char *filename,
   if (max_size == 0)
     max_size = 4 * w * h;
 
-  local = guestfs_int_download_to_tmp (g, real, "icon", max_size);
+  local = guestfs_int_download_to_tmp (g, real, "png", max_size);
   if (!local)
     return NOT_FOUND;
 
@@ -421,7 +421,7 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (!STRPREFIX (type, "ASCII text"))
     return NOT_FOUND;
 
-  local = guestfs_int_download_to_tmp (g, CIRROS_LOGO, "icon", 1024);
+  local = guestfs_int_download_to_tmp (g, CIRROS_LOGO, "png", 1024);
   if (!local)
     return NOT_FOUND;
 
@@ -505,8 +505,7 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (r == 0)
     return NOT_FOUND;
 
-  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case,
-						     "explorer.exe",
+  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case, "exe",
 						     MAX_WINDOWS_EXPLORER_SIZE);
   if (filename_downloaded == NULL)
     return NOT_FOUND;
@@ -575,8 +574,7 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (win7_explorer[i] == NULL)
     return NOT_FOUND;
 
-  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case,
-						     "explorer.exe",
+  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case, "exe",
 						     MAX_WINDOWS_EXPLORER_SIZE);
   if (filename_downloaded == NULL)
     return NOT_FOUND;
@@ -629,8 +627,8 @@ icon_windows_8 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (r == 0)
     return NOT_FOUND;
 
-  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case,
-						     "wlive48x48.png", 8192);
+  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case, "png",
+						     8192);
   if (filename_downloaded == NULL)
     return NOT_FOUND;
 

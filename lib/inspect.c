@@ -727,33 +727,31 @@ guestfs_int_free_inspect_info (guestfs_h *g)
 }
 
 /**
- * Download a guest file to a local temporary file.  The file is
- * cached in the temporary directory, and is not downloaded again.
+ * Download a guest file to a local temporary file.
  *
  * The name of the temporary (downloaded) file is returned.  The
  * caller must free the pointer, but does I<not> need to delete the
  * temporary file.  It will be deleted when the handle is closed.
  *
+ * The name of the temporary file is randomly generated, but an
+ * extension can be specified using C<extension> (or pass C<NULL> for none).
+ *
  * Refuse to download the guest file if it is larger than C<max_size>.
  * On this and other errors, C<NULL> is returned.
- *
- * There is actually one cache per C<struct inspect_fs *> in order to
- * handle the case of multiple roots.
  */
 char *
-guestfs_int_download_to_tmp (guestfs_h *g,
-			     const char *filename,
-			     const char *basename, uint64_t max_size)
+guestfs_int_download_to_tmp (guestfs_h *g, const char *filename,
+                             const char *extension,
+                             uint64_t max_size)
 {
   char *r;
   int fd;
   char devfd[32];
   int64_t size;
 
-  if (asprintf (&r, "%s/%s", g->tmpdir, basename) == -1) {
-    perrorf (g, "asprintf");
+  r = guestfs_int_make_temp_path (g, "download", extension);
+  if (r == NULL)
     return NULL;
-  }
 
   /* Check size of remote file. */
   size = guestfs_filesize (g, filename);
