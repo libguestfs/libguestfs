@@ -812,11 +812,9 @@ guestfs_int_cmd_pipe_run (struct command *cmd, const char *mode)
    * we write them into a temporary file and provide a separate
    * function for the caller to read the error messages.
    */
-  if (guestfs_int_lazy_make_tmpdir (cmd->g) == -1)
+  cmd->error_file = guestfs_int_make_temp_path (cmd->g, "cmderr", "txt");
+  if (!cmd->error_file)
     goto error;
-
-  cmd->error_file =
-    safe_asprintf (cmd->g, "%s/cmderr.%d", cmd->g->tmpdir, ++cmd->g->unique);
   errfd = open (cmd->error_file,
                 O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0600);
   if (errfd == -1) {

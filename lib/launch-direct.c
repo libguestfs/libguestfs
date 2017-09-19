@@ -86,10 +86,9 @@ create_cow_overlay_direct (guestfs_h *g, void *datav, struct drive *drv)
   if (!backing_drive)
     return NULL;
 
-  if (guestfs_int_lazy_make_tmpdir (g) == -1)
+  overlay = guestfs_int_make_temp_path (g, "overlay", "qcow2");
+  if (!overlay)
     return NULL;
-
-  overlay = safe_asprintf (g, "%s/overlay%d", g->tmpdir, ++g->unique);
 
   optargs.bitmask = GUESTFS_DISK_CREATE_BACKINGFILE_BITMASK;
   optargs.backingfile = backing_drive;

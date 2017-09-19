@@ -224,10 +224,9 @@ make_qcow2_overlay (guestfs_h *g, const char *backing_drive,
   char *overlay;
   struct guestfs_disk_create_argv optargs;
 
-  if (guestfs_int_lazy_make_tmpdir (g) == -1)
+  overlay = guestfs_int_make_temp_path (g, "overlay", "qcow2");
+  if (!overlay)
     return NULL;
-
-  overlay = safe_asprintf (g, "%s/overlay%d", g->tmpdir, ++g->unique);
 
   optargs.bitmask = GUESTFS_DISK_CREATE_BACKINGFILE_BITMASK;
   optargs.backingfile = backing_drive;
