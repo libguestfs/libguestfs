@@ -426,7 +426,9 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
     return NOT_FOUND;
 
   /* Use pbmtext to render it. */
-  pngfile = safe_asprintf (g, "%s/cirros.png", g->tmpdir);
+  pngfile = guestfs_int_make_temp_path (g, "cirros", "png");
+  if (!pngfile)
+    return NOT_FOUND;
 
   guestfs_int_cmd_add_string_unquoted (cmd, PBMTEXT " < ");
   guestfs_int_cmd_add_string_quoted   (cmd, local);
@@ -510,7 +512,9 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (filename_downloaded == NULL)
     return NOT_FOUND;
 
-  pngfile = safe_asprintf (g, "%s/windows-xp-icon.png", g->tmpdir);
+  pngfile = guestfs_int_make_temp_path (g, "windows-xp-icon", "png");
+  if (!pngfile)
+    return NOT_FOUND;
 
   guestfs_int_cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=2 --name=143 ");
   guestfs_int_cmd_add_string_quoted   (cmd, filename_downloaded);
@@ -579,7 +583,9 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (filename_downloaded == NULL)
     return NOT_FOUND;
 
-  pngfile = safe_asprintf (g, "%s/windows-7-icon.png", g->tmpdir);
+  pngfile = guestfs_int_make_temp_path (g, "windows-7-icon", "png");
+  if (!pngfile)
+    return NOT_FOUND;
 
   guestfs_int_cmd_add_string_unquoted (cmd,
                                        WRESTOOL " -x --type=2 --name=6801 ");

@@ -74,7 +74,9 @@ guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags)
        * into the address space read-only as that triggers a different
        * path inside UEFI.
        */
-      varst = safe_asprintf (g, "%s/vars.fd.%d", g->tmpdir, ++g->unique);
+      varst = guestfs_int_make_temp_path (g, "vars", "fd");
+      if (!varst)
+        return -1;
       guestfs_int_cmd_add_arg (copycmd, "cp");
       guestfs_int_cmd_add_arg (copycmd, varsfile);
       guestfs_int_cmd_add_arg (copycmd, varst);

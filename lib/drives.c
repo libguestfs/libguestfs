@@ -987,9 +987,9 @@ guestfs_impl_add_drive_scratch (guestfs_h *g, int64_t size,
    * because everything in g->tmpdir is 'rm -rf'd when the handle is
    * closed.
    */
-  if (guestfs_int_lazy_make_tmpdir (g) == -1)
+  filename = guestfs_int_make_temp_path (g, "scratch", "img");
+  if (!filename)
     return -1;
-  filename = safe_asprintf (g, "%s/scratch.%d", g->tmpdir, ++g->unique);
 
   /* Create a raw format temporary disk. */
   if (guestfs_disk_create (g, filename, "raw", size, -1) == -1)

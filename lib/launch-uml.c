@@ -54,10 +54,9 @@ make_cow_overlay (guestfs_h *g, const char *original)
   char *overlay;
   int r;
 
-  if (guestfs_int_lazy_make_tmpdir (g) == -1)
+  overlay = guestfs_int_make_temp_path (g, "overlay", "qcow2");
+  if (!overlay)
     return NULL;
-
-  overlay = safe_asprintf (g, "%s/overlay%d", g->tmpdir, g->unique++);
 
   guestfs_int_cmd_add_arg (cmd, "uml_mkcow");
   guestfs_int_cmd_add_arg (cmd, overlay);
