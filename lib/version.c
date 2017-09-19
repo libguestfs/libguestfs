@@ -22,10 +22,14 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <libintl.h>
 
 #include "ignore-value.h"
+#include "xstrtol.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -143,4 +147,24 @@ version_from_x_y_or_x (guestfs_h *g, struct version *v, const char *str,
     return 1;
   }
   return 0;
+}
+
+/**
+ * Parse small, unsigned ints, as used in version numbers.
+ *
+ * This will fail with an error if trailing characters are found after
+ * the integer.
+ *
+ * Returns E<ge> C<0> on success, or C<-1> on failure.
+ */
+int
+guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str)
+{
+  long ret;
+  const int r = xstrtol (str, NULL, 10, &ret, "");
+  if (r != LONGINT_OK) {
+    error (g, _("could not parse integer in version number: %s"), str);
+    return -1;
+  }
+  return ret;
 }

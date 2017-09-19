@@ -714,7 +714,6 @@ extern int guestfs_int_set_backend (guestfs_h *g, const char *method);
 
 /* inspect.c */
 extern char *guestfs_int_download_to_tmp (guestfs_h *g, const char *filename, const char *basename, uint64_t max_size);
-extern int guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str);
 
 /* dbdump.c */
 typedef int (*guestfs_int_db_dump_callback) (guestfs_h *g, const unsigned char *key, size_t keylen, const unsigned char *value, size_t valuelen, void *opaque);
@@ -805,6 +804,7 @@ extern int guestfs_int_version_from_x_y_re (guestfs_h *g, struct version *v, con
 extern int guestfs_int_version_from_x_y_or_x (guestfs_h *g, struct version *v, const char *str);
 extern bool guestfs_int_version_ge (const struct version *v, int maj, int min, int mic);
 extern bool guestfs_int_version_cmp_ge (const struct version *a, const struct version *b);
+extern int guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str);
 #define version_init_null(v) guestfs_int_version_from_values (v, 0, 0, 0)
 #define version_is_null(v) ((v)->v_major == 0 && (v)->v_minor == 0 && (v)->v_micro == 0)
 

@@ -33,7 +33,6 @@
 #endif
 
 #include "ignore-value.h"
-#include "xstrtol.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -104,17 +103,4 @@ guestfs_int_download_to_tmp (guestfs_h *g,
  error:
   free (r);
   return NULL;
-}
-
-/* Parse small, unsigned ints, as used in version numbers. */
-int
-guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str)
-{
-  long ret;
-  const int r = xstrtol (str, NULL, 10, &ret, "");
-  if (r != LONGINT_OK) {
-    error (g, _("could not parse integer in version number: %s"), str);
-    return -1;
-  }
-  return ret;
 }
