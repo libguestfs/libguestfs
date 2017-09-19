@@ -715,7 +715,6 @@ extern int guestfs_int_set_backend (guestfs_h *g, const char *method);
 /* inspect.c */
 extern char *guestfs_int_download_to_tmp (guestfs_h *g, const char *filename, const char *basename, uint64_t max_size);
 extern int guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str);
-extern int guestfs_int_parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
 
 /* dbdump.c */
 typedef int (*guestfs_int_db_dump_callback) (guestfs_h *g, const unsigned char *key, size_t keylen, const unsigned char *value, size_t valuelen, void *opaque);
