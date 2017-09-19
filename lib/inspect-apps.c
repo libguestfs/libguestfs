@@ -370,14 +370,12 @@ list_applications_rpm (guestfs_h *g, const char *root)
   struct guestfs_application2_list *apps = NULL;
   struct read_package_data data;
 
-  Name = guestfs_int_download_to_tmp (g,
-				      "/var/lib/rpm/Name", "rpm_Name",
+  Name = guestfs_int_download_to_tmp (g, "/var/lib/rpm/Name", NULL,
 				      MAX_PKG_DB_SIZE);
   if (Name == NULL)
     goto error;
 
-  Packages = guestfs_int_download_to_tmp (g,
-					  "/var/lib/rpm/Packages", "rpm_Packages",
+  Packages = guestfs_int_download_to_tmp (g, "/var/lib/rpm/Packages", NULL,
 					  MAX_PKG_DB_SIZE);
   if (Packages == NULL)
     goto error;
@@ -429,7 +427,7 @@ list_applications_deb (guestfs_h *g, const char *root)
   char **continuation_field = NULL;
   size_t continuation_field_len = 0;
 
-  status = guestfs_int_download_to_tmp (g, "/var/lib/dpkg/status", "status",
+  status = guestfs_int_download_to_tmp (g, "/var/lib/dpkg/status", NULL,
 					MAX_PKG_DB_SIZE);
   if (status == NULL)
     return NULL;
@@ -605,7 +603,7 @@ list_applications_pacman (guestfs_h *g, const char *root)
     fname = safe_malloc (g, strlen (curr->name) + path_len + 1);
     sprintf (fname, "/var/lib/pacman/local/%s/desc", curr->name);
     free (desc_file);
-    desc_file = guestfs_int_download_to_tmp (g, fname, curr->name, 8192);
+    desc_file = guestfs_int_download_to_tmp (g, fname, NULL, 8192);
 
     /* The desc files are small (4K). If the desc file does not exist or is
      * larger than the 8K limit we've used, the database is probably corrupted,
@@ -714,7 +712,7 @@ list_applications_apk (guestfs_h *g, const char *root)
     *url = NULL, *description = NULL;
 
   installed = guestfs_int_download_to_tmp (g, "/lib/apk/db/installed",
-                                           "installed", MAX_PKG_DB_SIZE);
+                                           NULL, MAX_PKG_DB_SIZE);
   if (installed == NULL)
     return NULL;
 

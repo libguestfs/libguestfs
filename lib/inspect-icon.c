@@ -234,7 +234,7 @@ get_png (guestfs_h *g, const char *filename, size_t *size_r, size_t max_size)
   if (max_size == 0)
     max_size = 4 * w * h;
 
-  local = guestfs_int_download_to_tmp (g, real, "icon", max_size);
+  local = guestfs_int_download_to_tmp (g, real, "png", max_size);
   if (!local)
     return NOT_FOUND;
 
@@ -385,7 +385,7 @@ icon_cirros (guestfs_h *g, size_t *size_r)
   if (!STRPREFIX (type, "ASCII text"))
     return NOT_FOUND;
 
-  local = guestfs_int_download_to_tmp (g, CIRROS_LOGO, "icon", 1024);
+  local = guestfs_int_download_to_tmp (g, CIRROS_LOGO, "png", 1024);
   if (!local)
     return NOT_FOUND;
 
@@ -469,8 +469,7 @@ icon_windows_xp (guestfs_h *g, const char *systemroot, size_t *size_r)
   if (r == 0)
     return NOT_FOUND;
 
-  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case,
-						     "explorer.exe",
+  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case, "exe",
 						     MAX_WINDOWS_EXPLORER_SIZE);
   if (filename_downloaded == NULL)
     return NOT_FOUND;
@@ -538,8 +537,7 @@ icon_windows_7 (guestfs_h *g, const char *systemroot, size_t *size_r)
   if (win7_explorer[i] == NULL)
     return NOT_FOUND;
 
-  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case,
-						     "explorer.exe",
+  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case, "exe",
 						     MAX_WINDOWS_EXPLORER_SIZE);
   if (filename_downloaded == NULL)
     return NOT_FOUND;
@@ -592,8 +590,8 @@ icon_windows_8 (guestfs_h *g, size_t *size_r)
   if (r == 0)
     return NOT_FOUND;
 
-  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case,
-						     "wlive48x48.png", 8192);
+  filename_downloaded = guestfs_int_download_to_tmp (g, filename_case, "png",
+						     8192);
   if (filename_downloaded == NULL)
     return NOT_FOUND;
 
@@ -649,35 +647,31 @@ case_sensitive_path_silently (guestfs_h *g, const char *path)
 }
 
 /**
- * Download a guest file to a local temporary file.  The file is
- * cached in the temporary directory using C<basename>, and is not
- * downloaded again.
+ * Download a guest file to a local temporary file.
  *
  * The name of the temporary (downloaded) file is returned.  The
  * caller must free the pointer, but does I<not> need to delete the
  * temporary file.  It will be deleted when the handle is closed.
  *
+ * The name of the temporary file is randomly generated, but an
+ * extension can be specified using C<extension> (or pass C<NULL> for none).
+ *
  * Refuse to download the guest file if it is larger than C<max_size>.
  * On this and other errors, C<NULL> is returned.
- *
- * XXX Prior to commit 65cfecb0f5344ec92d3f0d3c2ec0538b6b2726e2 this
- * function used different basenames for each inspection root.  After
- * this commit icons probably won't work properly.  Needs fixing.
  */
 char *
-guestfs_int_download_to_tmp (guestfs_h *g,
-			     const char *filename,
-			     const char *basename, uint64_t max_size)
+guestfs_int_download_to_tmp (guestfs_h *g, const char *filename,
+                             const char *extension,
+                             uint64_t max_size)
 {
   char *r;
   int fd;
   char devfd[32];
   int64_t size;
 
-  if (asprintf (&r, "%s/%s", g->tmpdir, basename) == -1) {
-    perrorf (g, "asprintf");
+  r = guestfs_int_make_temp_path (g, "download", extension);
+  if (r == NULL)
     return NULL;
-  }
 
   /* Check size of remote file. */
   size = guestfs_filesize (g, filename);
