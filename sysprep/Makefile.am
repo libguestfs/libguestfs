@@ -117,6 +117,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/visit/.libs \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlutils \
+	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/common/mlvisit \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
@@ -145,6 +146,7 @@ endif
 OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
+	mlpcre.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
 	mllib.$(MLARCHIVE) \
 	mlvisit.$(MLARCHIVE) \
@@ -155,6 +157,7 @@ virt_sysprep_DEPENDENCIES = \
 	$(OBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	../customize/customize.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh

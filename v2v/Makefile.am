@@ -151,6 +151,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlutils \
+	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/common/mlxml \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
@@ -177,6 +178,7 @@ endif
 OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
+	mlpcre.$(MLARCHIVE) \
 	mlxml.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
 	mllib.$(MLARCHIVE) \
@@ -218,6 +220,7 @@ virt_v2v_copy_to_local_DEPENDENCIES = \
 	$(COPY_TO_LOCAL_OBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlxml/mlxml.$(MLARCHIVE) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
@@ -508,6 +511,7 @@ v2v_unit_tests_DEPENDENCIES = \
 	$(v2v_unit_tests_THEOBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlxml/mlxml.$(MLARCHIVE) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh

@@ -126,6 +126,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlutils \
+	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/mllib \
 	-I $(builddir)
 if HAVE_OCAML_PKG_GETTEXT
@@ -155,6 +156,7 @@ endif
 OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
+	mlpcre.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
 	mllib.$(MLARCHIVE) \
 	customize.$(MLARCHIVE) \
@@ -176,6 +178,7 @@ virt_customize_DEPENDENCIES = \
 	$(CUSTOMIZE_THEOBJECTS) \
 	$(CUSTOMIZE_CMA) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE)
 virt_customize_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
