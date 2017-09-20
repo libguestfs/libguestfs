@@ -201,6 +201,7 @@ value
 guestfs_int_pcre_sub (value nv)
 {
   CAMLparam1 (nv);
+  const int n = Int_val (nv);
   CAMLlocal1 (strv);
   int len;
   CLEANUP_FREE char *str = NULL;
@@ -209,8 +210,10 @@ guestfs_int_pcre_sub (value nv)
   if (m == NULL)
     raise_pcre_error ("PCRE.sub called without calling PCRE.matches", 0);
 
-  len = pcre_get_substring (m->subject, m->vec, m->r, Int_val (nv),
-                            (const char **) &str);
+  if (n < 0)
+    caml_invalid_argument ("PCRE.sub: n must be >= 0");
+
+  len = pcre_get_substring (m->subject, m->vec, m->r, n, (const char **) &str);
 
   if (len == PCRE_ERROR_NOSUBSTRING)
     caml_raise_not_found ();

@@ -69,6 +69,13 @@ let () =
   | PCRE.Error (msg, code) ->
      failwith (sprintf "PCRE error: %s (PCRE error code %d)" msg code)
 
+(* Run some out of range [sub] calls to ensure an exception is thrown. *)
+let () =
+  let re2 = compile "(a+)(b*)" in
+  ignore (matches re2 "ccac");
+  (try ignore (sub 3) with Not_found -> ());
+  (try ignore (sub (-1)) with Invalid_argument _ -> ())
+
 (* Compile some bad regexps and check that an exception is thrown.
  * It would be nice to check the error message is right but
  * that involves dealing with language and future changes of
