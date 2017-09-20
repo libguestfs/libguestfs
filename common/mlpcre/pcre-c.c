@@ -225,3 +225,30 @@ guestfs_int_pcre_sub (value nv)
   memcpy (String_val (strv), str, len);
   CAMLreturn (strv);
 }
+
+value
+guestfs_int_pcre_subi (value nv)
+{
+  CAMLparam1 (nv);
+  const int n = Int_val (nv);
+  CAMLlocal1 (rv);
+  const struct last_match *m = gl_tls_get (last_match);
+
+  if (m == NULL)
+    raise_pcre_error ("PCRE.subi called without calling PCRE.matches", 0);
+
+  if (n < 0)
+    caml_invalid_argument ("PCRE.subi: n must be >= 0");
+
+  /* eg if there are 2 captures, m->r == 3, and valid values of n are
+   * 0, 1 or 2.
+   */
+  if (n >= m->r)
+    caml_raise_not_found ();
+
+  rv = caml_alloc (2, 0);
+  Store_field (rv, 0, Val_int (m->vec[n*2]));
+  Store_field (rv, 1, Val_int (m->vec[n*2+1]));
+
+  CAMLreturn (rv);
+}

@@ -34,6 +34,12 @@ let sub i =
   eprintf " %s\n%!" r;
   r
 
+let subi i =
+  eprintf "PCRE.subi %d ->%!" i;
+  let i1, i2 = PCRE.subi i in
+  eprintf " (%d, %d)\n%!" i1 i2;
+  (i1, i2)
+
 let () =
   try
     let re0 = compile "a+b" in
@@ -62,19 +68,26 @@ let () =
     assert (matches re2 "ccac" = true);
     assert (sub 1 = "a");
     assert (sub 2 = "");
-    assert (sub 0 = "a")
+    assert (sub 0 = "a");
+    assert (subi 0 = (2, 3));
+    assert (subi 1 = (2, 3));
+    assert (subi 2 = (3, 3))
   with
   | Not_found ->
      failwith "one of the PCRE.sub functions unexpectedly raised Not_found"
   | PCRE.Error (msg, code) ->
      failwith (sprintf "PCRE error: %s (PCRE error code %d)" msg code)
 
-(* Run some out of range [sub] calls to ensure an exception is thrown. *)
+(* Run some out of range [sub] and [subi] calls to ensure an exception
+ * is thrown.
+ *)
 let () =
   let re2 = compile "(a+)(b*)" in
   ignore (matches re2 "ccac");
   (try ignore (sub 3) with Not_found -> ());
-  (try ignore (sub (-1)) with Invalid_argument _ -> ())
+  (try ignore (sub (-1)) with Invalid_argument _ -> ());
+  (try ignore (subi 3) with Not_found -> ());
+  (try ignore (subi (-1)) with Invalid_argument _ -> ())
 
 (* Compile some bad regexps and check that an exception is thrown.
  * It would be nice to check the error message is right but

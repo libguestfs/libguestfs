@@ -77,3 +77,17 @@ val sub : int -> string
 
     If there was no nth substring then this raises [Not_found].
     This can also raise {!Error} for other PCRE-related errors. *)
+
+val subi : int -> int * int
+(** Return the nth substring (capture) matched by the previous call
+    to {!matches} in the current thread.
+
+    This is the same as {!sub} but instead of copying the
+    substring out, it returns the indexes into the original string
+    of the first character of the substring and the first
+    character after the substring.
+
+    (See pcreapi(3) section "How pcre_exec() returns captured substrings"
+    for exact details).
+
+    If there was no nth substring then this raises [Not_found]. *)

@@ -23,10 +23,9 @@ exception Error of string * int
 type regexp
 
 external compile : string -> regexp = "guestfs_int_pcre_compile"
-
 external matches : regexp -> string -> bool = "guestfs_int_pcre_matches"
-
 external sub : int -> string = "guestfs_int_pcre_sub"
+external subi : int -> int * int = "guestfs_int_pcre_subi"
 
 let () =
   Callback.register_exception "PCRE.Error" (Error ("", 0))
