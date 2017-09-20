@@ -91,3 +91,16 @@ val subi : int -> int * int
     for exact details).
 
     If there was no nth substring then this raises [Not_found]. *)
+
+val replace : ?global:bool -> regexp -> string -> string -> string
+(** [replace ?global patt subst subj] performs a search and replace
+    on the subject string ([subj]).  Where [patt] matches the
+    string, [subst] is substituted.  This works similarly to the
+    Perl function [s///].
+
+    The [?global] flag defaults to false, so only the first
+    instance of [patt] in the string is replaced.  If set to true
+    then every instance of [patt] in the string is replaced.
+
+    Note that this function does not allow backreferences.
+    Any captures in [patt] are ignored. *)

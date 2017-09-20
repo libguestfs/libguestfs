@@ -27,5 +27,30 @@ external matches : regexp -> string -> bool = "guestfs_int_pcre_matches"
 external sub : int -> string = "guestfs_int_pcre_sub"
 external subi : int -> int * int = "guestfs_int_pcre_subi"
 
+let rec replace ?(global = false) patt subst subj =
+  if not (matches patt subj) then
+    (* Return original string unchanged if patt doesn't match. *)
+    subj
+  else (
+    (* If patt matches "yyyy" in the original string then we have
+     * the following situation, where "xxxx" is the part of the
+     * original string before the match, and "zzzz..." is the
+     * part after the match:
+     * "xxxxyyyyzzzzzzzzzzzzz"
+     *      ^   ^
+     *      i1  i2
+     *)
+    let i1, i2 = subi 0 in
+    let xs = String.sub subj 0 i1 (* "xxxx", part before the match *) in
+    let zs = String.sub subj i2 (String.length subj - i2) (* after *) in
+
+    (* If the global flag was set, we want to continue substitutions
+     * in the rest of the string.
+     *)
+    let zs = if global then replace ~global patt subst zs else zs in
+
+    xs ^ subst ^ zs
+  )
+
 let () =
   Callback.register_exception "PCRE.Error" (Error ("", 0))

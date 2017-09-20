@@ -28,6 +28,12 @@ let matches re str =
   eprintf " %b\n%!" r;
   r
 
+let replace ?(global = false) patt subst subj =
+  eprintf "PCRE.replace global:%b <patt> %s %s ->%!" global subst subj;
+  let r = PCRE.replace ~global patt subst subj in
+  eprintf " %s\n%!" r;
+  r
+
 let sub i =
   eprintf "PCRE.sub %d ->%!" i;
   let r = PCRE.sub i in
@@ -45,6 +51,7 @@ let () =
     let re0 = compile "a+b" in
     let re1 = compile "(a+)b" in
     let re2 = compile "(a+)(b*)" in
+    let re3 = compile "[^A-Za-z0-9_]" in
 
     assert (matches re0 "ccaaabbbb" = true);
     assert (sub 0 = "aaab");
@@ -71,7 +78,21 @@ let () =
     assert (sub 0 = "a");
     assert (subi 0 = (2, 3));
     assert (subi 1 = (2, 3));
-    assert (subi 2 = (3, 3))
+    assert (subi 2 = (3, 3));
+
+    assert (replace re0 "dd" "abcabcaabccca" = "ddcabcaabccca");
+    assert (replace ~global:true re0 "dd" "abcabcaabccca" = "ddcddcddccca");
+
+    (* This example copies a usage from customize/firstboot.ml
+     * "\xc2\xa3" is utf-8 for the GBP sign.  Ideally PCRE would
+     * recognize that this is a single character, however doing that
+     * would involve passing the PCRE_UTF8 flag when compiling
+     * patterns, and that could be problematic if PCRE was built
+     * without Unicode support (XXX).
+     *)
+    assert (replace ~global:true re3 "-" "this is a\xc2\xa3funny.name?"
+            (* = "this-is-a-funny-name-" if UTF-8 worked *)
+            = "this-is-a--funny-name-");
   with
   | Not_found ->
      failwith "one of the PCRE.sub functions unexpectedly raised Not_found"
