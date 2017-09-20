@@ -130,7 +130,6 @@ Makefile.in
 /common/mlstdutils/.depend
 /common/mlstdutils/bytes.ml
 /common/mlstdutils/guestfs_config.ml
-/common/mlstdutils/libdir.ml
 /common/mlstdutils/oUnit-*
 /common/mlstdutils/std_utils_tests
 /common/mlutils/.depend
