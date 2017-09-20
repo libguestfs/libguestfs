@@ -161,19 +161,14 @@ let parse_version_from_major_minor str data =
   if verbose () then
     eprintf "parse_version_from_major_minor: parsing '%s'\n%!" str;
 
-  if PCRE.matches re_major_minor str ||
-     PCRE.matches re_major_no_minor str then (
-    let major =
-      try Some (int_of_string (PCRE.sub 1))
-      with Not_found | Invalid_argument _ | Failure _ -> None in
-    let minor =
-      try Some (int_of_string (PCRE.sub 2))
-      with Not_found | Invalid_argument _ | Failure _ -> None in
-    match major, minor with
-    | None, None
-    | None, Some _ -> ()
-    | Some major, None -> data.version <- Some (major, 0)
-    | Some major, Some minor -> data.version <- Some (major, minor)
+  if PCRE.matches re_major_minor str then (
+    let major = int_of_string (PCRE.sub 1) in
+    let minor = int_of_string (PCRE.sub 2) in
+    data.version <- Some (major, minor)
+  )
+  else if PCRE.matches re_major_no_minor str then (
+    let major = int_of_string (PCRE.sub 1) in
+    data.version <- Some (major, 0)
   )
   else (
     eprintf "parse_version_from_major_minor: cannot parse version from '%s'\n"
