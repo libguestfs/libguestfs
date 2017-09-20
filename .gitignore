@@ -357,7 +357,6 @@ Makefile.in
 /mllib/getopt_tests
 /mllib/guestfs_config.ml
 /mllib/JSON_tests
-/mllib/libdir.ml
 /mllib/oUnit-*
 /mllib/visit_tests
 /ocaml/bindtests.bc

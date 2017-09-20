@@ -55,7 +55,6 @@ mllib/curl.ml
 mllib/getopt.ml
 mllib/getopt_tests.ml
 mllib/guestfs_config.ml
-mllib/libdir.ml
 mllib/planner.ml
 mllib/progress.ml
 mllib/regedit.ml
