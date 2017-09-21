@@ -88,14 +88,19 @@ module String : sig
         [str] with [s2]. *)
     val replace_char : string -> char -> char -> string
     (** Replace character in string. *)
-    val nsplit : string -> string -> string list
-    (** [nsplit sep str] splits [str] into multiple strings at each
-        separator [sep]. *)
     val split : string -> string -> string * string
     (** [split sep str] splits [str] at the first occurrence of the
         separator [sep], returning the part before and the part after.
         If separator is not found, return the whole string and an
         empty string. *)
+    val nsplit : ?max:int -> string -> string -> string list
+    (** [nsplit ?max sep str] splits [str] into multiple strings at each
+        separator [sep].
+
+        As with the Perl split function, you can give an optional
+        [?max] parameter to limit the number of strings returned.  The
+        final element of the list will contain the remainder of the
+        input string. *)
     val lines_split : string -> string list
     (** [lines_split str] splits [str] into lines, keeping continuation
         characters (i.e. [\] at the end of lines) into account. *)

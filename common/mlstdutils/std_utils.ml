@@ -147,24 +147,28 @@ module String = struct
       done;
       if not !r then s else Bytes.to_string b2
 
-    let rec nsplit sep str =
-      let len = length str in
-      let seplen = length sep in
-      let i = find str sep in
-      if i = -1 then [str]
-      else (
-        let s' = sub str 0 i in
-        let s'' = sub str (i+seplen) (len-i-seplen) in
-        s' :: nsplit sep s''
-      )
-
-    let split sep str =
+    let rec split sep str =
       let len = length sep in
       let seplen = length str in
       let i = find str sep in
       if i = -1 then str, ""
       else (
         sub str 0 i, sub str (i + len) (seplen - i - len)
+      )
+
+    and nsplit ?(max = 0) sep str =
+      if max < 0 then
+        invalid_arg "String.nsplit: max parameter should not be negative";
+
+      (* If we reached the limit, OR if the pattern does not match the string
+       * at all, return the rest of the string as a single element list.
+       *)
+      if max = 1 || find str sep = -1 then
+        [str]
+      else (
+        let s1, s2 = split sep str in
+        let max = if max = 0 then 0 else max - 1 in
+        s1 :: nsplit ~max sep s2
       )
 
     let rec lines_split str =
