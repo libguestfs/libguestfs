@@ -138,6 +138,8 @@ let backend_is_libvirt () =
   let backend = fst (String.split ":" backend) in
   backend = "libvirt"
 
+let ws = PCRE.compile "\\s+"
+
 let find_file_in_tar tar filename =
   let lines = external_command (sprintf "tar tRvf %s" (Filename.quote tar)) in
   let rec loop lines =
@@ -147,7 +149,7 @@ let find_file_in_tar tar filename =
       (* Lines have the form:
        * block <offset>: <perms> <owner>/<group> <size> <mdate> <mtime> <file>
        *)
-      let elems = Str.bounded_split (Str.regexp " +") line 8 in
+      let elems = PCRE.nsplit ~max:8 ws line in
       if List.length elems = 8 && List.hd elems = "block" then (
         let elems = Array.of_list elems in
         let offset = elems.(1) in
