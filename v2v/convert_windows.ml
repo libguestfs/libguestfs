@@ -146,8 +146,8 @@ let convert (g : G.guestfs) inspect source output rcaps =
                  raise Not_found;
 
                let dispname = g#hivex_value_string valueh in
-               if not (Str.string_match (Str.regexp ".*\\(Parallels\\|Virtuozzo\\) Tools.*")
-                                        dispname 0) then
+               if String.find dispname "Parallels Tools" = -1 &&
+                  String.find dispname "Virtuozzo Tools" = -1 then
                  raise Not_found;
 
                let uninstval = "UninstallString" in

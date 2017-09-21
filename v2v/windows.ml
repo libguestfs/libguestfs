@@ -24,12 +24,12 @@ open Common_utils
 open Utils
 
 (* Detect anti-virus (AV) software installed in Windows guests. *)
-let rex_virus     = Str.regexp_case_fold "virus" (* generic *)
-let rex_kaspersky = Str.regexp_case_fold "kaspersky"
-let rex_mcafee    = Str.regexp_case_fold "mcafee"
-let rex_norton    = Str.regexp_case_fold "norton"
-let rex_sophos    = Str.regexp_case_fold "sophos"
-let rex_avg_tech  = Str.regexp_case_fold "avg technologies" (* RHBZ#1261436 *)
+let rex_virus     = PCRE.compile ~caseless:true "virus" (* generic *)
+let rex_kaspersky = PCRE.compile ~caseless:true "kaspersky"
+let rex_mcafee    = PCRE.compile ~caseless:true "mcafee"
+let rex_norton    = PCRE.compile ~caseless:true "norton"
+let rex_sophos    = PCRE.compile ~caseless:true "sophos"
+let rex_avg_tech  = PCRE.compile ~caseless:true "avg technologies" (* RHBZ#1261436 *)
 
 let rec detect_antivirus { Types.i_type = t; i_apps = apps } =
   assert (t = "windows");
@@ -44,5 +44,4 @@ and check_app { Guestfs.app2_name = name;
   name      =~ rex_sophos    ||
   publisher =~ rex_avg_tech
 
-and (=~) str rex =
-  try ignore (Str.search_forward rex str 0); true with Not_found -> false
+and (=~) str rex = PCRE.matches rex str
