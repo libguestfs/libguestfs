@@ -16,13 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(* Convert various Linux distros.  This module handles:
- *
- * - RHEL and derivatives like CentOS and ScientificLinux
- * - SUSE
- * - OpenSUSE and Fedora (similar enough to RHEL/SUSE)
- * - Debian and derivatives like Ubuntu and Linux Mint
- *)
+(* Convert a Linux guest to run on KVM. *)
 
 (* < mdbooth> It's all in there for a reason :/ *)
 
@@ -1069,11 +1063,10 @@ let () =
   let matching = function
     | { i_type = "linux";
         i_distro = ("fedora"
-                       | "rhel" | "centos" | "scientificlinux" | "redhat-based"
-                       | "oraclelinux"
-                       | "sles" | "suse-based" | "opensuse") } -> true
-    | { i_type = "linux";
-        i_distro = ("debian" | "ubuntu" | "linuxmint") } -> true
+                    | "rhel" | "centos" | "scientificlinux" | "redhat-based"
+                    | "oraclelinux"
+                    | "sles" | "suse-based" | "opensuse"
+                    | "debian" | "ubuntu" | "linuxmint") } -> true
     | _ -> false
   in
   Modules_list.register_convert_module matching "linux" convert
