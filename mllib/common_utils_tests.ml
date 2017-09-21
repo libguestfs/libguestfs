@@ -29,8 +29,16 @@ let assert_equal_int = assert_equal ~printer:(fun x -> string_of_int x)
 let assert_equal_int64 = assert_equal ~printer:(fun x -> Int64.to_string x)
 let assert_equal_intlist = assert_equal ~printer:(fun x -> "(" ^ (String.concat ";" (List.map string_of_int x)) ^ ")")
 
-(* Test Common_utils.parse_size. *)
+(* Test Common_utils.parse_size and Common_utils.parse_resize. *)
 let test_parse_resize ctx =
+  assert_equal_int64 1_L (parse_size "1b");
+  assert_equal_int64 10_L (parse_size "10b");
+  assert_equal_int64 1024_L (parse_size "1K");
+  assert_equal_int64 102400_L (parse_size "100K");
+  (* Fractions are always rounded down. *)
+  assert_equal_int64 1153433_L (parse_size "1.1M");
+  assert_equal_int64 1202590842_L (parse_size "1.12G");
+
   (* For absolute sizes, oldsize is ignored. *)
   assert_equal_int64 100_L (parse_resize 100_L "100b");
   assert_equal_int64 100_L (parse_resize 1000_L "100b");

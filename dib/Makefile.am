@@ -85,6 +85,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlutils \
+	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/mllib
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
@@ -109,6 +110,7 @@ OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
+	mlpcre.$(MLARCHIVE) \
 	mllib.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
@@ -116,6 +118,7 @@ virt_dib_DEPENDENCIES = \
 	$(OBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 virt_dib_LINK = \

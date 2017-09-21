@@ -73,6 +73,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlprogress \
 	-I $(top_builddir)/common/mlutils \
+	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/mllib
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
@@ -98,6 +99,7 @@ OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	mlprogress.$(MLARCHIVE) \
+	mlpcre.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
 	mllib.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
@@ -106,6 +108,7 @@ virt_sparsify_DEPENDENCIES = \
 	$(OBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 virt_sparsify_LINK = \

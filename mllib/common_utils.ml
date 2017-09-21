@@ -155,73 +155,56 @@ let virt_tools_data_dir =
   ) in
   fun () -> Lazy.force dir
 
-(* Parse a size field, eg. "10G". *)
-let parse_size =
-  let const_re = Str.regexp "^\\([.0-9]+\\)\\([bKMG]\\)$" in
-  fun field ->
-    let matches rex = Str.string_match rex field 0 in
-    let sub i = Str.matched_group i field in
-    let size_scaled f = function
-      | "b" -> Int64.of_float f
-      | "K" -> Int64.of_float (f *. 1024.)
-      | "M" -> Int64.of_float (f *. 1024. *. 1024.)
-      | "G" -> Int64.of_float (f *. 1024. *. 1024. *. 1024.)
-      | _ -> assert false
-    in
+(* Used by parse_size and parse_resize below. *)
+let const_re = PCRE.compile "^([.0-9]+)([bKMG])$"
+let plus_const_re = PCRE.compile "^\\+([.0-9]+)([bKMG])$"
+let minus_const_re = PCRE.compile "^-([.0-9]+)([bKMG])$"
+let percent_re = PCRE.compile "^([.0-9]+)%$"
+let plus_percent_re = PCRE.compile "^\\+([.0-9]+)%$"
+let minus_percent_re = PCRE.compile "^-([.0-9]+)%$"
+let size_scaled f = function
+  | "b" -> Int64.of_float f
+  | "K" -> Int64.of_float (f *. 1024.)
+  | "M" -> Int64.of_float (f *. 1024. *. 1024.)
+  | "G" -> Int64.of_float (f *. 1024. *. 1024. *. 1024.)
+  | _ -> assert false
 
-    if matches const_re then (
-      size_scaled (float_of_string (sub 1)) (sub 2)
-    )
-    else
-      error "%s: cannot parse size field" field
+(* Parse a size field, eg. "10G". *)
+let parse_size field =
+  if PCRE.matches const_re field then
+    size_scaled (float_of_string (PCRE.sub 1)) (PCRE.sub 2)
+  else
+    error "%s: cannot parse size field" field
 
 (* Parse a size field, eg. "10G", "+20%" etc.  Used particularly by
  * virt-resize --resize and --resize-force options.
  *)
-let parse_resize =
-  let const_re = Str.regexp "^\\([.0-9]+\\)\\([bKMG]\\)$"
-  and plus_const_re = Str.regexp "^\\+\\([.0-9]+\\)\\([bKMG]\\)$"
-  and minus_const_re = Str.regexp "^-\\([.0-9]+\\)\\([bKMG]\\)$"
-  and percent_re = Str.regexp "^\\([.0-9]+\\)%$"
-  and plus_percent_re = Str.regexp "^\\+\\([.0-9]+\\)%$"
-  and minus_percent_re = Str.regexp "^-\\([.0-9]+\\)%$"
-  in
-  fun oldsize field ->
-    let matches rex = Str.string_match rex field 0 in
-    let sub i = Str.matched_group i field in
-    let size_scaled f = function
-      | "b" -> Int64.of_float f
-      | "K" -> Int64.of_float (f *. 1024.)
-      | "M" -> Int64.of_float (f *. 1024. *. 1024.)
-      | "G" -> Int64.of_float (f *. 1024. *. 1024. *. 1024.)
-      | _ -> assert false
-    in
-
-    if matches const_re then (
-      size_scaled (float_of_string (sub 1)) (sub 2)
-    )
-    else if matches plus_const_re then (
-      let incr = size_scaled (float_of_string (sub 1)) (sub 2) in
-      oldsize +^ incr
-    )
-    else if matches minus_const_re then (
-      let incr = size_scaled (float_of_string (sub 1)) (sub 2) in
-      oldsize -^ incr
-    )
-    else if matches percent_re then (
-      let percent = Int64.of_float (10. *. float_of_string (sub 1)) in
-      oldsize *^ percent /^ 1000L
-    )
-    else if matches plus_percent_re then (
-      let percent = Int64.of_float (10. *. float_of_string (sub 1)) in
-      oldsize +^ oldsize *^ percent /^ 1000L
-    )
-    else if matches minus_percent_re then (
-      let percent = Int64.of_float (10. *. float_of_string (sub 1)) in
-      oldsize -^ oldsize *^ percent /^ 1000L
-    )
-    else
-      error "%s: cannot parse resize field" field
+let parse_resize oldsize field =
+  if PCRE.matches const_re field then (
+    size_scaled (float_of_string (PCRE.sub 1)) (PCRE.sub 2)
+  )
+  else if PCRE.matches plus_const_re field then (
+    let incr = size_scaled (float_of_string (PCRE.sub 1)) (PCRE.sub 2) in
+    oldsize +^ incr
+  )
+  else if PCRE.matches minus_const_re field then (
+    let incr = size_scaled (float_of_string (PCRE.sub 1)) (PCRE.sub 2) in
+    oldsize -^ incr
+  )
+  else if PCRE.matches percent_re field then (
+    let percent = Int64.of_float (10. *. float_of_string (PCRE.sub 1)) in
+    oldsize *^ percent /^ 1000L
+  )
+  else if PCRE.matches plus_percent_re field then (
+    let percent = Int64.of_float (10. *. float_of_string (PCRE.sub 1)) in
+    oldsize +^ oldsize *^ percent /^ 1000L
+  )
+  else if PCRE.matches minus_percent_re field then (
+    let percent = Int64.of_float (10. *. float_of_string (PCRE.sub 1)) in
+    oldsize -^ oldsize *^ percent /^ 1000L
+  )
+  else
+    error "%s: cannot parse resize field" field
 
 let human_size i =
   let sign, i = if i < 0L then "-", Int64.neg i else "", i in

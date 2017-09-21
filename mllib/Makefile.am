@@ -86,6 +86,7 @@ libmllib_a_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/lib \
 	-I$(top_srcdir)/common/options \
+	-I$(top_srcdir)/common/mlpcre \
 	-I$(top_srcdir)/common/mlxml \
 	-I$(top_srcdir)/common/mlstdutils \
 	-I$(top_srcdir)/common/mlutils
@@ -106,6 +107,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
+	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/common/mlxml \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlutils \
@@ -189,12 +191,14 @@ endif
 OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
+	mlpcre.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
 common_utils_tests_DEPENDENCIES = \
 	$(common_utils_tests_THEOBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	$(MLLIB_CMA) \
 	$(top_srcdir)/ocaml-link.sh
 common_utils_tests_LINK = \
@@ -206,6 +210,7 @@ common_utils_tests_LINK = \
 getopt_tests_DEPENDENCIES = \
 	$(getopt_tests_THEOBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	$(MLLIB_CMA) \
 	$(top_srcdir)/ocaml-link.sh
 getopt_tests_LINK = \
@@ -217,6 +222,7 @@ getopt_tests_LINK = \
 JSON_tests_DEPENDENCIES = \
 	$(JSON_tests_THEOBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	$(MLLIB_CMA) \
 	$(top_srcdir)/ocaml-link.sh
 JSON_tests_LINK = \
