@@ -975,7 +975,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
       List.flatten (List.map Array.to_list (List.map g#aug_match paths)) in
 
     (* Map device names for each entry. *)
-    let rex_resume = Str.regexp "^\\(.*resume=\\)\\(/dev/[^ ]\\)\\(.*\\)$"
+    let rex_resume = PCRE.compile "^(.*resume=)(/dev/\\S+)(.*)$"
     and rex_device_cciss_p =
       Str.regexp "^/dev/\\(cciss/c[0-9]+d[0-9]+\\)p\\([0-9]+\\)$"
     and rex_device_cciss =
@@ -1001,10 +1001,10 @@ let convert (g : G.guestfs) inspect source output rcaps =
 
       if String.find path "GRUB_CMDLINE" >= 0 then (
         (* Handle grub2 resume=<dev> specially. *)
-        if Str.string_match rex_resume value 0 then (
-          let start = Str.matched_group 1 value
-          and device = Str.matched_group 2 value
-          and end_ = Str.matched_group 3 value in
+        if PCRE.matches rex_resume value then (
+          let start = PCRE.sub 1
+          and device = PCRE.sub 2
+          and end_ = PCRE.sub 3 in
           let device = replace_if_device path device in
           start ^ device ^ end_
         )
