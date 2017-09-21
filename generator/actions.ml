@@ -98,7 +98,7 @@ let non_daemon_functions, daemon_functions =
     List.fold_left (
       fun a b ->
         a ^ String.uppercase_ascii (Str.first_chars b 1) ^ Str.string_after b 1
-    ) "" (Str.split (Str.regexp "_") name)
+    ) "" (String.nsplit "_" name)
   in
   let make_camel_case_if_not_set f =
     if f.camel_name = "" then
