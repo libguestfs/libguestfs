@@ -35,3 +35,7 @@ val file_owner : Guestfs.guestfs -> Types.inspect -> string -> string
 
 val is_file_owned : Guestfs.guestfs -> Types.inspect -> string -> bool
 (** Returns true if the file is owned by an installed package. *)
+
+val is_package_manager_save_file : string -> bool
+(** Return true if the filename is something like [*.rpmsave], ie.
+    a package manager save-file. *)

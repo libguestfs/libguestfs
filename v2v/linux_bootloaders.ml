@@ -315,9 +315,8 @@ object (self)
         Array.to_list (g#glob_expand "/boot/kernel-*") @
         Array.to_list (g#glob_expand "/boot/vmlinuz-*") @
         Array.to_list (g#glob_expand "/vmlinuz-*") in
-    let rex = Str.regexp ".*\\.\\(dpkg-.*|rpmsave|rpmnew\\)$" in
     let vmlinuzes = List.filter (
-      fun file -> not (Str.string_match rex file 0)
+      fun filename -> not (Linux.is_package_manager_save_file filename)
     ) vmlinuzes in
     vmlinuzes
 

@@ -156,3 +156,8 @@ let rec file_owner (g : G.guestfs) { i_package_format = package_format } path =
 and is_file_owned g inspect path =
   try ignore (file_owner g inspect path); true
   with Not_found -> false
+
+let is_package_manager_save_file filename =
+  (* Recognized suffixes of package managers. *)
+  let suffixes = [ ".dpkg-old"; ".dpkg-new"; ".rpmsave"; ".rpmnew"; ] in
+  List.exists (Filename.check_suffix filename) suffixes
