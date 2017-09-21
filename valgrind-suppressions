@@ -171,6 +171,17 @@
    fun:caml_build_primitive_table
 }
 
+# The OCaml PCRE.compile function calls pcre_compile2 which allocates
+# memory.  If these regexps are stored in a global variable then they
+# can never be freed.  This is not really a bug, so ignore it.
+{
+   ocaml_pcre_globals
+   Memcheck:Leak
+   fun:malloc
+   fun:pcre_compile2
+   ...
+}
+
 # glibc
 {
    glibc_cond
