@@ -110,3 +110,22 @@ val replace : ?global:bool -> regexp -> string -> string -> string
 
     Note that this function does not allow backreferences.
     Any captures in [patt] are ignored. *)
+
+val split : regexp -> string -> string * string
+val nsplit : ?max:int -> regexp -> string -> string list
+(** [split patt subj] splits the string at the first occurrence
+    of the regular expression [patt], returning the parts of the
+    string before and after the match (the matching part is not
+    returned).  If the pattern does not match then the whole
+    input is returned in the first string, and the second string
+    is empty.
+
+    [nsplit patt subj] is the same but the string is split
+    on every occurrence of [patt].  Note that if the pattern
+    matches at the beginning or end of the string, then an
+    empty string element will be returned at the beginning or
+    end of the list.
+
+    [nsplit] has an optional [?max] parameter which controls
+    the maximum length of the returned list.  The final element
+    contains the remainder of the string. *)

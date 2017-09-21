@@ -42,6 +42,20 @@ let replace ?(global = false) patt subst subj =
   eprintf " %s\n%!" r;
   r
 
+let split patt subj =
+  eprintf "PCRE.split <patt> %s ->%!" subj;
+  let s1, s2 = PCRE.split patt subj in
+  eprintf " (%s, %s)\n%!" s1 s2;
+  (s1, s2)
+
+let nsplit ?(max = 0) patt subj =
+  eprintf "PCRE.nsplit%s <patt> %s ->%!"
+          (if max = 0 then "" else sprintf " ~max:%d" max)
+          subj;
+  let ss = PCRE.nsplit ~max patt subj in
+  eprintf " [%s]\n%!" (String.concat "; " ss);
+  ss
+
 let sub i =
   eprintf "PCRE.sub %d ->%!" i;
   let r = PCRE.sub i in
@@ -60,6 +74,7 @@ let () =
     let re1 = compile "(a+)b" in
     let re2 = compile "(a+)(b*)" in
     let re3 = compile ~caseless:true "[^a-z0-9_]" in
+    let ws = compile "\\s+" in
 
     assert (matches re0 "ccaaabbbb" = true);
     assert (sub 0 = "aaab");
@@ -101,6 +116,20 @@ let () =
     assert (replace ~global:true re3 "-" "this is a\xc2\xa3FUNNY.name?"
             (* = "this-is-a-FUNNY-name-" if UTF-8 worked *)
             = "this-is-a--FUNNY-name-");
+
+    (* This also tests PCRE.split since that is used by nsplit. *)
+    assert (nsplit ~max:1 ws "a b c" = [ "a b c" ]);
+    assert (nsplit ~max:2 ws "a b c" = [ "a"; "b c" ]);
+    assert (nsplit ~max:3 ws "a b c" = [ "a"; "b"; "c" ]);
+    assert (nsplit ~max:10 ws "a b c" = [ "a"; "b"; "c" ]);
+    assert (nsplit ws "the cat sat   on \t\t  the mat." =
+              [ "the"; "cat"; "sat"; "on"; "the"; "mat." ]);
+    assert (nsplit ~max:5 ws "the cat sat   on \t\t  the mat." =
+              [ "the"; "cat"; "sat"; "on"; "the mat." ]);
+    assert (nsplit ws " the " = [ ""; "the"; "" ]);
+    assert (nsplit ws "the " = [ "the"; "" ]);
+    assert (nsplit ws " the" = [ ""; "the" ]);
+    assert (nsplit ws "    \t  the" = [ ""; "the" ]);
   with
   | Not_found ->
      failwith "one of the PCRE.sub functions unexpectedly raised Not_found"
