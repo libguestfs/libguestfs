@@ -915,7 +915,7 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
       List.flatten (List.map Array.to_list (List.map g#aug_match paths)) in
 
     (* Map device names for each entry. *)
-    let rex_resume = Str.regexp "^\\(.*resume=\\)\\(/dev/[^ ]\\)\\(.*\\)$"
+    let rex_resume = Str.regexp "^\\(.*resume=\\)\\(/dev/[^ ]+\\)\\(.*\\)$"
     and rex_device_cciss_p =
       Str.regexp "^/dev/\\(cciss/c[0-9]+d[0-9]+\\)p\\([0-9]+\\)$"
     and rex_device_cciss =
