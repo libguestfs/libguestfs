@@ -234,11 +234,11 @@ let convert (g : G.guestfs) inspect source output rcaps =
     if g#is_file ~followsymlinks:true vboxconfig then (
       let lines = g#read_lines vboxconfig in
       let lines = Array.to_list lines in
-      let rex = Str.regexp "^INSTALL_DIR=\\(.*\\)$" in
+      let rex = PCRE.compile "^INSTALL_DIR=(.*)$" in
       let lines = filter_map (
         fun line ->
-          if Str.string_match rex line 0 then (
-            let path = Str.matched_group 1 line in
+          if PCRE.matches rex line then (
+            let path = PCRE.sub 1 in
             let path = shell_unquote path in
             if String.length path >= 1 && path.[0] = '/' then (
               let vboxuninstall = path ^ "/uninstall.sh" in
@@ -318,8 +318,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
              *)
             if provides <> [] then (
               (* Trim whitespace. *)
-              let rex = Str.regexp "^[ \t]*\\([^ \t]+\\)[ \t]*$" in
-              let provides = List.map (Str.replace_first rex "\\1") provides in
+              let provides = List.map String.trim provides in
 
               (* Install the dependencies with yum.  Use yum explicitly
                * because we don't have package names and local install is
@@ -385,7 +384,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
        * ttys in /etc/inittab if the system uses it. We need to put
        * them back.
        *)
-      let rex = Str.regexp "^\\([1-6]\\):\\([2-5]+\\):respawn:\\(.*\\)" in
+      let rex = PCRE.compile "^([1-6]):([2-5]+):respawn:(.*)" in
       let updated = ref false in
       let rec loop () =
         let comments = g#aug_match "/files/etc/inittab/#comment" in
@@ -394,10 +393,10 @@ let convert (g : G.guestfs) inspect source output rcaps =
         | [] -> ()
         | commentp :: _ ->
           let comment = g#aug_get commentp in
-          if Str.string_match rex comment 0 then (
-            let name = Str.matched_group 1 comment in
-            let runlevels = Str.matched_group 2 comment in
-            let process = Str.matched_group 3 comment in
+          if PCRE.matches rex comment then (
+            let name = PCRE.sub 1
+            and runlevels = PCRE.sub 2
+            and process = PCRE.sub 3 in
 
             if String.find process "getty" >= 0 then (
               updated := true;
@@ -686,14 +685,12 @@ let convert (g : G.guestfs) inspect source output rcaps =
      *)
     let paths = g#aug_match "/files/etc/inittab/*/process" in
     let paths = Array.to_list paths in
-    let rex = Str.regexp "\\(.*\\)\\b\\([xh]vc0\\)\\b\\(.*\\)" in
+    let rex = PCRE.compile "\\b([xh]vc0)\\b" in
     List.iter (
       fun path ->
         let proc = g#aug_get path in
-        if Str.string_match rex proc 0 then (
-          let proc = Str.global_replace rex "\\1ttyS0\\3" proc in
-          g#aug_set path proc
-        );
+        let proc' = PCRE.replace ~global:true rex "ttyS0" proc in
+        if proc <> proc' then g#aug_set path proc'
     ) paths;
 
     let paths = g#aug_match "/files/etc/securetty/*" in
@@ -716,11 +713,11 @@ let convert (g : G.guestfs) inspect source output rcaps =
      *)
     let paths = g#aug_match "/files/etc/inittab/*/process" in
     let paths = Array.to_list paths in
-    let rex = Str.regexp ".*\\b\\([xh]vc0|ttyS0\\)\\b.*" in
+    let rex = PCRE.compile "\\b([xh]vc0|ttyS0)\\b" in
     List.iter (
       fun path ->
         let proc = g#aug_get path in
-        if Str.string_match rex proc 0 then
+        if PCRE.matches rex proc then
           ignore (g#aug_rm (path ^ "/.."))
     ) paths;
 
@@ -976,14 +973,8 @@ let convert (g : G.guestfs) inspect source output rcaps =
 
     (* Map device names for each entry. *)
     let rex_resume = PCRE.compile "^(.*resume=)(/dev/\\S+)(.*)$"
-    and rex_device_cciss_p =
-      Str.regexp "^/dev/\\(cciss/c[0-9]+d[0-9]+\\)p\\([0-9]+\\)$"
-    and rex_device_cciss =
-      Str.regexp "^/dev/\\(cciss/c[0-9]+d[0-9]+\\)$"
-    and rex_device_p =
-      Str.regexp "^/dev/\\([a-z]+\\)\\([0-9]+\\)$"
-    and rex_device =
-      Str.regexp "^/dev/\\([a-z]+\\)$" in
+    and rex_device_cciss = PCRE.compile "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$"
+    and rex_device = PCRE.compile "^/dev/([a-z]+)(\\d*)?$" in
 
     let rec replace_if_device path value =
       let replace device =
@@ -1010,23 +1001,15 @@ let convert (g : G.guestfs) inspect source output rcaps =
         )
         else value
       )
-      else if Str.string_match rex_device_cciss_p value 0 then (
-        let device = Str.matched_group 1 value
-        and part = Str.matched_group 2 value in
+      else if PCRE.matches rex_device_cciss value then (
+        let device = PCRE.sub 1
+        and part = try PCRE.sub 2 with Not_found -> "" in
         "/dev/" ^ replace device ^ part
       )
-      else if Str.string_match rex_device_cciss value 0 then (
-        let device = Str.matched_group 1 value in
-        "/dev/" ^ replace device
-      )
-      else if Str.string_match rex_device_p value 0 then (
-        let device = Str.matched_group 1 value
-        and part = Str.matched_group 2 value in
+      else if PCRE.matches rex_device value then (
+        let device = PCRE.sub 1
+        and part = try PCRE.sub 2 with Not_found -> "" in
         "/dev/" ^ replace device ^ part
-      )
-      else if Str.string_match rex_device value 0 then (
-        let device = Str.matched_group 1 value in
-        "/dev/" ^ replace device
       )
       else (* doesn't look like a known device name *)
         value

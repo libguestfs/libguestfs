@@ -44,9 +44,9 @@ type bootloader_type =
   | Grub2
 
 (* Helper function for SUSE: remove (hdX,X) prefix from a path. *)
-let remove_hd_prefix path =
-  let rex = Str.regexp "^(hd.*)\\(.*\\)" in
-  Str.replace_first rex "\\1" path
+let remove_hd_prefix =
+  let rex = PCRE.compile "^\\(hd.*\\)" in
+  PCRE.replace rex ""
 
 (* Grub1 (AKA grub-legacy) representation. *)
 class bootloader_grub1 (g : G.guestfs) inspect grub_config =
@@ -132,11 +132,11 @@ object
     if paths = [] then
       error (f_"didn't find grub entry for kernel %s") vmlinuz;
     let path = List.hd paths in
-    let rex = Str.regexp ".*/title\\[\\([1-9][0-9]*\\)\\]/kernel" in
-    if not (Str.string_match rex path 0) then
+    let rex = PCRE.compile "/title(?:\\[(\\d+)\\])?/kernel" in
+    if not (PCRE.matches rex path) then
       error (f_"internal error: regular expression did not match ‘%s’")
         path;
-    let index = int_of_string (Str.matched_group 1 path) - 1 in
+    let index = try int_of_string (PCRE.sub 1) - 1 with Not_found -> 0 in
     g#aug_set (sprintf "/files%s/default" grub_config) (string_of_int index);
     g#aug_save ()
 
@@ -151,7 +151,7 @@ object
     ) else false
 
   method configure_console () =
-    let rex = Str.regexp "\\(.*\\)\\b\\([xh]vc0\\)\\b\\(.*\\)" in
+    let rex = PCRE.compile "\\b([xh]vc0)\\b" in
     let expr = sprintf "/files%s/title/kernel/console" grub_config in
 
     let paths = g#aug_match expr in
@@ -159,23 +159,21 @@ object
     List.iter (
       fun path ->
         let console = g#aug_get path in
-        if Str.string_match rex console 0 then (
-          let console = Str.global_replace rex "\\1ttyS0\\3" console in
-          g#aug_set path console
-        )
+        let console' = PCRE.replace ~global:true rex "ttyS0" console in
+        if console <> console' then g#aug_set path console'
     ) paths;
 
     g#aug_save ()
 
   method remove_console () =
-    let rex = Str.regexp "\\(.*\\)\\b\\([xh]vc0\\)\\b\\(.*\\)" in
+    let rex = PCRE.compile "\\b([xh]vc0)\\b" in
     let expr = sprintf "/files%s/title/kernel/console" grub_config in
 
     let rec loop = function
       | [] -> ()
       | path :: paths ->
         let console = g#aug_get path in
-        if Str.string_match rex console 0 then (
+        if PCRE.matches rex console then (
           ignore (g#aug_rm path);
           (* All the paths are invalid, restart the loop. *)
           let paths = g#aug_match expr in
@@ -231,7 +229,7 @@ object (self)
   inherit bootloader
 
   method private grub2_update_console ~remove () =
-    let rex = Str.regexp "\\(.*\\)\\bconsole=[xh]vc0\\b\\(.*\\)" in
+    let rex = PCRE.compile "\\bconsole=[xh]vc0\\b" in
 
     let paths = [
       "/files/etc/sysconfig/grub/GRUB_CMDLINE_LINUX";
@@ -249,12 +247,12 @@ object (self)
         warning (f_"could not remove grub2 serial console (ignored)")
     | path :: _ ->
       let grub_cmdline = g#aug_get path in
-      if Str.string_match rex grub_cmdline 0 then (
+      if PCRE.matches rex grub_cmdline then (
         let new_grub_cmdline =
           if not remove then
-            Str.global_replace rex "\\1console=ttyS0\\2" grub_cmdline
+            PCRE.replace ~global:true rex "console=ttyS0" grub_cmdline
           else
-            Str.global_replace rex "\\1\\2" grub_cmdline in
+            PCRE.replace ~global:true rex "" grub_cmdline in
         g#aug_set path new_grub_cmdline;
         g#aug_save ();
 

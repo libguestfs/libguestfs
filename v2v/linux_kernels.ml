@@ -63,10 +63,12 @@ let print_kernel_info chan prefix ki =
   fpf "pvpanic=%b xen=%b debug=%b\n"
       ki.ki_supports_isa_pvpanic ki.ki_is_xen_pv_only_kernel ki.ki_is_debug
 
+let rex_ko = PCRE.compile "\\.k?o(?:\\.xz)?$"
+let rex_ko_extract = PCRE.compile "/([^/]+)\\.k?o(?:\\.xz)?$"
+
 let detect_kernels (g : G.guestfs) inspect family bootloader =
   (* What kernel/kernel-like packages are installed on the current guest? *)
   let installed_kernels : kernel_info list =
-    let rex_ko = Str.regexp ".*\\.k?o\\(\\.xz\\)?$" in
     let check_config feature = function
       | None -> false
       | Some config ->
@@ -82,12 +84,11 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
           | _ -> false
           )
     in
-    let rex_ko_extract = Str.regexp ".*/\\([^/]+\\)\\.k?o\\(\\.xz\\)?$" in
     let rex_initrd =
       if family = `Debian_family then
-        Str.regexp "^initrd.img-.*$"
+        PCRE.compile "^initrd.img-.*$"
       else
-        Str.regexp "^initr\\(d\\|amfs\\)-.*\\(\\.img\\)?$" in
+        PCRE.compile "^initr(?:d|amfs)-.*(?:\\.img)?$" in
     filter_map (
       function
       | { G.app2_name = name } as app
@@ -133,7 +134,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
                let files = g#ls "/boot" in
                let files = Array.to_list files in
                let files =
-                 List.filter (fun n -> Str.string_match rex_initrd n 0) files in
+                 List.filter (fun n -> PCRE.matches rex_initrd n) files in
                let files =
                  List.filter (
                    fun n ->
@@ -165,7 +166,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
              let modules = g#find modpath in
              let modules = Array.to_list modules in
              let modules =
-               List.filter (fun m -> Str.string_match rex_ko m 0) modules in
+               List.filter (fun m -> PCRE.matches rex_ko m) modules in
              assert (List.length modules > 0);
 
              (* Determine the kernel architecture by looking at the
@@ -178,8 +179,8 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
              (* Just return the module names, without path or extension. *)
              let modules = filter_map (
                fun m ->
-                 if Str.string_match rex_ko_extract m 0 then
-                   Some (Str.matched_group 1 m)
+                 if PCRE.matches rex_ko_extract m then
+                   Some (PCRE.sub 1)
                  else
                    None
              ) modules in
