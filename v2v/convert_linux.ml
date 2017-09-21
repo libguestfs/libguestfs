@@ -113,7 +113,7 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
       (try
          let lines = g#read_lines "/etc/rc.local" in
          let lines = Array.to_list lines in
-         let rex = Str.regexp ".*\\b\\(insmod|modprobe\\)\b.*\\bxen-vbd.*" in
+         let rex = Str.regexp ".*\\b\\(insmod\\|modprobe\\)\\b.*\\bxen-vbd.*" in
          let lines = List.map (
            fun s ->
              if Str.string_match rex s 0 then
