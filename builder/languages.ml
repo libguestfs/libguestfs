@@ -20,7 +20,7 @@ open Std_utils
 open Common_utils
 
 let re_locale =
-  PCRE.compile "^([A-Za-z]+)(_([A-Za-z]+))?(\\.([A-Za-z0-9-]+))?(@([A-Za-z]+))?$"
+  PCRE.compile ~caseless:true "^([a-z]+)(_([a-z]+))?(\\.([a-z0-9-]+))?(@([a-z]+))?$"
 
 let split_locale loc =
   let l = ref [] in
