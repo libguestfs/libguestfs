@@ -209,7 +209,7 @@ object
 
     (* Read any .mf (manifest) files and verify sha1. *)
     let mf = find_files exploded ".mf" in
-    let rex = Str.regexp "\\(SHA1\\|SHA256\\)(\\(.*\\))= \\([0-9a-fA-F]+\\)\r?" in
+    let rex = PCRE.compile "^(SHA1|SHA256)\\((.*)\\)= ([0-9a-fA-F]+)\r?$" in
     List.iter (
       fun mf ->
         debug "processing manifest %s" mf;
@@ -218,10 +218,10 @@ object
         let chan = open_in mf in
         let rec loop () =
           let line = input_line chan in
-          if Str.string_match rex line 0 then (
-            let mode = Str.matched_group 1 line in
-            let disk = Str.matched_group 2 line in
-            let expected = Str.matched_group 3 line in
+          if PCRE.matches rex line then (
+            let mode = PCRE.sub 1
+            and disk = PCRE.sub 2
+            and expected = PCRE.sub 3 in
             let csum = Checksums.of_string mode expected in
             try
               if partial then
