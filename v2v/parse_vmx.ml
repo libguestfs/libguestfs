@@ -226,7 +226,7 @@ and vmx_bool_of_string t =
   else failwith "bool_of_string"
 
 (* Regular expression used to match key = "value" in VMX file. *)
-let rex = Str.regexp "^\\([^ \t=]+\\)[ \t]*=[ \t]*\"\\(.*\\)\"$"
+let rex = PCRE.compile "^([^ \t=]+)\\s*=\\s*\"(.*)\"$"
 
 (* Remove the weird escapes used in value strings.  See description above. *)
 let remove_vmx_escapes str =
@@ -292,10 +292,9 @@ and parse_string str =
   (* Parse the lines into key = "value". *)
   let lines = filter_map (
     fun line ->
-      if Str.string_match rex line 0 then (
-        let key = Str.matched_group 1 line in
+      if PCRE.matches rex line then (
+        let key = PCRE.sub 1 and value = PCRE.sub 2 in
         let key = String.lowercase_ascii key in
-        let value = Str.matched_group 2 line in
         let value = remove_vmx_escapes value in
         Some (key, value)
       )
