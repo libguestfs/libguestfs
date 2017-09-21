@@ -142,10 +142,10 @@ let parse_ovf_from_ova ovf_filename =
 
       Xml.xpathctx_set_current_context xpathctx n;
       let file_id = xpath_string_default "rasd:HostResource/text()" "" in
-      let rex = Str.regexp "^\\(ovf:\\)?/disk/\\(.*\\)" in
-      if Str.string_match rex file_id 0 then (
+      let rex = PCRE.compile "^(?:ovf:)?/disk/(.*)" in
+      if PCRE.matches rex file_id then (
         (* Chase the references through to the actual file name. *)
-        let file_id = Str.matched_group 2 file_id in
+        let file_id = PCRE.sub 1 in
         let expr = sprintf "/ovf:Envelope/ovf:DiskSection/ovf:Disk[@ovf:diskId='%s']/@ovf:fileRef" file_id in
         let file_ref =
           match xpath_string expr with
