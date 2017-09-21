@@ -107,7 +107,6 @@ install-data-hook: $(GMOFILES)
 	done
 
 .PRECIOUS: $(DOMAIN).pot $(POFILES)
-SUFFIXES = .po .gmo
 
 else
 
