@@ -18,6 +18,8 @@
 
 (* This file tests the Common_utils module. *)
 
+open Printf
+
 open OUnit2
 open Common_utils
 
@@ -26,6 +28,7 @@ let assert_equal_string = assert_equal ~printer:(fun x -> x)
 let assert_equal_int = assert_equal ~printer:(fun x -> string_of_int x)
 let assert_equal_int64 = assert_equal ~printer:(fun x -> Int64.to_string x)
 let assert_equal_stringlist = assert_equal ~printer:(fun x -> "(" ^ (String.escaped (String.concat "," x)) ^ ")")
+let assert_equal_stringpair = assert_equal ~printer:(fun (x, y) -> sprintf "%S, %S" x y)
 
 let test_subdirectory ctx =
   assert_equal_string "" (subdirectory "/foo" "/foo");
@@ -115,6 +118,30 @@ let test_string_find ctx =
   assert_equal_int (-1) (String.find "" "baz");
   assert_equal_int (-1) (String.find "foobar" "baz")
 
+(* Test Std_utils.String.split. *)
+let test_string_split ctx =
+  assert_equal_stringpair ("a", "b") (String.split " " "a b");
+  assert_equal_stringpair ("", "ab") (String.split " " " ab");
+  assert_equal_stringpair ("", "abc") (String.split "" "abc");
+  assert_equal_stringpair ("abc", "") (String.split " " "abc");
+  assert_equal_stringpair ("", "") (String.split " " "")
+
+(* Test Std_utils.String.nsplit. *)
+let test_string_nsplit ctx =
+  (* XXX Not clear if the next test case indicates an error in
+   * String.nsplit.  However this is how it has historically worked.
+   *)
+  assert_equal_stringlist [""] (String.nsplit " " "");
+  assert_equal_stringlist ["abc"] (String.nsplit " " "abc");
+  assert_equal_stringlist ["a"; "b"; "c"] (String.nsplit " " "a b c");
+  assert_equal_stringlist ["a"; "b"; "c"; ""] (String.nsplit " " "a b c ");
+  assert_equal_stringlist [""; "a"; "b"; "c"] (String.nsplit " " " a b c");
+  assert_equal_stringlist [""; "a"; "b"; "c"; ""] (String.nsplit " " " a b c ");
+  assert_equal_stringlist ["a b c d"] (String.nsplit ~max:1 " " "a b c d");
+  assert_equal_stringlist ["a"; "b c d"] (String.nsplit ~max:2 " " "a b c d");
+  assert_equal_stringlist ["a"; "b"; "c d"] (String.nsplit ~max:3 " " "a b c d");
+  assert_equal_stringlist ["a"; "b"; "c"; "d"] (String.nsplit ~max:10 " " "a b c d")
+
 (* Test Common_utils.String.lines_split. *)
 let test_string_lines_split ctx =
   assert_equal_stringlist [""] (String.lines_split "");
@@ -142,6 +169,8 @@ let suite =
       "strings.is_prefix" >:: test_string_is_prefix;
       "strings.is_suffix" >:: test_string_is_suffix;
       "strings.find" >:: test_string_find;
+      "strings.split" >:: test_string_split;
+      "strings.nsplit" >:: test_string_nsplit;
       "strings.lines_split" >:: test_string_lines_split;
     ]
 
