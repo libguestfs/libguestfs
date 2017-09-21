@@ -112,20 +112,55 @@ Val_regexp (pcre *re)
   CAMLreturn (rv);
 }
 
-value
-guestfs_int_pcre_compile (value pattv)
+static int
+is_Some_true (value v)
 {
-  CAMLparam1 (pattv);
+  return
+    v != Val_int (0) /* !None */ &&
+    Bool_val (Field (v, 0)) /* Some true */;
+}
+
+value
+guestfs_int_pcre_compile (value anchoredv, value caselessv, value dotallv,
+                          value extendedv, value multilinev,
+                          value pattv)
+{
+  CAMLparam5 (anchoredv, caselessv, dotallv, extendedv, multilinev);
+  CAMLxparam1 (pattv);
+  int options = 0;
   pcre *re;
   int errcode = 0;
   const char *err;
   int offset;
 
-  re = pcre_compile2 (String_val (pattv), 0, &errcode, &err, &offset, NULL);
+  /* Flag parameters are all ‘bool option’, defaulting to false. */
+  if (is_Some_true (anchoredv))
+    options |= PCRE_ANCHORED;
+  if (is_Some_true (caselessv))
+    options |= PCRE_CASELESS;
+  if (is_Some_true (dotallv))
+    options |= PCRE_DOTALL;
+  if (is_Some_true (extendedv))
+    options |= PCRE_EXTENDED;
+  if (is_Some_true (multilinev))
+    options |= PCRE_MULTILINE;
+
+  re = pcre_compile2 (String_val (pattv), options,
+                      &errcode, &err, &offset, NULL);
   if (re == NULL)
     raise_pcre_error (err, errcode);
 
   CAMLreturn (Val_regexp (re));
+}
+
+/* OCaml calls C functions from bytecode a bit differently when they
+ * have more than 5 parameters.
+ */
+value
+guestfs_int_pcre_compile_byte (value *argv, int argn)
+{
+  return guestfs_int_pcre_compile (argv[0], argv[1], argv[2], argv[3], argv[4],
+                                   argv[5]);
 }
 
 value

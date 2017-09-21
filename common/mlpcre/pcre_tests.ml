@@ -18,9 +18,17 @@
 
 open Printf
 
-let compile patt =
-  eprintf "PCRE.compile %s\n%!" patt;
-  PCRE.compile patt
+let compile ?(anchored = false) ?(caseless = false)
+            ?(dotall = false) ?(extended = false) ?(multiline = false)
+            patt =
+  eprintf "PCRE.compile%s%s%s%s%s %s\n%!"
+          (if anchored then " ~anchored:true" else "")
+          (if caseless then " ~caseless:true" else "")
+          (if dotall then " ~dotall:true" else "")
+          (if extended then " ~extended:true" else "")
+          (if multiline then " ~multiline:true" else "")
+          patt;
+  PCRE.compile ~anchored ~caseless ~dotall ~extended ~multiline patt
 
 let matches re str =
   eprintf "PCRE.matches %s ->%!" str;
@@ -51,7 +59,7 @@ let () =
     let re0 = compile "a+b" in
     let re1 = compile "(a+)b" in
     let re2 = compile "(a+)(b*)" in
-    let re3 = compile "[^A-Za-z0-9_]" in
+    let re3 = compile ~caseless:true "[^a-z0-9_]" in
 
     assert (matches re0 "ccaaabbbb" = true);
     assert (sub 0 = "aaab");
@@ -90,9 +98,9 @@ let () =
      * patterns, and that could be problematic if PCRE was built
      * without Unicode support (XXX).
      *)
-    assert (replace ~global:true re3 "-" "this is a\xc2\xa3funny.name?"
-            (* = "this-is-a-funny-name-" if UTF-8 worked *)
-            = "this-is-a--funny-name-");
+    assert (replace ~global:true re3 "-" "this is a\xc2\xa3FUNNY.name?"
+            (* = "this-is-a-FUNNY-name-" if UTF-8 worked *)
+            = "this-is-a--FUNNY-name-");
   with
   | Not_found ->
      failwith "one of the PCRE.sub functions unexpectedly raised Not_found"

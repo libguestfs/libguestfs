@@ -53,8 +53,14 @@ exception Error of string * int
 type regexp
 (** The type of a compiled regular expression. *)
 
-val compile : string -> regexp
-(** Compile a regular expression.  This can raise {!Error}. *)
+val compile : ?anchored:bool -> ?caseless:bool -> ?dotall:bool -> ?extended:bool -> ?multiline:bool -> string -> regexp
+(** Compile a regular expression.  This can raise {!Error}.
+
+    The flags [?anchored], [?caseless], [?dotall], [?extended],
+    [?multiline]
+    correspond to the [pcre_compile] flags [PCRE_ANCHORED] etc.
+    See pcreapi(3) for details of what they do.
+    All flags default to false. *)
 
 val matches : regexp -> string -> bool
 (** Test whether the regular expression matches the string.  This

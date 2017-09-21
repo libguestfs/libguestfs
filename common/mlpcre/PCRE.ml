@@ -22,7 +22,7 @@ exception Error of string * int
 
 type regexp
 
-external compile : string -> regexp = "guestfs_int_pcre_compile"
+external compile : ?anchored:bool -> ?caseless:bool -> ?dotall:bool -> ?extended:bool -> ?multiline:bool -> string -> regexp = "guestfs_int_pcre_compile_byte" "guestfs_int_pcre_compile"
 external matches : regexp -> string -> bool = "guestfs_int_pcre_matches"
 external sub : int -> string = "guestfs_int_pcre_sub"
 external subi : int -> int * int = "guestfs_int_pcre_subi"
