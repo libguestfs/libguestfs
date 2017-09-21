@@ -28,8 +28,8 @@ open Xpath_helpers
 open Create_libvirt_xml
 
 let arch_is_sane_or_die =
-  let rex = Str.regexp "^[-_A-Za-z0-9]+$" in
-  fun arch -> assert (Str.string_match rex arch 0)
+  let rex = PCRE.compile ~caseless:true "^[-_a-z0-9]+$" in
+  fun arch -> assert (PCRE.matches rex arch)
 
 let target_features_of_capabilities_doc doc arch =
   let xpathctx = Xml.xpath_new_context doc in
