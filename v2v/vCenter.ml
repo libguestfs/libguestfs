@@ -113,7 +113,7 @@ let get_session_cookie password scheme uri sslverify url =
       Some !session_cookie
   )
 
-let multiple_slash = Str.regexp "/+"
+let multiple_slash = PCRE.compile "/{2,}"
 let default_dc = "ha-datacenter"
 
 let guess_dcPath uri = function
@@ -136,7 +136,7 @@ let guess_dcPath uri = function
           * remove the Cluster name (which still works in libvirt).
           *)
          (* Collapse multiple slashes to single slash. *)
-         let path = Str.global_replace multiple_slash "/" path in
+         let path = PCRE.replace ~global:true multiple_slash "/" path in
          (* Chop off the first and trailing '/' (if found). *)
          let path =
            let len = String.length path in
@@ -158,14 +158,13 @@ let guess_dcPath uri = function
   | _ ->     (* Don't know, so guess. *)
      default_dc
 
-let source_re = Str.regexp "^\\[\\(.*\\)\\] \\(.*\\)\\.vmdk$"
+let source_re = PCRE.compile "^\\[(.*)\\] (.*)\\.vmdk$"
 
 let map_source_to_https dcPath uri server path =
-  if not (Str.string_match source_re path 0) then
+  if not (PCRE.matches source_re path) then
     (path, true)
   else (
-    let datastore = Str.matched_group 1 path
-    and path = Str.matched_group 2 path in
+    let datastore = PCRE.sub 1 and path = PCRE.sub 2 in
 
     let port =
       match uri.uri_port with
