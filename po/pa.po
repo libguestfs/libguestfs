@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-09-16 23:40+0100\n"
+"POT-Creation-Date: 2017-09-22 09:33+0100\n"
 "PO-Revision-Date: 2015-02-21 10:52-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/projects/p/"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: ../dib/elements.ml:160
+#: ../dib/elements.ml:155
 msgid "  %s: already provided by %s"
 msgstr ""
 
@@ -127,7 +127,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:945
+#: ../v2v/convert_linux.ml:939
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -1648,7 +1648,7 @@ msgstr ""
 msgid "POD notes for %s must not end with newline"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:396
+#: ../v2v/convert_linux.ml:390
 msgid ""
 "Parallels tools was detected, but uninstallation failed. The error message "
 "was: %s (ignored)"
@@ -2298,7 +2298,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:734
+#: ../v2v/convert_linux.ml:728
 msgid ""
 "The display driver was updated to ‘%s’, but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2399,7 +2399,7 @@ msgid ""
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: ../dib/elements.ml:210
+#: ../dib/elements.ml:205
 msgid ""
 "There is a duplicated script in your elements:\n"
 "%s/%s in: %s"
@@ -2576,13 +2576,13 @@ msgid ""
 "‘convert’"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:318
+#: ../v2v/convert_linux.ml:312
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:210
+#: ../v2v/convert_linux.ml:204
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2983,7 +2983,7 @@ msgstr ""
 msgid "don’t know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:839
+#: ../v2v/convert_linux.ml:833
 msgid "don’t know how to update %s which loads the %s module"
 msgstr ""
 
@@ -3007,7 +3007,7 @@ msgstr ""
 msgid "duplicate operation name (%s)"
 msgstr ""
 
-#: ../dib/elements.ml:130
+#: ../dib/elements.ml:125
 msgid "element %s not found"
 msgstr ""
 
@@ -3132,7 +3132,7 @@ msgstr ""
 msgid "floppy disk"
 msgstr ""
 
-#: ../dib/elements.ml:164
+#: ../dib/elements.ml:159
 msgid ""
 "following elements are already provided by another element:\n"
 "%s"
@@ -3607,7 +3607,7 @@ msgid ""
 "the output."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:410
+#: ../v2v/convert_linux.ml:404
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -3723,7 +3723,7 @@ msgstr ""
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
-#: ../dib/elements.ml:168
+#: ../dib/elements.ml:163
 msgid "please include an operating system element"
 msgstr ""
 
@@ -4107,7 +4107,7 @@ msgstr ""
 msgid "too many parameters, expecting ‘os-version’"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:773
+#: ../v2v/convert_linux.ml:767
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -4126,13 +4126,13 @@ msgstr ""
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:618
+#: ../v2v/convert_linux.ml:612
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:535
+#: ../v2v/convert_linux.ml:529
 msgid ""
 "unable to rebuild initrd (%s) because update-initramfs was not found in the "
 "guest"
@@ -8346,7 +8346,7 @@ msgstr ""
 msgid "unable to parse XML from stdin"
 msgstr ""
 
-#: inspector/inspector.c:756 lib/launch-libvirt.c:751 lib/libvirt-domain.c:418
+#: inspector/inspector.c:756 lib/launch-libvirt.c:750 lib/libvirt-domain.c:418
 #: lib/libvirt-domain.c:502 lib/libvirt-domain.c:818
 #, c-format
 msgid "unable to create new XPath context"
@@ -8927,17 +8927,12 @@ msgstr ""
 msgid "qemu-img info: unknown JSON parse error"
 msgstr ""
 
-#: lib/inspect.c:77
+#: lib/inspect-icon.c:688
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s ਦਾ ਅਕਾਰ ਬੇਲੋੜਾ ਹੈ (%<PRIi64> ਬਾਈਟਾਂ)"
 
-#: lib/inspect.c:116 lib/inspect.c:129
-#, c-format
-msgid "could not parse integer in version number: %s"
-msgstr "ਵਰਜਨ ਨੰਬਰ ਵਿੱਚ ਪੂਰਨਅੰਕ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਿਆ: %s"
-
-#: lib/launch-direct.c:164
+#: lib/launch-direct.c:163
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -8946,11 +8941,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:372 lib/launch-uml.c:155
+#: lib/launch-direct.c:371 lib/launch-uml.c:154
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: lib/launch-direct.c:899 lib/launch-libvirt.c:681
+#: lib/launch-direct.c:898 lib/launch-libvirt.c:680
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
@@ -8968,25 +8963,25 @@ msgid ""
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:323
+#: lib/launch-libvirt.c:322
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:337
+#: lib/launch-libvirt.c:336
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the ‘libvirt’ backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:371
+#: lib/launch-libvirt.c:370
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: lib/launch-libvirt.c:400
+#: lib/launch-libvirt.c:399
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:610
+#: lib/launch-libvirt.c:609
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -8996,16 +8991,16 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:745
+#: lib/launch-libvirt.c:744
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:761
+#: lib/launch-libvirt.c:760
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:796
+#: lib/launch-libvirt.c:795
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -9020,48 +9015,48 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:1032
+#: lib/launch-libvirt.c:1031
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: lib/launch-libvirt.c:1454
+#: lib/launch-libvirt.c:1453
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1500 lib/qemu.c:743
+#: lib/launch-libvirt.c:1499 lib/qemu.c:743
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1583
+#: lib/launch-libvirt.c:1582
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1925
+#: lib/launch-libvirt.c:1924
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1936
+#: lib/launch-libvirt.c:1935
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1940
+#: lib/launch-libvirt.c:1939
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1961
+#: lib/launch-libvirt.c:1960
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:1974
+#: lib/launch-libvirt.c:1973
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2084
+#: lib/launch-libvirt.c:2083
 #, c-format
 msgid ""
 "bridge ‘%s’ not found.  Try running:\n"
@@ -9077,53 +9072,53 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: lib/launch-libvirt.c:2187
+#: lib/launch-libvirt.c:2186
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2208 lib/launch-libvirt.c:2241
+#: lib/launch-libvirt.c:2207 lib/launch-libvirt.c:2240
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2307
+#: lib/launch-libvirt.c:2306
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2338
+#: lib/launch-libvirt.c:2337
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: lib/launch-uml.c:95
+#: lib/launch-uml.c:94
 msgid "uml backend does not support networking"
 msgstr ""
 
-#: lib/launch-uml.c:99
+#: lib/launch-uml.c:98
 msgid "uml backend does not support SMP"
 msgstr ""
 
-#: lib/launch-uml.c:105
+#: lib/launch-uml.c:104
 msgid "uml backend does not support remote drives"
 msgstr ""
 
-#: lib/launch-uml.c:109
+#: lib/launch-uml.c:108
 msgid "uml backend does not support non-raw-format drives"
 msgstr ""
 
-#: lib/launch-uml.c:114
+#: lib/launch-uml.c:113
 msgid "uml backend does not support drives with ‘iface’ parameter"
 msgstr ""
 
-#: lib/launch-uml.c:119
+#: lib/launch-uml.c:118
 msgid "uml backend does not support drives with ‘label’ parameter"
 msgstr ""
 
-#: lib/launch-uml.c:125
+#: lib/launch-uml.c:124
 msgid ""
 "uml backend does not support drives with ‘discard’ parameter set to ‘enable’"
 msgstr ""
 
-#: lib/launch-uml.c:462
+#: lib/launch-uml.c:461
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -9439,25 +9434,30 @@ msgstr ""
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ਆਰਜੀ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਬਣਾ ਸਕਿਆ"
 
-#: lib/tmpdirs.c:268
+#: lib/tmpdirs.c:272
 #, c-format
 msgid "stat: %s"
 msgstr ""
 
-#: lib/tmpdirs.c:273
+#: lib/tmpdirs.c:277
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr ""
 
-#: lib/tmpdirs.c:279
+#: lib/tmpdirs.c:283
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "security: cached appliance %s is not a directory (mode %o)"
 
-#: lib/tmpdirs.c:285
+#: lib/tmpdirs.c:289
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr "ਸੁਰੱਖਿਆ: ਕੈਸ਼ ਜੰਤਰ %s ਗਰੁੱਪ ਜਾਂ ਹੋਰ (mode %o) ਦੁਆਰਾ ਲਿਖਣਯੋਗ ਹੈ"
+
+#: lib/version.c:166
+#, c-format
+msgid "could not parse integer in version number: %s"
+msgstr "ਵਰਜਨ ਨੰਬਰ ਵਿੱਚ ਪੂਰਨਅੰਕ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਿਆ: %s"
 
 #: lib/whole-file.c:84
 #, c-format
