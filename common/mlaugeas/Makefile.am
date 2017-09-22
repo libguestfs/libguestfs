@@ -20,7 +20,8 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	$(SOURCES_MLI) \
 	$(SOURCES_ML) \
-	$(SOURCES_C)
+	$(SOURCES_C) \
+	augeas.README
 
 SOURCES_MLI = \
 	augeas.mli
