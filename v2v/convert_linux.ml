@@ -34,7 +34,7 @@ open Linux_kernels
 module G = Guestfs
 
 (* The conversion function. *)
-let rec convert (g : G.guestfs) inspect source output rcaps =
+let convert (g : G.guestfs) inspect source output rcaps =
   (*----------------------------------------------------------------------*)
   (* Inspect the guest first.  We already did some basic inspection in
    * the common v2v.ml code, but that has to deal with generic guests
@@ -74,7 +74,65 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
   (*----------------------------------------------------------------------*)
   (* Conversion step. *)
 
-  let augeas_grub_configuration () =
+  let rec do_convert () =
+    augeas_grub_configuration ();
+
+    unconfigure_xen ();
+    unconfigure_vbox ();
+    unconfigure_vmware ();
+    unconfigure_citrix ();
+    unconfigure_kudzu ();
+    unconfigure_prltools ();
+
+    let kernel = configure_kernel () in
+
+    if output#keep_serial_console then (
+      configure_console ();
+      bootloader#configure_console ();
+    ) else (
+      remove_console ();
+      bootloader#remove_console ();
+    );
+
+    let acpi = supports_acpi () in
+
+    let video =
+      match rcaps.rcaps_video with
+      | None -> get_display_driver ()
+      | Some video -> video in
+
+    let block_type =
+      match rcaps.rcaps_block_bus with
+      | None -> if kernel.ki_supports_virtio_blk then Virtio_blk else IDE
+      | Some block_type -> block_type in
+
+    let net_type =
+      match rcaps.rcaps_net_bus with
+      | None -> if kernel.ki_supports_virtio_net then Virtio_net else E1000
+      | Some net_type -> net_type in
+
+    configure_display_driver video;
+    remap_block_devices block_type;
+    configure_kernel_modules block_type net_type;
+    rebuild_initrd kernel;
+
+    SELinux_relabel.relabel g;
+
+    (* Return guest capabilities from the convert () function. *)
+    let guestcaps = {
+      gcaps_block_bus = block_type;
+      gcaps_net_bus = net_type;
+      gcaps_video = video;
+      gcaps_virtio_rng = kernel.ki_supports_virtio_rng;
+      gcaps_virtio_balloon = kernel.ki_supports_virtio_balloon;
+      gcaps_isa_pvpanic = kernel.ki_supports_isa_pvpanic;
+      gcaps_arch = Utils.kvm_arch inspect.i_arch;
+      gcaps_acpi = acpi;
+    } in
+
+    guestcaps
+
+  and augeas_grub_configuration () =
     if bootloader#set_augeas_configuration () then
       Linux.augeas_reload g
 
@@ -1007,61 +1065,7 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
     ];
   in
 
-  augeas_grub_configuration ();
-
-  unconfigure_xen ();
-  unconfigure_vbox ();
-  unconfigure_vmware ();
-  unconfigure_citrix ();
-  unconfigure_kudzu ();
-  unconfigure_prltools ();
-
-  let kernel = configure_kernel () in
-
-  if output#keep_serial_console then (
-    configure_console ();
-    bootloader#configure_console ();
-  ) else (
-    remove_console ();
-    bootloader#remove_console ();
-  );
-
-  let acpi = supports_acpi () in
-
-  let video =
-    match rcaps.rcaps_video with
-    | None -> get_display_driver ()
-    | Some video -> video in
-
-  let block_type =
-    match rcaps.rcaps_block_bus with
-    | None -> if kernel.ki_supports_virtio_blk then Virtio_blk else IDE
-    | Some block_type -> block_type in
-
-  let net_type =
-    match rcaps.rcaps_net_bus with
-    | None -> if kernel.ki_supports_virtio_net then Virtio_net else E1000
-    | Some net_type -> net_type in
-
-  configure_display_driver video;
-  remap_block_devices block_type;
-  configure_kernel_modules block_type net_type;
-  rebuild_initrd kernel;
-
-  SELinux_relabel.relabel g;
-
-  let guestcaps = {
-    gcaps_block_bus = block_type;
-    gcaps_net_bus = net_type;
-    gcaps_video = video;
-    gcaps_virtio_rng = kernel.ki_supports_virtio_rng;
-    gcaps_virtio_balloon = kernel.ki_supports_virtio_balloon;
-    gcaps_isa_pvpanic = kernel.ki_supports_isa_pvpanic;
-    gcaps_arch = Utils.kvm_arch inspect.i_arch;
-    gcaps_acpi = acpi;
-  } in
-
-  guestcaps
+  do_convert ()
 
 (* Register this conversion module. *)
 let () =

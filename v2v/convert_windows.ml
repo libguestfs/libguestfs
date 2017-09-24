@@ -180,7 +180,53 @@ let convert (g : G.guestfs) inspect source output rcaps =
   (*----------------------------------------------------------------------*)
   (* Perform the conversion of the Windows guest. *)
 
-  let rec configure_firstboot () =
+  let rec do_convert () =
+    (* Firstboot configuration. *)
+    configure_firstboot ();
+
+    (* Open the system hive for writes and update it. *)
+    let block_driver,
+        net_driver,
+        video_driver,
+        virtio_rng_supported,
+        virtio_ballon_supported,
+        isa_pvpanic_supported =
+      Registry.with_hive_write g inspect.i_windows_system_hive
+                               update_system_hive in
+
+    (* Open the software hive for writes and update it. *)
+    Registry.with_hive_write g inspect.i_windows_software_hive
+                             update_software_hive;
+
+    fix_ntfs_heads ();
+
+    fix_win_esp ();
+
+    (* Warn if installation of virtio block drivers might conflict with
+     * group policy or AV software causing a boot 0x7B error (RHBZ#1260689).
+     *)
+    if block_driver = Virtio_blk then (
+      if has_group_policy then
+        warning (f_"this guest has Windows Group Policy Objects (GPO) and a new virtio block device driver was installed.  In some circumstances, Group Policy may prevent new drivers from working (resulting in a 7B boot error).  If this happens, try disabling Group Policy before doing the conversion.");
+      if has_antivirus then
+        warning (f_"this guest has Anti-Virus (AV) software and a new virtio block device driver was installed.  In some circumstances, AV may prevent new drivers from working (resulting in a 7B boot error).  If this happens, try disabling AV before doing the conversion.");
+    );
+
+    (* Return guest capabilities from the convert () function. *)
+    let guestcaps = {
+      gcaps_block_bus = block_driver;
+      gcaps_net_bus = net_driver;
+      gcaps_video = video_driver;
+      gcaps_virtio_rng = virtio_rng_supported;
+      gcaps_virtio_balloon = virtio_ballon_supported;
+      gcaps_isa_pvpanic = isa_pvpanic_supported;
+      gcaps_arch = Utils.kvm_arch inspect.i_arch;
+      gcaps_acpi = true;
+    } in
+
+    guestcaps
+
+  and configure_firstboot () =
     (* Note that pnp_wait.exe must be the first firstboot script as it
      * suppresses PnP for all following scripts.
      *)
@@ -361,9 +407,8 @@ if errorlevel 3010 exit /b 0
         Firstboot.add_firstboot_script g inspect.i_root
           "uninstall Parallels tools" fb_script
     ) prltools_uninsts
-  in
 
-  let rec update_system_hive reg =
+  and update_system_hive reg =
     (* Update the SYSTEM hive.  When this function is called the hive has
      * already been opened as a hivex handle inside guestfs.
      *)
@@ -597,47 +642,7 @@ if errorlevel 3010 exit /b 0
       g#rmdir esp_temp_path
   in
 
-  (* Firstboot configuration. *)
-  configure_firstboot ();
-
-  (* Open the system hive for writes and update it. *)
-  let block_driver, net_driver, video_driver,
-      virtio_rng_supported, virtio_ballon_supported, isa_pvpanic_supported =
-    Registry.with_hive_write g inspect.i_windows_system_hive
-                             update_system_hive in
-
-  (* Open the software hive for writes and update it. *)
-  Registry.with_hive_write g inspect.i_windows_software_hive
-                           update_software_hive;
-
-  fix_ntfs_heads ();
-
-  fix_win_esp ();
-
-  (* Warn if installation of virtio block drivers might conflict with
-   * group policy or AV software causing a boot 0x7B error (RHBZ#1260689).
-   *)
-  let () =
-    if block_driver = Virtio_blk then (
-      if has_group_policy then
-        warning (f_"this guest has Windows Group Policy Objects (GPO) and a new virtio block device driver was installed.  In some circumstances, Group Policy may prevent new drivers from working (resulting in a 7B boot error).  If this happens, try disabling Group Policy before doing the conversion.");
-      if has_antivirus then
-        warning (f_"this guest has Anti-Virus (AV) software and a new virtio block device driver was installed.  In some circumstances, AV may prevent new drivers from working (resulting in a 7B boot error).  If this happens, try disabling AV before doing the conversion.");
-    ) in
-
-  (* Return guest capabilities. *)
-  let guestcaps = {
-    gcaps_block_bus = block_driver;
-    gcaps_net_bus = net_driver;
-    gcaps_video = video_driver;
-    gcaps_virtio_rng = virtio_rng_supported;
-    gcaps_virtio_balloon = virtio_ballon_supported;
-    gcaps_isa_pvpanic = isa_pvpanic_supported;
-    gcaps_arch = Utils.kvm_arch inspect.i_arch;
-    gcaps_acpi = true;
-  } in
-
-  guestcaps
+  do_convert ()
 
 (* Register this conversion module. *)
 let () =
