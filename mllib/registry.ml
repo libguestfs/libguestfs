@@ -30,17 +30,26 @@ let with_hive_readonly (g : Guestfs.guestfs) hive_filename f =
   let verbose = verbose () in
   g#hivex_open ~write:false ~unsafe:true ~verbose (* ~debug:verbose *)
                hive_filename;
-  protect ~f:(fun () -> f (g, g#hivex_root ())) ~finally:g#hivex_close
+  protect
+    ~f:(
+      fun () ->
+        let t = g, g#hivex_root () in
+        f t
+    )
+    ~finally:g#hivex_close
 
 let with_hive_write (g : Guestfs.guestfs) hive_filename f =
   let verbose = verbose () in
   g#hivex_open ~write:true ~verbose (* ~debug:verbose *) hive_filename;
-  protect ~f:(
-    fun () ->
-      let ret = f (g, g#hivex_root ()) in
-      g#hivex_commit None;
-      ret
-  ) ~finally:g#hivex_close
+  protect
+    ~f:(
+      fun () ->
+        let t = g, g#hivex_root () in
+        let ret = f t in
+        g#hivex_commit None;
+        ret
+    )
+    ~finally:g#hivex_close
 
 (* Find the given node in the current hive, relative to the starting
  * point.  Returns [None] if the node is not found.
