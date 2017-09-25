@@ -27,7 +27,9 @@ open Customize_cmdline
 open Password
 open Append_line
 
-let run (g : Guestfs.guestfs) root (ops : ops) =
+module G = Guestfs
+
+let run (g : G.guestfs) root (ops : ops) =
   (* Is the host_cpu compatible with the guest arch?  ie. Can we
    * run commands in this guest?
    *)
@@ -89,7 +91,7 @@ exec >>%s 2>&1
     debug "running command:\n%s" cmd;
     try ignore (g#sh cmd)
     with
-      Guestfs.Error msg ->
+      G.Error msg ->
         debug_logfile ();
         if warn_failed_no_network && not (g#get_network ()) then (
           prerr_newline ();
@@ -193,6 +195,26 @@ exec >>%s 2>&1
   message (f_"Setting a random seed");
   if not (Random_seed.set_random_seed g root) then
     warning (f_"random seed could not be set for this type of guest");
+
+  (* Set the systemd machine ID.  This must be set before performing
+   * --install/--update since (at least in Fedora) the kernel %post
+   * script requires a machine ID and will fail if it is not set.
+   *)
+  let () =
+    let etc_machine_id = "/etc/machine-id" in
+    let statbuf =
+      try Some (g#lstatns etc_machine_id) with G.Error _ -> None in
+    (match statbuf with
+     | Some { G.st_size = 0L; G.st_mode = mode }
+          when (Int64.logand mode 0o170000_L) = 0o100000_L ->
+        message (f_"Setting the machine ID in %s") etc_machine_id;
+        let id = Urandom.urandom_bytes 16 in
+        let id = String.map_chars (fun c -> sprintf "%02x" (Char.code c)) id in
+        let id = String.concat "" id in
+        let id = id ^ "\n" in
+        g#write etc_machine_id id
+     | _ -> ()
+    ) in
 
   (* Store the passwords and set them all at the end. *)
   let passwords = Hashtbl.create 13 in
@@ -399,8 +421,8 @@ exec >>%s 2>&1
       let uid, gid = statbuf.st_uid, statbuf.st_gid in
       let chown () =
         try g#chown uid gid dest
-        with Guestfs.Error m as e ->
-          if g#last_errno () = Guestfs.Errno.errno_EPERM
+        with G.Error m as e ->
+          if g#last_errno () = G.Errno.errno_EPERM
           then warning "%s" m
           else raise e in
       chown ()
