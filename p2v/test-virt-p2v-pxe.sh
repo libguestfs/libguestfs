@@ -56,7 +56,7 @@ mkdir $d
 
 # Start the ssh server.  Kill it if the script exits for any reason.
 # Note you must use an absolute path to exec sshd.
-`which sshd` -f test-virt-p2v-pxe.sshd_config -D &
+`which sshd` -f test-virt-p2v-pxe.sshd_config -D -e &
 sshd_pid=$!
 cleanup ()
 {
