@@ -94,31 +94,25 @@ dnl names vary slightly across distros.  (See
 dnl appliance/packagelist.in, appliance/excludefiles.in,
 dnl appliance/hostfiles.in)
 AC_MSG_CHECKING([which Linux distro for package names])
-if test -f /etc/os-release; then
-    ( . /etc/os-release && echo $ID | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@' ) >&AS_MESSAGE_LOG_FD
-    DISTRO="`. /etc/os-release && echo $ID | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'`"
-    AS_CASE([$DISTRO],
-            [FEDORA | RHEL | CENTOS],[DISTRO=REDHAT],
-            [OPENSUSE | SLED | SLES],[DISTRO=SUSE],
-            [ARCH],[DISTRO=ARCHLINUX])
-elif test -f /etc/debian_version; then
-    DISTRO=DEBIAN
-    if grep -q 'DISTRIB_ID=Ubuntu' /etc/lsb-release 2>&AS_MESSAGE_LOG_FD; then
-        DISTRO=UBUNTU
-    fi
-elif test -f /etc/arch-release; then
-    DISTRO=ARCHLINUX
-elif test -f /etc/SuSE-release; then
-    DISTRO=SUSE
-elif test -f /etc/frugalware-release; then
-    DISTRO=FRUGALWARE
-elif test -f /etc/mageia-release; then
-    DISTRO=MAGEIA
-else
-dnl fallback option
-    DISTRO=REDHAT
-fi
-AC_MSG_RESULT([$DISTRO])
+AC_ARG_WITH([distro],
+    [AS_HELP_STRING([--with-distro="DISTRO_ID"],
+                    [distro ID @<:@default=ID in /etc/os-release@:>@])],[
+        DISTRO="$withval"
+        AC_MSG_RESULT([$DISTRO (manually specified)])
+    ],[
+        if test -f /etc/os-release; then
+            ( . /etc/os-release && echo $ID | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@' ) >&AS_MESSAGE_LOG_FD
+            DISTRO="`. /etc/os-release && echo $ID | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'`"
+            AS_CASE([$DISTRO],
+                    [FEDORA | RHEL | CENTOS],[DISTRO=REDHAT],
+                    [OPENSUSE | SLED | SLES],[DISTRO=SUSE],
+                    [ARCH],[DISTRO=ARCHLINUX])
+            AC_MSG_RESULT([$DISTRO (from /etc/os-release)])
+        else
+            AC_MSG_ERROR([/etc/os-release not available, please specify the distro using --with-distro=DISTRO])
+        fi
+    ]
+)
 AC_SUBST([DISTRO])
 
 dnl Add extra packages to the appliance.

@@ -648,6 +648,20 @@ Note that despite this setting, all backends are built into
 libguestfs, and you can override the backend at runtime by setting the
 C<$LIBGUESTFS_BACKEND> environment variable (or using API methods).
 
+=item B<--with-distro=REDHAT|DEBIAN|...>
+
+Libguestfs needs to know which Linux distro is in use so it can choose
+package names for the appliance correctly (see for example
+F<appliance/packagelist.in>).  It normally does this automatically.
+
+However if you can building or packaging libguestfs on a new distro
+then you can use I<--with-distro> to specify that the distro is
+similar to an existing one (eg. I<--with-distro=REDHAT> if the distro
+is a new Red Hat or CentOS derivative).
+
+Note that if your distro is completely new then it may still require
+upstream modifications.
+
 =item B<--with-extra=">I<distroname>=I<version>,libvirt,...B<">
 
 =item B<--with-extra="local">
