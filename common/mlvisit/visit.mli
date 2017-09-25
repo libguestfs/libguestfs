@@ -50,22 +50,3 @@ val visit : Guestfs.t -> string -> visitor_function -> unit
 
     If the visit function returns normally you can assume there
     was no error. *)
-
-val full_path : string -> string option -> string
-(** This can be called with the [dir] and [name] parameters from
-    [visitor_function] to return the full canonical path. *)
-
-val is_reg : int64 -> bool
-(** Returns true if [G.statns.st_mode] represents a regular file. *)
-val is_dir : int64 -> bool
-(** Returns true if [G.statns.st_mode] represents a directory. *)
-val is_chr : int64 -> bool
-(** Returns true if [G.statns.st_mode] represents a character device. *)
-val is_blk : int64 -> bool
-(** Returns true if [G.statns.st_mode] represents a block device. *)
-val is_fifo : int64 -> bool
-(** Returns true if [G.statns.st_mode] represents a FIFO. *)
-val is_lnk : int64 -> bool
-(** Returns true if [G.statns.st_mode] represents a symbolic link. *)
-val is_sock : int64 -> bool
-(** Returns true if [G.statns.st_mode] represents a Unix domain socket. *)

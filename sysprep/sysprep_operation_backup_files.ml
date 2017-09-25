@@ -19,6 +19,7 @@
 open Printf
 
 open Std_utils
+open C_utils
 open Common_utils
 open Common_gettext.Gettext
 open Visit

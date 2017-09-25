@@ -70,6 +70,7 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 # installed copy of libguestfs.
 OCAMLPACKAGES = \
 	-package str,unix \
+	-I $(top_builddir)/common/mlutils \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
@@ -108,10 +109,13 @@ visit_tests_THEOBJECTS = $(visit_tests_XOBJECTS)
 visit_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 endif
 
-OCAMLLINKFLAGS = mlguestfs.$(MLARCHIVE) $(LINK_CUSTOM_OCAMLC_ONLY)
+OCAMLLINKFLAGS = \
+	mlcutils.$(MLARCHIVE) \
+	mlguestfs.$(MLARCHIVE) $(LINK_CUSTOM_OCAMLC_ONLY)
 
 visit_tests_DEPENDENCIES = \
 	$(visit_tests_THEOBJECTS) \
+	../mlutils/mlcutils.$(MLARCHIVE) \
 	$(MLVISIT_CMA) \
 	$(top_srcdir)/ocaml-link.sh
 visit_tests_LINK = \

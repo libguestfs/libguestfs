@@ -624,3 +624,112 @@ guestfs_int_shell_unquote (const char *str)
 
   return strdup (str);
 }
+
+/* In the libguestfs API, modes returned by lstat and friends are
+ * defined to contain Linux ABI values.  However since the "current
+ * operating system" might not be Linux, we have to hard-code those
+ * numbers in the functions below.
+ */
+
+/**
+ * Return true if the C<guestfs_statns> or C<guestfs_lstatns>
+ * C<st_mode> field represents a regular file.
+ */
+int
+guestfs_int_is_reg (int64_t mode)
+{
+  return (mode & 0170000) == 0100000;
+}
+
+/**
+ * Return true if the C<guestfs_statns> or C<guestfs_lstatns>
+ * C<st_mode> field represents a directory.
+ */
+int
+guestfs_int_is_dir (int64_t mode)
+{
+  return (mode & 0170000) == 0040000;
+}
+
+/**
+ * Return true if the C<guestfs_statns> or C<guestfs_lstatns>
+ * C<st_mode> field represents a char device.
+ */
+int
+guestfs_int_is_chr (int64_t mode)
+{
+  return (mode & 0170000) == 0020000;
+}
+
+/**
+ * Return true if the C<guestfs_statns> or C<guestfs_lstatns>
+ * C<st_mode> field represents a block device.
+ */
+int
+guestfs_int_is_blk (int64_t mode)
+{
+  return (mode & 0170000) == 0060000;
+}
+
+/**
+ * Return true if the C<guestfs_statns> or C<guestfs_lstatns>
+ * C<st_mode> field represents a named pipe (FIFO).
+ */
+int
+guestfs_int_is_fifo (int64_t mode)
+{
+  return (mode & 0170000) == 0010000;
+}
+
+/**
+ * Return true if the C<guestfs_statns> or C<guestfs_lstatns>
+ * C<st_mode> field represents a symbolic link.
+ */
+int
+guestfs_int_is_lnk (int64_t mode)
+{
+  return (mode & 0170000) == 0120000;
+}
+
+/**
+ * Return true if the C<guestfs_statns> or C<guestfs_lstatns>
+ * C<st_mode> field represents a Unix domain socket.
+ */
+int
+guestfs_int_is_sock (int64_t mode)
+{
+  return (mode & 0170000) == 0140000;
+}
+
+/**
+ * Concatenate C<dir> and C<name> to create a path.  This correctly
+ * handles the case of concatenating C<"/" + "filename"> as well
+ * as C<"/dir" + "filename">.  C<name> may be C<NULL>.
+ *
+ * The caller must free the returned path.
+ *
+ * This function sets C<errno> and returns C<NULL> on error.
+ */
+char *
+guestfs_int_full_path (const char *dir, const char *name)
+{
+  int r;
+  char *path;
+  int len;
+
+  len = strlen (dir);
+  if (len > 0 && dir[len - 1] == '/')
+    --len;
+
+  if (STREQ (dir, "/"))
+    r = asprintf (&path, "/%s", name ? name : "");
+  else if (name)
+    r = asprintf (&path, "%.*s/%s", len, dir, name);
+  else
+    r = asprintf (&path, "%.*s", len, dir);
+
+  if (r == -1)
+    return NULL;
+
+  return path;
+}

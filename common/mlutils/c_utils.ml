@@ -24,3 +24,13 @@ external drive_name : int -> string = "guestfs_int_mlutils_drive_name"
 external drive_index : string -> int = "guestfs_int_mlutils_drive_index"
 
 external shell_unquote : string -> string = "guestfs_int_mlutils_shell_unquote"
+
+external is_reg : int64 -> bool = "guestfs_int_mlutils_is_reg" "noalloc"
+external is_dir : int64 -> bool = "guestfs_int_mlutils_is_dir" "noalloc"
+external is_chr : int64 -> bool = "guestfs_int_mlutils_is_chr" "noalloc"
+external is_blk : int64 -> bool = "guestfs_int_mlutils_is_blk" "noalloc"
+external is_fifo : int64 -> bool = "guestfs_int_mlutils_is_fifo" "noalloc"
+external is_lnk : int64 -> bool = "guestfs_int_mlutils_is_lnk" "noalloc"
+external is_sock : int64 -> bool = "guestfs_int_mlutils_is_sock" "noalloc"
+
+external full_path : string -> string option -> string = "guestfs_int_mlutils_full_path"

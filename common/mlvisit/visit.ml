@@ -23,14 +23,3 @@ external c_visit : int64 -> string -> visitor_function -> unit =
 
 let visit g dir f =
   c_visit (Guestfs.c_pointer g) dir f
-
-external full_path : string -> string option -> string =
-  "guestfs_int_mllib_full_path"
-
-external is_reg : int64 -> bool = "guestfs_int_mllib_is_reg" "noalloc"
-external is_dir : int64 -> bool = "guestfs_int_mllib_is_dir" "noalloc"
-external is_chr : int64 -> bool = "guestfs_int_mllib_is_chr" "noalloc"
-external is_blk : int64 -> bool = "guestfs_int_mllib_is_blk" "noalloc"
-external is_fifo : int64 -> bool = "guestfs_int_mllib_is_fifo" "noalloc"
-external is_lnk : int64 -> bool = "guestfs_int_mllib_is_lnk" "noalloc"
-external is_sock : int64 -> bool = "guestfs_int_mllib_is_sock" "noalloc"

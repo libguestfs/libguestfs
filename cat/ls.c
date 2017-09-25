@@ -47,6 +47,7 @@
 
 #include "options.h"
 #include "display-options.h"
+#include "guestfs-utils.h"
 #include "visit.h"
 
 /* Currently open libguestfs handle. */
@@ -481,19 +482,19 @@ show_file (const char *dir, const char *name,
   /* Display the basic fields. */
   output_start_line ();
 
-  if (is_reg (stat->st_mode))
+  if (guestfs_int_is_reg (stat->st_mode))
     filetype = "-";
-  else if (is_dir (stat->st_mode))
+  else if (guestfs_int_is_dir (stat->st_mode))
     filetype = "d";
-  else if (is_chr (stat->st_mode))
+  else if (guestfs_int_is_chr (stat->st_mode))
     filetype = "c";
-  else if (is_blk (stat->st_mode))
+  else if (guestfs_int_is_blk (stat->st_mode))
     filetype = "b";
-  else if (is_fifo (stat->st_mode))
+  else if (guestfs_int_is_fifo (stat->st_mode))
     filetype = "p";
-  else if (is_lnk (stat->st_mode))
+  else if (guestfs_int_is_lnk (stat->st_mode))
     filetype = "l";
-  else if (is_sock (stat->st_mode))
+  else if (guestfs_int_is_sock (stat->st_mode))
     filetype = "s";
   else
     filetype = "u";
@@ -527,10 +528,12 @@ show_file (const char *dir, const char *name,
     output_xattrs (xattrs);
   */
 
-  path = full_path (dir, name);
+  path = guestfs_int_full_path (dir, name);
+  if (!path)
+    error (EXIT_FAILURE, errno, "guestfs_int_full_path");
 
   if (checksum) {
-    if (is_reg (stat->st_mode)) {
+    if (guestfs_int_is_reg (stat->st_mode)) {
       csum = guestfs_checksum (g, checksum, path);
       if (!csum)
         exit (EXIT_FAILURE);
@@ -542,7 +545,7 @@ show_file (const char *dir, const char *name,
 
   output_string (path);
 
-  if (is_lnk (stat->st_mode))
+  if (guestfs_int_is_lnk (stat->st_mode))
     /* XXX Fix this for NTFS. */
     link = guestfs_readlink (g, path);
   if (link)

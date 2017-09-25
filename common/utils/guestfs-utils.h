@@ -62,6 +62,14 @@ extern void guestfs_int_fadvise_noreuse (int fd);
 //extern void guestfs_int_fadvise_dontneed (int fd);
 //extern void guestfs_int_fadvise_willneed (int fd);
 extern char *guestfs_int_shell_unquote (const char *str);
+extern int guestfs_int_is_reg (int64_t mode);
+extern int guestfs_int_is_dir (int64_t mode);
+extern int guestfs_int_is_chr (int64_t mode);
+extern int guestfs_int_is_blk (int64_t mode);
+extern int guestfs_int_is_fifo (int64_t mode);
+extern int guestfs_int_is_lnk (int64_t mode);
+extern int guestfs_int_is_sock (int64_t mode);
+extern char *guestfs_int_full_path (const char *dir, const char *name);
 
 /* Not all language bindings know how to deal with Pointer arguments.
  * Those that don't will use this macro which complains noisily and

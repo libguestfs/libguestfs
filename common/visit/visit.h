@@ -23,14 +23,4 @@ typedef int (*visitor_function) (const char *dir, const char *name, const struct
 
 extern int visit (guestfs_h *g, const char *dir, visitor_function f, void *opaque);
 
-extern char *full_path (const char *dir, const char *name);
-
-extern int is_reg (int64_t mode);
-extern int is_dir (int64_t mode);
-extern int is_chr (int64_t mode);
-extern int is_blk (int64_t mode);
-extern int is_fifo (int64_t mode);
-extern int is_lnk (int64_t mode);
-extern int is_sock (int64_t mode);
-
 #endif /* VISIT_H */

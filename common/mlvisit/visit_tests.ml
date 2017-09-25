@@ -20,6 +20,7 @@
 
 open Printf
 
+open C_utils
 open Visit
 
 module G = Guestfs

@@ -133,38 +133,6 @@ visitor_function_wrapper (const char *dir,
   CAMLreturnT (int, 0);
 }
 
-value
-guestfs_int_mllib_full_path (value dirv, value namev)
-{
-  CAMLparam2 (dirv, namev);
-  CAMLlocal1 (rv);
-  const char *name = NULL;
-  char *ret;
-
-  if (namev != Val_int (0))
-    name = String_val (Field (namev, 0));
-
-  ret = full_path (String_val (dirv), name);
-  rv = caml_copy_string (ret);
-  free (ret);
-
-  CAMLreturn (rv);
-}
-
-#define is(t)                                           \
-  value                                                 \
-  guestfs_int_mllib_is_##t (value iv)                   \
-  {                                                     \
-    return Val_bool (is_##t (Int64_val (iv)));          \
-  }
-is(reg)
-is(dir)
-is(chr)
-is(blk)
-is(fifo)
-is(lnk)
-is(sock)
-
 /* The functions below are copied from ocaml/guestfs-c-actions.c. */
 
 static value

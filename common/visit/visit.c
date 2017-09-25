@@ -158,86 +158,16 @@ _visit (guestfs_h *g, int depth, const char *dir,
       return -1;
 
     /* Recursively call visit, but only on directories. */
-    if (is_dir (stats->val[i].st_mode)) {
-      path = full_path (dir, names[i]);
+    if (guestfs_int_is_dir (stats->val[i].st_mode)) {
+      path = guestfs_int_full_path (dir, names[i]);
+      if (!path) {
+        perror ("guestfs_int_full_path");
+        return -1;
+      }
       if (_visit (g, depth + 1, path, f, opaque) == -1)
         return -1;
     }
   }
 
   return 0;
-}
-
-char *
-full_path (const char *dir, const char *name)
-{
-  int r;
-  char *path;
-  int len;
-
-  len = strlen (dir);
-  if (len > 0 && dir[len - 1] == '/')
-    --len;
-
-  if (STREQ (dir, "/"))
-    r = asprintf (&path, "/%s", name ? name : "");
-  else if (name)
-    r = asprintf (&path, "%.*s/%s", len, dir, name);
-  else
-    r = asprintf (&path, "%.*s", len, dir);
-
-  if (r == -1) {
-    perror ("asprintf");
-    abort ();
-  }
-
-  return path;
-}
-
-/* In the libguestfs API, modes returned by lstat and friends are
- * defined to contain Linux ABI values.  However since the "current
- * operating system" might not be Linux, we have to hard-code those
- * numbers here.
- */
-int
-is_reg (int64_t mode)
-{
-  return (mode & 0170000) == 0100000;
-}
-
-int
-is_dir (int64_t mode)
-{
-  return (mode & 0170000) == 0040000;
-}
-
-int
-is_chr (int64_t mode)
-{
-  return (mode & 0170000) == 0020000;
-}
-
-int
-is_blk (int64_t mode)
-{
-  return (mode & 0170000) == 0060000;
-}
-
-int
-is_fifo (int64_t mode)
-{
-  return (mode & 0170000) == 0010000;
-}
-
-/* symbolic link */
-int
-is_lnk (int64_t mode)
-{
-  return (mode & 0170000) == 0120000;
-}
-
-int
-is_sock (int64_t mode)
-{
-  return (mode & 0170000) == 0140000;
 }

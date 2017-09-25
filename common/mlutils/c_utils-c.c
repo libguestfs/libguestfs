@@ -75,3 +75,35 @@ guestfs_int_mlutils_shell_unquote (value strv)
   free (ret);
   CAMLreturn (retv);
 }
+
+#define is(t)                                                   \
+  value                                                         \
+  guestfs_int_mlutils_is_##t (value iv)                         \
+  {                                                             \
+    return Val_bool (guestfs_int_is_##t (Int64_val (iv)));      \
+  }
+is(reg)
+is(dir)
+is(chr)
+is(blk)
+is(fifo)
+is(lnk)
+is(sock)
+
+value
+guestfs_int_mlutils_full_path (value dirv, value namev)
+{
+  CAMLparam2 (dirv, namev);
+  CAMLlocal1 (rv);
+  const char *name = NULL;
+  char *ret;
+
+  if (namev != Val_int (0))
+    name = String_val (Field (namev, 0));
+
+  ret = guestfs_int_full_path (String_val (dirv), name);
+  rv = caml_copy_string (ret);
+  free (ret);
+
+  CAMLreturn (rv);
+}

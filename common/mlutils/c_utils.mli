@@ -28,3 +28,22 @@ val shell_unquote : string -> string
     This is just intended to deal with quoting in configuration files
     (like ones under /etc/sysconfig), and it doesn't deal with some
     situations such as $variable interpolation. *)
+
+val is_reg : int64 -> bool
+(** Returns true if [G.statns.st_mode] represents a regular file. *)
+val is_dir : int64 -> bool
+(** Returns true if [G.statns.st_mode] represents a directory. *)
+val is_chr : int64 -> bool
+(** Returns true if [G.statns.st_mode] represents a character device. *)
+val is_blk : int64 -> bool
+(** Returns true if [G.statns.st_mode] represents a block device. *)
+val is_fifo : int64 -> bool
+(** Returns true if [G.statns.st_mode] represents a FIFO. *)
+val is_lnk : int64 -> bool
+(** Returns true if [G.statns.st_mode] represents a symbolic link. *)
+val is_sock : int64 -> bool
+(** Returns true if [G.statns.st_mode] represents a Unix domain socket. *)
+
+val full_path : string -> string option -> string
+(** This can be called with the [dir] and [name] parameters from
+    [visitor_function] to return the full canonical path. *)
