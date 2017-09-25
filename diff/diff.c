@@ -485,15 +485,11 @@ visit_entry (const char *dir, const char *name,
    * free them after we return.
    */
   stat = guestfs_copy_statns (stat_orig);
-  if (stat == NULL) {
-    perror ("guestfs_copy_stat");
+  if (stat == NULL)
     goto error;
-  }
   xattrs = guestfs_copy_xattr_list (xattrs_orig);
-  if (xattrs == NULL) {
-    perror ("guestfs_copy_xattr_list");
+  if (xattrs == NULL)
     goto error;
-  }
 
   if (checksum && is_reg (stat->st_mode)) {
     csum = guestfs_checksum (t->g, checksum, path);
