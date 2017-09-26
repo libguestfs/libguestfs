@@ -90,15 +90,13 @@ OCAML_PKG_oUnit=no
 ounit_is_v2=no
 have_Bytes_module=no
 AS_IF([test "x$OCAMLC" != "xno"],[
-    # Create mllib/common_gettext.ml and mllib/commit_gettext.mli,
-    # gettext functions or stubs.
+    # Create common/mlgettext/common_gettext.ml gettext functions or stubs.
 
-    # If we're building in a different directory, then mllib/ might
-    # not exist yet, so create it:
-    mkdir -p mllib
+    # If we're building in a different directory, then common/mlgettext
+    # might not exist yet, so create it:
+    mkdir -p common/mlgettext
 
-    GUESTFS_CREATE_COMMON_GETTEXT_ML([mllib/common_gettext.ml])
-    GUESTFS_CREATE_COMMON_GETTEXT_MLI([mllib/common_gettext.mli])
+    GUESTFS_CREATE_COMMON_GETTEXT_ML([common/mlgettext/common_gettext.ml])
 
     AC_CHECK_OCAML_PKG(libvirt)
     AC_CHECK_OCAML_PKG(oUnit)

@@ -28,7 +28,6 @@ EXTRA_DIST = \
 
 SOURCES_MLI = \
 	checksums.mli \
-	common_gettext.mli \
 	common_utils.mli \
 	curl.mli \
 	getopt.mli \
@@ -40,7 +39,6 @@ SOURCES_MLI = \
 	xpath_helpers.mli
 
 SOURCES_ML = \
-	common_gettext.ml \
 	getopt.ml \
 	common_utils.ml \
 	URI.ml \
@@ -86,6 +84,7 @@ libmllib_a_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/lib \
 	-I$(top_srcdir)/common/options \
+	-I$(top_srcdir)/common/mlgettext \
 	-I$(top_srcdir)/common/mlpcre \
 	-I$(top_srcdir)/common/mlxml \
 	-I$(top_srcdir)/common/mlstdutils \
@@ -107,6 +106,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
+	-I $(top_builddir)/common/mlgettext \
 	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/common/mlxml \
 	-I $(top_builddir)/common/mlstdutils \
@@ -191,6 +191,7 @@ endif
 OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
+	mlgettext.$(MLARCHIVE) \
 	mlpcre.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
@@ -198,6 +199,7 @@ OCAMLLINKFLAGS = \
 common_utils_tests_DEPENDENCIES = \
 	$(common_utils_tests_THEOBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../common/mlgettext/mlgettext.$(MLARCHIVE) \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	$(MLLIB_CMA) \
 	$(top_srcdir)/ocaml-link.sh
@@ -210,6 +212,7 @@ common_utils_tests_LINK = \
 getopt_tests_DEPENDENCIES = \
 	$(getopt_tests_THEOBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../common/mlgettext/mlgettext.$(MLARCHIVE) \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	$(MLLIB_CMA) \
 	$(top_srcdir)/ocaml-link.sh
@@ -222,6 +225,7 @@ getopt_tests_LINK = \
 JSON_tests_DEPENDENCIES = \
 	$(JSON_tests_THEOBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../common/mlgettext/mlgettext.$(MLARCHIVE) \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	$(MLLIB_CMA) \
 	$(top_srcdir)/ocaml-link.sh

@@ -65,6 +65,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlprogress \
 	-I $(top_builddir)/common/mlutils \
+	-I $(top_builddir)/common/mlgettext \
 	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/mllib
 if HAVE_OCAML_PKG_GETTEXT
@@ -91,6 +92,7 @@ OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	mlprogress.$(MLARCHIVE) \
+	mlgettext.$(MLARCHIVE) \
 	mlpcre.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
 	mllib.$(MLARCHIVE) \
@@ -100,6 +102,7 @@ virt_resize_DEPENDENCIES = \
 	$(OBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
+	../common/mlgettext/mlgettext.$(MLARCHIVE) \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh

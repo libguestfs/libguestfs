@@ -17,6 +17,7 @@ common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
 common/miniexpect/miniexpect.c
 common/mlaugeas/augeas-c.c
+common/mlgettext/dummy.c
 common/mlpcre/dummy.c
 common/mlpcre/pcre-c.c
 common/mlprogress/progress-c.c

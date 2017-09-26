@@ -158,6 +158,7 @@ SUBDIRS += csharp
 # OCaml tools.  Note 'common/ml*', 'mllib' and 'customize' contain
 # shared code used by other OCaml tools, so these must come first.
 if HAVE_OCAML
+SUBDIRS += common/mlgettext
 SUBDIRS += common/mlprogress
 SUBDIRS += common/mlvisit
 SUBDIRS += common/mlxml

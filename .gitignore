@@ -124,6 +124,8 @@ Makefile.in
 /common/errnostring/errnostring.h
 /common/miniexpect/miniexpect.3
 /common/mlaugeas/.depend
+/common/mlgettext/.depend
+/common/mlgettext/common_gettext.ml
 /common/mlpcre/.depend
 /common/mlpcre/pcre_tests
 /common/mlprogress/.depend
@@ -378,8 +380,6 @@ Makefile.in
 /make-fs/virt-make-fs.1
 /missing
 /mllib/.depend
-/mllib/common_gettext.ml
-/mllib/common_gettext.mli
 /mllib/common_utils_tests
 /mllib/getopt_tests
 /mllib/JSON_tests

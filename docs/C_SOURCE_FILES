@@ -16,6 +16,7 @@ common/edit/file-edit.h
 common/miniexpect/miniexpect.c
 common/miniexpect/miniexpect.h
 common/mlaugeas/augeas-c.c
+common/mlgettext/dummy.c
 common/mlpcre/dummy.c
 common/mlpcre/pcre-c.c
 common/mlprogress/progress-c.c

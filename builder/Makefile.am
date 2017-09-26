@@ -128,6 +128,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlutils \
+	-I $(top_builddir)/common/mlgettext \
 	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
@@ -159,6 +160,7 @@ OBJECTS = $(XOBJECTS)
 endif
 
 OCAMLLINKFLAGS = \
+	mlgettext.$(MLARCHIVE) \
 	mlpcre.$(MLARCHIVE) \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
@@ -170,6 +172,7 @@ OCAMLLINKFLAGS = \
 virt_builder_DEPENDENCIES = \
 	$(OBJECTS) \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
+	../common/mlgettext/mlgettext.$(MLARCHIVE) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
