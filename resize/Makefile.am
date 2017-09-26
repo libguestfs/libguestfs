@@ -67,7 +67,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlutils \
 	-I $(top_builddir)/common/mlgettext \
 	-I $(top_builddir)/common/mlpcre \
-	-I $(top_builddir)/mllib
+	-I $(top_builddir)/common/mltools
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
@@ -95,7 +95,7 @@ OCAMLLINKFLAGS = \
 	mlgettext.$(MLARCHIVE) \
 	mlpcre.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
-	mllib.$(MLARCHIVE) \
+	mltools.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
 virt_resize_DEPENDENCIES = \
@@ -104,7 +104,7 @@ virt_resize_DEPENDENCIES = \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../common/mlgettext/mlgettext.$(MLARCHIVE) \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
-	../mllib/mllib.$(MLARCHIVE) \
+	../common/mltools/mltools.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 virt_resize_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \

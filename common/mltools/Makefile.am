@@ -51,9 +51,9 @@ SOURCES_ML = \
 	xpath_helpers.ml
 
 SOURCES_C = \
-	../common/options/decrypt.c \
-	../common/options/keys.c \
-	../common/options/uri.c \
+	../options/decrypt.c \
+	../options/keys.c \
+	../options/uri.c \
 	common_utils-c.c \
 	getopt-c.c \
 	uri-c.c
@@ -65,18 +65,18 @@ if HAVE_OCAML
 # objects and OCaml objects and link them into the OCaml library.
 # This C library is never used.
 
-noinst_LIBRARIES = libmllib.a
+noinst_LIBRARIES = libmltools.a
 
 if !HAVE_OCAMLOPT
-MLLIB_CMA = mllib.cma
+MLTOOLS_CMA = mltools.cma
 else
-MLLIB_CMA = mllib.cmxa
+MLTOOLS_CMA = mltools.cmxa
 endif
 
-noinst_DATA = $(MLLIB_CMA)
+noinst_DATA = $(MLTOOLS_CMA)
 
-libmllib_a_SOURCES = $(SOURCES_C)
-libmllib_a_CPPFLAGS = \
+libmltools_a_SOURCES = $(SOURCES_C)
+libmltools_a_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
@@ -89,7 +89,7 @@ libmllib_a_CPPFLAGS = \
 	-I$(top_srcdir)/common/mlxml \
 	-I$(top_srcdir)/common/mlstdutils \
 	-I$(top_srcdir)/common/mlutils
-libmllib_a_CFLAGS = \
+libmltools_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
 	-fPIC
@@ -112,7 +112,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlutils \
 	-I $(builddir)
-OCAMLPACKAGES_TESTS = $(MLLIB_CMA)
+OCAMLPACKAGES_TESTS = $(MLTOOLS_CMA)
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
@@ -137,11 +137,11 @@ else
 OBJECTS = $(XOBJECTS)
 endif
 
-libmllib_a_DEPENDENCIES = $(OBJECTS)
+libmltools_a_DEPENDENCIES = $(OBJECTS)
 
-$(MLLIB_CMA): $(OBJECTS) libmllib.a
+$(MLTOOLS_CMA): $(OBJECTS) libmltools.a
 	$(OCAMLFIND) mklib $(OCAMLPACKAGES) \
-	    $(OBJECTS) $(libmllib_a_OBJECTS) -o mllib
+	    $(OBJECTS) $(libmltools_a_OBJECTS) -o mltools
 
 # Tests.
 
@@ -198,10 +198,10 @@ OCAMLLINKFLAGS = \
 
 common_utils_tests_DEPENDENCIES = \
 	$(common_utils_tests_THEOBJECTS) \
-	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
-	../common/mlgettext/mlgettext.$(MLARCHIVE) \
-	../common/mlpcre/mlpcre.$(MLARCHIVE) \
-	$(MLLIB_CMA) \
+	../mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../mlgettext/mlgettext.$(MLARCHIVE) \
+	../mlpcre/mlpcre.$(MLARCHIVE) \
+	$(MLTOOLS_CMA) \
 	$(top_srcdir)/ocaml-link.sh
 common_utils_tests_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '-lutils $(LIBXML2_LIBS) -lgnu' -- \
@@ -211,10 +211,10 @@ common_utils_tests_LINK = \
 
 getopt_tests_DEPENDENCIES = \
 	$(getopt_tests_THEOBJECTS) \
-	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
-	../common/mlgettext/mlgettext.$(MLARCHIVE) \
-	../common/mlpcre/mlpcre.$(MLARCHIVE) \
-	$(MLLIB_CMA) \
+	../mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../mlgettext/mlgettext.$(MLARCHIVE) \
+	../mlpcre/mlpcre.$(MLARCHIVE) \
+	$(MLTOOLS_CMA) \
 	$(top_srcdir)/ocaml-link.sh
 getopt_tests_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '-lutils $(LIBXML2_LIBS) -lgnu' -- \
@@ -224,10 +224,10 @@ getopt_tests_LINK = \
 
 JSON_tests_DEPENDENCIES = \
 	$(JSON_tests_THEOBJECTS) \
-	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
-	../common/mlgettext/mlgettext.$(MLARCHIVE) \
-	../common/mlpcre/mlpcre.$(MLARCHIVE) \
-	$(MLLIB_CMA) \
+	../mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../mlgettext/mlgettext.$(MLARCHIVE) \
+	../mlpcre/mlpcre.$(MLARCHIVE) \
+	$(MLTOOLS_CMA) \
 	$(top_srcdir)/ocaml-link.sh
 JSON_tests_LINK = \
 	$(top_srcdir)/ocaml-link.sh -- \

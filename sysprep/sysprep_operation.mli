@@ -107,7 +107,7 @@ type operation = {
 
 and extra_arg = {
   extra_argspec : Getopt.keys * Getopt.spec * Getopt.doc;
-  (** The argspec.  See [Getopt] module in [mllib]. *)
+  (** The argspec.  See [Getopt] module in [common/mltools]. *)
 
   extra_pod_argval : string option;
   (** The argument value, used only in the virt-sysprep man page. *)

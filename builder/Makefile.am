@@ -130,7 +130,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlutils \
 	-I $(top_builddir)/common/mlgettext \
 	-I $(top_builddir)/common/mlpcre \
-	-I $(top_builddir)/mllib \
+	-I $(top_builddir)/common/mltools \
 	-I $(top_builddir)/customize
 OCAMLPACKAGES_TESTS =
 if HAVE_OCAML_PKG_GETTEXT
@@ -165,7 +165,7 @@ OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
-	mllib.$(MLARCHIVE) \
+	mltools.$(MLARCHIVE) \
 	customize.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
@@ -175,7 +175,7 @@ virt_builder_DEPENDENCIES = \
 	../common/mlgettext/mlgettext.$(MLARCHIVE) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
-	../mllib/mllib.$(MLARCHIVE) \
+	../common/mltools/mltools.$(MLARCHIVE) \
 	../customize/customize.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 virt_builder_LINK = \
@@ -249,7 +249,7 @@ yajl_tests_DEPENDENCIES = \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
-	../mllib/mllib.$(MLARCHIVE) \
+	../common/mltools/mltools.$(MLARCHIVE) \
 	../customize/customize.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 yajl_tests_LINK = \

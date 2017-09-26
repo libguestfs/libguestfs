@@ -155,14 +155,14 @@ endif
 # Unconditional because nothing is built yet.
 SUBDIRS += csharp
 
-# OCaml tools.  Note 'common/ml*', 'mllib' and 'customize' contain
-# shared code used by other OCaml tools, so these must come first.
+# OCaml tools.  Note 'common/ml*' and 'customize' contain shared code
+# used by other OCaml tools, so these must come first.
 if HAVE_OCAML
 SUBDIRS += common/mlgettext
 SUBDIRS += common/mlprogress
 SUBDIRS += common/mlvisit
 SUBDIRS += common/mlxml
-SUBDIRS += mllib
+SUBDIRS += common/mltools
 SUBDIRS += customize
 SUBDIRS += builder builder/templates
 SUBDIRS += get-kernel
@@ -351,7 +351,7 @@ po/POTFILES: configure.ac
 po/POTFILES-ml: configure.ac
 	rm -f $@ $@-t
 	cd $(srcdir); \
-	find builder common/ml* customize dib get-kernel mllib resize sparsify sysprep v2v -name '*.ml' | \
+	find builder common/ml* customize dib get-kernel resize sparsify sysprep v2v -name '*.ml' | \
 	grep -v '^builder/templates/' | \
 	LC_ALL=C sort > $@-t
 	mv $@-t $@

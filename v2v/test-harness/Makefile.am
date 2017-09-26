@@ -44,7 +44,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlxml \
-	-I $(top_builddir)/mllib \
+	-I $(top_builddir)/common/mltools \
 	-I $(top_builddir)/v2v
 
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)

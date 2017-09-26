@@ -73,7 +73,7 @@ type format = {
 
 and extra_arg = {
   extra_argspec : Getopt.keys * Getopt.spec * Getopt.doc;
-  (** The argspec.  See [Getopt] module in [mllib]. *)
+  (** The argspec.  See [Getopt] module in [common/mltools]. *)
 }
 
 val defaults : format

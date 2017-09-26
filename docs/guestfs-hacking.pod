@@ -124,6 +124,11 @@ OCaml bindings for the progress bar functions (see F<common/progress>).
 
 A library of pure OCaml utility functions used in many places.
 
+=item F<common/mltools>
+
+OCaml utility functions only used by the OCaml virt tools (like
+C<virt-sysprep>, C<virt-v2v> etc.)
+
 =item F<common/mlutils>
 
 OCaml bindings for C functions in C<common/utils>, and some POSIX
@@ -261,11 +266,6 @@ M4 macros used by autoconf.  See L</THE BUILD SYSTEM>.
 =item F<make-fs>
 
 L<virt-make-fs(1)> command and documentation.
-
-=item F<mllib>
-
-Various libraries and common code used by L<virt-resize(1)> and
-the other tools which are written in OCaml.
 
 =item F<p2v>
 

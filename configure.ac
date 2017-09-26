@@ -232,6 +232,7 @@ AC_CONFIG_FILES([Makefile
                  common/mlprogress/Makefile
                  common/mlstdutils/Makefile
                  common/mlstdutils/guestfs_config.ml
+                 common/mltools/Makefile
                  common/mlutils/Makefile
                  common/mlvisit/Makefile
                  common/mlxml/Makefile
@@ -275,7 +276,6 @@ AC_CONFIG_FILES([Makefile
                  lua/Makefile
                  lua/examples/Makefile
                  make-fs/Makefile
-                 mllib/Makefile
                  ocaml/META
                  ocaml/Makefile
                  ocaml/examples/Makefile

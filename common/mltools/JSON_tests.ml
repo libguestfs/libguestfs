@@ -1,4 +1,4 @@
-(* mllib
+(* mltools JSON tests
  * Copyright (C) 2015 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -221,7 +221,7 @@ let test_builder ctx =
 
 (* Suites declaration. *)
 let suite =
-  "mllib JSON" >:::
+  "mltools JSON" >:::
     [
       "basic.empty" >:: test_empty;
       "basic.string" >:: test_string;

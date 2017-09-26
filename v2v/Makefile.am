@@ -154,7 +154,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlgettext \
 	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/common/mlxml \
-	-I $(top_builddir)/mllib \
+	-I $(top_builddir)/common/mltools \
 	-I $(top_builddir)/customize
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
@@ -183,7 +183,7 @@ OCAMLLINKFLAGS = \
 	mlpcre.$(MLARCHIVE) \
 	mlxml.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
-	mllib.$(MLARCHIVE) \
+	mltools.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
 virt_v2v_DEPENDENCIES = $(OBJECTS) $(top_srcdir)/ocaml-link.sh
@@ -225,7 +225,7 @@ virt_v2v_copy_to_local_DEPENDENCIES = \
 	../common/mlgettext/mlgettext.$(MLARCHIVE) \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
-	../mllib/mllib.$(MLARCHIVE) \
+	../common/mltools/mltools.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 virt_v2v_copy_to_local_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
@@ -517,7 +517,7 @@ v2v_unit_tests_DEPENDENCIES = \
 	../common/mlgettext/mlgettext.$(MLARCHIVE) \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
-	../mllib/mllib.$(MLARCHIVE) \
+	../common/mltools/mltools.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 v2v_unit_tests_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \

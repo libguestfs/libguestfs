@@ -19,7 +19,7 @@
 /**
  * This file contains common code used to implement I<--short-options>
  * and I<--long-options> in C virt tools.  (The equivalent for
- * OCaml virt tools is implemented by F<mllib/getopt.ml>).
+ * OCaml virt tools is implemented by F<common/mltools/getopt.ml>).
  *
  * These "hidden" options are used to implement bash tab completion.
  */
