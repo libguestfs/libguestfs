@@ -22,6 +22,10 @@ common/mlpcre/dummy.c
 common/mlpcre/pcre-c.c
 common/mlprogress/progress-c.c
 common/mlstdutils/dummy.c
+common/mltools/dummy.c
+common/mltools/getopt-c.c
+common/mltools/tools_utils-c.c
+common/mltools/uri-c.c
 common/mlutils/c_utils-c.c
 common/mlutils/dummy.c
 common/mlutils/unix_utils-c.c
@@ -408,10 +412,6 @@ lib/whole-file.c
 lib/yara.c
 lua/lua-guestfs.c
 make-fs/make-fs.c
-mllib/common_utils-c.c
-mllib/dummy.c
-mllib/getopt-c.c
-mllib/uri-c.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c-errnos.c
 ocaml/guestfs-c.c

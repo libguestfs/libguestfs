@@ -17,7 +17,7 @@
  *)
 
 open Std_utils
-open Common_utils
+open Tools_utils
 
 external c_edit_file : verbose:bool -> Guestfs.t -> int64 -> string -> string -> unit
   = "virt_customize_edit_file_perl"

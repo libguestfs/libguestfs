@@ -18,7 +18,7 @@
 
 open Sysprep_operation
 open Common_gettext.Gettext
-open Common_utils
+open Tools_utils
 
 module G = Guestfs
 

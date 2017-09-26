@@ -16,12 +16,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(* This file tests the Common_utils module. *)
+(* This file tests the Tools_utils module. *)
 
 open OUnit2
 
 open Std_utils
-open Common_utils
+open Tools_utils
 
 (* Utils. *)
 let assert_equal_string = assert_equal ~printer:(fun x -> x)
@@ -29,7 +29,7 @@ let assert_equal_int = assert_equal ~printer:(fun x -> string_of_int x)
 let assert_equal_int64 = assert_equal ~printer:(fun x -> Int64.to_string x)
 let assert_equal_intlist = assert_equal ~printer:(fun x -> "(" ^ (String.concat ";" (List.map string_of_int x)) ^ ")")
 
-(* Test Common_utils.parse_size and Common_utils.parse_resize. *)
+(* Test Tools_utils.parse_size and Tools_utils.parse_resize. *)
 let test_parse_resize ctx =
   assert_equal_int64 1_L (parse_size "1b");
   assert_equal_int64 10_L (parse_size "10b");
@@ -76,7 +76,7 @@ let test_parse_resize ctx =
   assert_equal_int64 101100_L (parse_resize 100000_L "+1.1%");
   assert_equal_int64 101100_L (parse_resize 100000_L "+1.12%")
 
-(* Test Common_utils.human_size. *)
+(* Test Tools_utils.human_size. *)
 let test_human_size ctx =
   assert_equal_string "100" (human_size 100_L);
   assert_equal_string "-100" (human_size (-100_L));
@@ -89,7 +89,7 @@ let test_human_size ctx =
   assert_equal_string "3.4G" (human_size 3650722201_L);
   assert_equal_string "-3.4G" (human_size (-3650722201_L))
 
-(* Test Common_utils.run_command. *)
+(* Test Tools_utils.run_command. *)
 let test_run_command ctx =
   assert_equal_int 0 (run_command ["true"]);
   begin
@@ -108,7 +108,7 @@ let test_run_command ctx =
   end;
   ()
 
-(* Test Common_utils.run_commands. *)
+(* Test Tools_utils.run_commands. *)
 let test_run_commands ctx =
   begin
     let res = run_commands [] in
@@ -158,7 +158,7 @@ let test_run_commands ctx =
 
 (* Suites declaration. *)
 let suite =
-  "mllib Common_utils" >:::
+  "mltools Tools_utils" >:::
     [
       "sizes.parse_resize" >:: test_parse_resize;
       "sizes.human_size" >:: test_human_size;

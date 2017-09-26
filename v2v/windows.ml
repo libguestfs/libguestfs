@@ -19,7 +19,7 @@
 open Printf
 
 open Common_gettext.Gettext
-open Common_utils
+open Tools_utils
 
 open Utils
 

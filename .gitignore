@@ -135,9 +135,9 @@ Makefile.in
 /common/mlstdutils/oUnit-*
 /common/mlstdutils/std_utils_tests
 /common/mltools/.depend
-/common/mltools/common_utils_tests
 /common/mltools/getopt_tests
 /common/mltools/JSON_tests
+/common/mltools/tools_utils_tests
 /common/mltools/oUnit-*
 /common/mlutils/.depend
 /common/mlutils/c_utils_unit_tests
@@ -295,8 +295,6 @@ Makefile.in
 /fuse/test-guestmount-fd
 /fuse/test-guestunmount-fd
 /generator/.depend
-/generator/common_utils.ml
-/generator/common_utils.mli
 /generator/files-generated.txt
 /generator/generator
 /generator/.pod2text.data*

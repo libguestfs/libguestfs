@@ -17,7 +17,7 @@
  *)
 
 open Std_utils
-open Common_utils
+open Tools_utils
 
 let re_locale =
   PCRE.compile ~caseless:true "^([a-z]+)(_([a-z]+))?(\\.([a-z0-9-]+))?(@([a-z]+))?$"

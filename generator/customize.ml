@@ -624,7 +624,7 @@ and generate_customize_cmdline_ml () =
 open Printf
 
 open Std_utils
-open Common_utils
+open Tools_utils
 open Common_gettext.Gettext
 open Getopt.OptionName
 

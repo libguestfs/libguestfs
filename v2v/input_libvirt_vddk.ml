@@ -21,7 +21,7 @@
 open Unix
 
 open Common_gettext.Gettext
-open Common_utils
+open Tools_utils
 open Std_utils
 open Unix_utils
 

@@ -16,7 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-open Common_utils
+open Tools_utils
 open Common_gettext.Gettext
 
 open Utils

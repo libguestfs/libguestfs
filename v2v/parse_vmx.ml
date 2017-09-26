@@ -19,7 +19,7 @@
 open Printf
 
 open Std_utils
-open Common_utils
+open Tools_utils
 open Common_gettext.Gettext
 
 (* As far as I can tell the VMX format is totally unspecified.

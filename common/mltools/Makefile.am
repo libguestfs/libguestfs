@@ -21,26 +21,26 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) \
 	$(SOURCES_ML) \
 	$(SOURCES_C) \
-	common_utils_tests.ml \
 	getopt_tests.ml \
 	JSON_tests.ml \
-	test-getopt.sh
+	test-getopt.sh \
+	tools_utils_tests.ml
 
 SOURCES_MLI = \
 	checksums.mli \
-	common_utils.mli \
 	curl.mli \
 	getopt.mli \
 	JSON.mli \
 	planner.mli \
 	regedit.mli \
 	registry.mli \
+	tools_utils.mli \
 	URI.mli \
 	xpath_helpers.mli
 
 SOURCES_ML = \
 	getopt.ml \
-	common_utils.ml \
+	tools_utils.ml \
 	URI.ml \
 	planner.ml \
 	registry.ml \
@@ -54,8 +54,8 @@ SOURCES_C = \
 	../options/decrypt.c \
 	../options/keys.c \
 	../options/uri.c \
-	common_utils-c.c \
 	getopt-c.c \
+	tools_utils-c.c \
 	uri-c.c
 
 if HAVE_OCAML
@@ -145,14 +145,14 @@ $(MLTOOLS_CMA): $(OBJECTS) libmltools.a
 
 # Tests.
 
-common_utils_tests_SOURCES = dummy.c
-common_utils_tests_CPPFLAGS = \
+tools_utils_tests_SOURCES = dummy.c
+tools_utils_tests_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/lib
-common_utils_tests_BOBJECTS = common_utils_tests.cmo
-common_utils_tests_XOBJECTS = $(common_utils_tests_BOBJECTS:.cmo=.cmx)
+tools_utils_tests_BOBJECTS = tools_utils_tests.cmo
+tools_utils_tests_XOBJECTS = $(tools_utils_tests_BOBJECTS:.cmo=.cmx)
 
 getopt_tests_SOURCES = dummy.c
 getopt_tests_CPPFLAGS = \
@@ -169,8 +169,8 @@ JSON_tests_XOBJECTS = $(JSON_tests_BOBJECTS:.cmo=.cmx)
 
 # Can't call the following as <test>_OBJECTS because automake gets confused.
 if !HAVE_OCAMLOPT
-common_utils_tests_THEOBJECTS = $(common_utils_tests_BOBJECTS)
-common_utils_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+tools_utils_tests_THEOBJECTS = $(tools_utils_tests_BOBJECTS)
+tools_utils_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 
 getopt_tests_THEOBJECTS = $(getopt_tests_BOBJECTS)
 getopt_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
@@ -178,8 +178,8 @@ getopt_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 JSON_tests_THEOBJECTS = $(JSON_tests_BOBJECTS)
 JSON_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 else
-common_utils_tests_THEOBJECTS = $(common_utils_tests_XOBJECTS)
-common_utils_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+tools_utils_tests_THEOBJECTS = $(tools_utils_tests_XOBJECTS)
+tools_utils_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 
 getopt_tests_THEOBJECTS = $(getopt_tests_XOBJECTS)
 getopt_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
@@ -196,18 +196,18 @@ OCAMLLINKFLAGS = \
 	mlguestfs.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
-common_utils_tests_DEPENDENCIES = \
-	$(common_utils_tests_THEOBJECTS) \
+tools_utils_tests_DEPENDENCIES = \
+	$(tools_utils_tests_THEOBJECTS) \
 	../mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../mlgettext/mlgettext.$(MLARCHIVE) \
 	../mlpcre/mlpcre.$(MLARCHIVE) \
 	$(MLTOOLS_CMA) \
 	$(top_srcdir)/ocaml-link.sh
-common_utils_tests_LINK = \
+tools_utils_tests_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '-lutils $(LIBXML2_LIBS) -lgnu' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \
 	  $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
-	  $(common_utils_tests_THEOBJECTS) -o $@
+	  $(tools_utils_tests_THEOBJECTS) -o $@
 
 getopt_tests_DEPENDENCIES = \
 	$(getopt_tests_THEOBJECTS) \
@@ -243,8 +243,8 @@ check_PROGRAMS = \
 	getopt_tests
 
 if HAVE_OCAML_PKG_OUNIT
-check_PROGRAMS += common_utils_tests JSON_tests
-TESTS += common_utils_tests JSON_tests
+check_PROGRAMS += JSON_tests tools_utils_tests
+TESTS += JSON_tests tools_utils_tests
 endif
 
 check-valgrind:

@@ -17,7 +17,7 @@
  *)
 
 open Std_utils
-open Common_utils
+open Tools_utils
 
 type sections = section list
 and section = string * fields                (* [name] + fields *)

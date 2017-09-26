@@ -20,7 +20,7 @@
 
 open Printf
 
-open Common_utils
+open Tools_utils
 
 type gpgkey_type =
   | No_Key

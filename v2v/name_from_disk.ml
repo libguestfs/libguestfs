@@ -17,7 +17,7 @@
  *)
 
 open Common_gettext.Gettext
-open Common_utils
+open Tools_utils
 
 let name_from_disk disk =
   let name = Filename.basename disk in

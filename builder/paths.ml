@@ -17,7 +17,7 @@
  *)
 
 open Std_utils
-open Common_utils
+open Tools_utils
 
 let xdg_cache_home =
   try Some (Sys.getenv "XDG_CACHE_HOME" // "virt-builder")

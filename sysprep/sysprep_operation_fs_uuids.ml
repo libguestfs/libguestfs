@@ -19,7 +19,7 @@
 open Printf
 
 open Common_gettext.Gettext
-open Common_utils
+open Tools_utils
 
 open Sysprep_operation
 
@@ -31,7 +31,7 @@ let rec fs_uuids_perform g root side_effects =
   | _, "unknown" -> ()
   | dev, typ ->
     if not (is_btrfs_subvolume g dev) then (
-      let new_uuid = Common_utils.uuidgen () in
+      let new_uuid = uuidgen () in
       try
         g#set_uuid dev new_uuid
       with

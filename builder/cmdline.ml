@@ -19,7 +19,7 @@
 (* Command line argument parsing. *)
 
 open Std_utils
-open Common_utils
+open Tools_utils
 open Common_gettext.Gettext
 open Getopt.OptionName
 

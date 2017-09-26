@@ -19,7 +19,7 @@
 (** [-i libvirt] when the source is Xen *)
 
 open Common_gettext.Gettext
-open Common_utils
+open Tools_utils
 
 open Types
 open Xml

@@ -19,7 +19,7 @@
 (* Poor man's XML DOM, mutable for ease of modification. *)
 
 open Std_utils
-open Common_utils
+open Tools_utils
 
 open Printf
 

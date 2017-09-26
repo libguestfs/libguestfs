@@ -20,7 +20,7 @@ open Unix
 open Printf
 
 open Std_utils
-open Common_utils
+open Tools_utils
 open Common_gettext.Gettext
 
 open Customize_cmdline

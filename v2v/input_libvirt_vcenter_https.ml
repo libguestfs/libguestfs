@@ -19,7 +19,7 @@
 (** [-i libvirt] when the source is VMware vCenter *)
 
 open Common_gettext.Gettext
-open Common_utils
+open Tools_utils
 open Unix_utils.Env
 
 open Types

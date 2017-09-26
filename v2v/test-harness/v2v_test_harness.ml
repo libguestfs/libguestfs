@@ -24,7 +24,7 @@ open Unix
 open Printf
 
 open Std_utils
-open Common_utils
+open Tools_utils
 
 type test_plan = {
   guest_clock : float option;

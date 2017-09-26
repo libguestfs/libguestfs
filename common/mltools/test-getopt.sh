@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2016 Red Hat Inc.
+# Copyright (C) 2016-2017 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ expect_fail ()
 # Program works.
 $t
 
-# Flags added automatically by Common_utils.
+# Flags added automatically by Tools_utils.
 $t | grep '^trace = false'
 $t | grep '^verbose = false'
 
