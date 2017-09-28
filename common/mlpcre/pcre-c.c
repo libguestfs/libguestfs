@@ -205,7 +205,7 @@ guestfs_int_pcre_sub (value nv)
   CAMLlocal1 (strv);
   int len;
   CLEANUP_FREE char *str = NULL;
-  struct last_match *m = gl_tls_get (last_match);
+  const struct last_match *m = gl_tls_get (last_match);
 
   if (m == NULL)
     raise_pcre_error ("PCRE.sub called without calling PCRE.matches", 0);
