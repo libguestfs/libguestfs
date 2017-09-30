@@ -325,8 +325,8 @@ class input_vmx vmx_filename = object
 
     let sound =
       match Parse_vmx.get_string vmx ["sound"; "virtualDev"] with
-      | Some ("sb16") -> Some { s_sound_model = SB16 }
-      | Some ("es1371") -> Some { s_sound_model = ES1370 (* hmmm ... *) }
+      | Some "sb16" -> Some { s_sound_model = SB16 }
+      | Some "es1371" -> Some { s_sound_model = ES1370 (* hmmm ... *) }
       | Some "hdaudio" -> Some { s_sound_model = ICH6 (* intel-hda *) }
       | Some model ->
          warning (f_"unknown sound device '%s' ignored") model;
