@@ -1167,13 +1167,8 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd,
     r = rc_remote (remote_control, cmd, argc, argv, rc_exit_on_error_flag);
 
   /* Otherwise execute it locally. */
-  else if (STRCASEEQ (cmd, "help")) {
-    if (argc == 0) {
-      display_help ();
-      r = 0;
-    } else
-      r = display_command (argv[0]);
-  }
+  else if (STRCASEEQ (cmd, "help"))
+    r = display_help (cmd, argc, argv);
   else if (STRCASEEQ (cmd, "quit") ||
            STRCASEEQ (cmd, "exit") ||
            STRCASEEQ (cmd, "q")) {
@@ -1237,6 +1232,7 @@ display_builtin_command (const char *cmd)
 
   if (STRCASEEQ (cmd, "help")) {
     printf (_("help - display a list of commands or help on a command\n"
+              "     help --list\n"
               "     help cmd\n"
               "     help\n"));
     return 0;
@@ -1249,8 +1245,12 @@ display_builtin_command (const char *cmd)
     return 0;
   }
   else {
-    fprintf (stderr, _("%s: command not known, use -h to list all commands\n"),
-             cmd);
+    fprintf (stderr, _("%s: command not known: "), cmd);
+    if (is_interactive) {
+      fprintf (stderr, _("use 'help --list' to list all commands\n"));
+    } else {
+      fprintf (stderr, _("use -h to list all commands\n"));
+    }
     return -1;
   }
 }

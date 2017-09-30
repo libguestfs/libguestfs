@@ -38,29 +38,47 @@
  * improved if we knew how many drives had been added already, and
  * whether anything was mounted.
  */
-void
-display_help (void)
+int
+display_help (const char *cmd, size_t argc, char *argv[])
 {
-  if (guestfs_is_config (g))
-    printf (_(
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
-"Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
-"Once you have done this, use the 'run' command.\n"
-              ));
-  else
-    printf (_(
-"Find out what filesystems are available using 'list-filesystems' and then\n"
-"mount them to examine or modify the contents using 'mount-ro' or\n"
-"'mount'.\n"
-              ));
+  if (argc == 0) {
+    if (guestfs_is_config (g))
+      printf (_(
+"Add disk images to examine using the ‘-a’ or ‘-d’ options, or the ‘add’\n"
+"command.\n"
+"Or create a new disk image using ‘-N’, or the ‘alloc’ or ‘sparse’ commands.\n"
+"Once you have done this, use the ‘run’ command.\n"
+                ));
+    else
+      printf (_(
+"Find out what filesystems are available using ‘list-filesystems’ and then\n"
+"mount them to examine or modify the contents using ‘mount-ro’ or\n"
+"‘mount’.\n"
+                ));
 
-  printf ("\n");
+    printf ("\n");
 
-  printf (_(
-"For more information about a command, use 'help cmd'.\n"
+    printf (_(
+"For more information about a command, use ‘help cmd’.\n"
 "\n"
-"To read the manual, type 'man'.\n"
-            ));
+"To read the manual, type ‘man’.\n"
+              ));
 
-  printf ("\n");
+    printf ("\n");
+
+    return 0;
+  }
+  else if (argc == 1) {
+    if (STREQ (argv[0], "--list") || STREQ (argv[0], "-l")) {
+      /* List all commands. */
+      list_commands ();
+      return 0;
+    }
+    else
+      return display_command (argv[0]);
+  }
+  else {
+    fprintf (stderr, _("use 'help', 'help <cmd>' or 'help -l|--list' to list all commands\n"));
+    return -1;
+  }
 }

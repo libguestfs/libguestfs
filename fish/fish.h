@@ -76,7 +76,7 @@ extern int alloc_disk (const char *filename, const char *size,
 extern int parse_size (const char *str, off_t *size_rtn);
 
 /* in help.c */
-extern void display_help (void);
+extern int display_help (const char *cmd, size_t argc, char *argv[]);
 
 /* in prep.c */
 struct prep_data {
