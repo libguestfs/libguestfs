@@ -32,9 +32,18 @@ open Cmdline
 
 module G = Guestfs
 
+(* Conversion mode, either normal (copying) or [--in-place]. *)
 type conversion_mode =
-    | Copying of overlay list * target list
-    | In_place
+  | Copying of overlay list * target list
+  | In_place
+
+(* Mountpoint stats, used for free space estimation. *)
+type mpstat = {
+  mp_dev : string;                      (* Filesystem device (eg. /dev/sda1) *)
+  mp_path : string;                     (* Guest mountpoint (eg. /boot) *)
+  mp_statvfs : Guestfs.statvfs;         (* Free space stats. *)
+  mp_vfs : string;                      (* VFS type (eg. "ext4") *)
+}
 
 let () = Random.self_init ()
 
@@ -389,6 +398,12 @@ and get_mpstats g =
   );
 
   mpstats
+
+and print_mpstat chan { mp_dev = dev; mp_path = path;
+                        mp_statvfs = s; mp_vfs = vfs } =
+  fprintf chan "mountpoint statvfs %s %s (%s):\n" dev path vfs;
+  fprintf chan "  bsize=%Ld blocks=%Ld bfree=%Ld bavail=%Ld\n"
+    s.Guestfs.bsize s.Guestfs.blocks s.Guestfs.bfree s.Guestfs.bavail
 
 (* Conversion can fail if there is no space on the guest filesystems
  * (RHBZ#1139543).  To avoid this situation, check there is some
