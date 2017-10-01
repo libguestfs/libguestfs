@@ -41,24 +41,41 @@
     possible, but might not be optimal. *)
 
 type ('name, 'value) tag = 'name * 'value
+(** A single tag. *)
 
 type ('name, 'value) tags = ('name, 'value) tag list
-  (** An assoc-list of tags. *)
+(** An assoc-list of tags. *)
 
-type ('name, 'value, 'task) plan =
-  (('name, 'value) tags * 'task * ('name, 'value) tags) list
+type ('name, 'value, 'task) transition =
+  ('name, 'value) tags * 'task * ('name, 'value) tags
+(** A transition is the 3 element tuple:
+    (input tags for this transition,
+     the task to perform,
+     the output tags after this transition). *)
+
+type ('name, 'value, 'task) plan = ('name, 'value, 'task) transition list
+(** A plan (the returned value from the {!plan} function) is a list
+    of transitions. *)
 
 type ('name, 'value, 'task) transitions_function =
   ('name, 'value) tags -> ('task * int * ('name, 'value) tags) list
+(** This is the type of the transition function.  Given a set of
+    current tags, it returns the list of possible transitions out,
+    with a weight (higher number = more expensive) for each and the
+    resulting set of tags after that transition. *)
 
-val plan : ?max_depth:int -> ('name, 'value, 'task) transitions_function -> ('name, 'value) tags -> ('name, 'value) tags * ('name, 'value) tags -> ('name, 'value, 'task) plan
+val plan : ?max_depth:int -> ('name, 'value, 'task) transitions_function ->
+           ('name, 'value) tags ->
+           must: ('name, 'value) tags -> must_not: ('name, 'value) tags ->
+           ('name, 'value, 'task) plan
 (** Make a plan.
 
-    [plan transitions itags (goal_must, goal_must_not)] works out a
+    [plan transitions itags goal_must goal_must_not] works out a
     plan, which is a list of tasks that have to be carried out in
-    order to go from the input tags to the goal.  The goal is passed
-    in as a pair of lists: tags that MUST appear and tags that MUST
-    NOT appear.
+    order to go from the input tags to the goal.
+
+    The goal is passed in as a pair of lists: tags that MUST appear
+    and tags that MUST NOT appear.
 
     The returned value is a {!plan}.
 
