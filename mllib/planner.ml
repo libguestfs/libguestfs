@@ -20,13 +20,15 @@ type ('name, 'value) tag = 'name * 'value
 
 type ('name, 'value) tags = ('name, 'value) tag list
 
-type ('name, 'value, 'task) plan =
-  (('name, 'value) tags * 'task * ('name, 'value) tags) list
+type ('name, 'value, 'task) transition =
+  ('name, 'value) tags * 'task * ('name, 'value) tags
+
+type ('name, 'value, 'task) plan = ('name, 'value, 'task) transition list
 
 type ('name, 'value, 'task) transitions_function =
   ('name, 'value) tags -> ('task * int * ('name, 'value) tags) list
 
-let plan ?(max_depth = 10) transitions itags (goal_must, goal_must_not) =
+let plan ?(max_depth = 10) transitions itags ~must ~must_not =
   (* Do the given output tags match the finish condition? *)
   let finished (otags, _, _) =
     let must =
@@ -34,14 +36,14 @@ let plan ?(max_depth = 10) transitions itags (goal_must, goal_must_not) =
       List.for_all (
         fun (name, value) ->
           try List.assoc name otags = value with Not_found -> false
-      ) goal_must in
+      ) must in
 
     let must_not =
       (* No tag from the MUST NOT list can appear. *)
       List.for_all (
         fun (name, value) ->
           try List.assoc name otags <> value with Not_found -> true
-      ) goal_must_not in
+      ) must_not in
 
     must && must_not
   in

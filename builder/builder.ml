@@ -395,18 +395,15 @@ let main () =
         (human_size size) output_filename (human_size blockdev_size);
     size in
 
-  let goal =
-    (* MUST *)
-    let goal_must = [
-      `Filename, output_filename;
-      `Size, Int64.to_string output_size;
-      `Format, output_format
-    ] in
+  (* Goal: must *)
+  let must = [
+    `Filename, output_filename;
+    `Size, Int64.to_string output_size;
+    `Format, output_format
+  ] in
 
-    (* MUST NOT *)
-    let goal_must_not = [ `Template, ""; `XZ, "" ] in
-
-    goal_must, goal_must_not in
+  (* Goal: must not *)
+  let must_not = [ `Template, ""; `XZ, "" ] in
 
   let cache_dir = (open_guestfs ())#get_cachedir () in
 
@@ -507,7 +504,7 @@ let main () =
   (* Plan how to create the disk image. *)
   message (f_"Planning how to build this image");
   let plan =
-    try plan ~max_depth:5 transitions itags goal
+    try plan ~max_depth:5 transitions itags ~must ~must_not
     with
       Failure "plan" ->
         error (f_"no plan could be found for making a disk image with\nthe required size, format etc. This is a bug in libguestfs!\nPlease file a bug, giving the command line arguments you used.");
