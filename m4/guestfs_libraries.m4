@@ -42,16 +42,19 @@ AC_CHECK_HEADERS([\
     sys/endian.h \
     errno.h \
     linux/fs.h \
+    linux/magic.h \
     linux/raid/md_u.h \
     linux/rtc.h \
     printf.h \
     sys/inotify.h \
     sys/resource.h \
     sys/socket.h \
+    sys/statfs.h \
     sys/statvfs.h \
     sys/time.h \
     sys/types.h \
     sys/un.h \
+    sys/vfs.h \
     sys/wait.h \
     windows.h \
     sys/xattr.h])
@@ -80,6 +83,7 @@ AC_CHECK_FUNCS([\
     setrlimit \
     setxattr \
     sigaction \
+    statfs \
     statvfs \
     sync])
 

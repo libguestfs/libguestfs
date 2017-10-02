@@ -116,4 +116,8 @@ module StatVFS : sig
   val free_space : statvfs -> int64
   (** [free_space (statvfs path)] returns the free space available on the
       filesystem that contains [path], in bytes. *)
+
+  val is_network_filesystem : string -> bool
+  (** [is_network_filesystem path] returns true if [path] is located on
+      a network filesystem such as NFS or CIFS. *)
 end

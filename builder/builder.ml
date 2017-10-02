@@ -414,12 +414,57 @@ let main () =
     let is_not t = not (is t) in
     let remove = List.remove_assoc in
     let ret = ref [] in
-    let tr task weight otags = push_front (task, weight, otags) ret in
 
-    (* XXX Weights are not very smartly chosen.  At the moment I'm
-     * using a range [0..100] where 0 = free and 100 = expensive.  We
-     * could estimate weights better by looking at file sizes.
+    (* The scheme for weights ranges from 0 = free to 100 = most expensive:
+     *
+     *    0 = free operations like renaming a file in the same directory
+     *   10 = in-place conversions (like [qemu-img resize])
+     *   20 = copy or move a file between two local filesystems
+     *   30 = copy and convert a file between two local filesystems
+     *   40 = copy a file within the same local filesystem
+     *   50 = copy and convert a file within the same local filesystem
+     *   80 = copy, move, convert if source or target is on network filesystem
+     *  100 = complex operations like virt-resize
+     *
+     * Copies and moves across different local filesystems are
+     * cheaper than copies within the same filesystem.  The
+     * theory because less bandwith is available if both source
+     * and destination hit the same device (except in the special
+     * case of moving within a filesystem which is free).
+     *
+     * We could estimate weights better by looking at file sizes.
      *)
+    let weight task otags =
+      let infile = List.assoc `Filename itags
+      and outfile = List.assoc `Filename otags in
+
+      (* If infile/outfile don't exist, get the containing directory. *)
+      let infile =
+        if Sys.file_exists infile then infile else Filename.dirname infile in
+      let outfile =
+        if Sys.file_exists outfile then outfile else Filename.dirname outfile in
+
+      match task with
+      | `Virt_resize -> 100     (* virt-resize is a special case*)
+      | (`Copy|`Move|`Pxzcat|`Disk_resize|`Convert) as task ->
+         if StatVFS.is_network_filesystem infile ||
+            StatVFS.is_network_filesystem outfile
+         then 80 (* NFS etc. *)
+         else (
+           let across = (lstat infile).st_dev <> (lstat outfile).st_dev in
+           match task, across with
+           | `Move, false -> 0     (* rename in same filesystem *)
+           | `Disk_resize, _ -> 10 (* in-place conversion *)
+           | `Move, true           (* move or copy between two filesystems *)
+           | `Copy, true -> 20
+           | (`Pxzcat|`Convert), true -> 30 (* convert between two local fses*)
+           | `Copy, false -> 40    (* copy within same filesystem *)
+           | (`Pxzcat|`Convert), false -> 50 (* convert with same local fs*)
+         )
+    in
+
+    (* Add a transition to the returned list. *)
+    let tr task otags = push_front (task, weight task otags, otags) ret in
 
     (* Since the final plan won't run in parallel, we don't only need
      * to choose unique tempfiles per transition, so this is OK:
@@ -431,17 +476,16 @@ let main () =
      * thing a copy does is to remove the template tag (since it's always
      * copied out of the cache directory).
      *)
-    tr `Copy 50 ((`Filename, output_filename) :: remove `Template itags);
-    tr `Copy 50 ((`Filename, tempfile) :: remove `Template itags);
+    tr `Copy ((`Filename, output_filename) :: remove `Template itags);
+    tr `Copy ((`Filename, tempfile) :: remove `Template itags);
 
     (* We can rename a file instead of copying, but don't rename the
-     * cache copy!  (XXX Also this is not free if copying across
-     * filesystems)
+     * cache copy!
      *)
     if is_not `Template then (
       if not output_is_block_dev then
-        tr `Rename 0 ((`Filename, output_filename) :: itags);
-      tr `Rename 0 ((`Filename, tempfile) :: itags);
+        tr `Move ((`Filename, output_filename) :: itags);
+      tr `Move ((`Filename, tempfile) :: itags)
     );
 
     if is `XZ then (
@@ -449,9 +493,9 @@ let main () =
        * to the output file or to a temp file.
        *)
       if not output_is_block_dev then
-        tr `Pxzcat 80
+        tr `Pxzcat
           ((`Filename, output_filename) :: remove `XZ (remove `Template itags));
-      tr `Pxzcat 80
+      tr `Pxzcat
         ((`Filename, tempfile) :: remove `XZ (remove `Template itags));
     )
     else (
@@ -462,11 +506,11 @@ let main () =
       let old_size = Int64.of_string (List.assoc `Size itags) in
       let headroom = 256L *^ 1024L *^ 1024L in
       if output_size >= old_size +^ headroom then (
-        tr `Virt_resize 100
+        tr `Virt_resize
           ((`Size, Int64.to_string output_size) ::
               (`Filename, output_filename) ::
               (`Format, output_format) :: (remove `Template itags));
-        tr `Virt_resize 100
+        tr `Virt_resize
           ((`Size, Int64.to_string output_size) ::
               (`Filename, tempfile) ::
               (`Format, output_format) :: (remove `Template itags))
@@ -485,15 +529,15 @@ let main () =
        *)
       else if output_size > old_size && is_not `Template
               && List.mem_assoc `Format itags then
-        tr `Disk_resize 60 ((`Size, Int64.to_string output_size) :: itags);
+        tr `Disk_resize ((`Size, Int64.to_string output_size) :: itags);
 
       (* qemu-img convert is always possible, and quicker.  It doesn't
        * resize, but it does change the format.
        *)
-      tr `Convert 60
+      tr `Convert
         ((`Filename, output_filename) :: (`Format, output_format) ::
             (remove `Template itags));
-      tr `Convert 60
+      tr `Convert
         ((`Filename, tempfile) :: (`Format, output_format) ::
             (remove `Template itags));
     );
@@ -528,7 +572,7 @@ let main () =
     in
     let print_task = function
       | `Copy -> printf "cp"
-      | `Rename -> printf "mv"
+      | `Move -> printf "mv"
       | `Pxzcat -> printf "pxzcat"
       | `Virt_resize -> printf "virt-resize"
       | `Disk_resize -> printf "qemu-img resize"
@@ -570,7 +614,7 @@ let main () =
       let cmd = [ "cp"; ifile; ofile ] in
       if run_command cmd <> 0 then exit 1
 
-    | itags, `Rename, otags ->
+    | itags, `Move, otags ->
       let ifile = List.assoc `Filename itags in
       let ofile = List.assoc `Filename otags in
       let cmd = [ "mv"; ifile; ofile ] in

@@ -80,4 +80,7 @@ module StatVFS = struct
     "guestfs_int_mllib_statvfs_statvfs"
 
   let free_space { f_bsize = bsize; f_bavail = bavail } = bsize *^ bavail
+
+  external is_network_filesystem : string -> bool =
+    "guestfs_int_mllib_statvfs_is_network_filesystem" "noalloc"
 end

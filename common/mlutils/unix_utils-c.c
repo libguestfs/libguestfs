@@ -28,8 +28,16 @@
 #include <errno.h>
 #include <sys/types.h>
 
+#ifdef HAVE_SYS_STATFS_H
+#include <sys/statfs.h>
+#endif
+
 #ifdef HAVE_SYS_STATVFS_H
 #include <sys/statvfs.h>
+#endif
+
+#ifdef HAVE_SYS_VFS_H
+#include <sys/vfs.h>
 #endif
 
 #if MAJOR_IN_MKDEV
@@ -37,6 +45,10 @@
 #elif MAJOR_IN_SYSMACROS
 #include <sys/sysmacros.h>
 /* else it's in sys/types.h, included above */
+#endif
+
+#ifdef HAVE_LINUX_MAGIC_H
+#include <linux/magic.h>
 #endif
 
 #ifdef HAVE_WINDOWS_H
@@ -60,6 +72,7 @@ extern value guestfs_int_mllib_fsync_file (value filenamev);
 extern value guestfs_int_mllib_mkdtemp (value val_pattern);
 extern value guestfs_int_mllib_realpath (value pathv);
 extern value guestfs_int_mllib_statvfs_statvfs (value pathv);
+extern value guestfs_int_mllib_statvfs_is_network_filesystem (value pathv);
 
 /* NB: This is a "noalloc" call. */
 value
@@ -321,4 +334,33 @@ guestfs_int_mllib_statvfs_statvfs (value pathv)
   Store_field (rv, 10, v);
 
   CAMLreturn (rv);
+}
+
+/* NB: This is a "noalloc" call. */
+value
+guestfs_int_mllib_statvfs_is_network_filesystem (value pathv)
+{
+#ifdef HAVE_STATFS
+  struct statfs buf;
+
+  if (statfs (String_val (pathv), &buf) == -1)
+    unix_error (errno, (char *) "statvfs", pathv);
+
+  /* Some but not all of these are defined in <linux/magic.h>. */
+#ifndef CIFS_MAGIC_NUMBER
+#define CIFS_MAGIC_NUMBER 0xff534d42
+#endif
+#ifndef NFS_SUPER_MAGIC
+#define NFS_SUPER_MAGIC 0x6969
+#endif
+#ifndef SMB_SUPER_MAGIC
+#define SMB_SUPER_MAGIC 0x517b
+#endif
+
+  return Val_bool (buf.f_type == CIFS_MAGIC_NUMBER ||
+                   buf.f_type == NFS_SUPER_MAGIC ||
+                   buf.f_type == SMB_SUPER_MAGIC);
+#else
+  return Val_bool (0);
+#endif
 }
