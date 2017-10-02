@@ -99,7 +99,7 @@ let run indisk outdisk check_tmpdir compress convert
           virtual_size (human_size virtual_size);
 
     let print_warning () =
-      let free_space = StatVFS.free_space tmpdir in
+      let free_space = StatVFS.free_space (StatVFS.statvfs tmpdir) in
       let extra_needed = virtual_size -^ free_space in
       if extra_needed > 0L then (
         warning (f_"\

@@ -272,7 +272,7 @@ and overlay_dir = (open_guestfs ())#get_cachedir ()
  * guestfs appliance which is also stored here.
  *)
 and check_host_free_space () =
-  let free_space = StatVFS.free_space overlay_dir in
+  let free_space = StatVFS.free_space (StatVFS.statvfs overlay_dir) in
   debug "check_host_free_space: overlay_dir=%s free_space=%Ld"
         overlay_dir free_space;
   if free_space < 1_073_741_824L then

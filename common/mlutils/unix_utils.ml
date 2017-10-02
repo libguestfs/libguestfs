@@ -16,6 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+open Std_utils
+
 module Dev_t = struct
   external makedev : int -> int -> int = "guestfs_int_mllib_dev_t_makedev" "noalloc"
   external major : int -> int = "guestfs_int_mllib_dev_t_major" "noalloc"
@@ -61,6 +63,21 @@ module Realpath = struct
 end
 
 module StatVFS = struct
-  external free_space : string -> int64 =
-    "guestfs_int_mllib_statvfs_free_space"
+  type statvfs = {
+    f_bsize : int64;
+    f_frsize : int64;
+    f_blocks : int64;
+    f_bfree : int64;
+    f_bavail : int64;
+    f_files : int64;
+    f_ffree : int64;
+    f_favail : int64;
+    f_fsid : int64;
+    f_flag : int64;
+    f_namemax : int64;
+  }
+  external statvfs : string -> statvfs =
+    "guestfs_int_mllib_statvfs_statvfs"
+
+  let free_space { f_bsize = bsize; f_bavail = bavail } = bsize *^ bavail
 end

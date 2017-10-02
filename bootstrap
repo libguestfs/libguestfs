@@ -49,7 +49,6 @@ dup3
 error
 filevercmp
 fstatat
-fsusage
 fts
 full-read
 full-write

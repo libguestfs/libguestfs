@@ -2319,6 +2319,7 @@ See also: C<guestfs_sh_lines>" };
   { defaults with
     name = "statvfs"; added = (1, 9, 2);
     style = RStruct ("statbuf", "statvfs"), [String (Pathname, "path")], [];
+    impl = OCaml "Statvfs.statvfs";
     tests = [
       InitISOFS, Always, TestResult (
         [["statvfs"; "/"]], "ret->namemax == 255"), []

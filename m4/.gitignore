@@ -62,7 +62,6 @@
 /fseeko.m4
 /fstatat.m4
 /fstat.m4
-/fsusage.m4
 /ftell.m4
 /ftello.m4
 /ftruncate.m4

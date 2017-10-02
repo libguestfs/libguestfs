@@ -94,7 +94,26 @@ module Realpath : sig
 end
 
 module StatVFS : sig
-  val free_space : string -> int64
-  (** [free_space path] returns the free space available on the
+  type statvfs = {
+    f_bsize : int64;            (** Filesystem block size *)
+    f_frsize : int64;           (** Fragment size *)
+    f_blocks : int64;           (** Size of fs in f_frsize units *)
+    f_bfree : int64;            (** Number of free blocks *)
+    f_bavail : int64;           (** Number of free blocks for non-root *)
+    f_files : int64;            (** Number of inodes *)
+    f_ffree : int64;            (** Number of free inodes *)
+    f_favail : int64;           (** Number of free inodes for non-root *)
+    f_fsid : int64;             (** Filesystem ID *)
+    f_flag : int64;             (** Mount flags *)
+    f_namemax : int64;          (** Maximum length of filenames *)
+  }
+  val statvfs : string -> statvfs
+  (** This calls [statvfs(3)] on the path parameter.
+
+      In case of non-Linux or non-POSIX, this call is emulated as best
+      we can with missing fields returned as [-1]. *)
+
+  val free_space : statvfs -> int64
+  (** [free_space (statvfs path)] returns the free space available on the
       filesystem that contains [path], in bytes. *)
 end

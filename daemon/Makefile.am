@@ -154,7 +154,6 @@ guestfsd_SOURCES = \
 	sleuthkit.c \
 	squashfs.c \
 	stat.c \
-	statvfs.c \
 	strings.c \
 	structs-cleanups.c \
 	structs-cleanups.h \
@@ -274,6 +273,7 @@ SOURCES_MLI = \
 	optgroups.mli \
 	parted.mli \
 	realpath.mli \
+	statvfs.mli \
 	structs.mli \
 	sysroot.mli \
 	utils.mli
@@ -300,6 +300,7 @@ SOURCES_ML = \
 	parted.ml \
 	listfs.ml \
 	realpath.ml \
+	statvfs.ml \
 	inspect_types.ml \
 	inspect_utils.ml \
 	inspect_fs_unix_fstab.ml \
@@ -348,8 +349,10 @@ camldaemon.o: $(OBJECTS)
 	$(OCAMLFIND) $(BEST) -output-obj -o $@ \
 	    $(OCAMLFLAGS) $(OCAMLPACKAGES) \
 	    -linkpkg \
-	    mlaugeas.$(MLARCHIVE) mlpcre.$(MLARCHIVE) \
-	    mlcutils.$(MLARCHIVE) mlstdutils.$(MLARCHIVE) \
+	    mlaugeas.$(MLARCHIVE) \
+	    mlpcre.$(MLARCHIVE) \
+	    mlstdutils.$(MLARCHIVE) \
+	    mlcutils.$(MLARCHIVE) \
 	    $(OBJECTS)
 
 # OCaml dependencies.
@@ -399,8 +402,8 @@ endif
 
 OCAMLLINKFLAGS = \
 	mlpcre.$(MLARCHIVE) \
-	mlcutils.$(MLARCHIVE) \
 	mlstdutils.$(MLARCHIVE) \
+	mlcutils.$(MLARCHIVE) \
 	mlaugeas.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 

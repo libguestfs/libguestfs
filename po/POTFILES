@@ -149,7 +149,6 @@ daemon/sleep.c
 daemon/sleuthkit.c
 daemon/squashfs.c
 daemon/stat.c
-daemon/statvfs.c
 daemon/strings.c
 daemon/structs-cleanups.c
 daemon/stubs-0.c
