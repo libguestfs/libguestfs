@@ -55,7 +55,7 @@ let main () =
     let add_file arg =
       let uri =
         try URI.parse_uri arg
-        with Invalid_argument "URI.parse_uri" ->
+        with URI.Parse_failed ->
           error (f_"error parsing URI ‘%s’. Look for error messages printed above.") arg in
       let format = match !format with "auto" -> None | fmt -> Some fmt in
       push_front (uri, format) files;

@@ -313,14 +313,14 @@ read the man page virt-resize(1).
     (* infile can be a URI. *)
     let infile =
       try (infile, URI.parse_uri infile)
-      with Invalid_argument "URI.parse_uri" ->
+      with URI.Parse_failed ->
         error (f_"error parsing URI ‘%s’. Look for error messages printed above.")
           infile in
 
     (* outfile can be a URI. *)
     let outfile =
       try (outfile, URI.parse_uri outfile)
-      with Invalid_argument "URI.parse_uri" ->
+      with URI.Parse_failed ->
         error (f_"error parsing URI ‘%s’. Look for error messages printed above.")
           outfile in
 

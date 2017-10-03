@@ -51,7 +51,7 @@ let parse_conf file =
           let k =
             try Some (URI.parse_uri (List.assoc ("gpgkey", None) fields)) with
             | Not_found -> None
-            | Invalid_argument "URI.parse_uri" as ex ->
+            | URI.Parse_failed as ex ->
                debug "'%s' has invalid gpgkey URI" n;
                raise ex in
           match k with

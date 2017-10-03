@@ -40,7 +40,7 @@ let parse_cmdline () =
       error (f_"--add option can only be given once");
     let uri =
       try URI.parse_uri arg
-      with Invalid_argument "URI.parse_uri" ->
+      with URI.Parse_failed ->
         error (f_"error parsing URI '%s'. Look for error messages printed above.") arg in
     file := Some uri
   and set_domain dom =

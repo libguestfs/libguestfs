@@ -24,4 +24,9 @@ type uri = {
   password : string option;
 }
 
+exception Parse_failed
+
 external parse_uri : string -> uri = "guestfs_int_mllib_parse_uri"
+
+let () =
+  Callback.register_exception "URI.Parse_failed" Parse_failed

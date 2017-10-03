@@ -68,7 +68,7 @@ let rec download t ?template ?progress_bar ?(proxy = Curl.SystemProxy) uri =
 and download_to t ?(progress_bar = false) ~proxy uri filename =
   let parseduri =
     try URI.parse_uri uri
-    with Invalid_argument "URI.parse_uri" ->
+    with URI.Parse_failed ->
       error (f_"error parsing URI '%s'. Look for error messages printed above.")
         uri in
 

@@ -26,5 +26,13 @@ type uri = {
   password : string option;             (** password *)
 }
 
+exception Parse_failed
+
 val parse_uri : string -> uri
-(** See [fish/uri.h]. *)
+(** See [fish/uri.h].
+
+    This can raise {!Parse_failed}.
+
+    Unfortunately we cannot be specific about the actual error
+    (although [fish/uri.c] should print something).  XXX We should
+    be able to fetch and throw a real exception with the error. *)

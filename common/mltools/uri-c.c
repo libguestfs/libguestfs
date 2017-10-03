@@ -26,6 +26,7 @@
 #include <locale.h>
 
 #include <caml/alloc.h>
+#include <caml/callback.h>
 #include <caml/fail.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
@@ -45,8 +46,10 @@ guestfs_int_mllib_parse_uri (value argv /* arg value, not an array! */)
   int r;
 
   r = parse_uri (String_val (argv), &uri);
-  if (r == -1)
-    caml_invalid_argument ("URI.parse_uri");
+  if (r == -1) {
+    value *exn = caml_named_value ("URI.Parse_failed");
+    caml_raise (*exn);
+  }
 
   /* Convert the struct into an OCaml tuple. */
   rv = caml_alloc_tuple (5);
