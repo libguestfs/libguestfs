@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.36.6\n"
+"Project-Id-Version: libguestfs 1.36.7\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2017-09-15 20:48+0100\n"
+"POT-Creation-Date: 2017-10-03 19:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -764,7 +764,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:350 ../appliance/libguestfs-make-fixed-appliance.pod:130 ../builder/virt-builder.pod:1868 ../builder/virt-index-validate.pod:74 ../cat/virt-cat.pod:270 ../cat/virt-filesystems.pod:381 ../cat/virt-log.pod:131 ../cat/virt-ls.pod:513 ../cat/virt-tail.pod:231 ../customize/virt-customize.pod:246 ../daemon/guestfsd.pod:99 ../df/virt-df.pod:251 ../dib/virt-dib.pod:687 ../diff/virt-diff.pod:243 ../edit/virt-edit.pod:378 ../fish/guestfish.pod:1385 ../format/virt-format.pod:181 ../fuse/guestmount.pod:421 ../fuse/guestunmount.pod:124 ../get-kernel/virt-get-kernel.pod:178 ../inspector/virt-inspector.pod:507 ../resize/virt-resize.pod:826 ../sparsify/virt-sparsify.pod:441 ../sysprep/virt-sysprep.pod:559 ../test-tool/libguestfs-test-tool.pod:168
+#: ../align/virt-alignment-scan.pod:350 ../appliance/libguestfs-make-fixed-appliance.pod:130 ../builder/virt-builder.pod:1868 ../builder/virt-index-validate.pod:74 ../cat/virt-cat.pod:270 ../cat/virt-filesystems.pod:381 ../cat/virt-log.pod:131 ../cat/virt-ls.pod:513 ../cat/virt-tail.pod:231 ../customize/virt-customize.pod:246 ../daemon/guestfsd.pod:99 ../df/virt-df.pod:251 ../dib/virt-dib.pod:687 ../diff/virt-diff.pod:243 ../edit/virt-edit.pod:378 ../fish/guestfish.pod:1388 ../format/virt-format.pod:181 ../fuse/guestmount.pod:421 ../fuse/guestunmount.pod:124 ../get-kernel/virt-get-kernel.pod:178 ../inspector/virt-inspector.pod:507 ../resize/virt-resize.pod:826 ../sparsify/virt-sparsify.pod:441 ../sysprep/virt-sysprep.pod:559 ../test-tool/libguestfs-test-tool.pod:168
 msgid "EXIT STATUS"
 msgstr ""
 
@@ -774,7 +774,7 @@ msgid "This program returns:"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:356 ../align/virt-alignment-scan.pod:362 ../align/virt-alignment-scan.pod:368 ../align/virt-alignment-scan.pod:375 ../appliance/libguestfs-make-fixed-appliance.pod:22 ../appliance/libguestfs-make-fixed-appliance.pod:28 ../appliance/libguestfs-make-fixed-appliance.pod:34 ../appliance/libguestfs-make-fixed-appliance.pod:52 ../appliance/libguestfs-make-fixed-appliance.pod:73 ../builder/virt-builder.pod:932 ../builder/virt-builder.pod:939 ../builder/virt-builder.pod:943 ../builder/virt-builder.pod:947 ../builder/virt-builder.pod:952 ../builder/virt-builder.pod:956 ../builder/virt-builder.pod:960 ../builder/virt-builder.pod:965 ../builder/virt-builder.pod:1140 ../builder/virt-builder.pod:1145 ../builder/virt-builder.pod:1715 ../builder/virt-builder.pod:1719 ../builder/virt-builder.pod:1723 ../builder/virt-index-validate.pod:32 ../builder/virt-index-validate.pod:37 ../builder/virt-index-validate.pod:51 ../builder/virt-index-validate.pod:56 ../cat/virt-cat.pod:216 ../cat/virt-cat.pod:221 ../cat/virt-cat.pod:226 ../cat/virt-cat.pod:237 ../cat/virt-cat.pod:241 ../cat/virt-tail.pod:25 ../cat/virt-tail.pod:29 ../cat/virt-tail.pod:34 ../cat/virt-tail.pod:200 ../cat/virt-tail.pod:205 ../cat/virt-tail.pod:210 ../cat/virt-tail.pod:221 ../cat/virt-tail.pod:225 ../common/miniexpect/miniexpect.pod:231 ../common/miniexpect/miniexpect.pod:236 ../common/miniexpect/miniexpect.pod:326 ../common/miniexpect/miniexpect.pod:332 ../common/miniexpect/miniexpect.pod:337 ../common/miniexpect/miniexpect.pod:426 ../common/miniexpect/miniexpect.pod:431 ../customize/customize-options.pod:290 ../customize/customize-options.pod:294 ../docs/guestfs-building.pod:13 ../docs/guestfs-building.pod:17 ../docs/guestfs-building.pod:21 ../docs/guestfs-building.pod:25 ../docs/guestfs-building.pod:791 ../docs/guestfs-building.pod:796 ../docs/guestfs-faq.pod:188 ../docs/guestfs-faq.pod:194 ../docs/guestfs-faq.pod:198 ../docs/guestfs-faq.pod:203 ../docs/guestfs-faq.pod:768 ../docs/guestfs-faq.pod:774 ../docs/guestfs-faq.pod:813 ../docs/guestfs-faq.pod:819 ../docs/guestfs-faq.pod:1381 ../docs/guestfs-faq.pod:1392 ../docs/guestfs-faq.pod:1397 ../docs/guestfs-hacking.pod:641 ../docs/guestfs-hacking.pod:646 ../docs/guestfs-hacking.pod:653 ../docs/guestfs-hacking.pod:658 ../docs/guestfs-hacking.pod:677 ../docs/guestfs-hacking.pod:682 ../docs/guestfs-hacking.pod:688 ../docs/guestfs-hacking.pod:693 ../docs/guestfs-hacking.pod:713 ../docs/guestfs-hacking.pod:717 ../docs/guestfs-hacking.pod:721 ../docs/guestfs-hacking.pod:725 ../docs/guestfs-hacking.pod:729 ../docs/guestfs-hacking.pod:873 ../docs/guestfs-hacking.pod:877 ../docs/guestfs-hacking.pod:884 ../docs/guestfs-hacking.pod:911 ../docs/guestfs-hacking.pod:915 ../docs/guestfs-hacking.pod:1054 ../docs/guestfs-hacking.pod:1074 ../docs/guestfs-hacking.pod:1078 ../docs/guestfs-hacking.pod:1082 ../docs/guestfs-hacking.pod:1096 ../docs/guestfs-hacking.pod:1100 ../docs/guestfs-hacking.pod:1105 ../docs/guestfs-hacking.pod:1109 ../docs/guestfs-hacking.pod:1121 ../docs/guestfs-hacking.pod:1128 ../docs/guestfs-hacking.pod:1132 ../docs/guestfs-performance.pod:116 ../docs/guestfs-performance.pod:122 ../docs/guestfs-performance.pod:127 ../docs/guestfs-performance.pod:254 ../docs/guestfs-performance.pod:259 ../docs/guestfs-performance.pod:264 ../docs/guestfs-performance.pod:384 ../docs/guestfs-performance.pod:388 ../docs/guestfs-performance.pod:394 ../docs/guestfs-performance.pod:400 ../docs/guestfs-recipes.pod:280 ../docs/guestfs-recipes.pod:284 ../docs/guestfs-recipes.pod:288 ../docs/guestfs-recipes.pod:314 ../docs/guestfs-recipes.pod:319 ../docs/guestfs-recipes.pod:426 ../docs/guestfs-recipes.pod:430 ../docs/guestfs-recipes.pod:434 ../docs/guestfs-recipes.pod:438 ../docs/guestfs-recipes.pod:442 ../docs/guestfs-release-notes.pod:1397 ../docs/guestfs-release-notes.pod:1402 ../docs/guestfs-release-notes.pod:3298 ../docs/guestfs-release-notes.pod:3303 ../docs/guestfs-release-notes.pod:3774 ../docs/guestfs-release-notes.pod:3778 ../docs/guestfs-release-notes.pod:3782 ../docs/guestfs-release-notes.pod:3786 ../docs/guestfs-release-notes.pod:3790 ../docs/guestfs-release-notes.pod:3794 ../docs/guestfs-release-notes.pod:3798 ../docs/guestfs-release-notes.pod:3803 ../docs/guestfs-release-notes.pod:3807 ../docs/guestfs-release-notes.pod:4132 ../docs/guestfs-release-notes.pod:4136 ../docs/guestfs-release-notes.pod:4140 ../docs/guestfs-release-notes.pod:4202 ../docs/guestfs-release-notes.pod:4206 ../docs/guestfs-release-notes.pod:4210 ../docs/guestfs-release-notes.pod:4214 ../docs/guestfs-release-notes.pod:4218 ../docs/guestfs-release-notes.pod:4222 ../docs/guestfs-release-notes.pod:4227 ../docs/guestfs-release-notes.pod:4231 ../docs/guestfs-release-notes.pod:4235 ../docs/guestfs-release-notes.pod:4239 ../docs/guestfs-release-notes.pod:4435 ../docs/guestfs-release-notes.pod:4440 ../docs/guestfs-release-notes.pod:4445 ../docs/guestfs-security.pod:81 ../docs/guestfs-security.pod:85 ../docs/guestfs-security.pod:89 ../docs/guestfs-security.pod:93 ../docs/guestfs-security.pod:97 ../docs/guestfs-security.pod:101 ../docs/guestfs-security.pod:311 ../docs/guestfs-security.pod:316 ../docs/guestfs-testing.pod:66 ../docs/guestfs-testing.pod:73 ../docs/guestfs-testing.pod:84 ../docs/guestfs-testing.pod:90 ../docs/guestfs-testing.pod:198 ../docs/guestfs-testing.pod:202 ../docs/guestfs-testing.pod:206 ../docs/internal-documentation.pod:41 ../docs/internal-documentation.pod:46 ../docs/internal-documentation.pod:1482 ../docs/internal-documentation.pod:1486 ../docs/internal-documentation.pod:1703 ../docs/internal-documentation.pod:1707 ../docs/internal-documentation.pod:2600 ../docs/internal-documentation.pod:2607 ../docs/internal-documentation.pod:2611 ../docs/internal-documentation.pod:2691 ../docs/internal-documentation.pod:2696 ../docs/internal-documentation.pod:2812 ../docs/internal-documentation.pod:2816 ../docs/internal-documentation.pod:2959 ../docs/internal-documentation.pod:2963 ../docs/internal-documentation.pod:2967 ../docs/internal-documentation.pod:2972 ../docs/internal-documentation.pod:3508 ../docs/internal-documentation.pod:3513 ../edit/virt-edit.pod:302 ../edit/virt-edit.pod:307 ../edit/virt-edit.pod:312 ../edit/virt-edit.pod:323 ../edit/virt-edit.pod:327 ../fish/guestfish-actions.pod:772 ../fish/guestfish-actions.pod:778 ../fish/guestfish-actions.pod:786 ../fish/guestfish-actions.pod:793 ../fish/guestfish-actions.pod:800 ../fish/guestfish-actions.pod:2518 ../fish/guestfish-actions.pod:2522 ../fish/guestfish-actions.pod:2526 ../fish/guestfish-actions.pod:2530 ../fish/guestfish-actions.pod:2538 ../fish/guestfish-actions.pod:2542 ../fish/guestfish-actions.pod:2546 ../fish/guestfish-actions.pod:2556 ../fish/guestfish-actions.pod:2560 ../fish/guestfish-actions.pod:2564 ../fish/guestfish-actions.pod:2826 ../fish/guestfish-actions.pod:2830 ../fish/guestfish-actions.pod:2835 ../fish/guestfish-actions.pod:2889 ../fish/guestfish-actions.pod:2893 ../fish/guestfish-actions.pod:2898 ../fish/guestfish-actions.pod:3515 ../fish/guestfish-actions.pod:3522 ../fish/guestfish-actions.pod:3529 ../fish/guestfish-actions.pod:4219 ../fish/guestfish-actions.pod:4225 ../fish/guestfish-actions.pod:4233 ../fish/guestfish-actions.pod:4240 ../fish/guestfish-actions.pod:4247 ../fish/guestfish.pod:469 ../fish/guestfish.pod:473 ../fish/guestfish.pod:477 ../fish/guestfish.pod:481 ../fish/guestfish.pod:1335 ../fish/guestfish.pod:1341 ../fish/libguestfs-tools.conf.pod:22 ../fish/libguestfs-tools.conf.pod:26 ../fish/libguestfs-tools.conf.pod:30 ../fish/libguestfs-tools.conf.pod:60 ../fish/libguestfs-tools.conf.pod:65 ../fish/libguestfs-tools.conf.pod:69 ../fish/libguestfs-tools.conf.pod:75 ../golang/examples/guestfs-golang.pod:58 ../golang/examples/guestfs-golang.pod:62 ../inspector/virt-inspector.pod:525 ../inspector/virt-inspector.pod:529 ../lib/guestfs-actions.pod:1174 ../lib/guestfs-actions.pod:1180 ../lib/guestfs-actions.pod:1188 ../lib/guestfs-actions.pod:1195 ../lib/guestfs-actions.pod:1202 ../lib/guestfs-actions.pod:4326 ../lib/guestfs-actions.pod:4330 ../lib/guestfs-actions.pod:4334 ../lib/guestfs-actions.pod:4338 ../lib/guestfs-actions.pod:4346 ../lib/guestfs-actions.pod:4350 ../lib/guestfs-actions.pod:4354 ../lib/guestfs-actions.pod:4364 ../lib/guestfs-actions.pod:4368 ../lib/guestfs-actions.pod:4372 ../lib/guestfs-actions.pod:4708 ../lib/guestfs-actions.pod:4712 ../lib/guestfs-actions.pod:4717 ../lib/guestfs-actions.pod:4804 ../lib/guestfs-actions.pod:4808 ../lib/guestfs-actions.pod:4813 ../lib/guestfs-actions.pod:5815 ../lib/guestfs-actions.pod:5822 ../lib/guestfs-actions.pod:5829 ../lib/guestfs-actions.pod:6809 ../lib/guestfs-actions.pod:6815 ../lib/guestfs-actions.pod:6823 ../lib/guestfs-actions.pod:6830 ../lib/guestfs-actions.pod:6837 ../lib/guestfs.pod:436 ../lib/guestfs.pod:441 ../lib/guestfs.pod:446 ../lib/guestfs.pod:450 ../lib/guestfs.pod:455 ../lib/guestfs.pod:459 ../lib/guestfs.pod:464 ../lib/guestfs.pod:469 ../lib/guestfs.pod:799 ../lib/guestfs.pod:806 ../lib/guestfs.pod:812 ../lib/guestfs.pod:818 ../lib/guestfs.pod:824 ../lib/guestfs.pod:829 ../lib/guestfs.pod:835 ../lib/guestfs.pod:1063 ../lib/guestfs.pod:1067 ../lib/guestfs.pod:1073 ../lib/guestfs.pod:1156 ../lib/guestfs.pod:1161 ../lib/guestfs.pod:1165 ../lib/guestfs.pod:1171 ../lib/guestfs.pod:1175 ../lib/guestfs.pod:1179 ../lib/guestfs.pod:1184 ../lib/guestfs.pod:1766 ../lib/guestfs.pod:1770 ../lib/guestfs.pod:1774 ../lib/guestfs.pod:1779 ../lib/guestfs.pod:1787 ../lib/guestfs.pod:1806 ../lib/guestfs.pod:1814 ../lib/guestfs.pod:1831 ../lib/guestfs.pod:1836 ../lib/guestfs.pod:1840 ../lib/guestfs.pod:2475 ../lib/guestfs.pod:2480 ../lib/guestfs.pod:2484 ../lib/guestfs.pod:2588 ../lib/guestfs.pod:2593 ../lib/guestfs.pod:2597 ../lib/guestfs.pod:2607 ../lib/guestfs.pod:3038 ../lib/guestfs.pod:3043 ../lib/guestfs.pod:3049 ../lib/guestfs.pod:3057 ../lib/guestfs.pod:3214 ../lib/guestfs.pod:3220 ../lib/guestfs.pod:3225 ../lib/guestfs.pod:3231 ../p2v/virt-p2v-make-kickstart.pod:58 ../p2v/virt-p2v-make-kickstart.pod:62 ../p2v/virt-p2v-make-kickstart.pod:66 ../p2v/virt-p2v-make-kickstart.pod:84 ../p2v/virt-p2v-make-kickstart.pod:89 ../p2v/virt-p2v-make-kickstart.pod:93 ../p2v/virt-p2v-make-kickstart.pod:160 ../p2v/virt-p2v-make-kickstart.pod:165 ../p2v/virt-p2v-make-kickstart.pod:170 ../p2v/virt-p2v-make-kickstart.pod:175 ../resize/virt-resize.pod:374 ../resize/virt-resize.pod:378 ../resize/virt-resize.pod:387 ../resize/virt-resize.pod:393 ../resize/virt-resize.pod:397 ../resize/virt-resize.pod:401 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:50 ../sparsify/virt-sparsify.pod:59 ../sparsify/virt-sparsify.pod:64 ../sparsify/virt-sparsify.pod:69 ../sparsify/virt-sparsify.pod:75 ../sparsify/virt-sparsify.pod:137 ../sparsify/virt-sparsify.pod:141 ../sparsify/virt-sparsify.pod:145 ../sparsify/virt-sparsify.pod:150 ../sparsify/virt-sparsify.pod:288 ../sparsify/virt-sparsify.pod:293 ../sparsify/virt-sparsify.pod:298 ../sysprep/sysprep-extra-options.pod:334 ../sysprep/sysprep-extra-options.pod:338 ../sysprep/virt-sysprep.pod:322 ../sysprep/virt-sysprep.pod:326 ../sysprep/virt-sysprep.pod:330 ../sysprep/virt-sysprep.pod:334 ../sysprep/virt-sysprep.pod:349 ../sysprep/virt-sysprep.pod:353 ../sysprep/virt-sysprep.pod:357 ../sysprep/virt-sysprep.pod:361 ../sysprep/virt-sysprep.pod:365 ../sysprep/virt-sysprep.pod:418 ../sysprep/virt-sysprep.pod:430 ../sysprep/virt-sysprep.pod:434 ../sysprep/virt-sysprep.pod:442 ../sysprep/virt-sysprep.pod:448 ../tools/virt-win-reg:194 ../tools/virt-win-reg:199 ../tools/virt-win-reg:205 ../tools/virt-win-reg:773 ../tools/virt-win-reg:779 ../tools/virt-win-reg:785 ../v2v/test-harness/virt-v2v-test-harness.pod:175 ../v2v/test-harness/virt-v2v-test-harness.pod:179 ../v2v/test-harness/virt-v2v-test-harness.pod:183 ../v2v/virt-v2v-copy-to-local.pod:31 ../v2v/virt-v2v-copy-to-local.pod:38 ../v2v/virt-v2v.pod:652 ../v2v/virt-v2v.pod:657 ../v2v/virt-v2v.pod:662 ../v2v/virt-v2v.pod:666 ../v2v/virt-v2v.pod:837 ../v2v/virt-v2v.pod:842 ../v2v/virt-v2v.pod:853 ../v2v/virt-v2v.pod:865 ../v2v/virt-v2v.pod:871 ../v2v/virt-v2v.pod:876 ../v2v/virt-v2v.pod:894 ../v2v/virt-v2v.pod:898 ../v2v/virt-v2v.pod:1058 ../v2v/virt-v2v.pod:1062 ../v2v/virt-v2v.pod:1066 ../v2v/virt-v2v.pod:1070 ../v2v/virt-v2v.pod:1074 ../v2v/virt-v2v.pod:1441 ../v2v/virt-v2v.pod:1446 ../v2v/virt-v2v.pod:1451
+#: ../align/virt-alignment-scan.pod:356 ../align/virt-alignment-scan.pod:362 ../align/virt-alignment-scan.pod:368 ../align/virt-alignment-scan.pod:375 ../appliance/libguestfs-make-fixed-appliance.pod:22 ../appliance/libguestfs-make-fixed-appliance.pod:28 ../appliance/libguestfs-make-fixed-appliance.pod:34 ../appliance/libguestfs-make-fixed-appliance.pod:52 ../appliance/libguestfs-make-fixed-appliance.pod:73 ../builder/virt-builder.pod:932 ../builder/virt-builder.pod:939 ../builder/virt-builder.pod:943 ../builder/virt-builder.pod:947 ../builder/virt-builder.pod:952 ../builder/virt-builder.pod:956 ../builder/virt-builder.pod:960 ../builder/virt-builder.pod:965 ../builder/virt-builder.pod:1140 ../builder/virt-builder.pod:1145 ../builder/virt-builder.pod:1715 ../builder/virt-builder.pod:1719 ../builder/virt-builder.pod:1723 ../builder/virt-index-validate.pod:32 ../builder/virt-index-validate.pod:37 ../builder/virt-index-validate.pod:51 ../builder/virt-index-validate.pod:56 ../cat/virt-cat.pod:216 ../cat/virt-cat.pod:221 ../cat/virt-cat.pod:226 ../cat/virt-cat.pod:237 ../cat/virt-cat.pod:241 ../cat/virt-tail.pod:25 ../cat/virt-tail.pod:29 ../cat/virt-tail.pod:34 ../cat/virt-tail.pod:200 ../cat/virt-tail.pod:205 ../cat/virt-tail.pod:210 ../cat/virt-tail.pod:221 ../cat/virt-tail.pod:225 ../common/miniexpect/miniexpect.pod:231 ../common/miniexpect/miniexpect.pod:236 ../common/miniexpect/miniexpect.pod:326 ../common/miniexpect/miniexpect.pod:332 ../common/miniexpect/miniexpect.pod:337 ../common/miniexpect/miniexpect.pod:426 ../common/miniexpect/miniexpect.pod:431 ../customize/customize-options.pod:290 ../customize/customize-options.pod:294 ../docs/guestfs-building.pod:13 ../docs/guestfs-building.pod:17 ../docs/guestfs-building.pod:21 ../docs/guestfs-building.pod:25 ../docs/guestfs-building.pod:791 ../docs/guestfs-building.pod:796 ../docs/guestfs-faq.pod:188 ../docs/guestfs-faq.pod:194 ../docs/guestfs-faq.pod:198 ../docs/guestfs-faq.pod:203 ../docs/guestfs-faq.pod:768 ../docs/guestfs-faq.pod:774 ../docs/guestfs-faq.pod:813 ../docs/guestfs-faq.pod:819 ../docs/guestfs-faq.pod:1381 ../docs/guestfs-faq.pod:1392 ../docs/guestfs-faq.pod:1397 ../docs/guestfs-hacking.pod:641 ../docs/guestfs-hacking.pod:646 ../docs/guestfs-hacking.pod:653 ../docs/guestfs-hacking.pod:658 ../docs/guestfs-hacking.pod:677 ../docs/guestfs-hacking.pod:682 ../docs/guestfs-hacking.pod:688 ../docs/guestfs-hacking.pod:693 ../docs/guestfs-hacking.pod:713 ../docs/guestfs-hacking.pod:717 ../docs/guestfs-hacking.pod:721 ../docs/guestfs-hacking.pod:725 ../docs/guestfs-hacking.pod:729 ../docs/guestfs-hacking.pod:873 ../docs/guestfs-hacking.pod:877 ../docs/guestfs-hacking.pod:884 ../docs/guestfs-hacking.pod:911 ../docs/guestfs-hacking.pod:915 ../docs/guestfs-hacking.pod:1054 ../docs/guestfs-hacking.pod:1074 ../docs/guestfs-hacking.pod:1078 ../docs/guestfs-hacking.pod:1082 ../docs/guestfs-hacking.pod:1096 ../docs/guestfs-hacking.pod:1100 ../docs/guestfs-hacking.pod:1105 ../docs/guestfs-hacking.pod:1109 ../docs/guestfs-hacking.pod:1121 ../docs/guestfs-hacking.pod:1128 ../docs/guestfs-hacking.pod:1132 ../docs/guestfs-performance.pod:116 ../docs/guestfs-performance.pod:122 ../docs/guestfs-performance.pod:127 ../docs/guestfs-performance.pod:254 ../docs/guestfs-performance.pod:259 ../docs/guestfs-performance.pod:264 ../docs/guestfs-performance.pod:384 ../docs/guestfs-performance.pod:388 ../docs/guestfs-performance.pod:394 ../docs/guestfs-performance.pod:400 ../docs/guestfs-recipes.pod:280 ../docs/guestfs-recipes.pod:284 ../docs/guestfs-recipes.pod:288 ../docs/guestfs-recipes.pod:314 ../docs/guestfs-recipes.pod:319 ../docs/guestfs-recipes.pod:426 ../docs/guestfs-recipes.pod:430 ../docs/guestfs-recipes.pod:434 ../docs/guestfs-recipes.pod:438 ../docs/guestfs-recipes.pod:442 ../docs/guestfs-release-notes.pod:1397 ../docs/guestfs-release-notes.pod:1402 ../docs/guestfs-release-notes.pod:3298 ../docs/guestfs-release-notes.pod:3303 ../docs/guestfs-release-notes.pod:3774 ../docs/guestfs-release-notes.pod:3778 ../docs/guestfs-release-notes.pod:3782 ../docs/guestfs-release-notes.pod:3786 ../docs/guestfs-release-notes.pod:3790 ../docs/guestfs-release-notes.pod:3794 ../docs/guestfs-release-notes.pod:3798 ../docs/guestfs-release-notes.pod:3803 ../docs/guestfs-release-notes.pod:3807 ../docs/guestfs-release-notes.pod:4132 ../docs/guestfs-release-notes.pod:4136 ../docs/guestfs-release-notes.pod:4140 ../docs/guestfs-release-notes.pod:4202 ../docs/guestfs-release-notes.pod:4206 ../docs/guestfs-release-notes.pod:4210 ../docs/guestfs-release-notes.pod:4214 ../docs/guestfs-release-notes.pod:4218 ../docs/guestfs-release-notes.pod:4222 ../docs/guestfs-release-notes.pod:4227 ../docs/guestfs-release-notes.pod:4231 ../docs/guestfs-release-notes.pod:4235 ../docs/guestfs-release-notes.pod:4239 ../docs/guestfs-release-notes.pod:4435 ../docs/guestfs-release-notes.pod:4440 ../docs/guestfs-release-notes.pod:4445 ../docs/guestfs-security.pod:81 ../docs/guestfs-security.pod:85 ../docs/guestfs-security.pod:89 ../docs/guestfs-security.pod:93 ../docs/guestfs-security.pod:97 ../docs/guestfs-security.pod:101 ../docs/guestfs-security.pod:311 ../docs/guestfs-security.pod:316 ../docs/guestfs-testing.pod:66 ../docs/guestfs-testing.pod:73 ../docs/guestfs-testing.pod:84 ../docs/guestfs-testing.pod:90 ../docs/guestfs-testing.pod:198 ../docs/guestfs-testing.pod:202 ../docs/guestfs-testing.pod:206 ../docs/internal-documentation.pod:41 ../docs/internal-documentation.pod:46 ../docs/internal-documentation.pod:1481 ../docs/internal-documentation.pod:1485 ../docs/internal-documentation.pod:1702 ../docs/internal-documentation.pod:1706 ../docs/internal-documentation.pod:2600 ../docs/internal-documentation.pod:2607 ../docs/internal-documentation.pod:2611 ../docs/internal-documentation.pod:2691 ../docs/internal-documentation.pod:2696 ../docs/internal-documentation.pod:2812 ../docs/internal-documentation.pod:2816 ../docs/internal-documentation.pod:2959 ../docs/internal-documentation.pod:2963 ../docs/internal-documentation.pod:2967 ../docs/internal-documentation.pod:2972 ../docs/internal-documentation.pod:3508 ../docs/internal-documentation.pod:3513 ../edit/virt-edit.pod:302 ../edit/virt-edit.pod:307 ../edit/virt-edit.pod:312 ../edit/virt-edit.pod:323 ../edit/virt-edit.pod:327 ../fish/guestfish-actions.pod:772 ../fish/guestfish-actions.pod:778 ../fish/guestfish-actions.pod:786 ../fish/guestfish-actions.pod:793 ../fish/guestfish-actions.pod:800 ../fish/guestfish-actions.pod:2518 ../fish/guestfish-actions.pod:2522 ../fish/guestfish-actions.pod:2526 ../fish/guestfish-actions.pod:2530 ../fish/guestfish-actions.pod:2538 ../fish/guestfish-actions.pod:2542 ../fish/guestfish-actions.pod:2546 ../fish/guestfish-actions.pod:2556 ../fish/guestfish-actions.pod:2560 ../fish/guestfish-actions.pod:2564 ../fish/guestfish-actions.pod:2826 ../fish/guestfish-actions.pod:2830 ../fish/guestfish-actions.pod:2835 ../fish/guestfish-actions.pod:2889 ../fish/guestfish-actions.pod:2893 ../fish/guestfish-actions.pod:2898 ../fish/guestfish-actions.pod:3515 ../fish/guestfish-actions.pod:3522 ../fish/guestfish-actions.pod:3529 ../fish/guestfish-actions.pod:4219 ../fish/guestfish-actions.pod:4225 ../fish/guestfish-actions.pod:4233 ../fish/guestfish-actions.pod:4240 ../fish/guestfish-actions.pod:4247 ../fish/guestfish.pod:469 ../fish/guestfish.pod:473 ../fish/guestfish.pod:477 ../fish/guestfish.pod:481 ../fish/guestfish.pod:1335 ../fish/guestfish.pod:1341 ../fish/libguestfs-tools.conf.pod:22 ../fish/libguestfs-tools.conf.pod:26 ../fish/libguestfs-tools.conf.pod:30 ../fish/libguestfs-tools.conf.pod:60 ../fish/libguestfs-tools.conf.pod:65 ../fish/libguestfs-tools.conf.pod:69 ../fish/libguestfs-tools.conf.pod:75 ../golang/examples/guestfs-golang.pod:58 ../golang/examples/guestfs-golang.pod:62 ../inspector/virt-inspector.pod:525 ../inspector/virt-inspector.pod:529 ../lib/guestfs-actions.pod:1174 ../lib/guestfs-actions.pod:1180 ../lib/guestfs-actions.pod:1188 ../lib/guestfs-actions.pod:1195 ../lib/guestfs-actions.pod:1202 ../lib/guestfs-actions.pod:4326 ../lib/guestfs-actions.pod:4330 ../lib/guestfs-actions.pod:4334 ../lib/guestfs-actions.pod:4338 ../lib/guestfs-actions.pod:4346 ../lib/guestfs-actions.pod:4350 ../lib/guestfs-actions.pod:4354 ../lib/guestfs-actions.pod:4364 ../lib/guestfs-actions.pod:4368 ../lib/guestfs-actions.pod:4372 ../lib/guestfs-actions.pod:4708 ../lib/guestfs-actions.pod:4712 ../lib/guestfs-actions.pod:4717 ../lib/guestfs-actions.pod:4804 ../lib/guestfs-actions.pod:4808 ../lib/guestfs-actions.pod:4813 ../lib/guestfs-actions.pod:5815 ../lib/guestfs-actions.pod:5822 ../lib/guestfs-actions.pod:5829 ../lib/guestfs-actions.pod:6809 ../lib/guestfs-actions.pod:6815 ../lib/guestfs-actions.pod:6823 ../lib/guestfs-actions.pod:6830 ../lib/guestfs-actions.pod:6837 ../lib/guestfs.pod:436 ../lib/guestfs.pod:441 ../lib/guestfs.pod:446 ../lib/guestfs.pod:450 ../lib/guestfs.pod:455 ../lib/guestfs.pod:459 ../lib/guestfs.pod:464 ../lib/guestfs.pod:469 ../lib/guestfs.pod:799 ../lib/guestfs.pod:806 ../lib/guestfs.pod:812 ../lib/guestfs.pod:818 ../lib/guestfs.pod:824 ../lib/guestfs.pod:829 ../lib/guestfs.pod:835 ../lib/guestfs.pod:1063 ../lib/guestfs.pod:1067 ../lib/guestfs.pod:1073 ../lib/guestfs.pod:1156 ../lib/guestfs.pod:1161 ../lib/guestfs.pod:1165 ../lib/guestfs.pod:1171 ../lib/guestfs.pod:1175 ../lib/guestfs.pod:1179 ../lib/guestfs.pod:1184 ../lib/guestfs.pod:1766 ../lib/guestfs.pod:1770 ../lib/guestfs.pod:1774 ../lib/guestfs.pod:1779 ../lib/guestfs.pod:1787 ../lib/guestfs.pod:1806 ../lib/guestfs.pod:1814 ../lib/guestfs.pod:1831 ../lib/guestfs.pod:1836 ../lib/guestfs.pod:1840 ../lib/guestfs.pod:2475 ../lib/guestfs.pod:2480 ../lib/guestfs.pod:2484 ../lib/guestfs.pod:2588 ../lib/guestfs.pod:2593 ../lib/guestfs.pod:2597 ../lib/guestfs.pod:2607 ../lib/guestfs.pod:3038 ../lib/guestfs.pod:3043 ../lib/guestfs.pod:3049 ../lib/guestfs.pod:3057 ../lib/guestfs.pod:3214 ../lib/guestfs.pod:3220 ../lib/guestfs.pod:3225 ../lib/guestfs.pod:3231 ../p2v/virt-p2v-make-kickstart.pod:58 ../p2v/virt-p2v-make-kickstart.pod:62 ../p2v/virt-p2v-make-kickstart.pod:66 ../p2v/virt-p2v-make-kickstart.pod:84 ../p2v/virt-p2v-make-kickstart.pod:89 ../p2v/virt-p2v-make-kickstart.pod:93 ../p2v/virt-p2v-make-kickstart.pod:160 ../p2v/virt-p2v-make-kickstart.pod:165 ../p2v/virt-p2v-make-kickstart.pod:170 ../p2v/virt-p2v-make-kickstart.pod:175 ../resize/virt-resize.pod:374 ../resize/virt-resize.pod:378 ../resize/virt-resize.pod:387 ../resize/virt-resize.pod:393 ../resize/virt-resize.pod:397 ../resize/virt-resize.pod:401 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:50 ../sparsify/virt-sparsify.pod:59 ../sparsify/virt-sparsify.pod:64 ../sparsify/virt-sparsify.pod:69 ../sparsify/virt-sparsify.pod:75 ../sparsify/virt-sparsify.pod:137 ../sparsify/virt-sparsify.pod:141 ../sparsify/virt-sparsify.pod:145 ../sparsify/virt-sparsify.pod:150 ../sparsify/virt-sparsify.pod:288 ../sparsify/virt-sparsify.pod:293 ../sparsify/virt-sparsify.pod:298 ../sysprep/sysprep-extra-options.pod:334 ../sysprep/sysprep-extra-options.pod:338 ../sysprep/virt-sysprep.pod:322 ../sysprep/virt-sysprep.pod:326 ../sysprep/virt-sysprep.pod:330 ../sysprep/virt-sysprep.pod:334 ../sysprep/virt-sysprep.pod:349 ../sysprep/virt-sysprep.pod:353 ../sysprep/virt-sysprep.pod:357 ../sysprep/virt-sysprep.pod:361 ../sysprep/virt-sysprep.pod:365 ../sysprep/virt-sysprep.pod:418 ../sysprep/virt-sysprep.pod:430 ../sysprep/virt-sysprep.pod:434 ../sysprep/virt-sysprep.pod:442 ../sysprep/virt-sysprep.pod:448 ../tools/virt-win-reg:194 ../tools/virt-win-reg:199 ../tools/virt-win-reg:205 ../tools/virt-win-reg:773 ../tools/virt-win-reg:779 ../tools/virt-win-reg:785 ../v2v/test-harness/virt-v2v-test-harness.pod:175 ../v2v/test-harness/virt-v2v-test-harness.pod:179 ../v2v/test-harness/virt-v2v-test-harness.pod:183 ../v2v/virt-v2v-copy-to-local.pod:31 ../v2v/virt-v2v-copy-to-local.pod:38 ../v2v/virt-v2v.pod:652 ../v2v/virt-v2v.pod:657 ../v2v/virt-v2v.pod:662 ../v2v/virt-v2v.pod:666 ../v2v/virt-v2v.pod:837 ../v2v/virt-v2v.pod:842 ../v2v/virt-v2v.pod:853 ../v2v/virt-v2v.pod:865 ../v2v/virt-v2v.pod:871 ../v2v/virt-v2v.pod:876 ../v2v/virt-v2v.pod:894 ../v2v/virt-v2v.pod:898 ../v2v/virt-v2v.pod:1058 ../v2v/virt-v2v.pod:1062 ../v2v/virt-v2v.pod:1066 ../v2v/virt-v2v.pod:1070 ../v2v/virt-v2v.pod:1074 ../v2v/virt-v2v.pod:1441 ../v2v/virt-v2v.pod:1446 ../v2v/virt-v2v.pod:1451
 msgid "*"
 msgstr ""
 
@@ -823,7 +823,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:140 ../builder/virt-builder.pod:1873 ../builder/virt-index-validate.pod:79 ../cat/virt-cat.pod:275 ../cat/virt-filesystems.pod:386 ../cat/virt-log.pod:136 ../cat/virt-ls.pod:518 ../cat/virt-tail.pod:236 ../common/miniexpect/miniexpect.pod:456 ../customize/virt-customize.pod:286 ../daemon/guestfsd.pod:143 ../df/virt-df.pod:256 ../dib/virt-dib.pod:692 ../diff/virt-diff.pod:248 ../docs/guestfs-building.pod:835 ../docs/guestfs-faq.pod:1411 ../docs/guestfs-hacking.pod:1152 ../docs/guestfs-internals.pod:400 ../docs/guestfs-performance.pod:619 ../docs/guestfs-recipes.pod:719 ../docs/guestfs-release-notes.pod:6066 ../docs/guestfs-security.pod:385 ../docs/guestfs-testing.pod:399 ../edit/virt-edit.pod:383 ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55 ../fish/guestfish.pod:1611 ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:42 ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:39 ../fish/virt-tar-out.pod:39 ../format/virt-format.pod:185 ../fuse/guestmount.pod:426 ../fuse/guestunmount.pod:147 ../get-kernel/virt-get-kernel.pod:183 ../golang/examples/guestfs-golang.pod:76 ../inspector/virt-inspector.pod:512 ../java/examples/guestfs-java.pod:159 ../lib/guestfs.pod:3482 ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215 ../ocaml/examples/guestfs-ocaml.pod:80 ../p2v/virt-p2v-make-disk.pod:204 ../p2v/virt-p2v-make-kickstart.pod:324 ../p2v/virt-p2v-make-kiwi.pod:170 ../p2v/virt-p2v.pod:859 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:63 ../rescue/virt-rescue.pod:401 ../resize/virt-resize.pod:831 ../ruby/examples/guestfs-ruby.pod:34 ../sparsify/virt-sparsify.pod:452 ../sysprep/virt-sysprep.pod:599 ../test-tool/libguestfs-test-tool.pod:178 ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263 ../tools/virt-tar:292 ../tools/virt-win-reg:804 ../utils/boot-analysis/boot-analysis.pod:88 ../utils/boot-benchmark/boot-benchmark.pod:57 ../v2v/test-harness/virt-v2v-test-harness.pod:263 ../v2v/virt-v2v-copy-to-local.pod:135 ../v2v/virt-v2v.pod:2097
+#: ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:140 ../builder/virt-builder.pod:1873 ../builder/virt-index-validate.pod:79 ../cat/virt-cat.pod:275 ../cat/virt-filesystems.pod:386 ../cat/virt-log.pod:136 ../cat/virt-ls.pod:518 ../cat/virt-tail.pod:236 ../common/miniexpect/miniexpect.pod:456 ../customize/virt-customize.pod:286 ../daemon/guestfsd.pod:143 ../df/virt-df.pod:256 ../dib/virt-dib.pod:692 ../diff/virt-diff.pod:248 ../docs/guestfs-building.pod:835 ../docs/guestfs-faq.pod:1411 ../docs/guestfs-hacking.pod:1152 ../docs/guestfs-internals.pod:400 ../docs/guestfs-performance.pod:619 ../docs/guestfs-recipes.pod:719 ../docs/guestfs-release-notes.pod:6066 ../docs/guestfs-security.pod:385 ../docs/guestfs-testing.pod:399 ../edit/virt-edit.pod:383 ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55 ../fish/guestfish.pod:1614 ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:42 ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:39 ../fish/virt-tar-out.pod:39 ../format/virt-format.pod:185 ../fuse/guestmount.pod:426 ../fuse/guestunmount.pod:147 ../get-kernel/virt-get-kernel.pod:183 ../golang/examples/guestfs-golang.pod:76 ../inspector/virt-inspector.pod:512 ../java/examples/guestfs-java.pod:159 ../lib/guestfs.pod:3482 ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215 ../ocaml/examples/guestfs-ocaml.pod:80 ../p2v/virt-p2v-make-disk.pod:204 ../p2v/virt-p2v-make-kickstart.pod:324 ../p2v/virt-p2v-make-kiwi.pod:170 ../p2v/virt-p2v.pod:859 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:63 ../rescue/virt-rescue.pod:401 ../resize/virt-resize.pod:831 ../ruby/examples/guestfs-ruby.pod:34 ../sparsify/virt-sparsify.pod:452 ../sysprep/virt-sysprep.pod:599 ../test-tool/libguestfs-test-tool.pod:178 ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263 ../tools/virt-tar:292 ../tools/virt-win-reg:804 ../utils/boot-analysis/boot-analysis.pod:88 ../utils/boot-benchmark/boot-benchmark.pod:57 ../v2v/test-harness/virt-v2v-test-harness.pod:263 ../v2v/virt-v2v-copy-to-local.pod:135 ../v2v/virt-v2v.pod:2097
 msgid "SEE ALSO"
 msgstr ""
 
@@ -845,7 +845,7 @@ msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:397 ../appliance/libguestfs-make-fixed-appliance.pod:152 ../builder/virt-builder.pod:1897 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:290 ../cat/virt-filesystems.pod:401 ../cat/virt-log.pod:151 ../cat/virt-ls.pod:532 ../cat/virt-tail.pod:251 ../common/miniexpect/miniexpect.pod:473 ../customize/virt-customize.pod:307 ../daemon/guestfsd.pod:152 ../df/virt-df.pod:268 ../dib/virt-dib.pod:703 ../diff/virt-diff.pod:262 ../docs/guestfs-building.pod:852 ../docs/guestfs-faq.pod:1421 ../docs/guestfs-hacking.pod:1169 ../docs/guestfs-internals.pod:413 ../docs/guestfs-performance.pod:636 ../docs/guestfs-recipes.pod:738 ../docs/guestfs-release-notes.pod:6081 ../docs/guestfs-security.pod:397 ../docs/guestfs-testing.pod:410 ../edit/virt-edit.pod:398 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../fish/guestfish.pod:1651 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:56 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:54 ../fish/virt-tar-out.pod:53 ../format/virt-format.pod:199 ../fuse/guestmount.pod:444 ../fuse/guestunmount.pod:160 ../get-kernel/virt-get-kernel.pod:195 ../golang/examples/guestfs-golang.pod:95 ../inspector/virt-inspector.pod:535 ../java/examples/guestfs-java.pod:178 ../lib/guestfs.pod:3562 ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233 ../ocaml/examples/guestfs-ocaml.pod:99 ../p2v/virt-p2v-make-disk.pod:216 ../p2v/virt-p2v-make-kickstart.pod:337 ../p2v/virt-p2v-make-kiwi.pod:182 ../p2v/virt-p2v.pod:886 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:81 ../rescue/virt-rescue.pod:415 ../resize/virt-resize.pod:859 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:469 ../sysprep/virt-sysprep.pod:622 ../test-tool/libguestfs-test-tool.pod:188 ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278 ../tools/virt-tar:310 ../tools/virt-win-reg:823 ../utils/boot-analysis/boot-analysis.pod:97 ../utils/boot-benchmark/boot-benchmark.pod:66 ../v2v/test-harness/virt-v2v-test-harness.pod:277 ../v2v/virt-v2v-copy-to-local.pod:148 ../v2v/virt-v2v.pod:2128
+#: ../align/virt-alignment-scan.pod:397 ../appliance/libguestfs-make-fixed-appliance.pod:152 ../builder/virt-builder.pod:1897 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:290 ../cat/virt-filesystems.pod:401 ../cat/virt-log.pod:151 ../cat/virt-ls.pod:532 ../cat/virt-tail.pod:251 ../common/miniexpect/miniexpect.pod:473 ../customize/virt-customize.pod:307 ../daemon/guestfsd.pod:152 ../df/virt-df.pod:268 ../dib/virt-dib.pod:703 ../diff/virt-diff.pod:262 ../docs/guestfs-building.pod:852 ../docs/guestfs-faq.pod:1421 ../docs/guestfs-hacking.pod:1169 ../docs/guestfs-internals.pod:413 ../docs/guestfs-performance.pod:636 ../docs/guestfs-recipes.pod:738 ../docs/guestfs-release-notes.pod:6081 ../docs/guestfs-security.pod:397 ../docs/guestfs-testing.pod:410 ../edit/virt-edit.pod:398 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../fish/guestfish.pod:1654 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:56 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:54 ../fish/virt-tar-out.pod:53 ../format/virt-format.pod:199 ../fuse/guestmount.pod:444 ../fuse/guestunmount.pod:160 ../get-kernel/virt-get-kernel.pod:195 ../golang/examples/guestfs-golang.pod:95 ../inspector/virt-inspector.pod:535 ../java/examples/guestfs-java.pod:178 ../lib/guestfs.pod:3562 ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233 ../ocaml/examples/guestfs-ocaml.pod:99 ../p2v/virt-p2v-make-disk.pod:216 ../p2v/virt-p2v-make-kickstart.pod:337 ../p2v/virt-p2v-make-kiwi.pod:182 ../p2v/virt-p2v.pod:886 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:81 ../rescue/virt-rescue.pod:415 ../resize/virt-resize.pod:859 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:469 ../sysprep/virt-sysprep.pod:622 ../test-tool/libguestfs-test-tool.pod:188 ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278 ../tools/virt-tar:310 ../tools/virt-win-reg:823 ../utils/boot-analysis/boot-analysis.pod:97 ../utils/boot-benchmark/boot-benchmark.pod:66 ../v2v/test-harness/virt-v2v-test-harness.pod:277 ../v2v/virt-v2v-copy-to-local.pod:148 ../v2v/virt-v2v.pod:2128
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -1084,7 +1084,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:135 ../builder/virt-builder.pod:1803 ../customize/virt-customize.pod:250 ../dib/virt-dib.pod:444 ../edit/virt-edit.pod:365 ../fish/guestfish.pod:1390 ../fuse/guestunmount.pod:113 ../get-kernel/virt-get-kernel.pod:173 ../lib/guestfs.pod:3369 ../p2v/virt-p2v-make-disk.pod:193 ../p2v/virt-p2v-make-kickstart.pod:312 ../p2v/virt-p2v-make-kiwi.pod:158 ../rescue/virt-rescue.pod:377 ../sparsify/virt-sparsify.pod:408 ../sysprep/virt-sysprep.pod:563 ../test-tool/libguestfs-test-tool.pod:173 ../v2v/virt-v2v.pod:2002
+#: ../appliance/libguestfs-make-fixed-appliance.pod:135 ../builder/virt-builder.pod:1803 ../customize/virt-customize.pod:250 ../dib/virt-dib.pod:444 ../edit/virt-edit.pod:365 ../fish/guestfish.pod:1393 ../fuse/guestunmount.pod:113 ../get-kernel/virt-get-kernel.pod:173 ../lib/guestfs.pod:3369 ../p2v/virt-p2v-make-disk.pod:193 ../p2v/virt-p2v-make-kickstart.pod:312 ../p2v/virt-p2v-make-kiwi.pod:158 ../rescue/virt-rescue.pod:377 ../sparsify/virt-sparsify.pod:408 ../sysprep/virt-sysprep.pod:563 ../test-tool/libguestfs-test-tool.pod:173 ../v2v/virt-v2v.pod:2002
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
@@ -1103,17 +1103,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:148 ../common/miniexpect/miniexpect.pod:464 ../customize/virt-customize.pod:303 ../docs/guestfs-building.pod:848 ../docs/guestfs-faq.pod:1417 ../docs/guestfs-hacking.pod:1165 ../docs/guestfs-internals.pod:409 ../docs/guestfs-performance.pod:632 ../docs/guestfs-recipes.pod:734 ../docs/guestfs-security.pod:393 ../docs/guestfs-testing.pod:406 ../erlang/examples/guestfs-erlang.pod:110 ../examples/guestfs-examples.pod:69 ../fish/guestfish.pod:1647 ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:52 ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:50 ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:440 ../fuse/guestunmount.pod:156 ../golang/examples/guestfs-golang.pod:91 ../inspector/virt-inspector.pod:521 ../java/examples/guestfs-java.pod:174 ../lib/guestfs.pod:3558 ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v/virt-p2v-make-disk.pod:212 ../p2v/virt-p2v-make-kickstart.pod:333 ../p2v/virt-p2v-make-kiwi.pod:178 ../p2v/virt-p2v.pod:872 ../perl/examples/guestfs-perl.pod:53 ../python/examples/guestfs-python.pod:77 ../ruby/examples/guestfs-ruby.pod:48 ../sysprep/virt-sysprep.pod:616 ../test-tool/libguestfs-test-tool.pod:184 ../v2v/test-harness/virt-v2v-test-harness.pod:273 ../v2v/virt-v2v-copy-to-local.pod:144 ../v2v/virt-v2v.pod:2114
+#: ../appliance/libguestfs-make-fixed-appliance.pod:148 ../common/miniexpect/miniexpect.pod:464 ../customize/virt-customize.pod:303 ../docs/guestfs-building.pod:848 ../docs/guestfs-faq.pod:1417 ../docs/guestfs-hacking.pod:1165 ../docs/guestfs-internals.pod:409 ../docs/guestfs-performance.pod:632 ../docs/guestfs-recipes.pod:734 ../docs/guestfs-security.pod:393 ../docs/guestfs-testing.pod:406 ../erlang/examples/guestfs-erlang.pod:110 ../examples/guestfs-examples.pod:69 ../fish/guestfish.pod:1650 ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:52 ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:50 ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:440 ../fuse/guestunmount.pod:156 ../golang/examples/guestfs-golang.pod:91 ../inspector/virt-inspector.pod:521 ../java/examples/guestfs-java.pod:174 ../lib/guestfs.pod:3558 ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v/virt-p2v-make-disk.pod:212 ../p2v/virt-p2v-make-kickstart.pod:333 ../p2v/virt-p2v-make-kiwi.pod:178 ../p2v/virt-p2v.pod:872 ../perl/examples/guestfs-perl.pod:53 ../python/examples/guestfs-python.pod:77 ../ruby/examples/guestfs-ruby.pod:48 ../sysprep/virt-sysprep.pod:616 ../test-tool/libguestfs-test-tool.pod:184 ../v2v/test-harness/virt-v2v-test-harness.pod:273 ../v2v/virt-v2v-copy-to-local.pod:144 ../v2v/virt-v2v.pod:2114
 msgid "AUTHORS"
 msgstr ""
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:150 ../common/miniexpect/miniexpect.pod:466 ../docs/guestfs-building.pod:850 ../docs/guestfs-faq.pod:1419 ../docs/guestfs-hacking.pod:1167 ../docs/guestfs-internals.pod:411 ../docs/guestfs-performance.pod:634 ../docs/guestfs-recipes.pod:736 ../docs/guestfs-security.pod:395 ../docs/guestfs-testing.pod:408 ../erlang/examples/guestfs-erlang.pod:112 ../examples/guestfs-examples.pod:71 ../fish/guestfish.pod:1649 ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:54 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:52 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:442 ../fuse/guestunmount.pod:158 ../golang/examples/guestfs-golang.pod:93 ../java/examples/guestfs-java.pod:176 ../lib/guestfs.pod:3560 ../lua/examples/guestfs-lua.pod:153 ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:55 ../python/examples/guestfs-python.pod:79 ../ruby/examples/guestfs-ruby.pod:50 ../test-tool/libguestfs-test-tool.pod:186
+#: ../appliance/libguestfs-make-fixed-appliance.pod:150 ../common/miniexpect/miniexpect.pod:466 ../docs/guestfs-building.pod:850 ../docs/guestfs-faq.pod:1419 ../docs/guestfs-hacking.pod:1167 ../docs/guestfs-internals.pod:411 ../docs/guestfs-performance.pod:634 ../docs/guestfs-recipes.pod:736 ../docs/guestfs-security.pod:395 ../docs/guestfs-testing.pod:408 ../erlang/examples/guestfs-erlang.pod:112 ../examples/guestfs-examples.pod:71 ../fish/guestfish.pod:1652 ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:54 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:52 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:442 ../fuse/guestunmount.pod:158 ../golang/examples/guestfs-golang.pod:93 ../java/examples/guestfs-java.pod:176 ../lib/guestfs.pod:3560 ../lua/examples/guestfs-lua.pod:153 ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:55 ../python/examples/guestfs-python.pod:79 ../ruby/examples/guestfs-ruby.pod:50 ../test-tool/libguestfs-test-tool.pod:186
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:534 ../daemon/guestfsd.pod:154 ../df/virt-df.pod:270 ../diff/virt-diff.pod:264 ../docs/guestfs-building.pod:854 ../docs/guestfs-hacking.pod:1171 ../docs/guestfs-internals.pod:415 ../docs/guestfs-recipes.pod:740 ../docs/guestfs-release-notes.pod:6083 ../docs/guestfs-security.pod:399 ../edit/virt-edit.pod:400 ../fish/guestfish.pod:1653 ../fuse/guestmount.pod:446 ../lib/guestfs.pod:3564 ../p2v/virt-p2v-make-disk.pod:218 ../p2v/virt-p2v-make-kickstart.pod:339 ../p2v/virt-p2v.pod:888 ../rescue/virt-rescue.pod:417 ../test-tool/libguestfs-test-tool.pod:190 ../tools/virt-list-partitions:280 ../v2v/virt-v2v-copy-to-local.pod:150 ../v2v/virt-v2v.pod:2130
+#: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:534 ../daemon/guestfsd.pod:154 ../df/virt-df.pod:270 ../diff/virt-diff.pod:264 ../docs/guestfs-building.pod:854 ../docs/guestfs-hacking.pod:1171 ../docs/guestfs-internals.pod:415 ../docs/guestfs-recipes.pod:740 ../docs/guestfs-release-notes.pod:6083 ../docs/guestfs-security.pod:399 ../edit/virt-edit.pod:400 ../fish/guestfish.pod:1656 ../fuse/guestmount.pod:446 ../lib/guestfs.pod:3564 ../p2v/virt-p2v-make-disk.pod:218 ../p2v/virt-p2v-make-kickstart.pod:339 ../p2v/virt-p2v.pod:888 ../rescue/virt-rescue.pod:417 ../test-tool/libguestfs-test-tool.pod:190 ../tools/virt-list-partitions:280 ../v2v/virt-v2v-copy-to-local.pod:150 ../v2v/virt-v2v.pod:2130
 msgid "Copyright (C) 2009-2017 Red Hat Inc."
 msgstr ""
 
@@ -2067,7 +2067,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:411 ../builder/virt-builder.pod:986 ../common/miniexpect/miniexpect.pod:162 ../customize/virt-customize.pod:181 ../docs/guestfs-faq.pod:494 ../docs/guestfs-faq.pod:721 ../docs/guestfs-faq.pod:927 ../docs/guestfs-hacking.pod:351 ../docs/guestfs-performance.pod:170 ../docs/guestfs-performance.pod:212 ../docs/guestfs-recipes.pod:457 ../docs/guestfs-security.pod:177 ../docs/internal-documentation.pod:169 ../docs/internal-documentation.pod:272 ../docs/internal-documentation.pod:1404 ../docs/internal-documentation.pod:1527 ../lib/guestfs.pod:1851 ../lib/guestfs.pod:2191 ../p2v/virt-p2v.pod:506 ../rescue/virt-rescue.pod:315 ../resize/virt-resize.pod:29 ../resize/virt-resize.pod:660 ../resize/virt-resize.pod:773 ../sparsify/virt-sparsify.pod:379 ../v2v/virt-v2v.pod:1141 ../v2v/virt-v2v.pod:1462 ../v2v/virt-v2v.pod:1600 ../v2v/virt-v2v.pod:1964
+#: ../builder/virt-builder.pod:411 ../builder/virt-builder.pod:986 ../common/miniexpect/miniexpect.pod:162 ../customize/virt-customize.pod:181 ../docs/guestfs-faq.pod:494 ../docs/guestfs-faq.pod:721 ../docs/guestfs-faq.pod:927 ../docs/guestfs-hacking.pod:351 ../docs/guestfs-performance.pod:170 ../docs/guestfs-performance.pod:212 ../docs/guestfs-recipes.pod:457 ../docs/guestfs-security.pod:177 ../docs/internal-documentation.pod:169 ../docs/internal-documentation.pod:272 ../docs/internal-documentation.pod:1403 ../docs/internal-documentation.pod:1526 ../lib/guestfs.pod:1851 ../lib/guestfs.pod:2191 ../p2v/virt-p2v.pod:506 ../rescue/virt-rescue.pod:315 ../resize/virt-resize.pod:29 ../resize/virt-resize.pod:660 ../resize/virt-resize.pod:773 ../sparsify/virt-sparsify.pod:379 ../v2v/virt-v2v.pod:1141 ../v2v/virt-v2v.pod:1462 ../v2v/virt-v2v.pod:1600 ../v2v/virt-v2v.pod:1964
 msgid "1."
 msgstr ""
 
@@ -2079,7 +2079,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:416 ../builder/virt-builder.pod:991 ../common/miniexpect/miniexpect.pod:168 ../customize/virt-customize.pod:186 ../docs/guestfs-faq.pod:499 ../docs/guestfs-faq.pod:731 ../docs/guestfs-faq.pod:931 ../docs/guestfs-hacking.pod:377 ../docs/guestfs-performance.pod:176 ../docs/guestfs-performance.pod:219 ../docs/guestfs-recipes.pod:463 ../docs/guestfs-security.pod:181 ../docs/internal-documentation.pod:175 ../docs/internal-documentation.pod:279 ../docs/internal-documentation.pod:1409 ../docs/internal-documentation.pod:1533 ../lib/guestfs.pod:1855 ../lib/guestfs.pod:2195 ../p2v/virt-p2v.pod:514 ../rescue/virt-rescue.pod:323 ../resize/virt-resize.pod:42 ../resize/virt-resize.pod:667 ../resize/virt-resize.pod:791 ../sparsify/virt-sparsify.pod:386 ../v2v/virt-v2v.pod:1145 ../v2v/virt-v2v.pod:1476 ../v2v/virt-v2v.pod:1607 ../v2v/virt-v2v.pod:1971
+#: ../builder/virt-builder.pod:416 ../builder/virt-builder.pod:991 ../common/miniexpect/miniexpect.pod:168 ../customize/virt-customize.pod:186 ../docs/guestfs-faq.pod:499 ../docs/guestfs-faq.pod:731 ../docs/guestfs-faq.pod:931 ../docs/guestfs-hacking.pod:377 ../docs/guestfs-performance.pod:176 ../docs/guestfs-performance.pod:219 ../docs/guestfs-recipes.pod:463 ../docs/guestfs-security.pod:181 ../docs/internal-documentation.pod:175 ../docs/internal-documentation.pod:279 ../docs/internal-documentation.pod:1408 ../docs/internal-documentation.pod:1532 ../lib/guestfs.pod:1855 ../lib/guestfs.pod:2195 ../p2v/virt-p2v.pod:514 ../rescue/virt-rescue.pod:323 ../resize/virt-resize.pod:42 ../resize/virt-resize.pod:667 ../resize/virt-resize.pod:791 ../sparsify/virt-sparsify.pod:386 ../v2v/virt-v2v.pod:1145 ../v2v/virt-v2v.pod:1476 ../v2v/virt-v2v.pod:1607 ../v2v/virt-v2v.pod:1971
 msgid "2."
 msgstr ""
 
@@ -2091,7 +2091,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:421 ../builder/virt-builder.pod:1001 ../customize/virt-customize.pod:191 ../docs/guestfs-faq.pod:505 ../docs/guestfs-faq.pod:736 ../docs/guestfs-faq.pod:935 ../docs/guestfs-performance.pod:225 ../docs/guestfs-recipes.pod:469 ../docs/internal-documentation.pod:180 ../docs/internal-documentation.pod:289 ../docs/internal-documentation.pod:1414 ../docs/internal-documentation.pod:1541 ../lib/guestfs.pod:1859 ../lib/guestfs.pod:2201 ../p2v/virt-p2v.pod:529 ../rescue/virt-rescue.pod:332 ../resize/virt-resize.pod:50 ../resize/virt-resize.pod:673 ../sparsify/virt-sparsify.pod:392 ../v2v/virt-v2v.pod:1484 ../v2v/virt-v2v.pod:1977
+#: ../builder/virt-builder.pod:421 ../builder/virt-builder.pod:1001 ../customize/virt-customize.pod:191 ../docs/guestfs-faq.pod:505 ../docs/guestfs-faq.pod:736 ../docs/guestfs-faq.pod:935 ../docs/guestfs-performance.pod:225 ../docs/guestfs-recipes.pod:469 ../docs/internal-documentation.pod:180 ../docs/internal-documentation.pod:289 ../docs/internal-documentation.pod:1413 ../docs/internal-documentation.pod:1540 ../lib/guestfs.pod:1859 ../lib/guestfs.pod:2201 ../p2v/virt-p2v.pod:529 ../rescue/virt-rescue.pod:332 ../resize/virt-resize.pod:50 ../resize/virt-resize.pod:673 ../sparsify/virt-sparsify.pod:392 ../v2v/virt-v2v.pod:1484 ../v2v/virt-v2v.pod:1977
 msgid "3."
 msgstr ""
 
@@ -2104,7 +2104,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:428 ../customize/virt-customize.pod:198 ../docs/guestfs-faq.pod:939 ../docs/internal-documentation.pod:185 ../docs/internal-documentation.pod:299 ../docs/internal-documentation.pod:1551 ../p2v/virt-p2v.pod:554 ../rescue/virt-rescue.pod:341 ../resize/virt-resize.pod:59 ../v2v/virt-v2v.pod:1505
+#: ../builder/virt-builder.pod:428 ../customize/virt-customize.pod:198 ../docs/guestfs-faq.pod:939 ../docs/internal-documentation.pod:185 ../docs/internal-documentation.pod:299 ../docs/internal-documentation.pod:1550 ../p2v/virt-p2v.pod:554 ../rescue/virt-rescue.pod:341 ../resize/virt-resize.pod:59 ../v2v/virt-v2v.pod:1505
 msgid "4."
 msgstr ""
 
@@ -3187,7 +3187,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:982 ../common/miniexpect/miniexpect.pod:227 ../common/miniexpect/miniexpect.pod:322 ../common/miniexpect/miniexpect.pod:422 ../docs/guestfs-recipes.pod:310 ../docs/internal-documentation.pod:1400 ../docs/internal-documentation.pod:2687 ../docs/internal-documentation.pod:2955 ../fish/guestfish-actions.pod:2885 ../fish/guestfish-actions.pod:3511 ../fish/guestfish-actions.pod:4215 ../lib/guestfs-actions.pod:4800 ../lib/guestfs-actions.pod:5811 ../lib/guestfs-actions.pod:6805 ../lib/guestfs.pod:795 ../lib/guestfs.pod:2471 ../tools/virt-win-reg:769
+#: ../builder/virt-builder.pod:982 ../common/miniexpect/miniexpect.pod:227 ../common/miniexpect/miniexpect.pod:322 ../common/miniexpect/miniexpect.pod:422 ../docs/guestfs-recipes.pod:310 ../docs/internal-documentation.pod:1399 ../docs/internal-documentation.pod:2687 ../docs/internal-documentation.pod:2955 ../fish/guestfish-actions.pod:2885 ../fish/guestfish-actions.pod:3511 ../fish/guestfish-actions.pod:4215 ../lib/guestfs-actions.pod:4800 ../lib/guestfs-actions.pod:5811 ../lib/guestfs-actions.pod:6805 ../lib/guestfs.pod:795 ../lib/guestfs.pod:2471 ../tools/virt-win-reg:769
 msgid "Notes:"
 msgstr ""
 
@@ -9199,7 +9199,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../daemon/guestfsd.pod:104 ../fish/guestfish.pod:1547 ../fuse/guestmount.pod:402 ../p2v/virt-p2v-make-disk.pod:168 ../p2v/virt-p2v-make-kickstart.pod:286 ../p2v/virt-p2v-make-kiwi.pod:132 ../rescue/virt-rescue.pod:382 ../v2v/test-harness/virt-v2v-test-harness.pod:245 ../v2v/virt-v2v.pod:1988
+#: ../daemon/guestfsd.pod:104 ../fish/guestfish.pod:1550 ../fuse/guestmount.pod:402 ../p2v/virt-p2v-make-disk.pod:168 ../p2v/virt-p2v-make-kickstart.pod:286 ../p2v/virt-p2v-make-kiwi.pod:132 ../rescue/virt-rescue.pod:382 ../v2v/test-harness/virt-v2v-test-harness.pod:245 ../v2v/virt-v2v.pod:1988
 msgid "FILES"
 msgstr ""
 
@@ -14661,7 +14661,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-faq.pod:947 ../docs/internal-documentation.pod:304 ../docs/internal-documentation.pod:1561 ../rescue/virt-rescue.pod:349
+#: ../docs/guestfs-faq.pod:947 ../docs/internal-documentation.pod:304 ../docs/internal-documentation.pod:1560 ../rescue/virt-rescue.pod:349
 msgid "5."
 msgstr ""
 
@@ -37350,7 +37350,7 @@ msgid "C<-1>"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:548 ../docs/internal-documentation.pod:1606
+#: ../docs/internal-documentation.pod:548 ../docs/internal-documentation.pod:1605
 msgid "error"
 msgstr ""
 
@@ -39037,21 +39037,19 @@ msgstr ""
 #, no-wrap
 msgid ""
 " char *\n"
-" guestfs_int_download_to_tmp (guestfs_h *g, struct inspect_fs *fs,\n"
-" \t\t\t     const char *filename,\n"
-" \t\t\t     const char *basename, uint64_t max_size)\n"
+" guestfs_int_download_to_tmp (guestfs_h *g, const char *filename,\n"
+"                              const char *extension,\n"
+"                              uint64_t max_size)\n"
 "\n"
 msgstr ""
 
 #. type: textblock
 #: ../docs/internal-documentation.pod:1321
-msgid ""
-"Download a guest file to a local temporary file.  The file is cached in the "
-"temporary directory, and is not downloaded again."
+msgid "Download a guest file to a local temporary file."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1324
+#: ../docs/internal-documentation.pod:1323
 msgid ""
 "The name of the temporary (downloaded) file is returned.  The caller must "
 "free the pointer, but does I<not> need to delete the temporary file.  It "
@@ -39059,46 +39057,46 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1328
+#: ../docs/internal-documentation.pod:1327
+msgid ""
+"The name of the temporary file is randomly generated, but an extension can "
+"be specified using C<extension> (or pass C<NULL> for none)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1330
 msgid ""
 "Refuse to download the guest file if it is larger than C<max_size>.  On this "
 "and other errors, C<NULL> is returned."
 msgstr ""
 
-#. type: textblock
-#: ../docs/internal-documentation.pod:1331
-msgid ""
-"There is actually one cache per C<struct inspect_fs *> in order to handle "
-"the case of multiple roots."
-msgstr ""
-
 #. type: =head3
-#: ../docs/internal-documentation.pod:1334
+#: ../docs/internal-documentation.pod:1333
 msgid "File F<lib/launch-direct.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1336
+#: ../docs/internal-documentation.pod:1335
 msgid "Implementation of the C<direct> backend."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1338
+#: ../docs/internal-documentation.pod:1337
 msgid "For more details see L<guestfs(3)/BACKENDS>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1340
+#: ../docs/internal-documentation.pod:1339
 msgid "File F<lib/launch-libvirt.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1342
+#: ../docs/internal-documentation.pod:1341
 msgid "Function C<lib/launch-libvirt.c:get_source_format_or_autodetect>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1344
+#: ../docs/internal-documentation.pod:1343
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -39107,12 +39105,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1347
+#: ../docs/internal-documentation.pod:1346
 msgid "Return C<drv-E<gt>src.format>, but if it is C<NULL>, autodetect the format."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1350
+#: ../docs/internal-documentation.pod:1349
 msgid ""
 "libvirt has disabled the feature of detecting the disk format, unless the "
 "administrator sets C<allow_disk_format_probing=1> in "
@@ -39122,7 +39120,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1356
+#: ../docs/internal-documentation.pod:1355
 msgid ""
 "This can still be a security issue, so in most cases it is recommended the "
 "users pass the format to libguestfs which will faithfully pass that straight "
@@ -39130,19 +39128,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1361
+#: ../docs/internal-documentation.pod:1360
 msgid ""
 "Caller must free the returned string.  On error this function sets the error "
 "in the handle and returns C<NULL>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1364
+#: ../docs/internal-documentation.pod:1363
 msgid "Function C<lib/launch-libvirt.c:make_qcow2_overlay>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1366
+#: ../docs/internal-documentation.pod:1365
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -39152,7 +39150,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1370
+#: ../docs/internal-documentation.pod:1369
 msgid ""
 "Create a qcow2 format overlay, with the given C<backing_drive> (file).  The "
 "C<format> parameter, which must be non-NULL, is the backing file format.  "
@@ -39160,17 +39158,17 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1375
+#: ../docs/internal-documentation.pod:1374
 msgid "File F<lib/launch.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1377
+#: ../docs/internal-documentation.pod:1376
 msgid "This file implements L<guestfs(3)/guestfs_launch>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1379
+#: ../docs/internal-documentation.pod:1378
 msgid ""
 "Most of the work is done by the backends (see L<guestfs(3)/BACKEND>), which "
 "are implemented in F<lib/launch-direct.c>, F<lib/launch-libvirt.c> etc, so "
@@ -39178,12 +39176,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1384
+#: ../docs/internal-documentation.pod:1383
 msgid "Function C<lib/launch.c:guestfs_int_launch_send_progress>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1386
+#: ../docs/internal-documentation.pod:1385
 #, no-wrap
 msgid ""
 " void\n"
@@ -39192,19 +39190,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1389
+#: ../docs/internal-documentation.pod:1388
 msgid "This function sends a launch progress message."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1391
+#: ../docs/internal-documentation.pod:1390
 msgid ""
 "Launching the appliance generates approximate progress messages.  Currently "
 "these are defined as follows:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1394
+#: ../docs/internal-documentation.pod:1393
 #, no-wrap
 msgid ""
 "   0 / 12: launch clock starts\n"
@@ -39216,31 +39214,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1406
+#: ../docs/internal-documentation.pod:1405
 msgid ""
 "This is not a documented ABI and the behaviour may be changed or removed in "
 "future."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1411
+#: ../docs/internal-documentation.pod:1410
 msgid ""
 "Messages are only sent if more than 5 seconds has elapsed since the launch "
 "clock started."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1416
+#: ../docs/internal-documentation.pod:1415
 msgid "There is a hack in F<lib/proto.c> to make this work."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1420
+#: ../docs/internal-documentation.pod:1419
 msgid "Function C<lib/launch.c:guestfs_int_timeval_diff>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1422
+#: ../docs/internal-documentation.pod:1421
 #, no-wrap
 msgid ""
 " int64_t\n"
@@ -39250,24 +39248,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1425
+#: ../docs/internal-documentation.pod:1424
 msgid "Compute C<y - x> and return the result in milliseconds."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1427
+#: ../docs/internal-documentation.pod:1426
 msgid ""
 "Approximately the same as this code: "
 "L<http://www.mpp.mpg.de/~huber/util/timevaldiff.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1430
+#: ../docs/internal-documentation.pod:1429
 msgid "Function C<lib/launch.c:guestfs_int_unblock_sigterm>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1432
+#: ../docs/internal-documentation.pod:1431
 #, no-wrap
 msgid ""
 " void\n"
@@ -39276,7 +39274,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1435
+#: ../docs/internal-documentation.pod:1434
 msgid ""
 "Unblock the C<SIGTERM> signal.  Call this after L<fork(2)> so that the "
 "parent process can send C<SIGTERM> to the child process in case C<SIGTERM> "
@@ -39284,12 +39282,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1439
+#: ../docs/internal-documentation.pod:1438
 msgid "Function C<lib/launch.c:guestfs_impl_max_disks>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1441
+#: ../docs/internal-documentation.pod:1440
 #, no-wrap
 msgid ""
 " int\n"
@@ -39298,19 +39296,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1444
+#: ../docs/internal-documentation.pod:1443
 msgid ""
 "Returns the maximum number of disks allowed to be added to the backend "
 "(backend dependent)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1447
+#: ../docs/internal-documentation.pod:1446
 msgid "Function C<lib/launch.c:guestfs_impl_wait_ready>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1449
+#: ../docs/internal-documentation.pod:1448
 #, no-wrap
 msgid ""
 " int\n"
@@ -39319,7 +39317,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1452
+#: ../docs/internal-documentation.pod:1451
 msgid ""
 "Implementation of L<guestfs(3)/guestfs_wait_ready>.  You had to call this "
 "function after launch in versions E<le> 1.0.70, but it is now an (almost) "
@@ -39327,12 +39325,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1456
+#: ../docs/internal-documentation.pod:1455
 msgid "Function C<lib/launch.c:guestfs_int_create_socketname>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1458
+#: ../docs/internal-documentation.pod:1457
 #, no-wrap
 msgid ""
 " int\n"
@@ -39342,17 +39340,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1462
+#: ../docs/internal-documentation.pod:1461
 msgid "Create the path for a socket with the selected filename in the tmpdir."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1465
+#: ../docs/internal-documentation.pod:1464
 msgid "Function C<lib/launch.c:guestfs_int_register_backend>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1467
+#: ../docs/internal-documentation.pod:1466
 #, no-wrap
 msgid ""
 " void\n"
@@ -39362,19 +39360,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1470
+#: ../docs/internal-documentation.pod:1469
 msgid ""
 "When the library is loaded, each backend calls this function to register "
 "itself in a global list."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1473
+#: ../docs/internal-documentation.pod:1472
 msgid "Function C<lib/launch.c:guestfs_int_set_backend>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1475
+#: ../docs/internal-documentation.pod:1474
 #, no-wrap
 msgid ""
 " int\n"
@@ -39383,41 +39381,41 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1478
+#: ../docs/internal-documentation.pod:1477
 msgid "Implementation of L<guestfs(3)/guestfs_set_backend>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1484
+#: ../docs/internal-documentation.pod:1483
 msgid "Callers must ensure this is only called in the config state."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1488
+#: ../docs/internal-documentation.pod:1487
 msgid ""
 "This shouldn't call C<error> since it may be called early in handle "
 "initialization.  It can return an error code however."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1493
+#: ../docs/internal-documentation.pod:1492
 msgid "File F<lib/private-data.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1495
+#: ../docs/internal-documentation.pod:1494
 msgid ""
 "Implement a private data area where libguestfs C API users can attach "
 "arbitrary pieces of data to a C<guestfs_h> handle."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1498
+#: ../docs/internal-documentation.pod:1497
 msgid "For more information see L<guestfs(3)/PRIVATE DATA AREA>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1500
+#: ../docs/internal-documentation.pod:1499
 msgid ""
 "Language bindings do not generally expose this, largely because in non-C "
 "languages it is easy to associate data with handles in other ways (using "
@@ -39425,12 +39423,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1504
+#: ../docs/internal-documentation.pod:1503
 msgid "Structure C<lib/private-data.c:pda_entry>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1506
+#: ../docs/internal-documentation.pod:1505
 #, no-wrap
 msgid ""
 " struct pda_entry {\n"
@@ -39441,14 +39439,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1511
+#: ../docs/internal-documentation.pod:1510
 msgid ""
 "The private data area is internally stored as a gnulib hash table containing "
 "C<pda_entry> structures."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1514
+#: ../docs/internal-documentation.pod:1513
 msgid ""
 "Note the private data area is allocated lazily, since the vast majority of "
 "callers will never use it.  This means C<g-E<gt>pda> is likely to be "
@@ -39456,12 +39454,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1518
+#: ../docs/internal-documentation.pod:1517
 msgid "File F<lib/proto.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1520
+#: ../docs/internal-documentation.pod:1519
 msgid ""
 "This is the code used to send and receive RPC messages and (for certain "
 "types of message) to perform file transfers.  This code is driven from the "
@@ -39470,21 +39468,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1529
+#: ../docs/internal-documentation.pod:1528
 msgid ""
 "A non-daemon function (eg. L<guestfs(3)/guestfs_set_verbose>).  There is no "
 "RPC involved at all, it's all handled inside the library."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1535
+#: ../docs/internal-documentation.pod:1534
 msgid ""
 "A simple RPC (eg. L<guestfs(3)/guestfs_mount>).  We write the request, then "
 "read the reply.  The sequence of calls is:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1538
+#: ../docs/internal-documentation.pod:1537
 #, no-wrap
 msgid ""
 "  guestfs_int_send\n"
@@ -39493,7 +39491,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1543
+#: ../docs/internal-documentation.pod:1542
 msgid ""
 "An RPC with C<FileIn> parameters (eg. L<guestfs(3)/guestfs_upload>).  We "
 "write the request, then write the file(s), then read the reply.  The "
@@ -39501,7 +39499,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1547
+#: ../docs/internal-documentation.pod:1546
 #, no-wrap
 msgid ""
 "  guestfs_int_send\n"
@@ -39511,7 +39509,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1553
+#: ../docs/internal-documentation.pod:1552
 msgid ""
 "An RPC with C<FileOut> parameters (eg. L<guestfs(3)/guestfs_download>).  We "
 "write the request, then read the reply, then read the file(s).  The sequence "
@@ -39519,7 +39517,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1557
+#: ../docs/internal-documentation.pod:1556
 #, no-wrap
 msgid ""
 "  guestfs_int_send\n"
@@ -39529,7 +39527,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1563
+#: ../docs/internal-documentation.pod:1562
 msgid ""
 "Both C<FileIn> and C<FileOut> parameters.  There are no calls like this in "
 "the current API, but they would be implemented as a combination of cases 3 "
@@ -39537,7 +39535,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1569
+#: ../docs/internal-documentation.pod:1568
 msgid ""
 "All read/write/etc operations are performed using the current connection "
 "module (C<g-E<gt>conn>).  During operations the connection module "
@@ -39545,12 +39543,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1574
+#: ../docs/internal-documentation.pod:1573
 msgid "Function C<lib/proto.c:child_cleanup>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1576
+#: ../docs/internal-documentation.pod:1575
 #, no-wrap
 msgid ""
 " static void\n"
@@ -39559,17 +39557,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1579
+#: ../docs/internal-documentation.pod:1578
 msgid "This is called if we detect EOF, ie. qemu died."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1581
+#: ../docs/internal-documentation.pod:1580
 msgid "Function C<lib/proto.c:guestfs_int_progress_message_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1583
+#: ../docs/internal-documentation.pod:1582
 #, no-wrap
 msgid ""
 " void\n"
@@ -39579,17 +39577,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1587
+#: ../docs/internal-documentation.pod:1586
 msgid "Convenient wrapper to generate a progress message callback."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1589
+#: ../docs/internal-documentation.pod:1588
 msgid "Function C<lib/proto.c:guestfs_int_log_message_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1591
+#: ../docs/internal-documentation.pod:1590
 #, no-wrap
 msgid ""
 " void\n"
@@ -39599,17 +39597,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1594
+#: ../docs/internal-documentation.pod:1593
 msgid "Connection modules call us back here when they get a log message."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1596
+#: ../docs/internal-documentation.pod:1595
 msgid "Function C<lib/proto.c:check_daemon_socket>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1598
+#: ../docs/internal-documentation.pod:1597
 #, no-wrap
 msgid ""
 " static ssize_t\n"
@@ -39618,64 +39616,64 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1601
+#: ../docs/internal-documentation.pod:1600
 msgid ""
 "Before writing to the daemon socket, check the read side of the daemon "
 "socket for any of these conditions:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1608
+#: ../docs/internal-documentation.pod:1607
 msgid "return -1"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1610
+#: ../docs/internal-documentation.pod:1609
 msgid "daemon cancellation message"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1612
+#: ../docs/internal-documentation.pod:1611
 msgid "return -2"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1614
+#: ../docs/internal-documentation.pod:1613
 msgid "progress message"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1616
+#: ../docs/internal-documentation.pod:1615
 msgid "handle it here"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1618
+#: ../docs/internal-documentation.pod:1617
 msgid "end of input or appliance exited unexpectedly"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1620
+#: ../docs/internal-documentation.pod:1619
 msgid "return 0"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1622
+#: ../docs/internal-documentation.pod:1621
 msgid "anything else"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1624
+#: ../docs/internal-documentation.pod:1623
 msgid "return 1"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1628
+#: ../docs/internal-documentation.pod:1627
 msgid "Function C<lib/proto.c:guestfs_int_send_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1630
+#: ../docs/internal-documentation.pod:1629
 #, no-wrap
 msgid ""
 " int\n"
@@ -39684,24 +39682,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1633
+#: ../docs/internal-documentation.pod:1632
 msgid "Send a file."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1635
+#: ../docs/internal-documentation.pod:1634
 msgid ""
 "Returns C<0> on success, C<-1> for error, C<-2> if the daemon cancelled (we "
 "must read the error message)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1638
+#: ../docs/internal-documentation.pod:1637
 msgid "Function C<lib/proto.c:send_file_data>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1640
+#: ../docs/internal-documentation.pod:1639
 #, no-wrap
 msgid ""
 " static int\n"
@@ -39710,17 +39708,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1643
+#: ../docs/internal-documentation.pod:1642
 msgid "Send a chunk of file data."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1645
+#: ../docs/internal-documentation.pod:1644
 msgid "Function C<lib/proto.c:send_file_cancellation>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1647
+#: ../docs/internal-documentation.pod:1646
 #, no-wrap
 msgid ""
 " static int\n"
@@ -39729,17 +39727,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1650
+#: ../docs/internal-documentation.pod:1649
 msgid "Send a cancellation message."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1652
+#: ../docs/internal-documentation.pod:1651
 msgid "Function C<lib/proto.c:send_file_complete>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1654
+#: ../docs/internal-documentation.pod:1653
 #, no-wrap
 msgid ""
 " static int\n"
@@ -39748,17 +39746,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1657
+#: ../docs/internal-documentation.pod:1656
 msgid "Send a file complete chunk."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1659
+#: ../docs/internal-documentation.pod:1658
 msgid "Function C<lib/proto.c:recv_from_daemon>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1661
+#: ../docs/internal-documentation.pod:1660
 #, no-wrap
 msgid ""
 " static int\n"
@@ -39767,7 +39765,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1664
+#: ../docs/internal-documentation.pod:1663
 msgid ""
 "This function reads a single message, file chunk, launch flag or "
 "cancellation flag from the daemon.  If something was read, it returns C<0>, "
@@ -39775,43 +39773,43 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1668
+#: ../docs/internal-documentation.pod:1667
 msgid "Both C<size_rtn> and C<buf_rtn> must be passed by the caller as non-NULL."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1671
+#: ../docs/internal-documentation.pod:1670
 msgid ""
 "C<*size_rtn> returns the size of the returned message or it may be "
 "C<GUESTFS_LAUNCH_FLAG> or C<GUESTFS_CANCEL_FLAG>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1674
+#: ../docs/internal-documentation.pod:1673
 msgid ""
 "C<*buf_rtn> is returned containing the message (if any) or will be set to "
 "C<NULL>.  C<*buf_rtn> must be freed by the caller."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1677
+#: ../docs/internal-documentation.pod:1676
 msgid ""
 "This checks for EOF (appliance died) and passes that up through the "
 "child_cleanup function above."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1680
+#: ../docs/internal-documentation.pod:1679
 msgid "Log message, progress messages are handled transparently here."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1682
+#: ../docs/internal-documentation.pod:1681
 msgid "Function C<lib/proto.c:guestfs_int_recv>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1684
+#: ../docs/internal-documentation.pod:1683
 #, no-wrap
 msgid ""
 " int\n"
@@ -39823,17 +39821,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1690
+#: ../docs/internal-documentation.pod:1689
 msgid "Receive a reply."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1692
+#: ../docs/internal-documentation.pod:1691
 msgid "Function C<lib/proto.c:guestfs_int_recv_discard>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1694
+#: ../docs/internal-documentation.pod:1693
 #, no-wrap
 msgid ""
 " int\n"
@@ -39842,32 +39840,32 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1697
+#: ../docs/internal-documentation.pod:1696
 msgid "Same as C<guestfs_int_recv>, but it discards the reply message."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1699
+#: ../docs/internal-documentation.pod:1698
 msgid "Notes (XXX):"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1705
+#: ../docs/internal-documentation.pod:1704
 msgid "This returns an int, but all current callers ignore it."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1709
+#: ../docs/internal-documentation.pod:1708
 msgid "The error string may end up being set twice on error paths."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1713
+#: ../docs/internal-documentation.pod:1712
 msgid "Function C<lib/proto.c:guestfs_int_recv_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1715
+#: ../docs/internal-documentation.pod:1714
 #, no-wrap
 msgid ""
 " int\n"
@@ -39876,17 +39874,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1718 ../docs/internal-documentation.pod:1727
+#: ../docs/internal-documentation.pod:1717 ../docs/internal-documentation.pod:1726
 msgid "Returns C<-1> = error, C<0> = EOF, C<E<gt>0> = more data"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1720
+#: ../docs/internal-documentation.pod:1719
 msgid "Function C<lib/proto.c:receive_file_data>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1722
+#: ../docs/internal-documentation.pod:1721
 #, no-wrap
 msgid ""
 " static ssize_t\n"
@@ -39895,27 +39893,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1725
+#: ../docs/internal-documentation.pod:1724
 msgid "Receive a chunk of file data."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1729
+#: ../docs/internal-documentation.pod:1728
 msgid "File F<lib/qemu.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1731
+#: ../docs/internal-documentation.pod:1730
 msgid "Functions to handle qemu versions and features."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1733
+#: ../docs/internal-documentation.pod:1732
 msgid "Function C<lib/qemu.c:guestfs_int_test_qemu>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1735
+#: ../docs/internal-documentation.pod:1734
 #, no-wrap
 msgid ""
 " struct qemu_data *\n"
@@ -39924,7 +39922,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1738
+#: ../docs/internal-documentation.pod:1737
 msgid ""
 "Test that the qemu binary (or wrapper) runs, and do C<qemu -help> and other "
 "commands so we can find out the version of qemu and what options this qemu "
@@ -39932,19 +39930,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1742
+#: ../docs/internal-documentation.pod:1741
 msgid ""
 "This caches the results in the cachedir so that as long as the qemu binary "
 "does not change, calling this is effectively free."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1745
+#: ../docs/internal-documentation.pod:1744
 msgid "Function C<lib/qemu.c:cache_filename>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1747
+#: ../docs/internal-documentation.pod:1746
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -39954,24 +39952,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1751
+#: ../docs/internal-documentation.pod:1750
 msgid "Generate the filenames, for the stat file and the other cache files."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1754
+#: ../docs/internal-documentation.pod:1753
 msgid ""
 "By including the size and mtime in the filename we also ensure that the same "
 "user can use multiple versions of qemu without conflicts."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1757
+#: ../docs/internal-documentation.pod:1756
 msgid "Function C<lib/qemu.c:parse_qemu_version>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1759
+#: ../docs/internal-documentation.pod:1758
 #, no-wrap
 msgid ""
 " static void\n"
@@ -39981,19 +39979,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1763
+#: ../docs/internal-documentation.pod:1762
 msgid ""
 "Parse the first line of C<qemu_help> into the major and minor version of "
 "qemu, but don't fail if parsing is not possible."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1766
+#: ../docs/internal-documentation.pod:1765
 msgid "Function C<lib/qemu.c:parse_json>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1768
+#: ../docs/internal-documentation.pod:1767
 #, no-wrap
 msgid ""
 " static void\n"
@@ -40002,17 +40000,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1771
+#: ../docs/internal-documentation.pod:1770
 msgid "Parse the json output from QMP.  But don't fail if parsing is not possible."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1774
+#: ../docs/internal-documentation.pod:1773
 msgid "Function C<lib/qemu.c:generic_read_cache>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1776
+#: ../docs/internal-documentation.pod:1775
 #, no-wrap
 msgid ""
 " static int\n"
@@ -40021,19 +40019,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1779
+#: ../docs/internal-documentation.pod:1778
 msgid ""
 "Generic functions for reading and writing the cache files, used where we are "
 "just reading and writing plain text strings."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1782
+#: ../docs/internal-documentation.pod:1781
 msgid "Function C<lib/qemu.c:generic_qmp_test>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1784
+#: ../docs/internal-documentation.pod:1783
 #, no-wrap
 msgid ""
 " static int\n"
@@ -40044,17 +40042,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1789
+#: ../docs/internal-documentation.pod:1788
 msgid "Run a generic QMP test on the QEMU binary."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1791
+#: ../docs/internal-documentation.pod:1790
 msgid "Function C<lib/qemu.c:guestfs_int_qemu_version>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1793
+#: ../docs/internal-documentation.pod:1792
 #, no-wrap
 msgid ""
 " struct version\n"
@@ -40063,17 +40061,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1796
+#: ../docs/internal-documentation.pod:1795
 msgid "Return the parsed version of qemu."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1798
+#: ../docs/internal-documentation.pod:1797
 msgid "Function C<lib/qemu.c:guestfs_int_qemu_supports>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1800
+#: ../docs/internal-documentation.pod:1799
 #, no-wrap
 msgid ""
 " int\n"
@@ -40083,19 +40081,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1804
+#: ../docs/internal-documentation.pod:1803
 msgid ""
 "Test if option is supported by qemu command line (just by grepping the help "
 "text)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1807
+#: ../docs/internal-documentation.pod:1806
 msgid "Function C<lib/qemu.c:guestfs_int_qemu_supports_device>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1809
+#: ../docs/internal-documentation.pod:1808
 #, no-wrap
 msgid ""
 " int\n"
@@ -40106,19 +40104,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1814
+#: ../docs/internal-documentation.pod:1813
 msgid ""
 "Test if device is supported by qemu (currently just greps the C<qemu -device "
 "?> output)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1817
+#: ../docs/internal-documentation.pod:1816
 msgid "Function C<lib/qemu.c:guestfs_int_qemu_supports_virtio_scsi>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1819
+#: ../docs/internal-documentation.pod:1818
 #, no-wrap
 msgid ""
 " int\n"
@@ -40130,22 +40128,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1823
+#: ../docs/internal-documentation.pod:1822
 msgid "Test if qemu supports virtio-scsi."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1825
+#: ../docs/internal-documentation.pod:1824
 msgid "Returns C<1> = use virtio-scsi, or C<0> = use virtio-blk."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1827
+#: ../docs/internal-documentation.pod:1826
 msgid "Function C<lib/qemu.c:guestfs_int_qemu_mandatory_locking>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1829
+#: ../docs/internal-documentation.pod:1828
 #, no-wrap
 msgid ""
 " int\n"
@@ -40155,19 +40153,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1833
+#: ../docs/internal-documentation.pod:1832
 msgid ""
 "Test if the qemu binary uses mandatory file locking, added in QEMU >= 2.10 "
 "(but sometimes disabled)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1836
+#: ../docs/internal-documentation.pod:1835
 msgid "Function C<lib/qemu.c:guestfs_int_qemu_escape_param>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1838
+#: ../docs/internal-documentation.pod:1837
 #, no-wrap
 msgid ""
 " char *\n"
@@ -40176,22 +40174,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1841
+#: ../docs/internal-documentation.pod:1840
 msgid "Escape a qemu parameter."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1843
+#: ../docs/internal-documentation.pod:1842
 msgid "Every C<,> becomes C<,,>.  The caller must free the returned string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1845
+#: ../docs/internal-documentation.pod:1844
 msgid "Function C<lib/qemu.c:guestfs_int_drive_source_qemu_param>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1847
+#: ../docs/internal-documentation.pod:1846
 #, no-wrap
 msgid ""
 " char *\n"
@@ -40201,12 +40199,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1851
+#: ../docs/internal-documentation.pod:1850
 msgid "Useful function to format a drive + protocol for qemu."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1853
+#: ../docs/internal-documentation.pod:1852
 msgid ""
 "Note that the qemu parameter is the bit after C<\"file=\">.  It is not "
 "escaped here, but would usually be escaped if passed to qemu as part of a "
@@ -40214,12 +40212,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1857
+#: ../docs/internal-documentation.pod:1856
 msgid "Function C<lib/qemu.c:guestfs_int_discard_possible>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1859
+#: ../docs/internal-documentation.pod:1858
 #, no-wrap
 msgid ""
 " bool\n"
@@ -40229,7 +40227,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1863
+#: ../docs/internal-documentation.pod:1862
 msgid ""
 "Test if discard is both supported by qemu AND possible with the underlying "
 "file or device.  This returns C<1> if discard is possible.  It returns C<0> "
@@ -40237,17 +40235,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1868
+#: ../docs/internal-documentation.pod:1867
 msgid "This function is called when the user set C<discard == \"enable\">."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1870
+#: ../docs/internal-documentation.pod:1869
 msgid "Function C<lib/qemu.c:guestfs_int_free_qemu_data>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1872
+#: ../docs/internal-documentation.pod:1871
 #, no-wrap
 msgid ""
 " void\n"
@@ -40256,39 +40254,39 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1875
+#: ../docs/internal-documentation.pod:1874
 msgid "Free the C<struct qemu_data>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1877
+#: ../docs/internal-documentation.pod:1876
 msgid "File F<lib/stringsbuf.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1879
+#: ../docs/internal-documentation.pod:1878
 msgid "An expandable NULL-terminated vector of strings (like C<argv>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1881
+#: ../docs/internal-documentation.pod:1880
 msgid "Use the C<DECLARE_STRINGSBUF> macro to declare the stringsbuf."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1883
+#: ../docs/internal-documentation.pod:1882
 msgid ""
 "Note: Don't confuse this with stringsbuf in the daemon which is a different "
 "type with different methods."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1886
+#: ../docs/internal-documentation.pod:1885
 msgid "Function C<lib/stringsbuf.c:guestfs_int_add_string_nodup>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1888
+#: ../docs/internal-documentation.pod:1887
 #, no-wrap
 msgid ""
 " void\n"
@@ -40298,24 +40296,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1891 ../docs/internal-documentation.pod:1901 ../docs/internal-documentation.pod:1911
+#: ../docs/internal-documentation.pod:1890 ../docs/internal-documentation.pod:1900 ../docs/internal-documentation.pod:1910
 msgid "Add a string to the end of the list."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1893
+#: ../docs/internal-documentation.pod:1892
 msgid ""
 "This doesn't call L<strdup(3)> on the string, so the string itself is stored "
 "inside the vector."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1896
+#: ../docs/internal-documentation.pod:1895
 msgid "Function C<lib/stringsbuf.c:guestfs_int_add_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1898
+#: ../docs/internal-documentation.pod:1897
 #, no-wrap
 msgid ""
 " void\n"
@@ -40325,17 +40323,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1903
+#: ../docs/internal-documentation.pod:1902
 msgid "This makes a copy of the string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1905
+#: ../docs/internal-documentation.pod:1904
 msgid "Function C<lib/stringsbuf.c:guestfs_int_add_sprintf>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1907
+#: ../docs/internal-documentation.pod:1906
 #, no-wrap
 msgid ""
 " void\n"
@@ -40345,17 +40343,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1913
+#: ../docs/internal-documentation.pod:1912
 msgid "Uses an sprintf-like format string when creating the string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1915
+#: ../docs/internal-documentation.pod:1914
 msgid "Function C<lib/stringsbuf.c:guestfs_int_end_stringsbuf>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1917
+#: ../docs/internal-documentation.pod:1916
 #, no-wrap
 msgid ""
 " void\n"
@@ -40364,22 +40362,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1920
+#: ../docs/internal-documentation.pod:1919
 msgid "Finish the string buffer."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1922
+#: ../docs/internal-documentation.pod:1921
 msgid "This adds the terminating NULL to the end of the vector."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1924
+#: ../docs/internal-documentation.pod:1923
 msgid "Function C<lib/stringsbuf.c:guestfs_int_free_stringsbuf>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1926
+#: ../docs/internal-documentation.pod:1925
 #, no-wrap
 msgid ""
 " void\n"
@@ -40388,27 +40386,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1929
+#: ../docs/internal-documentation.pod:1928
 msgid "Free the string buffer and the strings."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1931
+#: ../docs/internal-documentation.pod:1930
 msgid "File F<lib/tmpdirs.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1933
+#: ../docs/internal-documentation.pod:1932
 msgid "Handle temporary directories."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1935
+#: ../docs/internal-documentation.pod:1934
 msgid "Function C<lib/tmpdirs.c:set_abs_path>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1937
+#: ../docs/internal-documentation.pod:1936
 #, no-wrap
 msgid ""
 " static int\n"
@@ -40418,7 +40416,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1941
+#: ../docs/internal-documentation.pod:1940
 msgid ""
 "We need to make all tmpdir paths absolute because lots of places in the code "
 "assume this.  Do it at the time we set the path or read the environment "
@@ -40426,7 +40424,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1945
+#: ../docs/internal-documentation.pod:1944
 msgid ""
 "The C<ctxstr> parameter is a string displayed in error messages giving the "
 "context of the operation (eg. name of environment variable being used, or "
@@ -40434,12 +40432,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1949
+#: ../docs/internal-documentation.pod:1948
 msgid "Function C<lib/tmpdirs.c:guestfs_impl_get_tmpdir>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1951
+#: ../docs/internal-documentation.pod:1950
 #, no-wrap
 msgid ""
 " char *\n"
@@ -40448,22 +40446,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1954
+#: ../docs/internal-documentation.pod:1953
 msgid "Implements the C<guestfs_get_tmpdir> API."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1956
+#: ../docs/internal-documentation.pod:1955
 msgid "Note this actually calculates the tmpdir, so it never returns C<NULL>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1959
+#: ../docs/internal-documentation.pod:1958
 msgid "Function C<lib/tmpdirs.c:guestfs_impl_get_cachedir>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1961
+#: ../docs/internal-documentation.pod:1960
 #, no-wrap
 msgid ""
 " char *\n"
@@ -40472,22 +40470,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1964
+#: ../docs/internal-documentation.pod:1963
 msgid "Implements the C<guestfs_get_cachedir> API."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1966
+#: ../docs/internal-documentation.pod:1965
 msgid "Note this actually calculates the cachedir, so it never returns C<NULL>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1968
+#: ../docs/internal-documentation.pod:1967
 msgid "Function C<lib/tmpdirs.c:guestfs_impl_get_sockdir>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1970
+#: ../docs/internal-documentation.pod:1969
 #, no-wrap
 msgid ""
 " char *\n"
@@ -40496,22 +40494,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1973
+#: ../docs/internal-documentation.pod:1972
 msgid "Implements the C<guestfs_get_sockdir> API."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1975
+#: ../docs/internal-documentation.pod:1974
 msgid "Note this actually calculates the sockdir, so it never returns C<NULL>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1978
+#: ../docs/internal-documentation.pod:1977
 msgid "Function C<lib/tmpdirs.c:guestfs_int_lazy_make_tmpdir>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1980
+#: ../docs/internal-documentation.pod:1979
 #, no-wrap
 msgid ""
 " int\n"
@@ -40520,7 +40518,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1983
+#: ../docs/internal-documentation.pod:1982
 msgid ""
 "The C<g-E<gt>tmpdir> (per-handle temporary directory) is not created when "
 "the handle is created.  Instead we create it lazily before the first time it "
@@ -40528,16 +40526,17 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1987
+#: ../docs/internal-documentation.pod:1986
 msgid "Function C<lib/tmpdirs.c:guestfs_int_make_temp_path>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1989
+#: ../docs/internal-documentation.pod:1988
 #, no-wrap
 msgid ""
 " char *\n"
-" guestfs_int_make_temp_path (guestfs_h *g, const char *name)\n"
+" guestfs_int_make_temp_path (guestfs_h *g,\n"
+"                             const char *name, const char *extension)\n"
 "\n"
 msgstr ""
 
@@ -43964,8 +43963,8 @@ msgstr ""
 #: ../docs/internal-documentation.pod:3543
 #, no-wrap
 msgid ""
-" void\n"
-" display_help (void)\n"
+" int\n"
+" display_help (const char *cmd, size_t argc, char *argv[])\n"
 "\n"
 msgstr ""
 
@@ -70353,207 +70352,213 @@ msgstr ""
 msgid ""
 " help\n"
 " help cmd\n"
+" help -l|--list\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1369
+#: ../fish/guestfish.pod:1370
 msgid "Without any parameter, this provides general help."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1371
+#: ../fish/guestfish.pod:1372
 msgid "With a C<cmd> parameter, this displays detailed help for that command."
 msgstr ""
 
+#. type: textblock
+#: ../fish/guestfish.pod:1374
+msgid "With I<-l> or I<--list>, this list all commands."
+msgstr ""
+
 #. type: =head2
-#: ../fish/guestfish.pod:1373
+#: ../fish/guestfish.pod:1376
 msgid "exit"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1375
+#: ../fish/guestfish.pod:1378
 msgid "quit"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1377
+#: ../fish/guestfish.pod:1380
 msgid "This exits guestfish.  You can also use C<^D> key."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1379
+#: ../fish/guestfish.pod:1382
 msgid "__FISH_COMMANDS__"
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:1381
+#: ../fish/guestfish.pod:1384
 msgid "COMMANDS"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1383 ../lib/guestfs.pod:2296
+#: ../fish/guestfish.pod:1386 ../lib/guestfs.pod:2296
 msgid "__ACTIONS__"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1387
+#: ../fish/guestfish.pod:1390
 msgid ""
 "guestfish returns 0 if the commands completed without error, or 1 if there "
 "was an error."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1394
+#: ../fish/guestfish.pod:1397
 msgid "EDITOR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1396
+#: ../fish/guestfish.pod:1399
 msgid ""
 "The C<edit> command uses C<$EDITOR> as the editor.  If not set, it uses "
 "C<vi>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1399
+#: ../fish/guestfish.pod:1402
 msgid "GUESTFISH_DISPLAY_IMAGE"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1401
+#: ../fish/guestfish.pod:1404
 msgid ""
 "The C<display> command uses C<$GUESTFISH_DISPLAY_IMAGE> to display images.  "
 "If not set, it uses L<display(1)>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1404
+#: ../fish/guestfish.pod:1407
 msgid "GUESTFISH_INIT"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1406
+#: ../fish/guestfish.pod:1409
 msgid "Printed when guestfish starts.  See L</PROMPT>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1408
+#: ../fish/guestfish.pod:1411
 msgid "GUESTFISH_OUTPUT"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1410
+#: ../fish/guestfish.pod:1413
 msgid "Printed before guestfish output.  See L</PROMPT>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1412
+#: ../fish/guestfish.pod:1415
 msgid "GUESTFISH_PID"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1414
+#: ../fish/guestfish.pod:1417
 msgid ""
 "Used with the I<--remote> option to specify the remote guestfish process to "
 "control.  See section L</REMOTE CONTROL GUESTFISH OVER A SOCKET>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1418
+#: ../fish/guestfish.pod:1421
 msgid "GUESTFISH_PS1"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1420
+#: ../fish/guestfish.pod:1423
 msgid "Set the command prompt.  See L</PROMPT>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1422
+#: ../fish/guestfish.pod:1425
 msgid "GUESTFISH_RESTORE"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1424
+#: ../fish/guestfish.pod:1427
 msgid "Printed before guestfish exits.  See L</PROMPT>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1426
+#: ../fish/guestfish.pod:1429
 msgid "HEXEDITOR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1428
+#: ../fish/guestfish.pod:1431
 msgid ""
 "The L</hexedit> command uses C<$HEXEDITOR> as the external hex editor.  If "
 "not specified, the external L<hexedit(1)> program is used."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1432
+#: ../fish/guestfish.pod:1435
 msgid "HOME"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1434
+#: ../fish/guestfish.pod:1437
 msgid ""
 "If compiled with GNU readline support, various files in the home directory "
 "can be used.  See L</FILES>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1437 ../lib/guestfs.pod:3373
+#: ../fish/guestfish.pod:1440 ../lib/guestfs.pod:3373
 msgid "LIBGUESTFS_APPEND"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1439 ../lib/guestfs.pod:3375
+#: ../fish/guestfish.pod:1442 ../lib/guestfs.pod:3375
 msgid "Pass additional options to the guest kernel."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1441 ../lib/guestfs.pod:3377
+#: ../fish/guestfish.pod:1444 ../lib/guestfs.pod:3377
 msgid "LIBGUESTFS_ATTACH_METHOD"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1443 ../lib/guestfs.pod:3379
+#: ../fish/guestfish.pod:1446 ../lib/guestfs.pod:3379
 msgid "This is the old way to set C<LIBGUESTFS_BACKEND>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1445 ../lib/guestfs.pod:3381
+#: ../fish/guestfish.pod:1448 ../lib/guestfs.pod:3381
 msgid "LIBGUESTFS_BACKEND"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1447
+#: ../fish/guestfish.pod:1450
 msgid ""
 "Choose the default way to create the appliance.  See "
 "L<guestfs(3)/guestfs_set_backend>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1450 ../lib/guestfs.pod:3386
+#: ../fish/guestfish.pod:1453 ../lib/guestfs.pod:3386
 msgid "LIBGUESTFS_BACKEND_SETTINGS"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1452
+#: ../fish/guestfish.pod:1455
 msgid ""
 "A colon-separated list of backend-specific settings.  See "
 "L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1455 ../lib/guestfs.pod:3391
+#: ../fish/guestfish.pod:1458 ../lib/guestfs.pod:3391
 msgid "LIBGUESTFS_CACHEDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1457 ../lib/guestfs.pod:3393
+#: ../fish/guestfish.pod:1460 ../lib/guestfs.pod:3393
 msgid ""
 "The location where libguestfs will cache its appliance, when using a "
 "supermin appliance.  The appliance is cached and shared between all handles "
@@ -70561,36 +70566,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1461 ../lib/guestfs.pod:3397
+#: ../fish/guestfish.pod:1464 ../lib/guestfs.pod:3397
 msgid ""
 "If C<LIBGUESTFS_CACHEDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> "
 "is not set, then F</var/tmp> is used."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1464
+#: ../fish/guestfish.pod:1467
 msgid "See also L</LIBGUESTFS_TMPDIR>, L</set-cachedir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1466 ../lib/guestfs.pod:3402
+#: ../fish/guestfish.pod:1469 ../lib/guestfs.pod:3402
 msgid "LIBGUESTFS_DEBUG"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1468
+#: ../fish/guestfish.pod:1471
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as using the B<-v> option."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1471 ../lib/guestfs.pod:3407
+#: ../fish/guestfish.pod:1474 ../lib/guestfs.pod:3407
 msgid "LIBGUESTFS_HV"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1473 ../lib/guestfs.pod:3409
+#: ../fish/guestfish.pod:1476 ../lib/guestfs.pod:3409
 msgid ""
 "Set the default hypervisor (usually qemu) binary that libguestfs uses.  If "
 "not set, then the qemu which was found at compile time by the configure "
@@ -70598,17 +70603,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1477 ../lib/guestfs.pod:3415
+#: ../fish/guestfish.pod:1480 ../lib/guestfs.pod:3415
 msgid "LIBGUESTFS_MEMSIZE"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1479 ../lib/guestfs.pod:3417
+#: ../fish/guestfish.pod:1482 ../lib/guestfs.pod:3417
 msgid "Set the memory allocated to the qemu process, in megabytes.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1482 ../lib/guestfs.pod:3420
+#: ../fish/guestfish.pod:1485 ../lib/guestfs.pod:3420
 #, no-wrap
 msgid ""
 " LIBGUESTFS_MEMSIZE=700\n"
@@ -70616,80 +70621,80 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1484 ../lib/guestfs.pod:3422
+#: ../fish/guestfish.pod:1487 ../lib/guestfs.pod:3422
 msgid "LIBGUESTFS_PATH"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1486
+#: ../fish/guestfish.pod:1489
 msgid ""
 "Set the path that guestfish uses to search for kernel and initrd.img.  See "
 "the discussion of paths in L<guestfs(3)>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1489 ../lib/guestfs.pod:3427
+#: ../fish/guestfish.pod:1492 ../lib/guestfs.pod:3427
 msgid "LIBGUESTFS_QEMU"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1491 ../lib/guestfs.pod:3429
+#: ../fish/guestfish.pod:1494 ../lib/guestfs.pod:3429
 msgid "This is the old way to set C<LIBGUESTFS_HV>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1493 ../lib/guestfs.pod:3431
+#: ../fish/guestfish.pod:1496 ../lib/guestfs.pod:3431
 msgid "LIBGUESTFS_TMPDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1495 ../lib/guestfs.pod:3433
+#: ../fish/guestfish.pod:1498 ../lib/guestfs.pod:3433
 msgid ""
 "The location where libguestfs will store temporary files used by each "
 "handle."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1498 ../lib/guestfs.pod:3436
+#: ../fish/guestfish.pod:1501 ../lib/guestfs.pod:3436
 msgid ""
 "If C<LIBGUESTFS_TMPDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> is "
 "not set, then F</tmp> is used."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1501
+#: ../fish/guestfish.pod:1504
 msgid "See also L</LIBGUESTFS_CACHEDIR>, L</set-tmpdir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1503 ../lib/guestfs.pod:3441
+#: ../fish/guestfish.pod:1506 ../lib/guestfs.pod:3441
 msgid "LIBGUESTFS_TRACE"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1505
+#: ../fish/guestfish.pod:1508
 msgid "Set C<LIBGUESTFS_TRACE=1> to enable command traces."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1507
+#: ../fish/guestfish.pod:1510
 msgid "PAGER"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1509
+#: ../fish/guestfish.pod:1512
 msgid ""
 "The C<more> command uses C<$PAGER> as the pager.  If not set, it uses "
 "C<more>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1512 ../lib/guestfs.pod:1353 ../lib/guestfs.pod:3446
+#: ../fish/guestfish.pod:1515 ../lib/guestfs.pod:1353 ../lib/guestfs.pod:3446
 msgid "PATH"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1514
+#: ../fish/guestfish.pod:1517
 msgid ""
 "Libguestfs and guestfish may run some external programs, and rely on "
 "C<$PATH> being set to a reasonable value.  If using the libvirt backend, "
@@ -70697,22 +70702,22 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1519 ../lib/guestfs.pod:3454
+#: ../fish/guestfish.pod:1522 ../lib/guestfs.pod:3454
 msgid "SUPERMIN_KERNEL"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1521 ../lib/guestfs.pod:3456
+#: ../fish/guestfish.pod:1524 ../lib/guestfs.pod:3456
 msgid "SUPERMIN_KERNEL_VERSION"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1523 ../lib/guestfs.pod:3458
+#: ../fish/guestfish.pod:1526 ../lib/guestfs.pod:3458
 msgid "SUPERMIN_MODULES"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1525 ../lib/guestfs.pod:3460
+#: ../fish/guestfish.pod:1528 ../lib/guestfs.pod:3460
 msgid ""
 "These three environment variables allow the kernel that libguestfs uses in "
 "the appliance to be selected.  If C<$SUPERMIN_KERNEL> is not set, then the "
@@ -70721,97 +70726,97 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1530 ../lib/guestfs.pod:3465 ../sparsify/virt-sparsify.pod:412
+#: ../fish/guestfish.pod:1533 ../lib/guestfs.pod:3465 ../sparsify/virt-sparsify.pod:412
 msgid "TMPDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1532 ../lib/guestfs.pod:3467
+#: ../fish/guestfish.pod:1535 ../lib/guestfs.pod:3467
 msgid "See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1534 ../lib/guestfs.pod:3469
+#: ../fish/guestfish.pod:1537 ../lib/guestfs.pod:3469
 msgid "XDG_RUNTIME_DIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1536 ../lib/guestfs.pod:3471
+#: ../fish/guestfish.pod:1539 ../lib/guestfs.pod:3471
 msgid ""
 "This directory represents a user-specific directory for storing "
 "non-essential runtime files."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1539 ../lib/guestfs.pod:3474
+#: ../fish/guestfish.pod:1542 ../lib/guestfs.pod:3474
 msgid ""
 "If it is set, then is used to store temporary sockets.  Otherwise, F</tmp> "
 "is used."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1542 ../lib/guestfs.pod:3477
+#: ../fish/guestfish.pod:1545 ../lib/guestfs.pod:3477
 msgid ""
 "See also L</get-sockdir>, "
 "L<http://www.freedesktop.org/wiki/Specifications/basedir-spec/>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1551 ../fuse/guestmount.pod:406 ../rescue/virt-rescue.pod:386
+#: ../fish/guestfish.pod:1554 ../fuse/guestmount.pod:406 ../rescue/virt-rescue.pod:386
 msgid "$XDG_CONFIG_HOME/libguestfs/libguestfs-tools.conf"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1553 ../fish/libguestfs-tools.conf.pod:67 ../fuse/guestmount.pod:408 ../rescue/virt-rescue.pod:388
+#: ../fish/guestfish.pod:1556 ../fish/libguestfs-tools.conf.pod:67 ../fuse/guestmount.pod:408 ../rescue/virt-rescue.pod:388
 msgid "$HOME/.libguestfs-tools.rc"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1555 ../fuse/guestmount.pod:410 ../rescue/virt-rescue.pod:390
+#: ../fish/guestfish.pod:1558 ../fuse/guestmount.pod:410 ../rescue/virt-rescue.pod:390
 msgid "$XDG_CONFIG_DIRS/libguestfs/libguestfs-tools.conf"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1557 ../fish/libguestfs-tools.conf.pod:77 ../fuse/guestmount.pod:412 ../rescue/virt-rescue.pod:392
+#: ../fish/guestfish.pod:1560 ../fish/libguestfs-tools.conf.pod:77 ../fuse/guestmount.pod:412 ../rescue/virt-rescue.pod:392
 msgid "/etc/libguestfs-tools.conf"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1559 ../fuse/guestmount.pod:414 ../rescue/virt-rescue.pod:394
+#: ../fish/guestfish.pod:1562 ../fuse/guestmount.pod:414 ../rescue/virt-rescue.pod:394
 msgid ""
 "This configuration file controls the default read-only or read-write mode "
 "(I<--ro> or I<--rw>)."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1562 ../fuse/guestmount.pod:417 ../rescue/virt-rescue.pod:397
+#: ../fish/guestfish.pod:1565 ../fuse/guestmount.pod:417 ../rescue/virt-rescue.pod:397
 msgid "See L<libguestfs-tools.conf(5)>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1564
+#: ../fish/guestfish.pod:1567
 msgid "$HOME/.guestfish"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1566
+#: ../fish/guestfish.pod:1569
 msgid ""
 "If compiled with GNU readline support, then the command history is saved in "
 "this file."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1569
+#: ../fish/guestfish.pod:1572
 msgid "$HOME/.inputrc"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1571
+#: ../fish/guestfish.pod:1574
 msgid "/etc/inputrc"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1573
+#: ../fish/guestfish.pod:1576
 msgid ""
 "If compiled with GNU readline support, then these files can be used to "
 "configure readline.  For further information, please see "
@@ -70819,12 +70824,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1577
+#: ../fish/guestfish.pod:1580
 msgid "To write rules which only apply to guestfish, use:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1579
+#: ../fish/guestfish.pod:1582
 #, no-wrap
 msgid ""
 " $if guestfish\n"
@@ -70834,26 +70839,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1583
+#: ../fish/guestfish.pod:1586
 msgid ""
 "Variables that you can set in inputrc that change the behaviour of guestfish "
 "in useful ways include:"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1588
+#: ../fish/guestfish.pod:1591
 msgid "completion-ignore-case (default: on)"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1590
+#: ../fish/guestfish.pod:1593
 msgid ""
 "By default, guestfish will ignore case when tab-completing paths on the "
 "disk.  Use:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1593
+#: ../fish/guestfish.pod:1596
 #, no-wrap
 msgid ""
 " set completion-ignore-case off\n"
@@ -70861,22 +70866,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1595
+#: ../fish/guestfish.pod:1598
 msgid "to make guestfish case sensitive."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1599
+#: ../fish/guestfish.pod:1602
 msgid "test1.img"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1601
+#: ../fish/guestfish.pod:1604
 msgid "test2.img (etc)"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1603
+#: ../fish/guestfish.pod:1606
 msgid ""
 "When using the I<-N> or I<--new> option, the prepared disk or filesystem "
 "will be created in the file F<test1.img> in the current directory.  The "
@@ -70886,7 +70891,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1613
+#: ../fish/guestfish.pod:1616
 msgid ""
 "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, "
 "L<virt-builder(1)>, L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-copy-out(1)>, "
@@ -110261,7 +110266,7 @@ msgstr ""
 
 #. type: =item
 #: ../v2v/virt-v2v.pod:234
-msgid "Windows XP to Windows 8.1 / Windows Server 2012 R2"
+msgid "Windows XP to Windows 10 / Windows Server 2016"
 msgstr ""
 
 #. type: textblock
