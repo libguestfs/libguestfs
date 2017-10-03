@@ -85,7 +85,7 @@ module Mkdtemp : sig
 
       The optional [~base_dir:string] changes the base directory where
       to create the new temporary directory; if not specified, the default
-      [Filename.temp_dir_name] is used. *)
+      {!Filename.get_temp_dir_name} is used. *)
 end
 
 module Realpath : sig

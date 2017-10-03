@@ -54,7 +54,7 @@ end
 module Mkdtemp = struct
   external mkdtemp : string -> string = "guestfs_int_mllib_mkdtemp"
 
-  let temp_dir ?(base_dir = Filename.temp_dir_name) prefix =
+  let temp_dir ?(base_dir = Filename.get_temp_dir_name ()) prefix =
     mkdtemp (Filename.concat base_dir (prefix ^ "XXXXXX"))
 end
 

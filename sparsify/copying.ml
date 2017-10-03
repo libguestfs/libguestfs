@@ -71,7 +71,7 @@ let run indisk outdisk check_tmpdir compress convert
   (* Use TMPDIR or --tmp parameter? *)
   let tmp_place =
     match tmp_param with
-    | None -> Directory Filename.temp_dir_name (* $TMPDIR or /tmp *)
+    | None -> Directory (Filename.get_temp_dir_name ()) (* $TMPDIR or /tmp *)
     | Some dir when is_directory dir -> Directory dir
     | Some dev when is_block_device dev -> Block_device dev
     | Some file when String.is_prefix file "prebuilt:" ->
