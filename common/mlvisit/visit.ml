@@ -18,8 +18,13 @@
 
 type visitor_function = string -> string option -> Guestfs.statns -> Guestfs.xattr array -> unit
 
+exception Failure
+
 external c_visit : int64 -> string -> visitor_function -> unit =
   "guestfs_int_mllib_visit"
 
 let visit g dir f =
   c_visit (Guestfs.c_pointer g) dir f
+
+let () =
+  Callback.register_exception "Visit.Failure" Failure

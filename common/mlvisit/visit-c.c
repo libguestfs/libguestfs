@@ -53,6 +53,7 @@ value
 guestfs_int_mllib_visit (value gv, value dirv, value fv)
 {
   CAMLparam3 (gv, dirv, fv);
+  value *visit_failure_exn;
   guestfs_h *g = (guestfs_h *) (intptr_t) Int64_val (gv);
   struct visitor_function_wrapper_args args;
   /* The dir string could move around when we call the
@@ -81,9 +82,10 @@ guestfs_int_mllib_visit (value gv, value dirv, value fv)
 
     /* Otherwise it's some other failure.  The visit function has
      * already printed the error to stderr (XXX - fix), so we raise a
-     * generic Failure.
+     * generic exception.
      */
-    caml_failwith ("visit");
+    visit_failure_exn = caml_named_value ("Visit.Failure");
+    caml_raise (*visit_failure_exn);
   }
   free (dir);
 

@@ -36,6 +36,8 @@ type visitor_function = string -> string option -> Guestfs.statns -> Guestfs.xat
     The visitor callback may raise an exception, which will cause
     the whole visit to fail with an error (raising the same exception). *)
 
+exception Failure
+
 val visit : Guestfs.t -> string -> visitor_function -> unit
 (** [visit g dir f] calls the [visitor_function f] once for
     every directory and every file.
@@ -43,8 +45,8 @@ val visit : Guestfs.t -> string -> visitor_function -> unit
     If the visitor function raises an exception, then the whole visit
     stops and raises the same exception.
 
-    Also other errors can happen, and those will cause a [Failure
-    "visit"] exception to be raised.  (Because of the implementation
+    Also other errors can happen, and those will cause a {!Failure}
+    exception to be raised.  (Because of the implementation
     of the underlying function, the real error is printed
     unconditionally to stderr).
 

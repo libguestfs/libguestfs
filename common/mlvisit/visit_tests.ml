@@ -25,6 +25,8 @@ open Visit
 
 module G = Guestfs
 
+exception Test of string
+
 let rec main () =
   let g = new G.guestfs () in
   g#add_drive_scratch (Int64.mul 1024L (Int64.mul 1024L 1024L));
@@ -107,17 +109,17 @@ let rec main () =
 
   (* Raise an exception in the visitor_function. *)
   printf "testing exception in visitor function\n%!";
-  (try visit g#ocaml_handle "/" (fun _ _ _ _ -> invalid_arg "test");
+  (try visit g#ocaml_handle "/" (fun _ _ _ _ -> raise (Test "test"));
        assert false
-   with Invalid_argument "test" -> ()
+   with Test "test" -> ()
   (* any other exception escapes and kills the test *)
   );
 
-  (* Force an error and check [Failure "visit"] is raised. *)
+  (* Force an error and check [Visit.Failure] is raised. *)
   printf "testing general error in visit\n%!";
   (try visit g#ocaml_handle "/nosuchdir" (fun _ _ _ _ -> ());
        assert false
-   with Failure "visit" -> ()
+   with Visit.Failure -> ()
   (* any other exception escapes and kills the test *)
   );
 
