@@ -145,7 +145,7 @@ object
      * hints you should import the data disks to Cinder.
      *)
     iteri (
-      fun i { target_file = target_file; target_format = target_format } ->
+      fun i { target_file; target_format } ->
         let name =
           if i == 0 then source.s_name
           else sprintf "%s-disk%d" source.s_name (i+1) in

@@ -218,7 +218,7 @@ end
 
   (* The actions. *)
   List.iter (
-    fun ({ name = name; style = style; non_c_aliases = non_c_aliases } as f) ->
+    fun ({ name; style; non_c_aliases } as f) ->
       generate_doc f (fun () -> generate_ocaml_prototype name style);
 
       (* Aliases. *)
@@ -269,7 +269,7 @@ class guestfs : ?environment:bool -> ?close_on_exit:bool -> unit -> object
 ";
 
   List.iter (
-    fun ({ name = name; style = style; non_c_aliases = non_c_aliases } as f) ->
+    fun ({ name; style; non_c_aliases } as f) ->
       let indent = "  " in
 
       (match style with
@@ -369,7 +369,7 @@ let () =
 
   (* The actions. *)
   List.iter (
-    fun { name = name; style = style; non_c_aliases = non_c_aliases } ->
+    fun { name; style; non_c_aliases } ->
       generate_ocaml_prototype ~is_external:true name style;
       List.iter (fun alias -> pr "let %s = %s\n" alias name) non_c_aliases
   ) (actions |> external_functions |> sort);
@@ -387,7 +387,7 @@ class guestfs ?environment ?close_on_exit () =
 ";
 
   List.iter (
-    fun { name = name; style = style; non_c_aliases = non_c_aliases } ->
+    fun { name; style; non_c_aliases } ->
       (match style with
       | _, [], optargs ->
         (* No required params?  Add explicit unit. *)
@@ -541,9 +541,8 @@ copy_table (char * const * argv)
 
   (* The wrappers. *)
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style);
-          blocking = blocking;
-          c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
+    fun { name; style = (ret, args, optargs as style);
+          blocking; c_function; c_optarg_prefix } ->
       pr "/* Automatically generated wrapper for function\n";
       pr " * ";
       generate_ocaml_prototype name style;

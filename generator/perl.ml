@@ -328,8 +328,8 @@ PREINIT:
 ";
 
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style);
-          c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
+    fun { name; style = (ret, args, optargs as style);
+          c_function; c_optarg_prefix } ->
       (match ret with
        | RErr -> pr "void\n"
        | RInt _ -> pr "SV *\n"
@@ -885,8 +885,7 @@ errnos:
    * they are pulled in from the XS code automatically.
    *)
   List.iter (
-    fun ({ name = name; style = style;
-           longdesc = longdesc; non_c_aliases = non_c_aliases } as f) ->
+    fun ({ name; style; longdesc; non_c_aliases } as f) ->
       let longdesc = String.replace longdesc "C<guestfs_" "C<$g-E<gt>" in
       pr "=item ";
       generate_perl_prototype name style;

@@ -65,8 +65,7 @@ let rec check_for_filesystem_on mountable vfs_type =
   match role with
   | None -> None
   | Some role ->
-     Some { fs_location = { mountable = mountable; vfs_type = vfs_type };
-            role = role }
+     Some { fs_location = { mountable ; vfs_type }; role }
 
 (* When this function is called, the filesystem is mounted on sysroot (). *)
 and check_filesystem mountable =
@@ -245,7 +244,7 @@ and is_symlink_to file wanted_target =
  * simple function of the [distro] and [version[0]] fields, so these
  * can never return an error.  We might be cleverer in future.
  *)
-and check_package_format { distro = distro } =
+and check_package_format { distro } =
   match distro with
   | None -> None
   | Some DISTRO_FEDORA
@@ -290,7 +289,7 @@ and check_package_format { distro = distro } =
   | Some DISTRO_PLD_LINUX ->
      None
 
-and check_package_management { distro = distro; version = version } =
+and check_package_management { distro; version } =
   let major = match version with None -> 0 | Some (major, _) -> major in
   match distro with
   | None -> None

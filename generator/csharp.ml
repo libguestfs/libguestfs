@@ -138,8 +138,8 @@ namespace Guestfs
 
   (* Generate C# function bindings. *)
   List.iter (
-    fun { name = name; style = ret, args, optargs; c_function = c_function;
-          shortdesc = shortdesc; non_c_aliases = non_c_aliases } ->
+    fun { name; style = ret, args, optargs; c_function;
+          shortdesc; non_c_aliases } ->
       let rec csharp_return_type () =
         match ret with
         | RErr -> "void"

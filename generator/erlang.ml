@@ -43,7 +43,7 @@ let rec generate_erlang_erl () =
 
   (* Export the public actions. *)
   List.iter (
-    fun { name = name; style = _, args, optargs; non_c_aliases = aliases } ->
+    fun { name; style = _, args, optargs; non_c_aliases = aliases } ->
       let nr_args = List.length args in
       let export name =
         if optargs = [] then
@@ -102,7 +102,7 @@ loop(Port) ->
    * process which dispatches them to the port.
    *)
   List.iter (
-    fun { name = name; style = _, args, optargs; non_c_aliases = aliases } ->
+    fun { name; style = _, args, optargs; non_c_aliases = aliases } ->
       pr "%s(G" name;
       List.iter (
         fun arg ->
@@ -228,7 +228,7 @@ extern int64_t get_int64 (ETERM *term);
   pr "\n";
 
   List.iter (
-    fun { name = name } ->
+    fun { name } ->
       pr "ETERM *run_%s (ETERM *args_tuple);\n" name
   ) (actions |> external_functions |> sort);
 
@@ -351,8 +351,8 @@ instead of erl_interface.
 
   (* The wrapper functions. *)
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style);
-          c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
+    fun { name; style = (ret, args, optargs as style);
+          c_function; c_optarg_prefix } ->
       pr "\n";
       pr "ETERM *\n";
       pr "run_%s (ETERM *args_tuple)\n" name;
@@ -550,7 +550,7 @@ dispatch (ETERM *args_tuple)
   ";
 
   List.iter (
-    fun { name = name; style = ret, args, optargs } ->
+    fun { name; style = ret, args, optargs } ->
       pr "if (atom_equals (fun, \"%s\"))\n" name;
       pr "    return run_%s (args_tuple);\n" name;
       pr "  else ";

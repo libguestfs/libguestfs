@@ -29,8 +29,7 @@ let ensure_trailing_slash str =
   if String.length str > 0 && str.[String.length str - 1] <> '/' then str ^ "/"
   else str
 
-let get_index ~downloader ~sigchecker
-  { Sources.uri = uri; proxy = proxy } =
+let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
 
   let uri = ensure_trailing_slash uri in
 

@@ -61,7 +61,7 @@ module Guestfs (
 
   (* List out the names of the actions we want to export. *)
   List.iter (
-    fun { name = name; style = style } ->
+    fun { name; style } ->
       if can_generate style then pr ",\n  %s" name
   ) (actions |> external_functions |> sort);
 
@@ -123,7 +123,7 @@ assocListOfHashtable (a:b:rest) = (a,b) : assocListOfHashtable rest
 
   (* Generate wrappers for each foreign function. *)
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style);
+    fun { name; style = (ret, args, optargs as style);
           c_function = c_function } ->
       if can_generate style then (
         pr "foreign import ccall unsafe \"guestfs.h %s\" c_%s\n"

@@ -106,7 +106,7 @@ let extra_args () =
   assert !baked;
 
   List.flatten (
-    List.map (fun { extra_args = extra_args } ->
+    List.map (fun { extra_args } ->
       List.map (fun { extra_argspec = argspec } -> argspec) extra_args
     ) !all_formats
   )

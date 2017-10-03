@@ -431,8 +431,8 @@ guestfs_int_lua_delete_event_callback (lua_State *L)
 
   (* Actions. *)
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style);
-          c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
+    fun { name; style = (ret, args, optargs as style);
+          c_function; c_optarg_prefix } ->
       pr "static int\n";
       pr "guestfs_int_lua_%s (lua_State *L)\n" name;
       pr "{\n";
@@ -883,7 +883,7 @@ static luaL_Reg methods[] = {
 ";
 
   List.iter (
-    fun { name = name } -> pr "  { \"%s\", guestfs_int_lua_%s },\n" name name
+    fun { name } -> pr "  { \"%s\", guestfs_int_lua_%s },\n" name name
   ) (actions |> external_functions |> sort);
 
   pr "\

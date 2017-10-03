@@ -47,21 +47,10 @@ and entry = {
   proxy : Curl.proxy;
 }
 
-let print_entry chan (name, { printable_name = printable_name;
-                              file_uri = file_uri;
-                              arch = arch;
-                              osinfo = osinfo;
-                              signature_uri = signature_uri;
-                              checksums = checksums;
-                              revision = revision;
-                              format = format;
-                              size = size;
-                              compressed_size = compressed_size;
-                              expand = expand;
-                              lvexpand = lvexpand;
-                              notes = notes;
-                              aliases = aliases;
-                              hidden = hidden }) =
+let print_entry chan (name, { printable_name; file_uri; arch; osinfo;
+                              signature_uri; checksums; revision; format;
+                              size; compressed_size; expand; lvexpand;
+                              notes; aliases; hidden }) =
   let fp fs = fprintf chan fs in
   fp "[%s]\n" name;
   may (fp "name=%s\n") printable_name;

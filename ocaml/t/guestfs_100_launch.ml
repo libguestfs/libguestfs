@@ -42,7 +42,7 @@ let () =
   let cmp { Guestfs.name = n1 } { Guestfs.name = n2 } = compare n1 n2 in
   let dirs = List.sort cmp dirs in
   let dirs = List.map (
-    fun { Guestfs.name = name; Guestfs.ftyp = ftyp } -> (name, ftyp)
+    fun { Guestfs.name; ftyp } -> (name, ftyp)
   ) dirs in
 
   if dirs <> [ ".", 'd';

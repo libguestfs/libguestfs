@@ -145,7 +145,7 @@ and check_for_duplicated_bsd_root fses =
     let bsd_primary =
       List.find (
         function
-        | { fs_location = { mountable = mountable };
+        | { fs_location = { mountable };
             role = RoleRoot { os_type = Some t } } ->
            (t = OS_TYPE_FREEBSD || t = OS_TYPE_NETBSD || t = OS_TYPE_OPENBSD)
            && is_primary_partition mountable

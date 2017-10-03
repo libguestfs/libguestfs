@@ -139,8 +139,7 @@ fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
     | _ -> assert false in
 
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style);
-          c_optarg_prefix = c_optarg_prefix } ->
+    fun { name; style = (ret, args, optargs as style); c_optarg_prefix } ->
       pr "/* The %s function prints its parameters to stdout or the\n" name;
       pr " * file set by internal_test_set_output.\n";
       pr " */\n";
@@ -213,7 +212,7 @@ fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
   ) ptests;
 
   List.iter (
-    fun { name = name; style = (ret, args, _ as style) } ->
+    fun { name; style = (ret, args, _ as style) } ->
       if String.sub name (String.length name - 3) 3 <> "err" then (
         pr "/* Test normal return. */\n";
         generate_prototype ~extern:false ~semicolon:false ~newline:true

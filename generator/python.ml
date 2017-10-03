@@ -121,7 +121,7 @@ extern char *guestfs_int_py_asstring (PyObject *obj);
   pr "\n";
 
   List.iter (
-    fun { name = name; c_name = c_name } ->
+    fun { name; c_name } ->
       pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase_ascii c_name);
       pr "extern PyObject *guestfs_int_py_%s (PyObject *self, PyObject *args);\n" name;
       pr "#endif\n"
@@ -284,10 +284,8 @@ and generate_python_actions actions () =
 ";
 
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style);
-          blocking = blocking;
-          c_name = c_name;
-          c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
+    fun { name; style = (ret, args, optargs as style);
+          blocking; c_name; c_function; c_optarg_prefix } ->
       pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase_ascii c_name);
       pr "PyObject *\n";
       pr "guestfs_int_py_%s (PyObject *self, PyObject *args)\n" name;
@@ -585,7 +583,7 @@ and generate_python_module () =
   pr "  { (char *) \"event_to_string\",\n";
   pr "    guestfs_int_py_event_to_string, METH_VARARGS, NULL },\n";
   List.iter (
-    fun { name = name; c_name = c_name } ->
+    fun { name; c_name } ->
       pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase_ascii c_name);
       pr "  { (char *) \"%s\", guestfs_int_py_%s, METH_VARARGS, NULL },\n"
         name name;

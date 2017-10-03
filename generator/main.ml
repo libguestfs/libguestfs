@@ -40,7 +40,7 @@ let perror msg = function
  *)
 let nr_actions_files = 7
 let actions_subsets =
-  let h i { name = name } = i = Hashtbl.hash name mod nr_actions_files in
+  let h i { name } = i = Hashtbl.hash name mod nr_actions_files in
   Array.init nr_actions_files (fun i -> List.filter (h i) actions)
 let output_to_subset fs f =
   for i = 0 to nr_actions_files-1 do
@@ -310,7 +310,7 @@ Run it from the top source directory using the command
   delete_except_generated "gobject/src/struct-*.c";
   List.iter (
     function
-    | ({ name = name; style = (_, _, (_::_ as optargs)) } as f) ->
+    | ({ name; style = (_, _, (_::_ as optargs)) } as f) ->
       let short = sprintf "optargs-%s" name in
       let filename =
         sprintf "gobject/include/guestfs-gobject/%s.h" short in

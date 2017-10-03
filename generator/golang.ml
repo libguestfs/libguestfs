@@ -260,8 +260,7 @@ func return_hashtable (argv **C.char) map[string]string {
 
   (* Actions. *)
   List.iter (
-    fun ({ name = name; shortdesc = shortdesc;
-          style = (ret, args, optargs) } as f) ->
+    fun ({ name; shortdesc; style = (ret, args, optargs) } as f) ->
       let go_name = String.capitalize_ascii name in
 
       (* If it has optional arguments, pass them in a struct

@@ -206,7 +206,7 @@ and generate_actions_pod () =
       generate_actions_pod_entry f
   ) (actions |> documented_functions |> sort)
 
-and generate_actions_pod_entry ({ c_name = c_name;
+and generate_actions_pod_entry ({ c_name;
                                   style = ret, args, optargs as style } as f) =
   pr "=head2 guestfs_%s\n\n" c_name;
   generate_prototype ~extern:false ~indent:" " ~handle:"g"
@@ -319,7 +319,7 @@ L</guestfs_feature_available>.\n\n" opt
     pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
   )
 
-and generate_actions_pod_back_compat_entry ({ name = name;
+and generate_actions_pod_back_compat_entry ({ name;
                                               style = ret, args, _ } as f) =
   pr "=head2 guestfs_%s\n\n" name;
   generate_prototype ~extern:false ~indent:" " ~handle:"g"
@@ -644,7 +644,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
 
   let generate_action_header { name = shortname;
                                style = ret, args, optargs as style;
-                               deprecated_by = deprecated_by } =
+                               deprecated_by } =
     pr "#define GUESTFS_HAVE_%s 1\n" (String.uppercase_ascii shortname);
 
     if optargs <> [] then (
@@ -705,7 +705,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
   in
 
   let generate_all_headers = List.iter (
-    fun ({ name = name; style = ret, args, _ } as f) ->
+    fun ({ name; style = ret, args, _ } as f) ->
       (* If once_had_no_optargs is set, then we need to generate a
        * <name>_opts variant, plus a backwards-compatible wrapper
        * called just <name> with no optargs.
@@ -785,7 +785,7 @@ and generate_internal_actions_h () =
   pr "\n";
 
   List.iter (
-    fun { c_name = c_name; style = style } ->
+    fun { c_name; style } ->
       generate_prototype ~single_line:true ~newline:true ~handle:"g"
         ~prefix:"guestfs_impl_" ~optarg_proto:Argv
         c_name style
@@ -1676,9 +1676,9 @@ and generate_client_actions actions () =
   in
 
   (* For non-daemon functions, generate a wrapper around each function. *)
-  let generate_non_daemon_wrapper { name = name; c_name = c_name;
+  let generate_non_daemon_wrapper { name; c_name;
                                     style = ret, _, optargs as style;
-                                    config_only = config_only } =
+                                    config_only } =
     if optargs = [] then
       generate_prototype ~extern:false ~semicolon:false ~newline:true
         ~handle:"g" ~prefix:"guestfs_"
@@ -1756,7 +1756,7 @@ and generate_client_actions actions () =
   ) (actions |> non_daemon_functions |> sort);
 
   (* Client-side stubs for each function. *)
-  let generate_daemon_stub { name = name; c_name = c_name;
+  let generate_daemon_stub { name; c_name;
                              style = ret, args, optargs as style } =
     let errcode =
       match errcode_of_ret ret with
@@ -2072,7 +2072,7 @@ and generate_client_actions_variants () =
 
 ";
 
-  let generate_va_variants { name = name; c_name = c_name;
+  let generate_va_variants { name; c_name;
                              style = ret, args, optargs as style } =
     assert (optargs <> []); (* checked by caller *)
 
@@ -2175,7 +2175,7 @@ and generate_client_actions_variants () =
     pr ";\n";
     pr "}\n\n"
 
-  and generate_back_compat_wrapper { name = name;
+  and generate_back_compat_wrapper { name;
                                      style = ret, args, _ as style } =
     generate_prototype ~extern:false ~semicolon:false ~newline:true
       ~handle:"g" ~prefix:"guestfs_"
@@ -2305,13 +2305,13 @@ and generate_linker_script () =
     List.flatten (
       List.map (
         function
-        | { c_name = c_name; style = _, _, [] } -> ["guestfs_" ^ c_name]
-        | { c_name = c_name; style = _, _, (_::_);
+        | { c_name; style = _, _, [] } -> ["guestfs_" ^ c_name]
+        | { c_name; style = _, _, (_::_);
             once_had_no_optargs = false } ->
             ["guestfs_" ^ c_name;
              "guestfs_" ^ c_name ^ "_va";
              "guestfs_" ^ c_name ^ "_argv"]
-        | { name = name; c_name = c_name; style = _, _, (_::_);
+        | { name; c_name; style = _, _, (_::_);
             once_had_no_optargs = true } ->
             ["guestfs_" ^ name;
              "guestfs_" ^ c_name;

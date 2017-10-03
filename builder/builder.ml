@@ -49,7 +49,7 @@ let remove_duplicates index =
    *)
   let nseen = Hashtbl.create 13 in
   List.iter (
-    fun (name, { Index.arch = arch; revision = revision }) ->
+    fun (name, { Index.arch; revision }) ->
       let id = name, arch in
       try
         let rev = Hashtbl.find nseen id in
@@ -59,7 +59,7 @@ let remove_duplicates index =
         Hashtbl.add nseen id revision
   ) index;
   List.filter (
-    fun (name, { Index.arch = arch; revision = revision }) ->
+    fun (name, { Index.arch ; revision }) ->
       let id = name, arch in
       try
         let rev = Hashtbl.find nseen (name, arch) in
@@ -84,7 +84,7 @@ let selected_cli_item cmdline index =
     try
       let item =
         List.find (
-          fun (name, { Index.aliases = aliases }) ->
+          fun (name, { Index.aliases }) ->
             match aliases with
             | None -> false
             | Some l -> List.mem cmdline.arg l
@@ -232,11 +232,11 @@ let main () =
       (match cache with
       | Some cache ->
         let l = List.filter (
-          fun (_, { Index.hidden = hidden }) ->
+          fun (_, { Index.hidden }) ->
             hidden <> true
         ) index in
         let l = List.map (
-          fun (name, { Index.revision = revision; arch = arch }) ->
+          fun (name, { Index.revision; arch }) ->
             (name, arch, revision)
         ) l in
         Cache.print_item_status cache ~header:true l
@@ -251,8 +251,7 @@ let main () =
       | Some _ ->
         List.iter (
           fun (name,
-               { Index.revision = revision; file_uri = file_uri;
-                 proxy = proxy }) ->
+               { Index.revision; file_uri; proxy }) ->
             let template = name, cmdline.arch, revision in
             message (f_"Downloading: %s") file_uri;
             let progress_bar = not (quiet ()) in
@@ -300,8 +299,7 @@ let main () =
   (* Download the template, or it may be in the cache. *)
   let template =
     let template, delete_on_exit =
-      let { Index.revision = revision; file_uri = file_uri;
-            proxy = proxy } = entry in
+      let { Index.revision; file_uri; proxy } = entry in
       let template = arg, cmdline.arch, revision in
       message (f_"Downloading: %s") file_uri;
       let progress_bar = not (quiet ()) in
@@ -340,7 +338,7 @@ let main () =
 
   (* Planner: Input tags. *)
   let itags =
-    let { Index.size = size; format = format } = entry in
+    let { Index.size; format } = entry in
     let format_tag =
       match format with
       | None -> []
@@ -634,7 +632,7 @@ let main () =
       let osize = Int64.of_string (List.assoc `Size otags) in
       let osize = roundup64 osize 512L in
       let oformat = List.assoc `Format otags in
-      let { Index.expand = expand; lvexpand = lvexpand } = entry in
+      let { Index.expand; lvexpand } = entry in
       message (f_"Resizing (using virt-resize) to expand the disk to %s")
         (human_size osize);
       let preallocation = if oformat = "qcow2" then Some "metadata" else None in
@@ -735,7 +733,7 @@ let main () =
         let filesystems = List.map snd (g#mountpoints ()) in
         let stats = List.map g#statvfs filesystems in
         let stats = List.map (
-          fun { G.bfree = bfree; bsize = bsize; blocks = blocks } ->
+          fun { G.bfree; bsize; blocks } ->
             bfree *^ bsize, blocks *^ bsize
         ) stats in
         List.fold_left (

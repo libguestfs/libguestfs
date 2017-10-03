@@ -55,7 +55,7 @@ PHP_FUNCTION (guestfs_last_error);
 ";
 
   List.iter (
-    fun { name = name } -> pr "PHP_FUNCTION (guestfs_%s);\n" name
+    fun { name } -> pr "PHP_FUNCTION (guestfs_%s);\n" name
   ) (actions |> external_functions |> sort);
 
   pr "\
@@ -199,7 +199,7 @@ static zend_function_entry guestfs_php_functions[] = {
 ";
 
   List.iter (
-    fun { name = name } -> pr "  PHP_FE (guestfs_%s, NULL)\n" name
+    fun { name } -> pr "  PHP_FE (guestfs_%s, NULL)\n" name
   ) (actions |> external_functions |> sort);
 
   pr "  { NULL, NULL, NULL }
@@ -271,7 +271,7 @@ PHP_FUNCTION (guestfs_last_error)
   (* Now generate the PHP bindings for each action. *)
   List.iter (
     fun { name = shortname; style = ret, args, optargs as style;
-          c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
+          c_function; c_optarg_prefix } ->
       pr "PHP_FUNCTION (guestfs_%s)\n" shortname;
       pr "{\n";
       pr "  zval *z_g;\n";

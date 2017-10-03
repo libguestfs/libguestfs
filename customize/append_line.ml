@@ -39,8 +39,8 @@ let append_line (g : G.guestfs) root path line =
     (* Stat the file.  We want to know it's a regular file, and
      * also its size.
      *)
-    let { G.st_mode = mode; st_size = size } = g#statns path in
-    if Int64.logand mode 0o170000_L <> 0o100000_L then
+    let { G.st_mode; st_size = size } = g#statns path in
+    if Int64.logand st_mode 0o170000_L <> 0o100000_L then
       error (f_"append_line: %s is not a file") path;
 
     (* Guess the line ending from the first part of the file, else

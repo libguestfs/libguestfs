@@ -69,7 +69,7 @@ let rec generate_c_api_tests () =
 
   let hash : (string, bool) Hashtbl.t = Hashtbl.create 13 in
   List.iter (
-    fun { tests = tests } ->
+    fun { tests } ->
       let seqs = filter_map (
         function
         | (_, (Always|IfAvailable _|IfNotCrossAppliance), test, cleanup) ->
@@ -81,7 +81,7 @@ let rec generate_c_api_tests () =
   ) actions;
 
   List.iter (
-    fun { name = name } ->
+    fun { name } ->
       if not (Hashtbl.mem hash name) then
         pr "    \"%s\",\n" name
   ) (actions |> sort);
@@ -98,7 +98,7 @@ let rec generate_c_api_tests () =
   (* Generate the actual tests. *)
   let test_names =
     List.map (
-      fun { name = name; optional = optional; tests = tests } ->
+      fun { name; optional; tests } ->
         mapi (generate_one_test name optional) tests
     ) (actions |> sort) in
   let test_names = List.concat test_names in

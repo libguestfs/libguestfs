@@ -43,9 +43,7 @@ let rec list_entries ~list_format ~sources index =
 
 and list_entries_short index =
   List.iter (
-    fun (name, { Index.printable_name = printable_name;
-                 arch = arch;
-                 hidden = hidden }) ->
+    fun (name, { Index.printable_name; arch; hidden }) ->
       if not hidden then (
         printf "%-24s" name;
         printf " %-10s" arch;
@@ -58,7 +56,7 @@ and list_entries_long ~sources index =
   let langs = Languages.languages () in
 
   List.iter (
-    fun { Sources.uri = uri; gpgkey = gpgkey } ->
+    fun { Sources.uri; gpgkey } ->
       printf (f_"Source URI: %s\n") uri;
       (match gpgkey with
       | Utils.No_Key -> ()
@@ -71,13 +69,8 @@ and list_entries_long ~sources index =
   ) sources;
 
   List.iter (
-    fun (name, { Index.printable_name = printable_name;
-                 arch = arch;
-                 size = size;
-                 compressed_size = compressed_size;
-                 notes = notes;
-                 aliases = aliases;
-                 hidden = hidden }) ->
+    fun (name, { Index.printable_name; arch; size; compressed_size;
+                 notes; aliases; hidden }) ->
       if not hidden then (
         printf "%-24s %s\n" "os-version:" name;
         may (printf "%-24s %s\n" (s_"Full name:")) printable_name;
@@ -107,7 +100,7 @@ and list_entries_long ~sources index =
 and list_entries_json ~sources index =
   let json_sources =
     List.map (
-      fun { Sources.uri = uri; gpgkey = gpgkey } ->
+      fun { Sources.uri; gpgkey } ->
         let item = [ "uri", JSON.String uri ] in
         let item =
           match gpgkey with
@@ -120,14 +113,8 @@ and list_entries_json ~sources index =
     ) sources in
   let json_templates =
     List.map (
-      fun (name, { Index.printable_name = printable_name;
-                   arch = arch;
-                   size = size;
-                   compressed_size = compressed_size;
-                   notes = notes;
-                   aliases = aliases;
-                   osinfo = osinfo;
-                   hidden = hidden }) ->
+      fun (name, { Index.printable_name; arch; size; compressed_size;
+                   notes; aliases; osinfo; hidden }) ->
         let item = [ "os-version", JSON.String name ] in
         let item =
           match printable_name with

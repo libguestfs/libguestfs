@@ -240,7 +240,7 @@ object
       Create_ovf.create_meta_files output_alloc esd_uuid image_uuids
         targets in
     List.iter (
-      fun ({ target_file = target_file }, meta) ->
+      fun ({ target_file }, meta) ->
         let meta_filename = target_file ^ ".meta" in
         Changeuid.make_file changeuid_t meta_filename meta
     ) (List.combine targets metas);

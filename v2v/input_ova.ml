@@ -255,7 +255,7 @@ object
       | Some name -> name in
 
     let disks = List.map (
-      fun ({ href = href; compressed = compressed } as disk) ->
+      fun ({ href; compressed } as disk) ->
         let partial =
           if compressed && partial then (
             (* We cannot access compressed disk inside the tar;

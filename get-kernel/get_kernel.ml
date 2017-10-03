@@ -100,9 +100,7 @@ read the man page virt-get-kernel(1).
                   ?libvirturi dom)
     | Some uri, None ->
       fun g ->
-        let { URI.path = path; protocol = protocol;
-              server = server; username = username;
-              password = password } = uri in
+        let { URI.path; protocol; server; username; password } = uri in
         let format = match !format with "auto" -> None | s -> Some s in
         g#add_drive
           ~readonly:true ?format ~protocol ?server ?username ?secret:password

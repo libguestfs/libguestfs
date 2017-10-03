@@ -25,8 +25,7 @@ open Utils
 open Printf
 open Unix
 
-let get_index ~downloader ~sigchecker
-  { Sources.uri = uri; proxy = proxy } =
+let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
   let corrupt_file () =
     error (f_"The index file downloaded from ‘%s’ is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.") uri
   in

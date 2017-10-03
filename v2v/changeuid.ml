@@ -35,7 +35,7 @@ type t = {
 
 let create ?uid ?gid () = { uid = uid; gid = gid }
 
-let with_fork { uid = uid; gid = gid } name f =
+let with_fork { uid; gid } name f =
   let pid = fork () in
 
   if pid = 0 then (

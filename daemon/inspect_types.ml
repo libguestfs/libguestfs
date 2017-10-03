@@ -123,7 +123,7 @@ and version = int * int
 and fstab_entry = Mountable.t * string (* mountable, mountpoint *)
 and drive_mapping = string * string (* drive name, device *)
 
-let rec string_of_fs { fs_location = location; role = role } =
+let rec string_of_fs { fs_location = location; role } =
   sprintf "fs: %s role: %s\n"
           (string_of_location location)
           (match role with
@@ -132,13 +132,12 @@ let rec string_of_fs { fs_location = location; role = role } =
            | RoleSwap -> "swap"
            | RoleOther -> "other")
 
-and string_of_location { mountable = mountable; vfs_type = vfs_type } =
+and string_of_location { mountable ; vfs_type } =
   sprintf "%s (%s)" (Mountable.to_string mountable) vfs_type
 
-and string_of_root { root_location = location;
-                     inspection_data = inspection_data } =
+and string_of_root { root_location; inspection_data } =
   sprintf "%s:\n%s"
-          (string_of_location location)
+          (string_of_location root_location)
           (string_of_inspection_data inspection_data)
 
 and string_of_inspection_data data =

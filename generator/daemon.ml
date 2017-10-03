@@ -59,7 +59,7 @@ let generate_daemon_actions_h () =
   ) (actions |> daemon_functions |> sort);
 
   List.iter (
-    fun { name = name; style = ret, args, optargs } ->
+    fun { name; style = ret, args, optargs } ->
       let args_passed_to_daemon = args @ args_of_optargs optargs in
       let args_passed_to_daemon =
         List.filter (function String ((FileIn|FileOut), _) -> false | _ -> true)
@@ -83,7 +83,7 @@ let generate_daemon_stubs_h () =
 ";
 
   List.iter (
-    fun { name = name } ->
+    fun { name } ->
       pr "extern void %s_stub (XDR *xdr_in);\n" name;
   ) (actions |> daemon_functions |> sort);
 
@@ -117,7 +117,7 @@ let generate_daemon_stubs actions () =
 ";
 
   List.iter (
-    fun { name = name; style = ret, args, optargs; optional = optional } ->
+    fun { name; style = ret, args, optargs; optional } ->
       (* Generate server-side stubs. *)
       let uc_name = String.uppercase_ascii name in
 
@@ -478,7 +478,7 @@ let generate_daemon_caml_callbacks_ml () =
     pr "let init_callbacks () =\n";
     pr "  (* Initialize callbacks to OCaml code. *)\n";
     List.iter (
-      fun ({ name = name; style = ret, args, optargs } as f) ->
+      fun ({ name; style = ret, args, optargs } as f) ->
         let ocaml_function =
           match f.impl with
           | OCaml f -> f
@@ -624,7 +624,7 @@ let generate_daemon_caml_stubs () =
 
   (* Implement the wrapper functions. *)
   List.iter (
-    fun ({ name = name; style = ret, args, optargs } as f) ->
+    fun ({ name; style = ret, args, optargs } as f) ->
       let uc_name = String.uppercase_ascii name in
       let ocaml_function =
         match f.impl with
@@ -825,7 +825,7 @@ let generate_daemon_dispatch () =
   pr "  switch (proc_nr) {\n";
 
   List.iter (
-    fun { name = name } ->
+    fun { name } ->
       pr "    case GUESTFS_PROC_%s:\n" (String.uppercase_ascii name);
       pr "      %s_stub (xdr_in);\n" name;
       pr "      break;\n"
@@ -1040,7 +1040,7 @@ let generate_daemon_names () =
   pr "const char *function_names[] = {\n";
   List.iter (
     function
-    | { name = name; proc_nr = Some proc_nr } ->
+    | { name; proc_nr = Some proc_nr } ->
       pr "  [%d] = \"%s\",\n" proc_nr name
     | { proc_nr = None } -> assert false
   ) (actions |> daemon_functions |> sort);
@@ -1124,7 +1124,7 @@ let generate_daemon_optgroups_h () =
       pr "#define OPTGROUP_%s_NOT_AVAILABLE \\\n"
          (String.uppercase_ascii group);
       List.iter (
-        fun { name = name; style = ret, args, optargs } ->
+        fun { name; style = ret, args, optargs } ->
           let style = ret, args @ args_of_optargs optargs, [] in
           pr "  ";
           generate_prototype

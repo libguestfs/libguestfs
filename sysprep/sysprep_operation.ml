@@ -172,8 +172,8 @@ let extra_args () =
   assert !baked;
 
   List.flatten (
-    List.map (fun { extra_args = extra_args } ->
-      List.map (fun { extra_argspec = argspec } -> argspec) extra_args
+    List.map (fun { extra_args } ->
+      List.map (fun { extra_argspec } -> extra_argspec) extra_args
     ) !all_operations
   )
 
@@ -202,7 +202,7 @@ let dump_pod_options () =
   assert !baked;
 
   let args = List.map (
-    fun { name = op_name; extra_args = extra_args } ->
+    fun { name = op_name; extra_args } ->
       List.map (fun ea -> op_name, ea) extra_args
   ) !all_operations in
   let args = List.flatten args in
@@ -292,7 +292,7 @@ let perform_operations_on_filesystems ?operations g root
 
   List.iter (
     function
-    | { name = name; perform_on_filesystems = Some fn } ->
+    | { name; perform_on_filesystems = Some fn } ->
       message (f_"Performing %S ...") name;
       fn g root side_effects
     | { perform_on_filesystems = None } -> ()
@@ -313,7 +313,7 @@ let perform_operations_on_devices ?operations g root
 
   List.iter (
     function
-    | { name = name; perform_on_devices = Some fn } ->
+    | { name; perform_on_devices = Some fn } ->
       message (f_"Performing %S ...") name;
       fn g root side_effects
     | { perform_on_devices = None } -> ()

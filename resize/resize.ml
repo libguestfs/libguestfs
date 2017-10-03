@@ -339,9 +339,7 @@ read the man page virt-resize(1).
    * and few additional parameters.
    *)
   let add_drive_uri (g : Guestfs.guestfs) ?format ?readonly ?cachemode
-                    { URI.path = path; protocol = protocol;
-                      server = server; username = username;
-                      password = password } =
+                    { URI.path; protocol; server; username; password } =
     g#add_drive ?format ?readonly ?cachemode
       ~protocol ?server ?username ?secret:password path
   in
@@ -477,7 +475,7 @@ read the man page virt-resize(1).
 
     let partitions =
       List.map (
-        fun ({ G.part_num = part_num } as part) ->
+        fun ({ G.part_num } as part) ->
           let part_num = Int32.to_int part_num in
           let name = sprintf "/dev/sda%d" part_num in
           let bootable = g#part_get_bootable "/dev/sda" part_num in
@@ -536,10 +534,10 @@ read the man page virt-resize(1).
     (* Check partitions don't overlap. *)
     let rec loop end_of_prev = function
       | [] -> ()
-      | { p_name = name; p_part = { G.part_start = part_start } } :: _
+      | { p_name = name; p_part = { G.part_start } } :: _
           when end_of_prev > part_start ->
         error (f_"%s: this partition overlaps the previous one") name
-      | { p_part = { G.part_end = part_end } } :: parts -> loop part_end parts
+      | { p_part = { G.part_end } } :: parts -> loop part_end parts
     in
     loop 0L partitions;
 
@@ -1408,7 +1406,7 @@ read the man page virt-resize(1).
 
   (* Try to sync the destination disk only if it is a local file. *)
   (match outfile with
-  | _, { URI.protocol = (""|"file"); path = path } ->
+  | _, { URI.protocol = (""|"file"); path } ->
     (* Because we used cache=unsafe when writing the output file, the
      * file might not be committed to disk.  This is a problem if qemu is
      * immediately used afterwards with cache=none (which uses O_DIRECT

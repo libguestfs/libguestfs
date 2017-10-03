@@ -492,8 +492,7 @@ Init__guestfs (void)
 
   (* Methods. *)
   List.iter (
-    fun { name = name; style = _, args, optargs;
-          non_c_aliases = non_c_aliases } ->
+    fun { name; style = _, args, optargs; non_c_aliases } ->
       let nr_args = if optargs = [] then List.length args else -1 in
       pr "  rb_define_method (c_guestfs, \"%s\",\n" name;
       pr "                    guestfs_int_ruby_%s, %d);\n" name nr_args;

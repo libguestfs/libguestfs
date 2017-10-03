@@ -145,7 +145,7 @@ and string_of_stat { G.st_mode = mode } =
 and string_of_xattrs xattrs =
   String.concat "" (List.map string_of_xattr (Array.to_list xattrs))
 
-and string_of_xattr { G.attrname = name; G.attrval = v } =
-  sprintf " %s=%s" name v
+and string_of_xattr { G.attrname; attrval } =
+  sprintf " %s=%s" attrname attrval
 
 let () = main ()

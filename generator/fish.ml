@@ -53,7 +53,7 @@ let doc_opttype_of = function
   | OString n
   | OStringList n -> ".."
 
-let get_aliases { fish_alias = fish_alias; non_c_aliases = non_c_aliases } =
+let get_aliases { fish_alias; non_c_aliases } =
   let non_c_aliases =
     List.map (fun n -> String.replace_char n '_' '-') non_c_aliases in
   fish_alias @ non_c_aliases
@@ -61,7 +61,7 @@ let get_aliases { fish_alias = fish_alias; non_c_aliases = non_c_aliases } =
 let all_functions_commands_and_aliases_sorted =
   let all =
     List.fold_right (
-      fun ({ name = name; shortdesc = shortdesc } as f) acc ->
+      fun ({ name; shortdesc } as f) acc ->
         let aliases = get_aliases f in
         let aliases = List.filter (
           fun x ->
@@ -152,9 +152,8 @@ let generate_fish_run_cmds actions () =
   ) (rstructs_used_by (actions |> fish_functions));
 
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style);
-          fish_output = fish_output; c_function = c_function;
-          c_optarg_prefix = c_optarg_prefix } ->
+    fun { name; style = (ret, args, optargs as style);
+          fish_output; c_function; c_optarg_prefix } ->
       pr "\n";
       pr "int\n";
       pr "run_%s (const char *cmd, size_t argc, char *argv[])\n" name;
@@ -509,7 +508,7 @@ let generate_fish_run_header () =
   pr "\n";
 
   List.iter (
-    fun { name = name } ->
+    fun { name } ->
       pr "extern int run_%s (const char *cmd, size_t argc, char *argv[]);\n"
         name
   ) (actions |> fish_functions |> sort);
@@ -530,8 +529,7 @@ let generate_fish_cmd_entries actions () =
   pr "\n";
 
   List.iter (
-    fun ({ name = name; style = _, args, optargs;
-           shortdesc = shortdesc; longdesc = longdesc } as f) ->
+    fun ({ name; style = _, args, optargs; shortdesc; longdesc } as f) ->
       let aliases = get_aliases f in
 
       let name2 = String.replace_char name '_' '-' in
@@ -619,7 +617,7 @@ let generate_fish_cmds () =
 
   (* List of command_entry structs for pure guestfish commands. *)
   List.iter (
-    fun ({ name = name; shortdesc = shortdesc; longdesc = longdesc } as f) ->
+    fun ({ name; shortdesc; longdesc } as f) ->
       let aliases = get_aliases f in
 
       let name2 = String.replace_char name '_' '-' in
@@ -677,7 +675,7 @@ and generate_fish_cmds_h () =
   pr "\n";
 
   List.iter (
-    fun { name = name } ->
+    fun { name } ->
       pr "extern int run_%s (const char *cmd, size_t argc, char *argv[]);\n"
         name
   ) fish_commands;
@@ -712,7 +710,7 @@ and generate_fish_cmds_gperf () =
 ";
 
   List.iter (
-    fun { name = name } ->
+    fun { name } ->
       pr "extern struct command_entry %s_cmd_entry;\n" name
   ) fish_functions_and_commands_sorted;
 
@@ -725,7 +723,7 @@ struct command_table;
 ";
 
   List.iter (
-    fun ({ name = name } as f) ->
+    fun ({ name } as f) ->
       let aliases = get_aliases f in
       let name2 = String.replace_char name '_' '-' in
 
@@ -817,7 +815,7 @@ static const char *const commands[] = {
    *)
   let commands =
     List.map (
-      fun ({ name = name } as f) ->
+      fun ({ name } as f) ->
         let aliases = get_aliases f in
         let name2 = String.replace_char name '_' '-' in
         name2 :: aliases
@@ -886,7 +884,7 @@ and generate_fish_actions_pod () =
   let rex = Str.regexp "C<guestfs_\\([^>]+\\)>" in
 
   List.iter (
-    fun ({ name = name; style = _, args, optargs; longdesc = longdesc } as f) ->
+    fun ({ name; style = _, args, optargs; longdesc } as f) ->
       let aliases = get_aliases f in
 
       let longdesc =
@@ -960,7 +958,7 @@ and generate_fish_commands_pod () =
   generate_header PODStyle GPLv2plus;
 
   List.iter (
-    fun ({ name = name; longdesc = longdesc } as f) ->
+    fun ({ name; longdesc } as f) ->
       let aliases = get_aliases f in
       let name = String.replace_char name '_' '-' in
 

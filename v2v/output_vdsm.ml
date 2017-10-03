@@ -142,7 +142,7 @@ object
       Create_ovf.create_meta_files output_alloc dd_uuid
         vdsm_params.image_uuids targets in
     List.iter (
-      fun ({ target_file = target_file }, meta) ->
+      fun ({ target_file }, meta) ->
         let meta_filename = target_file ^ ".meta" in
         let chan = open_out meta_filename in
         output_string chan meta;

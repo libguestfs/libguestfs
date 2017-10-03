@@ -134,9 +134,7 @@ read the man page virt-customize(1).
       fun g readonly ->
         List.iter (
           fun (uri, format) ->
-            let { URI.path = path; protocol = protocol;
-                  server = server; username = username;
-                  password = password } = uri in
+            let { URI.path; protocol; server; username; password } = uri in
             let discard = if readonly then None else Some "besteffort" in
             g#add_drive
               ~readonly ?discard

@@ -57,7 +57,7 @@ object
       | TargetUEFI -> Some (find_uefi_firmware guestcaps.gcaps_arch) in
     let secure_boot_required =
       match uefi_firmware with
-      | Some { Uefi.flags = flags }
+      | Some { Uefi.flags }
            when List.mem Uefi.UEFI_FLAG_SECURE_BOOT_REQUIRED flags -> true
       | _ -> false in
     (* Currently these are required by secure boot, but in theory they
@@ -85,7 +85,7 @@ object
 
     (match uefi_firmware with
      | None -> ()
-     | Some { Uefi.code = code } ->
+     | Some { Uefi.code } ->
         if secure_boot_required then
           arg_list "-global"
                    ["driver=cfi.pflash01"; "property=secure"; "value=on"];

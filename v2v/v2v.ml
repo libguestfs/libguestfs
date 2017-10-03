@@ -413,7 +413,7 @@ and check_guest_free_space mpstats =
   message (f_"Checking for sufficient free disk space in the guest");
   List.iter (
     fun { mp_path = mp;
-          mp_statvfs = { G.bfree = bfree; blocks = blocks; bsize = bsize } } ->
+          mp_statvfs = { G.bfree; blocks; bsize } } ->
       (* Ignore small filesystems. *)
       let total_size = blocks *^ bsize in
       if total_size > 100_000_000L then (

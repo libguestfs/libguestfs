@@ -33,7 +33,7 @@ open Utils
 
 let generate_header = generate_header ~inputs:["generator/gobject.ml"]
 
-let camel_of_name { camel_name = camel_name } = "Guestfs" ^ camel_name
+let camel_of_name { camel_name } = "Guestfs" ^ camel_name
 
 let generate_gobject_proto name ?(single_line = true)
                                 (ret, args, optargs) f =
@@ -106,7 +106,7 @@ let filenames =
   List.map (fun { s_name = typ } -> "struct-" ^ typ) external_structs @
 
   (* optargs *)
-  List.map (function { name = name } -> "optargs-" ^ name) (
+  List.map (function { name } -> "optargs-" ^ name) (
     List.filter (
       function
       | { style = _, _, (_::_) } -> true
@@ -680,7 +680,7 @@ gboolean guestfs_session_close (GuestfsSession *session, GError **err);
 ";
 
   List.iter (
-    fun ({ name = name; style = style } as f) ->
+    fun ({ name; style } as f) ->
       generate_gobject_proto name style f;
       pr ";\n";
   ) (actions |> external_functions |> sort);
@@ -936,11 +936,10 @@ guestfs_session_close (GuestfsSession *session, GError **err)
   let literal = Str.regexp "\\(^\\|\n\\)[ \t]+\\([^\n]*\\)\\(\n\\|$\\)" in
 
   List.iter (
-    fun ({ name = name; style = (ret, args, optargs as style);
-           cancellable = cancellable; c_function = c_function;
-           c_optarg_prefix = c_optarg_prefix;
-           shortdesc = shortdesc; longdesc = longdesc;
-           deprecated_by = deprecated_by } as f) ->
+    fun ({ name; style = (ret, args, optargs as style);
+           cancellable; c_function; c_optarg_prefix;
+           shortdesc; longdesc;
+           deprecated_by } as f) ->
       pr "\n";
 
       let longdesc = Str.global_substitute urls (

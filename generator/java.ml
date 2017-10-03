@@ -614,7 +614,7 @@ throw_out_of_memory (JNIEnv *env, const char *msg)
 ";
 
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style);
+    fun { name; style = (ret, args, optargs as style);
           c_function = c_function } ->
       pr "\n";
       pr "JNIEXPORT ";

@@ -44,7 +44,7 @@ let create ?(curl = "curl") ?(proxy = SystemProxy) ?tmpdir args =
   let args = safe_args @ args_of_proxy proxy @ args in
   { curl = curl; args = args; tmpdir = tmpdir }
 
-let run { curl = curl; args = args; tmpdir = tmpdir } =
+let run { curl; args; tmpdir } =
   let config_file, chan = Filename.open_temp_file ?temp_dir:tmpdir
     "guestfscurl" ".conf" in
   List.iter (
@@ -75,7 +75,7 @@ let run { curl = curl; args = args; tmpdir = tmpdir } =
   Unix.unlink config_file;
   lines
 
-let to_string { curl = curl; args = args } =
+let to_string { curl; args } =
   let b = Buffer.create 128 in
   bprintf b "%s -q" (quote curl);
   List.iter (
