@@ -38,15 +38,18 @@ AC_ARG_ENABLE([ocaml],
     [],
     [enable_ocaml=yes])
 
-dnl OCaml >= 3.11 is required.
-AC_MSG_CHECKING([if OCaml version >= 3.11])
+dnl OCaml >= 4.01 is required.
+ocaml_ver_str=4.01
+ocaml_min_major=4
+ocaml_min_minor=1
+AC_MSG_CHECKING([if OCaml version >= $ocaml_ver_str])
 ocaml_major="`echo $OCAMLVERSION | $AWK -F. '{print $1}'`"
-ocaml_minor="`echo $OCAMLVERSION | $AWK -F. '{print $2}'`"
-AS_IF([test "$ocaml_major" -ge 4 || ( test "$ocaml_major" -eq 3 && test "$ocaml_minor" -ge 11 )],[
-    AC_MSG_RESULT([yes])
+ocaml_minor="`echo $OCAMLVERSION | $AWK -F. '{print $2}' | sed 's/^0//'`"
+AS_IF([test "$ocaml_major" -ge $((ocaml_min_major+1)) || ( test "$ocaml_major" -eq $ocaml_min_major && test "$ocaml_minor" -ge $ocaml_min_minor )],[
+    AC_MSG_RESULT([yes ($ocaml_major, $ocaml_minor)])
 ],[
     AC_MSG_RESULT([no])
-    AC_MSG_FAILURE([OCaml compiler is not new enough.  At least OCaml 3.11 is required])
+    AC_MSG_FAILURE([OCaml compiler is not new enough.  At least OCaml $ocaml_ver_str is required])
 ])
 
 AM_CONDITIONAL([HAVE_OCAML],
