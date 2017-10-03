@@ -158,7 +158,7 @@ AM_CONDITIONAL([HAVE_BYTES_COMPAT_ML],
 	       [test "x$OCAML_BYTES_COMPAT_ML" != "x"])
 
 dnl Flags we want to pass to every OCaml compiler call.
-OCAML_WARN_ERROR="-warn-error CDEFLMPSUVYZX-3"
+OCAML_WARN_ERROR="-warn-error CDEFLMPSUVYZX+52-3"
 AC_SUBST([OCAML_WARN_ERROR])
 OCAML_FLAGS="-g -annot $safe_string_option"
 AC_SUBST([OCAML_FLAGS])
