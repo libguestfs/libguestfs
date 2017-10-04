@@ -50,7 +50,7 @@ let plan ?(max_depth = 10) transitions itags ~must ~must_not =
 
   (* Breadth-first search. *)
   let rec search depth paths =
-    if depth >= max_depth then failwith "plan"
+    if depth >= max_depth then None
     else (
       let paths =
         List.map (
@@ -76,7 +76,7 @@ let plan ?(max_depth = 10) transitions itags ~must ~must_not =
         (* Return the shortest path, but we have to reverse it because
          * we built it backwards.
          *)
-        List.rev ret
+        Some (List.rev ret)
     )
   in
 

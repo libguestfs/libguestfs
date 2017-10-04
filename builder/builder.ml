@@ -547,11 +547,10 @@ let main () =
   (* Plan how to create the disk image. *)
   message (f_"Planning how to build this image");
   let plan =
-    try plan ~max_depth:5 transitions itags ~must ~must_not
-    with
-      Failure "plan" ->
-        error (f_"no plan could be found for making a disk image with\nthe required size, format etc. This is a bug in libguestfs!\nPlease file a bug, giving the command line arguments you used.");
-  in
+    match plan ~max_depth:5 transitions itags ~must ~must_not with
+    | Some plan -> plan
+    | None ->
+       error (f_"no plan could be found for making a disk image with\nthe required size, format etc. This is a bug in libguestfs!\nPlease file a bug, giving the command line arguments you used.") in
 
   (* Print out the plan. *)
   if verbose () then (

@@ -67,7 +67,7 @@ type ('name, 'value, 'task) transitions_function =
 val plan : ?max_depth:int -> ('name, 'value, 'task) transitions_function ->
            ('name, 'value) tags ->
            must: ('name, 'value) tags -> must_not: ('name, 'value) tags ->
-           ('name, 'value, 'task) plan
+           ('name, 'value, 'task) plan option
 (** Make a plan.
 
     [plan transitions itags goal_must goal_must_not] works out a
@@ -79,5 +79,4 @@ val plan : ?max_depth:int -> ('name, 'value, 'task) transitions_function ->
 
     The returned value is a {!plan}.
 
-    Raises [Failure "plan"] if no plan was found within [max_depth]
-    transitions. *)
+    Returns [None] if no plan was found within [max_depth] transitions. *)
