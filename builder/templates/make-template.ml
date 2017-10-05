@@ -71,7 +71,12 @@ type os =
   | Debian of int * string      (* version, dist name like "wheezy" *)
   | Ubuntu of string * string
   | Fedora of int               (* version number *)
+  | FreeBSD of int * int        (* major, minor *)
 type arch = X86_64 | Aarch64 | Armv7 | I686 | PPC64 | PPC64le | S390X
+
+type boot_media =
+  | Location of string          (* virt-install --location (preferred) *)
+  | CDRom of string             (* downloaded CD-ROM *)
 
 let quote = Filename.quote
 let (//) = Filename.concat
@@ -89,20 +94,14 @@ let rec main () =
   (* For OSes which require a kickstart, this generates one.
    * For OSes which require a preseed file, this returns one (we
    * don't generate preseed files at the moment).
+   * For OSes which cannot be automated (FreeBSD), this returns None.
    *)
   let ks = make_kickstart_or_preseed os arch in
 
-  (* Find the virt-install --location for this OS. *)
-  let location = make_location os arch in
-
-  (* RHEL guests require alternate yum configuration pointing to
-   * Red Hat's internal servers.
+  (* Find the boot media.  Normally ‘virt-install --location’ but
+   * for FreeBSD it downloads the boot ISO.
    *)
-  let yum_conf =
-    match os with
-    | RHEL (major, minor) when major >= 5 ->
-       Some (make_rhel_yum_conf major minor arch)
-    | _ -> None in
+  let boot_media = make_boot_media os arch in
 
   (* Choose a random temporary name for the libvirt domain. *)
   let tmpname = sprintf "tmp-%s" (random8 ()) in
@@ -129,7 +128,7 @@ let rec main () =
 
   (* Now construct the virt-install command. *)
   let vi = make_virt_install_command os arch ks tmpname tmpout tmpefivars
-                                     location virtual_size_gb in
+                                     boot_media virtual_size_gb in
   (* Make sure that temporary files are removed if we exit for any reason. *)
   at_exit (
     fun () ->
@@ -147,7 +146,14 @@ let rec main () =
       if arg.[0] = '-' then printf "\\\n    %s " arg
       else printf "%s " arg
   ) vi;
-  printf "\n%!";
+  printf "\n\n%!";
+
+  (* Print the virt-install notes for OSes which cannot be automated
+   * fully.  (These are different from the ‘notes=’ section in the
+   * index fragment).
+   *)
+  print_install_notes os;
+  printf "\n\n%!";
 
   (* Run the virt-install command. *)
   let pid = Unix.fork () in
@@ -175,10 +181,15 @@ let rec main () =
   let cmd = sprintf "virt-filesystems -a %s --all --long -h" (quote tmpout) in
   if Sys.command cmd <> 0 then exit 1;
 
+  (* Some guests are special flowers that need post-installation
+   * filesystem changes.
+   *)
+  let postinstall = make_postinstall os arch in
+
   (* Get the root filesystem.  If the root filesystem is LVM then
    * get the partition containing it.
    *)
-  let g = open_guest tmpout in
+  let g = open_guest ~mount:(postinstall <> None) tmpout in
   let roots = g#inspect_get_roots () in
   let expandfs, lvexpandfs =
     let rootfs = g#canonical_device_name roots.(0) in
@@ -195,18 +206,9 @@ let rec main () =
       | [] | _::_::_ -> assert false
     ) in
 
-  (* Some guests are special flowers. *)
-  (match os with
-   | Debian _ ->
-      (* Remove apt proxy configuration (thanks: Daniel Miranda). *)
-      g#rm_f "/etc/apt/apt.conf";
-      g#touch "/etc/apt/apt.conf";
-   | _ -> ()
-  );
-  (match yum_conf with
-   | Some yum_conf ->
-      g#write "/etc/yum.repos.d/download.devel.redhat.com.repo" yum_conf;
+  (match postinstall with
    | None -> ()
+   | Some f -> f g
   );
 
   g#shutdown ();
@@ -225,13 +227,17 @@ let rec main () =
    | _ -> ()
   );
 
-  (* Sysprep.  Relabel SELinux-using guests. *)
-  printf "Sysprepping ...\n%!";
-  let cmd =
-    sprintf "virt-sysprep --quiet -a %s%s"
-            (quote tmpout)
-            (if is_selinux_os os then " --selinux-relabel" else "") in
-  if Sys.command cmd <> 0 then exit 1;
+  (match os with
+   | FreeBSD _ -> () (* virt-sysprep doesn't work on FreeBSD. *)
+   | _ ->
+      (* Sysprep.  Relabel SELinux-using guests. *)
+      printf "Sysprepping ...\n%!";
+      let cmd =
+        sprintf "virt-sysprep --quiet -a %s%s"
+                (quote tmpout)
+                (if is_selinux_os os then " --selinux-relabel" else "") in
+      if Sys.command cmd <> 0 then exit 1
+  );
 
   (* Sparsify and copy to output name. *)
   printf "Sparsifying ...\n%!";
@@ -325,6 +331,7 @@ and os_of_string os ver =
   | "ubuntu", "14.04" -> Ubuntu (ver, "trusty")
   | "ubuntu", "16.04" -> Ubuntu (ver, "xenial")
   | "fedora", ver -> Fedora (int_of_string ver)
+  | "freebsd", ver -> let maj, min = parse_major_minor ver in FreeBSD (maj, min)
   | _ ->
      eprintf "%s: unknown or unsupported OS (%s, %s)\n" prog os ver; exit 1
 
@@ -385,6 +392,9 @@ and filename_of_os os arch ext =
   | Ubuntu (ver, _) ->
      if arch = X86_64 then sprintf "ubuntu-%s%s" ver ext
      else sprintf "ubuntu-%s-%s%s" ver (string_of_arch arch) ext
+  | FreeBSD (major, minor) ->
+     if arch = X86_64 then sprintf "freebsd-%d.%d%s" major minor ext
+     else sprintf "freebsd-%d.%d-%s%s" major minor (string_of_arch arch) ext
 
 and string_of_os os arch = filename_of_os os arch ""
 
@@ -395,10 +405,12 @@ and string_of_os_noarch = function
   | RHEL (major, minor) -> sprintf "rhel-%d.%d" major minor
   | Debian (ver, _) -> sprintf "debian-%d" ver
   | Ubuntu (ver, _) -> sprintf "ubuntu-%s" ver
+  | FreeBSD (major, minor) -> sprintf "freebsd-%d.%d" major minor
 
 and is_selinux_os = function
   | RHEL _ | CentOS _ | Fedora _ -> true
-  | Debian _ | Ubuntu _ -> false
+  | Debian _ | Ubuntu _
+  | FreeBSD _ -> false
 
 and get_virtual_size_gb os arch = 6
 
@@ -407,11 +419,14 @@ and make_kickstart_or_preseed os arch =
   (* Kickstart. *)
   | Fedora _ | CentOS _ | RHEL _ ->
      let ks_filename = filename_of_os os arch ".ks" in
-     make_kickstart_common ks_filename os arch
+     Some (make_kickstart_common ks_filename os arch)
 
   (* Preseed. *)
-  | Debian _ -> copy_preseed_to_temporary "debian.preseed"
-  | Ubuntu _ -> copy_preseed_to_temporary "ubuntu.preseed"
+  | Debian _ -> Some (copy_preseed_to_temporary "debian.preseed")
+  | Ubuntu _ -> Some (copy_preseed_to_temporary "ubuntu.preseed")
+
+  (* Not automated. *)
+  | FreeBSD _ -> None
 
 and make_kickstart_common ks_filename os arch =
   let buf = Buffer.create 4096 in
@@ -590,13 +605,14 @@ and copy_preseed_to_temporary source =
   if Sys.command cmd <> 0 then exit 1;
   f
 
-and make_location os arch =
+and make_boot_media os arch =
   match os, arch with
   | CentOS (major, _), Aarch64 ->
      (* XXX This always points to the latest CentOS, so
       * effectively the minor number is always ignored.
       *)
-     sprintf "http://mirror.centos.org/altarch/%d/os/aarch64/" major
+     Location (sprintf "http://mirror.centos.org/altarch/%d/os/aarch64/"
+                       major)
 
   | CentOS (major, _), X86_64 ->
      (* For 6.x we rebuild this every time there is a new 6.x release, and bump
@@ -604,87 +620,119 @@ and make_location os arch =
       * For 7.x this always points to the latest CentOS, so
       * effectively the minor number is always ignored.
       *)
-     sprintf "http://mirror.centos.org/centos-7/%d/os/x86_64/" major
+     Location (sprintf "http://mirror.centos.org/centos-7/%d/os/x86_64/"
+                       major)
 
   | Debian (_, dist), arch ->
-     sprintf "http://deb.debian.org/debian/dists/%s/main/installer-%s"
-             dist (debian_arch_of_arch arch)
+     Location (sprintf "http://deb.debian.org/debian/dists/%s/main/installer-%s"
+                       dist (debian_arch_of_arch arch))
 
   (* Fedora primary architectures. *)
   | Fedora ver, Armv7 ->
-     sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Server/armhfp/os/" ver
+     Location (sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Server/armhfp/os/" ver)
 
   | Fedora ver, X86_64 when ver < 21 ->
-     sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Fedora/x86_64/os/" ver
+     Location (sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Fedora/x86_64/os/" ver)
 
   | Fedora ver, X86_64 ->
-     sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Server/x86_64/os/" ver
+     Location (sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Server/x86_64/os/" ver)
 
   (* Fedora secondary architectures.
    * By using dl.fedoraproject.org we avoid randomly using mirrors
    * which might have incomplete copies.
    *)
   | Fedora ver, Aarch64 ->
-     sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/aarch64/os/" ver
+     Location (sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/aarch64/os/" ver)
 
   | Fedora ver, I686 ->
-     sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/i386/os/" ver
+     Location (sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/i386/os/" ver)
 
   | Fedora ver, PPC64 ->
-     sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/ppc64/os/" ver
+     Location (sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/ppc64/os/" ver)
 
   | Fedora ver, PPC64le ->
-     sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/ppc64le/os/" ver
+     Location (sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/ppc64le/os/" ver)
 
   | Fedora ver, S390X ->
-     sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/s390x/os/" ver
+     Location (sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/s390x/os/" ver)
 
   | RHEL (3, minor), X86_64 ->
-     sprintf "http://download.devel.redhat.com/released/RHEL-3/U%d/AS/x86_64/tree" minor
+     Location (sprintf "http://download.devel.redhat.com/released/RHEL-3/U%d/AS/x86_64/tree" minor)
 
   | RHEL (4, minor), X86_64 ->
-     sprintf "http://download.devel.redhat.com/released/RHEL-4/U%d/AS/x86_64/tree" minor
+     Location (sprintf "http://download.devel.redhat.com/released/RHEL-4/U%d/AS/x86_64/tree" minor)
 
   | RHEL (5, minor), I686 ->
-     sprintf "http://download.devel.redhat.com/released/RHEL-5-Server/U%d/i386/os" minor
+     Location (sprintf "http://download.devel.redhat.com/released/RHEL-5-Server/U%d/i386/os" minor)
 
   | RHEL (5, minor), X86_64 ->
-     sprintf "http://download.devel.redhat.com/released/RHEL-5-Server/U%d/x86_64/os" minor
+     Location (sprintf "http://download.devel.redhat.com/released/RHEL-5-Server/U%d/x86_64/os" minor)
 
   | RHEL (6, minor), I686 ->
-     sprintf "http://download.devel.redhat.com/released/RHEL-6/6.%d/Server/i386/os" minor
+     Location (sprintf "http://download.devel.redhat.com/released/RHEL-6/6.%d/Server/i386/os" minor)
 
   | RHEL (6, minor), X86_64 ->
-     sprintf "http://download.devel.redhat.com/released/RHEL-6/6.%d/Server/x86_64/os" minor
+     Location (sprintf "http://download.devel.redhat.com/released/RHEL-6/6.%d/Server/x86_64/os" minor)
 
   | RHEL (7, minor), X86_64 ->
-     sprintf "http://download.devel.redhat.com/released/RHEL-7/7.%d/Server/x86_64/os" minor
+     Location (sprintf "http://download.devel.redhat.com/released/RHEL-7/7.%d/Server/x86_64/os" minor)
 
   | RHEL (7, minor), Aarch64 ->
-     sprintf "http://download.eng.bos.redhat.com/released/RHEL-7/7.%d/Server/aarch64/os" minor
+     Location (sprintf "http://download.eng.bos.redhat.com/released/RHEL-7/7.%d/Server/aarch64/os" minor)
 
   | RHEL (7, minor), PPC64 ->
-     sprintf "http://download.devel.redhat.com/released/RHEL-7/7.%d/Server/ppc64/os" minor
+     Location (sprintf "http://download.devel.redhat.com/released/RHEL-7/7.%d/Server/ppc64/os" minor)
 
   | RHEL (7, minor), PPC64le ->
-     sprintf "http://download.devel.redhat.com/released/RHEL-7/7.%d/Server/ppc64le/os" minor
+     Location (sprintf "http://download.devel.redhat.com/released/RHEL-7/7.%d/Server/ppc64le/os" minor)
 
   | Ubuntu (_, dist), X86_64 ->
-     sprintf "http://archive.ubuntu.com/ubuntu/dists/%s/main/installer-amd64"
-             dist
+     Location (sprintf "http://archive.ubuntu.com/ubuntu/dists/%s/main/installer-amd64" dist)
 
   | Ubuntu (_, dist), PPC64le ->
-     sprintf "http://ports.ubuntu.com/ubuntu-ports/dists/%s/main/installer-ppc64el" dist
+     Location (sprintf "http://ports.ubuntu.com/ubuntu-ports/dists/%s/main/installer-ppc64el" dist)
+
+  | FreeBSD (major, minor), X86_64 ->
+     let iso = sprintf "FreeBSD-%d.%d-RELEASE-amd64-disc1.iso"
+                       major minor in
+     let iso_xz = sprintf "ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/amd64/ISO-IMAGES/%d.%d/%s.xz"
+                       major minor iso in
+     let cmd = sprintf "wget -nc %s" (quote iso_xz) in
+     if Sys.command cmd <> 0 then exit 1;
+     let cmd = sprintf "unxz -f --keep %s.xz" iso in
+     if Sys.command cmd <> 0 then exit 1;
+     CDRom iso
 
   | _ ->
      eprintf "%s: don't know how to calculate the --location for this OS and architecture\n" prog;
      exit 1
 
+and print_install_notes = function
+  | Ubuntu _ ->
+     printf "\
+Some preseed functions are not automated.  You may need to hit [Return]
+a few times during the install.\n"
+
+  | FreeBSD _ ->
+     printf "\
+The FreeBSD install is not automated.  Select all defaults, except:
+
+ - root password:  builder
+ - timezone:       UTC
+ - do not add any user accounts\n"
+
+  | _ -> ()
+
+(* If the install is not automated and we need a graphical console. *)
+and needs_graphics = function
+  | CentOS _ | RHEL _ | Debian _ | Ubuntu _ | Fedora _ -> false
+  | FreeBSD _ -> true
+
 (* NB: Arguments do not need to be quoted, because we pass them
  * directly to exec(2).
  *)
-and make_virt_install_command os arch ks tmpname tmpout tmpefivars location
-                              virtual_size_gb =
+and make_virt_install_command os arch ks tmpname tmpout tmpefivars
+                              boot_media virtual_size_gb =
   let args = ref [] in
   let add arg = args := arg :: !args in
 
@@ -734,34 +782,46 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars location
    | _ -> ()
   );
 
-  add (sprintf "--initrd-inject=%s" ks);
-  let os_extra =
-    match os with
-    | Debian _ | Ubuntu _ -> "auto"
-    | Fedora _ | RHEL _ | CentOS _ ->
-       sprintf "ks=file:/%s" (Filename.basename ks) in
-  let proxy =
-    let p = try Some (Sys.getenv "http_proxy") with Not_found -> None in
-    match p with
-    | None ->
-       (match os with
-       | Fedora _ | RHEL _ | CentOS _ | Ubuntu _ -> ""
-       | Debian _ -> "mirror/http/proxy="
-       )
-    | Some p ->
-       match os with
-       | Fedora _ | RHEL _ | CentOS _ -> "proxy=" ^ p
-       | Debian _ | Ubuntu _ -> "mirror/http/proxy=" ^ p in
+  (match ks with
+   | None -> ()
+   | Some ks ->
+      add (sprintf "--initrd-inject=%s" ks);
 
-  add (sprintf "--extra-args=%s %s %s" (* sic: does NOT need to be quoted *)
-               os_extra proxy (kernel_cmdline_of_os os arch));
+      let os_extra =
+        match os with
+        | Debian _ | Ubuntu _ -> "auto"
+        | Fedora _ | RHEL _ | CentOS _ ->
+           sprintf "ks=file:/%s" (Filename.basename ks)
+        | FreeBSD _ -> assert false in
+      let proxy =
+        let p = try Some (Sys.getenv "http_proxy") with Not_found -> None in
+        match p with
+        | None ->
+           (match os with
+            | Fedora _ | RHEL _ | CentOS _ | Ubuntu _ -> ""
+            | Debian _ -> "mirror/http/proxy="
+            | FreeBSD _ -> assert false
+           )
+        | Some p ->
+           match os with
+           | Fedora _ | RHEL _ | CentOS _ -> "proxy=" ^ p
+           | Debian _ | Ubuntu _ -> "mirror/http/proxy=" ^ p
+           | FreeBSD _ -> assert false in
+
+      add (sprintf "--extra-args=%s %s %s" (* sic: does NOT need to be quoted *)
+                   os_extra proxy (kernel_cmdline_of_os os arch));
+  );
 
   add (sprintf "--disk=%s,size=%d,format=raw"
                (Sys.getcwd () // tmpout) virtual_size_gb);
 
+  (match boot_media with
+   | Location location -> add (sprintf "--location=%s" location)
+   | CDRom iso -> add (sprintf "--cdrom=%s" iso)
+  );
+
   add "--serial=pty";
-  add (sprintf "--location=%s" location);
-  add "--nographics";
+  if not (needs_graphics os) then add "--nographics";
 
   (* Return the command line (list of arguments). *)
   Array.of_list (List.rev !args)
@@ -782,6 +842,7 @@ and os_variant_of_os ?(for_fedora = false) os arch =
     | RHEL (major, minor) -> sprintf "rhel%d.%d" major minor
     | Debian (ver, _) -> sprintf "debian%d" ver
     | Ubuntu (ver, _) -> sprintf "ubuntu%s" ver
+    | FreeBSD (major, minor) -> sprintf "freebsd%d.%d" major minor
   )
   else (
     match os, arch with
@@ -806,6 +867,8 @@ and os_variant_of_os ?(for_fedora = false) os arch =
     | Debian _, _ -> "debian8" (* max version known in Fedora 26 *)
 
     | Ubuntu (ver, _), _ -> sprintf "ubuntu%s" ver
+
+    | FreeBSD (major, minor), _ -> sprintf "freebsd%d.%d" major minor
   )
 
 and kernel_cmdline_of_os os arch =
@@ -823,6 +886,29 @@ and kernel_cmdline_of_os os arch =
   | (RHEL _|CentOS _), PPC64
   | (RHEL _|CentOS _), PPC64le ->
      "console=tty0 console=ttyS0,115200 rd_NO_PLYMOUTH"
+  | FreeBSD _, (PPC64|PPC64le) -> assert false
+
+and make_postinstall os arch =
+  match os with
+  | Debian _ ->
+     Some (
+       fun g ->
+         (* Remove apt proxy configuration (thanks: Daniel Miranda). *)
+         g#rm_f "/etc/apt/apt.conf";
+         g#touch "/etc/apt/apt.conf"
+     )
+
+  | RHEL (major, minor) when major >= 5 ->
+     Some (
+       fun g ->
+         (* RHEL guests require alternate yum configuration pointing to
+          * Red Hat's internal servers.
+          *)
+         let yum_conf = make_rhel_yum_conf major minor arch in
+         g#write "/etc/yum.repos.d/download.devel.redhat.com.repo" yum_conf
+     )
+
+  | RHEL _ | Fedora _ | CentOS _ | Ubuntu _ | FreeBSD _ -> None
 
 and make_rhel_yum_conf major minor arch =
   let buf = Buffer.create 4096 in
@@ -965,6 +1051,10 @@ and long_name_of_os os arch =
      sprintf "Ubuntu %s (%s)" ver dist
   | Ubuntu (ver, dist), arch ->
      sprintf "Ubuntu %s (%s) (%s)" ver dist (string_of_arch arch)
+  | FreeBSD (major, minor), X86_64 ->
+     sprintf "FreeBSD %d.%d" major minor
+  | FreeBSD (major, minor), arch ->
+     sprintf "FreeBSD %d.%d (%s)" major minor (string_of_arch arch)
 
 and notes_of_os os arch nvram =
   let args = ref [] in
@@ -986,6 +1076,8 @@ and notes_of_os os arch nvram =
    | RHEL _ -> assert false (* cannot happen, see caller *)
    | Ubuntu _ ->
       add "This is a minimal Ubuntu install."
+   | FreeBSD _ ->
+      add "This is an all-default FreeBSD install."
   );
   add "";
 
@@ -1080,7 +1172,7 @@ and sha512sum_of_file filename =
 
 and size_of_file filename = (Unix.stat filename).Unix.st_size
 
-and open_guest filename =
+and open_guest ?(mount = false) filename =
   let g = new Guestfs.guestfs () in
   g#add_drive_opts ~format:"raw" filename;
   g#launch ();
@@ -1090,12 +1182,14 @@ and open_guest filename =
     eprintf "%s: cannot inspect this guest - this may mean guest installation failed\n" prog;
     exit 1
   );
-  let root = roots.(0) in
 
-  let mps = g#inspect_get_mountpoints root in
-  let cmp (a,_) (b,_) = compare (String.length a) (String.length b) in
-  let mps = List.sort cmp mps in
-  List.iter (fun (mp, dev) -> g#mount dev mp) mps;
+  if mount then (
+    let root = roots.(0) in
+    let mps = g#inspect_get_mountpoints root in
+    let cmp (a,_) (b,_) = compare (String.length a) (String.length b) in
+    let mps = List.sort cmp mps in
+    List.iter (fun (mp, dev) -> g#mount dev mp) mps
+  );
 
   g
 
