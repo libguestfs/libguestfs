@@ -49,8 +49,7 @@ let map_block_devices ~return_md f =
     List.filter (
       fun dev ->
         try
-          let fd = openfile ("/dev/" ^ dev) [O_RDONLY] 0 in
-          Unix.set_close_on_exec fd; (* XXX *)
+          let fd = openfile ("/dev/" ^ dev) [O_RDONLY; O_CLOEXEC] 0 in
           close fd;
           true
         with _ -> false
