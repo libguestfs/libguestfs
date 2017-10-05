@@ -724,7 +724,6 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars location
       add "--vcpus=1"
   );
 
-  add "--os-type=linux";
   add (sprintf "--os-variant=%s" (os_variant_of_os ~for_fedora:true os arch));
 
   (match tmpefivars with
