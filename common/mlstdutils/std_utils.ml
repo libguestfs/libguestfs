@@ -81,14 +81,6 @@ end
 module String = struct
     include String
 
-    let map f s =
-      let len = String.length s in
-      let b = Bytes.create len in
-      for i = 0 to len-1 do
-        Bytes.unsafe_set b i (f (unsafe_get s i))
-      done;
-      Bytes.to_string b
-
     let lowercase_ascii s = map Char.lowercase_ascii s
     let uppercase_ascii s = map Char.uppercase_ascii s
 
@@ -493,8 +485,6 @@ and _wrap_find_next_break i len str =
 
 and output_spaces chan n = for i = 0 to n-1 do output_char chan ' ' done
 
-let (|>) x f = f x
-
 (* Drop elements from a list while a predicate is true. *)
 let rec dropwhile f = function
   | [] -> []
@@ -519,21 +509,6 @@ let rec find_map f = function
       match f x with
       | Some y -> y
       | None -> find_map f xs
-
-let iteri f xs =
-  let rec loop i = function
-    | [] -> ()
-    | x :: xs -> f i x; loop (i+1) xs
-  in
-  loop 0 xs
-
-let rec mapi i f =
-  function
-  | [] -> []
-  | a::l ->
-    let r = f i a in
-    r :: mapi (i + 1) f l
-let mapi f l = mapi 0 f l
 
 let rec combine3 xs ys zs =
   match xs, ys, zs with

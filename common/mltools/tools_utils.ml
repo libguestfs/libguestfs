@@ -276,7 +276,7 @@ let external_command ?(echo_cmd = true) cmd =
 let rec run_commands ?(echo_cmd = true) cmds =
   let res = Array.make (List.length cmds) 0 in
   let pids =
-    mapi (
+    List.mapi (
       fun i (args, stdout_chan, stderr_chan) ->
         let run_res = do_run args ?stdout_chan ?stderr_chan in
         match run_res with

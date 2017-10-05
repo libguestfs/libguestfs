@@ -164,7 +164,7 @@ object
       | Virtio_net -> "virtio-net-pci"
       | E1000 -> "e1000"
       | RTL8139 -> "rtl8139" in
-    iteri (
+    List.iteri (
       fun i nic ->
         arg_list "-netdev" ["user"; "id=net" ^ string_of_int i];
         arg_list "-device" [net_bus;

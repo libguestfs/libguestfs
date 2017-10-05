@@ -44,6 +44,6 @@ let events = [
   "warning";                            (* warnings from the library *)
 ]
 
-let events = mapi (fun i name -> name, 1 lsl i) events
+let events = List.mapi (fun i name -> name, 1 lsl i) events
 
 let all_events_bitmask = (1 lsl List.length events) - 1

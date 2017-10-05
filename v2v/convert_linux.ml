@@ -921,7 +921,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
       | IDE -> ide_block_prefix in
 
     let map =
-      mapi (
+      List.mapi (
         fun i disk ->
           let block_prefix_before_conversion =
             match disk.s_controller with
@@ -945,7 +945,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
      * although the guest uses xvdX natively.
      *)
     let map = map @
-      mapi (
+      List.mapi (
         fun i disk ->
           "xvd" ^ drive_name i, block_prefix_after_conversion ^ drive_name i
       ) source.s_disks in

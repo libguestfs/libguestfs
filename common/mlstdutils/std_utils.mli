@@ -62,6 +62,8 @@ module String : sig
     val index : string -> char -> int
     val index_from : string -> int -> char -> int
     val iter : (char -> unit) -> string -> unit
+    val iteri : (int -> char -> unit) -> string -> unit
+    val map : (char -> char) -> string -> string
     val length : string -> int
     val make : int -> char -> string
     val rcontains_from : string -> int -> char -> bool
@@ -69,8 +71,6 @@ module String : sig
     val rindex_from : string -> int -> char -> int
     val sub : string -> int -> int -> string
     val unsafe_get : string -> int -> char
-
-    val map : (char -> char) -> string -> string
 
     val lowercase_ascii : string -> string
     val uppercase_ascii : string -> string
@@ -195,10 +195,6 @@ val wrap : ?chan:out_channel -> ?indent:int -> string -> unit
 val output_spaces : out_channel -> int -> unit
 (** Write [n] spaces to [out_channel]. *)
 
-val (|>) : 'a -> ('a -> 'b) -> 'b
-(** Added in OCaml 4.01, we can remove our definition when we
-    can assume this minimum version of OCaml. *)
-
 val dropwhile : ('a -> bool) -> 'a list -> 'a list
 (** [dropwhile f xs] drops leading elements from [xs] until
     [f] returns false. *)
@@ -215,11 +211,6 @@ val find_map : ('a -> 'b option) -> 'a list -> 'b
 (** [find_map f xs] applies [f] to each element of [xs] until
     [f x] returns [Some y].  It returns [y].  If we exhaust the
     list then this raises [Not_found]. *)
-val iteri : (int -> 'a -> 'b) -> 'a list -> unit
-(** [iteri f xs] calls [f i x] for each element, with [i] counting from [0]. *)
-val mapi : (int -> 'a -> 'b) -> 'a list -> 'b list
-(** [mapi f xs] calls [f i x] for each element, with [i] counting from [0],
-    forming the return values from [f] into another list. *)
 
 val combine3 : 'a list -> 'b list -> 'c list -> ('a * 'b * 'c) list
 (** Like {!List.combine} but for triples.  All lists must be the same length. *)

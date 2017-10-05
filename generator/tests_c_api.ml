@@ -99,7 +99,7 @@ let rec generate_c_api_tests () =
   let test_names =
     List.map (
       fun { name; optional; tests } ->
-        mapi (generate_one_test name optional) tests
+        List.mapi (generate_one_test name optional) tests
     ) (actions |> sort) in
   let test_names = List.concat test_names in
 
@@ -274,7 +274,7 @@ and generate_test_perform name i test_name test =
   | TestResult (seq, expr) ->
     pr "  /* TestResult for %s (%d) */\n" name i;
     let n = List.length seq in
-    iteri (
+    List.iteri (
       fun i cmd ->
         let ret = if i = n-1 then "ret" else sprintf "ret%d" (n-i-1) in
         generate_test_command_call ~ret test_name cmd
@@ -430,12 +430,12 @@ and generate_test_command_call ?(expect_error = false) ?(do_return = true) ?test
       pr "  const char *const %s[1] = { NULL };\n" sym
     | StringList (_, _), arg, sym ->
       let strs = String.nsplit " " arg in
-      iteri (
+      List.iteri (
         fun i str ->
           pr "  const char *%s_%d = \"%s\";\n" sym i (c_quote str);
       ) strs;
       pr "  const char *const %s[] = {\n" sym;
-      iteri (
+      List.iteri (
         fun i _ -> pr "    %s_%d,\n" sym i
       ) strs;
       pr "    NULL\n";
@@ -478,12 +478,12 @@ and generate_test_command_call ?(expect_error = false) ?(do_return = true) ?test
             pr "  const char *const %s[1] = { NULL };\n" n; true
           | OStringList n, arg ->
             let strs = String.nsplit " " arg in
-            iteri (
+            List.iteri (
               fun i str ->
                 pr "  const char *%s_%d = \"%s\";\n" n i (c_quote str);
             ) strs;
             pr "  const char *const %s[] = {\n" n;
-            iteri (
+            List.iteri (
               fun i _ -> pr "    %s_%d,\n" n i
             ) strs;
             pr "    NULL\n";

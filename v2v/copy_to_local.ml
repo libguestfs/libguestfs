@@ -174,7 +174,7 @@ read the man page virt-v2v-copy-to-local(1).
 
   (* Copy the disks. *)
   let n = List.length disks in
-  iteri (
+  List.iteri (
     fun i (remote_disk, local_disk, sslverify, cookie) ->
     message (f_"Copying remote disk %d/%d to %s")
             (i+1) n local_disk;

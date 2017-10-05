@@ -118,7 +118,7 @@ and find_hdds vmx vmx_filename
   let hdds = List.map (fun (_, _, source) -> source) hdds in
 
   (* Set the s_disk_id field to an incrementing number. *)
-  let hdds = mapi (fun i source -> { source with s_disk_id = i }) hdds in
+  let hdds = List.mapi (fun i source -> { source with s_disk_id = i }) hdds in
 
   hdds
 

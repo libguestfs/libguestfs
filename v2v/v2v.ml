@@ -282,7 +282,7 @@ and check_host_free_space () =
 (* Create a qcow2 v3 overlay to protect the source image(s). *)
 and create_overlays src_disks =
   message (f_"Creating an overlay to protect the source from being modified");
-  mapi (
+  List.mapi (
     fun i ({ s_qemu_uri = qemu_uri; s_format = format } as source) ->
       let overlay_file =
         Filename.temp_file ~temp_dir:overlay_dir "v2vovl" ".qcow2" in
@@ -664,7 +664,7 @@ and copy_targets cmdline targets input output =
     )
   );
   let nr_disks = List.length targets in
-  mapi (
+  List.mapi (
     fun i t ->
       message (f_"Copying disk %d/%d to %s (%s)")
         (i+1) nr_disks t.target_file t.target_format;

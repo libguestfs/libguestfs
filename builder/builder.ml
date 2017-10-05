@@ -110,7 +110,7 @@ let main () =
     printf "command line:";
     List.iter (printf " %s") (Array.to_list Sys.argv);
     print_newline ();
-    iteri (
+    List.iteri (
       fun i (source, fingerprint) ->
         printf "source[%d] = (%S, %S)\n" i source fingerprint
     ) cmdline.sources
@@ -576,7 +576,7 @@ let main () =
       | `Convert -> printf "qemu-img convert"
     in
 
-    iteri (
+    List.iteri (
       fun i (itags, task, otags) ->
         printf "%d: itags:" i;
         print_tags itags;

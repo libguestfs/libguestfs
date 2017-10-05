@@ -497,7 +497,7 @@ copy_table (char * const * argv)
         pr "  CAMLlocal2 (rv, v);\n";
       pr "\n";
       pr "  rv = caml_alloc (%d, 0);\n" (List.length cols);
-      iteri (
+      List.iteri (
         fun i col ->
           (match col with
            | name, FString ->
@@ -774,7 +774,7 @@ copy_table (char * const * argv)
           name;
         pr "{\n";
         pr "  return guestfs_int_ocaml_%s (argv[0]" name;
-        iteri (fun i _ -> pr ", argv[%d]" (i+1)) (List.tl params);
+        List.iteri (fun i _ -> pr ", argv[%d]" (i+1)) (List.tl params);
         pr ");\n";
         pr "}\n";
         pr "\n"

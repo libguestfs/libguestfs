@@ -493,7 +493,7 @@ guestfs_int_lua_delete_event_callback (lua_State *L)
       pr "                       \"%s\");\n" name;
       pr "\n";
 
-      iteri (
+      List.iteri (
         fun i ->
           let i = i+2 in (* Lua indexes from 1(!), plus the handle. *)
           function

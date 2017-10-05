@@ -1165,7 +1165,7 @@ $VG guestfish \\
 
   let vg_count = ref 0 in
 
-  iteri (
+  List.iteri (
     fun i (name, _, _, _) ->
       let params = [name] in
       let params =

@@ -648,7 +648,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
     pr "#define GUESTFS_HAVE_%s 1\n" (String.uppercase_ascii shortname);
 
     if optargs <> [] then (
-      iteri (
+      List.iteri (
         fun i argt ->
           let uc_shortname = String.uppercase_ascii shortname in
           let n = name_of_optargt argt in
@@ -677,7 +677,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
       pr "\n";
       pr "struct guestfs_%s_argv {\n" shortname;
       pr "  uint64_t bitmask;\n";
-      iteri (
+      List.iteri (
         fun i argt ->
           let c_type =
             match argt with

@@ -990,7 +990,7 @@ let main () =
               [ csum_tool; fn ], Some outfd, None
           ) checksums in
         let res = run_commands cmds in
-        iteri (
+        List.iteri (
           fun i code ->
             if code <> 0 then (
               let args, _, _ = List.nth cmds i in

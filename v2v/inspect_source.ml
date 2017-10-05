@@ -121,7 +121,7 @@ and choose_root root_choice g = function
         printf "\n***\n";
         printf (f_"Dual- or multi-boot operating system detected.  Choose the root filesystem\nthat contains the main operating system from the list below:\n");
         printf "\n";
-        iteri (
+        List.iteri (
           fun i root ->
             let prod = g#inspect_get_product_name root in
             match prod with

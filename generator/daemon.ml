@@ -48,7 +48,7 @@ let generate_daemon_actions_h () =
     function
     | { style = _, _, [] } -> ()
     | { name = shortname; style = _, _, (_::_ as optargs) } ->
-        iteri (
+        List.iteri (
           fun i arg ->
             let uc_shortname = String.uppercase_ascii shortname in
             let n = name_of_optargt arg in
@@ -535,7 +535,7 @@ let generate_daemon_caml_stubs () =
     pr "    return NULL;\n";
     pr "  }\n";
     pr "\n";
-    iteri (
+    List.iteri (
       fun i ->
         pr "  v = Field (retv, %d);\n" i;
         function

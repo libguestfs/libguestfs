@@ -240,7 +240,7 @@ and generate_ruby_c actions () =
         pr "  if (argc < %d || argc > %d)\n" nr_args (nr_args+1);
         pr "    rb_raise (rb_eArgError, \"expecting %d or %d arguments\");\n" nr_args (nr_args+1);
         pr "\n";
-        iteri (
+        List.iteri (
           fun i arg ->
             pr "  volatile VALUE %sv = argv[%d];\n" (name_of_argt arg) i
         ) args;

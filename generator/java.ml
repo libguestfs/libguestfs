@@ -330,7 +330,7 @@ public class GuestFS {
         pr "    /* Unpack optional args. */\n";
         pr "    Object _optobj;\n";
         pr "    long _optargs_bitmask = 0;\n";
-        iteri (
+        List.iteri (
           fun i argt ->
             let t, boxed_t, convert, n, default =
               match argt with

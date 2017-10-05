@@ -288,7 +288,7 @@ instead of erl_interface.
       pr "{\n";
       pr "  ETERM *t[%d];\n" (List.length cols);
       pr "\n";
-      iteri (
+      List.iteri (
         fun i col ->
           (match col with
            | name, FString ->
@@ -358,7 +358,7 @@ instead of erl_interface.
       pr "run_%s (ETERM *args_tuple)\n" name;
       pr "{\n";
 
-      iteri (
+      List.iteri (
         fun i ->
           function
           | String (_, n) ->

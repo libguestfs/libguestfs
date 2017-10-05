@@ -353,7 +353,7 @@ PREINIT:
         pr ", ...";
       pr ")\n";
       pr "      guestfs_h *g;\n";
-      iteri (
+      List.iteri (
         fun i ->
           function
           | String (_, n) ->

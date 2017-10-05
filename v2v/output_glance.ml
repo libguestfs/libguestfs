@@ -144,7 +144,7 @@ object
      * will be called "guestname-disk2" etc.  The manual strongly
      * hints you should import the data disks to Cinder.
      *)
-    iteri (
+    List.iteri (
       fun i { target_file; target_format } ->
         let name =
           if i == 0 then source.s_name

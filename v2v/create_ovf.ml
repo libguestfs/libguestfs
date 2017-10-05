@@ -478,7 +478,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
     with Not_found -> assert false in
 
   (* Iterate over the disks, adding them to the OVF document. *)
-  iteri (
+  List.iteri (
     fun i ({ target_overlay = ov } as t, image_uuid, vol_uuid) ->
       (* This sets the boot order to boot the first disk first.  This
        * isn't generally correct.  We should copy over the boot order
@@ -604,7 +604,7 @@ and add_networks nics guestcaps ovf =
     with Not_found -> assert false in
 
   (* Iterate over the NICs, adding them to the OVF document. *)
-  iteri (
+  List.iteri (
     fun i { s_mac = mac; s_vnet_type = vnet_type;
             s_vnet = vnet; s_vnet_orig = vnet_orig } ->
       let dev = sprintf "eth%d" i in

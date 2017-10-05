@@ -873,7 +873,7 @@ class GuestFS(object):
              * at the end.
              *)
             let lines =
-              mapi (
+              List.mapi (
                 fun lineno line ->
                   if line = "" && lineno <> endpos then
                     ""

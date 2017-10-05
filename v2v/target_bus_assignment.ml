@@ -37,7 +37,7 @@ let rec target_bus_assignment source targets guestcaps =
       | Virtio_blk -> virtio_blk_bus
       | Virtio_SCSI -> scsi_bus
       | IDE -> ide_bus in
-    iteri (
+    List.iteri (
       fun i t ->
         let t = BusSlotTarget t in
         insert bus i t
