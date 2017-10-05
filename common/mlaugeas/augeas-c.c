@@ -1,5 +1,5 @@
 /* Augeas OCaml bindings
- * Copyright (C) 2008-2012 Red Hat Inc., Richard W.M. Jones
+ * Copyright (C) 2008-2017 Red Hat Inc., Richard W.M. Jones
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -215,7 +215,7 @@ ocaml_augeas_get (value tv, value pathv)
   else if (r == -1)		/* Error or multiple matches */
     raise_error (t, "Augeas.get");
   else
-    failwith ("Augeas.get: bad return value");
+    caml_failwith ("Augeas.get: bad return value");
 
   CAMLreturn (optv);
 }
@@ -390,6 +390,7 @@ ocaml_augeas_transform (value tv, value lensv, value filev, value modev)
 CAMLprim value
 ocaml_augeas_source (value tv, value pathv)
 {
+#ifdef HAVE_AUG_SOURCE
   CAMLparam2 (tv, pathv);
   CAMLlocal2 (optv, v);
   augeas_t t = Augeas_t_val (tv);
@@ -411,4 +412,7 @@ ocaml_augeas_source (value tv, value pathv)
     raise_error (t, "Augeas.source");
 
   CAMLreturn (optv);
+#else
+  caml_failwith ("Augeas.source: function not implemented");
+#endif
 }

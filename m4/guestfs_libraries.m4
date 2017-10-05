@@ -243,6 +243,12 @@ PKG_CHECK_MODULES([PCRE], [libpcre])
 dnl Check for Augeas >= 1.0.0 (required).
 PKG_CHECK_MODULES([AUGEAS],[augeas >= 1.0.0])
 
+dnl Check for aug_source function, added in Augeas 1.8.0.
+old_LIBS="$LIBS"
+LIBS="$AUGEAS_LIBS"
+AC_CHECK_FUNCS([aug_source])
+LIBS="$old_LIBS"
+
 dnl libmagic (required)
 AC_CHECK_LIB([magic],[magic_file],[
     AC_CHECK_HEADER([magic.h],[
