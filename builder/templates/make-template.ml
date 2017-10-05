@@ -104,9 +104,7 @@ let rec main () =
        Some (make_rhel_yum_conf major minor arch)
     | _ -> None in
 
-  (* Choose a random temporary name for the libvirt domain.  We will
-   * also have to clean this up after running virt-install.
-   *)
+  (* Choose a random temporary name for the libvirt domain. *)
   let tmpname = sprintf "tmp-%s" (random8 ()) in
 
   (* Choose a random temporary disk name. *)
@@ -132,19 +130,9 @@ let rec main () =
   (* Now construct the virt-install command. *)
   let vi = make_virt_install_command os arch ks tmpname tmpout tmpefivars
                                      location virtual_size_gb in
-  (* Make sure that temporary guest and temporary files are removed
-   * if we exit for any reason.
-   *)
-  let cleanup_libvirt_guest () =
-    let cmd =
-      sprintf "virsh undefine%s %s >&/dev/null"
-              (if tmpefivars = None then "" else " --nvram")
-              (quote tmpname) in
-    ignore (Sys.command cmd)
-  in
+  (* Make sure that temporary files are removed if we exit for any reason. *)
   at_exit (
     fun () ->
-      cleanup_libvirt_guest ();
       (try Unix.unlink tmpout with _ -> ());
       (match tmpefivars with
        | Some (_, vars) -> (try Unix.unlink vars with _ -> ())
@@ -180,7 +168,7 @@ let rec main () =
        if Sys.command cmd <> 0 then exit 1;
        Some (f ^ ".xz")
     | None -> None in
-  cleanup_libvirt_guest ();
+
   ignore (Sys.command "sync");
 
   (* Run virt-filesystems, simply to display the filesystems in the image. *)
@@ -701,6 +689,12 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars location
   let add arg = args := arg :: !args in
 
   add "virt-install";
+
+  (* This ensures the libvirt domain will be automatically deleted
+   * when virt-install exits.
+   *)
+  add "--transient";
+
   add (sprintf "--name=%s" tmpname);
 
   (*add "--print-xml";*)
@@ -769,7 +763,6 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars location
   add "--serial=pty";
   add (sprintf "--location=%s" location);
   add "--nographics";
-  add "--noreboot";
 
   (* Return the command line (list of arguments). *)
   Array.of_list (List.rev !args)
