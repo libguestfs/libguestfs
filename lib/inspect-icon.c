@@ -436,7 +436,7 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   guestfs_int_cmd_add_string_quoted   (cmd, pngfile);
   r = guestfs_int_cmd_run (cmd);
   if (r == -1)
-    return NOT_FOUND;
+    return NULL;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
     return NOT_FOUND;
 
