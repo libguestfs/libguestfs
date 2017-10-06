@@ -368,8 +368,8 @@ Libguestfs uses the GNU autotools build system (autoconf, automake,
 libtool).
 
 The F<./configure> script is generated from F<configure.ac> and
-F<m4/guestfs_*.m4>.  Most of the configure script is split over many
-m4 macro files by topic, for example F<m4/guestfs_daemon.m4> deals
+F<m4/guestfs-*.m4>.  Most of the configure script is split over many
+m4 macro files by topic, for example F<m4/guestfs-daemon.m4> deals
 with the dependencies of the daemon.
 
 The job of the top level F<Makefile.am> is mainly to list the
