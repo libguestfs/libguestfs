@@ -539,7 +539,7 @@ static void
 run_child (struct command *cmd)
 {
   struct sigaction sa;
-  int i, fd, max_fd, r;
+  int i, err, fd, max_fd, r;
   char status_string[80];
 #ifdef HAVE_SETRLIMIT
   struct child_rlimits *child_rlimit;
@@ -614,8 +614,12 @@ run_child (struct command *cmd)
   switch (cmd->style) {
   case COMMAND_STYLE_EXECV:
     execvp (cmd->argv.argv[0], cmd->argv.argv);
+    err = errno;
     perror (cmd->argv.argv[0]);
-    _exit (EXIT_FAILURE);
+    /* These error codes are defined in POSIX and meant to be the
+     * same as the shell.
+     */
+    _exit (err == ENOENT ? 127 : 126);
 
   case COMMAND_STYLE_SYSTEM:
     r = system (cmd->string.str);
