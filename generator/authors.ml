@@ -69,6 +69,7 @@ let authors = [
 "Karel Klíč", [ Development ];
 "Kashyap Chamarthy", [ Development ];
 "Kean Li", [ Quality_assurance; V2V_and_P2V ];
+"Ken Stailey", [ Development ];
 "Kun Wei", [ Quality_assurance; V2V_and_P2V ];
 "Lars Kellogg-Stedman", [ Development ];
 "Laura Bailey", [ Documentation; V2V_and_P2V ];
