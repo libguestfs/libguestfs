@@ -157,8 +157,8 @@ read the man page virt-customize(1).
   (* Connect to libguestfs. *)
   let g =
     let g = open_guestfs () in
-    may g#set_memsize memsize;
-    may g#set_smp smp;
+    Option.may g#set_memsize memsize;
+    Option.may g#set_smp smp;
     g#set_network network;
 
     (* Add disks. *)

@@ -111,9 +111,9 @@ let parse_libvirt_xml ?conn xml =
     | Some vcpu, _,    _,    _    -> vcpu
     | None,      None, None, None -> 1
     | None,      _,    _,    _    ->
-       let sockets = match cpu_sockets with None -> 1 | Some v -> v in
-       let cores = match cpu_cores with None -> 1 | Some v -> v in
-       let threads = match cpu_threads with None -> 1 | Some v -> v in
+       let sockets = Option.default 1 cpu_sockets
+       and cores = Option.default 1 cpu_cores
+       and threads = Option.default 1 cpu_threads in
        sockets * cores * threads in
 
   let features =

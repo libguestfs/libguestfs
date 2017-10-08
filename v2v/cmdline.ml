@@ -319,8 +319,7 @@ read the man page virt-v2v(1).
   let vdsm_image_uuids = List.rev !vdsm_image_uuids in
   let vdsm_vol_uuids = List.rev !vdsm_vol_uuids in
   let vdsm_vm_uuid = !vdsm_vm_uuid in
-  let vdsm_ovf_output =
-    match !vdsm_ovf_output with None -> "." | Some s -> s in
+  let vdsm_ovf_output = Option.default "." !vdsm_ovf_output in
 
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.
@@ -422,8 +421,7 @@ read the man page virt-v2v(1).
 
     | `Not_set
     | `Libvirt ->
-      let output_storage =
-        match output_storage with None -> "default" | Some os -> os in
+      let output_storage = Option.default "default" output_storage in
       if qemu_boot then
         error_option_cannot_be_used_in_output_mode "libvirt" "--qemu-boot";
       if not do_copy then

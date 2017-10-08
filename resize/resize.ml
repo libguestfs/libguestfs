@@ -1005,7 +1005,7 @@ read the man page virt-resize(1).
       let ok =
         try
           g#part_init "/dev/sdb" parttype_string;
-          may (g#part_set_disk_guid "/dev/sdb") disk_guid;
+          Option.may (g#part_set_disk_guid "/dev/sdb") disk_guid;
           true
         with G.Error error -> last_error := error; false in
       if ok then g, true
@@ -1195,8 +1195,8 @@ read the man page virt-resize(1).
       if p.p_bootable then
         g#part_set_bootable "/dev/sdb" p.p_target_partnum true;
 
-      may (g#part_set_name "/dev/sdb" p.p_target_partnum) p.p_label;
-      may (g#part_set_gpt_guid "/dev/sdb" p.p_target_partnum) p.p_guid;
+      Option.may (g#part_set_name "/dev/sdb" p.p_target_partnum) p.p_label;
+      Option.may (g#part_set_gpt_guid "/dev/sdb" p.p_target_partnum) p.p_guid;
 
       match parttype, p.p_id with
       | GPT, GPT_Type gpt_type ->

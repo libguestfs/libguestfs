@@ -210,7 +210,8 @@ object
       add_arg (sprintf "libdir=%s" libdir);
 
       (* The passthrough parameters. *)
-      let pt name = may (fun field -> add_arg (sprintf "%s=%s" name field)) in
+      let pt name =
+        Option.may (fun field -> add_arg (sprintf "%s=%s" name field)) in
       pt "config" vddk_options.vddk_config;
       pt "cookie" vddk_options.vddk_cookie;
       pt "nfchostport" vddk_options.vddk_nfchostport;

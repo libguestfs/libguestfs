@@ -134,6 +134,18 @@ module String : sig
 end
 (** Override the String module from stdlib. *)
 
+module Option : sig
+    val may : ('a -> unit) -> 'a option -> unit
+    (** [may f (Some x)] runs [f x].  [may f None] does nothing. *)
+
+    val map : ('a -> 'b) -> 'a option -> 'b option
+    (** [map f (Some x)] returns [Some (f x)].  [map f None] returns [None]. *)
+
+    val default : 'a -> 'a option -> 'a
+    (** [default x (Some y)] returns [y].  [default x None] returns [x]. *)
+end
+(** Functions for dealing with option types. *)
+
 val ( // ) : string -> string -> string
 (** Concatenate directory and filename. *)
 
@@ -271,9 +283,6 @@ val prepend : 'a list -> 'a list ref -> unit
 
 val unique : unit -> int
 (** Returns a unique number each time called. *)
-
-val may : ('a -> unit) -> 'a option -> unit
-(** [may f (Some x)] runs [f x].  [may f None] does nothing. *)
 
 type ('a, 'b) maybe = Either of 'a | Or of 'b
 (** Like the Haskell [Either] type. *)

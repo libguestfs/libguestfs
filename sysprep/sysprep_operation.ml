@@ -187,15 +187,13 @@ let dump_pod () =
       if op.enabled_by_default then printf "*\n";
       printf "\n";
       printf "%s.\n\n" op.heading;
-      may (printf "%s\n\n") op.pod_description;
-      (match op.pod_notes with
-      | None -> ()
-      | Some notes ->
-        printf "=head3 ";
-        printf (f_"Notes on %s") op.name;
-        printf "\n\n";
-        printf "%s\n\n" notes
-      )
+      Option.may (printf "%s\n\n") op.pod_description;
+      Option.may (fun notes ->
+          printf "=head3 ";
+          printf (f_"Notes on %s") op.name;
+          printf "\n\n";
+          printf "%s\n\n" notes
+      ) op.pod_notes;
   ) !all_operations
 
 let dump_pod_options () =

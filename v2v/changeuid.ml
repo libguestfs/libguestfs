@@ -40,8 +40,8 @@ let with_fork { uid; gid } name f =
 
   if pid = 0 then (
     (* Child. *)
-    may setgid gid;
-    may setuid uid;
+    Option.may setgid gid;
+    Option.may setuid uid;
     (try f ()
      with exn ->
        eprintf "%s: changeuid: %s: %s\n%!" prog name (Printexc.to_string exn);

@@ -720,8 +720,8 @@ let main () =
 
   let g, tmpdisk, tmpdiskfmt, drive_partition =
     let g = open_guestfs () in
-    may g#set_memsize cmdline.memsize;
-    may g#set_smp cmdline.smp;
+    Option.may g#set_memsize cmdline.memsize;
+    Option.may g#set_smp cmdline.smp;
     g#set_network cmdline.network;
 
     (* Main disk with the built image. *)

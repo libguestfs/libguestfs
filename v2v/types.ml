@@ -18,8 +18,9 @@
 
 open Printf
 
-open Common_gettext.Gettext
+open Std_utils
 open Tools_utils
+open Common_gettext.Gettext
 
 (* Types.  See types.mli for documentation. *)
 
@@ -126,8 +127,8 @@ NICs:
     (string_of_source_hypervisor s.s_hypervisor)
     s.s_memory
     s.s_vcpu
-    (match s.s_cpu_vendor with None -> "" | Some v -> v)
-    (match s.s_cpu_model with None -> "" | Some v -> v)
+    (Option.default "" s.s_cpu_vendor)
+    (Option.default "" s.s_cpu_model)
     (match s.s_cpu_sockets with None -> "-" | Some v -> string_of_int v)
     (match s.s_cpu_cores with None -> "-" | Some v -> string_of_int v)
     (match s.s_cpu_threads with None -> "-" | Some v -> string_of_int v)

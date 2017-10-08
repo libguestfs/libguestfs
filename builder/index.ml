@@ -53,34 +53,29 @@ let print_entry chan (name, { printable_name; file_uri; arch; osinfo;
                               notes; aliases; hidden }) =
   let fp fs = fprintf chan fs in
   fp "[%s]\n" name;
-  may (fp "name=%s\n") printable_name;
-  may (fp "osinfo=%s\n") osinfo;
+  Option.may (fp "name=%s\n") printable_name;
+  Option.may (fp "osinfo=%s\n") osinfo;
   fp "file=%s\n" file_uri;
   fp "arch=%s\n" arch;
-  may (fp "sig=%s\n") signature_uri;
-  (match checksums with
-  | None -> ()
-  | Some checksums ->
+  Option.may (fp "sig=%s\n") signature_uri;
+  Option.may (
     List.iter (
       fun c ->
         fp "checksum[%s]=%s\n"
           (Checksums.string_of_csum_t c) (Checksums.string_of_csum c)
-    ) checksums
-  );
+    )
+  ) checksums;
   fp "revision=%s\n" (string_of_revision revision);
-  may (fp "format=%s\n") format;
+  Option.may (fp "format=%s\n") format;
   fp "size=%Ld\n" size;
-  may (fp "compressed_size=%Ld\n") compressed_size;
-  may (fp "expand=%s\n") expand;
-  may (fp "lvexpand=%s\n") lvexpand;
+  Option.may (fp "compressed_size=%Ld\n") compressed_size;
+  Option.may (fp "expand=%s\n") expand;
+  Option.may (fp "lvexpand=%s\n") lvexpand;
   List.iter (
     fun (lang, notes) ->
       match lang with
       | "" -> fp "notes=%s\n" notes
       | lang -> fp "notes[%s]=%s\n" lang notes
   ) notes;
-  (match aliases with
-  | None -> ()
-  | Some l -> fp "aliases=%s\n" (String.concat " " l)
-  );
+  Option.may (fun l -> fp "aliases=%s\n" (String.concat " " l)) aliases;
   if hidden then fp "hidden=true\n"

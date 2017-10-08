@@ -271,6 +271,20 @@ module String = struct
       loop 0
 end
 
+module Option = struct
+    let may f = function
+      | None -> ()
+      | Some x -> f x
+
+    let map f = function
+      | None -> None
+      | Some x -> Some (f x)
+
+    let default def = function
+      | None -> def
+      | Some x -> x
+end
+
 let (//) = Filename.concat
 let quote = Filename.quote
 
@@ -567,10 +581,6 @@ let append xsp xs = xsp := !xsp @ xs
 let prepend xs xsp = xsp := xs @ !xsp
 
 let unique = let i = ref 0 in fun () -> incr i; !i
-
-let may f = function
-  | None -> ()
-  | Some x -> f x
 
 type ('a, 'b) maybe = Either of 'a | Or of 'b
 
