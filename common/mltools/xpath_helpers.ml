@@ -40,15 +40,3 @@ let xpath_eval parsefn xpathctx expr =
 let xpath_string = xpath_eval identity
 let xpath_int = xpath_eval int_of_string
 let xpath_int64 = xpath_eval Int64.of_string
-
-(* Parse an xpath expression and return a string/int; if the expression
- * doesn't match, return the default.
- *)
-let xpath_eval_default parsefn xpath expr default =
-  match xpath_eval parsefn xpath expr with
-  | None -> default
-  | Some s -> s
-
-let xpath_string_default = xpath_eval_default identity
-let xpath_int_default = xpath_eval_default int_of_string
-let xpath_int64_default = xpath_eval_default Int64.of_string

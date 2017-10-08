@@ -243,14 +243,14 @@ and parse_libvirt_xml guest_name xml =
   let xpathctx = Xml.xpath_new_context doc in
   Xml.xpath_register_ns xpathctx
                         "vmware" "http://libvirt.org/schemas/domain/vmware/1.0";
-  let xpath_string = xpath_string xpathctx
-  and xpath_string_default = xpath_string_default xpathctx in
+  let xpath_string = xpath_string xpathctx in
 
   (* Get the dcpath, only present for libvirt >= 1.2.20 so use a
    * sensible default for older versions.
    *)
   let dcpath =
-    xpath_string_default "/domain/vmware:datacenterpath" "ha-datacenter" in
+    Option.default "ha-datacenter"
+                   (xpath_string "/domain/vmware:datacenterpath") in
 
   (* Parse the disks. *)
   let get_disks, add_disk =

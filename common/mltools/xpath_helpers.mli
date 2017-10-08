@@ -25,9 +25,3 @@ val xpath_int : Xml.xpathctx -> string -> int option
 val xpath_int64 : Xml.xpathctx -> string -> int64 option
 (** Parse an xpath expression and return a string/int.  Returns
     [Some v], or [None] if the expression doesn't match. *)
-
-val xpath_string_default : Xml.xpathctx -> string -> string -> string
-val xpath_int_default : Xml.xpathctx -> string -> int -> int
-val xpath_int64_default : Xml.xpathctx -> string -> int64 -> int64
-(** Parse an xpath expression and return a string/int; if the expression
-    doesn't match, return the default. *)

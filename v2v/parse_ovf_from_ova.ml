@@ -52,9 +52,7 @@ let parse_ovf_from_ova ovf_filename =
 
   let xpath_string = xpath_string xpathctx
   and xpath_int = xpath_int xpathctx
-  and xpath_string_default = xpath_string_default xpathctx
-  and xpath_int_default = xpath_int_default xpathctx
-  and xpath_int64_default = xpath_int64_default xpathctx in
+  and xpath_int64 = xpath_int64 xpathctx in
 
   let rec parse_top () =
     (* Search for vm name. *)
@@ -64,11 +62,11 @@ let parse_ovf_from_ova ovf_filename =
       | Some _ as name -> name in
 
     (* Search for memory. *)
-    let memory = xpath_int64_default "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=4]/rasd:VirtualQuantity/text()" (1024L *^ 1024L) in
+    let memory = Option.default (1024L *^ 1024L) (xpath_int64 "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=4]/rasd:VirtualQuantity/text()") in
     let memory = memory *^ 1024L *^ 1024L in
 
     (* Search for number of vCPUs. *)
-    let vcpu = xpath_int_default "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=3]/rasd:VirtualQuantity/text()" 1 in
+    let vcpu = Option.default 1 (xpath_int "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=3]/rasd:VirtualQuantity/text()") in
 
     (* CPU topology.  coresPerSocket is a VMware proprietary extension.
      * I couldn't find out how hyperthreads is specified in the OVF.
@@ -91,7 +89,7 @@ let parse_ovf_from_ova ovf_filename =
            Some sockets, Some cores_per_socket in
 
     (* BIOS or EFI firmware? *)
-    let firmware = xpath_string_default "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/vmw:Config[@vmw:key=\"firmware\"]/@vmw:value" "bios" in
+    let firmware = Option.default "bios" (xpath_string "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/vmw:Config[@vmw:key=\"firmware\"]/@vmw:value") in
     let firmware =
       match firmware with
       | "bios" -> BIOS
@@ -141,7 +139,8 @@ let parse_ovf_from_ova ovf_filename =
         | Some id -> parent_controller id in
 
       Xml.xpathctx_set_current_context xpathctx n;
-      let file_id = xpath_string_default "rasd:HostResource/text()" "" in
+      let file_id =
+        Option.default "" (xpath_string "rasd:HostResource/text()") in
       let rex = PCRE.compile "^(?:ovf:)?/disk/(.*)" in
       if PCRE.matches rex file_id then (
         (* Chase the references through to the actual file name. *)
@@ -231,7 +230,8 @@ let parse_ovf_from_ova ovf_filename =
       let n = Xml.xpathobj_node obj i in
       Xml.xpathctx_set_current_context xpathctx n;
       let vnet =
-        xpath_string_default "rasd:ElementName/text()" (sprintf"eth%d" i) in
+        Option.default (sprintf"eth%d" i)
+                       (xpath_string "rasd:ElementName/text()") in
       let nic = {
         s_mac = None;
         s_nic_model = None;

@@ -77,10 +77,8 @@ let parse_libvirt_xml ?conn xml =
   let doc = Xml.parse_memory xml in
   let xpathctx = Xml.xpath_new_context doc in
   let xpath_string = xpath_string xpathctx
-  and xpath_string_default = xpath_string_default xpathctx
   and xpath_int = xpath_int xpathctx
-  (*and xpath_int_default = xpath_int_default xpathctx*)
-  and xpath_int64_default = xpath_int64_default xpathctx in
+  and xpath_int64 = xpath_int64 xpathctx in
 
   let hypervisor =
     match xpath_string "/domain/@type" with
@@ -92,7 +90,8 @@ let parse_libvirt_xml ?conn xml =
     | None | Some "" ->
        error (f_"in the libvirt XML metadata, <name> is missing or empty")
     | Some s -> s in
-  let memory = xpath_int64_default "/domain/memory/text()" (1024L *^ 1024L) in
+  let memory =
+    Option.default (1024L *^ 1024L) (xpath_int64 "/domain/memory/text()") in
   let memory = memory *^ 1024L in
 
   let cpu_vendor = xpath_string "/domain/cpu/vendor/text()" in
@@ -317,7 +316,7 @@ let parse_libvirt_xml ?conn xml =
            (* This is for testing curl, eg for testing VMware conversions
             * without needing VMware around.
             *)
-           let path = xpath_string_default "source/@name" "" in
+           let path = Option.default "" (xpath_string "source/@name") in
            let qemu_uri = create_curl_qemu_uri driver host port path in
            add_disk qemu_uri format controller P_dont_rewrite
         | Some protocol, _, _ ->
