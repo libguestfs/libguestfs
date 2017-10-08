@@ -271,6 +271,10 @@ module String = struct
       loop 0
 end
 
+module List = struct
+    include List
+end
+
 module Option = struct
     let may f = function
       | None -> ()
