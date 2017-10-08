@@ -174,7 +174,7 @@ let parse_ovf_from_ova ovf_filename =
           href = href;
           compressed = compressed
         } in
-        push_front disk disks;
+        List.push_front disk disks;
       ) else
         error (f_"could not parse disk rasd:HostResource from OVF document")
     done;
@@ -217,7 +217,7 @@ let parse_ovf_from_ova ovf_filename =
         s_removable_controller = controller;
         s_removable_slot = slot;
       } in
-      push_front disk removables;
+      List.push_front disk removables;
     done;
     List.rev !removables
 
@@ -241,7 +241,7 @@ let parse_ovf_from_ova ovf_filename =
         s_vnet_orig = vnet;
         s_vnet_type = Network;
       } in
-      push_front nic nics
+      List.push_front nic nics
     done;
     List.rev !nics
   in

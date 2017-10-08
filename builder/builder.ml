@@ -462,7 +462,7 @@ let main () =
     in
 
     (* Add a transition to the returned list. *)
-    let tr task otags = push_front (task, weight task otags, otags) ret in
+    let tr task otags = List.push_front (task, weight task otags, otags) ret in
 
     (* Since the final plan won't run in parallel, we don't only need
      * to choose unique tempfiles per transition, so this is OK:

@@ -164,10 +164,10 @@ let parse_cmdline () =
   in
 
   let vdsm_image_uuids = ref [] in
-  let add_vdsm_image_uuid s = push_front s vdsm_image_uuids in
+  let add_vdsm_image_uuid s = List.push_front s vdsm_image_uuids in
 
   let vdsm_vol_uuids = ref [] in
-  let add_vdsm_vol_uuid s = push_front s vdsm_vol_uuids in
+  let add_vdsm_vol_uuid s = List.push_front s vdsm_vol_uuids in
 
   let vmtype_warning _ =
     warning (f_"the --vmtype option has been removed and now does nothing")
@@ -252,7 +252,7 @@ let parse_cmdline () =
                                     s_"Ignored for backwards compatibility";
   ] in
   let args = ref [] in
-  let anon_fun s = push_front s args in
+  let anon_fun s = List.push_front s args in
   let usage_msg =
     sprintf (f_"\
 %s: convert a guest to use KVM

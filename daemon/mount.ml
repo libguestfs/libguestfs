@@ -34,26 +34,26 @@ let mount_vfs options vfs mountable mountpoint =
   (match options, mountable.m_type with
    | (None | Some ""), (MountableDevice | MountablePath) -> ()
    | Some options, (MountableDevice | MountablePath) ->
-      push_back args "-o";
-      push_back args options
+      List.push_back args "-o";
+      List.push_back args options
    | (None | Some ""), MountableBtrfsVol subvol ->
-      push_back args "-o";
-      push_back args ("subvol=" ^ subvol)
+      List.push_back args "-o";
+      List.push_back args ("subvol=" ^ subvol)
    | Some options, MountableBtrfsVol subvol ->
-      push_back args "-o";
-      push_back args ("subvol=" ^ subvol ^ "," ^ options)
+      List.push_back args "-o";
+      List.push_back args ("subvol=" ^ subvol ^ "," ^ options)
   );
 
   (* -t vfs *)
   (match vfs with
    | None | Some "" -> ()
    | Some t ->
-      push_back args "-t";
-      push_back args t
+      List.push_back args "-t";
+      List.push_back args t
   );
 
-  push_back args mountable.m_device;
-  push_back args mp;
+  List.push_back args mountable.m_device;
+  List.push_back args mp;
 
   ignore (command "mount" !args)
 
@@ -105,7 +105,7 @@ let rec umount_all () =
            (String.is_prefix mp sysroot &&
             String.length mp > sysroot_len &&
             mp.[sysroot_len] = '/') then
-          push_front mp mps
+          List.push_front mp mps
       )
   ) info;
 

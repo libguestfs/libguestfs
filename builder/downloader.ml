@@ -103,8 +103,8 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
     (* Get the status code first to ensure the file exists. *)
     let curl_h =
       let curl_args = ref common_args in
-      if not (verbose ()) then append curl_args quiet_args;
-      append curl_args [
+      if not (verbose ()) then List.push_back_list curl_args quiet_args;
+      List.push_back_list curl_args [
         "output", Some "/dev/null"; (* Write output to /dev/null. *)
         "head", None;               (* Request only HEAD. *)
         "write-out", Some "%{http_code}" (* HTTP status code to stdout. *)
@@ -128,11 +128,11 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
     (* Now download the file. *)
     let curl_h =
       let curl_args = ref common_args in
-      push_back curl_args ("output", Some filename_new);
+      List.push_back curl_args ("output", Some filename_new);
 
       if not (verbose ()) then (
-        if progress_bar then push_back curl_args ("progress-bar", None)
-        else append curl_args quiet_args
+        if progress_bar then List.push_back curl_args ("progress-bar", None)
+        else List.push_back_list curl_args quiet_args
       );
 
       Curl.create ~curl:t.curl ~tmpdir:t.tmpdir !curl_args in

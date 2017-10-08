@@ -70,7 +70,7 @@ let rec generate_c_api_tests () =
   let hash : (string, bool) Hashtbl.t = Hashtbl.create 13 in
   List.iter (
     fun { tests } ->
-      let seqs = filter_map (
+      let seqs = List.filter_map (
         function
         | (_, (Always|IfAvailable _|IfNotCrossAppliance), test, cleanup) ->
           Some (seq_of_test test @ cleanup)

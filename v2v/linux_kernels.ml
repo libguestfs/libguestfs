@@ -89,7 +89,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
         PCRE.compile "^initrd.img-.*$"
       else
         PCRE.compile "^initr(?:d|amfs)-.*(?:\\.img)?$" in
-    filter_map (
+    List.filter_map (
       function
       | { G.app2_name = name } as app
           when name = "kernel" || String.is_prefix name "kernel-"
@@ -177,7 +177,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
                g#file_architecture any_module in
 
              (* Just return the module names, without path or extension. *)
-             let modules = filter_map (
+             let modules = List.filter_map (
                fun m ->
                  if PCRE.matches rex_ko_extract m then
                    Some (PCRE.sub 1)
@@ -259,7 +259,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
     let vmlinuzes = bootloader#list_kernels in
 
     (* Map these to installed kernels. *)
-    filter_map (
+    List.filter_map (
       fun vmlinuz ->
         try
           let statbuf = g#statns vmlinuz in

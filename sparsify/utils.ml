@@ -27,7 +27,7 @@ module G = Guestfs
 (* Return true if the filesystem is a read-only LV (RHBZ#1185561). *)
 let is_read_only_lv (g : G.guestfs) =
   let lvs = Array.to_list (g#lvs_full ()) in
-  let ro_uuids = filter_map (
+  let ro_uuids = List.filter_map (
     fun { G.lv_uuid; lv_attr } ->
       if lv_attr.[1] = 'r' then Some lv_uuid else None
   ) lvs in

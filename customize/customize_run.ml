@@ -66,7 +66,7 @@ let run (g : G.guestfs) root (ops : ops) =
      * Also catch errors and dump the log file completely on error.
      *)
     let env_vars =
-      filter_map (
+      List.filter_map (
         fun name ->
           try Some (sprintf "export %s=%s" name (quote (Sys.getenv name)))
           with Not_found -> None

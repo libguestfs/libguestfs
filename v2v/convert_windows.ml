@@ -166,7 +166,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
                       * uninstaller still shows a no-way-out reboot dialog *)
                      " PREVENT_REBOOT=Yes LAUNCHED_BY_SETUP_EXE=Yes" in
 
-               push_front uninst uninsts
+               List.push_front uninst uninsts
              with
                Not_found -> ()
          ) uninstnodes

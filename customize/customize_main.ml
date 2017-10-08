@@ -39,7 +39,7 @@ let main () =
     | "auto" -> attach_format := None
     | s -> attach_format := Some s
   in
-  let attach_disk s = push_front (!attach_format, s) attach in
+  let attach_disk s = List.push_front (!attach_format, s) attach in
   let domain = ref None in
   let dryrun = ref false in
   let files = ref [] in
@@ -63,7 +63,7 @@ let main () =
         error (f_"error parsing URI '%s'. Look for error messages printed above.")
           arg in
     let format = match !format with "auto" -> None | fmt -> Some fmt in
-    push_front (uri, format) files;
+    List.push_front (uri, format) files;
     format_consumed := true
   and set_domain dom =
     if !domain <> None then

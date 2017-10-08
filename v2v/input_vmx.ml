@@ -108,7 +108,7 @@ and find_hdds vmx vmx_filename
            Some (c, t, s)
         | _ -> None
     ) hdds in
-  let hdds = filter_map identity hdds in
+  let hdds = List.filter_map identity hdds in
 
   (* We don't have a way to return the controllers and targets, so
    * just make sure the disks are sorted into order, since Parse_vmx
@@ -188,7 +188,7 @@ and find_removables vmx =
            Some s
         | _ -> None
     ) devs in
-  let devs = filter_map identity devs in
+  let devs = List.filter_map identity devs in
 
   (* Sort by slot. *)
   let devs =
@@ -260,7 +260,7 @@ and find_nics vmx =
                    s_vnet_type = vnet_type })
         | _ -> None
     ) nics in
-  let nics = filter_map identity nics in
+  let nics = List.filter_map identity nics in
 
   (* Sort by port. *)
   let nics = List.sort compare nics in

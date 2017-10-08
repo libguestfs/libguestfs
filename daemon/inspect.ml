@@ -33,7 +33,7 @@ let rec inspect_os () =
   let fses = Listfs.list_filesystems () in
 
   let fses =
-    filter_map (
+    List.filter_map (
       fun (mountable, vfs_type) ->
         Inspect_fs.check_for_filesystem_on mountable vfs_type
   ) fses in
@@ -228,7 +228,7 @@ and inspect_get_roots () =
   let fses = !Inspect_types.inspect_fses in
 
   let roots =
-    filter_map (
+    List.filter_map (
       fun fs -> try Some (root_of_fs fs) with Invalid_argument _ -> None
     ) fses in
   if verbose () then (
@@ -257,7 +257,7 @@ and inspect_get_mountpoints root_mountable =
   if fstab = [] then
     [ "/", root_mountable ]
   else (
-    filter_map (
+    List.filter_map (
       fun (mountable, mp) ->
         if String.length mp > 0 && mp.[0] = '/' then
           Some (mp, mountable)

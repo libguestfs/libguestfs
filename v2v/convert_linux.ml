@@ -143,7 +143,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
   and unconfigure_xen () =
     (* Remove kmod-xenpv-* (RHEL 3). *)
     let xenmods =
-      filter_map (
+      List.filter_map (
         fun { G.app2_name = name } ->
           if name = "kmod-xenpv" || String.is_prefix name "kmod-xenpv-" then
             Some name
@@ -239,7 +239,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
       let lines = g#read_lines vboxconfig in
       let lines = Array.to_list lines in
       let rex = PCRE.compile "^INSTALL_DIR=(.*)$" in
-      let lines = filter_map (
+      let lines = List.filter_map (
         fun line ->
           if PCRE.matches rex line then (
             let path = PCRE.sub 1 in
@@ -283,13 +283,13 @@ let convert (g : G.guestfs) inspect source output rcaps =
     List.iter (
       fun { G.app2_name = name } ->
         if String.is_prefix name "vmware-tools-libraries-" then
-          push_front name libraries
+          List.push_front name libraries
         else if String.is_prefix name "vmware-tools-" then
-          push_front name remove
+          List.push_front name remove
         else if name = "VMwareTools" then
-          push_front name remove
+          List.push_front name remove
         else if String.is_prefix name "kmod-vmware-tools" then
-          push_front name remove
+          List.push_front name remove
     ) inspect.i_apps;
     let libraries = !libraries in
 
@@ -337,13 +337,13 @@ let convert (g : G.guestfs) inspect source output rcaps =
               let cmd = Array.of_list cmd in
               (try
                  ignore (g#command cmd);
-                 push_front library remove
+                 List.push_front library remove
                with G.Error msg ->
                  eprintf "%s: could not install replacement for %s.  Error was: %s.  %s was not removed.\n"
                    prog library msg library
               );
             ) else (
-              push_front library remove;
+              List.push_front library remove;
             );
         ) libraries
       )

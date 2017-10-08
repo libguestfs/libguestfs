@@ -69,7 +69,7 @@ let set_cardinal set =
   FormatSet.cardinal set
 
 let register_format op =
-  push_front op all_formats
+  List.push_front op all_formats
 
 let baked = ref false
 let rec bake () =
@@ -183,7 +183,7 @@ let get_filenames ~formats image_name =
   (* Run the formats in alphabetical, rather than random order. *)
   let formats = List.sort compare_formats (FormatSet.elements formats) in
 
-  filter_map (
+  List.filter_map (
     function
     | { output_to_file = true; name } ->
       Some (output_filename image_name name)

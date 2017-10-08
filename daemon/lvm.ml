@@ -84,7 +84,7 @@ and filter_convert_old_lvs_output out =
   let lines = List.filter ((<>) "") lines in
   let lines = List.filter ((<>) "unknown device") lines in
 
-  let lines = filter_map (
+  let lines = List.filter_map (
     fun line ->
       match String.nsplit ":" line with
       | [ lv_attr; vg_name; lv_name ] ->

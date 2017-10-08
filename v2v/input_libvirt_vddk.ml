@@ -195,7 +195,7 @@ object
     let args =
       let add_arg, get_args =
         let args = ref [] in
-        let add_arg a = push_front a args in
+        let add_arg a = List.push_front a args in
         let get_args () = List.rev !args in
         add_arg, get_args in
 

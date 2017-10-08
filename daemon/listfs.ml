@@ -44,14 +44,14 @@ let rec list_filesystems () =
   ) devices in
 
   (* Use vfs-type to check for filesystems on devices. *)
-  let ret = filter_map check_with_vfs_type devices in
+  let ret = List.filter_map check_with_vfs_type devices in
 
   (* Use vfs-type to check for filesystems on partitions, but
    * ignore MBR partition type 42 used by LDM.
    *)
   let ret =
     ret @
-      filter_map (
+      List.filter_map (
         fun part ->
           if not has_ldm || not (is_mbr_partition_type_42 part) then
             check_with_vfs_type part
@@ -60,14 +60,14 @@ let rec list_filesystems () =
       ) partitions in
 
   (* Use vfs-type to check for filesystems on md devices. *)
-  let ret = ret @ filter_map check_with_vfs_type mds in
+  let ret = ret @ List.filter_map check_with_vfs_type mds in
 
   (* LVM. *)
   let ret =
     if has_lvm2 then (
       let lvs = Lvm.lvs () in
       (* Use vfs-type to check for filesystems on LVs. *)
-      ret @ filter_map check_with_vfs_type lvs
+      ret @ List.filter_map check_with_vfs_type lvs
     )
     else ret in
 
@@ -78,8 +78,8 @@ let rec list_filesystems () =
       let ldmparts = Ldm.list_ldm_partitions () in
       (* Use vfs-type to check for filesystems on Windows dynamic disks. *)
       ret @
-        filter_map check_with_vfs_type ldmvols @
-        filter_map check_with_vfs_type ldmparts
+        List.filter_map check_with_vfs_type ldmvols @
+        List.filter_map check_with_vfs_type ldmparts
     )
     else ret in
 

@@ -179,11 +179,11 @@ and fetch_headers_from_url password uri sslverify https_url =
    | None, Some _ ->
       warning (f_"--password-file parameter ignored because 'user@' was not given in the URL")
    | Some user, None ->
-      push_back curl_args ("user", Some user)
+      List.push_back curl_args ("user", Some user)
    | Some user, Some password ->
-      push_back curl_args ("user", Some (user ^ ":" ^ password))
+      List.push_back curl_args ("user", Some (user ^ ":" ^ password))
   );
-  if not sslverify then push_back curl_args ("insecure", None);
+  if not sslverify then List.push_back curl_args ("insecure", None);
 
   let curl_h = Curl.create !curl_args in
   let lines = Curl.run curl_h in

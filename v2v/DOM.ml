@@ -123,7 +123,7 @@ let path_to_nodes (Doc doc) path =
           ) nodes
         | p :: ps ->
           let children =
-            filter_map (
+            List.filter_map (
               function
               | PCData _ -> None
               | Comment _ -> None

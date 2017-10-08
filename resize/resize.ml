@@ -158,7 +158,7 @@ let main () =
     lv_expands, machine_readable, ntfsresize_force, output_format,
     resizes, resizes_force, shrink, sparse, unknown_fs_mode =
 
-    let add xs s = push_front s xs in
+    let add xs s = List.push_front s xs in
 
     let align_first = ref "auto" in
     let alignment = ref 128 in
@@ -214,7 +214,7 @@ let main () =
                                               s_"Behaviour on expand unknown filesystems (default: warn)";
     ] in
     let disks = ref [] in
-    let anon_fun s = push_front s disks in
+    let anon_fun s = List.push_front s disks in
     let usage_msg =
       sprintf (f_"\
 %s: resize a virtual machine disk

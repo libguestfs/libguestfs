@@ -76,7 +76,7 @@ let untar ?format ?(paths = []) file outdir =
 let untar_metadata file outdir =
   let files = external_command (sprintf "tar -tf %s" (Filename.quote file)) in
   let files =
-    filter_map (
+    List.filter_map (
       fun f ->
         if Filename.check_suffix f ".ovf" ||
            Filename.check_suffix f ".mf" then Some f

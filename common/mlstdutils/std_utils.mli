@@ -178,6 +178,81 @@ module List : sig
     val stable_sort : ('a -> 'a -> int) -> 'a list -> 'a list
     val fast_sort : ('a -> 'a -> int) -> 'a list -> 'a list
     val merge : ('a -> 'a -> int) -> 'a list -> 'a list -> 'a list
+
+    val dropwhile : ('a -> bool) -> 'a list -> 'a list
+    (** [dropwhile f xs] drops leading elements from [xs] until
+        [f] returns false. *)
+    val takewhile : ('a -> bool) -> 'a list -> 'a list
+    (** [takewhile f xs] takes leading elements from [xs] until
+        [f] returns false.
+
+        For any list [xs] and function [f],
+        [xs = takewhile f xs @ dropwhile f xs] *)
+    val filter_map : ('a -> 'b option) -> 'a list -> 'b list
+    (** [filter_map f xs] applies [f] to each element of [xs].  If
+        [f x] returns [Some y] then [y] is added to the returned list. *)
+    val find_map : ('a -> 'b option) -> 'a list -> 'b
+    (** [find_map f xs] applies [f] to each element of [xs] until
+        [f x] returns [Some y].  It returns [y].  If we exhaust the
+        list then this raises [Not_found]. *)
+
+    val combine3 : 'a list -> 'b list -> 'c list -> ('a * 'b * 'c) list
+    (** Like {!List.combine} but for triples.
+        All lists must be the same length. *)
+
+    val assoc_lbl : ?cmp:('a -> 'a -> int) -> default:'b -> 'a -> ('a * 'b) list -> 'b
+    (** Like {!assoc} but with a user-defined comparison function, and
+        instead of raising [Not_found], it returns the [~default] value. *)
+
+    val uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
+    (** Uniquify a list (the list must be sorted first). *)
+
+    val sort_uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
+    (** Sort and uniquify a list. *)
+
+    val remove_duplicates : 'a list -> 'a list
+    (** Remove duplicates from an unsorted list; useful when the order
+        of the elements matter.
+
+        Please use [sort_uniq] when the order does not matter. *)
+
+    val push_back : 'a list ref -> 'a -> unit
+    val push_front : 'a -> 'a list ref -> unit
+    val pop_back : 'a list ref -> 'a
+    val pop_front : 'a list ref -> 'a
+    (** Imperative list manipulation functions, similar to C++ STL
+        functions with the same names.  (Although the names are similar,
+        the computational complexity of the functions is quite different.)
+
+        These operate on list references, and each function modifies the
+        list reference that is passed to it.
+
+        [push_back xsp x] appends the element [x] to the end of the list
+        [xsp].  This function is not tail-recursive.
+
+        [push_front x xsp] prepends the element [x] to the head of the
+        list [xsp].  (The arguments are reversed compared to the same Perl
+        function, but OCaml is type safe so that's OK.)
+
+        [pop_back xsp] removes the last element of the list [xsp] and
+        returns it.  The list is modified to become the list minus the
+        final element.  If a zero-length list is passed in, this raises
+        [Failure "pop_back"].  This function is not tail-recursive.
+
+        [pop_front xsp] removes the head element of the list [xsp] and
+        returns it.  The list is modified to become the tail of the list.
+        If a zero-length list is passed in, this raises [Failure
+        "pop_front"]. *)
+
+    val push_back_list : 'a list ref -> 'a list -> unit
+    val push_front_list : 'a list -> 'a list ref -> unit
+    (** More imperative list manipulation functions.
+
+        [push_back_list] is like {!push_back} above, except it appends
+        a list to the list reference.  This function is not tail-recursive.
+
+        [push_front_list] is like {!push_front} above, except it prepends
+        a list to the list reference. *)
 end
 (** Override the List module from stdlib. *)
 
@@ -253,80 +328,6 @@ val wrap : ?chan:out_channel -> ?indent:int -> string -> unit
 
 val output_spaces : out_channel -> int -> unit
 (** Write [n] spaces to [out_channel]. *)
-
-val dropwhile : ('a -> bool) -> 'a list -> 'a list
-(** [dropwhile f xs] drops leading elements from [xs] until
-    [f] returns false. *)
-val takewhile : ('a -> bool) -> 'a list -> 'a list
-(** [takewhile f xs] takes leading elements from [xs] until
-    [f] returns false.
-
-    For any list [xs] and function [f],
-    [xs = takewhile f xs @ dropwhile f xs] *)
-val filter_map : ('a -> 'b option) -> 'a list -> 'b list
-(** [filter_map f xs] applies [f] to each element of [xs].  If
-    [f x] returns [Some y] then [y] is added to the returned list. *)
-val find_map : ('a -> 'b option) -> 'a list -> 'b
-(** [find_map f xs] applies [f] to each element of [xs] until
-    [f x] returns [Some y].  It returns [y].  If we exhaust the
-    list then this raises [Not_found]. *)
-
-val combine3 : 'a list -> 'b list -> 'c list -> ('a * 'b * 'c) list
-(** Like {!List.combine} but for triples.  All lists must be the same length. *)
-
-val assoc : ?cmp:('a -> 'a -> int) -> default:'b -> 'a -> ('a * 'b) list -> 'b
-(** Like {!List.assoc} but with a user-defined comparison function, and
-    instead of raising [Not_found], it returns the [~default] value. *)
-
-val uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
-(** Uniquify a list (the list must be sorted first). *)
-
-val sort_uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
-(** Sort and uniquify a list. *)
-
-val remove_duplicates : 'a list -> 'a list
-(** Remove duplicates from an unsorted list; useful when the order
-    of the elements matter.
-
-    Please use [sort_uniq] when the order does not matter. *)
-
-val push_back : 'a list ref -> 'a -> unit
-val push_front : 'a -> 'a list ref -> unit
-val pop_back : 'a list ref -> 'a
-val pop_front : 'a list ref -> 'a
-(** Imperative list manipulation functions, similar to C++ STL
-    functions with the same names.  (Although the names are similar,
-    the computational complexity of the functions is quite different.)
-
-    These operate on list references, and each function modifies the
-    list reference that is passed to it.
-
-    [push_back xsp x] appends the element [x] to the end of the list
-    [xsp].  This function is not tail-recursive.
-
-    [push_front x xsp] prepends the element [x] to the head of the
-    list [xsp].  (The arguments are reversed compared to the same Perl
-    function, but OCaml is type safe so that's OK.)
-
-    [pop_back xsp] removes the last element of the list [xsp] and
-    returns it.  The list is modified to become the list minus the
-    final element.  If a zero-length list is passed in, this raises
-    [Failure "pop_back"].  This function is not tail-recursive.
-
-    [pop_front xsp] removes the head element of the list [xsp] and
-    returns it.  The list is modified to become the tail of the list.
-    If a zero-length list is passed in, this raises [Failure
-    "pop_front"]. *)
-
-val append : 'a list ref -> 'a list -> unit
-val prepend : 'a list -> 'a list ref -> unit
-(** More imperative list manipulation functions.
-
-    [append] is like {!push_back} above, except it appends a list to
-    the list reference.  This function is not tail-recursive.
-
-    [prepend] is like {!push_front} above, except it prepends a list
-    to the list reference. *)
 
 val unique : unit -> int
 (** Returns a unique number each time called. *)

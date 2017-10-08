@@ -82,7 +82,7 @@ let import_keyfile ~gpg ~gpghome ~tmpdir ?(trust = true) keyfile =
           (match !current with
           | None -> ()
           | Some k ->
-            if String.is_suffix id k then push_front id subkeys;
+            if String.is_suffix id k then List.push_front id subkeys;
             current := None
           )
         | _ -> ()

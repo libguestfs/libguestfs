@@ -100,42 +100,42 @@ object
       ] in
       if source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
          source.s_cpu_threads <> None then (
-        push_back properties ("hw_cpu_sockets",
+        List.push_back properties ("hw_cpu_sockets",
                               match source.s_cpu_sockets with
                               | None -> "1"
                               | Some v -> string_of_int v);
-        push_back properties ("hw_cpu_cores",
+        List.push_back properties ("hw_cpu_cores",
                               match source.s_cpu_cores with
                               | None -> "1"
                               | Some v -> string_of_int v);
-        push_back properties ("hw_cpu_threads",
+        List.push_back properties ("hw_cpu_threads",
                               match source.s_cpu_threads with
                               | None -> "1"
                               | Some v -> string_of_int v);
       )
       else (
-        push_back properties ("hw_cpu_sockets", "1");
-        push_back properties ("hw_cpu_cores", string_of_int source.s_vcpu);
+        List.push_back properties ("hw_cpu_sockets", "1");
+        List.push_back properties ("hw_cpu_cores", string_of_int source.s_vcpu);
       );
       (match guestcaps.gcaps_block_bus with
        | Virtio_SCSI ->
-          push_back properties ("hw_scsi_model", "virtio-scsi")
+          List.push_back properties ("hw_scsi_model", "virtio-scsi")
        | Virtio_blk | IDE -> ()
       );
       (match inspect.i_major_version, inspect.i_minor_version with
        | 0, 0 -> ()
-       | x, 0 -> push_back properties ("os_version", string_of_int x)
-       | x, y -> push_back properties ("os_version", sprintf "%d.%d" x y)
+       | x, 0 -> List.push_back properties ("os_version", string_of_int x)
+       | x, y -> List.push_back properties ("os_version", sprintf "%d.%d" x y)
       );
       if guestcaps.gcaps_virtio_rng then
-        push_back properties ("hw_rng_model", "virtio");
+        List.push_back properties ("hw_rng_model", "virtio");
       (* XXX Neither memory balloon nor pvpanic are supported by
        * Glance at this time.
        *)
       (match target_firmware with
        | TargetBIOS -> ()
        | TargetUEFI ->
-          push_back properties ("hw_firmware_type", "uefi")
+          List.push_back properties ("hw_firmware_type", "uefi")
       );
 
       !properties in

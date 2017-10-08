@@ -314,18 +314,18 @@ let rec create_ovf source targets guestcaps inspect
       (match source.s_cpu_model with
         | None -> ()
         | Some model ->
-           push_back content_subnodes (e "CustomCpuName" [] [PCData model])
+           List.push_back content_subnodes (e "CustomCpuName" [] [PCData model])
       );
 
       (* Add the <Origin/> element if we can. *)
       (match origin_of_source_hypervisor source.s_hypervisor with
        | None -> ()
        | Some origin ->
-          push_back content_subnodes
+          List.push_back content_subnodes
                     (e "Origin" [] [PCData (string_of_int origin)])
       );
 
-      push_back content_subnodes (
+      List.push_back content_subnodes (
         e "Section" ["ovf:id", vm_uuid; "ovf:required", "false";
                      "xsi:type", "ovf:OperatingSystemSection_Type"] [
           e "Info" [] [PCData inspect.i_product_name];
@@ -338,7 +338,7 @@ let rec create_ovf source targets guestcaps inspect
                                      source.s_vcpu memsize_mb)]
       ] in
 
-      push_back virtual_hardware_section_items (
+      List.push_back virtual_hardware_section_items (
         e "Item" [] ([
           e "rasd:Caption" [] [PCData (sprintf "%d virtual cpu" source.s_vcpu)];
           e "rasd:Description" [] [PCData "Number of virtual CPU"];
@@ -370,7 +370,7 @@ let rec create_ovf source targets guestcaps inspect
         )
       );
 
-      append virtual_hardware_section_items [
+      List.push_back_list virtual_hardware_section_items [
         e "Item" [] [
           e "rasd:Caption" [] [PCData (sprintf "%Ld MB of memory" memsize_mb)];
           e "rasd:Description" [] [PCData "Memory Size"];
@@ -403,7 +403,7 @@ let rec create_ovf source targets guestcaps inspect
 
       (* Add the miscellaneous KVM devices. *)
       if guestcaps.gcaps_virtio_rng then
-        push_back virtual_hardware_section_items (
+        List.push_back virtual_hardware_section_items (
           e "Item" [] [
             e "rasd:Caption" [] [PCData "RNG Device"];
             e "rasd:InstanceId" [] [PCData (uuidgen ())];
@@ -413,7 +413,7 @@ let rec create_ovf source targets guestcaps inspect
           ]
         );
       if guestcaps.gcaps_virtio_balloon then
-        push_back virtual_hardware_section_items (
+        List.push_back virtual_hardware_section_items (
           e "Item" [] [
             e "rasd:Caption" [] [PCData "Memory Ballooning Device"];
             e "rasd:InstanceId" [] [PCData (uuidgen ())];
@@ -423,7 +423,7 @@ let rec create_ovf source targets guestcaps inspect
           ]
         );
 
-      push_back content_subnodes (
+      List.push_back content_subnodes (
         e "Section" ["xsi:type", "ovf:VirtualHardwareSection_Type"]
           !virtual_hardware_section_items
       );
@@ -554,7 +554,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
         (match actual_size_gb with
          | None -> ()
          | Some actual_size_gb ->
-            push_back attrs ("ovf:actual_size", Int64.to_string actual_size_gb)
+            List.push_back attrs ("ovf:actual_size", Int64.to_string actual_size_gb)
         );
         e "Disk" !attrs [] in
       if is_estimate then (
@@ -585,12 +585,12 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
           e "rasd:last_modified_date" [] [PCData iso_time];
         ] in
         if is_bootable_drive then
-          push_back item_subnodes
+          List.push_back item_subnodes
                     (e "BootOrder" [] [PCData (string_of_int boot_order)]);
 
         e "Item" [] !item_subnodes in
       append_child item virtualhardware_section;
-  ) (combine3 targets image_uuids vol_uuids)
+  ) (List.combine3 targets image_uuids vol_uuids)
 
 (* This modifies the OVF DOM, adding a section for each NIC. *)
 and add_networks nics guestcaps ovf =
@@ -641,7 +641,7 @@ and add_networks nics guestcaps ovf =
         (match mac with
          | None -> ()
          | Some mac ->
-            push_back item_subnodes
+            List.push_back item_subnodes
                       (e "rasd:MACAddress" [] [PCData mac])
         );
         e "Item" [] !item_subnodes in

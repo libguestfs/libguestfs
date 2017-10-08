@@ -27,13 +27,13 @@ open Tools_utils
 open Getopt.OptionName
 
 let adds = ref []
-let add_string = push_back adds
+let add_string = List.push_back adds
 
 let anons = ref []
-let anon_fun = push_back anons
+let anon_fun = List.push_back anons
 
 let ints = ref []
-let add_int = push_back ints
+let add_int = List.push_back ints
 
 let clear_flag = ref true
 let set_flag = ref false

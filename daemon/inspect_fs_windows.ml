@@ -110,7 +110,7 @@ and get_windows_systemroot_from_boot_ini boot_ini_path =
      | Some oses ->
         (* Rewrite multi|scsi lines, removing any which we cannot parse. *)
         let oses =
-          filter_map (
+          List.filter_map (
             fun line ->
               if PCRE.matches re_boot_ini_os line then (
                 let ctrlr_type = PCRE.sub 1
@@ -312,7 +312,7 @@ and get_drive_mappings h root data =
     let values = Hivex.node_values h node in
     let values = Array.to_list values in
     let values =
-      filter_map (
+      List.filter_map (
         fun value ->
           let key = Hivex.value_key h value in
           let keylen = String.length key in

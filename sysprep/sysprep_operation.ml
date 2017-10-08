@@ -110,9 +110,9 @@ let remove_all_from_set set =
   empty_set
 
 let register_operation op =
-  push_front op all_operations;
+  List.push_front op all_operations;
   if op.enabled_by_default then
-    push_front op enabled_by_default_operations
+    List.push_front op enabled_by_default_operations
 
 let baked = ref false
 let rec bake () =

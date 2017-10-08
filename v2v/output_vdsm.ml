@@ -85,7 +85,7 @@ object
     let mp, uuid =
       let fields = String.nsplit "/" os in (* ... "data-center" "UUID" *)
       let fields = List.rev fields in      (* "UUID" "data-center" ... *)
-      let fields = dropwhile ((=) "") fields in
+      let fields = List.dropwhile ((=) "") fields in
       match fields with
       | uuid :: rest when String.length uuid = 36 ->
         let mp = String.concat "/" (List.rev rest) in
@@ -135,7 +135,7 @@ object
           debug "VDSM: will export %s to %s" ov_sd target_file;
 
           { t with target_file = TargetFile target_file }
-      ) (combine3 targets vdsm_params.image_uuids vdsm_params.vol_uuids) in
+      ) (List.combine3 targets vdsm_params.image_uuids vdsm_params.vol_uuids) in
 
     (* Generate the .meta files associated with each volume. *)
     let metas =

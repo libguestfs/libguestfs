@@ -290,7 +290,7 @@ and parse_string str =
   ) lines in
 
   (* Parse the lines into key = "value". *)
-  let lines = filter_map (
+  let lines = List.filter_map (
     fun line ->
       if PCRE.matches rex line then (
         let key = PCRE.sub 1 and value = PCRE.sub 2 in

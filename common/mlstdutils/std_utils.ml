@@ -273,6 +273,90 @@ end
 
 module List = struct
     include List
+
+    (* Drop elements from a list while a predicate is true. *)
+    let rec dropwhile f = function
+      | [] -> []
+      | x :: xs when f x -> dropwhile f xs
+      | xs -> xs
+
+    (* Take elements from a list while a predicate is true. *)
+    let rec takewhile f = function
+      | x :: xs when f x -> x :: takewhile f xs
+      | _ -> []
+
+    let rec filter_map f = function
+      | [] -> []
+      | x :: xs ->
+          match f x with
+          | Some y -> y :: filter_map f xs
+          | None -> filter_map f xs
+
+    let rec find_map f = function
+      | [] -> raise Not_found
+      | x :: xs ->
+          match f x with
+          | Some y -> y
+          | None -> find_map f xs
+
+    let rec combine3 xs ys zs =
+      match xs, ys, zs with
+      | [], [], [] -> []
+      | x::xs, y::ys, z::zs -> (x, y, z) :: combine3 xs ys zs
+      | _ -> invalid_arg "combine3"
+
+    let rec assoc_lbl ?(cmp = compare) ~default x = function
+      | [] -> default
+      | (y, y') :: _ when cmp x y = 0 -> y'
+      | _ :: ys -> assoc_lbl ~cmp ~default x ys
+
+    let uniq ?(cmp = Pervasives.compare) xs =
+      let rec loop acc = function
+        | [] -> acc
+        | [x] -> x :: acc
+        | x :: (y :: _ as xs) when cmp x y = 0 ->
+           loop acc xs
+        | x :: (y :: _ as xs) ->
+           loop (x :: acc) xs
+      in
+      List.rev (loop [] xs)
+
+    (* This is present in OCaml 4.04, so we can remove it when
+     * we depend on OCaml >= 4.04.
+     *)
+    let sort_uniq ?(cmp = Pervasives.compare) xs =
+      let xs = List.sort cmp xs in
+      let xs = uniq ~cmp xs in
+      xs
+
+    let remove_duplicates xs =
+      let h = Hashtbl.create (List.length xs) in
+      let rec loop = function
+        | [] -> []
+        | x :: xs when Hashtbl.mem h x -> xs
+        | x :: xs -> Hashtbl.add h x true; x :: loop xs
+      in
+      loop xs
+
+    let push_back xsp x = xsp := !xsp @ [x]
+    let push_front x xsp = xsp := x :: !xsp
+    let pop_back xsp =
+      let x, xs =
+        match List.rev !xsp with
+        | x :: xs -> x, xs
+        | [] -> failwith "pop" in
+      xsp := List.rev xs;
+      x
+    let pop_front xsp =
+      let x, xs =
+        match !xsp with
+        | x :: xs -> x, xs
+        | [] -> failwith "shift" in
+      xsp := xs;
+      x
+
+    let push_back_list xsp xs = xsp := !xsp @ xs
+    let push_front_list xs xsp = xsp := xs @ !xsp
 end
 
 module Option = struct
@@ -503,87 +587,6 @@ and _wrap_find_next_break i len str =
 
 and output_spaces chan n = for i = 0 to n-1 do output_char chan ' ' done
 
-(* Drop elements from a list while a predicate is true. *)
-let rec dropwhile f = function
-  | [] -> []
-  | x :: xs when f x -> dropwhile f xs
-  | xs -> xs
-
-(* Take elements from a list while a predicate is true. *)
-let rec takewhile f = function
-  | x :: xs when f x -> x :: takewhile f xs
-  | _ -> []
-
-let rec filter_map f = function
-  | [] -> []
-  | x :: xs ->
-      match f x with
-      | Some y -> y :: filter_map f xs
-      | None -> filter_map f xs
-
-let rec find_map f = function
-  | [] -> raise Not_found
-  | x :: xs ->
-      match f x with
-      | Some y -> y
-      | None -> find_map f xs
-
-let rec combine3 xs ys zs =
-  match xs, ys, zs with
-  | [], [], [] -> []
-  | x::xs, y::ys, z::zs -> (x, y, z) :: combine3 xs ys zs
-  | _ -> invalid_arg "combine3"
-
-let rec assoc ?(cmp = compare) ~default x = function
-  | [] -> default
-  | (y, y') :: _ when cmp x y = 0 -> y'
-  | _ :: ys -> assoc ~cmp ~default x ys
-
-let uniq ?(cmp = Pervasives.compare) xs =
-  let rec loop acc = function
-    | [] -> acc
-    | [x] -> x :: acc
-    | x :: (y :: _ as xs) when cmp x y = 0 ->
-       loop acc xs
-    | x :: (y :: _ as xs) ->
-       loop (x :: acc) xs
-  in
-  List.rev (loop [] xs)
-
-let sort_uniq ?(cmp = Pervasives.compare) xs =
-  let xs = List.sort cmp xs in
-  let xs = uniq ~cmp xs in
-  xs
-
-let remove_duplicates xs =
-  let h = Hashtbl.create (List.length xs) in
-  let rec loop = function
-    | [] -> []
-    | x :: xs when Hashtbl.mem h x -> xs
-    | x :: xs -> Hashtbl.add h x true; x :: loop xs
-  in
-  loop xs
-
-let push_back xsp x = xsp := !xsp @ [x]
-let push_front x xsp = xsp := x :: !xsp
-let pop_back xsp =
-  let x, xs =
-    match List.rev !xsp with
-    | x :: xs -> x, xs
-    | [] -> failwith "pop" in
-  xsp := List.rev xs;
-  x
-let pop_front xsp =
-  let x, xs =
-    match !xsp with
-    | x :: xs -> x, xs
-    | [] -> failwith "shift" in
-  xsp := xs;
-  x
-
-let append xsp xs = xsp := !xsp @ xs
-let prepend xs xsp = xsp := xs @ !xsp
-
 let unique = let i = ref 0 in fun () -> incr i; !i
 
 type ('a, 'b) maybe = Either of 'a | Or of 'b
@@ -603,7 +606,7 @@ let which executable =
   let paths =
     try String.nsplit ":" (Sys.getenv "PATH")
     with Not_found -> [] in
-  let paths = filter_map (
+  let paths = List.filter_map (
     fun p ->
       let path = p // executable in
       try Unix.access path [Unix.X_OK]; Some path

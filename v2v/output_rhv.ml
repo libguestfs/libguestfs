@@ -234,7 +234,7 @@ object
           debug "RHV: will export %s to %s" ov_sd target_file;
 
           { t with target_file = TargetFile target_file }
-      ) (combine3 targets image_uuids vol_uuids) in
+      ) (List.combine3 targets image_uuids vol_uuids) in
 
     (* Generate the .meta file associated with each volume. *)
     let metas =

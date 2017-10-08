@@ -41,7 +41,7 @@ let exclude_elements elements = function
   | excl -> StringSet.filter (not_in_list excl) elements
 
 let read_envvars envvars =
-  filter_map (
+  List.filter_map (
     fun var ->
       let i = String.find var "=" in
       if i = -1 then (

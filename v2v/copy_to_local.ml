@@ -50,7 +50,7 @@ let rec main () =
                                             s_"Use password from file";
   ] in
   let args = ref [] in
-  let anon_fun s = push_front s args in
+  let anon_fun s = List.push_front s args in
   let usage_msg =
     sprintf (f_"\
 %s: copy a remote guest to the local machine
@@ -206,12 +206,12 @@ read the man page virt-v2v-copy-to-local(1).
          "url", Some remote_disk;
          "output", Some local_disk;
        ] in
-       if not sslverify then push_back curl_args ("insecure", None);
+       if not sslverify then List.push_back curl_args ("insecure", None);
        (match cookie with
         | None -> ()
-        | Some cookie -> push_back curl_args ("cookie", Some cookie)
+        | Some cookie -> List.push_back curl_args ("cookie", Some cookie)
        );
-       if quiet () then push_back curl_args ("silent", None);
+       if quiet () then List.push_back curl_args ("silent", None);
 
        let curl_h = Curl.create !curl_args in
        if verbose () then
@@ -256,7 +256,7 @@ and parse_libvirt_xml guest_name xml =
       incr i;
       let local_disk = sprintf "%s-disk%d" guest_name !i in
 
-      push_front (remote_disk, local_disk) disks;
+      List.push_front (remote_disk, local_disk) disks;
       local_disk
     in
     get_disks, add_disk

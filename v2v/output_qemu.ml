@@ -100,16 +100,16 @@ object
       if source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
          source.s_cpu_threads <> None then (
         let a = ref [] in
-        push_back a (sprintf "cpus=%d" source.s_vcpu);
-        push_back a (sprintf "sockets=%d"
+        List.push_back a (sprintf "cpus=%d" source.s_vcpu);
+        List.push_back a (sprintf "sockets=%d"
                              (match source.s_cpu_sockets with
                               | None -> 1
                               | Some v -> v));
-        push_back a (sprintf "cores=%d"
+        List.push_back a (sprintf "cores=%d"
                              (match source.s_cpu_cores with
                               | None -> 1
                               | Some v -> v));
-        push_back a (sprintf "threads=%d"
+        List.push_back a (sprintf "threads=%d"
                              (match source.s_cpu_threads with
                               | None -> 1
                               | Some v -> v));

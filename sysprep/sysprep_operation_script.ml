@@ -36,7 +36,7 @@ let set_scriptdir dir =
   scriptdir := Some dir
 
 let scripts = ref []
-let add_script script = push_front script scripts
+let add_script script = List.push_front script scripts
 
 let rec script_perform (g : Guestfs.guestfs) root side_effects =
   let scripts = List.rev !scripts in

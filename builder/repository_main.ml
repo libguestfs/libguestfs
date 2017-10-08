@@ -59,7 +59,7 @@ let parse_cmdline () =
   ] in
 
   let args = ref [] in
-  let anon_fun s = push_front s args in
+  let anon_fun s = List.push_front s args in
   let usage_msg =
     sprintf (f_"\
 %s: create a repository for virt-builder

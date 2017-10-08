@@ -45,7 +45,7 @@ let rec fold fn base =
 
   let files =
     List.flatten (
-      filter_map (
+      List.filter_map (
           fun (path, f) ->
             if is_directory path then Some (f path)
             (* This is not an error: RHBZ#948324. *)

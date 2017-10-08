@@ -65,13 +65,13 @@ let print_partition_table_machine_readable device =
   udev_settle ();
 
   let args = ref [] in
-  push_back args "-m";
-  push_back args "-s";
-  push_back args "--";
-  push_back args device;
-  push_back args "unit";
-  push_back args "b";
-  push_back args "print";
+  List.push_back args "-m";
+  List.push_back args "-s";
+  List.push_back args "--";
+  List.push_back args device;
+  List.push_back args "unit";
+  List.push_back args "b";
+  List.push_back args "print";
 
   let out =
     try command "parted" !args

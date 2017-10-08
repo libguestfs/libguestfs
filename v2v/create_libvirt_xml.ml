@@ -35,13 +35,13 @@ let create_libvirt_xml ?pool source target_buses guestcaps
   (* The main body of the libvirt XML document. *)
   let body = ref [] in
 
-  append body [
+  List.push_back_list body [
     Comment generated_by;
     e "name" [] [PCData source.s_name];
   ];
 
   let memory_k = source.s_memory /^ 1024L in
-  append body [
+  List.push_back_list body [
     e "memory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];
     e "currentMemory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];
     e "vcpu" [] [PCData (string_of_int source.s_vcpu)]
@@ -55,32 +55,32 @@ let create_libvirt_xml ?pool source target_buses guestcaps
     (match source.s_cpu_vendor with
      | None -> ()
      | Some vendor ->
-        push_back cpu (e "vendor" [] [PCData vendor])
+        List.push_back cpu (e "vendor" [] [PCData vendor])
     );
     (match source.s_cpu_model with
      | None -> ()
      | Some model ->
-        push_back cpu (e "model" ["fallback", "allow"] [PCData model])
+        List.push_back cpu (e "model" ["fallback", "allow"] [PCData model])
     );
     if source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
        source.s_cpu_threads <> None then (
       let topology_attrs = ref [] in
       (match source.s_cpu_sockets with
        | None -> ()
-       | Some v -> push_back topology_attrs ("sockets", string_of_int v)
+       | Some v -> List.push_back topology_attrs ("sockets", string_of_int v)
       );
       (match source.s_cpu_cores with
        | None -> ()
-       | Some v -> push_back topology_attrs ("cores", string_of_int v)
+       | Some v -> List.push_back topology_attrs ("cores", string_of_int v)
       );
       (match source.s_cpu_threads with
        | None -> ()
-       | Some v -> push_back topology_attrs ("threads", string_of_int v)
+       | Some v -> List.push_back topology_attrs ("threads", string_of_int v)
       );
-      push_back cpu (e "topology" !topology_attrs [])
+      List.push_back cpu (e "topology" !topology_attrs [])
     );
 
-    append body [ e "cpu" [ "match", "minimum" ] !cpu ]
+    List.push_back_list body [ e "cpu" [ "match", "minimum" ] !cpu ]
   );
 
   let uefi_firmware =
@@ -140,7 +140,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
 
   let features = List.sort compare (StringSet.elements features) in
 
-  append body [
+  List.push_back_list body [
     e "features" [] (List.map (fun s -> e s [] []) features);
   ];
 
@@ -161,7 +161,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
     (e "type" (["arch", guestcaps.gcaps_arch] @ machine) [PCData "hvm"])
     :: loader in
 
-  append body [
+  List.push_back_list body [
     e "os" [] os_section;
 
     e "on_poweroff" [] [PCData "destroy"];
@@ -241,7 +241,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
         (Array.mapi (make_disk "floppy" "fd")
                     target_buses.target_floppy_bus)
     ] in
-  append devices disks;
+  List.push_back_list devices disks;
 
   let nics =
     let net_model =
@@ -274,7 +274,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
 
         nic
     ) source.s_nics in
-  append devices nics;
+  List.push_back_list devices nics;
 
   (* Same as old virt-v2v, we always add a display here even if it was
    * missing from the old metadata.
@@ -286,7 +286,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
       | Cirrus -> e "model" [ "type", "cirrus"; "vram", "9216" ] [] in
     append_attr ("heads", "1") video_model;
     e "video" [] [ video_model ] in
-  push_back devices video;
+  List.push_back devices video;
 
   let graphics =
     match source.s_display with
@@ -331,7 +331,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
    | Some { s_port = None } | None ->
       append_attr ("autoport", "yes") graphics;
       append_attr ("port", "-1") graphics);
-  push_back devices graphics;
+  List.push_back devices graphics;
 
   let sound =
     match source.s_sound with
@@ -341,11 +341,11 @@ let create_libvirt_xml ?pool source target_buses guestcaps
          [ e "sound" [ "model", string_of_source_sound_model model ] [] ]
        else
          [] in
-  append devices sound;
+  List.push_back_list devices sound;
 
   (* Miscellaneous KVM devices. *)
   if guestcaps.gcaps_virtio_rng then
-    push_back devices (
+    List.push_back devices (
       e "rng" ["model", "virtio"] [
         (* XXX Using /dev/urandom requires libvirt >= 1.3.4.  Libvirt
          * was broken before that.
@@ -356,27 +356,27 @@ let create_libvirt_xml ?pool source target_buses guestcaps
   (* For the balloon device, libvirt adds an implicit device
    * unless we use model='none', hence this:
    *)
-  push_back devices (
+  List.push_back devices (
     e "memballoon"
       ["model",
        if guestcaps.gcaps_virtio_balloon then "virtio" else "none"]
       []
   );
   if guestcaps.gcaps_isa_pvpanic then
-    push_back devices (
+    List.push_back devices (
       e "panic" ["model", "isa"] [
         e "address" ["type", "isa"; "iobase", "0x505"] []
       ]
     );
 
   (* Standard devices added to every guest. *)
-  append devices [
+  List.push_back_list devices [
     e "input" ["type", "tablet"; "bus", "usb"] [];
     e "input" ["type", "mouse"; "bus", "ps2"] [];
     e "console" ["type", "pty"] [];
   ];
 
-  append body [
+  List.push_back_list body [
     e "devices" [] !devices;
   ];
 

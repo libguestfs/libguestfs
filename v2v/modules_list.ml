@@ -21,8 +21,8 @@ open Std_utils
 let input_modules = ref []
 and output_modules = ref []
 
-let register_input_module name = push_front name input_modules
-and register_output_module name = push_front name output_modules
+let register_input_module name = List.push_front name input_modules
+and register_output_module name = List.push_front name output_modules
 
 let input_modules () = List.sort compare !input_modules
 and output_modules () = List.sort compare !output_modules
@@ -36,7 +36,7 @@ type conversion_fn =
 let convert_modules = ref []
 
 let register_convert_module inspect_fn name conversion_fn =
-  push_front (inspect_fn, (name, conversion_fn)) convert_modules
+  List.push_front (inspect_fn, (name, conversion_fn)) convert_modules
 
 let find_convert_module inspect =
   let rec loop = function

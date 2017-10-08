@@ -121,7 +121,7 @@ let parse_libvirt_xml ?conn xml =
     let nr_nodes = Xml.xpathobj_nr_nodes obj in
     for i = 0 to nr_nodes-1 do
       let node = Xml.xpathobj_node obj i in
-      push_front (Xml.node_name node) features
+      List.push_front (Xml.node_name node) features
     done;
     !features in
 
@@ -252,7 +252,7 @@ let parse_libvirt_xml ?conn xml =
                             s_controller = controller };
           p_source = p_source
         } in
-        push_front disk disks
+        List.push_front disk disks
       in
       get_disks, add_disk
     in
@@ -403,7 +403,7 @@ let parse_libvirt_xml ?conn xml =
         { s_removable_type = typ;
           s_removable_controller = controller;
           s_removable_slot = slot } in
-      push_front disk disks
+      List.push_front disk disks
     done;
     List.rev !disks in
 
@@ -447,7 +447,7 @@ let parse_libvirt_xml ?conn xml =
              s_vnet_orig = vnet;
              s_vnet_type = vnet_type
            } in
-           push_front nic nics
+           List.push_front nic nics
          in
          match xpath_string "source/@network | source/@bridge" with
          | None -> ()

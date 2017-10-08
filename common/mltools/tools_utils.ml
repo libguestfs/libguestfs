@@ -286,7 +286,7 @@ let rec run_commands ?(echo_cmd = true) cmds =
           res.(i) <- code;
           None
     ) cmds in
-  let pids = filter_map identity pids in
+  let pids = List.filter_map identity pids in
   let pids = ref pids in
   while !pids <> [] do
     let pid, stat = Unix.waitpid [] 0 in

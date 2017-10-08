@@ -79,7 +79,7 @@ object
       let paths = Array.to_list paths in
 
       (* Remove duplicates. *)
-      let paths = remove_duplicates paths in
+      let paths = List.remove_duplicates paths in
 
       (* Get the default kernel from grub if it's set. *)
       let default =

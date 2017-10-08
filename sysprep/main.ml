@@ -58,7 +58,7 @@ let main () =
         with URI.Parse_failed ->
           error (f_"error parsing URI ‘%s’. Look for error messages printed above.") arg in
       let format = match !format with "auto" -> None | fmt -> Some fmt in
-      push_front (uri, format) files;
+      List.push_front (uri, format) files;
       format_consumed := true
     and set_domain dom =
       if !domain <> None then
@@ -203,7 +203,7 @@ read the man page virt-sysprep(1).
     let mount_opts = !mount_opts in
     let mount_opts =
       List.map (String.split ":") (String.nsplit ";" mount_opts) in
-    let mount_opts mp = assoc ~default:"" mp mount_opts in
+    let mount_opts mp = List.assoc_lbl ~default:"" mp mount_opts in
 
     message (f_"Examining the guest ...");
 

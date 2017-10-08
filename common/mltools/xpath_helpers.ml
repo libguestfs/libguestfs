@@ -46,6 +46,6 @@ let xpath_get_nodes xpathctx expr =
   let nodes = ref [] in
   for i = 0 to Xml.xpathobj_nr_nodes obj - 1 do
     let node = Xml.xpathobj_node obj i in
-    push_front node nodes
+    List.push_front node nodes
   done;
   List.rev !nodes

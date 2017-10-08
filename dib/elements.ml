@@ -82,7 +82,7 @@ let load_scripts (g : Guestfs.guestfs) path =
     | _ -> false
     ) listing in
   let scripts = List.filter (fun x -> valid_script_name x.Guestfs.name) scripts in
-  filter_map (
+  List.filter_map (
      fun x ->
        let { Guestfs.st_mode = mode } = g#statns (path ^ "/" ^ x.Guestfs.name) in
        if mode &^ 0o111_L > 0_L then Some x.Guestfs.name

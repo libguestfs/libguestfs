@@ -451,7 +451,7 @@ and do_fstrim g inspect =
   (* Get all filesystems. *)
   let fses = g#list_filesystems () in
 
-  let fses = filter_map (
+  let fses = List.filter_map (
     function (_, ("unknown"|"swap")) -> None | (dev, _) -> Some dev
   ) fses in
 
@@ -818,7 +818,7 @@ and rcaps_from_source source =
   let source_block_types =
     List.map (fun sd -> sd.s_controller) source.s_disks in
   let source_block_type =
-    match sort_uniq source_block_types with
+    match List.sort_uniq source_block_types with
     | [] -> error (f_"source has no hard disks!")
     | [t] -> t
     | _ -> error (f_"source has multiple hard disk types!") in
@@ -834,7 +834,7 @@ and rcaps_from_source source =
   let source_net_types =
       List.map (fun nic -> nic.s_nic_model) source.s_nics in
   let source_net_type =
-    match sort_uniq source_net_types with
+    match List.sort_uniq source_net_types with
     | [] -> None
     | [t] -> t
     | _ -> error (f_"source has multiple network adapter model!") in

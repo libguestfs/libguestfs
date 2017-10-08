@@ -55,7 +55,7 @@ let object_find_object key yv =
   | _ -> error (f_"the value for the key ‘%s’ is not an object") key
 
 let object_find_objects fn = function
-  | Yajl_object o -> filter_map fn (Array.to_list o)
+  | Yajl_object o -> List.filter_map fn (Array.to_list o)
   | _ -> error (f_"the value is not an object")
 
 let object_get_object key yv =

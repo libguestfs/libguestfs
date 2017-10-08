@@ -52,7 +52,7 @@ and check_fstab_aug mdadm_conf root_mountable os_type aug =
 
   let path = "/files/etc/fstab/*[label() != '#comment']" in
   let entries = aug_matches_noerrors aug path in
-  filter_map (check_fstab_entry md_map root_mountable os_type aug) entries
+  List.filter_map (check_fstab_entry md_map root_mountable os_type aug) entries
 
 and check_fstab_entry md_map root_mountable os_type aug entry =
   if verbose () then

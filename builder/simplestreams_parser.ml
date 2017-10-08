@@ -60,7 +60,7 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
         uri format;
 
     let index = Array.to_list (object_get_object "index" tree) in
-    filter_map (
+    List.filter_map (
       fun (_, desc) ->
         let format = object_get_string "format" desc in
         let datatype = object_get_string "datatype" desc in
@@ -81,11 +81,11 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
     let products_node = object_get_object "products" tree in
 
     let products = Array.to_list products_node in
-    filter_map (
+    List.filter_map (
       fun (prod, prod_desc) ->
         let arch = Index.Arch (object_get_string "arch" prod_desc) in
         let prods = Array.to_list (object_get_object "versions" prod_desc) in
-        let prods = filter_map (
+        let prods = List.filter_map (
           fun (rel, rel_desc) ->
             let pubname = objects_get_string "pubname" [rel_desc; prod_desc] in
             let items = object_find_object "items" rel_desc in
