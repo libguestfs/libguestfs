@@ -38,11 +38,6 @@ class virtual bootloader = object
   method update () = ()
 end
 
-(* Helper type used in detect_bootloader. *)
-type bootloader_type =
-  | Grub1
-  | Grub2
-
 (* Helper function for SUSE: remove (hdX,X) prefix from a path. *)
 let remove_hd_prefix =
   let rex = PCRE.compile "^\\(hd.*\\)" in
@@ -147,8 +142,9 @@ object
       List.exists (fun incl -> g#aug_get incl = grub_config) incls in
     if not incls_contains_conf then (
       g#aug_set "/augeas/load/Grub/incl[last()+1]" grub_config;
-      true;
-    ) else false
+      true
+    ) else
+      false
 
   method configure_console () =
     let rex = PCRE.compile "\\b([xh]vc0)\\b" in
@@ -228,43 +224,6 @@ class bootloader_grub2 (g : G.guestfs) grub_config =
 object (self)
   inherit bootloader
 
-  method private grub2_update_console ~remove () =
-    let rex = PCRE.compile "\\bconsole=[xh]vc0\\b" in
-
-    let paths = [
-      "/files/etc/sysconfig/grub/GRUB_CMDLINE_LINUX";
-      "/files/etc/default/grub/GRUB_CMDLINE_LINUX";
-      "/files/etc/default/grub/GRUB_CMDLINE_LINUX_DEFAULT"
-    ] in
-    let paths = List.map g#aug_match paths in
-    let paths = List.map Array.to_list paths in
-    let paths = List.flatten paths in
-    (match paths with
-    | [] ->
-      if not remove then
-        warning (f_"could not add grub2 serial console (ignored)")
-      else
-        warning (f_"could not remove grub2 serial console (ignored)")
-    | path :: _ ->
-      let grub_cmdline = g#aug_get path in
-      if PCRE.matches rex grub_cmdline then (
-        let new_grub_cmdline =
-          if not remove then
-            PCRE.replace ~global:true rex "console=ttyS0" grub_cmdline
-          else
-            PCRE.replace ~global:true rex "" grub_cmdline in
-        g#aug_set path new_grub_cmdline;
-        g#aug_save ();
-
-        try
-          ignore (g#command [| grub2_mkconfig_cmd; "-o"; grub_config |])
-        with
-          G.Error msg ->
-            warning (f_"could not rebuild grub2 configuration file (%s).  This may mean that grub output will not be sent to the serial port, but otherwise should be harmless.  Original error message: %s")
-              grub_config msg
-      )
-    )
-
   method name = "grub2"
 
   method augeas_device_patterns = [
@@ -338,6 +297,42 @@ object (self)
       ignore (g#command cmd)
     | MethodNone -> ()
 
+  method private grub2_update_console ~remove () =
+    let rex = PCRE.compile "\\bconsole=[xh]vc0\\b" in
+
+    let paths = [
+      "/files/etc/sysconfig/grub/GRUB_CMDLINE_LINUX";
+      "/files/etc/default/grub/GRUB_CMDLINE_LINUX";
+      "/files/etc/default/grub/GRUB_CMDLINE_LINUX_DEFAULT"
+    ] in
+    let paths = List.map g#aug_match paths in
+    let paths = List.map Array.to_list paths in
+    let paths = List.flatten paths in
+    match paths with
+    | [] ->
+      if not remove then
+        warning (f_"could not add grub2 serial console (ignored)")
+      else
+        warning (f_"could not remove grub2 serial console (ignored)")
+    | path :: _ ->
+      let grub_cmdline = g#aug_get path in
+      if PCRE.matches rex grub_cmdline then (
+        let new_grub_cmdline =
+          if not remove then
+            PCRE.replace ~global:true rex "console=ttyS0" grub_cmdline
+          else
+            PCRE.replace ~global:true rex "" grub_cmdline in
+        g#aug_set path new_grub_cmdline;
+        g#aug_save ();
+
+        try
+          ignore (g#command [| grub2_mkconfig_cmd; "-o"; grub_config |])
+        with
+          G.Error msg ->
+            warning (f_"could not rebuild grub2 configuration file (%s).  This may mean that grub output will not be sent to the serial port, but otherwise should be harmless.  Original error message: %s")
+              grub_config msg
+      )
+
   method configure_console = self#grub2_update_console ~remove:false
 
   method remove_console = self#grub2_update_console ~remove:true
@@ -345,6 +340,11 @@ object (self)
   method update () =
     ignore (g#command [| grub2_mkconfig_cmd; "-o"; grub_config |])
 end
+
+(* Helper type used in detect_bootloader. *)
+type bootloader_type =
+  | Grub1
+  | Grub2
 
 let detect_bootloader (g : G.guestfs) inspect =
   (* Where to start searching for bootloaders. *)
@@ -385,8 +385,8 @@ let detect_bootloader (g : G.guestfs) inspect =
     loop paths in
 
   let bl =
-    (match typ with
-     | Grub1 -> new bootloader_grub1 g inspect grub_config
-     | Grub2 -> new bootloader_grub2 g grub_config) in
+    match typ with
+    | Grub1 -> new bootloader_grub1 g inspect grub_config
+    | Grub2 -> new bootloader_grub2 g grub_config in
   debug "detected bootloader %s at %s" bl#name grub_config;
   bl

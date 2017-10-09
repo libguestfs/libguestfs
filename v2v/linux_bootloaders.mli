@@ -18,24 +18,32 @@
 
 class virtual bootloader : object
   method virtual name : string
-  (** The name of the bootloader. *)
+  (** The name of the bootloader, for debugging messages. *)
+
   method virtual augeas_device_patterns : string list
-  (** A list of Augeas patterns to search for device names. *)
+  (** A list of Augeas patterns to search for device names when we
+      need to rewrite device names (eg. [/dev/hda] to [/dev/vda]). *)
+
   method virtual list_kernels : string list
   (** Lists all the kernels configured in the bootloader. *)
+
   method virtual set_default_kernel : string -> unit
   (** Sets the specified vmlinuz path as default bootloader entry. *)
-  method set_augeas_configuration : unit -> bool
-  (** Checks whether Augeas is reading the configuration file
-      of the bootloader, and if not then add it.
 
-      Returns whether Augeas needs to be reloaded. *)
+  method set_augeas_configuration : unit -> bool
+  (** Checks whether the bootloader configuration file is included
+      in Augeas load list, and if it is not, then include it.
+
+      Returns true if Augeas needs to be reloaded. *)
+
   method virtual configure_console : unit -> unit
-  (** Sets up the console for the available kernels. *)
   method virtual remove_console : unit -> unit
-  (** Removes the console in all the available kernels. *)
+  (** Adds or removes a serial console to all the available kernels. *)
+
   method update : unit -> unit
-  (** Update the bootloader. *)
+  (** Update the bootloader: For grub2 only this runs the
+      [grub2-mkconfig] command to rebuild the configuration.  This
+      is not necessary for grub-legacy. *)
 end
 (** Encapsulates a Linux boot loader as object. *)
 
