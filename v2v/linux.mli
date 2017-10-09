@@ -18,10 +18,9 @@
 
 (** Common Linux functions. *)
 
-val augeas_init : Guestfs.guestfs -> unit
 val augeas_reload : Guestfs.guestfs -> unit
-(** Wrappers around [g#aug_init] and [g#aug_load], which (if verbose)
-    provide additional debugging information about parsing problems
+(** Wrapper around [g#aug_load], which (if verbose) provides
+    additional debugging information about parsing problems
     that augeas found. *)
 
 val remove : Guestfs.guestfs -> Types.inspect -> string list -> unit

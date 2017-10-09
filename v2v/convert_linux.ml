@@ -55,8 +55,12 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
 
   assert (inspect.i_package_format = "rpm" || inspect.i_package_format = "deb");
 
-  (* We use Augeas for inspection and conversion, so initialize it early. *)
-  Linux.augeas_init g;
+  (* We use Augeas for inspection and conversion, so initialize it early.
+   * Calling debug_augeas_errors will display any //error nodes in
+   * debugging output if verbose (but otherwise it does nothing).
+   *)
+  g#aug_init "/" 1;
+  debug_augeas_errors g;
 
   (* Clean RPM database.  This must be done early to avoid RHBZ#1143866. *)
   Array.iter g#rm_f (g#glob_expand "/var/lib/rpm/__db.00?");

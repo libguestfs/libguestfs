@@ -26,14 +26,7 @@ open Utils
 
 module G = Guestfs
 
-(* Wrappers around aug_init & aug_load which can dump out full Augeas
- * parsing problems when debugging is enabled.
- *)
-let rec augeas_init g =
-  g#aug_init "/" 1;
-  debug_augeas_errors g
-
-and augeas_reload g =
+let augeas_reload g =
   g#aug_load ();
   debug_augeas_errors g
 
