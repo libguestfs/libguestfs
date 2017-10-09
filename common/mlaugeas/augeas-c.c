@@ -29,6 +29,30 @@
 #include <caml/callback.h>
 #include <caml/custom.h>
 
+#ifdef __GNUC__
+  #define NORETURN __attribute__ ((noreturn))
+#else
+  #define NORETURN
+#endif
+
+extern CAMLprim value ocaml_augeas_create (value rootv, value loadpathv, value flagsv);
+extern CAMLprim value ocaml_augeas_close (value tv);
+extern CAMLprim value ocaml_augeas_get (value tv, value pathv);
+extern CAMLprim value ocaml_augeas_exists (value tv, value pathv);
+extern CAMLprim value ocaml_augeas_insert (value tv, value beforev, value pathv, value labelv);
+extern CAMLprim value ocaml_augeas_rm (value tv, value pathv);
+extern CAMLprim value ocaml_augeas_match (value tv, value pathv);
+extern CAMLprim value ocaml_augeas_count_matches (value tv, value pathv);
+extern CAMLprim value ocaml_augeas_save (value tv);
+extern CAMLprim value ocaml_augeas_load (value tv);
+extern CAMLprim value ocaml_augeas_set (value tv, value pathv, value valuev);
+extern CAMLprim value ocaml_augeas_transform (value tv, value lensv, value filev, value modev);
+extern CAMLprim value ocaml_augeas_source (value tv, value pathv)
+#ifndef HAVE_AUG_SOURCE
+  NORETURN
+#endif
+;
+
 typedef augeas *augeas_t;
 
 /* Map C aug_errcode_t to OCaml error_code. */
@@ -127,7 +151,8 @@ static struct custom_operations custom_operations = {
   custom_compare_default,
   custom_hash_default,
   custom_serialize_default,
-  custom_deserialize_default
+  custom_deserialize_default,
+  custom_compare_ext_default,
 };
 
 static value Val_augeas_t (augeas_t t)
