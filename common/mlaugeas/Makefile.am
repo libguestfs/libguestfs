@@ -53,7 +53,7 @@ libmlaugeas_a_CPPFLAGS = \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where)
 libmlaugeas_a_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(WARN_CFLAGS) $(NO_SNV_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
 	-fPIC
 

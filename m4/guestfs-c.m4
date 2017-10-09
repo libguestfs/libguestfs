@@ -105,6 +105,12 @@ gl_WARN_ADD([-Wformat-truncation=1])
 
 AC_SUBST([WARN_CFLAGS])
 
+NO_SNV_CFLAGS=
+gl_COMPILER_OPTION_IF([-Wno-shift-negative-value],[
+    NO_SNV_CFLAGS="-Wno-shift-negative-value"
+])
+AC_SUBST([NO_SNV_CFLAGS])
+
 AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
 AC_DEFINE([GNULIB_PORTCHECK], [1], [Enable some gnulib portability checks.])
 AH_VERBATIM([FORTIFY_SOURCE],[
