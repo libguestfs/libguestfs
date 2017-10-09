@@ -357,9 +357,9 @@ guestfs_int_mllib_statvfs_is_network_filesystem (value pathv)
 #define SMB_SUPER_MAGIC 0x517b
 #endif
 
-  return Val_bool (buf.f_type == CIFS_MAGIC_NUMBER ||
-                   buf.f_type == NFS_SUPER_MAGIC ||
-                   buf.f_type == SMB_SUPER_MAGIC);
+  return Val_bool ((unsigned int) buf.f_type == CIFS_MAGIC_NUMBER ||
+                   (unsigned int) buf.f_type == NFS_SUPER_MAGIC ||
+                   (unsigned int) buf.f_type == SMB_SUPER_MAGIC);
 #else
   return Val_bool (0);
 #endif
