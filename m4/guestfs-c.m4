@@ -111,6 +111,12 @@ gl_COMPILER_OPTION_IF([-Wno-shift-negative-value],[
 ])
 AC_SUBST([NO_SNV_CFLAGS])
 
+NO_UM_CFLAGS=
+gl_COMPILER_OPTION_IF([-Wno-unused-macros],[
+    NO_UM_CFLAGS="-Wno-unused-macros"
+])
+AC_SUBST([NO_UM_CFLAGS])
+
 AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
 AC_DEFINE([GNULIB_PORTCHECK], [1], [Enable some gnulib portability checks.])
 AH_VERBATIM([FORTIFY_SOURCE],[
