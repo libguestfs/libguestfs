@@ -49,7 +49,8 @@ static struct custom_operations docptr_custom_operations = {
   custom_compare_default,
   custom_hash_default,
   custom_serialize_default,
-  custom_deserialize_default
+  custom_deserialize_default,
+  custom_compare_ext_default,
 };
 
 value
@@ -71,7 +72,8 @@ static struct custom_operations xpathctxptr_custom_operations = {
   custom_compare_default,
   custom_hash_default,
   custom_serialize_default,
-  custom_deserialize_default
+  custom_deserialize_default,
+  custom_compare_ext_default,
 };
 
 value
@@ -93,7 +95,8 @@ static struct custom_operations xpathobjptr_custom_operations = {
   custom_compare_default,
   custom_hash_default,
   custom_serialize_default,
-  custom_deserialize_default
+  custom_deserialize_default,
+  custom_compare_ext_default,
 };
 
 value

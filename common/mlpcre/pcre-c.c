@@ -97,7 +97,8 @@ static struct custom_operations custom_operations = {
   custom_compare_default,
   custom_hash_default,
   custom_serialize_default,
-  custom_deserialize_default
+  custom_deserialize_default,
+  custom_compare_ext_default,
 };
 
 static value
