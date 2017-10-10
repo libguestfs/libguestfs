@@ -116,7 +116,7 @@ virt tools which are still written in Perl.
 
 I<Required>.  Part of Perl core.
 
-=item OCaml E<ge> 4.02
+=item OCaml E<ge> 4.01
 
 =item OCaml findlib
 
