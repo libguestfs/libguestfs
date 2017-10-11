@@ -151,6 +151,7 @@ if test "$guestfs_verbose" = 1 && test "$guestfs_boot_analysis" != 1; then
     lvm lvs
     ip a
     ip r
+    cat /etc/resolv.conf
     lsmod
     #hwclock -r
     date
