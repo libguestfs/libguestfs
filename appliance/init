@@ -74,6 +74,8 @@ fi
 mount -t devtmpfs /dev /dev
 mkdir -p /dev/pts
 mount -t devpts /dev/pts /dev/pts
+mkdir -p /dev/shm
+mount -t tmpfs -o mode=1777 shmfs /dev/shm
 
 if [[ $cmdline == *selinux=1* ]]; then
   mount -t selinuxfs none /sys/fs/selinux
