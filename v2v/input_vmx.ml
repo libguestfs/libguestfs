@@ -34,7 +34,8 @@ let rec find_disks vmx vmx_filename =
  *
  * In the VMX file:
  *   scsi0.virtualDev = "pvscsi"  # or may be "lsilogic" etc.
- *   scsi0:0.deviceType = "scsi-hardDisk"
+ *   scsi0:0.deviceType = "disk" | "plainDisk" | "rawDisk" | "scsi-hardDisk"
+ *                        | omitted
  *   scsi0:0.fileName = "guest.vmdk"
  *)
 and find_scsi_disks vmx vmx_filename =
@@ -45,7 +46,8 @@ and find_scsi_disks vmx vmx_filename =
     try ignore (get_scsi_controller_target ns); true
     with Scanf.Scan_failure _ | End_of_file | Failure _ -> false
   in
-  let scsi_device_types = [ "scsi-harddisk" ] in
+  let scsi_device_types = [ Some "disk"; Some "plaindisk"; Some "rawdisk";
+                            Some "scsi-harddisk"; None ] in
   let scsi_controller = Source_SCSI in
 
   find_hdds vmx vmx_filename
@@ -66,7 +68,7 @@ and find_ide_disks vmx vmx_filename =
     try ignore (get_ide_controller_target ns); true
     with Scanf.Scan_failure _ | End_of_file | Failure _ -> false
   in
-  let ide_device_types = [ "ata-harddisk" ] in
+  let ide_device_types = [ Some "ata-harddisk" ] in
   let ide_controller = Source_IDE in
 
   find_hdds vmx vmx_filename
@@ -85,11 +87,9 @@ and find_hdds vmx vmx_filename
          if not (is_controller_target ns) then false
          else (
            (* Check the deviceType is one we are looking for. *)
-           match Parse_vmx.get_string vmx [ns; "deviceType"] with
-           | Some str ->
-              let str = String.lowercase_ascii str in
-              List.mem str device_types
-           | None -> false
+           let dt = Parse_vmx.get_string vmx [ns; "deviceType"] in
+           let dt = Option.map String.lowercase_ascii dt in
+           List.mem dt device_types
          )
       | _ -> false
     ) vmx in
