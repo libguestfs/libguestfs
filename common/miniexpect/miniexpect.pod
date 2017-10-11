@@ -177,6 +177,18 @@ returned by L<pcre_exec(3)>, and so you can call it like this:
 
 =back
 
+B<void mexp_set_debug_file (mexp *h, FILE *fp);>
+
+B<FILE *mexp_get_debug_file (mexp *h);>
+
+Set or get the debug file of the handle.  To enable debugging, pass a
+non-C<NULL> file handle, eg. C<stderr>.  To disable debugging, pass
+C<NULL>.  Debugging messages are printed on the file handle.
+
+Note that all output and input gets printed, including passwords.  To
+prevent passwords from being printed, modify your code to call
+C<mexp_printf_password> instead of C<mexp_printf>.
+
 The following fields in the handle do not have methods, but can be
 accessed directly instead:
 
@@ -415,6 +427,8 @@ However we also provide a convenience function:
 
 B<int mexp_printf (mexp_h *h, const char *fs, ...);>
 
+B<int mexp_printf_password (mexp_h *h, const char *fs, ...);>
+
 This returns the number of bytes, if the whole message was written OK.
 If there was an error, -1 is returned and the error is available in
 C<errno>.
@@ -434,6 +448,13 @@ This function does not write a newline automatically.  If you want to
 send a command followed by a newline you have to do something like:
 
  mexp_printf (h, "exit\n");
+
+=item *
+
+C<mexp_printf_password> works identically to C<mexp_printf> except
+that the output is I<not> sent to the debugging file if debugging is
+enabled.  As the name suggests, use this for passwords so that they
+don't appear in debugging output.
 
 =back
 
