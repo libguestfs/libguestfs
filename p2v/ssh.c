@@ -775,8 +775,8 @@ test_connection (struct config *config)
     switch (mexp_expect (h,
                          (mexp_regexp[]) {
                            { 100, .re = version_re },
-                           { 101, .re = prompt_re },
-                           { 102, .re = sudo_password_re },
+                           { 101, .re = sudo_password_re },
+                           { 102, .re = prompt_re },
                            { 0 }
                          }, ovector, ovecsize)) {
     case 100:                   /* Got version string. */
@@ -788,14 +788,14 @@ test_connection (struct config *config)
 #endif
       break;
 
-    case 101:             /* Got the prompt. */
-      goto end_of_version;
-
-    case 102:
+    case 101:
       set_ssh_error ("sudo for user \"%s\" requires a password.  Edit /etc/sudoers on the conversion server to ensure the \"NOPASSWD:\" option is set for this user.",
                      config->username);
       mexp_close (h);
       return -1;
+
+    case 102:             /* Got the prompt. */
+      goto end_of_version;
 
     case MEXP_EOF:
       set_ssh_unexpected_eof ("\"virt-v2v --version\" output");
