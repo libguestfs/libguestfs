@@ -1,0 +1,22 @@
+
+Source guest information (--print-source option):
+
+    source name: MSEdge - Win10_preview
+hypervisor type: vmware
+         memory: 2147483648 (bytes)
+       nr vCPUs: 1
+     CPU vendor: 
+      CPU model: 
+   CPU topology: sockets: 1 cores/socket: 1 threads/core: -
+   CPU features: 
+       firmware: bios
+        display: 
+          video: 
+          sound: 
+disks:
+	/MSEdge - Win10_preview.vmdk (vmdk) [scsi]
+removable media:
+
+NICs:
+	Bridge "ethernet0" mac: 00:0c:29:bf:e4:5d [e1000e]
+

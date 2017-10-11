@@ -29,7 +29,7 @@ export VIRTIO_WIN="$top_srcdir/test-data/fake-virtio-win"
 
 rm -f test-v2v-i-vmx-*.actual
 
-for i in 1 2 3 4; do
+for i in 1 2 3 4 5; do
     $VG virt-v2v --debug-gc \
         -i vmx test-v2v-i-vmx-$i.vmx \
         --print-source > test-v2v-i-vmx-$i.actual
