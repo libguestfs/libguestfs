@@ -392,6 +392,9 @@ start_ssh (unsigned spawn_flags, struct config *config,
     set_ssh_internal_error ("ssh: mexp_spawnvf: %m");
     return NULL;
   }
+#if DEBUG_STDERR
+  mexp_set_debug_file (h, stderr);
+#endif
 
   /* We want the ssh ConnectTimeout to be less than the miniexpect
    * timeout, so that if the server is completely unresponsive we
@@ -414,7 +417,8 @@ start_ssh (unsigned spawn_flags, struct config *config,
                            { 0 }
                          }, ovector, ovecsize)) {
     case 100:                   /* Got password prompt. */
-      if (mexp_printf (h, "%s\n", config->password) == -1) {
+      if (mexp_printf_password (h, "%s", config->password) == -1 ||
+          mexp_printf (h, "\n") == -1) {
         set_ssh_mexp_error ("mexp_printf");
         mexp_close (h);
         return NULL;
@@ -658,6 +662,9 @@ scp_file (struct config *config, const char *target, const char *local, ...)
     set_ssh_internal_error ("scp: mexp_spawnv: %m");
     return -1;
   }
+#if DEBUG_STDERR
+  mexp_set_debug_file (h, stderr);
+#endif
 
   /* We want the ssh ConnectTimeout to be less than the miniexpect
    * timeout, so that if the server is completely unresponsive we
@@ -680,7 +687,8 @@ scp_file (struct config *config, const char *target, const char *local, ...)
                            { 0 }
                          }, ovector, ovecsize)) {
     case 100:                   /* Got password prompt. */
-      if (mexp_printf (h, "%s\n", config->password) == -1) {
+      if (mexp_printf_password (h, "%s", config->password) == -1 ||
+          mexp_printf (h, "\n") == -1) {
         set_ssh_mexp_error ("mexp_printf");
         mexp_close (h);
         return -1;
