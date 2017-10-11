@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <ctype.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <signal.h>
@@ -45,7 +46,7 @@
 
 #include "miniexpect.h"
 
-#define DEBUG 0
+static void debug_buffer (FILE *, const char *);
 
 static mexp_h *
 create_handle (void)
@@ -63,6 +64,7 @@ create_handle (void)
   h->buffer = NULL;
   h->len = h->alloc = 0;
   h->next_match = -1;
+  h->debug_fp = NULL;
   h->user1 = h->user2 = h->user3 = NULL;
 
   return h;
@@ -291,9 +293,8 @@ mexp_expect (mexp_h *h, const mexp_regexp *regexps, int *ovector, int ovecsize)
     pfds[0].events = POLLIN;
     pfds[0].revents = 0;
     r = poll (pfds, 1, timeout);
-#if DEBUG
-    fprintf (stderr, "DEBUG: poll returned %d\n", r);
-#endif
+    if (h->debug_fp)
+      fprintf (h->debug_fp, "DEBUG: poll returned %d\n", r);
     if (r == -1)
       return MEXP_ERROR;
 
@@ -313,9 +314,8 @@ mexp_expect (mexp_h *h, const mexp_regexp *regexps, int *ovector, int ovecsize)
       h->alloc += h->read_size;
     }
     rs = read (h->fd, h->buffer + h->len, h->read_size);
-#if DEBUG
-    fprintf (stderr, "DEBUG: read returned %zd\n", rs);
-#endif
+    if (h->debug_fp)
+      fprintf (h->debug_fp, "DEBUG: read returned %zd\n", rs);
     if (rs == -1) {
       /* Annoyingly on Linux (I'm fairly sure this is a bug) if the
        * writer closes the connection, the entire pty is destroyed,
@@ -331,10 +331,12 @@ mexp_expect (mexp_h *h, const mexp_regexp *regexps, int *ovector, int ovecsize)
     /* We read something. */
     h->len += rs;
     h->buffer[h->len] = '\0';
-#if DEBUG
-    fprintf (stderr, "DEBUG: read %zd bytes from pty\n", rs);
-    fprintf (stderr, "DEBUG: buffer content: %s\n", h->buffer);
-#endif
+    if (h->debug_fp) {
+      fprintf (h->debug_fp, "DEBUG: read %zd bytes from pty\n", rs);
+      fprintf (h->debug_fp, "DEBUG: buffer content: ");
+      debug_buffer (h->debug_fp, h->buffer);
+      fprintf (h->debug_fp, "\n");
+    }
 
   try_match:
     /* See if there is a full or partial match against any regexp. */
@@ -388,26 +390,32 @@ mexp_expect (mexp_h *h, const mexp_regexp *regexps, int *ovector, int ovecsize)
   }
 }
 
-int
-mexp_printf (mexp_h *h, const char *fs, ...)
+static int mexp_vprintf (mexp_h *h, int password, const char *fs, va_list args)
+  __attribute__((format(printf,3,0)));
+
+static int
+mexp_vprintf (mexp_h *h, int password, const char *fs, va_list args)
 {
-  va_list args;
   char *msg;
   int len;
   size_t n;
   ssize_t r;
   char *p;
 
-  va_start (args, fs);
   len = vasprintf (&msg, fs, args);
-  va_end (args);
 
   if (len < 0)
     return -1;
 
-#if DEBUG
-  fprintf (stderr, "DEBUG: writing: %s\n", msg);
-#endif
+  if (h->debug_fp) {
+    if (!password) {
+      fprintf (h->debug_fp, "DEBUG: writing: ");
+      debug_buffer (h->debug_fp, msg);
+      fprintf (h->debug_fp, "\n");
+    }
+    else
+      fprintf (h->debug_fp, "DEBUG: writing the password\n");
+  }
 
   n = len;
   p = msg;
@@ -426,7 +434,56 @@ mexp_printf (mexp_h *h, const char *fs, ...)
 }
 
 int
+mexp_printf (mexp_h *h, const char *fs, ...)
+{
+  int r;
+  va_list args;
+
+  va_start (args, fs);
+  r = mexp_vprintf (h, 0, fs, args);
+  va_end (args);
+  return r;
+}
+
+int
+mexp_printf_password (mexp_h *h, const char *fs, ...)
+{
+  int r;
+  va_list args;
+
+  va_start (args, fs);
+  r = mexp_vprintf (h, 1, fs, args);
+  va_end (args);
+  return r;
+}
+
+int
 mexp_send_interrupt (mexp_h *h)
 {
   return write (h->fd, "\003", 1);
+}
+
+/* Print escaped buffer to fp. */
+static void
+debug_buffer (FILE *fp, const char *buf)
+{
+  while (*buf) {
+    if (isprint (*buf))
+      fputc (*buf, fp);
+    else {
+      switch (*buf) {
+      case '\0': fputs ("\\0", fp); break;
+      case '\a': fputs ("\\a", fp); break;
+      case '\b': fputs ("\\b", fp); break;
+      case '\f': fputs ("\\f", fp); break;
+      case '\n': fputs ("\\n", fp); break;
+      case '\r': fputs ("\\r", fp); break;
+      case '\t': fputs ("\\t", fp); break;
+      case '\v': fputs ("\\v", fp); break;
+      default:
+        fprintf (fp, "\\x%x", (unsigned char) *buf);
+      }
+    }
+    buf++;
+  }
 }

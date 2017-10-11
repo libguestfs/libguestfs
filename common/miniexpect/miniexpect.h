@@ -29,6 +29,7 @@
 #ifndef MINIEXPECT_H_
 #define MINIEXPECT_H_
 
+#include <stdio.h>
 #include <unistd.h>
 
 #include <pcre.h>
@@ -44,6 +45,7 @@ struct mexp_h {
   ssize_t next_match;
   size_t read_size;
   int pcre_error;
+  FILE *debug_fp;
   void *user1;
   void *user2;
   void *user3;
@@ -62,6 +64,8 @@ typedef struct mexp_h mexp_h;
 #define mexp_get_read_size(h) ((h)->read_size)
 #define mexp_set_read_size(h, size) ((h)->read_size = (size))
 #define mexp_get_pcre_error(h) ((h)->pcre_error)
+#define mexp_set_debug_file(h, fp) ((h)->debug_fp = (fp))
+#define mexp_get_debug_file(h) ((h)->debug_fp)
 
 /* Spawn a subprocess. */
 extern mexp_h *mexp_spawnvf (unsigned flags, const char *file, char **argv);
@@ -98,6 +102,8 @@ extern int mexp_expect (mexp_h *h, const mexp_regexp *regexps,
 
 /* Sending commands, keypresses. */
 extern int mexp_printf (mexp_h *h, const char *fs, ...)
+  __attribute__((format(printf,2,3)));
+extern int mexp_printf_password (mexp_h *h, const char *fs, ...)
   __attribute__((format(printf,2,3)));
 extern int mexp_send_interrupt (mexp_h *h);
 
