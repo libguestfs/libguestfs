@@ -226,6 +226,10 @@ Mandriva.
 
 MeeGo.
 
+=item \"neokylin\"
+
+NeoKylin.
+
 =item \"netbsd\"
 
 NetBSD.

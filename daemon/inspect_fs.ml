@@ -253,6 +253,7 @@ and check_package_format { distro } =
   | Some DISTRO_MAGEIA
   | Some DISTRO_MANDRIVA
   | Some DISTRO_MEEGO
+  | Some DISTRO_NEOKYLIN
   | Some DISTRO_OPENSUSE
   | Some DISTRO_ORACLE_LINUX
   | Some DISTRO_REDHAT_BASED
@@ -306,6 +307,12 @@ and check_package_management { distro; version } =
      else
        (* Probably parsing the release file failed, see RHBZ#1332025. *)
        None
+
+  | Some DISTRO_NEOKYLIN ->
+     (* We don't have access to NeoKylin for testing, but it is
+      * supposed to be a Fedora derivative.
+      *)
+     Some PACKAGE_MANAGEMENT_DNF
 
   | Some DISTRO_CENTOS
   | Some DISTRO_ORACLE_LINUX

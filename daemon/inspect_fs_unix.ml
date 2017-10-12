@@ -53,6 +53,7 @@ let re_minix = PCRE.compile "^(\\d+)\\.(\\d+)(\\.(\\d+))?"
 let re_openbsd = PCRE.compile "^OpenBSD (\\d+|\\?)\\.(\\d+|\\?)"
 let re_frugalware = PCRE.compile "Frugalware (\\d+)\\.(\\d+)"
 let re_pldlinux = PCRE.compile "(\\d+)\\.(\\d+) PLD Linux"
+let re_neokylin_version = PCRE.compile "^V(\\d+)Update(\\d+)$"
 
 let arch_binaries =
   [ "/bin/bash"; "/bin/ls"; "/bin/echo"; "/bin/rm"; "/bin/sh" ]
@@ -94,7 +95,7 @@ let rec parse_os_release release_file data =
            else if key = "PRETTY_NAME" then
              data.product_name <- Some value
            else if key = "VERSION_ID" then
-             parse_version_from_major_minor value data
+             parse_os_release_version_id value data
          )
        ) lines;
 
@@ -124,6 +125,18 @@ let rec parse_os_release release_file data =
        | _ -> true
      )
 
+and parse_os_release_version_id value data =
+  (* NeoKylin uses a non-standard format in the VERSION_ID
+   * field (RHBZ#1476081).
+   *)
+  if PCRE.matches re_neokylin_version value then (
+    let major = int_of_string (PCRE.sub 1)
+    and minor = int_of_string (PCRE.sub 2) in
+    data.version <- Some (major, minor)
+  )
+  else
+    parse_version_from_major_minor value data
+
 (* ID="fedora" => Some DISTRO_FEDORA *)
 and distro_of_os_release_id = function
   | "alpine" -> Some DISTRO_ALPINE_LINUX
@@ -135,6 +148,7 @@ and distro_of_os_release_id = function
   | "fedora" -> Some DISTRO_FEDORA
   | "frugalware" -> Some DISTRO_FRUGALWARE
   | "mageia" -> Some DISTRO_MAGEIA
+  | "neokylin" -> Some DISTRO_NEOKYLIN
   | "opensuse" -> Some DISTRO_OPENSUSE
   | "pld" -> Some DISTRO_PLD_LINUX
   | "rhel" -> Some DISTRO_RHEL
