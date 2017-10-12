@@ -247,23 +247,23 @@ and is_symlink_to file wanted_target =
 and check_package_format { distro } =
   match distro with
   | None -> None
+  | Some DISTRO_ALTLINUX
+  | Some DISTRO_CENTOS
   | Some DISTRO_FEDORA
-  | Some DISTRO_MEEGO
-  | Some DISTRO_REDHAT_BASED
-  | Some DISTRO_RHEL
   | Some DISTRO_MAGEIA
   | Some DISTRO_MANDRIVA
-  | Some DISTRO_SUSE_BASED
+  | Some DISTRO_MEEGO
   | Some DISTRO_OPENSUSE
-  | Some DISTRO_SLES
-  | Some DISTRO_CENTOS
-  | Some DISTRO_SCIENTIFIC_LINUX
   | Some DISTRO_ORACLE_LINUX
-  | Some DISTRO_ALTLINUX ->
+  | Some DISTRO_REDHAT_BASED
+  | Some DISTRO_RHEL
+  | Some DISTRO_SCIENTIFIC_LINUX
+  | Some DISTRO_SLES
+  | Some DISTRO_SUSE_BASED ->
      Some PACKAGE_FORMAT_RPM
   | Some DISTRO_DEBIAN
-  | Some DISTRO_UBUNTU
-  | Some DISTRO_LINUX_MINT ->
+  | Some DISTRO_LINUX_MINT
+  | Some DISTRO_UBUNTU ->
      Some PACKAGE_FORMAT_DEB
   | Some DISTRO_ARCHLINUX ->
      Some PACKAGE_FORMAT_PACMAN
@@ -275,18 +275,18 @@ and check_package_format { distro } =
      Some PACKAGE_FORMAT_APK
   | Some DISTRO_VOID_LINUX ->
      Some PACKAGE_FORMAT_XBPS
-  | Some DISTRO_SLACKWARE
-  | Some DISTRO_TTYLINUX
-  | Some DISTRO_COREOS
-  | Some DISTRO_WINDOWS
   | Some DISTRO_BUILDROOT
   | Some DISTRO_CIRROS
-  | Some DISTRO_FREEDOS
+  | Some DISTRO_COREOS
   | Some DISTRO_FREEBSD
+  | Some DISTRO_FREEDOS
+  | Some DISTRO_FRUGALWARE
   | Some DISTRO_NETBSD
   | Some DISTRO_OPENBSD
-  | Some DISTRO_FRUGALWARE
-  | Some DISTRO_PLD_LINUX ->
+  | Some DISTRO_PLD_LINUX
+  | Some DISTRO_SLACKWARE
+  | Some DISTRO_TTYLINUX
+  | Some DISTRO_WINDOWS ->
      None
 
 and check_package_management { distro; version } =
@@ -307,11 +307,11 @@ and check_package_management { distro; version } =
        (* Probably parsing the release file failed, see RHBZ#1332025. *)
        None
 
+  | Some DISTRO_CENTOS
+  | Some DISTRO_ORACLE_LINUX
   | Some DISTRO_REDHAT_BASED
   | Some DISTRO_RHEL
-  | Some DISTRO_CENTOS
-  | Some DISTRO_SCIENTIFIC_LINUX
-  | Some DISTRO_ORACLE_LINUX ->
+  | Some DISTRO_SCIENTIFIC_LINUX ->
      if major >= 8 then
        Some PACKAGE_MANAGEMENT_DNF
      else if major >= 5 then
@@ -322,10 +322,10 @@ and check_package_management { distro; version } =
        (* Probably parsing the release file failed, see RHBZ#1332025. *)
        None
 
+  | Some DISTRO_ALTLINUX
   | Some DISTRO_DEBIAN
-  | Some DISTRO_UBUNTU
   | Some DISTRO_LINUX_MINT
-  | Some DISTRO_ALTLINUX ->
+  | Some DISTRO_UBUNTU ->
      Some PACKAGE_MANAGEMENT_APT
 
   | Some DISTRO_ARCHLINUX ->
@@ -341,9 +341,9 @@ and check_package_management { distro; version } =
   | Some DISTRO_MANDRIVA ->
      Some PACKAGE_MANAGEMENT_URPMI
 
-  | Some DISTRO_SUSE_BASED
   | Some DISTRO_OPENSUSE
-  | Some DISTRO_SLES ->
+  | Some DISTRO_SLES
+  | Some DISTRO_SUSE_BASED ->
      Some PACKAGE_MANAGEMENT_ZYPPER
 
   | Some DISTRO_ALPINE_LINUX ->
@@ -352,17 +352,17 @@ and check_package_management { distro; version } =
   | Some DISTRO_VOID_LINUX ->
      Some PACKAGE_MANAGEMENT_XBPS;
 
-  | Some DISTRO_SLACKWARE
-  | Some DISTRO_TTYLINUX
-  | Some DISTRO_COREOS
-  | Some DISTRO_WINDOWS
   | Some DISTRO_BUILDROOT
   | Some DISTRO_CIRROS
-  | Some DISTRO_FREEDOS
+  | Some DISTRO_COREOS
   | Some DISTRO_FREEBSD
+  | Some DISTRO_FREEDOS
+  | Some DISTRO_FRUGALWARE
   | Some DISTRO_NETBSD
   | Some DISTRO_OPENBSD
-  | Some DISTRO_FRUGALWARE
-  | Some DISTRO_PLD_LINUX ->
+  | Some DISTRO_PLD_LINUX
+  | Some DISTRO_SLACKWARE
+  | Some DISTRO_TTYLINUX
+  | Some DISTRO_WINDOWS ->
     None
 
