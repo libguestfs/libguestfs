@@ -96,11 +96,6 @@ main_loop (int _sock)
     xdr_u_int (&xdr, &len);
     xdr_destroy (&xdr);
 
-    if (verbose)
-      fprintf (stderr,
-	       "guestfsd: main_loop: new request, len 0x%" PRIx32 "\n",
-	       len);
-
     /* Cancellation sent from the library and received after the
      * previous request has finished processing.  Just ignore it.
      */
@@ -175,6 +170,13 @@ main_loop (int _sock)
     progress_hint = hdr.progress_hint;
     optargs_bitmask = hdr.optargs_bitmask;
 
+    if (verbose)
+      fprintf (stderr,
+	       "guestfsd: <= %s (0x%x) request length %" PRIu32 " bytes\n",
+               proc_nr >= 0 && proc_nr <= GUESTFS_MAX_PROC_NR
+               ? function_names[proc_nr] : "UNKNOWN PROCEDURE",
+               (unsigned) proc_nr, len);
+
     /* Clear errors before we call the stub functions.  This is just
      * to ensure that we can accurately report errors in cases where
      * error handling paths don't set errno correctly.
@@ -200,10 +202,10 @@ main_loop (int _sock)
       elapsed_us = end_us - start_us;
 
       fprintf (stderr,
-	       "guestfsd: main_loop: proc %d (%s) took %d.%02d seconds\n",
-               proc_nr,
+	       "guestfsd: => %s (0x%x) took %d.%02d secs\n",
                proc_nr >= 0 && proc_nr <= GUESTFS_MAX_PROC_NR
                ? function_names[proc_nr] : "UNKNOWN PROCEDURE",
+               (unsigned) proc_nr,
                (int) (elapsed_us / 1000000),
                (int) ((elapsed_us / 10000) % 100));
     }
