@@ -324,7 +324,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlpcre/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs
 
-OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_FLAGS)
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 if !HAVE_OCAMLOPT
 OBJECTS = $(BOBJECTS)
