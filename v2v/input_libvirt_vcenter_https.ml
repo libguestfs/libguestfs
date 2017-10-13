@@ -102,9 +102,9 @@ object
       | { p_source = P_source_dev _ } -> assert false
       | { p_source_disk = disk; p_source = P_dont_rewrite } -> disk
       | { p_source_disk = disk; p_source = P_source_file path } ->
-        let qemu_uri =
-          VCenter.map_source_to_uri readahead dcPath password
-                                    parsed_uri scheme server path in
+        let { VCenter.qemu_uri } =
+          VCenter.map_source ?readahead ?password
+                             dcPath parsed_uri scheme server path in
 
         (* The libvirt ESX driver doesn't normally specify a format, but
          * the format of the -flat file is *always* raw, so force it here.
@@ -123,9 +123,9 @@ object
     | None -> ()
     | Some orig_path ->
       let readahead = readahead_for_copying in
-      let backing_qemu_uri =
-        VCenter.map_source_to_uri readahead dcPath password
-                                  parsed_uri scheme server orig_path in
+      let { VCenter.qemu_uri = backing_qemu_uri } =
+        VCenter.map_source ?readahead ?password
+                           dcPath parsed_uri scheme server orig_path in
 
       (* Rebase the qcow2 overlay to adjust the readahead parameter. *)
       let cmd = [ "qemu-img"; "rebase"; "-u"; "-b"; backing_qemu_uri;

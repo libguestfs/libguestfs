@@ -151,14 +151,10 @@ read the man page virt-v2v-copy-to-local(1).
             error (f_"vcenter: <vmware:datacenterpath> was not found in the XML.  You need to upgrade to libvirt ≥ 1.2.20.") in
        List.map (
          fun (remote_disk, local_disk) ->
-           let url, sslverify =
-             VCenter.map_source_to_https dcpath parsed_uri
-                                         server remote_disk in
-           debug "esxi: source disk %s (sslverify=%b)" url sslverify;
-           let cookie =
-             VCenter.get_session_cookie password "esx"
-                                        parsed_uri sslverify url in
-           (url, local_disk, sslverify, cookie)
+           let { VCenter.https_url; sslverify; session_cookie } =
+             VCenter.map_source dcpath parsed_uri "esx" server remote_disk in
+           debug "esxi: source disk %s (sslverify=%b)" https_url sslverify;
+           (https_url, local_disk, sslverify, session_cookie)
        ) disks
     | Test | Xen_ssh _ ->
        List.map (fun (remote_disk, local_disk) ->
