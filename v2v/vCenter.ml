@@ -33,6 +33,7 @@ type remote_resource = {
 }
 
 let source_re = PCRE.compile "^\\[(.*)\\] (.*)\\.vmdk$"
+let snapshot_re = PCRE.compile "^(.*)-\\d{6}(\\.vmdk)$"
 
 let rec map_source ?readahead ?password dcPath uri scheme server path =
   (* If no_verify=1 was passed in the libvirt URI, then we have to
@@ -45,7 +46,28 @@ let rec map_source ?readahead ?password dcPath uri scheme server path =
        (* XXX only works if the query string is not URI-quoted *)
        String.find query "no_verify=1" = -1 in
 
-  let https_url = get_https_url dcPath uri server path in
+  let https_url =
+    let https_url = get_https_url dcPath uri server path in
+    (* Check the URL exists. *)
+    let status, _, _ =
+      fetch_headers_from_url password scheme uri sslverify https_url in
+    (* If a disk is actually a snapshot image it will have '-00000n'
+     * appended to its name, e.g.:
+     *   [yellow:storage1] RHEL4-X/RHEL4-X-000003.vmdk
+     * The flat storage is still called RHEL4-X-flat, however. If we got
+     * a 404 and the vmdk name looks like it might be a snapshot, try
+     * again without the snapshot suffix.
+     *)
+    if status = "404" && PCRE.matches snapshot_re path then (
+      let path = PCRE.sub 1 ^ PCRE.sub 2 in
+      get_https_url dcPath uri server path
+    )
+    else
+      (* Note that other non-200 status errors will be handled
+       * in get_session_cookie below, so we don't have to worry
+       * about them here.
+       *)
+      https_url in
 
   let session_cookie =
     get_session_cookie password scheme uri sslverify https_url in
@@ -101,9 +123,7 @@ and get_https_url dcPath uri server path =
       | n when n >= 1 -> ":" ^ string_of_int n
       | _ -> "" in
 
-    (* XXX Old virt-v2v could also handle snapshots, ie:
-     * "[datastore1] Fedora 20/Fedora 20-NNNNNN.vmdk"
-     * XXX Need to handle templates.  The file is called "-delta.vmdk" in
+    (* XXX Need to handle templates.  The file is called "-delta.vmdk" in
      * place of "-flat.vmdk".
      *)
     sprintf "https://%s%s/folder/%s-flat.vmdk?dcPath=%s&dsName=%s"
