@@ -45,27 +45,7 @@ let rec map_source ?readahead ?password dcPath uri scheme server path =
        (* XXX only works if the query string is not URI-quoted *)
        String.find query "no_verify=1" = -1 in
 
-  let https_url =
-    if not (PCRE.matches source_re path) then
-      path
-    else (
-      let datastore = PCRE.sub 1 and path = PCRE.sub 2 in
-
-      let port =
-        match uri.uri_port with
-        | 443 -> ""
-        | n when n >= 1 -> ":" ^ string_of_int n
-        | _ -> "" in
-
-      (* XXX Old virt-v2v could also handle snapshots, ie:
-       * "[datastore1] Fedora 20/Fedora 20-NNNNNN.vmdk"
-       * XXX Need to handle templates.  The file is called "-delta.vmdk" in
-       * place of "-flat.vmdk".
-       *)
-      sprintf "https://%s%s/folder/%s-flat.vmdk?dcPath=%s&dsName=%s"
-              server port
-              (uri_quote path) (uri_quote dcPath) (uri_quote datastore)
-    ) in
+  let https_url = get_https_url dcPath uri server path in
 
   let session_cookie =
     get_session_cookie password scheme uri sslverify https_url in
@@ -108,6 +88,28 @@ let rec map_source ?readahead ?password dcPath uri scheme server path =
     qemu_uri = qemu_uri;
     session_cookie = session_cookie;
     sslverify = sslverify }
+
+and get_https_url dcPath uri server path =
+  if not (PCRE.matches source_re path) then
+    path
+  else (
+    let datastore = PCRE.sub 1 and path = PCRE.sub 2 in
+
+    let port =
+      match uri.uri_port with
+      | 443 -> ""
+      | n when n >= 1 -> ":" ^ string_of_int n
+      | _ -> "" in
+
+    (* XXX Old virt-v2v could also handle snapshots, ie:
+     * "[datastore1] Fedora 20/Fedora 20-NNNNNN.vmdk"
+     * XXX Need to handle templates.  The file is called "-delta.vmdk" in
+     * place of "-flat.vmdk".
+     *)
+    sprintf "https://%s%s/folder/%s-flat.vmdk?dcPath=%s&dsName=%s"
+            server port
+            (uri_quote path) (uri_quote dcPath) (uri_quote datastore)
+  )
 
 and get_session_cookie password scheme uri sslverify https_url =
   let status, headers, dump_response =
