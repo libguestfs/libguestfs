@@ -86,7 +86,7 @@ let get_session_cookie password scheme uri sslverify url =
 
     if status = "404" then (
       dump_response stderr;
-      error (f_"vcenter: URL not found: %s\n\nThe ‘--dcpath’ parameter may be useful.  See the explanation in the virt-v2v(1) man page OPTIONS section.") url
+      error (f_"vcenter: URL not found: %s") url
     );
 
     if status <> "200" then (
@@ -112,51 +112,6 @@ let get_session_cookie password scheme uri sslverify url =
     else
       Some !session_cookie
   )
-
-let multiple_slash = PCRE.compile "/{2,}"
-let default_dc = "ha-datacenter"
-
-let guess_dcPath uri = function
-  | "vpx" ->
-     (match uri.uri_path with
-      | None ->
-         warning (f_"vcenter: URI (-ic parameter) contains no path, so we cannot determine the dcPath (datacenter name)");
-         default_dc
-      | Some path ->
-         (* vCenter: URIs are *usually* '/Folder/Datacenter/esxi' so we can
-          * just chop off the first '/' and final '/esxi' to get the dcPath.
-          *
-          * The libvirt driver allows things like '/DC///esxi////' so we also
-          * have to handle trailing slashes and collapse multiple slashes into
-          * single (RHBZ#1258342).
-          *
-          * However if there is a cluster involved then the URI may be
-          * /Folder/Datacenter/Cluster/esxi but dcPath=Folder/Datacenter/Cluster
-          * won't work.  In this case the user has to adjust the path to
-          * remove the Cluster name (which still works in libvirt).
-          *)
-         (* Collapse multiple slashes to single slash. *)
-         let path = PCRE.replace ~global:true multiple_slash "/" path in
-         (* Chop off the first and trailing '/' (if found). *)
-         let path =
-           let len = String.length path in
-           if len > 0 && path.[0] = '/' then
-             String.sub path 1 (len-1)
-           else path in
-         let path =
-           let len = String.length path in
-           if len > 0 && path.[len-1] = '/' then
-             String.sub path 0 (len-1)
-           else path in
-         (* Chop off the final element (ESXi hostname). *)
-         let len =
-           try String.rindex path '/' with Not_found -> String.length path in
-         String.sub path 0 len
-     );
-  | "esx" -> (* Connecting to an ESXi hypervisor directly, so it's fixed. *)
-     default_dc
-  | _ ->     (* Don't know, so guess. *)
-     default_dc
 
 let source_re = PCRE.compile "^\\[(.*)\\] (.*)\\.vmdk$"
 

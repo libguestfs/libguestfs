@@ -27,7 +27,7 @@ open Types
 open Utils
 
 (* Choose the right subclass based on the URI. *)
-let input_libvirt dcpath vddk_options password libvirt_uri guest =
+let input_libvirt vddk_options password libvirt_uri guest =
   match libvirt_uri with
   | None ->
     Input_libvirt_other.input_libvirt_other password libvirt_uri guest
@@ -54,7 +54,7 @@ let input_libvirt dcpath vddk_options password libvirt_uri guest =
        (match vddk_options with
         | None ->
            Input_libvirt_vcenter_https.input_libvirt_vcenter_https
-             dcpath password libvirt_uri parsed_uri scheme server guest
+             password libvirt_uri parsed_uri scheme server guest
         | Some vddk_options ->
            Input_libvirt_vddk.input_libvirt_vddk vddk_options password
                                                  libvirt_uri parsed_uri guest

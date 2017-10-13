@@ -55,7 +55,6 @@ let parse_cmdline () =
   let print_source = ref false in
   let qemu_boot = ref false in
 
-  let dcpath = ref None in
   let input_conn = ref None in
   let input_format = ref None in
   let in_place = ref false in
@@ -182,8 +181,6 @@ let parse_cmdline () =
   let argspec = [
     [ S 'b'; L"bridge" ],        Getopt.String ("in:out", add_bridge),     s_"Map bridge ‘in’ to ‘out’";
     [ L"compressed" ], Getopt.Set compressed,     s_"Compress output file (-of qcow2 only)";
-    [ L"dcpath"; L"dcPath" ],  Getopt.String ("path", set_string_option_once "--dcpath" dcpath),
-                                            s_"Override dcPath (for vCenter)";
     [ L"debug-overlay"; L"debug-overlays" ], Getopt.Set debug_overlays, s_"Save overlay files";
     [ S 'i' ],        Getopt.String (i_options, set_input_mode), s_"Set input mode (default: libvirt)";
     [ M"ic" ],       Getopt.String ("uri", set_string_option_once "-ic" input_conn),
@@ -270,7 +267,6 @@ read the man page virt-v2v(1).
   (* Dereference the arguments. *)
   let args = List.rev !args in
   let compressed = !compressed in
-  let dcpath = !dcpath in
   let debug_overlays = !debug_overlays in
   let do_copy = !do_copy in
   let input_conn = !input_conn in
@@ -368,7 +364,7 @@ read the man page virt-v2v(1).
         | [guest] -> guest
         | _ ->
           error (f_"expecting a libvirt guest name on the command line") in
-      Input_libvirt.input_libvirt dcpath vddk_options password input_conn guest
+      Input_libvirt.input_libvirt vddk_options password input_conn guest
 
     | `LibvirtXML ->
       (* -i libvirtxml: Expecting a filename (XML file). *)

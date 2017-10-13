@@ -35,14 +35,6 @@ val get_session_cookie : string option -> string -> Xml.uri -> bool -> string ->
     The session cookie is memoized so you can call this function as
     often as you want, and only a single log in is made. *)
 
-val guess_dcPath : Xml.uri -> string -> string
-(** Try to guess the dcPath parameter from a URI.  The mapping is
-    not precise.
-
-    This function is only used with [libvirt < 1.2.20] because later
-    versions of libvirt provide the dcPath (see
-    https://bugzilla.redhat.com/1263574). *)
-
 val map_source_to_uri : int option -> string -> string option -> Xml.uri -> string -> string -> string -> string
 (** [map_source_to_uri readahead dcPath password uri scheme server path]
     maps the [<source path=...>] string to a qemu URI.

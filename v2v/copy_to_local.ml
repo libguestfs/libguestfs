@@ -145,6 +145,11 @@ read the man page virt-v2v-copy-to-local(1).
   let disks =
     match source with
     | ESXi server ->
+       let dcpath =
+         match dcpath with
+         | Some dcpath -> dcpath
+         | None ->
+            error (f_"vcenter: <vmware:datacenterpath> was not found in the XML.  You need to upgrade to libvirt ≥ 1.2.20.") in
        List.map (
          fun (remote_disk, local_disk) ->
            let url, sslverify =
@@ -245,12 +250,8 @@ and parse_libvirt_xml guest_name xml =
                         "vmware" "http://libvirt.org/schemas/domain/vmware/1.0";
   let xpath_string = xpath_string xpathctx in
 
-  (* Get the dcpath, only present for libvirt >= 1.2.20 so use a
-   * sensible default for older versions.
-   *)
-  let dcpath =
-    Option.default "ha-datacenter"
-                   (xpath_string "/domain/vmware:datacenterpath") in
+  (* Get the dcpath, present in libvirt >= 1.2.20. *)
+  let dcpath = xpath_string "/domain/vmware:datacenterpath" in
 
   (* Parse the disks. *)
   let get_disks, add_disk =
