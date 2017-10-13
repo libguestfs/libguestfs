@@ -21,7 +21,7 @@ open Std_utils
 open Utils
 
 let rec vfs_type { Mountable.m_device = device } =
-  get_blkid_tag device "TYPE"
+  Option.default "" (get_blkid_tag device "TYPE")
 
 and get_blkid_tag device tag =
   let r, out, err =
@@ -30,11 +30,6 @@ and get_blkid_tag device tag =
                "-c"; "/dev/null";
                "-o"; "value"; "-s"; tag; device] in
   match r with
-  | 0 ->                        (* success *)
-     String.chomp out
-
-  | 2 ->                        (* means tag not found, we return "" *)
-     ""
-
-  | _ ->
-     failwithf "blkid: %s: %s: %s" device tag err
+  | 0 -> Some (String.chomp out) (* success *)
+  | 2 -> None                    (* means tag not found *)
+  | _ -> failwithf "blkid: %s: %s: %s" device tag err
