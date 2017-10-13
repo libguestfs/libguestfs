@@ -110,6 +110,45 @@ let rec map_source ?readahead ?password dcPath uri scheme server path =
     sslverify = sslverify }
 
 and get_session_cookie password scheme uri sslverify https_url =
+  let status, headers, dump_response =
+    fetch_headers_from_url password scheme uri sslverify https_url in
+
+  if status = "401" then (
+    dump_response stderr;
+    if uri.uri_user <> None then
+      error (f_"vcenter: incorrect username or password")
+    else
+      error (f_"vcenter: incorrect username or password.  You might need to specify the username in the URI like this: %s://USERNAME@[etc]")
+            scheme
+  );
+
+  if status = "404" then (
+    dump_response stderr;
+    error (f_"vcenter: URL not found: %s") https_url
+  );
+
+  if status <> "200" then (
+    dump_response stderr;
+    error (f_"vcenter: invalid response from server")
+  );
+
+  (* Get the cookie. *)
+  let rec loop = function
+    | [] ->
+       dump_response stderr;
+       warning (f_"vcenter: could not read session cookie from the vCenter Server, conversion may consume all sessions on the server and fail part way through");
+       None
+    | ("set-cookie", cookie) :: _ ->
+       let cookie, _ = String.split ";" cookie in
+       Some cookie
+
+    | _ :: headers ->
+       loop headers
+  in
+  loop headers
+
+(* Fetch the status and reply headers from a URL. *)
+and fetch_headers_from_url password scheme uri sslverify https_url =
   let curl_args = ref [
     "head", None;
     "silent", None;
@@ -139,53 +178,26 @@ and get_session_cookie password scheme uri sslverify https_url =
 
   if verbose () then dump_response stderr;
 
+  let statuses, headers =
+    List.partition (
+      fun line ->
+        let len = String.length line in
+        len >= 12 && String.sub line 0 5 = "HTTP/"
+    ) lines in
+
   (* Look for the last HTTP/x.y NNN status code in the output. *)
-  let status = ref "" in
-  List.iter (
-    fun line ->
-      let len = String.length line in
-      if len >= 12 && String.sub line 0 5 = "HTTP/" then
-        status := String.sub line 9 3
-  ) lines;
-  let status = !status in
-  if status = "" then (
-    dump_response stderr;
-    error (f_"vcenter: no status code in output of ‘curl’ command.  Is ‘curl’ installed?")
-  );
-
-  if status = "401" then (
-    dump_response stderr;
-    if uri.uri_user <> None then
-      error (f_"vcenter: incorrect username or password")
-    else
-      error (f_"vcenter: incorrect username or password.  You might need to specify the username in the URI like this: %s://USERNAME@[etc]")
-            scheme
-  );
-
-  if status = "404" then (
-    dump_response stderr;
-    error (f_"vcenter: URL not found: %s") https_url
-  );
-
-  if status <> "200" then (
-    dump_response stderr;
-    error (f_"vcenter: invalid response from server")
-  );
-
-  (* Get the cookie. *)
-  let rec loop = function
+  let status =
+    match statuses with
     | [] ->
        dump_response stderr;
-       warning (f_"vcenter: could not read session cookie from the vCenter Server, conversion may consume all sessions on the server and fail part way through");
-       None
-    | line :: lines ->
-       let len = String.length line in
-       if len >= 12 && String.sub line 0 12 = "Set-Cookie: " then (
-         let line = String.sub line 12 (len-12) in
-         let cookie, _ = String.split ";" line in
-         Some cookie
-       )
-       else
-         loop lines
-  in
-  loop lines
+       error (f_"vcenter: no status code in output of ‘curl’ command.  Is ‘curl’ installed?")
+    | ss -> String.sub (List.hd (List.rev ss)) 9 3 in
+
+  let headers =
+    List.map (
+      fun header ->
+        let h, c = String.split ": " header in
+        String.lowercase_ascii h, c
+    ) headers in
+
+  status, headers, dump_response
