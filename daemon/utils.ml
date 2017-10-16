@@ -229,3 +229,19 @@ let unix_canonical_path path =
   let path = String.nsplit "/" path in
   let path = List.filter ((<>) "") path in
   (if is_absolute then "/" else "") ^ String.concat "/" path
+
+let simple_unquote s =
+  let n = String.length s in
+  if n >= 2 &&
+     ((s.[0] = '"' && s.[n-1] = '"') || (s.[0] = '\'' && s.[n-1] = '\'')) then
+    String.sub s 1 (n-2)
+  else
+    s
+
+let parse_key_value_strings ?unquote lines =
+  let lines = List.filter ((<>) "") lines in
+  let lines = List.filter (fun s -> s.[0] <> '#') lines in
+  let lines = List.map (String.split "=") lines in
+  match unquote with
+  | None -> lines
+  | Some f -> List.map (fun (k, v) -> (k, f v)) lines

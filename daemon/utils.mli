@@ -97,5 +97,16 @@ val unix_canonical_path : string -> string
     The path is modified in place because the result is always
     the same length or shorter than the argument passed. *)
 
+val simple_unquote : string -> string
+(** Unquote the string, by removing a pair of single- or double-quotes
+    at the beginning and the end of the string.
+
+    No other handling is done, unlike what {!shell_unquote} does. *)
+
+val parse_key_value_strings : ?unquote:(string -> string) -> string list -> (string * string) list
+(** Split the lines by the [=] separator; if [unquote] is specified,
+    it is applied on the values as unquote function.  Empty lines,
+    or that start with a comment character [#], are ignored. *)
+
 (**/**)
 val get_verbose_flag : unit -> bool
