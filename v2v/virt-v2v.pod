@@ -1466,11 +1466,12 @@ L<https://github.com/libguestfs/nbdkit/tree/master/plugins/vddk>
 
 =item 3.
 
-You can run nbdkit from its source directory without needing to
-install it.  Set C<$PATH> to include the nbdkit top build directory
-(the directory containing a shell script called F<nbdkit>):
+You do B<not> need to run C<make install>.  You can run nbdkit from
+its source directory.  Set C<$PATH> to point to the nbdkit top build
+directory (that is, the directory containing a shell script called
+F<nbdkit>), eg:
 
- export PATH=/path/to/nbdkit:$PATH
+ export PATH=/path/to/nbdkit-1.1.x:$PATH
 
 =item 4.
 
