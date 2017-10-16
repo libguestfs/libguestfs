@@ -73,31 +73,20 @@ let rec parse_os_release release_file data =
   match lines with
   | None -> false
   | Some lines ->
+     let values = parse_key_value_strings ~unquote:shell_unquote lines in
      List.iter (
-       fun line ->
-         let line = String.trim line in
-         if line = "" || line.[0] = '#' then
-           ()
-         else (
-           let key, value = String.split "=" line in
-           let value =
-             let n = String.length value in
-             if n >= 2 && value.[0] = '"' && value.[n-1] = '"' then
-               String.sub value 1 (n-2)
-             else
-               value in
-           if key = "ID" then (
-             let distro = distro_of_os_release_id value in
-             match distro with
-             | Some _ as distro -> data.distro <- distro
-             | None -> ()
-           )
-           else if key = "PRETTY_NAME" then
-             data.product_name <- Some value
-           else if key = "VERSION_ID" then
-             parse_os_release_version_id value data
+       fun (key, value) ->
+         if key = "ID" then (
+           let distro = distro_of_os_release_id value in
+           match distro with
+           | Some _ as distro -> data.distro <- distro
+           | None -> ()
          )
-       ) lines;
+         else if key = "PRETTY_NAME" then
+           data.product_name <- Some value
+         else if key = "VERSION_ID" then
+           parse_os_release_version_id value data
+       ) values;
 
      (* If we haven't got all the fields, exit right away. *)
      if data.distro = None || data.product_name = None then
@@ -204,47 +193,39 @@ and parse_lsb_release release_file data =
       *)
      let ok = ref false in
 
+     let values = parse_key_value_strings ~unquote:simple_unquote lines in
      List.iter (
-       fun line ->
+       fun (key, value) ->
          if verbose () then
-           eprintf "parse_lsb_release: parsing: %s\n%!" line;
+           eprintf "parse_lsb_release: parsing: %s=%s\n%!" key value;
 
-         if data.distro = None && line = "DISTRIB_ID=Ubuntu" then (
+         if key = "DISTRIB_ID" then (
+           let distro = distro_of_lsb_release_distrib_id value in
+           match distro with
+           | Some _ as distro ->
+             ok := true;
+             data.distro <- distro
+           | None -> ()
+         )
+         else if key = "DISTRIB_RELEASE" then
+           parse_version_from_major_minor value data
+         else if key = "DISTRIB_DESCRIPTION" then (
            ok := true;
-           data. distro <- Some DISTRO_UBUNTU
+           data.product_name <- Some value
          )
-         else if data.distro = None && line = "DISTRIB_ID=LinuxMint" then (
-           ok := true;
-           data.distro <- Some DISTRO_LINUX_MINT
-         )
-         else if data.distro = None && line = "DISTRIB_ID=\"Mageia\"" then (
-           ok := true;
-           data.distro <- Some DISTRO_MAGEIA
-         )
-         else if data.distro = None && line = "DISTRIB_ID=CoreOS" then (
-           ok := true;
-           data.distro <- Some DISTRO_COREOS
-         )
-         else if String.is_prefix line "DISTRIB_RELEASE=" then (
-           let line = String.sub line 16 (String.length line - 16) in
-           parse_version_from_major_minor line data
-         )
-         else if String.is_prefix line "DISTRIB_DESCRIPTION=\"" ||
-                 String.is_prefix line "DISTRIB_DESCRIPTION='" then (
-           ok := true;
-           let n = String.length line in
-           let product_name = String.sub line 21 (n-22) in
-           data.product_name <- Some product_name
-         )
-         else if String.is_prefix line "DISTRIB_DESCRIPTION=" then (
-           ok := true;
-           let n = String.length line in
-           let product_name = String.sub line 20 (n-20) in
-           data.product_name <- Some product_name
-         )
-     ) lines;
+     ) values;
 
      !ok
+
+(* DISTRIB_ID="Ubuntu" => Some DISTRO_UBUNTU *)
+and distro_of_lsb_release_distrib_id = function
+  | "CoreOS" -> Some DISTRO_COREOS
+  | "LinuxMint" -> Some DISTRO_LINUX_MINT
+  | "Mageia" -> Some DISTRO_MAGEIA
+  | "Ubuntu" -> Some DISTRO_UBUNTU
+  | value ->
+     eprintf "lsb-release: unknown DISTRIB_ID=%s\n" value;
+     None
 
 and parse_suse_release release_file data =
   let chroot = Chroot.create ~name:"parse_suse_release" () in

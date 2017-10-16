@@ -53,7 +53,6 @@ let md_detail md =
   (* Split the command output into lines. *)
   let out = String.trim out in
   let lines = String.nsplit "\n" out in
-  let lines = List.filter ((<>) "") lines in
 
   (* Parse the output of mdadm -D --export:
    * MD_LEVEL=raid1
@@ -62,11 +61,9 @@ let md_detail md =
    * MD_UUID=cfa81b59:b6cfbd53:3f02085b:58f4a2e1
    * MD_NAME=localhost.localdomain:0
    *)
+  let values = parse_key_value_strings lines in
   List.map (
-    fun line ->
-      (* Split the line at the equals sign. *)
-      let key, value = String.split "=" line in
-
+    fun (key, value) ->
       (* Remove the MD_ prefix from the key and translate the
        * remainder to lower case.
        *)
@@ -79,4 +76,4 @@ let md_detail md =
 
       (* Add the key/value pair to the output. *)
       (key, value)
-  ) lines
+  ) values
