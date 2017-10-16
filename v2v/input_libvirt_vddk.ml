@@ -102,8 +102,34 @@ See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") library_path
       error (f_"You must pass the ‘--vddk-thumbprint’ option with the SSL thumbprint of the VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) manual.  See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.")
   in
 
+  (* List of passthrough parameters. *)
+  let vddk_passthrus =
+    [ "config",      (fun { vddk_config }      -> vddk_config);
+      "cookie",      (fun { vddk_cookie }      -> vddk_cookie);
+      "nfchostport", (fun { vddk_nfchostport } -> vddk_nfchostport);
+      "port",        (fun { vddk_port }        -> vddk_port);
+      "snapshot",    (fun { vddk_snapshot }    -> vddk_snapshot);
+      "thumbprint",  (fun { vddk_thumbprint }  -> vddk_thumbprint);
+      "transports",  (fun { vddk_transports }  -> vddk_transports);
+      "vimapiver",   (fun { vddk_vimapiver }   -> vddk_vimapiver) ] in
+
 object
-  inherit input_libvirt password libvirt_uri guest
+  inherit input_libvirt password libvirt_uri guest as super
+
+  method as_options =
+    let pt_options =
+      String.concat "" (
+        List.map (
+          fun (name, get_field) ->
+            match get_field vddk_options with
+            | None -> ""
+            | Some field -> sprintf " --vddk-%s %s" name field
+        ) vddk_passthrus
+      ) in
+    sprintf "%s --vddk %s%s"
+            super#as_options (* superclass prints "-i libvirt etc" *)
+            vddk_options.vddk_libdir
+            pt_options
 
   method source () =
     error_unless_vddk_libdir ();
@@ -210,16 +236,11 @@ object
       add_arg (sprintf "libdir=%s" libdir);
 
       (* The passthrough parameters. *)
-      let pt name =
-        Option.may (fun field -> add_arg (sprintf "%s=%s" name field)) in
-      pt "config" vddk_options.vddk_config;
-      pt "cookie" vddk_options.vddk_cookie;
-      pt "nfchostport" vddk_options.vddk_nfchostport;
-      pt "port" vddk_options.vddk_port;
-      pt "snapshot" vddk_options.vddk_snapshot;
-      pt "thumbprint" vddk_options.vddk_thumbprint;
-      pt "transports" vddk_options.vddk_transports;
-      pt "vimapiver" vddk_options.vddk_vimapiver;
+      List.iter (
+        fun (name, get_field) ->
+          Option.may (fun field -> add_arg (sprintf "%s=%s" name field))
+                     (get_field vddk_options)
+      ) vddk_passthrus;
 
       get_args () in
 
