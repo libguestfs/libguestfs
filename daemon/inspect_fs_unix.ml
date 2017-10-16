@@ -122,6 +122,10 @@ let rec parse_os_release release_file data =
           data.version <- Some (0, 0);
           true
 
+       (* No version detected, so fall back to other ways. *)
+       | { version = None } ->
+          false
+
        | _ -> true
      )
 
