@@ -68,7 +68,7 @@ let arch_binaries =
  *)
 let rec parse_os_release release_file data =
   let chroot = Chroot.create ~name:"parse_os_release" () in
-  let lines = Chroot.f chroot (fun () -> read_small_file release_file) () in
+  let lines = Chroot.f chroot read_small_file release_file in
 
   match lines with
   | None -> false
@@ -182,7 +182,7 @@ and distro_of_os_release_id = function
  *)
 and parse_lsb_release release_file data =
   let chroot = Chroot.create ~name:"parse_lsb_release" () in
-  let lines = Chroot.f chroot (fun () -> read_small_file release_file) () in
+  let lines = Chroot.f chroot read_small_file release_file in
 
   match lines with
   | None -> false
@@ -229,7 +229,7 @@ and distro_of_lsb_release_distrib_id = function
 
 and parse_suse_release release_file data =
   let chroot = Chroot.create ~name:"parse_suse_release" () in
-  let lines = Chroot.f chroot (fun () -> read_small_file release_file) () in
+  let lines = Chroot.f chroot read_small_file release_file in
 
   match lines with
   | None
@@ -297,14 +297,14 @@ and parse_generic ?rex distro release_file data =
   let chroot = Chroot.create ~name:"parse_generic" () in
   let product_name =
     Chroot.f chroot (
-      fun () ->
-        if not (is_small_file release_file) then (
-          eprintf "%s: not a regular file or too large\n" release_file;
+      fun file ->
+        if not (is_small_file file) then (
+          eprintf "%s: not a regular file or too large\n" file;
           ""
         )
         else
-          read_first_line_from_file release_file
-  ) () in
+          read_first_line_from_file file
+  ) release_file in
   if product_name = "" then
     false
   else (
@@ -530,7 +530,7 @@ and check_hostname_from_file filename =
     let name = sprintf "check_hostname_from_file: %s" filename in
     Chroot.create ~name () in
 
-  let hostname = Chroot.f chroot (fun () -> read_small_file filename) () in
+  let hostname = Chroot.f chroot read_small_file filename in
   match hostname with
   | None | Some [] | Some [""] -> None
   | Some (hostname :: _) -> Some hostname
@@ -629,7 +629,7 @@ and check_hostname_freebsd () =
   let filename = "/etc/rc.conf" in
 
   try
-    let lines = Chroot.f chroot (fun () -> read_small_file filename) () in
+    let lines = Chroot.f chroot read_small_file filename in
     let lines =
       match lines with None -> raise Not_found | Some lines -> lines in
     let rec loop = function

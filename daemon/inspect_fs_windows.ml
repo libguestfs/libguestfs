@@ -84,7 +84,7 @@ and get_windows_systemroot () =
 
 and get_windows_systemroot_from_boot_ini boot_ini_path =
   let chroot = Chroot.create ~name:"get_windows_systemroot_from_boot_ini" () in
-  let lines = Chroot.f chroot (fun () -> read_small_file boot_ini_path) () in
+  let lines = Chroot.f chroot read_small_file boot_ini_path in
   match lines with
   | None -> None
   | Some lines ->
