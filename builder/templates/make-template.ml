@@ -143,6 +143,16 @@ let rec main () =
    *)
   print_virt_install_command stdout vi;
 
+  (* Save the virt-install command to a file, for documentation. *)
+  let chan = open_out (filename_of_os os arch ".virt-install-cmd") in
+  fprintf chan "# This is the virt-install command which was used to create\n";
+  fprintf chan "# the virt-builder template '%s'\n" (string_of_os os arch);
+  fprintf chan "# NB: This file is generated for documentation purposes ONLY!\n";
+  fprintf chan "# This script was never run, and is not intended to be run.\n";
+  fprintf chan "\n";
+  print_virt_install_command chan vi;
+  close_out chan;
+
   (* Print the virt-install notes for OSes which cannot be automated
    * fully.  (These are different from the ‘notes=’ section in the
    * index fragment).

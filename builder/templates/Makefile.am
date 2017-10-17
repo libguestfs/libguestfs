@@ -22,6 +22,7 @@ index_fragments = $(wildcard *.index-fragment)
 EXTRA_DIST = \
 	$(index_fragments) \
 	*.ks \
+	*.virt-install-cmd \
 	debian.preseed \
 	make-template.ml \
 	ubuntu.preseed \
