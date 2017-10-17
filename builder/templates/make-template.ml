@@ -481,7 +481,7 @@ part /     --fstype=%s   --size=1024 --grow --asprimary
    | CentOS _ | RHEL _ | Fedora _ ->
       bpf "\
 zerombr
-clearpart --all --initlabel
+clearpart --all --initlabel --disklabel=gpt
 autopart --type=plain
 ";
    | _ -> assert false (* cannot happen, see caller *)
