@@ -69,7 +69,7 @@ object
   inherit input_libvirt password libvirt_uri guest
 
   method source () =
-    debug "input_libvirt_other: source()";
+    debug "input_libvirt_other: source ()";
 
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
