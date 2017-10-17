@@ -141,12 +141,7 @@ let rec main () =
   (* Print the virt-install command just before we run it, because
    * this is expected to be long-running.
    *)
-  Array.iter (
-    fun arg ->
-      if arg.[0] = '-' then printf "\\\n    %s " arg
-      else printf "%s " arg
-  ) vi;
-  printf "\n\n%!";
+  print_virt_install_command stdout vi;
 
   (* Print the virt-install notes for OSes which cannot be automated
    * fully.  (These are different from the ‘notes=’ section in the
@@ -825,6 +820,14 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars
 
   (* Return the command line (list of arguments). *)
   Array.of_list (List.rev !args)
+
+and print_virt_install_command chan vi =
+  Array.iter (
+    fun arg ->
+      if arg.[0] = '-' then fprintf chan "\\\n    %s " arg
+      else fprintf chan "%s " arg
+  ) vi;
+  fprintf chan "\n\n%!"
 
 (* The optional [?for_fedora] flag means that we only return
  * libosinfo data as currently supported by the latest version of
