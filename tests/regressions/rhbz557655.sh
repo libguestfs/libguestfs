@@ -79,7 +79,7 @@ EOF
 mv rhbz557655.err rhbz557655.err~
 grep -E 'set[-_]memsize|truncate[-_]size' rhbz557655.err~ |
   grep -Ev 'libguestfs: trace:' |
-  grep -Ev 'proc 200' > rhbz557655.err
+  grep -Ev 'guestfsd: (<=|=>) truncate_size' > rhbz557655.err
 rm rhbz557655.err~
 
 diff -u $srcdir/rhbz557655-expected.stdout rhbz557655.out
