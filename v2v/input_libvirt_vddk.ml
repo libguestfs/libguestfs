@@ -338,7 +338,11 @@ If the messages above are not sufficient to diagnose the problem then add the â€
           *)
          chmod sock 0o777;
 
-         { disk with s_qemu_uri = qemu_uri }
+         (* nbdkit from a vddk source always presents us with the raw
+          * disk blocks from the guest, so force the format to raw here.
+          *)
+         { disk with s_qemu_uri = qemu_uri;
+                     s_format = Some "raw" }
      ) disks in
 
     if verbose () then (
