@@ -333,6 +333,10 @@ type output_allocation = Sparse | Preallocated
     There is one of these used for the [-i] option. *)
 
 class virtual input : object
+  method precheck : unit -> unit
+  (** As soon as we know this input object will be used, the method is
+      called so the object can perform any necessary checks on the
+      environment and error out if there are problems. *)
   method virtual as_options : string
   (** Converts the input object back to the equivalent command line options.
       This is just used for pretty-printing log messages. *)
@@ -349,6 +353,10 @@ end
     There is one of these used for the [-o] option. *)
 
 class virtual output : object
+  method precheck : unit -> unit
+  (** As soon as we know this output object will be used, the method is
+      called so the object can perform any necessary checks on the
+      environment and error out if there are problems. *)
   method virtual as_options : string
   (** Converts the output object back to the equivalent command line options.
       This is just used for pretty-printing log messages. *)

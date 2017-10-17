@@ -39,11 +39,7 @@ class output_glance () =
 object
   inherit output
 
-  method as_options = "-o glance"
-
-  method supported_firmware = [ TargetBIOS; TargetUEFI ]
-
-  method prepare_targets source targets =
+  method precheck () =
     (* This does nothing useful except to check that the user has
      * supplied all the correct auth environment variables to make
      * 'glance' commands work as the current user.  If not then the
@@ -56,8 +52,13 @@ object
     if verbose () then (
       eprintf "version of the glance client:\n%!";
       ignore (shell_command "glance --version");
-    );
+    )
 
+  method as_options = "-o glance"
+
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
+
+  method prepare_targets source targets =
     (* Write targets to a temporary local file - see above for reason. *)
     List.map (
       fun t ->

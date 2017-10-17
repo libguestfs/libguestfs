@@ -473,12 +473,14 @@ type root_choice = AskRoot | SingleRoot | FirstRoot | RootDev of string
 type output_allocation = Sparse | Preallocated
 
 class virtual input = object
+  method precheck () = ()
   method virtual as_options : string
   method virtual source : unit -> source
   method adjust_overlay_parameters (_ : overlay) = ()
 end
 
 class virtual output = object
+  method precheck () = ()
   method virtual as_options : string
   method virtual prepare_targets : source -> target list -> target list
   method virtual supported_firmware : target_firmware list

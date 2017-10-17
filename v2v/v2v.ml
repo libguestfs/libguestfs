@@ -57,6 +57,10 @@ let rec main () =
     with _ -> ()
   );
 
+  (* Perform pre-flight checks on the input and output objects. *)
+  input#precheck ();
+  output#precheck ();
+
   let source = open_source cmdline input in
   let source = set_source_name cmdline source in
   let source = set_source_networks_and_bridges cmdline source in
