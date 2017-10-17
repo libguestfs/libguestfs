@@ -102,6 +102,20 @@ See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") library_path
       error (f_"You must pass the ‘--vddk-thumbprint’ option with the SSL thumbprint of the VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) manual.  See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.")
   in
 
+  (* Check that nbdkit was compiled with SELinux support (for the
+   * --selinux-label option).
+   *)
+  let error_unless_nbdkit_compiled_with_selinux () =
+    let lines = external_command "nbdkit --dump-config" in
+    (* In nbdkit <= 1.1.15 the selinux attribute was not present
+     * at all in --dump-config output so there was no way to tell.
+     * Ignore this case because there will be an error later when
+     * we try to use the --selinux-label parameter.
+     *)
+    if List.mem "selinux=no" (List.map String.trim lines) then
+      error (f_"nbdkit was compiled without SELinux support.  You will have to recompile nbdkit with libselinux-devel installed, or else set SELinux to Permissive mode while doing the conversion.")
+  in
+
   (* List of passthrough parameters. *)
   let vddk_passthrus =
     [ "config",      (fun { vddk_config }      -> vddk_config);
@@ -136,6 +150,8 @@ object
     error_unless_nbdkit_working ();
     error_unless_nbdkit_vddk_working ();
     error_unless_thumbprint ();
+    if have_selinux then
+      error_unless_nbdkit_compiled_with_selinux ();
 
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
