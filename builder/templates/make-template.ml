@@ -824,8 +824,8 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars
 and print_virt_install_command chan vi =
   Array.iter (
     fun arg ->
-      if arg.[0] = '-' then fprintf chan "\\\n    %s " arg
-      else fprintf chan "%s " arg
+      if arg.[0] = '-' then fprintf chan "\\\n    %s " (quote arg)
+      else fprintf chan "%s " (quote arg)
   ) vi;
   fprintf chan "\n\n%!"
 
