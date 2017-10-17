@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-10-16 20:54+0100\n"
+"POT-Creation-Date: 2017-10-17 23:56+0100\n"
 "PO-Revision-Date: 2015-02-21 10:51-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Oriya (http://www.transifex.com/projects/p/libguestfs/"
@@ -682,7 +682,7 @@ msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:158
+#: ../v2v/input_libvirt_vddk.ml:175
 msgid ""
 "<vmware:moref> was not found in the output of ‘virsh dumpxml \"%s\"’.  The "
 "most likely reason is that libvirt is too old, try upgrading libvirt to ≥ "
@@ -738,7 +738,7 @@ msgstr ""
 msgid "Architecture:"
 msgstr ""
 
-#: ../v2v/v2v.ml:155
+#: ../v2v/v2v.ml:159
 msgid "Assigning disks to buses"
 msgstr ""
 
@@ -825,11 +825,11 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:413
+#: ../v2v/v2v.ml:417
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:630
+#: ../v2v/v2v.ml:634
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -837,11 +837,11 @@ msgstr ""
 msgid "Clearing Linux swap on %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:141
+#: ../v2v/v2v.ml:145
 msgid "Closing the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:142
+#: ../v2v/v2v.ml:146
 msgid "Closing the source VM"
 msgstr ""
 
@@ -873,11 +873,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:603
+#: ../v2v/v2v.ml:607
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:601
+#: ../v2v/v2v.ml:605
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -913,7 +913,7 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:669
+#: ../v2v/v2v.ml:673
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -941,11 +941,11 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:284
+#: ../v2v/v2v.ml:288
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:166
+#: ../v2v/v2v.ml:170
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1137,7 +1137,7 @@ msgstr ""
 msgid "Enter a number between 1 and %d, or ‘exit’: "
 msgstr ""
 
-#: ../v2v/v2v.ml:592
+#: ../v2v/v2v.ml:596
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1248,7 +1248,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:198
 #. ../builder/builder.ml:760
-#: ../v2v/v2v.ml:174 ../v2v/copy_to_local.ml:234
+#: ../v2v/v2v.ml:178 ../v2v/copy_to_local.ml:234
 msgid "Finishing off"
 msgstr ""
 
@@ -1372,7 +1372,7 @@ msgstr ""
 msgid "Importing the image to docker as ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:330
+#: ../v2v/v2v.ml:334
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1384,11 +1384,11 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr ""
 
-#: ../v2v/v2v.ml:105
+#: ../v2v/v2v.ml:109
 msgid "Inspecting the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:106
+#: ../v2v/v2v.ml:110
 msgid "Inspecting the source VM"
 msgstr ""
 
@@ -1475,7 +1475,7 @@ msgstr ""
 msgid "Map network ‘in’ to ‘out’"
 msgstr ""
 
-#: ../v2v/v2v.ml:136
+#: ../v2v/v2v.ml:140
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1558,15 +1558,15 @@ msgstr ""
 msgid "Opening the new disk"
 msgstr ""
 
-#: ../v2v/v2v.ml:85
+#: ../v2v/v2v.ml:89
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:177
+#: ../v2v/v2v.ml:181
 msgid "Opening the source %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:86
+#: ../v2v/v2v.ml:90
 msgid "Opening the source VM"
 msgstr ""
 
@@ -1618,7 +1618,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:782
+#: ../v2v/v2v.ml:786
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr ""
 
@@ -2237,7 +2237,7 @@ msgstr ""
 msgid "Source URI: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:182
+#: ../v2v/v2v.ml:186
 msgid "Source guest information (--print-source option):\n"
 msgstr ""
 
@@ -2431,11 +2431,11 @@ msgid ""
 "virtual machine’s disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:623
+#: ../v2v/v2v.ml:627
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:621
+#: ../v2v/v2v.ml:625
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2446,7 +2446,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:651
+#: ../v2v/v2v.ml:655
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2675,7 +2675,7 @@ msgid ""
 "and then rerun the virt-v2v command."
 msgstr ""
 
-#: ../v2v/input_libvirt_xen_ssh.ml:42
+#: ../v2v/input_libvirt_xen_ssh.ml:39
 msgid ""
 "because of libvirt bug https://bugzilla.redhat.com/1140166 you must set this "
 "environment variable:\n"
@@ -2939,7 +2939,7 @@ msgstr ""
 msgid "discard/trim is not supported"
 msgstr ""
 
-#: ../v2v/v2v.ml:340
+#: ../v2v/v2v.ml:344
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -3154,7 +3154,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:464
+#: ../v2v/v2v.ml:468
 msgid ""
 "fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
 "To find out more read \"Trimming\" in virt-v2v(1).\n"
@@ -3172,18 +3172,18 @@ msgstr ""
 msgid "generated by %s %s"
 msgstr ""
 
-#: ../v2v/output_glance.ml:54
+#: ../v2v/output_glance.ml:50
 msgid ""
 "glance: glance client is not installed or set up correctly.  You may need to "
 "set environment variables or source a script to enable authentication.  See "
 "preceding messages for details."
 msgstr ""
 
-#: ../v2v/output_glance.ml:165
+#: ../v2v/output_glance.ml:166
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/v2v.ml:318
+#: ../v2v/v2v.ml:322
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -3273,7 +3273,7 @@ msgid ""
 "No root device found in this operating system image."
 msgstr ""
 
-#: ../v2v/v2v.ml:279
+#: ../v2v/v2v.ml:283
 msgid ""
 "insufficient free space in the conversion server temporary directory %s "
 "(%s).\n"
@@ -3310,11 +3310,11 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:681
+#: ../v2v/v2v.ml:685
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
-#: ../v2v/v2v.ml:308
+#: ../v2v/v2v.ml:312
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
@@ -3471,11 +3471,11 @@ msgid ""
 "See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:303
+#: ../v2v/input_libvirt_vddk.ml:320
 msgid "nbdkit did not start up.  See previous debugging messages for problems."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:305
+#: ../v2v/input_libvirt_vddk.ml:322
 msgid ""
 "nbdkit did not start up.  There may be errors printed by nbdkit above.\n"
 "\n"
@@ -3491,6 +3491,13 @@ msgstr ""
 
 #: ../v2v/input_libvirt_vddk.ml:71
 msgid "nbdkit is not new enough, you need to upgrade to nbdkit ≥ 1.1.14"
+msgstr ""
+
+#: ../v2v/input_libvirt_vddk.ml:116
+msgid ""
+"nbdkit was compiled without SELinux support.  You will have to recompile "
+"nbdkit with libselinux-devel installed, or else set SELinux to Permissive "
+"mode while doing the conversion."
 msgstr ""
 
 #: ../v2v/cmdline.ml:120
@@ -3590,7 +3597,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:439
+#: ../v2v/v2v.ml:443
 msgid ""
 "not enough free space for conversion on filesystem ‘%s’.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3660,7 +3667,7 @@ msgid ""
 "if-partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:350
+#: ../v2v/v2v.ml:354
 msgid ""
 "output format should be ‘raw’ or ‘qcow2’.\n"
 "\n"
@@ -3742,11 +3749,11 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:719 ../v2v/v2v.ml:304
+#: ../v2v/v2v.ml:723 ../v2v/v2v.ml:308
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:133
+#: ../v2v/input_libvirt_vcenter_https.ml:134
 msgid "qemu-img rebase failed (ignored)"
 msgstr ""
 
@@ -3807,39 +3814,39 @@ msgstr ""
 msgid "source and fingerprint lists are not the same length"
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:256 ../v2v/input_libvirt_vcenter_https.ml:91
+#: ../v2v/input_libvirt_vddk.ml:273 ../v2v/input_libvirt_vcenter_https.ml:92
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:793
+#: ../v2v/v2v.ml:797
 msgid "source has multiple hard disk types!"
 msgstr ""
 
-#: ../v2v/v2v.ml:809
+#: ../v2v/v2v.ml:813
 msgid "source has multiple network adapter model!"
 msgstr ""
 
-#: ../v2v/v2v.ml:791 ../v2v/v2v.ml:227
+#: ../v2v/v2v.ml:795 ../v2v/v2v.ml:231
 msgid "source has no hard disks!"
 msgstr ""
 
-#: ../v2v/v2v.ml:801
+#: ../v2v/v2v.ml:805
 msgid "source has unrecognized hard disk type"
 msgstr ""
 
-#: ../v2v/v2v.ml:799
+#: ../v2v/v2v.ml:803
 msgid "source has unsupported hard disk type ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:815
+#: ../v2v/v2v.ml:819
 msgid "source has unsupported network adapter model ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:823
+#: ../v2v/v2v.ml:827
 msgid "source has unsupported video adapter model ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:222
+#: ../v2v/v2v.ml:226
 msgid ""
 "source sockets * cores * threads <> number of vCPUs.\n"
 "Sockets %d * cores per socket %d * threads %d = %d, but number of vCPUs = "
@@ -3896,7 +3903,7 @@ msgstr ""
 msgid "subscription-manager credentials required for --sm-register"
 msgstr ""
 
-#: ../v2v/v2v.ml:354
+#: ../v2v/v2v.ml:358
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -4056,7 +4063,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:642
+#: ../v2v/v2v.ml:646
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -4191,7 +4198,7 @@ msgstr ""
 msgid "unknown sound model %s ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:192
+#: ../v2v/v2v.ml:196
 msgid "unknown source hypervisor (‘%s’) in metadata"
 msgstr ""
 
@@ -4250,7 +4257,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:81 ../v2v/copy_to_local.ml:152
+#: ../v2v/input_libvirt_vcenter_https.ml:82 ../v2v/copy_to_local.ml:152
 msgid ""
 "vcenter: <vmware:datacenterpath> was not found in the XML.  You need to "
 "upgrade to libvirt ≥ 1.2.20."
@@ -4317,7 +4324,7 @@ msgid ""
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:609
+#: ../v2v/v2v.ml:613
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -4401,7 +4408,7 @@ msgid ""
 "further information."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:197
+#: ../v2v/input_libvirt_vddk.ml:214
 msgid ""
 "you must use the ‘-ic’ parameter.  See \"INPUT FROM VDDK\" in the virt-"
 "v2v(1) manual."
@@ -4419,7 +4426,7 @@ msgid ""
 "plugin has been enabled, ie. using ‘--vddk’."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:194
+#: ../v2v/input_libvirt_vddk.ml:211
 msgid "‘-ic %s’ URL does not contain a host name field"
 msgstr ""
 
