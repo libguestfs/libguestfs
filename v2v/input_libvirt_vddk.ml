@@ -130,6 +130,14 @@ See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") library_path
 object
   inherit input_libvirt password libvirt_uri guest as super
 
+  method precheck () =
+    error_unless_vddk_libdir ();
+    error_unless_nbdkit_working ();
+    error_unless_nbdkit_vddk_working ();
+    error_unless_thumbprint ();
+    if have_selinux then
+      error_unless_nbdkit_compiled_with_selinux ()
+
   method as_options =
     let pt_options =
       String.concat "" (
@@ -146,13 +154,6 @@ object
             pt_options
 
   method source () =
-    error_unless_vddk_libdir ();
-    error_unless_nbdkit_working ();
-    error_unless_nbdkit_vddk_working ();
-    error_unless_thumbprint ();
-    if have_selinux then
-      error_unless_nbdkit_compiled_with_selinux ();
-
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
      *)

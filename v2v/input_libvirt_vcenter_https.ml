@@ -43,11 +43,12 @@ object
   val saved_source_paths = Hashtbl.create 13
   val mutable dcPath = ""
 
+  method precheck () =
+    error_if_libvirt_does_not_support_json_backingfile ()
+
   method source () =
     debug "input_libvirt_vcenter_https: source: scheme %s server %s"
           scheme server;
-
-    error_if_libvirt_does_not_support_json_backingfile ();
 
     (* Remove proxy environment variables so curl doesn't try to use
      * them.  Libvirt doesn't use the proxy anyway, and using a proxy
