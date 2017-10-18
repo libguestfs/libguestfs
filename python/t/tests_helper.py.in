@@ -18,6 +18,7 @@
 
 # Utilities for the tests of the Python bindings.
 
+import os
 import sys
 import unittest
 
@@ -26,6 +27,16 @@ if sys.version_info >= (3, 0):
     int_type = int
 else:
     int_type = long
+
+
+def skipIfEnvironmentVariableSet(name):
+    """
+    Skip the current class/method if the named environment variable
+    is set to 1
+    """
+    if os.environ.get(name, "") == "1":
+        return unittest.skip("skipped by environment variable")
+    return lambda func: func
 
 
 def skipUnlessConfiguredWithLibvirt():
