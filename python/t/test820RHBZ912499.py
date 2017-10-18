@@ -30,6 +30,7 @@ from .tests_helper import *
 
 
 # If the architecture doesn't support IDE, skip the test.
+@skipIfEnvironmentVariableSet("SKIP_TEST820RHBZ912499_PY")
 @skipUnlessArchMatches("(i.86|x86_64)")
 @skipUnlessGuestfsBackendIs('libvirt')
 @skipUnlessLibvirtHasCPointer()
