@@ -15,7 +15,7 @@ selinux --enforcing
 bootloader --location=mbr --append="console=tty0 console=hvc0 rd_NO_PLYMOUTH"
 
 zerombr
-clearpart --all --initlabel
+clearpart --all --initlabel --disklabel=gpt
 autopart --type=plain
 
 # Halt the system once configuration has finished.

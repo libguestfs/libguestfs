@@ -1037,12 +1037,12 @@ name=Fedora® 26 Server (ppc64)
 osinfo=fedora26
 arch=ppc64
 file=fedora-26-ppc64.xz
-revision=2
-checksum[sha512]=5c14c0fb7995e834bb43e46939e9ca25414557ca991825005dbb2fbbe125dd4fbf10c3e5827e99ca23c400e8653bfbd9c301361579e04cd5fe586374fd461f61
+revision=3
+checksum[sha512]=8dce4d0c05ed4b4b958b8016a6fea778581e0eafe7aa40047609e27fe14e342fe4d7c2a269fd4f44fdd2b4c970f77076961fe3714a508be0d3bb011c8af6a257
 format=raw
 size=6442450944
-compressed_size=338334768
-expand=/dev/sda5
+compressed_size=345508032
+expand=/dev/sda4
 notes=Fedora® 26 Server (ppc64)
  
  This Fedora image contains only unmodified @Core group packages.
@@ -1060,12 +1060,12 @@ name=Fedora® 26 Server (ppc64le)
 osinfo=fedora26
 arch=ppc64le
 file=fedora-26-ppc64le.xz
-revision=2
-checksum[sha512]=6cb25a3fe679c486e5dee6c45542e38d9b614c2ca2331c55385722a116dc1c0d8888e692d1db14f26f16312ee1c0873573a97671653504e442c684cd571617b1
+revision=3
+checksum[sha512]=402dcdff341b933a831408e7d32261826c86db5c39bd295aaad94e808d23d83f6821669c431cb91d2e689d17660b4d8108f1c69a8d0715373396636608c7d260
 format=raw
 size=6442450944
-compressed_size=336457392
-expand=/dev/sda5
+compressed_size=344584844
+expand=/dev/sda4
 notes=Fedora® 26 Server (ppc64le)
  
  This Fedora image contains only unmodified @Core group packages.
