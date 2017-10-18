@@ -45,7 +45,7 @@ function check_output ()
 
 function fail ()
 {
-    echo "$0: Test failed.  Command line output was:"
+    echo "$0: Test $1 failed.  Command line output was:"
     cat "$DEBUG_QEMU_FILE"
     exit 1
 }
@@ -56,47 +56,47 @@ rm -f "$DEBUG_QEMU_FILE"
 
 $guestfish -d ceph1 run ||:
 check_output
-grep -sq -- '-drive file=rbd:abc-def/ghi-jkl:mon_host=1.2.3.4\\:1234\\;1.2.3.5\\:1235\\;1.2.3.6\\:1236:auth_supported=none,' "$DEBUG_QEMU_FILE" || fail
+grep -sq -- '-drive file=rbd:abc-def/ghi-jkl:mon_host=1.2.3.4\\:1234\\;1.2.3.5\\:1235\\;1.2.3.6\\:1236:auth_supported=none,' "$DEBUG_QEMU_FILE" || fail ceph1
 rm "$DEBUG_QEMU_FILE"
 
 $guestfish -d ceph2 run ||:
 check_output
-grep -sq -- '-drive file=rbd:abc-def/ghi-jkl:auth_supported=none,' "$DEBUG_QEMU_FILE" || fail
+grep -sq -- '-drive file=rbd:abc-def/ghi-jkl:auth_supported=none,' "$DEBUG_QEMU_FILE" || fail ceph2
 rm "$DEBUG_QEMU_FILE"
 
 # Gluster.
 
 $guestfish -d gluster run ||:
 check_output
-grep -sq -- '-drive file=gluster://1.2.3.4:1234/volname/image,' "$DEBUG_QEMU_FILE" || fail
+grep -sq -- '-drive file=gluster://1.2.3.4:1234/volname/image,' "$DEBUG_QEMU_FILE" || fail gluster
 rm "$DEBUG_QEMU_FILE"
 
 # iSCSI.
 
 $guestfish -d iscsi run ||:
 check_output
-grep -sq -- '-drive file=iscsi://1.2.3.4:1234/iqn.2003-01.org.linux-iscsi.fedora' "$DEBUG_QEMU_FILE" || fail
+grep -sq -- '-drive file=iscsi://1.2.3.4:1234/iqn.2003-01.org.linux-iscsi.fedora' "$DEBUG_QEMU_FILE" || fail iscsi
 rm "$DEBUG_QEMU_FILE"
 
 # NBD.
 
 $guestfish -d nbd run ||:
 check_output
-grep -sq -- '-drive file=nbd:1.2.3.4:1234,' "$DEBUG_QEMU_FILE" || fail
+grep -sq -- '-drive file=nbd:1.2.3.4:1234,' "$DEBUG_QEMU_FILE" || fail nbd
 rm "$DEBUG_QEMU_FILE"
 
 # Sheepdog.
 
 $guestfish -d sheepdog run ||:
 check_output
-grep -sq -- '-drive file=sheepdog:volume,' "$DEBUG_QEMU_FILE" || fail
+grep -sq -- '-drive file=sheepdog:volume,' "$DEBUG_QEMU_FILE" || fail sheepdog
 rm "$DEBUG_QEMU_FILE"
 
 # Local, stored in a pool.
 
 $guestfish -d pool1 run ||:
 check_output
-grep -sq -- "-drive file=$abs_builddir/tmp/in-pool" "$DEBUG_QEMU_FILE" || fail
+grep -sq -- "-drive file=$abs_builddir/tmp/in-pool" "$DEBUG_QEMU_FILE" || fail pool1
 rm "$DEBUG_QEMU_FILE"
 
 # To do:
