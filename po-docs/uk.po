@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2017-10-03 19:07+0100\n"
+"POT-Creation-Date: 2017-10-18 15:23+0100\n"
 "PO-Revision-Date: 2017-02-03 09:09-0500\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -1387,13 +1387,14 @@ msgstr "Ця програма повертає:"
 #: ../cat/virt-cat.pod:241 ../cat/virt-tail.pod:25 ../cat/virt-tail.pod:29
 #: ../cat/virt-tail.pod:34 ../cat/virt-tail.pod:200 ../cat/virt-tail.pod:205
 #: ../cat/virt-tail.pod:210 ../cat/virt-tail.pod:221 ../cat/virt-tail.pod:225
-#: ../common/miniexpect/miniexpect.pod:231
-#: ../common/miniexpect/miniexpect.pod:236
-#: ../common/miniexpect/miniexpect.pod:326
-#: ../common/miniexpect/miniexpect.pod:332
-#: ../common/miniexpect/miniexpect.pod:337
-#: ../common/miniexpect/miniexpect.pod:426
-#: ../common/miniexpect/miniexpect.pod:431
+#: ../common/miniexpect/miniexpect.pod:243
+#: ../common/miniexpect/miniexpect.pod:248
+#: ../common/miniexpect/miniexpect.pod:338
+#: ../common/miniexpect/miniexpect.pod:344
+#: ../common/miniexpect/miniexpect.pod:349
+#: ../common/miniexpect/miniexpect.pod:440
+#: ../common/miniexpect/miniexpect.pod:445
+#: ../common/miniexpect/miniexpect.pod:452
 #: ../customize/customize-options.pod:290
 #: ../customize/customize-options.pod:294 ../docs/guestfs-building.pod:13
 #: ../docs/guestfs-building.pod:17 ../docs/guestfs-building.pod:21
@@ -1640,7 +1641,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:1873 ../builder/virt-index-validate.pod:79
 #: ../cat/virt-cat.pod:275 ../cat/virt-filesystems.pod:386
 #: ../cat/virt-log.pod:136 ../cat/virt-ls.pod:518 ../cat/virt-tail.pod:236
-#: ../common/miniexpect/miniexpect.pod:456 ../customize/virt-customize.pod:286
+#: ../common/miniexpect/miniexpect.pod:477 ../customize/virt-customize.pod:286
 #: ../daemon/guestfsd.pod:143 ../df/virt-df.pod:256 ../dib/virt-dib.pod:692
 #: ../diff/virt-diff.pod:248 ../docs/guestfs-building.pod:835
 #: ../docs/guestfs-faq.pod:1411 ../docs/guestfs-hacking.pod:1152
@@ -1725,7 +1726,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../builder/virt-builder.pod:1897 ../builder/virt-index-validate.pod:88
 #: ../cat/virt-cat.pod:290 ../cat/virt-filesystems.pod:401
 #: ../cat/virt-log.pod:151 ../cat/virt-ls.pod:532 ../cat/virt-tail.pod:251
-#: ../common/miniexpect/miniexpect.pod:473 ../customize/virt-customize.pod:307
+#: ../common/miniexpect/miniexpect.pod:494 ../customize/virt-customize.pod:307
 #: ../daemon/guestfsd.pod:152 ../df/virt-df.pod:268 ../dib/virt-dib.pod:703
 #: ../diff/virt-diff.pod:262 ../docs/guestfs-building.pod:852
 #: ../docs/guestfs-faq.pod:1421 ../docs/guestfs-hacking.pod:1169
@@ -2061,7 +2062,7 @@ msgstr ""
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:148
-#: ../common/miniexpect/miniexpect.pod:464 ../customize/virt-customize.pod:303
+#: ../common/miniexpect/miniexpect.pod:485 ../customize/virt-customize.pod:303
 #: ../docs/guestfs-building.pod:848 ../docs/guestfs-faq.pod:1417
 #: ../docs/guestfs-hacking.pod:1165 ../docs/guestfs-internals.pod:409
 #: ../docs/guestfs-performance.pod:632 ../docs/guestfs-recipes.pod:734
@@ -2087,7 +2088,7 @@ msgstr "АВТОРИ"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:150
-#: ../common/miniexpect/miniexpect.pod:466 ../docs/guestfs-building.pod:850
+#: ../common/miniexpect/miniexpect.pod:487 ../docs/guestfs-building.pod:850
 #: ../docs/guestfs-faq.pod:1419 ../docs/guestfs-hacking.pod:1167
 #: ../docs/guestfs-internals.pod:411 ../docs/guestfs-performance.pod:634
 #: ../docs/guestfs-recipes.pod:736 ../docs/guestfs-security.pod:395
@@ -4643,9 +4644,9 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:982 ../common/miniexpect/miniexpect.pod:227
-#: ../common/miniexpect/miniexpect.pod:322
-#: ../common/miniexpect/miniexpect.pod:422 ../docs/guestfs-recipes.pod:310
+#: ../builder/virt-builder.pod:982 ../common/miniexpect/miniexpect.pod:239
+#: ../common/miniexpect/miniexpect.pod:334
+#: ../common/miniexpect/miniexpect.pod:436 ../docs/guestfs-recipes.pod:310
 #: ../docs/internal-documentation.pod:1399
 #: ../docs/internal-documentation.pod:2687
 #: ../docs/internal-documentation.pod:2955 ../fish/guestfish-actions.pod:2885
@@ -9432,13 +9433,39 @@ msgstr ""
 
 #. type: textblock
 #: ../common/miniexpect/miniexpect.pod:180
+msgid "B<void mexp_set_debug_file (mexp *h, FILE *fp);>"
+msgstr ""
+
+#. type: textblock
+#: ../common/miniexpect/miniexpect.pod:182
+msgid "B<FILE *mexp_get_debug_file (mexp *h);>"
+msgstr ""
+
+#. type: textblock
+#: ../common/miniexpect/miniexpect.pod:184
+msgid ""
+"Set or get the debug file of the handle.  To enable debugging, pass a non-"
+"C<NULL> file handle, eg. C<stderr>.  To disable debugging, pass C<NULL>.  "
+"Debugging messages are printed on the file handle."
+msgstr ""
+
+#. type: textblock
+#: ../common/miniexpect/miniexpect.pod:188
+msgid ""
+"Note that all output and input gets printed, including passwords.  To "
+"prevent passwords from being printed, modify your code to call "
+"C<mexp_printf_password> instead of C<mexp_printf>."
+msgstr ""
+
+#. type: textblock
+#: ../common/miniexpect/miniexpect.pod:192
 msgid ""
 "The following fields in the handle do not have methods, but can be accessed "
 "directly instead:"
 msgstr ""
 
 #. type: verbatim
-#: ../common/miniexpect/miniexpect.pod:183
+#: ../common/miniexpect/miniexpect.pod:195
 #, no-wrap
 msgid ""
 " char *buffer;\n"
@@ -9448,7 +9475,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:187
+#: ../common/miniexpect/miniexpect.pod:199
 msgid ""
 "If C<mexp_expect> returns a match then these variables contain the read "
 "buffer.  Note this buffer does not contain the full input from the process, "
@@ -9458,7 +9485,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../common/miniexpect/miniexpect.pod:193
+#: ../common/miniexpect/miniexpect.pod:205
 #, no-wrap
 msgid ""
 " ssize_t next_match;\n"
@@ -9466,7 +9493,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:195
+#: ../common/miniexpect/miniexpect.pod:207
 msgid ""
 "If C<mexp_expect> returns a match, then C<next_match> points to the first "
 "byte in the buffer I<after> the fully matched expression.  (It may be C<-1> "
@@ -9480,7 +9507,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../common/miniexpect/miniexpect.pod:206
+#: ../common/miniexpect/miniexpect.pod:218
 #, no-wrap
 msgid ""
 " void *user1;\n"
@@ -9490,29 +9517,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:210
+#: ../common/miniexpect/miniexpect.pod:222
 msgid ""
 "Opaque pointers for use by the caller.  The library will not touch these."
 msgstr ""
 
 #. type: =head2
-#: ../common/miniexpect/miniexpect.pod:213 ../java/examples/guestfs-java.pod:26
+#: ../common/miniexpect/miniexpect.pod:225 ../java/examples/guestfs-java.pod:26
 #: ../ocaml/examples/guestfs-ocaml.pod:51
 msgid "CLOSING THE HANDLE"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:215
+#: ../common/miniexpect/miniexpect.pod:227
 msgid "To close the handle and clean up the subprocess, call:"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:217
+#: ../common/miniexpect/miniexpect.pod:229
 msgid "B<int mexp_close (mexp_h *h);>"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:219
+#: ../common/miniexpect/miniexpect.pod:231
 msgid ""
 "This returns the status code from the subprocess.  This is in the form of a "
 "L<waitpid(2)>/L<system(3)> status so you have to use the macros "
@@ -9521,32 +9548,32 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:224
+#: ../common/miniexpect/miniexpect.pod:236
 msgid ""
 "If there was a system call error, then C<-1> is returned.  The error will be "
 "in C<errno>."
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:233
+#: ../common/miniexpect/miniexpect.pod:245
 msgid ""
 "Even in error cases, the handle is always closed and its memory is freed by "
 "this call."
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:238
+#: ../common/miniexpect/miniexpect.pod:250
 msgid "It is normal for the kernel to send SIGHUP to the subprocess."
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:240
+#: ../common/miniexpect/miniexpect.pod:252
 msgid ""
 "If the subprocess doesn't catch the SIGHUP, then it will die with status:"
 msgstr ""
 
 #. type: verbatim
-#: ../common/miniexpect/miniexpect.pod:243
+#: ../common/miniexpect/miniexpect.pod:255
 #, no-wrap
 msgid ""
 " WIFSIGNALED (status) && WTERMSIG (status) == SIGHUP\n"
@@ -9554,17 +9581,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:245
+#: ../common/miniexpect/miniexpect.pod:257
 msgid "This case should not necessarily be considered an error."
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:249
+#: ../common/miniexpect/miniexpect.pod:261
 msgid "This is how code should check for and print errors from C<mexp_close>:"
 msgstr ""
 
 #. type: verbatim
-#: ../common/miniexpect/miniexpect.pod:251
+#: ../common/miniexpect/miniexpect.pod:263
 #, no-wrap
 msgid ""
 "  status = mexp_close (h);\n"
@@ -9585,26 +9612,26 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../common/miniexpect/miniexpect.pod:266
+#: ../common/miniexpect/miniexpect.pod:278
 msgid "EXPECT FUNCTION"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:268
+#: ../common/miniexpect/miniexpect.pod:280
 msgid ""
 "Miniexpect contains a powerful regular expression matching function based on "
 "L<pcre(3)>:"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:271
+#: ../common/miniexpect/miniexpect.pod:283
 msgid ""
 "B<int mexp_expect (mexp_h *h, const mexp_regexp *regexps, int *ovector, int "
 "ovecsize);>"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:274
+#: ../common/miniexpect/miniexpect.pod:286
 msgid ""
 "The output of the subprocess is matched against the list of PCRE regular "
 "expressions in C<regexps>.  C<regexps> is a list of regular expression "
@@ -9612,7 +9639,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../common/miniexpect/miniexpect.pod:278
+#: ../common/miniexpect/miniexpect.pod:290
 #, no-wrap
 msgid ""
 " struct mexp_regexp {\n"
@@ -9626,7 +9653,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:286
+#: ../common/miniexpect/miniexpect.pod:298
 msgid ""
 "C<r> is the integer code returned from C<mexp_expect> if this regular "
 "expression matches.  It B<must> be E<gt> 0.  C<r == 0> indicates the end of "
@@ -9634,49 +9661,49 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:291
+#: ../common/miniexpect/miniexpect.pod:303
 msgid "Possible return values are:"
 msgstr ""
 
 #. type: =item
-#: ../common/miniexpect/miniexpect.pod:295
+#: ../common/miniexpect/miniexpect.pod:307
 msgid "C<MEXP_TIMEOUT>"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:297
+#: ../common/miniexpect/miniexpect.pod:309
 msgid "No input matched before the timeout (C<h-E<gt>timeout>) was reached."
 msgstr ""
 
 #. type: =item
-#: ../common/miniexpect/miniexpect.pod:300
+#: ../common/miniexpect/miniexpect.pod:312
 msgid "C<MEXP_EOF>"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:302
+#: ../common/miniexpect/miniexpect.pod:314
 msgid "The subprocess closed the connection."
 msgstr ""
 
 #. type: =item
-#: ../common/miniexpect/miniexpect.pod:304
+#: ../common/miniexpect/miniexpect.pod:316
 msgid "C<MEXP_ERROR>"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:306
+#: ../common/miniexpect/miniexpect.pod:318
 msgid ""
 "There was a system call error (eg. from the read call).  The error is "
 "returned in C<errno>."
 msgstr ""
 
 #. type: =item
-#: ../common/miniexpect/miniexpect.pod:309
+#: ../common/miniexpect/miniexpect.pod:321
 msgid "C<MEXP_PCRE_ERROR>"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:311
+#: ../common/miniexpect/miniexpect.pod:323
 msgid ""
 "There was a C<pcre_exec> error.  C<h-E<gt>pcre_error> is set to the error "
 "code.  See L<pcreapi(3)> for a list of the C<PCRE_*> error codes and what "
@@ -9684,19 +9711,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../common/miniexpect/miniexpect.pod:315
+#: ../common/miniexpect/miniexpect.pod:327
 msgid "C<r> E<gt> 0"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:317
+#: ../common/miniexpect/miniexpect.pod:329
 msgid ""
 "If any regexp matches, the associated integer code (C<regexps[].r>)  is "
 "returned."
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:328
+#: ../common/miniexpect/miniexpect.pod:340
 msgid ""
 "C<regexps> may be NULL or an empty list, which means we don't match against "
 "a regular expression.  This is useful if you just want to wait for EOF or "
@@ -9704,14 +9731,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:334
+#: ../common/miniexpect/miniexpect.pod:346
 msgid ""
 "C<regexps[].re>, C<regexps[].extra>, C<regexps[].options>, C<ovector> and "
 "C<ovecsize> are passed through to the L<pcre_exec(3)> function."
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:339
+#: ../common/miniexpect/miniexpect.pod:351
 msgid ""
 "If multiple regular expressions are passed, then they are checked in turn "
 "and the I<first> regular expression that matches is returned I<even if the "
@@ -9719,14 +9746,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:344
+#: ../common/miniexpect/miniexpect.pod:356
 msgid ""
 "For example if the input is C<\"hello world\"> and you pass the two regular "
 "expressions:"
 msgstr ""
 
 #. type: verbatim
-#: ../common/miniexpect/miniexpect.pod:347
+#: ../common/miniexpect/miniexpect.pod:359
 #, no-wrap
 msgid ""
 " regexps[0].re = world\n"
@@ -9735,14 +9762,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:350
+#: ../common/miniexpect/miniexpect.pod:362
 msgid ""
 "then the first regular expression (C<\"world\">) may match and the C<\"hello"
 "\"> part of the input may be ignored."
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:353
+#: ../common/miniexpect/miniexpect.pod:365
 msgid ""
 "In some cases this can even lead to unpredictable matching.  In the case "
 "above, if we only happened to read C<\"hello wor\">, then the second regular "
@@ -9750,25 +9777,25 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:357
+#: ../common/miniexpect/miniexpect.pod:369
 msgid ""
 "If this is a concern, combine your regular expressions into a single one, "
 "eg. C<(hello)|(world)>."
 msgstr ""
 
 #. type: =head2
-#: ../common/miniexpect/miniexpect.pod:362
+#: ../common/miniexpect/miniexpect.pod:374
 msgid "mexp_expect example"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:364
+#: ../common/miniexpect/miniexpect.pod:376
 msgid ""
 "It is easier to understand C<mexp_expect> by considering a simple example."
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:367
+#: ../common/miniexpect/miniexpect.pod:379
 msgid ""
 "In this example we are waiting for ssh to either send us a password prompt, "
 "or (if no password was required) a command prompt, and based on the output "
@@ -9776,7 +9803,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:371
+#: ../common/miniexpect/miniexpect.pod:383
 msgid ""
 "The unusual C<(mexp_regexp[]){...}> syntax is called a \"compound literal\" "
 "and is available in C99.  If you need to use an older compiler, you can just "
@@ -9784,7 +9811,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../common/miniexpect/miniexpect.pod:375
+#: ../common/miniexpect/miniexpect.pod:387
 #, no-wrap
 msgid ""
 " mexp_h *h;\n"
@@ -9797,7 +9824,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../common/miniexpect/miniexpect.pod:382
+#: ../common/miniexpect/miniexpect.pod:394
 #, no-wrap
 msgid ""
 " password_re = pcre_compile (\"assword\", 0, &errptr, &offset, NULL);\n"
@@ -9806,7 +9833,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../common/miniexpect/miniexpect.pod:385
+#: ../common/miniexpect/miniexpect.pod:397
 #, no-wrap
 msgid ""
 " switch (mexp_expect (h,\n"
@@ -9838,45 +9865,58 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../common/miniexpect/miniexpect.pod:411
+#: ../common/miniexpect/miniexpect.pod:423
 msgid "SENDING COMMANDS TO THE SUBPROCESS"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:413
+#: ../common/miniexpect/miniexpect.pod:425
 msgid ""
 "You can write to the subprocess simply by writing to C<h-E<gt>fd>.  However "
 "we also provide a convenience function:"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:416
+#: ../common/miniexpect/miniexpect.pod:428
 msgid "B<int mexp_printf (mexp_h *h, const char *fs, ...);>"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:418
+#: ../common/miniexpect/miniexpect.pod:430
+#, fuzzy
+#| msgid ""
+#| " void\n"
+#| " guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)\n"
+#| "\n"
+msgid "B<int mexp_printf_password (mexp_h *h, const char *fs, ...);>"
+msgstr ""
+" void\n"
+" guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)\n"
+"\n"
+
+#. type: textblock
+#: ../common/miniexpect/miniexpect.pod:432
 msgid ""
 "This returns the number of bytes, if the whole message was written OK.  If "
 "there was an error, -1 is returned and the error is available in C<errno>."
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:428
+#: ../common/miniexpect/miniexpect.pod:442
 msgid ""
 "C<mexp_printf> will not do a partial write.  If it cannot write all the "
 "data, then it will return an error."
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:433
+#: ../common/miniexpect/miniexpect.pod:447
 msgid ""
 "This function does not write a newline automatically.  If you want to send a "
 "command followed by a newline you have to do something like:"
 msgstr ""
 
 #. type: verbatim
-#: ../common/miniexpect/miniexpect.pod:436
+#: ../common/miniexpect/miniexpect.pod:450
 #, no-wrap
 msgid ""
 " mexp_printf (h, \"exit\\n\");\n"
@@ -9884,12 +9924,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:440
+#: ../common/miniexpect/miniexpect.pod:454
+msgid ""
+"C<mexp_printf_password> works identically to C<mexp_printf> except that the "
+"output is I<not> sent to the debugging file if debugging is enabled.  As the "
+"name suggests, use this for passwords so that they don't appear in debugging "
+"output."
+msgstr ""
+
+#. type: textblock
+#: ../common/miniexpect/miniexpect.pod:461
 msgid "B<int mexp_send_interrupt (mexp_h *h);>"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:442
+#: ../common/miniexpect/miniexpect.pod:463
 msgid ""
 "Send the interrupt character (C<^C>, Ctrl-C, C<\\003>).  This is like "
 "pressing C<^C> - the subprocess (or remote process, if using C<ssh>)  is "
@@ -9897,7 +9946,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:446
+#: ../common/miniexpect/miniexpect.pod:467
 msgid ""
 "Note this only works if the pty is in cooked mode (ie. "
 "C<MEXP_SPAWN_COOKED_MODE> was passed to C<mexp_spawnlf> or "
@@ -9906,37 +9955,37 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../common/miniexpect/miniexpect.pod:451
+#: ../common/miniexpect/miniexpect.pod:472
 msgid "SOURCE"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:453
+#: ../common/miniexpect/miniexpect.pod:474
 msgid ""
 "Source is available from: L<http://git.annexia.org/?p=miniexpect.git;"
 "a=summary>"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:458
+#: ../common/miniexpect/miniexpect.pod:479
 msgid ""
 "L<pcre(3)>, L<pcre_exec(3)>, L<pcreapi(3)>, L<waitpid(2)>, L<system(3)>."
 msgstr ""
 
 #. type: =head1
-#: ../common/miniexpect/miniexpect.pod:468
+#: ../common/miniexpect/miniexpect.pod:489
 msgid "LICENSE"
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:470
+#: ../common/miniexpect/miniexpect.pod:491
 msgid ""
 "The library is released under the Library GPL (LGPL) version 2 or at your "
 "option any later version."
 msgstr ""
 
 #. type: textblock
-#: ../common/miniexpect/miniexpect.pod:475
+#: ../common/miniexpect/miniexpect.pod:496
 msgid "Copyright (C) 2014 Red Hat Inc."
 msgstr ""
 
