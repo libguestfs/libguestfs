@@ -24,7 +24,6 @@
 /cycle-check.m4
 /d-ino.m4
 /dirent_h.m4
-/dirent-safer.m4
 /dirfd.m4
 /dirname.m4
 /dos.m4
@@ -91,12 +90,14 @@
 /gnu-make.m4
 /hard-locale.m4
 /hash.m4
+/host-cpu-c-abi.m4
 /hostent.m4
 /human.m4
 /iconv.m4
 /include_next.m4
 /inet_ntop.m4
 /inet_pton.m4
+/__inline.m4
 /intlmacosx.m4
 /intmax_t.m4
 /inttostr.m4
@@ -132,6 +133,7 @@
 /lstat.m4
 /malloca.m4
 /malloc.m4
+/manywarnings-c++.m4
 /manywarnings.m4
 /math_h.m4
 /mbrtowc.m4
@@ -161,6 +163,7 @@
 /off_t.m4
 /onceonly.m4
 /openat.m4
+/open-cloexec.m4
 /opendir.m4
 /open.m4
 /pathmax.m4
@@ -172,6 +175,7 @@
 /printf.m4
 /priv-set.m4
 /pthread_rwlock_rdlock.m4
+/pthread_sigmask.m4
 /ptsname_r.m4
 /putenv.m4
 /quotearg.m4
@@ -190,7 +194,6 @@
 /safe-write.m4
 /save-cwd.m4
 /sched_h.m4
-/secure_getenv.m4
 /select.m4
 /servent.m4
 /setenv.m4
@@ -215,6 +218,7 @@
 /stdarg.m4
 /stdbool.m4
 /stddef_h.m4
+/std-gnu11.m4
 /stdint_h.m4
 /stdint.m4
 /stdio_h.m4
