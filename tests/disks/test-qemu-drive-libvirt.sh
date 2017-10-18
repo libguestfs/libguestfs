@@ -75,7 +75,7 @@ rm "$DEBUG_QEMU_FILE"
 
 $guestfish -d iscsi run ||:
 check_output
-grep -sq -- '-drive file=iscsi://1.2.3.4:1234/iqn.2003-01.org.linux-iscsi.fedora,' "$DEBUG_QEMU_FILE" || fail
+grep -sq -- '-drive file=iscsi://1.2.3.4:1234/iqn.2003-01.org.linux-iscsi.fedora' "$DEBUG_QEMU_FILE" || fail
 rm "$DEBUG_QEMU_FILE"
 
 # NBD.
