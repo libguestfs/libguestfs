@@ -147,8 +147,8 @@ let compare_command_line_args a b =
     | S c -> String.make 1 c
     | L s | M s -> s
   in
-  let a = String.lowercase_ascii (string_of_option_name_no_dashes a) in
-  let b = String.lowercase_ascii (string_of_option_name_no_dashes b) in
+  let a = String.lowercase (string_of_option_name_no_dashes a) in
+  let b = String.lowercase (string_of_option_name_no_dashes b) in
   compare a b
 
 let create specs ?anon_fun usage_msg =
