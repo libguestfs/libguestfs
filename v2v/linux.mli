@@ -29,9 +29,6 @@ val remove : Guestfs.guestfs -> Types.inspect -> string list -> unit
 val file_list_of_package : Guestfs.guestfs -> Types.inspect -> Guestfs.application2 -> string list
 (** Return list of files owned by package. *)
 
-val file_owner : Guestfs.guestfs -> Types.inspect -> string -> string
-(** Return the name of the package that owns a file. *)
-
 val is_file_owned : Guestfs.guestfs -> Types.inspect -> string -> bool
 (** Returns true if the file is owned by an installed package. *)
 

@@ -98,7 +98,7 @@ let file_list_of_package (g : Guestfs.guestfs) inspect app =
     error (f_"don't know how to get list of files from package using %s")
       format
 
-let rec file_owner (g : G.guestfs) { i_package_format = package_format } path =
+let is_file_owned (g : G.guestfs) { i_package_format = package_format } path =
   match package_format with
   | "deb" ->
       (* With dpkg usually the directories are owned by all the packages
@@ -108,47 +108,40 @@ let rec file_owner (g : G.guestfs) { i_package_format = package_format } path =
        *)
       let cmd = [| "dpkg"; "-S"; path |] in
       debug "%s" (String.concat " " (Array.to_list cmd));
-      let lines =
-        try g#command_lines cmd
-        with Guestfs.Error msg as exn ->
-          if String.find msg "no path found matching pattern" >= 0 then
-            raise Not_found
-          else
-            raise exn in
-      if Array.length lines = 0 then
-        error (f_"internal error: file_owner: dpkg command returned no output");
-      let line = lines.(0) in
-      let line =
-        try String.sub line 0 (String.rindex line ':')
-        with Invalid_argument _ ->
-          error (f_"internal error: file_owner: invalid dpkg output: '%s'")
-                line in
-      fst (String.split "," line)
-
-  | "rpm" ->
-      (* Although it is possible in RPM for multiple packages to own
-       * a file, this deliberately only returns one package.
-       *)
-      let cmd = [| "rpm"; "-qf"; "--qf"; "%{NAME}\\n"; path |] in
-      debug "%s" (String.concat " " (Array.to_list cmd));
       (try
-         let pkgs = g#command_lines cmd in
-         pkgs.(0)
+         let lines = g#command_lines cmd in
+         if Array.length lines = 0 then
+           error (f_"internal error: is_file_owned: dpkg command returned no output");
+         (* Just check the output looks something like "pkg: filename". *)
+         if String.find lines.(0) ": " >= 0 then
+           true
+         else
+           error (f_"internal error: is_file_owned: unexpected output from dpkg command: %s")
+                 lines.(0)
        with Guestfs.Error msg as exn ->
-         if String.find msg "is not owned" >= 0 then
-           raise Not_found
+         if String.find msg "no path found matching pattern" >= 0 then
+           false
          else
            raise exn
-       | Invalid_argument _ (* pkgs.(0) raises index out of bounds *) ->
-         error (f_"internal error: file_owner: rpm command returned no output")
       )
+
+  | "rpm" ->
+     (* Run rpm -qf and print a magic string if the file is owned.
+      * If not owned, rpm will print "... is not owned by any package"
+      * and exit with an error.  Unfortunately the string is sent to
+      * stdout, so here we ignore the exit status of rpm and just
+      * look for one of the two strings.
+      *)
+     let magic = "FILE_OWNED_TEST" in
+     let cmd = sprintf "rpm -qf --qf %s %s 2>&1 ||:"
+                       (quote (magic ^ "\n")) (quote path) in
+     let r = g#sh cmd in
+     if String.find r magic >= 0 then true
+     else if String.find r "is not owned" >= 0 then false
+     else failwithf "RPM file owned test failed: %s" r
 
   | format ->
     error (f_"don't know how to find file owner using %s") format
-
-and is_file_owned g inspect path =
-  try ignore (file_owner g inspect path); true
-  with Not_found -> false
 
 let is_package_manager_save_file filename =
   (* Recognized suffixes of package managers. *)
