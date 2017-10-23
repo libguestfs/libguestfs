@@ -236,7 +236,7 @@ print_help (void)
 static void
 print_inspector (void)
 {
-  CLEANUP_FREE_STRING_LIST char **roots;
+  CLEANUP_FREE_STRING_LIST char **roots = NULL;
   size_t i;
   const char *root;
   char *str;
