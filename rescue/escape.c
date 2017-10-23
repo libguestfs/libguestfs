@@ -49,7 +49,7 @@ parse_escape_key (const char *arg)
     return 0;
 
   len = strlen (arg);
-  if (arg == 0)
+  if (len == 0)
     return -1;
 
   switch (arg[0]) {
