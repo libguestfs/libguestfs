@@ -78,8 +78,9 @@ extern void scanner_destroy (yyscan_t scanner);
 ^\n                                     { return EMPTY_LINE; }
 
   /* [...] marks beginning of a section. */
-^"["[-A-Za-z0-9._]+"]"\n {
-                      yylval->str = strndup (yytext+1, yyleng-3);
+^"["[-A-Za-z0-9._]+"]"[[:blank:]]*\n {
+                      const char *end = strrchr (yytext, ']');
+                      yylval->str = strndup (yytext+1, end-yytext-1);
                       return SECTION_HEADER;
                     }
 
