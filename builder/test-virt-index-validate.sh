@@ -23,3 +23,4 @@ set -e
 $VG virt-index-validate test-virt-index-validate-good-1
 $VG virt-index-validate test-virt-index-validate-good-2
 $VG virt-index-validate test-virt-index-validate-good-3
+$VG virt-index-validate test-virt-index-validate-good-4
