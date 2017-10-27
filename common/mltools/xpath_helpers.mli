@@ -25,3 +25,7 @@ val xpath_int : Xml.xpathctx -> string -> int option
 val xpath_int64 : Xml.xpathctx -> string -> int64 option
 (** Parse an xpath expression and return a string/int.  Returns
     [Some v], or [None] if the expression doesn't match. *)
+
+val xpath_get_nodes : Xml.xpathctx -> string -> Xml.node list
+(** Parse an XPath expression and return a list with the matching
+    XML nodes. *)

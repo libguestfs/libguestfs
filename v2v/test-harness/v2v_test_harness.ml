@@ -25,6 +25,7 @@ open Printf
 
 open Std_utils
 open Tools_utils
+open Xpath_helpers
 
 type test_plan = {
   guest_clock : float option;
@@ -90,29 +91,18 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
     g, root
   in
 
-  let nodes_of_xpathobj doc xpathobj =
-    let nodes = ref [] in
-    for i = 0 to Xml.xpathobj_nr_nodes xpathobj - 1 do
-      push_front (Xml.xpathobj_node xpathobj i) nodes
-    done;
-    List.rev !nodes
-  in
-
   let test_boot boot_disk boot_xml_doc =
     (* Modify boot XML (in memory). *)
     let xpathctx = Xml.xpath_new_context boot_xml_doc in
 
     (* Change <name> to something unique. *)
     let domname = "tmpv2v-" ^ test in
-    let xpath = Xml.xpath_eval_expression xpathctx "/domain/name" in
-    let nodes = nodes_of_xpathobj boot_xml_doc xpath in
+    let nodes = xpath_get_nodes xpathctx "/domain/name" in
     List.iter (fun node -> Xml.node_set_content node domname) nodes;
 
     (* Limit the RAM used by the guest to 2GB. *)
-    let xpath = Xml.xpath_eval_expression xpathctx "/domain/memory" in
-    let nodes = nodes_of_xpathobj boot_xml_doc xpath in
-    let xpath = Xml.xpath_eval_expression xpathctx "/domain/currentMemory" in
-    let nodes = nodes @ nodes_of_xpathobj boot_xml_doc xpath in
+    let nodes = xpath_get_nodes xpathctx "/domain/memory" in
+    let nodes = nodes @ xpath_get_nodes xpathctx "/domain/currentMemory" in
     List.iter (
       fun node ->
         let i = int_of_string (Xml.node_as_string node) in
@@ -127,8 +117,7 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
         let adjustment = t -. time () in
         assert (adjustment <= 0.);
         let adjustment = int_of_float adjustment in
-        let xpath = Xml.xpath_eval_expression xpathctx "/domain/clock" in
-        let nodes = nodes_of_xpathobj boot_xml_doc xpath in
+        let nodes = xpath_get_nodes xpathctx "/domain/clock" in
         let clock_node =
           match nodes with
           | [] ->
@@ -147,8 +136,7 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
     );
 
     (* Remove all devices except for a whitelist. *)
-    let xpath = Xml.xpath_eval_expression xpathctx "/domain/devices/*" in
-    let nodes = nodes_of_xpathobj boot_xml_doc xpath in
+    let nodes = xpath_get_nodes xpathctx "/domain/devices/*" in
     List.iter (
       fun node ->
         match Xml.node_name node with
@@ -157,33 +145,26 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
     ) nodes;
 
     (* Remove CDROMs. *)
-    let xpath =
-      Xml.xpath_eval_expression xpathctx
-        "/domain/devices/disk[@device=\"cdrom\"]" in
-    let nodes = nodes_of_xpathobj boot_xml_doc xpath in
+    let nodes = xpath_get_nodes xpathctx
+      "/domain/devices/disk[@device=\"cdrom\"]" in
     List.iter Xml.unlink_node nodes;
 
     (* Change <on_*> settings to destroy ... *)
-    let xpath = Xml.xpath_eval_expression xpathctx "/domain/on_poweroff" in
-    let nodes = nodes_of_xpathobj boot_xml_doc xpath in
-    let xpath = Xml.xpath_eval_expression xpathctx "/domain/on_crash" in
-    let nodes = nodes @ nodes_of_xpathobj boot_xml_doc xpath in
+    let nodes = xpath_get_nodes xpathctx "/domain/on_poweroff" in
+    let nodes = nodes @ xpath_get_nodes xpathctx "/domain/on_crash" in
     List.iter (fun node -> Xml.node_set_content node "destroy") nodes;
     (* ... except for <on_reboot> which is permitted (for SELinux
      * relabelling)
      *)
-    let xpath = Xml.xpath_eval_expression xpathctx "/domain/on_reboot" in
-    let nodes = nodes_of_xpathobj boot_xml_doc xpath in
+    let nodes = xpath_get_nodes xpathctx "/domain/on_reboot" in
     List.iter (fun node -> Xml.node_set_content node "restart") nodes;
 
     (* Get the name of the disk device (eg. "sda"), which is used
      * for getting disk stats.
      *)
-    let xpath =
-      Xml.xpath_eval_expression xpathctx
-        "/domain/devices/disk[@device=\"disk\"]/target/@dev" in
     let dev =
-      match nodes_of_xpathobj boot_xml_doc xpath with
+      match xpath_get_nodes xpathctx
+        "/domain/devices/disk[@device=\"disk\"]/target/@dev" with
       | [node] -> Xml.node_as_string node
       | _ -> assert false in
 
@@ -523,10 +504,8 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
     (* We need to remember to change the XML to point to the boot overlay. *)
     let () =
       let xpathctx = Xml.xpath_new_context boot_xml_doc in
-      let xpath =
-        Xml.xpath_eval_expression xpathctx
-          "/domain/devices/disk[@device=\"disk\"]/source" in
-      match nodes_of_xpathobj boot_xml_doc xpath with
+      match xpath_get_nodes xpathctx
+        "/domain/devices/disk[@device=\"disk\"]/source" with
       | [node] ->
         (* Libvirt requires that the path is absolute. *)
         let abs_boot_disk = Sys.getcwd () // boot_disk in

@@ -40,3 +40,12 @@ let xpath_eval parsefn xpathctx expr =
 let xpath_string = xpath_eval identity
 let xpath_int = xpath_eval int_of_string
 let xpath_int64 = xpath_eval Int64.of_string
+
+let xpath_get_nodes xpathctx expr =
+  let obj = Xml.xpath_eval_expression xpathctx expr in
+  let nodes = ref [] in
+  for i = 0 to Xml.xpathobj_nr_nodes obj - 1 do
+    let node = Xml.xpathobj_node obj i in
+    push_front node nodes
+  done;
+  List.rev !nodes
