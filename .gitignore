@@ -87,12 +87,14 @@ Makefile.in
 /build-aux/test-driver
 /build-aux/ylwrap
 /builder/.depend
+/builder/*.img
 /builder/index-parse.c
 /builder/index-parse.h
 /builder/index-scan.c
 /builder/libguestfs.conf
 /builder/opensuse.conf
 /builder/oUnit-*
+/builder/*.out
 /builder/*.qcow2
 /builder/stamp-virt-builder.pod
 /builder/stamp-virt-index-validate.pod
