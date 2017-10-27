@@ -17,3 +17,7 @@
  *)
 
 val get_index : downloader:Downloader.t -> sigchecker:Sigchecker.t -> Sources.source -> Index.index
+
+val write_entry : out_channel -> (string * Index.entry) -> unit
+(** [write_entry chan entry] writes the index entry to the chan output
+    stream.*)

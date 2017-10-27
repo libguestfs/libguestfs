@@ -90,6 +90,7 @@ Makefile.in
 /builder/*.img
 /builder/index-parse.c
 /builder/index-parse.h
+/builder/index_parser_tests
 /builder/index-scan.c
 /builder/libguestfs.conf
 /builder/opensuse.conf

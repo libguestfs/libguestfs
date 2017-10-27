@@ -21,6 +21,7 @@ AM_YFLAGS = -d
 
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
+	index_parser_tests.ml \
 	libguestfs.gpg \
 	opensuse.gpg \
 	test-console.sh \
@@ -240,13 +241,38 @@ yajl_tests_BOBJECTS = \
 	yajl_tests.cmo
 yajl_tests_XOBJECTS = $(yajl_tests_BOBJECTS:.cmo=.cmx)
 
+index_parser_tests_SOURCES = \
+	index-scan.c \
+	index-struct.c \
+	index-parser-c.c \
+	index-parse.c \
+	yajl-c.c
+index_parser_tests_CPPFLAGS = $(virt_builder_CPPFLAGS)
+index_parser_tests_BOBJECTS = \
+	yajl.cmo \
+	utils.cmo \
+	cache.cmo \
+	downloader.cmo \
+	sigchecker.cmo \
+	index.cmo \
+	ini_reader.cmo \
+	index_parser.cmo \
+	index_parser_tests.cmo
+index_parser_tests_XOBJECTS = $(index_parser_tests_BOBJECTS:.cmo=.cmx)
+
 # Can't call the following as <test>_OBJECTS because automake gets confused.
 if HAVE_OCAMLOPT
 yajl_tests_THEOBJECTS = $(yajl_tests_XOBJECTS)
 yajl_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+
+index_parser_tests_THEOBJECTS = $(index_parser_tests_XOBJECTS)
+index_parser_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 else
 yajl_tests_THEOBJECTS = $(yajl_tests_BOBJECTS)
 yajl_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+
+index_parser_tests_THEOBJECTS = $(index_parser_tests_BOBJECTS)
+index_parser_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 endif
 
 yajl_tests_DEPENDENCIES = \
@@ -262,6 +288,15 @@ yajl_tests_LINK = \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) $(OCAMLLINKFLAGS) \
 	  $(yajl_tests_THEOBJECTS) -o $@
 
+index_parser_tests_DEPENDENCIES = \
+	$(index_parser_tests_THEOBJECTS) \
+	../common/mltools/mltools.$(MLARCHIVE) \
+	$(top_srcdir)/ocaml-link.sh
+index_parser_tests_LINK = \
+	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) $(OCAMLLINKFLAGS) \
+	  $(index_parser_tests_THEOBJECTS) -o $@
+
 TESTS = \
 	test-docs.sh \
 	test-virt-builder-list.sh \
@@ -275,8 +310,8 @@ if ENABLE_APPLIANCE
 TESTS += test-virt-builder.sh
 endif ENABLE_APPLIANCE
 if HAVE_OCAML_PKG_OUNIT
-check_PROGRAMS += yajl_tests
-TESTS += yajl_tests
+check_PROGRAMS += yajl_tests index_parser_tests
+TESTS += yajl_tests index_parser_tests
 endif
 
 check-valgrind:

@@ -39,3 +39,6 @@ and entry = {
 }
 
 val print_entry : out_channel -> (string * entry) -> unit
+(** Debugging helper function dumping an index entry to a stream.
+    To write entries for non-debugging purpose, use the
+    [Index_parser.write_entry] function. *)
