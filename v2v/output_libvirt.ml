@@ -54,15 +54,8 @@ let target_features_of_capabilities_doc doc arch =
     Xml.xpathctx_set_current_context xpathctx node;
 
     (* Get guest/features/* nodes. *)
-    let obj = Xml.xpath_eval_expression xpathctx "features/*" in
-
-    let features = ref [] in
-    for i = 0 to Xml.xpathobj_nr_nodes obj - 1 do
-      let feature_node = Xml.xpathobj_node obj i in
-      let feature_name = Xml.node_name feature_node in
-      push_front feature_name features
-    done;
-    !features
+    let features = xpath_get_nodes xpathctx "features/*" in
+    List.map Xml.node_name features
   )
 
 class output_libvirt oc output_pool = object

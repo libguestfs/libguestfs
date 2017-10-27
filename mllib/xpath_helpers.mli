@@ -31,3 +31,7 @@ val xpath_int_default : Xml.xpathctx -> string -> int -> int
 val xpath_int64_default : Xml.xpathctx -> string -> int64 -> int64
 (** Parse an xpath expression and return a string/int; if the expression
     doesn't match, return the default. *)
+
+val xpath_get_nodes : Xml.xpathctx -> string -> Xml.node list
+(** Parse an XPath expression and return a list with the matching
+    XML nodes. *)
