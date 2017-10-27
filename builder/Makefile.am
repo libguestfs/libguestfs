@@ -214,6 +214,10 @@ CLEANFILES += *.qcow2 *.xz
 
 check_DATA = $(disk_images)
 
+osinfo_config.ml: Makefile
+	echo 'let libosinfo_db_path = "$(datadir)/libosinfo/db"' > $@-t
+	mv $@-t $@
+
 fedora.qcow2: ../test-data/phony-guests/fedora.img
 	rm -f $@ $@-t
 	qemu-img convert -f raw -O qcow2 $< $@-t
