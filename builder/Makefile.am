@@ -62,12 +62,12 @@ SOURCES_MLI = \
 	yajl.mli
 
 SOURCES_ML = \
+	yajl.ml \
 	utils.ml \
 	pxzcat.ml \
 	setlocale.ml \
 	index.ml \
 	ini_reader.ml \
-	yajl.ml \
 	paths.ml \
 	languages.ml \
 	cache.ml \

@@ -20,6 +20,7 @@
 
 open Printf
 
+open Std_utils
 open Tools_utils
 
 type gpgkey_type =
@@ -33,3 +34,9 @@ and revision =
 let string_of_revision = function
   | Rev_int n -> string_of_int n
   | Rev_string s -> s
+
+let get_image_infos filepath =
+  let qemuimg_cmd = "qemu-img info --output json " ^ quote filepath in
+  let lines = external_command qemuimg_cmd in
+  let line = String.concat "\n" lines in
+  Yajl.yajl_tree_parse line
