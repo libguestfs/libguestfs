@@ -1253,6 +1253,28 @@ The proxy environment variables (C<https_proxy>, C<all_proxy>,
 C<no_proxy>, C<HTTPS_PROXY>, C<ALL_PROXY> and C<NO_PROXY>) are
 B<ignored> when doing vCenter conversions.
 
+=head2 VCENTER: SSL/TLS CERTIFICATE PROBLEMS
+
+You may see this error:
+
+  CURL: Error opening file: SSL: no alternative certificate subject
+  name matches target host name
+
+(You may need to enable debugging with ‘virt-v2v -v -x’ to see this
+message).
+
+This can be caused by using an IP address instead of the
+fully-qualified DNS domain name of the vCenter server, ie.  use
+C<vpx://vcenter.example.com/...> instead of C<vpx://11.22.33.44/...>
+
+Another certificate problem can be caused by the vCenter server having
+a mismatching FQDN and IP address, for example if the server acquired
+a new IP address from DHCP.  To fix this you need to change your DHCP
+server or network configuration so that the vCenter server always gets
+a stable IP address.  After that log in to the vCenter server’s admin
+console at C<https://vcenter:5480/>.  Under the C<Admin> tab, select
+C<Certificate regeneration enabled> and then reboot it.
+
 =head1 INPUT FROM VMWARE OVA
 
 Virt-v2v is able to import guests from VMware’s OVA (Open
