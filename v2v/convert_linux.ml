@@ -930,7 +930,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
           let block_prefix_before_conversion =
             match disk.s_controller with
             | Some Source_IDE -> ide_block_prefix
-            | Some Source_virtio_SCSI | Some Source_SCSI -> "sd"
+            | Some (Source_virtio_SCSI | Source_SCSI | Source_SATA) -> "sd"
             | Some Source_virtio_blk -> "vd"
             | None ->
               (* This is basically a guess.  It assumes the source used IDE. *)

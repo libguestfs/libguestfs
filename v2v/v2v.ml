@@ -799,7 +799,7 @@ and rcaps_from_source source =
     match source_block_type with
     | Some Source_virtio_blk -> Some Virtio_blk
     | Some Source_virtio_SCSI -> Some Virtio_SCSI
-    | Some Source_IDE -> Some IDE
+    | Some (Source_IDE | Source_SATA) -> Some IDE
     | Some t -> error (f_"source has unsupported hard disk type ‘%s’")
                       (string_of_controller t)
     | None -> error (f_"source has unrecognized hard disk type") in

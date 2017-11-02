@@ -74,7 +74,8 @@ let rec target_bus_assignment source targets guestcaps =
              | None -> ide_bus (* Wild guess, but should be safe. *)
              | Some Source_virtio_blk -> virtio_blk_bus
              | Some Source_IDE -> ide_bus
-             | Some Source_virtio_SCSI | Some Source_SCSI -> scsi_bus in
+             | Some (Source_virtio_SCSI | Source_SCSI | Source_SATA) ->
+                scsi_bus in
 
         match r.s_removable_slot with
         | None ->

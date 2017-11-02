@@ -271,6 +271,7 @@ let parse_libvirt_xml ?conn xml =
         match target_bus, has_virtio_scsi with
         | None, _ -> None
         | Some "ide", _ -> Some Source_IDE
+        | Some "sata", _ -> Some Source_SATA
         | Some "scsi", true -> Some Source_virtio_SCSI
         | Some "scsi", false -> Some Source_SCSI
         | Some "virtio", _ -> Some Source_virtio_blk
@@ -367,6 +368,7 @@ let parse_libvirt_xml ?conn xml =
         match target_bus, has_virtio_scsi with
         | None, _ -> None
         | Some "ide", _ -> Some Source_IDE
+        | Some "sata", _ -> Some Source_SATA
         | Some "scsi", true -> Some Source_virtio_SCSI
         | Some "scsi", false -> Some Source_SCSI
         | Some "virtio", _ -> Some Source_virtio_blk

@@ -61,7 +61,7 @@ and source_disk = {
   s_format : string option;
   s_controller : s_controller option;
 }
-and s_controller = Source_IDE | Source_SCSI |
+and s_controller = Source_IDE | Source_SATA | Source_SCSI |
                    Source_virtio_blk | Source_virtio_SCSI
 and source_removable = {
   s_removable_type : s_removable_type;
@@ -203,6 +203,7 @@ and string_of_source_disk { s_qemu_uri = qemu_uri; s_format = format;
 
 and string_of_controller = function
   | Source_IDE -> "ide"
+  | Source_SATA -> "sata"
   | Source_SCSI -> "scsi"
   | Source_virtio_blk -> "virtio-blk"
   | Source_virtio_SCSI -> "virtio-scsi"
