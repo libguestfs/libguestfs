@@ -399,20 +399,17 @@ and guestcaps_block_type = Virtio_blk | Virtio_SCSI | IDE
 and guestcaps_net_type = Virtio_net | E1000 | RTL8139
 and guestcaps_video_type = QXL | Cirrus
 
-let string_of_block_type block_type =
-  (match block_type with
-   | Virtio_blk -> "virtio-blk"
-   | Virtio_SCSI -> "virtio-scsi"
-   | IDE -> "ide")
-let string_of_net_type net_type =
-  (match net_type with
-   | Virtio_net -> "virtio-net"
-   | E1000 -> "e1000"
-   | RTL8139 -> "rtl8139")
-let string_of_video video =
-  (match video with
-   | QXL -> "qxl"
-   | Cirrus -> "cirrus")
+let string_of_block_type = function
+  | Virtio_blk -> "virtio-blk"
+  | Virtio_SCSI -> "virtio-scsi"
+  | IDE -> "ide"
+let string_of_net_type = function
+  | Virtio_net -> "virtio-net"
+  | E1000 -> "e1000"
+  | RTL8139 -> "rtl8139"
+let string_of_video = function
+  | QXL -> "qxl"
+  | Cirrus -> "cirrus"
 
 let string_of_guestcaps gcaps =
   sprintf "\
