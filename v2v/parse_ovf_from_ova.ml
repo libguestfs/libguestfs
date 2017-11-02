@@ -232,8 +232,9 @@ let parse_ovf_from_ova ovf_filename =
       let vnet =
         Option.default (sprintf"eth%d" i)
                        (xpath_string "rasd:ElementName/text()") in
+      let mac = xpath_string "rasd:Address/text()" in
       let nic = {
-        s_mac = None;
+        s_mac = mac;
         s_nic_model = None;
         s_vnet = vnet;
         s_vnet_orig = vnet;
