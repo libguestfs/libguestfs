@@ -105,10 +105,11 @@ let parse_ovf_from_ova ovf_filename =
     let expr = sprintf "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:InstanceID/text()=%d]/rasd:ResourceType/text()" id in
     let controller = xpath_int expr in
 
-    (* 6: iscsi controller, 5: ide *)
+    (* 5: IDE, 6: SCSI controller, 20: SATA *)
     match controller with
-    | Some 6 -> Some Source_SCSI
     | Some 5 -> Some Source_IDE
+    | Some 6 -> Some Source_SCSI
+    | Some 20 -> Some Source_SATA
     | None ->
        warning (f_"ova disk has no parent controller, please report this as a bug supplying the *.ovf file extracted from the ova");
        None
