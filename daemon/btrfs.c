@@ -1826,7 +1826,7 @@ do_btrfs_balance_status (const char *path)
   ret = calloc (1, sizeof *ret);
   if (ret == NULL) {
     reply_with_perror ("calloc");
-    goto error;
+    return NULL;
   }
 
   /* Output of `btrfs balance status' is like:
@@ -1855,7 +1855,7 @@ do_btrfs_balance_status (const char *path)
     ret->btrfsbalance_status = strdup ("none");
     if (ret->btrfsbalance_status == NULL) {
       reply_with_perror ("strdup");
-      return NULL;
+      goto error;
     }
     return ret;
   }
