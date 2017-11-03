@@ -990,7 +990,7 @@ do_btrfs_subvolume_show (const char *subvolume)
           return NULL;
       }
     } else {
-      if (add_string (&ret, key ? key : "") == -1)
+      if (add_string (&ret, key) == -1)
         return NULL;
       if (value && !STREQ (value, "-")) {
         if (add_string (&ret, value) == -1)
