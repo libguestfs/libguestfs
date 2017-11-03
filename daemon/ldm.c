@@ -286,7 +286,6 @@ do_ldmtool_diskgroup_volumes (const char *diskgroup)
     reply_with_error ("%s", err);
     return NULL;
   }
-  free (err);
 
   return parse_json_get_object_string_list (out, "volumes",
                                             __func__, "ldmtool show diskgroup");
