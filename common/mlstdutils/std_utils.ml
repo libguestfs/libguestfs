@@ -598,6 +598,22 @@ let protect ~f ~finally =
   finally ();
   match r with Either ret -> ret | Or exn -> raise exn
 
+type 'a return = { return: 'b. 'a -> 'b } (* OCaml >= 4.03: [@@unboxed] *)
+(* This requires features in OCaml >= 4.04:
+let with_return (type a) f =
+  let exception Return of a in
+  try f {return = fun ret -> raise (Return ret)} with Return ret -> ret
+*)
+
+(* This should work for any version of OCaml, but it doesn't work
+ * properly for nested with_return statements.  When we can assume
+ * OCaml >= 4.04 we should use the above definition instead.
+ *)
+let with_return f =
+  let ret = ref None in
+  try f {return = fun r -> ret := Some r; raise Exit}
+  with Exit -> match !ret with None -> assert false | Some r -> r
+
 let failwithf fs = ksprintf failwith fs
 
 exception Executable_not_found of string (* executable *)

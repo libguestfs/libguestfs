@@ -347,6 +347,20 @@ val protect : f:(unit -> 'a) -> finally:(unit -> unit) -> 'a
     case, but requires a lot more work by the caller.  Perhaps we
     will change this in future.) *)
 
+type 'a return = { return: 'b. 'a -> 'b } (* OCaml >= 4.03: [@@unboxed] *)
+val with_return : ('a return -> 'a) -> 'a
+(** {v
+    with_return (fun {return} ->
+      some code ...
+    )
+    v}
+    emulates the [return] statement found in other programming
+    languages.
+
+    The ‘some code’ part may either return implicitly, or may call
+    [return x] to immediately return the value [x].  All returned
+    values must have the same type. *)
+
 val failwithf : ('a, unit, string, 'b) format4 -> 'a
 (** Like [failwith] but supports printf-like arguments. *)
 
