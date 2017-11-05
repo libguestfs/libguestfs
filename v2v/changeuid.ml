@@ -65,12 +65,7 @@ let rmdir t path =
   with_fork t (sprintf "rmdir: %s" path) (fun () -> rmdir path)
 
 let output t path f =
-  with_fork t path (
-    fun () ->
-      let chan = open_out path in
-      f chan;
-      close_out chan
-  )
+  with_fork t path (fun () -> with_open_out path f)
 
 let make_file t path content =
   output t path (fun chan -> output_string chan content)

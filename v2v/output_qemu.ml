@@ -203,22 +203,23 @@ object
       arg "-serial" "stdio";
 
     (* Write the output file. *)
-    let chan = open_out file in
-    let fpf fs = fprintf chan fs in
-    fpf "#!/bin/sh -\n";
-    fpf "\n";
+    with_open_out file (
+      fun chan ->
+        let fpf fs = fprintf chan fs in
+        fpf "#!/bin/sh -\n";
+        fpf "\n";
 
-    (match uefi_firmware with
-     | None -> ()
-     | Some { Uefi.vars = vars_template } ->
-        fpf "# Make a copy of the UEFI variables template\n";
-        fpf "uefi_vars=\"$(mktemp)\"\n";
-        fpf "cp %s \"$uefi_vars\"\n" (quote vars_template);
-        fpf "\n"
+        (match uefi_firmware with
+         | None -> ()
+         | Some { Uefi.vars = vars_template } ->
+            fpf "# Make a copy of the UEFI variables template\n";
+            fpf "uefi_vars=\"$(mktemp)\"\n";
+            fpf "cp %s \"$uefi_vars\"\n" (quote vars_template);
+            fpf "\n"
+        );
+
+        Qemu_command.to_chan cmd chan
     );
-
-    Qemu_command.to_chan cmd chan;
-    close_out chan;
 
     Unix.chmod file 0o755;
 

@@ -260,10 +260,11 @@ object
            "password=-"
         | Some password ->
            let password_file = tmpdir // "password" in
-           let chan = open_out password_file in
-           chmod password_file 0o600;
-           output_string chan password;
-           close_out chan;
+           with_open_out password_file (
+             fun chan ->
+               chmod password_file 0o600;
+               output_string chan password
+           );
            (* nbdkit reads the password from the file *)
            "password=+" ^ password_file in
       add_arg (sprintf "server=%s" server);

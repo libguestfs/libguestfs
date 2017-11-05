@@ -152,9 +152,7 @@ object
           | TargetFile s -> s
           | TargetURI _ -> assert false in
         let meta_filename = target_file ^ ".meta" in
-        let chan = open_out meta_filename in
-        output_string chan meta;
-        close_out chan
+        with_open_out meta_filename (fun chan -> output_string chan meta)
     ) (List.combine targets metas);
 
     (* Return the list of targets. *)
@@ -186,9 +184,7 @@ object
 
     (* Write it to the metadata file. *)
     let file = vdsm_params.ovf_output // vdsm_params.vm_uuid ^ ".ovf" in
-    let chan = open_out file in
-    DOM.doc_to_chan chan ovf;
-    close_out chan
+    with_open_out file (fun chan -> DOM.doc_to_chan chan ovf)
 end
 
 let output_vdsm = new output_vdsm
