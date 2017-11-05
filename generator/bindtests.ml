@@ -971,18 +971,20 @@ and generate_php_bindtests () =
   pr "--EXPECT--\n";
 
   let dump filename =
-    let chan = open_in filename in
-    let rec loop () =
-      let line = input_line chan in
-      (match String.nsplit ":" line with
-      | ("obool"|"oint"|"oint64"|"ostring"|"ostringlist") as x :: _ ->
-        pr "%s: unset\n" x
-      | _ -> pr "%s\n" line
-      );
-      loop ()
-    in
-    (try loop () with End_of_file -> ());
-    close_in chan in
+    with_open_in filename (
+      fun chan ->
+        let rec loop () =
+          let line = input_line chan in
+          (match String.nsplit ":" line with
+           | ("obool"|"oint"|"oint64"|"ostring"|"ostringlist") as x :: _ ->
+              pr "%s: unset\n" x
+           | _ -> pr "%s\n" line
+          );
+          loop ()
+        in
+        (try loop () with End_of_file -> ());
+    )
+  in
 
   dump "bindtests"
 

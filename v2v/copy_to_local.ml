@@ -224,9 +224,7 @@ read the man page virt-v2v-copy-to-local(1).
 
   let guest_xml = guest_name ^ ".xml" in
   message (f_"Writing libvirt XML metadata to %s ...") guest_xml;
-  let chan = open_out guest_xml in
-  output_string chan xml;
-  close_out chan;
+  with_open_out guest_xml (fun chan -> output_string chan xml);
 
   (* Finished, so don't delete the disks on exit. *)
   message (f_"Finishing off");

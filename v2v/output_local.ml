@@ -66,9 +66,7 @@ class output_local dir = object
     let name = source.s_name in
     let file = dir // name ^ ".xml" in
 
-    let chan = open_out file in
-    DOM.doc_to_chan chan doc;
-    close_out chan
+    with_open_out file (fun chan -> DOM.doc_to_chan chan doc)
 end
 
 let output_local = new output_local

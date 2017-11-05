@@ -204,29 +204,31 @@ object
         debug "processing manifest %s" mf;
         let mf_folder = Filename.dirname mf in
         let mf_subfolder = subdirectory exploded mf_folder in
-        let chan = open_in mf in
-        let rec loop () =
-          let line = input_line chan in
-          if Str.string_match rex line 0 then (
-            let mode = Str.matched_group 1 line in
-            let disk = Str.matched_group 2 line in
-            let expected = Str.matched_group 3 line in
-            let csum = Checksums.of_string mode expected in
-            try
-              if partial then
-                Checksums.verify_checksum csum ~tar:ova (mf_subfolder // disk)
+        with_open_in mf (
+          fun chan ->
+            let rec loop () =
+              let line = input_line chan in
+              if Str.string_match rex line 0 then (
+                let mode = Str.matched_group 1 line in
+                let disk = Str.matched_group 2 line in
+                let expected = Str.matched_group 3 line in
+                let csum = Checksums.of_string mode expected in
+                try
+                  if partial then
+                    Checksums.verify_checksum csum
+                                              ~tar:ova (mf_subfolder // disk)
+                  else
+                    Checksums.verify_checksum csum (mf_folder // disk)
+                with Checksums.Mismatched_checksum (_, actual) ->
+                  error (f_"checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected %s(%s) = %s)")
+                    disk mf mode disk actual mode disk expected;
+              )
               else
-                Checksums.verify_checksum csum (mf_folder // disk)
-            with Checksums.Mismatched_checksum (_, actual) ->
-              error (f_"checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected %s(%s) = %s)")
-                disk mf mode disk actual mode disk expected;
-          )
-          else
-            warning (f_"unable to parse line from manifest file: %S") line;
-          loop ()
-        in
-        (try loop () with End_of_file -> ());
-        close_in chan
+                warning (f_"unable to parse line from manifest file: %S") line;
+              loop ()
+            in
+            (try loop () with End_of_file -> ())
+        )
     ) mf;
 
     let ovf_folder = Filename.dirname ovf in

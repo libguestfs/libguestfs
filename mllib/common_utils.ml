@@ -635,21 +635,29 @@ let virt_tools_data_dir =
   fun () -> Lazy.force dir
 
 (*<stdlib>*)
+let with_open_in filename f =
+  let chan = open_in filename in
+  protect ~f:(fun () -> f chan) ~finally:(fun () -> close_in chan)
+
+let with_open_out filename f =
+  let chan = open_out filename in
+  protect ~f:(fun () -> f chan) ~finally:(fun () -> close_out chan)
 
 let read_whole_file path =
   let buf = Buffer.create 16384 in
-  let chan = open_in path in
-  let maxlen = 16384 in
-  let b = Bytes.create maxlen in
-  let rec loop () =
-    let r = input chan b 0 maxlen in
-    if r > 0 then (
-      Buffer.add_substring buf (Bytes.to_string b) 0 r;
+  with_open_in path (
+    fun chan ->
+      let maxlen = 16384 in
+      let b = Bytes.create maxlen in
+      let rec loop () =
+        let r = input chan b 0 maxlen in
+        if r > 0 then (
+          Buffer.add_substring buf (Bytes.to_string b) 0 r;
+          loop ()
+        )
+      in
       loop ()
-    )
-  in
-  loop ();
-  close_in chan;
+  );
   Buffer.contents buf
 
 (*</stdlib>*)
@@ -1149,10 +1157,10 @@ let last_part_of str sep =
   with Not_found -> None
 
 let read_first_line_from_file filename =
-  let chan = open_in filename in
-  let line = try input_line chan with End_of_file -> "" in
-  close_in chan;
-  line
+  with_open_in filename (
+    fun chan ->
+      try input_line chan with End_of_file -> ""
+  )
 
 let is_regular_file path = (* NB: follows symlinks. *)
   try (Unix.stat path).Unix.st_kind = Unix.S_REG

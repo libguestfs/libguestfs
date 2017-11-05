@@ -335,6 +335,18 @@ val virt_tools_data_dir : unit -> string
 
 (*<stdlib>*)
 
+val with_open_in : string -> (in_channel -> 'a) -> 'a
+(** [with_open_in filename f] calls function [f] with [filename]
+    open for input.  The file is always closed either on normal
+    return or if the function [f] throws an exception, so this is
+    both safer and more concise than the regular function. *)
+
+val with_open_out : string -> (out_channel -> 'a) -> 'a
+(** [with_open_out filename f] calls function [f] with [filename]
+    open for output.  The file is always closed either on normal
+    return or if the function [f] throws an exception, so this is
+    both safer and more concise than the regular function. *)
+
 val read_whole_file : string -> string
 (** Read in the whole file as a string. *)
 
