@@ -55,111 +55,120 @@ and check_fstab_aug mdadm_conf root_mountable os_type aug =
   List.filter_map (check_fstab_entry md_map root_mountable os_type aug) entries
 
 and check_fstab_entry md_map root_mountable os_type aug entry =
-  if verbose () then
-    eprintf "check_fstab_entry: augeas path: %s\n%!" entry;
+  with_return (fun {return} ->
+    if verbose () then
+      eprintf "check_fstab_entry: augeas path: %s\n%!" entry;
 
-  let is_bsd =
-    match os_type with
-    | OS_TYPE_FREEBSD | OS_TYPE_NETBSD | OS_TYPE_OPENBSD -> true
-    | OS_TYPE_DOS | OS_TYPE_HURD | OS_TYPE_LINUX | OS_TYPE_MINIX
-    | OS_TYPE_WINDOWS -> false in
+    let is_bsd =
+      match os_type with
+      | OS_TYPE_FREEBSD | OS_TYPE_NETBSD | OS_TYPE_OPENBSD -> true
+      | OS_TYPE_DOS | OS_TYPE_HURD | OS_TYPE_LINUX | OS_TYPE_MINIX
+      | OS_TYPE_WINDOWS -> false in
 
-  let spec = aug_get_noerrors aug (entry ^ "/spec") in
-  let mp = aug_get_noerrors aug (entry ^ "/file") in
-  let vfstype = aug_get_noerrors aug (entry ^ "/vfstype") in
+    let spec = aug_get_noerrors aug (entry ^ "/spec") in
+    let spec =
+      match spec with
+      | None -> return None
+      | Some spec -> spec in
 
-  match spec, mp, vfstype with
-  | None, _, _ | Some _, None, _ | Some _, Some _, None -> None
-  | Some spec, Some mp, Some vfstype ->
-     if verbose () then
-       eprintf "check_fstab_entry: spec=%s mp=%s vfstype=%s\n%!"
-               spec mp vfstype;
+    if verbose () then eprintf "check_fstab_entry: spec=%s\n%!" spec;
 
-     (* Ignore /dev/fd (floppy disks) (RHBZ#642929) and CD-ROM drives.
-      *
-      * /dev/iso9660/FREEBSD_INSTALL can be found in FreeBSD's
-      * installation discs.
-      *)
-     if (String.is_prefix spec "/dev/fd" &&
-         String.length spec >= 8 && Char.isdigit spec.[7]) ||
-        (String.is_prefix spec "/dev/cd" &&
-         String.length spec >= 8 && Char.isdigit spec.[7]) ||
-        spec = "/dev/floppy" ||
-        spec = "/dev/cdrom" ||
-        String.is_prefix spec "/dev/iso9660/" then
-       None
-     else (
-       (* Canonicalize the path, so "///usr//local//" -> "/usr/local" *)
-       let mp = unix_canonical_path mp in
+    (* Ignore /dev/fd (floppy disks) (RHBZ#642929) and CD-ROM drives.
+     *
+     * /dev/iso9660/FREEBSD_INSTALL can be found in FreeBSD's
+     * installation discs.
+     *)
+    if (String.is_prefix spec "/dev/fd" &&
+        String.length spec >= 8 && Char.isdigit spec.[7]) ||
+       (String.is_prefix spec "/dev/cd" &&
+        String.length spec >= 8 && Char.isdigit spec.[7]) ||
+       spec = "/dev/floppy" ||
+       spec = "/dev/cdrom" ||
+       String.is_prefix spec "/dev/iso9660/" then
+      return None;
 
-       (* Ignore certain mountpoints. *)
-       if String.is_prefix mp "/dev/" ||
-          mp = "/dev" ||
-          String.is_prefix mp "/media/" ||
-          String.is_prefix mp "/proc/" ||
-          mp = "/proc" ||
-          String.is_prefix mp "/selinux/" ||
-          mp = "/selinux" ||
-          String.is_prefix mp "/sys/" ||
-          mp = "/sys" then
-         None
-       else (
-         let mountable =
-           (* Resolve UUID= and LABEL= to the actual device. *)
-           if String.is_prefix spec "UUID=" then (
-             let uuid = String.sub spec 5 (String.length spec - 5) in
-             let uuid = shell_unquote uuid in
-             Some (Mountable.of_device (Findfs.findfs_uuid uuid))
-           )
-           else if String.is_prefix spec "LABEL=" then (
-             let label = String.sub spec 6 (String.length spec - 6) in
-             let label = shell_unquote label in
-             Some (Mountable.of_device (Findfs.findfs_label label))
-           )
-           (* Resolve /dev/root to the current device.
-            * Do the same for the / partition of the *BSD
-            * systems, since the BSD -> Linux device
-            * translation is not straight forward.
-            *)
-           else if spec = "/dev/root" || (is_bsd && mp = "/") then
-             Some root_mountable
-           (* Resolve guest block device names. *)
-           else if String.is_prefix spec "/dev/" then
-             Some (resolve_fstab_device spec md_map os_type)
-           (* In OpenBSD's fstab you can specify partitions
-            * on a disk by appending a period and a partition
-            * letter to a Disklable Unique Identifier. The
-            * DUID is a 16 hex digit field found in the
-            * OpenBSD's altered BSD disklabel. For more info
-            * see here:
-            * http://www.openbsd.org/faq/faq14.html#intro
-            *)
-           else if PCRE.matches re_openbsd_duid spec then (
-             let part = spec.[17] in
-             (* We cannot peep into disklabels, we can only
-              * assume that this is the first disk.
-              *)
-             let device = sprintf "/dev/sd0%c" part in
-             Some (resolve_fstab_device device md_map os_type)
-           )
-           (* Ignore "/.swap" (Pardus) and pseudo-devices
-            * like "tmpfs".  If we haven't resolved the device
-            * successfully by this point, just ignore it.
-            *)
-           else
-             None in
+    let mp = aug_get_noerrors aug (entry ^ "/file") in
+    let mp =
+      match mp with
+      | None -> return None
+      | Some mp -> mp in
 
-         match mountable with
-         | None -> None
-         | Some mountable ->
-            let mountable =
-              if vfstype = "btrfs" then
-                get_btrfs_mountable aug entry mountable
-              else mountable in
+    (* Canonicalize the path, so "///usr//local//" -> "/usr/local" *)
+    let mp = unix_canonical_path mp in
 
-            Some (mountable, mp)
-       )
-     )
+    if verbose () then eprintf "check_fstab_entry: mp=%s\n%!" mp;
+
+    (* Ignore certain mountpoints. *)
+    if String.is_prefix mp "/dev/" ||
+       mp = "/dev" ||
+       String.is_prefix mp "/media/" ||
+       String.is_prefix mp "/proc/" ||
+       mp = "/proc" ||
+       String.is_prefix mp "/selinux/" ||
+       mp = "/selinux" ||
+       String.is_prefix mp "/sys/" ||
+       mp = "/sys" then
+      return None;
+
+    let mountable =
+      (* Resolve UUID= and LABEL= to the actual device. *)
+      if String.is_prefix spec "UUID=" then (
+        let uuid = String.sub spec 5 (String.length spec - 5) in
+        let uuid = shell_unquote uuid in
+        Mountable.of_device (Findfs.findfs_uuid uuid)
+      )
+      else if String.is_prefix spec "LABEL=" then (
+        let label = String.sub spec 6 (String.length spec - 6) in
+        let label = shell_unquote label in
+        Mountable.of_device (Findfs.findfs_label label)
+      )
+      (* Resolve /dev/root to the current device.
+       * Do the same for the / partition of the *BSD
+       * systems, since the BSD -> Linux device
+       * translation is not straight forward.
+       *)
+      else if spec = "/dev/root" || (is_bsd && mp = "/") then
+        root_mountable
+      (* Resolve guest block device names. *)
+      else if String.is_prefix spec "/dev/" then
+        resolve_fstab_device spec md_map os_type
+      (* In OpenBSD's fstab you can specify partitions
+       * on a disk by appending a period and a partition
+       * letter to a Disklable Unique Identifier. The
+       * DUID is a 16 hex digit field found in the
+       * OpenBSD's altered BSD disklabel. For more info
+       * see here:
+       * http://www.openbsd.org/faq/faq14.html#intro
+       *)
+      else if PCRE.matches re_openbsd_duid spec then (
+        let part = spec.[17] in
+        (* We cannot peep into disklabels, we can only
+         * assume that this is the first disk.
+         *)
+        let device = sprintf "/dev/sd0%c" part in
+        resolve_fstab_device device md_map os_type
+      )
+      (* Ignore "/.swap" (Pardus) and pseudo-devices
+       * like "tmpfs".  If we haven't resolved the device
+       * successfully by this point, just ignore it.
+       *)
+      else
+        return None in
+
+    let vfstype = aug_get_noerrors aug (entry ^ "/vfstype") in
+    let vfstype =
+      match vfstype with
+      | None -> return None
+      | Some vfstype -> vfstype in
+    if verbose () then eprintf "check_fstab_entry: vfstype=%s\n%!" vfstype;
+
+    let mountable =
+      if vfstype = "btrfs" then
+        get_btrfs_mountable aug entry mountable
+      else mountable in
+
+    Some (mountable, mp)
+  )
 
 (* If an fstab entry corresponds to a btrfs filesystem, look for
  * the 'subvol' option and if it is present then return a btrfs
