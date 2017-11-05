@@ -49,9 +49,8 @@ let map_block_devices ~return_md f =
     List.filter (
       fun dev ->
         try
-          let fd = openfile ("/dev/" ^ dev) [O_RDONLY; O_CLOEXEC] 0 in
-          close fd;
-          true
+          with_openfile ("/dev/" ^ dev) [O_RDONLY; O_CLOEXEC] 0
+                        (fun _ -> true)
         with _ -> false
     ) devs in
 

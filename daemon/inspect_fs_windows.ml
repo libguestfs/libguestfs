@@ -429,16 +429,15 @@ and extract_guid_from_registry_blob blob =
           (data4 &^ 0xffffffffffff_L)
 
 and pread device size offset =
-  let fd = Unix.openfile device [Unix.O_RDONLY; Unix.O_CLOEXEC] 0 in
   let ret =
-    protect ~f:(
-      fun () ->
+    with_openfile device [Unix.O_RDONLY; Unix.O_CLOEXEC] 0 (
+      fun fd ->
         ignore (Unix.lseek fd offset Unix.SEEK_SET);
         let ret = Bytes.create size in
         if Unix.read fd ret 0 size < size then
           failwithf "pread: %s: short read" device;
         ret
-    ) ~finally:(fun () -> Unix.close fd) in
+    ) in
   Bytes.to_string ret
 
 (* Get the hostname. *)
