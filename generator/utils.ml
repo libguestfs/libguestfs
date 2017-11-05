@@ -179,19 +179,13 @@ type memo_value = string list (* list of lines of POD file *)
 
 let pod2text_memo_filename = "generator/.pod2text.data.version.2"
 let pod2text_memo : (memo_key, memo_value) Hashtbl.t =
-  try
-    let chan = open_in pod2text_memo_filename in
-    let v = input_value chan in
-    close_in chan;
-    v
-  with
-    _ -> Hashtbl.create 13
+  try with_open_in pod2text_memo_filename input_value
+  with  _ -> Hashtbl.create 13
 let pod2text_memo_unsaved_count = ref 0
 let pod2text_memo_atexit = ref false
 let pod2text_memo_save () =
-  let chan = open_out pod2text_memo_filename in
-  output_value chan pod2text_memo;
-  close_out chan
+  with_open_out pod2text_memo_filename
+                (fun chan -> output_value chan pod2text_memo)
 let pod2text_memo_updated () =
   if not (!pod2text_memo_atexit) then (
     at_exit pod2text_memo_save;

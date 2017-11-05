@@ -60,10 +60,11 @@ let read_dib_envvars () =
   String.concat "" vars
 
 let write_script fn text =
-  let oc = open_out fn in
-  output_string oc text;
-  flush oc;
-  close_out oc;
+  with_open_out fn (
+    fun oc ->
+      output_string oc text;
+      flush oc
+  );
   Unix.chmod fn 0o755
 
 let envvars_string l =

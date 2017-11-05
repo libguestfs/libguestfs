@@ -478,26 +478,25 @@ let debug_augeas_errors g =
 
 (* Detect type of a file. *)
 let detect_file_type filename =
-  let chan = open_in filename in
-  let get start size =
-    try
-      seek_in chan start;
-      let b = Bytes.create size in
-      really_input chan b 0 size;
-      Some (Bytes.to_string b)
-    with End_of_file | Invalid_argument _ -> None
-  in
-  let ret =
-    if get 0 6 = Some "\2537zXZ\000" then `XZ
-    else if get 0 4 = Some "PK\003\004" then `Zip
-    else if get 0 4 = Some "PK\005\006" then `Zip
-    else if get 0 4 = Some "PK\007\008" then `Zip
-    else if get 257 6 = Some "ustar\000" then `Tar
-    else if get 257 8 = Some "ustar\x20\x20\000" then `Tar
-    else if get 0 2 = Some "\x1f\x8b" then `GZip
-    else `Unknown in
-  close_in chan;
-  ret
+  with_open_in filename (
+    fun chan ->
+      let get start size =
+        try
+          seek_in chan start;
+          let b = Bytes.create size in
+          really_input chan b 0 size;
+          Some (Bytes.to_string b)
+        with End_of_file | Invalid_argument _ -> None
+      in
+      if get 0 6 = Some "\2537zXZ\000" then `XZ
+      else if get 0 4 = Some "PK\003\004" then `Zip
+      else if get 0 4 = Some "PK\005\006" then `Zip
+      else if get 0 4 = Some "PK\007\008" then `Zip
+      else if get 257 6 = Some "ustar\000" then `Tar
+      else if get 257 8 = Some "ustar\x20\x20\000" then `Tar
+      else if get 0 2 = Some "\x1f\x8b" then `GZip
+      else `Unknown
+  )
 
 let is_partition dev =
   try
