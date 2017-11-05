@@ -643,6 +643,10 @@ let with_open_out filename f =
   let chan = open_out filename in
   protect ~f:(fun () -> f chan) ~finally:(fun () -> close_out chan)
 
+let with_openfile filename flags perms f =
+  let fd = Unix.openfile filename flags perms in
+  protect ~f:(fun () -> f fd) ~finally:(fun () -> Unix.close fd)
+
 let read_whole_file path =
   let buf = Buffer.create 16384 in
   with_open_in path (

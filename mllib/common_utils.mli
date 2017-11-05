@@ -347,6 +347,12 @@ val with_open_out : string -> (out_channel -> 'a) -> 'a
     return or if the function [f] throws an exception, so this is
     both safer and more concise than the regular function. *)
 
+val with_openfile : string -> Unix.open_flag list -> Unix.file_perm -> (Unix.file_descr -> 'a) -> 'a
+(** [with_openfile] calls function [f] with [filename] opened by the
+    {!Unix.openfile} function.  The file is always closed either on
+    normal return or if the function [f] throws an exception, so this
+    is both safer and more concise than the regular function. *)
+
 val read_whole_file : string -> string
 (** Read in the whole file as a string. *)
 
