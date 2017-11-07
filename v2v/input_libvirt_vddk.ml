@@ -62,13 +62,14 @@ class input_libvirt_vddk vddk_options password libvirt_uri parsed_uri guest =
 
     (* Check it's a new enough version.  The latest features we
      * require are ‘--exit-with-parent’ and ‘--selinux-label’, both
-     * added in 1.1.14.
+     * added in 1.1.14.  (We use 1.1.16 as the minimum here because
+     * it also adds the selinux=yes|no flag in --dump-config).
      *)
     let lines = external_command "nbdkit --help" in
     let lines = String.concat " " lines in
     if String.find lines "exit-with-parent" == -1 ||
        String.find lines "selinux-label" == -1 then
-      error (f_"nbdkit is not new enough, you need to upgrade to nbdkit ≥ 1.1.14")
+      error (f_"nbdkit is not new enough, you need to upgrade to nbdkit ≥ 1.1.16")
   in
 
   (* Check that the VDDK plugin is installed and working *)

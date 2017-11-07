@@ -1458,7 +1458,7 @@ library is permitted by the license.
 =item 2.
 
 You must also compile nbdkit, enabling the VDDK plugin.  At least
-nbdkit E<ge> 1.1.14 is required, but it is usually best to compile
+nbdkit E<ge> 1.1.16 is required, but it is usually best to compile
 from the git tree.
 
 =over 4
