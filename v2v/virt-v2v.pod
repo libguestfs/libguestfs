@@ -1457,6 +1457,10 @@ library is permitted by the license.
 
 =item 2.
 
+VDDK E<ge> 6.5 is required.
+
+=item 3.
+
 You must also compile nbdkit, enabling the VDDK plugin.  At least
 nbdkit E<ge> 1.1.16 is required, but it is usually best to compile
 from the git tree.
@@ -1473,12 +1477,14 @@ L<https://github.com/libguestfs/nbdkit/tree/master/plugins/vddk>
 
 =back
 
-=item 3.
+Compile nbdkit as described in the sources (see link above).
 
-You do B<not> need to run C<make install>.  You can run nbdkit from
-its source directory.  Set C<$PATH> to point to the nbdkit top build
-directory (that is, the directory containing a shell script called
-F<nbdkit>), eg:
+You do B<not> need to run C<make install> because you can run nbdkit
+from its source directory.  The source directory has a shell script
+called F<nbdkit> which runs the locally built copy of nbdkit and its
+plugins.  So set C<$PATH> to point to the nbdkit top build directory
+(that is, the directory containing the shell script called F<nbdkit>),
+eg:
 
  export PATH=/path/to/nbdkit-1.1.x:$PATH
 
@@ -1486,7 +1492,7 @@ F<nbdkit>), eg:
 
 You must find the SSL "thumbprint" of your VMware server.  How to do
 this is explained in L<nbdkit-vddk-plugin(1)>, also available at the
-link given in item 2 above.
+link above.
 
 =item 5.
 
