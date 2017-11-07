@@ -280,6 +280,7 @@ read the man page virt-v2v(1).
     printf "xen-ssh\n";
     printf "colours-option\n";
     printf "vdsm-compat-option\n";
+    printf "in-place\n";
     List.iter (printf "input:%s\n") (Modules_list.input_modules ());
     List.iter (printf "output:%s\n") (Modules_list.output_modules ());
     List.iter (printf "convert:%s\n") (Modules_list.convert_modules ());
