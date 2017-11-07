@@ -552,6 +552,7 @@ SUBHTML: {
         return 1 if /^guestunmount/;
         return 1 if /^hivex/;
         return 1 if /^supermin/;
+        return 1 if /^nbdkit/;
         return 0;
     }
 
