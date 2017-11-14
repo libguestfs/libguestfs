@@ -1,0 +1,21 @@
+# This is the virt-install command which was used to create
+# the virt-builder template 'fedora-27-ppc64le'
+# NB: This file is generated for documentation purposes ONLY!
+# This script was never run, and is not intended to be run.
+
+'virt-install' \
+    '--transient' \
+    '--name=tmp-fiwz7naa' \
+    '--ram=4096' \
+    '--arch=ppc64le' \
+    '--machine=pseries' \
+    '--cpu=POWER8' \
+    '--vcpus=1' \
+    '--os-variant=fedora22' \
+    '--initrd-inject=fedora-27-ppc64le.ks' \
+    '--extra-args=ks=file:/fedora-27-ppc64le.ks proxy=http://cache.home.annexia.org:3128 console=tty0 console=hvc0 rd_NO_PLYMOUTH' \
+    '--disk=/home/rjones/d/libguestfs/builder/templates/tmp-fiwz7naa.img,size=6,format=raw' \
+    '--location=https://dl.fedoraproject.org/pub/fedora-secondary/releases/27/Server/ppc64le/os/' \
+    '--serial=pty' \
+    '--nographics' 
+
