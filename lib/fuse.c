@@ -1014,7 +1014,8 @@ guestfs_impl_mount_local (guestfs_h *g, const char *localmountpoint,
   /* Create the FUSE mountpoint. */
   ch = fuse_mount (localmountpoint, &args);
   if (ch == NULL) {
-    perrorf (g, _("fuse_mount: %s"), localmountpoint);
+    error (g, _("fuse_mount failed: %s, see error messages above"),
+           localmountpoint);
     fuse_opt_free_args (&args);
     guestfs_int_free_fuse (g);
     return -1;
