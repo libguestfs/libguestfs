@@ -85,6 +85,32 @@ if test "x$enable_daemon" = "xyes"; then
     if test "x$OCAML_PKG_hivex" = "xno"; then
         AC_MSG_ERROR([the OCaml module 'hivex' is required])
     fi
+
+    dnl Check which OCaml runtime to link the daemon again.
+    dnl We can't use AC_CHECK_LIB here unfortunately because
+    dnl the other symbols are resolved by OCaml itself.
+    AC_MSG_CHECKING([which OCaml runtime we should link the daemon with])
+    if test "x$OCAMLOPT" != "xno"; then
+        for f in asmrun_pic asmrun; do
+            if test -f "$OCAMLLIB/lib$f.a"; then
+                CAMLRUN=$f
+                break
+            fi
+        done
+    else
+        for f in camlrun; do
+            if test -f "$OCAMLLIB/lib$f.a"; then
+                CAMLRUN=$f
+                break
+            fi
+        done
+    fi
+    if test "x$CAMLRUN" != "x"; then
+        AC_MSG_RESULT([$CAMLRUN])
+    else
+        AC_MSG_ERROR([could not find or link to libasmrun or libcamlrun])
+    fi
+    AC_SUBST([CAMLRUN])
 fi
 
 OCAML_PKG_gettext=no
