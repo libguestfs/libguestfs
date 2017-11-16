@@ -4,9 +4,11 @@ builder/cmdline.ml
 builder/downloader.ml
 builder/index.ml
 builder/index_parser.ml
+builder/index_parser_tests.ml
 builder/ini_reader.ml
 builder/languages.ml
 builder/list_entries.ml
+builder/osinfo.ml
 builder/paths.ml
 builder/pxzcat.ml
 builder/setlocale.ml
