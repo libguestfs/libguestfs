@@ -9,18 +9,16 @@
 # Alex Puchades <alex94puchades@gmail.com>, 2015. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.35.27\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-11-15 20:54+0000\n"
+"Project-Id-Version: libguestfs 1.37.33\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2017-11-16 13:40+0000\n"
 "PO-Revision-Date: 2015-03-18 06:06-0400\n"
 "Last-Translator: Alex Puchades <alex94puchades@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
-"language/es/)\n"
-"Language: es\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.9.6\n"
 
@@ -38,11 +36,11 @@ msgstr ""
 
 #: ../resize/resize.ml:966
 msgid ""
-"  The surplus space is not large enough for an extra partition to be created "
-"and so it will just be ignored."
+"  The surplus space is not large enough for an extra partition to be created"
+" and so it will just be ignored."
 msgstr ""
-"El espacio restante no es suficiente para crear una nueva partición, así que "
-"se ignora."
+"El espacio restante no es suficiente para crear una nueva partición, así que"
+" se ignora."
 
 #: ../resize/resize.ml:968
 msgid ""
@@ -52,7 +50,7 @@ msgstr ""
 " Se ignora el espacio restante. Ejecute un editor de particiones en el "
 "sistema invitado para particionar este espacio extra."
 
-#: ../v2v/input_ova.ml:305 ../common/mltools/tools_utils.ml:126
+#: ../v2v/input_ova.ml:307 ../common/mltools/tools_utils.ml:126
 msgid "%s"
 msgstr "%s"
 
@@ -62,7 +60,7 @@ msgid ""
 "Options:\n"
 msgstr ""
 
-#. ../common/mltools/tools_utils.ml:527
+#. ../common/mltools/tools_utils.ml:526
 #: ../v2v/inspect_source.ml:53 ../customize/customize_run.ml:480
 msgid "%s (ignored)"
 msgstr "%s (se ignora)"
@@ -90,14 +88,11 @@ msgstr ""
 msgid ""
 "%s does not exist or is not a directory.\n"
 "\n"
-"Most likely cause: Either the %s (%s) has not been attached to any Data "
-"Center, or the path %s is not an %s at all.\n"
+"Most likely cause: Either the %s (%s) has not been attached to any Data Center, or the path %s is not an %s at all.\n"
 "\n"
-"You have to attach the %s to a Data Center using the RHV-M / OVirt user "
-"interface first.\n"
+"You have to attach the %s to a Data Center using the RHV-M / OVirt user interface first.\n"
 "\n"
-"If you don’t know what the %s mount point should be then you can also find "
-"this out through the RHV-M user interface."
+"If you don’t know what the %s mount point should be then you can also find this out through the RHV-M user interface."
 msgstr ""
 
 #: ../v2v/convert_windows.ml:246
@@ -165,18 +160,18 @@ msgstr "%s: El volumen lógico se expandirá a su tamaño máximo."
 #: ../resize/resize.ml:686
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
-"want to shrink this partition, you need to use the ‘--resize-force’ option, "
-"but that could destroy any data on this partition.  (This error came from "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you"
+" want to shrink this partition, you need to use the ‘--resize-force’ option,"
+" but that could destroy any data on this partition.  (This error came from "
 "‘%s’ option on the command line.)"
 msgstr ""
 
 #: ../resize/resize.ml:682
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
-"want to shrink this partition, you need to use the ‘--resize-force’ option, "
-"but that could destroy any data on this partition.  (This error came from "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you"
+" want to shrink this partition, you need to use the ‘--resize-force’ option,"
+" but that could destroy any data on this partition.  (This error came from "
 "‘%s‘ option on the command line.)"
 msgstr ""
 
@@ -233,8 +228,7 @@ msgstr ""
 " virt-builder --delete-cache\n"
 " virt-builder --get-kernel IMAGE\n"
 "\n"
-"Puede ver un resumen de las opciones soportadas a continuación. Para una "
-"ayuda más detallada\n"
+"Puede ver un resumen de las opciones soportadas a continuación. Para una ayuda más detallada\n"
 "consulte la página del manual virt-builder(1).\n"
 
 #: ../v2v/windows_virtio.ml:299
@@ -269,11 +263,9 @@ msgstr "%s: el comando devolvió un error"
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
-" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported "
-"esx_guest\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported esx_guest\n"
 "\n"
-" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhv -os "
-"rhv.nfs:/export_domain --network ovirtmgmt\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhv -os rhv.nfs:/export_domain --network ovirtmgmt\n"
 "\n"
 " virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
 "\n"
@@ -327,8 +319,7 @@ msgstr ""
 "\n"
 " virt-customize [--options] -a disk.img [-a disk.img ...]\n"
 "\n"
-"Un breve resumen de las opciones soportadas aparece a continuación.  Para "
-"una ayuda más detallada\n"
+"Un breve resumen de las opciones soportadas aparece a continuación.  Para una ayuda más detallada\n"
 "consulte la página de manual virt-customize(1).\n"
 
 #: ../common/mltools/tools_utils.ml:66
@@ -346,7 +337,8 @@ msgstr ""
 #: ../resize/resize.ml:407 ../resize/resize.ml:404
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
-"%s: el archivo es demasiado pequeño para hacer de imagen de disco (%Ld bytes)"
+"%s: el archivo es demasiado pequeño para hacer de imagen de disco (%Ld "
+"bytes)"
 
 #: ../builder/index_parser.ml:76
 msgid "%s: index is corrupt: %s: field ‘%s[%s]’ appears two or more times\n"
@@ -404,8 +396,8 @@ msgstr ""
 #: ../resize/resize.ml:622
 msgid ""
 "%s: partition not found in the source disk image (this error came from ‘%s’ "
-"option on the command line).  Try running this command: virt-filesystems --"
-"partitions --long -a %s"
+"option on the command line).  Try running this command: virt-filesystems "
+"--partitions --long -a %s"
 msgstr ""
 
 #: ../resize/resize.ml:529
@@ -431,15 +423,13 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-sysprep(1).\n"
 msgstr ""
-"%s: reinicia o borra la configuración de una máquina virtual, de forma que "
-"se puedan clonar\n"
+"%s: reinicia o borra la configuración de una máquina virtual, de forma que se puedan clonar\n"
 "\n"
 " virt-sysprep [--options] -d domname\n"
 "\n"
 " virt-sysprep [--options] -a disk.img [-a disk.img ...]\n"
 "\n"
-"Un breve resumen de las opciones soportadas aparece a continuación.  Para "
-"una ayuda más detallada\n"
+"Un breve resumen de las opciones soportadas aparece a continuación.  Para una ayuda más detallada\n"
 "consulte la página de manual virt-sysprep(1).\n"
 
 #: ../resize/resize.ml:219
@@ -451,8 +441,7 @@ msgid ""
 msgstr ""
 "%s: redimensionar un disco de máquina virtual\n"
 "\n"
-"Un breve resumen de las opciones soportadas aparece a continuación.  Para "
-"una ayuda más detallada\n"
+"Un breve resumen de las opciones soportadas aparece a continuación.  Para una ayuda más detallada\n"
 "consulte la página de manual virt-resize(1).\n"
 
 #: ../dib/cmdline.ml:63
@@ -501,8 +490,7 @@ msgstr ""
 msgid ""
 "%s: unsupported file format\n"
 "\n"
-"Formats which we currently understand for '-i ova' are: tar (uncompressed, "
-"compress with gzip or xz), zip"
+"Formats which we currently understand for '-i ova' are: tar (uncompressed, compress with gzip or xz), zip"
 msgstr ""
 
 #: ../common/mltools/tools_utils.ml:84
@@ -534,8 +522,8 @@ msgstr ""
 #: ../customize/customize_main.ml:112
 msgid "--attach-format parameter must appear before --attach parameter"
 msgstr ""
-"el argumento de --attach-format debe aparecer antes que el argumento de --"
-"attach"
+"el argumento de --attach-format debe aparecer antes que el argumento de "
+"--attach"
 
 #: ../builder/cmdline.ml:268
 msgid ""
@@ -549,11 +537,11 @@ msgstr ""
 
 #: ../sparsify/copying.ml:69
 msgid ""
-"--compress cannot be used for raw output.  Remove this option or use --"
-"convert qcow2."
+"--compress cannot be used for raw output.  Remove this option or use "
+"--convert qcow2."
 msgstr ""
-"--compress no se puede usar para salida raw. Omita esta opción o utilice --"
-"convert qcow2."
+"--compress no se puede usar para salida raw. Omita esta opción o utilice "
+"--convert qcow2."
 
 #: ../dib/cmdline.ml:88
 msgid "--debug parameter must be >= 0"
@@ -608,8 +596,8 @@ msgstr ""
 msgid ""
 "--password-file parameter ignored because 'user@' was not given in the URL"
 msgstr ""
-"se ignora el parámetro de --password-file porque no se incluyó 'user@' en la "
-"URL"
+"se ignora el parámetro de --password-file porque no se incluyó 'user@' en la"
+" URL"
 
 #: ../get-kernel/get_kernel.ml:52
 msgid "--prefix option can only be given once"
@@ -715,7 +703,7 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: la carpeta de salida no existe o no es una carpeta"
 
-#. ../v2v/copy_to_local.ml:316
+#. ../v2v/copy_to_local.ml:314
 #: ../v2v/parse_libvirt_xml.ml:351 ../v2v/parse_libvirt_xml.ml:309
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> se ignora"
@@ -728,7 +716,7 @@ msgstr "<disk type='network'> con <source protocol='%s'> se ignora"
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:291 ../v2v/copy_to_local.ml:298
+#: ../v2v/parse_libvirt_xml.ml:291 ../v2v/copy_to_local.ml:296
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
@@ -738,7 +726,8 @@ msgstr ""
 
 #: ../v2v/parse_libvirt_xml.ml:384
 msgid ""
-"<target dev='%s'> was ignored because the device name could not be recognized"
+"<target dev='%s'> was ignored because the device name could not be "
+"recognized"
 msgstr ""
 
 #: ../v2v/input_libvirt_vddk.ml:176
@@ -823,8 +812,8 @@ msgstr ""
 
 #: ../sparsify/copying.ml:337
 msgid ""
-"Before deleting the old disk, carefully check that the target disk boots and "
-"works correctly."
+"Before deleting the old disk, carefully check that the target disk boots and"
+" works correctly."
 msgstr ""
 
 #: ../resize/resize.ml:214
@@ -843,13 +832,11 @@ msgid ""
 "See the I<--remove-user-accounts> parameter for a way to specify\n"
 "how to remove only some users, or to not remove some others."
 msgstr ""
-"De forma predeterminada eliminar todas las cuentas de usuario y sus carpetas "
-"de usuario correspondientes.\n"
+"De forma predeterminada eliminar todas las cuentas de usuario y sus carpetas de usuario correspondientes.\n"
 "La cuenta de 'root' no será borrada.\n"
 "\n"
 "Consulte el parámetro |<--remove-user-accounts> para especificar\n"
-"cómo eliminar sólo algunos de los usuarios, o no eliminar a alguno de los "
-"demás."
+"cómo eliminar sólo algunos de los usuarios, o no eliminar a alguno de los demás."
 
 #: ../v2v/target_bus_assignment.ml:87
 msgid "CD-ROM"
@@ -859,7 +846,7 @@ msgstr ""
 msgid "Cannot get the home directory for %s"
 msgstr "No se puede obtener la carpeta de usuario para %s"
 
-#: ../dib/dib.ml:591
+#: ../dib/dib.ml:592
 msgid "Carried environment variables: %s"
 msgstr ""
 
@@ -1025,8 +1012,7 @@ msgid ""
 "home directories, so users with home directories in other\n"
 "locations won't have the bash history removed."
 msgstr ""
-"En la actualidad, sólo se buscan carpetas de usuario en C</root> y C</home/"
-"*>,\n"
+"En la actualidad, sólo se buscan carpetas de usuario en C</root> y C</home/*>,\n"
 "de forma que no se borrará la historia de bash de\n"
 "los usuarios con carpetas de usuario en otras localizaciones"
 
@@ -1049,8 +1035,7 @@ msgid ""
 "Customize the guest by providing L<virt-customize(1)> options\n"
 "for installing packages, editing files and so on."
 msgstr ""
-"Personaliza el sistema invitado por medio de las opciones L<virt-"
-"customize(1)>\n"
+"Personaliza el sistema invitado por medio de las opciones L<virt-customize(1)>\n"
 "para la instalación de paquetes, el editado de archivos, etc."
 
 #: ../customize/customize_cmdline.ml:285
@@ -1118,7 +1103,7 @@ msgstr ""
 msgid "Do not warn if writing to a partition"
 msgstr ""
 
-#: ../dib/dib.ml:1004
+#: ../dib/dib.ml:1005
 msgid "Done"
 msgstr ""
 
@@ -1167,10 +1152,8 @@ msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
 msgstr ""
-"Sistema operativo con arranque dual o multi-boot detectado.  Elige el "
-"sistema de archivos\n"
-"raíz que contenga el sistema operativo principal de la lista que aparece a "
-"continuación:\n"
+"Sistema operativo con arranque dual o multi-boot detectado.  Elige el sistema de archivos\n"
+"raíz que contenga el sistema operativo principal de la lista que aparece a continuación:\n"
 
 #: ../customize/customize_cmdline.ml:229
 msgid "Edit file using Perl expression"
@@ -1180,7 +1163,7 @@ msgstr "Editar archivo por medio de una expresión Perl"
 msgid "Editing: %s"
 msgstr "Editando: %s"
 
-#: ../dib/dib.ml:564
+#: ../dib/dib.ml:565
 msgid "Elements: %s"
 msgstr ""
 
@@ -1249,7 +1232,7 @@ msgstr "Expandir volumen lógico"
 msgid "Expand partition"
 msgstr "Expandir partición"
 
-#: ../dib/dib.ml:587
+#: ../dib/dib.ml:588
 msgid "Expanded elements: %s"
 msgstr ""
 
@@ -1265,7 +1248,7 @@ msgstr ""
 msgid "Export Storage Domain"
 msgstr ""
 
-#: ../dib/dib.ml:935
+#: ../dib/dib.ml:936
 msgid "Extracting data out of the image"
 msgstr ""
 
@@ -1296,14 +1279,11 @@ msgstr "NOMBRE DE ARCHIVO"
 
 #: ../resize/resize.ml:1025
 msgid ""
-"Failed to initialize the partition table on the target disk.  You need to "
-"wipe or recreate the target disk and then run virt-resize again.\n"
+"Failed to initialize the partition table on the target disk.  You need to wipe or recreate the target disk and then run virt-resize again.\n"
 "\n"
 "The underlying error was: %s"
 msgstr ""
-"Error al inicializar la tabla de particiones en el disco de destino.  "
-"Tendrás que borrar o crear de nuevo el disco de destino y ejecutar virt-"
-"resize de nuevo.\n"
+"Error al inicializar la tabla de particiones en el disco de destino.  Tendrás que borrar o crear de nuevo el disco de destino y ejecutar virt-resize de nuevo.\n"
 "\n"
 "El error fue: %s"
 
@@ -1333,7 +1313,7 @@ msgstr "Huella: %s\n"
 
 #. ../customize/customize_main.ml:198
 #. ../builder/builder.ml:760
-#: ../v2v/v2v.ml:178 ../v2v/copy_to_local.ml:234
+#: ../v2v/v2v.ml:178 ../v2v/copy_to_local.ml:232
 msgid "Finishing off"
 msgstr "Acabando"
 
@@ -1422,7 +1402,7 @@ msgstr ""
 msgid "Generate MD5 and SHA256 checksum files"
 msgstr ""
 
-#: ../dib/dib.ml:983
+#: ../dib/dib.ml:984
 msgid "Generating checksums for %s"
 msgstr ""
 
@@ -1440,8 +1420,7 @@ msgstr ""
 
 #: ../common/mltools/tools_utils.ml:71
 msgid ""
-"If reporting bugs, run %s with debugging enabled and include the complete "
-"output:\n"
+"If reporting bugs, run %s with debugging enabled and include the complete output:\n"
 "\n"
 "  %s -v -x [...]"
 msgstr ""
@@ -1502,7 +1481,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr "Instalando paquetes: %s"
 
-#: ../dib/dib.ml:513
+#: ../dib/dib.ml:514
 msgid "Installing: %s"
 msgstr ""
 
@@ -1612,12 +1591,10 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_lvm_uuids.ml:45
 msgid ""
-"On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
-"(VGs),\n"
+"On Linux guests that have LVM2 physical volumes (PVs) or volume groups (VGs),\n"
 "new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
-"En sistemas invitados Linux que tienen volúmenes físicos LVM2 (PVs) o grupos "
-"de volúmenes (VGs),\n"
+"En sistemas invitados Linux que tienen volúmenes físicos LVM2 (PVs) o grupos de volúmenes (VGs),\n"
 "se generan nuevos UUIDs aleatorios y se asignan a estos Pvs y GVs."
 
 #. ../sysprep/sysprep_operation_logfiles.ml:149
@@ -1647,7 +1624,7 @@ msgstr ""
 msgid "Only tune the guest in the input VM"
 msgstr ""
 
-#: ../dib/dib.ml:716
+#: ../dib/dib.ml:717
 msgid "Opening the disks"
 msgstr ""
 
@@ -1774,7 +1751,7 @@ msgstr "Planeando cómo construir la imagen"
 msgid "Prefix for files"
 msgstr ""
 
-#: ../dib/dib.ml:611
+#: ../dib/dib.ml:612
 msgid "Preparing auxiliary data"
 msgstr ""
 
@@ -2073,7 +2050,7 @@ msgstr ""
 msgid "Running: %s"
 msgstr ""
 
-#: ../dib/dib.ml:473 ../dib/dib.ml:422
+#: ../dib/dib.ml:474 ../dib/dib.ml:423
 msgid "Running: %s/%s"
 msgstr ""
 
@@ -2306,7 +2283,7 @@ msgstr ""
 msgid "Setting up initial partition table on %s"
 msgstr ""
 
-#: ../dib/dib.ml:857
+#: ../dib/dib.ml:858
 msgid "Setting up the destination root"
 msgstr ""
 
@@ -2427,8 +2404,7 @@ msgstr ""
 #: ../builder/index_parser.ml:30
 msgid ""
 "The index file downloaded from ‘%s’ is corrupt.\n"
-"You need to ask the supplier of this file to fix it and upload a fixed "
-"version."
+"You need to ask the supplier of this file to fix it and upload a fixed version."
 msgstr ""
 
 #: ../sysprep/sysprep_operation_machine_id.ml:38
@@ -2592,7 +2568,7 @@ msgstr ""
 msgid "UUID in swap partition %s changed from ‘%s’ to ‘%s’"
 msgstr ""
 
-#: ../dib/dib.ml:960
+#: ../dib/dib.ml:961
 msgid "Umounting the disks"
 msgstr ""
 
@@ -2737,17 +2713,14 @@ msgstr ""
 msgid ""
 "a libvirt domain called ‘%s’ already exists on the target.\n"
 "\n"
-"If using virt-p2v, select a different ‘Name’ in the ‘Target properties’. Or "
-"delete the existing domain on the target using the ‘virsh undefine’ command."
+"If using virt-p2v, select a different ‘Name’ in the ‘Target properties’. Or delete the existing domain on the target using the ‘virsh undefine’ command."
 msgstr ""
 
 #: ../v2v/output_libvirt.ml:95
 msgid ""
 "a libvirt domain called ‘%s’ already exists on the target.\n"
 "\n"
-"If using virt-v2v directly, use the ‘-on’ option to select a different name. "
-"Or delete the existing domain on the target using the ‘virsh undefine’ "
-"command."
+"If using virt-v2v directly, use the ‘-on’ option to select a different name. Or delete the existing domain on the target using the ‘virsh undefine’ command."
 msgstr ""
 
 #: ../resize/resize.ml:256
@@ -2764,8 +2737,7 @@ msgstr ""
 
 #: ../v2v/input_libvirt_other.ml:40
 msgid ""
-"because of libvirt bug https://bugzilla.redhat.com/1134878 you must EITHER "
-"upgrade to libvirt >= 2.1.0 OR set this environment variable:\n"
+"because of libvirt bug https://bugzilla.redhat.com/1134878 you must EITHER upgrade to libvirt >= 2.1.0 OR set this environment variable:\n"
 "\n"
 "export LIBGUESTFS_BACKEND=direct\n"
 "\n"
@@ -2774,8 +2746,7 @@ msgstr ""
 
 #: ../v2v/input_libvirt_xen_ssh.ml:39
 msgid ""
-"because of libvirt bug https://bugzilla.redhat.com/1140166 you must set this "
-"environment variable:\n"
+"because of libvirt bug https://bugzilla.redhat.com/1140166 you must set this environment variable:\n"
 "\n"
 "export LIBGUESTFS_BACKEND=direct\n"
 "\n"
@@ -2844,37 +2815,31 @@ msgstr ""
 
 #: ../v2v/convert_windows.ml:157
 msgid ""
-"cannot uninstall Parallels Tools: registry key ‘HKLM\\SOFTWARE\\%s\\%s’ with "
-"DisplayName ‘%s’ doesn't contain value ‘%s’"
+"cannot uninstall Parallels Tools: registry key ‘HKLM\\SOFTWARE\\%s\\%s’ with"
+" DisplayName ‘%s’ doesn't contain value ‘%s’"
 msgstr ""
 
 #: ../v2v/convert_windows.ml:102
 msgid ""
-"cannot uninstall Xen PV drivers: registry key ‘HKLM\\SOFTWARE\\Microsoft"
-"\\Windows\\CurrentVersion\\Uninstall\\%s’ does not contain an ‘%s’ key"
+"cannot uninstall Xen PV drivers: registry key "
+"‘HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\%s’ does not"
+" contain an ‘%s’ key"
 msgstr ""
 
 #: ../customize/customize_run.ml:193
 msgid ""
-"cannot use ‘%s’ because no package manager has been detected for this guest "
-"OS.\n"
+"cannot use ‘%s’ because no package manager has been detected for this guest OS.\n"
 "\n"
-"If this guest OS is a common one with ordinary package management then this "
-"may have been caused by a failure of libguestfs inspection.\n"
+"If this guest OS is a common one with ordinary package management then this may have been caused by a failure of libguestfs inspection.\n"
 "\n"
-"For OSes such as Windows that lack package management, this is not "
-"possible.  Try using one of the ‘--firstboot*’ flags instead (described in "
-"the manual)."
+"For OSes such as Windows that lack package management, this is not possible.  Try using one of the ‘--firstboot*’ flags instead (described in the manual)."
 msgstr ""
 
 #: ../v2v/output_rhv.ml:177
 msgid ""
-"cannot write files to the NFS server as %d:%d, even though we appear to be "
-"running as root. This probably means the NFS client or idmapd is not "
-"configured properly.\n"
+"cannot write files to the NFS server as %d:%d, even though we appear to be running as root. This probably means the NFS client or idmapd is not configured properly.\n"
 "\n"
-"You will have to chown the files that virt-v2v creates after the run, "
-"otherwise RHV-M will not be able to import the VM."
+"You will have to chown the files that virt-v2v creates after the run, otherwise RHV-M will not be able to import the VM."
 msgstr ""
 
 #: ../v2v/output_rhv.ml:179
@@ -2883,10 +2848,10 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/input_ova.ml:232
+#: ../v2v/input_ova.ml:234
 msgid ""
-"checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected "
-"%s(%s) = %s)"
+"checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected"
+" %s(%s) = %s)"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:493
@@ -2936,9 +2901,7 @@ msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
 #: ../v2v/convert_windows.ml:540
-msgid ""
-"could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
-"\\CurrentVersion"
+msgid "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion"
 msgstr ""
 
 #: ../customize/firstboot.ml:235
@@ -2965,7 +2928,7 @@ msgstr ""
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:253
+#: ../v2v/input_ova.ml:255
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -3000,8 +2963,8 @@ msgstr ""
 
 #: ../common/mltools/registry.ml:95
 msgid ""
-"decode_utf16le: Windows UTF16-LE string contains non-7-bit characters.  This "
-"is a bug in %s, please report it."
+"decode_utf16le: Windows UTF16-LE string contains non-7-bit characters.  This"
+" is a bug in %s, please report it."
 msgstr ""
 
 #: ../common/mltools/registry.ml:89
@@ -3042,14 +3005,9 @@ msgstr ""
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
-"The input metadata did not define the disk format (eg. raw/qcow2/etc) of "
-"this disk, and so virt-v2v will try to autodetect the format when reading "
-"it.\n"
+"The input metadata did not define the disk format (eg. raw/qcow2/etc) of this disk, and so virt-v2v will try to autodetect the format when reading it.\n"
 "\n"
-"However because the input format was not defined, we do not know what output "
-"format you want to use.  You have two choices: either define the original "
-"format in the source metadata, or use the ‘-of’ option to force the output "
-"format."
+"However because the input format was not defined, we do not know what output format you want to use.  You have two choices: either define the original format in the source metadata, or use the ‘-of’ option to force the output format."
 msgstr ""
 
 #: ../v2v/parse_libvirt_xml.ml:190
@@ -3130,7 +3088,7 @@ msgstr ""
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:289
+#: ../v2v/input_ova.ml:291
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
@@ -3172,7 +3130,7 @@ msgstr ""
 msgid "external command failed: %s"
 msgstr ""
 
-#: ../dib/dib.ml:997 ../common/mltools/tools_utils.ml:268
+#: ../dib/dib.ml:998 ../common/mltools/tools_utils.ml:268
 msgid "external command ‘%s’ exited with error %d"
 msgstr ""
 
@@ -3205,7 +3163,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../v2v/input_ova.ml:304
+#: ../v2v/input_ova.ml:306
 msgid "file ‘%s’ not found in the ova"
 msgstr ""
 
@@ -3255,16 +3213,15 @@ msgstr ""
 
 #: ../v2v/v2v.ml:469
 msgid ""
-"fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
-"To find out more read \"Trimming\" in virt-v2v(1).\n"
+"fstrim on guest filesystem %s failed.  Usually you can ignore this message.  To find out more read \"Trimming\" in virt-v2v(1).\n"
 "\n"
 "Original message: %s"
 msgstr ""
 
 #: ../sparsify/in_place.ml:100
 msgid ""
-"fstrim operation is not supported on %s (%s).  Suppress this warning using "
-"'--ignore %s', or use copying mode instead."
+"fstrim operation is not supported on %s (%s).  Suppress this warning using '"
+"--ignore %s', or use copying mode instead."
 msgstr ""
 
 #: ../common/mltools/tools_utils.ml:149
@@ -3273,9 +3230,9 @@ msgstr ""
 
 #: ../v2v/output_glance.ml:50
 msgid ""
-"glance: glance client is not installed or set up correctly.  You may need to "
-"set environment variables or source a script to enable authentication.  See "
-"preceding messages for details."
+"glance: glance client is not installed or set up correctly.  You may need to"
+" set environment variables or source a script to enable authentication.  See"
+" preceding messages for details."
 msgstr ""
 
 #: ../v2v/output_glance.ml:166
@@ -3288,13 +3245,9 @@ msgid ""
 "\n"
 "There could be several reasons for this:\n"
 "\n"
-"Check that the guest doesn't really have a zero-sized disk.  virt-v2v cannot "
-"convert such a guest.\n"
+"Check that the guest doesn't really have a zero-sized disk.  virt-v2v cannot convert such a guest.\n"
 "\n"
-"If you are converting a guest from an ssh source and the guest has a disk on "
-"a block device (eg. on a host partition or host LVM LV), then conversions of "
-"this type are not supported.  See \"XEN OR SSH CONVERSIONS FROM BLOCK DEVICES"
-"\" in the virt-v2v(1) manual for a workaround."
+"If you are converting a guest from an ssh source and the guest has a disk on a block device (eg. on a host partition or host LVM LV), then conversions of this type are not supported.  See \"XEN OR SSH CONVERSIONS FROM BLOCK DEVICES\" in the virt-v2v(1) manual for a workaround."
 msgstr ""
 
 #: ../customize/firstboot.ml:167
@@ -3312,8 +3265,8 @@ msgstr ""
 #: ../customize/customize_run.ml:58
 msgid ""
 "host cpu (%s) and guest arch (%s) are not compatible, so you cannot use "
-"command line options that involve running commands in the guest.  Use --"
-"firstboot scripts instead."
+"command line options that involve running commands in the guest.  Use "
+"--firstboot scripts instead."
 msgstr ""
 
 #: ../customize/customize_run.ml:304
@@ -3354,9 +3307,7 @@ msgstr ""
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
-"Assuming that you are running virt-v2v/virt-p2v on a source which is "
-"supported (and not, for example, a blank disk), then this should not "
-"happen.\n"
+"Assuming that you are running virt-v2v/virt-p2v on a source which is supported (and not, for example, a blank disk), then this should not happen.\n"
 "\n"
 "Inspection field ‘%s’ was ‘unknown’."
 msgstr ""
@@ -3365,24 +3316,18 @@ msgstr ""
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
-"Assuming that you are running virt-v2v/virt-p2v on a source which is "
-"supported (and not, for example, a blank disk), then this should not "
-"happen.\n"
+"Assuming that you are running virt-v2v/virt-p2v on a source which is supported (and not, for example, a blank disk), then this should not happen.\n"
 "\n"
 "No root device found in this operating system image."
 msgstr ""
 
 #: ../v2v/v2v.ml:283
 msgid ""
-"insufficient free space in the conversion server temporary directory %s "
-"(%s).\n"
+"insufficient free space in the conversion server temporary directory %s (%s).\n"
 "\n"
-"Either free up space in that directory, or set the LIBGUESTFS_CACHEDIR "
-"environment variable to point to another directory with more than 1GB of "
-"free space.\n"
+"Either free up space in that directory, or set the LIBGUESTFS_CACHEDIR environment variable to point to another directory with more than 1GB of free space.\n"
 "\n"
-"See also the virt-v2v(1) manual, section \"Minimum free space check in the "
-"host\"."
+"See also the virt-v2v(1) manual, section \"Minimum free space check in the host\"."
 msgstr ""
 
 #: ../common/mltools/tools_utils.ml:137
@@ -3494,8 +3439,8 @@ msgstr ""
 
 #: ../v2v/input_ova.ml:194
 msgid ""
-"making OVA directory public readable to work around libvirt bug https://"
-"bugzilla.redhat.com/1045069"
+"making OVA directory public readable to work around libvirt bug "
+"https://bugzilla.redhat.com/1045069"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:454
@@ -3526,8 +3471,7 @@ msgstr ""
 msgid ""
 "mount command failed, see earlier errors.\n"
 "\n"
-"This probably means you didn't specify the right %s path [-os %s], or else "
-"you need to rerun virt-v2v as root."
+"This probably means you didn't specify the right %s path [-os %s], or else you need to rerun virt-v2v as root."
 msgstr ""
 
 #: ../v2v/inspect_source.ml:149
@@ -3544,38 +3488,32 @@ msgstr ""
 
 #: ../v2v/input_libvirt_vddk.ml:93
 msgid ""
-"nbdkit VDDK plugin is not installed or not working.  It is required if you "
-"want to use VDDK.\n"
+"nbdkit VDDK plugin is not installed or not working.  It is required if you want to use VDDK.\n"
 "\n"
-"It looks like you did not set the right path in the ‘--vddk’ option, or your "
-"copy of the VDDK directory is incomplete.  There should be a library called "
-"’%s/libvixDiskLib.so.?’.\n"
+"It looks like you did not set the right path in the ‘--vddk’ option, or your copy of the VDDK directory is incomplete.  There should be a library called ’%s/libvixDiskLib.so.?’.\n"
 "\n"
 "See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
 msgstr ""
 
 #: ../v2v/input_libvirt_vddk.ml:87
 msgid ""
-"nbdkit VDDK plugin is not installed or not working.  It is required if you "
-"want to use VDDK.\n"
+"nbdkit VDDK plugin is not installed or not working.  It is required if you want to use VDDK.\n"
 "\n"
-"The VDDK plugin is not enabled by default when you compile nbdkit.  You have "
-"to read the instructions in the nbdkit sources under ‘plugins/vddk/README."
-"VDDK’ to find out how to enable the VDDK plugin.\n"
+"The VDDK plugin is not enabled by default when you compile nbdkit.  You have to read the instructions in the nbdkit sources under ‘plugins/vddk/README.VDDK’ to find out how to enable the VDDK plugin.\n"
 "\n"
 "See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:321
-msgid "nbdkit did not start up.  See previous debugging messages for problems."
+#: ../v2v/input_libvirt_vddk.ml:322
+msgid ""
+"nbdkit did not start up.  See previous debugging messages for problems."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:323
+#: ../v2v/input_libvirt_vddk.ml:324
 msgid ""
 "nbdkit did not start up.  There may be errors printed by nbdkit above.\n"
 "\n"
-"If the messages above are not sufficient to diagnose the problem then add "
-"the ‘virt-v2v -v -x’ options and examine the debugging output carefully."
+"If the messages above are not sufficient to diagnose the problem then add the ‘virt-v2v -v -x’ options and examine the debugging output carefully."
 msgstr ""
 
 #: ../v2v/input_libvirt_vddk.ml:61
@@ -3611,11 +3549,7 @@ msgstr ""
 msgid ""
 "no GNU Privacy Guard (GnuPG, gpg) binary was found.\n"
 "\n"
-"Either gpg v1 or v2 can be installed to check signatures.  Virt-builder "
-"looks for a binary called either ‘gpg2’ or ‘gpg‘ on the $PATH.  You can also "
-"specify a binary using the ‘--gpg’ option.  If you don't want to check "
-"signatures, use ’--no-check-signature’ but note that this may make you "
-"vulnerable to Man-In-The-Middle attacks."
+"Either gpg v1 or v2 can be installed to check signatures.  Virt-builder looks for a binary called either ‘gpg2’ or ‘gpg‘ on the $PATH.  You can also specify a binary using the ‘--gpg’ option.  If you don't want to check signatures, use ’--no-check-signature’ but note that this may make you vulnerable to Man-In-The-Middle attacks."
 msgstr ""
 
 #: ../v2v/linux_bootloaders.ml:377
@@ -3663,8 +3597,7 @@ msgstr ""
 msgid ""
 "no kernels were found in the bootloader configuration.\n"
 "\n"
-"This probably indicates that %s was unable to parse the bootloader "
-"configuration of this guest."
+"This probably indicates that %s was unable to parse the bootloader configuration of this guest."
 msgstr ""
 
 #: ../get-kernel/get_kernel.ml:181
@@ -3675,7 +3608,7 @@ msgstr ""
 msgid "no operating systems were found in the guest image"
 msgstr ""
 
-#: ../dib/dib.ml:777
+#: ../dib/dib.ml:778
 msgid "no partitions found in the helper drive"
 msgstr ""
 
@@ -3704,16 +3637,15 @@ msgstr ""
 
 #: ../v2v/create_ovf.ml:659
 msgid ""
-"oVirt cannot emulate ‘%s’ sound cards.  This sound card will be dropped from "
-"the output."
+"oVirt cannot emulate ‘%s’ sound cards.  This sound card will be dropped from"
+" the output."
 msgstr ""
 
 #: ../v2v/convert_linux.ml:465
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
-"Read the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what "
-"to do."
+"Read the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what to do."
 msgstr ""
 
 #: ../v2v/copy_to_local.ml:116
@@ -3757,26 +3689,24 @@ msgstr ""
 #: ../builder/builder.ml:294
 msgid ""
 "output device (%s) is a partition.  If you are writing to a USB key or "
-"external drive then you probably need to write to the whole device, not to a "
-"partition.  If this warning is wrong then you can disable it with --no-warn-"
-"if-partition"
+"external drive then you probably need to write to the whole device, not to a"
+" partition.  If this warning is wrong then you can disable it with --no-"
+"warn-if-partition"
 msgstr ""
 
 #: ../v2v/v2v.ml:354
 msgid ""
 "output format should be ‘raw’ or ‘qcow2’.\n"
 "\n"
-"Use the ‘-of <format>’ option to select a different output format for the "
-"converted guest.\n"
+"Use the ‘-of <format>’ option to select a different output format for the converted guest.\n"
 "\n"
-"Other output formats are not supported at the moment, although might be "
-"considered in future."
+"Other output formats are not supported at the moment, although might be considered in future."
 msgstr ""
 
 #: ../builder/builder.ml:393
 msgid ""
-"output size is too large for this block device.  Requested size = %s, output "
-"block device = %s, output block device size = %s"
+"output size is too large for this block device.  Requested size = %s, output"
+" block device = %s, output block device size = %s"
 msgstr ""
 
 #: ../sparsify/cmdline.ml:150
@@ -3785,14 +3715,14 @@ msgstr ""
 
 #: ../v2v/parse_ovf_from_ova.ml:117
 msgid ""
-"ova disk has an unknown VMware controller type (%d), please report this as a "
-"bug supplying the *.ovf file extracted from the ova"
+"ova disk has an unknown VMware controller type (%d), please report this as a"
+" bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
 #: ../v2v/parse_ovf_from_ova.ml:114
 msgid ""
-"ova disk has no parent controller, please report this as a bug supplying the "
-"*.ovf file extracted from the ova"
+"ova disk has no parent controller, please report this as a bug supplying the"
+" *.ovf file extracted from the ova"
 msgstr ""
 
 #: ../v2v/linux_kernels.ml:102
@@ -3809,14 +3739,12 @@ msgid "part=size"
 msgstr ""
 
 #: ../customize/password.ml:50
-msgid ""
-"password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
+msgid "password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
 msgstr ""
 
 #: ../customize/password.ml:172
 msgid ""
-"password: using insecure md5 password encryption for guest of type %s "
-"version %d.%d.\n"
+"password: using insecure md5 password encryption for guest of type %s version %d.%d.\n"
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
 
@@ -3864,8 +3792,8 @@ msgstr ""
 msgid ""
 "removable %s device in slot %d clashes with another disk, so it has been "
 "moved to a higher numbered slot on the same bus.  This may mean that this "
-"removable device has a different name inside the guest (for example a CD-ROM "
-"originally called /dev/hdc might move to /dev/hdd, or from D: to E: on a "
+"removable device has a different name inside the guest (for example a CD-ROM"
+" originally called /dev/hdc might move to /dev/hdd, or from D: to E: on a "
 "Windows guest)."
 msgstr ""
 
@@ -3901,15 +3829,14 @@ msgstr ""
 msgid ""
 "sorry, ‘%s’ with the ‘%s’ package manager has not been implemented yet.\n"
 "\n"
-"You can work around this by using one of the ‘--run*’ or ‘--firstboot*’ "
-"options instead (described in the manual)."
+"You can work around this by using one of the ‘--run*’ or ‘--firstboot*’ options instead (described in the manual)."
 msgstr ""
 
 #: ../builder/cmdline.ml:302
 msgid "source and fingerprint lists are not the same length"
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:274 ../v2v/input_libvirt_vcenter_https.ml:92
+#: ../v2v/input_libvirt_vddk.ml:275 ../v2v/input_libvirt_vcenter_https.ml:92
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
@@ -3944,12 +3871,9 @@ msgstr ""
 #: ../v2v/v2v.ml:226
 msgid ""
 "source sockets * cores * threads <> number of vCPUs.\n"
-"Sockets %d * cores per socket %d * threads %d = %d, but number of vCPUs = "
-"%d.\n"
+"Sockets %d * cores per socket %d * threads %d = %d, but number of vCPUs = %d.\n"
 "\n"
-"This is a problem with either the source metadata or the virt-v2v input "
-"module.  In some circumstances this could stop the guest from booting on the "
-"target."
+"This is a problem with either the source metadata or the virt-v2v input module.  In some circumstances this could stop the guest from booting on the target."
 msgstr ""
 
 #: ../v2v/copy_to_local.ml:202
@@ -3982,7 +3906,7 @@ msgstr ""
 msgid "ssh-inject: the user %s does not exist on the guest"
 msgstr ""
 
-#: ../dib/dib.ml:505
+#: ../dib/dib.ml:506
 msgid "sub-process killed by signal (%d)"
 msgstr ""
 
@@ -4032,8 +3956,8 @@ msgstr ""
 
 #: ../v2v/output_vdsm.ml:82
 msgid ""
-"the number of ‘--vdsm-image-uuid’ and ‘--vdsm-vol-uuid’ parameters passed on "
-"the command line has to match the number of guest disk images (for this "
+"the number of ‘--vdsm-image-uuid’ and ‘--vdsm-vol-uuid’ parameters passed on"
+" the command line has to match the number of guest disk images (for this "
 "guest: %d)"
 msgstr ""
 
@@ -4041,7 +3965,7 @@ msgstr ""
 msgid "the source disk has no partitions"
 msgstr ""
 
-#: ../dib/dib.ml:536
+#: ../dib/dib.ml:537
 msgid "the specified base path is not the diskimage-builder library"
 msgstr ""
 
@@ -4075,11 +3999,9 @@ msgstr ""
 
 #: ../v2v/create_ovf.ml:239
 msgid ""
-"the virtual size of the input disk %s is not an exact multiple of 512 "
-"bytes.  The virtual size is: %Ld.\n"
+"the virtual size of the input disk %s is not an exact multiple of 512 bytes.  The virtual size is: %Ld.\n"
 "\n"
-"This probably means something unexpected is going on, so please file a bug "
-"about this issue."
+"This probably means something unexpected is going on, so please file a bug about this issue."
 msgstr ""
 
 #: ../v2v/output_rhv.ml:85
@@ -4100,8 +4022,7 @@ msgstr ""
 
 #: ../v2v/windows_virtio.ml:62
 msgid ""
-"there are no virtio drivers available for this version of Windows (%d.%d %s "
-"%s).  virt-v2v looks for drivers in %s\n"
+"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s\n"
 "\n"
 "The guest will be configured to use slower emulated devices."
 msgstr ""
@@ -4114,8 +4035,7 @@ msgstr ""
 
 #: ../v2v/windows_virtio.ml:164
 msgid ""
-"there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
-"looks for this driver in %s\n"
+"there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n"
 "\n"
 "The guest will be configured to use a basic VGA display driver."
 msgstr ""
@@ -4124,22 +4044,19 @@ msgstr ""
 msgid ""
 "there is no detached signature file\n"
 "This probably means the index file is missing a sig=... line.\n"
-"You can use --no-check-signature to ignore this error, but that means you "
-"are susceptible to man-in-the-middle attacks."
+"You can use --no-check-signature to ignore this error, but that means you are susceptible to man-in-the-middle attacks."
 msgstr ""
 
 #: ../v2v/windows_virtio.ml:92
 msgid ""
-"there is no vioscsi (virtio SCSI) driver for this version of Windows (%d.%d "
-"%s).  virt-v2v looks for this driver in %s\n"
+"there is no vioscsi (virtio SCSI) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n"
 "\n"
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
 #: ../v2v/windows_virtio.ml:97 ../v2v/windows_virtio.ml:87
 msgid ""
-"there is no virtio block device driver for this version of Windows (%d.%d "
-"%s).  virt-v2v looks for this driver in %s\n"
+"there is no virtio block device driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n"
 "\n"
 "The guest will be configured to use a slower emulated device."
 msgstr ""
@@ -4152,8 +4069,7 @@ msgstr ""
 
 #: ../v2v/windows_virtio.ml:143
 msgid ""
-"there is no virtio network driver for this version of Windows (%d.%d %s).  "
-"virt-v2v looks for this driver in %s\n"
+"there is no virtio network driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n"
 "\n"
 "The guest will be configured to use a slower emulated device."
 msgstr ""
@@ -4166,8 +4082,8 @@ msgstr ""
 
 #: ../v2v/convert_windows.ml:212
 msgid ""
-"this guest has Anti-Virus (AV) software and a new virtio block device driver "
-"was installed.  In some circumstances, AV may prevent new drivers from "
+"this guest has Anti-Virus (AV) software and a new virtio block device driver"
+" was installed.  In some circumstances, AV may prevent new drivers from "
 "working (resulting in a 7B boot error).  If this happens, try disabling AV "
 "before doing the conversion."
 msgstr ""
@@ -4184,9 +4100,8 @@ msgstr ""
 msgid "this guest has a passthrough host device which will be ignored"
 msgid_plural "this guest has passthrough host devices which will be ignored"
 msgstr[0] ""
-msgstr[1] ""
 
-#: ../v2v/parse_libvirt_xml.ml:264 ../v2v/copy_to_local.ml:287
+#: ../v2v/parse_libvirt_xml.ml:264 ../v2v/copy_to_local.ml:285
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -4210,20 +4125,18 @@ msgstr ""
 
 #: ../v2v/convert_linux.ml:826
 msgid ""
-"unable to find any valid modprobe configuration file such as /etc/modprobe."
-"conf"
+"unable to find any valid modprobe configuration file such as "
+"/etc/modprobe.conf"
 msgstr ""
 
 #: ../v2v/inspect_source.ml:48
 msgid ""
-"unable to mount the disk image for writing. This has probably happened "
-"because Windows Hibernation or Fast Restart is being used in this guest. You "
-"have to disable this (in the guest) in order to use virt-v2v.\n"
+"unable to mount the disk image for writing. This has probably happened because Windows Hibernation or Fast Restart is being used in this guest. You have to disable this (in the guest) in order to use virt-v2v.\n"
 "\n"
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:236
+#: ../v2v/input_ova.ml:238
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
@@ -4487,8 +4400,8 @@ msgstr ""
 
 #: ../get-kernel/get_kernel.ml:92
 msgid ""
-"you must give either -a or -d options.  Read virt-get-kernel(1) man page for "
-"further information."
+"you must give either -a or -d options.  Read virt-get-kernel(1) man page for"
+" further information."
 msgstr ""
 
 #: ../sysprep/main.ml:164
@@ -4614,15 +4527,15 @@ msgstr ""
 #: builder/index-validate.c:155
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.0"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.0"
 msgstr ""
 
 #: builder/index-validate.c:164
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.1"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.1"
 msgstr ""
 
 #: builder/index-validate.c:175
@@ -4701,8 +4614,7 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: muestra los sistemas de arcivos, particiones, dispositivos de bloques y "
-"LVM en una MV\n"
+"%s: muestra los sistemas de arcivos, particiones, dispositivos de bloques y LVM en una MV\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
 "Uso:\n"
 "  %s [--opciones] -d domname\n"
@@ -4713,16 +4625,13 @@ msgstr ""
 "  --blkdevs|--block-devices\n"
 "                       Muestra los dispositivos de bloque\n"
 "  -c|--connect uri     Esecifica URI de libvirt para la opción -d\n"
-"  --csv                Ofrece los resultados como valores separados por "
-"comas\n"
+"  --csv                Ofrece los resultados como valores separados por comas\n"
 "  -d|--domain guest    Agrega discos de los huéspedes libvirt\n"
-"  --echo-keys          Muestra las frases de acceso a medida que se las "
-"tipea\n"
+"  --echo-keys          Muestra las frases de acceso a medida que se las tipea\n"
 "  --extra              Muestra sistemas de archivos con datos y swap\n"
 "  --filesystems        Muestra sistemas de archivos montables\n"
 "  --format[=raw|..]    Obliga al formateo de disco para la opción -a\n"
-"  -h|--human-readable  Muestra los resultados de --long en tamaños posibles "
-"de ser leídos por humanos\n"
+"  -h|--human-readable  Muestra los resultados de --long en tamaños posibles de ser leídos por humanos\n"
 "  --help               Muestra una pequeña asistencia\n"
 "  --keys-from-stdin    Lee frases de acceso de stdin\n"
 "  -l|--long            Resultados extensos\n"
@@ -5241,8 +5150,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --checksum or --format like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --checksum or --format like '--format=%s'.\n"
 msgstr ""
 
 #: diff/diff.c:752
@@ -5532,7 +5440,8 @@ msgstr "configura el dispositivo de bloques con modo de sólo lectura"
 
 #: fish/cmds.c:555
 msgid "set block device to read-write"
-msgstr "configura el dispositivo de bloques con modo de lectura y de escritura"
+msgstr ""
+"configura el dispositivo de bloques con modo de lectura y de escritura"
 
 #: fish/cmds.c:559
 msgid "cancel a running or paused balance"
@@ -5928,8 +5837,8 @@ msgstr "verifica si existe un archivo o una carpeta"
 #: fish/cmds.c:669
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
 msgstr ""
-"instalar el cargador de arranque SYSLINUX en un sistema de archivos ext2/3/4 "
-"o btrfs"
+"instalar el cargador de arranque SYSLINUX en un sistema de archivos ext2/3/4"
+" o btrfs"
 
 #: fish/cmds.c:670 fish/cmds.c:671
 msgid "preallocate a file in the guest filesystem"
@@ -6619,7 +6528,8 @@ msgstr "abre un dispositivo de bloques cifrado con LUKS"
 #: fish/cmds.c:868
 msgid "open a LUKS-encrypted block device read-only"
 msgstr ""
-"abre un dispositivo de bloques cifrado mediante LUKS, en modo de sólo lectura"
+"abre un dispositivo de bloques cifrado mediante LUKS, en modo de sólo "
+"lectura"
 
 #: fish/cmds.c:869
 msgid "create an LVM logical volume"
@@ -7490,8 +7400,8 @@ msgstr "genera un grupo de volúmenes LVM"
 #: fish/cmds.c:1153
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr ""
-"obtiene los UUIDs de todos los volúmenes lógicos (LV) existentes en el grupo "
-"de volúmenes"
+"obtiene los UUIDs de todos los volúmenes lógicos (LV) existentes en el grupo"
+" de volúmenes"
 
 #: fish/cmds.c:1154
 msgid "get volume group metadata"
@@ -7500,8 +7410,8 @@ msgstr ""
 #: fish/cmds.c:1155
 msgid "get the PV UUIDs containing the volume group"
 msgstr ""
-"obtiene los UUIDs de todos los volúmenes físicos (PV) existentes en el grupo "
-"de volúmenes"
+"obtiene los UUIDs de todos los volúmenes físicos (PV) existentes en el grupo"
+" de volúmenes"
 
 #: fish/cmds.c:1156
 msgid "remove an LVM volume group"
@@ -7601,7 +7511,8 @@ msgstr ""
 #: fish/cmds.c:1187
 msgid "determine file type inside a compressed file"
 msgstr ""
-"determina el tipo de archivo que se encuentra dentro de un archivo comprimido"
+"determina el tipo de archivo que se encuentra dentro de un archivo "
+"comprimido"
 
 #: fish/cmds.c:1190
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
@@ -7611,7 +7522,8 @@ msgstr ""
 #: fish/copy.c:42
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 "utilice el comando 'copy-in <local> [<local>...] <remotedir>' para copiar "
 "archivos dentro de la imagen\n"
@@ -7882,8 +7794,7 @@ msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
-"%s: no se ha encontrado la unidad '%c:'. Para conocer las unidades "
-"disponibles ejecute:\n"
+"%s: no se ha encontrado la unidad '%c:'. Para conocer las unidades disponibles ejecute:\n"
 "  inspect-get-drive-mappings %s\n"
 
 #: fish/fish.c:1783
@@ -7992,8 +7903,8 @@ msgstr "no se pudo analizar el tamaño de arranque"
 msgid "failed to get sector size of disk: %s"
 msgstr "falló al obtener el tamaño del sector del disco: %s"
 
-#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44 fish/prep-lv.c:75
-#: fish/prep-lv.c:116 fish/prep-part.c:42
+#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44
+#: fish/prep-lv.c:75 fish/prep-lv.c:116 fish/prep-part.c:42
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr "falló al particionar el disco: %s"
@@ -8018,8 +7929,8 @@ msgstr "falló al crear el sistema de archivos de arranque: %s"
 msgid "failed to create root filesystem: %s"
 msgstr "falló al crear el sistema de archivos raíz: %s"
 
-#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65 fish/prep-lv.c:81
-#: fish/prep-lv.c:106 fish/prep-lv.c:122
+#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65
+#: fish/prep-lv.c:81 fish/prep-lv.c:106 fish/prep-lv.c:122
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr "formato incorrecto de nombre de LV, utilice '/dev/VG/LV'"
 
@@ -8123,8 +8034,8 @@ msgstr "guestfish: remoto: parece ser que el servidor no se está ejecutando\n"
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
-"guestfish: error de protocolo: no es posible enviar salutación inicial hacia "
-"el servidor\n"
+"guestfish: error de protocolo: no es posible enviar salutación inicial hacia"
+" el servidor\n"
 
 #: fish/rc.c:424
 #, c-format
@@ -8342,8 +8253,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format, --lvm or --partition like '--"
-"format=%s'.\n"
+"Make sure to specify the argument for --format, --lvm or --partition like '--format=%s'.\n"
 msgstr ""
 
 #: format/format.c:239
@@ -8511,12 +8421,10 @@ msgstr ""
 msgid ""
 "no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -9133,9 +9041,9 @@ msgstr "el tamaño de %s es irracionalmente largo (%<PRIi64> bytes)"
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
+" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
+"(you might need to log out and log in again)."
 msgstr ""
 
 #: lib/launch-direct.c:371 lib/launch-uml.c:154
@@ -9429,20 +9337,16 @@ msgstr "error al obtener información de dominio: %s"
 #: lib/libvirt-domain.c:271
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 "error: el dominio es una máquina virtual viva.\n"
 "Escribir sobre los discos de una máquina virtual viva puede corromperlos.\n"
-"O bien utilice un acceso de sólo lectura, o, si es que el huésped está "
-"ejecutando\n"
-"el demonio guestfsd, entonces especifique un tipo de acceso vivo. En la "
-"mayoría\n"
-"de las herramientas de libguestfs, estas opciones son respectivamente --ro o "
-"--live\n"
+"O bien utilice un acceso de sólo lectura, o, si es que el huésped está ejecutando\n"
+"el demonio guestfsd, entonces especifique un tipo de acceso vivo. En la mayoría\n"
+"de las herramientas de libguestfs, estas opciones son respectivamente --ro o --live\n"
 "Consulte la documentación para obtener mayor información."
 
 #: lib/libvirt-domain.c:364
@@ -9488,8 +9392,7 @@ msgid ""
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
 "este huésped no posee una definición libvirt <channel> para guestfsd\n"
-"Para obtener mayor información, consulte ATTACHING TO RUNNING DAEMONS en "
-"guestfs(3)."
+"Para obtener mayor información, consulte ATTACHING TO RUNNING DAEMONS en guestfs(3)."
 
 #: lib/libvirt-domain.c:876
 #, c-format
@@ -9862,8 +9765,8 @@ msgstr ""
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
-"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b> "
-"means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
+"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b>"
+" means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
 "more information about output options."
 msgstr ""
 
@@ -9885,8 +9788,8 @@ msgstr ""
 #: p2v/gui.c:853
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
-"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others, "
-"leave this field blank."
+"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others,"
+" leave this field blank."
 msgstr ""
 
 #: p2v/gui.c:859
@@ -9921,7 +9824,8 @@ msgstr ""
 
 #: p2v/gui.c:935
 msgid ""
-"Left click on an interface name to flash the light on the physical interface."
+"Left click on an interface name to flash the light on the physical "
+"interface."
 msgstr ""
 
 #: p2v/gui.c:957
@@ -9992,8 +9896,7 @@ msgstr ""
 #: p2v/gui.c:1743
 #, c-format
 msgid ""
-"Debug information and log files are saved to this directory on the "
-"conversion server:\n"
+"Debug information and log files are saved to this directory on the conversion server:\n"
 "%s"
 msgstr ""
 
@@ -10251,8 +10154,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format or --scratch like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --format or --scratch like '--format=%s'.\n"
 msgstr ""
 
 #: rescue/suggest.c:62
@@ -10376,8 +10278,7 @@ msgstr ""
 msgid ""
 "cannot find libvirt pool ‘%s’: %s\n"
 "\n"
-"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-"
-"dumpxml <pool>’ to display details about a particular pool.\n"
+"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-dumpxml <pool>’ to display details about a particular pool.\n"
 "\n"
 "To set the pool which virt-v2v uses, add the ‘-os <pool>’ option."
 msgstr ""
@@ -10464,25 +10365,19 @@ msgstr ""
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
-"{prog}: No pudo detectarse un sistema operativo dentro de esta imagen de "
-"disco.\n"
+"{prog}: No pudo detectarse un sistema operativo dentro de esta imagen de disco.\n"
 "\n"
-"Esto puede ser causado o bien porque el archivo no es una imagen de disco, o "
-"porque no\n"
-" es una imagen de máquina virtual, o porque el tipo de SO no es comprendido "
-"por libguestfs.\n"
+"Esto puede ser causado o bien porque el archivo no es una imagen de disco, o porque no\n"
+" es una imagen de máquina virtual, o porque el tipo de SO no es comprendido por libguestfs.\n"
 "\n"
-"Si considera que esto es un error, por favor envíe un reporte de error "
-"incluyendo\n"
-" la mayor cantidad de información posible relacionada con la imagen de "
-"disco.\n"
+"Si considera que esto es un error, por favor envíe un reporte de error incluyendo\n"
+" la mayor cantidad de información posible relacionada con la imagen de disco.\n"
 
 #: tools/virt-tar:262 tools/virt-win-reg:320
 #, perl-brace-format
@@ -10498,8 +10393,8 @@ msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
-"esperando 1, 2 o más parámetros, ruta de subllave y, opcionalmente, el valor "
-"a ser exportado\n"
+"esperando 1, 2 o más parámetros, ruta de subllave y, opcionalmente, el valor"
+" a ser exportado\n"
 
 #: tools/virt-win-reg:502
 #, perl-brace-format
@@ -10523,342 +10418,3 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 "virt-win-reg: {p}: no ha sido posible cargar el archivo de registro: {err}\n"
-
-#~ msgid ""
-#~ "help - display a list of commands or help on a command\n"
-#~ "     help cmd\n"
-#~ "     help\n"
-#~ msgstr ""
-#~ "help - muestra una lista de los comandos o asistencia sobre un comando\n"
-#~ "     help cmd\n"
-#~ "     help\n"
-
-#~ msgid "%s: command not known, use -h to list all commands\n"
-#~ msgstr "%s comando no conocido, utilice -h para listar todos los comandos\n"
-
-#~ msgid "not a Windows guest, or systemroot could not be determined"
-#~ msgstr "no es un huésped Windows, o systemroot no pudo ser determinado"
-
-#~ msgid "not a Windows guest, or CurrentControlSet could not be determined"
-#~ msgstr "no es un huésped Wndows, o no pudo determinarse CurrentControlSet"
-
-#~ msgid "no inspection data: call guestfs_inspect_os first"
-#~ msgstr ""
-#~ "no existen datos de inspección: invoque primero a guestfs_inspect_os"
-
-#~ msgid ""
-#~ "%s: root device not found: only call this function with a root device "
-#~ "previously returned by guestfs_inspect_os"
-#~ msgstr ""
-#~ "%s: no se ha encontrado un dispositivo raíz: sólo invoque esta función "
-#~ "con un dispositivo raíz previamente obtenido mediante  guestfs_inspect_os"
-
-#~ msgid "size of %s unreasonable (%<PRIi64> bytes)"
-#~ msgstr "el tamaño de %s es irracional (%<PRIi64> bytes)"
-
-#~ msgid "  The %s on %s will be expanded using the '%s' method."
-#~ msgstr "Se expandirá %s en %s por el método '%s'."
-
-#~ msgid ""
-#~ "%s: This extended partition contains logical partitions which might be "
-#~ "damaged by shrinking it.  If you want to shrink this partition, you need "
-#~ "to use the '--resize-force' option, but that could destroy logical "
-#~ "partitions within this partition.  (This error came from '%s' option on "
-#~ "the command line.)"
-#~ msgstr ""
-#~ "%s: La partición extendida contiene una o más particiones lógicas que "
-#~ "podrían resultar dañadas durante el proceso de encogimiento.  Si todavía "
-#~ "quiere encoger esta partición, puede usar la opción '--resize-force', "
-#~ "pero esto podría destruir las particiones lógicas dentro de esta "
-#~ "partición.  (Este error fue causado por la opción '%s' de la línea de "
-#~ "comandos)."
-
-#~ msgid ""
-#~ "%s: This partition contains a %s filesystem which will be damaged by "
-#~ "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
-#~ "you want to shrink this partition, you need to use the '--resize-force' "
-#~ "option, but that could destroy any data on this partition.  (This error "
-#~ "came from '%s' option on the command line.)"
-#~ msgstr ""
-#~ "%s: La partición contiene un sistema de archivos %s que resultará dañado "
-#~ "si se encoge por debajo de %Ld bytes (el usuario solicitó encogerlo a %Ld "
-#~ "bytes).  Si todavía desea encoger esta partición, puede usar la opción '--"
-#~ "resize-force', pero esto podría destruir los datos presentes en esta "
-#~ "partición.  (Este error fue causado por la opción '%s' de la línea de "
-#~ "comandos)."
-
-#~ msgid ""
-#~ "%s: This partition contains an LVM physical volume which will be damaged "
-#~ "by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  "
-#~ "If you want to shrink this partition, you need to use the '--resize-"
-#~ "force' option, but that could destroy any data on this partition.  (This "
-#~ "error came from '%s' option on the command line.)"
-#~ msgstr ""
-#~ "%s: La partición contiene un volumen físico LVM que resultará dañado si "
-#~ "se encoge por debajo de %Ld bytes (el usuario solicitó encogerlo por a "
-#~ "%Ld bytes).  Si todavía desea encoger esta partición, puede usar la "
-#~ "opción '--resize-force', pero esto podría destruir los datos presentes en "
-#~ "esta partición.  (Este error fue causado por la opción '%s' de la línea "
-#~ "de comandos)."
-
-#~ msgid ""
-#~ "%s: This partition has unknown content which might be damaged by "
-#~ "shrinking it.  If you want to shrink this partition, you need to use the "
-#~ "'--resize-force' option, but that could destroy any data on this "
-#~ "partition.  (This error came from '%s' option on the command line.)"
-#~ msgstr ""
-#~ "%s: La partición tiene contenido desconocido que podría resultar dañado "
-#~ "durante el proceso durante el proceso de encogimiento.  Si todavía desea "
-#~ "encoger esta partición, puedes usar la opción '--resize-force', pero esto "
-#~ "podría destruir los datos presentes en esta partición.  (Este error fue "
-#~ "causado por la opción '%s' de la línea de comandos)."
-
-#~ msgid "%s: cannot parse 'compressed_size' field for '%s'\n"
-#~ msgstr "%s: no se pudo analizar el campo 'compressed_size' para '%s'\n"
-
-#~ msgid "%s: cannot parse 'hidden' field for '%s'\n"
-#~ msgstr "%s: no se pudo analizar el campo 'hidden' para '%s'\n"
-
-#~ msgid "%s: cannot parse 'revision' field for '%s'\n"
-#~ msgstr "%s: no se pudo analizar el campo 'revision' para '%s'\n"
-
-#~ msgid "%s: cannot parse 'size' field for '%s'\n"
-#~ msgstr "%s: no se pudo analizar el campo 'size' para '%s'\n"
-
-#~ msgid "%s: cannot use a URI ('%s') in the index file\n"
-#~ msgstr "%s: no se puede utilizar una URI ('%s') en el archivo de índice\n"
-
-#~ msgid "%s: index is corrupt: %s: field '%s' appears two or more times\n"
-#~ msgstr ""
-#~ "%s: el índice está dañado: %s: el campo '%s' aparece más de una vez\n"
-
-#~ msgid "%s: index is corrupt: %s: field '%s[%s]' appears two or more times\n"
-#~ msgstr ""
-#~ "%s: el índice está dañado: %s: el campo '%s[%s]' aparece más de una vez\n"
-
-#~ msgid ""
-#~ "%s: index is corrupt: os-version '%s' with architecture '%s' appears two "
-#~ "or more times\n"
-#~ msgstr ""
-#~ "%s: el índice está dañado: versión del SO '%s' con arquitectura '%s' "
-#~ "aparece más de una vez\n"
-
-#~ msgid ""
-#~ "%s: logical volume not found in the source disk image (this error came "
-#~ "from '--lv-expand' option on the command line).  Try running this "
-#~ "command: virt-filesystems --logical-volumes --long -a %s"
-#~ msgstr ""
-#~ "%s: no se encontró el volumen lógico en la imagen de disco (este error "
-#~ "fue causado por la opción '--lv-expand' de la línea de comandos).  Pruebe "
-#~ "a ejecutar el siguiente comando: virt-filesystems --logical-volumes --"
-#~ "long -a %s"
-
-#~ msgid "%s: missing size field in '%s' option"
-#~ msgstr "%s: falta el parámetro de tamaño para la opción '%s'"
-
-#~ msgid "%s: no 'arch' entry for '%s'\n"
-#~ msgstr "%s: no hay entrada 'arch' para '%s'\n"
-
-#~ msgid "%s: no 'file' (URI) entry for '%s'\n"
-#~ msgstr "%s: no hay entrada 'file' (URI) para '%s'\n"
-
-#~ msgid "%s: no 'size' field for '%s'\n"
-#~ msgstr "%s: no hay campo 'size' para '%s'\n"
-
-#~ msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
-#~ msgstr "%s: no hay entrada 'uri' para '%s' en %s, se ignora\n"
-
-#~ msgid "%s: partition already deleted, you cannot use it in '%s' option"
-#~ msgstr ""
-#~ "%s: la partición ya ha sido borrada, no se puede usar como argumento para "
-#~ "la opción '%s'"
-
-#~ msgid "%s: partition already ignored, you cannot use it in '%s' option"
-#~ msgstr ""
-#~ "%s: la partición ya ha sido omitida, no puedes usarla como parámetro para "
-#~ "la opción '%s'"
-
-#~ msgid ""
-#~ "%s: partition not found in the source disk image (this error came from "
-#~ "'%s' option on the command line).  Try running this command: virt-"
-#~ "filesystems --partitions --long -a %s"
-#~ msgstr ""
-#~ "%s: no se encontró la partición en la imagen de disco (este error fue "
-#~ "causado por la opción '%s' de la línea de comandos).  Pruebe a ejecutar "
-#~ "el siguiente comando: virt-filesystems --partitions --long -a %s"
-
-#~ msgid "%s: you must use relative paths (not '%s') in the index file\n"
-#~ msgstr ""
-#~ "%s: se deben usar rutas relativas (no '%s') en el archivo de índice\n"
-
-#~ msgid "--check-tmpdir: unknown argument `%s'"
-#~ msgstr "--check-tmpdir: argument desconocido `%s'"
-
-#~ msgid "--enable: '%s' is not a known operation"
-#~ msgstr "--enable: '%s' no es una operación conocida"
-
-#~ msgid "--operations: '%s' is not a known operation"
-#~ msgstr "--operations: '%s' no es una operación conocida"
-
-#~ msgid ""
-#~ "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
-#~ "v2v(1) section \"OUTPUT TO LIBVIRT\""
-#~ msgstr ""
-#~ "-o libvirt: el pool de salida '%s' no es una carpeta (tipo='dir'). "
-#~ "Consulta virt-v2v(1) sección \"OUTPUT TO LIBVIRT\""
-
-#~ msgid "-o vdsm: output storage was not specified, use '-os'"
-#~ msgstr ""
-#~ "-o vdsm: no se especifica almacenamiento para la salida, utilice '-os'"
-
-#~ msgid "Don't copy boot loader"
-#~ msgstr "No copiar cargador de arranque"
-
-#~ msgid "Don't create extra partition"
-#~ msgstr "No crear partición extra"
-
-#~ msgid "Don't delete output file on failure"
-#~ msgstr "No borrar archivo de salida en caso de error"
-
-#~ msgid "Don't expand content"
-#~ msgstr "No expandir contenido"
-
-#~ msgid "Don't perform changes"
-#~ msgstr "No llevar a cabo los cambios"
-
-#~ msgid "Enter a number between 1 and %d, or 'exit': "
-#~ msgstr "Introduzca un número entre 1 y %d, o 'exit':"
-
-#~ msgid "Expanding %s using the '%s' method"
-#~ msgstr "Expandiendo %s por medio del método '%s'"
-
-#~ msgid "Expanding %s%s using the '%s' method"
-#~ msgstr "Expandiendo %s%s por medio del método '%s'"
-
-#~ msgid "Map bridge 'in' to 'out'"
-#~ msgstr "Mapear puente 'in' a 'out'"
-
-#~ msgid "Map network 'in' to 'out'"
-#~ msgstr "Mapear red 'in' a 'out'"
-
-#~ msgid ""
-#~ "Remove udev persistent net rules which map the guest's existing MAC\n"
-#~ "address to a fixed ethernet device (eg. eth0).\n"
-#~ "\n"
-#~ "After a guest is cloned, the MAC address usually changes.  Since the\n"
-#~ "old MAC address occupies the old name (eg. eth0), this means the fresh\n"
-#~ "MAC address is assigned to a new name (eg. eth1) and this is usually\n"
-#~ "undesirable.  Erasing the udev persistent net rules avoids this."
-#~ msgstr ""
-#~ "Eliminar reglas de red persistentes de udev que mapean la dirección MAC "
-#~ "del invitado\n"
-#~ "a un dispositivo ethernet fijo (p ej: eth0).\n"
-#~ "\n"
-#~ "Después de que el sistema invitado sea clonado, normalmente la dirección "
-#~ "MAC cambia. Puesto que\n"
-#~ "la dirección MAC antigua ocupa el nombre antiguo (p ej: eth0), ésto "
-#~ "significa que se asignará\n"
-#~ "a la dirección MAC nueva un nuevo nombre (p ej: eth1) y normalmente ésto "
-#~ "no es lo que\n"
-#~ "se quiere.  Eliminar las reglas de red persistentes de udev evita ésto."
-
-#~ msgid "Try `%s --help' for more information.\n"
-#~ msgstr "Intente con `%s --help' para más información.\n"
-
-#~ msgid "%s: internal error parsing string at '%s'\n"
-#~ msgstr "%s: error interno analizando cadena en '%s'\n"
-
-#~ msgid ""
-#~ "Add disk images to examine using the -a or -d options, or the 'add' "
-#~ "command.\n"
-#~ "Or create a new disk image using -N, or the 'alloc' or 'sparse' "
-#~ "commands.\n"
-#~ "Once you have done this, use the 'run' command.\n"
-#~ msgstr ""
-#~ "Agregue imágenes de disco a examinar utilizando las opciones -a, -d, o el "
-#~ "comando 'add'.\n"
-#~ "O genere una nueva imagen de disco utilizando -N, o los comandos 'alloc' "
-#~ "o 'sparse'.\n"
-#~ "Una vez que haya hecho esto, utilice el comando 'run'.\n"
-
-#~ msgid ""
-#~ "For more information about a command, use 'help cmd'.\n"
-#~ "\n"
-#~ "To read the manual, type 'man'.\n"
-#~ msgstr ""
-#~ "Para obtener mayor información acerca de algún comando, utilice 'help "
-#~ "cmd'.\n"
-#~ "\n"
-#~ "Para leer el manual, ingrese 'man'.\n"
-
-#~ msgid "use 'man' without parameters to open the manual\n"
-#~ msgstr "Utilice 'man' sin parámetros para abrir el manual\n"
-
-#~ msgid "guestfish: error creating prepared disk image '%s' on '%s': "
-#~ msgstr ""
-#~ "guestfish: error al crear la imagen de disco preparada '%s' en '%s':"
-
-#~ msgid "guestfish: protocol error: could not read 'hello' message\n"
-#~ msgstr "guestfish: error de protocolo: no se pudo leer el mensaje 'hello'\n"
-
-#~ msgid ""
-#~ "guestfish: protocol error: version mismatch, server version '%s' does not "
-#~ "match client version '%s'.  The two versions must match exactly.\n"
-#~ msgstr ""
-#~ "guestfish: error de protocolo: versiones no coincidentes, la versión del "
-#~ "servidor '%s' no concuerda con la versión del cliente '%s'. Ambas "
-#~ "versiones deber coincidir de manera exacta.\n"
-
-#~ msgid "'reopen' command takes no parameters\n"
-#~ msgstr "el comando 'reopen' no necesita parámetros\n"
-
-#~ msgid "no libvirt domain called '%s': %s"
-#~ msgstr "no existe un dominio libvirt denominado '%s': %s"
-
-#~ msgid "--no-copy and '-o glance' cannot be used at the same time"
-#~ msgstr "--no-copy y '-o glance' no pueden usarse al mismo tiempo"
-
-#~ msgid "--no-copy and '-o libvirt' cannot be used at the same time"
-#~ msgstr "--no-copy y '-o libvirt' no pueden usarse al mismo tiempo"
-
-#~ msgid "-o glance: --qemu-boot option cannot be used in this output mode"
-#~ msgstr ""
-#~ "-o glance: la opción --qemu-boot no puede usarse en este modo de salida"
-
-#~ msgid "-o glance: -oc option cannot be used in this output mode"
-#~ msgstr "-o glance: la opción -oc no puede usarse en este modo de salida"
-
-#~ msgid "-o glance: -os option cannot be used in this output mode"
-#~ msgstr "-o glance: la opción -os no puede usarse en este modo de salida"
-
-#~ msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
-#~ msgstr ""
-#~ "-o libvirt: la opción --qemu-boot no puede usarse en este modo de salida"
-
-#~ msgid "-o local: --qemu-boot option cannot be used in this output mode"
-#~ msgstr ""
-#~ "-o local: la opción --qemu-boot no puede usarse en este modo de salida"
-
-#~ msgid "-o null: --qemu-boot option cannot be used in this output mode"
-#~ msgstr ""
-#~ "-o null: la opción --qemu-boot no puede usarse en este modo de salida"
-
-#~ msgid "-o null: -oc option cannot be used in this output mode"
-#~ msgstr "-o null: la opción -oc no puede usarse en este modo de salida"
-
-#~ msgid "-o null: -os option cannot be used in this output mode"
-#~ msgstr "-o null: la opción -os no puede usarse en este modo de salida"
-
-#~ msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
-#~ msgstr ""
-#~ "-o vsdm: la opción --qemu-boot no puede usarse en este modo de salida"
-
-#~ msgid "Remove HOSTNAME in network interface configuration"
-#~ msgstr "Eliminar HOSTNAME en la configuración de interfaz de red"
-
-#~ msgid ""
-#~ "file-architecture API not available since this version of libguestfs was "
-#~ "compiled without the libmagic library"
-#~ msgstr ""
-#~ "no está disponible la arquitectura del archivo API debido a que esta "
-#~ "versión de libguestfs ha sido compilada sin la biblioteca libmagic"
