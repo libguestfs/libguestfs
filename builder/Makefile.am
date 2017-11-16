@@ -53,6 +53,7 @@ SOURCES_MLI = \
 	ini_reader.mli \
 	languages.mli \
 	list_entries.mli \
+	osinfo.mli \
 	paths.mli \
 	pxzcat.mli \
 	setlocale.mli \
@@ -65,6 +66,8 @@ SOURCES_MLI = \
 SOURCES_ML = \
 	yajl.ml \
 	utils.ml \
+	osinfo_config.ml \
+	osinfo.ml \
 	pxzcat.ml \
 	setlocale.ml \
 	index.ml \
@@ -356,7 +359,7 @@ CLEANFILES += \
 	console-*.out
 
 # OCaml dependencies.
-.depend: *.mli *.ml
+.depend: *.mli *.ml osinfo_config.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 
