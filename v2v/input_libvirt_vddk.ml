@@ -243,7 +243,7 @@ object
            let password_file = tmpdir // "password" in
            with_open_out password_file (
              fun chan ->
-               chmod password_file 0o600;
+               fchmod (descr_of_out_channel chan) 0o600;
                output_string chan password
            );
            (* nbdkit reads the password from the file *)
