@@ -9,6 +9,7 @@ builder/ini_reader.ml
 builder/languages.ml
 builder/list_entries.ml
 builder/osinfo.ml
+builder/osinfo_config.ml
 builder/paths.ml
 builder/pxzcat.ml
 builder/setlocale.ml
