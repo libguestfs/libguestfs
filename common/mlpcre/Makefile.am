@@ -32,8 +32,6 @@ SOURCES_ML = \
 SOURCES_C = \
 	pcre-c.c
 
-if HAVE_OCAML
-
 # We pretend that we're building a C library.  automake handles the
 # compilation of the C sources for us.  At the end we take the C
 # objects and OCaml objects and link them into the OCaml library.
@@ -127,7 +125,5 @@ check-valgrind:
 .depend: *.mli *.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
-
-endif
 
 .PHONY: docs
