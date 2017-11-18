@@ -101,7 +101,7 @@ guestfish_SOURCES = \
 # This convenience library is solely to compile its generated sources with
 # custom flags.
 librc_protocol_la_SOURCES = rc_protocol.c rc_protocol.h
-librc_protocol_la_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing
+librc_protocol_la_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing $(RPC_CFLAGS)
 
 # Build the command lookup perfect hash code.  The generated code has
 # lots of warnings so we must compile it in a separate mini-library.
