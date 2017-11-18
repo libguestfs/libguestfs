@@ -34,7 +34,8 @@ noinst_LTLIBRARIES = libprotocol.la
 # warnings here.
 libprotocol_la_SOURCES = guestfs_protocol.c  guestfs_protocol.h
 libprotocol_la_CFLAGS = \
-	-Wall -Wno-unused -fno-strict-aliasing $(GCC_VISIBILITY_HIDDEN)
+	-Wall -Wno-unused -fno-strict-aliasing $(GCC_VISIBILITY_HIDDEN) \
+  $(RPC_CFLAGS)
 
 if HAVE_RPCGEN
 
