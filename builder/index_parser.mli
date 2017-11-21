@@ -16,7 +16,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val get_index : downloader:Downloader.t -> sigchecker:Sigchecker.t -> Sources.source -> Index.index
+val get_index : downloader:Downloader.t -> sigchecker:Sigchecker.t -> ?template:bool -> Sources.source -> Index.index
+(** [get_index download sigchecker template source] will parse the source
+    index file into an index entry list. If the template flag is set to
+    true, the parser will be less picky about missing values. *)
 
 val write_entry : out_channel -> (string * Index.entry) -> unit
 (** [write_entry chan entry] writes the index entry to the chan output

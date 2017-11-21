@@ -25,7 +25,7 @@ open Utils
 open Printf
 open Unix
 
-let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
+let get_index ~downloader ~sigchecker ?(template = false) { Sources.uri; proxy } =
   let corrupt_file () =
     error (f_"The index file downloaded from ‘%s’ is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.") uri
   in
@@ -99,8 +99,23 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
           let arch =
             try Index.Arch (List.assoc ("arch", None) fields)
             with Not_found ->
-              eprintf (f_"%s: no ‘arch’ entry for ‘%s’\n") prog n;
-            corrupt_file () in
+              if template then
+                let g = open_guestfs ~identifier:"template" () in
+                g#add_drive_ro file_uri;
+                g#launch ();
+                let roots = g#inspect_os () in
+                let nroots = Array.length roots in
+                if nroots <> 1 then (
+                  eprintf (f_"%s: no ‘arch’ entry for %s and failed to guess it\n") prog n;
+                  corrupt_file ()
+                );
+                let inspected_arch = g#inspect_get_arch (Array.get roots 0) in
+                g#close();
+                Index.GuessedArch inspected_arch
+              else (
+                eprintf (f_"%s: no ‘arch’ entry for ‘%s’\n") prog n;
+                corrupt_file ()
+              ) in
           let signature_uri =
             try Some (make_absolute_uri (List.assoc ("sig", None) fields))
             with Not_found -> None in
@@ -112,21 +127,41 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
           let revision =
             try Rev_int (int_of_string (List.assoc ("revision", None) fields))
             with
-            | Not_found -> Rev_int 1
+            | Not_found -> if template then Rev_int 0 else Rev_int 1
             | Failure _ ->
               eprintf (f_"%s: cannot parse ‘revision’ field for ‘%s’\n") prog n;
               corrupt_file () in
           let format =
             try Some (List.assoc ("format", None) fields) with Not_found -> None in
           let size =
+            let get_image_size filepath =
+              (* If a compressed image manages to reach this code, qemu-img just
+                 returns a virtual-size equal to actual-size *)
+              match detect_file_type filepath with
+              | `Unknown ->
+                let infos = Utils.get_image_infos filepath in
+                Yajl.object_get_number "virtual-size" infos
+              | `XZ | `GZip | `Tar | ` Zip ->
+                eprintf (f_"%s: cannot determine the virtual size of %s due to compression")
+                        prog filepath;
+                corrupt_file () in
+
             try Int64.of_string (List.assoc ("size", None) fields)
             with
             | Not_found ->
-              eprintf (f_"%s: no ‘size’ field for ‘%s’\n") prog n;
-              corrupt_file ()
+              if template then
+                get_image_size file_uri
+              else (
+                eprintf (f_"%s: no ‘size’ field for ‘%s’\n") prog n;
+                corrupt_file ()
+              )
             | Failure _ ->
-              eprintf (f_"%s: cannot parse ‘size’ field for ‘%s’\n") prog n;
-              corrupt_file () in
+              if template then
+                get_image_size file_uri
+              else (
+                eprintf (f_"%s: cannot parse ‘size’ field for ‘%s’\n") prog n;
+                corrupt_file ()
+              ) in
           let compressed_size =
             try Some (Int64.of_string (List.assoc ("compressed_size", None) fields))
             with
