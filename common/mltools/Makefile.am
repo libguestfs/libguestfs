@@ -35,6 +35,7 @@ SOURCES_MLI = \
 	regedit.mli \
 	registry.mli \
 	tools_utils.mli \
+	urandom.mli \
 	URI.mli \
 	xpath_helpers.mli
 
@@ -48,7 +49,8 @@ SOURCES_ML = \
 	JSON.ml \
 	curl.ml \
 	checksums.ml \
-	xpath_helpers.ml
+	xpath_helpers.ml \
+	urandom.ml
 
 SOURCES_C = \
 	../options/decrypt.c \

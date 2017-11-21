@@ -48,8 +48,7 @@ SOURCES_MLI = \
 	SELinux_relabel.mli \
 	ssh_key.mli \
 	subscription_manager.mli \
-	timezone.mli \
-	urandom.mli
+	timezone.mli
 
 # This list must be in dependency order.
 SOURCES_ML = \
@@ -57,7 +56,6 @@ SOURCES_ML = \
 	crypt.ml \
 	firstboot.ml \
 	hostname.ml \
-	urandom.ml \
 	password.ml \
 	perl_edit.ml \
 	random_seed.ml \
