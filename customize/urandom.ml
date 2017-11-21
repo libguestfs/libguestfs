@@ -27,13 +27,14 @@
 open Unix
 
 open Std_utils
+open Tools_utils
+open Common_gettext.Gettext
 
 let read_byte fd =
   let b = Bytes.make 1 ' ' in
   fun () ->
-    if read fd b 0 1 = 0 then (
-      raise End_of_file
-    );
+    if read fd b 0 1 = 0 then
+      error (f_"unexpected end of file while reading /dev/urandom");
     Char.code (Bytes.unsafe_get b 0)
 
 let urandom_bytes n =
