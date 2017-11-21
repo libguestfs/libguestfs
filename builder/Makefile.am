@@ -21,6 +21,8 @@ AM_YFLAGS = -d
 
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
+	$(REPOSITORY_SOURCES_ML) \
+	$(REPOSITORY_SOURCES_MLI) \
 	index_parser_tests.ml \
 	libguestfs.gpg \
 	opensuse.gpg \
@@ -33,6 +35,7 @@ EXTRA_DIST = \
 	test-virt-builder-list.sh \
 	test-virt-builder-list-simplestreams.sh \
 	test-virt-builder-planner.sh \
+	test-virt-builder-repository.sh \
 	test-virt-index-validate.sh \
 	test-virt-index-validate-bad-1 \
 	test-virt-index-validate-good-1 \
@@ -40,6 +43,7 @@ EXTRA_DIST = \
 	test-virt-index-validate-good-3 \
 	test-virt-index-validate-good-4 \
 	virt-builder.pod \
+	virt-builder-repository.pod \
 	virt-index-validate.pod \
 	yajl_tests.ml
 
@@ -94,13 +98,45 @@ SOURCES_C = \
 	setlocale-c.c \
 	yajl-c.c
 
+REPOSITORY_SOURCES_ML = \
+	yajl.ml \
+	utils.ml \
+	index.ml \
+	cache.ml \
+	downloader.ml \
+	sigchecker.ml \
+	ini_reader.ml \
+	index_parser.ml \
+	paths.ml \
+	sources.ml \
+	osinfo_config.ml \
+	osinfo.ml \
+	repository_main.ml
+
+REPOSITORY_SOURCES_MLI = \
+	cache.mli \
+	downloader.mli \
+	index.mli \
+	index_parser.mli \
+	ini_reader.mli \
+	sigchecker.mli \
+	sources.mli \
+	yajl.mli
+
+REPOSITORY_SOURCES_C = \
+	index-scan.c \
+	index-struct.c \
+	index-parse.c \
+	index-parser-c.c \
+	yajl-c.c
+
 man_MANS =
 noinst_DATA =
 bin_PROGRAMS =
 
 if HAVE_OCAML
 
-bin_PROGRAMS += virt-builder
+bin_PROGRAMS += virt-builder virt-builder-repository
 
 virt_builder_SOURCES = $(SOURCES_C)
 virt_builder_CPPFLAGS = \
@@ -123,12 +159,31 @@ virt_builder_CFLAGS = \
 BOBJECTS = $(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
+virt_builder_repository_SOURCES = $(REPOSITORY_SOURCES_C)
+virt_builder_repository_CPPFLAGS = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/gnulib/lib \
+	-I$(top_srcdir)/lib
+virt_builder_repository_CFLAGS = \
+	-pthread \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	-Wno-unused-macros \
+	$(LIBTINFO_CFLAGS) \
+	$(LIBXML2_CFLAGS) \
+	$(YAJL_CFLAGS)
+REPOSITORY_BOBJECTS = $(REPOSITORY_SOURCES_ML:.ml=.cmo)
+REPOSITORY_XOBJECTS = $(REPOSITORY_BOBJECTS:.cmo=.cmx)
+
 # -I $(top_builddir)/lib/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
 # installed copy of libguestfs.
 OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/common/utils/.libs \
+	-I $(top_builddir)/common/mlxml \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
@@ -161,13 +216,16 @@ OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 if !HAVE_OCAMLOPT
 OBJECTS = $(BOBJECTS)
+REPOSITORY_OBJECTS = $(REPOSITORY_BOBJECTS)
 else
 OBJECTS = $(XOBJECTS)
+REPOSITORY_OBJECTS = $(REPOSITORY_XOBJECTS)
 endif
 
 OCAMLLINKFLAGS = \
 	mlgettext.$(MLARCHIVE) \
 	mlpcre.$(MLARCHIVE) \
+	mlxml.$(MLARCHIVE) \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
@@ -189,6 +247,16 @@ virt_builder_LINK = \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
 	  $(OBJECTS) -o $@
 
+virt_builder_repository_DEPENDENCIES = \
+	$(REPOSITORY_OBJECTS) \
+	../common/mltools/mltools.$(MLARCHIVE) \
+	../common/mlxml/mlxml.$(MLARCHIVE) \
+	$(top_srcdir)/ocaml-link.sh
+virt_builder_repository_LINK = \
+	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
+	  $(REPOSITORY_OBJECTS) -o $@
+
 # Manual pages and HTML files for the website.
 
 man_MANS += virt-builder.1
@@ -202,6 +270,20 @@ stamp-virt-builder.pod: virt-builder.pod $(top_srcdir)/customize/customize-synop
 	  --html $(top_builddir)/website/virt-builder.1.html \
 	  --insert $(top_srcdir)/customize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
 	  --insert $(top_srcdir)/customize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
+	  --license GPLv2+ \
+	  --warning safe \
+	  $<
+	touch $@
+
+man_MANS += virt-builder-repository.1
+noinst_DATA += $(top_builddir)/website/virt-builder-repository.1.html
+
+virt-builder-repository.1 $(top_builddir)/website/virt-builder-repository.1.html: stamp-virt-builder-repository.pod
+
+stamp-virt-builder-repository.pod: virt-builder-repository.pod
+	$(PODWRAPPER) \
+	  --man virt-builder-repository.1 \
+	  --html $(top_builddir)/website/virt-builder-repository.1.html \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<
@@ -325,7 +407,8 @@ check-valgrind:
 
 SLOW_TESTS = \
 	$(console_test_scripts) \
-	test-virt-builder-planner.sh
+	test-virt-builder-planner.sh \
+	test-virt-builder-repository.sh
 
 check-slow:
 	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1

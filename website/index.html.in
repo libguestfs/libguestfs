@@ -77,6 +77,7 @@ on <a href="http://freenode.net/">FreeNode</a>.
 <a href="guestunmount.1.html">guestunmount(1)</a> &mdash; unmount guest filesystem <br/>
 <a href="virt-alignment-scan.1.html">virt-alignment-scan(1)</a> &mdash; check alignment of virtual machine partitions <br/>
 <a href="virt-builder.1.html">virt-builder(1)</a> &mdash; quick image builder <br/>
+<a href="virt-builder-repository.1.html">virt-builder-repository(1)</a> &mdash; create virt-builder repositories <br/>
 <a href="virt-cat.1.html">virt-cat(1)</a> &mdash; display a file <br/>
 <a href="virt-copy-in.1.html">virt-copy-in(1)</a> &mdash; copy files and directories into a VM <br/>
 <a href="virt-copy-out.1.html">virt-copy-out(1)</a> &mdash; copy files and directories out of a VM <br/>

@@ -46,6 +46,7 @@ cp @bindir@/guestfish             fish/
 cp @bindir@/guestmount            fuse/
 cp @bindir@/virt-alignment-scan   align/
 cp @bindir@/virt-builder          builder/
+cp @bindir@/virt-builder-repository builder/
 cp @bindir@/virt-cat              cat/
 cp @bindir@/virt-copy-in          fish/
 cp @bindir@/virt-copy-out         fish/

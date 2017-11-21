@@ -1319,6 +1319,9 @@ digital signature):
 The part in square brackets is the C<os-version>, which is the same
 string that is used on the virt-builder command line to build that OS.
 
+The index file creation and signature can be eased with the
+L<virt-builder-repository(1)> tool.
+
 After preparing the C<index> file in the correct format, clearsign it
 using the following command:
 
@@ -1875,6 +1878,7 @@ error.
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<guestmount(1)>,
+L<virt-builder-repository(1)>,
 L<virt-copy-out(1)>,
 L<virt-customize(1)>,
 L<virt-get-kernel(1)>,

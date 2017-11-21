@@ -32,3 +32,6 @@ val string_of_revision : revision -> string
 val get_image_infos : string -> Yajl.yajl_val
 (** [get_image_infos path] Run qemu-img info on the image pointed at
     path as YAJL tree. *)
+
+val increment_revision : revision -> revision
+(** Add one to the revision number *)

@@ -1,0 +1,207 @@
+=begin html
+
+<img src="virt-builder.svg" width="250"
+  style="float: right; clear: right;" />
+
+=end html
+
+=head1 NAME
+
+virt-builder-repository - Build virt-builder source repository easily
+
+=head1 SYNOPSIS
+
+ virt-builder-repository /path/to/repository
+    [-i|--interactive] [--gpg-key KEYID]
+
+=head1 DESCRIPTION
+
+Virt-builder is a tool for quickly building new virtual machines. It can
+be configured to use template repositories. However creating and
+maintaining a repository involves many tasks which can be automated.
+virt-builder-repository is a tool helping to manage these repositories.
+
+Virt-builder-repository loops over the files in the directory specified
+as argument, compresses the files with a name ending by C<qcow2>, C<raw>,
+C<img> or without extension, extracts data from them and creates or
+updates the C<index> file.
+
+Some of the image-related data needed for the index file can’t be
+computed from the image file. virt-builder-repository first tries to
+find them in the existing index file. If data are still missing after
+this, they are prompted in interactive mode, otherwise an error will
+be triggered.
+
+If a C<KEYID> is provided, the generated index file will be signed
+with this GPG key.
+
+=head1 EXAMPLES
+
+=head2 Create the initial repository
+
+Create a folder and copy the disk image template files in it. Then
+run a command like the following one:
+
+ virt-builder-repository --gpg-key "joe@hacker.org" -i /path/to/folder
+
+Note that this example command runs in interactive mode. To run in
+automated mode, a minimal index file needs to be created before running
+the command containing sections like this one:
+
+ [template_id]
+ file=template_filename.qcow.xz
+
+The file value needs to match the image name extended with the C<.xz>
+suffix if the I<--no-compression> parameter is not provided or the
+image name if no compression is involved. Other optional data can be
+prefilled. Default values are computed by inspecting the disk image.
+For more informations, see
+L<virt-builder(1)/Creating and signing the index file>.
+
+=head2 Update images in an existing repository
+
+In this use case, an new image or a new revision of an existing image
+needs to be added to the repository. Place the corresponding image
+template files in the repository folder.
+
+To update the revision of an image, the file needs to have the same
+name than the existing one (without the C<xz> extension).
+
+As in the repository creation use case, a minimal fragment can be
+added to the index file for the automated mode. This can be done
+on the signed index even if it may sound a strange idea: the index
+will be signed again by the tool.
+
+To remove an image from the repository, just remove the corresponding
+image file before running virt-builder-repository.
+
+Then running the following command will complete and update the index
+file:
+
+ virt-builder-repository --gpg-key "joe@hacker.org" -i /path/to/folder
+
+virt-builder-repository works in a temporary folder inside the repository
+one. If anything wrong happens when running the tool, the repository is
+left untouched.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display help.
+
+=item B<--gpg> GPG
+
+Specify an alternate L<gpg(1)> (GNU Privacy Guard) binary.  You can
+also use this to add gpg parameters, for example to specify an
+alternate home directory:
+
+ virt-builder-repository --gpg "gpg --homedir /tmp" [...]
+
+This can also be used to avoid gpg asking for the key passphrase:
+
+ virt-builder-repository --gpg "gpg --passphrase-file /tmp/pass --batch" [...]
+
+=item B<-K> KEYID
+
+=item B<--gpg-key> KEYID
+
+Specify the GPG key to be used to sign the repository index file.
+If not provided, the index will left unsigned. C<KEYID> is used to
+identify the GPG key to use. This value is passed to gpg’s
+I<--default-key> option and can thus be an email address or a
+fingerprint.
+
+B<NOTE>: by default, virt-builder-repository searches for the key
+in the user’s GPG keyring.
+
+=item B<-i>
+
+=item B<--interactive>
+
+Prompt for missing data. Default values are computed from the disk
+image.
+
+When prompted for data, inputting C<-> corresponds to leaving the
+value empty. This can be used to avoid setting the default computed value.
+
+=item B<--no-compression>
+
+Don’t compress the template images.
+
+=item B<--machine-readable>
+
+This option is used to make the output more machine friendly
+when being parsed by other programs.  See
+L</MACHINE READABLE OUTPUT> below.
+
+=item B<--colors>
+
+=item B<--colours>
+
+Use ANSI colour sequences to colourize messages.  This is the default
+when the output is a tty.  If the output of the program is redirected
+to a file, ANSI colour sequences are disabled unless you use this
+option.
+
+=item B<-q>
+
+=item B<--quiet>
+
+Don’t print ordinary progress messages.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable debug messages and/or produce verbose output.
+
+When reporting bugs, use this option and attach the complete output to
+your bug report.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head1 MACHINE READABLE OUTPUT
+
+The I<--machine-readable> option can be used to make the output more
+machine friendly, which is useful when calling virt-builder-repository from
+other programs, GUIs etc.
+
+Use the option on its own to query the capabilities of the
+virt-builder-repository binary.  Typical output looks like this:
+
+ $ virt-builder-repository --machine-readable
+ virt-builder-repository
+
+A list of features is printed, one per line, and the program exits
+with status 0.
+
+=head1 EXIT STATUS
+
+This program returns 0 if successful, or non-zero if there was an
+error.
+
+=head1 SEE ALSO
+
+L<virt-builder(1)>
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Cédric Bosdonnat L<mailto:cbosdonnat@suse.com>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2016-2017 SUSE Inc.
