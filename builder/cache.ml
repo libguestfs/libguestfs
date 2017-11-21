@@ -41,7 +41,9 @@ let create ~directory =
   }
 
 let cache_of_name t name arch revision =
-  t.directory // sprintf "%s.%s.%s" name arch (string_of_revision revision)
+  t.directory // sprintf "%s.%s.%s" name
+                                    (Index.string_of_arch arch)
+                                    (string_of_revision revision)
 
 let is_cached t name arch revision =
   let filename = cache_of_name t name arch revision in
@@ -54,6 +56,6 @@ let print_item_status t ~header l =
   List.iter (
     fun (name, arch, revision) ->
       let cached = is_cached t name arch revision in
-      printf "%-24s %-10s %s\n" name arch
+      printf "%-24s %-10s %s\n" name (Index.string_of_arch arch)
         (if cached then s_"cached" else (*s_*)"no")
   ) l

@@ -83,7 +83,7 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
     let products = Array.to_list products_node in
     filter_map (
       fun (prod, prod_desc) ->
-        let arch = object_get_string "arch" prod_desc in
+        let arch = Index.Arch (object_get_string "arch" prod_desc) in
         let prods = Array.to_list (object_get_object "versions" prod_desc) in
         let prods = filter_map (
           fun (rel, rel_desc) ->

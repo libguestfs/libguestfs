@@ -97,7 +97,7 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
               eprintf (f_"%s: no ‘file’ (URI) entry for ‘%s’\n") prog n;
             corrupt_file () in
           let arch =
-            try List.assoc ("arch", None) fields
+            try Index.Arch (List.assoc ("arch", None) fields)
             with Not_found ->
               eprintf (f_"%s: no ‘arch’ entry for ‘%s’\n") prog n;
             corrupt_file () in
@@ -236,7 +236,7 @@ let write_entry chan (name, { Index.printable_name; file_uri; arch; osinfo;
   Option.may (fp "name=%s\n") printable_name;
   Option.may (fp "osinfo=%s\n") osinfo;
   fp "file=%s\n" file_uri;
-  fp "arch=%s\n" arch;
+  fp "arch=%s\n" (Index.string_of_arch arch);
   Option.may (fp "sig=%s\n") signature_uri;
   (match checksums with
   | None -> ()

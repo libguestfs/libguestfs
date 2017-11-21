@@ -30,7 +30,7 @@ and entry = {
   printable_name : string option;       (* the name= field *)
   osinfo : string option;
   file_uri : string;
-  arch : string;
+  arch : arch;
   signature_uri : string option;        (* deprecated, will be removed in 1.26 *)
   checksums : Checksums.csum_t list option;
   revision : Utils.revision;
@@ -46,6 +46,11 @@ and entry = {
   sigchecker : Sigchecker.t;
   proxy : Curl.proxy;
 }
+and arch =
+  | Arch of string
+  | GuessedArch of string
+
+let string_of_arch = function Arch a | GuessedArch a -> a
 
 let print_entry chan (name, { printable_name; file_uri; arch; osinfo;
                               signature_uri; checksums; revision; format;
@@ -56,7 +61,7 @@ let print_entry chan (name, { printable_name; file_uri; arch; osinfo;
   Option.may (fp "name=%s\n") printable_name;
   Option.may (fp "osinfo=%s\n") osinfo;
   fp "file=%s\n" file_uri;
-  fp "arch=%s\n" arch;
+  fp "arch=%s\n" (string_of_arch arch);
   Option.may (fp "sig=%s\n") signature_uri;
   Option.may (
     List.iter (

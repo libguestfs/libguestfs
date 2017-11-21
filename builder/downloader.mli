@@ -27,7 +27,7 @@ type t
 val create : curl:string -> tmpdir:string -> cache:Cache.t option -> t
 (** Create the abstract type. *)
 
-val download : t -> ?template:(string*string*Utils.revision) -> ?progress_bar:bool -> ?proxy:Curl.proxy -> uri -> (filename * bool)
+val download : t -> ?template:string * Index.arch * Utils.revision -> ?progress_bar:bool -> ?proxy:Curl.proxy -> uri -> filename * bool
 (** Download the URI, returning the downloaded filename and a
     temporary file flag.  The temporary file flag is [true] iff
     the downloaded file is temporary and should be deleted by the

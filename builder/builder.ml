@@ -94,7 +94,7 @@ let selected_cli_item cmdline index =
   let item =
     try List.find (
       fun (name, { Index.arch = a }) ->
-        name = arg && cmdline.arch = normalize_arch a
+        name = arg && cmdline.arch = normalize_arch (Index.string_of_arch a)
     ) index
     with Not_found ->
       error (f_"cannot find os-version ‘%s’ with architecture ‘%s’.\nUse --list to list available guest types.")
@@ -252,7 +252,7 @@ let main () =
         List.iter (
           fun (name,
                { Index.revision; file_uri; proxy }) ->
-            let template = name, cmdline.arch, revision in
+            let template = name, Index.Arch cmdline.arch, revision in
             message (f_"Downloading: %s") file_uri;
             let progress_bar = not (quiet ()) in
             ignore (Downloader.download downloader ~template ~progress_bar
@@ -300,7 +300,7 @@ let main () =
   let template =
     let template, delete_on_exit =
       let { Index.revision; file_uri; proxy } = entry in
-      let template = arg, cmdline.arch, revision in
+      let template = arg, Index.Arch cmdline.arch, revision in
       message (f_"Downloading: %s") file_uri;
       let progress_bar = not (quiet ()) in
       Downloader.download downloader ~template ~progress_bar ~proxy

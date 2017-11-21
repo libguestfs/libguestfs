@@ -46,7 +46,7 @@ and list_entries_short index =
     fun (name, { Index.printable_name; arch; hidden }) ->
       if not hidden then (
         printf "%-24s" name;
-        printf " %-10s" arch;
+        printf " %-10s" (Index.string_of_arch arch);
         Option.may (printf " %s") printable_name;
         printf "\n"
       )
@@ -74,7 +74,7 @@ and list_entries_long ~sources index =
       if not hidden then (
         printf "%-24s %s\n" "os-version:" name;
         Option.may (printf "%-24s %s\n" (s_"Full name:")) printable_name;
-        printf "%-24s %s\n" (s_"Architecture:") arch;
+        printf "%-24s %s\n" (s_"Architecture:") (Index.string_of_arch arch);
         printf "%-24s %s\n" (s_"Minimum/default size:") (human_size size);
         Option.may (fun size ->
             printf "%-24s %s\n" (s_"Download size:") (human_size size)
@@ -116,7 +116,7 @@ and list_entries_json ~sources index =
           match printable_name with
           | None -> item
           | Some str -> ("full-name", JSON.String str) :: item in
-        let item = ("arch", JSON.String arch) :: item in
+        let item = ("arch", JSON.String (Index.string_of_arch arch)) :: item in
         let item = ("size", JSON.Int64 size) :: item in
         let item =
           match compressed_size with

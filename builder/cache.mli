@@ -27,16 +27,16 @@ type t
 val create : directory:string -> t
 (** Create the abstract type. *)
 
-val cache_of_name : t -> string -> string -> Utils.revision -> string
+val cache_of_name : t -> string -> Index.arch -> Utils.revision -> string
 (** [cache_of_name t name arch revision] return the filename
     of the cached file.  (Note: It doesn't check if the filename
     exists, this is just a simple string transformation). *)
 
-val is_cached : t -> string -> string -> Utils.revision -> bool
+val is_cached : t -> string -> Index.arch -> Utils.revision -> bool
 (** [is_cached t name arch revision] return whether the file with
     specified name, architecture and revision is cached. *)
 
-val print_item_status : t -> header:bool -> (string * string * Utils.revision) list -> unit
+val print_item_status : t -> header:bool -> (string * Index.arch * Utils.revision) list -> unit
 (** [print_item_status t header items] print the status in the cache
     of the specified items (which are tuples of name, architecture,
     and revision).

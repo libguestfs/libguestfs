@@ -255,10 +255,10 @@ index_parser_tests_CPPFLAGS = $(virt_builder_CPPFLAGS)
 index_parser_tests_BOBJECTS = \
 	yajl.cmo \
 	utils.cmo \
+	index.cmo \
 	cache.cmo \
 	downloader.cmo \
 	sigchecker.cmo \
-	index.cmo \
 	ini_reader.cmo \
 	index_parser.cmo \
 	index_parser_tests.cmo
