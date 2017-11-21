@@ -26,7 +26,7 @@
 
 open Unix
 
-let open_urandom_fd () = openfile "/dev/urandom" [O_RDONLY] 0
+let open_urandom_fd () = openfile "/dev/urandom" [O_RDONLY; O_CLOEXEC] 0
 
 let read_byte fd =
   let b = Bytes.make 1 ' ' in
