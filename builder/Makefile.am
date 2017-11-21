@@ -49,6 +49,7 @@ EXTRA_DIST = \
 
 SOURCES_MLI = \
 	builder.mli \
+	builder-repository.mli \
 	cache.mli \
 	cmdline.mli \
 	downloader.mli \
