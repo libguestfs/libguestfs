@@ -26,13 +26,12 @@
 
 open Unix
 
-let open_urandom_fd () = openfile "/dev/urandom" [O_RDONLY; O_CLOEXEC] 0
+open Std_utils
 
 let read_byte fd =
   let b = Bytes.make 1 ' ' in
   fun () ->
     if read fd b 0 1 = 0 then (
-      close fd;
       raise End_of_file
     );
     Char.code (Bytes.unsafe_get b 0)
@@ -40,11 +39,12 @@ let read_byte fd =
 let urandom_bytes n =
   assert (n > 0);
   let ret = Bytes.make n ' ' in
-  let fd = open_urandom_fd () in
-  for i = 0 to n-1 do
-    Bytes.unsafe_set ret i (Char.chr (read_byte fd ()))
-  done;
-  close fd;
+  with_openfile "/dev/urandom" [O_RDONLY; O_CLOEXEC] 0 (
+    fun fd ->
+      for i = 0 to n-1 do
+        Bytes.unsafe_set ret i (Char.chr (read_byte fd ()))
+      done
+  );
   Bytes.to_string ret
 
 (* Return a random number uniformly distributed in [0, upper_bound)
@@ -61,9 +61,11 @@ let urandom_uniform n chars =
   assert (nr_chars > 0);
 
   let ret = Bytes.make n ' ' in
-  let fd = open_urandom_fd () in
-  for i = 0 to n-1 do
-    Bytes.unsafe_set ret i (chars.[uniform_random (read_byte fd) nr_chars])
-  done;
-  close fd;
+  with_openfile "/dev/urandom" [O_RDONLY; O_CLOEXEC] 0 (
+    fun fd ->
+      for i = 0 to n-1 do
+        Bytes.unsafe_set ret i
+                         (chars.[uniform_random (read_byte fd) nr_chars])
+      done
+  );
   Bytes.to_string ret
