@@ -413,6 +413,8 @@ let main () =
     let remove = List.remove_assoc in
     let ret = ref [] in
 
+    let infile = List.assoc `Filename itags in
+
     (* The scheme for weights ranges from 0 = free to 100 = most expensive:
      *
      *    0 = free operations like renaming a file in the same directory
@@ -433,8 +435,7 @@ let main () =
      * We could estimate weights better by looking at file sizes.
      *)
     let weight task otags =
-      let infile = List.assoc `Filename itags
-      and outfile = List.assoc `Filename otags in
+      let outfile = List.assoc `Filename otags in
 
       (* If infile/outfile don't exist, get the containing directory. *)
       let infile =
@@ -474,14 +475,15 @@ let main () =
      * thing a copy does is to remove the template tag (since it's always
      * copied out of the cache directory).
      *)
-    tr `Copy ((`Filename, output_filename) :: remove `Template itags);
+    if infile <> output_filename then
+      tr `Copy ((`Filename, output_filename) :: remove `Template itags);
     tr `Copy ((`Filename, tempfile) :: remove `Template itags);
 
     (* We can rename a file instead of copying, but don't rename the
      * cache copy!
      *)
     if is_not `Template then (
-      if not output_is_block_dev then
+      if not output_is_block_dev && infile <> output_filename then
         tr `Move ((`Filename, output_filename) :: itags);
       tr `Move ((`Filename, tempfile) :: itags)
     );
@@ -490,7 +492,7 @@ let main () =
       (* If the input is XZ-compressed, then we can run xzcat, either
        * to the output file or to a temp file.
        *)
-      if not output_is_block_dev then
+      if not output_is_block_dev && infile <> output_filename then
         tr `Pxzcat
           ((`Filename, output_filename) :: remove `XZ (remove `Template itags));
       tr `Pxzcat
@@ -504,10 +506,11 @@ let main () =
       let old_size = Int64.of_string (List.assoc `Size itags) in
       let headroom = 256L *^ 1024L *^ 1024L in
       if output_size >= old_size +^ headroom then (
-        tr `Virt_resize
-          ((`Size, Int64.to_string output_size) ::
-              (`Filename, output_filename) ::
-              (`Format, output_format) :: (remove `Template itags));
+        if infile <> output_filename then
+          tr `Virt_resize
+             ((`Size, Int64.to_string output_size) ::
+                (`Filename, output_filename) ::
+                  (`Format, output_format) :: (remove `Template itags));
         tr `Virt_resize
           ((`Size, Int64.to_string output_size) ::
               (`Filename, tempfile) ::
@@ -532,9 +535,10 @@ let main () =
       (* qemu-img convert is always possible, and quicker.  It doesn't
        * resize, but it does change the format.
        *)
-      tr `Convert
-        ((`Filename, output_filename) :: (`Format, output_format) ::
-            (remove `Template itags));
+      if infile <> output_filename then
+        tr `Convert
+           ((`Filename, output_filename) :: (`Format, output_format) ::
+              (remove `Template itags));
       tr `Convert
         ((`Filename, tempfile) :: (`Format, output_format) ::
             (remove `Template itags));
