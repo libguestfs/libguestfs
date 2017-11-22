@@ -45,7 +45,7 @@ The C<tsk_dirent> structure contains the following fields.
 
 =item 'tsk_inode'
 
-Filesystem reference number of the node. It migh be C<0>
+Filesystem reference number of the node. It might be C<0>
 if the node has been deleted.
 
 =item 'tsk_type'
@@ -55,7 +55,7 @@ See below for a detailed list of values.
 
 =item 'tsk_size'
 
-File size in bytes. It migh be C<-1>
+File size in bytes. It might be C<-1>
 if the node has been deleted.
 
 =item 'tsk_name'

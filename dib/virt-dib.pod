@@ -283,7 +283,7 @@ The default can be found with this command:
 Add the specified options to L<mkfs(1)>, to be able to fine-tune
 the root filesystem creation; the options are passed to the driver
 of L<mfks(1)>, and not to L<mfks(1)> itself.  Note that
-I<--fs-type> is used to to change the filesystem type.
+I<--fs-type> is used to change the filesystem type.
 
 You should use I<--mkfs-options> at most once.  To pass multiple
 options, separate them with space, eg:

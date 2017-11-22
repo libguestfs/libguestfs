@@ -1328,7 +1328,7 @@ The ASCII character whose code is the hex value NN.
 
 =head2 EXAMPLES OF PROMPTS
 
-Note these these require a terminal that supports ANSI escape codes.
+Note that these examples require a terminal that supports ANSI escape codes.
 
 =over 4
 
