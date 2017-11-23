@@ -260,7 +260,11 @@ add_drive_standard_params (guestfs_h *g, struct backend_direct_data *data,
     append_list ("cache=unsafe");
     if (drv->disk_label)
       append_list_format ("serial=%s", drv->disk_label);
-    if (data->qemu_mandatory_locking)
+
+    /* Add the file-specific locking option only for files, as qemu
+     * won't accept options unknown to the block driver in use.
+     */
+    if (data->qemu_mandatory_locking && drv->src.protocol == drive_protocol_file)
       append_list ("file.backing.file.locking=off");
   }
 
