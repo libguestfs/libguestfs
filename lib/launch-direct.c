@@ -534,7 +534,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
          escaped_file,
          drv->disk_label ? ",serial=" : "",
          drv->disk_label ? drv->disk_label : "",
-         data->qemu_mandatory_locking ? ",file.backing.file.locking=off" : "",
+         data->qemu_mandatory_locking && drv->src.protocol == drive_protocol_file ? ",file.backing.file.locking=off" : "",
          i);
     }
 
