@@ -17,6 +17,13 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+generator_built = \
+	uefi.ml \
+	uefi.mli
+
+BUILT_SOURCES = \
+	$(generator_built)
+
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	copy_to_local.ml \
