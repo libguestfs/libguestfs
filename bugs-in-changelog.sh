@@ -41,7 +41,7 @@ bugids=$(
 
 # Filter out any bugs which may still be in NEW or ASSIGNED:
 bugzilla query -b "$bugids" \
-    -t MODIFIED,POST,ON_QA,PASSES_QA,VERIFIED,RELEASE_PENDING,CLOSED \
+    -s MODIFIED,POST,ON_QA,PASSES_QA,VERIFIED,RELEASE_PENDING,CLOSED \
     --outputformat='%{bug_id} %{short_desc}' |
     sort -n -r |
     perl -pe '
