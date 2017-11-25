@@ -4,18 +4,603 @@ guestfs-release-notes - libguestfs Release Notes
 
 =begin comment
 
-UPDATED TO <commit-id>
+UPDATED TO 719d68fa247cc3885ecf7ec1c010faf83267d786
 
 =end comment
 
-=begin comment
+=begin html
 
 <script>
 document.body.style.backgroundImage = "url('draft.png')";
 document.body.style.backgroundRepeat = "no-repeat";
 </script>
 
+=end html
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.38
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.36.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+=head3 New tools
+
+Virt-builder-repository is a new tool allowing end users to create and
+update virt-builder repositories (Cédric Bosdonnat).
+
+Virt-rescue (while not a new tool) has been substantially rewritten,
+implementing job control, I<-m> and I<-i> options, escape keys, etc.
+
+=head3 New features in existing tools
+
+Virt-builder planner has been improved so that faster and more
+efficient build plans are chosen for complex cases, especially when
+either the tmpdir or output is on networked storage.
+
+New virt-builder Fedora templates (starting with Fedora 26) will have
+plain partition layout and use GPT for partitions.
+
+Virt-customize "firstboot" scripts in guests using systemd are now
+installed under the C<multi-user.target> instead of C<default.target>
+so they will only run when the system is booted normally.
+
+Virt-customize now sets a random F</etc/machine-id> for Linux guests,
+if one is not already set.
+
+Virt-df now works correctly on fileystems with block sizes smaller
+than 1K (Nikolay Ivanets).
+
+Virt-dib has further compatibility enhancements with diskimage-builder
+(Pino Toscano).
+
+Virt-sysprep removes C<DHCP_HOSTNAME> from F<ifcfg-*> files.
+
+Virt-sysprep now works on Oracle Linux (Jamie Iles).
+
+Virt-resize now correctly copies GPT partition attributes from the
+source to the destination (Cédric Bosdonnat).
+
+Bash tab completion implemented or enhanced for: virt-win-reg,
+virt-v2v-copy-to-local.
+
+=head3 virt-v2v and virt-p2v
+
+Virt-v2v can now read VMware VMX files directly, either from local
+disk, NFS storage, or over SSH from an ESXi hypervisor.
+
+Virt-v2v can now use VDDK as an input source.
+
+Both virt-v2v and virt-p2v are now able to pass through the source CPU
+vendor, model and topology.  However unfortunately not all source and
+target hypervisors are able to provide or consume this data at
+present (Tomáš Golembiovský).
+
+Virt-v2v now supports encrypted guests (Pino Toscano).
+
+Virt-v2v can now handle VMware snapshots.  Note that the snapshots are
+collapsed — it I<does not> convert the chain of snapshots into a chain
+of snapshots.
+
+Virt-v2v now installs Windows 10 / Windows Server 2016 virtio block
+drivers correctly (Pavel Butsykin, Kun Wei).
+
+Virt-v2v now installs virtio-rng, balloon and pvpanic drivers, and
+correctly sets this in the target hypervisor metadata for hypervisors
+which support that (Tomáš Golembiovský).
+
+Virt-v2v now installs both legacy and modern virtio keys in the
+Windows registry (Ladi Prosek).
+
+Virt-p2v can now preserve (in some cases) the offset of the Real Time
+Clock from UTC.
+
+Virt-p2v now combines several scp commands to the conversion server
+into a single command, improving conversion times.
+
+Virt-v2v now detects the special Linux Xen PV-only kernels correctly
+(Laszlo Ersek).
+
+Virt-v2v I<-o glance> now generates the right properties for UEFI
+guests (Pino Toscano).
+
+Virt-v2v I<-o null> now avoids spooling the guest to a temporary file,
+instead it writes to the qemu "null block device".  This makes it
+faster and use almost no disk space.
+
+Virt-v2v I<-o rhv> now supports Windows 2016 Server guest type.
+
+Virt-v2v I<-i libvirtxml> can now open network disks over http or
+https.
+
+Virt-v2v will now give a warning about host passthrough devices (Pino
+Toscano).
+
+The virt-v2v I<--machine-readable> output has been enhanced so it
+includes C<vcenter-https>, C<xen-ssh> and C<in-place> facts (Pino
+Toscano).
+
+=head3 Language bindings
+
+Fix multiple memory leaks and other data corruption problems in the
+Java bindings (Pino Toscano).
+
+Perl C<%guestfs_introspection> has been dropped.
+
+=head3 Inspection
+
+Inspection support was rewritten in OCaml and included inside the
+daemon.  This makes inspection considerably faster, more robust and
+more easily extensible in future.
+
+Better icon support for ALT Linux guests (Pino Toscano).
+
+Better support for NeoKylin (Qingzheng Zhang).
+
+Can handle OSes like Void Linux which do not include C<VERSION_ID>
+in F</etc/os-release> (Pino Toscano).
+
+=head3 Architectures and platforms
+
+Multiple fixes for S/390 architecture.  Libguestfs and all the tools
+should now compile and run on this architecture.
+
+=head3 Other
+
+The libguestfs API is now thread-safe (although not parallel).  You
+can call APIs on the same handle from multiple threads without needing
+to take a lock.
+
+=head2 Security
+
+There were multiple vulnerabilities in the icoutils C<wrestool>
+program which is run by libguestfs to create icons for Windows guests.
+Using the latest C<wrestool> is recommended.
+
+=head2 API
+
+=head3 New APIs
+
+=over 4
+
+=item C<hivex_value_string>
+
+This replaces the deprecated C<hivex_value_utf8> API, but does the
+same thing.
+
+=item C<part_get_gpt_attributes>
+
+=item C<part_set_gpt_attributes>
+
+Read and write GPT partition attribute flags (Cédric Bosdonnat).
+
+=item C<part_resize>
+
+Enlarge or shrink an existing partition (Nikos Skalkotos).
+
+=item C<yara_destroy>
+
+=item C<yara_load>
+
+=item C<yara_scan>
+
+Support for the Yara malware scanning engine (Matteo Cafasso).
+
+=back
+
+=head3 Other API changes
+
+APIs implemented in the daemon can now be written in either C or
+OCaml.  Several APIs were rewritten in OCaml, although we are not
+planning to rewrite all of them.
+
+You will now get a clear error message if you try to add too many
+disks to the appliance, instead of getting a peculiar failure from
+qemu.
+
+Certain APIs accidentally allowed you to use C</dev/urandom> as an
+input "device", eg. C<g.copy_device_to_device("/dev/urandom",
+"/dev/sda")>.  The code has been modified to I<forbid> this usage.
+
+All APIs for inspecting installer CDs have been deprecated.  Use
+libosinfo for this task.
+
+=head2 Build changes
+
+A working OCaml compiler E<ge> 4.01 is now required for building
+libguestfs.  The C<./configure --disable-ocaml> option remains but is
+only used to disable the OCaml language bindings.
+
+Add C<RELEASES> file which lists release dates for each version of
+libguestfs.  You must update this file when making a new release.
+
+Documentation generated by C<gtk-doc> has been removed.  C<./configure
+--enable-gtk-doc> now does nothing.
+
+Libtirpc is now used for XDR functions and rpcgen.  Note that glibc
+has deprecated and in most Linux distros dropped these, so for most
+people this will be an extra dependency (Martin Kletzander).
+
+Libxcrypt is now used for L<crypt(3)>.  This is required if using
+glibc E<ge> 2.27.
+
+Hivex E<ge> 1.3.14, and C<ocaml-hivex> are now required (Pino Toscano).
+
+Libvirt E<ge> 1.2.20 is now required.
+
+There is now a C<make check-root> target for tests which need to be
+run as root (analogous to C<make check-slow>).
+
+C<./configure>-time check for C<__attribute__((cleanup))> now works in
+the cross-compilation case (Yann E. Morin).
+
+The C<AUTHORS> and C<p2v/about-authors.c> files are now generated from
+a single place.
+
+Either GnuPG v1 or v2 can be used.
+
+C<./configure --with-guestfs-path> may be used to set the default
+C<LIBGUESTFS_PATH>.  In addition the way that the path is searched has
+changed slightly so that all types of appliances are searched in each
+path element separately (Pavel Butsykin).
+
+C<GUESTFSD_EXT_CMD> which was used to mark external commands in the
+daemon has been removed.  It was originally used by SUSE builds, but
+they have not been using it for a while.
+
+The output from C<./configure> is now visually grouped under headings
+related to what it is doing, making it much easier to scan (Pino
+Toscano).
+
+OCaml dependencies are now generated from a single script instead of
+multiple not-quite-the-same Makefile fragments.
+
+C<./configure --with-distro=ID> can be used to override automatic
+Linux distro detection at build time (Pino Toscano).
+
+qemu E<ge> 2.10 is supported (but not required).  This adds mandatory
+locking to disks and libguestfs turns this off in certain
+circumstances when it is known to be safe (Lars Seipel, Peter Krempa,
+Daniel Berrange, Pino Toscano, Fam Zheng, Yongkui Guo, Václav
+Kadlčík).
+
+=head2 Internals
+
+Most common code has been moved to the F<common/> subdirectory, with
+OCaml common code being in F<common/ml*> directories (eg.
+F<common/visit> and F<common/mlvisit> contain the visitor library in C
+and OCaml respectively).  The F<mllib> directory has been deleted and
+replaced by F<common/mltools>.
+
+There is now a lightweight OCaml binding for PCRE, see
+F<common/mlpcre>.  Use of OCaml C<Str> library has been mostly
+replaced with PCRE.
+
+Add more calls to C<udev_settle> to improve stability of partition
+code (Dawid Zamirski).
+
+Run C<udev_settle> with I<--exit-if-exists> option, which improves the
+speed of this command (Pavel Butsykin).
+
+Detect new locations of L<major(3)>, L<minor(3)>, L<makedev(3)>.
+
+Actions can now be deprecated with no suggested replacement, for APIs
+such as C<guestfs_wait_ready> that should simply be removed from
+client code.
+
+Use gnulib C<set_nonblocking_flag> wrapper instead of calling
+L<fcntl(2)> with C<O_NONBLOCK> (Eric Blake).  Similarly
+C<set_cloexec_flag>.
+
+Fix memory leak in XFS version of C<guestfs_vfs_minimum_size> (Pino
+Toscano).
+
+Valgrind checks now run on the virt-p2v binary.
+
+Unicode single quotes (C<‘’>) and now used in place of C<''> or C<`'>
+throughout the code and documentation.  Similarly for C<’s> instead of
+C<'s>.
+
+The C<is_zero> function has been reimplemented for greater speed (Eric
+Blake).
+
+In the direct backend, virtio-blk support has been removed.
+Virtio-scsi is now the only supported way to add disks.
+
+Generator string parameter and return types have been rationalised so
+there are only two types (C<String>, C<StringList>) with many subtypes
+eg. C<FileIn> becomes C<String (FileIn, ...)>.
+
+The appliance disk image can now be in formats other than raw
+(Pavel Butsykin).
+
+Multiple improvements to how we automatically build Debian templates
+for virt-builder (Pino Toscano).  Enable serial console for these
+templates (Florian Klink).
+
+In the daemon, instead of making a private copy of lvm.conf and
+modifying it (eg for filters), start with an empty file since LVM
+understands that to mean "all defaults" (Alasdair Kergon, Zdenek
+Kabelac).
+
+The C<direct> backend can now run QMP queries against the QEMU binary,
+enhancing the kinds of information we can detect.  In addition the
+code to query QEMU has been made more robust for handling multiple
+parallel queries of different versions of QEMU.
+
+OCaml Augeas bindings are bundled under F<common/mlaugeas>.  The long
+term plan is to remove this and use system ocaml-augeas when it is
+more widely available in distros (Pino Toscano).
+
+All OCaml modules (C<*.ml> files) are now required to have an
+interface file (C<*.mli>).  If they don't export anything then the
+interface will be empty except for comments.
+
+Certain OCaml features in OCaml E<ge> 4.01 are used throughout the
+code, including replacing ‘{ field = field }’ with ‘{ field }’.
+
+Virt-builder C<make-template> utility now uses the C<virt-install
+--transient> option so that we should never need to clean up left over
+domains after a crash.  It also saves kickstarts and virt-install
+commands, which are committed to git for future reference.
+
+F</dev/shm> is now created in the appliance (Nicolas Hicher).
+
+In verbose mode on Fedora guests, virt-customize will now use C<dnf
+--verbose> enabling better debugging output.
+
+Virt-v2v input and output classes now contain a C<#precheck> method
+which is used to perform environmental checks before conversion
+starts.
+
+Virt-p2v enables miniexpect debugging.  It is written to stderr (of
+virt-p2v).
+
+Virt-v2v free space checks are more liberal especially for smaller
+guests (Pino Toscano).
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh v1.36.0..
+
 =end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/1539395>
+
+virt-customize segfaults after upgrading to 1.37.35-3
+
+=item L<https://bugzilla.redhat.com/1536765>
+
+Libguestfs Perl bindings can leak a small amount of memory on error
+
+=item L<https://bugzilla.redhat.com/1536763>
+
+libguestfs Lua bindings use strerror(), which isn’t thread safe
+
+=item L<https://bugzilla.redhat.com/1525241>
+
+virt-df displays zeros for filesystems with block size =512
+
+=item L<https://bugzilla.redhat.com/1519204>
+
+v2v should improve the result when convert a rhel7.4 guest with no available kernels found in the bootloader
+
+=item L<https://bugzilla.redhat.com/1518517>
+
+virt-v2v fails with "unsupported configuration: shared access for  disk 'sdb' requires use of supported storage format"
+
+=item L<https://bugzilla.redhat.com/1516094>
+
+Mere presence of QEMU file locking options breaks NBD (Block protocol 'nbd' doesn't support the option 'locking')
+
+=item L<https://bugzilla.redhat.com/1514756>
+
+./configure --disable-ocaml breaks building common/mlpcre which breaks building daemon
+
+=item L<https://bugzilla.redhat.com/1513884>
+
+[RFE]Should update some vddk info in v2v man page
+
+=item L<https://bugzilla.redhat.com/1508874>
+
+virt-v2v: warning: ova disk has an unknown VMware controller type (20)
+
+=item L<https://bugzilla.redhat.com/1506572>
+
+virt-v2v '-i ova' is not parsing the MAC address from the source OVF
+
+=item L<https://bugzilla.redhat.com/1506511>
+
+virt-builder fails to parse repo file if it has blank space after the repository identifier
+
+=item L<https://bugzilla.redhat.com/1503958>
+
+Failed to convert the rhel5 guest with kmod-xenpv installed from xen server by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1503497>
+
+qemu-kvm fails to open qcow2 files in read-only mode with qemu-kvm 1.5.3
+
+=item L<https://bugzilla.redhat.com/1500673>
+
+Error info shows wrong sometimes when ssh to conversion server using non-root user with sudo on p2v client
+
+=item L<https://bugzilla.redhat.com/1500537>
+
+/dev/shm does not exist in the appliance environment
+
+=item L<https://bugzilla.redhat.com/1497475>
+
+guestfish cannot list commands from interactive mode
+
+=item L<https://bugzilla.redhat.com/1493048>
+
+Unbound constructor Hivex.OPEN_UNSAFE
+
+=item L<https://bugzilla.redhat.com/1484957>
+
+bump debian images to use single-partition layout
+
+=item L<https://bugzilla.redhat.com/1482737>
+
+virt-resize failed to expand swap partition for RHEL5.11 guest image with "parsing UUID failed"
+
+=item L<https://bugzilla.redhat.com/1477623>
+
+Running file API on a special chardev may hang forever
+
+=item L<https://bugzilla.redhat.com/1476081>
+
+inspect-os  report error: could not parse integer in version number: V7Update2
+
+=item L<https://bugzilla.redhat.com/1472719>
+
+[RFE]Add warning in process of v2v converting guest which has pci passthrough device
+
+=item L<https://bugzilla.redhat.com/1472208>
+
+virt-v2v fails on opensuse 13.2 guest with error: statns: statns_stub: path must start with a / character
+
+=item L<https://bugzilla.redhat.com/1469655>
+
+firstboot scripts are not correctly installed in Fedora 26
+
+=item L<https://bugzilla.redhat.com/1466563>
+
+Libguestfs should pass copyonread flag through to the libvirt XML
+
+=item L<https://bugzilla.redhat.com/1465665>
+
+1.36.x build failure: gtkdocize fails using newer autotools due to missing GTK_DOC_CHECK in configure.ac
+
+=item L<https://bugzilla.redhat.com/1460338>
+
+guestfs_shutdown hangs if main process sets signal handlers
+
+=item L<https://bugzilla.redhat.com/1459979>
+
+guestfs_add_domain_argv fails with readonly option when vdi/vhd disk is attached to libvirt domain
+
+=item L<https://bugzilla.redhat.com/1451665>
+
+RFE: Virt-v2v can't convert the guest which has encrypted partition
+
+=item L<https://bugzilla.redhat.com/1450325>
+
+document URI format for -a parameters of tools
+
+=item L<https://bugzilla.redhat.com/1448739>
+
+RFE: Support multicore decompression for OVA files using pigz and pxz
+
+=item L<https://bugzilla.redhat.com/1447202>
+
+Win 2016 guest is described as Win 10 after imported to RHEVM
+
+=item L<https://bugzilla.redhat.com/1441197>
+
+RFE: ability to convert VMware virtual machines via vmx
+
+=item L<https://bugzilla.redhat.com/1438939>
+
+Please drop or update GnuPG (1.4.x) dependency
+
+=item L<https://bugzilla.redhat.com/1438794>
+
+[RFE] Install Windows virtio-rng drivers on VMs imported
+
+=item L<https://bugzilla.redhat.com/1433937>
+
+virt-inspector can't get icon info from altlinux-centaurus
+
+=item L<https://bugzilla.redhat.com/1433577>
+
+policycoreutils setfiles >= 2.6 does .. nothing
+
+=item L<https://bugzilla.redhat.com/1431579>
+
+Windows 8 UEFI from VMware to KVM fails to boot after conversion
+
+=item L<https://bugzilla.redhat.com/1430680>
+
+There is error info about "No such file or directory" when convert a guest from ova file by v2v
+
+=item L<https://bugzilla.redhat.com/1430184>
+
+virt-dib should generate sha256 checksum instead of sha512
+
+=item L<https://bugzilla.redhat.com/1429506>
+
+RFE: OVMF should be detected on conversion server to prevent failed conversion
+
+=item L<https://bugzilla.redhat.com/1429491>
+
+Should rename network name of rhv in virt-v2v man page
+
+=item L<https://bugzilla.redhat.com/1427529>
+
+virt-sysprep should remove DHCP_HOSTNAME
+
+=item L<https://bugzilla.redhat.com/1417306>
+
+QEMU image file locking (libguestfs)
+
+=item L<https://bugzilla.redhat.com/1409024>
+
+[Debian] Missing db_dump abort inspection
+
+=item L<https://bugzilla.redhat.com/1406906>
+
+Segmentation fault when reading corrupted path with Python 3 bindings
+
+=item L<https://bugzilla.redhat.com/1379289>
+
+RFE: virt-p2v should support mnemonic operations
+
+=item L<https://bugzilla.redhat.com/1378022>
+
+There is virt-v2v warning about <listen type='none'> during converting a guest which has listen type='none' in XML
+
+=item L<https://bugzilla.redhat.com/1376547>
+
+qemu-system-s390x: -device isa-serial,chardev=charserial0,id=serial0: 'isa-serial' is not a valid device model name
+
+=item L<https://bugzilla.redhat.com/1374232>
+
+selinux relabel fails on RHEL 6.2 guests with "libguestfs error: selinux_relabel: : Success"
+
+=item L<https://bugzilla.redhat.com/1367738>
+
+Missing bash completion scripts for: virt-diff guestunmount virt-copy-in virt-copy-out virt-customize virt-get-kernel virt-p2v-make-disk virt-p2v-make-kickstart virt-tar-in virt-tar-out virt-v2v-copy-to-local virt-win-reg
+
+=item L<https://bugzilla.redhat.com/1362649>
+
+RFE: virt-sysprep does not utilize libguestfs encryption support
+
+=item L<https://bugzilla.redhat.com/1172425>
+
+[RFE]virt-v2v failed to convert VMware ESX VM with snapshot
+
+=item L<https://bugzilla.redhat.com/1171654>
+
+Modify a file in virt-rescue with vi on some linux terminal such as yakuake, can lead to abnormal display in virt-rescue shell
+
+=item L<https://bugzilla.redhat.com/1167623>
+
+Remove "If reporting bugs, run virt-v2v with debugging enabled .." message when running virt-p2v
+
+=item L<https://bugzilla.redhat.com/1152819>
+
+Can not end a running command in virt-rescue by press ^C or other keys, the only way is to exit virt-rescue
+
+=back
+
+=for comment ################################################################
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.36
 
