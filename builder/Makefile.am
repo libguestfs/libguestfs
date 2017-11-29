@@ -32,6 +32,7 @@ EXTRA_DIST = \
 	test-simplestreams/streams/v1/net.cirros-cloud_released_download.json \
 	test-virt-builder.sh \
 	test-docs.sh \
+	test-virt-builder-cacheall.sh \
 	test-virt-builder-list.sh \
 	test-virt-builder-list-simplestreams.sh \
 	test-virt-builder-planner.sh \
@@ -386,6 +387,7 @@ index_parser_tests_LINK = \
 
 TESTS = \
 	test-docs.sh \
+	test-virt-builder-cacheall.sh \
 	test-virt-builder-list.sh \
 	test-virt-index-validate.sh \
 	$(SLOW_TESTS)
