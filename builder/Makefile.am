@@ -28,6 +28,7 @@ EXTRA_DIST = \
 	test-simplestreams/streams/v1/index.json \
 	test-simplestreams/streams/v1/net.cirros-cloud_released_download.json \
 	test-virt-builder.sh \
+	test-virt-builder-cacheall.sh \
 	test-virt-builder-docs.sh \
 	test-virt-builder-list.sh \
 	test-virt-builder-list-simplestreams.sh \
@@ -236,6 +237,7 @@ yajl_tests_LINK = \
 	  $(yajl_tests_THEOBJECTS) -o $@
 
 TESTS = \
+	test-virt-builder-cacheall.sh \
 	test-virt-builder-docs.sh \
 	test-virt-builder-list.sh \
 	test-virt-index-validate.sh \

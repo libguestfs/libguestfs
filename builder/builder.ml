@@ -251,8 +251,8 @@ let main () =
         List.iter (
           fun (name,
                { Index.revision = revision; file_uri = file_uri;
-                 proxy = proxy }) ->
-            let template = name, cmdline.arch, revision in
+                 proxy = proxy; arch = arch }) ->
+            let template = name, arch, revision in
             message (f_"Downloading: %s") file_uri;
             let progress_bar = not (quiet ()) in
             ignore (Downloader.download downloader ~template ~progress_bar
