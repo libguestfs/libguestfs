@@ -281,7 +281,10 @@ object (self)
       let res =
         match get_default_method with
         | MethodGrubby ->
-          Some (g#command [| "grubby"; "--default-kernel" |])
+          let res = g#command [| "grubby"; "--default-kernel" |] in
+          (match res with
+           | "" -> None
+           | _ -> Some res)
         | MethodPerlBootloader ->
           let cmd =
             [| "/usr/bin/perl"; "-MBootloader::Tools"; "-e"; "
