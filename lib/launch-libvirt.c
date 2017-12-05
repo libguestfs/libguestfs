@@ -980,10 +980,6 @@ static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_x
     }						\
   } while (0)
 
-/* <element/> */
-#define empty_element(element)					\
-  do { start_element(element) {} end_element (); } while (0)
-
 /* key=value attribute of the current element. */
 #define attribute(key,value)                                            \
   if (xmlTextWriterWriteAttribute (xo, BAD_CAST (key), BAD_CAST (value)) == -1){ \
@@ -1764,8 +1760,6 @@ construct_libvirt_xml_appliance (guestfs_h *g,
     if (construct_libvirt_xml_disk_address (g, xo, params->appliance_index)
         == -1)
       return -1;
-
-    empty_element ("shareable");
 
   } end_element ();
 
