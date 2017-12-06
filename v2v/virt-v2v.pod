@@ -1457,13 +1457,9 @@ library is permitted by the license.
 
 =item 2.
 
-VDDK E<ge> 6.5 is required.
-
-=item 3.
-
-You must also compile nbdkit, enabling the VDDK plugin.  At least
-nbdkit E<ge> 1.1.16 is required, but it is usually best to compile
-from the git tree.
+You must also compile nbdkit, enabling the VDDK plugin.  nbdkit E<ge>
+1.1.25 is recommended, but it is usually best to compile from the git
+tree.
 
 =over 4
 
@@ -1488,13 +1484,13 @@ eg:
 
  export PATH=/path/to/nbdkit-1.1.x:$PATH
 
-=item 4.
+=item 3.
 
 You must find the SSL "thumbprint" of your VMware server.  How to do
 this is explained in L<nbdkit-vddk-plugin(1)>, also available at the
 link above.
 
-=item 5.
+=item 4.
 
 VDDK imports require a feature added in libvirt E<ge> 3.7.
 
