@@ -660,7 +660,8 @@ See L</INPUT FROM VDDK> below for details.
 
 When using VDDK mode, these options are passed unmodified to the
 L<nbdkit(1)> VDDK plugin.  Please refer to L<nbdkit-vddk-plugin(1)>.
-Only I<--vddk-thumbprint> is required, the others are optional.
+If I<--vddk> is present, I<--vddk-thumbprint> is also required,
+the rest are optional.
 
 =item B<--vdsm-compat=0.10>
 
