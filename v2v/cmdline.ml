@@ -56,15 +56,16 @@ let parse_cmdline () =
 
   let input_conn = ref None in
   let input_format = ref None in
+  let input_transport = ref None in
   let in_place = ref false in
   let output_conn = ref None in
   let output_format = ref None in
   let output_name = ref None in
   let output_storage = ref None in
   let password_file = ref None in
-  let vddk = ref None in
   let vddk_config = ref None in
   let vddk_cookie = ref None in
+  let vddk_libdir = ref None in
   let vddk_nfchostport = ref None in
   let vddk_port = ref None in
   let vddk_snapshot = ref None in
@@ -186,6 +187,8 @@ let parse_cmdline () =
                                             s_"Libvirt URI";
     [ M"if" ],       Getopt.String ("format", set_string_option_once "-if" input_format),
                                             s_"Input format (for -i disk)";
+    [ M"it" ],       Getopt.String ("transport", set_string_option_once "-it" input_transport),
+                                    s_"Input transport";
     [ L"in-place" ], Getopt.Set in_place,         "";
     [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
     [ S 'n'; L"network" ],        Getopt.String ("in:out", add_network),    s_"Map network 'in' to 'out'";
@@ -207,12 +210,12 @@ let parse_cmdline () =
                                             s_"Use password from file";
     [ L"print-source" ], Getopt.Set print_source, s_"Print source and stop";
     [ L"root" ],    Getopt.String ("ask|... ", set_root_choice), s_"How to choose root filesystem";
-    [ L"vddk" ],     Getopt.String ("libpath", set_string_option_once "--vddk" vddk),
-                                            s_"Use nbdkit VDDK plugin";
     [ L"vddk-config" ], Getopt.String ("filename", set_string_option_once "--vddk-config" vddk_config),
                                             s_"Set VDDK config file";
     [ L"vddk-cookie" ], Getopt.String ("cookie", set_string_option_once "--vddk-cookie" vddk_cookie),
                                             s_"Set VDDK cookie";
+    [ L"vddk-libdir" ], Getopt.String ("libdir", set_string_option_once "--vddk-libdir" vddk_libdir),
+                                    s_"Set VDDK library parent directory";
     [ L"vddk-nfchostport" ], Getopt.String ("nfchostport", set_string_option_once "--vddk-nfchostport" vddk_nfchostport),
                                             s_"Set VDDK nfchostport";
     [ L"vddk-port" ], Getopt.String ("port", set_string_option_once "--vddk-port" vddk_port),
@@ -270,6 +273,12 @@ read the man page virt-v2v(1).
   let input_conn = !input_conn in
   let input_format = !input_format in
   let input_mode = !input_mode in
+  let input_transport =
+    match !input_transport with
+    | None -> None
+    | Some "vddk" -> Some `VDDK
+    | Some transport ->
+       error (f_"unknown input transport ‘-it %s’") transport in
   let in_place = !in_place in
   let machine_readable = !machine_readable in
   let network_map = !network_map in
@@ -287,28 +296,15 @@ read the man page virt-v2v(1).
   let qemu_boot = !qemu_boot in
   let root_choice = !root_choice in
   let vddk_options =
-    match !vddk with
-    | Some libdir ->
-      Some { vddk_libdir = libdir;
-             vddk_config = !vddk_config;
-             vddk_cookie = !vddk_cookie;
-             vddk_nfchostport = !vddk_nfchostport;
-             vddk_port = !vddk_port;
-             vddk_snapshot = !vddk_snapshot;
-             vddk_thumbprint = !vddk_thumbprint;
-             vddk_transports = !vddk_transports;
-             vddk_vimapiver = !vddk_vimapiver }
-    | None ->
-      if !vddk_config <> None ||
-         !vddk_cookie <> None ||
-         !vddk_nfchostport <> None ||
-         !vddk_port <> None ||
-         !vddk_snapshot <> None ||
-         !vddk_thumbprint <> None ||
-         !vddk_transports <> None ||
-         !vddk_vimapiver <> None then
-        error (f_"‘--vddk-*’ options should only be used when conversion via the nbdkit VDDK plugin has been enabled, ie. using ‘--vddk’.");
-      None in
+      { vddk_config = !vddk_config;
+        vddk_cookie = !vddk_cookie;
+        vddk_libdir = !vddk_libdir;
+        vddk_nfchostport = !vddk_nfchostport;
+        vddk_port = !vddk_port;
+        vddk_snapshot = !vddk_snapshot;
+        vddk_thumbprint = !vddk_thumbprint;
+        vddk_transports = !vddk_transports;
+        vddk_vimapiver = !vddk_vimapiver } in
   let vdsm_compat = !vdsm_compat in
   let vdsm_image_uuids = List.rev !vdsm_image_uuids in
   let vdsm_vol_uuids = List.rev !vdsm_vol_uuids in
@@ -341,6 +337,26 @@ read the man page virt-v2v(1).
       let password = read_first_line_from_file filename in
       Some password in
 
+  (* Input transport affects whether some parameters should or
+   * should not be used.
+   *)
+  (match input_transport with
+   | None ->
+      if !vddk_config <> None ||
+         !vddk_cookie <> None ||
+         !vddk_libdir <> None ||
+         !vddk_nfchostport <> None ||
+         !vddk_port <> None ||
+         !vddk_snapshot <> None ||
+         !vddk_thumbprint <> None ||
+         !vddk_transports <> None ||
+         !vddk_vimapiver <> None then
+        error (f_"‘--vddk-*’ options should only be used when conversion via the nbdkit VDDK plugin has been enabled, ie. using ‘-it vddk’.")
+   | Some `VDDK ->
+      if !vddk_thumbprint = None then
+        error (f_"‘--vddk-thumbprint’ is required when using ‘-it vddk’.")
+  );
+
   (* Parsing of the argument(s) depends on the input mode. *)
   let input =
     match input_mode with
@@ -363,7 +379,8 @@ read the man page virt-v2v(1).
         | [guest] -> guest
         | _ ->
           error (f_"expecting a libvirt guest name on the command line") in
-      Input_libvirt.input_libvirt vddk_options password input_conn guest
+      Input_libvirt.input_libvirt vddk_options password
+                                  input_conn input_transport guest
 
     | `LibvirtXML ->
       (* -i libvirtxml: Expecting a filename (XML file). *)

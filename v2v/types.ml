@@ -473,9 +473,9 @@ type root_choice = AskRoot | SingleRoot | FirstRoot | RootDev of string
 type output_allocation = Sparse | Preallocated
 
 type vddk_options = {
-    vddk_libdir : string;
     vddk_config : string option;
     vddk_cookie : string option;
+    vddk_libdir : string option;
     vddk_nfchostport : string option;
     vddk_port : string option;
     vddk_snapshot : string option;

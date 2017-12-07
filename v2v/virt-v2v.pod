@@ -255,6 +255,13 @@ For I<-i disk> only, this specifies the format of the input disk
 image.  For other input methods you should specify the input
 format in the metadata.
 
+=item B<-it> B<vddk>
+
+Use VMware VDDK as a transport to copy the input disks.  See
+L</INPUT FROM VDDK> below.  If you use this parameter then you may
+need to use other I<--vddk*> options to specify how to connect through
+VDDK.
+
 =item B<--keys-from-stdin>
 
 Read key or passphrase parameters from stdin.  The default is
@@ -501,13 +508,20 @@ boot an operating system from the first VirtIO disk.  Specifically,
 F</boot> must be on the first VirtIO disk, and it cannot chainload an
 OS which is not in the first VirtIO disk.
 
-=item B<--vddk> LIBDIR
+=item B<--vddk-libdir> LIBDIR
 
-Enable VDDK input from VMware vCenter or ESXi.  C<LIBDIR> is the top
-directory of the VDDK library.  This directory should I<contain>
+Set the VDDK library directory.  This directory should I<contain>
 subdirectories called F<include>, F<lib64> etc., but do not include
 F<lib64> actually in the parameter.
 
+In most cases this parameter is required when using the I<-it vddk>
+(VDDK) transport.  See L</INPUT FROM VDDK> below for details.
+
+=item B<--vddk-thumbprint> xx:xx:xx:...
+
+Set the thumbprint of the remote VMware server.
+
+This parameter is required when using the I<-it vddk> (VDDK) transport.
 See L</INPUT FROM VDDK> below for details.
 
 =item B<--vddk-config> FILENAME
@@ -520,16 +534,13 @@ See L</INPUT FROM VDDK> below for details.
 
 =item B<--vddk-snapshot> SNAPSHOT-MOREF
 
-=item B<--vddk-thumbprint> xx:xx:xx:...
-
 =item B<--vddk-transports> MODE:MODE:...
 
 =item B<--vddk-vimapiver> APIVER
 
 When using VDDK mode, these options are passed unmodified to the
 L<nbdkit(1)> VDDK plugin.  Please refer to L<nbdkit-vddk-plugin(1)>.
-If I<--vddk> is present, I<--vddk-thumbprint> is also required,
-the rest are optional.
+These are all optional.
 
 =item B<--vdsm-compat=0.10>
 
@@ -1390,6 +1401,8 @@ continuing.
 
 =head2 VDDK: IMPORTING A GUEST
 
+The I<-it vddk> parameter selects VDDK as the input transport for disks.
+
 To import a particular guest from vCenter server or ESXi hypervisor,
 use a command like the following, substituting the URI, guest name and
 SSL thumbprint:
@@ -1397,7 +1410,8 @@ SSL thumbprint:
  $ export PATH=/path/to/nbdkit:$PATH
  $ virt-v2v \
      -ic 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' \
-     --vddk /path/to/vmware-vix-disklib-distrib \
+     -it vddk \
+     --vddk-libdir /path/to/vmware-vix-disklib-distrib \
      --vddk-thumbprint xx:xx:xx:... \
      "Windows 2003" \
      -o local -os /var/tmp
