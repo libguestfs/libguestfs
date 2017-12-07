@@ -179,63 +179,77 @@ let parse_cmdline () =
     String.concat "|" (Modules_list.output_modules ()) in
 
   let argspec = [
-    [ S 'b'; L"bridge" ],        Getopt.String ("in:out", add_bridge),     s_"Map bridge ‘in’ to ‘out’";
-    [ L"compressed" ], Getopt.Set compressed,     s_"Compress output file (-of qcow2 only)";
-    [ L"debug-overlay"; L"debug-overlays" ], Getopt.Set debug_overlays, s_"Save overlay files";
-    [ S 'i' ],        Getopt.String (i_options, set_input_mode), s_"Set input mode (default: libvirt)";
+    [ S 'b'; L"bridge" ], Getopt.String ("in:out", add_bridge),
+                                    s_"Map bridge ‘in’ to ‘out’";
+    [ L"compressed" ], Getopt.Set compressed,
+                                    s_"Compress output file (-of qcow2 only)";
+    [ L"debug-overlay"; L"debug-overlays" ], Getopt.Set debug_overlays,
+                                    s_"Save overlay files";
+    [ S 'i' ],       Getopt.String (i_options, set_input_mode),
+                                    s_"Set input mode (default: libvirt)";
     [ M"ic" ],       Getopt.String ("uri", set_string_option_once "-ic" input_conn),
-                                            s_"Libvirt URI";
+                                    s_"Libvirt URI";
     [ M"if" ],       Getopt.String ("format", set_string_option_once "-if" input_format),
-                                            s_"Input format (for -i disk)";
-    [ L"in-place" ], Getopt.Set in_place,         s_"Only tune the guest in the input VM";
-    [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
-    [ S 'n'; L"network" ],        Getopt.String ("in:out", add_network),    s_"Map network ‘in’ to ‘out’";
-    [ L"no-copy" ], Getopt.Clear do_copy,         s_"Just write the metadata";
-    [ L"no-trim" ], Getopt.String ("-", no_trim_warning),
-                                            s_"Ignored for backwards compatibility";
-    [ S 'o' ],        Getopt.String (o_options, set_output_mode), s_"Set output mode (default: libvirt)";
+                                    s_"Input format (for -i disk)";
+    [ L"in-place" ], Getopt.Set in_place,
+                                    s_"Only tune the guest in the input VM";
+    [ L"machine-readable" ], Getopt.Set machine_readable,
+                                    s_"Make output machine readable";
+    [ S 'n'; L"network" ], Getopt.String ("in:out", add_network),
+                                    s_"Map network ‘in’ to ‘out’";
+    [ L"no-copy" ],  Getopt.Clear do_copy,
+                                    s_"Just write the metadata";
+    [ L"no-trim" ],  Getopt.String ("-", no_trim_warning),
+                                    s_"Ignored for backwards compatibility";
+    [ S 'o' ],       Getopt.String (o_options, set_output_mode),
+                                    s_"Set output mode (default: libvirt)";
     [ M"oa" ],       Getopt.String ("sparse|preallocated", set_output_alloc),
-                                            s_"Set output allocation mode";
+                                    s_"Set output allocation mode";
     [ M"oc" ],       Getopt.String ("uri", set_string_option_once "-oc" output_conn),
-                                            s_"Libvirt URI";
+                                    s_"Libvirt URI";
     [ M"of" ],       Getopt.String ("raw|qcow2", set_string_option_once "-of" output_format),
-                                            s_"Set output format";
+                                    s_"Set output format";
     [ M"on" ],       Getopt.String ("name", set_string_option_once "-on" output_name),
-                                            s_"Rename guest when converting";
+                                    s_"Rename guest when converting";
     [ M"os" ],       Getopt.String ("storage", set_string_option_once "-os" output_storage),
-                                            s_"Set output storage location";
+                                    s_"Set output storage location";
     [ L"password-file" ], Getopt.String ("file", set_string_option_once "--password-file" password_file),
-                                            s_"Use password from file";
-    [ L"print-source" ], Getopt.Set print_source, s_"Print source and stop";
-    [ L"qemu-boot" ], Getopt.Set qemu_boot,       s_"Boot in qemu (-o qemu only)";
-    [ L"root" ],    Getopt.String ("ask|... ", set_root_choice), s_"How to choose root filesystem";
+                                    s_"Use password from file";
+    [ L"print-source" ], Getopt.Set print_source,
+                                    s_"Print source and stop";
+    [ L"qemu-boot" ], Getopt.Set qemu_boot, s_"Boot in qemu (-o qemu only)";
+    [ L"root" ],     Getopt.String ("ask|... ", set_root_choice),
+                                    s_"How to choose root filesystem";
     [ L"vddk" ],     Getopt.String ("libpath", set_string_option_once "--vddk" vddk),
-                                            s_"Use nbdkit VDDK plugin";
+                                    s_"Use nbdkit VDDK plugin";
     [ L"vddk-config" ], Getopt.String ("filename", set_string_option_once "--vddk-config" vddk_config),
-                                            s_"Set VDDK config file";
+                                    s_"Set VDDK config file";
     [ L"vddk-cookie" ], Getopt.String ("cookie", set_string_option_once "--vddk-cookie" vddk_cookie),
-                                            s_"Set VDDK cookie";
+                                    s_"Set VDDK cookie";
     [ L"vddk-nfchostport" ], Getopt.String ("nfchostport", set_string_option_once "--vddk-nfchostport" vddk_nfchostport),
-                                            s_"Set VDDK nfchostport";
+                                    s_"Set VDDK nfchostport";
     [ L"vddk-port" ], Getopt.String ("port", set_string_option_once "--vddk-port" vddk_port),
-                                            s_"Set VDDK port";
+                                    s_"Set VDDK port";
     [ L"vddk-snapshot" ], Getopt.String ("snapshot-moref", set_string_option_once "--vddk-snapshot" vddk_snapshot),
-                                            s_"Set VDDK snapshot";
+                                    s_"Set VDDK snapshot";
     [ L"vddk-thumbprint" ], Getopt.String ("thumbprint", set_string_option_once "--vddk-thumbprint" vddk_thumbprint),
-                                            s_"Set VDDK thumbprint";
+                                    s_"Set VDDK thumbprint";
     [ L"vddk-transports" ], Getopt.String ("transports", set_string_option_once "--vddk-transports" vddk_transports),
-                                            s_"Set VDDK transports";
+                                    s_"Set VDDK transports";
     [ L"vddk-vimapiver" ], Getopt.String ("apiver", set_string_option_once "--vddk-vimapiver" vddk_vimapiver),
-                                            s_"Set VDDK vimapiver";
-    [ L"vdsm-compat" ], Getopt.Symbol ("0.10|1.1", ["0.10"; "1.1"], set_vdsm_compat), s_"Write qcow2 with compat=0.10|1.1";
-    [ L"vdsm-image-uuid" ], Getopt.String ("uuid", add_vdsm_image_uuid), s_"Output image UUID(s)";
-    [ L"vdsm-vol-uuid" ], Getopt.String ("uuid", add_vdsm_vol_uuid), s_"Output vol UUID(s)";
+                                    s_"Set VDDK vimapiver";
+    [ L"vdsm-compat" ], Getopt.Symbol ("0.10|1.1", ["0.10"; "1.1"], set_vdsm_compat),
+                                    s_"Write qcow2 with compat=0.10|1.1";
+    [ L"vdsm-image-uuid" ], Getopt.String ("uuid", add_vdsm_image_uuid),
+                                    s_"Output image UUID(s)";
+    [ L"vdsm-vol-uuid" ], Getopt.String ("uuid", add_vdsm_vol_uuid),
+                                    s_"Output vol UUID(s)";
     [ L"vdsm-vm-uuid" ], Getopt.String ("uuid", set_string_option_once "--vdsm-vm-uuid" vdsm_vm_uuid),
-                                            s_"Output VM UUID";
+                                    s_"Output VM UUID";
     [ L"vdsm-ovf-output" ], Getopt.String ("-", set_string_option_once "--vdsm-ovf-output" vdsm_ovf_output),
-                                            s_"Output OVF file";
-    [ L"vmtype" ],  Getopt.String ("-", vmtype_warning),
-                                            s_"Ignored for backwards compatibility";
+                                    s_"Output OVF file";
+    [ L"vmtype" ],   Getopt.String ("-", vmtype_warning),
+                                    s_"Ignored for backwards compatibility";
   ] in
   let args = ref [] in
   let anon_fun s = push_front s args in
