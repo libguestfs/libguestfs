@@ -18,4 +18,4 @@
 
 (** [-i libvirt] when the source is Xen *)
 
-val input_libvirt_xen_ssh : string option -> string option -> Xml.uri -> string -> string -> string -> Types.input
+val input_libvirt_xen_ssh : string option -> string option -> Xml.uri -> string -> string -> Types.input

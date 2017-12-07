@@ -30,7 +30,7 @@ open Input_libvirt_other
 open Printf
 
 (* Subclass specialized for handling Xen over SSH. *)
-class input_libvirt_xen_ssh password libvirt_uri parsed_uri scheme server guest =
+class input_libvirt_xen_ssh password libvirt_uri parsed_uri server guest =
 object
   inherit input_libvirt password libvirt_uri guest
 
@@ -41,8 +41,7 @@ object
     error_if_no_ssh_agent ()
 
   method source () =
-    debug "input_libvirt_xen_ssh: source: scheme %s server %s"
-          scheme server;
+    debug "input_libvirt_xen_ssh: source: server %s" server;
 
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)

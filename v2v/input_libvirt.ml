@@ -50,20 +50,20 @@ let input_libvirt vddk_options password libvirt_uri guest =
     (* vCenter over https, or
      * vCenter or ESXi using nbdkit vddk plugin
      *)
-    | Some server, Some ("esx"|"gsx"|"vpx" as scheme) ->
+    | Some server, Some ("esx"|"gsx"|"vpx") ->
        (match vddk_options with
         | None ->
            Input_libvirt_vcenter_https.input_libvirt_vcenter_https
-             password libvirt_uri parsed_uri scheme server guest
+             password libvirt_uri parsed_uri server guest
         | Some vddk_options ->
            Input_libvirt_vddk.input_libvirt_vddk vddk_options password
                                                  libvirt_uri parsed_uri guest
        )
 
     (* Xen over SSH *)
-    | Some server, Some ("xen+ssh" as scheme) ->
+    | Some server, Some "xen+ssh" ->
       Input_libvirt_xen_ssh.input_libvirt_xen_ssh
-        password libvirt_uri parsed_uri scheme server guest
+        password libvirt_uri parsed_uri server guest
 
     (* Old virt-v2v also supported qemu+ssh://.  However I am
      * deliberately not supporting this in new virt-v2v.  Don't

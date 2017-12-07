@@ -153,7 +153,7 @@ read the man page virt-v2v-copy-to-local(1).
        List.map (
          fun (remote_disk, local_disk) ->
            let { VCenter.https_url; sslverify; session_cookie } =
-             VCenter.map_source dcpath parsed_uri "esx" server remote_disk in
+             VCenter.map_source dcpath parsed_uri server remote_disk in
            debug "esxi: source disk %s (sslverify=%b)" https_url sslverify;
            (https_url, local_disk, sslverify, session_cookie)
        ) disks

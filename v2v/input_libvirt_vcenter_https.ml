@@ -36,7 +36,7 @@ let readahead_for_copying = Some (64 * 1024 * 1024)
 
 (* Subclass specialized for handling VMware vCenter over https. *)
 class input_libvirt_vcenter_https
-        password libvirt_uri parsed_uri scheme server guest =
+        password libvirt_uri parsed_uri server guest =
 object
   inherit input_libvirt password libvirt_uri guest
 
@@ -47,8 +47,7 @@ object
     error_if_libvirt_does_not_support_json_backingfile ()
 
   method source () =
-    debug "input_libvirt_vcenter_https: source: scheme %s server %s"
-          scheme server;
+    debug "input_libvirt_vcenter_https: source: server %s" server;
 
     (* Remove proxy environment variables so curl doesn't try to use
      * them.  Libvirt doesn't use the proxy anyway, and using a proxy
@@ -104,7 +103,7 @@ object
       | { p_source_disk = disk; p_source = P_source_file path } ->
         let { VCenter.qemu_uri } =
           VCenter.map_source ?readahead ?password
-                             dcPath parsed_uri scheme server path in
+                             dcPath parsed_uri server path in
 
         (* The libvirt ESX driver doesn't normally specify a format, but
          * the format of the -flat file is *always* raw, so force it here.
@@ -125,7 +124,7 @@ object
       let readahead = readahead_for_copying in
       let { VCenter.qemu_uri = backing_qemu_uri } =
         VCenter.map_source ?readahead ?password
-                           dcPath parsed_uri scheme server orig_path in
+                           dcPath parsed_uri server orig_path in
 
       (* Rebase the qcow2 overlay to adjust the readahead parameter. *)
       let cmd = [ "qemu-img"; "rebase"; "-u"; "-b"; backing_qemu_uri;

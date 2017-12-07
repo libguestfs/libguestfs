@@ -35,7 +35,7 @@ type remote_resource = {
 let source_re = PCRE.compile "^\\[(.*)\\] (.*)\\.vmdk$"
 let snapshot_re = PCRE.compile "^(.*)-\\d{6}(\\.vmdk)$"
 
-let rec map_source ?readahead ?password dcPath uri scheme server path =
+let rec map_source ?readahead ?password dcPath uri server path =
   (* If no_verify=1 was passed in the libvirt URI, then we have to
    * turn off certificate verification here too.
    *)
@@ -50,7 +50,7 @@ let rec map_source ?readahead ?password dcPath uri scheme server path =
     let https_url = get_https_url dcPath uri server path in
     (* Check the URL exists. *)
     let status, _, _ =
-      fetch_headers_from_url password scheme uri sslverify https_url in
+      fetch_headers_from_url password uri sslverify https_url in
     (* If a disk is actually a snapshot image it will have '-00000n'
      * appended to its name, e.g.:
      *   [yellow:storage1] RHEL4-X/RHEL4-X-000003.vmdk
@@ -69,8 +69,7 @@ let rec map_source ?readahead ?password dcPath uri scheme server path =
        *)
       https_url in
 
-  let session_cookie =
-    get_session_cookie password scheme uri sslverify https_url in
+  let session_cookie = get_session_cookie password uri sslverify https_url in
 
   let qemu_uri =
     (* Construct the JSON parameters for the qemu URI. *)
@@ -131,17 +130,16 @@ and get_https_url dcPath uri server path =
             (uri_quote path) (uri_quote dcPath) (uri_quote datastore)
   )
 
-and get_session_cookie password scheme uri sslverify https_url =
+and get_session_cookie password uri sslverify https_url =
   let status, headers, dump_response =
-    fetch_headers_from_url password scheme uri sslverify https_url in
+    fetch_headers_from_url password uri sslverify https_url in
 
   if status = "401" then (
     dump_response stderr;
     if uri.uri_user <> None then
       error (f_"vcenter: incorrect username or password")
     else
-      error (f_"vcenter: incorrect username or password.  You might need to specify the username in the URI like this: %s://USERNAME@[etc]")
-            scheme
+      error (f_"vcenter: incorrect username or password.  You might need to specify the username in the URI like this: [vpx|esx|..]://USERNAME@[etc]")
   );
 
   if status = "404" then (
@@ -170,7 +168,7 @@ and get_session_cookie password scheme uri sslverify https_url =
   loop headers
 
 (* Fetch the status and reply headers from a URL. *)
-and fetch_headers_from_url password scheme uri sslverify https_url =
+and fetch_headers_from_url password uri sslverify https_url =
   let curl_args = ref [
     "head", None;
     "silent", None;

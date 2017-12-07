@@ -18,4 +18,4 @@
 
 (** [-i libvirt] when the source is VMware vCenter *)
 
-val input_libvirt_vcenter_https : string option -> string option -> Xml.uri -> string -> string -> string -> Types.input
+val input_libvirt_vcenter_https : string option -> string option -> Xml.uri -> string -> string -> Types.input
