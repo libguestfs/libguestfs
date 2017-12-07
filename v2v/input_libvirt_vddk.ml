@@ -35,11 +35,16 @@ open Printf
 
 (* Subclass specialized for handling VMware via nbdkit vddk plugin. *)
 class input_libvirt_vddk vddk_options password libvirt_uri parsed_uri guest =
-
   (* The VDDK path. *)
   let libdir = vddk_options.vddk_libdir in
-  (* Compute the LD_LIBRARY_PATH that we must pass to nbdkit. *)
-  let library_path = libdir // sprintf "lib%d" Sys.word_size in
+
+  (* VDDK libraries are located under lib32/ or lib64/ relative to the
+   * libdir.  Note this is unrelated to Linux multilib or multiarch.
+   *)
+  let libNN = sprintf "lib%d" Sys.word_size in
+
+  (* Compute the LD_LIBRARY_PATH that we may have to pass to nbdkit. *)
+  let library_path = Option.map (fun libdir -> libdir // libNN) libdir in
 
   (* Is SELinux enabled and enforcing on the host? *)
   let have_selinux =
@@ -47,18 +52,25 @@ class input_libvirt_vddk vddk_options password libvirt_uri parsed_uri guest =
 
   (* Check that the VDDK path looks reasonable. *)
   let error_unless_vddk_libdir () =
-    if not (is_directory libdir) then
-      error (f_"‘--vddk %s’ does not point to a directory.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") libdir;
+    (match libdir with
+     | None -> ()
+     | Some libdir ->
+        if not (is_directory libdir) then
+          error (f_"‘--vddk-libdir %s’ does not point to a directory.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") libdir
+    );
 
-    if not (is_directory library_path) then
-      error (f_"VDDK library path %s not found or not a directory.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.")
-            library_path
+    (match library_path with
+     | None -> ()
+     | Some library_path ->
+        if not (is_directory library_path) then
+          error (f_"VDDK library path %s not found or not a directory.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") library_path
+    )
   in
 
   (* Check that nbdkit is available and new enough. *)
   let error_unless_nbdkit_working () =
     if 0 <> Sys.command "nbdkit --version >/dev/null" then
-      error (f_"nbdkit is not installed or not working.  It is required to use ‘--vddk’.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.");
+      error (f_"nbdkit is not installed or not working.  It is required to use ‘-it vddk’.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.");
 
     (* Check it's a new enough version.  The latest features we
      * require are ‘--exit-with-parent’ and ‘--selinux-label’, both
@@ -74,14 +86,20 @@ class input_libvirt_vddk vddk_options password libvirt_uri parsed_uri guest =
 
   (* Check that the VDDK plugin is installed and working *)
   let error_unless_nbdkit_vddk_working () =
+    let set_ld_library_path =
+      match library_path with
+      | None -> ""
+      | Some library_path ->
+         sprintf "LD_LIBRARY_PATH=%s " (quote library_path) in
+
     let cmd =
-      sprintf "LD_LIBRARY_PATH=%s nbdkit vddk --dump-plugin >/dev/null"
-              (quote library_path) in
+      sprintf "%snbdkit vddk --dump-plugin >/dev/null"
+              set_ld_library_path in
     if Sys.command cmd <> 0 then (
       (* See if we can diagnose why ... *)
       let cmd =
-        sprintf "LD_LIBRARY_PATH=%s LANG=C nbdkit vddk --dump-plugin 2>&1 | grep -sq libvixDiskLib.so"
-                (quote library_path) in
+        sprintf "LANG=C %snbdkit vddk --dump-plugin 2>&1 | grep -sq libvixDiskLib.so"
+                set_ld_library_path in
       let needs_library = Sys.command cmd = 0 in
       if not needs_library then
         error (f_"nbdkit VDDK plugin is not installed or not working.  It is required if you want to use VDDK.
@@ -92,9 +110,9 @@ See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.")
       else
         error (f_"nbdkit VDDK plugin is not installed or not working.  It is required if you want to use VDDK.
 
-It looks like you did not set the right path in the ‘--vddk’ option, or your copy of the VDDK directory is incomplete.  There should be a library called ’%s/libvixDiskLib.so.?’.
+It looks like you did not set the right path in the ‘--vddk-libdir’ option, or your copy of the VDDK directory is incomplete.  There should be a library called ’<libdir>/%s/libvixDiskLib.so.?’.
 
-See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") library_path
+See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") libNN
     )
   in
 
@@ -121,6 +139,7 @@ See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") library_path
   let vddk_passthrus =
     [ "config",      (fun { vddk_config }      -> vddk_config);
       "cookie",      (fun { vddk_cookie }      -> vddk_cookie);
+      "libdir",      (fun { vddk_libdir }      -> vddk_libdir);
       "nfchostport", (fun { vddk_nfchostport } -> vddk_nfchostport);
       "port",        (fun { vddk_port }        -> vddk_port);
       "snapshot",    (fun { vddk_snapshot }    -> vddk_snapshot);
@@ -149,9 +168,8 @@ object
             | Some field -> sprintf " --vddk-%s %s" name field
         ) vddk_passthrus
       ) in
-    sprintf "%s --vddk %s%s"
+    sprintf "%s -it vddk %s"
             super#as_options (* superclass prints "-i libvirt etc" *)
-            vddk_options.vddk_libdir
             pt_options
 
   method source () =
@@ -252,7 +270,6 @@ object
       add_arg (sprintf "user=%s" user);
       add_arg password_param;
       add_arg (sprintf "vm=moref=%s" moref);
-      add_arg (sprintf "libdir=%s" libdir);
 
       (* The passthrough parameters. *)
       List.iter (
@@ -297,7 +314,7 @@ object
          (* Print the full command we are about to run when debugging. *)
          if verbose () then (
            eprintf "running nbdkit:\n";
-           eprintf "LD_LIBRARY_PATH=%s" library_path;
+           Option.may (eprintf "LD_LIBRARY_PATH=%s") library_path;
            List.iter (fun arg -> eprintf " %s" (quote arg)) args;
            prerr_newline ()
          );
@@ -310,7 +327,7 @@ object
          let pid = fork () in
          if pid = 0 then (
            (* Child process (nbdkit). *)
-           putenv "LD_LIBRARY_PATH" library_path;
+           Option.may (putenv "LD_LIBRARY_PATH") library_path;
            execvp "nbdkit" args
          );
 
