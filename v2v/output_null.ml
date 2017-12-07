@@ -26,16 +26,23 @@ open Common_gettext.Gettext
 open Types
 open Utils
 
+(* Notes:
+ *
+ * This only happens to work because we run qemu-img convert
+ * with the -n [no create output] option, since null-co doesn't
+ * support creation.  If -n is removed in the main program then
+ * the tests will break very obviously.
+ *
+ * The null-co device is not zero-sized.  It actually has a fixed
+ * size (defaults to 2^30 I believe).
+ *
+ * qemu-img convert checks the output size and will fail if it's
+ * too small, so we have to set the size.  We could set it to
+ * match the input size but it's easier to set it to some huge
+ * size instead.
+ *)
+
 class output_null =
-  (* It would be nice to be able to write to /dev/null.
-   * Unfortunately qemu-img convert cannot do that.  Instead create a
-   * temporary directory which is always deleted at exit.
-   *)
-  let tmpdir =
-    let base_dir = (open_guestfs ())#get_cachedir () in
-    let t = Mkdtemp.temp_dir ~base_dir "null." in
-    rmdir_on_exit t;
-    t in
 object
   inherit output
 
@@ -44,11 +51,19 @@ object
   method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
   method prepare_targets source targets =
-    List.map (
-      fun t ->
-        let target_file = tmpdir // t.target_overlay.ov_sd in
-        { t with target_file = TargetFile target_file }
-    ) targets
+    let json_params = [
+      "file.driver", JSON.String "null-co";
+      "file.size", JSON.String "1E";
+    ] in
+    let target_file = TargetURI ("json:" ^ JSON.string_of_doc json_params) in
+
+    (* While it's not intended that output drivers can set the
+     * target_format field (thus overriding the -of option), in
+     * this special case of -o null it is reasonable.
+     *)
+    let target_format = "raw" in
+
+    List.map (fun t -> { t with target_file; target_format }) targets
 
   method create_metadata _ _ _ _ _ _ = ()
 end

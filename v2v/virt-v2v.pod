@@ -1901,10 +1901,6 @@ This temporarily places a full copy of the output disks in C<$TMPDIR>.
 You must ensure there is sufficient space in the output directory for
 the converted guest.
 
-=item I<-o null>
-
-This temporarily places a full copy of the output disks in C<$TMPDIR>.
-
 =back
 
 See also L</Minimum free space check in the host> below.
