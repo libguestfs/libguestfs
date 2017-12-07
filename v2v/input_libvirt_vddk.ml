@@ -293,12 +293,20 @@ object
            args @ [ "--pidfile"; pidfile;
                     "--unix"; sock;
                     sprintf "file=%s" path ] in
-         let args = Array.of_list args in
+
+         (* Print the full command we are about to run when debugging. *)
+         if verbose () then (
+           eprintf "running nbdkit:\n";
+           Option.may (eprintf "LD_LIBRARY_PATH=%s") library_path;
+           List.iter (fun arg -> eprintf " %s" (quote arg)) args;
+           prerr_newline ()
+         );
 
          (* Start an nbdkit instance in the background.  By using
           * --exit-with-parent we don't have to worry about cleaning
           * it up, hopefully.
           *)
+         let args = Array.of_list args in
          let pid = fork () in
          if pid = 0 then (
            (* Child process (nbdkit). *)
