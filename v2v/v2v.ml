@@ -361,7 +361,7 @@ and init_targets cmdline output source overlays =
          * estimate_target_size will fill in the target_estimated_size field.
          * actual_target_size will fill in the target_actual_size field.
          *)
-        { target_file = ""; target_format = format;
+        { target_file = TargetFile ""; target_format = format;
           target_estimated_size = None;
           target_actual_size = None;
           target_overlay = ov }
@@ -664,15 +664,24 @@ and copy_targets cmdline targets input output =
   at_exit (fun () ->
     if !delete_target_on_exit then (
       List.iter (
-        fun t -> try unlink t.target_file with _ -> ()
+        fun t ->
+          match t.target_file with
+          | TargetURI _ -> ()
+          | TargetFile s -> try unlink s with _ -> ()
       ) targets
     )
   );
   let nr_disks = List.length targets in
   List.mapi (
     fun i t ->
-      message (f_"Copying disk %d/%d to %s (%s)")
-        (i+1) nr_disks t.target_file t.target_format;
+      (match t.target_file with
+       | TargetFile s ->
+          message (f_"Copying disk %d/%d to %s (%s)")
+                  (i+1) nr_disks s t.target_format;
+       | TargetURI s ->
+          message (f_"Copying disk %d/%d to qemu URI %s (%s)")
+                  (i+1) nr_disks s t.target_format
+      );
       debug "%s" (string_of_target t);
 
       (* We noticed that qemu sometimes corrupts the qcow2 file on
@@ -692,33 +701,47 @@ and copy_targets cmdline targets input output =
        *)
       input#adjust_overlay_parameters t.target_overlay;
 
-      (* It turns out that libguestfs's disk creation code is
-       * considerably more flexible and easier to use than
-       * qemu-img, so create the disk explicitly using libguestfs
-       * then pass the 'qemu-img convert -n' option so qemu reuses
-       * the disk.
-       *
-       * Also we allow the output mode to actually create the disk
-       * image.  This lets the output mode set ownership and
-       * permissions correctly if required.
-       *)
-      (* What output preallocation mode should we use? *)
-      let preallocation =
-        match t.target_format, cmdline.output_alloc with
-        | ("raw"|"qcow2"), Sparse -> Some "sparse"
-        | ("raw"|"qcow2"), Preallocated -> Some "full"
-        | _ -> None (* ignore -oa flag for other formats *) in
-      let compat =
-        match t.target_format with "qcow2" -> Some "1.1" | _ -> None in
-      output#disk_create
-        t.target_file t.target_format t.target_overlay.ov_virtual_size
-        ?preallocation ?compat;
+      (match t.target_file with
+       | TargetFile filename ->
+          (* It turns out that libguestfs's disk creation code is
+           * considerably more flexible and easier to use than
+           * qemu-img, so create the disk explicitly using libguestfs
+           * then pass the 'qemu-img convert -n' option so qemu reuses
+           * the disk.
+           *
+           * Also we allow the output mode to actually create the disk
+           * image.  This lets the output mode set ownership and
+           * permissions correctly if required.
+           *)
+          (* What output preallocation mode should we use? *)
+          let preallocation =
+            match t.target_format, cmdline.output_alloc with
+            | ("raw"|"qcow2"), Sparse -> Some "sparse"
+            | ("raw"|"qcow2"), Preallocated -> Some "full"
+            | _ -> None (* ignore -oa flag for other formats *) in
+          let compat =
+            match t.target_format with "qcow2" -> Some "1.1" | _ -> None in
+          output#disk_create filename t.target_format
+                             t.target_overlay.ov_virtual_size
+                             ?preallocation ?compat
 
-      let cmd = [ "qemu-img"; "convert" ] @
+       | TargetURI _ ->
+          (* XXX For the moment we assume that qemu URI outputs
+           * need no special work.  We can change this in future.
+           *)
+          ()
+      );
+
+      let cmd =
+        let filename =
+          match t.target_file with
+          | TargetFile filename -> "file:" ^ filename
+          | TargetURI uri -> uri in
+        [ "qemu-img"; "convert" ] @
         (if not (quiet ()) then [ "-p" ] else []) @
         [ "-n"; "-f"; "qcow2"; "-O"; t.target_format ] @
         (if cmdline.compressed then [ "-c" ] else []) @
-        [ overlay_file; t.target_file ] in
+        [ overlay_file; filename ] in
       let start_time = gettimeofday () in
       if run_command cmd <> 0 then
         error (f_"qemu-img command failed, see earlier errors");
@@ -771,11 +794,14 @@ and copy_targets cmdline targets input output =
 
 (* Update the target_actual_size field in the target structure. *)
 and actual_target_size target =
-  let size =
-    (* Ignore errors because we want to avoid failures after copying. *)
-    try Some (du target.target_file)
-    with Failure _ | Invalid_argument _ -> None in
-  { target with target_actual_size = size }
+  match target.target_file with
+  | TargetFile filename ->
+     let size =
+       (* Ignore errors because we want to avoid failures after copying. *)
+       try Some (du filename)
+       with Failure _ | Invalid_argument _ -> None in
+     { target with target_actual_size = size }
+  | TargetURI _ -> target
 
 (* Save overlays if --debug-overlays option was used. *)
 and preserve_overlays overlays src_name =

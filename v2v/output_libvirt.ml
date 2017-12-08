@@ -128,8 +128,9 @@ class output_libvirt oc output_pool = object
     List.map (
       fun t ->
         let target_file =
-          target_path // source.s_name ^ "-" ^ t.target_overlay.ov_sd in
-        { t with target_file = target_file }
+          TargetFile (target_path // source.s_name ^ "-" ^
+                      t.target_overlay.ov_sd) in
+        { t with target_file }
     ) targets
 
   method supported_firmware = [ TargetBIOS; TargetUEFI ]

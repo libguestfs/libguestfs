@@ -134,7 +134,7 @@ object
 
           debug "VDSM: will export %s to %s" ov_sd target_file;
 
-          { t with target_file = target_file }
+          { t with target_file = TargetFile target_file }
       ) (combine3 targets vdsm_params.image_uuids vdsm_params.vol_uuids) in
 
     (* Generate the .meta files associated with each volume. *)
@@ -143,6 +143,10 @@ object
         vdsm_params.image_uuids targets in
     List.iter (
       fun ({ target_file }, meta) ->
+        let target_file =
+          match target_file with
+          | TargetFile s -> s
+          | TargetURI _ -> assert false in
         let meta_filename = target_file ^ ".meta" in
         with_open_out meta_filename (fun chan -> output_string chan meta)
     ) (List.combine targets metas);

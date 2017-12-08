@@ -230,9 +230,10 @@ object
         fun ({ target_overlay = ov } as t, image_uuid, vol_uuid) ->
           let ov_sd = ov.ov_sd in
           let target_file = images_dir // image_uuid // vol_uuid in
+
           debug "RHV: will export %s to %s" ov_sd target_file;
 
-          { t with target_file = target_file }
+          { t with target_file = TargetFile target_file }
       ) (combine3 targets image_uuids vol_uuids) in
 
     (* Generate the .meta file associated with each volume. *)
@@ -241,6 +242,10 @@ object
         targets in
     List.iter (
       fun ({ target_file }, meta) ->
+        let target_file =
+          match target_file with
+          | TargetFile s -> s
+          | TargetURI _ -> assert false in
         let meta_filename = target_file ^ ".meta" in
         Changeuid.make_file changeuid_t meta_filename meta
     ) (List.combine targets metas);

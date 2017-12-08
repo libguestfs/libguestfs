@@ -63,8 +63,8 @@ object
     (* Write targets to a temporary local file - see above for reason. *)
     List.map (
       fun t ->
-        let target_file = tmpdir // t.target_overlay.ov_sd in
-        { t with target_file = target_file }
+        let target_file = TargetFile (tmpdir // t.target_overlay.ov_sd) in
+        { t with target_file }
     ) targets
 
   method create_metadata source targets _ guestcaps inspect target_firmware =
@@ -157,6 +157,12 @@ object
               fun (k, v) -> [ "--property"; sprintf "%s=%s" k v ]
             ) common_properties
           ) in
+
+        let target_file =
+          match target_file with
+          | TargetFile s -> s
+          | TargetURI _ -> assert false in
+
         let cmd = [ "glance"; "image-create"; "--name"; name;
                     "--disk-format=" ^ target_format;
                     "--container-format=bare"; "--file"; target_file;
