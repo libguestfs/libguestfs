@@ -34,8 +34,9 @@ object
   method prepare_targets source targets =
     List.map (
       fun t ->
-        let target_file = dir // source.s_name ^ "-" ^ t.target_overlay.ov_sd in
-        { t with target_file = target_file }
+        let target_file =
+          TargetFile (dir // source.s_name ^ "-" ^ t.target_overlay.ov_sd) in
+        { t with target_file }
     ) targets
 
   method supported_firmware = [ TargetBIOS; TargetUEFI ]
@@ -99,7 +100,11 @@ object
     | BusSlotEmpty -> ()
 
     | BusSlotTarget t ->
-       commas "-drive" ["file=" ^ t.target_file; "format=" ^ t.target_format;
+       let target_file =
+         match t.target_file with
+         | TargetFile s -> s
+         | TargetURI _ -> assert false in
+       commas "-drive" ["file=" ^ target_file; "format=" ^ t.target_format;
                         "if=" ^ if_name; "index=" ^ string_of_int i;
                         "media=disk"]
 
@@ -118,7 +123,11 @@ object
     | BusSlotEmpty -> ()
 
     | BusSlotTarget t ->
-       commas "-drive" ["file=" ^ t.target_file; "format=" ^ t.target_format;
+       let target_file =
+         match t.target_file with
+         | TargetFile s -> s
+         | TargetURI _ -> assert false in
+       commas "-drive" ["file=" ^ target_file; "format=" ^ t.target_format;
                         "if=scsi"; "bus=0"; "unit=" ^ string_of_int i;
                         "media=disk"]
 

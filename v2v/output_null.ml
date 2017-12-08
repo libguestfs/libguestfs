@@ -46,7 +46,7 @@ object
     List.map (
       fun t ->
         let target_file = tmpdir // t.target_overlay.ov_sd in
-        { t with target_file = target_file }
+        { t with target_file = TargetFile target_file }
     ) targets
 
   method create_metadata _ _ _ _ _ _ = ()

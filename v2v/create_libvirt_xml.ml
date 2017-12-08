@@ -142,6 +142,11 @@ let create_libvirt_xml ?pool source target_buses guestcaps
     | BusSlotEmpty -> Comment (sprintf "%s slot %d is empty" bus_name i)
 
     | BusSlotTarget t ->
+       let target_file =
+         match t.target_file with
+         | TargetFile s -> s
+         | TargetURI _ -> assert false in
+
         e "disk" [
           "type", if pool = None then "file" else "volume";
           "device", "disk"
@@ -154,12 +159,12 @@ let create_libvirt_xml ?pool source target_buses guestcaps
           (match pool with
           | None ->
             e "source" [
-              "file", absolute_path t.target_file;
+              "file", absolute_path target_file;
             ] []
           | Some pool ->
             e "source" [
               "pool", pool;
-              "volume", Filename.basename t.target_file;
+              "volume", Filename.basename target_file;
             ] []
           );
           e "target" [

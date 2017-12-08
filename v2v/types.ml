@@ -278,12 +278,15 @@ ov_source = %s
     ov.ov_source.s_qemu_uri
 
 type target = {
-  target_file : string;
+  target_file : target_file;
   target_format : string;
   target_estimated_size : int64 option;
   target_actual_size : int64 option;
   target_overlay : overlay;
 }
+and target_file =
+  | TargetFile of string
+  | TargetURI of string
 
 let string_of_target t =
   sprintf "\
@@ -293,7 +296,9 @@ target_estimated_size = %s
 target_overlay = %s
 target_overlay.ov_source = %s
 "
-    t.target_file
+    (match t.target_file with
+     | TargetFile s -> "[file] " ^ s
+     | TargetURI s -> "[qemu] " ^ s)
     t.target_format
     (match t.target_estimated_size with
     | None -> "None" | Some i -> Int64.to_string i)

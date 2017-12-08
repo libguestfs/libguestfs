@@ -184,7 +184,7 @@ val string_of_overlay : overlay -> string
 (** {2 Target disks} *)
 
 type target = {
-  target_file : string;      (** Destination file. *)
+  target_file : target_file; (** Destination file or QEMU URI. *)
   target_format : string;    (** Destination format (eg. -of option). *)
 
   (* Note that the estimate is filled in by core v2v.ml code before
@@ -197,6 +197,10 @@ type target = {
   target_overlay : overlay;  (** Link back to the overlay disk. *)
 }
 (** Target disk. *)
+
+and target_file =
+  | TargetFile of string     (** Target is a file. *)
+  | TargetURI of string      (** Target is a QEMU URI. *)
 
 val string_of_target : target -> string
 
