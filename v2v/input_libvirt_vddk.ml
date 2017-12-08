@@ -297,7 +297,7 @@ object
          (* Print the full command we are about to run when debugging. *)
          if verbose () then (
            eprintf "running nbdkit:\n";
-           Option.may (eprintf "LD_LIBRARY_PATH=%s") library_path;
+           eprintf "LD_LIBRARY_PATH=%s" library_path;
            List.iter (fun arg -> eprintf " %s" (quote arg)) args;
            prerr_newline ()
          );
