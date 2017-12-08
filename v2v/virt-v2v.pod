@@ -118,6 +118,23 @@ Note that after conversion, the guest will appear in the RHV-M Export
 Storage Domain, from where you will need to import it using the RHV-M
 user interface.  (See L</OUTPUT TO RHV>).
 
+=head2 Convert from ESXi hypervisor over SSH to local libvirt
+
+You have an ESXi hypervisor called C<esxi.example.com> with SSH access
+enabled.  You want to convert from VMFS storage on that server to
+a local file.
+
+ virt-v2v \
+   -i vmx -it ssh \
+   "root@esxi.example.com/vmfs/volumes/datastore1/guest/guest.vmx" \
+   -o local -os /var/tmp
+
+The guest must not be running.  Virt-v2v would I<not> need to be run
+as root in this case.
+
+For more information about converting from VMX files see
+L</INPUT FROM VMWARE VMX> below.
+
 =head2 Convert disk image to OpenStack glance
 
 Given a disk image from another hypervisor that you want to convert to
@@ -343,9 +360,10 @@ L</INPUT FROM VMWARE OVA> below
 
 Set the input method to I<vmx>.
 
-In this mode you can read a VMware vmx file directly.  This is useful
-when VMware VMs are stored on an NFS server which you can mount
-directly.  See L</INPUT FROM VMWARE VMX> below
+In this mode you can read a VMware vmx file directly or over SSH.
+This is useful when VMware VMs are stored on an NFS server which you
+can mount directly, or where you have access by SSH to an ESXi
+hypervisor.  See L</INPUT FROM VMWARE VMX> below
 
 =item B<-ic> libvirtURI
 
@@ -378,6 +396,11 @@ rollback in case of errors, transforming the storage, etc.
 See L</IN PLACE CONVERSION> below.
 
 Conflicts with all I<-o *> options.
+
+=item B<-it> B<ssh>
+
+When using I<-i vmx>, this enables the ssh transport.
+See L</INPUT FROM VMWARE VMX> below.
 
 =item B<-it> B<vddk>
 
@@ -1347,9 +1370,23 @@ directory containing the files:
 
 =head1 INPUT FROM VMWARE VMX
 
-Virt-v2v is able to import guests from VMware’s vmx files.  This is
-useful where VMware virtual machines are stored on a separate NFS
-server and you are able to mount the NFS storage directly.
+Virt-v2v is able to import guests from VMware’s vmx files.
+
+This is useful in two cases:
+
+=over 4
+
+=item 1.
+
+VMware virtual machines are stored on a separate NFS server and you
+are able to mount the NFS storage directly.
+
+=item 2.
+
+You have enabled SSH access to the VMware ESXi hypervisor and there is
+a C</vmfs/volumes> folder containing the virtual machines.
+
+=back
 
 If you find a folder of files called F<I<guest>.vmx>,
 F<I<guest>.vmxf>, F<I<guest>.nvram> and one or more F<.vmdk> disk
@@ -1375,28 +1412,65 @@ With other methods, virt-v2v tries to prevent concurrent access, but
 because the I<-i vmx> method works directly against the storage,
 checking for concurrent access is not possible.
 
-=head2 VMX: MOUNT THE NFS STORAGE ON THE CONVERSION SERVER
+=head2 VMX: ACCESS TO THE STORAGE CONTAINING THE VMX AND VMDK FILES
 
-Virt-v2v must be able to access the F<.vmx> file and any local
-F<.vmdk> disks.  Normally this means you must mount the NFS storage
-containing these files.
+If the vmx and vmdk files aren't available locally then you must
+I<either> mount the NFS storage on the conversion server I<or> enable
+passwordless SSH on the ESXi hypervisor.
+
+=head3 VMX: Passwordless SSH using ssh-agent
+
+You must also use ssh-agent, and add your ssh public key to
+F</etc/ssh/keys-root/authorized_keys> (on the ESXi hypervisor).
+
+After doing this, you should check that passwordless access works from
+the virt-v2v server to the ESXi hypervisor.  For example:
+
+ $ ssh root@esxi.example.com
+ [ logs straight into the shell, no password is requested ]
+
+Note that password-interactive and Kerberos access are B<not>
+supported.  You B<have> to set up ssh access using ssh-agent and
+authorized_keys.
+
+=head3 VMX: Construct the SSH URI
+
+When using the SSH input transport you must specify a remote
+C<ssh://...> URI pointing to the VMX file.  A typical URI looks like:
+
+ ssh://root@esxi.example.com/vmfs/volumes/datastore1/my%20guest/my%20guest.vmx
+
+Any space must be escaped with C<%20> and other non-ASCII characters
+may also need to be URI-escaped.
+
+The username is not required if it is the same as your local username.
+
+You may optionally supply a port number after the hostname if the SSH
+server is not listening on the default port (22).
 
 =head2 VMX: IMPORTING A GUEST
 
-To import a vmx file, do:
+To import a vmx file from a local file or NFS, do:
 
  $ virt-v2v -i vmx guest.vmx -o local -os /var/tmp
+
+To import a vmx file over SSH, add I<-it ssh> to select the SSH
+transport and supply a remote SSH URI:
+
+ $ virt-v2v \
+     -i vmx -it ssh \
+     "ssh://root@esxi.example.com/vmfs/volumes/datastore1/guest/guest.vmx" \
+     -o local -os /var/tmp
 
 Virt-v2v processes the vmx file and uses it to find the location of
 any vmdk disks.
 
 =head1 INPUT FROM VMWARE ESXi HYPERVISOR
 
-Virt-v2v cannot access an ESXi hypervisor directly.  You should use
-the OVA or VMX methods above (see L</INPUT FROM VMWARE OVA> and/or
-L</INPUT FROM VMWARE VMX>) if possible, as it is much faster and
-requires much less disk space than the method described in this
-section.
+You should use the OVA or VMX methods above (see L</INPUT FROM VMWARE
+OVA> and/or L</INPUT FROM VMWARE VMX>) if possible, as it is much
+faster and requires much less disk space than the method described in
+this section.
 
 You can use the L<virt-v2v-copy-to-local(1)> tool to copy the guest
 off the hypervisor into a local file, and then convert it.

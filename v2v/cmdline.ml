@@ -292,6 +292,7 @@ read the man page virt-v2v(1).
   let input_transport =
     match !input_transport with
     | None -> None
+    | Some "ssh" -> Some `SSH
     | Some "vddk" -> Some `VDDK
     | Some transport ->
        error (f_"unknown input transport ‘-it %s’") transport in
@@ -357,7 +358,8 @@ read the man page virt-v2v(1).
    * should not be used.
    *)
   (match input_transport with
-   | None ->
+   | None
+   | Some `SSH ->
       if !vddk_config <> None ||
          !vddk_cookie <> None ||
          !vddk_libdir <> None ||
@@ -395,6 +397,12 @@ read the man page virt-v2v(1).
         | [guest] -> guest
         | _ ->
           error (f_"expecting a libvirt guest name on the command line") in
+      let input_transport =
+        match input_transport with
+        | None -> None
+        | Some `VDDK -> Some `VDDK
+        | Some `SSH ->
+           error (f_"only ‘-it vddk’ can be used here") in
       Input_libvirt.input_libvirt vddk_options password
                                   input_conn input_transport guest
 
@@ -417,13 +425,19 @@ read the man page virt-v2v(1).
       Input_ova.input_ova filename
 
     | `VMX ->
-      (* -i vmx: Expecting an vmx filename. *)
-      let filename =
+      (* -i vmx: Expecting a vmx filename or SSH remote path. *)
+      let arg =
         match args with
-        | [filename] -> filename
+        | [arg] -> arg
         | _ ->
-          error (f_"expecting a VMX file name on the command line") in
-      Input_vmx.input_vmx filename in
+          error (f_"expecting a single VMX file name or SSH remote path on the command line") in
+      let input_transport =
+        match input_transport with
+        | None -> None
+        | Some `SSH -> Some `SSH
+        | Some `VDDK ->
+           error (f_"only ‘-it ssh’ can be used here") in
+      Input_vmx.input_vmx input_transport arg in
 
   (* Common error message. *)
   let error_option_cannot_be_used_in_output_mode mode opt =

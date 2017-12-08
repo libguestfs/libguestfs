@@ -19,7 +19,6 @@
 (** [-i libvirt] source. *)
 
 val error_if_libvirt_does_not_support_json_backingfile : unit -> unit
-val error_if_no_ssh_agent : unit -> unit
 
 class virtual input_libvirt : string option -> string option -> string -> object
   method precheck : unit -> unit
