@@ -94,7 +94,7 @@ dnl Find the release date for this version.  This is used in
 dnl the website 'index.html' file.  We have to do this after
 dnl testing for awk in guestfs_progs.m4 above.
 AC_MSG_CHECKING([for the release date of $PACKAGE_VERSION])
-RELEASE_DATE="$(grep ^$PACKAGE_VERSION@<:@@<:@:space:@:>@@:>@ ${srcdir}/RELEASES | $AWK '{print $2}')"
+RELEASE_DATE="$(grep ^$PACKAGE_VERSION@<:@@<:@:space:@:>@@:>@ ${srcdir}/RELEASES | $AWK '{print $2}' | head -1)"
 AS_IF([test "x$RELEASE_DATE" != "x"],[
     AC_MSG_RESULT([$RELEASE_DATE])
 ],[
