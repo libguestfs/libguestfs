@@ -119,12 +119,6 @@ AC_SUBST([NO_UM_CFLAGS])
 
 AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
 AC_DEFINE([GNULIB_PORTCHECK], [1], [Enable some gnulib portability checks.])
-AH_VERBATIM([FORTIFY_SOURCE],[
-/* Enable compile-time and run-time bounds-checking, and some warnings. */
-#if __OPTIMIZE__ && (! defined (_FORTIFY_SOURCE) || _FORTIFY_SOURCE < 2)
-# undef _FORTIFY_SOURCE
-# define _FORTIFY_SOURCE 2
-#endif])
 
 AC_C_PROTOTYPES
 test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
