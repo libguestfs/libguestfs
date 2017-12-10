@@ -438,6 +438,7 @@ Makefile.in
 /php/extension/config.status
 /php/extension/config.sub
 /php/extension/configure
+/php/extension/configure.ac
 /php/extension/configure.in
 /php/extension/env
 /php/extension/guestfs_php.c
