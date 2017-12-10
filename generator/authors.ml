@@ -72,6 +72,7 @@ let authors = [
 "Ken Stailey", [ Development ];
 "Kun Wei", [ Quality_assurance; V2V_and_P2V ];
 "Lars Kellogg-Stedman", [ Development ];
+"Lars Seipel", [ Development ];
 "Laura Bailey", [ Documentation; V2V_and_P2V ];
 "Lee Yarwood", [ Development ];
 "Marcin Gibula", [ Development ];
@@ -117,6 +118,7 @@ let authors = [
 "Xiang Hua Chen", [ Quality_assurance; V2V_and_P2V ];
 "Yann E. MORIN", [ Development ];
 "Yehuda Zimmerman", [ Documentation; V2V_and_P2V ];
+"Yuri Chornoivan", [ Documentation ];
 ]
 (** List of authors and roles. *)
 
