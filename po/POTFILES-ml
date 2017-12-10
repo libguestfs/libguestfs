@@ -12,6 +12,7 @@ builder/osinfo.ml
 builder/osinfo_config.ml
 builder/paths.ml
 builder/pxzcat.ml
+builder/repository_main.ml
 builder/setlocale.ml
 builder/sigchecker.ml
 builder/simplestreams_parser.ml
@@ -41,6 +42,7 @@ common/mltools/regedit.ml
 common/mltools/registry.ml
 common/mltools/tools_utils.ml
 common/mltools/tools_utils_tests.ml
+common/mltools/urandom.ml
 common/mltools/xpath_helpers.ml
 common/mlutils/c_utils.ml
 common/mlutils/c_utils_unit_tests.ml
@@ -62,7 +64,6 @@ customize/random_seed.ml
 customize/ssh_key.ml
 customize/subscription_manager.ml
 customize/timezone.ml
-customize/urandom.ml
 dib/cmdline.ml
 dib/dib.ml
 dib/elements.ml
