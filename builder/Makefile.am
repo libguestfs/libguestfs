@@ -50,7 +50,6 @@ EXTRA_DIST = \
 
 SOURCES_MLI = \
 	builder.mli \
-	builder-repository.mli \
 	cache.mli \
 	cmdline.mli \
 	downloader.mli \
@@ -63,6 +62,7 @@ SOURCES_MLI = \
 	osinfo_config.mli \
 	paths.mli \
 	pxzcat.mli \
+	repository_main.mli \
 	setlocale.mli \
 	sigchecker.mli \
 	simplestreams_parser.mli \
