@@ -85,7 +85,6 @@ libmlxml_a_DEPENDENCIES = $(OBJECTS)
 $(MLXML_CMA): $(OBJECTS) libmlxml.a
 	$(OCAMLFIND) mklib $(OCAMLPACKAGES) \
 	    $(OBJECTS) $(libmlxml_a_OBJECTS) \
-	    -cclib '$(LIBXML2_LIBS)' \
 	    -o mlxml
 
 # Dependencies.
