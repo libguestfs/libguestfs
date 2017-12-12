@@ -80,6 +80,22 @@ print_title (void)
   }
 }
 
+/* scale (n, 4096, 1024) ==> n * 4
+ * scale (n, 512, 1024)  ==> n / 2
+ */
+static uintmax_t
+scale (uintmax_t n, uintmax_t from, uintmax_t to)
+{
+  if (from >= to) {
+    uintmax_t multiplier = from / to;
+    return n * multiplier;
+  }
+  else {
+    uintmax_t divisor = to / from;
+    return n / divisor;
+  }
+}
+
 void
 print_stat (FILE *fp,
             const char *name, const char *uuid_param,
@@ -95,7 +111,7 @@ print_stat (FILE *fp,
 #define MAX_LEN (LONGEST_HUMAN_READABLE > 128 ? LONGEST_HUMAN_READABLE : 128)
   char buf[4][MAX_LEN];
   const char *cols[4];
-  int64_t factor, v;
+  int64_t v;
   float percent;
   const int hopts =
     human_round_to_nearest|human_autoscale|human_base_1024|human_SI;
@@ -109,15 +125,13 @@ print_stat (FILE *fp,
 
   if (!inodes) {                /* 1K blocks */
     if (!human) {
-      factor = stat->bsize / 1024;
-
-      v = stat->blocks * factor;
+      v = scale (stat->blocks, stat->bsize, 1024);
       snprintf (buf[0], MAX_LEN, "%" PRIi64, v);
       cols[0] = buf[0];
-      v = (stat->blocks - stat->bfree) * factor;
+      v = scale (stat->blocks - stat->bfree, stat->bsize, 1024);
       snprintf (buf[1], MAX_LEN, "%" PRIi64, v);
       cols[1] = buf[1];
-      v = stat->bavail * factor;
+      v = scale (stat->bavail, stat->bsize, 1024);
       snprintf (buf[2], MAX_LEN, "%" PRIi64, v);
       cols[2] = buf[2];
     } else {
