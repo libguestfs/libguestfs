@@ -24,7 +24,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include <sys/stat.h>
 #include <sys/wait.h>
 #include <assert.h>
 #include <string.h>
@@ -166,41 +165,21 @@ static yajl_val
 get_json_output (guestfs_h *g, const char *filename)
 {
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
-  int fd, r;
-  char fdpath[64];
+  int r;
   yajl_val tree = NULL;
-  struct stat statbuf;
-
-  fd = open (filename, O_RDONLY /* NB: !O_CLOEXEC */);
-  if (fd == -1) {
-    perrorf (g, "disk info: %s", filename);
-    return NULL;
-  }
-
-  if (fstat (fd, &statbuf) == -1) {
-    perrorf (g, "disk info: fstat: %s", filename);
-    close (fd);
-    return NULL;
-  }
-  if (S_ISDIR (statbuf.st_mode)) {
-    error (g, "disk info: %s is a directory", filename);
-    close (fd);
-    return NULL;
-  }
-
-  snprintf (fdpath, sizeof fdpath, "/dev/fd/%d", fd);
-  guestfs_int_cmd_clear_close_files (cmd);
 
   guestfs_int_cmd_add_arg (cmd, "qemu-img");
   guestfs_int_cmd_add_arg (cmd, "info");
   guestfs_int_cmd_add_arg (cmd, "--output");
   guestfs_int_cmd_add_arg (cmd, "json");
-  guestfs_int_cmd_add_arg (cmd, fdpath);
+  if (filename[0] == '/')
+    guestfs_int_cmd_add_arg (cmd, filename);
+  else
+    guestfs_int_cmd_add_arg_format (cmd, "./%s", filename);
   guestfs_int_cmd_set_stdout_callback (cmd, parse_json, &tree,
                                        CMD_STDOUT_FLAG_WHOLE_BUFFER);
   set_child_rlimits (cmd);
   r = guestfs_int_cmd_run (cmd);
-  close (fd);
   if (r == -1)
     return NULL;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
