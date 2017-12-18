@@ -24,6 +24,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <libintl.h>
@@ -185,7 +186,12 @@ lazy_make_tmpdir (guestfs_h *g, char *(*getdir) (guestfs_h *g), char **dest)
     CLEANUP_FREE char *tmpdir = getdir (g);
     char *tmppath = safe_asprintf (g, "%s/libguestfsXXXXXX", tmpdir);
     if (mkdtemp (tmppath) == NULL) {
-      perrorf (g, _("%s: cannot create temporary directory"), tmppath);
+      int bad_systemd = errno == EACCES && STRPREFIX (tmpdir, "/run/user/");
+
+      if (!bad_systemd)
+        perrorf (g, _("%s: cannot create temporary directory"), tmppath);
+      else
+        error (g, _("%s: cannot create temporary directory.  You may be hitting systemd bug https://bugzilla.redhat.com/967509"), tmppath);
       free (tmppath);
       return -1;
     }
