@@ -1634,7 +1634,7 @@ To import a particular guest from vCenter server or ESXi hypervisor,
 use a command like the following, substituting the URI, guest name and
 SSL thumbprint:
 
- $ export PATH=/path/to/nbdkit:$PATH
+ $ export PATH=/path/to/nbdkit-1.1.x:$PATH
  $ virt-v2v \
      -ic 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' \
      -it vddk \
