@@ -28,8 +28,9 @@ those manual pages first.
 
 =item 1.
 
-Copy C<olddisk> to C<newdisk>, extending one of the guest’s partitions
-to fill the extra 5GB of space.
+This example takes C<olddisk> and resizes it into C<newdisk>,
+extending one of the guest’s partitions to fill the extra 5GB of
+space:
 
  virt-filesystems --long -h --all -a olddisk
  
