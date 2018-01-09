@@ -109,6 +109,7 @@ libmllib_a_CPPFLAGS = \
 libmllib_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
+	$(RPC_CFLAGS) \
 	-fPIC
 
 BOBJECTS = $(SOURCES_ML:.ml=.cmo)
