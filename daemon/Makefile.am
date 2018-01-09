@@ -387,6 +387,8 @@ daemon_utils_tests_CPPFLAGS = \
 	-I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib \
 	-I$(top_builddir)/lib
+daemon_utils_tests_CFLAGS = \
+	$(RPC_CFLAGS)
 daemon_utils_tests_BOBJECTS = \
 	utils.cmo \
 	daemon_utils_tests.cmo

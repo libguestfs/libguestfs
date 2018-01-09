@@ -49,7 +49,8 @@ test_error_messages_CPPFLAGS = \
 	-I$(top_srcdir)/common/protocol -I$(top_builddir)/common/protocol \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_error_messages_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(RPC_CFLAGS)
 test_error_messages_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
