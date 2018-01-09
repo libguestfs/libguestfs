@@ -27,6 +27,20 @@
  * tests, but don't want to actually pull in plus dependencies.
  */
 
-char *device_name_translation (const char *device) { abort (); }
-void reply_with_error_errno (int err, const char *fs, ...) { abort (); }
-void reply_with_perror_errno (int err, const char *fs, ...) { abort (); }
+char * __attribute__((noreturn))
+device_name_translation (const char *device)
+{
+  abort ();
+}
+
+void __attribute__((noreturn))
+reply_with_error_errno (int err, const char *fs, ...)
+{
+  abort ();
+}
+
+void __attribute__((noreturn))
+reply_with_perror_errno (int err, const char *fs, ...)
+{
+  abort ();
+}
