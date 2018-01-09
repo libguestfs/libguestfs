@@ -205,10 +205,12 @@ main (int argc, char *argv[])
   g = guestfs_create ();
   if (g == NULL)
     error (EXIT_FAILURE, errno, "guestfs_create");
+  guestfs_set_identifier (g, "g1");
 
   g2 = guestfs_create ();
   if (g2 == NULL)
     error (EXIT_FAILURE, errno, "guestfs_create");
+  guestfs_set_identifier (g2, "g2");
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
