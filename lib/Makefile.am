@@ -214,7 +214,8 @@ unit_tests_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I.
 unit_tests_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(RPC_CFLAGS)
 # We have to link this to libguestfs, but because we want to test
 # non-exported functions we have to link with the objects not the
 # library.
