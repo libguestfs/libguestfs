@@ -23,6 +23,7 @@ TESTS = \
 	test-list-filesystems.sh \
 	test-list-md-devices.sh \
 	test-lvm-on-md-device.sh \
+	test-md-and-lvm-devices.sh \
 	test-mdadm.sh
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
