@@ -101,6 +101,7 @@ fi
 
 # Delete the file.  This should cause virt-tail to exit gracefully.
 guestfish --remote rm /tail
+guestfish --remote sync
 
 # Wait for virt-tail to finish and check the status.
 wait "$tailpid"
