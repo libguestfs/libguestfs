@@ -22,6 +22,7 @@ TESTS = \
 	test-inspect-fstab-md.sh \
 	test-list-filesystems.sh \
 	test-list-md-devices.sh \
+	test-lvm-on-md-device.sh \
 	test-mdadm.sh
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
