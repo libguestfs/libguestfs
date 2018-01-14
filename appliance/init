@@ -130,13 +130,15 @@ if test "$guestfs_network" = 1; then
     fi
 fi
 
-# Scan for MDs.
-mdadm -As --auto=yes --run
+# Scan for MDs but don't run arrays unless all expected drives are present
+mdadm -As --auto=yes --no-degraded
 
 # Scan for LVM.
 modprobe dm_mod ||:
-
 lvm vgchange -aay --sysinit
+
+# Scan for MDs and run all found arrays even they are in degraded state
+mdadm -As --auto=yes --run
 
 # Scan for Windows dynamic disks.
 ldmtool create all
@@ -146,6 +148,7 @@ if test "$guestfs_verbose" = 1 && test "$guestfs_boot_analysis" != 1; then
     uname -a
     ls -lR /dev
     cat /proc/mounts
+    cat /proc/mdstat
     lvm pvs
     lvm vgs
     lvm lvs
