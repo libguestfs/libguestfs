@@ -8266,6 +8266,43 @@ return an appropriate GUID corresponding to the MBR type. Behaviour is undefined
 for other partition types." };
 
   { defaults with
+    name = "part_set_gpt_attributes"; added = (1, 21, 1);
+    style = RErr, [String (Device, "device"); Int "partnum"; Int64 "attributes"], [];
+    impl = OCaml "Parted.part_set_gpt_attributes";
+    optional = Some "gdisk";
+    tests = [
+      InitGPT, Always, TestResult (
+        [["part_set_gpt_attributes"; "/dev/sda"; "1";
+          "4"];
+         ["part_get_gpt_attributes"; "/dev/sda"; "1"]],
+        "ret == 4"), [];
+    ];
+    shortdesc = "set the attribute flags of a GPT partition";
+    longdesc = "\
+Set the attribute flags of numbered GPT partition C<partnum> to C<attributes>. Return an
+error if the partition table of C<device> isn't GPT.
+
+See L<https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_entries>
+for a useful list of partition attributes." };
+
+  { defaults with
+    name = "part_get_gpt_attributes"; added = (1, 21, 1);
+    style = RInt64 "attributes", [String (Device, "device"); Int "partnum"], [];
+    impl = OCaml "Parted.part_get_gpt_attributes";
+    optional = Some "gdisk";
+    tests = [
+      InitGPT, Always, TestResult (
+        [["part_set_gpt_attributes"; "/dev/sda"; "1";
+          "0"];
+         ["part_get_gpt_attributes"; "/dev/sda"; "1"]],
+        "ret == 0"), [];
+    ];
+    shortdesc = "get the attribute flags of a GPT partition";
+    longdesc = "\
+Return the attribute flags of numbered GPT partition C<partnum>.
+An error is returned for MBR partitions." };
+
+  { defaults with
     name = "rename"; added = (1, 21, 5);
     style = RErr, [String (Pathname, "oldpath"); String (Pathname, "newpath")], [];
     tests = [

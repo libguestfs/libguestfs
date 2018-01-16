@@ -30,3 +30,5 @@ val part_get_parttype : string -> string
 
 val part_get_gpt_type : string -> int -> string
 val part_get_gpt_guid : string -> int -> string
+val part_get_gpt_attributes : string -> int -> int64
+val part_set_gpt_attributes : string -> int -> int64 -> unit

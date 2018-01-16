@@ -17,6 +17,7 @@
  *)
 
 open Scanf
+open Printf
 
 open Std_utils
 
@@ -124,9 +125,28 @@ let part_get_parttype device =
   | _ ->
      failwithf "%s: cannot parse the output of parted" device
 
+let part_set_gpt_attributes device partnum attributes =
+  if partnum <= 0 then failwith "partition number must be >= 1";
+
+  udev_settle ();
+
+  let arg = sprintf "%d:=:%LX" partnum attributes in
+  let r, _, err =
+    commandr ~fold_stdout_on_stderr:true
+             "sgdisk" [ device; "-A"; arg ] in
+  if r <> 0 then
+    failwithf "sgdisk: %s" err;
+
+  udev_settle ()
+
 let extract_guid value =
   (* The value contains only valid GUID characters. *)
   String.sub value 0 (String.span value "-0123456789ABCDEF")
+
+let extract_hex value =
+  (* The value contains only valid numeric characters. *)
+  let str = String.sub value 0 (String.span value "0123456789ABCDEF") in
+  Int64.of_string ("0x" ^ str)
 
 let sgdisk_info_extract_field device partnum field extractor =
   if partnum <= 0 then failwith "partition number must be >= 1";
@@ -179,3 +199,6 @@ let rec part_get_gpt_type device partnum =
 and part_get_gpt_guid device partnum =
   sgdisk_info_extract_field device partnum "Partition unique GUID"
                             extract_guid
+and part_get_gpt_attributes device partnum =
+  sgdisk_info_extract_field device partnum "Attribute flags"
+                            extract_hex
