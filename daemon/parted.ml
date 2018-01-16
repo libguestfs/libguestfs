@@ -124,12 +124,11 @@ let part_get_parttype device =
   | _ ->
      failwithf "%s: cannot parse the output of parted" device
 
-let rec part_get_gpt_type device partnum =
-  sgdisk_info_extract_uuid_field device partnum "Partition GUID code"
-and part_get_gpt_guid device partnum =
-  sgdisk_info_extract_uuid_field device partnum "Partition unique GUID"
+let extract_guid value =
+  (* The value contains only valid GUID characters. *)
+  String.sub value 0 (String.span value "-0123456789ABCDEF")
 
-and sgdisk_info_extract_uuid_field device partnum field =
+let sgdisk_info_extract_field device partnum field extractor =
   if partnum <= 0 then failwith "partition number must be >= 1";
 
   udev_settle ();
@@ -167,13 +166,16 @@ and sgdisk_info_extract_uuid_field device partnum field =
        (* Skip any whitespace after the colon. *)
        let value = String.triml value in
 
-       (* Extract the UUID. *)
-       extract_uuid value
+       (* Extract the value. *)
+       extractor value
 
     | _ :: lines -> loop lines
   in
   loop lines
 
-and extract_uuid value =
-  (* The value contains only valid GUID characters. *)
-  String.sub value 0 (String.span value "-0123456789ABCDEF")
+let rec part_get_gpt_type device partnum =
+  sgdisk_info_extract_field device partnum "Partition GUID code"
+                            extract_guid
+and part_get_gpt_guid device partnum =
+  sgdisk_info_extract_field device partnum "Partition unique GUID"
+                            extract_guid
