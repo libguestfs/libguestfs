@@ -50,6 +50,7 @@ type partition = {
   p_type : partition_content;    (* Content type and content size. *)
   p_label : string option;       (* Label/name. *)
   p_guid : string option;        (* Partition GUID (GPT only). *)
+  p_attributes : int64 option;   (* Partition attributes bit mask (GPT only). *)
 
   (* What we're going to do: *)
   mutable p_operation : partition_operation;
@@ -493,6 +494,12 @@ read the man page virt-resize(1).
           let label =
             try Some (g#part_get_name "/dev/sda" part_num)
             with G.Error _ -> None in
+          let attributes =
+            match parttype with
+            | MBR -> None
+            | GPT ->
+              try Some (g#part_get_gpt_attributes "/dev/sda" part_num)
+              with G.Error _ -> None in
           let guid =
             match parttype with
             | MBR -> None
@@ -502,7 +509,7 @@ read the man page virt-resize(1).
 
           { p_name = name; p_part = part;
             p_bootable = bootable; p_id = id; p_type = typ;
-            p_label = label; p_guid = guid;
+            p_label = label; p_guid = guid; p_attributes = attributes;
             p_operation = OpCopy; p_target_partnum = 0;
             p_target_start = 0L; p_target_end = 0L }
       ) parts in
@@ -1150,6 +1157,7 @@ read the man page virt-resize(1).
                      part_size = 0L };
           p_bootable = false; p_id = No_ID; p_type = ContentUnknown;
           p_label = None; p_guid = None;
+          p_attributes = None;
 
           (* Target information is meaningful. *)
           p_operation = OpIgnore;
@@ -1191,12 +1199,13 @@ read the man page virt-resize(1).
    * is changed from primary to extended.  Thus we need to set the
    * MBR ID before doing the copy so sfdisk doesn't corrupt things.
    *)
-  let set_partition_bootable_and_id p =
+  let set_partition_attributes p =
       if p.p_bootable then
         g#part_set_bootable "/dev/sdb" p.p_target_partnum true;
 
       Option.may (g#part_set_name "/dev/sdb" p.p_target_partnum) p.p_label;
       Option.may (g#part_set_gpt_guid "/dev/sdb" p.p_target_partnum) p.p_guid;
+      Option.may (g#part_set_gpt_attributes "/dev/sdb" p.p_target_partnum) p.p_attributes;
 
       match parttype, p.p_id with
       | GPT, GPT_Type gpt_type ->
@@ -1205,7 +1214,7 @@ read the man page virt-resize(1).
         g#part_set_mbr_id "/dev/sdb" p.p_target_partnum mbr_id
       | GPT, (No_ID|MBR_ID _) | MBR, (No_ID|GPT_Type _) -> ()
   in
-  List.iter set_partition_bootable_and_id partitions;
+  List.iter set_partition_attributes partitions;
 
   (* Copy over the data. *)
   let copy_partition p =
