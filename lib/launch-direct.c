@@ -529,13 +529,31 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     else {
       /* Writable qcow2 overlay on top of read-only drive. */
       escaped_file = guestfs_int_qemu_escape_param (g, drv->overlay);
-      param = safe_asprintf
-        (g, "file.file.filename=%s,cache=unsafe,file.driver=qcow2%s%s%s,id=hd%zu",
-         escaped_file,
-         drv->disk_label ? ",serial=" : "",
-         drv->disk_label ? drv->disk_label : "",
-         data->qemu_mandatory_locking && drv->src.protocol == drive_protocol_file ? ",file.backing.file.locking=off" : "",
-         i);
+      if (data->qemu_mandatory_locking &&
+	/* Add the file-specific locking option only for files, as
+	 * qemu won't accept options unknown to the block driver in
+	 * use.
+	 */
+	drv->src.protocol == drive_protocol_file) {
+        param = safe_asprintf
+          (g, "file.file.filename=%s,file.driver=qcow2,file.backing.file.locking=off,cache=unsafe%s%s,id=hd%zu",
+           escaped_file,
+           drv->disk_label ? ",serial=" : "",
+           drv->disk_label ? drv->disk_label : "",
+           i);
+      } else {
+        /* Ancient qemu (esp. qemu 1.5 in RHEL 7) didn't understand the
+         * file.file.filename= parameter, so use the safer old-style
+         * form of parameters unless we actually want to specify the
+         * locking flag above.
+         */
+        param = safe_asprintf
+          (g, "file=%s,format=qcow2,cache=unsafe%s%s,id=hd%zu",
+           escaped_file,
+           drv->disk_label ? ",serial=" : "",
+           drv->disk_label ? drv->disk_label : "",
+           i);
+      }
     }
 
     /* If there's an explicit 'iface', use it.  Otherwise default to
