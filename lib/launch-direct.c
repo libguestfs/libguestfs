@@ -255,17 +255,28 @@ add_drive_standard_params (guestfs_h *g, struct backend_direct_data *data,
   }
   else {
     /* Writable qcow2 overlay on top of read-only drive. */
-    append_list_format ("file.file.filename=%s", drv->overlay);
-    append_list ("file.driver=qcow2");
+    if (data->qemu_mandatory_locking &&
+	/* Add the file-specific locking option only for files, as
+	 * qemu won't accept options unknown to the block driver in
+	 * use.
+	 */
+	drv->src.protocol == drive_protocol_file) {
+      append_list_format ("file.file.filename=%s", drv->overlay);
+      append_list ("file.driver=qcow2");
+      append_list ("file.backing.file.locking=off");
+    }
+    else {
+      /* Ancient qemu (esp. qemu 1.5 in RHEL 7) didn't understand the
+       * file.file.filename= parameter, so use the safer old-style
+       * form of parameters unless we actually want to specify the
+       * locking flag above.
+       */
+      append_list_format ("file=%s", drv->overlay);
+      append_list ("format=qcow2");
+    }
     append_list ("cache=unsafe");
     if (drv->disk_label)
       append_list_format ("serial=%s", drv->disk_label);
-
-    /* Add the file-specific locking option only for files, as qemu
-     * won't accept options unknown to the block driver in use.
-     */
-    if (data->qemu_mandatory_locking && drv->src.protocol == drive_protocol_file)
-      append_list ("file.backing.file.locking=off");
   }
 
   append_list_format ("id=hd%zu", i);
