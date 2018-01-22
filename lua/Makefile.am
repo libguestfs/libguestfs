@@ -41,6 +41,7 @@ libluaguestfs_la_SOURCES = lua-guestfs.c
 
 libluaguestfs_la_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 
