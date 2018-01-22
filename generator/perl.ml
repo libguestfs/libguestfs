@@ -122,8 +122,10 @@ XS_unpack_charPtrPtr (SV *arg) {
   for (i = 0; i <= av_len (av); i++) {
     SV **elem = av_fetch (av, i, 0);
 
-    if (!elem || !*elem)
+    if (!elem || !*elem) {
+      free (ret);
       croak (\"missing element in list\");
+    }
 
     ret[i] = SvPV_nolen (*elem);
   }
