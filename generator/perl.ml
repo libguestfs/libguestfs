@@ -310,7 +310,7 @@ PREINIT:
    CODE:
       str = guestfs_event_to_string (event_bitmask);
       if (str == NULL)
-        croak (\"%%s\", strerror (errno));
+        croak (\"%%m\");
       RETVAL = newSVpv (str, 0);
       free (str);
  OUTPUT:
