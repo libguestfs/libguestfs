@@ -22,6 +22,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#if HAVE_CRYPT_H
+#include <crypt.h>
+#endif
+
 #include <caml/alloc.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
