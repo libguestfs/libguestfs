@@ -9672,9 +9672,11 @@ The value can have the special value \"unknown\", meaning the
 content of the device is undetermined or empty.
 \"swap\" means a Linux swap partition.
 
-This command runs other libguestfs commands, which might include
-C<guestfs_mount> and C<guestfs_umount>, and therefore you should
-use this soon after launch and only when nothing is mounted.
+In libguestfs E<le> 1.36 this command ran other libguestfs commands,
+which might have included C<guestfs_mount> and C<guestfs_umount>, and
+therefore you had to use this soon after launch and only when
+nothing else was mounted.  This restriction is removed in libguestfs
+E<ge> 1.38.
 
 Not all of the filesystems returned will be mountable.  In
 particular, swap partitions are returned in the list.  Also
