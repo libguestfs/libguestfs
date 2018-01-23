@@ -17,14 +17,26 @@
 
 dnl Miscellaneous libraries used by other programs.
 
-dnl Check if crypt() is provided by a separate library.
-old_LIBS="$LIBS"
-AC_SEARCH_LIBS([crypt],[crypt])
-LIBS="$old_LIBS"
-if test "$ac_cv_search_crypt" = "-lcrypt" ; then
-  LIBCRYPT_LIBS="-lcrypt"
-fi
-AC_SUBST([LIBCRYPT_LIBS])
+dnl glibc 2.27 removes crypt(3) and suggests using libxcrypt.
+PKG_CHECK_MODULES([LIBCRYPT], [libxcrypt], [
+    AC_SUBST([LIBCRYPT_CFLAGS])
+    AC_SUBST([LIBCRYPT_LIBS])
+],[
+    dnl Check if crypt() is provided by another library.
+    old_LIBS="$LIBS"
+    AC_SEARCH_LIBS([crypt],[crypt])
+    LIBS="$old_LIBS"
+    if test "$ac_cv_search_crypt" = "-lcrypt" ; then
+        LIBCRYPT_LIBS="-lcrypt"
+    fi
+    AC_SUBST([LIBCRYPT_LIBS])
+])
+
+dnl Do we need to include <crypt.h>?
+old_CFLAGS="$CFLAGS"
+CFLAGS="$CFLAGS $LIBCRYPT_CFLAGS"
+AC_CHECK_HEADERS([crypt.h])
+CFLAGS="$old_CFLAGS"
 
 dnl liblzma can be used by virt-builder (optional).
 PKG_CHECK_MODULES([LIBLZMA], [liblzma], [
