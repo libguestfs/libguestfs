@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2017-11-16 16:00+0000\n"
+"POT-Creation-Date: 2018-01-25 14:17+0000\n"
 "PO-Revision-Date: 2015-02-21 10:19-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/libguestfs/"
@@ -386,7 +386,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:52 ../make-fs/virt-make-fs.pod:117
 #: ../p2v/virt-p2v-make-disk.pod:114 ../p2v/virt-p2v-make-kickstart.pod:242
 #: ../p2v/virt-p2v-make-kiwi.pod:104 ../p2v/virt-p2v.pod:609
-#: ../rescue/virt-rescue.pod:103 ../resize/virt-resize.pod:266
+#: ../rescue/virt-rescue.pod:103 ../resize/virt-resize.pod:267
 #: ../sparsify/virt-sparsify.pod:114 ../sysprep/virt-sysprep.pod:38
 #: ../test-tool/libguestfs-test-tool.pod:34 ../tools/virt-list-filesystems:52
 #: ../tools/virt-list-partitions:53 ../tools/virt-tar:100
@@ -410,7 +410,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:56 ../make-fs/virt-make-fs.pod:121
 #: ../p2v/virt-p2v-make-disk.pod:118 ../p2v/virt-p2v-make-kickstart.pod:246
 #: ../p2v/virt-p2v-make-kiwi.pod:108 ../p2v/virt-p2v.pod:613
-#: ../rescue/virt-rescue.pod:107 ../resize/virt-resize.pod:270
+#: ../rescue/virt-rescue.pod:107 ../resize/virt-resize.pod:271
 #: ../sparsify/virt-sparsify.pod:118 ../sysprep/virt-sysprep.pod:42
 #: ../test-tool/libguestfs-test-tool.pod:38 ../tools/virt-list-filesystems:60
 #: ../tools/virt-list-partitions:61 ../tools/virt-tar:108
@@ -624,7 +624,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:109 ../cat/virt-filesystems.pod:183
 #: ../cat/virt-log.pod:93 ../cat/virt-ls.pod:331 ../cat/virt-tail.pod:111
 #: ../customize/virt-customize.pod:126 ../df/virt-df.pod:128
-#: ../diff/virt-diff.pod:148 ../docs/guestfs-building.pod:482
+#: ../diff/virt-diff.pod:148 ../docs/guestfs-building.pod:491
 #: ../docs/guestfs-hacking.pod:808 ../docs/guestfs-recipes.pod:508
 #: ../edit/virt-edit.pod:141 ../fish/guestfish.pod:236
 #: ../fish/guestfish.pod:696 ../format/virt-format.pod:100
@@ -717,7 +717,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:177 ../builder/virt-builder.pod:475
 #: ../customize/virt-customize.pod:204 ../dib/virt-dib.pod:357
 #: ../fuse/guestunmount.pod:83 ../get-kernel/virt-get-kernel.pod:123
-#: ../resize/virt-resize.pod:522 ../sparsify/virt-sparsify.pod:258
+#: ../resize/virt-resize.pod:523 ../sparsify/virt-sparsify.pod:258
 #: ../sysprep/virt-sysprep.pod:235 ../v2v/virt-v2v-copy-to-local.pod:115
 #: ../v2v/virt-v2v.pod:566
 msgid "B<-q>"
@@ -727,7 +727,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:179 ../builder/virt-builder.pod:477
 #: ../customize/virt-customize.pod:206 ../dib/virt-dib.pod:359
 #: ../fuse/guestunmount.pod:85 ../get-kernel/virt-get-kernel.pod:125
-#: ../resize/virt-resize.pod:524 ../sparsify/virt-sparsify.pod:260
+#: ../resize/virt-resize.pod:525 ../sparsify/virt-sparsify.pod:260
 #: ../sysprep/virt-sysprep.pod:237 ../v2v/virt-v2v-copy-to-local.pod:117
 #: ../v2v/virt-v2v.pod:568
 msgid "B<--quiet>"
@@ -772,7 +772,7 @@ msgstr ""
 #: ../get-kernel/virt-get-kernel.pod:140 ../inspector/virt-inspector.pod:136
 #: ../make-fs/virt-make-fs.pod:197 ../p2v/virt-p2v-make-disk.pod:153
 #: ../p2v/virt-p2v-make-kickstart.pod:271 ../p2v/virt-p2v.pod:673
-#: ../rescue/virt-rescue.pod:227 ../resize/virt-resize.pod:614
+#: ../rescue/virt-rescue.pod:227 ../resize/virt-resize.pod:615
 #: ../sparsify/virt-sparsify.pod:307 ../sysprep/virt-sysprep.pod:256
 #: ../utils/boot-analysis/boot-analysis.pod:80
 #: ../v2v/virt-v2v-copy-to-local.pod:121 ../v2v/virt-v2v.pod:677
@@ -790,7 +790,7 @@ msgstr ""
 #: ../get-kernel/virt-get-kernel.pod:142 ../inspector/virt-inspector.pod:138
 #: ../make-fs/virt-make-fs.pod:199 ../p2v/virt-p2v-make-disk.pod:155
 #: ../p2v/virt-p2v-make-kickstart.pod:273 ../p2v/virt-p2v.pod:675
-#: ../rescue/virt-rescue.pod:229 ../resize/virt-resize.pod:616
+#: ../rescue/virt-rescue.pod:229 ../resize/virt-resize.pod:617
 #: ../sparsify/virt-sparsify.pod:309 ../sysprep/virt-sysprep.pod:258
 #: ../utils/boot-analysis/boot-analysis.pod:82
 #: ../v2v/virt-v2v-copy-to-local.pod:123 ../v2v/virt-v2v.pod:679
@@ -824,7 +824,7 @@ msgstr ""
 #: ../make-fs/virt-make-fs.pod:203 ../p2v/virt-p2v-make-disk.pod:160
 #: ../p2v/virt-p2v-make-kickstart.pod:278 ../p2v/virt-p2v-make-kiwi.pod:124
 #: ../p2v/virt-p2v.pod:680 ../rescue/virt-rescue.pod:233
-#: ../resize/virt-resize.pod:620 ../sparsify/virt-sparsify.pod:313
+#: ../resize/virt-resize.pod:621 ../sparsify/virt-sparsify.pod:313
 #: ../sysprep/virt-sysprep.pod:262 ../test-tool/libguestfs-test-tool.pod:59
 #: ../v2v/virt-v2v-copy-to-local.pod:127 ../v2v/virt-v2v.pod:683
 msgid "B<-V>"
@@ -844,7 +844,7 @@ msgstr ""
 #: ../make-fs/virt-make-fs.pod:205 ../p2v/virt-p2v-make-disk.pod:162
 #: ../p2v/virt-p2v-make-kickstart.pod:280 ../p2v/virt-p2v-make-kiwi.pod:126
 #: ../p2v/virt-p2v.pod:682 ../rescue/virt-rescue.pod:235
-#: ../resize/virt-resize.pod:622 ../sparsify/virt-sparsify.pod:315
+#: ../resize/virt-resize.pod:623 ../sparsify/virt-sparsify.pod:315
 #: ../sysprep/virt-sysprep.pod:264 ../test-tool/libguestfs-test-tool.pod:61
 #: ../tools/virt-list-filesystems:68 ../tools/virt-list-partitions:69
 #: ../tools/virt-tar:116 ../tools/virt-win-reg:109
@@ -863,7 +863,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:146 ../make-fs/virt-make-fs.pod:207
 #: ../p2v/virt-p2v-make-disk.pod:164 ../p2v/virt-p2v-make-kickstart.pod:282
 #: ../p2v/virt-p2v-make-kiwi.pod:128 ../p2v/virt-p2v.pod:684
-#: ../rescue/virt-rescue.pod:237 ../resize/virt-resize.pod:624
+#: ../rescue/virt-rescue.pod:237 ../resize/virt-resize.pod:625
 #: ../sparsify/virt-sparsify.pod:317 ../sysprep/virt-sysprep.pod:266
 #: ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71
 #: ../tools/virt-tar:118 ../tools/virt-win-reg:111
@@ -880,7 +880,7 @@ msgstr ""
 #: ../fish/guestfish.pod:436 ../format/virt-format.pod:175
 #: ../fuse/guestmount.pod:391 ../get-kernel/virt-get-kernel.pod:152
 #: ../inspector/virt-inspector.pod:148 ../make-fs/virt-make-fs.pod:209
-#: ../rescue/virt-rescue.pod:248 ../resize/virt-resize.pod:626
+#: ../rescue/virt-rescue.pod:248 ../resize/virt-resize.pod:627
 #: ../sparsify/virt-sparsify.pod:319 ../sysprep/virt-sysprep.pod:268
 #: ../tools/virt-tar:155 ../v2v/virt-v2v.pod:689
 msgid "B<-x>"
@@ -894,7 +894,7 @@ msgstr ""
 #: ../dib/virt-dib.pod:440 ../diff/virt-diff.pod:211 ../edit/virt-edit.pod:211
 #: ../format/virt-format.pod:177 ../get-kernel/virt-get-kernel.pod:154
 #: ../inspector/virt-inspector.pod:150 ../rescue/virt-rescue.pod:250
-#: ../resize/virt-resize.pod:628 ../sparsify/virt-sparsify.pod:321
+#: ../resize/virt-resize.pod:629 ../sparsify/virt-sparsify.pod:321
 #: ../sysprep/virt-sysprep.pod:270 ../v2v/virt-v2v.pod:691
 msgid "Enable tracing of libguestfs API calls."
 msgstr ""
@@ -1208,7 +1208,7 @@ msgstr ""
 #: ../edit/virt-edit.pod:378 ../fish/guestfish.pod:1388
 #: ../format/virt-format.pod:181 ../fuse/guestmount.pod:421
 #: ../fuse/guestunmount.pod:124 ../get-kernel/virt-get-kernel.pod:178
-#: ../inspector/virt-inspector.pod:507 ../resize/virt-resize.pod:826
+#: ../inspector/virt-inspector.pod:507 ../resize/virt-resize.pod:827
 #: ../sparsify/virt-sparsify.pod:441 ../sysprep/virt-sysprep.pod:559
 #: ../test-tool/libguestfs-test-tool.pod:168
 msgid "EXIT STATUS"
@@ -1251,8 +1251,8 @@ msgstr ""
 #: ../customize/customize-options.pod:290
 #: ../customize/customize-options.pod:294 ../docs/guestfs-building.pod:13
 #: ../docs/guestfs-building.pod:17 ../docs/guestfs-building.pod:21
-#: ../docs/guestfs-building.pod:25 ../docs/guestfs-building.pod:791
-#: ../docs/guestfs-building.pod:796 ../docs/guestfs-faq.pod:188
+#: ../docs/guestfs-building.pod:25 ../docs/guestfs-building.pod:800
+#: ../docs/guestfs-building.pod:805 ../docs/guestfs-faq.pod:188
 #: ../docs/guestfs-faq.pod:194 ../docs/guestfs-faq.pod:198
 #: ../docs/guestfs-faq.pod:203 ../docs/guestfs-faq.pod:768
 #: ../docs/guestfs-faq.pod:774 ../docs/guestfs-faq.pod:813
@@ -1399,10 +1399,10 @@ msgstr ""
 #: ../p2v/virt-p2v-make-kickstart.pod:160
 #: ../p2v/virt-p2v-make-kickstart.pod:165
 #: ../p2v/virt-p2v-make-kickstart.pod:170
-#: ../p2v/virt-p2v-make-kickstart.pod:175 ../resize/virt-resize.pod:374
-#: ../resize/virt-resize.pod:378 ../resize/virt-resize.pod:387
-#: ../resize/virt-resize.pod:393 ../resize/virt-resize.pod:397
-#: ../resize/virt-resize.pod:401 ../sparsify/virt-sparsify.pod:46
+#: ../p2v/virt-p2v-make-kickstart.pod:175 ../resize/virt-resize.pod:375
+#: ../resize/virt-resize.pod:379 ../resize/virt-resize.pod:388
+#: ../resize/virt-resize.pod:394 ../resize/virt-resize.pod:398
+#: ../resize/virt-resize.pod:402 ../sparsify/virt-sparsify.pod:46
 #: ../sparsify/virt-sparsify.pod:50 ../sparsify/virt-sparsify.pod:59
 #: ../sparsify/virt-sparsify.pod:64 ../sparsify/virt-sparsify.pod:69
 #: ../sparsify/virt-sparsify.pod:75 ../sparsify/virt-sparsify.pod:137
@@ -1489,7 +1489,7 @@ msgstr ""
 #: ../cat/virt-log.pod:136 ../cat/virt-ls.pod:518 ../cat/virt-tail.pod:236
 #: ../common/miniexpect/miniexpect.pod:477 ../customize/virt-customize.pod:286
 #: ../daemon/guestfsd.pod:143 ../df/virt-df.pod:256 ../dib/virt-dib.pod:692
-#: ../diff/virt-diff.pod:248 ../docs/guestfs-building.pod:835
+#: ../diff/virt-diff.pod:248 ../docs/guestfs-building.pod:844
 #: ../docs/guestfs-faq.pod:1411 ../docs/guestfs-hacking.pod:1152
 #: ../docs/guestfs-internals.pod:400 ../docs/guestfs-performance.pod:619
 #: ../docs/guestfs-recipes.pod:719 ../docs/guestfs-release-notes.pod:6066
@@ -1508,7 +1508,7 @@ msgstr ""
 #: ../p2v/virt-p2v-make-kickstart.pod:324 ../p2v/virt-p2v-make-kiwi.pod:170
 #: ../p2v/virt-p2v.pod:859 ../perl/examples/guestfs-perl.pod:38
 #: ../python/examples/guestfs-python.pod:63 ../rescue/virt-rescue.pod:401
-#: ../resize/virt-resize.pod:831 ../ruby/examples/guestfs-ruby.pod:34
+#: ../resize/virt-resize.pod:832 ../ruby/examples/guestfs-ruby.pod:34
 #: ../sparsify/virt-sparsify.pod:452 ../sysprep/virt-sysprep.pod:599
 #: ../test-tool/libguestfs-test-tool.pod:178 ../tools/virt-list-filesystems:181
 #: ../tools/virt-list-partitions:263 ../tools/virt-tar:292
@@ -1535,7 +1535,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes.pod:6077 ../edit/virt-edit.pod:394
 #: ../format/virt-format.pod:195 ../get-kernel/virt-get-kernel.pod:191
 #: ../make-fs/virt-make-fs.pod:229 ../rescue/virt-rescue.pod:411
-#: ../resize/virt-resize.pod:855 ../sparsify/virt-sparsify.pod:465
+#: ../resize/virt-resize.pod:856 ../sparsify/virt-sparsify.pod:465
 #: ../tools/virt-list-filesystems:193 ../tools/virt-list-partitions:274
 #: ../tools/virt-tar:306 ../tools/virt-win-reg:819
 #: ../utils/boot-analysis/boot-analysis.pod:93
@@ -1554,7 +1554,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:527 ../make-fs/virt-make-fs.pod:231
 #: ../p2v/virt-p2v-make-disk.pod:214 ../p2v/virt-p2v-make-kickstart.pod:335
 #: ../p2v/virt-p2v.pod:878 ../rescue/virt-rescue.pod:413
-#: ../resize/virt-resize.pod:857 ../sparsify/virt-sparsify.pod:467
+#: ../resize/virt-resize.pod:858 ../sparsify/virt-sparsify.pod:467
 #: ../sysprep/virt-sysprep.pod:618 ../tools/virt-list-filesystems:195
 #: ../tools/virt-list-partitions:276 ../tools/virt-tar:308
 #: ../tools/virt-win-reg:821 ../utils/boot-analysis/boot-analysis.pod:95
@@ -1572,7 +1572,7 @@ msgstr ""
 #: ../cat/virt-log.pod:151 ../cat/virt-ls.pod:532 ../cat/virt-tail.pod:251
 #: ../common/miniexpect/miniexpect.pod:494 ../customize/virt-customize.pod:307
 #: ../daemon/guestfsd.pod:152 ../df/virt-df.pod:268 ../dib/virt-dib.pod:703
-#: ../diff/virt-diff.pod:262 ../docs/guestfs-building.pod:852
+#: ../diff/virt-diff.pod:262 ../docs/guestfs-building.pod:861
 #: ../docs/guestfs-faq.pod:1421 ../docs/guestfs-hacking.pod:1169
 #: ../docs/guestfs-internals.pod:413 ../docs/guestfs-performance.pod:636
 #: ../docs/guestfs-recipes.pod:738 ../docs/guestfs-release-notes.pod:6081
@@ -1591,7 +1591,7 @@ msgstr ""
 #: ../p2v/virt-p2v-make-kickstart.pod:337 ../p2v/virt-p2v-make-kiwi.pod:182
 #: ../p2v/virt-p2v.pod:886 ../perl/examples/guestfs-perl.pod:57
 #: ../python/examples/guestfs-python.pod:81 ../rescue/virt-rescue.pod:415
-#: ../resize/virt-resize.pod:859 ../ruby/examples/guestfs-ruby.pod:52
+#: ../resize/virt-resize.pod:860 ../ruby/examples/guestfs-ruby.pod:52
 #: ../sparsify/virt-sparsify.pod:469 ../sysprep/virt-sysprep.pod:622
 #: ../test-tool/libguestfs-test-tool.pod:188 ../tools/virt-list-filesystems:197
 #: ../tools/virt-list-partitions:278 ../tools/virt-tar:310
@@ -1889,7 +1889,7 @@ msgstr ""
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:148
 #: ../common/miniexpect/miniexpect.pod:485 ../customize/virt-customize.pod:303
-#: ../docs/guestfs-building.pod:848 ../docs/guestfs-faq.pod:1417
+#: ../docs/guestfs-building.pod:857 ../docs/guestfs-faq.pod:1417
 #: ../docs/guestfs-hacking.pod:1165 ../docs/guestfs-internals.pod:409
 #: ../docs/guestfs-performance.pod:632 ../docs/guestfs-recipes.pod:734
 #: ../docs/guestfs-security.pod:393 ../docs/guestfs-testing.pod:406
@@ -1914,7 +1914,7 @@ msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:150
-#: ../common/miniexpect/miniexpect.pod:487 ../docs/guestfs-building.pod:850
+#: ../common/miniexpect/miniexpect.pod:487 ../docs/guestfs-building.pod:859
 #: ../docs/guestfs-faq.pod:1419 ../docs/guestfs-hacking.pod:1167
 #: ../docs/guestfs-internals.pod:411 ../docs/guestfs-performance.pod:634
 #: ../docs/guestfs-recipes.pod:736 ../docs/guestfs-security.pod:395
@@ -1936,7 +1936,7 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:534
 #: ../daemon/guestfsd.pod:154 ../df/virt-df.pod:270 ../diff/virt-diff.pod:264
-#: ../docs/guestfs-building.pod:854 ../docs/guestfs-hacking.pod:1171
+#: ../docs/guestfs-building.pod:863 ../docs/guestfs-hacking.pod:1171
 #: ../docs/guestfs-internals.pod:415 ../docs/guestfs-recipes.pod:740
 #: ../docs/guestfs-release-notes.pod:6083 ../docs/guestfs-security.pod:399
 #: ../edit/virt-edit.pod:400 ../fish/guestfish.pod:1656
@@ -2482,7 +2482,7 @@ msgstr ""
 #: ../dib/virt-dib.pod:54 ../get-kernel/virt-get-kernel.pod:29
 #: ../p2v/virt-p2v-make-disk.pod:120 ../p2v/virt-p2v-make-kickstart.pod:248
 #: ../p2v/virt-p2v-make-kiwi.pod:110 ../p2v/virt-p2v.pod:615
-#: ../resize/virt-resize.pod:272 ../sparsify/virt-sparsify.pod:120
+#: ../resize/virt-resize.pod:273 ../sparsify/virt-sparsify.pod:120
 #: ../v2v/virt-v2v-copy-to-local.pod:99 ../v2v/virt-v2v.pod:256
 msgid "Display help."
 msgstr ""
@@ -2629,7 +2629,7 @@ msgstr ""
 #. type: =item
 #: ../builder/virt-builder.pod:244 ../customize/virt-customize.pod:77
 #: ../dib/virt-dib.pod:80 ../get-kernel/virt-get-kernel.pod:47
-#: ../p2v/virt-p2v.pod:622 ../resize/virt-resize.pod:330
+#: ../p2v/virt-p2v.pod:622 ../resize/virt-resize.pod:331
 #: ../sparsify/virt-sparsify.pod:158 ../sysprep/virt-sysprep.pod:62
 #: ../v2v/virt-v2v.pod:264
 msgid "B<--colors>"
@@ -2638,7 +2638,7 @@ msgstr ""
 #. type: =item
 #: ../builder/virt-builder.pod:246 ../customize/virt-customize.pod:79
 #: ../dib/virt-dib.pod:82 ../get-kernel/virt-get-kernel.pod:49
-#: ../p2v/virt-p2v.pod:624 ../resize/virt-resize.pod:332
+#: ../p2v/virt-p2v.pod:624 ../resize/virt-resize.pod:333
 #: ../sparsify/virt-sparsify.pod:160 ../sysprep/virt-sysprep.pod:64
 #: ../v2v/virt-v2v.pod:266
 msgid "B<--colours>"
@@ -2647,7 +2647,7 @@ msgstr ""
 #. type: textblock
 #: ../builder/virt-builder.pod:248 ../customize/virt-customize.pod:81
 #: ../dib/virt-dib.pod:84 ../get-kernel/virt-get-kernel.pod:51
-#: ../p2v/virt-p2v.pod:626 ../resize/virt-resize.pod:334
+#: ../p2v/virt-p2v.pod:626 ../resize/virt-resize.pod:335
 #: ../sparsify/virt-sparsify.pod:162 ../sysprep/virt-sysprep.pod:66
 #: ../v2v/virt-v2v.pod:268
 msgid ""
@@ -2930,14 +2930,14 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:370 ../dib/virt-dib.pod:264
-#: ../get-kernel/virt-get-kernel.pod:97 ../resize/virt-resize.pod:456
+#: ../get-kernel/virt-get-kernel.pod:97 ../resize/virt-resize.pod:457
 #: ../sparsify/virt-sparsify.pod:238 ../v2v/virt-v2v.pod:370
 msgid "B<--machine-readable>"
 msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:372 ../dib/virt-dib.pod:266
-#: ../get-kernel/virt-get-kernel.pod:99 ../resize/virt-resize.pod:458
+#: ../get-kernel/virt-get-kernel.pod:99 ../resize/virt-resize.pod:459
 #: ../sparsify/virt-sparsify.pod:240 ../v2v/virt-v2v.pod:372
 msgid ""
 "This option is used to make the output more machine friendly when being "
@@ -3052,7 +3052,7 @@ msgstr ""
 #: ../docs/internal-documentation.pod:1526 ../lib/guestfs.pod:1851
 #: ../lib/guestfs.pod:2191 ../p2v/virt-p2v.pod:506
 #: ../rescue/virt-rescue.pod:315 ../resize/virt-resize.pod:29
-#: ../resize/virt-resize.pod:660 ../resize/virt-resize.pod:773
+#: ../resize/virt-resize.pod:661 ../resize/virt-resize.pod:774
 #: ../sparsify/virt-sparsify.pod:379 ../v2v/virt-v2v.pod:1141
 #: ../v2v/virt-v2v.pod:1484 ../v2v/virt-v2v.pod:1622 ../v2v/virt-v2v.pod:1986
 msgid "1."
@@ -3077,8 +3077,8 @@ msgstr ""
 #: ../docs/internal-documentation.pod:1408
 #: ../docs/internal-documentation.pod:1532 ../lib/guestfs.pod:1855
 #: ../lib/guestfs.pod:2195 ../p2v/virt-p2v.pod:514
-#: ../rescue/virt-rescue.pod:323 ../resize/virt-resize.pod:42
-#: ../resize/virt-resize.pod:667 ../resize/virt-resize.pod:791
+#: ../rescue/virt-rescue.pod:323 ../resize/virt-resize.pod:43
+#: ../resize/virt-resize.pod:668 ../resize/virt-resize.pod:792
 #: ../sparsify/virt-sparsify.pod:386 ../v2v/virt-v2v.pod:1145
 #: ../v2v/virt-v2v.pod:1498 ../v2v/virt-v2v.pod:1629 ../v2v/virt-v2v.pod:1993
 msgid "2."
@@ -3101,8 +3101,8 @@ msgstr ""
 #: ../docs/internal-documentation.pod:1413
 #: ../docs/internal-documentation.pod:1540 ../lib/guestfs.pod:1859
 #: ../lib/guestfs.pod:2201 ../p2v/virt-p2v.pod:529
-#: ../rescue/virt-rescue.pod:332 ../resize/virt-resize.pod:50
-#: ../resize/virt-resize.pod:673 ../sparsify/virt-sparsify.pod:392
+#: ../rescue/virt-rescue.pod:332 ../resize/virt-resize.pod:51
+#: ../resize/virt-resize.pod:674 ../sparsify/virt-sparsify.pod:392
 #: ../v2v/virt-v2v.pod:1506 ../v2v/virt-v2v.pod:1999
 msgid "3."
 msgstr "3."
@@ -3120,7 +3120,7 @@ msgstr ""
 #: ../docs/guestfs-faq.pod:939 ../docs/internal-documentation.pod:185
 #: ../docs/internal-documentation.pod:299
 #: ../docs/internal-documentation.pod:1550 ../p2v/virt-p2v.pod:554
-#: ../rescue/virt-rescue.pod:341 ../resize/virt-resize.pod:59
+#: ../rescue/virt-rescue.pod:341 ../resize/virt-resize.pod:60
 #: ../v2v/virt-v2v.pod:1527
 msgid "4."
 msgstr ""
@@ -5897,7 +5897,7 @@ msgstr ""
 
 #. type: =head1
 #: ../builder/virt-builder.pod:1783 ../dib/virt-dib.pod:657
-#: ../get-kernel/virt-get-kernel.pod:158 ../resize/virt-resize.pod:632
+#: ../get-kernel/virt-get-kernel.pod:158 ../resize/virt-resize.pod:633
 #: ../sparsify/virt-sparsify.pod:353 ../v2v/virt-v2v.pod:1949
 msgid "MACHINE READABLE OUTPUT"
 msgstr ""
@@ -5933,7 +5933,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1800 ../dib/virt-dib.pod:673
-#: ../get-kernel/virt-get-kernel.pod:170 ../resize/virt-resize.pod:650
+#: ../get-kernel/virt-get-kernel.pod:170 ../resize/virt-resize.pod:651
 #: ../sparsify/virt-sparsify.pod:369 ../v2v/virt-v2v.pod:1972
 msgid ""
 "A list of features is printed, one per line, and the program exits with "
@@ -6086,7 +6086,7 @@ msgstr ""
 #: ../df/virt-df.pod:253 ../dib/virt-dib.pod:689 ../diff/virt-diff.pod:245
 #: ../edit/virt-edit.pod:380 ../fuse/guestmount.pod:423
 #: ../get-kernel/virt-get-kernel.pod:180 ../inspector/virt-inspector.pod:509
-#: ../resize/virt-resize.pod:828
+#: ../resize/virt-resize.pod:829
 msgid ""
 "This program returns 0 if successful, or non-zero if there was an error."
 msgstr ""
@@ -6691,7 +6691,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-cat.pod:292 ../cat/virt-filesystems.pod:403
 #: ../inspector/virt-inspector.pod:537 ../ocaml/examples/guestfs-ocaml.pod:101
-#: ../python/examples/guestfs-python.pod:83 ../resize/virt-resize.pod:861
+#: ../python/examples/guestfs-python.pod:83 ../resize/virt-resize.pod:862
 #: ../ruby/examples/guestfs-ruby.pod:54
 msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgstr ""
@@ -9418,7 +9418,7 @@ msgstr ""
 #: ../lib/guestfs-structs.pod:9
 #, no-wrap
 msgid ""
-" Copyright (C) 2009-2017 Red Hat Inc.\n"
+" Copyright (C) 2009-2018 Red Hat Inc.\n"
 "\n"
 msgstr ""
 
@@ -10453,12 +10453,12 @@ msgstr ""
 #. type: =item
 #: ../customize/virt-customize.pod:103 ../daemon/guestfsd.pod:75
 #: ../fish/guestfish.pod:349 ../fuse/guestmount.pod:288
-#: ../resize/virt-resize.pod:462 ../sysprep/virt-sysprep.pod:88
+#: ../resize/virt-resize.pod:463 ../sysprep/virt-sysprep.pod:88
 msgid "B<-n>"
 msgstr ""
 
 #. type: =item
-#: ../customize/virt-customize.pod:105 ../resize/virt-resize.pod:464
+#: ../customize/virt-customize.pod:105 ../resize/virt-resize.pod:465
 #: ../sysprep/virt-sysprep.pod:90
 msgid "B<--dry-run>"
 msgstr ""
@@ -11335,7 +11335,7 @@ msgstr ""
 
 #. type: textblock
 #: ../dib/virt-dib.pod:120 ../inspector/virt-inspector.pod:114
-#: ../resize/virt-resize.pod:418 ../resize/virt-resize.pod:514
+#: ../resize/virt-resize.pod:419 ../resize/virt-resize.pod:515
 #: ../sparsify/virt-sparsify.pod:209 ../tools/virt-list-filesystems:100
 #: ../tools/virt-list-partitions:101 ../tools/virt-tar:148
 #: ../tools/virt-win-reg:149
@@ -11651,7 +11651,7 @@ msgstr ""
 msgid ""
 "Add the specified options to L<mkfs(1)>, to be able to fine-tune the root "
 "filesystem creation; the options are passed to the driver of L<mfks(1)>, and "
-"not to L<mfks(1)> itself.  Note that I<--fs-type> is used to to change the "
+"not to L<mfks(1)> itself.  Note that I<--fs-type> is used to change the "
 "filesystem type."
 msgstr ""
 
@@ -11883,8 +11883,8 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:430 ../resize/virt-resize.pod:345
-#: ../resize/virt-resize.pod:618 ../tools/virt-win-reg:119
+#: ../dib/virt-dib.pod:430 ../resize/virt-resize.pod:346
+#: ../resize/virt-resize.pod:619 ../tools/virt-win-reg:119
 msgid "Enable debugging messages."
 msgstr ""
 
@@ -12672,12 +12672,12 @@ msgid "qemu E<ge> 1.3.0"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:72 ../docs/guestfs-building.pod:128
-#: ../docs/guestfs-building.pod:132 ../docs/guestfs-building.pod:138
-#: ../docs/guestfs-building.pod:142 ../docs/guestfs-building.pod:146
-#: ../docs/guestfs-building.pod:150 ../docs/guestfs-building.pod:154
-#: ../docs/guestfs-building.pod:158 ../docs/guestfs-building.pod:162
-#: ../docs/guestfs-building.pod:166
+#: ../docs/guestfs-building.pod:72 ../docs/guestfs-building.pod:137
+#: ../docs/guestfs-building.pod:141 ../docs/guestfs-building.pod:147
+#: ../docs/guestfs-building.pod:151 ../docs/guestfs-building.pod:155
+#: ../docs/guestfs-building.pod:159 ../docs/guestfs-building.pod:163
+#: ../docs/guestfs-building.pod:167 ../docs/guestfs-building.pod:171
+#: ../docs/guestfs-building.pod:175
 msgid "I<Required>."
 msgstr ""
 
@@ -12723,29 +12723,48 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:90
 msgid ""
-"I<Required>.  We use various glibc-isms, and glibc also provides XDR "
-"libraries and the C<rpcgen> tool."
+"I<Required>.  We use the custom printf formatters extension of glibc (see "
+"L<guestfs-hacking(1)/DAEMON CUSTOM PRINTF FORMATTERS>)."
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-building.pod:93
-msgid "Gcc or Clang"
+msgid "XDR (tirpc, glibc or other)"
 msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:95
+msgid ""
+"I<Required>.  We use the XDR implementation from C<E<lt>rpc/xdr.hE<gt>>, "
+"which may come from glibc, tirpc or another library."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-building.pod:99
+msgid ""
+"The C<rpcgen> tool is optional, except if you want to compile from git and/"
+"or patch libguestfs with new APIs."
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-building.pod:102
+msgid "Gcc or Clang"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-building.pod:104
 msgid ""
 "I<Required>.  We use C<__attribute__((cleanup))> which is a GCC extension "
 "also supported by Clang."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:98
+#: ../docs/guestfs-building.pod:107
 msgid "Perl"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:100
+#: ../docs/guestfs-building.pod:109
 msgid ""
 "I<Required>.  Various build steps and tests are written in Perl.  Perl is "
 "not needed at runtime except if you need to run a small number of virt tools "
@@ -12753,336 +12772,336 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:104
+#: ../docs/guestfs-building.pod:113
 msgid "Perl C<Pod::Man>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:106
+#: ../docs/guestfs-building.pod:115
 msgid "Perl C<Pod::Simple>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:108
+#: ../docs/guestfs-building.pod:117
 msgid "I<Required>.  Part of Perl core."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:110
+#: ../docs/guestfs-building.pod:119
 msgid "OCaml E<ge> 3.11"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:112
+#: ../docs/guestfs-building.pod:121
 msgid "OCaml findlib"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:114
+#: ../docs/guestfs-building.pod:123
 msgid ""
 "I<Required> if compiling from git.  Optional (but recommended) if compiling "
 "from tarball."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:117
+#: ../docs/guestfs-building.pod:126
 msgid "autoconf"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:119
+#: ../docs/guestfs-building.pod:128
 msgid "automake"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:121
+#: ../docs/guestfs-building.pod:130
 msgid "gettext"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:123 ../docs/guestfs-building.pod:170
+#: ../docs/guestfs-building.pod:132 ../docs/guestfs-building.pod:179
 msgid "I<Required> if compiling from git.  Optional if compiling from tarball."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:126
+#: ../docs/guestfs-building.pod:135
 msgid "cpio"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:130
+#: ../docs/guestfs-building.pod:139
 msgid "gperf"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:134
+#: ../docs/guestfs-building.pod:143
 msgid "flex"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:136
+#: ../docs/guestfs-building.pod:145
 msgid "bison"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:140
+#: ../docs/guestfs-building.pod:149
 msgid "Perl-compatible Regular Expressions (PCRE) library"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:144
+#: ../docs/guestfs-building.pod:153
 msgid "genisoimage"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:148
+#: ../docs/guestfs-building.pod:157
 msgid "libxml2"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:152
+#: ../docs/guestfs-building.pod:161
 msgid "ncurses"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:156
+#: ../docs/guestfs-building.pod:165
 msgid "augeas E<ge> 1.0.0"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:160 ../docs/guestfs-release-notes.pod:3264
+#: ../docs/guestfs-building.pod:169 ../docs/guestfs-release-notes.pod:3264
 #: ../docs/guestfs-release-notes.pod:3586
 msgid "xz"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:164
+#: ../docs/guestfs-building.pod:173
 msgid "yajl E<ge> 2.0.4"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:168
+#: ../docs/guestfs-building.pod:177
 msgid "po4a"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:173
+#: ../docs/guestfs-building.pod:182
 msgid "hivex E<ge> 1.2.7"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:175
+#: ../docs/guestfs-building.pod:184
 msgid ""
 "I<Required> if compiling from git, and highly recommended otherwise.  "
 "Various core features will be disabled if hivex is not available."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:178
+#: ../docs/guestfs-building.pod:187
 msgid "libmagic"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:180
+#: ../docs/guestfs-building.pod:189
 msgid "I<Required>.  This is the library used by the L<file(1)> command."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:182
+#: ../docs/guestfs-building.pod:191
 msgid "libvirt E<ge> 0.10.2"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:184
+#: ../docs/guestfs-building.pod:193
 msgid "Optional.  Always use the latest possible version of libvirt."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:186
+#: ../docs/guestfs-building.pod:195
 msgid "xmllint"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:188
+#: ../docs/guestfs-building.pod:197
 msgid "Optional.  Used only for tests."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:190
+#: ../docs/guestfs-building.pod:199
 msgid "libconfig"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:192
+#: ../docs/guestfs-building.pod:201
 msgid ""
 "Optional.  Used to parse libguestfs's own config files, eg. F</etc/"
 "libguestfs-tools.conf>."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:195
+#: ../docs/guestfs-building.pod:204
 msgid "libselinux"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:197
+#: ../docs/guestfs-building.pod:206
 msgid ""
 "Optional.  Used by the L<libvirt backend|guestfs(3)/BACKEND> to securely "
 "confine the appliance (sVirt)."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:200
+#: ../docs/guestfs-building.pod:209
 msgid "Berkeley DB utils (db_dump, db_load, etc)"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:202
+#: ../docs/guestfs-building.pod:211
 msgid ""
 "Optional.  Usually found in a package called C<db-utils>, C<db4-utils>, "
 "C<db4.X-utils> etc."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:205
+#: ../docs/guestfs-building.pod:214
 msgid "systemtap"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:207
+#: ../docs/guestfs-building.pod:216
 msgid "Optional.  For userspace probes."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:209
+#: ../docs/guestfs-building.pod:218
 msgid "readline"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:211
+#: ../docs/guestfs-building.pod:220
 msgid "Optional.  For nicer command line editing in L<guestfish(1)>."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:213
+#: ../docs/guestfs-building.pod:222
 msgid "acl"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:215
+#: ../docs/guestfs-building.pod:224
 msgid "Optional.  Library and programs for handling POSIX ACLs."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:217
+#: ../docs/guestfs-building.pod:226
 msgid "libcap"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:219
+#: ../docs/guestfs-building.pod:228
 msgid "Optional.  Library and programs for handling Linux capabilities."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:221
+#: ../docs/guestfs-building.pod:230
 msgid "libldm"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:223
+#: ../docs/guestfs-building.pod:232
 msgid ""
 "Optional.  Library and L<ldmtool(1)> for handling Windows Dynamic Disks."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:226 ../docs/guestfs-release-notes.pod:3574
+#: ../docs/guestfs-building.pod:235 ../docs/guestfs-release-notes.pod:3574
 msgid "sd-journal"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:228
+#: ../docs/guestfs-building.pod:237
 msgid "Optional.  Library for accessing systemd journals."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:230
+#: ../docs/guestfs-building.pod:239
 msgid "gdisk"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:232
+#: ../docs/guestfs-building.pod:241
 msgid "Optional.  GPT disk support."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:234
+#: ../docs/guestfs-building.pod:243
 msgid "netpbm"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:236
+#: ../docs/guestfs-building.pod:245
 msgid "Optional.  Render icons from guests."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:238
+#: ../docs/guestfs-building.pod:247
 msgid "icoutils"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:240
+#: ../docs/guestfs-building.pod:249
 msgid "Optional.  Render icons from Windows guests."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:242
+#: ../docs/guestfs-building.pod:251
 msgid "Perl C<Expect>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:244
+#: ../docs/guestfs-building.pod:253
 msgid "Optional.  Perl module used to test L<virt-rescue(1)>."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:246
+#: ../docs/guestfs-building.pod:255
 msgid "FUSE"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:248
+#: ../docs/guestfs-building.pod:257
 msgid ""
 "Optional.  L<fusermount(1)>, libfuse and kernel module are all needed if you "
 "want L<guestmount(1)> and/or L<mount-local|guestfs(3)/MOUNT LOCAL> support."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:252
+#: ../docs/guestfs-building.pod:261
 msgid "static glibc"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:254
+#: ../docs/guestfs-building.pod:263
 msgid "Optional.  Used only for testing."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:256
+#: ../docs/guestfs-building.pod:265
 msgid "qemu-nbd"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:258
+#: ../docs/guestfs-building.pod:267
 msgid "nbdkit"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:260
+#: ../docs/guestfs-building.pod:269
 msgid "Optional.  qemu-nbd is used for testing."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:262
+#: ../docs/guestfs-building.pod:271
 msgid ""
 "L<virt-p2v(1)> requires either qemu-nbd or nbdkit, but these only need to be "
 "present on the virt-p2v ISO, they do not need to be installed at compile "
@@ -13090,77 +13109,77 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:266
+#: ../docs/guestfs-building.pod:275
 msgid "uml_mkcow"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:268
+#: ../docs/guestfs-building.pod:277
 msgid "Optional.  For the L<UML backend|guestfs(3)/BACKEND>."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:270 ../docs/guestfs-release-notes.pod:3582
+#: ../docs/guestfs-building.pod:279 ../docs/guestfs-release-notes.pod:3582
 msgid "curl"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:272
+#: ../docs/guestfs-building.pod:281
 msgid "Optional.  Used by virt-builder for downloads."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:274
+#: ../docs/guestfs-building.pod:283
 msgid "GNU Privacy Guard (GnuPG, gpg) v1 or v2"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:276
+#: ../docs/guestfs-building.pod:285
 msgid "Optional.  Used by virt-builder for checking digital signatures."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:278
+#: ../docs/guestfs-building.pod:287
 msgid "liblzma"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:280
+#: ../docs/guestfs-building.pod:289
 msgid ""
 "Optional.  If available, virt-builder will use this library for fast, "
 "parallel uncompression of templates."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:283
+#: ../docs/guestfs-building.pod:292
 msgid "Gtk E<ge> 2.24, or 3"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:285 ../docs/guestfs-building.pod:295
-#: ../docs/guestfs-building.pod:395 ../docs/guestfs-building.pod:411
+#: ../docs/guestfs-building.pod:294 ../docs/guestfs-building.pod:304
+#: ../docs/guestfs-building.pod:404 ../docs/guestfs-building.pod:420
 msgid "Optional."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:287
+#: ../docs/guestfs-building.pod:296
 msgid "Used by the virt-p2v graphical user interface."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:289
+#: ../docs/guestfs-building.pod:298
 msgid ""
 "Either Gtk 2 or Gtk 3 can be used.  If you want to select a specific version "
 "of Gtk, use S<C<./configure --with-gtk=2>> or S<C<./configure --with-gtk=3>>."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:293
+#: ../docs/guestfs-building.pod:302
 msgid "D-Bus"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:297
+#: ../docs/guestfs-building.pod:306
 msgid ""
 "If the D-Bus low level C API is available, virt-p2v can send a D-Bus message "
 "to logind to inhibit power saving (sleep, suspend, etc) during P2V "
@@ -13168,305 +13187,305 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:301
+#: ../docs/guestfs-building.pod:310
 msgid ""
 "If this API is not available at build time, then very long conversions might "
 "be interrupted if the physical machine goes to sleep."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:304
+#: ../docs/guestfs-building.pod:313
 msgid "zip"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:306
+#: ../docs/guestfs-building.pod:315
 msgid "unzip"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:308
+#: ../docs/guestfs-building.pod:317
 msgid "Optional.  Used by virt-v2v to handle OVA files."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:310
+#: ../docs/guestfs-building.pod:319
 msgid "python-evtx"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:312
+#: ../docs/guestfs-building.pod:321
 msgid "Optional.  Used by L<virt-log(1)> to parse Windows Event Log files."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:314
+#: ../docs/guestfs-building.pod:323
 msgid "OCaml gettext"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:316
+#: ../docs/guestfs-building.pod:325
 msgid "Optional.  For localizing OCaml virt tools."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:318
+#: ../docs/guestfs-building.pod:327
 msgid "ocaml-ounit E<ge> 2.0.0"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:320
+#: ../docs/guestfs-building.pod:329
 msgid "Optional.  For testing the common OCaml modules."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:322
+#: ../docs/guestfs-building.pod:331
 msgid "ocaml-libvirt E<ge> 0.6.1.5"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:324
+#: ../docs/guestfs-building.pod:333
 msgid "Optional.  For building the optional virt-v2v test harness."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:326
+#: ../docs/guestfs-building.pod:335
 msgid "Perl C<Module::Build> E<ge> 0.19"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:328
+#: ../docs/guestfs-building.pod:337
 msgid "Perl C<Test::More>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:330
+#: ../docs/guestfs-building.pod:339
 msgid "Optional.  Used to build and test the Perl bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:332
+#: ../docs/guestfs-building.pod:341
 msgid "Python E<ge> 2.2"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:334
+#: ../docs/guestfs-building.pod:343
 msgid ""
 "Optional.  Used to build the Python bindings.  For building Python 2 or "
 "Python 3 bindings, see L</BUILDING PYTHON 2 AND PYTHON 3 BINDINGS> below."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:338
+#: ../docs/guestfs-building.pod:347
 msgid "Python C<unittest>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:340
+#: ../docs/guestfs-building.pod:349
 msgid "Optional.  Used to run the Python testsuite."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:342
+#: ../docs/guestfs-building.pod:351
 msgid "Ruby"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:344
+#: ../docs/guestfs-building.pod:353
 msgid "rake"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:346
+#: ../docs/guestfs-building.pod:355
 msgid "rubygem-minitest"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:348
+#: ../docs/guestfs-building.pod:357
 msgid "rubygem-rdoc"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:350
+#: ../docs/guestfs-building.pod:359
 msgid "Optional.  Used to build the Ruby bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:352
+#: ../docs/guestfs-building.pod:361
 msgid "Java E<ge> 1.6"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:354
+#: ../docs/guestfs-building.pod:363
 msgid ""
 "Optional.  Java, JNI and jpackage-utils are needed for building Java "
 "bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:357
+#: ../docs/guestfs-building.pod:366
 msgid "GHC"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:359
+#: ../docs/guestfs-building.pod:368
 msgid "Optional.  Used to build the Haskell bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:361
+#: ../docs/guestfs-building.pod:370
 msgid "PHP"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:363
+#: ../docs/guestfs-building.pod:372
 msgid "phpize"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:365
+#: ../docs/guestfs-building.pod:374
 msgid "Optional.  Used to build the PHP bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:367
+#: ../docs/guestfs-building.pod:376
 msgid "glib2"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:369
+#: ../docs/guestfs-building.pod:378
 msgid "gobject-introspection"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:371
+#: ../docs/guestfs-building.pod:380
 msgid "gjs"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:373
+#: ../docs/guestfs-building.pod:382
 msgid "Optional.  Used to build and test the GObject bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:375
+#: ../docs/guestfs-building.pod:384
 msgid "LUA"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:377
+#: ../docs/guestfs-building.pod:386
 msgid "Optional.  Used to build the LUA bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:379
+#: ../docs/guestfs-building.pod:388
 msgid "Erlang"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:381
+#: ../docs/guestfs-building.pod:390
 msgid "erl_interface"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:383
+#: ../docs/guestfs-building.pod:392
 msgid "Optional.  Used to build the Erlang bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:385 ../docs/guestfs-release-notes.pod:3590
+#: ../docs/guestfs-building.pod:394 ../docs/guestfs-release-notes.pod:3590
 msgid "golang E<ge> 1.1.1"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:387
+#: ../docs/guestfs-building.pod:396
 msgid "Optional.  Used to build the Go bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:389
+#: ../docs/guestfs-building.pod:398
 msgid "valgrind"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:391
+#: ../docs/guestfs-building.pod:400
 msgid "Optional.  For testing memory problems."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:393
+#: ../docs/guestfs-building.pod:402
 msgid "Perl C<Sys::Virt>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:397
+#: ../docs/guestfs-building.pod:406
 msgid "libvirt-python"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:399
+#: ../docs/guestfs-building.pod:408
 msgid "Optional.  For testing Python libvirt/libguestfs interactions."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:401
+#: ../docs/guestfs-building.pod:410
 msgid "Perl C<Win::Hivex>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:403
+#: ../docs/guestfs-building.pod:412
 msgid "Optional.  Used by the L<virt-win-reg(1)> tool."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:405
+#: ../docs/guestfs-building.pod:414
 msgid "Perl C<Pod::Usage>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:407
+#: ../docs/guestfs-building.pod:416
 msgid "Optional.  Used by some Perl virt tools."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:409
+#: ../docs/guestfs-building.pod:418
 msgid "Perl C<libintl>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:413
+#: ../docs/guestfs-building.pod:422
 msgid "bash-completion"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:415
+#: ../docs/guestfs-building.pod:424
 msgid "Optional.  For tab-completion of commands in bash."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:417
+#: ../docs/guestfs-building.pod:426
 msgid "libtsk"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:419
+#: ../docs/guestfs-building.pod:428
 msgid "Optional.  Library for filesystem forensics analysis."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:423
+#: ../docs/guestfs-building.pod:432
 msgid "BUILDING FROM GIT"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:425
+#: ../docs/guestfs-building.pod:434
 msgid ""
 "You will need to install additional dependencies C<autoconf>, C<automake>, "
 "C<gettext>, OCaml findlib and po4a when building from git."
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:429
+#: ../docs/guestfs-building.pod:438
 #, no-wrap
 msgid ""
 " git clone https://github.com/libguestfs/libguestfs\n"
@@ -13477,12 +13496,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:434
+#: ../docs/guestfs-building.pod:443
 msgid "BUILDING FROM TARBALLS"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:436
+#: ../docs/guestfs-building.pod:445
 msgid ""
 "Tarballs are downloaded from L<http://download.libguestfs.org/>.  Stable "
 "tarballs are signed with the GnuPG key for C<rich@annexia.org>, see "
@@ -13491,12 +13510,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:442
+#: ../docs/guestfs-building.pod:451
 msgid "Download and unpack the tarball."
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:444
+#: ../docs/guestfs-building.pod:453
 #, no-wrap
 msgid ""
 " cd libguestfs-1.xx.yy\n"
@@ -13506,24 +13525,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:448
+#: ../docs/guestfs-building.pod:457
 msgid "RUNNING THE TESTS"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:450
+#: ../docs/guestfs-building.pod:459
 msgid ""
 "B<DO NOT run the tests as root!> Libguestfs can be built and tested as non-"
 "root.  Running the tests as root could even be dangerous, don't do it."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:454
+#: ../docs/guestfs-building.pod:463
 msgid "To sanity check that the build worked, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:456
+#: ../docs/guestfs-building.pod:465
 #, no-wrap
 msgid ""
 " make quickcheck\n"
@@ -13531,12 +13550,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:458
+#: ../docs/guestfs-building.pod:467
 msgid "To run the basic tests, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:460
+#: ../docs/guestfs-building.pod:469
 #, no-wrap
 msgid ""
 " make check\n"
@@ -13544,19 +13563,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:462
+#: ../docs/guestfs-building.pod:471
 msgid ""
 "There are many more tests you can run.  See L<guestfs-hacking(1)> for "
 "details."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:465
+#: ../docs/guestfs-building.pod:474
 msgid "INSTALLING"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:467
+#: ../docs/guestfs-building.pod:476
 msgid ""
 "B<DO NOT use C<make install>!> You'll end up with conflicting versions of "
 "libguestfs installed, and this causes constant headaches for users.  See the "
@@ -13564,12 +13583,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:471
+#: ../docs/guestfs-building.pod:480
 msgid "Distro packagers can use:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:473
+#: ../docs/guestfs-building.pod:482
 #, no-wrap
 msgid ""
 " make INSTALLDIRS=vendor DESTDIR=[temp-build-dir] install\n"
@@ -13577,12 +13596,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:475
+#: ../docs/guestfs-building.pod:484
 msgid "THE ./run SCRIPT"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:477
+#: ../docs/guestfs-building.pod:486
 msgid ""
 "You can run L<guestfish(1)>, L<guestmount(1)> and the virt tools without "
 "needing to install them by using the F<./run> script in the top directory.  "
@@ -13590,7 +13609,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:484
+#: ../docs/guestfs-building.pod:493
 #, no-wrap
 msgid ""
 " ./run guestfish [usual guestfish args ...]\n"
@@ -13598,7 +13617,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:486
+#: ../docs/guestfs-building.pod:495
 #, no-wrap
 msgid ""
 " ./run virt-inspector [usual virt-inspector args ...]\n"
@@ -13606,7 +13625,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:488
+#: ../docs/guestfs-building.pod:497
 msgid ""
 "The F<./run> script adds every libguestfs binary to the C<$PATH>, so the "
 "above examples run guestfish and virt-inspector from the build directory "
@@ -13614,14 +13633,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:492
+#: ../docs/guestfs-building.pod:501
 msgid ""
 "You can use the script from any directory.  If you wanted to run your own "
 "libguestfs-using program, then the following command will also work:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:496
+#: ../docs/guestfs-building.pod:505
 #, no-wrap
 msgid ""
 " /path/to/libguestfs/run ./my_program [...]\n"
@@ -13629,12 +13648,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:498
+#: ../docs/guestfs-building.pod:507
 msgid "You can also run the C programs under valgrind like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:500
+#: ../docs/guestfs-building.pod:509
 #, no-wrap
 msgid ""
 " ./run valgrind [valgrind opts...] virt-cat [virt-cat opts...]\n"
@@ -13642,12 +13661,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:502
+#: ../docs/guestfs-building.pod:511
 msgid "or under gdb:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:504
+#: ../docs/guestfs-building.pod:513
 #, no-wrap
 msgid ""
 " ./run gdb --args virt-cat [virt-cat opts...]\n"
@@ -13655,14 +13674,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:506
+#: ../docs/guestfs-building.pod:515
 msgid ""
 "This also works with sudo (eg. if you need root access for libvirt or to "
 "access a block device):"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:509
+#: ../docs/guestfs-building.pod:518
 #, no-wrap
 msgid ""
 " sudo ./run virt-cat -d LinuxGuest /etc/passwd\n"
@@ -13670,12 +13689,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:511
+#: ../docs/guestfs-building.pod:520
 msgid "To set environment variables, you can either do:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:513
+#: ../docs/guestfs-building.pod:522
 #, no-wrap
 msgid ""
 " LIBGUESTFS_HV=/my/qemu ./run guestfish\n"
@@ -13683,7 +13702,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:515 ../docs/guestfs-hacking.pod:454
+#: ../docs/guestfs-building.pod:524 ../docs/guestfs-hacking.pod:454
 #: ../docs/guestfs-testing.pod:80 ../docs/guestfs-testing.pod:142
 #: ../docs/guestfs-testing.pod:249 ../docs/guestfs-testing.pod:262
 #: ../docs/guestfs-testing.pod:326 ../fish/guestfish.pod:1048
@@ -13692,7 +13711,7 @@ msgid "or:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:517
+#: ../docs/guestfs-building.pod:526
 #, no-wrap
 msgid ""
 " ./run env LIBGUESTFS_HV=/my/qemu guestfish\n"
@@ -13700,12 +13719,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:519
+#: ../docs/guestfs-building.pod:528
 msgid "F<local*> FILES"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:521
+#: ../docs/guestfs-building.pod:530
 msgid ""
 "Files in the top source directory that begin with the prefix F<local*> are "
 "ignored by git.  These files can contain local configuration or scripts that "
@@ -13713,7 +13732,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:525
+#: ../docs/guestfs-building.pod:534
 msgid ""
 "I have a file called F<localconfigure> which is a simple wrapper around "
 "F<autogen.sh> containing local configure customizations that I need.  It "
@@ -13721,7 +13740,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:529
+#: ../docs/guestfs-building.pod:538
 #, no-wrap
 msgid ""
 " . localenv\n"
@@ -13733,12 +13752,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:535
+#: ../docs/guestfs-building.pod:544
 msgid "So I can use this to build libguestfs:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:537
+#: ../docs/guestfs-building.pod:546
 #, no-wrap
 msgid ""
 " ./localconfigure && make\n"
@@ -13748,7 +13767,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:539
+#: ../docs/guestfs-building.pod:548
 msgid ""
 "If there is a file in the top build directory called F<localenv>, then it "
 "will be sourced by C<make>.  This file can contain any local environment "
@@ -13756,7 +13775,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:543
+#: ../docs/guestfs-building.pod:552
 #, no-wrap
 msgid ""
 " # Use an alternate python binary.\n"
@@ -13772,7 +13791,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:548
+#: ../docs/guestfs-building.pod:557
 msgid ""
 "Note that F<localenv> is included by the top Makefile (so it's a Makefile "
 "fragment).  But if it is also sourced by your F<localconfigure> script then "
@@ -13780,17 +13799,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:552
+#: ../docs/guestfs-building.pod:561
 msgid "SELECTED ./configure SETTINGS"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:554
+#: ../docs/guestfs-building.pod:563
 msgid "There are many C<./configure> options.  Use:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:556
+#: ../docs/guestfs-building.pod:565
 #, no-wrap
 msgid ""
 " ./configure --help\n"
@@ -13798,123 +13817,123 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:558
+#: ../docs/guestfs-building.pod:567
 msgid "to list them all.  This section covers some of the more important ones."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:563
+#: ../docs/guestfs-building.pod:572
 msgid "B<--disable-appliance --disable-daemon>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:565
+#: ../docs/guestfs-building.pod:574
 msgid "See L</USING A PREBUILT BINARY APPLIANCE> below."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:567
+#: ../docs/guestfs-building.pod:576
 msgid "B<--disable-erlang>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:569
+#: ../docs/guestfs-building.pod:578
 msgid "B<--disable-gobject>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:571
+#: ../docs/guestfs-building.pod:580
 msgid "B<--disable-golang>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:573
+#: ../docs/guestfs-building.pod:582
 msgid "B<--disable-haskell>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:575
+#: ../docs/guestfs-building.pod:584
 msgid "B<--disable-lua>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:577
+#: ../docs/guestfs-building.pod:586
 msgid "B<--disable-ocaml>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:579
+#: ../docs/guestfs-building.pod:588
 msgid "B<--disable-perl>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:581
+#: ../docs/guestfs-building.pod:590
 msgid "B<--disable-php>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:583
+#: ../docs/guestfs-building.pod:592
 msgid "B<--disable-python>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:585
+#: ../docs/guestfs-building.pod:594
 msgid "B<--disable-ruby>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:587
+#: ../docs/guestfs-building.pod:596
 msgid ""
 "Disable specific language bindings, even if C<./configure> finds all the "
 "necessary libraries are installed so that they could be compiled."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:590
+#: ../docs/guestfs-building.pod:599
 msgid ""
 "Note that disabling OCaml or Perl will have the knock-on effect of disabling "
 "large numbers of virt tools and parts of the test suite."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:593
+#: ../docs/guestfs-building.pod:602
 msgid "B<--disable-fuse>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:595
+#: ../docs/guestfs-building.pod:604
 msgid "Disable FUSE support in the API and the L<guestmount(1)> tool."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:597
+#: ../docs/guestfs-building.pod:606
 msgid "B<--disable-gnulib-tests>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:599
+#: ../docs/guestfs-building.pod:608
 msgid ""
 "On some platforms the GNUlib test suite can be flaky.  This disables it, "
 "since errors in the GNUlib test suite are often not important."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:602
+#: ../docs/guestfs-building.pod:611
 msgid "B<--disable-static>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:604
+#: ../docs/guestfs-building.pod:613
 msgid "Don't build a static linked version of the libguestfs library."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:606
+#: ../docs/guestfs-building.pod:615
 msgid "B<--enable-install-daemon>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:608
+#: ../docs/guestfs-building.pod:617
 msgid ""
 "Normally L<guestfsd(8)> is not installed by C<make install>, since that "
 "wouldn't be useful (instead it is \"installed\" inside the supermin "
@@ -13923,12 +13942,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:613
+#: ../docs/guestfs-building.pod:622
 msgid "B<--enable-werror>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:615
+#: ../docs/guestfs-building.pod:624
 msgid ""
 "This turns compiler warnings into errors (ie. C<-Werror>).  Use this for "
 "development, especially when submitting patches.  It should generally I<not> "
@@ -13936,12 +13955,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:619
+#: ../docs/guestfs-building.pod:628
 msgid "B<--with-default-backend=libvirt>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:621
+#: ../docs/guestfs-building.pod:630
 msgid ""
 "This controls the default method that libguestfs uses to run qemu (see "
 "L<guestfs(3)/BACKEND>).  If not specified, the default backend is C<direct>, "
@@ -13949,7 +13968,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:625
+#: ../docs/guestfs-building.pod:634
 msgid ""
 "Fedora and Red Hat Enterprise Linux (RHEL) E<ge> 7 use this flag to change "
 "the default backend to C<libvirt>, because (especially in RHEL)  the policy "
@@ -13957,7 +13976,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:629
+#: ../docs/guestfs-building.pod:638
 msgid ""
 "Note that despite this setting, all backends are built into libguestfs, and "
 "you can override the backend at runtime by setting the C<"
@@ -13965,17 +13984,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:633
+#: ../docs/guestfs-building.pod:642
 msgid "B<--with-extra=\">I<distroname>=I<version>,libvirt,...B<\">"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:635
+#: ../docs/guestfs-building.pod:644
 msgid "B<--with-extra=\"local\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:637
+#: ../docs/guestfs-building.pod:646
 msgid ""
 "This option controls the \"extra\" field returned by L<guestfs(3)/"
 "guestfs_version> and also printed by virt tools' I<--version> option.  It is "
@@ -13986,72 +14005,72 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:644
+#: ../docs/guestfs-building.pod:653
 msgid ""
 "For custom and/or local builds, this can be set to C<local> to indicate this "
 "is I<not> a distro build."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:647
+#: ../docs/guestfs-building.pod:656
 msgid "B<--without-libvirt>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:649
+#: ../docs/guestfs-building.pod:658
 msgid ""
 "Compile libguestfs without libvirt support, even if libvirt development "
 "libraries are installed."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:652
+#: ../docs/guestfs-building.pod:661
 msgid "B<--with-gtk=2>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:654
+#: ../docs/guestfs-building.pod:663
 msgid ""
 "This option forces virt-p2v to be built against Gtk 2, which is currently "
 "the most widely tested configuration."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:657
+#: ../docs/guestfs-building.pod:666
 msgid "B<--with-qemu=\">bin1 bin2 ...B<\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:659
+#: ../docs/guestfs-building.pod:668
 msgid ""
 "Provide an alternate qemu binary (or list of binaries).  This can be "
 "overridden at runtime by setting the C<LIBGUESTFS_HV> environment variable."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:663
+#: ../docs/guestfs-building.pod:672
 msgid "B<--with-qemu-options=\">-M ... -cpu ...B<\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:665
+#: ../docs/guestfs-building.pod:674
 msgid ""
 "If qemu requires extra options to work on this platform, you can pass them "
 "here, and they will be used both when testing and running qemu."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:668
+#: ../docs/guestfs-building.pod:677
 msgid "B<--with-supermin-packager-config=>I<yum.conf>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:670
+#: ../docs/guestfs-building.pod:679
 msgid "This passes the I<--packager-config> option to L<supermin(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:672
+#: ../docs/guestfs-building.pod:681
 msgid ""
 "The most common use for this is to build the appliance using an alternate "
 "repository (instead of using the installed yum/dnf/apt/etc configuration to "
@@ -14062,24 +14081,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:680
+#: ../docs/guestfs-building.pod:689
 msgid "B<--with-supermin-extra-options=\">--opt1 --opt2 ...B<\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:682
+#: ../docs/guestfs-building.pod:691
 msgid ""
 "Pass additional options to L<supermin(1)>.  See F<appliance/make.sh.in> to "
 "understand precisely what this does."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:685
+#: ../docs/guestfs-building.pod:694
 msgid "B<PYTHON>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:687
+#: ../docs/guestfs-building.pod:696
 msgid ""
 "This environment variable may be set to point to a python binary (eg. "
 "C<python3>).  When C<./configure> runs, it inspects this python binary to "
@@ -14088,12 +14107,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:693
+#: ../docs/guestfs-building.pod:702
 msgid "B<SUPERMIN>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:695
+#: ../docs/guestfs-building.pod:704
 msgid ""
 "This environment variable can be set to choose an alternative L<supermin(1)> "
 "binary.  This might be used, for example, if you want to use a newer "
@@ -14103,17 +14122,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:703
+#: ../docs/guestfs-building.pod:712
 msgid "NOTES ABOUT QEMU AND KVM"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:705
+#: ../docs/guestfs-building.pod:714
 msgid "A common problem is with broken or incompatible qemu releases."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:707
+#: ../docs/guestfs-building.pod:716
 msgid ""
 "Different versions of qemu have problems booting the appliance for different "
 "reasons.  This varies between versions of qemu, and Linux distributions "
@@ -14121,7 +14140,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:711
+#: ../docs/guestfs-building.pod:720
 msgid ""
 "If you find a problem, you could try using your own qemu built from source "
 "(qemu is very easy to build from source), with a \"qemu wrapper\".  See "
@@ -14129,14 +14148,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:715
+#: ../docs/guestfs-building.pod:724
 msgid ""
 "By default the configure script will look for qemu-kvm (KVM support).  KVM "
 "is much faster than using plain qemu."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:718
+#: ../docs/guestfs-building.pod:727
 msgid ""
 "You may also need to enable KVM support for non-root users, by following "
 "these instructions: L<http://www.linux-kvm.org/page/"
@@ -14144,12 +14163,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:722
+#: ../docs/guestfs-building.pod:731
 msgid "On some systems, this will work too:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:724
+#: ../docs/guestfs-building.pod:733
 #, no-wrap
 msgid ""
 " chmod 0666 /dev/kvm\n"
@@ -14157,19 +14176,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:726
+#: ../docs/guestfs-building.pod:735
 msgid ""
 "On some systems, the chmod will not survive a reboot, and you will need to "
 "make edits to the udev configuration."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:729
+#: ../docs/guestfs-building.pod:738
 msgid "USING CLANG (LLVM) INSTEAD OF GCC"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:731
+#: ../docs/guestfs-building.pod:740
 #, no-wrap
 msgid ""
 " export CC=clang\n"
@@ -14179,19 +14198,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:735
+#: ../docs/guestfs-building.pod:744
 msgid "USING A PREBUILT BINARY APPLIANCE"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:737
+#: ../docs/guestfs-building.pod:746
 msgid ""
 "To understand what the libguestfs appliance means, see L<guestfs-"
 "internals(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:740
+#: ../docs/guestfs-building.pod:749
 msgid ""
 "If you are using non-Linux, or a Linux distribution that does not have "
 "L<supermin(1)> support, or simply if you don't want to build your own "
@@ -14200,12 +14219,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:746
+#: ../docs/guestfs-building.pod:755
 msgid "Build libguestfs like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:748
+#: ../docs/guestfs-building.pod:757
 #, no-wrap
 msgid ""
 " ./configure --disable-appliance --disable-daemon\n"
@@ -14214,14 +14233,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:751
+#: ../docs/guestfs-building.pod:760
 msgid ""
 "Set C<$LIBGUESTFS_PATH> to the path where you unpacked the appliance "
 "tarball, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:754 ../docs/guestfs-faq.pod:567
+#: ../docs/guestfs-building.pod:763 ../docs/guestfs-faq.pod:567
 #: ../docs/guestfs-performance.pod:152
 #, no-wrap
 msgid ""
@@ -14232,19 +14251,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:756
+#: ../docs/guestfs-building.pod:765
 msgid ""
 "and run the libguestfs programs and virt tools in the normal way, eg. using "
 "the F<./run> script (see above)."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:759
+#: ../docs/guestfs-building.pod:768
 msgid "BUILDING PYTHON 2 AND PYTHON 3 BINDINGS"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:761
+#: ../docs/guestfs-building.pod:770
 msgid ""
 "The F<./configure> script detects the currently installed version of Python "
 "using whatever program is called C<python> in the current C<$PATH>.  "
@@ -14252,13 +14271,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:766
+#: ../docs/guestfs-building.pod:775
 msgid ""
 "You can override this behaviour by specifying an alternate Python binary, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:769
+#: ../docs/guestfs-building.pod:778
 #, no-wrap
 msgid ""
 " PYTHON=/usr/bin/python3 ./configure\n"
@@ -14266,7 +14285,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:771
+#: ../docs/guestfs-building.pod:780
 msgid ""
 "To build parallel Python 2 and Python 3 bindings, you will need to build "
 "libguestfs twice.  The second time, you can disable all the other bindings "
@@ -14275,63 +14294,63 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:776
+#: ../docs/guestfs-building.pod:785
 msgid "BUILDING A PACKAGE FOR FEDORA"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:778
+#: ../docs/guestfs-building.pod:787
 msgid ""
 "The Fedora spec file is stored under: L<http://pkgs.fedoraproject.org/cgit/"
 "rpms/libguestfs.git/>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:781
+#: ../docs/guestfs-building.pod:790
 msgid ""
 "Libguestfs is built in Fedora using the ordinary Fedora build system (Koji)."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:784
+#: ../docs/guestfs-building.pod:793
 msgid "BUILDING A PACKAGE FOR RED HAT ENTERPRISE LINUX"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:786
+#: ../docs/guestfs-building.pod:795
 msgid ""
 "Red Hat Enterprise Linux (RHEL) builds of libguestfs are heavily patched.  "
 "There are broadly two types of patches we apply:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:793
+#: ../docs/guestfs-building.pod:802
 msgid ""
 "We disable many features that we do not wish to support for RHEL customers.  "
 "For example, the \"libguestfs live\" feature is disabled."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:798
+#: ../docs/guestfs-building.pod:807
 msgid "We backport upstream features."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:802
+#: ../docs/guestfs-building.pod:811
 msgid ""
 "The patches we apply to RHEL releases are available publically in the "
 "upstream git repository, in a branch called C<rhel-x.y>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:805
+#: ../docs/guestfs-building.pod:814
 msgid ""
 "For example, the RHEL 7.3 patches are available here: L<https://github.com/"
 "libguestfs/libguestfs/commits/rhel-7.3>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:808
+#: ../docs/guestfs-building.pod:817
 msgid ""
 "The sources and spec files for RHEL versions of libguestfs are available on "
 "L<https://git.centos.org/project/rpms>, and see also L<https://wiki.centos."
@@ -14339,17 +14358,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:812
+#: ../docs/guestfs-building.pod:821
 msgid "BUILDING i686 32 BIT VIRT-P2V"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:814
+#: ../docs/guestfs-building.pod:823
 msgid "I<(This section only applies on the x86-64 architecture.)>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:816
+#: ../docs/guestfs-building.pod:825
 msgid ""
 "Building a 32 bit virt-p2v (i686) binary improves compatibility with older "
 "hardware.  See L<virt-p2v-make-disk(1)> for details.  Although virt-p2v is a "
@@ -14359,12 +14378,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:823
+#: ../docs/guestfs-building.pod:832
 msgid "On Fedora you can use the L<mock(1)> tool.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:825
+#: ../docs/guestfs-building.pod:834
 #, no-wrap
 msgid ""
 " fedpkg mockbuild --root fedora-23-i386\n"
@@ -14372,14 +14391,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:827
+#: ../docs/guestfs-building.pod:836
 msgid ""
 "This will result in a F<virt-v2v-*.i686.rpm> file which can be unpacked to "
 "extract the 32 bit virt-p2v binary."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:830
+#: ../docs/guestfs-building.pod:839
 msgid ""
 "The binary may be compressed to either F<p2v/virt-p2v.i686.xz>, or F<$libdir/"
 "virt-p2v/virt-p2v.i686.xz> or F<$VIRT_P2V_DATA_DIR/virt-p2v.i686.xz> as "
@@ -14387,7 +14406,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:837
+#: ../docs/guestfs-building.pod:846
 msgid ""
 "L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-hacking(1)>, L<guestfs-"
 "internals(1)>, L<guestfs-performance(1)>, L<guestfs-release-notes(1)>, "
@@ -56440,7 +56459,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:2624 ../lib/guestfs-actions.pod:4451
 msgid ""
-"Filesystem reference number of the node. It migh be C<0> if the node has "
+"Filesystem reference number of the node. It might be C<0> if the node has "
 "been deleted."
 msgstr ""
 
@@ -56461,7 +56480,7 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:2634 ../lib/guestfs-actions.pod:4461
-msgid "File size in bytes. It migh be C<-1> if the node has been deleted."
+msgid "File size in bytes. It might be C<-1> if the node has been deleted."
 msgstr ""
 
 #. type: =item
@@ -75835,7 +75854,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish.pod:1331
-msgid "Note these these require a terminal that supports ANSI escape codes."
+msgid ""
+"Note that these examples require a terminal that supports ANSI escape codes."
 msgstr ""
 
 #. type: verbatim
@@ -75870,7 +75890,7 @@ msgid "Blue welcome text, green prompt, red commands, black command output."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1353 ../resize/virt-resize.pod:739
+#: ../fish/guestfish.pod:1353 ../resize/virt-resize.pod:740
 #: ../sparsify/virt-sparsify.pod:403 ../sysprep/virt-sysprep.pod:554
 #: ../tools/virt-win-reg:637
 msgid "WINDOWS 8"
@@ -77449,7 +77469,7 @@ msgstr ""
 
 #. type: =head1
 #: ../fuse/guestmount.pod:70 ../rescue/virt-rescue.pod:84
-#: ../resize/virt-resize.pod:684
+#: ../resize/virt-resize.pod:685
 msgid "NOTES"
 msgstr ""
 
@@ -113533,12 +113553,12 @@ msgstr ""
 #. type: textblock
 #: ../resize/virt-resize.pod:31
 msgid ""
-"Copy C<olddisk> to C<newdisk>, extending one of the guest's partitions to "
-"fill the extra 5GB of space."
+"This example takes C<olddisk> and resizes it into C<newdisk>, extending one "
+"of the guest’s partitions to fill the extra 5GB of space:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:34
+#: ../resize/virt-resize.pod:35
 #, no-wrap
 msgid ""
 " virt-filesystems --long -h --all -a olddisk\n"
@@ -113548,7 +113568,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:36
+#: ../resize/virt-resize.pod:37
 #, no-wrap
 msgid ""
 " truncate -r olddisk newdisk\n"
@@ -113560,7 +113580,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:39
+#: ../resize/virt-resize.pod:40
 #, no-wrap
 msgid ""
 " # Note \"/dev/sda2\" is a partition inside the \"olddisk\" file.\n"
@@ -113572,14 +113592,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:44
+#: ../resize/virt-resize.pod:45
 msgid ""
 "As above, but make the /boot partition 200MB bigger, while giving the "
 "remaining space to /dev/sda2:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:47
+#: ../resize/virt-resize.pod:48
 #, no-wrap
 msgid ""
 " virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 \\\n"
@@ -113591,14 +113611,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:52
+#: ../resize/virt-resize.pod:53
 msgid ""
 "As in the first example, but expand a logical volume as the final step.  "
 "This is what you would typically use for Linux guests that use LVM:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:56
+#: ../resize/virt-resize.pod:57
 #, no-wrap
 msgid ""
 " virt-resize --expand /dev/sda2 --LV-expand /dev/vg_guest/lv_root \\\n"
@@ -113610,14 +113630,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:61
+#: ../resize/virt-resize.pod:62
 msgid ""
 "As in the first example, but the output format will be qcow2 instead of a "
 "raw disk:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:64
+#: ../resize/virt-resize.pod:65
 #, no-wrap
 msgid ""
 " qemu-img create -f qcow2 -o preallocation=metadata newdisk.qcow2 15G\n"
@@ -113626,27 +113646,27 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../resize/virt-resize.pod:69
+#: ../resize/virt-resize.pod:70
 msgid "DETAILED USAGE"
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:71
+#: ../resize/virt-resize.pod:72
 msgid "EXPANDING A VIRTUAL MACHINE DISK"
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:75
+#: ../resize/virt-resize.pod:76
 msgid "1. Shut down the virtual machine"
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:77
+#: ../resize/virt-resize.pod:78
 msgid "2. Locate input disk image"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:79
+#: ../resize/virt-resize.pod:80
 msgid ""
 "Locate the input disk image (ie. the file or device on the host containing "
 "the guest's disk).  If the guest is managed by libvirt, you can use C<virsh "
@@ -113654,7 +113674,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:83
+#: ../resize/virt-resize.pod:84
 #, no-wrap
 msgid ""
 " # virsh dumpxml guestname | xpath /domain/devices/disk/source\n"
@@ -113670,17 +113690,17 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../resize/virt-resize.pod:88
+#: ../resize/virt-resize.pod:89
 msgid "3. Look at current sizing"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:90
+#: ../resize/virt-resize.pod:91
 msgid "Use L<virt-filesystems(1)> to display the current partitions and sizes:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:93
+#: ../resize/virt-resize.pod:94
 #, no-wrap
 msgid ""
 " # virt-filesystems --long --parts --blkdevs -h -a /dev/vg/lv_guest\n"
@@ -113698,32 +113718,32 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:99
+#: ../resize/virt-resize.pod:100
 msgid ""
 "(This example is a virtual machine with an 8 GB disk which we would like to "
 "expand up to 10 GB)."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:102
+#: ../resize/virt-resize.pod:103
 msgid "4. Create output disk"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:104
+#: ../resize/virt-resize.pod:105
 msgid ""
 "Virt-resize cannot do in-place disk modifications.  You have to have space "
 "to store the resized output disk."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:107
+#: ../resize/virt-resize.pod:108
 msgid ""
 "To store the resized disk image in a file, create a file of a suitable size:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:110
+#: ../resize/virt-resize.pod:111
 #, no-wrap
 msgid ""
 " # rm -f outdisk\n"
@@ -113735,12 +113755,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:113
+#: ../resize/virt-resize.pod:114
 msgid "Or use L<lvcreate(1)> to create a logical volume:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:115
+#: ../resize/virt-resize.pod:116
 #, no-wrap
 msgid ""
 " # lvcreate -L 10G -n lv_name vg_name\n"
@@ -113750,12 +113770,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:117
+#: ../resize/virt-resize.pod:118
 msgid "Or use L<virsh(1)> vol-create-as to create a libvirt storage volume:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:119
+#: ../resize/virt-resize.pod:120
 #, no-wrap
 msgid ""
 " # virsh pool-list\n"
@@ -113767,12 +113787,12 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../resize/virt-resize.pod:122
+#: ../resize/virt-resize.pod:123
 msgid "5. Resize"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:124
+#: ../resize/virt-resize.pod:125
 msgid ""
 "virt-resize takes two mandatory parameters, the input disk and the output "
 "disk (both can be e.g. a device, a file, or a URI to a remote disk).  The "
@@ -113780,7 +113800,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:128
+#: ../resize/virt-resize.pod:129
 #, no-wrap
 msgid ""
 " # virt-resize indisk outdisk\n"
@@ -113790,7 +113810,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:130
+#: ../resize/virt-resize.pod:131
 msgid ""
 "This command just copies disk image C<indisk> to disk image C<outdisk> "
 "I<without> resizing or changing any existing partitions.  If C<outdisk> is "
@@ -113800,7 +113820,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:136
+#: ../resize/virt-resize.pod:137
 msgid ""
 "More realistically you'd want to expand existing partitions in the disk "
 "image by passing extra options (for the full list see the L</OPTIONS> "
@@ -113808,14 +113828,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:140
+#: ../resize/virt-resize.pod:141
 msgid ""
 "L</--expand> is the most useful option.  It expands the named partition "
 "within the disk to fill any extra space:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:143
+#: ../resize/virt-resize.pod:144
 #, no-wrap
 msgid ""
 " # virt-resize --expand /dev/sda2 indisk outdisk\n"
@@ -113825,14 +113845,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:145
+#: ../resize/virt-resize.pod:146
 msgid ""
 "(In this case, an extra partition is I<not> created at the end of the disk, "
 "because there will be no unused space)."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:148
+#: ../resize/virt-resize.pod:149
 msgid ""
 "L</--resize> is the other commonly used option.  The following would "
 "increase the size of /dev/sda1 by 200M, and expand /dev/sda2 to fill the "
@@ -113840,7 +113860,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:152
+#: ../resize/virt-resize.pod:153
 #, no-wrap
 msgid ""
 " # virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 \\\n"
@@ -113852,7 +113872,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:155
+#: ../resize/virt-resize.pod:156
 msgid ""
 "If the expanded partition in the image contains a filesystem or LVM PV, then "
 "if virt-resize knows how, it will resize the contents, the equivalent of "
@@ -113863,7 +113883,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:162
+#: ../resize/virt-resize.pod:163
 #, no-wrap
 msgid ""
 " # virt-resize --expand /dev/sda2 nbd://example.com outdisk\n"
@@ -113873,7 +113893,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:164
+#: ../resize/virt-resize.pod:165
 msgid ""
 "The input disk can be a URI, in order to use a remote disk as the source.  "
 "The URI format is compatible with guestfish.  See L<guestfish(1)/ADDING "
@@ -113881,27 +113901,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:168
+#: ../resize/virt-resize.pod:169
 msgid "Other options are covered below."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:170
+#: ../resize/virt-resize.pod:171
 msgid "6. Test"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:172
+#: ../resize/virt-resize.pod:173
 msgid "Thoroughly test the new disk image I<before> discarding the old one."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:174
+#: ../resize/virt-resize.pod:175
 msgid "If you are using libvirt, edit the XML to point at the new disk:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:176
+#: ../resize/virt-resize.pod:177
 #, no-wrap
 msgid ""
 " # virsh edit guestname\n"
@@ -113911,19 +113931,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:178
+#: ../resize/virt-resize.pod:179
 msgid ""
 "Change E<lt>source ...E<gt>, see L<http://libvirt.org/formatdomain."
 "html#elementsDisks>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:181
+#: ../resize/virt-resize.pod:182
 msgid "Then start up the domain with the new, resized disk:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:183
+#: ../resize/virt-resize.pod:184
 #, no-wrap
 msgid ""
 " # virsh start guestname\n"
@@ -113933,24 +113953,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:185
+#: ../resize/virt-resize.pod:186
 msgid ""
 "and check that it still works.  See also the L</NOTES> section below for "
 "additional information."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:188
+#: ../resize/virt-resize.pod:189
 msgid "7. Resize LVs etc inside the guest"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:190
+#: ../resize/virt-resize.pod:191
 msgid "(This can also be done offline using L<guestfish(1)>)"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:192
+#: ../resize/virt-resize.pod:193
 msgid ""
 "Once the guest has booted you should see the new space available, at least "
 "for filesystems that virt-resize knows how to resize, and for PVs.  The user "
@@ -113959,19 +113979,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:199
+#: ../resize/virt-resize.pod:200
 msgid "SHRINKING A VIRTUAL MACHINE DISK"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:201
+#: ../resize/virt-resize.pod:202
 msgid ""
 "Shrinking is somewhat more complex than expanding, and only an overview is "
 "given here."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:204
+#: ../resize/virt-resize.pod:205
 msgid ""
 "Firstly virt-resize will not attempt to shrink any partition content (PVs, "
 "filesystems).  The user has to shrink content before passing the disk image "
@@ -113980,30 +114000,30 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:209
+#: ../resize/virt-resize.pod:210
 msgid "(Shrinking can also be done offline using L<guestfish(1)>)"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:211
+#: ../resize/virt-resize.pod:212
 msgid ""
 "After shrinking PVs and filesystems, shut down the guest, and proceed with "
 "steps 3 and 4 above to allocate a new disk image."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:214
+#: ../resize/virt-resize.pod:215
 msgid ""
 "Then run virt-resize with any of the I<--shrink> and/or I<--resize> options."
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:217
+#: ../resize/virt-resize.pod:218
 msgid "IGNORING OR DELETING PARTITIONS"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:219
+#: ../resize/virt-resize.pod:220
 msgid ""
 "virt-resize also gives a convenient way to ignore or delete partitions when "
 "copying from the input disk to the output disk.  Ignoring a partition speeds "
@@ -114014,12 +114034,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:226
+#: ../resize/virt-resize.pod:227
 msgid "QCOW2 AND NON-SPARSE RAW FORMATS"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:228
+#: ../resize/virt-resize.pod:229
 msgid ""
 "If the input disk is in qcow2 format, then you may prefer that the output is "
 "in qcow2 format as well.  Alternately, virt-resize can convert the format on "
@@ -114028,7 +114048,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:234
+#: ../resize/virt-resize.pod:235
 #, no-wrap
 msgid ""
 " qemu-img create -f qcow2 -o preallocation=metadata outdisk [size]\n"
@@ -114036,17 +114056,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:236
+#: ../resize/virt-resize.pod:237
 msgid "instead of the truncate command."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:238
+#: ../resize/virt-resize.pod:239
 msgid "Similarly, to get non-sparse raw output use:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:240
+#: ../resize/virt-resize.pod:241
 #, no-wrap
 msgid ""
 " fallocate -l size outdisk\n"
@@ -114056,26 +114076,26 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:242
+#: ../resize/virt-resize.pod:243
 msgid ""
 "(on older systems that don't have the L<fallocate(1)> command use C<dd if=/"
 "dev/zero of=outdisk bs=1M count=..>)"
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:245
+#: ../resize/virt-resize.pod:246
 msgid "LOGICAL PARTITIONS"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:247
+#: ../resize/virt-resize.pod:248
 msgid ""
 "Logical partitions (a.k.a. F</dev/sda5+> on disks using DOS partition "
 "tables) cannot be resized."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:250
+#: ../resize/virt-resize.pod:251
 msgid ""
 "To understand what is going on, firstly one of the four partitions F</dev/"
 "sda1-4> will have MBR partition type C<05> or C<0f>.  This is called the "
@@ -114084,12 +114104,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:255
+#: ../resize/virt-resize.pod:256
 msgid "Logical partitions live inside the extended partition."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:257
+#: ../resize/virt-resize.pod:258
 msgid ""
 "The extended partition can be expanded, but not shrunk (unless you force it, "
 "which is not advisable).  When the extended partition is copied across, all "
@@ -114099,36 +114119,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:263
+#: ../resize/virt-resize.pod:264
 msgid ""
 "You cannot specify a logical partition (F</dev/sda5+>) at all on the command "
 "line.  Doing so will give an error."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:274
+#: ../resize/virt-resize.pod:275
 msgid "B<--align-first> B<auto>"
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:276
+#: ../resize/virt-resize.pod:277
 msgid "B<--align-first> B<never>"
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:278
+#: ../resize/virt-resize.pod:279
 msgid "B<--align-first> B<always>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:280
+#: ../resize/virt-resize.pod:281
 msgid ""
 "Align the first partition for improved performance (see also the I<--"
 "alignment> option)."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:283
+#: ../resize/virt-resize.pod:284
 msgid ""
 "The default is I<--align-first auto> which only aligns the first partition "
 "if it is safe to do so.  That is, only when we know how to fix the "
@@ -114137,14 +114157,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:288
+#: ../resize/virt-resize.pod:289
 msgid ""
 "I<--align-first never> means we never move the first partition.  This is the "
 "safest option.  Try this if the guest does not boot after resizing."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:292
+#: ../resize/virt-resize.pod:293
 msgid ""
 "I<--align-first always> means we always align the first partition (if it "
 "needs to be aligned).  For some guests this will break the bootloader, "
@@ -114152,31 +114172,31 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:296
+#: ../resize/virt-resize.pod:297
 msgid "B<--alignment> N"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:298
+#: ../resize/virt-resize.pod:299
 msgid ""
 "Set the alignment of partitions to C<N> sectors.  The default in virt-resize "
 "E<lt> 1.13.19 was 64 sectors, and after that is 128 sectors."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:302
+#: ../resize/virt-resize.pod:303
 msgid ""
 "Assuming 512 byte sector size inside the guest, here are some suitable "
 "values for this:"
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:307
+#: ../resize/virt-resize.pod:308
 msgid "I<--alignment 1> (512 bytes)"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:309
+#: ../resize/virt-resize.pod:310
 msgid ""
 "The partitions would be packed together as closely as possible, but would be "
 "completely unaligned.  In some cases this can cause very poor performance.  "
@@ -114184,63 +114204,63 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:313
+#: ../resize/virt-resize.pod:314
 msgid "I<--alignment 8> (4K)"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:315
+#: ../resize/virt-resize.pod:316
 msgid ""
 "This would be the minimum acceptable alignment for reasonable performance on "
 "modern hosts."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:318
+#: ../resize/virt-resize.pod:319
 msgid "I<--alignment 128> (64K)"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:320
+#: ../resize/virt-resize.pod:321
 msgid ""
 "This alignment provides good performance when the host is using high end "
 "network storage."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:323
+#: ../resize/virt-resize.pod:324
 msgid "I<--alignment 2048> (1M)"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:325
+#: ../resize/virt-resize.pod:326
 msgid ""
 "This is the standard alignment used by all newly installed guests since "
 "around 2008."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:339
+#: ../resize/virt-resize.pod:340
 msgid "B<-d>"
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:341 ../tools/virt-win-reg:117
+#: ../resize/virt-resize.pod:342 ../tools/virt-win-reg:117
 msgid "B<--debug>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:343
+#: ../resize/virt-resize.pod:344
 msgid "(Deprecated: use I<-v> option instead)"
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:347
+#: ../resize/virt-resize.pod:348
 msgid "B<--delete> PART"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:349
+#: ../resize/virt-resize.pod:350
 msgid ""
 "Delete the named partition.  It would be more accurate to describe this as "
 "\"don't copy it over\", since virt-resize doesn't do in-place changes and "
@@ -114248,7 +114268,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:353
+#: ../resize/virt-resize.pod:354
 msgid ""
 "Note that when you delete a partition, then anything contained in the "
 "partition is also deleted.  Furthermore, this causes any partitions that "
@@ -114256,25 +114276,25 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:358 ../resize/virt-resize.pod:431
-#: ../resize/virt-resize.pod:562 ../sparsify/virt-sparsify.pod:226
+#: ../resize/virt-resize.pod:359 ../resize/virt-resize.pod:432
+#: ../resize/virt-resize.pod:563 ../sparsify/virt-sparsify.pod:226
 msgid "You can give this option multiple times."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:360
+#: ../resize/virt-resize.pod:361
 msgid "B<--expand> PART"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:362
+#: ../resize/virt-resize.pod:363
 msgid ""
 "Expand the named partition so it uses up all extra space (space left over "
 "after any other resize changes that you request have been done)."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:365
+#: ../resize/virt-resize.pod:366
 msgid ""
 "If virt-resize knows how, it will expand the direct content of the "
 "partition.  For example, if the partition is an LVM PV, it will expand the "
@@ -114283,22 +114303,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:370
+#: ../resize/virt-resize.pod:371
 msgid "Currently virt-resize can resize:"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:376
+#: ../resize/virt-resize.pod:377
 msgid "ext2, ext3 and ext4 filesystems."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:380
+#: ../resize/virt-resize.pod:381
 msgid "NTFS filesystems, if libguestfs was compiled with support for NTFS."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:382
+#: ../resize/virt-resize.pod:383
 msgid ""
 "The filesystem must have been shut down consistently last time it was used.  "
 "Additionally, L<ntfsresize(8)> marks the resized filesystem as requiring a "
@@ -114307,7 +114327,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:389
+#: ../resize/virt-resize.pod:390
 msgid ""
 "LVM PVs (physical volumes).  virt-resize does not usually resize anything "
 "inside the PV, but see the I<--LV-expand> option.  The user could also "
@@ -114315,22 +114335,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:395
+#: ../resize/virt-resize.pod:396
 msgid "Btrfs filesystems, if libguestfs was compiled with support for btrfs."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:399
+#: ../resize/virt-resize.pod:400
 msgid "XFS filesystems, if libguestfs was compiled with support for XFS."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:403
+#: ../resize/virt-resize.pod:404
 msgid "Linux swap partitions."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:405
+#: ../resize/virt-resize.pod:406
 msgid ""
 "Please note that libguestfs I<destroys> the existing swap content by "
 "recreating it with C<mkswap>, so this should not be used when the guest is "
@@ -114338,36 +114358,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:411 ../resize/virt-resize.pod:590
+#: ../resize/virt-resize.pod:412 ../resize/virt-resize.pod:591
 msgid "Note that you cannot use I<--expand> and I<--shrink> together."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:413
+#: ../resize/virt-resize.pod:414
 msgid "B<--format> B<raw>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:415 ../sparsify/virt-sparsify.pod:206
+#: ../resize/virt-resize.pod:416 ../sparsify/virt-sparsify.pod:206
 msgid ""
 "Specify the format of the input disk image.  If this flag is not given then "
 "it is auto-detected from the image itself."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:421
+#: ../resize/virt-resize.pod:422
 msgid ""
 "Note that this option I<does not> affect the output format.  See L</QCOW2 "
 "AND NON-SPARSE RAW FORMATS>."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:424
+#: ../resize/virt-resize.pod:425
 msgid "B<--ignore> PART"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:426
+#: ../resize/virt-resize.pod:427
 msgid ""
 "Ignore the named partition.  Effectively this means the partition is "
 "allocated on the destination disk, but the content is not copied across from "
@@ -114376,12 +114396,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:433
+#: ../resize/virt-resize.pod:434
 msgid "B<--LV-expand> LOGVOL"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:435
+#: ../resize/virt-resize.pod:436
 msgid ""
 "This takes the logical volume and, as a final step, expands it to fill all "
 "the space available in its volume group.  A typical usage, assuming a Linux "
@@ -114390,7 +114410,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:440
+#: ../resize/virt-resize.pod:441
 #, no-wrap
 msgid ""
 " virt-resize indisk outdisk \\\n"
@@ -114402,14 +114422,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:443
+#: ../resize/virt-resize.pod:444
 msgid ""
 "This would first expand the partition (and PV), and then expand the root "
 "device to fill the extra space in the PV."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:446
+#: ../resize/virt-resize.pod:447
 msgid ""
 "The contents of the LV are also resized if virt-resize knows how to do "
 "that.  You can stop virt-resize from trying to expand the content by using "
@@ -114417,12 +114437,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:450
+#: ../resize/virt-resize.pod:451
 msgid "Use L<virt-filesystems(1)> to list the filesystems in the guest."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:452
+#: ../resize/virt-resize.pod:453
 msgid ""
 "You can give this option multiple times, I<but> it doesn't make sense to do "
 "this unless the logical volumes you specify are all in different volume "
@@ -114430,17 +114450,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:466
+#: ../resize/virt-resize.pod:467
 msgid "Print a summary of what would be done, but don't do anything."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:468
+#: ../resize/virt-resize.pod:469
 msgid "B<--no-copy-boot-loader>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:470
+#: ../resize/virt-resize.pod:471
 msgid ""
 "By default, virt-resize copies over some sectors at the start of the disk "
 "(up to the beginning of the first partition).  Commonly these sectors "
@@ -114449,19 +114469,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:475
+#: ../resize/virt-resize.pod:476
 msgid ""
 "If you specify this flag, then this initial copy is not done.  You may need "
 "to reinstall the boot loader in this case."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:478
+#: ../resize/virt-resize.pod:479
 msgid "B<--no-extra-partition>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:480
+#: ../resize/virt-resize.pod:481
 msgid ""
 "By default, virt-resize creates an extra partition if there is any extra, "
 "unused space after all resizing has happened.  Use this option to prevent "
@@ -114471,48 +114491,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:486
+#: ../resize/virt-resize.pod:487
 msgid ""
 "Note that if the surplus space is smaller than 10 MB, no extra partition "
 "will be created."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:489
+#: ../resize/virt-resize.pod:490
 msgid "B<--no-expand-content>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:491
+#: ../resize/virt-resize.pod:492
 msgid ""
 "By default, virt-resize will try to expand the direct contents of "
 "partitions, if it knows how (see I<--expand> option above)."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:494
+#: ../resize/virt-resize.pod:495
 msgid ""
 "If you give the I<--no-expand-content> option then virt-resize will not "
 "attempt this."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:497
+#: ../resize/virt-resize.pod:498
 msgid "B<--no-sparse>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:499
+#: ../resize/virt-resize.pod:500
 msgid "Turn off sparse copying.  See L</SPARSE COPYING> below."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:501
+#: ../resize/virt-resize.pod:502
 msgid "B<--ntfsresize-force>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:503
+#: ../resize/virt-resize.pod:504
 msgid ""
 "Pass the I<--force> option to L<ntfsresize(8)>, allowing resizing even if "
 "the NTFS disk is marked as needing a consistency check.  You have to use "
@@ -114521,19 +114541,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:509
+#: ../resize/virt-resize.pod:510
 msgid "B<--output-format> B<raw>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:511
+#: ../resize/virt-resize.pod:512
 msgid ""
 "Specify the format of the output disk image.  If this flag is not given then "
 "it is auto-detected from the image itself."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:517
+#: ../resize/virt-resize.pod:518
 msgid ""
 "Note that this option I<does not create> the output format.  This option "
 "just tells libguestfs what it is so it doesn't try to guess it.  You still "
@@ -114542,24 +114562,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:526
+#: ../resize/virt-resize.pod:527
 msgid "Don't print the summary."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:528
+#: ../resize/virt-resize.pod:529
 msgid "B<--resize> PART=SIZE"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:530
+#: ../resize/virt-resize.pod:531
 msgid ""
 "Resize the named partition (expanding or shrinking it) so that it has the "
 "given size."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:533
+#: ../resize/virt-resize.pod:534
 msgid ""
 "C<SIZE> can be expressed as an absolute number followed by b/K/M/G to mean "
 "bytes, Kilobytes, Megabytes, or Gigabytes; or as a percentage of the current "
@@ -114567,7 +114587,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:539
+#: ../resize/virt-resize.pod:540
 #, no-wrap
 msgid ""
 " --resize /dev/sda2=10G\n"
@@ -114577,7 +114597,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:541
+#: ../resize/virt-resize.pod:542
 #, no-wrap
 msgid ""
 " --resize /dev/sda4=90%\n"
@@ -114587,7 +114607,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:543
+#: ../resize/virt-resize.pod:544
 #, no-wrap
 msgid ""
 " --resize /dev/sda2=+1G\n"
@@ -114597,7 +114617,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:545
+#: ../resize/virt-resize.pod:546
 #, no-wrap
 msgid ""
 " --resize /dev/sda2=-200M\n"
@@ -114607,7 +114627,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:547
+#: ../resize/virt-resize.pod:548
 #, no-wrap
 msgid ""
 " --resize /dev/sda1=+128K\n"
@@ -114617,7 +114637,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:549
+#: ../resize/virt-resize.pod:550
 #, no-wrap
 msgid ""
 " --resize /dev/sda1=+10%\n"
@@ -114627,7 +114647,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:551
+#: ../resize/virt-resize.pod:552
 #, no-wrap
 msgid ""
 " --resize /dev/sda1=-10%\n"
@@ -114637,14 +114657,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:553
+#: ../resize/virt-resize.pod:554
 msgid ""
 "You can increase the size of any partition.  Virt-resize will expand the "
 "direct content of the partition if it knows how (see I<--expand> above)."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:557
+#: ../resize/virt-resize.pod:558
 msgid ""
 "You can only I<decrease> the size of partitions that contain filesystems or "
 "PVs which have already been shrunk.  Virt-resize will check this has been "
@@ -114653,12 +114673,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:564
+#: ../resize/virt-resize.pod:565
 msgid "B<--resize-force> PART=SIZE"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:566
+#: ../resize/virt-resize.pod:567
 msgid ""
 "This is the same as I<--resize> except that it will let you decrease the "
 "size of any partition.  Generally this means you will lose any data which "
@@ -114668,17 +114688,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:572
+#: ../resize/virt-resize.pod:573
 msgid "See also the I<--ignore> option."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:574
+#: ../resize/virt-resize.pod:575
 msgid "B<--shrink> PART"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:576
+#: ../resize/virt-resize.pod:577
 msgid ""
 "Shrink the named partition until the overall disk image fits in the "
 "destination.  The named partition B<must> contain a filesystem or PV which "
@@ -114688,7 +114708,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:582
+#: ../resize/virt-resize.pod:583
 msgid ""
 "The amount by which the overall disk must be shrunk (after carrying out all "
 "other operations requested by the user) is called the \"deficit\".  For "
@@ -114699,22 +114719,22 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:592
+#: ../resize/virt-resize.pod:593
 msgid "B<--unknown-filesystems> B<ignore>"
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:594
+#: ../resize/virt-resize.pod:595
 msgid "B<--unknown-filesystems> B<warn>"
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:596
+#: ../resize/virt-resize.pod:597
 msgid "B<--unknown-filesystems> B<error>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:598
+#: ../resize/virt-resize.pod:599
 msgid ""
 "Configure the behaviour of virt-resize when asking to expand a filesystem, "
 "and neither libguestfs has the support it, nor virt-resize knows how to "
@@ -114722,14 +114742,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:602
+#: ../resize/virt-resize.pod:603
 msgid ""
 "I<--unknown-filesystems ignore> will cause virt-resize to silently ignore "
 "such filesystems, and nothing is printed about them."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:605
+#: ../resize/virt-resize.pod:606
 msgid ""
 "I<--unknown-filesystems warn> (the default behaviour) will cause virt-resize "
 "to warn for each of the filesystem that cannot be expanded, but still "
@@ -114737,21 +114757,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:609
+#: ../resize/virt-resize.pod:610
 msgid ""
 "I<--unknown-filesystems error> will cause virt-resize to error out at the "
 "first filesystem that cannot be expanded."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:612
+#: ../resize/virt-resize.pod:613
 msgid ""
 "See also L</\"unknown/unavailable method for expanding the TYPE filesystem "
 "on DEVICE/LV\">."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:634
+#: ../resize/virt-resize.pod:635
 msgid ""
 "The I<--machine-readable> option can be used to make the output more machine "
 "friendly, which is useful when calling virt-resize from other programs, GUIs "
@@ -114759,20 +114779,20 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:638 ../sparsify/virt-sparsify.pod:359
+#: ../resize/virt-resize.pod:639 ../sparsify/virt-sparsify.pod:359
 #: ../v2v/virt-v2v.pod:1955
 msgid "There are two ways to use this option."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:640
+#: ../resize/virt-resize.pod:641
 msgid ""
 "Firstly use the option on its own to query the capabilities of the virt-"
 "resize binary.  Typical output looks like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:643
+#: ../resize/virt-resize.pod:644
 #, no-wrap
 msgid ""
 " $ virt-resize --machine-readable\n"
@@ -114792,7 +114812,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:653 ../sparsify/virt-sparsify.pod:372
+#: ../resize/virt-resize.pod:654 ../sparsify/virt-sparsify.pod:372
 #: ../v2v/virt-v2v.pod:1979
 msgid ""
 "Secondly use the option in conjunction with other options to make the "
@@ -114800,13 +114820,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:656 ../sparsify/virt-sparsify.pod:375
+#: ../resize/virt-resize.pod:657 ../sparsify/virt-sparsify.pod:375
 #: ../v2v/virt-v2v.pod:1982
 msgid "At the moment this means:"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:662 ../sparsify/virt-sparsify.pod:381
+#: ../resize/virt-resize.pod:663 ../sparsify/virt-sparsify.pod:381
 #: ../v2v/virt-v2v.pod:1988
 msgid ""
 "Progress bar messages can be parsed from stdout by looking for this regular "
@@ -114814,7 +114834,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:665 ../sparsify/virt-sparsify.pod:384
+#: ../resize/virt-resize.pod:666 ../sparsify/virt-sparsify.pod:384
 #: ../v2v/virt-v2v.pod:1991
 #, no-wrap
 msgid ""
@@ -114825,7 +114845,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:669 ../sparsify/virt-sparsify.pod:388
+#: ../resize/virt-resize.pod:670 ../sparsify/virt-sparsify.pod:388
 #: ../v2v/virt-v2v.pod:1995
 msgid ""
 "The calling program should treat messages sent to stdout (except for "
@@ -114834,7 +114854,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:675
+#: ../resize/virt-resize.pod:676
 msgid ""
 "The calling program should treat messages sent to stderr as error messages.  "
 "In addition, virt-resize exits with a non-zero status code if there was a "
@@ -114842,19 +114862,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:681
+#: ../resize/virt-resize.pod:682
 msgid ""
 "Versions of the program prior to 1.13.9 did not support the I<--machine-"
 "readable> option and will return an error."
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:686
+#: ../resize/virt-resize.pod:687
 msgid "\"Partition 1 does not end on cylinder boundary.\""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:688
+#: ../resize/virt-resize.pod:689
 msgid ""
 "Virt-resize aligns partitions to multiples of 128 sectors (see the I<--"
 "alignment> parameter).  Usually this means the partitions will not be "
@@ -114865,19 +114885,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:695
+#: ../resize/virt-resize.pod:696
 msgid "GUEST BOOT STUCK AT \"GRUB\""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:697
+#: ../resize/virt-resize.pod:698
 msgid ""
 "If a Linux guest does not boot after resizing, and the boot is stuck after "
 "printing C<GRUB> on the console, try reinstalling grub."
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:700
+#: ../resize/virt-resize.pod:701
 #, no-wrap
 msgid ""
 " guestfish -i -a newdisk\n"
@@ -114897,19 +114917,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:707
+#: ../resize/virt-resize.pod:708
 msgid ""
 "For more flexible guest reconfiguration, including if you need to specify "
 "other parameters to grub-install, use L<virt-rescue(1)>."
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:710
+#: ../resize/virt-resize.pod:711
 msgid "RESIZING WINDOWS BOOT PARTITIONS"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:712
+#: ../resize/virt-resize.pod:713
 msgid ""
 "In Windows Vista and later versions, Microsoft switched to using a separate "
 "boot partition.  In these VMs, typically F</dev/sda1> is the boot partition "
@@ -114919,12 +114939,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:719
+#: ../resize/virt-resize.pod:720
 msgid "WINDOWS CHKDSK"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:721
+#: ../resize/virt-resize.pod:722
 msgid ""
 "Windows disks which use NTFS must be consistent before virt-resize can be "
 "used.  If the ntfsresize operation fails, try booting the original VM and "
@@ -114934,7 +114954,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:727
+#: ../resize/virt-resize.pod:728
 msgid ""
 "I<After resize> Windows may initiate a lengthy \"chkdsk\" on first boot if "
 "NTFS partitions have been expanded.  This is just a safety check and (unless "
@@ -114942,12 +114962,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:731
+#: ../resize/virt-resize.pod:732
 msgid "WINDOWS UNMOUNTABLE_BOOT_VOLUME BSOD"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:733
+#: ../resize/virt-resize.pod:734
 msgid ""
 "After sysprepping a Windows guest and then resizing it with virt-resize, you "
 "may see the guest fail to boot with an C<UNMOUNTABLE_BOOT_VOLUME> BSOD.  "
@@ -114956,7 +114976,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:741
+#: ../resize/virt-resize.pod:742
 msgid ""
 "Windows 8 \"fast startup\" can prevent virt-resize from resizing NTFS "
 "partitions.  See L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST "
@@ -114964,18 +114984,18 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:745
+#: ../resize/virt-resize.pod:746
 msgid "SPARSE COPYING"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:747
+#: ../resize/virt-resize.pod:748
 msgid ""
 "You should create a fresh, zeroed target disk image for virt-resize to use."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:750
+#: ../resize/virt-resize.pod:751
 msgid ""
 "Virt-resize by default performs sparse copying.  This means that it does not "
 "copy blocks from the source disk which are all zeroes.  This improves speed "
@@ -114984,7 +115004,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:755
+#: ../resize/virt-resize.pod:756
 msgid ""
 "The main time this can be a problem is if the target is a host partition "
 "(eg. S<C<virt-resize source.img /dev/sda4>>) because the usual partitioning "
@@ -114992,20 +115012,20 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:760
+#: ../resize/virt-resize.pod:761
 msgid ""
 "If you have to reuse a target which contains data already, you should use "
 "the I<--no-sparse> option.  Note this can be much slower."
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:763
+#: ../resize/virt-resize.pod:764
 msgid ""
 "\"unknown/unavailable method for expanding the TYPE filesystem on DEVICE/LV\""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:765
+#: ../resize/virt-resize.pod:766
 msgid ""
 "Virt-resize was asked to expand a partition or a logical volume containing a "
 "filesystem with the type C<TYPE>, but there is no available nor known "
@@ -115013,12 +115033,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:769
+#: ../resize/virt-resize.pod:770
 msgid "This may be due to either of the following:"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:775
+#: ../resize/virt-resize.pod:776
 msgid ""
 "There corresponding filesystem is not available in libguestfs, because there "
 "is no proper package in the host with utilities for it.  This is usually the "
@@ -115026,12 +115046,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:780
+#: ../resize/virt-resize.pod:781
 msgid "Check the results of:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:782
+#: ../resize/virt-resize.pod:783
 #, no-wrap
 msgid ""
 " virt-resize --machine-readable\n"
@@ -115041,7 +115061,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:786
+#: ../resize/virt-resize.pod:787
 msgid ""
 "In this case, it is enough to install the proper packages adding support for "
 "them.  For example, C<libguestfs-xfs> on Red Hat Enterprise Linux, CentOS, "
@@ -115050,19 +115070,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:793
+#: ../resize/virt-resize.pod:794
 msgid "Virt-resize has no support for expanding that type of filesystem."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:795
+#: ../resize/virt-resize.pod:796
 msgid ""
 "In this case, there's nothing that can be done to let virt-resize expand "
 "that type of filesystem."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:800
+#: ../resize/virt-resize.pod:801
 msgid ""
 "In both cases, virt-resize will not expand the mentioned filesystem; the "
 "result (unless I<--unknown-filesystems error> is specified)  is that the "
@@ -115071,19 +115091,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../resize/virt-resize.pod:806
+#: ../resize/virt-resize.pod:807
 msgid "ALTERNATIVE TOOLS"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:808
+#: ../resize/virt-resize.pod:809
 msgid ""
 "There are several proprietary tools for resizing partitions.  We won't "
 "mention any here."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:811
+#: ../resize/virt-resize.pod:812
 msgid ""
 "L<parted(8)> and its graphical shell gparted can do some types of resizing "
 "operations on disk images.  They can resize and move partitions, but I don't "
@@ -115092,7 +115112,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:816
+#: ../resize/virt-resize.pod:817
 msgid ""
 "L<guestfish(1)> can do everything that virt-resize can do and a lot more, "
 "but at a much lower level.  You will probably end up hand-calculating sector "
@@ -115102,7 +115122,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:822
+#: ../resize/virt-resize.pod:823
 msgid ""
 "L<dracut(8)> includes a module called C<dracut-modules-growroot> which can "
 "be used to grow the root partition when the guest first boots up.  There is "
@@ -115110,7 +115130,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:833
+#: ../resize/virt-resize.pod:834
 msgid ""
 "L<virt-filesystems(1)>, L<virt-df(1)>, L<guestfs(3)>, L<guestfish(1)>, "
 "L<lvm(8)>, L<pvresize(8)>, L<lvresize(8)>, L<resize2fs(8)>, "

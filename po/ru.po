@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-11-16 16:00+0000\n"
+"POT-Creation-Date: 2018-01-25 14:17+0000\n"
 "PO-Revision-Date: 2015-02-21 10:52-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/libguestfs/"
@@ -3389,7 +3389,7 @@ msgid ""
 "vulnerable to Man-In-The-Middle attacks."
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:369
+#: ../v2v/linux_bootloaders.ml:372
 msgid "no bootloader detected"
 msgstr ""
 
@@ -4281,7 +4281,7 @@ msgstr ""
 
 #: align/scan.c:159 builder/index-validate.c:88 cat/cat.c:145
 #: cat/filesystems.c:246 cat/log.c:147 cat/ls.c:242 cat/tail.c:152
-#: df/main.c:162 diff/diff.c:274 edit/edit.c:158 fish/fish.c:296
+#: df/main.c:162 diff/diff.c:276 edit/edit.c:158 fish/fish.c:296
 #: format/format.c:185 fuse/guestmount.c:251 fuse/guestunmount.c:130
 #: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:204
 #: rescue/rescue.c:185 test-tool/test-tool.c:116
@@ -4380,7 +4380,7 @@ msgid ""
 msgstr ""
 
 #: cat/cat.c:233 cat/filesystems.c:343 cat/log.c:204 cat/ls.c:356
-#: cat/tail.c:217 diff/diff.c:328 edit/edit.c:258 fuse/guestmount.c:318
+#: cat/tail.c:217 diff/diff.c:330 edit/edit.c:258 fuse/guestmount.c:318
 #: inspector/inspector.c:266 rescue/rescue.c:293
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
@@ -4432,7 +4432,7 @@ msgid ""
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
 
-#: cat/filesystems.c:314 cat/ls.c:348 df/main.c:259 diff/diff.c:342
+#: cat/filesystems.c:314 cat/ls.c:348 df/main.c:259 diff/diff.c:344
 #, c-format
 msgid "you cannot use -h and --csv options together."
 msgstr ""
@@ -4860,12 +4860,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:333
+#: diff/diff.c:335
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:345
+#: diff/diff.c:347
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
@@ -4873,12 +4873,12 @@ msgid ""
 "%s'.\n"
 msgstr ""
 
-#: diff/diff.c:746
+#: diff/diff.c:748
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 
-#: diff/diff.c:750
+#: diff/diff.c:752
 msgid "End of diff"
 msgstr ""
 
@@ -8658,34 +8658,34 @@ msgstr ""
 msgid "setting not found"
 msgstr ""
 
-#: lib/info.c:90
+#: lib/info.c:89
 msgid "qemu-img info: JSON output did not contain 'format' key"
 msgstr ""
 
-#: lib/info.c:115
+#: lib/info.c:114
 msgid "qemu-img info: 'virtual-size' is not representable as a 64 bit integer"
 msgstr ""
 
-#: lib/info.c:123
+#: lib/info.c:122
 msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
 msgstr ""
 
-#: lib/info.c:155
+#: lib/info.c:154
 msgid "qemu-img info: JSON output was not an object"
 msgstr ""
 
-#: lib/info.c:216
+#: lib/info.c:195
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
 msgstr ""
 
-#: lib/info.c:250
+#: lib/info.c:229
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
 msgstr ""
 
-#: lib/info.c:252
+#: lib/info.c:231
 msgid "qemu-img info: unknown JSON parse error"
 msgstr ""
 
@@ -8762,7 +8762,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:855 lib/launch-libvirt.c:675
+#: lib/launch-direct.c:873 lib/launch-libvirt.c:675
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -8832,48 +8832,48 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:1026
+#: lib/launch-libvirt.c:1022
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: lib/launch-libvirt.c:1431
+#: lib/launch-libvirt.c:1427
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1477 lib/qemu.c:791
+#: lib/launch-libvirt.c:1473 lib/qemu.c:791
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1560
+#: lib/launch-libvirt.c:1556
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1902
+#: lib/launch-libvirt.c:1896
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1913
+#: lib/launch-libvirt.c:1907
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1917
+#: lib/launch-libvirt.c:1911
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1938
+#: lib/launch-libvirt.c:1932
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:1951
+#: lib/launch-libvirt.c:1945
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2061
+#: lib/launch-libvirt.c:2055
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -8889,20 +8889,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: lib/launch-libvirt.c:2164
+#: lib/launch-libvirt.c:2158
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2185 lib/launch-libvirt.c:2218
+#: lib/launch-libvirt.c:2179 lib/launch-libvirt.c:2212
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2284
+#: lib/launch-libvirt.c:2278
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2315
+#: lib/launch-libvirt.c:2309
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
