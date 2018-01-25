@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.37.33\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-12-10 09:21+0000\n"
+"POT-Creation-Date: 2018-01-25 14:28+0000\n"
 "PO-Revision-Date: 2017-09-11 04:50-0400\n"
 "Last-Translator: Zdenek <chmelarz@gmail.com>\n"
 "Language-Team: Czech\n"
@@ -19,21 +19,21 @@ msgstr ""
 msgid "  %s: already provided by %s"
 msgstr ""
 
-#: ../resize/resize.ml:964
+#: ../resize/resize.ml:971
 msgid "  An extra partition will be created for the surplus."
 msgstr ""
 
-#: ../resize/resize.ml:938 ../resize/resize.ml:907
+#: ../resize/resize.ml:945 ../resize/resize.ml:914
 msgid "  The %s on %s will be expanded using the ‘%s’ method."
 msgstr ""
 
-#: ../resize/resize.ml:966
+#: ../resize/resize.ml:973
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
 msgstr ""
 
-#: ../resize/resize.ml:968
+#: ../resize/resize.ml:975
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -138,7 +138,7 @@ msgstr "%s: %s"
 msgid "%s: %s: %s"
 msgstr ""
 
-#: ../resize/resize.ml:690
+#: ../resize/resize.ml:697
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -147,11 +147,11 @@ msgid ""
 "line.)"
 msgstr ""
 
-#: ../resize/resize.ml:935
+#: ../resize/resize.ml:942
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr ""
 
-#: ../resize/resize.ml:686
+#: ../resize/resize.ml:693
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -160,7 +160,7 @@ msgid ""
 "‘%s’ option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:682
+#: ../resize/resize.ml:689
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -169,7 +169,7 @@ msgid ""
 "‘%s‘ option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:679
+#: ../resize/resize.ml:686
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the ‘--resize-"
@@ -177,21 +177,21 @@ msgid ""
 "error came from ‘%s’ option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:900
+#: ../resize/resize.ml:907
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
 
-#: ../resize/resize.ml:902
+#: ../resize/resize.ml:909
 msgid "%s: This partition will be deleted."
 msgstr ""
 
-#: ../resize/resize.ml:898
+#: ../resize/resize.ml:905
 msgid "%s: This partition will be left alone."
 msgstr ""
 
-#: ../resize/resize.ml:904
+#: ../resize/resize.ml:911
 msgid "%s: This partition will be resized from %s to %s."
 msgstr ""
 
@@ -322,7 +322,7 @@ msgid ""
 "read the man page virt-get-kernel(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:407 ../resize/resize.ml:404
+#: ../resize/resize.ml:408 ../resize/resize.ml:405
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
@@ -340,18 +340,18 @@ msgid ""
 "more times\n"
 msgstr ""
 
-#: ../resize/resize.ml:836
+#: ../resize/resize.ml:843
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "‘--lv-expand’ option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:709
+#: ../resize/resize.ml:716
 msgid "%s: missing size field in ‘%s’ option"
 msgstr ""
 
-#: ../resize/resize.ml:718
+#: ../resize/resize.ml:725
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
@@ -375,30 +375,30 @@ msgstr ""
 msgid "%s: no ‘uri’ entry for ‘%s’ in %s, skipping it\n"
 msgstr ""
 
-#: ../resize/resize.ml:630
+#: ../resize/resize.ml:637
 msgid "%s: partition already deleted, you cannot use it in ‘%s’ option"
 msgstr ""
 
-#: ../resize/resize.ml:626
+#: ../resize/resize.ml:633
 msgid "%s: partition already ignored, you cannot use it in ‘%s’ option"
 msgstr ""
 
-#: ../resize/resize.ml:622
+#: ../resize/resize.ml:629
 msgid ""
 "%s: partition not found in the source disk image (this error came from ‘%s’ "
 "option on the command line).  Try running this command: virt-filesystems --"
 "partitions --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:529
+#: ../resize/resize.ml:536
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr ""
 
-#: ../resize/resize.ml:524
+#: ../resize/resize.ml:531
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr ""
 
-#: ../resize/resize.ml:442
+#: ../resize/resize.ml:443
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
@@ -414,7 +414,7 @@ msgid ""
 "read the man page virt-sysprep(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:219
+#: ../resize/resize.ml:220
 msgid ""
 "%s: resize a virtual machine disk\n"
 "\n"
@@ -444,19 +444,19 @@ msgid ""
 "read the man page virt-sparsify(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:664
+#: ../resize/resize.ml:671
 msgid "%s: this partition has already been ignored or deleted"
 msgstr ""
 
-#: ../resize/resize.ml:660
+#: ../resize/resize.ml:667
 msgid "%s: this partition has already been marked for resizing"
 msgstr ""
 
-#: ../resize/resize.ml:539
+#: ../resize/resize.ml:546
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
-#: ../resize/resize.ml:419
+#: ../resize/resize.ml:420
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
@@ -533,7 +533,7 @@ msgstr ""
 msgid "--enable: ‘%s’ is not a known operation"
 msgstr ""
 
-#: ../resize/resize.ml:171
+#: ../resize/resize.ml:172
 msgid "--expand option given twice"
 msgstr ""
 
@@ -578,7 +578,7 @@ msgstr ""
 msgid "--scriptdir cannot be used more than once"
 msgstr ""
 
-#: ../resize/resize.ml:187
+#: ../resize/resize.ml:188
 msgid "--shrink option given twice"
 msgstr ""
 
@@ -738,7 +738,7 @@ msgstr ""
 msgid "Aliases:"
 msgstr ""
 
-#: ../resize/resize.ml:194
+#: ../resize/resize.ml:195
 msgid "Align first partition (default: auto)"
 msgstr ""
 
@@ -802,7 +802,7 @@ msgid ""
 "works correctly."
 msgstr ""
 
-#: ../resize/resize.ml:214
+#: ../resize/resize.ml:215
 msgid "Behaviour on expand unknown filesystems (default: warn)"
 msgstr ""
 
@@ -947,7 +947,7 @@ msgstr ""
 msgid "Copying"
 msgstr ""
 
-#: ../resize/resize.ml:1228
+#: ../resize/resize.ml:1237
 msgid "Copying %s"
 msgstr ""
 
@@ -1037,7 +1037,7 @@ msgstr "ADRESÁŘ"
 msgid "Delete a file or directory"
 msgstr ""
 
-#: ../resize/resize.ml:198
+#: ../resize/resize.ml:199
 msgid "Delete partition"
 msgstr ""
 
@@ -1109,11 +1109,11 @@ msgstr "Hotovo"
 msgid "Don’t compress the new images in the index"
 msgstr ""
 
-#: ../resize/resize.ml:196
+#: ../resize/resize.ml:197
 msgid "Don’t copy boot loader"
 msgstr ""
 
-#: ../resize/resize.ml:201
+#: ../resize/resize.ml:202
 msgid "Don’t create extra partition"
 msgstr ""
 
@@ -1121,11 +1121,11 @@ msgstr ""
 msgid "Don’t delete output file on failure"
 msgstr ""
 
-#: ../resize/resize.ml:200
+#: ../resize/resize.ml:201
 msgid "Don’t expand content"
 msgstr ""
 
-#: ../resize/resize.ml:206
+#: ../resize/resize.ml:207
 msgid "Don’t perform changes"
 msgstr ""
 
@@ -1176,7 +1176,7 @@ msgstr ""
 msgid "Enable appliance network (default)"
 msgstr ""
 
-#: ../resize/resize.ml:197
+#: ../resize/resize.ml:198
 msgid "Enable debugging messages"
 msgstr ""
 
@@ -1208,7 +1208,7 @@ msgstr ""
 msgid "Examine source disk"
 msgstr ""
 
-#: ../resize/resize.ml:371
+#: ../resize/resize.ml:372
 msgid "Examining %s"
 msgstr ""
 
@@ -1224,11 +1224,11 @@ msgstr ""
 msgid "Exclude the specified script"
 msgstr ""
 
-#: ../resize/resize.ml:204
+#: ../resize/resize.ml:205
 msgid "Expand logical volume"
 msgstr ""
 
-#: ../resize/resize.ml:199
+#: ../resize/resize.ml:200
 msgid "Expand partition"
 msgstr ""
 
@@ -1244,11 +1244,11 @@ msgstr ""
 msgid "Expanded elements: %s"
 msgstr ""
 
-#: ../resize/resize.ml:1391
+#: ../resize/resize.ml:1400
 msgid "Expanding %s using the ‘%s’ method"
 msgstr ""
 
-#: ../resize/resize.ml:1372
+#: ../resize/resize.ml:1381
 msgid "Expanding %s%s using the ‘%s’ method"
 msgstr ""
 
@@ -1291,7 +1291,7 @@ msgstr ""
 msgid "FILENAME"
 msgstr ""
 
-#: ../resize/resize.ml:1025
+#: ../resize/resize.ml:1032
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -1329,7 +1329,7 @@ msgstr ""
 msgid "Finishing off"
 msgstr ""
 
-#: ../resize/resize.ml:1274
+#: ../resize/resize.ml:1283
 msgid "Fixing first NTFS partition boot record"
 msgstr ""
 
@@ -1351,16 +1351,16 @@ msgid ""
 "as the root password and timezone."
 msgstr ""
 
-#: ../resize/resize.ml:207
+#: ../resize/resize.ml:208
 msgid "Force ntfsresize"
 msgstr ""
 
-#: ../resize/resize.ml:210
+#: ../resize/resize.ml:211
 msgid "Forcefully resize partition"
 msgstr ""
 
 #. ../get-kernel/get_kernel.ml:59
-#: ../sparsify/cmdline.ml:72 ../resize/resize.ml:202
+#: ../sparsify/cmdline.ml:72 ../resize/resize.ml:203
 msgid "Format of input disk"
 msgstr ""
 
@@ -1368,7 +1368,7 @@ msgstr ""
 msgid "Format of optional drive"
 msgstr ""
 
-#: ../resize/resize.ml:208
+#: ../resize/resize.ml:209
 msgid "Format of output disk"
 msgstr ""
 
@@ -1451,7 +1451,7 @@ msgstr ""
 msgid "Ignore filesystem"
 msgstr ""
 
-#: ../resize/resize.ml:203
+#: ../resize/resize.ml:204
 msgid "Ignore partition"
 msgstr ""
 
@@ -1555,7 +1555,7 @@ msgstr ""
 #. ../dib/cmdline.ml:194
 #. ../builder/repository_main.ml:58
 #. ../builder/cmdline.ml:158
-#: ../v2v/cmdline.ml:200 ../sparsify/cmdline.ml:75 ../resize/resize.ml:205
+#: ../v2v/cmdline.ml:200 ../sparsify/cmdline.ml:75 ../resize/resize.ml:206
 msgid "Make output machine readable"
 msgstr ""
 
@@ -2029,13 +2029,13 @@ msgstr ""
 msgid "Repo and tag for docker"
 msgstr ""
 
-#: ../resize/resize.ml:1421
+#: ../resize/resize.ml:1430
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
 msgstr ""
 
-#: ../resize/resize.ml:209
+#: ../resize/resize.ml:210
 msgid "Resize partition"
 msgstr ""
 
@@ -2257,7 +2257,7 @@ msgstr ""
 msgid "Set output storage location"
 msgstr ""
 
-#: ../resize/resize.ml:195
+#: ../resize/resize.ml:196
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
@@ -2327,7 +2327,7 @@ msgstr ""
 msgid "Setting the timezone: %s"
 msgstr ""
 
-#: ../resize/resize.ml:1001
+#: ../resize/resize.ml:1008
 msgid "Setting up initial partition table on %s"
 msgstr ""
 
@@ -2339,7 +2339,7 @@ msgstr ""
 msgid "Shortcut for --list-format long"
 msgstr ""
 
-#: ../resize/resize.ml:211
+#: ../resize/resize.ml:212
 msgid "Shrink partition"
 msgstr ""
 
@@ -2518,7 +2518,7 @@ msgstr ""
 msgid "There are no notes for %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:821
+#: ../resize/resize.ml:828
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
@@ -2530,7 +2530,7 @@ msgid ""
 "%s/%s in: %s"
 msgstr ""
 
-#: ../resize/resize.ml:961
+#: ../resize/resize.ml:968
 msgid "There is a surplus of %s."
 msgstr ""
 
@@ -2605,7 +2605,7 @@ msgstr ""
 msgid "Truncating: %s"
 msgstr ""
 
-#: ../resize/resize.ml:212
+#: ../resize/resize.ml:213
 msgid "Turn off sparse copying"
 msgstr ""
 
@@ -2617,7 +2617,7 @@ msgstr ""
 msgid "USER[:SELECTOR]"
 msgstr ""
 
-#: ../resize/resize.ml:1360
+#: ../resize/resize.ml:1369
 msgid "UUID in swap partition %s changed from ‘%s’ to ‘%s’"
 msgstr ""
 
@@ -2725,13 +2725,13 @@ msgstr ""
 msgid "Writing: %s"
 msgstr ""
 
-#: ../resize/resize.ml:792
+#: ../resize/resize.ml:799
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
 msgstr ""
 
-#: ../resize/resize.ml:804
+#: ../resize/resize.ml:811
 msgid ""
 "You cannot use --shrink when there is no deficit (see ‘deficit’ in the virt-"
 "resize(1) man page)."
@@ -2775,7 +2775,7 @@ msgid ""
 "command."
 msgstr ""
 
-#: ../resize/resize.ml:256
+#: ../resize/resize.ml:257
 msgid "alignment cannot be < 1"
 msgstr ""
 
@@ -2827,7 +2827,7 @@ msgstr ""
 msgid "bridge"
 msgstr "most"
 
-#: ../resize/resize.ml:144
+#: ../resize/resize.ml:145
 msgid "btrfs-filesystem-resize"
 msgstr ""
 
@@ -3152,11 +3152,11 @@ msgstr ""
 msgid "element %s not found"
 msgstr ""
 
-#: ../resize/resize.ml:170
+#: ../resize/resize.ml:171
 msgid "empty --expand option"
 msgstr ""
 
-#: ../resize/resize.ml:186
+#: ../resize/resize.ml:187
 msgid "empty --shrink option"
 msgstr ""
 
@@ -3165,7 +3165,7 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../sysprep/main.ml:59 ../resize/resize.ml:324 ../resize/resize.ml:317
+#: ../sysprep/main.ml:59 ../resize/resize.ml:325 ../resize/resize.ml:318
 msgid "error parsing URI ‘%s’. Look for error messages printed above."
 msgstr ""
 
@@ -3269,7 +3269,7 @@ msgid ""
 "  expected fingerprint: %s"
 msgstr ""
 
-#: ../resize/resize.ml:1272
+#: ../resize/resize.ml:1281
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
@@ -3289,8 +3289,8 @@ msgid ""
 "%s"
 msgstr ""
 
-#. ../resize/resize.ml:208
-#. ../resize/resize.ml:202
+#. ../resize/resize.ml:209
+#. ../resize/resize.ml:203
 #. ../get-kernel/get_kernel.ml:59
 #. ../dib/cmdline.ml:186
 #. ../customize/customize_main.ml:82
@@ -3373,7 +3373,7 @@ msgstr ""
 msgid "hostname could not be set for this type of guest"
 msgstr ""
 
-#: ../resize/resize.ml:213
+#: ../resize/resize.ml:214
 msgid "ignore|warn|error"
 msgstr ""
 
@@ -3541,7 +3541,7 @@ msgstr ""
 msgid "log file %s: %s (ignored)"
 msgstr ""
 
-#: ../resize/resize.ml:204
+#: ../resize/resize.ml:205
 msgid "lv"
 msgstr ""
 
@@ -3567,7 +3567,7 @@ msgstr ""
 msgid "missing value for the key ‘%s’"
 msgstr ""
 
-#: ../resize/resize.ml:146
+#: ../resize/resize.ml:147
 msgid "mkswap"
 msgstr ""
 
@@ -3660,7 +3660,7 @@ msgstr ""
 msgid "network"
 msgstr ""
 
-#: ../resize/resize.ml:194
+#: ../resize/resize.ml:195
 msgid "never|always|auto"
 msgstr ""
 
@@ -3759,7 +3759,7 @@ msgid ""
 "%Ld bytes needed"
 msgstr ""
 
-#: ../resize/resize.ml:143
+#: ../resize/resize.ml:144
 msgid "ntfsresize"
 msgstr ""
 
@@ -3874,12 +3874,12 @@ msgstr ""
 
 # auto translated by TM merge from project: docbook-locales, version: master,
 # DocId: locale
-#. ../resize/resize.ml:198
-#: ../resize/resize.ml:211 ../resize/resize.ml:203 ../resize/resize.ml:199
+#. ../resize/resize.ml:199
+#: ../resize/resize.ml:212 ../resize/resize.ml:204 ../resize/resize.ml:200
 msgid "part"
 msgstr "část"
 
-#: ../resize/resize.ml:210 ../resize/resize.ml:209
+#: ../resize/resize.ml:211 ../resize/resize.ml:210
 msgid "part=size"
 msgstr ""
 
@@ -3903,7 +3903,7 @@ msgstr ""
 msgid "please include an operating system element"
 msgstr ""
 
-#: ../resize/resize.ml:1061 ../resize/resize.ml:1037
+#: ../resize/resize.ml:1068 ../resize/resize.ml:1044
 msgid "pread-device: short read"
 msgstr ""
 
@@ -3911,7 +3911,7 @@ msgstr ""
 msgid "prefix"
 msgstr ""
 
-#: ../resize/resize.ml:141
+#: ../resize/resize.ml:142
 msgid "pvresize"
 msgstr ""
 
@@ -3952,7 +3952,7 @@ msgstr ""
 msgid "repository folder ‘%s’ doesn’t exist"
 msgstr ""
 
-#: ../resize/resize.ml:142
+#: ../resize/resize.ml:143
 msgid "resize2fs"
 msgstr ""
 
@@ -3976,7 +3976,7 @@ msgstr ""
 msgid "script: killed by signal (%d)"
 msgstr ""
 
-#: ../resize/resize.ml:195
+#: ../resize/resize.ml:196
 msgid "sectors"
 msgstr ""
 
@@ -4126,7 +4126,7 @@ msgid ""
 "the repository must contain an index file when running in automated mode"
 msgstr ""
 
-#: ../resize/resize.ml:469
+#: ../resize/resize.ml:470
 msgid "the source disk has no partitions"
 msgstr ""
 
@@ -4345,7 +4345,7 @@ msgstr ""
 msgid "unhandled checksum type ‘%s’"
 msgstr ""
 
-#: ../resize/resize.ml:265
+#: ../resize/resize.ml:266
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
@@ -4353,7 +4353,7 @@ msgstr ""
 msgid "unknown --root option: %s"
 msgstr ""
 
-#: ../resize/resize.ml:273
+#: ../resize/resize.ml:274
 msgid "unknown --unknown-filesystems: use ignore|warn|error"
 msgstr ""
 
@@ -4397,8 +4397,8 @@ msgstr ""
 msgid "unknown source hypervisor (‘%s’) in metadata"
 msgstr ""
 
-#. ../resize/resize.ml:862
-#: ../resize/resize.ml:950 ../resize/resize.ml:919 ../resize/resize.ml:880
+#. ../resize/resize.ml:869
+#: ../resize/resize.ml:957 ../resize/resize.ml:926 ../resize/resize.ml:887
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr ""
 
@@ -4411,7 +4411,7 @@ msgstr ""
 msgid "uri"
 msgstr ""
 
-#: ../resize/resize.ml:305
+#: ../resize/resize.ml:306
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr ""
 
@@ -4556,7 +4556,7 @@ msgstr ""
 msgid "vmx parser: duplicate key '%s' ignored"
 msgstr ""
 
-#: ../resize/resize.ml:145
+#: ../resize/resize.ml:146
 msgid "xfs_growfs"
 msgstr ""
 
@@ -4602,11 +4602,11 @@ msgstr ""
 msgid "you cannot use --in-place and -o options together"
 msgstr ""
 
-#: ../resize/resize.ml:781
+#: ../resize/resize.ml:788
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:141 ../resize/resize.ml:311
+#: ../sparsify/cmdline.ml:141 ../resize/resize.ml:312
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
@@ -4695,7 +4695,7 @@ msgstr ""
 
 #: align/scan.c:160 builder/index-validate.c:88 cat/cat.c:145
 #: cat/filesystems.c:247 cat/log.c:148 cat/ls.c:243 cat/tail.c:153
-#: df/main.c:162 diff/diff.c:275 edit/edit.c:158 fish/fish.c:298
+#: df/main.c:162 diff/diff.c:277 edit/edit.c:158 fish/fish.c:298
 #: format/format.c:185 fuse/guestmount.c:251 fuse/guestunmount.c:130
 #: inspector/inspector.c:167 make-fs/make-fs.c:151 p2v/main.c:203
 #: rescue/rescue.c:217 test-tool/test-tool.c:116
@@ -4794,7 +4794,7 @@ msgid ""
 msgstr ""
 
 #: cat/cat.c:233 cat/filesystems.c:344 cat/log.c:205 cat/ls.c:357
-#: cat/tail.c:218 diff/diff.c:329 edit/edit.c:258 fuse/guestmount.c:318
+#: cat/tail.c:218 diff/diff.c:331 edit/edit.c:258 fuse/guestmount.c:318
 #: inspector/inspector.c:267 rescue/rescue.c:339
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
@@ -4846,7 +4846,7 @@ msgid ""
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
 
-#: cat/filesystems.c:315 cat/ls.c:349 df/main.c:259 diff/diff.c:343
+#: cat/filesystems.c:315 cat/ls.c:349 df/main.c:259 diff/diff.c:345
 #, c-format
 msgid "you cannot use -h and --csv options together."
 msgstr ""
@@ -5005,25 +5005,25 @@ msgstr ""
 #: fish/run-1.c:2008 fish/run-1.c:2031 fish/run-1.c:2140 fish/run-1.c:2159
 #: fish/run-1.c:2178 fish/run-1.c:2479 fish/run-1.c:2582 fish/run-2.c:582
 #: fish/run-2.c:601 fish/run-2.c:853 fish/run-2.c:1483 fish/run-2.c:1534
-#: fish/run-2.c:1601 fish/run-2.c:1838 fish/run-2.c:1891 fish/run-2.c:2209
-#: fish/run-3.c:578 fish/run-3.c:790 fish/run-3.c:879 fish/run-3.c:1488
-#: fish/run-3.c:1531 fish/run-3.c:2090 fish/run-3.c:2369 fish/run-3.c:2392
-#: fish/run-3.c:2708 fish/run-3.c:2754 fish/run-3.c:2797 fish/run-3.c:2841
-#: fish/run-3.c:2860 fish/run-3.c:2879 fish/run-3.c:2952 fish/run-3.c:3059
-#: fish/run-3.c:3101 fish/run-3.c:3681 fish/run-3.c:3704 fish/run-3.c:3749
-#: fish/run-3.c:3772 fish/run-3.c:4070 fish/run-4.c:144 fish/run-4.c:308
-#: fish/run-4.c:653 fish/run-4.c:953 fish/run-4.c:1284 fish/run-4.c:1374
-#: fish/run-4.c:1441 fish/run-4.c:1485 fish/run-4.c:1530 fish/run-4.c:1549
-#: fish/run-4.c:1568 fish/run-4.c:1749 fish/run-4.c:1793 fish/run-4.c:1836
-#: fish/run-4.c:1880 fish/run-4.c:2262 fish/run-5.c:877 fish/run-5.c:1006
-#: fish/run-5.c:1544 fish/run-5.c:1592 fish/run-5.c:1636 fish/run-5.c:1754
-#: fish/run-5.c:1782 fish/run-5.c:1805 fish/run-5.c:1869 fish/run-5.c:2024
-#: fish/run-5.c:2068 fish/run-5.c:2112 fish/run-5.c:2249 fish/run-5.c:2367
-#: fish/run-5.c:2386 fish/run-5.c:2405 fish/run-5.c:2483 fish/run-5.c:2502
-#: fish/run-5.c:2521 fish/run-5.c:2540 fish/run-5.c:2995 fish/run-6.c:197
-#: fish/run-6.c:434 fish/run-6.c:618 fish/run-6.c:637 fish/run-6.c:1079
-#: fish/run-6.c:1204 fish/run-6.c:1432 fish/run-6.c:1451 fish/run-6.c:1496
-#: fish/run-6.c:1959 fish/run-6.c:2046
+#: fish/run-2.c:1601 fish/run-2.c:1838 fish/run-2.c:1891 fish/run-2.c:1948
+#: fish/run-2.c:2266 fish/run-3.c:578 fish/run-3.c:790 fish/run-3.c:879
+#: fish/run-3.c:1488 fish/run-3.c:1531 fish/run-3.c:2090 fish/run-3.c:2369
+#: fish/run-3.c:2392 fish/run-3.c:2708 fish/run-3.c:2754 fish/run-3.c:2797
+#: fish/run-3.c:2841 fish/run-3.c:2860 fish/run-3.c:2879 fish/run-3.c:2952
+#: fish/run-3.c:3059 fish/run-3.c:3101 fish/run-3.c:3681 fish/run-3.c:3704
+#: fish/run-3.c:3749 fish/run-3.c:3772 fish/run-3.c:4070 fish/run-4.c:144
+#: fish/run-4.c:308 fish/run-4.c:653 fish/run-4.c:953 fish/run-4.c:1284
+#: fish/run-4.c:1374 fish/run-4.c:1441 fish/run-4.c:1485 fish/run-4.c:1530
+#: fish/run-4.c:1549 fish/run-4.c:1568 fish/run-4.c:1749 fish/run-4.c:1793
+#: fish/run-4.c:1836 fish/run-4.c:1880 fish/run-4.c:2262 fish/run-5.c:877
+#: fish/run-5.c:1006 fish/run-5.c:1544 fish/run-5.c:1592 fish/run-5.c:1636
+#: fish/run-5.c:1754 fish/run-5.c:1782 fish/run-5.c:1805 fish/run-5.c:1869
+#: fish/run-5.c:2024 fish/run-5.c:2067 fish/run-5.c:2111 fish/run-5.c:2155
+#: fish/run-5.c:2292 fish/run-5.c:2410 fish/run-5.c:2429 fish/run-5.c:2448
+#: fish/run-5.c:2526 fish/run-5.c:2545 fish/run-5.c:2564 fish/run-5.c:2583
+#: fish/run-5.c:3038 fish/run-6.c:197 fish/run-6.c:434 fish/run-6.c:618
+#: fish/run-6.c:637 fish/run-6.c:1079 fish/run-6.c:1204 fish/run-6.c:1432
+#: fish/run-6.c:1451 fish/run-6.c:1496 fish/run-6.c:1959 fish/run-6.c:2046
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: celé číslo mimo rozsah\n"
@@ -5337,12 +5337,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:334
+#: diff/diff.c:336
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:346
+#: diff/diff.c:348
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
@@ -5350,12 +5350,12 @@ msgid ""
 "%s'.\n"
 msgstr ""
 
-#: diff/diff.c:752
+#: diff/diff.c:754
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 
-#: diff/diff.c:756
+#: diff/diff.c:758
 msgid "End of diff"
 msgstr ""
 
@@ -5410,22 +5410,22 @@ msgstr ""
 msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1757
+#: cmds-gperf.gperf:1763
 #, c-format
 msgid "error: incorrect number of arguments\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1759
+#: cmds-gperf.gperf:1765
 #, c-format
 msgid "usage: %s\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1760
+#: cmds-gperf.gperf:1766
 #, c-format
 msgid "type 'help %s' for more help on %s\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1765
+#: cmds-gperf.gperf:1771
 #, c-format
 msgid "%s: unknown command\n"
 msgstr ""
@@ -5458,11 +5458,11 @@ msgstr ""
 #: fish/cmds.c:513 fish/cmds.c:533 fish/cmds.c:538 fish/cmds.c:557
 #: fish/cmds.c:600 fish/cmds.c:639 fish/cmds.c:648 fish/cmds.c:664
 #: fish/cmds.c:691 fish/cmds.c:757 fish/cmds.c:760 fish/cmds.c:834
-#: fish/cmds.c:885 fish/cmds.c:893 fish/cmds.c:937 fish/cmds.c:974
-#: fish/cmds.c:977 fish/cmds.c:980 fish/cmds.c:986 fish/cmds.c:1000
-#: fish/cmds.c:1009 fish/cmds.c:1028 fish/cmds.c:1031 fish/cmds.c:1037
-#: fish/cmds.c:1085 fish/cmds.c:1112 fish/cmds.c:1116 fish/cmds.c:1129
-#: fish/cmds.c:1132 fish/cmds.c:1141 fish/cmds.c:1163
+#: fish/cmds.c:885 fish/cmds.c:893 fish/cmds.c:937 fish/cmds.c:976
+#: fish/cmds.c:979 fish/cmds.c:982 fish/cmds.c:988 fish/cmds.c:1002
+#: fish/cmds.c:1011 fish/cmds.c:1030 fish/cmds.c:1033 fish/cmds.c:1039
+#: fish/cmds.c:1087 fish/cmds.c:1114 fish/cmds.c:1118 fish/cmds.c:1131
+#: fish/cmds.c:1134 fish/cmds.c:1143 fish/cmds.c:1165
 #, c-format
 msgid "alias for '%s'"
 msgstr ""
@@ -6005,8 +6005,8 @@ msgid "edit a file"
 msgstr ""
 
 #: fish/cmds.c:661 fish/cmds.c:662 fish/cmds.c:673 fish/cmds.c:674
-#: fish/cmds.c:731 fish/cmds.c:732 fish/cmds.c:1179 fish/cmds.c:1180
-#: fish/cmds.c:1185 fish/cmds.c:1186 fish/cmds.c:1188 fish/cmds.c:1189
+#: fish/cmds.c:731 fish/cmds.c:732 fish/cmds.c:1181 fish/cmds.c:1182
+#: fish/cmds.c:1187 fish/cmds.c:1188 fish/cmds.c:1190 fish/cmds.c:1191
 msgid "return lines matching a pattern"
 msgstr ""
 
@@ -6654,7 +6654,7 @@ msgstr ""
 msgid "create a symbolic link"
 msgstr ""
 
-#: fish/cmds.c:854 fish/cmds.c:1013
+#: fish/cmds.c:854 fish/cmds.c:1015
 msgid "remove extended attribute of a file or directory"
 msgstr ""
 
@@ -6666,7 +6666,7 @@ msgstr ""
 msgid "get list of files in a directory"
 msgstr ""
 
-#: fish/cmds.c:857 fish/cmds.c:1073
+#: fish/cmds.c:857 fish/cmds.c:1075
 msgid "set extended attribute of a file or directory"
 msgstr ""
 
@@ -6991,690 +6991,698 @@ msgid "get the GUID of a GPT-partitioned disk"
 msgstr ""
 
 #: fish/cmds.c:955
-msgid "get the GUID of a GPT partition"
+msgid "get the attribute flags of a GPT partition"
 msgstr ""
 
 #: fish/cmds.c:956
-msgid "get the type GUID of a GPT partition"
+msgid "get the GUID of a GPT partition"
 msgstr ""
 
 #: fish/cmds.c:957
-msgid "get the MBR type byte (ID byte) from a partition"
+msgid "get the type GUID of a GPT partition"
 msgstr ""
 
 #: fish/cmds.c:958
-msgid "get the MBR partition type"
+msgid "get the MBR type byte (ID byte) from a partition"
 msgstr ""
 
 #: fish/cmds.c:959
-msgid "get partition name"
+msgid "get the MBR partition type"
 msgstr ""
 
 #: fish/cmds.c:960
-msgid "get the partition table type"
+msgid "get partition name"
 msgstr ""
 
 #: fish/cmds.c:961
-msgid "create an empty partition table"
+msgid "get the partition table type"
 msgstr ""
 
 #: fish/cmds.c:962
-msgid "list partitions on a device"
+msgid "create an empty partition table"
 msgstr ""
 
 #: fish/cmds.c:963
-msgid "resize a partition"
+msgid "list partitions on a device"
 msgstr ""
 
 #: fish/cmds.c:964
-msgid "make a partition bootable"
+msgid "resize a partition"
 msgstr ""
 
 #: fish/cmds.c:965
-msgid "set the GUID of a GPT-partitioned disk"
+msgid "make a partition bootable"
 msgstr ""
 
 #: fish/cmds.c:966
-msgid "set the GUID of a GPT-partitioned disk to random value"
+msgid "set the GUID of a GPT-partitioned disk"
 msgstr ""
 
 #: fish/cmds.c:967
-msgid "set the GUID of a GPT partition"
+msgid "set the GUID of a GPT-partitioned disk to random value"
 msgstr ""
 
 #: fish/cmds.c:968
-msgid "set the type GUID of a GPT partition"
+msgid "set the attribute flags of a GPT partition"
 msgstr ""
 
 #: fish/cmds.c:969
-msgid "set the MBR type byte (ID byte) of a partition"
+msgid "set the GUID of a GPT partition"
 msgstr ""
 
 #: fish/cmds.c:970
-msgid "set partition name"
+msgid "set the type GUID of a GPT partition"
 msgstr ""
 
 #: fish/cmds.c:971
-msgid "convert partition name to device name"
+msgid "set the MBR type byte (ID byte) of a partition"
 msgstr ""
 
 #: fish/cmds.c:972
+msgid "set partition name"
+msgstr ""
+
+#: fish/cmds.c:973
+msgid "convert partition name to device name"
+msgstr ""
+
+#: fish/cmds.c:974
 msgid "convert partition name to partition number"
 msgstr ""
 
-#: fish/cmds.c:982
+#: fish/cmds.c:984
 msgid "ping the guest daemon"
 msgstr ""
 
-#: fish/cmds.c:983
+#: fish/cmds.c:985
 msgid "read part of a file"
 msgstr ""
 
-#: fish/cmds.c:984
+#: fish/cmds.c:986
 msgid "read part of a device"
 msgstr ""
 
-#: fish/cmds.c:988
+#: fish/cmds.c:990
 msgid "generate a new random UUID for a physical volume"
 msgstr ""
 
-#: fish/cmds.c:989
+#: fish/cmds.c:991
 msgid "generate new random UUIDs for all physical volumes"
 msgstr ""
 
-#: fish/cmds.c:990
+#: fish/cmds.c:992
 msgid "create an LVM physical volume"
 msgstr ""
 
-#: fish/cmds.c:991
+#: fish/cmds.c:993
 msgid "remove an LVM physical volume"
 msgstr ""
 
-#: fish/cmds.c:992
+#: fish/cmds.c:994
 msgid "resize an LVM physical volume"
 msgstr ""
 
-#: fish/cmds.c:993
+#: fish/cmds.c:995
 msgid "resize an LVM physical volume (with size)"
 msgstr ""
 
-#: fish/cmds.c:994 fish/cmds.c:995
+#: fish/cmds.c:996 fish/cmds.c:997
 msgid "list the LVM physical volumes (PVs)"
 msgstr ""
 
-#: fish/cmds.c:996
+#: fish/cmds.c:998
 msgid "get the UUID of a physical volume"
 msgstr ""
 
-#: fish/cmds.c:997
+#: fish/cmds.c:999
 msgid "write to part of a file"
 msgstr ""
 
-#: fish/cmds.c:998
+#: fish/cmds.c:1000
 msgid "write to part of a device"
 msgstr ""
 
-#: fish/cmds.c:1002
+#: fish/cmds.c:1004
 msgid "read a file"
 msgstr ""
 
-#: fish/cmds.c:1003
+#: fish/cmds.c:1005
 msgid "read file as lines"
 msgstr ""
 
-#: fish/cmds.c:1004
+#: fish/cmds.c:1006
 msgid "read directories entries"
 msgstr ""
 
-#: fish/cmds.c:1005
+#: fish/cmds.c:1007
 msgid "read the target of a symbolic link"
 msgstr ""
 
-#: fish/cmds.c:1006
+#: fish/cmds.c:1008
 msgid "readlink on multiple files"
 msgstr ""
 
-#: fish/cmds.c:1007
+#: fish/cmds.c:1009
 msgid "canonicalized absolute pathname"
 msgstr ""
 
-#: fish/cmds.c:1011
+#: fish/cmds.c:1013
 msgid "remount a filesystem with different options"
 msgstr ""
 
-#: fish/cmds.c:1012
+#: fish/cmds.c:1014
 msgid "remove a disk image"
 msgstr ""
 
-#: fish/cmds.c:1014
+#: fish/cmds.c:1016
 msgid "rename a file on the same filesystem"
 msgstr ""
 
-#: fish/cmds.c:1015
+#: fish/cmds.c:1017
 msgid "close and reopen libguestfs handle"
 msgstr ""
 
-#: fish/cmds.c:1016
+#: fish/cmds.c:1018
 msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr ""
 
-#: fish/cmds.c:1017
+#: fish/cmds.c:1019
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr ""
 
-#: fish/cmds.c:1018
+#: fish/cmds.c:1020
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr ""
 
-#: fish/cmds.c:1019
+#: fish/cmds.c:1021
 msgid "remove a file"
 msgstr ""
 
-#: fish/cmds.c:1020
+#: fish/cmds.c:1022
 msgid "remove a file ignoring errors"
 msgstr ""
 
-#: fish/cmds.c:1021
+#: fish/cmds.c:1023
 msgid "remove a file or directory recursively"
 msgstr ""
 
-#: fish/cmds.c:1022
+#: fish/cmds.c:1024
 msgid "remove a directory"
 msgstr ""
 
-#: fish/cmds.c:1023
+#: fish/cmds.c:1025
 msgid "remove a mountpoint"
 msgstr ""
 
-#: fish/cmds.c:1024
+#: fish/cmds.c:1026
 msgid "synchronize the contents of two directories"
 msgstr ""
 
-#: fish/cmds.c:1025
+#: fish/cmds.c:1027
 msgid "synchronize host or remote filesystem with filesystem"
 msgstr ""
 
-#: fish/cmds.c:1026
+#: fish/cmds.c:1028
 msgid "synchronize filesystem with host or remote filesystem"
 msgstr ""
 
-#: fish/cmds.c:1033
+#: fish/cmds.c:1035
 msgid "scrub (securely wipe) a device"
 msgstr ""
 
-#: fish/cmds.c:1034
+#: fish/cmds.c:1036
 msgid "scrub (securely wipe) a file"
 msgstr ""
 
-#: fish/cmds.c:1035
+#: fish/cmds.c:1037
 msgid "scrub (securely wipe) free space"
 msgstr ""
 
-#: fish/cmds.c:1039
+#: fish/cmds.c:1041
 msgid "relabel parts of the filesystem"
 msgstr ""
 
-#: fish/cmds.c:1040
+#: fish/cmds.c:1042
 msgid "add options to kernel command line"
 msgstr ""
 
-#: fish/cmds.c:1041 fish/cmds.c:1043
+#: fish/cmds.c:1043 fish/cmds.c:1045
 msgid "set the backend"
 msgstr ""
 
-#: fish/cmds.c:1042
+#: fish/cmds.c:1044
 msgid "set autosync mode"
 msgstr ""
 
-#: fish/cmds.c:1044
+#: fish/cmds.c:1046
 msgid "set a single per-backend settings string"
 msgstr ""
 
-#: fish/cmds.c:1045
+#: fish/cmds.c:1047
 msgid "replace per-backend settings strings"
 msgstr ""
 
-#: fish/cmds.c:1046
+#: fish/cmds.c:1048
 msgid "set the appliance cache directory"
 msgstr ""
 
-#: fish/cmds.c:1047
+#: fish/cmds.c:1049
 msgid "enable or disable direct appliance mode"
 msgstr ""
 
-#: fish/cmds.c:1048
+#: fish/cmds.c:1050
 msgid "set ext2 file attributes of a file"
 msgstr ""
 
-#: fish/cmds.c:1049
+#: fish/cmds.c:1051
 msgid "set ext2 file generation of a file"
 msgstr ""
 
-#: fish/cmds.c:1050
+#: fish/cmds.c:1052
 msgid "set the ext2/3/4 filesystem label"
 msgstr ""
 
-#: fish/cmds.c:1051
+#: fish/cmds.c:1053
 msgid "set the ext2/3/4 filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:1052
+#: fish/cmds.c:1054
 msgid "set the hypervisor binary"
 msgstr ""
 
-#: fish/cmds.c:1053
+#: fish/cmds.c:1055
 msgid "set the handle identifier"
 msgstr ""
 
-#: fish/cmds.c:1054
+#: fish/cmds.c:1056
 msgid "set filesystem label"
 msgstr ""
 
-#: fish/cmds.c:1055
+#: fish/cmds.c:1057
 msgid "pass requested credential back to libvirt"
 msgstr ""
 
-#: fish/cmds.c:1056
+#: fish/cmds.c:1058
 msgid "set libvirt credentials supported by calling program"
 msgstr ""
 
-#: fish/cmds.c:1057
+#: fish/cmds.c:1059
 msgid "set memory allocated to the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:1058
+#: fish/cmds.c:1060
 msgid "set enable network flag"
 msgstr ""
 
-#: fish/cmds.c:1059
+#: fish/cmds.c:1061
 msgid "set the search path"
 msgstr ""
 
-#: fish/cmds.c:1060
+#: fish/cmds.c:1062
 msgid "set process group flag"
 msgstr ""
 
-#: fish/cmds.c:1061
+#: fish/cmds.c:1063
 msgid "set the program name"
 msgstr ""
 
-#: fish/cmds.c:1062
+#: fish/cmds.c:1064
 msgid "set the hypervisor binary (usually qemu)"
 msgstr ""
 
-#: fish/cmds.c:1063
+#: fish/cmds.c:1065
 msgid "enable or disable the recovery process"
 msgstr ""
 
-#: fish/cmds.c:1064
+#: fish/cmds.c:1066
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr ""
 
-#: fish/cmds.c:1065
+#: fish/cmds.c:1067
 msgid "set number of virtual CPUs in appliance"
 msgstr ""
 
-#: fish/cmds.c:1066
+#: fish/cmds.c:1068
 msgid "set the temporary directory"
 msgstr ""
 
-#: fish/cmds.c:1067
+#: fish/cmds.c:1069
 msgid "enable or disable command traces"
 msgstr ""
 
-#: fish/cmds.c:1068
+#: fish/cmds.c:1070
 msgid "set the filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:1069
+#: fish/cmds.c:1071
 msgid "set a random UUID for the filesystem"
 msgstr ""
 
-#: fish/cmds.c:1070
+#: fish/cmds.c:1072
 msgid "set verbose mode"
 msgstr ""
 
-#: fish/cmds.c:1071
+#: fish/cmds.c:1073
 msgid "set SELinux security context"
 msgstr ""
 
-#: fish/cmds.c:1072
+#: fish/cmds.c:1074
 msgid "set an environment variable"
 msgstr ""
 
-#: fish/cmds.c:1074 fish/cmds.c:1075
+#: fish/cmds.c:1076 fish/cmds.c:1077
 msgid "create partitions on a block device"
 msgstr ""
 
-#: fish/cmds.c:1076
+#: fish/cmds.c:1078
 msgid "modify a single partition on a block device"
 msgstr ""
 
-#: fish/cmds.c:1077
+#: fish/cmds.c:1079
 msgid "display the disk geometry from the partition table"
 msgstr ""
 
-#: fish/cmds.c:1078
+#: fish/cmds.c:1080
 msgid "display the kernel geometry"
 msgstr ""
 
-#: fish/cmds.c:1079
+#: fish/cmds.c:1081
 msgid "display the partition table"
 msgstr ""
 
-#: fish/cmds.c:1080
+#: fish/cmds.c:1082
 msgid "run a command via the shell"
 msgstr ""
 
-#: fish/cmds.c:1081
+#: fish/cmds.c:1083
 msgid "run a command via the shell returning lines"
 msgstr ""
 
-#: fish/cmds.c:1082
+#: fish/cmds.c:1084
 msgid "shutdown the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:1083
+#: fish/cmds.c:1085
 msgid "sleep for some seconds"
 msgstr ""
 
-#: fish/cmds.c:1087
+#: fish/cmds.c:1089
 msgid "create a sparse disk image and add"
 msgstr ""
 
-#: fish/cmds.c:1088 fish/cmds.c:1089
+#: fish/cmds.c:1090 fish/cmds.c:1091
 msgid "get file information"
 msgstr ""
 
-#: fish/cmds.c:1090
+#: fish/cmds.c:1092
 msgid "get file system statistics"
 msgstr ""
 
-#: fish/cmds.c:1091 fish/cmds.c:1092
+#: fish/cmds.c:1093 fish/cmds.c:1094
 msgid "print the printable strings in a file"
 msgstr ""
 
-#: fish/cmds.c:1093
+#: fish/cmds.c:1095
 msgid "list supported groups of commands"
 msgstr ""
 
-#: fish/cmds.c:1094
+#: fish/cmds.c:1096
 msgid "disable swap on device"
 msgstr ""
 
-#: fish/cmds.c:1095
+#: fish/cmds.c:1097
 msgid "disable swap on file"
 msgstr ""
 
-#: fish/cmds.c:1096
+#: fish/cmds.c:1098
 msgid "disable swap on labeled swap partition"
 msgstr ""
 
-#: fish/cmds.c:1097
+#: fish/cmds.c:1099
 msgid "disable swap on swap partition by UUID"
 msgstr ""
 
-#: fish/cmds.c:1098
+#: fish/cmds.c:1100
 msgid "enable swap on device"
 msgstr ""
 
-#: fish/cmds.c:1099
+#: fish/cmds.c:1101
 msgid "enable swap on file"
 msgstr ""
 
-#: fish/cmds.c:1100
+#: fish/cmds.c:1102
 msgid "enable swap on labeled swap partition"
 msgstr ""
 
-#: fish/cmds.c:1101
+#: fish/cmds.c:1103
 msgid "enable swap on swap partition by UUID"
 msgstr ""
 
-#: fish/cmds.c:1102
+#: fish/cmds.c:1104
 msgid "sync disks, writes are flushed through to the disk image"
 msgstr ""
 
-#: fish/cmds.c:1103
+#: fish/cmds.c:1105
 msgid "install the SYSLINUX bootloader"
 msgstr ""
 
-#: fish/cmds.c:1104
+#: fish/cmds.c:1106
 msgid "return last 10 lines of a file"
 msgstr ""
 
-#: fish/cmds.c:1105
+#: fish/cmds.c:1107
 msgid "return last N lines of a file"
 msgstr ""
 
-#: fish/cmds.c:1106
+#: fish/cmds.c:1108
 msgid "unpack tarfile to directory"
 msgstr ""
 
-#: fish/cmds.c:1107
+#: fish/cmds.c:1109
 msgid "pack directory into tarfile"
 msgstr ""
 
-#: fish/cmds.c:1108 fish/cmds.c:1122
+#: fish/cmds.c:1110 fish/cmds.c:1124
 msgid "unpack compressed tarball to directory"
 msgstr ""
 
-#: fish/cmds.c:1109 fish/cmds.c:1123
+#: fish/cmds.c:1111 fish/cmds.c:1125
 msgid "pack directory into compressed tarball"
 msgstr ""
 
-#: fish/cmds.c:1110
+#: fish/cmds.c:1112
 msgid "print elapsed time taken to run a command"
 msgstr ""
 
-#: fish/cmds.c:1114
+#: fish/cmds.c:1116
 msgid "update file timestamps or create a new file"
 msgstr ""
 
-#: fish/cmds.c:1118
+#: fish/cmds.c:1120
 msgid "truncate a file to zero size"
 msgstr ""
 
-#: fish/cmds.c:1119
+#: fish/cmds.c:1121
 msgid "truncate a file to a particular size"
 msgstr ""
 
-#: fish/cmds.c:1120
+#: fish/cmds.c:1122
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
 msgstr ""
 
-#: fish/cmds.c:1121
+#: fish/cmds.c:1123
 msgid "get ext2/ext3/ext4 superblock details"
 msgstr ""
 
-#: fish/cmds.c:1124
+#: fish/cmds.c:1126
 msgid "set file mode creation mask (umask)"
 msgstr ""
 
-#: fish/cmds.c:1125
+#: fish/cmds.c:1127
 msgid "unmount a filesystem"
 msgstr ""
 
-#: fish/cmds.c:1126
+#: fish/cmds.c:1128
 msgid "unmount all filesystems"
 msgstr ""
 
-#: fish/cmds.c:1127
+#: fish/cmds.c:1129
 msgid "unmount a locally mounted filesystem"
 msgstr ""
 
-#: fish/cmds.c:1134
+#: fish/cmds.c:1136
 msgid "unset an environment variable"
 msgstr ""
 
-#: fish/cmds.c:1135
+#: fish/cmds.c:1137
 msgid "upload a file from the local machine"
 msgstr ""
 
-#: fish/cmds.c:1136
+#: fish/cmds.c:1138
 msgid "upload a file from the local machine with offset"
 msgstr ""
 
-#: fish/cmds.c:1137
+#: fish/cmds.c:1139
 msgid "cancel the current upload or download operation"
 msgstr ""
 
-#: fish/cmds.c:1138
+#: fish/cmds.c:1140
 msgid "set timestamp of a file with nanosecond precision"
 msgstr ""
 
-#: fish/cmds.c:1139
+#: fish/cmds.c:1141
 msgid "appliance kernel version"
 msgstr ""
 
-#: fish/cmds.c:1143
+#: fish/cmds.c:1145
 msgid "get the library version number"
 msgstr ""
 
-#: fish/cmds.c:1144
+#: fish/cmds.c:1146
 msgid "get the filesystem label"
 msgstr ""
 
-#: fish/cmds.c:1145
+#: fish/cmds.c:1147
 msgid "get minimum filesystem size"
 msgstr ""
 
-#: fish/cmds.c:1146
+#: fish/cmds.c:1148
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr ""
 
-#: fish/cmds.c:1147
+#: fish/cmds.c:1149
 msgid "get the filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:1148
+#: fish/cmds.c:1150
 msgid "activate or deactivate some volume groups"
 msgstr ""
 
-#: fish/cmds.c:1149
+#: fish/cmds.c:1151
 msgid "activate or deactivate all volume groups"
 msgstr ""
 
-#: fish/cmds.c:1150
+#: fish/cmds.c:1152
 msgid "generate a new random UUID for a volume group"
 msgstr ""
 
-#: fish/cmds.c:1151
+#: fish/cmds.c:1153
 msgid "generate new random UUIDs for all volume groups"
 msgstr ""
 
-#: fish/cmds.c:1152
+#: fish/cmds.c:1154
 msgid "create an LVM volume group"
 msgstr ""
 
-#: fish/cmds.c:1153
+#: fish/cmds.c:1155
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr ""
 
-#: fish/cmds.c:1154
+#: fish/cmds.c:1156
 msgid "get volume group metadata"
 msgstr ""
 
-#: fish/cmds.c:1155
+#: fish/cmds.c:1157
 msgid "get the PV UUIDs containing the volume group"
 msgstr ""
 
-#: fish/cmds.c:1156
+#: fish/cmds.c:1158
 msgid "remove an LVM volume group"
 msgstr ""
 
-#: fish/cmds.c:1157
+#: fish/cmds.c:1159
 msgid "rename an LVM volume group"
 msgstr ""
 
-#: fish/cmds.c:1158 fish/cmds.c:1159
+#: fish/cmds.c:1160 fish/cmds.c:1161
 msgid "list the LVM volume groups (VGs)"
 msgstr ""
 
-#: fish/cmds.c:1160
+#: fish/cmds.c:1162
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 
-#: fish/cmds.c:1161
+#: fish/cmds.c:1163
 msgid "get the UUID of a volume group"
 msgstr ""
 
-#: fish/cmds.c:1165
+#: fish/cmds.c:1167
 msgid "count characters in a file"
 msgstr ""
 
-#: fish/cmds.c:1166
+#: fish/cmds.c:1168
 msgid "count lines in a file"
 msgstr ""
 
-#: fish/cmds.c:1167
+#: fish/cmds.c:1169
 msgid "count words in a file"
 msgstr ""
 
-#: fish/cmds.c:1168
+#: fish/cmds.c:1170
 msgid "wipe a filesystem signature from a device"
 msgstr ""
 
-#: fish/cmds.c:1169
+#: fish/cmds.c:1171
 msgid "create a new file"
 msgstr ""
 
-#: fish/cmds.c:1170
+#: fish/cmds.c:1172
 msgid "append content to end of file"
 msgstr ""
 
-#: fish/cmds.c:1171
+#: fish/cmds.c:1173
 msgid "create a file"
 msgstr ""
 
-#: fish/cmds.c:1172
+#: fish/cmds.c:1174
 msgid "change parameters of an XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1173
+#: fish/cmds.c:1175
 msgid "expand an existing XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1174
+#: fish/cmds.c:1176
 msgid "get geometry of XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1175
+#: fish/cmds.c:1177
 msgid "repair an XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1176
+#: fish/cmds.c:1178
 msgid "destroy previously loaded yara rules"
 msgstr ""
 
-#: fish/cmds.c:1177
+#: fish/cmds.c:1179
 msgid "load yara rules within libguestfs"
 msgstr ""
 
-#: fish/cmds.c:1178
+#: fish/cmds.c:1180
 msgid "scan a file with the loaded yara rules"
 msgstr ""
 
-#: fish/cmds.c:1181
+#: fish/cmds.c:1183
 msgid "write zeroes to the device"
 msgstr ""
 
-#: fish/cmds.c:1182
+#: fish/cmds.c:1184
 msgid "write zeroes to an entire device"
 msgstr ""
 
-#: fish/cmds.c:1183
+#: fish/cmds.c:1185
 msgid "zero free space in a filesystem"
 msgstr ""
 
-#: fish/cmds.c:1184
+#: fish/cmds.c:1186
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr ""
 
-#: fish/cmds.c:1187
+#: fish/cmds.c:1189
 msgid "determine file type inside a compressed file"
 msgstr ""
 
-#: fish/cmds.c:1190
+#: fish/cmds.c:1192
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 
@@ -8193,8 +8201,8 @@ msgstr ""
 #: fish/run-1.c:3040 fish/run-1.c:3121 fish/run-1.c:3134 fish/run-1.c:3147
 #: fish/run-1.c:3160 fish/run-1.c:3173 fish/run-2.c:137 fish/run-2.c:201
 #: fish/run-2.c:514 fish/run-2.c:725 fish/run-2.c:738 fish/run-2.c:1018
-#: fish/run-2.c:1270 fish/run-2.c:1351 fish/run-2.c:1847 fish/run-2.c:2113
-#: fish/run-2.c:2126 fish/run-2.c:2288 fish/run-3.c:416 fish/run-3.c:986
+#: fish/run-2.c:1270 fish/run-2.c:1351 fish/run-2.c:1847 fish/run-2.c:2170
+#: fish/run-2.c:2183 fish/run-2.c:2345 fish/run-3.c:416 fish/run-3.c:986
 #: fish/run-3.c:1352 fish/run-3.c:1365 fish/run-3.c:1378 fish/run-3.c:1391
 #: fish/run-3.c:1634 fish/run-3.c:1693 fish/run-3.c:2440 fish/run-3.c:2453
 #: fish/run-3.c:2466 fish/run-3.c:2479 fish/run-3.c:2492 fish/run-3.c:2505
@@ -8205,9 +8213,9 @@ msgstr ""
 #: fish/run-3.c:3549 fish/run-3.c:3562 fish/run-3.c:3575 fish/run-3.c:3658
 #: fish/run-4.c:180 fish/run-4.c:490 fish/run-4.c:1638 fish/run-4.c:2087
 #: fish/run-5.c:410 fish/run-5.c:548 fish/run-5.c:561 fish/run-5.c:673
-#: fish/run-5.c:686 fish/run-5.c:1201 fish/run-5.c:1279 fish/run-5.c:2209
-#: fish/run-5.c:2301 fish/run-5.c:2878 fish/run-5.c:2891 fish/run-5.c:2904
-#: fish/run-5.c:3079 fish/run-5.c:3092 fish/run-5.c:3105 fish/run-5.c:3118
+#: fish/run-5.c:686 fish/run-5.c:1201 fish/run-5.c:1279 fish/run-5.c:2252
+#: fish/run-5.c:2344 fish/run-5.c:2921 fish/run-5.c:2934 fish/run-5.c:2947
+#: fish/run-5.c:3122 fish/run-5.c:3135 fish/run-5.c:3148 fish/run-5.c:3161
 #: fish/run-6.c:258 fish/run-6.c:1657 fish/run-6.c:1803 fish/run-6.c:1816
 #: fish/run-6.c:2099 fish/run-6.c:2118 fish/run-6.c:2131 fish/run-6.c:2144
 #, c-format
@@ -8220,14 +8228,14 @@ msgstr ""
 #: fish/run-1.c:1189 fish/run-1.c:1479 fish/run-1.c:2063 fish/run-1.c:2428
 #: fish/run-1.c:2682 fish/run-1.c:2859 fish/run-1.c:3001 fish/run-1.c:3193
 #: fish/run-2.c:211 fish/run-2.c:278 fish/run-2.c:748 fish/run-2.c:1028
-#: fish/run-2.c:1280 fish/run-2.c:1361 fish/run-2.c:1656 fish/run-2.c:2136
+#: fish/run-2.c:1280 fish/run-2.c:1361 fish/run-2.c:1656 fish/run-2.c:2193
 #: fish/run-3.c:431 fish/run-3.c:493 fish/run-3.c:588 fish/run-3.c:889
 #: fish/run-3.c:996 fish/run-3.c:1401 fish/run-3.c:1644 fish/run-3.c:1703
 #: fish/run-3.c:2658 fish/run-3.c:2975 fish/run-3.c:3256 fish/run-3.c:3585
 #: fish/run-3.c:3821 fish/run-4.c:400 fish/run-4.c:505 fish/run-4.c:863
 #: fish/run-4.c:1648 fish/run-4.c:2097 fish/run-5.c:571 fish/run-5.c:696
 #: fish/run-5.c:750 fish/run-5.c:1211 fish/run-5.c:1289 fish/run-5.c:1820
-#: fish/run-5.c:3005 fish/run-5.c:3206 fish/run-6.c:1252 fish/run-6.c:1323
+#: fish/run-5.c:3048 fish/run-5.c:3249 fish/run-6.c:1252 fish/run-6.c:1323
 #: fish/run-6.c:1667 fish/run-6.c:1826 fish/run-6.c:2154
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
@@ -8239,14 +8247,14 @@ msgstr ""
 #: fish/run-1.c:1195 fish/run-1.c:1485 fish/run-1.c:2069 fish/run-1.c:2434
 #: fish/run-1.c:2688 fish/run-1.c:2865 fish/run-1.c:3007 fish/run-1.c:3199
 #: fish/run-2.c:217 fish/run-2.c:284 fish/run-2.c:754 fish/run-2.c:1034
-#: fish/run-2.c:1286 fish/run-2.c:1367 fish/run-2.c:1662 fish/run-2.c:2142
+#: fish/run-2.c:1286 fish/run-2.c:1367 fish/run-2.c:1662 fish/run-2.c:2199
 #: fish/run-3.c:437 fish/run-3.c:499 fish/run-3.c:594 fish/run-3.c:895
 #: fish/run-3.c:1002 fish/run-3.c:1407 fish/run-3.c:1650 fish/run-3.c:1709
 #: fish/run-3.c:2664 fish/run-3.c:2981 fish/run-3.c:3262 fish/run-3.c:3591
 #: fish/run-3.c:3827 fish/run-4.c:406 fish/run-4.c:511 fish/run-4.c:869
 #: fish/run-4.c:1654 fish/run-4.c:2103 fish/run-5.c:577 fish/run-5.c:702
 #: fish/run-5.c:756 fish/run-5.c:1217 fish/run-5.c:1295 fish/run-5.c:1826
-#: fish/run-5.c:3011 fish/run-5.c:3212 fish/run-6.c:1258 fish/run-6.c:1329
+#: fish/run-5.c:3054 fish/run-5.c:3255 fish/run-6.c:1258 fish/run-6.c:1329
 #: fish/run-6.c:1673 fish/run-6.c:1832 fish/run-6.c:2160
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
@@ -8266,40 +8274,41 @@ msgstr ""
 #: fish/run-2.c:576 fish/run-2.c:595 fish/run-2.c:678 fish/run-2.c:695
 #: fish/run-2.c:712 fish/run-2.c:847 fish/run-2.c:1099 fish/run-2.c:1136
 #: fish/run-2.c:1477 fish/run-2.c:1528 fish/run-2.c:1595 fish/run-2.c:1727
-#: fish/run-2.c:1832 fish/run-2.c:1885 fish/run-2.c:1997 fish/run-2.c:2203
-#: fish/run-2.c:2468 fish/run-3.c:483 fish/run-3.c:572 fish/run-3.c:784
-#: fish/run-3.c:834 fish/run-3.c:873 fish/run-3.c:956 fish/run-3.c:969
-#: fish/run-3.c:1443 fish/run-3.c:1482 fish/run-3.c:1525 fish/run-3.c:1809
-#: fish/run-3.c:2084 fish/run-3.c:2159 fish/run-3.c:2176 fish/run-3.c:2193
-#: fish/run-3.c:2210 fish/run-3.c:2227 fish/run-3.c:2244 fish/run-3.c:2261
-#: fish/run-3.c:2278 fish/run-3.c:2295 fish/run-3.c:2312 fish/run-3.c:2329
-#: fish/run-3.c:2346 fish/run-3.c:2363 fish/run-3.c:2386 fish/run-3.c:2702
-#: fish/run-3.c:2748 fish/run-3.c:2791 fish/run-3.c:2835 fish/run-3.c:2854
-#: fish/run-3.c:2873 fish/run-3.c:2946 fish/run-3.c:3017 fish/run-3.c:3053
-#: fish/run-3.c:3095 fish/run-3.c:3675 fish/run-3.c:3698 fish/run-3.c:3726
-#: fish/run-3.c:3743 fish/run-3.c:3766 fish/run-3.c:3794 fish/run-3.c:3811
-#: fish/run-3.c:3896 fish/run-3.c:3909 fish/run-3.c:3922 fish/run-3.c:3935
-#: fish/run-3.c:4064 fish/run-4.c:138 fish/run-4.c:302 fish/run-4.c:443
-#: fish/run-4.c:604 fish/run-4.c:647 fish/run-4.c:696 fish/run-4.c:709
-#: fish/run-4.c:750 fish/run-4.c:819 fish/run-4.c:836 fish/run-4.c:853
-#: fish/run-4.c:947 fish/run-4.c:1081 fish/run-4.c:1278 fish/run-4.c:1368
-#: fish/run-4.c:1435 fish/run-4.c:1479 fish/run-4.c:1524 fish/run-4.c:1543
-#: fish/run-4.c:1562 fish/run-4.c:1693 fish/run-4.c:1706 fish/run-4.c:1743
-#: fish/run-4.c:1787 fish/run-4.c:1830 fish/run-4.c:1874 fish/run-4.c:2256
-#: fish/run-5.c:501 fish/run-5.c:518 fish/run-5.c:535 fish/run-5.c:626
-#: fish/run-5.c:643 fish/run-5.c:660 fish/run-5.c:871 fish/run-5.c:1000
-#: fish/run-5.c:1068 fish/run-5.c:1374 fish/run-5.c:1538 fish/run-5.c:1586
-#: fish/run-5.c:1630 fish/run-5.c:1748 fish/run-5.c:1776 fish/run-5.c:1799
-#: fish/run-5.c:1863 fish/run-5.c:2018 fish/run-5.c:2062 fish/run-5.c:2106
-#: fish/run-5.c:2243 fish/run-5.c:2361 fish/run-5.c:2380 fish/run-5.c:2399
-#: fish/run-5.c:2477 fish/run-5.c:2496 fish/run-5.c:2515 fish/run-5.c:2534
-#: fish/run-5.c:2699 fish/run-5.c:2921 fish/run-5.c:2938 fish/run-5.c:2955
-#: fish/run-5.c:2972 fish/run-5.c:2989 fish/run-5.c:3135 fish/run-5.c:3152
-#: fish/run-5.c:3169 fish/run-5.c:3186 fish/run-6.c:191 fish/run-6.c:428
-#: fish/run-6.c:473 fish/run-6.c:612 fish/run-6.c:631 fish/run-6.c:787
-#: fish/run-6.c:823 fish/run-6.c:1073 fish/run-6.c:1198 fish/run-6.c:1426
-#: fish/run-6.c:1445 fish/run-6.c:1490 fish/run-6.c:1509 fish/run-6.c:1591
-#: fish/run-6.c:1737 fish/run-6.c:1871 fish/run-6.c:1953 fish/run-6.c:2040
+#: fish/run-2.c:1832 fish/run-2.c:1885 fish/run-2.c:1904 fish/run-2.c:1942
+#: fish/run-2.c:2054 fish/run-2.c:2260 fish/run-2.c:2525 fish/run-3.c:483
+#: fish/run-3.c:572 fish/run-3.c:784 fish/run-3.c:834 fish/run-3.c:873
+#: fish/run-3.c:956 fish/run-3.c:969 fish/run-3.c:1443 fish/run-3.c:1482
+#: fish/run-3.c:1525 fish/run-3.c:1809 fish/run-3.c:2084 fish/run-3.c:2159
+#: fish/run-3.c:2176 fish/run-3.c:2193 fish/run-3.c:2210 fish/run-3.c:2227
+#: fish/run-3.c:2244 fish/run-3.c:2261 fish/run-3.c:2278 fish/run-3.c:2295
+#: fish/run-3.c:2312 fish/run-3.c:2329 fish/run-3.c:2346 fish/run-3.c:2363
+#: fish/run-3.c:2386 fish/run-3.c:2702 fish/run-3.c:2748 fish/run-3.c:2791
+#: fish/run-3.c:2835 fish/run-3.c:2854 fish/run-3.c:2873 fish/run-3.c:2946
+#: fish/run-3.c:3017 fish/run-3.c:3053 fish/run-3.c:3095 fish/run-3.c:3675
+#: fish/run-3.c:3698 fish/run-3.c:3726 fish/run-3.c:3743 fish/run-3.c:3766
+#: fish/run-3.c:3794 fish/run-3.c:3811 fish/run-3.c:3896 fish/run-3.c:3909
+#: fish/run-3.c:3922 fish/run-3.c:3935 fish/run-3.c:4064 fish/run-4.c:138
+#: fish/run-4.c:302 fish/run-4.c:443 fish/run-4.c:604 fish/run-4.c:647
+#: fish/run-4.c:696 fish/run-4.c:709 fish/run-4.c:750 fish/run-4.c:819
+#: fish/run-4.c:836 fish/run-4.c:853 fish/run-4.c:947 fish/run-4.c:1081
+#: fish/run-4.c:1278 fish/run-4.c:1368 fish/run-4.c:1435 fish/run-4.c:1479
+#: fish/run-4.c:1524 fish/run-4.c:1543 fish/run-4.c:1562 fish/run-4.c:1693
+#: fish/run-4.c:1706 fish/run-4.c:1743 fish/run-4.c:1787 fish/run-4.c:1830
+#: fish/run-4.c:1874 fish/run-4.c:2256 fish/run-5.c:501 fish/run-5.c:518
+#: fish/run-5.c:535 fish/run-5.c:626 fish/run-5.c:643 fish/run-5.c:660
+#: fish/run-5.c:871 fish/run-5.c:1000 fish/run-5.c:1068 fish/run-5.c:1374
+#: fish/run-5.c:1538 fish/run-5.c:1586 fish/run-5.c:1630 fish/run-5.c:1748
+#: fish/run-5.c:1776 fish/run-5.c:1799 fish/run-5.c:1863 fish/run-5.c:2018
+#: fish/run-5.c:2061 fish/run-5.c:2105 fish/run-5.c:2149 fish/run-5.c:2286
+#: fish/run-5.c:2404 fish/run-5.c:2423 fish/run-5.c:2442 fish/run-5.c:2520
+#: fish/run-5.c:2539 fish/run-5.c:2558 fish/run-5.c:2577 fish/run-5.c:2742
+#: fish/run-5.c:2964 fish/run-5.c:2981 fish/run-5.c:2998 fish/run-5.c:3015
+#: fish/run-5.c:3032 fish/run-5.c:3178 fish/run-5.c:3195 fish/run-5.c:3212
+#: fish/run-5.c:3229 fish/run-6.c:191 fish/run-6.c:428 fish/run-6.c:473
+#: fish/run-6.c:612 fish/run-6.c:631 fish/run-6.c:787 fish/run-6.c:823
+#: fish/run-6.c:1073 fish/run-6.c:1198 fish/run-6.c:1426 fish/run-6.c:1445
+#: fish/run-6.c:1490 fish/run-6.c:1509 fish/run-6.c:1591 fish/run-6.c:1737
+#: fish/run-6.c:1871 fish/run-6.c:1953 fish/run-6.c:2040
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
@@ -9133,34 +9142,34 @@ msgstr ""
 msgid "setting not found"
 msgstr ""
 
-#: lib/info.c:90
+#: lib/info.c:89
 msgid "qemu-img info: JSON output did not contain ‘format’ key"
 msgstr ""
 
-#: lib/info.c:115
+#: lib/info.c:114
 msgid "qemu-img info: ‘virtual-size’ is not representable as a 64 bit integer"
 msgstr ""
 
-#: lib/info.c:123
+#: lib/info.c:122
 msgid "qemu-img info: JSON output did not contain ‘virtual-size’ key"
 msgstr ""
 
-#: lib/info.c:155
+#: lib/info.c:154
 msgid "qemu-img info: JSON output was not an object"
 msgstr ""
 
-#: lib/info.c:216
+#: lib/info.c:195
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
 msgstr ""
 
-#: lib/info.c:250
+#: lib/info.c:229
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
 msgstr ""
 
-#: lib/info.c:252
+#: lib/info.c:231
 msgid "qemu-img info: unknown JSON parse error"
 msgstr ""
 
@@ -9178,11 +9187,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:375 lib/launch-uml.c:154
+#: lib/launch-direct.c:386 lib/launch-uml.c:154
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:902 lib/launch-libvirt.c:680
+#: lib/launch-direct.c:913 lib/launch-libvirt.c:680
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
