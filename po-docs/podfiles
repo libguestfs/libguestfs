@@ -41,6 +41,7 @@
 ../fuse/guestmount.pod
 ../fuse/guestunmount.pod
 ../get-kernel/virt-get-kernel.pod
+../gobject/guestfs-gobject.pod
 ../golang/examples/guestfs-golang.pod
 ../inspector/virt-inspector.pod
 ../java/examples/guestfs-java.pod
