@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
 
 #if HAVE_CRYPT_H
 #include <crypt.h>
@@ -29,6 +30,7 @@
 #include <caml/alloc.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
+#include <caml/unixsupport.h>
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
@@ -44,6 +46,8 @@ virt_customize_crypt (value keyv, value saltv)
    * is not thread safe.
    */
   r = crypt (String_val (keyv), String_val (saltv));
+  if (r == NULL)
+    unix_error (errno, (char *) "crypt", Nothing);
   rv = caml_copy_string (r);
 
   CAMLreturn (rv);
