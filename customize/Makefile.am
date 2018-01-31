@@ -23,6 +23,7 @@ EXTRA_DIST = \
 	customize_main.ml \
 	test-firstboot.sh \
 	test-password.pl \
+	test-selinuxrelabel.sh \
 	test-settings.sh \
 	test-virt-customize.sh \
 	test-virt-customize-docs.sh \
@@ -225,6 +226,7 @@ check-valgrind:
 SLOW_TESTS = \
 	$(firstboot_test_scripts) \
 	$(password_test_scripts) \
+	test-selinuxrelabel.sh \
 	$(settings_test_scripts)
 
 check-slow:

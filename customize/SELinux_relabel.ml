@@ -37,8 +37,18 @@ let relabel (g : G.guestfs) =
       g#aug_load ();
       debug_augeas_errors g;
 
-      (* Get the SELinux policy name, eg. "targeted", "minimum". *)
-      let policy = g#aug_get "/files/etc/selinux/config/SELINUXTYPE" in
+      (* Get the SELinux policy name, eg. "targeted", "minimum".
+       * Use "targeted" if not specified, just like libselinux does.
+       *)
+      let policy =
+        let config_path = "/files/etc/selinux/config" in
+        let selinuxtype_path = config_path ^ "/SELINUXTYPE" in
+        let keys = g#aug_ls config_path in
+        if Array.mem selinuxtype_path keys then
+          g#aug_get selinuxtype_path
+        else
+          "targeted" in
+
       g#aug_close ();
 
       (* Get the spec file name. *)
