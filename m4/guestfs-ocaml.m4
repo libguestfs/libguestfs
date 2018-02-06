@@ -79,11 +79,24 @@ else
 fi
 AC_SUBST([OCAMLDEP_ONE_LINE])
 
+have_Hivex_OPEN_UNSAFE=no
 if test "x$enable_daemon" = "xyes"; then
     OCAML_PKG_hivex=no
     AC_CHECK_OCAML_PKG(hivex)
     if test "x$OCAML_PKG_hivex" = "xno"; then
         AC_MSG_ERROR([the OCaml module 'hivex' is required])
+    fi
+
+    # Check if Hivex has 'OPEN_UNSAFE' flag.
+    AC_MSG_CHECKING([for Hivex.OPEN_UNSAFE])
+    rm -f conftest.ml
+    echo 'let s = Hivex.OPEN_UNSAFE' > conftest.ml
+    if $OCAMLFIND ocamlc -package hivex -c conftest.ml >&5 2>&5 ; then
+        AC_MSG_RESULT([yes])
+        have_Hivex_OPEN_UNSAFE=yes
+    else
+        AC_MSG_RESULT([no])
+        have_Hivex_OPEN_UNSAFE=no
     fi
 
     dnl Check which OCaml runtime to link the daemon again.
@@ -182,6 +195,12 @@ AC_SUBST([OCAML_BYTES_COMPAT_CMO])
 AC_SUBST([OCAML_BYTES_COMPAT_ML])
 AM_CONDITIONAL([HAVE_BYTES_COMPAT_ML],
 	       [test "x$OCAML_BYTES_COMPAT_ML" != "x"])
+AS_IF([test "x$have_Hivex_OPEN_UNSAFE" = "xno"],[
+    HIVEX_OPEN_UNSAFE_FLAG="None"
+],[
+    HIVEX_OPEN_UNSAFE_FLAG="Some Hivex.OPEN_UNSAFE"
+])
+AC_SUBST([HIVEX_OPEN_UNSAFE_FLAG])
 
 dnl Flags we want to pass to every OCaml compiler call.
 OCAML_WARN_ERROR="-warn-error CDEFLMPSUVYZX+52-3"

@@ -176,7 +176,11 @@ let parse_version_from_major_minor str data =
   )
 
 let with_hive hive_filename f =
-  let flags = [ Hivex.OPEN_UNSAFE ] in
+  let flags = [] in
+  let flags =
+    match Daemon_config.hivex_flag_unsafe with
+    | None -> flags
+    | Some f -> f :: flags in
   let flags = if verbose () then Hivex.OPEN_VERBOSE :: flags else flags in
   let h = Hivex.open_file hive_filename flags in
   protect ~f:(fun () -> f h (Hivex.root h)) ~finally:(fun () -> Hivex.close h)

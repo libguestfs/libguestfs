@@ -186,6 +186,7 @@ Makefile.in
 /daemon/actions.h
 /daemon/callbacks.ml
 /daemon/caml-stubs.c
+/daemon/daemon_config.ml
 /daemon/daemon_utils_tests
 /daemon/dispatch.c
 /daemon/guestfsd

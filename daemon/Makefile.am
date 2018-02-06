@@ -251,6 +251,7 @@ SOURCES_MLI = \
 	callbacks.mli \
 	chroot.mli \
 	daemon.mli \
+	daemon_config.mli \
 	devsparts.mli \
 	file.mli \
 	filearch.mli \
@@ -279,6 +280,7 @@ SOURCES_MLI = \
 	utils.mli
 
 SOURCES_ML = \
+	daemon_config.ml \
 	utils.ml \
 	structs.ml \
 	optgroups.ml \
