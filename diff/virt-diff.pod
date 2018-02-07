@@ -102,7 +102,7 @@ read L</NOTE ABOUT CSV FORMAT> below.
 
 =item B<--dir-links>
 
-The default is to ignore changed in the number of links in directory
+The default is to ignore changes in the number of links in directory
 entries, since those are unlikely to be interesting.  Using this flag
 shows changes to the nlink field of directories.
 
