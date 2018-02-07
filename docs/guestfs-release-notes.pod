@@ -225,7 +225,7 @@ people this will be an extra dependency (Martin Kletzander).
 Libxcrypt is now used for L<crypt(3)>.  This is required if using
 glibc E<ge> 2.27.
 
-Hivex E<ge> 1.3.14, and C<ocaml-hivex> are now required (Pino Toscano).
+C<ocaml-hivex> is now required.
 
 Libvirt E<ge> 1.2.20 is now required.
 
