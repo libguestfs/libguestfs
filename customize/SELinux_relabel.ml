@@ -24,6 +24,10 @@ open Printf
 
 module G = Guestfs
 
+(* Simple reimplementation of Array.mem, available only with OCaml >= 4.03. *)
+let array_find a l =
+  List.mem a (Array.to_list l)
+
 let relabel (g : G.guestfs) =
   (* Is the guest using SELinux? *)
   if g#is_file ~followsymlinks:true "/usr/sbin/load_policy" &&
@@ -44,7 +48,7 @@ let relabel (g : G.guestfs) =
         let config_path = "/files/etc/selinux/config" in
         let selinuxtype_path = config_path ^ "/SELINUXTYPE" in
         let keys = g#aug_ls config_path in
-        if Array.mem selinuxtype_path keys then
+        if array_find selinuxtype_path keys then
           g#aug_get selinuxtype_path
         else
           "targeted" in
