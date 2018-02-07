@@ -126,7 +126,7 @@ a local file.
 
  virt-v2v \
    -i vmx -it ssh \
-   "root@esxi.example.com/vmfs/volumes/datastore1/guest/guest.vmx" \
+   "ssh://root@esxi.example.com/vmfs/volumes/datastore1/guest/guest.vmx" \
    -o local -os /var/tmp
 
 The guest must not be running.  Virt-v2v would I<not> need to be run
