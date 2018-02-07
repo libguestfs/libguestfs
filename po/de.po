@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2018-02-07 13:45+0000\n"
+"POT-Creation-Date: 2018-02-09 09:05+0000\n"
 "PO-Revision-Date: 2015-02-21 10:48-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
@@ -9625,42 +9625,52 @@ msgstr ""
 msgid "connection class does not support getting the console socket"
 msgstr ""
 
-#: lib/tmpdirs.c:65
+#: lib/tmpdirs.c:66
 #, c-format
 msgid "converting path to absolute path: %s: %s: realpath"
 msgstr ""
 
-#: lib/tmpdirs.c:72 lib/tmpdirs.c:78
+#: lib/tmpdirs.c:73 lib/tmpdirs.c:79
 #, c-format
 msgid "setting temporary directory"
 msgstr ""
 
-#: lib/tmpdirs.c:77
+#: lib/tmpdirs.c:78
 #, c-format
 msgid "%s: %s: ‘%s’ is not a directory"
 msgstr ""
 
-#: lib/tmpdirs.c:188
+#: lib/tmpdirs.c:195
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: Temporärer Ordner konnte nicht angelegt werden"
 
-#: lib/tmpdirs.c:272
+#: lib/tmpdirs.c:197
+#, c-format
+msgid ""
+"%s: cannot create temporary directory.  It may be that $XDG_RUNTIME_DIR is "
+"pointing to a directory which we cannot write to, for example if you used "
+"‘su [user]’ to change to this user account (see https://bugzilla.redhat."
+"com/967509).  You can correct this by adjusting XDG_RUNTIME_DIR and possibly "
+"creating /run/user/%d with the right ownership."
+msgstr ""
+
+#: lib/tmpdirs.c:282
 #, c-format
 msgid "stat: %s"
 msgstr ""
 
-#: lib/tmpdirs.c:277
+#: lib/tmpdirs.c:287
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr ""
 
-#: lib/tmpdirs.c:283
+#: lib/tmpdirs.c:293
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: lib/tmpdirs.c:289
+#: lib/tmpdirs.c:299
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
