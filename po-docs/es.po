@@ -7,9 +7,9 @@
 # Luis Bazán <lbazan@fedoraproject.org>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.33\n"
+"Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2018-02-06 13:38+0000\n"
+"POT-Creation-Date: 2018-02-07 13:46+0000\n"
 "PO-Revision-Date: 2015-02-21 10:16-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -2266,23 +2266,12 @@ msgstr ""
 
 #. type: verbatim
 #: ../builder/virt-builder-repository.pod:185
-#, fuzzy, no-wrap
-#| msgid ""
-#| " $ virt-sparsify --machine-readable\n"
-#| " virt-sparsify\n"
-#| " ntfs\n"
-#| " btrfs\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " $ virt-builder-repository --machine-readable\n"
 " virt-builder-repository\n"
 "\n"
 msgstr ""
-" $ virt-sparsify --machine-readable\n"
-" virt-sparsify\n"
-" ntfs\n"
-" btrfs\n"
-"\n"
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:188 ../builder/virt-builder.pod:1803
@@ -12811,7 +12800,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-building.pod:181
-msgid "hivex E<ge> 1.3.14"
+msgid "hivex E<ge> 1.2.7"
 msgstr ""
 
 #. type: =item
@@ -23563,17 +23552,13 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:172
-#, fuzzy
-#| msgid "guestfs_part_to_partnum"
 msgid "C<part_get_gpt_attributes>"
-msgstr "guestfs_part_to_partnum"
+msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:174
-#, fuzzy
-#| msgid "guestfs_part_to_partnum"
 msgid "C<part_set_gpt_attributes>"
-msgstr "guestfs_part_to_partnum"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:176
@@ -23698,7 +23683,7 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:228
-msgid "Hivex E<ge> 1.3.14, and C<ocaml-hivex> are now required (Pino Toscano)."
+msgid "C<ocaml-hivex> is now required."
 msgstr ""
 
 #. type: textblock
@@ -24014,12 +23999,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:373
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1539395>"
 msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:375
@@ -24058,12 +24039,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:389
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1519204>"
 msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:391
@@ -24152,12 +24129,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:421
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1503958>"
 msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:423
@@ -24168,12 +24141,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:425
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1503497>"
 msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:427
@@ -24183,12 +24152,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:429
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1500673>"
 msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:431
@@ -24199,12 +24164,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:433
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1500537>"
 msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:435
@@ -24342,12 +24303,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:485
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1459979>"
 msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:487
@@ -24368,12 +24325,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:493
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1450325>"
 msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:495
@@ -24484,12 +24437,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:537
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1429506>"
 msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:539
@@ -91367,21 +91316,12 @@ msgstr ""
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11528
-#, fuzzy
-#| msgid "guestfs_part_to_partnum"
 msgid "guestfs_part_get_gpt_attributes"
-msgstr "guestfs_part_to_partnum"
+msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11530
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_copy_device_to_device (guestfs_h *g,\n"
-#| "                                const char *src,\n"
-#| "                                const char *dest,\n"
-#| "                                ...);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int64_t\n"
 " guestfs_part_get_gpt_attributes (guestfs_h *g,\n"
@@ -91389,12 +91329,6 @@ msgid ""
 "                                  int partnum);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_copy_device_to_device (guestfs_h *g,\n"
-"                                const char *src,\n"
-"                                const char *dest,\n"
-"                                ...);\n"
-"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:11543 ../lib/guestfs-actions.pod:11579
@@ -91656,21 +91590,12 @@ msgstr ""
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11852
-#, fuzzy
-#| msgid "guestfs_part_to_partnum"
 msgid "guestfs_part_set_gpt_attributes"
-msgstr "guestfs_part_to_partnum"
+msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11854
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_copy_device_to_file_va (guestfs_h *g,\n"
-#| "                                 const char *src,\n"
-#| "                                 const char *dest,\n"
-#| "                                 va_list args);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_part_set_gpt_attributes (guestfs_h *g,\n"
@@ -91679,12 +91604,6 @@ msgid ""
 "                                  int64_t attributes);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_copy_device_to_file_va (guestfs_h *g,\n"
-"                                 const char *src,\n"
-"                                 const char *dest,\n"
-"                                 va_list args);\n"
-"\n"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11873

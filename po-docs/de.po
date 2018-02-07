@@ -6,9 +6,9 @@
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.33\n"
+"Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2018-02-06 13:38+0000\n"
+"POT-Creation-Date: 2018-02-07 13:46+0000\n"
 "PO-Revision-Date: 2015-02-21 09:57-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
@@ -2004,10 +2004,8 @@ msgstr "BEISPIELE"
 
 #. type: =head2
 #: ../builder/virt-builder-repository.pod:40
-#, fuzzy
-#| msgid "Create the templates"
 msgid "Create the initial repository"
-msgstr "Erstellen der Vorlagen"
+msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:42
@@ -2128,16 +2126,11 @@ msgstr ""
 
 #. type: verbatim
 #: ../builder/virt-builder-repository.pod:101
-#, fuzzy, no-wrap
-#| msgid ""
-#| " virt-builder --gpg \"gpg --homedir /tmp\" [...]\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " virt-builder-repository --gpg \"gpg --homedir /tmp\" [...]\n"
 "\n"
 msgstr ""
-" virt-builder --gpg \"gpg --homedir /tmp\" [...]\n"
-"\n"
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:103
@@ -2146,16 +2139,11 @@ msgstr ""
 
 #. type: verbatim
 #: ../builder/virt-builder-repository.pod:105
-#, fuzzy, no-wrap
-#| msgid ""
-#| " virt-builder --gpg \"gpg --homedir /tmp\" [...]\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " virt-builder-repository --gpg \"gpg --passphrase-file /tmp/pass --batch\" [...]\n"
 "\n"
 msgstr ""
-" virt-builder --gpg \"gpg --homedir /tmp\" [...]\n"
-"\n"
 
 #. type: =item
 #: ../builder/virt-builder-repository.pod:107
@@ -2164,10 +2152,8 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder-repository.pod:109
-#, fuzzy
-#| msgid "B<--gpg> GPG"
 msgid "B<--gpg-key> KEYID"
-msgstr "B<--gpg> GPG"
+msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:111
@@ -2194,10 +2180,8 @@ msgstr "B<-i>"
 
 #. type: =item
 #: ../builder/virt-builder-repository.pod:122
-#, fuzzy
-#| msgid "B<--time-relative>"
 msgid "B<--interactive>"
-msgstr "B<--time-relative>"
+msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:124
@@ -2214,10 +2198,8 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder-repository.pod:130
-#, fuzzy
-#| msgid "B<--no-sync>"
 msgid "B<--no-compression>"
-msgstr "B<--no-sync>"
+msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:132
@@ -2346,10 +2328,8 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:198
-#, fuzzy
-#| msgid "L<virt-builder(1)>, L<http://libguestfs.org/>."
 msgid "L<virt-builder(1)> L<http://libguestfs.org/>."
-msgstr "L<virt-builder(1)>, L<http://libguestfs.org/>."
+msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:203
@@ -2358,10 +2338,8 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:207
-#, fuzzy
-#| msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgid "Copyright (C) 2016-2018 SUSE Inc."
-msgstr "Copyright (C) 2010-2012 Red Hat Inc."
+msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:10
@@ -6287,12 +6265,6 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1878
-#, fuzzy
-#| msgid ""
-#| "L<guestfs(3)>, L<guestfish(1)>, L<virt-builder(1)>, L<virt-clone(1)>, "
-#| "L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, L<virt-"
-#| "sysprep(1)>, L<virsh(1)>, L<lvcreate(8)>, L<qemu-img(1)>, L<scrub(1)>, "
-#| "L<http://libguestfs.org/>, L<http://libvirt.org/>."
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<guestmount(1)>, L<virt-builder-"
 "repository(1)>, L<virt-copy-out(1)>, L<virt-customize(1)>, L<virt-get-"
@@ -6300,10 +6272,6 @@ msgid ""
 "sysprep(1)>, L<oz-install(1)>, L<gpg(1)>, L<gpg2(1)>, L<curl(1)>, L<virt-"
 "make-fs(1)>, L<genisoimage(1)>, L<http://libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfish(1)>, L<virt-builder(1)>, L<virt-clone(1)>, L<virt-"
-"rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, L<virt-sysprep(1)>, "
-"L<virsh(1)>, L<lvcreate(8)>, L<qemu-img(1)>, L<scrub(1)>, L<http://"
-"libguestfs.org/>, L<http://libvirt.org/>."
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1903 ../builder/virt-index-validate.pod:90
@@ -12980,7 +12948,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-building.pod:181
-msgid "hivex E<ge> 1.3.14"
+msgid "hivex E<ge> 1.2.7"
 msgstr ""
 
 #. type: =item
@@ -23685,17 +23653,13 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:172
-#, fuzzy
-#| msgid "part-get-gpt-type"
 msgid "C<part_get_gpt_attributes>"
-msgstr "part-get-gpt-type"
+msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:174
-#, fuzzy
-#| msgid "part-set-gpt-type"
 msgid "C<part_set_gpt_attributes>"
-msgstr "part-set-gpt-type"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:176
@@ -23704,10 +23668,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:178
-#, fuzzy
-#| msgid "B<part_size>"
 msgid "C<part_resize>"
-msgstr "B<part_size>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:180
@@ -23716,10 +23678,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:182
-#, fuzzy
-#| msgid "C<app_description>"
 msgid "C<yara_destroy>"
-msgstr "C<app_description>"
+msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:184
@@ -23824,7 +23784,7 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:228
-msgid "Hivex E<ge> 1.3.14, and C<ocaml-hivex> are now required (Pino Toscano)."
+msgid "C<ocaml-hivex> is now required."
 msgstr ""
 
 #. type: textblock
@@ -65766,23 +65726,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:7050
-#, fuzzy
-#| msgid "part-get-gpt-type"
 msgid "part-get-gpt-attributes"
-msgstr "part-get-gpt-type"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:7052
-#, fuzzy, no-wrap
-#| msgid ""
-#| " part-get-gpt-type device partnum\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " part-get-gpt-attributes device partnum\n"
 "\n"
 msgstr ""
-" part-get-gpt-type Gerät Partitionsnummer\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:7054 ../lib/guestfs-actions.pod:11535
@@ -66289,23 +66242,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:7277
-#, fuzzy
-#| msgid "part-set-gpt-type"
 msgid "part-set-gpt-attributes"
-msgstr "part-set-gpt-type"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:7279
-#, fuzzy, no-wrap
-#| msgid ""
-#| " part-get-gpt-type device partnum\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " part-set-gpt-attributes device partnum attributes\n"
 "\n"
 msgstr ""
-" part-get-gpt-type Gerät Partitionsnummer\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:7281 ../lib/guestfs-actions.pod:11860
@@ -92033,20 +91979,12 @@ msgstr ""
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11528
-#, fuzzy
-#| msgid "guestfs_copy_attributes"
 msgid "guestfs_part_get_gpt_attributes"
-msgstr "guestfs_copy_attributes"
+msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11530
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_btrfs_set_seeding (guestfs_h *g,\n"
-#| "                            const char *device,\n"
-#| "                            int seeding);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int64_t\n"
 " guestfs_part_get_gpt_attributes (guestfs_h *g,\n"
@@ -92054,11 +91992,6 @@ msgid ""
 "                                  int partnum);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_btrfs_set_seeding (guestfs_h *g,\n"
-"                            const char *device,\n"
-"                            int seeding);\n"
-"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:11543 ../lib/guestfs-actions.pod:11579
@@ -92320,21 +92253,12 @@ msgstr ""
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11852
-#, fuzzy
-#| msgid "guestfs_copy_attributes"
 msgid "guestfs_part_set_gpt_attributes"
-msgstr "guestfs_copy_attributes"
+msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11854
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_copy_attributes (guestfs_h *g,\n"
-#| "                          const char *src,\n"
-#| "                          const char *dest,\n"
-#| "                          ...);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_part_set_gpt_attributes (guestfs_h *g,\n"
@@ -92343,12 +92267,6 @@ msgid ""
 "                                  int64_t attributes);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_copy_attributes (guestfs_h *g,\n"
-"                          const char *src,\n"
-"                          const char *dest,\n"
-"                          ...);\n"
-"\n"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11873
@@ -117614,10 +117532,8 @@ msgstr ""
 
 #. type: =item
 #: ../v2v/virt-v2v.pod:666
-#, fuzzy
-#| msgid "B<--mkdir> DIR"
 msgid "B<--vddk-libdir> LIBDIR"
-msgstr "B<--mkdir> VERZEICHNIS"
+msgstr ""
 
 #. type: textblock
 #: ../v2v/virt-v2v.pod:668

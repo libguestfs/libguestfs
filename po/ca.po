@@ -1,10 +1,10 @@
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.33\n"
+"Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2018-01-25 14:28+0000\n"
+"POT-Creation-Date: 2018-02-07 13:45+0000\n"
 "PO-Revision-Date: 2015-09-30 09:24-0400\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"

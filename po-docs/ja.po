@@ -11,9 +11,9 @@
 # Richard Jones <rjones@redhat.com>, 2017. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.33\n"
+"Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2018-02-06 13:38+0000\n"
+"POT-Creation-Date: 2018-02-07 13:46+0000\n"
 "PO-Revision-Date: 2017-02-24 07:33-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -2355,10 +2355,8 @@ msgstr "B<-i>"
 
 #. type: =item
 #: ../builder/virt-builder-repository.pod:122
-#, fuzzy
-#| msgid "B<--trace>"
 msgid "B<--interactive>"
-msgstr "B<--trace>"
+msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:124
@@ -2375,10 +2373,8 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder-repository.pod:130
-#, fuzzy
-#| msgid "B<--compress>"
 msgid "B<--no-compression>"
-msgstr "B<--compress>"
+msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:132
@@ -2463,19 +2459,11 @@ msgstr "マシン可読な出力"
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:178
-#, fuzzy
-#| msgid ""
-#| "The I<--machine-readable> option can be used to make the output more "
-#| "machine friendly, which is useful when calling virt-resize from other "
-#| "programs, GUIs etc."
 msgid ""
 "The I<--machine-readable> option can be used to make the output more machine "
 "friendly, which is useful when calling virt-builder-repository from other "
 "programs, GUIs etc."
 msgstr ""
-"I<--machine-readable> オプションはよりマシンに易しい出力を作成するために使用"
-"できます。これは他のプログラムや GUI などから virt-resize を呼び出すときに有"
-"用です。"
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:182
@@ -2486,23 +2474,12 @@ msgstr ""
 
 #. type: verbatim
 #: ../builder/virt-builder-repository.pod:185
-#, fuzzy, no-wrap
-#| msgid ""
-#| " $ virt-sparsify --machine-readable\n"
-#| " virt-sparsify\n"
-#| " ntfs\n"
-#| " btrfs\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " $ virt-builder-repository --machine-readable\n"
 " virt-builder-repository\n"
 "\n"
 msgstr ""
-" $ virt-sparsify --machine-readable\n"
-" virt-sparsify\n"
-" ntfs\n"
-" btrfs\n"
-"\n"
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:188 ../builder/virt-builder.pod:1803
@@ -2528,10 +2505,8 @@ msgstr "このプログラムは、成功すると 0 を、エラーがあると
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:198
-#, fuzzy
-#| msgid "L<guestfs(3)>, L<http://libguestfs.org/>."
 msgid "L<virt-builder(1)> L<http://libguestfs.org/>."
-msgstr "L<guestfs(3)>, L<http://libguestfs.org/>."
+msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:203
@@ -2540,10 +2515,8 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:207
-#, fuzzy
-#| msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgid "Copyright (C) 2016-2018 SUSE Inc."
-msgstr "Copyright (C) 2010-2012 Red Hat Inc."
+msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:10
@@ -13331,7 +13304,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-building.pod:181
-msgid "hivex E<ge> 1.3.14"
+msgid "hivex E<ge> 1.2.7"
 msgstr ""
 
 #. type: =item
@@ -24101,10 +24074,8 @@ msgstr ""
 
 #. type: =head1
 #: ../docs/guestfs-release-notes.pod:20
-#, fuzzy
-#| msgid "RELEASE NOTES FOR LIBGUESTFS 1.20"
 msgid "RELEASE NOTES FOR LIBGUESTFS 1.38"
-msgstr "libguestfs 1.20 のリリースノート"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:22
@@ -24520,15 +24491,13 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:172
-#, fuzzy
 msgid "C<part_get_gpt_attributes>"
-msgstr "part-get-mbr-id"
+msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:174
-#, fuzzy
 msgid "C<part_set_gpt_attributes>"
-msgstr "part-set-mbr-id"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:176
@@ -24537,10 +24506,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:178
-#, fuzzy
-#| msgid "B<part_size>"
 msgid "C<part_resize>"
-msgstr "B<part_size>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:180
@@ -24549,10 +24516,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:182
-#, fuzzy
-#| msgid "C<app_description>"
 msgid "C<yara_destroy>"
-msgstr "C<app_description>"
+msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:184
@@ -24657,7 +24622,7 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:228
-msgid "Hivex E<ge> 1.3.14, and C<ocaml-hivex> are now required (Pino Toscano)."
+msgid "C<ocaml-hivex> is now required."
 msgstr ""
 
 #. type: textblock
@@ -24968,17 +24933,13 @@ msgstr "バグ修正"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:367
-#, fuzzy
-#| msgid "./bugs-in-changelog.sh 1.20.0.."
 msgid "https_proxy= ./bugs-in-changelog.sh v1.36.0.."
-msgstr "./bugs-in-changelog.sh 1.20.0.."
+msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:373
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/853393>"
 msgid "L<https://bugzilla.redhat.com/1539395>"
-msgstr "L<https://bugzilla.redhat.com/853393>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:375
@@ -24987,10 +24948,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:377
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/853762>"
 msgid "L<https://bugzilla.redhat.com/1536765>"
-msgstr "L<https://bugzilla.redhat.com/853762>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:379
@@ -24999,10 +24958,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:381
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/981663>"
 msgid "L<https://bugzilla.redhat.com/1536763>"
-msgstr "L<https://bugzilla.redhat.com/981663>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:383
@@ -25011,9 +24968,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:385
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1525241>"
-msgstr "L<https://bugzilla.redhat.com/913145>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:387
@@ -25022,10 +24978,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:389
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/921040>"
 msgid "L<https://bugzilla.redhat.com/1519204>"
-msgstr "L<https://bugzilla.redhat.com/921040>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:391
@@ -25036,9 +24990,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:393
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1518517>"
-msgstr "L<https://bugzilla.redhat.com/801117>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:395
@@ -25049,10 +25002,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:397
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/811649>"
 msgid "L<https://bugzilla.redhat.com/1516094>"
-msgstr "L<https://bugzilla.redhat.com/811649>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:399
@@ -25063,9 +25014,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:401
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1514756>"
-msgstr "L<https://bugzilla.redhat.com/801117>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:403
@@ -25076,9 +25026,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:405
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1513884>"
-msgstr "L<https://bugzilla.redhat.com/957380>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:407
@@ -25087,9 +25036,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:409
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1508874>"
-msgstr "L<https://bugzilla.redhat.com/847880>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:411
@@ -25098,9 +25046,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:413
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1506572>"
-msgstr "L<https://bugzilla.redhat.com/1001876>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:415
@@ -25109,9 +25056,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:417
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1506511>"
-msgstr "L<https://bugzilla.redhat.com/913145>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:419
@@ -25122,9 +25068,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:421
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1503958>"
-msgstr "L<https://bugzilla.redhat.com/998513>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:423
@@ -25135,9 +25080,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:425
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1503497>"
-msgstr "L<https://bugzilla.redhat.com/913145>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:427
@@ -25147,9 +25091,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:429
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1500673>"
-msgstr "L<https://bugzilla.redhat.com/1001876>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:431
@@ -25160,9 +25103,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:433
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1500537>"
-msgstr "L<https://bugzilla.redhat.com/998513>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:435
@@ -25171,10 +25113,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:437
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/975753>"
 msgid "L<https://bugzilla.redhat.com/1497475>"
-msgstr "L<https://bugzilla.redhat.com/975753>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:439
@@ -25183,10 +25123,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:441
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/914934>"
 msgid "L<https://bugzilla.redhat.com/1493048>"
-msgstr "L<https://bugzilla.redhat.com/914934>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:443
@@ -25195,10 +25133,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:445
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/840572>"
 msgid "L<https://bugzilla.redhat.com/1484957>"
-msgstr "L<https://bugzilla.redhat.com/840572>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:447
@@ -25207,10 +25143,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:449
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/842307>"
 msgid "L<https://bugzilla.redhat.com/1482737>"
-msgstr "L<https://bugzilla.redhat.com/842307>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:451
@@ -25221,10 +25155,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:453
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/981683>"
 msgid "L<https://bugzilla.redhat.com/1477623>"
-msgstr "L<https://bugzilla.redhat.com/981683>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:455
@@ -25233,10 +25165,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:457
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/847881>"
 msgid "L<https://bugzilla.redhat.com/1476081>"
-msgstr "L<https://bugzilla.redhat.com/847881>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:459
@@ -25246,10 +25176,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:461
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/912499>"
 msgid "L<https://bugzilla.redhat.com/1472719>"
-msgstr "L<https://bugzilla.redhat.com/912499>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:463
@@ -25260,10 +25188,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:465
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/1000428>"
 msgid "L<https://bugzilla.redhat.com/1472208>"
-msgstr "L<https://bugzilla.redhat.com/1000428>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:467
@@ -25274,10 +25200,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:469
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/664558>"
 msgid "L<https://bugzilla.redhat.com/1469655>"
-msgstr "L<https://bugzilla.redhat.com/664558>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:471
@@ -25286,10 +25210,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:473
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/981663>"
 msgid "L<https://bugzilla.redhat.com/1466563>"
-msgstr "L<https://bugzilla.redhat.com/981663>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:475
@@ -25298,9 +25220,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:477
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1465665>"
-msgstr "L<https://bugzilla.redhat.com/801117>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:479
@@ -25311,9 +25232,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:481
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1460338>"
-msgstr "L<https://bugzilla.redhat.com/998513>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:483
@@ -25322,10 +25242,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:485
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/798979>"
 msgid "L<https://bugzilla.redhat.com/1459979>"
-msgstr "L<https://bugzilla.redhat.com/798979>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:487
@@ -25336,9 +25254,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:489
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1451665>"
-msgstr "L<https://bugzilla.redhat.com/801117>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:491
@@ -25347,9 +25264,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:493
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1450325>"
-msgstr "L<https://bugzilla.redhat.com/998513>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:495
@@ -25358,10 +25274,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:497
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/974489>"
 msgid "L<https://bugzilla.redhat.com/1448739>"
-msgstr "L<https://bugzilla.redhat.com/974489>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:499
@@ -25370,10 +25284,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:501
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/1002032>"
 msgid "L<https://bugzilla.redhat.com/1447202>"
-msgstr "L<https://bugzilla.redhat.com/1002032>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:503
@@ -25382,10 +25294,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:505
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/801117>"
 msgid "L<https://bugzilla.redhat.com/1441197>"
-msgstr "L<https://bugzilla.redhat.com/801117>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:507
@@ -25394,10 +25304,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:509
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/912499>"
 msgid "L<https://bugzilla.redhat.com/1438939>"
-msgstr "L<https://bugzilla.redhat.com/912499>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:511
@@ -25406,10 +25314,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:513
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/879416>"
 msgid "L<https://bugzilla.redhat.com/1438794>"
-msgstr "L<https://bugzilla.redhat.com/879416>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:515
@@ -25418,10 +25324,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:517
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/853393>"
 msgid "L<https://bugzilla.redhat.com/1433937>"
-msgstr "L<https://bugzilla.redhat.com/853393>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:519
@@ -25430,10 +25334,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:521
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/994517>"
 msgid "L<https://bugzilla.redhat.com/1433577>"
-msgstr "L<https://bugzilla.redhat.com/994517>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:523
@@ -25442,10 +25344,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:525
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/914931>"
 msgid "L<https://bugzilla.redhat.com/1431579>"
-msgstr "L<https://bugzilla.redhat.com/914931>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:527
@@ -25454,10 +25354,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:529
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/916780>"
 msgid "L<https://bugzilla.redhat.com/1430680>"
-msgstr "L<https://bugzilla.redhat.com/916780>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:531
@@ -25468,10 +25366,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:533
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/914934>"
 msgid "L<https://bugzilla.redhat.com/1430184>"
-msgstr "L<https://bugzilla.redhat.com/914934>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:535
@@ -25480,9 +25376,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:537
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1429506>"
-msgstr "L<https://bugzilla.redhat.com/1001876>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:539
@@ -25493,10 +25388,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:541
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/912499>"
 msgid "L<https://bugzilla.redhat.com/1429491>"
-msgstr "L<https://bugzilla.redhat.com/912499>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:543
@@ -25505,10 +25398,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:545
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/847549>"
 msgid "L<https://bugzilla.redhat.com/1427529>"
-msgstr "L<https://bugzilla.redhat.com/847549>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:547
@@ -25517,9 +25408,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:549
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1417306>"
-msgstr "L<https://bugzilla.redhat.com/801117>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:551
@@ -25528,10 +25418,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:553
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/974904>"
 msgid "L<https://bugzilla.redhat.com/1409024>"
-msgstr "L<https://bugzilla.redhat.com/974904>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:555
@@ -25540,9 +25428,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:557
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1406906>"
-msgstr "L<https://bugzilla.redhat.com/914931>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:559
@@ -25573,10 +25460,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:569
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/876579>"
 msgid "L<https://bugzilla.redhat.com/1376547>"
-msgstr "L<https://bugzilla.redhat.com/876579>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:571
@@ -25622,10 +25507,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:585
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/913145>"
 msgid "L<https://bugzilla.redhat.com/1172425>"
-msgstr "L<https://bugzilla.redhat.com/913145>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:587
@@ -25634,10 +25517,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:589
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/981715>"
 msgid "L<https://bugzilla.redhat.com/1171654>"
-msgstr "L<https://bugzilla.redhat.com/981715>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:591
@@ -25660,9 +25541,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:597
-#, fuzzy
 msgid "L<https://bugzilla.redhat.com/1152819>"
-msgstr "L<https://bugzilla.redhat.com/1001875>"
+msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:599
@@ -67551,19 +67431,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:7050
-#, fuzzy
 msgid "part-get-gpt-attributes"
-msgstr "part-get-mbr-id"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:7052
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " part-get-gpt-attributes device partnum\n"
 "\n"
 msgstr ""
-" part-get-mbr-id device partnum\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:7054 ../lib/guestfs-actions.pod:11535
@@ -68073,22 +67950,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:7277
-#, fuzzy
 msgid "part-set-gpt-attributes"
-msgstr "part-set-mbr-id"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:7279
-#, fuzzy, no-wrap
-#| msgid ""
-#| " part-set-bootable device partnum true|false\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " part-set-gpt-attributes device partnum attributes\n"
 "\n"
 msgstr ""
-" part-set-bootable device partnum true|false\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:7281 ../lib/guestfs-actions.pod:11860
@@ -96545,20 +96416,12 @@ msgstr ""
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11528
-#, fuzzy
-#| msgid "guestfs_part_get_gpt_type"
 msgid "guestfs_part_get_gpt_attributes"
-msgstr "guestfs_part_get_gpt_type"
+msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11530
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_part_get_bootable (guestfs_h *g,\n"
-#| "                            const char *device,\n"
-#| "                            int partnum);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int64_t\n"
 " guestfs_part_get_gpt_attributes (guestfs_h *g,\n"
@@ -96566,11 +96429,6 @@ msgid ""
 "                                  int partnum);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_part_get_bootable (guestfs_h *g,\n"
-"                            const char *device,\n"
-"                            int partnum);\n"
-"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:11543 ../lib/guestfs-actions.pod:11579
@@ -96867,21 +96725,12 @@ msgstr ""
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11852
-#, fuzzy
-#| msgid "guestfs_part_set_gpt_type"
 msgid "guestfs_part_set_gpt_attributes"
-msgstr "guestfs_part_set_gpt_type"
+msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11854
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_part_set_bootable (guestfs_h *g,\n"
-#| "                            const char *device,\n"
-#| "                            int partnum,\n"
-#| "                            int bootable);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_part_set_gpt_attributes (guestfs_h *g,\n"
@@ -96890,12 +96739,6 @@ msgid ""
 "                                  int64_t attributes);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_part_set_bootable (guestfs_h *g,\n"
-"                            const char *device,\n"
-"                            int partnum,\n"
-"                            int bootable);\n"
-"\n"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11873
@@ -102383,12 +102226,6 @@ msgstr ""
 
 #. type: textblock
 #: ../lib/guestfs-availability.pod:102
-#, fuzzy
-#| msgid ""
-#| "The following functions: L</guestfs_getxattr> L</guestfs_getxattrs> L</"
-#| "guestfs_internal_lxattrlist> L</guestfs_lgetxattr> L</guestfs_lgetxattrs> "
-#| "L</guestfs_lremovexattr> L</guestfs_lsetxattr> L</guestfs_removexattr> L</"
-#| "guestfs_setxattr>"
 msgid ""
 "The following functions: L</guestfs_part_expand_gpt> L</"
 "guestfs_part_get_disk_guid> L</guestfs_part_get_gpt_attributes> L</"
@@ -102397,10 +102234,6 @@ msgid ""
 "guestfs_part_set_gpt_attributes> L</guestfs_part_set_gpt_guid> L</"
 "guestfs_part_set_gpt_type>"
 msgstr ""
-"次の関数: L</guestfs_getxattr> L</guestfs_getxattrs> L</"
-"guestfs_internal_lxattrlist> L</guestfs_lgetxattr> L</guestfs_lgetxattrs> L</"
-"guestfs_lremovexattr> L</guestfs_lsetxattr> L</guestfs_removexattr> L</"
-"guestfs_setxattr>"
 
 #. type: =item
 #: ../lib/guestfs-availability.pod:114
@@ -125821,10 +125654,8 @@ msgstr ""
 
 #. type: textblock
 #: ../v2v/virt-v2v.pod:1375
-#, fuzzy
-#| msgid "This is used to view a file."
 msgid "This is useful in two cases:"
-msgstr "ファイルを表示するために使用します。"
+msgstr ""
 
 #. type: textblock
 #: ../v2v/virt-v2v.pod:1381

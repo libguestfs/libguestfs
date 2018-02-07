@@ -1,10 +1,10 @@
 # Zdenek <chmelarz@gmail.com>, 2017. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.33\n"
+"Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2018-01-25 14:28+0000\n"
+"POT-Creation-Date: 2018-02-07 13:45+0000\n"
 "PO-Revision-Date: 2017-09-11 04:50-0400\n"
 "Last-Translator: Zdenek <chmelarz@gmail.com>\n"
 "Language-Team: Czech\n"

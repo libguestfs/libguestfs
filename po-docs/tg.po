@@ -5,9 +5,9 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.33\n"
+"Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2018-02-06 13:38+0000\n"
+"POT-Creation-Date: 2018-02-07 13:46+0000\n"
 "PO-Revision-Date: 2015-02-21 10:34-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Tajik (http://www.transifex.com/projects/p/libguestfs/"
@@ -2147,10 +2147,8 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder-repository.pod:122
-#, fuzzy
-#| msgid "B<--extract>"
 msgid "B<--interactive>"
-msgstr "B<--баровардан>"
+msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:124
@@ -12799,7 +12797,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-building.pod:181
-msgid "hivex E<ge> 1.3.14"
+msgid "hivex E<ge> 1.2.7"
 msgstr ""
 
 #. type: =item
@@ -23635,7 +23633,7 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:228
-msgid "Hivex E<ge> 1.3.14, and C<ocaml-hivex> are now required (Pino Toscano)."
+msgid "C<ocaml-hivex> is now required."
 msgstr ""
 
 #. type: textblock
