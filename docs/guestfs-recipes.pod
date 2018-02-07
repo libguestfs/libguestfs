@@ -633,7 +633,7 @@ Use L<virt-sparsify(1)>.
 You can use L<virt-df(1)> to monitor disk usage of your guests over
 time.  The link below contains a guide.
 
-L<http://virt-tools.org/learning/advanced-virt-df/>
+L<http://web.archive.org/web/20130214073726/http://virt-tools.org/learning/advanced-virt-df/>
 
 =head1 Reading the Windows Event Log from Windows Vista (or later)
 

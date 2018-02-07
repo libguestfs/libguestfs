@@ -48,11 +48,7 @@ following command a few times:
  time guestfish -a /dev/null run
 
 After a few runs, the time should settle down to a few seconds (under
-5 seconds on fast 64 bit hardware).
-
-How to check for hardware virt:
-
-L<http://virt-tools.org/learning/check-hardware-virt/>
+3 seconds on fast 64 bit hardware).
 
 If the command above does not work at all, use
 L<libguestfs-test-tool(1)>.

@@ -411,12 +411,8 @@ L<http://rwmj.wordpress.com/2013/08/14/performance-of-user-mode-linux-as-a-libgu
 
 =head2 Ensure hardware virtualization is available
 
-Use F</proc/cpuinfo> and this page:
-
-http://virt-tools.org/learning/check-hardware-virt/
-
-to ensure that hardware virtualization is available.  Note that you
-may need to enable it in your BIOS.
+Use F</proc/cpuinfo> to ensure that hardware virtualization is
+available.  Note that you may need to enable it in your BIOS.
 
 Hardware virt is not usually available inside VMs, and libguestfs will
 run slowly inside another virtual machine whatever you do.  Nested
