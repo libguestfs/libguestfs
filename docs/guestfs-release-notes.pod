@@ -4,18 +4,18 @@ guestfs-release-notes - libguestfs Release Notes
 
 =begin comment
 
-UPDATED TO 719d68fa247cc3885ecf7ec1c010faf83267d786
+UPDATED TO <commit id>
 
 =end comment
 
-=begin html
+=begin comment
 
 <script>
 document.body.style.backgroundImage = "url('draft.png')";
 document.body.style.backgroundRepeat = "no-repeat";
 </script>
 
-=end html
+=end comment
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.38
 
@@ -141,6 +141,8 @@ Better support for NeoKylin (Qingzheng Zhang).
 Can handle OSes like Void Linux which do not include C<VERSION_ID>
 in F</etc/os-release> (Pino Toscano).
 
+Add support for Microsoft MS-DOS (Daniel Berrangé).
+
 =head3 Architectures and platforms
 
 Multiple fixes for S/390 architecture.  Libguestfs and all the tools
@@ -262,7 +264,7 @@ Linux distro detection at build time (Pino Toscano).
 qemu E<ge> 2.10 is supported (but not required).  This adds mandatory
 locking to disks and libguestfs turns this off in certain
 circumstances when it is known to be safe (Lars Seipel, Peter Krempa,
-Daniel Berrange, Pino Toscano, Fam Zheng, Yongkui Guo, Václav
+Daniel Berrangé, Pino Toscano, Fam Zheng, Yongkui Guo, Václav
 Kadlčík).
 
 =head2 Internals
@@ -370,6 +372,10 @@ https_proxy= ./bugs-in-changelog.sh v1.36.0..
 
 =over 4
 
+=item L<https://bugzilla.redhat.com/1540535>
+
+Example URI of "Convert from ESXi hypervisor over SSH to local libvirt" is incorrect in v2v man page
+
 =item L<https://bugzilla.redhat.com/1539395>
 
 virt-customize segfaults after upgrading to 1.37.35-3
@@ -381,6 +387,10 @@ Libguestfs Perl bindings can leak a small amount of memory on error
 =item L<https://bugzilla.redhat.com/1536763>
 
 libguestfs Lua bindings use strerror(), which isn’t thread safe
+
+=item L<https://bugzilla.redhat.com/1536603>
+
+man page makes no mention of using '--' when trying to change exit on error behavior
 
 =item L<https://bugzilla.redhat.com/1525241>
 
