@@ -458,6 +458,13 @@ command that gives an error causes the whole shell to exit.  In
 interactive mode (with a prompt) if a command fails, you can continue
 to enter commands.
 
+Note that arguments of the commands will be considered as guestfish
+options if they start with a dash (C<->): you can always separate the
+guestfish options and the rest of the commands (with their arguments)
+using a double dash (C<-->).  For example:
+
+ guestfish -- disk_create overlay.qcow2 qcow2 -1 backingfile:image.img
+
 =head1 USING launch (OR run)
 
 As with L<guestfs(3)>, you must first configure your guest by adding
