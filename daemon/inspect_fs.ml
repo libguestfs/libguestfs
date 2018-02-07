@@ -220,6 +220,18 @@ and check_filesystem mountable =
      *)
     data.arch <- Some "i386"
   )
+  (* MS-DOS? *)
+  else if is_dir_nocase "/DOS" &&
+          is_file_nocase "/DOS/COMMAND.COM" then (
+    debug_matching "MS-DOS";
+    role := `Root;
+    data.os_type <- Some OS_TYPE_DOS;
+    data.distro <- Some DISTRO_MSDOS;
+    (* MS-DOS is a mix of 16 and 32 bit, but
+     * assume it requires a 32 bit i386 processor.
+     *)
+    data.arch <- Some "i386"
+  )
   (* None of the above. *)
   else (
     debug_matching "no known OS partition"
@@ -282,6 +294,7 @@ and check_package_format { distro } =
   | Some DISTRO_FREEBSD
   | Some DISTRO_FREEDOS
   | Some DISTRO_FRUGALWARE
+  | Some DISTRO_MSDOS
   | Some DISTRO_NETBSD
   | Some DISTRO_OPENBSD
   | Some DISTRO_PLD_LINUX
@@ -365,6 +378,7 @@ and check_package_management { distro; version } =
   | Some DISTRO_FREEBSD
   | Some DISTRO_FREEDOS
   | Some DISTRO_FRUGALWARE
+  | Some DISTRO_MSDOS
   | Some DISTRO_NETBSD
   | Some DISTRO_OPENBSD
   | Some DISTRO_PLD_LINUX

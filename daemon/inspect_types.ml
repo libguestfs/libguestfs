@@ -82,6 +82,7 @@ and distro =
   | DISTRO_MAGEIA
   | DISTRO_MANDRIVA
   | DISTRO_MEEGO
+  | DISTRO_MSDOS
   | DISTRO_NEOKYLIN
   | DISTRO_NETBSD
   | DISTRO_OPENBSD
@@ -211,6 +212,7 @@ and string_of_distro = function
   | DISTRO_MAGEIA -> "mageia"
   | DISTRO_MANDRIVA -> "mandriva"
   | DISTRO_MEEGO -> "meego"
+  | DISTRO_MSDOS -> "msdos"
   | DISTRO_NEOKYLIN -> "neokylin"
   | DISTRO_NETBSD -> "netbsd"
   | DISTRO_OPENBSD -> "openbsd"

@@ -226,6 +226,10 @@ Mandriva.
 
 MeeGo.
 
+=item \"msdos\"
+
+Microsoft DOS.
+
 =item \"neokylin\"
 
 NeoKylin.
