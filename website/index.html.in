@@ -183,15 +183,14 @@ git clone <a href="https://github.com/libguestfs/libguestfs">git://github.com/li
 <p class="latest">
 <em><small>
   <!--
-LATEST-URL: http://libguestfs.org/download/1.37-development/libguestfs-@PACKAGE_VERSION@.tar.gz
+LATEST-URL: http://libguestfs.org/download/1.39-development/libguestfs-@PACKAGE_VERSION@.tar.gz
 LATEST-VERSION: @PACKAGE_VERSION@
   -->
-  <a href="download/1.37-development/">Latest development version: <strong>@PACKAGE_VERSION@</strong></a> (released <strong>@RELEASE_DATE@</strong>).<br/>
+  <a href="download/1.39-development/">Latest development version: <strong>@PACKAGE_VERSION@</strong></a> (released <strong>@RELEASE_DATE@</strong>).<br/>
   Stable branches:
   <strong>
-  <a href="download/1.36-stable/">1.36.x</a>,
-  <a href="download/1.34-stable/">1.34.x</a>,
-  <a href="download/1.32-stable/">1.32.x</a>,
+  <a href="download/1.38-stable/">1.38.x</a>,
+  <a href="download/1.36-stable/">1.36.x</a>
   </strong>
 </small></em>
 </p>
