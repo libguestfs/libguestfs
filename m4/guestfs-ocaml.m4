@@ -175,7 +175,7 @@ AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
 
 dnl Create the backwards compatibility Bytes module for OCaml < 4.02.
 mkdir -p common/mlstdutils
-rm -f common/mlstdutils/bytes.ml
+rm -f common/mlstdutils/bytes.ml common/mlstdutils/bytes.mli
 AS_IF([test "x$have_Bytes_module" = "xno"],[
     cat > common/mlstdutils/bytes.ml <<EOF
 include String
@@ -183,6 +183,7 @@ let of_string = String.copy
 let to_string = String.copy
 let sub_string = String.sub
 EOF
+    $OCAMLC -i common/mlstdutils/bytes.ml > common/mlstdutils/bytes.mli
     OCAML_BYTES_COMPAT_CMO='$(top_builddir)/common/mlstdutils/bytes.cmo'
     OCAML_BYTES_COMPAT_ML='$(top_builddir)/common/mlstdutils/bytes.ml'
     safe_string_option=

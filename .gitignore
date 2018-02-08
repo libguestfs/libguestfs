@@ -139,6 +139,7 @@ Makefile.in
 /common/mlprogress/.depend
 /common/mlstdutils/.depend
 /common/mlstdutils/bytes.ml
+/common/mlstdutils/bytes.mli
 /common/mlstdutils/guestfs_config.ml
 /common/mlstdutils/oUnit-*
 /common/mlstdutils/std_utils_tests
