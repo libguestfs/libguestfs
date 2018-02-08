@@ -190,7 +190,7 @@ and generate_python_structs () =
       List.iter (
         function
         | name, FString ->
-            pr "  value = guestfs_int_py_fromstring (%s->%s);" typ name;
+            pr "  value = guestfs_int_py_fromstring (%s->%s);\n" typ name;
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
