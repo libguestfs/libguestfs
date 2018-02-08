@@ -60,7 +60,7 @@ L<virt-builder(1)/Creating and signing the index file>.
 
 =head2 Update images in an existing repository
 
-In this use case, an new image or a new revision of an existing image
+In this use case, a new image or a new revision of an existing image
 needs to be added to the repository. Place the corresponding image
 template files in the repository folder.
 
