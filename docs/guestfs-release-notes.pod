@@ -49,7 +49,7 @@ so they will only run when the system is booted normally.
 Virt-customize now sets a random F</etc/machine-id> for Linux guests,
 if one is not already set.
 
-Virt-df now works correctly on fileystems with block sizes smaller
+Virt-df now works correctly on filesystems with block sizes smaller
 than 1K (Nikolay Ivanets).
 
 Virt-dib has further compatibility enhancements with diskimage-builder
