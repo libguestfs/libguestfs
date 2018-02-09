@@ -576,7 +576,7 @@ maintainer-check-authors:
 	    $(AWK) -F'\t' '{print $$2}' | \
 	    sort -f | \
 	    while read author; do \
-	        if ! grep -sqiF "\"$$author\"," generator/authors.ml; then \
+	        if ! grep -sqiF "\"$$author\"" generator/authors.ml; then \
 	            echo "FAIL: $$author" is missing from generator/authors.ml; \
 	            exit 1; \
 	        fi; \

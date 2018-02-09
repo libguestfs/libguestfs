@@ -28,103 +28,106 @@ type role = Development | Quality_assurance | Documentation | V2V_and_P2V
 
 (* Note that the following list interacts with
  * [make maintainer-check-authors] in [libguestfs.git/Makefile.am].
+ *
+ * The second field (list of aliases) is not actually used in any
+ * code, but it keeps [make maintainer-check-authors] happy.
  *)
 let authors = [
-"Adam Huffman", [ Development ];
-"Andrea Bolognani", [ Development ];
-"Angus Salkeld", [ Development ];
-"Ani Peter", [ Development ];
-"Bastien ROUCARIÈS", [ Development ];
-"Cao jin", [ Development ];
-"Charles Duffy", [ Development ];
-"Chen Hanxiao", [ Development ];
-"Cole Robinson", [ Development ];
-"Colin Walters", [ Development ];
-"Cédric Bosdonnat", [ Development; V2V_and_P2V ];
-"Dan Lipsitt", [ Development ];
-"Daniel Berrange", [ Development ];
-"Daniel Cabrera", [ Development ];
-"Daniel Exner", [ Development ];
-"Dave Vasilevsky", [ Development ];
-"David Sommerseth", [ Development ];
-"Dawid Zamirski", [ Development ];
-"Douglas Schilling Landgraf", [ Development ];
-"Eric Blake", [ Development ];
-"Erik Nolte", [ Development ];
-"Evaggelos Balaskas", [ Development ];
-"Florian Klink", [ Development ];
-"Gabriele Cerami", [ Development ];
-"Geert Warrink", [ Development ];
-"Guido Günther", [ Development ];
-"Hilko Bengen", [ Development ];
-"Hu Tao", [ Development ];
-"infernix", [ Development ];
-"Jamie Iles", [ Development ];
-"Jaswinder Singh", [ Development ];
-"Jim Meyering", [ Development ];
-"Jiri Popelka", [ Development ];
-"John Eckersberg", [ Development; V2V_and_P2V ];
-"Joseph Wang", [ Development ];
-"Junqin Zhou", [ Quality_assurance; V2V_and_P2V ];
-"Karel Klíč", [ Development ];
-"Kashyap Chamarthy", [ Development ];
-"Kean Li", [ Quality_assurance; V2V_and_P2V ];
-"Ken Stailey", [ Development ];
-"Kun Wei", [ Quality_assurance; V2V_and_P2V ];
-"Lars Kellogg-Stedman", [ Development ];
-"Lars Seipel", [ Development ];
-"Laura Bailey", [ Documentation; V2V_and_P2V ];
-"Lee Yarwood", [ Development ];
-"Marcin Gibula", [ Development ];
-"Margaret Lewicka", [ Development ];
-"Maros Zatko", [ Development ];
-"Martin Kletzander", [ Development ];
-"Masami HIRATA", [ Development ];
-"Matteo Cafasso", [ Development ];
-"Matthew Booth", [ Development; V2V_and_P2V ];
-"Maxim Koltsov", [ Development ];
-"Maxim Perevedentsev", [ Development ];
-"Menanteau Guy", [ Development ];
-"Michael Scherer", [ Development ];
-"Mike Frysinger", [ Development ];
-"Mike Kelly", [ Development ];
-"Mike Latimer", [ V2V_and_P2V ];
-"Ming Xie", [ Quality_assurance; V2V_and_P2V ];
-"Mykola Ivanets", [ Development ];
-"Nicholas Strugnell", [ Development ];
-"Nikita A Menkovich", [ Development ];
-"Nikita Menkovich", [ Development ];
-"Nikos Skalkotos", [ Development ];
-"Olaf Hering", [ Development ];
-"Or Goshen", [ Development ];
-"Paul Mackerras", [ Development ];
-"Pavel Butsykin", [ Development ];
-"Pino Toscano", [ Development; V2V_and_P2V ];
-"Piotr Drąg", [ Development ];
-"Qin Guan", [ Development ];
-"Rajesh Ranjan", [ Development ];
-"Richard W.M. Jones", [ Development; V2V_and_P2V ];
-"Robert Antoni Buj Gelonch", [ Development ];
-"Roman Kagan", [ Development; V2V_and_P2V ];
-"Sandeep Shedmake", [ Development ];
-"Shahar Havivi", [ Development; V2V_and_P2V ];
-"Shahar Lev", [ Development ];
-"Shankar Prasad", [ Development ];
-"Thomas S Hatch", [ Development ];
-"Tingting Zheng", [ Quality_assurance; V2V_and_P2V ];
-"Tomáš Golembiovský", [ Development ];
-"Török Edwin", [ Development ];
-"Wanlong Gao", [ Development ];
-"Wulf C. Krueger", [ Development ];
-"Xiang Hua Chen", [ Quality_assurance; V2V_and_P2V ];
-"Yann E. MORIN", [ Development ];
-"Yehuda Zimmerman", [ Documentation; V2V_and_P2V ];
-"Yuri Chornoivan", [ Documentation ];
+"Adam Huffman", [], [ Development ];
+"Andrea Bolognani", [], [ Development ];
+"Angus Salkeld", [], [ Development ];
+"Ani Peter", [], [ Development ];
+"Bastien ROUCARIÈS", [], [ Development ];
+"Cao jin", [], [ Development ];
+"Charles Duffy", [], [ Development ];
+"Chen Hanxiao", [], [ Development ];
+"Cole Robinson", [], [ Development ];
+"Colin Walters", [], [ Development ];
+"Cédric Bosdonnat", [], [ Development; V2V_and_P2V ];
+"Dan Lipsitt", [], [ Development ];
+"Daniel P. Berrangé", [ "Daniel Berrange" ], [ Development ];
+"Daniel Cabrera", [], [ Development ];
+"Daniel Exner", [], [ Development ];
+"Dave Vasilevsky", [], [ Development ];
+"David Sommerseth", [], [ Development ];
+"Dawid Zamirski", [], [ Development ];
+"Douglas Schilling Landgraf", [], [ Development ];
+"Eric Blake", [], [ Development ];
+"Erik Nolte", [], [ Development ];
+"Evaggelos Balaskas", [], [ Development ];
+"Florian Klink", [], [ Development ];
+"Gabriele Cerami", [], [ Development ];
+"Geert Warrink", [], [ Development ];
+"Guido Günther", [], [ Development ];
+"Hilko Bengen", [], [ Development ];
+"Hu Tao", [], [ Development ];
+"infernix", [], [ Development ];
+"Jamie Iles", [], [ Development ];
+"Jaswinder Singh", [], [ Development ];
+"Jim Meyering", [], [ Development ];
+"Jiri Popelka", [], [ Development ];
+"John Eckersberg", [], [ Development; V2V_and_P2V ];
+"Joseph Wang", [], [ Development ];
+"Junqin Zhou", [], [ Quality_assurance; V2V_and_P2V ];
+"Karel Klíč", [], [ Development ];
+"Kashyap Chamarthy", [], [ Development ];
+"Kean Li", [], [ Quality_assurance; V2V_and_P2V ];
+"Ken Stailey", [], [ Development ];
+"Kun Wei", [], [ Quality_assurance; V2V_and_P2V ];
+"Lars Kellogg-Stedman", [], [ Development ];
+"Lars Seipel", [], [ Development ];
+"Laura Bailey", [], [ Documentation; V2V_and_P2V ];
+"Lee Yarwood", [], [ Development ];
+"Marcin Gibula", [], [ Development ];
+"Margaret Lewicka", [], [ Development ];
+"Maros Zatko", [], [ Development ];
+"Martin Kletzander", [], [ Development ];
+"Masami HIRATA", [], [ Development ];
+"Matteo Cafasso", [], [ Development ];
+"Matthew Booth", [], [ Development; V2V_and_P2V ];
+"Maxim Koltsov", [], [ Development ];
+"Maxim Perevedentsev", [], [ Development ];
+"Menanteau Guy", [], [ Development ];
+"Michael Scherer", [], [ Development ];
+"Mike Frysinger", [], [ Development ];
+"Mike Kelly", [], [ Development ];
+"Mike Latimer", [], [ V2V_and_P2V ];
+"Ming Xie", [], [ Quality_assurance; V2V_and_P2V ];
+"Mykola Ivanets", [], [ Development ];
+"Nicholas Strugnell", [], [ Development ];
+"Nikita A Menkovich", [], [ Development ];
+"Nikita Menkovich", [], [ Development ];
+"Nikos Skalkotos", [], [ Development ];
+"Olaf Hering", [], [ Development ];
+"Or Goshen", [], [ Development ];
+"Paul Mackerras", [], [ Development ];
+"Pavel Butsykin", [], [ Development ];
+"Pino Toscano", [], [ Development; V2V_and_P2V ];
+"Piotr Drąg", [], [ Development ];
+"Qin Guan", [], [ Development ];
+"Rajesh Ranjan", [], [ Development ];
+"Richard W.M. Jones", [], [ Development; V2V_and_P2V ];
+"Robert Antoni Buj Gelonch", [], [ Development ];
+"Roman Kagan", [], [ Development; V2V_and_P2V ];
+"Sandeep Shedmake", [], [ Development ];
+"Shahar Havivi", [], [ Development; V2V_and_P2V ];
+"Shahar Lev", [], [ Development ];
+"Shankar Prasad", [], [ Development ];
+"Thomas S Hatch", [], [ Development ];
+"Tingting Zheng", [], [ Quality_assurance; V2V_and_P2V ];
+"Tomáš Golembiovský", [], [ Development ];
+"Török Edwin", [], [ Development ];
+"Wanlong Gao", [], [ Development ];
+"Wulf C. Krueger", [], [ Development ];
+"Xiang Hua Chen", [], [ Quality_assurance; V2V_and_P2V ];
+"Yann E. MORIN", [], [ Development ];
+"Yehuda Zimmerman", [], [ Documentation; V2V_and_P2V ];
+"Yuri Chornoivan", [], [ Documentation ];
 ]
 (** List of authors and roles. *)
 
 let generate_authors () =
-  List.iter (fun (name, _) -> pr "%s\n" name) authors
+  List.iter (fun (name, _, _) -> pr "%s\n" name) authors
 
 let generate_p2v_about_authors_c () =
   generate_header CStyle GPLv2plus;
@@ -142,7 +145,7 @@ let generate_p2v_about_authors_c () =
   let authors, qa, documenters, others =
     let rec loop (authors, qa, documenters, others) = function
       | [] -> authors, qa, documenters, others
-      | ((_, roles) as a) :: rest ->
+      | ((_, _, roles) as a) :: rest ->
          if List.mem V2V_and_P2V roles then
            loop (a :: authors, qa, documenters, others) rest
          else if List.mem Quality_assurance roles then
@@ -155,7 +158,7 @@ let generate_p2v_about_authors_c () =
     let authors, qa, documenters, others = loop ([],[],[],[]) authors in
     List.rev authors, List.rev qa, List.rev documenters, List.rev others in
 
-  let fn (name, _) = pr "  \"%s\",\n" name in
+  let fn (name, _, _) = pr "  \"%s\",\n" name in
 
   pr "/* Authors involved with virt-v2v and virt-p2v directly. */\n";
   pr "const char *authors[] = {\n";

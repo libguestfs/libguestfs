@@ -19,8 +19,8 @@
 type role = Development | Quality_assurance | Documentation | V2V_and_P2V
 (** Not exclusive, you can be in multiple roles :-) *)
 
-val authors : (string * role list) list
-(** List of authors and roles. *)
+val authors : (string * string list * role list) list
+(** List of authors, their aliases, and their roles. *)
 
 val generate_authors : unit -> unit
 val generate_p2v_about_authors_c : unit -> unit
