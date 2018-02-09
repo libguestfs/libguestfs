@@ -101,9 +101,9 @@ stamp-extra-files: \
 	  cleanups.h \
 	  config.h \
 	  guestfs-internal-all.h \
-	  guestfs-utils.h
+	  guestfs-utils.h \
 	  ignore-value.h \
-	  utils.c \
+	  utils.c
 	touch $@
 
 config.h:
