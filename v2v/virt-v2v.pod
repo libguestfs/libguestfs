@@ -6,14 +6,17 @@ virt-v2v - Convert a guest to use KVM
 
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest
 
- virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest \
-   -o rhv -os rhv.nfs:/export_domain --bridge ovirtmgmt
-
  virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp
 
  virt-v2v -i disk disk.img -o local -os /var/tmp
 
  virt-v2v -i disk disk.img -o glance
+
+ virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest \
+   -o rhv-upload -oc https://ovirt-engine.example.com/ovirt-engine/api \
+   -os ovirt-data -op /tmp/ovirt-admin-password -of raw \
+   -oo rhv-cafile=/tmp/ca.pem -oo rhv-direct \
+   --bridge ovirtmgmt
 
 =head1 DESCRIPTION
 
@@ -50,20 +53,18 @@ For more information see L</INPUT FROM VMWARE VCENTER SERVER> below.
 =head2 Convert from VMware to RHV/oVirt
 
 This is the same as the previous example, except you want to send the
-guest to a RHV-M Export Storage Domain which is located remotely
-(over NFS) at C<rhv.nfs:/export_domain>.  If you are unclear about
-the location of the Export Storage Domain you should check the
-settings on your RHV-M management console.  Guest network
+guest to a RHV Data Domain using the RHV REST API.  Guest network
 interface(s) are connected to the target network called C<ovirtmgmt>.
 
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest \
-   -o rhv -os rhv.nfs:/export_domain --bridge ovirtmgmt
+   -o rhv-upload -oc https://ovirt-engine.example.com/ovirt-engine/api \
+   -os ovirt-data -op /tmp/ovirt-admin-password -of raw \
+   -oo rhv-cafile=/tmp/ca.pem -oo rhv-direct \
+   --bridge ovirtmgmt
 
 In this case the host running virt-v2v acts as a B<conversion server>.
 
-Note that after conversion, the guest will appear in the RHV-M Export
-Storage Domain, from where you will need to import it using the RHV-M
-user interface.  (See L</OUTPUT TO RHV>).
+For more information see L</OUTPUT TO RHV> below.
 
 =head2 Convert from ESXi hypervisor over SSH to local libvirt
 
@@ -122,9 +123,9 @@ command line.
  Xen ───▶│ -i libvirt ──▶ │            │     │  (default) │
  ... ───▶│  (default) │   │            │ ──┐ └────────────┘
          └────────────┘   │            │ ─┐└──────▶ -o glance
- -i libvirtxml ─────────▶ │            │ ┐└─────────▶ -o rhv
- -i vmx ────────────────▶ │            │ └──────────▶ -o vdsm
-                          └────────────┘
+ -i libvirtxml ─────────▶ │            │ ┐├─────────▶ -o rhv
+ -i vmx ────────────────▶ │            │ │└─────────▶ -o vdsm
+                          └────────────┘ └──────────▶ -o rhv-upload
 
 Virt-v2v has a number of possible input and output modes, selected
 using the I<-i> and I<-o> options.  Only one input and output mode can
@@ -157,8 +158,9 @@ libvirt configuration file (mainly for testing).
 I<-o qemu> writes to a local disk image with a shell script for
 booting the guest directly in qemu (mainly for testing).
 
-I<-o rhv> is used to write to a RHV / oVirt target.  I<-o vdsm>
-is only used when virt-v2v runs under VDSM control.
+I<-o rhv-upload> is used to write to a RHV / oVirt target.  I<-o rhv>
+is a legacy method to write to RHV / oVirt E<lt> 4.2.  I<-o vdsm> is
+only used when virt-v2v runs under VDSM control.
 
 =head1 OPTIONS
 
@@ -426,6 +428,10 @@ written.
 
 This is the same as I<-o rhv>.
 
+=item B<-o> B<ovirt-upload>
+
+This is the same as I<-o rhv-upload>.
+
 =item B<-o> B<qemu>
 
 Set the output method to I<qemu>.
@@ -446,6 +452,16 @@ The converted guest is written to a RHV Export Storage Domain.  The
 I<-os> parameter must also be used to specify the location of the
 Export Storage Domain.  Note this does not actually import the guest
 into RHV.  You have to do that manually later using the UI.
+
+See L</OUTPUT TO RHV (OLD METHOD)> below.
+
+=item B<-o> B<rhv-upload>
+
+Set the output method to I<rhv-upload>.
+
+The converted guest is written directly to a RHV Data Domain.
+This is a faster method than I<-o rhv>, but requires oVirt
+or RHV E<ge> 4.2.
 
 See L</OUTPUT TO RHV> below.
 
@@ -488,7 +504,33 @@ the output name is the same as the input name.
 Set output option(s) related to the current output mode.
 To display short help on what options are available you can use:
 
- virt-v2v -o vdsm -oo "?"
+ virt-v2v -o rhv-upload -oo "?"
+
+=item B<-oo rhv-cafile=>F<ca.pem>
+
+For I<-o rhv-upload> (L</OUTPUT TO RHV>) only, the F<ca.pem> file
+(Certificate Authority), copied from F</etc/pki/ovirt-engine/ca.pem>
+on the oVirt engine.
+
+=item B<-oo rhv-cluster=>C<CLUSTERNAME>
+
+For I<-o rhv-upload> (L</OUTPUT TO RHV>) only, set the RHV Cluster
+Name.  If not given it uses C<Default>.
+
+=item B<-oo rhv-direct>
+
+For I<-o rhv-upload> (L</OUTPUT TO RHV>) only, if this option is given
+then virt-v2v will attempt to directly upload the disk to the oVirt
+node, otherwise it will proxy the upload through the oVirt engine.
+Direct upload requires that you have network access to the oVirt
+nodes.  Non-direct upload is slightly slower but should work in all
+situations.
+
+=item B<-oo rhv-verifypeer>
+
+For I<-o rhv-upload> (L</OUTPUT TO RHV>) only, verify the oVirt/RHV
+server’s identity by checking the server‘s certificate against the
+Certificate Authority.
 
 =item B<-oo vdsm-compat=0.10>
 
@@ -1732,6 +1774,68 @@ Define the final guest in libvirt:
 =back
 
 =head1 OUTPUT TO RHV
+
+This new method to upload guests to oVirt or RHV directly via the REST
+API requires oVirt/RHV E<ge> 4.2.
+
+You need to specify I<-o rhv-upload> as well as the following extra
+parameters:
+
+=over 4
+
+=item I<-oc> C<https://ovirt-engine.example.com/ovirt-engine/api>
+
+The URL of the REST API which is usually the server name with
+C</ovirt-engine/api> appended, but might be different if you installed
+oVirt Engine on a different path.
+
+You can optionally add a username and port number to the URL.  If the
+username is not specified then virt-v2v defaults to using
+C<admin@internal> which is the typical superuser account for oVirt
+instances.
+
+=item I<-of raw>
+
+Currently you must use I<-of raw> and you cannot use I<-oa preallocated>.
+
+These restrictions will be loosened in a future version.
+
+=item I<-op> F<password-file>
+
+A file containing a password to be used when connecting to the oVirt
+engine.  Note the file should contain the whole password, B<without
+any trailing newline>, and for security the file should have mode
+C<0600> so that others cannot read it.
+
+=item I<-os> C<ovirt-data>
+
+The storage domain.
+
+=item I<-oo rhv-cafile=>F<ca.pem>
+
+The F<ca.pem> file (Certificate Authority), copied from
+F</etc/pki/ovirt-engine/ca.pem> on the oVirt engine.
+
+=item I<-oo rhv-cluster=>C<CLUSTERNAME>
+
+Set the RHV Cluster Name.  If not given it uses C<Default>.
+
+=item I<-oo rhv-direct>
+
+If this option is given then virt-v2v will attempt to directly upload
+the disk to the oVirt node, otherwise it will proxy the upload through
+the oVirt engine.  Direct upload requires that you have network access
+to the oVirt nodes.  Non-direct upload is slightly slower but should
+work in all situations.
+
+=item I<-oo rhv-verifypeer>
+
+Verify the oVirt/RHV server’s identity by checking the server‘s
+certificate against the Certificate Authority.
+
+=back
+
+=head1 OUTPUT TO RHV (OLD METHOD)
 
 This section only applies to the I<-o rhv> output mode.  If you use
 virt-v2v from the RHV-M user interface, then behind the scenes the

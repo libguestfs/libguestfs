@@ -134,6 +134,8 @@ let parse_cmdline () =
     | "disk" | "local" -> output_mode := `Local
     | "null" -> output_mode := `Null
     | "ovirt" | "rhv" | "rhev" -> output_mode := `RHV
+    | "ovirt-upload" | "ovirt_upload" | "rhv-upload" | "rhv_upload" ->
+       output_mode := `RHV_Upload
     | "qemu" -> output_mode := `QEmu
     | "vdsm" -> output_mode := `VDSM
     | s ->
@@ -383,6 +385,16 @@ read the man page virt-v2v(1).
     | `Null -> no_options (); `Null
     | `RHV -> no_options (); `RHV
     | `QEmu -> no_options (); `QEmu
+    | `RHV_Upload ->
+       if is_query then (
+         Output_rhv_upload.print_output_options ();
+         exit 0
+       )
+       else (
+         let rhv_options =
+           Output_rhv_upload.parse_output_options output_options in
+         `RHV_Upload rhv_options
+       )
     | `VDSM ->
        if is_query then (
          Output_vdsm.print_output_options ();
@@ -570,6 +582,35 @@ read the man page virt-v2v(1).
       if qemu_boot then
         error_option_cannot_be_used_in_output_mode "rhv" "--qemu-boot";
       Output_rhv.output_rhv os output_alloc,
+      output_format, output_alloc
+
+    | `RHV_Upload rhv_options ->
+      let output_conn =
+        match output_conn with
+        | None ->
+           error (f_"-o rhv-upload: use ‘-oc’ to point to the oVirt or RHV server REST API URL, which is usually https://servername/ovirt-engine/api")
+        | Some oc -> oc in
+      (* Output format / sparse must currently be raw+sparse.  We can
+       * change this in future.  See TODO file for details. XXX
+       *)
+      if output_alloc <> Sparse || output_format <> Some "raw" then
+        error (f_"-o rhv-upload: currently you must use ‘-of raw’ and you cannot use ‘-oa preallocated’ with this output mode.  These restrictions will be loosened in a future version.");
+      (* In theory we could make the password optional in future. *)
+      let output_password =
+        match output_password with
+        | None ->
+           error (f_"-o rhv-upload: output password file was not specified, use ‘-op’ to point to a file which contains the password used to connect to the oVirt or RHV server")
+        | Some op -> op in
+      let os =
+        match output_storage with
+        | None ->
+           error (f_"-o rhv-upload: output storage was not specified, use ‘-os’");
+        | Some os -> os in
+      if qemu_boot then
+        error_option_cannot_be_used_in_output_mode "rhv-upload" "--qemu-boot";
+      Output_rhv_upload.output_rhv_upload output_alloc output_conn
+                                          output_password os
+                                          rhv_options,
       output_format, output_alloc
 
     | `VDSM vdsm_options ->
