@@ -22,12 +22,19 @@ generator_built = \
 	uefi.mli
 
 BUILT_SOURCES = \
-	$(generator_built)
+	$(generator_built) \
+	output_rhv_upload_createvm_source.ml \
+	output_rhv_upload_plugin_source.ml \
+	output_rhv_upload_precheck_source.ml
 
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	copy_to_local.ml \
 	copy_to_local.mli \
+	embed-code.sh \
+	rhv-upload-createvm.py \
+	rhv-upload-plugin.py \
+	rhv-upload-precheck.py \
 	v2v_unit_tests.ml \
 	virt-v2v.pod \
 	virt-v2v-copy-to-local.pod
@@ -62,6 +69,10 @@ SOURCES_MLI = \
 	output_null.mli \
 	output_qemu.mli \
 	output_rhv.mli \
+	output_rhv_upload.mli \
+	output_rhv_upload_createvm_source.mli \
+	output_rhv_upload_plugin_source.mli \
+	output_rhv_upload_precheck_source.mli \
 	output_vdsm.mli \
 	parse_ova.mli \
 	parse_ovf_from_ova.mli \
@@ -116,6 +127,10 @@ SOURCES_ML = \
 	output_local.ml \
 	output_qemu.ml \
 	output_rhv.ml \
+	output_rhv_upload_createvm_source.ml \
+	output_rhv_upload_plugin_source.ml \
+	output_rhv_upload_precheck_source.ml \
+	output_rhv_upload.ml \
 	output_vdsm.ml \
 	inspect_source.ml \
 	target_bus_assignment.ml \
@@ -125,6 +140,15 @@ SOURCES_ML = \
 SOURCES_C = \
 	libvirt_utils-c.c \
 	qemuopts-c.c
+
+# These files are generated and contain rhv-upload-*.py embedded as an
+# OCaml string.
+output_rhv_upload_createvm_source.ml: rhv-upload-createvm.py
+	./embed.sh code $^ $@
+output_rhv_upload_plugin_source.ml: rhv-upload-plugin.py
+	./embed.sh code $^ $@
+output_rhv_upload_precheck_source.ml: rhv-upload-precheck.py
+	./embed.sh code $^ $@
 
 if HAVE_OCAML
 
@@ -295,6 +319,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
 	test-v2v-docs.sh \
+	test-v2v-python-syntax.sh \
 	test-v2v-i-ova-bad-sha1.sh \
 	test-v2v-i-ova-bad-sha256.sh \
 	test-v2v-i-ova-formats.sh \
@@ -308,6 +333,7 @@ TESTS = \
 	test-v2v-i-ova-two-disks.sh \
 	test-v2v-i-vmx.sh \
 	test-v2v-it-vddk-io-query.sh \
+	test-v2v-o-rhv-upload-oo-query.sh \
 	test-v2v-o-vdsm-oo-query.sh \
 	test-v2v-bad-networks-and-bridges.sh
 
@@ -483,6 +509,7 @@ EXTRA_DIST += \
 	test-v2v-o-null.sh \
 	test-v2v-o-qemu.sh \
 	test-v2v-o-rhv.sh \
+	test-v2v-o-rhv-upload-oo-query.sh \
 	test-v2v-o-vdsm-oo-query.sh \
 	test-v2v-o-vdsm-options.sh \
 	test-v2v-oa-option.sh \
@@ -491,6 +518,7 @@ EXTRA_DIST += \
 	test-v2v-print-source.expected \
 	test-v2v-print-source.sh \
 	test-v2v-print-source.xml \
+	test-v2v-python-syntax.sh \
 	test-v2v-conversion-of.sh \
 	test-v2v-sound.sh \
 	test-v2v-sound.xml \

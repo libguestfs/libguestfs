@@ -672,6 +672,9 @@ Makefile.in
 /utils/qemu-speed-test/qemu-speed-test
 /v2v/.depend
 /v2v/oUnit-*
+/v2v/output_rhv_upload_createvm_source.ml
+/v2v/output_rhv_upload_plugin_source.ml
+/v2v/output_rhv_upload_precheck_source.ml
 /v2v/real-*.d/
 /v2v/real-*.img
 /v2v/real-*.xml
