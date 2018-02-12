@@ -157,7 +157,7 @@ virt_builder_CFLAGS = \
 	$(LIBLZMA_CFLAGS) \
 	$(LIBTINFO_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
-	$(YAJL_CFLAGS)
+	$(JANSSON_CFLAGS)
 
 BOBJECTS = $(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
@@ -211,7 +211,7 @@ OCAMLCLIBS = \
 	$(LIBCRYPT_LIBS) \
 	$(LIBLZMA_LIBS) \
 	$(LIBXML2_LIBS) \
-	$(YAJL_LIBS) \
+	$(JANSSON_LIBS) \
 	$(LIBINTL) \
 	-lgnu
 

@@ -53,8 +53,8 @@ case $osversion in
         # This just forces configure to ignore these missing dependencies.
         export LIBTINFO_CFLAGS=-D_GNU_SOURCE
         export LIBTINFO_LIBS=-lncurses
-        export YAJL_CFLAGS=-D_GNU_SOURCE
-        export YAJL_LIBS=-lyajl
+        export JANSSON_CFLAGS=-D_GNU_SOURCE
+        export JANSSON_LIBS=-ljansson
         # Remove some unsupported flags that the configure script hard codes.
         sed -i -e 's/-fno-strict-overflow//' configure
         sed -i -e 's/-Wno-strict-overflow//' configure
@@ -66,8 +66,8 @@ case $osversion in
         # This just forces configure to ignore these missing dependencies.
         export LIBTINFO_CFLAGS=-D_GNU_SOURCE
         export LIBTINFO_LIBS=-lncurses
-        export YAJL_CFLAGS=-D_GNU_SOURCE
-        export YAJL_LIBS=-lyajl
+        export JANSSON_CFLAGS=-D_GNU_SOURCE
+        export JANSSON_LIBS=-ljansson
         ;;
 esac
 

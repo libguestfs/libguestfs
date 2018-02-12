@@ -23,24 +23,17 @@
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
-#include <yajl/yajl_tree.h>
+#include <jansson.h>
 
 #include <stdio.h>
 #include <string.h>
-
-/* GCC can't work out that the YAJL_IS_<foo> test is sufficient to
- * ensure that YAJL_GET_<foo> later doesn't return NULL.
- */
-#if defined(__GNUC__) && __GNUC__ >= 6 /* gcc >= 6 */
-#pragma GCC diagnostic ignored "-Wnull-dereference"
-#endif
 
 #define Val_none (Val_int (0))
 
 value virt_builder_yajl_tree_parse (value stringv);
 
 static value
-convert_yajl_value (yajl_val val, int level)
+convert_json_t (json_t *val, int level)
 {
   CAMLparam0 ();
   CAMLlocal4 (rv, lv, v, sv);
@@ -48,46 +41,51 @@ convert_yajl_value (yajl_val val, int level)
   if (level > 20)
     caml_invalid_argument ("too many levels of object/array nesting");
 
-  if (YAJL_IS_OBJECT (val)) {
-    const size_t len = YAJL_GET_OBJECT(val)->len;
+  if (json_is_object (val)) {
+    const size_t len = json_object_size (val);
     size_t i;
+    const char *key;
+    json_t *jvalue;
     rv = caml_alloc (1, 3);
     lv = caml_alloc_tuple (len);
-    for (i = 0; i < len; ++i) {
+    i = 0;
+    json_object_foreach (val, key, jvalue) {
       v = caml_alloc_tuple (2);
-      sv = caml_copy_string (YAJL_GET_OBJECT(val)->keys[i]);
+      sv = caml_copy_string (key);
       Store_field (v, 0, sv);
-      sv = convert_yajl_value (YAJL_GET_OBJECT(val)->values[i], level + 1);
+      sv = convert_json_t (jvalue, level + 1);
       Store_field (v, 1, sv);
       Store_field (lv, i, v);
+      ++i;
     }
     Store_field (rv, 0, lv);
-  } else if (YAJL_IS_ARRAY (val)) {
-    const size_t len = YAJL_GET_ARRAY(val)->len;
+  } else if (json_is_array (val)) {
+    const size_t len = json_array_size (val);
     size_t i;
+    json_t *jvalue;
     rv = caml_alloc (1, 4);
     lv = caml_alloc_tuple (len);
-    for (i = 0; i < len; ++i) {
-      v = convert_yajl_value (YAJL_GET_ARRAY(val)->values[i], level + 1);
+    json_array_foreach (val, i, jvalue) {
+      v = convert_json_t (jvalue, level + 1);
       Store_field (lv, i, v);
     }
     Store_field (rv, 0, lv);
-  } else if (YAJL_IS_STRING (val)) {
+  } else if (json_is_string (val)) {
     rv = caml_alloc (1, 0);
-    v = caml_copy_string (YAJL_GET_STRING(val));
+    v = caml_copy_string (json_string_value (val));
     Store_field (rv, 0, v);
-  } else if (YAJL_IS_DOUBLE (val)) {
+  } else if (json_is_real (val)) {
     rv = caml_alloc (1, 2);
-    v = caml_copy_double (YAJL_GET_DOUBLE(val));
+    v = caml_copy_double (json_real_value (val));
     Store_field (rv, 0, v);
-  } else if (YAJL_IS_INTEGER (val)) {
+  } else if (json_is_integer (val)) {
     rv = caml_alloc (1, 1);
-    v = caml_copy_int64 (YAJL_GET_INTEGER(val));
+    v = caml_copy_int64 (json_integer_value (val));
     Store_field (rv, 0, v);
-  } else if (YAJL_IS_TRUE (val)) {
+  } else if (json_is_true (val)) {
     rv = caml_alloc (1, 5);
     Store_field (rv, 0, Val_true);
-  } else if (YAJL_IS_FALSE (val)) {
+  } else if (json_is_false (val)) {
     rv = caml_alloc (1, 5);
     Store_field (rv, 0, Val_false);
   } else
@@ -101,21 +99,21 @@ virt_builder_yajl_tree_parse (value stringv)
 {
   CAMLparam1 (stringv);
   CAMLlocal1 (rv);
-  yajl_val tree;
-  char error_buf[256];
+  json_t *tree;
+  json_error_t err;
 
-  tree = yajl_tree_parse (String_val (stringv), error_buf, sizeof error_buf);
+  tree = json_loads (String_val (stringv), JSON_DECODE_ANY, &err);
   if (tree == NULL) {
-    char buf[256 + sizeof error_buf];
-    if (strlen (error_buf) > 0)
-      snprintf (buf, sizeof buf, "JSON parse error: %s", error_buf);
+    char buf[256 + JSON_ERROR_TEXT_LENGTH];
+    if (strlen (err.text) > 0)
+      snprintf (buf, sizeof buf, "JSON parse error: %s", err.text);
     else
       snprintf (buf, sizeof buf, "unknown JSON parse error");
     caml_invalid_argument (buf);
   }
 
-  rv = convert_yajl_value (tree, 1);
-  yajl_tree_free (tree);
+  rv = convert_json_t (tree, 1);
+  json_decref (tree);
 
   CAMLreturn (rv);
 }

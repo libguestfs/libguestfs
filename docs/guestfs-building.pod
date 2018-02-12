@@ -172,7 +172,7 @@ I<Required>.
 
 I<Required>.
 
-=item yajl E<ge> 2.0.4
+=item Jansson
 
 I<Required>.
 
