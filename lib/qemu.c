@@ -37,7 +37,7 @@
 
 #include <libxml/uri.h>
 
-#include <yajl/yajl_tree.h>
+#include <jansson.h>
 
 #include "full-write.h"
 #include "ignore-value.h"
@@ -57,7 +57,7 @@ struct qemu_data {
 
   /* The following fields are derived from the fields above. */
   struct version qemu_version;  /* Parsed qemu version number. */
-  yajl_val qmp_schema_tree;     /* qmp_schema parsed into a JSON tree */
+  json_t *qmp_schema_tree;      /* qmp_schema parsed into a JSON tree */
 };
 
 static char *cache_filename (guestfs_h *g, const char *cachedir, const struct stat *, const char *suffix);
@@ -73,7 +73,7 @@ static int write_cache_qmp_schema (guestfs_h *g, const struct qemu_data *data, c
 static int read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static void parse_qemu_version (guestfs_h *g, const char *, struct version *qemu_version);
-static void parse_json (guestfs_h *g, const char *, yajl_val *);
+static void parse_json (guestfs_h *g, const char *, json_t **);
 static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 static int generic_read_cache (guestfs_h *g, const char *filename, char **strp);
 static int generic_write_cache (guestfs_h *g, const char *filename, const char *str);
@@ -405,17 +405,17 @@ parse_qemu_version (guestfs_h *g, const char *qemu_help,
  * is not possible.
  */
 static void
-parse_json (guestfs_h *g, const char *json, yajl_val *treep)
+parse_json (guestfs_h *g, const char *json, json_t **treep)
 {
-  char parse_error[256] = "";
+  json_error_t err;
 
   if (!json)
     return;
 
-  *treep = yajl_tree_parse (json, parse_error, sizeof parse_error);
+  *treep = json_loads (json, 0, &err);
   if (*treep == NULL) {
-    if (strlen (parse_error) > 0)
-      debug (g, "QMP parse error: %s (ignored)", parse_error);
+    if (strlen (err.text) > 0)
+      debug (g, "QMP parse error: %s (ignored)", err.text);
     else
       debug (g, "QMP unknown parse error (ignored)");
   }
@@ -580,17 +580,6 @@ guestfs_int_qemu_supports_device (guestfs_h *g,
   return strstr (data->qemu_devices, device_name) != NULL;
 }
 
-/* GCC can't work out that the YAJL_IS_<foo> test is sufficient to
- * ensure that YAJL_GET_<foo> later doesn't return NULL.
- */
-#pragma GCC diagnostic push
-#if defined(__GNUC__) && __GNUC__ >= 6 /* gcc >= 6 */
-#pragma GCC diagnostic ignored "-Wnull-dereference"
-#endif
-#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
-#pragma GCC diagnostic ignored "-Wnonnull"
-#endif
-
 /**
  * Test if the qemu binary uses mandatory file locking, added in
  * QEMU >= 2.10 (but sometimes disabled).
@@ -599,11 +588,7 @@ int
 guestfs_int_qemu_mandatory_locking (guestfs_h *g,
                                     const struct qemu_data *data)
 {
-  const char *return_path[] = { "return", NULL };
-  const char *meta_type_path[] = { "meta-type", NULL };
-  const char *members_path[] = { "members", NULL };
-  const char *name_path[] = { "name", NULL };
-  yajl_val schema, v, meta_type, members, m, name;
+  json_t *schema, *v, *meta_type, *members, *m, *name;
   size_t i, j;
 
   /* If there's no QMP schema, fall back to checking the version. */
@@ -616,27 +601,24 @@ guestfs_int_qemu_mandatory_locking (guestfs_h *g,
    * Extract the schema from the wrapper.  Note the returned ‘schema’
    * will be an array.
    */
-  schema = yajl_tree_get (data->qmp_schema_tree, return_path, yajl_t_array);
-  if (schema == NULL)
+  schema = json_object_get (data->qmp_schema_tree, "return");
+  if (!json_is_array (schema))
     goto fallback;
-  assert (YAJL_IS_ARRAY(schema));
 
   /* Now look for any member of the array which has:
    * { "meta-type": "object",
    *   "members": [ ... { "name": "locking", ... } ... ] ... }
    */
-  for (i = 0; i < YAJL_GET_ARRAY(schema)->len; ++i) {
-    v = YAJL_GET_ARRAY(schema)->values[i];
-    meta_type = yajl_tree_get (v, meta_type_path, yajl_t_string);
-    if (meta_type && YAJL_IS_STRING (meta_type) &&
-        STREQ (YAJL_GET_STRING (meta_type), "object")) {
-      members = yajl_tree_get (v, members_path, yajl_t_array);
-      if (members) {
-        for (j = 0; j < YAJL_GET_ARRAY(members)->len; ++j) {
-          m = YAJL_GET_ARRAY(members)->values[j];
-          name = yajl_tree_get (m, name_path, yajl_t_string);
-          if (name && YAJL_IS_STRING (name) &&
-              STREQ (YAJL_GET_STRING (name), "locking"))
+  json_array_foreach (schema, i, v) {
+    meta_type = json_object_get (v, "meta-type");
+    if (json_is_string (meta_type) &&
+        STREQ (json_string_value (meta_type), "object")) {
+      members = json_object_get (v, "members");
+      if (json_is_array (members)) {
+        json_array_foreach (members, j, m) {
+          name = json_object_get (v, "name");
+          if (json_is_string (name) &&
+              STREQ (json_string_value (name), "locking"))
             return 1;
         }
       }
@@ -645,8 +627,6 @@ guestfs_int_qemu_mandatory_locking (guestfs_h *g,
 
   return 0;
 }
-
-#pragma GCC diagnostic pop
 
 /**
  * Escape a qemu parameter.
@@ -988,7 +968,7 @@ guestfs_int_free_qemu_data (struct qemu_data *data)
     free (data->qemu_help);
     free (data->qemu_devices);
     free (data->qmp_schema);
-    yajl_tree_free (data->qmp_schema_tree);
+    json_decref (data->qmp_schema_tree);
     free (data);
   }
 }

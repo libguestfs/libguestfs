@@ -37,53 +37,46 @@
 #include <sys/resource.h>
 #endif
 
-#include <yajl/yajl_tree.h>
+#include <jansson.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 
 #ifdef HAVE_ATTRIBUTE_CLEANUP
-#define CLEANUP_YAJL_TREE_FREE __attribute__((cleanup(cleanup_yajl_tree_free)))
+#define CLEANUP_JSON_T_DECREF __attribute__((cleanup(cleanup_json_t_decref)))
 
 static void
-cleanup_yajl_tree_free (void *ptr)
+cleanup_json_t_decref (void *ptr)
 {
-  yajl_tree_free (* (yajl_val *) ptr);
+  json_decref (* (json_t **) ptr);
 }
 
 #else
-#define CLEANUP_YAJL_TREE_FREE
+#define CLEANUP_JSON_T_DECREF
 #endif
 
-static yajl_val get_json_output (guestfs_h *g, const char *filename);
+static json_t *get_json_output (guestfs_h *g, const char *filename);
 static void set_child_rlimits (struct command *);
 
 char *
 guestfs_impl_disk_format (guestfs_h *g, const char *filename)
 {
-  size_t i, len;
-  CLEANUP_YAJL_TREE_FREE yajl_val tree = get_json_output (g, filename);
+  CLEANUP_JSON_T_DECREF json_t *tree = get_json_output (g, filename);
+  json_t *node;
 
   if (tree == NULL)
     return NULL;
 
-  if (! YAJL_IS_OBJECT (tree))
+  if (!json_is_object (tree))
     goto bad_type;
 
-  len = YAJL_GET_OBJECT(tree)->len;
-  for (i = 0; i < len; ++i) {
-    if (STREQ (YAJL_GET_OBJECT(tree)->keys[i], "format")) {
-      const char *str;
-      yajl_val node = YAJL_GET_OBJECT(tree)->values[i];
-      if (YAJL_IS_NULL (node))
-        goto bad_type;
-      str = YAJL_GET_STRING (node);
-      if (str == NULL)
-        goto bad_type;
-      return safe_strdup (g, str); /* caller frees */
-    }
-  }
+  node = json_object_get (tree, "format");
+  if (!json_is_string (node))
+    goto bad_type;
+
+  return safe_strndup (g, json_string_value (node),
+                          json_string_length (node)); /* caller frees */
 
  bad_type:
   error (g, _("qemu-img info: JSON output did not contain ‘format’ key"));
@@ -93,30 +86,20 @@ guestfs_impl_disk_format (guestfs_h *g, const char *filename)
 int64_t
 guestfs_impl_disk_virtual_size (guestfs_h *g, const char *filename)
 {
-  size_t i, len;
-  CLEANUP_YAJL_TREE_FREE yajl_val tree = get_json_output (g, filename);
+  CLEANUP_JSON_T_DECREF json_t *tree = get_json_output (g, filename);
+  json_t *node;
 
   if (tree == NULL)
     return -1;
 
-  if (! YAJL_IS_OBJECT (tree))
+  if (!json_is_object (tree))
     goto bad_type;
 
-  len = YAJL_GET_OBJECT(tree)->len;
-  for (i = 0; i < len; ++i) {
-    if (STREQ (YAJL_GET_OBJECT(tree)->keys[i], "virtual-size")) {
-      yajl_val node = YAJL_GET_OBJECT(tree)->values[i];
-      if (YAJL_IS_NULL (node))
-        goto bad_type;
-      if (! YAJL_IS_NUMBER (node))
-        goto bad_type;
-      if (! YAJL_IS_INTEGER (node)) {
-        error (g, _("qemu-img info: ‘virtual-size’ is not representable as a 64 bit integer"));
-        return -1;
-      }
-      return YAJL_GET_INTEGER (node);
-    }
-  }
+  node = json_object_get (tree, "virtual-size");
+  if (!json_is_integer (node))
+    goto bad_type;
+
+  return json_integer_value (node);
 
  bad_type:
   error (g, _("qemu-img info: JSON output did not contain ‘virtual-size’ key"));
@@ -126,29 +109,25 @@ guestfs_impl_disk_virtual_size (guestfs_h *g, const char *filename)
 int
 guestfs_impl_disk_has_backing_file (guestfs_h *g, const char *filename)
 {
-  size_t i, len;
-  CLEANUP_YAJL_TREE_FREE yajl_val tree = get_json_output (g, filename);
+  CLEANUP_JSON_T_DECREF json_t *tree = get_json_output (g, filename);
+  json_t *node;
 
   if (tree == NULL)
     return -1;
 
-  if (! YAJL_IS_OBJECT (tree))
+  if (!json_is_object (tree))
     goto bad_type;
 
-  len = YAJL_GET_OBJECT(tree)->len;
-  for (i = 0; i < len; ++i) {
-    if (STREQ (YAJL_GET_OBJECT(tree)->keys[i], "backing-filename")) {
-      yajl_val node = YAJL_GET_OBJECT(tree)->values[i];
-      /* Work on the assumption that if this field is null, it means
-       * no backing file, rather than being an error.
-       */
-      if (YAJL_IS_NULL (node))
-        return 0;
-      return 1;
-    }
-  }
+  node = json_object_get (tree, "backing-filename");
+  if (node == NULL)
+    return 0; /* no backing-filename key means no backing file */
 
-  return 0; /* no backing-filename key means no backing file */
+  /* Work on the assumption that if this field is null, it means
+   * no backing file, rather than being an error.
+   */
+  if (json_is_null (node))
+    return 0;
+  return 1;
 
  bad_type:
   error (g, _("qemu-img info: JSON output was not an object"));
@@ -161,12 +140,12 @@ guestfs_impl_disk_has_backing_file (guestfs_h *g, const char *filename)
 static void parse_json (guestfs_h *g, void *treevp, const char *input, size_t len);
 #define PARSE_JSON_NO_OUTPUT ((void *) -1)
 
-static yajl_val
+static json_t *
 get_json_output (guestfs_h *g, const char *filename)
 {
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r;
-  yajl_val tree = NULL;
+  json_t *tree = NULL;
 
   guestfs_int_cmd_add_arg (cmd, "qemu-img");
   guestfs_int_cmd_add_arg (cmd, "info");
@@ -196,16 +175,15 @@ get_json_output (guestfs_h *g, const char *filename)
     return NULL;
   }
 
-  return tree;          /* caller must call yajl_tree_free (tree) */
+  return tree;          /* caller must call json_decref (tree) */
 }
 
 /* Parse the JSON document printed by qemu-img info --output json. */
 static void
 parse_json (guestfs_h *g, void *treevp, const char *input, size_t len)
 {
-  yajl_val *tree_ret = treevp;
-  CLEANUP_FREE char *input_copy = NULL;
-  char parse_error[256];
+  json_t **tree_ret = treevp;
+  json_error_t err;
 
   assert (*tree_ret == NULL);
 
@@ -218,15 +196,12 @@ parse_json (guestfs_h *g, void *treevp, const char *input, size_t len)
     return;
   }
 
-  /* 'input' is not \0-terminated; we have to make it so. */
-  input_copy = safe_strndup (g, input, len);
+  debug (g, "%s: qemu-img info JSON output:\n%.*s\n", __func__, (int) len, input);
 
-  debug (g, "%s: qemu-img info JSON output:\n%s\n", __func__, input_copy);
-
-  *tree_ret = yajl_tree_parse (input_copy, parse_error, sizeof parse_error);
+  *tree_ret = json_loadb (input, len, 0, &err);
   if (*tree_ret == NULL) {
-    if (strlen (parse_error) > 0)
-      error (g, _("qemu-img info: JSON parse error: %s"), parse_error);
+    if (strlen (err.text) > 0)
+      error (g, _("qemu-img info: JSON parse error: %s"), err.text);
     else
       error (g, _("qemu-img info: unknown JSON parse error"));
   }

@@ -86,7 +86,6 @@ done
 # Various hacks for different versions of RHEL.
 if=virtio
 netdev=virtio-net-pci
-pkgs="$pkgs,yajl-devel"
 declare -a epel
 case $osversion in
     rhel-5.*|centos-5.*)
@@ -105,10 +104,12 @@ case $osversion in
     rhel-6.*|centos-6.*)
         epel[0]="--run-command"
         epel[1]="yum install -y --nogpgcheck https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm"
+        pkgs="$pkgs,jansson-devel"
         ;;
     rhel-7.*|centos-7.*)
         epel[0]="--run-command"
         epel[1]="yum install -y --nogpgcheck https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+        pkgs="$pkgs,jansson-devel"
         ;;
 esac
 

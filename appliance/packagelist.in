@@ -34,6 +34,7 @@ ifelse(REDHAT,1,
   hivex
   iproute
   iputils
+  jansson
   kernel
   libcap
   libldm
@@ -50,7 +51,6 @@ ifelse(REDHAT,1,
   systemd              dnl for /sbin/reboot and udevd
   vim-minimal
   xz
-  yajl
   yara
   zfs-fuse
 )
@@ -80,12 +80,12 @@ dnl iproute has been renamed to iproute2
   libc-bin
   libcap2
   libhivex0
+  libjansson4
   libpcre3
   libsystemd0
   libsystemd-id128-0
   libsystemd-journal0
   libtirpc1
-  libyajl2
   libyara3
   linux-image
   dnl syslinux 'suggests' mtools, but in reality it's a hard dependency:
@@ -112,6 +112,7 @@ ifelse(ARCHLINUX,1,
   hivex
   iproute2
   iputils
+  jansson
   libcap
   libtirpc
   linux
@@ -127,7 +128,6 @@ ifelse(ARCHLINUX,1,
   systemd
   vim
   xz
-  yajl
   yara
 )
 
@@ -147,9 +147,9 @@ ifelse(SUSE,1,
   iputils
   libcap2
   libhivex0
+  libjansson4
   libselinux1
   libtirpc3
-  libyajl2
   libyara3
   mkisofs
   ntfsprogs
@@ -170,6 +170,7 @@ ifelse(FRUGALWARE,1,
   hfsplus
   iproute2
   iputils
+  jansson
   kernel
   libcap
   libtirpc
@@ -181,7 +182,6 @@ ifelse(FRUGALWARE,1,
   systemd
   vim
   xz
-  yajl
   xfsprogs-acl
   xfsprogs-attr
   gptfdisk
@@ -201,9 +201,9 @@ ifelse(MAGEIA,1,
   iproute2
   iputils
   libcap
+  libjansson4
   libldm
   libtirpc
-  libyajl
   dnl syslinux uses mtools without depending on it
   mtools
   nilfs-utils
@@ -216,7 +216,6 @@ ifelse(MAGEIA,1,
   systemd /* for /sbin/reboot and udevd */
   vim-minimal
   xz
-  yajl
 )
 
 acl
