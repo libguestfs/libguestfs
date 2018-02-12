@@ -210,6 +210,10 @@ Frugalware.
 
 Gentoo.
 
+=item \"kalilinux\"
+
+Kali Linux.
+
 =item \"linuxmint\"
 
 Linux Mint.

@@ -140,6 +140,7 @@ and distro_of_os_release_id = function
   | "debian" -> Some DISTRO_DEBIAN
   | "fedora" -> Some DISTRO_FEDORA
   | "frugalware" -> Some DISTRO_FRUGALWARE
+  | "kali" -> Some DISTRO_KALI_LINUX
   | "mageia" -> Some DISTRO_MAGEIA
   | "neokylin" -> Some DISTRO_NEOKYLIN
   | "opensuse" -> Some DISTRO_OPENSUSE
