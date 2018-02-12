@@ -284,8 +284,8 @@ LIBS="$LIBS $LIBXML2_LIBS"
 AC_CHECK_FUNCS([xmlBufferDetach])
 LIBS="$old_LIBS"
 
-dnl Check for yajl JSON library (required).
-PKG_CHECK_MODULES([YAJL], [yajl >= 2.0.4])
+dnl Check for Jansson JSON library (required).
+PKG_CHECK_MODULES([JANSSON], [jansson])
 
 dnl Check for C++ (optional, we just use this to test the header works).
 AC_PROG_CXX

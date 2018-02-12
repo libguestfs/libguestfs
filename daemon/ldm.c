@@ -25,18 +25,11 @@
 #include <sys/stat.h>
 #include <string.h>
 
-#include <yajl/yajl_tree.h>
+#include <jansson.h>
 
 #include "daemon.h"
 #include "actions.h"
 #include "optgroups.h"
-
-/* GCC can't work out that the YAJL_IS_<foo> test is sufficient to
- * ensure that YAJL_GET_<foo> later doesn't return NULL.
- */
-#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 60000 /* gcc >= 6 */
-#pragma GCC diagnostic ignored "-Wnull-dereference"
-#endif
 
 int
 optgroup_ldm_available (void)
@@ -72,44 +65,42 @@ do_ldmtool_remove_all (void)
   return 0;
 }
 
-static yajl_val
+static json_t *
 parse_json (const char *json, const char *func)
 {
-  yajl_val tree;
-  char parse_error[1024];
+  json_t *tree;
+  json_error_t err;
 
   if (verbose)
     fprintf (stderr, "%s: parsing json: %s\n", func, json);
 
-  tree = yajl_tree_parse (json, parse_error, sizeof parse_error);
+  tree = json_loads (json, 0, &err);
   if (tree == NULL) {
     reply_with_error ("parse error: %s",
-                      strlen (parse_error) ? parse_error : "unknown error");
+                      strlen (err.text) ? err.text : "unknown error");
     return NULL;
   }
 
-  /* Caller should free this by doing 'yajl_tree_free (tree);'. */
+  /* Caller should free this by doing 'json_decref (tree);'. */
   return tree;
 }
 
 #define TYPE_ERROR ((char **) -1)
 
 static char **
-json_value_to_string_list (yajl_val node)
+json_value_to_string_list (json_t *node)
 {
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (strs);
-  yajl_val n;
-  size_t i, len;
+  json_t *n;
+  size_t i;
 
-  if (! YAJL_IS_ARRAY (node))
+  if (!json_is_array (node))
     return TYPE_ERROR;
 
-  len = YAJL_GET_ARRAY (node)->len;
-  for (i = 0; i < len; ++i) {
-    n = YAJL_GET_ARRAY (node)->values[i];
-    if (! YAJL_IS_STRING (n))
+  json_array_foreach (node, i, n) {
+    if (!json_is_string (n))
       return TYPE_ERROR;
-    if (add_string (&strs, YAJL_GET_STRING (n)) == -1)
+    if (add_string (&strs, json_string_value (n)) == -1)
       return NULL;
   }
   if (end_stringsbuf (&strs) == -1)
@@ -123,14 +114,14 @@ parse_json_get_string_list (const char *json,
                             const char *func, const char *cmd)
 {
   char **ret;
-  yajl_val tree = NULL;
+  json_t *tree = NULL;
 
   tree = parse_json (json, func);
   if (tree == NULL)
     return NULL;
 
   ret = json_value_to_string_list (tree);
-  yajl_tree_free (tree);
+  json_decref (tree);
   if (ret == TYPE_ERROR) {
     reply_with_error ("output of '%s' was not a JSON array of strings", cmd);
     return NULL;
@@ -144,43 +135,40 @@ static char *
 parse_json_get_object_string (const char *json, const char *key, int flags,
                               const char *func, const char *cmd)
 {
-  char *str, *ret;
-  yajl_val tree = NULL, node;
-  size_t i, len;
+  const char *str;
+  char *ret;
+  json_t *tree = NULL, *node;
 
   tree = parse_json (json, func);
   if (tree == NULL)
     return NULL;
 
-  if (! YAJL_IS_OBJECT (tree))
+  if (!json_is_object (tree))
     goto bad_type;
 
-  len = YAJL_GET_OBJECT (tree)->len;
-  for (i = 0; i < len; ++i) {
-    if (STREQ (YAJL_GET_OBJECT (tree)->keys[i], key)) {
-      node = YAJL_GET_OBJECT (tree)->values[i];
+  node = json_object_get (tree, key);
+  if (node == NULL)
+    goto bad_type;
 
-      if ((flags & GET_STRING_NULL_TO_EMPTY) && YAJL_IS_NULL (node))
-        ret = strdup ("");
-      else {
-        str = YAJL_GET_STRING (node);
-        if (str == NULL)
-          goto bad_type;
-        ret = strdup (str);
-      }
-      if (ret == NULL)
-        reply_with_perror ("strdup");
-
-      yajl_tree_free (tree);
-
-      return ret;
-    }
+  if ((flags & GET_STRING_NULL_TO_EMPTY) && json_is_null (node))
+    ret = strdup ("");
+  else {
+    str = json_string_value (node);
+    if (str == NULL)
+      goto bad_type;
+    ret = strndup (str, json_string_length (node));
   }
+  if (ret == NULL)
+    reply_with_perror ("strdup");
+
+  json_decref (tree);
+
+  return ret;
 
  bad_type:
   reply_with_error ("output of '%s' was not a JSON object "
                     "containing a key '%s' of type string", cmd, key);
-  yajl_tree_free (tree);
+  json_decref (tree);
   return NULL;
 }
 
@@ -189,33 +177,30 @@ parse_json_get_object_string_list (const char *json, const char *key,
                                    const char *func, const char *cmd)
 {
   char **ret;
-  yajl_val tree, node;
-  size_t i, len;
+  json_t *tree, *node;
 
   tree = parse_json (json, func);
   if (tree == NULL)
     return NULL;
 
-  if (! YAJL_IS_OBJECT (tree))
+  if (!json_is_object (tree))
     goto bad_type;
 
-  len = YAJL_GET_OBJECT (tree)->len;
-  for (i = 0; i < len; ++i) {
-    if (STREQ (YAJL_GET_OBJECT (tree)->keys[i], key)) {
-      node = YAJL_GET_OBJECT (tree)->values[i];
-      ret = json_value_to_string_list (node);
-      if (ret == TYPE_ERROR)
-        goto bad_type;
-      yajl_tree_free (tree);
-      return ret;
-    }
-  }
+  node = json_object_get (tree, key);
+  if (node == NULL)
+    goto bad_type;
+
+  ret = json_value_to_string_list (node);
+  if (ret == TYPE_ERROR)
+    goto bad_type;
+  json_decref (tree);
+  return ret;
 
  bad_type:
   reply_with_error ("output of '%s' was not a JSON object "
                     "containing a key '%s' of type array of strings",
                     cmd, key);
-  yajl_tree_free (tree);
+  json_decref (tree);
   return NULL;
 }
 
