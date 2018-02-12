@@ -19,8 +19,8 @@
 (** Convert a Linux guest to run on KVM.
 
     This module converts certain Enterprise Linux guests to run on
-    KVM.  RHEL, SuSE, Fedora, CentOS, OracleLinux, Debian, Ubuntu
-    and Mint are supported by this module.
+    KVM.  RHEL, SuSE, Fedora, CentOS, OracleLinux, Debian, Ubuntu,
+    Mint and Kali are supported by this module.
 
     No functions are exported.  When the module is linked to virt-v2v
     it registers itself with

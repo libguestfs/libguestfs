@@ -52,7 +52,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
     | "rhel" | "centos" | "scientificlinux" | "redhat-based"
     | "oraclelinux" -> `RHEL_family
     | "sles" | "suse-based" | "opensuse" -> `SUSE_family
-    | "debian" | "ubuntu" | "linuxmint" -> `Debian_family
+    | "debian" | "ubuntu" | "linuxmint" | "kalilinux" -> `Debian_family
     | _ -> assert false in
 
   assert (inspect.i_package_format = "rpm" || inspect.i_package_format = "deb");
@@ -1062,7 +1062,7 @@ let () =
                     | "rhel" | "centos" | "scientificlinux" | "redhat-based"
                     | "oraclelinux"
                     | "sles" | "suse-based" | "opensuse"
-                    | "debian" | "ubuntu" | "linuxmint") } -> true
+                    | "debian" | "ubuntu" | "linuxmint" | "kalilinux") } -> true
     | _ -> false
   in
   Modules_list.register_convert_module matching "linux" convert

@@ -158,7 +158,7 @@ WantedBy=%s
       install_sysvinit_redhat g
     | "opensuse"|"sles"|"suse-based" ->
       install_sysvinit_suse g
-    | "debian" ->
+    | ("debian"|"kalilinux") ->
       install_sysvinit_debian g;
       if major <= 7 then try_update_rc_d g root
     | "ubuntu" ->

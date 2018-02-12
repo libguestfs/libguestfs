@@ -36,7 +36,7 @@ let pacct_log_perform (g : Guestfs.guestfs) root side_effects =
        side_effects#created_file ()
      with G.Error _ -> ())
 
-  | "linux", ("debian"|"ubuntu") ->
+  | "linux", ("debian"|"ubuntu"|"kalilinux") ->
     let files = g#glob_expand "/var/log/account/pacct*" in
     Array.iter (
       fun file ->
