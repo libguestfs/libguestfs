@@ -285,7 +285,7 @@ AC_CHECK_FUNCS([xmlBufferDetach])
 LIBS="$old_LIBS"
 
 dnl Check for Jansson JSON library (required).
-PKG_CHECK_MODULES([JANSSON], [jansson])
+PKG_CHECK_MODULES([JANSSON], [jansson >= 2.7])
 
 dnl Check for C++ (optional, we just use this to test the header works).
 AC_PROG_CXX

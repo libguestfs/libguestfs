@@ -169,7 +169,7 @@ I<Required>.
 
 I<Required>.
 
-=item Jansson
+=item Jansson E<ge> 2.7
 
 I<Required>.
 
