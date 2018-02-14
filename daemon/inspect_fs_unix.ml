@@ -697,6 +697,17 @@ let rec check_openbsd_root mountable data =
 and check_hostname_openbsd () =
   check_hostname_from_file "/etc/myname"
 
+let hurd_root_tests : tests = [
+  (* Newer distros include /etc/os-release which is reasonably
+   * standardized.  This entry should be first.
+   *)
+  "/etc/os-release",     parse_os_release;
+  "/etc/debian_version", parse_generic DISTRO_DEBIAN;
+  (* Arch Hurd also exists, but inconveniently it doesn't have
+   * the normal /etc/arch-release file.  XXX
+   *)
+]
+
 (* The currently mounted device may be a Hurd root.  Hurd has distros
  * just like Linux.
  *)
@@ -704,13 +715,7 @@ let rec check_hurd_root mountable data =
   let os_type = OS_TYPE_HURD in
   data.os_type <- Some os_type;
 
-  if Is.is_file "/etc/debian_version" ~followsymlinks:true then (
-    let distro = DISTRO_DEBIAN in
-    ignore (parse_generic distro "/etc/debian_version" data)
-  );
-  (* Arch Hurd also exists, but inconveniently it doesn't have
-   * the normal /etc/arch-release file.  XXX
-   *)
+  check_tests data hurd_root_tests;
 
   (* Determine the architecture. *)
   data.arch <- check_architecture ();
