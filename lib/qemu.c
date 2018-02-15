@@ -746,6 +746,7 @@ guestfs_int_drive_source_qemu_param (guestfs_h *g,
       return make_uri (g, "gluster+unix", NULL, NULL,
                        &src->servers[0], NULL);
     }
+    break;
 
   case drive_protocol_http:
     return make_uri (g, "http", src->username, src->secret,
