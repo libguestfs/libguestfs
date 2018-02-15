@@ -241,6 +241,9 @@ file_type (TSK_FS_FILE *fsfile)
     case TSK_FS_NAME_TYPE_SHAD: return 'h';
     case TSK_FS_NAME_TYPE_WHT: return 'w';
     case TSK_FS_NAME_TYPE_VIRT: return 'u';  /* Temp files created by TSK */
+#if TSK_VERSION_NUM >= 0x040500ff
+    case TSK_FS_NAME_TYPE_VIRT_DIR: return 'u';  /* Temp files created by TSK */
+#endif
     }
   else if (fsfile->meta != NULL &&
            fsfile->meta->type < TSK_FS_META_TYPE_STR_MAX)
@@ -256,6 +259,9 @@ file_type (TSK_FS_FILE *fsfile)
     case TSK_FS_META_TYPE_SOCK: return 's';
     case TSK_FS_META_TYPE_WHT: return 'w';
     case TSK_FS_META_TYPE_VIRT: return 'u';  /* Temp files created by TSK */
+#if TSK_VERSION_NUM >= 0x040500ff
+    case TSK_FS_META_TYPE_VIRT_DIR: return 'u';  /* Temp files created by TSK */
+#endif
     }
 
   return 'u';
