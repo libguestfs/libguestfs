@@ -210,6 +210,7 @@ ifelse(MAGEIA,1,
   iputils
   libcap
   libjansson4
+  lib64jansson4 /* lib64jansson4 does not provide libjansson4 */
   libldm
   libtirpc
   dnl syslinux uses mtools without depending on it
