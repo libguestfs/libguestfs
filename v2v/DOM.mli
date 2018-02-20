@@ -60,6 +60,9 @@ v}
 v}
 *)
 
+val doc_to_string : doc -> string
+(** Convert a document to a string representation. *)
+
 val doc_to_chan : out_channel -> doc -> unit
 (** Write the XML document to an output channel. *)
 
