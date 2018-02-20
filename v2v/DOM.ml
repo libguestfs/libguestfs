@@ -46,42 +46,47 @@ let e name attrs children =
  * we will be writing, ie. libvirt XML and OVF metadata, where
  * whitespace is generally not significant, but readability is useful.
  *)
-let rec node_to_chan ?(indent = 0) chan = function
-  | PCData str -> output_string chan (xml_quote_pcdata str)
+let rec node_to_buf ?(indent = 0) buf = function
+  | PCData str ->
+     Buffer.add_string buf (xml_quote_pcdata str)
   | Comment str ->
-    output_spaces chan indent;
-    fprintf chan "<!-- %s -->" (xml_quote_pcdata str)
-  | Element e -> element_to_chan ~indent chan e
-and element_to_chan ?(indent = 0) chan
+     buffer_add_spaces buf indent;
+     bprintf buf "<!-- %s -->" (xml_quote_pcdata str)
+  | Element e ->
+     element_to_buf ~indent buf e
+and element_to_buf ?(indent = 0) buf
     { e_name = name; e_attrs = attrs; e_children = children } =
-  output_spaces chan indent;
-  fprintf chan "<%s" name;
-  List.iter (fun (n, v) -> fprintf chan " %s='%s'" n (xml_quote_attr v)) attrs;
+  buffer_add_spaces buf indent;
+  bprintf buf "<%s" name;
+  List.iter (fun (n, v) -> bprintf buf " %s='%s'" n (xml_quote_attr v)) attrs;
   if children <> [] then (
-    output_string chan ">";
+    Buffer.add_string buf ">";
     let last_child_was_element = ref false in
     List.iter (
       function
       | Element _ as child ->
         last_child_was_element := true;
-        output_char chan '\n';
-        node_to_chan ~indent:(indent+2) chan child;
+        Buffer.add_char buf '\n';
+        node_to_buf ~indent:(indent+2) buf child;
       | PCData _ as child ->
         last_child_was_element := false;
-        node_to_chan ~indent:(indent+2) chan child;
+        node_to_buf ~indent:(indent+2) buf child;
       | Comment _ as child ->
         last_child_was_element := true;
-        output_char chan '\n';
-        node_to_chan ~indent:(indent+2) chan child;
+        Buffer.add_char buf '\n';
+        node_to_buf ~indent:(indent+2) buf child;
     ) children;
     if !last_child_was_element then (
-      output_char chan '\n';
-      output_spaces chan indent
+      Buffer.add_char buf '\n';
+      buffer_add_spaces buf indent
     );
-    fprintf chan "</%s>" name
+    bprintf buf "</%s>" name
   ) else (
-    output_string chan "/>"
+    Buffer.add_string buf "/>"
   )
+
+and buffer_add_spaces buf n =
+  Buffer.add_string buf (String.spaces n)
 
 (* Quote XML <element attr='...'> content.  Note you must use single
  * quotes around the attribute.
@@ -99,10 +104,20 @@ and xml_quote_pcdata str =
   let str = String.replace str ">" "&gt;" in
   str
 
-let doc_to_chan chan (Doc doc) =
-  fprintf chan "<?xml version='1.0' encoding='utf-8'?>\n";
-  element_to_chan chan doc;
-  fprintf chan "\n"
+let doc_to_buf buf (Doc doc) =
+  bprintf buf "<?xml version='1.0' encoding='utf-8'?>\n";
+  element_to_buf buf doc;
+  bprintf buf "\n"
+
+let doc_to_string doc =
+  let buf = Buffer.create 4096 in
+  doc_to_buf buf doc;
+  Buffer.contents buf
+
+let doc_to_chan chan doc =
+  let buf = Buffer.create 4096 in
+  doc_to_buf buf doc;
+  Buffer.output_buffer chan buf
 
 let path_to_nodes (Doc doc) path =
   match path with
