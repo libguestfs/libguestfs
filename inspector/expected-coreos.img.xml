@@ -8,6 +8,7 @@
     <major_version>899</major_version>
     <minor_version>13</minor_version>
     <hostname>coreos.invalid</hostname>
+    <osinfo>coreos899.13</osinfo>
     <mountpoints>
       <mountpoint dev="/dev/sda5">/</mountpoint>
       <mountpoint dev="/dev/sda3">/usr</mountpoint>
