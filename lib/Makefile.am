@@ -95,6 +95,7 @@ libguestfs_la_SOURCES = \
 	info.c \
 	inspect-apps.c \
 	inspect-icon.c \
+	inspect-osinfo.c \
 	journal.c \
 	launch.c \
 	launch-direct.c \
