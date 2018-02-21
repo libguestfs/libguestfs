@@ -11,6 +11,7 @@
     <package_format>rpm</package_format>
     <package_management>yum</package_management>
     <hostname>fedora.invalid</hostname>
+    <osinfo>fedora14</osinfo>
     <mountpoints>
       <mountpoint dev="/dev/VG/Root">/</mountpoint>
       <mountpoint dev="/dev/sda1">/boot</mountpoint>

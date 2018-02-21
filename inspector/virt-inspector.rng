@@ -38,6 +38,7 @@
             <optional><ref name="ospackageformat"/></optional>
             <optional><ref name="ospackagemanagement"/></optional>
             <optional><element name="hostname"><text/></element></optional>
+            <optional><element name="osinfo"><text/></element></optional>
 
             <ref name="mountpoints"/>
             <ref name="filesystems"/>
