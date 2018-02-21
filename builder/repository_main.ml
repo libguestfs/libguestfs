@@ -170,23 +170,6 @@ let get_disk_image_info filepath =
     size = object_get_number "virtual-size" infos
   }
 
-let compute_short_id distro major minor =
-  match distro with
-  | "centos" when major >= 7 ->
-    sprintf "%s%d.0" distro major
-  | "debian" when major >= 4 ->
-    sprintf "%s%d" distro major
-  | ("fedora"|"mageia") ->
-    sprintf "%s%d" distro major
-  | "sles" when major = 0 ->
-    sprintf "%s%d" distro major
-  | "sles" ->
-    sprintf "%s%dsp%d" distro major minor
-  | "ubuntu" ->
-    sprintf "%s%d.%02d" distro major minor
-  | _ (* Any other combination. *) ->
-    sprintf "%s%d.%d" distro major minor
-
 let cmp a b =
   Index.string_of_arch a = Index.string_of_arch b
 
@@ -260,13 +243,9 @@ let process_image acc_entries filename repo tmprepo index interactive
     let root = Array.get roots 0 in
     let inspected_arch = g#inspect_get_arch root in
     let product = g#inspect_get_product_name root in
-    let distro = g#inspect_get_distro root in
-    let version_major = g#inspect_get_major_version root in
-    let version_minor = g#inspect_get_minor_version root in
+    let shortid = g#inspect_get_osinfo root in
     let lvs = g#lvs () in
     let filesystems = g#inspect_get_filesystems root in
-
-    let shortid = compute_short_id distro version_major version_minor in
 
     g#close ();
 
