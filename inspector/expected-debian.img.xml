@@ -12,6 +12,7 @@
     <package_management>apt</package_management>
     <hostname>debian.invalid</hostname>
     <format>installed</format>
+    <osinfo>debian5</osinfo>
     <mountpoints>
       <mountpoint dev="/dev/debian/root">/</mountpoint>
       <mountpoint dev="/dev/debian/usr">/usr</mountpoint>

@@ -12,6 +12,7 @@
     <package_management>apt</package_management>
     <hostname>ubuntu.invalid</hostname>
     <format>installed</format>
+    <osinfo>ubuntu10.10</osinfo>
     <mountpoints>
       <mountpoint dev="/dev/sda2">/</mountpoint>
       <mountpoint dev="/dev/sda1">/boot</mountpoint>

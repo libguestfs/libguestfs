@@ -42,6 +42,7 @@
             <optional><element name="live"><empty/></element></optional>
             <optional><element name="netinst"><empty/></element></optional>
             <optional><element name="multipart"><empty/></element></optional>
+            <optional><element name="osinfo"><text/></element></optional>
 
             <ref name="mountpoints"/>
             <ref name="filesystems"/>

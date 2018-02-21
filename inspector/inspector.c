@@ -471,6 +471,13 @@ output_root (xmlTextWriterPtr xo, char *root)
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
 
+  str = guestfs_inspect_get_osinfo (g, root);
+  if (!str) exit (EXIT_FAILURE);
+  if (STRNEQ (str, "unknown"))
+    XMLERROR (-1,
+              xmlTextWriterWriteElement (xo, BAD_CAST "osinfo", BAD_CAST str));
+  free (str);
+
   output_mountpoints (xo, root);
 
   output_filesystems (xo, root);
