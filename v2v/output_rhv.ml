@@ -269,7 +269,8 @@ object
 
     (* Create the metadata. *)
     let ovf = OVF.create_ovf source targets guestcaps inspect
-      output_alloc esd_uuid image_uuids vol_uuids vm_uuid in
+      output_alloc esd_uuid image_uuids vol_uuids vm_uuid
+      OVF.RHVExportStorageDomain in
 
     (* Write it to the metadata file. *)
     let dir = esd_mp // esd_uuid // "master" // "vms" // vm_uuid in
