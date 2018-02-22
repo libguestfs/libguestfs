@@ -510,20 +510,16 @@ let rec create_ovf source targets guestcaps inspect
  * For example normal disk section is in node <DiskSection> whereas in case of
  * RHV export storage domain it is <Section xsi:type="ovf:DiskSection_Type">.
  *)
-and get_flavoured_section ovf ovf_flavour ovirt_path rhv_path rhv_path_attr =
-  let nodes =
-    match ovf_flavour with
-    | OVirt ->
-      let nodes = path_to_nodes ovf ovirt_path in
-      (match nodes with
+and get_flavoured_section ovf ovirt_path rhv_path rhv_path_attr = function
+  | OVirt ->
+     let nodes = path_to_nodes ovf ovirt_path in
+     (match nodes with
       | [node] -> node
       | [] | _::_::_ -> assert false)
-    | RHVExportStorageDomain ->
-      let nodes = path_to_nodes ovf rhv_path in
-      try find_node_by_attr nodes rhv_path_attr
-      with Not_found -> assert false
-  in
-  nodes
+  | RHVExportStorageDomain ->
+     let nodes = path_to_nodes ovf rhv_path in
+     try find_node_by_attr nodes rhv_path_attr
+     with Not_found -> assert false
 
 (* This modifies the OVF DOM, adding a section for each disk. *)
 and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids
@@ -533,14 +529,19 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids
     match nodes with
     | [] | _::_::_ -> assert false
     | [node] -> node in
-  let disk_section = get_flavoured_section ovf ovf_flavour
-    ["ovf:Envelope"; "DiskSection"]
-    ["ovf:Envelope"; "Section"]
-    ("xsi:type", "ovf:DiskSection_Type") in
-  let virtualhardware_section = get_flavoured_section ovf ovf_flavour
-    ["ovf:Envelope"; "VirtualSystem"; "VirtualHardwareSection"]
-    ["ovf:Envelope"; "Content"; "Section"]
-    ("xsi:type", "ovf:VirtualHardwareSection_Type") in
+  let disk_section =
+    get_flavoured_section ovf
+                          ["ovf:Envelope"; "DiskSection"]
+                          ["ovf:Envelope"; "Section"]
+                          ("xsi:type", "ovf:DiskSection_Type")
+                          ovf_flavour in
+  let virtualhardware_section =
+    get_flavoured_section ovf
+                          ["ovf:Envelope"; "VirtualSystem";
+                               "VirtualHardwareSection"]
+                          ["ovf:Envelope"; "Content"; "Section"]
+                          ("xsi:type", "ovf:VirtualHardwareSection_Type")
+                          ovf_flavour in
 
   (* Iterate over the disks, adding them to the OVF document. *)
   List.iteri (
@@ -667,14 +668,19 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids
 
 (* This modifies the OVF DOM, adding a section for each NIC. *)
 and add_networks nics guestcaps ovf_flavour ovf =
-  let network_section = get_flavoured_section ovf ovf_flavour
-    ["ovf:Envelope"; "NetworkSection"]
-    ["ovf:Envelope"; "Section"]
-    ("xsi:type", "ovf:NetworkSection_Type") in
-  let virtualhardware_section = get_flavoured_section ovf ovf_flavour
-    ["ovf:Envelope"; "VirtualSystem"; "VirtualHardwareSection"]
-    ["ovf:Envelope"; "Content"; "Section"]
-    ("xsi:type", "ovf:VirtualHardwareSection_Type") in
+  let network_section =
+    get_flavoured_section ovf
+                          ["ovf:Envelope"; "NetworkSection"]
+                          ["ovf:Envelope"; "Section"]
+                          ("xsi:type", "ovf:NetworkSection_Type")
+                          ovf_flavour in
+  let virtualhardware_section =
+    get_flavoured_section ovf
+                          ["ovf:Envelope"; "VirtualSystem";
+                               "VirtualHardwareSection"]
+                          ["ovf:Envelope"; "Content"; "Section"]
+                          ("xsi:type", "ovf:VirtualHardwareSection_Type")
+                          ovf_flavour in
 
   (* Iterate over the NICs, adding them to the OVF document. *)
   List.iteri (
@@ -735,10 +741,13 @@ and add_sound_card sound ovf_flavour ovf =
 
   match device with
   | Some device ->
-     let virtualhardware_section = get_flavoured_section ovf ovf_flavour
-       ["ovf:Envelope"; "VirtualSystem"; "VirtualHardwareSection"]
-       ["ovf:Envelope"; "Content"; "Section"]
-       ("xsi:type", "ovf:VirtualHardwareSection_Type") in
+     let virtualhardware_section =
+       get_flavoured_section ovf
+                             ["ovf:Envelope"; "VirtualSystem";
+                                  "VirtualHardwareSection"]
+                             ["ovf:Envelope"; "Content"; "Section"]
+                             ("xsi:type", "ovf:VirtualHardwareSection_Type")
+                             ovf_flavour in
 
      let item =
        e "Item" [] [
