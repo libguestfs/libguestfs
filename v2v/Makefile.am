@@ -472,7 +472,9 @@ EXTRA_DIST += \
 	test-v2v-o-libvirt.sh \
 	test-v2v-o-null.sh \
 	test-v2v-o-qemu.sh \
+	test-v2v-o-rhv.ovf.expected \
 	test-v2v-o-rhv.sh \
+	test-v2v-o-vdsm-options.ovf.expected \
 	test-v2v-o-vdsm-options.sh \
 	test-v2v-oa-option.sh \
 	test-v2v-of-option.sh \
