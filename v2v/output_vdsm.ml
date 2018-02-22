@@ -175,7 +175,8 @@ object
       output_alloc dd_uuid
       vdsm_options.image_uuids
       vdsm_options.vol_uuids
-      vdsm_options.vm_uuid in
+      vdsm_options.vm_uuid
+      Create_ovf.RHVExportStorageDomain in
 
     (* Write it to the metadata file. *)
     let file = vdsm_options.ovf_output // vdsm_options.vm_uuid ^ ".ovf" in
