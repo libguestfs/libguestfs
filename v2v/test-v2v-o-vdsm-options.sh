@@ -55,7 +55,8 @@ $VG virt-v2v --debug-gc \
     --vdsm-vol-uuid VOL \
     --vdsm-vm-uuid VM \
     --vdsm-ovf-output $d/12345678-1234-1234-1234-123456789abc/master/vms/VM \
-    --vdsm-compat=1.1
+    --vdsm-compat=1.1 \
+    --vdsm-ovf-flavour=ovirt
 
 # Test the OVF metadata was created.
 test -f $d/12345678-1234-1234-1234-123456789abc/master/vms/VM/VM.ovf

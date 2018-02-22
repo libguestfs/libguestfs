@@ -24,6 +24,7 @@ type vdsm_options = {
   vm_uuid : string;                   (* --vdsm-vm-uuid *)
   ovf_output : string;                (* --vdsm-ovf-output *)
   compat : string;                    (* --vdsm-compat=0.10|1.1 *)
+  ovf_flavour : Create_ovf.ovf_flavour;
 }
 (** Miscellaneous extra command line parameters used by VDSM. *)
 

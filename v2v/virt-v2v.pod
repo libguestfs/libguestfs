@@ -627,6 +627,26 @@ hex digit can be C<0-9> or C<a-f>), conforming to S<OSF DCE 1.1>.
 
 These options can only be used with I<-o vdsm>.
 
+=item B<--vdsm-ovf-flavour> flavour
+
+This option controls the format of the OVF generated at the end of conversion.
+Currently there are two possible flavours:
+
+=over 4
+
+=item rhevexp
+
+The OVF format used in RHV export storage domain.
+
+=item ovirt
+
+The OVF format understood by oVirt REST API.
+
+=back
+
+For backward compatibility the default is I<rhevexp>, but this may change in
+the future.
+
 =item B<-v>
 
 =item B<--verbose>

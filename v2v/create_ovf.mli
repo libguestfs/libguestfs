@@ -20,6 +20,15 @@ type ovf_flavour =
   | OVirt
   | RHVExportStorageDomain
 
+(** The string representation of available OVF flavours. *)
+val ovf_flavours : string list
+
+(** Convert from a string to the corresponding OVF flavour.
+
+    Throw [Invalid_argument] if the string does not match any
+    valid flavour. *)
+val ovf_flavour_of_string : string -> ovf_flavour
+
 (** Create OVF and related files for RHV.
 
     The format for RHV export storage domain is described in:
