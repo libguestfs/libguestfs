@@ -33,6 +33,13 @@ type ovf_flavour =
   | OVirt
   | RHVExportStorageDomain
 
+let ovf_flavours = ["ovirt"; "rhvexp"]
+
+let ovf_flavour_of_string = function
+  | "ovirt" -> OVirt
+  | "rhvexp" -> RHVExportStorageDomain
+  | flav -> invalid_arg flav
+
 (* We set the creation time to be the same for all dates in
  * all metadata files.  All dates in OVF are UTC.
  *)

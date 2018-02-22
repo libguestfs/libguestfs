@@ -79,6 +79,11 @@ let parse_cmdline () =
   let vdsm_compat = ref "0.10" in
   let set_vdsm_compat s = vdsm_compat := s in
 
+  let vdsm_ovf_flavour = ref Create_ovf.RHVExportStorageDomain in
+  let ovf_flavours_str = String.concat "|" Create_ovf.ovf_flavours in
+  let set_vdsm_ovf_flavour arg =
+    vdsm_ovf_flavour := Create_ovf.ovf_flavour_of_string arg in
+
   let set_string_option_once optname optref arg =
     match !optref with
     | Some _ ->
@@ -251,6 +256,8 @@ let parse_cmdline () =
                                     s_"Output VM UUID";
     [ L"vdsm-ovf-output" ], Getopt.String ("-", set_string_option_once "--vdsm-ovf-output" vdsm_ovf_output),
                                     s_"Output OVF file";
+    [ L"vdsm-ovf-flavour" ], Getopt.Symbol (ovf_flavours_str, Create_ovf.ovf_flavours, set_vdsm_ovf_flavour),
+                                    s_"Set the type of generated OVF (default rhvexp)";
     [ L"vmtype" ],   Getopt.String ("-", vmtype_warning),
                                     s_"Ignored for backwards compatibility";
   ] in
@@ -327,6 +334,7 @@ read the man page virt-v2v(1).
   let vdsm_vol_uuids = List.rev !vdsm_vol_uuids in
   let vdsm_vm_uuid = !vdsm_vm_uuid in
   let vdsm_ovf_output = Option.default "." !vdsm_ovf_output in
+  let vdsm_ovf_flavour = !vdsm_ovf_flavour in
 
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.
@@ -343,6 +351,7 @@ read the man page virt-v2v(1).
     List.iter (printf "input:%s\n") (Modules_list.input_modules ());
     List.iter (printf "output:%s\n") (Modules_list.output_modules ());
     List.iter (printf "convert:%s\n") (Modules_list.convert_modules ());
+    List.iter (printf "ovf:%s\n") Create_ovf.ovf_flavours;
     exit 0
   );
 
@@ -542,6 +551,7 @@ read the man page virt-v2v(1).
         vm_uuid = vdsm_vm_uuid;
         ovf_output = vdsm_ovf_output;
         compat = vdsm_compat;
+        ovf_flavour = vdsm_ovf_flavour;
       } in
       Output_vdsm.output_vdsm os vdsm_options output_alloc,
       output_format, output_alloc in
