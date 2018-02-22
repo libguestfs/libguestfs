@@ -62,6 +62,7 @@ let parse_cmdline () =
   let output_conn = ref None in
   let output_format = ref None in
   let output_name = ref None in
+  let output_password = ref None in
   let output_storage = ref None in
   let password_file = ref None in
   let vddk_config = ref None in
@@ -218,6 +219,8 @@ let parse_cmdline () =
                                     s_"Set output format";
     [ M"on" ],       Getopt.String ("name", set_string_option_once "-on" output_name),
                                     s_"Rename guest when converting";
+    [ M"op" ],       Getopt.String ("filename", set_string_option_once "-op" output_password),
+                                    s_"Use password from file to connect to output hypervisor";
     [ M"os" ],       Getopt.String ("storage", set_string_option_once "-os" output_storage),
                                     s_"Set output storage location";
     [ L"password-file" ], Getopt.String ("file", set_string_option_once "--password-file" password_file),
@@ -312,6 +315,7 @@ read the man page virt-v2v(1).
   let output_format = !output_format in
   let output_mode = !output_mode in
   let output_name = !output_name in
+  let output_password = !output_password in
   let output_storage = !output_storage in
   let password_file = !password_file in
   let print_source = !print_source in
@@ -462,6 +466,8 @@ read the man page virt-v2v(1).
     | `Glance ->
       if output_conn <> None then
         error_option_cannot_be_used_in_output_mode "glance" "-oc";
+      if output_password <> None then
+        error_option_cannot_be_used_in_output_mode "glance" "-op";
       if output_storage <> None then
         error_option_cannot_be_used_in_output_mode "glance" "-os";
       if qemu_boot then
@@ -473,6 +479,8 @@ read the man page virt-v2v(1).
 
     | `Not_set
     | `Libvirt ->
+      if output_password <> None then
+        error_option_cannot_be_used_in_output_mode "libvirt" "-op";
       let output_storage = Option.default "default" output_storage in
       if qemu_boot then
         error_option_cannot_be_used_in_output_mode "libvirt" "--qemu-boot";
@@ -482,6 +490,8 @@ read the man page virt-v2v(1).
       output_format, output_alloc
 
     | `Local ->
+      if output_password <> None then
+        error_option_cannot_be_used_in_output_mode "local" "-op";
       let os =
         match output_storage with
         | None ->
@@ -501,6 +511,8 @@ read the man page virt-v2v(1).
         error_option_cannot_be_used_in_output_mode "null" "-oc";
       if output_format <> None then
         error_option_cannot_be_used_in_output_mode "null" "-of";
+      if output_password <> None then
+        error_option_cannot_be_used_in_output_mode "null" "-op";
       if output_storage <> None then
         error_option_cannot_be_used_in_output_mode "null" "-os";
       if qemu_boot then
@@ -510,6 +522,8 @@ read the man page virt-v2v(1).
       Some "raw", Sparse
 
     | `QEmu ->
+      if output_password <> None then
+        error_option_cannot_be_used_in_output_mode "qemu" "-op";
       let os =
         match output_storage with
         | None ->
@@ -523,6 +537,8 @@ read the man page virt-v2v(1).
       output_format, output_alloc
 
     | `RHV ->
+      if output_password <> None then
+        error_option_cannot_be_used_in_output_mode "rhv" "-op";
       let os =
         match output_storage with
         | None ->
@@ -534,6 +550,8 @@ read the man page virt-v2v(1).
       output_format, output_alloc
 
     | `VDSM ->
+      if output_password <> None then
+        error_option_cannot_be_used_in_output_mode "vdsm" "-op";
       let os =
         match output_storage with
         | None ->
