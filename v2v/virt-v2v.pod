@@ -569,6 +569,13 @@ If not specified, then the input format is used.
 Rename the guest when converting it.  If this option is not used then
 the output name is the same as the input name.
 
+=item B<-op> file
+
+Supply a file containing a password to be used when connecting to the
+target hypervisor.  Note the file should contain the whole password,
+B<without any trailing newline>, and for security the file should have
+mode C<0600> so that others cannot read it.
+
 =item B<-os> storage
 
 The location of the storage for the converted guest.
