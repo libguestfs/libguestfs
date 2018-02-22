@@ -29,6 +29,10 @@ open Types
 open Utils
 open DOM
 
+type ovf_flavour =
+  | OVirt
+  | RHVExportStorageDomain
+
 (* We set the creation time to be the same for all dates in
  * all metadata files.  All dates in OVF are UTC.
  *)
@@ -269,7 +273,7 @@ let create_meta_files output_alloc sd_uuid image_uuids targets =
 
 (* Create the OVF file. *)
 let rec create_ovf source targets guestcaps inspect
-    output_alloc sd_uuid image_uuids vol_uuids vm_uuid =
+    output_alloc sd_uuid image_uuids vol_uuids vm_uuid ovf_flavour =
   assert (List.length targets = List.length vol_uuids);
 
   let memsize_mb = source.s_memory /^ 1024L /^ 1024L in
@@ -288,12 +292,26 @@ let rec create_ovf source targets guestcaps inspect
     ] [
       Comment generated_by;
       e "References" [] [];
-      e "Section" ["xsi:type", "ovf:NetworkSection_Type"] [
-        e "Info" [] [PCData "List of networks"]
-      ];
-      e "Section" ["xsi:type", "ovf:DiskSection_Type"] [
-        e "Info" [] [PCData "List of Virtual Disks"]
-      ];
+      (match ovf_flavour with
+      | OVirt ->
+        e "NetworkSection" [] [
+          e "Info" [] [PCData "List of networks"]
+        ]
+      | RHVExportStorageDomain ->
+        e "Section" ["xsi:type", "ovf:NetworkSection_Type"] [
+          e "Info" [] [PCData "List of networks"]
+        ]
+      );
+      (match ovf_flavour with
+      | OVirt ->
+        e "DiskSection" [] [
+          e "Info" [] [PCData "List of Virtual Disks"]
+        ]
+      | RHVExportStorageDomain ->
+        e "Section" ["xsi:type", "ovf:DiskSection_Type"] [
+          e "Info" [] [PCData "List of Virtual Disks"]
+        ]
+      );
 
       let content_subnodes = ref [
         e "Name" [] [PCData source.s_name];
@@ -326,11 +344,20 @@ let rec create_ovf source targets guestcaps inspect
       );
 
       List.push_back content_subnodes (
-        e "Section" ["ovf:id", vm_uuid; "ovf:required", "false";
-                     "xsi:type", "ovf:OperatingSystemSection_Type"] [
+        let osinfo_subnodes = [
           e "Info" [] [PCData inspect.i_product_name];
           e "Description" [] [PCData ostype];
-          ]
+        ] in
+        (match ovf_flavour with
+        | OVirt ->
+          e "OperatingSystemSection" ["ovf:id", vm_uuid;
+                                      "ovf:required", "false"]
+            osinfo_subnodes
+        | RHVExportStorageDomain ->
+          e "Section" ["ovf:id", vm_uuid; "ovf:required", "false";
+                       "xsi:type", "ovf:OperatingSystemSection_Type"]
+            osinfo_subnodes
+        )
       );
 
       let virtual_hardware_section_items = ref [
@@ -424,24 +451,34 @@ let rec create_ovf source targets guestcaps inspect
         );
 
       List.push_back content_subnodes (
-        e "Section" ["xsi:type", "ovf:VirtualHardwareSection_Type"]
-          !virtual_hardware_section_items
+        match ovf_flavour with
+        | OVirt ->
+          e "VirtualHardwareSection" [] !virtual_hardware_section_items
+        | RHVExportStorageDomain ->
+          e "Section" ["xsi:type", "ovf:VirtualHardwareSection_Type"]
+            !virtual_hardware_section_items
       );
 
-      e "Content" ["ovf:id", "out"; "xsi:type", "ovf:VirtualSystem_Type"]
-        !content_subnodes
+      (match ovf_flavour with
+      | OVirt ->
+        e "VirtualSystem" ["ovf:id", "out"] !content_subnodes
+      | RHVExportStorageDomain ->
+        e "Content" ["ovf:id", "out"; "xsi:type", "ovf:VirtualSystem_Type"]
+          !content_subnodes
+      )
     ] in
 
   (* Add disks to the OVF XML. *)
-  add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf;
+  add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids
+    ovf_flavour ovf;
 
   (* Old virt-v2v ignored removable media. XXX *)
 
   (* Add networks to the OVF XML. *)
-  add_networks source.s_nics guestcaps ovf;
+  add_networks source.s_nics guestcaps ovf_flavour ovf;
 
   (* Add sound card to the OVF XML. *)
-  add_sound_card source.s_sound ovf;
+  add_sound_card source.s_sound ovf_flavour ovf;
 
   (* Old virt-v2v didn't really look at the video and display
    * metadata, instead just adding a single standard display (see
@@ -461,21 +498,42 @@ let rec create_ovf source targets guestcaps inspect
   (* Return the OVF document. *)
   ovf
 
+(* Find appropriate section depending on the OVF flavour being generated.
+ *
+ * For example normal disk section is in node <DiskSection> whereas in case of
+ * RHV export storage domain it is <Section xsi:type="ovf:DiskSection_Type">.
+ *)
+and get_flavoured_section ovf ovf_flavour ovirt_path rhv_path rhv_path_attr =
+  let nodes =
+    match ovf_flavour with
+    | OVirt ->
+      let nodes = path_to_nodes ovf ovirt_path in
+      (match nodes with
+      | [node] -> node
+      | [] | _::_::_ -> assert false)
+    | RHVExportStorageDomain ->
+      let nodes = path_to_nodes ovf rhv_path in
+      try find_node_by_attr nodes rhv_path_attr
+      with Not_found -> assert false
+  in
+  nodes
+
 (* This modifies the OVF DOM, adding a section for each disk. *)
-and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
+and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids
+    ovf_flavour ovf =
   let references =
     let nodes = path_to_nodes ovf ["ovf:Envelope"; "References"] in
     match nodes with
     | [] | _::_::_ -> assert false
     | [node] -> node in
-  let disk_section =
-    let sections = path_to_nodes ovf ["ovf:Envelope"; "Section"] in
-    try find_node_by_attr sections ("xsi:type", "ovf:DiskSection_Type")
-    with Not_found -> assert false in
-  let virtualhardware_section =
-    let sections = path_to_nodes ovf ["ovf:Envelope"; "Content"; "Section"] in
-    try find_node_by_attr sections ("xsi:type", "ovf:VirtualHardwareSection_Type")
-    with Not_found -> assert false in
+  let disk_section = get_flavoured_section ovf ovf_flavour
+    ["ovf:Envelope"; "DiskSection"]
+    ["ovf:Envelope"; "Section"]
+    ("xsi:type", "ovf:DiskSection_Type") in
+  let virtualhardware_section = get_flavoured_section ovf ovf_flavour
+    ["ovf:Envelope"; "VirtualSystem"; "VirtualHardwareSection"]
+    ["ovf:Envelope"; "Content"; "Section"]
+    ("xsi:type", "ovf:VirtualHardwareSection_Type") in
 
   (* Iterate over the disks, adding them to the OVF document. *)
   List.iteri (
@@ -489,7 +547,12 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
       let is_bootable_drive = i == 0 in
       let boot_order = i+1 in
 
-      let fileref = sprintf "%s/%s" image_uuid vol_uuid in
+      let fileref =
+        match ovf_flavour with
+        | OVirt ->
+          vol_uuid
+        | RHVExportStorageDomain ->
+          sprintf "%s/%s" image_uuid vol_uuid in
 
       (* ovf:size and ovf:actual_size fields are integer GBs.  If you
        * use floating point numbers then RHV will fail to parse them.
@@ -535,7 +598,10 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
       (* Add disk to DiskSection. *)
       let disk =
         let attrs = ref [
-          "ovf:diskId", vol_uuid;
+          "ovf:diskId",
+          (match ovf_flavour with
+          | OVirt -> image_uuid
+          | RHVExportStorageDomain -> vol_uuid);
           "ovf:size", Int64.to_string size_gb;
           "ovf:fileRef", fileref;
           "ovf:parentRef", "";
@@ -593,15 +659,15 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
   ) (List.combine3 targets image_uuids vol_uuids)
 
 (* This modifies the OVF DOM, adding a section for each NIC. *)
-and add_networks nics guestcaps ovf =
-  let network_section =
-    let sections = path_to_nodes ovf ["ovf:Envelope"; "Section"] in
-    try find_node_by_attr sections ("xsi:type", "ovf:NetworkSection_Type")
-    with Not_found -> assert false in
-  let virtualhardware_section =
-    let sections = path_to_nodes ovf ["ovf:Envelope"; "Content"; "Section"] in
-    try find_node_by_attr sections ("xsi:type", "ovf:VirtualHardwareSection_Type")
-    with Not_found -> assert false in
+and add_networks nics guestcaps ovf_flavour ovf =
+  let network_section = get_flavoured_section ovf ovf_flavour
+    ["ovf:Envelope"; "NetworkSection"]
+    ["ovf:Envelope"; "Section"]
+    ("xsi:type", "ovf:NetworkSection_Type") in
+  let virtualhardware_section = get_flavoured_section ovf ovf_flavour
+    ["ovf:Envelope"; "VirtualSystem"; "VirtualHardwareSection"]
+    ["ovf:Envelope"; "Content"; "Section"]
+    ("xsi:type", "ovf:VirtualHardwareSection_Type") in
 
   (* Iterate over the NICs, adding them to the OVF document. *)
   List.iteri (
@@ -649,7 +715,7 @@ and add_networks nics guestcaps ovf =
   ) nics
 
 (* This modifies the OVF DOM, adding a sound card, if oVirt can emulate it. *)
-and add_sound_card sound ovf =
+and add_sound_card sound ovf_flavour ovf =
   let device =
     match sound with
     | None -> None
@@ -662,12 +728,10 @@ and add_sound_card sound ovf =
 
   match device with
   | Some device ->
-     let virtualhardware_section =
-       let sections =
-         path_to_nodes ovf ["ovf:Envelope"; "Content"; "Section"] in
-       try find_node_by_attr sections
-                             ("xsi:type", "ovf:VirtualHardwareSection_Type")
-       with Not_found -> assert false in
+     let virtualhardware_section = get_flavoured_section ovf ovf_flavour
+       ["ovf:Envelope"; "VirtualSystem"; "VirtualHardwareSection"]
+       ["ovf:Envelope"; "Content"; "Section"]
+       ("xsi:type", "ovf:VirtualHardwareSection_Type") in
 
      let item =
        e "Item" [] [
