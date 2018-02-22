@@ -22,6 +22,15 @@ type ovf_flavour =
   | OVirt
   | RHVExportStorageDomain
 
+(** The string representation of available OVF flavours. *)
+val ovf_flavours : string list
+
+(** Convert from a string to the corresponding OVF flavour.
+
+    Throw [Invalid_argument] if the string does not match any
+    valid flavour. *)
+val ovf_flavour_of_string : string -> ovf_flavour
+
 val create_meta_files : Types.output_allocation -> string -> string list -> Types.target list -> string list
 (** Create the .meta file associated with each target.
 

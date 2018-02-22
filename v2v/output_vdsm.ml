@@ -31,6 +31,7 @@ type vdsm_params = {
   vm_uuid : string;
   ovf_output : string;
   compat : string;
+  ovf_flavour : OVF.ovf_flavour;
 }
 
 class output_vdsm os vdsm_params output_alloc =
@@ -38,7 +39,7 @@ object
   inherit output
 
   method as_options =
-    sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s --vdsm-ovf-output %s%s" os
+    sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s --vdsm-ovf-output %s%s%s" os
       (String.concat ""
          (List.map (sprintf " --vdsm-image-uuid %s") vdsm_params.image_uuids))
       (String.concat ""
@@ -48,6 +49,10 @@ object
       (match vdsm_params.compat with
        | "0.10" -> "" (* currently this is the default, so don't print it *)
        | s -> sprintf " --vdsm-compat=%s" s)
+      (match vdsm_params.ovf_flavour with
+       | OVF.OVirt -> "--vdsm-ovf-flavour=ovf"
+       (* currently this is the default, so don't print it *)
+       | OVF.RHVExportStorageDomain -> "")
 
   method supported_firmware = [ TargetBIOS ]
 
@@ -173,7 +178,7 @@ object
       vdsm_params.image_uuids
       vdsm_params.vol_uuids
       vdsm_params.vm_uuid
-      OVF.RHVExportStorageDomain in
+      vdsm_params.ovf_flavour in
 
     (* Write it to the metadata file. *)
     let file = vdsm_params.ovf_output // vdsm_params.vm_uuid ^ ".ovf" in
