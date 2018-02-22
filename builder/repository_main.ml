@@ -178,7 +178,7 @@ let compute_short_id distro major minor =
     sprintf "%s%d" distro major
   | ("fedora"|"mageia") ->
     sprintf "%s%d" distro major
-  | "sles" when major = 0 ->
+  | "sles" when minor = 0 ->
     sprintf "%s%d" distro major
   | "sles" ->
     sprintf "%s%dsp%d" distro major minor
