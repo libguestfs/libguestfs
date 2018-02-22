@@ -214,7 +214,7 @@ let parse_cmdline () =
     [ M"oa" ],       Getopt.String ("sparse|preallocated", set_output_alloc),
                                     s_"Set output allocation mode";
     [ M"oc" ],       Getopt.String ("uri", set_string_option_once "-oc" output_conn),
-                                    s_"Libvirt URI";
+                                    s_"Output hypervisor connection";
     [ M"of" ],       Getopt.String ("raw|qcow2", set_string_option_once "-of" output_format),
                                     s_"Set output format";
     [ M"on" ],       Getopt.String ("name", set_string_option_once "-on" output_name),

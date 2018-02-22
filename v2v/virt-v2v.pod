@@ -550,13 +550,13 @@ This mode is only used when virt-v2v runs under VDSM control.
 
 Set the output file allocation mode.  The default is C<sparse>.
 
-=item B<-oc> libvirtURI
+=item B<-oc> URI
 
-Specify a libvirt connection to use when writing the converted guest.
-This is only used when S<I<-o libvirt>>.  See L</OUTPUT TO LIBVIRT> below.
+Specify a connection URI to use when writing the converted guest.
 
-Only local libvirt connections can be used.  Remote libvirt
-connections will not work.
+For S<I<-o libvirt>> this is the libvirt URI.  Only local libvirt
+connections can be used.  Remote libvirt connections will not work.
+See L</OUTPUT TO LIBVIRT> below for further information.
 
 =item B<-of> format
 
