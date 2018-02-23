@@ -19,6 +19,7 @@
 
 open Printf
 #load "str.cma"
+#load "unix.cma"
 
 type test_result =
   | Pass
@@ -80,14 +81,21 @@ let rec string_replace s s1 s2 =
   )
 
 let find_trs basedir =
+  let split_dirs_and_files items =
+    let rec work dirs files = function
+      | [] -> dirs, files
+      | ((_, full_x) as x) :: xs ->
+        match (Unix.lstat full_x).Unix.st_kind with
+        | Unix.S_REG -> work dirs (x :: files) xs
+        | Unix.S_DIR -> work (x :: dirs) files xs
+        | _ -> work dirs files xs
+    in
+    work [] [] items
+  in
   let rec internal_find_trs basedir stack =
     let items = Array.to_list (Sys.readdir basedir) in
     let items = List.map (fun x -> x, basedir // x) items in
-    let dirs, files = List.partition (
-      fun (_, full_x) ->
-        try Sys.is_directory full_x
-        with Sys_error _ -> false
-    ) items in
+    let dirs, files = split_dirs_and_files items in
     let files = List.filter (fun (x, _) -> Filename.check_suffix x ".trs") files in
     let files = List.map (fun (_, full_x) -> stack, full_x) files in
     let subdirs_files = List.fold_left (
