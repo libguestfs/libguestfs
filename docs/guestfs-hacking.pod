@@ -584,7 +584,7 @@ front, but we do prefer that contributed code be formatted similarly.
 In short, use spaces-not-TABs for indentation, use 2 spaces for each
 indentation level, and other than that, follow the K&R style.
 
-If you use Emacs, add the following to one of one of your start-up files
+If you use Emacs, add the following to one of your start-up files
 (e.g., ~/.emacs), to help ensure that you get indentation right:
 
  ;;; In libguestfs, indent with spaces everywhere (not TABs).
