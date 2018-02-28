@@ -444,6 +444,9 @@ let rec create_ovf source targets guestcaps inspect
             e "rasd:ResourceType" [] [PCData "0"];
             e "Type" [] [PCData "rng"];
             e "Device" [] [PCData "virtio"];
+            e "SpecParams" [] [
+              e "source" [] [PCData "urandom"]
+            ]
           ]
         );
       if guestcaps.gcaps_virtio_balloon then
@@ -454,6 +457,9 @@ let rec create_ovf source targets guestcaps inspect
             e "rasd:ResourceType" [] [PCData "0"];
             e "Type" [] [PCData "balloon"];
             e "Device" [] [PCData "memballoon"];
+            e "SpecParams" [] [
+              e "model" [] [PCData "virtio"]
+            ]
           ]
         );
 
