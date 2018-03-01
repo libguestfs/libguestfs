@@ -85,7 +85,7 @@ let find_trs basedir =
     let rec work dirs files = function
       | [] -> dirs, files
       | ((_, full_x) as x) :: xs ->
-        match (Unix.lstat full_x).Unix.st_kind with
+        match (Unix.LargeFile.lstat full_x).Unix.LargeFile.st_kind with
         | Unix.S_REG -> work dirs (x :: files) xs
         | Unix.S_DIR -> work (x :: dirs) files xs
         | _ -> work dirs files xs
