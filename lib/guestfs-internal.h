@@ -136,6 +136,17 @@
 /* Maximum size of Windows explorer.exe.  2.6MB on Windows 7. */
 #define MAX_WINDOWS_EXPLORER_SIZE (4 * 1000 * 1000)
 
+/* Differences in qemu device names on ARMv7 (virtio-mmio), s/390x
+ * (CCW) vs normal hardware with PCI.
+ */
+#if defined(__arm__)
+#define VIRTIO_DEVICE_NAME(type) type "-device"
+#elif defined(__s390x__)
+#define VIRTIO_DEVICE_NAME(type) type "-ccw"
+#else
+#define VIRTIO_DEVICE_NAME(type) type "-pci"
+#endif
+
 /* Machine types. */
 #ifdef __arm__
 #define MACHINE_TYPE "virt"
