@@ -334,15 +334,7 @@ object
          (* Wait for the pidfile to appear so we know that nbdkit
           * is listening for requests.
           *)
-         let rec loop i =
-           if i = 0 then false
-           else if Sys.file_exists pidfile then true
-           else (
-             sleep 1;
-             loop (i-1)
-           )
-         in
-         if not (loop 30) then (
+         if not (wait_for_file pidfile 30) then (
            if verbose () then
              error (f_"nbdkit did not start up.  See previous debugging messages for problems.")
            else

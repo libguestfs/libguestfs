@@ -196,3 +196,12 @@ let find_file_in_tar tar filename =
     )
   in
   loop lines
+
+(* Wait for a file to appear until a timeout. *)
+let rec wait_for_file filename timeout =
+  if Sys.file_exists filename then true
+  else if timeout = 0 then false
+  else (
+    Unix.sleep 1;
+    wait_for_file filename (timeout-1)
+  )

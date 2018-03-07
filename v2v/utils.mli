@@ -61,3 +61,7 @@ val find_file_in_tar : string -> string -> int64 * int64
 
     Function raises [Not_found] if there is no such file inside [tar] and
     [Failure] if there is any error parsing the tar output. *)
+
+val wait_for_file : string -> int -> bool
+(** [wait_for_file filename timeout] waits up to [timeout] seconds for
+    [filename] to appear.  It returns [true] if the file appeared. *)
