@@ -489,6 +489,11 @@ Print information about the source guest and stop.  This option is
 useful when you are setting up network and bridge maps.
 See L</NETWORKS AND BRIDGES>.
 
+=item B<--print-target>
+
+Print information about the target disk(s) and overlay file(s), and
+stop.
+
 =item B<-q>
 
 =item B<--quiet>

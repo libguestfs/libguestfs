@@ -139,6 +139,22 @@ let rec main () =
   g#shutdown ();
   g#close ();
 
+  (match conversion_mode with
+   | In_place -> ()
+   | Copying (overlays, targets) ->
+      (* Print overlays/targets and stop. *)
+      if cmdline.print_target then (
+        printf (f_"Overlay and Target information (--print-target option):\n");
+        printf "\n";
+        List.iter (
+          fun (ov, t) ->
+            printf "%s\n" (string_of_overlay ov);
+            printf "%s\n" (string_of_target t)
+        ) (List.combine overlays targets);
+        exit 0
+      )
+  );
+
   (* Copy overlays to target (for [--in-place] this does nothing). *)
   (match conversion_mode with
    | In_place -> ()
@@ -639,6 +655,7 @@ and copy_targets cmdline targets input output =
           message (f_"Copying disk %d/%d to qemu URI %s (%s)")
                   (i+1) nr_disks s t.target_format
       );
+      debug "%s" (string_of_overlay t.target_overlay);
       debug "%s" (string_of_target t);
 
       (* We noticed that qemu sometimes corrupts the qcow2 file on
