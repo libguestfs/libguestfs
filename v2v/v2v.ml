@@ -113,11 +113,12 @@ let rec main () =
 
   let mpstats = get_mpstats g in
   check_guest_free_space mpstats;
-  (match conversion_mode with
-   | Copying (_, targets) ->
-       check_target_free_space mpstats source targets output
-   | In_place -> ()
-  );
+  let conversion_mode =
+    match conversion_mode with
+    | Copying (overlays, targets) ->
+       let targets = check_target_free_space mpstats source targets output in
+       Copying (overlays, targets)
+    | In_place -> In_place in
 
   (* Conversion. *)
   let guestcaps =
@@ -597,7 +598,8 @@ and check_target_free_space mpstats source targets output =
   message (f_"Estimating space required on target for each disk");
   let targets = estimate_target_size mpstats targets in
 
-  output#check_target_free_space source targets
+  output#check_target_free_space source targets;
+  targets
 
 (* Conversion. *)
 and do_convert g inspect source output rcaps =
