@@ -44,6 +44,7 @@ type cmdline = {
   output_format : string option;
   output_name : string option;
   print_source : bool;
+  print_target : bool;
   root_choice : root_choice;
 }
 
@@ -53,6 +54,7 @@ let parse_cmdline () =
   let do_copy = ref true in
   let machine_readable = ref false in
   let print_source = ref false in
+  let print_target = ref false in
   let qemu_boot = ref false in
 
   let input_conn = ref None in
@@ -228,6 +230,8 @@ let parse_cmdline () =
                                     s_"Use password from file";
     [ L"print-source" ], Getopt.Set print_source,
                                     s_"Print source and stop";
+    [ L"print-target" ], Getopt.Set print_target,
+                                    s_"Print target and stop";
     [ L"qemu-boot" ], Getopt.Set qemu_boot, s_"Boot in qemu (-o qemu only)";
     [ L"root" ],     Getopt.String ("ask|... ", set_root_choice),
                                     s_"How to choose root filesystem";
@@ -321,6 +325,7 @@ read the man page virt-v2v(1).
   let output_storage = !output_storage in
   let password_file = !password_file in
   let print_source = !print_source in
+  let print_target = !print_target in
   let qemu_boot = !qemu_boot in
   let root_choice = !root_choice in
   let vddk_options =
@@ -357,6 +362,12 @@ read the man page virt-v2v(1).
     List.iter (printf "convert:%s\n") (Modules_list.convert_modules ());
     List.iter (printf "ovf:%s\n") Create_ovf.ovf_flavours;
     exit 0
+  );
+
+  (* Some options cannot be used with --in-place. *)
+  if in_place then (
+    if print_target then
+      error (f_"--in-place and --print-target cannot be used together")
   );
 
   (* Parse out the password from the password file. *)
@@ -579,6 +590,7 @@ read the man page virt-v2v(1).
     do_copy = do_copy; in_place = in_place; network_map = network_map;
     output_alloc = output_alloc; output_format = output_format;
     output_name = output_name;
-    print_source = print_source; root_choice = root_choice;
+    print_source = print_source; print_target;
+    root_choice = root_choice;
   },
   input, output

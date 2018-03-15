@@ -281,11 +281,10 @@ type overlay = {
 }
 
 let string_of_overlay ov =
-  sprintf "\
-ov_overlay_file = %s
-ov_sd = %s
-ov_virtual_size = %Ld
-ov_source = %s
+  sprintf "             overlay file: %s
+      overlay device name: %s
+overlay virtual disk size: %Ld
+  overlay source qemu URI: %s
 "
     ov.ov_overlay_file
     ov.ov_sd
@@ -304,12 +303,9 @@ and target_file =
   | TargetURI of string
 
 let string_of_target t =
-  sprintf "\
-target_file = %s
-target_format = %s
-target_estimated_size = %s
-target_overlay = %s
-target_overlay.ov_source = %s
+  sprintf "          target file: %s
+        target format: %s
+target estimated size: %s
 "
     (match t.target_file with
      | TargetFile s -> "[file] " ^ s
@@ -317,8 +313,6 @@ target_overlay.ov_source = %s
     t.target_format
     (match t.target_estimated_size with
     | None -> "None" | Some i -> Int64.to_string i)
-    t.target_overlay.ov_overlay_file
-    t.target_overlay.ov_source.s_qemu_uri
 
 type target_firmware = TargetBIOS | TargetUEFI
 
