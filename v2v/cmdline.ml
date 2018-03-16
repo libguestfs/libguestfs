@@ -577,11 +577,9 @@ read the man page virt-v2v(1).
       output_format, output_alloc in
 
   {
-    compressed = compressed; debug_overlays = debug_overlays;
-    do_copy = do_copy; in_place = in_place; network_map = network_map;
-    output_alloc = output_alloc; output_format = output_format;
-    output_name = output_name;
-    print_source = print_source; print_target;
-    root_choice = root_choice;
+    compressed; debug_overlays; do_copy; in_place; network_map;
+    output_alloc; output_format; output_name;
+    print_source; print_target;
+    root_choice;
   },
   input, output
