@@ -26,7 +26,7 @@ open Printf
 open Types
 open Utils
 
-type vdsm_params = {
+type vdsm_options = {
   image_uuids : string list;
   vol_uuids : string list;
   vm_uuid : string;
@@ -34,19 +34,19 @@ type vdsm_params = {
   compat : string;
 }
 
-class output_vdsm os vdsm_params output_alloc =
+class output_vdsm os vdsm_options output_alloc =
 object
   inherit output
 
   method as_options =
     sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s --vdsm-ovf-output %s%s" os
       (String.concat ""
-         (List.map (sprintf " --vdsm-image-uuid %s") vdsm_params.image_uuids))
+         (List.map (sprintf " --vdsm-image-uuid %s") vdsm_options.image_uuids))
       (String.concat ""
-         (List.map (sprintf " --vdsm-vol-uuid %s") vdsm_params.vol_uuids))
-      vdsm_params.vm_uuid
-      vdsm_params.ovf_output
-      (match vdsm_params.compat with
+         (List.map (sprintf " --vdsm-vol-uuid %s") vdsm_options.vol_uuids))
+      vdsm_options.vm_uuid
+      vdsm_options.ovf_output
+      (match vdsm_options.compat with
        | "0.10" -> "" (* currently this is the default, so don't print it *)
        | s -> sprintf " --vdsm-compat=%s" s)
 
@@ -77,8 +77,8 @@ object
    * displaying errors there.
    *)
   method prepare_targets _ targets =
-    if List.length vdsm_params.image_uuids <> List.length targets ||
-      List.length vdsm_params.vol_uuids <> List.length targets then
+    if List.length vdsm_options.image_uuids <> List.length targets ||
+      List.length vdsm_options.vol_uuids <> List.length targets then
       error (f_"the number of ‘--vdsm-image-uuid’ and ‘--vdsm-vol-uuid’ parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")
         (List.length targets);
 
@@ -106,14 +106,14 @@ object
         if not (is_directory d) then
           error (f_"image directory (%s) does not exist or is not a directory")
             d
-    ) vdsm_params.image_uuids;
+    ) vdsm_options.image_uuids;
 
     (* Note that VDSM has to create this directory too. *)
-    if not (is_directory vdsm_params.ovf_output) then
+    if not (is_directory vdsm_options.ovf_output) then
       error (f_"OVF (metadata) directory (%s) does not exist or is not a directory")
-        vdsm_params.ovf_output;
+        vdsm_options.ovf_output;
 
-    debug "VDSM: OVF (metadata) directory: %s" vdsm_params.ovf_output;
+    debug "VDSM: OVF (metadata) directory: %s" vdsm_options.ovf_output;
 
     (* The final directory structure should look like this:
      *   /<MP>/<ESD_UUID>/images/
@@ -135,12 +135,12 @@ object
           debug "VDSM: will export %s to %s" ov_sd target_file;
 
           { t with target_file = TargetFile target_file }
-      ) (List.combine3 targets vdsm_params.image_uuids vdsm_params.vol_uuids) in
+      ) (List.combine3 targets vdsm_options.image_uuids vdsm_options.vol_uuids) in
 
     (* Generate the .meta files associated with each volume. *)
     let metas =
       Create_ovf.create_meta_files output_alloc dd_uuid
-        vdsm_params.image_uuids targets in
+        vdsm_options.image_uuids targets in
     List.iter (
       fun ({ target_file }, meta) ->
         let target_file =
@@ -161,7 +161,7 @@ object
      * nodes cannot handle qcow2 v3 (RHBZ#1145582, RHBZ#1400205).
      *)
     let compat =
-      if format <> "qcow2" then compat else Some vdsm_params.compat in
+      if format <> "qcow2" then compat else Some vdsm_options.compat in
     g#disk_create ?backingfile ?backingformat ?preallocation ?compat
       ?clustersize path format size
 
@@ -173,12 +173,12 @@ object
     (* Create the metadata. *)
     let ovf = Create_ovf.create_ovf source targets guestcaps inspect
       output_alloc dd_uuid
-      vdsm_params.image_uuids
-      vdsm_params.vol_uuids
-      vdsm_params.vm_uuid in
+      vdsm_options.image_uuids
+      vdsm_options.vol_uuids
+      vdsm_options.vm_uuid in
 
     (* Write it to the metadata file. *)
-    let file = vdsm_params.ovf_output // vdsm_params.vm_uuid ^ ".ovf" in
+    let file = vdsm_options.ovf_output // vdsm_options.vm_uuid ^ ".ovf" in
     with_open_out file (fun chan -> DOM.doc_to_chan chan ovf)
 end
 
