@@ -33,6 +33,18 @@ open Xpath_helpers
 
 open Printf
 
+type vddk_options = {
+    vddk_config : string option;
+    vddk_cookie : string option;
+    vddk_libdir : string option;
+    vddk_nfchostport : string option;
+    vddk_port : string option;
+    vddk_snapshot : string option;
+    vddk_thumbprint : string option;
+    vddk_transports : string option;
+    vddk_vimapiver : string option;
+}
+
 (* Subclass specialized for handling VMware via nbdkit vddk plugin. *)
 class input_libvirt_vddk vddk_options password libvirt_uri parsed_uri guest =
   (* The VDDK path. *)

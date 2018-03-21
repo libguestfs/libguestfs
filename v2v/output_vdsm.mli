@@ -18,7 +18,7 @@
 
 (** [-o vdsm] target. *)
 
-type vdsm_params = {
+type vdsm_options = {
   image_uuids : string list;          (* --vdsm-image-uuid (multiple) *)
   vol_uuids : string list;            (* --vdsm-vol-uuid (multiple) *)
   vm_uuid : string;                   (* --vdsm-vm-uuid *)
@@ -28,7 +28,7 @@ type vdsm_params = {
 }
 (** Miscellaneous extra command line parameters used by VDSM. *)
 
-val output_vdsm : string -> vdsm_params -> Types.output_allocation -> Types.output
-(** [output_vdsm os rhev_params output_alloc] creates and
+val output_vdsm : string -> vdsm_options -> Types.output_allocation -> Types.output
+(** [output_vdsm os vdsm_options output_alloc] creates and
     returns a new {!Types.output} object specialized for writing
     output to Data Domains directly under VDSM control. *)
