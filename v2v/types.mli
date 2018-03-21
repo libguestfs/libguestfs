@@ -332,19 +332,6 @@ type root_choice = AskRoot | SingleRoot | FirstRoot | RootDev of string
 type output_allocation = Sparse | Preallocated
 (** Type of [-oa] (output allocation) option. *)
 
-type vddk_options = {
-    vddk_config : string option;
-    vddk_cookie : string option;
-    vddk_libdir : string option;
-    vddk_nfchostport : string option;
-    vddk_port : string option;
-    vddk_snapshot : string option;
-    vddk_thumbprint : string option;
-    vddk_transports : string option;
-    vddk_vimapiver : string option;
-}
-(** Various options passed through to the nbdkit vddk plugin unmodified. *)
-
 (** {2 Input object}
 
     There is one of these used for the [-i] option. *)

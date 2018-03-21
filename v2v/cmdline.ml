@@ -313,7 +313,7 @@ read the man page virt-v2v(1).
   let qemu_boot = !qemu_boot in
   let root_choice = !root_choice in
   let vddk_options =
-      { vddk_config = !vddk_config;
+      { Input_libvirt_vddk.vddk_config = !vddk_config;
         vddk_cookie = !vddk_cookie;
         vddk_libdir = !vddk_libdir;
         vddk_nfchostport = !vddk_nfchostport;
@@ -565,7 +565,7 @@ read the man page virt-v2v(1).
         | Some s -> s in
       if vdsm_image_uuids = [] || vdsm_vol_uuids = [] then
         error (f_"-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified");
-      let vdsm_params = {
+      let vdsm_options = {
         Output_vdsm.image_uuids = vdsm_image_uuids;
         vol_uuids = vdsm_vol_uuids;
         vm_uuid = vdsm_vm_uuid;
@@ -573,7 +573,7 @@ read the man page virt-v2v(1).
         compat = vdsm_compat;
         ovf_flavour = vdsm_ovf_flavour;
       } in
-      Output_vdsm.output_vdsm os vdsm_params output_alloc,
+      Output_vdsm.output_vdsm os vdsm_options output_alloc,
       output_format, output_alloc in
 
   {
