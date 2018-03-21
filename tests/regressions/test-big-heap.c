@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <unistd.h>
 
 #include "guestfs.h"
 #include "guestfs-utils.h"
@@ -41,6 +42,8 @@ main (int argc, char *argv[])
   const char *s;
   guestfs_h *g;
   char *mem, *fmt;
+  char tmpfile[32];
+  int tmpfilefd;
 
   /* Allow the test to be skipped. */
   s = getenv ("SKIP_TEST_BIG_HEAP");
@@ -49,6 +52,8 @@ main (int argc, char *argv[])
             argv[0]);
     exit (77);
   }
+
+  snprintf (tmpfile, sizeof tmpfile, "test-big-heap.XXXXXX");
 
   /* Make sure we're using > 1GB in the main process.  This test won't
    * work on 32 bit platforms, because we can't allocate 2GB of
@@ -68,10 +73,19 @@ main (int argc, char *argv[])
     exit (77);
   }
 
+  /* Create an empty temporary file for qemu-img. */
+  tmpfilefd = mkstemp (tmpfile);
+  if (tmpfilefd == -1) {
+    fprintf (stderr, "%s: mkstemp failed: %m\n", argv[0]);
+    exit (EXIT_FAILURE);
+  }
+  close (tmpfilefd);
+
   g = guestfs_create ();
 
   /* Do something which forks qemu-img subprocess. */
-  fmt = guestfs_disk_format (g, "/dev/null");
+  fmt = guestfs_disk_format (g, tmpfile);
+  unlink (tmpfile);
   if (fmt == NULL) {
     /* Test failed. */
     fprintf (stderr, "%s: unexpected failure of test, see earlier messages\n",
