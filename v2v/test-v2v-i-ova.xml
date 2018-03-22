@@ -29,8 +29,8 @@
       <driver name='qemu' type='raw'/>
       <target dev='fda'/>
     </disk>
-    <interface type='network'>
-      <source network='Ethernet 1'/>
+    <interface type='bridge'>
+      <source bridge='VM Network'/>
       <model type='virtio'/>
     </interface>
     <video>

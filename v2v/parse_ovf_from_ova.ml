@@ -209,15 +209,17 @@ let parse_ovf_from_ova ovf_filename =
     for i = 0 to nr_nodes-1 do
       let n = Xml.xpathobj_node obj i in
       Xml.xpathctx_set_current_context xpathctx n;
-      let vnet =
-        xpath_string_default "rasd:ElementName/text()" (sprintf"eth%d" i) in
+      let vnet, vnet_type =
+        match xpath_string "rasd:Connection/text()" with
+        | Some connection -> connection, Bridge
+        | None -> sprintf "eth%d" i, Network in
       let mac = xpath_string "rasd:Address/text()" in
       let nic = {
         s_mac = mac;
         s_nic_model = None;
         s_vnet = vnet;
         s_vnet_orig = vnet;
-        s_vnet_type = Network;
+        s_vnet_type = vnet_type;
       } in
       push_front nic nics
     done;

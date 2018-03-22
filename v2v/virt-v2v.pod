@@ -7,7 +7,7 @@ virt-v2v - Convert a guest to use KVM
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest
 
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest \
-   -o rhv -os rhv.nfs:/export_domain --network ovirtmgmt
+   -o rhv -os rhv.nfs:/export_domain --bridge ovirtmgmt
 
  virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp
 
@@ -105,7 +105,7 @@ settings on your RHV-M management console.  Guest network
 interface(s) are connected to the target network called C<ovirtmgmt>.
 
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest \
-   -o rhv -os rhv.nfs:/export_domain --network ovirtmgmt
+   -o rhv -os rhv.nfs:/export_domain --bridge ovirtmgmt
 
 In this case the host running virt-v2v acts as a B<conversion server>.
 
@@ -947,27 +947,22 @@ guest's Network Interface Cards (NICs):
  NICs:
      Network "default" mac: 52:54:00:d0:cf:0e
 
-This is typical of a libvirt guest: It has a single network interface
-connected to a network called C<default>.
-
-To map a specific network to a target network, for example C<default>
-on the source to C<ovirtmgmt> on the target, use:
-
- virt-v2v [...] --network default:ovirtmgmt
-
-To map every network to a target network, use:
-
- virt-v2v [...] --network ovirtmgmt
-
-Bridges are handled in the same way, but you have to use the
-I<--bridge> option instead.  For example:
+Bridges are special classes of network devices which are attached to a
+named external network on the source hypervisor, for example:
 
  $ virt-v2v [-i ...] --print-source name
  [...]
  NICs:
      Bridge "br0"
- 
- $ virt-v2v [...] --bridge br0:targetbr
+
+To map a specific bridge to a target network, for example C<br0> on
+the source to C<ovirtmgmt> on the target, use:
+
+ virt-v2v [...] --bridge br0:ovirtmgmt
+
+To map every bridge to a target network, use:
+
+ virt-v2v [...] --bridge ovirtmgmt
 
 =head1 INPUT FROM VMWARE VCENTER SERVER
 
