@@ -83,7 +83,6 @@ let parse_cmdline () =
   let set_vdsm_compat s = vdsm_compat := s in
 
   let vdsm_ovf_flavour = ref Create_ovf.RHVExportStorageDomain in
-  let ovf_flavours_str = String.concat "|" Create_ovf.ovf_flavours in
   let set_vdsm_ovf_flavour arg =
     vdsm_ovf_flavour := Create_ovf.ovf_flavour_of_string arg in
 
@@ -185,7 +184,8 @@ let parse_cmdline () =
   let i_options =
     String.concat "|" (Modules_list.input_modules ())
   and o_options =
-    String.concat "|" (Modules_list.output_modules ()) in
+    String.concat "|" (Modules_list.output_modules ())
+  and ovf_flavours_str = String.concat "|" Create_ovf.ovf_flavours in
 
   let argspec = [
     [ S 'b'; L"bridge" ], Getopt.String ("in:out", add_bridge),
