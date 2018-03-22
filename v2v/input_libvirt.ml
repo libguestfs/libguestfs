@@ -27,7 +27,7 @@ open Types
 open Utils
 
 (* Choose the right subclass based on the URI. *)
-let input_libvirt vddk_options password libvirt_uri input_transport guest =
+let input_libvirt password libvirt_uri input_transport guest =
   match libvirt_uri with
   | None ->
     Input_libvirt_other.input_libvirt_other password libvirt_uri guest
@@ -53,7 +53,7 @@ let input_libvirt vddk_options password libvirt_uri input_transport guest =
          password libvirt_uri parsed_uri scheme server guest
 
     (* vCenter or ESXi using nbdkit vddk plugin *)
-    | Some server, Some ("esx"|"gsx"|"vpx"), Some `VDDK ->
+    | Some server, Some ("esx"|"gsx"|"vpx"), Some (`VDDK vddk_options) ->
        Input_libvirt_vddk.input_libvirt_vddk vddk_options password
                                              libvirt_uri parsed_uri guest
 

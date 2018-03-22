@@ -34,23 +34,90 @@ type vdsm_options = {
   ovf_flavour : OVF.ovf_flavour;
 }
 
+let ovf_flavours_str = String.concat "|" OVF.ovf_flavours
+
+let print_output_options () =
+  printf (f_"Output options (-oo) which can be used with -o vdsm:
+
+  -oo vdsm-compat=0.10|1.1     Write qcow2 with compat=0.10|1.1
+                                   (default: 0.10)
+  -oo vdsm-vm-uuid=UUID        VM UUID (required)
+  -oo vdsm-ovf-output=DIR      OVF metadata directory (required)
+  -oo vdsm-ovf-flavour=%s
+                               Set the type of generated OVF (default: rhvexp)
+
+For each disk you must supply one of each of these options:
+
+  -oo vdsm-image-uuid=UUID     Image directory UUID
+  -oo vdsm-vol-uuid=UUID       Disk volume UUID
+") ovf_flavours_str
+
+let parse_output_options options =
+  let vm_uuid = ref None in
+  let ovf_output = ref None in (* default "." *)
+  let compat = ref "0.10" in
+  let ovf_flavour = ref OVF.RHVExportStorageDomain in
+  let image_uuids = ref [] in
+  let vol_uuids = ref [] in
+
+  List.iter (
+    function
+    | "vdsm-compat", "0.10" -> compat := "0.10"
+    | "vdsm-compat", "1.1" -> compat := "1.1"
+    | "vdsm-compat", v ->
+       error (f_"-o vdsm: unknown vdsm-compat level ‘%s’") v
+    | "vdsm-vm-uuid", v ->
+       if !vm_uuid <> None then
+         error (f_"-o vdsm: -oo vdsm-vm-uuid set twice");
+       vm_uuid := Some v;
+    | "vdsm-ovf-output", v ->
+       if !ovf_output <> None then
+         error (f_"-o vdsm: -oo vdsm-ovf-output set twice");
+       ovf_output := Some v;
+    | "vdsm-ovf-flavour", v ->
+       ovf_flavour := OVF.ovf_flavour_of_string v
+    | "vdsm-image-uuid", v ->
+       push_front v image_uuids
+    | "vdsm-vol-uuid", v ->
+       push_front v vol_uuids
+    | k, _ ->
+       error (f_"-o vdsm: unknown output option ‘-oo %s’") k
+  ) options;
+
+  let compat = !compat in
+  let image_uuids = List.rev !image_uuids in
+  let vol_uuids = List.rev !vol_uuids in
+  if image_uuids = [] || vol_uuids = [] then
+    error (f_"-o vdsm: either -oo vdsm-vol-uuid or -oo vdsm-vm-uuid was not specified");
+  let vm_uuid =
+    match !vm_uuid with
+    | None ->
+       error (f_"-o vdsm: -oo vdsm-image-uuid was not specified")
+    | Some uuid -> uuid in
+  let ovf_output = match !ovf_output with None -> "." | Some s -> s in
+  let ovf_flavour = !ovf_flavour in
+
+  { image_uuids; vol_uuids; vm_uuid; ovf_output; compat; ovf_flavour }
+
 class output_vdsm os vdsm_options output_alloc =
 object
   inherit output
 
   method as_options =
-    sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s --vdsm-ovf-output %s%s%s" os
+    sprintf "-o vdsm -os %s%s%s -oo vdsm-vm-uuid=%s -oo vdsm-ovf-output=%s%s%s" os
       (String.concat ""
-         (List.map (sprintf " --vdsm-image-uuid %s") vdsm_options.image_uuids))
+         (List.map (sprintf " -oo vdsm-image-uuid=%s")
+                   vdsm_options.image_uuids))
       (String.concat ""
-         (List.map (sprintf " --vdsm-vol-uuid %s") vdsm_options.vol_uuids))
+         (List.map (sprintf " -oo vdsm-vol-uuid=%s")
+                   vdsm_options.vol_uuids))
       vdsm_options.vm_uuid
       vdsm_options.ovf_output
       (match vdsm_options.compat with
        | "0.10" -> "" (* currently this is the default, so don't print it *)
-       | s -> sprintf " --vdsm-compat=%s" s)
+       | s -> sprintf " -oo vdsm-compat=%s" s)
       (match vdsm_options.ovf_flavour with
-       | OVF.OVirt -> "--vdsm-ovf-flavour=ovf"
+       | OVF.OVirt -> "-oo vdsm-ovf-flavour=ovf"
        (* currently this is the default, so don't print it *)
        | OVF.RHVExportStorageDomain -> "")
 
@@ -83,7 +150,7 @@ object
   method prepare_targets _ targets =
     if List.length vdsm_options.image_uuids <> List.length targets ||
       List.length vdsm_options.vol_uuids <> List.length targets then
-      error (f_"the number of '--vdsm-image-uuid' and '--vdsm-vol-uuid' parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")
+      error (f_"the number of '-oo vdsm-image-uuid' and '-oo vdsm-vol-uuid' parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")
         (List.length targets);
 
     let mp, uuid =
