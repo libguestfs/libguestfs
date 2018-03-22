@@ -18,5 +18,5 @@ disks:
 removable media:
 	CD-ROM [ide] in slot 0
 NICs:
-	Network "Network adapter 1"
+	Bridge "PG-VLAN60"
 
