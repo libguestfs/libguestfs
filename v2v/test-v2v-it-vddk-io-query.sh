@@ -1,6 +1,6 @@
 #!/bin/bash -
-# libguestfs
-# Copyright (C) 2016 Red Hat Inc.
+# libguestfs virt-v2v test script
+# Copyright (C) 2018 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,40 +16,23 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+# Test -io "?" option.
+
 set -e
 
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl virt-v2v.pod virt-v2v \
-  --ignore=\
---debug-overlay,\
---ic,\
---if,\
---in-place,\
---io,\
---it,\
---no-trim,\
---oa,\
---oc,\
---of,\
---on,\
---oo,\
---op,\
---os,\
---vddk-config,\
---vddk-cookie,\
---vddk-libdir,\
---vddk-nfchostport,\
---vddk-port,\
---vddk-snapshot,\
---vddk-thumbprint,\
---vddk-transports,\
---vddk-vimapiver,\
---vdsm-compat,\
---vdsm-image-uuid,\
---vdsm-ovf-flavour,\
---vdsm-ovf-output,\
---vdsm-vm-uuid,\
---vdsm-vol-uuid,\
---vmtype
+export VIRT_TOOLS_DATA_DIR="$top_srcdir/test-data/fake-virt-tools"
+export VIRTIO_WIN="$top_srcdir/test-data/fake-virtio-win"
+
+f=test-v2v-it-vddk-io-query.actual
+rm -f $f
+
+$VG virt-v2v --debug-gc \
+    -it vddk -io "?" > $f
+
+grep -- "-io vddk-config" $f
+grep -- "-io vddk-thumbprint" $f
+
+rm $f
