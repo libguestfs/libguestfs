@@ -67,24 +67,6 @@ let parse_cmdline () =
   let output_password = ref None in
   let output_storage = ref None in
   let password_file = ref None in
-  let vddk_config = ref None in
-  let vddk_cookie = ref None in
-  let vddk_libdir = ref None in
-  let vddk_nfchostport = ref None in
-  let vddk_port = ref None in
-  let vddk_snapshot = ref None in
-  let vddk_thumbprint = ref None in
-  let vddk_transports = ref None in
-  let vddk_vimapiver = ref None in
-  let vdsm_vm_uuid = ref None in
-  let vdsm_ovf_output = ref None in (* default "." *)
-
-  let vdsm_compat = ref "0.10" in
-  let set_vdsm_compat s = vdsm_compat := s in
-
-  let vdsm_ovf_flavour = ref Create_ovf.RHVExportStorageDomain in
-  let set_vdsm_ovf_flavour arg =
-    vdsm_ovf_flavour := Create_ovf.ovf_flavour_of_string arg in
 
   let set_string_option_once optname optref arg =
     match !optref with
@@ -106,6 +88,15 @@ let parse_cmdline () =
     | "vmx" -> input_mode := `VMX
     | s ->
       error (f_"unknown -i option: %s") s
+  in
+
+  let input_options = ref [] in
+  let set_input_option_compat k v =
+    input_options := (k, v) :: !input_options
+  in
+  let set_input_option option =
+    let k, v = String.split "=" option in
+    set_input_option_compat k v
   in
 
   let network_map = ref NetworkMap.empty in
@@ -161,6 +152,15 @@ let parse_cmdline () =
       error (f_"unknown -oa option: %s") s
   in
 
+  let output_options = ref [] in
+  let set_output_option_compat k v =
+    output_options := (k, v) :: !output_options
+  in
+  let set_output_option option =
+    let k, v = String.split "=" option in
+    set_output_option_compat k v
+  in
+
   let root_choice = ref AskRoot in
   let set_root_choice = function
     | "ask" -> root_choice := AskRoot
@@ -170,12 +170,6 @@ let parse_cmdline () =
     | s ->
       error (f_"unknown --root option: %s") s
   in
-
-  let vdsm_image_uuids = ref [] in
-  let add_vdsm_image_uuid s = List.push_front s vdsm_image_uuids in
-
-  let vdsm_vol_uuids = ref [] in
-  let add_vdsm_vol_uuid s = List.push_front s vdsm_vol_uuids in
 
   let vmtype_warning _ =
     warning (f_"the --vmtype option has been removed and now does nothing")
@@ -200,6 +194,8 @@ let parse_cmdline () =
                                     s_"Libvirt URI";
     [ M"if" ],       Getopt.String ("format", set_string_option_once "-if" input_format),
                                     s_"Input format (for -i disk)";
+    [ M"io" ],       Getopt.String ("option[=value]", set_input_option),
+                                    s_"Set option for input mode";
     [ M"it" ],       Getopt.String ("transport", set_string_option_once "-it" input_transport),
                                     s_"Input transport";
     [ L"in-place" ], Getopt.Set in_place,
@@ -222,6 +218,8 @@ let parse_cmdline () =
                                     s_"Set output format";
     [ M"on" ],       Getopt.String ("name", set_string_option_once "-on" output_name),
                                     s_"Rename guest when converting";
+    [ M"oo" ],       Getopt.String ("option[=value]", set_output_option),
+                                    s_"Set option for output mode";
     [ M"op" ],       Getopt.String ("filename", set_string_option_once "-op" output_password),
                                     s_"Use password from file to connect to output hypervisor";
     [ M"os" ],       Getopt.String ("storage", set_string_option_once "-os" output_storage),
@@ -235,36 +233,36 @@ let parse_cmdline () =
     [ L"qemu-boot" ], Getopt.Set qemu_boot, s_"Boot in qemu (-o qemu only)";
     [ L"root" ],     Getopt.String ("ask|... ", set_root_choice),
                                     s_"How to choose root filesystem";
-    [ L"vddk-config" ], Getopt.String ("filename", set_string_option_once "--vddk-config" vddk_config),
-                                    s_"Set VDDK config file";
-    [ L"vddk-cookie" ], Getopt.String ("cookie", set_string_option_once "--vddk-cookie" vddk_cookie),
-                                    s_"Set VDDK cookie";
-    [ L"vddk-libdir" ], Getopt.String ("libdir", set_string_option_once "--vddk-libdir" vddk_libdir),
-                                    s_"Set VDDK library parent directory";
-    [ L"vddk-nfchostport" ], Getopt.String ("nfchostport", set_string_option_once "--vddk-nfchostport" vddk_nfchostport),
-                                    s_"Set VDDK nfchostport";
-    [ L"vddk-port" ], Getopt.String ("port", set_string_option_once "--vddk-port" vddk_port),
-                                    s_"Set VDDK port";
-    [ L"vddk-snapshot" ], Getopt.String ("snapshot-moref", set_string_option_once "--vddk-snapshot" vddk_snapshot),
-                                    s_"Set VDDK snapshot";
-    [ L"vddk-thumbprint" ], Getopt.String ("thumbprint", set_string_option_once "--vddk-thumbprint" vddk_thumbprint),
-                                    s_"Set VDDK thumbprint";
-    [ L"vddk-transports" ], Getopt.String ("transports", set_string_option_once "--vddk-transports" vddk_transports),
-                                    s_"Set VDDK transports";
-    [ L"vddk-vimapiver" ], Getopt.String ("apiver", set_string_option_once "--vddk-vimapiver" vddk_vimapiver),
-                                    s_"Set VDDK vimapiver";
-    [ L"vdsm-compat" ], Getopt.Symbol ("0.10|1.1", ["0.10"; "1.1"], set_vdsm_compat),
-                                    s_"Write qcow2 with compat=0.10|1.1";
-    [ L"vdsm-image-uuid" ], Getopt.String ("uuid", add_vdsm_image_uuid),
-                                    s_"Output image UUID(s)";
-    [ L"vdsm-vol-uuid" ], Getopt.String ("uuid", add_vdsm_vol_uuid),
-                                    s_"Output vol UUID(s)";
-    [ L"vdsm-vm-uuid" ], Getopt.String ("uuid", set_string_option_once "--vdsm-vm-uuid" vdsm_vm_uuid),
-                                    s_"Output VM UUID";
-    [ L"vdsm-ovf-output" ], Getopt.String ("-", set_string_option_once "--vdsm-ovf-output" vdsm_ovf_output),
-                                    s_"Output OVF file";
-    [ L"vdsm-ovf-flavour" ], Getopt.Symbol (ovf_flavours_str, Create_ovf.ovf_flavours, set_vdsm_ovf_flavour),
-                                    s_"Set the type of generated OVF (default rhvexp)";
+    [ L"vddk-config" ], Getopt.String ("filename", set_input_option_compat "vddk-config"),
+                                    s_"Same as ‘-io vddk-config=filename’";
+    [ L"vddk-cookie" ], Getopt.String ("cookie", set_input_option_compat "vddk-cookie"),
+                                    s_"Same as ‘-io vddk-cookie=filename’";
+    [ L"vddk-libdir" ], Getopt.String ("libdir", set_input_option_compat "vddk-libdir"),
+                                    s_"Same as ‘-io vddk-libdir=libdir’";
+    [ L"vddk-nfchostport" ], Getopt.String ("nfchostport", set_input_option_compat "vddk-nfchostport"),
+                                    s_"Same as ‘-io vddk-nfchostport=nfchostport’";
+    [ L"vddk-port" ], Getopt.String ("port", set_input_option_compat "vddk-port"),
+                                    s_"Same as ‘-io vddk-port=port’";
+    [ L"vddk-snapshot" ], Getopt.String ("snapshot-moref", set_input_option_compat "vddk-snapshot"),
+                                    s_"Same as ‘-io vddk-snapshot=snapshot-moref’";
+    [ L"vddk-thumbprint" ], Getopt.String ("thumbprint", set_input_option_compat "vddk-thumbprint"),
+                                    s_"Same as ‘-io vddk-thumbprint=thumbprint’";
+    [ L"vddk-transports" ], Getopt.String ("transports", set_input_option_compat "vddk-transports"),
+                                    s_"Same as ‘-io vddk-transports=transports’";
+    [ L"vddk-vimapiver" ], Getopt.String ("apiver", set_input_option_compat "vddk-vimapiver"),
+                                    s_"Same as ‘-io vddk-vimapiver=apiver’";
+    [ L"vdsm-compat" ], Getopt.String ("0.10|1.1", set_output_option_compat "vdsm-compat"),
+                                    s_"Same as ‘-oo vdsm-compat=0.10|1.1’";
+    [ L"vdsm-image-uuid" ], Getopt.String ("uuid", set_output_option_compat "vdsm-image-uuid"),
+                                    s_"Same as ‘-oo vdsm-image-uuid=uuid’";
+    [ L"vdsm-vol-uuid" ], Getopt.String ("uuid", set_output_option_compat "vdsm-vol-uuid"),
+                                    s_"Same as ‘-oo vdsm-vol-uuid=uuid’";
+    [ L"vdsm-vm-uuid" ], Getopt.String ("uuid", set_output_option_compat "vdsm-vm-uuid"),
+                                    s_"Same as ‘-oo vdsm-vm-uuid=uuid’";
+    [ L"vdsm-ovf-output" ], Getopt.String ("dir", set_output_option_compat "vdsm-ovf-output"),
+                                    s_"Same as ‘-oo vdsm-ovf-output=dir’";
+    [ L"vdsm-ovf-flavour" ], Getopt.String (ovf_flavours_str, set_output_option_compat "vdsm-ovf-flavour"),
+                                    s_"Same as ‘-oo vdsm-ovf-flavour=flavour’";
     [ L"vmtype" ],   Getopt.String ("-", vmtype_warning),
                                     s_"Ignored for backwards compatibility";
   ] in
@@ -303,6 +301,7 @@ read the man page virt-v2v(1).
   let input_conn = !input_conn in
   let input_format = !input_format in
   let input_mode = !input_mode in
+  let input_options = List.rev !input_options in
   let input_transport =
     match !input_transport with
     | None -> None
@@ -321,6 +320,7 @@ read the man page virt-v2v(1).
   let output_format = !output_format in
   let output_mode = !output_mode in
   let output_name = !output_name in
+  let output_options = List.rev !output_options in
   let output_password = !output_password in
   let output_storage = !output_storage in
   let password_file = !password_file in
@@ -328,22 +328,6 @@ read the man page virt-v2v(1).
   let print_target = !print_target in
   let qemu_boot = !qemu_boot in
   let root_choice = !root_choice in
-  let vddk_options =
-      { Input_libvirt_vddk.vddk_config = !vddk_config;
-        vddk_cookie = !vddk_cookie;
-        vddk_libdir = !vddk_libdir;
-        vddk_nfchostport = !vddk_nfchostport;
-        vddk_port = !vddk_port;
-        vddk_snapshot = !vddk_snapshot;
-        vddk_thumbprint = !vddk_thumbprint;
-        vddk_transports = !vddk_transports;
-        vddk_vimapiver = !vddk_vimapiver } in
-  let vdsm_compat = !vdsm_compat in
-  let vdsm_image_uuids = List.rev !vdsm_image_uuids in
-  let vdsm_vol_uuids = List.rev !vdsm_vol_uuids in
-  let vdsm_vm_uuid = !vdsm_vm_uuid in
-  let vdsm_ovf_output = Option.default "." !vdsm_ovf_output in
-  let vdsm_ovf_flavour = !vdsm_ovf_flavour in
 
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.
@@ -357,12 +341,72 @@ read the man page virt-v2v(1).
     printf "colours-option\n";
     printf "vdsm-compat-option\n";
     printf "in-place\n";
+    printf "io/oo\n";
     List.iter (printf "input:%s\n") (Modules_list.input_modules ());
     List.iter (printf "output:%s\n") (Modules_list.output_modules ());
     List.iter (printf "convert:%s\n") (Modules_list.convert_modules ());
     List.iter (printf "ovf:%s\n") Create_ovf.ovf_flavours;
     exit 0
   );
+
+  (* Input transport affects whether some input options should or
+   * should not be used.
+   *)
+  let input_transport =
+    let is_query = input_options = ["?", ""] in
+    let no_options () =
+      if is_query then (
+        printf (f_"No -io (input options) are supported with this input transport.\n");
+        exit 0
+      )
+      else if input_options <> [] then
+        error (f_"no -io (input options) are allowed here");
+    in
+    match input_transport with
+    | None -> no_options (); None
+    | Some `SSH -> no_options (); Some `SSH
+    | Some `VDDK ->
+       if is_query then (
+         Input_libvirt_vddk.print_input_options ();
+         exit 0
+       )
+       else (
+         let vddk_options =
+           Input_libvirt_vddk.parse_input_options input_options in
+         Some (`VDDK vddk_options)
+       ) in
+
+  (* Output mode affects whether some output options should or
+   * should not be used.
+   *)
+  let output_mode =
+    let is_query = output_options = ["?", ""] in
+    let no_options () =
+      if is_query then (
+        printf (f_"No -oo (output options) are supported in this output mode.\n");
+        exit 0
+      )
+      else if output_options <> [] then
+        error (f_"no -oo (output options) are allowed here");
+    in
+    match output_mode with
+    | `Not_set -> no_options (); `Not_set
+    | `Glance -> no_options (); `Glance
+    | `Libvirt -> no_options (); `Libvirt
+    | `Local -> no_options (); `Local
+    | `Null -> no_options (); `Null
+    | `RHV -> no_options (); `RHV
+    | `QEmu -> no_options (); `QEmu
+    | `VDSM ->
+       if is_query then (
+         Output_vdsm.print_output_options ();
+         exit 0
+       )
+       else (
+         let vdsm_options =
+           Output_vdsm.parse_output_options output_options in
+         `VDSM vdsm_options
+       ) in
 
   (* Some options cannot be used with --in-place. *)
   if in_place then (
@@ -377,27 +421,6 @@ read the man page virt-v2v(1).
     | Some filename ->
       let password = read_first_line_from_file filename in
       Some password in
-
-  (* Input transport affects whether some parameters should or
-   * should not be used.
-   *)
-  (match input_transport with
-   | None
-   | Some `SSH ->
-      if !vddk_config <> None ||
-         !vddk_cookie <> None ||
-         !vddk_libdir <> None ||
-         !vddk_nfchostport <> None ||
-         !vddk_port <> None ||
-         !vddk_snapshot <> None ||
-         !vddk_thumbprint <> None ||
-         !vddk_transports <> None ||
-         !vddk_vimapiver <> None then
-        error (f_"‘--vddk-*’ options should only be used when conversion via the nbdkit VDDK plugin has been enabled, ie. using ‘-it vddk’.")
-   | Some `VDDK ->
-      if !vddk_thumbprint = None then
-        error (f_"‘--vddk-thumbprint’ is required when using ‘-it vddk’.")
-  );
 
   (* Parsing of the argument(s) depends on the input mode. *)
   let input =
@@ -424,11 +447,10 @@ read the man page virt-v2v(1).
       let input_transport =
         match input_transport with
         | None -> None
-        | Some `VDDK -> Some `VDDK
+        | (Some (`VDDK _) as vddk) -> vddk
         | Some `SSH ->
            error (f_"only ‘-it vddk’ can be used here") in
-      Input_libvirt.input_libvirt vddk_options password
-                                  input_conn input_transport guest
+      Input_libvirt.input_libvirt password input_conn input_transport guest
 
     | `LibvirtXML ->
       (* -i libvirtxml: Expecting a filename (XML file). *)
@@ -459,7 +481,7 @@ read the man page virt-v2v(1).
         match input_transport with
         | None -> None
         | Some `SSH -> Some `SSH
-        | Some `VDDK ->
+        | Some (`VDDK _) ->
            error (f_"only ‘-it ssh’ can be used here") in
       Input_vmx.input_vmx input_transport arg in
 
@@ -557,7 +579,7 @@ read the man page virt-v2v(1).
       Output_rhv.output_rhv os output_alloc,
       output_format, output_alloc
 
-    | `VDSM ->
+    | `VDSM vdsm_options ->
       if output_password <> None then
         error_option_cannot_be_used_in_output_mode "vdsm" "-op";
       let os =
@@ -567,21 +589,6 @@ read the man page virt-v2v(1).
         | Some d -> d in
       if qemu_boot then
         error_option_cannot_be_used_in_output_mode "vdsm" "--qemu-boot";
-      let vdsm_vm_uuid =
-        match vdsm_vm_uuid with
-        | None ->
-           error (f_"-o vdsm: --vdsm-image-uuid was not specified")
-        | Some s -> s in
-      if vdsm_image_uuids = [] || vdsm_vol_uuids = [] then
-        error (f_"-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified");
-      let vdsm_options = {
-        Output_vdsm.image_uuids = vdsm_image_uuids;
-        vol_uuids = vdsm_vol_uuids;
-        vm_uuid = vdsm_vm_uuid;
-        ovf_output = vdsm_ovf_output;
-        compat = vdsm_compat;
-        ovf_flavour = vdsm_ovf_flavour;
-      } in
       Output_vdsm.output_vdsm os vdsm_options output_alloc,
       output_format, output_alloc in
 

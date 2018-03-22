@@ -33,22 +33,73 @@ open Xpath_helpers
 
 open Printf
 
-type vddk_options = {
-    vddk_config : string option;
-    vddk_cookie : string option;
-    vddk_libdir : string option;
-    vddk_nfchostport : string option;
-    vddk_port : string option;
-    vddk_snapshot : string option;
-    vddk_thumbprint : string option;
-    vddk_transports : string option;
-    vddk_vimapiver : string option;
-}
+type vddk_options = (string * string) list
+
+(* List of vddk-* input options. *)
+let vddk_option_keys =
+  [ "config";
+    "cookie";
+    "libdir";
+    "nfchostport";
+    "port";
+    "snapshot";
+    "thumbprint";
+    "transports";
+    "vimapiver" ]
+
+let print_input_options () =
+  printf (f_"Input options (-io) which can be used with -it vddk:
+
+  -io vddk-thumbprint=xx:xx:xx:...
+                               VDDK server thumbprint (required)
+
+All other settings are optional:
+
+  -io vddk-config=FILE         VDDK configuration file
+  -io vddk-cookie=COOKIE       VDDK cookie
+  -io vddk-libdir=LIBDIR       VDDK library parent directory
+  -io vddk-nfchostport=PORT    VDDK nfchostport
+  -io vddk-port=PORT           VDDK port
+  -io vddk-snapshot=SNAPSHOT-MOREF
+                               VDDK snapshot moref
+  -io vddk-transports=MODE:MODE:..
+                               VDDK transports
+  -io vddk-vimapiver=APIVER    VDDK vimapiver
+
+Refer to nbdkit-vddk-plugin(1) and the VDDK documentation for further
+information on these settings.
+")
+
+let parse_input_options options =
+  (* Check there are no options we don't understand.  Also removes
+   * the "vddk-" prefix from the internal list.
+   *)
+  let options =
+    List.map (
+      fun (key, value) ->
+        let error_invalid_key () =
+          error (f_"-it vddk: ‘-io %s’ is not a valid input option") key
+        in
+        if not (String.is_prefix key "vddk-") then error_invalid_key ();
+        let key = String.sub key 5 (String.length key-5) in
+        if not (List.mem key vddk_option_keys) then error_invalid_key ();
+
+        (key, value)
+    ) options in
+
+  (* Check no option appears twice. *)
+  let keys = List.map fst options in
+  if List.length keys <> List.length (List.sort_uniq keys) then
+    error (f_"-it vddk: duplicate -io options on the command line");
+
+  options
 
 (* Subclass specialized for handling VMware via nbdkit vddk plugin. *)
 class input_libvirt_vddk vddk_options password libvirt_uri parsed_uri guest =
   (* The VDDK path. *)
-  let libdir = vddk_options.vddk_libdir in
+  let libdir =
+    try Some (List.assoc "libdir" vddk_options)
+    with Not_found -> None in
 
   (* VDDK libraries are located under lib32/ or lib64/ relative to the
    * libdir.  Note this is unrelated to Linux multilib or multiarch.
@@ -68,7 +119,7 @@ class input_libvirt_vddk vddk_options password libvirt_uri parsed_uri guest =
      | None -> ()
      | Some libdir ->
         if not (is_directory libdir) then
-          error (f_"‘--vddk-libdir %s’ does not point to a directory.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") libdir
+          error (f_"‘-io vddk-libdir=%s’ does not point to a directory.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") libdir
     );
 
     (match library_path with
@@ -122,15 +173,15 @@ See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.")
       else
         error (f_"nbdkit VDDK plugin is not installed or not working.  It is required if you want to use VDDK.
 
-It looks like you did not set the right path in the ‘--vddk-libdir’ option, or your copy of the VDDK directory is incomplete.  There should be a library called ’<libdir>/%s/libvixDiskLib.so.?’.
+It looks like you did not set the right path in the ‘-io vddk-libdir’ option, or your copy of the VDDK directory is incomplete.  There should be a library called ’<libdir>/%s/libvixDiskLib.so.?’.
 
 See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") libNN
     )
   in
 
   let error_unless_thumbprint () =
-    if vddk_options.vddk_thumbprint = None then
-      error (f_"You must pass the ‘--vddk-thumbprint’ option with the SSL thumbprint of the VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) manual.  See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.")
+    if not (List.mem_assoc "thumbprint" vddk_options) then
+      error (f_"You must pass the ‘-io vddk-thumbprint’ option with the SSL thumbprint of the VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) manual.  See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.")
   in
 
   (* Check that nbdkit was compiled with SELinux support (for the
@@ -147,18 +198,6 @@ See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") libNN
       error (f_"nbdkit was compiled without SELinux support.  You will have to recompile nbdkit with libselinux-devel installed, or else set SELinux to Permissive mode while doing the conversion.")
   in
 
-  (* List of passthrough parameters. *)
-  let vddk_passthrus =
-    [ "config",      (fun { vddk_config }      -> vddk_config);
-      "cookie",      (fun { vddk_cookie }      -> vddk_cookie);
-      "libdir",      (fun { vddk_libdir }      -> vddk_libdir);
-      "nfchostport", (fun { vddk_nfchostport } -> vddk_nfchostport);
-      "port",        (fun { vddk_port }        -> vddk_port);
-      "snapshot",    (fun { vddk_snapshot }    -> vddk_snapshot);
-      "thumbprint",  (fun { vddk_thumbprint }  -> vddk_thumbprint);
-      "transports",  (fun { vddk_transports }  -> vddk_transports);
-      "vimapiver",   (fun { vddk_vimapiver }   -> vddk_vimapiver) ] in
-
 object
   inherit input_libvirt password libvirt_uri guest as super
 
@@ -172,14 +211,9 @@ object
 
   method as_options =
     let pt_options =
-      String.concat "" (
-        List.map (
-          fun (name, get_field) ->
-            match get_field vddk_options with
-            | None -> ""
-            | Some field -> sprintf " --vddk-%s %s" name field
-        ) vddk_passthrus
-      ) in
+      String.concat ""
+                    (List.map (fun (k, v) ->
+                         sprintf " -io vddk-%s=%s" k v) vddk_options) in
     sprintf "%s -it vddk %s"
             super#as_options (* superclass prints "-i libvirt etc" *)
             pt_options
@@ -284,11 +318,7 @@ object
       add_arg (sprintf "vm=moref=%s" moref);
 
       (* The passthrough parameters. *)
-      List.iter (
-        fun (name, get_field) ->
-          Option.may (fun field -> add_arg (sprintf "%s=%s" name field))
-                     (get_field vddk_options)
-      ) vddk_passthrus;
+      List.iter (fun (k, v) -> add_arg (sprintf "%s=%s" k v)) vddk_options;
 
       get_args () in
 
