@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test -o vdsm options --vdsm-*-uuid
+# Test -o vdsm options -oo vdsm-*-uuid
 
 set -e
 set -x
@@ -44,19 +44,19 @@ mkdir $d/12345678-1234-1234-1234-123456789abc/master
 mkdir $d/12345678-1234-1234-1234-123456789abc/master/vms
 mkdir $d/12345678-1234-1234-1234-123456789abc/master/vms/VM
 
-# The --vdsm-*-uuid options don't actually check that the
+# The -oo vdsm-*-uuid options don't actually check that the
 # parameter is a UUID, which is useful here.
 
 $VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o vdsm -os $d/12345678-1234-1234-1234-123456789abc \
     -of qcow2 \
-    --vdsm-image-uuid IMAGE \
-    --vdsm-vol-uuid VOL \
-    --vdsm-vm-uuid VM \
-    --vdsm-ovf-output $d/12345678-1234-1234-1234-123456789abc/master/vms/VM \
-    --vdsm-compat=1.1 \
-    --vdsm-ovf-flavour=ovirt
+    -oo vdsm-image-uuid=IMAGE \
+    -oo vdsm-vol-uuid=VOL \
+    -oo vdsm-vm-uuid=VM \
+    -oo vdsm-ovf-output=$d/12345678-1234-1234-1234-123456789abc/master/vms/VM \
+    -oo vdsm-compat=1.1 \
+    -oo vdsm-ovf-flavour=ovirt
 
 # Test the OVF metadata was created.
 test -f $d/12345678-1234-1234-1234-123456789abc/master/vms/VM/VM.ovf

@@ -307,6 +307,8 @@ TESTS = \
 	test-v2v-i-ova-tar.sh \
 	test-v2v-i-ova-two-disks.sh \
 	test-v2v-i-vmx.sh \
+	test-v2v-it-vddk-io-query.sh \
+	test-v2v-o-vdsm-oo-query.sh \
 	test-v2v-bad-networks-and-bridges.sh
 
 if HAVE_LIBVIRT
@@ -470,6 +472,7 @@ EXTRA_DIST += \
 	test-v2v-i-vmx-4.vmx \
 	test-v2v-i-vmx-5.vmx \
 	test-v2v-in-place.sh \
+	test-v2v-it-vddk-io-query.sh \
 	test-v2v-machine-readable.sh \
 	test-v2v-networks-and-bridges-expected.xml \
 	test-v2v-networks-and-bridges.sh \
@@ -480,6 +483,7 @@ EXTRA_DIST += \
 	test-v2v-o-null.sh \
 	test-v2v-o-qemu.sh \
 	test-v2v-o-rhv.sh \
+	test-v2v-o-vdsm-oo-query.sh \
 	test-v2v-o-vdsm-options.sh \
 	test-v2v-oa-option.sh \
 	test-v2v-of-option.sh \

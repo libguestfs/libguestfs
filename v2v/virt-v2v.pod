@@ -397,6 +397,47 @@ See L</IN PLACE CONVERSION> below.
 
 Conflicts with all I<-o *> options.
 
+=item B<-io> OPTION=VALUE
+
+Set input option(s) related to the current input mode or transport.
+To display short help on what options are available you can use:
+
+ virt-v2v -it vddk -io "?"
+
+=item B<-io vddk-libdir=>LIBDIR
+
+Set the VDDK library directory.  This directory should I<contain>
+subdirectories called F<include>, F<lib64> etc., but do not include
+F<lib64> actually in the parameter.
+
+In most cases this parameter is required when using the I<-it vddk>
+(VDDK) transport.  See L</INPUT FROM VDDK> below for details.
+
+=item B<-io vddk-thumbprint=>xx:xx:xx:...
+
+Set the thumbprint of the remote VMware server.
+
+This parameter is required when using the I<-it vddk> (VDDK) transport.
+See L</INPUT FROM VDDK> below for details.
+
+=item B<-io vddk-config=>FILENAME
+
+=item B<-io vddk-cookie=>COOKIE
+
+=item B<-io vddk-nfchostport=>PORT
+
+=item B<-io vddk-port=>PORT
+
+=item B<-io vddk-snapshot=>SNAPSHOT-MOREF
+
+=item B<-io vddk-transports=>MODE:MODE:...
+
+=item B<-io vddk-vimapiver=>APIVER
+
+When using VDDK mode, these options are passed unmodified to the
+L<nbdkit(1)> VDDK plugin.  Please refer to L<nbdkit-vddk-plugin(1)>.
+These are all optional.
+
 =item B<-it> B<ssh>
 
 When using I<-i vmx>, this enables the ssh transport.
@@ -406,7 +447,7 @@ See L</INPUT FROM VMWARE VMX> below.
 
 Use VMware VDDK as a transport to copy the input disks.  See
 L</INPUT FROM VDDK> below.  If you use this parameter then you may
-need to use other I<--vddk*> options to specify how to connect through
+need to use other I<-io vddk*> options to specify how to connect through
 VDDK.
 
 =item B<--keys-from-stdin>
@@ -569,6 +610,95 @@ If not specified, then the input format is used.
 Rename the guest when converting it.  If this option is not used then
 the output name is the same as the input name.
 
+=item B<-oo> OPTION=VALUE
+
+Set output option(s) related to the current output mode.
+To display short help on what options are available you can use:
+
+ virt-v2v -o vdsm -oo "?"
+
+=item B<-oo vdsm-compat=0.10>
+
+=item B<-oo vdsm-compat=1.1>
+
+If I<-o vdsm> and the output format is qcow2, then we add the qcow2
+I<compat=0.10> option to the output file for compatibility with RHEL 6
+(see L<https://bugzilla.redhat.com/1145582>).
+
+If I<-oo vdsm-compat=1.1> is used then modern qcow2 (I<compat=1.1>)
+files are generated instead.
+
+Currently I<-oo vdsm-compat=0.10> is the default, but this will change
+to I<-oo vdsm-compat=1.1> in a future version of virt-v2v (when we can
+assume that everyone is using a modern version of qemu).
+
+B<Note this option only affects I<-o vdsm> output>.  All other output
+modes (including I<-o rhv>) generate modern qcow2 I<compat=1.1>
+files, always.
+
+If this option is available, then C<vdsm-compat-option> will appear in
+the I<--machine-readable> output.
+
+=item B<-oo vdsm-image-uuid=>UUID
+
+=item B<-oo vdsm-vol-uuid=>UUID
+
+=item B<-oo vdsm-vm-uuid=>UUID
+
+=item B<-oo vdsm-ovf-output=>DIR
+
+Normally the RHV output mode chooses random UUIDs for the target
+guest.  However VDSM needs to control the UUIDs and passes these
+parameters when virt-v2v runs under VDSM control.  The parameters
+control:
+
+=over 4
+
+=item *
+
+the image directory of each guest disk (I<-oo vdsm-image-uuid>) (this
+option is passed once for each guest disk)
+
+=item *
+
+UUIDs for each guest disk (I<-oo vdsm-vol-uuid>) (this option
+is passed once for each guest disk)
+
+=item *
+
+the OVF file name (I<-oo vdsm-vm-uuid>).
+
+=item *
+
+the OVF output directory (default current directory) (I<-oo vdsm-ovf-output>).
+
+=back
+
+The format of UUIDs is: C<12345678-1234-1234-1234-123456789abc> (each
+hex digit can be C<0-9> or C<a-f>), conforming to S<OSF DCE 1.1>.
+
+These options can only be used with I<-o vdsm>.
+
+=item B<-oo vdsm-ovf-flavour=>flavour
+
+This option controls the format of the OVF generated at the end of conversion.
+Currently there are two possible flavours:
+
+=over 4
+
+=item rhevexp
+
+The OVF format used in RHV export storage domain.
+
+=item ovirt
+
+The OVF format understood by oVirt REST API.
+
+=back
+
+For backward compatibility the default is I<rhevexp>, but this may change in
+the future.
+
 =item B<-op> file
 
 Supply a file containing a password to be used when connecting to the
@@ -669,122 +799,6 @@ booting a multiboot system if virtio is enabled.  Grub is only able to
 boot an operating system from the first virtio disk.  Specifically,
 F</boot> must be on the first virtio disk, and it cannot chainload an
 OS which is not in the first virtio disk.
-
-=item B<--vddk-libdir> LIBDIR
-
-Set the VDDK library directory.  This directory should I<contain>
-subdirectories called F<include>, F<lib64> etc., but do not include
-F<lib64> actually in the parameter.
-
-In most cases this parameter is required when using the I<-it vddk>
-(VDDK) transport.  See L</INPUT FROM VDDK> below for details.
-
-=item B<--vddk-thumbprint> xx:xx:xx:...
-
-Set the thumbprint of the remote VMware server.
-
-This parameter is required when using the I<-it vddk> (VDDK) transport.
-See L</INPUT FROM VDDK> below for details.
-
-=item B<--vddk-config> FILENAME
-
-=item B<--vddk-cookie> COOKIE
-
-=item B<--vddk-nfchostport> PORT
-
-=item B<--vddk-port> PORT
-
-=item B<--vddk-snapshot> SNAPSHOT-MOREF
-
-=item B<--vddk-transports> MODE:MODE:...
-
-=item B<--vddk-vimapiver> APIVER
-
-When using VDDK mode, these options are passed unmodified to the
-L<nbdkit(1)> VDDK plugin.  Please refer to L<nbdkit-vddk-plugin(1)>.
-These are all optional.
-
-=item B<--vdsm-compat=0.10>
-
-=item B<--vdsm-compat=1.1>
-
-If I<-o vdsm> and the output format is qcow2, then we add the qcow2
-I<compat=0.10> option to the output file for compatibility with RHEL 6
-(see L<https://bugzilla.redhat.com/1145582>).
-
-If I<--vdsm-compat=1.1> is used then modern qcow2 (I<compat=1.1>)
-files are generated instead.
-
-Currently I<--vdsm-compat=0.10> is the default, but this will change
-to I<--vdsm-compat=1.1> in a future version of virt-v2v (when we can
-assume that everyone is using a modern version of qemu).
-
-B<Note this option only affects I<-o vdsm> output>.  All other output
-modes (including I<-o rhv>) generate modern qcow2 I<compat=1.1>
-files, always.
-
-If this option is available, then C<vdsm-compat-option> will appear in
-the I<--machine-readable> output.
-
-=item B<--vdsm-image-uuid> UUID
-
-=item B<--vdsm-vol-uuid> UUID
-
-=item B<--vdsm-vm-uuid> UUID
-
-=item B<--vdsm-ovf-output>
-
-Normally the RHV output mode chooses random UUIDs for the target
-guest.  However VDSM needs to control the UUIDs and passes these
-parameters when virt-v2v runs under VDSM control.  The parameters
-control:
-
-=over 4
-
-=item *
-
-the image directory of each guest disk (I<--vdsm-image-uuid>) (this
-option is passed once for each guest disk)
-
-=item *
-
-UUIDs for each guest disk (I<--vdsm-vol-uuid>) (this option
-is passed once for each guest disk)
-
-=item *
-
-the OVF file name (I<--vdsm-vm-uuid>).
-
-=item *
-
-the OVF output directory (default current directory) (I<--vdsm-ovf-output>).
-
-=back
-
-The format of UUIDs is: C<12345678-1234-1234-1234-123456789abc> (each
-hex digit can be C<0-9> or C<a-f>), conforming to S<OSF DCE 1.1>.
-
-These options can only be used with I<-o vdsm>.
-
-=item B<--vdsm-ovf-flavour> flavour
-
-This option controls the format of the OVF generated at the end of conversion.
-Currently there are two possible flavours:
-
-=over 4
-
-=item rhevexp
-
-The OVF format used in RHV export storage domain.
-
-=item ovirt
-
-The OVF format understood by oVirt REST API.
-
-=back
-
-For backward compatibility the default is I<rhevexp>, but this may change in
-the future.
 
 =item B<-v>
 
@@ -1679,15 +1693,15 @@ SSL thumbprint:
  $ virt-v2v \
      -ic 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' \
      -it vddk \
-     --vddk-libdir /path/to/vmware-vix-disklib-distrib \
-     --vddk-thumbprint xx:xx:xx:... \
+     -io vddk-libdir=/path/to/vmware-vix-disklib-distrib \
+     -io vddk-thumbprint=xx:xx:xx:... \
      "Windows 2003" \
      -o local -os /var/tmp
 
 Other options that you might need to add in rare circumstances include
-I<--vddk-config>, I<--vddk-cookie>, I<--vddk-nfchostport>,
-I<--vddk-port>, I<--vddk-snapshot>, I<--vddk-transports> and
-I<--vddk-vimapiver>, which are all explained in the
+I<-io vddk-config>, I<-io vddk-cookie>, I<-io vddk-nfchostport>,
+I<-io vddk-port>, I<-io vddk-snapshot>, I<-io vddk-transports> and
+I<-io vddk-vimapiver>, which are all explained in the
 L<nbdkit-vddk-plugin(1)> documentation.
 
 =head2 VDDK: DEBUGGING VDDK FAILURES
