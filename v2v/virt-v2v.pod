@@ -30,54 +30,6 @@ virtualize those machines (physical to virtual, or p2v).
 This manual page documents the rewritten virt-v2v included in
 libguestfs E<ge> 1.28.
 
-=head1 INPUT AND OUTPUT MODES
-
-                          ┌────────────┐  ┌─────────▶ -o null
- -i disk ────────────┐    │            │ ─┘┌───────▶ -o local
- -i ova  ──────────┐ └──▶ │ virt-v2v   │ ──┘┌───────▶ -o qemu
-                   └────▶ │ conversion │ ───┘┌────────────┐
- VMware─▶┌────────────┐   │ server     │ ────▶ -o libvirt │─▶ KVM
- Xen ───▶│ -i libvirt ──▶ │            │     │  (default) │
- ... ───▶│  (default) │   │            │ ──┐ └────────────┘
-         └────────────┘   │            │ ─┐└──────▶ -o glance
- -i libvirtxml ─────────▶ │            │ ┐└─────────▶ -o rhv
- -i vmx ────────────────▶ │            │ └──────────▶ -o vdsm
-                          └────────────┘
-
-Virt-v2v has a number of possible input and output modes, selected
-using the I<-i> and I<-o> options.  Only one input and output mode can
-be selected for each run of virt-v2v.
-
-I<-i disk> is used for reading from local disk images (mainly for
-testing).
-
-I<-i libvirt> is used for reading from any libvirt source.  Since
-libvirt can connect to many different hypervisors, it is used for
-reading guests from VMware, RHEL 5 Xen and more.  The I<-ic>
-option selects the precise libvirt source.
-
-I<-i libvirtxml> is used to read from libvirt XML files.  This is the
-method used by L<virt-p2v(1)> behind the scenes.
-
-I<-i ova> is used for reading from a VMware ova source file.
-
-I<-i vmx> is used for reading from a VMware vmx file.
-
-I<-o glance> is used for writing to OpenStack Glance.
-
-I<-o libvirt> is used for writing to any libvirt target.  Libvirt can
-connect to local or remote KVM hypervisors.  The I<-oc> option selects
-the precise libvirt target.
-
-I<-o local> is used to write to a local disk image with a local
-libvirt configuration file (mainly for testing).
-
-I<-o qemu> writes to a local disk image with a shell script for
-booting the guest directly in qemu (mainly for testing).
-
-I<-o rhv> is used to write to a RHV / oVirt target.  I<-o vdsm>
-is only used when virt-v2v runs under VDSM control.
-
 =head1 EXAMPLES
 
 =head2 Convert from VMware vCenter server to local libvirt
@@ -159,6 +111,54 @@ libvirt XML, then so much the better).  You can then do:
 Since F<guest-domain.xml> contains the path(s) to the guest disk
 image(s) you do not need to specify the name of the disk image on the
 command line.
+
+=head1 INPUT AND OUTPUT MODES
+
+                          ┌────────────┐  ┌─────────▶ -o null
+ -i disk ────────────┐    │            │ ─┘┌───────▶ -o local
+ -i ova  ──────────┐ └──▶ │ virt-v2v   │ ──┘┌───────▶ -o qemu
+                   └────▶ │ conversion │ ───┘┌────────────┐
+ VMware─▶┌────────────┐   │ server     │ ────▶ -o libvirt │─▶ KVM
+ Xen ───▶│ -i libvirt ──▶ │            │     │  (default) │
+ ... ───▶│  (default) │   │            │ ──┐ └────────────┘
+         └────────────┘   │            │ ─┐└──────▶ -o glance
+ -i libvirtxml ─────────▶ │            │ ┐└─────────▶ -o rhv
+ -i vmx ────────────────▶ │            │ └──────────▶ -o vdsm
+                          └────────────┘
+
+Virt-v2v has a number of possible input and output modes, selected
+using the I<-i> and I<-o> options.  Only one input and output mode can
+be selected for each run of virt-v2v.
+
+I<-i disk> is used for reading from local disk images (mainly for
+testing).
+
+I<-i libvirt> is used for reading from any libvirt source.  Since
+libvirt can connect to many different hypervisors, it is used for
+reading guests from VMware, RHEL 5 Xen and more.  The I<-ic>
+option selects the precise libvirt source.
+
+I<-i libvirtxml> is used to read from libvirt XML files.  This is the
+method used by L<virt-p2v(1)> behind the scenes.
+
+I<-i ova> is used for reading from a VMware ova source file.
+
+I<-i vmx> is used for reading from a VMware vmx file.
+
+I<-o glance> is used for writing to OpenStack Glance.
+
+I<-o libvirt> is used for writing to any libvirt target.  Libvirt can
+connect to local or remote KVM hypervisors.  The I<-oc> option selects
+the precise libvirt target.
+
+I<-o local> is used to write to a local disk image with a local
+libvirt configuration file (mainly for testing).
+
+I<-o qemu> writes to a local disk image with a shell script for
+booting the guest directly in qemu (mainly for testing).
+
+I<-o rhv> is used to write to a RHV / oVirt target.  I<-o vdsm>
+is only used when virt-v2v runs under VDSM control.
 
 =head1 OPTIONS
 
