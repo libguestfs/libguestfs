@@ -235,9 +235,14 @@ let parse_ovf_from_ova ovf_filename =
         | Some connection -> connection, Bridge
         | None -> sprintf "eth%d" i, Network in
       let mac = xpath_string "rasd:Address/text()" in
+      let nic_model =
+        match xpath_string "rasd:ResourceSubType/text()" with
+        | Some "E1000" -> Some Source_e1000
+        | Some model -> Some (Source_other_nic (String.lowercase_ascii model))
+        | None -> None in
       let nic = {
         s_mac = mac;
-        s_nic_model = None;
+        s_nic_model = nic_model;
         s_vnet = vnet;
         s_vnet_orig = vnet;
         s_vnet_type = vnet_type;
