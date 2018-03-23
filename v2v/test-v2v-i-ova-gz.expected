@@ -17,5 +17,5 @@ disks:
 removable media:
 	CD-ROM [ide] in slot 0
 NICs:
-	Bridge "PG-VLAN60"
+	Bridge "PG-VLAN60" [e1000]
 
