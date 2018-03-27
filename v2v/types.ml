@@ -328,6 +328,7 @@ type inspect = {
   i_root : string;
   i_type : string;
   i_distro : string;
+  i_osinfo : string;
   i_arch : string;
   i_major_version : int;
   i_minor_version : int;
@@ -350,6 +351,7 @@ let string_of_inspect inspect =
 i_root = %s
 i_type = %s
 i_distro = %s
+i_osinfo = %s
 i_arch = %s
 i_major_version = %d
 i_minor_version = %d
@@ -365,6 +367,7 @@ i_windows_current_control_set = %s
 " inspect.i_root
   inspect.i_type
   inspect.i_distro
+  inspect.i_osinfo
   inspect.i_arch
   inspect.i_major_version
   inspect.i_minor_version
