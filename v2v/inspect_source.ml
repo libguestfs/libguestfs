@@ -102,6 +102,7 @@ let rec inspect_source root_choice g =
     i_root = root;
     i_type = typ;
     i_distro = g#inspect_get_distro root;
+    i_osinfo = g#inspect_get_osinfo root;
     i_arch = g#inspect_get_arch root;
     i_major_version = g#inspect_get_major_version root;
     i_minor_version = g#inspect_get_minor_version root;

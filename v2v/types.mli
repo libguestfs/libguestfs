@@ -311,6 +311,7 @@ type inspect = {
   i_root : string;                      (** Root device. *)
   i_type : string;                      (** Usual inspection fields. *)
   i_distro : string;
+  i_osinfo : string;
   i_arch : string;
   i_major_version : int;
   i_minor_version : int;
