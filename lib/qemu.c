@@ -616,7 +616,7 @@ guestfs_int_qemu_mandatory_locking (guestfs_h *g,
       members = json_object_get (v, "members");
       if (json_is_array (members)) {
         json_array_foreach (members, j, m) {
-          name = json_object_get (v, "name");
+          name = json_object_get (m, "name");
           if (json_is_string (name) &&
               STREQ (json_string_value (name), "locking"))
             return 1;
