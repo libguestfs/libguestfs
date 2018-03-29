@@ -28,7 +28,7 @@ open Tools_utils
 open Types
 
 let inspect_defaults = {
-  i_type = ""; i_distro = ""; i_arch = "";
+  i_type = ""; i_distro = ""; i_osinfo = ""; i_arch = "";
   i_major_version = 0; i_minor_version = 0;
   i_root = ""; i_package_format = ""; i_package_management = "";
   i_product_name = ""; i_product_variant = ""; i_mountpoints = [];
