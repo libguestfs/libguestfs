@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2018-03-13 12:14+0000\n"
+"POT-Creation-Date: 2018-03-29 13:50+0100\n"
 "PO-Revision-Date: 2017-11-18 01:52-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -157,9 +157,9 @@ msgstr "%s не є звичайним файлом у гостьовій сис�
 msgid "%s needed but not found"
 msgstr "Потрібен %s, але його не знайдено"
 
-#. ../v2v/cmdline.ml:99
-#. ../v2v/cmdline.ml:91
-#: ../v2v/copy_to_local.ml:40 ../v2v/cmdline.ml:155 ../v2v/cmdline.ml:139
+#. ../v2v/cmdline.ml:82
+#. ../v2v/cmdline.ml:74
+#: ../v2v/copy_to_local.ml:40 ../v2v/cmdline.ml:147 ../v2v/cmdline.ml:131
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
@@ -323,7 +323,7 @@ msgstr "%s: не можна використовувати адресу («%s»)
 msgid "%s: command exited with an error"
 msgstr "%s: виконання команди завершилося повідомленням про помилку"
 
-#: ../v2v/cmdline.ml:270
+#: ../v2v/cmdline.ml:272
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -729,6 +729,10 @@ msgstr "Параметр --format слід вказувати до параме�
 msgid "--get-kernel: too many parameters"
 msgstr "--get-kernel: забагато параметрів"
 
+#: ../v2v/cmdline.ml:414
+msgid "--in-place and --print-target cannot be used together"
+msgstr ""
+
 #: ../customize/customize_run.ml:135 ../customize/customize_run.ml:133
 msgid "--install"
 msgstr "--install"
@@ -799,12 +803,20 @@ msgstr "--update"
 msgid "-B must be specified"
 msgstr "слід вказати -B"
 
-#: ../v2v/cmdline.ml:457
+#: ../v2v/input_libvirt_vddk.ml:93
+msgid "-it vddk: duplicate -io options on the command line"
+msgstr ""
+
+#: ../v2v/input_libvirt_vddk.ml:81
+msgid "-it vddk: ‘-io %s’ is not a valid input option"
+msgstr ""
+
+#: ../v2v/cmdline.ml:490
 msgid "-o %s: %s option cannot be used in this output mode"
 msgstr ""
 "-o %s: параметр %s не можна використовувати у цьому режимі виведення даних"
 
-#: ../v2v/cmdline.ml:462
+#: ../v2v/cmdline.ml:495
 msgid "-o and --in-place cannot be used at the same time"
 msgstr "-o і --in-place не можна використовувати одночасно"
 
@@ -842,35 +854,51 @@ msgstr ""
 "-o libvirt: буфер виведення «%s» не є каталогом (type='dir'). Див. розділ "
 "«ВИВЕДЕННЯ ДО LIBVIRT» у підручнику virt-v2v(1)."
 
-#: ../v2v/cmdline.ml:497
+#: ../v2v/cmdline.ml:530
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 "-o local: каталог виведення даних не вказано, скористайтеся параметром «-os /"
 "каталог»"
 
-#: ../v2v/cmdline.ml:529
+#: ../v2v/cmdline.ml:562
 msgid "-o qemu: output directory was not specified, use '-os /dir'"
 msgstr ""
 "-o qemu: не вказано каталогу для виведення даних, скористайтеся «-os /"
 "каталог»"
 
-#: ../v2v/cmdline.ml:542
+#: ../v2v/cmdline.ml:575
 msgid "-o rhv: output storage was not specified, use ‘-os’"
 msgstr "-o rhv: не вказано сховище виведення даних, скористайтеся «-os»"
 
-#: ../v2v/cmdline.ml:562
-msgid "-o vdsm: --vdsm-image-uuid was not specified"
-msgstr "-o vdsm: не вказано --vdsm-image-uuid"
+#: ../v2v/output_vdsm.ml:96
+msgid "-o vdsm: -oo vdsm-image-uuid was not specified"
+msgstr ""
 
-#: ../v2v/cmdline.ml:565
-msgid "-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified"
-msgstr "-o vdsm: не вказано --vdsm-vol-uuid або --vdsm-vm-uuid"
+#: ../v2v/output_vdsm.ml:76
+msgid "-o vdsm: -oo vdsm-ovf-output set twice"
+msgstr ""
 
-#: ../v2v/cmdline.ml:555
+#: ../v2v/output_vdsm.ml:72
+msgid "-o vdsm: -oo vdsm-vm-uuid set twice"
+msgstr ""
+
+#: ../v2v/output_vdsm.ml:92
+msgid "-o vdsm: either -oo vdsm-vol-uuid or -oo vdsm-vm-uuid was not specified"
+msgstr ""
+
+#: ../v2v/cmdline.ml:588
 msgid "-o vdsm: output storage was not specified, use ‘-os’"
 msgstr "-o vdsm: не вказано сховище виведення даних, скористайтеся «-os»"
 
-#: ../v2v/cmdline.ml:531 ../v2v/cmdline.ml:499
+#: ../v2v/output_vdsm.ml:85
+msgid "-o vdsm: unknown output option ‘-oo %s’"
+msgstr ""
+
+#: ../v2v/output_vdsm.ml:69
+msgid "-o vdsm: unknown vdsm-compat level ‘%s’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:564 ../v2v/cmdline.ml:532
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
@@ -902,7 +930,7 @@ msgstr ""
 "<target dev='%s'> було проігноровано, оскільки не вдалося визначити назву "
 "пристрою"
 
-#: ../v2v/input_libvirt_vddk.ml:194
+#: ../v2v/input_libvirt_vddk.ml:240
 msgid ""
 "<vmware:moref> was not found in the output of ‘virsh dumpxml \"%s\"’.  The "
 "most likely reason is that libvirt is too old, try upgrading libvirt to ≥ "
@@ -977,7 +1005,7 @@ msgstr ""
 msgid "Ask the user about missing data"
 msgstr ""
 
-#: ../v2v/v2v.ml:159
+#: ../v2v/v2v.ml:176
 msgid "Assigning disks to buses"
 msgstr "Пов’язування дисків із каналами"
 
@@ -1015,7 +1043,7 @@ msgstr ""
 "Поведінка при розширенні невідомих файлових систем (типове значення: warn, "
 "попереджати)"
 
-#: ../v2v/cmdline.ml:231
+#: ../v2v/cmdline.ml:233
 msgid "Boot in qemu (-o qemu only)"
 msgstr "Завантажитися у qemu (лише для -o qemu)"
 
@@ -1075,11 +1103,11 @@ msgstr "Перевірити числові підписи"
 msgid "Check there is enough space in $TMPDIR"
 msgstr "Перевірити, чи достатньо місця у $TMPDIR"
 
-#: ../v2v/v2v.ml:417
+#: ../v2v/v2v.ml:434
 msgid "Checking for sufficient free disk space in the guest"
 msgstr "Перевіряємо, чи достатньо вільного місця на диску гостьової системи"
 
-#: ../v2v/v2v.ml:635
+#: ../v2v/v2v.ml:653
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 "Перевіряємо, чи потрібні гостьовій системі BIOS або UEFI для завантаження"
@@ -1094,11 +1122,11 @@ msgstr ""
 msgid "Clearing Linux swap on %s"
 msgstr "Спорожнюємо резервну пам’ять Linux на %s"
 
-#: ../v2v/v2v.ml:145
+#: ../v2v/v2v.ml:146
 msgid "Closing the overlay"
 msgstr "Закриваємо оверлей"
 
-#: ../v2v/v2v.ml:146
+#: ../v2v/v2v.ml:147
 msgid "Closing the source VM"
 msgstr "Закриваємо ВМ джерела"
 
@@ -1106,7 +1134,7 @@ msgstr "Закриваємо ВМ джерела"
 msgid "Compatibility option, does nothing"
 msgstr "Параметр, призначений для збереження сумісності. Ні на що не впливає."
 
-#: ../v2v/cmdline.ml:192
+#: ../v2v/cmdline.ml:188
 msgid "Compress output file (-of qcow2 only)"
 msgstr "Стиснути файл виведення (лише для -of qcow2)"
 
@@ -1130,11 +1158,11 @@ msgstr "Стискаємо образ до формату tar.gz"
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
-#: ../v2v/v2v.ml:608
+#: ../v2v/v2v.ml:626
 msgid "Converting %s to run on KVM"
 msgstr "Перетворюємо %s для уможливлення запуску у KVM"
 
-#: ../v2v/v2v.ml:606
+#: ../v2v/v2v.ml:624
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
@@ -1170,11 +1198,11 @@ msgstr "Копіюємо %s"
 msgid "Copying (in image): %s to %s"
 msgstr "Копіюємо (на образ): %s у %s"
 
-#: ../v2v/v2v.ml:679
+#: ../v2v/v2v.ml:697
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr "Копіювання диска %d з %d на %s (%s)"
 
-#: ../v2v/v2v.ml:682
+#: ../v2v/v2v.ml:700
 msgid "Copying disk %d/%d to qemu URI %s (%s)"
 msgstr ""
 
@@ -1202,7 +1230,7 @@ msgstr "Створити файл оверлею на %s для захисту �
 msgid "Create symbolic links"
 msgstr "Створювати символічні посилання"
 
-#: ../v2v/v2v.ml:288
+#: ../v2v/v2v.ml:305
 msgid "Creating an overlay to protect the source from being modified"
 msgstr "Створюємо оверлей для захисту джерела від внесення змін"
 
@@ -1210,7 +1238,7 @@ msgstr "Створюємо оверлей для захисту джерела �
 msgid "Creating index backup copy"
 msgstr ""
 
-#: ../v2v/v2v.ml:170
+#: ../v2v/v2v.ml:187
 msgid "Creating output metadata"
 msgstr "Створюємо метадані результатів"
 
@@ -1367,7 +1395,7 @@ msgstr "Розмір отриманого:"
 msgid "Downloading: %s"
 msgstr "Отримуємо: %s"
 
-#: ../v2v/inspect_source.ml:122
+#: ../v2v/inspect_source.ml:123
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -1417,11 +1445,11 @@ msgstr "Увімкнути трасування викликів libguestfs"
 msgid "Enable/disable specific operations"
 msgstr "Увімкнути або вимкнути специфічні операції"
 
-#: ../v2v/inspect_source.ml:135
+#: ../v2v/inspect_source.ml:136
 msgid "Enter a number between 1 and %d, or ‘exit’: "
 msgstr "Вкажіть число від 1 до %d або введіть «exit»: "
 
-#: ../v2v/v2v.ml:597
+#: ../v2v/v2v.ml:614
 msgid "Estimating space required on target for each disk"
 msgstr "Оцінюємо простір, потрібний у системі призначення для кожного з дисків"
 
@@ -1549,7 +1577,7 @@ msgstr "Відбиток: %s\n"
 
 #. ../customize/customize_main.ml:198
 #. ../builder/builder.ml:764
-#: ../v2v/v2v.ml:178 ../v2v/copy_to_local.ml:232
+#: ../v2v/v2v.ml:195 ../v2v/copy_to_local.ml:232
 msgid "Finishing off"
 msgstr "Завершуємо"
 
@@ -1668,7 +1696,7 @@ msgstr "Отримати ядро з образу"
 msgid "HOSTNAME"
 msgstr "НАЗВА_ВУЗЛА"
 
-#: ../v2v/cmdline.ml:233
+#: ../v2v/cmdline.ml:235
 msgid "How to choose root filesystem"
 msgstr "Як вибрати кореневу файлову систему"
 
@@ -1700,7 +1728,7 @@ msgstr "Ігнорувати файлову систему"
 msgid "Ignore partition"
 msgstr "Ігнорувати розділ"
 
-#: ../v2v/cmdline.ml:265 ../v2v/cmdline.ml:212
+#: ../v2v/cmdline.ml:267 ../v2v/cmdline.ml:210
 msgid "Ignored for backwards compatibility"
 msgstr "Ігноровано, для зворотної сумісності"
 
@@ -1708,7 +1736,7 @@ msgstr "Ігноровано, для зворотної сумісності"
 msgid "Importing the image to docker as ‘%s’"
 msgstr "Імпортуємо образ до docker як «%s»"
 
-#: ../v2v/v2v.ml:334
+#: ../v2v/v2v.ml:351
 msgid "Initializing the target %s"
 msgstr "Ініціалізуємо призначення %s"
 
@@ -1716,11 +1744,35 @@ msgstr "Ініціалізуємо призначення %s"
 msgid "Inject a public key into the guest"
 msgstr "Вставити відкритий ключ до гостьової системи"
 
-#: ../v2v/cmdline.ml:200
+#: ../v2v/cmdline.ml:196
 msgid "Input format (for -i disk)"
 msgstr "Формат вхідних даних (для -i диск)"
 
-#: ../v2v/cmdline.ml:202
+#: ../v2v/input_libvirt_vddk.ml:51
+msgid ""
+"Input options (-io) which can be used with -it vddk:\n"
+"\n"
+"  -io vddk-thumbprint=xx:xx:xx:...\n"
+"                               VDDK server thumbprint (required)\n"
+"\n"
+"All other settings are optional:\n"
+"\n"
+"  -io vddk-config=FILE         VDDK configuration file\n"
+"  -io vddk-cookie=COOKIE       VDDK cookie\n"
+"  -io vddk-libdir=LIBDIR       VDDK library parent directory\n"
+"  -io vddk-nfchostport=PORT    VDDK nfchostport\n"
+"  -io vddk-port=PORT           VDDK port\n"
+"  -io vddk-snapshot=SNAPSHOT-MOREF\n"
+"                               VDDK snapshot moref\n"
+"  -io vddk-transports=MODE:MODE:..\n"
+"                               VDDK transports\n"
+"  -io vddk-vimapiver=APIVER    VDDK vimapiver\n"
+"\n"
+"Refer to nbdkit-vddk-plugin(1) and the VDDK documentation for further\n"
+"information on these settings.\n"
+msgstr ""
+
+#: ../v2v/cmdline.ml:200
 msgid "Input transport"
 msgstr ""
 
@@ -1756,7 +1808,7 @@ msgstr "Встановлюємо пакунки: %s"
 msgid "Installing: %s"
 msgstr "Встановлюємо: %s"
 
-#: ../v2v/cmdline.ml:210
+#: ../v2v/cmdline.ml:208
 msgid "Just write the metadata"
 msgstr "Просто записати метадані"
 
@@ -1772,7 +1824,7 @@ msgstr "ЛОКАЛЬНИЙШЛЯХ:ВІДДАЛЕНИЙКАТАЛОГ"
 msgid "Label for the root fs"
 msgstr "Мітка для кореневої файлової системи"
 
-#: ../v2v/copy_to_local.ml:48 ../v2v/cmdline.ml:198
+#: ../v2v/copy_to_local.ml:48 ../v2v/cmdline.ml:194
 msgid "Libvirt URI"
 msgstr "Адреса libvirt"
 
@@ -1800,7 +1852,7 @@ msgstr "Основний елемент для побудови дисків у 
 #. ../dib/cmdline.ml:194
 #. ../builder/repository_main.ml:58
 #. ../builder/cmdline.ml:158
-#: ../v2v/cmdline.ml:206 ../sparsify/cmdline.ml:75 ../resize/resize.ml:206
+#: ../v2v/cmdline.ml:204 ../sparsify/cmdline.ml:75 ../resize/resize.ml:206
 msgid "Make output machine readable"
 msgstr "Зробити машину виведення придатною до читання"
 
@@ -1808,15 +1860,15 @@ msgstr "Зробити машину виведення придатною до �
 msgid "Making directory: %s"
 msgstr "Створюємо каталог: %s"
 
-#: ../v2v/cmdline.ml:190
+#: ../v2v/cmdline.ml:186
 msgid "Map bridge ‘in’ to ‘out’"
 msgstr "Відобразити місток «in» на «out»"
 
-#: ../v2v/cmdline.ml:208
+#: ../v2v/cmdline.ml:206
 msgid "Map network ‘in’ to ‘out’"
 msgstr "Пов'язати «in» мережі з «out»"
 
-#: ../v2v/v2v.ml:140
+#: ../v2v/v2v.ml:141
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 "Виконуємо прив’язку даних файлової системи для уникнення копіювання "
@@ -1850,6 +1902,14 @@ msgstr "Пересуваємо: %s -> %s"
 msgid "Name of the image"
 msgstr "Назва образу"
 
+#: ../v2v/cmdline.ml:359
+msgid "No -io (input options) are supported with this input transport.\n"
+msgstr ""
+
+#: ../v2v/cmdline.ml:386
+msgid "No -oo (output options) are supported in this output mode.\n"
+msgstr ""
+
 #: ../builder/repository_main.ml:481
 msgid "No new image found"
 msgstr ""
@@ -1868,7 +1928,7 @@ msgstr ""
 "\n"
 "%s\n"
 
-#: ../v2v/output_vdsm.ml:118
+#: ../v2v/output_vdsm.ml:185
 msgid "OVF (metadata) directory (%s) does not exist or is not a directory"
 msgstr "Каталогу OVF (метаданих) (%s) не існує або це не каталог"
 
@@ -1912,7 +1972,7 @@ msgstr ""
 "Windows. Отримати цей файл можна зібравши rhsrvany (https://github.com/"
 "rwmjones/rhsrvany)."
 
-#: ../v2v/cmdline.ml:204
+#: ../v2v/cmdline.ml:202
 msgid "Only tune the guest in the input VM"
 msgstr "Лише скоригувати гостьову систему у вхідній ВМ"
 
@@ -1928,7 +1988,7 @@ msgstr "Відкриваємо новий диск"
 msgid "Opening the overlay"
 msgstr "Відкриваємо оверлей"
 
-#: ../v2v/v2v.ml:181
+#: ../v2v/v2v.ml:198
 msgid "Opening the source %s"
 msgstr "Відкриваємо джерело %s"
 
@@ -1939,14 +1999,6 @@ msgstr "Відкриваємо ВМ джерела"
 #: ../dib/cmdline.ml:185
 msgid "Optional drive for caches"
 msgstr "Необов’язковий диск для кешування"
-
-#: ../v2v/cmdline.ml:261
-msgid "Output OVF file"
-msgstr "Вивести дані до файла OVF"
-
-#: ../v2v/cmdline.ml:259
-msgid "Output VM UUID"
-msgstr "Вивести UUID віртуальної машини"
 
 #: ../dib/cmdline.ml:184
 msgid "Output architecture"
@@ -1972,23 +2024,37 @@ msgstr "Формат виведення (типовий: raw)"
 msgid "Output formats"
 msgstr "Формати виведення"
 
-#: ../v2v/cmdline.ml:218
+#: ../v2v/cmdline.ml:216
 msgid "Output hypervisor connection"
 msgstr ""
 
-#: ../v2v/cmdline.ml:255
-msgid "Output image UUID(s)"
-msgstr "Вивести UUID образу"
+#: ../v2v/output_vdsm.ml:41
+msgid ""
+"Output options (-oo) which can be used with -o vdsm:\n"
+"\n"
+"  -oo vdsm-compat=0.10|1.1     Write qcow2 with compat=0.10|1.1\n"
+"                                   (default: 0.10)\n"
+"  -oo vdsm-vm-uuid=UUID        VM UUID (required)\n"
+"  -oo vdsm-ovf-output=DIR      OVF metadata directory (required)\n"
+"  -oo vdsm-ovf-flavour=%s\n"
+"                               Set the type of generated OVF (default: "
+"rhvexp)\n"
+"\n"
+"For each disk you must supply one of each of these options:\n"
+"\n"
+"  -oo vdsm-image-uuid=UUID     Image directory UUID\n"
+"  -oo vdsm-vol-uuid=UUID       Disk volume UUID\n"
+msgstr ""
 
 #: ../builder/builder.ml:750
 msgid "Output size"
 msgstr "Розмір виведення"
 
-#: ../v2v/cmdline.ml:257
-msgid "Output vol UUID(s)"
-msgstr "UUID виведених томів"
+#: ../v2v/v2v.ml:158
+msgid "Overlay and Target information (--print-target option):\n"
+msgstr ""
 
-#: ../v2v/v2v.ml:813
+#: ../v2v/v2v.ml:832
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr "Накладку збережено як %s [--debug-overlays]"
 
@@ -2033,11 +2099,11 @@ msgstr "Виконати тестовий запуск"
 msgid "Performing %S ..."
 msgstr "Виконуємо %S…"
 
-#: ../v2v/inspect_source.ml:162
+#: ../v2v/inspect_source.ml:163
 msgid "Picked %s because '--root %s' was used."
 msgstr "Вибрано %s, оскільки використано «--root %s»."
 
-#: ../v2v/inspect_source.ml:153
+#: ../v2v/inspect_source.ml:154
 msgid "Picked %s because '--root first' was used."
 msgstr "Вибрано %s, оскільки використано «--root first»."
 
@@ -2064,6 +2130,10 @@ msgstr "Вивести дані щодо кешу шаблонів"
 #: ../v2v/cmdline.ml:230
 msgid "Print source and stop"
 msgstr "Вивести джерело і припинити обробку"
+
+#: ../v2v/cmdline.ml:232
+msgid "Print target and stop"
+msgstr ""
 
 #: ../v2v/create_ovf.ml:594 ../v2v/create_ovf.ml:260
 msgid "RHV does not support the output format ‘%s’, only raw or qcow2"
@@ -2300,7 +2370,7 @@ msgstr "Вилучити завдання at та cron користувачів"
 msgid "Removing all the subscriptions"
 msgstr "Вилучаємо усі підписки"
 
-#: ../v2v/cmdline.ml:222
+#: ../v2v/cmdline.ml:220
 msgid "Rename guest when converting"
 msgstr "Перейменувати гостьову систему під час перетворення"
 
@@ -2409,7 +2479,67 @@ msgstr "Ключ SSH може бути вставлено для цього ти
 msgid "SSH key inject: %s"
 msgstr "Вставлення ключа SSH: %s"
 
-#: ../v2v/cmdline.ml:194
+#: ../v2v/cmdline.ml:237
+msgid "Same as ‘-io vddk-config=filename’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:239
+msgid "Same as ‘-io vddk-cookie=filename’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:241
+msgid "Same as ‘-io vddk-libdir=libdir’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:243
+msgid "Same as ‘-io vddk-nfchostport=nfchostport’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:245
+msgid "Same as ‘-io vddk-port=port’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:247
+msgid "Same as ‘-io vddk-snapshot=snapshot-moref’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:249
+msgid "Same as ‘-io vddk-thumbprint=thumbprint’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:251
+msgid "Same as ‘-io vddk-transports=transports’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:253
+msgid "Same as ‘-io vddk-vimapiver=apiver’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:255
+msgid "Same as ‘-oo vdsm-compat=0.10|1.1’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:257
+msgid "Same as ‘-oo vdsm-image-uuid=uuid’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:265
+msgid "Same as ‘-oo vdsm-ovf-flavour=flavour’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:263
+msgid "Same as ‘-oo vdsm-ovf-output=dir’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:261
+msgid "Same as ‘-oo vdsm-vm-uuid=uuid’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:259
+msgid "Same as ‘-oo vdsm-vol-uuid=uuid’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:190
 msgid "Save overlay files"
 msgstr "Зберегти файли оверлеїв"
 
@@ -2441,42 +2571,6 @@ msgstr "Встановити програму або виконуваний фа
 msgid "Set Python interpreter"
 msgstr "Встановити назву інтерпретатора Python"
 
-#: ../v2v/cmdline.ml:235
-msgid "Set VDDK config file"
-msgstr "Встановити назву файла налаштувань VDDK"
-
-#: ../v2v/cmdline.ml:237
-msgid "Set VDDK cookie"
-msgstr "Встановити куку VDDK"
-
-#: ../v2v/cmdline.ml:239
-msgid "Set VDDK library parent directory"
-msgstr ""
-
-#: ../v2v/cmdline.ml:241
-msgid "Set VDDK nfchostport"
-msgstr "Встановити nfchostport VDDK"
-
-#: ../v2v/cmdline.ml:243
-msgid "Set VDDK port"
-msgstr "Встановити порт VDDK"
-
-#: ../v2v/cmdline.ml:245
-msgid "Set VDDK snapshot"
-msgstr "Встановити знімок VDDK"
-
-#: ../v2v/cmdline.ml:247
-msgid "Set VDDK thumbprint"
-msgstr "Встановити відбиток VDDK"
-
-#: ../v2v/cmdline.ml:249
-msgid "Set VDDK transports"
-msgstr "Встановити засоби пересилання VDDK"
-
-#: ../v2v/cmdline.ml:251
-msgid "Set VDDK vimapiver"
-msgstr "Встановити vimapiver VDDK"
-
 #: ../customize/customize_main.ml:78 ../builder/cmdline.ml:134
 msgid "Set attach disk format"
 msgstr "Встановити формат диску для долучення"
@@ -2493,7 +2587,7 @@ msgstr "Встановити рівень діагностики"
 msgid "Set format (default: auto)"
 msgstr "Встановити формат (типовий: auto)"
 
-#: ../v2v/cmdline.ml:196
+#: ../v2v/cmdline.ml:192
 msgid "Set input mode (default: libvirt)"
 msgstr "Встановити режим введення даних (типовий: libvirt)"
 
@@ -2521,7 +2615,15 @@ msgstr "Встановити параметри монтування (напри
 msgid "Set number of vCPUs"
 msgstr "Встановити кількість віртуальних процесорів"
 
-#: ../v2v/cmdline.ml:216
+#: ../v2v/cmdline.ml:198
+msgid "Set option for input mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:222
+msgid "Set option for output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:214
 msgid "Set output allocation mode"
 msgstr "Встановити режим отримання пам’яті для виведення даних"
 
@@ -2533,11 +2635,11 @@ msgstr "Встановити розмір диска для виведення �
 msgid "Set output filename"
 msgstr "Встановити назву файла для виведення даних"
 
-#: ../v2v/cmdline.ml:220
+#: ../v2v/cmdline.ml:218
 msgid "Set output format"
 msgstr "встановити формат виведення даних"
 
-#: ../v2v/cmdline.ml:214
+#: ../v2v/cmdline.ml:212
 msgid "Set output mode (default: libvirt)"
 msgstr "Встановити режим виведення (типовий: libvirt)"
 
@@ -2585,10 +2687,6 @@ msgstr "Встановити назву вузла"
 #: ../builder/cmdline.ml:131
 msgid "Set the output architecture"
 msgstr "Встановити архітектуру для виведення даних"
-
-#: ../v2v/cmdline.ml:263
-msgid "Set the type of generated OVF (default rhvexp)"
-msgstr ""
 
 #: ../customize/customize_cmdline.ml:309
 msgid "Set user password"
@@ -2656,7 +2754,7 @@ msgstr "Пропускаємо %s, оскільки це пристрій, пр�
 msgid "Source URI: %s\n"
 msgstr "Адреса джерела: %s\n"
 
-#: ../v2v/v2v.ml:186
+#: ../v2v/v2v.ml:203
 msgid "Source guest information (--print-source option):\n"
 msgstr "Дані щодо гостьової системи джерела (параметр --print-source):\n"
 
@@ -2967,11 +3065,11 @@ msgstr ""
 "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
 "на диску у старіших версіях дистрибутивів."
 
-#: ../v2v/v2v.ml:628
+#: ../v2v/v2v.ml:646
 msgid "This guest does not have virtio drivers installed."
 msgstr "У цій гостьовій системі не встановлено драйверів virtio."
 
-#: ../v2v/v2v.ml:626
+#: ../v2v/v2v.ml:644
 msgid "This guest has virtio drivers installed."
 msgstr "У цій гостьовій системі встановлено драйвери virtio."
 
@@ -2985,7 +3083,7 @@ msgstr ""
 "передавання паролів не передбачено у RHV. Тому перетворений дисплей "
 "гостьової системи не вимагатиме окремого пароля для встановлення з’єднання."
 
-#: ../v2v/v2v.ml:656
+#: ../v2v/v2v.ml:674
 msgid "This guest requires UEFI on the target to boot."
 msgstr "Ця гостьова система потребує UEFI на призначенні для завантаження."
 
@@ -3107,7 +3205,7 @@ msgstr "Користувачі, записи яких слід вилучити"
 msgid "Using prebuilt file %s as overlay"
 msgstr "Використовуємо попередньо зібраний файл %s як оверлей"
 
-#: ../v2v/input_libvirt_vddk.ml:66
+#: ../v2v/input_libvirt_vddk.ml:129
 msgid ""
 "VDDK library path %s not found or not a directory.  See \"INPUT FROM VDDK\" "
 "in the virt-v2v(1) manual."
@@ -3143,10 +3241,6 @@ msgstr ""
 msgid "Write file"
 msgstr "Записати файл"
 
-#: ../v2v/cmdline.ml:253
-msgid "Write qcow2 with compat=0.10|1.1"
-msgstr "Записати qcow2 з compat=0.10|1.1"
-
 #: ../v2v/copy_to_local.ml:228
 msgid "Writing libvirt XML metadata to %s ..."
 msgstr "Записуємо метадані XML libvirt до %s…"
@@ -3171,15 +3265,12 @@ msgstr ""
 "Не можна використовувати --shrink, якщо немає дефіциту (див. «deficit» на "
 "сторінці підручника (man) virt-resize(1))."
 
-#: ../v2v/input_libvirt_vddk.ml:121
+#: ../v2v/input_libvirt_vddk.ml:184
 msgid ""
-"You must pass the ‘--vddk-thumbprint’ option with the SSL thumbprint of the "
-"VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) "
+"You must pass the ‘-io vddk-thumbprint’ option with the SSL thumbprint of "
+"the VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) "
 "manual.  See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
 msgstr ""
-"Вам слід передати параметр «--vddk-thumbprint» із відбитком SSL сервера "
-"VMware. Для визначення відбитка скористайтеся порадами з підручника з nbdkit-"
-"vddk-plugin(1). Див. також розділ «INPUT FROM VDDK» підручника з virt-v2v(1)."
 
 #: ../sysprep/sysprep_operation_yum_uuid.ml:35
 msgid ""
@@ -3283,7 +3374,7 @@ msgstr ""
 msgid "block|dir|prebuilt:file"
 msgstr "блоковий пристрій|каталог|prebuilt:файл"
 
-#: ../v2v/cmdline.ml:128
+#: ../v2v/cmdline.ml:120
 msgid "bridge"
 msgstr "місток"
 
@@ -3433,7 +3524,7 @@ msgstr ""
 msgid "command '%s' not valid, see the man page"
 msgstr "команда «%s» є некоректною, див. сторінку man"
 
-#: ../v2v/inspect_source.ml:142
+#: ../v2v/inspect_source.ml:143
 msgid "connection closed"
 msgstr "з'єднання закрито"
 
@@ -3605,7 +3696,7 @@ msgstr "заборонений символ (%c) у назві операції"
 msgid "discard/trim is not supported"
 msgstr "підтримки відкидання або обрізання не передбачено"
 
-#: ../v2v/v2v.ml:344
+#: ../v2v/v2v.ml:361
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -3674,11 +3765,11 @@ msgstr ""
 "у цьому інструменті не передбачено підтримки образів із варіантами "
 "завантаження"
 
-#: ../v2v/cmdline.ml:124
+#: ../v2v/cmdline.ml:116
 msgid "duplicate %s parameter.  Duplicate mappings specified for %s ‘%s’."
 msgstr "дублювання параметра %s. Вказано повторну прив’язку для %s «%s»."
 
-#: ../v2v/cmdline.ml:119
+#: ../v2v/cmdline.ml:111
 msgid "duplicate %s parameter.  Only one default mapping is allowed."
 msgstr "дублювання параметра %s. Можлива лише одна типова прив’язка."
 
@@ -3740,23 +3831,23 @@ msgid ""
 msgstr ""
 "очікуємо, що вираз XML поверне ціле число (вираз: %s, відповідний рядок: %s)"
 
-#: ../v2v/cmdline.ml:400
+#: ../v2v/cmdline.ml:434
 msgid "expecting a disk image (filename) on the command line"
 msgstr "у командному рядку очікувався образ диска (назва файла)"
 
-#: ../v2v/cmdline.ml:428
+#: ../v2v/cmdline.ml:461
 msgid "expecting a libvirt XML file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла XML libvirt"
 
-#: ../v2v/cmdline.ml:412
+#: ../v2v/cmdline.ml:446
 msgid "expecting a libvirt guest name on the command line"
 msgstr "у командному рядку мало бути вказано назву гостьової системи libvirt"
 
-#: ../v2v/cmdline.ml:446
+#: ../v2v/cmdline.ml:479
 msgid "expecting a single VMX file name or SSH remote path on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:437
+#: ../v2v/cmdline.ml:470
 msgid "expecting an OVA file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла OVA"
 
@@ -3864,7 +3955,7 @@ msgstr "назва формату є порожнім рядком"
 msgid "fs"
 msgstr "fs"
 
-#: ../v2v/v2v.ml:469
+#: ../v2v/v2v.ml:486
 msgid ""
 "fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
 "To find out more read \"Trimming\" in virt-v2v(1).\n"
@@ -3906,7 +3997,7 @@ msgstr ""
 "glance: помилка вивантаження образу до glance, див. попередні повідомлення "
 "щодо помилок"
 
-#: ../v2v/v2v.ml:322
+#: ../v2v/v2v.ml:339
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -3971,7 +4062,7 @@ msgstr "ignore|warn|error"
 msgid "ignoring kernel %s in bootloader, as it does not exist."
 msgstr "ігноруємо ядро %s у завантажувачі, оскільки його не існує."
 
-#: ../v2v/output_vdsm.ml:112
+#: ../v2v/output_vdsm.ml:179
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr "каталогу образу (%s) не існує, або ж це не каталог"
 
@@ -3997,7 +4088,7 @@ msgstr "у метаданих XML libvirt пропущено <name> або вк�
 msgid "input file (%s) has an unsupported type"
 msgstr "файл вхідних даних (%s) належить до непідтримуваного типу"
 
-#: ../v2v/inspect_source.ml:216
+#: ../v2v/inspect_source.ml:217
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
@@ -4015,7 +4106,7 @@ msgstr ""
 "\n"
 "Значенням визначеного поля «%s» було «unknown»."
 
-#: ../v2v/inspect_source.ml:112
+#: ../v2v/inspect_source.ml:113
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
@@ -4033,7 +4124,7 @@ msgstr ""
 "\n"
 "У образі операційної системи не виявлено кореневого пристрою."
 
-#: ../v2v/v2v.ml:283
+#: ../v2v/v2v.ml:300
 msgid ""
 "insufficient free space in the conversion server temporary directory %s "
 "(%s).\n"
@@ -4077,11 +4168,11 @@ msgid "internal error: is_file_owned: unexpected output from dpkg command: %s"
 msgstr ""
 "внутрішня помилка: is_file_owned: неочікуване виведення від програми dpkg: %s"
 
-#: ../v2v/v2v.ml:695
+#: ../v2v/v2v.ml:714
 msgid "internal error: qemu corrupted the overlay file"
 msgstr "внутрішня помилка: файл оверлею пошкоджено qemu"
 
-#: ../v2v/v2v.ml:312
+#: ../v2v/v2v.ml:329
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
@@ -4089,7 +4180,7 @@ msgstr "внутрішня помилка: qemu-img не створено ове
 msgid "internal error: regular expression did not match ‘%s’"
 msgstr "внутрішня помилка: формальний вираз не відповідає «%s»"
 
-#: ../v2v/cmdline.ml:115
+#: ../v2v/cmdline.ml:107
 msgid "invalid %s parameter"
 msgstr "некоректний параметр %s"
 
@@ -4150,7 +4241,7 @@ msgstr "ядро %s перебуває поза ієрархією grub %s"
 msgid "libguestfs error: %s"
 msgstr "помилка libguestfs: %s"
 
-#: ../v2v/inspect_source.ml:169
+#: ../v2v/inspect_source.ml:170
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -4224,7 +4315,7 @@ msgstr ""
 msgid "moving file ‘%s’ to ‘%s’ failed"
 msgstr ""
 
-#: ../v2v/inspect_source.ml:149
+#: ../v2v/inspect_source.ml:150
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -4241,19 +4332,19 @@ msgstr ""
 "параметрами --root-password/--password двічі встановлено пароль для "
 "користувача «%s»"
 
-#: ../v2v/input_libvirt_vddk.ml:111
+#: ../v2v/input_libvirt_vddk.ml:174
 msgid ""
 "nbdkit VDDK plugin is not installed or not working.  It is required if you "
 "want to use VDDK.\n"
 "\n"
-"It looks like you did not set the right path in the ‘--vddk-libdir’ option, "
-"or your copy of the VDDK directory is incomplete.  There should be a library "
-"called ’<libdir>/%s/libvixDiskLib.so.?’.\n"
+"It looks like you did not set the right path in the ‘-io vddk-libdir’ "
+"option, or your copy of the VDDK directory is incomplete.  There should be a "
+"library called ’<libdir>/%s/libvixDiskLib.so.?’.\n"
 "\n"
 "See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:105
+#: ../v2v/input_libvirt_vddk.ml:168
 msgid ""
 "nbdkit VDDK plugin is not installed or not working.  It is required if you "
 "want to use VDDK.\n"
@@ -4273,13 +4364,13 @@ msgstr ""
 "\n"
 "Див. також розділ «INPUT FROM VDDK» у підручнику з virt-v2v(1)."
 
-#: ../v2v/input_libvirt_vddk.ml:339
+#: ../v2v/input_libvirt_vddk.ml:381
 msgid "nbdkit did not start up.  See previous debugging messages for problems."
 msgstr ""
 "nbdkit не запустилася. Див. попередні діагностичні повідомлення, щоб виявити "
 "джерело проблеми."
 
-#: ../v2v/input_libvirt_vddk.ml:341
+#: ../v2v/input_libvirt_vddk.ml:383
 msgid ""
 "nbdkit did not start up.  There may be errors printed by nbdkit above.\n"
 "\n"
@@ -4293,19 +4384,19 @@ msgstr ""
 "проблеми, додайте параметри «virt-v2v -v -x» і уважно вивчіть виведені "
 "діагностичні дані."
 
-#: ../v2v/input_libvirt_vddk.ml:73
+#: ../v2v/input_libvirt_vddk.ml:136
 msgid ""
 "nbdkit is not installed or not working.  It is required to use ‘-it vddk’.  "
 "See \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:84
+#: ../v2v/input_libvirt_vddk.ml:147
 msgid "nbdkit is not new enough, you need to upgrade to nbdkit ≥ 1.1.16"
 msgstr ""
 "nbdkit є недостатньо новим, вам слід оновити nbdkit принаймні до версії "
 "1.1.16"
 
-#: ../v2v/input_libvirt_vddk.ml:135
+#: ../v2v/input_libvirt_vddk.ml:198
 msgid ""
 "nbdkit was compiled without SELinux support.  You will have to recompile "
 "nbdkit with libselinux-devel installed, or else set SELinux to Permissive "
@@ -4315,13 +4406,21 @@ msgstr ""
 "після встановлення пакунка libselinux-devel або встановити у SELinux режим "
 "допуску (Permissive) на час перетворення."
 
-#: ../v2v/cmdline.ml:127
+#: ../v2v/cmdline.ml:119
 msgid "network"
 msgstr "мережа"
 
 #: ../resize/resize.ml:195
 msgid "never|always|auto"
 msgstr "never|always|auto"
+
+#: ../v2v/cmdline.ml:363
+msgid "no -io (input options) are allowed here"
+msgstr ""
+
+#: ../v2v/cmdline.ml:390
+msgid "no -oo (output options) are allowed here"
+msgstr ""
 
 #: ../v2v/input_ova.ml:205
 msgid "no .ovf file was found in %s"
@@ -4439,7 +4538,7 @@ msgstr ""
 "немає підтримки віддалених з’єднань libvirt з «-ic %s». Перетворення може "
 "призвести до помилок під час спроб прочитати диски джерел даних."
 
-#: ../v2v/v2v.ml:445
+#: ../v2v/v2v.ml:462
 msgid ""
 "not enough free space for conversion on filesystem ‘%s’.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -4479,11 +4578,11 @@ msgstr ""
 "підтримку копіювання за допомогою SSH передбачено лише з VMware ESXi або "
 "Xen. Див. сторінку підручника virt-v2v-copy-to-local(1)."
 
-#: ../v2v/cmdline.ml:452
+#: ../v2v/cmdline.ml:485
 msgid "only ‘-it ssh’ can be used here"
 msgstr ""
 
-#: ../v2v/cmdline.ml:418
+#: ../v2v/cmdline.ml:452
 msgid "only ‘-it vddk’ can be used here"
 msgstr ""
 
@@ -4535,7 +4634,7 @@ msgstr ""
 "пристрій, а не на розділ. Якщо це попередження ви вважаєте помилковим, ви "
 "можете вимкнути його за допомогою параметра --no-warn-if-partition"
 
-#: ../v2v/v2v.ml:354
+#: ../v2v/v2v.ml:371
 msgid ""
 "output format should be ‘raw’ or ‘qcow2’.\n"
 "\n"
@@ -4641,7 +4740,7 @@ msgstr ""
 "pwrite: незавершений запис під час відновлення заголовка розділу резервної "
 "пам’яті"
 
-#: ../v2v/v2v.ml:747 ../v2v/v2v.ml:308
+#: ../v2v/v2v.ml:766 ../v2v/v2v.ml:325
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 "помилка під час спроби виконати qemu-img, див. попередні повідомлення щодо "
@@ -4686,7 +4785,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr "resize2fs"
 
-#: ../v2v/inspect_source.ml:160
+#: ../v2v/inspect_source.ml:161
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 "не знайдено кореневого пристрою %s. Знайдено такі кореневі пристрої: %s"
@@ -4727,39 +4826,39 @@ msgstr ""
 msgid "source and fingerprint lists are not the same length"
 msgstr "списки джерел і відбитків мають різну довжину"
 
-#: ../v2v/input_libvirt_vddk.ml:292 ../v2v/input_libvirt_vcenter_https.ml:91
+#: ../v2v/input_libvirt_vddk.ml:334 ../v2v/input_libvirt_vcenter_https.ml:91
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr "диск джерела має атрибут <source dev=...> у XML"
 
-#: ../v2v/v2v.ml:824
+#: ../v2v/v2v.ml:843
 msgid "source has multiple hard disk types!"
 msgstr "у джерела декілька типів жорстких дисків!"
 
-#: ../v2v/v2v.ml:840
+#: ../v2v/v2v.ml:859
 msgid "source has multiple network adapter model!"
 msgstr "у джерела декілька моделей адаптера мережі!"
 
-#: ../v2v/v2v.ml:822 ../v2v/v2v.ml:231
+#: ../v2v/v2v.ml:841 ../v2v/v2v.ml:248
 msgid "source has no hard disks!"
 msgstr "у джерелі немає жорстких дисків!"
 
-#: ../v2v/v2v.ml:832
+#: ../v2v/v2v.ml:851
 msgid "source has unrecognized hard disk type"
 msgstr "у джерела нерозпізнаний тип жорсткого диска"
 
-#: ../v2v/v2v.ml:830
+#: ../v2v/v2v.ml:849
 msgid "source has unsupported hard disk type ‘%s’"
 msgstr "у джерела непідтримуваний тип жорсткого диска, «%s»"
 
-#: ../v2v/v2v.ml:846
+#: ../v2v/v2v.ml:865
 msgid "source has unsupported network adapter model ‘%s’"
 msgstr "у джерела непідтримувана модель адаптера мережі, «%s»"
 
-#: ../v2v/v2v.ml:854
+#: ../v2v/v2v.ml:873
 msgid "source has unsupported video adapter model ‘%s’"
 msgstr "у джерела непідтримувана модель відеоадаптера, «%s»"
 
-#: ../v2v/v2v.ml:226
+#: ../v2v/v2v.ml:243
 msgid ""
 "source sockets * cores * threads <> number of vCPUs.\n"
 "Sockets %d * cores per socket %d * threads %d = %d, but number of vCPUs = "
@@ -4827,7 +4926,7 @@ msgstr "підпроцес надіслав сигнал або зупинив �
 msgid "subscription-manager credentials required for --sm-register"
 msgstr "для --sm-register потрібні реєстраційні дані subscription-manager"
 
-#: ../v2v/v2v.ml:358
+#: ../v2v/v2v.ml:375
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -4835,12 +4934,12 @@ msgstr ""
 "прапорець --compressed є чинним, лише якщо форматом виведених даних є qcow2 "
 "(-of qcow2)"
 
-#: ../v2v/cmdline.ml:133
+#: ../v2v/cmdline.ml:125
 msgid "the --no-trim option has been removed and now does nothing"
 msgstr ""
 "параметр --no-trim вилучено зі списку параметрів, тепер він не потрібен"
 
-#: ../v2v/cmdline.ml:180
+#: ../v2v/cmdline.ml:175
 msgid "the --vmtype option has been removed and now does nothing"
 msgstr "параметр --vmtype вилучено зі списку параметрів, тепер він не потрібен"
 
@@ -4865,15 +4964,12 @@ msgstr "ключа «%s» у списку об’єктів не знайден�
 msgid "the list of output formats cannot be empty"
 msgstr "список форматів виведення даних не може бути порожнім"
 
-#: ../v2v/output_vdsm.ml:87
+#: ../v2v/output_vdsm.ml:154
 msgid ""
-"the number of ‘--vdsm-image-uuid’ and ‘--vdsm-vol-uuid’ parameters passed on "
-"the command line has to match the number of guest disk images (for this "
-"guest: %d)"
+"the number of ‘-oo vdsm-image-uuid’ and ‘-oo vdsm-vol-uuid’ parameters "
+"passed on the command line has to match the number of guest disk images (for "
+"this guest: %d)"
 msgstr ""
-"кількість параметрів «--vdsm-image-uuid» і «--vdsm-vol-uuid», переданих за "
-"допомогою командного рядка, має дорівнювати кількості образів дисків "
-"гостьових систем (для цієї гостьової системи: %d)"
 
 #: ../builder/repository_main.ml:445
 msgid ""
@@ -5045,7 +5141,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/v2v.ml:647
+#: ../v2v/v2v.ml:665
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -5185,7 +5281,7 @@ msgstr "непридатний до обробки тип контрольних
 msgid "unknown --align-first option: use never|always|auto"
 msgstr "невідомий параметр --align-first: можливі варіанти — never|always|auto"
 
-#: ../v2v/cmdline.ml:170
+#: ../v2v/cmdline.ml:171
 msgid "unknown --root option: %s"
 msgstr "невідомий параметр --root: %s"
 
@@ -5194,15 +5290,15 @@ msgid "unknown --unknown-filesystems: use ignore|warn|error"
 msgstr ""
 "невідоме значення --unknown-filesystems: мало бути ignore, warn або error"
 
-#: ../v2v/cmdline.ml:107
+#: ../v2v/cmdline.ml:90
 msgid "unknown -i option: %s"
 msgstr "невідомий параметр -i: %s"
 
-#: ../v2v/cmdline.ml:149
+#: ../v2v/cmdline.ml:141
 msgid "unknown -o option: %s"
 msgstr "невідомий параметр -o: %s"
 
-#: ../v2v/cmdline.ml:160
+#: ../v2v/cmdline.ml:152
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
@@ -5218,7 +5314,7 @@ msgstr "невідоме значення мікропрограми, «%s», п
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr "невідома гостьова операційна система: %s %s %d.%d %s (%s)"
 
-#: ../v2v/cmdline.ml:308
+#: ../v2v/cmdline.ml:311
 msgid "unknown input transport ‘-it %s’"
 msgstr ""
 
@@ -5230,7 +5326,7 @@ msgstr "невідомий звуковий пристрій «%s» проігн
 msgid "unknown sound model %s ignored"
 msgstr "невідому звукову модель %s проігноровано"
 
-#: ../v2v/v2v.ml:196
+#: ../v2v/v2v.ml:213
 msgid "unknown source hypervisor (‘%s’) in metadata"
 msgstr "невідомий гіпервізор джерела («%s») у метаданих"
 
@@ -5338,7 +5434,7 @@ msgstr ""
 "vcenter: у виведених програмою «curl» даних немає коду стану. Чи встановлено "
 "програму «curl»?"
 
-#: ../v2v/output_vdsm.ml:99
+#: ../v2v/output_vdsm.ml:166
 msgid "vdsm: invalid -os parameter does not contain a valid UUID: %s"
 msgstr "vdsm: некоректний параметр -os не містить коректного UUID: %s"
 
@@ -5393,7 +5489,7 @@ msgstr ""
 "У virt-v2v не передбачено підтримки локальних дисплеїв, отже so <graphics "
 "type='%s'> у вхідних даних XML libvirt проігноровано"
 
-#: ../v2v/v2v.ml:614
+#: ../v2v/v2v.ml:632
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 "virt-v2v не може виконувати перетворення цього типу гостьових систем (%s/%s)"
@@ -5506,7 +5602,7 @@ msgstr ""
 "вам слід вказати параметр -a або -d. Ознайомтеся із сторінкою підручника "
 "(man) virt-customize(1), щоб дізнатися більше."
 
-#: ../v2v/input_libvirt_vddk.ml:233
+#: ../v2v/input_libvirt_vddk.ml:279
 msgid ""
 "you must use the ‘-ic’ parameter.  See \"INPUT FROM VDDK\" in the virt-"
 "v2v(1) manual."
@@ -5518,25 +5614,15 @@ msgstr ""
 msgid "‘%s’ is not a recognized osinfo OS id; using it anyway"
 msgstr ""
 
-#: ../v2v/cmdline.ml:385
-msgid ""
-"‘--vddk-*’ options should only be used when conversion via the nbdkit VDDK "
-"plugin has been enabled, ie. using ‘-it vddk’."
-msgstr ""
-
-#: ../v2v/input_libvirt_vddk.ml:59
-msgid ""
-"‘--vddk-libdir %s’ does not point to a directory.  See \"INPUT FROM VDDK\" "
-"in the virt-v2v(1) manual."
-msgstr ""
-
-#: ../v2v/cmdline.ml:388
-msgid "‘--vddk-thumbprint’ is required when using ‘-it vddk’."
-msgstr ""
-
-#: ../v2v/input_libvirt_vddk.ml:230
+#: ../v2v/input_libvirt_vddk.ml:276
 msgid "‘-ic %s’ URL does not contain a host name field"
 msgstr "У адресі «-ic %s» не міститься поля назви вузла"
+
+#: ../v2v/input_libvirt_vddk.ml:122
+msgid ""
+"‘-io vddk-libdir=%s’ does not point to a directory.  See \"INPUT FROM VDDK\" "
+"in the virt-v2v(1) manual."
+msgstr ""
 
 #: ../builder/repository_main.ml:157
 msgid "‘xz’ command failed"
@@ -12127,6 +12213,70 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "-o vdsm: --vdsm-image-uuid was not specified"
+#~ msgstr "-o vdsm: не вказано --vdsm-image-uuid"
+
+#~ msgid "-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified"
+#~ msgstr "-o vdsm: не вказано --vdsm-vol-uuid або --vdsm-vm-uuid"
+
+#~ msgid "Output OVF file"
+#~ msgstr "Вивести дані до файла OVF"
+
+#~ msgid "Output VM UUID"
+#~ msgstr "Вивести UUID віртуальної машини"
+
+#~ msgid "Output image UUID(s)"
+#~ msgstr "Вивести UUID образу"
+
+#~ msgid "Output vol UUID(s)"
+#~ msgstr "UUID виведених томів"
+
+#~ msgid "Set VDDK config file"
+#~ msgstr "Встановити назву файла налаштувань VDDK"
+
+#~ msgid "Set VDDK cookie"
+#~ msgstr "Встановити куку VDDK"
+
+#~ msgid "Set VDDK nfchostport"
+#~ msgstr "Встановити nfchostport VDDK"
+
+#~ msgid "Set VDDK port"
+#~ msgstr "Встановити порт VDDK"
+
+#~ msgid "Set VDDK snapshot"
+#~ msgstr "Встановити знімок VDDK"
+
+#~ msgid "Set VDDK thumbprint"
+#~ msgstr "Встановити відбиток VDDK"
+
+#~ msgid "Set VDDK transports"
+#~ msgstr "Встановити засоби пересилання VDDK"
+
+#~ msgid "Set VDDK vimapiver"
+#~ msgstr "Встановити vimapiver VDDK"
+
+#~ msgid "Write qcow2 with compat=0.10|1.1"
+#~ msgstr "Записати qcow2 з compat=0.10|1.1"
+
+#~ msgid ""
+#~ "You must pass the ‘--vddk-thumbprint’ option with the SSL thumbprint of "
+#~ "the VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) "
+#~ "manual.  See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
+#~ msgstr ""
+#~ "Вам слід передати параметр «--vddk-thumbprint» із відбитком SSL сервера "
+#~ "VMware. Для визначення відбитка скористайтеся порадами з підручника з "
+#~ "nbdkit-vddk-plugin(1). Див. також розділ «INPUT FROM VDDK» підручника з "
+#~ "virt-v2v(1)."
+
+#~ msgid ""
+#~ "the number of ‘--vdsm-image-uuid’ and ‘--vdsm-vol-uuid’ parameters passed "
+#~ "on the command line has to match the number of guest disk images (for "
+#~ "this guest: %d)"
+#~ msgstr ""
+#~ "кількість параметрів «--vdsm-image-uuid» і «--vdsm-vol-uuid», переданих "
+#~ "за допомогою командного рядка, має дорівнювати кількості образів дисків "
+#~ "гостьових систем (для цієї гостьової системи: %d)"
 
 #~ msgid ""
 #~ "%s: display information about a virtual machine\n"
