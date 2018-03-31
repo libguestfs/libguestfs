@@ -240,8 +240,8 @@ firstboot_test_scripts := \
 	test-firstboot-debian-6.sh \
 	test-firstboot-debian-7.sh \
 	test-firstboot-debian-8.sh \
-	test-firstboot-fedora-25.sh \
 	test-firstboot-fedora-26.sh \
+	test-firstboot-fedora-27.sh \
 	test-firstboot-ubuntu-10.04.sh \
 	test-firstboot-ubuntu-12.04.sh \
 	test-firstboot-ubuntu-14.04.sh \
@@ -261,7 +261,7 @@ password_test_scripts := \
 	test-password-debian-6.sh \
 	test-password-debian-7.sh \
 	test-password-debian-8.sh \
-	test-password-fedora-25.sh \
+	test-password-fedora-27.sh \
 	test-password-rhel-3.9.sh \
 	test-password-rhel-4.9.sh \
 	test-password-rhel-5.11.sh \
@@ -287,7 +287,7 @@ settings_test_scripts := \
 	test-settings-debian-6.sh \
 	test-settings-debian-7.sh \
 	test-settings-debian-8.sh \
-	test-settings-fedora-25.sh \
+	test-settings-fedora-27.sh \
 	test-settings-ubuntu-10.04.sh \
 	test-settings-ubuntu-12.04.sh \
 	test-settings-ubuntu-14.04.sh \

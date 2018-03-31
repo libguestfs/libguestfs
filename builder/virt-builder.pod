@@ -59,11 +59,11 @@ your own too (see below).
 After choosing a guest from the list, you may want to see if there
 are any installation notes:
 
- virt-builder --notes fedora-25
+ virt-builder --notes fedora-27
 
 =head2 Build a virtual machine
 
- virt-builder fedora-25
+ virt-builder fedora-27
 
 will build a Fedora 25 image for the same architecture as virt-builder
 (so running it from an i686 installation will try to build an i686
@@ -77,31 +77,31 @@ The first time this runs it has to download the template over the
 network, but this gets cached (see L</CACHING>).
 
 The name of the output file is derived from the template name, so
-above it will be F<fedora-25.img>.  You can change the output filename
+above it will be F<fedora-27.img>.  You can change the output filename
 using the I<-o> option:
 
- virt-builder fedora-25 -o mydisk.img
+ virt-builder fedora-27 -o mydisk.img
 
 You can also use the I<-o> option to write to existing devices or
 logical volumes.
 
- virt-builder fedora-25 --format qcow2
+ virt-builder fedora-27 --format qcow2
 
-As above, but write the output in qcow2 format to F<fedora-25.qcow2>.
+As above, but write the output in qcow2 format to F<fedora-27.qcow2>.
 
- virt-builder fedora-25 --size 20G
+ virt-builder fedora-27 --size 20G
 
 As above, but the output size will be 20 GB.  The guest OS is resized
 as it is copied to the output (automatically, using
 L<virt-resize(1)>).
 
- virt-builder fedora-25 --arch i686
+ virt-builder fedora-27 --arch i686
 
 As above, but using an i686 template, if available.
 
 =head2 Setting the root password
 
- virt-builder fedora-25 --root-password file:/tmp/rootpw
+ virt-builder fedora-27 --root-password file:/tmp/rootpw
 
 Create a Fedora 25 image.  The root password is taken from the file
 F</tmp/rootpw>.
@@ -113,7 +113,7 @@ You can also create user accounts.  See L</USERS AND PASSWORDS> below.
 
 =head2 Set the hostname
 
- virt-builder fedora-25 --hostname virt.example.com
+ virt-builder fedora-27 --hostname virt.example.com
 
 Set the hostname to C<virt.example.com>.
 
@@ -122,7 +122,7 @@ Set the hostname to C<virt.example.com>.
 To install packages from the ordinary (guest) software repository
 (eg. dnf or apt):
 
- virt-builder fedora-25 --install "inkscape,@Xfce Desktop"
+ virt-builder fedora-27 --install "inkscape,@Xfce Desktop"
 
 (In Fedora, C<@> is used to install groups of packages.  On Debian
 you would install a meta-package instead.)
@@ -135,7 +135,7 @@ For guests which use SELinux, like Fedora and Red Hat Enterprise
 Linux, you may need to do SELinux relabelling after installing or
 updating packages (see L</SELINUX> below):
 
- virt-builder fedora-25 --update --selinux-relabel
+ virt-builder fedora-27 --update --selinux-relabel
 
 =head2 Customizing the installation
 
@@ -153,18 +153,18 @@ For example:
  dnf -y --best update
  EOF
  
- virt-builder fedora-25 --firstboot /tmp/dnf-update.sh
+ virt-builder fedora-27 --firstboot /tmp/dnf-update.sh
 
 or simply:
 
- virt-builder fedora-25 --firstboot-command 'dnf -y --best update'
+ virt-builder fedora-27 --firstboot-command 'dnf -y --best update'
 
 which makes the L<dnf(8)> C<update> command run once the first time
 the guest boots.
 
 Or:
 
- virt-builder fedora-25 \
+ virt-builder fedora-27 \
    --edit '/etc/dnf/dnf.conf:
              s/gpgcheck=1/gpgcheck=0/'
 
@@ -557,7 +557,7 @@ If the guest OS you are installing is similar to the host OS (eg.
 both are Linux), and if libguestfs supports network connections, then
 you can use I<--install> to install packages like this:
 
- virt-builder fedora-25 --install inkscape
+ virt-builder fedora-27 --install inkscape
 
 This uses the guest’s package manager and the host’s network
 connection.
@@ -566,7 +566,7 @@ connection.
 
 To update the installed packages in the template at build time:
 
- virt-builder fedora-25 --update
+ virt-builder fedora-27 --update
 
 Most of the templates that ship with virt-builder come with a very
 minimal selection of packages (known as a "JEOS" or "Just Enough
@@ -578,7 +578,7 @@ OS from the template.  This option updates those template packages.
 
 Another option is to install the packages when the guest first boots:
 
- virt-builder fedora-25 --firstboot-install inkscape
+ virt-builder fedora-27 --firstboot-install inkscape
 
 This uses the guest’s package manager and the guest’s network
 connection.
@@ -626,7 +626,7 @@ For apt, create /tmp/install.sh containing:
 Use the I<--attach> option to attach the CD / disk image and the
 I<--run> option to run the script:
 
- virt-builder fedora-25 \
+ virt-builder fedora-27 \
    --attach extra-packages.iso \
    --run /tmp/install.sh
 
@@ -705,7 +705,7 @@ keyboard for some common Linux distributions.
 
 For distros that use systemd C<localectl>, use a command like this:
 
- virt-builder fedora-25 \
+ virt-builder fedora-27 \
    --firstboot-command 'localectl set-keymap uk'
 
 See L<localectl(1)> and
@@ -749,7 +749,7 @@ This section contains examples for some common Linux distributions.
 
 =head3 Setting Japanese in Fedora 25
 
- virt-builder fedora-25 \
+ virt-builder fedora-27 \
    --size 20G \
    --update \
    --install @japanese-support \
@@ -977,7 +977,7 @@ I<--import> option.
 
  virt-install --import \
    --name guest --ram 2048 \
-   --disk path=disk.img,format=raw --os-variant fedora25
+   --disk path=disk.img,format=raw --os-variant fedora27
 
 Notes:
 
@@ -1012,7 +1012,7 @@ tools probably work differently as well.
 
 Import the image into Glance (the OpenStack image store) by doing:
 
- glance image-create --name fedora-25-image --file fedora-25.img \
+ glance image-create --name fedora-27-image --file fedora-27.img \
    --disk-format raw --container-format bare \
    --is-public True
 
@@ -1022,12 +1022,12 @@ parameter should match virt-builder’s I<--format> option (or C<raw> if
 you didn't use that option).  The I<--container-format> should always
 be C<bare> since virt-builder doesn't put images into containers.
 
-You can use the S<C<glance image-show I<fedora-25-image>>> command to
+You can use the S<C<glance image-show I<fedora-27-image>>> command to
 display the properties of the image.
 
 To boot up an instance of your image on a Nova compute node, do:
 
- nova boot fedora-25-server --image fedora-25-image \
+ nova boot fedora-27-server --image fedora-27-image \
    --flavor m1.medium
 
 Use S<C<nova flavor-list>> to list possible machine flavors.  Use
@@ -1058,7 +1058,7 @@ at boot.
 
 A typical virt-builder command would be:
 
- virt-builder fedora-25 \
+ virt-builder fedora-27 \
    --hostname client.example.com \
    --update \
    --install puppet \
@@ -1583,7 +1583,7 @@ package manager at that.
 
 To install a Fedora guest using a local mirror:
 
- virt-builder fedora-25 \
+ virt-builder fedora-27 \
    --edit '/etc/yum.repos.d/fedora.repo:
        s{.*baseurl=.*}{baseurl=http://example.com/mirror/};
        s{.*metalink=.*}{};
