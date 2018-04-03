@@ -55,17 +55,17 @@ let iso_time =
 (* Guess vmtype based on the guest inspection data. *)
 let get_vmtype = function
   (* Special cases for RHEL 3 & RHEL 4. *)
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = (3|4);
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = (3|4);
       i_product_name = product }
        when String.find product "ES" >= 0 ->
      `Server
 
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = (3|4);
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = (3|4);
       i_product_name = product }
        when String.find product "AS" >= 0 ->
      `Server
 
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = (3|4) } ->
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = (3|4) } ->
      `Desktop
 
   (* For Windows (and maybe Linux in future, but it is not set now),
@@ -91,29 +91,45 @@ let get_vmtype = function
  *   https://bugzilla.redhat.com/show_bug.cgi?id=1219857#c9
  *)
 and get_ostype = function
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = v;
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = v;
       i_arch = "i386" } when v <= 6 ->
     sprintf "RHEL%d" v
 
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = v;
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = v;
       i_arch = "x86_64" } when v <= 6 ->
     sprintf "RHEL%dx64" v
 
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = v;
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = v;
       i_arch = "x86_64" } (* when v >= 7 *) ->
     sprintf "rhel_%dx64" v
 
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = 7;
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 6;
+      i_minor_version = min; i_arch = ("ppc64"|"ppc64le") } when min >= 9 ->
+    "rhel_6_9_plus_ppc64"
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 6;
+      i_arch = ("ppc64"|"ppc64le") } ->
+    "rhel_6_ppc64"
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 7;
       i_arch = "ppc64" | "ppc64le" } ->
     "rhel_7_ppc64"
 
-  | { i_type = "linux"; i_distro = "sles"; i_major_version = 11;
-      i_arch = "x86_64" } ->
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 7;
+      i_arch = "s390x" } ->
+    "rhel_7_s390x"
+
+  | { i_type = "linux"; i_distro = "sles"; i_major_version = maj;
+      i_arch = "x86_64" } when maj >= 11 ->
     "sles_11"
 
-  | { i_type = "linux"; i_distro = "sles"; i_major_version = 11;
-      i_arch = "ppc64" | "ppc64le" } ->
+  | { i_type = "linux"; i_distro = "sles"; i_major_version = maj;
+      i_arch = ("ppc64"|"ppc64le") } when maj >= 11 ->
     "sles_11_ppc64"
+
+  | { i_type = "linux"; i_distro = "sles"; i_major_version = maj;
+      i_arch = "s390x" } when maj >= 12 ->
+    "sles_12_s390x"
 
    (* Only Debian 7 is available, so use it for any 7+ version. *)
   | { i_type = "linux"; i_distro = "debian"; i_major_version = v }
@@ -127,6 +143,10 @@ and get_ostype = function
       i_arch = "ppc64" | "ppc64le" } when v >= 14 ->
     "ubuntu_14_04_ppc64"
 
+  | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = maj;
+      i_arch = "s390x" } when maj >= 16 ->
+    "ubuntu_16_04_s390x"
+
   | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = v }
       when v >= 14 ->
     "ubuntu_14_04"
@@ -134,6 +154,12 @@ and get_ostype = function
   | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = maj;
       i_minor_version = min } when maj >= 12 ->
     sprintf "ubuntu_%d_%02d" maj min
+
+  | { i_type = "linux"; i_arch = ("ppc64"|"ppc64le") } ->
+    "other_linux_ppc64"
+
+  | { i_type = "linux"; i_arch = "s390x" } ->
+    "other_linux_s390x"
 
   | { i_type = "linux" } -> "OtherLinux"
 
