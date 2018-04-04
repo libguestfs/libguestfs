@@ -242,6 +242,203 @@ and get_ostype = function
       typ distro major minor arch product;
     "Unassigned"
 
+(* Determine the ovirt:id attribute from libguestfs inspection.
+ * See ovirt-engine sources, file:
+ *   packaging/conf/osinfo-defaults.properties
+ * and also:
+ *   https://bugzilla.redhat.com/show_bug.cgi?id=1219857#c9
+ *)
+and get_ovirt_osid = function
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 3;
+      i_arch = "i386" } ->
+    9
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 3;
+      i_arch = "x86_64" } ->
+    15
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 4;
+      i_arch = "i386" } ->
+    8
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 4;
+      i_arch = "x86_64" } ->
+    14
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 5;
+      i_arch = "i386" } ->
+    7
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 5;
+      i_arch = "x86_64" } ->
+    13
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 6;
+      i_arch = "i386" } ->
+    18
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 6;
+      i_arch = "x86_64" } ->
+    19
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 6;
+      i_minor_version = min; i_arch = ("ppc64"|"ppc64le") } when min >= 9 ->
+    1007
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 6;
+      i_arch = ("ppc64"|"ppc64le") } ->
+    1003
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 7;
+      i_arch = "x86_64" } ->
+    24
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 7;
+      i_arch = ("ppc64"|"ppc64le") } ->
+    1006
+
+  | { i_type = "linux"; i_distro = ("rhel"|"centos"); i_major_version = 7;
+      i_arch = "s390x" } ->
+    2003
+
+  | { i_type = "linux"; i_distro = "sles"; i_major_version = maj;
+      i_arch = "x86_64" } when maj >= 11 ->
+    1193
+
+  | { i_type = "linux"; i_distro = "sles"; i_major_version = maj;
+      i_arch = ("ppc64"|"ppc64le") } when maj >= 11 ->
+    1004
+
+  | { i_type = "linux"; i_distro = "sles"; i_major_version = maj;
+      i_arch = "s390x" } when maj >= 12 ->
+    2004
+
+   (* Only Debian 7 is available, so use it for any 7+ version. *)
+  | { i_type = "linux"; i_distro = "debian"; i_major_version = v }
+      when v >= 7 ->
+    1300
+
+   (* Only Ubuntu 12.04 to 14.04 are available, so use them starting
+    * from 12.04, and 14.04 for anything after it.
+    *)
+  | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = v;
+      i_arch = ("ppc64"|"ppc64le") } when v >= 14 ->
+    1005
+
+  | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = v;
+      i_arch = "s390x" } when v >= 16 ->
+    2005
+
+  | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = v }
+      when v >= 14 ->
+    1256
+
+  | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = 12;
+      i_minor_version = 4 } ->
+    1252
+
+  | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = 12;
+      i_minor_version = 10 } ->
+    1253
+
+  | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = 13;
+      i_minor_version = 4 } ->
+    1254
+
+  | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = 13;
+      i_minor_version = 10 } ->
+    1255
+
+  | { i_type = "linux"; i_arch = ("ppc64"|"ppc64le") } ->
+    1002
+
+  | { i_type = "linux"; i_arch = "s390x" } ->
+    2002
+
+  | { i_type = "linux" } ->
+    5
+
+  | { i_type = "windows"; i_major_version = 5; i_minor_version = 1 } ->
+    1 (* no architecture differentiation of XP on RHV *)
+
+  | { i_type = "windows"; i_major_version = 5; i_minor_version = 2;
+      i_product_name = product } when String.find product "XP" >= 0 ->
+    1 (* no architecture differentiation of XP on RHV *)
+
+  | { i_type = "windows"; i_major_version = 5; i_minor_version = 2;
+      i_arch = "i386" } ->
+    3
+
+  | { i_type = "windows"; i_major_version = 5; i_minor_version = 2;
+      i_arch = "x86_64" } ->
+    10
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 0;
+      i_arch = "i386" } ->
+    4
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 0;
+      i_arch = "x86_64" } ->
+    16
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 1;
+      i_arch = "i386" } ->
+    11
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 1;
+      i_arch = "x86_64"; i_product_variant = "Client" } ->
+    12
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 1;
+      i_arch = "x86_64" } ->
+    17
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 2;
+      i_arch = "i386" } ->
+    20
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 2;
+      i_arch = "x86_64"; i_product_variant = "Client" } ->
+    21
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 2;
+      i_arch = "x86_64" } ->
+    23
+
+   (* Treat Windows 8.1 client like Windows 8.  See:
+    * https://bugzilla.redhat.com/show_bug.cgi?id=1309580#c4
+    *)
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 3;
+      i_arch = "i386"; i_product_variant = "Client" } ->
+    20
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 3;
+      i_arch = "x86_64"; i_product_variant = "Client" } ->
+    21
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 3;
+      i_arch = "x86_64" } ->
+    23
+
+  | { i_type = "windows"; i_major_version = 10; i_minor_version = 0;
+      i_arch = "i386" } ->
+    26
+
+  | { i_type = "windows"; i_major_version = 10; i_minor_version = 0;
+      i_arch = "x86_64"; i_product_variant = "Client" } ->
+    27
+
+  | { i_type = "windows"; i_major_version = 10; i_minor_version = 0;
+      i_arch = "x86_64" } ->
+    29
+
+  | { i_type = typ; i_distro = distro;
+      i_major_version = major; i_minor_version = minor; i_arch = arch;
+      i_product_name = product } ->
+    warning (f_"unknown guest operating system: %s %s %d.%d %s (%s)")
+      typ distro major minor arch product;
+    0
+
 (* Set the <Origin/> element based on the source hypervisor.
  * https://bugzilla.redhat.com/show_bug.cgi?id=1342398#c6
  * https://gerrit.ovirt.org/#/c/59147/
@@ -321,6 +518,7 @@ let rec create_ovf source targets guestcaps inspect
       "xmlns:vssd", "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData";
       "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance";
       "xmlns:ovf", "http://schemas.dmtf.org/ovf/envelope/1/";
+      "xmlns:ovirt", "http://www.ovirt.org/ovf";
       "ovf:version", "0.9"
     ] [
       Comment generated_by;
@@ -383,8 +581,10 @@ let rec create_ovf source targets guestcaps inspect
         ] in
         (match ovf_flavour with
         | OVirt ->
+          let ovirt_osid = get_ovirt_osid inspect in
           e "OperatingSystemSection" ["ovf:id", vm_uuid;
-                                      "ovf:required", "false"]
+                                      "ovf:required", "false";
+                                      "ovirt:id", string_of_int ovirt_osid]
             osinfo_subnodes
         | RHVExportStorageDomain ->
           e "Section" ["ovf:id", vm_uuid; "ovf:required", "false";
