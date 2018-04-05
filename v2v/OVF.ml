@@ -647,7 +647,7 @@ let rec create_ovf source targets guestcaps inspect
 
       (match ovf_flavour with
       | OVirt ->
-        e "VirtualSystem" ["ovf:id", "out"] !content_subnodes
+        e "VirtualSystem" ["ovf:id", vm_uuid] !content_subnodes
       | RHVExportStorageDomain ->
         e "Content" ["ovf:id", "out"; "xsi:type", "ovf:VirtualSystem_Type"]
           !content_subnodes
