@@ -570,13 +570,3 @@ Subsecond handling in virt-diff, virt-ls
 
 Handle nanoseconds properly.  You should be able to specify them on
 the command line and display them.
-
-Use QMP to query qemu features
-------------------------------
-
-The following command will dump out the QMP schema.  With a lot of
-work, this can be used to more accurately parse out various qemu
-features that currently we get by looking at the -help text.
-
-echo -e '{ "execute": "qmp_capabilities" }\n\n{ "execute": "query-qmp-schema" }\n\n{ "execute": "quit" }' | \
-  qemu-system-x86_64 -display none -M none -S -qmp-pretty stdio
