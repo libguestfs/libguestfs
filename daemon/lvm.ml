@@ -97,30 +97,3 @@ and filter_convert_old_lvs_output out =
   ) lines in
 
   List.sort compare lines
-
-(* Convert a non-canonical LV path like /dev/mapper/vg-lv or /dev/dm-0
- * to a canonical one.
- *
- * This is harder than it should be.  A LV device like /dev/VG/LV is
- * really a symlink to a device-mapper device like /dev/dm-0.  However
- * at the device-mapper (kernel) level, nothing is really known about
- * LVM (a userspace concept).  Therefore we use a convoluted method to
- * determine this, by listing out known LVs and checking whether the
- * rdev (major/minor) of the device we are passed matches any of them.
- *
- * Note use of 'stat' instead of 'lstat' so that symlinks are fully
- * resolved.
- *)
-let lv_canonical device =
-  let stat1 = stat device in
-  let lvs = lvs () in
-  try
-    Some (
-      List.find (
-        fun lv ->
-          let stat2 = stat lv in
-          stat1.st_rdev = stat2.st_rdev
-      ) lvs
-    )
-  with
-  | Not_found -> None

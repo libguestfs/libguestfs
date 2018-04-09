@@ -268,6 +268,7 @@ SOURCES_MLI = \
 	link.mli \
 	listfs.mli \
 	lvm.mli \
+	lvm_utils.mli \
 	md.mli \
 	mount.mli \
 	mountable.mli \
@@ -296,6 +297,7 @@ SOURCES_ML = \
 	ldm.ml \
 	link.ml \
 	lvm.ml \
+	lvm_utils.ml \
 	findfs.ml \
 	md.ml \
 	mount.ml \

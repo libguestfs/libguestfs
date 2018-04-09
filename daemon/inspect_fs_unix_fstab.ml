@@ -327,7 +327,7 @@ and resolve_fstab_device spec md_map os_type =
      * we have implemented lvm_canonical_lv_name in the daemon.
      *)
     try
-      match Lvm.lv_canonical spec with
+      match Lvm_utils.lv_canonical spec with
       | None -> Mountable.of_device spec
       | Some device -> Mountable.of_device device
     with
