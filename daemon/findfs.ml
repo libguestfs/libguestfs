@@ -44,7 +44,7 @@ and findfs tag str =
 
   if String.is_prefix out "/dev/mapper/" ||
      String.is_prefix out "/dev/dm-" then (
-    match Lvm.lv_canonical out with
+    match Lvm_utils.lv_canonical out with
     | None ->
        (* Ignore the case where 'out' doesn't appear to be an LV.
         * The best we can do is return the original as-is.
