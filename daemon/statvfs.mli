@@ -16,18 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-type statvfs = {
-  bsize : int64;
-  frsize : int64;
-  blocks : int64;
-  bfree : int64;
-  bavail : int64;
-  files : int64;
-  ffree : int64;
-  favail : int64;
-  fsid : int64;
-  flag : int64;
-  namemax : int64;
-}
-
-val statvfs : string -> statvfs
+val statvfs : string -> Structs.statvfs

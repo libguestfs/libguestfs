@@ -125,13 +125,13 @@ and check_with_vfs_type device =
     let default_volume = Btrfs.btrfs_subvolume_get_default mountable in
     let vols =
       List.filter (
-        fun { Btrfs.btrfssubvolume_id = id } -> id <> default_volume
+        fun { Structs.btrfssubvolume_id = id } -> id <> default_volume
       ) vols in
 
     Some (
       (mountable, vfs_type) (* whole device = default volume *)
       :: List.map (
-           fun { Btrfs.btrfssubvolume_path = path } ->
+           fun { Structs.btrfssubvolume_path = path } ->
              let mountable = Mountable.of_btrfsvol device path in
              (mountable, "btrfs")
          ) vols

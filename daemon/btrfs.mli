@@ -16,11 +16,5 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-type btrfssubvolume = {
-  btrfssubvolume_id : int64;
-  btrfssubvolume_top_level_id : int64;
-  btrfssubvolume_path : string;
-}
-
-val btrfs_subvolume_list : Mountable.t -> btrfssubvolume list
+val btrfs_subvolume_list : Mountable.t -> Structs.btrfssubvolume list
 val btrfs_subvolume_get_default : Mountable.t -> int64

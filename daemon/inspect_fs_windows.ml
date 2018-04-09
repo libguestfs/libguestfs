@@ -372,10 +372,10 @@ and map_registry_disk_blob devices blob =
     let offset = int_of_le64 offset in
     let partitions = Parted.part_list device in
     let partition =
-      List.find (fun { Parted.part_start = s } -> s = offset) partitions in
+      List.find (fun { Structs.part_start = s } -> s = offset) partitions in
 
     (* Construct the full device name. *)
-    Some (sprintf "%s%ld" device partition.Parted.part_num)
+    Some (sprintf "%s%ld" device partition.Structs.part_num)
   with
   | Not_found -> None
 
