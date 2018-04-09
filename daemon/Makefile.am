@@ -271,6 +271,7 @@ SOURCES_MLI = \
 	lvm_utils.mli \
 	md.mli \
 	mount.mli \
+	mount_utils.mli \
 	mountable.mli \
 	optgroups.mli \
 	parted.mli \
@@ -301,6 +302,7 @@ SOURCES_ML = \
 	findfs.ml \
 	md.ml \
 	mount.ml \
+	mount_utils.ml \
 	parted.ml \
 	listfs.ml \
 	realpath.ml \

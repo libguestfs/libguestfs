@@ -55,7 +55,7 @@ let rec check_for_filesystem_on mountable vfs_type =
       if not mounted then None
       else (
         let role = check_filesystem mountable in
-        Mount.umount_all ();
+        Mount_utils.umount_all ();
         role
       )
     ) in
