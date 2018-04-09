@@ -32,22 +32,22 @@ let mount_vfs options vfs mountable mountpoint =
 
   (* -o options *)
   (match options, mountable.m_type with
-   | (None | Some ""), (MountableDevice | MountablePath) -> ()
-   | Some options, (MountableDevice | MountablePath) ->
+   | "", (MountableDevice | MountablePath) -> ()
+   | options, (MountableDevice | MountablePath) ->
       List.push_back args "-o";
       List.push_back args options
-   | (None | Some ""), MountableBtrfsVol subvol ->
+   | "", MountableBtrfsVol subvol ->
       List.push_back args "-o";
       List.push_back args ("subvol=" ^ subvol)
-   | Some options, MountableBtrfsVol subvol ->
+   | options, MountableBtrfsVol subvol ->
       List.push_back args "-o";
       List.push_back args ("subvol=" ^ subvol ^ "," ^ options)
   );
 
   (* -t vfs *)
   (match vfs with
-   | None | Some "" -> ()
-   | Some t ->
+   | "" -> ()
+   | t ->
       List.push_back args "-t";
       List.push_back args t
   );
@@ -57,9 +57,9 @@ let mount_vfs options vfs mountable mountpoint =
 
   ignore (command "mount" !args)
 
-let mount = mount_vfs None None
-let mount_ro = mount_vfs (Some "ro") None
-let mount_options options = mount_vfs (Some options) None
+let mount = mount_vfs "" ""
+let mount_ro = mount_vfs "ro" ""
+let mount_options options = mount_vfs options ""
 
 (* Unmount everything mounted under /sysroot.
  *
