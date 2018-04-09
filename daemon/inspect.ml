@@ -27,7 +27,7 @@ open Inspect_types
 let re_primary_partition = PCRE.compile "^/dev/(?:h|s|v)d.[1234]$"
 
 let rec inspect_os () =
-  Mount.umount_all ();
+  Mount_utils.umount_all ();
 
   (* Iterate over all detected filesystems.  Inspect each one in turn. *)
   let fses = Listfs.list_filesystems () in

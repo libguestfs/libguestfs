@@ -16,7 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val mount : Mountable.t -> string -> unit
-val mount_ro : Mountable.t -> string -> unit
-val mount_options : string -> Mountable.t -> string -> unit
-val mount_vfs : string -> string -> Mountable.t -> string -> unit
+val umount_all : unit -> unit
