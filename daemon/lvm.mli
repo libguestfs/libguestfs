@@ -16,8 +16,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val available : unit -> bool
-
 val lvs : unit -> string list
 
 val lv_canonical : string -> string option

@@ -21,8 +21,8 @@ open Printf
 open Std_utils
 
 let rec list_filesystems () =
-  let has_lvm2 = Lvm.available () in
-  let has_ldm = Ldm.available () in
+  let has_lvm2 = Optgroups.lvm2_available () in
+  let has_ldm = Optgroups.ldm_available () in
 
   let devices = Devsparts.list_devices () in
   let partitions = Devsparts.list_partitions () in
