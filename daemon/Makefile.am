@@ -36,9 +36,26 @@ BUILT_SOURCES = \
 
 generator_built = \
 	$(BUILT_SOURCES) \
+	blkid.mli \
+	btrfs.mli \
 	callbacks.ml \
+	devsparts.mli \
+	file.mli \
+	filearch.mli \
+	findfs.mli \
+	inspect.mli \
+	is.mli \
+	ldm.mli \
+	link.mli \
+	listfs.mli \
+	lvm.mli \
+	md.mli \
+	mount.mli \
 	optgroups.ml \
 	optgroups.mli \
+	parted.mli \
+	realpath.mli \
+	statvfs.mli \
 	structs.ml \
 	structs.mli
 
