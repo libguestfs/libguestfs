@@ -4,6 +4,13 @@ usage() {
   echo >&2 "\
 Usage: $0 [OPTION]...
 Bootstrap this package from the checked-out sources.
+
+Options:
+ --gnulib-srcdir=DIRNAME  specify the local directory where gnulib
+                          sources reside.  Use this if you already
+                          have gnulib sources on your machine, and
+                          do not want to waste your bandwidth downloading
+                          them again.  Defaults to \$GNULIB_SRCDIR
 "
 }
 
@@ -13,18 +20,79 @@ do
   --help)
     usage
     exit;;
+  --gnulib-srcdir=*)
+    GNULIB_SRCDIR=${option#--gnulib-srcdir=};;
   *)
     echo >&2 "$0: $option: unknown option"
     exit 1;;
   esac
 done
 
-# Get gnulib files.
+cleanup_gnulib() {
+  status=$?
+  rm -fr "$gnulib_path"
+  exit $status
+}
 
-echo "$0: getting gnulib files..."
-git submodule init || exit $?
-git submodule update || exit $?
-GNULIB_SRCDIR=.gnulib
+git_modules_config () {
+  test -f .gitmodules && git config --file .gitmodules "$@"
+}
+
+gnulib_path=$(git_modules_config submodule.gnulib.path)
+test -z "$gnulib_path" && gnulib_path=gnulib
+
+# Get gnulib files.  Populate $GNULIB_SRCDIR, possibly updating a
+# submodule, for use in the rest of the script.
+
+case ${GNULIB_SRCDIR--} in
+-)
+  if git_modules_config submodule.gnulib.url >/dev/null; then
+    echo "$0: getting gnulib files..."
+    git submodule init -- "$gnulib_path" || exit $?
+    git submodule update -- "$gnulib_path" || exit $?
+
+  elif [ ! -d "$gnulib_path" ]; then
+    echo "$0: getting gnulib files..."
+
+    trap cleanup_gnulib 1 2 13 15
+
+    shallow=
+    git clone -h 2>&1 | grep -- --depth > /dev/null && shallow='--depth 2'
+    git clone $shallow git://git.sv.gnu.org/gnulib "$gnulib_path" ||
+      cleanup_gnulib
+
+    trap - 1 2 13 15
+  fi
+  GNULIB_SRCDIR=$gnulib_path
+  ;;
+*)
+  # Use GNULIB_SRCDIR directly or as a reference.
+  if test -d "$GNULIB_SRCDIR"/.git && \
+        git_modules_config submodule.gnulib.url >/dev/null; then
+    echo "$0: getting gnulib files..."
+    if git submodule -h|grep -- --reference > /dev/null; then
+      # Prefer the one-liner available in git 1.6.4 or newer.
+      git submodule update --init --reference "$GNULIB_SRCDIR" \
+        "$gnulib_path" || exit $?
+    else
+      # This fallback allows at least git 1.5.5.
+      if test -f "$gnulib_path"/gnulib-tool; then
+        # Since file already exists, assume submodule init already complete.
+        git submodule update -- "$gnulib_path" || exit $?
+      else
+        # Older git can't clone into an empty directory.
+        rmdir "$gnulib_path" 2>/dev/null
+        git clone --reference "$GNULIB_SRCDIR" \
+          "$(git_modules_config submodule.gnulib.url)" "$gnulib_path" \
+          && git submodule init -- "$gnulib_path" \
+          && git submodule update -- "$gnulib_path" \
+          || exit $?
+      fi
+    fi
+    GNULIB_SRCDIR=$gnulib_path
+  fi
+  ;;
+esac
 
 # Autoreconf runs aclocal before libtoolize, which causes spurious
 # warnings if the initial aclocal is confused by the libtoolized
