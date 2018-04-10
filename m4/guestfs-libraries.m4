@@ -269,8 +269,13 @@ AS_IF([test "$with_libvirt" != "no"],[
         AC_SUBST([LIBVIRT_CFLAGS])
         AC_SUBST([LIBVIRT_LIBS])
         AC_DEFINE([HAVE_LIBVIRT],[1],[libvirt found at compile time.])
-    ],
-    [AC_MSG_WARN([libvirt not found, some core features will be disabled])])
+    ],[
+        if test "$DEFAULT_BACKEND" = "libvirt"; then
+            AC_MSG_ERROR([Please install the libvirt devel package])
+        else
+            AC_MSG_WARN([libvirt not found, some core features will be disabled])
+        fi
+    ])
 ])
 AM_CONDITIONAL([HAVE_LIBVIRT],[test "x$LIBVIRT_LIBS" != "x"])
 
