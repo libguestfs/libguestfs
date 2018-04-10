@@ -238,7 +238,14 @@ AC_ARG_ENABLE([packet-dump],[
     [])
 
 dnl Check for PCRE (required)
-PKG_CHECK_MODULES([PCRE], [libpcre])
+PKG_CHECK_MODULES([PCRE], [libpcre], [], [
+    AC_CHECK_PROGS([PCRE_CONFIG], [pcre-config pcre2-config], [no])
+    AS_IF([test "x$PCRE_CONFIG" = "xno"], [
+        AC_MSG_ERROR([Please install the pcre devel package])
+    ])
+    PCRE_CFLAGS=`$PCRE_CONFIG --cflags`
+    PCRE_LIBS=`$PCRE_CONFIG --libs`
+])
 
 dnl Check for Augeas >= 1.0.0 (required).
 PKG_CHECK_MODULES([AUGEAS],[augeas >= 1.0.0])
