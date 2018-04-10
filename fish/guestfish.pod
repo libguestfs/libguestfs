@@ -120,8 +120,8 @@ Create a 100MB disk containing an ext2-formatted partition:
 
 =head2 Start with a prepared disk
 
-An alternate way to create a 100MB disk called F<test1.img> containing
-a single ext2-formatted partition:
+Create a 1G disk called F<test1.img> containing a single
+ext2-formatted partition:
 
  guestfish -N fs
 
@@ -1084,10 +1084,10 @@ C<filename=> before the type (see examples below).
 The type briefly describes how the disk should be sized, partitioned,
 how filesystem(s) should be created, and how content should be added.
 Optionally the type can be followed by extra parameters, separated by
-C<:> (colon) characters.  For example, I<-N fs> creates a default
-100MB, sparsely-allocated disk, containing a single partition, with
-the partition formatted as ext2.  I<-N fs:ext4:1G> is the same, but
-for an ext4 filesystem on a 1GB disk instead.
+C<:> (colon) characters.  For example, I<-N fs> creates a default 1G,
+sparsely-allocated disk, containing a single partition, with the
+partition formatted as ext2.  I<-N fs:ext4:2G> is the same, but for an
+ext4 filesystem on a 2GB disk instead.
 
 Note that the prepared filesystem is not mounted.  You would usually
 have to use the C<mount /dev/sda1 /> command or add the
@@ -1098,7 +1098,7 @@ is automatically launched.
 
 =head2 EXAMPLES
 
-Create a 100MB disk with an ext4-formatted partition, called
+Create a 1G disk with an ext4-formatted partition, called
 F<test1.img> in the current directory:
 
  guestfish -N fs:ext4
