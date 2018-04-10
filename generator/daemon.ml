@@ -490,6 +490,89 @@ let generate_daemon_caml_callbacks_ml () =
   else
     pr "let init_callbacks () = ()\n"
 
+let rec generate_daemon_caml_interface modname () =
+  generate_header OCamlStyle GPLv2plus;
+
+  let is_ocaml_module_function = function
+    | { impl = OCaml m } when String.is_prefix m (modname ^ ".") -> true
+    | { impl = OCaml _ } -> false
+    | { impl = C } -> false
+  in
+
+  let ocaml_actions = actions |> (List.filter is_ocaml_module_function) in
+  if ocaml_actions == [] then
+    failwithf "no OCaml implementations for module %s" modname;
+
+  let prefix_length = String.length modname + 1 in
+  List.iter (
+    fun { name; style; impl } ->
+      let ocaml_function =
+        match impl with
+        | OCaml f ->
+            String.sub f prefix_length (String.length f - prefix_length)
+        | C -> assert false in
+
+      generate_ocaml_daemon_prototype ocaml_function style
+  ) ocaml_actions
+
+and generate_ocaml_daemon_prototype name (ret, args, optargs) =
+  let type_for_stringt = function
+    | Mountable
+    | Mountable_or_Path -> "Mountable.t"
+    | PlainString
+    | Device
+    | Pathname
+    | FileIn
+    | FileOut
+    | Key
+    | GUID
+    | Filename
+    | Dev_or_Path -> "string"
+  in
+  let type_for_rstringt = function
+    | RMountable -> "Mountable.t"
+    | RPlainString
+    | RDevice -> "string"
+  in
+  pr "val %s : " name;
+  List.iter (
+    function
+    | OBool n -> pr "?%s:bool -> " n
+    | OInt n -> pr "?%s:int -> " n
+    | OInt64 n -> pr "?%s:int64 -> " n
+    | OString n -> pr "?%s:string -> " n
+    | OStringList n -> pr "?%s:string array -> " n
+  ) optargs;
+  if args <> [] then
+    List.iter (
+      function
+      | String (typ, _) -> pr "%s -> " (type_for_stringt typ)
+      | BufferIn _ -> pr "string -> "
+      | OptString _ -> pr "string option -> "
+      | StringList (typ, _) -> pr "%s array -> " (type_for_stringt typ)
+      | Bool _ -> pr "bool -> "
+      | Int _ -> pr "int -> "
+      | Int64 _ | Pointer _ -> pr "int64 -> "
+    ) args
+  else
+    pr "unit -> ";
+  (match ret with
+   | RErr -> pr "unit" (* all errors are turned into exceptions *)
+   | RInt _ -> pr "int"
+   | RInt64 _ -> pr "int64"
+   | RBool _ -> pr "bool"
+   | RConstString _ -> pr "string"
+   | RConstOptString _ -> pr "string option"
+   | RString (typ, _) -> pr "%s" (type_for_rstringt typ)
+   | RBufferOut _ -> pr "string"
+   | RStringList (typ, _) -> pr "%s list" (type_for_rstringt typ)
+   | RStruct (_, typ) -> pr "Structs.%s" typ
+   | RStructList (_, typ) -> pr "Structs.%s list" typ
+   | RHashtable (typea, typeb, _) ->
+       pr "(%s * %s) list" (type_for_rstringt typea) (type_for_rstringt typeb)
+  );
+  pr "\n"
+
 (* Generate stubs for the functions implemented in OCaml.
  * Basically we implement the do_<name> function here, and
  * have it call out to OCaml code.

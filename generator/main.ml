@@ -155,6 +155,23 @@ Run it from the top source directory using the command
             Daemon.generate_daemon_structs_cleanups_c;
   output_to "daemon/structs-cleanups.h"
             Daemon.generate_daemon_structs_cleanups_h;
+  let daemon_ocaml_interfaces =
+    List.fold_left (
+      fun set { impl } ->
+        let ocaml_function =
+          match impl with
+          | OCaml f -> fst (String.split "." f)
+          | C -> assert false in
+
+        StringSet.add ocaml_function set
+    ) StringSet.empty (actions |> impl_ocaml_functions) in
+  StringSet.iter (
+    fun modname ->
+      let fn = Char.escaped (Char.lowercase_ascii (String.unsafe_get modname 0)) ^
+               String.sub modname 1 (String.length modname - 1) in
+      output_to (sprintf "daemon/%s.mli" fn)
+                (Daemon.generate_daemon_caml_interface modname)
+  ) daemon_ocaml_interfaces;
 
   output_to "fish/cmds-gperf.gperf"
             Fish.generate_fish_cmds_gperf;
