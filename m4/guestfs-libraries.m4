@@ -263,7 +263,8 @@ AC_CHECK_LIB([magic],[magic_file],[
     ], [])
 ],[])
 AS_IF([test -z "$MAGIC_LIBS"],
-    [AC_MSG_ERROR([libmagic (part of the "file" command) is required])])
+    [AC_MSG_ERROR([libmagic (part of the "file" command) is required.
+                   Please install the file devel package])])
 
 dnl libvirt (highly recommended)
 AC_ARG_WITH([libvirt],[
