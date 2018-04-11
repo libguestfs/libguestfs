@@ -976,7 +976,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
       List.flatten (List.map Array.to_list (List.map g#aug_match paths)) in
 
     (* Map device names for each entry. *)
-    let rex_resume = PCRE.compile "^(.*resume=)(/dev/\\S+)(.*)$"
+    let rex_resume = PCRE.compile "^resume=(/dev/[a-z\\d]+)(.*)$"
     and rex_device_cciss = PCRE.compile "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$"
     and rex_device = PCRE.compile "^/dev/([a-z]+)(\\d*)?$" in
 
@@ -994,18 +994,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
           device
       in
 
-      if String.find path "GRUB_CMDLINE" >= 0 then (
-        (* Handle grub2 resume=<dev> specially. *)
-        if PCRE.matches rex_resume value then (
-          let start = PCRE.sub 1
-          and device = PCRE.sub 2
-          and end_ = PCRE.sub 3 in
-          let device = replace_if_device path device in
-          start ^ device ^ end_
-        )
-        else value
-      )
-      else if PCRE.matches rex_device_cciss value then (
+      if PCRE.matches rex_device_cciss value then (
         let device = PCRE.sub 1
         and part = try PCRE.sub 2 with Not_found -> "" in
         "/dev/" ^ replace device ^ part
@@ -1023,7 +1012,28 @@ let convert (g : G.guestfs) inspect source output rcaps =
     List.iter (
       fun path ->
         let value = g#aug_get path in
-        let new_value = replace_if_device path value in
+        let new_value =
+          if String.find path "GRUB_CMDLINE" >= 0 then (
+            (* Handle grub2 resume=<dev> specially. *)
+            let rec loop str =
+              let index = String.find str "resume=" in
+              if index >= 0 then (
+                let part = String.sub str index (String.length str - index) in
+                if PCRE.matches rex_resume part then (
+                  let start = String.sub str 0 (index + 7 (* "resume=" *))
+                  and device = PCRE.sub 1
+                  and end_ = PCRE.sub 2 in
+                  let device = replace_if_device path device in
+                  start ^ device ^ loop end_
+                )
+                else str
+              )
+              else str
+            in
+            loop value
+          )
+          else
+            replace_if_device path value in
 
         if value <> new_value then (
           g#aug_set path new_value;
