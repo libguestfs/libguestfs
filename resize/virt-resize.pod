@@ -156,7 +156,8 @@ to fill the rest of the available space:
 If the expanded partition in the image contains a filesystem or LVM
 PV, then if virt-resize knows how, it will resize the contents, the
 equivalent of calling a command such as L<pvresize(8)>,
-L<resize2fs(8)>, L<ntfsresize(8)>, L<btrfs(8)> or L<xfs_growfs(8)>.
+L<resize2fs(8)>, L<ntfsresize(8)>, L<btrfs(8)>, L<xfs_growfs(8)>,
+or L<resize.f2fs(8)>.
 However virt-resize does not know how to resize some filesystems, so
 you would have to online resize them after booting the guest.
 
@@ -406,6 +407,10 @@ Linux swap partitions.
 Please note that libguestfs I<destroys> the existing swap content
 by recreating it with C<mkswap>, so this should not be used when
 the guest is suspended.
+
+=item *
+
+f2fs filesystems, if libguestfs was compiled with support for f2fs.
 
 =back
 
@@ -775,7 +780,7 @@ This may be due to either of the following:
 
 There corresponding filesystem is not available in libguestfs,
 because there is no proper package in the host with utilities for it.
-This is usually the case for C<btrfs>, C<ntfs>, and C<xfs>
+This is usually the case for C<btrfs>, C<ntfs>, C<xfs>, and C<f2fs>
 filesystems.
 
 Check the results of:
@@ -842,6 +847,7 @@ L<resize2fs(8)>,
 L<ntfsresize(8)>,
 L<btrfs(8)>,
 L<xfs_growfs(8)>,
+L<resize.f2fs(8)>,
 L<virsh(1)>,
 L<parted(8)>,
 L<truncate(1)>,

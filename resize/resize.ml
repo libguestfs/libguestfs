@@ -136,7 +136,7 @@ let debug_logvol lv =
 
 type expand_content_method =
   | PVResize | Resize2fs | NTFSResize | BtrfsFilesystemResize | XFSGrowFS
-  | Mkswap
+  | Mkswap | ResizeF2fs
 
 let string_of_expand_content_method = function
   | PVResize -> s_"pvresize"
@@ -145,6 +145,7 @@ let string_of_expand_content_method = function
   | BtrfsFilesystemResize -> s_"btrfs-filesystem-resize"
   | XFSGrowFS -> s_"xfs_growfs"
   | Mkswap -> s_"mkswap"
+  | ResizeF2fs -> s_"resize.f2fs"
 
 type unknown_filesystems_mode =
   | UnknownFsIgnore
@@ -295,6 +296,8 @@ read the man page virt-resize(1).
         printf "btrfs\n";
       if g#feature_available [| "xfs" |] then
         printf "xfs\n";
+      if g#feature_available [| "f2fs" |] then
+        printf "f2fs\n";
       exit 0
     );
 
@@ -331,10 +334,11 @@ read the man page virt-resize(1).
     lv_expands, machine_readable, ntfsresize_force, output_format,
     resizes, resizes_force, shrink, sparse, unknown_fs_mode in
 
-  (* Default to true, since NTFS/btrfs/XFS support are usually available. *)
+  (* Default to true, since NTFS/btrfs/XFS/f2fs support are usually available. *)
   let ntfs_available = ref true in
   let btrfs_available = ref true in
   let xfs_available = ref true in
+  let f2fs_available = ref true in
 
   (* Add a drive to an handle using the elements of the URI,
    * and few additional parameters.
@@ -364,6 +368,7 @@ read the man page virt-resize(1).
     ntfs_available := g#feature_available [|"ntfsprogs"; "ntfs3g"|];
     btrfs_available := g#feature_available [|"btrfs"|];
     xfs_available := g#feature_available [|"xfs"|];
+    f2fs_available := g#feature_available [|"f2fs"|];
 
     g
   in
@@ -585,6 +590,7 @@ read the man page virt-resize(1).
       | ContentFS (("ntfs"), _) when !ntfs_available -> true
       | ContentFS (("btrfs"), _) when !btrfs_available -> true
       | ContentFS (("xfs"), _) when !xfs_available -> true
+      | ContentFS (("f2fs"), _) when !f2fs_available -> true
       | ContentFS _ -> false
       | ContentExtendedPartition -> false
       | ContentSwap -> true
@@ -600,6 +606,7 @@ read the man page virt-resize(1).
       | ContentFS (("ntfs"), _) when !ntfs_available -> NTFSResize
       | ContentFS (("btrfs"), _) when !btrfs_available -> BtrfsFilesystemResize
       | ContentFS (("xfs"), _) when !xfs_available -> XFSGrowFS
+      | ContentFS (("f2fs"), _) when !f2fs_available -> ResizeF2fs
       | ContentFS _ -> assert false
       | ContentExtendedPartition -> assert false
       | ContentSwap -> Mkswap
@@ -1368,6 +1375,7 @@ read the man page virt-resize(1).
         if new_uuid <> orig_uuid then
           warning (f_"UUID in swap partition %s changed from ‘%s’ to ‘%s’")
             target orig_uuid new_uuid;
+      | ResizeF2fs -> g#f2fs_expand target
     in
 
     (* Expand partition content as required. *)
