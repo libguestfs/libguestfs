@@ -512,6 +512,7 @@ let proc_nr = [
 502, "inspect_get_drive_mappings";
 503, "part_set_gpt_attributes";
 504, "part_get_gpt_attributes";
+505, "f2fs_expand";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list

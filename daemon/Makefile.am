@@ -113,6 +113,7 @@ guestfsd_SOURCES = \
 	du.c \
 	echo-daemon.c \
 	ext2.c \
+	f2fs.c \
 	fallocate.c \
 	file.c \
 	fill.c \

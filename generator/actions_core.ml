@@ -9708,4 +9708,13 @@ When growing a partition you will want to grow the filesystem
 afterwards, but when shrinking, you need to shrink the filesystem
 before the partition." };
 
+  { defaults with
+    name = "f2fs_expand"; added = (1, 39, 3);
+    style = RErr, [String (Device, "device")], [];
+    optional = Some "f2fs";
+    shortdesc = "expand a f2fs filesystem";
+    longdesc = "\
+This expands a f2fs filesystem to match the size of the underlying
+device." };
+
 ]
