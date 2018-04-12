@@ -339,11 +339,11 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
 OCAMLPACKAGES = \
 	-package str,unix,hivex \
-	-I $(top_srcdir)/common/mlaugeas \
-	-I $(top_srcdir)/common/mlstdutils \
-	-I $(top_srcdir)/common/mlutils \
+	-I $(top_builddir)/common/mlaugeas \
+	-I $(top_builddir)/common/mlstdutils \
+	-I $(top_builddir)/common/mlutils \
 	-I $(top_builddir)/common/utils/.libs \
-	-I $(top_srcdir)/common/mlpcre \
+	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/common/mlpcre/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs
 
@@ -377,7 +377,7 @@ camldaemon.o: $(OBJECTS)
 	    $(OBJECTS)
 
 # OCaml dependencies.
-.depend: *.mli *.ml
+.depend: $(srcdir)/*.mli $(srcdir)/*.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 

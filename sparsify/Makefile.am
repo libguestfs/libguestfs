@@ -154,7 +154,7 @@ check-valgrind:
 	$(MAKE) VG="@VG@" check
 
 # OCaml dependencies.
-.depend: *.mli *.ml
+.depend: $(srcdir)/*.mli $(srcdir)/*.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 

@@ -142,11 +142,12 @@ bin_PROGRAMS += virt-builder virt-builder-repository
 
 virt_builder_SOURCES = $(SOURCES_C)
 virt_builder_CPPFLAGS = \
-	-I. \
+	-I$(builddir) -I$(srcdir) \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/gnulib/lib \
+	-I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/lib
 virt_builder_CFLAGS = \
@@ -163,7 +164,7 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
 virt_builder_repository_SOURCES = $(REPOSITORY_SOURCES_C)
 virt_builder_repository_CPPFLAGS = \
-	-I. \
+	-I$(builddir) -I$(srcdir) \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(shell $(OCAMLC) -where) \
@@ -446,7 +447,7 @@ CLEANFILES += \
 	console-*.out
 
 # OCaml dependencies.
-.depend: *.mli *.ml osinfo_config.mli osinfo_config.ml
+.depend: $(srcdir)/*.mli $(srcdir)/*.ml osinfo_config.mli osinfo_config.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 
