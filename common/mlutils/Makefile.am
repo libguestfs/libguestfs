@@ -135,7 +135,7 @@ c_utils_unit_tests_LINK = \
 	  $(c_utils_unit_tests_THEOBJECTS) -o $@
 
 # Dependencies.
-.depend: *.mli *.ml
+.depend: $(srcdir)/*.mli $(srcdir)/*.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 

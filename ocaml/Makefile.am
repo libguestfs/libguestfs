@@ -26,7 +26,6 @@ generator_built = \
 
 EXTRA_DIST = \
 	$(generator_built) \
-	.depend \
 	guestfs-c.c guestfs-c.h \
 	html/.gitignore \
 	META.in \
@@ -171,7 +170,7 @@ check-valgrind:
 	$(MAKE) VG="@VG@" TESTS="$(test_progs_all)" check
 
 # Dependencies.
-.depend: *.mli *.ml
+.depend: $(srcdir)/*.mli $(srcdir)/*.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 

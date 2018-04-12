@@ -79,7 +79,7 @@ mlgettext.cmxa: $(XOBJECTS)
 endif
 
 # Dependencies.
-.depend: *.mli *.ml
+.depend: $(srcdir)/*.mli $(srcdir)/*.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 

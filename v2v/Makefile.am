@@ -542,7 +542,7 @@ v2v_unit_tests_LINK = \
 	  $(v2v_unit_tests_THEOBJECTS) -o $@
 
 # Dependencies.
-.depend: *.mli *.ml
+.depend: $(srcdir)/*.mli $(srcdir)/*.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 

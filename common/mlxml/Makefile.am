@@ -88,7 +88,7 @@ $(MLXML_CMA): $(OBJECTS) libmlxml.a
 	    -o mlxml
 
 # Dependencies.
-.depend: *.mli *.ml
+.depend: $(srcdir)/*.mli $(srcdir)/*.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 

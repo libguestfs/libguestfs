@@ -126,7 +126,7 @@ stamp-virt-v2v-test-harness.pod: virt-v2v-test-harness.pod
 	touch $@
 
 # Dependencies.
-.depend: *.mli *.ml
+.depend: $(srcdir)/*.mli $(srcdir)/*.ml
 	$(top_builddir)/ocaml-dep.sh -I .. $^
 -include .depend
 

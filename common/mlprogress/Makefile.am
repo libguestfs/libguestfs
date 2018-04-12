@@ -93,7 +93,7 @@ $(MLPROGRESS_CMA): $(OBJECTS) libmlprogress.a
 	    -o mlprogress
 
 # OCaml dependencies.
-.depend: *.mli *.ml
+.depend: $(srcdir)/*.mli $(srcdir)/*.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 
