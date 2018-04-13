@@ -949,7 +949,7 @@ and make_rhel_yum_conf major minor arch =
        sprintf "%s/source/SRPMS" topurl,
        Some (sprintf "%s/Server/optional/%s/os" arch topurl,
              sprintf "%s/Server/optional/source/SRPMS" topurl)
-    | 7, (X86_64|Aarch64|PPC64|PPC64le) ->
+    | 7, (X86_64|Aarch64|PPC64|PPC64le|S390X) ->
        let topurl =
          sprintf "http://download.devel.redhat.com/released/RHEL-%d/%d.%d"
                  major major minor in
