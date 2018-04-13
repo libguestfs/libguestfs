@@ -765,12 +765,12 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars
    | PPC64 ->
       add "--arch=ppc64";
       add "--machine=pseries";
-      add "--cpu=POWER7";
+      add "--cpu=power7";
       add "--vcpus=1"
    | PPC64le ->
       add "--arch=ppc64le";
       add "--machine=pseries";
-      add "--cpu=POWER8";
+      add "--cpu=power8";
       add "--vcpus=1"
    | arch ->
       add (sprintf "--arch=%s" (string_of_arch arch));
