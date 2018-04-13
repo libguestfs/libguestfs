@@ -691,6 +691,9 @@ and make_boot_media os arch =
   | RHEL (7, minor), PPC64le ->
      Location (sprintf "http://download.devel.redhat.com/released/RHEL-7/7.%d/Server/ppc64le/os" minor)
 
+  | RHEL (7, minor), S390X ->
+     Location (sprintf "http://download.devel.redhat.com/released/RHEL-7/7.%d/Server/s390x/os" minor)
+
   | Ubuntu (_, dist), X86_64 ->
      Location (sprintf "http://archive.ubuntu.com/ubuntu/dists/%s/main/installer-amd64" dist)
 
