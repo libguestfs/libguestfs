@@ -682,9 +682,6 @@ and make_boot_media os arch =
   | RHEL (7, minor), X86_64 ->
      Location (sprintf "http://download.devel.redhat.com/released/RHEL-7/7.%d/Server/x86_64/os" minor)
 
-  | RHEL (7, minor), Aarch64 ->
-     Location (sprintf "http://download.eng.bos.redhat.com/released/RHEL-7/7.%d/Server/aarch64/os" minor)
-
   | RHEL (7, minor), PPC64 ->
      Location (sprintf "http://download.devel.redhat.com/released/RHEL-7/7.%d/Server/ppc64/os" minor)
 
@@ -693,6 +690,9 @@ and make_boot_media os arch =
 
   | RHEL (7, minor), S390X ->
      Location (sprintf "http://download.devel.redhat.com/released/RHEL-7/7.%d/Server/s390x/os" minor)
+
+  | RHEL (7, minor), Aarch64 ->
+     Location (sprintf "http://download.eng.bos.redhat.com/released/RHEL-ALT-7/7.%d/Server/aarch64/os" minor)
 
   | Ubuntu (_, dist), X86_64 ->
      Location (sprintf "http://archive.ubuntu.com/ubuntu/dists/%s/main/installer-amd64" dist)
@@ -949,9 +949,17 @@ and make_rhel_yum_conf major minor arch =
        sprintf "%s/source/SRPMS" topurl,
        Some (sprintf "%s/Server/optional/%s/os" arch topurl,
              sprintf "%s/Server/optional/source/SRPMS" topurl)
-    | 7, (X86_64|Aarch64|PPC64|PPC64le|S390X) ->
+    | 7, (X86_64|PPC64|PPC64le|S390X) ->
        let topurl =
          sprintf "http://download.devel.redhat.com/released/RHEL-%d/%d.%d"
+                 major major minor in
+       sprintf "%s/Server/%s/os" topurl (string_of_arch arch),
+       sprintf "%s/Server/source/tree" topurl,
+       Some (sprintf "%s/Server-optional/%s/os" topurl (string_of_arch arch),
+             sprintf "%s/Server-optional/source/tree" topurl)
+    | 7, Aarch64 ->
+       let topurl =
+         sprintf "http://download.devel.redhat.com/released/RHEL-ALT-%d/%d.%d"
                  major major minor in
        sprintf "%s/Server/%s/os" topurl (string_of_arch arch),
        sprintf "%s/Server/source/tree" topurl,
