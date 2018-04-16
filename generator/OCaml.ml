@@ -40,6 +40,7 @@ let ocaml_errnos = [
   "EPERM";
   "ESRCH";
   "ENOENT";
+  "EROFS";
 ]
 
 (* Generate the OCaml bindings interface. *)

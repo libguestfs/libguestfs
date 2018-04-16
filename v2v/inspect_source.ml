@@ -40,16 +40,33 @@ let rec inspect_source root_choice g =
   let mps = List.sort cmp mps in
   List.iter (
     fun (mp, dev) ->
-      try g#mount dev mp
-      with G.Error msg ->
-        if mp = "/" then ( (* RHBZ#1145995 *)
-          if String.find msg "Windows" >= 0 && String.find msg "NTFS partition is in an unsafe state" >= 0 then
-            error (f_"unable to mount the disk image for writing. This has probably happened because Windows Hibernation or Fast Restart is being used in this guest. You have to disable this (in the guest) in order to use virt-v2v.\n\nOriginal error message: %s") msg
-          else
-            error "%s" msg
-        )
-        else
-          warning (f_"%s (ignored)") msg
+      (try g#mount dev mp
+       with G.Error msg ->
+         if mp = "/" then ( (* RHBZ#1145995 *)
+           if String.find msg "Windows" >= 0 && String.find msg "NTFS partition is in an unsafe state" >= 0 then
+             error (f_"unable to mount the disk image for writing. This has probably happened because Windows Hibernation or Fast Restart is being used in this guest. You have to disable this (in the guest) in order to use virt-v2v.\n\nOriginal error message: %s") msg
+           else
+             error "%s" msg
+         )
+         else
+           warning (f_"%s (ignored)") msg
+      );
+
+      (* Some filesystems (hello, ntfs-3g) can silently fall back to
+       * a read-only mount.  Check the root filesystem is really writable.
+       * RHBZ#1567763
+       *)
+      if mp = "/" then (
+        let file = sprintf "/%s" (String.random8 ()) in
+        (try g#touch file
+         with G.Error msg ->
+           if g#last_errno () = G.Errno.errno_EROFS then
+             error (f_"filesystem was mounted read-only, even though we asked for it to be mounted read-write.  This usually means that the filesystem was not cleanly unmounted.  Possible causes include trying to convert a guest which is running, or using Windows Hibernation or Fast Restart.\n\nOriginal error message: %s") msg
+           else
+             error (f_"could not write to the guest filesystem: %s") msg
+        );
+        g#rm file
+      )
   ) mps;
 
   (* Get list of applications/packages installed. *)
