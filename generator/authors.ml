@@ -78,6 +78,7 @@ let authors = [
 "Lars Seipel", [], [ Development ];
 "Laura Bailey", [], [ Documentation; V2V_and_P2V ];
 "Lee Yarwood", [], [ Development ];
+"Lin Ma", [], [ Development ];
 "Marcin Gibula", [], [ Development ];
 "Margaret Lewicka", [], [ Development ];
 "Maros Zatko", [], [ Development ];
