@@ -30,12 +30,6 @@ open Docstrings
 
 (* Order is significant *within architectures only*. *)
 let firmware = [
-    "i386",
-    "/usr/share/edk2.git/ovmf-ia32/OVMF_CODE-pure-efi.fd",
-    None,
-    "/usr/share/edk2.git/ovmf-ia32/OVMF_VARS-pure-efi.fd",
-    [];
-
     "x86_64",
     "/usr/share/OVMF/OVMF_CODE.fd",
     None,
