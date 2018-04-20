@@ -30,6 +30,7 @@ libvirt_uri="test://$abs_top_builddir/test-data/phony-guests/guests.xml"
 f=$top_builddir/test-data/phony-guests/windows.img
 
 export VIRT_TOOLS_DATA_DIR="$top_srcdir/test-data/fake-virt-tools"
+export VIRTIO_WIN="$top_srcdir/test-data/fake-virtio-win"
 
 d=test-v2v-o-vdsm-options.d
 rm -rf $d
