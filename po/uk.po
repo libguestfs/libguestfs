@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2018-03-29 13:50+0100\n"
+"POT-Creation-Date: 2018-04-20 13:12+0100\n"
 "PO-Revision-Date: 2017-11-18 01:52-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -30,15 +30,15 @@ msgstr ""
 msgid "  %s: already provided by %s"
 msgstr "  %s: вже надано %s"
 
-#: ../resize/resize.ml:971
+#: ../resize/resize.ml:978
 msgid "  An extra partition will be created for the surplus."
 msgstr "  Додатково буде створено ще один розділ."
 
-#: ../resize/resize.ml:945 ../resize/resize.ml:914
+#: ../resize/resize.ml:952 ../resize/resize.ml:921
 msgid "  The %s on %s will be expanded using the ‘%s’ method."
 msgstr "  %s на %s буде розширено за допомогою методу «%s»."
 
-#: ../resize/resize.ml:973
+#: ../resize/resize.ml:980
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
@@ -46,7 +46,7 @@ msgstr ""
 "  Додатковий простір не є достатньо великим для створення додаткового "
 "розділу, отже, його буде просто проігноровано."
 
-#: ../resize/resize.ml:975
+#: ../resize/resize.ml:982
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -159,7 +159,7 @@ msgstr "Потрібен %s, але його не знайдено"
 
 #. ../v2v/cmdline.ml:82
 #. ../v2v/cmdline.ml:74
-#: ../v2v/copy_to_local.ml:40 ../v2v/cmdline.ml:147 ../v2v/cmdline.ml:131
+#: ../v2v/copy_to_local.ml:40 ../v2v/cmdline.ml:149 ../v2v/cmdline.ml:131
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
@@ -179,7 +179,7 @@ msgstr "%s: %s"
 msgid "%s: %s: %s"
 msgstr "%s: %s: %s"
 
-#: ../resize/resize.ml:697
+#: ../resize/resize.ml:704
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -194,11 +194,11 @@ msgstr ""
 "(Причиною появи цього повідомлення про помилку є використання параметра "
 "командного рядка «%s».)"
 
-#: ../resize/resize.ml:942
+#: ../resize/resize.ml:949
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr "%s: цей логічний том буде розширено до максимального розміру."
 
-#: ../resize/resize.ml:693
+#: ../resize/resize.ml:700
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -214,7 +214,7 @@ msgstr ""
 "цього повідомлення про помилку є використання параметра командного рядка "
 "«%s».)"
 
-#: ../resize/resize.ml:689
+#: ../resize/resize.ml:696
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -230,7 +230,7 @@ msgstr ""
 "цього повідомлення про помилку є використання параметра командного рядка "
 "«%s».)"
 
-#: ../resize/resize.ml:686
+#: ../resize/resize.ml:693
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the ‘--resize-"
@@ -243,7 +243,7 @@ msgstr ""
 "руйнування усіх даних на розділі. (Причиною появи цього повідомлення про "
 "помилку є використання параметра командного рядка «%s».)"
 
-#: ../resize/resize.ml:907
+#: ../resize/resize.ml:914
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
@@ -251,15 +251,15 @@ msgstr ""
 "%s: цей розділ буде створено, але його вміст буде проігноровано (тобто не "
 "буде скопійовано до призначення)."
 
-#: ../resize/resize.ml:909
+#: ../resize/resize.ml:916
 msgid "%s: This partition will be deleted."
 msgstr "%s: цей розділ буде вилучено."
 
-#: ../resize/resize.ml:905
+#: ../resize/resize.ml:912
 msgid "%s: This partition will be left alone."
 msgstr "%s: цей розділ буде залишено."
 
-#: ../resize/resize.ml:911
+#: ../resize/resize.ml:918
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: розмір цього розділу буде змінено з %s на %s."
 
@@ -295,7 +295,7 @@ msgstr ""
 msgid "%s: cannot determine the virtual size of %s due to compression"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:299
+#: ../v2v/windows_virtio.ml:303
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr "%s: не вдалося відкрити файл ISO virtio-win: %s"
 
@@ -323,7 +323,7 @@ msgstr "%s: не можна використовувати адресу («%s»)
 msgid "%s: command exited with an error"
 msgstr "%s: виконання команди завершилося повідомленням про помилку"
 
-#: ../v2v/cmdline.ml:272
+#: ../v2v/cmdline.ml:274
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -452,7 +452,7 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Із докладнішим описом можна\n"
 "ознайомитися за допомогою сторінки довідника (man) virt-get-kernel(1).\n"
 
-#: ../resize/resize.ml:408 ../resize/resize.ml:405
+#: ../resize/resize.ml:413 ../resize/resize.ml:410
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr "%s: файл є надто малим, щоб бути образом диска (%Ld байтів)"
 
@@ -474,7 +474,7 @@ msgstr ""
 "%s: покажчик пошкоджено: версія ОС «%s» з архітектурою «%s» використано два "
 "або більше разів\n"
 
-#: ../resize/resize.ml:843
+#: ../resize/resize.ml:850
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "‘--lv-expand’ option on the command line).  Try running this command: virt-"
@@ -484,11 +484,11 @@ msgstr ""
 "наслідком використання параметра командного рядка «--lv-expand»). Спробуйте "
 "віддати таку команду: virt-filesystems --logical-volumes --long -a %s"
 
-#: ../resize/resize.ml:716
+#: ../resize/resize.ml:723
 msgid "%s: missing size field in ‘%s’ option"
 msgstr "%s: у параметрі «%s» пропущено поле розміру"
 
-#: ../resize/resize.ml:725
+#: ../resize/resize.ml:732
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: розмір нового розділу є нульовим або від’ємним"
 
@@ -512,18 +512,18 @@ msgstr "%s: немає запису «size» для «%s»\n"
 msgid "%s: no ‘uri’ entry for ‘%s’ in %s, skipping it\n"
 msgstr "%s: немає запису «uri» для «%s» у %s, пропускаємо\n"
 
-#: ../resize/resize.ml:637
+#: ../resize/resize.ml:644
 msgid "%s: partition already deleted, you cannot use it in ‘%s’ option"
 msgstr ""
 "%s: розділ вже вилучено, ви не можете використовувати його у параметрі «%s»"
 
-#: ../resize/resize.ml:633
+#: ../resize/resize.ml:640
 msgid "%s: partition already ignored, you cannot use it in ‘%s’ option"
 msgstr ""
 "%s: розділ уже проігноровано, ви не можете використовувати його у параметрі "
 "«%s»"
 
-#: ../resize/resize.ml:629
+#: ../resize/resize.ml:636
 msgid ""
 "%s: partition not found in the source disk image (this error came from ‘%s’ "
 "option on the command line).  Try running this command: virt-filesystems --"
@@ -533,15 +533,15 @@ msgstr ""
 "використання параметра командного рядка «%s»). Спробуйте віддати таку "
 "команду: virt-filesystems --partitions --long -a %s"
 
-#: ../resize/resize.ml:536
+#: ../resize/resize.ml:541
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr "%s: розмір розділу %Ld менший розміру файлової системи %Ld"
 
-#: ../resize/resize.ml:531
+#: ../resize/resize.ml:536
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr "%s: розмір розділу %Ld фізичний розмір тому %Ld"
 
-#: ../resize/resize.ml:443
+#: ../resize/resize.ml:448
 msgid "%s: physical volume not returned by pvs_full"
 msgstr "%s: pvs_full не повернуто фізичний том"
 
@@ -566,7 +566,7 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладніший опис наведено на\n"
 "сторінці підручника (man) virt-sysprep(1).\n"
 
-#: ../resize/resize.ml:220
+#: ../resize/resize.ml:221
 msgid ""
 "%s: resize a virtual machine disk\n"
 "\n"
@@ -614,19 +614,19 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладний опис\n"
 "можна знайти на сторінці підручника (man) virt-sparsify(1).\n"
 
-#: ../resize/resize.ml:671
+#: ../resize/resize.ml:678
 msgid "%s: this partition has already been ignored or deleted"
 msgstr "%s: цей розділ вже проігноровано або вилучено"
 
-#: ../resize/resize.ml:667
+#: ../resize/resize.ml:674
 msgid "%s: this partition has already been marked for resizing"
 msgstr "%s: цей розділ вже позначено для зміни розміру"
 
-#: ../resize/resize.ml:546
+#: ../resize/resize.ml:551
 msgid "%s: this partition overlaps the previous one"
 msgstr "%s: цей розділ перекривається з попереднім"
 
-#: ../resize/resize.ml:420
+#: ../resize/resize.ml:425
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
@@ -717,7 +717,7 @@ msgstr "Параметр --enable можна використовувати ли
 msgid "--enable: ‘%s’ is not a known operation"
 msgstr "--enable: «%s» не є відомою операцією"
 
-#: ../resize/resize.ml:172
+#: ../resize/resize.ml:173
 msgid "--expand option given twice"
 msgstr "Параметр --expand вказано двічі"
 
@@ -729,7 +729,7 @@ msgstr "Параметр --format слід вказувати до параме�
 msgid "--get-kernel: too many parameters"
 msgstr "--get-kernel: забагато параметрів"
 
-#: ../v2v/cmdline.ml:414
+#: ../v2v/cmdline.ml:426
 msgid "--in-place and --print-target cannot be used together"
 msgstr ""
 
@@ -768,7 +768,7 @@ msgstr "Параметр --prefix можна використовувати ли
 msgid "--scriptdir cannot be used more than once"
 msgstr "Параметр --scriptdir не можна вказувати декілька разів"
 
-#: ../resize/resize.ml:188
+#: ../resize/resize.ml:189
 msgid "--shrink option given twice"
 msgstr "Параметр --shrink вказано двічі"
 
@@ -811,12 +811,12 @@ msgstr ""
 msgid "-it vddk: ‘-io %s’ is not a valid input option"
 msgstr ""
 
-#: ../v2v/cmdline.ml:490
+#: ../v2v/cmdline.ml:502
 msgid "-o %s: %s option cannot be used in this output mode"
 msgstr ""
 "-o %s: параметр %s не можна використовувати у цьому режимі виведення даних"
 
-#: ../v2v/cmdline.ml:495
+#: ../v2v/cmdline.ml:507
 msgid "-o and --in-place cannot be used at the same time"
 msgstr "-o і --in-place не можна використовувати одночасно"
 
@@ -854,19 +854,53 @@ msgstr ""
 "-o libvirt: буфер виведення «%s» не є каталогом (type='dir'). Див. розділ "
 "«ВИВЕДЕННЯ ДО LIBVIRT» у підручнику virt-v2v(1)."
 
-#: ../v2v/cmdline.ml:530
+#: ../v2v/cmdline.ml:542
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 "-o local: каталог виведення даних не вказано, скористайтеся параметром «-os /"
 "каталог»"
 
-#: ../v2v/cmdline.ml:562
+#: ../v2v/cmdline.ml:574
 msgid "-o qemu: output directory was not specified, use '-os /dir'"
 msgstr ""
 "-o qemu: не вказано каталогу для виведення даних, скористайтеся «-os /"
 "каталог»"
 
-#: ../v2v/cmdline.ml:575
+#: ../v2v/output_rhv_upload.ml:56
+msgid "-o rhv-upload: -oo rhv-cafile set twice"
+msgstr ""
+
+#: ../v2v/output_rhv_upload.ml:60
+msgid "-o rhv-upload: -oo rhv-cluster set twice"
+msgstr ""
+
+#: ../v2v/output_rhv_upload.ml:74
+msgid ""
+"-o rhv-upload: must use ‘-oo rhv-cafile’ to supply the path to the oVirt or "
+"RHV user’s ‘ca.pem’ file"
+msgstr ""
+
+#: ../v2v/cmdline.ml:604
+msgid ""
+"-o rhv-upload: output password file was not specified, use ‘-op’ to point to "
+"a file which contains the password used to connect to the oVirt or RHV server"
+msgstr ""
+
+#: ../v2v/cmdline.ml:609
+msgid "-o rhv-upload: output storage was not specified, use ‘-os’"
+msgstr ""
+
+#: ../v2v/output_rhv_upload.ml:67
+msgid "-o rhv-upload: unknown output option ‘-oo %s’"
+msgstr ""
+
+#: ../v2v/cmdline.ml:598
+msgid ""
+"-o rhv-upload: use ‘-oc’ to point to the oVirt or RHV server REST API URL, "
+"which is usually https://servername/ovirt-engine/api"
+msgstr ""
+
+#: ../v2v/cmdline.ml:587
 msgid "-o rhv: output storage was not specified, use ‘-os’"
 msgstr "-o rhv: не вказано сховище виведення даних, скористайтеся «-os»"
 
@@ -886,7 +920,7 @@ msgstr ""
 msgid "-o vdsm: either -oo vdsm-vol-uuid or -oo vdsm-vm-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:588
+#: ../v2v/cmdline.ml:624
 msgid "-o vdsm: output storage was not specified, use ‘-os’"
 msgstr "-o vdsm: не вказано сховище виведення даних, скористайтеся «-os»"
 
@@ -898,32 +932,32 @@ msgstr ""
 msgid "-o vdsm: unknown vdsm-compat level ‘%s’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:564 ../v2v/cmdline.ml:532
+#: ../v2v/cmdline.ml:576 ../v2v/cmdline.ml:544
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
 #. ../v2v/copy_to_local.ml:314
-#: ../v2v/parse_libvirt_xml.ml:351 ../v2v/parse_libvirt_xml.ml:309
+#: ../v2v/parse_libvirt_xml.ml:358 ../v2v/parse_libvirt_xml.ml:316
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> проігноровано"
 
-#: ../v2v/parse_libvirt_xml.ml:324
+#: ../v2v/parse_libvirt_xml.ml:331
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr "<disk type='network'> з <source protocol='%s'> проігноровано"
 
-#: ../v2v/parse_libvirt_xml.ml:347
+#: ../v2v/parse_libvirt_xml.ml:354
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr "<disk type='volume'> з <volume type='%s'> проігноровано"
 
-#: ../v2v/parse_libvirt_xml.ml:291 ../v2v/copy_to_local.ml:296
+#: ../v2v/parse_libvirt_xml.ml:298 ../v2v/copy_to_local.ml:296
 msgid "<disk> element with no type attribute ignored"
 msgstr "проігноровано елемент <disk> без атрибута типу (type)"
 
-#: ../v2v/parse_libvirt_xml.ml:166
+#: ../v2v/parse_libvirt_xml.ml:173
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr "<listen type='%s'> у вхідних даних XML libvirt було проігноровано"
 
-#: ../v2v/parse_libvirt_xml.ml:384
+#: ../v2v/parse_libvirt_xml.ml:391
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -973,7 +1007,7 @@ msgstr "Додати параметри qemu-img"
 msgid "Aliases:"
 msgstr "Псевдоніми:"
 
-#: ../resize/resize.ml:195
+#: ../resize/resize.ml:196
 msgid "Align first partition (default: auto)"
 msgstr "Вирівняти перший розділ (типове значення: auto)"
 
@@ -1037,13 +1071,13 @@ msgstr ""
 "Перш ніж вилучати старий диск, ретельно перевірте, чи може диск призначення "
 "завантажується і працює належним чином."
 
-#: ../resize/resize.ml:215
+#: ../resize/resize.ml:216
 msgid "Behaviour on expand unknown filesystems (default: warn)"
 msgstr ""
 "Поведінка при розширенні невідомих файлових систем (типове значення: warn, "
 "попереджати)"
 
-#: ../v2v/cmdline.ml:233
+#: ../v2v/cmdline.ml:235
 msgid "Boot in qemu (-o qemu only)"
 msgstr "Завантажитися у qemu (лише для -o qemu)"
 
@@ -1103,11 +1137,11 @@ msgstr "Перевірити числові підписи"
 msgid "Check there is enough space in $TMPDIR"
 msgstr "Перевірити, чи достатньо місця у $TMPDIR"
 
-#: ../v2v/v2v.ml:434
+#: ../v2v/v2v.ml:423
 msgid "Checking for sufficient free disk space in the guest"
 msgstr "Перевіряємо, чи достатньо вільного місця на диску гостьової системи"
 
-#: ../v2v/v2v.ml:653
+#: ../v2v/v2v.ml:642
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 "Перевіряємо, чи потрібні гостьовій системі BIOS або UEFI для завантаження"
@@ -1134,7 +1168,7 @@ msgstr "Закриваємо ВМ джерела"
 msgid "Compatibility option, does nothing"
 msgstr "Параметр, призначений для збереження сумісності. Ні на що не впливає."
 
-#: ../v2v/cmdline.ml:188
+#: ../v2v/cmdline.ml:190
 msgid "Compress output file (-of qcow2 only)"
 msgstr "Стиснути файл виведення (лише для -of qcow2)"
 
@@ -1158,11 +1192,11 @@ msgstr "Стискаємо образ до формату tar.gz"
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
-#: ../v2v/v2v.ml:626
+#: ../v2v/v2v.ml:615
 msgid "Converting %s to run on KVM"
 msgstr "Перетворюємо %s для уможливлення запуску у KVM"
 
-#: ../v2v/v2v.ml:624
+#: ../v2v/v2v.ml:613
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
@@ -1190,7 +1224,7 @@ msgstr "Копіювати локальні файли або каталоги �
 msgid "Copying"
 msgstr "Копіювання"
 
-#: ../resize/resize.ml:1237
+#: ../resize/resize.ml:1244
 msgid "Copying %s"
 msgstr "Копіюємо %s"
 
@@ -1198,11 +1232,11 @@ msgstr "Копіюємо %s"
 msgid "Copying (in image): %s to %s"
 msgstr "Копіюємо (на образ): %s у %s"
 
-#: ../v2v/v2v.ml:697
+#: ../v2v/v2v.ml:686
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr "Копіювання диска %d з %d на %s (%s)"
 
-#: ../v2v/v2v.ml:700
+#: ../v2v/v2v.ml:689
 msgid "Copying disk %d/%d to qemu URI %s (%s)"
 msgstr ""
 
@@ -1230,7 +1264,7 @@ msgstr "Створити файл оверлею на %s для захисту �
 msgid "Create symbolic links"
 msgstr "Створювати символічні посилання"
 
-#: ../v2v/v2v.ml:305
+#: ../v2v/v2v.ml:294
 msgid "Creating an overlay to protect the source from being modified"
 msgstr "Створюємо оверлей для захисту джерела від внесення змін"
 
@@ -1286,7 +1320,7 @@ msgstr "КАТАЛОГ"
 msgid "Delete a file or directory"
 msgstr "Вилучити файл або каталог"
 
-#: ../resize/resize.ml:199
+#: ../resize/resize.ml:200
 msgid "Delete partition"
 msgstr "Вилучити розділ"
 
@@ -1355,11 +1389,11 @@ msgstr "Виконано"
 msgid "Don’t compress the new images in the index"
 msgstr ""
 
-#: ../resize/resize.ml:197
+#: ../resize/resize.ml:198
 msgid "Don’t copy boot loader"
 msgstr "Не копіювати завантажувач"
 
-#: ../resize/resize.ml:202
+#: ../resize/resize.ml:203
 msgid "Don’t create extra partition"
 msgstr "Не створювати додатковий розділ"
 
@@ -1367,11 +1401,11 @@ msgstr "Не створювати додатковий розділ"
 msgid "Don’t delete output file on failure"
 msgstr "Не вилучати файл результатів після помилки"
 
-#: ../resize/resize.ml:201
+#: ../resize/resize.ml:202
 msgid "Don’t expand content"
 msgstr "Не розгортати вміст"
 
-#: ../resize/resize.ml:207
+#: ../resize/resize.ml:208
 msgid "Don’t perform changes"
 msgstr "Не вносити змін"
 
@@ -1395,7 +1429,7 @@ msgstr "Розмір отриманого:"
 msgid "Downloading: %s"
 msgstr "Отримуємо: %s"
 
-#: ../v2v/inspect_source.ml:123
+#: ../v2v/inspect_source.ml:140
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -1425,7 +1459,7 @@ msgstr "Увімкнути мережу у системі для розгорт�
 msgid "Enable appliance network (default)"
 msgstr "Увімкнути мережу у системі для розгортання (типово)"
 
-#: ../resize/resize.ml:198
+#: ../resize/resize.ml:199
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
 
@@ -1445,11 +1479,11 @@ msgstr "Увімкнути трасування викликів libguestfs"
 msgid "Enable/disable specific operations"
 msgstr "Увімкнути або вимкнути специфічні операції"
 
-#: ../v2v/inspect_source.ml:136
+#: ../v2v/inspect_source.ml:153
 msgid "Enter a number between 1 and %d, or ‘exit’: "
 msgstr "Вкажіть число від 1 до %d або введіть «exit»: "
 
-#: ../v2v/v2v.ml:614
+#: ../v2v/v2v.ml:603
 msgid "Estimating space required on target for each disk"
 msgstr "Оцінюємо простір, потрібний у системі призначення для кожного з дисків"
 
@@ -1457,7 +1491,7 @@ msgstr "Оцінюємо простір, потрібний у системі п
 msgid "Examine source disk"
 msgstr "Вивчити диск джерела"
 
-#: ../resize/resize.ml:372
+#: ../resize/resize.ml:377
 msgid "Examining %s"
 msgstr "Перевіряємо %s"
 
@@ -1473,11 +1507,11 @@ msgstr "Виключити вказаний елемент"
 msgid "Exclude the specified script"
 msgstr "Виключити вказаний скрипт"
 
-#: ../resize/resize.ml:205
+#: ../resize/resize.ml:206
 msgid "Expand logical volume"
 msgstr "Розгорнути логічний том"
 
-#: ../resize/resize.ml:200
+#: ../resize/resize.ml:201
 msgid "Expand partition"
 msgstr "Розгорнути розділ"
 
@@ -1493,11 +1527,11 @@ msgstr ""
 msgid "Expanded elements: %s"
 msgstr "Розгорнуті елементи: %s"
 
-#: ../resize/resize.ml:1400
+#: ../resize/resize.ml:1408
 msgid "Expanding %s using the ‘%s’ method"
 msgstr "Розширюємо %s з використанням методу «%s»"
 
-#: ../resize/resize.ml:1381
+#: ../resize/resize.ml:1389
 msgid "Expanding %s%s using the ‘%s’ method"
 msgstr "Розширюємо %s%s з використанням методу «%s»"
 
@@ -1538,7 +1572,7 @@ msgstr "ФАЙЛ:РЯДОК"
 msgid "FILENAME"
 msgstr "НАЗВА_ФАЙЛА"
 
-#: ../resize/resize.ml:1032
+#: ../resize/resize.ml:1039
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -1581,7 +1615,7 @@ msgstr "Відбиток: %s\n"
 msgid "Finishing off"
 msgstr "Завершуємо"
 
-#: ../resize/resize.ml:1283
+#: ../resize/resize.ml:1290
 msgid "Fixing first NTFS partition boot record"
 msgstr "Виправляємо перший запис завантаження розділу NTFS"
 
@@ -1608,16 +1642,16 @@ msgstr ""
 "отже, під час першого завантаження користувачеві буде надіслано запит\n"
 "щодо параметрів, зокрема пароля root та часового поясу."
 
-#: ../resize/resize.ml:208
+#: ../resize/resize.ml:209
 msgid "Force ntfsresize"
 msgstr "Примусово виконати ntfsresize"
 
-#: ../resize/resize.ml:211
+#: ../resize/resize.ml:212
 msgid "Forcefully resize partition"
 msgstr "Примусово змінити розмір розділу"
 
 #. ../get-kernel/get_kernel.ml:59
-#: ../sparsify/cmdline.ml:72 ../resize/resize.ml:203
+#: ../sparsify/cmdline.ml:72 ../resize/resize.ml:204
 msgid "Format of input disk"
 msgstr "Формат диска вхідних даних"
 
@@ -1625,7 +1659,7 @@ msgstr "Формат диска вхідних даних"
 msgid "Format of optional drive"
 msgstr "Формат додаткового диска"
 
-#: ../resize/resize.ml:209
+#: ../resize/resize.ml:210
 msgid "Format of output disk"
 msgstr "Формат диска виведених даних"
 
@@ -1696,7 +1730,7 @@ msgstr "Отримати ядро з образу"
 msgid "HOSTNAME"
 msgstr "НАЗВА_ВУЗЛА"
 
-#: ../v2v/cmdline.ml:235
+#: ../v2v/cmdline.ml:237
 msgid "How to choose root filesystem"
 msgstr "Як вибрати кореневу файлову систему"
 
@@ -1724,11 +1758,11 @@ msgstr ""
 msgid "Ignore filesystem"
 msgstr "Ігнорувати файлову систему"
 
-#: ../resize/resize.ml:204
+#: ../resize/resize.ml:205
 msgid "Ignore partition"
 msgstr "Ігнорувати розділ"
 
-#: ../v2v/cmdline.ml:267 ../v2v/cmdline.ml:210
+#: ../v2v/cmdline.ml:269 ../v2v/cmdline.ml:212
 msgid "Ignored for backwards compatibility"
 msgstr "Ігноровано, для зворотної сумісності"
 
@@ -1736,7 +1770,7 @@ msgstr "Ігноровано, для зворотної сумісності"
 msgid "Importing the image to docker as ‘%s’"
 msgstr "Імпортуємо образ до docker як «%s»"
 
-#: ../v2v/v2v.ml:351
+#: ../v2v/v2v.ml:340
 msgid "Initializing the target %s"
 msgstr "Ініціалізуємо призначення %s"
 
@@ -1744,7 +1778,7 @@ msgstr "Ініціалізуємо призначення %s"
 msgid "Inject a public key into the guest"
 msgstr "Вставити відкритий ключ до гостьової системи"
 
-#: ../v2v/cmdline.ml:196
+#: ../v2v/cmdline.ml:198
 msgid "Input format (for -i disk)"
 msgstr "Формат вхідних даних (для -i диск)"
 
@@ -1772,7 +1806,7 @@ msgid ""
 "information on these settings.\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:200
+#: ../v2v/cmdline.ml:202
 msgid "Input transport"
 msgstr ""
 
@@ -1808,7 +1842,7 @@ msgstr "Встановлюємо пакунки: %s"
 msgid "Installing: %s"
 msgstr "Встановлюємо: %s"
 
-#: ../v2v/cmdline.ml:208
+#: ../v2v/cmdline.ml:210
 msgid "Just write the metadata"
 msgstr "Просто записати метадані"
 
@@ -1824,7 +1858,7 @@ msgstr "ЛОКАЛЬНИЙШЛЯХ:ВІДДАЛЕНИЙКАТАЛОГ"
 msgid "Label for the root fs"
 msgstr "Мітка для кореневої файлової системи"
 
-#: ../v2v/copy_to_local.ml:48 ../v2v/cmdline.ml:194
+#: ../v2v/copy_to_local.ml:48 ../v2v/cmdline.ml:196
 msgid "Libvirt URI"
 msgstr "Адреса libvirt"
 
@@ -1852,7 +1886,7 @@ msgstr "Основний елемент для побудови дисків у 
 #. ../dib/cmdline.ml:194
 #. ../builder/repository_main.ml:58
 #. ../builder/cmdline.ml:158
-#: ../v2v/cmdline.ml:204 ../sparsify/cmdline.ml:75 ../resize/resize.ml:206
+#: ../v2v/cmdline.ml:206 ../sparsify/cmdline.ml:75 ../resize/resize.ml:207
 msgid "Make output machine readable"
 msgstr "Зробити машину виведення придатною до читання"
 
@@ -1860,11 +1894,11 @@ msgstr "Зробити машину виведення придатною до �
 msgid "Making directory: %s"
 msgstr "Створюємо каталог: %s"
 
-#: ../v2v/cmdline.ml:186
+#: ../v2v/cmdline.ml:188
 msgid "Map bridge ‘in’ to ‘out’"
 msgstr "Відобразити місток «in» на «out»"
 
-#: ../v2v/cmdline.ml:206
+#: ../v2v/cmdline.ml:208
 msgid "Map network ‘in’ to ‘out’"
 msgstr "Пов'язати «in» мережі з «out»"
 
@@ -1902,11 +1936,11 @@ msgstr "Пересуваємо: %s -> %s"
 msgid "Name of the image"
 msgstr "Назва образу"
 
-#: ../v2v/cmdline.ml:359
+#: ../v2v/cmdline.ml:361
 msgid "No -io (input options) are supported with this input transport.\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:386
+#: ../v2v/cmdline.ml:388
 msgid "No -oo (output options) are supported in this output mode.\n"
 msgstr ""
 
@@ -1972,7 +2006,7 @@ msgstr ""
 "Windows. Отримати цей файл можна зібравши rhsrvany (https://github.com/"
 "rwmjones/rhsrvany)."
 
-#: ../v2v/cmdline.ml:202
+#: ../v2v/cmdline.ml:204
 msgid "Only tune the guest in the input VM"
 msgstr "Лише скоригувати гостьову систему у вхідній ВМ"
 
@@ -2024,8 +2058,19 @@ msgstr "Формат виведення (типовий: raw)"
 msgid "Output formats"
 msgstr "Формати виведення"
 
-#: ../v2v/cmdline.ml:216
+#: ../v2v/cmdline.ml:218
 msgid "Output hypervisor connection"
+msgstr ""
+
+#: ../v2v/output_rhv_upload.ml:38
+msgid ""
+"Output options (-oo) which can be used with -o rhv-upload:\n"
+"\n"
+"  -oo rhv-cafile=CA.PEM           Set ‘ca.pem’ certificate bundle filename.\n"
+"  -oo rhv-cluster=CLUSTERNAME     Set RHV cluster name.\n"
+"  -oo rhv-direct[=true|false]     Use direct transfer mode (default: "
+"false).\n"
+"  -oo rhv-verifypeer[=true|false] Verify server identity (default: false).\n"
 msgstr ""
 
 #: ../v2v/output_vdsm.ml:41
@@ -2054,7 +2099,7 @@ msgstr "Розмір виведення"
 msgid "Overlay and Target information (--print-target option):\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:832
+#: ../v2v/v2v.ml:821
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr "Накладку збережено як %s [--debug-overlays]"
 
@@ -2099,11 +2144,11 @@ msgstr "Виконати тестовий запуск"
 msgid "Performing %S ..."
 msgstr "Виконуємо %S…"
 
-#: ../v2v/inspect_source.ml:163
+#: ../v2v/inspect_source.ml:180
 msgid "Picked %s because '--root %s' was used."
 msgstr "Вибрано %s, оскільки використано «--root %s»."
 
-#: ../v2v/inspect_source.ml:154
+#: ../v2v/inspect_source.ml:171
 msgid "Picked %s because '--root first' was used."
 msgstr "Вибрано %s, оскільки використано «--root first»."
 
@@ -2127,15 +2172,15 @@ msgstr "Готуємо допоміжні дані"
 msgid "Print info about template cache"
 msgstr "Вивести дані щодо кешу шаблонів"
 
-#: ../v2v/cmdline.ml:230
+#: ../v2v/cmdline.ml:232
 msgid "Print source and stop"
 msgstr "Вивести джерело і припинити обробку"
 
-#: ../v2v/cmdline.ml:232
+#: ../v2v/cmdline.ml:234
 msgid "Print target and stop"
 msgstr ""
 
-#: ../v2v/create_ovf.ml:594 ../v2v/create_ovf.ml:260
+#: ../v2v/create_ovf.ml:808 ../v2v/create_ovf.ml:483
 msgid "RHV does not support the output format ‘%s’, only raw or qcow2"
 msgstr ""
 "У RHV не передбачено формату виведення даних «‘%s», лише формати raw та qcow2"
@@ -2370,7 +2415,7 @@ msgstr "Вилучити завдання at та cron користувачів"
 msgid "Removing all the subscriptions"
 msgstr "Вилучаємо усі підписки"
 
-#: ../v2v/cmdline.ml:220
+#: ../v2v/cmdline.ml:222
 msgid "Rename guest when converting"
 msgstr "Перейменувати гостьову систему під час перетворення"
 
@@ -2378,7 +2423,7 @@ msgstr "Перейменувати гостьову систему під час
 msgid "Repo and tag for docker"
 msgstr "Сховище і мітка для docker"
 
-#: ../resize/resize.ml:1430
+#: ../resize/resize.ml:1438
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -2387,7 +2432,7 @@ msgstr ""
 "старий диск, ретельно перевірте, чи може диск зі зміненим розміром "
 "завантажується і працює належним чином.\n"
 
-#: ../resize/resize.ml:210
+#: ../resize/resize.ml:211
 msgid "Resize partition"
 msgstr "Змінити розміри розділу"
 
@@ -2479,67 +2524,67 @@ msgstr "Ключ SSH може бути вставлено для цього ти
 msgid "SSH key inject: %s"
 msgstr "Вставлення ключа SSH: %s"
 
-#: ../v2v/cmdline.ml:237
+#: ../v2v/cmdline.ml:239
 msgid "Same as ‘-io vddk-config=filename’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:239
+#: ../v2v/cmdline.ml:241
 msgid "Same as ‘-io vddk-cookie=filename’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:241
+#: ../v2v/cmdline.ml:243
 msgid "Same as ‘-io vddk-libdir=libdir’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:243
+#: ../v2v/cmdline.ml:245
 msgid "Same as ‘-io vddk-nfchostport=nfchostport’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:245
+#: ../v2v/cmdline.ml:247
 msgid "Same as ‘-io vddk-port=port’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:247
+#: ../v2v/cmdline.ml:249
 msgid "Same as ‘-io vddk-snapshot=snapshot-moref’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:249
+#: ../v2v/cmdline.ml:251
 msgid "Same as ‘-io vddk-thumbprint=thumbprint’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:251
+#: ../v2v/cmdline.ml:253
 msgid "Same as ‘-io vddk-transports=transports’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:253
+#: ../v2v/cmdline.ml:255
 msgid "Same as ‘-io vddk-vimapiver=apiver’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:255
+#: ../v2v/cmdline.ml:257
 msgid "Same as ‘-oo vdsm-compat=0.10|1.1’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:257
+#: ../v2v/cmdline.ml:259
 msgid "Same as ‘-oo vdsm-image-uuid=uuid’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:265
+#: ../v2v/cmdline.ml:267
 msgid "Same as ‘-oo vdsm-ovf-flavour=flavour’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:263
+#: ../v2v/cmdline.ml:265
 msgid "Same as ‘-oo vdsm-ovf-output=dir’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:261
+#: ../v2v/cmdline.ml:263
 msgid "Same as ‘-oo vdsm-vm-uuid=uuid’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:259
+#: ../v2v/cmdline.ml:261
 msgid "Same as ‘-oo vdsm-vol-uuid=uuid’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:190
+#: ../v2v/cmdline.ml:192
 msgid "Save overlay files"
 msgstr "Зберегти файли оверлеїв"
 
@@ -2587,7 +2632,7 @@ msgstr "Встановити рівень діагностики"
 msgid "Set format (default: auto)"
 msgstr "Встановити формат (типовий: auto)"
 
-#: ../v2v/cmdline.ml:192
+#: ../v2v/cmdline.ml:194
 msgid "Set input mode (default: libvirt)"
 msgstr "Встановити режим введення даних (типовий: libvirt)"
 
@@ -2615,15 +2660,15 @@ msgstr "Встановити параметри монтування (напри
 msgid "Set number of vCPUs"
 msgstr "Встановити кількість віртуальних процесорів"
 
-#: ../v2v/cmdline.ml:198
+#: ../v2v/cmdline.ml:200
 msgid "Set option for input mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:222
+#: ../v2v/cmdline.ml:224
 msgid "Set option for output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:214
+#: ../v2v/cmdline.ml:216
 msgid "Set output allocation mode"
 msgstr "Встановити режим отримання пам’яті для виведення даних"
 
@@ -2635,19 +2680,19 @@ msgstr "Встановити розмір диска для виведення �
 msgid "Set output filename"
 msgstr "Встановити назву файла для виведення даних"
 
-#: ../v2v/cmdline.ml:218
+#: ../v2v/cmdline.ml:220
 msgid "Set output format"
 msgstr "встановити формат виведення даних"
 
-#: ../v2v/cmdline.ml:212
+#: ../v2v/cmdline.ml:214
 msgid "Set output mode (default: libvirt)"
 msgstr "Встановити режим виведення (типовий: libvirt)"
 
-#: ../v2v/cmdline.ml:226
+#: ../v2v/cmdline.ml:228
 msgid "Set output storage location"
 msgstr "Встановити розташування сховища виведених даних"
 
-#: ../resize/resize.ml:196
+#: ../resize/resize.ml:197
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr "Встановити вирівнювання розділів (типове: 128 секторів)"
 
@@ -2716,7 +2761,7 @@ msgstr "Встановлюємо ідентифікатор комп'ютера 
 msgid "Setting the timezone: %s"
 msgstr "Встановлюємо часовий пояс: %s"
 
-#: ../resize/resize.ml:1008
+#: ../resize/resize.ml:1015
 msgid "Setting up initial partition table on %s"
 msgstr "Встановлюємо початкову таблицю розділів на %s"
 
@@ -2728,7 +2773,7 @@ msgstr "Встановлюємо корінь призначення"
 msgid "Shortcut for --list-format long"
 msgstr "Скорочення для --list-format long"
 
-#: ../resize/resize.ml:212
+#: ../resize/resize.ml:213
 msgid "Shrink partition"
 msgstr "Стиснути розділ"
 
@@ -3003,7 +3048,7 @@ msgstr ""
 msgid "There are no notes for %s\n"
 msgstr "Немає нотаток щодо %s\n"
 
-#: ../resize/resize.ml:828
+#: ../resize/resize.ml:835
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
@@ -3019,7 +3064,7 @@ msgstr ""
 "У ваших елементах є дублювання скрипту:\n"
 "%s/%s у: %s"
 
-#: ../resize/resize.ml:968
+#: ../resize/resize.ml:975
 msgid "There is a surplus of %s."
 msgstr "Маємо надлишок у %s."
 
@@ -3065,15 +3110,15 @@ msgstr ""
 "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
 "на диску у старіших версіях дистрибутивів."
 
-#: ../v2v/v2v.ml:646
+#: ../v2v/v2v.ml:635
 msgid "This guest does not have virtio drivers installed."
 msgstr "У цій гостьовій системі не встановлено драйверів virtio."
 
-#: ../v2v/v2v.ml:644
+#: ../v2v/v2v.ml:633
 msgid "This guest has virtio drivers installed."
 msgstr "У цій гостьовій системі встановлено драйвери virtio."
 
-#: ../v2v/create_ovf.ml:503
+#: ../v2v/create_ovf.ml:717
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHV.  Therefore the converted guest’s display will not "
@@ -3083,7 +3128,7 @@ msgstr ""
 "передавання паролів не передбачено у RHV. Тому перетворений дисплей "
 "гостьової системи не вимагатиме окремого пароля для встановлення з’єднання."
 
-#: ../v2v/v2v.ml:674
+#: ../v2v/v2v.ml:663
 msgid "This guest requires UEFI on the target to boot."
 msgstr "Ця гостьова система потребує UEFI на призначенні для завантаження."
 
@@ -3121,7 +3166,7 @@ msgstr "Обрізати файл до нульового розміру"
 msgid "Truncating: %s"
 msgstr "Обрізаємо: %s"
 
-#: ../resize/resize.ml:213
+#: ../resize/resize.ml:214
 msgid "Turn off sparse copying"
 msgstr "Вимкнути розріджене копіювання"
 
@@ -3133,7 +3178,7 @@ msgstr "КОРИСТУВАЧ:ВАРІАНТ"
 msgid "USER[:SELECTOR]"
 msgstr "КОРИСТУВАЧ[:СЕЛЕКТОР]"
 
-#: ../resize/resize.ml:1369
+#: ../resize/resize.ml:1376
 msgid "UUID in swap partition %s changed from ‘%s’ to ‘%s’"
 msgstr "UUID у розділі резервної пам'яті %s змінено з «%s» на «%s»"
 
@@ -3181,11 +3226,11 @@ msgstr "Вивантажуємо: %s до %s"
 msgid "Use ANSI colour sequences even if not tty"
 msgstr "Використовувати послідовності ANSI для кольорів, навіть якщо це не tty"
 
-#: ../v2v/copy_to_local.ml:50 ../v2v/cmdline.ml:228
+#: ../v2v/copy_to_local.ml:50 ../v2v/cmdline.ml:230
 msgid "Use password from file"
 msgstr "Скористатися паролем із файла"
 
-#: ../v2v/cmdline.ml:224
+#: ../v2v/cmdline.ml:226
 msgid "Use password from file to connect to output hypervisor"
 msgstr ""
 
@@ -3249,7 +3294,7 @@ msgstr "Записуємо метадані XML libvirt до %s…"
 msgid "Writing: %s"
 msgstr "Записуємо: %s"
 
-#: ../resize/resize.ml:799
+#: ../resize/resize.ml:806
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
@@ -3257,7 +3302,7 @@ msgstr ""
 "Не можна використовувати --expand, якщо немає додаткового місця для "
 "розширення. Вам слід збільшити диск призначення на принаймні %s."
 
-#: ../resize/resize.ml:811
+#: ../resize/resize.ml:818
 msgid ""
 "You cannot use --shrink when there is no deficit (see ‘deficit’ in the virt-"
 "resize(1) man page)."
@@ -3315,7 +3360,7 @@ msgstr ""
 "для вибору іншої назви. Або вилучіть наявний домен на призначенні за "
 "допомогою команди «virsh undefine»."
 
-#: ../resize/resize.ml:257
+#: ../resize/resize.ml:258
 msgid "alignment cannot be < 1"
 msgstr "значення вирівнювання не може бути меншим за 1"
 
@@ -3524,7 +3569,7 @@ msgstr ""
 msgid "command '%s' not valid, see the man page"
 msgstr "команда «%s» є некоректною, див. сторінку man"
 
-#: ../v2v/inspect_source.ml:143
+#: ../v2v/inspect_source.ml:160
 msgid "connection closed"
 msgstr "з'єднання закрито"
 
@@ -3609,7 +3654,7 @@ msgstr ""
 msgid "could not parse device name ‘%s’ from the source libvirt XML"
 msgstr "не вдалося обробити назву пристрою «%s» XML libvirt джерела"
 
-#: ../v2v/parse_ovf_from_ova.ml:179
+#: ../v2v/parse_ovf_from_ova.ml:180
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
 
@@ -3643,6 +3688,10 @@ msgstr "не вдалося оновити буфер libvirt %s"
 #: ../v2v/linux_bootloaders.ml:319
 msgid "could not remove grub2 serial console (ignored)"
 msgstr "не вдалося вилучити послідовну консоль grub2 (проігноровано)"
+
+#: ../v2v/inspect_source.ml:67
+msgid "could not write to the guest filesystem: %s"
+msgstr ""
 
 #: ../builder/downloader.ml:92
 msgid "cp (download) command failed copying ‘%s’"
@@ -3696,7 +3745,7 @@ msgstr "заборонений символ (%c) у назві операції"
 msgid "discard/trim is not supported"
 msgstr "підтримки відкидання або обрізання не передбачено"
 
-#: ../v2v/v2v.ml:361
+#: ../v2v/v2v.ml:350
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -3721,7 +3770,7 @@ msgstr ""
 "використати параметр «-of» для примусового визначення формату виведення "
 "даних."
 
-#: ../v2v/parse_libvirt_xml.ml:190
+#: ../v2v/parse_libvirt_xml.ml:197
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr "дисплей <graphics type='%s'> у вхідному XML libvirt проігноровано"
 
@@ -3785,11 +3834,11 @@ msgstr "дублювання назви операції (%s)"
 msgid "element %s not found"
 msgstr "не знайдено елемента «%s»"
 
-#: ../resize/resize.ml:171
+#: ../resize/resize.ml:172
 msgid "empty --expand option"
 msgstr "порожній параметр --expand"
 
-#: ../resize/resize.ml:187
+#: ../resize/resize.ml:188
 msgid "empty --shrink option"
 msgstr "порожній параметр --shrink"
 
@@ -3800,13 +3849,13 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../sysprep/main.ml:59 ../resize/resize.ml:325 ../resize/resize.ml:318
+#: ../sysprep/main.ml:59 ../resize/resize.ml:328 ../resize/resize.ml:321
 msgid "error parsing URI ‘%s’. Look for error messages printed above."
 msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/parse_ovf_from_ova.ml:152
+#: ../v2v/parse_ovf_from_ova.ml:153
 msgid "error parsing disk fileRef"
 msgstr "помилка під час спроби обробити fileRef диска"
 
@@ -3831,23 +3880,23 @@ msgid ""
 msgstr ""
 "очікуємо, що вираз XML поверне ціле число (вираз: %s, відповідний рядок: %s)"
 
-#: ../v2v/cmdline.ml:434
+#: ../v2v/cmdline.ml:446
 msgid "expecting a disk image (filename) on the command line"
 msgstr "у командному рядку очікувався образ диска (назва файла)"
 
-#: ../v2v/cmdline.ml:461
+#: ../v2v/cmdline.ml:473
 msgid "expecting a libvirt XML file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла XML libvirt"
 
-#: ../v2v/cmdline.ml:446
+#: ../v2v/cmdline.ml:458
 msgid "expecting a libvirt guest name on the command line"
 msgstr "у командному рядку мало бути вказано назву гостьової системи libvirt"
 
-#: ../v2v/cmdline.ml:479
+#: ../v2v/cmdline.ml:491
 msgid "expecting a single VMX file name or SSH remote path on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:470
+#: ../v2v/cmdline.ml:482
 msgid "expecting an OVA file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла OVA"
 
@@ -3866,6 +3915,14 @@ msgstr "виконання зовнішньої програми «%s» заве
 #: ../common/mltools/tools_utils.ml:351 ../common/mltools/tools_utils.ml:272
 msgid "external command ‘%s’ stopped by signal %d"
 msgstr "виконання зовнішньої програми «%s» зупинено сигналом %d"
+
+#: ../v2v/output_rhv_upload.ml:263
+msgid "failed server prechecks, see earlier errors"
+msgstr ""
+
+#: ../v2v/output_rhv_upload.ml:412
+msgid "failed to create virtual machine, see earlier errors"
+msgstr ""
 
 #: ../builder/downloader.ml:126
 msgid "failed to download %s: HTTP status code %s"
@@ -3902,6 +3959,16 @@ msgstr "file"
 msgid "file ‘%s’ not found in the ova"
 msgstr "файл «%s» не знайдено в ova"
 
+#: ../v2v/inspect_source.ml:65
+msgid ""
+"filesystem was mounted read-only, even though we asked for it to be mounted "
+"read-write.  This usually means that the filesystem was not cleanly "
+"unmounted.  Possible causes include trying to convert a guest which is "
+"running, or using Windows Hibernation or Fast Restart.\n"
+"\n"
+"Original error message: %s"
+msgstr ""
+
 #: ../builder/sigchecker.ml:220
 msgid ""
 "fingerprint of signature does not match the expected fingerprint!\n"
@@ -3912,7 +3979,7 @@ msgstr ""
 "  виявлений відбиток: %s\n"
 "  очікуваний відбиток: %s"
 
-#: ../resize/resize.ml:1281
+#: ../resize/resize.ml:1288
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 "форматом першого розділу є NTFS, але розділ не містить контрольної суми "
@@ -3938,8 +4005,8 @@ msgstr ""
 "вказані нижче елементи вже надано іншим елементом:\n"
 "%s"
 
-#. ../resize/resize.ml:209
-#. ../resize/resize.ml:203
+#. ../resize/resize.ml:210
+#. ../resize/resize.ml:204
 #. ../get-kernel/get_kernel.ml:59
 #. ../dib/cmdline.ml:186
 #. ../customize/customize_main.ml:82
@@ -3955,7 +4022,7 @@ msgstr "назва формату є порожнім рядком"
 msgid "fs"
 msgstr "fs"
 
-#: ../v2v/v2v.ml:486
+#: ../v2v/v2v.ml:475
 msgid ""
 "fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
 "To find out more read \"Trimming\" in virt-v2v(1).\n"
@@ -3991,13 +4058,13 @@ msgstr ""
 "створити скрипт для уможливлення розпізнавання. Див. попередні повідомлення, "
 "щоб дізнатися більше."
 
-#: ../v2v/output_glance.ml:172
+#: ../v2v/output_glance.ml:163
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 "glance: помилка вивантаження образу до glance, див. попередні повідомлення "
 "щодо помилок"
 
-#: ../v2v/v2v.ml:339
+#: ../v2v/v2v.ml:328
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -4054,7 +4121,7 @@ msgstr ""
 msgid "hostname could not be set for this type of guest"
 msgstr "для цього типу гостьових систем не можна встановлювати назви вузла"
 
-#: ../resize/resize.ml:214
+#: ../resize/resize.ml:215
 msgid "ignore|warn|error"
 msgstr "ignore|warn|error"
 
@@ -4088,7 +4155,7 @@ msgstr "у метаданих XML libvirt пропущено <name> або вк�
 msgid "input file (%s) has an unsupported type"
 msgstr "файл вхідних даних (%s) належить до непідтримуваного типу"
 
-#: ../v2v/inspect_source.ml:217
+#: ../v2v/inspect_source.ml:234
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
@@ -4106,7 +4173,7 @@ msgstr ""
 "\n"
 "Значенням визначеного поля «%s» було «unknown»."
 
-#: ../v2v/inspect_source.ml:113
+#: ../v2v/inspect_source.ml:130
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
@@ -4124,7 +4191,7 @@ msgstr ""
 "\n"
 "У образі операційної системи не виявлено кореневого пристрою."
 
-#: ../v2v/v2v.ml:300
+#: ../v2v/v2v.ml:289
 msgid ""
 "insufficient free space in the conversion server temporary directory %s "
 "(%s).\n"
@@ -4168,11 +4235,11 @@ msgid "internal error: is_file_owned: unexpected output from dpkg command: %s"
 msgstr ""
 "внутрішня помилка: is_file_owned: неочікуване виведення від програми dpkg: %s"
 
-#: ../v2v/v2v.ml:714
+#: ../v2v/v2v.ml:703
 msgid "internal error: qemu corrupted the overlay file"
 msgstr "внутрішня помилка: файл оверлею пошкоджено qemu"
 
-#: ../v2v/v2v.ml:329
+#: ../v2v/v2v.ml:318
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
@@ -4241,7 +4308,7 @@ msgstr "ядро %s перебуває поза ієрархією grub %s"
 msgid "libguestfs error: %s"
 msgstr "помилка libguestfs: %s"
 
-#: ../v2v/inspect_source.ml:170
+#: ../v2v/inspect_source.ml:187
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -4256,7 +4323,7 @@ msgstr ""
 msgid "log file %s: %s (ignored)"
 msgstr "файл журналу %s: %s (проігноровано)"
 
-#: ../resize/resize.ml:205
+#: ../resize/resize.ml:206
 msgid "lv"
 msgstr "lv"
 
@@ -4315,7 +4382,7 @@ msgstr ""
 msgid "moving file ‘%s’ to ‘%s’ failed"
 msgstr ""
 
-#: ../v2v/inspect_source.ml:150
+#: ../v2v/inspect_source.ml:167
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -4331,6 +4398,14 @@ msgid ""
 msgstr ""
 "параметрами --root-password/--password двічі встановлено пароль для "
 "користувача «%s»"
+
+#: ../v2v/output_rhv_upload.ml:153
+msgid ""
+"nbdkit Python 3 plugin is not installed or not working.  It is required if "
+"you want to use ‘-o rhv-upload’.\n"
+"\n"
+"See also \"OUTPUT TO RHV\" in the virt-v2v(1) manual."
+msgstr ""
 
 #: ../v2v/input_libvirt_vddk.ml:174
 msgid ""
@@ -4364,13 +4439,13 @@ msgstr ""
 "\n"
 "Див. також розділ «INPUT FROM VDDK» у підручнику з virt-v2v(1)."
 
-#: ../v2v/input_libvirt_vddk.ml:381
+#: ../v2v/output_rhv_upload.ml:332 ../v2v/input_libvirt_vddk.ml:381
 msgid "nbdkit did not start up.  See previous debugging messages for problems."
 msgstr ""
 "nbdkit не запустилася. Див. попередні діагностичні повідомлення, щоб виявити "
 "джерело проблеми."
 
-#: ../v2v/input_libvirt_vddk.ml:383
+#: ../v2v/output_rhv_upload.ml:334 ../v2v/input_libvirt_vddk.ml:383
 msgid ""
 "nbdkit did not start up.  There may be errors printed by nbdkit above.\n"
 "\n"
@@ -4390,13 +4465,19 @@ msgid ""
 "See \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:147
+#: ../v2v/output_rhv_upload.ml:132
+msgid ""
+"nbdkit is not installed or not working.  It is required to use ‘-o rhv-"
+"upload’.  See \"OUTPUT TO RHV\" in the virt-v2v(1) manual."
+msgstr ""
+
+#: ../v2v/output_rhv_upload.ml:143 ../v2v/input_libvirt_vddk.ml:147
 msgid "nbdkit is not new enough, you need to upgrade to nbdkit ≥ 1.1.16"
 msgstr ""
 "nbdkit є недостатньо новим, вам слід оновити nbdkit принаймні до версії "
 "1.1.16"
 
-#: ../v2v/input_libvirt_vddk.ml:198
+#: ../v2v/output_rhv_upload.ml:169 ../v2v/input_libvirt_vddk.ml:198
 msgid ""
 "nbdkit was compiled without SELinux support.  You will have to recompile "
 "nbdkit with libselinux-devel installed, or else set SELinux to Permissive "
@@ -4410,15 +4491,15 @@ msgstr ""
 msgid "network"
 msgstr "мережа"
 
-#: ../resize/resize.ml:195
+#: ../resize/resize.ml:196
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
-#: ../v2v/cmdline.ml:363
+#: ../v2v/cmdline.ml:365
 msgid "no -io (input options) are allowed here"
 msgstr ""
 
-#: ../v2v/cmdline.ml:390
+#: ../v2v/cmdline.ml:392
 msgid "no -oo (output options) are allowed here"
 msgstr ""
 
@@ -4472,7 +4553,7 @@ msgstr ""
 "Це помилка сховища-джерела. Скористайтеся параметром -v для отримання "
 "додаткових даних."
 
-#: ../v2v/parse_ovf_from_ova.ml:157
+#: ../v2v/parse_ovf_from_ova.ml:158
 msgid "no href in ovf:File (id=%s)"
 msgstr "немає href у ovf:File (id=%s)"
 
@@ -4530,6 +4611,10 @@ msgstr ""
 "Будь ласка, створіть повідомлення щодо вади, вказавши використані вами "
 "аргументи командного рядка."
 
+#: ../v2v/output_rhv_upload.ml:125
+msgid "no python binary called ‘%s’ can be found on the $PATH"
+msgstr ""
+
 #: ../v2v/input_libvirt.ml:72
 msgid ""
 "no support for remote libvirt connections to '-ic %s'.  The conversion may "
@@ -4538,7 +4623,7 @@ msgstr ""
 "немає підтримки віддалених з’єднань libvirt з «-ic %s». Перетворення може "
 "призвести до помилок під час спроб прочитати диски джерел даних."
 
-#: ../v2v/v2v.ml:462
+#: ../v2v/v2v.ml:451
 msgid ""
 "not enough free space for conversion on filesystem ‘%s’.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -4550,7 +4635,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
-#: ../v2v/create_ovf.ml:744
+#: ../v2v/create_ovf.ml:958
 msgid ""
 "oVirt cannot emulate ‘%s’ sound cards.  This sound card will be dropped from "
 "the output."
@@ -4578,11 +4663,11 @@ msgstr ""
 "підтримку копіювання за допомогою SSH передбачено лише з VMware ESXi або "
 "Xen. Див. сторінку підручника virt-v2v-copy-to-local(1)."
 
-#: ../v2v/cmdline.ml:485
+#: ../v2v/cmdline.ml:497
 msgid "only ‘-it ssh’ can be used here"
 msgstr ""
 
-#: ../v2v/cmdline.ml:452
+#: ../v2v/cmdline.ml:464
 msgid "only ‘-it vddk’ can be used here"
 msgstr ""
 
@@ -4634,7 +4719,7 @@ msgstr ""
 "пристрій, а не на розділ. Якщо це попередження ви вважаєте помилковим, ви "
 "можете вимкнути його за допомогою параметра --no-warn-if-partition"
 
-#: ../v2v/v2v.ml:371
+#: ../v2v/v2v.ml:360
 msgid ""
 "output format should be ‘raw’ or ‘qcow2’.\n"
 "\n"
@@ -4667,7 +4752,7 @@ msgstr ""
 "виведенням «%s» не може бути символьний пристрій, виводити дані можна лише "
 "до звичайного файла"
 
-#: ../v2v/parse_ovf_from_ova.ml:117
+#: ../v2v/parse_ovf_from_ova.ml:118
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
@@ -4675,7 +4760,7 @@ msgstr ""
 "Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте про "
 "цю ваду, додавши файл *.ovf, видобутий з ova"
 
-#: ../v2v/parse_ovf_from_ova.ml:114
+#: ../v2v/parse_ovf_from_ova.ml:115
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -4687,12 +4772,12 @@ msgstr ""
 msgid "package ‘%s’ contains no files"
 msgstr "у пакунку «%s» не міститься файлів"
 
-#. ../resize/resize.ml:199
-#: ../resize/resize.ml:212 ../resize/resize.ml:204 ../resize/resize.ml:200
+#. ../resize/resize.ml:200
+#: ../resize/resize.ml:213 ../resize/resize.ml:205 ../resize/resize.ml:201
 msgid "part"
 msgstr "частина"
 
-#: ../resize/resize.ml:211 ../resize/resize.ml:210
+#: ../resize/resize.ml:212 ../resize/resize.ml:211
 msgid "part=size"
 msgstr "частина=розмір"
 
@@ -4722,7 +4807,7 @@ msgstr "для цього типу гостьових систем не можн
 msgid "please include an operating system element"
 msgstr "будь ласка, включіть елемент операційної системи"
 
-#: ../resize/resize.ml:1068 ../resize/resize.ml:1044
+#: ../resize/resize.ml:1075 ../resize/resize.ml:1051
 msgid "pread-device: short read"
 msgstr "pread-device: неповне читання"
 
@@ -4740,7 +4825,7 @@ msgstr ""
 "pwrite: незавершений запис під час відновлення заголовка розділу резервної "
 "пам’яті"
 
-#: ../v2v/v2v.ml:766 ../v2v/v2v.ml:325
+#: ../v2v/v2v.ml:755 ../v2v/v2v.ml:314
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 "помилка під час спроби виконати qemu-img, див. попередні повідомлення щодо "
@@ -4781,11 +4866,28 @@ msgstr ""
 msgid "repository folder ‘%s’ doesn’t exist"
 msgstr ""
 
+#: ../resize/resize.ml:148
+msgid "resize.f2fs"
+msgstr ""
+
 #: ../resize/resize.ml:143
 msgid "resize2fs"
 msgstr "resize2fs"
 
-#: ../v2v/inspect_source.ml:161
+#: ../v2v/output_rhv_upload.ml:281
+msgid ""
+"rhv-upload: -of %s: Only output format ‘raw’ or ‘qcow2’ is supported.  If "
+"the input is in a different format then force one of these output formats by "
+"adding either ‘-of raw’ or ‘-of qcow2’ on the command line."
+msgstr ""
+
+#: ../v2v/output_rhv_upload.ml:177
+msgid ""
+"rhv-upload: currently you must use ‘%s’.  This restriction will be loosened "
+"in a future version."
+msgstr ""
+
+#: ../v2v/inspect_source.ml:178
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 "не знайдено кореневого пристрою %s. Знайдено такі кореневі пристрої: %s"
@@ -4806,7 +4908,7 @@ msgstr "скрипт: помилка (код %d)"
 msgid "script: killed by signal (%d)"
 msgstr "скрипт: перервано за сигналом (%d)"
 
-#: ../resize/resize.ml:196
+#: ../resize/resize.ml:197
 msgid "sectors"
 msgstr "сектори"
 
@@ -4830,35 +4932,35 @@ msgstr "списки джерел і відбитків мають різну д
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr "диск джерела має атрибут <source dev=...> у XML"
 
-#: ../v2v/v2v.ml:843
+#: ../v2v/v2v.ml:832
 msgid "source has multiple hard disk types!"
 msgstr "у джерела декілька типів жорстких дисків!"
 
-#: ../v2v/v2v.ml:859
+#: ../v2v/v2v.ml:848
 msgid "source has multiple network adapter model!"
 msgstr "у джерела декілька моделей адаптера мережі!"
 
-#: ../v2v/v2v.ml:841 ../v2v/v2v.ml:248
+#: ../v2v/v2v.ml:830 ../v2v/v2v.ml:237
 msgid "source has no hard disks!"
 msgstr "у джерелі немає жорстких дисків!"
 
-#: ../v2v/v2v.ml:851
+#: ../v2v/v2v.ml:840
 msgid "source has unrecognized hard disk type"
 msgstr "у джерела нерозпізнаний тип жорсткого диска"
 
-#: ../v2v/v2v.ml:849
+#: ../v2v/v2v.ml:838
 msgid "source has unsupported hard disk type ‘%s’"
 msgstr "у джерела непідтримуваний тип жорсткого диска, «%s»"
 
-#: ../v2v/v2v.ml:865
+#: ../v2v/v2v.ml:854
 msgid "source has unsupported network adapter model ‘%s’"
 msgstr "у джерела непідтримувана модель адаптера мережі, «%s»"
 
-#: ../v2v/v2v.ml:873
+#: ../v2v/v2v.ml:862
 msgid "source has unsupported video adapter model ‘%s’"
 msgstr "у джерела непідтримувана модель відеоадаптера, «%s»"
 
-#: ../v2v/v2v.ml:243
+#: ../v2v/v2v.ml:232
 msgid ""
 "source sockets * cores * threads <> number of vCPUs.\n"
 "Sockets %d * cores per socket %d * threads %d = %d, but number of vCPUs = "
@@ -4926,7 +5028,7 @@ msgstr "підпроцес надіслав сигнал або зупинив �
 msgid "subscription-manager credentials required for --sm-register"
 msgstr "для --sm-register потрібні реєстраційні дані subscription-manager"
 
-#: ../v2v/v2v.ml:375
+#: ../v2v/v2v.ml:364
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -4939,7 +5041,7 @@ msgid "the --no-trim option has been removed and now does nothing"
 msgstr ""
 "параметр --no-trim вилучено зі списку параметрів, тепер він не потрібен"
 
-#: ../v2v/cmdline.ml:175
+#: ../v2v/cmdline.ml:177
 msgid "the --vmtype option has been removed and now does nothing"
 msgstr "параметр --vmtype вилучено зі списку параметрів, тепер він не потрібен"
 
@@ -4976,7 +5078,7 @@ msgid ""
 "the repository must contain an index file when running in automated mode"
 msgstr ""
 
-#: ../resize/resize.ml:470
+#: ../resize/resize.ml:475
 msgid "the source disk has no partitions"
 msgstr "на диску джерела немає розділів"
 
@@ -5013,7 +5115,7 @@ msgstr "значення не є об’єктом"
 msgid "the value of the key ‘%s’ is not an object"
 msgstr "значенням ключа «%s» не є об’єкт"
 
-#: ../v2v/create_ovf.ml:250
+#: ../v2v/create_ovf.ml:473
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -5141,7 +5243,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/v2v.ml:665
+#: ../v2v/v2v.ml:654
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -5176,7 +5278,7 @@ msgstr ""
 "помилка завантаження 7B). Якщо таке трапляється, спробуйте вимкнути групові "
 "правила до перетворення."
 
-#: ../v2v/parse_libvirt_xml.ml:473
+#: ../v2v/parse_libvirt_xml.ml:480
 msgid "this guest has a passthrough host device which will be ignored"
 msgid_plural "this guest has passthrough host devices which will be ignored"
 msgstr[0] ""
@@ -5189,7 +5291,7 @@ msgstr[2] ""
 "у цій гостьовій системі містяться основні пристрої передавання даних, який "
 "буде проігноровано"
 
-#: ../v2v/parse_libvirt_xml.ml:264 ../v2v/copy_to_local.ml:285
+#: ../v2v/parse_libvirt_xml.ml:271 ../v2v/copy_to_local.ml:285
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
@@ -5216,6 +5318,10 @@ msgstr "забагато параметрів, мало бути «версія-
 
 #: ../builder/repository_main.ml:100
 msgid "too many parameters, only one path to repository is allowed"
+msgstr ""
+
+#: ../v2v/output_rhv_upload.ml:380
+msgid "transfer of disk %d/%d failed, see earlier error messages"
 msgstr ""
 
 #: ../v2v/convert_linux.ml:826
@@ -5277,15 +5383,15 @@ msgstr ""
 msgid "unhandled checksum type ‘%s’"
 msgstr "непридатний до обробки тип контрольних сум «%s»"
 
-#: ../resize/resize.ml:266
+#: ../resize/resize.ml:267
 msgid "unknown --align-first option: use never|always|auto"
 msgstr "невідомий параметр --align-first: можливі варіанти — never|always|auto"
 
-#: ../v2v/cmdline.ml:171
+#: ../v2v/cmdline.ml:173
 msgid "unknown --root option: %s"
 msgstr "невідомий параметр --root: %s"
 
-#: ../resize/resize.ml:274
+#: ../resize/resize.ml:275
 msgid "unknown --unknown-filesystems: use ignore|warn|error"
 msgstr ""
 "невідоме значення --unknown-filesystems: мало бути ignore, warn або error"
@@ -5294,35 +5400,35 @@ msgstr ""
 msgid "unknown -i option: %s"
 msgstr "невідомий параметр -i: %s"
 
-#: ../v2v/cmdline.ml:141
+#: ../v2v/cmdline.ml:143
 msgid "unknown -o option: %s"
 msgstr "невідомий параметр -o: %s"
 
-#: ../v2v/cmdline.ml:152
+#: ../v2v/cmdline.ml:154
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
-#: ../v2v/parse_ovf_from_ova.ml:98
+#: ../v2v/parse_ovf_from_ova.ml:99
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr "невідоме значення Config:firmware %s (мало бути «bios» або «efi»)"
 
-#: ../v2v/input_vmx.ml:457
+#: ../v2v/input_vmx.ml:458
 msgid "unknown firmware value '%s', assuming BIOS"
 msgstr "невідоме значення мікропрограми, «%s», припускаємо BIOS"
 
-#: ../v2v/create_ovf.ml:215
+#: ../v2v/create_ovf.ml:438 ../v2v/create_ovf.ml:241
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr "невідома гостьова операційна система: %s %s %d.%d %s (%s)"
 
-#: ../v2v/cmdline.ml:311
+#: ../v2v/cmdline.ml:313
 msgid "unknown input transport ‘-it %s’"
 msgstr ""
 
-#: ../v2v/input_vmx.ml:473
+#: ../v2v/input_vmx.ml:474
 msgid "unknown sound device '%s' ignored"
 msgstr "невідомий звуковий пристрій «%s» проігноровано"
 
-#: ../v2v/parse_libvirt_xml.ml:231
+#: ../v2v/parse_libvirt_xml.ml:238
 msgid "unknown sound model %s ignored"
 msgstr "невідому звукову модель %s проігноровано"
 
@@ -5330,12 +5436,12 @@ msgstr "невідому звукову модель %s проігнорован
 msgid "unknown source hypervisor (‘%s’) in metadata"
 msgstr "невідомий гіпервізор джерела («%s») у метаданих"
 
-#. ../resize/resize.ml:869
-#: ../resize/resize.ml:957 ../resize/resize.ml:926 ../resize/resize.ml:887
+#. ../resize/resize.ml:876
+#: ../resize/resize.ml:964 ../resize/resize.ml:933 ../resize/resize.ml:894
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr "невідомий або недоступний метод розкриття файлової системи %s на %s"
 
-#: ../v2v/parse_ovf_from_ova.ml:165
+#: ../v2v/parse_ovf_from_ova.ml:166
 msgid "unsupported compression in OVF: %s"
 msgstr "непідтримуване стискання у OVF: %s"
 
@@ -5344,7 +5450,7 @@ msgstr "непідтримуване стискання у OVF: %s"
 msgid "uri"
 msgstr "адреса"
 
-#: ../resize/resize.ml:306
+#: ../resize/resize.ml:309
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr "Користування: %s [--параметри] вхідний_диск вихідний_диск"
 
@@ -5481,7 +5587,7 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr "virt-resize не встановлено (або програма не працює)"
 
-#: ../v2v/parse_libvirt_xml.ml:187
+#: ../v2v/parse_libvirt_xml.ml:194
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
@@ -5489,7 +5595,7 @@ msgstr ""
 "У virt-v2v не передбачено підтримки локальних дисплеїв, отже so <graphics "
 "type='%s'> у вхідних даних XML libvirt проігноровано"
 
-#: ../v2v/v2v.ml:632
+#: ../v2v/v2v.ml:621
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 "virt-v2v не може виконувати перетворення цього типу гостьових систем (%s/%s)"
@@ -5567,12 +5673,12 @@ msgstr "не можна одночасно використовувати пар
 msgid "you cannot use --in-place and -o options together"
 msgstr "не можна одночасно використовувати параметри --in-place і -o"
 
-#: ../resize/resize.ml:788
+#: ../resize/resize.ml:795
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 "не можна використовувати одночасно параметр --expand і параметр --shrink"
 
-#: ../sparsify/cmdline.ml:141 ../resize/resize.ml:312
+#: ../sparsify/cmdline.ml:141 ../resize/resize.ml:315
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "ви не можете скористатися тим самим образом диска для введення та виведення "
@@ -6122,10 +6228,10 @@ msgstr "%s: «%s» не є числовим значенням.\n"
 
 #: common/mltools/getopt-c.c:198 fish/run-0.c:513 fish/run-0.c:586
 #: fish/run-0.c:873 fish/run-0.c:1687 fish/run-0.c:1720 fish/run-0.c:1743
-#: fish/run-0.c:2398 fish/run-0.c:2494 fish/run-1.c:910 fish/run-1.c:994
-#: fish/run-1.c:1416 fish/run-1.c:1651 fish/run-1.c:1670 fish/run-1.c:1939
-#: fish/run-1.c:2008 fish/run-1.c:2031 fish/run-1.c:2140 fish/run-1.c:2159
-#: fish/run-1.c:2178 fish/run-1.c:2479 fish/run-1.c:2582 fish/run-2.c:582
+#: fish/run-0.c:2398 fish/run-0.c:2494 fish/run-1.c:931 fish/run-1.c:1015
+#: fish/run-1.c:1437 fish/run-1.c:1672 fish/run-1.c:1691 fish/run-1.c:1960
+#: fish/run-1.c:2029 fish/run-1.c:2052 fish/run-1.c:2161 fish/run-1.c:2180
+#: fish/run-1.c:2199 fish/run-1.c:2500 fish/run-1.c:2603 fish/run-2.c:582
 #: fish/run-2.c:601 fish/run-2.c:853 fish/run-2.c:1483 fish/run-2.c:1534
 #: fish/run-2.c:1601 fish/run-2.c:1838 fish/run-2.c:1891 fish/run-2.c:1948
 #: fish/run-2.c:2266 fish/run-3.c:578 fish/run-3.c:790 fish/run-3.c:879
@@ -6603,22 +6709,22 @@ msgstr ""
 msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr "%s: некоректний цілий параметр (%s повернуто %u)\n"
 
-#: cmds-gperf.gperf:1766
+#: cmds-gperf.gperf:1769
 #, c-format
 msgid "error: incorrect number of arguments\n"
 msgstr "помилка: помилкова кількість аргументів\n"
 
-#: cmds-gperf.gperf:1768
+#: cmds-gperf.gperf:1771
 #, c-format
 msgid "usage: %s\n"
 msgstr "користування: %s\n"
 
-#: cmds-gperf.gperf:1769
+#: cmds-gperf.gperf:1772
 #, c-format
 msgid "type 'help %s' for more help on %s\n"
 msgstr "введіть «help %s», щоб отримати додаткові довідкові дані щодо %s\n"
 
-#: cmds-gperf.gperf:1774
+#: cmds-gperf.gperf:1777
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: невідома команда\n"
@@ -6646,12 +6752,12 @@ msgstr "встановити ACL POSIX, пов’язаний з файлом"
 #: fish/cmds.c:493 fish/cmds.c:496 fish/cmds.c:507 fish/cmds.c:510
 #: fish/cmds.c:513 fish/cmds.c:533 fish/cmds.c:538 fish/cmds.c:557
 #: fish/cmds.c:600 fish/cmds.c:639 fish/cmds.c:648 fish/cmds.c:664
-#: fish/cmds.c:691 fish/cmds.c:757 fish/cmds.c:760 fish/cmds.c:835
-#: fish/cmds.c:886 fish/cmds.c:894 fish/cmds.c:938 fish/cmds.c:977
-#: fish/cmds.c:980 fish/cmds.c:983 fish/cmds.c:989 fish/cmds.c:1003
-#: fish/cmds.c:1012 fish/cmds.c:1031 fish/cmds.c:1034 fish/cmds.c:1040
-#: fish/cmds.c:1088 fish/cmds.c:1115 fish/cmds.c:1119 fish/cmds.c:1132
-#: fish/cmds.c:1135 fish/cmds.c:1144 fish/cmds.c:1166
+#: fish/cmds.c:692 fish/cmds.c:758 fish/cmds.c:761 fish/cmds.c:836
+#: fish/cmds.c:887 fish/cmds.c:895 fish/cmds.c:939 fish/cmds.c:978
+#: fish/cmds.c:981 fish/cmds.c:984 fish/cmds.c:990 fish/cmds.c:1004
+#: fish/cmds.c:1013 fish/cmds.c:1032 fish/cmds.c:1035 fish/cmds.c:1041
+#: fish/cmds.c:1089 fish/cmds.c:1116 fish/cmds.c:1120 fish/cmds.c:1133
+#: fish/cmds.c:1136 fish/cmds.c:1145 fish/cmds.c:1167
 #, c-format
 msgid "alias for '%s'"
 msgstr "псевдонім для «%s»"
@@ -6758,7 +6864,7 @@ msgstr "встановити декілька вузлів Augeas"
 msgid "add/remove an Augeas lens transformation"
 msgstr "додати/вилучити перетворення лінзи Augeas"
 
-#: fish/cmds.c:535 fish/cmds.c:672
+#: fish/cmds.c:535 fish/cmds.c:673
 msgid "test availability of some parts of the API"
 msgstr "перевірити доступність певних частин програмного інтерфейсу"
 
@@ -7031,7 +7137,7 @@ msgstr "обчислити контрольну суму MD5, SHAx або CRC ф
 msgid "change file mode"
 msgstr "змінити режим доступу до файла"
 
-#: fish/cmds.c:611 fish/cmds.c:823
+#: fish/cmds.c:611 fish/cmds.c:824
 msgid "change file owner and group"
 msgstr "змінити власника і групу належності файла"
 
@@ -7169,7 +7275,7 @@ msgstr "зберегти файл у локальній системі"
 msgid "download the given data units from the disk"
 msgstr "отримати дані у вказаних одиницях із диска"
 
-#: fish/cmds.c:652 fish/cmds.c:942
+#: fish/cmds.c:652 fish/cmds.c:943
 msgid "download a file to the local machine given its inode"
 msgstr "зберегти файл у локальній системі за заданим inode"
 
@@ -7201,9 +7307,9 @@ msgstr "повернути копію параметрів клієнту"
 msgid "edit a file"
 msgstr "редагувати файл"
 
-#: fish/cmds.c:661 fish/cmds.c:662 fish/cmds.c:673 fish/cmds.c:674
-#: fish/cmds.c:731 fish/cmds.c:732 fish/cmds.c:1182 fish/cmds.c:1183
-#: fish/cmds.c:1188 fish/cmds.c:1189 fish/cmds.c:1191 fish/cmds.c:1192
+#: fish/cmds.c:661 fish/cmds.c:662 fish/cmds.c:674 fish/cmds.c:675
+#: fish/cmds.c:732 fish/cmds.c:733 fish/cmds.c:1183 fish/cmds.c:1184
+#: fish/cmds.c:1189 fish/cmds.c:1190 fish/cmds.c:1192 fish/cmds.c:1193
 msgid "return lines matching a pattern"
 msgstr "повернути рядки, що відповідають зразку"
 
@@ -7223,1709 +7329,1713 @@ msgstr "перевірити, чи існує файл або каталог"
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
 msgstr "встановити завантажувач SYSLINUX на файлову систему ext2/3/4 або btrfs"
 
-#: fish/cmds.c:670 fish/cmds.c:671
+#: fish/cmds.c:670
+msgid "expand a f2fs filesystem"
+msgstr ""
+
+#: fish/cmds.c:671 fish/cmds.c:672
 msgid "preallocate a file in the guest filesystem"
 msgstr "попередньо виокремити місце для файла на гостьовій файловій системі"
 
-#: fish/cmds.c:675
+#: fish/cmds.c:676
 msgid "determine file type"
 msgstr "визначити тип файла"
 
-#: fish/cmds.c:676
+#: fish/cmds.c:677
 msgid "detect the architecture of a binary file"
 msgstr "визначити архітектуру бінарного файла"
 
-#: fish/cmds.c:677
+#: fish/cmds.c:678
 msgid "return the size of the file in bytes"
 msgstr "повернути розмір файла у байтах"
 
-#: fish/cmds.c:678
+#: fish/cmds.c:679
 msgid "check if filesystem is available"
 msgstr "перевірити, чи є доступною файлова система"
 
-#: fish/cmds.c:679
+#: fish/cmds.c:680
 msgid "walk through the filesystem content"
 msgstr "пройти вмістом файлової системи"
 
-#: fish/cmds.c:680
+#: fish/cmds.c:681
 msgid "fill a file with octets"
 msgstr "заповнити файл вісімковими значеннями"
 
-#: fish/cmds.c:681
+#: fish/cmds.c:682
 msgid "fill a directory with empty files"
 msgstr "заповнити каталог порожніми файлами"
 
-#: fish/cmds.c:682
+#: fish/cmds.c:683
 msgid "fill a file with a repeating pattern of bytes"
 msgstr "заповнити файл повторюваним зразком рядка байтів"
 
-#: fish/cmds.c:683
+#: fish/cmds.c:684
 msgid "find all files and directories"
 msgstr "знайти всі файли і каталоги"
 
-#: fish/cmds.c:684
+#: fish/cmds.c:685
 msgid "find all files and directories, returning NUL-separated list"
 msgstr ""
 "знайти всі файли і каталоги, повернути відокремлений символами NUL список"
 
-#: fish/cmds.c:685
+#: fish/cmds.c:686
 msgid "search the entries associated to the given inode"
 msgstr "шукати записи, пов’язані із заданим inode"
 
-#: fish/cmds.c:686
+#: fish/cmds.c:687
 msgid "find a filesystem by label"
 msgstr "знайти файлову систему за міткою"
 
-#: fish/cmds.c:687
+#: fish/cmds.c:688
 msgid "find a filesystem by UUID"
 msgstr "знайти файлову систему за UUID"
 
-#: fish/cmds.c:688
+#: fish/cmds.c:689
 msgid "run the filesystem checker"
 msgstr "виконати перевірку файлової системи"
 
-#: fish/cmds.c:689
+#: fish/cmds.c:690
 msgid "trim free space in a filesystem"
 msgstr "обрізати вільне місце у файловій системі"
 
-#: fish/cmds.c:693
+#: fish/cmds.c:694
 msgid "get the additional kernel options"
 msgstr "отримати додаткові параметри ядра"
 
-#: fish/cmds.c:694 fish/cmds.c:696
+#: fish/cmds.c:695 fish/cmds.c:697
 msgid "get the backend"
 msgstr "отримати назву модуля"
 
-#: fish/cmds.c:695
+#: fish/cmds.c:696
 msgid "get autosync mode"
 msgstr "отримати значення режиму автосинхронізації"
 
-#: fish/cmds.c:697
+#: fish/cmds.c:698
 msgid "get a single per-backend settings string"
 msgstr "отримати окремий рядок параметрів, специфічний для модуля"
 
-#: fish/cmds.c:698
+#: fish/cmds.c:699
 msgid "get per-backend settings"
 msgstr "отримати параметри окремого модуля"
 
-#: fish/cmds.c:699
+#: fish/cmds.c:700
 msgid "get the appliance cache directory"
 msgstr "отримати назву каталогу кешування системи розгортання"
 
-#: fish/cmds.c:700
+#: fish/cmds.c:701
 msgid "get direct appliance mode flag"
 msgstr "отримати значення режиму безпосередньої роботи з пристроєм"
 
-#: fish/cmds.c:701
+#: fish/cmds.c:702
 msgid "get ext2 file attributes of a file"
 msgstr "отримати атрибути файла у ext2"
 
-#: fish/cmds.c:702
+#: fish/cmds.c:703
 msgid "get ext2 file generation of a file"
 msgstr "отримати стан створення файла у ext2"
 
-#: fish/cmds.c:703
+#: fish/cmds.c:704
 msgid "get the ext2/3/4 filesystem label"
 msgstr "отримати мітку файлової системи ext2/3/4"
 
-#: fish/cmds.c:704
+#: fish/cmds.c:705
 msgid "get the ext2/3/4 filesystem UUID"
 msgstr "отримати UUID файлової системи ext2/3/4"
 
-#: fish/cmds.c:705
+#: fish/cmds.c:706
 msgid "get the hypervisor binary"
 msgstr "отримати назву виконуваного файла гіпервізора"
 
-#: fish/cmds.c:706
+#: fish/cmds.c:707
 msgid "get the handle identifier"
 msgstr "отримати ідентифікатор дескриптора"
 
-#: fish/cmds.c:707
+#: fish/cmds.c:708
 msgid "challenge of i'th requested credential"
 msgstr "випробування i-их запитаних реєстраційних даних"
 
-#: fish/cmds.c:708
+#: fish/cmds.c:709
 msgid "default result of i'th requested credential"
 msgstr "типовий результат i-го запиту щодо реєстраційних даних"
 
-#: fish/cmds.c:709
+#: fish/cmds.c:710
 msgid "prompt of i'th requested credential"
 msgstr "запит щодо i-их запитаних реєстраційних даних"
 
-#: fish/cmds.c:710
+#: fish/cmds.c:711
 msgid "get list of credentials requested by libvirt"
 msgstr ""
 "отримати список реєстраційних даних, запит щодо яких надсилався libvirt"
 
-#: fish/cmds.c:711
+#: fish/cmds.c:712
 msgid "get memory allocated to the hypervisor"
 msgstr "отримати об’єм пам’яті, отриманий гіпервізором"
 
-#: fish/cmds.c:712
+#: fish/cmds.c:713
 msgid "get enable network flag"
 msgstr "отримати значення прапорця вмикання мережі"
 
-#: fish/cmds.c:713
+#: fish/cmds.c:714
 msgid "get the search path"
 msgstr "отримати адресу каталогу пошуку"
 
-#: fish/cmds.c:714
+#: fish/cmds.c:715
 msgid "get process group flag"
 msgstr "отримати значення прапорця групи обробки"
 
-#: fish/cmds.c:715
+#: fish/cmds.c:716
 msgid "get PID of hypervisor"
 msgstr "отримати PID гіпервізора"
 
-#: fish/cmds.c:716
+#: fish/cmds.c:717
 msgid "get the program name"
 msgstr "отримати назву програми"
 
-#: fish/cmds.c:717
+#: fish/cmds.c:718
 msgid "get the hypervisor binary (usually qemu)"
 msgstr "отримати назву виконуваного файла гіпервізора (зазвичай, qemu)"
 
-#: fish/cmds.c:718
+#: fish/cmds.c:719
 msgid "get recovery process enabled flag"
 msgstr "отримати значення прапорця відновлення процесу"
 
-#: fish/cmds.c:719
+#: fish/cmds.c:720
 msgid "get SELinux enabled flag"
 msgstr "отримати значення прапорця вмикання SELinux"
 
-#: fish/cmds.c:720
+#: fish/cmds.c:721
 msgid "get number of virtual CPUs in appliance"
 msgstr "отримати дані щодо кількості віртуальних процесорів на пристрої"
 
-#: fish/cmds.c:721
+#: fish/cmds.c:722
 msgid "get the temporary directory for sockets"
 msgstr "отримати тимчасовий каталог для сокетів"
 
-#: fish/cmds.c:722
+#: fish/cmds.c:723
 msgid "get the temporary directory"
 msgstr "отримати назву тимчасового каталогу"
 
-#: fish/cmds.c:723
+#: fish/cmds.c:724
 msgid "get command trace enabled flag"
 msgstr "отримати значення вмикання трасування команди"
 
-#: fish/cmds.c:724
+#: fish/cmds.c:725
 msgid "get the current umask"
 msgstr "отримати поточне значення umask"
 
-#: fish/cmds.c:725
+#: fish/cmds.c:726
 msgid "get verbose mode"
 msgstr "отримати значення режиму докладних повідомлень"
 
-#: fish/cmds.c:726
+#: fish/cmds.c:727
 msgid "get SELinux security context"
 msgstr "отримати значення контексту захисту SELinux"
 
-#: fish/cmds.c:727 fish/cmds.c:837
+#: fish/cmds.c:728 fish/cmds.c:838
 msgid "get a single extended attribute"
 msgstr "отримати окремий додатковий атрибут"
 
-#: fish/cmds.c:728 fish/cmds.c:838
+#: fish/cmds.c:729 fish/cmds.c:839
 msgid "list extended attributes of a file or directory"
 msgstr "показати список додаткових атрибутів файла або каталогу"
 
-#: fish/cmds.c:729
+#: fish/cmds.c:730
 msgid "expand wildcards in command"
 msgstr "розгорнути шаблони заміни у команду"
 
-#: fish/cmds.c:730
+#: fish/cmds.c:731
 msgid "expand a wildcard path"
 msgstr "розгорнути адресу каталогу з шаблонами заміни"
 
-#: fish/cmds.c:733
+#: fish/cmds.c:734
 msgid "install GRUB 1"
 msgstr "встановити GRUB 1"
 
-#: fish/cmds.c:734
+#: fish/cmds.c:735
 msgid "return first 10 lines of a file"
 msgstr "повернути перші 10 рядків файла"
 
-#: fish/cmds.c:735
+#: fish/cmds.c:736
 msgid "return first N lines of a file"
 msgstr "повернути перші N рядків файла"
 
-#: fish/cmds.c:736
+#: fish/cmds.c:737
 msgid "dump a file in hexadecimal"
 msgstr "створити шістнадцятковий дамп файла"
 
-#: fish/cmds.c:737
+#: fish/cmds.c:738
 msgid "edit with a hex editor"
 msgstr "редагувати за допомогою шістнадцяткового редактора"
 
-#: fish/cmds.c:738
+#: fish/cmds.c:739
 msgid "close the current hivex handle"
 msgstr "закрити поточний елемент керування hivex"
 
-#: fish/cmds.c:739
+#: fish/cmds.c:740
 msgid "commit (write) changes back to the hive"
 msgstr "внести (записати) зміни назад до гілки реєстру"
 
-#: fish/cmds.c:740
+#: fish/cmds.c:741
 msgid "add a child node"
 msgstr "додати дочірній вузол"
 
-#: fish/cmds.c:741
+#: fish/cmds.c:742
 msgid "return list of nodes which are subkeys of node"
 msgstr "повернути список вузлів, які є підключами вказаного вузла"
 
-#: fish/cmds.c:742
+#: fish/cmds.c:743
 msgid "delete a node (recursively)"
 msgstr "вилучити вузол (рекурсивно)"
 
-#: fish/cmds.c:743
+#: fish/cmds.c:744
 msgid "return the named child of node"
 msgstr "повернути дочірній вузол вказаного вузла за вказаною назвою"
 
-#: fish/cmds.c:744
+#: fish/cmds.c:745
 msgid "return the named value"
 msgstr "повернути значення з вказаною назвою"
 
-#: fish/cmds.c:745
+#: fish/cmds.c:746
 msgid "return the name of the node"
 msgstr "повернути назву вузла"
 
-#: fish/cmds.c:746
+#: fish/cmds.c:747
 msgid "return the parent of node"
 msgstr "повернути батьківський вузол вказаного вузла"
 
-#: fish/cmds.c:747
+#: fish/cmds.c:748
 msgid "set or replace a single value in a node"
 msgstr "встановити або замінити окреме значення у вузлі"
 
-#: fish/cmds.c:748
+#: fish/cmds.c:749
 msgid "return list of values attached to node"
 msgstr "повернути список значень, долучених до вузла"
 
-#: fish/cmds.c:749
+#: fish/cmds.c:750
 msgid "open a Windows Registry hive file"
 msgstr "відкрити файл гілки реєстру Windows"
 
-#: fish/cmds.c:750
+#: fish/cmds.c:751
 msgid "return the root node of the hive"
 msgstr "повернути кореневий вузол гілки"
 
-#: fish/cmds.c:751
+#: fish/cmds.c:752
 msgid "return the key field from the (key, datatype, data) tuple"
 msgstr "повернути поле ключа за кортежем (ключ, тип даних, дані)"
 
-#: fish/cmds.c:752 fish/cmds.c:754
+#: fish/cmds.c:753 fish/cmds.c:755
 msgid "return the data field as a UTF-8 string"
 msgstr "повернути значення поля даних у форматі рядка UTF-8"
 
-#: fish/cmds.c:753
+#: fish/cmds.c:754
 msgid "return the data type from the (key, datatype, data) tuple"
 msgstr "повернути тип даних за кортежем (ключ, тип даних, дані)"
 
-#: fish/cmds.c:755
+#: fish/cmds.c:756
 msgid "return the data field from the (key, datatype, data) tuple"
 msgstr "повернути поле даних за кортежем (ключ, тип даних, дані)"
 
-#: fish/cmds.c:762
+#: fish/cmds.c:763
 msgid "list the contents of a single file in an initrd"
 msgstr "показати вміст окремого файла у initrd"
 
-#: fish/cmds.c:763
+#: fish/cmds.c:764
 msgid "list files in an initrd"
 msgstr "показати список файлів у initrd"
 
-#: fish/cmds.c:764
+#: fish/cmds.c:765
 msgid "add an inotify watch"
 msgstr "додати спостереження за inotify"
 
-#: fish/cmds.c:765
+#: fish/cmds.c:766
 msgid "close the inotify handle"
 msgstr "закрити елемент керування inotify"
 
-#: fish/cmds.c:766
+#: fish/cmds.c:767
 msgid "return list of watched files that had events"
 msgstr ""
 "повернути список файлів, за якими ведеться спостереження, для яких сталися "
 "події"
 
-#: fish/cmds.c:767
+#: fish/cmds.c:768
 msgid "create an inotify handle"
 msgstr "створити елемент керування inotify"
 
-#: fish/cmds.c:768
+#: fish/cmds.c:769
 msgid "return list of inotify events"
 msgstr "повернути список подій inotify"
 
-#: fish/cmds.c:769
+#: fish/cmds.c:770
 msgid "remove an inotify watch"
 msgstr "вилучити спостереження за inotify"
 
-#: fish/cmds.c:770
+#: fish/cmds.c:771
 msgid "get architecture of inspected operating system"
 msgstr "отримати значення архітектури операційної системи, яка вивчається"
 
-#: fish/cmds.c:771
+#: fish/cmds.c:772
 msgid "get distro of inspected operating system"
 msgstr ""
 "отримати значення запису дистрибутива операційної системи, яка вивчається"
 
-#: fish/cmds.c:772
+#: fish/cmds.c:773
 msgid "get drive letter mappings"
 msgstr "отримати прив’язку дисків до літер"
 
-#: fish/cmds.c:773
+#: fish/cmds.c:774
 msgid "get filesystems associated with inspected operating system"
 msgstr ""
 "отримати значення записів файлових систем, пов’язаних з операційною "
 "системою, яка вивчається"
 
-#: fish/cmds.c:774
+#: fish/cmds.c:775
 msgid "get format of inspected operating system"
 msgstr "отримати значення запису формату операційної системи, яка вивчається"
 
-#: fish/cmds.c:775
+#: fish/cmds.c:776
 msgid "get hostname of the operating system"
 msgstr "отримати значення назви вузла операційної системи"
 
-#: fish/cmds.c:776
+#: fish/cmds.c:777
 msgid "get the icon corresponding to this operating system"
 msgstr "отримати піктограму відповідної операційної системи"
 
-#: fish/cmds.c:777
+#: fish/cmds.c:778
 msgid "get major version of inspected operating system"
 msgstr "отримати значення основної версії операційної системи, яка вивчається"
 
-#: fish/cmds.c:778
+#: fish/cmds.c:779
 msgid "get minor version of inspected operating system"
 msgstr ""
 "отримати значення версії виправлення операційної системи, яка вивчається"
 
-#: fish/cmds.c:779
+#: fish/cmds.c:780
 msgid "get mountpoints of inspected operating system"
 msgstr "отримати значення точок монтування операційної системи, яка вивчається"
 
-#: fish/cmds.c:780
+#: fish/cmds.c:781
 msgid "get a possible osinfo short ID corresponding to this operating system"
 msgstr ""
 
-#: fish/cmds.c:781
+#: fish/cmds.c:782
 msgid "get package format used by the operating system"
 msgstr ""
 "отримати значення формату пакунків, що використовується операційною системою"
 
-#: fish/cmds.c:782
+#: fish/cmds.c:783
 msgid "get package management tool used by the operating system"
 msgstr ""
 "отримати значення назви програми для керування пакунками, що "
 "використовується операційною системою"
 
-#: fish/cmds.c:783
+#: fish/cmds.c:784
 msgid "get product name of inspected operating system"
 msgstr "отримати значення назви продукту операційної системи, яка вивчається"
 
-#: fish/cmds.c:784
+#: fish/cmds.c:785
 msgid "get product variant of inspected operating system"
 msgstr ""
 "отримати значення варіанта продукту операційної системи, яка вивчається"
 
-#: fish/cmds.c:785
+#: fish/cmds.c:786
 msgid "return list of operating systems found by last inspection"
 msgstr ""
 "повернути список операційних систем, знайдених під час останньої перевірки"
 
-#: fish/cmds.c:786
+#: fish/cmds.c:787
 msgid "get type of inspected operating system"
 msgstr "отримати значення типу операційної системи, яка вивчається"
 
-#: fish/cmds.c:787
+#: fish/cmds.c:788
 msgid "get Windows CurrentControlSet of inspected operating system"
 msgstr ""
 "отримати значення CurrentControlSet Windows операційної системи, яка "
 "вивчається"
 
-#: fish/cmds.c:788
+#: fish/cmds.c:789
 msgid "get the path of the Windows software hive"
 msgstr "отримати шлях до вулика software Windows"
 
-#: fish/cmds.c:789
+#: fish/cmds.c:790
 msgid "get the path of the Windows system hive"
 msgstr "отримати шлях до вулика system Windows"
 
-#: fish/cmds.c:790
+#: fish/cmds.c:791
 msgid "get Windows systemroot of inspected operating system"
 msgstr ""
 "отримати значення кореневого каталогу Windows операційної системи, яка "
 "вивчається"
 
-#: fish/cmds.c:791
+#: fish/cmds.c:792
 msgid "get live flag for install disk"
 msgstr ""
 "отримати значення прапорця портативного носія для диска для встановлення"
 
-#: fish/cmds.c:792
+#: fish/cmds.c:793
 msgid "get multipart flag for install disk"
 msgstr ""
 "отримати значення прапорця носія з декількох частин для диска для "
 "встановлення"
 
-#: fish/cmds.c:793
+#: fish/cmds.c:794
 msgid "get netinst (network installer) flag for install disk"
 msgstr ""
 "отримати значення прапорця netinst (встановлення з мережі) для диска для "
 "встановлення"
 
-#: fish/cmds.c:794 fish/cmds.c:795
+#: fish/cmds.c:795 fish/cmds.c:796
 msgid "get list of applications installed in the operating system"
 msgstr "отримати список програм, встановлених у операційній системі"
 
-#: fish/cmds.c:796
+#: fish/cmds.c:797
 msgid "inspect disk and return list of operating systems found"
 msgstr "вивчити диск і повернути список знайдених операційних систем"
 
-#: fish/cmds.c:797
+#: fish/cmds.c:798
 msgid "cause the daemon to exit (internal use only)"
 msgstr ""
 "спричинити вихід із фонової служби (лише для внутрішнього використання)"
 
-#: fish/cmds.c:798
+#: fish/cmds.c:799
 msgid "test if block device"
 msgstr "перевірити, чи є пристрій блоковим"
 
-#: fish/cmds.c:799
+#: fish/cmds.c:800
 msgid "test if character device"
 msgstr "перевірити, чи є пристрій символьним"
 
-#: fish/cmds.c:800
+#: fish/cmds.c:801
 msgid "is in configuration state"
 msgstr "у стані налаштування"
 
-#: fish/cmds.c:801
+#: fish/cmds.c:802
 msgid "test if a directory"
 msgstr "перевірити, чи є каталогом"
 
-#: fish/cmds.c:802
+#: fish/cmds.c:803
 msgid "test if FIFO (named pipe)"
 msgstr "перевірити, чи є FIFO (іменованим каналом)"
 
-#: fish/cmds.c:803
+#: fish/cmds.c:804
 msgid "test if a regular file"
 msgstr "перевірити, чи є звичайним файлом"
 
-#: fish/cmds.c:804
+#: fish/cmds.c:805
 msgid "test if mountable is a logical volume"
 msgstr "перевірити, чи є придатний до монтування том логічним"
 
-#: fish/cmds.c:805
+#: fish/cmds.c:806
 msgid "test if socket"
 msgstr "перевірити, чи є сокетом"
 
-#: fish/cmds.c:806
+#: fish/cmds.c:807
 msgid "test if symbolic link"
 msgstr "перевірити, чи є символічним посиланням"
 
-#: fish/cmds.c:807
+#: fish/cmds.c:808
 msgid "test if a device is a whole device"
 msgstr "перевірити чи займає логічний пристрій весь фізичний пристрій"
 
-#: fish/cmds.c:808
+#: fish/cmds.c:809
 msgid "test if a file contains all zero bytes"
 msgstr "визначити, чи містить файл всі нульові байти"
 
-#: fish/cmds.c:809
+#: fish/cmds.c:810
 msgid "test if a device contains all zero bytes"
 msgstr "визначити, чи містить диск всі нульові байти"
 
-#: fish/cmds.c:810
+#: fish/cmds.c:811
 msgid "get ISO information from primary volume descriptor of ISO file"
 msgstr "отримати дані щодо ISO з дескриптора основного тому файла ISO"
 
-#: fish/cmds.c:811
+#: fish/cmds.c:812
 msgid "get ISO information from primary volume descriptor of device"
 msgstr "отримати дані щодо ISO з дескриптора основного тому пристрою"
 
-#: fish/cmds.c:812
+#: fish/cmds.c:813
 msgid "close the systemd journal"
 msgstr "закрити журнал systemd"
 
-#: fish/cmds.c:813
+#: fish/cmds.c:814
 msgid "read the current journal entry"
 msgstr "прочитати поточний запис журналу"
 
-#: fish/cmds.c:814
+#: fish/cmds.c:815
 msgid "get the data threshold for reading journal entries"
 msgstr "отримати значення порогу читання даних записів журналу"
 
-#: fish/cmds.c:815
+#: fish/cmds.c:816
 msgid "get the timestamp of the current journal entry"
 msgstr "отримати часову позначку поточного запису журналу"
 
-#: fish/cmds.c:816
+#: fish/cmds.c:817
 msgid "move to the next journal entry"
 msgstr "перейти до наступного запису журналу"
 
-#: fish/cmds.c:817
+#: fish/cmds.c:818
 msgid "open the systemd journal"
 msgstr "відкрити журнал systemd"
 
-#: fish/cmds.c:818
+#: fish/cmds.c:819
 msgid "set the data threshold for reading journal entries"
 msgstr "встановити поріг читання даних записів журналу"
 
-#: fish/cmds.c:819
+#: fish/cmds.c:820
 msgid "skip forwards or backwards in the journal"
 msgstr "пересунутися до кінця або початку журналу"
 
-#: fish/cmds.c:820
+#: fish/cmds.c:821
 msgid "kill the hypervisor"
 msgstr "припинити роботу гіпервізора"
 
-#: fish/cmds.c:821
+#: fish/cmds.c:822
 msgid "launch the backend"
 msgstr "запустити вказаний модуль"
 
-#: fish/cmds.c:822
+#: fish/cmds.c:823
 msgid "change working directory"
 msgstr "змінити робочий каталог"
 
-#: fish/cmds.c:824
+#: fish/cmds.c:825
 msgid "scan and create Windows dynamic disk volumes"
 msgstr "виявити і створити динамічні дискові томи Windows"
 
-#: fish/cmds.c:825
+#: fish/cmds.c:826
 msgid "return the disks in a Windows dynamic disk group"
 msgstr "повернути список дисків у динамічній групі дисків Windows"
 
-#: fish/cmds.c:826
+#: fish/cmds.c:827
 msgid "return the name of a Windows dynamic disk group"
 msgstr "повернути назву динамічної групи дисків Windows"
 
-#: fish/cmds.c:827
+#: fish/cmds.c:828
 msgid "return the volumes in a Windows dynamic disk group"
 msgstr "повернути список томів у динамічній групі дисків Windows"
 
-#: fish/cmds.c:828
+#: fish/cmds.c:829
 msgid "remove all Windows dynamic disk volumes"
 msgstr "вилучити всі динамічні дискові томи Windows"
 
-#: fish/cmds.c:829 fish/cmds.c:830
+#: fish/cmds.c:830 fish/cmds.c:831
 msgid "scan for Windows dynamic disks"
 msgstr "виявити динамічні диски Windows"
 
-#: fish/cmds.c:831
+#: fish/cmds.c:832
 msgid "return the hint field of a Windows dynamic disk volume"
 msgstr "повернути вміст поля підказки динамічного дискового тому Windows"
 
-#: fish/cmds.c:832
+#: fish/cmds.c:833
 msgid "return the partitions in a Windows dynamic disk volume"
 msgstr "повернути список розділів на динамічному дисковому томі Windows"
 
-#: fish/cmds.c:833
+#: fish/cmds.c:834
 msgid "return the type of a Windows dynamic disk volume"
 msgstr "повернути тип динамічного дискового тому Windows"
 
-#: fish/cmds.c:839
+#: fish/cmds.c:840
 msgid "list 9p filesystems"
 msgstr "показати список файлових систем 9p"
 
-#: fish/cmds.c:840
+#: fish/cmds.c:841
 msgid "list the block devices"
 msgstr "показати список блокових пристроїв"
 
-#: fish/cmds.c:841
+#: fish/cmds.c:842
 msgid "mapping of disk labels to devices"
 msgstr "відображення міток дисків на пристрої"
 
-#: fish/cmds.c:842
+#: fish/cmds.c:843
 msgid "list device mapper devices"
 msgstr "показати список пристроїв відображення пристроїв"
 
-#: fish/cmds.c:843
+#: fish/cmds.c:844
 msgid "list event handlers"
 msgstr "показати список обробників подій"
 
-#: fish/cmds.c:844
+#: fish/cmds.c:845
 msgid "list filesystems"
 msgstr "показати список файлових систем"
 
-#: fish/cmds.c:845
+#: fish/cmds.c:846
 msgid "list all Windows dynamic disk partitions"
 msgstr "показати список всіх динамічних дискових розділів Windows"
 
-#: fish/cmds.c:846
+#: fish/cmds.c:847
 msgid "list all Windows dynamic disk volumes"
 msgstr "показати список всіх динамічних дискових томів Windows"
 
-#: fish/cmds.c:847
+#: fish/cmds.c:848
 msgid "list Linux md (RAID) devices"
 msgstr "показати список пристроїв md (RAID) Linux"
 
-#: fish/cmds.c:848
+#: fish/cmds.c:849
 msgid "list the partitions"
 msgstr "показати список розділів"
 
-#: fish/cmds.c:849
+#: fish/cmds.c:850
 msgid "list the files in a directory (long format)"
 msgstr "показати список файлів у каталозі (у розширеному форматі)"
 
-#: fish/cmds.c:850
+#: fish/cmds.c:851
 msgid "list the files in a directory (long format with SELinux contexts)"
 msgstr ""
 "показати список файлів у каталозі (у розширеному форматі з контекстами "
 "SELinux)"
 
-#: fish/cmds.c:851 fish/cmds.c:852
+#: fish/cmds.c:852 fish/cmds.c:853
 msgid "create a hard link"
 msgstr "створити жорстке посилання"
 
-#: fish/cmds.c:853 fish/cmds.c:854
+#: fish/cmds.c:854 fish/cmds.c:855
 msgid "create a symbolic link"
 msgstr "створити символічне посилання"
 
-#: fish/cmds.c:855 fish/cmds.c:1016
+#: fish/cmds.c:856 fish/cmds.c:1017
 msgid "remove extended attribute of a file or directory"
 msgstr "вилучити додатковий атрибут файла або каталогу"
 
-#: fish/cmds.c:856
+#: fish/cmds.c:857
 msgid "list the files in a directory"
 msgstr "показати список файлів у каталозі"
 
-#: fish/cmds.c:857
+#: fish/cmds.c:858
 msgid "get list of files in a directory"
 msgstr "отримати список файлів у каталозі"
 
-#: fish/cmds.c:858 fish/cmds.c:1076
+#: fish/cmds.c:859 fish/cmds.c:1077
 msgid "set extended attribute of a file or directory"
 msgstr "встановити додатковий атрибут файла або каталогу"
 
-#: fish/cmds.c:859 fish/cmds.c:861
+#: fish/cmds.c:860 fish/cmds.c:862
 msgid "get file information for a symbolic link"
 msgstr "отримати дані щодо файла за символічним посиланням"
 
-#: fish/cmds.c:860 fish/cmds.c:862
+#: fish/cmds.c:861 fish/cmds.c:863
 msgid "lstat on multiple files"
 msgstr "lstat для декількох файлів"
 
-#: fish/cmds.c:863
+#: fish/cmds.c:864
 msgid "add a key on a LUKS encrypted device"
 msgstr "додати ключ на зашифрованому LUKS пристрої"
 
-#: fish/cmds.c:864
+#: fish/cmds.c:865
 msgid "close a LUKS device"
 msgstr "закрити пристрій LUKS"
 
-#: fish/cmds.c:865 fish/cmds.c:866
+#: fish/cmds.c:866 fish/cmds.c:867
 msgid "format a block device as a LUKS encrypted device"
 msgstr "форматувати блоковий пристрій як зашифрований LUKS пристрій"
 
-#: fish/cmds.c:867
+#: fish/cmds.c:868
 msgid "remove a key from a LUKS encrypted device"
 msgstr "вилучити ключ з зашифрованого LUKS пристрою"
 
-#: fish/cmds.c:868
+#: fish/cmds.c:869
 msgid "open a LUKS-encrypted block device"
 msgstr "відкрити зашифрований LUKS блоковий пристрій"
 
-#: fish/cmds.c:869
+#: fish/cmds.c:870
 msgid "open a LUKS-encrypted block device read-only"
 msgstr "відкрити зашифрований LUKS блоковий пристрій у режимі лише для читання"
 
-#: fish/cmds.c:870
+#: fish/cmds.c:871
 msgid "create an LVM logical volume"
 msgstr "створити логічний том LVM"
 
-#: fish/cmds.c:871
+#: fish/cmds.c:872
 msgid "create an LVM logical volume in % remaining free space"
 msgstr ""
 "створити логічний том LVM на вказаному у відсотках вільному місці на диску"
 
-#: fish/cmds.c:872
+#: fish/cmds.c:873
 msgid "get canonical name of an LV"
 msgstr "отримати канонічну назву логічного тому"
 
-#: fish/cmds.c:873
+#: fish/cmds.c:874
 msgid "clear LVM device filter"
 msgstr "спорожнити фільтр пристроїв LVM"
 
-#: fish/cmds.c:874
+#: fish/cmds.c:875
 msgid "remove all LVM LVs, VGs and PVs"
 msgstr "вилучити всі логічні томи, групи томів та фізичні томи LVM"
 
-#: fish/cmds.c:875
+#: fish/cmds.c:876
 msgid "set LVM device filter"
 msgstr "встановити фільтр пристроїв LVM"
 
-#: fish/cmds.c:876
+#: fish/cmds.c:877
 msgid "remove an LVM logical volume"
 msgstr "вилучити логічний том LVM"
 
-#: fish/cmds.c:877
+#: fish/cmds.c:878
 msgid "rename an LVM logical volume"
 msgstr "перейменувати логічний том LVM"
 
-#: fish/cmds.c:878
+#: fish/cmds.c:879
 msgid "resize an LVM logical volume"
 msgstr "змінити розміри логічного тому LVM"
 
-#: fish/cmds.c:879
+#: fish/cmds.c:880
 msgid "expand an LV to fill free space"
 msgstr "розширити логічний том для заповнення вільного місця"
 
-#: fish/cmds.c:880 fish/cmds.c:881
+#: fish/cmds.c:881 fish/cmds.c:882
 msgid "list the LVM logical volumes (LVs)"
 msgstr "показати список логічних томів LVM"
 
-#: fish/cmds.c:882
+#: fish/cmds.c:883
 msgid "get the UUID of a logical volume"
 msgstr "отримати UUID логічного тому"
 
-#: fish/cmds.c:883
+#: fish/cmds.c:884
 msgid "lgetxattr on multiple files"
 msgstr "lgetxattr для декількох файлів"
 
-#: fish/cmds.c:884
+#: fish/cmds.c:885
 msgid "open the manual"
 msgstr "відкрити сторінку довідки"
 
-#: fish/cmds.c:888
+#: fish/cmds.c:889
 msgid "maximum number of disks that may be added"
 msgstr "максимальна кількість дисків, які може бути додано"
 
-#: fish/cmds.c:889
+#: fish/cmds.c:890
 msgid "create a Linux md (RAID) device"
 msgstr "створити запис пристрою md (RAID) Linux"
 
-#: fish/cmds.c:890
+#: fish/cmds.c:891
 msgid "obtain metadata for an MD device"
 msgstr "отримати метадані щодо пристрою MD"
 
-#: fish/cmds.c:891
+#: fish/cmds.c:892
 msgid "get underlying devices from an MD device"
 msgstr "отримати дані щодо підлеглих пристроїв з пристрою MD"
 
-#: fish/cmds.c:892
+#: fish/cmds.c:893
 msgid "stop a Linux md (RAID) device"
 msgstr "зупинити роботу пристрою md (RAID) Linux"
 
-#: fish/cmds.c:896
+#: fish/cmds.c:897
 msgid "create a directory"
 msgstr "створити каталог"
 
-#: fish/cmds.c:897
+#: fish/cmds.c:898
 msgid "create a directory with a particular mode"
 msgstr "створити каталог у вказаному режимі"
 
-#: fish/cmds.c:898
+#: fish/cmds.c:899
 msgid "create a directory and parents"
 msgstr "створити каталог і його батьківські каталоги"
 
-#: fish/cmds.c:899
+#: fish/cmds.c:900
 msgid "create a temporary directory"
 msgstr "створити тимчасовий каталог"
 
-#: fish/cmds.c:900
+#: fish/cmds.c:901
 msgid "create an ext2/ext3/ext4 filesystem on device"
 msgstr "створити на пристрої файлову систему ext2, ext3 або ext4"
 
-#: fish/cmds.c:901 fish/cmds.c:902 fish/cmds.c:903
+#: fish/cmds.c:902 fish/cmds.c:903 fish/cmds.c:904
 msgid "make ext2/3/4 filesystem with external journal"
 msgstr "створити файлову систему ext2/3/4 з зовнішнім журналом"
 
-#: fish/cmds.c:904
+#: fish/cmds.c:905
 msgid "make ext2/3/4 external journal"
 msgstr "створити зовнішній журнал ext2/3/4"
 
-#: fish/cmds.c:905
+#: fish/cmds.c:906
 msgid "make ext2/3/4 external journal with label"
 msgstr "створити зовнішній журнал ext2/3/4 з міткою"
 
-#: fish/cmds.c:906
+#: fish/cmds.c:907
 msgid "make ext2/3/4 external journal with UUID"
 msgstr "створити зовнішній журнал ext2/3/4 з UUID"
 
-#: fish/cmds.c:907
+#: fish/cmds.c:908
 msgid "make FIFO (named pipe)"
 msgstr "створити FIFO (іменований канал)"
 
-#: fish/cmds.c:908
+#: fish/cmds.c:909
 msgid "make a filesystem"
 msgstr "створити файлову систему"
 
-#: fish/cmds.c:909
+#: fish/cmds.c:910
 msgid "make a filesystem with block size"
 msgstr "створити файлову систему з розміром блоку"
 
-#: fish/cmds.c:910
+#: fish/cmds.c:911
 msgid "create a btrfs filesystem"
 msgstr "створити файлову систему btrfs"
 
-#: fish/cmds.c:911
+#: fish/cmds.c:912
 msgid "make lost+found directory on an ext2/3/4 filesystem"
 msgstr "створити каталог lost+found у файловій системі ext2/3/4"
 
-#: fish/cmds.c:912
+#: fish/cmds.c:913
 msgid "create a mountpoint"
 msgstr "створити точку монтування"
 
-#: fish/cmds.c:913
+#: fish/cmds.c:914
 msgid "make block, character or FIFO devices"
 msgstr "створити блокові, символьні пристрої або пристрої FIFO"
 
-#: fish/cmds.c:914
+#: fish/cmds.c:915
 msgid "make block device node"
 msgstr "створити вузол блокового пристрою"
 
-#: fish/cmds.c:915
+#: fish/cmds.c:916
 msgid "make char device node"
 msgstr "створити вузол символьного пристрою"
 
-#: fish/cmds.c:916
+#: fish/cmds.c:917
 msgid "create a squashfs filesystem"
 msgstr "створити файлову систему squashfs"
 
-#: fish/cmds.c:917
+#: fish/cmds.c:918
 msgid "create a swap partition"
 msgstr "створити розділ резервних даних (свопінгу)"
 
-#: fish/cmds.c:918
+#: fish/cmds.c:919
 msgid "create a swap partition with a label"
 msgstr "створити розділ резервних даних (свопінгу) з міткою"
 
-#: fish/cmds.c:919
+#: fish/cmds.c:920
 msgid "create a swap partition with an explicit UUID"
 msgstr "створити розділ резервних даних (свопінгу) з явним визначенням UUID"
 
-#: fish/cmds.c:920
+#: fish/cmds.c:921
 msgid "create a swap file"
 msgstr "створити файл резервної пам’яті"
 
-#: fish/cmds.c:921
+#: fish/cmds.c:922
 msgid "create a temporary file"
 msgstr "створити тимчасовий файл"
 
-#: fish/cmds.c:922
+#: fish/cmds.c:923
 msgid "load a kernel module"
 msgstr "завантажити модуль ядра"
 
-#: fish/cmds.c:923
+#: fish/cmds.c:924
 msgid "view a file"
 msgstr "переглянути файл"
 
-#: fish/cmds.c:924
+#: fish/cmds.c:925
 msgid "mount a guest disk at a position in the filesystem"
 msgstr "змонтувати гостьовий диск до вказаного каталогу файлової системи"
 
-#: fish/cmds.c:925
+#: fish/cmds.c:926
 msgid "mount 9p filesystem"
 msgstr "змонтувати файлову систему 9p"
 
-#: fish/cmds.c:926
+#: fish/cmds.c:927
 msgid "mount on the local filesystem"
 msgstr "змонтувати локальну файлову систему"
 
-#: fish/cmds.c:927
+#: fish/cmds.c:928
 msgid "run main loop of mount on the local filesystem"
 msgstr "виконати основний цикл монтування на локальній файловій системі"
 
-#: fish/cmds.c:928
+#: fish/cmds.c:929
 msgid "mount a file using the loop device"
 msgstr "змонтувати файли за допомогою петльового пристрою"
 
-#: fish/cmds.c:929
+#: fish/cmds.c:930
 msgid "mount a guest disk with mount options"
 msgstr "змонтувати гостьовий диск з вказаними параметрами монтування"
 
-#: fish/cmds.c:930
+#: fish/cmds.c:931
 msgid "mount a guest disk, read-only"
 msgstr "змонтувати гостьовий диск у режимі лише читання"
 
-#: fish/cmds.c:931
+#: fish/cmds.c:932
 msgid "mount a guest disk with mount options and vfstype"
 msgstr ""
 "змонтувати гостьовий диск з вказаними параметрами монтування та типом ВФС"
 
-#: fish/cmds.c:932
+#: fish/cmds.c:933
 msgid "extract the device part of a mountable"
 msgstr "видобути частину, пов’язану із пристроєм, зі змонтованого диска"
 
-#: fish/cmds.c:933
+#: fish/cmds.c:934
 msgid "extract the subvolume part of a mountable"
 msgstr "видобути частину, пов’язану із підтомами, зі змонтованого диска"
 
-#: fish/cmds.c:934
+#: fish/cmds.c:935
 msgid "show mountpoints"
 msgstr "показати точки монтування"
 
-#: fish/cmds.c:935
+#: fish/cmds.c:936
 msgid "show mounted filesystems"
 msgstr "показати список змонтованих файлових систем"
 
-#: fish/cmds.c:936
+#: fish/cmds.c:937
 msgid "move a file"
 msgstr "пересунути файл"
 
-#: fish/cmds.c:940
+#: fish/cmds.c:941
 msgid "return number of whole block devices (disks) added"
 msgstr "повернути кількість доданих цілих блокових пристроїв (дисків)"
 
-#: fish/cmds.c:941
+#: fish/cmds.c:942
 msgid "probe NTFS volume"
 msgstr "зондувати том NTFS"
 
-#: fish/cmds.c:943
+#: fish/cmds.c:944
 msgid "restore NTFS from backup file"
 msgstr "відновити NTFS з файла резервної копії"
 
-#: fish/cmds.c:944
+#: fish/cmds.c:945
 msgid "save NTFS to backup file"
 msgstr "зберегти NTFS до файла резервної копії"
 
-#: fish/cmds.c:945
+#: fish/cmds.c:946
 msgid "fix common errors and force Windows to check NTFS"
 msgstr "виправити загальні помилки і наказати Windows виконати перевірку NTFS"
 
-#: fish/cmds.c:946
+#: fish/cmds.c:947
 msgid "resize an NTFS filesystem"
 msgstr "змінити розміри файлової системи NTFS"
 
-#: fish/cmds.c:947
+#: fish/cmds.c:948
 msgid "resize an NTFS filesystem (with size)"
 msgstr "змінити розміри файлової системи NTFS (з визначенням розміру)"
 
-#: fish/cmds.c:948 fish/cmds.c:949
+#: fish/cmds.c:949 fish/cmds.c:950
 msgid "parse the environment and set handle flags accordingly"
 msgstr ""
 "обробити параметри середовища і встановити прапорці обробки відповідним чином"
 
-#: fish/cmds.c:950
+#: fish/cmds.c:951
 msgid "add a partition to the device"
 msgstr "додати розділ на пристрій"
 
-#: fish/cmds.c:951
+#: fish/cmds.c:952
 msgid "delete a partition"
 msgstr "вилучити розділ"
 
-#: fish/cmds.c:952
+#: fish/cmds.c:953
 msgid "partition whole disk with a single primary partition"
 msgstr "поділити на розділи весь диск з єдиним основним розділом"
 
-#: fish/cmds.c:953
+#: fish/cmds.c:954
 msgid "move backup GPT header to the end of the disk"
 msgstr "пересунути заголовок резервної копії GPT у кінець диска"
 
-#: fish/cmds.c:954
+#: fish/cmds.c:955
 msgid "return true if a partition is bootable"
 msgstr "повернути «true», якщо розділ придатний до завантаження"
 
-#: fish/cmds.c:955
+#: fish/cmds.c:956
 msgid "get the GUID of a GPT-partitioned disk"
 msgstr "отримати значення для GUID диска із поділом GPT"
 
-#: fish/cmds.c:956
+#: fish/cmds.c:957
 msgid "get the attribute flags of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:957
+#: fish/cmds.c:958
 msgid "get the GUID of a GPT partition"
 msgstr "отримати GUID розділу GPT"
 
-#: fish/cmds.c:958
+#: fish/cmds.c:959
 msgid "get the type GUID of a GPT partition"
 msgstr "отримати тип GUID розділу GPT"
 
-#: fish/cmds.c:959
+#: fish/cmds.c:960
 msgid "get the MBR type byte (ID byte) from a partition"
 msgstr "отримати байт типу MBR (байт-ідентифікатор) з розділу"
 
-#: fish/cmds.c:960
+#: fish/cmds.c:961
 msgid "get the MBR partition type"
 msgstr "отримати тип розділу MBR"
 
-#: fish/cmds.c:961
+#: fish/cmds.c:962
 msgid "get partition name"
 msgstr "отримати назву розділу"
 
-#: fish/cmds.c:962
+#: fish/cmds.c:963
 msgid "get the partition table type"
 msgstr "отримати тип таблиці розділів"
 
-#: fish/cmds.c:963
+#: fish/cmds.c:964
 msgid "create an empty partition table"
 msgstr "створити порожню таблицю розділів"
 
-#: fish/cmds.c:964
+#: fish/cmds.c:965
 msgid "list partitions on a device"
 msgstr "показати список розділів на пристрої"
 
-#: fish/cmds.c:965
+#: fish/cmds.c:966
 msgid "resize a partition"
 msgstr "змінити розміри розділу"
 
-#: fish/cmds.c:966
+#: fish/cmds.c:967
 msgid "make a partition bootable"
 msgstr "зробити розділ придатним до завантаження"
 
-#: fish/cmds.c:967
+#: fish/cmds.c:968
 msgid "set the GUID of a GPT-partitioned disk"
 msgstr "встановити значення для GUID диска із поділом GPT"
 
-#: fish/cmds.c:968
+#: fish/cmds.c:969
 msgid "set the GUID of a GPT-partitioned disk to random value"
 msgstr "встановити випадкове значення для GUID диска із поділом GPT"
 
-#: fish/cmds.c:969
+#: fish/cmds.c:970
 msgid "set the attribute flags of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:970
+#: fish/cmds.c:971
 msgid "set the GUID of a GPT partition"
 msgstr "встановити GUID розділу GPT"
 
-#: fish/cmds.c:971
+#: fish/cmds.c:972
 msgid "set the type GUID of a GPT partition"
 msgstr "встановити тип GUID розділу GPT"
 
-#: fish/cmds.c:972
+#: fish/cmds.c:973
 msgid "set the MBR type byte (ID byte) of a partition"
 msgstr "встановити байт типу MBR (байт-ідентифікатор) розділу"
 
-#: fish/cmds.c:973
+#: fish/cmds.c:974
 msgid "set partition name"
 msgstr "встановити назву розділу"
 
-#: fish/cmds.c:974
+#: fish/cmds.c:975
 msgid "convert partition name to device name"
 msgstr "перетворити назву розділу на назву пристрою"
 
-#: fish/cmds.c:975
+#: fish/cmds.c:976
 msgid "convert partition name to partition number"
 msgstr "перетворити назву розділу на номер розділу"
 
-#: fish/cmds.c:985
+#: fish/cmds.c:986
 msgid "ping the guest daemon"
 msgstr "перевірити луна-імпульсом фонову службу гостьових систем"
 
-#: fish/cmds.c:986
+#: fish/cmds.c:987
 msgid "read part of a file"
 msgstr "прочитати частину файла"
 
-#: fish/cmds.c:987
+#: fish/cmds.c:988
 msgid "read part of a device"
 msgstr "прочитати частину пристрою"
 
-#: fish/cmds.c:991
+#: fish/cmds.c:992
 msgid "generate a new random UUID for a physical volume"
 msgstr "створити новий випадковий UUID для фізичного тому"
 
-#: fish/cmds.c:992
+#: fish/cmds.c:993
 msgid "generate new random UUIDs for all physical volumes"
 msgstr "створити нові випадкові UUID для всіх фізичних томів"
 
-#: fish/cmds.c:993
+#: fish/cmds.c:994
 msgid "create an LVM physical volume"
 msgstr "створити фізичний том LVM"
 
-#: fish/cmds.c:994
+#: fish/cmds.c:995
 msgid "remove an LVM physical volume"
 msgstr "вилучити фізичний том LVM"
 
-#: fish/cmds.c:995
+#: fish/cmds.c:996
 msgid "resize an LVM physical volume"
 msgstr "змінити розміри фізичного тому LVM"
 
-#: fish/cmds.c:996
+#: fish/cmds.c:997
 msgid "resize an LVM physical volume (with size)"
 msgstr "змінити розміри фізичного тому LVM (з визначенням розміру)"
 
-#: fish/cmds.c:997 fish/cmds.c:998
+#: fish/cmds.c:998 fish/cmds.c:999
 msgid "list the LVM physical volumes (PVs)"
 msgstr "показати список фізичних томів LVM"
 
-#: fish/cmds.c:999
+#: fish/cmds.c:1000
 msgid "get the UUID of a physical volume"
 msgstr "отримати значення UUID фізичного тому"
 
-#: fish/cmds.c:1000
+#: fish/cmds.c:1001
 msgid "write to part of a file"
 msgstr "записати частину файла"
 
-#: fish/cmds.c:1001
+#: fish/cmds.c:1002
 msgid "write to part of a device"
 msgstr "записати частину пристрою"
 
-#: fish/cmds.c:1005
+#: fish/cmds.c:1006
 msgid "read a file"
 msgstr "прочитати файл"
 
-#: fish/cmds.c:1006
+#: fish/cmds.c:1007
 msgid "read file as lines"
 msgstr "прочитати файл як набір рядків"
 
-#: fish/cmds.c:1007
+#: fish/cmds.c:1008
 msgid "read directories entries"
 msgstr "прочитати записи каталогів"
 
-#: fish/cmds.c:1008
+#: fish/cmds.c:1009
 msgid "read the target of a symbolic link"
 msgstr "прочитати файл, на який вказує символічне посилання"
 
-#: fish/cmds.c:1009
+#: fish/cmds.c:1010
 msgid "readlink on multiple files"
 msgstr "readlink для декількох файлів"
 
-#: fish/cmds.c:1010
+#: fish/cmds.c:1011
 msgid "canonicalized absolute pathname"
 msgstr "канонічний запис абсолютного шляху"
 
-#: fish/cmds.c:1014
+#: fish/cmds.c:1015
 msgid "remount a filesystem with different options"
 msgstr "повторно змонтувати файлову систему з іншими параметрами"
 
-#: fish/cmds.c:1015
+#: fish/cmds.c:1016
 msgid "remove a disk image"
 msgstr "вилучити образ диска"
 
-#: fish/cmds.c:1017
+#: fish/cmds.c:1018
 msgid "rename a file on the same filesystem"
 msgstr "перейменувати файл на тій самій файловій системі"
 
-#: fish/cmds.c:1018
+#: fish/cmds.c:1019
 msgid "close and reopen libguestfs handle"
 msgstr "закрити, а потім повторно відкрити елемент керування libguestfs"
 
-#: fish/cmds.c:1019
+#: fish/cmds.c:1020
 msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "змінити розміри файлової системи ext2, ext3 або ext4"
 
-#: fish/cmds.c:1020
+#: fish/cmds.c:1021
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr "змінити розміри файлової системи ext2, ext3 або ext4 до мінімальних"
 
-#: fish/cmds.c:1021
+#: fish/cmds.c:1022
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr ""
 "змінити розміри файлової системи ext2, ext3 або ext4 (з визначенням розміру)"
 
-#: fish/cmds.c:1022
+#: fish/cmds.c:1023
 msgid "remove a file"
 msgstr "вилучити файл"
 
-#: fish/cmds.c:1023
+#: fish/cmds.c:1024
 msgid "remove a file ignoring errors"
 msgstr "вилучити файл, помилки ігнорувати"
 
-#: fish/cmds.c:1024
+#: fish/cmds.c:1025
 msgid "remove a file or directory recursively"
 msgstr "вилучити файл або каталог рекурсивно"
 
-#: fish/cmds.c:1025
+#: fish/cmds.c:1026
 msgid "remove a directory"
 msgstr "вилучити каталог"
 
-#: fish/cmds.c:1026
+#: fish/cmds.c:1027
 msgid "remove a mountpoint"
 msgstr "вилучити точку монтування"
 
-#: fish/cmds.c:1027
+#: fish/cmds.c:1028
 msgid "synchronize the contents of two directories"
 msgstr "синхронізувати вміст двох каталогів"
 
-#: fish/cmds.c:1028
+#: fish/cmds.c:1029
 msgid "synchronize host or remote filesystem with filesystem"
 msgstr "синхронізувати вузол або віддалену файлову систему з файловою системою"
 
-#: fish/cmds.c:1029
+#: fish/cmds.c:1030
 msgid "synchronize filesystem with host or remote filesystem"
 msgstr ""
 "синхронізувати файлову систему з вузлом або віддаленою файловою системою"
 
-#: fish/cmds.c:1036
+#: fish/cmds.c:1037
 msgid "scrub (securely wipe) a device"
 msgstr "витерти (безпечно спорожнити) пристрій"
 
-#: fish/cmds.c:1037
+#: fish/cmds.c:1038
 msgid "scrub (securely wipe) a file"
 msgstr "витерти (безпечно спорожнити) файл"
 
-#: fish/cmds.c:1038
+#: fish/cmds.c:1039
 msgid "scrub (securely wipe) free space"
 msgstr "витерти (безпечно спорожнити) вільний об’єм"
 
-#: fish/cmds.c:1042
+#: fish/cmds.c:1043
 msgid "relabel parts of the filesystem"
 msgstr "змінити мітки частин файлової системи"
 
-#: fish/cmds.c:1043
+#: fish/cmds.c:1044
 msgid "add options to kernel command line"
 msgstr "додати параметри до командного рядка ядра"
 
-#: fish/cmds.c:1044 fish/cmds.c:1046
+#: fish/cmds.c:1045 fish/cmds.c:1047
 msgid "set the backend"
 msgstr "встановити модуль"
 
-#: fish/cmds.c:1045
+#: fish/cmds.c:1046
 msgid "set autosync mode"
 msgstr "встановити режим автоматичної синхронізації"
 
-#: fish/cmds.c:1047
+#: fish/cmds.c:1048
 msgid "set a single per-backend settings string"
 msgstr "встановити окремий рядок параметрів, специфічний для модуля"
 
-#: fish/cmds.c:1048
+#: fish/cmds.c:1049
 msgid "replace per-backend settings strings"
 msgstr "замінити рядки параметрів окремих модулів"
 
-#: fish/cmds.c:1049
+#: fish/cmds.c:1050
 msgid "set the appliance cache directory"
 msgstr "встановити адресу каталогу кешування системи розгортання"
 
-#: fish/cmds.c:1050
+#: fish/cmds.c:1051
 msgid "enable or disable direct appliance mode"
 msgstr "увімкнути або вимкнути режим безпосередньої роботи з пристроєм"
 
-#: fish/cmds.c:1051
+#: fish/cmds.c:1052
 msgid "set ext2 file attributes of a file"
 msgstr "встановити атрибути файла у ext2"
 
-#: fish/cmds.c:1052
+#: fish/cmds.c:1053
 msgid "set ext2 file generation of a file"
 msgstr "встановити стан створення файла у ext2"
 
-#: fish/cmds.c:1053
+#: fish/cmds.c:1054
 msgid "set the ext2/3/4 filesystem label"
 msgstr "встановити мітку файлової системи ext2/3/4 filesystem"
 
-#: fish/cmds.c:1054
+#: fish/cmds.c:1055
 msgid "set the ext2/3/4 filesystem UUID"
 msgstr "встановити UUID файлової системи ext2/3/4"
 
-#: fish/cmds.c:1055
+#: fish/cmds.c:1056
 msgid "set the hypervisor binary"
 msgstr "встановити назву виконуваного файла гіпервізора"
 
-#: fish/cmds.c:1056
+#: fish/cmds.c:1057
 msgid "set the handle identifier"
 msgstr "встановити ідентифікатор дескриптора"
 
-#: fish/cmds.c:1057
+#: fish/cmds.c:1058
 msgid "set filesystem label"
 msgstr "встановити мітку файлової системи"
 
-#: fish/cmds.c:1058
+#: fish/cmds.c:1059
 msgid "pass requested credential back to libvirt"
 msgstr "передати запитані реєстраційні дані назад до libvirt"
 
-#: fish/cmds.c:1059
+#: fish/cmds.c:1060
 msgid "set libvirt credentials supported by calling program"
 msgstr ""
 "встановити реєстраційні дані libvirt, підтримувані програмою, яка надсилала "
 "виклик"
 
-#: fish/cmds.c:1060
+#: fish/cmds.c:1061
 msgid "set memory allocated to the hypervisor"
 msgstr "встановити об’єм пам’яті, отриманий гіпервізором"
 
-#: fish/cmds.c:1061
+#: fish/cmds.c:1062
 msgid "set enable network flag"
 msgstr "встановити значення прапорця вмикання мережі"
 
-#: fish/cmds.c:1062
+#: fish/cmds.c:1063
 msgid "set the search path"
 msgstr "встановити адресу каталогу пошуку"
 
-#: fish/cmds.c:1063
+#: fish/cmds.c:1064
 msgid "set process group flag"
 msgstr "встановити прапорець групи обробки"
 
-#: fish/cmds.c:1064
+#: fish/cmds.c:1065
 msgid "set the program name"
 msgstr "встановити назву програми"
 
-#: fish/cmds.c:1065
+#: fish/cmds.c:1066
 msgid "set the hypervisor binary (usually qemu)"
 msgstr "встановити назву виконуваного файла гіпервізора (зазвичай, qemu)"
 
-#: fish/cmds.c:1066
+#: fish/cmds.c:1067
 msgid "enable or disable the recovery process"
 msgstr "увімкнути або вимкнути процес відновлення"
 
-#: fish/cmds.c:1067
+#: fish/cmds.c:1068
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr ""
 "встановити параметр вмикання або вимикання SELinux під час завантаження з "
 "пристрою"
 
-#: fish/cmds.c:1068
+#: fish/cmds.c:1069
 msgid "set number of virtual CPUs in appliance"
 msgstr "встановити кількість віртуальних процесорів на пристрої"
 
-#: fish/cmds.c:1069
+#: fish/cmds.c:1070
 msgid "set the temporary directory"
 msgstr "встановити адресу тимчасового каталогу"
 
-#: fish/cmds.c:1070
+#: fish/cmds.c:1071
 msgid "enable or disable command traces"
 msgstr "увімкнути або вимкнути трасування команд"
 
-#: fish/cmds.c:1071
+#: fish/cmds.c:1072
 msgid "set the filesystem UUID"
 msgstr "встановити UUID файлової системи"
 
-#: fish/cmds.c:1072
+#: fish/cmds.c:1073
 msgid "set a random UUID for the filesystem"
 msgstr "встановити випадковий UUID для файлової системи"
 
-#: fish/cmds.c:1073
+#: fish/cmds.c:1074
 msgid "set verbose mode"
 msgstr "увімкнути докладний режим"
 
-#: fish/cmds.c:1074
+#: fish/cmds.c:1075
 msgid "set SELinux security context"
 msgstr "встановити значення контексту захисту SELinux"
 
-#: fish/cmds.c:1075
+#: fish/cmds.c:1076
 msgid "set an environment variable"
 msgstr "встановити змінну середовища"
 
-#: fish/cmds.c:1077 fish/cmds.c:1078
+#: fish/cmds.c:1078 fish/cmds.c:1079
 msgid "create partitions on a block device"
 msgstr "створити розділи на блоковому пристрої"
 
-#: fish/cmds.c:1079
+#: fish/cmds.c:1080
 msgid "modify a single partition on a block device"
 msgstr "змінити окремий розділ на блоковому пристрої"
 
-#: fish/cmds.c:1080
+#: fish/cmds.c:1081
 msgid "display the disk geometry from the partition table"
 msgstr "показати дані щодо конфігурації диска з таблиці розділів"
 
-#: fish/cmds.c:1081
+#: fish/cmds.c:1082
 msgid "display the kernel geometry"
 msgstr "показати дані щодо конфігурації ядра"
 
-#: fish/cmds.c:1082
+#: fish/cmds.c:1083
 msgid "display the partition table"
 msgstr "показати таблицю розділів"
 
-#: fish/cmds.c:1083
+#: fish/cmds.c:1084
 msgid "run a command via the shell"
 msgstr "запустити команду у оболонці"
 
-#: fish/cmds.c:1084
+#: fish/cmds.c:1085
 msgid "run a command via the shell returning lines"
 msgstr "виконати команду за допомогою оболонки, повернути виведені рядки"
 
-#: fish/cmds.c:1085
+#: fish/cmds.c:1086
 msgid "shutdown the hypervisor"
 msgstr "завершити роботу гіпервізора"
 
-#: fish/cmds.c:1086
+#: fish/cmds.c:1087
 msgid "sleep for some seconds"
 msgstr "призупинити обробку на декілька секунд"
 
-#: fish/cmds.c:1090
+#: fish/cmds.c:1091
 msgid "create a sparse disk image and add"
 msgstr "створити розріджений образ диска та додати"
 
-#: fish/cmds.c:1091 fish/cmds.c:1092
+#: fish/cmds.c:1092 fish/cmds.c:1093
 msgid "get file information"
 msgstr "отримати дані щодо файла"
 
-#: fish/cmds.c:1093
+#: fish/cmds.c:1094
 msgid "get file system statistics"
 msgstr "отримати статистичні дані щодо файлової системи"
 
-#: fish/cmds.c:1094 fish/cmds.c:1095
+#: fish/cmds.c:1095 fish/cmds.c:1096
 msgid "print the printable strings in a file"
 msgstr "вивести придатні до друку рядки до файла"
 
-#: fish/cmds.c:1096
+#: fish/cmds.c:1097
 msgid "list supported groups of commands"
 msgstr "показати список підтримуваних груп команд"
 
-#: fish/cmds.c:1097
+#: fish/cmds.c:1098
 msgid "disable swap on device"
 msgstr "вимкнути резервування місця на диску"
 
-#: fish/cmds.c:1098
+#: fish/cmds.c:1099
 msgid "disable swap on file"
 msgstr "вимкнути резервування місця у файлі"
 
-#: fish/cmds.c:1099
+#: fish/cmds.c:1100
 msgid "disable swap on labeled swap partition"
 msgstr "вимкнути резервування місця на позначеному розділі резервної пам’яті"
 
-#: fish/cmds.c:1100
+#: fish/cmds.c:1101
 msgid "disable swap on swap partition by UUID"
 msgstr ""
 "вимкнути резервування місця на розділі резервної пам’яті, вказаному за "
 "допомогою UUID"
 
-#: fish/cmds.c:1101
+#: fish/cmds.c:1102
 msgid "enable swap on device"
 msgstr "увімкнути резервну пам’ять на диску"
 
-#: fish/cmds.c:1102
+#: fish/cmds.c:1103
 msgid "enable swap on file"
 msgstr "увімкнути резервну пам’ять у файлі"
 
-#: fish/cmds.c:1103
+#: fish/cmds.c:1104
 msgid "enable swap on labeled swap partition"
 msgstr "увімкнути резервування місця на позначеному розділі резервної пам’яті"
 
-#: fish/cmds.c:1104
+#: fish/cmds.c:1105
 msgid "enable swap on swap partition by UUID"
 msgstr ""
 "увімкнути резервування місця на розділі резервної пам’яті, вказаному за "
 "допомогою UUID"
 
-#: fish/cmds.c:1105
+#: fish/cmds.c:1106
 msgid "sync disks, writes are flushed through to the disk image"
 msgstr "синхронізувати диски, буфери запису буде випорожнено до образу диска"
 
-#: fish/cmds.c:1106
+#: fish/cmds.c:1107
 msgid "install the SYSLINUX bootloader"
 msgstr "встановити завантажувач SYSLINUX"
 
-#: fish/cmds.c:1107
+#: fish/cmds.c:1108
 msgid "return last 10 lines of a file"
 msgstr "повернути останні 10 рядків файла"
 
-#: fish/cmds.c:1108
+#: fish/cmds.c:1109
 msgid "return last N lines of a file"
 msgstr "повернути останні N рядків файла"
 
-#: fish/cmds.c:1109
+#: fish/cmds.c:1110
 msgid "unpack tarfile to directory"
 msgstr "розпакувати архів tar до каталогу"
 
-#: fish/cmds.c:1110
+#: fish/cmds.c:1111
 msgid "pack directory into tarfile"
 msgstr "запакувати каталог до архіву tar"
 
-#: fish/cmds.c:1111 fish/cmds.c:1125
+#: fish/cmds.c:1112 fish/cmds.c:1126
 msgid "unpack compressed tarball to directory"
 msgstr "розпакувати стиснений архів tar до каталогу"
 
-#: fish/cmds.c:1112 fish/cmds.c:1126
+#: fish/cmds.c:1113 fish/cmds.c:1127
 msgid "pack directory into compressed tarball"
 msgstr "запакувати каталог до стиснутого архіву tar"
 
-#: fish/cmds.c:1113
+#: fish/cmds.c:1114
 msgid "print elapsed time taken to run a command"
 msgstr "показувати час, витрачений на виконання команди"
 
-#: fish/cmds.c:1117
+#: fish/cmds.c:1118
 msgid "update file timestamps or create a new file"
 msgstr "оновити позначки часу файла або створити новий файл"
 
-#: fish/cmds.c:1121
+#: fish/cmds.c:1122
 msgid "truncate a file to zero size"
 msgstr "обрізати файл до нульового розміру"
 
-#: fish/cmds.c:1122
+#: fish/cmds.c:1123
 msgid "truncate a file to a particular size"
 msgstr "обрізати файл до вказаного розміру"
 
-#: fish/cmds.c:1123
+#: fish/cmds.c:1124
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
 msgstr "виправити параметри файлової системи ext2/ext3/ext4"
 
-#: fish/cmds.c:1124
+#: fish/cmds.c:1125
 msgid "get ext2/ext3/ext4 superblock details"
 msgstr "отримати дані щодо суперблоку ext2/ext3/ext4"
 
-#: fish/cmds.c:1127
+#: fish/cmds.c:1128
 msgid "set file mode creation mask (umask)"
 msgstr "встановити маску режиму створення файла (umask)"
 
-#: fish/cmds.c:1128
+#: fish/cmds.c:1129
 msgid "unmount a filesystem"
 msgstr "демонтувати файлову систему"
 
-#: fish/cmds.c:1129
+#: fish/cmds.c:1130
 msgid "unmount all filesystems"
 msgstr "демонтувати всі файлові системи"
 
-#: fish/cmds.c:1130
+#: fish/cmds.c:1131
 msgid "unmount a locally mounted filesystem"
 msgstr "демонтувати змонтовану локально файлову систему"
 
-#: fish/cmds.c:1137
+#: fish/cmds.c:1138
 msgid "unset an environment variable"
 msgstr "скасувати визначення змінної середовища"
 
-#: fish/cmds.c:1138
+#: fish/cmds.c:1139
 msgid "upload a file from the local machine"
 msgstr "вивантажити файл з локальної системи"
 
-#: fish/cmds.c:1139
+#: fish/cmds.c:1140
 msgid "upload a file from the local machine with offset"
 msgstr "вивантажити файл з локальної системи зі зсувом"
 
-#: fish/cmds.c:1140
+#: fish/cmds.c:1141
 msgid "cancel the current upload or download operation"
 msgstr "скасувати поточну дію з вивантаження або отримання даних"
 
-#: fish/cmds.c:1141
+#: fish/cmds.c:1142
 msgid "set timestamp of a file with nanosecond precision"
 msgstr "встановити часову позначку файла з точністю до наносекунди"
 
-#: fish/cmds.c:1142
+#: fish/cmds.c:1143
 msgid "appliance kernel version"
 msgstr "версія ядра системи для розгортання"
 
-#: fish/cmds.c:1146
+#: fish/cmds.c:1147
 msgid "get the library version number"
 msgstr "отримати номер версії бібліотеки"
 
-#: fish/cmds.c:1147
+#: fish/cmds.c:1148
 msgid "get the filesystem label"
 msgstr "отримати значення мітки файлової системи"
 
-#: fish/cmds.c:1148
+#: fish/cmds.c:1149
 msgid "get minimum filesystem size"
 msgstr "отримати мінімальний розмір файлової системи"
 
-#: fish/cmds.c:1149
+#: fish/cmds.c:1150
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr ""
 "отримати тип віртуальної файлової системи Linux, відповідний до змонтованого "
 "пристрою"
 
-#: fish/cmds.c:1150
+#: fish/cmds.c:1151
 msgid "get the filesystem UUID"
 msgstr "отримати UUID файлової системи"
 
-#: fish/cmds.c:1151
+#: fish/cmds.c:1152
 msgid "activate or deactivate some volume groups"
 msgstr "задіяти або вимкнути певні групи томів"
 
-#: fish/cmds.c:1152
+#: fish/cmds.c:1153
 msgid "activate or deactivate all volume groups"
 msgstr "задіяти або вимкнути всі групи томів"
 
-#: fish/cmds.c:1153
+#: fish/cmds.c:1154
 msgid "generate a new random UUID for a volume group"
 msgstr "створити новий випадковий UUID для групи томів"
 
-#: fish/cmds.c:1154
+#: fish/cmds.c:1155
 msgid "generate new random UUIDs for all volume groups"
 msgstr "створити нові випадкові UUID для всіх груп томів"
 
-#: fish/cmds.c:1155
+#: fish/cmds.c:1156
 msgid "create an LVM volume group"
 msgstr "створити групу томів LVM"
 
-#: fish/cmds.c:1156
+#: fish/cmds.c:1157
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr "отримати UUID всіх логічних томів у групі томів"
 
-#: fish/cmds.c:1157
+#: fish/cmds.c:1158
 msgid "get volume group metadata"
 msgstr "отримати метадані щодо групи томів"
 
-#: fish/cmds.c:1158
+#: fish/cmds.c:1159
 msgid "get the PV UUIDs containing the volume group"
 msgstr "отримати UUID фізичних томів, що містяться у групі томів"
 
-#: fish/cmds.c:1159
+#: fish/cmds.c:1160
 msgid "remove an LVM volume group"
 msgstr "вилучити групу томів LVM"
 
-#: fish/cmds.c:1160
+#: fish/cmds.c:1161
 msgid "rename an LVM volume group"
 msgstr "перейменувати групу томів LVM"
 
-#: fish/cmds.c:1161 fish/cmds.c:1162
+#: fish/cmds.c:1162 fish/cmds.c:1163
 msgid "list the LVM volume groups (VGs)"
 msgstr "показати список груп томів LVM"
 
-#: fish/cmds.c:1163
+#: fish/cmds.c:1164
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 "виконати повторне сканування фізичних томів, груп томів та логічних томів LVM"
 
-#: fish/cmds.c:1164
+#: fish/cmds.c:1165
 msgid "get the UUID of a volume group"
 msgstr "отримати UUID групи томів"
 
-#: fish/cmds.c:1168
+#: fish/cmds.c:1169
 msgid "count characters in a file"
 msgstr "порахувати символи у файлі"
 
-#: fish/cmds.c:1169
+#: fish/cmds.c:1170
 msgid "count lines in a file"
 msgstr "порахувати рядки у файлі"
 
-#: fish/cmds.c:1170
+#: fish/cmds.c:1171
 msgid "count words in a file"
 msgstr "порахувати слова у файлі"
 
-#: fish/cmds.c:1171
+#: fish/cmds.c:1172
 msgid "wipe a filesystem signature from a device"
 msgstr "витерти підпис файлової системи з пристрою"
 
-#: fish/cmds.c:1172
+#: fish/cmds.c:1173
 msgid "create a new file"
 msgstr "створити новий файл"
 
-#: fish/cmds.c:1173
+#: fish/cmds.c:1174
 msgid "append content to end of file"
 msgstr "дописати дані в кінці файла"
 
-#: fish/cmds.c:1174
+#: fish/cmds.c:1175
 msgid "create a file"
 msgstr "створити файл"
 
-#: fish/cmds.c:1175
+#: fish/cmds.c:1176
 msgid "change parameters of an XFS filesystem"
 msgstr "змінити параметри файлової системи XFS"
 
-#: fish/cmds.c:1176
+#: fish/cmds.c:1177
 msgid "expand an existing XFS filesystem"
 msgstr "розширити вже створену файлову систему XFS"
 
-#: fish/cmds.c:1177
+#: fish/cmds.c:1178
 msgid "get geometry of XFS filesystem"
 msgstr "отримати дані щодо геометрії файлової системи XFS"
 
-#: fish/cmds.c:1178
+#: fish/cmds.c:1179
 msgid "repair an XFS filesystem"
 msgstr "відновити файлову систему XFS"
 
-#: fish/cmds.c:1179
+#: fish/cmds.c:1180
 msgid "destroy previously loaded yara rules"
 msgstr "знищити раніше завантажені правила yara"
 
-#: fish/cmds.c:1180
+#: fish/cmds.c:1181
 msgid "load yara rules within libguestfs"
 msgstr "завантажити правила yara у libguestfs"
 
-#: fish/cmds.c:1181
+#: fish/cmds.c:1182
 msgid "scan a file with the loaded yara rules"
 msgstr "виконати сканування файла на основі завантажених правил yara"
 
-#: fish/cmds.c:1184
+#: fish/cmds.c:1185
 msgid "write zeroes to the device"
 msgstr "записати нулі на пристрій"
 
-#: fish/cmds.c:1185
+#: fish/cmds.c:1186
 msgid "write zeroes to an entire device"
 msgstr "занулити весь пристрій"
 
-#: fish/cmds.c:1186
+#: fish/cmds.c:1187
 msgid "zero free space in a filesystem"
 msgstr "у файловій системі немає вільного місця"
 
-#: fish/cmds.c:1187
+#: fish/cmds.c:1188
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr ""
 "занулити невикористані inode і дискові блоки на файловій системі ext2/3"
 
-#: fish/cmds.c:1190
+#: fish/cmds.c:1191
 msgid "determine file type inside a compressed file"
 msgstr "визначити тип файлів у стиснутому файлі"
 
-#: fish/cmds.c:1193
+#: fish/cmds.c:1194
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "Скористайтеся -h <команда> або help <команда>, щоб переглянути докладну "
@@ -9528,13 +9638,13 @@ msgstr "reopen: guestfs_create: не вдалося створити елеме�
 #: fish/run-0.c:349 fish/run-0.c:716 fish/run-0.c:729 fish/run-0.c:1987
 #: fish/run-0.c:2358 fish/run-0.c:2449 fish/run-0.c:2558 fish/run-0.c:2627
 #: fish/run-1.c:300 fish/run-1.c:527 fish/run-1.c:540 fish/run-1.c:553
-#: fish/run-1.c:566 fish/run-1.c:678 fish/run-1.c:691 fish/run-1.c:1140
-#: fish/run-1.c:1153 fish/run-1.c:1166 fish/run-1.c:1179 fish/run-1.c:1456
-#: fish/run-1.c:1469 fish/run-1.c:2322 fish/run-1.c:2366 fish/run-1.c:2379
-#: fish/run-1.c:2392 fish/run-1.c:2405 fish/run-1.c:2418 fish/run-1.c:2672
-#: fish/run-1.c:2720 fish/run-1.c:2794 fish/run-1.c:2978 fish/run-1.c:2991
-#: fish/run-1.c:3040 fish/run-1.c:3121 fish/run-1.c:3134 fish/run-1.c:3147
-#: fish/run-1.c:3160 fish/run-1.c:3173 fish/run-2.c:137 fish/run-2.c:201
+#: fish/run-1.c:566 fish/run-1.c:678 fish/run-1.c:691 fish/run-1.c:1161
+#: fish/run-1.c:1174 fish/run-1.c:1187 fish/run-1.c:1200 fish/run-1.c:1477
+#: fish/run-1.c:1490 fish/run-1.c:2343 fish/run-1.c:2387 fish/run-1.c:2400
+#: fish/run-1.c:2413 fish/run-1.c:2426 fish/run-1.c:2439 fish/run-1.c:2693
+#: fish/run-1.c:2741 fish/run-1.c:2815 fish/run-1.c:2999 fish/run-1.c:3012
+#: fish/run-1.c:3061 fish/run-1.c:3142 fish/run-1.c:3155 fish/run-1.c:3168
+#: fish/run-1.c:3181 fish/run-1.c:3194 fish/run-2.c:137 fish/run-2.c:201
 #: fish/run-2.c:514 fish/run-2.c:725 fish/run-2.c:738 fish/run-2.c:1018
 #: fish/run-2.c:1270 fish/run-2.c:1351 fish/run-2.c:1847 fish/run-2.c:2170
 #: fish/run-2.c:2183 fish/run-2.c:2345 fish/run-3.c:416 fish/run-3.c:986
@@ -9560,8 +9670,8 @@ msgstr "%s: «%s»: некоректне булеве значення, має �
 #: fish/run-0.c:211 fish/run-0.c:359 fish/run-0.c:523 fish/run-0.c:596
 #: fish/run-0.c:739 fish/run-0.c:1753 fish/run-0.c:1873 fish/run-0.c:1997
 #: fish/run-0.c:2568 fish/run-1.c:310 fish/run-1.c:576 fish/run-1.c:701
-#: fish/run-1.c:1189 fish/run-1.c:1479 fish/run-1.c:2063 fish/run-1.c:2428
-#: fish/run-1.c:2682 fish/run-1.c:2859 fish/run-1.c:3001 fish/run-1.c:3193
+#: fish/run-1.c:1210 fish/run-1.c:1500 fish/run-1.c:2084 fish/run-1.c:2449
+#: fish/run-1.c:2703 fish/run-1.c:2880 fish/run-1.c:3022 fish/run-1.c:3214
 #: fish/run-2.c:211 fish/run-2.c:278 fish/run-2.c:748 fish/run-2.c:1028
 #: fish/run-2.c:1280 fish/run-2.c:1361 fish/run-2.c:1656 fish/run-2.c:2193
 #: fish/run-3.c:431 fish/run-3.c:493 fish/run-3.c:588 fish/run-3.c:889
@@ -9579,8 +9689,8 @@ msgstr "%s: невідомий додатковий аргумент «%s»\n"
 #: fish/run-0.c:217 fish/run-0.c:365 fish/run-0.c:529 fish/run-0.c:602
 #: fish/run-0.c:745 fish/run-0.c:1759 fish/run-0.c:1879 fish/run-0.c:2003
 #: fish/run-0.c:2574 fish/run-1.c:316 fish/run-1.c:582 fish/run-1.c:707
-#: fish/run-1.c:1195 fish/run-1.c:1485 fish/run-1.c:2069 fish/run-1.c:2434
-#: fish/run-1.c:2688 fish/run-1.c:2865 fish/run-1.c:3007 fish/run-1.c:3199
+#: fish/run-1.c:1216 fish/run-1.c:1506 fish/run-1.c:2090 fish/run-1.c:2455
+#: fish/run-1.c:2709 fish/run-1.c:2886 fish/run-1.c:3028 fish/run-1.c:3220
 #: fish/run-2.c:217 fish/run-2.c:284 fish/run-2.c:754 fish/run-2.c:1034
 #: fish/run-2.c:1286 fish/run-2.c:1367 fish/run-2.c:1662 fish/run-2.c:2199
 #: fish/run-3.c:437 fish/run-3.c:499 fish/run-3.c:594 fish/run-3.c:895
@@ -9600,12 +9710,12 @@ msgstr "%s: додатковий аргумент «%s» вказано двіч
 #: fish/run-0.c:1642 fish/run-0.c:1659 fish/run-0.c:1681 fish/run-0.c:1714
 #: fish/run-0.c:1737 fish/run-0.c:1974 fish/run-0.c:2153 fish/run-0.c:2392
 #: fish/run-0.c:2488 fish/run-1.c:287 fish/run-1.c:631 fish/run-1.c:648
-#: fish/run-1.c:665 fish/run-1.c:815 fish/run-1.c:904 fish/run-1.c:988
-#: fish/run-1.c:1233 fish/run-1.c:1287 fish/run-1.c:1324 fish/run-1.c:1410
-#: fish/run-1.c:1645 fish/run-1.c:1664 fish/run-1.c:1933 fish/run-1.c:1985
-#: fish/run-1.c:2002 fish/run-1.c:2025 fish/run-1.c:2048 fish/run-1.c:2134
-#: fish/run-1.c:2153 fish/run-1.c:2172 fish/run-1.c:2473 fish/run-1.c:2492
-#: fish/run-1.c:2576 fish/run-1.c:2595 fish/run-2.c:256 fish/run-2.c:456
+#: fish/run-1.c:665 fish/run-1.c:815 fish/run-1.c:925 fish/run-1.c:1009
+#: fish/run-1.c:1254 fish/run-1.c:1308 fish/run-1.c:1345 fish/run-1.c:1431
+#: fish/run-1.c:1666 fish/run-1.c:1685 fish/run-1.c:1954 fish/run-1.c:2006
+#: fish/run-1.c:2023 fish/run-1.c:2046 fish/run-1.c:2069 fish/run-1.c:2155
+#: fish/run-1.c:2174 fish/run-1.c:2193 fish/run-1.c:2494 fish/run-1.c:2513
+#: fish/run-1.c:2597 fish/run-1.c:2616 fish/run-2.c:256 fish/run-2.c:456
 #: fish/run-2.c:576 fish/run-2.c:595 fish/run-2.c:678 fish/run-2.c:695
 #: fish/run-2.c:712 fish/run-2.c:847 fish/run-2.c:1099 fish/run-2.c:1136
 #: fish/run-2.c:1477 fish/run-2.c:1528 fish/run-2.c:1595 fish/run-2.c:1727
