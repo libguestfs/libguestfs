@@ -590,11 +590,6 @@ read the man page virt-v2v(1).
         | None ->
            error (f_"-o rhv-upload: use ‘-oc’ to point to the oVirt or RHV server REST API URL, which is usually https://servername/ovirt-engine/api")
         | Some oc -> oc in
-      (* Output format / sparse must currently be raw+sparse.  We can
-       * change this in future.  See TODO file for details. XXX
-       *)
-      if output_alloc <> Sparse || output_format <> Some "raw" then
-        error (f_"-o rhv-upload: currently you must use ‘-of raw’ and you cannot use ‘-oa preallocated’ with this output mode.  These restrictions will be loosened in a future version.");
       (* In theory we could make the password optional in future. *)
       let output_password =
         match output_password with
