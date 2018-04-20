@@ -256,6 +256,8 @@ and ddb_regedits inspect drv_name drv_pciid =
 and copy_drivers g inspect driverdir =
   let ret = ref false in
   if is_directory virtio_win then (
+    debug "windows: copy_drivers: source directory virtio_win %s" virtio_win;
+
     let cmd = sprintf "cd %s && find -L -type f" (quote virtio_win) in
     let paths = external_command cmd in
     List.iter (
@@ -273,6 +275,8 @@ and copy_drivers g inspect driverdir =
       ) paths
   )
   else if is_regular_file virtio_win then (
+    debug "windows: copy_drivers: source ISO virtio_win %s" virtio_win;
+
     try
       let g2 = open_guestfs ~identifier:"virtio_win" () in
       g2#add_drive_opts virtio_win ~readonly:true;
