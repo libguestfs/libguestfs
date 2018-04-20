@@ -115,6 +115,13 @@ let parse_libvirt_xml ?conn xml =
        and threads = Option.default 1 cpu_threads in
        sockets * cores * threads in
 
+  let cpu_topology =
+    match cpu_sockets, cpu_cores, cpu_threads with
+    | Some sockets, Some cores, Some threads ->
+       Some { s_cpu_sockets = sockets; s_cpu_cores = cores;
+              s_cpu_threads = threads; }
+    | _, _, _ -> None in
+
   let features =
     let features = ref [] in
     let obj = Xml.xpath_eval_expression xpathctx "/domain/features/*" in
@@ -484,9 +491,7 @@ let parse_libvirt_xml ?conn xml =
     s_vcpu = vcpu;
     s_cpu_vendor = cpu_vendor;
     s_cpu_model = cpu_model;
-    s_cpu_sockets = cpu_sockets;
-    s_cpu_cores = cpu_cores;
-    s_cpu_threads = cpu_threads;
+    s_cpu_topology = cpu_topology;
     s_features = features;
     s_firmware = UnknownFirmware; (* XXX until RHBZ#1217444 is fixed *)
     s_display = display;

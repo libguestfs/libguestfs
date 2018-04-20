@@ -220,24 +220,13 @@ and open_source cmdline input =
   assert (source.s_vcpu >= 1);
   assert (source.s_cpu_vendor <> Some "");
   assert (source.s_cpu_model <> Some "");
-  (match source.s_cpu_sockets with
-   | None -> ()
-   | Some i when i > 0 -> ()
-   | _ -> assert false);
-  (match source.s_cpu_cores with
-   | None -> ()
-   | Some i when i > 0 -> ()
-   | _ -> assert false);
-  (match source.s_cpu_threads with
-   | None -> ()
-   | Some i when i > 0 -> ()
-   | _ -> assert false);
-  (match source.s_cpu_sockets, source.s_cpu_cores, source.s_cpu_threads with
-   | None, None, None -> () (* no topology specified *)
-   | sockets, cores, threads ->
-      let sockets = Option.default 1 sockets
-      and cores = Option.default 1 cores
-      and threads = Option.default 1 threads in
+  (match source.s_cpu_topology with
+   | None -> () (* no topology specified *)
+   | Some { s_cpu_sockets = sockets; s_cpu_cores = cores;
+            s_cpu_threads = threads } ->
+      assert (sockets > 0);
+      assert (cores > 0);
+      assert (threads > 0);
       let expected_vcpu = sockets * cores * threads in
       if expected_vcpu <> source.s_vcpu then
         warning (f_"source sockets * cores * threads <> number of vCPUs.\nSockets %d * cores per socket %d * threads %d = %d, but number of vCPUs = %d.\n\nThis is a problem with either the source metadata or the virt-v2v input module.  In some circumstances this could stop the guest from booting on the target.")

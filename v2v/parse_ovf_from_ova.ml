@@ -72,21 +72,22 @@ let parse_ovf_from_ova ovf_filename =
      * I couldn't find out how hyperthreads is specified in the OVF.
      *)
     let cores_per_socket = xpath_int "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=3]/vmw:CoresPerSocket/text()" in
-    let cpu_sockets, cpu_cores =
+    let cpu_topology =
       match cores_per_socket with
-      | None -> None, None
+      | None -> None
       | Some cores_per_socket when cores_per_socket <= 0 ->
          warning (f_"invalid vmw:CoresPerSocket (%d) ignored")
                  cores_per_socket;
-         None, None
+         None
       | Some cores_per_socket ->
          let sockets = vcpu / cores_per_socket in
          if sockets <= 0 then (
            warning (f_"invalid vmw:CoresPerSocket < number of cores");
-           None, None
+           None
          )
          else
-           Some sockets, Some cores_per_socket in
+           Some { s_cpu_sockets = sockets; s_cpu_cores = cores_per_socket;
+                  s_cpu_threads = 1 } in
 
     (* BIOS or EFI firmware? *)
     let firmware = Option.default "bios" (xpath_string "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/vmw:Config[@vmw:key=\"firmware\"]/@vmw:value") in
@@ -97,7 +98,7 @@ let parse_ovf_from_ova ovf_filename =
       | s ->
          error (f_"unknown Config:firmware value %s (expected \"bios\" or \"efi\")") s in
 
-    name, memory, vcpu, cpu_sockets, cpu_cores, firmware,
+    name, memory, vcpu, cpu_topology, firmware,
     parse_disks (), parse_removables (), parse_nics ()
 
   (* Helper function to return the parent controller of a disk. *)
