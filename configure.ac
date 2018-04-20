@@ -352,6 +352,7 @@ AC_CONFIG_FILES([Makefile
                  tools/Makefile
                  utils/boot-analysis/Makefile
                  utils/boot-benchmark/Makefile
+                 utils/max-disks/Makefile
                  utils/qemu-boot/Makefile
                  utils/qemu-speed-test/Makefile
                  v2v/Makefile

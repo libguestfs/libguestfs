@@ -194,6 +194,7 @@ SUBDIRS += utils/boot-analysis
 endif
 SUBDIRS += \
 	utils/boot-benchmark \
+	utils/max-disks \
 	utils/qemu-boot \
 	utils/qemu-speed-test
 
