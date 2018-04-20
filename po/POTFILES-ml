@@ -156,6 +156,10 @@ v2v/output_local.ml
 v2v/output_null.ml
 v2v/output_qemu.ml
 v2v/output_rhv.ml
+v2v/output_rhv_upload.ml
+v2v/output_rhv_upload_createvm_source.ml
+v2v/output_rhv_upload_plugin_source.ml
+v2v/output_rhv_upload_precheck_source.ml
 v2v/output_vdsm.ml
 v2v/parse_libvirt_xml.ml
 v2v/parse_ovf_from_ova.ml

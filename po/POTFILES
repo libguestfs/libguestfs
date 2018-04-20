@@ -92,6 +92,7 @@ daemon/dropcaches.c
 daemon/du.c
 daemon/echo-daemon.c
 daemon/ext2.c
+daemon/f2fs.c
 daemon/fallocate.c
 daemon/file.c
 daemon/fill.c
