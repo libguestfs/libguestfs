@@ -31,7 +31,7 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	copy_to_local.ml \
 	copy_to_local.mli \
-	embed-code.sh \
+	embed.sh \
 	rhv-upload-createvm.py \
 	rhv-upload-plugin.py \
 	rhv-upload-precheck.py \
