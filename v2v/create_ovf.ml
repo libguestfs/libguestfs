@@ -371,27 +371,15 @@ let rec create_ovf source targets guestcaps inspect
           e "rasd:InstanceId" [] [PCData "1"];
           e "rasd:ResourceType" [] [PCData "3"]
         ] @
-          if source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
-             source.s_cpu_threads <> None then (
-            let sockets =
-              match source.s_cpu_sockets with
-              | None -> "1"
-              | Some v -> string_of_int v in
-            let cores =
-              match source.s_cpu_cores with
-              | None -> "1"
-              | Some v -> string_of_int v in
-            let threads =
-              match source.s_cpu_threads with
-              | None -> "1"
-              | Some v -> string_of_int v in
-            [ e "rasd:num_of_sockets" [] [PCData sockets];
-              e "rasd:cpu_per_socket"[] [PCData cores];
-              e "rasd:threads_per_cpu"[] [PCData threads] ]
-          )
-          else (
+          (match source.s_cpu_topology with
+          | None ->
             [ e "rasd:num_of_sockets" [] [PCData "1"];
               e "rasd:cpu_per_socket"[] [PCData (string_of_int source.s_vcpu)] ]
+          | Some { s_cpu_sockets = sockets; s_cpu_cores = cores;
+                   s_cpu_threads = threads } ->
+            [ e "rasd:num_of_sockets" [] [PCData (string_of_int sockets)];
+              e "rasd:cpu_per_socket"[] [PCData (string_of_int cores)];
+              e "rasd:threads_per_cpu"[] [PCData (string_of_int threads)] ]
           )
         )
       );

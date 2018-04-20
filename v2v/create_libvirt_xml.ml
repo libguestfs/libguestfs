@@ -48,8 +48,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
   ];
 
   if source.s_cpu_vendor <> None || source.s_cpu_model <> None ||
-     source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
-     source.s_cpu_threads <> None then (
+     source.s_cpu_topology <> None then (
     let cpu = ref [] in
 
     (match source.s_cpu_vendor with
@@ -62,22 +61,15 @@ let create_libvirt_xml ?pool source target_buses guestcaps
      | Some model ->
         List.push_back cpu (e "model" ["fallback", "allow"] [PCData model])
     );
-    if source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
-       source.s_cpu_threads <> None then (
-      let topology_attrs = ref [] in
-      (match source.s_cpu_sockets with
-       | None -> ()
-       | Some v -> List.push_back topology_attrs ("sockets", string_of_int v)
-      );
-      (match source.s_cpu_cores with
-       | None -> ()
-       | Some v -> List.push_back topology_attrs ("cores", string_of_int v)
-      );
-      (match source.s_cpu_threads with
-       | None -> ()
-       | Some v -> List.push_back topology_attrs ("threads", string_of_int v)
-      );
-      List.push_back cpu (e "topology" !topology_attrs [])
+    (match source.s_cpu_topology with
+     | None -> ()
+     | Some { s_cpu_sockets; s_cpu_cores; s_cpu_threads } ->
+        let topology_attrs = [
+          "sockets", string_of_int s_cpu_sockets;
+          "cores", string_of_int s_cpu_cores;
+          "threads", string_of_int s_cpu_threads;
+        ] in
+        List.push_back cpu (e "topology" topology_attrs [])
     );
 
     List.push_back_list body [ e "cpu" [ "match", "minimum" ] !cpu ]

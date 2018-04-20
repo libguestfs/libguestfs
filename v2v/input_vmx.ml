@@ -436,17 +436,18 @@ object
       | None -> 1
       | Some i -> i in
 
-    let cpu_sockets, cpu_cores =
+    let cpu_topology =
       match Parse_vmx.get_int vmx ["cpuid"; "coresPerSocket"] with
-      | None -> None, None
+      | None -> None
       | Some cores_per_socket ->
          let sockets = vcpu / cores_per_socket in
          if sockets <= 0 then (
            warning (f_"invalid cpuid.coresPerSocket < number of vCPUs");
-           None, None
+           None
          )
          else
-           Some sockets, Some cores_per_socket in
+           Some { s_cpu_sockets = sockets; s_cpu_cores = cores_per_socket;
+                  s_cpu_threads = 1 } in
 
     let firmware =
       match Parse_vmx.get_string vmx ["firmware"] with
@@ -486,9 +487,7 @@ object
       s_vcpu = vcpu;
       s_cpu_vendor = None;
       s_cpu_model = None;
-      s_cpu_sockets = cpu_sockets;
-      s_cpu_cores = cpu_cores;
-      s_cpu_threads = None;
+      s_cpu_topology = cpu_topology;
       s_features = [];
       s_firmware = firmware;
       s_display = None;

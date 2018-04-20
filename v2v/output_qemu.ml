@@ -97,26 +97,18 @@ object
 
     arg "-m" (Int64.to_string (source.s_memory /^ 1024L /^ 1024L));
     if source.s_vcpu > 1 then (
-      if source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
-         source.s_cpu_threads <> None then (
-        let a = ref [] in
-        List.push_back a (sprintf "cpus=%d" source.s_vcpu);
-        List.push_back a (sprintf "sockets=%d"
-                             (match source.s_cpu_sockets with
-                              | None -> 1
-                              | Some v -> v));
-        List.push_back a (sprintf "cores=%d"
-                             (match source.s_cpu_cores with
-                              | None -> 1
-                              | Some v -> v));
-        List.push_back a (sprintf "threads=%d"
-                             (match source.s_cpu_threads with
-                              | None -> 1
-                              | Some v -> v));
-        arg_list "-smp" !a
-      )
-      else
-        arg "-smp" (string_of_int source.s_vcpu);
+      (match source.s_cpu_topology with
+       | None ->
+          arg "-smp" (string_of_int source.s_vcpu)
+       | Some { s_cpu_sockets; s_cpu_cores; s_cpu_threads } ->
+         let args = [
+           sprintf "cpus=%d" source.s_vcpu;
+           sprintf "sockets=%d" s_cpu_sockets;
+           sprintf "cores=%d" s_cpu_cores;
+           sprintf "threads=%d" s_cpu_threads;
+         ] in
+         arg_list "-smp" args
+      );
     );
 
     let make_disk if_name i = function

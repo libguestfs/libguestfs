@@ -98,24 +98,15 @@ object
          | x -> x (* everything else is the same in libguestfs and OpenStack*)
         )
       ] in
-      if source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
-         source.s_cpu_threads <> None then (
-        List.push_back properties ("hw_cpu_sockets",
-                              match source.s_cpu_sockets with
-                              | None -> "1"
-                              | Some v -> string_of_int v);
-        List.push_back properties ("hw_cpu_cores",
-                              match source.s_cpu_cores with
-                              | None -> "1"
-                              | Some v -> string_of_int v);
-        List.push_back properties ("hw_cpu_threads",
-                              match source.s_cpu_threads with
-                              | None -> "1"
-                              | Some v -> string_of_int v);
-      )
-      else (
-        List.push_back properties ("hw_cpu_sockets", "1");
-        List.push_back properties ("hw_cpu_cores", string_of_int source.s_vcpu);
+      (match source.s_cpu_topology with
+       | None ->
+          List.push_back properties ("hw_cpu_sockets", "1");
+          List.push_back properties ("hw_cpu_cores", string_of_int source.s_vcpu);
+       | Some { s_cpu_sockets = sockets; s_cpu_cores = cores;
+                s_cpu_threads = threads } ->
+          List.push_back properties ("hw_cpu_sockets", string_of_int sockets);
+          List.push_back properties ("hw_cpu_cores", string_of_int cores);
+          List.push_back properties ("hw_cpu_threads", string_of_int threads);
       );
       (match guestcaps.gcaps_block_bus with
        | Virtio_SCSI ->

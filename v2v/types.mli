@@ -66,9 +66,7 @@ type source = {
   s_vcpu : int;                         (** Number of CPUs. *)
   s_cpu_vendor : string option;         (** Source CPU vendor. *)
   s_cpu_model : string option;          (** Source CPU model. *)
-  s_cpu_sockets : int option;           (** Number of sockets. *)
-  s_cpu_cores : int option;             (** Number of cores per socket. *)
-  s_cpu_threads : int option;           (** Number of threads per core. *)
+  s_cpu_topology : source_cpu_topology option; (** Source CPU topology. *)
   s_features : string list;             (** Machine features. *)
   s_firmware : source_firmware;         (** Firmware (BIOS or EFI). *)
   s_display : source_display option;    (** Guest display. *)
@@ -160,12 +158,19 @@ and source_sound = {
 and source_sound_model =
   AC97 | ES1370 | ICH6 | ICH9 | PCSpeaker | SB16 | USBAudio
 
+and source_cpu_topology = {
+  s_cpu_sockets : int;             (** Number of sockets. *)
+  s_cpu_cores : int;               (** Number of cores per socket. *)
+  s_cpu_threads : int;             (** Number of threads per core. *)
+}
+
 val string_of_source : source -> string
 val string_of_source_disk : source_disk -> string
 val string_of_controller : s_controller -> string
 val string_of_nic_model : s_nic_model -> string
 val string_of_source_sound_model : source_sound_model -> string
 val string_of_source_video : source_video -> string
+val string_of_source_cpu_topology : source_cpu_topology -> string
 
 val string_of_source_hypervisor : source_hypervisor -> string
 val source_hypervisor_of_string : string -> source_hypervisor
