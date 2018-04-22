@@ -247,6 +247,9 @@ object
 
   method supported_firmware = [ TargetBIOS ]
 
+  (* rhev-apt.exe will be installed (if available). *)
+  method install_rhev_apt = true
+
   method prepare_targets source targets =
     let output_name = source.s_name in
     let json_params =
