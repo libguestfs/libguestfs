@@ -21,7 +21,10 @@ type csum_t =
 | SHA256 of string
 | SHA512 of string
 
-exception Mismatched_checksum of (csum_t * string) (* expected checksum, got *)
+type csum_result =
+  | Good_checksum
+  (* expected checksum, actual checksum. *)
+  | Mismatched_checksum of csum_t * string
 
 val of_string : string -> string -> csum_t
 (** [of_string type value] returns the [csum_t] for the specified
@@ -29,14 +32,17 @@ val of_string : string -> string -> csum_t
 
     Raise [Invalid_argument] if the checksum type is not known. *)
 
-val verify_checksum : csum_t -> ?tar:string -> string -> unit
-(** [verify_checksum type filename] Verify the checksum of the file.
+val verify_checksum : csum_t -> ?tar:string -> string -> csum_result
+(** [verify_checksum type filename] verifies the checksum of the file.
 
     When optional [tar] is used it is path to uncompressed tar archive
     and the [filename] is a path in the tar archive. *)
 
-val verify_checksums : csum_t list -> string -> unit
-(** Verify all the checksums of the file. *)
+val verify_checksums : csum_t list -> string -> csum_result
+(** Verify all the checksums of the file.
+
+    If any checksum fails, the first failure (only) is returned in
+    {!csum_result}. *)
 
 val string_of_csum_t : csum_t -> string
 (** Return a string representation of the checksum type. *)
