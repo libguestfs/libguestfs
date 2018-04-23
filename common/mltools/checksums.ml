@@ -27,7 +27,9 @@ type csum_t =
 | SHA256 of string
 | SHA512 of string
 
-exception Mismatched_checksum of (csum_t * string)
+type csum_result =
+  | Good_checksum
+  | Mismatched_checksum of csum_t * string
 
 let string_of_csum_t = function
   | SHA1 _ -> "sha1"
@@ -73,8 +75,15 @@ let compute_checksum csum_type ?tar filename =
 let verify_checksum csum ?tar filename =
   let csum_type = string_of_csum_t csum in
   let csum_actual = compute_checksum csum_type ?tar filename in
-  if csum <> csum_actual then
-    raise (Mismatched_checksum (csum, (string_of_csum csum_actual)))
+  if csum = csum_actual then
+    Good_checksum
+  else
+    Mismatched_checksum (csum, string_of_csum csum_actual)
 
 let verify_checksums checksums filename =
-  List.iter (fun c -> verify_checksum c filename) checksums
+  List.fold_left (
+    fun acc c ->
+      match acc with
+      | Good_checksum -> verify_checksum c filename
+      | Mismatched_checksum _ as acc -> acc
+  ) Good_checksum checksums

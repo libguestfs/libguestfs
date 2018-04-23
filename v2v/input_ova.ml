@@ -224,15 +224,17 @@ object
                 and disk = PCRE.sub 2
                 and expected = PCRE.sub 3 in
                 let csum = Checksums.of_string mode expected in
-                try
+                match
                   if partial then
                     Checksums.verify_checksum csum
                                               ~tar:ova (mf_subfolder // disk)
                   else
                     Checksums.verify_checksum csum (mf_folder // disk)
-                with Checksums.Mismatched_checksum (_, actual) ->
-                  error (f_"checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected %s(%s) = %s)")
-                        disk mf mode disk actual mode disk expected;
+                with
+                | Checksums.Good_checksum -> ()
+                | Checksums.Mismatched_checksum (_, actual) ->
+                   error (f_"checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected %s(%s) = %s)")
+                         disk mf mode disk actual mode disk expected;
               )
               else
                 warning (f_"unable to parse line from manifest file: %S") line;
