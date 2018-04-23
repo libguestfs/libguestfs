@@ -25,6 +25,8 @@ type csum_result =
   | Good_checksum
   (* expected checksum, actual checksum. *)
   | Mismatched_checksum of csum_t * string
+  (* referenced file does not exist *)
+  | Missing_file
 
 val of_string : string -> string -> csum_t
 (** [of_string type value] returns the [csum_t] for the specified
