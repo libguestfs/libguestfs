@@ -376,15 +376,6 @@ end
 let (//) = Filename.concat
 let quote = Filename.quote
 
-let subdirectory parent path =
-  if path = parent then
-    ""
-  else if String.is_prefix path (parent // "") then (
-    let len = String.length parent in
-    String.sub path (len+1) (String.length path - len-1)
-  ) else
-    invalid_arg (sprintf "%S is not a path prefix of %S" parent path)
-
 let ( +^ ) = Int64.add
 let ( -^ ) = Int64.sub
 let ( *^ ) = Int64.mul

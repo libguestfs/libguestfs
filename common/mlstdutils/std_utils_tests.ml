@@ -30,12 +30,6 @@ let assert_equal_int64 = assert_equal ~printer:(fun x -> Int64.to_string x)
 let assert_equal_stringlist = assert_equal ~printer:(fun x -> "(" ^ (String.escaped (String.concat "," x)) ^ ")")
 let assert_equal_stringpair = assert_equal ~printer:(fun (x, y) -> sprintf "%S, %S" x y)
 
-let test_subdirectory ctx =
-  assert_equal_string "" (subdirectory "/foo" "/foo");
-  assert_equal_string "" (subdirectory "/foo" "/foo/");
-  assert_equal_string "bar" (subdirectory "/foo" "/foo/bar");
-  assert_equal_string "bar/baz" (subdirectory "/foo" "/foo/bar/baz")
-
 (* Test Std_utils.int_of_X and Std_utils.X_of_int byte swapping
  * functions.
  *)
@@ -150,7 +144,6 @@ let test_string_chomp ctx =
 let suite =
   "mllib Std_utils" >:::
     [
-      "subdirectory" >:: test_subdirectory;
       "numeric.byteswap" >:: test_byteswap;
       "char.mem" >:: test_char_mem;
       "strings.is_prefix" >:: test_string_is_prefix;
