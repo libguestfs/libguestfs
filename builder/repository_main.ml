@@ -398,6 +398,15 @@ let process_image acc_entries filename repo tmprepo index interactive
   | None ->
     extract_entry_data ~entry:file_entry ()
 
+let unsafe_remove_directory_prefix parent path =
+  if path = parent then
+    ""
+  else if String.is_prefix path (parent // "") then (
+    let len = String.length parent in
+    String.sub path (len+1) (String.length path - len-1)
+  ) else
+    invalid_arg (sprintf "%S is not a path prefix of %S" parent path)
+
 let main () =
   let cmdline = parse_cmdline () in
 
@@ -512,8 +521,8 @@ let main () =
         fun (id, entry) ->
           let { Index.file_uri } = entry in
           let rel_path =
-            try
-              subdirectory cmdline.repo file_uri
+            try (* XXX wrong *)
+              unsafe_remove_directory_prefix cmdline.repo file_uri
             with
             | Invalid_argument _ ->
               file_uri in

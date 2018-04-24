@@ -274,16 +274,6 @@ val ( // ) : string -> string -> string
 val quote : string -> string
 (** Shell-safe quoting of a string (alias for {!Filename.quote}). *)
 
-val subdirectory : string -> string -> string
-(** [subdirectory parent path] returns subdirectory part of [path] relative
-    to the [parent]. If [path] and [parent] point to the same directory empty
-    string is returned.
-
-    Note: path normalization on arguments is {b not} performed!
-
-    If [parent] is not a path prefix of [path] the function raises
-    [Invalid_argument]. *)
-
 val ( +^ ) : int64 -> int64 -> int64
 val ( -^ ) : int64 -> int64 -> int64
 val ( *^ ) : int64 -> int64 -> int64
