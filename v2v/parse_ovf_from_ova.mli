@@ -35,3 +35,6 @@ val parse_ovf_from_ova : string -> string option * int64 * int * Types.source_cp
     The returned tuple is
     [name, memory, vcpu, cpu_topology, firmware,
     disks, removables, nics] *)
+
+val parse_disks : string -> ovf_disk list
+(** As above, but returns only the disks. *)
