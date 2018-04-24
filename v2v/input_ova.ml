@@ -20,242 +20,53 @@ open Printf
 
 open Std_utils
 open Tools_utils
-open Unix_utils
 open Common_gettext.Gettext
 
 open Types
-open Utils
+open Parse_ova
 open Parse_ovf_from_ova
 open Name_from_disk
 
-(* Return true if [libvirt] supports ["json:"] pseudo-URLs and accepts the
- * ["raw"] driver. Function also returns true if [libvirt] backend is not
- * used.  This didn't work in libvirt < 3.1.0.
- *)
-let libvirt_supports_json_raw_driver () =
-  if backend_is_libvirt () then (
-    let sup = Libvirt_utils.libvirt_get_version () >= (3, 1, 0) in
-    debug "libvirt supports  \"raw\" driver in json URL: %B" sup;
-    sup
-  )
-  else
-    true
-
-let pigz_available =
-  let test = lazy (shell_command "pigz --help >/dev/null 2>&1" = 0) in
-  fun () -> Lazy.force test
-
-let pxz_available =
-  let test = lazy (shell_command "pxz --help >/dev/null 2>&1" = 0) in
-  fun () -> Lazy.force test
-
-let zcat_command_of_format = function
-  | `GZip ->
-     if pigz_available () then "pigz -c -d" else "gzip -c -d"
-  | `XZ ->
-     if pxz_available () then "pxz -c -d" else "xz -c -d"
-
-(* Untar part or all files from tar archive. If [paths] is specified it is
- * a list of paths in the tar archive.
- *)
-let untar ?format ?(paths = []) file outdir =
-  let paths = String.concat " " (List.map quote paths) in
-  let cmd =
-    match format with
-    | None ->
-       sprintf "tar -xf %s -C %s %s"
-               (quote file) (quote outdir) paths
-    | Some ((`GZip|`XZ) as format) ->
-       sprintf "%s %s | tar -xf - -C %s %s"
-               (zcat_command_of_format format) (quote file)
-               (quote outdir) paths in
-  if shell_command cmd <> 0 then
-    error (f_"error unpacking %s, see earlier error messages") file
-
-(* Untar only ovf and manifest from the archive *)
-let untar_metadata file outdir =
-  let files = external_command (sprintf "tar -tf %s" (Filename.quote file)) in
-  let files =
-    List.filter_map (
-      fun f ->
-        if Filename.check_suffix f ".ovf" ||
-           Filename.check_suffix f ".mf" then Some f
-        else None
-    ) files in
-  untar ~paths:files file outdir
-
-(* Uncompress the first few bytes of [file] and return it as
- * [(bytes, len)].
- *)
-let uncompress_head format file =
-  let cmd = sprintf "%s %s" (zcat_command_of_format format) (quote file) in
-  let chan_out, chan_in, chan_err = Unix.open_process_full cmd [||] in
-  let b = Bytes.create 512 in
-  let len = input chan_out b 0 (Bytes.length b) in
-  (* We're expecting the subprocess to fail because we close
-   * the pipe early, so:
-   *)
-  ignore (Unix.close_process_full (chan_out, chan_in, chan_err));
-  b, len
-
-(* Run [detect_file_type] on a compressed file, returning the
- * type of the uncompressed content (if known).
- *)
-let uncompressed_type format file =
-  let head, headlen = uncompress_head format file in
-  let tmpfile, chan =
-    Filename.open_temp_file "ova.file." "" in
-  output chan head 0 headlen;
-  close_out chan;
-  let ret = detect_file_type tmpfile in
-  Sys.remove tmpfile;
-  ret
-
-(* Find files in [dir] ending with [ext]. *)
-let find_files dir ext =
-  let rec loop = function
-    | [] -> []
-    | dir :: rest ->
-       let files = Array.to_list (Sys.readdir dir) in
-       let files = List.map (Filename.concat dir) files in
-       let dirs, files = List.partition Sys.is_directory files in
-       let files =
-         List.filter (fun x -> Filename.check_suffix x ext) files in
-       files @ loop (rest @ dirs)
-  in
-  loop [dir]
-
-class input_ova ova =
-  let tmpdir =
-    let base_dir = (open_guestfs ())#get_cachedir () in
-    let t = Mkdtemp.temp_dir ~base_dir "ova." in
-    rmdir_on_exit t;
-    t in
-object
+class input_ova ova = object
   inherit input
 
   method as_options = "-i ova " ^ ova
 
   method source () =
     (* Extract ova file. *)
-    let exploded, partial =
-      (* The spec allows a directory to be specified as an ova.  This
-       * is also pretty convenient.
-       *)
-      if is_directory ova then ova, false
-      else (
-        match detect_file_type ova with
-        | `Tar ->
-          (* Normal ovas are tar file (not compressed). *)
-          if qemu_img_supports_offset_and_size () &&
-              libvirt_supports_json_raw_driver () then (
-            (* In newer QEMU we don't have to extract everything.
-             * We can access disks inside the tar archive directly.
-             *)
-            untar_metadata ova tmpdir;
-            tmpdir, true
-          ) else (
-            untar ova tmpdir;
-            tmpdir, false
-          )
+    let ova_t = parse_ova ova in
 
-        | `Zip ->
-          (* However, although not permitted by the spec, people ship
-           * zip files as ova too.
-           *)
-          let cmd = [ "unzip" ] @
-            (if verbose () then [] else [ "-q" ]) @
-            [ "-j"; "-d"; tmpdir; ova ] in
-          if run_command cmd <> 0 then
-            error (f_"error unpacking %s, see earlier error messages") ova;
-          tmpdir, false
+    (* Extract ovf file from ova. *)
+    let ovf = get_ovf_file ova_t in
 
-        | (`GZip|`XZ) as format ->
-          (match uncompressed_type format ova with
-          | `Tar ->
-             untar ~format ova tmpdir;
-             tmpdir, false
-          | `Zip | `GZip | `XZ | `Unknown ->
-            error (f_"%s: unsupported file format\n\nFormats which we currently understand for '-i ova' are: tar (uncompressed, compress with gzip or xz), zip") ova
-          )
+    (* Extract the manifest from *.mf files in the ova. *)
+    let manifest = get_manifest ova_t in
 
-        | `Unknown ->
-          error (f_"%s: unsupported file format\n\nFormats which we currently understand for '-i ova' are: tar (uncompressed, compress with gzip or xz), zip") ova
-      ) in
-
-    (* Exploded path must be absolute (RHBZ#1155121). *)
-    let exploded = absolute_path exploded in
-
-    (* If virt-v2v is running as root, and the backend is libvirt, then
-     * we have to chmod the directory to 0755 and files to 0644
-     * so it is readable by qemu.qemu.  This is libvirt bug RHBZ#890291.
-     *)
-    if Unix.geteuid () = 0 && backend_is_libvirt () then (
-      warning (f_"making OVA directory public readable to work around libvirt bug https://bugzilla.redhat.com/1045069");
-      let cmd = [ "chmod"; "-R"; "go=u,go-w"; exploded ] @
-                if partial then [ ova ] else [] in
-      ignore (run_command cmd)
-    );
-
-    (* Search for the ovf file. *)
-    let ovf = find_files exploded ".ovf" in
-    let ovf =
-      match ovf with
-      | [] ->
-        error (f_"no .ovf file was found in %s") ova
-      | [x] -> x
-      | _ :: _ ->
-        error (f_"more than one .ovf file was found in %s") ova in
-
-    (* Read any .mf (manifest) files and verify sha1. *)
-    let mf = find_files exploded ".mf" in
-    let rex = PCRE.compile "^(SHA1|SHA256)\\((.*)\\)= ([0-9a-fA-F]+)\r?$" in
+    (* Verify checksums of files listed in the manifest. *)
     List.iter (
-      fun mf ->
-        debug "processing manifest %s" mf;
-        let mf_folder = Filename.dirname mf in
-        let mf_subfolder = subdirectory exploded mf_folder in
-        with_open_in mf (
-          fun chan ->
-            let rec loop () =
-              let line = input_line chan in
-              if PCRE.matches rex line then (
-                let mode = PCRE.sub 1
-                and disk = PCRE.sub 2
-                and expected = PCRE.sub 3 in
-                let csum = Checksums.of_string mode expected in
-                match
-                  if partial then
-                    Checksums.verify_checksum csum
-                                              ~tar:ova (mf_subfolder // disk)
-                  else
-                    Checksums.verify_checksum csum (mf_folder // disk)
-                with
-                | Checksums.Good_checksum -> ()
-                | Checksums.Mismatched_checksum (_, actual) ->
-                   error (f_"checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected %s(%s) = %s)")
-                         disk mf mode disk actual mode disk expected
-                | Checksums.Missing_file ->
-                   (* RHBZ#1570407: Some OVA files generated by VMware
-                    * reference non-existent components in the *.mf file.
-                    * Generate a warning and ignore it.
-                    *)
-                   warning (f_"%s has a checksum for non-existent file %s (ignored)")
-                           mf disk
-              )
-              else
-                warning (f_"unable to parse line from manifest file: %S") line;
-              loop ()
-            in
-            (try loop () with End_of_file -> ())
-        )
-    ) mf;
-
-    let ovf_folder = Filename.dirname ovf in
+      fun (file_ref, csum) ->
+        let filename, r =
+          match file_ref with
+          | LocalFile filename ->
+             filename, Checksums.verify_checksum csum filename
+          | TarFile (tar, filename) ->
+             filename, Checksums.verify_checksum csum ~tar filename in
+        match r with
+        | Checksums.Good_checksum -> ()
+        | Checksums.Mismatched_checksum (_, actual) ->
+           error (f_"-i ova: corrupt OVA: checksum of disk %s does not match manifest (actual = %s, expected = %s)")
+                 filename actual (Checksums.string_of_csum_t csum)
+        | Checksums.Missing_file ->
+           (* RHBZ#1570407: Some OVA files generated by VMware
+            * reference non-existent components in the *.mf file.
+            * Generate a warning and ignore it.
+            *)
+           warning (f_"manifest has a checksum for non-existent file %s (ignored)")
+                   filename
+    ) manifest;
 
     (* Parse the ovf file. *)
-    let name, memory, vcpu, cpu_topology, firmware,
-        disks, removables, nics =
+    let name, memory, vcpu, cpu_topology, firmware, disks, removables, nics =
       parse_ovf_from_ova ovf in
 
     let name =
@@ -265,81 +76,71 @@ object
          name_from_disk ova
       | Some name -> name in
 
-    let disks = List.map (
-      fun ({ href; compressed } as disk) ->
-        let partial =
-          if compressed && partial then (
-            (* We cannot access compressed disk inside the tar;
-             * we have to extract it.
-             *)
-            untar ~paths:[(subdirectory exploded ovf_folder) // href]
-                  ova tmpdir;
-            false
-          )
-          else
-            partial in
+    (* Convert the disk hrefs into qemu URIs. *)
+    let qemu_uris = List.map (
+      fun { href; compressed } ->
+        let file_ref = resolve_href ova_t href in
 
-        let filename =
-          if partial then
-            (subdirectory exploded ovf_folder) // href
-          else (
-            (* Does the file exist and is it readable? *)
-            Unix.access (ovf_folder // href) [Unix.R_OK];
-            ovf_folder // href
-          ) in
+        match compressed, file_ref with
+        | false, LocalFile filename ->
+           filename
 
-        (* The spec allows the file to be gzip-compressed, in which case
-         * we must uncompress it into the tmpdir.
-         *)
-        let filename =
-          if compressed then (
-            let new_filename = tmpdir // String.random8 () ^ ".vmdk" in
-            let cmd =
-              sprintf "zcat %s > %s" (quote filename) (quote new_filename) in
-            if shell_command cmd <> 0 then
-              error (f_"error uncompressing %s, see earlier error messages")
-                    filename;
-            new_filename
-          )
-          else filename in
+        | true, LocalFile filename ->
+           (* The spec allows the file to be gzip-compressed, in
+            * which case we must uncompress it into a temporary.
+            *)
+           let temp_dir = (open_guestfs ())#get_cachedir () in
+           let new_filename = Filename.temp_file ~temp_dir "ova" ".vmdk" in
+           unlink_on_exit new_filename;
+           let cmd =
+             sprintf "zcat %s > %s" (quote filename) (quote new_filename) in
+           if shell_command cmd <> 0 then
+             error (f_"error uncompressing %s, see earlier error messages")
+                   filename;
+           new_filename
 
-        let qemu_uri =
-          if not partial then (
-            filename
-          )
-          else (
-            let offset, size =
-              try find_file_in_tar ova filename
-              with
-              | Not_found ->
-                 error (f_"file ‘%s’ not found in the ova") filename
-              | Failure msg -> error (f_"%s") msg in
-            (* QEMU requires size aligned to 512 bytes. This is safe because
-             * tar also works with 512 byte blocks.
-             *)
-            let size = roundup64 size 512L in
+        | false, TarFile (tar, filename) ->
+           (* This is the tar optimization. *)
+           let offset, size =
+             try Parse_ova.get_tar_offet_and_size tar filename
+             with
+             | Not_found ->
+                error (f_"file ‘%s’ not found in the ova") filename
+             | Failure msg -> error (f_"%s") msg in
+           (* QEMU requires size aligned to 512 bytes. This is safe because
+            * tar also works with 512 byte blocks.
+            *)
+           let size = roundup64 size 512L in
 
-            (* Workaround for libvirt bug RHBZ#1431652. *)
-            let ova_path = absolute_path ova in
+           (* Workaround for libvirt bug RHBZ#1431652. *)
+           let tar_path = absolute_path tar in
 
-            let doc = [
-                "file", JSON.Dict [
-                            "driver", JSON.String "raw";
-                            "offset", JSON.Int64 offset;
-                            "size", JSON.Int64 size;
-                            "file", JSON.Dict [
-                                        "driver", JSON.String "file";
-                                        "filename", JSON.String ova_path]
-                          ]
-              ] in
-            let uri =
-              sprintf "json:%s" (JSON.string_of_doc ~fmt:JSON.Compact doc) in
-            debug "json: %s" uri;
-            uri
-          ) in
+           let doc = [
+               "file", JSON.Dict [
+                           "driver", JSON.String "raw";
+                           "offset", JSON.Int64 offset;
+                           "size", JSON.Int64 size;
+                           "file", JSON.Dict [
+                                       "driver", JSON.String "file";
+                                       "filename", JSON.String tar_path]
+                         ]
+             ] in
+           let uri =
+             sprintf "json:%s" (JSON.string_of_doc ~fmt:JSON.Compact doc) in
+           uri
 
-        { disk.source_disk with s_qemu_uri = qemu_uri }
-     ) disks in
+        | true, TarFile _ ->
+           (* This should not happen since {!Parse_ova} knows that
+            * qemu cannot handle compressed files here.
+            *)
+           assert false
+      ) disks in
+
+    (* Get a final list of source disks. *)
+    let disks =
+      List.map (fun ({ source_disk }, qemu_uri) ->
+          { source_disk with s_qemu_uri = qemu_uri })
+               (List.combine disks qemu_uris) in
 
     let source = {
       s_hypervisor = VMware;

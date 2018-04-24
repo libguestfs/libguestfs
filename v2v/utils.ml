@@ -146,65 +146,6 @@ let error_if_no_ssh_agent () =
   with Not_found ->
     error (f_"ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  This is required by qemu to do passwordless ssh access.  See the virt-v2v(1) man page for more information.")
 
-let ws = PCRE.compile "\\s+"
-let re_tar_message = PCRE.compile "\\*\\* [^*]+ \\*\\*$"
-
-let find_file_in_tar tar filename =
-  let lines = external_command (sprintf "tar tRvf %s" (Filename.quote tar)) in
-  let rec loop lines =
-    match lines with
-    | [] -> raise Not_found
-    | line :: lines -> (
-      (* Lines have the form:
-       * block <offset>: <perms> <owner>/<group> <size> <mdate> <mtime> <file>
-       * or:
-       * block <offset>: ** Block of NULs **
-       * block <offset>: ** End of File **
-       *)
-      if PCRE.matches re_tar_message line then
-        loop lines (* ignore "** Block of NULs **" etc. *)
-      else (
-        let elems = PCRE.nsplit ~max:8 ws line in
-        if List.length elems = 8 && List.hd elems = "block" then (
-          let elems = Array.of_list elems in
-          let offset = elems.(1) in
-          let size = elems.(4) in
-          let fname = elems.(7) in
-
-          if fname <> filename then
-            loop lines
-          else (
-            let offset =
-              try
-                (* There should be a colon at the end *)
-                let i = String.rindex offset ':' in
-                if i == (String.length offset)-1 then
-                  Int64.of_string (String.sub offset 0 i)
-                else
-                  failwith "colon at wrong position"
-              with Failure _ | Not_found ->
-                failwithf (f_"invalid offset returned by tar: %S") offset in
-
-            let size =
-              try Int64.of_string size
-              with Failure _ ->
-                failwithf (f_"invalid size returned by tar: %S") size in
-
-            (* Note: Offset is actualy block number and there is a single
-             * block with tar header at the beginning of the file. So skip
-             * the header and convert the block number to bytes before
-             * returning.
-             *)
-            (offset +^ 1L) *^ 512L, size
-          )
-        )
-        else
-          failwithf (f_"failed to parse line returned by tar: %S") line
-      )
-    )
-  in
-  loop lines
-
 (* Wait for a file to appear until a timeout. *)
 let rec wait_for_file filename timeout =
   if Sys.file_exists filename then true
