@@ -56,7 +56,7 @@ if $VG virt-v2v --debug-gc --quiet \
     exit 1
 fi
 cat test.out
-if ! grep "error: checksum of disk disk.vmdk does not match manifest" test.out
+if ! grep "error: -i ova: corrupt OVA" test.out
 then
     echo "$0: did not see the expected error in the output of virt-v2v"
     exit 1

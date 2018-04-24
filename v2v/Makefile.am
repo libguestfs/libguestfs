@@ -63,6 +63,7 @@ SOURCES_MLI = \
 	output_qemu.mli \
 	output_rhv.mli \
 	output_vdsm.mli \
+	parse_ova.mli \
 	parse_ovf_from_ova.mli \
 	parse_libvirt_xml.mli \
 	parse_vmx.mli \
@@ -86,6 +87,7 @@ SOURCES_ML = \
 	DOM.ml \
 	changeuid.ml \
 	parse_ovf_from_ova.ml \
+	parse_ova.ml \
 	create_ovf.ml \
 	linux.ml \
 	windows.ml \
