@@ -27,6 +27,49 @@ open Parse_ova
 open Parse_ovf_from_ova
 open Name_from_disk
 
+(* RHBZ#1570407: VMware-generated OVA files found in the wild can
+ * contain hrefs referencing snapshots.  The href will be something
+ * like: <File href="disk1.vmdk"/> but the actual disk will be a
+ * snapshot called something like "disk1.vmdk.000000000".
+ *)
+let re_snapshot = PCRE.compile "\\.(\\d+)$"
+
+let rec find_file_or_snapshot ova_t href manifest =
+  match resolve_href ova_t href with
+  | Some f -> f
+  | None ->
+     (* Find all files in the OVA called [<href>.\d+] *)
+     let files = get_file_list ova_t in
+     let snapshots =
+       List.filter_map (
+         function
+         | LocalFile filename -> get_snapshot_if_matches href filename
+         | TarFile (_, filename) -> get_snapshot_if_matches href filename
+       ) files in
+     (* Pick highest. *)
+     let snapshots = List.sort (fun a b -> compare b a) snapshots in
+     match snapshots with
+     | [] -> error_missing_href href
+     | snapshot::_ ->
+        let href = sprintf "%s.%s" href snapshot in
+        match resolve_href ova_t href with
+        | None -> error_missing_href href
+        | Some f -> f
+
+(* If [filename] matches [<href>.\d+] then return [Some snapshot]. *)
+and get_snapshot_if_matches href filename =
+  if PCRE.matches re_snapshot filename then (
+    let snapshot = PCRE.sub 1 in
+    if String.is_suffix filename (sprintf "%s.%s" href snapshot) then
+      Some snapshot
+    else
+      None
+  )
+  else None
+
+and error_missing_href href =
+  error (f_"-i ova: OVF references file ‘%s’ which was not found in the OVA archive") href
+
 class input_ova ova = object
   inherit input
 
@@ -79,11 +122,7 @@ class input_ova ova = object
     (* Convert the disk hrefs into qemu URIs. *)
     let qemu_uris = List.map (
       fun { href; compressed } ->
-        let file_ref =
-          match resolve_href ova_t href with
-          | Some f -> f
-          | None ->
-             error (f_"-i ova: OVF references file ‘%s’ which was not found in the OVA archive") href in
+        let file_ref = find_file_or_snapshot ova_t href manifest in
 
         match compressed, file_ref with
         | false, LocalFile filename ->
