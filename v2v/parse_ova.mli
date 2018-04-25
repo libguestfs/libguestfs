@@ -64,10 +64,9 @@ val get_file_list : t -> file_ref list
     can be different from the manifest (which is often
     incorrect). *)
 
-val resolve_href : t -> string -> file_ref
-(** Resolve an OVF [href] into an actual file reference.
-
-    Note this does not check that the file really exists. *)
+val resolve_href : t -> string -> file_ref option
+(** Resolve an OVF [href] into an actual file reference.  Returns [None]
+    if the file does not exist. *)
 
 val get_tar_offet_and_size : string -> string -> int64 * int64
 (** [get_tar_offet_and_size tar filename] looks up file in the [tar]

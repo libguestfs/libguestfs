@@ -17,6 +17,7 @@
  *)
 
 open Printf
+open Unix
 
 open Std_utils
 open Tools_utils
@@ -321,9 +322,33 @@ let resolve_href ({ top_dir; ova_type } as t) href =
   let ovf = get_ovf_file t in
   let ovf_folder = Filename.dirname ovf in
 
+  (* Since [href] comes from an untrusted source, we must ensure
+   * that it doesn't reference a path outside [top_dir].  An
+   * additional complication is that [href] is relative to
+   * the directory containing the OVF ([ovf_folder]).  A further
+   * complication is that the file might not exist at all.
+   *)
   match ova_type with
-  | Directory -> LocalFile (ovf_folder // href)
+  | Directory ->
+     let filename = ovf_folder // href in
+     let real_top_dir = Realpath.realpath top_dir in
+     (try
+        let filename = Realpath.realpath filename in
+        if not (String.is_prefix filename real_top_dir) then
+          error (f_"-i ova: invalid OVA file: path ‘%s’ references a file outside the archive") href;
+        Some (LocalFile filename)
+      with
+        Unix_error (ENOENT, "realpath", _) -> None
+     )
+
   | TarOptimized tar ->
+     (* Security: Since the only thing we will do with the computed
+      * filename is to call get_tar_offet_and_size, it doesn't
+      * matter if the filename is bogus or references some file
+      * on the filesystem outside the tarball.  Therefore we don't
+      * need to do any sanity checking here.
+      *)
+
      (*             (1)                 (2)
       * ovf:        <top_dir>/bar.ovf   <top_dir>/foo/bar.ovf
       * ovf_folder: <top_dir>           <top_dir>/foo
@@ -337,7 +362,19 @@ let resolve_href ({ top_dir; ova_type } as t) href =
        )
        else if top_dir = ovf_folder then href (* 1 *)
        else assert false in
-     TarFile (tar, filename)
+
+     (* Does the file exist in the tarball? *)
+     let cmd = sprintf "tar tf %s %s >/dev/null 2>&1"
+                       (quote tar) (quote filename) in
+     debug "ova: testing if %s exists in %s" filename tar;
+     if Sys.command cmd = 0 then (
+       debug "ova: file exists";
+       Some (TarFile (tar, filename))
+     )
+     else (
+       debug "ova: file does not exist";
+       None
+     )
 
 let ws = PCRE.compile "\\s+"
 let re_tar_message = PCRE.compile "\\*\\* [^*]+ \\*\\*$"
