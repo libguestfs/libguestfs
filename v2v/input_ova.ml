@@ -79,7 +79,11 @@ class input_ova ova = object
     (* Convert the disk hrefs into qemu URIs. *)
     let qemu_uris = List.map (
       fun { href; compressed } ->
-        let file_ref = resolve_href ova_t href in
+        let file_ref =
+          match resolve_href ova_t href with
+          | Some f -> f
+          | None ->
+             error (f_"-i ova: OVF references file ‘%s’ which was not found in the OVA archive") href in
 
         match compressed, file_ref with
         | false, LocalFile filename ->
