@@ -327,6 +327,7 @@ TESTS = \
 	test-v2v-i-ova-gz.sh \
 	test-v2v-i-ova-invalid-manifest1.sh \
 	test-v2v-i-ova-invalid-manifest2.sh \
+	test-v2v-i-ova-snapshots.sh \
 	test-v2v-i-ova-subfolders.sh \
 	test-v2v-i-ova-tar.sh \
 	test-v2v-i-ova-two-disks.sh \
@@ -466,6 +467,10 @@ EXTRA_DIST += \
 	test-v2v-i-ova-gz.sh \
 	test-v2v-i-ova-invalid-manifest1.sh \
 	test-v2v-i-ova-invalid-manifest2.sh \
+	test-v2v-i-ova-snapshots.expected \
+	test-v2v-i-ova-snapshots.expected2 \
+	test-v2v-i-ova-snapshots.ovf \
+	test-v2v-i-ova-snapshots.sh \
 	test-v2v-i-ova-subfolders.expected \
 	test-v2v-i-ova-subfolders.expected2 \
 	test-v2v-i-ova-subfolders.ovf \
