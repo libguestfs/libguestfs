@@ -251,15 +251,6 @@ and get_ovf_file { orig_ova; top_dir } =
   | _ :: _ ->
      error (f_"more than one .ovf file was found in %s") orig_ova
 
-let unsafe_remove_directory_prefix parent path =
-  if path = parent then
-    ""
-  else if String.is_prefix path (parent // "") then (
-    let len = String.length parent in
-    String.sub path (len+1) (String.length path - len-1)
-  ) else
-    invalid_arg (sprintf "%S is not a path prefix of %S" parent path)
-
 let rex = PCRE.compile "^(SHA1|SHA256)\\((.*)\\)= ([0-9a-fA-F]+)\r?$"
 
 let get_manifest { top_dir; ova_type } =
@@ -268,8 +259,19 @@ let get_manifest { top_dir; ova_type } =
     List.map (
       fun mf ->
         debug "ova: processing manifest file %s" mf;
+        (*               (1)                 (2)
+         * mf:           <top_dir>/bar.mf    <top_dir>/foo/bar.mf
+         * mf_folder:    <top_dir>           <top_dir>/foo
+         * mf_subfolder: ""                  foo
+         *)
         let mf_folder = Filename.dirname mf in
-        let mf_subfolder = unsafe_remove_directory_prefix top_dir mf_folder in
+        let mf_subfolder =
+          if String.is_prefix mf_folder (top_dir // "") then ( (* 2 *)
+            let len = String.length top_dir + 1 in
+            String.sub mf_folder len (String.length mf_folder - len)
+          )
+          else if top_dir = mf_folder then "" (* 1 *)
+          else assert false in
         with_open_in mf (
           fun chan ->
             let ret = ref [] in
@@ -322,7 +324,19 @@ let resolve_href ({ top_dir; ova_type } as t) href =
   match ova_type with
   | Directory -> LocalFile (ovf_folder // href)
   | TarOptimized tar ->
-     let filename = unsafe_remove_directory_prefix top_dir ovf_folder // href in
+     (*             (1)                 (2)
+      * ovf:        <top_dir>/bar.ovf   <top_dir>/foo/bar.ovf
+      * ovf_folder: <top_dir>           <top_dir>/foo
+      * subdir:     ""                  foo
+      * filename:   href                foo/href
+      *)
+     let filename =
+       if String.is_prefix ovf_folder (top_dir // "") then ( (* 2 *)
+         let len = String.length top_dir + 1 in
+         String.sub ovf_folder len (String.length ovf_folder - len) // href
+       )
+       else if top_dir = ovf_folder then href (* 1 *)
+       else assert false in
      TarFile (tar, filename)
 
 let ws = PCRE.compile "\\s+"
