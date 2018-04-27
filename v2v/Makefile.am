@@ -428,7 +428,8 @@ real_guests_scripts = \
 	test-v2v-conversion-of-ubuntu-10.04.sh \
 	test-v2v-conversion-of-ubuntu-12.04.sh \
 	test-v2v-conversion-of-ubuntu-14.04.sh \
-	test-v2v-conversion-of-ubuntu-16.04.sh
+	test-v2v-conversion-of-ubuntu-16.04.sh \
+	test-v2v-conversion-of-ubuntu-18.04.sh
 
 test-v2v-conversion-of-%.sh:
 	rm -f $@ $@-t

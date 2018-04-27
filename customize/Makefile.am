@@ -245,7 +245,8 @@ firstboot_test_scripts := \
 	test-firstboot-ubuntu-10.04.sh \
 	test-firstboot-ubuntu-12.04.sh \
 	test-firstboot-ubuntu-14.04.sh \
-	test-firstboot-ubuntu-16.04.sh
+	test-firstboot-ubuntu-16.04.sh \
+	test-firstboot-ubuntu-18.04.sh
 # Firstboot is known-broken on RHEL 3:
 #	test-firstboot-rhel-3.9.sh
 
@@ -270,7 +271,8 @@ password_test_scripts := \
 	test-password-ubuntu-10.04.sh \
 	test-password-ubuntu-12.04.sh \
 	test-password-ubuntu-14.04.sh \
-	test-password-ubuntu-16.04.sh
+	test-password-ubuntu-16.04.sh \
+	test-password-ubuntu-18.04.sh
 
 test-password-%.sh:
 	rm -f $@ $@-t
@@ -291,7 +293,8 @@ settings_test_scripts := \
 	test-settings-ubuntu-10.04.sh \
 	test-settings-ubuntu-12.04.sh \
 	test-settings-ubuntu-14.04.sh \
-	test-settings-ubuntu-16.04.sh
+	test-settings-ubuntu-16.04.sh \
+	test-settings-ubuntu-18.04.sh
 # Since firstboot is broken, we cannot test settings in RHEL 3:
 #	test-settings-rhel-3.9.sh
 

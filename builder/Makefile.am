@@ -432,7 +432,8 @@ console_test_scripts := \
 	test-console-fedora-24.sh \
 	test-console-ubuntu-12.04.sh \
 	test-console-ubuntu-14.04.sh \
-	test-console-ubuntu-16.04.sh
+	test-console-ubuntu-16.04.sh \
+	test-console-ubuntu-18.04.sh
 
 test-console-%.sh:
 	rm -f $@ $@-t
