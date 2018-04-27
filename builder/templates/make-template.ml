@@ -335,6 +335,7 @@ and os_of_string os ver =
   | "ubuntu", "12.04" -> Ubuntu (ver, "precise")
   | "ubuntu", "14.04" -> Ubuntu (ver, "trusty")
   | "ubuntu", "16.04" -> Ubuntu (ver, "xenial")
+  | "ubuntu", "18.04" -> Ubuntu (ver, "bionic")
   | "fedora", ver -> Fedora (int_of_string ver)
   | "freebsd", ver -> let maj, min = parse_major_minor ver in FreeBSD (maj, min)
   | _ ->
@@ -882,7 +883,9 @@ and os_variant_of_os ?(for_fedora = false) os arch =
     | Debian (ver, _), _ when ver <= 8 -> sprintf "debian%d" ver
     | Debian _, _ -> "debian8" (* max version known in Fedora 26 *)
 
-    | Ubuntu (ver, _), _ -> sprintf "ubuntu%s" ver
+    | Ubuntu (ver, _), _ when ver < "18.04" -> sprintf "ubuntu%s" ver
+    | Ubuntu ("18.04", _), _ -> "ubuntu17.04"
+    | Ubuntu _, _ -> assert false
 
     | FreeBSD (major, minor), _ -> sprintf "freebsd%d.%d" major minor
   )
