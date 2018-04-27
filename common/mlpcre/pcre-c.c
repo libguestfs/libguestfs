@@ -207,8 +207,9 @@ guestfs_int_pcre_matches (value rev, value strv)
 
   m->r = pcre_exec (re, NULL, m->subject, len, 0, 0, m->vec, veclen);
   if (m->r < 0 && m->r != PCRE_ERROR_NOMATCH) {
+    int ret = m->r;
     free_last_match (m);
-    raise_pcre_error ("pcre_exec", m->r);
+    raise_pcre_error ("pcre_exec", ret);
   }
 
   /* This error would indicate that pcre_exec ran out of space in the
