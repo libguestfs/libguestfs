@@ -197,6 +197,7 @@ get_source_format_or_autodetect (guestfs_h *g, struct drive *drv)
       error (g, _("could not auto-detect the format.\n"
                   "If the format is known, pass the format to libguestfs, eg. using the\n"
                   "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."));
+      free (format);
       return NULL;
     }
 
