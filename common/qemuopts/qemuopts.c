@@ -168,8 +168,7 @@ extend_options (struct qemuopts *qopts)
       qopts->nr_alloc = 1;
     else
       qopts->nr_alloc *= 2;
-    new_options = qopts->options;
-    new_options = realloc (new_options,
+    new_options = realloc (qopts->options,
                            qopts->nr_alloc * sizeof (struct qopt));
     if (new_options == NULL)
       return NULL;
@@ -421,8 +420,7 @@ qemuopts_append_arg_list (struct qemuopts *qopts, const char *value)
   if (value_copy == NULL)
     return -1;
 
-  new_values = qopt->values;
-  new_values = realloc (new_values, (len+2) * sizeof (char *));
+  new_values = realloc (qopt->values, (len+2) * sizeof (char *));
   if (new_values == NULL) {
     free (value_copy);
     return -1;
