@@ -111,6 +111,7 @@ upload (const char *filename, int flags, int64_t offset)
     if (lseek (fd, offset, SEEK_SET) == -1) {
       err = errno;
       ignore_value (cancel_receive ());
+      close (fd);
       errno = err;
       reply_with_perror ("lseek: %s", filename);
       return -1;
