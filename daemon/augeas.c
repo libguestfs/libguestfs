@@ -420,17 +420,15 @@ do_aug_ls (const char *path)
   if (STREQ (path, "/"))
     matches = do_aug_match ("/*");
   else {
-    CLEANUP_FREE char *buf = NULL;
+    char *buf = NULL;
 
-    len += 3;			/* / * + terminating \0 */
-    buf = malloc (len);
-    if (buf == NULL) {
-      reply_with_perror ("malloc");
+    if (asprintf (&buf, "%s/*", path) == -1) {
+      reply_with_perror ("asprintf");
       return NULL;
     }
 
-    snprintf (buf, len, "%s/*", path);
     matches = do_aug_match (buf);
+    free (buf);
   }
 
   if (matches == NULL)
