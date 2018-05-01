@@ -125,6 +125,19 @@ let part_get_parttype device =
   | _ ->
      failwithf "%s: cannot parse the output of parted" device
 
+let part_get_mbr_part_type device partnum =
+  let parttype = part_get_parttype device in
+  let mbr_id = part_get_mbr_id device partnum in
+
+  (* 0x05 - extended partition.
+   * 0x0f - extended partition using BIOS INT 13h extensions.
+   *)
+  match parttype, partnum, mbr_id with
+  | "msdos", (1|2|3|4), (0x05|0x0f) -> "extended"
+  | "msdos", (1|2|3|4), _ -> "primary"
+  | "msdos", _, _ -> "logical"
+  | _, _, _ -> "primary"
+
 let part_set_gpt_attributes device partnum attributes =
   if partnum <= 0 then failwith "partition number must be >= 1";
 

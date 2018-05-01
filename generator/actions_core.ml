@@ -9213,6 +9213,7 @@ All data will be zeroed, but metadata and the like is preserved." };
   { defaults with
     name = "part_get_mbr_part_type"; added = (1, 29, 32);
     style = RString (RPlainString, "partitiontype"), [String (Device, "device"); Int "partnum"], [];
+    impl = OCaml "Parted.part_get_mbr_part_type";
     tests = [
       InitEmpty, Always, TestResultString (
         [["part_init"; "/dev/sda"; "mbr"];
