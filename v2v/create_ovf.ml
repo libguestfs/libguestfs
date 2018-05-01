@@ -418,7 +418,7 @@ and get_ovirt_osid = function
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 3;
       i_arch = "x86_64" } ->
-    23
+    25
 
   | { i_type = "windows"; i_major_version = 10; i_minor_version = 0;
       i_arch = "i386" } ->
