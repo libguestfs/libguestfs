@@ -643,13 +643,13 @@ and make_boot_media os arch =
   | Fedora ver, X86_64 ->
      Location (sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Server/x86_64/os/" ver)
 
+  | Fedora ver, Aarch64 ->
+     Location (sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Server/aarch64/os/" ver)
+
   (* Fedora secondary architectures.
    * By using dl.fedoraproject.org we avoid randomly using mirrors
    * which might have incomplete copies.
    *)
-  | Fedora ver, Aarch64 ->
-     Location (sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/aarch64/os/" ver)
-
   | Fedora ver, I686 ->
      Location (sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/i386/os/" ver)
 
