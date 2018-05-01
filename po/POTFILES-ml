@@ -162,6 +162,7 @@ v2v/output_rhv_upload_plugin_source.ml
 v2v/output_rhv_upload_precheck_source.ml
 v2v/output_vdsm.ml
 v2v/parse_libvirt_xml.ml
+v2v/parse_ova.ml
 v2v/parse_ovf_from_ova.ml
 v2v/parse_vmx.ml
 v2v/qemuopts.ml

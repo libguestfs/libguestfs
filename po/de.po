@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2018-04-20 13:12+0100\n"
+"POT-Creation-Date: 2018-05-01 17:37+0100\n"
 "PO-Revision-Date: 2015-02-21 10:48-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
@@ -47,7 +47,7 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../v2v/input_ova.ml:307 ../common/mltools/tools_utils.ml:126
+#: ../v2v/input_ova.ml:152 ../common/mltools/tools_utils.ml:126
 msgid "%s"
 msgstr "%s"
 
@@ -62,7 +62,7 @@ msgstr ""
 msgid "%s (ignored)"
 msgstr "%s (ignoriert)"
 
-#: ../builder/builder.ml:318
+#: ../builder/builder.ml:319
 msgid ""
 "%s checksum of template did not match the expected checksum!\n"
 "  found checksum: %s\n"
@@ -73,7 +73,7 @@ msgid ""
 " - Check no one has tampered with the website or your network!"
 msgstr ""
 
-#: ../common/mltools/checksums.ml:68
+#: ../common/mltools/checksums.ml:71
 msgid "%s did not return any output"
 msgstr ""
 
@@ -448,6 +448,12 @@ msgid ""
 "read the man page virt-sparsify(1).\n"
 msgstr ""
 
+#: ../builder/builder.ml:322
+msgid ""
+"%s: template not downloaded or deleted.  You may have run ‘virt-builder --"
+"delete-cache’ in parallel."
+msgstr ""
+
 #: ../resize/resize.ml:678
 msgid "%s: this partition has already been ignored or deleted"
 msgstr ""
@@ -464,14 +470,6 @@ msgstr ""
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
-msgstr ""
-
-#: ../v2v/input_ova.ml:183 ../v2v/input_ova.ml:179
-msgid ""
-"%s: unsupported file format\n"
-"\n"
-"Formats which we currently understand for '-i ova' are: tar (uncompressed, "
-"compress with gzip or xz), zip"
 msgstr ""
 
 #: ../common/mltools/tools_utils.ml:84
@@ -617,6 +615,16 @@ msgstr ""
 
 #: ../dib/cmdline.ml:243
 msgid "-B must be specified"
+msgstr ""
+
+#: ../v2v/input_ova.ml:71
+msgid "-i ova: OVF references file ‘%s’ which was not found in the OVA archive"
+msgstr ""
+
+#: ../v2v/input_ova.ml:100
+msgid ""
+"-i ova: corrupt OVA: checksum of disk %s does not match manifest (actual = "
+"%s, expected = %s)"
 msgstr ""
 
 #: ../v2v/input_libvirt_vddk.ml:93
@@ -973,7 +981,7 @@ msgstr ""
 msgid "Compressing the image as tar.gz"
 msgstr ""
 
-#: ../builder/builder.ml:679
+#: ../builder/builder.ml:683
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -985,7 +993,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../builder/builder.ml:678
+#: ../builder/builder.ml:682
 msgid "Converting to %s"
 msgstr ""
 
@@ -1005,7 +1013,7 @@ msgstr ""
 msgid "Copy local files or directories into image"
 msgstr ""
 
-#: ../builder/builder.ml:614
+#: ../builder/builder.ml:618
 msgid "Copying"
 msgstr ""
 
@@ -1053,7 +1061,7 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../builder/repository_main.ml:550
+#: ../builder/repository_main.ml:559
 msgid "Creating index backup copy"
 msgstr ""
 
@@ -1379,7 +1387,7 @@ msgid "Fingerprint: %s\n"
 msgstr "Fingerabdruck: %s\n"
 
 #. ../customize/customize_main.ml:198
-#. ../builder/builder.ml:764
+#. ../builder/builder.ml:768
 #: ../v2v/v2v.ml:195 ../v2v/copy_to_local.ml:232
 msgid "Finishing off"
 msgstr ""
@@ -1431,11 +1439,11 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/repository_main.ml:485
+#: ../builder/repository_main.ml:494
 msgid "Found new images: %s"
 msgstr ""
 
-#: ../builder/builder.ml:754
+#: ../builder/builder.ml:758
 msgid "Free space"
 msgstr "Freier Platz"
 
@@ -1668,7 +1676,7 @@ msgstr ""
 msgid "Move files in disk image"
 msgstr ""
 
-#: ../builder/repository_main.ml:559
+#: ../builder/repository_main.ml:568
 msgid "Moving files to final destination"
 msgstr ""
 
@@ -1688,7 +1696,7 @@ msgstr ""
 msgid "No -oo (output options) are supported in this output mode.\n"
 msgstr ""
 
-#: ../builder/repository_main.ml:481
+#: ../builder/repository_main.ml:490
 msgid "No new image found"
 msgstr ""
 
@@ -1746,7 +1754,7 @@ msgstr ""
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:691
+#: ../builder/builder.ml:695
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1774,11 +1782,11 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:749
+#: ../builder/builder.ml:753
 msgid "Output file"
 msgstr "Ausgabedatei"
 
-#: ../builder/builder.ml:751
+#: ../builder/builder.ml:755
 msgid "Output format"
 msgstr "Ausgabeformat"
 
@@ -1823,7 +1831,7 @@ msgid ""
 "  -oo vdsm-vol-uuid=UUID       Disk volume UUID\n"
 msgstr ""
 
-#: ../builder/builder.ml:750
+#: ../builder/builder.ml:754
 msgid "Output size"
 msgstr "Ausgabegröße"
 
@@ -1882,7 +1890,7 @@ msgstr ""
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
-#: ../builder/builder.ml:552
+#: ../builder/builder.ml:556
 msgid "Planning how to build this image"
 msgstr ""
 
@@ -2147,11 +2155,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr "Partitionsgröße ändern"
 
-#: ../builder/builder.ml:639
+#: ../builder/builder.ml:643
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:665
+#: ../builder/builder.ml:669
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -2478,7 +2486,7 @@ msgstr ""
 msgid "Shrink partition"
 msgstr "Partition verkleinern"
 
-#: ../builder/repository_main.ml:536
+#: ../builder/repository_main.ml:545
 msgid "Signing index with the GPG key %s"
 msgstr ""
 
@@ -2724,7 +2732,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:752
+#: ../builder/builder.ml:756
 msgid "Total usable space"
 msgstr ""
 
@@ -2760,7 +2768,7 @@ msgstr ""
 msgid "Umounting the disks"
 msgstr ""
 
-#: ../builder/builder.ml:627
+#: ../builder/builder.ml:631
 msgid "Uncompressing"
 msgstr ""
 
@@ -2984,7 +2992,7 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/utils.ml:75
+#: ../v2v/utils.ml:74
 msgid ""
 "cannot find firmware for UEFI guests.\n"
 "\n"
@@ -3004,7 +3012,7 @@ msgid ""
 "at boot."
 msgstr ""
 
-#: ../builder/builder.ml:365
+#: ../builder/builder.ml:369
 msgid "cannot output to a character device or /dev/null"
 msgstr ""
 
@@ -3051,12 +3059,6 @@ msgstr ""
 msgid ""
 "cannot write files to the NFS server as %d:%d. You might want to stop virt-"
 "v2v (^C) and rerun it as root."
-msgstr ""
-
-#: ../v2v/input_ova.ml:234
-msgid ""
-"checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected "
-"%s(%s) = %s)"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:493
@@ -3135,11 +3137,11 @@ msgstr ""
 msgid "could not parse device name ‘%s’ from the source libvirt XML"
 msgstr ""
 
-#: ../v2v/parse_ovf_from_ova.ml:180
+#: ../v2v/parse_ovf_from_ova.ml:169
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:255
+#: ../v2v/input_ova.ml:118
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -3243,7 +3245,7 @@ msgstr ""
 msgid "domain"
 msgstr ""
 
-#: ../v2v/utils.ml:71
+#: ../v2v/utils.ml:70
 msgid "don’t know how to convert UEFI guests for architecture %s"
 msgstr ""
 
@@ -3304,16 +3306,12 @@ msgstr ""
 msgid "error parsing URI ‘%s’. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/parse_ovf_from_ova.ml:153
+#: ../v2v/parse_ovf_from_ova.ml:142
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:291
+#: ../v2v/input_ova.ml:141
 msgid "error uncompressing %s, see earlier error messages"
-msgstr ""
-
-#: ../v2v/input_ova.ml:170 ../v2v/input_ova.ml:73
-msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
 #: ../common/mltools/tools_utils.ml:139
@@ -3362,11 +3360,11 @@ msgstr ""
 msgid "external command ‘%s’ stopped by signal %d"
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:263
+#: ../v2v/output_rhv_upload.ml:266
 msgid "failed server prechecks, see earlier errors"
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:412
+#: ../v2v/output_rhv_upload.ml:415
 msgid "failed to create virtual machine, see earlier errors"
 msgstr ""
 
@@ -3374,7 +3372,7 @@ msgstr ""
 msgid "failed to download %s: HTTP status code %s"
 msgstr ""
 
-#: ../builder/repository_main.ml:541
+#: ../builder/repository_main.ml:550
 msgid "failed to export the GPG key %s"
 msgstr ""
 
@@ -3382,11 +3380,7 @@ msgstr ""
 msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
 msgstr ""
 
-#: ../v2v/utils.ml:195
-msgid "failed to parse line returned by tar: %S"
-msgstr ""
-
-#: ../builder/repository_main.ml:547
+#: ../builder/repository_main.ml:556
 msgid "failed to sign index"
 msgstr ""
 
@@ -3399,7 +3393,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../v2v/input_ova.ml:306
+#: ../v2v/input_ova.ml:151
 msgid "file ‘%s’ not found in the ova"
 msgstr ""
 
@@ -3536,7 +3530,7 @@ msgstr ""
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr ""
 
-#: ../builder/builder.ml:390
+#: ../builder/builder.ml:394
 msgid ""
 "images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s"
@@ -3550,7 +3544,7 @@ msgstr ""
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
-#: ../builder/builder.ml:350
+#: ../builder/builder.ml:354
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
@@ -3641,16 +3635,8 @@ msgstr ""
 msgid "invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/utils.ml:180
-msgid "invalid offset returned by tar: %S"
-msgstr ""
-
 #: ../customize/password.ml:71
 msgid "invalid password selector ‘%s’; see the man page"
-msgstr ""
-
-#: ../v2v/utils.ml:185
-msgid "invalid size returned by tar: %S"
 msgstr ""
 
 #: ../customize/subscription_manager.ml:54
@@ -3665,11 +3651,11 @@ msgstr ""
 msgid "invalid ssh-inject selector ‘%s’; see the man page"
 msgstr ""
 
-#: ../v2v/parse_ovf_from_ova.ml:79
+#: ../v2v/parse_ovf_from_ova.ml:83
 msgid "invalid vmw:CoresPerSocket (%d) ignored"
 msgstr ""
 
-#: ../v2v/parse_ovf_from_ova.ml:85
+#: ../v2v/parse_ovf_from_ova.ml:89
 msgid "invalid vmw:CoresPerSocket < number of cores"
 msgstr ""
 
@@ -3696,10 +3682,8 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/input_ova.ml:194
-msgid ""
-"making OVA directory public readable to work around libvirt bug https://"
-"bugzilla.redhat.com/1045069"
+#: ../v2v/input_ova.ml:107
+msgid "manifest has a checksum for non-existent file %s (ignored)"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:454
@@ -3720,10 +3704,6 @@ msgstr ""
 
 #: ../resize/resize.ml:147
 msgid "mkswap"
-msgstr ""
-
-#: ../v2v/input_ova.ml:208
-msgid "more than one .ovf file was found in %s"
 msgstr ""
 
 #: ../builder/yajl.ml:39
@@ -3786,11 +3766,11 @@ msgid ""
 "See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual."
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:332 ../v2v/input_libvirt_vddk.ml:381
+#: ../v2v/output_rhv_upload.ml:335 ../v2v/input_libvirt_vddk.ml:381
 msgid "nbdkit did not start up.  See previous debugging messages for problems."
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:334 ../v2v/input_libvirt_vddk.ml:383
+#: ../v2v/output_rhv_upload.ml:337 ../v2v/input_libvirt_vddk.ml:383
 msgid ""
 "nbdkit did not start up.  There may be errors printed by nbdkit above.\n"
 "\n"
@@ -3837,10 +3817,6 @@ msgstr ""
 msgid "no -oo (output options) are allowed here"
 msgstr ""
 
-#: ../v2v/input_ova.ml:205
-msgid "no .ovf file was found in %s"
-msgstr ""
-
 #: ../builder/builder.ml:155
 msgid ""
 "no GNU Privacy Guard (GnuPG, gpg) binary was found.\n"
@@ -3868,13 +3844,13 @@ msgstr ""
 msgid "no displayName key found in VMX file"
 msgstr ""
 
-#: ../builder/builder.ml:719
+#: ../builder/builder.ml:723
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../v2v/parse_ovf_from_ova.ml:158
+#: ../v2v/parse_ovf_from_ova.ml:147
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
@@ -3913,7 +3889,7 @@ msgstr ""
 msgid "no partitions found in the helper drive"
 msgstr ""
 
-#: ../builder/builder.ml:557
+#: ../builder/builder.ml:561
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -4023,7 +3999,7 @@ msgid ""
 "considered in future."
 msgstr ""
 
-#: ../builder/builder.ml:393
+#: ../builder/builder.ml:397
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
@@ -4033,13 +4009,13 @@ msgstr ""
 msgid "output ‘%s’ cannot be a character device, it must be a regular file"
 msgstr ""
 
-#: ../v2v/parse_ovf_from_ova.ml:118
+#: ../v2v/parse_ovf_from_ova.ml:264
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/parse_ovf_from_ova.ml:115
+#: ../v2v/parse_ovf_from_ova.ml:261
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -4123,7 +4099,7 @@ msgid ""
 "Windows guest)."
 msgstr ""
 
-#: ../builder/repository_main.ml:409
+#: ../builder/repository_main.ml:418
 msgid "repository folder ‘%s’ doesn’t exist"
 msgstr ""
 
@@ -4135,7 +4111,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr "resize2fs"
 
-#: ../v2v/output_rhv_upload.ml:281
+#: ../v2v/output_rhv_upload.ml:284
 msgid ""
 "rhv-upload: -of %s: Only output format ‘raw’ or ‘qcow2’ is supported.  If "
 "the input is in a different format then force one of these output formats by "
@@ -4231,7 +4207,7 @@ msgstr ""
 msgid "ssh copy command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/utils.ml:148
+#: ../v2v/utils.ml:147
 msgid ""
 "ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  "
 "This is required by qemu to do passwordless ssh access.  See the virt-v2v(1) "
@@ -4313,7 +4289,7 @@ msgid ""
 "this guest: %d)"
 msgstr ""
 
-#: ../builder/repository_main.ml:445
+#: ../builder/repository_main.ml:454
 msgid ""
 "the repository must contain an index file when running in automated mode"
 msgstr ""
@@ -4492,7 +4468,7 @@ msgstr ""
 msgid "too many parameters, only one path to repository is allowed"
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:380
+#: ../v2v/output_rhv_upload.ml:383
 msgid "transfer of disk %d/%d failed, see earlier error messages"
 msgstr ""
 
@@ -4509,10 +4485,6 @@ msgid ""
 "have to disable this (in the guest) in order to use virt-v2v.\n"
 "\n"
 "Original error message: %s"
-msgstr ""
-
-#: ../v2v/input_ova.ml:238
-msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
 #: ../v2v/convert_linux.ml:673
@@ -4537,7 +4509,7 @@ msgid ""
 "messages"
 msgstr ""
 
-#: ../common/mltools/checksums.ml:55
+#: ../common/mltools/checksums.ml:58
 msgid "unhandled checksum type ‘%s’"
 msgstr ""
 
@@ -4565,7 +4537,7 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/parse_ovf_from_ova.ml:99
+#: ../v2v/parse_ovf_from_ova.ml:103
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
@@ -4598,7 +4570,7 @@ msgstr ""
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr ""
 
-#: ../v2v/parse_ovf_from_ova.ml:166
+#: ../v2v/parse_ovf_from_ova.ml:155
 msgid "unsupported compression in OVF: %s"
 msgstr ""
 
@@ -8781,7 +8753,7 @@ msgstr ""
 msgid "unable to parse XML from stdin"
 msgstr ""
 
-#: inspector/inspector.c:763 lib/launch-libvirt.c:750 lib/libvirt-domain.c:418
+#: inspector/inspector.c:763 lib/launch-libvirt.c:751 lib/libvirt-domain.c:418
 #: lib/libvirt-domain.c:502 lib/libvirt-domain.c:818
 #, c-format
 msgid "unable to create new XPath context"
@@ -9376,7 +9348,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "Sie müssen guestfs_add_drive vor guestfs_launch aufrufen"
 
-#: lib/launch-direct.c:913 lib/launch-libvirt.c:680
+#: lib/launch-direct.c:913 lib/launch-libvirt.c:681
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -9387,32 +9359,32 @@ msgid ""
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:207
+#: lib/launch-libvirt.c:208
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:322
+#: lib/launch-libvirt.c:323
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:336
+#: lib/launch-libvirt.c:337
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the ‘libvirt’ backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:370
+#: lib/launch-libvirt.c:371
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: lib/launch-libvirt.c:399
+#: lib/launch-libvirt.c:400
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:609
+#: lib/launch-libvirt.c:610
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -9422,16 +9394,16 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:744
+#: lib/launch-libvirt.c:745
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:760
+#: lib/launch-libvirt.c:761
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:795
+#: lib/launch-libvirt.c:796
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -9446,48 +9418,48 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:1027
+#: lib/launch-libvirt.c:1028
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: lib/launch-libvirt.c:1449
+#: lib/launch-libvirt.c:1450
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1495 lib/qemu.c:723
+#: lib/launch-libvirt.c:1496 lib/qemu.c:723
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1578
+#: lib/launch-libvirt.c:1579
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1918
+#: lib/launch-libvirt.c:1919
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1929
+#: lib/launch-libvirt.c:1930
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1933
+#: lib/launch-libvirt.c:1934
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1954
+#: lib/launch-libvirt.c:1955
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:1967
+#: lib/launch-libvirt.c:1968
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2077
+#: lib/launch-libvirt.c:2078
 #, c-format
 msgid ""
 "bridge ‘%s’ not found.  Try running:\n"
@@ -9503,20 +9475,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: lib/launch-libvirt.c:2180
+#: lib/launch-libvirt.c:2181
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2201 lib/launch-libvirt.c:2234
+#: lib/launch-libvirt.c:2202 lib/launch-libvirt.c:2235
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2300
+#: lib/launch-libvirt.c:2301
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2331
+#: lib/launch-libvirt.c:2332
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
