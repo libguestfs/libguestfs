@@ -866,7 +866,7 @@ and os_variant_of_os ?(for_fedora = false) os arch =
     | Fedora _, (PPC64|PPC64le) -> "fedora22"
     | Fedora ver, _ when ver <= 23 ->
        sprintf "fedora%d" ver
-    | Fedora _, _ -> "fedora23" (* max version known in Fedora 24 *)
+    | Fedora _, _ -> "fedora26" (* max version known in Fedora 28 *)
 
     | CentOS (major, minor), _ when (major, minor) <= (7,0) ->
        sprintf "centos%d.%d" major minor
