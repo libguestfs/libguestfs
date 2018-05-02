@@ -1047,7 +1047,7 @@ guestfs_impl_mount_local (guestfs_h *g, const char *localmountpoint,
 
   /* Set g->localmountpoint in the handle. */
   gl_lock_lock (mount_local_lock);
-  g->localmountpoint = localmountpoint;
+  g->localmountpoint = safe_strdup (g, localmountpoint);
   gl_lock_unlock (mount_local_lock);
 
   return 0;
@@ -1090,6 +1090,7 @@ guestfs_impl_mount_local_run (guestfs_h *g)
 
   guestfs_int_free_fuse (g);
   gl_lock_lock (mount_local_lock);
+  free (g->localmountpoint);
   g->localmountpoint = NULL;
   gl_lock_unlock (mount_local_lock);
 
@@ -1148,7 +1149,8 @@ guestfs_impl_umount_local (guestfs_h *g,
     return -1;
   if (WIFEXITED (r) && WEXITSTATUS (r) == EXIT_SUCCESS)
     /* External fusermount succeeded.  Note that the original thread
-     * is responsible for setting g->localmountpoint to NULL.
+     * is responsible for freeing memory and setting
+     * g->localmountpoint to NULL.
      */
     return 0;
 

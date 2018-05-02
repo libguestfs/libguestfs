@@ -399,6 +399,7 @@ guestfs_close (guestfs_h *g)
   free (g->hv);
   free (g->backend);
   free (g->backend_data);
+  free (g->localmountpoint);
   guestfs_int_free_string_list (g->backend_settings);
   free (g->append);
   guestfs_int_free_error_data_list (g);
