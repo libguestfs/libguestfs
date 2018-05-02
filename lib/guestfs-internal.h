@@ -488,7 +488,7 @@ struct guestfs_h {
 
 #if HAVE_FUSE
   /**** Used by the mount-local APIs. ****/
-  const char *localmountpoint;
+  char *localmountpoint;
   struct fuse *fuse;                    /* FUSE handle. */
   int ml_dir_cache_timeout;             /* Directory cache timeout. */
   Hash_table *lsc_ht, *xac_ht, *rlc_ht; /* Directory cache. */
