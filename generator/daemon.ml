@@ -605,16 +605,18 @@ let generate_daemon_caml_stubs () =
   (* Implement code for returning structs and struct lists. *)
   let emit_return_struct typ =
     let struc = Structs.lookup_struct typ in
+    let uc_typ = String.uppercase_ascii typ in
     pr "/* Implement RStruct (%S, _). */\n" typ;
     pr "static guestfs_int_%s *\n" typ;
     pr "return_%s (value retv)\n" typ;
     pr "{\n";
-    pr "  guestfs_int_%s *ret;\n" typ;
+    pr "  CLEANUP_FREE_%s guestfs_int_%s *ret = NULL;\n" uc_typ typ;
+    pr "  guestfs_int_%s *real_ret;\n" typ;
     pr "  value v;\n";
     pr "\n";
-    pr "  ret = malloc (sizeof (*ret));\n";
+    pr "  ret = calloc (1, sizeof (*ret));\n";
     pr "  if (ret == NULL) {\n";
-    pr "    reply_with_perror (\"malloc\");\n";
+    pr "    reply_with_perror (\"calloc\");\n";
     pr "    return NULL;\n";
     pr "  }\n";
     pr "\n";
@@ -644,16 +646,20 @@ let generate_daemon_caml_stubs () =
            pr "  ret->%s = Int_val (v);\n" n
     ) struc.s_cols;
     pr "\n";
-    pr "  return ret;\n";
+    pr "  real_ret = ret;\n";
+    pr "  ret = NULL;\n";
+    pr "  return real_ret;\n";
     pr "}\n";
     pr "\n"
 
   and emit_return_struct_list typ =
+    let uc_typ = String.uppercase_ascii typ in
     pr "/* Implement RStructList (%S, _). */\n" typ;
     pr "static guestfs_int_%s_list *\n" typ;
     pr "return_%s_list (value retv)\n" typ;
     pr "{\n";
-    pr "  guestfs_int_%s_list *ret;\n" typ;
+    pr "  CLEANUP_FREE_%s_LIST guestfs_int_%s_list *ret = NULL;\n" uc_typ typ;
+    pr "  guestfs_int_%s_list *real_ret;\n" typ;
     pr "  guestfs_int_%s *r;\n" typ;
     pr "  size_t i, len;\n";
     pr "  value v, rv;\n";
@@ -666,18 +672,19 @@ let generate_daemon_caml_stubs () =
     pr "    rv = Field (rv, 1);\n";
     pr "  }\n";
     pr "\n";
-    pr "  ret = malloc (sizeof *ret);\n";
+    pr "  ret = calloc (1, sizeof *ret);\n";
     pr "  if (ret == NULL) {\n";
-    pr "    reply_with_perror (\"malloc\");\n";
+    pr "    reply_with_perror (\"calloc\");\n";
     pr "    return NULL;\n";
     pr "  }\n";
-    pr "  ret->guestfs_int_%s_list_len = len;\n" typ;
-    pr "  ret->guestfs_int_%s_list_val =\n" typ;
-    pr "    calloc (len, sizeof (guestfs_int_%s));\n" typ;
-    pr "  if (ret->guestfs_int_%s_list_val == NULL) {\n" typ;
-    pr "    reply_with_perror (\"calloc\");\n";
-    pr "    free (ret);\n";
-    pr "    return NULL;\n";
+    pr "  if (len > 0) {\n";
+    pr "    ret->guestfs_int_%s_list_val =\n" typ;
+    pr "      calloc (len, sizeof (guestfs_int_%s));\n" typ;
+    pr "    if (ret->guestfs_int_%s_list_val == NULL) {\n" typ;
+    pr "      reply_with_perror (\"calloc\");\n";
+    pr "      return NULL;\n";
+    pr "    }\n";
+    pr "    ret->guestfs_int_%s_list_len = len;\n" typ;
     pr "  }\n";
     pr "\n";
     pr "  rv = retv;\n";
@@ -685,13 +692,15 @@ let generate_daemon_caml_stubs () =
     pr "    v = Field (rv, 0);\n";
     pr "    r = return_%s (v);\n" typ;
     pr "    if (r == NULL)\n";
-    pr "      return NULL; /* XXX leaks memory along this error path */\n";
+    pr "      return NULL;\n";
     pr "    memcpy (&ret->guestfs_int_%s_list_val[i], r, sizeof (*r));\n" typ;
     pr "    free (r);\n";
     pr "    rv = Field (rv, 1);\n";
     pr "  }\n";
     pr "\n";
-    pr "  return ret;\n";
+    pr "  real_ret = ret;\n";
+    pr "  ret = NULL;\n";
+    pr "  return real_ret;\n";
     pr "}\n";
     pr "\n";
   in
