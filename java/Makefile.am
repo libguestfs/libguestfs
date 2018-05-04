@@ -77,6 +77,9 @@ if HAVE_JAVA
 
 JAVAC_FLAGS = $(EXTRA_JAVAC_FLAGS) -encoding utf-8
 JAVADOC_FLAGS = -encoding utf-8
+if !HAVE_JAVAH
+JAVAC_FLAGS += -h .
+endif
 
 # Java source.
 
@@ -125,9 +128,17 @@ libguestfs_jni_la_LDFLAGS = -version-info $(JNI_VERSION_INFO) -shared
 
 BUILT_SOURCES = com_redhat_et_libguestfs_GuestFS.h
 
+if HAVE_JAVAH
+
 com_redhat_et_libguestfs_GuestFS.h: $(java_prefix)/GuestFS.class
 	rm -f $@
 	$(JAVAH) -classpath $(srcdir):. com.redhat.et.libguestfs.GuestFS
+
+else
+
+com_redhat_et_libguestfs_GuestFS.h: libguestfs-${VERSION}.jar
+
+endif
 
 # Documentation.
 

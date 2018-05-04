@@ -73,9 +73,7 @@ if test "x$with_java" != "xno"; then
         else
             JAVAC="$JAVA/bin/javac"
         fi
-        if test ! -x "$JAVA/bin/javah"; then
-            AC_MSG_ERROR([missing $JAVA/bin/javah binary])
-        else
+        if test -x "$JAVA/bin/javah"; then
             JAVAH="$JAVA/bin/javah"
         fi
         if test ! -x "$JAVA/bin/javadoc"; then
@@ -165,4 +163,5 @@ if test "x$with_java" != "xno"; then
     AC_SUBST(JNI_VERSION_INFO)
 fi
 
+AM_CONDITIONAL([HAVE_JAVAH],[test -n "$JAVAH"])
 AM_CONDITIONAL([HAVE_JAVA],[test "x$with_java" != "xno" && test -n "$JAVAC"])
