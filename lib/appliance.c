@@ -118,6 +118,8 @@ guestfs_int_build_appliance (guestfs_h *g,
 
   struct appliance_files appliance;
 
+  memset (&appliance, 0, sizeof appliance);
+
   if (search_appliance (g, &appliance) != 1)
     return -1;
 
