@@ -453,7 +453,15 @@ qemuopts_append_arg_list_format (struct qemuopts *qopts,
 int
 qemuopts_end_arg_list (struct qemuopts *qopts)
 {
-  /* Nothing to do, the list is already well-formed. */
+  struct qopt *qopt;
+  size_t len;
+
+  qopt = last_option (qopts);
+  assert (qopt->type == QOPT_ARG_LIST);
+  len = count_strings (qopt->values);
+  if (len == 0)
+    return -1;
+
   return 0;
 }
 
@@ -816,7 +824,9 @@ qemuopts_to_argv (struct qemuopts *qopts)
     case QOPT_ARG_LIST:
       /* We only have to do comma-quoting here. */
       values = qopts->options[i].values;
-      len = count_strings (values) - 1 /* one for each comma */;
+      len = count_strings (values);
+      assert (len > 0);
+      len -= 1 /* one for each comma */;
       for (j = 0; values[j] != NULL; ++j) {
         for (k = 0; k < strlen (values[j]); ++k) {
           if (values[j][k] == ',') len++;
