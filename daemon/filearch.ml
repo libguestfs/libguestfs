@@ -25,7 +25,7 @@ open Unix_utils
 open Utils
 
 let re_file_elf =
-  PCRE.compile "ELF (\\d+)-bit (MSB|LSB).*(?:executable|shared object|relocatable), (.+?),"
+  PCRE.compile "ELF (\\d+)-bit (MSB|LSB).*(?:executable|shared object|relocatable)(?:,)? ([^,]+?),"
 
 let re_file_elf_ppc64 = PCRE.compile ".*64.*PowerPC"
 
