@@ -19,7 +19,7 @@
 /**
  * Utility functions used by the library, tools and language bindings.
  *
- * These functions these I<must not> call internal library functions
+ * These functions I<must not> call internal library functions
  * such as C<safe_*>, C<error> or C<perrorf>, or any C<guestfs_int_*>.
  */
 
