@@ -4112,7 +4112,7 @@ is closed which can also trigger these issues." };
     style = RErr, [String (PlainString, "exemptpath")], [];
     shortdesc = "remove a mountpoint";
     longdesc = "\
-This calls removes a mountpoint that was previously created
+This call removes a mountpoint that was previously created
 with C<guestfs_mkmountpoint>.  See C<guestfs_mkmountpoint>
 for full details." };
 
