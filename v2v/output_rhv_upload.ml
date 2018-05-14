@@ -179,17 +179,9 @@ See also the virt-v2v-output-rhv(1) manual.")
       error (f_"nbdkit was compiled without SELinux support.  You will have to recompile nbdkit with libselinux-devel installed, or else set SELinux to Permissive mode while doing the conversion.")
   in
 
-  (* Output format/sparse must be raw/sparse.  We may be able to
-   * lift this limitation in future, but it requires changes on the
-   * RHV side.  See TODO file for details.  XXX
-   *)
+  (* Output format must be raw. *)
   let error_current_limitation required_param =
     error (f_"rhv-upload: currently you must use ‘%s’.  This restriction will be loosened in a future version.") required_param
-  in
-
-  let error_unless_output_alloc_sparse () =
-    if output_alloc <> Sparse then
-      error_current_limitation "-oa sparse"
   in
 
   (* JSON parameters which are invariant between disks. *)
@@ -251,7 +243,6 @@ object
     error_unless_ovirtsdk4_module_available ();
     error_unless_nbdkit_working ();
     error_unless_nbdkit_python_plugin_working ();
-    error_unless_output_alloc_sparse ();
     (* Python code prechecks. *)
     let precheck_fn = tmpdir // "v2vprecheck.json" in
     let fd = Unix.openfile precheck_fn [O_WRONLY; O_CREAT] 0o600 in
