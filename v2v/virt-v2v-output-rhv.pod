@@ -5,7 +5,7 @@ virt-v2v-output-rhv - Using virt-v2v to convert guests to oVirt or RHV
 =head1 SYNOPSIS
 
  virt-v2v [-i* options] -o rhv-upload [-oc ENGINE_URL] -os STORAGE
-                        [-op PASSWORD] [-of raw]
+                        [-op PASSWORD]
                         [-oo rhv-cafile=FILE]
                         [-oo rhv-cluster=CLUSTER]
                         [-oo rhv-direct]
@@ -77,12 +77,6 @@ You can optionally add a username and port number to the URL.  If the
 username is not specified then virt-v2v defaults to using
 C<admin@internal> which is the typical superuser account for oVirt
 instances.
-
-=item I<-of raw>
-
-Currently you must use I<-of raw> and you cannot use I<-oa preallocated>.
-
-These restrictions will be loosened in a future version.
 
 =item I<-op> F<password-file>
 
