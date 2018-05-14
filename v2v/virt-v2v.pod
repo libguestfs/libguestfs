@@ -1813,12 +1813,6 @@ username is not specified then virt-v2v defaults to using
 C<admin@internal> which is the typical superuser account for oVirt
 instances.
 
-=item I<-of raw>
-
-Currently you must use I<-of raw> and you cannot use I<-oa preallocated>.
-
-These restrictions will be loosened in a future version.
-
 =item I<-op> F<password-file>
 
 A file containing a password to be used when connecting to the oVirt
