@@ -47,6 +47,7 @@ AC_CHECK_HEADERS([\
     linux/rtc.h \
     printf.h \
     sys/inotify.h \
+    sys/mount.h \
     sys/resource.h \
     sys/socket.h \
     sys/statfs.h \
