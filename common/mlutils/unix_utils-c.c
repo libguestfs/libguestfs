@@ -55,6 +55,10 @@
 #include <windows.h>
 #endif
 
+#ifdef HAVE_SYS_MOUNT_H
+#include <sys/mount.h>
+#endif
+
 #include <caml/alloc.h>
 #include <caml/fail.h>
 #include <caml/memory.h>
