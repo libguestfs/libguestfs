@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2018-05-01 21:11+0100\n"
+"POT-Creation-Date: 2018-05-15 14:10+0100\n"
 "PO-Revision-Date: 2017-02-24 07:33-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -472,6 +472,14 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
+#: ../v2v/parse_ova.ml:120 ../v2v/parse_ova.ml:116
+msgid ""
+"%s: unsupported file format\n"
+"\n"
+"Formats which we currently understand for '-i ova' are: tar (uncompressed, "
+"compress with gzip or xz), zip"
+msgstr ""
+
 #: ../common/mltools/tools_utils.ml:84
 msgid "%s: warning: %s"
 msgstr ""
@@ -621,6 +629,11 @@ msgstr ""
 msgid ""
 "-i ova: corrupt OVA: checksum of disk %s does not match manifest (actual = "
 "%s, expected = %s)"
+msgstr ""
+
+#: ../v2v/parse_ova.ml:338
+msgid ""
+"-i ova: invalid OVA file: path ‘%s’ references a file outside the archive"
 msgstr ""
 
 #: ../v2v/cmdline.ml:444
@@ -3164,6 +3177,10 @@ msgstr ""
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
+#: ../v2v/parse_ova.ml:191 ../v2v/parse_ova.ml:107
+msgid "error unpacking %s, see earlier error messages"
+msgstr ""
+
 #: ../common/mltools/tools_utils.ml:139
 msgid "exception: %s"
 msgstr ""
@@ -3220,6 +3237,10 @@ msgstr ""
 
 #: ../v2v/linux_bootloaders.ml:207
 msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
+msgstr ""
+
+#: ../v2v/parse_ova.ml:432
+msgid "failed to parse line returned by tar: %S"
 msgstr ""
 
 #: ../builder/repository_main.ml:577
@@ -3477,8 +3498,16 @@ msgstr ""
 msgid "invalid input filename (%s)"
 msgstr ""
 
+#: ../v2v/parse_ova.ml:416
+msgid "invalid offset returned by tar: %S"
+msgstr ""
+
 #: ../customize/password.ml:71
 msgid "invalid password selector ‘%s’; see the man page"
+msgstr ""
+
+#: ../v2v/parse_ova.ml:421
+msgid "invalid size returned by tar: %S"
 msgstr ""
 
 #: ../customize/subscription_manager.ml:54
@@ -3524,6 +3553,12 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
+#: ../v2v/parse_ova.ml:131
+msgid ""
+"making OVA directory public readable to work around libvirt bug https://"
+"bugzilla.redhat.com/1045069"
+msgstr ""
+
 #: ../v2v/input_ova.ml:107
 msgid "manifest has a checksum for non-existent file %s (ignored)"
 msgstr ""
@@ -3546,6 +3581,10 @@ msgstr ""
 
 #: ../resize/resize.ml:147
 msgid "mkswap"
+msgstr ""
+
+#: ../v2v/parse_ova.ml:253
+msgid "more than one .ovf file was found in %s"
 msgstr ""
 
 #: ../builder/yajl.ml:39
@@ -3635,6 +3674,10 @@ msgstr ""
 
 #: ../resize/resize.ml:195
 msgid "never|always|auto"
+msgstr ""
+
+#: ../v2v/parse_ova.ml:250
+msgid "no .ovf file was found in %s"
 msgstr ""
 
 #: ../builder/builder.ml:155
@@ -4280,6 +4323,10 @@ msgid ""
 "have to disable this (in the guest) in order to use virt-v2v.\n"
 "\n"
 "Original error message: %s"
+msgstr ""
+
+#: ../v2v/parse_ova.ml:295
+msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
 #: ../v2v/convert_linux.ml:673
@@ -8690,7 +8737,7 @@ msgstr ""
 msgid "xmlSaveDoc failed"
 msgstr ""
 
-#: lib/appliance.c:217
+#: lib/appliance.c:219
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -9158,15 +9205,15 @@ msgstr ""
 msgid "fuse_loop: %s"
 msgstr "fuse_loop: %s"
 
-#: lib/fuse.c:1137
+#: lib/fuse.c:1138
 msgid "no filesystem is mounted"
 msgstr "ファイルシステムがマウントされていません"
 
-#: lib/fuse.c:1255
+#: lib/fuse.c:1257
 msgid "could not initialize dir cache hashtables"
 msgstr "ディレクトリーキャッシュのハッシュ表を初期化できませんでした"
 
-#: lib/fuse.c:1510
+#: lib/fuse.c:1512
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -9197,24 +9244,24 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: 同じハンドルにおいて 2 回呼び出されました\n"
 
-#: lib/handle.c:555
+#: lib/handle.c:556
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: lib/handle.c:608
+#: lib/handle.c:609
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: lib/handle.c:725
+#: lib/handle.c:726
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: lib/handle.c:831
+#: lib/handle.c:832
 msgid "setting not found"
 msgstr ""
 

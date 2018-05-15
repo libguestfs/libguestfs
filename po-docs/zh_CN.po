@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2018-05-01 21:11+0100\n"
+"POT-Creation-Date: 2018-05-15 14:10+0100\n"
 "PO-Revision-Date: 2017-07-24 08:04-0400\n"
 "Last-Translator: cheng ye <18969068329@163.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
@@ -41718,7 +41718,7 @@ msgstr ""
 msgid ""
 " #if HAVE_FUSE\n"
 "   /**** Used by the mount-local APIs. ****/\n"
-"   const char *localmountpoint;\n"
+"   char *localmountpoint;\n"
 "   struct fuse *fuse;                    /* FUSE handle. */\n"
 "   int ml_dir_cache_timeout;             /* Directory cache timeout. */\n"
 "   Hash_table *lsc_ht, *xac_ht, *rlc_ht; /* Directory cache. */\n"
@@ -45607,7 +45607,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/internal-documentation.pod:2904
 msgid ""
-"These functions these I<must not> call internal library functions such as "
+"These functions I<must not> call internal library functions such as "
 "C<safe_*>, C<error> or C<perrorf>, or any C<guestfs_int_*>."
 msgstr ""
 
@@ -66807,7 +66807,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:7776
 msgid ""
-"This calls removes a mountpoint that was previously created with L</"
+"This call removes a mountpoint that was previously created with L</"
 "mkmountpoint>.  See L</mkmountpoint> for full details."
 msgstr ""
 
@@ -92261,7 +92261,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:12653
 msgid ""
-"This calls removes a mountpoint that was previously created with "
+"This call removes a mountpoint that was previously created with "
 "C<guestfs_mkmountpoint>.  See C<guestfs_mkmountpoint> for full details."
 msgstr ""
 
