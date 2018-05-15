@@ -95,7 +95,7 @@ let authors = [
 "Mike Kelly", [], [ Development ];
 "Mike Latimer", [], [ V2V_and_P2V ];
 "Ming Xie", [], [ Quality_assurance; V2V_and_P2V ];
-"Mykola Ivanets", [], [ Development ];
+"Mykola Ivanets", [], [ Development ]; (* alias: "Nikolay Ivanets" *)
 "Nicholas Strugnell", [], [ Development ];
 "Nikita A Menkovich", [], [ Development ];
 "Nikita Menkovich", [], [ Development ];
