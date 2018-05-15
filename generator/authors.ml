@@ -34,6 +34,7 @@ type role = Development | Quality_assurance | Documentation | V2V_and_P2V
  *)
 let authors = [
 "Adam Huffman", [], [ Development ];
+"Adam Robinson", [], [ Development ];
 "Andrea Bolognani", [], [ Development ];
 "Angus Salkeld", [], [ Development ];
 "Ani Peter", [], [ Development ];
