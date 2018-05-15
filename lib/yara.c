@@ -25,8 +25,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <string.h>
-#include <rpc/xdr.h>
 #include <rpc/types.h>
+#include <rpc/xdr.h>
 
 #include "guestfs.h"
 #include "guestfs_protocol.h"

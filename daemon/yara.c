@@ -25,8 +25,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
-#include <rpc/xdr.h>
 #include <rpc/types.h>
+#include <rpc/xdr.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 

@@ -183,7 +183,8 @@ PKG_CHECK_MODULES([RPC], [libtirpc], [], [
     RPC_CFLAGS=""
     AC_CHECK_HEADER([rpc/xdr.h],[],[
         AC_MSG_ERROR([XDR header files are required])
-    ])
+    ],
+    [#include <rpc/types.h>])
 
     old_LIBS="$LIBS"
     LIBS=""

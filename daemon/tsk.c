@@ -23,8 +23,8 @@
 #include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
-#include <rpc/xdr.h>
 #include <rpc/types.h>
+#include <rpc/xdr.h>
 
 #include "guestfs_protocol.h"
 #include "daemon.h"
