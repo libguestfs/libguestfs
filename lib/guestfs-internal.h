@@ -94,8 +94,7 @@
  * creating device nodes.
  */
 #ifdef __powerpc__
-#  define DEFAULT_MEMSIZE 768
-#  define MIN_MEMSIZE 256
+#  define DEFAULT_MEMSIZE 1024
 #endif
 
 /* Kernel 3.19 is unable to uncompress the initramfs on aarch64 unless
@@ -104,16 +103,15 @@
  * common on aarch64, treat this like the ppc case above.
  */
 #ifdef __aarch64__
-#  define DEFAULT_MEMSIZE 768
-#  define MIN_MEMSIZE 256
+#  define DEFAULT_MEMSIZE 1024
 #endif
 
 /* The default and minimum memory size for most users. */
 #ifndef DEFAULT_MEMSIZE
-#  define DEFAULT_MEMSIZE 500
+#  define DEFAULT_MEMSIZE 768
 #endif
 #ifndef MIN_MEMSIZE
-#  define MIN_MEMSIZE 128
+#  define MIN_MEMSIZE 256
 #endif
 
 /* Timeout waiting for appliance to come up (seconds).
