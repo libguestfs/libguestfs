@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.37.37\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2018-05-01 17:37+0100\n"
+"POT-Creation-Date: 2018-05-21 13:05+0100\n"
 "PO-Revision-Date: 2017-11-18 01:52-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -640,6 +640,18 @@ msgstr ""
 "%s: невідомий тип таблиці розділів.\n"
 "У virt-resize передбачено підтримку лише таблиць розділів MBR (DOS) та GPT."
 
+#: ../v2v/parse_ova.ml:120 ../v2v/parse_ova.ml:116
+msgid ""
+"%s: unsupported file format\n"
+"\n"
+"Formats which we currently understand for '-i ova' are: tar (uncompressed, "
+"compress with gzip or xz), zip"
+msgstr ""
+"%s: непідтримуваний формат файлів\n"
+"\n"
+"У поточній версії передбачено підтримку таких форматів для «-i ova»: "
+"нестиснений tar (нестиснений, стиснений за допомогою gzip або xz), zip"
+
 #: ../common/mltools/tools_utils.ml:84
 msgid "%s: warning: %s"
 msgstr "%s: попередження: %s"
@@ -805,6 +817,11 @@ msgstr ""
 msgid ""
 "-i ova: corrupt OVA: checksum of disk %s does not match manifest (actual = "
 "%s, expected = %s)"
+msgstr ""
+
+#: ../v2v/parse_ova.ml:338
+msgid ""
+"-i ova: invalid OVA file: path ‘%s’ references a file outside the archive"
 msgstr ""
 
 #: ../v2v/input_libvirt_vddk.ml:93
@@ -3860,6 +3877,11 @@ msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
 
+#: ../v2v/parse_ova.ml:191 ../v2v/parse_ova.ml:107
+msgid "error unpacking %s, see earlier error messages"
+msgstr ""
+"помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
+
 #: ../common/mltools/tools_utils.ml:139
 msgid "exception: %s"
 msgstr "виключення: %s"
@@ -3928,6 +3950,10 @@ msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
 msgstr ""
 "не вдалося знайти виконуваний файл grub2-mkconfig (втім, на гостьовій "
 "системі виявлено Grub2)"
+
+#: ../v2v/parse_ova.ml:432
+msgid "failed to parse line returned by tar: %S"
+msgstr "не вдалося обробити рядок, який повернуто tar: %S"
 
 #: ../builder/repository_main.ml:556
 msgid "failed to sign index"
@@ -4255,9 +4281,17 @@ msgstr "некоректний формат «%s» у --formats"
 msgid "invalid input filename (%s)"
 msgstr "некоректна назва файла вхідних даних (%s)"
 
+#: ../v2v/parse_ova.ml:416
+msgid "invalid offset returned by tar: %S"
+msgstr "tar повернуто некоректний відступ: %S"
+
 #: ../customize/password.ml:71
 msgid "invalid password selector ‘%s’; see the man page"
 msgstr "некоректний варіант пароля «%s»; див. сторінку man"
+
+#: ../v2v/parse_ova.ml:421
+msgid "invalid size returned by tar: %S"
+msgstr "tar повернуто некоректний розмір: %S"
 
 #: ../customize/subscription_manager.ml:54
 msgid "invalid sm-attach selector ‘%s’; see the man page"
@@ -4306,6 +4340,14 @@ msgstr "файл журналу %s: %s (проігноровано)"
 msgid "lv"
 msgstr "lv"
 
+#: ../v2v/parse_ova.ml:131
+msgid ""
+"making OVA directory public readable to work around libvirt bug https://"
+"bugzilla.redhat.com/1045069"
+msgstr ""
+"робимо каталог OVA загальнодоступним для читання, щоб обійти ваду у libvirt: "
+"https://bugzilla.redhat.com/1045069"
+
 #: ../v2v/input_ova.ml:107
 msgid "manifest has a checksum for non-existent file %s (ignored)"
 msgstr ""
@@ -4331,6 +4373,10 @@ msgstr "немає значення для ключа «%s»"
 #: ../resize/resize.ml:147
 msgid "mkswap"
 msgstr "mkswap"
+
+#: ../v2v/parse_ova.ml:253
+msgid "more than one .ovf file was found in %s"
+msgstr "у %s виявлено декілька файлів .ovf"
 
 #: ../builder/yajl.ml:39
 msgid "more than value for the key ‘%s’"
@@ -4473,6 +4519,10 @@ msgstr ""
 #: ../v2v/cmdline.ml:392
 msgid "no -oo (output options) are allowed here"
 msgstr ""
+
+#: ../v2v/parse_ova.ml:250
+msgid "no .ovf file was found in %s"
+msgstr "у %s не знайдено файла .ovf"
 
 #: ../builder/builder.ml:155
 msgid ""
@@ -5313,6 +5363,10 @@ msgstr ""
 "v2v.\n"
 "\n"
 "Початкове повідомлення щодо помилки: %s"
+
+#: ../v2v/parse_ova.ml:295
+msgid "unable to parse line from manifest file: %S"
+msgstr "не вдалося обробити рядок з файла маніфесту: %S"
 
 #: ../v2v/convert_linux.ml:673
 msgid ""
@@ -10097,7 +10151,7 @@ msgstr "помилка xmlCopyNode"
 msgid "xmlSaveDoc failed"
 msgstr "помилка xmlSaveDoc"
 
-#: lib/appliance.c:217
+#: lib/appliance.c:219
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -10609,15 +10663,15 @@ msgstr ""
 msgid "fuse_loop: %s"
 msgstr "fuse_loop: %s"
 
-#: lib/fuse.c:1137
+#: lib/fuse.c:1138
 msgid "no filesystem is mounted"
 msgstr "не змонтовано жодної файлової системи"
 
-#: lib/fuse.c:1255
+#: lib/fuse.c:1257
 msgid "could not initialize dir cache hashtables"
 msgstr "не вдалося ініціалізувати таблиці хешів каталогів кешу"
 
-#: lib/fuse.c:1510
+#: lib/fuse.c:1512
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -10650,7 +10704,7 @@ msgstr "нечислове значення LIBGUESTFS_MEMSIZE"
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
 
-#: lib/handle.c:555
+#: lib/handle.c:556
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
@@ -10658,12 +10712,12 @@ msgstr ""
 "зібрано з --without-qemu, отже спроба виклику guestfs_set_qemu з qemu == "
 "NULL призводить до помилки"
 
-#: lib/handle.c:608
+#: lib/handle.c:609
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr "надто мале значення для розміру пам’яті (має бути принаймні %d)"
 
-#: lib/handle.c:725
+#: lib/handle.c:726
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
@@ -10671,7 +10725,7 @@ msgstr ""
 "ідентифікатор має складатися із літер латинської абетки, цифр, символів "
 "підкреслювання або дефісів"
 
-#: lib/handle.c:831
+#: lib/handle.c:832
 msgid "setting not found"
 msgstr "параметра не знайдено"
 
@@ -12288,52 +12342,11 @@ msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
 
 #~ msgid ""
-#~ "%s: unsupported file format\n"
-#~ "\n"
-#~ "Formats which we currently understand for '-i ova' are: tar "
-#~ "(uncompressed, compress with gzip or xz), zip"
-#~ msgstr ""
-#~ "%s: непідтримуваний формат файлів\n"
-#~ "\n"
-#~ "У поточній версії передбачено підтримку таких форматів для «-i ova»: "
-#~ "нестиснений tar (нестиснений, стиснений за допомогою gzip або xz), zip"
-
-#~ msgid ""
 #~ "checksum of disk %s does not match manifest %s (actual %s(%s) = %s, "
 #~ "expected %s(%s) = %s)"
 #~ msgstr ""
 #~ "контрольна сума диска %s не відповідає маніфесту %s (насправді %s(%s) = "
 #~ "%s, мало бути %(%s) = %s)"
-
-#~ msgid "error unpacking %s, see earlier error messages"
-#~ msgstr ""
-#~ "помилка під час розпаковування %s, див. попередні повідомлення щодо "
-#~ "помилок"
-
-#~ msgid "failed to parse line returned by tar: %S"
-#~ msgstr "не вдалося обробити рядок, який повернуто tar: %S"
-
-#~ msgid "invalid offset returned by tar: %S"
-#~ msgstr "tar повернуто некоректний відступ: %S"
-
-#~ msgid "invalid size returned by tar: %S"
-#~ msgstr "tar повернуто некоректний розмір: %S"
-
-#~ msgid ""
-#~ "making OVA directory public readable to work around libvirt bug https://"
-#~ "bugzilla.redhat.com/1045069"
-#~ msgstr ""
-#~ "робимо каталог OVA загальнодоступним для читання, щоб обійти ваду у "
-#~ "libvirt: https://bugzilla.redhat.com/1045069"
-
-#~ msgid "more than one .ovf file was found in %s"
-#~ msgstr "у %s виявлено декілька файлів .ovf"
-
-#~ msgid "no .ovf file was found in %s"
-#~ msgstr "у %s не знайдено файла .ovf"
-
-#~ msgid "unable to parse line from manifest file: %S"
-#~ msgstr "не вдалося обробити рядок з файла маніфесту: %S"
 
 #~ msgid "-o vdsm: --vdsm-image-uuid was not specified"
 #~ msgstr "-o vdsm: не вказано --vdsm-image-uuid"
