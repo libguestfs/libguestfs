@@ -909,7 +909,7 @@ and kernel_cmdline_of_os os arch =
 
 and make_postinstall os arch =
   match os with
-  | Debian _ ->
+  | Debian _ | Ubuntu _ ->
      Some (
        fun g ->
          (* Remove apt proxy configuration (thanks: Daniel Miranda). *)
@@ -927,7 +927,7 @@ and make_postinstall os arch =
          g#write "/etc/yum.repos.d/download.devel.redhat.com.repo" yum_conf
      )
 
-  | RHEL _ | Fedora _ | CentOS _ | Ubuntu _ | FreeBSD _ -> None
+  | RHEL _ | Fedora _ | CentOS _ | FreeBSD _ -> None
 
 and make_rhel_yum_conf major minor arch =
   let buf = Buffer.create 4096 in
