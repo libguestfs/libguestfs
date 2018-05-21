@@ -3,10 +3,11 @@ name=Ubuntu 18.04 (bionic)
 osinfo=ubuntu18.04
 arch=x86_64
 file=ubuntu-18.04.xz
-checksum[sha512]=a6d29a4cde47837e63226454a56dca6b6adcbb7212b010b4ad5a3561e3890a45a914fb12a2c1e7a46be3ba6391469f765b083484408f4e6099642b9976e68d23
+revision=2
+checksum[sha512]=9de38f7c7abecf7f7a4e4e9e4373cd08ff8860a9ea7eedfd7bb2f00ed16b2c915357c8d40737470c84dbe7f3b0773f37cfc29d6c3e9aa9d1e0e1408cd1174478
 format=raw
 size=6442450944
-compressed_size=303347232
+compressed_size=303775568
 expand=/dev/sda1
 notes=Ubuntu 18.04 (bionic)
  

@@ -5,14 +5,14 @@
 
 'virt-install' \
     '--transient' \
-    '--name=tmp-is04oapq' \
+    '--name=tmp-msgb0g0m' \
     '--ram=2048' \
     '--cpu=host' \
     '--vcpus=4' \
     '--os-variant=ubuntu17.04' \
-    '--initrd-inject=/tmp/qo9qe2ck.tmp/preseed.cfg' \
+    '--initrd-inject=/tmp/65iqip61.tmp/preseed.cfg' \
     '--extra-args=auto mirror/http/proxy=http://cache.home.annexia.org:3128 console=tty0 console=ttyS0,115200 rd_NO_PLYMOUTH' \
-    '--disk=/home/rjones/d/libguestfs/builder/templates/tmp-is04oapq.img,size=6,format=raw' \
+    '--disk=/home/rjones/d/libguestfs/builder/templates/tmp-msgb0g0m.img,size=6,format=raw' \
     '--location=http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64' \
     '--serial=pty' \
     '--nographics' 
