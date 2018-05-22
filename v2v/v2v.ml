@@ -709,7 +709,7 @@ and copy_targets cmdline targets input output =
       let cmd =
         let filename =
           match t.target_file with
-          | TargetFile filename -> "file:" ^ filename
+          | TargetFile filename -> qemu_input_filename filename
           | TargetURI uri -> uri in
         [ "qemu-img"; "convert" ] @
         (if not (quiet ()) then [ "-p" ] else []) @
