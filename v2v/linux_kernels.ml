@@ -103,27 +103,42 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
              None
            )
            else (
-             (* Which of these is the kernel itself? *)
+             (* Which of these is the kernel itself?  Also, make sure to check
+              * it exists by stat'ing it.
+              *)
              let vmlinuz = List.find (
                fun filename -> String.is_prefix filename "/boot/vmlinuz-"
              ) files in
-             (* Which of these is the modpath? *)
-             let modpath = List.find (
-               fun filename ->
-                 String.length filename >= 14 &&
-                   String.is_prefix filename "/lib/modules/"
-             ) files in
-
-             (* Check vmlinuz & modpath exist. *)
-             if not (g#is_dir ~followsymlinks:true modpath) then
-               raise Not_found;
              let vmlinuz_stat =
                try g#statns vmlinuz with G.Error _ -> raise Not_found in
 
-             (* Get/construct the version.  XXX Read this from kernel file. *)
-             let version =
-               let prefix_len = String.length "/lib/modules/" in
-               String.sub modpath prefix_len (String.length modpath - prefix_len) in
+             (* Determine the modpath from the package, falling back to the
+              * version in the vmlinuz file name.
+              *)
+             let modpath, version =
+               let prefix = "/lib/modules/" in
+               try
+                 let prefix_len = String.length prefix in
+                 List.find_map (
+                   fun filename ->
+                     let filename_len = String.length filename in
+                     if filename_len > prefix_len &&
+                        String.is_prefix filename prefix then (
+                       let version = String.sub filename prefix_len
+                                                (filename_len - prefix_len) in
+                       Some (filename, version)
+                     ) else
+                       None
+                 ) files
+               with Not_found ->
+                 let version =
+                   String.sub vmlinuz 14 (String.length vmlinuz - 14) in
+                 let modpath = prefix ^ version in
+                 modpath, version in
+
+             (* Check that the modpath exists. *)
+             if not (g#is_dir ~followsymlinks:true modpath) then
+               raise Not_found;
 
              (* Find the initramfs which corresponds to the kernel.
               * Since the initramfs is built at runtime, and doesn't have
@@ -188,7 +203,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
 
              let config_file =
                let cfg = "/boot/config-" ^ version in
-               if List.mem cfg files then Some cfg
+               if g#is_file ~followsymlinks:true cfg then Some cfg
                else None in
 
              let kernel_supports what kconf =
