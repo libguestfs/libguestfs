@@ -143,12 +143,12 @@ SOURCES_C = \
 
 # These files are generated and contain rhv-upload-*.py embedded as an
 # OCaml string.
-output_rhv_upload_createvm_source.ml: rhv-upload-createvm.py
-	./embed.sh code $^ $@
-output_rhv_upload_plugin_source.ml: rhv-upload-plugin.py
-	./embed.sh code $^ $@
-output_rhv_upload_precheck_source.ml: rhv-upload-precheck.py
-	./embed.sh code $^ $@
+output_rhv_upload_createvm_source.ml: $(srcdir)/rhv-upload-createvm.py
+	$(srcdir)/embed.sh code $^ $@
+output_rhv_upload_plugin_source.ml: $(srcdir)/rhv-upload-plugin.py
+	$(srcdir)/embed.sh code $^ $@
+output_rhv_upload_precheck_source.ml: $(srcdir)/rhv-upload-precheck.py
+	$(srcdir)/embed.sh code $^ $@
 
 if HAVE_OCAML
 
@@ -575,7 +575,7 @@ v2v_unit_tests_LINK = \
 	  $(v2v_unit_tests_THEOBJECTS) -o $@
 
 # Dependencies.
-.depend: $(srcdir)/*.mli $(srcdir)/*.ml
+.depend: $(srcdir)/*.mli $(srcdir)/*.ml output_rhv_upload_createvm_source.ml output_rhv_upload_plugin_source.ml output_rhv_upload_precheck_source.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 
