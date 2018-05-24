@@ -268,14 +268,6 @@ main (int argc, char *argv[])
   _umask (0);
 #endif
 
-  /* Make a private copy of /etc/lvm so we can change the config (see
-   * daemon/lvm-filter.c).
-   */
-  if (!test_mode) {
-    clean_lvm_config ();
-    start_lvmetad ();
-  }
-
   /* Connect to virtio-serial channel. */
   if (!channel)
     channel = VIRTIO_SERIAL_CHANNEL;

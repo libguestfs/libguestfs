@@ -40,73 +40,20 @@ GUESTFSD_EXT_CMD(str_lvm, lvm);
 GUESTFSD_EXT_CMD(str_rm, rm);
 GUESTFSD_EXT_CMD(str_lvmetad, lvmetad);
 
-/* This runs during daemon start up and creates a fresh LVM
- * configuration which we can modify as we desire.  LVM allows
- * configuration to be completely empty (meaning "all defaults").
- *
- * The final directory layout is:
- *
- *   /tmp/lvmXXXXXX                 (lvm_system_dir set to this)
- *   /tmp/lvmXXXXXX/lvm             ($LVM_SYSTEM_DIR set to this)
- *   /tmp/lvmXXXXXX/lvm/lvm.conf    (configuration file - initially empty)
- */
-static char lvm_system_dir[] = "/tmp/lvmXXXXXX";
-
-static void rm_lvm_system_dir (void);
 static void debug_lvm_config (void);
 
-void
-clean_lvm_config (void)
-{
-  char env[64], conf[64];
-  FILE *fp;
-
-  if (mkdtemp (lvm_system_dir) == NULL)
-    error (EXIT_FAILURE, errno, "mkdtemp: %s", lvm_system_dir);
-
-  snprintf (env, sizeof env, "%s/lvm", lvm_system_dir);
-  mkdir (env, 0755);
-  snprintf (conf, sizeof conf, "%s/lvm/lvm.conf", lvm_system_dir);
-  fp = fopen (conf, "w");
-  if (fp == NULL) {
-    perror ("clean_lvm_config: cannot create empty lvm.conf");
-    exit (EXIT_FAILURE);
-  }
-  fclose (fp);
-
-  /* Set environment variable so we use the clean configuration. */
-  setenv ("LVM_SYSTEM_DIR", env, 1);
-
-  /* Set a handler to remove the temporary directory at exit. */
-  atexit (rm_lvm_system_dir);
-
-  debug_lvm_config ();
-}
-
-/* Try to run lvmetad, without failing if it couldn't. */
-void
-start_lvmetad (void)
-{
-  char cmd[64];
-  int r;
-
-  snprintf (cmd, sizeof cmd, "%s", str_lvmetad);
-  if (verbose)
-    printf ("%s\n", cmd);
-  r = system (cmd);
-  if (r == -1)
-    perror ("system/lvmetad");
-  else if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
-    fprintf (stderr, "warning: lvmetad command failed\n");
-}
-
+/* Read LVM_SYSTEM_DIR environment variable, or set it to a default
+ * value if the environment variable is not set.
+ */
+static const char *lvm_system_dir;
+static void get_lvm_system_dir (void) __attribute__((constructor));
 static void
-rm_lvm_system_dir (void)
+get_lvm_system_dir (void)
 {
-  char cmd[64];
-
-  snprintf (cmd, sizeof cmd, "%s -rf %s", str_rm, lvm_system_dir);
-  ignore_value (system (cmd));
+  lvm_system_dir = getenv ("LVM_SYSTEM_DIR");
+  if (!lvm_system_dir)
+    lvm_system_dir = "/etc/lvm";
+  fprintf (stderr, "lvm_system_dir = %s\n", lvm_system_dir);
 }
 
 /* Rewrite the 'filter = [ ... ]' line in lvm.conf. */
@@ -118,7 +65,7 @@ set_filter (char *const *filters)
   FILE *fp;
   size_t i, j;
 
-  if (asprintf (&conf, "%s/lvm/lvm.conf", lvm_system_dir) == -1) {
+  if (asprintf (&conf, "%s/lvm.conf", lvm_system_dir) == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }
@@ -183,7 +130,7 @@ static int
 rescan (void)
 {
   char lvm_cache[64];
-  snprintf (lvm_cache, sizeof lvm_cache, "%s/lvm/cache/.cache", lvm_system_dir);
+  snprintf (lvm_cache, sizeof lvm_cache, "%s/cache/.cache", lvm_system_dir);
 
   unlink (lvm_cache);
 

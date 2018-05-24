@@ -130,10 +130,17 @@ echo nameserver 169.254.2.3 > /etc/resolv.conf
 # Scan for MDs.
 mdadm -As --auto=yes --run
 
+# Set up a clean LVM environment.
+# Empty LVM configuration file means "all defaults".
+mkdir -p /tmp/lvm
+touch /tmp/lvm/lvm.conf
+LVM_SYSTEM_DIR=/tmp/lvm
+export LVM_SYSTEM_DIR
+lvmetad
+
 # Scan for LVM.
 modprobe dm_mod ||:
-
-lvm vgchange -aay --sysinit
+lvm pvscan --cache --activate ay
 
 # Scan for Windows dynamic disks.
 ldmtool create all
@@ -143,6 +150,7 @@ if test "$guestfs_verbose" = 1 && test "$guestfs_boot_analysis" != 1; then
     uname -a
     ls -lR /dev
     cat /proc/mounts
+    lvm config
     lvm pvs
     lvm vgs
     lvm lvs
