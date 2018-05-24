@@ -130,9 +130,17 @@ echo nameserver 169.254.2.3 > /etc/resolv.conf
 # Scan for MDs but don't run arrays unless all expected drives are present
 mdadm -As --auto=yes --no-degraded
 
+# Set up a clean LVM environment.
+# Empty LVM configuration file means "all defaults".
+mkdir -p /tmp/lvm
+touch /tmp/lvm/lvm.conf
+LVM_SYSTEM_DIR=/tmp/lvm
+export LVM_SYSTEM_DIR
+lvmetad
+
 # Scan for LVM.
 modprobe dm_mod ||:
-lvm vgchange -aay --sysinit
+lvm pvscan --cache --activate ay
 
 # Scan for MDs and run all found arrays even they are in degraded state
 mdadm -As --auto=yes --run
@@ -146,6 +154,7 @@ if test "$guestfs_verbose" = 1 && test "$guestfs_boot_analysis" != 1; then
     ls -lR /dev
     cat /proc/mounts
     cat /proc/mdstat
+    lvm config
     lvm pvs
     lvm vgs
     lvm lvs
