@@ -249,10 +249,6 @@ extern char *get_blkid_tag (const char *device, const char *tag);
 /* lvm.c */
 extern int lv_canonical (const char *device, char **ret);
 
-/* lvm-filter.c */
-extern void clean_lvm_config (void);
-extern void start_lvmetad (void);
-
 /* zero.c */
 extern void wipe_device_before_mkfs (const char *device);
 
