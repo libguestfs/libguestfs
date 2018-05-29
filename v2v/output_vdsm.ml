@@ -118,9 +118,10 @@ object
        | "0.10" -> "" (* currently this is the default, so don't print it *)
        | s -> sprintf " -oo vdsm-compat=%s" s)
       (match vdsm_options.ovf_flavour with
-       | Create_ovf.OVirt -> "-oo vdsm-ovf-flavour=ovf"
        (* currently this is the default, so don't print it *)
-       | Create_ovf.RHVExportStorageDomain -> "")
+       | Create_ovf.RHVExportStorageDomain -> ""
+       | flav -> sprintf "-oo vdsm-ovf-flavour=%s"
+                         (Create_ovf.ovf_flavour_to_string flav))
 
   method supported_firmware = [ TargetBIOS ]
 
