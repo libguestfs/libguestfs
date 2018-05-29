@@ -601,7 +601,7 @@ Currently there are two possible flavours:
 
 =over 4
 
-=item rhevexp
+=item rhvexp
 
 The OVF format used in RHV export storage domain.
 
@@ -611,7 +611,7 @@ The OVF format understood by oVirt REST API.
 
 =back
 
-For backward compatibility the default is I<rhevexp>, but this may change in
+For backward compatibility the default is I<rhvexp>, but this may change in
 the future.
 
 =item B<-op> file
