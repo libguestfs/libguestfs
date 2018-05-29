@@ -29,6 +29,9 @@ val ovf_flavours : string list
     valid flavour. *)
 val ovf_flavour_of_string : string -> ovf_flavour
 
+(** Convert an OVF flavour to its string representation. *)
+val ovf_flavour_to_string : ovf_flavour -> string
+
 (** Create OVF and related files for RHV.
 
     The format for RHV export storage domain is described in:
