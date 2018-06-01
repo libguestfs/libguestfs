@@ -35,7 +35,7 @@ let rec list_filesystems () =
 
   (* Partitions. *)
   let partitions = Devsparts.list_partitions () in
-  let partitions = List.filter is_not_ldm_partition partitions in
+  let partitions = List.filter is_partition_can_hold_filesystem partitions in
   let ret = ret @ List.filter_map check_with_vfs_type partitions in
 
   (* MD. *)
@@ -83,9 +83,10 @@ and is_not_partitioned_device device =
  * because these are members of a Windows dynamic disk group.  Trying
  * to read them will cause errors (RHBZ#887520).  Assuming that
  * libguestfs was compiled with ldm support, we'll get the filesystems
- * on these later.
+ * on these later.  We also ignore Microsoft Reserved Partition and
+ * Windows Snapshot Partition.
  *)
-and is_not_ldm_partition partition =
+and is_partition_can_hold_filesystem partition =
   let device = Devsparts.part_to_dev partition in
   let partnum = Devsparts.part_to_partnum partition in
   let parttype = Parted.part_get_parttype device in
@@ -101,7 +102,11 @@ and is_not_ldm_partition partition =
     (* Windows Logical Disk Manager metadata partition. *)
     | "5808C8AA-7E8F-42E0-85D2-E1E90434CFB3"
       (* Windows Logical Disk Manager data partition. *)
-      | "AF9B60A0-1431-4F62-BC68-3311714A69AD" -> false
+      | "AF9B60A0-1431-4F62-BC68-3311714A69AD"
+      (* Microsoft Reserved Partition. *)
+      | "E3C9E316-0B5C-4DB8-817D-F92DF00215AE"
+      (* Windows Snapshot Partition. *)
+      | "CADDEBF1-4400-4DE8-B103-12117DCF3CCF" -> false
     | _ -> true
   )
   else true
