@@ -329,7 +329,7 @@ and get_drive_mappings h root data =
                    String.is_prefix blob "DMIO:ID:" (* GPT *) then
                   map_registry_disk_blob_gpt (Lazy.force partitions) blob
                 else if String.length blob = 12 then
-                  map_registry_disk_blob (Lazy.force devices) blob
+                  map_registry_disk_blob_mbr (Lazy.force devices) blob
                 else
                   None
               )
@@ -356,13 +356,18 @@ and get_drive_mappings h root data =
  * The following function maps this blob to a libguestfs partition
  * name, if possible.
  *)
-and map_registry_disk_blob devices blob =
+and map_registry_disk_blob_mbr devices blob =
   try
     (* First 4 bytes are the disk ID.  Search all devices to find the
      * disk with this disk ID.
      *)
     let diskid = String.sub blob 0 4 in
-    let device = List.find (fun dev -> pread dev 4 0x01b8 = diskid) devices in
+    let device =
+      List.find (
+        fun dev ->
+          Parted.part_get_parttype dev = "msdos" &&
+            pread dev 4 0x01b8 = diskid
+      ) devices in
 
     (* Next 8 bytes are the offset of the partition in bytes(!) given as
      * a 64 bit little endian number.  Luckily it's easy to get the
