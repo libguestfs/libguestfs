@@ -43,8 +43,9 @@ let rec list_filesystems () =
             None                (* ignore type 42 *)
       ) partitions in
 
-  (* Use vfs-type to check for filesystems on md devices. *)
+  (* MD. *)
   let mds = Md.list_md_devices () in
+  let mds = List.filter is_not_partitioned_device mds in
   let ret = ret @ List.filter_map check_with_vfs_type mds in
 
   (* LVM. *)
