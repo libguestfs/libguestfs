@@ -20,6 +20,10 @@ open Printf
 
 open Std_utils
 
+(* Enumerate block devices (including MD, LVM, LDM and partitions) and use
+ * vfs-type to check for filesystems on devices.  Some block devices cannot
+ * contain filesystems, so we filter them out.
+ *)
 let rec list_filesystems () =
   let has_lvm2 = Optgroups.lvm2_available () in
   let has_ldm = Optgroups.ldm_available () in
@@ -29,19 +33,10 @@ let rec list_filesystems () =
   let devices = List.filter is_not_partitioned_device devices in
   let ret = List.filter_map check_with_vfs_type devices in
 
-  (* Use vfs-type to check for filesystems on partitions, but
-   * ignore MBR partition type 42 used by LDM.
-   *)
+  (* Partitions. *)
   let partitions = Devsparts.list_partitions () in
-  let ret =
-    ret @
-      List.filter_map (
-        fun part ->
-          if not has_ldm || not (is_mbr_partition_type_42 part) then
-            check_with_vfs_type part
-          else
-            None                (* ignore type 42 *)
-      ) partitions in
+  let partitions = List.filter is_not_ldm_partition partitions in
+  let ret = ret @ List.filter_map check_with_vfs_type partitions in
 
   (* MD. *)
   let mds = Md.list_md_devices () in
@@ -52,7 +47,6 @@ let rec list_filesystems () =
   let ret =
     if has_lvm2 then (
       let lvs = Lvm.lvs () in
-      (* Use vfs-type to check for filesystems on LVs. *)
       ret @ List.filter_map check_with_vfs_type lvs
     )
     else ret in
@@ -61,11 +55,7 @@ let rec list_filesystems () =
   let ret =
     if has_ldm then (
       let ldmvols = Ldm.list_ldm_volumes () in
-      let ldmparts = Ldm.list_ldm_partitions () in
-      (* Use vfs-type to check for filesystems on Windows dynamic disks. *)
-      ret @
-        List.filter_map check_with_vfs_type ldmvols @
-        List.filter_map check_with_vfs_type ldmparts
+      ret @ List.filter_map check_with_vfs_type ldmvols
     )
     else ret in
 
@@ -88,6 +78,33 @@ and is_not_partitioned_device device =
   let has_partition = List.exists is_device_partition files in
 
   not has_partition
+
+(* We should ignore Windows Logical Disk Manager (LDM) partitions,
+ * because these are members of a Windows dynamic disk group.  Trying
+ * to read them will cause errors (RHBZ#887520).  Assuming that
+ * libguestfs was compiled with ldm support, we'll get the filesystems
+ * on these later.
+ *)
+and is_not_ldm_partition partition =
+  let device = Devsparts.part_to_dev partition in
+  let partnum = Devsparts.part_to_partnum partition in
+  let parttype = Parted.part_get_parttype device in
+
+  let is_gpt = parttype = "gpt" in
+  let is_mbr = parttype = "msdos" in
+  let is_gpt_or_mbr = is_gpt || is_mbr in
+
+  if is_gpt_or_mbr then (
+    (* MBR partition id will be converted into corresponding GPT type. *)
+    let gpt_type = Parted.part_get_gpt_type device partnum in
+    match gpt_type with
+    (* Windows Logical Disk Manager metadata partition. *)
+    | "5808C8AA-7E8F-42E0-85D2-E1E90434CFB3"
+      (* Windows Logical Disk Manager data partition. *)
+      | "AF9B60A0-1431-4F62-BC68-3311714A69AD" -> false
+    | _ -> true
+  )
+  else true
 
 (* Use vfs-type to check for a filesystem of some sort of [device].
  * Returns [Some [device, vfs_type; ...]] if found (there may be
@@ -144,20 +161,3 @@ and check_with_vfs_type device =
 
   else
     Some [mountable, vfs_type]
-
-(* We should ignore partitions that have MBR type byte 0x42, because
- * these are members of a Windows dynamic disk group.  Trying to read
- * them will cause errors (RHBZ#887520).  Assuming that libguestfs was
- * compiled with ldm support, we'll get the filesystems on these later.
- *)
-and is_mbr_partition_type_42 partition =
-  try
-    let partnum = Devsparts.part_to_partnum partition in
-    let device = Devsparts.part_to_dev partition in
-    let mbr_id = Parted.part_get_mbr_id device partnum in
-    mbr_id = 0x42
-  with exn ->
-     if verbose () then
-       eprintf "is_mbr_partition_type_42: %s: %s\n"
-               partition (Printexc.to_string exn);
-     false
