@@ -24,7 +24,8 @@ TESTS = \
 	test-list-md-devices.sh \
 	test-lvm-on-md-device.sh \
 	test-md-and-lvm-devices.sh \
-	test-mdadm.sh
+	test-mdadm.sh \
+	test-partitioned-md-devices.sh
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
