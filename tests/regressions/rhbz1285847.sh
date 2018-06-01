@@ -55,7 +55,6 @@ virt-resize rhbz1285847.img rhbz1285847-2.img --expand /dev/sda2
 guestfish --format=raw -a rhbz1285847-2.img run : list-filesystems > rhbz1285847.out
 
 if [ "$(cat rhbz1285847.out)" != "/dev/sda1: ext4
-/dev/sda2: unknown
 /dev/sda5: swap" ]; then
     echo "$0: unexpected result:"
     cat rhbz1285847.out

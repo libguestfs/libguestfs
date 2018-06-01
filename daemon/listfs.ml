@@ -84,7 +84,7 @@ and is_not_partitioned_device device =
  * to read them will cause errors (RHBZ#887520).  Assuming that
  * libguestfs was compiled with ldm support, we'll get the filesystems
  * on these later.  We also ignore Microsoft Reserved Partition and
- * Windows Snapshot Partition.
+ * Windows Snapshot Partition as well as MBR extended partitions.
  *)
 and is_partition_can_hold_filesystem partition =
   let device = Devsparts.part_to_dev partition in
@@ -96,20 +96,28 @@ and is_partition_can_hold_filesystem partition =
   let is_gpt_or_mbr = is_gpt || is_mbr in
 
   if is_gpt_or_mbr then (
-    (* MBR partition id will be converted into corresponding GPT type. *)
-    let gpt_type = Parted.part_get_gpt_type device partnum in
-    match gpt_type with
-    (* Windows Logical Disk Manager metadata partition. *)
-    | "5808C8AA-7E8F-42E0-85D2-E1E90434CFB3"
+    if is_mbr_extended parttype device partnum then
+      false
+    else (
+      (* MBR partition id will be converted into corresponding GPT type. *)
+      let gpt_type = Parted.part_get_gpt_type device partnum in
+      match gpt_type with
+      (* Windows Logical Disk Manager metadata partition. *)
+      | "5808C8AA-7E8F-42E0-85D2-E1E90434CFB3"
       (* Windows Logical Disk Manager data partition. *)
       | "AF9B60A0-1431-4F62-BC68-3311714A69AD"
       (* Microsoft Reserved Partition. *)
       | "E3C9E316-0B5C-4DB8-817D-F92DF00215AE"
       (* Windows Snapshot Partition. *)
       | "CADDEBF1-4400-4DE8-B103-12117DCF3CCF" -> false
-    | _ -> true
+      | _ -> true
+    )
   )
   else true
+
+and is_mbr_extended parttype device partnum =
+  parttype = "msdos" &&
+    Parted.part_get_mbr_part_type device partnum = "extended"
 
 (* Use vfs-type to check for a filesystem of some sort of [device].
  * Returns [Some [device, vfs_type; ...]] if found (there may be
