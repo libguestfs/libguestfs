@@ -24,31 +24,15 @@ let rec list_filesystems () =
   let has_lvm2 = Optgroups.lvm2_available () in
   let has_ldm = Optgroups.ldm_available () in
 
+  (* Devices. *)
   let devices = Devsparts.list_devices () in
-  let partitions = Devsparts.list_partitions () in
-  let mds = Md.list_md_devices () in
-
-  (* Look to see if any devices directly contain filesystems
-   * (RHBZ#590167).  However vfs-type will fail to tell us anything
-   * useful about devices which just contain partitions, so we also
-   * get the list of partitions and exclude the corresponding devices
-   * by using part-to-dev.
-   *)
-  let devices_containing_partitions = List.fold_left (
-    fun set part ->
-      StringSet.add (Devsparts.part_to_dev part) set
-  ) StringSet.empty partitions in
-  let devices = List.filter (
-    fun dev ->
-      not (StringSet.mem dev devices_containing_partitions)
-  ) devices in
-
-  (* Use vfs-type to check for filesystems on devices. *)
+  let devices = List.filter is_not_partitioned_device devices in
   let ret = List.filter_map check_with_vfs_type devices in
 
   (* Use vfs-type to check for filesystems on partitions, but
    * ignore MBR partition type 42 used by LDM.
    *)
+  let partitions = Devsparts.list_partitions () in
   let ret =
     ret @
       List.filter_map (
@@ -60,6 +44,7 @@ let rec list_filesystems () =
       ) partitions in
 
   (* Use vfs-type to check for filesystems on md devices. *)
+  let mds = Md.list_md_devices () in
   let ret = ret @ List.filter_map check_with_vfs_type mds in
 
   (* LVM. *)
@@ -84,6 +69,24 @@ let rec list_filesystems () =
     else ret in
 
   List.flatten ret
+
+(* Look to see if device can directly contain filesystem (RHBZ#590167).
+ * Partitioned devices cannot contain filesystem, so we will exclude
+ * such devices.
+ *)
+and is_not_partitioned_device device =
+  assert (String.is_prefix device "/dev/");
+  let dev_name = String.sub device 5 (String.length device - 5) in
+  let dev_dir = "/sys/block/" ^ dev_name in
+
+  (* Open the device's directory under /sys/block/<dev_name> and
+   * look for entries starting with <dev_name>, eg. /sys/block/sda/sda1
+   *)
+  let is_device_partition file = String.is_prefix file dev_name in
+  let files = Array.to_list (Sys.readdir dev_dir) in
+  let has_partition = List.exists is_device_partition files in
+
+  not has_partition
 
 (* Use vfs-type to check for a filesystem of some sort of [device].
  * Returns [Some [device, vfs_type; ...]] if found (there may be
