@@ -274,7 +274,7 @@ rc_listen (void)
     if (s == -1)
       perror ("accept");
     else {
-      receive_stdout(s);
+      receive_stdout (s);
 
       fp = fdopen (s, "r+");
       xdrstdio_create (&xdr, fp, XDR_DECODE);
@@ -389,7 +389,7 @@ rc_remote (int pid, const char *cmd, size_t argc, char *argv[],
     return -1;
   }
 
-  send_stdout(sock);
+  send_stdout (sock);
 
   /* Send the greeting. */
   fp = fdopen (sock, "r+");
