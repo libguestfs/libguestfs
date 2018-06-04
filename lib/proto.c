@@ -607,26 +607,8 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
    * it if we're debugging.
    */
 #ifdef ENABLE_PACKET_DUMP
-  if (g->verbose) {
-    ssize_t i, j;
-
-    for (i = 0; i < n; i += 16) {
-      printf ("%04zx: ", i);
-      for (j = i; j < MIN (i+16, n); ++j)
-        printf ("%02x ", (*(unsigned char **)buf_rtn)[j]);
-      for (; j < i+16; ++j)
-        printf ("   ");
-      printf ("|");
-      for (j = i; j < MIN (i+16, n); ++j)
-        if (c_isprint ((*(char **)buf_rtn)[j]))
-          printf ("%c", (*(char **)buf_rtn)[j]);
-        else
-          printf (".");
-      for (; j < i+16; ++j)
-        printf (" ");
-      printf ("|\n");
-    }
-  }
+  if (g->verbose)
+    guestfs_int_hexdump (buf_rtn, n, stdout);
 #endif
 
   return 0;
