@@ -59,6 +59,7 @@ let parse_cmdline () =
 
   let input_conn = ref None in
   let input_format = ref None in
+  let input_password = ref None in
   let input_transport = ref None in
   let in_place = ref false in
   let output_conn = ref None in
@@ -66,7 +67,6 @@ let parse_cmdline () =
   let output_name = ref None in
   let output_password = ref None in
   let output_storage = ref None in
-  let password_file = ref None in
 
   let set_string_option_once optname optref arg =
     match !optref with
@@ -198,6 +198,8 @@ let parse_cmdline () =
                                     s_"Input format (for -i disk)";
     [ M"io" ],       Getopt.String ("option[=value]", set_input_option),
                                     s_"Set option for input mode";
+    [ M"ip" ],       Getopt.String ("filename", set_string_option_once "-ip" input_password),
+                                    s_"Use password from file to connect to input hypervisor";
     [ M"it" ],       Getopt.String ("transport", set_string_option_once "-it" input_transport),
                                     s_"Input transport";
     [ L"in-place" ], Getopt.Set in_place,
@@ -226,8 +228,8 @@ let parse_cmdline () =
                                     s_"Use password from file to connect to output hypervisor";
     [ M"os" ],       Getopt.String ("storage", set_string_option_once "-os" output_storage),
                                     s_"Set output storage location";
-    [ L"password-file" ], Getopt.String ("file", set_string_option_once "--password-file" password_file),
-                                    s_"Use password from file";
+    [ L"password-file" ], Getopt.String ("filename", set_string_option_once "--password-file" input_password),
+                                    s_"Same as ‘-ip filename’";
     [ L"print-source" ], Getopt.Set print_source,
                                     s_"Print source and stop";
     [ L"print-target" ], Getopt.Set print_target,
@@ -304,6 +306,7 @@ read the man page virt-v2v(1).
   let input_format = !input_format in
   let input_mode = !input_mode in
   let input_options = List.rev !input_options in
+  let input_password = !input_password in
   let input_transport =
     match !input_transport with
     | None -> None
@@ -325,7 +328,6 @@ read the man page virt-v2v(1).
   let output_options = List.rev !output_options in
   let output_password = !output_password in
   let output_storage = !output_storage in
-  let password_file = !password_file in
   let print_source = !print_source in
   let print_target = !print_target in
   let qemu_boot = !qemu_boot in
@@ -426,14 +428,6 @@ read the man page virt-v2v(1).
       error (f_"--in-place and --print-target cannot be used together")
   );
 
-  (* Parse out the password from the password file. *)
-  let password =
-    match password_file with
-    | None -> None
-    | Some filename ->
-      let password = read_first_line_from_file filename in
-      Some password in
-
   (* Parsing of the argument(s) depends on the input mode. *)
   let input =
     match input_mode with
@@ -462,7 +456,8 @@ read the man page virt-v2v(1).
         | (Some (`VDDK _) as vddk) -> vddk
         | Some `SSH ->
            error (f_"only ‘-it vddk’ can be used here") in
-      Input_libvirt.input_libvirt password input_conn input_transport guest
+      Input_libvirt.input_libvirt input_password input_conn input_transport
+                                  guest
 
     | `LibvirtXML ->
       (* -i libvirtxml: Expecting a filename (XML file). *)

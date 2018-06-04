@@ -95,7 +95,8 @@ let parse_input_options options =
   options
 
 (* Subclass specialized for handling VMware via nbdkit vddk plugin. *)
-class input_libvirt_vddk vddk_options password libvirt_uri parsed_uri guest =
+class input_libvirt_vddk vddk_options input_password libvirt_uri parsed_uri
+                         guest =
   (* The VDDK path. *)
   let libdir =
     try Some (List.assoc "libdir" vddk_options)
@@ -199,7 +200,7 @@ See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") libNN
   in
 
 object
-  inherit input_libvirt password libvirt_uri guest as super
+  inherit input_libvirt input_password libvirt_uri guest as super
 
   method precheck () =
     error_unless_vddk_libdir ();
@@ -222,7 +223,8 @@ object
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
      *)
-    let xml = Libvirt_utils.dumpxml ?password ?conn:libvirt_uri guest in
+    let xml = Libvirt_utils.dumpxml ?password_file:input_password
+                                    ?conn:libvirt_uri guest in
     let source, disks = parse_libvirt_xml ?conn:libvirt_uri xml in
 
     (* Find the <vmware:moref> element from the XML.  This was added
@@ -239,15 +241,12 @@ object
       | None ->
          error (f_"<vmware:moref> was not found in the output of ‘virsh dumpxml \"%s\"’.  The most likely reason is that libvirt is too old, try upgrading libvirt to ≥ 3.7.") guest in
 
-    (* Create a temporary directory where we place the sockets and
-     * password file.
-     *)
+    (* Create a temporary directory where we place the sockets. *)
     let tmpdir =
       let base_dir = (open_guestfs ())#get_cachedir () in
       let t = Mkdtemp.temp_dir ~base_dir "vddk." in
       (* tmpdir must be readable (but not writable) by "other" so that
-       * qemu can open the sockets.  If we place a password file in
-       * this directory then we'll chmod that to 0600 below.
+       * qemu can open the sockets.
        *)
       chmod t 0o755;
       rmdir_on_exit t;
@@ -299,17 +298,11 @@ object
       add_arg "vddk";
 
       let password_param =
-        match password with
+        match input_password with
         | None ->
            (* nbdkit asks for the password interactively *)
            "password=-"
-        | Some password ->
-           let password_file = tmpdir // "password" in
-           with_open_out password_file (
-             fun chan ->
-               fchmod (descr_of_out_channel chan) 0o600;
-               output_string chan password
-           );
+        | Some password_file ->
            (* nbdkit reads the password from the file *)
            "password=+" ^ password_file in
       add_arg (sprintf "server=%s" server);

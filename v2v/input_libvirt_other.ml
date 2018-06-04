@@ -40,7 +40,7 @@ let error_if_libvirt_does_not_support_json_backingfile () =
     error (f_"because of libvirt bug https://bugzilla.redhat.com/1134878 you must EITHER upgrade to libvirt >= 2.1.0 OR set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.")
 
 (* Superclass. *)
-class virtual input_libvirt (password : string option) libvirt_uri guest =
+class virtual input_libvirt (input_password : string option) libvirt_uri guest =
 object
   inherit input
 
@@ -55,9 +55,9 @@ end
 (* Subclass specialized for handling anything that's *not* VMware vCenter
  * or Xen.
  *)
-class input_libvirt_other password libvirt_uri guest =
+class input_libvirt_other input_password libvirt_uri guest =
 object
-  inherit input_libvirt password libvirt_uri guest
+  inherit input_libvirt input_password libvirt_uri guest
 
   method source () =
     debug "input_libvirt_other: source ()";
@@ -65,7 +65,8 @@ object
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
      *)
-    let xml = Libvirt_utils.dumpxml ?password ?conn:libvirt_uri guest in
+    let xml = Libvirt_utils.dumpxml ?password_file:input_password
+                                    ?conn:libvirt_uri guest in
 
     let source, disks = parse_libvirt_xml ?conn:libvirt_uri xml in
     let disks = List.map (fun { p_source_disk = disk } -> disk) disks in

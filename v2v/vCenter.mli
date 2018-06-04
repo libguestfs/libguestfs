@@ -54,8 +54,8 @@ type remote_resource = {
 (** The "remote resource" is the structure returned by the {!map_source}
     function. *)
 
-val map_source : ?readahead:int -> ?password:string -> string -> Xml.uri -> string -> string -> remote_resource
-(** [map_source ?readahead ?password dcPath uri server path]
+val map_source : ?readahead:int -> ?password_file:string -> string -> Xml.uri -> string -> string -> remote_resource
+(** [map_source ?readahead ?password_file dcPath uri server path]
     maps the [<source path=...>] string to a {!remote_resource}
     structure containing both an [https://] URL and a qemu URI,
     both pointing the guest disk.

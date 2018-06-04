@@ -27,8 +27,10 @@ $top_srcdir/podcheck.pl virt-v2v.pod virt-v2v \
 --ic,\
 --if,\
 --io,\
+--ip,\
 --it,\
 --no-trim,\
+--password-file,\
 --oa,\
 --oc,\
 --of,\

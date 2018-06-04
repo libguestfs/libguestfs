@@ -102,7 +102,7 @@ Display help.
 
 Specify a libvirt connection URI
 
-=item B<--password-file> file
+=item B<-ip> file
 
 Instead of asking for password(s) interactively, pass the password
 through a file.  Note the file should contain the whole password,

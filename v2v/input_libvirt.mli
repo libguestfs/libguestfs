@@ -19,6 +19,6 @@
 (** [-i libvirt] source. *)
 
 val input_libvirt : string option -> string option -> [`VDDK of Input_libvirt_vddk.vddk_options] option -> string -> Types.input
-(** [input_libvirt password libvirt_uri input_transport guest]
+(** [input_libvirt input_password libvirt_uri input_transport guest]
     creates and returns a new {!Types.input} object specialized for reading
     input from libvirt sources. *)

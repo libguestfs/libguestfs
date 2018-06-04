@@ -16,10 +16,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+open Std_utils
+
 (* This module implements various [virsh]-like commands, but with
     non-broken authentication handling. *)
 
 external dumpxml : ?password:string -> ?conn:string -> string -> string = "v2v_dumpxml"
+let dumpxml ?password_file =
+  let password = Option.map read_first_line_from_file password_file in
+  dumpxml ?password
+
 external pool_dumpxml : ?conn:string -> string -> string = "v2v_pool_dumpxml"
 external vol_dumpxml : ?conn:string -> string -> string -> string = "v2v_vol_dumpxml"
 
