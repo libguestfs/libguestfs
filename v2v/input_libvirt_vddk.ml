@@ -95,7 +95,7 @@ let parse_input_options options =
   options
 
 (* Subclass specialized for handling VMware via nbdkit vddk plugin. *)
-class input_libvirt_vddk vddk_options input_password libvirt_uri parsed_uri
+class input_libvirt_vddk input_conn input_password vddk_options parsed_uri
                          guest =
   (* The VDDK path. *)
   let libdir =
@@ -200,7 +200,7 @@ See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") libNN
   in
 
 object
-  inherit input_libvirt input_password libvirt_uri guest as super
+  inherit input_libvirt input_conn input_password guest as super
 
   method precheck () =
     error_unless_vddk_libdir ();
@@ -224,8 +224,8 @@ object
      * that the domain is not running.  (RHBZ#1138586)
      *)
     let xml = Libvirt_utils.dumpxml ?password_file:input_password
-                                    ?conn:libvirt_uri guest in
-    let source, disks = parse_libvirt_xml ?conn:libvirt_uri xml in
+                                    ?conn:input_conn guest in
+    let source, disks = parse_libvirt_xml ?conn:input_conn xml in
 
     (* Find the <vmware:moref> element from the XML.  This was added
      * in libvirt >= 3.7 and is required.
@@ -270,10 +270,10 @@ object
         match parsed_uri.Xml.uri_server with
         | Some server -> server
         | None ->
-           match libvirt_uri with
-           | Some libvirt_uri ->
+           match input_conn with
+           | Some input_conn ->
               error (f_"‘-ic %s’ URL does not contain a host name field")
-                    libvirt_uri
+                    input_conn
            | None ->
               error (f_"you must use the ‘-ic’ parameter.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") in
 

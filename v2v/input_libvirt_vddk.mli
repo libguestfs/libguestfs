@@ -25,7 +25,7 @@ val print_input_options : unit -> unit
 val parse_input_options : (string * string) list -> vddk_options
 (** Print and parse vddk -io options. *)
 
-val input_libvirt_vddk : vddk_options -> string option -> string option -> Xml.uri -> string -> Types.input
-(** [input_libvirt_vddk vddk_options input_password libvirt_uri parsed_uri guest]
+val input_libvirt_vddk : string option -> string option -> vddk_options -> Xml.uri -> string -> Types.input
+(** [input_libvirt_vddk input_conn input_password vddk_options parsed_uri guest]
     creates and returns a {!Types.input} object specialized for reading
     the guest disks using the nbdkit vddk plugin. *)

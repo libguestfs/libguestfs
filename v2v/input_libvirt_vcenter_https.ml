@@ -36,9 +36,9 @@ let readahead_for_copying = Some (64 * 1024 * 1024)
 
 (* Subclass specialized for handling VMware vCenter over https. *)
 class input_libvirt_vcenter_https
-        input_password libvirt_uri parsed_uri server guest =
+        input_conn input_password parsed_uri server guest =
 object
-  inherit input_libvirt input_password libvirt_uri guest
+  inherit input_libvirt input_conn input_password guest
 
   val saved_source_paths = Hashtbl.create 13
   val mutable dcPath = ""
@@ -65,8 +65,8 @@ object
      * that the domain is not running.  (RHBZ#1138586)
      *)
     let xml = Libvirt_utils.dumpxml ?password_file:input_password
-                                    ?conn:libvirt_uri guest in
-    let source, disks = parse_libvirt_xml ?conn:libvirt_uri xml in
+                                    ?conn:input_conn guest in
+    let source, disks = parse_libvirt_xml ?conn:input_conn xml in
 
     (* Find the <vmware:datacenterpath> element from the XML.  This
      * was added in libvirt >= 1.2.20.

@@ -456,7 +456,7 @@ read the man page virt-v2v(1).
         | (Some (`VDDK _) as vddk) -> vddk
         | Some `SSH ->
            error (f_"only ‘-it vddk’ can be used here") in
-      Input_libvirt.input_libvirt input_password input_conn input_transport
+      Input_libvirt.input_libvirt input_conn input_password input_transport
                                   guest
 
     | `LibvirtXML ->

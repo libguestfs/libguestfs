@@ -27,10 +27,10 @@ open Types
 open Utils
 
 (* Choose the right subclass based on the URI. *)
-let input_libvirt input_password libvirt_uri input_transport guest =
-  match libvirt_uri with
+let input_libvirt input_conn input_password input_transport guest =
+  match input_conn with
   | None ->
-    Input_libvirt_other.input_libvirt_other input_password libvirt_uri guest
+    Input_libvirt_other.input_libvirt_other input_conn input_password guest
 
   | Some orig_uri ->
     let { Xml.uri_server = server; uri_scheme = scheme } as parsed_uri =
@@ -45,22 +45,22 @@ let input_libvirt input_password libvirt_uri input_transport guest =
 
     | Some _, None, _                   (* No scheme? *)
     | Some _, Some "", _ ->
-      Input_libvirt_other.input_libvirt_other input_password libvirt_uri guest
+      Input_libvirt_other.input_libvirt_other input_conn input_password guest
 
     (* vCenter over https. *)
     | Some server, Some ("esx"|"gsx"|"vpx"), None ->
        Input_libvirt_vcenter_https.input_libvirt_vcenter_https
-         input_password libvirt_uri parsed_uri server guest
+         input_conn input_password parsed_uri server guest
 
     (* vCenter or ESXi using nbdkit vddk plugin *)
     | Some server, Some ("esx"|"gsx"|"vpx"), Some (`VDDK vddk_options) ->
-       Input_libvirt_vddk.input_libvirt_vddk vddk_options input_password
-                                             libvirt_uri parsed_uri guest
+       Input_libvirt_vddk.input_libvirt_vddk input_conn input_password
+                                             vddk_options parsed_uri guest
 
     (* Xen over SSH *)
     | Some server, Some "xen+ssh", _ ->
       Input_libvirt_xen_ssh.input_libvirt_xen_ssh
-        input_password libvirt_uri parsed_uri server guest
+        input_conn input_password parsed_uri server guest
 
     (* Old virt-v2v also supported qemu+ssh://.  However I am
      * deliberately not supporting this in new virt-v2v.  Don't
@@ -71,6 +71,6 @@ let input_libvirt input_password libvirt_uri input_transport guest =
     | Some _, Some _, _ ->
       warning (f_"no support for remote libvirt connections to '-ic %s'.  The conversion may fail when it tries to read the source disks.")
         orig_uri;
-      Input_libvirt_other.input_libvirt_other input_password libvirt_uri guest
+      Input_libvirt_other.input_libvirt_other input_conn input_password guest
 
 let () = Modules_list.register_input_module "libvirt"
