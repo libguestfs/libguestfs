@@ -228,6 +228,32 @@ def can_flush(h):
 def get_size(h):
     return params['disk_size']
 
+# Any unexpected HTTP response status from the server will end up
+# calling this function which logs the full error, pauses the
+# transfer, sets the failed state, and raises a RuntimeError
+# exception.
+def request_failed(h, r, msg):
+    # Setting the failed flag in the handle causes the disk to be
+    # cleaned up on close.
+    h['failed'] = True
+    h['transfer_service'].pause()
+
+    status = r.status
+    reason = r.reason
+    try:
+        body = r.read()
+    except EnvironmentError as e:
+        body = "(Unable to read response body: %s)" % e
+
+    # Log the full error if we're verbose.
+    debug("unexpected response from imageio server:")
+    debug(msg)
+    debug("%d: %s" % (status, reason))
+    debug(body)
+
+    # Only a short error is included in the exception.
+    raise RuntimeError("%s: %d %s: %r", msg, status, reason, body[:200])
+
 # For documentation see:
 # https://github.com/oVirt/ovirt-imageio/blob/master/docs/random-io.md
 # For examples of working code to read/write from the server, see:
@@ -248,16 +274,14 @@ def pread(h, count, offset):
     r = http.getresponse()
     # 206 = HTTP Partial Content.
     if r.status != 206:
-        h['transfer_service'].pause()
-        h['failed'] = True
-        raise RuntimeError("could not read sector (%d, %d): %d: %s" %
-                           (offset, count, r.status, r.reason))
+        request_failed(h, r,
+                       "could not read sector offset %d size %d" %
+                       (offset, count))
     return r.read()
 
 def pwrite(h, buf, offset):
     http = h['http']
     transfer = h['transfer']
-    transfer_service = h['transfer_service']
 
     count = len(buf)
     h['highestwrite'] = max(h['highestwrite'], offset+count)
@@ -275,15 +299,13 @@ def pwrite(h, buf, offset):
 
     r = http.getresponse()
     if r.status != 200:
-        transfer_service.pause()
-        h['failed'] = True
-        raise RuntimeError("could not write sector (%d, %d): %d: %s" %
-                           (offset, count, r.status, r.reason))
+        request_failed(h, r,
+                       "could not write sector offset %d size %d" %
+                       (offset, count))
 
 def zero(h, count, offset, may_trim):
     http = h['http']
     transfer = h['transfer']
-    transfer_service = h['transfer_service']
 
     # Unlike the trim and flush calls, there is no 'can_zero' method
     # so nbdkit could call this even if the server doesn't support
@@ -306,10 +328,9 @@ def zero(h, count, offset, may_trim):
 
     r = http.getresponse()
     if r.status != 200:
-        transfer_service.pause()
-        h['failed'] = True
-        raise RuntimeError("could not zero sector (%d, %d): %d: %s" %
-                           (offset, count, r.status, r.reason))
+        request_failed(h, r,
+                       "could not zero sector offset %d size %d" %
+                       (offset, count))
 
 def emulate_zero(h, count, offset):
     # qemu-img convert starts by trying to zero/trim the whole device.
@@ -334,15 +355,13 @@ def emulate_zero(h, count, offset):
 
         r = http.getresponse()
         if r.status != 200:
-            transfer_service.pause()
-            h['failed'] = True
-            raise RuntimeError("could not write zeroes (%d, %d): %d: %s" %
-                               (offset, count, r.status, r.reason))
+            request_failed(h, r,
+                           "could not write zeroes offset %d size %d" %
+                           (offset, count))
 
 def trim(h, count, offset):
     http = h['http']
     transfer = h['transfer']
-    transfer_service = h['transfer_service']
 
     # Construct the JSON request for trimming.
     buf = json.dumps({'op': "trim",
@@ -358,15 +377,13 @@ def trim(h, count, offset):
 
     r = http.getresponse()
     if r.status != 200:
-        transfer_service.pause()
-        h['failed'] = True
-        raise RuntimeError("could not trim sector (%d, %d): %d: %s" %
-                           (offset, count, r.status, r.reason))
+        request_failed(h, r,
+                       "could not trim sector offset %d size %d" %
+                       (offset, count))
 
 def flush(h):
     http = h['http']
     transfer = h['transfer']
-    transfer_service = h['transfer_service']
 
     # Construct the JSON request for flushing.
     buf = json.dumps({'op': "flush"}).encode()
@@ -379,9 +396,7 @@ def flush(h):
 
     r = http.getresponse()
     if r.status != 200:
-        transfer_service.pause()
-        h['failed'] = True
-        raise RuntimeError("could not flush: %d: %s" % (r.status, r.reason))
+        request_failed(h, r, "could not flush")
 
 def delete_disk_on_failure(h):
     disk_service = h['disk_service']
