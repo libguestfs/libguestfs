@@ -44,7 +44,7 @@ let rec main () =
 
   (* Handle the command line. *)
   let argspec = [
-    [ L"ic" ],       Getopt.String ("uri", set_string_option_once "-ic" input_conn),
+    [ M"ic" ],       Getopt.String ("uri", set_string_option_once "-ic" input_conn),
                                             s_"Libvirt URI";
     [ L"password-file" ], Getopt.String ("file", set_string_option_once "--password-file" password_file),
                                             s_"Use password from file";
