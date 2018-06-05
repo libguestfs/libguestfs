@@ -123,9 +123,8 @@ def open(readonly):
     # Create a new image transfer.
     transfer = transfers_service.add(
         types.ImageTransfer(
-            image = types.Image(
-                id = disk.id
-            )
+            disk = types.Disk(id = disk.id),
+            inactivity_timeout = 3600,
         )
     )
     debug("transfer.id = %r" % transfer.id)
