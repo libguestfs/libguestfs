@@ -382,6 +382,30 @@ on an untrusted virtual machine.
 The solution is to update to a version of PCRE with these bugs fixed
 (upstream version E<ge> 8.41).
 
+=head2 CVE-2018-11806
+
+Vulnerabilities affecting qemu user networking (SLIRP) allow a
+malicious filesystem image to take control of qemu and from there
+attack the host.
+
+This affects libguestfs when the backend is set to C<direct> I<and>
+networking is enabled.
+
+The direct backend is the default upstream, but not in some downstream
+Linux distributions including Fedora, Red Hat Enterprise Linux and
+CentOS.  It might also have been selected if you set the
+C<LIBGUESTFS_BACKEND=direct> environment variable or called
+S<C<guestfs_set_backend (g, "direct")>>.
+
+Networking is enabled automatically by some tools
+(eg. L<virt-builder(1)>), or is enabled if your code called
+S<C<guestfs_set_network (g, 1)>> (which is not the default).
+
+The libvirt backend is not affected.
+
+The solution is to update qemu to a version containing the fix (see
+L<https://lists.gnu.org/archive/html/qemu-devel/2018-06/msg01012.html>).
+
 =head1 SEE ALSO
 
 L<guestfs(3)>,
