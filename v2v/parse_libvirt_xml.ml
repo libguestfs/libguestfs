@@ -123,14 +123,8 @@ let parse_libvirt_xml ?conn xml =
     | _, _, _ -> None in
 
   let features =
-    let features = ref [] in
-    let obj = Xml.xpath_eval_expression xpathctx "/domain/features/*" in
-    let nr_nodes = Xml.xpathobj_nr_nodes obj in
-    for i = 0 to nr_nodes-1 do
-      let node = Xml.xpathobj_node obj i in
-      List.push_front (Xml.node_name node) features
-    done;
-    !features in
+    let nodes = xpath_get_nodes xpathctx "/domain/features/*" in
+    List.map Xml.node_name nodes in
 
   let display =
     let obj = Xml.xpath_eval_expression xpathctx "/domain/devices/graphics" in
