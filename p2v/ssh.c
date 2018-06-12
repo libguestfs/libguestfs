@@ -181,8 +181,11 @@ compile_regexps (void)
 	   0);
   COMPILE (feature_libguestfs_rewrite_re, "libguestfs-rewrite", 0);
   COMPILE (feature_colours_option_re, "colours-option", 0);
-  COMPILE (feature_input_re, "input:((?:\\w)*)", 0);
-  COMPILE (feature_output_re, "output:((?:\\w)*)", 0);
+  /* The input and output regexps must match the same pattern in
+   * v2v/modules_list.ml.
+   */
+  COMPILE (feature_input_re, "input:((?:[-\\w])+)", 0);
+  COMPILE (feature_output_re, "output:((?:[-\\w])+)", 0);
   COMPILE (portfwd_re, "Allocated port ((?:\\d)+) for remote forward", 0);
 }
 
