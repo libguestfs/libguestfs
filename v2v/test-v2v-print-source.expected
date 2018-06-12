@@ -5,7 +5,7 @@ hypervisor type: kvm
      CPU vendor: Intel
       CPU model: Broadwell
    CPU topology: sockets: 4 cores/socket: 8 threads/core: 2
-   CPU features: pae,apic,acpi
+   CPU features: acpi,apic,pae
        firmware: unknown
         display: 
           video: qxl
