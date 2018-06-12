@@ -135,7 +135,7 @@ NICs:
     (match s.s_cpu_topology with
     | None -> ""
     | Some topology -> string_of_source_cpu_topology topology)
-    (String.concat "," s.s_features)
+    (String.concat "," (List.sort compare s.s_features))
     (string_of_source_firmware s.s_firmware)
     (match s.s_display with
     | None -> ""
