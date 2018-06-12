@@ -21,8 +21,15 @@ open Std_utils
 let input_modules = ref []
 and output_modules = ref []
 
-let register_input_module name = List.push_front name input_modules
-and register_output_module name = List.push_front name output_modules
+(* Must match the regular expressions in p2v/ssh.c *)
+let module_name_re = PCRE.compile ~anchored:true "[-\\w]+"
+
+let register_input_module name =
+  assert (PCRE.matches module_name_re name);
+  List.push_front name input_modules
+and register_output_module name =
+  assert (PCRE.matches module_name_re name);
+  List.push_front name output_modules
 
 let input_modules () = List.sort compare !input_modules
 and output_modules () = List.sort compare !output_modules
