@@ -263,12 +263,12 @@ def pread(h, count, offset):
     transfer = h['transfer']
     transfer_service = h['transfer_service']
 
-    http.putrequest("GET", h['path'])
+    headers = {"Range", "bytes=%d-%d" % (offset, offset+count-1)}
     # Authorization is only needed for old imageio.
     if h['needs_auth']:
-        http.putheader("Authorization", transfer.signed_ticket)
-    http.putheader("Range", "bytes=%d-%d" % (offset, offset+count-1))
-    http.endheaders()
+        headers["Authorization"] = transfer.signed_ticket
+
+    http.request("GET", h['path'], headers=headers)
 
     r = http.getresponse()
     # 206 = HTTP Partial Content.
@@ -319,11 +319,10 @@ def zero(h, count, offset, may_trim):
                       'size': count,
                       'flush': False}).encode()
 
-    http.putrequest("PATCH", h['path'])
-    http.putheader("Content-Type", "application/json")
-    http.putheader("Content-Length", len(buf))
-    http.endheaders()
-    http.send(buf)
+    headers = {"Content-Type": "application/json",
+               "Content-Length": str(len(buf))}
+
+    http.request("PATCH", h['path'], body=buf, headers=headers)
 
     r = http.getresponse()
     if r.status != 200:
@@ -368,11 +367,10 @@ def trim(h, count, offset):
                       'size': count,
                       'flush': False}).encode()
 
-    http.putrequest("PATCH", h['path'])
-    http.putheader("Content-Type", "application/json")
-    http.putheader("Content-Length", len(buf))
-    http.endheaders()
-    http.send(buf)
+    headers = {"Content-Type": "application/json",
+               "Content-Length": str(len(buf))}
+
+    http.request("PATCH", h['path'], body=buf, headers=headers)
 
     r = http.getresponse()
     if r.status != 200:
@@ -387,11 +385,10 @@ def flush(h):
     # Construct the JSON request for flushing.
     buf = json.dumps({'op': "flush"}).encode()
 
-    http.putrequest("PATCH", h['path'])
-    http.putheader("Content-Type", "application/json")
-    http.putheader("Content-Length", len(buf))
-    http.endheaders()
-    http.send(buf)
+    headers = {"Content-Type": "application/json",
+               "Content-Length": str(len(buf))}
+
+    http.request("PATCH", h['path'], body=buf, headers=headers)
 
     r = http.getresponse()
     if r.status != 200:
