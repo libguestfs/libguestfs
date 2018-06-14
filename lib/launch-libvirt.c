@@ -23,6 +23,7 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <limits.h>
 #include <fcntl.h>
 #include <grp.h>
 #include <errno.h>
@@ -1730,8 +1731,20 @@ construct_libvirt_xml_disk_source_hosts (guestfs_h *g,
       }
 
       case drive_transport_unix: {
+        /* libvirt requires sockets to be specified as an absolute path
+         * (RHBZ#1588451).
+         */
+        const char *socket = src->servers[i].u.socket;
+        CLEANUP_FREE char *abs_socket = realpath (socket, NULL);
+
+        if (abs_socket == NULL) {
+          perrorf (g, _("realpath: could not convert ‘%s’ to absolute path"),
+                   socket);
+          return -1;
+        }
+
         attribute ("transport", "unix");
-        attribute ("socket", src->servers[i].u.socket);
+        attribute ("socket", abs_socket);
         break;
       }
       }
