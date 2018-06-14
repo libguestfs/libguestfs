@@ -33,7 +33,6 @@ Makefile
 Makefile.in
 
 /.sc-*
-/*.patch
 
 /aclocal.m4
 /align/stamp-virt-alignment-scan.pod
