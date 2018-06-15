@@ -25,7 +25,7 @@ import ssl
 import sys
 import time
 
-from httplib import HTTPSConnection, HTTPConnection
+from httplib import HTTPSConnection as _HTTPSConnection, HTTPConnection
 from urlparse import urlparse
 
 import ovirtsdk4 as sdk
@@ -50,6 +50,18 @@ def byteify(input):
     else:
         return input
 params = None
+
+class HTTPSConnection(_HTTPSConnection):
+    def connect(self):
+        """
+        Using TCP_NO_DELAY avoids delays when sending small payload, such as
+        ovirt PATCH requests.
+
+        This issue was fixed in python 3.5, see:
+        https://bugs.python.org/issue23302
+        """
+        _HTTPSConnection.connect(self)
+        self.sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 
 def config(key, value):
     global params
