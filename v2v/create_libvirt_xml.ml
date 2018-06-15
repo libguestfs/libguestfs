@@ -51,15 +51,17 @@ let create_libvirt_xml ?pool source target_buses guestcaps
      source.s_cpu_topology <> None then (
     let cpu = ref [] in
 
-    (match source.s_cpu_vendor with
-     | None -> ()
-     | Some vendor ->
-        List.push_back cpu (e "vendor" [] [PCData vendor])
-    );
-    (match source.s_cpu_model with
-     | None -> ()
-     | Some model ->
+    (match source.s_cpu_vendor, source.s_cpu_model with
+     | None, None
+     (* Avoid libvirt error: "CPU vendor specified without CPU model" *)
+     | Some _, None -> ()
+     | None, Some model ->
         List.push_back cpu (e "model" ["fallback", "allow"] [PCData model])
+     | Some vendor, Some model ->
+        List.push_back_list cpu [
+          e "vendor" [] [PCData vendor];
+          e "model" ["fallback", "allow"] [PCData model]
+        ]
     );
     (match source.s_cpu_topology with
      | None -> ()
