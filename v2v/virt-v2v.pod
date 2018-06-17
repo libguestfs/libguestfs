@@ -977,6 +977,25 @@ A recommended procedure is, before using virt-v2v, to check that the
 boot kernel is the best kernel available in the guest (for example
 by making sure the guest is up-to-date).
 
+=head2 "vsyscall attempted with vsyscall=none"
+
+When run on a recent Debian host virt-v2v may fail to convert guests
+which were created before 2013.  In the debugging output you will see
+a crash message similar to:
+
+ vsyscall attempted with vsyscall=none ip:...
+ segfault at ...
+
+This is caused because Debian removed support for running old binaries
+which used the legacy vsyscall page to call into the kernel.
+
+You can work around this problem by running this command before
+running virt-v2v:
+
+ export LIBGUESTFS_APPEND="vsyscall=emulate"
+
+For more information, see L<https://bugzilla.redhat.com/1592061>
+
 =head1 WINDOWS
 
 =head2 Windows E<ge> 8 Fast Startup is incompatible with virt-v2v
