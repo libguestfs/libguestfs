@@ -10,7 +10,7 @@
   </Section>
   <Section xsi:type='ovf:DiskSection_Type'>
     <Info>List of Virtual Disks</Info>
-    <Disk ovf:diskId='#VOL_ID#' ovf:size='1' ovf:fileRef='#DISK_ID#/#VOL_ID#' ovf:parentRef='' ovf:vm_snapshot_id='#UUID#' ovf:volume-format='RAW' ovf:volume-type='Sparse' ovf:format='http://en.wikipedia.org/wiki/Byte' ovf:disk-interface='VirtIO' ovf:disk-type='System' ovf:boot='True' ovf:actual_size='1'/>
+    <Disk ovf:diskId='#VOL_ID#' ovf:size='1' ovf:capacity='536870912' ovf:fileRef='#DISK_ID#/#VOL_ID#' ovf:parentRef='' ovf:vm_snapshot_id='#UUID#' ovf:volume-format='RAW' ovf:volume-type='Sparse' ovf:format='http://en.wikipedia.org/wiki/Byte' ovf:disk-interface='VirtIO' ovf:disk-type='System' ovf:boot='True' ovf:actual_size='1'/>
   </Section>
   <Content ovf:id='out' xsi:type='ovf:VirtualSystem_Type'>
     <Name>windows</Name>

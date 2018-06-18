@@ -10,7 +10,7 @@
   </NetworkSection>
   <DiskSection>
     <Info>List of Virtual Disks</Info>
-    <Disk ovf:diskId='IMAGE' ovf:size='1' ovf:fileRef='VOL' ovf:parentRef='' ovf:vm_snapshot_id='#UUID#' ovf:volume-format='COW' ovf:volume-type='Sparse' ovf:format='http://en.wikipedia.org/wiki/Byte' ovf:disk-interface='VirtIO' ovf:disk-type='System' ovf:boot='True' ovf:actual_size='1'/>
+    <Disk ovf:diskId='IMAGE' ovf:size='1' ovf:capacity='536870912' ovf:fileRef='VOL' ovf:parentRef='' ovf:vm_snapshot_id='#UUID#' ovf:volume-format='COW' ovf:volume-type='Sparse' ovf:format='http://en.wikipedia.org/wiki/Byte' ovf:disk-interface='VirtIO' ovf:disk-type='System' ovf:boot='True' ovf:actual_size='1'/>
   </DiskSection>
   <VirtualSystem ovf:id='VM'>
     <Name>windows</Name>
