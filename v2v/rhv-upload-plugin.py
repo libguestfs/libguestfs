@@ -19,11 +19,12 @@
 import builtins
 import json
 import logging
+import socket
 import ssl
 import sys
 import time
 
-from http.client import HTTPSConnection
+from http.client import HTTPSConnection, HTTPConnection
 from urllib.parse import urlparse
 
 import ovirtsdk4 as sdk
@@ -55,6 +56,28 @@ def debug(s):
     if params['verbose']:
         print(s, file=sys.stderr)
         sys.stderr.flush()
+
+def find_host(connection):
+    """Return the current host object or None."""
+    try:
+        with builtins.open("/etc/vdsm/vdsm.id") as f:
+            vdsm_id = f.readline().strip()
+    except Exception as e:
+        return None
+    debug("hw_id = %r" % vdsm_id)
+
+    hosts_service = connection.system_service().hosts_service()
+    hosts = hosts_service.list(
+        search="hw_id=%s" % vdsm_id,
+        case_sensitive=False,
+    )
+    if len(hosts) == 0:
+        return None
+
+    host = hosts[0]
+    debug("host.id = %r" % host.id)
+
+    return types.Host(id = host.id)
 
 def open(readonly):
     # Parse out the username from the output_conn URL.
@@ -121,9 +144,11 @@ def open(readonly):
     transfers_service = system_service.image_transfers_service()
 
     # Create a new image transfer.
+    host = find_host(connection)
     transfer = transfers_service.add(
         types.ImageTransfer(
             disk = types.Disk(id = disk.id),
+            host = host,
             inactivity_timeout = 3600,
         )
     )
@@ -170,6 +195,7 @@ def open(readonly):
     can_flush = False
     can_trim = False
     can_zero = False
+    unix_socket = None
 
     http.putrequest("OPTIONS", destination_url.path)
     http.putheader("Authorization", transfer.signed_ticket)
@@ -186,6 +212,7 @@ def open(readonly):
         can_flush = "flush" in j['features']
         can_trim = "trim" in j['features']
         can_zero = "zero" in j['features']
+        unix_socket = j.get('unix_socket')
 
     # Old imageio servers returned either 405 Method Not Allowed or
     # 204 No Content (with an empty body).  If we see that we leave
@@ -197,8 +224,17 @@ def open(readonly):
         raise RuntimeError("could not use OPTIONS request: %d: %s" %
                            (r.status, r.reason))
 
-    debug("imageio features: flush=%r trim=%r zero=%r" %
-          (can_flush, can_trim, can_zero))
+    debug("imageio features: flush=%r trim=%r zero=%r unix_socket=%r" %
+          (can_flush, can_trim, can_zero, unix_socket))
+
+    # If we are connected to imageio on the local host and the
+    # transfer features a unix_socket then we can reconnect to that.
+    if host is not None and unix_socket is not None:
+        try:
+            http = UnixHTTPConnection(unix_socket)
+            debug("optimizing connection using unix socket %r" % unix_socket)
+        except:
+            pass
 
     # Save everything we need to make requests in the handle.
     return {
@@ -463,3 +499,22 @@ def close(h):
         raise
 
     connection.close()
+
+# Modify http.client.HTTPConnection to work over a Unix domain socket.
+# Derived from uhttplib written by Erik van Zijst under an MIT license.
+# (https://pypi.org/project/uhttplib/)
+# Ported to Python 3 by Irit Goihman.
+
+class UnsupportedError(Exception):
+    pass
+
+class UnixHTTPConnection(HTTPConnection):
+    def __init__(self, path, timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
+        self.path = path
+        HTTPConnection.__init__(self, "localhost", timeout=timeout)
+
+    def connect(self):
+        self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        if self.timeout is not socket._GLOBAL_DEFAULT_TIMEOUT:
+            self.sock.settimeout(timeout)
+        self.sock.connect(self.path)
