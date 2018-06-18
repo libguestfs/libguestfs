@@ -557,6 +557,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
         let attrs = ref [
           "ovf:diskId", vol_uuid;
           "ovf:size", Int64.to_string size_gb;
+          "ovf:capacity", Int64.to_string ov.ov_virtual_size;
           "ovf:fileRef", fileref;
           "ovf:parentRef", "";
           "ovf:vm_snapshot_id", uuidgen ();
