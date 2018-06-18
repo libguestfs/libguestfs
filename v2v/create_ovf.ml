@@ -544,12 +544,17 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
 
       (* Add disk to <References/> node. *)
       let disk =
-        e "File" [
+        let attrs = ref [
           "ovf:href", fileref;
           "ovf:id", vol_uuid;
-          "ovf:size", Int64.to_string ov.ov_virtual_size; (* NB: in bytes *)
           "ovf:description", generated_by;
-        ] [] in
+        ] in
+        (match t.target_actual_size with
+         | None -> ()
+         | Some actual_size ->
+            List.push_back attrs ("ovf:size", Int64.to_string actual_size)
+        );
+        e "File" !attrs [] in
       append_child disk references;
 
       (* Add disk to DiskSection. *)
