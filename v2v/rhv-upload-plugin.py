@@ -165,34 +165,13 @@ def open(readonly):
         context = context
     )
 
-    # Save everything we need to make requests in the handle.
-    return {
-        'can_flush': False,
-        'can_trim': False,
-        'can_zero': False,
-        'connection': connection,
-        'disk': disk,
-        'disk_service': disk_service,
-        'failed': False,
-        'got_options': False,
-        'highestwrite': 0,
-        'http': http,
-        'needs_auth': not params['rhv_direct'],
-        'path': destination_url.path,
-        'transfer': transfer,
-        'transfer_service': transfer_service,
-    }
+    # The first request is to fetch the features of the server.
+    needs_auth = not params['rhv_direct']
+    can_flush = False
+    can_trim = False
+    can_zero = False
 
-# Can we issue zero, trim or flush requests?
-def get_options(h):
-    if h['got_options']:
-        return
-    h['got_options'] = True
-
-    http = h['http']
-    transfer = h['transfer']
-
-    http.putrequest("OPTIONS", h['path'])
+    http.putrequest("OPTIONS", destination_url.path)
     http.putheader("Authorization", transfer.signed_ticket)
     http.endheaders()
 
@@ -201,12 +180,12 @@ def get_options(h):
 
     if r.status == 200:
         # New imageio never needs authentication.
-        h['needs_auth'] = False
+        needs_auth = False
 
         j = json.loads(data)
-        h['can_zero'] = "zero" in j['features']
-        h['can_trim'] = "trim" in j['features']
-        h['can_flush'] = "flush" in j['features']
+        can_flush = "flush" in j['features']
+        can_trim = "trim" in j['features']
+        can_zero = "zero" in j['features']
 
     # Old imageio servers returned either 405 Method Not Allowed or
     # 204 No Content (with an empty body).  If we see that we leave
@@ -218,12 +197,30 @@ def get_options(h):
         raise RuntimeError("could not use OPTIONS request: %d: %s" %
                            (r.status, r.reason))
 
+    debug("imageio features: flush=%r trim=%r zero=%r" %
+          (can_flush, can_trim, can_zero))
+
+    # Save everything we need to make requests in the handle.
+    return {
+        'can_flush': can_flush,
+        'can_trim': can_trim,
+        'can_zero': can_zero,
+        'connection': connection,
+        'disk': disk,
+        'disk_service': disk_service,
+        'failed': False,
+        'highestwrite': 0,
+        'http': http,
+        'needs_auth': needs_auth,
+        'path': destination_url.path,
+        'transfer': transfer,
+        'transfer_service': transfer_service,
+    }
+
 def can_trim(h):
-    get_options(h)
     return h['can_trim']
 
 def can_flush(h):
-    get_options(h)
     return h['can_flush']
 
 def get_size(h):
