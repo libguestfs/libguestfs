@@ -81,15 +81,17 @@ let create_libvirt_xml ?pool source target_buses guestcaps
     match target_firmware with
     | TargetBIOS -> None
     | TargetUEFI -> Some (find_uefi_firmware guestcaps.gcaps_arch) in
-  let secure_boot_required =
-    match uefi_firmware with
-    | Some { Uefi.flags = flags }
-         when List.mem Uefi.UEFI_FLAG_SECURE_BOOT_REQUIRED flags -> true
-    | _ -> false in
-  (* Currently these are required by secure boot, but in theory they
-   * might be independent properties.
-   *)
-  let machine_q35 = secure_boot_required in
+  let machine, secure_boot_required =
+    match guestcaps.gcaps_machine, uefi_firmware with
+    | _, Some { Uefi.flags = flags }
+         when List.mem Uefi.UEFI_FLAG_SECURE_BOOT_REQUIRED flags ->
+       (* Force machine type to Q35 because PC does not support
+        * secure boot.  We must remove this when we get the
+        * correct machine type from libosinfo in future. XXX
+        *)
+       Q35, true
+    | machine, _ ->
+       machine, false in
   let smm = secure_boot_required in
 
   (* We have the machine features of the guest when it was on the
@@ -140,7 +142,18 @@ let create_libvirt_xml ?pool source target_buses guestcaps
 
   (* The <os> section subelements. *)
   let os_section =
-    let machine = if machine_q35 then [ "machine", "q35" ] else [] in
+    let os = ref [] in
+
+    let machine =
+      match machine with
+      | I440FX -> "pc"
+      | Q35 -> "q35"
+      | Virt -> "virt" in
+
+    List.push_back os
+                   (e "type" ["arch", guestcaps.gcaps_arch;
+                              "machine", machine]
+                      [PCData "hvm"]);
 
     let loader =
       match uefi_firmware with
@@ -152,8 +165,8 @@ let create_libvirt_xml ?pool source target_buses guestcaps
              [ PCData code ];
            e "nvram" ["template", vars_template] [] ] in
 
-    (e "type" (["arch", guestcaps.gcaps_arch] @ machine) [PCData "hvm"])
-    :: loader in
+    List.push_back_list os loader;
+    !os in
 
   List.push_back_list body [
     e "os" [] os_section;
