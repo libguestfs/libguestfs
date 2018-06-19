@@ -602,6 +602,8 @@ let rec create_ovf source targets guestcaps inspect
                                      source.s_vcpu memsize_mb)]
       ] in
 
+      (* XXX How to set machine type for Q35? *)
+
       List.push_back virtual_hardware_section_items (
         e "Item" [] ([
           e "rasd:Caption" [] [PCData (sprintf "%d virtual cpu" source.s_vcpu)];

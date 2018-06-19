@@ -245,8 +245,9 @@ type guestcaps = {
   gcaps_virtio_balloon : bool;  (** Guest supports virtio balloon. *)
   gcaps_isa_pvpanic : bool;     (** Guest supports ISA pvpanic device. *)
 
-  gcaps_arch : string;      (** Architecture that KVM must emulate. *)
-  gcaps_acpi : bool;        (** True if guest supports acpi. *)
+  gcaps_machine : guestcaps_machine; (** Machine model. *)
+  gcaps_arch : string;          (** Architecture that KVM must emulate. *)
+  gcaps_acpi : bool;            (** True if guest supports acpi. *)
 }
 (** Guest capabilities after conversion.  eg. Was virtio found or installed? *)
 
@@ -262,6 +263,7 @@ and requested_guestcaps = {
 and guestcaps_block_type = Virtio_blk | Virtio_SCSI | IDE
 and guestcaps_net_type = Virtio_net | E1000 | RTL8139
 and guestcaps_video_type = QXL | Cirrus
+and guestcaps_machine = I440FX | Q35 | Virt
 
 val string_of_guestcaps : guestcaps -> string
 val string_of_requested_guestcaps : requested_guestcaps -> string

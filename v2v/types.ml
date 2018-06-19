@@ -411,6 +411,7 @@ type guestcaps = {
   gcaps_virtio_rng : bool;
   gcaps_virtio_balloon : bool;
   gcaps_isa_pvpanic : bool;
+  gcaps_machine : guestcaps_machine;
   gcaps_arch : string;
   gcaps_acpi : bool;
 }
@@ -422,6 +423,7 @@ and requested_guestcaps = {
 and guestcaps_block_type = Virtio_blk | Virtio_SCSI | IDE
 and guestcaps_net_type = Virtio_net | E1000 | RTL8139
 and guestcaps_video_type = QXL | Cirrus
+and guestcaps_machine = I440FX | Q35 | Virt
 
 let string_of_block_type = function
   | Virtio_blk -> "virtio-blk"
@@ -434,17 +436,23 @@ let string_of_net_type = function
 let string_of_video = function
   | QXL -> "qxl"
   | Cirrus -> "cirrus"
+let string_of_machine = function
+  | I440FX -> "i440fx"
+  | Q35 -> "q35"
+  | Virt -> "virt"
 
 let string_of_guestcaps gcaps =
   sprintf "\
 gcaps_block_bus = %s
 gcaps_net_bus = %s
 gcaps_video = %s
+gcaps_machine = %s
 gcaps_arch = %s
 gcaps_acpi = %b
 " (string_of_block_type gcaps.gcaps_block_bus)
   (string_of_net_type gcaps.gcaps_net_bus)
   (string_of_video gcaps.gcaps_video)
+  (string_of_machine gcaps.gcaps_machine)
   gcaps.gcaps_arch
   gcaps.gcaps_acpi
 

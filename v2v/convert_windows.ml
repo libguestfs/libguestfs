@@ -212,6 +212,12 @@ let convert (g : G.guestfs) inspect source output rcaps =
         warning (f_"this guest has Anti-Virus (AV) software and a new virtio block device driver was installed.  In some circumstances, AV may prevent new drivers from working (resulting in a 7B boot error).  If this happens, try disabling AV before doing the conversion.");
     );
 
+    (* XXX Look up this information in libosinfo in future. *)
+    let machine =
+      match inspect.i_arch with
+      | "i386"|"x86_64" -> I440FX
+      | _ -> Virt in
+
     (* Return guest capabilities from the convert () function. *)
     let guestcaps = {
       gcaps_block_bus = block_driver;
@@ -220,6 +226,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
       gcaps_virtio_rng = virtio_rng_supported;
       gcaps_virtio_balloon = virtio_ballon_supported;
       gcaps_isa_pvpanic = isa_pvpanic_supported;
+      gcaps_machine = machine;
       gcaps_arch = Utils.kvm_arch inspect.i_arch;
       gcaps_acpi = true;
     } in

@@ -86,6 +86,11 @@ object
         (match guestcaps.gcaps_video with
          | QXL -> "qxl"
          | Cirrus -> "cirrus");
+        "hw_machine_type",
+        (match guestcaps.gcaps_machine with
+         | I440FX -> "pc"
+         | Q35 -> "q35"
+         | Virt -> "virt");
         "architecture", guestcaps.gcaps_arch;
         "hypervisor_type", "kvm";
         "vm_mode", "hvm";
