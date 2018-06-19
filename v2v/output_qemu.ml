@@ -56,16 +56,24 @@ object
       match target_firmware with
       | TargetBIOS -> None
       | TargetUEFI -> Some (find_uefi_firmware guestcaps.gcaps_arch) in
-    let secure_boot_required =
-      match uefi_firmware with
-      | Some { Uefi.flags }
-           when List.mem Uefi.UEFI_FLAG_SECURE_BOOT_REQUIRED flags -> true
-      | _ -> false in
-    (* Currently these are required by secure boot, but in theory they
-     * might be independent properties.
-     *)
-    let machine_q35 = secure_boot_required in
+    let machine, secure_boot_required =
+      match guestcaps.gcaps_machine, uefi_firmware with
+      | _, Some { Uefi.flags }
+           when List.mem Uefi.UEFI_FLAG_SECURE_BOOT_REQUIRED flags ->
+         (* Force machine type to Q35 because PC does not support
+          * secure boot.  We must remove this when we get the
+          * correct machine type from libosinfo in future. XXX
+          *)
+         Q35, true
+      | machine, _ ->
+         machine, false in
     let smm = secure_boot_required in
+
+    let machine =
+      match machine with
+      | I440FX -> "pc"
+      | Q35 -> "q35"
+      | Virt -> "virt" in
 
     (* Construct the command line.  Note that the [Qemuopts]
      * module deals with shell and qemu comma quoting.
@@ -87,8 +95,8 @@ object
         arg_list "-device" ["vmgenid"; sprintf "guid=%s" genid; "id=vmgenid0"]
     );
 
-    arg_list "-machine" (if machine_q35 then ["q35"] else [] @
-                         if smm then ["smm=on"] else [] @
+    arg_list "-machine" (machine ::
+                         (if smm then ["smm=on"] else []) @
                          ["accel=kvm:tcg"]);
 
     (match uefi_firmware with

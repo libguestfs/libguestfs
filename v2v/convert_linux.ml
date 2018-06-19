@@ -122,6 +122,12 @@ let convert (g : G.guestfs) inspect source output rcaps =
 
     SELinux_relabel.relabel g;
 
+    (* XXX Look up this information in libosinfo in future. *)
+    let machine =
+      match inspect.i_arch with
+      | "i386"|"x86_64" -> I440FX
+      | _ -> Virt in
+
     (* Return guest capabilities from the convert () function. *)
     let guestcaps = {
       gcaps_block_bus = block_type;
@@ -130,6 +136,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
       gcaps_virtio_rng = kernel.ki_supports_virtio_rng;
       gcaps_virtio_balloon = kernel.ki_supports_virtio_balloon;
       gcaps_isa_pvpanic = kernel.ki_supports_isa_pvpanic;
+      gcaps_machine = machine;
       gcaps_arch = Utils.kvm_arch inspect.i_arch;
       gcaps_acpi = acpi;
     } in
