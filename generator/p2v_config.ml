@@ -34,7 +34,7 @@ type config_entry =
   | ConfigInt of string * int     (* field name, initial value *)
   | ConfigUnsigned of string
   | ConfigUInt64 of string
-  | ConfigEnum of string
+  | ConfigEnum of string * string (* field name, enum *)
   | ConfigBool of string
   | ConfigStringList of string
   | ConfigSection of string * config_entry list
@@ -55,14 +55,20 @@ let enums = [
 
 (* Configuration fields. *)
 let fields = [
-  ConfigString  "server";
-  ConfigInt     ("port", 22);
-  ConfigString  "username";
-  ConfigString  "password";
-  ConfigString  "identity_url";
-  ConfigString  "identity_file";
-  ConfigBool    "identity_file_needs_update";
-  ConfigBool    "sudo";
+  ConfigSection ("remote", [
+                   ConfigString  "server";
+                   ConfigInt     ("port", 22);
+                 ]);
+  ConfigSection ("auth", [
+                   ConfigString  "username";
+                   ConfigString  "password";
+                   ConfigSection ("identity", [
+                                    ConfigString  "url";
+                                    ConfigString  "file";
+                                    ConfigBool    "file_needs_update";
+                                 ]);
+                   ConfigBool    "sudo";
+                ]);
   ConfigString  "guestname";
   ConfigInt     ("vcpus", 0);
   ConfigUInt64  "memory";
@@ -77,18 +83,20 @@ let fields = [
                    ConfigBool     "pae";
                 ]);
   ConfigSection ("rtc", [
-                   ConfigEnum     "basis";
+                   ConfigEnum     ("basis", "basis");
                    ConfigInt      ("offset", 0);
                 ]);
   ConfigStringList "disks";
   ConfigStringList "removable";
   ConfigStringList "interfaces";
   ConfigStringList "network_map";
-  ConfigString  "output";
-  ConfigEnum    "output_allocation";
-  ConfigString  "output_connection";
-  ConfigString  "output_format";
-  ConfigString  "output_storage";
+  ConfigSection ("output", [
+                   ConfigString  "type";
+                   ConfigEnum    ("allocation", "output_allocation");
+                   ConfigString  "connection";
+                   ConfigString  "format";
+                   ConfigString  "storage";
+                ]);
 ]
 
 let name_of_config_entry = function
@@ -96,7 +104,7 @@ let name_of_config_entry = function
   | ConfigInt (n, _)
   | ConfigUnsigned n
   | ConfigUInt64 n
-  | ConfigEnum n
+  | ConfigEnum (n, _)
   | ConfigBool n
   | ConfigStringList n
   | ConfigSection (n, _) -> n
@@ -156,7 +164,7 @@ and generate_config_struct name fields =
     | ConfigInt (n, _) ->     pr "  int %s;\n" n
     | ConfigUnsigned n ->     pr "  unsigned %s;\n" n
     | ConfigUInt64 n ->       pr "  uint64_t %s;\n" n
-    | ConfigEnum n ->         pr "  enum %s %s;\n" n n
+    | ConfigEnum (n, enum) -> pr "  enum %s %s;\n" enum n
     | ConfigBool n ->         pr "  bool %s;\n" n
     | ConfigStringList n ->   pr "  char **%s;\n" n
     | ConfigSection (n, _) -> pr "  struct %s_config %s;\n" n n
@@ -365,9 +373,9 @@ and generate_field_print prefix v fields =
       | ConfigUInt64 n ->
          pr "  fprintf (fp, \"%%-20s %%\" PRIu64 \"\\n\",\n";
          pr "           \"%s\", %s%s);\n" printable_name v n
-      | ConfigEnum n ->
+      | ConfigEnum (n, enum) ->
          pr "  fprintf (fp, \"%%-20s \", \"%s\");\n" printable_name;
-         pr "  print_%s (%s%s, fp);\n" n v n;
+         pr "  print_%s (%s%s, fp);\n" enum v n;
          pr "  fprintf (fp, \"\\n\");\n"
       | ConfigBool n ->
          pr "  fprintf (fp, \"%%-20s %%s\\n\",\n";

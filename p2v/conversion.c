@@ -498,19 +498,19 @@ generate_wrapper_script (struct config *config, const char *remote_dir,
   /* The virt-v2v command, as a shell function called "v2v". */
   fprintf (fp, "v2v ()\n");
   fprintf (fp, "{\n");
-  if (config->sudo)
+  if (config->auth.sudo)
     fprintf (fp, "sudo -n ");
   fprintf (fp, "virt-v2v -v -x");
   if (feature_colours_option)
     fprintf (fp, " --colours");
   fprintf (fp, " -i libvirtxml");
 
-  if (config->output) {         /* -o */
+  if (config->output.type) {         /* -o */
     fprintf (fp, " -o ");
-    print_quoted (fp, config->output);
+    print_quoted (fp, config->output.type);
   }
 
-  switch (config->output_allocation) { /* -oa */
+  switch (config->output.allocation) { /* -oa */
   case OUTPUT_ALLOCATION_NONE:
     /* nothing */
     break;
@@ -524,14 +524,14 @@ generate_wrapper_script (struct config *config, const char *remote_dir,
     abort ();
   }
 
-  if (config->output_format) {  /* -of */
+  if (config->output.format) {  /* -of */
     fprintf (fp, " -of ");
-    print_quoted (fp, config->output_format);
+    print_quoted (fp, config->output.format);
   }
 
-  if (config->output_storage) { /* -os */
+  if (config->output.storage) { /* -os */
     fprintf (fp, " -os ");
-    print_quoted (fp, config->output_storage);
+    print_quoted (fp, config->output.storage);
   }
 
   fprintf (fp, " --root first");
@@ -562,7 +562,7 @@ generate_wrapper_script (struct config *config, const char *remote_dir,
 
   fprintf (fp,
            "# Log the version of virt-v2v (for information only).\n");
-  if (config->sudo)
+  if (config->auth.sudo)
     fprintf (fp, "sudo -n ");
   fprintf (fp, "virt-v2v --version > v2v-version\n");
   fprintf (fp, "\n");

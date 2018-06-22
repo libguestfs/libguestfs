@@ -276,7 +276,7 @@ curl_download (const char *url, const char *local_file)
 }
 
 /**
- * Re-cache the C<config-E<gt>identity_url> if needed.
+ * Re-cache the C<config-E<gt>identity.url> if needed.
  */
 static int
 cache_ssh_identity (struct config *config)
@@ -284,25 +284,25 @@ cache_ssh_identity (struct config *config)
   int fd;
 
   /* If it doesn't need downloading, return. */
-  if (config->identity_url == NULL ||
-      !config->identity_file_needs_update)
+  if (config->auth.identity.url == NULL ||
+      !config->auth.identity.file_needs_update)
     return 0;
 
   /* Generate a random filename. */
-  free (config->identity_file);
-  config->identity_file = strdup ("/tmp/id.XXXXXX");
-  if (config->identity_file == NULL)
+  free (config->auth.identity.file);
+  config->auth.identity.file = strdup ("/tmp/id.XXXXXX");
+  if (config->auth.identity.file == NULL)
     error (EXIT_FAILURE, errno, "strdup");
-  fd = mkstemp (config->identity_file);
+  fd = mkstemp (config->auth.identity.file);
   if (fd == -1)
     error (EXIT_FAILURE, errno, "mkstemp");
   close (fd);
 
   /* Curl download URL to file. */
-  if (curl_download (config->identity_url, config->identity_file) == -1) {
-    free (config->identity_file);
-    config->identity_file = NULL;
-    config->identity_file_needs_update = 1;
+  if (curl_download (config->auth.identity.url, config->auth.identity.file) == -1) {
+    free (config->auth.identity.file);
+    config->auth.identity.file = NULL;
+    config->auth.identity.file_needs_update = 1;
     return -1;
   }
 
@@ -343,14 +343,14 @@ start_ssh (unsigned spawn_flags, struct config *config,
     return NULL;
 
   /* Are we using password or identity authentication? */
-  using_password_auth = config->identity_file == NULL;
+  using_password_auth = config->auth.identity.file == NULL;
 
   ADD_ARG (argv, i, "ssh");
   ADD_ARG (argv, i, "-p");      /* Port. */
-  snprintf (port_str, sizeof port_str, "%d", config->port);
+  snprintf (port_str, sizeof port_str, "%d", config->remote.port);
   ADD_ARG (argv, i, port_str);
   ADD_ARG (argv, i, "-l");      /* Username. */
-  ADD_ARG (argv, i, config->username ? config->username : "root");
+  ADD_ARG (argv, i, config->auth.username ? config->auth.username : "root");
   ADD_ARG (argv, i, "-o");      /* Host key will always be novel. */
   ADD_ARG (argv, i, "StrictHostKeyChecking=no");
   ADD_ARG (argv, i, "-o");      /* ConnectTimeout */
@@ -371,13 +371,13 @@ start_ssh (unsigned spawn_flags, struct config *config,
     ADD_ARG (argv, i, "-o");
     ADD_ARG (argv, i, "PreferredAuthentications=publickey");
     ADD_ARG (argv, i, "-i");
-    ADD_ARG (argv, i, config->identity_file);
+    ADD_ARG (argv, i, config->auth.identity.file);
   }
   if (extra_args != NULL) {
     for (size_t j = 0; extra_args[j] != NULL; ++j)
       ADD_ARG (argv, i, extra_args[j]);
   }
-  ADD_ARG (argv, i, config->server); /* Conversion server. */
+  ADD_ARG (argv, i, config->remote.server); /* Conversion server. */
   ADD_ARG (argv, i, NULL);
 
 #if DEBUG_STDERR
@@ -408,7 +408,7 @@ start_ssh (unsigned spawn_flags, struct config *config,
   mexp_set_timeout (h, SSH_TIMEOUT + 20);
 
   if (using_password_auth &&
-      config->password && strlen (config->password) > 0) {
+      config->auth.password && strlen (config->auth.password) > 0) {
     CLEANUP_FREE char *ssh_message = NULL;
 
     /* Wait for the password prompt. */
@@ -420,7 +420,7 @@ start_ssh (unsigned spawn_flags, struct config *config,
                            { 0 }
                          }, ovector, ovecsize)) {
     case 100:                   /* Got password prompt. */
-      if (mexp_printf_password (h, "%s", config->password) == -1 ||
+      if (mexp_printf_password (h, "%s", config->auth.password) == -1 ||
           mexp_printf (h, "\n") == -1) {
         set_ssh_mexp_error ("mexp_printf");
         mexp_close (h);
@@ -605,11 +605,11 @@ scp_file (struct config *config, const char *target, const char *local, ...)
     return -1;
 
   /* Are we using password or identity authentication? */
-  using_password_auth = config->identity_file == NULL;
+  using_password_auth = config->auth.identity.file == NULL;
 
   ADD_ARG (argv, i, "scp");
   ADD_ARG (argv, i, "-P");      /* Port. */
-  snprintf (port_str, sizeof port_str, "%d", config->port);
+  snprintf (port_str, sizeof port_str, "%d", config->remote.port);
   ADD_ARG (argv, i, port_str);
   ADD_ARG (argv, i, "-o");      /* Host key will always be novel. */
   ADD_ARG (argv, i, "StrictHostKeyChecking=no");
@@ -627,7 +627,7 @@ scp_file (struct config *config, const char *target, const char *local, ...)
     ADD_ARG (argv, i, "-o");
     ADD_ARG (argv, i, "PreferredAuthentications=publickey");
     ADD_ARG (argv, i, "-i");
-    ADD_ARG (argv, i, config->identity_file);
+    ADD_ARG (argv, i, config->auth.identity.file);
   }
 
   /* Source files or directories.
@@ -643,8 +643,8 @@ scp_file (struct config *config, const char *target, const char *local, ...)
    * "username@server:target".
    */
   if (asprintf (&remote, "%s@%s:%s",
-                config->username ? config->username : "root",
-                config->server, target) == -1)
+                config->auth.username ? config->auth.username : "root",
+                config->remote.server, target) == -1)
     error (EXIT_FAILURE, errno, "asprintf");
   ADD_ARG (argv, i, remote);
 
@@ -678,7 +678,7 @@ scp_file (struct config *config, const char *target, const char *local, ...)
   mexp_set_timeout (h, SSH_TIMEOUT + 20);
 
   if (using_password_auth &&
-      config->password && strlen (config->password) > 0) {
+      config->auth.password && strlen (config->auth.password) > 0) {
     CLEANUP_FREE char *ssh_message = NULL;
 
     /* Wait for the password prompt. */
@@ -690,7 +690,7 @@ scp_file (struct config *config, const char *target, const char *local, ...)
                            { 0 }
                          }, ovector, ovecsize)) {
     case 100:                   /* Got password prompt. */
-      if (mexp_printf_password (h, "%s", config->password) == -1 ||
+      if (mexp_printf_password (h, "%s", config->auth.password) == -1 ||
           mexp_printf (h, "\n") == -1) {
         set_ssh_mexp_error ("mexp_printf");
         mexp_close (h);
@@ -793,7 +793,7 @@ test_connection (struct config *config)
    */
   if (mexp_printf (h,
                    "%svirt-v2v --version\n",
-                   config->sudo ? "sudo -n " : "") == -1) {
+                   config->auth.sudo ? "sudo -n " : "") == -1) {
     set_ssh_mexp_error ("mexp_printf");
     mexp_close (h);
     return -1;
@@ -818,7 +818,7 @@ test_connection (struct config *config)
 
     case 101:
       set_ssh_error ("sudo for user \"%s\" requires a password.  Edit /etc/sudoers on the conversion server to ensure the \"NOPASSWD:\" option is set for this user.",
-                     config->username);
+                     config->auth.username);
       mexp_close (h);
       return -1;
 
@@ -871,7 +871,7 @@ test_connection (struct config *config)
 
   /* Get virt-v2v features.  See: v2v/cmdline.ml */
   if (mexp_printf (h, "%svirt-v2v --machine-readable\n",
-                   config->sudo ? "sudo -n " : "") == -1) {
+                   config->auth.sudo ? "sudo -n " : "") == -1) {
     set_ssh_mexp_error ("mexp_printf");
     mexp_close (h);
     return -1;
