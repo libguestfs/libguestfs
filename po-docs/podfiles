@@ -53,6 +53,7 @@
 ../lua/examples/guestfs-lua.pod
 ../make-fs/virt-make-fs.pod
 ../ocaml/examples/guestfs-ocaml.pod
+../p2v/virt-p2v-kernel-config.pod
 ../p2v/virt-p2v-make-disk.pod
 ../p2v/virt-p2v-make-kickstart.pod
 ../p2v/virt-p2v-make-kiwi.pod

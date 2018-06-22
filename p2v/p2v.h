@@ -74,8 +74,10 @@ extern const char *get_cmdline_key (char **cmdline, const char *key);
 #define CMDLINE_SOURCE_COMMAND_LINE 1 /* --cmdline */
 #define CMDLINE_SOURCE_PROC_CMDLINE 2 /* /proc/cmdline */
 
-/* kernel.c */
+/* kernel-config.c */
 extern void update_config_from_kernel_cmdline (struct config *config, char **cmdline);
+
+/* kernel.c */
 extern void kernel_conversion (struct config *, char **cmdline, int cmdline_source);
 
 /* gui.c */

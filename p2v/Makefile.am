@@ -20,7 +20,9 @@ include $(top_srcdir)/subdir-rules.mk
 generator_built = \
 	about-authors.c \
 	config.c \
-	p2v-config.h
+	kernel-config.c \
+	p2v-config.h \
+	virt-p2v-kernel-config.pod
 
 BUILT_SOURCES = \
 	$(generator_built)
@@ -89,6 +91,7 @@ virt_p2v_SOURCES = \
 	inhibit.c \
 	kernel.c \
 	kernel-cmdline.c \
+	kernel-config.c \
 	main.c \
 	nbd.c \
 	p2v.h \
@@ -165,10 +168,11 @@ noinst_DATA = \
 
 virt-p2v.1 $(top_builddir)/website/virt-p2v.1.html: stamp-virt-p2v.pod
 
-stamp-virt-p2v.pod: virt-p2v.pod
+stamp-virt-p2v.pod: virt-p2v.pod virt-p2v-kernel-config.pod
 	$(PODWRAPPER) \
 	  --man virt-p2v.1 \
 	  --html $(top_builddir)/website/virt-p2v.1.html \
+	  --insert $(srcdir)/virt-p2v-kernel-config.pod:__KERNEL_CONFIG__ \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<

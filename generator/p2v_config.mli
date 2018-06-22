@@ -18,3 +18,5 @@
 
 val generate_p2v_config_h : unit -> unit
 val generate_p2v_config_c : unit -> unit
+val generate_p2v_kernel_config_c : unit -> unit
+val generate_p2v_kernel_config_pod : unit -> unit

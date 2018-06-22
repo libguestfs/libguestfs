@@ -148,6 +148,14 @@ virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.po
           --insert $(srcdir)/sysprep-operations.pod:__OPERATIONS__ \
 	  $<
 
+virt-p2v.1: virt-p2v.pod virt-p2v-kernel-config.pod
+	$(PODWRAPPER) \
+	  --no-strict-checks \
+	  --man $@ \
+	  --license GPLv2+ \
+	  --insert $(srcdir)/virt-p2v-kernel-config.pod:__KERNEL_CONFIG__ \
+	  $<
+
 %.1: %.pod
 	$(PODWRAPPER) \
 	  --no-strict-checks \
