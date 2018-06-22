@@ -367,6 +367,10 @@ Run it from the top source directory using the command
             P2v_config.generate_p2v_config_h;
   output_to "p2v/config.c"
             P2v_config.generate_p2v_config_c;
+  output_to "p2v/kernel-config.c"
+            P2v_config.generate_p2v_kernel_config_c;
+  output_to "p2v/virt-p2v-kernel-config.pod"
+            P2v_config.generate_p2v_kernel_config_pod;
 
   (* Generate the list of files generated -- last. *)
   printf "generated %d lines of code\n" (get_lines_generated ());

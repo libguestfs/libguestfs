@@ -436,6 +436,7 @@ Makefile.in
 /p2v/dependencies.debian
 /p2v/dependencies.redhat
 /p2v/dependencies.suse
+/p2v/kernel-config.c
 /p2v/p2v-config.h
 /p2v/stamp-test-virt-p2v-pxe-data-files
 /p2v/stamp-test-virt-p2v-pxe-hostkey
@@ -458,6 +459,7 @@ Makefile.in
 /p2v/virt-p2v.1
 /p2v/virt-p2v.i686
 /p2v/virt-p2v.img
+/p2v/virt-p2v-kernel-config.pod
 /p2v/virt-p2v-make-disk
 /p2v/virt-p2v-make-disk.1
 /p2v/virt-p2v-make-kickstart
