@@ -431,10 +431,12 @@ Makefile.in
 /ocaml/t/*.bc
 /ocaml/t/*.opt
 /p2v/about-authors.c
+/p2v/config.c
 /p2v/dependencies.archlinux
 /p2v/dependencies.debian
 /p2v/dependencies.redhat
 /p2v/dependencies.suse
+/p2v/p2v-config.h
 /p2v/stamp-test-virt-p2v-pxe-data-files
 /p2v/stamp-test-virt-p2v-pxe-hostkey
 /p2v/stamp-test-virt-p2v-pxe-kernel

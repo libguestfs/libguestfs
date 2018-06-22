@@ -101,6 +101,8 @@ sources = \
 	proc_nr.mli \
 	python.ml \
 	python.mli \
+	p2v_config.ml \
+	p2v_config.mli \
 	ruby.ml \
 	ruby.mli \
 	structs.ml \
@@ -165,6 +167,7 @@ objects = \
 	errnostring.cmo \
 	customize.cmo \
 	UEFI.cmo \
+	p2v_config.cmo \
 	main.cmo
 
 EXTRA_DIST = $(sources) files-generated.txt
