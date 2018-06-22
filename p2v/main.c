@@ -249,7 +249,7 @@ main (int argc, char *argv[])
   /* If p2v.server exists, then we use the non-interactive kernel
    * conversion.  Otherwise we run the GUI.
    */
-  if (config->server != NULL)
+  if (config->remote.server != NULL)
     kernel_conversion (config, cmdline, cmdline_source);
   else {
     if (!gui_possible)
@@ -372,8 +372,8 @@ set_config_defaults (struct config *config)
   /* Default output drops the guest onto /var/tmp on the conversion
    * server, a hopefully safe default.
    */
-  config->output = strdup ("local");
-  config->output_storage = strdup ("/var/tmp");
+  config->output.type = strdup ("local");
+  config->output.storage = strdup ("/var/tmp");
 }
 
 static int

@@ -33,10 +33,10 @@ $VG virt-p2v --cmdline='p2v.server=localhost p2v.port=123 p2v.username=user p2v.
 cat $out
 
 # Check the output contains what we expect.
-grep "^server.*localhost" $out
-grep "^port.*123" $out
-grep "^username.*user" $out
-grep "^sudo.*false" $out
+grep "^remote\.server.*localhost" $out
+grep "^remote\.port.*123" $out
+grep "^auth\.username.*user" $out
+grep "^auth\.sudo.*false" $out
 grep "^guestname.*test" $out
 grep "^vcpus.*4" $out
 grep "^memory.*"$((1024*1024*1024)) $out
@@ -44,10 +44,10 @@ grep "^disks.*sda sdb sdc" $out
 grep "^removable.*sdd" $out
 grep "^interfaces.*eth0 eth1" $out
 grep "^network_map.*em1:wired other" $out
-grep "^output.*local" $out
-grep "^output_allocation.*sparse" $out
-grep "^output_connection.*qemu:///session" $out
-grep "^output_format.*raw" $out
-grep "^output_storage.*/var/tmp" $out
+grep "^output\.type.*local" $out
+grep "^output\.allocation.*sparse" $out
+grep "^output\.connection.*qemu:///session" $out
+grep "^output\.format.*raw" $out
+grep "^output\.storage.*/var/tmp" $out
 
 rm $out

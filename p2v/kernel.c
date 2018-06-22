@@ -49,39 +49,39 @@ update_config_from_kernel_cmdline (struct config *config, char **cmdline)
 
   p = get_cmdline_key (cmdline, "p2v.server");
   if (p) {
-    free (config->server);
-    config->server = strdup (p);
+    free (config->remote.server);
+    config->remote.server = strdup (p);
   }
 
   p = get_cmdline_key (cmdline, "p2v.port");
   if (p) {
-    if (sscanf (p, "%d", &config->port) != 1)
+    if (sscanf (p, "%d", &config->remote.port) != 1)
       error (EXIT_FAILURE, 0,
              "cannot parse p2v.port from kernel command line");
   }
 
   p = get_cmdline_key (cmdline, "p2v.username");
   if (p) {
-    free (config->username);
-    config->username = strdup (p);
+    free (config->auth.username);
+    config->auth.username = strdup (p);
   }
 
   p = get_cmdline_key (cmdline, "p2v.password");
   if (p) {
-    free (config->password);
-    config->password = strdup (p);
+    free (config->auth.password);
+    config->auth.password = strdup (p);
   }
 
   p = get_cmdline_key (cmdline, "p2v.identity");
   if (p) {
-    free (config->identity_url);
-    config->identity_url = strdup (p);
-    config->identity_file_needs_update = 1;
+    free (config->auth.identity.url);
+    config->auth.identity.url = strdup (p);
+    config->auth.identity.file_needs_update = 1;
   }
 
   p = get_cmdline_key (cmdline, "p2v.sudo");
   if (p)
-    config->sudo = 1;
+    config->auth.sudo = 1;
 
   p = get_cmdline_key (cmdline, "p2v.name");
   if (p) {
@@ -153,16 +153,16 @@ update_config_from_kernel_cmdline (struct config *config, char **cmdline)
 
   p = get_cmdline_key (cmdline, "p2v.o");
   if (p) {
-    free (config->output);
-    config->output = strdup (p);
+    free (config->output.type);
+    config->output.type = strdup (p);
   }
 
   p = get_cmdline_key (cmdline, "p2v.oa");
   if (p) {
     if (STREQ (p, "sparse"))
-      config->output_allocation = OUTPUT_ALLOCATION_SPARSE;
+      config->output.allocation = OUTPUT_ALLOCATION_SPARSE;
     else if (STREQ (p, "preallocated"))
-      config->output_allocation = OUTPUT_ALLOCATION_PREALLOCATED;
+      config->output.allocation = OUTPUT_ALLOCATION_PREALLOCATED;
     else
       fprintf (stderr, "%s: warning: don't know what p2v.oa=%s means\n",
                getprogname (), p);
@@ -170,20 +170,20 @@ update_config_from_kernel_cmdline (struct config *config, char **cmdline)
 
   p = get_cmdline_key (cmdline, "p2v.oc");
   if (p) {
-    free (config->output_connection);
-    config->output_connection = strdup (p);
+    free (config->output.connection);
+    config->output.connection = strdup (p);
   }
 
   p = get_cmdline_key (cmdline, "p2v.of");
   if (p) {
-    free (config->output_format);
-    config->output_format = strdup (p);
+    free (config->output.format);
+    config->output.format = strdup (p);
   }
 
   p = get_cmdline_key (cmdline, "p2v.os");
   if (p) {
-    free (config->output_storage);
-    config->output_storage = strdup (p);
+    free (config->output.storage);
+    config->output.storage = strdup (p);
   }
 
   /* Undocumented command line parameter used for testing command line
@@ -216,7 +216,7 @@ kernel_conversion (struct config *config, char **cmdline, int cmdline_source)
 
       error (EXIT_FAILURE, 0,
              "error opening control connection to %s:%d: %s",
-             config->server, config->port, err);
+             config->remote.server, config->remote.port, err);
     }
   }
 
