@@ -20,7 +20,7 @@ including an xml description of the machine.
 virt-p2v-make-kiwi builds a folder containing all the pieces needed for
 kiwi to build a bootable P2V live CD ISO, USB key, or PXE image.  This tool
 only builds the kiwi configuration, but this manual page describes some of
-the ways you can use the kickstart file.
+the ways you can use the kiwi configuration.
 
 =head1 BUILDING THE KIWI CONFIGURATION
 

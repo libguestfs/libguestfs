@@ -1372,7 +1372,7 @@ C<@> character in the form of its ascii hex-code (C<%5c>):
 
 =head2 OVA: IMPORTING A GUEST
 
-To import an OVA file called F<VM.ova>, do;
+To import an OVA file called F<VM.ova>, do:
 
  $ virt-v2v -i ova VM.ova -o local -os /var/tmp
 
@@ -1482,8 +1482,8 @@ any vmdk disks.
 =head1 INPUT FROM VMWARE ESXi HYPERVISOR
 
 You should use the OVA or VMX methods above (see L</INPUT FROM VMWARE
-OVA> and/or L</INPUT FROM VMWARE VMX>) if possible, as it is much
-faster and requires much less disk space than the method described in
+OVA> and/or L</INPUT FROM VMWARE VMX>) if possible, as they are much
+faster and require much less disk space than the method described in
 this section.
 
 You can use the L<virt-v2v-copy-to-local(1)> tool to copy the guest
