@@ -1874,7 +1874,7 @@ of a disk image.  It may or may not apply in your use case.  Read
 L</CVE-2010-3851> below.
 
 Libguestfs offers an API to get the format of a disk image
-(L</guestfs_disk_format>, and it is safest to use this.
+(L</guestfs_disk_format>), and it is safest to use this.
 
 I<Don’t> be tempted to try parsing the text / human-readable output of
 C<qemu-img> since it cannot be parsed reliably and securely.  Also do
