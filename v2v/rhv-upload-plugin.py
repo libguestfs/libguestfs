@@ -263,7 +263,6 @@ def request_failed(h, r, msg):
 def pread(h, count, offset):
     http = h['http']
     transfer = h['transfer']
-    transfer_service = h['transfer_service']
 
     headers = {"Range", "bytes=%d-%d" % (offset, offset+count-1)}
     # Authorization is only needed for old imageio.
@@ -309,7 +308,6 @@ def pwrite(h, buf, offset):
 
 def zero(h, count, offset, may_trim):
     http = h['http']
-    transfer = h['transfer']
 
     # Unlike the trim and flush calls, there is no 'can_zero' method
     # so nbdkit could call this even if the server doesn't support
@@ -371,7 +369,6 @@ def emulate_zero(h, count, offset):
 
 def trim(h, count, offset):
     http = h['http']
-    transfer = h['transfer']
 
     # Construct the JSON request for trimming.
     buf = json.dumps({'op': "trim",
@@ -394,7 +391,6 @@ def trim(h, count, offset):
 
 def flush(h):
     http = h['http']
-    transfer = h['transfer']
 
     # Construct the JSON request for flushing.
     buf = json.dumps({'op': "flush"}).encode()
