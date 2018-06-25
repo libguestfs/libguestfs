@@ -197,11 +197,13 @@ def get_options(h):
     http.endheaders()
 
     r = http.getresponse()
+    data = r.read()
+
     if r.status == 200:
         # New imageio never needs authentication.
         h['needs_auth'] = False
 
-        j = json.loads(r.read())
+        j = json.loads(data)
         h['can_zero'] = "zero" in j['features']
         h['can_trim'] = "trim" in j['features']
         h['can_flush'] = "flush" in j['features']
@@ -276,6 +278,7 @@ def pread(h, count, offset):
         request_failed(h, r,
                        "could not read sector offset %d size %d" %
                        (offset, count))
+
     return r.read()
 
 def pwrite(h, buf, offset):
@@ -301,6 +304,8 @@ def pwrite(h, buf, offset):
         request_failed(h, r,
                        "could not write sector offset %d size %d" %
                        (offset, count))
+
+    r.read()
 
 def zero(h, count, offset, may_trim):
     http = h['http']
@@ -330,6 +335,8 @@ def zero(h, count, offset, may_trim):
                        "could not zero sector offset %d size %d" %
                        (offset, count))
 
+    r.read()
+
 def emulate_zero(h, count, offset):
     # qemu-img convert starts by trying to zero/trim the whole device.
     # Since we've just created a new disk it's safe to ignore these
@@ -357,6 +364,8 @@ def emulate_zero(h, count, offset):
                            "could not write zeroes offset %d size %d" %
                            (offset, count))
 
+        r.read()
+
 def trim(h, count, offset):
     http = h['http']
     transfer = h['transfer']
@@ -378,6 +387,8 @@ def trim(h, count, offset):
                        "could not trim sector offset %d size %d" %
                        (offset, count))
 
+    r.read()
+
 def flush(h):
     http = h['http']
     transfer = h['transfer']
@@ -393,6 +404,8 @@ def flush(h):
     r = http.getresponse()
     if r.status != 200:
         request_failed(h, r, "could not flush")
+
+    r.read()
 
 def delete_disk_on_failure(h):
     disk_service = h['disk_service']
