@@ -35,16 +35,19 @@ Run the tools from the source directory, or install.
 On Fedora, use L<dnf(8)> to install all the requirements:
 
  dnf builddep libguestfs
+ dnf install autoconf automake libtool gettext-devel
 
 On systems still using L<yum(8)>, do:
 
  yum-builddep libguestfs
+ yum install autoconf automake libtool gettext-devel
 
 =head2 Short cut for Debian or Ubuntu users
 
 Use APT to install all the requirements:
 
  apt-get build-dep libguestfs
+ apt-get install autoconf automake libtool-bin gettext
 
 If that command doesn't work, take a look at the Debian source package
 L<http://packages.debian.org/source/libguestfs>, at the list of
