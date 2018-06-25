@@ -338,6 +338,9 @@ def zero(h, count, offset, may_trim):
     r.read()
 
 def emulate_zero(h, count, offset):
+    http = h['http']
+    transfer = h['transfer']
+
     # qemu-img convert starts by trying to zero/trim the whole device.
     # Since we've just created a new disk it's safe to ignore these
     # requests as long as they are smaller than the highest write seen.
