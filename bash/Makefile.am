@@ -28,6 +28,7 @@ scripts = \
 # Some of the scripts are simply symbolic links.
 symlinks = \
 	guestunmount \
+	libguestfs-test-tool \
 	virt-builder \
 	virt-cat \
 	virt-copy-in \
@@ -65,7 +66,7 @@ CLEANFILES += \
 
 # Any tool that has --short-options and --long-options only is handled
 # by this common script.
-virt-win-reg:
+libguestfs-test-tool virt-win-reg:
 	rm -f $@
 	$(LN_S) virt-v2v-copy-to-local $@
 

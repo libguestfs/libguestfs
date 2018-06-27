@@ -48,6 +48,7 @@ Makefile.in
 /AUTHORS
 /autom4te.cache
 /bash/guestunmount
+/bash/libguestfs-test-tool
 /bash/virt-builder
 /bash/virt-cat
 /bash/virt-copy-in

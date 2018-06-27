@@ -51,3 +51,9 @@ _virt_win_reg ()
     _guestfs_options_only "virt-win-reg"
 } &&
 complete -o default -F _virt_win_reg virt-win-reg
+
+_libguestfs-test-tool ()
+{
+    _guestfs_options_only "libguestfs-test-tool"
+} &&
+complete -o default -F _libguestfs-test-tool libguestfs-test-tool
