@@ -68,7 +68,13 @@ class output_local dir = object
     let name = source.s_name in
     let file = dir // name ^ ".xml" in
 
-    with_open_out file (fun chan -> DOM.doc_to_chan chan doc)
+    with_open_out file (fun chan -> DOM.doc_to_chan chan doc);
+
+    if verbose () then (
+      eprintf "resulting local libvirt XML:\n";
+      DOM.doc_to_chan stderr doc;
+      eprintf "\n%!";
+    )
 end
 
 let output_local = new output_local
