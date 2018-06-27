@@ -37,6 +37,7 @@
 
 #include "guestfs.h"
 #include "guestfs-utils.h"
+#include "display-options.h"
 
 #include "ignore-value.h"
 
@@ -81,8 +82,10 @@ main (int argc, char *argv[])
   static const char options[] = "t:V?";
   static const struct option long_options[] = {
     { "help", 0, 0, '?' },
+    { "long-options", 0, 0, 0 },
     { "qemu", 1, 0, 0 },
     { "qemudir", 1, 0, 0 },
+    { "short-options", 0, 0, 0 },
     { "timeout", 1, 0, 't' },
     { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
@@ -103,7 +106,11 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (STREQ (long_options[option_index].name, "qemu")) {
+      if (STREQ (long_options[option_index].name, "long-options"))
+        display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "short-options"))
+        display_short_options (options);
+      else if (STREQ (long_options[option_index].name, "qemu")) {
         qemu = optarg;
         qemu_use_wrapper = 0;
       }

@@ -22,11 +22,14 @@ EXTRA_DIST = libguestfs-test-tool.pod
 bin_PROGRAMS = libguestfs-test-tool
 man_MANS = libguestfs-test-tool.1
 
-libguestfs_test_tool_SOURCES = test-tool.c
+libguestfs_test_tool_SOURCES = \
+	../common/options/display-options.c \
+	test-tool.c
 
 libguestfs_test_tool_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
