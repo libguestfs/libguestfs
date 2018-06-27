@@ -17,7 +17,9 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-EXTRA_DIST = libguestfs-test-tool.pod
+EXTRA_DIST = \
+	libguestfs-test-tool.pod \
+	test-libguestfs-test-tool-docs.sh
 
 bin_PROGRAMS = libguestfs-test-tool
 man_MANS = libguestfs-test-tool.1
@@ -55,6 +57,14 @@ stamp-libguestfs-test-tool.pod: libguestfs-test-tool.pod
 	  --warning safe \
 	  $<
 	touch $@
+
+# Tests.
+
+TESTS_ENVIRONMENT = \
+	$(top_builddir)/run --test
+
+TESTS = \
+	test-libguestfs-test-tool-docs.sh
 
 check-valgrind:
 	$(top_builddir)/run --test @VG@ ./libguestfs-test-tool
