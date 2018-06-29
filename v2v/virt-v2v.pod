@@ -758,6 +758,9 @@ For I<-o libvirt>, this is a libvirt directory pool
 For I<-o local> and I<-o qemu>, this is a directory name.  The
 directory must exist.
 
+For I<-o rhv-upload>, this is the name of the destination Storage
+Domain.
+
 For I<-o rhv>, this can be an NFS path of the Export Storage Domain
 of the form C<E<lt>hostE<gt>:E<lt>pathE<gt>>, eg:
 
