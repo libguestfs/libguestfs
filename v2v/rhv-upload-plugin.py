@@ -63,7 +63,10 @@ def find_host(connection):
         with builtins.open("/etc/vdsm/vdsm.id") as f:
             vdsm_id = f.readline().strip()
     except Exception as e:
+        # This is most likely not an oVirt host.
+        debug("cannot read /etc/vdsm/vdsm.id, using any host: %s" % e)
         return None
+
     debug("hw_id = %r" % vdsm_id)
 
     hosts_service = connection.system_service().hosts_service()
@@ -72,6 +75,8 @@ def find_host(connection):
         case_sensitive=False,
     )
     if len(hosts) == 0:
+        # This oVirt host is not registered with engine.
+        debug("cannot find host with hw_id=%r, using any host" % vdsm_id)
         return None
 
     host = hosts[0]
@@ -233,9 +238,12 @@ def open(readonly):
     if host is not None and unix_socket is not None:
         try:
             http = UnixHTTPConnection(unix_socket)
+        except Exception as e:
+            # Very unlikely failure, but we can recover by using the https
+            # connection.
+            debug("cannot create unix socket connection, using https: %s" % e)
+        else:
             debug("optimizing connection using unix socket %r" % unix_socket)
-        except:
-            pass
 
     # Save everything we need to make requests in the handle.
     return {
