@@ -191,16 +191,17 @@ def open(readonly):
     )
 
     # The first request is to fetch the features of the server.
+
+    # Authentication was needed only for GET and PUT requests when
+    # communicating with old imageio-proxy.
     needs_auth = not params['rhv_direct']
+
     can_flush = False
     can_trim = False
     can_zero = False
     unix_socket = None
 
-    http.putrequest("OPTIONS", destination_url.path)
-    http.putheader("Authorization", transfer.signed_ticket)
-    http.endheaders()
-
+    http.request("OPTIONS", destination_url.path)
     r = http.getresponse()
     data = r.read()
 
@@ -298,7 +299,6 @@ def pread(h, count, offset):
     transfer = h['transfer']
 
     headers = {"Range", "bytes=%d-%d" % (offset, offset+count-1)}
-    # Authorization is only needed for old imageio.
     if h['needs_auth']:
         headers["Authorization"] = transfer.signed_ticket
 
@@ -321,7 +321,6 @@ def pwrite(h, buf, offset):
     h['highestwrite'] = max(h['highestwrite'], offset+count)
 
     http.putrequest("PUT", h['path'] + "?flush=n")
-    # Authorization is only needed for old imageio.
     if h['needs_auth']:
         http.putheader("Authorization", transfer.signed_ticket)
     # The oVirt server only uses the first part of the range, and the
@@ -378,7 +377,6 @@ def emulate_zero(h, count, offset):
     # After that we must emulate them with writes.
     if offset+count < h['highestwrite']:
         http.putrequest("PUT", h['path'])
-        # Authorization is only needed for old imageio.
         if h['needs_auth']:
             http.putheader("Authorization", transfer.signed_ticket)
         http.putheader("Content-Range",
