@@ -2,6 +2,7 @@
 # in the form <version> <date>.  If you update the version field (in
 # configure.ac) you must also add the current date to this file.
 
+1.38.3    2018-06-29
 1.38.2    2018-05-15
 1.38.1    2018-05-01
 1.38.0    2018-02-07

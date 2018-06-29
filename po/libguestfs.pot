@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.38.2\n"
+"Project-Id-Version: libguestfs 1.38.3\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2018-05-15 14:10+0100\n"
+"POT-Creation-Date: 2018-06-29 18:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -694,27 +694,27 @@ msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
 #. ../v2v/copy_to_local.ml:314
-#: ../v2v/parse_libvirt_xml.ml:358 ../v2v/parse_libvirt_xml.ml:316
+#: ../v2v/parse_libvirt_xml.ml:352 ../v2v/parse_libvirt_xml.ml:310
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:331
+#: ../v2v/parse_libvirt_xml.ml:325
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:354
+#: ../v2v/parse_libvirt_xml.ml:348
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:298 ../v2v/copy_to_local.ml:296
+#: ../v2v/parse_libvirt_xml.ml:292 ../v2v/copy_to_local.ml:296
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:173
+#: ../v2v/parse_libvirt_xml.ml:167
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:391
+#: ../v2v/parse_libvirt_xml.ml:385
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -3091,7 +3091,7 @@ msgid ""
 "format."
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:197
+#: ../v2v/parse_libvirt_xml.ml:191
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -3381,7 +3381,7 @@ msgstr ""
 msgid "ignore|warn|error"
 msgstr ""
 
-#: ../v2v/linux_kernels.ml:277
+#: ../v2v/linux_kernels.ml:292
 msgid "ignoring kernel %s in bootloader, as it does not exist."
 msgstr ""
 
@@ -3713,11 +3713,11 @@ msgstr ""
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
-#: ../v2v/linux_kernels.ml:158
+#: ../v2v/linux_kernels.ml:173
 msgid "no initrd was found in /boot matching %s %s."
 msgstr ""
 
-#: ../v2v/linux_kernels.ml:252
+#: ../v2v/linux_kernels.ml:267
 msgid ""
 "no installed kernel packages were found.\n"
 "\n"
@@ -3728,7 +3728,7 @@ msgstr ""
 msgid "no kernel found in %s"
 msgstr ""
 
-#: ../v2v/linux_kernels.ml:289
+#: ../v2v/linux_kernels.ml:304
 msgid ""
 "no kernels were found in the bootloader configuration.\n"
 "\n"
@@ -3771,7 +3771,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/create_ovf.ml:679
+#: ../v2v/create_ovf.ml:685
 msgid ""
 "oVirt cannot emulate ‘%s’ sound cards.  This sound card will be dropped from "
 "the output."
@@ -4275,13 +4275,13 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:480
+#: ../v2v/parse_libvirt_xml.ml:474
 msgid "this guest has a passthrough host device which will be ignored"
 msgid_plural "this guest has passthrough host devices which will be ignored"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../v2v/parse_libvirt_xml.ml:271 ../v2v/copy_to_local.ml:285
+#: ../v2v/parse_libvirt_xml.ml:265 ../v2v/copy_to_local.ml:285
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -4396,7 +4396,7 @@ msgstr ""
 msgid "unknown sound device '%s' ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:238
+#: ../v2v/parse_libvirt_xml.ml:232
 msgid "unknown sound model %s ignored"
 msgstr ""
 
@@ -4533,7 +4533,7 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:194
+#: ../v2v/parse_libvirt_xml.ml:188
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
@@ -8585,7 +8585,7 @@ msgstr ""
 msgid "unable to parse XML from stdin"
 msgstr ""
 
-#: inspector/inspector.c:756 lib/launch-libvirt.c:751 lib/libvirt-domain.c:418
+#: inspector/inspector.c:756 lib/launch-libvirt.c:752 lib/libvirt-domain.c:418
 #: lib/libvirt-domain.c:502 lib/libvirt-domain.c:818
 #, c-format
 msgid "unable to create new XPath context"
@@ -9114,24 +9114,24 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr ""
 
-#: lib/handle.c:556
+#: lib/handle.c:558
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: lib/handle.c:609
+#: lib/handle.c:611
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: lib/handle.c:726
+#: lib/handle.c:728
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: lib/handle.c:832
+#: lib/handle.c:834
 msgid "setting not found"
 msgstr ""
 
@@ -9184,43 +9184,43 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:913 lib/launch-libvirt.c:681
+#: lib/launch-direct.c:913 lib/launch-libvirt.c:682
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: lib/launch-libvirt.c:197
+#: lib/launch-libvirt.c:198
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:208
+#: lib/launch-libvirt.c:209
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:323
+#: lib/launch-libvirt.c:324
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:337
+#: lib/launch-libvirt.c:338
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the ‘libvirt’ backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:371
+#: lib/launch-libvirt.c:372
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: lib/launch-libvirt.c:400
+#: lib/launch-libvirt.c:401
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:610
+#: lib/launch-libvirt.c:611
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -9230,16 +9230,16 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:745
+#: lib/launch-libvirt.c:746
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:761
+#: lib/launch-libvirt.c:762
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:796
+#: lib/launch-libvirt.c:797
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -9254,48 +9254,48 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:1028
+#: lib/launch-libvirt.c:1029
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: lib/launch-libvirt.c:1450
+#: lib/launch-libvirt.c:1451
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1496 lib/qemu.c:743
+#: lib/launch-libvirt.c:1497 lib/launch-libvirt.c:1741 lib/qemu.c:743
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1579
+#: lib/launch-libvirt.c:1580
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1919
+#: lib/launch-libvirt.c:1932
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1930
+#: lib/launch-libvirt.c:1943
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1934
+#: lib/launch-libvirt.c:1947
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1955
+#: lib/launch-libvirt.c:1968
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:1968
+#: lib/launch-libvirt.c:1981
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2078
+#: lib/launch-libvirt.c:2091
 #, c-format
 msgid ""
 "bridge ‘%s’ not found.  Try running:\n"
@@ -9311,20 +9311,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: lib/launch-libvirt.c:2181
+#: lib/launch-libvirt.c:2194
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2202 lib/launch-libvirt.c:2235
+#: lib/launch-libvirt.c:2215 lib/launch-libvirt.c:2248
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2301
+#: lib/launch-libvirt.c:2314
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2332
+#: lib/launch-libvirt.c:2345
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -9567,7 +9567,7 @@ msgstr ""
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: lib/proto.c:387 lib/proto.c:909
+#: lib/proto.c:387 lib/proto.c:891
 msgid "operation cancelled by user"
 msgstr ""
 
@@ -9586,19 +9586,19 @@ msgstr ""
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr ""
 
-#: lib/proto.c:865
+#: lib/proto.c:847
 msgid "write to daemon socket"
 msgstr ""
 
-#: lib/proto.c:894
+#: lib/proto.c:876
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 
-#: lib/proto.c:902
+#: lib/proto.c:884
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: lib/proto.c:911
+#: lib/proto.c:893
 msgid "file receive cancelled by daemon"
 msgstr ""
 
