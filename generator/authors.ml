@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2017 Red Hat Inc.
+ * Copyright (C) 2017-2018 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -100,6 +100,7 @@ let authors = [
 "Nikita A Menkovich", [], [ Development ];
 "Nikita Menkovich", [], [ Development ];
 "Nikos Skalkotos", [], [ Development ];
+"Nir Soffer", [], [ Development ];
 "Olaf Hering", [], [ Development ];
 "Or Goshen", [], [ Development ];
 "Paul Mackerras", [], [ Development ];
