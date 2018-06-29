@@ -148,8 +148,8 @@ def open(readonly):
     # Get a reference to the transfer service.
     transfers_service = system_service.image_transfers_service()
 
-    # Create a new image transfer.
-    host = find_host(connection)
+    # Create a new image transfer, using the local host is possible.
+    host = find_host(connection) if params['rhv_direct'] else None
     transfer = transfers_service.add(
         types.ImageTransfer(
             disk = types.Disk(id = disk.id),
