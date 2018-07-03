@@ -38,9 +38,11 @@
 │source│
 │struct│
 └──┬───┘
+   │ source.s_disks
+   │
    │    ┌───────┐  ┌───────┐  ┌───────┐
    └────┤ disk1 ├──┤ disk2 ├──┤ disk3 │  Source disks
-        └───▲───┘  └───▲───┘  └───▲───┘  (source.s_disks)
+        └───▲───┘  └───▲───┘  └───▲───┘
             │          │          │
             │          │          │ overlay.ov_source
         ┌───┴───┐  ┌───┴───┐  ┌───┴───┐
@@ -50,6 +52,11 @@
             │          │          │ target.target_overlay
         ┌───┴───┐  ┌───┴───┐  ┌───┴───┐
         │ targ1 ├──┤ targ2 ├──┤ targ3 │  Target disks
+        └───┬───┘  └───┬───┘  └───┬───┘
+            │          │          │ target.target_stats
+            │          │          │
+        ┌───▼───┐  ┌───▼───┐  ┌───▼───┐
+        │ stat1 │  │ stat2 │  │ stat3 │  Mutable per-target stats
         └───────┘  └───────┘  └───────┘
 v}
 *)
@@ -202,12 +209,7 @@ type target = {
   target_file : target_file; (** Destination file or QEMU URI. *)
   target_format : string;    (** Destination format (eg. -of option). *)
 
-  (* Note that the estimate is filled in by core v2v.ml code before
-   * copying starts, and the actual size is filled in after copying
-   * (but may not be filled in if [--no-copy] so don't rely on it).
-   *)
-  target_estimated_size : int64 option; (** Est. max. space taken on target. *)
-  target_actual_size : int64 option; (** Actual size on target. *)
+  target_stats : target_stats; (** Size stats for this disk. *)
 
   target_overlay : overlay;  (** Link back to the overlay disk. *)
 }
@@ -216,6 +218,17 @@ type target = {
 and target_file =
   | TargetFile of string     (** Target is a file. *)
   | TargetURI of string      (** Target is a QEMU URI. *)
+
+and target_stats = {
+  (* Note that the estimate is filled in by core v2v.ml code before
+   * copying starts, and the actual size is filled in after copying
+   * (but may not be filled in if [--no-copy] so don't rely on it).
+   *)
+  mutable target_estimated_size : int64 option;
+                             (** Est. max. space taken on target. *)
+  mutable target_actual_size : int64 option;
+                             (** Actual size on target. *)
+}
 
 val string_of_target : target -> string
 
