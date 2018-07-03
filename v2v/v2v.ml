@@ -170,7 +170,7 @@ let rec main () =
        (* Create output metadata. *)
        message (f_"Creating output metadata");
        output#create_metadata source targets target_buses guestcaps inspect
-                             target_firmware;
+                              target_firmware;
 
        if cmdline.debug_overlays then preserve_overlays overlays source.s_name;
 
