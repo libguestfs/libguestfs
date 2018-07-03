@@ -116,7 +116,7 @@ let rec main () =
   let conversion_mode =
     match conversion_mode with
     | Copying (overlays, targets) ->
-       let targets = check_target_free_space mpstats source targets output in
+       check_target_free_space mpstats source targets output;
        Copying (overlays, targets)
     | In_place -> In_place in
 
@@ -179,9 +179,8 @@ let rec main () =
                                                      guestcaps in
        debug "%s" (string_of_target_buses target_buses);
 
-       let targets =
-         if not cmdline.do_copy then targets
-         else copy_targets cmdline targets input output in
+       if cmdline.do_copy then
+         copy_targets cmdline targets input output;
 
        (* Create output metadata. *)
        message (f_"Creating output metadata");
@@ -363,13 +362,18 @@ and init_targets cmdline output source overlays =
         if cmdline.compressed && format <> "qcow2" then
           error (f_"the --compressed flag is only allowed when the output format is qcow2 (-of qcow2)");
 
-        (* output#prepare_targets will fill in the target_file field.
-         * estimate_target_size will fill in the target_estimated_size field.
-         * actual_target_size will fill in the target_actual_size field.
+        (* output#prepare_targets below will fill in the target_file field.
+         *
+         * Function 'estimate_target_size' replaces the
+         * target_stats.target_estimated_size field.
+         * Function 'actual_target_size' may replace the
+         * target_stats.target_actual_size field.
          *)
         { target_file = TargetFile ""; target_format = format;
-          target_estimated_size = None;
-          target_actual_size = None;
+          target_stats = {
+              target_estimated_size = None;
+              target_actual_size = None;
+          };
           target_overlay = ov }
     ) overlays in
 
@@ -547,9 +551,7 @@ and estimate_target_size mpstats targets =
   debug "estimate_target_size: source_total_size = %Ld [%s]"
         source_total_size (human_size source_total_size);
 
-  if source_total_size = 0L then     (* Avoid divide by zero error. *)
-    targets
-  else (
+  if source_total_size > 0L then ( (* Avoids divide by zero error below. *)
     (* (3) Store the ratio as a float to avoid overflows later. *)
     let ratio =
       Int64.to_float fs_total_size /. Int64.to_float source_total_size in
@@ -583,8 +585,8 @@ and estimate_target_size mpstats targets =
           scaled_saving (human_size scaled_saving);
 
     (* (5) *)
-    let targets = List.map (
-      fun ({ target_overlay = ov } as t) ->
+    List.iter (
+      fun { target_overlay = ov; target_stats = ts } ->
         let size = ov.ov_virtual_size in
         let proportion =
           Int64.to_float size /. Int64.to_float source_total_size in
@@ -592,19 +594,15 @@ and estimate_target_size mpstats targets =
           size -^ Int64.of_float (proportion *. Int64.to_float scaled_saving) in
         debug "estimate_target_size: %s: %Ld [%s]"
               ov.ov_sd estimated_size (human_size estimated_size);
-        { t with target_estimated_size = Some estimated_size }
-    ) targets in
-
-    targets
+        ts.target_estimated_size <- Some estimated_size
+    ) targets
   )
 
 (* Estimate space required on target for each disk.  Note this is a max. *)
 and check_target_free_space mpstats source targets output =
   message (f_"Estimating space required on target for each disk");
-  let targets = estimate_target_size mpstats targets in
-
-  output#check_target_free_space source targets;
-  targets
+  estimate_target_size mpstats targets;
+  output#check_target_free_space source targets
 
 (* Conversion. *)
 and do_convert g inspect source output rcaps =
@@ -679,7 +677,7 @@ and copy_targets cmdline targets input output =
     )
   );
   let nr_disks = List.length targets in
-  List.mapi (
+  List.iteri (
     fun i t ->
       (match t.target_file with
        | TargetFile s ->
@@ -755,10 +753,8 @@ and copy_targets cmdline targets input output =
         error (f_"qemu-img command failed, see earlier errors");
       let end_time = gettimeofday () in
 
-      (* Calculate the actual size on the target, returns an updated
-       * target structure.
-       *)
-      let t = actual_target_size t in
+      (* Calculate the actual size on the target. *)
+      actual_target_size t;
 
       (* If verbose, print the virtual and real copying rates. *)
       let elapsed_time = end_time -. start_time in
@@ -770,7 +766,7 @@ and copy_targets cmdline targets input output =
         eprintf "virtual copying rate: %.1f M bits/sec\n%!"
           (mbps t.target_overlay.ov_virtual_size elapsed_time);
 
-        match t.target_actual_size with
+        match t.target_stats.target_actual_size with
         | None -> ()
         | Some actual ->
            eprintf "real copying rate: %.1f M bits/sec\n%!"
@@ -782,7 +778,8 @@ and copy_targets cmdline targets input output =
        * accuracy of the estimate.
        *)
       if verbose () then (
-        match t.target_estimated_size, t.target_actual_size with
+        let ts = t.target_stats in
+        match ts.target_estimated_size, ts.target_actual_size with
         | None, None | None, Some _ | Some _, None | Some _, Some 0L -> ()
         | Some estimate, Some actual ->
           let pc =
@@ -795,9 +792,7 @@ and copy_targets cmdline targets input output =
             pc;
           if pc < 0. then eprintf " ! ESTIMATE TOO LOW !";
           eprintf "\n%!";
-      );
-
-      t
+      )
   ) targets
 
 (* Update the target_actual_size field in the target structure. *)
@@ -808,8 +803,8 @@ and actual_target_size target =
        (* Ignore errors because we want to avoid failures after copying. *)
        try Some (du filename)
        with Failure _ | Invalid_argument _ -> None in
-     { target with target_actual_size = size }
-  | TargetURI _ -> target
+     target.target_stats.target_actual_size <- size
+  | TargetURI _ -> ()
 
 (* Save overlays if --debug-overlays option was used. *)
 and preserve_overlays overlays src_name =

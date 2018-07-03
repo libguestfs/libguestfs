@@ -302,24 +302,30 @@ overlay virtual disk size: %Ld
 type target = {
   target_file : target_file;
   target_format : string;
-  target_estimated_size : int64 option;
-  target_actual_size : int64 option;
+  target_stats : target_stats;
   target_overlay : overlay;
 }
 and target_file =
   | TargetFile of string
   | TargetURI of string
+and target_stats = {
+  mutable target_estimated_size : int64 option;
+  mutable target_actual_size : int64 option;
+}
 
 let string_of_target t =
   sprintf "          target file: %s
         target format: %s
 target estimated size: %s
+   target actual size: %s
 "
     (match t.target_file with
      | TargetFile s -> "[file] " ^ s
      | TargetURI s -> "[qemu] " ^ s)
     t.target_format
-    (match t.target_estimated_size with
+    (match t.target_stats.target_estimated_size with
+    | None -> "None" | Some i -> Int64.to_string i)
+    (match t.target_stats.target_actual_size with
     | None -> "None" | Some i -> Int64.to_string i)
 
 type target_firmware = TargetBIOS | TargetUEFI
