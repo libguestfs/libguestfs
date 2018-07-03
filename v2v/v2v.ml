@@ -163,6 +163,7 @@ let rec main () =
                                                      guestcaps in
        debug "%s" (string_of_target_buses target_buses);
 
+       (* Perform the copy. *)
        if cmdline.do_copy then
          copy_targets cmdline targets input output;
 
