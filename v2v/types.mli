@@ -402,6 +402,9 @@ class virtual output : object
   method check_target_free_space : source -> target list -> unit
   (** Called before conversion.  Can be used to check there is enough space
       on the target, using the [target.target_estimated_size] field. *)
+  method prepare_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
+  (** Called after conversion but before copying, this can optionally
+      be used to prepare the target hypervisor for receiving the guest. *)
   method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
   (** Called after conversion and copying to finish off and create metadata. *)
   method disk_create : ?backingfile:string -> ?backingformat:string -> ?preallocation:string -> ?compat:string -> ?clustersize:int -> string -> string -> int64 -> unit
