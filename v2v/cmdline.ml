@@ -42,6 +42,9 @@ type cmdline = {
   root_choice : root_choice;
 }
 
+(* Matches --mac command line parameters. *)
+let mac_re = PCRE.compile ~anchored:true "([[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}):(network|bridge):(.*)"
+
 let parse_cmdline () =
   let compressed = ref false in
   let debug_overlays = ref false in
@@ -111,6 +114,16 @@ let parse_cmdline () =
        Networks.add_default_bridge network_map out
     | in_, out ->
        Networks.add_bridge network_map in_ out
+  in
+  let add_mac str =
+    if not (PCRE.matches mac_re str) then
+      error (f_"cannot parse --mac \"%s\" parameter") str;
+    let mac = PCRE.sub 1 and out = PCRE.sub 3 in
+    let vnet_type =
+      match PCRE.sub 2 with
+      | "network" -> Network | "bridge" -> Bridge
+      | _ -> assert false in
+    Networks.add_mac network_map mac vnet_type out
   in
 
   let no_trim_warning _ =
@@ -196,6 +209,8 @@ let parse_cmdline () =
                                     s_"Input transport";
     [ L"in-place" ], Getopt.Set in_place,
                                     s_"Only tune the guest in the input VM";
+    [ L"mac" ],      Getopt.String ("mac:network|bridge:out", add_mac),
+                                    s_"Map NIC to network or bridge";
     [ L"machine-readable" ], Getopt.Set machine_readable,
                                     s_"Make output machine readable";
     [ S 'n'; L"network" ], Getopt.String ("in:out", add_network),

@@ -1,0 +1,32 @@
+    <interface type='bridge'>
+      <source bridge='VM Network'/>
+    </interface>
+    <interface type='network'>
+      <!-- NIC mapped by MAC address to Network:nancy -->
+      <source network='nancy'/>
+      <mac address='52:54:00:01:02:03'/>
+    </interface>
+    <interface type='bridge'>
+      <!-- NIC mapped by MAC address to Bridge:bob -->
+      <source bridge='bob'/>
+      <mac address='52:54:00:01:02:04'/>
+    </interface>
+    <interface type='network'>
+      <!-- network mapped from "john" to default "default_network" -->
+      <source network='default_network'/>
+      <mac address='52:54:00:01:02:05'/>
+    </interface>
+    <interface type='network'>
+      <!-- network mapped from "paul" to default "default_network" -->
+      <source network='default_network'/>
+      <mac address='52:54:00:01:02:06'/>
+    </interface>
+    <interface type='network'>
+      <!-- network mapped from "george" to default "default_network" -->
+      <source network='default_network'/>
+      <mac address='52:54:00:01:02:07'/>
+    </interface>
+    <interface type='bridge'>
+      <source bridge='ringo'/>
+      <mac address='52:54:00:01:02:08'/>
+    </interface>
