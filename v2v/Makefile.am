@@ -63,6 +63,7 @@ SOURCES_MLI = \
 	linux_kernels.mli \
 	modules_list.mli \
 	name_from_disk.mli \
+	networks.mli \
 	output_glance.mli \
 	output_libvirt.mli \
 	output_local.mli \
@@ -134,6 +135,7 @@ SOURCES_ML = \
 	output_vdsm.ml \
 	inspect_source.ml \
 	target_bus_assignment.ml \
+	networks.ml \
 	cmdline.ml \
 	v2v.ml
 
