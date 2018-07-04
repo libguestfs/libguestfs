@@ -372,8 +372,9 @@ and find_nics vmx =
              | Some _ | None -> Network in
            Some (port,
                  { s_mac = mac; s_nic_model = model;
-                   s_vnet = vnet; s_vnet_orig = vnet;
-                   s_vnet_type = vnet_type })
+                   s_vnet = vnet;
+                   s_vnet_type = vnet_type;
+                   s_mapping_explanation = None })
         | _ -> None
     ) nics in
   let nics = List.filter_map identity nics in

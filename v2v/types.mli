@@ -130,8 +130,11 @@ and source_nic = {
   s_mac : string option;                (** MAC address. *)
   s_nic_model : s_nic_model option;     (** Network adapter model. *)
   s_vnet : string;                      (** Source network name. *)
-  s_vnet_orig : string;                 (** Original network (if we map it). *)
   s_vnet_type : vnet_type;              (** Source network type. *)
+  s_mapping_explanation : string option;
+  (** If the NIC or network was mapped, this contains an English
+      explanation of the change which can be written to the target
+      hypervisor metadata for informational purposes. *)
 }
 (** Network adapter models. *)
 and s_nic_model = Source_other_nic of string |

@@ -71,8 +71,8 @@ and source_nic = {
   s_mac : string option;
   s_nic_model : s_nic_model option;
   s_vnet : string;
-  s_vnet_orig : string;
   s_vnet_type : vnet_type;
+  s_mapping_explanation : string option;
 }
 and s_nic_model = Source_other_nic of string |
                   Source_rtl8139 | Source_e1000 | Source_virtio_net

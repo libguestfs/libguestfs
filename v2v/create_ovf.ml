@@ -916,7 +916,7 @@ and add_networks nics guestcaps ovf_flavour ovf =
   (* Iterate over the NICs, adding them to the OVF document. *)
   List.iteri (
     fun i { s_mac = mac; s_vnet_type = vnet_type;
-            s_vnet = vnet; s_vnet_orig = vnet_orig } ->
+            s_vnet = vnet; s_mapping_explanation = explanation } ->
       let dev = sprintf "eth%d" i in
 
       let model =
@@ -929,10 +929,10 @@ and add_networks nics guestcaps ovf_flavour ovf =
         bus dev;
         "1" *) in
 
-      if vnet_orig <> vnet then (
-        let c =
-          Comment (sprintf "mapped from \"%s\" to \"%s\"" vnet_orig vnet) in
-        append_child c network_section
+      (match explanation with
+       | None -> ()
+       | Some explanation ->
+          append_child (Comment explanation) network_section
       );
 
       let network = e "Network" ["ovf:name", vnet] [] in

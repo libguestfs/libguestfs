@@ -238,8 +238,8 @@ and parse_nics xpathctx =
       s_mac = mac;
       s_nic_model = nic_model;
       s_vnet = vnet;
-      s_vnet_orig = vnet;
       s_vnet_type = vnet_type;
+      s_mapping_explanation = None
     } in
     List.push_front nic nics
   done;

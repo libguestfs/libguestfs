@@ -445,8 +445,8 @@ let parse_libvirt_xml ?conn xml =
              s_mac = mac;
              s_nic_model = model;
              s_vnet = vnet;
-             s_vnet_orig = vnet;
-             s_vnet_type = vnet_type
+             s_vnet_type = vnet_type;
+             s_mapping_explanation = None
            } in
            List.push_front nic nics
          in
