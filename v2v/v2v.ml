@@ -256,24 +256,7 @@ and set_source_name cmdline source =
 
 (* Map networks and bridges. *)
 and set_source_networks_and_bridges cmdline source =
-  let nics = List.map (
-    fun ({ s_vnet_type = t; s_vnet = vnet } as nic) ->
-      try
-        (* Look for a --network or --bridge parameter which names this
-         * network/bridge (eg. --network in:out).
-         *)
-        let new_name = NetworkMap.find (t, Some vnet) cmdline.network_map in
-        { nic with s_vnet = new_name }
-      with Not_found ->
-        try
-          (* Not found, so look for a default mapping (eg. --network out). *)
-          let new_name = NetworkMap.find (t, None) cmdline.network_map in
-          { nic with s_vnet = new_name }
-        with Not_found ->
-          (* Not found, so return the original NIC unchanged. *)
-          nic
-  ) source.s_nics in
-
+  let nics = List.map (Networks.map cmdline.network_map) source.s_nics in
   { source with s_nics = nics }
 
 and overlay_dir = (open_guestfs ())#get_cachedir ()

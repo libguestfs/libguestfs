@@ -28,18 +28,12 @@ open Getopt.OptionName
 open Types
 open Utils
 
-module NetTypeAndName = struct
-  type t = Types.vnet_type * string option
-  let compare = Pervasives.compare
-end
-module NetworkMap = Map.Make (NetTypeAndName)
-
 type cmdline = {
   compressed : bool;
   debug_overlays : bool;
   do_copy : bool;
   in_place : bool;
-  network_map : string NetworkMap.t;
+  network_map : Networks.t;
   output_alloc : output_allocation;
   output_format : string option;
   output_name : string option;
@@ -99,26 +93,24 @@ let parse_cmdline () =
     set_input_option_compat k v
   in
 
-  let network_map = ref NetworkMap.empty in
-  let add_network, add_bridge =
-    let add flag name t str =
-      match String.split ":" str with
-      | "", "" ->
-         error (f_"invalid %s parameter") flag
-      | out, "" | "", out ->
-         let key = t, None in
-         if NetworkMap.mem key !network_map then
-           error (f_"duplicate %s parameter.  Only one default mapping is allowed.") flag;
-         network_map := NetworkMap.add key out !network_map
-      | in_, out ->
-         let key = t, Some in_ in
-         if NetworkMap.mem key !network_map then
-           error (f_"duplicate %s parameter.  Duplicate mappings specified for %s ‘%s’.") flag name in_;
-         network_map := NetworkMap.add key out !network_map
-    in
-    let add_network str = add "-n/--network" (s_"network") Network str
-    and add_bridge str = add "-b/--bridge" (s_"bridge") Bridge str in
-    add_network, add_bridge
+  let network_map = Networks.create () in
+  let add_network str =
+    match String.split ":" str with
+    | "", "" ->
+       error (f_"invalid -n/--network parameter")
+    | out, "" | "", out ->
+       Networks.add_default_network network_map out
+    | in_, out ->
+       Networks.add_network network_map in_ out
+  in
+  let add_bridge str =
+    match String.split ":" str with
+    | "", "" ->
+       error (f_"invalid -b/--bridge parameter")
+    | out, "" | "", out ->
+       Networks.add_default_bridge network_map out
+    | in_, out ->
+       Networks.add_bridge network_map in_ out
   in
 
   let no_trim_warning _ =
@@ -316,7 +308,6 @@ read the man page virt-v2v(1).
        error (f_"unknown input transport ‘-it %s’") transport in
   let in_place = !in_place in
   let machine_readable = !machine_readable in
-  let network_map = !network_map in
   let output_alloc =
     match !output_alloc with
     | `Not_set | `Sparse -> Sparse
