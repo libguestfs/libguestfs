@@ -16,7 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(* Network, bridge mapping. *)
+(* Network, bridge and MAC address mapping. *)
 
 open Printf
 
@@ -26,66 +26,89 @@ open Common_gettext.Gettext
 open Types
 
 type t = {
-  (* For networks we use this to map a named network, or use the
-   * default network if no named network exists.
+  (* Map specific NIC with MAC address to a network or bridge. *)
+  mutable macs : (vnet_type * string) StringMap.t;
+
+  (* If specific NIC mapping fails, for networks we use this to map
+   * a named network, or use the default network if no named
+   * network exists.
    *)
   mutable network_map : string StringMap.t;
   mutable default_network : string option;
 
-  (* Same as above but for bridges. *)
+  (* If that fails, same as above but for bridges. *)
   mutable bridge_map : string StringMap.t;
   mutable default_bridge : string option;
 }
 
 let map t nic =
-  match nic.s_vnet_type with
-  | Network ->
-     (try
-        let vnet = StringMap.find nic.s_vnet t.network_map in
-        { nic with
-          s_vnet = vnet;
-          s_mapping_explanation =
-            Some (sprintf "network mapped from %S to %S"
-                          nic.s_vnet vnet)
-        }
-      with Not_found ->
-           match t.default_network with
-           | None -> nic (* no mapping done *)
-           | Some default_network ->
-              { nic with
-                s_vnet = default_network;
-                s_mapping_explanation =
-                  Some (sprintf "network mapped from %S to default %S"
-                                nic.s_vnet default_network)
-              }
-     )
-  | Bridge ->
-     (try
-        let vnet = StringMap.find nic.s_vnet t.bridge_map in
-        { nic with
-          s_vnet = vnet;
-          s_mapping_explanation =
-            Some (sprintf "bridge mapped from %S to %S"
-                          nic.s_vnet vnet)
-        }
-      with Not_found ->
-           match t.default_bridge with
-           | None -> nic (* no mapping done *)
-           | Some default_bridge ->
-              { nic with
-                s_vnet = default_bridge;
-                s_mapping_explanation =
-                  Some (sprintf "bridge mapped from %S to default %S"
-                                nic.s_vnet default_bridge)
-              }
-     )
+  try
+    let mac = match nic.s_mac with None -> raise Not_found | Some mac -> mac in
+    let mac = String.lowercase_ascii mac in
+    let vnet_type, vnet = StringMap.find mac t.macs in
+    { nic with
+      s_vnet_type = vnet_type;
+      s_vnet = vnet;
+      s_mapping_explanation =
+        Some (sprintf "NIC mapped by MAC address to %s:%s"
+                      (string_of_vnet_type vnet_type) vnet)
+    }
+  with Not_found ->
+       match nic.s_vnet_type with
+       | Network ->
+          (try
+             let vnet = StringMap.find nic.s_vnet t.network_map in
+             { nic with
+               s_vnet = vnet;
+               s_mapping_explanation =
+                 Some (sprintf "network mapped from %S to %S"
+                               nic.s_vnet vnet)
+             }
+           with Not_found ->
+             match t.default_network with
+             | None -> nic (* no mapping done *)
+             | Some default_network ->
+                { nic with
+                  s_vnet = default_network;
+                  s_mapping_explanation =
+                    Some (sprintf "network mapped from %S to default %S"
+                                  nic.s_vnet default_network)
+                }
+          )
+       | Bridge ->
+          (try
+             let vnet = StringMap.find nic.s_vnet t.bridge_map in
+             { nic with
+               s_vnet = vnet;
+               s_mapping_explanation =
+                 Some (sprintf "bridge mapped from %S to %S"
+                               nic.s_vnet vnet)
+             }
+           with Not_found ->
+             match t.default_bridge with
+             | None -> nic (* no mapping done *)
+             | Some default_bridge ->
+                { nic with
+                  s_vnet = default_bridge;
+                  s_mapping_explanation =
+                    Some (sprintf "bridge mapped from %S to default %S"
+                                  nic.s_vnet default_bridge)
+                }
+          )
 
 let create () = {
+  macs = StringMap.empty;
   network_map = StringMap.empty;
   default_network = None;
   bridge_map = StringMap.empty;
   default_bridge = None
 }
+
+let add_mac t mac vnet_type vnet =
+  let mac = String.lowercase_ascii mac in
+  if StringMap.mem mac t.macs then
+    error (f_"duplicate --mac parameter.  Duplicate mappings specified for MAC address %s.") mac;
+  t.macs <- StringMap.add mac (vnet_type, vnet) t.macs
 
 let add_network t i o =
   if StringMap.mem i t.network_map then

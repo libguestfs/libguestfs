@@ -227,7 +227,7 @@ and string_of_source_removable { s_removable_type = typ;
 and string_of_source_nic { s_mac = mac; s_nic_model = model; s_vnet = vnet;
                            s_vnet_type = typ } =
   sprintf "\t%s \"%s\"%s%s"
-    (match typ with Bridge -> "Bridge" | Network -> "Network")
+    (string_of_vnet_type typ)
     vnet
     (match mac with
     | None -> ""
@@ -235,6 +235,10 @@ and string_of_source_nic { s_mac = mac; s_nic_model = model; s_vnet = vnet;
     (match model with
     | None -> ""
     | Some model -> " [" ^ string_of_nic_model model ^ "]")
+
+and string_of_vnet_type = function
+  | Bridge -> "Bridge"
+  | Network -> "Network"
 
 and string_of_nic_model = function
   | Source_virtio_net -> "virtio"

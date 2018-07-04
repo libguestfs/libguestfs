@@ -16,7 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** Network, bridge mapping. *)
+(** Network, bridge and MAC address mapping. *)
 
 type t                          (** The map. *)
 
@@ -43,9 +43,18 @@ val add_default_bridge : t -> string -> unit
 
     Equivalent to the [--bridge out] option. *)
 
+val add_mac : t -> string -> Types.vnet_type -> string -> unit
+(** Add a MAC address mapping.
+
+    Equivalent to the [-mac MAC:<network|bridge>:out] option. *)
+
 val map : t -> Types.source_nic -> Types.source_nic
 (** Apply the mapping to the source NIC, returning the updated
-    NIC with possibly modified [s_vnet] field.
+    NIC with possibly modified [s_vnet] and [s_vnet_type] fields.
+
+    MAC address mappings take precedence, followed by network
+    and bridge mappings if no MAC address mapping for the NIC can
+    be found.
 
     [s_mapping_explanation] is set in the output with an
     informational message about what was done. *)

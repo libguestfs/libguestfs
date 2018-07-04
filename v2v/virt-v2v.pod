@@ -337,6 +337,14 @@ Note this options only applies to keys and passphrases for encrypted
 devices and partitions, not for passwords used to connect to remote
 servers.
 
+=item B<--mac> aa:bb:cc:dd:ee:ffB<:network:>out
+
+=item B<--mac> aa:bb:cc:dd:ee:ffB<:bridge:>out
+
+Map source NIC MAC address to a network or bridge.
+
+See L</NETWORKS AND BRIDGES> below.
+
 =item B<--machine-readable>
 
 This option is used to make the output more machine friendly
@@ -997,8 +1005,8 @@ Not supported.
 
 Guests are usually connected to one or more networks, and when
 converted to the target hypervisor you usually want to reconnect those
-networks at the destination.  The options I<--network> and I<--bridge>
-allow you to do that.
+networks at the destination.  The options I<--network>, I<--bridge>
+and I<--mac> allow you to do that.
 
 If you are unsure of what networks and bridges are in use on the
 source hypervisor, then you can examine the source metadata (libvirt
@@ -1022,14 +1030,32 @@ named external network on the source hypervisor, for example:
  NICs:
      Bridge "br0"
 
-To map a specific bridge to a target network, for example C<br0> on
-the source to C<ovirtmgmt> on the target, use:
+To map a specific source bridge to a target network, for example
+C<br0> on the source to C<ovirtmgmt> on the target, use:
 
  virt-v2v [...] --bridge br0:ovirtmgmt
 
 To map every bridge to a target network, use:
 
  virt-v2v [...] --bridge ovirtmgmt
+
+=head2 Fine-grained mapping of guest NICs
+
+The I<--mac> option gives you more control over the mapping, letting
+you map single NICs to either networks or bridges on the target.  For
+example a source guest with two NICs could map them individually to
+two networks called C<mgmt> and C<clientdata> like this:
+
+ $ virt-v2v [...] \
+    --mac 52:54:00:d0:cf:0e:network:mgmt \
+    --mac 52:54:00:d0:cf:0f:network:clientdata
+
+Note that virt-v2v does not have the ability to change a guest’s MAC
+address.  The MAC address is part of the guest metadata and must
+remain the same on source and target hypervisors.  Most guests will
+use the MAC address to set up persistent associations between NICs and
+internal names (like C<eth0>), with firewall settings, or even for
+other purposes like software licensing.
 
 =head1 INPUT FROM VMWARE VCENTER SERVER
 
