@@ -67,11 +67,23 @@ def find_host(connection):
         debug("cannot read /etc/vdsm/vdsm.id, using any host: %s" % e)
         return None
 
-    debug("hw_id = %r" % vdsm_id)
+    system_service = connection.system_service()
+    storage_name = params['output_storage']
+    data_centers = system_service.data_centers_service().list(
+        search='storage=%s' % storage_name,
+        case_sensitive=False,
+    )
+    if len(data_centers) == 0:
+        # The storage domain is not attached to a datacenter
+        # (shouldn't happen, would fail on disk creation).
+        return None
 
-    hosts_service = connection.system_service().hosts_service()
+    datacenter = data_centers[0]
+    debug("hw_id = %r, datacenter = %s" % (vdsm_id, datacenter.name))
+
+    hosts_service = system_service.hosts_service()
     hosts = hosts_service.list(
-        search="hw_id=%s" % vdsm_id,
+        search="hw_id=%s and datacenter=%s and status=Up" % (vdsm_id, datacenter.name),
         case_sensitive=False,
     )
     if len(hosts) == 0:
