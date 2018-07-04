@@ -18,6 +18,8 @@
 
 (* Network, bridge mapping. *)
 
+open Printf
+
 open Tools_utils
 open Common_gettext.Gettext
 
@@ -40,20 +42,42 @@ let map t nic =
   | Network ->
      (try
         let vnet = StringMap.find nic.s_vnet t.network_map in
-        { nic with s_vnet = vnet }
+        { nic with
+          s_vnet = vnet;
+          s_mapping_explanation =
+            Some (sprintf "network mapped from %S to %S"
+                          nic.s_vnet vnet)
+        }
       with Not_found ->
            match t.default_network with
            | None -> nic (* no mapping done *)
-           | Some default_network -> { nic with s_vnet = default_network }
+           | Some default_network ->
+              { nic with
+                s_vnet = default_network;
+                s_mapping_explanation =
+                  Some (sprintf "network mapped from %S to default %S"
+                                nic.s_vnet default_network)
+              }
      )
   | Bridge ->
      (try
         let vnet = StringMap.find nic.s_vnet t.bridge_map in
-        { nic with s_vnet = vnet }
+        { nic with
+          s_vnet = vnet;
+          s_mapping_explanation =
+            Some (sprintf "bridge mapped from %S to %S"
+                          nic.s_vnet vnet)
+        }
       with Not_found ->
            match t.default_bridge with
            | None -> nic (* no mapping done *)
-           | Some default_bridge -> { nic with s_vnet = default_bridge }
+           | Some default_bridge ->
+              { nic with
+                s_vnet = default_bridge;
+                s_mapping_explanation =
+                  Some (sprintf "bridge mapped from %S to default %S"
+                                nic.s_vnet default_bridge)
+              }
      )
 
 let create () = {

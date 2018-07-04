@@ -243,7 +243,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
       | Virtio_net -> "virtio" | E1000 -> "e1000" | RTL8139 -> "rtl8139" in
     List.map (
       fun { s_mac = mac; s_vnet_type = vnet_type;
-            s_vnet = vnet; s_vnet_orig = vnet_orig } ->
+            s_vnet = vnet; s_mapping_explanation = explanation } ->
         let vnet_type_str =
           match vnet_type with
           | Bridge -> "bridge" | Network -> "network" in
@@ -254,11 +254,9 @@ let create_libvirt_xml ?pool source target_buses guestcaps
             e "model" [ "type", net_model ] [];
           ] in
           let children =
-            if vnet_orig <> vnet then
-              Comment (sprintf "%s mapped from \"%s\" to \"%s\""
-                         vnet_type_str vnet_orig vnet) :: children
-            else
-              children in
+            match explanation with
+            | Some explanation -> Comment explanation :: children
+            | None -> children in
           e "interface" [ "type", vnet_type_str ] children in
 
         (match mac with

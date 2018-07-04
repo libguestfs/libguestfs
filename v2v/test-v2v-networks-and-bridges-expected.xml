@@ -3,7 +3,7 @@
       <source bridge='bridge1'/>
     </interface>
     <interface type='bridge'>
-      <!-- bridge mapped from "bob" to "bridge2" -->
+      <!-- bridge mapped from "bob" to default "bridge2" -->
       <source bridge='bridge2'/>
       <mac address='52:54:00:01:02:03'/>
     </interface>
@@ -23,12 +23,12 @@
       <mac address='52:54:00:01:02:06'/>
     </interface>
     <interface type='network'>
-      <!-- network mapped from "george" to "network4" -->
+      <!-- network mapped from "george" to default "network4" -->
       <source network='network4'/>
       <mac address='52:54:00:01:02:07'/>
     </interface>
     <interface type='network'>
-      <!-- network mapped from "ringo" to "network4" -->
+      <!-- network mapped from "ringo" to default "network4" -->
       <source network='network4'/>
       <mac address='52:54:00:01:02:08'/>
     </interface>

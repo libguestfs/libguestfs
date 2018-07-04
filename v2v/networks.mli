@@ -45,4 +45,7 @@ val add_default_bridge : t -> string -> unit
 
 val map : t -> Types.source_nic -> Types.source_nic
 (** Apply the mapping to the source NIC, returning the updated
-    NIC with possibly modified [s_vnet] field. *)
+    NIC with possibly modified [s_vnet] field.
+
+    [s_mapping_explanation] is set in the output with an
+    informational message about what was done. *)
