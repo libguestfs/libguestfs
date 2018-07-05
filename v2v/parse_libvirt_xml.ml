@@ -90,6 +90,10 @@ let parse_libvirt_xml ?conn xml =
     | None | Some "" ->
        error (f_"in the libvirt XML metadata, <name> is missing or empty")
     | Some s -> s in
+  let genid =
+    match xpath_string "/domain/genid/text()" with
+    | None | Some "" -> None
+    | Some _ as s -> s in
   let memory =
     Option.default (1024L *^ 1024L) (xpath_int64 "/domain/memory/text()") in
   let memory = memory *^ 1024L in
@@ -497,6 +501,7 @@ let parse_libvirt_xml ?conn xml =
   ({
     s_hypervisor = hypervisor;
     s_name = name; s_orig_name = name;
+    s_genid = genid;
     s_memory = memory;
     s_vcpu = vcpu;
     s_cpu_vendor = cpu_vendor;

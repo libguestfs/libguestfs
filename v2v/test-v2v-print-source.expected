@@ -1,5 +1,6 @@
     source name: windows
 hypervisor type: kvm
+       VM genid: 
          memory: 1073741824 (bytes)
        nr vCPUs: 64
      CPU vendor: Intel

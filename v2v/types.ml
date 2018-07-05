@@ -28,6 +28,7 @@ type source = {
   s_hypervisor : source_hypervisor;
   s_name : string;
   s_orig_name : string;
+  s_genid : string option;
   s_memory : int64;
   s_vcpu : int;
   s_cpu_vendor : string option;
@@ -109,6 +110,7 @@ and source_cpu_topology = {
 let rec string_of_source s =
   sprintf "    source name: %s
 hypervisor type: %s
+       VM genid: %s
          memory: %Ld (bytes)
        nr vCPUs: %d
      CPU vendor: %s
@@ -128,6 +130,7 @@ NICs:
 "
     s.s_name
     (string_of_source_hypervisor s.s_hypervisor)
+    (Option.default "" s.s_genid)
     s.s_memory
     s.s_vcpu
     (Option.default "" s.s_cpu_vendor)

@@ -426,6 +426,28 @@ object
          | File filename -> name_from_disk filename
          | SSH uri -> name_from_disk (path_of_uri uri) in
 
+    let genid =
+      (* See: https://lists.nongnu.org/archive/html/qemu-devel/2018-07/msg02019.html *)
+      let genid_lo = Parse_vmx.get_int64 vmx ["vm"; "genid"]
+      and genid_hi = Parse_vmx.get_int64 vmx ["vm"; "genidX"] in
+      match genid_lo, genid_hi with
+      | None, None | Some _, None | None, Some _ ->
+         None
+      | Some lo, Some hi ->
+         (* The actual mapping from the two integers to the UUID
+          * (as defined by qemu and used by libvirt) is very complex.
+          * This code was determined empirically.  See also:
+          * https://lists.nongnu.org/archive/html/qemu-devel/2018-07/msg01505.html
+          *)
+         let sub = String.sub (sprintf "%016Lx%016Lx" lo hi) in
+         let uuid =
+           sub  8 8 ^ "-" ^
+           sub  4 4 ^ "-" ^
+           sub  0 4 ^ "-" ^
+           sub 30 2 ^ sub 28 2 ^ "-" ^
+           sub 26 2 ^ sub 24 2 ^ sub 22 2 ^ sub 20 2 ^ sub 18 2 ^ sub 16 2 in
+         Some uuid in
+
     let memory_mb =
       match Parse_vmx.get_int64 vmx ["memSize"] with
       | None -> 32_L            (* default is really 32 MB! *)
@@ -483,6 +505,7 @@ object
     let source = {
       s_hypervisor = VMware;
       s_name = name;
+      s_genid = genid;
       s_orig_name = name;
       s_memory = memory;
       s_vcpu = vcpu;
