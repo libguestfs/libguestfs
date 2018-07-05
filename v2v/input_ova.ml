@@ -189,6 +189,7 @@ class input_ova ova = object
       s_hypervisor = VMware;
       s_name = name;
       s_orig_name = name;
+      s_genid = None; (* XXX *)
       s_memory = memory;
       s_vcpu = vcpu;
       s_cpu_vendor = None;

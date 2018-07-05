@@ -3,6 +3,7 @@ Source guest information (--print-source option):
 
     source name: BZ1308535_21disks
 hypervisor type: vmware
+       VM genid: 
          memory: 2147483648 (bytes)
        nr vCPUs: 1
      CPU vendor: 

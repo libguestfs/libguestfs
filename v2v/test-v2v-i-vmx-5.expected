@@ -3,6 +3,7 @@ Source guest information (--print-source option):
 
     source name: MSEdge - Win10_preview
 hypervisor type: vmware
+       VM genid: 8312995e-57b8-f814-4013-c1ba795f05ba
          memory: 2147483648 (bytes)
        nr vCPUs: 1
      CPU vendor: 

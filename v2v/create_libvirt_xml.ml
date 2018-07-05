@@ -40,6 +40,11 @@ let create_libvirt_xml ?pool source target_buses guestcaps
     e "name" [] [PCData source.s_name];
   ];
 
+  (match source.s_genid with
+   | None -> ()
+   | Some genid -> List.push_back body (e "genid" [] [PCData genid])
+  );
+
   let memory_k = source.s_memory /^ 1024L in
   List.push_back_list body [
     e "memory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];

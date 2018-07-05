@@ -2,6 +2,7 @@ Source guest information (--print-source option):
 
     source name: 2K8R2EESP1_2_Medium
 hypervisor type: vmware
+       VM genid: 
          memory: 1073741824 (bytes)
        nr vCPUs: 1
      CPU vendor: 

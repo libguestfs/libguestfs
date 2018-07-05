@@ -80,6 +80,7 @@ class input_disk input_format disk = object
     let source = {
       s_hypervisor = UnknownHV;
       s_name = name; s_orig_name = name;
+      s_genid = None;
       s_memory = 2048L *^ 1024L *^ 1024L; (* 2048 MB *)
       s_vcpu = 1;                         (* 1 vCPU is a safe default *)
       s_cpu_vendor = None;

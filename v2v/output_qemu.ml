@@ -80,6 +80,13 @@ object
 
     flag "-no-user-config"; flag "-nodefaults";
     arg "-name" source.s_name;
+
+    (match source.s_genid with
+     | None -> ()
+     | Some genid ->
+        arg_list "-device" ["vmgenid"; sprintf "guid=%s" genid; "id=vmgenid0"]
+    );
+
     arg_list "-machine" (if machine_q35 then ["q35"] else [] @
                          if smm then ["smm=on"] else [] @
                          ["accel=kvm:tcg"]);
