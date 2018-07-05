@@ -69,14 +69,34 @@ def find_host(connection):
 
     debug("hw_id = %r" % vdsm_id)
 
-    hosts_service = connection.system_service().hosts_service()
+    system_service = connection.system_service()
+    storage_name = params['output_storage']
+    data_centers = system_service.data_centers_service().list(
+        search='storage=%s' % storage_name,
+        case_sensitive=False,
+    )
+    if len(data_centers) == 0:
+        # The storage domain is not attached to a datacenter
+        # (shouldn't happen, would fail on disk creation).
+        debug("storange domain (%s) is not attached to a DC" % storage_name)
+        return None
+
+    datacenter = data_centers[0]
+    debug("datacenter = %s" % datacenter.name)
+
+    hosts_service = system_service.hosts_service()
     hosts = hosts_service.list(
-        search="hw_id=%s" % vdsm_id,
+        search="hw_id=%s and datacenter=%s and status=Up" % (vdsm_id, datacenter.name),
         case_sensitive=False,
     )
     if len(hosts) == 0:
-        # This oVirt host is not registered with engine.
-        debug("cannot find host with hw_id=%r, using any host" % vdsm_id)
+        # Couldn't find a host that's fulfilling the following criteria:
+        # - 'hw_id' equals to 'vdsm_id'
+        # - Its status is 'Up'
+        # - Belongs to the storage domain's datacenter
+        debug("cannot find a running host with hw_id=%r, " \
+              "that belongs to datacenter '%s', " \
+              "using any host" % (vdsm_id, datacenter.name))
         return None
 
     host = hosts[0]
