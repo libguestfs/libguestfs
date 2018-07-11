@@ -878,7 +878,7 @@ and os_variant_of_os ?(for_fedora = false) os arch =
 
     | RHEL (major, minor), _ when (major, minor) <= (7,2) ->
        sprintf "rhel%d.%d" major minor
-    | RHEL _, _ -> "rhel7.2" (* max version known in Fedora 24 *)
+    | RHEL _, _ -> "rhel7.4" (* max version known in Fedora 28 *)
 
     | Debian (ver, _), _ when ver <= 8 -> sprintf "debian%d" ver
     | Debian _, _ -> "debian8" (* max version known in Fedora 26 *)
