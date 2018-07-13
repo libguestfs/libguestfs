@@ -56,7 +56,7 @@
       <Item>
         <rasd:Caption>Graphical Controller</rasd:Caption>
         <rasd:InstanceId>#UUID#</rasd:InstanceId>
-        <rasd:ResourceType>32768</rasd:ResourceType>
+        <rasd:ResourceType>20</rasd:ResourceType>
         <Type>video</Type>
         <rasd:VirtualQuantity>1</rasd:VirtualQuantity>
         <rasd:Device>qxl</rasd:Device>

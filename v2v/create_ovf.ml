@@ -646,7 +646,7 @@ let rec create_ovf source targets guestcaps inspect
         e "Item" [] [
           e "rasd:Caption" [] [PCData "Graphical Controller"];
           e "rasd:InstanceId" [] [PCData (uuidgen ())];
-          e "rasd:ResourceType" [] [PCData "32768"];
+          e "rasd:ResourceType" [] [PCData "20"];
           e "Type" [] [PCData "video"];
           e "rasd:VirtualQuantity" [] [PCData "1"];
           e "rasd:Device" [] [PCData "qxl"];
