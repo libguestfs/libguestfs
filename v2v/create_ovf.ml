@@ -643,10 +643,14 @@ let rec create_ovf source targets guestcaps inspect
          * See RHBZ#1213701 and RHBZ#1211231 for the reasoning
          * behind that.
          *)
+        let qxl_resourcetype =
+          match ovf_flavour with
+          | OVirt -> 32768 (* RHBZ#1598715 *)
+          | RHVExportStorageDomain -> 20 in
         e "Item" [] [
           e "rasd:Caption" [] [PCData "Graphical Controller"];
           e "rasd:InstanceId" [] [PCData (uuidgen ())];
-          e "rasd:ResourceType" [] [PCData "20"];
+          e "rasd:ResourceType" [] [PCData (string_of_int qxl_resourcetype)];
           e "Type" [] [PCData "video"];
           e "rasd:VirtualQuantity" [] [PCData "1"];
           e "rasd:Device" [] [PCData "qxl"];
