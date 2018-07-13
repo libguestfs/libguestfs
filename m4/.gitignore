@@ -19,7 +19,6 @@
 /closeout.m4
 /close-stream.m4
 /codeset.m4
-/configmake.m4
 /ctype.m4
 /cycle-check.m4
 /d-ino.m4
@@ -82,7 +81,6 @@
 /gettime.m4
 /gettimeofday.m4
 /getugroups.m4
-/glibc21.m4
 /glob.m4
 /gnulib-common.m4
 /gnulib-comp.m4
@@ -265,6 +263,7 @@
 /utimecmp.m4
 /utime_h.m4
 /utime.m4
+/utimensat.m4
 /utimens.m4
 /utimes.m4
 /vasnprintf.m4
