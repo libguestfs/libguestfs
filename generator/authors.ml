@@ -48,6 +48,7 @@ let authors = [
 "Dan Lipsitt", [], [ Development ];
 "Daniel P. Berrangé", [ "Daniel Berrange" ], [ Development ];
 "Daniel Cabrera", [], [ Development ];
+"Daniel Erez", [], [ Development ];
 "Daniel Exner", [], [ Development ];
 "Dave Vasilevsky", [], [ Development ];
 "David Sommerseth", [], [ Development ];

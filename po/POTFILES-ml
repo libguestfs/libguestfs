@@ -150,6 +150,7 @@ v2v/linux_bootloaders.ml
 v2v/linux_kernels.ml
 v2v/modules_list.ml
 v2v/name_from_disk.ml
+v2v/networks.ml
 v2v/output_glance.ml
 v2v/output_libvirt.ml
 v2v/output_local.ml
