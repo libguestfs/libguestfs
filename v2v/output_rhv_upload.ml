@@ -126,6 +126,13 @@ class output_rhv_upload output_alloc output_conn
             python3
   in
 
+  (* Check that the 'ovirtsdk4' Python module is available. *)
+  let error_unless_ovirtsdk4_module_available () =
+    let res = run_command [ python3; "-c"; "import ovirtsdk4" ] in
+    if res <> 0 then
+      error (f_"the Python module ‘ovirtsdk4’ could not be loaded, is it installed?  See previous messages for problems.")
+  in
+
   (* Check that nbdkit is available and new enough. *)
   let error_unless_nbdkit_working () =
     if 0 <> Sys.command "nbdkit --version >/dev/null" then
@@ -231,6 +238,7 @@ object
 
   method precheck () =
     error_unless_python_binary_on_path ();
+    error_unless_ovirtsdk4_module_available ();
     error_unless_nbdkit_working ();
     error_unless_nbdkit_python3_working ();
     error_unless_output_alloc_sparse ();
