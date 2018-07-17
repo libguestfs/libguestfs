@@ -59,6 +59,12 @@ let firmware = [
     [];
 
     "x86_64",
+    "/usr/share/edk2/ovmf/OVMF_CODE.secboot.fd",
+    None,
+    "/usr/share/edk2/ovmf/OVMF_VARS.fd",
+    [ "UEFI_FLAG_SECURE_BOOT_REQUIRED" ];
+
+    "x86_64",
     "/usr/share/qemu/ovmf-x86_64-code.bin",
     None,
     "/usr/share/qemu/ovmf-x86_64-vars.bin",
