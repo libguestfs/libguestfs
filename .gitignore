@@ -351,6 +351,7 @@ Makefile.in
 /inspector/actual-*.xml
 /inspector/stamp-virt-inspector.pod
 /inspector/test-virt-inspector.sh
+/inspector/test-virt-inspector-luks.sh
 /inspector/test-xmllint.sh
 /inspector/virt-inspector
 /inspector/virt-inspector.1
