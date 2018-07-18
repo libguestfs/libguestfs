@@ -466,7 +466,7 @@ do_rescan (char **devices)
       errors++;
   }
 
-  if (guestfs_vgscan (g) == -1)
+  if (guestfs_lvm_scan (g, 1) == -1)
     errors++;
 
   guestfs_pop_error_handler (g);

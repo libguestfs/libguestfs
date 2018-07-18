@@ -94,9 +94,7 @@ inspect_do_decrypt (guestfs_h *g)
   }
 
   if (need_rescan) {
-    if (guestfs_vgscan (g) == -1)
-      exit (EXIT_FAILURE);
-    if (guestfs_vg_activate_all (g, 1) == -1)
+    if (guestfs_lvm_scan (g, 1) == -1)
       exit (EXIT_FAILURE);
   }
 }

@@ -32,6 +32,8 @@
 #include "actions.h"
 #include "optgroups.h"
 
+#define MAX_ARGS 64
+
 int
 optgroup_lvm2_available (void)
 {
@@ -638,11 +640,27 @@ do_vglvuuids (const char *vgname)
 int
 do_vgscan (void)
 {
+  return do_lvm_scan (0);
+}
+
+int
+do_lvm_scan (int activate)
+{
   CLEANUP_FREE char *err = NULL;
   int r;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
 
-  r = command (NULL, &err,
-               "lvm", "vgscan", "--cache", NULL);
+  ADD_ARG (argv, i, "lvm");
+  ADD_ARG (argv, i, "pvscan");
+  ADD_ARG (argv, i, "--cache");
+  if (activate) {
+    ADD_ARG (argv, i, "--activate");
+    ADD_ARG (argv, i, "ay");
+  }
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, (const char * const *) argv);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
