@@ -153,6 +153,35 @@ EOF
   $g->mount ('btrfsvol:/dev/sda2/root', '/');
 }
 
+elsif ($ENV{LAYOUT} eq 'lvm-luks') {
+  push (@images, "fedora-luks.img-t");
+
+  open (my $fstab, '>', "fedora.fstab") or die;
+  print $fstab <<EOF;
+LABEL=BOOT /boot ext2 default 0 0
+LABEL=ROOT / ext2 default 0 0
+EOF
+  close ($fstab) or die;
+
+  $bootdev = '/dev/sda1';
+
+  $g->disk_create ("fedora-luks.img-t", "raw", $IMAGE_SIZE);
+
+  $g->add_drive ("fedora-luks.img-t", format => "raw");
+  $g->launch ();
+
+  $g->part_init ('/dev/sda', 'mbr');
+  foreach my $p (@PARTITIONS) {
+    $g->part_add('/dev/sda', @$p);
+  }
+
+  # Put LUKS on the second partition.
+  $g->luks_format ('/dev/sda2', 'FEDORA', 0);
+  $g->luks_open ('/dev/sda2', 'FEDORA', 'luks');
+
+  init_lvm_root ('/dev/mapper/luks');
+}
+
 else {
   print STDERR "$0: Unknown LAYOUT: ",$ENV{LAYOUT},"\n";
   exit 1;

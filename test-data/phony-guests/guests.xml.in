@@ -152,6 +152,22 @@
   </domain>
 
   <domain type='test'>
+    <name>fedora</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu' type='raw'/>
+        <source file='@abs_builddir@/fedora.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
     <name>fedora-btrfs</name>
     <memory>1048576</memory>
     <os>
@@ -167,8 +183,9 @@
     </devices>
   </domain>
 
+  <!-- LUKS password is 'FEDORA' -->
   <domain type='test'>
-    <name>fedora</name>
+    <name>fedora-luks</name>
     <memory>1048576</memory>
     <os>
       <type>hvm</type>
@@ -177,7 +194,7 @@
     <devices>
       <disk type='file' device='disk'>
         <driver name='qemu' type='raw'/>
-        <source file='@abs_builddir@/fedora.img'/>
+        <source file='@abs_builddir@/fedora-luks.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
     </devices>
