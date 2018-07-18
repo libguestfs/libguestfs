@@ -192,6 +192,8 @@ AC_CONFIG_FILES([inspector/test-xmllint.sh],
                 [chmod +x,-w inspector/test-xmllint.sh])
 AC_CONFIG_FILES([inspector/test-virt-inspector.sh],
                 [chmod +x,-w inspector/test-virt-inspector.sh])
+AC_CONFIG_FILES([inspector/test-virt-inspector-luks.sh],
+                [chmod +x,-w inspector/test-virt-inspector-luks.sh])
 AC_CONFIG_FILES([installcheck.sh],
                 [chmod +x,-w installcheck.sh])
 AC_CONFIG_FILES([ocaml-dep.sh],
