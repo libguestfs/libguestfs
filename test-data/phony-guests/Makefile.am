@@ -92,6 +92,8 @@ stamp-fedora-md.img: make-fedora-img.pl \
 	SRCDIR=$(srcdir) LAYOUT=partitions-md $(top_builddir)/run --test ./$<
 	touch $@
 
+# Make a (dummy) Fedora image using a single btrfs with two subvolumes
+# for root and home.
 fedora-btrfs.img: make-fedora-img.pl \
 		fedora-journal.tar.xz \
 		fedora-name.db \
