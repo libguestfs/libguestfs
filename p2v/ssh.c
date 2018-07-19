@@ -1021,8 +1021,12 @@ add_input_driver (const char *name, size_t len)
 static void
 add_output_driver (const char *name, size_t len)
 {
-  /* Ignore the 'vdsm' driver, since that should only be used by VDSM. */
-  if (len != 4 || memcmp (name, "vdsm", 4) != 0)
+  /* Ignore the 'vdsm' driver, since that should only be used by VDSM.
+   * Ignore the 'rhv-upload' driver, since we do not support passing all the
+   * options for it.
+   */
+  if ((len != 4 || memcmp (name, "vdsm", 4) != 0) &&
+      (len != 10 || memcmp (name, "rhv-upload", 10) != 0))
     add_option ("output", &output_drivers, name, len);
 }
 
