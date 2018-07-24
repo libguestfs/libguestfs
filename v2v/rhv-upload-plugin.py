@@ -72,7 +72,7 @@ def find_host(connection):
     system_service = connection.system_service()
     storage_name = params['output_storage']
     data_centers = system_service.data_centers_service().list(
-        search='storage=%s' % storage_name,
+        search='storage.name=%s' % storage_name,
         case_sensitive=False,
     )
     if len(data_centers) == 0:
