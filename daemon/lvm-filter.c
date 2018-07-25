@@ -147,7 +147,7 @@ rescan (void)
   unlink (lvm_cache);
 
   CLEANUP_FREE char *err = NULL;
-  int r = command (NULL, &err, "lvm", "vgscan", NULL);
+  int r = command (NULL, &err, "lvm", "vgscan", "--cache", NULL);
   if (r == -1) {
     reply_with_error ("vgscan: %s", err);
     return -1;
