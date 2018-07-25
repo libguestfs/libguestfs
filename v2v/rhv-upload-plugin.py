@@ -73,7 +73,7 @@ def find_host(connection):
     storage_name = params['output_storage']
     data_centers = system_service.data_centers_service().list(
         search='storage.name=%s' % storage_name,
-        case_sensitive=False,
+        case_sensitive=True,
     )
     if len(data_centers) == 0:
         # The storage domain is not attached to a datacenter
@@ -87,7 +87,7 @@ def find_host(connection):
     hosts_service = system_service.hosts_service()
     hosts = hosts_service.list(
         search="hw_id=%s and datacenter=%s and status=Up" % (vdsm_id, datacenter.name),
-        case_sensitive=False,
+        case_sensitive=True,
     )
     if len(hosts) == 0:
         # Couldn't find a host that's fulfilling the following criteria:
