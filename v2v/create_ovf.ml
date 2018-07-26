@@ -802,8 +802,8 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids
       in
       let size_gb = bytes_to_gb ov.ov_virtual_size in
       let actual_size_gb, is_estimate =
-        let ts = t.target_stats in
-        match ts.target_actual_size, ts.target_estimated_size with
+        let ds = t.target_overlay.ov_stats in
+        match ds.target_actual_size, ds.target_estimated_size with
         | Some actual_size, _ -> Some (bytes_to_gb actual_size), false
           (* In the --no-copy case the target file does not exist.  In
            * that case we use the estimated size.
@@ -831,7 +831,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids
           "ovf:id", vol_uuid;
           "ovf:description", generated_by;
         ] in
-        (match t.target_stats.target_actual_size with
+        (match t.target_overlay.ov_stats.target_actual_size with
          | None -> ()
          | Some actual_size ->
             List.push_back attrs ("ovf:size", Int64.to_string actual_size)
