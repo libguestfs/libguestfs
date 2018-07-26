@@ -288,11 +288,17 @@ and string_of_source_cpu_topology { s_cpu_sockets; s_cpu_cores;
   sprintf "sockets: %d cores/socket: %d threads/core: %d"
     s_cpu_sockets s_cpu_cores s_cpu_threads
 
+type disk_stats = {
+  mutable target_estimated_size : int64 option;
+  mutable target_actual_size : int64 option;
+}
+
 type overlay = {
   ov_overlay_file : string;
   ov_sd : string;
   ov_virtual_size : int64;
   ov_source : source_disk;
+  ov_stats : disk_stats;
 }
 
 let string_of_overlay ov =
@@ -300,40 +306,35 @@ let string_of_overlay ov =
       overlay device name: %s
 overlay virtual disk size: %Ld
   overlay source qemu URI: %s
+    target estimated size: %s
+       target actual size: %s
 "
     ov.ov_overlay_file
     ov.ov_sd
     ov.ov_virtual_size
     ov.ov_source.s_qemu_uri
+    (match ov.ov_stats.target_estimated_size with
+    | None -> "None" | Some i -> Int64.to_string i)
+    (match ov.ov_stats.target_actual_size with
+    | None -> "None" | Some i -> Int64.to_string i)
 
 type target = {
   target_file : target_file;
   target_format : string;
-  target_stats : target_stats;
   target_overlay : overlay;
 }
 and target_file =
   | TargetFile of string
   | TargetURI of string
-and target_stats = {
-  mutable target_estimated_size : int64 option;
-  mutable target_actual_size : int64 option;
-}
 
 let string_of_target t =
   sprintf "          target file: %s
         target format: %s
-target estimated size: %s
-   target actual size: %s
 "
     (match t.target_file with
      | TargetFile s -> "[file] " ^ s
      | TargetURI s -> "[qemu] " ^ s)
     t.target_format
-    (match t.target_stats.target_estimated_size with
-    | None -> "None" | Some i -> Int64.to_string i)
-    (match t.target_stats.target_actual_size with
-    | None -> "None" | Some i -> Int64.to_string i)
 
 type target_firmware = TargetBIOS | TargetUEFI
 

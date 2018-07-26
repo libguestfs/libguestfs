@@ -52,11 +52,6 @@
             │          │          │ target.target_overlay
         ┌───┴───┐  ┌───┴───┐  ┌───┴───┐
         │ targ1 ├──┤ targ2 ├──┤ targ3 │  Target disks
-        └───┬───┘  └───┬───┘  └───┬───┘
-            │          │          │ target.target_stats
-            │          │          │
-        ┌───▼───┐  ┌───▼───┐  ┌───▼───┐
-        │ stat1 │  │ stat2 │  │ stat3 │  Mutable per-target stats
         └───────┘  └───────┘  └───────┘
 v}
 *)
@@ -187,6 +182,18 @@ val string_of_source_cpu_topology : source_cpu_topology -> string
 val string_of_source_hypervisor : source_hypervisor -> string
 val source_hypervisor_of_string : string -> source_hypervisor
 
+(** {2 Disk stats}
+
+    Note that the estimate is filled in by core v2v.ml code before
+    copying starts, and the actual size is filled in after copying
+    (but may not be filled in if [--no-copy] so don't rely on it). *)
+type disk_stats = {
+  mutable target_estimated_size : int64 option;
+                             (** Est. max. space taken on target. *)
+  mutable target_actual_size : int64 option;
+                             (** Actual size on target. *)
+}
+
 (** {2 Overlay disks} *)
 
 type overlay = {
@@ -198,6 +205,8 @@ type overlay = {
    * error messages).  It must NOT be opened/read/modified.
    *)
   ov_source : source_disk;   (** Link back to the source disk. *)
+
+  ov_stats : disk_stats;     (** Size stats for this disk. *)
 }
 (** Overlay disk. *)
 
@@ -209,8 +218,6 @@ type target = {
   target_file : target_file; (** Destination file or QEMU URI. *)
   target_format : string;    (** Destination format (eg. -of option). *)
 
-  target_stats : target_stats; (** Size stats for this disk. *)
-
   target_overlay : overlay;  (** Link back to the overlay disk. *)
 }
 (** Target disk. *)
@@ -218,17 +225,6 @@ type target = {
 and target_file =
   | TargetFile of string     (** Target is a file. *)
   | TargetURI of string      (** Target is a QEMU URI. *)
-
-and target_stats = {
-  (* Note that the estimate is filled in by core v2v.ml code before
-   * copying starts, and the actual size is filled in after copying
-   * (but may not be filled in if [--no-copy] so don't rely on it).
-   *)
-  mutable target_estimated_size : int64 option;
-                             (** Est. max. space taken on target. *)
-  mutable target_actual_size : int64 option;
-                             (** Actual size on target. *)
-}
 
 val string_of_target : target -> string
 

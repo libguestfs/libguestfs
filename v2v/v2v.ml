@@ -116,9 +116,9 @@ let rec main () =
 
   (* Estimate space required on target for each disk.  Note this is a max. *)
   (match conversion_mode with
-   | Copying (_, targets) ->
+   | Copying (overlays, _) ->
       message (f_"Estimating space required on target for each disk");
-      estimate_target_size mpstats targets
+      estimate_target_size mpstats overlays
    | In_place -> ()
   );
 
@@ -316,8 +316,18 @@ and create_overlays src_disks =
         error (f_"guest disk %s appears to be zero bytes in size.\n\nThere could be several reasons for this:\n\nCheck that the guest doesn't really have a zero-sized disk.  virt-v2v cannot convert such a guest.\n\nIf you are converting a guest from an ssh source and the guest has a disk on a block device (eg. on a host partition or host LVM LV), then conversions of this type are not supported.  See \"XEN OR SSH CONVERSIONS FROM BLOCK DEVICES\" in the virt-v2v(1) manual for a workaround.")
               sd;
 
+      (* Function 'estimate_target_size' replaces the
+       * ov_stats.target_estimated_size field.
+       * Function 'actual_target_size' may replace the
+       * ov_stats.target_actual_size field.
+       *)
       { ov_overlay_file = overlay_file; ov_sd = sd;
-        ov_virtual_size = vsize; ov_source = source }
+        ov_virtual_size = vsize; ov_source = source;
+        ov_stats = {
+          target_estimated_size = None;
+          target_actual_size = None;
+        }
+      }
   ) src_disks
 
 (* Work out where we will write the final output.  Do this early
@@ -351,18 +361,8 @@ and init_targets cmdline output source overlays =
         if cmdline.compressed && format <> "qcow2" then
           error (f_"the --compressed flag is only allowed when the output format is qcow2 (-of qcow2)");
 
-        (* output#prepare_targets below will fill in the target_file field.
-         *
-         * Function 'estimate_target_size' replaces the
-         * target_stats.target_estimated_size field.
-         * Function 'actual_target_size' may replace the
-         * target_stats.target_actual_size field.
-         *)
+        (* output#prepare_targets below will fill in the target_file field. *)
         { target_file = TargetFile ""; target_format = format;
-          target_stats = {
-              target_estimated_size = None;
-              target_actual_size = None;
-          };
           target_overlay = ov }
     ) overlays in
 
@@ -523,7 +523,7 @@ and do_fstrim g inspect =
  *     sdb has 3/4 of total virtual size, so it gets a saving of 3 * 1.35 / 4
  *     sdb final estimate size = 3 - (3*1.35/4) = 1.9875 GB
  *)
-and estimate_target_size mpstats targets =
+and estimate_target_size mpstats overlays =
   let sum = List.fold_left (+^) 0L in
 
   (* (1) *)
@@ -536,7 +536,7 @@ and estimate_target_size mpstats targets =
 
   (* (2) *)
   let source_total_size =
-    sum (List.map (fun t -> t.target_overlay.ov_virtual_size) targets) in
+    sum (List.map (fun ov -> ov.ov_virtual_size) overlays) in
   debug "estimate_target_size: source_total_size = %Ld [%s]"
         source_total_size (human_size source_total_size);
 
@@ -575,7 +575,7 @@ and estimate_target_size mpstats targets =
 
     (* (5) *)
     List.iter (
-      fun { target_overlay = ov; target_stats = ts } ->
+      fun ov ->
         let size = ov.ov_virtual_size in
         let proportion =
           Int64.to_float size /. Int64.to_float source_total_size in
@@ -583,8 +583,8 @@ and estimate_target_size mpstats targets =
           size -^ Int64.of_float (proportion *. Int64.to_float scaled_saving) in
         debug "estimate_target_size: %s: %Ld [%s]"
               ov.ov_sd estimated_size (human_size estimated_size);
-        ts.target_estimated_size <- Some estimated_size
-    ) targets
+        ov.ov_stats.target_estimated_size <- Some estimated_size
+    ) overlays
   )
 
 (* Conversion. *)
@@ -737,7 +737,7 @@ and copy_targets cmdline targets input output =
       let end_time = gettimeofday () in
 
       (* Calculate the actual size on the target. *)
-      actual_target_size t;
+      actual_target_size t.target_file t.target_overlay.ov_stats;
 
       (* If verbose, print the virtual and real copying rates. *)
       let elapsed_time = end_time -. start_time in
@@ -749,7 +749,7 @@ and copy_targets cmdline targets input output =
         eprintf "virtual copying rate: %.1f M bits/sec\n%!"
           (mbps t.target_overlay.ov_virtual_size elapsed_time);
 
-        match t.target_stats.target_actual_size with
+        match t.target_overlay.ov_stats.target_actual_size with
         | None -> ()
         | Some actual ->
            eprintf "real copying rate: %.1f M bits/sec\n%!"
@@ -761,8 +761,8 @@ and copy_targets cmdline targets input output =
        * accuracy of the estimate.
        *)
       if verbose () then (
-        let ts = t.target_stats in
-        match ts.target_estimated_size, ts.target_actual_size with
+        let ds = t.target_overlay.ov_stats in
+        match ds.target_estimated_size, ds.target_actual_size with
         | None, None | None, Some _ | Some _, None | Some _, Some 0L -> ()
         | Some estimate, Some actual ->
           let pc =
@@ -779,14 +779,14 @@ and copy_targets cmdline targets input output =
   ) targets
 
 (* Update the target_actual_size field in the target structure. *)
-and actual_target_size target =
-  match target.target_file with
+and actual_target_size target_file disk_stats =
+  match target_file with
   | TargetFile filename ->
      let size =
        (* Ignore errors because we want to avoid failures after copying. *)
        try Some (du filename)
        with Failure _ | Invalid_argument _ -> None in
-     target.target_stats.target_actual_size <- size
+     disk_stats.target_actual_size <- size
   | TargetURI _ -> ()
 
 (* Save overlays if --debug-overlays option was used. *)
