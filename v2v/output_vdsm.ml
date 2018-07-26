@@ -143,17 +143,12 @@ object
    *
    * 'os' is the output storage domain (-os /rhv/data/<data center>/<data domain>)
    * this is already mounted path.
-   *
-   * Note it's good to fail here (early) if there are any problems, since
-   * the next time we are called (in {!create_metadata}) we have already
-   * done the conversion and copy, and the user won't thank us for
-   * displaying errors there.
    *)
-  method prepare_targets _ targets =
-    if List.length vdsm_options.image_uuids <> List.length targets ||
-      List.length vdsm_options.vol_uuids <> List.length targets then
+  method prepare_targets _ overlays =
+    if List.length vdsm_options.image_uuids <> List.length overlays ||
+      List.length vdsm_options.vol_uuids <> List.length overlays then
       error (f_"the number of ‘-oo vdsm-image-uuid’ and ‘-oo vdsm-vol-uuid’ parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")
-        (List.length targets);
+        (List.length overlays);
 
     let mp, uuid =
       let fields = String.nsplit "/" os in (* ... "data-center" "UUID" *)
@@ -201,21 +196,18 @@ object
     (* Create the target filenames. *)
     let targets =
       List.map (
-        fun ({ target_overlay = ov } as t, image_uuid, vol_uuid) ->
-          let ov_sd = ov.ov_sd in
+        fun ((_, ov), image_uuid, vol_uuid) ->
           let target_file = images_dir // image_uuid // vol_uuid in
-
-          debug "VDSM: will export %s to %s" ov_sd target_file;
-
-          { t with target_file = TargetFile target_file }
-      ) (List.combine3 targets vdsm_options.image_uuids vdsm_options.vol_uuids) in
+          debug "VDSM: will export %s to %s" ov.ov_sd target_file;
+          TargetFile target_file
+      ) (List.combine3 overlays vdsm_options.image_uuids vdsm_options.vol_uuids) in
 
     (* Generate the .meta files associated with each volume. *)
     let metas =
       Create_ovf.create_meta_files output_alloc dd_uuid
-        vdsm_options.image_uuids targets in
+        vdsm_options.image_uuids overlays in
     List.iter (
-      fun ({ target_file }, meta) ->
+      fun (target_file, meta) ->
         let target_file =
           match target_file with
           | TargetFile s -> s
@@ -224,7 +216,7 @@ object
         with_open_out meta_filename (fun chan -> output_string chan meta)
     ) (List.combine targets metas);
 
-    (* Return the list of targets. *)
+    (* Return the list of target files. *)
     targets
 
   method disk_create ?backingfile ?backingformat ?preallocation ?compat

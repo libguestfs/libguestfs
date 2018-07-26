@@ -49,7 +49,7 @@ val create_ovf : Types.source -> Types.target list -> Types.guestcaps -> Types.i
     Actually a {!DOM} document is created, not a file.  It can be written
     to the desired output location using {!DOM.doc_to_chan}. *)
 
-val create_meta_files : Types.output_allocation -> string -> string list -> Types.target list -> string list
+val create_meta_files : Types.output_allocation -> string -> string list -> (string * Types.overlay) list -> string list
 (** Create the .meta file associated with each target.
 
     Note this does not write them, since output_rhv has to do a

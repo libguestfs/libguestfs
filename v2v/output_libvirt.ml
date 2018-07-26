@@ -70,7 +70,7 @@ class output_libvirt oc output_pool = object
     | None -> sprintf "-o libvirt -os %s" output_pool
     | Some uri -> sprintf "-o libvirt -oc %s -os %s" uri output_pool
 
-  method prepare_targets source targets =
+  method prepare_targets source overlays =
     (* Get the capabilities from libvirt. *)
     let xml = Libvirt_utils.capabilities ?conn:oc () in
     debug "libvirt capabilities XML:\n%s" xml;
@@ -126,12 +126,9 @@ class output_libvirt oc output_pool = object
 
     (* Set up the targets. *)
     List.map (
-      fun t ->
-        let target_file =
-          TargetFile (target_path // source.s_name ^ "-" ^
-                      t.target_overlay.ov_sd) in
-        { t with target_file }
-    ) targets
+      fun (_, ov) ->
+        TargetFile (target_path // source.s_name ^ "-" ^ ov.ov_sd)
+    ) overlays
 
   method supported_firmware = [ TargetBIOS; TargetUEFI ]
 

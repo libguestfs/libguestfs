@@ -59,13 +59,9 @@ object
 
   method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
-  method prepare_targets source targets =
+  method prepare_targets source overlays =
     (* Write targets to a temporary local file - see above for reason. *)
-    List.map (
-      fun t ->
-        let target_file = TargetFile (tmpdir // t.target_overlay.ov_sd) in
-        { t with target_file }
-    ) targets
+    List.map (fun (_, ov) -> TargetFile (tmpdir // ov.ov_sd)) overlays
 
   method create_metadata source targets _ guestcaps inspect target_firmware =
     (* Collect the common properties for all the disks. *)

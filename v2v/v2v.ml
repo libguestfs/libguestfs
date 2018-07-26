@@ -155,7 +155,17 @@ let rec main () =
   (match conversion_mode with
    | In_place -> ()
    | Copying overlays ->
-      let targets = init_targets cmdline output source overlays in
+      message (f_"Initializing the target %s") output#as_options;
+      let targets =
+        (* Decide the format for each output disk. *)
+        let target_formats = get_target_formats cmdline output overlays in
+        let target_files =
+          output#prepare_targets source
+                                 (List.combine target_formats overlays) in
+        List.map (
+          fun (target_file, target_format, target_overlay) ->
+            { target_file; target_format; target_overlay }
+        ) (List.combine3 target_files target_formats overlays) in
 
       let target_firmware =
         get_target_firmware inspect guestcaps source output in
@@ -565,40 +575,41 @@ and do_convert g inspect source output rcaps =
 
   guestcaps
 
-(* Work out where we will write the final output. *)
-and init_targets cmdline output source overlays =
-  message (f_"Initializing the target %s") output#as_options;
-  let targets =
-    List.map (
-      fun ov ->
-        (* What output format should we use? *)
-        let format =
-          match cmdline.output_format, ov.ov_source.s_format with
-          | Some format, _ -> format    (* -of overrides everything *)
-          | None, Some format -> format (* same as backing format *)
-          | None, None ->
-            error (f_"disk %s (%s) has no defined format.\n\nThe input metadata did not define the disk format (eg. raw/qcow2/etc) of this disk, and so virt-v2v will try to autodetect the format when reading it.\n\nHowever because the input format was not defined, we do not know what output format you want to use.  You have two choices: either define the original format in the source metadata, or use the ‘-of’ option to force the output format.") ov.ov_sd ov.ov_source.s_qemu_uri in
+(* Decide the format for each output disk.  Output modes can
+ * override this, followed by command line -of option, followed
+ * by source disk format.
+ *)
+and get_target_formats cmdline output overlays =
+  List.map (
+    fun ov ->
+      let format =
+        match output#override_output_format ov with
+        | Some format -> format
+        | None ->
+           match cmdline.output_format with
+           | Some format -> format
+           | None ->
+              match ov.ov_source.s_format with
+              | Some format -> format
+              | None ->
+                 error (f_"disk %s (%s) has no defined format.\n\nThe input metadata did not define the disk format (eg. raw/qcow2/etc) of this disk, and so virt-v2v will try to autodetect the format when reading it.\n\nHowever because the input format was not defined, we do not know what output format you want to use.  You have two choices: either define the original format in the source metadata, or use the ‘-of’ option to force the output format.") ov.ov_sd ov.ov_source.s_qemu_uri in
 
-        (* What really happens here is that the call to #disk_create
-         * below fails if the format is not raw or qcow2.  We would
-         * have to extend libguestfs to support further formats, which
-         * is trivial, but we'd want to check that the files being
-         * created by qemu-img really work.  In any case, fail here,
-         * early, not below, later.
-         *)
-        if format <> "raw" && format <> "qcow2" then
-          error (f_"output format should be ‘raw’ or ‘qcow2’.\n\nUse the ‘-of <format>’ option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
+      (* What really happens here is that the call to #disk_create
+       * below fails if the format is not raw or qcow2.  We would
+       * have to extend libguestfs to support further formats, which
+       * is trivial, but we'd want to check that the files being
+       * created by qemu-img really work.  In any case, fail here,
+       * early, not below, later.
+       *)
+      if format <> "raw" && format <> "qcow2" then
+        error (f_"output format should be ‘raw’ or ‘qcow2’.\n\nUse the ‘-of <format>’ option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
 
-        (* Only allow compressed with qcow2. *)
-        if cmdline.compressed && format <> "qcow2" then
-          error (f_"the --compressed flag is only allowed when the output format is qcow2 (-of qcow2)");
+      (* Only allow compressed with qcow2. *)
+      if cmdline.compressed && format <> "qcow2" then
+        error (f_"the --compressed flag is only allowed when the output format is qcow2 (-of qcow2)");
 
-        (* output#prepare_targets below will fill in the target_file field. *)
-        { target_file = TargetFile ""; target_format = format;
-          target_overlay = ov }
-    ) overlays in
-
-  output#prepare_targets source targets
+      format
+  ) overlays
 
 (* Does the guest require UEFI on the target? *)
 and get_target_firmware inspect guestcaps source output =

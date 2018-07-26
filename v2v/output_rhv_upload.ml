@@ -248,7 +248,7 @@ object
   (* rhev-apt.exe will be installed (if available). *)
   method install_rhev_apt = true
 
-  method prepare_targets source targets =
+  method prepare_targets source overlays =
     let output_name = source.s_name in
     let json_params =
       ("output_name", JSON.String output_name) :: json_params in
@@ -267,24 +267,24 @@ object
      * target URI to point to the NBD socket.
      *)
     List.map (
-      fun t ->
-        let id = t.target_overlay.ov_source.s_disk_id in
+      fun (target_format, ov) ->
+        let id = ov.ov_source.s_disk_id in
         let disk_name = sprintf "%s-%03d" output_name id in
         let json_params =
           ("disk_name", JSON.String disk_name) :: json_params in
 
         let disk_format =
-          match t.target_format with
+          match target_format with
           | "raw" as fmt -> fmt
           | "qcow2" ->
              error_current_limitation "-of raw"
           | _ ->
              error (f_"rhv-upload: -of %s: Only output format ‘raw’ or ‘qcow2’ is supported.  If the input is in a different format then force one of these output formats by adding either ‘-of raw’ or ‘-of qcow2’ on the command line.")
-                   t.target_format in
+                   target_format in
         let json_params =
           ("disk_format", JSON.String disk_format) :: json_params in
 
-        let disk_size = t.target_overlay.ov_virtual_size in
+        let disk_size = ov.ov_virtual_size in
         let json_params =
           ("disk_size", JSON.Int64 disk_size) :: json_params in
 
@@ -361,10 +361,8 @@ If the messages above are not sufficient to diagnose the problem then add the �
           "file.path", JSON.String sock;
           "file.export", JSON.String "/";
         ] in
-        let target_file =
-          TargetURI ("json:" ^ JSON.string_of_doc json_params) in
-        { t with target_file }
-    ) targets
+        TargetURI ("json:" ^ JSON.string_of_doc json_params)
+    ) overlays
 
   method create_metadata source targets _ guestcaps inspect target_firmware =
     (* Get the UUIDs of each disk image.  These files are written
