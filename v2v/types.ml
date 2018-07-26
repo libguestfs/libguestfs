@@ -513,11 +513,6 @@ class virtual input = object
   method adjust_overlay_parameters (_ : overlay) = ()
 end
 
-(* Force [#prepare_metadata] and [#create_metadata] methods
- * to have the same type signature.
- *)
-type create_metadata_fn = source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
-
 class virtual output = object
   method precheck () = ()
   method virtual as_options : string
@@ -526,8 +521,7 @@ class virtual output = object
   method disk_create = (open_guestfs ())#disk_create
   method override_output_format (_ : overlay) = (None : string option)
   method virtual prepare_targets : source -> (string * overlay) list -> target_file list
-  method prepare_metadata : create_metadata_fn = fun _ _ _ _ _ _ -> ()
-  method virtual create_metadata : create_metadata_fn
+  method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
   method keep_serial_console = true
   method install_rhev_apt = false
 end
