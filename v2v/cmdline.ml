@@ -138,6 +138,7 @@ let parse_cmdline () =
     | "libvirt" -> output_mode := `Libvirt
     | "disk" | "local" -> output_mode := `Local
     | "null" -> output_mode := `Null
+    | "openstack" | "osp" | "rhosp" -> output_mode := `Openstack
     | "ovirt" | "rhv" | "rhev" -> output_mode := `RHV
     | "ovirt-upload" | "ovirt_upload" | "rhv-upload" | "rhv_upload" ->
        output_mode := `RHV_Upload
@@ -412,6 +413,18 @@ read the man page virt-v2v(1).
     | `Null -> no_options (); `Null
     | `RHV -> no_options (); `RHV
     | `QEmu -> no_options (); `QEmu
+
+    | `Openstack ->
+       if is_query then (
+         Output_openstack.print_output_options ();
+         exit 0
+       )
+       else (
+         let os_options =
+           Output_openstack.parse_output_options output_options in
+         `Openstack os_options
+       )
+
     | `RHV_Upload ->
        if is_query then (
          Output_rhv_upload.print_output_options ();
@@ -422,6 +435,7 @@ read the man page virt-v2v(1).
            Output_rhv_upload.parse_output_options output_options in
          `RHV_Upload rhv_options
        )
+
     | `VDSM ->
        if is_query then (
          Output_vdsm.print_output_options ();
@@ -577,6 +591,18 @@ read the man page virt-v2v(1).
         | Some d -> d in
       Output_qemu.output_qemu os qemu_boot,
       output_format, output_alloc
+
+    | `Openstack os_options ->
+      if output_alloc <> Sparse then
+        error_option_cannot_be_used_in_output_mode "openstack" "-oa";
+      if output_format <> None then
+        error_option_cannot_be_used_in_output_mode "openstack" "-of";
+      if qemu_boot then
+        error_option_cannot_be_used_in_output_mode "openstack" "--qemu-boot";
+      Output_openstack.output_openstack output_conn output_password
+                                        output_storage os_options,
+      (* Force output format to raw sparse in -o openstack mode. *)
+      Some "raw", Sparse
 
     | `RHV ->
       if output_password <> None then

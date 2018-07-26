@@ -10,7 +10,7 @@ virt-v2v - Convert a guest to use KVM
 
  virt-v2v -i disk disk.img -o local -os /var/tmp
 
- virt-v2v -i disk disk.img -o glance
+ virt-v2v -i disk disk.img -o openstack -oo server-id=v2v-vm
 
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest \
    -o rhv-upload -oc https://ovirt-engine.example.com/ovirt-engine/api \
@@ -85,14 +85,15 @@ as root in this case.
 For more information about converting from VMX files see
 L</INPUT FROM VMWARE VMX> below.
 
-=head2 Convert disk image to OpenStack glance
+=head2 Convert disk image to OpenStack
 
 Given a disk image from another hypervisor that you want to convert to
-run on OpenStack (only KVM-based OpenStack is supported), you can do:
+run on OpenStack (only KVM-based OpenStack is supported), you can run
+virt-v2v inside an OpenStack VM (called C<v2v-vm> below), and do:
 
- virt-v2v -i disk disk.img -o glance
+ virt-v2v -i disk disk.img -o openstack -oo server-id=v2v-vm
 
-See L</OUTPUT TO GLANCE> below.
+See L</OUTPUT TO OPENSTACK> below.
 
 =head2 Convert disk image to disk image
 
@@ -123,13 +124,14 @@ qemu, do:
 =head1 INPUT AND OUTPUT MODES
 
                           ┌────────────┐  ┌─────────▶ -o null
- -i disk ────────────┐    │            │ ─┘┌───────▶ -o local
+ -i disk ────────────┐    │            │ ─┘┌────────▶ -o local
  -i ova  ──────────┐ └──▶ │ virt-v2v   │ ──┘┌───────▶ -o qemu
                    └────▶ │ conversion │ ───┘┌────────────┐
  VMware─▶┌────────────┐   │ server     │ ────▶ -o libvirt │─▶ KVM
  Xen ───▶│ -i libvirt ──▶ │            │     │  (default) │
- ... ───▶│  (default) │   │            │ ──┐ └────────────┘
-         └────────────┘   │            │ ─┐└──────▶ -o glance
+ ... ───▶│  (default) │   │            │ ───┐└────────────┘
+         └────────────┘   │            │ ──┐└───────▶ -o glance
+                          │            │ ─┐└────────▶ -o openstack
  -i libvirtxml ─────────▶ │            │ ┐├─────────▶ -o rhv
  -i vmx ────────────────▶ │            │ │└─────────▶ -o vdsm
                           └────────────┘ └──────────▶ -o rhv-upload
@@ -153,7 +155,8 @@ I<-i ova> is used for reading from a VMware ova source file.
 
 I<-i vmx> is used for reading from a VMware vmx file.
 
-I<-o glance> is used for writing to OpenStack Glance.
+I<-o openstack> is used for writing to OpenStack.  I<-o glance> is a
+legacy option used for writing to OpenStack Glance.
 
 I<-o libvirt> is used for writing to any libvirt target.  Libvirt can
 connect to local or remote KVM hypervisors.  The I<-oc> option selects
@@ -222,7 +225,7 @@ QEMU and KVM only.
 
 =over 4
 
-=item OpenStack Glance
+=item OpenStack
 
 =item Red Hat Virtualization (RHV) 4.1 and up
 
@@ -528,6 +531,9 @@ This is the same as I<-o local>.
 
 =item B<-o> B<glance>
 
+This is a legacy option.  You should probably use I<-o openstack>
+instead.
+
 Set the output method to OpenStack Glance.  In this mode the converted
 guest is uploaded to Glance.  See L</OUTPUT TO GLANCE> below.
 
@@ -565,6 +571,10 @@ Set the output method to I<null>.
 The guest is converted and copied (unless you also specify
 I<--no-copy>), but the results are thrown away and no metadata is
 written.
+
+=item B<-o> B<openstack>
+
+Set the output method to OpenStack.  See L</OUTPUT TO OPENSTACK> below.
 
 =item B<-o> B<ovirt>
 
@@ -651,6 +661,18 @@ To display short help on what options are available you can use:
 
  virt-v2v -o rhv-upload -oo "?"
 
+=item B<-oo guest-id=>C<ID>
+
+For I<-o openstack> (L</OUTPUT TO OPENSTACK>) only, set a guest ID
+which is saved on each Cinder volume in the C<virt_v2v_guest_id>
+volume property.
+
+=item B<-oo os->*B<=>*
+
+For I<-o openstack> (L</OUTPUT TO OPENSTACK>) only, set optional
+OpenStack authentication.  For example I<-oo os-username=>NAME is
+equivalent to C<openstack --os-username=NAME>.
+
 =item B<-oo rhv-cafile=>F<ca.pem>
 
 For I<-o rhv-upload> (L</OUTPUT TO RHV>) only, the F<ca.pem> file
@@ -676,6 +698,11 @@ situations.
 For I<-o rhv-upload> (L</OUTPUT TO RHV>) only, verify the oVirt/RHV
 server’s identity by checking the server‘s certificate against the
 Certificate Authority.
+
+=item B<-oo server-id=>C<NAME|UUID>
+
+For I<-o openstack> (L</OUTPUT TO OPENSTACK>) only, set the name
+of the conversion appliance where virt-v2v is running.
 
 =item B<-oo vdsm-compat=0.10>
 
@@ -778,6 +805,8 @@ directory must exist.
 
 For I<-o rhv-upload>, this is the name of the destination Storage
 Domain.
+
+For I<-o openstack>, this is the optional Cinder volume type.
 
 For I<-o rhv>, this can be an NFS path of the Export Storage Domain
 of the form C<E<lt>hostE<gt>:E<lt>pathE<gt>>, eg:
@@ -2152,7 +2181,132 @@ enough like a RHV-M Export Storage Domain to trick virt-v2v:
  touch /tmp/rhv/$uuid/dom_md
  virt-v2v [...] -o rhv -os /tmp/rhv
 
+=head1 OUTPUT TO OPENSTACK
+
+To output to OpenStack, use the I<-o openstack> option.
+
+=head2 OPENSTACK: SETTING UP A CONVERSION APPLIANCE
+
+When virt-v2v is converting to OpenStack, it is unusual in that
+virt-v2v B<must> be running inside a virtual machine running on top of
+the OpenStack overcloud.  This virtual machine is called the
+"conversion appliance".  Note this virtual machine is unrelated to the
+guest which is being converted.
+
+The reason for this is because to create Cinder volumes that will
+contain the guest data (for the converted guest) we must attach those
+Cinder volumes to an OpenStack virtual machine.
+
+When virt-v2v is running in the conversion appliance, you must supply
+the name or UUID of the conversion appliance to virt-v2v, eg:
+
+ $ openstack server list
+ +--------------------------------------+-----------+--------+
+ | ID                                   | Name      | Status |
+ +--------------------------------------+-----------+--------+
+ | bbb0147a-44b9-4d19-9a9d-10ca9a984744 | test1     | ACTIVE |
+ +--------------------------------------+-----------+--------+
+
+ # virt-v2v [...] \
+       -o openstack -oo server-id=bbb0147a-44b9-4d19-9a9d-10ca9a984744
+
+or:
+
+ # virt-v2v [...] -o openstack -oo server-id=test1
+
+You can run many parallel conversions inside a single conversion
+appliance if you want, subject to having enough resources available.
+However OpenStack itself imposes a limit that you should be aware of:
+OpenStack cannot attach more than around 25 disks [the exact number
+varies with configuration] to a single appliance, and that limits the
+number of guests which can be converted in parallel, because each
+guest's disk must be attached to the appliance while being copied.
+
+=head2 OPENSTACK: AUTHENTICATION
+
+Converting to OpenStack requires access to the tenant (non-admin) API
+endpoints.  You will need to either set up your C<$OS_*> environment
+variables or use output options on the virt-v2v command line to
+authenticate with OpenStack.
+
+Normally there is a file called something like C<stackrc>,
+C<overcloudrc> etc which you can simply C<source> to set everything up.
+
+For example:
+
+ export OS_USERNAME=admin
+
+or:
+
+ virt-v2v [...] -o openstack -oo os-username=admin
+
+are equivalent, and have the same effect as using I<--os-username> on
+the command line of OpenStack tools.
+
+=head2 OPENSTACK: RUNNING AS ROOT
+
+Because virt-v2v must access Cinder volumes which are presented as
+F</dev> devices to the conversion appliance, virt-v2v must usually run
+as root in I<-o openstack> mode.
+
+If you use C<sudo> to start virt-v2v and you are using environment
+variables for authentication, remember to use the C<sudo -E> option to
+preserve the environment.
+
+=head2 OPENSTACK: GUEST ID
+
+ virt-v2v [...] -o openstack -oo guest-id=123-456-7890
+
+You may optionally specify I<-oo guest-id=...> on the command line.
+The ID (which can be any string) is saved on each Cinder volume in the
+C<virt_v2v_guest_id> volume property.
+
+This can be used to find disks associated with a guest, or to
+associate which disks are related to which guests when converting many
+guests.
+
+=head2 OPENSTACK: CONVERTING A GUEST
+
+The final command to convert the guest, running as root, will be:
+
+ # virt-v2v [-i options ...] \
+       -o openstack -oo server-id=NAME|UUID [-oo guest-id=ID]
+
+If you include authentication options on the command line then:
+
+ # virt-v2v [-i options ...] \
+       -o openstack -oo server-id=NAME|UUID -oo os-username=admin [etc]
+
+=head2 OPENSTACK: BOOTING THE GUEST
+
+Guests are converted as Cinder volume(s) (one volume per disk in the
+original guest).  To boot them use the
+C<openstack server create --volume> option:
+
+ $ openstack volume list
+ +--------------------------------------+---------------+-----------+
+ | ID                                   | Name          | Status    |
+ +--------------------------------------+---------------+-----------+
+ | c4d06d15-22ef-462e-9eff-ab54ab285a1f | fedora-27-sda | available |
+ +--------------------------------------+---------------+-----------+
+ $ openstack server create \
+       --flavor x1.small \
+       --volume c4d06d15-22ef-462e-9eff-ab54ab285a1f \
+       myguest
+ $ openstack console url show myguest
+
+=head2 OPENSTACK: OTHER CONVERSION OPTIONS
+
+To specify the Cinder volume type, use I<-os>.  If not specified then
+no Cinder volume type is used.
+
+The following options are B<not> supported with OpenStack: I<-oa>,
+I<-of>.
+
 =head1 OUTPUT TO GLANCE
+
+Note this is a legacy option.  In most cases you should use
+L</OUTPUT TO OPENSTACK> instead.
 
 To output to OpenStack Glance, use the I<-o glance> option.
 
@@ -2184,34 +2338,7 @@ Glance disks either.  If the guest has multiple disks, then the first
 (assumed to be the system disk) will have the name of the guest, and
 the second and subsequent data disks will be called
 C<I<guestname>-disk2>, C<I<guestname>-disk3> etc.  It may be best to
-leave the system disk in Glance, and import the data disks to Cinder
-(see next section).
-
-=head2 Importing disks into Cinder
-
-Since most virt-v2v guests are "pets", Glance is perhaps not the best
-place to store them.  There is no way for virt-v2v to upload directly
-to Cinder (L<https://bugzilla.redhat.com/1155229>).  There are two
-ways to upload to Cinder:
-
-=over 4
-
-=item 1.
-
-Import the image to Glance first (ie. I<-o glance>) and then copy it
-to Cinder:
-
- cinder create --image-id <GLANCE-IMAGE-UUID> <SIZE>
-
-=item 2.
-
-Create (through some other means) a new volume / LUN in your Cinder
-backing store.  Migrate the guest to this volume (using I<-o local>).
-Then ask Cinder to take over management of the volume using:
-
- cinder manage <VOLUMEREF>
-
-=back
+leave the system disk in Glance, and import the data disks to Cinder.
 
 =head1 RESOURCE REQUIREMENTS
 
@@ -2413,6 +2540,11 @@ You can avoid this by setting up libvirt connection authentication,
 see L<http://libvirt.org/auth.html>.  Alternatively, use
 I<-oc qemu:///session>, which will write to your per-user libvirt
 instance.
+
+=item Writing to Openstack
+
+Because of how Cinder volumes are presented as F</dev> block devices,
+using I<-o openstack> normally requires that virt-v2v is run as root.
 
 =item Writing to Glance
 
