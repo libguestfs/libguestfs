@@ -31,13 +31,10 @@ class output_local dir = object
 
   method as_options = sprintf "-o local -os %s" dir
 
-  method prepare_targets source targets =
+  method prepare_targets source overlays =
     List.map (
-      fun t ->
-        let target_file =
-          TargetFile (dir // source.s_name ^ "-" ^ t.target_overlay.ov_sd) in
-        { t with target_file }
-    ) targets
+      fun (_, ov) -> TargetFile (dir // source.s_name ^ "-" ^ ov.ov_sd)
+    ) overlays
 
   method supported_firmware = [ TargetBIOS; TargetUEFI ]
 

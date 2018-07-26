@@ -151,13 +151,8 @@ object
    * 'os' is the output storage (-os nfs:/export).  'source' contains a
    * few useful fields such as the guest name.  'targets' describes the
    * destination files.  We modify and return this list.
-   *
-   * Note it's good to fail here (early) if there are any problems, since
-   * the next time we are called (in {!create_metadata}) we have already
-   * done the conversion and copy, and the user won't thank us for
-   * displaying errors there.
    *)
-  method prepare_targets _ targets =
+  method prepare_targets _ overlays =
     let mp, uuid =
       mount_and_check_storage_domain (s_"Export Storage Domain") os in
     esd_mp <- mp;
@@ -185,11 +180,11 @@ object
     image_uuids <-
       List.map (
         fun _ -> uuidgen ()
-      ) targets;
+      ) overlays;
     vol_uuids <-
       List.map (
         fun _ -> uuidgen ()
-      ) targets;
+      ) overlays;
 
     (* We need to create the target image director(ies) so there's a place
      * for the main program to copy the images to.  However if image
@@ -227,21 +222,18 @@ object
      *)
     let targets =
       List.map (
-        fun ({ target_overlay = ov } as t, image_uuid, vol_uuid) ->
-          let ov_sd = ov.ov_sd in
+        fun ((_, ov), image_uuid, vol_uuid) ->
           let target_file = images_dir // image_uuid // vol_uuid in
-
-          debug "RHV: will export %s to %s" ov_sd target_file;
-
-          { t with target_file = TargetFile target_file }
-      ) (List.combine3 targets image_uuids vol_uuids) in
+          debug "RHV: will export %s to %s" ov.ov_sd target_file;
+          TargetFile target_file
+      ) (List.combine3 overlays image_uuids vol_uuids) in
 
     (* Generate the .meta file associated with each volume. *)
     let metas =
       Create_ovf.create_meta_files output_alloc esd_uuid image_uuids
-        targets in
+        overlays in
     List.iter (
-      fun ({ target_file }, meta) ->
+      fun (target_file, meta) ->
         let target_file =
           match target_file with
           | TargetFile s -> s
@@ -250,7 +242,7 @@ object
         Changeuid.make_file changeuid_t meta_filename meta
     ) (List.combine targets metas);
 
-    (* Return the list of targets. *)
+    (* Return the list of target files. *)
     targets
 
   method disk_create ?backingfile ?backingformat ?preallocation ?compat

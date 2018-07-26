@@ -86,7 +86,10 @@ object
 
   method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
-  method prepare_targets source targets =
+  (* Force raw output, ignoring -of command line option. *)
+  method override_output_format _ = Some "raw"
+
+  method prepare_targets source overlays =
     if can_use_qemu_null_co_device () then (
       let json_params = [
         "file.driver", JSON.String "null-co";
@@ -94,19 +97,9 @@ object
       ] in
       let target_file = TargetURI ("json:" ^ JSON.string_of_doc json_params) in
 
-      (* While it's not intended that output drivers can set the
-       * target_format field (thus overriding the -of option), in
-       * this special case of -o null it is reasonable.
-       *)
-      let target_format = "raw" in
-
-      List.map (fun t -> { t with target_file; target_format }) targets
+      List.map (fun _ -> target_file) overlays
     ) else (
-      List.map (
-        fun t ->
-          let target_file = tmpdir // t.target_overlay.ov_sd in
-          { t with target_file = TargetFile target_file }
-      ) targets
+      List.map (fun (_, ov) -> TargetFile (tmpdir // ov.ov_sd)) overlays
     )
 
   method create_metadata _ _ _ _ _ _ = ()

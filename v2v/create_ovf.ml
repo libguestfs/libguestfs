@@ -463,7 +463,7 @@ let origin_of_source_hypervisor = function
   | _ -> None
 
 (* Generate the .meta file associated with each volume. *)
-let create_meta_files output_alloc sd_uuid image_uuids targets =
+let create_meta_files output_alloc sd_uuid image_uuids overlays =
   (* Note: Upper case in the .meta, mixed case in the OVF. *)
   let output_alloc_for_rhv =
     match output_alloc with
@@ -471,7 +471,7 @@ let create_meta_files output_alloc sd_uuid image_uuids targets =
     | Preallocated -> "PREALLOCATED" in
 
   List.map (
-    fun ({ target_overlay = ov } as t, image_uuid) ->
+    fun ((target_format, ov), image_uuid) ->
       let size_in_sectors =
         if ov.ov_virtual_size &^ 511L <> 0L then
           error (f_"the virtual size of the input disk %s is not an exact multiple of 512 bytes.  The virtual size is: %Ld.\n\nThis probably means something unexpected is going on, so please file a bug about this issue.")
@@ -480,11 +480,11 @@ let create_meta_files output_alloc sd_uuid image_uuids targets =
         ov.ov_virtual_size /^ 512L in
 
       let format_for_rhv =
-        match t.target_format with
+        match target_format with
         | "raw" -> "RAW"
         | "qcow2" -> "COW"
         | _ ->
-          error (f_"RHV does not support the output format ‘%s’, only raw or qcow2") t.target_format in
+          error (f_"RHV does not support the output format ‘%s’, only raw or qcow2") target_format in
 
       let buf = Buffer.create 256 in
       let bpf fs = bprintf buf fs in
@@ -503,7 +503,7 @@ let create_meta_files output_alloc sd_uuid image_uuids targets =
       bpf "DESCRIPTION=%s\n" (String.replace generated_by "=" "_");
       bpf "EOF\n";
       Buffer.contents buf
-  ) (List.combine targets image_uuids)
+  ) (List.combine overlays image_uuids)
 
 (* Create the OVF file. *)
 let rec create_ovf source targets guestcaps inspect
