@@ -393,8 +393,6 @@ class virtual output : object
   method virtual as_options : string
   (** Converts the output object back to the equivalent command line options.
       This is just used for pretty-printing log messages. *)
-  method virtual prepare_targets : source -> target list -> target list
-  (** Called before conversion to prepare the output. *)
   method virtual supported_firmware : target_firmware list
   (** Does this output method support UEFI?  Allows us to abort early if
       conversion is impossible. *)
@@ -402,6 +400,8 @@ class virtual output : object
   (** Called before conversion once the guest's target firmware is known.
       Can be used as an additional check that the target firmware is
       supported on the host. *)
+  method virtual prepare_targets : source -> target list -> target list
+  (** Called after conversion but before copying to prepare the output. *)
   method prepare_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
   (** Called after conversion but before copying, this can optionally
       be used to prepare the target hypervisor for receiving the guest. *)

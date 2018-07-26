@@ -34,7 +34,7 @@ module G = Guestfs
 
 (* Conversion mode, either normal (copying) or [--in-place]. *)
 type conversion_mode =
-  | Copying of overlay list * target list
+  | Copying of overlay list
   | In_place
 
 (* Mountpoint stats, used for free space estimation. *)
@@ -80,8 +80,7 @@ let rec main () =
     if not cmdline.in_place then (
       check_host_free_space ();
       let overlays = create_overlays source.s_disks in
-      let targets = init_targets cmdline output source overlays in
-      Copying (overlays, targets)
+      Copying overlays
     )
     else In_place in
 
@@ -95,7 +94,7 @@ let rec main () =
   (* The network is only used by the unconfigure_vmware () function. *)
   g#set_network true;
   (match conversion_mode with
-   | Copying (overlays, _) -> populate_overlays g overlays
+   | Copying overlays -> populate_overlays g overlays
    | In_place -> populate_disks g source.s_disks
   );
 
@@ -116,7 +115,7 @@ let rec main () =
 
   (* Estimate space required on target for each disk.  Note this is a max. *)
   (match conversion_mode with
-   | Copying (overlays, _) ->
+   | Copying overlays ->
       message (f_"Estimating space required on target for each disk");
       estimate_target_size mpstats overlays
    | In_place -> ()
@@ -152,9 +151,12 @@ let rec main () =
   g#shutdown ();
   g#close ();
 
+  (* Copy overlays to target (for [--in-place] this does nothing). *)
   (match conversion_mode with
    | In_place -> ()
-   | Copying (overlays, targets) ->
+   | Copying overlays ->
+      let targets = init_targets cmdline output source overlays in
+
       (* Print overlays/targets and stop. *)
       if cmdline.print_target then (
         printf (f_"Overlay and Target information (--print-target option):\n");
@@ -165,37 +167,32 @@ let rec main () =
             printf "%s\n" (string_of_target t)
         ) (List.combine overlays targets);
         exit 0
-      )
-  );
+      );
 
-  (* Copy overlays to target (for [--in-place] this does nothing). *)
-  (match conversion_mode with
-   | In_place -> ()
-   | Copying (overlays, targets) ->
-       let target_firmware =
-         get_target_firmware inspect guestcaps source output in
+      let target_firmware =
+        get_target_firmware inspect guestcaps source output in
 
-       message (f_"Assigning disks to buses");
-       let target_buses =
-         Target_bus_assignment.target_bus_assignment source targets
-                                                     guestcaps in
-       debug "%s" (string_of_target_buses target_buses);
+      message (f_"Assigning disks to buses");
+      let target_buses =
+        Target_bus_assignment.target_bus_assignment source targets
+                                                    guestcaps in
+      debug "%s" (string_of_target_buses target_buses);
 
-       output#prepare_metadata source targets target_buses guestcaps inspect
-                               target_firmware;
-
-       (* Perform the copy. *)
-       if cmdline.do_copy then
-         copy_targets cmdline targets input output;
-
-       (* Create output metadata. *)
-       message (f_"Creating output metadata");
-       output#create_metadata source targets target_buses guestcaps inspect
+      output#prepare_metadata source targets target_buses guestcaps inspect
                               target_firmware;
 
-       if cmdline.debug_overlays then preserve_overlays overlays source.s_name;
+      (* Perform the copy. *)
+      if cmdline.do_copy then
+        copy_targets cmdline targets input output;
 
-       delete_target_on_exit := false  (* Don't delete target on exit. *)
+      (* Create output metadata. *)
+      message (f_"Creating output metadata");
+      output#create_metadata source targets target_buses guestcaps inspect
+                             target_firmware;
+
+      if cmdline.debug_overlays then preserve_overlays overlays source.s_name;
+
+      delete_target_on_exit := false  (* Don't delete target on exit. *)
   );
   message (f_"Finishing off")
 
@@ -329,44 +326,6 @@ and create_overlays src_disks =
         }
       }
   ) src_disks
-
-(* Work out where we will write the final output.  Do this early
- * just so we can display errors to the user before doing too much
- * work.
- *)
-and init_targets cmdline output source overlays =
-  message (f_"Initializing the target %s") output#as_options;
-  let targets =
-    List.map (
-      fun ov ->
-        (* What output format should we use? *)
-        let format =
-          match cmdline.output_format, ov.ov_source.s_format with
-          | Some format, _ -> format    (* -of overrides everything *)
-          | None, Some format -> format (* same as backing format *)
-          | None, None ->
-            error (f_"disk %s (%s) has no defined format.\n\nThe input metadata did not define the disk format (eg. raw/qcow2/etc) of this disk, and so virt-v2v will try to autodetect the format when reading it.\n\nHowever because the input format was not defined, we do not know what output format you want to use.  You have two choices: either define the original format in the source metadata, or use the ‘-of’ option to force the output format.") ov.ov_sd ov.ov_source.s_qemu_uri in
-
-        (* What really happens here is that the call to #disk_create
-         * below fails if the format is not raw or qcow2.  We would
-         * have to extend libguestfs to support further formats, which
-         * is trivial, but we'd want to check that the files being
-         * created by qemu-img really work.  In any case, fail here,
-         * early, not below, later.
-         *)
-        if format <> "raw" && format <> "qcow2" then
-          error (f_"output format should be ‘raw’ or ‘qcow2’.\n\nUse the ‘-of <format>’ option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
-
-        (* Only allow compressed with qcow2. *)
-        if cmdline.compressed && format <> "qcow2" then
-          error (f_"the --compressed flag is only allowed when the output format is qcow2 (-of qcow2)");
-
-        (* output#prepare_targets below will fill in the target_file field. *)
-        { target_file = TargetFile ""; target_format = format;
-          target_overlay = ov }
-    ) overlays in
-
-  output#prepare_targets source targets
 
 (* Populate guestfs handle with qcow2 overlays. *)
 and populate_overlays g overlays =
@@ -617,6 +576,41 @@ and do_convert g inspect source output rcaps =
   );
 
   guestcaps
+
+(* Work out where we will write the final output. *)
+and init_targets cmdline output source overlays =
+  message (f_"Initializing the target %s") output#as_options;
+  let targets =
+    List.map (
+      fun ov ->
+        (* What output format should we use? *)
+        let format =
+          match cmdline.output_format, ov.ov_source.s_format with
+          | Some format, _ -> format    (* -of overrides everything *)
+          | None, Some format -> format (* same as backing format *)
+          | None, None ->
+            error (f_"disk %s (%s) has no defined format.\n\nThe input metadata did not define the disk format (eg. raw/qcow2/etc) of this disk, and so virt-v2v will try to autodetect the format when reading it.\n\nHowever because the input format was not defined, we do not know what output format you want to use.  You have two choices: either define the original format in the source metadata, or use the ‘-of’ option to force the output format.") ov.ov_sd ov.ov_source.s_qemu_uri in
+
+        (* What really happens here is that the call to #disk_create
+         * below fails if the format is not raw or qcow2.  We would
+         * have to extend libguestfs to support further formats, which
+         * is trivial, but we'd want to check that the files being
+         * created by qemu-img really work.  In any case, fail here,
+         * early, not below, later.
+         *)
+        if format <> "raw" && format <> "qcow2" then
+          error (f_"output format should be ‘raw’ or ‘qcow2’.\n\nUse the ‘-of <format>’ option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
+
+        (* Only allow compressed with qcow2. *)
+        if cmdline.compressed && format <> "qcow2" then
+          error (f_"the --compressed flag is only allowed when the output format is qcow2 (-of qcow2)");
+
+        (* output#prepare_targets below will fill in the target_file field. *)
+        { target_file = TargetFile ""; target_format = format;
+          target_overlay = ov }
+    ) overlays in
+
+  output#prepare_targets source targets
 
 (* Does the guest require UEFI on the target? *)
 and get_target_firmware inspect guestcaps source output =

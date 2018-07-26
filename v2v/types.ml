@@ -521,10 +521,10 @@ type create_metadata_fn = source -> target list -> target_buses -> guestcaps -> 
 class virtual output = object
   method precheck () = ()
   method virtual as_options : string
-  method virtual prepare_targets : source -> target list -> target list
   method virtual supported_firmware : target_firmware list
   method check_target_firmware (_ : guestcaps) (_ : target_firmware) = ()
   method disk_create = (open_guestfs ())#disk_create
+  method virtual prepare_targets : source -> target list -> target list
   method prepare_metadata : create_metadata_fn = fun _ _ _ _ _ _ -> ()
   method virtual create_metadata : create_metadata_fn
   method keep_serial_console = true
