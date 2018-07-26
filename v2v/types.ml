@@ -529,7 +529,6 @@ class virtual output = object
   method virtual prepare_targets : source -> target list -> target list
   method virtual supported_firmware : target_firmware list
   method check_target_firmware (_ : guestcaps) (_ : target_firmware) = ()
-  method check_target_free_space (_ : source) (_ : target list) = ()
   method disk_create = (open_guestfs ())#disk_create
   method prepare_metadata : create_metadata_fn = fun _ _ _ _ _ _ -> ()
   method virtual create_metadata : create_metadata_fn
