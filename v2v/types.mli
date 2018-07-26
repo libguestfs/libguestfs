@@ -405,16 +405,16 @@ class virtual output : object
       line (silently).  It's best not to do this, instead modify
       prepare_targets so it gives an error if the output format
       chosen is not supported by the target. *)
-  method virtual prepare_targets : source -> (string * overlay) list -> target_file list
+  method virtual prepare_targets : source -> (string * overlay) list -> target_buses -> guestcaps -> inspect -> target_firmware -> target_file list
   (** Called after conversion but before copying to prepare (but {b not}
       create) the target file.  The [string] parameter is the format to
       use for each target.  Do not override this, if the format is wrong
       given an error instead. *)
-  method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
-  (** Called after conversion and copying to finish off and create metadata. *)
   method disk_create : ?backingfile:string -> ?backingformat:string -> ?preallocation:string -> ?compat:string -> ?clustersize:int -> string -> string -> int64 -> unit
   (** Called in order to create disks on the target.  The method has the
       same signature as Guestfs#disk_create. *)
+  method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
+  (** Called after conversion and copying to finish off and create metadata. *)
   method keep_serial_console : bool
   (** Whether this output supports serial consoles (RHV does not). *)
   method install_rhev_apt : bool

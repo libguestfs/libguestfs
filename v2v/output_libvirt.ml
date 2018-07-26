@@ -70,7 +70,7 @@ class output_libvirt oc output_pool = object
     | None -> sprintf "-o libvirt -os %s" output_pool
     | Some uri -> sprintf "-o libvirt -oc %s -os %s" uri output_pool
 
-  method prepare_targets source overlays =
+  method prepare_targets source overlays _ _ _ _ =
     (* Get the capabilities from libvirt. *)
     let xml = Libvirt_utils.capabilities ?conn:oc () in
     debug "libvirt capabilities XML:\n%s" xml;

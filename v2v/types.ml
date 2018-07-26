@@ -518,9 +518,9 @@ class virtual output = object
   method virtual as_options : string
   method virtual supported_firmware : target_firmware list
   method check_target_firmware (_ : guestcaps) (_ : target_firmware) = ()
-  method disk_create = (open_guestfs ())#disk_create
   method override_output_format (_ : overlay) = (None : string option)
-  method virtual prepare_targets : source -> (string * overlay) list -> target_file list
+  method virtual prepare_targets : source -> (string * overlay) list -> target_buses -> guestcaps -> inspect -> target_firmware -> target_file list
+  method disk_create = (open_guestfs ())#disk_create
   method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
   method keep_serial_console = true
   method install_rhev_apt = false

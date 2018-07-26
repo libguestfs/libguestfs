@@ -248,7 +248,7 @@ object
   (* rhev-apt.exe will be installed (if available). *)
   method install_rhev_apt = true
 
-  method prepare_targets source overlays =
+  method prepare_targets source overlays _ _ _ _ =
     let output_name = source.s_name in
     let json_params =
       ("output_name", JSON.String output_name) :: json_params in
