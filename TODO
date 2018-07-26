@@ -597,3 +597,12 @@ virt-v2v -o rhv-upload
   That can't be fixed from the v2v side.
 
 * There are unresolved issues about how to clean up disks on failure.
+
+virt-v2v -o openstack
+---------------------
+
+Use the metadata service to find the -oo server-id setting.  It would
+no longer need to be specified on the command line.  Note there are
+two variations of metadata service in OpenStack, either the config
+disk or link-local network address.  We would need to support both, or
+the possibility that there is no metadata service.

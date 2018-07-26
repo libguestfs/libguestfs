@@ -70,6 +70,7 @@ SOURCES_MLI = \
 	output_libvirt.mli \
 	output_local.mli \
 	output_null.mli \
+	output_openstack.mli \
 	output_qemu.mli \
 	output_rhv.mli \
 	output_rhv_upload.mli \
@@ -138,6 +139,7 @@ SOURCES_ML = \
 	output_rhv_upload_precheck_source.ml \
 	output_rhv_upload.ml \
 	output_vdsm.ml \
+	output_openstack.ml \
 	inspect_source.ml \
 	target_bus_assignment.ml \
 	measure_disk.ml \
@@ -372,6 +374,7 @@ TESTS += \
 	test-v2v-o-glance.sh \
 	test-v2v-o-libvirt.sh \
 	test-v2v-o-null.sh \
+	test-v2v-o-openstack.sh \
 	test-v2v-o-qemu.sh \
 	test-v2v-o-rhv.sh \
 	test-v2v-o-vdsm-options.sh \
@@ -518,6 +521,7 @@ EXTRA_DIST += \
 	test-v2v-o-glance.sh \
 	test-v2v-o-libvirt.sh \
 	test-v2v-o-null.sh \
+	test-v2v-o-openstack.sh \
 	test-v2v-o-qemu.sh \
 	test-v2v-o-rhv.sh \
 	test-v2v-o-rhv-upload-oo-query.sh \
