@@ -93,41 +93,24 @@ class output_rhv_upload output_alloc output_conn
 
   let diskid_file_of_id id = tmpdir // sprintf "diskid.%d" id in
 
-  (* Write the Python precheck, plugin and create VM to a temporary file. *)
-  let precheck =
-    let precheck = tmpdir // "rhv-upload-precheck.py" in
-    with_open_out
-      precheck
-      (fun chan -> output_string chan Output_rhv_upload_precheck_source.code);
-    precheck in
-  let plugin =
-    let plugin = tmpdir // "rhv-upload-plugin.py" in
-    with_open_out
-      plugin
-      (fun chan -> output_string chan Output_rhv_upload_plugin_source.code);
-    plugin in
-  let createvm =
-    let createvm = tmpdir // "rhv-upload-createvm.py" in
-    with_open_out
-      createvm
-      (fun chan -> output_string chan Output_rhv_upload_createvm_source.code);
-    createvm in
+  (* Create Python scripts for precheck, plugin and create VM. *)
+  let precheck_script =
+    Python_script.create ~name:"rhv-upload-precheck.py"
+                         Output_rhv_upload_precheck_source.code in
+  let plugin_script =
+    Python_script.create ~name:"rhv-upload-plugin.py"
+                         Output_rhv_upload_plugin_source.code in
+  let createvm_script =
+    Python_script.create ~name:"rhv-upload-createvm.py"
+                         Output_rhv_upload_createvm_source.code in
 
   (* Is SELinux enabled and enforcing on the host? *)
   let have_selinux =
     0 = Sys.command "getenforce 2>/dev/null | grep -isq Enforcing" in
 
-  (* Check that the Python binary is available. *)
-  let error_unless_python_binary_on_path () =
-    try ignore (which "python")
-    with Executable_not_found _ ->
-      error (f_"no python binary called ‘%s’ can be found on the $PATH")
-            "python"
-  in
-
   (* Check that the 'ovirtsdk4' Python module is available. *)
   let error_unless_ovirtsdk4_module_available () =
-    let res = run_command [ "python"; "-c"; "import ovirtsdk4" ] in
+    let res = run_command [ Python_script.python; "-c"; "import ovirtsdk4" ] in
     if res <> 0 then
       error (f_"the Python module ‘ovirtsdk4’ could not be loaded, is it installed?  See previous messages for problems.")
   in
@@ -152,13 +135,15 @@ class output_rhv_upload output_alloc output_conn
   (* Check that the python plugin is installed and working
    * and can load the plugin script.
    *)
-  let error_unless_nbdkit_python_working () =
+  let error_unless_nbdkit_python_plugin_working () =
     let cmd = sprintf "nbdkit %s %s --dump-plugin >/dev/null"
-                      "python" (quote plugin) in
+                      Python_script.python
+                      (quote (Python_script.path plugin_script)) in
     if Sys.command cmd <> 0 then
-      error (f_"nbdkit Python plugin is not installed or not working.  It is required if you want to use ‘-o rhv-upload’.
+      error (f_"nbdkit %s plugin is not installed or not working.  It is required if you want to use ‘-o rhv-upload’.
 
 See also \"OUTPUT TO RHV\" in the virt-v2v(1) manual.")
+            Python_script.python
   in
 
   (* Check that nbdkit was compiled with SELinux support (for the
@@ -213,8 +198,8 @@ See also \"OUTPUT TO RHV\" in the virt-v2v(1) manual.")
       "--newstyle";             (* use newstyle NBD protocol *)
       "--exportname"; "/";
 
-      "python";                 (* use the nbdkit Python plugin *)
-      plugin;                   (* Python plugin script *)
+      Python_script.python;     (* use the nbdkit Python 3 plugin *)
+      Python_script.path plugin_script; (* Python plugin script *)
     ] in
     let args = if verbose () then args @ ["--verbose"] else args in
     let args =
@@ -228,10 +213,10 @@ object
   inherit output
 
   method precheck () =
-    error_unless_python_binary_on_path ();
+    Python_script.error_unless_python_interpreter_found ();
     error_unless_ovirtsdk4_module_available ();
     error_unless_nbdkit_working ();
-    error_unless_nbdkit_python_working ();
+    error_unless_nbdkit_python_plugin_working ();
     if have_selinux then
       error_unless_nbdkit_compiled_with_selinux ()
 
@@ -256,11 +241,7 @@ object
     (* Python code prechecks.  These can't run in #precheck because
      * we need to know the name of the virtual machine.
      *)
-    let json_param_file = tmpdir // "params.json" in
-    with_open_out
-      json_param_file
-      (fun chan -> output_string chan (JSON.string_of_doc json_params));
-    if run_command [ "python"; precheck; json_param_file ] <> 0 then
+    if Python_script.run_command precheck_script json_params [] <> 0 then
       error (f_"failed server prechecks, see earlier errors");
 
     (* Create an nbdkit instance for each disk and set the
@@ -400,14 +381,10 @@ If the messages above are not sufficient to diagnose the problem then add the �
                             OVirt in
     let ovf = DOM.doc_to_string ovf in
 
-    let json_param_file = tmpdir // "params.json" in
-    with_open_out
-      json_param_file
-      (fun chan -> output_string chan (JSON.string_of_doc json_params));
-
     let ovf_file = tmpdir // "vm.ovf" in
     with_open_out ovf_file (fun chan -> output_string chan ovf);
-    if run_command [ "python"; createvm; json_param_file; ovf_file ] <> 0 then
+    if Python_script.run_command createvm_script json_params [ovf_file] <> 0
+    then
       error (f_"failed to create virtual machine, see earlier errors")
 
 end
