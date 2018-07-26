@@ -28,7 +28,6 @@ type cmdline = {
   output_format : string option;
   output_name : string option;
   print_source : bool;
-  print_target : bool;
   root_choice : Types.root_choice;
 }
 

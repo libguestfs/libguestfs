@@ -167,18 +167,6 @@ let rec main () =
             { target_file; target_format; target_overlay }
         ) (List.combine3 target_files target_formats overlays) in
 
-      (* Print overlays/targets and stop. *)
-      if cmdline.print_target then (
-        printf (f_"Overlay and Target information (--print-target option):\n");
-        printf "\n";
-        List.iter (
-          fun (ov, t) ->
-            printf "%s\n" (string_of_overlay ov);
-            printf "%s\n" (string_of_target t)
-        ) (List.combine overlays targets);
-        exit 0
-      );
-
       let target_firmware =
         get_target_firmware inspect guestcaps source output in
 
