@@ -410,9 +410,6 @@ class virtual output : object
       create) the target file.  The [string] parameter is the format to
       use for each target.  Do not override this, if the format is wrong
       given an error instead. *)
-  method prepare_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
-  (** Called after conversion but before copying, this can optionally
-      be used to prepare the target hypervisor for receiving the guest. *)
   method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
   (** Called after conversion and copying to finish off and create metadata. *)
   method disk_create : ?backingfile:string -> ?backingformat:string -> ?preallocation:string -> ?compat:string -> ?clustersize:int -> string -> string -> int64 -> unit
