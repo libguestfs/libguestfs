@@ -30,7 +30,11 @@ open DOM
 let string_set_of_list =
   List.fold_left (fun set x -> StringSet.add x set) StringSet.empty
 
-let create_libvirt_xml ?pool source target_buses guestcaps
+let find_target_disk targets { s_disk_id = id } =
+  try List.find (fun t -> t.target_overlay.ov_source.s_disk_id = id) targets
+  with Not_found -> assert false
+
+let create_libvirt_xml ?pool source targets target_buses guestcaps
                        target_features target_firmware =
   (* The main body of the libvirt XML document. *)
   let body = ref [] in
@@ -189,7 +193,10 @@ let create_libvirt_xml ?pool source target_buses guestcaps
     let make_disk bus_name drive_prefix i = function
     | BusSlotEmpty -> Comment (sprintf "%s slot %d is empty" bus_name i)
 
-    | BusSlotTarget t ->
+    | BusSlotDisk d ->
+       (* Find the corresponding target disk. *)
+       let t = find_target_disk targets d in
+
        let target_file =
          match t.target_file with
          | TargetFile s -> s
