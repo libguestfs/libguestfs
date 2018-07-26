@@ -79,6 +79,7 @@ SOURCES_MLI = \
 	parse_ovf_from_ova.mli \
 	parse_libvirt_xml.mli \
 	parse_vmx.mli \
+	python_script.mli \
 	qemuopts.mli \
 	target_bus_assignment.mli \
 	types.mli \
@@ -93,6 +94,7 @@ SOURCES_ML = \
 	types.ml \
 	uefi.ml \
 	utils.ml \
+	python_script.ml \
 	name_from_disk.ml \
 	vCenter.ml \
 	libvirt_utils.ml \
