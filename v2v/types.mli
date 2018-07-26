@@ -316,7 +316,7 @@ v}
 
 and target_bus_slot =
 | BusSlotEmpty                  (** This bus slot is empty. *)
-| BusSlotTarget of target       (** Contains a fixed disk. *)
+| BusSlotDisk of source_disk    (** Contains a fixed disk. *)
 | BusSlotRemovable of source_removable (** Contains a removable CD/floppy. *)
 
 val string_of_target_buses : target_buses -> string

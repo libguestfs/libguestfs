@@ -155,6 +155,11 @@ let rec main () =
   (match conversion_mode with
    | In_place -> ()
    | Copying overlays ->
+      message (f_"Assigning disks to buses");
+      let target_buses =
+        Target_bus_assignment.target_bus_assignment source guestcaps in
+      debug "%s" (string_of_target_buses target_buses);
+
       message (f_"Initializing the target %s") output#as_options;
       let targets =
         (* Decide the format for each output disk. *)
@@ -169,12 +174,6 @@ let rec main () =
 
       let target_firmware =
         get_target_firmware inspect guestcaps source output in
-
-      message (f_"Assigning disks to buses");
-      let target_buses =
-        Target_bus_assignment.target_bus_assignment source targets
-                                                    guestcaps in
-      debug "%s" (string_of_target_buses target_buses);
 
       (* Perform the copy. *)
       if cmdline.do_copy then

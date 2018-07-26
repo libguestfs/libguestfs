@@ -25,6 +25,10 @@ open Common_gettext.Gettext
 open Types
 open Utils
 
+let find_target_disk targets { s_disk_id = id } =
+  try List.find (fun t -> t.target_overlay.ov_source.s_disk_id = id) targets
+  with Not_found -> assert false
+
 class output_qemu dir qemu_boot =
 object
   inherit output
@@ -45,7 +49,7 @@ object
     | TargetBIOS -> ()
     | TargetUEFI -> error_unless_uefi_firmware guestcaps.gcaps_arch
 
-  method create_metadata source _ target_buses guestcaps inspect
+  method create_metadata source targets target_buses guestcaps inspect
                          target_firmware =
     let name = source.s_name in
     let file = dir // name ^ ".sh" in
@@ -127,7 +131,10 @@ object
     let make_disk if_name i = function
     | BusSlotEmpty -> ()
 
-    | BusSlotTarget t ->
+    | BusSlotDisk d ->
+       (* Find the corresponding target disk. *)
+       let t = find_target_disk targets d in
+
        let target_file =
          match t.target_file with
          | TargetFile s -> s
@@ -150,7 +157,10 @@ object
     let make_scsi i = function
     | BusSlotEmpty -> ()
 
-    | BusSlotTarget t ->
+    | BusSlotDisk d ->
+       (* Find the corresponding target disk. *)
+       let t = find_target_disk targets d in
+
        let target_file =
          match t.target_file with
          | TargetFile s -> s
