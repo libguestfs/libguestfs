@@ -144,7 +144,7 @@ object
    * 'os' is the output storage domain (-os /rhv/data/<data center>/<data domain>)
    * this is already mounted path.
    *)
-  method prepare_targets _ overlays =
+  method prepare_targets _ overlays _ _ _ _ =
     if List.length vdsm_options.image_uuids <> List.length overlays ||
       List.length vdsm_options.vol_uuids <> List.length overlays then
       error (f_"the number of ‘-oo vdsm-image-uuid’ and ‘-oo vdsm-vol-uuid’ parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")

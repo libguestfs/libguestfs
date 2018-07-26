@@ -36,7 +36,7 @@ object
   method as_options =
     sprintf "-o qemu -os %s%s" dir (if qemu_boot then " --qemu-boot" else "")
 
-  method prepare_targets source overlays =
+  method prepare_targets source overlays _ _ _ _ =
     List.map (
       fun (_, ov) ->
         TargetFile (dir // source.s_name ^ "-" ^ ov.ov_sd)

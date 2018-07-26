@@ -160,20 +160,22 @@ let rec main () =
         Target_bus_assignment.target_bus_assignment source guestcaps in
       debug "%s" (string_of_target_buses target_buses);
 
+      let target_firmware =
+        get_target_firmware inspect guestcaps source output in
+
       message (f_"Initializing the target %s") output#as_options;
       let targets =
         (* Decide the format for each output disk. *)
         let target_formats = get_target_formats cmdline output overlays in
         let target_files =
           output#prepare_targets source
-                                 (List.combine target_formats overlays) in
+                                 (List.combine target_formats overlays)
+                                 target_buses guestcaps
+                                 inspect target_firmware in
         List.map (
           fun (target_file, target_format, target_overlay) ->
             { target_file; target_format; target_overlay }
         ) (List.combine3 target_files target_formats overlays) in
-
-      let target_firmware =
-        get_target_firmware inspect guestcaps source output in
 
       (* Perform the copy. *)
       if cmdline.do_copy then
@@ -181,8 +183,9 @@ let rec main () =
 
       (* Create output metadata. *)
       message (f_"Creating output metadata");
-      output#create_metadata source targets target_buses guestcaps inspect
-                             target_firmware;
+      output#create_metadata source targets
+                             target_buses guestcaps
+                             inspect target_firmware;
 
       if cmdline.debug_overlays then preserve_overlays overlays source.s_name;
 
