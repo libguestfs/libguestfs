@@ -363,7 +363,7 @@ type output_allocation = Sparse | Preallocated
 
 (** {2 Input object}
 
-    There is one of these used for the [-i] option. *)
+    This is subclassed for the various input [-i] options. *)
 
 class virtual input : object
   method precheck : unit -> unit
@@ -383,7 +383,49 @@ end
 
 (** {2 Output object}
 
-    There is one of these used for the [-o] option. *)
+    This is subclassed for the various output [-o] options.
+
+    The order of steps is:
+
+{v
+    command line parsing      Output object of right subclass is
+        │                     created depending on ‘-o’ option.
+        │
+        ▼
+    output#precheck           Called very early on, do pre-checks here.
+        │
+        │
+        ▼
+    conversion                Guest is converted into a local overlay.
+        │
+        │
+        ▼
+    output#prepare_targets    The output module should construct
+        │                     the names or URIs of the target disks,
+        │                     but SHOULD NOT create them.
+        ▼
+    Guestfs#disk_create       Create the target disks.  In rare
+        │                     cases output modules can override
+        │                     this by defining output#disk_create.
+        ▼
+    copying                   Guest data is copied to the target disks
+        │                     by running ‘qemu-img convert’.
+        │
+        ▼
+    output#create_metadata    VM should be created from the metadata
+                              supplied.  Also any finalization can
+                              be done here.
+v}
+
+    There is no general method to clean up on error.  You can
+    register a normal {!at_exit} function, but that won’t always
+    be called if virt-v2v is killed abruptly.  You have to
+    write output methods to be robust in the face of this.
+
+    The above documentation applies to copying mode (the normal mode).
+    [--in-place] works differently - best to look at the sources in
+    [v2v/v2v.ml].
+*)
 
 class virtual output : object
   method precheck : unit -> unit
@@ -397,24 +439,26 @@ class virtual output : object
   (** Does this output method support UEFI?  Allows us to abort early if
       conversion is impossible. *)
   method check_target_firmware : guestcaps -> target_firmware -> unit
-  (** Called before conversion once the guest's target firmware is known.
+  (** Called before conversion once the guest’s target firmware is known.
       Can be used as an additional check that the target firmware is
       supported on the host. *)
   method override_output_format : overlay -> string option
   (** In rare cases we want to override the -of option on the command
-      line (silently).  It's best not to do this, instead modify
+      line (silently).  It’s best not to do this, instead modify
       prepare_targets so it gives an error if the output format
       chosen is not supported by the target. *)
   method virtual prepare_targets : source -> (string * overlay) list -> target_buses -> guestcaps -> inspect -> target_firmware -> target_file list
   (** Called after conversion but before copying to prepare (but {b not}
-      create) the target file.  The [string] parameter is the format to
-      use for each target.  Do not override this, if the format is wrong
-      given an error instead. *)
+      create) the target file.  The [(string * overlay list)] parameter
+      is a list of the (format, overlay) for each target disk.  If
+      the format is wrong/unsupported by the target, give an error. *)
   method disk_create : ?backingfile:string -> ?backingformat:string -> ?preallocation:string -> ?compat:string -> ?clustersize:int -> string -> string -> int64 -> unit
   (** Called in order to create disks on the target.  The method has the
-      same signature as Guestfs#disk_create. *)
+      same signature as Guestfs#disk_create.  Normally you should {b not}
+      define this since the default method calls Guestfs#disk_create. *)
   method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
-  (** Called after conversion and copying to finish off and create metadata. *)
+  (** Called after conversion and copying to create metadata and
+      do any finalization. *)
   method keep_serial_console : bool
   (** Whether this output supports serial consoles (RHV does not). *)
   method install_rhev_apt : bool
