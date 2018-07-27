@@ -166,6 +166,7 @@ v2v/parse_libvirt_xml.ml
 v2v/parse_ova.ml
 v2v/parse_ovf_from_ova.ml
 v2v/parse_vmx.ml
+v2v/python_script.ml
 v2v/qemuopts.ml
 v2v/target_bus_assignment.ml
 v2v/test-harness/v2v_test_harness.ml

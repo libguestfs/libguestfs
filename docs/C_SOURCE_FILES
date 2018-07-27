@@ -363,9 +363,11 @@ p2v/gui-gtk3-compat.h
 p2v/gui.c
 p2v/inhibit.c
 p2v/kernel-cmdline.c
+p2v/kernel-config.c
 p2v/kernel.c
 p2v/main.c
 p2v/nbd.c
+p2v/p2v-config.h
 p2v/p2v.h
 p2v/physical-xml.c
 p2v/rtc.c
