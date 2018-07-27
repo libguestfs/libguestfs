@@ -115,12 +115,20 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
       if String.is_prefix spec "UUID=" then (
         let uuid = String.sub spec 5 (String.length spec - 5) in
         let uuid = shell_unquote uuid in
-        Mountable.of_device (Findfs.findfs_uuid uuid)
+        (* Just ignore the device if the UUID cannot be resolved. *)
+        try
+          Mountable.of_device (Findfs.findfs_uuid uuid)
+        with
+          Failure _ -> return None
       )
       else if String.is_prefix spec "LABEL=" then (
         let label = String.sub spec 6 (String.length spec - 6) in
         let label = shell_unquote label in
-        Mountable.of_device (Findfs.findfs_label label)
+        (* Just ignore the device if the label cannot be resolved. *)
+        try
+          Mountable.of_device (Findfs.findfs_label label)
+        with
+          Failure _ -> return None
       )
       (* Resolve /dev/root to the current device.
        * Do the same for the / partition of the *BSD
