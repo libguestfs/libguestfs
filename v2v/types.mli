@@ -363,7 +363,36 @@ type output_allocation = Sparse | Preallocated
 
 (** {2 Input object}
 
-    This is subclassed for the various input [-i] options. *)
+    This is subclassed for the various input [-i] options.
+
+    The order of steps is:
+
+{v
+    command line parsing      Input object of right subclass is
+        │                     created depending on ‘-i’ option.
+        │
+        ▼
+    input#precheck            Called very early on, do pre-checks here.
+        │
+        │
+        ▼
+    input#source              Open the source hypervisor connection,
+        │                     read metadata, and fill out and return
+        │                     the ‘Types.source’ structure.
+        ▼
+    conversion                Guest is converted into a local overlay.
+        │
+        │
+        ▼
+    input#adjust_overlay_parameters   Optional method for adjusting
+        │                     QEMU overlay parameters ready for copying
+        │                     (eg. using a larger readahead setting).
+        ▼
+    copying                   Guest data is copied to the target disks
+                              by running ‘qemu-img convert’.
+v}
+
+*)
 
 class virtual input : object
   method precheck : unit -> unit
