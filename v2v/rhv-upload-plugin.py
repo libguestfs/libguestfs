@@ -86,7 +86,8 @@ def find_host(connection):
 
     hosts_service = system_service.hosts_service()
     hosts = hosts_service.list(
-        search="hw_id=%s and datacenter=%s and status=Up" % (vdsm_id, datacenter.name),
+        search="hw_id=%s and datacenter=%s and status=Up"
+               % (vdsm_id, datacenter.name),
         case_sensitive=True,
     )
     if len(hosts) == 0:
@@ -94,8 +95,8 @@ def find_host(connection):
         # - 'hw_id' equals to 'vdsm_id'
         # - Its status is 'Up'
         # - Belongs to the storage domain's datacenter
-        debug("cannot find a running host with hw_id=%r, " \
-              "that belongs to datacenter '%s', " \
+        debug("cannot find a running host with hw_id=%r, " +
+              "that belongs to datacenter '%s', " +
               "using any host" % (vdsm_id, datacenter.name))
         return None
 
