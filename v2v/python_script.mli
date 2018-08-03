@@ -44,7 +44,7 @@ with open(sys.argv[1], 'r') as fp:
 v}
 
     The extra arguments, if any, are passed verbatim on the
-    script command line in [sys.argv[2..]].
+    script command line in [sys.argv[2:]].
  *)
 
 val path : script -> string
