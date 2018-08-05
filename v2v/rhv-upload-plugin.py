@@ -120,8 +120,8 @@ def find_host(connection):
         # - 'hw_id' equals to 'vdsm_id'
         # - Its status is 'Up'
         # - Belongs to the storage domain's datacenter
-        debug("cannot find a running host with hw_id=%r, " +
-              "that belongs to datacenter '%s', " +
+        debug("cannot find a running host with hw_id=%r, "
+              "that belongs to datacenter '%s', "
               "using any host" % (vdsm_id, datacenter.name))
         return None
 
@@ -216,15 +216,15 @@ def open(readonly):
         if transfer.phase != types.ImageTransferPhase.INITIALIZING:
             break
         if time.time() > endt:
-            raise RuntimeError("timed out waiting for transfer status " +
+            raise RuntimeError("timed out waiting for transfer status "
                                "!= INITIALIZING")
 
     # Now we have permission to start the transfer.
     if params['rhv_direct']:
         if transfer.transfer_url is None:
-            raise RuntimeError("direct upload to host not supported, " +
-                               "requires ovirt-engine >= 4.2 and only works " +
-                               "when virt-v2v is run within the oVirt/RHV " +
+            raise RuntimeError("direct upload to host not supported, "
+                               "requires ovirt-engine >= 4.2 and only works "
+                               "when virt-v2v is run within the oVirt/RHV "
                                "environment, eg. on an oVirt node.")
         destination_url = urlparse(transfer.transfer_url)
     else:
@@ -534,7 +534,7 @@ def close(h):
                 time.sleep(1)
                 tmp = transfer_service.get()
                 if time.time() > endt:
-                    raise RuntimeError("timed out waiting for transfer " +
+                    raise RuntimeError("timed out waiting for transfer "
                                        "to finalize")
         except sdk.NotFoundError:
             pass
