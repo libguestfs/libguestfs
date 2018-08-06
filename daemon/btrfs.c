@@ -1683,12 +1683,6 @@ do_btrfs_balance_status (const char *path)
 
   nlines = guestfs_int_count_strings (lines);
 
-  ret = calloc (1, sizeof *ret);
-  if (ret == NULL) {
-    reply_with_perror ("calloc");
-    return NULL;
-  }
-
   /* Output of `btrfs balance status' is like:
    *
    * running:
@@ -1708,6 +1702,12 @@ do_btrfs_balance_status (const char *path)
    */
   if (nlines < 1) {
     reply_with_perror ("No balance status output");
+    return NULL;
+  }
+
+  ret = calloc (1, sizeof *ret);
+  if (ret == NULL) {
+    reply_with_perror ("calloc");
     return NULL;
   }
 
