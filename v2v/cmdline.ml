@@ -347,6 +347,7 @@ read the man page virt-v2v(1).
     printf "vdsm-compat-option\n";
     printf "in-place\n";
     printf "io/oo\n";
+    printf "mac-option\n";
     List.iter (printf "input:%s\n") (Modules_list.input_modules ());
     List.iter (printf "output:%s\n") (Modules_list.output_modules ());
     List.iter (printf "convert:%s\n") (Modules_list.convert_modules ());
