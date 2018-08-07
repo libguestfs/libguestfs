@@ -70,7 +70,7 @@ sds_service = system_service.storage_domains_service()
 sd = sds_service.list(search=("name=%s" % params['output_storage']))[0]
 sd_uuid = sd.id
 
-ovf.replace("@SD_UUID@", sd_uuid)
+ovf = ovf.replace("@SD_UUID@", sd_uuid)
 
 vms_service = system_service.vms_service()
 vm = vms_service.add(
