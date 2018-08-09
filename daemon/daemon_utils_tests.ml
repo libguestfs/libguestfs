@@ -37,6 +37,8 @@ let () =
 let () =
   assert (split_device_partition "/dev/sda1" = ("sda", 1));
   assert (split_device_partition "/dev/sdb" = ("sdb", 0));
+  assert (split_device_partition "/dev/sdc1" = ("sdc", 1));
+  assert (split_device_partition "/dev/sdp1" = ("sdp", 1));  (* RHBZ#1611690 *)
   assert (split_device_partition "/dev/ubda9" = ("ubda", 9));
   assert (split_device_partition "/dev/md0p1" = ("md0", 1))
   (* XXX The function is buggy:
