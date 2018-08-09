@@ -385,6 +385,16 @@ let parse_libvirt_xml ?conn xml =
         let target_dev = xpath_string "target/@dev" in
         match target_dev with
         | None -> None
+        | Some dev when String.is_prefix dev "sr" ->
+           (* "srN" devices are found mostly in the physical XML written by
+            * virt-p2v.
+            *)
+           let name = String.sub dev 2 (String.length dev - 2) in
+           (try Some (int_of_string name)
+            with Failure _ ->
+              warning (f_"could not parse device name ‘%s’ from the source libvirt XML") dev;
+              None
+           )
         | Some dev ->
            let rec loop = function
              | [] ->
