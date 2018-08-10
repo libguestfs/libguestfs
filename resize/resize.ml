@@ -170,7 +170,7 @@ let main () =
     let expand = ref "" in
     let set_expand s =
       if s = "" then error (f_"empty --expand option")
-      else if !expand <> "" then error (f_"--expand option given twice")
+      else if !expand <> "" then error (f_"--expand option given more than once")
       else expand := s
     in
     let expand_content = ref true in
@@ -186,7 +186,7 @@ let main () =
     let shrink = ref "" in
     let set_shrink s =
       if s = "" then error (f_"empty --shrink option")
-      else if !shrink <> "" then error (f_"--shrink option given twice")
+      else if !shrink <> "" then error (f_"--shrink option given more than once")
       else shrink := s
     in
     let sparse = ref true in

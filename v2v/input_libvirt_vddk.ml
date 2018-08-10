@@ -87,7 +87,7 @@ let parse_input_options options =
         (key, value)
     ) options in
 
-  (* Check no option appears twice. *)
+  (* Check no option appears more than once. *)
   let keys = List.map fst options in
   if List.length keys <> List.length (List.sort_uniq keys) then
     error (f_"-it vddk: duplicate -io options on the command line");

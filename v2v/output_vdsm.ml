@@ -69,11 +69,11 @@ let parse_output_options options =
        error (f_"-o vdsm: unknown vdsm-compat level ‘%s’") v
     | "vdsm-vm-uuid", v ->
        if !vm_uuid <> None then
-         error (f_"-o vdsm: -oo vdsm-vm-uuid set twice");
+         error (f_"-o vdsm: -oo vdsm-vm-uuid set more than once");
        vm_uuid := Some v;
     | "vdsm-ovf-output", v ->
        if !ovf_output <> None then
-         error (f_"-o vdsm: -oo vdsm-ovf-output set twice");
+         error (f_"-o vdsm: -oo vdsm-ovf-output set more than once");
        ovf_output := Some v;
     | "vdsm-ovf-flavour", v ->
        ovf_flavour := Create_ovf.ovf_flavour_of_string v

@@ -53,11 +53,11 @@ let parse_output_options options =
     function
     | "rhv-cafile", v ->
        if !rhv_cafile <> None then
-         error (f_"-o rhv-upload: -oo rhv-cafile set twice");
+         error (f_"-o rhv-upload: -oo rhv-cafile set more than once");
        rhv_cafile := Some v
     | "rhv-cluster", v ->
        if !rhv_cluster <> None then
-         error (f_"-o rhv-upload: -oo rhv-cluster set twice");
+         error (f_"-o rhv-upload: -oo rhv-cluster set more than once");
        rhv_cluster := Some v
     | "rhv-direct", "" -> rhv_direct := true
     | "rhv-direct", v -> rhv_direct := bool_of_string v
