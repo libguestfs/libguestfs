@@ -187,14 +187,14 @@ Specify that the input or output tarball is gzip-compressed.
 
 sub set_mode_x
 {
-    die __"virt-tar: extract/upload mode specified twice on the command line\n"
+    die __"virt-tar: extract/upload mode specified more than once on the command line\n"
         if $mode;
     $mode = "x";
 }
 
 sub set_mode_u
 {
-    die __"virt-tar: extract/upload mode specified twice on the command line\n"
+    die __"virt-tar: extract/upload mode specified more than once on the command line\n"
         if $mode;
     $mode = "u";
 }

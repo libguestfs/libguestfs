@@ -496,7 +496,7 @@ PREINIT:
         ) optargs;
         pr "croak (\"unknown optional argument '%%s'\", this_arg);\n";
         pr "        if (optargs_s.bitmask & this_mask)\n";
-        pr "          croak (\"optional argument '%%s' given twice\",\n";
+        pr "          croak (\"optional argument '%%s' given more than once\",\n";
         pr "                 this_arg);\n";
         pr "        optargs_s.bitmask |= this_mask;\n";
         pr "      }\n";

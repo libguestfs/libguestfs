@@ -367,7 +367,7 @@ let generate_fish_run_cmds actions () =
         pr "    }\n";
         pr "\n";
         pr "    if (optargs_s.bitmask & this_mask) {\n";
-        pr "      fprintf (stderr, _(\"%%s: optional argument \\\"%%s\\\" given twice\\n\"),\n";
+        pr "      fprintf (stderr, _(\"%%s: optional argument \\\"%%s\\\" given more than once\\n\"),\n";
         pr "               cmd, this_arg);\n";
         pr "      goto out;\n";
         pr "    }\n";
