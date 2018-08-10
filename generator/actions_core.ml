@@ -210,7 +210,7 @@ this function fails and the C<errno> is set to C<EINVAL>." };
 
   { defaults with
     name = "add_drive"; added = (0, 0, 3);
-    style = RErr, [String (PlainString, "filename")], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"; OString "cachemode"; OString "discard"; OBool "copyonread"];
+    style = RErr, [String (PlainString, "filename")], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"; OString "cachemode"; OString "discard"; OBool "copyonread"; OString "device"];
     once_had_no_optargs = true;
     blocking = false;
     fish_alias = ["add"];

@@ -327,7 +327,10 @@ add_drive (guestfs_h *g, struct backend_direct_data *data,
       append_list ("if=none");
     } end_list ();
     start_list ("-device") {
-      append_list ("scsi-hd");
+      if (drv->device == device_cdrom)
+        append_list ("scsi-cd");
+      else
+        append_list ("scsi-hd");
       append_list_format ("drive=hd%zu", i);
     } end_list ();
   }
@@ -969,7 +972,8 @@ make_appliance_dev (guestfs_h *g)
 
   /* Calculate the index of the drive. */
   ITER_DRIVES (g, i, drv) {
-    if (drv->iface == NULL || STREQ (drv->iface, "ide"))
+    if ((drv->iface == NULL || STREQ (drv->iface, "ide"))
+            && drv->device == device_disk)
       index++;
   }
 

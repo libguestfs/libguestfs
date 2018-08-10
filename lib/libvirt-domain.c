@@ -42,7 +42,7 @@
 #if defined(HAVE_LIBVIRT)
 
 static xmlDocPtr get_domain_xml (guestfs_h *g, virDomainPtr dom);
-static ssize_t for_each_disk (guestfs_h *g, virConnectPtr conn, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, const char *secret, void *data), void *data);
+static ssize_t for_each_disk (guestfs_h *g, virConnectPtr conn, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, const char *secret, const char *device, void *data), void *data);
 static int libvirt_selinux_label (guestfs_h *g, xmlDocPtr doc, char **label_rtn, char **imagelabel_rtn);
 static char *filename_from_pool (guestfs_h *g, virConnectPtr conn, const char *pool_nane, const char *volume_name);
 static bool xpath_object_is_empty (xmlXPathObjectPtr obj);
@@ -169,7 +169,7 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
   return r;
 }
 
-static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, const char *secret, void *data);
+static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, const char *secret, const char *device, void *data);
 static int connect_live (guestfs_h *g, virDomainPtr dom);
 
 enum readonlydisk {
@@ -331,7 +331,7 @@ static int
 add_disk (guestfs_h *g,
           const char *filename, const char *format, int readonly_in_xml,
           const char *protocol, char *const *server, const char *username,
-          const char *secret, void *datavp)
+          const char *secret, const char *device, void *datavp)
 {
   struct add_disk_data *data = datavp;
   /* Copy whole struct so we can make local changes: */
@@ -391,6 +391,11 @@ add_disk (guestfs_h *g,
   if (secret) {
     optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_SECRET_BITMASK;
     optargs.secret = secret;
+  }
+  if (device) {
+    debug (g, "device: %s", device);
+    optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_DEVICE_BITMASK;
+    optargs.device = device;
   }
 
   return guestfs_add_drive_opts_argv (g, filename, &optargs);
@@ -486,7 +491,7 @@ for_each_disk (guestfs_h *g,
                          int readonly,
                          const char *protocol, char *const *server,
                          const char *username, const char *secret,
-                         void *data),
+                         const char *device, void *data),
                void *data)
 {
   size_t i, nr_added = 0, nr_nodes;
@@ -514,9 +519,10 @@ for_each_disk (guestfs_h *g,
   if (nodes != NULL) {
     nr_nodes = nodes->nodeNr;
     for (i = 0; i < nr_nodes; ++i) {
-      CLEANUP_FREE char *type = NULL, *filename = NULL, *format = NULL, *protocol = NULL, *username = NULL, *secret = NULL;
+      CLEANUP_FREE char *type = NULL, *filename = NULL, *format = NULL, *protocol = NULL, *username = NULL, *secret = NULL, *device = NULL;
       CLEANUP_FREE_STRING_LIST char **server = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xptype = NULL;
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xdevice = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpformat = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpreadonly = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpfilename = NULL;
@@ -542,6 +548,12 @@ for_each_disk (guestfs_h *g,
       if (xpath_object_is_empty (xptype))
         continue;               /* no type attribute, skip it */
       type = xpath_object_get_string (doc, xptype);
+
+      xdevice = xmlXPathEvalExpression (BAD_CAST "./@device", xpathCtx);
+      if (!xpath_object_is_empty (xdevice))
+      {
+        device = xpath_object_get_string (doc, xdevice);
+      }
 
       if (STREQ (type, "file")) { /* type = "file" so look at source/@file */
         xpathCtx->node = nodes->nodeTab[i];
@@ -763,7 +775,7 @@ for_each_disk (guestfs_h *g,
           filename = safe_strdup (g, "");
       }
 
-      debug (g, "disk[%zu]: filename: %s", i, filename);
+      debug (g, "disk[%zu]: filename: %s, device: %s", i, filename, device);
 
       /* Get the disk format (may not be set). */
       xpathCtx->node = nodes->nodeTab[i];
@@ -779,7 +791,7 @@ for_each_disk (guestfs_h *g,
         readonly = 1;
 
       if (f)
-        t = f (g, filename, format, readonly, protocol, server, username, secret, data);
+        t = f (g, filename, format, readonly, protocol, server, username, secret, device, data);
       else
         t = 0;
 
