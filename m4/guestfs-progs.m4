@@ -37,7 +37,6 @@ m4_ifdef([AC_PROG_SED],[
 # Define $(AWK).
 AC_PROG_AWK
 
-AC_PROG_LIBTOOL
 AC_PROG_LN_S
 
 dnl Check for cpio which isn't in the default Pardus install amazingly.

@@ -32,6 +32,8 @@ m4_define([HEADING],
 AC_CONFIG_AUX_DIR([build-aux])
 AC_REQUIRE_AUX_FILE([guestfs-test-driver])
 
+AC_USE_SYSTEM_EXTENSIONS
+
 dnl Initialize automake.
 AM_INIT_AUTOMAKE(foreign subdir-objects tar-pax) dnl NB: Do not [quote] this parameter.
 
@@ -39,6 +41,9 @@ m4_ifndef([AM_SILENT_RULES], [m4_define([AM_SILENT_RULES],[])])
 AM_SILENT_RULES([yes]) # make --enable-silent-rules the default.
 
 AC_CONFIG_MACRO_DIR([m4])
+
+dnl Initialize libtool.
+LT_INIT
 
 dnl Stable or development version?
 BRANCH_NUMBER=libguestfs_major.libguestfs_minor
