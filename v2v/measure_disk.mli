@@ -1,5 +1,5 @@
 (* virt-v2v
- * Copyright (C) 2009-2018 Red Hat Inc.
+ * Copyright (C) 2018 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,20 +16,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** Command line argument parsing. *)
+(** Run qemu-img measure on a disk. *)
 
-type cmdline = {
-  compressed : bool;
-  debug_overlays : bool;
-  do_copy : bool;
-  in_place : bool;
-  network_map : Networks.t;
-  output_alloc : Types.output_allocation;
-  output_format : string option;
-  output_name : string option;
-  print_estimate : bool;
-  print_source : bool;
-  root_choice : Types.root_choice;
-}
-
-val parse_cmdline : unit -> cmdline * Types.input * Types.output
+val measure : ?format:string -> string -> int64

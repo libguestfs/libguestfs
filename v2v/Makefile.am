@@ -61,6 +61,7 @@ SOURCES_MLI = \
 	linux.mli \
 	linux_bootloaders.mli \
 	linux_kernels.mli \
+	measure_disk.mli \
 	modules_list.mli \
 	name_from_disk.mli \
 	networks.mli \
@@ -137,6 +138,7 @@ SOURCES_ML = \
 	output_vdsm.ml \
 	inspect_source.ml \
 	target_bus_assignment.ml \
+	measure_disk.ml \
 	networks.ml \
 	cmdline.ml \
 	v2v.ml
@@ -201,6 +203,7 @@ OCAMLCLIBS = \
 	-lqemuopts \
 	$(LIBVIRT_LIBS) \
 	$(LIBXML2_LIBS) \
+	$(JANSSON_LIBS) \
 	$(LIBINTL) \
 	-lgnu
 
@@ -374,6 +377,7 @@ TESTS += \
 	test-v2v-oa-option.sh \
 	test-v2v-of-option.sh \
 	test-v2v-on-option.sh \
+	test-v2v-print-estimate.sh \
 	test-v2v-print-source.sh \
 	test-v2v-sound.sh \
 	$(SLOW_TESTS) \
@@ -525,6 +529,7 @@ EXTRA_DIST += \
 	test-v2v-oa-option.sh \
 	test-v2v-of-option.sh \
 	test-v2v-on-option.sh \
+	test-v2v-print-estimate.sh \
 	test-v2v-print-source.expected \
 	test-v2v-print-source.sh \
 	test-v2v-print-source.xml \
