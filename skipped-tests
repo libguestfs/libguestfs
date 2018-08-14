@@ -43,3 +43,7 @@ export SKIP_TEST820RHBZ912499_PY=1
 
 # ntfsclone is broken in Rawhide (RHBZ#1601146).
 export SKIP_TEST_NTFSCLONE_SH=1
+
+# This breaks often on debug kernels because the kernel runs out of
+# memory.
+export SKIP_TEST_255_DISKS_SH=1
