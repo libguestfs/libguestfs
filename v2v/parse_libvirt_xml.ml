@@ -242,7 +242,7 @@ let parse_libvirt_xml ?conn xml =
   (* Non-removable disk devices. *)
   let disks =
     let get_disks, add_disk =
-      let disks = ref [] and i = ref 0 in
+      let disks = ref [] and i = ref (-1) in
       let get_disks () = List.rev !disks in
       let add_disk qemu_uri format controller p_source =
         incr i;
