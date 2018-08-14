@@ -37,6 +37,7 @@ type cmdline = {
   output_alloc : output_allocation;
   output_format : string option;
   output_name : string option;
+  print_estimate : bool;
   print_source : bool;
   root_choice : root_choice;
 }
@@ -48,6 +49,7 @@ let parse_cmdline () =
   let compressed = ref false in
   let debug_overlays = ref false in
   let do_copy = ref true in
+  let print_estimate = ref false in
   let print_source = ref false in
   let qemu_boot = ref false in
 
@@ -228,6 +230,8 @@ let parse_cmdline () =
                                     s_"Set output storage location";
     [ L"password-file" ], Getopt.String ("file", set_string_option_once "--password-file" password_file),
                                     s_"Use password from file";
+    [ L"print-estimate" ], Getopt.Set print_estimate,
+                                    s_"Estimate size of source and stop";
     [ L"print-source" ], Getopt.Set print_source,
                                     s_"Print source and stop";
     [ L"root" ],     Getopt.String ("ask|... ", set_root_choice),
@@ -321,6 +325,7 @@ read the man page virt-v2v(1).
   let output_password = !output_password in
   let output_storage = !output_storage in
   let password_file = !password_file in
+  let print_estimate = !print_estimate in
   let print_source = !print_source in
   let qemu_boot = !qemu_boot in
   let root_choice = !root_choice in
@@ -345,6 +350,12 @@ read the man page virt-v2v(1).
     List.iter (pr "ovf:%s\n") Create_ovf.ovf_flavours;
     exit 0
   | _, _ -> ()
+  );
+
+  (* Some options cannot be used with --in-place. *)
+  if in_place then (
+    if print_estimate then
+      error (f_"--in-place and --print-estimate cannot be used together")
   );
 
   (* Input transport affects whether some input options should or
@@ -627,7 +638,6 @@ read the man page virt-v2v(1).
   {
     compressed; debug_overlays; do_copy; in_place; network_map;
     output_alloc; output_format; output_name;
-    print_source;
-    root_choice;
+    print_estimate; print_source; root_choice;
   },
   input, output

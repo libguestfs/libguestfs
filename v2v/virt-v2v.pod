@@ -668,6 +668,37 @@ through a file.  Note the file should contain the whole password,
 B<without any trailing newline>, and for security the file should have
 mode C<0600> so that others cannot read it.
 
+=item B<--print-estimate>
+
+Print the estimated size of the data which will be copied from the
+source disk(s) and stop.  One number (the size in bytes) is printed
+per disk, and a total:
+
+ $ virt-v2v --print-estimate
+ ...
+ disk 1: 100000
+ disk 2: 200000
+ total: 300000
+
+With the I<--machine-readable> option you get JSON output which can be
+directed into a file or elsewhere:
+
+ $ virt-v2v --print-estimate --machine-readable=file:estimates
+ ...
+ $ cat estimates
+ {
+  "disks": [ 100000, 200000 ],
+  "total": 300000
+ }
+
+When using this option you must specify an output mode.  This is
+because virt-v2v has to perform the conversion in order to print the
+estimate, and the conversion depends on the output mode.  Using
+I<-o null> should be safe for most purposes.
+
+When this option is used along with I<--machine-readable> you can
+direct the output to an alternate file.
+
 =item B<--print-source>
 
 Print information about the source guest and stop.  This option is
