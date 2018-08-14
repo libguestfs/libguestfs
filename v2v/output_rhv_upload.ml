@@ -383,13 +383,13 @@ If the messages above are not sufficient to diagnose the problem then add the â€
      *)
     let nr_disks = List.length targets in
     let image_uuids =
-      List.map (
-        fun t ->
+      List.mapi (
+        fun i t ->
           let id = t.target_overlay.ov_source.s_disk_id in
           let diskid_file = diskid_file_of_id id in
           if not (wait_for_file diskid_file finalization_timeout) then
             error (f_"transfer of disk %d/%d failed, see earlier error messages")
-                  (id+1) nr_disks;
+                  (i+1) nr_disks;
           let diskid = read_whole_file diskid_file in
           diskid
       ) targets in
