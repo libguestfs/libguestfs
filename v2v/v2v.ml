@@ -31,6 +31,7 @@ open Utils
 open Cmdline
 
 module G = Guestfs
+module IntSet = Set.Make(struct let compare = compare type t = int end)
 
 (* Conversion mode, either normal (copying) or [--in-place]. *)
 type conversion_mode =
@@ -219,10 +220,15 @@ and open_source cmdline input =
 
   if source.s_disks = [] then
     error (f_"source has no hard disks!");
-  List.iter (
-    fun disk ->
-      assert (disk.s_qemu_uri <> "");
-  ) source.s_disks;
+  let () =
+    let ids = ref IntSet.empty in
+    List.iter (
+      fun { s_qemu_uri; s_disk_id } ->
+        assert (s_qemu_uri <> "");
+        (* Check s_disk_id are all unique. *)
+        assert (not (IntSet.mem s_disk_id !ids));
+        ids := IntSet.add s_disk_id !ids
+    ) source.s_disks in
 
   source
 
