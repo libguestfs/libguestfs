@@ -1596,6 +1596,35 @@ VDDK imports require a feature added in libvirt E<ge> 3.7.
 
 =back
 
+=head2 VDDK: ESXi NFC SERVICE MEMORY LIMITS
+
+In the verbose log you may see errors like:
+
+ nbdkit: vddk[3]: error: [NFC ERROR] NfcFssrvrProcessErrorMsg:
+ received NFC error 5 from server: Failed to allocate the
+ requested 2097176 bytes
+
+This seems especially common when there are multiple parallel
+connections open to the VMware server.
+
+These can be caused by resource limits set on the VMware server.  You
+can increase the limit for the NFC service by editing
+F</etc/vmware/hostd/config.xml> and adjusting the
+C<E<lt>maxMemoryE<gt>> setting:
+
+ <nfcsvc>
+   <path>libnfcsvc.so</path>
+   <enabled>true</enabled>
+   <maxMemory>50331648</maxMemory>
+   <maxStreamMemory>10485760</maxStreamMemory>
+ </nfcsvc>
+
+and restarting the C<hostd> service:
+
+ # /etc/init.d/hostd restart
+
+For more information see L<https://bugzilla.redhat.com/1614276>.
+
 =head2 VDDK: URI
 
 Construct the correct C<vpx://> (for vCenter) or C<esx://> (for ESXi)
