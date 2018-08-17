@@ -140,7 +140,7 @@ let get_index ~downloader ~sigchecker ?(template = false) { Sources.uri; proxy }
               match detect_file_type filepath with
               | `Unknown ->
                 let infos = Utils.get_image_infos filepath in
-                Yajl.object_get_number "virtual-size" infos
+                JSON_parser.object_get_number "virtual-size" infos
               | `XZ | `GZip | `Tar | ` Zip ->
                 eprintf (f_"%s: cannot determine the virtual size of %s due to compression")
                         prog filepath;

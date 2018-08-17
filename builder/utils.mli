@@ -29,9 +29,9 @@ and revision =
 val string_of_revision : revision -> string
 (** Convert a {!revision} into a string. *)
 
-val get_image_infos : string -> Yajl.yajl_val
+val get_image_infos : string -> JSON_parser.json_parser_val
 (** [get_image_infos path] Run qemu-img info on the image pointed at
-    path as YAJL tree. *)
+    path as JSON tree. *)
 
 val increment_revision : revision -> revision
 (** Add one to the revision number *)

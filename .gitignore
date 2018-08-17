@@ -113,7 +113,6 @@ Makefile.in
 /builder/virt-index-validate
 /builder/virt-index-validate.1
 /builder/*.xz
-/builder/yajl_tests
 /cat/stamp-virt-*.pod
 /cat/virt-cat
 /cat/virt-cat.1
@@ -146,6 +145,7 @@ Makefile.in
 /common/mltools/.depend
 /common/mltools/getopt_tests
 /common/mltools/JSON_tests
+/common/mltools/JSON_parser_tests
 /common/mltools/tools_utils_tests
 /common/mltools/oUnit-*
 /common/mlutils/.depend

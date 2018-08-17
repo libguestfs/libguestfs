@@ -1,5 +1,5 @@
-(* virt-builder
- * Copyright (C) 2015 Red Hat Inc.
+(* JSON parser
+ * Copyright (C) 2015-2018 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,19 +20,19 @@ open Std_utils
 open Tools_utils
 open Common_gettext.Gettext
 
-type yajl_val =
-| Yajl_null
-| Yajl_string of string
-| Yajl_number of int64
-| Yajl_double of float
-| Yajl_object of (string * yajl_val) array
-| Yajl_array of yajl_val array
-| Yajl_bool of bool
+type json_parser_val =
+| JSON_parser_null
+| JSON_parser_string of string
+| JSON_parser_number of int64
+| JSON_parser_double of float
+| JSON_parser_object of (string * json_parser_val) array
+| JSON_parser_array of json_parser_val array
+| JSON_parser_bool of bool
 
-external yajl_tree_parse : string -> yajl_val = "virt_builder_yajl_tree_parse"
+external json_parser_tree_parse : string -> json_parser_val = "virt_builder_json_parser_tree_parse"
 
 let object_find_optional key = function
-  | Yajl_object o ->
+  | JSON_parser_object o ->
     (match List.filter (fun (k, _) -> k = key) (Array.to_list o) with
     | [(k, v)] -> Some v
     | [] -> None
@@ -46,27 +46,27 @@ let object_find key yv =
 
 let object_get_string key yv =
   match object_find key yv with
-  | Yajl_string s -> s
+  | JSON_parser_string s -> s
   | _ -> error (f_"the value for the key ‘%s’ is not a string") key
 
 let object_find_object key yv =
   match object_find key yv with
-  | Yajl_object _ as o -> o
+  | JSON_parser_object _ as o -> o
   | _ -> error (f_"the value for the key ‘%s’ is not an object") key
 
 let object_find_objects fn = function
-  | Yajl_object o -> List.filter_map fn (Array.to_list o)
+  | JSON_parser_object o -> List.filter_map fn (Array.to_list o)
   | _ -> error (f_"the value is not an object")
 
 let object_get_object key yv =
   match object_find_object key yv with
-  | Yajl_object o -> o
+  | JSON_parser_object o -> o
   | _ -> assert false (* object_find_object already errors out. *)
 
 let object_get_number key yv =
   match object_find key yv with
-  | Yajl_number n -> n
-  | Yajl_double d -> Int64.of_float d
+  | JSON_parser_number n -> n
+  | JSON_parser_double d -> Int64.of_float d
   | _ -> error (f_"the value for the key ‘%s’ is not an integer") key
 
 let objects_get_string key yvs =
@@ -74,7 +74,7 @@ let objects_get_string key yvs =
     | [] -> None
     | x :: xs ->
       (match object_find_optional key x with
-      | Some (Yajl_string s) -> Some s
+      | Some (JSON_parser_string s) -> Some s
       | Some _ -> error (f_"the value for key ‘%s’ is not a string as expected") key
       | None -> loop xs
       )

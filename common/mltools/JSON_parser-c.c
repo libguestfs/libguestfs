@@ -1,5 +1,5 @@
-/* virt-builder
- * Copyright (C) 2015 Red Hat Inc.
+/* JSON parser
+ * Copyright (C) 2015-2018 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
 
 #define Val_none (Val_int (0))
 
-value virt_builder_yajl_tree_parse (value stringv);
+value virt_builder_json_parser_tree_parse (value stringv);
 
 static value
 convert_json_t (json_t *val, int level)
@@ -95,7 +95,7 @@ convert_json_t (json_t *val, int level)
 }
 
 value
-virt_builder_yajl_tree_parse (value stringv)
+virt_builder_json_parser_tree_parse (value stringv)
 {
   CAMLparam1 (stringv);
   CAMLlocal1 (rv);

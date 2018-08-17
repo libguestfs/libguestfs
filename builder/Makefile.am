@@ -45,8 +45,7 @@ EXTRA_DIST = \
 	test-virt-index-validate-good-4 \
 	virt-builder.pod \
 	virt-builder-repository.pod \
-	virt-index-validate.pod \
-	yajl_tests.ml
+	virt-index-validate.pod
 
 SOURCES_MLI = \
 	builder.mli \
@@ -67,11 +66,9 @@ SOURCES_MLI = \
 	sigchecker.mli \
 	simplestreams_parser.mli \
 	sources.mli \
-	utils.mli \
-	yajl.mli
+	utils.mli
 
 SOURCES_ML = \
-	yajl.ml \
 	utils.ml \
 	osinfo_config.ml \
 	osinfo.ml \
@@ -97,11 +94,9 @@ SOURCES_C = \
 	index-parse.c \
 	index-parser-c.c \
 	pxzcat-c.c \
-	setlocale-c.c \
-	yajl-c.c
+	setlocale-c.c
 
 REPOSITORY_SOURCES_ML = \
-	yajl.ml \
 	utils.ml \
 	index.ml \
 	cache.ml \
@@ -122,15 +117,13 @@ REPOSITORY_SOURCES_MLI = \
 	index_parser.mli \
 	ini_reader.mli \
 	sigchecker.mli \
-	sources.mli \
-	yajl.mli
+	sources.mli
 
 REPOSITORY_SOURCES_C = \
 	index-scan.c \
 	index-struct.c \
 	index-parse.c \
-	index-parser-c.c \
-	yajl-c.c
+	index-parser-c.c
 
 man_MANS =
 noinst_DATA =
@@ -156,8 +149,7 @@ virt_builder_CFLAGS = \
 	-Wno-unused-macros \
 	$(LIBLZMA_CFLAGS) \
 	$(LIBTINFO_CFLAGS) \
-	$(LIBXML2_CFLAGS) \
-	$(JANSSON_CFLAGS)
+	$(LIBXML2_CFLAGS)
 
 BOBJECTS = $(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
@@ -175,8 +167,7 @@ virt_builder_repository_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	-Wno-unused-macros \
 	$(LIBTINFO_CFLAGS) \
-	$(LIBXML2_CFLAGS) \
-	$(YAJL_CFLAGS)
+	$(LIBXML2_CFLAGS)
 REPOSITORY_BOBJECTS = $(REPOSITORY_SOURCES_ML:.ml=.cmo)
 REPOSITORY_XOBJECTS = $(REPOSITORY_BOBJECTS:.cmo=.cmx)
 
@@ -323,22 +314,13 @@ fedora.qcow2.xz: fedora.qcow2
 	xz --best -c $< > $@-t
 	mv $@-t $@
 
-yajl_tests_SOURCES = yajl-c.c
-yajl_tests_CPPFLAGS = $(virt_builder_CPPFLAGS)
-yajl_tests_BOBJECTS = \
-	yajl.cmo \
-	yajl_tests.cmo
-yajl_tests_XOBJECTS = $(yajl_tests_BOBJECTS:.cmo=.cmx)
-
 index_parser_tests_SOURCES = \
 	index-scan.c \
 	index-struct.c \
 	index-parser-c.c \
-	index-parse.c \
-	yajl-c.c
+	index-parse.c
 index_parser_tests_CPPFLAGS = $(virt_builder_CPPFLAGS)
 index_parser_tests_BOBJECTS = \
-	yajl.cmo \
 	utils.cmo \
 	index.cmo \
 	cache.cmo \
@@ -351,31 +333,12 @@ index_parser_tests_XOBJECTS = $(index_parser_tests_BOBJECTS:.cmo=.cmx)
 
 # Can't call the following as <test>_OBJECTS because automake gets confused.
 if HAVE_OCAMLOPT
-yajl_tests_THEOBJECTS = $(yajl_tests_XOBJECTS)
-yajl_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
-
 index_parser_tests_THEOBJECTS = $(index_parser_tests_XOBJECTS)
 index_parser_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 else
-yajl_tests_THEOBJECTS = $(yajl_tests_BOBJECTS)
-yajl_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
-
 index_parser_tests_THEOBJECTS = $(index_parser_tests_BOBJECTS)
 index_parser_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 endif
-
-yajl_tests_DEPENDENCIES = \
-	$(yajl_tests_THEOBJECTS) \
-	../common/mlpcre/mlpcre.$(MLARCHIVE) \
-	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
-	../common/mlutils/mlcutils.$(MLARCHIVE) \
-	../common/mltools/mltools.$(MLARCHIVE) \
-	../customize/customize.$(MLARCHIVE) \
-	$(top_srcdir)/ocaml-link.sh
-yajl_tests_LINK = \
-	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
-	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) $(OCAMLLINKFLAGS) \
-	  $(yajl_tests_THEOBJECTS) -o $@
 
 index_parser_tests_DEPENDENCIES = \
 	$(index_parser_tests_THEOBJECTS) \
@@ -400,8 +363,8 @@ if ENABLE_APPLIANCE
 TESTS += test-virt-builder.sh
 endif ENABLE_APPLIANCE
 if HAVE_OCAML_PKG_OUNIT
-check_PROGRAMS += yajl_tests index_parser_tests
-TESTS += yajl_tests index_parser_tests
+check_PROGRAMS += index_parser_tests
+TESTS += index_parser_tests
 endif
 
 check-valgrind:

@@ -18,8 +18,6 @@ builder/sigchecker.ml
 builder/simplestreams_parser.ml
 builder/sources.ml
 builder/utils.ml
-builder/yajl.ml
-builder/yajl_tests.ml
 common/mlaugeas/augeas.ml
 common/mlgettext/common_gettext.ml
 common/mlpcre/PCRE.ml
@@ -31,6 +29,8 @@ common/mlstdutils/std_utils_tests.ml
 common/mlstdutils/stringMap.ml
 common/mlstdutils/stringSet.ml
 common/mltools/JSON.ml
+common/mltools/JSON_parser.ml
+common/mltools/JSON_parser_tests.ml
 common/mltools/JSON_tests.ml
 common/mltools/URI.ml
 common/mltools/checksums.ml
