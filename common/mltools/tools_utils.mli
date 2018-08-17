@@ -101,6 +101,9 @@ val run_commands : ?echo_cmd:bool -> (string list * Unix.file_descr option * Uni
 val run_command : ?echo_cmd:bool -> ?stdout_chan:Unix.file_descr -> ?stderr_chan:Unix.file_descr -> string list -> int
 (** Run an external command without using a shell, and return its exit code.
 
+    If [stdout_chan] or [stderr_chan] is specified, the file descriptor
+    is automatically closed after executing the command.
+
     [echo_cmd] specifies whether output the full command on verbose
     mode, and it's on by default. *)
 
