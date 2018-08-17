@@ -152,7 +152,7 @@ let compress_to file outdir =
   let cmd = [ "xz"; "-f"; "--best"; "--block-size=16777216"; "-c"; file ] in
   let file_flags = [ Unix.O_WRONLY; Unix.O_CREAT; Unix.O_TRUNC; ] in
   let outfd = Unix.openfile outimg file_flags 0o666 in
-  let res = run_command cmd ~stdout_chan:outfd in
+  let res = run_command cmd ~stdout_fd:outfd in
   if res <> 0 then
     error (f_"‘xz’ command failed");
   outimg

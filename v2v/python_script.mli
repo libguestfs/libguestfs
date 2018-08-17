@@ -29,7 +29,7 @@ val create : ?name:string -> string -> script
     [Some_source.code] where [some_source.ml] is generated from
     the Python file by [v2v/embed.sh] (see also [v2v/Makefile.am]). *)
 
-val run_command : ?echo_cmd:bool -> ?stdout_chan:Unix.file_descr -> ?stderr_chan:Unix.file_descr -> script -> JSON.doc -> string list -> int
+val run_command : ?echo_cmd:bool -> ?stdout_fd:Unix.file_descr -> ?stderr_fd:Unix.file_descr -> script -> JSON.doc -> string list -> int
 (** [run_command script params args] is a wrapper around
     {!Tools_utils.run_command} which runs the Python script with the
     supplied list of JSON parameters and the list of extra arguments.
