@@ -145,8 +145,7 @@ SOURCES_C = \
 	libvirt_utils-c.c \
 	qemuopts-c.c
 
-# These files are generated and contain rhv-upload-*.py embedded as an
-# OCaml string.
+# These files are generated and contain *.py embedded as an OCaml string.
 output_rhv_upload_createvm_source.ml: $(srcdir)/rhv-upload-createvm.py
 	$(srcdir)/embed.sh code $^ $@
 output_rhv_upload_plugin_source.ml: $(srcdir)/rhv-upload-plugin.py
@@ -581,7 +580,10 @@ v2v_unit_tests_LINK = \
 	  $(v2v_unit_tests_THEOBJECTS) -o $@
 
 # Dependencies.
-.depend: $(srcdir)/*.mli $(srcdir)/*.ml output_rhv_upload_createvm_source.ml output_rhv_upload_plugin_source.ml output_rhv_upload_precheck_source.ml
+.depend: \
+	$(srcdir)/*.mli \
+	$(srcdir)/*.ml \
+	output_rhv_upload_*_source.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 
