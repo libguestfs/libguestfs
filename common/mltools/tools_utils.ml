@@ -277,8 +277,8 @@ let rec run_commands ?(echo_cmd = true) cmds =
   let res = Array.make (List.length cmds) 0 in
   let pids =
     List.mapi (
-      fun i (args, stdout_chan, stderr_chan) ->
-        let run_res = do_run args ?stdout_chan ?stderr_chan in
+      fun i (args, stdout_fd, stderr_fd) ->
+        let run_res = do_run args ?stdout_fd ?stderr_fd in
         match run_res with
         | Either (pid, app, outfd, errfd) ->
           Some (i, pid, app, outfd, errfd)
@@ -304,8 +304,8 @@ let rec run_commands ?(echo_cmd = true) cmds =
   done;
   Array.to_list res
 
-and run_command ?(echo_cmd = true) ?stdout_chan ?stderr_chan args =
-  let run_res = do_run args ~echo_cmd ?stdout_chan ?stderr_chan in
+and run_command ?(echo_cmd = true) ?stdout_fd ?stderr_fd args =
+  let run_res = do_run args ~echo_cmd ?stdout_fd ?stderr_fd in
   match run_res with
   | Either (pid, app, outfd, errfd) ->
     let _, stat = Unix.waitpid [] pid in
@@ -313,7 +313,7 @@ and run_command ?(echo_cmd = true) ?stdout_chan ?stderr_chan args =
   | Or code ->
     code
 
-and do_run ?(echo_cmd = true) ?stdout_chan ?stderr_chan args =
+and do_run ?(echo_cmd = true) ?stdout_fd ?stderr_fd args =
   let app = List.hd args in
   let get_fd default = function
     | None ->
@@ -326,13 +326,13 @@ and do_run ?(echo_cmd = true) ?stdout_chan ?stderr_chan args =
     let app =
       if Filename.is_relative app then which app
       else (Unix.access app [Unix.X_OK]; app) in
-    let outfd = get_fd Unix.stdout stdout_chan in
-    let errfd = get_fd Unix.stderr stderr_chan in
+    let outfd = get_fd Unix.stdout stdout_fd in
+    let errfd = get_fd Unix.stderr stderr_fd in
     if echo_cmd then
       debug "%s" (stringify_args args);
     let pid = Unix.create_process app (Array.of_list args) Unix.stdin
                 outfd errfd in
-    Either (pid, app, stdout_chan, stderr_chan)
+    Either (pid, app, stdout_fd, stderr_fd)
   with
   | Executable_not_found _ ->
     Or 127
