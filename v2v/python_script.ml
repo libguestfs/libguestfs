@@ -41,13 +41,13 @@ let create ?(name = "script.py") code =
   with_open_out path (fun chan -> output_string chan code);
   { tmpdir; path }
 
-let run_command ?echo_cmd ?stdout_chan ?stderr_chan
+let run_command ?echo_cmd ?stdout_fd ?stderr_fd
                 { tmpdir; path } params args =
   let param_file = tmpdir // sprintf "params%d.json" (unique ()) in
   with_open_out
     param_file
     (fun chan -> output_string chan (JSON.string_of_doc params));
-  Tools_utils.run_command ?echo_cmd ?stdout_chan ?stderr_chan
+  Tools_utils.run_command ?echo_cmd ?stdout_fd ?stderr_fd
                           (python :: path :: param_file :: args)
 
 let path { path } = path
