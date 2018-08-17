@@ -23,6 +23,7 @@ EXTRA_DIST = \
 	$(SOURCES_C) \
 	getopt_tests.ml \
 	JSON_tests.ml \
+	JSON_parser_tests.ml \
 	test-getopt.sh \
 	tools_utils_tests.ml
 
@@ -31,6 +32,7 @@ SOURCES_MLI = \
 	curl.mli \
 	getopt.mli \
 	JSON.mli \
+	JSON_parser.mli \
 	planner.mli \
 	regedit.mli \
 	registry.mli \
@@ -47,6 +49,7 @@ SOURCES_ML = \
 	registry.ml \
 	regedit.ml \
 	JSON.ml \
+	JSON_parser.ml \
 	curl.ml \
 	checksums.ml \
 	xpath_helpers.ml \
@@ -57,6 +60,7 @@ SOURCES_C = \
 	../options/keys.c \
 	../options/uri.c \
 	getopt-c.c \
+	JSON_parser-c.c \
 	tools_utils-c.c \
 	uri-c.c
 
@@ -94,6 +98,7 @@ libmltools_a_CPPFLAGS = \
 libmltools_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
+	$(JANSSON_CFLAGS) \
 	-fPIC
 
 BOBJECTS = $(SOURCES_ML:.ml=.cmo)
@@ -128,6 +133,7 @@ OCAMLCLIBS = \
 	$(LIBCRYPT_LIBS) \
 	$(LIBVIRT_LIBS) \
 	$(LIBXML2_LIBS) \
+	$(JANSSON_LIBS) \
 	$(LIBINTL) \
 	-lgnu
 
@@ -169,6 +175,16 @@ JSON_tests_SOURCES = dummy.c
 JSON_tests_BOBJECTS = JSON_tests.cmo
 JSON_tests_XOBJECTS = $(JSON_tests_BOBJECTS:.cmo=.cmx)
 
+JSON_parser_tests_SOURCES = dummy.c
+JSON_parser_tests_CPPFLAGS = \
+	-I . \
+	-I$(top_builddir) \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/lib
+JSON_parser_tests_BOBJECTS = \
+	JSON_parser_tests.cmo
+JSON_parser_tests_XOBJECTS = $(JSON_parser_tests_BOBJECTS:.cmo=.cmx)
+
 # Can't call the following as <test>_OBJECTS because automake gets confused.
 if !HAVE_OCAMLOPT
 tools_utils_tests_THEOBJECTS = $(tools_utils_tests_BOBJECTS)
@@ -179,6 +195,9 @@ getopt_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 
 JSON_tests_THEOBJECTS = $(JSON_tests_BOBJECTS)
 JSON_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+
+JSON_parser_tests_THEOBJECTS = $(JSON_parser_tests_BOBJECTS)
+JSON_parser_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 else
 tools_utils_tests_THEOBJECTS = $(tools_utils_tests_XOBJECTS)
 tools_utils_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
@@ -188,6 +207,9 @@ getopt_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 
 JSON_tests_THEOBJECTS = $(JSON_tests_XOBJECTS)
 JSON_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+
+JSON_parser_tests_THEOBJECTS = $(JSON_parser_tests_XOBJECTS)
+JSON_parser_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 endif
 
 OCAMLLINKFLAGS = \
@@ -237,6 +259,19 @@ JSON_tests_LINK = \
 	  $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
 	  $(JSON_tests_THEOBJECTS) -o $@
 
+JSON_parser_tests_DEPENDENCIES = \
+	$(JSON_parser_tests_THEOBJECTS) \
+	../mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../mlgettext/mlgettext.$(MLARCHIVE) \
+	../mlpcre/mlpcre.$(MLARCHIVE) \
+	$(MLTOOLS_CMA) \
+	$(top_srcdir)/ocaml-link.sh
+JSON_parser_tests_LINK = \
+	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \
+	  $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
+	  $(JSON_parser_tests_THEOBJECTS) -o $@
+
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
@@ -245,8 +280,8 @@ check_PROGRAMS = \
 	getopt_tests
 
 if HAVE_OCAML_PKG_OUNIT
-check_PROGRAMS += JSON_tests tools_utils_tests
-TESTS += JSON_tests tools_utils_tests
+check_PROGRAMS += JSON_tests JSON_parser_tests tools_utils_tests
+TESTS += JSON_tests JSON_parser_tests tools_utils_tests
 endif
 
 check-valgrind:

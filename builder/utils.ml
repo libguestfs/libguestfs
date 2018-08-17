@@ -43,4 +43,4 @@ let get_image_infos filepath =
   let qemuimg_cmd = "qemu-img info --output json " ^ quote filepath in
   let lines = external_command qemuimg_cmd in
   let line = String.concat "\n" lines in
-  Yajl.yajl_tree_parse line
+  JSON_parser.json_parser_tree_parse line

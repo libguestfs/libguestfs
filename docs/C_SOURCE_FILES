@@ -5,7 +5,6 @@ builder/index-struct.h
 builder/index-validate.c
 builder/pxzcat-c.c
 builder/setlocale-c.c
-builder/yajl-c.c
 cat/cat.c
 cat/filesystems.c
 cat/log.c
@@ -21,6 +20,7 @@ common/mlpcre/dummy.c
 common/mlpcre/pcre-c.c
 common/mlprogress/progress-c.c
 common/mlstdutils/dummy.c
+common/mltools/JSON_parser-c.c
 common/mltools/dummy.c
 common/mltools/getopt-c.c
 common/mltools/tools_utils-c.c
@@ -62,6 +62,8 @@ common/utils/cleanups.h
 common/utils/gnulib-cleanups.c
 common/utils/guestfs-utils.h
 common/utils/libxml2-cleanups.c
+common/utils/libxml2-utils.c
+common/utils/libxml2-utils.h
 common/utils/utils.c
 common/visit/visit.c
 common/visit/visit.h

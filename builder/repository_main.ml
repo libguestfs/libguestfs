@@ -22,7 +22,7 @@ open Tools_utils
 open Unix_utils
 open Getopt.OptionName
 open Utils
-open Yajl
+open JSON_parser
 open Xpath_helpers
 
 open Printf

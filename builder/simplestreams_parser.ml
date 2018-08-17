@@ -20,7 +20,7 @@ open Std_utils
 open Tools_utils
 open Common_gettext.Gettext
 
-open Yajl
+open JSON_parser
 open Utils
 
 open Printf
@@ -44,7 +44,7 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
         | Some f -> f
       ) else
         tmpfile in
-    yajl_tree_parse (read_whole_file file) in
+    json_parser_tree_parse (read_whole_file file) in
 
   let downloads =
     let uri_index =
@@ -106,7 +106,7 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
                    * the ones related to checksums, explicitly filter
                    * the supported checksums.
                    *)
-                  | ("sha256"|"sha512" as t, Yajl_string c) ->
+                  | ("sha256"|"sha512" as t, JSON_parser_string c) ->
                     Some (Checksums.of_string t c)
                   | _ -> None
                 ) disk_item in
