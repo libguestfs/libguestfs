@@ -20,20 +20,11 @@ open Std_utils
 open Tools_utils
 open Common_gettext.Gettext
 
-type json_parser_val =
-| JSON_parser_null
-| JSON_parser_string of string
-| JSON_parser_number of int64
-| JSON_parser_double of float
-| JSON_parser_object of (string * json_parser_val) array
-| JSON_parser_array of json_parser_val array
-| JSON_parser_bool of bool
-
-external json_parser_tree_parse : string -> json_parser_val = "virt_builder_json_parser_tree_parse"
+external json_parser_tree_parse : string -> JSON.json_t = "virt_builder_json_parser_tree_parse"
 
 let object_find_optional key = function
-  | JSON_parser_object o ->
-    (match List.filter (fun (k, _) -> k = key) (Array.to_list o) with
+  | JSON.Dict fields ->
+    (match List.filter (fun (k, _) -> k = key) fields with
     | [(k, v)] -> Some v
     | [] -> None
     | _ -> error (f_"more than value for the key ‘%s’") key)
@@ -46,27 +37,27 @@ let object_find key yv =
 
 let object_get_string key yv =
   match object_find key yv with
-  | JSON_parser_string s -> s
+  | JSON.String s -> s
   | _ -> error (f_"the value for the key ‘%s’ is not a string") key
 
 let object_find_object key yv =
   match object_find key yv with
-  | JSON_parser_object _ as o -> o
+  | JSON.Dict _ as o -> o
   | _ -> error (f_"the value for the key ‘%s’ is not an object") key
 
 let object_find_objects fn = function
-  | JSON_parser_object o -> List.filter_map fn (Array.to_list o)
+  | JSON.Dict fields -> List.filter_map fn fields
   | _ -> error (f_"the value is not an object")
 
 let object_get_object key yv =
   match object_find_object key yv with
-  | JSON_parser_object o -> o
+  | JSON.Dict fields -> fields
   | _ -> assert false (* object_find_object already errors out. *)
 
 let object_get_number key yv =
   match object_find key yv with
-  | JSON_parser_number n -> n
-  | JSON_parser_double d -> Int64.of_float d
+  | JSON.Int n -> n
+  | JSON.Float f -> Int64.of_float f
   | _ -> error (f_"the value for the key ‘%s’ is not an integer") key
 
 let objects_get_string key yvs =
@@ -74,7 +65,7 @@ let objects_get_string key yvs =
     | [] -> None
     | x :: xs ->
       (match object_find_optional key x with
-      | Some (JSON_parser_string s) -> Some s
+      | Some (JSON.String s) -> Some s
       | Some _ -> error (f_"the value for key ‘%s’ is not a string as expected") key
       | None -> loop xs
       )

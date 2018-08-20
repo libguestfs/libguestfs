@@ -29,7 +29,7 @@ and revision =
 val string_of_revision : revision -> string
 (** Convert a {!revision} into a string. *)
 
-val get_image_infos : string -> JSON_parser.json_parser_val
+val get_image_infos : string -> JSON.json_t
 (** [get_image_infos path] Run qemu-img info on the image pointed at
     path as JSON tree. *)
 
