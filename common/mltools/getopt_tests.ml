@@ -40,6 +40,15 @@ let set_flag = ref false
 let si = ref 42
 let ss = ref "not set"
 
+type optstring_value =
+  | Unset
+  | NoValue
+  | Value of string
+let optstr = ref Unset
+let set_optstr = function
+  | None -> optstr := NoValue
+  | Some s -> optstr := Value s
+
 let argspec = [
   [ S 'a'; L"add" ],  Getopt.String ("string", add_string), "Add string";
   [ S 'c'; L"clear" ], Getopt.Clear clear_flag, "Clear flag";
@@ -47,9 +56,15 @@ let argspec = [
   [ M"ii"; L"set-int" ], Getopt.Set_int ("int", si), "Set int";
   [ M"is"; L"set-string"], Getopt.Set_string ("string", ss), "Set string";
   [ S 't'; L"set" ], Getopt.Set set_flag, "Set flag";
+  [ S 'o'; L"optstr" ], Getopt.OptString ("string", set_optstr), "Set optional string";
 ]
 
 let usage_msg = sprintf "%s: test the Getopt parser" prog
+
+let print_optstring_value = function
+  | Unset -> "not set"
+  | NoValue -> "<none>"
+  | Value s -> s
 
 let opthandle = create_standard_options argspec ~anon_fun usage_msg
 let () =
@@ -66,4 +81,5 @@ let () =
   printf "clear_flag = %b\n" !clear_flag;
   printf "set_flag = %b\n" !set_flag;
   printf "set_int = %d\n" !si;
-  printf "set_string = %s\n" !ss
+  printf "set_string = %s\n" !ss;
+  printf "set_optstring = %s\n" (print_optstring_value !optstr)

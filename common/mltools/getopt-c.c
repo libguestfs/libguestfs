@@ -274,6 +274,10 @@ guestfs_int_mllib_getopt_parse (value argsv, value specsv, value anon_funv, valu
         has_arg = 1;
         break;
 
+      case 8:  /* OptString of string * (string option -> unit) */
+        has_arg = 2;
+        break;
+
       default:
         error (EXIT_FAILURE, 0,
                "internal error: unhandled Tag_val (actionv) = %d",
@@ -286,8 +290,11 @@ guestfs_int_mllib_getopt_parse (value argsv, value specsv, value anon_funv, valu
           caml_raise_out_of_memory ();
         optstring = newstring;
         optstring[optstring_len++] = key[0];
-        if (has_arg)
+        if (has_arg > 0) {
           optstring[optstring_len++] = ':';
+          if (has_arg > 1)
+            optstring[optstring_len++] = ':';
+        }
       } else {
         struct option *newopts = realloc (longopts, (longopts_len + 1 + 1) * sizeof (*longopts));
         if (newopts == NULL)
@@ -390,6 +397,17 @@ guestfs_int_mllib_getopt_parse (value argsv, value specsv, value anon_funv, valu
       }
       v = Field (actionv, 2);
       v2 = caml_copy_string (optarg);
+      do_call1 (v, v2);
+      break;
+
+    case 8:  /* OptString of string * (string option -> unit) */
+      v = Field (actionv, 1);
+      if (optarg) {
+        v2 = caml_alloc (1, 0);
+        Store_field (v2, 0, caml_copy_string (optarg));
+      } else {
+        v2 = Val_none;
+      }
       do_call1 (v, v2);
       break;
 

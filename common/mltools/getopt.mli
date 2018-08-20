@@ -44,6 +44,10 @@ type spec =
         element in the tuple is the documentation string of the
         argument, the second is the list of allowed strings,
         and the third is the function to call. *)
+  | OptString of string * (string option -> unit)
+    (** Option with an optional argument; the first element in the
+        tuple is the documentation string of the argument, and the
+        second is the function to call. *)
 
 module OptionName : sig
   type option_name =
