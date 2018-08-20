@@ -317,7 +317,7 @@ def request_failed(h, r, msg):
     debug(body)
 
     # Only a short error is included in the exception.
-    raise RuntimeError("%s: %d %s: %r", msg, status, reason, body[:200])
+    raise RuntimeError("%s: %d %s: %r" % (msg, status, reason, body[:200]))
 
 # For documentation see:
 # https://github.com/oVirt/ovirt-imageio/blob/master/docs/random-io.md
