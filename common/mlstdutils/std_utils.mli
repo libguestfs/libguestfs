@@ -374,8 +374,11 @@ val set_trace : unit -> unit
 val trace : unit -> bool
 val set_verbose : unit -> unit
 val verbose : unit -> bool
-(** Stores the colours ([--colours]), quiet ([--quiet]), trace ([-x])
-    and verbose ([-v]) flags in global variables. *)
+val set_machine_readable : unit -> unit
+val machine_readable : unit -> bool
+(** Stores the colours ([--colours]), quiet ([--quiet]), trace ([-x]),
+    verbose ([-v]), and machine readable ([--machine-readable]) flags
+    in global variables. *)
 
 val with_open_in : string -> (in_channel -> 'a) -> 'a
 (** [with_open_in filename f] calls function [f] with [filename]
