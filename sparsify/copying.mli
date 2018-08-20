@@ -22,4 +22,4 @@
 type tmp_place =
 | Directory of string | Block_device of string | Prebuilt_file of string
 
-val run : string -> string -> Cmdline.check_t -> bool -> string option -> string option -> string list -> bool -> string option -> string option -> string list -> unit
+val run : string -> string -> Cmdline.check_t -> bool -> string option -> string option -> string list -> string option -> string option -> string list -> unit

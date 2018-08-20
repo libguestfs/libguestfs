@@ -31,7 +31,6 @@ type cmdline = {
   indisk : string;
   format : string option;
   ignores : string list;
-  machine_readable : bool;
   zeroes : string list;
   mode : mode_t;
 }
@@ -60,7 +59,6 @@ let parse_cmdline () =
   let format = ref "" in
   let ignores = ref [] in
   let in_place = ref false in
-  let machine_readable = ref false in
   let option = ref "" in
   let tmp = ref "" in
   let zeroes = ref [] in
@@ -72,7 +70,6 @@ let parse_cmdline () =
     [ L"format" ],  Getopt.Set_string (s_"format", format),     s_"Format of input disk";
     [ L"ignore" ],  Getopt.String (s_"fs", add ignores),  s_"Ignore filesystem";
     [ L"in-place"; L"inplace" ], Getopt.Set in_place,         s_"Modify the disk image in-place";
-    [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
     [ S 'o' ],        Getopt.Set_string (s_"option", option),     s_"Add qemu-img options";
     [ L"tmp" ],     Getopt.Set_string (s_"block|dir|prebuilt:file", tmp),        s_"Set temporary block device, directory or prebuilt file";
     [ L"zero" ],    Getopt.String (s_"fs", add zeroes),   s_"Zero filesystem";
@@ -91,7 +88,7 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-sparsify(1).
 ")
       prog in
-  let opthandle = create_standard_options argspec ~anon_fun ~key_opts:true usage_msg in
+  let opthandle = create_standard_options argspec ~anon_fun ~key_opts:true ~machine_readable:true usage_msg in
   Getopt.parse opthandle;
 
   (* Dereference the rest of the args. *)
@@ -102,7 +99,6 @@ read the man page virt-sparsify(1).
   let format = match !format with "" -> None | str -> Some str in
   let ignores = List.rev !ignores in
   let in_place = !in_place in
-  let machine_readable = !machine_readable in
   let option = match !option with "" -> None | str -> Some str in
   let tmp = match !tmp with "" -> None | str -> Some str in
   let zeroes = List.rev !zeroes in
@@ -110,7 +106,7 @@ read the man page virt-sparsify(1).
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.
    *)
-  if disks = [] && machine_readable then (
+  if disks = [] && machine_readable () then (
     printf "virt-sparsify\n";
     printf "linux-swap\n";
     printf "zero\n";
@@ -180,7 +176,6 @@ read the man page virt-sparsify(1).
   { indisk = indisk;
     format = format;
     ignores = ignores;
-    machine_readable = machine_readable;
     zeroes = zeroes;
     mode = mode;
   }

@@ -30,7 +30,7 @@ open Cmdline
 
 module G = Guestfs
 
-let run disk format ignores machine_readable zeroes =
+let run disk format ignores zeroes =
   (* Connect to libguestfs. *)
   let g = open_guestfs () in
 
@@ -49,7 +49,7 @@ let run disk format ignores machine_readable zeroes =
 
   g#add_drive ?format ~discard:"enable" disk;
 
-  if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable g;
+  if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable:(machine_readable ()) g;
   g#launch ();
 
   (* If discard is not supported in the appliance, we must return exit

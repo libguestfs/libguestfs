@@ -145,8 +145,6 @@ read the man page virt-dib(1).
   let mkfs_options = ref None in
   let set_mkfs_options arg = mkfs_options := Some arg in
 
-  let machine_readable = ref false in
-
   let extra_packages = ref [] in
   let append_extra_packages arg =
     List.push_front_list (List.rev (String.nsplit "," arg)) extra_packages in
@@ -191,14 +189,13 @@ read the man page virt-dib(1).
     [ L"smp" ],        Getopt.Int ("vcpus", set_smp),           s_"Set number of vCPUs";
     [ L"no-delete-on-failure" ], Getopt.Clear delete_on_failure,
                                                s_"Don’t delete output file on failure";
-    [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
 
     [ L"debug" ],      Getopt.Int ("level", set_debug),         s_"Set debug level";
     [ S 'B' ],           Getopt.Set_string ("path", basepath),   s_"Base path of diskimage-builder library";
   ] in
   let argspec = argspec @ Output_format.extra_args () in
 
-  let opthandle = create_standard_options argspec ~anon_fun:append_element usage_msg in
+  let opthandle = create_standard_options argspec ~anon_fun:append_element ~machine_readable:true usage_msg in
   Getopt.parse opthandle;
 
   let debug = !debug in
@@ -226,13 +223,12 @@ read the man page virt-dib(1).
   let is_ramdisk = !is_ramdisk in
   let ramdisk_element = !ramdisk_element in
   let mkfs_options = !mkfs_options in
-  let machine_readable = !machine_readable in
   let extra_packages = List.rev !extra_packages in
   let checksum = !checksum in
   let python = !python in
 
   (* No elements and machine-readable mode?  Print some facts. *)
-  if elements = [] && machine_readable then (
+  if elements = [] && machine_readable () then (
     printf "virt-dib\n";
     let formats_list = Output_format.list_formats () in
     List.iter (printf "output:%s\n") formats_list;

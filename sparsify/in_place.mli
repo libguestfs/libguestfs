@@ -18,4 +18,4 @@
 
 (** This is the virt-sparsify --in-place mode. *)
 
-val run : string -> string option -> string list -> bool -> string list -> unit
+val run : string -> string option -> string list -> string list -> unit

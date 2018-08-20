@@ -47,7 +47,6 @@ let parse_cmdline () =
 
   let interactive = ref false in
   let compression = ref true in
-  let machine_readable = ref false in
 
   let argspec = [
     [ L"gpg" ], Getopt.Set_string ("gpg", gpg), s_"Set GPG binary/command";
@@ -55,7 +54,6 @@ let parse_cmdline () =
       s_"ID of the GPG key to sign the repo with";
     [ S 'i'; L"interactive" ], Getopt.Set interactive, s_"Ask the user about missing data";
     [ L"no-compression" ], Getopt.Clear compression, s_"Don’t compress the new images in the index";
-    [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
   ] in
 
   let args = ref [] in
@@ -70,13 +68,13 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-builder-repository(1).
 ")
       prog in
-  let opthandle = create_standard_options argspec ~anon_fun usage_msg in
+  let opthandle = create_standard_options argspec ~anon_fun ~machine_readable:true usage_msg in
   Getopt.parse opthandle;
 
   (* Machine-readable mode?  Print out some facts about what
    * this binary supports.
    *)
-  if !machine_readable then (
+  if machine_readable () then (
     printf "virt-builder-repository\n";
     exit 0
   );

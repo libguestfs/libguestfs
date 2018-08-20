@@ -37,7 +37,7 @@ type tmp_place =
 | Directory of string | Block_device of string | Prebuilt_file of string
 
 let run indisk outdisk check_tmpdir compress convert
-    format ignores machine_readable option tmp_param zeroes =
+    format ignores option tmp_param zeroes =
 
   (* Once we have got past argument parsing and start to create
    * temporary files (including the potentially massive overlay file), we
@@ -179,7 +179,7 @@ You can ignore this warning or change it to a hard failure using the
     (* Note that the temporary overlay disk is always qcow2 format. *)
     g#add_drive ~format:"qcow2" ~readonly:false ~cachemode:"unsafe" overlaydisk;
 
-    if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable g;
+    if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable:(machine_readable ()) g;
     g#launch ();
 
     g in
