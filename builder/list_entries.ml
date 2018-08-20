@@ -117,7 +117,7 @@ and list_entries_json ~sources index =
           | None -> item
           | Some str -> ("full-name", JSON.String str) :: item in
         let item = ("arch", JSON.String (Index.string_of_arch arch)) :: item in
-        let item = ("size", JSON.Int64 size) :: item in
+        let item = ("size", JSON.Int size) :: item in
         let item =
           match compressed_size with
           | None -> item
@@ -148,7 +148,7 @@ and list_entries_json ~sources index =
         JSON.Dict (List.rev item)
     ) index in
   let doc = [
-    "version", JSON.Int 1;
+    "version", JSON.Int 1L;
     "sources", JSON.List json_sources;
     "templates", JSON.List json_templates;
   ] in

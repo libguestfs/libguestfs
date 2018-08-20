@@ -245,7 +245,7 @@ and qemu_uri_of_filename vmx_source filename =
        match port_of_uri uri with
        | None -> json_params
        | Some port ->
-          ("file.port", JSON.Int port) :: json_params in
+          ("file.port", JSON.Int (Int64.of_int port)) :: json_params in
 
      "json:" ^ JSON.string_of_doc json_params, format
 

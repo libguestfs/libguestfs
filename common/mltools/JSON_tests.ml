@@ -18,6 +18,8 @@
 
 (* This file tests the JSON module. *)
 
+open Std_utils
+
 open OUnit2
 
 (* Utils. *)
@@ -53,21 +55,21 @@ let test_bool ctx =
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
 let test_int ctx =
-  let doc = [ "test_zero", JSON.Int 0;
-              "test_pos", JSON.Int 5;
-              "test_neg", JSON.Int (-5);
-              "test_pos64", JSON.Int64 (Int64.of_int 10);
-              "test_neg64", JSON.Int64 (Int64.of_int (-10)); ] in
+  let doc = [ "test_zero", JSON.Int 0L;
+              "test_pos", JSON.Int 5L;
+              "test_neg", JSON.Int (-5L);
+              "test_pos64", JSON.Int 1_000_000_000_000L;
+              "test_neg64", JSON.Int (-1_000_000_000_000L); ] in
   assert_equal_string
-    "{ \"test_zero\": 0, \"test_pos\": 5, \"test_neg\": -5, \"test_pos64\": 10, \"test_neg64\": -10 }"
+    "{ \"test_zero\": 0, \"test_pos\": 5, \"test_neg\": -5, \"test_pos64\": 1000000000000, \"test_neg64\": -1000000000000 }"
     (JSON.string_of_doc doc);
   assert_equal_string
     "{
   \"test_zero\": 0,
   \"test_pos\": 5,
   \"test_neg\": -5,
-  \"test_pos64\": 10,
-  \"test_neg64\": -10
+  \"test_pos64\": 1000000000000,
+  \"test_neg64\": -1000000000000
 }"
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
@@ -91,7 +93,7 @@ let test_float ctx =
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
 let test_list ctx =
-  let doc = [ "item", JSON.List [ JSON.String "foo"; JSON.Int 10; JSON.Bool true ] ] in
+  let doc = [ "item", JSON.List [ JSON.String "foo"; JSON.Int 10L; JSON.Bool true ] ] in
   assert_equal_string
     "{ \"item\": [ \"foo\", 10, true ] }"
     (JSON.string_of_doc doc);
@@ -107,8 +109,8 @@ let test_list ctx =
 
 let test_nested_dict ctx =
   let doc = [
-      "item", JSON.Dict [ "int", JSON.Int 5; "string", JSON.String "foo"; ];
-      "last", JSON.Int 10;
+      "item", JSON.Dict [ "int", JSON.Int 5L; "string", JSON.String "foo"; ];
+      "last", JSON.Int 10L;
     ] in
   assert_equal_string
     "{ \"item\": { \"int\": 5, \"string\": \"foo\" }, \"last\": 10 }"
@@ -125,10 +127,10 @@ let test_nested_dict ctx =
 
 let test_nested_nested_dict ctx =
   let doc = [
-      "item", JSON.Dict [ "int", JSON.Int 5;
-        "item2", JSON.Dict [ "int", JSON.Int 0; ];
+      "item", JSON.Dict [ "int", JSON.Int 5L;
+        "item2", JSON.Dict [ "int", JSON.Int 0L; ];
       ];
-      "last", JSON.Int 10;
+      "last", JSON.Int 10L;
     ] in
   assert_equal_string
     "{ \"item\": { \"int\": 5, \"item2\": { \"int\": 0 } }, \"last\": 10 }"
@@ -159,8 +161,8 @@ let test_qemu ctx =
   let doc = [
     "file.driver", JSON.String "https";
     "file.url", JSON.String "https://libguestfs.org";
-    "file.timeout", JSON.Int 60;
-    "file.readahead", JSON.Int (64 * 1024 * 1024);
+    "file.timeout", JSON.Int 60L;
+    "file.readahead", JSON.Int (64L *^ 1024L *^ 1024L);
   ] in
   assert_equal_string
     "{ \"file.driver\": \"https\", \"file.url\": \"https://libguestfs.org\", \"file.timeout\": 60, \"file.readahead\": 67108864 }"
@@ -176,7 +178,7 @@ let test_qemu ctx =
 
 let test_builder ctx =
   let doc = [
-    "version", JSON.Int 1;
+    "version", JSON.Int 1L;
     "sources", JSON.List [
       JSON.Dict [
         "uri", JSON.String "http://libguestfs.org/index";
@@ -187,7 +189,7 @@ let test_builder ctx =
         "os-version", JSON.String "phony-debian";
         "full-name", JSON.String "Phony Debian";
         "arch", JSON.String "x86_64";
-        "size", JSON.Int64 536870912_L;
+        "size", JSON.Int 536870912_L;
         "notes", JSON.Dict [
           "C", JSON.String "Phony Debian look-alike used for testing.";
         ];
@@ -197,7 +199,7 @@ let test_builder ctx =
         "os-version", JSON.String "phony-fedora";
         "full-name", JSON.String "Phony Fedora";
         "arch", JSON.String "x86_64";
-        "size", JSON.Int64 1073741824_L;
+        "size", JSON.Int 1073741824_L;
         "notes", JSON.Dict [
           "C", JSON.String "Phony Fedora look-alike used for testing.";
         ];

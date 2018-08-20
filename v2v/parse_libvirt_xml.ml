@@ -63,8 +63,8 @@ let create_curl_qemu_uri driver host port path =
   let json_params = [
     "file.driver", JSON.String driver;  (* "http" or "https" *)
     "file.url", JSON.String url;
-    "file.timeout", JSON.Int 2000;
-    "file.readahead", JSON.Int (1024 * 1024);
+    "file.timeout", JSON.Int 2000_L;
+    "file.readahead", JSON.Int (1024_L *^ 1024_L);
     (* "file.sslverify", JSON.String "off"; XXX *)
   ] in
 

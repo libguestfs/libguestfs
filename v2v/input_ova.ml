@@ -161,8 +161,8 @@ class input_ova ova = object
            let doc = [
                "file", JSON.Dict [
                            "driver", JSON.String "raw";
-                           "offset", JSON.Int64 offset;
-                           "size", JSON.Int64 size;
+                           "offset", JSON.Int offset;
+                           "size", JSON.Int size;
                            "file", JSON.Dict [
                                        "driver", JSON.String "file";
                                        "filename", JSON.String tar_path]

@@ -77,14 +77,14 @@ let rec map_source ?readahead ?password dcPath uri server path =
       "file.driver", JSON.String "https";
       "file.url", JSON.String https_url;
       (* https://bugzilla.redhat.com/show_bug.cgi?id=1146007#c10 *)
-      "file.timeout", JSON.Int 2000;
+      "file.timeout", JSON.Int 2000_L;
     ] in
 
     let json_params =
       match readahead with
       | None -> json_params
       | Some readahead ->
-         ("file.readahead", JSON.Int readahead) :: json_params in
+         ("file.readahead", JSON.Int (Int64.of_int readahead)) :: json_params in
 
     let json_params =
       if sslverify then json_params

@@ -115,8 +115,8 @@ let qemu_img_supports_offset_and_size () =
   let json = [
       "file", JSON.Dict [
         "driver", JSON.String "raw";
-        "offset", JSON.Int 512;
-        "size", JSON.Int 512;
+        "offset", JSON.Int 512_L;
+        "size", JSON.Int 512_L;
         "file", JSON.Dict [
           "filename", JSON.String tmp
         ]
