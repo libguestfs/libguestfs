@@ -71,6 +71,25 @@ let test_int ctx =
 }"
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
+let test_float ctx =
+  let doc = [ "test_zero", JSON.Float 0.;
+              "test_one", JSON.Float 1.;
+              "test_frac", JSON.Float 1.5;
+              "test_neg_frac", JSON.Float (-1.5);
+              "test_exp", JSON.Float 1e100 ] in
+  assert_equal_string
+    "{ \"test_zero\": 0, \"test_one\": 1, \"test_frac\": 1.5, \"test_neg_frac\": -1.5, \"test_exp\": 1e+100 }"
+    (JSON.string_of_doc doc);
+  assert_equal_string
+    "{
+  \"test_zero\": 0,
+  \"test_one\": 1,
+  \"test_frac\": 1.5,
+  \"test_neg_frac\": -1.5,
+  \"test_exp\": 1e+100
+}"
+    (JSON.string_of_doc ~fmt:JSON.Indented doc)
+
 let test_list ctx =
   let doc = [ "item", JSON.List [ JSON.String "foo"; JSON.Int 10; JSON.Bool true ] ] in
   assert_equal_string
@@ -227,6 +246,7 @@ let suite =
       "basic.string" >:: test_string;
       "basic.bool" >:: test_bool;
       "basic.int" >:: test_int;
+      "basic.float" >:: test_float;
       "basic.list" >:: test_list;
       "basic.nested_dict" >:: test_nested_dict;
       "basic.nested_nested dict" >:: test_nested_nested_dict;

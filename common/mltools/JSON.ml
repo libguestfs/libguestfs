@@ -23,6 +23,7 @@ and json_t =
   | String of string
   | Int of int
   | Int64 of int64
+  | Float of float
   | Bool of bool
   | List of json_t list
   | Dict of field list
@@ -110,6 +111,11 @@ and output_field ~indent ~fmt = function
   | Int i -> string_of_int i
   | Bool b -> if b then "true" else "false"
   | Int64 i -> Int64.to_string i
+  (* The JSON standard permits either "1" or "1.0" but not "1.".
+   * OCaml string_of_float will generate "1.", but the %g formatter
+   * will only generate the valid JSON values.
+   *)
+  | Float f -> Printf.sprintf "%g" f
   | List l -> output_list ~indent:(indent + 1) ~fmt l
   | Dict d -> output_dict ~indent:(indent + 1) ~fmt d
 
