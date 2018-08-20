@@ -31,6 +31,7 @@ type spec =
   | Int of string * (int -> unit)
   | Set_int of string * int ref
   | Symbol of string * string list * (string -> unit)
+  | OptString of string * (string option -> unit)
 
 module OptionName = struct
   type option_name = S of char | L of string | M of string
@@ -92,16 +93,32 @@ let show_help h () =
         match spec with
         | Unit _
         | Set _
-        | Clear _ -> None
+        | Clear _
+        | OptString _ -> None
         | String (arg, _)
         | Set_string (arg, _)
         | Int (arg, _)
         | Set_int (arg, _)
         | Symbol (arg, _, _) -> Some arg in
-      (match arg with
-      | None -> ()
-      | Some arg ->
+      let optarg =
+        match spec with
+        | Unit _
+        | Set _
+        | Clear _
+        | String _
+        | Set_string _
+        | Int _
+        | Set_int _
+        | Symbol _ -> None
+        | OptString (arg, _) -> Some arg in
+      (match arg, optarg with
+      | None, None -> ()    (* --foo *)
+      | Some arg, None ->   (* --foo=val *)
         add (sprintf " <%s>" arg)
+      | None, Some arg ->   (* --foo[=val] *)
+        add (sprintf "[=%s]" arg)
+      | Some _, Some _ ->   (* should not happen *)
+        failwith "internal error: getopt: option marked both with arg and optarg"
       );
       if !columns >= column_wrap then (
         Buffer.add_char b '\n';
@@ -181,6 +198,7 @@ let create specs ?anon_fun usage_msg =
     | Set_string _ -> ()
     | Int _ -> ()
     | Set_int _ -> ()
+    | OptString _ -> ()
     | Symbol (_, elements, _) ->
       List.iter (
         fun e ->

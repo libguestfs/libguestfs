@@ -52,6 +52,7 @@ $t --help | grep -- '-i, --int <int>'
 $t --help | grep -- '-ii, --set-int <int>'
 $t --help | grep -- '-v, --verbose'
 $t --help | grep -- '-x'
+$t --help | grep -F -- '-o, --optstr[=string]'
 
 # --version
 $t --version | grep '^getopt_tests 1\.'
@@ -60,6 +61,7 @@ $t --version | grep '^getopt_tests 1\.'
 $t --short-options | grep '^-a'
 $t --short-options | grep '^-c'
 $t --short-options | grep '^-i'
+$t --short-options | grep '^-o'
 $t --short-options | grep '^-q'
 $t --short-options | grep '^-ii'
 $t --short-options | grep '^-is'
@@ -78,6 +80,7 @@ $t --long-options | grep '^--colour'
 $t --long-options | grep '^--colours'
 $t --long-options | grep '^--debug-gc'
 $t --long-options | grep '^--int'
+$t --long-options | grep '^--optstr'
 $t --long-options | grep '^--quiet'
 $t --long-options | grep '^--set'
 $t --long-options | grep '^--set-int'
@@ -156,6 +159,14 @@ $t --is A | grep '^set_string = A'
 $t --set-string B | grep '^set_string = B'
 expect_fail $t --is
 expect_fail $t --set-string
+
+# -o/--optstr parameter.
+$t | grep '^set_optstring = not set'
+$t -o | grep '^set_optstring = <none>'
+$t --optstr | grep '^set_optstring = <none>'
+$t -o=A | grep '^set_optstring = A'
+$t --optstr=A | grep '^set_optstring = A'
+$t --optstr=A --optstr | grep '^set_optstring = <none>'
 
 # Anonymous parameters.
 $t | grep '^anons = \[\]'
