@@ -26,9 +26,9 @@ export XDG_CONFIG_DIRS="$abs_builddir/test-simplestreams"
 
 short_list=$($VG virt-builder --no-check-signature --no-cache --list)
 
-if [ "$short_list" != "net.cirros-cloud:standard:0.3:i386 i386       cirros-0.3.4-i386
+if [ "$short_list" != "net.cirros-cloud:standard:0.3:powerpc powerpc    cirros-0.3.4-powerpc
 net.cirros-cloud:standard:0.3:x86_64 x86_64     cirros-0.3.4-x86_64
-net.cirros-cloud:standard:0.3:powerpc powerpc    cirros-0.3.4-powerpc" ]; then
+net.cirros-cloud:standard:0.3:i386 i386       cirros-0.3.4-i386" ]; then
     echo "$0: unexpected --list output:"
     echo "$short_list"
     exit 1
@@ -38,11 +38,11 @@ long_list=$(virt-builder --no-check-signature --no-cache --list --long)
 
 if [ "$long_list" != "Source URI: file://$abs_builddir/test-simplestreams
 
-os-version:              net.cirros-cloud:standard:0.3:i386
-Full name:               cirros-0.3.4-i386
-Architecture:            i386
-Minimum/default size:    11.9M
-Aliases:                 cirros-0.3.4-i386
+os-version:              net.cirros-cloud:standard:0.3:powerpc
+Full name:               cirros-0.3.4-powerpc
+Architecture:            powerpc
+Minimum/default size:    16.4M
+Aliases:                 cirros-0.3.4-powerpc
 
 os-version:              net.cirros-cloud:standard:0.3:x86_64
 Full name:               cirros-0.3.4-x86_64
@@ -50,11 +50,11 @@ Architecture:            x86_64
 Minimum/default size:    12.7M
 Aliases:                 cirros-0.3.4-x86_64
 
-os-version:              net.cirros-cloud:standard:0.3:powerpc
-Full name:               cirros-0.3.4-powerpc
-Architecture:            powerpc
-Minimum/default size:    16.4M
-Aliases:                 cirros-0.3.4-powerpc" ]; then
+os-version:              net.cirros-cloud:standard:0.3:i386
+Full name:               cirros-0.3.4-i386
+Architecture:            i386
+Minimum/default size:    11.9M
+Aliases:                 cirros-0.3.4-i386" ]; then
     echo "$0: unexpected --list --long output:"
     echo "$long_list"
     exit 1
@@ -71,12 +71,12 @@ if [ "$json_list" != "{
   ],
   \"templates\": [
     {
-      \"os-version\": \"net.cirros-cloud:standard:0.3:i386\",
-      \"full-name\": \"cirros-0.3.4-i386\",
-      \"arch\": \"i386\",
-      \"size\": 12506112,
+      \"os-version\": \"net.cirros-cloud:standard:0.3:powerpc\",
+      \"full-name\": \"cirros-0.3.4-powerpc\",
+      \"arch\": \"powerpc\",
+      \"size\": 17145856,
       \"aliases\": [
-        \"cirros-0.3.4-i386\"
+        \"cirros-0.3.4-powerpc\"
       ],
       \"hidden\": false
     },
@@ -91,12 +91,12 @@ if [ "$json_list" != "{
       \"hidden\": false
     },
     {
-      \"os-version\": \"net.cirros-cloud:standard:0.3:powerpc\",
-      \"full-name\": \"cirros-0.3.4-powerpc\",
-      \"arch\": \"powerpc\",
-      \"size\": 17145856,
+      \"os-version\": \"net.cirros-cloud:standard:0.3:i386\",
+      \"full-name\": \"cirros-0.3.4-i386\",
+      \"arch\": \"i386\",
+      \"size\": 12506112,
       \"aliases\": [
-        \"cirros-0.3.4-powerpc\"
+        \"cirros-0.3.4-i386\"
       ],
       \"hidden\": false
     }

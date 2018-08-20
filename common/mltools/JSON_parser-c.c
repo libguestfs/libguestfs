@@ -28,7 +28,13 @@
 #include <stdio.h>
 #include <string.h>
 
-#define Val_none (Val_int (0))
+#define JSON_NULL       (Val_int (0)) /* Variants without parameters. */
+#define JSON_STRING_TAG 0             /* Variants with parameters. */
+#define JSON_INT_TAG    1
+#define JSON_FLOAT_TAG  2
+#define JSON_BOOL_TAG   3
+#define JSON_LIST_TAG   4
+#define JSON_DICT_TAG   5
 
 value virt_builder_json_parser_tree_parse (value stringv);
 
@@ -36,60 +42,79 @@ static value
 convert_json_t (json_t *val, int level)
 {
   CAMLparam0 ();
-  CAMLlocal4 (rv, lv, v, sv);
+  CAMLlocal5 (rv, v, tv, sv, consv);
 
   if (level > 20)
     caml_invalid_argument ("too many levels of object/array nesting");
 
   if (json_is_object (val)) {
-    const size_t len = json_object_size (val);
-    size_t i;
     const char *key;
     json_t *jvalue;
-    rv = caml_alloc (1, 3);
-    lv = caml_alloc_tuple (len);
-    i = 0;
+
+    rv = caml_alloc (1, JSON_DICT_TAG);
+    v = Val_int (0);
+    /* This will create the OCaml list backwards, but JSON
+     * dictionaries are supposed to be unordered so that shouldn't
+     * matter, right?  Well except that for some consumers this does
+     * matter (eg. simplestreams which incorrectly uses a dict when it
+     * really should use an array).
+     */
     json_object_foreach (val, key, jvalue) {
-      v = caml_alloc_tuple (2);
+      tv = caml_alloc_tuple (2);
       sv = caml_copy_string (key);
-      Store_field (v, 0, sv);
+      Store_field (tv, 0, sv);
       sv = convert_json_t (jvalue, level + 1);
-      Store_field (v, 1, sv);
-      Store_field (lv, i, v);
-      ++i;
+      Store_field (tv, 1, sv);
+      consv = caml_alloc (2, 0);
+      Store_field (consv, 1, v);
+      Store_field (consv, 0, tv);
+      v = consv;
     }
-    Store_field (rv, 0, lv);
-  } else if (json_is_array (val)) {
+    Store_field (rv, 0, v);
+  }
+  else if (json_is_array (val)) {
     const size_t len = json_array_size (val);
     size_t i;
     json_t *jvalue;
-    rv = caml_alloc (1, 4);
-    lv = caml_alloc_tuple (len);
-    json_array_foreach (val, i, jvalue) {
-      v = convert_json_t (jvalue, level + 1);
-      Store_field (lv, i, v);
+
+    rv = caml_alloc (1, JSON_LIST_TAG);
+    v = Val_int (0);
+    for (i = 0; i < len; ++i) {
+      /* Note we have to create the OCaml list backwards. */
+      jvalue = json_array_get (val, len-i-1);
+      tv = convert_json_t (jvalue, level + 1);
+      consv = caml_alloc (2, 0);
+      Store_field (consv, 1, v);
+      Store_field (consv, 0, tv);
+      v = consv;
     }
-    Store_field (rv, 0, lv);
-  } else if (json_is_string (val)) {
-    rv = caml_alloc (1, 0);
+    Store_field (rv, 0, v);
+  }
+  else if (json_is_string (val)) {
+    rv = caml_alloc (1, JSON_STRING_TAG);
     v = caml_copy_string (json_string_value (val));
     Store_field (rv, 0, v);
-  } else if (json_is_real (val)) {
-    rv = caml_alloc (1, 2);
+  }
+  else if (json_is_real (val)) {
+    rv = caml_alloc (1, JSON_FLOAT_TAG);
     v = caml_copy_double (json_real_value (val));
     Store_field (rv, 0, v);
-  } else if (json_is_integer (val)) {
-    rv = caml_alloc (1, 1);
+  }
+  else if (json_is_integer (val)) {
+    rv = caml_alloc (1, JSON_INT_TAG);
     v = caml_copy_int64 (json_integer_value (val));
     Store_field (rv, 0, v);
-  } else if (json_is_true (val)) {
-    rv = caml_alloc (1, 5);
+  }
+  else if (json_is_true (val)) {
+    rv = caml_alloc (1, JSON_BOOL_TAG);
     Store_field (rv, 0, Val_true);
-  } else if (json_is_false (val)) {
-    rv = caml_alloc (1, 5);
+  }
+  else if (json_is_false (val)) {
+    rv = caml_alloc (1, JSON_BOOL_TAG);
     Store_field (rv, 0, Val_false);
-  } else
-    rv = Val_none;
+  }
+  else
+    rv = JSON_NULL;
 
   CAMLreturn (rv);
 }

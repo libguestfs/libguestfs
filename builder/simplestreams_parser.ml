@@ -59,7 +59,7 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
       error (f_"%s is not a Simple Streams (index) v1.0 JSON file (format: %s)")
         uri format;
 
-    let index = Array.to_list (object_get_object "index" tree) in
+    let index = object_get_object "index" tree in
     List.filter_map (
       fun (_, desc) ->
         let format = object_get_string "format" desc in
@@ -78,13 +78,12 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
       error (f_"%s is not a Simple Streams (products) v1.0 JSON file (format: %s)")
         uri format;
 
-    let products_node = object_get_object "products" tree in
+    let products = object_get_object "products" tree in
 
-    let products = Array.to_list products_node in
     List.filter_map (
       fun (prod, prod_desc) ->
         let arch = Index.Arch (object_get_string "arch" prod_desc) in
-        let prods = Array.to_list (object_get_object "versions" prod_desc) in
+        let prods = object_get_object "versions" prod_desc in
         let prods = List.filter_map (
           fun (rel, rel_desc) ->
             let pubname = objects_get_string "pubname" [rel_desc; prod_desc] in
@@ -106,7 +105,7 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
                    * the ones related to checksums, explicitly filter
                    * the supported checksums.
                    *)
-                  | ("sha256"|"sha512" as t, JSON_parser_string c) ->
+                  | ("sha256"|"sha512" as t, JSON.String c) ->
                     Some (Checksums.of_string t c)
                   | _ -> None
                 ) disk_item in
