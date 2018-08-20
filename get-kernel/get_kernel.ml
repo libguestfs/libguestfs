@@ -31,7 +31,6 @@ let parse_cmdline () =
   let libvirturi = ref "" in
   let format = ref "auto" in
   let output = ref "" in
-  let machine_readable = ref false in
   let unversioned = ref false in
   let prefix = ref None in
 
@@ -57,7 +56,6 @@ let parse_cmdline () =
     [ S 'c'; L"connect" ],        Getopt.Set_string (s_"uri", libvirturi), s_"Set libvirt URI";
     [ S 'd'; L"domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
     [ L"format" ],  Getopt.Set_string (s_"format", format),      s_"Format of input disk";
-    [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
     [ S 'o'; L"output" ],        Getopt.Set_string (s_"directory", output),  s_"Output directory";
     [ L"unversioned-names" ], Getopt.Set unversioned,
                                             s_"Use unversioned names for files";
@@ -71,13 +69,13 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-get-kernel(1).
 ")
       prog in
-  let opthandle = create_standard_options argspec ~key_opts:true usage_msg in
+  let opthandle = create_standard_options argspec ~key_opts:true ~machine_readable:true usage_msg in
   Getopt.parse opthandle;
 
   (* Machine-readable mode?  Print out some facts about what
    * this binary supports.
    *)
-  if !machine_readable then (
+  if machine_readable () then (
     printf "virt-get-kernel\n";
     exit 0
   );

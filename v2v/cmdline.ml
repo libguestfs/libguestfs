@@ -51,7 +51,6 @@ let parse_cmdline () =
   let compressed = ref false in
   let debug_overlays = ref false in
   let do_copy = ref true in
-  let machine_readable = ref false in
   let print_source = ref false in
   let qemu_boot = ref false in
 
@@ -196,8 +195,6 @@ let parse_cmdline () =
                                     s_"Input transport";
     [ L"in-place" ], Getopt.Set in_place,
                                     s_"Only tune the guest in the input VM";
-    [ L"machine-readable" ], Getopt.Set machine_readable,
-                                    s_"Make output machine readable";
     [ S 'n'; L"network" ], Getopt.String ("in:out", add_network),
                                     s_"Map network ‘in’ to ‘out’";
     [ L"no-copy" ],  Getopt.Clear do_copy,
@@ -278,7 +275,7 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-v2v(1).
 ")
       prog in
-  let opthandle = create_standard_options argspec ~anon_fun ~key_opts:true usage_msg in
+  let opthandle = create_standard_options argspec ~anon_fun ~key_opts:true ~machine_readable:true usage_msg in
   Getopt.parse opthandle;
 
   (* Dereference the arguments. *)
@@ -297,7 +294,6 @@ read the man page virt-v2v(1).
     | Some transport ->
        error (f_"unknown input transport ‘-it %s’") transport in
   let in_place = !in_place in
-  let machine_readable = !machine_readable in
   let network_map = !network_map in
   let output_alloc =
     match !output_alloc with
@@ -331,7 +327,7 @@ read the man page virt-v2v(1).
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.
    *)
-  if args = [] && machine_readable then (
+  if args = [] && machine_readable () then (
     printf "virt-v2v\n";
     printf "libguestfs-rewrite\n";
     printf "vcenter-https\n";

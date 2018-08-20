@@ -22,7 +22,6 @@ type cmdline = {
   indisk : string;
   format : string option;
   ignores : string list;
-  machine_readable : bool;
   zeroes : string list;
   mode : mode_t;
 }

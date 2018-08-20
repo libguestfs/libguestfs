@@ -104,8 +104,6 @@ let parse_cmdline () =
      * Getopt handling of Symbol. *)
     list_format := List_entries.list_format_of_string arg in
 
-  let machine_readable = ref false in
-
   let memsize = ref None in
   let set_memsize arg = memsize := Some arg in
 
@@ -155,7 +153,6 @@ let parse_cmdline () =
     [ L"long" ],    Getopt.Unit list_set_long,    s_"Shortcut for --list-format long";
     [ L"list-format" ], Getopt.Symbol (formats_string, formats, list_set_format),
                                              s_"Set the format for --list (default: short)";
-    [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
     [ S 'm'; L"memsize" ],        Getopt.Int ("mb", set_memsize),        s_"Set memory size";
     [ L"network" ], Getopt.Set network,           s_"Enable appliance network (default)";
     [ L"no-network" ], Getopt.Clear network,      s_"Disable appliance network";
@@ -193,7 +190,7 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-builder(1).
 ")
       prog in
-  let opthandle = create_standard_options argspec ~anon_fun usage_msg in
+  let opthandle = create_standard_options argspec ~anon_fun ~machine_readable:true usage_msg in
   Getopt.parse opthandle;
 
   (* Dereference options. *)
@@ -209,7 +206,6 @@ read the man page virt-builder(1).
   let format = match !format with "" -> None | s -> Some s in
   let gpg = !gpg in
   let list_format = !list_format in
-  let machine_readable = !machine_readable in
   let memsize = !memsize in
   let network = !network in
   let ops = get_customize_ops () in
@@ -221,7 +217,7 @@ read the man page virt-builder(1).
   let warn_if_partition = !warn_if_partition in
 
   (* No arguments and machine-readable mode?  Print some facts. *)
-  if args = [] && machine_readable then (
+  if args = [] && machine_readable () then (
     printf "virt-builder\n";
     printf "arch\n";
     printf "config-file\n";
