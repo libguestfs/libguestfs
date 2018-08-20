@@ -18,6 +18,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from __builtin__ import open as builtin_open
+import errno
 import json
 import logging
 import socket
@@ -380,7 +381,12 @@ def pwrite(h, buf, offset):
     http.putheader("Content-Range", "bytes %d-%d/*" % (offset, offset+count-1))
     http.putheader("Content-Length", str(count))
     http.endheaders()
-    http.send(buf)
+
+    try:
+        http.send(buf)
+    except socket.error as e:
+        if e[0] != errno.EPIPE:
+            raise
 
     r = http.getresponse()
     if r.status != 200:
@@ -436,11 +442,15 @@ def emulate_zero(h, count, offset):
         http.putheader("Content-Length", str(count))
         http.endheaders()
 
-        buf = bytearray(128*1024)
-        while count > len(buf):
-            http.send(buf)
-            count -= len(buf)
-        http.send(buffer(buf, 0, count))
+        try:
+            buf = bytearray(128*1024)
+            while count > len(buf):
+                http.send(buf)
+                count -= len(buf)
+            http.send(buffer(buf, 0, count))
+        except socket.error as e:
+            if e[0] != errno.EPIPE:
+                raise
 
         r = http.getresponse()
         if r.status != 200:
