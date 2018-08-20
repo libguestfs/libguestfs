@@ -276,7 +276,7 @@ object
 
         let disk_size = ov.ov_virtual_size in
         let json_params =
-          ("disk_size", JSON.Int64 disk_size) :: json_params in
+          ("disk_size", JSON.Int disk_size) :: json_params in
 
         (* Ask the plugin to write the disk ID to a special file. *)
         let diskid_file = diskid_file_of_id id in

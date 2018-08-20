@@ -83,7 +83,7 @@ object
           (* qemu will actually assert-fail if you send the port
            * number as a string ...
            *)
-          | i -> ("file.port", JSON.Int i) :: json_params in
+          | i -> ("file.port", JSON.Int (Int64.of_int i)) :: json_params in
 
         let json_params =
           match parsed_uri.uri_user with
