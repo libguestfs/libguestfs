@@ -156,7 +156,7 @@ let main () =
   let infile, outfile, align_first, alignment, copy_boot_loader,
     deletes,
     dryrun, expand, expand_content, extra_partition, format, ignores,
-    lv_expands, machine_readable, ntfsresize_force, output_format,
+    lv_expands, ntfsresize_force, output_format,
     resizes, resizes_force, shrink, sparse, unknown_fs_mode =
 
     let add xs s = List.push_front s xs in
@@ -177,7 +177,6 @@ let main () =
     let format = ref "" in
     let ignores = ref [] in
     let lv_expands = ref [] in
-    let machine_readable = ref false in
     let ntfsresize_force = ref false in
     let output_format = ref "" in
     let resizes = ref [] in
@@ -203,7 +202,6 @@ let main () =
       [ L"format" ],  Getopt.Set_string (s_"format", format),     s_"Format of input disk";
       [ L"ignore" ],  Getopt.String (s_"part", add ignores),  s_"Ignore partition";
       [ L"lv-expand"; L"LV-expand"; L"lvexpand"; L"LVexpand" ], Getopt.String (s_"lv", add lv_expands), s_"Expand logical volume";
-      [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
       [ S 'n'; L"dry-run"; L"dryrun" ],        Getopt.Set dryrun,            s_"Don’t perform changes";
       [ L"ntfsresize-force" ], Getopt.Set ntfsresize_force, s_"Force ntfsresize";
       [ L"output-format" ], Getopt.Set_string (s_"format", output_format), s_"Format of output disk";
@@ -224,7 +222,7 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-resize(1).
 ")
         prog in
-    let opthandle = create_standard_options argspec ~anon_fun usage_msg in
+    let opthandle = create_standard_options argspec ~anon_fun ~machine_readable:true usage_msg in
     Getopt.parse opthandle;
 
     if verbose () then (
@@ -244,7 +242,6 @@ read the man page virt-resize(1).
     let format = match !format with "" -> None | str -> Some str in
     let ignores = List.rev !ignores in
     let lv_expands = List.rev !lv_expands in
-    let machine_readable = !machine_readable in
     let ntfsresize_force = !ntfsresize_force in
     let output_format = match !output_format with "" -> None | str -> Some str in
     let resizes = List.rev !resizes in
@@ -278,7 +275,7 @@ read the man page virt-resize(1).
      * things added since this option, or things which depend on features
      * of the appliance.
      *)
-    if !disks = [] && machine_readable then (
+    if !disks = [] && machine_readable () then (
       printf "virt-resize\n";
       printf "ntfsresize-force\n";
       printf "32bitok\n";
@@ -328,7 +325,7 @@ read the man page virt-resize(1).
     infile, outfile, align_first, alignment, copy_boot_loader,
     deletes,
     dryrun, expand, expand_content, extra_partition, format, ignores,
-    lv_expands, machine_readable, ntfsresize_force, output_format,
+    lv_expands, ntfsresize_force, output_format,
     resizes, resizes_force, shrink, sparse, unknown_fs_mode in
 
   (* Default to true, since NTFS/btrfs/XFS support are usually available. *)
@@ -352,7 +349,7 @@ read the man page virt-resize(1).
     (* The output disk is being created, so use cache=unsafe here. *)
     add_drive_uri g ?format:output_format ~readonly:false ~cachemode:"unsafe"
       (snd outfile);
-    if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable g;
+    if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable:(machine_readable ()) g;
     g#launch ();
 
     (* Set the filter to /dev/sda, in case there are any rogue
@@ -1327,7 +1324,7 @@ read the man page virt-resize(1).
       (* The output disk is being created, so use cache=unsafe here. *)
       add_drive_uri g ?format:output_format ~readonly:false ~cachemode:"unsafe"
         (snd outfile);
-      if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable g;
+      if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable:(machine_readable ()) g;
       g#launch ();
 
       g (* Return new handle. *)
