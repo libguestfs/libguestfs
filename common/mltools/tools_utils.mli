@@ -64,12 +64,15 @@ val parse_resize : int64 -> string -> int64
 val human_size : int64 -> string
 (** Converts a size in bytes to a human-readable string. *)
 
-val create_standard_options : Getopt.speclist -> ?anon_fun:Getopt.anon_fun -> ?key_opts:bool -> Getopt.usage_msg -> Getopt.t
+val create_standard_options : Getopt.speclist -> ?anon_fun:Getopt.anon_fun -> ?key_opts:bool -> ?machine_readable:bool -> Getopt.usage_msg -> Getopt.t
 (** Adds the standard libguestfs command line options to the specified ones,
     sorting them, and setting [long_options] to them.
 
     [key_opts] specifies whether add the standard options related to
     keys management, i.e. [--echo-keys] and [--keys-from-stdin].
+
+    [machine_readable] specifies whether add the [--machine-readable]
+    option.
 
     Returns a new [Getopt.t] handle. *)
 
