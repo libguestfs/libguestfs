@@ -229,7 +229,7 @@ let human_size i =
     )
   )
 
-let create_standard_options argspec ?anon_fun ?(key_opts = false) usage_msg =
+let create_standard_options argspec ?anon_fun ?(key_opts = false) ?(machine_readable = false) usage_msg =
   (** Install an exit hook to check gc consistency for --debug-gc *)
   let set_debug_gc () =
     at_exit (fun () -> Gc.compact()) in
@@ -248,6 +248,11 @@ let create_standard_options argspec ?anon_fun ?(key_opts = false) usage_msg =
       [
         [ L"echo-keys" ],       Getopt.Unit c_set_echo_keys,       s_"Don’t turn off echo for passphrases";
         [ L"keys-from-stdin" ], Getopt.Unit c_set_keys_from_stdin, s_"Read passphrases from stdin";
+      ]
+      else []) @
+      (if machine_readable then
+      [
+        [ L"machine-readable" ], Getopt.Unit set_machine_readable, s_"Make output machine readable";
       ]
       else []) in
   Getopt.create argspec ?anon_fun usage_msg
