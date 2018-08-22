@@ -51,7 +51,6 @@ common/structs/structs-print.c
 common/utils/cleanups.c
 common/utils/gnulib-cleanups.c
 common/utils/libxml2-cleanups.c
-common/utils/libxml2-utils.c
 common/utils/utils.c
 common/visit/visit.c
 common/windows/windows.c
