@@ -68,9 +68,7 @@ let version_added = function
     Some (sprintf "%d.%d.%d" major minor release)
   | _ -> None
 
-let copyright_years =
-  let this_year = 1900 + (localtime (time ())).tm_year in
-  if this_year > 2009 then sprintf "2009-%04d" this_year else "2009"
+let copyright_years = "2009-2018"
 
 (* Generate a header block in a number of standard styles. *)
 type comment_style =
