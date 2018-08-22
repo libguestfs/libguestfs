@@ -250,11 +250,10 @@ is_power_of_2 (unsigned v)
                                VALID_FLAG_ALPHA|VALID_FLAG_DIGIT, "")
 
 static int
-disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
+disk_create_qcow2 (guestfs_h *g, const char *filename, int64_t size,
                    const char *backingfile,
                    const struct guestfs_disk_create_argv *optargs)
 {
-  CLEANUP_FREE char *filename = NULL;
   const char *backingformat = NULL;
   const char *preallocation = NULL;
   const char *compat = NULL;
@@ -262,16 +261,6 @@ disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (optionsv);
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r;
-
-  /* If the filename is something like "file:foo" then qemu-img will
-   * try to interpret that as "foo" in the file:/// protocol.  To
-   * avoid that, if the path is relative prefix it with "./" since
-   * qemu-img won't try to interpret such a path.
-   */
-  if (orig_filename[0] != '/')
-    filename = safe_asprintf (g, "./%s", orig_filename);
-  else
-    filename = safe_strdup (g, orig_filename);
 
   if (optargs->bitmask & GUESTFS_DISK_CREATE_BACKINGFORMAT_BITMASK) {
     backingformat = optargs->backingformat;
@@ -341,13 +330,21 @@ disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
   }
 
   /* Complete the command line. */
-  guestfs_int_cmd_add_arg (cmd, filename);
+  /* If the filename is something like "file:foo" then qemu-img will
+   * try to interpret that as "foo" in the file:/// protocol.  To
+   * avoid that, if the path is relative prefix it with "./" since
+   * qemu-img won't try to interpret such a path.
+   */
+  if (filename[0] == '/')
+    guestfs_int_cmd_add_arg (cmd, filename);
+  else
+    guestfs_int_cmd_add_arg_format (cmd, "./%s", filename);
   if (size >= 0)
     guestfs_int_cmd_add_arg_format (cmd, "%" PRIi64, size);
 
   r = guestfs_int_cmd_run (cmd);
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs_int_external_command_failed (g, r, "qemu-img", orig_filename);
+    guestfs_int_external_command_failed (g, r, "qemu-img", filename);
     return -1;
   }
 
