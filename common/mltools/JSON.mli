@@ -20,6 +20,7 @@
 
 type field = string * json_t    (** ["field": "value"] *)
 and json_t =                    (** JSON value. *)
+  | Null                        (** special null value *)
   | String of string            (** string value, eg. ["string"] *)
   | Int of int64                (** int value, eg. [99] *)
   | Float of float              (** floating point value, eg. [9.9] *)

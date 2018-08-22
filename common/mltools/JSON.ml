@@ -20,6 +20,7 @@
 
 type field = string * json_t
 and json_t =
+  | Null
   | String of string
   | Int of int64
   | Float of float
@@ -106,6 +107,7 @@ and output_list fields ~fmt ~indent =
   ^ (print_dict_before_end ~fmt ~indent ~size) ^ (print_indent ~fmt ~indent) ^ "]"
 
 and output_field ~indent ~fmt = function
+  | Null -> "null"
   | String s -> json_quote_string s
   | Int i -> Int64.to_string i
   (* The JSON standard permits either "1" or "1.0" but not "1.".
