@@ -479,6 +479,8 @@ See L</NETWORKS AND BRIDGES> below.
 
 =item B<--machine-readable>
 
+=item B<--machine-readable>=format
+
 This option is used to make the output more machine friendly
 when being parsed by other programs.  See
 L</MACHINE READABLE OUTPUT> below.
@@ -2503,6 +2505,9 @@ code if there was a fatal error.
 
 Virt-v2v E<le> 0.9.1 did not support the I<--machine-readable>
 option at all.  The option was added when virt-v2v was rewritten in 2014.
+
+It is possible to specify a format string for controlling the output;
+see L<guestfs(3)/ADVANCED MACHINE READABLE OUTPUT>.
 
 =head1 FILES
 

@@ -75,9 +75,11 @@ read the man page virt-get-kernel(1).
   (* Machine-readable mode?  Print out some facts about what
    * this binary supports.
    *)
-  if machine_readable () then (
-    printf "virt-get-kernel\n";
+  (match machine_readable () with
+  | Some { pr } ->
+    pr "virt-get-kernel\n";
     exit 0
+  | None -> ()
   );
 
   (* Check -a and -d options. *)

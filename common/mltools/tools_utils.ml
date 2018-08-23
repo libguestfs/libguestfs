@@ -229,10 +229,61 @@ let human_size i =
     )
   )
 
+type machine_readable_fn = {
+  pr : 'a. ('a, unit, string, unit) format4 -> 'a;
+} (* [@@unboxed] *)
+
+type machine_readable_output_type =
+  | NoOutput
+  | Channel of out_channel
+  | File of string
+let machine_readable_output = ref NoOutput
+let machine_readable_channel = ref None
+let machine_readable () =
+  let chan =
+    if !machine_readable_channel = None then (
+      let chan =
+        match !machine_readable_output with
+        | NoOutput -> None
+        | Channel chan -> Some chan
+        | File f -> Some (open_out f) in
+      machine_readable_channel := chan
+    );
+    !machine_readable_channel
+  in
+  match chan with
+  | None -> None
+  | Some chan ->
+    let pr fs =
+      ksprintf (output_string chan) fs
+    in
+    Some { pr }
+
 let create_standard_options argspec ?anon_fun ?(key_opts = false) ?(machine_readable = false) usage_msg =
   (** Install an exit hook to check gc consistency for --debug-gc *)
   let set_debug_gc () =
     at_exit (fun () -> Gc.compact()) in
+  let parse_machine_readable = function
+    | None ->
+      machine_readable_output := Channel stdout
+    | Some fmt ->
+      let outtype, outname = String.split ":" fmt in
+      if outname = "" then
+        error (f_"invalid format string for --machine-readable: %s") fmt;
+      (match outtype with
+      | "file" -> machine_readable_output := File outname
+      | "stream" ->
+        let chan =
+          match outname with
+          | "stdout" -> stdout
+          | "stderr" -> stderr
+          | n ->
+            error (f_"invalid output stream for --machine-readable: %s") fmt in
+        machine_readable_output := Channel chan
+      | n ->
+        error (f_"invalid output for --machine-readable: %s") fmt
+      )
+  in
   let argspec = [
     [ S 'V'; L"version" ], Getopt.Unit print_version_and_exit, s_"Display version and exit";
     [ S 'v'; L"verbose" ], Getopt.Unit set_verbose,  s_"Enable libguestfs debugging messages";
@@ -252,7 +303,7 @@ let create_standard_options argspec ?anon_fun ?(key_opts = false) ?(machine_read
       else []) @
       (if machine_readable then
       [
-        [ L"machine-readable" ], Getopt.Unit set_machine_readable, s_"Make output machine readable";
+        [ L"machine-readable" ], Getopt.OptString ("format", parse_machine_readable), s_"Make output machine readable";
       ]
       else []) in
   Getopt.create argspec ?anon_fun usage_msg

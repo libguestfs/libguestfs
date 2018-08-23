@@ -333,22 +333,24 @@ read the man page virt-v2v(1).
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.
    *)
-  if args = [] && machine_readable () then (
-    printf "virt-v2v\n";
-    printf "libguestfs-rewrite\n";
-    printf "vcenter-https\n";
-    printf "xen-ssh\n";
-    printf "vddk\n";
-    printf "colours-option\n";
-    printf "vdsm-compat-option\n";
-    printf "in-place\n";
-    printf "io/oo\n";
-    printf "mac-option\n";
-    List.iter (printf "input:%s\n") (Modules_list.input_modules ());
-    List.iter (printf "output:%s\n") (Modules_list.output_modules ());
-    List.iter (printf "convert:%s\n") (Modules_list.convert_modules ());
-    List.iter (printf "ovf:%s\n") Create_ovf.ovf_flavours;
+  (match args, machine_readable () with
+  | [], Some { pr } ->
+    pr "virt-v2v\n";
+    pr "libguestfs-rewrite\n";
+    pr "vcenter-https\n";
+    pr "xen-ssh\n";
+    pr "vddk\n";
+    pr "colours-option\n";
+    pr "vdsm-compat-option\n";
+    pr "in-place\n";
+    pr "io/oo\n";
+    pr "mac-option\n";
+    List.iter (pr "input:%s\n") (Modules_list.input_modules ());
+    List.iter (pr "output:%s\n") (Modules_list.output_modules ());
+    List.iter (pr "convert:%s\n") (Modules_list.convert_modules ());
+    List.iter (pr "ovf:%s\n") Create_ovf.ovf_flavours;
     exit 0
+  | _, _ -> ()
   );
 
   (* Input transport affects whether some input options should or

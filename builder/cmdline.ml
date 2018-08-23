@@ -217,14 +217,16 @@ read the man page virt-builder(1).
   let warn_if_partition = !warn_if_partition in
 
   (* No arguments and machine-readable mode?  Print some facts. *)
-  if args = [] && machine_readable () then (
-    printf "virt-builder\n";
-    printf "arch\n";
-    printf "config-file\n";
-    printf "customize\n";
-    printf "json-list\n";
-    if Pxzcat.using_parallel_xzcat () then printf "pxzcat\n";
+  (match args, machine_readable () with
+  | [], Some { pr } ->
+    pr "virt-builder\n";
+    pr "arch\n";
+    pr "config-file\n";
+    pr "customize\n";
+    pr "json-list\n";
+    if Pxzcat.using_parallel_xzcat () then pr "pxzcat\n";
     exit 0
+  | _, _ -> ()
   );
 
   (* Check options. *)

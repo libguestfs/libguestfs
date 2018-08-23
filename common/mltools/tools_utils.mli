@@ -64,6 +64,16 @@ val parse_resize : int64 -> string -> int64
 val human_size : int64 -> string
 (** Converts a size in bytes to a human-readable string. *)
 
+type machine_readable_fn = {
+  pr : 'a. ('a, unit, string, unit) format4 -> 'a;
+} (* [@@unboxed] *)
+(** Helper type for {!machine_readable}, used to workaround
+    limitations in returned values. *)
+val machine_readable : unit -> machine_readable_fn option
+(** Returns the printf-like function to use to write all the machine
+    readable output to, in case it was enabled via
+    [--machine-readable]. *)
+
 val create_standard_options : Getopt.speclist -> ?anon_fun:Getopt.anon_fun -> ?key_opts:bool -> ?machine_readable:bool -> Getopt.usage_msg -> Getopt.t
 (** Adds the standard libguestfs command line options to the specified ones,
     sorting them, and setting [long_options] to them.

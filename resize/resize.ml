@@ -276,26 +276,28 @@ read the man page virt-resize(1).
      * things added since this option, or things which depend on features
      * of the appliance.
      *)
-    if !disks = [] && machine_readable () then (
-      printf "virt-resize\n";
-      printf "ntfsresize-force\n";
-      printf "32bitok\n";
-      printf "128-sector-alignment\n";
-      printf "alignment\n";
-      printf "align-first\n";
-      printf "infile-uri\n";
+    (match !disks, machine_readable () with
+    | [], Some { pr } ->
+      pr "virt-resize\n";
+      pr "ntfsresize-force\n";
+      pr "32bitok\n";
+      pr "128-sector-alignment\n";
+      pr "alignment\n";
+      pr "align-first\n";
+      pr "infile-uri\n";
       let g = open_guestfs () in
       g#add_drive "/dev/null";
       g#launch ();
       if g#feature_available [| "ntfsprogs"; "ntfs3g" |] then
-        printf "ntfs\n";
+        pr "ntfs\n";
       if g#feature_available [| "btrfs" |] then
-        printf "btrfs\n";
+        pr "btrfs\n";
       if g#feature_available [| "xfs" |] then
-        printf "xfs\n";
+        pr "xfs\n";
       if g#feature_available [| "f2fs" |] then
-        printf "f2fs\n";
+        pr "f2fs\n";
       exit 0
+    | _, _ -> ()
     );
 
     (* Verify we got exactly 2 disks. *)
@@ -353,7 +355,10 @@ read the man page virt-resize(1).
     (* The output disk is being created, so use cache=unsafe here. *)
     add_drive_uri g ?format:output_format ~readonly:false ~cachemode:"unsafe"
       (snd outfile);
-    if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable:(machine_readable ()) g;
+    if not (quiet ()) then (
+      let machine_readable = machine_readable () <> None in
+      Progress.set_up_progress_bar ~machine_readable g
+    );
     g#launch ();
 
     (* Set the filter to /dev/sda, in case there are any rogue
@@ -1331,7 +1336,10 @@ read the man page virt-resize(1).
       (* The output disk is being created, so use cache=unsafe here. *)
       add_drive_uri g ?format:output_format ~readonly:false ~cachemode:"unsafe"
         (snd outfile);
-      if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable:(machine_readable ()) g;
+      if not (quiet ()) then (
+        let machine_readable = machine_readable () <> None in
+        Progress.set_up_progress_bar ~machine_readable g
+      );
       g#launch ();
 
       g (* Return new handle. *)

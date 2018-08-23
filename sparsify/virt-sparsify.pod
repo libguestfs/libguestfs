@@ -237,6 +237,8 @@ to try to read passphrases from the user by opening F</dev/tty>.
 
 =item B<--machine-readable>
 
+=item B<--machine-readable>=format
+
 This option is used to make the output more machine friendly
 when being parsed by other programs.  See
 L</MACHINE READABLE OUTPUT> below.
@@ -399,6 +401,9 @@ code if there was a fatal error.
 
 All versions of virt-sparsify have supported the I<--machine-readable>
 option.
+
+It is possible to specify a format string for controlling the output;
+see L<guestfs(3)/ADVANCED MACHINE READABLE OUTPUT>.
 
 =head1 WINDOWS 8
 

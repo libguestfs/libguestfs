@@ -49,7 +49,10 @@ let run disk format ignores zeroes =
 
   g#add_drive ?format ~discard:"enable" disk;
 
-  if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable:(machine_readable ()) g;
+  if not (quiet ()) then (
+    let machine_readable = machine_readable () <> None in
+    Progress.set_up_progress_bar ~machine_readable g
+  );
   g#launch ();
 
   (* If discard is not supported in the appliance, we must return exit
