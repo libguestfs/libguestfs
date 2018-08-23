@@ -645,10 +645,6 @@ let verbose = ref false
 let set_verbose () = verbose := true
 let verbose () = !verbose
 
-let machine_readable = ref false
-let set_machine_readable () = machine_readable := true
-let machine_readable () = !machine_readable
-
 let with_open_in filename f =
   let chan = open_in filename in
   protect ~f:(fun () -> f chan) ~finally:(fun () -> close_in chan)

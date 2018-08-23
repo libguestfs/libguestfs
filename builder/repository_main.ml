@@ -74,9 +74,11 @@ read the man page virt-builder-repository(1).
   (* Machine-readable mode?  Print out some facts about what
    * this binary supports.
    *)
-  if machine_readable () then (
-    printf "virt-builder-repository\n";
+  (match machine_readable () with
+  | Some { pr } ->
+    pr "virt-builder-repository\n";
     exit 0
+  | None -> ()
   );
 
   (* Dereference options. *)

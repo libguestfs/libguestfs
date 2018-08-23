@@ -3173,6 +3173,36 @@ name.  These are intended to stop a malicious guest from consuming
 arbitrary amounts of memory and disk space on the host, and should not
 be reached in practice.  See the source code for more information.
 
+=head1 ADVANCED MACHINE READABLE OUTPUT
+
+Some of the tools support a I<--machine-readable> option, which is
+generally used to make the output more machine friendly, for easier
+parsing for example.  By default, this output goes to stdout.
+
+In addition to that, a subset of these tools support an extra string
+passed to the I<--machine-readable> option: this string specifies
+where the machine-readable output will go.
+
+The possible values are:
+
+=over 4
+
+=item B<file:>F<filename>
+
+The output goes to the specified F<filename>.
+
+=item B<stream:stdout>
+
+The output goes to stdout.  This is basically the same as the default
+behaviour of I<--machine-readable> with no parameter, although stdout
+as output is specified explicitly.
+
+=item B<stream:stderr>
+
+The output goes to stderr.
+
+=back
+
 =head1 ENVIRONMENT VARIABLES
 
 =over 4

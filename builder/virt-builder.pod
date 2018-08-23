@@ -369,6 +369,8 @@ See also: I<--source>, I<--notes>, L</SOURCES OF TEMPLATES>.
 
 =item B<--machine-readable>
 
+=item B<--machine-readable>=format
+
 This option is used to make the output more machine friendly
 when being parsed by other programs.  See
 L</MACHINE READABLE OUTPUT> below.
@@ -1802,6 +1804,9 @@ virt-builder binary.  Typical output looks like this:
 
 A list of features is printed, one per line, and the program exits
 with status 0.
+
+It is possible to specify a format string for controlling the output;
+see L<guestfs(3)/ADVANCED MACHINE READABLE OUTPUT>.
 
 =head1 ENVIRONMENT VARIABLES
 

@@ -179,7 +179,10 @@ You can ignore this warning or change it to a hard failure using the
     (* Note that the temporary overlay disk is always qcow2 format. *)
     g#add_drive ~format:"qcow2" ~readonly:false ~cachemode:"unsafe" overlaydisk;
 
-    if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable:(machine_readable ()) g;
+    if not (quiet ()) then (
+      let machine_readable = machine_readable () <> None in
+      Progress.set_up_progress_bar ~machine_readable g
+    );
     g#launch ();
 
     g in

@@ -228,11 +228,13 @@ read the man page virt-dib(1).
   let python = !python in
 
   (* No elements and machine-readable mode?  Print some facts. *)
-  if elements = [] && machine_readable () then (
-    printf "virt-dib\n";
+  (match elements, machine_readable () with
+  | [], Some { pr } ->
+    pr "virt-dib\n";
     let formats_list = Output_format.list_formats () in
-    List.iter (printf "output:%s\n") formats_list;
+    List.iter (pr "output:%s\n") formats_list;
     exit 0
+  | _, _ -> ()
   );
 
   if basepath = "" then
