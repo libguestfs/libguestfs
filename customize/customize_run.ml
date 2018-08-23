@@ -181,7 +181,7 @@ exec >>%s 2>&1
     | "urpmi" ->  sprintf "urpme %s" quoted_args
     | "xbps" ->   sprintf "xbps-remove -Sy %s" quoted_args
     | "yum" ->    sprintf "yum -y remove %s" quoted_args
-    | "zypper" -> sprintf "zypper -n rm -l %s" quoted_args
+    | "zypper" -> sprintf "zypper -n rm %s" quoted_args
 
     | "unknown" ->
       error_unknown_package_manager (s_"--uninstall")
