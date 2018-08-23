@@ -122,6 +122,28 @@ let test_tree_parse_inspect ctx =
   assert_is_number 10_L (List.nth a 2);
   assert_is_number 2_L (List.assoc "second" l)
 
+let test_tree_parse_file_basic ctx =
+  begin
+    let tmpfile, chan = bracket_tmpfile ctx in
+    output_string chan "{}\n";
+    flush chan;
+    close_out chan;
+    let value = json_parser_tree_parse_file tmpfile in
+    assert_is_object value
+  end;
+  begin
+    let tmpfile, chan = bracket_tmpfile ctx in
+    output_string chan "{\"foo\":5}\n";
+    flush chan;
+    close_out chan;
+    let value = json_parser_tree_parse_file tmpfile in
+    let l = get_dict value in
+    assert_equal_int 1 (List.length l);
+    assert_equal_string "foo" (fst (List.hd l));
+    assert_is_number 5_L (snd (List.hd l));
+  end;
+  ()
+
 (* Suites declaration. *)
 let suite =
   "mltools JSON_parser" >:::
@@ -129,6 +151,7 @@ let suite =
       "tree_parse.invalid" >:: test_tree_parse_invalid;
       "tree_parse.basic" >:: test_tree_parse_basic;
       "tree_parse.inspect" >:: test_tree_parse_inspect;
+      "tree_parse_file.basic" >:: test_tree_parse_file_basic;
     ]
 
 let () =

@@ -37,6 +37,7 @@
 #define JSON_DICT_TAG   5
 
 value virt_builder_json_parser_tree_parse (value stringv);
+value virt_builder_json_parser_tree_parse_file (value stringv);
 
 static value
 convert_json_t (json_t *val, int level)
@@ -134,6 +135,30 @@ virt_builder_json_parser_tree_parse (value stringv)
       snprintf (buf, sizeof buf, "JSON parse error: %s", err.text);
     else
       snprintf (buf, sizeof buf, "unknown JSON parse error");
+    caml_invalid_argument (buf);
+  }
+
+  rv = convert_json_t (tree, 1);
+  json_decref (tree);
+
+  CAMLreturn (rv);
+}
+
+value
+virt_builder_json_parser_tree_parse_file (value filev)
+{
+  CAMLparam1 (filev);
+  CAMLlocal1 (rv);
+  json_t *tree;
+  json_error_t err;
+
+  tree = json_load_file (String_val (filev), JSON_DECODE_ANY, &err);
+  if (tree == NULL) {
+    char buf[1024 + JSON_ERROR_TEXT_LENGTH];
+    if (strlen (err.text) > 0)
+      snprintf (buf, sizeof buf, "%s: JSON parse error: %s", String_val (filev), err.text);
+    else
+      snprintf (buf, sizeof buf, "%s: unknown JSON parse error", String_val (filev));
     caml_invalid_argument (buf);
   }
 
