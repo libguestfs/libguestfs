@@ -44,7 +44,7 @@ let get_index ~downloader ~sigchecker { Sources.uri; proxy } =
         | Some f -> f
       ) else
         tmpfile in
-    json_parser_tree_parse (read_whole_file file) in
+    json_parser_tree_parse_file file in
 
   let downloads =
     let uri_index =
