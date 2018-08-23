@@ -19,6 +19,9 @@
 val json_parser_tree_parse : string -> JSON.json_t
 (** Parse the JSON string. *)
 
+val json_parser_tree_parse_file : string -> JSON.json_t
+(** Parse the JSON in the specified file. *)
+
 val object_get_string : string -> JSON.json_t -> string
 (** [object_get_string key yv] gets the value of the [key] field as a string
     in the [yv] structure *)
