@@ -46,7 +46,7 @@ let write_entries file entries =
   close_out chan
 
 let read_file file =
-  read_whole_file (tmpdir // "out")
+  read_whole_file (tmpdir // file)
 
 let parse_file file =
   let source = { Sources.name = "input";
