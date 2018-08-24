@@ -477,7 +477,7 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
     failwithf "cannot find virt-v2v output XML: %s" converted_xml;
 
   (* Check the output XML can be parsed into a document. *)
-  let converted_xml_doc = Xml.parse_memory (read_whole_file converted_xml) in
+  let converted_xml_doc = Xml.parse_file converted_xml in
 
   (* If there's a post-conversion callback, run it now. *)
   (match test_plan.post_conversion_test with
