@@ -39,6 +39,7 @@ let authors = [
 "Angus Salkeld", [], [ Development ];
 "Ani Peter", [], [ Development ];
 "Bastien ROUCARIÈS", [], [ Development ];
+"Bernhard M. Wiedemann", [], [ Development ];
 "Cao jin", [], [ Development ];
 "Charles Duffy", [], [ Development ];
 "Chen Hanxiao", [], [ Development ];
@@ -114,6 +115,7 @@ let authors = [
 "Robert Antoni Buj Gelonch", [], [ Development ];
 "Roman Kagan", [], [ Development; V2V_and_P2V ];
 "Sandeep Shedmake", [], [ Development ];
+"Sebastian Meyer", [], [ Development ];
 "Shahar Havivi", [], [ Development; V2V_and_P2V ];
 "Shahar Lev", [], [ Development ];
 "Shankar Prasad", [], [ Development ];

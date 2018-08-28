@@ -37,6 +37,7 @@ common/mltools/checksums.ml
 common/mltools/curl.ml
 common/mltools/getopt.ml
 common/mltools/getopt_tests.ml
+common/mltools/machine_readable_tests.ml
 common/mltools/planner.ml
 common/mltools/regedit.ml
 common/mltools/registry.ml
@@ -148,6 +149,7 @@ v2v/libvirt_utils.ml
 v2v/linux.ml
 v2v/linux_bootloaders.ml
 v2v/linux_kernels.ml
+v2v/measure_disk.ml
 v2v/modules_list.ml
 v2v/name_from_disk.ml
 v2v/networks.ml
