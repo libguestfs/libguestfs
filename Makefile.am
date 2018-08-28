@@ -169,9 +169,11 @@ SUBDIRS += get-kernel
 SUBDIRS += resize
 SUBDIRS += sparsify
 SUBDIRS += sysprep
+if HAVE_LIBVIRT
 SUBDIRS += v2v
 if HAVE_OCAML_PKG_LIBVIRT
 SUBDIRS += v2v/test-harness
+endif
 endif
 if HAVE_FUSE
 SUBDIRS += dib

@@ -59,16 +59,10 @@ let rec main () =
         prog Guestfs_config.package_name Guestfs_config.package_version_full
         Guestfs_config.host_cpu;
 
-  (* Print the libvirt version if debugging.  Note that if
-   * we're configured --without-libvirt, then this will throw
-   * an exception, but some conversions should still be possible,
-   * hence the try block.
-   *)
+  (* Print the libvirt version if debugging. *)
   if verbose () then (
-    try
-      let major, minor, release = Libvirt_utils.libvirt_get_version () in
-      debug "libvirt version: %d.%d.%d" major minor release
-    with _ -> ()
+    let major, minor, release = Libvirt_utils.libvirt_get_version () in
+    debug "libvirt version: %d.%d.%d" major minor release
   );
 
   (* Perform pre-flight checks on the input and output objects. *)

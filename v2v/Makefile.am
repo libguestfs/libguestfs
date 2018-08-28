@@ -423,6 +423,7 @@ stamp-virt-v2v-support.pod: virt-v2v-support.pod
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
+	test-v2v-copy-to-local.sh \
 	test-v2v-docs.sh \
 	test-v2v-python-syntax.sh \
 	test-v2v-i-ova-bad-sha1.sh \
@@ -442,29 +443,19 @@ TESTS = \
 	test-v2v-o-vdsm-oo-query.sh \
 	test-v2v-bad-networks-and-bridges.sh
 
-if HAVE_LIBVIRT
-TESTS += \
-	test-v2v-copy-to-local.sh
-endif
-
 if HAVE_OCAML_PKG_OUNIT
 TESTS += v2v_unit_tests var_expander_tests
 endif
 
 if ENABLE_APPLIANCE
 TESTS += \
-	test-v2v-i-ova.sh \
-	test-v2v-i-disk.sh \
-	test-v2v-machine-readable.sh \
-	test-v2v-virtio-win-iso.sh \
-	test-v2v-windows-conversion.sh
-
-if HAVE_LIBVIRT
-TESTS += \
 	test-v2v-cdrom.sh \
 	test-v2v-floppy.sh \
+	test-v2v-i-disk.sh \
+	test-v2v-i-ova.sh \
 	test-v2v-in-place.sh \
 	test-v2v-mac.sh \
+	test-v2v-machine-readable.sh \
 	test-v2v-networks-and-bridges.sh \
 	test-v2v-no-copy.sh \
 	test-v2v-o-glance.sh \
@@ -482,9 +473,10 @@ TESTS += \
 	test-v2v-print-estimate.sh \
 	test-v2v-print-source.sh \
 	test-v2v-sound.sh \
+	test-v2v-virtio-win-iso.sh \
+	test-v2v-windows-conversion.sh
 	$(SLOW_TESTS) \
 	$(ROOT_TESTS)
-endif
 endif ENABLE_APPLIANCE
 
 # The VMDK file is used for some -i ova tests.

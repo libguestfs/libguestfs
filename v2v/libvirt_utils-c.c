@@ -35,17 +35,13 @@
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
-#ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
-#endif
 
 #include "guestfs.h"
 #include "guestfs-utils.h"
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
-
-#ifdef HAVE_LIBVIRT
 
 #define ERROR_MESSAGE_LEN 512
 
@@ -519,21 +515,3 @@ v2v_libvirt_get_version (value unitv)
 
   CAMLreturn (rv);
 }
-
-#else /* !HAVE_LIBVIRT */
-
-#define NO_LIBVIRT(proto)                                               \
-  proto __attribute__((noreturn));                                      \
-  proto                                                                 \
-  {                                                                     \
-    caml_invalid_argument ("virt-v2v was compiled without libvirt support"); \
-  }
-
-NO_LIBVIRT (value v2v_dumpxml (value connv, value domv))
-NO_LIBVIRT (value v2v_pool_dumpxml (value connv, value poolv))
-NO_LIBVIRT (value v2v_vol_dumpxml (value connv, value poolnamev, value volnamev))
-NO_LIBVIRT (value v2v_capabilities (value connv, value unitv))
-NO_LIBVIRT (value v2v_domain_exists (value connv, value domnamev))
-NO_LIBVIRT (value v2v_libvirt_get_version (value unitv))
-
-#endif /* !HAVE_LIBVIRT */
