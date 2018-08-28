@@ -552,7 +552,7 @@ qemuopts_set_binary_by_arch (struct qemuopts *qopts, const char *arch)
     binary = strdup ("qemu-system-aarch64");
 #elif defined(__arm__)
     binary = strdup ("qemu-system-arm");
-#elif defined(__powerpc64__) || defined(__powerpc64le__)
+#elif defined(__powerpc64__)
     binary = strdup ("qemu-system-ppc64");
 #elif defined(__s390x__)
     binary = strdup ("qemu-system-s390x");
