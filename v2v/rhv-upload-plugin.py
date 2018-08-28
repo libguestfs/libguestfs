@@ -383,8 +383,9 @@ def pwrite(h, buf, offset):
 
     try:
         http.send(buf)
-    except BrokenPipeError:
-        pass
+    except socket.error as e:
+        if e.args[0] not in (errno.EPIPE, errno.ESHUTDOWN):
+            raise
 
     r = http.getresponse()
     if r.status != 200:
@@ -446,8 +447,9 @@ def emulate_zero(h, count, offset):
                 http.send(buf)
                 count -= len(buf)
             http.send(buffer(buf, 0, count))
-        except BrokenPipeError:
-            pass
+        except socket.error as e:
+            if e.args[0] not in (errno.EPIPE, errno.ESHUTDOWN):
+                raise
 
         r = http.getresponse()
         if r.status != 200:
