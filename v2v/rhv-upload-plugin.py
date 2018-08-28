@@ -17,7 +17,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import builtins
-import errno
 import json
 import logging
 import socket
@@ -361,9 +360,8 @@ def pwrite(h, buf, offset):
 
     try:
         http.send(buf)
-    except socket.error as e:
-        if e[0] != errno.EPIPE:
-            raise
+    except BrokenPipeError:
+        pass
 
     r = http.getresponse()
     if r.status != 200:
@@ -425,9 +423,8 @@ def emulate_zero(h, count, offset):
                 http.send(buf)
                 count -= len(buf)
             http.send(buffer(buf, 0, count))
-        except socket.error as e:
-            if e[0] != errno.EPIPE:
-                raise
+        except BrokenPipeError:
+            pass
 
         r = http.getresponse()
         if r.status != 200:
