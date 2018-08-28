@@ -26,6 +26,7 @@ EXTRA_DIST = \
 	JSON_parser_tests.ml \
 	machine_readable_tests.ml \
 	test-getopt.sh \
+	test-machine-readable.sh \
 	tools_utils_tests.ml
 
 SOURCES_MLI = \
