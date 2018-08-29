@@ -65,6 +65,7 @@ SOURCES_MLI = \
 	modules_list.mli \
 	name_from_disk.mli \
 	networks.mli \
+	openstack_image_properties.mli \
 	output_glance.mli \
 	output_libvirt.mli \
 	output_local.mli \
@@ -112,6 +113,7 @@ SOURCES_ML = \
 	parse_vmx.ml \
 	parse_libvirt_xml.ml \
 	create_libvirt_xml.ml \
+	openstack_image_properties.ml \
 	qemuopts.ml \
 	input_libvirtxml.ml \
 	input_libvirt_other.ml \
