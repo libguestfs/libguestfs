@@ -63,74 +63,20 @@ object
     (* Write targets to a temporary local file - see above for reason. *)
     List.map (fun (_, ov) -> TargetFile (tmpdir // ov.ov_sd)) overlays
 
-  method create_metadata source targets _ guestcaps inspect target_firmware =
-    (* Collect the common properties for all the disks. *)
+  method create_metadata source targets
+                         target_buses guestcaps inspect target_firmware =
     let min_ram = source.s_memory /^ 1024L /^ 1024L in
-    let common_properties =
-      let properties = ref [
-        "hw_disk_bus",
-        (match guestcaps.gcaps_block_bus with
-         | Virtio_blk -> "virtio"
-         | Virtio_SCSI -> "scsi"
-         | IDE -> "ide");
-        "hw_vif_model",
-        (match guestcaps.gcaps_net_bus with
-         | Virtio_net -> "virtio"
-         | E1000 -> "e1000"
-         | RTL8139 -> "rtl8139");
-        "hw_video_model",
-        (match guestcaps.gcaps_video with
-         | QXL -> "qxl"
-         | Cirrus -> "cirrus");
-        "hw_machine_type",
-        (match guestcaps.gcaps_machine with
-         | I440FX -> "pc"
-         | Q35 -> "q35"
-         | Virt -> "virt");
-        "architecture", guestcaps.gcaps_arch;
-        "hypervisor_type", "kvm";
-        "vm_mode", "hvm";
-        "os_type", inspect.i_type;
-        "os_distro",
-        (match inspect.i_distro with
-        (* https://docs.openstack.org/python-glanceclient/latest/cli/property-keys.html *)
-         | "archlinux" -> "arch"
-         | "sles" -> "sled"
-         | x -> x (* everything else is the same in libguestfs and OpenStack*)
-        )
-      ] in
-      (match source.s_cpu_topology with
-       | None ->
-          List.push_back properties ("hw_cpu_sockets", "1");
-          List.push_back properties ("hw_cpu_cores", string_of_int source.s_vcpu);
-       | Some { s_cpu_sockets = sockets; s_cpu_cores = cores;
-                s_cpu_threads = threads } ->
-          List.push_back properties ("hw_cpu_sockets", string_of_int sockets);
-          List.push_back properties ("hw_cpu_cores", string_of_int cores);
-          List.push_back properties ("hw_cpu_threads", string_of_int threads);
-      );
-      (match guestcaps.gcaps_block_bus with
-       | Virtio_SCSI ->
-          List.push_back properties ("hw_scsi_model", "virtio-scsi")
-       | Virtio_blk | IDE -> ()
-      );
-      (match inspect.i_major_version, inspect.i_minor_version with
-       | 0, 0 -> ()
-       | x, 0 -> List.push_back properties ("os_version", string_of_int x)
-       | x, y -> List.push_back properties ("os_version", sprintf "%d.%d" x y)
-      );
-      if guestcaps.gcaps_virtio_rng then
-        List.push_back properties ("hw_rng_model", "virtio");
-      (* XXX Neither memory balloon nor pvpanic are supported by
-       * Glance at this time.
-       *)
-      (match target_firmware with
-       | TargetBIOS -> ()
-       | TargetUEFI ->
-          List.push_back properties ("hw_firmware_type", "uefi")
-      );
 
-      !properties in
+    (* Get the image properties. *)
+    let properties =
+      Openstack_image_properties.create source target_buses guestcaps
+                                        inspect target_firmware in
+    let properties =
+      List.flatten (
+        List.map (
+          fun (k, v) -> [ "--property"; sprintf "%s=%s" k v ]
+        ) properties
+      ) in
 
     (* The first disk, assumed to be the system disk, will be called
      * "guestname".  Subsequent disks, assumed to be data disks,
@@ -142,13 +88,6 @@ object
         let name =
           if i == 0 then source.s_name
           else sprintf "%s-disk%d" source.s_name (i+1) in
-
-        let properties =
-          List.flatten (
-            List.map (
-              fun (k, v) -> [ "--property"; sprintf "%s=%s" k v ]
-            ) common_properties
-          ) in
 
         let target_file =
           match target_file with
