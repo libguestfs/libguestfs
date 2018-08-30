@@ -59,11 +59,16 @@ let target_features_of_capabilities_doc doc arch =
     List.map Xml.node_name features
   )
 
-class output_libvirt oc output_pool = object
+class output_libvirt oc output_pool =
+object (self)
   inherit output
 
   val mutable capabilities_doc = None
   val mutable pool_name = None
+  val libvirt_conn = lazy (Libvirt.Connect.connect ?name:oc ())
+
+  method private conn : Libvirt.rw Libvirt.Connect.t =
+    Lazy.force libvirt_conn
 
   method as_options =
     match oc with
@@ -71,13 +76,10 @@ class output_libvirt oc output_pool = object
     | Some uri -> sprintf "-o libvirt -oc %s -os %s" uri output_pool
 
   method prepare_targets source overlays _ _ _ _ =
-    (* Open the connection to libvirt. *)
-    let conn = Libvirt.Connect.connect ?name:oc () in
-
     (* Get the capabilities from libvirt. *)
     let xml =
       try
-        Libvirt.Connect.get_capabilities conn
+        Libvirt.Connect.get_capabilities self#conn
       with
         Libvirt.Virterror { message } ->
           error (f_"cannot get libvirt hypervisor capabilities: %s")
@@ -96,7 +98,7 @@ class output_libvirt oc output_pool = object
     capabilities_doc <- Some doc;
 
     (* Does the domain already exist on the target?  (RHBZ#889082) *)
-    if Libvirt_utils.domain_exists conn source.s_name then (
+    if Libvirt_utils.domain_exists self#conn source.s_name then (
       if source.s_hypervisor = Physical then (* virt-p2v user *)
         error (f_"a libvirt domain called ‘%s’ already exists on the target.\n\nIf using virt-p2v, select a different ‘Name’ in the ‘Target properties’. Or delete the existing domain on the target using the ‘virsh undefine’ command.")
               source.s_name
@@ -109,7 +111,7 @@ class output_libvirt oc output_pool = object
      * and dump out its XML.
      *)
     let xml =
-      let pool = Libvirt_utils.get_pool conn output_pool in
+      let pool = Libvirt_utils.get_pool self#conn output_pool in
       Libvirt.Pool.get_xml_desc (Libvirt.Pool.const pool) in
     let doc = Xml.parse_memory xml in
     let xpathctx = Xml.xpath_new_context doc in
