@@ -163,7 +163,6 @@ SOURCES_ML = \
 	v2v.ml
 
 SOURCES_C = \
-	libvirt_utils-c.c \
 	qemuopts-c.c
 
 # These files are generated and contain *.py embedded as an OCaml string.
@@ -212,6 +211,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/common/mlxml \
 	-I $(top_builddir)/common/mltools \
+	-I $(top_builddir)/common/mllibvirt \
 	-I $(top_builddir)/customize
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
@@ -242,6 +242,7 @@ OCAMLLINKFLAGS = \
 	mlxml.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
 	mltools.$(MLARCHIVE) \
+	mllibvirt.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
 virt_v2v_DEPENDENCIES = $(OBJECTS) $(top_srcdir)/ocaml-link.sh
@@ -251,7 +252,7 @@ virt_v2v_LINK = \
 	  $(OBJECTS) -o $@
 
 virt_v2v_copy_to_local_SOURCES = \
-	libvirt_utils-c.c
+	dummy.c
 virt_v2v_copy_to_local_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
@@ -284,6 +285,7 @@ virt_v2v_copy_to_local_DEPENDENCIES = \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../common/mltools/mltools.$(MLARCHIVE) \
+	../common/mllibvirt/mllibvirt.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 virt_v2v_copy_to_local_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \

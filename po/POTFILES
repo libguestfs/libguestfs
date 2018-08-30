@@ -471,6 +471,5 @@ utils/boot-benchmark/boot-benchmark.c
 utils/max-disks/max-disks.pl
 utils/qemu-boot/qemu-boot.c
 utils/qemu-speed-test/qemu-speed-test.c
-v2v/libvirt_utils-c.c
 v2v/qemuopts-c.c
 v2v/test-harness/dummy.c

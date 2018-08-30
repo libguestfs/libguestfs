@@ -125,7 +125,12 @@ read the man page virt-v2v-copy-to-local(1).
 
   (* Get the remote libvirt XML. *)
   message (f_"Fetching the remote libvirt XML metadata ...");
-  let xml = Libvirt_utils.dumpxml ?password_file ~conn:input_conn guest_name in
+  let xml =
+    let auth = Libvirt_utils.auth_for_password_file ?password_file () in
+    let conn = Libvirt.Connect.connect_auth ~name:input_conn auth in
+    let dom = Libvirt_utils.get_domain conn guest_name in
+    (* Use XmlSecure to get passwords (RHBZ#1174123). *)
+    Libvirt.Domain.get_xml_desc_flags dom [Libvirt.Domain.XmlSecure] in
 
   debug "libvirt XML from remote server:\n%s" xml;
 

@@ -30,9 +30,9 @@ open Input_libvirt_other
 open Printf
 
 (* Subclass specialized for handling Xen over SSH. *)
-class input_libvirt_xen_ssh input_conn input_password parsed_uri server guest =
-object
-  inherit input_libvirt input_conn input_password guest
+class input_libvirt_xen_ssh libvirt_conn parsed_uri server guest =
+object (self)
+  inherit input_libvirt libvirt_conn guest
 
   method precheck () =
     if backend_is_libvirt () then
@@ -43,12 +43,7 @@ object
   method source () =
     debug "input_libvirt_xen_ssh: source: server %s" server;
 
-    (* Get the libvirt XML.  This also checks (as a side-effect)
-     * that the domain is not running.  (RHBZ#1138586)
-     *)
-    let xml = Libvirt_utils.dumpxml ?password_file:input_password
-                                    ?conn:input_conn guest in
-    let source, disks = parse_libvirt_xml ?conn:input_conn xml in
+    let source, disks, _ = parse_libvirt_domain self#conn guest in
 
     (* Map the <source/> filename (which is relative to the remote
      * Xen server) to an ssh URI.  This is a JSON URI looking something

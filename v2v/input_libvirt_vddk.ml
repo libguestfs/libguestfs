@@ -93,8 +93,8 @@ let parse_input_options options =
   options
 
 (* Subclass specialized for handling VMware via nbdkit vddk plugin. *)
-class input_libvirt_vddk input_conn input_password vddk_options parsed_uri
-                         guest =
+class input_libvirt_vddk libvirt_conn input_conn  input_password vddk_options
+                         parsed_uri guest =
   (* The VDDK path. *)
   let libdir =
     try Some (List.assoc "libdir" vddk_options)
@@ -194,8 +194,8 @@ See also the virt-v2v-input-vmware(1) manual.") libNN
       error (f_"nbdkit was compiled without SELinux support.  You will have to recompile nbdkit with libselinux-devel installed, or else set SELinux to Permissive mode while doing the conversion.")
   in
 
-object
-  inherit input_libvirt input_conn input_password guest as super
+object (self)
+  inherit input_libvirt libvirt_conn guest as super
 
   method precheck () =
     error_unless_vddk_libdir ();
@@ -215,12 +215,7 @@ object
             pt_options
 
   method source () =
-    (* Get the libvirt XML.  This also checks (as a side-effect)
-     * that the domain is not running.  (RHBZ#1138586)
-     *)
-    let xml = Libvirt_utils.dumpxml ?password_file:input_password
-                                    ?conn:input_conn guest in
-    let source, disks = parse_libvirt_xml ?conn:input_conn xml in
+    let source, disks, xml = parse_libvirt_domain self#conn guest in
 
     (* Find the <vmware:moref> element from the XML.  This was added
      * in libvirt >= 3.7 and is required.

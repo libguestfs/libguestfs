@@ -40,35 +40,28 @@ let error_if_libvirt_does_not_support_json_backingfile () =
     error (f_"because of libvirt bug https://bugzilla.redhat.com/1134878 you must EITHER upgrade to libvirt >= 2.1.0 OR set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.")
 
 (* Superclass. *)
-class virtual input_libvirt input_conn (input_password : string option) guest =
-object
+class virtual input_libvirt libvirt_conn guest =
+object (self)
   inherit input
 
   method as_options =
-    sprintf "-i libvirt%s %s"
-      (match input_conn with
-      | None -> ""
-      | Some uri -> " -ic " ^ uri)
-      guest
+    sprintf "-i libvirt -ic %s %s" (Libvirt.Connect.get_uri self#conn) guest
+
+  method private conn : Libvirt.rw Libvirt.Connect.t =
+    Lazy.force libvirt_conn
 end
 
 (* Subclass specialized for handling anything that's *not* VMware vCenter
  * or Xen.
  *)
-class input_libvirt_other input_conn input_password guest =
-object
-  inherit input_libvirt input_conn input_password guest
+class input_libvirt_other libvirt_conn guest =
+object (self)
+  inherit input_libvirt libvirt_conn guest
 
   method source () =
     debug "input_libvirt_other: source ()";
 
-    (* Get the libvirt XML.  This also checks (as a side-effect)
-     * that the domain is not running.  (RHBZ#1138586)
-     *)
-    let xml = Libvirt_utils.dumpxml ?password_file:input_password
-                                    ?conn:input_conn guest in
-
-    let source, disks = parse_libvirt_xml ?conn:input_conn xml in
+    let source, disks, _ = parse_libvirt_domain self#conn guest in
     let disks = List.map (fun { p_source_disk = disk } -> disk) disks in
     { source with s_disks = disks }
 end

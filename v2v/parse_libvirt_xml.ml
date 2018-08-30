@@ -74,6 +74,17 @@ let create_curl_qemu_uri driver host port path =
 let parse_libvirt_xml ?conn xml =
   debug "libvirt xml is:\n%s" xml;
 
+  (* Create a default libvirt connection on request, to not open one
+   * in case there is no need to fetch more data (for example inspect
+   * the storage pools).
+   *)
+  let libvirt_conn =
+    lazy (Libvirt.Connect.connect ()) in
+  let get_conn () =
+    match conn with
+    | None -> Lazy.force libvirt_conn
+    | Some conn -> conn in
+
   let doc = Xml.parse_memory xml in
   let xpathctx = Xml.xpath_new_context doc in
   let xpath_string = xpath_string xpathctx
@@ -333,7 +344,10 @@ let parse_libvirt_xml ?conn xml =
         (match xpath_string "source/@pool", xpath_string "source/@volume" with
         | None, None | Some _, None | None, Some _ -> ()
         | Some pool, Some vol ->
-          let xml = Libvirt_utils.vol_dumpxml ?conn pool vol in
+          let xml =
+            let pool = Libvirt_utils.get_pool (get_conn ()) pool in
+            let vol = Libvirt_utils.get_volume pool vol in
+            Libvirt.Volume.get_xml_desc (Libvirt.Volume.const vol) in
           let doc = Xml.parse_memory xml in
           let xpathctx = Xml.xpath_new_context doc in
           let xpath_string = Xpath_helpers.xpath_string xpathctx in
@@ -536,3 +550,10 @@ let parse_libvirt_xml ?conn xml =
     s_nics = nics;
    },
    disks)
+
+let parse_libvirt_domain conn guest =
+  let dom = Libvirt_utils.get_domain conn guest in
+  (* Use XmlSecure to get passwords (RHBZ#1174123). *)
+  let xml = Libvirt.Domain.get_xml_desc_flags dom [Libvirt.Domain.XmlSecure] in
+  let source, disks = parse_libvirt_xml ~conn xml in
+  source, disks, xml

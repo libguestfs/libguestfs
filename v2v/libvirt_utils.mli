@@ -16,38 +16,35 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** This module implements various [virsh]-like commands, but with
-    non-broken authentication handling.
+(** This module provides helper methods on top of the [Libvirt]
+    module. *)
 
-    If you do [virsh dumpxml foo] and if the libvirt source (eg. ESX)
-    requires an interactive password, then virsh unhelpfully sends the
-    password prompt to stdout, which is the same place we would be
-    reading the XML from.  This file works around this brokenness. *)
+val auth_for_password_file : ?password_file:string -> unit -> Libvirt.Connect.auth
+(** [auth_for_password_file ?password_file ()] returns a
+    {!Libvirt.Connect.auth} record to use when opening a new libvirt
+    connection with {!Libvirt.Connect.connect_auth} or
+    {!Libvirt.Connect.connect_auth_readonly}.  The record will
+    authenticate using the password specified in the first line of
+    [?password_file], if specified. *)
 
-val dumpxml : ?password_file:string -> ?conn:string -> string -> string
-(** [dumpxml ?password_file ?conn dom] returns the libvirt XML of domain [dom].
-    The optional [?conn] parameter is the libvirt connection URI.
-    [dom] may be a guest name or UUID. *)
+val get_domain : Libvirt.rw Libvirt.Connect.t -> string -> Libvirt.rw Libvirt.Domain.t
+(** [get_domain conn dom] returns the libvirt domain with the
+    specified [dom] name or UUID.  [conn] is the libvirt
+    connection. *)
 
-val pool_dumpxml : ?conn:string -> string -> string
-(** [pool_dumpxml ?conn pool] returns the libvirt XML of pool [pool].
-    The optional [?conn] parameter is the libvirt connection URI.
-    [pool] may be a pool name or UUID. *)
+val get_pool : Libvirt.rw Libvirt.Connect.t -> string -> Libvirt.rw Libvirt.Pool.t
+(** [get_pool conn pool] returns the libvirt pool with the
+    specified [pool] name or UUID.  [conn] is the libvirt
+    connection. *)
 
-val vol_dumpxml : ?conn:string -> string -> string -> string
-(** [vol_dumpxml ?conn pool vol] returns the libvirt XML of volume [vol],
-    which is part of the pool [pool].
-    The optional [?conn] parameter is the libvirt connection URI.
-    [pool] may be a pool name or UUID. *)
+val get_volume : Libvirt.rw Libvirt.Pool.t -> string -> Libvirt.rw Libvirt.Volume.t
+(** [get_volume pool vol] returns the libvirt volume with the
+    specified [vol] name or UUID, as part of the pool [pool]. *)
 
-val capabilities : ?conn:string -> unit -> string
-(** [capabilities ?conn ()] returns the libvirt capabilities XML.
-    The optional [?conn] parameter is the libvirt connection URI. *)
-
-val domain_exists : ?conn:string -> string -> bool
-(** [domain_exists ?conn dom] returns a boolean indicating if the
-    the libvirt XML domain [dom] exists.
-    The optional [?conn] parameter is the libvirt connection URI.
+val domain_exists : Libvirt.rw Libvirt.Connect.t -> string -> bool
+(** [domain_exists conn dom] returns a boolean indicating if the
+    the libvirt XML domain [dom] exists.  [conn] is the libvirt
+    connection.
     [dom] may be a guest name, but not a UUID. *)
 
 val libvirt_get_version : unit -> int * int * int
