@@ -243,6 +243,7 @@ AC_CONFIG_FILES([Makefile
                  common/miniexpect/Makefile
                  common/mlaugeas/Makefile
                  common/mlgettext/Makefile
+                 common/mllibvirt/Makefile
                  common/mlpcre/Makefile
                  common/mlprogress/Makefile
                  common/mlstdutils/Makefile

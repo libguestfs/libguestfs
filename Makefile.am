@@ -163,6 +163,9 @@ SUBDIRS += common/mlprogress
 SUBDIRS += common/mlvisit
 SUBDIRS += common/mlxml
 SUBDIRS += common/mltools
+if HAVE_LIBVIRT
+SUBDIRS += common/mllibvirt
+endif
 SUBDIRS += customize
 SUBDIRS += builder builder/templates
 SUBDIRS += get-kernel

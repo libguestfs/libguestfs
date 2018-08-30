@@ -133,6 +133,8 @@ Makefile.in
 /common/mlaugeas/.depend
 /common/mlgettext/.depend
 /common/mlgettext/common_gettext.ml
+/common/mllibvirt/.depend
+/common/mllibvirt/libvirt_c.c
 /common/mlpcre/.depend
 /common/mlpcre/pcre_tests
 /common/mlprogress/.depend
