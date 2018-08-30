@@ -160,14 +160,14 @@ object (self)
     (* We copied directly into the final pool directory.  However we
      * have to tell libvirt.
      *)
-    let cmd = [ "virsh" ] @
-      (if quiet () then [ "-q" ] else []) @
-      (match oc with
-      | None -> []
-      | Some uri -> [ "-c"; uri; ]) @
-      [ "pool-refresh"; output_pool ] in
-    if run_command cmd <> 0 then
-      warning (f_"could not refresh libvirt pool %s") output_pool;
+    (try
+      let pool = Libvirt_utils.get_pool self#conn output_pool in
+      Libvirt.Pool.refresh (Libvirt.Pool.const pool)
+    with
+      Libvirt.Virterror { message } ->
+        warning (f_"could not refresh libvirt pool ‘%s’: %s")
+          output_pool (Option.default "" message)
+    );
 
     let pool_name =
       match pool_name with
@@ -198,17 +198,14 @@ object (self)
     );
 
     (* Define the domain in libvirt. *)
-    let cmd = [ "virsh" ] @
-      (if quiet () then [ "-q" ] else []) @
-      (match oc with
-      | None -> []
-      | Some uri -> [ "-c"; uri; ]) @
-      [ "define"; tmpfile ] in
-    if run_command cmd = 0 then (
-      try Unix.unlink tmpfile with _ -> ()
-    ) else (
-      warning (f_"could not define libvirt domain.  The libvirt XML is still available in ‘%s’.  Try running ‘virsh define %s’ yourself instead.")
-        tmpfile tmpfile
+    (try
+      ignore (Libvirt.Domain.define_xml self#conn (DOM.doc_to_string doc));
+      (try Unix.unlink tmpfile with _ -> ())
+    with
+      Libvirt.Virterror { message } ->
+        warning (f_"could not define libvirt domain: %s.\nThe libvirt XML is still available in ‘%s’.  Try running ‘virsh -c %s define %s’ yourself instead.")
+          (Option.default "" message) tmpfile
+          (Libvirt.Connect.get_uri self#conn) tmpfile
     );
 end
 
