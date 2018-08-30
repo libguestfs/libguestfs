@@ -145,7 +145,6 @@ if test "x$enable_daemon" = "xyes"; then
 fi
 
 OCAML_PKG_gettext=no
-OCAML_PKG_libvirt=no
 OCAML_PKG_oUnit=no
 ounit_is_v2=no
 have_Bytes_module=no
@@ -158,7 +157,6 @@ AS_IF([test "x$OCAMLC" != "xno"],[
 
     GUESTFS_CREATE_COMMON_GETTEXT_ML([common/mlgettext/common_gettext.ml])
 
-    AC_CHECK_OCAML_PKG(libvirt)
     AC_CHECK_OCAML_PKG(oUnit)
 
     # oUnit >= 2 is required, so check that it has OUnit2.
@@ -182,8 +180,6 @@ AS_IF([test "x$OCAMLC" != "xno"],[
 ])
 AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
                [test "x$OCAML_PKG_gettext" != "xno"])
-AM_CONDITIONAL([HAVE_OCAML_PKG_LIBVIRT],
-               [test "x$OCAML_PKG_libvirt" != "xno"])
 AM_CONDITIONAL([HAVE_OCAML_PKG_OUNIT],
                [test "x$OCAML_PKG_oUnit" != "xno" && test "x$ounit_is_v2" != "xno"])
 
