@@ -31,13 +31,12 @@ SOURCES_ML = \
 	v2v_test_harness.ml
 
 if HAVE_OCAML
-if HAVE_OCAML_PKG_LIBVIRT
 
 # -I $(top_builddir)/lib/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
 # installed copy of libguestfs.
 OCAMLPACKAGES = \
-	-package str,unix,libvirt \
+	-package str,unix \
 	-I $(top_builddir)/common/utils/.libs \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
@@ -45,6 +44,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlxml \
 	-I $(top_builddir)/common/mltools \
+	-I $(top_builddir)/common/mllibvirt \
 	-I $(top_builddir)/v2v
 
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) -ccopt '$(CFLAGS)'
@@ -130,7 +130,6 @@ stamp-virt-v2v-test-harness.pod: virt-v2v-test-harness.pod
 	$(top_builddir)/ocaml-dep.sh -I .. $^
 -include .depend
 
-endif
 endif
 
 .PHONY: docs
