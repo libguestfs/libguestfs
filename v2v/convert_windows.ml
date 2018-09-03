@@ -340,7 +340,7 @@ echo Wait for PnP to complete
 @echo off
 
 echo installing rhev-apt
-\"\\rhev-apt.exe\" /S /v /qn
+\"\\rhev-apt.exe\" /S /v/qn
 
 echo starting rhev-apt
 net start rhev-apt
