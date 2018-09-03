@@ -946,6 +946,20 @@ This can also prevent booting with a 7B error [see previous section]
 if the guest has group policy containing
 C<Device Installation Restrictions>.
 
+=head2 Support for SHA-2 certificates in Windows 7 and Windows Server 2008 R2
+
+Later versions of the Windows virtio drivers are signed using SHA-2
+certificates (instead of SHA-1).  The original shipping Windows 7 and
+Windows Server 2008 R2 did not understand SHA-2 certificates and so
+the Windows virtio drivers will not install properly.
+
+To fix this you must apply SHA-2 Code Signing Support from:
+L<https://docs.microsoft.com/en-us/security-updates/SecurityAdvisories/2015/3033929>
+before converting the guest.
+
+For further information see:
+L<https://bugzilla.redhat.com/show_bug.cgi?id=1624878>
+
 =head1 UEFI
 
 VMware allows you to present UEFI firmware to guests (instead of the
