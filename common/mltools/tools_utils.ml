@@ -599,3 +599,17 @@ let inspect_decrypt g =
    * function.
    *)
   c_inspect_decrypt g#ocaml_handle (Guestfs.c_pointer g#ocaml_handle)
+
+let with_timeout op timeout ?(sleep = 2) fn =
+  let start_t = Unix.gettimeofday () in
+  let rec loop () =
+    if Unix.gettimeofday () -. start_t > float_of_int timeout then
+      error (f_"%s: operation timed out") op;
+
+    match fn () with
+    | Some r -> r
+    | None ->
+       Unix.sleep sleep;
+       loop ()
+  in
+  loop ()
