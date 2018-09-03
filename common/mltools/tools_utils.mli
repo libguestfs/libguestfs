@@ -186,3 +186,17 @@ val inspect_decrypt : Guestfs.guestfs -> unit
 (** Simple implementation of decryption: look for any [crypto_LUKS]
     partitions and decrypt them, then rescan for VGs.  This only works
     for Fedora whole-disk encryption. *)
+
+val with_timeout : string -> int -> ?sleep:int -> (unit -> 'a option) -> 'a
+(** [with_timeout op timeout ?sleep fn] implements a timeout loop.
+
+    [fn] is run repeatedly until the function returns [Some result],
+    whereupon [with_timeout] returns [result] to the caller.
+
+    If [fn] returns [None] then the we wait a few seconds (controlled
+    by [?sleep]) and repeat.
+
+    If the [timeout] (in seconds) is reached, then the function
+    calls {!error} and the program exits.  The error message will
+    contain the diagnostic string [op] to identify the operation
+    which timed out. *)
