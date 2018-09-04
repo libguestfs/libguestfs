@@ -20,9 +20,6 @@
 
 -include $(top_builddir)/localenv
 
-# Skipped tests.
-include $(top_srcdir)/skipped-tests
-
 # Files that should universally be removed by 'make clean'.  Note if
 # there is any case in any subdirectory where a file should not be
 # removed by 'make clean', it should not be listed here!
