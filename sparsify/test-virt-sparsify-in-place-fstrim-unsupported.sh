@@ -21,13 +21,11 @@
 #
 # https://bugzilla.redhat.com/show_bug.cgi?id=1364347
 #
-# This test assumes that the kernel vfat driver does not support
+# This test assumes that the kernel minix driver does not support
 # fstrim.  It might become supported in a future kernel version in
 # which case we could use a different filesystem for this test, or
 # delete the test if we are confident that all common filesystems are
 # supported.
-#
-# The reason why vfat is significant is because UEFI guests use it.
 
 set -e
 set -x
@@ -36,13 +34,14 @@ $TEST_FUNCTIONS
 skip_if_skipped
 # UML does not support discard.
 skip_if_backend uml
+skip_unless_filesystem_available minix
 
 img=test-virt-sparsify-in-place-fstrim-unsupported.img
 log=test-virt-sparsify-in-place-fstrim-unsupported.log
 rm -f $img $log
 
-# Create a test filesystem with a single vfat filesystem.
-guestfish -N $img=fs:vfat exit
+# Create a test filesystem with a single minix filesystem.
+guestfish -N $img=fs:minix exit
 
 # This should warn.
 virt-sparsify --in-place $img |& tee $log
@@ -58,8 +57,8 @@ if grep "warning:.*fstrim.*not supported" $log; then
     exit 1
 fi
 
-# Create a test filesystem with vfat and ext4 filesystems.
-guestfish -N $img=bootroot:vfat:ext4 exit
+# Create a test filesystem with minix and ext4 filesystems.
+guestfish -N $img=bootroot:minix:ext4 exit
 
 # This should warn.
 virt-sparsify --in-place $img |& tee $log

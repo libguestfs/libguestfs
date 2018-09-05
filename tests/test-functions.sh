@@ -198,6 +198,16 @@ skip_unless_feature_available ()
     fi
 }
 
+# Skip if a filesystem is unavailable in the daemon.
+skip_unless_filesystem_available ()
+{
+    r="$(guestfish -a /dev/null run : filesystem_available "$1")"
+    if [ "$r" != "true" ] ; then
+        echo "$(basename $0): test skipped because $1 filesystem is not available"
+        exit 77
+    fi
+}
+
 # Skip unless the libvirt minimum version is met.
 skip_unless_libvirt_minimum_version ()
 {
