@@ -234,16 +234,14 @@ let rec main () =
    | _ -> ()
   );
 
-  (match os with
-   | FreeBSD _ -> () (* virt-sysprep doesn't work on FreeBSD. *)
-   | _ ->
-      (* Sysprep.  Relabel SELinux-using guests. *)
-      printf "Sysprepping ...\n%!";
-      let cmd =
-        sprintf "virt-sysprep --quiet -a %s%s"
-                (quote tmpout)
-                (if is_selinux_os os then " --selinux-relabel" else "") in
-      if Sys.command cmd <> 0 then exit 1
+  if can_sysprep_os os then (
+    (* Sysprep.  Relabel SELinux-using guests. *)
+    printf "Sysprepping ...\n%!";
+    let cmd =
+      sprintf "virt-sysprep --quiet -a %s%s"
+              (quote tmpout)
+              (if is_selinux_os os then " --selinux-relabel" else "") in
+    if Sys.command cmd <> 0 then exit 1
   );
 
   (* Sparsify and copy to output name. *)
@@ -412,6 +410,11 @@ and string_of_os_noarch = function
   | Debian (ver, _) -> sprintf "debian-%d" ver
   | Ubuntu (ver, _) -> sprintf "ubuntu-%s" ver
   | FreeBSD (major, minor) -> sprintf "freebsd-%d.%d" major minor
+
+(* Does virt-sysprep know how to sysprep this OS? *)
+and can_sysprep_os = function
+  | RHEL _ | CentOS _ | Fedora _ | Debian _ | Ubuntu _ -> true
+  | FreeBSD _ -> false
 
 and is_selinux_os = function
   | RHEL _ | CentOS _ | Fedora _ -> true
