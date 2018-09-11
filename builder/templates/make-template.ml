@@ -34,6 +34,14 @@ open Printf
 
 let prog = "make-template"
 
+(* Ensure that a file is deleted on exit. *)
+let unlink_on_exit =
+  let files = ref [] in
+  at_exit (
+    fun () -> List.iter (fun f -> try Unix.unlink f with _ -> ()) !files
+  );
+  fun file -> files := file :: !files
+
 let () =
   (* Check we are being run from the correct directory. *)
   if not (Sys.file_exists "debian.preseed") then (
@@ -108,6 +116,7 @@ let rec main () =
 
   (* Choose a random temporary disk name. *)
   let tmpout = sprintf "%s.img" tmpname in
+  unlink_on_exit tmpout;
 
   (* Create the final output name (actually not quite final because
    * we will xz-compress it).
@@ -119,6 +128,7 @@ let rec main () =
     match os, arch with
     | (Fedora _|RHEL _), Aarch64 ->
        let vars = Sys.getcwd () // sprintf "%s.vars" tmpname in
+       unlink_on_exit vars;
        let cmd =
          sprintf "cp /usr/share/edk2/aarch64/vars-template-pflash.raw %s"
                  (quote vars) in
@@ -129,14 +139,6 @@ let rec main () =
   (* Now construct the virt-install command. *)
   let vi = make_virt_install_command os arch ks tmpname tmpout tmpefivars
                                      boot_media virtual_size_gb in
-  (* Make sure that temporary files are removed if we exit for any reason. *)
-  at_exit (
-    fun () ->
-      (try Unix.unlink tmpout with _ -> ());
-      (match tmpefivars with
-       | Some (_, vars) -> (try Unix.unlink vars with _ -> ())
-       | None -> ());
-  );
 
   (* Print the virt-install command just before we run it, because
    * this is expected to be long-running.
@@ -249,7 +251,6 @@ let rec main () =
   let cmd =
     sprintf "virt-sparsify --quiet %s %s" (quote tmpout) (quote output) in
   if Sys.command cmd <> 0 then exit 1;
-  Unix.unlink tmpout;
 
   (* Compress the output. *)
   printf "Compressing ...\n%!";
