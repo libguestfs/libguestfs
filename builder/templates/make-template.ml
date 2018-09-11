@@ -779,7 +779,7 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars
 
   (match arch with
    | X86_64 ->
-      (* XXX This assumes the host is always x86_64. *)
+      add "--arch=x86_64";
       add "--cpu=host";
       add "--vcpus=4"
    | PPC64 ->
