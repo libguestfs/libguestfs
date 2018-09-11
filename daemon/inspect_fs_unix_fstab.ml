@@ -38,14 +38,15 @@ let re_xdev = PCRE.compile "^/dev/(h|s|v|xv)d([a-z]+)(\\d*)$"
 
 let rec check_fstab ?(mdadm_conf = false) (root_mountable : Mountable.t)
                     os_type =
-  let configfiles =
-    "/etc/fstab" :: if mdadm_conf then ["/etc/mdadm.conf"] else [] in
+  let mdadmfiles =
+    if mdadm_conf then ["/etc/mdadm.conf"; "/etc/mdadm/mdadm.conf"] else [] in
+  let configfiles = "/etc/fstab" :: mdadmfiles in
 
   with_augeas ~name:"check_fstab_aug"
               configfiles (check_fstab_aug mdadm_conf root_mountable os_type)
 
 and check_fstab_aug mdadm_conf root_mountable os_type aug =
-  (* Generate a map of MD device paths listed in /etc/mdadm.conf
+  (* Generate a map of MD device paths listed in mdadm.conf
    * to MD device paths in the guestfs appliance.
    *)
   let md_map = if mdadm_conf then map_md_devices aug else StringMap.empty in
@@ -224,11 +225,13 @@ and map_md_devices aug =
   if StringMap.is_empty uuid_map then StringMap.empty
   else (
     (* Get all arrays listed in mdadm.conf. *)
-    let entries = aug_matches_noerrors aug "/files/etc/mdadm.conf/array" in
+    let entries1 = aug_matches_noerrors aug "/files/etc/mdadm.conf/array" in
+    let entries2 = aug_matches_noerrors aug "/files/etc/mdadm/mdadm.conf/array" in
+    let entries = List.append entries1 entries2 in
 
     (* Log a debug entry if we've got md devices but nothing in mdadm.conf. *)
     if verbose () && entries = [] then
-      eprintf "warning: appliance has MD devices, but augeas returned no array matches in /etc/mdadm.conf\n%!";
+      eprintf "warning: appliance has MD devices, but augeas returned no array matches in mdadm.conf\n%!";
 
     List.fold_left (
       fun md_map entry ->
