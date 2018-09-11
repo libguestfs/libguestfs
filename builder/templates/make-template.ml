@@ -126,13 +126,21 @@ let rec main () =
   (* Some architectures need EFI boot. *)
   let tmpefivars =
     if needs_uefi os arch then (
-      let vars = Sys.getcwd () // sprintf "%s.vars" tmpname in
-      unlink_on_exit vars;
-      let cmd =
-        sprintf "cp /usr/share/edk2/aarch64/vars-template-pflash.raw %s"
-                (quote vars) in
+      let code, vars =
+        match arch with
+        | X86_64 ->
+           "/usr/share/edk2/ovmf/OVMF_CODE.fd",
+           "/usr/share/edk2/ovmf/OVMF_VARS.fd"
+        | Aarch64 ->
+           "/usr/share/edk2/aarch64/QEMU_EFI-pflash.raw",
+           "/usr/share/edk2/aarch64/vars-template-pflash.raw"
+        | _ -> assert false in
+
+      let vars_out = Sys.getcwd () // sprintf "%s.vars" tmpname in
+      unlink_on_exit vars_out;
+      let cmd = sprintf "cp %s %s" (quote vars) (quote vars_out) in
       if Sys.command cmd <> 0 then exit 1;
-      Some ("/usr/share/edk2/aarch64/QEMU_EFI-pflash.raw", vars)
+      Some (code, vars_out)
     )
     else None in
 
