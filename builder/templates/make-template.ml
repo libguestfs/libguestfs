@@ -811,9 +811,12 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars
    | _ -> ()
   );
 
-  (match ks with
-   | None -> ()
-   | Some ks ->
+  (* --initrd-inject and --extra-args flags for Linux only. *)
+  (match os with
+   | Debian _ | Ubuntu _
+   | Fedora _ | RHEL _ | CentOS _ ->
+      let ks =
+        match ks with None -> assert false | Some ks -> ks in
       add (sprintf "--initrd-inject=%s" ks);
 
       let os_extra =
@@ -839,6 +842,9 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars
 
       add (sprintf "--extra-args=%s %s %s" (* sic: does NOT need to be quoted *)
                    os_extra proxy (kernel_cmdline_of_os os arch));
+
+   (* doesn't need --initrd-inject *)
+   | FreeBSD _ -> ()
   );
 
   add (sprintf "--disk=%s,size=%d,format=raw"
