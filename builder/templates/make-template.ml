@@ -125,16 +125,16 @@ let rec main () =
 
   (* Some architectures need EFI boot. *)
   let tmpefivars =
-    match os, arch with
-    | (Fedora _|RHEL _), Aarch64 ->
-       let vars = Sys.getcwd () // sprintf "%s.vars" tmpname in
-       unlink_on_exit vars;
-       let cmd =
-         sprintf "cp /usr/share/edk2/aarch64/vars-template-pflash.raw %s"
-                 (quote vars) in
-       if Sys.command cmd <> 0 then exit 1;
-       Some ("/usr/share/edk2/aarch64/QEMU_EFI-pflash.raw", vars)
-    | _ -> None in
+    if needs_uefi os arch then (
+      let vars = Sys.getcwd () // sprintf "%s.vars" tmpname in
+      unlink_on_exit vars;
+      let cmd =
+        sprintf "cp /usr/share/edk2/aarch64/vars-template-pflash.raw %s"
+                (quote vars) in
+      if Sys.command cmd <> 0 then exit 1;
+      Some ("/usr/share/edk2/aarch64/QEMU_EFI-pflash.raw", vars)
+    )
+    else None in
 
   (* Now construct the virt-install command. *)
   let vi = make_virt_install_command os arch ks tmpname tmpout tmpefivars
@@ -420,6 +420,14 @@ and is_selinux_os = function
   | RHEL _ | CentOS _ | Fedora _ -> true
   | Debian _ | Ubuntu _
   | FreeBSD _ -> false
+
+and needs_uefi os arch =
+  match os, arch with
+  | Fedora _, Aarch64
+  | RHEL _, Aarch64 -> true
+  | RHEL _, _ | CentOS _, _ | Fedora _, _
+  | Debian _, _ | Ubuntu _, _
+  | FreeBSD _, _ -> false
 
 and get_virtual_size_gb os arch = 6
 
