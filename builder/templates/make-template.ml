@@ -104,7 +104,7 @@ let rec main () =
    * don't generate preseed files at the moment).
    * For OSes which cannot be automated (FreeBSD), this returns None.
    *)
-  let ks = make_kickstart_or_preseed os arch in
+  let ks = make_kickstart os arch in
 
   (* Find the boot media.  Normally ‘virt-install --location’ but
    * for FreeBSD it downloads the boot ISO.
@@ -425,7 +425,7 @@ and is_selinux_os = function
 
 and get_virtual_size_gb os arch = 6
 
-and make_kickstart_or_preseed os arch =
+and make_kickstart os arch =
   match os with
   (* Kickstart. *)
   | Fedora _ | CentOS _ | RHEL _ ->
