@@ -255,7 +255,12 @@ let rec main () =
   (* Sparsify and copy to output name. *)
   printf "Sparsifying ...\n%!";
   let cmd =
-    sprintf "virt-sparsify --quiet %s %s" (quote tmpout) (quote output) in
+    sprintf "virt-sparsify --inplace --quiet %s" (quote tmpout) in
+  if Sys.command cmd <> 0 then exit 1;
+
+  (* Move file to final name before compressing. *)
+  let cmd =
+    sprintf "mv %s %s" (quote tmpout) (quote output) in
   if Sys.command cmd <> 0 then exit 1;
 
   (* Compress the output. *)
