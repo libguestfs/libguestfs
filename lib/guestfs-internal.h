@@ -521,6 +521,9 @@ struct guestfs_h {
   /* Cached features. */
   struct cached_feature *features;
   size_t nr_features;
+
+  /* Used by lib/info.c.  -1 = not tested or error; else 0 or 1. */
+  int qemu_img_supports_U_option;
 };
 
 /**

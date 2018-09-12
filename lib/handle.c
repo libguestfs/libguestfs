@@ -101,6 +101,8 @@ guestfs_create_flags (unsigned flags, ...)
 
   g->memsize = DEFAULT_MEMSIZE;
 
+  g->qemu_img_supports_U_option = -1; /* not tested, see lib/info.c */
+
   /* Start with large serial numbers so they are easy to spot
    * inside the protocol.
    */
