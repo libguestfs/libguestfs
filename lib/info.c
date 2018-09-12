@@ -57,6 +57,7 @@ cleanup_json_t_decref (void *ptr)
 #endif
 
 static json_t *get_json_output (guestfs_h *g, const char *filename);
+static int qemu_img_supports_U_option (guestfs_h *g);
 static void set_child_rlimits (struct command *);
 
 char *
@@ -149,6 +150,11 @@ get_json_output (guestfs_h *g, const char *filename)
 
   guestfs_int_cmd_add_arg (cmd, "qemu-img");
   guestfs_int_cmd_add_arg (cmd, "info");
+  switch (qemu_img_supports_U_option (g)) {
+  case -1: return NULL;
+  case 0:  break;
+  default: guestfs_int_cmd_add_arg (cmd, "-U");
+  }
   guestfs_int_cmd_add_arg (cmd, "--output");
   guestfs_int_cmd_add_arg (cmd, "json");
   if (filename[0] == '/')
@@ -217,4 +223,37 @@ set_child_rlimits (struct command *cmd)
 #ifdef RLIMIT_CPU
   guestfs_int_cmd_set_child_rlimit (cmd, RLIMIT_CPU, 10 /* seconds */);
 #endif
+}
+
+/**
+ * Test if the qemu-img info command supports the C<-U> option to
+ * disable locking.  The result is memoized in the handle.
+ *
+ * Note this option was added in qemu 2.11.  We can remove this test
+ * when we can assume everyone is using qemu >= 2.11.
+ */
+static int
+qemu_img_supports_U_option (guestfs_h *g)
+{
+  if (g->qemu_img_supports_U_option >= 0)
+    return g->qemu_img_supports_U_option;
+
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
+  int r;
+
+  guestfs_int_cmd_add_string_unquoted (cmd,
+                                       "qemu-img --help | "
+                                       "grep -sqE -- '\\binfo\\b.*-U\\b'");
+  r = guestfs_int_cmd_run (cmd);
+  if (r == -1)
+    return -1;
+  if (!WIFEXITED (r)) {
+    guestfs_int_external_command_failed (g, r,
+                                         "qemu-img info -U option test",
+                                         NULL);
+    return -1;
+  }
+
+  g->qemu_img_supports_U_option = WEXITSTATUS (r) == 0;
+  return g->qemu_img_supports_U_option;
 }
