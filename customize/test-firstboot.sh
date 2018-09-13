@@ -1,6 +1,6 @@
 #!/bin/bash -
 # Test firstboot functionality.
-# Copyright (C) 2016 Red Hat Inc.
+# Copyright (C) 2016-2018 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -64,21 +64,54 @@ case "$guestname" in
         ;;
 esac
 
-# Build a guest (using virt-builder) with some firstboot commands.
+# Make the firstboot commands appropriate for the guest OS.
 #
-# The script currently assumes a Linux guest.  We should test Windows,
-# FreeBSD in future (XXX).
+# We should test FreeBSD in future (XXX).
+declare -a commands
+case "$guestname" in
+    windows-*)
+        # Windows batch commands.  Best to put them in a batch script.
+        bat1=`mktemp`
+        echo 'mkdir \fb1' > $bat1
+        echo 'timeout 5' >> $bat1
+        commands[${#commands[*]}]='--firstboot'
+        commands[${#commands[*]}]=$bat1
+        bat2=`mktemp`
+        echo 'copy nul \fb1\fb2' > $bat2
+        echo 'timeout 5' >> $bat2
+        commands[${#commands[*]}]='--firstboot'
+        commands[${#commands[*]}]=$bat2
+        commands[${#commands[*]}]='--firstboot-command'
+        commands[${#commands[*]}]='shutdown /s'
+
+        logfile="/Program Files/Guestfs/Firstboot/log.txt"
+        ;;
+    *)
+        # Assume any other guest is Linux.
+        commands[${#commands[*]}]='--firstboot-command'
+        commands[${#commands[*]}]='mkdir /fb1; sleep 5'
+        commands[${#commands[*]}]='--firstboot-command'
+        commands[${#commands[*]}]='touch /fb1/fb2; sleep 5'
+        commands[${#commands[*]}]='--firstboot-command'
+        commands[${#commands[*]}]='poweroff'
+
+        logfile="/root/virt-sysprep-firstboot.log"
+        ;;
+esac
+
+# Build a guest (using virt-builder) with some firstboot commands.
 virt-builder "$guestname" \
              --quiet \
              -o "$disk" \
-             --firstboot-command "mkdir /fb1; sleep 5" \
-             --firstboot-command "touch /fb1/fb2; sleep 5" \
-             --firstboot-command "poweroff" \
+             "${commands[@]}" \
              "${extra[@]}"
+
+rm -f $bat1 $bat2
 
 # Boot the guest in qemu and wait for the firstboot scripts to run.
 #
-# Use IDE because some ancient guests don't support anything else.
+# Use IDE because some ancient guests and Windows don't support
+# anything else.
 #
 # Adding a network device is not strictly necessary, but makes
 # the Debian 7 guest happier.
@@ -98,6 +131,12 @@ $qemu \
 # commands should not fail in guestfish.
 guestfish --ro -a "$disk" -i \
     statns /fb1 : \
-    statns /fb1/fb2
+    statns /fb1/fb2 || failed=yes
+
+# Get the log from the guest which may help debugging in case there
+# was an error.
+virt-cat -a "$disk" "$logfile"
+
+if [ "$failed" = yes ]; then exit 1; fi
 
 rm "$disk"

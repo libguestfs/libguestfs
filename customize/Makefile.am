@@ -246,7 +246,10 @@ firstboot_test_scripts := \
 	test-firstboot-ubuntu-12.04.sh \
 	test-firstboot-ubuntu-14.04.sh \
 	test-firstboot-ubuntu-16.04.sh \
-	test-firstboot-ubuntu-18.04.sh
+	test-firstboot-ubuntu-18.04.sh \
+	test-firstboot-windows-6.2-server.sh \
+	test-firstboot-windows-6.3-server.sh \
+	test-firstboot-windows-10.0-server.sh
 # Firstboot is known-broken on RHEL 3:
 #	test-firstboot-rhel-3.9.sh
 
