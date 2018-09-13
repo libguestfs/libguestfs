@@ -72,7 +72,6 @@ struct backend_direct_data {
   char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
 };
 
-static int is_openable (guestfs_h *g, const char *path, int flags);
 static char *make_appliance_dev (guestfs_h *g);
 
 static char *
@@ -387,21 +386,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     return -1;
   }
 
-  /* Try to guess if KVM is available.  We are just checking that
-   * /dev/kvm is openable.  That's not reliable, since /dev/kvm
-   * might be openable by qemu but not by us (think: SELinux) in
-   * which case the user would not get hardware virtualization,
-   * although at least shouldn't fail.
-   */
-  has_kvm = is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC);
-
-  force_tcg = guestfs_int_get_backend_setting_bool (g, "force_tcg");
-  if (force_tcg == -1)
-    return -1;
-
-  if (!has_kvm && !force_tcg)
-    debian_kvm_warning (g);
-
   guestfs_int_launch_send_progress (g, 0);
 
   TRACE0 (launch_build_appliance_start);
@@ -430,6 +414,17 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     debug (g, "qemu mandatory locking: %s",
            data->qemu_mandatory_locking ? "yes" : "no");
   }
+
+  /* Work out if KVM is supported or if the user wants to force TCG. */
+  has_kvm = guestfs_int_platform_has_kvm (g, data->qemu_data);
+  debug (g, "qemu KVM: %s", has_kvm ? "enabled" : "disabled");
+
+  force_tcg = guestfs_int_get_backend_setting_bool (g, "force_tcg");
+  if (force_tcg == -1)
+    return -1;
+
+  if (!has_kvm && !force_tcg)
+    debian_kvm_warning (g);
 
   /* Using virtio-serial, we need to create a local Unix domain socket
    * for qemu to connect to.
@@ -976,19 +971,6 @@ make_appliance_dev (guestfs_h *g)
   guestfs_int_drive_name (index, &dev[7]);
 
   return safe_strdup (g, dev);  /* Caller frees. */
-}
-
-/* Check if a file can be opened. */
-static int
-is_openable (guestfs_h *g, const char *path, int flags)
-{
-  int fd = open (path, flags);
-  if (fd == -1) {
-    debug (g, "is_openable: %s: %m", path);
-    return 0;
-  }
-  close (fd);
-  return 1;
 }
 
 static int

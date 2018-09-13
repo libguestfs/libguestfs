@@ -46,6 +46,19 @@
 #include "guestfs-internal.h"
 #include "guestfs_protocol.h"
 
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+#define CLEANUP_JSON_T_DECREF __attribute__((cleanup(cleanup_json_t_decref)))
+
+static void
+cleanup_json_t_decref (void *ptr)
+{
+  json_decref (* (json_t **) ptr);
+}
+
+#else
+#define CLEANUP_JSON_T_DECREF
+#endif
+
 struct qemu_data {
   int generation;               /* MEMO_GENERATION read from qemu.stat */
   uint64_t prev_size;           /* Size of qemu binary when cached. */
@@ -54,10 +67,12 @@ struct qemu_data {
   char *qemu_help;              /* Output of qemu -help. */
   char *qemu_devices;           /* Output of qemu -device ? */
   char *qmp_schema;             /* Output of QMP query-qmp-schema. */
+  char *query_kvm;              /* Output of QMP query-kvm. */
 
   /* The following fields are derived from the fields above. */
   struct version qemu_version;  /* Parsed qemu version number. */
   json_t *qmp_schema_tree;      /* qmp_schema parsed into a JSON tree */
+  bool has_kvm;                 /* If KVM is available. */
 };
 
 static char *cache_filename (guestfs_h *g, const char *cachedir, const struct stat *, const char *suffix);
@@ -70,10 +85,14 @@ static int write_cache_qemu_devices (guestfs_h *g, const struct qemu_data *data,
 static int test_qmp_schema (guestfs_h *g, struct qemu_data *data);
 static int read_cache_qmp_schema (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qmp_schema (guestfs_h *g, const struct qemu_data *data, const char *filename);
+static int test_query_kvm (guestfs_h *g, struct qemu_data *data);
+static int read_cache_query_kvm (guestfs_h *g, struct qemu_data *data, const char *filename);
+static int write_cache_query_kvm (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static int read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static void parse_qemu_version (guestfs_h *g, const char *, struct version *qemu_version);
 static void parse_json (guestfs_h *g, const char *, json_t **);
+static void parse_has_kvm (guestfs_h *g, const char *, bool *);
 static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 static int generic_read_cache (guestfs_h *g, const char *filename, char **strp);
 static int generic_write_cache (guestfs_h *g, const char *filename, const char *str);
@@ -105,6 +124,8 @@ static const struct qemu_fields {
     test_qemu_devices, read_cache_qemu_devices, write_cache_qemu_devices },
   { "qmp-schema",
     test_qmp_schema, read_cache_qmp_schema, write_cache_qmp_schema },
+  { "query-kvm",
+    test_query_kvm, read_cache_query_kvm, write_cache_query_kvm },
 };
 #define NR_FIELDS (sizeof qemu_fields / sizeof qemu_fields[0])
 
@@ -113,7 +134,7 @@ static const struct qemu_fields {
  * this to discard any memoized data cached by previous versions of
  * libguestfs.
  */
-#define MEMO_GENERATION 2
+#define MEMO_GENERATION 3
 
 /**
  * Test that the qemu binary (or wrapper) runs, and do C<qemu -help>
@@ -211,6 +232,7 @@ guestfs_int_test_qemu (guestfs_h *g)
   /* Derived fields. */
   parse_qemu_version (g, data->qemu_help, &data->qemu_version);
   parse_json (g, data->qmp_schema, &data->qmp_schema_tree);
+  parse_has_kvm (g, data->query_kvm, &data->has_kvm);
 
   return data;
 
@@ -339,6 +361,26 @@ write_cache_qmp_schema (guestfs_h *g, const struct qemu_data *data,
 }
 
 static int
+test_query_kvm (guestfs_h *g, struct qemu_data *data)
+{
+  return generic_qmp_test (g, data, "query-kvm", &data->query_kvm);
+}
+
+static int
+read_cache_query_kvm (guestfs_h *g, struct qemu_data *data,
+                      const char *filename)
+{
+  return generic_read_cache (g, filename, &data->query_kvm);
+}
+
+static int
+write_cache_query_kvm (guestfs_h *g, const struct qemu_data *data,
+                       const char *filename)
+{
+  return generic_write_cache (g, filename, data->query_kvm);
+}
+
+static int
 read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data,
                       const char *filename)
 {
@@ -419,6 +461,50 @@ parse_json (guestfs_h *g, const char *json, json_t **treep)
     else
       debug (g, "QMP unknown parse error (ignored)");
   }
+}
+
+/**
+ * Parse the json output from QMP query-kvm to find out if KVM is
+ * enabled on this machine.  Don't fail if parsing is not possible,
+ * assume KVM is available.
+ *
+ * The JSON output looks like:
+ * {"return": {"enabled": true, "present": true}}
+ */
+static void
+parse_has_kvm (guestfs_h *g, const char *json, bool *ret)
+{
+  CLEANUP_JSON_T_DECREF json_t *tree = NULL;
+  json_error_t err;
+  json_t *return_node, *enabled_node;
+
+  *ret = true;                  /* Assume KVM is enabled. */
+
+  if (!json)
+    return;
+
+  tree = json_loads (json, 0, &err);
+  if (tree == NULL) {
+    if (strlen (err.text) > 0)
+      debug (g, "QMP parse error: %s (ignored)", err.text);
+    else
+      debug (g, "QMP unknown parse error (ignored)");
+    return;
+  }
+
+  return_node = json_object_get (tree, "return");
+  if (!json_is_object (return_node)) {
+    debug (g, "QMP query-kvm: no \"return\" node (ignored)");
+    return;
+  }
+  enabled_node = json_object_get (return_node, "enabled");
+  /* Note that json_is_boolean will check that enabled_node != NULL. */
+  if (!json_is_boolean (enabled_node)) {
+    debug (g, "QMP query-kvm: no \"enabled\" node or not a boolean (ignored)");
+    return;
+  }
+
+  *ret = json_is_true (enabled_node);
 }
 
 /**
@@ -626,6 +712,12 @@ guestfs_int_qemu_mandatory_locking (guestfs_h *g,
   }
 
   return 0;
+}
+
+bool
+guestfs_int_platform_has_kvm (guestfs_h *g, const struct qemu_data *data)
+{
+  return data->has_kvm;
 }
 
 /**
@@ -976,6 +1068,7 @@ guestfs_int_free_qemu_data (struct qemu_data *data)
     free (data->qemu_help);
     free (data->qemu_devices);
     free (data->qmp_schema);
+    free (data->query_kvm);
     json_decref (data->qmp_schema_tree);
     free (data);
   }

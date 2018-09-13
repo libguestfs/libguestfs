@@ -779,6 +779,7 @@ extern struct version guestfs_int_qemu_version (guestfs_h *g, struct qemu_data *
 extern int guestfs_int_qemu_supports (guestfs_h *g, const struct qemu_data *, const char *option);
 extern int guestfs_int_qemu_supports_device (guestfs_h *g, const struct qemu_data *, const char *device_name);
 extern int guestfs_int_qemu_mandatory_locking (guestfs_h *g, const struct qemu_data *data);
+extern bool guestfs_int_platform_has_kvm (guestfs_h *g, const struct qemu_data *data);
 extern char *guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
 extern bool guestfs_int_discard_possible (guestfs_h *g, struct drive *drv, const struct version *qemu_version);
 extern char *guestfs_int_qemu_escape_param (guestfs_h *g, const char *param);
