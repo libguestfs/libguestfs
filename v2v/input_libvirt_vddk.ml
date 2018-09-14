@@ -162,7 +162,8 @@ class input_libvirt_vddk input_conn input_password vddk_options parsed_uri
     if Sys.command cmd <> 0 then (
       (* See if we can diagnose why ... *)
       let cmd =
-        sprintf "LANG=C %snbdkit vddk --dump-plugin 2>&1 | grep -sq libvixDiskLib.so"
+        sprintf "LANG=C %snbdkit vddk --dump-plugin 2>&1 |
+                     grep -sq \"cannot open shared object file\""
                 set_ld_library_path in
       let needs_library = Sys.command cmd = 0 in
       if not needs_library then
