@@ -22,6 +22,7 @@
 # run via the 'test-firstboot-GUESTNAME.sh' wrappers.
 
 set -e
+set -x
 
 $TEST_FUNCTIONS
 slow_test
