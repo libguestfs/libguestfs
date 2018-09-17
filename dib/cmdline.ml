@@ -196,7 +196,7 @@ read the man page virt-dib(1).
   let argspec = argspec @ Output_format.extra_args () in
 
   let opthandle = create_standard_options argspec ~anon_fun:append_element ~machine_readable:true usage_msg in
-  Getopt.parse opthandle;
+  Getopt.parse opthandle.getopt;
 
   let debug = !debug in
   let basepath = !basepath in

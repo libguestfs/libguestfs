@@ -103,7 +103,7 @@ read the man page virt-customize(1).
 ")
       prog in
   let opthandle = create_standard_options argspec ~key_opts:true usage_msg in
-  Getopt.parse opthandle;
+  Getopt.parse opthandle.getopt;
 
   if not !format_consumed then
     error (f_"--format parameter must appear before -a parameter");

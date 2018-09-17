@@ -89,7 +89,7 @@ read the man page virt-sparsify(1).
 ")
       prog in
   let opthandle = create_standard_options argspec ~anon_fun ~key_opts:true ~machine_readable:true usage_msg in
-  Getopt.parse opthandle;
+  Getopt.parse opthandle.getopt;
 
   (* Dereference the rest of the args. *)
   let check_tmpdir = !check_tmpdir in

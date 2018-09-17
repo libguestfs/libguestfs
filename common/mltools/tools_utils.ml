@@ -259,6 +259,10 @@ let machine_readable () =
     in
     Some { pr }
 
+type cmdline_options = {
+  getopt : Getopt.t;
+}
+
 let create_standard_options argspec ?anon_fun ?(key_opts = false) ?(machine_readable = false) usage_msg =
   (** Install an exit hook to check gc consistency for --debug-gc *)
   let set_debug_gc () =
@@ -306,7 +310,10 @@ let create_standard_options argspec ?anon_fun ?(key_opts = false) ?(machine_read
         [ L"machine-readable" ], Getopt.OptString ("format", parse_machine_readable), s_"Make output machine readable";
       ]
       else []) in
-  Getopt.create argspec ?anon_fun usage_msg
+  let getopt = Getopt.create argspec ?anon_fun usage_msg in
+  {
+    getopt;
+  }
 
 (* Run an external command, slurp up the output as a list of lines. *)
 let external_command ?(echo_cmd = true) cmd =

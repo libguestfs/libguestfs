@@ -74,7 +74,13 @@ val machine_readable : unit -> machine_readable_fn option
     readable output to, in case it was enabled via
     [--machine-readable]. *)
 
-val create_standard_options : Getopt.speclist -> ?anon_fun:Getopt.anon_fun -> ?key_opts:bool -> ?machine_readable:bool -> Getopt.usage_msg -> Getopt.t
+type cmdline_options = {
+  getopt : Getopt.t;              (** The actual {!Getopt} handle. *)
+}
+(** Structure representing all the data needed for handling command
+    line options. *)
+
+val create_standard_options : Getopt.speclist -> ?anon_fun:Getopt.anon_fun -> ?key_opts:bool -> ?machine_readable:bool -> Getopt.usage_msg -> cmdline_options
 (** Adds the standard libguestfs command line options to the specified ones,
     sorting them, and setting [long_options] to them.
 
@@ -84,7 +90,7 @@ val create_standard_options : Getopt.speclist -> ?anon_fun:Getopt.anon_fun -> ?k
     [machine_readable] specifies whether add the [--machine-readable]
     option.
 
-    Returns a new [Getopt.t] handle. *)
+    Returns a new {!cmdline_options} structure. *)
 
 val external_command : ?echo_cmd:bool -> string -> string list
 (** Run an external command, slurp up the output as a list of lines.

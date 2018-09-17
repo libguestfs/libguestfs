@@ -191,7 +191,7 @@ read the man page virt-builder(1).
 ")
       prog in
   let opthandle = create_standard_options argspec ~anon_fun ~machine_readable:true usage_msg in
-  Getopt.parse opthandle;
+  Getopt.parse opthandle.getopt;
 
   (* Dereference options. *)
   let args = List.rev !args in

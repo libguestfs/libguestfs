@@ -300,7 +300,7 @@ read the man page virt-v2v(1).
 ")
       prog in
   let opthandle = create_standard_options argspec ~anon_fun ~key_opts:true ~machine_readable:true usage_msg in
-  Getopt.parse opthandle;
+  Getopt.parse opthandle.getopt;
 
   (* Dereference the arguments. *)
   let args = List.rev !args in

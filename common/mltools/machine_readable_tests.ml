@@ -30,7 +30,7 @@ let usage_msg = sprintf "%s: test the --machine-readable functionality" prog
 
 let opthandle = create_standard_options [] ~machine_readable:true usage_msg
 let () =
-  Getopt.parse opthandle;
+  Getopt.parse opthandle.getopt;
 
   print_endline "on-stdout";
   prerr_endline "on-stderr";

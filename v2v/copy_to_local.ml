@@ -76,7 +76,7 @@ read the man page virt-v2v-copy-to-local(1).
 ")
       prog in
   let opthandle = create_standard_options argspec ~anon_fun usage_msg in
-  Getopt.parse opthandle;
+  Getopt.parse opthandle.getopt;
 
   let args = !args in
   let input_conn = !input_conn in

@@ -68,7 +68,7 @@ let print_optstring_value = function
 
 let opthandle = create_standard_options argspec ~anon_fun usage_msg
 let () =
-  Getopt.parse opthandle;
+  Getopt.parse opthandle.getopt;
 
   (* Implicit settings. *)
   printf "trace = %b\n" (trace ());
