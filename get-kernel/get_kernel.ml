@@ -70,7 +70,7 @@ read the man page virt-get-kernel(1).
 ")
       prog in
   let opthandle = create_standard_options argspec ~key_opts:true ~machine_readable:true usage_msg in
-  Getopt.parse opthandle;
+  Getopt.parse opthandle.getopt;
 
   (* Machine-readable mode?  Print out some facts about what
    * this binary supports.

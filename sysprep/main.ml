@@ -149,7 +149,7 @@ read the man page virt-sysprep(1).
 ")
         prog in
     let opthandle = create_standard_options args ~key_opts:true usage_msg in
-    Getopt.parse opthandle;
+    Getopt.parse opthandle.getopt;
 
     if not !format_consumed then
       error (f_"--format parameter must appear before -a parameter");

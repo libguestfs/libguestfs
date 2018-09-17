@@ -69,7 +69,7 @@ read the man page virt-builder-repository(1).
 ")
       prog in
   let opthandle = create_standard_options argspec ~anon_fun ~machine_readable:true usage_msg in
-  Getopt.parse opthandle;
+  Getopt.parse opthandle.getopt;
 
   (* Machine-readable mode?  Print out some facts about what
    * this binary supports.

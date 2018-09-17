@@ -223,7 +223,7 @@ read the man page virt-resize(1).
 ")
         prog in
     let opthandle = create_standard_options argspec ~anon_fun ~machine_readable:true usage_msg in
-    Getopt.parse opthandle;
+    Getopt.parse opthandle.getopt;
 
     if verbose () then (
       printf "command line:";
