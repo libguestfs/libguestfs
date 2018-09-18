@@ -33,6 +33,7 @@ type cmdline = {
   ignores : string list;
   zeroes : string list;
   mode : mode_t;
+  ks : key_store;
 }
 
 and mode_t =
@@ -180,4 +181,5 @@ read the man page virt-sparsify(1).
     ignores = ignores;
     zeroes = zeroes;
     mode = mode;
+    ks = opthandle.ks;
   }

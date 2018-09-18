@@ -163,6 +163,7 @@ main (int argc, char *argv[])
   int suggest = 0;
   char *append_full;
   int sock;
+  struct key_store *ks = NULL;
 
   g = guestfs_create ();
   if (g == NULL)

@@ -37,7 +37,7 @@ type tmp_place =
 | Directory of string | Block_device of string | Prebuilt_file of string
 
 let run indisk outdisk check_tmpdir compress convert
-    format ignores option tmp_param zeroes =
+    format ignores option tmp_param zeroes ks =
 
   (* Once we have got past argument parsing and start to create
    * temporary files (including the potentially massive overlay file), we
@@ -188,7 +188,7 @@ You can ignore this warning or change it to a hard failure using the
     g in
 
   (* Decrypt the disks. *)
-  inspect_decrypt g;
+  inspect_decrypt g ks;
 
   (* Modify SIGINT handler (set first above) to cancel the handle. *)
   let do_sigint _ =

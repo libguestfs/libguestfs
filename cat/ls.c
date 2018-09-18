@@ -113,6 +113,7 @@ usage (int status)
               "  --format[=raw|..]    Force disk format for -a option\n"
               "  --help               Display brief help\n"
               "  -h|--human-readable  Human-readable sizes in output\n"
+              "  --key selector       Specify a LUKS key\n"
               "  --keys-from-stdin    Read passphrases from stdin\n"
               "  -l|--long            Long listing\n"
               "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
@@ -159,6 +160,7 @@ main (int argc, char *argv[])
     { "format", 2, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
     { "human-readable", 0, 0, 'h' },
+    { "key", 1, 0, 0 },
     { "keys-from-stdin", 0, 0, 0 },
     { "long", 0, 0, 'l' },
     { "long-options", 0, 0, 0 },
@@ -189,6 +191,7 @@ main (int argc, char *argv[])
 #define MODE_LS_R  2
 #define MODE_LS_LR (MODE_LS_L|MODE_LS_R)
   int mode = 0;
+  struct key_store *ks = NULL;
 
   g = guestfs_create ();
   if (g == NULL)
@@ -238,6 +241,8 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "uid") ||
                  STREQ (long_options[option_index].name, "uids")) {
         enable_uids = 1;
+      } else if (STREQ (long_options[option_index].name, "key")) {
+        OPTION_key;
       } else
         error (EXIT_FAILURE, 0,
                _("unknown long option: %s (%d)"),
@@ -373,6 +378,7 @@ main (int argc, char *argv[])
   /* Free up data structures, no longer needed after this point. */
   free_drives (drvs);
   free_mps (mps);
+  free_key_store (ks);
 
   unsigned errors = 0;
 

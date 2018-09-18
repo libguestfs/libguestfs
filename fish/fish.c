@@ -132,6 +132,7 @@ usage (int status)
               "  --format[=raw|..]    Force disk format for -a option\n"
               "  --help               Display brief help\n"
               "  -i|--inspector       Automatically mount filesystems\n"
+              "  --key selector       Specify a LUKS key\n"
               "  --keys-from-stdin    Read passphrases from stdin\n"
               "  --listen             Listen for remote commands\n"
               "  --live               Connect to a live virtual machine\n"
@@ -198,6 +199,7 @@ main (int argc, char *argv[])
     { "format", 2, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
     { "inspector", 0, 0, 'i' },
+    { "key", 1, 0, 0 },
     { "keys-from-stdin", 0, 0, 0 },
     { "listen", 0, 0, 0 },
     { "live", 0, 0, 0 },
@@ -230,6 +232,7 @@ main (int argc, char *argv[])
   int option_index;
   struct sigaction sa;
   int next_prepared_drive = 1;
+  struct key_store *ks = NULL;
 
   initialize_readline ();
   init_event_handlers ();
@@ -293,6 +296,8 @@ main (int argc, char *argv[])
           exit (EXIT_FAILURE);
       } else if (STREQ (long_options[option_index].name, "no-dest-paths")) {
         complete_dest_paths = 0;
+      } else if (STREQ (long_options[option_index].name, "key")) {
+        OPTION_key;
       } else
         error (EXIT_FAILURE, 0,
                _("unknown long option: %s (%d)"),
@@ -496,6 +501,7 @@ main (int argc, char *argv[])
   /* Free up data structures, no longer needed after this point. */
   free_drives (drvs);
   free_mps (mps);
+  free_key_store (ks);
 
   /* Remote control? */
   if (remote_control_listen && remote_control)

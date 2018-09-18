@@ -88,6 +88,7 @@ usage (int status)
               "  --echo-keys          Don't turn off echo for passphrases\n"
               "  --format[=raw|..]    Force disk format for -a option\n"
               "  --help               Display brief help\n"
+              "  --key selector       Specify a LUKS key\n"
               "  --keys-from-stdin    Read passphrases from stdin\n"
               "  --no-applications    Do not output the installed applications\n"
               "  --no-icon            Do not output the guest icon\n"
@@ -119,6 +120,7 @@ main (int argc, char *argv[])
     { "echo-keys", 0, 0, 0 },
     { "format", 2, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
+    { "key", 1, 0, 0 },
     { "keys-from-stdin", 0, 0, 0 },
     { "long-options", 0, 0, 0 },
     { "no-applications", 0, 0, 0 },
@@ -135,6 +137,7 @@ main (int argc, char *argv[])
   bool format_consumed = true;
   int c;
   int option_index;
+  struct key_store *ks = NULL;
 
   g = guestfs_create ();
   if (g == NULL)
@@ -162,6 +165,8 @@ main (int argc, char *argv[])
         inspect_apps = 0;
       } else if (STREQ (long_options[option_index].name, "no-icon")) {
         inspect_icon = 0;
+      } else if (STREQ (long_options[option_index].name, "key")) {
+        OPTION_key;
       } else
         error (EXIT_FAILURE, 0,
                _("unknown long option: %s (%d)"),
@@ -284,7 +289,9 @@ main (int argc, char *argv[])
    * the -i option) because it can only handle a single root.  So we
    * use low-level APIs.
    */
-  inspect_do_decrypt (g);
+  inspect_do_decrypt (g, ks);
+
+  free_key_store (ks);
 
   {
     CLEANUP_FREE_STRING_LIST char **roots = guestfs_inspect_os (g);

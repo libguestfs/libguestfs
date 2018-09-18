@@ -112,7 +112,7 @@ read the man page virt-get-kernel(1).
   let unversioned = !unversioned in
   let prefix = !prefix in
 
-  add, output, unversioned, prefix
+  add, output, unversioned, prefix, opthandle.ks
 
 let rec do_fetch ~transform_fn ~outputdir g root =
   (* Mount up the disks. *)
@@ -166,7 +166,7 @@ and pick_kernel_files_linux (g : Guestfs.guestfs) root =
 
 (* Main program. *)
 let main () =
-  let add, output, unversioned, prefix = parse_cmdline () in
+  let add, output, unversioned, prefix, ks = parse_cmdline () in
 
   (* Connect to libguestfs. *)
   let g = open_guestfs () in
@@ -174,7 +174,7 @@ let main () =
   g#launch ();
 
   (* Decrypt the disks. *)
-  inspect_decrypt g;
+  inspect_decrypt g ks;
 
   let roots = g#inspect_os () in
   if Array.length roots = 0 then

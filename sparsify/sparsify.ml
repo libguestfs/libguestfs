@@ -36,8 +36,10 @@ let rec main () =
   | Mode_copying (outdisk, check_tmpdir, compress, convert, option, tmp) ->
     Copying.run cmdline.indisk outdisk check_tmpdir compress convert
                 cmdline.format cmdline.ignores option tmp cmdline.zeroes
+                cmdline.ks
   | Mode_in_place ->
     In_place.run cmdline.indisk cmdline.format cmdline.ignores cmdline.zeroes
+                 cmdline.ks
   )
 
 let () = run_main_and_handle_errors main

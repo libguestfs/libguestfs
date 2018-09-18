@@ -55,7 +55,7 @@ int inspector = 1;
 int in_guestfish = 0;
 int in_virt_rescue = 0;
 
-static int do_tail (int argc, char *argv[], struct drv *drvs, struct mp *mps);
+static int do_tail (int argc, char *argv[], struct drv *drvs, struct mp *mps, struct key_store *ks);
 static time_t disk_mtime (struct drv *drvs);
 static int reopen_handle (void);
 
@@ -79,6 +79,7 @@ usage (int status)
               "  -f|--follow          Ignored for compatibility with tail\n"
               "  --format[=raw|..]    Force disk format for -a option\n"
               "  --help               Display brief help\n"
+              "  --key selector       Specify a LUKS key\n"
               "  --keys-from-stdin    Read passphrases from stdin\n"
               "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
               "                       Mount dev on mnt (if omitted, /)\n"
@@ -110,6 +111,7 @@ main (int argc, char *argv[])
     { "follow", 0, 0, 'f' },
     { "format", 2, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
+    { "key", 1, 0, 0 },
     { "keys-from-stdin", 0, 0, 0 },
     { "long-options", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
@@ -127,6 +129,7 @@ main (int argc, char *argv[])
   int c;
   int r;
   int option_index;
+  struct key_store *ks = NULL;
 
   g = guestfs_create ();
   if (g == NULL)
@@ -148,6 +151,8 @@ main (int argc, char *argv[])
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
+      } else if (STREQ (long_options[option_index].name, "key")) {
+        OPTION_key;
       } else
         error (EXIT_FAILURE, 0,
                _("unknown long option: %s (%d)"),
@@ -220,10 +225,11 @@ main (int argc, char *argv[])
     usage (EXIT_FAILURE);
   }
 
-  r = do_tail (argc - optind, &argv[optind], drvs, mps);
+  r = do_tail (argc - optind, &argv[optind], drvs, mps, ks);
 
   free_drives (drvs);
   free_mps (mps);
+  free_key_store (ks);
 
   guestfs_close (g);
 
@@ -246,7 +252,7 @@ user_cancel (int sig)
 
 static int
 do_tail (int argc, char *argv[], /* list of files in the guest */
-         struct drv *drvs, struct mp *mps)
+         struct drv *drvs, struct mp *mps, struct key_store *ks)
 {
   struct sigaction sa;
   time_t drvt;

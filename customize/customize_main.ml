@@ -174,7 +174,7 @@ read the man page virt-customize(1).
     g in
 
   (* Decrypt the disks. *)
-  inspect_decrypt g;
+  inspect_decrypt g opthandle.ks;
 
   (* Inspection. *)
   (match Array.to_list (g#inspect_os ()) with

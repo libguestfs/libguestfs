@@ -24,6 +24,7 @@ type cmdline = {
   ignores : string list;
   zeroes : string list;
   mode : mode_t;
+  ks : Tools_utils.key_store;
 }
 
 and mode_t =

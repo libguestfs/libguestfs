@@ -74,8 +74,11 @@ val machine_readable : unit -> machine_readable_fn option
     readable output to, in case it was enabled via
     [--machine-readable]. *)
 
+type key_store
+
 type cmdline_options = {
   getopt : Getopt.t;              (** The actual {!Getopt} handle. *)
+  ks : key_store;                 (** Container for keys read via [--key]. *)
 }
 (** Structure representing all the data needed for handling command
     line options. *)
@@ -85,7 +88,10 @@ val create_standard_options : Getopt.speclist -> ?anon_fun:Getopt.anon_fun -> ?k
     sorting them, and setting [long_options] to them.
 
     [key_opts] specifies whether add the standard options related to
-    keys management, i.e. [--echo-keys] and [--keys-from-stdin].
+    keys management, i.e. [--echo-keys], [--key], and [--keys-from-stdin].
+    In case [key_opts] is specified, {!recfield:cmdline_options.ks} will
+    contain the keys specified via [--key], so it ought to be passed around
+    where needed.
 
     [machine_readable] specifies whether add the [--machine-readable]
     option.
@@ -188,7 +194,7 @@ val inspect_mount_root_ro : Guestfs.guestfs -> string -> unit
 val is_btrfs_subvolume : Guestfs.guestfs -> string -> bool
 (** Checks if a filesystem is a btrfs subvolume. *)
 
-val inspect_decrypt : Guestfs.guestfs -> unit
+val inspect_decrypt : Guestfs.guestfs -> key_store -> unit
 (** Simple implementation of decryption: look for any [crypto_LUKS]
     partitions and decrypt them, then rescan for VGs.  This only works
     for Fedora whole-disk encryption. *)

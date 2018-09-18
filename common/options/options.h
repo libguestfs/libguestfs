@@ -102,23 +102,54 @@ struct mp {
   char *fstype;
 };
 
+/* A key in the key store. */
+struct key_store_key {
+  /* The device this key refers to. */
+  char *device;
+
+  enum {
+    key_string,             /* key specified as string */
+    key_file,               /* key stored in a file */
+  } type;
+  union {
+    struct {
+      char *s;              /* string of the key */
+    } string;
+    struct {
+      char *name;           /* filename with the key */
+    } file;
+  };
+};
+
+/* Container for keys, usually collected via the '--key' command line option
+ * in tools.
+ */
+struct key_store {
+  struct key_store_key *keys;
+  size_t nr_keys;
+};
+
 /* in config.c */
 extern void parse_config (void);
 
 /* in decrypt.c */
-extern void inspect_do_decrypt (guestfs_h *g);
+extern void inspect_do_decrypt (guestfs_h *g, struct key_store *ks);
 
 /* in domain.c */
 extern int add_libvirt_drives (guestfs_h *g, const char *guest);
 
 /* in inspect.c */
-extern void inspect_mount_handle (guestfs_h *g);
+extern void inspect_mount_handle (guestfs_h *g, struct key_store *ks);
 extern void inspect_mount_root (guestfs_h *g, const char *root);
-#define inspect_mount() inspect_mount_handle (g)
+#define inspect_mount() inspect_mount_handle (g, ks)
 extern void print_inspect_prompt (void);
 
 /* in key.c */
 extern char *read_key (const char *param);
+extern char *get_key (struct key_store *ks, const char *device);
+extern struct key_store *key_store_add_from_selector (struct key_store *ks, const char *selector);
+extern struct key_store *key_store_import_key (struct key_store *ks, const struct key_store_key *key);
+extern void free_key_store (struct key_store *ks);
 
 /* in options.c */
 extern void option_a (const char *arg, const char *format, struct drv **drvsp);
@@ -218,6 +249,9 @@ extern void free_mps (struct mp *mp);
 
 #define OPTION_x                                \
   guestfs_set_trace (g, 1)
+
+#define OPTION_key                                                      \
+  ks = key_store_add_from_selector (ks, optarg)
 
 #define CHECK_OPTION_format_consumed                                    \
   do {                                                                  \

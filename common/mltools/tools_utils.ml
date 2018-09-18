@@ -22,7 +22,14 @@ open Std_utils
 open Common_gettext.Gettext
 open Getopt.OptionName
 
-external c_inspect_decrypt : Guestfs.t -> int64 -> unit = "guestfs_int_mllib_inspect_decrypt"
+type key_store = {
+  keys : (string, key_store_key) Hashtbl.t;
+}
+and key_store_key =
+  | KeyString of string
+  | KeyFileName of string
+
+external c_inspect_decrypt : Guestfs.t -> int64 -> (string * key_store_key) list -> unit = "guestfs_int_mllib_inspect_decrypt"
 external c_set_echo_keys : unit -> unit = "guestfs_int_mllib_set_echo_keys" "noalloc"
 external c_set_keys_from_stdin : unit -> unit = "guestfs_int_mllib_set_keys_from_stdin" "noalloc"
 
@@ -261,6 +268,7 @@ let machine_readable () =
 
 type cmdline_options = {
   getopt : Getopt.t;
+  ks : key_store;
 }
 
 let create_standard_options argspec ?anon_fun ?(key_opts = false) ?(machine_readable = false) usage_msg =
@@ -288,6 +296,9 @@ let create_standard_options argspec ?anon_fun ?(key_opts = false) ?(machine_read
         error (f_"invalid output for --machine-readable: %s") fmt
       )
   in
+  let ks = {
+    keys = Hashtbl.create 13;
+  } in
   let argspec = [
     [ S 'V'; L"version" ], Getopt.Unit print_version_and_exit, s_"Display version and exit";
     [ S 'v'; L"verbose" ], Getopt.Unit set_verbose,  s_"Enable libguestfs debugging messages";
@@ -300,9 +311,20 @@ let create_standard_options argspec ?anon_fun ?(key_opts = false) ?(machine_read
   let argspec =
     argspec @
       (if key_opts then
+      let parse_key_selector arg =
+        let parts = String.nsplit ~max:3 ":" arg in
+        match parts with
+        | [ device; "key"; key ] ->
+          Hashtbl.replace ks.keys device (KeyString key)
+        | [ device; "file"; file ] ->
+          Hashtbl.replace ks.keys device (KeyFileName file)
+        | _ ->
+          error (f_"invalid selector string for --key: %s") arg
+      in
       [
         [ L"echo-keys" ],       Getopt.Unit c_set_echo_keys,       s_"Don’t turn off echo for passphrases";
         [ L"keys-from-stdin" ], Getopt.Unit c_set_keys_from_stdin, s_"Read passphrases from stdin";
+        [ L"key" ], Getopt.String (s_"SELECTOR", parse_key_selector), s_"Specify a LUKS key";
       ]
       else []) @
       (if machine_readable then
@@ -312,7 +334,7 @@ let create_standard_options argspec ?anon_fun ?(key_opts = false) ?(machine_read
       else []) in
   let getopt = Getopt.create argspec ?anon_fun usage_msg in
   {
-    getopt;
+    getopt; ks;
   }
 
 (* Run an external command, slurp up the output as a list of lines. *)
@@ -599,13 +621,21 @@ let is_btrfs_subvolume g fs =
     if g#last_errno () = Guestfs.Errno.errno_EINVAL then false
     else raise exn
 
-let inspect_decrypt g =
+let inspect_decrypt g ks =
+  (* Turn the keys in the key_store into a simpler struct, so it is possible
+   * to read it using the C API.
+   *)
+  let keys_as_list = Hashtbl.fold (
+    fun k v acc ->
+      (k, v) :: acc
+  ) ks.keys [] in
   (* Note we pass original 'g' even though it is not used by the
    * callee.  This is so that 'g' is kept as a root on the stack, and
    * so cannot be garbage collected while we are in the c_inspect_decrypt
    * function.
    *)
   c_inspect_decrypt g#ocaml_handle (Guestfs.c_pointer g#ocaml_handle)
+    keys_as_list
 
 let with_timeout op timeout ?(sleep = 2) fn =
   let start_t = Unix.gettimeofday () in

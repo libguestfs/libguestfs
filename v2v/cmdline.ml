@@ -40,6 +40,7 @@ type cmdline = {
   print_estimate : bool;
   print_source : bool;
   root_choice : root_choice;
+  ks : Tools_utils.key_store;
 }
 
 (* Matches --mac command line parameters. *)
@@ -658,5 +659,6 @@ read the man page virt-v2v(1).
     compressed; debug_overlays; do_copy; in_place; network_map;
     output_alloc; output_format; output_name;
     print_estimate; print_source; root_choice;
+    ks = opthandle.ks;
   },
   input, output

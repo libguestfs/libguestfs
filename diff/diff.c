@@ -128,6 +128,7 @@ usage (int status)
               "  --format[=raw|..]    Force disk format for -a or -A option\n"
               "  --help               Display brief help\n"
               "  -h|--human-readable  Human-readable sizes in output\n"
+              "  --key selector       Specify a LUKS key\n"
               "  --keys-from-stdin    Read passphrases from stdin\n"
               "  --times              Display file times\n"
               "  --time-days          Display file times as days before now\n"
@@ -180,6 +181,7 @@ main (int argc, char *argv[])
     { "help", 0, 0, HELP_OPTION },
     { "human-readable", 0, 0, 'h' },
     { "long-options", 0, 0, 0 },
+    { "key", 1, 0, 0 },
     { "keys-from-stdin", 0, 0, 0 },
     { "short-options", 0, 0, 0 },
     { "time", 0, 0, 0 },
@@ -202,6 +204,7 @@ main (int argc, char *argv[])
   int c;
   int option_index;
   struct tree *tree1, *tree2;
+  struct key_store *ks = NULL;
 
   g = guestfs_create ();
   if (g == NULL)
@@ -272,6 +275,8 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "xattr") ||
                  STREQ (long_options[option_index].name, "xattrs")) {
         enable_xattrs = 1;
+      } else if (STREQ (long_options[option_index].name, "key")) {
+        OPTION_key;
       } else
         error (EXIT_FAILURE, 0,
                _("unknown long option: %s (%d)"),
@@ -381,7 +386,7 @@ main (int argc, char *argv[])
   if (guestfs_launch (g2) == -1)
     exit (EXIT_FAILURE);
 
-  inspect_mount_handle (g2);
+  inspect_mount_handle (g2, ks);
 
   if ((tree2 = visit_guest (g2)) == NULL)
     errors++;
@@ -396,6 +401,8 @@ main (int argc, char *argv[])
 
   free_drives (drvs);
   free_drives (drvs2);
+
+  free_key_store (ks);
 
   guestfs_close (g);
   guestfs_close (g2);

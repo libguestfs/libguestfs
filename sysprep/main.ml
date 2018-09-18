@@ -36,7 +36,7 @@ let () = Sysprep_operation.bake ()
 let () = Random.self_init ()
 
 let main () =
-  let operations, g, mount_opts =
+  let operations, g, mount_opts, ks =
     let domain = ref None in
     let dryrun = ref false in
     let files = ref [] in
@@ -213,10 +213,10 @@ read the man page virt-sysprep(1).
     add g dryrun;
     g#launch ();
 
-    operations, g, mount_opts in
+    operations, g, mount_opts, opthandle.ks in
 
   (* Decrypt the disks. *)
-  inspect_decrypt g;
+  inspect_decrypt g ks;
 
   (* Inspection. *)
   (match Array.to_list (g#inspect_os ()) with

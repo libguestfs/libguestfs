@@ -65,12 +65,12 @@ compare_keys (const void *p1, const void *p2)
  * This function implements the I<-i> option.
  */
 void
-inspect_mount_handle (guestfs_h *g)
+inspect_mount_handle (guestfs_h *g, struct key_store *ks)
 {
   if (live)
     error (EXIT_FAILURE, 0, _("don’t use --live and -i options together"));
 
-  inspect_do_decrypt (g);
+  inspect_do_decrypt (g, ks);
 
   char **roots = guestfs_inspect_os (g);
   if (roots == NULL)

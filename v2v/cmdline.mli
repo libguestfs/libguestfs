@@ -30,6 +30,7 @@ type cmdline = {
   print_estimate : bool;
   print_source : bool;
   root_choice : Types.root_choice;
+  ks : Tools_utils.key_store;
 }
 
 val parse_cmdline : unit -> cmdline * Types.input * Types.output

@@ -104,7 +104,7 @@ let rec main () =
   g#launch ();
 
   (* Decrypt the disks. *)
-  inspect_decrypt g;
+  inspect_decrypt g cmdline.ks;
 
   (* Inspection - this also mounts up the filesystems. *)
   (match conversion_mode with

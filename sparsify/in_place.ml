@@ -30,7 +30,7 @@ open Cmdline
 
 module G = Guestfs
 
-let run disk format ignores zeroes =
+let run disk format ignores zeroes ks =
   (* Connect to libguestfs. *)
   let g = open_guestfs () in
 
@@ -62,7 +62,7 @@ let run disk format ignores zeroes =
     error ~exit_code:3 (f_"discard/trim is not supported");
 
   (* Decrypt the disks. *)
-  inspect_decrypt g;
+  inspect_decrypt g ks;
 
   (* Discard non-ignored filesystems that we are able to mount, and
    * selected swap partitions.
