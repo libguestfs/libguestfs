@@ -117,6 +117,8 @@ class output_rhv_upload output_alloc output_conn
 
   (* Check that nbdkit is available and new enough. *)
   let error_unless_nbdkit_working () =
+    let cmd = "nbdkit --version >/dev/null" in
+    debug "%s" cmd;
     if 0 <> Sys.command "nbdkit --version >/dev/null" then
       error (f_"nbdkit is not installed or not working.  It is required to use ‘-o rhv-upload’.  See \"OUTPUT TO RHV\" in the virt-v2v(1) manual.");
 
@@ -139,6 +141,7 @@ class output_rhv_upload output_alloc output_conn
     let cmd = sprintf "nbdkit %s %s --dump-plugin >/dev/null"
                       Python_script.python
                       (quote (Python_script.path plugin_script)) in
+    debug "%s" cmd;
     if Sys.command cmd <> 0 then
       error (f_"nbdkit %s plugin is not installed or not working.  It is required if you want to use ‘-o rhv-upload’.
 
