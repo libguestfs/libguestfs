@@ -230,14 +230,25 @@ def open(readonly):
     else:
         destination_url = urlparse(transfer.proxy_url)
 
-    context = ssl.create_default_context()
-    context.load_verify_locations(cafile = params['rhv_cafile'])
-
-    http = HTTPSConnection(
-        destination_url.hostname,
-        destination_url.port,
-        context = context
-    )
+    if destination_url.scheme == "https":
+        context = \
+            ssl.create_default_context(purpose = ssl.Purpose.SERVER_AUTH,
+                                       cafile = cafile)
+        if params['insecure']:
+            context.check_hostname = False
+            context.verify_mode = ssl.CERT_NONE
+        http = HTTPSConnection(
+            destination_url.hostname,
+            destination_url.port,
+            context = context
+        )
+    elif destination_url.scheme == "http":
+        http = HTTPConnection(
+            destination_url.hostname,
+            destination_url.port,
+        )
+    else:
+        raise RuntimeError("unknown URL scheme (%s)" % destination_url.scheme)
 
     # The first request is to fetch the features of the server.
 
