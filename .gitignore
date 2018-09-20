@@ -412,6 +412,7 @@ Makefile.in
 /make-fs/virt-make-fs.1
 /missing
 /ocaml-dep.sh
+/ocaml-link.sh
 /ocaml/bindtests.bc
 /ocaml/bindtests.opt
 /ocaml/bindtests.ml

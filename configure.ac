@@ -203,6 +203,8 @@ AC_CONFIG_FILES([installcheck.sh],
                 [chmod +x,-w installcheck.sh])
 AC_CONFIG_FILES([ocaml-dep.sh],
                 [chmod +x,-w ocaml-dep.sh])
+AC_CONFIG_FILES([ocaml-link.sh],
+                [chmod +x,-w ocaml-link.sh])
 AC_CONFIG_FILES([p2v/virt-p2v-make-disk],
                 [chmod +x,-w p2v/virt-p2v-make-disk])
 AC_CONFIG_FILES([p2v/virt-p2v-make-kickstart],
