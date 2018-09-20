@@ -47,7 +47,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mltools \
 	-I $(top_builddir)/v2v
 
-OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) -ccopt '$(CFLAGS)'
 
 BOBJECTS = \
 	$(SOURCES_ML:.ml=.cmo) \

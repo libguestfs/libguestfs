@@ -76,7 +76,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/ocaml \
 	-I $(builddir)
 
-OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) -ccopt '$(CFLAGS)'
 
 if !HAVE_OCAMLOPT
 OBJECTS = $(BOBJECTS)
