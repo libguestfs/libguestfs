@@ -37,7 +37,7 @@ CLEANFILES += t/*.annot t/*.cmi t/*.cmo t/*.cmx t/*.o t/*.a t/*.so
 
 if HAVE_OCAML
 
-OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) -ccopt '$(CFLAGS)'
 
 noinst_DATA = mlguestfs.cma META
 if HAVE_OCAMLOPT

@@ -47,4 +47,4 @@ done
 exec "$@" \
      @OCAML_RUNTIME_VARIANT_PIC_OPTION@ \
      -linkpkg \
-     -cclib "${cclib}"
+     -cclib "@LDFLAGS@ $cclib"

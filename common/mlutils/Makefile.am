@@ -74,7 +74,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(builddir)
 
-OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) -ccopt '$(CFLAGS)'
 
 if !HAVE_OCAMLOPT
 OBJECTS = $(BOBJECTS)
