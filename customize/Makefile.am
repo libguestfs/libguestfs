@@ -173,7 +173,7 @@ OCAMLCLIBS = \
 	$(LIBINTL) \
 	-lgnu
 
-OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) -ccopt '$(CFLAGS)'
 
 virt_customize_DEPENDENCIES = \
 	$(top_srcdir)/ocaml-link.sh \
