@@ -153,10 +153,12 @@ v2v/measure_disk.ml
 v2v/modules_list.ml
 v2v/name_from_disk.ml
 v2v/networks.ml
+v2v/openstack_image_properties.ml
 v2v/output_glance.ml
 v2v/output_libvirt.ml
 v2v/output_local.ml
 v2v/output_null.ml
+v2v/output_openstack.ml
 v2v/output_qemu.ml
 v2v/output_rhv.ml
 v2v/output_rhv_upload.ml
