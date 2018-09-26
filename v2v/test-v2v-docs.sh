@@ -46,7 +46,6 @@ $top_srcdir/podcheck.pl virt-v2v.pod virt-v2v \
 --vddk-snapshot,\
 --vddk-thumbprint,\
 --vddk-transports,\
---vddk-vimapiver,\
 --vdsm-compat,\
 --vdsm-image-uuid,\
 --vdsm-ovf-flavour,\

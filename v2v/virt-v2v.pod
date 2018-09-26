@@ -437,8 +437,6 @@ See L</INPUT FROM VDDK> below for details.
 
 =item B<-io vddk-transports=>MODE:MODE:...
 
-=item B<-io vddk-vimapiver=>APIVER
-
 When using VDDK mode, these options are passed unmodified to the
 L<nbdkit(1)> VDDK plugin.  Please refer to L<nbdkit-vddk-plugin(1)>.
 These are all optional.
@@ -1894,9 +1892,8 @@ SSL thumbprint:
 
 Other options that you might need to add in rare circumstances include
 I<-io vddk-config>, I<-io vddk-cookie>, I<-io vddk-nfchostport>,
-I<-io vddk-port>, I<-io vddk-snapshot>, I<-io vddk-transports> and
-I<-io vddk-vimapiver>, which are all explained in the
-L<nbdkit-vddk-plugin(1)> documentation.
+I<-io vddk-port>, I<-io vddk-snapshot>, and I<-io vddk-transports>,
+which are all explained in the L<nbdkit-vddk-plugin(1)> documentation.
 
 =head2 VDDK: DEBUGGING VDDK FAILURES
 

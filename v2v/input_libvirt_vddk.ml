@@ -44,8 +44,7 @@ let vddk_option_keys =
     "port";
     "snapshot";
     "thumbprint";
-    "transports";
-    "vimapiver" ]
+    "transports" ]
 
 let print_input_options () =
   printf (f_"Input options (-io) which can be used with -it vddk:
@@ -64,7 +63,6 @@ All other settings are optional:
                                VDDK snapshot moref
   -io vddk-transports=MODE:MODE:..
                                VDDK transports
-  -io vddk-vimapiver=APIVER    VDDK vimapiver
 
 Refer to nbdkit-vddk-plugin(1) and the VDDK documentation for further
 information on these settings.

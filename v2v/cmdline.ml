@@ -259,8 +259,6 @@ let parse_cmdline () =
                                     s_"Same as ‘-io vddk-thumbprint=thumbprint’";
     [ L"vddk-transports" ], Getopt.String ("transports", set_input_option_compat "vddk-transports"),
                                     s_"Same as ‘-io vddk-transports=transports’";
-    [ L"vddk-vimapiver" ], Getopt.String ("apiver", set_input_option_compat "vddk-vimapiver"),
-                                    s_"Same as ‘-io vddk-vimapiver=apiver’";
     [ L"vdsm-compat" ], Getopt.String ("0.10|1.1", set_output_option_compat "vdsm-compat"),
                                     s_"Same as ‘-oo vdsm-compat=0.10|1.1’";
     [ L"vdsm-image-uuid" ], Getopt.String ("uuid", set_output_option_compat "vdsm-image-uuid"),
