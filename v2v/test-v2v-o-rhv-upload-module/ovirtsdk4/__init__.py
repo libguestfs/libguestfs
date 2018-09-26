@@ -112,10 +112,11 @@ class VmsService(object):
 # Create a background thread running a web server which is
 # simulating the imageio server.
 
-from http.server import HTTPServer, BaseHTTPRequestHandler
+import SimpleHTTPServer
+import SocketServer
 import threading
 
-class RequestHandler(BaseHTTPRequestHandler):
+class RequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     protocol_version = 'HTTP/1.1'
 
     def do_OPTIONS(self):
@@ -154,11 +155,12 @@ class RequestHandler(BaseHTTPRequestHandler):
 server_address = ("", 0)
 # XXX This should test HTTPS, not HTTP, because we are testing a
 # different path through the main code.
-httpd = HTTPServer(server_address, RequestHandler)
+httpd = SocketServer.TCPServer(server_address, RequestHandler)
 imageio_port = httpd.server_address[1]
 
 def server():
     httpd.serve_forever()
 
-thread = threading.Thread(target = server, args = [], daemon = True)
+thread = threading.Thread(target = server, args = [])
+thread.daemon = True
 thread.start()
