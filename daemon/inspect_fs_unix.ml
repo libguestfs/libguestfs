@@ -143,7 +143,7 @@ and distro_of_os_release_id = function
   | "kali" -> Some DISTRO_KALI_LINUX
   | "mageia" -> Some DISTRO_MAGEIA
   | "neokylin" -> Some DISTRO_NEOKYLIN
-  | "opensuse" -> Some DISTRO_OPENSUSE
+  | "opensuse" | "opensuse-leap" -> Some DISTRO_OPENSUSE
   | "pld" -> Some DISTRO_PLD_LINUX
   | "rhel" -> Some DISTRO_RHEL
   | "sles" | "sled" -> Some DISTRO_SLES
