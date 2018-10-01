@@ -105,7 +105,7 @@ AC_ARG_WITH([distro],
             DISTRO="`. /etc/os-release && echo $ID | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'`"
             AS_CASE([$DISTRO],
                     [FEDORA | RHEL | CENTOS],[DISTRO=REDHAT],
-                    [OPENSUSE | SLED | SLES],[DISTRO=SUSE],
+                    [OPENSUSE-LEAP | OPENSUSE | SLED | SLES],[DISTRO=SUSE],
                     [ARCH],[DISTRO=ARCHLINUX])
             AC_MSG_RESULT([$DISTRO (from /etc/os-release)])
         else
