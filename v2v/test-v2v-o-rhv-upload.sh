@@ -28,6 +28,8 @@ set -x
 $TEST_FUNCTIONS
 skip_if_skipped
 skip_if_backend uml
+skip_unless python3 --version
+skip_unless nbdkit python3 --version
 skip_unless_phony_guest windows.img
 
 libvirt_uri="test://$abs_top_builddir/test-data/phony-guests/guests.xml"
