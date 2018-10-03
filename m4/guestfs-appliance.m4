@@ -58,7 +58,7 @@ AC_ARG_WITH([supermin-extra-options],
     [AS_HELP_STRING([--with-supermin-extra-options="--opt1 --opt2 ..."],
         [Pass additional supermin options. @<:@default=no@:>@])],
     [SUPERMIN_EXTRA_OPTIONS="$withval"
-     AC_MSG_RESULT([$SUPERMIN_EXTRA_OPTIONS"])],
+     AC_MSG_RESULT([$SUPERMIN_EXTRA_OPTIONS])],
     [AC_MSG_RESULT([not set])])
 
 AC_SUBST([SUPERMIN_EXTRA_OPTIONS])
