@@ -43,6 +43,7 @@
 #include "structs-cleanups.h"
 #include "options.h"
 #include "display-options.h"
+#include "libxml2-writer-macros.h"
 
 /* Currently open libguestfs handle. */
 guestfs_h *g;
@@ -68,6 +69,14 @@ static void output_filesystems (xmlTextWriterPtr xo, char *root);
 static void output_drive_mappings (xmlTextWriterPtr xo, char *root);
 static void output_applications (xmlTextWriterPtr xo, char *root);
 static void do_xpath (const char *query);
+
+/* This macro is used by the macros in "libxml2-writer-macros.h"
+ * when an error occurs.
+ */
+#define xml_error(fn)                                           \
+  error (EXIT_FAILURE, errno,                                   \
+         "%s:%d: error constructing XML near call to \"%s\"",   \
+         __FILE__, __LINE__, (fn));
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -307,11 +316,6 @@ main (int argc, char *argv[])
   exit (EXIT_SUCCESS);
 }
 
-#define XMLERROR(code,e) do {                                           \
-    if ((e) == (code))                                                  \
-      error (EXIT_FAILURE, errno, _("XML write error at \"%s\""), #e);	\
-  } while (0)
-
 static void
 output (char **roots)
 {
@@ -327,12 +331,17 @@ output (char **roots)
            _("xmlNewTextWriter: failed to create libxml2 writer"));
 
   /* Pretty-print the output. */
-  XMLERROR (-1, xmlTextWriterSetIndent (xo, 1));
-  XMLERROR (-1, xmlTextWriterSetIndentString (xo, BAD_CAST "  "));
+  if (xmlTextWriterSetIndent (xo, 1) == -1 ||
+      xmlTextWriterSetIndentString (xo, BAD_CAST "  ") == -1)
+    error (EXIT_FAILURE, errno, "could not set XML indent");
 
-  XMLERROR (-1, xmlTextWriterStartDocument (xo, NULL, NULL, NULL));
+  if (xmlTextWriterStartDocument (xo, NULL, NULL, NULL) == -1)
+    error (EXIT_FAILURE, errno, "xmlTextWriterStartDocument");
+
   output_roots (xo, roots);
-  XMLERROR (-1, xmlTextWriterEndDocument (xo));
+
+  if (xmlTextWriterEndDocument (xo) == -1)
+    error (EXIT_FAILURE, errno, "xmlTextWriterEndDocument");
 }
 
 static void
@@ -340,10 +349,10 @@ output_roots (xmlTextWriterPtr xo, char **roots)
 {
   size_t i;
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "operatingsystems"));
-  for (i = 0; roots[i] != NULL; ++i)
-    output_root (xo, roots[i]);
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  start_element ("operatingsystems") {
+    for (i = 0; roots[i] != NULL; ++i)
+      output_root (xo, roots[i]);
+  } end_element ();
 }
 
 static void
@@ -351,152 +360,129 @@ output_root (xmlTextWriterPtr xo, char *root)
 {
   char *str;
   int i;
-  char buf[32];
   char *canonical_root;
   size_t size;
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "operatingsystem"));
-
-  canonical_root = guestfs_canonical_device_name (g, root);
-  if (canonical_root == NULL)
-    exit (EXIT_FAILURE);
-  XMLERROR (-1,
-	    xmlTextWriterWriteElement (xo, BAD_CAST "root", BAD_CAST canonical_root));
-  free (canonical_root);
-
-  str = guestfs_inspect_get_type (g, root);
-  if (!str) exit (EXIT_FAILURE);
-  if (STRNEQ (str, "unknown"))
-    XMLERROR (-1,
-	      xmlTextWriterWriteElement (xo, BAD_CAST "name", BAD_CAST str));
-  free (str);
-
-  str = guestfs_inspect_get_arch (g, root);
-  if (!str) exit (EXIT_FAILURE);
-  if (STRNEQ (str, "unknown"))
-    XMLERROR (-1,
-	      xmlTextWriterWriteElement (xo, BAD_CAST "arch", BAD_CAST str));
-  free (str);
-
-  str = guestfs_inspect_get_distro (g, root);
-  if (!str) exit (EXIT_FAILURE);
-  if (STRNEQ (str, "unknown"))
-    XMLERROR (-1,
-	      xmlTextWriterWriteElement (xo, BAD_CAST "distro", BAD_CAST str));
-  free (str);
-
-  str = guestfs_inspect_get_product_name (g, root);
-  if (!str) exit (EXIT_FAILURE);
-  if (STRNEQ (str, "unknown"))
-    XMLERROR (-1,
-	      xmlTextWriterWriteElement (xo, BAD_CAST "product_name", BAD_CAST str));
-  free (str);
-
-  str = guestfs_inspect_get_product_variant (g, root);
-  if (!str) exit (EXIT_FAILURE);
-  if (STRNEQ (str, "unknown"))
-    XMLERROR (-1,
-	      xmlTextWriterWriteElement (xo, BAD_CAST "product_variant", BAD_CAST str));
-  free (str);
-
-  i = guestfs_inspect_get_major_version (g, root);
-  snprintf (buf, sizeof buf, "%d", i);
-  XMLERROR (-1,
-	    xmlTextWriterWriteElement (xo, BAD_CAST "major_version", BAD_CAST buf));
-  i = guestfs_inspect_get_minor_version (g, root);
-  snprintf (buf, sizeof buf, "%d", i);
-  XMLERROR (-1,
-	    xmlTextWriterWriteElement (xo, BAD_CAST "minor_version", BAD_CAST buf));
-
-  str = guestfs_inspect_get_package_format (g, root);
-  if (!str) exit (EXIT_FAILURE);
-  if (STRNEQ (str, "unknown"))
-    XMLERROR (-1,
-	      xmlTextWriterWriteElement (xo, BAD_CAST "package_format", BAD_CAST str));
-  free (str);
-
-  str = guestfs_inspect_get_package_management (g, root);
-  if (!str) exit (EXIT_FAILURE);
-  if (STRNEQ (str, "unknown"))
-    XMLERROR (-1,
-	      xmlTextWriterWriteElement (xo, BAD_CAST "package_management",
-					 BAD_CAST str));
-  free (str);
-
-  /* inspect-get-windows-systemroot will fail with non-windows guests,
-   * or if the systemroot could not be determined for a windows guest.
-   * Disable error output around this call.
-   */
-  guestfs_push_error_handler (g, NULL, NULL);
-  str = guestfs_inspect_get_windows_systemroot (g, root);
-  if (str)
-    XMLERROR (-1,
-              xmlTextWriterWriteElement (xo, BAD_CAST "windows_systemroot",
-                                         BAD_CAST str));
-  free (str);
-  str = guestfs_inspect_get_windows_current_control_set (g, root);
-  if (str)
-    XMLERROR (-1,
-              xmlTextWriterWriteElement (xo, BAD_CAST "windows_current_control_set",
-                                         BAD_CAST str));
-  free (str);
-  guestfs_pop_error_handler (g);
-
-  str = guestfs_inspect_get_hostname (g, root);
-  if (!str) exit (EXIT_FAILURE);
-  if (STRNEQ (str, "unknown"))
-    XMLERROR (-1,
-	      xmlTextWriterWriteElement (xo, BAD_CAST "hostname",
-					 BAD_CAST str));
-  free (str);
-
-  str = guestfs_inspect_get_osinfo (g, root);
-  if (!str) exit (EXIT_FAILURE);
-  if (STRNEQ (str, "unknown"))
-    XMLERROR (-1,
-              xmlTextWriterWriteElement (xo, BAD_CAST "osinfo", BAD_CAST str));
-  free (str);
-
-  output_mountpoints (xo, root);
-
-  output_filesystems (xo, root);
-
-  output_drive_mappings (xo, root);
-
-  /* We need to mount everything up in order to read out the list of
-   * applications and the icon, ie. everything below this point.
-   */
-  if (inspect_apps || inspect_icon) {
-    inspect_mount_root (g, root);
-
-    if (inspect_apps)
-      output_applications (xo, root);
-
-    if (inspect_icon) {
-      /* Don't return favicon.  RHEL 7 and Fedora have crappy 16x16
-       * favicons in the base distro.
-       */
-      str = guestfs_inspect_get_icon (g, root, &size,
-                                      GUESTFS_INSPECT_GET_ICON_FAVICON, 0,
-                                      -1);
-      if (!str) exit (EXIT_FAILURE);
-      if (size > 0) {
-        XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "icon"));
-        XMLERROR (-1, xmlTextWriterWriteBase64 (xo, str, 0, size));
-        XMLERROR (-1, xmlTextWriterEndElement (xo));
-      }
-      /* Note we must free (str) even if size == 0, because that indicates
-       * there was no icon.
-       */
-      free (str);
-    }
-
-    /* Unmount (see inspect_mount_root above). */
-    if (guestfs_umount_all (g) == -1)
+  start_element ("operatingsystem") {
+    canonical_root = guestfs_canonical_device_name (g, root);
+    if (canonical_root == NULL)
       exit (EXIT_FAILURE);
-  }
+    single_element ("root", canonical_root);
+    free (canonical_root);
 
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    str = guestfs_inspect_get_type (g, root);
+    if (!str) exit (EXIT_FAILURE);
+    if (STRNEQ (str, "unknown"))
+      single_element ("name", str);
+    free (str);
+
+    str = guestfs_inspect_get_arch (g, root);
+    if (!str) exit (EXIT_FAILURE);
+    if (STRNEQ (str, "unknown"))
+      single_element ("arch", str);
+    free (str);
+
+    str = guestfs_inspect_get_distro (g, root);
+    if (!str) exit (EXIT_FAILURE);
+    if (STRNEQ (str, "unknown"))
+      single_element ("distro", str);
+    free (str);
+
+    str = guestfs_inspect_get_product_name (g, root);
+    if (!str) exit (EXIT_FAILURE);
+    if (STRNEQ (str, "unknown"))
+      single_element ("product_name", str);
+    free (str);
+
+    str = guestfs_inspect_get_product_variant (g, root);
+    if (!str) exit (EXIT_FAILURE);
+    if (STRNEQ (str, "unknown"))
+      single_element ("product_variant", str);
+    free (str);
+
+    i = guestfs_inspect_get_major_version (g, root);
+    single_element_format ("major_version", "%d", i);
+    i = guestfs_inspect_get_minor_version (g, root);
+    single_element_format ("minor_version", "%d", i);
+
+    str = guestfs_inspect_get_package_format (g, root);
+    if (!str) exit (EXIT_FAILURE);
+    if (STRNEQ (str, "unknown"))
+      single_element ("package_format", str);
+    free (str);
+
+    str = guestfs_inspect_get_package_management (g, root);
+    if (!str) exit (EXIT_FAILURE);
+    if (STRNEQ (str, "unknown"))
+      single_element ("package_management", str);
+    free (str);
+
+    /* inspect-get-windows-systemroot will fail with non-windows guests,
+     * or if the systemroot could not be determined for a windows guest.
+     * Disable error output around this call.
+     */
+    guestfs_push_error_handler (g, NULL, NULL);
+    str = guestfs_inspect_get_windows_systemroot (g, root);
+    if (str)
+      single_element ("windows_systemroot", str);
+    free (str);
+    str = guestfs_inspect_get_windows_current_control_set (g, root);
+    if (str)
+      single_element ("windows_current_control_set", str);
+    free (str);
+    guestfs_pop_error_handler (g);
+
+    str = guestfs_inspect_get_hostname (g, root);
+    if (!str) exit (EXIT_FAILURE);
+    if (STRNEQ (str, "unknown"))
+      single_element ("hostname", str);
+    free (str);
+
+    str = guestfs_inspect_get_osinfo (g, root);
+    if (!str) exit (EXIT_FAILURE);
+    if (STRNEQ (str, "unknown"))
+      single_element ("osinfo", str);
+    free (str);
+
+    output_mountpoints (xo, root);
+
+    output_filesystems (xo, root);
+
+    output_drive_mappings (xo, root);
+
+    /* We need to mount everything up in order to read out the list of
+     * applications and the icon, ie. everything below this point.
+     */
+    if (inspect_apps || inspect_icon) {
+      inspect_mount_root (g, root);
+
+      if (inspect_apps)
+        output_applications (xo, root);
+
+      if (inspect_icon) {
+        /* Don't return favicon.  RHEL 7 and Fedora have crappy 16x16
+         * favicons in the base distro.
+         */
+        str = guestfs_inspect_get_icon (g, root, &size,
+                                        GUESTFS_INSPECT_GET_ICON_FAVICON, 0,
+                                        -1);
+        if (!str) exit (EXIT_FAILURE);
+        if (size > 0) {
+          start_element ("icon") {
+            base64 (str, size);
+          } end_element ();
+        }
+        /* Note we must free (str) even if size == 0, because that indicates
+         * there was no icon.
+         */
+        free (str);
+      }
+
+      /* Unmount (see inspect_mount_root above). */
+      if (guestfs_umount_all (g) == -1)
+        exit (EXIT_FAILURE);
+    }
+  } end_element (); /* operatingsystem */
 }
 
 static int
@@ -548,23 +534,19 @@ output_mountpoints (xmlTextWriterPtr xo, char *root)
          2 * sizeof (char *),
          compare_keys_len);
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "mountpoints"));
+  start_element ("mountpoints") {
+    for (i = 0; mountpoints[i] != NULL; i += 2) {
+      CLEANUP_FREE char *p =
+        guestfs_canonical_device_name (g, mountpoints[i+1]);
+      if (!p)
+        exit (EXIT_FAILURE);
 
-  for (i = 0; mountpoints[i] != NULL; i += 2) {
-    CLEANUP_FREE char *p = guestfs_canonical_device_name (g, mountpoints[i+1]);
-    if (!p)
-      exit (EXIT_FAILURE);
-
-    XMLERROR (-1,
-              xmlTextWriterStartElement (xo, BAD_CAST "mountpoint"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "dev", BAD_CAST p));
-    XMLERROR (-1,
-              xmlTextWriterWriteString (xo, BAD_CAST mountpoints[i]));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
-
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+      start_element ("mountpoint") {
+        attribute ("dev", p);
+        string (mountpoints[i]);
+      } end_element ();
+    }
+  } end_element ();
 }
 
 static void
@@ -582,47 +564,37 @@ output_filesystems (xmlTextWriterPtr xo, char *root)
   qsort (filesystems, guestfs_int_count_strings (filesystems), sizeof (char *),
          compare_keys);
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "filesystems"));
+  start_element ("filesystems") {
+    for (i = 0; filesystems[i] != NULL; ++i) {
+      str = guestfs_canonical_device_name (g, filesystems[i]);
+      if (!str)
+        exit (EXIT_FAILURE);
 
-  for (i = 0; filesystems[i] != NULL; ++i) {
-    str = guestfs_canonical_device_name (g, filesystems[i]);
-    if (!str)
-      exit (EXIT_FAILURE);
+      start_element ("filesystem") {
+        attribute ("dev", str);
+        free (str);
 
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "filesystem"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "dev", BAD_CAST str));
-    free (str);
+        guestfs_push_error_handler (g, NULL, NULL);
 
-    guestfs_push_error_handler (g, NULL, NULL);
+        str = guestfs_vfs_type (g, filesystems[i]);
+        if (str && str[0])
+          single_element ("type", str);
+        free (str);
 
-    str = guestfs_vfs_type (g, filesystems[i]);
-    if (str && str[0])
-      XMLERROR (-1,
-                xmlTextWriterWriteElement (xo, BAD_CAST "type",
-                                           BAD_CAST str));
-    free (str);
+        str = guestfs_vfs_label (g, filesystems[i]);
+        if (str && str[0])
+          single_element ("label", str);
+        free (str);
 
-    str = guestfs_vfs_label (g, filesystems[i]);
-    if (str && str[0])
-      XMLERROR (-1,
-                xmlTextWriterWriteElement (xo, BAD_CAST "label",
-                                           BAD_CAST str));
-    free (str);
+        str = guestfs_vfs_uuid (g, filesystems[i]);
+        if (str && str[0])
+          single_element ("uuid", str);
+        free (str);
 
-    str = guestfs_vfs_uuid (g, filesystems[i]);
-    if (str && str[0])
-      XMLERROR (-1,
-                xmlTextWriterWriteElement (xo, BAD_CAST "uuid",
-                                           BAD_CAST str));
-    free (str);
-
-    guestfs_pop_error_handler (g);
-
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
-
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+        guestfs_pop_error_handler (g);
+      } end_element ();
+    }
+  } end_element ();
 }
 
 static void
@@ -646,26 +618,20 @@ output_drive_mappings (xmlTextWriterPtr xo, char *root)
          guestfs_int_count_strings (drive_mappings) / 2, 2 * sizeof (char *),
          compare_keys_nocase);
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "drive_mappings"));
+  start_element ("drive_mappings") {
+    for (i = 0; drive_mappings[i] != NULL; i += 2) {
+      str = guestfs_canonical_device_name (g, drive_mappings[i+1]);
+      if (!str)
+        exit (EXIT_FAILURE);
 
-  for (i = 0; drive_mappings[i] != NULL; i += 2) {
-    str = guestfs_canonical_device_name (g, drive_mappings[i+1]);
-    if (!str)
-      exit (EXIT_FAILURE);
+      start_element ("drive_mapping") {
+        attribute ("name", drive_mappings[i]);
+        string (str);
+      } end_element ();
 
-    XMLERROR (-1,
-              xmlTextWriterStartElement (xo, BAD_CAST "drive_mapping"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                           BAD_CAST drive_mappings[i]));
-    XMLERROR (-1,
-              xmlTextWriterWriteString (xo, BAD_CAST str));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-    free (str);
-  }
-
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+      free (str);
+    }
+  } end_element ();
 }
 
 static void
@@ -681,71 +647,42 @@ output_applications (xmlTextWriterPtr xo, char *root)
   if (apps == NULL)
     exit (EXIT_FAILURE);
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "applications"));
+  start_element ("applications") {
+    for (i = 0; i < apps->len; ++i) {
+      start_element ("application") {
+        assert (apps->val[i].app2_name && apps->val[i].app2_name[0]);
+        single_element ("name", apps->val[i].app2_name);
 
-  for (i = 0; i < apps->len; ++i) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "application"));
+        if (apps->val[i].app2_display_name &&
+            apps->val[i].app2_display_name[0])
+          single_element ("display_name", apps->val[i].app2_display_name);
 
-    assert (apps->val[i].app2_name && apps->val[i].app2_name[0]);
-    XMLERROR (-1,
-              xmlTextWriterWriteElement (xo, BAD_CAST "name",
-                                         BAD_CAST apps->val[i].app2_name));
+        if (apps->val[i].app2_epoch != 0)
+          single_element_format ("epoch", "%d", apps->val[i].app2_epoch);
 
-    if (apps->val[i].app2_display_name && apps->val[i].app2_display_name[0])
-      XMLERROR (-1,
-		xmlTextWriterWriteElement (xo, BAD_CAST "display_name",
-					   BAD_CAST apps->val[i].app2_display_name));
-
-    if (apps->val[i].app2_epoch != 0) {
-      char buf[32];
-
-      snprintf (buf, sizeof buf, "%d", apps->val[i].app2_epoch);
-
-      XMLERROR (-1,
-		xmlTextWriterWriteElement (xo, BAD_CAST "epoch", BAD_CAST buf));
+        if (apps->val[i].app2_version && apps->val[i].app2_version[0])
+          single_element ("version", apps->val[i].app2_version);
+        if (apps->val[i].app2_release && apps->val[i].app2_release[0])
+          single_element ("release", apps->val[i].app2_release);
+        if (apps->val[i].app2_arch && apps->val[i].app2_arch[0])
+          single_element ("arch", apps->val[i].app2_arch);
+        if (apps->val[i].app2_install_path &&
+            apps->val[i].app2_install_path[0])
+          single_element ("install_path", apps->val[i].app2_install_path);
+        if (apps->val[i].app2_publisher && apps->val[i].app2_publisher[0])
+          single_element ("publisher", apps->val[i].app2_publisher);
+        if (apps->val[i].app2_url && apps->val[i].app2_url[0])
+          single_element ("url", apps->val[i].app2_url);
+        if (apps->val[i].app2_source_package &&
+            apps->val[i].app2_source_package[0])
+          single_element ("source_package", apps->val[i].app2_source_package);
+        if (apps->val[i].app2_summary && apps->val[i].app2_summary[0])
+          single_element ("summary", apps->val[i].app2_summary);
+        if (apps->val[i].app2_description && apps->val[i].app2_description[0])
+          single_element ("description", apps->val[i].app2_description);
+      } end_element ();
     }
-
-    if (apps->val[i].app2_version && apps->val[i].app2_version[0])
-      XMLERROR (-1,
-		xmlTextWriterWriteElement (xo, BAD_CAST "version",
-					   BAD_CAST apps->val[i].app2_version));
-    if (apps->val[i].app2_release && apps->val[i].app2_release[0])
-      XMLERROR (-1,
-		xmlTextWriterWriteElement (xo, BAD_CAST "release",
-					   BAD_CAST apps->val[i].app2_release));
-    if (apps->val[i].app2_arch && apps->val[i].app2_arch[0])
-      XMLERROR (-1,
-		xmlTextWriterWriteElement (xo, BAD_CAST "arch",
-					   BAD_CAST apps->val[i].app2_arch));
-    if (apps->val[i].app2_install_path && apps->val[i].app2_install_path[0])
-      XMLERROR (-1,
-		xmlTextWriterWriteElement (xo, BAD_CAST "install_path",
-					   BAD_CAST apps->val[i].app2_install_path));
-    if (apps->val[i].app2_publisher && apps->val[i].app2_publisher[0])
-      XMLERROR (-1,
-		xmlTextWriterWriteElement (xo, BAD_CAST "publisher",
-					   BAD_CAST apps->val[i].app2_publisher));
-    if (apps->val[i].app2_url && apps->val[i].app2_url[0])
-      XMLERROR (-1,
-		xmlTextWriterWriteElement (xo, BAD_CAST "url",
-					   BAD_CAST apps->val[i].app2_url));
-    if (apps->val[i].app2_source_package && apps->val[i].app2_source_package[0])
-      XMLERROR (-1,
-		xmlTextWriterWriteElement (xo, BAD_CAST "source_package",
-					   BAD_CAST apps->val[i].app2_source_package));
-    if (apps->val[i].app2_summary && apps->val[i].app2_summary[0])
-      XMLERROR (-1,
-		xmlTextWriterWriteElement (xo, BAD_CAST "summary",
-					   BAD_CAST apps->val[i].app2_summary));
-    if (apps->val[i].app2_description && apps->val[i].app2_description[0])
-      XMLERROR (-1,
-		xmlTextWriterWriteElement (xo, BAD_CAST "description",
-					   BAD_CAST apps->val[i].app2_description));
-
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
-
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  } end_element ();
 }
 
 /* Run an XPath query on XML on stdin, print results to stdout. */

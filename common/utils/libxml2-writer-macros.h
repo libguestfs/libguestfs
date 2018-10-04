@@ -80,6 +80,35 @@
   do { start_element ((element)) {} end_element (); } while (0)
 
 /**
+ * To define a single element with no attributes containing some text:
+ *
+ *  single_element ("name", text);
+ *
+ * which produces C<<< <name>text</name> >>>
+ */
+#define single_element(element,str)             \
+  do {                                          \
+    start_element ((element)) {                 \
+      string ((str));                           \
+    } end_element ();                           \
+  } while (0)
+
+/**
+ * To define a single element with no attributes containing some text
+ * using a format string:
+ *
+ *  single_element_format ("cores", "%d", nr_cores);
+ *
+ * which produces C<<< <cores>4</cores> >>>
+ */
+#define single_element_format(element,fs,...)   \
+  do {                                          \
+    start_element ((element)) {                 \
+      string_format ((fs), ##__VA_ARGS__);      \
+    } end_element ();                           \
+  } while (0)
+
+/**
  * To define an XML element with attributes, use:
  *
  *  start_element ("name") {
@@ -141,6 +170,18 @@
   do {                                                                  \
     if (xmlTextWriterWriteFormatString (xo, fs, ##__VA_ARGS__) == -1) { \
       xml_error ("xmlTextWriterWriteFormatString");                     \
+    }                                                                   \
+  } while (0)
+
+/**
+ * To write a string encoded as base64:
+ *
+ *  base64 (data, size);
+ */
+#define base64(data, size)                                              \
+  do {                                                                  \
+    if (xmlTextWriterWriteBase64 (xo, (data), 0, (size)) == -1) {       \
+      xml_error ("xmlTextWriterWriteBase64");                           \
     }                                                                   \
   } while (0)
 
