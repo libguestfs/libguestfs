@@ -370,6 +370,21 @@ let convert (g : G.guestfs) inspect source output rcaps =
     let uninstaller = "/usr/bin/vmware-uninstall-tools.pl" in
     if g#is_file ~followsymlinks:true uninstaller then (
       try
+        (* The VMware tools uninstaller will rebuild the ramdisk for
+         * the kernels present either at installation time, or at
+         * later time (when the tools are applied to newly
+         * installed kernels).  Since we do not want to potentially
+         * rebuilt all the available kernels, trick the "database"
+         * of the VMware tools installation to not do any ramdisk
+         * restore.  In any case, we will rebuilt the ramdisk of the
+         * default kernel already.
+         *)
+        let locations = "/etc/vmware-tools/locations" in
+        if g#is_file ~followsymlinks:true locations then (
+          g#write_append locations "remove_answer RESTORE_RAMDISK_CMD\n";
+          g#write_append locations "remove_answer RESTORE_RAMDISK_KERNELS\n";
+          g#write_append locations "remove_answer RESTORE_RAMDISK_ONECALL\n";
+        );
         if family = `SUSE_family then
           ignore (g#command [| "/usr/bin/env";
                                "rootdev=" ^ inspect.i_root;
