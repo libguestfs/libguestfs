@@ -26,6 +26,7 @@ libutils_la_SOURCES = \
 	gnulib-cleanups.c \
 	guestfs-utils.h \
 	libxml2-cleanups.c \
+	libxml2-writer-macros.h \
 	utils.c
 libutils_la_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \

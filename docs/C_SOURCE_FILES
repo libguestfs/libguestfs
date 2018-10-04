@@ -62,6 +62,7 @@ common/utils/cleanups.h
 common/utils/gnulib-cleanups.c
 common/utils/guestfs-utils.h
 common/utils/libxml2-cleanups.c
+common/utils/libxml2-writer-macros.h
 common/utils/utils.c
 common/visit/visit.c
 common/visit/visit.h

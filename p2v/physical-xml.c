@@ -39,64 +39,19 @@
 
 #include "getprogname.h"
 
+#include "libxml2-writer-macros.h"
+
 #include "p2v.h"
 
+/* This macro is used by the macros in "libxml2-writer-macros.h"
+ * when an error occurs.
+ */
+#define xml_error(fn)                                           \
+  error (EXIT_FAILURE, errno,                                   \
+         "%s:%d: error constructing XML near call to \"%s\"",   \
+         __FILE__, __LINE__, (fn));
+
 static const char *map_interface_to_network (struct config *, const char *interface);
-
-/* Macros "inspired" by lib/launch-libvirt.c */
-/* <element */
-#define start_element(element)						\
-  if (xmlTextWriterStartElement (xo, BAD_CAST (element)) == -1)         \
-    error (EXIT_FAILURE, errno, "xmlTextWriterStartElement");		\
-  do
-
-/* finish current </element> */
-#define end_element()						\
-  while (0);							\
-  do {								\
-    if (xmlTextWriterEndElement (xo) == -1)			\
-      error (EXIT_FAILURE, errno, "xmlTextWriterEndElement");	\
-  } while (0)
-
-/* <element/> */
-#define empty_element(element)					\
-  do { start_element(element) {} end_element (); } while (0)
-
-/* key=value attribute of the current element. */
-#define attribute(key,value)                                            \
-  do {                                                                  \
-    if (xmlTextWriterWriteAttribute (xo, BAD_CAST (key), BAD_CAST (value)) == -1) \
-    error (EXIT_FAILURE, errno, "xmlTextWriterWriteAttribute");         \
-  } while (0)
-
-/* key=value, but value is a printf-style format string. */
-#define attribute_format(key,fs,...)                                    \
-  do {                                                                  \
-    if (xmlTextWriterWriteFormatAttribute (xo, BAD_CAST (key),          \
-                                           fs, ##__VA_ARGS__) == -1)	\
-      error (EXIT_FAILURE, errno, "xmlTextWriterWriteFormatAttribute"); \
-  } while (0)
-
-/* A string, eg. within an element. */
-#define string(str)                                             \
-  do {                                                          \
-    if (xmlTextWriterWriteString (xo, BAD_CAST (str)) == -1)	\
-      error (EXIT_FAILURE, errno, "xmlTextWriterWriteString");	\
-  } while (0)
-
-/* A string, using printf-style formatting. */
-#define string_format(fs,...)                                           \
-  do {                                                                  \
-    if (xmlTextWriterWriteFormatString (xo, fs, ##__VA_ARGS__) == -1)   \
-      error (EXIT_FAILURE, errno, "xmlTextWriterWriteFormatString");    \
-  } while (0)
-
-/* An XML comment. */
-#define comment(fs,...)                                                 \
-  do {                                                                  \
-    if (xmlTextWriterWriteFormatComment (xo, fs, ##__VA_ARGS__) == -1)	\
-      error (EXIT_FAILURE, errno, "xmlTextWriterWriteFormatComment");   \
-  } while (0)
 
 /**
  * Write the libvirt XML for this physical machine.

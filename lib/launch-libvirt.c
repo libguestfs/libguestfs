@@ -52,6 +52,16 @@
 #include "guestfs-internal.h"
 #include "guestfs_protocol.h"
 
+#include "libxml2-writer-macros.h"
+
+/* This macro is used by the macros in "libxml2-writer-macros.h"
+ * when an error occurs.
+ */
+#define xml_error(fn)                                                   \
+  perrorf (g, _("%s:%d: error constructing libvirt XML near call to \"%s\""), \
+	   __FILE__, __LINE__, (fn));                                   \
+  return -1;
+
 /* Fixes for Mac OS X */
 #ifndef SOCK_CLOEXEC
 # define SOCK_CLOEXEC O_CLOEXEC
@@ -955,79 +965,6 @@ static int construct_libvirt_xml_disk_address (guestfs_h *g, xmlTextWriterPtr xo
 static int construct_libvirt_xml_disk_source_hosts (guestfs_h *g, xmlTextWriterPtr xo, const struct drive_source *src);
 static int construct_libvirt_xml_disk_source_seclabel (guestfs_h *g, const struct backend_libvirt_data *data, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
-
-/* These macros make it easier to write XML, but they also make a lot
- * of assumptions:
- *
- * - The xmlTextWriterPtr is called 'xo'.  It is used implicitly.
- *
- * - The guestfs handle is called 'g'.  It is used implicitly for errors.
- *
- * - It is safe to 'return -1' on failure.  This is OK provided you
- *   always use CLEANUP_* macros.
- *
- * - All the "bad" casting is hidden inside the macros.
- */
-
-/* <element */
-#define start_element(element)						\
-  if (xmlTextWriterStartElement (xo, BAD_CAST (element)) == -1) {	\
-    xml_error ("xmlTextWriterStartElement");				\
-    return -1;								\
-  }									\
-  do
-
-/* finish current </element> */
-#define end_element()				\
-  while (0);					\
-  do {						\
-    if (xmlTextWriterEndElement (xo) == -1) {	\
-      xml_error ("xmlTextWriterEndElement");	\
-      return -1;				\
-    }						\
-  } while (0)
-
-/* key=value attribute of the current element. */
-#define attribute(key,value)                                            \
-  if (xmlTextWriterWriteAttribute (xo, BAD_CAST (key), BAD_CAST (value)) == -1){ \
-    xml_error ("xmlTextWriterWriteAttribute");                          \
-    return -1;                                                          \
-  }
-
-/* key=value, but value is a printf-style format string. */
-#define attribute_format(key,fs,...)                                    \
-  if (xmlTextWriterWriteFormatAttribute (xo, BAD_CAST (key),            \
-                                         fs, ##__VA_ARGS__) == -1) {    \
-    xml_error ("xmlTextWriterWriteFormatAttribute");                    \
-    return -1;                                                          \
-  }
-
-/* attribute with namespace. */
-#define attribute_ns(prefix,key,namespace_uri,value)                    \
-  if (xmlTextWriterWriteAttributeNS (xo, BAD_CAST (prefix),             \
-                                     BAD_CAST (key), BAD_CAST (namespace_uri), \
-                                     BAD_CAST (value)) == -1) {         \
-    xml_error ("xmlTextWriterWriteAttribute");                          \
-    return -1;                                                          \
-  }
-
-/* A string, eg. within an element. */
-#define string(str)						\
-  if (xmlTextWriterWriteString (xo, BAD_CAST (str)) == -1) {	\
-    xml_error ("xmlTextWriterWriteString");			\
-    return -1;							\
-  }
-
-/* A string, using printf-style formatting. */
-#define string_format(fs,...)                                           \
-  if (xmlTextWriterWriteFormatString (xo, fs, ##__VA_ARGS__) == -1) {   \
-    xml_error ("xmlTextWriterWriteFormatString");                       \
-    return -1;                                                          \
-  }
-
-#define xml_error(fn)                                                   \
-  perrorf (g, _("%s:%d: error constructing libvirt XML near call to \"%s\""), \
-	   __FILE__, __LINE__, (fn));
 
 static xmlChar *
 construct_libvirt_xml (guestfs_h *g, const struct libvirt_xml_params *params)
