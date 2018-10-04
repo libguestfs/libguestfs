@@ -97,9 +97,7 @@ generate_physical_xml (struct config *config, struct data_conn *data_conns,
   start_element ("domain") {
     attribute ("type", "physical");
 
-    start_element ("name") {
-      string (config->guestname);
-    } end_element ();
+    single_element ("name", config->guestname);
 
     start_element ("memory") {
       attribute ("unit", "KiB");
@@ -111,20 +109,15 @@ generate_physical_xml (struct config *config, struct data_conn *data_conns,
       string_format ("%" PRIu64, memkb);
     } end_element ();
 
-    start_element ("vcpu") {
-      string_format ("%d", config->vcpus);
-    } end_element ();
+    single_element_format ("vcpu", "%d", config->vcpus);
 
     if (config->cpu.vendor || config->cpu.model ||
         config->cpu.sockets || config->cpu.cores || config->cpu.threads) {
       /* https://libvirt.org/formatdomain.html#elementsCPU */
       start_element ("cpu") {
         attribute ("match", "minimum");
-        if (config->cpu.vendor) {
-          start_element ("vendor") {
-            string (config->cpu.vendor);
-          } end_element ();
-        }
+        if (config->cpu.vendor)
+          single_element ("vendor", config->cpu.vendor);
         if (config->cpu.model) {
           start_element ("model") {
             attribute ("fallback", "allow");

@@ -1053,10 +1053,7 @@ construct_libvirt_xml_name (guestfs_h *g,
                             const struct libvirt_xml_params *params,
                             xmlTextWriterPtr xo)
 {
-  start_element ("name") {
-    string (params->data->name);
-  } end_element ();
-
+  single_element ("name", params->data->name);
   return 0;
 }
 
@@ -1087,17 +1084,12 @@ construct_libvirt_xml_cpu (guestfs_h *g,
           attribute ("fallback", "allow");
         } end_element ();
       }
-      else {
-        start_element ("model") {
-          string (cpu_model);
-        } end_element ();
-      }
+      else
+        single_element ("model", cpu_model);
     } end_element ();
   }
 
-  start_element ("vcpu") {
-    string_format ("%d", g->smp);
-  } end_element ();
+  single_element_format ("vcpu", "%d", g->smp);
 
   start_element ("clock") {
     attribute ("offset", "utc");
@@ -1158,24 +1150,13 @@ construct_libvirt_xml_boot (guestfs_h *g,
 	string (params->data->uefi_code);
       } end_element ();
 
-      if (params->data->uefi_vars) {
-	start_element ("nvram") {
-	  string (params->data->uefi_vars);
-	} end_element ();
-      }
+      if (params->data->uefi_vars)
+	single_element ("nvram", params->data->uefi_vars);
     }
 
-    start_element ("kernel") {
-      string (params->kernel);
-    } end_element ();
-
-    start_element ("initrd") {
-      string (params->initrd);
-    } end_element ();
-
-    start_element ("cmdline") {
-      string (cmdline);
-    } end_element ();
+    single_element ("kernel", params->kernel);
+    single_element ("initrd", params->initrd);
+    single_element ("cmdline", cmdline);
 
 #if defined(__i386__) || defined(__x86_64__)
     if (g->verbose) {
@@ -1210,12 +1191,8 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
       attribute ("type", "static");
       attribute ("model", "selinux");
       attribute ("relabel", "yes");
-      start_element ("label") {
-        string (params->data->selinux_label);
-      } end_element ();
-      start_element ("imagelabel") {
-        string (params->data->selinux_imagelabel);
-      } end_element ();
+      single_element ("label", params->data->selinux_label);
+      single_element ("imagelabel", params->data->selinux_imagelabel);
     } end_element ();
   }
 
@@ -1228,10 +1205,7 @@ construct_libvirt_xml_lifecycle (guestfs_h *g,
                                  const struct libvirt_xml_params *params,
                                  xmlTextWriterPtr xo)
 {
-  start_element ("on_reboot") {
-    string ("destroy");
-  } end_element ();
-
+  single_element ("on_reboot", "destroy");
   return 0;
 }
 
@@ -1249,20 +1223,14 @@ construct_libvirt_xml_devices (guestfs_h *g,
     /* Path to hypervisor.  Only write this if the user has changed the
      * default, otherwise allow libvirt to choose the best one.
      */
-    if (is_custom_hv (g)) {
-      start_element ("emulator") {
-        string (g->hv);
-      } end_element ();
-    }
+    if (is_custom_hv (g))
+      single_element ("emulator", g->hv);
 #if defined(__arm__)
     /* Hopefully temporary hack to make ARM work (otherwise libvirt
      * chooses to run /usr/bin/qemu-kvm).
      */
-    else {
-      start_element ("emulator") {
-        string (QEMU);
-      } end_element ();
-    }
+    else
+      single_element ("emulator", QEMU);
 #endif
 
     /* Add a random number generator (backend for virtio-rng).  This
@@ -1533,11 +1501,8 @@ construct_libvirt_xml_disk (guestfs_h *g,
         return -1;
     }
 
-    if (drv->disk_label) {
-      start_element ("serial") {
-        string (drv->disk_label);
-      } end_element ();
-    }
+    if (drv->disk_label)
+      single_element ("serial", drv->disk_label);
 
     if (construct_libvirt_xml_disk_address (g, xo, drv_index) == -1)
       return -1;
@@ -1786,10 +1751,9 @@ construct_libvirt_xml_secret (guestfs_h *g,
   start_element ("secret") {
     attribute ("ephemeral", "yes");
     attribute ("private", "yes");
-    start_element ("description") {
-      string_format ("guestfs secret associated with %s %s",
-                     data->name, drv->src.u.path);
-    } end_element ();
+    single_element_format ("description",
+                           "guestfs secret associated with %s %s",
+                           data->name, drv->src.u.path);
   } end_element ();
 
   return 0;
