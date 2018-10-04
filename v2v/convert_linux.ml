@@ -297,6 +297,10 @@ let convert (g : G.guestfs) inspect source output rcaps =
           List.push_front name remove
         else if String.is_prefix name "kmod-vmware-tools" then
           List.push_front name remove
+        else if String.is_prefix name "open-vm-tools-" then
+          List.push_front name remove
+        else if name = "open-vm-tools" then
+          List.push_front name remove
     ) inspect.i_apps;
     let libraries = !libraries in
 
