@@ -245,12 +245,18 @@ foreach $dir (@dirs) {
                             }
                         }
                         else {
-                            # First line tells us if this is a struct
-                            # or function.
+                            # First line tells us if this is a struct,
+                            # define or function.
                             if (/^struct ([\w_]+) \{$/) {
                                 $thing = "Structure";
                                 $name = $1;
                                 $end = "};";
+                            }
+                            elsif (/^#define ([\w_]+)/) {
+                                $thing = "Definition";
+                                $name = $1;
+                                $found_end = 1;
+                                last;
                             }
                             else {
                                 $thing = "Function";
@@ -274,6 +280,10 @@ foreach $dir (@dirs) {
 
                     if ($thing eq "Structure") {
                         push @defn, "};"
+                    }
+
+                    if ($thing eq "Definition") {
+                        @defn = ( "#define $name" )
                     }
 
                     # Print the definition, followed by the comment.
