@@ -388,7 +388,7 @@ If the messages above are not sufficient to diagnose the problem then add the â€
     (* Create the metadata. *)
     let ovf =
       Create_ovf.create_ovf source targets guestcaps inspect
-                            output_alloc
+                            target_firmware output_alloc
                             sd_uuid image_uuids vol_uuids vm_uuid
                             OVirt in
     let ovf = DOM.doc_to_string ovf in

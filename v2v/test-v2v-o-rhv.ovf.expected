@@ -25,6 +25,7 @@
     <IsStateless>False</IsStateless>
     <VmType>0</VmType>
     <DefaultDisplayType>1</DefaultDisplayType>
+    <BiosType>0</BiosType>
     <Section ovf:id='#VM_ID#' ovf:required='false' xsi:type='ovf:OperatingSystemSection_Type'>
       <Info>Microsoft Windows 7 Phony Edition</Info>
       <Description>Windows7</Description>

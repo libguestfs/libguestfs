@@ -43,7 +43,7 @@ val ovf_flavour_to_string : ovf_flavour -> string
     create OVF for another target management system then we would need
     to heavily modify or even duplicate this code. *)
 
-val create_ovf : Types.source -> Types.target list -> Types.guestcaps -> Types.inspect -> Types.output_allocation -> string -> string list -> string list -> string ->  ovf_flavour -> DOM.doc
+val create_ovf : Types.source -> Types.target list -> Types.guestcaps -> Types.inspect -> Types.target_firmware  -> Types.output_allocation -> string -> string list -> string list -> string ->  ovf_flavour -> DOM.doc
 (** Create the OVF file.
 
     Actually a {!DOM} document is created, not a file.  It can be written

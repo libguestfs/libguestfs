@@ -462,6 +462,14 @@ let origin_of_source_hypervisor = function
    *)
   | _ -> None
 
+(* Set the <BiosType> element. Other possible values:
+ *   1  q35 + SeaBIOS
+ *   3  q35 + UEFI + Secure Boot
+ *)
+let get_ovirt_biostype = function
+  | TargetBIOS -> 0  (* i440fx + SeaBIOS *)
+  | TargetUEFI -> 2  (* q35 + UEFI *)
+
 (* Generate the .meta file associated with each volume. *)
 let create_meta_files output_alloc sd_uuid image_uuids overlays =
   (* Note: Upper case in the .meta, mixed case in the OVF. *)
@@ -506,7 +514,7 @@ let create_meta_files output_alloc sd_uuid image_uuids overlays =
   ) (List.combine overlays image_uuids)
 
 (* Create the OVF file. *)
-let rec create_ovf source targets guestcaps inspect
+let rec create_ovf source targets guestcaps inspect target_firmware
     output_alloc sd_uuid image_uuids vol_uuids vm_uuid ovf_flavour =
   assert (List.length targets = List.length vol_uuids);
 
@@ -515,6 +523,7 @@ let rec create_ovf source targets guestcaps inspect
   let vmtype = get_vmtype inspect in
   let vmtype = match vmtype with `Desktop -> "0" | `Server -> "1" in
   let ostype = get_ostype inspect in
+  let biostype = get_ovirt_biostype target_firmware in
 
   let ovf : doc =
     doc "ovf:Envelope" [
@@ -562,6 +571,7 @@ let rec create_ovf source targets guestcaps inspect
         e "VmType" [] [PCData vmtype];
         (* See https://bugzilla.redhat.com/show_bug.cgi?id=1260590#c17 *)
         e "DefaultDisplayType" [] [PCData "1"];
+        e "BiosType" [] [PCData (string_of_int biostype)];
       ] in
 
       (match source.s_cpu_model with

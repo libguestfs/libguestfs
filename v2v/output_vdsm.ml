@@ -237,6 +237,7 @@ object
 
     (* Create the metadata. *)
     let ovf = Create_ovf.create_ovf source targets guestcaps inspect
+      target_firmware
       output_alloc dd_uuid
       vdsm_options.image_uuids
       vdsm_options.vol_uuids
