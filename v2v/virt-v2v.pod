@@ -1225,9 +1225,9 @@ On RHEL E<ge> 7.3, only qemu-kvm-rhev (not qemu-kvm) is supported.
 
 Not supported.
 
-=item UEFI on RHV
+=item UEFI on oVirt or RHV
 
-Not supported.
+Supported since oVirt/RHV E<ge> 4.2 and virt-v2v E<ge> 1.39.12.
 
 =back
 

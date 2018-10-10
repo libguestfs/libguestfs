@@ -115,7 +115,7 @@ object
 
   method as_options = sprintf "-o rhv -os %s" os
 
-  method supported_firmware = [ TargetBIOS ]
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
   (* RHV doesn't support serial consoles.  This causes the conversion
    * step to remove it.
@@ -262,8 +262,6 @@ object
 
   (* This is called after conversion to write the OVF metadata. *)
   method create_metadata source targets _ guestcaps inspect target_firmware =
-    (* See #supported_firmware above. *)
-    assert (target_firmware = TargetBIOS);
 
     (* Create the metadata. *)
     let ovf = Create_ovf.create_ovf source targets guestcaps inspect

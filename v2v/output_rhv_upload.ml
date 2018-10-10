@@ -240,7 +240,7 @@ object
     sprintf " -oc %s -op %s -os %s"
             output_conn output_password output_storage
 
-  method supported_firmware = [ TargetBIOS ]
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
   (* rhev-apt.exe will be installed (if available). *)
   method install_rhev_apt = true
