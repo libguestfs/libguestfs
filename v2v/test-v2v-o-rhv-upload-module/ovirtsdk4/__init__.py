@@ -116,24 +116,44 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import threading
 
 class RequestHandler(BaseHTTPRequestHandler):
+    protocol_version = 'HTTP/1.1'
+
     def do_OPTIONS(self):
+        self.discard_request()
+
+        # Advertize only zero support.
+        content = b'''{ "features": [ "zero" ] }'''
+        length = len(content)
+
         self.send_response(200)
         self.send_header("Content-type", "application/json; charset=UTF-8")
+        self.send_header("Content-Length", length)
         self.end_headers()
-        # Advertize only zero support.
-        self.wfile.write(b'''{ "features": [ "zero" ] }''')
+        self.wfile.write(content)
 
     # eg. zero request.  Just ignore it.
     def do_PATCH(self):
+        self.discard_request()
         self.send_response(200)
+        self.send_header("Content-Length", "0")
         self.end_headers()
 
     # Flush request.  Ignore it.
     def do_PUT(self):
+        self.discard_request()
         self.send_response(200)
+        self.send_header("Content-Length", "0")
         self.end_headers()
 
+    def discard_request(self):
+        length = self.headers['Content-Length']
+        if length:
+            length = int(length)
+            content = self.rfile.read(length)
+
 server_address = ("", 0)
+# XXX This should test HTTPS, not HTTP, because we are testing a
+# different path through the main code.
 httpd = HTTPServer(server_address, RequestHandler)
 imageio_port = httpd.server_address[1]
 
