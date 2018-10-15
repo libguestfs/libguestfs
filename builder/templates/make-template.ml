@@ -1146,9 +1146,14 @@ and os_variant_of_os ?(for_fedora = false) os arch =
        sprintf "centos%d.%d" major minor
     | CentOS _, _ -> "centos7.0" (* max version known in Fedora 24 *)
 
-    | RHEL (major, minor), _ when (major, minor) <= (7,2) ->
+    | RHEL (6, minor), _ when minor <= 8 ->
+       sprintf "rhel6.%d" minor
+    | RHEL (6, _), _ -> "rhel6.9" (* max version known in Fedora 29 *)
+    | RHEL (7, minor), _ when minor <= 4 ->
+       sprintf "rhel7.%d" minor
+    | RHEL (7, _), _ -> "rhel7.5" (* max version known in Fedora 29 *)
+    | RHEL (major, minor), _ ->
        sprintf "rhel%d.%d" major minor
-    | RHEL _, _ -> "rhel7.4" (* max version known in Fedora 28 *)
 
     | Debian (ver, _), _ when ver <= 8 -> sprintf "debian%d" ver
     | Debian _, _ -> "debian8" (* max version known in Fedora 26 *)

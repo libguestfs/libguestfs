@@ -1,0 +1,20 @@
+# This is the virt-install command which was used to create
+# the virt-builder template 'rhel-6.9'
+# NB: This file is generated for documentation purposes ONLY!
+# This script was never run, and is not intended to be run.
+
+'virt-install' \
+    '--transient' \
+    '--name=tmp-37m9g7in' \
+    '--ram=2048' \
+    '--arch=x86_64' \
+    '--cpu=host' \
+    '--vcpus=4' \
+    '--os-variant=rhel6.9' \
+    '--initrd-inject=rhel-6.9.ks' \
+    '--extra-args=ks=file:/rhel-6.9.ks proxy=http://cache.home.annexia.org:3128 console=tty0 console=ttyS0,115200 rd_NO_PLYMOUTH' \
+    '--disk=/home/rjones/d/libguestfs/builder/templates/tmp-37m9g7in.img,size=6,format=raw' \
+    '--location=http://download.devel.redhat.com/released/RHEL-6/6.9/Server/x86_64/os' \
+    '--serial=pty' \
+    '--nographics' 
+
