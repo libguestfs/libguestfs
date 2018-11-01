@@ -1,0 +1,21 @@
+# This is the virt-install command which was used to create
+# the virt-builder template 'fedora-29-ppc64le'
+# NB: This file is generated for documentation purposes ONLY!
+# This script was never run, and is not intended to be run.
+
+'virt-install' \
+    '--transient' \
+    '--name=tmp-bm4kun85' \
+    '--ram=4096' \
+    '--arch=ppc64le' \
+    '--machine=pseries' \
+    '--cpu=power8' \
+    '--vcpus=1' \
+    '--os-variant=fedora22' \
+    '--initrd-inject=fedora-29-ppc64le.ks' \
+    '--extra-args=ks=file:/fedora-29-ppc64le.ks proxy=http://cache.home.annexia.org:3128 console=tty0 console=hvc0 rd_NO_PLYMOUTH' \
+    '--disk=/home/rjones/d/libguestfs/builder/templates/tmp-bm4kun85.img,size=6,format=raw' \
+    '--location=https://dl.fedoraproject.org/pub/fedora-secondary/releases/29/Server/ppc64le/os/' \
+    '--serial=pty' \
+    '--nographics' 
+

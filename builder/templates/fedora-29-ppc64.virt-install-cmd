@@ -1,0 +1,21 @@
+# This is the virt-install command which was used to create
+# the virt-builder template 'fedora-29-ppc64'
+# NB: This file is generated for documentation purposes ONLY!
+# This script was never run, and is not intended to be run.
+
+'virt-install' \
+    '--transient' \
+    '--name=tmp-p999pob7' \
+    '--ram=4096' \
+    '--arch=ppc64' \
+    '--machine=pseries' \
+    '--cpu=power7' \
+    '--vcpus=1' \
+    '--os-variant=fedora22' \
+    '--initrd-inject=fedora-29-ppc64.ks' \
+    '--extra-args=ks=file:/fedora-29-ppc64.ks proxy=http://cache.home.annexia.org:3128 console=tty0 console=hvc0 rd_NO_PLYMOUTH' \
+    '--disk=/home/rjones/d/libguestfs/builder/templates/tmp-p999pob7.img,size=6,format=raw' \
+    '--location=https://dl.fedoraproject.org/pub/fedora-secondary/releases/29/Server/ppc64/os/' \
+    '--serial=pty' \
+    '--nographics' 
+
