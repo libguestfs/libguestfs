@@ -76,4 +76,10 @@
 ../utils/boot-benchmark/boot-benchmark.pod
 ../v2v/test-harness/virt-v2v-test-harness.pod
 ../v2v/virt-v2v-copy-to-local.pod
+../v2v/virt-v2v-input-vmware.pod
+../v2v/virt-v2v-input-xen.pod
+../v2v/virt-v2v-output-local.pod
+../v2v/virt-v2v-output-openstack.pod
+../v2v/virt-v2v-output-rhv.pod
+../v2v/virt-v2v-support.pod
 ../v2v/virt-v2v.pod

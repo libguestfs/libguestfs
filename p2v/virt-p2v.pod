@@ -63,7 +63,7 @@ The conversion server does not need to be a physical machine.  It
 could be a virtual machine, as long as it has sufficient memory and
 disk space to do the conversion, and as long as the physical machine
 can connect directly to its SSH port.  (See also
-L<virt-v2v(1)/RESOURCE REQUIREMENTS>).
+L<virt-v2v(1)/Resource requirements>).
 
 Because all of the data on the physical server’s hard drive(s) has to
 be copied over the network, the speed of conversion is largely
@@ -230,7 +230,7 @@ the drives are I<not> copied over.
 In the Network interfaces panel, select the network interfaces that
 should be created in the guest after conversion.  You can also connect
 these to target hypervisor networks (for further information about
-this feature, see L<virt-v2v(1)/NETWORKS AND BRIDGES>).
+this feature, see L<virt-v2v(1)/Networks and bridges>).
 
 On supported hardware, left-clicking on the device name (eg. C<em1>)
 causes a light to start flashing on the physical interface, allowing

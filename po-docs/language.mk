@@ -82,6 +82,13 @@ MANPAGES = \
 	virt-tar-in.1 \
 	virt-tar-out.1 \
 	virt-v2v.1 \
+	virt-v2v-copy-to-local.1 \
+	virt-v2v-input-vmware.1 \
+	virt-v2v-input-xen.1 \
+	virt-v2v-output-local.1 \
+	virt-v2v-output-openstack.1 \
+	virt-v2v-output-rhv.1 \
+	virt-v2v-support.1 \
 	virt-v2v-test-harness.1 \
 	virt-win-reg.1
 

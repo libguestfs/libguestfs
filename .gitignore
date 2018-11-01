@@ -683,8 +683,7 @@ Makefile.in
 /v2v/real-*.d/
 /v2v/real-*.img
 /v2v/real-*.xml
-/v2v/stamp-virt-v2v.pod
-/v2v/stamp-virt-v2v-copy-to-local.pod
+/v2v/stamp-virt-v2v*.pod
 /v2v/test-harness/.depend
 /v2v/test-harness/META
 /v2v/test-harness/stamp-virt-v2v-test-harness.pod
@@ -697,6 +696,12 @@ Makefile.in
 /v2v/virt-v2v.1
 /v2v/virt-v2v-copy-to-local
 /v2v/virt-v2v-copy-to-local.1
+/v2v/virt-v2v-input-vmware.1
+/v2v/virt-v2v-input-xen.1
+/v2v/virt-v2v-output-local.1
+/v2v/virt-v2v-output-openstack.1
+/v2v/virt-v2v-output-rhv.1
+/v2v/virt-v2v-support.1
 /v2v/windows.vmdk
 /website/*.html
 /website/README.txt

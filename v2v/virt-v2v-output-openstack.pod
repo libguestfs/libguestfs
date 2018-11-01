@@ -1,0 +1,209 @@
+=head1 NAME
+
+virt-v2v-output-openstack - Using virt-v2v to convert guests to OpenStack
+
+=head1 SYNOPSIS
+
+ virt-v2v [-i* options] -o openstack
+                        -oo server-id=SERVER
+                        [-oo guest-id=GUEST]
+                        [-oo os-username=admin] [-oo os-*=*]
+
+ virt-v2v [-i* options] -o glance
+
+=head1 DESCRIPTION
+
+This page documents how to use L<virt-v2v(1)> to convert guests to run
+on OpenStack.  There are two output modes you can select, but only
+I<-o openstack> should be used normally.
+
+=over 4
+
+=item B<-o openstack> B<-oo server-id=>SERVER [...]
+
+Full description: L</OUTPUT TO OPENSTACK>
+
+This is the modern method for uploading to OpenStack via the REST API.
+Guests can be directly converted into Cinder volumes.
+
+=item B<-o glance>
+
+Full description: L</OUTPUT TO GLANCE>
+
+This is the old method for uploading to Glance.  Unfortunately Glance
+is not well suited to storing converted guests (since virt-v2v deals
+with "pets" not templated "cattle"), so this method is not recommended
+unless you really know what you are doing.
+
+=back
+
+=head1 OUTPUT TO OPENSTACK
+
+To output to OpenStack, use the I<-o openstack> option.
+
+=head2 OpenStack: Setting up a conversion appliance
+
+When virt-v2v is converting to OpenStack, it is unusual in that
+virt-v2v B<must> be running inside a virtual machine running on top of
+the OpenStack overcloud.  This virtual machine is called the
+"conversion appliance".  Note this virtual machine is unrelated to the
+guest which is being converted.
+
+The reason for this is because to create Cinder volumes that will
+contain the guest data (for the converted guest) we must attach those
+Cinder volumes to an OpenStack virtual machine.
+
+When virt-v2v is running in the conversion appliance, you must supply
+the name or UUID of the conversion appliance to virt-v2v, eg:
+
+ $ openstack server list
+ +--------------------------------------+-----------+--------+
+ | ID                                   | Name      | Status |
+ +--------------------------------------+-----------+--------+
+ | bbb0147a-44b9-4d19-9a9d-10ca9a984744 | test1     | ACTIVE |
+ +--------------------------------------+-----------+--------+
+
+ # virt-v2v [...] \
+       -o openstack -oo server-id=bbb0147a-44b9-4d19-9a9d-10ca9a984744
+
+or:
+
+ # virt-v2v [...] -o openstack -oo server-id=test1
+
+You can run many parallel conversions inside a single conversion
+appliance if you want, subject to having enough resources available.
+However OpenStack itself imposes a limit that you should be aware of:
+OpenStack cannot attach more than around 25 disks [the exact number
+varies with configuration] to a single appliance, and that limits the
+number of guests which can be converted in parallel, because each
+guest's disk must be attached to the appliance while being copied.
+
+=head2 OpenStack: Authentication
+
+Converting to OpenStack requires access to the tenant (non-admin) API
+endpoints.  You will need to either set up your C<$OS_*> environment
+variables or use output options on the virt-v2v command line to
+authenticate with OpenStack.
+
+Normally there is a file called something like C<stackrc>,
+C<overcloudrc> etc which you can simply C<source> to set everything up.
+
+For example:
+
+ export OS_USERNAME=admin
+
+or:
+
+ virt-v2v [...] -o openstack -oo os-username=admin
+
+are equivalent, and have the same effect as using I<--os-username> on
+the command line of OpenStack tools.
+
+=head2 OpenStack: Running as root
+
+Because virt-v2v must access Cinder volumes which are presented as
+F</dev> devices to the conversion appliance, virt-v2v must usually run
+as root in I<-o openstack> mode.
+
+If you use C<sudo> to start virt-v2v and you are using environment
+variables for authentication, remember to use the C<sudo -E> option to
+preserve the environment.
+
+=head2 OpenStack: Guest ID
+
+ virt-v2v [...] -o openstack -oo guest-id=123-456-7890
+
+You may optionally specify I<-oo guest-id=...> on the command line.
+The ID (which can be any string) is saved on each Cinder volume in the
+C<virt_v2v_guest_id> volume property.
+
+This can be used to find disks associated with a guest, or to
+associate which disks are related to which guests when converting many
+guests.
+
+=head2 OpenStack: Converting a guest
+
+The final command to convert the guest, running as root, will be:
+
+ # virt-v2v [-i options ...] \
+       -o openstack -oo server-id=NAME|UUID [-oo guest-id=ID]
+
+If you include authentication options on the command line then:
+
+ # virt-v2v [-i options ...] \
+       -o openstack -oo server-id=NAME|UUID -oo os-username=admin [etc]
+
+=head2 OpenStack: Booting the guest
+
+Guests are converted as Cinder volume(s) (one volume per disk in the
+original guest).  To boot them use the
+C<openstack server create --volume> option:
+
+ $ openstack volume list
+ +--------------------------------------+---------------+-----------+
+ | ID                                   | Name          | Status    |
+ +--------------------------------------+---------------+-----------+
+ | c4d06d15-22ef-462e-9eff-ab54ab285a1f | fedora-27-sda | available |
+ +--------------------------------------+---------------+-----------+
+ $ openstack server create \
+       --flavor x1.small \
+       --volume c4d06d15-22ef-462e-9eff-ab54ab285a1f \
+       myguest
+ $ openstack console url show myguest
+
+=head2 OpenStack: Other conversion options
+
+To specify the Cinder volume type, use I<-os>.  If not specified then
+no Cinder volume type is used.
+
+The following options are B<not> supported with OpenStack: I<-oa>,
+I<-of>.
+
+=head1 OUTPUT TO GLANCE
+
+Note this is a legacy option.  In most cases you should use
+L</OUTPUT TO OPENSTACK> instead.
+
+To output to OpenStack Glance, use the I<-o glance> option.
+
+This runs the L<glance(1)> CLI program which must be installed on the
+virt-v2v conversion host.  For authentication to work, you will need
+to set C<OS_*> environment variables.  In most cases you can do this
+by sourcing a file called something like F<keystonerc_admin>.
+
+Virt-v2v adds metadata for the guest to Glance, describing such things
+as the guest operating system and what drivers it requires.  The
+command C<glance image-show> will display the metadata as "Property"
+fields such as C<os_type> and C<hw_disk_bus>.
+
+=head2 Glance and sparseness
+
+Glance image upload doesn't appear to correctly handle sparseness.
+For this reason, using qcow2 will be faster and use less space on the
+Glance server.  Use the virt-v2v S<I<-of qcow2>> option.
+
+=head2 Glance and multiple disks
+
+If the guest has a single disk, then the name of the disk in Glance
+will be the name of the guest.  You can control this using the I<-on>
+option.
+
+Glance doesn't have a concept of associating multiple disks with a
+single guest, and Nova doesn't allow you to boot a guest from multiple
+Glance disks either.  If the guest has multiple disks, then the first
+(assumed to be the system disk) will have the name of the guest, and
+the second and subsequent data disks will be called
+C<I<guestname>-disk2>, C<I<guestname>-disk3> etc.  It may be best to
+leave the system disk in Glance, and import the data disks to Cinder.
+
+=head1 SEE ALSO
+
+L<virt-v2v(1)>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2018 Red Hat Inc.

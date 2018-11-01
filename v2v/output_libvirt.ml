@@ -106,13 +106,13 @@ class output_libvirt oc output_pool = object
 
     (* We can only output to a pool of type 'dir' (directory). *)
     if xpath_string "/pool/@type" <> Some "dir" then
-      error (f_"-o libvirt: output pool ‘%s’ is not a directory (type='dir').  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool;
+      error (f_"-o libvirt: output pool ‘%s’ is not a directory (type='dir').  See virt-v2v-output-local(1)") output_pool;
     let target_path =
       match xpath_string "/pool/target/path/text()" with
       | None ->
-         error (f_"-o libvirt: output pool ‘%s’ does not have /pool/target/path element.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
+         error (f_"-o libvirt: output pool ‘%s’ does not have /pool/target/path element.  See virt-v2v-output-local(1)") output_pool
       | Some dir when not (is_directory dir) ->
-         error (f_"-o libvirt: output pool ‘%s’ has type='dir' but the /pool/target/path element is not a local directory.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
+         error (f_"-o libvirt: output pool ‘%s’ has type='dir' but the /pool/target/path element is not a local directory.  See virt-v2v-output-local(1)") output_pool
       | Some dir -> dir in
     (* Get the name of the pool, since we have to use that
      * (and not the UUID) in the XML of the guest.
@@ -120,7 +120,7 @@ class output_libvirt oc output_pool = object
     let name =
       match xpath_string "/pool/name/text()" with
       | None ->
-         error (f_"-o libvirt: output pool ‘%s’ does not have /pool/name element.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
+         error (f_"-o libvirt: output pool ‘%s’ does not have /pool/name element.  See virt-v2v-output-local(1)") output_pool
       | Some name -> name in
     pool_name <- Some name;
 

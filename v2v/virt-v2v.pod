@@ -4,36 +4,62 @@ virt-v2v - Convert a guest to use KVM
 
 =head1 SYNOPSIS
 
- virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest
+ virt-v2v [-i mode] [other -i* options]
+          [-o mode] [other -o* options]
+          [guest|filename]
 
- virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp
-
- virt-v2v -i disk disk.img -o local -os /var/tmp
-
- virt-v2v -i disk disk.img -o openstack -oo server-id=v2v-vm
-
- virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest \
-   -o rhv-upload -oc https://ovirt-engine.example.com/ovirt-engine/api \
-   -os ovirt-data -op /tmp/ovirt-admin-password -of raw \
-   -oo rhv-cafile=/tmp/ca.pem -oo rhv-direct \
-   --bridge ovirtmgmt
-
- virt-v2v -ic qemu:///system qemu_guest --in-place
+ virt-v2v --in-place
+          [-i mode] [other -i* options]
+          [guest|filename]
 
 =head1 DESCRIPTION
 
-Virt-v2v converts guests from a foreign hypervisor to run on KVM.  It
-can read Linux and Windows guests running on VMware, Xen, Hyper-V and
-some other hypervisors, and convert them to KVM managed by libvirt,
-OpenStack, oVirt, Red Hat Virtualisation (RHV) or several other
-targets.
+Virt-v2v converts a single guest from a foreign hypervisor to run on
+KVM.  It can read Linux and Windows guests running on VMware, Xen,
+Hyper-V and some other hypervisors, and convert them to KVM managed by
+libvirt, OpenStack, oVirt, Red Hat Virtualisation (RHV) or several
+other targets.  It can modify the guest to make it bootable on KVM and
+install virtio drivers so it will run quickly.
 
 There is also a companion front-end called L<virt-p2v(1)> which comes
 as an ISO, CD or PXE image that can be booted on physical machines to
 virtualize those machines (physical to virtual, or p2v).
 
-This manual page documents the rewritten virt-v2v included in
-libguestfs E<ge> 1.28.
+=head2 Input and Output
+
+You normally run virt-v2v with several I<-i*> options controlling the
+input mode and also several I<-o*> options controlling the output
+mode.  In this sense, "input" refers to the source foreign hypervisor
+such as VMware, and "output" refers to the target KVM-based management
+system such as oVirt or OpenStack.
+
+The input and output sides of virt-v2v are separate and unrelated.
+Virt-v2v can read from any input and write to any output.  Therefore
+these sides of virt-v2v are documented separately in this manual.
+
+Virt-v2v normally copies from the input to the output, called "copying
+mode".  In this case the source guest is always left unchanged.
+In-place conversion (I<--in-place>) only uses the I<-i*> options and
+modifies the source guest in-place.  (See L</In-place conversion>
+below.)
+
+=head2 Other virt-v2v topics
+
+L<virt-v2v-support(1)> — Supported hypervisors, virtualization
+management systems, guests.
+
+L<virt-v2v-input-vmware(1)> — Input from VMware.
+
+L<virt-v2v-input-xen(1)> — Input from Xen.
+
+L<virt-v2v-output-local(1)> — Output to local files or local libvirt.
+
+L<virt-v2v-output-rhv(1)> — Output to oVirt or RHV.
+
+L<virt-v2v-output-openstack(1)> — Output to OpenStack.
+
+L<virt-v2v-copy-to-local(1)> — Deprecated tool to handle Xen guests
+using host block device storage.
 
 =head1 EXAMPLES
 
@@ -50,7 +76,7 @@ In this case you will most likely have to run virt-v2v as C<root>,
 since it needs to talk to the system libvirt daemon and copy the guest
 disks to F</var/lib/libvirt/images>.
 
-For more information see L</INPUT FROM VMWARE VCENTER SERVER> below.
+For more information see L<virt-v2v-input-vmware(1)>.
 
 =head2 Convert from VMware to RHV/oVirt
 
@@ -66,7 +92,7 @@ interface(s) are connected to the target network called C<ovirtmgmt>.
 
 In this case the host running virt-v2v acts as a B<conversion server>.
 
-For more information see L</OUTPUT TO RHV> below.
+For more information see L<virt-v2v-output-rhv(1)>.
 
 =head2 Convert from ESXi hypervisor over SSH to local libvirt
 
@@ -83,7 +109,7 @@ The guest must not be running.  Virt-v2v would I<not> need to be run
 as root in this case.
 
 For more information about converting from VMX files see
-L</INPUT FROM VMWARE VMX> below.
+L<virt-v2v-input-vmware(1)>.
 
 =head2 Convert disk image to OpenStack
 
@@ -93,7 +119,7 @@ virt-v2v inside an OpenStack VM (called C<v2v-vm> below), and do:
 
  virt-v2v -i disk disk.img -o openstack -oo server-id=v2v-vm
 
-See L</OUTPUT TO OPENSTACK> below.
+See L<virt-v2v-output-openstack(1)>.
 
 =head2 Convert disk image to disk image
 
@@ -120,160 +146,6 @@ To convert a local disk image and immediately boot it in local
 qemu, do:
 
  virt-v2v -i disk disk.img -o qemu -os /var/tmp --qemu-boot
-
-=head1 INPUT AND OUTPUT MODES
-
-                          ┌────────────┐  ┌─────────▶ -o null
- -i disk ────────────┐    │            │ ─┘┌────────▶ -o local
- -i ova  ──────────┐ └──▶ │ virt-v2v   │ ──┘┌───────▶ -o qemu
-                   └────▶ │ conversion │ ───┘┌────────────┐
- VMware─▶┌────────────┐   │ server     │ ────▶ -o libvirt │─▶ KVM
- Xen ───▶│ -i libvirt ──▶ │            │     │  (default) │
- ... ───▶│  (default) │   │            │ ───┐└────────────┘
-         └────────────┘   │            │ ──┐└───────▶ -o glance
-                          │            │ ─┐└────────▶ -o openstack
- -i libvirtxml ─────────▶ │            │ ┐├─────────▶ -o rhv
- -i vmx ────────────────▶ │            │ │└─────────▶ -o vdsm
-                          └────────────┘ └──────────▶ -o rhv-upload
-
-Virt-v2v has a number of possible input and output modes, selected
-using the I<-i> and I<-o> options.  Only one input and output mode can
-be selected for each run of virt-v2v.
-
-I<-i disk> is used for reading from local disk images (mainly for
-testing).
-
-I<-i libvirt> is used for reading from any libvirt source.  Since
-libvirt can connect to many different hypervisors, it is used for
-reading guests from VMware, RHEL 5 Xen and more.  The I<-ic>
-option selects the precise libvirt source.
-
-I<-i libvirtxml> is used to read from libvirt XML files.  This is the
-method used by L<virt-p2v(1)> behind the scenes.
-
-I<-i ova> is used for reading from a VMware ova source file.
-
-I<-i vmx> is used for reading from a VMware vmx file.
-
-I<-o openstack> is used for writing to OpenStack.  I<-o glance> is a
-legacy option used for writing to OpenStack Glance.
-
-I<-o libvirt> is used for writing to any libvirt target.  Libvirt can
-connect to local or remote KVM hypervisors.  The I<-oc> option selects
-the precise libvirt target.
-
-I<-o local> is used to write to a local disk image with a local
-libvirt configuration file (mainly for testing).
-
-I<-o qemu> writes to a local disk image with a shell script for
-booting the guest directly in qemu (mainly for testing).
-
-I<-o rhv-upload> is used to write to a RHV / oVirt target.  I<-o rhv>
-is a legacy method to write to RHV / oVirt E<lt> 4.2.  I<-o vdsm> is
-only used when virt-v2v runs under VDSM control.
-
-I<--in-place> instructs virt-v2v to customize the guest OS in the input
-virtual machine, instead of creating a new VM in the target hypervisor.
-
-=head1 SUPPORT MATRIX
-
-=head2 Hypervisors (Input)
-
-=over 4
-
-=item VMware ESXi
-
-Must be managed by VMware vCenter E<ge> 5.0 unless VDDK is available.
-
-=item OVA exported from VMware
-
-OVAs from other hypervisors will not work.
-
-=item VMX from VMware
-
-VMX files generated by other hypervisors will not work.
-
-=item RHEL 5 Xen
-
-=item SUSE Xen
-
-=item Citrix Xen
-
-Citrix Xen has not been recently tested.
-
-=item Hyper-V
-
-Not recently tested.  Requires that you export the disk or use
-L<virt-p2v(1)> on Hyper-V.
-
-=item Direct from disk images
-
-Only disk images exported from supported hypervisors, and using
-container formats supported by qemu.
-
-=item Physical machines
-
-Using the L<virt-p2v(1)> tool.
-
-=back
-
-=head2 Hypervisors (Output)
-
-QEMU and KVM only.
-
-=head2 Virtualization management systems (Output)
-
-=over 4
-
-=item OpenStack
-
-=item Red Hat Virtualization (RHV) 4.1 and up
-
-=item Local libvirt
-
-And hence L<virsh(1)>, L<virt-manager(1)>, and similar tools.
-
-=item Local disk
-
-=back
-
-=head2 Guests
-
-=over 4
-
-=item Red Hat Enterprise Linux 3, 4, 5, 6, 7
-
-=item CentOS 3, 4, 5, 6, 7
-
-=item Scientific Linux 3, 4, 5, 6, 7
-
-=item Oracle Linux
-
-=item Fedora
-
-=item SLES 10 and up
-
-=item OpenSUSE 10 and up
-
-=item Debian 6 and up
-
-=item Ubuntu 10.04, 12.04, 14.04, 16.04, and up
-
-=item Windows XP to Windows 10 / Windows Server 2016
-
-We use Windows internal version numbers, see
-L<https://en.wikipedia.org/wiki/List_of_Microsoft_Windows_versions>
-
-Currently NT 5.2 to NT 6.3 are supported.
-
-See L</WINDOWS> below for additional notes on converting Windows
-guests.
-
-=back
-
-=head2 Guest firmware
-
-BIOS or UEFI for all guest types (but see L</UEFI> below).
 
 =head1 OPTIONS
 
@@ -346,7 +218,7 @@ Set the input method to I<libvirtxml>.
 In this mode you have to pass a libvirt XML file on the command line.
 This file is read in order to get metadata about the source guest
 (such as its name, amount of memory), and also to locate the input
-disks.  See L</MINIMAL XML FOR -i libvirtxml OPTION> below.
+disks.  See L</Minimal XML for -i libvirtxml option> below.
 
 =item B<-i> B<local>
 
@@ -359,7 +231,7 @@ Set the input method to I<ova>.
 In this mode you can read a VMware ova file.  Virt-v2v will read the
 ova manifest file and check the vmdk volumes for validity (checksums)
 as well as analyzing the ovf file, and then convert the guest.  See
-L</INPUT FROM VMWARE OVA> below
+L<virt-v2v-input-vmware(1)>.
 
 =item B<-i> B<vmx>
 
@@ -368,7 +240,7 @@ Set the input method to I<vmx>.
 In this mode you can read a VMware vmx file directly or over SSH.
 This is useful when VMware VMs are stored on an NFS server which you
 can mount directly, or where you have access by SSH to an ESXi
-hypervisor.  See L</INPUT FROM VMWARE VMX> below
+hypervisor.  See L<virt-v2v-input-vmware(1)>.
 
 =item B<-ic> libvirtURI
 
@@ -379,8 +251,8 @@ Only local libvirt connections, VMware vCenter connections, or RHEL 5
 Xen remote connections can be used.  Other remote libvirt connections
 will not work in general.
 
-See also L</INPUT FROM VMWARE VCENTER SERVER>,
-L</INPUT FROM XEN> below.
+See also L<virt-v2v-input-vmware(1)>,
+L<virt-v2v-input-xen(1)>.
 
 =item B<-if> format
 
@@ -398,7 +270,7 @@ This mode is meant for integration with other toolsets, which take the
 responsibility of converting the VM configuration, providing for
 rollback in case of errors, transforming the storage, etc.
 
-See L</IN PLACE CONVERSION> below.
+See L</In-place conversion> below.
 
 Conflicts with all I<-o *> options.
 
@@ -416,14 +288,14 @@ subdirectories called F<include>, F<lib64> etc., but do not include
 F<lib64> actually in the parameter.
 
 In most cases this parameter is required when using the I<-it vddk>
-(VDDK) transport.  See L</INPUT FROM VDDK> below for details.
+(VDDK) transport.  See L<virt-v2v-input-vmware(1)> for details.
 
 =item B<-io vddk-thumbprint=>xx:xx:xx:...
 
 Set the thumbprint of the remote VMware server.
 
 This parameter is required when using the I<-it vddk> (VDDK) transport.
-See L</INPUT FROM VDDK> below for details.
+See L<virt-v2v-input-vmware(1)> for details.
 
 =item B<-io vddk-config=>FILENAME
 
@@ -453,14 +325,14 @@ file should have mode C<0600> so that others cannot read it.
 =item B<-it> B<ssh>
 
 When using I<-i vmx>, this enables the ssh transport.
-See L</INPUT FROM VMWARE VMX> below.
+See L<virt-v2v-input-vmware(1)>.
 
 =item B<-it> B<vddk>
 
 Use VMware VDDK as a transport to copy the input disks.  See
-L</INPUT FROM VDDK> below.  If you use this parameter then you may
-need to use other I<-io vddk*> options to specify how to connect through
-VDDK.
+L<virt-v2v-input-vmware(1)>.  If you use this parameter then you
+may need to use other I<-io vddk*> options to specify how to connect
+through VDDK.
 
 =item B<--key> SELECTOR
 
@@ -494,7 +366,7 @@ servers.
 
 Map source NIC MAC address to a network or bridge.
 
-See L</NETWORKS AND BRIDGES> below.
+See L</Networks and bridges> below.
 
 =item B<--machine-readable>
 
@@ -502,7 +374,7 @@ See L</NETWORKS AND BRIDGES> below.
 
 This option is used to make the output more machine friendly
 when being parsed by other programs.  See
-L</MACHINE READABLE OUTPUT> below.
+L</Machine readable output> below.
 
 =item B<-n> in:out
 
@@ -524,7 +396,7 @@ Map network (or bridge) called C<in> to network (or bridge) called
 C<out>.  If no C<in:> prefix is given, all other networks (or bridges)
 are mapped to C<out>.
 
-See L</NETWORKS AND BRIDGES> below.
+See L</Networks and bridges> below.
 
 =item B<--no-copy>
 
@@ -551,7 +423,7 @@ This is a legacy option.  You should probably use I<-o openstack>
 instead.
 
 Set the output method to OpenStack Glance.  In this mode the converted
-guest is uploaded to Glance.  See L</OUTPUT TO GLANCE> below.
+guest is uploaded to Glance.  See L<virt-v2v-output-openstack(1)>.
 
 =item B<-o> B<libvirt>
 
@@ -560,7 +432,7 @@ Set the output method to I<libvirt>.  This is the default.
 In this mode, the converted guest is created as a libvirt guest.  You
 may also specify a libvirt connection URI (see I<-oc>).
 
-See L</OUTPUT TO LIBVIRT> below.
+See L<virt-v2v-output-local(1)>.
 
 =item B<-o> B<local>
 
@@ -590,7 +462,7 @@ written.
 
 =item B<-o> B<openstack>
 
-Set the output method to OpenStack.  See L</OUTPUT TO OPENSTACK> below.
+Set the output method to OpenStack.  See L<virt-v2v-output-openstack(1)>.
 
 =item B<-o> B<ovirt>
 
@@ -624,7 +496,7 @@ I<-os> parameter must also be used to specify the location of the
 Export Storage Domain.  Note this does not actually import the guest
 into RHV.  You have to do that manually later using the UI.
 
-See L</OUTPUT TO RHV (OLD METHOD)> below.
+See L<virt-v2v-output-rhv(1)>.
 
 =item B<-o> B<rhv-upload>
 
@@ -634,7 +506,7 @@ The converted guest is written directly to a RHV Data Domain.
 This is a faster method than I<-o rhv>, but requires oVirt
 or RHV E<ge> 4.2.
 
-See L</OUTPUT TO RHV> below.
+See L<virt-v2v-output-rhv(1)>.
 
 =item B<-o> B<vdsm>
 
@@ -657,7 +529,7 @@ Specify a connection URI to use when writing the converted guest.
 
 For S<I<-o libvirt>> this is the libvirt URI.  Only local libvirt
 connections can be used.  Remote libvirt connections will not work.
-See L</OUTPUT TO LIBVIRT> below for further information.
+See L<virt-v2v-output-local(1)> for further information.
 
 =item B<-of> format
 
@@ -679,30 +551,30 @@ To display short help on what options are available you can use:
 
 =item B<-oo guest-id=>C<ID>
 
-For I<-o openstack> (L</OUTPUT TO OPENSTACK>) only, set a guest ID
+For I<-o openstack> (L<virt-v2v-output-openstack(1)>) only, set a guest ID
 which is saved on each Cinder volume in the C<virt_v2v_guest_id>
 volume property.
 
 =item B<-oo os->*B<=>*
 
-For I<-o openstack> (L</OUTPUT TO OPENSTACK>) only, set optional
+For I<-o openstack> (L<virt-v2v-output-openstack(1)>) only, set optional
 OpenStack authentication.  For example I<-oo os-username=>NAME is
 equivalent to C<openstack --os-username=NAME>.
 
 =item B<-oo rhv-cafile=>F<ca.pem>
 
-For I<-o rhv-upload> (L</OUTPUT TO RHV>) only, the F<ca.pem> file
+For I<-o rhv-upload> (L<virt-v2v-output-rhv(1)>) only, the F<ca.pem> file
 (Certificate Authority), copied from F</etc/pki/ovirt-engine/ca.pem>
 on the oVirt engine.
 
 =item B<-oo rhv-cluster=>C<CLUSTERNAME>
 
-For I<-o rhv-upload> (L</OUTPUT TO RHV>) only, set the RHV Cluster
+For I<-o rhv-upload> (L<virt-v2v-output-rhv(1)>) only, set the RHV Cluster
 Name.  If not given it uses C<Default>.
 
 =item B<-oo rhv-direct>
 
-For I<-o rhv-upload> (L</OUTPUT TO RHV>) only, if this option is given
+For I<-o rhv-upload> (L<virt-v2v-output-rhv(1)>) only, if this option is given
 then virt-v2v will attempt to directly upload the disk to the oVirt
 node, otherwise it will proxy the upload through the oVirt engine.
 Direct upload requires that you have network access to the oVirt
@@ -711,13 +583,13 @@ situations.
 
 =item B<-oo rhv-verifypeer>
 
-For I<-o rhv-upload> (L</OUTPUT TO RHV>) only, verify the oVirt/RHV
+For I<-o rhv-upload> (L<virt-v2v-output-rhv(1)>) only, verify the oVirt/RHV
 server’s identity by checking the server‘s certificate against the
 Certificate Authority.
 
 =item B<-oo server-id=>C<NAME|UUID>
 
-For I<-o openstack> (L</OUTPUT TO OPENSTACK>) only, set the name
+For I<-o openstack> (L<virt-v2v-output-openstack(1)>) only, set the name
 of the conversion appliance where virt-v2v is running.
 
 =item B<-oo vdsm-compat=0.10>
@@ -876,7 +748,7 @@ direct the output to an alternate file.
 
 Print information about the source guest and stop.  This option is
 useful when you are setting up network and bridge maps.
-See L</NETWORKS AND BRIDGES>.
+See L</Networks and bridges>.
 
 =item B<--qemu-boot>
 
@@ -950,7 +822,9 @@ Enable tracing of libguestfs API calls.
 
 =back
 
-=head1 XEN PARAVIRTUALIZED GUESTS
+=head1 NOTES
+
+=head2 Xen paravirtualized guests
 
 Older versions of virt-v2v could turn a Xen paravirtualized (PV) guest
 into a KVM guest by installing a new kernel.  This version of virt-v2v
@@ -984,7 +858,7 @@ a kernel from the table below:
 
  Windows        (Does not apply, as there is no Xen PV Windows kernel)
 
-=head1 ENABLING VIRTIO
+=head2 Enabling virtio
 
 "Virtio" is the name for a set of drivers which make disk (block
 device), network and other guest operations work much faster on KVM.
@@ -1030,9 +904,7 @@ below.
  Windows        Drivers are installed from the ISO or directory pointed
                 to by "VIRTIO_WIN" environment variable if present
 
-=head1 RHEL 4
-
-=head2 SELinux relabel appears to hang forever
+=head2 RHEL 4: SELinux relabel appears to hang forever
 
 In RHEL E<le> 4.7 there was a bug which causes SELinux relabelling
 to appear to hang forever at:
@@ -1049,9 +921,9 @@ can install policycoreutils E<ge> 1.18.1-4.13 before starting the v2v
 conversion.  See also
 L<https://bugzilla.redhat.com/show_bug.cgi?id=244636>
 
-=head1 DEBIAN AND UBUNTU
+=head2 Debian and Ubuntu
 
-=head2 "warning: could not determine a way to update the configuration of Grub2"
+=head3 "warning: could not determine a way to update the configuration of Grub2"
 
 Currently, virt-v2v has no way to set the default kernel in Debian
 and Ubuntu guests using GRUB 2 as bootloader.  This means that
@@ -1061,7 +933,7 @@ A recommended procedure is, before using virt-v2v, to check that the
 boot kernel is the best kernel available in the guest (for example
 by making sure the guest is up-to-date).
 
-=head2 "vsyscall attempted with vsyscall=none"
+=head3 "vsyscall attempted with vsyscall=none"
 
 When run on a recent Debian host virt-v2v may fail to convert guests
 which were created before 2013.  In the debugging output you will see
@@ -1080,9 +952,9 @@ running virt-v2v:
 
 For more information, see L<https://bugzilla.redhat.com/1592061>
 
-=head1 WINDOWS
+=head2 Windows
 
-=head2 Windows E<ge> 8 Fast Startup is incompatible with virt-v2v
+=head3 Windows E<ge> 8 Fast Startup is incompatible with virt-v2v
 
 Guests which use the Windows E<ge> 8 "Fast Startup" feature (or guests
 which are hibernated) cannot be converted with virt-v2v.  You will see
@@ -1102,7 +974,7 @@ able to convert it.
 For more information, see:
 L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST STARTUP>.
 
-=head2 Boot failure: 0x0000007B
+=head3 Boot failure: 0x0000007B
 
 This boot failure is caused by Windows being unable to find or load
 the right disk driver (eg. F<viostor.sys>).  If you experience this
@@ -1156,7 +1028,7 @@ loaded.
 
 =back
 
-=head2 OpenStack and Windows reactivation
+=head3 OpenStack and Windows reactivation
 
 OpenStack does not offer stable device / PCI addresses to guests.
 Every time it creates or starts a guest, it regenerates the libvirt
@@ -1184,7 +1056,7 @@ This can also prevent booting with a 7B error [see previous section]
 if the guest has group policy containing
 C<Device Installation Restrictions>.
 
-=head2 Support for SHA-2 certificates in Windows 7 and Windows Server 2008 R2
+=head3 Support for SHA-2 certificates in Windows 7 and Windows Server 2008 R2
 
 Later versions of the Windows virtio drivers are signed using SHA-2
 certificates (instead of SHA-1).  The original shipping Windows 7 and
@@ -1198,40 +1070,7 @@ before converting the guest.
 For further information see:
 L<https://bugzilla.redhat.com/show_bug.cgi?id=1624878>
 
-=head1 UEFI
-
-VMware allows you to present UEFI firmware to guests (instead of the
-ordinary PC BIOS).  Virt-v2v can convert these guests, but requires
-that UEFI is supported by the target hypervisor.
-
-Currently KVM supports OVMF, an open source UEFI firmware, and can run
-these guests.
-
-Since OVMF support was only recently added to KVM (in 2014/2015), not
-all target environments support UEFI guests yet:
-
-=over 4
-
-=item UEFI on libvirt, qemu
-
-Supported.  Virt-v2v will generate the correct libvirt XML (metadata)
-automatically, but note that the same version of OVMF must be
-installed on the conversion host as is installed on the target
-hypervisor, else you will have to adjust paths in the metadata.
-
-On RHEL E<ge> 7.3, only qemu-kvm-rhev (not qemu-kvm) is supported.
-
-=item UEFI on OpenStack
-
-Not supported.
-
-=item UEFI on oVirt or RHV
-
-Supported since oVirt/RHV E<ge> 4.2 and virt-v2v E<ge> 1.39.12.
-
-=back
-
-=head1 NETWORKS AND BRIDGES
+=head2 Networks and bridges
 
 Guests are usually connected to one or more networks, and when
 converted to the target hypervisor you usually want to reconnect those
@@ -1269,7 +1108,7 @@ To map every bridge to a target network, use:
 
  virt-v2v [...] --bridge ovirtmgmt
 
-=head2 Fine-grained mapping of guest NICs
+=head3 Fine-grained mapping of guest NICs
 
 The I<--mac> option gives you more control over the mapping, letting
 you map single NICs to either networks or bridges on the target.  For
@@ -1287,1078 +1126,9 @@ use the MAC address to set up persistent associations between NICs and
 internal names (like C<eth0>), with firewall settings, or even for
 other purposes like software licensing.
 
-=head1 INPUT FROM VMWARE VCENTER SERVER
+=head2 Resource requirements
 
-Virt-v2v is able to import guests from VMware vCenter Server.
-
-vCenter E<ge> 5.0 is required.  If you don’t have vCenter, using OVA
-or VMX is recommended instead (see L</INPUT FROM VMWARE OVA> and/or
-L</INPUT FROM VMWARE VMX> below), or if that is not possible then see
-L</INPUT FROM VMWARE ESXi HYPERVISOR>.
-
-Virt-v2v uses libvirt for access to vCenter, and therefore the input
-mode should be I<-i libvirt>.  As this is the default, you don't need
-to specify it on the command line.
-
-=head2 VCENTER: REMOVE VMWARE TOOLS FROM WINDOWS GUESTS
-
-For Windows guests, you should remove VMware tools before conversion.
-Although this is not strictly necessary, and the guest will still be
-able to run, if you don't do this then the converted guest will
-complain on every boot.  The tools cannot be removed after conversion
-because the uninstaller checks if it is running on VMware and refuses
-to start (which is also the reason that virt-v2v cannot remove them).
-
-This is not necessary for Linux guests, as virt-v2v is able to remove
-VMware tools.
-
-=head2 VCENTER: URI
-
-The libvirt URI of a vCenter server looks something like this:
-
- vpx://user@server/Datacenter/esxi
-
-where:
-
-=over 4
-
-=item C<user@>
-
-is the (optional, but recommended) user to connect as.
-
-If the username contains a backslash (eg. C<DOMAIN\USER>) then you
-will need to URI-escape that character using C<%5c>: C<DOMAIN%5cUSER>
-(5c is the hexadecimal ASCII code for backslash.)  Other punctuation
-may also have to be escaped.
-
-=item C<server>
-
-is the vCenter Server (I<not> hypervisor).
-
-=item C<Datacenter>
-
-is the name of the datacenter.
-
-If the name contains a space, replace it with the URI-escape code
-C<%20>.
-
-=item C<esxi>
-
-is the name of the ESXi hypervisor running the guest.
-
-=back
-
-If the VMware deployment is using folders, then these may need to be
-added to the URI, eg:
-
- vpx://user@server/Folder/Datacenter/esxi
-
-For full details of libvirt URIs, see: L<http://libvirt.org/drvesx.html>
-
-Typical errors from libvirt / virsh when the URI is wrong include:
-
-=over 4
-
-=item *
-
-Could not find datacenter specified in [...]
-
-=item *
-
-Could not find compute resource specified in [...]
-
-=item *
-
-Path [...] does not specify a compute resource
-
-=item *
-
-Path [...] does not specify a host system
-
-=item *
-
-Could not find host system specified in [...]
-
-=back
-
-=head2 VCENTER: TEST LIBVIRT CONNECTION TO VCENTER
-
-Use the L<virsh(1)> command to list the guests on the vCenter Server
-like this:
-
- $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi' list --all
- Enter root's password for vcenter.example.com: ***
- 
-  Id    Name                           State
- ----------------------------------------------------
-  -     Fedora 20                      shut off
-  -     Windows 2003                   shut off
-
-If you get an error "Peer certificate cannot be authenticated with
-given CA certificates" or similar, then you can either import the
-vCenter host’s certificate, or bypass signature verification by adding
-the C<?no_verify=1> flag:
-
- $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' list --all
-
-You should also try dumping the metadata from any guest on your
-server, like this:
-
- $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi' dumpxml "Windows 2003"
- <domain type='vmware'>
-   <name>Windows 2003</name>
-   [...]
- </domain>
-
-B<If the above commands do not work, then virt-v2v is not going to
-work either>.  Fix your libvirt configuration and/or your VMware
-vCenter Server before continuing.
-
-=head2 VCENTER: IMPORTING A GUEST
-
-To import a particular guest from vCenter Server, do:
-
- $ virt-v2v -ic 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' \
-   "Windows 2003" \
-   -o local -os /var/tmp
-
-where C<Windows 2003> is the name of the guest (which must be shut
-down).
-
-Note that you may be asked for the vCenter password I<twice>.  This
-happens once because libvirt needs it, and a second time because
-virt-v2v itself connects directly to the server.  Use I<-ip>
-F<filename> to supply a password via a file.
-
-In this case the output flags are set to write the converted guest to
-a temporary directory as this is just an example, but you can also
-write to libvirt or any other supported target.
-
-=head2 VCENTER: NON-ADMINISTRATOR ROLE
-
-Instead of using the vCenter Administrator role, you can create a
-custom non-administrator role to perform the conversion.  You will
-however need to give it a minimum set of permissions as follows:
-
-=over 4
-
-=item 1.
-
-Create a custom role in vCenter.
-
-=item 2.
-
-Enable (check) the following objects:
-
- Datastore:
-  - Browse datastore
-  - Low level file operations
- 
- Sessions:
-  - Validate session
- 
- Virtual Machine:
-   Provisioning:
-     - Allow disk access
-     - Allow read-only disk access
-     - Guest Operating system management by VIX API
-
-=back
-
-=head2 VCENTER: FIREWALL AND PROXY SETTINGS
-
-=head3 vCenter: Ports
-
-If there is a firewall between the virt-v2v conversion server and the
-vCenter server, then you will need to open port 443 (https) and port
-5480.
-
-Port 443 is used to copy the guest disk image(s).  Port 5480 is used
-to query vCenter for guest metadata.
-
-These port numbers are only the defaults.  It is possible to
-reconfigure vCenter to use other port numbers.  In that case you would
-need to specify those ports in the C<vpx://> URI.
-See L</VCENTER: URI> above.
-
-These ports only apply to virt-v2v conversions.  You may have to open
-other ports for other vCenter functionality, for example the web user
-interface.  VMware documents the required ports for vCenter in their
-online documentation.
-
- ┌────────────┐   port 443 ┌────────────┐        ┌────────────┐
- │ virt-v2v   │────────────▶ vCenter    │────────▶ ESXi       │
- │ conversion │────────────▶ server     │        │ hypervisor │
- │ server     │  port 5480 │            │        │   ┌─────┐  │
- └────────────┘            └────────────┘        │   │guest│  │
-                                                 └───┴─────┴──┘
-
-(In the diagram above the arrows show the direction in which the TCP
-connection is initiated, I<not> necessarily the direction of data
-transfer.)
-
-Virt-v2v itself does not connect directly to the ESXi hypervisor
-containing the guest.  However vCenter connects to the hypervisor and
-forwards the information, so if you have a firewall between vCenter
-and its hypervisors you may need to open additional ports (consult
-VMware documentation).
-
-The proxy environment variables (C<https_proxy>, C<all_proxy>,
-C<no_proxy>, C<HTTPS_PROXY>, C<ALL_PROXY> and C<NO_PROXY>) are
-B<ignored> when doing vCenter conversions.
-
-=head2 VCENTER: SSL/TLS CERTIFICATE PROBLEMS
-
-You may see this error:
-
-  CURL: Error opening file: SSL: no alternative certificate subject
-  name matches target host name
-
-(You may need to enable debugging with ‘virt-v2v -v -x’ to see this
-message).
-
-This can be caused by using an IP address instead of the
-fully-qualified DNS domain name of the vCenter server, ie.  use
-C<vpx://vcenter.example.com/...> instead of C<vpx://11.22.33.44/...>
-
-Another certificate problem can be caused by the vCenter server having
-a mismatching FQDN and IP address, for example if the server acquired
-a new IP address from DHCP.  To fix this you need to change your DHCP
-server or network configuration so that the vCenter server always gets
-a stable IP address.  After that log in to the vCenter server’s admin
-console at C<https://vcenter:5480/>.  Under the C<Admin> tab, select
-C<Certificate regeneration enabled> and then reboot it.
-
-=head1 INPUT FROM VMWARE OVA
-
-Virt-v2v is able to import guests from VMware’s OVA (Open
-Virtualization Appliance) files.  Only OVAs exported from VMware
-vSphere will work.
-
-=head2 OVA: REMOVE VMWARE TOOLS FROM WINDOWS GUESTS
-
-For Windows guests, you should remove VMware tools before conversion.
-Although this is not strictly necessary, and the guest will still be
-able to run, if you don't do this then the converted guest will
-complain on every boot.  The tools cannot be removed after conversion
-because the uninstaller checks if it is running on VMware and refuses
-to start (which is also the reason that virt-v2v cannot remove them).
-
-This is not necessary for Linux guests, as virt-v2v is able to remove
-VMware tools.
-
-=head2 OVA: CREATE OVA
-
-To create an OVA in vSphere, use the "Export OVF Template" option
-(from the VM context menu, or from the File menu).  Either "Folder of
-files" (OVF) or "Single file" (OVA) will work, but OVA is probably
-easier to deal with.  OVA files are really just uncompressed tar
-files, so you can use commands like C<tar tf VM.ova> to view their
-contents.
-
-=head3 Create OVA with ovftool
-
-You can also use VMware’s proprietary C<ovftool>:
-
- ovftool --noSSLVerify \
-   vi://USER:PASSWORD@esxi.example.com/VM \
-   VM.ova
-
-To connect to vCenter:
-
- ovftool  --noSSLVerify \
-   vi://USER:PASSWORD@vcenter.example.com/DATACENTER-NAME/vm/VM \
-   VM.ova
-
-For Active Directory-aware authentication, you have to express the
-C<@> character in the form of its ascii hex-code (C<%5c>):
-
- vi://DOMAIN%5cUSER:PASSWORD@...
-
-=head2 OVA: IMPORTING A GUEST
-
-To import an OVA file called F<VM.ova>, do:
-
- $ virt-v2v -i ova VM.ova -o local -os /var/tmp
-
-If you exported the guest as a "Folder of files", I<or> if you
-unpacked the OVA tarball yourself, then you can point virt-v2v at the
-directory containing the files:
-
- $ virt-v2v -i ova /path/to/files -o local -os /var/tmp
-
-=head1 INPUT FROM VMWARE VMX
-
-Virt-v2v is able to import guests from VMware’s vmx files.
-
-This is useful in two cases:
-
-=over 4
-
-=item 1.
-
-VMware virtual machines are stored on a separate NFS server and you
-are able to mount the NFS storage directly.
-
-=item 2.
-
-You have enabled SSH access to the VMware ESXi hypervisor and there is
-a C</vmfs/volumes> folder containing the virtual machines.
-
-=back
-
-If you find a folder of files called F<I<guest>.vmx>,
-F<I<guest>.vmxf>, F<I<guest>.nvram> and one or more F<.vmdk> disk
-images, then you can use this method.
-
-=head2 VMX: REMOVE VMWARE TOOLS FROM WINDOWS GUESTS
-
-For Windows guests, you should remove VMware tools before conversion.
-Although this is not strictly necessary, and the guest will still be
-able to run, if you don't do this then the converted guest will
-complain on every boot.  The tools cannot be removed after conversion
-because the uninstaller checks if it is running on VMware and refuses
-to start (which is also the reason that virt-v2v cannot remove them).
-
-This is not necessary for Linux guests, as virt-v2v is able to remove
-VMware tools.
-
-=head2 VMX: GUEST MUST BE SHUT DOWN
-
-B<The guest must be shut down before conversion starts>.  If you don't
-shut it down, you will end up with a corrupted VM disk on the target.
-With other methods, virt-v2v tries to prevent concurrent access, but
-because the I<-i vmx> method works directly against the storage,
-checking for concurrent access is not possible.
-
-=head2 VMX: ACCESS TO THE STORAGE CONTAINING THE VMX AND VMDK FILES
-
-If the vmx and vmdk files aren't available locally then you must
-I<either> mount the NFS storage on the conversion server I<or> enable
-passwordless SSH on the ESXi hypervisor.
-
-=head3 VMX: Passwordless SSH using ssh-agent
-
-You must also use ssh-agent, and add your ssh public key to
-F</etc/ssh/keys-root/authorized_keys> (on the ESXi hypervisor).
-
-After doing this, you should check that passwordless access works from
-the virt-v2v server to the ESXi hypervisor.  For example:
-
- $ ssh root@esxi.example.com
- [ logs straight into the shell, no password is requested ]
-
-Note that password-interactive and Kerberos access are B<not>
-supported.  You B<have> to set up ssh access using ssh-agent and
-authorized_keys.
-
-=head3 VMX: Construct the SSH URI
-
-When using the SSH input transport you must specify a remote
-C<ssh://...> URI pointing to the VMX file.  A typical URI looks like:
-
- ssh://root@esxi.example.com/vmfs/volumes/datastore1/my%20guest/my%20guest.vmx
-
-Any space must be escaped with C<%20> and other non-ASCII characters
-may also need to be URI-escaped.
-
-The username is not required if it is the same as your local username.
-
-You may optionally supply a port number after the hostname if the SSH
-server is not listening on the default port (22).
-
-=head2 VMX: IMPORTING A GUEST
-
-To import a vmx file from a local file or NFS, do:
-
- $ virt-v2v -i vmx guest.vmx -o local -os /var/tmp
-
-To import a vmx file over SSH, add I<-it ssh> to select the SSH
-transport and supply a remote SSH URI:
-
- $ virt-v2v \
-     -i vmx -it ssh \
-     "ssh://root@esxi.example.com/vmfs/volumes/datastore1/guest/guest.vmx" \
-     -o local -os /var/tmp
-
-Virt-v2v processes the vmx file and uses it to find the location of
-any vmdk disks.
-
-=head1 INPUT FROM VMWARE ESXi HYPERVISOR
-
-You should use the OVA or VMX methods above (see L</INPUT FROM VMWARE
-OVA> and/or L</INPUT FROM VMWARE VMX>) if possible, as they are much
-faster and require much less disk space than the method described in
-this section.
-
-You can use the L<virt-v2v-copy-to-local(1)> tool to copy the guest
-off the hypervisor into a local file, and then convert it.
-
-=head2 ESXi: REMOVE VMWARE TOOLS FROM WINDOWS GUESTS
-
-For Windows guests, you should remove VMware tools before conversion.
-Although this is not strictly necessary, and the guest will still be
-able to run, if you don't do this then the converted guest will
-complain on every boot.  The tools cannot be removed after conversion
-because the uninstaller checks if it is running on VMware and refuses
-to start (which is also the reason that virt-v2v cannot remove them).
-
-This is not necessary for Linux guests, as virt-v2v is able to remove
-VMware tools.
-
-=head2 ESXi: URI
-
-The libvirt URI for VMware ESXi hypervisors will look something like this:
-
- esx://root@esxi.example.com?no_verify=1
-
-The C<?no_verify=1> parameter disables TLS certificate checking.
-
-=head2 ESXi: TEST LIBVIRT CONNECTION TO ESXi HYPERVISOR
-
-Use the L<virsh(1)> command to test the URI and list the remote guests
-available:
-
- $ virsh -c esx://root@esxi.example.com?no_verify=1 list --all
- Enter root's password for esxi.example.com: ***
-  Id    Name                           State
- ----------------------------------------------------
-  -     guest                          shut off
-
-=head2 ESXi: COPY THE GUEST TO THE LOCAL MACHINE
-
-Using the libvirt URI as the I<-ic> option, copy one of the guests to
-the local machine:
-
- $ virt-v2v-copy-to-local -ic esx://root@esxi.example.com?no_verify=1 guest
-
-This creates F<guest.xml>, F<guest-disk1>, ...
-
-=head2 ESXi: DO THE VIRT-V2V CONVERSION
-
-Perform the conversion of the guest using virt-v2v:
-
- $ virt-v2v -i libvirtxml guest.xml -o local -os /var/tmp
-
-=head2 ESXi: CLEAN UP
-
-Remove the F<guest.xml> and F<guest-disk*> files.
-
-=head1 INPUT FROM VDDK
-
-Virt-v2v is able to import guests using VMware’s proprietary VDDK
-library (a.k.a. VixDiskLib).
-
-=head2 VDDK: PREREQUISITES
-
-=over 4
-
-=item 1.
-
-As the VDDK library is not open source, and the license of this
-library does not permit redistribution or commercial use, you must
-obtain VDDK yourself and satisfy yourself that your usage of the
-library is permitted by the license.
-
-=item 2.
-
-You must also compile nbdkit, enabling the VDDK plugin.  nbdkit E<ge>
-1.1.25 is recommended, but it is usually best to compile from the git
-tree.
-
-=over 4
-
-=item *
-
-L<https://github.com/libguestfs/nbdkit>
-
-=item *
-
-L<https://github.com/libguestfs/nbdkit/tree/master/plugins/vddk>
-
-=back
-
-Compile nbdkit as described in the sources (see link above).
-
-You do B<not> need to run C<make install> because you can run nbdkit
-from its source directory.  The source directory has a shell script
-called F<nbdkit> which runs the locally built copy of nbdkit and its
-plugins.  So set C<$PATH> to point to the nbdkit top build directory
-(that is, the directory containing the shell script called F<nbdkit>),
-eg:
-
- export PATH=/path/to/nbdkit-1.1.x:$PATH
-
-=item 3.
-
-You must find the SSL "thumbprint" of your VMware server.  How to do
-this is explained in L<nbdkit-vddk-plugin(1)>, also available at the
-link above.
-
-=item 4.
-
-VDDK imports require a feature added in libvirt E<ge> 3.7.
-
-=back
-
-=head2 VDDK: ESXi NFC SERVICE MEMORY LIMITS
-
-In the verbose log you may see errors like:
-
- nbdkit: vddk[3]: error: [NFC ERROR] NfcFssrvrProcessErrorMsg:
- received NFC error 5 from server: Failed to allocate the
- requested 2097176 bytes
-
-This seems especially common when there are multiple parallel
-connections open to the VMware server.
-
-These can be caused by resource limits set on the VMware server.  You
-can increase the limit for the NFC service by editing
-F</etc/vmware/hostd/config.xml> and adjusting the
-C<E<lt>maxMemoryE<gt>> setting:
-
- <nfcsvc>
-   <path>libnfcsvc.so</path>
-   <enabled>true</enabled>
-   <maxMemory>50331648</maxMemory>
-   <maxStreamMemory>10485760</maxStreamMemory>
- </nfcsvc>
-
-and restarting the C<hostd> service:
-
- # /etc/init.d/hostd restart
-
-For more information see L<https://bugzilla.redhat.com/1614276>.
-
-=head2 VDDK: URI
-
-Construct the correct C<vpx://> (for vCenter) or C<esx://> (for ESXi)
-URL.  It will look something like these:
-
- vpx://root@vcenter.example.com/Datacenter/esxi
-
- esx://root@esxi.example.com
-
-To verify that you have the correct URL, use the L<virsh(1)> command
-to list the guests on the server:
-
- $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi' list --all
- Enter root's password for vcenter.example.com: ***
- 
-  Id    Name                           State
- ----------------------------------------------------
-  -     Fedora 20                      shut off
-  -     Windows 2003                   shut off
-
-If you get an error "Peer certificate cannot be authenticated with
-given CA certificates" or similar, then you can either import the
-vCenter host’s certificate, or bypass signature verification by adding
-the C<?no_verify=1> flag:
-
- $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' list --all
-
-You should also try dumping the metadata from any guest on your
-server, like this:
-
- $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi' dumpxml "Windows 2003"
- <domain type='vmware'>
-   <name>Windows 2003</name>
-   [...]
-   <vmware:moref>vm-123</vmware:moref>
- </domain>
-
-If C<E<lt>vmware:morefE<gt>> does not appear in the metadata, then you
-need to upgrade libvirt.
-
-B<If the above commands do not work, then virt-v2v is not going to
-work either>.  Fix your URI and/or your VMware server before
-continuing.
-
-=head2 VDDK: IMPORTING A GUEST
-
-The I<-it vddk> parameter selects VDDK as the input transport for disks.
-
-To import a particular guest from vCenter server or ESXi hypervisor,
-use a command like the following, substituting the URI, guest name and
-SSL thumbprint:
-
- $ export PATH=/path/to/nbdkit-1.1.x:$PATH
- $ virt-v2v \
-     -ic 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' \
-     -it vddk \
-     -io vddk-libdir=/path/to/vmware-vix-disklib-distrib \
-     -io vddk-thumbprint=xx:xx:xx:... \
-     "Windows 2003" \
-     -o local -os /var/tmp
-
-Other options that you might need to add in rare circumstances include
-I<-io vddk-config>, I<-io vddk-cookie>, I<-io vddk-nfchostport>,
-I<-io vddk-port>, I<-io vddk-snapshot>, and I<-io vddk-transports>,
-which are all explained in the L<nbdkit-vddk-plugin(1)> documentation.
-Do not use these options unless you know what you are doing.
-
-=head2 VDDK: DEBUGGING VDDK FAILURES
-
-The VDDK library can be operated in a verbose mode where it gives
-(very) verbose messages.  Use ‘virt-v2v -v -x’ as usual to enable
-verbose messages.
-
-=head1 INPUT FROM XEN
-
-Virt-v2v is able to import Xen guests from RHEL 5 Xen or SLES and
-openSUSE Xen hosts.
-
-Virt-v2v uses libvirt for access to the remote Xen host, and therefore
-the input mode should be I<-i libvirt>.  As this is the default, you
-don't need to specify it on the command line.
-
-=head2 XEN: SET UP SSH-AGENT ACCESS TO XEN HOST
-
-Currently you must enable passwordless SSH access to the remote Xen host
-from the virt-v2v conversion server.
-
-You must also use ssh-agent, and add your ssh public key to
-F</root/.ssh/authorized_keys> (on the Xen host).
-
-After doing this, you should check that passwordless access works
-from the virt-v2v server to the Xen host.  For example:
-
- $ ssh root@xen.example.com
- [ logs straight into the shell, no password is requested ]
-
-Note that password-interactive and Kerberos access are B<not>
-supported.  You B<have> to set up ssh access using ssh-agent and
-authorized_keys.
-
-With some modern ssh implementations, legacy crypto policies required
-to interoperate with RHEL 5 sshd are disabled.  To enable them you may
-need to run this command on the conversion server (ie. ssh client),
-but read L<update-crypto-policies(8)> first:
-
- # update-crypto-policies LEGACY
-
-=head2 XEN: TEST LIBVIRT CONNECTION TO REMOTE XEN HOST
-
-Use the L<virsh(1)> command to list the guests on the remote Xen host:
-
- $ virsh -c xen+ssh://root@xen.example.com list --all
-  Id    Name                           State
- ----------------------------------------------------
-  0     Domain-0                       running
-  -     rhel49-x86_64-pv               shut off
-
-You should also try dumping the metadata from any guest on your
-server, like this:
-
- $ virsh -c xen+ssh://root@xen.example.com dumpxml rhel49-x86_64-pv
- <domain type='xen'>
-   <name>rhel49-x86_64-pv</name>
-   [...]
- </domain>
-
-B<If the above commands do not work, then virt-v2v is not going to
-work either>.  Fix your libvirt configuration or the remote server
-before continuing.
-
-B<If the guest disks are located on a host block device>, then the
-conversion will fail.  See L</XEN OR SSH CONVERSIONS FROM BLOCK DEVICES>
-below for a workaround.
-
-=head2 XEN: IMPORTING A GUEST
-
-To import a particular guest from a Xen server, do:
-
- $ LIBGUESTFS_BACKEND=direct \
-       virt-v2v -ic 'xen+ssh://root@xen.example.com' \
-           rhel49-x86_64-pv \
-           -o local -os /var/tmp
-
-where C<rhel49-x86_64-pv> is the name of the guest (which must be shut
-down).
-
-In this case the output flags are set to write the converted guest to
-a temporary directory as this is just an example, but you can also
-write to libvirt or any other supported target.
-
-Setting the L<backend|guestfs(3)/BACKEND> to C<direct> is a temporary
-workaround until
-L<libvirt bug 1140166|https://bugzilla.redhat.com/1140166> is fixed.
-
-=head2 XEN OR SSH CONVERSIONS FROM BLOCK DEVICES
-
-Currently virt-v2v cannot directly access a Xen guest (or any guest
-located remotely over ssh) if that guest’s disks are located on host
-block devices.
-
-To tell if a Xen guest uses host block devices, look at the guest XML.
-You will see:
-
-  <disk type='block' device='disk'>
-    ...
-    <source dev='/dev/VG/guest'/>
-
-where C<type='block'>, C<source dev=> and C</dev/...> are all
-indications that the disk is located on a host block device.
-
-This happens because the qemu ssh block driver that we use to access
-remote disks uses the ssh sftp protocol, and this protocol cannot
-correctly detect the size of host block devices.
-
-The workaround is to copy the guest over to the conversion server,
-using the separate L<virt-v2v-copy-to-local(1)> tool, followed by
-running virt-v2v.  You will need sufficient space on the conversion
-server to store a full copy of the guest.
-
- virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com guest
- virt-v2v -i libvirtxml guest.xml -o local -os /var/tmp
- rm guest.xml guest-disk*
-
-=head1 OUTPUT TO LIBVIRT
-
-The I<-o libvirt> option lets you upload the converted guest to
-a libvirt-managed host.  There are several limitations:
-
-=over 4
-
-=item *
-
-You can only use a local libvirt connection [see below for how to
-workaround this].
-
-=item *
-
-The I<-os pool> option must specify a directory pool, not anything
-more exotic such as iSCSI [but see below].
-
-=item *
-
-You can only upload to a KVM hypervisor.
-
-=back
-
-B<To output to a remote libvirt instance and/or a non-directory storage pool>
-you have to use the following workaround:
-
-=over 4
-
-=item 1.
-
-Use virt-v2v in I<-o local> mode to convert the guest disks and
-metadata into a local temporary directory:
-
- virt-v2v [...] -o local -os /var/tmp
-
-This creates two (or more) files in F</var/tmp> called:
-
- /var/tmp/NAME.xml     # the libvirt XML (metadata)
- /var/tmp/NAME-sda     # the guest’s first disk
-
-(for C<NAME> substitute the guest’s name).
-
-=item 2.
-
-Upload the converted disk(s) into the storage pool called C<POOL>:
-
- size=$(stat -c%s /var/tmp/NAME-sda)
- virsh vol-create-as POOL NAME-sda $size --format raw
- virsh vol-upload --pool POOL NAME-sda /var/tmp/NAME-sda
-
-=item 3.
-
-Edit F</var/tmp/NAME.xml> to change F</var/tmp/NAME-sda> to the pool
-name.  In other words, locate the following bit of XML:
-
- <disk type='file' device='disk'>
-   <driver name='qemu' type='raw' cache='none' />
-   <source file='/var/tmp/NAME-sda' />
-   <target dev='hda' bus='ide' />
- </disk>
-
-and change two things: The C<type='file'> attribute must be changed to
-C<type='volume'>, and the C<E<lt>sourceE<gt>> element must be changed
-to include C<pool> and C<volume> attributes:
-
- <disk type='volume' device='disk'>
-   ...
-   <source pool='POOL' volume='NAME-sda' />
-   ...
- </disk>
-
-=item 4.
-
-Define the final guest in libvirt:
-
- virsh define /var/tmp/NAME.xml
-
-=back
-
-=head1 OUTPUT TO RHV
-
-This new method to upload guests to oVirt or RHV directly via the REST
-API requires oVirt/RHV E<ge> 4.2.
-
-You need to specify I<-o rhv-upload> as well as the following extra
-parameters:
-
-=over 4
-
-=item I<-oc> C<https://ovirt-engine.example.com/ovirt-engine/api>
-
-The URL of the REST API which is usually the server name with
-C</ovirt-engine/api> appended, but might be different if you installed
-oVirt Engine on a different path.
-
-You can optionally add a username and port number to the URL.  If the
-username is not specified then virt-v2v defaults to using
-C<admin@internal> which is the typical superuser account for oVirt
-instances.
-
-=item I<-of raw>
-
-Currently you must use I<-of raw> and you cannot use I<-oa preallocated>.
-
-These restrictions will be loosened in a future version.
-
-=item I<-op> F<password-file>
-
-A file containing a password to be used when connecting to the oVirt
-engine.  Note the file should contain the whole password, B<without
-any trailing newline>, and for security the file should have mode
-C<0600> so that others cannot read it.
-
-=item I<-os> C<ovirt-data>
-
-The storage domain.
-
-=item I<-oo rhv-cafile=>F<ca.pem>
-
-The F<ca.pem> file (Certificate Authority), copied from
-F</etc/pki/ovirt-engine/ca.pem> on the oVirt engine.
-
-=item I<-oo rhv-cluster=>C<CLUSTERNAME>
-
-Set the RHV Cluster Name.  If not given it uses C<Default>.
-
-=item I<-oo rhv-direct>
-
-If this option is given then virt-v2v will attempt to directly upload
-the disk to the oVirt node, otherwise it will proxy the upload through
-the oVirt engine.  Direct upload requires that you have network access
-to the oVirt nodes.  Non-direct upload is slightly slower but should
-work in all situations.
-
-=item I<-oo rhv-verifypeer>
-
-Verify the oVirt/RHV server’s identity by checking the server‘s
-certificate against the Certificate Authority.
-
-=back
-
-=head1 OUTPUT TO RHV (OLD METHOD)
-
-This section only applies to the I<-o rhv> output mode.  If you use
-virt-v2v from the RHV-M user interface, then behind the scenes the
-import is managed by VDSM using the I<-o vdsm> output mode (which end
-users should not try to use directly).
-
-You have to specify I<-o rhv> and an I<-os> option that points to the
-RHV-M Export Storage Domain.  You can either specify the NFS server
-and mountpoint, eg. S<C<-os rhv-storage:/rhv/export>>, or you can
-mount that first and point to the directory where it is mounted,
-eg. S<C<-os /tmp/mnt>>.  Be careful not to point to the Data Storage
-Domain by accident as that will not work.
-
-On successful completion virt-v2v will have written the new guest to
-the Export Storage Domain, but it will not yet be ready to run.  It
-must be imported into RHV using the UI before it can be used.
-
-In RHV E<ge> 2.2 this is done from the Storage tab.  Select the
-export domain the guest was written to.  A pane will appear underneath
-the storage domain list displaying several tabs, one of which is "VM
-Import".  The converted guest will be listed here.  Select the
-appropriate guest an click "Import".  See the RHV documentation for
-additional details.
-
-If you export several guests, then you can import them all at the same
-time through the UI.
-
-=head2 RHV: TESTING RHV CONVERSIONS
-
-If you do not have an oVirt or RHV instance to test against, then you
-can test conversions by creating a directory structure which looks
-enough like a RHV-M Export Storage Domain to trick virt-v2v:
-
- uuid=`uuidgen`
- mkdir /tmp/rhv
- mkdir /tmp/rhv/$uuid
- mkdir /tmp/rhv/$uuid/images
- mkdir /tmp/rhv/$uuid/master
- mkdir /tmp/rhv/$uuid/master/vms
- touch /tmp/rhv/$uuid/dom_md
- virt-v2v [...] -o rhv -os /tmp/rhv
-
-=head1 OUTPUT TO OPENSTACK
-
-To output to OpenStack, use the I<-o openstack> option.
-
-=head2 OPENSTACK: SETTING UP A CONVERSION APPLIANCE
-
-When virt-v2v is converting to OpenStack, it is unusual in that
-virt-v2v B<must> be running inside a virtual machine running on top of
-the OpenStack overcloud.  This virtual machine is called the
-"conversion appliance".  Note this virtual machine is unrelated to the
-guest which is being converted.
-
-The reason for this is because to create Cinder volumes that will
-contain the guest data (for the converted guest) we must attach those
-Cinder volumes to an OpenStack virtual machine.
-
-When virt-v2v is running in the conversion appliance, you must supply
-the name or UUID of the conversion appliance to virt-v2v, eg:
-
- $ openstack server list
- +--------------------------------------+-----------+--------+
- | ID                                   | Name      | Status |
- +--------------------------------------+-----------+--------+
- | bbb0147a-44b9-4d19-9a9d-10ca9a984744 | test1     | ACTIVE |
- +--------------------------------------+-----------+--------+
-
- # virt-v2v [...] \
-       -o openstack -oo server-id=bbb0147a-44b9-4d19-9a9d-10ca9a984744
-
-or:
-
- # virt-v2v [...] -o openstack -oo server-id=test1
-
-You can run many parallel conversions inside a single conversion
-appliance if you want, subject to having enough resources available.
-However OpenStack itself imposes a limit that you should be aware of:
-OpenStack cannot attach more than around 25 disks [the exact number
-varies with configuration] to a single appliance, and that limits the
-number of guests which can be converted in parallel, because each
-guest's disk must be attached to the appliance while being copied.
-
-=head2 OPENSTACK: AUTHENTICATION
-
-Converting to OpenStack requires access to the tenant (non-admin) API
-endpoints.  You will need to either set up your C<$OS_*> environment
-variables or use output options on the virt-v2v command line to
-authenticate with OpenStack.
-
-Normally there is a file called something like C<stackrc>,
-C<overcloudrc> etc which you can simply C<source> to set everything up.
-
-For example:
-
- export OS_USERNAME=admin
-
-or:
-
- virt-v2v [...] -o openstack -oo os-username=admin
-
-are equivalent, and have the same effect as using I<--os-username> on
-the command line of OpenStack tools.
-
-=head2 OPENSTACK: RUNNING AS ROOT
-
-Because virt-v2v must access Cinder volumes which are presented as
-F</dev> devices to the conversion appliance, virt-v2v must usually run
-as root in I<-o openstack> mode.
-
-If you use C<sudo> to start virt-v2v and you are using environment
-variables for authentication, remember to use the C<sudo -E> option to
-preserve the environment.
-
-=head2 OPENSTACK: GUEST ID
-
- virt-v2v [...] -o openstack -oo guest-id=123-456-7890
-
-You may optionally specify I<-oo guest-id=...> on the command line.
-The ID (which can be any string) is saved on each Cinder volume in the
-C<virt_v2v_guest_id> volume property.
-
-This can be used to find disks associated with a guest, or to
-associate which disks are related to which guests when converting many
-guests.
-
-=head2 OPENSTACK: CONVERTING A GUEST
-
-The final command to convert the guest, running as root, will be:
-
- # virt-v2v [-i options ...] \
-       -o openstack -oo server-id=NAME|UUID [-oo guest-id=ID]
-
-If you include authentication options on the command line then:
-
- # virt-v2v [-i options ...] \
-       -o openstack -oo server-id=NAME|UUID -oo os-username=admin [etc]
-
-=head2 OPENSTACK: BOOTING THE GUEST
-
-Guests are converted as Cinder volume(s) (one volume per disk in the
-original guest).  To boot them use the
-C<openstack server create --volume> option:
-
- $ openstack volume list
- +--------------------------------------+---------------+-----------+
- | ID                                   | Name          | Status    |
- +--------------------------------------+---------------+-----------+
- | c4d06d15-22ef-462e-9eff-ab54ab285a1f | fedora-27-sda | available |
- +--------------------------------------+---------------+-----------+
- $ openstack server create \
-       --flavor x1.small \
-       --volume c4d06d15-22ef-462e-9eff-ab54ab285a1f \
-       myguest
- $ openstack console url show myguest
-
-=head2 OPENSTACK: OTHER CONVERSION OPTIONS
-
-To specify the Cinder volume type, use I<-os>.  If not specified then
-no Cinder volume type is used.
-
-The following options are B<not> supported with OpenStack: I<-oa>,
-I<-of>.
-
-=head1 OUTPUT TO GLANCE
-
-Note this is a legacy option.  In most cases you should use
-L</OUTPUT TO OPENSTACK> instead.
-
-To output to OpenStack Glance, use the I<-o glance> option.
-
-This runs the L<glance(1)> CLI program which must be installed on the
-virt-v2v conversion host.  For authentication to work, you will need
-to set C<OS_*> environment variables.  In most cases you can do this
-by sourcing a file called something like F<keystonerc_admin>.
-
-Virt-v2v adds metadata for the guest to Glance, describing such things
-as the guest operating system and what drivers it requires.  The
-command C<glance image-show> will display the metadata as "Property"
-fields such as C<os_type> and C<hw_disk_bus>.
-
-=head2 Glance and sparseness
-
-Glance image upload doesn't appear to correctly handle sparseness.
-For this reason, using qcow2 will be faster and use less space on the
-Glance server.  Use the virt-v2v S<I<-of qcow2>> option.
-
-=head2 Glance and multiple disks
-
-If the guest has a single disk, then the name of the disk in Glance
-will be the name of the guest.  You can control this using the I<-on>
-option.
-
-Glance doesn't have a concept of associating multiple disks with a
-single guest, and Nova doesn't allow you to boot a guest from multiple
-Glance disks either.  If the guest has multiple disks, then the first
-(assumed to be the system disk) will have the name of the guest, and
-the second and subsequent data disks will be called
-C<I<guestname>-disk2>, C<I<guestname>-disk3> etc.  It may be best to
-leave the system disk in Glance, and import the data disks to Cinder.
-
-=head1 RESOURCE REQUIREMENTS
-
-=head2 Network
+=head3 Network
 
 The most important resource for virt-v2v appears to be network
 bandwidth.  Virt-v2v should be able to copy guest data at gigabit
@@ -2368,7 +1138,7 @@ Ensure that the network connections between servers (conversion
 server, NFS server, vCenter, Xen) are as fast and as low latency as
 possible.
 
-=head2 Disk space
+=head3 Disk space
 
 Virt-v2v places potentially large temporary files in C<$TMPDIR> (which
 is F</var/tmp> if you don't set it).  Using tmpfs is a bad idea.
@@ -2401,14 +1171,14 @@ the converted guest.
 
 See also L</Minimum free space check in the host> below.
 
-=head2 VMware vCenter resources
+=head3 VMware vCenter resources
 
 Copying from VMware vCenter is currently quite slow, but we believe
 this to be an issue with VMware.  Ensuring the VMware ESXi hypervisor
 and vCenter are running on fast hardware with plenty of memory should
 alleviate this.
 
-=head2 Compute power and RAM
+=head3 Compute power and RAM
 
 Virt-v2v is not especially compute or RAM intensive.  If you are
 running many parallel conversions, then you may consider allocating
@@ -2416,7 +1186,7 @@ one CPU core and 2 GB of RAM per running instance.
 
 Virt-v2v can be run in a virtual machine.
 
-=head2 Trimming
+=head3 Trimming
 
 Virt-v2v attempts to optimize the speed of conversion by ignoring
 guest filesystem data which is not used.  This would include unused
@@ -2442,16 +1212,16 @@ fstrim support in the Linux kernel is improving gradually, so over
 time some of these restrictions will be lifted and virt-v2v will work
 faster.
 
-=head1 POST-CONVERSION TASKS
+=head2 Post-conversion tasks
 
-=head2 Guest network configuration
+=head3 Guest network configuration
 
 Virt-v2v cannot currently reconfigure a guest’s network configuration.
 If the converted guest is not connected to the same subnet as the
 source, its network configuration may have to be updated.  See also
 L<virt-customize(1)>.
 
-=head2 Converting a Windows guest
+=head3 Converting a Windows guest
 
 When converting a Windows guests, the conversion process is split into
 two stages:
@@ -2476,9 +1246,9 @@ B<N.B.> Take care not to interrupt the automatic driver installation
 process when logging in to the guest for the first time, as this may
 prevent the guest from subsequently booting correctly.
 
-=head1 FREE SPACE FOR CONVERSION
+=head2 Free space for conversion
 
-=head2 Free space in the guest
+=head3 Free space in the guest
 
 Virt-v2v checks there is sufficient free space in the guest filesystem
 to perform the conversion.  Currently it checks:
@@ -2502,7 +1272,7 @@ Minimum free space: 10 MB
 
 =back
 
-=head2 Minimum free space check in the host
+=head3 Minimum free space check in the host
 
 You must have sufficient free space in the host directory used to
 store temporary overlays (except in I<--in-place> mode).  To find out
@@ -2515,9 +1285,9 @@ which directory this is, use:
 and look under the C<Avail> column.  Virt-v2v will refuse to do the
 conversion at all unless at least 1GB is available there.
 
-See also L</RESOURCE REQUIREMENTS> above.
+See also L</Resource requirements> above.
 
-=head1 RUNNING VIRT-V2V AS ROOT OR NON-ROOT
+=head2 Running virt-v2v as root or non-root
 
 Nothing in virt-v2v inherently needs root access, and it will run just
 fine as a non-root user.  However, certain external features may
@@ -2571,41 +1341,7 @@ documentation.
 
 =back
 
-=head1 DEBUGGING RHV-M IMPORT FAILURES
-
-When you export to the RHV-M Export Storage Domain, and then import
-that guest through the RHV-M UI, you may encounter an import failure.
-Diagnosing these failures is infuriatingly difficult as the UI
-generally hides the true reason for the failure.
-
-There are several log files of interest:
-
-=over 4
-
-=item F</var/log/vdsm/import/>
-
-In oVirt E<ge> 4.1.0, VDSM preserves the virt-v2v log file for
-30 days in this directory.
-
-This directory is found on the host which performed the conversion.
-The host can be selected in the import dialog, or can be found under
-the C<Events> tab in oVirt administration.
-
-=item F</var/log/vdsm/vdsm.log>
-
-As above, this file is present on the host which performed the
-conversion.  It contains detailed error messages from low-level
-operations executed by VDSM, and is useful if the error was not caused
-by virt-v2v, but by VDSM.
-
-=item F</var/log/ovirt-engine/engine.log>
-
-This log file is stored on the RHV-M server.  It contains more detail
-for any errors caused by the oVirt GUI.
-
-=back
-
-=head1 MINIMAL XML FOR -i libvirtxml OPTION
+=head2 Minimal XML for -i libvirtxml option
 
 When using the I<-i libvirtxml> option, you have to supply some
 libvirt XML.  Writing this from scratch is hard, so the template below
@@ -2642,7 +1378,7 @@ that instead.
    </devices>
  </domain>
 
-=head1 IN PLACE CONVERSION
+=head2 In-place conversion
 
 It is also possible to use virt-v2v in scenarios where a foreign VM
 has already been imported into a KVM-based hypervisor, but still needs
@@ -2667,7 +1403,7 @@ mountpoints, the network interfaces, and so on.
 Should an error occur during the operation, virt-v2v exits with an
 error code leaving the VM in an undefined state.
 
-=head1 MACHINE READABLE OUTPUT
+=head2 Machine readable output
 
 The I<--machine-readable> option can be used to make the output more
 machine friendly, which is useful when calling virt-v2v from
@@ -2821,7 +1557,7 @@ usually incomplete, hence the ISO is preferred.
 (F<> if unset).  It can be a directory I<or>
 point to F<virtio-win.iso> (CD ROM image containing drivers).
 
-See L<ENABLING VIRTIO>.
+See L</Enabling virtio>.
 
 =back
 
@@ -2878,15 +1614,23 @@ L<http://libguestfs.org/>.
 
 =head1 AUTHORS
 
-Richard W.M. Jones L<http://people.redhat.com/~rjones/>
-
 Matthew Booth
+
+Cédric Bosdonnat
+
+Tomáš Golembiovský
+
+Shahar Havivi
+
+Roman Kagan
 
 Mike Latimer
 
-Pino Toscano
+Nir Soffer
 
-Shahar Havivi
+Richard W.M. Jones
+
+Pino Toscano
 
 Tingting Zheng
 

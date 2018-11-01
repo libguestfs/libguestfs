@@ -490,7 +490,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
       fun { ki_is_xen_pv_only_kernel = pv_only } -> pv_only
     ) bootloader_kernels in
     if only_xen_kernels then
-      error (f_"only Xen kernels are installed in this guest.\n\nRead the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what to do.") prog;
+      error (f_"only Xen kernels are installed in this guest.\n\nRead the %s(1) manual, section \"Xen paravirtualized guests\", to see what to do.") prog;
 
     (* Enable the best non-Xen kernel, where "best" means the one with
      * the highest version, preferring non-debug kernels which support

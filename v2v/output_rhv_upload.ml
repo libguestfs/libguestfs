@@ -120,7 +120,7 @@ class output_rhv_upload output_alloc output_conn
     let cmd = "nbdkit --version >/dev/null" in
     debug "%s" cmd;
     if 0 <> Sys.command "nbdkit --version >/dev/null" then
-      error (f_"nbdkit is not installed or not working.  It is required to use ‘-o rhv-upload’.  See \"OUTPUT TO RHV\" in the virt-v2v(1) manual.");
+      error (f_"nbdkit is not installed or not working.  It is required to use ‘-o rhv-upload’.  See the virt-v2v-output-rhv(1) manual.");
 
     (* Check it's a new enough version.  The latest features we
      * require are ‘--exit-with-parent’ and ‘--selinux-label’, both
@@ -145,7 +145,7 @@ class output_rhv_upload output_alloc output_conn
     if Sys.command cmd <> 0 then
       error (f_"nbdkit %s plugin is not installed or not working.  It is required if you want to use ‘-o rhv-upload’.
 
-See also \"OUTPUT TO RHV\" in the virt-v2v(1) manual.")
+See also the virt-v2v-output-rhv(1) manual.")
             Python_script.python
   in
 

@@ -37,7 +37,13 @@ EXTRA_DIST = \
 	rhv-upload-precheck.py \
 	v2v_unit_tests.ml \
 	virt-v2v.pod \
-	virt-v2v-copy-to-local.pod
+	virt-v2v-copy-to-local.pod \
+	virt-v2v-input-vmware.pod \
+	virt-v2v-input-xen.pod \
+	virt-v2v-output-local.pod \
+	virt-v2v-output-openstack.pod \
+	virt-v2v-output-rhv.pod \
+	virt-v2v-support.pod
 
 SOURCES_MLI = \
 	changeuid.mli \
@@ -281,11 +287,25 @@ virttoolsdatadir = $(datadir)/virt-tools
 
 # Manual pages and HTML files for the website.
 
-man_MANS = virt-v2v.1 virt-v2v-copy-to-local.1
+man_MANS = \
+	virt-v2v.1 \
+	virt-v2v-copy-to-local.1 \
+	virt-v2v-input-vmware.1 \
+	virt-v2v-input-xen.1 \
+	virt-v2v-output-local.1 \
+	virt-v2v-output-openstack.1 \
+	virt-v2v-output-rhv.1 \
+	virt-v2v-support.1
 
 noinst_DATA = \
 	$(top_builddir)/website/virt-v2v.1.html \
-	$(top_builddir)/website/virt-v2v-copy-to-local.1.html
+	$(top_builddir)/website/virt-v2v-copy-to-local.1.html \
+	$(top_builddir)/website/virt-v2v-input-vmware.1.html \
+	$(top_builddir)/website/virt-v2v-input-xen.1.html \
+	$(top_builddir)/website/virt-v2v-output-local.1.html \
+	$(top_builddir)/website/virt-v2v-output-openstack.1.html \
+	$(top_builddir)/website/virt-v2v-output-rhv.1.html \
+	$(top_builddir)/website/virt-v2v-support.1.html
 
 virt-v2v.1 $(top_builddir)/website/virt-v2v.1.html: stamp-virt-v2v.pod
 
@@ -304,6 +324,72 @@ stamp-virt-v2v-copy-to-local.pod: virt-v2v-copy-to-local.pod
 	$(PODWRAPPER) \
 	  --man virt-v2v-copy-to-local.1 \
 	  --html $(top_builddir)/website/virt-v2v-copy-to-local.1.html \
+	  --license GPLv2+ \
+	  --warning safe \
+	  $<
+	touch $@
+
+virt-v2v-input-vmware.1 $(top_builddir)/website/virt-v2v-input-vmware.1.html: stamp-virt-v2v-input-vmware.pod
+
+stamp-virt-v2v-input-vmware.pod: virt-v2v-input-vmware.pod
+	$(PODWRAPPER) \
+	  --man virt-v2v-input-vmware.1 \
+	  --html $(top_builddir)/website/virt-v2v-input-vmware.1.html \
+	  --license GPLv2+ \
+	  --warning safe \
+	  $<
+	touch $@
+
+virt-v2v-input-xen.1 $(top_builddir)/website/virt-v2v-input-xen.1.html: stamp-virt-v2v-input-xen.pod
+
+stamp-virt-v2v-input-xen.pod: virt-v2v-input-xen.pod
+	$(PODWRAPPER) \
+	  --man virt-v2v-input-xen.1 \
+	  --html $(top_builddir)/website/virt-v2v-input-xen.1.html \
+	  --license GPLv2+ \
+	  --warning safe \
+	  $<
+	touch $@
+
+virt-v2v-output-local.1 $(top_builddir)/website/virt-v2v-output-local.1.html: stamp-virt-v2v-output-local.pod
+
+stamp-virt-v2v-output-local.pod: virt-v2v-output-local.pod
+	$(PODWRAPPER) \
+	  --man virt-v2v-output-local.1 \
+	  --html $(top_builddir)/website/virt-v2v-output-local.1.html \
+	  --license GPLv2+ \
+	  --warning safe \
+	  $<
+	touch $@
+
+virt-v2v-output-openstack.1 $(top_builddir)/website/virt-v2v-output-openstack.1.html: stamp-virt-v2v-output-openstack.pod
+
+stamp-virt-v2v-output-openstack.pod: virt-v2v-output-openstack.pod
+	$(PODWRAPPER) \
+	  --man virt-v2v-output-openstack.1 \
+	  --html $(top_builddir)/website/virt-v2v-output-openstack.1.html \
+	  --license GPLv2+ \
+	  --warning safe \
+	  $<
+	touch $@
+
+virt-v2v-output-rhv.1 $(top_builddir)/website/virt-v2v-output-rhv.1.html: stamp-virt-v2v-output-rhv.pod
+
+stamp-virt-v2v-output-rhv.pod: virt-v2v-output-rhv.pod
+	$(PODWRAPPER) \
+	  --man virt-v2v-output-rhv.1 \
+	  --html $(top_builddir)/website/virt-v2v-output-rhv.1.html \
+	  --license GPLv2+ \
+	  --warning safe \
+	  $<
+	touch $@
+
+virt-v2v-support.1 $(top_builddir)/website/virt-v2v-support.1.html: stamp-virt-v2v-support.pod
+
+stamp-virt-v2v-support.pod: virt-v2v-support.pod
+	$(PODWRAPPER) \
+	  --man virt-v2v-support.1 \
+	  --html $(top_builddir)/website/virt-v2v-support.1.html \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<

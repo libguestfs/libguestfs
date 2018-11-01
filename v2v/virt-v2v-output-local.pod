@@ -1,0 +1,153 @@
+=head1 NAME
+
+virt-v2v-output-local - Using virt-v2v to convert guests to local files
+or libvirt
+
+=head1 SYNOPSIS
+
+ virt-v2v [-i* options] [-o libvirt] -os POOL
+
+ virt-v2v [-i* options] -o local -os DIRECTORY
+
+ virt-v2v [-i* options] -o qemu -os DIRECTORY [--qemu-boot]
+
+ virt-v2v [-i* options] -o null
+
+=head1 DESCRIPTION
+
+This page documents how to use L<virt-v2v(1)> to convert guests to
+local files or to a locally running libvirt instance.  There are four
+output modes you can select on the virt-v2v command line:
+
+=over 4
+
+=item B<-o libvirt -os> C<POOL>
+
+=item B<-os> C<POOL>
+
+This converts the guest to a libvirt directory pool call C<POOL>, and
+instantiates the guest in libvirt (but does not start it running).
+See L</OUTPUT TO LIBVIRT> below.
+
+I<-o libvirt> is the default if no I<-o> option is given, so you can
+omit it.
+
+=item B<-o local -os> C<DIRECTORY>
+
+This converts the guest to files in C<DIRECTORY>.  A libvirt XML file
+is also created, but unlike I<-o libvirt> the guest is not
+instantiated in libvirt, only files are created.
+
+The files will be called:
+
+ NAME-sda, NAME-sdb, etc.      Guest disk(s).
+ NAME.xml                      Libvirt XML.
+
+where C<NAME> is the guest name.
+
+=item B<-o qemu -os> C<DIRECTORY>
+
+=item B<-o qemu -os> C<DIRECTORY> B<--qemu-boot>
+
+This converts the guest to files in C<DIRECTORY>.  Unlike I<-o local>
+above, a shell script is created which contains the raw qemu command
+you would need to boot the guest.  However the shell script is not
+run, I<unless> you also add the I<--qemu-boot> option.
+
+=item B<-o null>
+
+The guest is converted, but the final result is thrown away and no
+metadata is created.  This is mainly useful for testing.
+
+=back
+
+=head1 OUTPUT TO LIBVIRT
+
+The I<-o libvirt> option lets you upload the converted guest to
+a libvirt-managed host.  There are several limitations:
+
+=over 4
+
+=item *
+
+You can only use a local libvirt connection [see below for how to
+workaround this].
+
+=item *
+
+The I<-os pool> option must specify a directory pool, not anything
+more exotic such as iSCSI [but see below].
+
+=item *
+
+You can only upload to a KVM hypervisor.
+
+=back
+
+=head2 Workaround for output to a remote libvirt instance and/or a
+non-directory storage pool
+
+=over 4
+
+=item 1.
+
+Use virt-v2v in I<-o local> mode to convert the guest disks and
+metadata into a local temporary directory:
+
+ virt-v2v [...] -o local -os /var/tmp
+
+This creates two (or more) files in F</var/tmp> called:
+
+ /var/tmp/NAME.xml     # the libvirt XML (metadata)
+ /var/tmp/NAME-sda     # the guest’s first disk
+
+(for C<NAME> substitute the guest’s name).
+
+=item 2.
+
+Upload the converted disk(s) into the storage pool called C<POOL>:
+
+ size=$(stat -c%s /var/tmp/NAME-sda)
+ virsh vol-create-as POOL NAME-sda $size --format raw
+ virsh vol-upload --pool POOL NAME-sda /var/tmp/NAME-sda
+
+=item 3.
+
+Edit F</var/tmp/NAME.xml> to change F</var/tmp/NAME-sda> to the pool
+name.  In other words, locate the following bit of XML:
+
+ <disk type='file' device='disk'>
+   <driver name='qemu' type='raw' cache='none' />
+   <source file='/var/tmp/NAME-sda' />
+   <target dev='hda' bus='ide' />
+ </disk>
+
+and change two things: The C<type='file'> attribute must be changed to
+C<type='volume'>, and the C<E<lt>sourceE<gt>> element must be changed
+to include C<pool> and C<volume> attributes:
+
+ <disk type='volume' device='disk'>
+   ...
+   <source pool='POOL' volume='NAME-sda' />
+   ...
+ </disk>
+
+=item 4.
+
+Define the final guest in libvirt:
+
+ virsh define /var/tmp/NAME.xml
+
+=back
+
+=head1 SEE ALSO
+
+L<virt-v2v(1)>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2018 Red Hat Inc.

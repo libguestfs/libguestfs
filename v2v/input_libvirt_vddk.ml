@@ -118,21 +118,21 @@ class input_libvirt_vddk input_conn input_password vddk_options parsed_uri
      | None -> ()
      | Some libdir ->
         if not (is_directory libdir) then
-          error (f_"‘-io vddk-libdir=%s’ does not point to a directory.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") libdir
+          error (f_"‘-io vddk-libdir=%s’ does not point to a directory.  See the virt-v2v-input-vmware(1) manual.") libdir
     );
 
     (match library_path with
      | None -> ()
      | Some library_path ->
         if not (is_directory library_path) then
-          error (f_"VDDK library path %s not found or not a directory.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") library_path
+          error (f_"VDDK library path %s not found or not a directory.  See the virt-v2v-input-vmware(1) manual.") library_path
     )
   in
 
   (* Check that nbdkit is available and new enough. *)
   let error_unless_nbdkit_working () =
     if 0 <> Sys.command "nbdkit --version >/dev/null" then
-      error (f_"nbdkit is not installed or not working.  It is required to use ‘-it vddk’.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.");
+      error (f_"nbdkit is not installed or not working.  It is required to use ‘-it vddk’.  See the virt-v2v-input-vmware(1) manual.");
 
     (* Check it's a new enough version.  The latest features we
      * require are ‘--exit-with-parent’ and ‘--selinux-label’, both
@@ -169,19 +169,19 @@ class input_libvirt_vddk input_conn input_password vddk_options parsed_uri
 
 The VDDK plugin is not enabled by default when you compile nbdkit.  You have to read the instructions in the nbdkit sources under ‘plugins/vddk/README.VDDK’ to find out how to enable the VDDK plugin.
 
-See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.")
+See also the virt-v2v-input-vmware(1) manual.")
       else
         error (f_"nbdkit VDDK plugin is not installed or not working.  It is required if you want to use VDDK.
 
 It looks like you did not set the right path in the ‘-io vddk-libdir’ option, or your copy of the VDDK directory is incomplete.  There should be a library called ’<libdir>/%s/libvixDiskLib.so.?’.
 
-See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") libNN
+See also the virt-v2v-input-vmware(1) manual.") libNN
     )
   in
 
   let error_unless_thumbprint () =
     if not (List.mem_assoc "thumbprint" vddk_options) then
-      error (f_"You must pass the ‘-io vddk-thumbprint’ option with the SSL thumbprint of the VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) manual.  See also \"INPUT FROM VDDK\" in the virt-v2v(1) manual.")
+      error (f_"You must pass the ‘-io vddk-thumbprint’ option with the SSL thumbprint of the VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) manual.  See also the virt-v2v-input-vmware(1) manual.")
   in
 
   (* Check that nbdkit was compiled with SELinux support (for the
@@ -274,7 +274,7 @@ object
               error (f_"‘-ic %s’ URL does not contain a host name field")
                     input_conn
            | None ->
-              error (f_"you must use the ‘-ic’ parameter.  See \"INPUT FROM VDDK\" in the virt-v2v(1) manual.") in
+              error (f_"you must use the ‘-ic’ parameter.  See the virt-v2v-input-vmware(1) manual.") in
 
       (* Similar to above, we also need a username to pass. *)
       let user =

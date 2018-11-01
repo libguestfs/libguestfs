@@ -31,7 +31,7 @@ unused parts of the guest disk.
 You have a Xen guest using host block devices.  Virt-v2v cannot
 convert such guests directly.
 
-See L<virt-v2v(1)/XEN OR SSH CONVERSIONS FROM BLOCK DEVICES>.
+See L<virt-v2v-input-xen(1)>.
 
 =back
 
@@ -61,8 +61,7 @@ Virt-v2v finds the local copies of the disks by looking in the XML.
 
 =head2 Copy and convert from Xen hypervisor that uses host block devices
 
-For full instructions, see
-L<virt-v2v(1)/XEN OR SSH CONVERSIONS FROM BLOCK DEVICES>.
+For full instructions, see L<virt-v2v-input-xen(1)>.
 
  virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com xen_guest
  virt-v2v -i libvirtxml xen_guest.xml -o local -os /var/tmp
