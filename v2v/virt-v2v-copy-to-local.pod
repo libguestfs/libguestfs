@@ -8,8 +8,6 @@ virt-v2v-copy-to-local - Copy a remote guest to the local machine
 
  virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com xen_guest
 
- virt-v2v-copy-to-local -ic esx://root@esxi.example.com vmware_guest
-
 =head1 DESCRIPTION
 
 C<virt-v2v-copy-to-local> copies a guest from a remote hypervisor to
@@ -35,17 +33,6 @@ convert such guests directly.
 
 See L<virt-v2v(1)/XEN OR SSH CONVERSIONS FROM BLOCK DEVICES>.
 
-=item *
-
-You have VMware ESXi hypervisors, and are not using VMware vCenter to
-manage them.  Virt-v2v cannot directly access ESXi hypervisor, so you
-either have to export the guest as an OVA (eg. using VMware's
-C<ovftool>); or you can use this tool to copy the guest to a local
-file on the conversion server, from where virt-v2v will be able to
-access it.
-
-See L<virt-v2v(1)/INPUT FROM VMWARE ESXi HYPERVISOR>.
-
 =back
 
 =head2 How this tool works
@@ -55,7 +42,7 @@ guest, essentially equivalent to running C<virsh dumpxml guest>.
 
 It then uses the XML to locate the remote guest disks, which are
 copied over using a hypervisor-specific method.  It uses ssh for
-remote Xen hypervisors, and HTTPS (curl) for remote ESXi hypervisors.
+remote Xen hypervisors.
 
 It then modifies the libvirt XML so that it points at the local copies
 of the guest disks.
@@ -80,15 +67,6 @@ L<virt-v2v(1)/XEN OR SSH CONVERSIONS FROM BLOCK DEVICES>.
  virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com xen_guest
  virt-v2v -i libvirtxml xen_guest.xml -o local -os /var/tmp
  rm xen_guest.xml xen_guest-disk*
-
-=head2 Copy and convert from ESXi hypervisor
-
-For full instructions, see
-L<virt-v2v(1)/INPUT FROM VMWARE ESXi HYPERVISOR>.
-
- virt-v2v-copy-to-local -ic esx://root@esxi.example.com?no_verify=1 vmware_guest
- virt-v2v -i libvirtxml vmware_guest.xml -o local -os /var/tmp
- rm vmware_guest.xml vmware_guest-disk*
 
 =head1 OPTIONS
 
@@ -138,8 +116,7 @@ L<virt-v2v(1)>,
 L<virsh(1)>,
 L<http://libguestfs.org/>,
 L<https://libvirt.org/uri.html>,
-L<https://libvirt.org/remote.html>,
-L<https://libvirt.org/drvesx.html>.
+L<https://libvirt.org/remote.html>.
 
 =head1 AUTHORS
 
