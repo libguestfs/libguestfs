@@ -59,7 +59,7 @@
  */
 #define xml_error(fn)                                                   \
   perrorf (g, _("%s:%d: error constructing libvirt XML near call to \"%s\""), \
-	   __FILE__, __LINE__, (fn));                                   \
+           __FILE__, __LINE__, (fn));                                   \
   return -1;
 
 /* Fixes for Mac OS X */
@@ -380,7 +380,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   conn = guestfs_int_open_libvirt_connection (g, libvirt_uri, 0);
   if (!conn) {
     libvirt_error (g, _("could not connect to libvirt (URI = %s)"),
-		   libvirt_uri ? : "NULL");
+                   libvirt_uri ? : "NULL");
     goto cleanup;
   }
 
@@ -618,12 +618,12 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   dom = virDomainCreateXML (conn, (char *) xml, VIR_DOMAIN_START_AUTODESTROY);
   if (!dom) {
     libvirt_error (g, _(
-			"could not create appliance through libvirt.\n"
-			"\n"
-			"Try running qemu directly without libvirt using this environment variable:\n"
-			"export LIBGUESTFS_BACKEND=direct\n"
-			"\n"
-			"Original error from libvirt"));
+                        "could not create appliance through libvirt.\n"
+                        "\n"
+                        "Try running qemu directly without libvirt using this environment variable:\n"
+                        "export LIBGUESTFS_BACKEND=direct\n"
+                        "\n"
+                        "Original error from libvirt"));
     goto cleanup;
   }
 
@@ -1145,13 +1145,13 @@ construct_libvirt_xml_boot (guestfs_h *g,
 
     if (params->data->uefi_code) {
       start_element ("loader") {
-	attribute ("readonly", "yes");
-	attribute ("type", "pflash");
-	string (params->data->uefi_code);
+        attribute ("readonly", "yes");
+        attribute ("type", "pflash");
+        string (params->data->uefi_code);
       } end_element ();
 
       if (params->data->uefi_vars)
-	single_element ("nvram", params->data->uefi_vars);
+        single_element ("nvram", params->data->uefi_vars);
     }
 
     single_element ("kernel", params->kernel);
@@ -1289,7 +1289,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
         attribute ("path", params->data->console_path);
       } end_element ();
       start_element ("target") {
-	attribute ("type", "sclp");
+        attribute ("type", "sclp");
         attribute ("port", "0");
       } end_element ();
     } end_element ();
@@ -2000,7 +2000,7 @@ check_bridge_exists (guestfs_h *g, const char *brname)
            "\n"
            "You may also need to allow the bridge in /etc/qemu/bridge.conf.\n"
            "For further information see guestfs(3)."),
-	 brname);
+         brname);
   return -1;
 }
 
