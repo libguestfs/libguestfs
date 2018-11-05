@@ -504,7 +504,7 @@ option.
 This flag is passed to virt-p2v when it is launched inside the
 virt-p2v ISO environment, ie. when it is running on a real physical
 machine (and thus not when testing).  It enables various dangerous
-features such as the Reboot button.
+features such as the Shutdown popup button.
 
 =item B<--nbd=server[,server...]>
 

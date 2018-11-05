@@ -98,6 +98,10 @@
 #define MAX_SUPPORTED_VCPUS 160
 #define MAX_SUPPORTED_MEMORY_MB (UINT64_C (4000 * 1024))
 
+#if GLIB_CHECK_VERSION(2,32,0) && GTK_CHECK_VERSION(3,12,0)   /* glib >= 2.32 && gtk >= 3.12 */
+#define USE_POPOVERS
+#endif
+
 static void create_connection_dialog (struct config *);
 static void create_conversion_dialog (struct config *);
 static void create_running_dialog (void);
@@ -129,7 +133,7 @@ static GtkWidget *conv_dlg,
 /* The running dialog which is displayed when virt-v2v is running. */
 static GtkWidget *run_dlg,
   *v2v_output_sw, *v2v_output, *log_label, *status_label,
-  *cancel_button, *reboot_button;
+  *cancel_button, *shutdown_button;
 
 /* Colour tags used in the v2v_output GtkTextBuffer. */
 static GtkTextTag *v2v_output_tags[16];
@@ -1606,8 +1610,19 @@ static void *start_conversion_thread (void *data);
 static gboolean conversion_error (gpointer user_data);
 static gboolean conversion_finished (gpointer user_data);
 static void cancel_conversion_dialog (GtkWidget *w, gpointer data);
+#ifdef USE_POPOVERS
+static void activate_action (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+#else
+static void shutdown_button_clicked (GtkToolButton *w, gpointer data);
+#endif
 static void reboot_clicked (GtkWidget *w, gpointer data);
 static gboolean close_running_dialog (GtkWidget *w, GdkEvent *event, gpointer data);
+
+#ifdef USE_POPOVERS
+static const GActionEntry shutdown_actions[] = {
+  { "reboot", activate_action, NULL, NULL, NULL },
+};
+#endif
 
 /**
  * Create the running dialog.
@@ -1623,6 +1638,13 @@ create_running_dialog (void)
     { "black", "maroon", "green", "olive", "navy", "purple", "teal", "silver",
       "gray", "red", "lime", "yellow", "blue", "fuchsia", "cyan", "white" };
   GtkTextBuffer *buf;
+#ifdef USE_POPOVERS
+  GMenu *shutdown_menu;
+  GSimpleActionGroup *shutdown_group;
+#else
+  GtkWidget *shutdown_menu;
+  GtkWidget *reboot_menu_item;
+#endif
 
   run_dlg = gtk_dialog_new ();
   gtk_window_set_title (GTK_WINDOW (run_dlg), getprogname ());
@@ -1686,15 +1708,47 @@ create_running_dialog (void)
     (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (run_dlg))),
      status_label, TRUE, TRUE, 0);
 
+  /* Shutdown popup menu. */
+#ifdef USE_POPOVERS
+  shutdown_menu = g_menu_new ();
+  g_menu_append (shutdown_menu, _("_Reboot"), "shutdown.reboot");
+
+  shutdown_group = g_simple_action_group_new ();
+  g_action_map_add_action_entries (G_ACTION_MAP (shutdown_group),
+                                   shutdown_actions,
+                                   G_N_ELEMENTS (shutdown_actions), NULL);
+#else
+  shutdown_menu = gtk_menu_new ();
+  reboot_menu_item = gtk_menu_item_new_with_mnemonic (_("_Reboot"));
+  gtk_menu_shell_append (GTK_MENU_SHELL (shutdown_menu), reboot_menu_item);
+  gtk_widget_show (reboot_menu_item);
+#endif
+
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (run_dlg),
                           _("_Cancel conversion ..."), 1,
-                          _("_Reboot"), 2,
                           NULL);
   cancel_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (run_dlg), 1);
   gtk_widget_set_sensitive (cancel_button, FALSE);
-  reboot_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (run_dlg), 2);
-  gtk_widget_set_sensitive (reboot_button, FALSE);
+#ifdef USE_POPOVERS
+  shutdown_button = gtk_menu_button_new ();
+  gtk_button_set_use_underline (GTK_BUTTON (shutdown_button), TRUE);
+  gtk_button_set_label (GTK_BUTTON (shutdown_button), _("_Shutdown ..."));
+  gtk_button_set_always_show_image (GTK_BUTTON (shutdown_button), TRUE);
+  gtk_widget_insert_action_group (shutdown_button, "shutdown",
+                                  G_ACTION_GROUP (shutdown_group));
+  gtk_menu_button_set_use_popover (GTK_MENU_BUTTON (shutdown_button), TRUE);
+  gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (shutdown_button),
+                                  G_MENU_MODEL (shutdown_menu));
+#else
+  shutdown_button = GTK_WIDGET (gtk_menu_tool_button_new (NULL,
+                                                          _("_Shutdown ...")));
+  gtk_tool_button_set_use_underline (GTK_TOOL_BUTTON (shutdown_button), TRUE);
+  gtk_menu_tool_button_set_menu (GTK_MENU_TOOL_BUTTON (shutdown_button),
+                                 shutdown_menu);
+#endif
+  gtk_widget_set_sensitive (shutdown_button, FALSE);
+  gtk_dialog_add_action_widget (GTK_DIALOG (run_dlg), shutdown_button, 2);
 
   /* Signals. */
   g_signal_connect_swapped (G_OBJECT (run_dlg), "delete_event",
@@ -1703,8 +1757,12 @@ create_running_dialog (void)
                             G_CALLBACK (gtk_main_quit), NULL);
   g_signal_connect (G_OBJECT (cancel_button), "clicked",
                     G_CALLBACK (cancel_conversion_dialog), NULL);
-  g_signal_connect (G_OBJECT (reboot_button), "clicked",
+#ifndef USE_POPOVERS
+  g_signal_connect (G_OBJECT (shutdown_button), "clicked",
+                    G_CALLBACK (shutdown_button_clicked), shutdown_menu);
+  g_signal_connect (G_OBJECT (reboot_menu_item), "activate",
                     G_CALLBACK (reboot_clicked), NULL);
+#endif
 }
 
 /**
@@ -1721,7 +1779,7 @@ show_running_dialog (void)
   gtk_widget_show_all (run_dlg);
   gtk_widget_set_sensitive (cancel_button, TRUE);
   if (is_iso_environment)
-    gtk_widget_set_sensitive (reboot_button, FALSE);
+    gtk_widget_set_sensitive (shutdown_button, FALSE);
 }
 
 /**
@@ -2077,9 +2135,9 @@ conversion_error (gpointer user_data)
   /* Disable the cancel button. */
   gtk_widget_set_sensitive (cancel_button, FALSE);
 
-  /* Enable the reboot button. */
+  /* Enable the shutdown button. */
   if (is_iso_environment)
-    gtk_widget_set_sensitive (reboot_button, TRUE);
+    gtk_widget_set_sensitive (shutdown_button, TRUE);
 
   return FALSE;
 }
@@ -2105,9 +2163,9 @@ conversion_finished (gpointer user_data)
   /* Disable the cancel button. */
   gtk_widget_set_sensitive (cancel_button, FALSE);
 
-  /* Enable the reboot button. */
+  /* Enable the shutdown button. */
   if (is_iso_environment)
-    gtk_widget_set_sensitive (reboot_button, TRUE);
+    gtk_widget_set_sensitive (shutdown_button, TRUE);
 
   return FALSE;
 }
@@ -2191,6 +2249,25 @@ cancel_conversion_dialog (GtkWidget *w, gpointer data)
 
   gtk_widget_destroy (dlg);
 }
+
+#ifdef USE_POPOVERS
+static void
+activate_action (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+  const char *action_name = g_action_get_name (G_ACTION (action));
+  if (STREQ (action_name, "reboot"))
+    reboot_clicked (NULL, user_data);
+}
+#else
+static void
+shutdown_button_clicked (GtkToolButton *w, gpointer data)
+{
+  GtkMenu *menu = data;
+
+  gtk_menu_popup (menu, NULL, NULL, NULL, NULL, 1,
+                  gtk_get_current_event_time ());
+}
+#endif
 
 static void
 reboot_clicked (GtkWidget *w, gpointer data)
