@@ -191,11 +191,11 @@ object
     List.iteri (
       fun i nic ->
         arg_list "-netdev" ["user"; "id=net" ^ string_of_int i];
-        arg_list "-device" [net_bus;
-                            sprintf "netdev=net%d%s" i
-                                    (match nic.s_mac with
-                                     | None -> ""
-                                     | Some mac -> "mac=" ^ mac)]
+        arg_list "-device" ([net_bus;
+                             sprintf "netdev=net%d" i] @
+                             (match nic.s_mac with
+                              | None -> []
+                              | Some mac -> ["mac=" ^ mac]))
     ) source.s_nics;
 
     (* Add a display. *)
