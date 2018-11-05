@@ -1615,11 +1615,13 @@ static void activate_action (GSimpleAction *action, GVariant *parameter, gpointe
 #else
 static void shutdown_button_clicked (GtkToolButton *w, gpointer data);
 #endif
+static void shutdown_clicked (GtkWidget *w, gpointer data);
 static void reboot_clicked (GtkWidget *w, gpointer data);
 static gboolean close_running_dialog (GtkWidget *w, GdkEvent *event, gpointer data);
 
 #ifdef USE_POPOVERS
 static const GActionEntry shutdown_actions[] = {
+  { "shutdown", activate_action, NULL, NULL, NULL },
   { "reboot", activate_action, NULL, NULL, NULL },
 };
 #endif
@@ -1643,6 +1645,7 @@ create_running_dialog (void)
   GSimpleActionGroup *shutdown_group;
 #else
   GtkWidget *shutdown_menu;
+  GtkWidget *shutdown_menu_item;
   GtkWidget *reboot_menu_item;
 #endif
 
@@ -1711,6 +1714,7 @@ create_running_dialog (void)
   /* Shutdown popup menu. */
 #ifdef USE_POPOVERS
   shutdown_menu = g_menu_new ();
+  g_menu_append (shutdown_menu, _("_Shutdown"), "shutdown.shutdown");
   g_menu_append (shutdown_menu, _("_Reboot"), "shutdown.reboot");
 
   shutdown_group = g_simple_action_group_new ();
@@ -1719,6 +1723,9 @@ create_running_dialog (void)
                                    G_N_ELEMENTS (shutdown_actions), NULL);
 #else
   shutdown_menu = gtk_menu_new ();
+  shutdown_menu_item = gtk_menu_item_new_with_mnemonic (_("_Shutdown"));
+  gtk_menu_shell_append (GTK_MENU_SHELL (shutdown_menu), shutdown_menu_item);
+  gtk_widget_show (shutdown_menu_item);
   reboot_menu_item = gtk_menu_item_new_with_mnemonic (_("_Reboot"));
   gtk_menu_shell_append (GTK_MENU_SHELL (shutdown_menu), reboot_menu_item);
   gtk_widget_show (reboot_menu_item);
@@ -1760,6 +1767,8 @@ create_running_dialog (void)
 #ifndef USE_POPOVERS
   g_signal_connect (G_OBJECT (shutdown_button), "clicked",
                     G_CALLBACK (shutdown_button_clicked), shutdown_menu);
+  g_signal_connect (G_OBJECT (shutdown_menu_item), "activate",
+                    G_CALLBACK (shutdown_clicked), NULL);
   g_signal_connect (G_OBJECT (reboot_menu_item), "activate",
                     G_CALLBACK (reboot_clicked), NULL);
 #endif
@@ -2255,7 +2264,9 @@ static void
 activate_action (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
   const char *action_name = g_action_get_name (G_ACTION (action));
-  if (STREQ (action_name, "reboot"))
+  if (STREQ (action_name, "shutdown"))
+    shutdown_clicked (NULL, user_data);
+  else if (STREQ (action_name, "reboot"))
     reboot_clicked (NULL, user_data);
 }
 #else
@@ -2268,6 +2279,17 @@ shutdown_button_clicked (GtkToolButton *w, gpointer data)
                   gtk_get_current_event_time ());
 }
 #endif
+
+static void
+shutdown_clicked (GtkWidget *w, gpointer data)
+{
+  if (!is_iso_environment)
+    return;
+
+  sync ();
+  sleep (2);
+  ignore_value (system ("/sbin/poweroff"));
+}
 
 static void
 reboot_clicked (GtkWidget *w, gpointer data)
