@@ -17,6 +17,18 @@
  */
 
 /* Backwards compatibility for some deprecated functions in Gtk 3. */
+#if !GTK_CHECK_VERSION(3,2,0)   /* gtk < 3.2 */
+static gboolean
+gdk_event_get_button (const GdkEvent *event, guint *button)
+{
+  if (event->type != GDK_BUTTON_PRESS)
+    return FALSE;
+
+  *button = ((const GdkEventButton *) event)->button;
+  return TRUE;
+}
+#endif
+
 #if GTK_CHECK_VERSION(3,2,0)   /* gtk >= 3.2 */
 #define hbox_new(box, homogeneous, spacing)                    \
   do {                                                         \
@@ -77,6 +89,10 @@
 #else
 #define scrolled_window_add_with_viewport(container, child)             \
   gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (container), child)
+#endif
+
+#if !GTK_CHECK_VERSION(3,10,0)   /* gtk < 3.10 */
+#define gdk_event_get_event_type(event) ((event)->type)
 #endif
 
 #if GTK_CHECK_VERSION(3,10,0)   /* gtk >= 3.10 */

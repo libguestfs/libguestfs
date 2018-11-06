@@ -1329,15 +1329,20 @@ maybe_identify_click (GtkWidget *interfaces_list, GdkEventButton *event,
                       gpointer data)
 {
   gboolean ret = FALSE;         /* Did we handle this event? */
+  guint button;
 
   /* Single left click only. */
-  if (event->type == GDK_BUTTON_PRESS && event->button == 1) {
+  if (gdk_event_get_event_type ((const GdkEvent *) event) == GDK_BUTTON_PRESS &&
+      gdk_event_get_button ((const GdkEvent *) event, &button) &&
+      button == 1) {
     GtkTreePath *path;
     GtkTreeViewColumn *column;
+    gdouble event_x, event_y;
 
-    if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (interfaces_list),
-                                       event->x, event->y,
-                                       &path, &column, NULL, NULL)) {
+    if (gdk_event_get_coords ((const GdkEvent *) event, &event_x, &event_y)
+        && gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (interfaces_list),
+                                          event_x, event_y,
+                                          &path, &column, NULL, NULL)) {
       GList *cols;
       gint column_index;
 
