@@ -506,6 +506,15 @@ if errorlevel 3010 exit /b 0
     (* Find the node \Microsoft\Windows\CurrentVersion.  If the node
      * has a key called DevicePath then append the virtio driver
      * path to this key.
+     *
+     * Note that simply adding the directory to DevicePath doesn't
+     * seem to be a 100% reliable way of enabling the drivers.  In
+     * particular it does not work for my self-built Windows Server Core
+     * 2012 + R2 releases (although that might be an artifact of
+     * the way I build them).  In any case I had to add a firstboot
+     * batch file which did this single command:
+     *
+     * %systemroot%\Sysnative\PnPutil -i -a %systemroot%\Drivers\Virtio\*.inf
      *)
     let node =
       Registry.get_node reg ["Microsoft"; "Windows"; "CurrentVersion"] in
