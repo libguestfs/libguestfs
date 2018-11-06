@@ -275,6 +275,10 @@ let rec main () =
   if Sys.command cmd <> 0 then exit 1;
   let output = output ^ ".xz" in
 
+  (* Set public readable permissions on the final file. *)
+  let cmd = sprintf "chmod 0644 %s" (quote output) in
+  if Sys.command cmd <> 0 then exit 1;
+
   printf "Template completed: %s\n%!" output;
 
   (* Construct the index fragment, but don't create this for the private
