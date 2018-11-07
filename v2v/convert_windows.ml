@@ -192,6 +192,13 @@ let convert (g : G.guestfs) inspect source output rcaps =
       Some "PREVENT_REBOOT=Yes LAUNCHED_BY_SETUP_EXE=Yes" in
     unistallation_commands "Parallels Tools" matchfn extra_uninstall_string in
 
+  (* Locate and retrieve all uninstallation commands for VMware Tools. *)
+  let vmwaretools_uninst =
+    let matchfn s =
+      String.find s "VMware Tools" != -1
+    in
+    unistallation_commands "VMware Tools" matchfn None in
+
   (*----------------------------------------------------------------------*)
   (* Perform the conversion of the Windows guest. *)
 
@@ -277,7 +284,8 @@ let convert (g : G.guestfs) inspect source output rcaps =
       configure_vmdp tool_path;
 
     unconfigure_xenpv ();
-    unconfigure_prltools ()
+    unconfigure_prltools ();
+    unconfigure_vmwaretools ()
 
   (* [set_reg_val_dword_1 path name] creates a registry key
    * called [name = dword:1] in the registry [path].
@@ -429,6 +437,23 @@ if errorlevel 3010 exit /b 0
         Firstboot.add_firstboot_script g inspect.i_root
           "uninstall Parallels tools" fb_script
     ) prltools_uninsts
+
+  and unconfigure_vmwaretools () =
+    List.iter (
+      fun uninst ->
+        let fb_script = "\
+@echo off
+
+echo uninstalling VMware Tools
+" ^ uninst ^
+(* ERROR_SUCCESS_REBOOT_REQUIRED == 3010 is OK too *)
+"
+if errorlevel 3010 exit /b 0
+" in
+
+        Firstboot.add_firstboot_script g inspect.i_root
+          "uninstall VMware Tools" fb_script
+    ) vmwaretools_uninst
 
   and update_system_hive reg =
     (* Update the SYSTEM hive.  When this function is called the hive has
