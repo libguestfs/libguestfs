@@ -124,8 +124,10 @@ let convert (g : G.guestfs) inspect source output rcaps =
          Not_found -> None
       ) in
 
-  (* Locate and retrieve all uninstallation commands for Parallels Tools *)
-  let prltools_uninsts =
+  (* Locate and retrieve all the uninstallation commands for installed
+   * applications.
+   *)
+  let unistallation_commands pretty_name matchfn extra_uninstall_string =
     let uninsts = ref [] in
 
     Registry.with_hive_readonly g inspect.i_windows_software_hive
@@ -146,25 +148,25 @@ let convert (g : G.guestfs) inspect source output rcaps =
                  raise Not_found;
 
                let dispname = g#hivex_value_string valueh in
-               if String.find dispname "Parallels Tools" = -1 &&
-                  String.find dispname "Virtuozzo Tools" = -1 then
+               if not (matchfn dispname) then
                  raise Not_found;
 
                let uninstval = "UninstallString" in
                let valueh = g#hivex_node_get_value uninstnode uninstval in
                if valueh = 0L then (
                  let name = g#hivex_node_name uninstnode in
-                 warning (f_"cannot uninstall Parallels Tools: registry key ‘HKLM\\SOFTWARE\\%s\\%s’ with DisplayName ‘%s’ doesn't contain value ‘%s’")
-                         (String.concat "\\" path) name dispname uninstval;
+                 warning (f_"cannot uninstall %s: registry key ‘HKLM\\SOFTWARE\\%s\\%s’ with DisplayName ‘%s’ doesn't contain value ‘%s’")
+                    pretty_name (String.concat "\\" path) name dispname uninstval;
                  raise Not_found
                );
 
                let uninst = (g#hivex_value_string valueh) ^
                      " /quiet /norestart /l*v+ \"%~dpn0.log\"" ^
-                     " REBOOT=ReallySuppress REMOVE=ALL" ^
-                     (* without these custom Parallels-specific MSI properties the
-                      * uninstaller still shows a no-way-out reboot dialog *)
-                     " PREVENT_REBOOT=Yes LAUNCHED_BY_SETUP_EXE=Yes" in
+                     " REBOOT=ReallySuppress REMOVE=ALL" in
+               let uninst =
+                 match extra_uninstall_string with
+                 | None -> uninst
+                 | Some s -> uninst ^ " " ^ s in
 
                List.push_front uninst uninsts
              with
@@ -176,6 +178,19 @@ let convert (g : G.guestfs) inspect source output rcaps =
 
     !uninsts
   in
+
+  (* Locate and retrieve all uninstallation commands for Parallels Tools. *)
+  let prltools_uninsts =
+    let matchfn s =
+      String.find s "Parallels Tools" != -1 ||
+      String.find s "Virtuozzo Tools" != -1
+    in
+    (* Without these custom Parallels-specific MSI properties the
+     * uninstaller still shows a no-way-out reboot dialog.
+     *)
+    let extra_uninstall_string =
+      Some "PREVENT_REBOOT=Yes LAUNCHED_BY_SETUP_EXE=Yes" in
+    unistallation_commands "Parallels Tools" matchfn extra_uninstall_string in
 
   (*----------------------------------------------------------------------*)
   (* Perform the conversion of the Windows guest. *)
