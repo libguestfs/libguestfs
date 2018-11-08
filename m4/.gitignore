@@ -52,6 +52,7 @@
 /filenamecat.m4
 /flexmember.m4
 /float_h.m4
+/fnmatch_h.m4
 /fnmatch.m4
 /fpending.m4
 /fpieee.m4
@@ -81,12 +82,12 @@
 /gettime.m4
 /gettimeofday.m4
 /getugroups.m4
+/glob_h.m4
 /glob.m4
 /gnulib-common.m4
 /gnulib-comp.m4
 /gnulib-tool.m4
 /gnu-make.m4
-/hard-locale.m4
 /hash.m4
 /host-cpu-c-abi.m4
 /hostent.m4
@@ -97,6 +98,7 @@
 /inet_pton.m4
 /__inline.m4
 /intlmacosx.m4
+/intl-thread-locale.m4
 /intmax_t.m4
 /inttostr.m4
 /inttypes_h.m4
@@ -159,7 +161,6 @@
 /nocrash.m4
 /nonblocking.m4
 /off_t.m4
-/onceonly.m4
 /openat.m4
 /open-cloexec.m4
 /opendir.m4
@@ -196,6 +197,7 @@
 /servent.m4
 /setenv.m4
 /setlocale.m4
+/sh-filename.m4
 /sigaction.m4
 /sig_atomic_t.m4
 /signalblocking.m4
