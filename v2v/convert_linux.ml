@@ -81,6 +81,8 @@ let convert (g : G.guestfs) inspect source output rcaps =
   let rec do_convert () =
     augeas_grub_configuration ();
 
+    Windows_virtio.install_linux_tools g inspect;
+
     unconfigure_xen ();
     unconfigure_vbox ();
     unconfigure_vmware ();
