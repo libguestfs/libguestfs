@@ -27,6 +27,8 @@ open Regedit
 open Types
 open Utils
 
+module G = Guestfs
+
 let virtio_win =
   try Sys.getenv "VIRTIO_WIN"
   with Not_found ->
@@ -180,6 +182,36 @@ let rec install_drivers ((g, _) as reg) inspect rcaps =
     (block, net, video,
      virtio_rng_supported, virtio_ballon_supported, isa_pvpanic_supported)
   )
+
+and install_linux_tools g inspect =
+  let os =
+    match inspect.i_distro with
+    | "fedora" -> Some "fc28"
+    | "rhel" | "centos" | "scientificlinux" | "redhat-based"
+    | "oraclelinux" ->
+      (match inspect.i_major_version with
+       | 6 -> Some "el6"
+       | 7 -> Some "el7"
+       | _ -> None)
+    | "sles" | "suse-based" | "opensuse" -> Some "lp151"
+    | _ -> None in
+
+  match os with
+  | None ->
+      warning (f_"don't know how to install guest tools on %s-%d")
+        inspect.i_distro inspect.i_major_version
+  | Some os ->
+      let src_path = "linux" // os in
+      let dst_path = "/var/tmp" in
+      debug "locating packages in %s" src_path;
+      let packages = copy_from_virtio_win g inspect src_path dst_path
+        (fun _ _ -> true) in
+      debug "done copying %d files" (List.length packages);
+      let packages = List.map ((//) dst_path) packages in
+      try
+        Linux.install_local g inspect packages;
+      with G.Error msg ->
+        warning (f_"failed to install QEMU Guest Agent: %s") msg
 
 and add_guestor_to_registry ((g, root) as reg) inspect drv_name drv_pciid =
   let ddb_node = g#hivex_node_get_child root "DriverDatabase" in

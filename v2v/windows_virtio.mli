@@ -40,6 +40,10 @@ val install_drivers
     virtio devices if we managed to install those, or legacy devices
     if we didn't. *)
 
+val install_linux_tools : Guestfs.guestfs -> Types.inspect -> unit
+(** installs QEMU Guest Agent on Linux guest OS from the driver directory or
+    driver ISO. It is not fatal if we fail to install the agent. *)
+
 (**/**)
 
 (* The following function is only exported for unit tests. *)
