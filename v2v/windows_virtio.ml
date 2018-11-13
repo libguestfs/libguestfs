@@ -254,28 +254,39 @@ and ddb_regedits inspect drv_name drv_pciid =
  * been copied.
  *)
 and copy_drivers g inspect driverdir =
-  let ret = ref false in
-  if is_directory virtio_win then (
-    debug "windows: copy_drivers: source directory virtio_win %s" virtio_win;
+  [] <> copy_from_virtio_win g inspect "/" driverdir virtio_iso_path_matches_guest_os
 
-    let cmd = sprintf "cd %s && find -L -type f" (quote virtio_win) in
+(* Copy all files from virtio_win directory/ISO located in [srcdir]
+ * subdirectory and all its subdirectories to the [destdir]. The directory
+ * hierarchy is not preserved, meaning all files will be directly in [destdir].
+ * The file list is filtered based on [filter] function.
+ *
+ * Returns list of copied files.
+ *)
+and copy_from_virtio_win g inspect srcdir destdir filter =
+  let ret = ref [] in
+  if is_directory virtio_win then (
+    let dir = virtio_win // srcdir in
+    debug "windows: copy_from_virtio_win: guest tools source directory %s" dir;
+
+    let cmd = sprintf "cd %s && find -L -type f" (quote dir) in
     let paths = external_command cmd in
     List.iter (
       fun path ->
-        if virtio_iso_path_matches_guest_os path inspect then (
-          let source = virtio_win // path in
-          let target = driverdir //
-                         String.lowercase_ascii (Filename.basename path) in
-          debug "copying virtio driver bits: 'host:%s' -> '%s'"
+        if filter path inspect then (
+          let source = dir // path in
+          let target_name = String.lowercase_ascii (Filename.basename path) in
+          let target = destdir // target_name in
+          debug "windows: copying guest tools bits: 'host:%s' -> '%s'"
                 source target;
 
           g#write target (read_whole_file source);
-          ret := true
+          List.push_front target_name ret
         )
       ) paths
   )
   else if is_regular_file virtio_win then (
-    debug "windows: copy_drivers: source ISO virtio_win %s" virtio_win;
+    debug "windows: copy_from_virtio_win: guest tools source ISO %s" virtio_win;
 
     try
       let g2 = open_guestfs ~identifier:"virtio_win" () in
@@ -283,19 +294,20 @@ and copy_drivers g inspect driverdir =
       g2#launch ();
       let vio_root = "/" in
       g2#mount_ro "/dev/sda" vio_root;
-      let paths = g2#find vio_root in
+      let srcdir = vio_root // srcdir in
+      let paths = g2#find srcdir in
       Array.iter (
         fun path ->
-          let source = vio_root // path in
+          let source = srcdir // path in
           if g2#is_file source ~followsymlinks:false &&
-               virtio_iso_path_matches_guest_os path inspect then (
-            let target = driverdir //
-                           String.lowercase_ascii (Filename.basename path) in
-            debug "copying virtio driver bits: '%s:%s' -> '%s'"
+               filter path inspect then (
+            let target_name = String.lowercase_ascii (Filename.basename path) in
+            let target = destdir // target_name in
+            debug "windows: copying guest tools bits: '%s:%s' -> '%s'"
                   virtio_win path target;
 
             g#write target (g2#read_file source);
-            ret := true
+            List.push_front target_name ret
           )
         ) paths;
       g2#close()
