@@ -294,15 +294,15 @@ and copy_from_virtio_win g inspect srcdir destdir filter =
       g2#launch ();
       let vio_root = "/" in
       g2#mount_ro "/dev/sda" vio_root;
-      let srcdir = vio_root // srcdir in
+      let srcdir = vio_root ^ "/" ^ srcdir in
       let paths = g2#find srcdir in
       Array.iter (
         fun path ->
-          let source = srcdir // path in
+          let source = srcdir ^ "/" ^ path in
           if g2#is_file source ~followsymlinks:false &&
                filter path inspect then (
             let target_name = String.lowercase_ascii (Filename.basename path) in
-            let target = destdir // target_name in
+            let target = destdir ^ "/" ^ target_name in
             debug "windows: copying guest tools bits: '%s:%s' -> '%s'"
                   virtio_win path target;
 
