@@ -123,34 +123,52 @@ EOF
 }
 
 elsif ($ENV{LAYOUT} eq 'btrfs') {
-    push (@images, "fedora-btrfs.img-t");
+    # Test if btrfs is available.
+    my $g2 = Sys::Guestfs->new ();
+    $g2->add_drive ("/dev/null");
+    $g2->launch ();
+    my $btrfs_available = $g2->feature_available (["btrfs"]);
+    $g2->close ();
 
-    open (my $fstab, '>', "fedora.fstab") or die;
-    print $fstab <<EOF;
+    if (!$btrfs_available) {
+        # Btrfs not available, create an empty image.
+        push (@images, "fedora-btrfs.img");
+
+        unlink ("fedora-btrfs.img");
+        open (my $img, '>', "fedora-btrfs.img");
+        close ($img) or die;
+        exit 0;
+    }
+    else {
+        push (@images, "fedora-btrfs.img-t");
+
+        open (my $fstab, '>', "fedora.fstab") or die;
+        print $fstab <<EOF;
 LABEL=BOOT /boot ext2 default 0 0
 LABEL=ROOT / btrfs subvol=root 0 0
 LABEL=ROOT /home btrfs subvol=home 0 0
 EOF
-    close ($fstab) or die;
+        close ($fstab) or die;
 
-    $bootdev = '/dev/sda1';
+        $bootdev = '/dev/sda1';
 
-    $g->disk_create ("fedora-btrfs.img-t", "raw", $IMAGE_SIZE);
+        $g->disk_create ("fedora-btrfs.img-t", "raw", $IMAGE_SIZE);
 
-    $g->add_drive ("fedora-btrfs.img-t", format => "raw");
-    $g->launch ();
+        $g->add_drive ("fedora-btrfs.img-t", format => "raw");
+        $g->launch ();
 
-    $g->part_init ('/dev/sda', 'mbr');
-    $g->part_add ('/dev/sda', 'p', 64, 524287);
-    $g->part_add ('/dev/sda', 'p', 524288, -64);
+        $g->part_init ('/dev/sda', 'mbr');
+        $g->part_add ('/dev/sda', 'p', 64, 524287);
+        $g->part_add ('/dev/sda', 'p', 524288, -64);
 
-    $g->mkfs_btrfs (['/dev/sda2'], label => 'ROOT');
-    $g->mount ('/dev/sda2', '/');
-    $g->btrfs_subvolume_create ('/root');
-    $g->btrfs_subvolume_create ('/home');
-    $g->umount ('/');
+        $g->mkfs_btrfs (['/dev/sda2'], label => 'ROOT');
+        $g->mount ('/dev/sda2', '/');
+        $g->btrfs_subvolume_create ('/root');
+        $g->btrfs_subvolume_create ('/home');
+        $g->umount ('/');
 
-    $g->mount ('btrfsvol:/dev/sda2/root', '/');
+        $g->mount ('btrfsvol:/dev/sda2/root', '/');
+    }
 }
 
 elsif ($ENV{LAYOUT} eq 'lvm-luks') {
