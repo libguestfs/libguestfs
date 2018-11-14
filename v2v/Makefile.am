@@ -559,8 +559,8 @@ v2v_unit_tests_BOBJECTS = \
 	DOM.cmo \
 	create_ovf.cmo \
 	windows.cmo \
-	windows_virtio.cmo \
 	linux.cmo \
+	windows_virtio.cmo \
 	parse_vmx.cmo \
 	v2v_unit_tests.cmo
 v2v_unit_tests_XOBJECTS = $(v2v_unit_tests_BOBJECTS:.cmo=.cmx)
