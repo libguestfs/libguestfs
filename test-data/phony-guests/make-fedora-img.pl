@@ -45,170 +45,170 @@ my $g = Sys::Guestfs->new ();
 my $bootdev;
 
 foreach ('LAYOUT', 'SRCDIR') {
-  defined ($ENV{$_}) or die "Missing environment variable: $_";
+    defined ($ENV{$_}) or die "Missing environment variable: $_";
 }
 
 if ($ENV{LAYOUT} eq 'partitions') {
-  push (@images, "fedora.img-t");
+    push (@images, "fedora.img-t");
 
-  open (my $fstab, '>', "fedora.fstab") or die;
-  print $fstab <<EOF;
+    open (my $fstab, '>', "fedora.fstab") or die;
+    print $fstab <<EOF;
 LABEL=BOOT /boot ext2 default 0 0
 LABEL=ROOT / ext2 default 0 0
 EOF
-  close ($fstab) or die;
+    close ($fstab) or die;
 
-  $bootdev = '/dev/sda1';
+    $bootdev = '/dev/sda1';
 
-  $g->disk_create ("fedora.img-t", "raw", $IMAGE_SIZE);
+    $g->disk_create ("fedora.img-t", "raw", $IMAGE_SIZE);
 
-  $g->add_drive ("fedora.img-t", format => "raw");
-  $g->launch ();
+    $g->add_drive ("fedora.img-t", format => "raw");
+    $g->launch ();
 
-  $g->part_init ('/dev/sda', 'mbr');
-  foreach my $p (@PARTITIONS) {
-    $g->part_add('/dev/sda', @$p);
-  }
+    $g->part_init ('/dev/sda', 'mbr');
+    foreach my $p (@PARTITIONS) {
+        $g->part_add('/dev/sda', @$p);
+    }
 
-  init_lvm_root ('/dev/sda2');
+    init_lvm_root ('/dev/sda2');
 }
 
 elsif ($ENV{LAYOUT} eq 'partitions-md') {
-  push (@images, "fedora-md1.img-t", "fedora-md2.img-t");
+    push (@images, "fedora-md1.img-t", "fedora-md2.img-t");
 
-  open (my $fstab, '>', "fedora.fstab") or die;
-  print $fstab <<EOF;
+    open (my $fstab, '>', "fedora.fstab") or die;
+    print $fstab <<EOF;
 /dev/md0 /boot ext2 default 0 0
 LABEL=ROOT / ext2 default 0 0
 EOF
-  close ($fstab) or die;
+    close ($fstab) or die;
 
-  $bootdev = '/dev/md/bootdev';
+    $bootdev = '/dev/md/bootdev';
 
-  foreach my $img (@images) {
-      $g->disk_create ($img, "raw", $IMAGE_SIZE);
-      $g->add_drive ($img, format => "raw");
-  }
-
-  $g->launch ();
-
-  # Format the disks.
-  foreach my $d ('a', 'b') {
-    $g->part_init ("/dev/sd$d", 'mbr');
-    foreach my $p (@PARTITIONS) {
-      $g->part_add("/dev/sd$d", @$p);
+    foreach my $img (@images) {
+        $g->disk_create ($img, "raw", $IMAGE_SIZE);
+        $g->add_drive ($img, format => "raw");
     }
-  }
 
-  $g->md_create ('bootdev', ['/dev/sda1', '/dev/sdb1']);
-  $g->md_create ('rootdev', ['/dev/sda2', '/dev/sdb2']);
+    $g->launch ();
 
-  open (my $mdadm, '>', "fedora.mdadm") or die;
-  print $mdadm <<EOF;
+    # Format the disks.
+    foreach my $d ('a', 'b') {
+        $g->part_init ("/dev/sd$d", 'mbr');
+        foreach my $p (@PARTITIONS) {
+            $g->part_add("/dev/sd$d", @$p);
+        }
+    }
+
+    $g->md_create ('bootdev', ['/dev/sda1', '/dev/sdb1']);
+    $g->md_create ('rootdev', ['/dev/sda2', '/dev/sdb2']);
+
+    open (my $mdadm, '>', "fedora.mdadm") or die;
+    print $mdadm <<EOF;
 MAILADDR root
 AUTO +imsm +1.x -all
 EOF
 
-  my $i = 0;
-  foreach ('bootdev', 'rootdev') {
-    my %detail = $g->md_detail ("/dev/md/$_");
-    print $mdadm "ARRAY /dev/md$i level=raid1 num-devices=2 UUID=",
-                 $detail{uuid}, "\n";
-    $i++;
-  }
+    my $i = 0;
+    foreach ('bootdev', 'rootdev') {
+        my %detail = $g->md_detail ("/dev/md/$_");
+        print $mdadm "ARRAY /dev/md$i level=raid1 num-devices=2 UUID=",
+            $detail{uuid}, "\n";
+        $i++;
+    }
 
-  close ($mdadm) or die;
+    close ($mdadm) or die;
 
-  init_lvm_root ('/dev/md/rootdev');
+    init_lvm_root ('/dev/md/rootdev');
 }
 
 elsif ($ENV{LAYOUT} eq 'btrfs') {
-  push (@images, "fedora-btrfs.img-t");
+    push (@images, "fedora-btrfs.img-t");
 
-  open (my $fstab, '>', "fedora.fstab") or die;
-  print $fstab <<EOF;
+    open (my $fstab, '>', "fedora.fstab") or die;
+    print $fstab <<EOF;
 LABEL=BOOT /boot ext2 default 0 0
 LABEL=ROOT / btrfs subvol=root 0 0
 LABEL=ROOT /home btrfs subvol=home 0 0
 EOF
-  close ($fstab) or die;
+    close ($fstab) or die;
 
-  $bootdev = '/dev/sda1';
+    $bootdev = '/dev/sda1';
 
-  $g->disk_create ("fedora-btrfs.img-t", "raw", $IMAGE_SIZE);
+    $g->disk_create ("fedora-btrfs.img-t", "raw", $IMAGE_SIZE);
 
-  $g->add_drive ("fedora-btrfs.img-t", format => "raw");
-  $g->launch ();
+    $g->add_drive ("fedora-btrfs.img-t", format => "raw");
+    $g->launch ();
 
-  $g->part_init ('/dev/sda', 'mbr');
-  $g->part_add ('/dev/sda', 'p', 64, 524287);
-  $g->part_add ('/dev/sda', 'p', 524288, -64);
+    $g->part_init ('/dev/sda', 'mbr');
+    $g->part_add ('/dev/sda', 'p', 64, 524287);
+    $g->part_add ('/dev/sda', 'p', 524288, -64);
 
-  $g->mkfs_btrfs (['/dev/sda2'], label => 'ROOT');
-  $g->mount ('/dev/sda2', '/');
-  $g->btrfs_subvolume_create ('/root');
-  $g->btrfs_subvolume_create ('/home');
-  $g->umount ('/');
+    $g->mkfs_btrfs (['/dev/sda2'], label => 'ROOT');
+    $g->mount ('/dev/sda2', '/');
+    $g->btrfs_subvolume_create ('/root');
+    $g->btrfs_subvolume_create ('/home');
+    $g->umount ('/');
 
-  $g->mount ('btrfsvol:/dev/sda2/root', '/');
+    $g->mount ('btrfsvol:/dev/sda2/root', '/');
 }
 
 elsif ($ENV{LAYOUT} eq 'lvm-luks') {
-  push (@images, "fedora-luks.img-t");
+    push (@images, "fedora-luks.img-t");
 
-  open (my $fstab, '>', "fedora.fstab") or die;
-  print $fstab <<EOF;
+    open (my $fstab, '>', "fedora.fstab") or die;
+    print $fstab <<EOF;
 LABEL=BOOT /boot ext2 default 0 0
 LABEL=ROOT / ext2 default 0 0
 EOF
-  close ($fstab) or die;
+    close ($fstab) or die;
 
-  $bootdev = '/dev/sda1';
+    $bootdev = '/dev/sda1';
 
-  $g->disk_create ("fedora-luks.img-t", "raw", $IMAGE_SIZE);
+    $g->disk_create ("fedora-luks.img-t", "raw", $IMAGE_SIZE);
 
-  $g->add_drive ("fedora-luks.img-t", format => "raw");
-  $g->launch ();
+    $g->add_drive ("fedora-luks.img-t", format => "raw");
+    $g->launch ();
 
-  $g->part_init ('/dev/sda', 'mbr');
-  foreach my $p (@PARTITIONS) {
-    $g->part_add('/dev/sda', @$p);
-  }
+    $g->part_init ('/dev/sda', 'mbr');
+    foreach my $p (@PARTITIONS) {
+        $g->part_add('/dev/sda', @$p);
+    }
 
-  # Put LUKS on the second partition.
-  $g->luks_format ('/dev/sda2', 'FEDORA', 0);
-  $g->luks_open ('/dev/sda2', 'FEDORA', 'luks');
+    # Put LUKS on the second partition.
+    $g->luks_format ('/dev/sda2', 'FEDORA', 0);
+    $g->luks_open ('/dev/sda2', 'FEDORA', 'luks');
 
-  init_lvm_root ('/dev/mapper/luks');
+    init_lvm_root ('/dev/mapper/luks');
 }
 
 else {
-  print STDERR "$0: Unknown LAYOUT: ",$ENV{LAYOUT},"\n";
-  exit 1;
+    print STDERR "$0: Unknown LAYOUT: ",$ENV{LAYOUT},"\n";
+    exit 1;
 }
 
 sub init_lvm_root {
-  my ($rootdev) = @_;
+    my ($rootdev) = @_;
 
-  $g->pvcreate ($rootdev);
-  $g->vgcreate ('VG', [$rootdev]);
-  $g->lvcreate ('Root', 'VG', 32);
-  $g->lvcreate ('LV1', 'VG', 32);
-  $g->lvcreate ('LV2', 'VG', 32);
-  $g->lvcreate ('LV3', 'VG', 64);
+    $g->pvcreate ($rootdev);
+    $g->vgcreate ('VG', [$rootdev]);
+    $g->lvcreate ('Root', 'VG', 32);
+    $g->lvcreate ('LV1', 'VG', 32);
+    $g->lvcreate ('LV2', 'VG', 32);
+    $g->lvcreate ('LV3', 'VG', 64);
 
-  # Phony root filesystem.
-  $g->mkfs ('ext2', '/dev/VG/Root', blocksize => 4096);
-  $g->set_label ('/dev/VG/Root', 'ROOT');
-  $g->set_e2uuid ('/dev/VG/Root', '01234567-0123-0123-0123-012345678902');
+    # Phony root filesystem.
+    $g->mkfs ('ext2', '/dev/VG/Root', blocksize => 4096);
+    $g->set_label ('/dev/VG/Root', 'ROOT');
+    $g->set_e2uuid ('/dev/VG/Root', '01234567-0123-0123-0123-012345678902');
 
-  # Other filesystems.
-  # Note that these should be empty, for testing virt-df.
-  $g->mkfs ('ext2', '/dev/VG/LV1', blocksize => 4096);
-  $g->mkfs ('ext2', '/dev/VG/LV2', blocksize => 1024);
-  $g->mkfs ('ext2', '/dev/VG/LV3', blocksize => 2048);
+    # Other filesystems.
+    # Note that these should be empty, for testing virt-df.
+    $g->mkfs ('ext2', '/dev/VG/LV1', blocksize => 4096);
+    $g->mkfs ('ext2', '/dev/VG/LV2', blocksize => 1024);
+    $g->mkfs ('ext2', '/dev/VG/LV3', blocksize => 2048);
 
-  $g->mount ('/dev/VG/Root', '/');
+    $g->mount ('/dev/VG/Root', '/');
 }
 
 # Phony /boot filesystem
@@ -242,8 +242,8 @@ $g->write ('/etc/fedora-release', 'Fedora release 14 (Phony)');
 $g->write ('/etc/sysconfig/network', 'HOSTNAME=fedora.invalid');
 
 if (-f "fedora.mdadm") {
-  $g->upload ("fedora.mdadm", '/etc/mdadm.conf');
-  unlink ("fedora.mdadm") or die;
+    $g->upload ("fedora.mdadm", '/etc/mdadm.conf');
+    unlink ("fedora.mdadm") or die;
 }
 
 $g->upload ($ENV{SRCDIR}.'/fedora-name.db', '/var/lib/rpm/Name');
@@ -283,6 +283,6 @@ $g->close ();
 
 unlink ("fedora.fstab") or die;
 foreach my $img (@images) {
-  $img =~ /^(.*)-t$/ or die;
-  rename ($img, $1) or die;
+    $img =~ /^(.*)-t$/ or die;
+    rename ($img, $1) or die;
 }
