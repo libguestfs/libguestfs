@@ -93,7 +93,7 @@ let rec main () =
   );
 
   let g = open_guestfs ~identifier:"v2v" () in
-  g#set_memsize (g#get_memsize () * 20 / 5);
+  g#set_memsize (g#get_memsize () * 14 / 5);
   (* The network is only used by the unconfigure_vmware () function. *)
   g#set_network true;
   (match conversion_mode with
