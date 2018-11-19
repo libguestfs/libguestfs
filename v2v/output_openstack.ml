@@ -51,6 +51,11 @@ type os_options = {
    *)
   authentication : string list;
 
+  (* If false, use the [openstack --insecure] switch (turns off SSL
+   * cert validation).
+   *)
+  verify_server_certificate : bool;
+
   (* Optional guest_id which, if present, is saved as
    * Cinder volume property virt_v2v_guest_id on every disk
    * associated with this guest.
@@ -95,6 +100,7 @@ The os-* parameters and environment variables are optional.
 let parse_output_options options =
   let server_id = ref None in
   let dev_disk_by_id = ref None in
+  let verify_server_certificate = ref true in
   let guest_id = ref None in
   let authentication = ref [] in
   List.iter (
@@ -103,6 +109,10 @@ let parse_output_options options =
        server_id := Some v
     | "dev-disk-by-id", v ->
        dev_disk_by_id := Some v
+    | "verify-server-certificate", "" ->
+       verify_server_certificate := true
+    | "verify-server-certificate", v ->
+       verify_server_certificate := bool_of_string v
     | "guest-id", v ->
        guest_id := Some v
     | k, v when String.is_prefix k "os-" ->
@@ -121,9 +131,11 @@ let parse_output_options options =
        error (f_"openstack: -oo server-id=<NAME|UUID> not present");
     | Some server_id -> server_id in
   let authentication = List.rev !authentication in
+  let verify_server_certificate = !verify_server_certificate in
   let guest_id = !guest_id in
   let dev_disk_by_id = !dev_disk_by_id in
-  { server_id; authentication; guest_id; dev_disk_by_id }
+  { server_id; authentication; verify_server_certificate;
+    guest_id; dev_disk_by_id }
 
 (* UTC conversion time. *)
 let iso_time =
@@ -141,6 +153,8 @@ class output_openstack output_conn output_password output_storage
     let args = ref os_options.authentication in
     Option.may (fun oc -> List.push_back args (sprintf "--os-auth-url=%s" oc))
                output_conn;
+    if not os_options.verify_server_certificate then
+      List.push_back args "--insecure";
     !args in
 
   (* We use this convenient wrapper around [Tools_utils.run_command]

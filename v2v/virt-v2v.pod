@@ -532,6 +532,14 @@ For I<-o openstack> (L</OUTPUT TO OPENSTACK>) only, set a guest ID
 which is saved on each Cinder volume in the C<virt_v2v_guest_id>
 volume property.
 
+=item B<-oo verify-server-certificate>
+
+=item B<-oo verify-server-certificate=>C<true|false>
+
+For I<-o openstack> (L<virt-v2v-output-openstack(1)>) only, this can
+be used to disable SSL certification validation when connecting to
+OpenStack by specifying I<-oo verify-server-certificate=false>.
+
 =item B<-oo os->*B<=>*
 
 For I<-o openstack> (L</OUTPUT TO OPENSTACK>) only, set optional
