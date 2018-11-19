@@ -56,6 +56,7 @@ $VG virt-v2v --debug-gc \
     -o openstack -on test \
     -oo server-id=test \
     -oo guest-id=guestid \
+    -oo verify-server-certificate=false \
     -oo dev-disk-by-id=$d
 
 # Check the log of openstack commands to make sure they look reasonable.
@@ -65,5 +66,6 @@ grep 'server add volume' $d/log
 grep 'volume set.*--bootable.*dummy-vol-id' $d/log
 grep 'volume set.*--property.*virt_v2v_guest_id=guestid' $d/log
 grep 'server remove volume' $d/log
+grep -- '--insecure' $d/log
 
 rm -r $d

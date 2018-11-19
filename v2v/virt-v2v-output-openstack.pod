@@ -7,6 +7,7 @@ virt-v2v-output-openstack - Using virt-v2v to convert guests to OpenStack
  virt-v2v [-i* options] -o openstack
                         -oo server-id=SERVER
                         [-oo guest-id=GUEST]
+                        [-oo verify-server-certificate=false]
                         [-oo os-username=admin] [-oo os-*=*]
 
  virt-v2v [-i* options] -o glance
@@ -120,6 +121,13 @@ C<virt_v2v_guest_id> volume property.
 This can be used to find disks associated with a guest, or to
 associate which disks are related to which guests when converting many
 guests.
+
+=head2 OpenStack: Ignore server certificate
+
+Using I<-oo verify-server-certificate=false> you can tell the
+openstack client to ignore the server certificate when connecting to
+the OpenStack API endpoints.  This has the same effect as passing the
+I<--insecure> option to the C<openstack> command.
 
 =head2 OpenStack: Converting a guest
 
