@@ -479,6 +479,7 @@ endif ENABLE_APPLIANCE
 
 # The VMDK file is used for some -i ova tests.
 check_DATA = windows.vmdk
+if ENABLE_APPLIANCE
 windows.vmdk: ../test-data/phony-guests/windows.img
 	rm -f $@ $@-t
 	if [ -s $< ]; then \
@@ -487,6 +488,10 @@ windows.vmdk: ../test-data/phony-guests/windows.img
 	else \
 	    touch $@; \
 	fi
+else
+windows.vmdk:
+	touch $@
+endif
 
 DISTCLEANFILES += \
 	windows.vmdk
