@@ -420,9 +420,11 @@ and do_run ?(echo_cmd = true) ?stdout_fd ?stderr_fd args =
     Either (pid, app, stdout_fd, stderr_fd)
   with
   | Executable_not_found _ ->
-    Or 127
-  | Unix.Unix_error (errcode, _, _) when errcode = Unix.ENOENT ->
-    Or 127
+     debug "%s: executable not found" app;
+     Or 127
+  | Unix.Unix_error (errcode, fn, _) when errcode = Unix.ENOENT ->
+     debug "%s: %s: executable not found" app fn;
+     Or 127
 
 and do_teardown app outfd errfd exitstat =
   Option.may Unix.close outfd;
