@@ -46,6 +46,7 @@ if test "x$with_java" != "xno"; then
             /usr/lib64/jvm/java \
             /usr/lib/jvm/default-java \
             /usr/lib/jvm/default \
+            /etc/java-config-2/current-system-vm \
             /usr/lib/jvm/java-8-openjdk \
             /usr/lib/jvm/java-7-openjdk \
             /usr/lib/jvm/java-6-openjdk
