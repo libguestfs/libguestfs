@@ -28,6 +28,9 @@ open Common_gettext.Gettext
 open Types
 open Utils
 
+(* Name of the openstack CLI program (on $PATH). *)
+let openstack_binary = "openstack"
+
 (* Timeout waiting for new Cinder volumes to move to "available" state.
  * We assume this could be quite a long time on backends which want
  * to preallocate the storage.
@@ -157,13 +160,20 @@ class output_openstack output_conn output_password output_storage
       List.push_back args "--insecure";
     !args in
 
+  let error_unless_openstack_command_exists () =
+    try ignore (which openstack_binary)
+    with Executable_not_found _ ->
+      error (f_"the ‘%s’ program is not available.  It is needed to communicate with OpenStack.")
+            openstack_binary
+  in
+
   (* We use this convenient wrapper around [Tools_utils.run_command]
    * for two reasons: (1) Because we want to run openstack with
    * extra_args.  (2) OpenStack commands are noisy so we want to
    * direct stdout to /dev/null unless we're in verbose mode.
    *)
   let run_openstack_command args =
-    let cmd = [ "openstack" ] @ extra_args @ args in
+    let cmd = [ openstack_binary ] @ extra_args @ args in
     let stdout_fd =
       if verbose () then None
       else Some (openfile "/dev/null" [O_WRONLY] 0) in
@@ -176,7 +186,7 @@ class output_openstack output_conn output_password output_storage
    * '-f json' to the args yourself.
    *)
   let run_openstack_command_capture_json args =
-    let cmd = [ "openstack" ] @ extra_args @ args in
+    let cmd = [ openstack_binary ] @ extra_args @ args in
 
     let json, chan = Filename.open_temp_file "v2vopenstack" ".json" in
     unlink_on_exit json;
@@ -353,6 +363,9 @@ object
   inherit output
 
   method precheck () =
+    (* Check the openstack command exists. *)
+    error_unless_openstack_command_exists ();
+
     (* Run the openstack command simply to check we can connect
      * with the provided authentication parameters/environment
      * variables.  Issuing a token should have only a tiny
