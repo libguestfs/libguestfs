@@ -2046,6 +2046,9 @@ The reason for this is because to create Cinder volumes that will
 contain the guest data (for the converted guest) we must attach those
 Cinder volumes to an OpenStack virtual machine.
 
+The C<openstack> command must be installed in the appliance.  We use
+it for communicating with OpenStack.
+
 When virt-v2v is running in the conversion appliance, you must supply
 the name or UUID of the conversion appliance to virt-v2v, eg:
 
