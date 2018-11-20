@@ -146,7 +146,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def discard_request(self):
-        length = self.headers['Content-Length']
+        length = self.headers.get('Content-Length')
         if length:
             length = int(length)
             content = self.rfile.read(length)
