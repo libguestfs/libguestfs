@@ -105,13 +105,15 @@ let parse_output_options options =
        dev_disk_by_id := Some v
     | "guest-id", v ->
        guest_id := Some v
-    | k, v ->
-       (* Accumulate any remaining/unknown -oo parameters
+    | k, v when String.is_prefix k "os-" ->
+       (* Accumulate any remaining/unknown -oo os-* parameters
         * into the authentication list, where they will be
         * pass unmodified through to the openstack command.
         *)
        let opt = sprintf "--%s=%s" k v in
        authentication := opt :: !authentication
+    | k, _ ->
+       error (f_"-o openstack: unknown output option ‘-oo %s’") k
   ) options;
   let server_id =
     match !server_id with
