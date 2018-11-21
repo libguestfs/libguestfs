@@ -130,8 +130,6 @@ automatically, but note that the same version of OVMF must be
 installed on the conversion host as is installed on the target
 hypervisor, else you will have to adjust paths in the metadata.
 
-On RHEL E<ge> 7.3, only qemu-kvm-rhev (not qemu-kvm) is supported.
-
 =item UEFI on OpenStack
 
 Not supported.
