@@ -36,7 +36,6 @@ AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 
 dnl Headers.
 AC_CHECK_HEADERS([\
-    attr/xattr.h \
     byteswap.h \
     endian.h \
     sys/endian.h \

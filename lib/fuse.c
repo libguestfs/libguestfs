@@ -35,7 +35,7 @@
 #endif
 
 #if HAVE_FUSE
-/* See <attr/xattr.h> */
+/* See <sys/xattr.h> */
 #ifndef ENOATTR
 #define ENOATTR ENODATA
 #endif

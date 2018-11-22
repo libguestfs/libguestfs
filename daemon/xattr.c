@@ -37,12 +37,8 @@
 
 #ifdef HAVE_LINUX_XATTRS
 
-# ifdef HAVE_ATTR_XATTR_H
-#  include <attr/xattr.h>
-# else
-#  ifdef HAVE_SYS_XATTR_H
-#   include <sys/xattr.h>
-#  endif
+# ifdef HAVE_SYS_XATTR_H
+#  include <sys/xattr.h>
 # endif
 
 int
