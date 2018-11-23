@@ -34,8 +34,112 @@ let find_target_disk targets { s_disk_id = id } =
   try List.find (fun t -> t.target_overlay.ov_source.s_disk_id = id) targets
   with Not_found -> assert false
 
+let get_osinfo_id = function
+  | { i_type = "linux"; i_distro = "rhel";
+      i_major_version = major; i_minor_version = minor } ->
+    Some (sprintf "http://redhat.com/rhel/%d.%d" major minor)
+
+  | { i_type = "linux"; i_distro = "centos";
+      i_major_version = major; i_minor_version = minor } when major < 7 ->
+    Some (sprintf "http://centos.org/centos/%d.%d" major minor)
+
+  | { i_type = "linux"; i_distro = "centos"; i_major_version = major } ->
+    Some (sprintf "http://centos.org/centos/%d.0" major)
+
+  | { i_type = "linux"; i_distro = "sles";
+      i_major_version = major; i_minor_version = 0;
+      i_product_name = product } when String.find product "Desktop" >= 0 ->
+    Some (sprintf "http://suse.com/sled/%d" major)
+
+  | { i_type = "linux"; i_distro = "sles";
+      i_major_version = major; i_minor_version = minor;
+      i_product_name = product } when String.find product "Desktop" >= 0 ->
+    Some (sprintf "http://suse.com/sled/%d.%d" major minor)
+
+  | { i_type = "linux"; i_distro = "sles";
+      i_major_version = major; i_minor_version = 0 } ->
+    Some (sprintf "http://suse.com/sles/%d" major)
+
+  | { i_type = "linux"; i_distro = "sles";
+      i_major_version = major; i_minor_version = minor } ->
+    Some (sprintf "http://suse.com/sles/%d.%d" major minor)
+
+  | { i_type = "linux"; i_distro = "opensuse";
+      i_major_version = major; i_minor_version = minor } ->
+    Some (sprintf "http://opensuse.org/opensuse/%d.%d" major minor)
+
+  | { i_type = "linux"; i_distro = "debian"; i_major_version = major } ->
+    Some (sprintf "http://debian.org/debian/%d" major)
+
+  | { i_type = "linux"; i_distro = "ubuntu";
+      i_major_version = major; i_minor_version = minor } ->
+    Some (sprintf "http://ubuntu.com/ubuntu/%d.%02d" major minor)
+
+  | { i_type = "linux"; i_distro = "fedora"; i_major_version = major } ->
+    Some (sprintf "http://fedoraproject.org/fedora/%d" major)
+
+  | { i_type = "windows"; i_major_version = major; i_minor_version = minor }
+    when major < 4 ->
+    Some (sprintf "http://microsoft.com/win/%d.%d" major minor)
+
+  | { i_type = "windows"; i_major_version = 5; i_minor_version = 1 } ->
+    Some "http://microsoft.com/win/xp"
+
+  | { i_type = "windows"; i_major_version = 5; i_minor_version = 2;
+      i_product_name = product } when String.find product "XP" >= 0 ->
+    Some "http://microsoft.com/win/xp"
+
+  | { i_type = "windows"; i_major_version = 5; i_minor_version = 2;
+      i_product_name = product } when String.find product "R2" >= 0 ->
+    Some "http://microsoft.com/win/2k3r2"
+
+  | { i_type = "windows"; i_major_version = 5; i_minor_version = 2 } ->
+    Some "http://microsoft.com/win/2k3"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 0;
+      i_product_variant = "Server" } ->
+    Some "http://microsoft.com/win/2k8"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 0 } ->
+    Some "http://microsoft.com/win/vista"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 1;
+      i_product_variant = "Server" } ->
+    Some "http://microsoft.com/win/2k8r2"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 1 } ->
+    Some "http://microsoft.com/win/7"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 2;
+      i_product_variant = "Server" } ->
+    Some "http://microsoft.com/win/2k12"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 2 } ->
+    Some "http://microsoft.com/win/8"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 3;
+      i_product_variant = "Server" } ->
+    Some "http://microsoft.com/win/2k12r2"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 3 } ->
+    Some "http://microsoft.com/win/8.1"
+
+  | { i_type = "windows"; i_major_version = 10; i_minor_version = 0;
+      i_product_variant = "Server" } ->
+    Some "http://microsoft.com/win/2k16"
+
+  | { i_type = "windows"; i_major_version = 10; i_minor_version = 0 } ->
+    Some "http://microsoft.com/win/10"
+
+  | { i_type = typ; i_distro = distro;
+      i_major_version = major; i_minor_version = minor; i_arch = arch;
+      i_product_name = product } ->
+    warning (f_"unknown guest operating system: %s %s %d.%d %s (%s)")
+      typ distro major minor arch product;
+    None
+
 let create_libvirt_xml ?pool source targets target_buses guestcaps
-                       target_features target_firmware =
+                       target_features target_firmware inspect =
   (* The main body of the libvirt XML document. *)
   let body = ref [] in
 
@@ -47,6 +151,19 @@ let create_libvirt_xml ?pool source targets target_buses guestcaps
   (match source.s_genid with
    | None -> ()
    | Some genid -> List.push_back body (e "genid" [] [PCData genid])
+  );
+
+
+  (match get_osinfo_id inspect with
+   | None -> ()
+   | Some osinfo_id ->
+     List.push_back_list body [
+       e "metadata" [] [
+         e "libosinfo:libosinfo" ["xmlns:libosinfo", "http://libosinfo.org/xmlns/libvirt/domain/1.0"] [
+           e "libosinfo:os" ["id", osinfo_id] [];
+         ];
+       ];
+     ];
   );
 
   let memory_k = source.s_memory /^ 1024L in

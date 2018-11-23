@@ -49,7 +49,7 @@ class output_local dir = object
        error_unless_uefi_firmware guestcaps.gcaps_arch
 
   method create_metadata source targets
-                         target_buses guestcaps _ target_firmware =
+                         target_buses guestcaps inspect target_firmware =
     (* We don't know what target features the hypervisor supports, but
      * assume a common set that libvirt supports.
      *)
@@ -61,7 +61,7 @@ class output_local dir = object
 
     let doc =
       create_libvirt_xml source targets target_buses
-                         guestcaps target_features target_firmware in
+                         guestcaps target_features target_firmware inspect in
 
     let name = source.s_name in
     let file = dir // name ^ ".xml" in

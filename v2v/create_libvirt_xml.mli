@@ -22,6 +22,7 @@ val create_libvirt_xml : ?pool:string -> Types.source -> Types.target list ->
                          Types.target_buses ->
                          Types.guestcaps -> string list ->
                          Types.target_firmware ->
+                         Types.inspect ->
                          DOM.doc
 (** [create_libvirt_xml ?pool source targets target_buses guestcaps
     target_features target_firmware] creates the final libvirt XML
