@@ -50,15 +50,15 @@
 /* Maximum RPM 'Packages' file we will download to /tmp.  This file
  * can get very large: 70 MB is roughly the standard size for a new
  * Fedora install, and after lots of package installation/removal
- * I have seen well over 100 MB databases.
+ * I have seen well over 400 MB databases.
  */
-#define MAX_RPM_PACKAGES_SIZE          (300 * 1000 * 1000)
+#define MAX_RPM_PACKAGES_SIZE          (500 * 1000 * 1000)
 /* Maximum RPM 'Name' file we will download to /tmp. */
-#define MAX_RPM_NAME_SIZE              (300 * 1000 * 1000)
+#define MAX_RPM_NAME_SIZE              (50 * 1000 * 1000)
 /* Maximum dpkg 'status' file we will download to /tmp. */
-#define MAX_DPKG_STATUS_SIZE           (300 * 1000 * 1000)
+#define MAX_DPKG_STATUS_SIZE           (50 * 1000 * 1000)
 /* Maximum APK 'installed' file we will download to /tmp. */
-#define MAX_APK_INSTALLED_SIZE         (300 * 1000 * 1000)
+#define MAX_APK_INSTALLED_SIZE         (50 * 1000 * 1000)
 
 #ifdef DB_DUMP
 static struct guestfs_application2_list *list_applications_rpm (guestfs_h *g, const char *root);
