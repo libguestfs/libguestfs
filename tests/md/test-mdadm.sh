@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2011 Red Hat Inc.
+# Copyright (C) 2011-2018 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,6 +25,12 @@ skip_if_skipped
 
 rm -f mdadm-{1,2,3,4}.img
 
+# Partition boundaries.
+p1_start=$(( 1024*1024/512 )); p1_end=$(( 20*1024*1024/512 - 1 ))
+p2_start=$(( p1_end+1 ));      p2_end=$(( 40*1024*1024/512 - 1 ))
+p3_start=$(( p2_end+1 ));      p3_end=$(( 60*1024*1024/512 - 1 ))
+p4_start=$(( p3_end+1 ));      p4_end=$(( 80*1024*1024/512 - 1 ))
+
 guestfish <<EOF
 # Add four empty disks
 sparse mdadm-1.img 100M
@@ -35,25 +41,25 @@ run
 
 # Create lots of test partitions.
 part-init /dev/sda mbr
-part-add /dev/sda p 4096 8191
-part-add /dev/sda p 8192 12287
-part-add /dev/sda p 12288 16383
-part-add /dev/sda p 16384 20479
+part-add /dev/sda p $p1_start $p1_end
+part-add /dev/sda p $p2_start $p2_end
+part-add /dev/sda p $p3_start $p3_end
+part-add /dev/sda p $p4_start $p4_end
 part-init /dev/sdb mbr
-part-add /dev/sdb p 4096 8191
-part-add /dev/sdb p 8192 12287
-part-add /dev/sdb p 12288 16383
-part-add /dev/sdb p 16384 20479
+part-add /dev/sdb p $p1_start $p1_end
+part-add /dev/sdb p $p2_start $p2_end
+part-add /dev/sdb p $p3_start $p3_end
+part-add /dev/sdb p $p4_start $p4_end
 part-init /dev/sdc mbr
-part-add /dev/sdc p 4096 8191
-part-add /dev/sdc p 8192 12287
-part-add /dev/sdc p 12288 16383
-part-add /dev/sdc p 16384 20479
+part-add /dev/sdc p $p1_start $p1_end
+part-add /dev/sdc p $p2_start $p2_end
+part-add /dev/sdc p $p3_start $p3_end
+part-add /dev/sdc p $p4_start $p4_end
 part-init /dev/sdd mbr
-part-add /dev/sdd p 4096 8191
-part-add /dev/sdd p 8192 12287
-part-add /dev/sdd p 12288 16383
-part-add /dev/sdd p 16384 20479
+part-add /dev/sdd p $p1_start $p1_end
+part-add /dev/sdd p $p2_start $p2_end
+part-add /dev/sdd p $p3_start $p3_end
+part-add /dev/sdd p $p4_start $p4_end
 
 # RAID 1.
 md-create r1t1 "/dev/sda1 /dev/sdb1"
