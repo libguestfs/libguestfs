@@ -195,7 +195,7 @@ construct_timeline (void)
     /* Find where we run qemu. */
     FIND_OPTIONAL ("qemu", LONG_ACTIVITY,
                    data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
-                   strstr (data->events[j].message, "-nodefconfig"),
+                   strstr (data->events[j].message, "-no-user-config"),
                    data->events[k].source == GUESTFS_EVENT_CLOSE);
 
     /* For the libvirt backend, connecting to libvirt, getting
@@ -259,7 +259,7 @@ construct_timeline (void)
     /* From starting qemu up to entering the BIOS is the qemu overhead. */
     FIND_OPTIONAL ("qemu:overhead", 0,
                    data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
-                   strstr (data->events[j].message, "-nodefconfig"),
+                   strstr (data->events[j].message, "-no-user-config"),
                    data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
                    strstr (data->events[k].message, FIRST_FIRMWARE_MESSAGE));
 

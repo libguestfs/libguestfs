@@ -49,7 +49,7 @@ disk=$tmpdir/guest.img
 virt-builder rhel-6.8 --output $disk
 
 # Boot the guest as if running with virt-p2v ISO in the CD drive.
-qemu-system-x86_64 -nodefconfig -nodefaults \
+qemu-system-x86_64 -no-user-config -nodefaults \
                    -no-reboot \
                    -machine accel=kvm:tcg \
                    -cpu host \

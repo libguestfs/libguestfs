@@ -123,7 +123,7 @@ virt-builder "$guestname" \
 #
 # Use IDE because some ancient guests don't support anything else.
 $qemu \
-    -nodefconfig \
+    -no-user-config \
     -display none \
     -machine accel=kvm:tcg \
     -m 2048 \

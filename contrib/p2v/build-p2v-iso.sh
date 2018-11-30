@@ -139,7 +139,7 @@ virt-builder $osversion --arch $arch \
              --selinux-relabel
 
 # Run the guest.
-qemu-system-x86_64 -nodefconfig -nodefaults -nographic \
+qemu-system-x86_64 -no-user-config -nodefaults -nographic \
                    -no-reboot \
                    -machine accel=kvm:tcg \
                    -cpu host \

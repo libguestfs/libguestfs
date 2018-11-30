@@ -116,7 +116,7 @@ rm -f $bat1 $bat2
 # Adding a network device is not strictly necessary, but makes
 # the Debian 7 guest happier.
 $qemu \
-    -nodefconfig \
+    -no-user-config \
     -display none \
     -machine accel=kvm:tcg \
     -m 2048 \

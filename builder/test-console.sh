@@ -84,7 +84,7 @@ rm -f "$out"
 # Boot the guest in qemu with a serial console.  Allow it to run
 # for a set amount of time, and then kill it.
 $qemu \
-    -nodefconfig \
+    -no-user-config \
     -display none \
     -machine accel=kvm:tcg \
     -m 1024 \

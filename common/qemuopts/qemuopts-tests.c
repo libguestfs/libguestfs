@@ -70,7 +70,7 @@ main (int argc, char *argv[])
                qemuopts_set_binary (qopts, "qemu-system-x86_64"));
 
   CHECK_ERROR (-1, "qemuopts_add_flag",
-               qemuopts_add_flag (qopts, "-nodefconfig"));
+               qemuopts_add_flag (qopts, "-no-user-config"));
   CHECK_ERROR (-1, "qemuopts_add_arg",
                qemuopts_add_arg (qopts, "-m", "1024"));
   CHECK_ERROR (-1, "qemuopts_add_arg_format",
@@ -116,7 +116,7 @@ main (int argc, char *argv[])
 
   const char *expected =
     "qemu-system-x86_64 \\\n"
-    "    -nodefconfig \\\n"
+    "    -no-user-config \\\n"
     "    -m 1024 \\\n"
     "    -smp 4 \\\n"
     "    -drive file=/tmp/foo,if=ide \\\n"
@@ -139,7 +139,7 @@ main (int argc, char *argv[])
                actual_argv = qemuopts_to_argv (qopts));
   const char *expected_argv[] = {
     "qemu-system-x86_64",
-    "-nodefconfig",
+    "-no-user-config",
     "-m", "1024",
     "-smp", "4",
     "-drive", "file=/tmp/foo,if=ide",

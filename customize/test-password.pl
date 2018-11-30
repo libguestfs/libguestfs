@@ -98,7 +98,7 @@ system ("virt-builder", $guestname, "--quiet",
 
 # Run qemu and make sure we get to the login prompt.
 my $exp = Expect->spawn ($qemu,
-                         "-nodefconfig", "-display", "none",
+                         "-no-user-config", "-display", "none",
                          "-machine", "accel=kvm:tcg",
                          "-m", "1024", "-boot", "c",
                          "-drive", "file=$disk,format=raw,if=ide",

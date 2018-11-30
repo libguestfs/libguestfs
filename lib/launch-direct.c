@@ -480,8 +480,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    */
   arg ("-global", VIRTIO_DEVICE_NAME ("virtio-blk") ".scsi=off");
 
-  if (guestfs_int_qemu_supports (g, data->qemu_data, "-nodefconfig"))
-    flag ("-nodefconfig");
+  if (guestfs_int_qemu_supports (g, data->qemu_data, "-no-user-config"))
+    flag ("-no-user-config");
 
   /* This oddly named option doesn't actually enable FIPS.  It just
    * causes qemu to do the right thing if FIPS is enabled in the

@@ -78,7 +78,7 @@ cmdline="root=/dev/sda4 ro console=ttyS0 printk.time=1 p2v.server=10.0.2.2 p2v.p
 
 # Run virt-p2v inside qemu.
 $qemu \
-    -nodefconfig \
+    -no-user-config \
     -display none \
     -machine accel=kvm:tcg \
     -m 2048 \
