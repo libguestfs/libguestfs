@@ -142,7 +142,8 @@ and distro_of_os_release_id = function
   | "frugalware" -> Some DISTRO_FRUGALWARE
   | "mageia" -> Some DISTRO_MAGEIA
   | "neokylin" -> Some DISTRO_NEOKYLIN
-  | "opensuse" | "opensuse-leap" -> Some DISTRO_OPENSUSE
+  | "opensuse" -> Some DISTRO_OPENSUSE
+  | s when String.is_prefix s "opensuse-" -> Some DISTRO_OPENSUSE
   | "pld" -> Some DISTRO_PLD_LINUX
   | "rhel" -> Some DISTRO_RHEL
   | "sles" | "sled" -> Some DISTRO_SLES
