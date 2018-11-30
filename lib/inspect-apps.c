@@ -47,12 +47,18 @@
 
 /* Some limits on what the inspection code will read, for safety. */
 
-/* Maximum RPM or dpkg database we will download to /tmp.  RPM
- * 'Packages' database can get very large: 70 MB is roughly the
- * standard size for a new Fedora install, and after lots of package
- * installation/removal I have seen well over 100 MB databases.
+/* Maximum RPM 'Packages' file we will download to /tmp.  This file
+ * can get very large: 70 MB is roughly the standard size for a new
+ * Fedora install, and after lots of package installation/removal
+ * I have seen well over 100 MB databases.
  */
-#define MAX_PKG_DB_SIZE       (300 * 1000 * 1000)
+#define MAX_RPM_PACKAGES_SIZE          (300 * 1000 * 1000)
+/* Maximum RPM 'Name' file we will download to /tmp. */
+#define MAX_RPM_NAME_SIZE              (300 * 1000 * 1000)
+/* Maximum dpkg 'status' file we will download to /tmp. */
+#define MAX_DPKG_STATUS_SIZE           (300 * 1000 * 1000)
+/* Maximum APK 'installed' file we will download to /tmp. */
+#define MAX_APK_INSTALLED_SIZE         (300 * 1000 * 1000)
 
 #ifdef DB_DUMP
 static struct guestfs_application2_list *list_applications_rpm (guestfs_h *g, const char *root);
@@ -380,12 +386,12 @@ list_applications_rpm (guestfs_h *g, const char *root)
   struct read_package_data data;
 
   Name = guestfs_int_download_to_tmp (g, "/var/lib/rpm/Name", NULL,
-				      MAX_PKG_DB_SIZE);
+				      MAX_RPM_NAME_SIZE);
   if (Name == NULL)
     goto error;
 
   Packages = guestfs_int_download_to_tmp (g, "/var/lib/rpm/Packages", NULL,
-					  MAX_PKG_DB_SIZE);
+					  MAX_RPM_PACKAGES_SIZE);
   if (Packages == NULL)
     goto error;
 
@@ -437,7 +443,7 @@ list_applications_deb (guestfs_h *g, const char *root)
   size_t continuation_field_len = 0;
 
   status = guestfs_int_download_to_tmp (g, "/var/lib/dpkg/status", NULL,
-					MAX_PKG_DB_SIZE);
+					MAX_DPKG_STATUS_SIZE);
   if (status == NULL)
     return NULL;
 
@@ -721,7 +727,7 @@ list_applications_apk (guestfs_h *g, const char *root)
     *url = NULL, *description = NULL;
 
   installed = guestfs_int_download_to_tmp (g, "/lib/apk/db/installed",
-                                           NULL, MAX_PKG_DB_SIZE);
+                                           NULL, MAX_APK_INSTALLED_SIZE);
   if (installed == NULL)
     return NULL;
 
