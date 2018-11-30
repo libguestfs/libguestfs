@@ -45,6 +45,15 @@
 #include "guestfs-internal-actions.h"
 #include "structs-cleanups.h"
 
+/* Some limits on what the inspection code will read, for safety. */
+
+/* Maximum RPM or dpkg database we will download to /tmp.  RPM
+ * 'Packages' database can get very large: 70 MB is roughly the
+ * standard size for a new Fedora install, and after lots of package
+ * installation/removal I have seen well over 100 MB databases.
+ */
+#define MAX_PKG_DB_SIZE       (300 * 1000 * 1000)
+
 #ifdef DB_DUMP
 static struct guestfs_application2_list *list_applications_rpm (guestfs_h *g, const char *root);
 #endif

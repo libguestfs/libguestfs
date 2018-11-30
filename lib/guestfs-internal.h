@@ -122,15 +122,6 @@
  */
 #define APPLIANCE_TIMEOUT (20*60) /* 20 mins */
 
-/* Some limits on what the inspection code will read, for safety. */
-
-/* Maximum RPM or dpkg database we will download to /tmp.  RPM
- * 'Packages' database can get very large: 70 MB is roughly the
- * standard size for a new Fedora install, and after lots of package
- * installation/removal I have seen well over 100 MB databases.
- */
-#define MAX_PKG_DB_SIZE       (300 * 1000 * 1000)
-
 /* Maximum size of Windows explorer.exe.  2.6MB on Windows 7. */
 #define MAX_WINDOWS_EXPLORER_SIZE (4 * 1000 * 1000)
 
