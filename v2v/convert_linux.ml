@@ -34,7 +34,7 @@ open Linux_kernels
 module G = Guestfs
 
 (* The conversion function. *)
-let convert (g : G.guestfs) inspect source output rcaps =
+let convert (g : G.guestfs) inspect source output rcaps _ =
   (*----------------------------------------------------------------------*)
   (* Inspect the guest first.  We already did some basic inspection in
    * the common v2v.ml code, but that has to deal with generic guests

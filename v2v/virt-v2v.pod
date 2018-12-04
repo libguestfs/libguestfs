@@ -368,6 +368,24 @@ Map source NIC MAC address to a network or bridge.
 
 See L</Networks and bridges> below.
 
+=item B<--mac> aa:bb:cc:dd:ee:ffB<:ip:>ipaddr[,gw[,len[,ns,ns,...]]]
+
+Force a particular interface (controlled by its MAC address) to have a
+static IP address after boot.
+
+The fields in the parameter are: C<ipaddr> is the IP address.  C<gw>
+is the optional gateway IP address.  C<len> is the subnet mask length
+(an integer).  The final parameters are zero or more nameserver IP
+addresses.
+
+This option can be supplied zero or more times.
+
+You only need to use this option for certain broken guests such as
+Windows which are unable to preserve MAC to static IP address mappings
+automatically.  You don't need to use it if Windows is using DHCP.  It
+is currently ignored for Linux guests since they do not have this
+problem.
+
 =item B<--machine-readable>
 
 =item B<--machine-readable>=format

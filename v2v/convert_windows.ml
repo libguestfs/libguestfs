@@ -38,7 +38,7 @@ module G = Guestfs
  * time the Windows VM is booted on KVM.
  *)
 
-let convert (g : G.guestfs) inspect source output rcaps =
+let convert (g : G.guestfs) inspect source output rcaps static_ips =
   (*----------------------------------------------------------------------*)
   (* Inspect the Windows guest. *)
 
@@ -227,6 +227,8 @@ let convert (g : G.guestfs) inspect source output rcaps =
     (* Open the software hive for writes and update it. *)
     Registry.with_hive_write g inspect.i_windows_software_hive
                              update_software_hive;
+
+    configure_network_interfaces net_driver;
 
     fix_ntfs_heads ();
 
@@ -602,6 +604,78 @@ if errorlevel 3010 exit /b 0
        loop values
     | None ->
        warning (f_"could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion")
+
+  and configure_network_interfaces net_driver =
+    (* If we were asked to force network interfaces to have particular
+     * static IP addresses then it is done here by installing a
+     * Powershell script which runs at boot.
+     *)
+    if static_ips <> [] then (
+      let psh_filename = "v2vnetcf.ps1" in
+      let psh = ref [] in
+      let add = List.push_back psh in
+
+      add "# Uncomment this line for lots of debug output.";
+      add "# Set-PSDebug -Trace 1";
+      add "";
+
+      (* If virtio-net was added to the registry, we must wait for
+       * it to be installed at runtime.
+       *)
+      if net_driver = Virtio_net then (
+        add "# Wait for the netkvm (virtio-net) driver to become active.";
+        add "$adapters = @()";
+        add "While (-Not $adapters) {";
+        add "    Start-Sleep -Seconds 5";
+        add "    $adapters = Get-NetAdapter -Physical | Where DriverFileName -eq \"netkvm.sys\"";
+        add "    Write-Host \"adapters = '$adapters'\"";
+        add "}";
+        add ""
+      );
+
+      List.iter (
+        fun { if_mac_addr; if_ip_address; if_default_gateway;
+              if_prefix_length; if_nameservers } ->
+          add (sprintf "$mac_address = '%s'"
+                       (String.replace if_mac_addr ":" "-"));
+          add "$ifindex = (Get-NetAdapter -Physical | Where MacAddress -eq $mac_address).ifIndex";
+          add "if ($ifindex) {";
+
+          add "    Write-Host \"setting IP address of adapter at $ifindex\"";
+
+          (* New-NetIPAddress command *)
+          let args = ref [] in
+          List.push_back args "-InterfaceIndex";
+          List.push_back args "$ifindex";
+          List.push_back args "-IPAddress";
+          List.push_back args (sprintf "'%s'" if_ip_address);
+          (match if_default_gateway with
+           | None -> ()
+           | Some gw ->
+              List.push_back args "-DefaultGateway";
+              List.push_back args (sprintf "'%s'" gw)
+          );
+          (match if_prefix_length with
+           | None -> ()
+           | Some len ->
+              List.push_back args "-PrefixLength";
+              List.push_back args (string_of_int len)
+          );
+          let cmd1 = "New-NetIPAddress " ^ String.concat " " !args in
+          add ("    " ^ cmd1);
+
+          (* Set-DnsClientServerAddress command *)
+          if if_nameservers <> [] then (
+            add (sprintf "    Set-DnsClientServerAddress -InterfaceIndex $ifindex -ServerAddresses (%s)"
+                         (String.concat "," (List.map (sprintf "'%s'") if_nameservers)))
+          );
+          add "}";
+          add ""
+      ) static_ips;
+
+      (* Install the Powershell script to run at firstboot. *)
+      Windows.install_firstboot_powershell g inspect psh_filename !psh
+    ) (* static_ips <> [] *)
 
   and fix_ntfs_heads () =
     (* NTFS hardcodes the number of heads on the drive which created
