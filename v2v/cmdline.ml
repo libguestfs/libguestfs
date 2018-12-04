@@ -41,11 +41,12 @@ type cmdline = {
   print_estimate : bool;
   print_source : bool;
   root_choice : root_choice;
+  static_ips : static_ip list;
   ks : Tools_utils.key_store;
 }
 
 (* Matches --mac command line parameters. *)
-let mac_re = PCRE.compile ~anchored:true "([[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}):(network|bridge):(.*)"
+let mac_re = PCRE.compile ~anchored:true "([[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}):(network|bridge|ip):(.*)"
 
 let parse_cmdline () =
   let bandwidth = ref None in
@@ -100,6 +101,7 @@ let parse_cmdline () =
   in
 
   let network_map = Networks.create () in
+  let static_ips = ref [] in
   let add_network str =
     match String.split ":" str with
     | "", "" ->
@@ -122,11 +124,30 @@ let parse_cmdline () =
     if not (PCRE.matches mac_re str) then
       error (f_"cannot parse --mac \"%s\" parameter") str;
     let mac = PCRE.sub 1 and out = PCRE.sub 3 in
-    let vnet_type =
-      match PCRE.sub 2 with
-      | "network" -> Network | "bridge" -> Bridge
-      | _ -> assert false in
-    Networks.add_mac network_map mac vnet_type out
+    match PCRE.sub 2 with
+    | "network" ->
+       Networks.add_mac network_map mac Network out
+    | "bridge" ->
+       Networks.add_mac network_map mac Bridge out
+    | "ip" ->
+       let add if_mac_addr if_ip_address if_default_gateway
+               if_prefix_length if_nameservers =
+         List.push_back static_ips
+                        { if_mac_addr; if_ip_address; if_default_gateway;
+                          if_prefix_length; if_nameservers }
+       in
+       (match String.nsplit "," out with
+        | [] ->
+           error (f_"invalid --mac ip option")
+        | [ip] -> add mac ip None None []
+        | [ip; gw] -> add mac ip (Some gw) None []
+        | ip :: gw :: len :: nameservers ->
+           let len =
+             try int_of_string len with
+             | Failure _ -> error (f_"cannot parse --mac ip prefix length field as an integer: %s") len in
+           add mac ip (Some gw) (Some len) nameservers
+       );
+    | _ -> assert false
   in
 
   let no_trim_warning _ =
@@ -218,8 +239,8 @@ let parse_cmdline () =
                                     s_"Input transport";
     [ L"in-place" ], Getopt.Set in_place,
                                     s_"Only tune the guest in the input VM";
-    [ L"mac" ],      Getopt.String ("mac:network|bridge:out", add_mac),
-                                    s_"Map NIC to network or bridge";
+    [ L"mac" ],      Getopt.String ("mac:network|bridge|ip:out", add_mac),
+                                    s_"Map NIC to network or bridge or assign static IP";
     [ S 'n'; L"network" ], Getopt.String ("in:out", add_network),
                                     s_"Map network ‘in’ to ‘out’";
     [ L"no-copy" ],  Getopt.Clear do_copy,
@@ -347,6 +368,7 @@ read the man page virt-v2v(1).
   let print_source = !print_source in
   let qemu_boot = !qemu_boot in
   let root_choice = !root_choice in
+  let static_ips = !static_ips in
 
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.
@@ -364,6 +386,7 @@ read the man page virt-v2v(1).
     pr "io/oo\n";
     pr "mac-option\n";
     pr "bandwidth-option\n";
+    pr "mac-ip-option\n";
     List.iter (pr "input:%s\n") (Modules_list.input_modules ());
     List.iter (pr "output:%s\n") (Modules_list.output_modules ());
     List.iter (pr "convert:%s\n") (Modules_list.convert_modules ());
@@ -698,7 +721,7 @@ read the man page virt-v2v(1).
   {
     bandwidth; compressed; debug_overlays; do_copy; in_place;
     network_map; output_alloc; output_format; output_name;
-    print_estimate; print_source; root_choice;
+    print_estimate; print_source; root_choice; static_ips;
     ks = opthandle.ks;
   },
   input, output

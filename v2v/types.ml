@@ -510,6 +510,14 @@ type bandwidth =
 | StaticBandwidth of string
 | DynamicBandwidth of string option * string
 
+type static_ip = {
+  if_mac_addr : string;
+  if_ip_address : string;
+  if_default_gateway : string option;
+  if_prefix_length : int option;
+  if_nameservers : string list;
+}
+
 class virtual input = object
   method precheck () = ()
   method virtual as_options : string

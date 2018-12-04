@@ -34,7 +34,7 @@ type inspection_fn = Types.inspect -> bool
 
 type conversion_fn =
   Guestfs.guestfs -> Types.inspect -> Types.source -> Types.output_settings ->
-  Types.requested_guestcaps -> Types.guestcaps
+  Types.requested_guestcaps -> Types.static_ip list -> Types.guestcaps
 
 val register_convert_module : inspection_fn -> string -> conversion_fn -> unit
 (** [register_convert_module inspect_fn name fn] registers a
