@@ -361,6 +361,15 @@ type root_choice = AskRoot | SingleRoot | FirstRoot | RootDev of string
 type output_allocation = Sparse | Preallocated
 (** Type of [-oa] (output allocation) option. *)
 
+type static_ip = {
+  if_mac_addr : string;
+  if_ip_address : string;
+  if_default_gateway : string option;
+  if_prefix_length : int option;
+  if_nameservers : string list;
+}
+(** [--mac ..:ip:..] option. *)
+
 (** {2 Input object}
 
     This is subclassed for the various input [-i] options.

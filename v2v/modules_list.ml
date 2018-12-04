@@ -38,7 +38,7 @@ type inspection_fn = Types.inspect -> bool
 
 type conversion_fn =
   Guestfs.guestfs -> Types.inspect -> Types.source -> Types.output_settings ->
-  Types.requested_guestcaps -> Types.guestcaps
+  Types.requested_guestcaps -> Types.static_ip list -> Types.guestcaps
 
 let convert_modules = ref []
 

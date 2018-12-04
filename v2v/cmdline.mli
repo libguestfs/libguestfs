@@ -30,6 +30,7 @@ type cmdline = {
   print_estimate : bool;
   print_source : bool;
   root_choice : Types.root_choice;
+  static_ips : Types.static_ip list;
   ks : Tools_utils.key_store;
 }
 

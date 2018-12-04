@@ -133,7 +133,7 @@ let rec main () =
       | In_place ->
          rcaps_from_source source in
 
-    do_convert g inspect source output rcaps in
+    do_convert g inspect source output rcaps cmdline.static_ips in
 
   g#umount_all ();
 
@@ -556,7 +556,7 @@ and estimate_target_size mpstats overlays =
   )
 
 (* Conversion. *)
-and do_convert g inspect source output rcaps =
+and do_convert g inspect source output rcaps interfaces =
   (match inspect.i_product_name with
   | "unknown" ->
     message (f_"Converting the guest to run on KVM")
@@ -572,7 +572,8 @@ and do_convert g inspect source output rcaps =
   debug "picked conversion module %s" conversion_name;
   debug "requested caps: %s" (string_of_requested_guestcaps rcaps);
   let guestcaps =
-    convert g inspect source (output :> Types.output_settings) rcaps in
+    convert g inspect source (output :> Types.output_settings) rcaps
+            interfaces in
   debug "%s" (string_of_guestcaps guestcaps);
 
   (* Did we manage to install virtio drivers? *)
