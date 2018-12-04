@@ -45,3 +45,26 @@ and check_app { Guestfs.app2_name = name;
   publisher =~ rex_avg_tech
 
 and (=~) str rex = PCRE.matches rex str
+
+(* Unfortunately Powershell scripts cannot be directly executed
+ * (unless some system config changes are made which for other
+ * reasons we don't want to do) and so we have to run this via
+ * a regular batch file.
+ *)
+let install_firstboot_powershell g { Types.i_windows_systemroot; i_root }
+                                 filename code =
+  let tempdir = sprintf "%s/Temp" i_windows_systemroot in
+  g#mkdir_p tempdir;
+  let code = String.concat "\r\n" code ^ "\r\n" in
+  g#write (sprintf "%s/%s" tempdir filename) code;
+
+  (* Powershell interpreter.  Should we check this exists? XXX *)
+  let ps_exe =
+    i_windows_systemroot ^
+    "\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" in
+
+  (* Windows path to the Powershell script. *)
+  let ps_path = i_windows_systemroot ^ "\\Temp\\" ^ filename in
+
+  let fb = sprintf "%s -ExecutionPolicy ByPass -file %s" ps_exe ps_path in
+  Firstboot.add_firstboot_script g i_root filename fb
