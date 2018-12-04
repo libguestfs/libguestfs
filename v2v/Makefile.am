@@ -667,6 +667,7 @@ check_PROGRAMS += v2v_unit_tests var_expander_tests
 endif
 
 v2v_unit_tests_BOBJECTS = \
+	$(top_builddir)/customize/firstboot.cmo \
 	types.cmo \
 	uefi.cmo \
 	utils.cmo \

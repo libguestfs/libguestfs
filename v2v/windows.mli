@@ -21,3 +21,9 @@
 val detect_antivirus : Types.inspect -> bool
 (** Return [true] if anti-virus (AV) software was detected in
     this Windows guest. *)
+
+val install_firstboot_powershell : Guestfs.guestfs -> Types.inspect ->
+                                   string -> string list -> unit
+(** [install_powershell_firstboot g inspect filename code] installs a
+    Powershell script (the lines of code) as a firstboot script in
+    the Windows VM. *)
