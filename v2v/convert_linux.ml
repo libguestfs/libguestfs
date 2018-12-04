@@ -1004,7 +1004,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
       List.flatten (List.map Array.to_list (List.map g#aug_match paths)) in
 
     (* Map device names for each entry. *)
-    let rex_resume = PCRE.compile "^resume=(/dev/[a-z\\d]+)(.*)$"
+    let rex_resume = PCRE.compile "^resume=(/dev/[-a-z\\d/_]+)(.*)$"
     and rex_device_cciss = PCRE.compile "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$"
     and rex_device = PCRE.compile "^/dev/([a-z]+)(\\d*)?$" in
 
