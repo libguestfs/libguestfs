@@ -210,7 +210,8 @@ leave the system disk in Glance, and import the data disks to Cinder.
 =head1 SEE ALSO
 
 L<virt-v2v(1)>,
-L<https://docs.openstack.org/python-openstackclient/latest/cli/man/openstack.html>.
+L<https://docs.openstack.org/python-openstackclient/latest/cli/man/openstack.html>,
+L<glance(1)>.
 
 =head1 AUTHOR
 
