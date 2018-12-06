@@ -1,3 +1,7 @@
 [libguestfs.org]
 uri=http://builder.libguestfs.org/index.asc
 gpgkey=file://@SYSCONFDIR@/xdg/virt-builder/repos.d/libguestfs.gpg
+
+[archive.libguestfs.org]
+uri=http://archive.libguestfs.org/builder/index.asc
+gpgkey=file://@SYSCONFDIR@/xdg/virt-builder/repos.d/libguestfs.gpg
