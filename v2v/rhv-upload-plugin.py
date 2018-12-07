@@ -338,7 +338,7 @@ def pread(h, count, offset):
     http = h['http']
     transfer = h['transfer']
 
-    headers = {"Range", "bytes=%d-%d" % (offset, offset+count-1)}
+    headers = {"Range": "bytes=%d-%d" % (offset, offset+count-1)}
     if h['needs_auth']:
         headers["Authorization"] = transfer.signed_ticket
 
