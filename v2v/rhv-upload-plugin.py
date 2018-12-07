@@ -433,7 +433,7 @@ def emulate_zero(h, count, offset):
             while count > len(buf):
                 http.send(buf)
                 count -= len(buf)
-            http.send(buffer(buf, 0, count))
+            http.send(memoryview(buf)[:count])
         except BrokenPipeError:
             pass
 
