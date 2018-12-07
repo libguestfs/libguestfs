@@ -210,7 +210,7 @@ def open(readonly):
     if destination_url.scheme == "https":
         context = \
             ssl.create_default_context(purpose = ssl.Purpose.SERVER_AUTH,
-                                       cafile = cafile)
+                                       cafile = params['rhv_cafile'])
         if params['insecure']:
             context.check_hostname = False
             context.verify_mode = ssl.CERT_NONE
