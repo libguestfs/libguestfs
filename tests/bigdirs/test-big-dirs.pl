@@ -27,6 +27,11 @@ unless ($ENV{SLOW}) {
     exit 77;
 }
 
+if ($ENV{SKIP_TEST_BIG_DIRS_PL}) {
+    print "$0: test skipped because SKIP_TEST_BIG_DIRS_PL is set\n";
+    exit 77;
+}
+
 my $g = Sys::Guestfs->new ();
 
 # Create a 2 GB test file.  Don't worry, it's sparse.
