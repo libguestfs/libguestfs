@@ -56,7 +56,7 @@ case "$guestname" in
         extra[${#extra[*]}]='/etc/inittab:
                                 s,^#([1-9].*respawn.*/sbin/getty.*),$1,'
         ;;
-    debian-8|ubuntu-16.04)
+    debian-8|ubuntu-16.04|ubuntu-18.04)
         # These commands are required to fix the serial console.
         # See https://askubuntu.com/questions/763908/ubuntu-16-04-has-no-vmware-console-access-once-booted-on-vmware-vsphere-5-5-clus/764476#764476
         extra[${#extra[*]}]='--edit'

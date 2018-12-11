@@ -75,7 +75,9 @@ if ($guestname eq "debian-7") {
     push @extra, "--edit",
         '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,';
 }
-elsif ($guestname eq "debian-8" || $guestname eq "ubuntu-16.04") {
+elsif ($guestname eq "debian-8" ||
+       $guestname eq "ubuntu-16.04" ||
+       $guestname eq "ubuntu-18.04") {
     # These commands are required to fix the serial console.
     # See https://askubuntu.com/questions/763908/ubuntu-16-04-has-no-vmware-console-access-once-booted-on-vmware-vsphere-5-5-clus/764476#764476
     push @extra, "--edit",
