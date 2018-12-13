@@ -78,6 +78,7 @@ let parse_output_options options =
 
   { rhv_cafile; rhv_cluster; rhv_direct; rhv_verifypeer }
 
+let nbdkit_python_plugin = "python"
 let pidfile_timeout = 30
 let finalization_timeout = 5*60
 
@@ -139,14 +140,14 @@ class output_rhv_upload output_alloc output_conn
    *)
   let error_unless_nbdkit_python_plugin_working () =
     let cmd = sprintf "nbdkit %s %s --dump-plugin >/dev/null"
-                      Python_script.python
+                      nbdkit_python_plugin
                       (quote (Python_script.path plugin_script)) in
     debug "%s" cmd;
     if Sys.command cmd <> 0 then
       error (f_"nbdkit %s plugin is not installed or not working.  It is required if you want to use ‘-o rhv-upload’.
 
 See also the virt-v2v-output-rhv(1) manual.")
-            Python_script.python
+            nbdkit_python_plugin
   in
 
   (* Check that nbdkit was compiled with SELinux support (for the
@@ -209,7 +210,7 @@ See also the virt-v2v-output-rhv(1) manual.")
       "--newstyle";             (* use newstyle NBD protocol *)
       "--exportname"; "/";
 
-      Python_script.python;     (* use the nbdkit Python 3 plugin *)
+      nbdkit_python_plugin;     (* use the nbdkit Python plugin *)
       Python_script.path plugin_script; (* Python plugin script *)
     ] in
     let args = if verbose () then args @ ["--verbose"] else args in
