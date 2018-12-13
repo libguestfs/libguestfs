@@ -1331,7 +1331,8 @@ write to libvirt or any other supported target.
 
 Instead of using the vCenter Administrator role, you can create a
 custom non-administrator role to perform the conversion.  You will
-however need to give it a minimum set of permissions as follows:
+however need to give it a minimum set of permissions as follows
+(using VMware vCenter 6.5):
 
 =over 4
 
@@ -1351,10 +1352,12 @@ Enable (check) the following objects:
   - Validate session
  
  Virtual Machine:
+   Interaction:
+     - Guest operating system management by VIX API
    Provisioning:
      - Allow disk access
      - Allow read-only disk access
-     - Guest Operating system management by VIX API
+     - Allow virtual machine download
 
 =back
 
