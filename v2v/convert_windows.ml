@@ -42,7 +42,15 @@ let convert (g : G.guestfs) inspect source output rcaps =
   (*----------------------------------------------------------------------*)
   (* Inspect the Windows guest. *)
 
-  (* If the Windows guest appears to be using group policy. *)
+  (* If the Windows guest appears to be using group policy.
+   *
+   * Since this was written, it has been noted that it may be possible
+   * to remove this restriction:
+   *
+   * 12:35 < StenaviN> here is the article from MS: https://support.microsoft.com/uk-ua/help/2773300/stop-0x0000007b-error-after-you-use-a-group-policy-setting-to-prevent
+   * 12:35 < StenaviN> aside of that the following registry hive should be deleted as well: [-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall]
+   * 12:36 < StenaviN> more precisely, [-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions]
+   *)
   let has_group_policy =
     Registry.with_hive_readonly g inspect.i_windows_software_hive
       (fun reg ->
