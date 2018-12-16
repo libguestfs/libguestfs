@@ -79,7 +79,7 @@ let parse_output_options options =
   { rhv_cafile; rhv_cluster; rhv_direct; rhv_verifypeer }
 
 let python3 = "python3" (* Defined by PEP 394 *)
-let nbdkit_python_plugin = "python"
+let nbdkit_python_plugin = "python3"
 let pidfile_timeout = 30
 let finalization_timeout = 5*60
 
