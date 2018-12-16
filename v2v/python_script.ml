@@ -24,7 +24,7 @@ open Unix_utils
 
 open Common_gettext.Gettext
 
-let python = "python3"          (* Defined by PEP 394 *)
+let python = "/usr/libexec/platform-python"
 
 type script = {
   tmpdir : string;              (* Temporary directory. *)
