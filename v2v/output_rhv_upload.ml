@@ -78,7 +78,7 @@ let parse_output_options options =
 
   { rhv_cafile; rhv_cluster; rhv_direct; rhv_verifypeer }
 
-let python3 = "python3" (* Defined by PEP 394 *)
+let python3 = "/usr/libexec/platform-python"
 let nbdkit_python_plugin = "python3"
 let pidfile_timeout = 30
 let finalization_timeout = 5*60
@@ -121,8 +121,8 @@ class output_rhv_upload output_alloc output_conn
 
   (* Check that the Python binary is available. *)
   let error_unless_python_binary_on_path () =
-    try ignore (which python3)
-    with Executable_not_found _ ->
+    try ignore (Unix.access python3 [Unix.X_OK])
+    with Unix_error _ ->
       error (f_"no python binary called ‘%s’ can be found on the $PATH")
             python3
   in
