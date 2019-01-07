@@ -572,7 +572,6 @@ Enable (check) the following objects:
    Provisioning:
      - Allow disk access
      - Allow read-only disk access
-     - Allow virtual machine download
 
 =back
 
