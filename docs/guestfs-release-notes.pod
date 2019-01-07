@@ -17,6 +17,384 @@ document.body.style.backgroundRepeat = "no-repeat";
 
 =end comment
 
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.40
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.38.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+=head3 New features in existing tools
+
+Virt-inspector now displays the libosinfo short ID for guests
+(Pino Toscano).
+
+Guestfish I<-N> will now generate 1G disks instead of 100M disks by
+default.
+
+Virt-resize supports f2fs filesystems (Pino Toscano).
+
+libguestfs-test-tool now supports bash tab completion
+(Pino Toscano).
+
+The I<--machine-readable> option now supports sending output to files
+or stdout/stderr.  This works uniformly across most OCaml-based virt
+tools, specifically: virt-builder, virt-builder-repository, virt-dib,
+virt-get-kernel, virt-resize, virt-sparsify, and virt-v2v (Pino
+Toscano).
+
+Virt-builder I<--uninstall> option now works on SUSE
+(Sebastian Meyer).
+
+Virt-builder now supports Windows.  We are not able to ship Windows
+templates in the public respository for obvious licensing reasons, but
+if you are an MSDN subscriber you may build your own.  See
+L<https://rwmj.wordpress.com/2018/09/13/creating-windows-templates-for-virt-builder/>
+
+Many tools now support a I<--key> option allowing you to pass in
+decryption keys for filesystems stored in local files on the host
+rather than having to feed them in over stdin (Pino Toscano).
+
+=head3 virt-v2v and virt-p2v
+
+New I<-o rhv-upload> mode for directly uploading images to RHV,
+bypassing the Export Storage Domain (Tomáš Golembiovský, Nir Soffer,
+Daniel Erez, Pino Toscano).
+
+New I<-o openstack> mode for directly uploading images to OpenStack
+and Cinder using OpenStack APIs.
+
+Virt-v2v now has a general mechanism for input and output options:
+I<-io> and I<-oo>.
+
+Virt-v2v can now install the RHV tools or QEMU GA in guests
+(Tomáš Golembiovský).
+
+The huge manual has now been split into several smaller documents and
+is more focused on helping users to accomplish specific v2v tasks.
+
+Multiple improvements to the OVF metadata when converting to RHV
+(Tomáš Golembiovský, Pino Toscano, Arik Hadas).
+
+Virt-v2v can now convert Linux guests with split kernel packages,
+especially Ubuntu 18.04 (Pino Toscano).
+
+Virt-v2v old I<--password-file> option has been replaced by I<-ip>
+(the old option remains for backwards compatibility).
+
+Virt-v2v now preserves the VM Generation ID.
+
+Virt-v2v has a new I<--mac> option allowing specific NICs to be mapped
+precisely to networks or bridges on the target.
+
+New virt-v2v I<--print-estimate> option to estimate the size of data
+that virt-v2v will copy.
+
+Virt-v2v is now usually able to remove open-vm-tools and VMware Tools
+from the Linux guest during conversion (Pino Toscano).
+
+Virt-v2v can now support UEFI conversions to RHV (Tomáš Golembiovský).
+
+Virt-p2v now prefers you to shut down instead of rebooting the machine
+after conversion has finished (Pino Toscano).
+
+Virt-v2v now writes the libosinfo short ID to the libvirt metadata
+when using I<-o local> and I<-o libvirt> output modes
+(Martin Kletzander).
+
+=head3 Language bindings
+
+OpenJDK 10+ is supported (Pino Toscano).
+
+Java bindings fixed for Gentoo host (Martin Kletzander).
+
+=head3 Inspection
+
+Support Kali Linux (Pino Toscano).
+
+When inspecting mountpoints, look for F</etc/mdadm/mdadm.conf> as well
+as F</etc/mdadm.conf> (Nikolay Ivanets).
+
+Improved support for OpenSUSE Tumbleweed (Pino Toscano).
+
+=head3 Architectures and platforms
+
+Miscellaneous macOS build fixes (Adam Robinson).
+
+=head3 Other
+
+Multiple documentation typos fixed (Yuri Chornoivan).
+
+=head2 Security
+
+See also L<guestfs-security(1)>.
+
+=head3 CVE-2018-11806
+
+Qemu's slirp (userspace networking) had several buffer overflows which
+could be triggered from the guest or network side.
+
+=head2 API
+
+=head3 New APIs
+
+=over 4
+
+=item C<f2fs_expand>
+
+Expand an f2fs filesystem (Pino Toscano).
+
+=item C<inspect_get_osinfo>
+
+Get the libosinfo short ID for the inspected guest (Pino Toscano).
+
+=item C<lvm_scan>
+
+This rescans all PVs, VGs and LVs, optionally activating them.
+
+=back
+
+=head3 Other API changes
+
+C<part_get_mbr_part_type> was reimplemented in OCaml
+(Nikolay Ivanets).
+
+C<list_filesystems> now filters out MBR extended partitions
+(Nikolay Ivanets).
+
+C<vgscan> has been deprecated.  Use the new C<lvm_scan> API in
+preference.
+
+=head2 Build changes
+
+The JSON library switched from yajl to Jansson E<ge> 2.7 (Pino Toscano).
+
+Support for The Sleuth Kit 4.5 (Pino Toscano).
+
+Multiple improvements in the C<./configure> script (Lin Ma).
+
+More out-of-tree build fixes (Hilko Bengen).
+
+Some work on reproducible builds (Bernhard M. Wiedemann).
+
+=head2 Internals
+
+lvmetad is now used unconditionally, and is started much earlier in
+the appliance boot process.  This fixes support for certain PV types.
+
+On Debian, dash is installed inside the appliance and in virt-rescue
+(Pino Toscano).
+
+The amount of RAM assigned to the appliance has been increased from
+500M to 768M (on x86_64, other architectures have different limits).
+This enables use of up to 255 disks when using recent Linux kernels.
+
+Virt-v2v now models the source machine type (eg. i440FX, Q35 or virt).
+
+Virt-p2v now generates configuration code automatically, also code for
+parsing the kernel command line.
+
+Use C<LT_INIT> instead of C<AC_PROG_LIBTOOL>.
+
+The OCaml C<JSON> code for parsing and serializing has been unified
+into a single abstract data type.
+
+Most OCaml tools are now built using the PIC runtime.  This has a
+performance penalty on i686, but is relatively free on other
+architectures and has security benefits.
+
+The direct backend now queries the qemu binary for availability of
+KVM, instead of using a heuristic based on F</dev/kvm> (Andrea
+Bolognani).
+
+Our "clever" libxml2 writer macros are now used consistently across
+all parts of the code base.
+
+Qemu dropped I<-nodefconfig> without telling us.  The equivalent
+I<-no-user-config> option is now used instead.  Qemu also moved the
+C<serial> option from I<-drive> to I<-device>, again without any
+notice, and this is also fixed.
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh v1.38.0..
+
+=end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/1651432>
+
+v2v - support for -insecure option to support OSP SSL connection for VM migrations
+
+=item L<https://bugzilla.redhat.com/1642044>
+
+[RFE] virt-p2v UI should give the option to shutdown after conversion is finished
+
+=item L<https://bugzilla.redhat.com/1634248>
+
+virt-v2v cannot convert opensuse15 guest
+
+=item L<https://bugzilla.redhat.com/1624902>
+
+Fix rhev-apt command that virt-v2v runs in Windows guests on first boot
+
+=item L<https://bugzilla.redhat.com/1624878>
+
+Update v2v docs to describe support for SHA 2 certs required for converting Windows 7 and 2008 R2 guests
+
+=item L<https://bugzilla.redhat.com/1615885>
+
+Minor log issue of virt-v2v
+
+=item L<https://bugzilla.redhat.com/1614276>
+
+VixDiskLib: VixDiskLib_Read: Read 4096 sectors at 57516160 failed. Error 2 (Memory allocation failed. Out of memory.) (DiskLib error 802: NBD_ERR_INSUFFICIENT_RESOURCES) at 5240.
+
+=item L<https://bugzilla.redhat.com/1612785>
+
+"warning: <target dev='sr0'> was ignored because the device name could not be recognized" should be hidden since convert cdrom is supported by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1611690>
+
+part_to_dev "/dev/sdp1" returns "/dev/sd" instead of "/dev/sdp"
+
+=item L<https://bugzilla.redhat.com/1608131>
+
+inspection fails when swap partition in /etc/fstab has incorrect UUID compared to actual swap partition
+
+=item L<https://bugzilla.redhat.com/1605071>
+
+On machines where /dev/kvm exists but KVM doesn't work, libguestfs will not fall back to TCG
+
+=item L<https://bugzilla.redhat.com/1602353>
+
+virt-inspector can't inspect LUKS-encrypted RHEL7 guest image
+
+=item L<https://bugzilla.redhat.com/1601943>
+
+Improve error "No module named ovirtsdk4" in v2v rhv-upload conversion
+
+=item L<https://bugzilla.redhat.com/1598715>
+
+Adding QXL device in OVF causes Cirrus Logic device to be added to guest
+
+=item L<https://bugzilla.redhat.com/1598350>
+
+RFE: virt-v2v should preserve <genid>
+
+=item L<https://bugzilla.redhat.com/1596851>
+
+Transfer fails if local host is in maintenance mode
+
+=item L<https://bugzilla.redhat.com/1596810>
+
+Transfer fails if local host belongs to another DC
+
+=item L<https://bugzilla.redhat.com/1592468>
+
+v2v to RHV transfer fails with: error: [empty name]: cannot read '//*/disksection' with value: null
+
+=item L<https://bugzilla.redhat.com/1592061>
+
+virt-v2v convert rhel5.3 failure when executing rpm -ql kernel-2.6.18-128.el5 command
+
+=item L<https://bugzilla.redhat.com/1591789>
+
+p2v: error: XML error: CPU vendor specified without CPU model
+
+=item L<https://bugzilla.redhat.com/1590220>
+
+Hide rhv-upload option in virt-p2v client
+
+=item L<https://bugzilla.redhat.com/1588451>
+
+Don't use relative socket paths for NBD
+
+=item L<https://bugzilla.redhat.com/1588088>
+
+RFE: Support for -o rhv-upload via Unix domain socket
+
+=item L<https://bugzilla.redhat.com/1586198>
+
+ovirt-imageio-daemon times out during migration
+
+=item L<https://bugzilla.redhat.com/1580309>
+
+virt-v2v rhel7.6 build can't convert guest to null with qemu-kvm rhel7.5.z build
+
+=item L<https://bugzilla.redhat.com/1580292>
+
+Virt-v2v rhel7.6 build can't convert guest with qemu-kvm rhel7.5.z build
+
+=item L<https://bugzilla.redhat.com/1579047>
+
+virt-builder: ubuntu-18.04 template has stray HTTP proxy configured for apt
+
+=item L<https://bugzilla.redhat.com/1575640>
+
+virt-builder: error: host cpu (x86_64) and guest arch (unknown) are not compatible
+
+=item L<https://bugzilla.redhat.com/1570407>
+
+virt-v2v -i ova gives checksum error when missing files are mentioned in .mf
+
+=item L<https://bugzilla.redhat.com/1567763>
+
+guestfsd: error: /Windows/Drivers/VirtIO: Read-only file system
+
+=item L<https://bugzilla.redhat.com/1564983>
+
+The mount-vfs failed to mount the logical volume
+
+=item L<https://bugzilla.redhat.com/1561828>
+
+RHV tools not properly installed in migrated Windows VM's causing boot failure
+
+=item L<https://bugzilla.redhat.com/1559027>
+
+virt-v2v does not honor --network with -o rhv-upload
+
+=item L<https://bugzilla.redhat.com/1557273>
+
+[RFE] Upload images directly to oVirt (virt-v2v -o rhv-upload)
+
+=item L<https://bugzilla.redhat.com/1544842>
+
+[RFE] Add libosinfo short-id to virt-inspector output
+
+=item L<https://bugzilla.redhat.com/1544674>
+
+virt-inspector --help differs from manpage
+
+=item L<https://bugzilla.redhat.com/1544227>
+
+RFE: recognize the Kali Linux distribution
+
+=item L<https://bugzilla.redhat.com/1532224>
+
+Resume=/dev/sdaX can't be updated to resume=/dev/vdaX in rhel7 guest's grub file after v2v conversion
+
+=item L<https://bugzilla.redhat.com/1530967>
+
+Change categories of "Guest Operating system management by VIX API" in v2v man page
+
+=item L<https://bugzilla.redhat.com/1527334>
+
+Various -it vddk -io vddk* options should be documented, removed or fixed
+
+=item L<https://bugzilla.redhat.com/1148012>
+
+B<Reverted:>
+RFE: Allow qemu-bridge-helper to be used to implement guestfs_set_network
+
+=back
+
+=for comment ################################################################
+
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.38
 
 These release notes only cover the differences from the previous
