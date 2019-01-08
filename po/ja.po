@@ -8,20 +8,18 @@
 # Richard Jones <rjones@redhat.com>, 2017. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.37\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs 1.39.12\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2018-12-11 18:44+0000\n"
-"PO-Revision-Date: 2017-02-24 07:33-0500\n"
+"PO-Revision-Date: 2017-02-24 07:33+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
-"language/ja/)\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/language/ja/)\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: align/scan.c:80 cat/cat.c:59 cat/filesystems.c:94 cat/log.c:69 cat/ls.c:97
 #: cat/tail.c:66 df/main.c:72 diff/diff.c:106 edit/edit.c:68 fish/fish.c:115
@@ -112,15 +110,15 @@ msgstr ""
 #: builder/index-validate.c:155
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.0"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.0"
 msgstr ""
 
 #: builder/index-validate.c:164
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.1"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.1"
 msgstr ""
 
 #: builder/index-validate.c:175
@@ -200,8 +198,7 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: 仮想マシン内のファイルシステム、パーティション、ブロックデバイス、LVMの一"
-"覧を表示します。\n"
+"%s: 仮想マシン内のファイルシステム、パーティション、ブロックデバイス、LVMの一覧を表示します。\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
 "使い方:\n"
 "  %s [--options] -d domname\n"
@@ -215,12 +212,10 @@ msgstr ""
 "  --csv                出力結果をカンマ区切りの値(CSV形式)で表示します。\n"
 "  -d|--domain guest    libvirtゲストからディスクイメージを追加します。\n"
 "  --echo-keys          パスフレーズのエコーバックをオフにしません。\n"
-"  --extra              スワップとデータのファイルシステムの一覧を表示しま"
-"す。\n"
+"  --extra              スワップとデータのファイルシステムの一覧を表示します。\n"
 "  --filesystems        マウント可能なファイルシステムの一覧を表示します。\n"
 "  --format[=raw|..]    -a オプションのディスク形式を強制します。\n"
-"  -h|--human-readable  --long の出力結果を人間が読みやすいサイズに合わせま"
-"す。\n"
+"  -h|--human-readable  --long の出力結果を人間が読みやすいサイズに合わせます。\n"
 "  --help               簡易ヘルプを表示します。\n"
 "  --keys-from-stdin    標準入力からパスフレーズを読み込みます。\n"
 "  -l|--long            長い結果を表示します。\n"
@@ -494,8 +489,7 @@ msgstr ""
 #: common/options/inspect.c:164
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr ""
-"%s: いくつかのファイルシステムがマウントできませんでした（無視されました）\n"
+msgstr "%s: いくつかのファイルシステムがマウントできませんでした（無視されました）\n"
 
 #: common/options/inspect.c:181
 #, c-format
@@ -527,8 +521,7 @@ msgstr ""
 #: common/options/options.c:276
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
-msgstr ""
-"%s: これらのファイルシステムのどれかをマウントしたいということですか?\n"
+msgstr "%s: これらのファイルシステムのどれかをマウントしたいということですか?\n"
 
 #: common/options/options.c:289
 #, c-format
@@ -548,9 +541,7 @@ msgstr "%s: %s: URI のスキーマが NULL または空です\n"
 #: common/options/uri.c:138
 #, c-format
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
-msgstr ""
-"%s: %s: サーバー名とソケットクエリーパラメーターをどちらも指定することはでき"
-"ません \n"
+msgstr "%s: %s: サーバー名とソケットクエリーパラメーターをどちらも指定することはできません \n"
 
 #: common/parallel/domains.c:106 lib/libvirt-domain.c:108
 #, c-format
@@ -610,8 +601,7 @@ msgstr "%s: %s %s に対する拡張属性を取得中にエラーが発生し�
 #: common/visit/visit.c:147
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
-msgstr ""
-"%s: error: %s %s に対する xattr カウントを構文解析中にエラーが発生しました\n"
+msgstr "%s: error: %s %s に対する xattr カウントを構文解析中にエラーが発生しました\n"
 
 #: common/windows/windows.c:139
 #, c-format
@@ -746,8 +736,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --checksum or --format like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --checksum or --format like '--format=%s'.\n"
 msgstr ""
 
 #: diff/diff.c:761
@@ -882,9 +871,7 @@ msgstr "スナップショットモード（読み込み専用）でドライブ
 
 #: fish/cmds.c:502
 msgid "add a drive read-only specifying the QEMU block emulation to use"
-msgstr ""
-"QEMU ブロックエミュレーションを使用するよう指定されたドライブを読み込み専用で"
-"追加する"
+msgstr "QEMU ブロックエミュレーションを使用するよう指定されたドライブを読み込み専用で追加する"
 
 #: fish/cmds.c:503
 msgid "add a temporary scratch drive"
@@ -892,8 +879,7 @@ msgstr "空の一時的なディスクを追加する"
 
 #: fish/cmds.c:504
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr ""
-"QEMU ブロックエミュレーションを使用するよう指定されたドライブを追加する"
+msgstr "QEMU ブロックエミュレーションを使用するよう指定されたドライブを追加する"
 
 #: fish/cmds.c:505
 msgid "allocate and add a disk file"
@@ -1230,8 +1216,7 @@ msgstr "デバイスの内容の MD5, SHAx または CRC チェックサムを�
 
 #: fish/cmds.c:609
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
-msgstr ""
-"ディレクトリにあるファイルの MD5, SHAx または CRC チェックサムを計算する"
+msgstr "ディレクトリにあるファイルの MD5, SHAx または CRC チェックサムを計算する"
 
 #: fish/cmds.c:610
 msgid "change file mode"
@@ -1425,9 +1410,7 @@ msgstr "ファイルまたはディレクトリが存在するかを確認する
 
 #: fish/cmds.c:669
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
-msgstr ""
-"ext2/3/4 または btrfs ファイルシステムに SYSLINUX ブートローダーをインストー"
-"ルします"
+msgstr "ext2/3/4 または btrfs ファイルシステムに SYSLINUX ブートローダーをインストールします"
 
 #: fish/cmds.c:670
 msgid "expand a f2fs filesystem"
@@ -1835,8 +1818,7 @@ msgstr "検査したオペレーティングシステムの種類を取得する
 
 #: fish/cmds.c:788
 msgid "get Windows CurrentControlSet of inspected operating system"
-msgstr ""
-"検出されたオペレーティングシステムの Windows CurrentControlSet を取得する"
+msgstr "検出されたオペレーティングシステムの Windows CurrentControlSet を取得する"
 
 #: fish/cmds.c:789
 msgid "get the path of the Windows software hive"
@@ -1860,14 +1842,11 @@ msgstr "インストールディスクの multipart フラグを取得する"
 
 #: fish/cmds.c:794
 msgid "get netinst (network installer) flag for install disk"
-msgstr ""
-"インストールディスクの netinst (ネットワークインストーラー) フラグを取得する"
+msgstr "インストールディスクの netinst (ネットワークインストーラー) フラグを取得する"
 
 #: fish/cmds.c:795 fish/cmds.c:796
 msgid "get list of applications installed in the operating system"
-msgstr ""
-"オペレーティングシステムにインストールされているアプリケーションの一覧を取得"
-"する"
+msgstr "オペレーティングシステムにインストールされているアプリケーションの一覧を取得する"
 
 #: fish/cmds.c:797
 msgid "inspect disk and return list of operating systems found"
@@ -2059,9 +2038,7 @@ msgstr "ディレクトリにあるファイルを一覧表示する（ロング
 
 #: fish/cmds.c:851
 msgid "list the files in a directory (long format with SELinux contexts)"
-msgstr ""
-"ディレクトリーにあるファイルを（SELinux コンテキストを用いたロング形式で）一"
-"覧表示する"
+msgstr "ディレクトリーにあるファイルを（SELinux コンテキストを用いたロング形式で）一覧表示する"
 
 #: fish/cmds.c:852 fish/cmds.c:853
 msgid "create a hard link"
@@ -2373,8 +2350,7 @@ msgstr "バックアップファイルに NTFS を保存する"
 
 #: fish/cmds.c:947
 msgid "fix common errors and force Windows to check NTFS"
-msgstr ""
-"一般的なエラーを修正する、また強制的に Windows に NTFS をチェックさせる"
+msgstr "一般的なエラーを修正する、また強制的に Windows に NTFS をチェックさせる"
 
 #: fish/cmds.c:948
 msgid "resize an NTFS filesystem"
@@ -2594,8 +2570,7 @@ msgstr "ext2, ext3 または ext4 ファイルシステムの容量を最小容�
 
 #: fish/cmds.c:1023
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
-msgstr ""
-"ext2, ext3 または ext4 ファイルシステムの容量を（指定した容量に）変更する"
+msgstr "ext2, ext3 または ext4 ファイルシステムの容量を（指定した容量に）変更する"
 
 #: fish/cmds.c:1024
 msgid "remove a file"
@@ -2707,8 +2682,7 @@ msgstr "要求されたクレディンシャルを libvirt に渡す"
 
 #: fish/cmds.c:1061
 msgid "set libvirt credentials supported by calling program"
-msgstr ""
-"呼び出されたプログラムによりサポートされる libvirt クレディンシャルを設定する"
+msgstr "呼び出されたプログラムによりサポートされる libvirt クレディンシャルを設定する"
 
 #: fish/cmds.c:1062
 msgid "set memory allocated to the hypervisor"
@@ -3024,8 +2998,7 @@ msgstr "LVM ボリュームグループ (VG) を一覧表示する"
 
 #: fish/cmds.c:1165
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
-msgstr ""
-"LVM 物理ボリューム、ボリュームグループおよび論理ボリュームを再スキャンする"
+msgstr "LVM 物理ボリューム、ボリュームグループおよび論理ボリュームを再スキャンする"
 
 #: fish/cmds.c:1166
 msgid "get the UUID of a volume group"
@@ -3101,9 +3074,7 @@ msgstr "ファイルシステムの空き領域をゼロで埋める"
 
 #: fish/cmds.c:1189
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
-msgstr ""
-"ext2/3 ファイルシステムにある未使用の inode およびディスクブロックをゼロで埋"
-"める"
+msgstr "ext2/3 ファイルシステムにある未使用の inode およびディスクブロックをゼロで埋める"
 
 #: fish/cmds.c:1192
 msgid "determine file type inside a compressed file"
@@ -3111,16 +3082,15 @@ msgstr "圧縮ファイルの中にあるファイルの形式を決定する"
 
 #: fish/cmds.c:1195
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr ""
-"コマンドの詳細なヘルプを表示するには -h <cmd> / help <cmd> を使用します。"
+msgstr "コマンドの詳細なヘルプを表示するには -h <cmd> / help <cmd> を使用します。"
 
 #: fish/copy.c:42
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
-"ファイルをイメージの中にコピーするには 'copy-in <local> [<local>...] "
-"<remotedir>' を使用します。\n"
+"ファイルをイメージの中にコピーするには 'copy-in <local> [<local>...] <remotedir>' を使用します。\n"
 
 #: fish/copy.c:71
 #, c-format
@@ -3128,8 +3098,7 @@ msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
-"ファイルをイメージの外にコピーするには 'copy-out <remote> [<remote>...] "
-"<localdir>' を使用します\n"
+"ファイルをイメージの外にコピーするには 'copy-out <remote> [<remote>...] <localdir>' を使用します\n"
 
 #: fish/display.c:48
 #, c-format
@@ -3149,9 +3118,7 @@ msgstr "未知のイベント名: %s\n"
 #: fish/events.c:179
 #, c-format
 msgid "use 'event <name> <eventset> <script>' to register an event handler\n"
-msgstr ""
-"イベントハンドラーを登録するには 'event <name> <eventset> <script>' を使用し"
-"ます\n"
+msgstr "イベントハンドラーを登録するには 'event <name> <eventset> <script>' を使用します\n"
 
 #: fish/events.c:238
 #, c-format
@@ -3294,8 +3261,7 @@ msgstr "%s: 引数が多すぎます\n"
 #: fish/fish.c:1001
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
-msgstr ""
-"%s: 文字列に無効なエスケープシーケンス（オフセット %d から始まります）\n"
+msgstr "%s: 文字列に無効なエスケープシーケンス（オフセット %d から始まります）\n"
 
 #: fish/fish.c:1010
 #, c-format
@@ -3377,15 +3343,13 @@ msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
-"%s: Windows ドライブレターを使用するには、仮想マシンを検査する必要があります "
-"(\"-i\" オプションの使用または \"inspect-os\" コマンドの実行)\n"
+"%s: Windows ドライブレターを使用するには、仮想マシンを検査する必要があります (\"-i\" オプションの使用または \"inspect-"
+"os\" コマンドの実行)\n"
 
 #: fish/fish.c:1756
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
-msgstr ""
-"%s: Windows ドライブレターを使用するには、Windows ゲストでなければいけませ"
-"ん\n"
+msgstr "%s: Windows ドライブレターを使用するには、Windows ゲストでなければいけません\n"
 
 #: fish/fish.c:1770
 #, c-format
@@ -3403,8 +3367,7 @@ msgid ""
 "  umount-all\n"
 "  mount %s /\n"
 msgstr ""
-"%s: '%c:' にアクセスするには、まず %s をマウントします。このための方法の一つ"
-"は:\n"
+"%s: '%c:' にアクセスするには、まず %s をマウントします。このための方法の一つは:\n"
 "  umount-all\n"
 "  mount %s /\n"
 
@@ -3477,8 +3440,7 @@ msgstr "hexedit: 無効な範囲\n"
 #: fish/lcd.c:36
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
-msgstr ""
-"ローカルディレクトリを変更するには 'lcd directory' を使用してください\n"
+msgstr "ローカルディレクトリを変更するには 'lcd directory' を使用してください\n"
 
 #: fish/man.c:37
 #, c-format
@@ -3504,8 +3466,8 @@ msgstr "ブートサイズを解析できません"
 msgid "failed to get sector size of disk: %s"
 msgstr "ディスクのセクターサイズの取得に失敗しました: %s"
 
-#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44 fish/prep-lv.c:75
-#: fish/prep-lv.c:116 fish/prep-part.c:42
+#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44
+#: fish/prep-lv.c:75 fish/prep-lv.c:116 fish/prep-part.c:42
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr "ディスクのパーティションに失敗しました: %s"
@@ -3530,8 +3492,8 @@ msgstr "ブートファイルシステムの作成に失敗しました: %s"
 msgid "failed to create root filesystem: %s"
 msgstr "ルートファイルシステムの作成に失敗しました: %s"
 
-#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65 fish/prep-lv.c:81
-#: fish/prep-lv.c:106 fish/prep-lv.c:122
+#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65
+#: fish/prep-lv.c:81 fish/prep-lv.c:106 fish/prep-lv.c:122
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr "不正な形式の論理ボリューム名です、'/dev/VG/LV' を使用してください"
 
@@ -3596,10 +3558,8 @@ msgid ""
 "\n"
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
-"準備済みのディスクイメージがローカルディレクトリの \"test1.img\" に書き込まれ"
-"ます。\n"
-" (-N オプションが複数指定されていると、\"test2.img\" などに書き込まれま"
-"す)。\n"
+"準備済みのディスクイメージがローカルディレクトリの \"test1.img\" に書き込まれます。\n"
+" (-N オプションが複数指定されていると、\"test2.img\" などに書き込まれます)。\n"
 "タイプの前にファイル名を指定することにより、名前を上書きできます。例:\n"
 "\n"
 "  guestfish -N blank.img=fs\n"
@@ -3643,14 +3603,12 @@ msgstr "guestfish: remote: サーバーが稼働していないように思わ�
 #: fish/rc.c:399 fish/rc.c:413
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr ""
-"guestfish: プロトコルエラー: 初期メッセージをサーバーに送信できませんでした\n"
+msgstr "guestfish: プロトコルエラー: 初期メッセージをサーバーに送信できませんでした\n"
 
 #: fish/rc.c:424
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr ""
-"guestfish: プロトコルエラー: サーバーからの応答を解読できませんでした\n"
+msgstr "guestfish: プロトコルエラー: サーバーからの応答を解読できませんでした\n"
 
 #: fish/reopen.c:43
 #, c-format
@@ -3863,8 +3821,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format, --lvm or --partition like '--"
-"format=%s'.\n"
+"Make sure to specify the argument for --format, --lvm or --partition like '--format=%s'.\n"
 msgstr ""
 
 #: format/format.c:239
@@ -4046,12 +4003,10 @@ msgstr ""
 msgid ""
 "no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -4111,8 +4066,8 @@ msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
-"LIBGUESTFS_PATH (検索パス: %s) において適切な libguestfs supermin、修正された"
-"または旧形式のアプライアンスを検索できません"
+"LIBGUESTFS_PATH (検索パス: %s) において適切な libguestfs "
+"supermin、修正されたまたは旧形式のアプライアンスを検索できません"
 
 #: lib/available.c:72 lib/available.c:96
 #, c-format
@@ -4142,8 +4097,7 @@ msgstr "write_data: "
 
 #: lib/conn-socket.c:363
 msgid "error reading console messages from the appliance"
-msgstr ""
-"アプライアンスからコンソールメッセージを読み込み中にエラーが発生しました"
+msgstr "アプライアンスからコンソールメッセージを読み込み中にエラーが発生しました"
 
 #: lib/conn-socket.c:406
 msgid "console socket not connected"
@@ -4432,8 +4386,7 @@ msgstr "%s パラメーターが空です。もしくは、許可できない文
 
 #: lib/drives.c:789
 msgid "label parameter is empty, too long, or contains disallowed characters"
-msgstr ""
-"ラベルパラメーターが空白、長すぎます、または許可されない文字を含んでいます"
+msgstr "ラベルパラメーターが空白、長すぎます、または許可されない文字を含んでいます"
 
 #: lib/drives.c:795
 msgid "cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"
@@ -4492,9 +4445,7 @@ msgstr ""
 #: lib/errors.c:500
 msgid ""
 "appliance closed the connection unexpectedly, see earlier error messages"
-msgstr ""
-"アプライアンスが予期せず接続を閉じました。これまでのエラーメッセージを参照し"
-"てください。"
+msgstr "アプライアンスが予期せず接続を閉じました。これまでのエラーメッセージを参照してください。"
 
 #: lib/errors.c:504
 msgid ""
@@ -4504,9 +4455,7 @@ msgstr ""
 
 #: lib/errors.c:517
 msgid "appliance launch timed out, see earlier error messages"
-msgstr ""
-"アプライアンスの起動がタイムアウトしました。以前のエラーメッセージを参照して"
-"ください。"
+msgstr "アプライアンスの起動がタイムアウトしました。以前のエラーメッセージを参照してください。"
 
 #: lib/errors.c:520
 msgid ""
@@ -4586,8 +4535,8 @@ msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
 msgstr ""
-"libguestfs がコンパイルされたときに、libfuse が見当たらなかったため、FUSE が"
-"このビルドの libguestfs においてサポートされません。"
+"libguestfs がコンパイルされたときに、libfuse が見当たらなかったため、FUSE がこのビルドの libguestfs "
+"においてサポートされません。"
 
 #: lib/handle.c:140
 msgid ""
@@ -4649,9 +4598,7 @@ msgstr "qemu-img info: JSON 出力がオブジェクトではありませんで�
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
-msgstr ""
-"qemu-img info コマンドが何も出力しませんでしたが、エラー状態コードを返しませ"
-"んでした"
+msgstr "qemu-img info コマンドが何も出力しませんでしたが、エラー状態コードを返しませんでした"
 
 #: lib/info.c:210
 #, c-format
@@ -4671,9 +4618,9 @@ msgstr "%s の容量が不当に大きいです (%<PRIi64> バイト)"
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
+" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
+"(you might need to log out and log in again)."
 msgstr ""
 
 #: lib/launch-direct.c:385 lib/launch-uml.c:154
@@ -4705,9 +4652,7 @@ msgstr ""
 
 #: lib/launch-libvirt.c:334
 msgid "direct mode flag is not supported yet for libvirt backend"
-msgstr ""
-"ダイレクトモードフラグは libvirt バックエンドに対してまだサポートされていませ"
-"ん"
+msgstr "ダイレクトモードフラグは libvirt バックエンドに対してまだサポートされていません"
 
 #: lib/launch-libvirt.c:348
 #, c-format
@@ -4771,8 +4716,8 @@ msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
-"libvirt が qemu curl ドライバープロトコル (ftp, http など) をサポートしませ"
-"ん; LIBGUESTFS_BACKEND=direct の設定を試してください"
+"libvirt が qemu curl ドライバープロトコル (ftp, http など) をサポートしません; "
+"LIBGUESTFS_BACKEND=direct の設定を試してください"
 
 #: lib/launch-libvirt.c:1833
 msgid "could not define libvirt secret"
@@ -4935,8 +4880,7 @@ msgstr ""
 msgid ""
 "%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
 "handler"
-msgstr ""
-"%s は GUESTFS_EVENT_LIBVIRT_AUTH イベントハンドラーに中からのみ呼び出されます"
+msgstr "%s は GUESTFS_EVENT_LIBVIRT_AUTH イベントハンドラーに中からのみ呼び出されます"
 
 #: lib/libvirt-auth.c:274 lib/libvirt-auth.c:294 lib/libvirt-auth.c:314
 #: lib/libvirt-auth.c:335
@@ -4947,9 +4891,7 @@ msgstr "クレディンシャルのインデックスが範囲外です"
 msgid ""
 "libvirt authentication APIs not available since this version of libguestfs "
 "was compiled without libvirt"
-msgstr ""
-"このバージョンの libguestfs が libvirt なしでコンパイルされたため、libvirt 認"
-"証 API を利用できません"
+msgstr "このバージョンの libguestfs が libvirt なしでコンパイルされたため、libvirt 認証 API を利用できません"
 
 #: lib/libvirt-domain.c:96 lib/libvirt-domain.c:246
 msgid "you cannot set both live and readonly flags"
@@ -4972,8 +4914,7 @@ msgstr "ドメイン情報の取得中にエラーが発生しました: %s"
 #: lib/libvirt-domain.c:271
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -4992,8 +4933,8 @@ msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
-"%s: ディスクが libvirt XML において <readonly/> にされています、読み込み専用"
-"ディスクは \"error\" に設定されました"
+"%s: ディスクが libvirt XML において <readonly/> にされています、読み込み専用ディスクは \"error\" "
+"に設定されました"
 
 #: lib/libvirt-domain.c:455
 msgid "expected <seclabel/> to be an XML element"
@@ -5064,9 +5005,7 @@ msgstr ""
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
-msgstr ""
-"このバージョンの libguestfs が libvirt なしでコンパイルされたため、add-"
-"domain API を利用できません"
+msgstr "このバージョンの libguestfs が libvirt なしでコンパイルされたため、add-domain API を利用できません"
 
 #: lib/proto.c:238
 #, c-format
@@ -5074,8 +5013,8 @@ msgid ""
 "check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
 "synchronization (bad!)\n"
 msgstr ""
-"check_daemon_socket: デーモンから 0x%x を読み込みましたが、0x%x を期待されま"
-"す。プロトコルの同期が失われました (不良!)\n"
+"check_daemon_socket: デーモンから 0x%x を読み込みましたが、0x%x を期待されます。プロトコルの同期が失われました "
+"(不良!)\n"
 
 #: lib/proto.c:284
 msgid "xdr_guestfs_message_header failed"
@@ -5110,9 +5049,7 @@ msgstr "デーモンのソケットに書き込みます"
 
 #: lib/proto.c:876
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr ""
-"receive_file_data: ファイルのチャンクの読み込み中に予期しないフラグを受信しま"
-"した"
+msgstr "receive_file_data: ファイルのチャンクの読み込み中に予期しないフラグを受信しました"
 
 #: lib/proto.c:884
 msgid "failed to parse file chunk"
@@ -5190,9 +5127,9 @@ msgstr "%s: 一時ディレクトリを作成できません"
 msgid ""
 "%s: cannot create temporary directory.  It may be that $XDG_RUNTIME_DIR is "
 "pointing to a directory which we cannot write to, for example if you used "
-"‘su [user]’ to change to this user account (see https://bugzilla.redhat."
-"com/967509).  You can correct this by adjusting XDG_RUNTIME_DIR and possibly "
-"creating /run/user/%d with the right ownership."
+"‘su [user]’ to change to this user account (see "
+"https://bugzilla.redhat.com/967509).  You can correct this by adjusting "
+"XDG_RUNTIME_DIR and possibly creating /run/user/%d with the right ownership."
 msgstr ""
 
 #: lib/tmpdirs.c:282
@@ -5208,16 +5145,12 @@ msgstr ""
 #: lib/tmpdirs.c:293
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
-msgstr ""
-"security: キャッシュされたアプライアンス %s がディレクトリではありません"
-"（モード %o）"
+msgstr "security: キャッシュされたアプライアンス %s がディレクトリではありません（モード %o）"
 
 #: lib/tmpdirs.c:299
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
-msgstr ""
-"security: キャッシュされたアプライアンス %s がグループまたは全体に対して書き"
-"込み可能ではありません（モード %o）"
+msgstr "security: キャッシュされたアプライアンス %s がグループまたは全体に対して書き込み可能ではありません（モード %o）"
 
 #: lib/version.c:166
 #, c-format
@@ -5417,8 +5350,8 @@ msgstr ""
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
-"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b> "
-"means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
+"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b>"
+" means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
 "more information about output options."
 msgstr ""
 
@@ -5440,8 +5373,8 @@ msgstr ""
 #: p2v/gui.c:857
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
-"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others, "
-"leave this field blank."
+"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others,"
+" leave this field blank."
 msgstr ""
 
 #: p2v/gui.c:863
@@ -5476,7 +5409,8 @@ msgstr ""
 
 #: p2v/gui.c:939
 msgid ""
-"Left click on an interface name to flash the light on the physical interface."
+"Left click on an interface name to flash the light on the physical "
+"interface."
 msgstr ""
 
 #: p2v/gui.c:961
@@ -5555,8 +5489,7 @@ msgstr ""
 #: p2v/gui.c:1815
 #, c-format
 msgid ""
-"Debug information and log files are saved to this directory on the "
-"conversion server:\n"
+"Debug information and log files are saved to this directory on the conversion server:\n"
 "%s"
 msgstr ""
 
@@ -5814,8 +5747,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format or --scratch like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --format or --scratch like '--format=%s'.\n"
 msgstr ""
 
 #: rescue/suggest.c:62
@@ -5865,8 +5797,7 @@ msgstr ""
 "\n"
 "しかしながら、libguestfs により認識できないファイルシステムのマウントを試行\n"
 "するため、または空のディスクにパーティション、論理ボリュームおよびファイル\n"
-"システムを作成するために、ディスクイメージにおいて virt-rescue を使用できま"
-"す。\n"
+"システムを作成するために、ディスクイメージにおいて virt-rescue を使用できます。\n"
 
 #: rescue/suggest.c:162
 #, c-format
@@ -5955,8 +5886,7 @@ msgstr ""
 msgid ""
 "cannot find libvirt pool ‘%s’: %s\n"
 "\n"
-"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-"
-"dumpxml <pool>’ to display details about a particular pool.\n"
+"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-dumpxml <pool>’ to display details about a particular pool.\n"
 "\n"
 "To set the pool which virt-v2v uses, add the ‘-os <pool>’ option."
 msgstr ""
@@ -6018,14 +5948,11 @@ msgstr ""
 
 #: tools/virt-tar:219
 msgid "virt-tar: no image, VM names, directory or filename given"
-msgstr ""
-"virt-tar: イメージ、仮想マシン名、ディレクトリまたはファイル名が与えられてい"
-"ません"
+msgstr "virt-tar: イメージ、仮想マシン名、ディレクトリまたはファイル名が与えられていません"
 
 #: tools/virt-tar:222
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
-msgstr ""
-"virt-tar: コマンドラインにおいて -x または -u が指定されなければいけません\n"
+msgstr "virt-tar: コマンドラインにおいて -x または -u が指定されなければいけません\n"
 
 #: tools/virt-tar:233
 #, perl-brace-format
@@ -6042,18 +5969,15 @@ msgstr "virt-tar: {dir}: ディレクトリ名は '/' 記号で始まらなけ�
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
-"{prog}: オペレーティングシステムがこのディスクイメージの中に検知できませんで"
-"した。\n"
+"{prog}: オペレーティングシステムがこのディスクイメージの中に検知できませんでした。\n"
 "\n"
-"ファイルシステムがディスクイメージではない、または仮想マシンイメージではな"
-"い\n"
+"ファイルシステムがディスクイメージではない、または仮想マシンイメージではない\n"
 "ことが理由です。もしくは OS 種別が libguesfs により認識できないためです。\n"
 "\n"
 "これがエラーであると思うならば、ディスクイメージに関する情報できる限り\n"
@@ -6072,9 +5996,7 @@ msgstr "与えられた libvirt ドメイン名またはディスクイメージ
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
-msgstr ""
-"1 か 2 つ以上のパラメーター、サブキーのパス、およびオプションのエクスポートす"
-"る値が期待されます\n"
+msgstr "1 か 2 つ以上のパラメーター、サブキーのパス、およびオプションのエクスポートする値が期待されます\n"
 
 #: tools/virt-win-reg:502
 #, perl-brace-format
@@ -6084,27 +6006,14 @@ msgstr "virt-win-reg: {p}: ユーザー・ディレクトリを見つけられ�
 #: tools/virt-win-reg:507
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
-msgstr ""
-"virt-win-reg: {p}: サポートされる Windows レジストリのパスではありません\n"
+msgstr "virt-win-reg: {p}: サポートされる Windows レジストリのパスではありません\n"
 
 #: tools/virt-win-reg:580
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
-msgstr ""
-"virt-win-reg: {p}: レジストリ・ファイルをダウンロードできませんでした: "
-"{err}\n"
+msgstr "virt-win-reg: {p}: レジストリ・ファイルをダウンロードできませんでした: {err}\n"
 
 #: tools/virt-win-reg:597
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
-msgstr ""
-"virt-win-reg: {p}: レジストリ・ファイルをアップロードできませんでした: "
-"{err}\n"
-
-#~ msgid "%s: optional argument \"%s\" given twice\n"
-#~ msgstr "%s: オプション引数 \"%s\" が２回指定されています。\n"
-
-#~ msgid "virt-tar: extract/upload mode specified twice on the command line\n"
-#~ msgstr ""
-#~ "virt-tar: コマンドラインにおいて extract/upload モードが複数指定されていま"
-#~ "す\n"
+msgstr "virt-win-reg: {p}: レジストリ・ファイルをアップロードできませんでした: {err}\n"

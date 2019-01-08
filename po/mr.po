@@ -7,20 +7,18 @@
 # sandeeps <sshedmak@redhat.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.37\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs 1.39.12\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2018-12-11 18:44+0000\n"
-"PO-Revision-Date: 2015-02-21 10:51-0500\n"
+"PO-Revision-Date: 2015-02-21 10:51+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Marathi (http://www.transifex.com/projects/p/libguestfs/"
-"language/mr/)\n"
+"Language-Team: Marathi (http://www.transifex.com/projects/p/libguestfs/language/mr/)\n"
 "Language: mr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: align/scan.c:80 cat/cat.c:59 cat/filesystems.c:94 cat/log.c:69 cat/ls.c:97
 #: cat/tail.c:66 df/main.c:72 diff/diff.c:106 edit/edit.c:68 fish/fish.c:115
@@ -111,15 +109,15 @@ msgstr ""
 #: builder/index-validate.c:155
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.0"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.0"
 msgstr ""
 
 #: builder/index-validate.c:164
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.1"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.1"
 msgstr ""
 
 #: builder/index-validate.c:175
@@ -737,8 +735,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --checksum or --format like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --checksum or --format like '--format=%s'.\n"
 msgstr ""
 
 #: diff/diff.c:761
@@ -874,7 +871,8 @@ msgstr "ड्राइव्हला स्नॅपशॉट मोडमध�
 #: fish/cmds.c:502
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
-"वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे फक्त वाचनीय ड्राइव्ह समाविष्ट करा"
+"वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे फक्त वाचनीय ड्राइव्ह "
+"समाविष्ट करा"
 
 #: fish/cmds.c:503
 msgid "add a temporary scratch drive"
@@ -882,7 +880,8 @@ msgstr ""
 
 #: fish/cmds.c:504
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr "वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे ड्राइव्ह समाविष्ट करा"
+msgstr ""
+"वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे ड्राइव्ह समाविष्ट करा"
 
 #: fish/cmds.c:505
 msgid "allocate and add a disk file"
@@ -1279,7 +1278,8 @@ msgstr "स्थानीय फाइल्स् किंवा डिरे
 
 #: fish/cmds.c:624
 msgid "copy remote files or directories out of an image"
-msgstr "दूरस्त फाइल्स् किंवा डिरेक्ट्रीज्चे प्रत प्रतिमेच्या बाहेर निर्माण करा"
+msgstr ""
+"दूरस्त फाइल्स् किंवा डिरेक्ट्रीज्चे प्रत प्रतिमेच्या बाहेर निर्माण करा"
 
 #: fish/cmds.c:625
 msgid "copy size bytes from source to destination using dd"
@@ -3001,7 +3001,9 @@ msgstr "LVM वॉल्यूम ग्रूप्स् (VGs) सूचीत
 
 #: fish/cmds.c:1165
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
-msgstr "LVM फिजिकल वॉल्यूम्स्, वॉल्यून ग्रूप्स् व लॉजिकल वॉल्यूम्स् करीता  करीता पुनःस्कॅन करा"
+msgstr ""
+"LVM फिजिकल वॉल्यूम्स्, वॉल्यून ग्रूप्स् व लॉजिकल वॉल्यूम्स् करीता  करीता "
+"पुनःस्कॅन करा"
 
 #: fish/cmds.c:1166
 msgid "get the UUID of a volume group"
@@ -3085,15 +3087,17 @@ msgstr "आंकुचीत फाइल अंतर्गत फाइल �
 
 #: fish/cmds.c:1195
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr "आदेशकरीता तपशील माहिती दाखवण्यासाठी -h <cmd> / help <cmd> याचा वापर करा."
+msgstr ""
+"आदेशकरीता तपशील माहिती दाखवण्यासाठी -h <cmd> / help <cmd> याचा वापर करा."
 
 #: fish/copy.c:42
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
-"प्रतिमामध्ये फाइल्स्चे प्रत बनवण्यासाठी 'copy-in <local> [<local>...] <remotedir>' "
-"याचा वापर करा\n"
+"प्रतिमामध्ये फाइल्स्चे प्रत बनवण्यासाठी 'copy-in <local> [<local>...] "
+"<remotedir>' याचा वापर करा\n"
 
 #: fish/copy.c:71
 #, c-format
@@ -3101,8 +3105,8 @@ msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
-"प्रतिमेच्या बाहेर फाइल्चे प्रत निर्माण करण्यासाठी 'copy-out <remote> [<remote>...] "
-"<localdir>' वापर करा\n"
+"प्रतिमेच्या बाहेर फाइल्चे प्रत निर्माण करण्यासाठी 'copy-out <remote> "
+"[<remote>...] <localdir>' वापर करा\n"
 
 #: fish/display.c:48
 #, c-format
@@ -3461,8 +3465,8 @@ msgstr "बूट आकार वाचणे अशक्य"
 msgid "failed to get sector size of disk: %s"
 msgstr "डिस्कचे सेक्टर आकार प्राप्त करण्यास अपयशी: %s"
 
-#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44 fish/prep-lv.c:75
-#: fish/prep-lv.c:116 fish/prep-part.c:42
+#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44
+#: fish/prep-lv.c:75 fish/prep-lv.c:116 fish/prep-part.c:42
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr "डिस्कचे विभाजन करण्यास अपयशी: %s"
@@ -3487,8 +3491,8 @@ msgstr "बूट फाइलप्रणाली निर्माण कर
 msgid "failed to create root filesystem: %s"
 msgstr "रूट फाइलप्रणाली निर्माण करण्यास अपयशी: %s"
 
-#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65 fish/prep-lv.c:81
-#: fish/prep-lv.c:106 fish/prep-lv.c:122
+#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65
+#: fish/prep-lv.c:81 fish/prep-lv.c:106 fish/prep-lv.c:122
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr "LV नावकरीता अयोग्य स्वरूप, '/dev/VG/LV' याचा वापर करा"
 
@@ -3591,12 +3595,14 @@ msgstr "guestfish: रिमोट: सर्व्हर कार्यरत 
 #: fish/rc.c:399 fish/rc.c:413
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr "guestfish: प्रोटोकॉल त्रुटी: प्रारंभीक ग्रिटींग सर्व्हरकडे पाठवणे अशक्य\n"
+msgstr ""
+"guestfish: प्रोटोकॉल त्रुटी: प्रारंभीक ग्रिटींग सर्व्हरकडे पाठवणे अशक्य\n"
 
 #: fish/rc.c:424
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr "guestfish: प्रोटोकॉल त्रुटी: सर्व्हर पासून प्रतिसाद डिकोड करण्यास अशक्य\n"
+msgstr ""
+"guestfish: प्रोटोकॉल त्रुटी: सर्व्हर पासून प्रतिसाद डिकोड करण्यास अशक्य\n"
 
 #: fish/reopen.c:43
 #, c-format
@@ -3809,8 +3815,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format, --lvm or --partition like '--"
-"format=%s'.\n"
+"Make sure to specify the argument for --format, --lvm or --partition like '--format=%s'.\n"
 msgstr ""
 
 #: format/format.c:239
@@ -3980,12 +3985,10 @@ msgstr ""
 msgid ""
 "no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -4593,9 +4596,9 @@ msgstr "%s चे आकार असमंजसपणे मोठे आह�
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
+" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
+"(you might need to log out and log in again)."
 msgstr ""
 
 #: lib/launch-direct.c:385 lib/launch-uml.c:154
@@ -4887,8 +4890,7 @@ msgstr "डोमेन माहिती प्राप्त करतेव
 #: lib/libvirt-domain.c:271
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -5095,9 +5097,9 @@ msgstr "%s: तात्पुर्ती डिरेक्ट्री नि
 msgid ""
 "%s: cannot create temporary directory.  It may be that $XDG_RUNTIME_DIR is "
 "pointing to a directory which we cannot write to, for example if you used "
-"‘su [user]’ to change to this user account (see https://bugzilla.redhat."
-"com/967509).  You can correct this by adjusting XDG_RUNTIME_DIR and possibly "
-"creating /run/user/%d with the right ownership."
+"‘su [user]’ to change to this user account (see "
+"https://bugzilla.redhat.com/967509).  You can correct this by adjusting "
+"XDG_RUNTIME_DIR and possibly creating /run/user/%d with the right ownership."
 msgstr ""
 
 #: lib/tmpdirs.c:282
@@ -5118,7 +5120,8 @@ msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s
 #: lib/tmpdirs.c:299
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
-msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s ग्रूप किंवा इतर द्वारे लेखनजोगी आहे (मोड %o)"
+msgstr ""
+"सुरक्षा: कॅश्ड् अप्लायंस् %s ग्रूप किंवा इतर द्वारे लेखनजोगी आहे (मोड %o)"
 
 #: lib/version.c:166
 #, c-format
@@ -5318,8 +5321,8 @@ msgstr ""
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
-"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b> "
-"means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
+"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b>"
+" means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
 "more information about output options."
 msgstr ""
 
@@ -5341,8 +5344,8 @@ msgstr ""
 #: p2v/gui.c:857
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
-"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others, "
-"leave this field blank."
+"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others,"
+" leave this field blank."
 msgstr ""
 
 #: p2v/gui.c:863
@@ -5377,7 +5380,8 @@ msgstr ""
 
 #: p2v/gui.c:939
 msgid ""
-"Left click on an interface name to flash the light on the physical interface."
+"Left click on an interface name to flash the light on the physical "
+"interface."
 msgstr ""
 
 #: p2v/gui.c:961
@@ -5456,8 +5460,7 @@ msgstr ""
 #: p2v/gui.c:1815
 #, c-format
 msgid ""
-"Debug information and log files are saved to this directory on the "
-"conversion server:\n"
+"Debug information and log files are saved to this directory on the conversion server:\n"
 "%s"
 msgstr ""
 
@@ -5715,8 +5718,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format or --scratch like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --format or --scratch like '--format=%s'.\n"
 msgstr ""
 
 #: rescue/suggest.c:62
@@ -5840,8 +5842,7 @@ msgstr ""
 msgid ""
 "cannot find libvirt pool ‘%s’: %s\n"
 "\n"
-"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-"
-"dumpxml <pool>’ to display details about a particular pool.\n"
+"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-dumpxml <pool>’ to display details about a particular pool.\n"
 "\n"
 "To set the pool which virt-v2v uses, add the ‘-os <pool>’ option."
 msgstr ""
@@ -5924,8 +5925,7 @@ msgstr "virt-tar: {dir}: डिरेक्ट्रीचे नाव '/' अ�
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -5953,7 +5953,8 @@ msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
-"आणखी 1 किंवा 2 घटके, सबकि पाथ तसेच वैकल्पिकरित्या एक्सपोर्ट करण्याजोगी मूल्य अपेक्षीत आहे\n"
+"आणखी 1 किंवा 2 घटके, सबकि पाथ तसेच वैकल्पिकरित्या एक्सपोर्ट करण्याजोगी मूल्य"
+" अपेक्षीत आहे\n"
 
 #: tools/virt-win-reg:502
 #, perl-brace-format
@@ -5974,9 +5975,3 @@ msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल डाउ
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल अपलोड करणे शक्य नाही: {err}\n"
-
-#~ msgid "%s: optional argument \"%s\" given twice\n"
-#~ msgstr "%s: वैकल्पिक घटक \"%s\" दोनवेळा दिले\n"
-
-#~ msgid "virt-tar: extract/upload mode specified twice on the command line\n"
-#~ msgstr "virt-tar: आदेश ओळवर प्राप्त करा/अपलोड करा मोड दोनवेळा निर्देशीत केले\n"

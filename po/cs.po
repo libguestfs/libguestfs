@@ -1,11 +1,10 @@
 # Zdenek <chmelarz@gmail.com>, 2017. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.37\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs 1.39.12\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2018-12-11 18:44+0000\n"
-"PO-Revision-Date: 2017-09-11 04:50-0400\n"
+"PO-Revision-Date: 2017-09-11 04:50+0000\n"
 "Last-Translator: Zdenek <chmelarz@gmail.com>\n"
 "Language-Team: Czech\n"
 "Language: cs\n"
@@ -13,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: align/scan.c:80 cat/cat.c:59 cat/filesystems.c:94 cat/log.c:69 cat/ls.c:97
 #: cat/tail.c:66 df/main.c:72 diff/diff.c:106 edit/edit.c:68 fish/fish.c:115
@@ -104,15 +103,15 @@ msgstr ""
 #: builder/index-validate.c:155
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.0"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.0"
 msgstr ""
 
 #: builder/index-validate.c:164
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.1"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.1"
 msgstr ""
 
 #: builder/index-validate.c:175
@@ -704,8 +703,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --checksum or --format like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --checksum or --format like '--format=%s'.\n"
 msgstr ""
 
 #: diff/diff.c:761
@@ -3060,7 +3058,8 @@ msgstr ""
 #: fish/copy.c:42
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 
 #: fish/copy.c:71
@@ -3419,8 +3418,8 @@ msgstr ""
 msgid "failed to get sector size of disk: %s"
 msgstr ""
 
-#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44 fish/prep-lv.c:75
-#: fish/prep-lv.c:116 fish/prep-part.c:42
+#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44
+#: fish/prep-lv.c:75 fish/prep-lv.c:116 fish/prep-part.c:42
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr ""
@@ -3445,8 +3444,8 @@ msgstr ""
 msgid "failed to create root filesystem: %s"
 msgstr ""
 
-#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65 fish/prep-lv.c:81
-#: fish/prep-lv.c:106 fish/prep-lv.c:122
+#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65
+#: fish/prep-lv.c:81 fish/prep-lv.c:106 fish/prep-lv.c:122
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr ""
 
@@ -3764,8 +3763,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format, --lvm or --partition like '--"
-"format=%s'.\n"
+"Make sure to specify the argument for --format, --lvm or --partition like '--format=%s'.\n"
 msgstr ""
 
 #: format/format.c:239
@@ -3935,12 +3933,10 @@ msgstr ""
 msgid ""
 "no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -4548,9 +4544,9 @@ msgstr ""
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
+" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
+"(you might need to log out and log in again)."
 msgstr ""
 
 #: lib/launch-direct.c:385 lib/launch-uml.c:154
@@ -4842,8 +4838,7 @@ msgstr ""
 #: lib/libvirt-domain.c:271
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -5043,9 +5038,9 @@ msgstr ""
 msgid ""
 "%s: cannot create temporary directory.  It may be that $XDG_RUNTIME_DIR is "
 "pointing to a directory which we cannot write to, for example if you used "
-"‘su [user]’ to change to this user account (see https://bugzilla.redhat."
-"com/967509).  You can correct this by adjusting XDG_RUNTIME_DIR and possibly "
-"creating /run/user/%d with the right ownership."
+"‘su [user]’ to change to this user account (see "
+"https://bugzilla.redhat.com/967509).  You can correct this by adjusting "
+"XDG_RUNTIME_DIR and possibly creating /run/user/%d with the right ownership."
 msgstr ""
 
 #: lib/tmpdirs.c:282
@@ -5272,8 +5267,8 @@ msgstr ""
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
-"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b> "
-"means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
+"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b>"
+" means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
 "more information about output options."
 msgstr ""
 
@@ -5295,8 +5290,8 @@ msgstr ""
 #: p2v/gui.c:857
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
-"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others, "
-"leave this field blank."
+"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others,"
+" leave this field blank."
 msgstr ""
 
 #: p2v/gui.c:863
@@ -5333,7 +5328,8 @@ msgstr ""
 
 #: p2v/gui.c:939
 msgid ""
-"Left click on an interface name to flash the light on the physical interface."
+"Left click on an interface name to flash the light on the physical "
+"interface."
 msgstr ""
 
 # auto translated by TM merge from project: blivet-gui, version: master,
@@ -5420,8 +5416,7 @@ msgstr ""
 #: p2v/gui.c:1815
 #, c-format
 msgid ""
-"Debug information and log files are saved to this directory on the "
-"conversion server:\n"
+"Debug information and log files are saved to this directory on the conversion server:\n"
 "%s"
 msgstr ""
 
@@ -5681,8 +5676,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format or --scratch like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --format or --scratch like '--format=%s'.\n"
 msgstr ""
 
 #: rescue/suggest.c:62
@@ -5806,8 +5800,7 @@ msgstr ""
 msgid ""
 "cannot find libvirt pool ‘%s’: %s\n"
 "\n"
-"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-"
-"dumpxml <pool>’ to display details about a particular pool.\n"
+"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-dumpxml <pool>’ to display details about a particular pool.\n"
 "\n"
 "To set the pool which virt-v2v uses, add the ‘-os <pool>’ option."
 msgstr ""
@@ -5890,8 +5883,7 @@ msgstr ""
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -5932,109 +5924,3 @@ msgstr ""
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
-
-#~ msgid "%s"
-#~ msgstr "%s"
-
-#~ msgid ""
-#~ "%s\n"
-#~ "Options:\n"
-#~ msgstr ""
-#~ "%s\n"
-#~ "Volby:\n"
-
-#~ msgid "%s (ignored)"
-#~ msgstr "%s (ignorováno)"
-
-#~ msgid "%s did not return any output"
-#~ msgstr "%s nevrátil žádný výstup"
-
-#~ msgid "%s does not exist in the guest"
-#~ msgstr "%s na hostu neexistuje"
-
-# auto translated by TM merge from project: volume_key, version: master,
-# DocId: volume_key
-#~ msgid "%s: %s"
-#~ msgstr "%s: %s"
-
-# auto translated by TM merge from project: virt-manager, version: master,
-# DocId: virt-manager
-#~ msgid "Architecture:"
-#~ msgstr "Architektura CPU:"
-
-# auto translated by TM merge from project: system-config-kickstart, version:
-# master, DocId: system-config-kickstart
-#~ msgid "CD-ROM"
-#~ msgstr "CD-ROM"
-
-# auto translated by TM merge from project: imsettings, version: master,
-# DocId: imsettings
-#~ msgid "DIR"
-#~ msgstr "ADRESÁŘ"
-
-# auto translated by TM merge from project: libreport, version: master, DocId:
-# libreport
-#~ msgid "Display version and exit"
-#~ msgstr "Zobrazit verzi a skončit"
-
-# auto translated by TM merge from project: ibus, version: head, DocId: ibus10
-#~ msgid "Done"
-#~ msgstr "Hotovo"
-
-# auto translated by TM merge from project: im-chooser , version: master,
-# DocId: im-chooser
-#~ msgid "FILE"
-#~ msgstr "SOUBOR"
-
-# auto translated by TM merge from project: blivet-gui, version: master,
-# DocId: po/blivet-gui
-#~ msgid "Free space"
-#~ msgstr "Volné místo"
-
-# auto translated by TM merge from project: libreport, version: master, DocId:
-# libreport
-#~ msgid "Output file"
-#~ msgstr "Výstupní soubor"
-
-# auto translated by TM merge from project: abrt, version: master, DocId: abrt
-#~ msgid "Output format"
-#~ msgstr "Formát výstupu"
-
-# auto translated by TM merge from project: libuser, version: default, DocId:
-# libuser
-#~ msgid "PATH"
-#~ msgstr "CESTA"
-
-# auto translated by TM merge from project: tvtime, version: 1.0.7, DocId:
-# tvtime
-#~ msgid "Running: %s"
-#~ msgstr "Spouštění: %s"
-
-# auto translated by TM merge from project: dnf, version: master, DocId: dnf
-#~ msgid "SCRIPT"
-#~ msgstr "SKRIPT"
-
-# auto translated by TM merge from project: anaconda, version: rhel7-branch,
-# DocId: anaconda
-#~ msgid "Set root password"
-#~ msgstr "Zadejte heslo pro uživatele root"
-
-# auto translated by TM merge from project: Fedora Cheat Cubes, version:
-# master, DocId: Fedora_Cheat_Cube_Users
-#~ msgid "directory"
-#~ msgstr "adresář"
-
-# auto translated by TM merge from project: Fedora Cheat Cubes, version:
-# master, DocId: Fedora_Cheat_Cube_Users
-#~ msgid "file"
-#~ msgstr "souboru"
-
-# auto translated by TM merge from project: docbook-locales, version: master,
-# DocId: locale
-#~ msgid "part"
-#~ msgstr "část"
-
-# auto translated by TM merge from project: anaconda, version: rhel7-branch,
-# DocId: anaconda
-#~ msgid "bridge"
-#~ msgstr "most"

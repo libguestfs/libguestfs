@@ -9,20 +9,18 @@
 # Alex Puchades <alex94puchades@gmail.com>, 2015. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.37\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs 1.39.12\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2018-12-11 18:44+0000\n"
-"PO-Revision-Date: 2015-03-18 06:06-0400\n"
+"PO-Revision-Date: 2015-03-16 07:04+0000\n"
 "Last-Translator: Alex Puchades <alex94puchades@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
-"language/es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/language/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: align/scan.c:80 cat/cat.c:59 cat/filesystems.c:94 cat/log.c:69 cat/ls.c:97
 #: cat/tail.c:66 df/main.c:72 diff/diff.c:106 edit/edit.c:68 fish/fish.c:115
@@ -113,15 +111,15 @@ msgstr ""
 #: builder/index-validate.c:155
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.0"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.0"
 msgstr ""
 
 #: builder/index-validate.c:164
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.1"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.1"
 msgstr ""
 
 #: builder/index-validate.c:175
@@ -201,8 +199,7 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: muestra los sistemas de arcivos, particiones, dispositivos de bloques y "
-"LVM en una MV\n"
+"%s: muestra los sistemas de arcivos, particiones, dispositivos de bloques y LVM en una MV\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
 "Uso:\n"
 "  %s [--opciones] -d domname\n"
@@ -213,16 +210,13 @@ msgstr ""
 "  --blkdevs|--block-devices\n"
 "                       Muestra los dispositivos de bloque\n"
 "  -c|--connect uri     Esecifica URI de libvirt para la opción -d\n"
-"  --csv                Ofrece los resultados como valores separados por "
-"comas\n"
+"  --csv                Ofrece los resultados como valores separados por comas\n"
 "  -d|--domain guest    Agrega discos de los huéspedes libvirt\n"
-"  --echo-keys          Muestra las frases de acceso a medida que se las "
-"tipea\n"
+"  --echo-keys          Muestra las frases de acceso a medida que se las tipea\n"
 "  --extra              Muestra sistemas de archivos con datos y swap\n"
 "  --filesystems        Muestra sistemas de archivos montables\n"
 "  --format[=raw|..]    Obliga al formateo de disco para la opción -a\n"
-"  -h|--human-readable  Muestra los resultados de --long en tamaños posibles "
-"de ser leídos por humanos\n"
+"  -h|--human-readable  Muestra los resultados de --long en tamaños posibles de ser leídos por humanos\n"
 "  --help               Muestra una pequeña asistencia\n"
 "  --keys-from-stdin    Lee frases de acceso de stdin\n"
 "  -l|--long            Resultados extensos\n"
@@ -745,8 +739,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --checksum or --format like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --checksum or --format like '--format=%s'.\n"
 msgstr ""
 
 #: diff/diff.c:761
@@ -1037,7 +1030,8 @@ msgstr "configura el dispositivo de bloques con modo de sólo lectura"
 
 #: fish/cmds.c:555
 msgid "set block device to read-write"
-msgstr "configura el dispositivo de bloques con modo de lectura y de escritura"
+msgstr ""
+"configura el dispositivo de bloques con modo de lectura y de escritura"
 
 #: fish/cmds.c:559
 msgid "cancel a running or paused balance"
@@ -1433,8 +1427,8 @@ msgstr "verifica si existe un archivo o una carpeta"
 #: fish/cmds.c:669
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
 msgstr ""
-"instalar el cargador de arranque SYSLINUX en un sistema de archivos ext2/3/4 "
-"o btrfs"
+"instalar el cargador de arranque SYSLINUX en un sistema de archivos ext2/3/4"
+" o btrfs"
 
 #: fish/cmds.c:670
 msgid "expand a f2fs filesystem"
@@ -2132,7 +2126,8 @@ msgstr "abre un dispositivo de bloques cifrado con LUKS"
 #: fish/cmds.c:870
 msgid "open a LUKS-encrypted block device read-only"
 msgstr ""
-"abre un dispositivo de bloques cifrado mediante LUKS, en modo de sólo lectura"
+"abre un dispositivo de bloques cifrado mediante LUKS, en modo de sólo "
+"lectura"
 
 #: fish/cmds.c:871
 msgid "create an LVM logical volume"
@@ -3015,8 +3010,8 @@ msgstr "genera un grupo de volúmenes LVM"
 #: fish/cmds.c:1158
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr ""
-"obtiene los UUIDs de todos los volúmenes lógicos (LV) existentes en el grupo "
-"de volúmenes"
+"obtiene los UUIDs de todos los volúmenes lógicos (LV) existentes en el grupo"
+" de volúmenes"
 
 #: fish/cmds.c:1159
 msgid "get volume group metadata"
@@ -3025,8 +3020,8 @@ msgstr ""
 #: fish/cmds.c:1160
 msgid "get the PV UUIDs containing the volume group"
 msgstr ""
-"obtiene los UUIDs de todos los volúmenes físicos (PV) existentes en el grupo "
-"de volúmenes"
+"obtiene los UUIDs de todos los volúmenes físicos (PV) existentes en el grupo"
+" de volúmenes"
 
 #: fish/cmds.c:1161
 msgid "remove an LVM volume group"
@@ -3126,7 +3121,8 @@ msgstr ""
 #: fish/cmds.c:1192
 msgid "determine file type inside a compressed file"
 msgstr ""
-"determina el tipo de archivo que se encuentra dentro de un archivo comprimido"
+"determina el tipo de archivo que se encuentra dentro de un archivo "
+"comprimido"
 
 #: fish/cmds.c:1195
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
@@ -3136,7 +3132,8 @@ msgstr ""
 #: fish/copy.c:42
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 "utilice el comando 'copy-in <local> [<local>...] <remotedir>' para copiar "
 "archivos dentro de la imagen\n"
@@ -3408,8 +3405,7 @@ msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
-"%s: no se ha encontrado la unidad '%c:'. Para conocer las unidades "
-"disponibles ejecute:\n"
+"%s: no se ha encontrado la unidad '%c:'. Para conocer las unidades disponibles ejecute:\n"
 "  inspect-get-drive-mappings %s\n"
 
 #: fish/fish.c:1789
@@ -3518,8 +3514,8 @@ msgstr "no se pudo analizar el tamaño de arranque"
 msgid "failed to get sector size of disk: %s"
 msgstr "falló al obtener el tamaño del sector del disco: %s"
 
-#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44 fish/prep-lv.c:75
-#: fish/prep-lv.c:116 fish/prep-part.c:42
+#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44
+#: fish/prep-lv.c:75 fish/prep-lv.c:116 fish/prep-part.c:42
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr "falló al particionar el disco: %s"
@@ -3544,8 +3540,8 @@ msgstr "falló al crear el sistema de archivos de arranque: %s"
 msgid "failed to create root filesystem: %s"
 msgstr "falló al crear el sistema de archivos raíz: %s"
 
-#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65 fish/prep-lv.c:81
-#: fish/prep-lv.c:106 fish/prep-lv.c:122
+#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65
+#: fish/prep-lv.c:81 fish/prep-lv.c:106 fish/prep-lv.c:122
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr "formato incorrecto de nombre de LV, utilice '/dev/VG/LV'"
 
@@ -3649,8 +3645,8 @@ msgstr "guestfish: remoto: parece ser que el servidor no se está ejecutando\n"
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
-"guestfish: error de protocolo: no es posible enviar salutación inicial hacia "
-"el servidor\n"
+"guestfish: error de protocolo: no es posible enviar salutación inicial hacia"
+" el servidor\n"
 
 #: fish/rc.c:424
 #, c-format
@@ -3870,8 +3866,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format, --lvm or --partition like '--"
-"format=%s'.\n"
+"Make sure to specify the argument for --format, --lvm or --partition like '--format=%s'.\n"
 msgstr ""
 
 #: format/format.c:239
@@ -4041,12 +4036,10 @@ msgstr ""
 msgid ""
 "no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -4654,9 +4647,9 @@ msgstr "el tamaño de %s es irracionalmente largo (%<PRIi64> bytes)"
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
+" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
+"(you might need to log out and log in again)."
 msgstr ""
 
 #: lib/launch-direct.c:385 lib/launch-uml.c:154
@@ -4950,20 +4943,16 @@ msgstr "error al obtener información de dominio: %s"
 #: lib/libvirt-domain.c:271
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 "error: el dominio es una máquina virtual viva.\n"
 "Escribir sobre los discos de una máquina virtual viva puede corromperlos.\n"
-"O bien utilice un acceso de sólo lectura, o, si es que el huésped está "
-"ejecutando\n"
-"el demonio guestfsd, entonces especifique un tipo de acceso vivo. En la "
-"mayoría\n"
-"de las herramientas de libguestfs, estas opciones son respectivamente --ro o "
-"--live\n"
+"O bien utilice un acceso de sólo lectura, o, si es que el huésped está ejecutando\n"
+"el demonio guestfsd, entonces especifique un tipo de acceso vivo. En la mayoría\n"
+"de las herramientas de libguestfs, estas opciones son respectivamente --ro o --live\n"
 "Consulte la documentación para obtener mayor información."
 
 #: lib/libvirt-domain.c:364
@@ -5009,8 +4998,7 @@ msgid ""
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
 "este huésped no posee una definición libvirt <channel> para guestfsd\n"
-"Para obtener mayor información, consulte ATTACHING TO RUNNING DAEMONS en "
-"guestfs(3)."
+"Para obtener mayor información, consulte ATTACHING TO RUNNING DAEMONS en guestfs(3)."
 
 #: lib/libvirt-domain.c:876
 #, c-format
@@ -5168,9 +5156,9 @@ msgstr "%s: no es posible crear carpeta temporal"
 msgid ""
 "%s: cannot create temporary directory.  It may be that $XDG_RUNTIME_DIR is "
 "pointing to a directory which we cannot write to, for example if you used "
-"‘su [user]’ to change to this user account (see https://bugzilla.redhat."
-"com/967509).  You can correct this by adjusting XDG_RUNTIME_DIR and possibly "
-"creating /run/user/%d with the right ownership."
+"‘su [user]’ to change to this user account (see "
+"https://bugzilla.redhat.com/967509).  You can correct this by adjusting "
+"XDG_RUNTIME_DIR and possibly creating /run/user/%d with the right ownership."
 msgstr ""
 
 #: lib/tmpdirs.c:282
@@ -5393,8 +5381,8 @@ msgstr ""
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
-"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b> "
-"means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
+"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b>"
+" means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
 "more information about output options."
 msgstr ""
 
@@ -5416,8 +5404,8 @@ msgstr ""
 #: p2v/gui.c:857
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
-"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others, "
-"leave this field blank."
+"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others,"
+" leave this field blank."
 msgstr ""
 
 #: p2v/gui.c:863
@@ -5452,7 +5440,8 @@ msgstr ""
 
 #: p2v/gui.c:939
 msgid ""
-"Left click on an interface name to flash the light on the physical interface."
+"Left click on an interface name to flash the light on the physical "
+"interface."
 msgstr ""
 
 #: p2v/gui.c:961
@@ -5531,8 +5520,7 @@ msgstr ""
 #: p2v/gui.c:1815
 #, c-format
 msgid ""
-"Debug information and log files are saved to this directory on the "
-"conversion server:\n"
+"Debug information and log files are saved to this directory on the conversion server:\n"
 "%s"
 msgstr ""
 
@@ -5790,8 +5778,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format or --scratch like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --format or --scratch like '--format=%s'.\n"
 msgstr ""
 
 #: rescue/suggest.c:62
@@ -5915,8 +5902,7 @@ msgstr ""
 msgid ""
 "cannot find libvirt pool ‘%s’: %s\n"
 "\n"
-"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-"
-"dumpxml <pool>’ to display details about a particular pool.\n"
+"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-dumpxml <pool>’ to display details about a particular pool.\n"
 "\n"
 "To set the pool which virt-v2v uses, add the ‘-os <pool>’ option."
 msgstr ""
@@ -6002,25 +5988,19 @@ msgstr ""
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
-"{prog}: No pudo detectarse un sistema operativo dentro de esta imagen de "
-"disco.\n"
+"{prog}: No pudo detectarse un sistema operativo dentro de esta imagen de disco.\n"
 "\n"
-"Esto puede ser causado o bien porque el archivo no es una imagen de disco, o "
-"porque no\n"
-" es una imagen de máquina virtual, o porque el tipo de SO no es comprendido "
-"por libguestfs.\n"
+"Esto puede ser causado o bien porque el archivo no es una imagen de disco, o porque no\n"
+" es una imagen de máquina virtual, o porque el tipo de SO no es comprendido por libguestfs.\n"
 "\n"
-"Si considera que esto es un error, por favor envíe un reporte de error "
-"incluyendo\n"
-" la mayor cantidad de información posible relacionada con la imagen de "
-"disco.\n"
+"Si considera que esto es un error, por favor envíe un reporte de error incluyendo\n"
+" la mayor cantidad de información posible relacionada con la imagen de disco.\n"
 
 #: tools/virt-tar:262 tools/virt-win-reg:320
 #, perl-brace-format
@@ -6036,8 +6016,8 @@ msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
-"esperando 1, 2 o más parámetros, ruta de subllave y, opcionalmente, el valor "
-"a ser exportado\n"
+"esperando 1, 2 o más parámetros, ruta de subllave y, opcionalmente, el valor"
+" a ser exportado\n"
 
 #: tools/virt-win-reg:502
 #, perl-brace-format
@@ -6061,706 +6041,3 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 "virt-win-reg: {p}: no ha sido posible cargar el archivo de registro: {err}\n"
-
-#~ msgid "  An extra partition will be created for the surplus."
-#~ msgstr "Se creará una partición para el espacio restante."
-
-#~ msgid ""
-#~ "  The surplus space is not large enough for an extra partition to be "
-#~ "created and so it will just be ignored."
-#~ msgstr ""
-#~ "El espacio restante no es suficiente para crear una nueva partición, así "
-#~ "que se ignora."
-
-#~ msgid ""
-#~ "  The surplus space will be ignored.  Run a partitioning program in the "
-#~ "guest to partition this extra space if you want."
-#~ msgstr ""
-#~ " Se ignora el espacio restante. Ejecute un editor de particiones en el "
-#~ "sistema invitado para particionar este espacio extra."
-
-#~ msgid "%s"
-#~ msgstr "%s"
-
-#~ msgid "%s (ignored)"
-#~ msgstr "%s (se ignora)"
-
-#~ msgid "%s is not a regular file in the guest"
-#~ msgstr "%s no es un archivo en el sistema invitado"
-
-#~ msgid "%s option used more than once on the command line"
-#~ msgstr "la opción %s aparece más de una vez en la línea de comandos"
-
-#~ msgid ""
-#~ "%s references unknown device \"%s\".  You may have to fix this entry "
-#~ "manually after conversion."
-#~ msgstr ""
-#~ "%s referencia al dispositivo desconocido \"%s\". Puede que tengas que "
-#~ "arreglar esta entrada manualmente después de la conversión."
-
-#~ msgid "%s: %s"
-#~ msgstr "%s: %s"
-
-#~ msgid "%s: %s: %s"
-#~ msgstr "%s: %s: %s"
-
-#~ msgid "%s: This logical volume will be expanded to maximum size."
-#~ msgstr "%s: El volumen lógico se expandirá a su tamaño máximo."
-
-#~ msgid ""
-#~ "%s: This partition will be created, but the contents will be ignored (ie. "
-#~ "not copied to the target)."
-#~ msgstr ""
-#~ "%s: Se creará la partición, pero el contenido se ignorará (p ej. no se "
-#~ "copiará al destino)."
-
-#~ msgid "%s: This partition will be deleted."
-#~ msgstr "%s: Se borrará la partición."
-
-#~ msgid "%s: This partition will be left alone."
-#~ msgstr "%s: La partición se dejará como está."
-
-#~ msgid "%s: This partition will be resized from %s to %s."
-#~ msgstr "%s: Se cambiará el tamaño de la partición de %s a %s."
-
-#~ msgid ""
-#~ "%s: build virtual machine images quickly\n"
-#~ "\n"
-#~ " virt-builder OS-VERSION\n"
-#~ " virt-builder -l\n"
-#~ " virt-builder --notes OS-VERSION\n"
-#~ " virt-builder --print-cache\n"
-#~ " virt-builder --cache-all-templates\n"
-#~ " virt-builder --delete-cache\n"
-#~ " virt-builder --get-kernel IMAGE\n"
-#~ "\n"
-#~ "A short summary of the options is given below.  For detailed help please\n"
-#~ "read the man page virt-builder(1).\n"
-#~ msgstr ""
-#~ "%s: crear imágenes virtuales de manera rápida\n"
-#~ "\n"
-#~ " virt-builder OS-VERSION\n"
-#~ " virt-builder -l\n"
-#~ " virt-builder --notes OS-VERSION\n"
-#~ " virt-builder --print-cache\n"
-#~ " virt-builder --cache-all-templates\n"
-#~ " virt-builder --delete-cache\n"
-#~ " virt-builder --get-kernel IMAGE\n"
-#~ "\n"
-#~ "Puede ver un resumen de las opciones soportadas a continuación. Para una "
-#~ "ayuda más detallada\n"
-#~ "consulte la página del manual virt-builder(1).\n"
-
-#~ msgid "%s: command exited with an error"
-#~ msgstr "%s: el comando devolvió un error"
-
-#~ msgid ""
-#~ "%s: customize a virtual machine\n"
-#~ "\n"
-#~ " virt-customize [--options] -d domname\n"
-#~ "\n"
-#~ " virt-customize [--options] -a disk.img [-a disk.img ...]\n"
-#~ "\n"
-#~ "A short summary of the options is given below.  For detailed help please\n"
-#~ "read the man page virt-customize(1).\n"
-#~ msgstr ""
-#~ "%s: personalizar una máquina virtual\n"
-#~ "\n"
-#~ " virt-customize [--options] -d domname\n"
-#~ "\n"
-#~ " virt-customize [--options] -a disk.img [-a disk.img ...]\n"
-#~ "\n"
-#~ "Un breve resumen de las opciones soportadas aparece a continuación.  Para "
-#~ "una ayuda más detallada\n"
-#~ "consulte la página de manual virt-customize(1).\n"
-
-#~ msgid "%s: error: %s"
-#~ msgstr "%s: error: %s"
-
-#~ msgid "%s: file is too small to be a disk image (%Ld bytes)"
-#~ msgstr ""
-#~ "%s: el archivo es demasiado pequeño para hacer de imagen de disco (%Ld "
-#~ "bytes)"
-
-#~ msgid "%s: new partition size is zero or negative"
-#~ msgstr "%s: el tamaño de la partición es cero o negativo"
-
-#~ msgid "%s: partition size %Ld < filesystem size %Ld"
-#~ msgstr "%s: tamaño de la partición %Ld < tamaño del sistema de archivos %Ld"
-
-#~ msgid "%s: partition size %Ld < physical volume size %Ld"
-#~ msgstr "%s: tamaño de la partición %Ld < tamaño del volumen físico %Ld"
-
-#~ msgid "%s: physical volume not returned by pvs_full"
-#~ msgstr "%s: pvs_full no devolvió un volumen físico "
-
-#~ msgid ""
-#~ "%s: reset or unconfigure a virtual machine so clones can be made\n"
-#~ "\n"
-#~ " virt-sysprep [--options] -d domname\n"
-#~ "\n"
-#~ " virt-sysprep [--options] -a disk.img [-a disk.img ...]\n"
-#~ "\n"
-#~ "A short summary of the options is given below.  For detailed help please\n"
-#~ "read the man page virt-sysprep(1).\n"
-#~ msgstr ""
-#~ "%s: reinicia o borra la configuración de una máquina virtual, de forma "
-#~ "que se puedan clonar\n"
-#~ "\n"
-#~ " virt-sysprep [--options] -d domname\n"
-#~ "\n"
-#~ " virt-sysprep [--options] -a disk.img [-a disk.img ...]\n"
-#~ "\n"
-#~ "Un breve resumen de las opciones soportadas aparece a continuación.  Para "
-#~ "una ayuda más detallada\n"
-#~ "consulte la página de manual virt-sysprep(1).\n"
-
-#~ msgid ""
-#~ "%s: resize a virtual machine disk\n"
-#~ "\n"
-#~ "A short summary of the options is given below.  For detailed help please\n"
-#~ "read the man page virt-resize(1).\n"
-#~ msgstr ""
-#~ "%s: redimensionar un disco de máquina virtual\n"
-#~ "\n"
-#~ "Un breve resumen de las opciones soportadas aparece a continuación.  Para "
-#~ "una ayuda más detallada\n"
-#~ "consulte la página de manual virt-resize(1).\n"
-
-#~ msgid "%s: this partition has already been ignored or deleted"
-#~ msgstr "%s: esta partición ya ha sido ignorada o borrada"
-
-#~ msgid "%s: this partition has already been marked for resizing"
-#~ msgstr "%s: esta partición ya ha sido marcada para redimensionar"
-
-#~ msgid "%s: this partition overlaps the previous one"
-#~ msgstr "%s: esta partición se superpone con la partición anterior"
-
-#~ msgid ""
-#~ "%s: unknown partition table type\n"
-#~ "virt-resize only supports MBR (DOS) and GPT partition tables."
-#~ msgstr ""
-#~ "%s: tipo de tabla de particiones desconocido\n"
-#~ "virt-resize sólo soporta tablas de partición MBR (DOS) y GPT."
-
-#~ msgid "%s: warning: %s"
-#~ msgstr "%s: aviso: %s"
-
-#~ msgid "%s: zero length path in the index file\n"
-#~ msgstr "%s: ruta de longitud cero en el archivo de índice\n"
-
-#~ msgid "'CMD+ARGS'"
-#~ msgstr "'CMD+ARGS'"
-
-#~ msgid "--attach-format parameter must appear before --attach parameter"
-#~ msgstr ""
-#~ "el argumento de --attach-format debe aparecer antes que el argumento de --"
-#~ "attach"
-
-#~ msgid ""
-#~ "--compress cannot be used for raw output.  Remove this option or use --"
-#~ "convert qcow2."
-#~ msgstr ""
-#~ "--compress no se puede usar para salida raw. Omita esta opción o utilice "
-#~ "--convert qcow2."
-
-#~ msgid "--domain option can only be given once"
-#~ msgstr "la opción --domain sólo puede aparecer una vez"
-
-#~ msgid "--enable option can only be given once"
-#~ msgstr "la opción --enable sólo puede aparecer una vez"
-
-#~ msgid "--format parameter must appear before -a parameter"
-#~ msgstr "el argumento de --format debe aparecer antes que el argumento de -a"
-
-#~ msgid "--operations: empty operation name"
-#~ msgstr "--operations: nombre de operación vacío"
-
-#~ msgid "--scriptdir cannot be used more than once"
-#~ msgstr "--scriptdir no puede aparecer más de una vez"
-
-#~ msgid ""
-#~ "--tmp parameter must point to a directory, block device or prebuilt file"
-#~ msgstr ""
-#~ "el argumento de --tmp debe apuntar a una carpeta, dispositivo de bloques "
-#~ "o archivo creado previamente"
-
-#~ msgid "--tmp prebuilt:file: %s: file does not exist"
-#~ msgstr "--tmp prebuild:file: %s: no existe el archivo"
-
-#~ msgid "--tmp prebuilt:file: %s: file does not have backing file"
-#~ msgstr "--tmp prebuilt:file: %s: el archivo no tiene un archivo de respaldo"
-
-#~ msgid "--tmp prebuilt:file: %s: file format is not qcow2"
-#~ msgstr "--tmp prebuilt:file: %s: el formato de archivo no es qcow2"
-
-#~ msgid "-o local: output directory was not specified, use '-os /dir'"
-#~ msgstr "-o local: no se especificó carpeta de salida, use '-os /dir'"
-
-#~ msgid "-os %s: output directory does not exist or is not a directory"
-#~ msgstr "-os %s: la carpeta de salida no existe o no es una carpeta"
-
-#~ msgid "<disk type='%s'> was ignored"
-#~ msgstr "<disk type='%s'> se ignora"
-
-#~ msgid "<disk type='network'> with <source protocol='%s'> was ignored"
-#~ msgstr "<disk type='network'> con <source protocol='%s'> se ignora"
-
-#~ msgid "Add disk image file"
-#~ msgstr "Añadir archivo de imagen de disco"
-
-#~ msgid "Add package(s) to install"
-#~ msgstr "Añadir paquete(s) a instalar"
-
-#~ msgid "Add package(s) to install at first boot"
-#~ msgstr "Añadir paquete(s) a instalar al primer inicio"
-
-#~ msgid "Add qemu-img options"
-#~ msgstr "Añadir opciones de qemu-img"
-
-#~ msgid "Aliases:"
-#~ msgstr "Aliases:"
-
-#~ msgid "Align first partition (default: auto)"
-#~ msgstr "Alinear primera partición (predeterminado: auto)"
-
-#~ msgid "Architecture:"
-#~ msgstr "Arquitectura:"
-
-#~ msgid "Attach data disk/ISO during install"
-#~ msgstr "Acoplar disco/ISO de datos durante la instalación"
-
-#~ msgid "Boot in qemu (-o qemu only)"
-#~ msgstr "Arrancar en qemu (sólo -o qemu)"
-
-#~ msgid ""
-#~ "By default remove all the user accounts and their home directories.\n"
-#~ "The \"root\" account is not removed.\n"
-#~ "\n"
-#~ "See the I<--remove-user-accounts> parameter for a way to specify\n"
-#~ "how to remove only some users, or to not remove some others."
-#~ msgstr ""
-#~ "De forma predeterminada eliminar todas las cuentas de usuario y sus "
-#~ "carpetas de usuario correspondientes.\n"
-#~ "La cuenta de 'root' no será borrada.\n"
-#~ "\n"
-#~ "Consulte el parámetro |<--remove-user-accounts> para especificar\n"
-#~ "cómo eliminar sólo algunos de los usuarios, o no eliminar a alguno de los "
-#~ "demás."
-
-#~ msgid "Cannot get the home directory for %s"
-#~ msgstr "No se puede obtener la carpeta de usuario para %s"
-
-#~ msgid "Change LVM2 PV and VG UUIDs"
-#~ msgstr "Cambiar UUIDs de volúmenes físicos y lógicos de LVM2"
-
-#~ msgid "Change filesystem UUIDs"
-#~ msgstr "Cambiar UUIDs del sistema de archivos"
-
-#~ msgid "Change the permissions of a file"
-#~ msgstr "Cambiar los permisos de un archivo"
-
-#~ msgid "Changing permissions of %s to %s"
-#~ msgstr "Cambiando permisos de %s a %s"
-
-#~ msgid "Check digital signatures"
-#~ msgstr "Comprobar firmas digitales"
-
-#~ msgid "Check there is enough space in $TMPDIR"
-#~ msgstr "Comprobar que haya suficiente espacio en $TMPDIR"
-
-#~ msgid "Checking for sufficient free disk space in the guest"
-#~ msgstr "Comprobar que haya suficiente espacio de disco en el invitado"
-
-#~ msgid "Compatibility option, does nothing"
-#~ msgstr "Opción de compatibilidad, no se hace nada"
-
-#~ msgid "Compressed output format"
-#~ msgstr "Formato de salida comprimido"
-
-#~ msgid "Converting %s to %s"
-#~ msgstr "Convirtiendo %s a %s"
-
-#~ msgid "Converting %s to run on KVM"
-#~ msgstr "Convirtiendo %s para correr sobre KVM"
-
-#~ msgid "Converting the guest to run on KVM"
-#~ msgstr "Convirtiendo el invitado a correr sobre KVM"
-
-#~ msgid "Copy local files or directories into image"
-#~ msgstr "Copiar archivos o carpetas locales a la imagen"
-
-#~ msgid "Copying"
-#~ msgstr "Copiando"
-
-#~ msgid "Copying %s"
-#~ msgstr "Copiando %s"
-
-#~ msgid "Copying disk %d/%d to %s (%s)"
-#~ msgstr "Copiando disco %d/%d a %s (%s)"
-
-#~ msgid "Copying: %s to %s"
-#~ msgstr "Copiando: %s a %s"
-
-#~ msgid "Create a directory"
-#~ msgstr "Crear una carpeta"
-
-#~ msgid "Create symbolic links"
-#~ msgstr "Crear enlaces simbólicos"
-
-#~ msgid "Creating output metadata"
-#~ msgstr "Creando metadatos de salida"
-
-#~ msgid ""
-#~ "Currently this only looks in C</root> and C</home/*> for\n"
-#~ "home directories, so users with home directories in other\n"
-#~ "locations won't have the bash history removed."
-#~ msgstr ""
-#~ "En la actualidad, sólo se buscan carpetas de usuario en C</root> y C</"
-#~ "home/*>,\n"
-#~ "de forma que no se borrará la historia de bash de\n"
-#~ "los usuarios con carpetas de usuario en otras localizaciones"
-
-#~ msgid ""
-#~ "Currently this only looks in C</root> and C</home/*> for\n"
-#~ "home directories, so users with home directories in other\n"
-#~ "locations won't have the ssh files removed."
-#~ msgstr ""
-#~ "En la actualidad, sólo se buscan carpetas home en C</root> y C</home/"
-#~ "*>, \n"
-#~ "de forma que no se borrarán los archivos ssh de los usuarios\n"
-#~ "con carpetas home en otras localizaciones"
-
-#~ msgid "Customize the guest"
-#~ msgstr "Personalizar el sistema invitado"
-
-#~ msgid ""
-#~ "Customize the guest by providing L<virt-customize(1)> options\n"
-#~ "for installing packages, editing files and so on."
-#~ msgstr ""
-#~ "Personaliza el sistema invitado por medio de las opciones L<virt-"
-#~ "customize(1)>\n"
-#~ "para la instalación de paquetes, el editado de archivos, etc."
-
-#~ msgid "DIR"
-#~ msgstr "DIR"
-
-#~ msgid "Delete a file or directory"
-#~ msgstr "Eliminar un archivo o carpeta"
-
-#~ msgid "Delete partition"
-#~ msgstr "Eliminar una partición"
-
-#~ msgid "Delete the template cache"
-#~ msgstr "Borrar la caché de plantilla"
-
-#~ msgid "Deleting: %s"
-#~ msgstr "Eliminando: %s"
-
-#~ msgid "Disable digital signatures"
-#~ msgstr "Desactivar las firmas digitales"
-
-#~ msgid "Disable template cache"
-#~ msgstr "Desactivar la caché de plantilla"
-
-#~ msgid "Display installation notes"
-#~ msgstr "Mostrar notas de instalación"
-
-#~ msgid "Display version and exit"
-#~ msgstr "Mostrar la versión y salir"
-
-#~ msgid "Download all templates to the cache"
-#~ msgstr "Descargar todas las plantillas a la caché"
-
-#~ msgid "Download size:"
-#~ msgstr "Tamaño de la descarga:"
-
-#~ msgid "Downloading: %s"
-#~ msgstr "Decargando: %s"
-
-#~ msgid ""
-#~ "Dual- or multi-boot operating system detected.  Choose the root "
-#~ "filesystem\n"
-#~ "that contains the main operating system from the list below:\n"
-#~ msgstr ""
-#~ "Sistema operativo con arranque dual o multi-boot detectado.  Elige el "
-#~ "sistema de archivos\n"
-#~ "raíz que contenga el sistema operativo principal de la lista que aparece "
-#~ "a continuación:\n"
-
-#~ msgid "Edit file using Perl expression"
-#~ msgstr "Editar archivo por medio de una expresión Perl"
-
-#~ msgid "Editing: %s"
-#~ msgstr "Editando: %s"
-
-#~ msgid "Enable debugging messages"
-#~ msgstr "Activar mensajes de depuración"
-
-#~ msgid "Enable specific operations"
-#~ msgstr "Activar operaciones específicas"
-
-#~ msgid "Enable tracing of libguestfs calls"
-#~ msgstr "Activar el traceado de las llamadas libguestfs"
-
-#~ msgid "Enable/disable specific operations"
-#~ msgstr "Activar/desactivar operaciones específicas"
-
-#~ msgid "Estimating space required on target for each disk"
-#~ msgstr "Estimando el espacio necesario en el destino para cada disco"
-
-#~ msgid "Examining %s"
-#~ msgstr "Examinando %s"
-
-#~ msgid "Examining the guest ..."
-#~ msgstr "Examinando el invitado ..."
-
-#~ msgid "Expand logical volume"
-#~ msgstr "Expandir volumen lógico"
-
-#~ msgid "Expand partition"
-#~ msgstr "Expandir partición"
-
-#~ msgid "FILE"
-#~ msgstr "ARCHIVO"
-
-#~ msgid "FILE:CONTENT"
-#~ msgstr "ARHIVO:CONTENIDO"
-
-#~ msgid "FILE:DEST"
-#~ msgstr "ARCHIVO:DESTINO"
-
-#~ msgid "FILE:EXPR"
-#~ msgstr "ARCHIVO:EXPR"
-
-#~ msgid "FILENAME"
-#~ msgstr "NOMBRE DE ARCHIVO"
-
-#~ msgid ""
-#~ "Failed to initialize the partition table on the target disk.  You need to "
-#~ "wipe or recreate the target disk and then run virt-resize again.\n"
-#~ "\n"
-#~ "The underlying error was: %s"
-#~ msgstr ""
-#~ "Error al inicializar la tabla de particiones en el disco de destino.  "
-#~ "Tendrás que borrar o crear de nuevo el disco de destino y ejecutar virt-"
-#~ "resize de nuevo.\n"
-#~ "\n"
-#~ "El error fue: %s"
-
-#~ msgid "Fingerprint of valid signing key"
-#~ msgstr "Huella de una clave de firma válida"
-
-#~ msgid "Fingerprint: %s\n"
-#~ msgstr "Huella: %s\n"
-
-#~ msgid "Finishing off"
-#~ msgstr "Acabando"
-
-#~ msgid "Fixing first NTFS partition boot record"
-#~ msgstr "Arreglando la entrada de arranque de la primera partición NTFS"
-
-#~ msgid "Flag the system for reconfiguration"
-#~ msgstr "Marcar el sistema para reconfigurar"
-
-#~ msgid ""
-#~ "For Fedora and Red Hat Enterprise Linux,\n"
-#~ "this is removed from C<ifcfg-*> files."
-#~ msgstr ""
-#~ "Para Fedora y Red Hat Enterprise Linux,\n"
-#~ "ésto se borra de los ficheros C<ifcfg-*>."
-
-#~ msgid ""
-#~ "For Linux guests, this touches C</.unconfigured>, which causes\n"
-#~ "the first boot to interactively query the user for settings such\n"
-#~ "as the root password and timezone."
-#~ msgstr ""
-#~ "Para sistemas invitados Linux, ésto creará C</.unconfigured>, lo que "
-#~ "hará\n"
-#~ "que se le pregunte al usuario durante el primer arranque acerca de\n"
-#~ "la contraseña root y la zona horaria."
-
-#~ msgid "Force ntfsresize"
-#~ msgstr "Forzar ntfsresize"
-
-#~ msgid "Forcefully resize partition"
-#~ msgstr "Redimensionar la partición de manera forzosa"
-
-#~ msgid "Format of input disk"
-#~ msgstr "Formato del disco de entrada"
-
-#~ msgid "Format of output disk"
-#~ msgstr "Formato del disco de salida"
-
-#~ msgid "Inject a public key into the guest"
-#~ msgstr "Inyectar clave pública en el sistema invitado"
-
-#~ msgid "Input format (for -i disk)"
-#~ msgstr "Formato de entrada (para -i disco)"
-
-#~ msgid "Installing packages: %s"
-#~ msgstr "Instalando paquetes: %s"
-
-#~ msgid "Just write the metadata"
-#~ msgstr "Escribir los metadatos solamente"
-
-#~ msgid "Key: %s\n"
-#~ msgstr "Clave: %s\n"
-
-#~ msgid "LOCALPATH:REMOTEDIR"
-#~ msgstr "LOCALPATH:REMOTEDIR"
-
-#~ msgid "Libvirt URI"
-#~ msgstr "Libvirt URI"
-
-#~ msgid "Linking: %s -> %s"
-#~ msgstr "Enlazando: %s -> %s"
-
-#~ msgid "List available templates"
-#~ msgstr "Mostrar las plantillas disponibles"
-
-#~ msgid "List supported operations"
-#~ msgstr "Mostrar las operaciones soportadas"
-
-#~ msgid "Make output machine readable"
-#~ msgstr "Hacer legible el sistema de salida"
-
-#~ msgid "Making directory: %s"
-#~ msgstr "Creando carpeta: %s"
-
-#~ msgid "Mapping filesystem data to avoid copying unused and blank areas"
-#~ msgstr ""
-#~ "Mapeando los datos del sistema de archivos para evitar el copiado de "
-#~ "áreas no usadas y en blanco"
-
-#~ msgid "Minimum/default size:"
-#~ msgstr "Tamaño mínimo/predeterminado:"
-
-#~ msgid "Modify the disk image in-place"
-#~ msgstr "Modificar la imagen de disco in situ"
-
-#~ msgid "Mount point on host"
-#~ msgstr "Punto de montaje en el anfitrión"
-
-#~ msgid "Notes on %s"
-#~ msgstr "Notas en %s"
-
-#~ msgid ""
-#~ "On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
-#~ "(VGs),\n"
-#~ "new random UUIDs are generated and assigned to those PVs and VGs."
-#~ msgstr ""
-#~ "En sistemas invitados Linux que tienen volúmenes físicos LVM2 (PVs) o "
-#~ "grupos de volúmenes (VGs),\n"
-#~ "se generan nuevos UUIDs aleatorios y se asignan a estos Pvs y GVs."
-
-#~ msgid ""
-#~ "On guests and filesystem types where this is supported,\n"
-#~ "new random UUIDs are generated and assigned to filesystems."
-#~ msgstr ""
-#~ "En sistemas invitados y sistemas de archivos en que ésto esté soportado,\n"
-#~ "se generan nuevos UUIDs aleatorios y se asignan a los sistemas de "
-#~ "archivos."
-
-#~ msgid "Picked %s because '--root first' was used."
-#~ msgstr "Se eligió %s porque se usó '--root first'."
-
-#~ msgid "Planning how to build this image"
-#~ msgstr "Planeando cómo construir la imagen"
-
-#~ msgid "Print info about template cache"
-#~ msgstr "Imprimir información acerca de la caché de plantillas"
-
-#~ msgid "Read customize commands from file"
-#~ msgstr "Leer órdenes a partir de archivo"
-
-#~ msgid "Relabel files with correct SELinux labels"
-#~ msgstr "Reetiquetar archivos con las etiquetas SELinux correctas"
-
-#~ msgid "Remove \".ssh\" directories in the guest"
-#~ msgstr "Eliminar carpetas \".ssh\" en el sistema invitado"
-
-#~ msgid "Remove CA certificates in the guest"
-#~ msgstr "Eliminar certificados CA en el sistema invitado"
-
-#~ msgid "Remove DHCP client leases"
-#~ msgstr "Eliminar DHCP leases de cliente"
-
-#~ msgid "Remove DHCP server leases"
-#~ msgstr "Eliminar DHCP leases de servidor"
-
-#~ msgid "Remove Dovecot (mail server) data"
-#~ msgstr "Eliminar datos de Dovecot (servidor de correo)"
-
-#~ msgid "Remove HWADDR (hard-coded MAC address) configuration"
-#~ msgstr "Eliminar configuración HWADDR (dirección MAC fija)"
-
-#~ msgid "Remove Kerberos data in the guest"
-#~ msgstr "Eliminar datos Kerberos en el sistema invitado"
-
-#~ msgid "Remove blkid tab in the guest"
-#~ msgstr "Eliminar pestaña blkid en el sitema invitado"
-
-#~ msgid "Remove email from the local mail spool directory"
-#~ msgstr "Eliminar correo-e de la carpeta de spool de correo local"
-
-#~ msgid "Remove host-specific RPM database files"
-#~ msgstr "Eliminar archivos de base de datos RPM específicos del anfitrión"
-
-#~ msgid "Remove many log files from the guest"
-#~ msgstr "Eliminar muchos archivos de registro del sistema invitado"
-
-#~ msgid "Remove the PAM data in the guest"
-#~ msgstr "Eliminar datos PAM del sistema invitado"
-
-#~ msgid "Remove the SSH host keys in the guest"
-#~ msgstr "Eliminar las claves SSH del anfitrión del sistema invitado"
-
-#~ msgid "Remove the bash history in the guest"
-#~ msgstr "Eliminar la historia de bash del sistema invitado"
-
-#~ msgid "Remove the user accounts in the guest"
-#~ msgstr "Eliminar las cuentas de usuario del sistema invitado"
-
-#~ msgid "Rename guest when converting"
-#~ msgstr "Renombrar el sistema invitado durante la conversión"
-
-#~ msgid "Run command at first guest boot"
-#~ msgstr "Ejecutar órden en el primer arranque del invitado"
-
-#~ msgid "Run script at first guest boot"
-#~ msgstr "Ejecutar guión en el primer arranque del invitado"
-
-#~ msgid "SSH key could be injected for this type of guest"
-#~ msgstr "Se podría inyectar una clave SSH en este tipo de sistema invitado"
-
-#~ msgid "Script or program to run on guest"
-#~ msgstr "Guión o programa a ejecutar en el invitado"
-
-#~ msgid "Set libvirt guest name"
-#~ msgstr "Establecer nombre de invitado libvirt"
-
-#~ msgid "command '%s' cannot be used in command files, see the man page"
-#~ msgstr ""
-#~ "el comando '%s' no puede usarse en archivos de comando, consulta la "
-#~ "página del manual"
-
-#~ msgid "--expand option given twice"
-#~ msgstr "la opción de --expand aparece más de una vez"
-
-#~ msgid "--shrink option given twice"
-#~ msgstr "argumento de --shrink duplicado"
-
-#~ msgid "%s: optional argument \"%s\" given twice\n"
-#~ msgstr "%s: el argumento optativo \"%s\" ha sido ofrecido dos veces\n"
-
-#~ msgid "virt-tar: extract/upload mode specified twice on the command line\n"
-#~ msgstr ""
-#~ "virt-tar: extraer/cargar el modo especificado dos veces en la línea de "
-#~ "comando\n"
-
-#~ msgid ""
-#~ "--password-file parameter ignored because 'user@' was not given in the URL"
-#~ msgstr ""
-#~ "se ignora el parámetro de --password-file porque no se incluyó 'user@' en "
-#~ "la URL"

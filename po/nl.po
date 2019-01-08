@@ -8,20 +8,18 @@
 # rjones <rjones@redhat.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.37\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs 1.39.12\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2018-12-11 18:44+0000\n"
-"PO-Revision-Date: 2015-02-21 10:51-0500\n"
+"PO-Revision-Date: 2015-02-21 10:51+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/libguestfs/"
-"language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/libguestfs/language/nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: align/scan.c:80 cat/cat.c:59 cat/filesystems.c:94 cat/log.c:69 cat/ls.c:97
 #: cat/tail.c:66 df/main.c:72 diff/diff.c:106 edit/edit.c:68 fish/fish.c:115
@@ -112,15 +110,15 @@ msgstr ""
 #: builder/index-validate.c:155
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.0"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.0"
 msgstr ""
 
 #: builder/index-validate.c:164
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.1"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.1"
 msgstr ""
 
 #: builder/index-validate.c:175
@@ -524,8 +522,7 @@ msgstr ""
 #: common/options/options.c:276
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
-msgstr ""
-"%s: Bedoelde je het om een van deze bestandssystemen aan te koppelen?\n"
+msgstr "%s: Bedoelde je het om een van deze bestandssystemen aan te koppelen?\n"
 
 #: common/options/options.c:289
 #, c-format
@@ -740,8 +737,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --checksum or --format like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --checksum or --format like '--format=%s'.\n"
 msgstr ""
 
 #: diff/diff.c:761
@@ -1831,7 +1827,8 @@ msgstr "verkrijg type van geïnspecteerd besturingssysteem"
 
 #: fish/cmds.c:788
 msgid "get Windows CurrentControlSet of inspected operating system"
-msgstr "verkrijg Windows CurrentControlSet van geinspecteerd besturingssysteem"
+msgstr ""
+"verkrijg Windows CurrentControlSet van geinspecteerd besturingssysteem"
 
 #: fish/cmds.c:789
 msgid "get the path of the Windows software hive"
@@ -2377,7 +2374,8 @@ msgstr "verander grootte van een NTFS bestandssysteem (met grootte)"
 
 #: fish/cmds.c:950 fish/cmds.c:951
 msgid "parse the environment and set handle flags accordingly"
-msgstr "onderzoek de omgeving en stel de afhandelingsvlaggen overeenkomstig in"
+msgstr ""
+"onderzoek de omgeving en stel de afhandelingsvlaggen overeenkomstig in"
 
 #: fish/cmds.c:952
 msgid "add a partition to the device"
@@ -2699,7 +2697,8 @@ msgstr "geeft gevraagde referenties terug aan libvirt"
 
 #: fish/cmds.c:1061
 msgid "set libvirt credentials supported by calling program"
-msgstr "stel libvirt referenties in ondersteund door het aanroepende programma"
+msgstr ""
+"stel libvirt referenties in ondersteund door het aanroepende programma"
 
 #: fish/cmds.c:1062
 msgid "set memory allocated to the hypervisor"
@@ -3109,7 +3108,8 @@ msgstr ""
 #: fish/copy.c:42
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 "gebruik 'copy-in <local> [<local>...] <remotedir>' om bestanden naar de "
 "image te kopieren\n"
@@ -3366,8 +3366,8 @@ msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
-"%s: om Windows station letters te gebruiken, moet je de gast inspecteren (\"-"
-"i\" optie of draai het \"inspect-os\" commando)\n"
+"%s: om Windows station letters te gebruiken, moet je de gast inspecteren "
+"(\"-i\" optie of draai het \"inspect-os\" commando)\n"
 
 #: fish/fish.c:1756
 #, c-format
@@ -3381,8 +3381,7 @@ msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
-"%s: station '%c:' niet gevonden.  Om de beschikbare stations te tonen voer "
-"je uit:\n"
+"%s: station '%c:' niet gevonden.  Om de beschikbare stations te tonen voer je uit:\n"
 "  inspect-get-drive-mappings %s\n"
 
 #: fish/fish.c:1789
@@ -3491,8 +3490,8 @@ msgstr "kon boot grootte niet ontleden"
 msgid "failed to get sector size of disk: %s"
 msgstr "sector grootte van schijf verkrijgen mislukte: %s"
 
-#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44 fish/prep-lv.c:75
-#: fish/prep-lv.c:116 fish/prep-part.c:42
+#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44
+#: fish/prep-lv.c:75 fish/prep-lv.c:116 fish/prep-part.c:42
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr "schijf partitioneren mislukte:  %s"
@@ -3517,8 +3516,8 @@ msgstr "aanmaken van boot bestandssysteem mislukte: %s"
 msgid "failed to create root filesystem: %s"
 msgstr "aanmaken van root bestandssysteem mislukte: %s"
 
-#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65 fish/prep-lv.c:81
-#: fish/prep-lv.c:106 fish/prep-lv.c:122
+#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65
+#: fish/prep-lv.c:81 fish/prep-lv.c:106 fish/prep-lv.c:122
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr "incorrect formaat voor LV naam, gebruik  "
 
@@ -3840,8 +3839,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format, --lvm or --partition like '--"
-"format=%s'.\n"
+"Make sure to specify the argument for --format, --lvm or --partition like '--format=%s'.\n"
 msgstr ""
 
 #: format/format.c:239
@@ -4011,12 +4009,10 @@ msgstr ""
 msgid ""
 "no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -4626,9 +4622,9 @@ msgstr "groote van %s is buitensporig groot (%<PRIi64> bytes)"
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
+" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
+"(you might need to log out and log in again)."
 msgstr ""
 
 #: lib/launch-direct.c:385 lib/launch-uml.c:154
@@ -4888,8 +4884,8 @@ msgid ""
 "%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
 "handler"
 msgstr ""
-"%s moet alleen aangeroepen worden vanuit de GUESTFS_EVENT_LIBVIRT_AUTH event "
-"afhandeling"
+"%s moet alleen aangeroepen worden vanuit de GUESTFS_EVENT_LIBVIRT_AUTH event"
+" afhandeling"
 
 #: lib/libvirt-auth.c:274 lib/libvirt-auth.c:294 lib/libvirt-auth.c:314
 #: lib/libvirt-auth.c:335
@@ -4923,18 +4919,15 @@ msgstr "fout bij verkrijgen van domein info: %s"
 #: lib/libvirt-domain.c:271
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 "fout: domein is een live virtuele machine.\n"
-"Schrijven naar de schijven van een draaiende virtuele machine kan schijf "
-"corruptie veroorzaken.\n"
+"Schrijven naar de schijven van een draaiende virtuele machine kan schijf corruptie veroorzaken.\n"
 "Gebruik read-only toegang, of als de gast de guestfsd daemon draait\n"
-"specificeer je live toegang.  In de meeste libguestfs gereedschappen zijn "
-"deze opties respectievelijk\n"
+"specificeer je live toegang.  In de meeste libguestfs gereedschappen zijn deze opties respectievelijk\n"
 "--ro of --live.  Raadpleeg de documentatie voor meer informatie."
 
 #: lib/libvirt-domain.c:364
@@ -5137,9 +5130,9 @@ msgstr "%s: kan geen tijdelijke map aanmaken"
 msgid ""
 "%s: cannot create temporary directory.  It may be that $XDG_RUNTIME_DIR is "
 "pointing to a directory which we cannot write to, for example if you used "
-"‘su [user]’ to change to this user account (see https://bugzilla.redhat."
-"com/967509).  You can correct this by adjusting XDG_RUNTIME_DIR and possibly "
-"creating /run/user/%d with the right ownership."
+"‘su [user]’ to change to this user account (see "
+"https://bugzilla.redhat.com/967509).  You can correct this by adjusting "
+"XDG_RUNTIME_DIR and possibly creating /run/user/%d with the right ownership."
 msgstr ""
 
 #: lib/tmpdirs.c:282
@@ -5362,8 +5355,8 @@ msgstr ""
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
-"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b> "
-"means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
+"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b>"
+" means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
 "more information about output options."
 msgstr ""
 
@@ -5385,8 +5378,8 @@ msgstr ""
 #: p2v/gui.c:857
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
-"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others, "
-"leave this field blank."
+"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others,"
+" leave this field blank."
 msgstr ""
 
 #: p2v/gui.c:863
@@ -5421,7 +5414,8 @@ msgstr ""
 
 #: p2v/gui.c:939
 msgid ""
-"Left click on an interface name to flash the light on the physical interface."
+"Left click on an interface name to flash the light on the physical "
+"interface."
 msgstr ""
 
 #: p2v/gui.c:961
@@ -5500,8 +5494,7 @@ msgstr ""
 #: p2v/gui.c:1815
 #, c-format
 msgid ""
-"Debug information and log files are saved to this directory on the "
-"conversion server:\n"
+"Debug information and log files are saved to this directory on the conversion server:\n"
 "%s"
 msgstr ""
 
@@ -5759,8 +5752,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format or --scratch like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --format or --scratch like '--format=%s'.\n"
 msgstr ""
 
 #: rescue/suggest.c:62
@@ -5780,8 +5772,7 @@ msgid ""
 "\n"
 msgstr ""
 "Deze schijf bevat een of meer besturingssystemen.  Je kunt deze mount\n"
-"commando's gebruiken in virt-rescue (op de ><rescue> prompt) voor het "
-"aankoppelen van bestandssystemen.\n"
+"commando's gebruiken in virt-rescue (op de ><rescue> prompt) voor het aankoppelen van bestandssystemen.\n"
 "\n"
 
 #: rescue/suggest.c:96
@@ -5894,8 +5885,7 @@ msgstr ""
 msgid ""
 "cannot find libvirt pool ‘%s’: %s\n"
 "\n"
-"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-"
-"dumpxml <pool>’ to display details about a particular pool.\n"
+"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-dumpxml <pool>’ to display details about a particular pool.\n"
 "\n"
 "To set the pool which virt-v2v uses, add the ‘-os <pool>’ option."
 msgstr ""
@@ -5978,8 +5968,7 @@ msgstr "virt-tar: {dir}: map naam moet beginnen met het '/' karakter\n"
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -5987,13 +5976,10 @@ msgid ""
 msgstr ""
 "{prog}: In deze schijf image kon geen besturingssysteem ontdekt worden.\n"
 "\n"
-"Dit kan zijn omdat het bestand geen schijf image is, of geen virtuele "
-"machine\n"
-"image is, of omdat het besturingssysteem type niet door libguestfs wordt "
-"begrepen.\n"
+"Dit kan zijn omdat het bestand geen schijf image is, of geen virtuele machine\n"
+"image is, of omdat het besturingssysteem type niet door libguestfs wordt begrepen.\n"
 "\n"
-"Als je vindt dat dit een fout is, dien dan een bug rapport in met zoveel "
-"mogelijk informatie over de schijf image.\n"
+"Als je vindt dat dit een fout is, dien dan een bug rapport in met zoveel mogelijk informatie over de schijf image.\n"
 
 #: tools/virt-tar:262 tools/virt-win-reg:320
 #, perl-brace-format
@@ -6031,11 +6017,3 @@ msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
-
-#~ msgid "%s: optional argument \"%s\" given twice\n"
-#~ msgstr "%s: optioneel argument \"%s\" tweemaal opgegeven\n"
-
-#~ msgid "virt-tar: extract/upload mode specified twice on the command line\n"
-#~ msgstr ""
-#~ "virt-tar: extraheer/upload mode twee keer gespecificeerd op de commando-"
-#~ "regel\n"

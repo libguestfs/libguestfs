@@ -8,20 +8,18 @@
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.37.37\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs 1.39.12\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2018-12-11 18:44+0000\n"
-"PO-Revision-Date: 2015-02-21 10:48-0500\n"
+"PO-Revision-Date: 2015-02-21 10:48+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
-"language/de/)\n"
+"Language-Team: German (http://www.transifex.com/projects/p/libguestfs/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: align/scan.c:80 cat/cat.c:59 cat/filesystems.c:94 cat/log.c:69 cat/ls.c:97
 #: cat/tail.c:66 df/main.c:72 diff/diff.c:106 edit/edit.c:68 fish/fish.c:115
@@ -112,15 +110,15 @@ msgstr ""
 #: builder/index-validate.c:155
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.0"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.0"
 msgstr ""
 
 #: builder/index-validate.c:164
 #, c-format
 msgid ""
-"%s: section [%s], field ‘%s’ has invalid characters which will not work with "
-"virt-builder 1.24.1"
+"%s: section [%s], field ‘%s’ has invalid characters which will not work with"
+" virt-builder 1.24.1"
 msgstr ""
 
 #: builder/index-validate.c:175
@@ -704,8 +702,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --checksum or --format like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --checksum or --format like '--format=%s'.\n"
 msgstr ""
 
 #: diff/diff.c:761
@@ -2087,7 +2084,8 @@ msgstr "LVM-Gerätefilter leeren"
 
 #: fish/cmds.c:875
 msgid "remove all LVM LVs, VGs and PVs"
-msgstr "Alle LVM-verwalteten logischen Datenträger, -gruppen und PVs entfernen"
+msgstr ""
+"Alle LVM-verwalteten logischen Datenträger, -gruppen und PVs entfernen"
 
 #: fish/cmds.c:876
 msgid "scan for LVM physical volumes, volume groups and logical volumes"
@@ -2539,7 +2537,8 @@ msgstr "Größe eines ext2-, ext3- oder ext4-Dateisystems ändern"
 
 #: fish/cmds.c:1022
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
-msgstr "Ein ext2-, ext3- oder ext4-Dateisystem so weit wie möglich verkleinern"
+msgstr ""
+"Ein ext2-, ext3- oder ext4-Dateisystem so weit wie möglich verkleinern"
 
 #: fish/cmds.c:1023
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
@@ -3061,7 +3060,8 @@ msgstr ""
 #: fish/copy.c:42
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 
 #: fish/copy.c:71
@@ -3421,8 +3421,8 @@ msgstr ""
 msgid "failed to get sector size of disk: %s"
 msgstr ""
 
-#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44 fish/prep-lv.c:75
-#: fish/prep-lv.c:116 fish/prep-part.c:42
+#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44
+#: fish/prep-lv.c:75 fish/prep-lv.c:116 fish/prep-part.c:42
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr ""
@@ -3447,8 +3447,8 @@ msgstr ""
 msgid "failed to create root filesystem: %s"
 msgstr ""
 
-#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65 fish/prep-lv.c:81
-#: fish/prep-lv.c:106 fish/prep-lv.c:122
+#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65
+#: fish/prep-lv.c:81 fish/prep-lv.c:106 fish/prep-lv.c:122
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr ""
 
@@ -3767,8 +3767,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format, --lvm or --partition like '--"
-"format=%s'.\n"
+"Make sure to specify the argument for --format, --lvm or --partition like '--format=%s'.\n"
 msgstr ""
 
 #: format/format.c:239
@@ -3938,12 +3937,10 @@ msgstr ""
 msgid ""
 "no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -4551,9 +4548,9 @@ msgstr ""
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
+" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
+"(you might need to log out and log in again)."
 msgstr ""
 
 #: lib/launch-direct.c:385 lib/launch-uml.c:154
@@ -4845,8 +4842,7 @@ msgstr ""
 #: lib/libvirt-domain.c:271
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -5048,9 +5044,9 @@ msgstr "%s: Temporärer Ordner konnte nicht angelegt werden"
 msgid ""
 "%s: cannot create temporary directory.  It may be that $XDG_RUNTIME_DIR is "
 "pointing to a directory which we cannot write to, for example if you used "
-"‘su [user]’ to change to this user account (see https://bugzilla.redhat."
-"com/967509).  You can correct this by adjusting XDG_RUNTIME_DIR and possibly "
-"creating /run/user/%d with the right ownership."
+"‘su [user]’ to change to this user account (see "
+"https://bugzilla.redhat.com/967509).  You can correct this by adjusting "
+"XDG_RUNTIME_DIR and possibly creating /run/user/%d with the right ownership."
 msgstr ""
 
 #: lib/tmpdirs.c:282
@@ -5271,8 +5267,8 @@ msgstr ""
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
-"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b> "
-"means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
+"conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b>"
+" means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
 "more information about output options."
 msgstr ""
 
@@ -5294,8 +5290,8 @@ msgstr ""
 #: p2v/gui.c:857
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
-"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others, "
-"leave this field blank."
+"<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others,"
+" leave this field blank."
 msgstr ""
 
 #: p2v/gui.c:863
@@ -5330,7 +5326,8 @@ msgstr "Netzwerkschnittstellen"
 
 #: p2v/gui.c:939
 msgid ""
-"Left click on an interface name to flash the light on the physical interface."
+"Left click on an interface name to flash the light on the physical "
+"interface."
 msgstr ""
 
 #: p2v/gui.c:961
@@ -5409,8 +5406,7 @@ msgstr ""
 #: p2v/gui.c:1815
 #, c-format
 msgid ""
-"Debug information and log files are saved to this directory on the "
-"conversion server:\n"
+"Debug information and log files are saved to this directory on the conversion server:\n"
 "%s"
 msgstr ""
 
@@ -5668,8 +5664,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format or --scratch like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --format or --scratch like '--format=%s'.\n"
 msgstr ""
 
 #: rescue/suggest.c:62
@@ -5793,8 +5788,7 @@ msgstr "libvirt-Verbindung konnte nicht geöffnet werden"
 msgid ""
 "cannot find libvirt pool ‘%s’: %s\n"
 "\n"
-"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-"
-"dumpxml <pool>’ to display details about a particular pool.\n"
+"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-dumpxml <pool>’ to display details about a particular pool.\n"
 "\n"
 "To set the pool which virt-v2v uses, add the ‘-os <pool>’ option."
 msgstr ""
@@ -5878,8 +5872,7 @@ msgstr "virt-tar: {dir}: Verzeichnisname muss mit dem Zeichen »/« beginnen\n"
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -5923,214 +5916,3 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 "virt-win-reg: {p}: Registry-Datei konnte nicht hochgeladen werden: {err}\n"
-
-#~ msgid "%s"
-#~ msgstr "%s"
-
-#~ msgid "%s (ignored)"
-#~ msgstr "%s (ignoriert)"
-
-#~ msgid "%s: %s"
-#~ msgstr "%s: %s"
-
-#~ msgid "%s: %s: %s"
-#~ msgstr "%s: %s: %s"
-
-#~ msgid "%s: This partition will be deleted."
-#~ msgstr "%s: Diese Partition wird gelöscht."
-
-#~ msgid "%s: This partition will be resized from %s to %s."
-#~ msgstr "%s: Die Größe dieser Partition wird von %s auf %s geändert."
-
-#~ msgid "%s: error: %s"
-#~ msgstr "%s: Fehler: %s"
-
-#~ msgid "%s: new partition size is zero or negative"
-#~ msgstr "%s: Größe der neuen Partition ist Null oder negativ"
-
-#~ msgid "%s: warning: %s"
-#~ msgstr "%s: Warnung: %s"
-
-#~ msgid "-os %s: output directory does not exist or is not a directory"
-#~ msgstr ""
-#~ "-os %s: Ausgabeverzeichnis existiert nicht oder ist kein Verzeichnis"
-
-#~ msgid "<disk type='%s'> was ignored"
-#~ msgstr "<disk type='%s'> wurde ignoriert"
-
-#~ msgid "Add package(s) to install"
-#~ msgstr "Zu installierende(s) Paket(e) hinzufügen"
-
-#~ msgid "Aliases:"
-#~ msgstr "Aliase:"
-
-#~ msgid "Architecture:"
-#~ msgstr "Architektur:"
-
-#~ msgid "Change filesystem UUIDs"
-#~ msgstr "Dateisystem-UUIDs überprüfen"
-
-#~ msgid "Change the permissions of a file"
-#~ msgstr "Zugriffsrechte einer Datei ändern"
-
-#~ msgid "Check digital signatures"
-#~ msgstr "Digitale Signaturen überprüfen"
-
-#~ msgid "Create a directory"
-#~ msgstr "Ein Verzeichnis erstellen"
-
-#~ msgid "DIR"
-#~ msgstr "VERZ"
-
-#~ msgid "Delete a file or directory"
-#~ msgstr "Eine Datei oder ein Verzeichnis löschen"
-
-#~ msgid "Delete partition"
-#~ msgstr "Partition löschen"
-
-#~ msgid "Deleting: %s"
-#~ msgstr "Löschvorgang läuft: %s"
-
-#~ msgid "Disable digital signatures"
-#~ msgstr "Digitale Signaturen deaktivieren"
-
-#~ msgid "Display installation notes"
-#~ msgstr "Installationshinweise anzeigen"
-
-#~ msgid "Display version and exit"
-#~ msgstr "Versionsnummer anzeigen und beenden"
-
-#~ msgid "Download size:"
-#~ msgstr "Downloadgröße:"
-
-#~ msgid "Downloading: %s"
-#~ msgstr "Download läuft: %s"
-
-#~ msgid "FILE"
-#~ msgstr "DATEI"
-
-#~ msgid "FILE:CONTENT"
-#~ msgstr "DATEI:INHALT"
-
-#~ msgid "FILE:DEST"
-#~ msgstr "DATEI:ZIEL"
-
-#~ msgid "FILE:EXPR"
-#~ msgstr "DATEI:AUSDRUCK"
-
-#~ msgid "Fingerprint: %s\n"
-#~ msgstr "Fingerabdruck: %s\n"
-
-#~ msgid "Free space"
-#~ msgstr "Freier Platz"
-
-#~ msgid "Full name:"
-#~ msgstr "Voller Name:"
-
-#~ msgid "HOSTNAME"
-#~ msgstr "RECHNERNAME"
-
-#~ msgid "Ignore filesystem"
-#~ msgstr "Dateisystem ignorieren"
-
-#~ msgid "Ignore partition"
-#~ msgstr "Partition ignorieren"
-
-#~ msgid "Installing packages: %s"
-#~ msgstr "Pakete werden installiert: %s"
-
-#~ msgid "Just write the metadata"
-#~ msgstr "Nur die Metadaten schreiben"
-
-#~ msgid "Key: %s\n"
-#~ msgstr "Schlüssel: %s\n"
-
-#~ msgid "List available templates"
-#~ msgstr "Verfügbare Vorlagen auflisten"
-
-#~ msgid "List supported operations"
-#~ msgstr "Unterstützte Operationen auflisten"
-
-#~ msgid "Making directory: %s"
-#~ msgstr "Verzeichnis wird erstellt: %s"
-
-#~ msgid "Notes on %s"
-#~ msgstr "Hinweise zu %s"
-
-#~ msgid ""
-#~ "Notes:\n"
-#~ "\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "Hinweise:\n"
-#~ "\n"
-#~ "%s\n"
-
-#~ msgid "Output file"
-#~ msgstr "Ausgabedatei"
-
-#~ msgid "Output format"
-#~ msgstr "Ausgabeformat"
-
-#~ msgid "Output size"
-#~ msgstr "Ausgabegröße"
-
-#~ msgid "PATH"
-#~ msgstr "PFAD"
-
-#~ msgid "Remove temporary files"
-#~ msgstr "Temporäre Dateien entfernen"
-
-#~ msgid "Remove the crash data generated by ABRT"
-#~ msgstr "Von ABRT erzeugte Absturzdaten entfernen"
-
-#~ msgid "Remove the crash data generated by kexec-tools"
-#~ msgstr "Von kexec-tools erzeugte Absturzdaten entfernen"
-
-#~ msgid "Remove the data and log files of puppet"
-#~ msgstr "Puppet-Protokolldateien und -Datenbank entfernen"
-
-#~ msgid "Remove the database and log files of Samba"
-#~ msgstr "Samba-Protokolldateien und -Datenbank entfernen"
-
-#~ msgid "Remove the database and log files of sssd"
-#~ msgstr "SSSD-Protokolldateien und -Datenbank entfernen"
-
-#~ msgid "Remove the firewall rules"
-#~ msgstr "Firewall-Regeln entfernen"
-
-#~ msgid "Resize partition"
-#~ msgstr "Partitionsgröße ändern"
-
-#~ msgid "SCRIPT"
-#~ msgstr "SKRIPT"
-
-#~ msgid "Set root password"
-#~ msgstr "Root-Passwort festlegen"
-
-#~ msgid "Set user password"
-#~ msgstr "Benutzerpasswort festlegen"
-
-#~ msgid "Setting passwords"
-#~ msgstr "Passwörter werden gesetzt"
-
-#~ msgid "Setting the hostname: %s"
-#~ msgstr "Rechnername wird gesetzt: %s"
-
-#~ msgid "Setting the timezone: %s"
-#~ msgstr "Zeitzone wird gesetzt: %s"
-
-#~ msgid "Shrink partition"
-#~ msgstr "Partition verkleinern"
-
-#~ msgid "TIMEZONE"
-#~ msgstr "ZEITZONE"
-
-#~ msgid "resize2fs"
-#~ msgstr "resize2fs"
-
-#~ msgid "--expand option given twice"
-#~ msgstr "Option --expand wurde zwei Mal angegeben"
-
-#~ msgid "%s: optional argument \"%s\" given twice\n"
-#~ msgstr "%s: Optionales Argument »%s« wurde zweimal angegeben\n"
