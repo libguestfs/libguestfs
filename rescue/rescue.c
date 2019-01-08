@@ -1,5 +1,5 @@
 /* virt-rescue
- * Copyright (C) 2010-2018 Red Hat Inc.
+ * Copyright (C) 2010-2019 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ usage (int status)
              getprogname ());
   else {
     printf (_("%s: Run a rescue shell on a virtual machine\n"
-              "Copyright (C) 2009-2018 Red Hat Inc.\n"
+              "Copyright (C) 2009-2019 Red Hat Inc.\n"
               "Usage:\n"
               "  %s [--options] -d domname\n"
               "  %s [--options] -a disk.img [-a disk.img ...]\n"

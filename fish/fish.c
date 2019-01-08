@@ -1,5 +1,5 @@
 /* guestfish - guest filesystem shell
- * Copyright (C) 2009-2018 Red Hat Inc.
+ * Copyright (C) 2009-2019 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -117,7 +117,7 @@ usage (int status)
   else {
     printf (_("%s: guest filesystem shell\n"
               "%s lets you edit virtual machine filesystems\n"
-              "Copyright (C) 2009-2018 Red Hat Inc.\n"
+              "Copyright (C) 2009-2019 Red Hat Inc.\n"
               "Usage:\n"
               "  %s [--options] cmd [: cmd : cmd ...]\n"
               "Options:\n"

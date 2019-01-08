@@ -1,5 +1,5 @@
 (* Bindings for libxml2
- * Copyright (C) 2009-2018 Red Hat Inc.
+ * Copyright (C) 2009-2019 Red Hat Inc.
  * Copyright (C) 2017 SUSE Inc.
  *
  * This program is free software; you can redistribute it and/or modify

@@ -1911,7 +1911,7 @@ msgstr "Richard W.M. Jones (C<rjones abildua redhat puntu com>)"
 #: ../v2v/virt-v2v-input-xen.pod:128 ../v2v/virt-v2v-output-local.pod:153
 #: ../v2v/virt-v2v-output-openstack.pod:222 ../v2v/virt-v2v-output-rhv.pod:209
 #: ../v2v/virt-v2v-support.pod:154 ../v2v/virt-v2v.pod:1647
-msgid "Copyright (C) 2009-2018 Red Hat Inc."
+msgid "Copyright (C) 2009-2019 Red Hat Inc."
 msgstr ""
 
 #. type: =end
@@ -2347,7 +2347,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:212
-msgid "Copyright (C) 2016-2018 SUSE Inc."
+msgid "Copyright (C) 2016-2019 SUSE Inc."
 msgstr ""
 
 #. type: textblock
@@ -7637,7 +7637,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-log.pod:170 ../examples/guestfs-examples.pod:75
 #: ../make-fs/virt-make-fs.pod:235
-msgid "Copyright (C) 2010-2018 Red Hat Inc."
+msgid "Copyright (C) 2010-2019 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -9468,7 +9468,7 @@ msgstr ""
 #: ../lib/guestfs-structs.pod:9
 #, no-wrap
 msgid ""
-" Copyright (C) 2009-2018 Red Hat Inc.\n"
+" Copyright (C) 2009-2019 Red Hat Inc.\n"
 "\n"
 msgstr ""
 
@@ -10628,7 +10628,7 @@ msgstr ""
 #. type: textblock
 #: ../customize/virt-customize.pod:326 ../fish/libguestfs-tools.conf.pod:102
 #: ../sparsify/virt-sparsify.pod:493 ../sysprep/virt-sysprep.pod:641
-msgid "Copyright (C) 2011-2018 Red Hat Inc."
+msgid "Copyright (C) 2011-2019 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -17258,7 +17258,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-faq.pod:1423 ../docs/guestfs-performance.pod:634
 #: ../gobject/guestfs-gobject.pod:64
-msgid "Copyright (C) 2012-2018 Red Hat Inc."
+msgid "Copyright (C) 2012-2019 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -78158,7 +78158,7 @@ msgstr ""
 
 #. type: textblock
 #: ../get-kernel/virt-get-kernel.pod:219
-msgid "Copyright (C) 2013-2018 Red Hat Inc."
+msgid "Copyright (C) 2013-2019 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -116277,7 +116277,7 @@ msgstr ""
 
 #. type: textblock
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:279
-msgid "Copyright (C) 2014-2018 Red Hat Inc."
+msgid "Copyright (C) 2014-2019 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
