@@ -177,8 +177,11 @@ class output_openstack output_conn output_password output_storage
     let stdout_fd =
       if verbose () then None
       else Some (openfile "/dev/null" [O_WRONLY] 0) in
-    (* Note that run_command will close stdout_fd if defined. *)
-    Tools_utils.run_command ?stdout_fd cmd
+    (* Note that run_command will close stdout_fd if defined.
+     * Don't echo the whole command because it can contain passwords.
+     *)
+    debug "openstack [...] %s" (String.concat " " args);
+    Tools_utils.run_command ~echo_cmd:false ?stdout_fd cmd
   in
 
   (* Similar to above, run the openstack command and capture the
@@ -192,8 +195,11 @@ class output_openstack output_conn output_password output_storage
     unlink_on_exit json;
     let fd = descr_of_out_channel chan in
 
-    (* Note that Tools_utils.run_command closes fd. *)
-    if Tools_utils.run_command ~stdout_fd:fd cmd <> 0 then
+    (* Note that Tools_utils.run_command closes fd.
+     * Don't echo the whole command because it can contain passwords.
+     *)
+    debug "openstack [...] %s" (String.concat " " args);
+    if Tools_utils.run_command ~echo_cmd:false ~stdout_fd:fd cmd <> 0 then
       None
     else (
       let json = json_parser_tree_parse_file json in
