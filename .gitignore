@@ -678,6 +678,7 @@ Makefile.in
 /utils/qemu-boot/qemu-boot
 /utils/qemu-speed-test/qemu-speed-test
 /v2v/.depend
+/v2v/config.ml
 /v2v/oUnit-*
 /v2v/output_rhv_upload_*_source.ml
 /v2v/real-*.d/

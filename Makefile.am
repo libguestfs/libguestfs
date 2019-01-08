@@ -354,6 +354,7 @@ po/POTFILES-ml: configure.ac
 	cd $(srcdir); \
 	find builder common/ml* customize dib get-kernel resize sparsify sysprep v2v -name '*.ml' | \
 	grep -v '^builder/templates/' | \
+	grep -v '^v2v/config.ml$$' | \
 	LC_ALL=C sort > $@-t
 	mv $@-t $@
 

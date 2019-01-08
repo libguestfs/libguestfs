@@ -23,6 +23,7 @@ generator_built = \
 
 BUILT_SOURCES = \
 	$(generator_built) \
+	config.ml \
 	output_rhv_upload_createvm_source.ml \
 	output_rhv_upload_plugin_source.ml \
 	output_rhv_upload_precheck_source.ml
@@ -48,6 +49,7 @@ EXTRA_DIST = \
 SOURCES_MLI = \
 	changeuid.mli \
 	cmdline.mli \
+	config.mli \
 	convert_linux.mli \
 	convert_windows.mli \
 	create_libvirt_xml.mli \
@@ -100,6 +102,7 @@ SOURCES_MLI = \
 	windows_virtio.mli
 
 SOURCES_ML = \
+	config.ml \
 	types.ml \
 	uefi.ml \
 	utils.ml \
@@ -697,6 +700,7 @@ v2v_unit_tests_LINK = \
 .depend: \
 	$(srcdir)/*.mli \
 	$(srcdir)/*.ml \
+	config.ml \
 	output_rhv_upload_*_source.ml
 	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
