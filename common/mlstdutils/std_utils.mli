@@ -359,7 +359,10 @@ exception Executable_not_found of string (* executable *)
     in [$PATH]. *)
 
 val which : string -> string
-(** Return the full path of the specified executable from [$PATH].
+(** Return the full path of the specified executable from [$PATH],
+    in case it is only a name.  In case of a relative or absolute path
+    (i.e. more than just a name), return the same path specified if
+    exists.
 
     Throw [Executable_not_found] if not available. *)
 

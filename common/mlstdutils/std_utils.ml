@@ -610,18 +610,23 @@ let failwithf fs = ksprintf failwith fs
 exception Executable_not_found of string (* executable *)
 
 let which executable =
-  let paths =
-    try String.nsplit ":" (Sys.getenv "PATH")
-    with Not_found -> [] in
-  let paths = List.filter_map (
-    fun p ->
-      let path = p // executable in
-      try Unix.access path [Unix.X_OK]; Some path
-      with Unix.Unix_error _ -> None
-  ) paths in
-  match paths with
-  | [] -> raise (Executable_not_found executable)
-  | x :: _ -> x
+  if String.find executable Filename.dir_sep <> -1 then (
+    try Unix.access executable [Unix.X_OK]; executable
+    with Unix.Unix_error _ -> raise (Executable_not_found executable)
+  ) else (
+    let paths =
+      try String.nsplit ":" (Sys.getenv "PATH")
+      with Not_found -> [] in
+    let paths = List.filter_map (
+      fun p ->
+        let path = p // executable in
+        try Unix.access path [Unix.X_OK]; Some path
+        with Unix.Unix_error _ -> None
+    ) paths in
+    match paths with
+    | [] -> raise (Executable_not_found executable)
+    | x :: _ -> x
+  )
 
 (* Program name. *)
 let prog = Filename.basename Sys.executable_name

@@ -149,6 +149,16 @@ let test_string_chomp ctx =
 let test_which ctx =
   assert_nonempty_string (which "true");
   assert_raises_executable_not_found "this-command-does-not-really-exist";
+  begin
+    let exe_name = "true" in
+    let exe = which exe_name in
+    assert_equal_string exe (which exe);
+    with_bracket_chdir ctx (Filename.dirname exe) (
+      fun ctx ->
+        let exe_relative = "./" ^ exe_name in
+        assert_equal_string exe_relative (which exe_relative)
+    )
+  end;
   ()
 
 (* Suites declaration. *)
