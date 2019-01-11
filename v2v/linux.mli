@@ -24,7 +24,7 @@ val augeas_reload : Guestfs.guestfs -> unit
     that augeas found. *)
 
 val install_local: Guestfs.guestfs -> Types.inspect -> string list -> unit
-(** Install pacakge(s). *)
+(** Install package(s). *)
 
 val remove : Guestfs.guestfs -> Types.inspect -> string list -> unit
 (** Uninstall package(s). *)

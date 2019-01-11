@@ -344,7 +344,7 @@ PREINIT:
        | RStringList _
        | RStruct _ | RStructList _
        | RHashtable _ ->
-           pr "void\n" (* all lists returned implictly on the stack *)
+           pr "void\n" (* all lists returned implicitly on the stack *)
       );
       (* Call and arguments. *)
       pr "%s (g" name;

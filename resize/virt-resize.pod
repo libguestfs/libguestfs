@@ -811,7 +811,7 @@ expand that type of filesystem.
 In both cases, virt-resize will not expand the mentioned filesystem;
 the result (unless I<--unknown-filesystems error> is specified)
 is that the partitions containing such filesystems will be actually
-bigger as requested, but the filesystems will still be usable at the
+bigger as requested, but the filesystems will still be usable at
 their older sizes.
 
 =head1 ALTERNATIVE TOOLS

@@ -420,7 +420,7 @@ let get_tar_offet_and_size tar filename =
               with Failure _ ->
                 failwithf (f_"invalid size returned by tar: %S") size in
 
-            (* Note: Offset is actualy block number and there is a single
+            (* Note: Offset is actually block number and there is a single
              * block with tar header at the beginning of the file. So skip
              * the header and convert the block number to bytes before
              * returning.

@@ -75,7 +75,7 @@ try_tilde_expansion (char *str)
     }
   }
 
-  /* No match, return the orignal string. */
+  /* No match, return the original string. */
   return str;
 }
 
