@@ -408,9 +408,7 @@ and do_run ?(echo_cmd = true) ?stdout_fd ?stderr_fd args =
       fd
   in
   try
-    let app =
-      if Filename.is_relative app then which app
-      else (Unix.access app [Unix.X_OK]; app) in
+    let app = which app in
     let outfd = get_fd Unix.stdout stdout_fd in
     let errfd = get_fd Unix.stderr stderr_fd in
     if echo_cmd then
