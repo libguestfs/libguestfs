@@ -29,6 +29,11 @@ let assert_equal_int = assert_equal ~printer:(fun x -> string_of_int x)
 let assert_equal_int64 = assert_equal ~printer:(fun x -> Int64.to_string x)
 let assert_equal_stringlist = assert_equal ~printer:(fun x -> "(" ^ (String.escaped (String.concat "," x)) ^ ")")
 let assert_equal_stringpair = assert_equal ~printer:(fun (x, y) -> sprintf "%S, %S" x y)
+let assert_nonempty_string str =
+  if str = "" then
+    assert_failure (sprintf "Expected empty string, got '%s'" str)
+let assert_raises_executable_not_found exe =
+  assert_raises (Executable_not_found exe) (fun () -> which exe)
 
 (* Test Std_utils.int_of_X and Std_utils.X_of_int byte swapping
  * functions.
@@ -140,6 +145,12 @@ let test_string_chomp ctx =
   assert_equal_string "" (String.chomp "\n");
   assert_equal_string "\n" (String.chomp "\n\n") (* only removes one *)
 
+(* Test Std_utils.which. *)
+let test_which ctx =
+  assert_nonempty_string (which "true");
+  assert_raises_executable_not_found "this-command-does-not-really-exist";
+  ()
+
 (* Suites declaration. *)
 let suite =
   "mllib Std_utils" >:::
@@ -154,6 +165,7 @@ let suite =
       "strings.lines_split" >:: test_string_lines_split;
       "strings.span" >:: test_string_span;
       "strings.chomp" >:: test_string_chomp;
+      "which" >:: test_which;
     ]
 
 let () =
