@@ -39,7 +39,7 @@ let read_whole_file path =
   let rec loop () =
     let r = input chan s 0 maxlen in
     if r > 0 then (
-      Buffer.add_substring buf s 0 r;
+      Buffer.add_subbytes buf s 0 r;
       loop ()
     )
   in
