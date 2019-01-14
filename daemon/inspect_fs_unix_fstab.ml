@@ -347,7 +347,7 @@ and resolve_fstab_device spec md_map os_type =
     debug_matching "xdev";
     let typ = PCRE.sub 1
     and disk = PCRE.sub 2
-    and part = int_of_string (PCRE.sub 3) in
+    and part = PCRE.sub 3 in
     resolve_xdev typ disk part default
   )
 
@@ -464,7 +464,7 @@ and resolve_fstab_device spec md_map os_type =
     debug_matching "Hurd";
     let typ = PCRE.sub 1
     and disk = int_of_string (PCRE.sub 2)
-    and part = int_of_string (PCRE.sub 3) in
+    and part = PCRE.sub 3 in
 
     (* Hurd disk devices are like /dev/hdNsM, where hdN is the
      * N-th disk and M is the M-th partition on that disk.
@@ -501,7 +501,7 @@ and resolve_xdev typ disk part default =
   let i = drive_index disk in
   if i >= 0 && i < Array.length devices then (
     let dev = Array.get devices i in
-    let dev = dev ^ string_of_int part in
+    let dev = dev ^ part in
     if is_partition dev then
       Mountable.of_device dev
     else
