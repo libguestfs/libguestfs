@@ -226,6 +226,14 @@ https_proxy= ./bugs-in-changelog.sh v1.38.0..
 
 =over 4
 
+=item L<https://bugzilla.redhat.com/1664310>
+
+[RHEL 7.6 LP] openstack output leaks passwords
+
+=item L<https://bugzilla.redhat.com/1661038>
+
+virt-inspector fails with "error: int_of_string" on a Linux image when /etc/fstab contains a partionless device
+
 =item L<https://bugzilla.redhat.com/1651432>
 
 v2v - support for -insecure option to support OSP SSL connection for VM migrations
