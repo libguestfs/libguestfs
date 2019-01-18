@@ -43,6 +43,14 @@ while true ; do
   esac
 done
 
+# Integration with silent rules of automake: print the full command
+# line option in verbose mode.
+if [ x"${V:-@AM_DEFAULT_VERBOSITY@}" = x1 ]; then
+  echo "$@" \
+     @OCAML_RUNTIME_VARIANT_PIC_OPTION@ \
+     -linkpkg \
+     -cclib "'@LDFLAGS@ $cclib'"
+fi
 # NB -cclib must come last.
 exec "$@" \
      @OCAML_RUNTIME_VARIANT_PIC_OPTION@ \
