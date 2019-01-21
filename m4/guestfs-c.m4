@@ -105,6 +105,9 @@ gl_WARN_ADD([-Wimplicit-fallthrough=4])
 dnl GCC level 2 gives incorrect warnings, so use level 1.
 gl_WARN_ADD([-Wformat-truncation=1])
 
+dnl GCC 9 at level 2 gives apparently bogus errors when %.*s is used.
+gl_WARN_ADD([-Wformat-overflow=1])
+
 AC_SUBST([WARN_CFLAGS])
 
 NO_SNV_CFLAGS=
