@@ -195,8 +195,13 @@ and generate_python_structs () =
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
         | name, FBuffer ->
+            pr "#if PY_MAJOR_VERSION >= 3\n";
+            pr "  value = PyBytes_FromStringAndSize (%s->%s, %s->%s_len);\n"
+              typ name typ name;
+            pr "#else\n";
             pr "  value = guestfs_int_py_fromstringsize (%s->%s, %s->%s_len);\n"
               typ name typ name;
+            pr "#endif\n";
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
@@ -511,7 +516,11 @@ and generate_python_actions actions () =
            pr "  guestfs_int_free_string_list (r);\n";
            pr "  if (py_r == NULL) goto out;\n";
        | RBufferOut _ ->
+           pr "#if PY_MAJOR_VERSION >= 3\n";
+           pr "  py_r = PyBytes_FromStringAndSize (r, size);\n";
+           pr "#else\n";
            pr "  py_r = guestfs_int_py_fromstringsize (r, size);\n";
+           pr "#endif\n";
            pr "  free (r);\n";
            pr "  if (py_r == NULL) goto out;\n";
       );
