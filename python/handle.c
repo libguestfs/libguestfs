@@ -136,11 +136,12 @@ guestfs_int_py_event_callback_wrapper (guestfs_h *g,
   args = Py_BuildValue ("(Kis#O)",
                         (unsigned PY_LONG_LONG) event, event_handle,
                         buf, buf_len, py_array);
+  Py_INCREF (args);
 
   if (PyEval_ThreadsInitialized ())
     py_save = PyGILState_Ensure ();
 
-  py_r = PyEval_CallObject (py_callback, args);
+  py_r = PyObject_CallObject (py_callback, args);
 
   if (PyEval_ThreadsInitialized ())
     PyGILState_Release (py_save);
