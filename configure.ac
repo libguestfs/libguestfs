@@ -161,6 +161,8 @@ HEADING([Checking for Go])
 m4_include([m4/guestfs-golang.m4])
 HEADING([Checking for GObject Introspection])
 m4_include([m4/guestfs-gobject.m4])
+HEADING([Checking for Vala])
+VAPIGEN_CHECK
 
 dnl virt-v2v, virt-p2v.
 HEADING([Checking the virt-v2v and virt-p2v dependencies])
@@ -421,6 +423,8 @@ AS_ECHO_N(["gobject bindings .................... "])
 if test "x$HAVE_GOBJECT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["gobject introspection ............... "])
 if test "x$HAVE_INTROSPECTION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+AS_ECHO_N(["Vala bindings ....................... "])
+if test "x$ENABLE_VAPIGEN" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["bash completion ..................... "])
 if test "x$HAVE_BASH_COMPLETION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo

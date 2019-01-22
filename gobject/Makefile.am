@@ -105,6 +105,23 @@ $(TESTS): $(typelib_DATA)
 
 CLEANFILES += $(gir_DATA) $(typelib_DATA)
 
+if ENABLE_VAPIGEN
+-include $(VAPIGEN_MAKEFILE)
+
+libguestfs-gobject-1.0.vapi: Guestfs-1.0.gir libguestfs-gobject-1.0.deps
+
+VAPIGEN_VAPIS = libguestfs-gobject-1.0.vapi
+
+libguestfs_gobject_1_0_vapi_DEPS = gobject-2.0 gio-2.0
+libguestfs_gobject_1_0_vapi_METADATADIRS = $(srcdir)
+libguestfs_gobject_1_0_vapi_FILES = Guestfs-1.0.gir
+
+vapidir = $(datadir)/vala/vapi
+vapi_DATA = $(VAPIGEN_VAPIS) $(VAPIGEN_VAPIS:.vapi=.deps)
+endif
+
+EXTRA_DIST += libguestfs-gobject-1.0.deps
+
 endif HAVE_INTROSPECTION
 
 # Documentation.

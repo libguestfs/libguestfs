@@ -385,6 +385,10 @@ Optional.  Used to build the PHP bindings.
 
 Optional.  Used to build and test the GObject bindings.
 
+=item vala
+
+Optional.  Used to build the Vala bindings.
+
 =item LUA
 
 Optional.  Used to build the LUA bindings.
