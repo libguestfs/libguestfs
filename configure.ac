@@ -424,7 +424,7 @@ if test "x$HAVE_GOBJECT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["gobject introspection ............... "])
 if test "x$HAVE_INTROSPECTION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["Vala bindings ....................... "])
-if test "x$ENABLE_VAPIGEN" = "x"; then echo "yes"; else echo "no"; fi
+if test "x$ENABLE_VAPIGEN_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["bash completion ..................... "])
 if test "x$HAVE_BASH_COMPLETION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo
