@@ -27,6 +27,8 @@ open Utils
 
 module G = Guestfs
 
+let re_version = PCRE.compile "(\\d+)\\.(\\d+)"
+
 let augeas_reload g =
   g#aug_load ();
   debug_augeas_errors g
@@ -80,29 +82,44 @@ let file_list_of_package (g : Guestfs.guestfs) inspect app =
 
   | "rpm" ->
     (* Since RPM allows multiple packages installed with the same
-     * name, always check the full ENVR here (RHBZ#1161250).
+     * name, always check the full NEVR here (RHBZ#1161250).
+     *
+     * In RPM < 4.11 query commands that use the epoch number in the
+     * package name did not work.
+     *
+     * For example:
+     * RHEL 6 (rpm 4.8.0):
+     *   $ rpm -q tar-2:1.23-11.el6.x86_64
+     *   package tar-2:1.23-11.el6.x86_64 is not installed
+     * Fedora 20 (rpm 4.11.2):
+     *   $ rpm -q tar-2:1.26-30.fc20.x86_64
+     *   tar-1.26-30.fc20.x86_64
      *)
+    let is_rpm_lt_4_11 () =
+      let ver =
+        try
+          let ver = List.find_map (
+            function
+            | { G.app2_name = name; G.app2_version = version }
+                when name = "rpm" -> Some version
+            | _ -> None
+          ) inspect.i_apps in
+          if PCRE.matches re_version ver then
+            (int_of_string (PCRE.sub 1), int_of_string (PCRE.sub 2))
+          else
+            (0, 0)
+        with Not_found ->
+          (* 'rpm' not installed? Hmm... *)
+          (0, 0) in
+      ver < (4, 11)
+    in
     let pkg_name =
-      sprintf "%s-%s-%s" app.G.app2_name
-        app.G.app2_version app.G.app2_release in
-    let pkg_name =
-      if app.G.app2_epoch > 0_l then (
-        (* RHEL 3/4 'rpm' does not support using the epoch prefix.
-         * (RHBZ#1170685).
-         *)
-        let is_rhel_lt_5 =
-          match inspect with
-          | { i_type = "linux";
-              i_distro = "rhel" | "centos" | "scientificlinux" |
-                  "oraclelinux" | "redhat-based";
-              i_major_version = v } when v < 5 -> true
-          | _ -> false in
-        if is_rhel_lt_5 then
-          pkg_name
-        else
-          sprintf "%ld:%s" app.G.app2_epoch pkg_name
-      ) else
-        pkg_name in
+      if app.G.app2_epoch = Int32.zero || is_rpm_lt_4_11 () then
+        sprintf "%s-%s-%s" app.G.app2_name app.G.app2_version
+          app.G.app2_release
+      else
+        sprintf "%s-%ld:%s-%s" app.G.app2_name app.G.app2_epoch
+          app.G.app2_version app.G.app2_release in
     let cmd = [| "rpm"; "-ql"; pkg_name |] in
     debug "%s" (String.concat " " (Array.to_list cmd));
     let files = g#command_lines cmd in
