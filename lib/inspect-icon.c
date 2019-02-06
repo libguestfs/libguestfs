@@ -354,12 +354,16 @@ icon_mageia (guestfs_h *g, size_t *size_r)
   return get_png (g, MAGEIA_ICON, size_r, 10240);
 }
 
-#define OPENSUSE_ICON "/usr/share/icons/hicolor/24x24/apps/distributor.png"
-
 static char *
 icon_opensuse (guestfs_h *g, size_t *size_r)
 {
-  return get_png (g, OPENSUSE_ICON, size_r, 2048);
+  const char *icons[] = {
+    "/usr/share/icons/hicolor/48x48/apps/distributor.png",
+    "/usr/share/icons/hicolor/24x24/apps/distributor.png",
+    NULL
+  };
+
+  return find_png (g, icons, size_r, 10240);
 }
 
 #if CAN_DO_CIRROS
