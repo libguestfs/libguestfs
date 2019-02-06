@@ -245,6 +245,22 @@ get_png (guestfs_h *g, const char *filename, size_t *size_r, size_t max_size)
   return ret;
 }
 
+static char *
+find_png (guestfs_h *g, const char **filenames, size_t *size_r, size_t max_size)
+{
+  size_t i;
+  char *ret;
+
+  for (i = 0; filenames[i] != NULL; ++i) {
+    ret = get_png (g, filenames[i], size_r, max_size);
+    if (ret == NULL)
+      return NULL;
+    if (ret != NOT_FOUND)
+      return ret;
+  }
+  return NOT_FOUND;
+}
+
 /* Return /etc/favicon.png (or \etc\favicon.png) if it exists and if
  * it has a reasonable size and format.
  */
@@ -326,17 +342,8 @@ icon_ubuntu (guestfs_h *g, size_t *size_r)
     "/usr/share/help/C/ubuntu-help/figures/ubuntu-logo.png",
     NULL
   };
-  size_t i;
-  char *ret;
 
-  for (i = 0; icons[i] != NULL; ++i) {
-    ret = get_png (g, icons[i], size_r, 2048);
-    if (ret == NULL)
-      return NULL;
-    if (ret != NOT_FOUND)
-      return ret;
-  }
-  return NOT_FOUND;
+  return find_png (g, icons, size_r, 2048);
 }
 
 #define MAGEIA_ICON "/usr/share/icons/mageia.png"
