@@ -344,7 +344,7 @@ icon_ubuntu (guestfs_h *g, size_t *size_r)
 static char *
 icon_mageia (guestfs_h *g, size_t *size_r)
 {
-  return get_png (g, MAGEIA_ICON, size_r, 2048);
+  return get_png (g, MAGEIA_ICON, size_r, 10240);
 }
 
 #define OPENSUSE_ICON "/usr/share/icons/hicolor/24x24/apps/distributor.png"
