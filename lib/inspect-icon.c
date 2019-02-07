@@ -66,6 +66,7 @@ static char *icon_cirros (guestfs_h *g, size_t *size_r);
 #endif
 static char *icon_voidlinux (guestfs_h *g, size_t *size_r);
 static char *icon_altlinux (guestfs_h *g, size_t *size_r);
+static char *icon_gentoo (guestfs_h *g, size_t *size_r);
 #if CAN_DO_WINDOWS
 static char *icon_windows (guestfs_h *g, const char *root, size_t *size_r);
 #endif
@@ -165,6 +166,9 @@ guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
     }
     else if (STREQ (distro, "altlinux")) {
       r = icon_altlinux (g, &size);
+    }
+    else if (STREQ (distro, "gentoo")) {
+      r = icon_gentoo (g, &size);
     }
   }
   else if (STREQ (type, "windows")) {
@@ -438,6 +442,15 @@ static char *
 icon_altlinux (guestfs_h *g, size_t *size_r)
 {
   return get_png (g, ALTLINUX_ICON, size_r, 20480);
+}
+
+/* Installed by x11-themes/gentoo-artwork. */
+#define GENTOO_ICON "/usr/share/icons/gentoo/48x48/gentoo.png"
+
+static char *
+icon_gentoo (guestfs_h *g, size_t *size_r)
+{
+  return get_png (g, GENTOO_ICON, size_r, 10240);
 }
 
 #if CAN_DO_WINDOWS
