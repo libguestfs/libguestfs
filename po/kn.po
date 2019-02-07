@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2019-01-16 11:53+0000\n"
+"POT-Creation-Date: 2019-02-07 14:29+0000\n"
 "PO-Revision-Date: 2015-02-21 10:50+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/libguestfs/"
@@ -3272,19 +3272,19 @@ msgstr ""
 msgid "don’t know how to convert UEFI guests for architecture %s"
 msgstr ""
 
-#: ../v2v/linux.ml:159
+#: ../v2v/linux.ml:176
 msgid "don’t know how to find file owner using %s"
 msgstr ""
 
-#: ../v2v/linux.ml:113
+#: ../v2v/linux.ml:130
 msgid "don’t know how to get list of files from package using %s"
 msgstr ""
 
-#: ../v2v/linux.ml:42
+#: ../v2v/linux.ml:44
 msgid "don’t know how to install packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/linux.ml:69
+#: ../v2v/linux.ml:71
 msgid "don’t know how to remove packages using %s: packages: %s"
 msgstr ""
 
@@ -3660,11 +3660,11 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/linux.ml:129
+#: ../v2v/linux.ml:146
 msgid "internal error: is_file_owned: dpkg command returned no output"
 msgstr ""
 
-#: ../v2v/linux.ml:134
+#: ../v2v/linux.ml:151
 msgid "internal error: is_file_owned: unexpected output from dpkg command: %s"
 msgstr ""
 
@@ -9546,7 +9546,7 @@ msgstr ""
 msgid "qemu-img info: unknown JSON parse error"
 msgstr ""
 
-#: lib/inspect-icon.c:688
+#: lib/inspect-icon.c:699
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
