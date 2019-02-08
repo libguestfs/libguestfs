@@ -309,10 +309,11 @@ and copy_drivers g inspect driverdir =
 and copy_from_virtio_win g inspect srcdir destdir filter missing =
   let ret = ref [] in
   if is_directory virtio_win then (
-    let dir = virtio_win // srcdir in
-    debug "windows: copy_from_virtio_win: guest tools source directory %s" dir;
+    debug "windows: copy_from_virtio_win: guest tools source directory %s"
+      virtio_win;
 
-    if not (is_directory srcdir) then missing ()
+    let dir = virtio_win // srcdir in
+    if not (is_directory dir) then missing ()
     else (
       let cmd = sprintf "cd %s && find -L -type f" (quote dir) in
       let paths = external_command cmd in
