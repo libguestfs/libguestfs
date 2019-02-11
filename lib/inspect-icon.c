@@ -301,7 +301,7 @@ icon_rhel (guestfs_h *g, int major, size_t *size_r)
   if (major < 7)
     shadowman = "/usr/share/pixmaps/redhat/shadowman-transparent.png";
   else
-    shadowman = "/usr/share/pixmaps/fedora-logo-sprite.png";
+    shadowman = "/usr/share/icons/hicolor/96x96/apps/system-logo-icon.png";
 
   return get_png (g, shadowman, size_r, 102400);
 }
