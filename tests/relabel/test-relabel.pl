@@ -51,6 +51,13 @@ unless ($g->feature_available (["linuxxattrs"])) {
     exit 77
 }
 
+# If SELinux relabelling is not available then we cannot test this.
+unless ($g->feature_available (["selinuxrelabel"])) {
+    print "$prog: test skipped because 'selinuxrelabel' feature not available.\n";
+    $g->close ();
+    exit 77
+}
+
 $g->part_disk ("/dev/sda", "mbr");
 $g->mkfs ("ext4", "/dev/sda1");
 
