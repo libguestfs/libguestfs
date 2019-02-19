@@ -69,6 +69,69 @@ guestfs_impl_inspect_get_osinfo (guestfs_h *g, const char *root)
     if (STREQ (distro, "msdos"))
       return safe_strdup (g, "msdos6.22");
   }
+  else if (STREQ (type, "windows")) {
+    CLEANUP_FREE char *product_name = NULL;
+    CLEANUP_FREE char *product_variant = NULL;
+
+    product_name = guestfs_inspect_get_product_name (g, root);
+    if (!product_name)
+      return NULL;
+    product_variant = guestfs_inspect_get_product_variant (g, root);
+    if (!product_variant)
+      return NULL;
+
+    switch (major) {
+    case 5:
+      switch (minor) {
+      case 1:
+        return safe_strdup (g, "winxp");
+      case 2:
+        if (strstr (product_name, "XP"))
+          return safe_strdup (g, "winxp");
+        else if (strstr (product_name, "R2"))
+          return safe_strdup (g, "win2k3r2");
+        else
+          return safe_strdup (g, "win2k3");
+      }
+      break;
+    case 6:
+      switch (minor) {
+      case 0:
+        if (strstr (product_variant, "Server"))
+          return safe_strdup (g, "win2k8");
+        else
+          return safe_strdup (g, "winvista");
+      case 1:
+        if (strstr (product_variant, "Server"))
+          return safe_strdup (g, "win2k8r2");
+        else
+          return safe_strdup (g, "win7");
+      case 2:
+        if (strstr (product_variant, "Server"))
+          return safe_strdup (g, "win2k12");
+        else
+          return safe_strdup (g, "win8");
+      case 3:
+        if (strstr (product_variant, "Server"))
+          return safe_strdup (g, "win2k12r2");
+        else
+          return safe_strdup (g, "win8.1");
+      }
+      break;
+    case 10:
+      switch (minor) {
+      case 0:
+        if (strstr (product_variant, "Server")) {
+          if (strstr (product_name, "2019"))
+            return safe_strdup (g, "win2k19");
+          else
+            return safe_strdup (g, "win2k16");
+        } else
+          return safe_strdup (g, "win10");
+      }
+      break;
+    }
+  }
 
   /* No ID could be guessed, return "unknown". */
   return safe_strdup (g, "unknown");
