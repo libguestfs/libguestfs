@@ -64,7 +64,7 @@ let arch_binaries =
  * features.
  *)
 let rolling_distros =
-  [ DISTRO_VOID_LINUX ]
+  [ DISTRO_GENTOO; DISTRO_VOID_LINUX ]
 
 (* Parse a os-release file.
  *
@@ -144,6 +144,7 @@ and distro_of_os_release_id = function
   | "debian" -> Some DISTRO_DEBIAN
   | "fedora" -> Some DISTRO_FEDORA
   | "frugalware" -> Some DISTRO_FRUGALWARE
+  | "gentoo" -> Some DISTRO_GENTOO
   | "kali" -> Some DISTRO_KALI_LINUX
   | "mageia" -> Some DISTRO_MAGEIA
   | "neokylin" -> Some DISTRO_NEOKYLIN
