@@ -10,6 +10,7 @@
     <package_format>pacman</package_format>
     <package_management>pacman</package_management>
     <hostname>archlinux.test</hostname>
+    <osinfo>archlinux</osinfo>
     <mountpoints>
       <mountpoint dev="/dev/sda1">/</mountpoint>
     </mountpoints>

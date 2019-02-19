@@ -59,6 +59,9 @@ guestfs_impl_inspect_get_osinfo (guestfs_h *g, const char *root)
     }
     else if (STREQ (distro, "ubuntu"))
       return safe_asprintf (g, "%s%d.%02d", distro, major, minor);
+    else if (STREQ (distro, "archlinux") || STREQ (distro, "gentoo")
+             || STREQ (distro, "voidlinux"))
+      return safe_strdup (g, distro);
 
     if (major > 0 || minor > 0)
       return safe_asprintf (g, "%s%d.%d", distro, major, minor);
