@@ -693,6 +693,7 @@ Makefile.in
 /v2v/uefi.ml
 /v2v/uefi.mli
 /v2v/v2v_unit_tests
+/v2v/var_expander_tests
 /v2v/virt-v2v
 /v2v/virt-v2v.1
 /v2v/virt-v2v-copy-to-local
