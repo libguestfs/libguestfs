@@ -62,7 +62,7 @@ val compile : ?anchored:bool -> ?caseless:bool -> ?dotall:bool -> ?extended:bool
     See pcreapi(3) for details of what they do.
     All flags default to false. *)
 
-val matches : regexp -> string -> bool
+val matches : ?offset:int -> regexp -> string -> bool
 (** Test whether the regular expression matches the string.  This
     returns true if the regexp matches or false otherwise.
 
@@ -70,6 +70,9 @@ val matches : regexp -> string -> bool
     until either the next call to {!matches} in the current thread
     or the thread/program exits.  You can call {!sub} to return
     these substrings.
+
+    The [?offset] flag is used to change the start of the search,
+    which by default is at the beginning of the string (position 0).
 
     This can raise {!Error} if PCRE returns an error. *)
 

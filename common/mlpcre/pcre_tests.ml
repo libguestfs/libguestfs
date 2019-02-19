@@ -30,9 +30,9 @@ let compile ?(anchored = false) ?(caseless = false)
           patt;
   PCRE.compile ~anchored ~caseless ~dotall ~extended ~multiline patt
 
-let matches re str =
-  eprintf "PCRE.matches %s ->%!" str;
-  let r = PCRE.matches re str in
+let matches ?(offset = 0) re str =
+  eprintf "PCRE.matches %s, %d ->%!" str offset;
+  let r = PCRE.matches ~offset re str in
   eprintf " %b\n%!" r;
   r
 
@@ -102,6 +102,11 @@ let () =
     assert (subi 0 = (2, 3));
     assert (subi 1 = (2, 3));
     assert (subi 2 = (3, 3));
+
+    assert (matches ~offset:5 re0 "aaabcabc" = true);
+    assert (sub 0 = "ab");
+
+    assert (matches ~offset:5 re0 "aaabcbaac" = false);
 
     assert (replace re0 "dd" "abcabcaabccca" = "ddcabcaabccca");
     assert (replace ~global:true re0 "dd" "abcabcaabccca" = "ddcddcddccca");
