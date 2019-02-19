@@ -98,6 +98,7 @@ SOURCES_MLI = \
 	utils.mli \
 	v2v.mli \
 	vCenter.mli \
+	var_expander.mli \
 	windows.mli \
 	windows_virtio.mli
 
@@ -106,6 +107,7 @@ SOURCES_ML = \
 	types.ml \
 	uefi.ml \
 	utils.ml \
+	var_expander.ml \
 	python_script.ml \
 	name_from_disk.ml \
 	vCenter.ml \
@@ -442,7 +444,7 @@ TESTS += \
 endif
 
 if HAVE_OCAML_PKG_OUNIT
-TESTS += v2v_unit_tests
+TESTS += v2v_unit_tests var_expander_tests
 endif
 
 if ENABLE_APPLIANCE
@@ -653,7 +655,7 @@ EXTRA_DIST += \
 # Unit tests.
 check_PROGRAMS =
 if HAVE_OCAML_PKG_OUNIT
-check_PROGRAMS += v2v_unit_tests
+check_PROGRAMS += v2v_unit_tests var_expander_tests
 endif
 
 v2v_unit_tests_BOBJECTS = \
@@ -673,13 +675,28 @@ v2v_unit_tests_SOURCES = $(virt_v2v_SOURCES)
 v2v_unit_tests_CPPFLAGS = $(virt_v2v_CPPFLAGS)
 v2v_unit_tests_CFLAGS = $(virt_v2v_CFLAGS)
 
+var_expander_tests_BOBJECTS = \
+	var_expander.cmo \
+	var_expander_tests.cmo
+var_expander_tests_XOBJECTS = $(var_expander_tests_BOBJECTS:.cmo=.cmx)
+
+var_expander_tests_SOURCES = dummy.c
+var_expander_tests_CPPFLAGS = $(virt_v2v_CPPFLAGS)
+var_expander_tests_CFLAGS = $(virt_v2v_CFLAGS)
+
 if !HAVE_OCAMLOPT
 # Can't call this v2v_unit_tests_OBJECTS because automake gets confused.
 v2v_unit_tests_THEOBJECTS = $(v2v_unit_tests_BOBJECTS)
 v2v_unit_tests.cmo: OCAMLPACKAGES += -package oUnit
+
+var_expander_tests_THEOBJECTS = $(var_expander_tests_BOBJECTS)
+var_expander_tests.cmo: OCAMLPACKAGES += -package oUnit
 else
 v2v_unit_tests_THEOBJECTS = $(v2v_unit_tests_XOBJECTS)
 v2v_unit_tests.cmx: OCAMLPACKAGES += -package oUnit
+
+var_expander_tests_THEOBJECTS = $(var_expander_tests_XOBJECTS)
+var_expander_tests.cmx: OCAMLPACKAGES += -package oUnit
 endif
 
 v2v_unit_tests_DEPENDENCIES = \
@@ -697,6 +714,17 @@ v2v_unit_tests_LINK = \
 	  $(OCAMLPACKAGES) -package oUnit \
 	  $(OCAMLLINKFLAGS) \
 	  $(v2v_unit_tests_THEOBJECTS) -o $@
+
+var_expander_tests_DEPENDENCIES = \
+	$(var_expander_tests_THEOBJECTS) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
+	$(top_srcdir)/ocaml-link.sh
+var_expander_tests_LINK = \
+	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) \
+	  $(OCAMLPACKAGES) -package oUnit \
+	  $(OCAMLLINKFLAGS) \
+	  $(var_expander_tests_THEOBJECTS) -o $@
 
 # Dependencies.
 .depend: \
