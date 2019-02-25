@@ -11,6 +11,9 @@ or libvirt
 
  virt-v2v [-i* options] -o qemu -os DIRECTORY [--qemu-boot]
 
+ virt-v2v [-i* options] -o json -os DIRECTORY
+                        [-oo json-disks-pattern=PATTERN]
+
  virt-v2v [-i* options] -o null
 
 =head1 DESCRIPTION
@@ -53,6 +56,13 @@ This converts the guest to files in C<DIRECTORY>.  Unlike I<-o local>
 above, a shell script is created which contains the raw qemu command
 you would need to boot the guest.  However the shell script is not
 run, I<unless> you also add the I<--qemu-boot> option.
+
+=item B<-o json -os> C<DIRECTORY>
+
+This converts the guest to files in C<DIRECTORY>.  The metadata
+produced is a JSON file containing the majority of the data virt-v2v
+gathers during the conversion.
+See L</OUTPUT TO JSON> below.
 
 =item B<-o null>
 
@@ -139,6 +149,51 @@ Define the final guest in libvirt:
  virsh define /var/tmp/NAME.xml
 
 =back
+
+=head1 OUTPUT TO JSON
+
+The I<-o json> option produces the following files by default:
+
+ NAME.json                     JSON metadata.
+ NAME-sda, NAME-sdb, etc.      Guest disk(s).
+
+where C<NAME> is the guest name.
+
+It is possible to change the pattern of the disks using the
+I<-oo json-disks-pattern=...> option: it allows parameters in form of
+C<%{...}> variables, for example:
+
+ -oo json-disks-pattern=disk%{DiskNo}.img
+
+Recognized variables are:
+
+=over 4
+
+=item C<%{DiskNo}>
+
+The index of the disk, starting from 1.
+
+=item C<%{DiskDeviceName}>
+
+The destination device of the disk, e.g. C<sda>, C<sdb>, etc.
+
+=item C<%{GuestName}>
+
+The name of the guest.
+
+=back
+
+Using a pattern it is possible use subdirectories for the disks,
+even with names depending on variables; for example:
+
+ -oo json-disks-pattern=%{GuestName}-%{DiskNo}/disk.img
+
+The default pattern is C<%{GuestName}-%{DiskDeviceName}>.
+
+If the literal C<%{...}> text is needed, it is possible to avoid the
+escape it with a leading C<%>; for example,
+C<%%{GuestName}-%{DiskNo}.img> will create file names for the
+disks like C<%%{GuestName}-1.img>, C<%%{GuestName}-2.img>, etc.
 
 =head1 SEE ALSO
 

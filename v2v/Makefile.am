@@ -52,6 +52,7 @@ SOURCES_MLI = \
 	config.mli \
 	convert_linux.mli \
 	convert_windows.mli \
+	create_json.mli \
 	create_libvirt_xml.mli \
 	create_ovf.mli \
 	DOM.mli \
@@ -75,6 +76,7 @@ SOURCES_MLI = \
 	networks.mli \
 	openstack_image_properties.mli \
 	output_glance.mli \
+	output_json.mli \
 	output_libvirt.mli \
 	output_local.mli \
 	output_null.mli \
@@ -117,6 +119,7 @@ SOURCES_ML = \
 	parse_ovf_from_ova.ml \
 	parse_ova.ml \
 	create_ovf.ml \
+	create_json.ml \
 	linux.ml \
 	windows.ml \
 	windows_virtio.ml \
@@ -141,6 +144,7 @@ SOURCES_ML = \
 	convert_windows.ml \
 	output_null.ml \
 	output_glance.ml \
+	output_json.ml \
 	output_libvirt.ml \
 	output_local.ml \
 	output_qemu.ml \

@@ -138,6 +138,7 @@ let parse_cmdline () =
     | "glance" -> output_mode := `Glance
     | "libvirt" -> output_mode := `Libvirt
     | "disk" | "local" -> output_mode := `Local
+    | "json" -> output_mode := `JSON
     | "null" -> output_mode := `Null
     | "openstack" | "osp" | "rhosp" -> output_mode := `Openstack
     | "ovirt" | "rhv" | "rhev" -> output_mode := `RHV
@@ -413,6 +414,17 @@ read the man page virt-v2v(1).
     | `RHV -> no_options (); `RHV
     | `QEmu -> no_options (); `QEmu
 
+    | `JSON ->
+       if is_query then (
+         Output_json.print_output_options ();
+         exit 0
+       )
+       else (
+         let json_options =
+           Output_json.parse_output_options output_options in
+         `JSON json_options
+       )
+
     | `Openstack ->
        if is_query then (
          Output_openstack.print_output_options ();
@@ -544,6 +556,23 @@ read the man page virt-v2v(1).
       if not do_copy then
         error_option_cannot_be_used_in_output_mode "libvirt" "--no-copy";
       Output_libvirt.output_libvirt output_conn output_storage,
+      output_format, output_alloc
+
+    | `JSON json_options ->
+      if output_password <> None then
+        error_option_cannot_be_used_in_output_mode "json" "-op";
+      if output_conn <> None then
+        error_option_cannot_be_used_in_output_mode "json" "-oc";
+      let os =
+        match output_storage with
+        | None ->
+           error (f_"-o json: output directory was not specified, use '-os /dir'")
+        | Some d when not (is_directory d) ->
+           error (f_"-os %s: output directory does not exist or is not a directory") d
+        | Some d -> d in
+      if qemu_boot then
+        error_option_cannot_be_used_in_output_mode "json" "--qemu-boot";
+      Output_json.output_json os json_options,
       output_format, output_alloc
 
     | `Local ->
