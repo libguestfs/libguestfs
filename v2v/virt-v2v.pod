@@ -425,6 +425,17 @@ instead.
 Set the output method to OpenStack Glance.  In this mode the converted
 guest is uploaded to Glance.  See L<virt-v2v-output-openstack(1)>.
 
+=item B<-o> B<json>
+
+Set the output method to I<json>.
+
+In this mode, the converted guest is written to a local directory
+specified by I<-os /dir> (the directory must exist), with a JSON file
+containing the majority of the metadata that virt-v2v gathered during
+the conversion.
+
+See L<virt-v2v-output-local(1)>.
+
 =item B<-o> B<libvirt>
 
 Set the output method to I<libvirt>.  This is the default.
@@ -696,8 +707,8 @@ The location of the storage for the converted guest.
 For I<-o libvirt>, this is a libvirt directory pool
 (see S<C<virsh pool-list>>) or pool UUID.
 
-For I<-o local> and I<-o qemu>, this is a directory name.  The
-directory must exist.
+For I<-o json>, I<-o local> and I<-o qemu>, this is a directory name.
+The directory must exist.
 
 For I<-o rhv-upload>, this is the name of the destination Storage
 Domain.
