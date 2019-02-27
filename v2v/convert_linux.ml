@@ -289,6 +289,18 @@ let convert (g : G.guestfs) inspect source output rcaps =
 
     (* Uninstall VMware Tools. *)
     let remove = ref [] and libraries = ref [] in
+    (* On Ubuntu, the ubuntu-server metapackage depends on
+     * open-vm-tools, and thus any attempt to remove it will cause
+     * dependency issues.  Hence, special case this situation, and
+     * leave open-vm-tools installed in this case.
+     *)
+    let has_ubuntu_server =
+      if family = `Debian_family then
+        List.exists (
+          fun { G.app2_name = name } ->
+            name = "ubuntu-server"
+        ) inspect.i_apps
+      else false in
     List.iter (
       fun { G.app2_name = name } ->
         if String.is_prefix name "vmware-tools-libraries-" then
@@ -301,7 +313,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
           List.push_front name remove
         else if String.is_prefix name "open-vm-tools-" then
           List.push_front name remove
-        else if name = "open-vm-tools" then
+        else if name = "open-vm-tools" && not has_ubuntu_server then
           List.push_front name remove
     ) inspect.i_apps;
     let libraries = !libraries in
