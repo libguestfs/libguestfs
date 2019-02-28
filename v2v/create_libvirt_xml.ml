@@ -125,6 +125,11 @@ let get_osinfo_id = function
     Some "http://microsoft.com/win/8.1"
 
   | { i_type = "windows"; i_major_version = 10; i_minor_version = 0;
+      i_product_variant = "Server"; i_product_name = product }
+      when String.find product "2019" >= 0 ->
+    Some "http://microsoft.com/win/2k19"
+
+  | { i_type = "windows"; i_major_version = 10; i_minor_version = 0;
       i_product_variant = "Server" } ->
     Some "http://microsoft.com/win/2k16"
 
