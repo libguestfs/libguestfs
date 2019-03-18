@@ -523,16 +523,23 @@ def close(h):
         # waiting for the transfer object to cease to exist, which
         # falls through to the exception case and then we can
         # continue.
-        endt = time.time() + timeout
+        disk_id = disk.id
+        start = time.time()
         try:
             while True:
                 time.sleep(1)
-                tmp = transfer_service.get()
-                if time.time() > endt:
-                    raise RuntimeError("timed out waiting for transfer "
-                                       "to finalize")
+                disk_service = h['disk_service']
+                disk = disk_service.get()
+                if disk.status == types.DiskStatus.LOCKED:
+                    if time.time() > start + timeout:
+                        raise RuntimeError("timed out waiting for transfer "
+                                           "to finalize")
+                    continue
+                if disk.status == types.DiskStatus.OK:
+                    debug("finalized after %s seconds" % (time.time() - start))
+                    break
         except sdk.NotFoundError:
-            pass
+            raise RuntimeError("transfer failed: disk %s not found" % disk_id)
 
         # Write the disk ID file.  Only do this on successful completion.
         with builtins.open(params['diskid_file'], 'w') as fp:
