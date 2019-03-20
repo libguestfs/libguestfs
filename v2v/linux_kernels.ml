@@ -189,7 +189,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
               *)
              let arch =
                let any_module = modpath ^ List.hd modules in
-               g#file_architecture any_module in
+               g#file_architecture (g#realpath any_module) in
 
              (* Just return the module names, without path or extension. *)
              let modules = List.filter_map (
