@@ -185,11 +185,35 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
              assert (List.length modules > 0);
 
              (* Determine the kernel architecture by looking at the
-              * architecture of an arbitrary kernel module.
+              * architecture of a kernel module.
+              *
+              * To avoid architecture detection issues with 3rd party
+              * modules (RHBZ#1690574), try to pick one of the well
+              * known modules, if available.  Otherwise, an arbitrary
+              * module is used.
               *)
              let arch =
-               let any_module = modpath ^ List.hd modules in
-               g#file_architecture (g#realpath any_module) in
+               (* Well known kernel modules. *)
+               let candidates = [ "virtio"; "kvm" ] in
+               let all_candidates = List.flatten (
+                 List.map (
+                   fun f ->
+                     [ "/" ^ f ^ ".o"; "/" ^ f ^ ".ko"; "/" ^ f ^ ".ko.xz" ]
+                 ) candidates
+               ) in
+               let candidate =
+                 try
+                   List.find (
+                     fun m ->
+                       List.exists (String.is_suffix m) all_candidates
+                   ) modules
+                 with Not_found ->
+                   (* No known module found, pick an arbitrary one
+                    * (the first).
+                    *)
+                   List.hd modules in
+               let candidate = modpath ^ candidate in
+               g#file_architecture (g#realpath candidate) in
 
              (* Just return the module names, without path or extension. *)
              let modules = List.filter_map (
