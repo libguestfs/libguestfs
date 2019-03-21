@@ -33,6 +33,36 @@ external c_inspect_decrypt : Guestfs.t -> int64 -> (string * key_store_key) list
 external c_set_echo_keys : unit -> unit = "guestfs_int_mllib_set_echo_keys" "noalloc"
 external c_set_keys_from_stdin : unit -> unit = "guestfs_int_mllib_set_keys_from_stdin" "noalloc"
 
+type machine_readable_fn = {
+  pr : 'a. ('a, unit, string, unit) format4 -> 'a;
+} (* [@@unboxed] *)
+
+type machine_readable_output_type =
+  | NoOutput
+  | Channel of out_channel
+  | File of string
+let machine_readable_output = ref NoOutput
+let machine_readable_channel = ref None
+let machine_readable () =
+  let chan =
+    if !machine_readable_channel = None then (
+      let chan =
+        match !machine_readable_output with
+        | NoOutput -> None
+        | Channel chan -> Some chan
+        | File f -> Some (open_out f) in
+      machine_readable_channel := chan
+    );
+    !machine_readable_channel
+  in
+  match chan with
+  | None -> None
+  | Some chan ->
+    let pr fs =
+      ksprintf (output_string chan) fs
+    in
+    Some { pr }
+
 (* ANSI terminal colours. *)
 let istty chan =
   Unix.isatty (Unix.descr_of_out_channel chan)
@@ -235,36 +265,6 @@ let human_size i =
       )
     )
   )
-
-type machine_readable_fn = {
-  pr : 'a. ('a, unit, string, unit) format4 -> 'a;
-} (* [@@unboxed] *)
-
-type machine_readable_output_type =
-  | NoOutput
-  | Channel of out_channel
-  | File of string
-let machine_readable_output = ref NoOutput
-let machine_readable_channel = ref None
-let machine_readable () =
-  let chan =
-    if !machine_readable_channel = None then (
-      let chan =
-        match !machine_readable_output with
-        | NoOutput -> None
-        | Channel chan -> Some chan
-        | File f -> Some (open_out f) in
-      machine_readable_channel := chan
-    );
-    !machine_readable_channel
-  in
-  match chan with
-  | None -> None
-  | Some chan ->
-    let pr fs =
-      ksprintf (output_string chan) fs
-    in
-    Some { pr }
 
 type cmdline_options = {
   getopt : Getopt.t;
