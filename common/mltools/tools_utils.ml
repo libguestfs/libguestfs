@@ -41,6 +41,7 @@ type machine_readable_output_type =
   | NoOutput
   | Channel of out_channel
   | File of string
+  | Fd of int
 let machine_readable_output = ref NoOutput
 let machine_readable_channel = ref None
 let machine_readable () =
@@ -50,7 +51,10 @@ let machine_readable () =
         match !machine_readable_output with
         | NoOutput -> None
         | Channel chan -> Some chan
-        | File f -> Some (open_out f) in
+        | File f -> Some (open_out f)
+        | Fd fd ->
+          (* Note that Unix.file_descr is really just an int. *)
+          Some (Unix.out_channel_of_descr (Obj.magic fd)) in
       machine_readable_channel := chan
     );
     !machine_readable_channel
@@ -296,6 +300,11 @@ let create_standard_options argspec ?anon_fun ?(key_opts = false) ?(machine_read
           | n ->
             error (f_"invalid output stream for --machine-readable: %s") fmt in
         machine_readable_output := Channel chan
+      | "fd" ->
+        (try
+          machine_readable_output := Fd (int_of_string outname)
+        with Failure _ ->
+          error (f_"invalid output fd for --machine-readable: %s") fmt)
       | n ->
         error (f_"invalid output for --machine-readable: %s") fmt
       )

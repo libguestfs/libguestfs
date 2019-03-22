@@ -65,3 +65,10 @@ test $($t --machine-readable=stream:stdout |& wc -l) -eq 3
 # Output "stream:stderr".
 $t --machine-readable=stream:stderr 2>&1 >/dev/null | grep 'machine-readable'
 test $($t --machine-readable=stream:stderr 2>&1 >/dev/null | wc -l) -eq 2
+
+# Output "fd:".
+fn="$tmpdir/fdfile"
+exec 4>"$fn"
+$t --machine-readable=fd:4
+exec 4>&-
+test $(cat "$fn" | wc -l) -eq 1

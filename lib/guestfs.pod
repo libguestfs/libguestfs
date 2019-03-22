@@ -3287,6 +3287,11 @@ The possible values are:
 
 =over 4
 
+=item B<fd:>I<fd>
+
+The output goes to the specified I<fd>, which is a file descriptor
+already opened for writing.
+
 =item B<file:>F<filename>
 
 The output goes to the specified F<filename>.
