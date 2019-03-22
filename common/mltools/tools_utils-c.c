@@ -23,6 +23,8 @@
 #include <unistd.h>
 #include <errno.h>
 #include <error.h>
+#include <time.h>
+#include <string.h>
 
 #include <caml/alloc.h>
 #include <caml/fail.h>
@@ -37,6 +39,7 @@
 extern value guestfs_int_mllib_inspect_decrypt (value gv, value gpv, value keysv);
 extern value guestfs_int_mllib_set_echo_keys (value unitv);
 extern value guestfs_int_mllib_set_keys_from_stdin (value unitv);
+extern value guestfs_int_mllib_rfc3999_date_time_string (value unitv);
 
 /* Interface with the guestfish inspection and decryption code. */
 int echo_keys = 0;
@@ -102,4 +105,52 @@ guestfs_int_mllib_set_keys_from_stdin (value unitv)
 {
   keys_from_stdin = 1;
   return Val_unit;
+}
+
+value
+guestfs_int_mllib_rfc3999_date_time_string (value unitv)
+{
+  CAMLparam1 (unitv);
+  char buf[64];
+  struct timespec ts;
+  struct tm tm;
+  size_t ret;
+  size_t total = 0;
+
+  if (clock_gettime (CLOCK_REALTIME, &ts) == -1)
+    unix_error (errno, (char *) "clock_gettime", Val_unit);
+
+  if (localtime_r (&ts.tv_sec, &tm) == NULL)
+    unix_error (errno, (char *) "localtime_r", caml_copy_int64 (ts.tv_sec));
+
+  /* Sadly strftime does not support nanoseconds, so what we do is:
+   * - stringify everything before the nanoseconds
+   * - print the nanoseconds
+   * - stringify the rest (i.e. the timezone)
+   * then place ':' between the hours, and the minutes of the
+   * timezone offset.
+   */
+
+  ret = strftime (buf, sizeof (buf), "%Y-%m-%dT%H:%M:%S.", &tm);
+  if (ret == 0)
+    unix_error (errno, (char *) "strftime", Val_unit);
+  total += ret;
+
+  ret = snprintf (buf + total, sizeof (buf) - total, "%09ld", ts.tv_nsec);
+  if (ret == 0)
+    unix_error (errno, (char *) "sprintf", caml_copy_int64 (ts.tv_nsec));
+  total += ret;
+
+  ret = strftime (buf + total, sizeof (buf) - total, "%z", &tm);
+  if (ret == 0)
+    unix_error (errno, (char *) "strftime", Val_unit);
+  total += ret;
+
+  /* Move the timezone minutes one character to the right, moving the
+   * null character too.
+   */
+  memmove (buf + total - 1, buf + total - 2, 3);
+  buf[total - 2] = ':';
+
+  CAMLreturn (caml_copy_string (buf));
 }

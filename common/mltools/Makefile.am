@@ -27,6 +27,8 @@ EXTRA_DIST = \
 	machine_readable_tests.ml \
 	test-getopt.sh \
 	test-machine-readable.sh \
+	test-tools-messages.sh \
+	tools_messages_tests.ml \
 	tools_utils_tests.ml
 
 SOURCES_MLI = \
@@ -45,12 +47,12 @@ SOURCES_MLI = \
 
 SOURCES_ML = \
 	getopt.ml \
+	JSON.ml \
 	tools_utils.ml \
 	URI.ml \
 	planner.ml \
 	registry.ml \
 	regedit.ml \
-	JSON.ml \
 	JSON_parser.ml \
 	curl.ml \
 	checksums.ml \
@@ -196,6 +198,15 @@ machine_readable_tests_CPPFLAGS = \
 machine_readable_tests_BOBJECTS = machine_readable_tests.cmo
 machine_readable_tests_XOBJECTS = $(machine_readable_tests_BOBJECTS:.cmo=.cmx)
 
+tools_messages_tests_SOURCES = dummy.c
+tools_messages_tests_CPPFLAGS = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/lib
+tools_messages_tests_BOBJECTS = tools_messages_tests.cmo
+tools_messages_tests_XOBJECTS = $(tools_messages_tests_BOBJECTS:.cmo=.cmx)
+
 # Can't call the following as <test>_OBJECTS because automake gets confused.
 if !HAVE_OCAMLOPT
 tools_utils_tests_THEOBJECTS = $(tools_utils_tests_BOBJECTS)
@@ -212,6 +223,9 @@ JSON_parser_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 
 machine_readable_tests_THEOBJECTS = $(machine_readable_tests_BOBJECTS)
 machine_readable_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+
+tools_messages_tests_THEOBJECTS = $(tools_messages_tests_tests_BOBJECTS)
+tools_messages_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 else
 tools_utils_tests_THEOBJECTS = $(tools_utils_tests_XOBJECTS)
 tools_utils_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
@@ -227,6 +241,9 @@ JSON_parser_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 
 machine_readable_tests_THEOBJECTS = $(machine_readable_tests_XOBJECTS)
 machine_readable_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+
+tools_messages_tests_THEOBJECTS = $(tools_messages_tests_XOBJECTS)
+tools_messages_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 endif
 
 OCAMLLINKFLAGS = \
@@ -302,14 +319,32 @@ machine_readable_tests_LINK = \
 	  $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
 	  $(machine_readable_tests_THEOBJECTS) -o $@
 
+tools_messages_tests_DEPENDENCIES = \
+	$(tools_messages_tests_THEOBJECTS) \
+	../mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../mlgettext/mlgettext.$(MLARCHIVE) \
+	../mlpcre/mlpcre.$(MLARCHIVE) \
+	$(MLTOOLS_CMA) \
+	$(top_srcdir)/ocaml-link.sh
+tools_messages_tests_LINK = \
+	$(top_srcdir)/ocaml-link.sh -cclib '-lutils -lgnu' -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \
+	  $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
+	  $(tools_messages_tests_THEOBJECTS) -o $@
+
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
 	test-getopt.sh \
 	test-machine-readable.sh
+if HAVE_PYTHON
+TESTS += \
+	test-tools-messages.sh
+endif
 check_PROGRAMS = \
 	getopt_tests \
-	machine_readable_tests
+	machine_readable_tests \
+	tools_messages_tests
 
 if HAVE_OCAML_PKG_OUNIT
 check_PROGRAMS += JSON_tests JSON_parser_tests tools_utils_tests
