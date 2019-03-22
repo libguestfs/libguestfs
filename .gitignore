@@ -147,6 +147,7 @@ Makefile.in
 /common/mltools/JSON_tests
 /common/mltools/JSON_parser_tests
 /common/mltools/machine_readable_tests
+/common/mltools/tools_messages_tests
 /common/mltools/tools_utils_tests
 /common/mltools/oUnit-*
 /common/mlutils/.depend

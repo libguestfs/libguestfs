@@ -3279,6 +3279,25 @@ Some of the tools support a I<--machine-readable> option, which is
 generally used to make the output more machine friendly, for easier
 parsing for example.  By default, this output goes to stdout.
 
+When using the I<--machine-readable> option, the progress,
+information, warning, and error messages are also printed in JSON
+format for easier log tracking.  Thus, it is highly recommended to
+redirect the machine-readable output to a different stream.  The
+format of these JSON messages is like the following (actually printed
+within a single line, below it is indented for readability):
+
+ {
+   "message": "Finishing off",
+   "timestamp": "2019-03-22T14:46:49.067294446+01:00",
+   "type": "message"
+ }
+
+C<type> can be: C<message> for progress messages, C<info> for
+information messages, C<warning> for warning messages, and C<error>
+for error message.
+C<timestamp> is the L<RFC 3999|https://www.ietf.org/rfc/rfc3339.txt>
+timestamp of the message.
+
 In addition to that, a subset of these tools support an extra string
 passed to the I<--machine-readable> option: this string specifies
 where the machine-readable output will go.
