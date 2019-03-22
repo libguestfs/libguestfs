@@ -59,7 +59,11 @@ let machine_readable () =
   | None -> None
   | Some chan ->
     let pr fs =
-      ksprintf (output_string chan) fs
+      let out s =
+        output_string chan s;
+        flush chan
+      in
+      ksprintf out fs
     in
     Some { pr }
 
