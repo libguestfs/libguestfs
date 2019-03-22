@@ -32,6 +32,7 @@ and key_store_key =
 external c_inspect_decrypt : Guestfs.t -> int64 -> (string * key_store_key) list -> unit = "guestfs_int_mllib_inspect_decrypt"
 external c_set_echo_keys : unit -> unit = "guestfs_int_mllib_set_echo_keys" "noalloc"
 external c_set_keys_from_stdin : unit -> unit = "guestfs_int_mllib_set_keys_from_stdin" "noalloc"
+external c_rfc3999_date_time_string : unit -> string = "guestfs_int_mllib_rfc3999_date_time_string"
 
 type machine_readable_fn = {
   pr : 'a. ('a, unit, string, unit) format4 -> 'a;
@@ -86,12 +87,24 @@ let ansi_magenta ?(chan = stdout) () =
 let ansi_restore ?(chan = stdout) () =
   if colours () || istty chan then output_string chan "\x1b[0m"
 
+let log_as_json msgtype msg =
+  match machine_readable () with
+  | None -> ()
+  | Some { pr } ->
+    let json = [
+      "message", JSON.String msg;
+      "timestamp", JSON.String (c_rfc3999_date_time_string ());
+      "type", JSON.String msgtype;
+    ] in
+    pr "%s\n" (JSON.string_of_doc ~fmt:JSON.Compact json)
+
 (* Timestamped progress messages, used for ordinary messages when not
  * --quiet.
  *)
 let start_t = Unix.gettimeofday ()
 let message fs =
   let display str =
+    log_as_json "message" str;
     if not (quiet ()) then (
       let t = sprintf "%.1f" (Unix.gettimeofday () -. start_t) in
       printf "[%6s] " t;
@@ -106,6 +119,7 @@ let message fs =
 (* Error messages etc. *)
 let error ?(exit_code = 1) fs =
   let display str =
+    log_as_json "error" str;
     let chan = stderr in
     ansi_red ~chan ();
     wrap ~chan (sprintf (f_"%s: error: %s") prog str);
@@ -124,6 +138,7 @@ let error ?(exit_code = 1) fs =
 
 let warning fs =
   let display str =
+    log_as_json "warning" str;
     let chan = stdout in
     ansi_blue ~chan ();
     wrap ~chan (sprintf (f_"%s: warning: %s") prog str);
@@ -134,6 +149,7 @@ let warning fs =
 
 let info fs =
   let display str =
+    log_as_json "info" str;
     let chan = stdout in
     ansi_magenta ~chan ();
     wrap ~chan (sprintf (f_"%s: %s") prog str);
