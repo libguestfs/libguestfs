@@ -566,6 +566,7 @@ generic_qmp_test (guestfs_h *g, struct qemu_data *data,
   /* Exit QEMU after sending the commands. */
   guestfs_int_cmd_add_string_unquoted (cmd, "'{ \"execute\": \"quit\" }' ");
   guestfs_int_cmd_add_string_unquoted (cmd, " | ");
+  guestfs_int_cmd_add_string_unquoted (cmd, "QEMU_AUDIO_DRV=none ");
   guestfs_int_cmd_add_string_quoted (cmd, g->hv);
   guestfs_int_cmd_add_string_unquoted (cmd, " -display none");
   guestfs_int_cmd_add_string_unquoted (cmd, " -machine ");
