@@ -104,7 +104,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
 
     let video =
       match rcaps.rcaps_video with
-      | None -> get_display_driver ()
+      | None -> QXL
       | Some video -> video in
 
     let block_type =
@@ -782,9 +782,6 @@ let convert (g : G.guestfs) inspect source output rcaps =
       false
     else
       true
-
-  and get_display_driver () =
-    if family = `SUSE_family then Cirrus else QXL
 
   and configure_display_driver video =
     let video_driver = match video with QXL -> "qxl" | Cirrus -> "cirrus" in
