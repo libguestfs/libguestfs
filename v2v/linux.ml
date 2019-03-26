@@ -179,3 +179,24 @@ let is_package_manager_save_file filename =
   (* Recognized suffixes of package managers. *)
   let suffixes = [ ".dpkg-old"; ".dpkg-new"; ".rpmsave"; ".rpmnew"; ] in
   List.exists (Filename.check_suffix filename) suffixes
+
+let binary_package_extension { i_package_format = package_format } =
+  match package_format with
+  | "deb" -> "deb"
+  | "rpm" -> "rpm"
+  | format ->
+    error (f_"don’t know what is the extension of binary packages using %s")
+      format
+
+let architecture_string { i_package_format = package_format; i_arch = arch;
+                          i_distro = distro } =
+  match package_format, distro, arch with
+  | "deb", _, "x86_64" -> "amd64"
+  | "deb", _, a -> a
+  | "rpm", ("sles"|"suse-based"|"opensuse"), "i386" -> "i586"
+  | "rpm", ("sles"|"suse-based"|"opensuse"), a -> a
+  | "rpm", _, "i386" -> "i686"
+  | "rpm", _, a -> a
+  | format, distro, arch ->
+    error (f_"don’t know what is the architecture string of %s using %s on %s")
+      arch format distro
