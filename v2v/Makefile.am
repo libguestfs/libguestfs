@@ -524,8 +524,10 @@ real_guests_scripts = \
 	test-v2v-conversion-of-debian-6.sh \
 	test-v2v-conversion-of-debian-7.sh \
 	test-v2v-conversion-of-debian-8.sh \
+	test-v2v-conversion-of-debian-9.sh \
 	test-v2v-conversion-of-fedora-20.sh \
 	test-v2v-conversion-of-fedora-23.sh \
+	test-v2v-conversion-of-fedora-29.sh \
 	test-v2v-conversion-of-opensuse-13.1.sh \
 	test-v2v-conversion-of-opensuse-13.2.sh \
 	test-v2v-conversion-of-opensuse-42.1.sh \
