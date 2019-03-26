@@ -197,9 +197,7 @@ and install_linux_tools g inspect =
     | _ -> None in
 
   match os with
-  | None ->
-      warning (f_"don't know how to install guest tools on %s-%d")
-        inspect.i_distro inspect.i_major_version
+  | None -> ()
   | Some os ->
       let src_path = "linux" // os in
       let dst_path = "/var/tmp" in
@@ -216,13 +214,13 @@ and install_linux_tools g inspect =
       let packages =
         copy_from_virtio_win g inspect src_path dst_path
                              package_filter
-                             (fun () ->
-                               warning (f_"guest tools directory ‘%s’ is missing from the virtio-win directory or ISO.\n\nGuest tools are only provided in the RHV Guest Tools ISO, so this can happen if you are using the version of virtio-win which contains just the virtio drivers.  In this case only virtio drivers can be installed in the guest, and installation of Guest Tools will be skipped.")
-                                       src_path) in
+                             (fun () -> ()) in
       debug "done copying %d files" (List.length packages);
       let packages = List.map ((//) dst_path) packages in
       try
         Linux.install_local g inspect packages;
+        if packages <> [] then
+          info (f_"QEMU Guest Agent installed for this guest.");
       with G.Error msg ->
         warning (f_"failed to install QEMU Guest Agent: %s") msg
 
