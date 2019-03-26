@@ -57,7 +57,7 @@ case "$guestname" in
 esac
 
 # Build a guest (using virt-builder).
-virt-builder "$guestname" --quiet -o "$disk" "${extra[@]}"
+virt-builder "$guestname" --quiet -o "$disk" "${extra[@]}" --update
 
 # Create some minimal test metadata.
 cat > "$xml" <<EOF
