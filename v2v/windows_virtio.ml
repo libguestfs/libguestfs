@@ -203,10 +203,19 @@ and install_linux_tools g inspect =
   | Some os ->
       let src_path = "linux" // os in
       let dst_path = "/var/tmp" in
+      let pkg_arch = Linux.architecture_string inspect in
+      let pkg_ext = Linux.binary_package_extension inspect in
+      let package_suffixes = [
+        sprintf ".%s.%s" pkg_arch pkg_ext;
+        sprintf "_%s.%s" pkg_arch pkg_ext;
+      ] in
+      let package_filter path _ =
+        List.exists (String.is_suffix path) package_suffixes
+      in
       debug "locating packages in %s" src_path;
       let packages =
         copy_from_virtio_win g inspect src_path dst_path
-                             (fun _ _ -> true)
+                             package_filter
                              (fun () ->
                                warning (f_"guest tools directory ‘%s’ is missing from the virtio-win directory or ISO.\n\nGuest tools are only provided in the RHV Guest Tools ISO, so this can happen if you are using the version of virtio-win which contains just the virtio drivers.  In this case only virtio drivers can be installed in the guest, and installation of Guest Tools will be skipped.")
                                        src_path) in
