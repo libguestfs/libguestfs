@@ -81,9 +81,12 @@ EOF
 virt-v2v --debug-gc -i libvirtxml "$xml" -o local -os "$os"
 
 # Test the libvirt XML metadata and a disk was created.
-# XXX We should check the XML.
 test -f "$os/$guestname.xml"
 test -f "$os/$guestname-sda"
+
+# Test the libvirt XML is valid.
+# XXX This does not check bits depending on the QEMU version.
+virt-xml-validate "$os/$guestname.xml"
 
 # Test the disk has a similar size to the original.
 size_before="$(du $disk | awk '{print $1}')"
