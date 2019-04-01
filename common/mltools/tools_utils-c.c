@@ -39,7 +39,7 @@
 extern value guestfs_int_mllib_inspect_decrypt (value gv, value gpv, value keysv);
 extern value guestfs_int_mllib_set_echo_keys (value unitv);
 extern value guestfs_int_mllib_set_keys_from_stdin (value unitv);
-extern value guestfs_int_mllib_rfc3999_date_time_string (value unitv);
+extern value guestfs_int_mllib_rfc3339_date_time_string (value unitv);
 
 /* Interface with the guestfish inspection and decryption code. */
 int echo_keys = 0;
@@ -108,7 +108,7 @@ guestfs_int_mllib_set_keys_from_stdin (value unitv)
 }
 
 value
-guestfs_int_mllib_rfc3999_date_time_string (value unitv)
+guestfs_int_mllib_rfc3339_date_time_string (value unitv)
 {
   CAMLparam1 (unitv);
   char buf[64];
