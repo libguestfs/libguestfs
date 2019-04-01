@@ -3295,7 +3295,7 @@ within a single line, below it is indented for readability):
 C<type> can be: C<message> for progress messages, C<info> for
 information messages, C<warning> for warning messages, and C<error>
 for error message.
-C<timestamp> is the L<RFC 3999|https://www.ietf.org/rfc/rfc3339.txt>
+C<timestamp> is the L<RFC 3339|https://www.ietf.org/rfc/rfc3339.txt>
 timestamp of the message.
 
 In addition to that, a subset of these tools support an extra string

@@ -32,7 +32,7 @@ and key_store_key =
 external c_inspect_decrypt : Guestfs.t -> int64 -> (string * key_store_key) list -> unit = "guestfs_int_mllib_inspect_decrypt"
 external c_set_echo_keys : unit -> unit = "guestfs_int_mllib_set_echo_keys" "noalloc"
 external c_set_keys_from_stdin : unit -> unit = "guestfs_int_mllib_set_keys_from_stdin" "noalloc"
-external c_rfc3999_date_time_string : unit -> string = "guestfs_int_mllib_rfc3999_date_time_string"
+external c_rfc3339_date_time_string : unit -> string = "guestfs_int_mllib_rfc3339_date_time_string"
 
 type machine_readable_fn = {
   pr : 'a. ('a, unit, string, unit) format4 -> 'a;
@@ -93,7 +93,7 @@ let log_as_json msgtype msg =
   | Some { pr } ->
     let json = [
       "message", JSON.String msg;
-      "timestamp", JSON.String (c_rfc3999_date_time_string ());
+      "timestamp", JSON.String (c_rfc3339_date_time_string ());
       "type", JSON.String msgtype;
     ] in
     pr "%s\n" (JSON.string_of_doc ~fmt:JSON.Compact json)
