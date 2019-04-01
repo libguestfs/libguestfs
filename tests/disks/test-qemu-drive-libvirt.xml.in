@@ -35,6 +35,7 @@
           <host name='1.2.3.4' port='1234'/>
           <host name='1.2.3.5' port='1235'/>
           <host name='1.2.3.6' port='1236'/>
+          <host name='[fe80::1]' port='1237'/>
         </source>
         <target dev='vda' bus='virtio'/>
       </disk>

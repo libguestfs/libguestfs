@@ -903,37 +903,24 @@ guestfs_int_drive_source_qemu_param (guestfs_h *g,
   }
 
   case drive_protocol_rbd: {
+    CLEANUP_FREE_STRING_LIST char **hosts = NULL;
     CLEANUP_FREE char *mon_host = NULL, *username = NULL, *secret = NULL;
     const char *auth;
-    size_t n = 0;
-    size_t i, j;
+    size_t i;
 
-    /* build the list of all the mon hosts */
+    /* Build the list of all the mon hosts. */
+    hosts = safe_calloc (g, src->nr_servers + 1, sizeof (char *));
+
     for (i = 0; i < src->nr_servers; i++) {
-      n += strlen (src->servers[i].u.hostname);
-      n += 8; /* for slashes, colons, & port numbers */
-    }
-    n++; /* for \0 */
-    mon_host = safe_malloc (g, n);
-    n = 0;
-    for (i = 0; i < src->nr_servers; i++) {
-      CLEANUP_FREE char *port = NULL;
+      CLEANUP_FREE char *escaped_host;
 
-      for (j = 0; j < strlen (src->servers[i].u.hostname); j++)
-        mon_host[n++] = src->servers[i].u.hostname[j];
-      mon_host[n++] = '\\';
-      mon_host[n++] = ':';
-      port = safe_asprintf (g, "%d", src->servers[i].port);
-      for (j = 0; j < strlen (port); j++)
-        mon_host[n++] = port[j];
-
-      /* join each host with \; */
-      if (i != src->nr_servers - 1) {
-        mon_host[n++] = '\\';
-        mon_host[n++] = ';';
-      }
+      escaped_host =
+        guestfs_int_replace_string (src->servers[i].u.hostname, ":", "\\:");
+      if (escaped_host == NULL) g->abort_cb ();
+      hosts[i] =
+        safe_asprintf (g, "%s\\:%d", escaped_host, src->servers[i].port);
     }
-    mon_host[n] = '\0';
+    mon_host = guestfs_int_join_strings ("\\;", hosts);
 
     if (src->username)
       username = safe_asprintf (g, ":id=%s", src->username);

@@ -56,7 +56,7 @@ rm -f "$DEBUG_QEMU_FILE"
 
 $guestfish -d ceph1 run ||:
 check_output
-grep -sq -- '-drive file=rbd:abc-def/ghi-jkl:mon_host=1.2.3.4\\:1234\\;1.2.3.5\\:1235\\;1.2.3.6\\:1236:auth_supported=none,' "$DEBUG_QEMU_FILE" || fail ceph1
+grep -sq -- '-drive file=rbd:abc-def/ghi-jkl:mon_host=1.2.3.4\\:1234\\;1.2.3.5\\:1235\\;1.2.3.6\\:1236\\;\[fe80\\:\\:1\]\\:1237:auth_supported=none,' "$DEBUG_QEMU_FILE" || fail ceph1
 rm "$DEBUG_QEMU_FILE"
 
 $guestfish -d ceph2 run ||:

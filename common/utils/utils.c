@@ -215,6 +215,53 @@ guestfs_int_split_string (char sep, const char *str)
 }
 
 /**
+ * Replace every instance of C<s1> appearing in C<str> with C<s2>.  A
+ * newly allocated string is returned which must be freed by the
+ * caller.  If allocation fails this can return C<NULL>.
+ *
+ * For example:
+ *
+ *  replace_string ("abcabb", "ab", "a");
+ *
+ * would return C<"acab">.
+ */
+char *
+guestfs_int_replace_string (const char *str, const char *s1, const char *s2)
+{
+  const size_t len = strlen (str), s1len = strlen (s1), s2len = strlen (s2);
+  size_t i, n;
+  char *ret;
+
+  /* Count the size of the final string. */
+  n = 0;
+  for (i = 0; i < len; ++i) {
+    if (strncmp (&str[i], s1, s1len) == 0)
+      n += s2len;
+    else
+      n++;
+  }
+
+  ret = malloc (n+1);
+  if (ret == NULL)
+    return NULL;
+
+  n = 0;
+  for (i = 0; i < len; ++i) {
+    if (strncmp (&str[i], s1, s1len) == 0) {
+      strcpy (&ret[n], s2);
+      n += s2len;
+    }
+    else {
+      ret[n] = str[i];
+      n++;
+    }
+  }
+  ret[n] = '\0';
+
+  return ret;
+}
+
+/**
  * Translate a wait/system exit status into a printable string.
  */
 char *
