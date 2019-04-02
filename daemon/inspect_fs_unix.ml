@@ -60,6 +60,12 @@ let re_openmandriva =
 let arch_binaries =
   [ "/bin/bash"; "/bin/ls"; "/bin/echo"; "/bin/rm"; "/bin/sh" ]
 
+(* List of typical rolling distros, to ease handling them for common
+ * features.
+ *)
+let rolling_distros =
+  [ DISTRO_VOID_LINUX ]
+
 (* Parse a os-release file.
  *
  * Only few fields are parsed, falling back to the usual detection if we
@@ -104,12 +110,8 @@ let rec parse_os_release release_file data =
            version = Some (_, 0) } ->
           false
 
-       (* Rolling releases:
-        * Void Linux has no VERSION_ID and no other version/release-
-        * like file.
-        *)
-       | { distro = Some DISTRO_VOID_LINUX;
-           version = None } ->
+       (* Rolling distros: no VERSION_ID available. *)
+       | { distro = Some d; version = None } when List.mem d rolling_distros ->
           data.version <- Some (0, 0);
           true
 
