@@ -227,6 +227,36 @@ ifelse(MAGEIA,1,
   xz
 )
 
+ifelse(OPENMANDRIVA,1,
+  augeas
+  cryptsetup
+  chkconfig /* for /etc/init.d */
+  cdrkit-genisoimage
+  cdrkit-isotools
+  dhcp-client
+  extlinux
+  grub2
+  lib64hivex0
+  hivex
+  iproute2
+  iputils
+  libcap
+  libjansson4
+  lib64jansson4 /* lib64jansson4 does not provide libjansson4 */
+  libldm
+  libtirpc
+  dnl syslinux uses mtools without depending on it
+  mtools
+  nilfs-utils
+  ntfs-3g
+  openssh-clients
+  pcre
+  libselinux
+  systemd /* for /sbin/reboot and udevd */
+  vim-minimal
+  xz
+)
+
 acl
 attr
 bash

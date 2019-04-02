@@ -54,6 +54,8 @@ let re_openbsd = PCRE.compile "^OpenBSD (\\d+|\\?)\\.(\\d+|\\?)"
 let re_frugalware = PCRE.compile "Frugalware (\\d+)\\.(\\d+)"
 let re_pldlinux = PCRE.compile "(\\d+)\\.(\\d+) PLD Linux"
 let re_neokylin_version = PCRE.compile "^V(\\d+)Update(\\d+)$"
+let re_openmandriva =
+  PCRE.compile "OpenMandriva.*release (\\d+)\\.(\\d+)\\.?(\\d+)? .*"
 
 let arch_binaries =
   [ "/bin/bash"; "/bin/ls"; "/bin/echo"; "/bin/rm"; "/bin/sh" ]
@@ -143,6 +145,7 @@ and distro_of_os_release_id = function
   | "kali" -> Some DISTRO_KALI_LINUX
   | "mageia" -> Some DISTRO_MAGEIA
   | "neokylin" -> Some DISTRO_NEOKYLIN
+  | "openmandriva" -> Some DISTRO_OPENMANDRIVA
   | "opensuse" -> Some DISTRO_OPENSUSE
   | s when String.is_prefix s "opensuse-" -> Some DISTRO_OPENSUSE
   | "pld" -> Some DISTRO_PLD_LINUX
@@ -375,6 +378,12 @@ let linux_root_tests : tests = [
   "/etc/lsb-release",    parse_lsb_release;
 
   (* Now we enter the Wild West ... *)
+
+  (* OpenMandriva includes a [/etc/redhat-release] symlink, hence their
+   * checks need to be performed before the Red-Hat one.
+   *)
+  "/etc/openmandriva-release", parse_generic ~rex:re_openmandriva
+                                             DISTRO_OPENMANDRIVA;
 
   (* RHEL-based distros include a [/etc/redhat-release] file, hence their
    * checks need to be performed before the Red-Hat one.

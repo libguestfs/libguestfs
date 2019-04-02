@@ -4,10 +4,11 @@ dnl
 dnl This file is processed by m4 with only one of the following
 dnl symbols defined (depending on the target distro):
 dnl
-dnl   REDHAT=1     Fedora, RHEL, CentOS, SL and workalikes
-dnl   DEBIAN=1     Debian and Ubuntu
-dnl   ARCHLINUX=1  Arch Linux
-dnl   SUSE=1       SUSE, OpenSUSE
+dnl   REDHAT=1       Fedora, RHEL, CentOS, SL and workalikes
+dnl   DEBIAN=1       Debian and Ubuntu
+dnl   ARCHLINUX=1    Arch Linux
+dnl   SUSE=1         SUSE, OpenSUSE
+dnl   OPENMANDRIVA=1 OpenMandriva
 dnl
 dnl NB 1: Must be one package name per line.  Blank lines are ignored.
 dnl
@@ -122,6 +123,40 @@ ifelse(SUSE,1,
   yast2-network
   libyui-qt
   SuSEfirewall2
+)
+
+ifelse(OPENMANDRIVA,1,
+  dnl Used by the virt-p2v binary.
+  pcre
+  libxml2
+  gtk`'GTK_VERSION
+  dbus-libs
+
+  dnl Run as external programs by the p2v binary.
+  /usr/bin/ssh
+  /usr/bin/qemu-nbd
+  which
+
+  dnl Generally useful tools to use within xterm
+  vim-enhanced
+
+  dnl X11 environment
+  /usr/bin/xinit
+  /usr/bin/Xorg
+  xorg-x11-drivers
+  xorg-x11-fonts-Type1
+  dejavu-sans-fonts
+  dejavu-sans-mono-fonts
+  mesa-dri-drivers
+  kwin_x11
+
+  NetworkManager
+  nm-connection-editor
+  network-manager-applet
+  dnl dbus is required by nm-applet, but not a dependency in Fedora
+  dbus-x11
+  dnl sysadmins prefer ifconfig
+  net-tools
 )
 
 dnl Run as external programs by the p2v binary.

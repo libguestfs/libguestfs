@@ -106,7 +106,8 @@ AC_ARG_WITH([distro],
             AS_CASE([$DISTRO],
                     [FEDORA | RHEL | CENTOS],[DISTRO=REDHAT],
                     [OPENSUSE* | SLED | SLES],[DISTRO=SUSE],
-                    [ARCH],[DISTRO=ARCHLINUX])
+                    [ARCH],[DISTRO=ARCHLINUX],
+                    [OPENMANDRIVA],[DISTRO=OPENMANDRIVA])
             AC_MSG_RESULT([$DISTRO (from /etc/os-release)])
         else
             AC_MSG_ERROR([/etc/os-release not available, please specify the distro using --with-distro=DISTRO])

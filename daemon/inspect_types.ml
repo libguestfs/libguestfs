@@ -87,6 +87,7 @@ and distro =
   | DISTRO_NEOKYLIN
   | DISTRO_NETBSD
   | DISTRO_OPENBSD
+  | DISTRO_OPENMANDRIVA
   | DISTRO_OPENSUSE
   | DISTRO_ORACLE_LINUX
   | DISTRO_PARDUS
@@ -218,6 +219,7 @@ and string_of_distro = function
   | DISTRO_NEOKYLIN -> "neokylin"
   | DISTRO_NETBSD -> "netbsd"
   | DISTRO_OPENBSD -> "openbsd"
+  | DISTRO_OPENMANDRIVA -> "openmandriva"
   | DISTRO_OPENSUSE -> "opensuse"
   | DISTRO_ORACLE_LINUX -> "oraclelinux"
   | DISTRO_PARDUS -> "pardus"

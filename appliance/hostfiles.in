@@ -5,13 +5,14 @@ dnl
 dnl This file is processed by m4 with one of the
 dnl following symbols defined (depending on the distro):
 dnl
-dnl   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
-dnl   DEBIAN=1     For Debian.
-dnl   UBUNTU=1     For Ubuntu.
-dnl   ARCHLINUX=1  For Archlinux.
-dnl   SUSE=1       For OpenSUSE.
-dnl   FRUGALWARE=1 For Frugalware.
-dnl   MAGEIA=1     For Mageia.
+dnl   REDHAT=1       For Fedora, RHEL, EPEL and workalikes.
+dnl   DEBIAN=1       For Debian.
+dnl   UBUNTU=1       For Ubuntu.
+dnl   ARCHLINUX=1    For Archlinux.
+dnl   SUSE=1         For OpenSUSE.
+dnl   FRUGALWARE=1   For Frugalware.
+dnl   MAGEIA=1       For Mageia.
+dnl   OPENMANDRIVA=1 For OpenMandriva.
 
 /etc/ld.so.cache
 /lib/lsb/*
