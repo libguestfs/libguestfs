@@ -64,7 +64,7 @@ let arch_binaries =
  * features.
  *)
 let rolling_distros =
-  [ DISTRO_GENTOO; DISTRO_VOID_LINUX ]
+  [ DISTRO_ARCHLINUX; DISTRO_GENTOO; DISTRO_VOID_LINUX ]
 
 (* Parse a os-release file.
  *
