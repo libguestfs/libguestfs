@@ -45,18 +45,15 @@ object (self)
 
     let source, disks, _ = parse_libvirt_domain self#conn guest in
 
+    let port =
+      match parsed_uri.uri_port with
+      | 0 | 22 -> None
+      | i -> Some (string_of_int i) in
+
+    let user = parsed_uri.uri_user in
+
     (* Map the <source/> filename (which is relative to the remote
-     * Xen server) to an ssh URI.  This is a JSON URI looking something
-     * like this:
-     *
-     * json: {
-     *   "file.driver": "ssh",
-     *   "file.user": "username",
-     *   "file.host": "xen-host",
-     *   "file.port": 1022,
-     *   "file.path": <remote-path>,
-     *   "file.host_key_check": "no"
-     * }
+     * Xen server) to an ssh URI pointing to nbdkit.
      *)
     let disks = List.map (
       function
@@ -64,32 +61,9 @@ object (self)
         disk
       | { p_source_disk = disk; p_source = P_source_dev path }
       | { p_source_disk = disk; p_source = P_source_file path } ->
-        (* Construct the JSON parameters. *)
-        let json_params = [
-          "file.driver", JSON.String "ssh";
-          "file.path", JSON.String path;
-          "file.host", JSON.String server;
-          "file.host_key_check", JSON.String "no";
-        ] in
-
-        let json_params =
-          match parsed_uri.uri_port with
-          | 0 | 22 -> json_params
-          (* qemu will actually assert-fail if you send the port
-           * number as a string ...
-           *)
-          | i -> ("file.port", JSON.Int (Int64.of_int i)) :: json_params in
-
-        let json_params =
-          match parsed_uri.uri_user with
-          | None -> json_params
-          | Some user -> ("file.user", JSON.String user) :: json_params in
-
-        debug "ssh: json parameters: %s" (JSON.string_of_doc json_params);
-
-        (* Turn the JSON parameters into a 'json:' protocol string. *)
-        let qemu_uri = "json: " ^ JSON.string_of_doc json_params in
-
+         let nbdkit = Nbdkit.create_ssh ~password:NoPassword
+                                        ?port ~server ?user path in
+         let qemu_uri = Nbdkit.run nbdkit in
         { disk with s_qemu_uri = qemu_uri }
     ) disks in
 

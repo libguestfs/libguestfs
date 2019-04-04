@@ -268,9 +268,12 @@ Optional.  Used only for testing.
 
 =item qemu-nbd
 
-=item nbdkit
+=item nbdkit E<ge> 1.12
 
 Optional.  qemu-nbd is used for testing.
+
+L<virt-v2v(1)> requires nbdkit E<ge> 1.12 for various input and output
+modes.
 
 =item uml_mkcow
 

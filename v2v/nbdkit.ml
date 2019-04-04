@@ -26,8 +26,8 @@ open Unix_utils
 
 open Utils
 
-let nbdkit_min_version = (1, 2)
-let nbdkit_min_version_string = "1.2"
+let nbdkit_min_version = (1, 12)
+let nbdkit_min_version_string = "1.12"
 
 type password =
 | NoPassword                    (* no password option at all *)
