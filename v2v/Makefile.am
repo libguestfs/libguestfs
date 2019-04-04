@@ -78,6 +78,7 @@ SOURCES_MLI = \
 	measure_disk.mli \
 	modules_list.mli \
 	name_from_disk.mli \
+	nbdkit.mli \
 	networks.mli \
 	openstack_image_properties.mli \
 	output_glance.mli \
@@ -119,6 +120,7 @@ SOURCES_ML = \
 	var_expander.ml \
 	python_script.ml \
 	name_from_disk.ml \
+	nbdkit.ml \
 	vCenter.ml \
 	libvirt_utils.ml \
 	DOM.ml \

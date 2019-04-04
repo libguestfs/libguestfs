@@ -18,8 +18,6 @@
 
 (** [-i libvirt] when the source is VMware via nbdkit vddk plugin *)
 
-open Unix
-
 open Common_gettext.Gettext
 open Tools_utils
 open Std_utils
@@ -95,115 +93,16 @@ let parse_input_options options =
 (* Subclass specialized for handling VMware via nbdkit vddk plugin. *)
 class input_libvirt_vddk libvirt_conn input_conn input_password vddk_options
                          parsed_uri guest =
-  (* The VDDK path. *)
-  let libdir =
-    try Some (List.assoc "libdir" vddk_options)
-    with Not_found -> None in
-
-  (* VDDK libraries are located under lib32/ or lib64/ relative to the
-   * libdir.  Note this is unrelated to Linux multilib or multiarch.
-   *)
-  let libNN = sprintf "lib%d" Sys.word_size in
-
-  (* Compute the LD_LIBRARY_PATH that we may have to pass to nbdkit. *)
-  let library_path = Option.map (fun libdir -> libdir // libNN) libdir in
-
-  (* Check that the VDDK path looks reasonable. *)
-  let error_unless_vddk_libdir () =
-    (match libdir with
-     | None -> ()
-     | Some libdir ->
-        if not (is_directory libdir) then
-          error (f_"‘-io vddk-libdir=%s’ does not point to a directory.  See the virt-v2v-input-vmware(1) manual.") libdir
-    );
-
-    (match library_path with
-     | None -> ()
-     | Some library_path ->
-        if not (is_directory library_path) then
-          error (f_"VDDK library path %s not found or not a directory.  See the virt-v2v-input-vmware(1) manual.") library_path
-    )
-  in
-
-  (* Check that nbdkit is available and new enough. *)
-  let error_unless_nbdkit_working () =
-    if 0 <> Sys.command "nbdkit --version >/dev/null" then
-      error (f_"nbdkit is not installed or not working.  It is required to use ‘-it vddk’.  See the virt-v2v-input-vmware(1) manual.");
-
-    (* Check it's a new enough version.  The latest features we
-     * require are ‘--exit-with-parent’ and ‘--selinux-label’, both
-     * added in 1.1.14.  (We use 1.1.16 as the minimum here because
-     * it also adds the selinux=yes|no flag in --dump-config).
-     *)
-    let lines = external_command "nbdkit --help" in
-    let lines = String.concat " " lines in
-    if String.find lines "exit-with-parent" == -1 ||
-       String.find lines "selinux-label" == -1 then
-      error (f_"nbdkit is not new enough, you need to upgrade to nbdkit ≥ 1.1.16")
-  in
-
-  (* Check that the VDDK plugin is installed and working *)
-  let error_unless_nbdkit_vddk_working () =
-    let set_ld_library_path =
-      match library_path with
-      | None -> ""
-      | Some library_path ->
-         sprintf "LD_LIBRARY_PATH=%s " (quote library_path) in
-
-    let cmd =
-      sprintf "%snbdkit vddk --dump-plugin >/dev/null"
-              set_ld_library_path in
-    if Sys.command cmd <> 0 then (
-      (* See if we can diagnose why ... *)
-      let cmd =
-        sprintf "LANG=C %snbdkit vddk --dump-plugin 2>&1 |
-                     grep -sq \"cannot open shared object file\""
-                set_ld_library_path in
-      let needs_library = Sys.command cmd = 0 in
-      if not needs_library then
-        error (f_"nbdkit VDDK plugin is not installed or not working.  It is required if you want to use VDDK.
-
-The VDDK plugin is not enabled by default when you compile nbdkit.  You have to read the instructions in the nbdkit sources under ‘plugins/vddk/README.VDDK’ to find out how to enable the VDDK plugin.
-
-See also the virt-v2v-input-vmware(1) manual.")
-      else
-        error (f_"nbdkit VDDK plugin is not installed or not working.  It is required if you want to use VDDK.
-
-It looks like you did not set the right path in the ‘-io vddk-libdir’ option, or your copy of the VDDK directory is incomplete.  There should be a library called ’<libdir>/%s/libvixDiskLib.so.?’.
-
-See also the virt-v2v-input-vmware(1) manual.") libNN
-    )
-  in
-
   let error_unless_thumbprint () =
     if not (List.mem_assoc "thumbprint" vddk_options) then
       error (f_"You must pass the ‘-io vddk-thumbprint’ option with the SSL thumbprint of the VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) manual.  See also the virt-v2v-input-vmware(1) manual.")
-  in
-
-  (* Check that nbdkit was compiled with SELinux support (for the
-   * --selinux-label option).
-   *)
-  let error_unless_nbdkit_compiled_with_selinux () =
-    let lines = external_command "nbdkit --dump-config" in
-    (* In nbdkit <= 1.1.15 the selinux attribute was not present
-     * at all in --dump-config output so there was no way to tell.
-     * Ignore this case because there will be an error later when
-     * we try to use the --selinux-label parameter.
-     *)
-    if List.mem "selinux=no" (List.map String.trim lines) then
-      error (f_"nbdkit was compiled without SELinux support.  You will have to recompile nbdkit with libselinux-devel installed, or else set SELinux to Permissive mode while doing the conversion.")
   in
 
 object (self)
   inherit input_libvirt libvirt_conn guest as super
 
   method precheck () =
-    error_unless_vddk_libdir ();
-    error_unless_nbdkit_working ();
-    error_unless_nbdkit_vddk_working ();
-    error_unless_thumbprint ();
-    if have_selinux then
-      error_unless_nbdkit_compiled_with_selinux ()
+    error_unless_thumbprint ()
 
   method as_options =
     let pt_options =
@@ -231,79 +130,40 @@ object (self)
       | None ->
          error (f_"<vmware:moref> was not found in the output of ‘virsh dumpxml \"%s\"’.  The most likely reason is that libvirt is too old, try upgrading libvirt to ≥ 3.7.") guest in
 
-    (* Create a temporary directory where we place the sockets. *)
-    let tmpdir =
-      let base_dir = (open_guestfs ())#get_cachedir () in
-      let t = Mkdtemp.temp_dir ~base_dir "vddk." in
-      (* tmpdir must be readable (but not writable) by "other" so that
-       * qemu can open the sockets.
-       *)
-      chmod t 0o755;
-      rmdir_on_exit t;
-      t in
-
-    (* Start constructing the parts of the incredibly long nbdkit
-     * command line which don't change between disks.
+    (* It probably never happens that the server name can be missing
+     * from the libvirt URI, but we need a server name to pass to
+     * nbdkit, so ...
      *)
-    let args =
-      let add_arg, get_args =
-        let args = ref [] in
-        let add_arg a = List.push_front a args in
-        let get_args () = List.rev !args in
-        add_arg, get_args in
+    let server =
+      match parsed_uri.Xml.uri_server with
+      | Some server -> server
+      | None ->
+         match input_conn with
+         | Some input_conn ->
+            error (f_"‘-ic %s’ URL does not contain a host name field")
+                  input_conn
+         | None ->
+            error (f_"you must use the ‘-ic’ parameter.  See the virt-v2v-input-vmware(1) manual.") in
 
-      (* It probably never happens that the server name can be missing
-       * from the libvirt URI, but we need a server name to pass to
-       * nbdkit, so ...
-       *)
-      let server =
-        match parsed_uri.Xml.uri_server with
-        | Some server -> server
-        | None ->
-           match input_conn with
-           | Some input_conn ->
-              error (f_"‘-ic %s’ URL does not contain a host name field")
-                    input_conn
-           | None ->
-              error (f_"you must use the ‘-ic’ parameter.  See the virt-v2v-input-vmware(1) manual.") in
+    let user = parsed_uri.Xml.uri_user in
 
-      (* Similar to above, we also need a username to pass. *)
-      let user =
-        match parsed_uri.Xml.uri_user with
-        | Some user -> user
-        | None -> "root" (* ? *) in
-
-      add_arg "nbdkit";
-      if verbose () then add_arg "--verbose";
-      add_arg "--readonly";         (* important! readonly mode *)
-      add_arg "--foreground";       (* run in foreground *)
-      add_arg "--exit-with-parent"; (* exit when virt-v2v exits *)
-      add_arg "--newstyle";         (* use newstyle NBD protocol *)
-      add_arg "--exportname"; add_arg "/";
-      if have_selinux then (        (* label the socket so qemu can open it *)
-        add_arg "--selinux-label"; add_arg "system_u:object_r:svirt_socket_t:s0"
-      );
-
-      (* Name of the plugin.  Everything following is a plugin parameter. *)
-      add_arg "vddk";
-
-      let password_param =
-        match input_password with
-        | None ->
-           (* nbdkit asks for the password interactively *)
-           "password=-"
-        | Some password_file ->
-           (* nbdkit reads the password from the file *)
-           "password=+" ^ password_file in
-      add_arg (sprintf "server=%s" server);
-      add_arg (sprintf "user=%s" user);
-      add_arg password_param;
-      add_arg (sprintf "vm=moref=%s" moref);
-
-      (* The passthrough parameters. *)
-      List.iter (fun (k, v) -> add_arg (sprintf "%s=%s" k v)) vddk_options;
-
-      get_args () in
+    let config =
+      try Some (List.assoc "config" vddk_options) with Not_found -> None in
+    let cookie =
+      try Some (List.assoc "cookie" vddk_options) with Not_found -> None in
+    let libdir =
+      try Some (List.assoc "libdir" vddk_options) with Not_found -> None in
+    let nfchostport =
+      try Some (List.assoc "nfchostport" vddk_options) with Not_found -> None in
+    let port =
+      try Some (List.assoc "port" vddk_options) with Not_found -> None in
+    let snapshot =
+      try Some (List.assoc "snapshot" vddk_options) with Not_found -> None in
+    let thumbprint =
+      try List.assoc "thumbprint" vddk_options
+      with Not_found -> assert false (* checked in precheck method *) in
+    let transports =
+      try Some (List.assoc "transports" vddk_options) with Not_found -> None in
 
     (* Create an nbdkit instance for each disk and rewrite the source
      * paths to point to the NBD socket.
@@ -322,79 +182,18 @@ object (self)
           * directly as the nbdkit file= parameter, and it is passed
           * directly in this form to VDDK.
           *)
+         let nbdkit =
+           Nbdkit.create_vddk ?config ?cookie ?libdir ~moref
+                              ?nfchostport ?password_file:input_password ?port
+                              ~server ?snapshot ~thumbprint ?transports ?user
+                              path in
+         let qemu_uri = Nbdkit.run nbdkit in
 
-         let sock = tmpdir // sprintf "nbdkit%d.sock" disk.s_disk_id in
-         let qemu_uri = sprintf "nbd:unix:%s:exportname=/" sock in
-
-         let pidfile = tmpdir // sprintf "nbdkit%d.pid" disk.s_disk_id in
-
-         (* Construct the final command line with the "static" args
-          * above plus the args which vary for each disk.
+         (* nbdkit always presents us with the raw disk blocks from
+          * the guest, so force the format to raw here.
           *)
-         let args =
-           args @ [ "--pidfile"; pidfile;
-                    "--unix"; sock;
-                    sprintf "file=%s" path ] in
-
-         (* Print the full command we are about to run when debugging. *)
-         if verbose () then (
-           eprintf "running nbdkit:\n";
-           Option.may (eprintf "LD_LIBRARY_PATH=%s") library_path;
-           List.iter (fun arg -> eprintf " %s" (quote arg)) args;
-           prerr_newline ()
-         );
-
-         (* Start an nbdkit instance in the background.  By using
-          * --exit-with-parent we don't have to worry about cleaning
-          * it up, hopefully.
-          *)
-         let args = Array.of_list args in
-         let pid = fork () in
-         if pid = 0 then (
-           (* Child process (nbdkit). *)
-           Option.may (putenv "LD_LIBRARY_PATH") library_path;
-           execvp "nbdkit" args
-         );
-
-         (* Wait for the pidfile to appear so we know that nbdkit
-          * is listening for requests.
-          *)
-         if not (wait_for_file pidfile 30) then (
-           if verbose () then
-             error (f_"nbdkit did not start up.  See previous debugging messages for problems.")
-           else
-             error (f_"nbdkit did not start up.  There may be errors printed by nbdkit above.
-
-If the messages above are not sufficient to diagnose the problem then add the ‘virt-v2v -v -x’ options and examine the debugging output carefully.")
-         );
-
-         if have_selinux then (
-           (* Note that Unix domain sockets have both a file label and
-            * a socket/process label.  Using --selinux-label above
-            * only set the socket label, but we must also set the file
-            * label.
-            *)
-           ignore (
-               run_command ["chcon"; "system_u:object_r:svirt_image_t:s0";
-                            sock]
-           );
-         );
-         (* ... and the regular Unix permissions, in case qemu is
-          * running as another user.
-          *)
-         chmod sock 0o777;
-
-         (* nbdkit from a vddk source always presents us with the raw
-          * disk blocks from the guest, so force the format to raw here.
-          *)
-         { disk with s_qemu_uri = qemu_uri;
-                     s_format = Some "raw" }
-     ) disks in
-
-    if verbose () then (
-      eprintf "vddk: tmpdir %s:\n%!" tmpdir;
-      ignore (Sys.command (sprintf "ls -laZ %s" (quote tmpdir)))
-    );
+         { disk with s_qemu_uri = qemu_uri; s_format = Some "raw" }
+    ) disks in
 
     { source with s_disks = disks }
 end
