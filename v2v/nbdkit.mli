@@ -59,6 +59,19 @@ val create_ssh : password:password ->
 
     Note this doesn't run nbdkit yet, it just creates the object. *)
 
+val create_curl : ?cookie:string ->
+                  password:password ->
+                  ?sslverify:bool ->
+                  ?user:string ->
+                  string -> t
+(** Create a nbdkit object using the Curl plugin.  The required
+    string parameter is the URL.
+
+    This can fail (calling [error]) for a variety of reasons, such
+    as nbdkit not being available, wrong version, missing plugin, etc.
+
+    Note this doesn't run nbdkit yet, it just creates the object. *)
+
 val run : t -> string
 (** Start running nbdkit.
 

@@ -261,6 +261,29 @@ let create_ssh ~password ?port ~server ?user path =
 
   common_create "ssh" (get_args ()) []
 
+(* Create an nbdkit module specialized for reading from Curl sources. *)
+let create_curl ?cookie ~password ?(sslverify=true) ?user url =
+  let add_arg, get_args =
+    let args = ref [] in
+    let add_arg a = List.push_front a args in
+    let get_args () = List.rev !args in
+    add_arg, get_args in
+
+  Option.may (fun s -> add_arg (sprintf "user=%s" s)) user;
+  (match password with
+   | NoPassword -> ()
+   | AskForPassword -> add_arg "password=-"
+   | PasswordFile password_file ->
+      add_arg (sprintf "password=+%s" password_file)
+  );
+  (* https://bugzilla.redhat.com/show_bug.cgi?id=1146007#c10 *)
+  add_arg "timeout=2000";
+  Option.may (fun s -> add_arg (sprintf "cookie=%s" s)) cookie;
+  if not sslverify then add_arg "sslverify=false";
+  add_arg (sprintf "url=%s" url);
+
+  common_create "curl" (get_args ()) []
+
 let run { args; env } =
   (* Create a temporary directory where we place the sockets. *)
   let tmpdir =
