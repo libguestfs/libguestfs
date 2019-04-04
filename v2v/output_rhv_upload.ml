@@ -105,10 +105,6 @@ class output_rhv_upload output_alloc output_conn
     Python_script.create ~name:"rhv-upload-createvm.py"
                          Output_rhv_upload_createvm_source.code in
 
-  (* Is SELinux enabled and enforcing on the host? *)
-  let have_selinux =
-    0 = Sys.command "getenforce 2>/dev/null | grep -isq Enforcing" in
-
   (* Check that the 'ovirtsdk4' Python module is available. *)
   let error_unless_ovirtsdk4_module_available () =
     let res = run_command [ Python_script.python; "-c"; "import ovirtsdk4" ] in

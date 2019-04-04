@@ -18,6 +18,9 @@
 
 (** Utilities used in virt-v2v only. *)
 
+val have_selinux : bool
+(** True if SELinux is enabled and enforcing on the host. *)
+
 val uri_quote : string -> string
 (** Take a string and perform %xx escaping as used in some parts of URLs. *)
 

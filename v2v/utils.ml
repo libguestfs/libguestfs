@@ -24,6 +24,10 @@ open Std_utils
 open Tools_utils
 open Common_gettext.Gettext
 
+(* Is SELinux enabled and enforcing on the host? *)
+let have_selinux =
+  0 = Sys.command "getenforce 2>/dev/null | grep -isq Enforcing"
+
 (* URI quoting. *)
 let uri_quote str =
   let len = String.length str in

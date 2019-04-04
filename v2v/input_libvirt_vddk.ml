@@ -108,10 +108,6 @@ class input_libvirt_vddk input_conn input_password vddk_options parsed_uri
   (* Compute the LD_LIBRARY_PATH that we may have to pass to nbdkit. *)
   let library_path = Option.map (fun libdir -> libdir // libNN) libdir in
 
-  (* Is SELinux enabled and enforcing on the host? *)
-  let have_selinux =
-    0 = Sys.command "getenforce 2>/dev/null | grep -isq Enforcing" in
-
   (* Check that the VDDK path looks reasonable. *)
   let error_unless_vddk_libdir () =
     (match libdir with
