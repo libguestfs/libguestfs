@@ -41,6 +41,24 @@ val create_vddk : ?config:string ->
 
     Note this doesn't run nbdkit yet, it just creates the object. *)
 
+type password =
+| NoPassword
+| AskForPassword
+| PasswordFile of string
+
+val create_ssh : password:password ->
+                 ?port:string ->
+                 server:string ->
+                 ?user:string ->
+                 string -> t
+(** Create a nbdkit object using the SSH plugin.  The required
+    string parameter is the remote path.
+
+    This can fail (calling [error]) for a variety of reasons, such
+    as nbdkit not being available, wrong version, missing plugin, etc.
+
+    Note this doesn't run nbdkit yet, it just creates the object. *)
+
 val run : t -> string
 (** Start running nbdkit.
 

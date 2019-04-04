@@ -29,6 +29,11 @@ open Utils
 let nbdkit_min_version = (1, 2)
 let nbdkit_min_version_string = "1.2"
 
+type password =
+| NoPassword                    (* no password option at all *)
+| AskForPassword                (* password=- *)
+| PasswordFile of string        (* password=+file *)
+
 type t = {
   (* The nbdkit plugin name. *)
   plugin_name : string;
@@ -234,6 +239,27 @@ See also the virt-v2v-input-vmware(1) manual.") libNN
   Option.may (fun s -> add_arg (sprintf "transports=%s" s)) transports;
 
   common_create "vddk" (get_args ()) env
+
+(* Create an nbdkit module specialized for reading from SSH sources. *)
+let create_ssh ~password ?port ~server ?user path =
+  let add_arg, get_args =
+    let args = ref [] in
+    let add_arg a = List.push_front a args in
+    let get_args () = List.rev !args in
+    add_arg, get_args in
+
+  add_arg (sprintf "host=%s" server);
+  Option.may (fun s -> add_arg (sprintf "port=%s" s)) port;
+  Option.may (fun s -> add_arg (sprintf "user=%s" s)) user;
+  (match password with
+   | NoPassword -> ()
+   | AskForPassword -> add_arg "password=-"
+   | PasswordFile password_file ->
+      add_arg (sprintf "password=+%s" password_file)
+  );
+  add_arg (sprintf "path=%s" path);
+
+  common_create "ssh" (get_args ()) []
 
 let run { args; env } =
   (* Create a temporary directory where we place the sockets. *)
