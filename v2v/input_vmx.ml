@@ -236,24 +236,14 @@ and qemu_uri_of_filename vmx_source filename =
        if remote_file_exists uri flat_vmdk then (flat_vmdk, "raw")
        else (abs_path, format) in
 
-     let json_params = [
-       "file.driver", JSON.String "ssh";
-       "file.path", JSON.String abs_path;
-       "file.host", JSON.String (server_of_uri uri);
-       "file.host_key_check", JSON.String "no";
-     ] in
-     let json_params =
-       match uri.Xml.uri_user with
-       | None -> json_params
-       | Some user ->
-          ("file.user", JSON.String user) :: json_params in
-     let json_params =
-       match port_of_uri uri with
-       | None -> json_params
-       | Some port ->
-          ("file.port", JSON.Int (Int64.of_int port)) :: json_params in
+     let server = server_of_uri uri in
+     let port = Option.map string_of_int (port_of_uri uri) in
+     let user = uri.Xml.uri_user in
 
-     "json:" ^ JSON.string_of_doc json_params, format
+     let nbdkit = Nbdkit.create_ssh ~password:NoPassword ~server
+                                    ?port ?user abs_path in
+     let qemu_uri = Nbdkit.run nbdkit in
+     qemu_uri, format
 
 and absolute_path_from_other_file other_filename filename =
   if not (Filename.is_relative filename) then filename
@@ -401,14 +391,6 @@ object
   inherit input
 
   method as_options = "-i vmx " ^ arg
-
-  method precheck () =
-    match input_transport with
-    | None -> ()
-    | Some `SSH ->
-       if backend_is_libvirt () then
-         error (f_"because libvirtd doesn't pass the SSH_AUTH_SOCK environment variable to qemu you must set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.");
-       error_if_no_ssh_agent ()
 
   method source () =
     let vmx_source = vmx_source_of_arg input_transport arg in
