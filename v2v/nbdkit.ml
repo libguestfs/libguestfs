@@ -26,6 +26,9 @@ open Unix_utils
 
 open Utils
 
+let nbdkit_min_version = (1, 2)
+let nbdkit_min_version_string = "1.2"
+
 type t = {
   (* The nbdkit plugin name. *)
   plugin_name : string;
@@ -35,42 +38,76 @@ type t = {
 
   (* Environment variables that may be needed for nbdkit to work. *)
   env : (string * string) list;
+
+  (* nbdkit --dump-config output. *)
+  dump_config : (string * string) list;
+
+  (* nbdkit plugin_name --dump-plugin output. *)
+  dump_plugin : (string * string) list;
 }
 
 (* Check that nbdkit is available and new enough. *)
 let error_unless_nbdkit_working () =
   if 0 <> Sys.command "nbdkit --version >/dev/null" then
-    error (f_"nbdkit is not installed or not working");
+    error (f_"nbdkit is not installed or not working")
 
-  (* Check it's a new enough version.  The latest features we
-   * require are ‘--exit-with-parent’ and ‘--selinux-label’, both
-   * added in 1.1.14.  (We use 1.1.16 as the minimum here because
-   * it also adds the selinux=yes|no flag in --dump-config).
-   *)
-  let lines = external_command "nbdkit --help" in
-  let lines = String.concat " " lines in
-  if String.find lines "exit-with-parent" == -1 ||
-     String.find lines "selinux-label" == -1 then
-    error (f_"nbdkit is not new enough, you need to upgrade to nbdkit ≥ 1.1.16")
+(* Check that nbdkit is at or above the minimum version. *)
+let re_major_minor = PCRE.compile "(\\d+)\\.(\\d+)"
+
+let error_unless_nbdkit_min_version dump_config =
+  let version =
+    let version =
+      try List.assoc "version" dump_config
+      with Not_found ->
+        error (f_"nbdkit --dump-config did not print version.  This might be a very old or broken nbdkit binary.") in
+    debug "nbdkit version: %s" version;
+    if PCRE.matches re_major_minor version then
+      (int_of_string (PCRE.sub 1), int_of_string (PCRE.sub 2))
+    else
+      error (f_"nbdkit --dump-config: could not parse version: %s") version in
+
+  if version < nbdkit_min_version then
+    error (f_"nbdkit is too old.  nbdkit >= %s is required.")
+          nbdkit_min_version_string
 
 (* Check that nbdkit was compiled with SELinux support (for the
  * --selinux-label option).
  *)
-let error_unless_nbdkit_compiled_with_selinux () =
+let error_unless_nbdkit_compiled_with_selinux dump_config =
   if have_selinux then (
-    let lines = external_command "nbdkit --dump-config" in
-    (* In nbdkit <= 1.1.15 the selinux attribute was not present
-     * at all in --dump-config output so there was no way to tell.
-     * Ignore this case because there will be an error later when
-     * we try to use the --selinux-label parameter.
-     *)
-    if List.mem "selinux=no" (List.map String.trim lines) then
+    let selinux = try List.assoc "selinux" dump_config with Not_found -> "no" in
+    if selinux = "no" then
       error (f_"nbdkit was compiled without SELinux support.  You will have to recompile nbdkit with libselinux-devel installed, or else set SELinux to Permissive mode while doing the conversion.")
   )
 
 let common_create plugin_name plugin_args plugin_env =
   error_unless_nbdkit_working ();
-  error_unless_nbdkit_compiled_with_selinux ();
+
+  (* Environment.  We always add LANG=C. *)
+  let env = ("LANG", "C") :: plugin_env in
+  let env_as_string =
+    String.concat " " (List.map (fun (k, v) -> sprintf "%s=%s" k (quote v))
+                                env) in
+
+  (* Get the nbdkit --dump-config output and check minimum
+   * required version of nbdkit.
+   *)
+  let dump_config =
+    let lines =
+      external_command (sprintf "%s nbdkit --dump-config" env_as_string) in
+    List.map (String.split "=") lines in
+
+  error_unless_nbdkit_min_version dump_config;
+  error_unless_nbdkit_compiled_with_selinux dump_config;
+
+  (* Get the nbdkit plugin_name --dump-plugin output, which also
+   * checks that the plugin is available and loadable.
+   *)
+  let dump_plugin =
+    let lines =
+      external_command (sprintf "%s nbdkit %s --dump-plugin"
+                                env_as_string plugin_name) in
+    List.map (String.split "=") lines in
 
   (* Start constructing the parts of the incredibly long nbdkit
    * command line which don't change between disks.
@@ -93,10 +130,7 @@ let common_create plugin_name plugin_args plugin_env =
   );
   let args = get_args () @ [ plugin_name ] @ plugin_args in
 
-  (* Environment.  We always add LANG=C. *)
-  let env = ("LANG", "C") :: plugin_env in
-
-  { plugin_name; args; env }
+  { plugin_name; args; env; dump_config; dump_plugin }
 
 (* VDDK libraries are located under lib32/ or lib64/ relative to the
  * libdir.  Note this is unrelated to Linux multilib or multiarch.
@@ -109,6 +143,10 @@ let create_vddk ?config ?cookie ?libdir ~moref
                 ~server ?snapshot ~thumbprint ?transports ?user path =
   (* Compute the LD_LIBRARY_PATH that we may have to pass to nbdkit. *)
   let ld_library_path = Option.map (fun libdir -> libdir // libNN) libdir in
+  let env =
+    match ld_library_path with
+    | None -> []
+    | Some ld_library_path -> ["LD_LIBRARY_PATH", ld_library_path] in
 
   (* Check that the VDDK path looks reasonable. *)
   let error_unless_vddk_libdir () =
@@ -127,23 +165,22 @@ let create_vddk ?config ?cookie ?libdir ~moref
     )
   in
 
-  (* Check that the VDDK plugin is installed and working *)
+  (* Check that the VDDK plugin is installed and working.  We also
+   * check this later when calling common_create, but this version
+   * has better troubleshooting output.
+   *)
   let error_unless_nbdkit_vddk_working () =
-    let set_ld_library_path =
-      match ld_library_path with
-      | None -> ""
-      | Some ld_library_path ->
-         sprintf "LD_LIBRARY_PATH=%s " (quote ld_library_path) in
-
+    let env_as_string =
+      String.concat " " (List.map (fun (k, v) -> sprintf "%s=%s" k (quote v))
+                                  env) in
     let cmd =
-      sprintf "%snbdkit vddk --dump-plugin >/dev/null"
-              set_ld_library_path in
+      sprintf "%s nbdkit vddk --dump-plugin >/dev/null" env_as_string in
     if Sys.command cmd <> 0 then (
       (* See if we can diagnose why ... *)
       let cmd =
-        sprintf "LANG=C %snbdkit vddk --dump-plugin 2>&1 |
+        sprintf "LANG=C %s nbdkit vddk --dump-plugin 2>&1 |
                      grep -sq \"cannot open shared object file\""
-                set_ld_library_path in
+                env_as_string in
       let needs_library = Sys.command cmd = 0 in
       if not needs_library then
         error (f_"nbdkit VDDK plugin is not installed or not working.  It is required if you want to use VDDK.
@@ -195,11 +232,6 @@ See also the virt-v2v-input-vmware(1) manual.") libNN
   Option.may (fun s -> add_arg (sprintf "snapshot=%s" s)) snapshot;
   add_arg (sprintf "thumbprint=%s" thumbprint);
   Option.may (fun s -> add_arg (sprintf "transports=%s" s)) transports;
-
-  let env =
-    match ld_library_path with
-    | None -> []
-    | Some ld_library_path -> ["LD_LIBRARY_PATH", ld_library_path] in
 
   common_create "vddk" (get_args ()) env
 
