@@ -144,6 +144,13 @@ let common_create plugin_name plugin_args plugin_env =
     Sys.command cmd <> 0
   in
 
+  (* Adding the readahead filter is always a win for our access
+   * patterns.  However if it doesn't exist don't worry.
+   *)
+  if probe_filter "readahead" then (
+    add_arg "--filter"; add_arg "readahead"
+  );
+
   let args = get_args () @ [ plugin_name ] @ plugin_args in
 
   { plugin_name; args; env; dump_config; dump_plugin }
