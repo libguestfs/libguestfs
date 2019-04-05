@@ -46,31 +46,6 @@ let get_drive_slot str offset =
        warning (f_"could not parse device name ‘%s’ from the source libvirt XML") str;
        None
 
-(* Create a JSON URI for qemu referring to a remote CURL (http/https)
- * resource.  See also [v2v/vCenter.ml].
- *)
-let create_curl_qemu_uri driver host port path =
-  let url =
-    let port =
-      match driver, port with
-      | _, None -> ""
-      | "https", Some 443 -> ""
-      | "http", Some 80 -> ""
-      | _, Some port when port >= 1 -> ":" ^ string_of_int port
-      | _, Some port -> invalid_arg "invalid port number in libvirt XML" in
-    sprintf "%s://%s%s%s" driver host port (uri_quote path) in
-
-  let json_params = [
-    "file.driver", JSON.String driver;  (* "http" or "https" *)
-    "file.url", JSON.String url;
-    "file.timeout", JSON.Int 2000_L;
-    "file.readahead", JSON.Int (1024_L *^ 1024_L);
-    (* "file.sslverify", JSON.String "off"; XXX *)
-  ] in
-
-  (* Turn the JSON parameters into a 'json:' protocol string. *)
-  "json: " ^ JSON.string_of_doc json_params
-
 let parse_libvirt_xml ?conn xml =
   debug "libvirt xml is:\n%s" xml;
 
@@ -334,7 +309,18 @@ let parse_libvirt_xml ?conn xml =
             * without needing VMware around.
             *)
            let path = Option.default "" (xpath_string "source/@name") in
-           let qemu_uri = create_curl_qemu_uri driver host port path in
+           let url =
+             let port =
+               match driver, port with
+               | _, None -> ""
+               | "https", Some 443 -> ""
+               | "http", Some 80 -> ""
+               | _, Some port when port >= 1 -> ":" ^ string_of_int port
+               | _, Some port ->
+                  invalid_arg "invalid port number in libvirt XML" in
+             sprintf "%s://%s%s%s" driver host port (uri_quote path) in
+           let nbdkit = Nbdkit.create_curl ~password:NoPassword url in
+           let qemu_uri = Nbdkit.run nbdkit in
            add_disk qemu_uri format controller P_dont_rewrite
         | Some protocol, _, _ ->
            warning (f_"<disk type='network'> with <source protocol='%s'> was ignored")
