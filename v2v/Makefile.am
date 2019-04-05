@@ -284,6 +284,7 @@ COPY_TO_LOCAL_BOBJECTS = \
 	uefi.cmo \
 	utils.cmo \
 	libvirt_utils.cmo \
+	nbdkit.cmo \
 	vCenter.cmo \
 	copy_to_local.cmo
 COPY_TO_LOCAL_XOBJECTS = $(COPY_TO_LOCAL_BOBJECTS:.cmo=.cmx)

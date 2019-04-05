@@ -510,7 +510,6 @@ class virtual input = object
   method precheck () = ()
   method virtual as_options : string
   method virtual source : unit -> source
-  method adjust_overlay_parameters (_ : overlay) = ()
 end
 
 class virtual output = object

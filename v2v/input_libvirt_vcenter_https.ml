@@ -30,17 +30,12 @@ open Input_libvirt_other
 
 open Printf
 
-(* See RHBZ#1151033 and RHBZ#1153589. *)
-let readahead_for_conversion = None
-let readahead_for_copying = Some (64 * 1024 * 1024)
-
 (* Subclass specialized for handling VMware vCenter over https. *)
 class input_libvirt_vcenter_https
         libvirt_conn input_password parsed_uri server guest =
 object (self)
   inherit input_libvirt libvirt_conn guest
 
-  val saved_source_paths = Hashtbl.create 13
   val mutable dcPath = ""
 
   method precheck () =
@@ -50,9 +45,9 @@ object (self)
     debug "input_libvirt_vcenter_https: source: server %s" server;
 
     (* Remove proxy environment variables so curl doesn't try to use
-     * them.  Libvirt doesn't use the proxy anyway, and using a proxy
-     * is generally a bad idea because vCenter is slow enough as it is
-     * without putting another device in the way (RHBZ#1354507).
+     * them.  Using a proxy is generally a bad idea because vCenter
+     * is slow enough as it is without putting another device in
+     * the way (RHBZ#1354507).
      *)
     unsetenv "https_proxy";
     unsetenv "all_proxy";
@@ -77,28 +72,13 @@ object (self)
          error (f_"vcenter: <vmware:datacenterpath> was not found in the XML.  You need to upgrade to libvirt ≥ 1.2.20.")
     );
 
-    (* Save the original source paths, so that we can remap them again
-     * in [#adjust_overlay_parameters].
-     *)
-    List.iter (
-      function
-      | { p_source = P_source_dev _ } ->
-        (* Should never happen ... *)
-        error (f_"source disk has <source dev=...> attribute in XML")
-      | { p_source_disk = { s_disk_id = id }; p_source = P_dont_rewrite } ->
-        Hashtbl.add saved_source_paths id None
-      | { p_source_disk = { s_disk_id = id }; p_source = P_source_file path } ->
-        Hashtbl.add saved_source_paths id (Some path)
-    ) disks;
-
-    let readahead = readahead_for_conversion in
     let disks = List.map (
       function
       | { p_source = P_source_dev _ } -> assert false
       | { p_source_disk = disk; p_source = P_dont_rewrite } -> disk
       | { p_source_disk = disk; p_source = P_source_file path } ->
         let { VCenter.qemu_uri } =
-          VCenter.map_source ?readahead ?password_file:input_password
+          VCenter.map_source ?password_file:input_password
                              dcPath parsed_uri server path in
 
         (* The libvirt ESX driver doesn't normally specify a format, but
@@ -108,25 +88,6 @@ object (self)
     ) disks in
 
     { source with s_disks = disks }
-
-  (* See RHBZ#1151033 and RHBZ#1153589 for why this is necessary. *)
-  method adjust_overlay_parameters overlay =
-    let orig_path =
-      try Hashtbl.find saved_source_paths overlay.ov_source.s_disk_id
-      with Not_found -> failwith "internal error in adjust_overlay_parameters" in
-    match orig_path with
-    | None -> ()
-    | Some orig_path ->
-      let readahead = readahead_for_copying in
-      let { VCenter.qemu_uri = backing_qemu_uri } =
-        VCenter.map_source ?readahead ?password_file:input_password
-                           dcPath parsed_uri server orig_path in
-
-      (* Rebase the qcow2 overlay to adjust the readahead parameter. *)
-      let cmd = [ "qemu-img"; "rebase"; "-u"; "-b"; backing_qemu_uri;
-                  overlay.ov_overlay_file ] in
-      if run_command cmd <> 0 then
-        warning (f_"qemu-img rebase failed (ignored)")
 end
 
 let input_libvirt_vcenter_https = new input_libvirt_vcenter_https

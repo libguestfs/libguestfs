@@ -24,7 +24,6 @@ class virtual input_libvirt : Libvirt.rw Libvirt.Connect.t Lazy.t -> string -> o
   method precheck : unit -> unit
   method as_options : string
   method virtual source : unit -> Types.source
-  method adjust_overlay_parameters : Types.overlay -> unit
   method private conn : Libvirt.rw Libvirt.Connect.t
 end
 

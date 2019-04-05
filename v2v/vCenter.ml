@@ -35,7 +35,7 @@ type remote_resource = {
 let source_re = PCRE.compile "^\\[(.*)\\] (.*)\\.vmdk$"
 let snapshot_re = PCRE.compile "^(.*)-\\d{6}(\\.vmdk)$"
 
-let rec map_source ?readahead ?password_file dcPath uri server path =
+let rec map_source ?password_file dcPath uri server path =
   (* If no_verify=1 was passed in the libvirt URI, then we have to
    * turn off certificate verification here too.
    *)
@@ -72,38 +72,15 @@ let rec map_source ?readahead ?password_file dcPath uri server path =
   let session_cookie =
     get_session_cookie password_file uri sslverify https_url in
 
-  let qemu_uri =
-    (* Construct the JSON parameters for the qemu URI. *)
-    let json_params = [
-      "file.driver", JSON.String "https";
-      "file.url", JSON.String https_url;
-      (* https://bugzilla.redhat.com/show_bug.cgi?id=1146007#c10 *)
-      "file.timeout", JSON.Int 2000_L;
-    ] in
+  let password =
+    match password_file with
+    | None -> Nbdkit.NoPassword
+    | Some password_file -> Nbdkit.PasswordFile password_file in
 
-    let json_params =
-      match readahead with
-      | None -> json_params
-      | Some readahead ->
-         ("file.readahead", JSON.Int (Int64.of_int readahead)) :: json_params in
-
-    let json_params =
-      if sslverify then json_params
-      else ("file.sslverify", JSON.String "off") :: json_params in
-
-    let json_params =
-      match session_cookie with
-      | None -> json_params
-      | Some cookie -> ("file.cookie", JSON.String cookie) :: json_params in
-
-    debug "vcenter: json parameters: %s" (JSON.string_of_doc json_params);
-
-    (* Turn the JSON parameters into a 'json:' protocol string.
-     * Note this requires qemu-img >= 2.1.0.
-     *)
-    let qemu_uri = "json: " ^ JSON.string_of_doc json_params in
-
-    qemu_uri in
+  let nbdkit =
+    Nbdkit.create_curl ?cookie:session_cookie ~password ~sslverify
+                       https_url in
+  let qemu_uri = Nbdkit.run nbdkit in
 
   (* Return the struct. *)
   { https_url = https_url;

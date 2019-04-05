@@ -700,13 +700,6 @@ and copy_targets cmdline targets input output =
       if not ((open_guestfs ())#disk_has_backing_file overlay_file) then
         error (f_"internal error: qemu corrupted the overlay file");
 
-      (* Give the input module a chance to adjust the parameters
-       * of the overlay/backing file.  This allows us to increase
-       * the readahead parameter when copying (see RHBZ#1151033 and
-       * RHBZ#1153589 for the gruesome details).
-       *)
-      input#adjust_overlay_parameters t.target_overlay;
-
       (match t.target_file with
        | TargetFile filename ->
           (* It turns out that libguestfs's disk creation code is
