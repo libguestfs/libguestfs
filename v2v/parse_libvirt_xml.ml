@@ -476,6 +476,13 @@ let parse_libvirt_xml ?conn xml =
     done;
     List.rev !nics in
 
+  (* Firmware. *)
+  let firmware =
+    match xpath_string "/domain/os/@firmware" with
+    | Some "bios" -> BIOS
+    | Some "efi" -> UEFI
+    | None | Some _ -> UnknownFirmware in
+
   (* Check for hostdev devices. (RHBZ#1472719) *)
   let () =
     let obj = Xml.xpath_eval_expression xpathctx "/domain/devices/hostdev" in
@@ -502,7 +509,7 @@ let parse_libvirt_xml ?conn xml =
     s_cpu_model = cpu_model;
     s_cpu_topology = cpu_topology;
     s_features = features;
-    s_firmware = UnknownFirmware; (* XXX until RHBZ#1217444 is fixed *)
+    s_firmware = firmware;
     s_display = display;
     s_video = video;
     s_sound = sound;
