@@ -19,6 +19,7 @@
 (** Command line argument parsing. *)
 
 type cmdline = {
+  bandwidth : Types.bandwidth option;
   compressed : bool;
   debug_overlays : bool;
   do_copy : bool;

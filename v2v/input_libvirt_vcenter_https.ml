@@ -41,7 +41,7 @@ object (self)
   method precheck () =
     error_if_libvirt_does_not_support_json_backingfile ()
 
-  method source () =
+  method source ?bandwidth () =
     debug "input_libvirt_vcenter_https: source: server %s" server;
 
     (* Remove proxy environment variables so curl doesn't try to use
@@ -56,7 +56,7 @@ object (self)
     unsetenv "ALL_PROXY";
     unsetenv "NO_PROXY";
 
-    let source, disks, xml = parse_libvirt_domain self#conn guest in
+    let source, disks, xml = parse_libvirt_domain ?bandwidth self#conn guest in
 
     (* Find the <vmware:datacenterpath> element from the XML.  This
      * was added in libvirt >= 1.2.20.
@@ -78,7 +78,7 @@ object (self)
       | { p_source_disk = disk; p_source = P_dont_rewrite } -> disk
       | { p_source_disk = disk; p_source = P_source_file path } ->
         let { VCenter.qemu_uri } =
-          VCenter.map_source ?password_file:input_password
+          VCenter.map_source ?bandwidth ?password_file:input_password
                              dcPath parsed_uri server path in
 
         (* The libvirt ESX driver doesn't normally specify a format, but

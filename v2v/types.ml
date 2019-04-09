@@ -506,10 +506,14 @@ type root_choice = AskRoot | SingleRoot | FirstRoot | RootDev of string
 
 type output_allocation = Sparse | Preallocated
 
+type bandwidth =
+| StaticBandwidth of string
+| DynamicBandwidth of string option * string
+
 class virtual input = object
   method precheck () = ()
   method virtual as_options : string
-  method virtual source : unit -> source
+  method virtual source : ?bandwidth:bandwidth -> unit -> source
 end
 
 class virtual output = object

@@ -112,8 +112,9 @@ let remote_file_exists uri path =
     eprintf "%s\n%!" cmd;
   Sys.command cmd = 0
 
-let rec find_disks vmx vmx_source =
-  find_scsi_disks vmx vmx_source @ find_ide_disks vmx vmx_source
+let rec find_disks ?bandwidth vmx vmx_source =
+  find_scsi_disks ?bandwidth vmx vmx_source
+  @ find_ide_disks ?bandwidth vmx vmx_source
 
 (* Find all SCSI hard disks.
  *
@@ -123,7 +124,7 @@ let rec find_disks vmx vmx_source =
  *                        | omitted
  *   scsi0:0.fileName = "guest.vmdk"
  *)
-and find_scsi_disks vmx vmx_source =
+and find_scsi_disks ?bandwidth vmx vmx_source =
   let get_scsi_controller_target ns =
     sscanf ns "scsi%d:%d" (fun c t -> c, t)
   in
@@ -135,7 +136,7 @@ and find_scsi_disks vmx vmx_source =
                             Some "scsi-harddisk"; None ] in
   let scsi_controller = Source_SCSI in
 
-  find_hdds vmx vmx_source
+  find_hdds ?bandwidth vmx vmx_source
             get_scsi_controller_target is_scsi_controller_target
             scsi_device_types scsi_controller
 
@@ -145,7 +146,7 @@ and find_scsi_disks vmx vmx_source =
  *   ide0:0.deviceType = "ata-hardDisk"
  *   ide0:0.fileName = "guest.vmdk"
  *)
-and find_ide_disks vmx vmx_source =
+and find_ide_disks ?bandwidth vmx vmx_source =
   let get_ide_controller_target ns =
     sscanf ns "ide%d:%d" (fun c t -> c, t)
   in
@@ -156,11 +157,11 @@ and find_ide_disks vmx vmx_source =
   let ide_device_types = [ Some "ata-harddisk" ] in
   let ide_controller = Source_IDE in
 
-  find_hdds vmx vmx_source
+  find_hdds ?bandwidth vmx vmx_source
             get_ide_controller_target is_ide_controller_target
             ide_device_types ide_controller
 
-and find_hdds vmx vmx_source
+and find_hdds ?bandwidth vmx vmx_source
               get_controller_target is_controller_target
               device_types controller =
   (* Find namespaces matching '(ide|scsi)X:Y' with suitable deviceType. *)
@@ -186,7 +187,8 @@ and find_hdds vmx vmx_source
         match path, v with
         | [ns; "filename"], Some filename ->
            let c, t = get_controller_target ns in
-           let uri, format = qemu_uri_of_filename vmx_source filename in
+           let uri, format = qemu_uri_of_filename ?bandwidth
+                                                  vmx_source filename in
            let s = { s_disk_id = (-1);
                      s_qemu_uri = uri; s_format = Some format;
                      s_controller = Some controller } in
@@ -213,7 +215,7 @@ and find_hdds vmx vmx_source
  * This constructs a QEMU URI of the filename relative to the
  * vmx file (which might be remote over SSH).
  *)
-and qemu_uri_of_filename vmx_source filename =
+and qemu_uri_of_filename ?bandwidth vmx_source filename =
   match vmx_source with
   | File vmx_filename ->
      (* Always ensure this returns an absolute path to avoid
@@ -240,7 +242,7 @@ and qemu_uri_of_filename vmx_source filename =
      let port = Option.map string_of_int (port_of_uri uri) in
      let user = uri.Xml.uri_user in
 
-     let nbdkit = Nbdkit.create_ssh ~password:NoPassword ~server
+     let nbdkit = Nbdkit.create_ssh ?bandwidth ~password:NoPassword ~server
                                     ?port ?user abs_path in
      let qemu_uri = Nbdkit.run nbdkit in
      qemu_uri, format
@@ -392,7 +394,7 @@ object
 
   method as_options = "-i vmx " ^ arg
 
-  method source () =
+  method source ?bandwidth () =
     let vmx_source = vmx_source_of_arg input_transport arg in
 
     (* If the transport is SSH, fetch the file from remote, else
@@ -486,7 +488,7 @@ object
          None
       | None -> None in
 
-    let disks = find_disks vmx vmx_source in
+    let disks = find_disks ?bandwidth vmx vmx_source in
     let removables = find_removables vmx in
     let nics = find_nics vmx in
 

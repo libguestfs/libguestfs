@@ -198,7 +198,8 @@ let rec main () =
 
 and open_source cmdline input =
   message (f_"Opening the source %s") input#as_options;
-  let source = input#source () in
+  let bandwidth = cmdline.bandwidth in
+  let source = input#source ?bandwidth () in
 
   (* Print source and stop. *)
   if cmdline.print_source then (

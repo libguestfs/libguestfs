@@ -75,7 +75,7 @@ class input_ova ova = object
 
   method as_options = "-i ova " ^ ova
 
-  method source () =
+  method source ?bandwidth () =
     (* Extract ova file. *)
     let ova_t = parse_ova ova in
 

@@ -361,6 +361,11 @@ type root_choice = AskRoot | SingleRoot | FirstRoot | RootDev of string
 type output_allocation = Sparse | Preallocated
 (** Type of [-oa] (output allocation) option. *)
 
+type bandwidth =
+| StaticBandwidth of string
+| DynamicBandwidth of string option * string
+(** [--bandwidth] and [--bandwidth-file] options. *)
+
 (** {2 Input object}
 
     This is subclassed for the various input [-i] options.
@@ -398,7 +403,7 @@ class virtual input : object
   method virtual as_options : string
   (** Converts the input object back to the equivalent command line options.
       This is just used for pretty-printing log messages. *)
-  method virtual source : unit -> source
+  method virtual source : ?bandwidth:bandwidth -> unit -> source
   (** Examine the source hypervisor and create a source struct. *)
 end
 (** Encapsulates all [-i], etc input arguments as an object. *)

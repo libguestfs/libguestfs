@@ -24,6 +24,7 @@ open Std_utils
 open Tools_utils
 open Unix_utils
 
+open Types
 open Utils
 
 let nbdkit_min_version = (1, 12)
@@ -85,7 +86,7 @@ let error_unless_nbdkit_compiled_with_selinux dump_config =
       error (f_"nbdkit was compiled without SELinux support.  You will have to recompile nbdkit with libselinux-devel installed, or else set SELinux to Permissive mode while doing the conversion.")
   )
 
-let common_create plugin_name plugin_args plugin_env =
+let common_create ?bandwidth plugin_name plugin_args plugin_env =
   error_unless_nbdkit_working ();
 
   (* Environment.  We always add LANG=C. *)
@@ -151,7 +152,24 @@ let common_create plugin_name plugin_args plugin_env =
     add_arg "--filter"; add_arg "readahead"
   );
 
-  let args = get_args () @ [ plugin_name ] @ plugin_args in
+  (* Add the rate filter. *)
+  let rate_args =
+    if probe_filter "rate" then (
+      match bandwidth with
+      | None -> []
+      | Some bandwidth ->
+         add_arg "--filter"; add_arg "rate";
+         match bandwidth with
+         | StaticBandwidth rate ->
+            [ "rate=" ^ rate ]
+         | DynamicBandwidth (None, filename) ->
+            [ "rate-file=" ^ filename ]
+         | DynamicBandwidth (Some rate, filename) ->
+            [ "rate=" ^ rate; "rate-file=" ^ filename ]
+    )
+    else [] in
+
+  let args = get_args () @ [ plugin_name ] @ plugin_args @ rate_args in
 
   { plugin_name; args; env; dump_config; dump_plugin }
 
@@ -161,7 +179,7 @@ let common_create plugin_name plugin_args plugin_env =
 let libNN = sprintf "lib%d" Sys.word_size
 
 (* Create an nbdkit module specialized for reading from VDDK sources. *)
-let create_vddk ?config ?cookie ?libdir ~moref
+let create_vddk ?bandwidth ?config ?cookie ?libdir ~moref
                 ?nfchostport ?password_file ?port
                 ~server ?snapshot ~thumbprint ?transports ?user path =
   (* Compute the LD_LIBRARY_PATH that we may have to pass to nbdkit. *)
@@ -256,10 +274,10 @@ See also the virt-v2v-input-vmware(1) manual.") libNN
   add_arg (sprintf "thumbprint=%s" thumbprint);
   Option.may (fun s -> add_arg (sprintf "transports=%s" s)) transports;
 
-  common_create "vddk" (get_args ()) env
+  common_create ?bandwidth "vddk" (get_args ()) env
 
 (* Create an nbdkit module specialized for reading from SSH sources. *)
-let create_ssh ~password ?port ~server ?user path =
+let create_ssh ?bandwidth ~password ?port ~server ?user path =
   let add_arg, get_args =
     let args = ref [] in
     let add_arg a = List.push_front a args in
@@ -277,10 +295,10 @@ let create_ssh ~password ?port ~server ?user path =
   );
   add_arg (sprintf "path=%s" path);
 
-  common_create "ssh" (get_args ()) []
+  common_create ?bandwidth "ssh" (get_args ()) []
 
 (* Create an nbdkit module specialized for reading from Curl sources. *)
-let create_curl ?cookie ~password ?(sslverify=true) ?user url =
+let create_curl ?bandwidth ?cookie ~password ?(sslverify=true) ?user url =
   let add_arg, get_args =
     let args = ref [] in
     let add_arg a = List.push_front a args in
@@ -300,7 +318,7 @@ let create_curl ?cookie ~password ?(sslverify=true) ?user url =
   if not sslverify then add_arg "sslverify=false";
   add_arg (sprintf "url=%s" url);
 
-  common_create "curl" (get_args ()) []
+  common_create ?bandwidth "curl" (get_args ()) []
 
 let run { args; env } =
   (* Create a temporary directory where we place the sockets. *)

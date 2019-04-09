@@ -31,7 +31,7 @@ object
 
   method as_options = "-i libvirtxml " ^ file
 
-  method source () =
+  method source ?bandwidth () =
     let xml = read_whole_file file in
 
     let source, disks = parse_libvirt_xml xml in

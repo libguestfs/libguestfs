@@ -58,10 +58,10 @@ class input_libvirt_other libvirt_conn guest =
 object (self)
   inherit input_libvirt libvirt_conn guest
 
-  method source () =
+  method source ?bandwidth () =
     debug "input_libvirt_other: source ()";
 
-    let source, disks, _ = parse_libvirt_domain self#conn guest in
+    let source, disks, _ = parse_libvirt_domain ?bandwidth self#conn guest in
     let disks = List.map (fun { p_source_disk = disk } -> disk) disks in
     { source with s_disks = disks }
 end

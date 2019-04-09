@@ -155,6 +155,50 @@ qemu, do:
 
 Display help.
 
+=item B<--bandwidth> bps
+
+=item B<--bandwidth-file> filename
+
+Some input methods are able to limit the network bandwidth they will
+use statically or dynamically.  In the first variant this sets the
+bandwidth limit statically in bits per second.  Formats like C<10M>
+may be used (meaning 10 megabits per second).
+
+In the second variant the bandwidth is limited dynamically from the
+content of the file (also in bits per second, in the same formats
+supported by the first variant).  You may use both parameters
+together, meaning: first limit to a static rate, then you can create
+the file while virt-v2v is running to adjust the rate dynamically.
+
+This is only supported for:
+
+=over 4
+
+=item *
+
+L<input from Xen|virt-v2v-input-xen(1)>
+
+=item *
+
+L<input from VMware VMX|virt-v2v-input-vmware(1)/INPUT FROM VMWARE VMX>
+when using the SSH transport method
+
+=item *
+
+L<input from VDDK|virt-v2v-input-vmware(1)/INPUT FROM VDDK>
+
+=item *
+
+I<-i libvirtxml> when using HTTP or HTTPS disks
+
+=item *
+
+L<input from VMware vCenter server|virt-v2v-input-vmware(1)/INPUT FROM VMWARE VCENTER SERVER>
+
+=back
+
+The options are silently ignored for other input methods.
+
 =item B<-b> ...
 
 =item B<--bridge> ...

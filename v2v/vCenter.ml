@@ -35,7 +35,7 @@ type remote_resource = {
 let source_re = PCRE.compile "^\\[(.*)\\] (.*)\\.vmdk$"
 let snapshot_re = PCRE.compile "^(.*)-\\d{6}(\\.vmdk)$"
 
-let rec map_source ?password_file dcPath uri server path =
+let rec map_source ?bandwidth ?password_file dcPath uri server path =
   (* If no_verify=1 was passed in the libvirt URI, then we have to
    * turn off certificate verification here too.
    *)
@@ -78,7 +78,7 @@ let rec map_source ?password_file dcPath uri server path =
     | Some password_file -> Nbdkit.PasswordFile password_file in
 
   let nbdkit =
-    Nbdkit.create_curl ?cookie:session_cookie ~password ~sslverify
+    Nbdkit.create_curl ?bandwidth ?cookie:session_cookie ~password ~sslverify
                        https_url in
   let qemu_uri = Nbdkit.run nbdkit in
 

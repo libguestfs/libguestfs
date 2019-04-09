@@ -27,7 +27,7 @@ and parsed_source =
 | P_source_file of string            (** <source file> *)
 | P_dont_rewrite                     (** s_qemu_uri is already set. *)
 
-val parse_libvirt_domain : Libvirt.rw Libvirt.Connect.t -> string -> Types.source * parsed_disk list * string
+val parse_libvirt_domain : ?bandwidth:Types.bandwidth -> Libvirt.rw Libvirt.Connect.t -> string -> Types.source * parsed_disk list * string
 (** [parse_libvirt_domain conn dom] loads the XML of the domain [dom]
     from the libvirt connection [conn].
     The result is a tuple with a {!Types.source} structure, a list of
@@ -36,7 +36,7 @@ val parse_libvirt_domain : Libvirt.rw Libvirt.Connect.t -> string -> Types.sourc
     {b Note} the [source.s_disks] field is an empty list.  The caller
     must map over the parsed disks and update the [source.s_disks] field. *)
 
-val parse_libvirt_xml : ?conn:Libvirt.rw Libvirt.Connect.t -> string -> Types.source * parsed_disk list
+val parse_libvirt_xml : ?bandwidth:Types.bandwidth -> ?conn:Libvirt.rw Libvirt.Connect.t -> string -> Types.source * parsed_disk list
 (** Take libvirt XML and parse it into a {!Types.source} structure and a
     list of source disks.
 

@@ -20,7 +20,8 @@
 
 type t
 
-val create_vddk : ?config:string ->
+val create_vddk : ?bandwidth:Types.bandwidth ->
+                  ?config:string ->
                   ?cookie:string ->
                   ?libdir:string ->
                   moref:string ->
@@ -46,7 +47,8 @@ type password =
 | AskForPassword
 | PasswordFile of string
 
-val create_ssh : password:password ->
+val create_ssh : ?bandwidth:Types.bandwidth ->
+                 password:password ->
                  ?port:string ->
                  server:string ->
                  ?user:string ->
@@ -59,7 +61,8 @@ val create_ssh : password:password ->
 
     Note this doesn't run nbdkit yet, it just creates the object. *)
 
-val create_curl : ?cookie:string ->
+val create_curl : ?bandwidth:Types.bandwidth ->
+                  ?cookie:string ->
                   password:password ->
                   ?sslverify:bool ->
                   ?user:string ->

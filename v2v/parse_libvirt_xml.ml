@@ -46,7 +46,7 @@ let get_drive_slot str offset =
        warning (f_"could not parse device name ‘%s’ from the source libvirt XML") str;
        None
 
-let parse_libvirt_xml ?conn xml =
+let parse_libvirt_xml ?bandwidth ?conn xml =
   debug "libvirt xml is:\n%s" xml;
 
   (* Create a default libvirt connection on request, to not open one
@@ -319,7 +319,8 @@ let parse_libvirt_xml ?conn xml =
                | _, Some port ->
                   invalid_arg "invalid port number in libvirt XML" in
              sprintf "%s://%s%s%s" driver host port (uri_quote path) in
-           let nbdkit = Nbdkit.create_curl ~password:NoPassword url in
+           let nbdkit = Nbdkit.create_curl ?bandwidth ~password:NoPassword
+                                           url in
            let qemu_uri = Nbdkit.run nbdkit in
            add_disk qemu_uri format controller P_dont_rewrite
         | Some protocol, _, _ ->
@@ -537,9 +538,9 @@ let parse_libvirt_xml ?conn xml =
    },
    disks)
 
-let parse_libvirt_domain conn guest =
+let parse_libvirt_domain ?bandwidth conn guest =
   let dom = Libvirt_utils.get_domain conn guest in
   (* Use XmlSecure to get passwords (RHBZ#1174123). *)
   let xml = Libvirt.Domain.get_xml_desc_flags dom [Libvirt.Domain.XmlSecure] in
-  let source, disks = parse_libvirt_xml ~conn xml in
+  let source, disks = parse_libvirt_xml ?bandwidth ~conn xml in
   source, disks, xml

@@ -113,8 +113,8 @@ object (self)
             super#as_options (* superclass prints "-i libvirt etc" *)
             pt_options
 
-  method source () =
-    let source, disks, xml = parse_libvirt_domain self#conn guest in
+  method source ?bandwidth () =
+    let source, disks, xml = parse_libvirt_domain ?bandwidth self#conn guest in
 
     (* Find the <vmware:moref> element from the XML.  This was added
      * in libvirt >= 3.7 and is required.
@@ -183,7 +183,7 @@ object (self)
           * directly in this form to VDDK.
           *)
          let nbdkit =
-           Nbdkit.create_vddk ?config ?cookie ?libdir ~moref
+           Nbdkit.create_vddk ?bandwidth ?config ?cookie ?libdir ~moref
                               ?nfchostport ?password_file:input_password ?port
                               ~server ?snapshot ~thumbprint ?transports ?user
                               path in

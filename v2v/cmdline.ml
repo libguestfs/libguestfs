@@ -29,6 +29,7 @@ open Types
 open Utils
 
 type cmdline = {
+  bandwidth : bandwidth option;
   compressed : bool;
   debug_overlays : bool;
   do_copy : bool;
@@ -47,6 +48,8 @@ type cmdline = {
 let mac_re = PCRE.compile ~anchored:true "([[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}:[[:xdigit:]]{2}):(network|bridge):(.*)"
 
 let parse_cmdline () =
+  let bandwidth = ref None in
+  let bandwidth_file = ref None in
   let compressed = ref false in
   let debug_overlays = ref false in
   let do_copy = ref true in
@@ -191,6 +194,10 @@ let parse_cmdline () =
   and ovf_flavours_str = String.concat "|" Create_ovf.ovf_flavours in
 
   let argspec = [
+    [ L"bandwidth" ], Getopt.String ("bps", set_string_option_once "--bandwidth" bandwidth),
+                                    s_"Set bandwidth to bits per sec";
+    [ L"bandwidth-file" ], Getopt.String ("filename", set_string_option_once "--bandwidth-file" bandwidth_file),
+                                    s_"Set bandwidth dynamically from file";
     [ S 'b'; L"bridge" ], Getopt.String ("in:out", add_bridge),
                                     s_"Map bridge ‘in’ to ‘out’";
     [ L"compressed" ], Getopt.Set compressed,
@@ -304,6 +311,11 @@ read the man page virt-v2v(1).
 
   (* Dereference the arguments. *)
   let args = List.rev !args in
+  let bandwidth =
+    match !bandwidth, !bandwidth_file with
+    | None, None -> None
+    | Some rate, None -> Some (StaticBandwidth rate)
+    | rate, Some filename -> Some (DynamicBandwidth (rate, filename)) in
   let compressed = !compressed in
   let debug_overlays = !debug_overlays in
   let do_copy = !do_copy in
@@ -351,6 +363,7 @@ read the man page virt-v2v(1).
     pr "in-place\n";
     pr "io/oo\n";
     pr "mac-option\n";
+    pr "bandwidth-option\n";
     List.iter (pr "input:%s\n") (Modules_list.input_modules ());
     List.iter (pr "output:%s\n") (Modules_list.output_modules ());
     List.iter (pr "convert:%s\n") (Modules_list.convert_modules ());
@@ -683,8 +696,8 @@ read the man page virt-v2v(1).
       output_format, output_alloc in
 
   {
-    compressed; debug_overlays; do_copy; in_place; network_map;
-    output_alloc; output_format; output_name;
+    bandwidth; compressed; debug_overlays; do_copy; in_place;
+    network_map; output_alloc; output_format; output_name;
     print_estimate; print_source; root_choice;
     ks = opthandle.ks;
   },

@@ -40,10 +40,10 @@ object (self)
     error_if_libvirt_does_not_support_json_backingfile ();
     error_if_no_ssh_agent ()
 
-  method source () =
+  method source ?bandwidth () =
     debug "input_libvirt_xen_ssh: source: server %s" server;
 
-    let source, disks, _ = parse_libvirt_domain self#conn guest in
+    let source, disks, _ = parse_libvirt_domain ?bandwidth self#conn guest in
 
     let port =
       match parsed_uri.uri_port with
@@ -61,7 +61,7 @@ object (self)
         disk
       | { p_source_disk = disk; p_source = P_source_dev path }
       | { p_source_disk = disk; p_source = P_source_file path } ->
-         let nbdkit = Nbdkit.create_ssh ~password:NoPassword
+         let nbdkit = Nbdkit.create_ssh ?bandwidth ~password:NoPassword
                                         ?port ~server ?user path in
          let qemu_uri = Nbdkit.run nbdkit in
         { disk with s_qemu_uri = qemu_uri }

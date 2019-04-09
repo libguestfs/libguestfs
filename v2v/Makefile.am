@@ -281,6 +281,7 @@ virt_v2v_copy_to_local_CFLAGS = \
 	$(LIBVIRT_CFLAGS)
 
 COPY_TO_LOCAL_BOBJECTS = \
+	types.cmo \
 	uefi.cmo \
 	utils.cmo \
 	libvirt_utils.cmo \

@@ -36,7 +36,7 @@ class input_disk input_format disk = object
       | Some fmt -> " -if " ^ fmt)
       disk
 
-  method source () =
+  method source ?bandwidth () =
     (* Check the input file exists and is readable. *)
     Unix.access disk [Unix.R_OK];
 
