@@ -197,32 +197,8 @@ library is permitted by the license.
 
 =item 2.
 
-You must also compile nbdkit, enabling the VDDK plugin.  nbdkit E<ge>
-1.1.25 is recommended, but it is usually best to compile from the git
-tree.
-
-=over 4
-
-=item *
-
-L<https://github.com/libguestfs/nbdkit>
-
-=item *
-
-L<https://github.com/libguestfs/nbdkit/tree/master/plugins/vddk>
-
-=back
-
-Compile nbdkit as described in the sources (see link above).
-
-You do B<not> need to run C<make install> because you can run nbdkit
-from its source directory.  The source directory has a shell script
-called F<nbdkit> which runs the locally built copy of nbdkit and its
-plugins.  So set C<$PATH> to point to the nbdkit top build directory
-(that is, the directory containing the shell script called F<nbdkit>),
-eg:
-
- export PATH=/path/to/nbdkit-1.1.x:$PATH
+nbdkit E<ge> 1.6 is recommended, as it ships with the VDDK plugin
+enabled unconditionally.
 
 =item 3.
 
