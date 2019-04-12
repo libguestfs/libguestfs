@@ -492,6 +492,24 @@ let parse_libvirt_xml ?conn xml =
     )
   in
 
+  (* Check for direct attachments to physical network interfaces.
+   * (RHBZ#1518539)
+   *)
+  let () =
+    let obj = Xml.xpath_eval_expression xpathctx "/domain/devices/interface[@type='direct']" in
+    let nr_nodes = Xml.xpathobj_nr_nodes obj in
+    if nr_nodes > 0 then (
+      (* Sadly fn_ in ocaml-gettext seems broken, and always returns the
+       * singular string no matter what.  Work around this by using a simple
+       * string with sn_ (which works), and outputting it as a whole.
+       *)
+      let msg = sn_ "this guest has a direct network interface which will be ignored"
+                    "this guest has direct network interfaces which will be ignored"
+                    nr_nodes in
+      warning "%s" msg
+    )
+  in
+
   ({
     s_hypervisor = hypervisor;
     s_name = name; s_orig_name = name;
