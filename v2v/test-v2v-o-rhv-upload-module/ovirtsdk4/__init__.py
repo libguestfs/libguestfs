@@ -39,6 +39,9 @@ class Connection(object):
         return SystemService()
 
 class SystemService(object):
+    def clusters_service(self):
+        return ClustersService()
+
     def data_centers_service(self):
         return DataCentersService()
 
@@ -53,6 +56,10 @@ class SystemService(object):
 
     def vms_service(self):
         return VmsService()
+
+class ClustersService(object):
+    def list(self, search=None, case_sensitive=False):
+        return ["Default"]
 
 class DataCentersService(object):
     def list(self, search=None, case_sensitive=False):
