@@ -54,11 +54,29 @@ sub tests {
 	my $end_sectors = 100 * 1024 * 2 - $output;
 	die unless $end_sectors <= 34;
 
-	# Negative tests.
+	# Negative test.
 	eval { $g->part_expand_gpt ("/dev/sdb") };
 	die unless $@;
-	eval { $g->part_expand_gpt ("/dev/sda1") };
-	die unless $@;
+
+	$g->close ();
+
+	# Disk shrink test
+	die if system ("qemu-img resize --shrink disk_gpt.img 50M &>/dev/null");
+
+	$g = Sys::Guestfs->new ();
+
+	$g->add_drive ("disk_gpt.img", format => "qcow2");
+	$g->launch ();
+
+	die if $g->part_expand_gpt ("/dev/sda");
+
+	my $output = $g->debug ("sh", ["sgdisk", "-p", "/dev/sda"]);
+	die if $output eq "";
+	$output =~ s/\n/ /g;
+	$output =~ s/.*last usable sector is (\d+).*/$1/g;
+
+	my $end_sectors = 50 * 1024 * 2 - $output;
+	die unless $end_sectors <= 34;
 }
 
 eval { tests() };

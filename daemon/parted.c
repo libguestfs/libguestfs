@@ -699,26 +699,8 @@ do_part_expand_gpt(const char *device)
 {
   CLEANUP_FREE char *err = NULL;
 
-  /* If something is broken, sgdisk may try to correct it.
-   * (e.g. recreate partition table and so on).
-   * We do not want such behavior, so dry-run at first.*/
   int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                    "sgdisk", "--pretend", "-e", device, NULL);
-
-  if (r == -1) {
-    reply_with_error ("%s --pretend -e %s: %s", "sgdisk", device, err);
-    return -1;
-  }
-  if (err && strlen(err) != 0) {
-    /* Unexpected actions. */
-    reply_with_error ("%s --pretend -e %s: %s", "sgdisk", device, err);
-    return -1;
-  }
-  free(err);
-
-  /* Now we can do a real run. */
-  r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                "sgdisk", "-e", device, NULL);
+                    "sgdisk", "-e", device, NULL);
 
   if (r == -1) {
     reply_with_error ("%s -e %s: %s", "sgdisk", device, err);
