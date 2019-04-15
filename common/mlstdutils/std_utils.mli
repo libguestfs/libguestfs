@@ -131,6 +131,11 @@ module String : sig
         segment of [str] which contains only bytes {!i not} in [reject].
 
         These work exactly like the C functions [strspn] and [strcspn]. *)
+    val unix2dos : string -> string
+    (** Convert string with ordinary Unix-style line-endings to
+        CRLF DOS-style line-endings.
+
+        The same as {!String.replace} [str "\n" "\r\n"]. *)
 end
 (** Override the String module from stdlib. *)
 

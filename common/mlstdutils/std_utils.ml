@@ -269,6 +269,8 @@ module String = struct
         else loop (i+1)
       in
       loop 0
+
+    let unix2dos str = replace str "\n" "\r\n"
 end
 
 module List = struct

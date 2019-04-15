@@ -24,9 +24,6 @@ open Common_gettext.Gettext
 
 open Regedit
 
-let unix2dos s =
-  String.concat "\r\n" (String.nsplit "\n" s)
-
 let sanitize_name =
   let rex = PCRE.compile ~caseless:true "[^a-z0-9_]" in
   fun n ->
@@ -313,7 +310,8 @@ echo uninstalling firstboot service
 %s -s firstboot uninstall
 " firstboot_dir_win srvany in
 
-    g#write (firstboot_dir // "firstboot.bat") (unix2dos firstboot_script);
+    g#write (firstboot_dir // "firstboot.bat")
+            (String.unix2dos firstboot_script);
 
     (* Open the SYSTEM hive. *)
     Registry.with_hive_write g (g#inspect_get_windows_system_hive root)
@@ -363,7 +361,7 @@ let add_firstboot_script (g : Guestfs.guestfs) root name content =
   | "windows", _ ->
     let firstboot_dir = Windows.install_service g root in
     let filename = firstboot_dir // "scripts" // filename ^ ".bat" in
-    g#write filename (unix2dos content)
+    g#write filename (String.unix2dos content)
 
   | _ ->
     error (f_"guest type %s/%s is not supported") typ distro
