@@ -70,4 +70,14 @@ if len(vms) > 0:
     raise RuntimeError("VM already exists with name ‘%s’, id ‘%s’" %
                        (params['output_name'], vm.id))
 
+# Check whether the specified cluster exists.
+clusters_service = system_service.clusters_service()
+clusters = clusters_service.list(
+    search='name=%s' % params['rhv_cluster'],
+    case_sensitive=True,
+)
+if len(clusters) == 0:
+    raise RuntimeError("The cluster ‘%s’ does not exist" %
+                       (params['rhv_cluster']))
+
 # Otherwise everything is OK, exit with no error.
