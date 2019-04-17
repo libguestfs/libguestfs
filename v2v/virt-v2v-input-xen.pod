@@ -5,7 +5,9 @@ virt-v2v-input-xen - Using virt-v2v to convert guests from Xen
 =head1 SYNOPSIS
 
  export LIBGUESTFS_BACKEND=direct
- virt-v2v -ic 'xen+ssh://root@xen.example.com' GUEST_NAME [-o* options]
+ virt-v2v -ic 'xen+ssh://root@xen.example.com'
+          -ip passwordfile
+          GUEST_NAME [-o* options]
 
 =head1 DESCRIPTION
 
@@ -14,23 +16,20 @@ RHEL 5 Xen, or SLES and OpenSUSE Xen hosts.
 
 =head1 INPUT FROM XEN
 
-=head2 Set up ssh-agent access to Xen host
+=head2 SSH authentication
 
-Currently you must enable passwordless SSH access to the remote Xen host
-from the virt-v2v conversion server.
+You can use SSH password authentication, by supplying the name of a
+file containing the password to the I<-ip> option (note this option
+does I<not> take the password directly).
 
-You must also use ssh-agent, and add your ssh public key to
-F</root/.ssh/authorized_keys> (on the Xen host).
-
-After doing this, you should check that passwordless access works
-from the virt-v2v server to the Xen host.  For example:
+If you are not using password authentication, an alternative is to use
+ssh-agent, and add your ssh public key to
+F</root/.ssh/authorized_keys> (on the Xen host).  After doing this,
+you should check that passwordless access works from the virt-v2v
+server to the Xen host.  For example:
 
  $ ssh root@xen.example.com
  [ logs straight into the shell, no password is requested ]
-
-Note that password-interactive and Kerberos access are B<not>
-supported.  You B<have> to set up ssh access using ssh-agent and
-authorized_keys.
 
 With some modern ssh implementations, legacy crypto policies required
 to interoperate with RHEL 5 sshd are disabled.  To enable them you may

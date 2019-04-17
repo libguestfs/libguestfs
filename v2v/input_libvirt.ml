@@ -68,7 +68,7 @@ let input_libvirt input_conn input_password input_transport guest =
     (* Xen over SSH *)
     | Some server, Some "xen+ssh", _ ->
       Input_libvirt_xen_ssh.input_libvirt_xen_ssh
-        libvirt_conn parsed_uri server guest
+        libvirt_conn input_password parsed_uri server guest
 
     (* Old virt-v2v also supported qemu+ssh://.  However I am
      * deliberately not supporting this in new virt-v2v.  Don't

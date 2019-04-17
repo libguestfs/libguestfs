@@ -18,6 +18,6 @@
 
 (** [-i vmx] source. *)
 
-val input_vmx : [`SSH] option -> string -> Types.input
-(** [input_vmx input_transport arg] sets up an input
+val input_vmx : string option -> [`SSH] option -> string -> Types.input
+(** [input_vmx input_password input_transport arg] sets up an input
     from vmware vmx file. *)

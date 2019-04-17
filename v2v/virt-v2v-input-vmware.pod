@@ -8,6 +8,7 @@ virt-v2v-input-vmware - Using virt-v2v to convert guests from VMware
 
  virt-v2v -i vmx
     -it ssh
+    -ip passwordfile
     'ssh://root@esxi.example.com/vmfs/volumes/datastore1/guest/guest.vmx'
     [-o* options]
 
@@ -132,20 +133,20 @@ If the vmx and vmdk files aren't available locally then you must
 I<either> mount the NFS storage on the conversion server I<or> enable
 passwordless SSH on the ESXi hypervisor.
 
-=head3 VMX: Passwordless SSH using ssh-agent
+=head3 VMX: SSH authentication
 
-You must also use ssh-agent, and add your ssh public key to
-F</etc/ssh/keys-root/authorized_keys> (on the ESXi hypervisor).
+You can use SSH password authentication, by supplying the name of a
+file containing the password to the I<-ip> option (note this option
+does I<not> take the password directly).
 
-After doing this, you should check that passwordless access works from
-the virt-v2v server to the ESXi hypervisor.  For example:
+If you are not using password authentication, an alternative is to use
+ssh-agent, and add your ssh public key to
+F</etc/ssh/keys-root/authorized_keys> (on the ESXi hypervisor).  After
+doing this, you should check that passwordless access works from the
+virt-v2v server to the ESXi hypervisor.  For example:
 
  $ ssh root@esxi.example.com
  [ logs straight into the shell, no password is requested ]
-
-Note that password-interactive and Kerberos access are B<not>
-supported.  You B<have> to set up ssh access using ssh-agent and
-authorized_keys.
 
 =head3 VMX: Construct the SSH URI
 

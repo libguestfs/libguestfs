@@ -533,7 +533,7 @@ read the man page virt-v2v(1).
         | Some `SSH -> Some `SSH
         | Some (`VDDK _) ->
            error (f_"only ‘-it ssh’ can be used here") in
-      Input_vmx.input_vmx input_transport arg in
+      Input_vmx.input_vmx input_password input_transport arg in
 
   (* Common error message. *)
   let error_option_cannot_be_used_in_output_mode mode opt =

@@ -30,7 +30,7 @@ open Input_libvirt_other
 open Printf
 
 (* Subclass specialized for handling Xen over SSH. *)
-class input_libvirt_xen_ssh libvirt_conn parsed_uri server guest =
+class input_libvirt_xen_ssh libvirt_conn input_password parsed_uri server guest =
 object (self)
   inherit input_libvirt libvirt_conn guest
 
@@ -61,7 +61,11 @@ object (self)
         disk
       | { p_source_disk = disk; p_source = P_source_dev path }
       | { p_source_disk = disk; p_source = P_source_file path } ->
-         let nbdkit = Nbdkit.create_ssh ?bandwidth ~password:NoPassword
+         let password =
+           match input_password with
+           | None -> Nbdkit.NoPassword
+           | Some ip -> Nbdkit.PasswordFile ip in
+         let nbdkit = Nbdkit.create_ssh ?bandwidth ~password
                                         ?port ~server ?user path in
          let qemu_uri = Nbdkit.run nbdkit in
         { disk with s_qemu_uri = qemu_uri }
