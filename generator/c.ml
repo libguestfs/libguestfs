@@ -439,17 +439,17 @@ extern \"C\" {
     (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 #endif
 
-/* Define GUESTFS_WARN_DEPRECATED=1 to warn about deprecated API functions. */
+/* Define GUESTFS_NO_WARN_DEPRECATED to not warn about deprecated API functions. */
 #define GUESTFS_DEPRECATED_NO_REPLACEMENT
 #define GUESTFS_DEPRECATED_REPLACED_BY(s)
-#if GUESTFS_WARN_DEPRECATED
+#ifndef GUESTFS_NO_WARN_DEPRECATED
 #  if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40500 /* gcc >= 4.5 */
 #    undef GUESTFS_DEPRECATED_NO_REPLACEMENT
 #    undef GUESTFS_DEPRECATED_REPLACED_BY
 #    define GUESTFS_DEPRECATED_NO_REPLACEMENT __attribute__((__deprecated__))
 #    define GUESTFS_DEPRECATED_REPLACED_BY(s) __attribute__((__deprecated__(\"change the program to use guestfs_\" s \" instead of this deprecated function\")))
 #  endif
-#endif /* GUESTFS_WARN_DEPRECATED */
+#endif /* !GUESTFS_NO_WARN_DEPRECATED */
 
 #if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40000 /* gcc >= 4.0 */
 # define GUESTFS_DLL_PUBLIC __attribute__((visibility (\"default\")))

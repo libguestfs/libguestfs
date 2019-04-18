@@ -106,6 +106,7 @@ check_PROGRAMS = \
 
 rhbz501893_SOURCES = rhbz501893.c
 rhbz501893_CPPFLAGS = \
+	-DGUESTFS_NO_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 rhbz501893_CFLAGS = \
@@ -144,6 +145,7 @@ rhbz914931_LDADD = \
 
 rhbz1055452_SOURCES = rhbz1055452.c
 rhbz1055452_CPPFLAGS = \
+	-DGUESTFS_NO_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 rhbz1055452_CFLAGS = \

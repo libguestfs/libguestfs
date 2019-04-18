@@ -85,7 +85,7 @@ let generate_fish_run_cmds actions () =
   pr "#include <config.h>\n";
   pr "\n";
   pr "/* It is safe to call deprecated functions from this file. */\n";
-  pr "#undef GUESTFS_WARN_DEPRECATED\n";
+  pr "#define GUESTFS_NO_WARN_DEPRECATED\n";
   pr "\n";
   pr "#include <stdio.h>\n";
   pr "#include <stdlib.h>\n";

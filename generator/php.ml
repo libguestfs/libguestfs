@@ -83,6 +83,9 @@ and generate_php_c () =
 
 #include <config.h>
 
+/* It is safe to call deprecated functions from this file. */
+#define GUESTFS_NO_WARN_DEPRECATED
+
 #include <stdio.h>
 #include <stdlib.h>
 

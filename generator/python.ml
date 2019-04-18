@@ -280,6 +280,9 @@ and generate_python_actions actions () =
 
 #include <config.h>
 
+/* It is safe to call deprecated functions from this file. */
+#define GUESTFS_NO_WARN_DEPRECATED
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
