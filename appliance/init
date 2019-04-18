@@ -122,7 +122,9 @@ ip link set dev lo up
 
 if test "$guestfs_network" = 1; then
     iface=$(ls -I all -I default -I lo /proc/sys/net/ipv4/conf)
-    touch /etc/fstab   # Workaround for Ubuntu.
+    # Two workarounds for Ubuntu:
+    touch /etc/fstab
+    rm -f /etc/dhcp/dhclient-enter-hooks.d/resolved
     if dhclient --version >/dev/null 2>&1; then
         dhclient $iface
     else
