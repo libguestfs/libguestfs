@@ -253,6 +253,16 @@ and generate_ruby_c actions () =
         pr "\n"
       );
 
+      (match f.deprecated_by with
+      | Not_deprecated -> ()
+      | Replaced_by alt ->
+        pr "  rb_warn (\"Guestfs#%s is deprecated; use #%s instead\");\n" f.name alt;
+        pr "\n"
+      | Deprecated_no_replacement ->
+        pr "  rb_warn (\"Guestfs#%s is deprecated\");\n" f.name;
+        pr "\n"
+      );
+
       List.iter (
         function
         | String (_, n) ->
