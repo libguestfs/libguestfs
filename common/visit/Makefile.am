@@ -23,6 +23,7 @@ libvisit_la_SOURCES = \
 	visit.c \
 	visit.h
 libvisit_la_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \

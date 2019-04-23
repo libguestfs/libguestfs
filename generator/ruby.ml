@@ -113,6 +113,7 @@ and generate_ruby_c actions () =
 
 /* It is safe to call deprecated functions from this file. */
 #define GUESTFS_NO_WARN_DEPRECATED
+#undef GUESTFS_NO_DEPRECATED
 
 #include <stdio.h>
 #include <stdlib.h>

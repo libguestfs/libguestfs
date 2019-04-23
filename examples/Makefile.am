@@ -43,6 +43,7 @@ endif
 if HAVE_LIBVIRT
 copy_over_SOURCES = copy-over.c
 copy_over_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 copy_over_CFLAGS = \
 	$(LIBVIRT_CFLAGS) \
@@ -54,6 +55,7 @@ copy_over_LDADD = \
 
 libvirt_auth_SOURCES = libvirt-auth.c
 libvirt_auth_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 libvirt_auth_CFLAGS = \
 	$(LIBVIRT_CFLAGS) \
@@ -66,6 +68,7 @@ endif
 
 create_disk_SOURCES = create-disk.c
 create_disk_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 create_disk_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
@@ -74,6 +77,7 @@ create_disk_LDADD = \
 
 debug_logging_SOURCES = debug-logging.c
 debug_logging_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 debug_logging_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
@@ -82,6 +86,7 @@ debug_logging_LDADD = \
 
 display_icon_SOURCES = display-icon.c
 display_icon_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 display_icon_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
@@ -90,6 +95,7 @@ display_icon_LDADD = \
 
 inspect_vm_SOURCES = inspect-vm.c
 inspect_vm_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 inspect_vm_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
@@ -99,6 +105,7 @@ inspect_vm_LDADD = \
 if HAVE_FUSE
 mount_local_SOURCES = mount-local.c
 mount_local_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 mount_local_CFLAGS = \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
@@ -112,6 +119,7 @@ endif
 if HAVE_HIVEX
 virt_dhcp_address_SOURCES = virt-dhcp-address.c
 virt_dhcp_address_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 virt_dhcp_address_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)

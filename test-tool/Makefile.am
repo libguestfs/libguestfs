@@ -33,6 +33,7 @@ libguestfs_test_tool_CPPFLAGS = \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
 
 libguestfs_test_tool_CFLAGS = \

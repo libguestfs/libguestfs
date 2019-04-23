@@ -33,6 +33,7 @@ virt_df_SOURCES = \
 	output.c
 
 virt_df_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \

@@ -559,6 +559,7 @@ typedef void (*guestfs_close_cb) (guestfs_h *g, void *opaque);
 typedef void (*guestfs_progress_cb) (guestfs_h *g, void *opaque, int proc_nr, int serial, uint64_t position, uint64_t total);
 #endif
 
+#ifndef GUESTFS_NO_DEPRECATED
 extern GUESTFS_DLL_PUBLIC void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque)
   GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
 extern GUESTFS_DLL_PUBLIC void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque)
@@ -571,6 +572,7 @@ extern GUESTFS_DLL_PUBLIC void guestfs_set_close_callback (guestfs_h *g, guestfs
 #define GUESTFS_HAVE_SET_PROGRESS_CALLBACK 1
 extern GUESTFS_DLL_PUBLIC void guestfs_set_progress_callback (guestfs_h *g, guestfs_progress_cb cb, void *opaque)
   GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
+#endif /* !GUESTFS_NO_DEPRECATED */
 
 /* Private data area. */
 #define GUESTFS_HAVE_SET_PRIVATE 1
@@ -657,6 +659,13 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
       ) optargs;
     );
 
+    let deprecated =
+      match deprecated_by with
+      | Not_deprecated -> false
+      | Replaced_by _ | Deprecated_no_replacement -> true in
+
+    if deprecated then
+       pr "#ifndef GUESTFS_NO_DEPRECATED\n";
     generate_prototype ~single_line:true ~semicolon:false ~dll_public:true
       ~handle:"g" ~prefix:"guestfs_" shortname style;
     (match deprecated_by with
@@ -667,6 +676,8 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
     | Deprecated_no_replacement ->
        pr "\n  GUESTFS_DEPRECATED_NO_REPLACEMENT;\n"
     );
+    if deprecated then
+       pr "#endif /* !GUESTFS_NO_DEPRECATED */\n";
 
     if optargs <> [] then (
       generate_prototype ~single_line:true ~newline:true ~handle:"g"
@@ -1331,6 +1342,9 @@ and generate_client_actions actions () =
 
   pr "\
 #include <config.h>
+
+/* It is safe to call deprecated functions from this file. */
+#undef GUESTFS_NO_DEPRECATED
 
 #include <stdio.h>
 #include <stdlib.h>

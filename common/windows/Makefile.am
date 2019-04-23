@@ -25,6 +25,7 @@ libwindows_la_SOURCES = \
 	windows.c \
 	windows.h
 libwindows_la_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib

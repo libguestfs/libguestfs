@@ -40,7 +40,7 @@ let generate_golang_go () =
 package guestfs
 
 /*
-#cgo CFLAGS:  -DGUESTFS_PRIVATE=1 -DGUESTFS_NO_WARN_DEPRECATED
+#cgo CFLAGS:  -DGUESTFS_PRIVATE=1 -DGUESTFS_NO_WARN_DEPRECATED -UGUESTFS_NO_DEPRECATED
 #cgo LDFLAGS: -lguestfs
 #include <stdio.h>
 #include <stdlib.h>

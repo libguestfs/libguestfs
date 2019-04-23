@@ -36,6 +36,7 @@ virt_cat_SOURCES = \
 	cat.c
 
 virt_cat_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
@@ -63,6 +64,7 @@ virt_filesystems_SOURCES = \
 	filesystems.c
 
 virt_filesystems_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
@@ -90,6 +92,7 @@ virt_log_SOURCES = \
 	log.c
 
 virt_log_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
@@ -116,6 +119,7 @@ virt_ls_SOURCES = \
 	ls.c
 
 virt_ls_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
@@ -144,6 +148,7 @@ virt_tail_SOURCES = \
 	tail.c
 
 virt_tail_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \

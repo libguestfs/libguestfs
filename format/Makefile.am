@@ -28,6 +28,7 @@ virt_format_SOURCES = \
 	format.c
 
 virt_format_CPPFLAGS = \
+	-DGUESTFS_NO_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
