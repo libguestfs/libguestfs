@@ -38,7 +38,7 @@ main (int argc, char *argv[])
 {
   guestfs_h *g;
   int r, err;
-  struct guestfs_stat *stat;
+  struct guestfs_statns *stat;
 
   g = guestfs_create ();
   if (g == NULL)
@@ -79,7 +79,7 @@ main (int argc, char *argv[])
   if (guestfs_mount (g, "/dev/sda1", "/") == -1)
     exit (EXIT_FAILURE);
 
-  stat = guestfs_lstat (g, "/nosuchfile");
+  stat = guestfs_lstatns (g, "/nosuchfile");
   if (stat != NULL)
     error (EXIT_FAILURE, 0,
            "guestfs_lstat: expected error for missing file");
