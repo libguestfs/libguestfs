@@ -910,6 +910,18 @@ class GuestFS(object):
           pr "        %s = %s.c_pointer()\n" n n
       ) args;
       pr "        self._check_not_closed()\n";
+      (match f.deprecated_by with
+      | Not_deprecated -> ()
+      | Replaced_by alt ->
+        pr "        import warnings\n";
+        pr "        warnings.warn(\"use GuestFS.%s() \"\n" alt;
+        pr "                      \"instead of GuestFS.%s()\",\n" f.name;
+        pr "                      DeprecationWarning, stacklevel=2)\n";
+      | Deprecated_no_replacement ->
+        pr "        import warnings\n";
+        pr "        warnings.warn(\"do not use GuestFS.%s()\",\n" f.name;
+        pr "                      DeprecationWarning, stacklevel=2)\n";
+      );
       let function_string =
         "self._o" ^
         map_join (fun arg -> sprintf ", %s" (name_of_argt arg))
