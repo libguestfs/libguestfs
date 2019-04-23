@@ -28,7 +28,6 @@ virt_make_fs_SOURCES = \
 	make-fs.c
 
 virt_make_fs_CPPFLAGS = \
-	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \

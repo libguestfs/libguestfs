@@ -31,11 +31,6 @@
 
 #include <pcre.h>
 
-/* Warn about deprecated libguestfs functions, but only in this file,
- * not in 'tests.c' (because we want to test deprecated functions).
- */
-#define GUESTFS_WARN_DEPRECATED 1
-
 #include "guestfs.h"
 #include "guestfs-utils.h"
 #include "structs-cleanups.h"

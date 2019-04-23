@@ -35,7 +35,6 @@ libstructs_la_SOURCES = \
 	../../lib/guestfs.h \
 	$(BUILT_SOURCES)
 libstructs_la_CPPFLAGS = \
-	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib

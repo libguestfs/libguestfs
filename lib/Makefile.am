@@ -126,7 +126,6 @@ libguestfs_la_SOURCES = \
 	libguestfs.syms
 
 libguestfs_la_CPPFLAGS = \
-	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/common/errnostring -I$(top_builddir)/common/errnostring \
 	-I$(top_srcdir)/common/protocol -I$(top_builddir)/common/protocol \

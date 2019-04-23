@@ -32,7 +32,6 @@ virt_rescue_SOURCES = \
 	suggest.c
 
 virt_rescue_CPPFLAGS = \
-	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DGUESTFS_PRIVATE=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \

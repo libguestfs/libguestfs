@@ -36,7 +36,6 @@ guestmount_SOURCES = \
 	guestmount.c
 
 guestmount_CPPFLAGS = \
-	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \

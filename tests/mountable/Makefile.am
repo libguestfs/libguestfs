@@ -27,7 +27,6 @@ check_PROGRAMS = test-internal-parse-mountable
 
 test_internal_parse_mountable_SOURCES = test-internal-parse-mountable.c
 test_internal_parse_mountable_CPPFLAGS = \
-	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib

@@ -30,7 +30,6 @@ libparallel_la_SOURCES = \
 	parallel.c \
 	parallel.h
 libparallel_la_CPPFLAGS = \
-	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
