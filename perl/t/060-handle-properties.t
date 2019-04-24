@@ -40,5 +40,8 @@ ok ($g->get_path () ne "", "path is empty");
 
 $g->add_drive ("/dev/null");
 ok (1, "add drive");
-$g->add_cdrom ("/dev/zero");
-ok (1, "add cdrom");
+do {
+  no warnings 'deprecated';
+  $g->add_cdrom ("/dev/zero");
+  ok (1, "add cdrom");
+}
