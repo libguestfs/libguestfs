@@ -24,36 +24,34 @@ if len(roots) == 0:
     raise(Error("inspect_vm: no operating systems found"))
 
 for root in roots:
-    print "Root device: %s" % root
+    print("Root device: %s" % root)
 
     # Print basic information about the operating system.
-    print "  Product name: %s" % (g.inspect_get_product_name(root))
-    print "  Version:      %d.%d" % \
-        (g.inspect_get_major_version(root),
-         g.inspect_get_minor_version(root))
-    print "  Type:         %s" % (g.inspect_get_type(root))
-    print "  Distro:       %s" % (g.inspect_get_distro(root))
+    print("  Product name: %s" % (g.inspect_get_product_name(root)))
+    print("  Version:      %d.%d" %
+          (g.inspect_get_major_version(root),
+           g.inspect_get_minor_version(root)))
+    print("  Type:         %s" % (g.inspect_get_type(root)))
+    print("  Distro:       %s" % (g.inspect_get_distro(root)))
 
     # Mount up the disks, like guestfish -i.
     #
     # Sort keys by length, shortest first, so that we end up
     # mounting the filesystems in the correct order.
     mps = g.inspect_get_mountpoints(root)
-    def compare(a, b):
-        return len(a) - len(b)
-    for device in sorted(mps.keys(), compare):
+    for device, mp in sorted(mps.items(), key=lambda k: len(k[0])):
         try:
-            g.mount_ro(mps[device], device)
+            g.mount_ro(mp, device)
         except RuntimeError as msg:
-            print "%s (ignored)" % msg
+            print("%s (ignored)" % msg)
 
     # If /etc/issue.net file exists, print up to 3 lines.
     filename = "/etc/issue.net"
     if g.is_file(filename):
-        print "--- %s ---" % filename
+        print("--- %s ---" % filename)
         lines = g.head_n(3, filename)
         for line in lines:
-            print line
+            print(line)
 
     # Unmount everything.
     g.umount_all()
