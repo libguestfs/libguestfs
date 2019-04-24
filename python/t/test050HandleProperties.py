@@ -16,6 +16,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import unittest
+import warnings
 import guestfs
 
 class Test050HandleProperties(unittest.TestCase):
@@ -44,4 +45,6 @@ class Test050HandleProperties(unittest.TestCase):
 
     def test_add_cdrom(self):
         g = guestfs.GuestFS(python_return_dict=True)
-        g.add_cdrom("/dev/zero")
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", category=DeprecationWarning)
+            g.add_cdrom("/dev/zero")
