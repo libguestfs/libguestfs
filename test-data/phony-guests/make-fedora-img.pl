@@ -218,7 +218,7 @@ sub init_lvm_root {
     # Phony root filesystem.
     $g->mkfs ('ext2', '/dev/VG/Root', blocksize => 4096);
     $g->set_label ('/dev/VG/Root', 'ROOT');
-    $g->set_e2uuid ('/dev/VG/Root', '01234567-0123-0123-0123-012345678902');
+    $g->set_uuid ('/dev/VG/Root', '01234567-0123-0123-0123-012345678902');
 
     # Other filesystems.
     # Note that these should be empty, for testing virt-df.
@@ -232,7 +232,7 @@ sub init_lvm_root {
 # Phony /boot filesystem
 $g->mkfs ('ext2', $bootdev, blocksize => 4096);
 $g->set_label ($bootdev, 'BOOT');
-$g->set_e2uuid ($bootdev, '01234567-0123-0123-0123-012345678901');
+$g->set_uuid ($bootdev, '01234567-0123-0123-0123-012345678901');
 
 # Enough to fool inspection API.
 $g->mkdir ('/boot');
@@ -269,7 +269,7 @@ $g->upload ($ENV{SRCDIR}.'/fedora-packages.db', '/var/lib/rpm/Packages');
 
 $g->upload ($ENV{SRCDIR}.'/../binaries/bin-x86_64-dynamic', '/bin/ls');
 
-$g->txz_in ($ENV{SRCDIR}.'/fedora-journal.tar.xz', '/var/log/journal');
+$g->tar_in ($ENV{SRCDIR}.'/fedora-journal.tar.xz', '/var/log/journal', compress => "xz");
 
 $g->mkdir ('/boot/grub');
 $g->touch ('/boot/grub/grub.conf');
