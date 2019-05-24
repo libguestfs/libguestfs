@@ -163,7 +163,7 @@ static void debug_appliance_permissions (guestfs_h *g);
 static void debug_socket_permissions (guestfs_h *g);
 static void libvirt_error (guestfs_h *g, const char *fs, ...) __attribute__((format (printf,2,3)));
 static void libvirt_debug (guestfs_h *g, const char *fs, ...) __attribute__((format (printf,2,3)));
-static int is_custom_hv (guestfs_h *g);
+static int is_custom_hv (guestfs_h *g, struct backend_libvirt_data *data);
 static int is_blk (const char *path);
 static void ignore_errors (void *ignore, virErrorPtr ignore2);
 static void set_socket_create_context (guestfs_h *g);
@@ -606,7 +606,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   params.appliance_index = g->nr_drives;
   strcpy (params.appliance_dev, "/dev/sd");
   guestfs_int_drive_name (params.appliance_index, &params.appliance_dev[7]);
-  params.enable_svirt = ! is_custom_hv (g);
+  params.enable_svirt = ! is_custom_hv (g, data);
 
   xml = construct_libvirt_xml (g, &params);
   if (!xml)
@@ -873,13 +873,15 @@ parse_domcapabilities (guestfs_h *g, const char *domcapabilities_xml,
 }
 
 static int
-is_custom_hv (guestfs_h *g)
+is_custom_hv (guestfs_h *g, struct backend_libvirt_data *data)
 {
+  if (g->hv && STRNEQ (g->hv, data->default_qemu))
+    return 1;
 #ifdef QEMU
-  return g->hv && STRNEQ (g->hv, QEMU);
-#else
-  return 1;
+  if (STRNEQ (data->default_qemu, QEMU))
+    return 1;
 #endif
+  return 0;
 }
 
 #if HAVE_LIBSELINUX
@@ -1265,7 +1267,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
     /* Path to hypervisor.  Only write this if the user has changed the
      * default, otherwise allow libvirt to choose the best one.
      */
-    if (is_custom_hv (g))
+    if (is_custom_hv (g, params->data))
       single_element ("emulator", g->hv);
 #if defined(__arm__)
     /* Hopefully temporary hack to make ARM work (otherwise libvirt
