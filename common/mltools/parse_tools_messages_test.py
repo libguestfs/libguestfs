@@ -35,7 +35,7 @@ if sys.version_info >= (3, 0):
         return open(fd, mode)
 
     def isModuleInstalled(mod):
-        import importlib
+        import importlib.util
         return bool(importlib.util.find_spec(mod))
 else:
     def fdopen(fd, mode):
