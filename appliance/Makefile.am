@@ -32,7 +32,6 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	99-guestfs-serial.rules \
 	excludefiles.in \
-	guestfs_shadow.aug \
 	hostfiles.in \
 	init \
 	libguestfs-make-fixed-appliance.in \
@@ -86,12 +85,11 @@ packagelist: packagelist.in Makefile
 	cmp -s $@ $@-t || mv $@-t $@
 	rm -f $@-t
 
-supermin.d/daemon.tar.gz: ../daemon/guestfsd guestfs_shadow.aug
+supermin.d/daemon.tar.gz: ../daemon/guestfsd
 	rm -f $@ $@-t
 	rm -rf tmp-d
-	mkdir -p tmp-d$(DAEMON_SUPERMIN_DIR) tmp-d/etc tmp-d/usr/share/guestfs
+	mkdir -p tmp-d$(DAEMON_SUPERMIN_DIR) tmp-d/etc
 	ln ../daemon/guestfsd tmp-d$(DAEMON_SUPERMIN_DIR)/guestfsd
-	ln $(srcdir)/guestfs_shadow.aug tmp-d/usr/share/guestfs/guestfs_shadow.aug
 	( cd tmp-d && tar zcf - * ) > $@-t
 	rm -r tmp-d
 	mv $@-t $@

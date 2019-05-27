@@ -134,7 +134,7 @@ do_aug_init (const char *root, int flags)
   }
 
   /* Pass AUG_NO_ERR_CLOSE so we can display detailed errors. */
-  aug = aug_init (buf, "/usr/share/guestfs/", flags | AUG_NO_ERR_CLOSE);
+  aug = aug_init (buf, NULL, flags | AUG_NO_ERR_CLOSE);
 
   if (!aug) {
     reply_with_error ("augeas initialization failed");
@@ -146,25 +146,6 @@ do_aug_init (const char *root, int flags)
     aug_close (aug);
     aug = NULL;
     return -1;
-  }
-
-  if (!augeas_is_version (1, 2, 1)) {
-    int r = aug_transform (aug, "guestfs_shadow", "/etc/shadow",
-                           0 /* = included */);
-    if (r == -1) {
-      AUGEAS_ERROR ("aug_transform");
-      aug_close (aug);
-      aug = NULL;
-      return -1;
-    }
-
-    /* If aug_load was implicitly called, reload the handle. */
-    if ((flags & AUG_NO_LOAD) == 0) {
-      if (aug_load (aug) == -1) {
-        AUGEAS_ERROR ("aug_load");
-        return -1;
-      }
-    }
   }
 
   return 0;
