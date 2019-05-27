@@ -600,6 +600,22 @@ let generate_daemon_caml_stubs () =
 #include \"actions.h\"
 #include \"daemon-c.h\"
 
+static CAMLprim value
+Val_optstring (const char *s)
+{
+  CAMLparam0 ();
+  CAMLlocal2 (optv, v);
+
+  if (s) {		/* Return Some val */
+    v = caml_copy_string (s);
+    optv = caml_alloc (1, 0);
+    Field (optv, 0) = v;
+  } else		/* Return None */
+    optv = Val_int (0);
+
+  CAMLreturn (optv);
+}
+
 ";
 
   (* Implement code for returning structs and struct lists. *)
@@ -797,7 +813,7 @@ let generate_daemon_caml_stubs () =
            | String ((Mountable|Mountable_or_Path), n) ->
               pr "guestfs_int_daemon_copy_mountable (%s)" n
            | String _ -> assert false
-           | OptString _ -> assert false
+           | OptString n -> pr "Val_optstring (%s)" n
            | StringList _ -> assert false
            | BufferIn _ -> assert false
            | Pointer _ -> assert false
