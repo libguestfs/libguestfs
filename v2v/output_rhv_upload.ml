@@ -230,7 +230,7 @@ See also \"OUTPUT TO RHV\" in the virt-v2v(1) manual.")
     let args =
       (* label the socket so qemu can open it *)
       if have_selinux then
-        args @ ["--selinux-label"; "system_u:object_r:svirt_t:s0"]
+        args @ ["--selinux-label"; "system_u:object_r:svirt_socket_t:s0"]
       else args in
     args in
 

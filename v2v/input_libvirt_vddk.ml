@@ -292,7 +292,7 @@ object
       add_arg "--newstyle";         (* use newstyle NBD protocol *)
       add_arg "--exportname"; add_arg "/";
       if have_selinux then (        (* label the socket so qemu can open it *)
-        add_arg "--selinux-label"; add_arg "system_u:object_r:svirt_t:s0"
+        add_arg "--selinux-label"; add_arg "system_u:object_r:svirt_socket_t:s0"
       );
 
       (* Name of the plugin.  Everything following is a plugin parameter. *)
