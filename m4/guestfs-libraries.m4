@@ -248,8 +248,8 @@ PKG_CHECK_MODULES([PCRE], [libpcre], [], [
     PCRE_LIBS=`$PCRE_CONFIG --libs`
 ])
 
-dnl Check for Augeas >= 1.0.0 (required).
-PKG_CHECK_MODULES([AUGEAS],[augeas >= 1.0.0])
+dnl Check for Augeas >= 1.2.0 (required).
+PKG_CHECK_MODULES([AUGEAS],[augeas >= 1.2.0])
 
 dnl Check for aug_source function, added in Augeas 1.8.0.
 old_LIBS="$LIBS"

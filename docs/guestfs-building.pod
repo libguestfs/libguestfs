@@ -164,7 +164,7 @@ I<Required>.
 
 I<Required>.
 
-=item augeas E<ge> 1.0.0
+=item augeas E<ge> 1.2.0
 
 I<Required>.
 
