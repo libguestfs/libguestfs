@@ -65,8 +65,15 @@ guestfs_int_daemon_exn_to_reply_with_error (const char *func, value exn)
     reply_with_error ("%s", String_val (Field (exn, 1)));
   else if (STREQ (exn_name, "Invalid_argument"))
     reply_with_error ("invalid argument: %s", String_val (Field (exn, 1)));
-  else if (STREQ (exn_name, "Augeas.Error"))
-    reply_with_error ("augeas error: %s", String_val (Field (exn, 1)));
+  else if (STREQ (exn_name, "Augeas.Error")) {
+    const char *message = String_val (Field (exn, 3));
+    const char *minor = String_val (Field (exn, 4));
+    const char *details = String_val (Field (exn, 5));
+    reply_with_error ("augeas error: %s%s%s%s%s",
+                      message,
+                      minor ? ": " : "", minor ? minor : "",
+                      details ? ": " : "", details ? details : "");
+}
   else if (STREQ (exn_name, "PCRE.Error")) {
     value pair = Field (exn, 1);
     reply_with_error ("PCRE error: %s (PCRE error code: %d)",
