@@ -179,6 +179,7 @@ bin_PROGRAMS = virt-v2v virt-v2v-copy-to-local
 
 virt_v2v_SOURCES = $(SOURCES_C)
 virt_v2v_CPPFLAGS = \
+	-DCAML_NAME_SPACE \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
@@ -254,6 +255,7 @@ virt_v2v_LINK = \
 virt_v2v_copy_to_local_SOURCES = \
 	dummy.c
 virt_v2v_copy_to_local_CPPFLAGS = \
+	-DCAML_NAME_SPACE \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \

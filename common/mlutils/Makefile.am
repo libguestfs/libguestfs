@@ -54,6 +54,7 @@ noinst_DATA = $(MLCUTILS_CMA)
 # shouldn't be located under lib.  XXX
 libmlcutils_a_SOURCES = $(SOURCES_C)
 libmlcutils_a_CPPFLAGS = \
+	-DCAML_NAME_SPACE \
 	-I. \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \

@@ -59,6 +59,7 @@ noinst_DATA = $(MLLIBVIRT_CMA)
 
 libmllibvirt_a_SOURCES = $(SOURCES_C)
 libmllibvirt_a_CPPFLAGS = \
+	-DCAML_NAME_SPACE \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where)

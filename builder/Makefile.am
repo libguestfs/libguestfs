@@ -135,6 +135,7 @@ bin_PROGRAMS += virt-builder virt-builder-repository
 
 virt_builder_SOURCES = $(SOURCES_C)
 virt_builder_CPPFLAGS = \
+	-DCAML_NAME_SPACE \
 	-I$(builddir) -I$(srcdir) \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
@@ -156,6 +157,7 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
 virt_builder_repository_SOURCES = $(REPOSITORY_SOURCES_C)
 virt_builder_repository_CPPFLAGS = \
+	-DCAML_NAME_SPACE \
 	-I$(builddir) -I$(srcdir) \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \

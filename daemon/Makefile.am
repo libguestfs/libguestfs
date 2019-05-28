@@ -239,6 +239,7 @@ guestfsd_LDADD = \
 	$(OCAML_LIBS)
 
 guestfsd_CPPFLAGS = \
+	-DCAML_NAME_SPACE \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(shell $(OCAMLC) -where)/hivex \
 	-I$(top_srcdir)/gnulib/lib \
@@ -398,6 +399,7 @@ daemon_utils_tests_SOURCES = \
 	utils.c \
 	utils-c.c
 daemon_utils_tests_CPPFLAGS = \
+	-DCAML_NAME_SPACE \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \

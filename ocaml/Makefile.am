@@ -78,6 +78,7 @@ endif
 	touch $@
 
 libguestfsocaml_a_CPPFLAGS = \
+	-DCAML_NAME_SPACE \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_builddir) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \

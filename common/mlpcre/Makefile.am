@@ -49,6 +49,7 @@ noinst_DATA = $(MLPCRE_CMA)
 
 libmlpcre_a_SOURCES = $(SOURCES_C)
 libmlpcre_a_CPPFLAGS = \
+	-DCAML_NAME_SPACE \
 	-I. \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
