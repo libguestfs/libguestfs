@@ -33,14 +33,17 @@ AS_IF([test "x$enable_python" != "xno"],[
         PYTHON_VERSION_MINOR=`$PYTHON -c "import sys; print (sys.version_info@<:@1@:>@)"`
         PYTHON_VERSION="$PYTHON_VERSION_MAJOR.$PYTHON_VERSION_MINOR"
 	AC_MSG_RESULT([$PYTHON_VERSION])
+
         # Debian: python-2.7.pc, python-3.2.pc
         PKG_CHECK_MODULES([PYTHON], [python-"$PYTHON_VERSION"],[
+            have_python_module=1
             AC_SUBST([PYTHON_CFLAGS])
             AC_SUBST([PYTHON_LIBS])
             AC_SUBST([PYTHON_VERSION])
             AC_DEFINE([HAVE_PYTHON],[1],[Python library found at compile time])
         ],[
             PKG_CHECK_MODULES([PYTHON], [python],[
+                have_python_module=1
                 AC_SUBST([PYTHON_CFLAGS])
                 AC_SUBST([PYTHON_LIBS])
                 AC_SUBST([PYTHON_VERSION])
@@ -49,6 +52,7 @@ AS_IF([test "x$enable_python" != "xno"],[
                 AC_MSG_WARN([python $PYTHON_VERSION not found])
             ])
         ])
+
         AC_MSG_CHECKING([Python prefix])
         PYTHON_PREFIX=`$PYTHON -c "import sys; print (sys.prefix)"`
         AC_MSG_RESULT([$PYTHON_PREFIX])
@@ -101,4 +105,4 @@ AS_IF([test "x$enable_python" != "xno"],[
     AC_SUBST(PYTHON_EXT_SUFFIX)
 ])
 AM_CONDITIONAL([HAVE_PYTHON],
-    [test "x$PYTHON" != "xno" && test "x$PYTHON_LIBS" != "x" ])
+    [test "x$PYTHON" != "xno" && test "x$have_python_module" = "x1" ])
