@@ -19,9 +19,6 @@ include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
 	about-authors.c \
-	config.c \
-	kernel-config.c \
-	p2v-config.h \
 	virt-p2v-kernel-config.pod
 
 BUILT_SOURCES = \
@@ -53,6 +50,7 @@ EXTRA_DIST = \
 # consume system entropy to regenerate.
 CLEANFILES += \
 	$(dependencies_files) \
+	$(generated_sources) \
 	stamp-test-virt-p2v-pxe-data-files \
 	stamp-test-virt-p2v-pxe-kernel \
 	test-virt-p2v-pxe.authorized_keys \
@@ -82,7 +80,6 @@ noinst_PROGRAMS = virt-p2v
 
 virt_p2v_SOURCES = \
 	about-authors.c \
-	config.c \
 	conversion.c \
 	cpuid.c \
 	gui.c \
@@ -91,7 +88,6 @@ virt_p2v_SOURCES = \
 	inhibit.c \
 	kernel.c \
 	kernel-cmdline.c \
-	kernel-config.c \
 	main.c \
 	nbd.c \
 	p2v.h \
@@ -101,6 +97,13 @@ virt_p2v_SOURCES = \
 	ssh.c \
 	utils.c \
 	whole-file.c
+
+generated_sources = \
+	config.c \
+	kernel-config.c
+
+nodist_virt_p2v_SOURCES = \
+	$(generated_sources)
 
 virt_p2v_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
@@ -126,6 +129,9 @@ virt_p2v_LDADD = \
 	$(DBUS_LIBS) \
 	../gnulib/lib/libgnu.la \
 	-lm
+
+$(generated_sources): $(srcdir)/generate-p2v-config.pl
+	$(AM_V_GEN)rm -f $@ $@-t && $(PERL) $(<) --file=$@ --output=$@-t && mv $@-t $@
 
 # Scripts to build the disk image, USB key, or kickstart.
 bin_SCRIPTS = virt-p2v-make-disk virt-p2v-make-kickstart virt-p2v-make-kiwi

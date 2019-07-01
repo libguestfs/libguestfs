@@ -363,12 +363,6 @@ Run it from the top source directory using the command
   output_to "customize/customize-options.pod"
             Customize.generate_customize_options_pod;
 
-  output_to "p2v/p2v-config.h"
-            P2v_config.generate_p2v_config_h;
-  output_to "p2v/config.c"
-            P2v_config.generate_p2v_config_c;
-  output_to "p2v/kernel-config.c"
-            P2v_config.generate_p2v_kernel_config_c;
   output_to "p2v/virt-p2v-kernel-config.pod"
             P2v_config.generate_p2v_kernel_config_pod;
 

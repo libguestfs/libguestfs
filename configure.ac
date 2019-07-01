@@ -376,6 +376,11 @@ AC_CONFIG_FILES([Makefile
                  v2v/test-harness/Makefile
                  v2v/test-harness/META
                  website/index.html])
+
+if test "x$HAVE_P2V_TRUE" = "x"; then
+    AC_CONFIG_COMMANDS([p2v/p2v-config.h], [${ac_srcdir}/p2v/generate-p2v-config.pl --file=p2v-config.h --output=p2v/p2v-config.h])
+fi
+
 AC_OUTPUT
 
 dnl Produce summary.
