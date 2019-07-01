@@ -13,6 +13,7 @@ Makefile.in
 /dependencies.debian
 /dependencies.redhat
 /dependencies.suse
+/fedora.img
 /kernel-config.c
 /p2v-config.h
 /stamp-test-virt-p2v-pxe-data-files

@@ -24,13 +24,11 @@ $TEST_FUNCTIONS
 skip_if_skipped
 skip_if_backend uml
 skip_unless nbdkit file --version
-skip_unless_phony_guest windows.img
+skip_unless test -f fedora.img
 skip_unless_phony_guest blank-part.img
 
-f1="$abs_top_builddir/test-data/phony-guests/windows.img"
+f1="$abs_builddir/fedora.img"
 f2="$abs_top_builddir/test-data/phony-guests/blank-part.img"
-
-export VIRT_TOOLS_DATA_DIR="$top_srcdir/test-data/fake-virt-tools"
 
 d=test-virt-p2v-nbdkit.d
 rm -rf $d
@@ -48,14 +46,14 @@ export PATH=$d:$PATH
 # binaries under test (because of the ./run script).
 
 # The Linux kernel command line.
-cmdline="p2v.server=localhost p2v.name=windows p2v.disks=$f1,$f2 p2v.o=local p2v.os=$(pwd)/$d p2v.network=em1:wired,other p2v.post="
+cmdline="p2v.server=localhost p2v.name=fedora p2v.disks=$f1,$f2 p2v.o=local p2v.os=$(pwd)/$d p2v.network=em1:wired,other p2v.post="
 
 # Only use nbdkit, disable qemu-nbd.
 $VG virt-p2v --cmdline="$cmdline" --nbd=nbdkit,nbdkit-no-sa
 
 # Test the libvirt XML metadata and a disk was created.
-test -f $d/windows.xml
-test -f $d/windows-sda
-test -f $d/windows-sdb
+test -f $d/fedora.xml
+test -f $d/fedora-sda
+test -f $d/fedora-sdb
 
 rm -r $d

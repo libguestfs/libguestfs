@@ -41,14 +41,8 @@ if ! test -f $img; then
     exit 77
 fi
 
-skip_unless_phony_guest windows.img
-f="$top_builddir/test-data/phony-guests/windows.img"
-
-virt_tools_data_dir=${VIRT_TOOLS_DATA_DIR:-/usr/share/virt-tools}
-if ! test -r $virt_tools_data_dir/rhsrvany.exe; then
-    echo "$0: test skipped because rhsrvany.exe is not installed"
-    exit 77
-fi
+skip_unless test -f fedora.img
+f="$abs_builddir/fedora.img"
 
 d=test-virt-p2v-pxe.d
 rm -rf $d
@@ -74,7 +68,7 @@ username="$(id -un)"
 os="$(cd $d; pwd)"
 
 # The Linux kernel command line.
-cmdline="root=/dev/sda4 ro console=ttyS0 printk.time=1 p2v.server=10.0.2.2 p2v.port=$port p2v.username=$username p2v.identity=file:///var/tmp/id_rsa p2v.name=windows p2v.o=local p2v.os=$os"
+cmdline="root=/dev/sda4 ro console=ttyS0 printk.time=1 p2v.server=10.0.2.2 p2v.port=$port p2v.username=$username p2v.identity=file:///var/tmp/id_rsa p2v.name=fedora p2v.o=local p2v.os=$os"
 
 # Run virt-p2v inside qemu.
 $qemu \
@@ -96,7 +90,7 @@ $qemu \
     -serial stdio
 
 # Test the libvirt XML metadata and a disk was created.
-test -f $d/windows.xml
-test -f $d/windows-sda
+test -f $d/fedora.xml
+test -f $d/fedora-sda
 
 rm -r $d

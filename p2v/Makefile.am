@@ -220,7 +220,10 @@ stamp-virt-p2v-make-kiwi.pod: virt-p2v-make-kiwi.pod
 # Run virt-p2v locally either directly or in a VM.
 # See guestfs-hacking(1) section "Running virt-p2v"
 
-PHYSICAL_MACHINE = $(abs_top_builddir)/test-data/phony-guests/windows.img
+PHYSICAL_MACHINE = $(abs_builddir)/fedora.img
+
+check_DATA = \
+	$(PHYSICAL_MACHINE)
 
 run-virt-p2v-directly: $(PHYSICAL_MACHINE)
 	$(top_builddir)/run virt-p2v --test-disk=$(PHYSICAL_MACHINE)
@@ -247,8 +250,8 @@ run-virt-p2v-in-a-vm: virt-p2v.img $(PHYSICAL_MACHINE)
 run-virt-p2v-non-gui-conversion: stamp-test-virt-p2v-pxe-data-files
 	SLOW=1 $(top_builddir)/run ./test-virt-p2v-pxe.sh
 
-$(abs_top_builddir)/test-data/phony-guests/windows.img:
-	$(MAKE) -C $(top_builddir)/test-data/phony-guests windows.img
+$(PHYSICAL_MACHINE):
+	$(top_builddir)/run virt-builder --format raw -o $@ fedora-30
 
 virt-p2v.img: \
 	    dependencies.m4 \
