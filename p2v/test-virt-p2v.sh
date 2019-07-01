@@ -24,10 +24,10 @@ $TEST_FUNCTIONS
 skip_if_skipped
 skip_if_backend uml
 skip_unless test -f fedora.img
-skip_unless_phony_guest blank-part.img
+skip_unless test -f blank-part.img
 
 f1="$abs_builddir/fedora.img"
-f2="$abs_top_builddir/test-data/phony-guests/blank-part.img"
+f2="$abs_builddir/blank-part.img"
 
 d=test-virt-p2v.d
 rm -rf $d

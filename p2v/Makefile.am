@@ -221,9 +221,11 @@ stamp-virt-p2v-make-kiwi.pod: virt-p2v-make-kiwi.pod
 # See guestfs-hacking(1) section "Running virt-p2v"
 
 PHYSICAL_MACHINE = $(abs_builddir)/fedora.img
+BLANK_DISK = blank-part.img
 
 check_DATA = \
-	$(PHYSICAL_MACHINE)
+	$(PHYSICAL_MACHINE) \
+	$(BLANK_DISK)
 
 run-virt-p2v-directly: $(PHYSICAL_MACHINE)
 	$(top_builddir)/run virt-p2v --test-disk=$(PHYSICAL_MACHINE)
@@ -252,6 +254,9 @@ run-virt-p2v-non-gui-conversion: stamp-test-virt-p2v-pxe-data-files
 
 $(PHYSICAL_MACHINE):
 	$(top_builddir)/run virt-builder --format raw -o $@ fedora-30
+
+$(BLANK_DISK):
+	$(top_builddir)/run guestfish -N $@=part exit
 
 virt-p2v.img: \
 	    dependencies.m4 \
