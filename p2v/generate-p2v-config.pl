@@ -65,6 +65,12 @@ struct ConfigStringList =>
   name => '$',
 };
 
+struct manual_entry =>
+{
+  shortopt => '$',
+  description => '$',
+};
+
 # Enums.
 my @enums = (
   ["basis", (
@@ -166,6 +172,219 @@ my @cmdline_aliases = (
 my @cmdline_ignore = (
   "p2v.auth.identity.file",
   "p2v.auth.identity.file_needs_update",
+);
+
+# Man page snippets for each kernel command line setting.
+my %cmdline_manual = (
+  "p2v.remote.server" => manual_entry->new(
+    shortopt => "SERVER",
+    description => "
+The name or IP address of the conversion server.
+
+This is always required if you are using the kernel configuration
+method.  If virt-p2v does not find this on the kernel command line
+then it switches to the GUI (interactive) configuration method.",
+  ),
+  "p2v.remote.port" => manual_entry->new(
+    shortopt => "PORT",
+    description => "
+The SSH port number on the conversion server (default: C<22>).",
+  ),
+  "p2v.auth.username" => manual_entry->new(
+    shortopt => "USERNAME",
+    description => "
+The SSH username that we log in as on the conversion server
+(default: C<root>).",
+  ),
+  "p2v.auth.password" => manual_entry->new(
+    shortopt => "PASSWORD",
+    description => "
+The SSH password that we use to log in to the conversion server.
+
+The default is to try with no password.  If this fails then virt-p2v
+will ask the user to type the password (probably several times during
+conversion).
+
+This setting is ignored if C<p2v.auth.identity.url> is present.",
+  ),
+  "p2v.auth.identity.url" => manual_entry->new(
+    shortopt => "URL",
+    description => "
+Provide a URL pointing to an SSH identity (private key) file.  The URL
+is interpreted by L<curl(1)> so any URL that curl supports can be used
+here, including C<https://> and C<file://>.  For more information on
+using SSH identities, see L</SSH IDENTITIES> below.
+
+If C<p2v.auth.identity.url> is present, it overrides C<p2v.auth.password>.
+There is no fallback.",
+  ),
+  "p2v.auth.sudo" => manual_entry->new(
+    shortopt => "", # ignored for booleans
+    description => "
+Use C<p2v.sudo> to tell virt-p2v to use L<sudo(8)> to gain root
+privileges on the conversion server after logging in as a non-root
+user (default: do not use sudo).",
+  ),
+  "p2v.guestname" => manual_entry->new(
+    shortopt => "GUESTNAME",
+    description => "
+The name of the guest that is created.  The default is to try to
+derive a name from the physical machine’s hostname (if possible) else
+use a randomly generated name.",
+  ),
+  "p2v.vcpus" => manual_entry->new(
+    shortopt => "N",
+    description => "
+The number of virtual CPUs to give to the guest.  The default is to
+use the same as the number of physical CPUs.",
+  ),
+  "p2v.memory" => manual_entry->new(
+    shortopt => "n(M|G)",
+    description => "
+The size of the guest memory.  You must specify the unit such as
+megabytes or gigabytes by using for example C<p2v.memory=1024M> or
+C<p2v.memory=1G>.
+
+The default is to use the same amount of RAM as on the physical
+machine.",
+  ),
+  "p2v.cpu.vendor" => manual_entry->new(
+    shortopt => "VENDOR",
+    description => "
+The vCPU vendor, eg. \"Intel\" or \"AMD\".  The default is to use
+the same CPU vendor as the physical machine.",
+  ),
+  "p2v.cpu.model" => manual_entry->new(
+    shortopt => "MODEL",
+    description => "
+The vCPU model, eg. \"IvyBridge\".  The default is to use the same
+CPU model as the physical machine.",
+  ),
+  "p2v.cpu.sockets" => manual_entry->new(
+    shortopt => "N",
+    description => "
+Number of vCPU sockets to use.  The default is to use the same as the
+physical machine.",
+  ),
+  "p2v.cpu.cores" => manual_entry->new(
+    shortopt => "N",
+    description => "
+Number of vCPU cores to use.  The default is to use the same as the
+physical machine.",
+  ),
+  "p2v.cpu.threads" => manual_entry->new(
+    shortopt => "N",
+    description => "
+Number of vCPU hyperthreads to use.  The default is to use the same
+as the physical machine.",
+  ),
+  "p2v.cpu.acpi" => manual_entry->new(
+    shortopt => "", # ignored for booleans
+    description => "
+Whether to enable ACPI in the remote virtual machine.  The default is
+to use the same as the physical machine.",
+  ),
+  "p2v.cpu.apic" => manual_entry->new(
+    shortopt => "", # ignored for booleans
+    description => "
+Whether to enable APIC in the remote virtual machine.  The default is
+to use the same as the physical machine.",
+  ),
+  "p2v.cpu.pae" => manual_entry->new(
+    shortopt => "", # ignored for booleans
+    description => "
+Whether to enable PAE in the remote virtual machine.  The default is
+to use the same as the physical machine.",
+  ),
+  "p2v.rtc.basis" => manual_entry->new(
+    shortopt => "", # ignored for enums
+    description => "
+Set the basis of the Real Time Clock in the virtual machine.  The
+default is to try to detect this setting from the physical machine.",
+  ),
+  "p2v.rtc.offset" => manual_entry->new(
+    shortopt => "[+|-]HOURS",
+    description => "
+The offset of the Real Time Clock from UTC.  The default is to try
+to detect this setting from the physical machine.",
+  ),
+  "p2v.disks" => manual_entry->new(
+    shortopt => "sda,sdb,...",
+    description => "
+A list of physical hard disks to convert, for example:
+
+ p2v.disks=sda,sdc
+
+The default is to convert all local hard disks that are found.",
+  ),
+  "p2v.removable" => manual_entry->new(
+    shortopt => "sra,srb,...",
+    description => "
+A list of removable media to convert.  The default is to create
+virtual removable devices for every physical removable device found.
+Note that the content of removable media is never copied over.",
+  ),
+  "p2v.interfaces" => manual_entry->new(
+    shortopt => "em1,...",
+    description => "
+A list of network interfaces to convert.  The default is to create
+virtual network interfaces for every physical network interface found.",
+  ),
+  "p2v.network_map" => manual_entry->new(
+    shortopt => "interface:target,...",
+    description => "
+Controls how network interfaces are connected to virtual networks on
+the target hypervisor.  The default is to connect all network
+interfaces to the target C<default> network.
+
+You give a comma-separated list of C<interface:target> pairs, plus
+optionally a default target.  For example:
+
+ p2v.network=em1:ovirtmgmt
+
+maps interface C<em1> to target network C<ovirtmgmt>.
+
+ p2v.network=em1:ovirtmgmt,em2:management,other
+
+maps interface C<em1> to C<ovirtmgmt>, and C<em2> to C<management>,
+and any other interface that is found to C<other>.",
+  ),
+  "p2v.output.type" => manual_entry->new(
+    shortopt => "(libvirt|local|...)",
+    description => "
+Set the output mode.  This is the same as the virt-v2v I<-o> option.
+See L<virt-v2v(1)/OPTIONS>.
+
+If not specified, the default is C<local>, and the converted guest is
+written to F</var/tmp>.",
+  ),
+  "p2v.output.allocation" => manual_entry->new(
+    shortopt => "", # ignored for enums
+    description => "
+Set the output allocation mode.  This is the same as the virt-v2v
+I<-oa> option.  See L<virt-v2v(1)/OPTIONS>.",
+  ),
+  "p2v.output.connection" => manual_entry->new(
+    shortopt => "URI",
+    description => "
+Set the output connection libvirt URI.  This is the same as the
+virt-v2v I<-oc> option.  See L<virt-v2v(1)/OPTIONS> and
+L<http://libvirt.org/uri.html>",
+  ),
+  "p2v.output.format" => manual_entry->new(
+    shortopt => "(raw|qcow2|...)",
+    description => "
+Set the output format.  This is the same as the virt-v2v I<-of>
+option.  See L<virt-v2v(1)/OPTIONS>.",
+  ),
+  "p2v.output.storage" => manual_entry->new(
+    shortopt => "STORAGE",
+    description => "
+Set the output storage.  This is the same as the virt-v2v I<-os>
+option.  See L<virt-v2v(1)/OPTIONS>.
+
+If not specified, the default is F</var/tmp> (on the conversion server).",
+  ),
 );
 
 # Clean up the program name.
@@ -627,6 +846,51 @@ EOF
 EOF
 }
 
+sub generate_field_config_pod {
+  my ($fh, $prefix, $fields) = @_;
+
+  foreach my $field (@$fields) {
+    my $type = ref($field);
+    if ($type eq 'ConfigSection') {
+      my $lprefix = $prefix . '.' . $field->name;
+      generate_field_config_pod($fh, $lprefix, $field->elements);
+    } else {
+      my $key = $prefix . '.' . $field->name;
+
+      if (not (any { $_ eq $key } @cmdline_ignore)) {
+        # Is there an alias for this field?
+        my $manual_entry = $cmdline_manual{$key} or die "missing manual entry for $key";
+
+        # For booleans there is no shortopt field.  For enums
+        # we generate it.
+        my $shortopt;
+        if ($type eq 'ConfigBool') {
+          die "non-empty shortopt for $field->name" if $manual_entry->shortopt ne '';
+          $shortopt = '';
+        } elsif ($type eq 'ConfigEnum') {
+          die "non-empty shortopt for $field->name" if $manual_entry->shortopt ne '';
+          my @enum_choices = find_enum($field->enum) or die "cannot find ConfigEnum $field->enum";
+          $shortopt = "=(" . join('|', map { $_->[1] } @enum_choices) . ")";
+        } else {
+          $shortopt = "=" . $manual_entry->shortopt;
+        }
+
+        # The description must not end with \n
+        die "description of $key must not end with \\n" if $manual_entry->description =~ /\n\z/;
+
+        # Is there an alias for this field?
+        my $alias = find_alias($key);
+        printf $fh "=item B<%s%s>\n\n", $key, $shortopt;
+        if (defined($alias)) {
+          printf $fh "=item B<%s%s>\n\n", $alias, $shortopt;
+        }
+
+        printf $fh "%s\n\n", $manual_entry->description;
+      }
+    }
+  }
+}
+
 sub write_to {
   my $fn = shift;
   if (defined($output)) {
@@ -644,6 +908,8 @@ if ($filename eq 'config.c') {
   write_to(\&generate_p2v_kernel_config_c);
 } elsif ($filename eq 'p2v-config.h') {
   write_to(\&generate_p2v_config_h);
+} elsif ($filename eq 'virt-p2v-kernel-config.pod') {
+  write_to(\&generate_field_config_pod, "p2v", @fields);
 } else {
   die "$progname: unrecognized output file '$filename'\n";
 }

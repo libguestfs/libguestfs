@@ -363,9 +363,6 @@ Run it from the top source directory using the command
   output_to "customize/customize-options.pod"
             Customize.generate_customize_options_pod;
 
-  output_to "p2v/virt-p2v-kernel-config.pod"
-            P2v_config.generate_p2v_kernel_config_pod;
-
   (* Generate the list of files generated -- last. *)
   printf "generated %d lines of code\n" (get_lines_generated ());
   let files = List.sort compare (get_files_generated ()) in

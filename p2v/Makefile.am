@@ -18,8 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
-	about-authors.c \
-	virt-p2v-kernel-config.pod
+	about-authors.c
 
 BUILT_SOURCES = \
 	$(generator_built)
@@ -59,6 +58,7 @@ CLEANFILES += \
 	test-virt-p2v-pxe.initramfs \
 	test-virt-p2v-pxe.sshd_config \
 	virt-p2v.img \
+	virt-p2v-kernel-config.pod \
 	virt-p2v.xz
 
 # Although virt-p2v is a regular binary, it is not usually installed
@@ -130,7 +130,7 @@ virt_p2v_LDADD = \
 	../gnulib/lib/libgnu.la \
 	-lm
 
-$(generated_sources): $(srcdir)/generate-p2v-config.pl
+$(generated_sources) virt-p2v-kernel-config.pod: $(srcdir)/generate-p2v-config.pl
 	$(AM_V_GEN)rm -f $@ $@-t && $(PERL) $(<) --file=$@ --output=$@-t && mv $@-t $@
 
 # Scripts to build the disk image, USB key, or kickstart.
@@ -178,7 +178,7 @@ stamp-virt-p2v.pod: virt-p2v.pod virt-p2v-kernel-config.pod
 	$(PODWRAPPER) \
 	  --man virt-p2v.1 \
 	  --html $(top_builddir)/website/virt-p2v.1.html \
-	  --insert $(srcdir)/virt-p2v-kernel-config.pod:__KERNEL_CONFIG__ \
+	  --insert virt-p2v-kernel-config.pod:__KERNEL_CONFIG__ \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<
