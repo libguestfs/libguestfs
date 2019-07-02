@@ -135,43 +135,6 @@ let authors = [
 let generate_authors () =
   List.iter (fun (name, _, _) -> pr "%s\n" name) authors
 
-let generate_p2v_about_authors_c () =
-  generate_header CStyle GPLv2plus;
-
-  pr "#include <config.h>\n";
-  pr "\n";
-  pr "#include \"p2v.h\"\n";
-  pr "\n";
-
-  (* Split up the list according to how we want to add people to
-   * credit sections.  However don't assign anyone to more than a
-   * single category.  Be aware that with Gtk < 3.4, only the
-   * "authors" and "documenters" categories are actually displayed.
-   *)
-  let authors, qa, documenters, others =
-    let rec loop (authors, qa, documenters, others) = function
-      | [] -> authors, qa, documenters, others
-      | ((_, _, roles) as a) :: rest ->
-         if List.mem V2V_and_P2V roles then
-           loop (a :: authors, qa, documenters, others) rest
-         else if List.mem Quality_assurance roles then
-           loop (authors, a :: qa, documenters, others) rest
-         else if List.mem Documentation roles then
-           loop (authors, qa, a :: documenters, others) rest
-         else
-           loop (authors, qa, documenters, a :: others) rest
-    in
-    let authors, qa, documenters, others = loop ([],[],[],[]) authors in
-    List.rev authors, List.rev qa, List.rev documenters, List.rev others in
-
-  let fn (name, _, _) = pr "  \"%s\",\n" name in
-
-  pr "/* Authors involved with virt-v2v and virt-p2v directly. */\n";
-  pr "const char *authors[] = {\n";
-  List.iter fn authors;
-  pr "  NULL\n";
-  pr "};\n"
-
 let generate_p2v_authors () =
   let p2v_authors =
     List.filter_map (

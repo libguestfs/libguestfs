@@ -18,7 +18,6 @@
 include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
-	about-authors.c \
 	AUTHORS
 
 BUILT_SOURCES = \
@@ -28,6 +27,7 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	$(TESTS) $(SLOW_TESTS) \
 	dependencies.m4 \
+	generate-p2v-authors.pl \
 	generate-p2v-config.pl \
 	issue \
 	kiwi-config.sh \
@@ -52,6 +52,7 @@ EXTRA_DIST = \
 CLEANFILES += \
 	$(dependencies_files) \
 	$(generated_sources) \
+	about-authors.c \
 	stamp-test-virt-p2v-pxe-data-files \
 	stamp-test-virt-p2v-pxe-kernel \
 	test-virt-p2v-pxe.authorized_keys \
@@ -81,7 +82,6 @@ virt-p2v.xz: virt-p2v
 noinst_PROGRAMS = virt-p2v
 
 virt_p2v_SOURCES = \
-	about-authors.c \
 	conversion.c \
 	cpuid.c \
 	gui.c \
@@ -105,7 +105,8 @@ generated_sources = \
 	kernel-config.c
 
 nodist_virt_p2v_SOURCES = \
-	$(generated_sources)
+	$(generated_sources) \
+	about-authors.c
 
 virt_p2v_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
@@ -134,6 +135,9 @@ virt_p2v_LDADD = \
 
 $(generated_sources) virt-p2v-kernel-config.pod: $(srcdir)/generate-p2v-config.pl
 	$(AM_V_GEN)rm -f $@ $@-t && $(PERL) $(<) --file=$@ --output=$@-t && mv $@-t $@
+
+about-authors.c: $(srcdir)/generate-p2v-authors.pl $(srcdir)/AUTHORS
+	$(AM_V_GEN)rm -f $@ $@-t && $(PERL) $(<) $(srcdir)/AUTHORS > $@-t && mv $@-t $@
 
 # Scripts to build the disk image, USB key, or kickstart.
 bin_SCRIPTS = virt-p2v-make-disk virt-p2v-make-kickstart virt-p2v-make-kiwi
