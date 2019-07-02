@@ -28,6 +28,7 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	$(TESTS) $(SLOW_TESTS) \
 	dependencies.m4 \
+	generate-p2v-config.pl \
 	issue \
 	kiwi-config.sh \
 	kiwi-config.xml.in \
