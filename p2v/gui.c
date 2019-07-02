@@ -654,19 +654,6 @@ about_button_clicked (GtkWidget *w, gpointer data)
                 "authors", authors,
                 NULL);
 
-  if (documenters[0] != NULL)
-    g_object_set (G_OBJECT (dialog),
-                  "documenters", documenters,
-                  NULL);
-
-  if (qa[0] != NULL)
-    gtk_about_dialog_add_credit_section (GTK_ABOUT_DIALOG (dialog),
-                                         "Quality assurance", qa);
-
-  if (others[0] != NULL)
-    gtk_about_dialog_add_credit_section (GTK_ABOUT_DIALOG (dialog),
-                                         "Libguestfs development", others);
-
   gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
   gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (parent));
   gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);

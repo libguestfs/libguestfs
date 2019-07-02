@@ -170,21 +170,6 @@ let generate_p2v_about_authors_c () =
   pr "const char *authors[] = {\n";
   List.iter fn authors;
   pr "  NULL\n";
-  pr "};\n\n";
-  pr "/* Libguestfs quality assurance (if not included above). */\n";
-  pr "const char *qa[] = {\n";
-  List.iter fn qa;
-  pr "  NULL\n";
-  pr "};\n\n";
-  pr "/* Libguestfs documentation (if not included above). */\n";
-  pr "const char *documenters[] = {\n";
-  List.iter fn documenters;
-  pr "  NULL\n";
-  pr "};\n\n";
-  pr "/* Libguestfs developers (if not included above). */\n";
-  pr "const char *others[] = {\n";
-  List.iter fn others;
-  pr "  NULL\n";
   pr "};\n"
 
 let generate_p2v_authors () =
