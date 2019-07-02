@@ -26,6 +26,11 @@ BUILT_SOURCES = \
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	$(TESTS) $(SLOW_TESTS) \
+	contrib/aux-scripts/do-build.sh \
+	contrib/build-p2v-iso.sh \
+	contrib/patches/0001-RHEL-5-ONLY-DISABLE-AUTOMATIC-REMOTE-PORT-ALLOCATION.patch \
+	contrib/patches/0002-RHEL-5-ONLY-QEMU-NBD-1.4-HAS-NO-f-OPTION.patch \
+	contrib/test-p2v-iso.sh \
 	dependencies.m4 \
 	generate-p2v-authors.pl \
 	generate-p2v-config.pl \

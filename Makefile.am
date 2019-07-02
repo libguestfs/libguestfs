@@ -229,11 +229,6 @@ EXTRA_DIST = \
 	contrib/intro/vmm-icons-t.png \
 	contrib/intro/vmm-icons.png \
 	contrib/intro/win7.xml \
-	contrib/p2v/aux-scripts/do-build.sh \
-	contrib/p2v/build-p2v-iso.sh \
-	contrib/p2v/patches/0001-RHEL-5-ONLY-DISABLE-AUTOMATIC-REMOTE-PORT-ALLOCATION.patch \
-	contrib/p2v/patches/0002-RHEL-5-ONLY-QEMU-NBD-1.4-HAS-NO-f-OPTION.patch \
-	contrib/p2v/test-p2v-iso.sh \
 	contrib/README \
 	contrib/visualize-alignment/.gitignore \
 	contrib/visualize-alignment/guestfish-add-mount.qtr \
