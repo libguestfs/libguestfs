@@ -8,6 +8,7 @@ Makefile
 Makefile.in
 
 /about-authors.c
+/AUTHORS
 /blank-part.img
 /config.c
 /dependencies.archlinux

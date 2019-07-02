@@ -24,3 +24,4 @@ val authors : (string * string list * role list) list
 
 val generate_authors : unit -> unit
 val generate_p2v_about_authors_c : unit -> unit
+val generate_p2v_authors : unit -> unit

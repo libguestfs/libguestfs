@@ -18,7 +18,8 @@
 include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
-	about-authors.c
+	about-authors.c \
+	AUTHORS
 
 BUILT_SOURCES = \
 	$(generator_built)
