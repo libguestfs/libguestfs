@@ -30,16 +30,7 @@
 #include "miniexpect.h"
 #include "p2v-config.h"
 
-/* We don't use libguestfs directly here, and we don't link to it
- * either (in fact, we don't want libguestfs on the ISO).  However
- * we include this just so that we can use the convenience macros in
- * utils.h.
- */
-#include "guestfs.h"
 #include "guestfs-utils.h"
-
-/* Ensure we don't use libguestfs. */
-#define guestfs_h DO_NOT_USE
 
 /* All disks / removable media / network interfaces discovered
  * when the program started.  Do not change these.
