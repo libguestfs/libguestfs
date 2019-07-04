@@ -338,7 +338,7 @@ and copy_from_virtio_win g inspect srcdir destdir filter missing =
       ) paths
     )
   )
-  else if is_regular_file virtio_win then (
+  else if is_regular_file virtio_win || is_block_device virtio_win then (
     debug "windows: copy_from_virtio_win: guest tools source ISO %s" virtio_win;
 
     try
