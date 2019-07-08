@@ -57,6 +57,7 @@ EXTRA_DIST = \
 CLEANFILES += \
 	$(dependencies_files) \
 	$(generated_sources) \
+	$(PHYSICAL_MACHINE) $(BLANK_DISK) \
 	about-authors.c \
 	stamp-test-virt-p2v-pxe-data-files \
 	stamp-test-virt-p2v-pxe-kernel \
