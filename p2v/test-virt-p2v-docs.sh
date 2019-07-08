@@ -21,4 +21,4 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl virt-p2v.pod virt-p2v
+$top_srcdir/podcheck.pl $srcdir/virt-p2v.pod virt-p2v

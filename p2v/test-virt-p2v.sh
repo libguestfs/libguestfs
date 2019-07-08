@@ -36,8 +36,8 @@ mkdir $d
 # We don't want the program under test to run real 'ssh' or 'scp'.
 # They won't work.  Therefore create dummy 'ssh' and 'scp' binaries.
 pushd $d
-ln -sf ../test-virt-p2v-ssh.sh ssh
-ln -sf ../test-virt-p2v-scp.sh scp
+ln -sf "$abs_srcdir/test-virt-p2v-ssh.sh" ssh
+ln -sf "$abs_srcdir/test-virt-p2v-scp.sh" scp
 popd
 export PATH=$d:$PATH
 
