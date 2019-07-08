@@ -25,7 +25,7 @@ BUILT_SOURCES = \
 
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
-	$(TESTS) $(SLOW_TESTS) \
+	$(TESTS) $(APPLIANCE_TESTS) $(SLOW_TESTS) \
 	contrib/aux-scripts/do-build.sh \
 	contrib/build-p2v-iso.sh \
 	contrib/patches/0001-RHEL-5-ONLY-DISABLE-AUTOMATIC-REMOTE-PORT-ALLOCATION.patch \
@@ -288,10 +288,13 @@ TESTS = \
 	test-virt-p2v-cmdline.sh \
 	test-virt-p2v-docs.sh
 
+APPLIANCE_TESTS = \
+	test-virt-p2v.sh \
+	test-virt-p2v-nbdkit.sh
+
 if ENABLE_APPLIANCE
 TESTS += \
-	test-virt-p2v.sh \
-	test-virt-p2v-nbdkit.sh \
+	$(APPLIANCE_TESTS) \
 	$(SLOW_TESTS)
 endif ENABLE_APPLIANCE
 
