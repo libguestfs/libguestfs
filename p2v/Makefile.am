@@ -108,7 +108,8 @@ virt_p2v_SOURCES = \
 
 generated_sources = \
 	config.c \
-	kernel-config.c
+	kernel-config.c \
+	p2v-config.h
 
 nodist_virt_p2v_SOURCES = \
 	$(generated_sources) \
