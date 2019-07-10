@@ -169,24 +169,6 @@ _virt_ls ()
 } &&
 complete -o default -F _virt_ls virt-ls
 
-_virt_p2v_make_disk ()
-{
-    _guestfs_virttools "virt-p2v-make-disk" 1
-} &&
-complete -o default -F _virt_p2v_make_disk virt-p2v-make-disk
-
-_virt_p2v_make_kickstart ()
-{
-    _guestfs_virttools "virt-p2v-make-kickstart" 1
-} &&
-complete -o default -F _virt_p2v_make_kickstart virt-p2v-make-kickstart
-
-_virt_p2v_make_kiwi ()
-{
-    _guestfs_virttools "virt-p2v-make-kiwi" 1
-} &&
-complete -o default -F _virt_p2v_make_kiwi virt-p2v-make-kiwi
-
 _virt_resize ()
 {
     _guestfs_virttools "virt-resize" 0

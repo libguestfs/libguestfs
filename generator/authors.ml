@@ -134,12 +134,3 @@ let authors = [
 
 let generate_authors () =
   List.iter (fun (name, _, _) -> pr "%s\n" name) authors
-
-let generate_p2v_authors () =
-  let p2v_authors =
-    List.filter_map (
-      fun (name, _, roles) ->
-        if List.mem V2V_and_P2V roles then Some name
-        else None
-    ) authors in
-  List.iter (pr "%s\n") p2v_authors

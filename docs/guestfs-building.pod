@@ -76,7 +76,7 @@ I<Required>.
 
 =item qemu-img E<ge> 1.3.0
 
-I<Required>.  Virt-p2v and virt-v2v requires qemu-img E<ge> 2.2.0.
+I<Required>.  Virt-v2v requires qemu-img E<ge> 2.2.0.
 
 =item kernel E<ge> 2.6.34
 
@@ -272,10 +272,6 @@ Optional.  Used only for testing.
 
 Optional.  qemu-nbd is used for testing.
 
-L<virt-p2v(1)> requires either qemu-nbd or nbdkit, but these only need
-to be present on the virt-p2v ISO, they do not need to be installed at
-compile time.
-
 =item uml_mkcow
 
 Optional.  For the L<UML backend|guestfs(3)/BACKEND>.
@@ -292,27 +288,6 @@ Optional.  Used by virt-builder for checking digital signatures.
 
 Optional.  If available, virt-builder will use this library
 for fast, parallel uncompression of templates.
-
-=item Gtk E<ge> 2.24, or 3
-
-Optional.
-
-Used by the virt-p2v graphical user interface.
-
-Either Gtk 2 or Gtk 3 can be used.  If you want to select a specific
-version of Gtk, use S<C<./configure --with-gtk=2>> or
-S<C<./configure --with-gtk=3>>.
-
-=item D-Bus
-
-Optional.
-
-If the D-Bus low level C API is available, virt-p2v can send a D-Bus
-message to logind to inhibit power saving (sleep, suspend, etc) during
-P2V conversions.
-
-If this API is not available at build time, then very long conversions
-might be interrupted if the physical machine goes to sleep.
 
 =item zip
 
@@ -688,11 +663,6 @@ indicate this is I<not> a distro build.
 Compile libguestfs without libvirt support, even if libvirt
 development libraries are installed.
 
-=item B<--with-gtk=2>
-
-This option forces virt-p2v to be built against Gtk 2, which is
-currently the most widely tested configuration.
-
 =item B<--with-qemu=">bin1 bin2 ...B<">
 
 Provide an alternate qemu binary (or list of binaries).  This can be
@@ -842,29 +812,6 @@ L<https://github.com/libguestfs/libguestfs/commits/rhel-7.3>
 The sources and spec files for RHEL versions of libguestfs are
 available on L<https://git.centos.org/project/rpms>, and see also
 L<https://wiki.centos.org/Sources>.
-
-=head1 BUILDING i686 32 BIT VIRT-P2V
-
-I<(This section only applies on the x86-64 architecture.)>
-
-Building a 32 bit virt-p2v (i686) binary improves compatibility with
-older hardware.  See L<virt-p2v-make-disk(1)> for details.  Although
-virt-p2v is a simple Gtk application, it is not especially easy to
-build just virt-p2v as a 32 bit application on a 64 bit host.  Usually
-the simplest way is to use a 32 bit chroot or even a 32 bit virtual
-machine to build libguestfs.
-
-On Fedora you can use the L<mock(1)> tool.  For example:
-
- fedpkg mockbuild --root fedora-23-i386
-
-This will result in a F<virt-v2v-*.i686.rpm> file which can be
-unpacked to extract the 32 bit virt-p2v binary.
-
-The binary may be compressed to either F<p2v/virt-p2v.i686.xz>, or
-F<$libdir/virt-p2v/virt-p2v.i686.xz> or
-F<$VIRT_P2V_DATA_DIR/virt-p2v.i686.xz> as appropriate.  This enables
-the L<virt-p2v-make-disk(1)> I<--arch> option.
 
 =head1 SEE ALSO
 

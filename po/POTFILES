@@ -14,7 +14,6 @@ cat/tail.c
 common/edit/file-edit.c
 common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
-common/miniexpect/miniexpect.c
 common/mlaugeas/augeas-c.c
 common/mlgettext/dummy.c
 common/mllibvirt/generator.pl

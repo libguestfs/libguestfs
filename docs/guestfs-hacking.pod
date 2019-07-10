@@ -94,12 +94,6 @@ The communication protocol used between the library and the daemon
 running inside the appliance has to encode errnos as strings, which is
 handled by this library.
 
-=item F<common/miniexpect>
-
-A copy of the miniexpect library from
-L<http://git.annexia.org/?p=miniexpect.git;a=summary>.  This is used
-in virt-p2v.
-
 =item F<common/mlaugeas>
 
 Bindings for the Augeas library.  These come from the ocaml-augeas
@@ -266,11 +260,6 @@ M4 macros used by autoconf.  See L</THE BUILD SYSTEM>.
 =item F<make-fs>
 
 L<virt-make-fs(1)> command and documentation.
-
-=item F<p2v>
-
-L<virt-p2v(1)> command, documentation and scripts for building the
-virt-p2v ISO or disk image.
 
 =item F<po>
 
@@ -985,78 +974,6 @@ involved in converting them.
 Every other file in this directory is a support module / library of
 some sort.  Some code is written in C, especially where we want to use
 an external C library such as libxml2.
-
-=head2 VIRT-P2V
-
-Virt-p2v is a front end on virt-v2v.  ie. All it does is act as a GUI
-front end, and it calls out to virt-v2v to perform the actual
-conversion.  Therefore most of the C code in the F<p2v/> subdirectory
-is Gtk (GUI) code, or supporting code for talking to the remote
-conversion server.  There is no special support for physical machines
-in virt-v2v.  They are converted in the same way as foreign VMs.
-
-=head3 Running virt-p2v
-
-You can run the F<p2v/virt-p2v> binary directly, but it will try to
-convert your machine’s real F</dev/sda> which is unlikely to work
-well.  However virt-p2v also has a test mode in which you can supply a
-test disk:
-
- make -C p2v run-virt-p2v-directly
-
-This is a wrapper around the L<virt-p2v(1)> I<--test-disk> option.
-You can control the "physical machine" disk by setting
-C<PHYSICAL_MACHINE> to point to a disk image.
-
-A more realistic test is to run virt-p2v inside a VM on the local
-machine.  To do that, do:
-
- make -C p2v run-virt-p2v-in-a-vm
-
-This also runs qemu with the "physical machine" disk (which you can
-set by setting C<PHYSICAL_MACHINE>), a virtual CD, and a variety of
-network cards for testing.  You can change the qemu binary and add
-extra qemu options by setting C<QEMU> and/or C<QEMU_OPTIONS> on the
-make commandline.
-
-A third way to run virt-p2v simulates fairly accurately the program
-being downloaded over PXE and then doing an automatic conversion of
-the source physical machine (the non-GUI path -- see next section
-below):
-
- make -C p2v run-virt-p2v-non-gui-conversion
-
-=head3 Understanding the virt-p2v code
-
-I<See also:> L<virt-p2v(1)/HOW VIRT-P2V WORKS>
-
-There are two paths through the code, GUI or non-GUI (parsing the
-kernel command line):
-
- main.c ──────┬─────▶ gui.c ──────┬─────▶ conversion.c
-              │                   │
-              │                   │
-              └────▶ kernel.c ────┘
-
-but both paths call back to the F<conversion.c> function
-C<start_conversion> to run the remote virt-v2v.
-
-The main task of F<gui.c>/F<kernel.c> is to populate the virt-v2v
-configuration (F<config.c>).
-
-During conversion, we need to establish ssh connections, and that is
-done using two libraries:
-
- conversion.c ──────▶ ssh.c ──────▶ miniexpect.c
-
-where F<ssh.c> is responsible for managing ssh connections overall,
-and F<miniexpect.c> implements "expect-like" functionality for talking
-interactively to the remote virt-v2v conversion server.
-
-(Note that miniexpect is a separate library with its own upstream, so
-if you patch miniexpect.c, then please make sure the changes get
-reflected in miniexpect’s upstream too:
-F<http://git.annexia.org/?p=miniexpect.git;a=summary>)
 
 =head1 MAINTAINER TASKS
 

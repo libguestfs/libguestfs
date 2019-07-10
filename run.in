@@ -98,7 +98,6 @@ prepend PATH "$b/fuse"
 prepend PATH "$b/get-kernel"
 prepend PATH "$b/inspector"
 prepend PATH "$b/make-fs"
-prepend PATH "$b/p2v"
 prepend PATH "$b/rescue"
 prepend PATH "$b/resize"
 prepend PATH "$b/sparsify"
@@ -123,12 +122,6 @@ export DYLD_LIBRARY_PATH
 if [ -z "$XDG_CONFIG_DIRS" ]; then
     prepend XDG_CONFIG_DIRS "$b/builder/test-website"
     export XDG_CONFIG_DIRS
-fi
-
-# virt-p2v-make-* data directory.
-if [ -z "$VIRT_P2V_DATA_DIR" ]; then
-    VIRT_P2V_DATA_DIR="$b/p2v"
-    export VIRT_P2V_DATA_DIR
 fi
 
 # For Perl.

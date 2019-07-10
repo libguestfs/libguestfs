@@ -23,4 +23,3 @@ val authors : (string * string list * role list) list
 (** List of authors, their aliases, and their roles. *)
 
 val generate_authors : unit -> unit
-val generate_p2v_authors : unit -> unit

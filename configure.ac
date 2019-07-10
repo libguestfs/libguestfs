@@ -166,8 +166,8 @@ m4_include([m4/guestfs-rust.m4])
 HEADING([Checking for Vala])
 VAPIGEN_CHECK
 
-dnl virt-v2v, virt-p2v.
-HEADING([Checking the virt-v2v and virt-p2v dependencies])
+dnl virt-v2v.
+HEADING([Checking the virt-v2v dependencies])
 m4_include([m4/guestfs-v2v.m4])
 
 dnl Bash completion.
@@ -236,7 +236,6 @@ AC_CONFIG_FILES([Makefile
                  cat/Makefile
                  common/errnostring/Makefile
                  common/edit/Makefile
-                 common/miniexpect/Makefile
                  common/mlaugeas/Makefile
                  common/mlgettext/Makefile
                  common/mllibvirt/Makefile

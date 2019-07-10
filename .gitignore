@@ -64,9 +64,6 @@ Makefile.in
 /bash/virt-inspector
 /bash/virt-log
 /bash/virt-ls
-/bash/virt-p2v-make-disk
-/bash/virt-p2v-make-kickstart
-/bash/virt-p2v-make-kiwi
 /bash/virt-resize
 /bash/virt-sysprep
 /bash/virt-sparsify
@@ -129,7 +126,6 @@ Makefile.in
 /common/errnostring/errnostring-gperf.c
 /common/errnostring/errnostring-gperf.gperf
 /common/errnostring/errnostring.h
-/common/miniexpect/miniexpect.3
 /common/mlaugeas/.depend
 /common/mlgettext/.depend
 /common/mlgettext/common_gettext.ml
