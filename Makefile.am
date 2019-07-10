@@ -110,9 +110,6 @@ SUBDIRS += fish
 
 # virt-tools in C.
 SUBDIRS += align cat diff df edit format inspector make-fs rescue
-if HAVE_P2V
-SUBDIRS += common/miniexpect p2v
-endif
 
 # bash-completion
 SUBDIRS += bash

@@ -213,12 +213,6 @@ AC_CONFIG_FILES([ocaml-dep.sh],
                 [chmod +x,-w ocaml-dep.sh])
 AC_CONFIG_FILES([ocaml-link.sh],
                 [chmod +x,-w ocaml-link.sh])
-AC_CONFIG_FILES([p2v/virt-p2v-make-disk],
-                [chmod +x,-w p2v/virt-p2v-make-disk])
-AC_CONFIG_FILES([p2v/virt-p2v-make-kickstart],
-                [chmod +x,-w p2v/virt-p2v-make-kickstart])
-AC_CONFIG_FILES([p2v/virt-p2v-make-kiwi],
-                [chmod +x,-w p2v/virt-p2v-make-kiwi])
 AC_CONFIG_FILES([php/extension/php-for-tests.sh],
                 [chmod +x,-w php/extension/php-for-tests.sh])
 AC_CONFIG_FILES([pick-guests.pl],
@@ -298,7 +292,6 @@ AC_CONFIG_FILES([Makefile
                  ocaml/META
                  ocaml/Makefile
                  ocaml/examples/Makefile
-                 p2v/Makefile
                  perl/Build.PL
                  perl/Makefile
                  perl/examples/Makefile
@@ -381,10 +374,6 @@ AC_CONFIG_FILES([Makefile
                  v2v/test-harness/META
                  website/index.html])
 
-if test "x$HAVE_P2V_TRUE" = "x"; then
-    AC_CONFIG_COMMANDS([p2v/p2v-config.h], [${ac_srcdir}/p2v/generate-p2v-config.pl --file=p2v-config.h --output=p2v/p2v-config.h])
-fi
-
 AC_OUTPUT
 
 dnl Produce summary.
@@ -403,8 +392,6 @@ echo       "FUSE filesystem ..................... $enable_fuse"
 echo       "Default backend ..................... $DEFAULT_BACKEND"
 AS_ECHO_N(["GNU gettext for i18n ................ "])
 if test "x$HAVE_GNU_GETTEXT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["virt-p2v ............................ "])
-if test "x$HAVE_P2V_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["OCaml bindings ...................... "])
 if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["OCaml-based virt tools .............. "])

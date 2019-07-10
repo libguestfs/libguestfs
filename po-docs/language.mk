@@ -71,9 +71,6 @@ MANPAGES = \
 	virt-log.1 \
 	virt-ls.1 \
 	virt-make-fs.1 \
-	virt-p2v.1 \
-	virt-p2v-make-disk.1 \
-	virt-p2v-make-kickstart.1 \
 	virt-rescue.1 \
 	virt-resize.1 \
 	virt-sparsify.1 \

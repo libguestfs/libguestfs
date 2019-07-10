@@ -75,8 +75,6 @@ Run it from the top source directory using the command
 
   output_to "AUTHORS"
             Authors.generate_authors;
-  output_to "p2v/AUTHORS"
-            Authors.generate_p2v_authors;
 
   output_to "common/errnostring/errnostring-gperf.gperf"
             Errnostring.generate_errnostring_gperf;

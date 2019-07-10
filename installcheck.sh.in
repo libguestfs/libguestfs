@@ -61,9 +61,6 @@ cp @bindir@/virt-get-kernel       get-kernel/
 cp @bindir@/virt-inspector        inspector/
 cp @bindir@/virt-ls               cat/
 cp @bindir@/virt-make-fs          make-fs/
-cp @libdir@/virt-p2v/virt-p2v.xz  p2v/
-unxz -fk p2v/virt-p2v.xz
-chmod +x p2v/virt-p2v
 cp @bindir@/virt-rescue           rescue/
 cp @bindir@/virt-resize           resize/
 cp @bindir@/virt-sparsify         sparsify/
