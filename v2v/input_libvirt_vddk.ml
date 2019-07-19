@@ -93,7 +93,7 @@ let parse_input_options options =
   options
 
 (* Subclass specialized for handling VMware via nbdkit vddk plugin. *)
-class input_libvirt_vddk libvirt_conn input_conn  input_password vddk_options
+class input_libvirt_vddk libvirt_conn input_conn input_password vddk_options
                          parsed_uri guest =
   (* The VDDK path. *)
   let libdir =
