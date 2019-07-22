@@ -1,5 +1,6 @@
 # -*- python -*-
-# oVirt or RHV pre-upload checks used by ‘virt-v2v -o rhv-upload’
+# coding: utf-8
+# oVirt or RHV pre-upload checks used by 'virt-v2v -o rhv-upload'
 # Copyright (C) 2018 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -21,8 +22,8 @@ import logging
 import sys
 import time
 
-from http.client import HTTPSConnection
-from urllib.parse import urlparse
+from httplib import HTTPSConnection
+from urlparse import urlparse
 
 import ovirtsdk4 as sdk
 import ovirtsdk4.types as types
@@ -36,8 +37,19 @@ if len(sys.argv) != 2:
     raise RuntimeError("incorrect number of parameters")
 
 # Parameters are passed in via a JSON document.
+# https://stackoverflow.com/a/13105359
+def byteify(input):
+    if isinstance(input, dict):
+        return {byteify(key): byteify(value)
+                for key, value in input.iteritems()}
+    elif isinstance(input, list):
+        return [byteify(element) for element in input]
+    elif isinstance(input, unicode):
+        return input.encode('utf-8')
+    else:
+        return input
 with open(sys.argv[1], 'r') as fp:
-    params = json.load(fp)
+    params = byteify(json.load(fp))
 
 # What is passed in is a password file, read the actual password.
 with open(params['output_password'], 'r') as fp:
@@ -67,7 +79,7 @@ vms = vms_service.list(
 )
 if len(vms) > 0:
     vm = vms[0]
-    raise RuntimeError("VM already exists with name ‘%s’, id ‘%s’" %
+    raise RuntimeError("VM already exists with name '%s', id '%s'" %
                        (params['output_name'], vm.id))
 
 # Otherwise everything is OK, exit with no error.

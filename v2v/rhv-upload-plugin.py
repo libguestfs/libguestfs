@@ -1,5 +1,6 @@
 # -*- python -*-
-# oVirt or RHV upload nbdkit plugin used by ‘virt-v2v -o rhv-upload’
+# coding: utf-8
+# oVirt or RHV upload nbdkit plugin used by 'virt-v2v -o rhv-upload'
 # Copyright (C) 2018 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -16,16 +17,17 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import builtins
+from __builtin__ import open as builtin_open
 import json
 import logging
 import socket
 import ssl
 import sys
 import time
+import errno
 
-from http.client import HTTPSConnection, HTTPConnection
-from urllib.parse import urlparse
+from httplib import HTTPSConnection, HTTPConnection
+from urlparse import urlparse
 
 import ovirtsdk4 as sdk
 import ovirtsdk4.types as types
@@ -37,14 +39,25 @@ timeout = 5*60
 # Parameters are passed in via a JSON doc from the OCaml code.
 # Because this Python code ships embedded inside virt-v2v there
 # is no formal API here.
+# https://stackoverflow.com/a/13105359
+def byteify(input):
+    if isinstance(input, dict):
+        return {byteify(key): byteify(value)
+                for key, value in input.iteritems()}
+    elif isinstance(input, list):
+        return [byteify(element) for element in input]
+    elif isinstance(input, unicode):
+        return input.encode('utf-8')
+    else:
+        return input
 params = None
 
 def config(key, value):
     global params
 
     if key == "params":
-        with builtins.open(value, 'r') as fp:
-            params = json.load(fp)
+        with builtin_open(value, 'r') as fp:
+            params = byteify(json.load(fp))
     else:
         raise RuntimeError("unknown configuration key '%s'" % key)
 
@@ -54,13 +67,14 @@ def config_complete():
 
 def debug(s):
     if params['verbose']:
-        print(s, file=sys.stderr)
+        sys.stderr.write(s)
+        sys.stderr.write("\n")
         sys.stderr.flush()
 
 def find_host(connection):
     """Return the current host object or None."""
     try:
-        with builtins.open("/etc/vdsm/vdsm.id") as f:
+        with builtin_open("/etc/vdsm/vdsm.id") as f:
             vdsm_id = f.readline().strip()
     except Exception as e:
         # This is most likely not an oVirt host.
@@ -111,7 +125,7 @@ def open(readonly):
     username = parsed.username or "admin@internal"
 
     # Read the password from file.
-    with builtins.open(params['output_password'], 'r') as fp:
+    with builtin_open(params['output_password'], 'r') as fp:
         password = fp.read()
     password = password.rstrip()
 
@@ -244,7 +258,7 @@ def open(readonly):
         # New imageio never needs authentication.
         needs_auth = False
 
-        j = json.loads(data)
+        j = byteify(json.loads(data))
         can_flush = "flush" in j['features']
         can_trim = "trim" in j['features']
         can_zero = "zero" in j['features']
@@ -369,8 +383,9 @@ def pwrite(h, buf, offset):
 
     try:
         http.send(buf)
-    except BrokenPipeError:
-        pass
+    except EnvironmentError as e:
+        if e.errno != errno.EPIPE:
+            raise
 
     r = http.getresponse()
     if r.status != 200:
@@ -432,8 +447,9 @@ def emulate_zero(h, count, offset):
                 http.send(buf)
                 count -= len(buf)
             http.send(memoryview(buf)[:count])
-        except BrokenPipeError:
-            pass
+        except EnvironmentError as e:
+            if e.errno != errno.EPIPE:
+                raise
 
         r = http.getresponse()
         if r.status != 200:
@@ -540,7 +556,7 @@ def close(h):
             raise RuntimeError("transfer failed: disk %s not found" % disk_id)
 
         # Write the disk ID file.  Only do this on successful completion.
-        with builtins.open(params['diskid_file'], 'w') as fp:
+        with builtin_open(params['diskid_file'], 'w') as fp:
             fp.write(disk.id)
 
     except:

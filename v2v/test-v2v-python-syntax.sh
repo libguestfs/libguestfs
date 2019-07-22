@@ -25,7 +25,7 @@ skip_if_skipped
 files="rhv-upload-createvm.py rhv-upload-plugin.py rhv-upload-precheck.py"
 
 # Base version of Python.
-python=python3
+python=python
 
 # Checks the files are syntactically correct, but not very much else.
 for f in $files; do
