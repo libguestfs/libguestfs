@@ -135,7 +135,7 @@ class output_rhv_upload output_alloc output_conn
       error (f_"nbdkit is not new enough, you need to upgrade to nbdkit ≥ 1.1.16")
   in
 
-  (* Check that the python3 plugin is installed and working
+  (* Check that the python plugin is installed and working
    * and can load the plugin script.
    *)
   let error_unless_nbdkit_python_plugin_working () =
