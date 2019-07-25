@@ -61,6 +61,11 @@ let server_of_uri { Xml.uri_server } =
 let path_of_uri { Xml.uri_path } =
   match uri_path with None -> assert false | Some p -> p
 
+let scp_supports_T_option = lazy (
+  let cmd = "LANG=C scp -T |& grep \"unknown option\"" in
+  shell_command cmd <> 0
+)
+
 (* 'scp' a remote file into a temporary local file, returning the path
  * of the temporary local file.
  *)
@@ -68,8 +73,9 @@ let scp_from_remote_to_temporary uri tmpdir filename =
   let localfile = tmpdir // filename in
 
   let cmd =
-    sprintf "scp%s%s %s%s:%s %s"
+    sprintf "scp%s%s%s %s%s:%s %s"
             (if verbose () then "" else " -q")
+            (if Lazy.force scp_supports_T_option then " -T" else "")
             (match port_of_uri uri with
              | None -> ""
              | Some port -> sprintf " -P %d" port)
