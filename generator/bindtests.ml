@@ -983,6 +983,73 @@ and generate_php_bindtests () =
 
   dump "bindtests"
 
+and generate_rust_bindtests () =
+  let copywrites = ["Hiroyuki Katsura <hiroyuki.katsura.0513@gmail.com>"] in
+  generate_header ~copywrites:copywrites CStyle GPLv2plus;
+
+  pr "extern crate guestfs;\n";
+  pr "use guestfs::*;\n";
+  pr "use std::default::Default;\n";
+  pr "\n";
+  pr "fn main() {\n";
+  pr "    let g = match Handle::create() {\n";
+  pr "        Ok(g) => g,\n";
+  pr "        Err(e) => panic!(format!(\" could not create handle {:?}\", e)),\n";
+  pr "    };\n";
+  generate_lang_bindtests (
+    fun f args optargs ->
+      pr "    g.%s(" f;
+      let needs_comma = ref false in
+      List.iter (
+        fun arg ->
+          if !needs_comma then pr ", ";
+          needs_comma := true;
+          match arg with
+          | CallString s -> pr "\"%s\"" s
+          | CallOptString None -> pr "None"
+          | CallOptString (Some s) -> pr "Some(\"%s\")" s
+          | CallStringList xs ->
+            pr "&vec![%s]"
+              (String.concat ", " (List.map (sprintf "\"%s\"") xs))
+          | CallInt i -> pr "%d" i
+          | CallInt64 i -> pr "%Ldi64" i
+          | CallBool b -> pr "%b" b
+          | CallBuffer s ->
+            let f = fun x -> sprintf "%d" (Char.code x) in
+            pr "&[%s]"
+              (String.concat ", " (List.map f (String.explode s)))
+      ) args;
+      if !needs_comma then pr ", ";
+      (match optargs with
+       | None -> pr "Default::default()"
+       | Some optargs ->
+         pr "%sOptArgs{" (Rust.snake2caml f);
+         needs_comma := false;
+         List.iter (
+           fun optarg ->
+             if !needs_comma then pr ", ";
+             needs_comma := true;
+             match optarg with
+             | CallOBool (n, v) ->
+               pr "%s: Some(%b)" n v
+             | CallOInt (n, v) ->
+               pr "%s: Some(%d)" n v
+             | CallOInt64 (n, v) ->
+               pr "%s: Some(%Ldi64)" n v
+             | CallOString (n, v) ->
+               pr "%s: Some(\"%s\")" n v
+             | CallOStringList (n, xs) ->
+               pr "%s: Some(&[%s])"
+                 n (String.concat ", " (List.map (sprintf "\"%s\"") xs))
+         ) optargs;
+         if !needs_comma then pr ", ";
+         pr ".. Default::default()}";
+      );
+      pr ").expect(\"failed to run\");\n";
+  );
+  pr "    println!(\"EOF\");\n";
+  pr "}\n";
+
 (* Language-independent bindings tests - we do it this way to
  * ensure there is parity in testing bindings across all languages.
  *)

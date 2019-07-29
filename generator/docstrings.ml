@@ -76,7 +76,7 @@ type comment_style =
   | ErlangStyle | LuaStyle | PODStyle
 type license = GPLv2plus | LGPLv2plus
 
-let generate_header ?(inputs = []) ?emacs_mode comment license =
+let generate_header ?(copywrites = ["Red Hat Inc."]) ?(inputs = []) ?emacs_mode comment license =
   let c = match comment with
     | CStyle ->         pr "/* "; " *"
     | CPlusPlusStyle -> pr "// "; "//"
@@ -102,7 +102,9 @@ let generate_header ?(inputs = []) ?emacs_mode comment license =
   );
   pr "%s ANY CHANGES YOU MAKE TO THIS FILE WILL BE LOST.\n" c;
   pr "%s\n" c;
-  pr "%s Copyright (C) %s Red Hat Inc.\n" c copyright_years;
+  List.iter (fun x ->
+      pr "%s Copyright (C) %s %s\n" c copyright_years x;
+    ) copywrites;
   pr "%s\n" c;
   (match license with
    | GPLv2plus ->

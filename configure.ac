@@ -161,6 +161,8 @@ HEADING([Checking for Go])
 m4_include([m4/guestfs-golang.m4])
 HEADING([Checking for GObject Introspection])
 m4_include([m4/guestfs-gobject.m4])
+HEADING([Checking for Rust])
+m4_include([m4/guestfs-rust.m4])
 HEADING([Checking for Vala])
 VAPIGEN_CHECK
 
@@ -315,6 +317,8 @@ AC_CONFIG_FILES([Makefile
                  ruby/Rakefile
                  ruby/examples/Makefile
                  ruby/ext/guestfs/extconf.rb
+                 rust/Makefile
+                 rust/Cargo.toml
                  sparsify/Makefile
                  sysprep/Makefile
                  test-data/Makefile
@@ -433,6 +437,8 @@ AS_ECHO_N(["Vala bindings ....................... "])
 if test "x$ENABLE_VAPIGEN_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["bash completion ..................... "])
 if test "x$HAVE_BASH_COMPLETION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+AS_ECHO_N(["Rust bindings ....................... "])
+if test "x$HAVE_RUST_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceding messages."

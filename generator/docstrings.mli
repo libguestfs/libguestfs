@@ -31,4 +31,4 @@ val version_added : Types.action -> string option
 
 val copyright_years : string
 
-val generate_header : ?inputs:string list -> ?emacs_mode:string -> comment_style -> license -> unit
+val generate_header : ?copywrites:string list -> ?inputs:string list -> ?emacs_mode:string -> comment_style -> license -> unit

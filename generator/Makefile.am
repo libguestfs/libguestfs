@@ -103,6 +103,8 @@ sources = \
 	python.mli \
 	ruby.ml \
 	ruby.mli \
+	rust.ml \
+	rust.mli \
 	structs.ml \
 	structs.mli \
 	tests_c_api.ml \
@@ -161,6 +163,7 @@ objects = \
 	lua.cmo \
 	GObject.cmo \
 	golang.cmo \
+	rust.cmo \
 	bindtests.cmo \
 	errnostring.cmo \
 	customize.cmo \

@@ -201,6 +201,16 @@ else
 fi
 export CGO_LDFLAGS
 
+# For rust
+export RUST="@RUST@"
+export CARGO="@CARGO@"
+if [ -z "$RUSTFLAGS" ]; then
+    RUSTFLAGS="-C link-args=-L$b/lib/.libs"
+else
+    RUSTFLAGS="$RUSTFLAGS -C link-args=-L$b/lib/.libs"
+fi
+export RUSTFLAGS
+
 # For GObject, Javascript and friends.
 export GJS="@GJS@"
 prepend GI_TYPELIB_PATH "$b/gobject"
