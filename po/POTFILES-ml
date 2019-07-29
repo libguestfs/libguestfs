@@ -20,6 +20,7 @@ builder/sources.ml
 builder/utils.ml
 common/mlaugeas/augeas.ml
 common/mlgettext/common_gettext.ml
+common/mllibvirt/libvirt.ml
 common/mlpcre/PCRE.ml
 common/mlpcre/pcre_tests.ml
 common/mlprogress/progress.ml
@@ -41,6 +42,7 @@ common/mltools/machine_readable_tests.ml
 common/mltools/planner.ml
 common/mltools/regedit.ml
 common/mltools/registry.ml
+common/mltools/tools_messages_tests.ml
 common/mltools/tools_utils.ml
 common/mltools/tools_utils_tests.ml
 common/mltools/urandom.ml
@@ -133,6 +135,7 @@ v2v/cmdline.ml
 v2v/convert_linux.ml
 v2v/convert_windows.ml
 v2v/copy_to_local.ml
+v2v/create_json.ml
 v2v/create_libvirt_xml.ml
 v2v/create_ovf.ml
 v2v/input_disk.ml
@@ -155,6 +158,7 @@ v2v/name_from_disk.ml
 v2v/networks.ml
 v2v/openstack_image_properties.ml
 v2v/output_glance.ml
+v2v/output_json.ml
 v2v/output_libvirt.ml
 v2v/output_local.ml
 v2v/output_null.ml
@@ -180,5 +184,7 @@ v2v/utils.ml
 v2v/v2v.ml
 v2v/v2v_unit_tests.ml
 v2v/vCenter.ml
+v2v/var_expander.ml
+v2v/var_expander_tests.ml
 v2v/windows.ml
 v2v/windows_virtio.ml

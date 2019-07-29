@@ -17,6 +17,11 @@ common/errnostring/errnostring.c
 common/miniexpect/miniexpect.c
 common/mlaugeas/augeas-c.c
 common/mlgettext/dummy.c
+common/mllibvirt/generator.pl
+common/mllibvirt/libvirt_c.c
+common/mllibvirt/libvirt_c_epilogue.c
+common/mllibvirt/libvirt_c_oneoffs.c
+common/mllibvirt/libvirt_c_prologue.c
 common/mlpcre/dummy.c
 common/mlpcre/pcre-c.c
 common/mlprogress/progress-c.c
@@ -420,6 +425,8 @@ p2v/about-authors.c
 p2v/config.c
 p2v/conversion.c
 p2v/cpuid.c
+p2v/generate-p2v-authors.pl
+p2v/generate-p2v-config.pl
 p2v/gui.c
 p2v/inhibit.c
 p2v/kernel-cmdline.c
@@ -471,5 +478,6 @@ utils/boot-benchmark/boot-benchmark.c
 utils/max-disks/max-disks.pl
 utils/qemu-boot/qemu-boot.c
 utils/qemu-speed-test/qemu-speed-test.c
+v2v/dummy.c
 v2v/qemuopts-c.c
 v2v/test-harness/dummy.c

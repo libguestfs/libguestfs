@@ -16,6 +16,10 @@ common/miniexpect/miniexpect.c
 common/miniexpect/miniexpect.h
 common/mlaugeas/augeas-c.c
 common/mlgettext/dummy.c
+common/mllibvirt/libvirt_c.c
+common/mllibvirt/libvirt_c_epilogue.c
+common/mllibvirt/libvirt_c_oneoffs.c
+common/mllibvirt/libvirt_c_prologue.c
 common/mlpcre/dummy.c
 common/mlpcre/pcre-c.c
 common/mlprogress/progress-c.c
@@ -355,6 +359,8 @@ ocaml/guestfs-c-actions.c
 ocaml/guestfs-c-errnos.c
 ocaml/guestfs-c.c
 ocaml/guestfs-c.h
+p2v/about-authors.c
+p2v/config.c
 p2v/conversion.c
 p2v/cpuid.c
 p2v/gui-gtk2-compat.h
@@ -362,9 +368,11 @@ p2v/gui-gtk3-compat.h
 p2v/gui.c
 p2v/inhibit.c
 p2v/kernel-cmdline.c
+p2v/kernel-config.c
 p2v/kernel.c
 p2v/main.c
 p2v/nbd.c
+p2v/p2v-config.h
 p2v/p2v.h
 p2v/physical-xml.c
 p2v/rtc.c
@@ -410,5 +418,6 @@ utils/boot-analysis/boot-analysis.h
 utils/boot-benchmark/boot-benchmark.c
 utils/qemu-boot/qemu-boot.c
 utils/qemu-speed-test/qemu-speed-test.c
+v2v/dummy.c
 v2v/qemuopts-c.c
 v2v/test-harness/dummy.c
