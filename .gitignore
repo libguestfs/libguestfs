@@ -542,6 +542,12 @@ Makefile.in
 /ruby/ext/guestfs/mkmf.log
 /ruby/Rakefile
 /ruby/stamp-rdoc
+/rust/Cargo.lock
+/rust/Cargo.toml
+/rust/**/*.rs.bk
+/rust/src/bin/bindtests.rs
+/rust/src/guestfs.rs
+/rust/target
 /run
 /sparsify/.depend
 /sparsify/stamp-virt-sparsify.pod
