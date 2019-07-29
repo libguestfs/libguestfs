@@ -22,7 +22,6 @@ generator_built = \
 	src/lib.rs
 
 EXTRA_DIST = \
-	.gitignore \
 	$(generator_built) \
 	tests/*.rs \
 	src/*.rs \
