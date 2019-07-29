@@ -24,6 +24,7 @@ BUILT_SOURCES = \
 	$(generator_built)
 
 EXTRA_DIST = \
+	.gitignore \
 	$(BUILT_SOURCES) \
 	$(TESTS) $(APPLIANCE_TESTS) $(SLOW_TESTS) \
 	contrib/aux-scripts/do-build.sh \
