@@ -36,6 +36,7 @@ EXTRA_DIST = \
 	rhv-upload-createvm.py \
 	rhv-upload-plugin.py \
 	rhv-upload-precheck.py \
+	var_expander_tests.ml \
 	v2v_unit_tests.ml \
 	virt-v2v.pod \
 	virt-v2v-copy-to-local.pod \
