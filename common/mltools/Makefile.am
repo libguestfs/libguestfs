@@ -25,6 +25,7 @@ EXTRA_DIST = \
 	JSON_tests.ml \
 	JSON_parser_tests.ml \
 	machine_readable_tests.ml \
+	parse_tools_messages_test.py \
 	test-getopt.sh \
 	test-machine-readable.sh \
 	test-tools-messages.sh \
