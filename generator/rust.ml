@@ -53,7 +53,7 @@ let translate_bad_symbols s =
     s
 
 let generate_rust () =
-  generate_header ~copyrights:copyrights CStyle LGPLv2plus;
+  generate_header ~copyrights CStyle LGPLv2plus;
 
   pr "
 use crate::base::*;

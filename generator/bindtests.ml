@@ -985,7 +985,7 @@ and generate_php_bindtests () =
 
 and generate_rust_bindtests () =
   let copyrights = ["Hiroyuki Katsura <hiroyuki.katsura.0513@gmail.com>"] in
-  generate_header ~copyrights:copyrights CStyle GPLv2plus;
+  generate_header ~copyrights CStyle GPLv2plus;
 
   pr "extern crate guestfs;\n";
   pr "use guestfs::*;\n";
