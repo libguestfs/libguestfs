@@ -18,7 +18,7 @@
 
 extern crate guestfs;
 
-fn create() -> guestfs::Handle {
+fn create<'a>() -> guestfs::Handle<'a> {
     match guestfs::Handle::create() {
         Ok(g) => g,
         Err(e) => panic!("fail: {:?}", e),

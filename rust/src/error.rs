@@ -56,7 +56,7 @@ impl convert::From<str::Utf8Error> for Error {
     }
 }
 
-impl base::Handle {
+impl<'a> base::Handle<'a> {
     pub(crate) fn get_error_from_handle(&self, operation: &'static str) -> Error {
         let c_msg = unsafe { guestfs_last_error(self.g) };
         let message = unsafe { utils::char_ptr_to_string(c_msg).unwrap() };

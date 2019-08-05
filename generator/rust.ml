@@ -72,6 +72,42 @@ extern \"C\" {
 }
 ";
 
+  (* event enum *)
+  pr "\n";
+  pr "pub enum Event {\n";
+  List.iter (
+    fun (name, _) ->
+      pr "    %s,\n" (snake2caml name)
+  ) events;
+  pr "}\n\n";
+
+  pr "impl Event {\n";
+  pr "    pub fn to_u64(&self) -> u64 {\n";
+  pr "        match self {\n";
+  List.iter (
+    fun (name, i) ->
+      pr "            Event::%s => %d,\n" (snake2caml name) i
+  ) events;
+  pr "        }\n";
+  pr "    }\n";
+  pr "    pub fn from_bitmask(bitmask: u64) -> Option<Event> {\n";
+  pr "        match bitmask {\n";
+  List.iter (
+    fun (name, i) ->
+      pr "            %d => Some(Event::%s),\n" i (snake2caml name)
+  ) events;
+  pr "            _ => None,\n";
+  pr "        }\n";
+  pr "    }\n";
+  pr "}\n\n";
+
+  pr "pub const EVENT_ALL: [Event; %d] = [\n" (List.length events);
+  List.iter (
+    fun (name, _) ->
+      pr "    Event::%s,\n" (snake2caml name)
+  ) events;
+  pr "];\n";
+
   List.iter (
     fun { s_camel_name = name; s_name = c_name; s_cols = cols } ->
       pr "\n";
@@ -356,7 +392,7 @@ extern \"C\" {
   pr "}\n";
 
 
-  pr "impl Handle {\n";
+  pr "impl<'a> Handle<'a> {\n";
   List.iter (
     fun ({ name = name; shortdesc = shortdesc; longdesc = longdesc;
           style = (ret, args, optargs) } as f) ->
