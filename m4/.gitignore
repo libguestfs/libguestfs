@@ -16,8 +16,6 @@
 /cloexec.m4
 /closedir.m4
 /close.m4
-/closeout.m4
-/close-stream.m4
 /codeset.m4
 /ctype.m4
 /cycle-check.m4
@@ -173,8 +171,10 @@
 /pread.m4
 /printf.m4
 /priv-set.m4
+/pthread_h.m4
 /pthread_rwlock_rdlock.m4
 /pthread_sigmask.m4
+/pthread-thread.m4
 /ptsname_r.m4
 /putenv.m4
 /quotearg.m4
