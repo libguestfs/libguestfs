@@ -17,7 +17,10 @@
 
 [package]
 name = "guestfs"
-version = "@VERSION@"
+version = "0.1.0-compat@VERSION@"
 edition = "2018"
+authors = ["Hiroyuki Katsura <hiroyuki.katsura.0513@gmail.com>"]
+description = "libguestfs bindings for Rust"
+license-file = "../COPYING"
 
 [dependencies]
