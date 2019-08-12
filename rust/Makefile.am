@@ -28,6 +28,7 @@ EXTRA_DIST = \
 	src/bin/.gitkeep \
 	Cargo.toml \
 	Cargo.lock \
+	README.md \
 	run-bindtests \
 	run-tests
 
