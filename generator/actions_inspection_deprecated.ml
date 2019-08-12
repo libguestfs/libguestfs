@@ -50,8 +50,8 @@ The application structure contains the following fields:
 
 =item C<app_name>
 
-The name of the application.  For Red Hat-derived and Debian-derived
-Linux guests, this is the package name.
+The name of the application.  For Linux guests, this is the package
+name.
 
 =item C<app_display_name>
 
@@ -136,16 +136,16 @@ installer CDs.  This API would return:
 
 =over 4
 
-=item \"installed\"
+=item C<installed>
 
 This is an installed operating system.
 
-=item \"installer\"
+=item C<installer>
 
 The disk image being inspected is not an installed operating system,
 but a I<bootable> install disk, live CD, or similar.
 
-=item \"unknown\"
+=item C<unknown>
 
 The format of this disk image is not known.
 

@@ -490,12 +490,12 @@ domain is not running (unless C<readonly> is true).  In a future
 version we will try to acquire the libvirt lock on each disk.
 
 Disks must be accessible locally.  This often means that adding disks
-from a remote libvirt connection (see L<http://libvirt.org/remote.html>)
+from a remote libvirt connection (see L<https://libvirt.org/remote.html>)
 will fail unless those disks are accessible via the same device path
 locally too.
 
 The optional C<libvirturi> parameter sets the libvirt URI
-(see L<http://libvirt.org/uri.html>).  If this is not set then
+(see L<https://libvirt.org/uri.html>).  If this is not set then
 we connect to the default libvirt URI (or one set through an
 environment variable, see the libvirt documentation for full
 details).
@@ -582,7 +582,7 @@ domain is not running (unless C<readonly> is true).  In a future
 version we will try to acquire the libvirt lock on each disk.
 
 Disks must be accessible locally.  This often means that adding disks
-from a remote libvirt connection (see L<http://libvirt.org/remote.html>)
+from a remote libvirt connection (see L<https://libvirt.org/remote.html>)
 will fail unless those disks are accessible via the same device path
 locally too.
 
@@ -955,7 +955,7 @@ C<names> is the list of files from this directory.
 On return you get a flat list of xattr structs which must be
 interpreted sequentially.  The first xattr struct always has a zero-length
 C<attrname>.  C<attrval> in this struct is zero-length
-to indicate there was an error doing C<lgetxattr> for this
+to indicate there was an error doing C<guestfs_lgetxattr> for this
 file, I<or> is a C string which is a decimal number
 (the number of following attributes for this file, which could
 be C<\"0\">).  Then after the first xattr struct are the
@@ -1005,7 +1005,7 @@ list a directory contents without making many round-trips." };
     shortdesc = "list the files in a directory";
     longdesc = "\
 List the files in F<directory> (relative to the root directory,
-there is no cwd).  The '.' and '..' entries are not returned, but
+there is no cwd).  The C<.> and C<..> entries are not returned, but
 hidden files are shown." };
 
   { defaults with
@@ -1271,7 +1271,7 @@ There are two common places that you might call C<guestfs_user_cancel>:
 
 In an interactive text-based program, you might call it from a
 C<SIGINT> signal handler so that pressing C<^C> cancels the current
-operation.  (You also need to call L</guestfs_set_pgroup> so that
+operation.  (You also need to call C<guestfs_set_pgroup> so that
 child processes don't receive the C<^C> signal).
 
 In a graphical program, when the main thread is displaying a progress
@@ -1585,7 +1585,7 @@ file types such as directories, symbolic links, block special etc." };
     shortdesc = "list the files in a directory (long format)";
     longdesc = "\
 List the files in F<directory> (relative to the root directory,
-there is no cwd) in the format of 'ls -la'.
+there is no cwd) in the format of C<ls -la>.
 
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string." };
@@ -2574,27 +2574,27 @@ for the C<cksum> command.
 
 =item C<md5>
 
-Compute the MD5 hash (using the C<md5sum> program).
+Compute the MD5 hash (using the L<md5sum(1)> program).
 
 =item C<sha1>
 
-Compute the SHA1 hash (using the C<sha1sum> program).
+Compute the SHA1 hash (using the L<sha1sum(1)> program).
 
 =item C<sha224>
 
-Compute the SHA224 hash (using the C<sha224sum> program).
+Compute the SHA224 hash (using the L<sha224sum(1)> program).
 
 =item C<sha256>
 
-Compute the SHA256 hash (using the C<sha256sum> program).
+Compute the SHA256 hash (using the L<sha256sum(1)> program).
 
 =item C<sha384>
 
-Compute the SHA384 hash (using the C<sha384sum> program).
+Compute the SHA384 hash (using the L<sha384sum(1)> program).
 
 =item C<sha512>
 
-Compute the SHA512 hash (using the C<sha512sum> program).
+Compute the SHA512 hash (using the L<sha512sum(1)> program).
 
 =back
 
@@ -2854,7 +2854,7 @@ group (if any)." };
 This wipes a physical volume C<device> so that LVM will no longer
 recognise it.
 
-The implementation uses the C<pvremove> command which refuses to
+The implementation uses the L<pvremove(8)> command which refuses to
 wipe physical volumes that contain any volume groups, so you have
 to remove those first." };
 
@@ -2958,7 +2958,7 @@ caveats in L<guestfs(3)/RUNNING COMMANDS>.
 
 =item *
 
-This uses C<grub-install> from the host.  Unfortunately grub is
+This uses L<grub-install(8)> from the host.  Unfortunately grub is
 not always compatible with itself, so this only works in rather
 narrow circumstances.  Careful testing with each guest version
 is advisable.
@@ -3054,7 +3054,7 @@ See also: C<guestfs_rename>." };
 This instructs the guest kernel to drop its page cache,
 and/or dentries and inode caches.  The parameter C<whattodrop>
 tells the kernel what precisely to drop, see
-L<http://linux-mm.org/Drop_Caches>
+L<https://linux-mm.org/Drop_Caches>
 
 Setting C<whattodrop> to 3 should drop everything.
 
@@ -3070,7 +3070,7 @@ so that the maximum guest memory is freed." };
     ];
     shortdesc = "return kernel messages";
     longdesc = "\
-This returns the kernel messages (C<dmesg> output) from
+This returns the kernel messages (L<dmesg(1)> output) from
 the guest kernel.  This is sometimes useful for extended
 debugging of problems.
 
@@ -3682,7 +3682,7 @@ If the parameter C<nrlines> is a positive number, this returns the last
 C<nrlines> lines of the file C<path>.
 
 If the parameter C<nrlines> is a negative number, this returns lines
-from the file C<path>, starting with the C<-nrlines>th line.
+from the file C<path>, starting with the C<-nrlines>'th line.
 
 If the parameter C<nrlines> is zero, this returns an empty list." };
 
@@ -3692,7 +3692,7 @@ If the parameter C<nrlines> is zero, this returns an empty list." };
     test_excuse = "tricky to test because it depends on the exact format of the 'df' command and other imponderables";
     shortdesc = "report file system disk space usage";
     longdesc = "\
-This command runs the C<df> command to report disk space used.
+This command runs the L<df(1)> command to report disk space used.
 
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.
@@ -4167,7 +4167,7 @@ for full details." };
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
-This calls the external C<grep> program and returns the
+This calls the external L<grep(1)> program and returns the
 matching lines.
 
 The optional flags are:
@@ -4190,7 +4190,7 @@ Match case-insensitive.  This is the same as using the I<-i> flag.
 
 =item C<compressed>
 
-Use C<zgrep> instead of C<grep>.  This allows the input to be
+Use L<zgrep(1)> instead of L<grep(1)>.  This allows the input to be
 compress- or gzip-compressed.
 
 =back" };
@@ -4220,7 +4220,7 @@ returned path has no C<.>, C<..> or symbolic link path elements." };
     ];
     shortdesc = "create a hard link";
     longdesc = "\
-This command creates a hard link using the C<ln> command." };
+This command creates a hard link." };
 
   { defaults with
     name = "ln_f"; added = (1, 0, 66);
@@ -4235,8 +4235,8 @@ This command creates a hard link using the C<ln> command." };
     ];
     shortdesc = "create a hard link";
     longdesc = "\
-This command creates a hard link using the C<ln -f> command.
-The I<-f> option removes the link (C<linkname>) if it exists already." };
+This command creates a hard link, removing the link C<linkname>
+if it exists already." };
 
   { defaults with
     name = "ln_s"; added = (1, 0, 66);
@@ -4623,7 +4623,7 @@ they were created.  In Windows itself this would not be
 a problem.
 
 Bug or feature?  You decide:
-L<http://www.tuxera.com/community/ntfs-3g-faq/#posixfilenames1>
+L<https://www.tuxera.com/community/ntfs-3g-faq/#posixfilenames1>
 
 C<guestfs_case_sensitive_path> attempts to resolve the true case of
 each element in the path. It will return a resolved path if either the
@@ -4744,10 +4744,10 @@ file of zeroes, use C<guestfs_fallocate64> instead." };
 This command sets the timestamps of a file with nanosecond
 precision.
 
-C<atsecs, atnsecs> are the last access time (atime) in secs and
+C<atsecs>, C<atnsecs> are the last access time (atime) in secs and
 nanoseconds from the epoch.
 
-C<mtsecs, mtnsecs> are the last modification time (mtime) in
+C<mtsecs>, C<mtnsecs> are the last modification time (mtime) in
 secs and nanoseconds from the epoch.
 
 If the C<*nsecs> field contains the special value C<-1> then
@@ -4890,9 +4890,9 @@ Possible values for C<parttype> are:
 
 =over 4
 
-=item B<efi>
+=item C<efi>
 
-=item B<gpt>
+=item C<gpt>
 
 Intel EFI / GPT partition table.
 
@@ -4900,9 +4900,9 @@ This is recommended for >= 2 TB partitions that will be accessed
 from Linux and Intel-based Mac OS X.  It also has limited backwards
 compatibility with the C<mbr> format.
 
-=item B<mbr>
+=item C<mbr>
 
-=item B<msdos>
+=item C<msdos>
 
 The standard PC \"Master Boot Record\" (MBR) format used
 by MS-DOS and Windows.  This partition type will B<only> work
@@ -4916,37 +4916,37 @@ supported include:
 
 =over 4
 
-=item B<aix>
+=item C<aix>
 
 AIX disk labels.
 
-=item B<amiga>
+=item C<amiga>
 
-=item B<rdb>
+=item C<rdb>
 
 Amiga \"Rigid Disk Block\" format.
 
-=item B<bsd>
+=item C<bsd>
 
 BSD disk labels.
 
-=item B<dasd>
+=item C<dasd>
 
 DASD, used on IBM mainframes.
 
-=item B<dvh>
+=item C<dvh>
 
 MIPS/SGI volumes.
 
-=item B<mac>
+=item C<mac>
 
 Old Mac partition format.  Modern Macs use C<gpt>.
 
-=item B<pc98>
+=item C<pc98>
 
 NEC PC-98 format, common in Japan apparently.
 
-=item B<sun>
+=item C<sun>
 
 Sun disk labels.
 
@@ -5052,20 +5052,20 @@ The fields in the returned structure are:
 
 =over 4
 
-=item B<part_num>
+=item C<part_num>
 
 Partition number, counting from 1.
 
-=item B<part_start>
+=item C<part_start>
 
 Start of the partition I<in bytes>.  To get sectors you have to
 divide by the device’s sector size, see C<guestfs_blockdev_getss>.
 
-=item B<part_end>
+=item C<part_end>
 
 End of the partition in bytes.
 
-=item B<part_size>
+=item C<part_size>
 
 Size of the partition in bytes.
 
@@ -5344,7 +5344,7 @@ checksums supported see the C<guestfs_checksum> command." };
     shortdesc = "expand an LV to fill free space";
     longdesc = "\
 This expands an existing logical volume C<lv> so that it fills
-C<pc>% of the remaining free space in the volume group.  Commonly
+C<pc> % of the remaining free space in the volume group.  Commonly
 you would call this with pc = 100 which expands the logical volume
 as much as possible, using all remaining free space in the volume
 group." };
@@ -5683,7 +5683,7 @@ of the underlying block device." };
     longdesc = "\
 This command erases existing data on C<device> and formats
 the device as a LUKS encrypted device.  C<key> is the
-initial key, which is added to key slot C<slot>.  (LUKS
+initial key, which is added to key slot C<keyslot>.  (LUKS
 supports 8 key slots, numbered 0-7)." };
 
   { defaults with
@@ -6115,7 +6115,7 @@ See also: C<guestfs_lgetxattrs>, C<guestfs_getxattr>, L<attr(5)>." };
     longdesc = "\
 This command is the same as C<guestfs_resize2fs>, but the filesystem
 is resized to its minimum size.  This works like the I<-M> option
-to the C<resize2fs> command.
+to the L<resize2fs(8)> command.
 
 To get the resulting size of the filesystem you should call
 C<guestfs_tune2fs_l> and read the C<Block size> and C<Block count>
@@ -6463,18 +6463,18 @@ The optional parameters are:
 =item C<force>
 
 Force tune2fs to complete the operation even in the face of errors.
-This is the same as the tune2fs C<-f> option.
+This is the same as the L<tune2fs(8)> C<-f> option.
 
 =item C<maxmountcount>
 
 Set the number of mounts after which the filesystem is checked
 by L<e2fsck(8)>.  If this is C<0> then the number of mounts is
-disregarded.  This is the same as the tune2fs C<-c> option.
+disregarded.  This is the same as the L<tune2fs(8)> C<-c> option.
 
 =item C<mountcount>
 
 Set the number of times the filesystem has been mounted.
-This is the same as the tune2fs C<-C> option.
+This is the same as the L<tune2fs(8)> C<-C> option.
 
 =item C<errorbehavior>
 
@@ -6483,12 +6483,12 @@ Possible values currently are: C<continue>, C<remount-ro>, C<panic>.
 In practice these options don't really make any difference,
 particularly for write errors.
 
-This is the same as the tune2fs C<-e> option.
+This is the same as the L<tune2fs(8)> C<-e> option.
 
 =item C<group>
 
 Set the group which can use reserved filesystem blocks.
-This is the same as the tune2fs C<-g> option except that it
+This is the same as the L<tune2fs(8)> C<-g> option except that it
 can only be specified as a number.
 
 =item C<intervalbetweenchecks>
@@ -6497,27 +6497,27 @@ Adjust the maximal time between two filesystem checks
 (in seconds).  If the option is passed as C<0> then
 time-dependent checking is disabled.
 
-This is the same as the tune2fs C<-i> option.
+This is the same as the L<tune2fs(8)> C<-i> option.
 
 =item C<reservedblockspercentage>
 
 Set the percentage of the filesystem which may only be allocated
 by privileged processes.
-This is the same as the tune2fs C<-m> option.
+This is the same as the L<tune2fs(8)> C<-m> option.
 
 =item C<lastmounteddirectory>
 
 Set the last mounted directory.
-This is the same as the tune2fs C<-M> option.
+This is the same as the L<tune2fs(8)> C<-M> option.
 
 =item C<reservedblockscount>
 Set the number of reserved filesystem blocks.
-This is the same as the tune2fs C<-r> option.
+This is the same as the L<tune2fs(8)> C<-r> option.
 
 =item C<user>
 
 Set the user who can use the reserved filesystem blocks.
-This is the same as the tune2fs C<-u> option except that it
+This is the same as the L<tune2fs(8)> C<-u> option except that it
 can only be specified as a number.
 
 =back
@@ -6578,8 +6578,8 @@ The chunk size in bytes.
 =item C<level>
 
 The RAID level, which can be one of:
-I<linear>, I<raid0>, I<0>, I<stripe>, I<raid1>, I<1>, I<mirror>,
-I<raid4>, I<4>, I<raid5>, I<5>, I<raid6>, I<6>, I<raid10>, I<10>.
+C<linear>, C<raid0>, C<0>, C<stripe>, C<raid1>, C<1>, C<mirror>,
+C<raid4>, C<4>, C<raid5>, C<5>, C<raid6>, C<6>, C<raid10>, C<10>.
 Some of these are synonymous, and more levels may be added in future.
 
 If not set, this defaults to C<raid1>.
@@ -6601,7 +6601,7 @@ List all Linux md devices." };
     optional = Some "mdadm";
     shortdesc = "obtain metadata for an MD device";
     longdesc = "\
-This command exposes the output of 'mdadm -DY E<lt>mdE<gt>'.
+This command exposes the output of C<mdadm -DY E<lt>mdE<gt>>.
 The following fields are usually present in the returned hash.
 Other fields may also be present.
 
@@ -6908,7 +6908,7 @@ with the I<-d> option on the host to analyze ISO files,
 instead of going through libguestfs.
 
 For information on the primary volume descriptor fields, see
-L<http://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor>" };
+L<https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor>" };
 
   { defaults with
     name = "isoinfo"; added = (1, 17, 19);
@@ -8232,7 +8232,7 @@ Set the type GUID of numbered GPT partition C<partnum> to C<guid>. Return an
 error if the partition table of C<device> isn't GPT, or if C<guid> is not a
 valid GUID.
 
-See L<http://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs>
+See L<https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs>
 for a useful list of type GUIDs." };
 
   { defaults with
@@ -8624,7 +8624,7 @@ This function is used internally when testing the appliance." };
 Copy the attributes of a path (which can be a file or a directory)
 to another path.
 
-By default C<no> attribute is copied, so make sure to specify any
+By default B<no> attribute is copied, so make sure to specify any
 (or C<all> to copy everything).
 
 The optional arguments specify which attributes can be copied:

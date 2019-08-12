@@ -154,14 +154,14 @@ partitions on block devices.
 C<device> should be a block device, for example F</dev/sda>.
 
 C<cyls>, C<heads> and C<sectors> are the number of cylinders, heads
-and sectors on the device, which are passed directly to sfdisk as
-the I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any
+and sectors on the device, which are passed directly to L<sfdisk(8)>
+as the I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any
 of these, then the corresponding parameter is omitted.  Usually for
 ‘large’ disks, you can just pass C<0> for these, but for small
-(floppy-sized) disks, sfdisk (or rather, the kernel) cannot work
+(floppy-sized) disks, L<sfdisk(8)> (or rather, the kernel) cannot work
 out the right geometry and you will need to tell it.
 
-C<lines> is a list of lines that we feed to C<sfdisk>.  For more
+C<lines> is a list of lines that we feed to L<sfdisk(8)>.  For more
 information refer to the L<sfdisk(8)> manpage.
 
 To create a single partition occupying the whole disk, you would
@@ -370,10 +370,10 @@ and C<guestfs_part_disk>" };
     deprecated_by = Replaced_by "file";
     shortdesc = "determine file type inside a compressed file";
     longdesc = "\
-This command runs F<file> after first decompressing C<path>
-using C<method>.
+This command runs L<file(1)> after first decompressing C<path>
+using C<meth>.
 
-C<method> must be one of C<gzip>, C<compress> or C<bzip2>.
+C<meth> must be one of C<gzip>, C<compress> or C<bzip2>.
 
 Since 1.0.63, use C<guestfs_file> instead which can now
 process compressed files." };
@@ -390,7 +390,7 @@ process compressed files." };
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
-This calls the external C<egrep> program and returns the
+This calls the external L<egrep(1)> program and returns the
 matching lines." };
 
   { defaults with
@@ -405,7 +405,7 @@ matching lines." };
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
-This calls the external C<fgrep> program and returns the
+This calls the external L<fgrep(1)> program and returns the
 matching lines." };
 
   { defaults with
@@ -465,7 +465,7 @@ matching lines." };
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
-This calls the external C<zgrep> program and returns the
+This calls the external L<zgrep(1)> program and returns the
 matching lines." };
 
   { defaults with
@@ -778,7 +778,7 @@ it to local file C<tarball> (as an xz compressed tar archive)." };
     deprecated_by = Replaced_by "lgetxattrs";
     shortdesc = "list the files in a directory (long format with SELinux contexts)";
     longdesc = "\
-List the files in F<directory> in the format of 'ls -laZ'.
+List the files in F<directory> in the format of C<ls -laZ>.
 
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string." };

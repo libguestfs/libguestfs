@@ -600,9 +600,9 @@ Get the handle identifier.  See C<guestfs_set_identifier>." };
     longdesc = "\
 Get the directory used by the handle to store temporary socket files.
 
-This is different from C<guestfs_tmpdir>, as we need shorter paths for
-sockets (due to the limited buffers of filenames for UNIX sockets),
-and C<guestfs_tmpdir> may be too long for them.
+This is different from C<guestfs_get_tmpdir>, as we need shorter
+paths for sockets (due to the limited buffers of filenames for UNIX
+sockets), and C<guestfs_get_tmpdir> may be too long for them.
 
 The environment variable C<XDG_RUNTIME_DIR> controls the default
 value: If C<XDG_RUNTIME_DIR> is set, then that is the default.

@@ -118,7 +118,7 @@ Defines a variable C<name> whose value is the result of
 evaluating C<expr>.
 
 If C<expr> evaluates to an empty nodeset, a node is created,
-equivalent to calling C<guestfs_aug_set> C<expr>, C<value>.
+equivalent to calling C<guestfs_aug_set> C<expr>, C<val>.
 C<name> will be the nodeset containing that single node.
 
 On success this returns a pair containing the
@@ -146,7 +146,7 @@ matches exactly one node, the C<value> is returned." };
     ];
     shortdesc = "set Augeas path to value";
     longdesc = "\
-Set the value associated with C<path> to C<val>.
+Set the value associated with C<augpath> to C<val>.
 
 In the Augeas API, it is possible to clear a node by setting
 the value to NULL.  Due to an oversight in the libguestfs API

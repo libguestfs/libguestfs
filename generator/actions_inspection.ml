@@ -632,8 +632,8 @@ The application structure contains the following fields:
 
 =item C<app2_name>
 
-The name of the application.  For Red Hat-derived and Debian-derived
-Linux guests, this is the package name.
+The name of the application.  For Linux guests, this is the package
+name.
 
 =item C<app2_display_name>
 
@@ -763,8 +763,8 @@ required size.
 =item *
 
 Extracting icons from Windows guests requires the external
-C<wrestool> program from the C<icoutils> package, and
-several programs (C<bmptopnm>, C<pnmtopng>, C<pamcut>)
+L<wrestool(1)> program from the C<icoutils> package, and
+several programs (L<bmptopnm(1)>, L<pnmtopng(1)>, L<pamcut(1)>)
 from the C<netpbm> package.  These must be installed separately.
 
 =item *
