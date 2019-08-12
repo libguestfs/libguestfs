@@ -35,6 +35,9 @@ class Connection(object):
     ):
         pass
 
+    def close(self):
+        pass
+
     def system_service(self):
         return SystemService()
 

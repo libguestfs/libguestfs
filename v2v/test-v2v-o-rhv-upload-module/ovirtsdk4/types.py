@@ -73,7 +73,7 @@ class Disk(object):
     ):
         pass
 
-    id = 123
+    id = "123"
     status = DiskStatus.OK
 
 class ImageTransferPhase(Enum):
@@ -104,7 +104,7 @@ class ImageTransfer(object):
     ):
         pass
 
-    id = 456
+    id = "456"
     phase = ImageTransferPhase.TRANSFERRING
     transfer_url = "http://localhost:" + str(imageio_port) + "/"
 
