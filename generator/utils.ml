@@ -173,9 +173,9 @@ let html_escape text =
   text
 
 (* Used to memoize the result of pod2text. *)
-type memo_key = int option * bool * bool * string * string
-                (* width,    trim, discard, name,   longdesc *)
-type memo_value = string list (* list of lines of POD file *)
+type pod2text_memo_key = int option * bool * bool * string * string
+                         (* width,    trim, discard, name,   longdesc *)
+type pod2text_memo_value = string list (* list of lines of POD file *)
 let run_pod2text (width, trim, discard, name, longdesc) =
   let filename, chan = Filename.open_temp_file "gen" ".tmp" in
   fprintf chan "=encoding utf8\n\n";
@@ -198,7 +198,7 @@ let run_pod2text (width, trim, discard, name, longdesc) =
       lines := line :: !lines;
       loop (i+1)
     ) in
-  let lines : memo_value = try loop 1 with End_of_file -> List.rev !lines in
+  let lines : pod2text_memo_value = try loop 1 with End_of_file -> List.rev !lines in
   unlink filename;
   (match close_process_in chan with
    | WEXITED 0 -> ()
@@ -208,11 +208,11 @@ let run_pod2text (width, trim, discard, name, longdesc) =
        failwithf "pod2text: process signalled or stopped by signal %d" i
   );
   lines
-let pod2text_memo : (memo_key, memo_value) Memoized_cache.t =
+let pod2text_memo : (pod2text_memo_key, pod2text_memo_value) Memoized_cache.t =
   Memoized_cache.create ~version:2 "pod2text" run_pod2text
 
-let pod2text_memo_atexit = ref false
-let pod2text_memo_save () =
+let memos_atexit = ref false
+let memos_save () =
   Memoized_cache.save pod2text_memo
 
 (* Useful if you need the longdesc POD text as plain text.  Returns a
@@ -222,10 +222,10 @@ let pod2text_memo_save () =
  * we memoize the results.
  *)
 let pod2text ?width ?(trim = true) ?(discard = true) name longdesc =
-  let key : memo_key = width, trim, discard, name, longdesc in
-  if not (!pod2text_memo_atexit) then (
-    at_exit pod2text_memo_save;
-    pod2text_memo_atexit := true;
+  let key : pod2text_memo_key = width, trim, discard, name, longdesc in
+  if not (!memos_atexit) then (
+    at_exit memos_save;
+    memos_atexit := true;
   );
   Memoized_cache.find pod2text_memo key
 
