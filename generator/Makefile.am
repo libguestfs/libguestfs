@@ -85,6 +85,8 @@ sources = \
 	lua.mli \
 	main.ml \
 	main.mli \
+	memoized_cache.ml \
+	memoized_cache.mli \
 	OCaml.ml \
 	OCaml.mli \
 	optgroups.ml \
@@ -121,6 +123,7 @@ sources = \
 # In build dependency order.
 objects = \
 	types.cmo \
+	memoized_cache.cmo \
 	utils.cmo \
 	proc_nr.cmo \
 	actions_augeas.cmo \
