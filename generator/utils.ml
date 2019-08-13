@@ -177,36 +177,33 @@ type pod2text_memo_key = int option * bool * bool * string * string
                          (* width,    trim, discard, name,   longdesc *)
 type pod2text_memo_value = string list (* list of lines of POD file *)
 let run_pod2text (width, trim, discard, name, longdesc) =
-  let filename, chan = Filename.open_temp_file "gen" ".tmp" in
-  fprintf chan "=encoding utf8\n\n";
-  fprintf chan "=head1 %s\n\n%s\n" name longdesc;
-  close_out chan;
   let cmd =
     match width with
     | Some width ->
-        sprintf "pod2text -w %d %s" width (Filename.quote filename)
+        sprintf "pod2text -w %d" width
     | None ->
-        sprintf "pod2text %s" (Filename.quote filename) in
-  let chan = open_process_in cmd in
+        "pod2text" in
+  let chan_out, chan_in = open_process cmd in
+  output_string chan_in "=encoding utf8\n\n";
+  output_string chan_in (sprintf "=head1 %s\n\n%s\n" name longdesc);
+  close_out chan_in;
   let lines = ref [] in
-  let rec loop i =
-    let line = input_line chan in
-    if i = 1 && discard then  (* discard the first line of output *)
-      loop (i+1)
-    else (
-      let line = if trim then String.triml line else line in
-      lines := line :: !lines;
-      loop (i+1)
-    ) in
-  let lines : pod2text_memo_value = try loop 1 with End_of_file -> List.rev !lines in
-  unlink filename;
-  (match close_process_in chan with
+  (try while true do lines := input_line chan_out :: !lines done
+   with End_of_file -> ());
+  let lines = List.rev !lines in
+  (match close_process (chan_out, chan_in) with
    | WEXITED 0 -> ()
    | WEXITED i ->
        failwithf "pod2text: process exited with non-zero status (%d)" i
    | WSIGNALED i | WSTOPPED i ->
        failwithf "pod2text: process signalled or stopped by signal %d" i
   );
+  let lines =
+    if discard then (* discard the first line of output *) List.tl lines
+    else lines in
+  let lines =
+    if trim then List.map String.triml lines
+    else lines in
   lines
 let pod2text_memo : (pod2text_memo_key, pod2text_memo_value) Memoized_cache.t =
   Memoized_cache.create ~version:2 "pod2text" run_pod2text
