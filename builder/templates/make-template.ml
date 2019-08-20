@@ -352,6 +352,7 @@ and os_of_string os ver =
   | "debian", "7" -> Debian (7, "wheezy")
   | "debian", "8" -> Debian (8, "jessie")
   | "debian", "9" -> Debian (9, "stretch")
+  | "debian", "10" -> Debian (10, "buster")
   | "ubuntu", "10.04" -> Ubuntu (ver, "lucid")
   | "ubuntu", "12.04" -> Ubuntu (ver, "precise")
   | "ubuntu", "14.04" -> Ubuntu (ver, "trusty")
