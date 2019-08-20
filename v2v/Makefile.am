@@ -479,7 +479,7 @@ TESTS += \
 	test-v2v-print-source.sh \
 	test-v2v-sound.sh \
 	test-v2v-virtio-win-iso.sh \
-	test-v2v-windows-conversion.sh
+	test-v2v-windows-conversion.sh \
 	$(SLOW_TESTS) \
 	$(ROOT_TESTS)
 endif ENABLE_APPLIANCE
