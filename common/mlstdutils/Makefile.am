@@ -22,16 +22,22 @@ EXTRA_DIST = \
 	$(SOURCES_ML) \
 	std_utils_tests.ml
 
-SOURCES_MLI = \
+SOURCES_MLI =
+
+if HAVE_BYTES_COMPAT_ML
+SOURCES_MLI += bytes.mli
+endif
+
+SOURCES_MLI += \
 	guestfs_config.mli \
 	std_utils.mli \
 	stringMap.mli \
 	stringSet.mli
 
-if HAVE_BYTES_COMPAT_ML
-SOURCES_ML = bytes.ml
-else
 SOURCES_ML =
+
+if HAVE_BYTES_COMPAT_ML
+SOURCES_ML += bytes.ml
 endif
 
 SOURCES_ML += \
