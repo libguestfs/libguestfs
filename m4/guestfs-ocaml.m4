@@ -198,18 +198,13 @@ let to_string = String.copy
 let sub_string = String.sub
 EOF
     $OCAMLC -i common/mlstdutils/bytes.ml > common/mlstdutils/bytes.mli
-    OCAML_BYTES_COMPAT_CMO='$(top_builddir)/common/mlstdutils/bytes.cmo'
-    OCAML_BYTES_COMPAT_ML='$(top_builddir)/common/mlstdutils/bytes.ml'
     safe_string_option=
 ],[
-    OCAML_BYTES_COMPAT_CMO=
-    OCAML_BYTES_COMPAT_ML=
     safe_string_option="-safe-string"
 ])
-AC_SUBST([OCAML_BYTES_COMPAT_CMO])
-AC_SUBST([OCAML_BYTES_COMPAT_ML])
 AM_CONDITIONAL([HAVE_BYTES_COMPAT_ML],
-	       [test "x$OCAML_BYTES_COMPAT_ML" != "x"])
+	       [test "x$have_Bytes_module" = "xno"])
+
 AS_IF([test "x$have_Hivex_OPEN_UNSAFE" = "xno"],[
     HIVEX_OPEN_UNSAFE_FLAG="None"
 ],[
