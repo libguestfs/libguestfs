@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2019-01-16 11:53+0000\n"
+"POT-Creation-Date: 2019-09-02 09:54+0100\n"
 "PO-Revision-Date: 2017-02-24 07:33+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -47,7 +47,7 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../v2v/input_ova.ml:152 ../common/mltools/tools_utils.ml:133
+#: ../v2v/input_ova.ml:152 ../common/mltools/tools_utils.ml:187
 msgid "%s"
 msgstr ""
 
@@ -57,7 +57,7 @@ msgid ""
 "Options:\n"
 msgstr ""
 
-#. ../common/mltools/tools_utils.ml:611
+#. ../common/mltools/tools_utils.ml:640
 #: ../v2v/inspect_source.ml:53 ../customize/customize_run.ml:480
 msgid "%s (ignored)"
 msgstr ""
@@ -124,21 +124,21 @@ msgstr ""
 
 #. ../v2v/cmdline.ml:79
 #. ../v2v/cmdline.ml:71
-#: ../v2v/copy_to_local.ml:40 ../v2v/cmdline.ml:155 ../v2v/cmdline.ml:136
+#: ../v2v/copy_to_local.ml:40 ../v2v/cmdline.ml:156 ../v2v/cmdline.ml:136
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1020
+#: ../v2v/convert_linux.ml:1029
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:129 ../common/mltools/tools_utils.ml:101
+#: ../common/mltools/tools_utils.ml:183 ../common/mltools/tools_utils.ml:155
 msgid "%s: %s"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:131
+#: ../common/mltools/tools_utils.ml:185
 msgid "%s: %s: %s"
 msgstr ""
 
@@ -219,7 +219,7 @@ msgstr ""
 msgid "%s: cannot determine the virtual size of %s due to compression"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:363
+#: ../v2v/windows_virtio.ml:371
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -247,7 +247,7 @@ msgstr ""
 msgid "%s: command exited with an error"
 msgstr ""
 
-#: ../v2v/cmdline.ml:280
+#: ../v2v/cmdline.ml:281
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -314,7 +314,7 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:73
+#: ../common/mltools/tools_utils.ml:125
 msgid "%s: error: %s"
 msgstr ""
 
@@ -379,7 +379,7 @@ msgstr ""
 msgid "%s: no ‘uri’ entry for ‘%s’ in %s, skipping it\n"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:644
+#: ../common/mltools/tools_utils.ml:673
 msgid "%s: operation timed out"
 msgstr ""
 
@@ -484,7 +484,7 @@ msgid ""
 "compress with gzip or xz), zip"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:91
+#: ../common/mltools/tools_utils.ml:144
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -559,7 +559,7 @@ msgstr ""
 msgid "--get-kernel: too many parameters"
 msgstr ""
 
-#: ../v2v/cmdline.ml:364
+#: ../v2v/cmdline.ml:365
 msgid "--in-place and --print-estimate cannot be used together"
 msgstr ""
 
@@ -652,39 +652,59 @@ msgstr ""
 msgid "-it vddk: ‘-io %s’ is not a valid input option"
 msgstr ""
 
-#: ../v2v/cmdline.ml:515
+#: ../v2v/cmdline.ml:527
 msgid "-o %s: %s option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:520
+#: ../v2v/cmdline.ml:532
 msgid "-o and --in-place cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:123
+#: ../v2v/output_json.ml:47
+msgid "-o json: -oo json-disks-pattern set more than once"
+msgstr ""
+
+#: ../v2v/output_json.ml:51
+msgid "-o json: -oo json-disks-pattern: invalid variable %%{%s}"
+msgstr ""
+
+#: ../v2v/output_json.ml:56
+msgid "-o json: -oo json-disks-pattern: unhandled variable %%{%s}"
+msgstr ""
+
+#: ../v2v/cmdline.ml:569
+msgid "-o json: output directory was not specified, use '-os /dir'"
+msgstr ""
+
+#: ../v2v/output_json.ml:61
+msgid "-o json: unknown output option ‘-oo %s’"
+msgstr ""
+
+#: ../v2v/output_libvirt.ml:136
 msgid ""
 "-o libvirt: output pool ‘%s’ does not have /pool/name element.  See virt-v2v-"
 "output-local(1)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:113
+#: ../v2v/output_libvirt.ml:126
 msgid ""
 "-o libvirt: output pool ‘%s’ does not have /pool/target/path element.  See "
 "virt-v2v-output-local(1)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:115
+#: ../v2v/output_libvirt.ml:128
 msgid ""
 "-o libvirt: output pool ‘%s’ has type='dir' but the /pool/target/path "
 "element is not a local directory.  See virt-v2v-output-local(1)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:109
+#: ../v2v/output_libvirt.ml:122
 msgid ""
 "-o libvirt: output pool ‘%s’ is not a directory (type='dir').  See virt-v2v-"
 "output-local(1)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:555
+#: ../v2v/cmdline.ml:584
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
@@ -692,7 +712,7 @@ msgstr ""
 msgid "-o openstack: unknown output option ‘-oo %s’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:587
+#: ../v2v/cmdline.ml:616
 msgid "-o qemu: output directory was not specified, use '-os /dir'"
 msgstr ""
 
@@ -710,13 +730,13 @@ msgid ""
 "RHV user’s ‘ca.pem’ file"
 msgstr ""
 
-#: ../v2v/cmdline.ml:629
+#: ../v2v/cmdline.ml:658
 msgid ""
 "-o rhv-upload: output password file was not specified, use ‘-op’ to point to "
 "a file which contains the password used to connect to the oVirt or RHV server"
 msgstr ""
 
-#: ../v2v/cmdline.ml:634
+#: ../v2v/cmdline.ml:663
 msgid "-o rhv-upload: output storage was not specified, use ‘-os’"
 msgstr ""
 
@@ -724,13 +744,13 @@ msgstr ""
 msgid "-o rhv-upload: unknown output option ‘-oo %s’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:623
+#: ../v2v/cmdline.ml:652
 msgid ""
 "-o rhv-upload: use ‘-oc’ to point to the oVirt or RHV server REST API URL, "
 "which is usually https://servername/ovirt-engine/api"
 msgstr ""
 
-#: ../v2v/cmdline.ml:612
+#: ../v2v/cmdline.ml:641
 msgid "-o rhv: output storage was not specified, use ‘-os’"
 msgstr ""
 
@@ -750,7 +770,7 @@ msgstr ""
 msgid "-o vdsm: either -oo vdsm-vol-uuid or -oo vdsm-vm-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:649
+#: ../v2v/cmdline.ml:678
 msgid "-o vdsm: output storage was not specified, use ‘-os’"
 msgstr ""
 
@@ -762,37 +782,37 @@ msgstr ""
 msgid "-o vdsm: unknown vdsm-compat level ‘%s’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:589 ../v2v/cmdline.ml:557
+#: ../v2v/cmdline.ml:618 ../v2v/cmdline.ml:586 ../v2v/cmdline.ml:571
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#. ../v2v/copy_to_local.ml:308
-#: ../v2v/parse_libvirt_xml.ml:356 ../v2v/parse_libvirt_xml.ml:314
+#. ../v2v/copy_to_local.ml:313
+#: ../v2v/parse_libvirt_xml.ml:370 ../v2v/parse_libvirt_xml.ml:325
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:329
+#: ../v2v/parse_libvirt_xml.ml:340
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:352
+#: ../v2v/parse_libvirt_xml.ml:366
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:296 ../v2v/copy_to_local.ml:290
+#: ../v2v/parse_libvirt_xml.ml:307 ../v2v/copy_to_local.ml:295
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:171
+#: ../v2v/parse_libvirt_xml.ml:182
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:399
+#: ../v2v/parse_libvirt_xml.ml:413
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:241
+#: ../v2v/input_libvirt_vddk.ml:232
 msgid ""
 "<vmware:moref> was not found in the output of ‘virsh dumpxml \"%s\"’.  The "
 "most likely reason is that libvirt is too old, try upgrading libvirt to ≥ "
@@ -864,7 +884,7 @@ msgstr ""
 msgid "Ask the user about missing data"
 msgstr ""
 
-#: ../v2v/v2v.ml:167
+#: ../v2v/v2v.ml:161
 msgid "Assigning disks to buses"
 msgstr ""
 
@@ -898,7 +918,7 @@ msgstr ""
 msgid "Behaviour on expand unknown filesystems (default: warn)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:243
+#: ../v2v/cmdline.ml:244
 msgid "Boot in qemu (-o qemu only)"
 msgstr ""
 
@@ -951,11 +971,11 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:386
+#: ../v2v/v2v.ml:380
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:646
+#: ../v2v/v2v.ml:640
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -969,11 +989,11 @@ msgstr ""
 msgid "Clearing Linux swap on %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:150
+#: ../v2v/v2v.ml:144
 msgid "Closing the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:151
+#: ../v2v/v2v.ml:145
 msgid "Closing the source VM"
 msgstr ""
 
@@ -981,7 +1001,7 @@ msgstr ""
 msgid "Compatibility option, does nothing"
 msgstr ""
 
-#: ../v2v/cmdline.ml:196
+#: ../v2v/cmdline.ml:197
 msgid "Compress output file (-of qcow2 only)"
 msgstr ""
 
@@ -1005,11 +1025,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:564
+#: ../v2v/v2v.ml:558
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:562
+#: ../v2v/v2v.ml:556
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -1045,15 +1065,15 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:690
+#: ../v2v/v2v.ml:684
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:693
+#: ../v2v/v2v.ml:687
 msgid "Copying disk %d/%d to qemu URI %s (%s)"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:174
+#: ../v2v/copy_to_local.ml:179
 msgid "Copying remote disk %d/%d to %s"
 msgstr ""
 
@@ -1077,7 +1097,7 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:290
+#: ../v2v/v2v.ml:284
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
@@ -1085,7 +1105,7 @@ msgstr ""
 msgid "Creating index backup copy"
 msgstr ""
 
-#: ../v2v/v2v.ml:194
+#: ../v2v/v2v.ml:188
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1170,7 +1190,7 @@ msgstr ""
 msgid "Display name: "
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:303
+#: ../common/mltools/tools_utils.ml:332
 msgid "Display version and exit"
 msgstr ""
 
@@ -1214,11 +1234,11 @@ msgstr ""
 msgid "Don’t perform changes"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:307
+#: ../common/mltools/tools_utils.ml:336
 msgid "Don’t print progress messages"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:325
+#: ../common/mltools/tools_utils.ml:354
 msgid "Don’t turn off echo for passphrases"
 msgstr ""
 
@@ -1265,7 +1285,7 @@ msgstr ""
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:304
+#: ../common/mltools/tools_utils.ml:333
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1273,7 +1293,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:305
+#: ../common/mltools/tools_utils.ml:334
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1285,11 +1305,11 @@ msgstr ""
 msgid "Enter a number between 1 and %d, or ‘exit’: "
 msgstr ""
 
-#: ../v2v/cmdline.ml:240
+#: ../v2v/cmdline.ml:241
 msgid "Estimate size of source and stop"
 msgstr ""
 
-#: ../v2v/v2v.ml:122
+#: ../v2v/v2v.ml:116
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1412,7 +1432,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:198
 #. ../builder/builder.ml:768
-#: ../v2v/v2v.ml:203 ../v2v/copy_to_local.ml:226
+#: ../v2v/v2v.ml:197 ../v2v/copy_to_local.ml:231
 msgid "Finishing off"
 msgstr ""
 
@@ -1512,7 +1532,7 @@ msgstr ""
 msgid "HOSTNAME"
 msgstr ""
 
-#: ../v2v/cmdline.ml:245
+#: ../v2v/cmdline.ml:246
 msgid "How to choose root filesystem"
 msgstr ""
 
@@ -1524,7 +1544,7 @@ msgstr ""
 msgid "Identifier: "
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:78
+#: ../common/mltools/tools_utils.ml:130
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1540,7 +1560,7 @@ msgstr ""
 msgid "Ignore partition"
 msgstr ""
 
-#: ../v2v/cmdline.ml:275 ../v2v/cmdline.ml:220
+#: ../v2v/cmdline.ml:276 ../v2v/cmdline.ml:221
 msgid "Ignored for backwards compatibility"
 msgstr ""
 
@@ -1548,7 +1568,7 @@ msgstr ""
 msgid "Importing the image to docker as ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:175
+#: ../v2v/v2v.ml:169
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1556,7 +1576,7 @@ msgstr ""
 msgid "Inject a public key into the guest"
 msgstr ""
 
-#: ../v2v/cmdline.ml:204
+#: ../v2v/cmdline.ml:205
 msgid "Input format (for -i disk)"
 msgstr ""
 
@@ -1583,15 +1603,15 @@ msgid ""
 "information on these settings.\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:210
+#: ../v2v/cmdline.ml:211
 msgid "Input transport"
 msgstr ""
 
-#: ../v2v/v2v.ml:111
+#: ../v2v/v2v.ml:105
 msgid "Inspecting the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:112
+#: ../v2v/v2v.ml:106
 msgid "Inspecting the source VM"
 msgstr ""
 
@@ -1619,7 +1639,7 @@ msgstr ""
 msgid "Installing: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:218
+#: ../v2v/cmdline.ml:219
 msgid "Just write the metadata"
 msgstr ""
 
@@ -1635,7 +1655,7 @@ msgstr ""
 msgid "Label for the root fs"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:48 ../v2v/cmdline.ml:202
+#: ../v2v/copy_to_local.ml:48 ../v2v/cmdline.ml:203
 msgid "Libvirt URI"
 msgstr ""
 
@@ -1659,7 +1679,7 @@ msgstr ""
 msgid "Main element for building ramdisks"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:332
+#: ../common/mltools/tools_utils.ml:361
 msgid "Make output machine readable"
 msgstr ""
 
@@ -1667,19 +1687,19 @@ msgstr ""
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:214
+#: ../v2v/cmdline.ml:215
 msgid "Map NIC to network or bridge"
 msgstr ""
 
-#: ../v2v/cmdline.ml:194
+#: ../v2v/cmdline.ml:195
 msgid "Map bridge ‘in’ to ‘out’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:216
+#: ../v2v/cmdline.ml:217
 msgid "Map network ‘in’ to ‘out’"
 msgstr ""
 
-#: ../v2v/v2v.ml:145
+#: ../v2v/v2v.ml:139
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1711,11 +1731,11 @@ msgstr ""
 msgid "Name of the image"
 msgstr ""
 
-#: ../v2v/cmdline.ml:374
+#: ../v2v/cmdline.ml:375
 msgid "No -io (input options) are supported with this input transport.\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:401
+#: ../v2v/cmdline.ml:402
 msgid "No -oo (output options) are supported in this output mode.\n"
 msgstr ""
 
@@ -1759,14 +1779,14 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../customize/firstboot.ml:256
+#: ../customize/firstboot.ml:253
 msgid ""
 "One of rhsrvany.exe or pvvxsvc.exe is missing in %s.  One of them is "
 "required in order to install Windows firstboot scripts.  You can get one by "
 "building rhsrvany (https://github.com/rwmjones/rhsrvany)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:212
+#: ../v2v/cmdline.ml:213
 msgid "Only tune the guest in the input VM"
 msgstr ""
 
@@ -1778,15 +1798,15 @@ msgstr ""
 msgid "Opening the new disk"
 msgstr ""
 
-#: ../v2v/v2v.ml:91
+#: ../v2v/v2v.ml:85
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:206
+#: ../v2v/v2v.ml:200
 msgid "Opening the source %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:92
+#: ../v2v/v2v.ml:86
 msgid "Opening the source VM"
 msgstr ""
 
@@ -1818,8 +1838,15 @@ msgstr ""
 msgid "Output formats"
 msgstr ""
 
-#: ../v2v/cmdline.ml:226
+#: ../v2v/cmdline.ml:227
 msgid "Output hypervisor connection"
+msgstr ""
+
+#: ../v2v/output_json.ml:33
+msgid ""
+"Output options (-oo) which can be used with -o json:\n"
+"\n"
+"  -oo json-disks-pattern=PATTERN   Pattern for the disks.\n"
 msgstr ""
 
 #: ../v2v/output_rhv_upload.ml:38
@@ -1855,7 +1882,7 @@ msgstr ""
 msgid "Output size"
 msgstr ""
 
-#: ../v2v/v2v.ml:822
+#: ../v2v/v2v.ml:816
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr ""
 
@@ -1880,13 +1907,13 @@ msgstr ""
 msgid "POD notes for %s must not end with newline"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:479
+#: ../v2v/convert_linux.ml:491
 msgid ""
 "Parallels tools was detected, but uninstallation failed. The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:133
+#: ../v2v/copy_to_local.ml:138
 msgid "Parsing the remote libvirt XML metadata ..."
 msgstr ""
 
@@ -1926,8 +1953,12 @@ msgstr ""
 msgid "Print info about template cache"
 msgstr ""
 
-#: ../v2v/cmdline.ml:242
+#: ../v2v/cmdline.ml:243
 msgid "Print source and stop"
+msgstr ""
+
+#: ../v2v/windows_virtio.ml:223
+msgid "QEMU Guest Agent installed for this guest."
 msgstr ""
 
 #: ../v2v/create_ovf.ml:829 ../v2v/create_ovf.ml:495
@@ -1938,7 +1969,7 @@ msgstr ""
 msgid "Read customize commands from file"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:326
+#: ../common/mltools/tools_utils.ml:355
 msgid "Read passphrases from stdin"
 msgstr ""
 
@@ -2149,7 +2180,7 @@ msgstr ""
 msgid "Removing all the subscriptions"
 msgstr ""
 
-#: ../v2v/cmdline.ml:230
+#: ../v2v/cmdline.ml:231
 msgid "Rename guest when converting"
 msgstr ""
 
@@ -2226,7 +2257,7 @@ msgid "SCRIPT"
 msgstr ""
 
 #. ../customize/customize_cmdline.ml:315
-#. ../common/mltools/tools_utils.ml:327
+#. ../common/mltools/tools_utils.ml:356
 #: ../customize/customize_cmdline.ml:470 ../customize/customize_cmdline.ml:344
 msgid "SELECTOR"
 msgstr ""
@@ -2247,67 +2278,67 @@ msgstr ""
 msgid "SSH key inject: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:247
+#: ../v2v/cmdline.ml:248
 msgid "Same as ‘-io vddk-config=filename’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:249
+#: ../v2v/cmdline.ml:250
 msgid "Same as ‘-io vddk-cookie=filename’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:251
+#: ../v2v/cmdline.ml:252
 msgid "Same as ‘-io vddk-libdir=libdir’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:253
+#: ../v2v/cmdline.ml:254
 msgid "Same as ‘-io vddk-nfchostport=nfchostport’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:255
+#: ../v2v/cmdline.ml:256
 msgid "Same as ‘-io vddk-port=port’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:257
+#: ../v2v/cmdline.ml:258
 msgid "Same as ‘-io vddk-snapshot=snapshot-moref’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:259
+#: ../v2v/cmdline.ml:260
 msgid "Same as ‘-io vddk-thumbprint=thumbprint’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:261
+#: ../v2v/cmdline.ml:262
 msgid "Same as ‘-io vddk-transports=transports’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:238
+#: ../v2v/cmdline.ml:239
 msgid "Same as ‘-ip filename’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:263
+#: ../v2v/cmdline.ml:264
 msgid "Same as ‘-oo vdsm-compat=0.10|1.1’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:265
+#: ../v2v/cmdline.ml:266
 msgid "Same as ‘-oo vdsm-image-uuid=uuid’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:273
+#: ../v2v/cmdline.ml:274
 msgid "Same as ‘-oo vdsm-ovf-flavour=flavour’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:271
+#: ../v2v/cmdline.ml:272
 msgid "Same as ‘-oo vdsm-ovf-output=dir’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:269
+#: ../v2v/cmdline.ml:270
 msgid "Same as ‘-oo vdsm-vm-uuid=uuid’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:267
+#: ../v2v/cmdline.ml:268
 msgid "Same as ‘-oo vdsm-vol-uuid=uuid’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:198
+#: ../v2v/cmdline.ml:199
 msgid "Save overlay files"
 msgstr ""
 
@@ -2355,7 +2386,7 @@ msgstr ""
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:200
+#: ../v2v/cmdline.ml:201
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
@@ -2383,15 +2414,15 @@ msgstr ""
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:206
+#: ../v2v/cmdline.ml:207
 msgid "Set option for input mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:232
+#: ../v2v/cmdline.ml:233
 msgid "Set option for output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:224
+#: ../v2v/cmdline.ml:225
 msgid "Set output allocation mode"
 msgstr ""
 
@@ -2403,15 +2434,15 @@ msgstr ""
 msgid "Set output filename"
 msgstr ""
 
-#: ../v2v/cmdline.ml:228
+#: ../v2v/cmdline.ml:229
 msgid "Set output format"
 msgstr ""
 
-#: ../v2v/cmdline.ml:222
+#: ../v2v/cmdline.ml:223
 msgid "Set output mode (default: libvirt)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:236
+#: ../v2v/cmdline.ml:237
 msgid "Set output storage location"
 msgstr ""
 
@@ -2519,7 +2550,7 @@ msgstr ""
 msgid "Source URI: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:211
+#: ../v2v/v2v.ml:205
 msgid "Source guest information (--print-source option):\n"
 msgstr ""
 
@@ -2531,7 +2562,7 @@ msgstr ""
 msgid "Sparsify operation completed with no errors."
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:327
+#: ../common/mltools/tools_utils.ml:356
 msgid "Specify a LUKS key"
 msgstr ""
 
@@ -2583,7 +2614,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:815
+#: ../v2v/convert_linux.ml:824
 msgid ""
 "The display driver was updated to ‘%s’, but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2717,11 +2748,11 @@ msgid ""
 "virtual machine’s disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:584
+#: ../v2v/v2v.ml:578
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:582
+#: ../v2v/v2v.ml:576
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2732,7 +2763,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:667
+#: ../v2v/v2v.ml:661
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2821,7 +2852,7 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:309
+#: ../common/mltools/tools_utils.ml:338
 msgid "Use ANSI colour sequences even if not tty"
 msgstr ""
 
@@ -2829,11 +2860,11 @@ msgstr ""
 msgid "Use password from file"
 msgstr ""
 
-#: ../v2v/cmdline.ml:208
+#: ../v2v/cmdline.ml:209
 msgid "Use password from file to connect to input hypervisor"
 msgstr ""
 
-#: ../v2v/cmdline.ml:234
+#: ../v2v/cmdline.ml:235
 msgid "Use password from file to connect to output hypervisor"
 msgstr ""
 
@@ -2853,7 +2884,7 @@ msgstr ""
 msgid "Using prebuilt file %s as overlay"
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:128
+#: ../v2v/input_libvirt_vddk.ml:124
 msgid ""
 "VDDK library path %s not found or not a directory.  See the virt-v2v-input-"
 "vmware(1) manual."
@@ -2865,7 +2896,7 @@ msgid ""
 "‘convert’"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:401
+#: ../v2v/convert_linux.ml:413
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
@@ -2881,7 +2912,7 @@ msgstr ""
 msgid "Write file"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:222
+#: ../v2v/copy_to_local.ml:227
 msgid "Writing libvirt XML metadata to %s ..."
 msgstr ""
 
@@ -2901,7 +2932,7 @@ msgid ""
 "resize(1) man page)."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:184
+#: ../v2v/input_libvirt_vddk.ml:180
 msgid ""
 "You must pass the ‘-io vddk-thumbprint’ option with the SSL thumbprint of "
 "the VMware server.  To find the thumbprint, see the nbdkit-vddk-plugin(1) "
@@ -2922,7 +2953,7 @@ msgstr ""
 msgid "Zeroing %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:92
+#: ../v2v/output_libvirt.ml:103
 msgid ""
 "a libvirt domain called ‘%s’ already exists on the target.\n"
 "\n"
@@ -2930,7 +2961,7 @@ msgid ""
 "delete the existing domain on the target using the ‘virsh undefine’ command."
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:95
+#: ../v2v/output_libvirt.ml:106
 msgid ""
 "a libvirt domain called ‘%s’ already exists on the target.\n"
 "\n"
@@ -2951,7 +2982,7 @@ msgstr ""
 msgid "at least one distribution root element must be specified"
 msgstr ""
 
-#: ../v2v/input_vmx.ml:404
+#: ../v2v/input_vmx.ml:410
 msgid ""
 "because libvirtd doesn't pass the SSH_AUTH_SOCK environment variable to qemu "
 "you must set this environment variable:\n"
@@ -3009,11 +3040,29 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/utils.ml:74
+#: ../v2v/utils.ml:78
 msgid ""
 "cannot find firmware for UEFI guests.\n"
 "\n"
 "You probably need to install OVMF (x86-64), or AAVMF (aarch64)"
+msgstr ""
+
+#: ../v2v/libvirt_utils.ml:54
+msgid "cannot find libvirt domain ‘%s’: %s"
+msgstr ""
+
+#: ../v2v/libvirt_utils.ml:83
+msgid ""
+"cannot find libvirt pool ‘%s’: %s\n"
+"\n"
+"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-"
+"dumpxml <pool>’ to display details about a particular pool.\n"
+"\n"
+"To set the pool which virt-v2v uses, add the ‘-os <pool>’ option."
+msgstr ""
+
+#: ../v2v/libvirt_utils.ml:93
+msgid "cannot find libvirt volume ‘%s’: %s"
 msgstr ""
 
 #: ../builder/builder.ml:100
@@ -3022,11 +3071,15 @@ msgid ""
 "Use --list to list available guest types."
 msgstr ""
 
-#: ../customize/firstboot.ml:238
+#: ../customize/firstboot.ml:235
 msgid ""
 "cannot finish firstboot installation by running ‘%s’ because host cpu (%s) "
 "and guest arch (%s) are not compatible.  The firstboot service may not run "
 "at boot."
+msgstr ""
+
+#: ../v2v/output_libvirt.ml:85
+msgid "cannot get libvirt hypervisor capabilities: %s"
 msgstr ""
 
 #: ../builder/builder.ml:369
@@ -3094,7 +3147,7 @@ msgstr ""
 msgid "connection closed"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:218
+#: ../v2v/copy_to_local.ml:223
 msgid "copy command failed, see earlier errors"
 msgstr ""
 
@@ -3102,16 +3155,17 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/input_vmx.ml:89
+#: ../v2v/input_vmx.ml:95
 msgid ""
 "could not copy the VMX file from the remote server, see earlier error "
 "messages"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:197
+#: ../v2v/output_libvirt.ml:206
 msgid ""
-"could not define libvirt domain.  The libvirt XML is still available in "
-"‘%s’.  Try running ‘virsh define %s’ yourself instead."
+"could not define libvirt domain: %s.\n"
+"The libvirt XML is still available in ‘%s’.  Try running ‘virsh -c %s define "
+"%s’ yourself instead."
 msgstr ""
 
 #: ../v2v/linux_bootloaders.ml:220
@@ -3138,7 +3192,7 @@ msgid ""
 "\\CurrentVersion"
 msgstr ""
 
-#: ../customize/firstboot.ml:235
+#: ../customize/firstboot.ml:232
 msgid ""
 "could not finish firstboot installation by running ‘%s’ because the command "
 "failed: %s"
@@ -3150,11 +3204,11 @@ msgid ""
 "Use the ‘-v’ option and look for earlier error messages."
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:39 ../v2v/copy_to_local.ml:95
+#: ../v2v/input_libvirt.ml:47 ../v2v/copy_to_local.ml:95
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:393 ../v2v/parse_libvirt_xml.ml:46
+#: ../v2v/parse_libvirt_xml.ml:407 ../v2v/parse_libvirt_xml.ml:46
 msgid "could not parse device name ‘%s’ from the source libvirt XML"
 msgstr ""
 
@@ -3179,8 +3233,8 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:157
-msgid "could not refresh libvirt pool %s"
+#: ../v2v/output_libvirt.ml:168
+msgid "could not refresh libvirt pool ‘%s’: %s"
 msgstr ""
 
 #: ../v2v/linux_bootloaders.ml:319
@@ -3239,7 +3293,7 @@ msgstr ""
 msgid "discard/trim is not supported"
 msgstr ""
 
-#: ../v2v/v2v.ml:606
+#: ../v2v/v2v.ml:600
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -3253,7 +3307,7 @@ msgid ""
 "format."
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:195
+#: ../v2v/parse_libvirt_xml.ml:206
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -3266,32 +3320,36 @@ msgstr ""
 msgid "domain"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:201
-msgid "don't know how to install guest tools on %s-%d"
-msgstr ""
-
-#: ../v2v/utils.ml:70
+#: ../v2v/utils.ml:74
 msgid "don’t know how to convert UEFI guests for architecture %s"
 msgstr ""
 
-#: ../v2v/linux.ml:159
+#: ../v2v/linux.ml:176
 msgid "don’t know how to find file owner using %s"
 msgstr ""
 
-#: ../v2v/linux.ml:113
+#: ../v2v/linux.ml:130
 msgid "don’t know how to get list of files from package using %s"
 msgstr ""
 
-#: ../v2v/linux.ml:42
+#: ../v2v/linux.ml:44
 msgid "don’t know how to install packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/linux.ml:69
+#: ../v2v/linux.ml:71
 msgid "don’t know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:920
+#: ../v2v/convert_linux.ml:929
 msgid "don’t know how to update %s which loads the %s module"
+msgstr ""
+
+#: ../v2v/linux.ml:201
+msgid "don’t know what is the architecture string of %s using %s on %s"
+msgstr ""
+
+#: ../v2v/linux.ml:188
+msgid "don’t know what is the extension of binary packages using %s"
 msgstr ""
 
 #: ../get-kernel/get_kernel.ml:183
@@ -3363,7 +3421,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:146
+#: ../common/mltools/tools_utils.ml:200
 msgid "exception: %s"
 msgstr ""
 
@@ -3373,23 +3431,23 @@ msgid ""
 "string: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:458
+#: ../v2v/cmdline.ml:470
 msgid "expecting a disk image (filename) on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:486
+#: ../v2v/cmdline.ml:498
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:470
+#: ../v2v/cmdline.ml:482
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:504
+#: ../v2v/cmdline.ml:516
 msgid "expecting a single VMX file name or SSH remote path on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:495
+#: ../v2v/cmdline.ml:507
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
@@ -3397,23 +3455,23 @@ msgstr ""
 msgid "external command failed: %s"
 msgstr ""
 
-#: ../dib/dib.ml:998 ../common/mltools/tools_utils.ml:353
+#: ../dib/dib.ml:998 ../common/mltools/tools_utils.ml:382
 msgid "external command ‘%s’ exited with error %d"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:434 ../common/mltools/tools_utils.ml:355
+#: ../common/mltools/tools_utils.ml:463 ../common/mltools/tools_utils.ml:384
 msgid "external command ‘%s’ killed by signal %d"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:436 ../common/mltools/tools_utils.ml:357
+#: ../common/mltools/tools_utils.ml:465 ../common/mltools/tools_utils.ml:386
 msgid "external command ‘%s’ stopped by signal %d"
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:258
+#: ../v2v/output_rhv_upload.ml:254
 msgid "failed server prechecks, see earlier errors"
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:401
+#: ../v2v/output_rhv_upload.ml:397
 msgid "failed to create virtual machine, see earlier errors"
 msgstr ""
 
@@ -3429,7 +3487,7 @@ msgstr ""
 msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:218
+#: ../v2v/windows_virtio.ml:225
 msgid "failed to install QEMU Guest Agent: %s"
 msgstr ""
 
@@ -3441,7 +3499,7 @@ msgstr ""
 msgid "failed to sign index"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:137
+#: ../common/mltools/tools_utils.ml:191
 msgid "failure: %s"
 msgstr ""
 
@@ -3475,7 +3533,7 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../customize/firstboot.ml:147
+#: ../customize/firstboot.ml:144
 msgid ""
 "firstboot: unknown version for old firstboot.service file %s (md5=%s), it "
 "will not be removed"
@@ -3508,7 +3566,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:438
+#: ../v2v/v2v.ml:432
 msgid ""
 "fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
 "To find out more read \"Trimming\" in virt-v2v(1).\n"
@@ -3522,7 +3580,7 @@ msgid ""
 "'--ignore %s', or use copying mode instead."
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:156
+#: ../common/mltools/tools_utils.ml:210
 msgid "generated by %s %s"
 msgstr ""
 
@@ -3537,7 +3595,7 @@ msgstr ""
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/v2v.ml:324
+#: ../v2v/v2v.ml:318
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -3552,21 +3610,11 @@ msgid ""
 "workaround."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:211
-msgid ""
-"guest tools directory ‘%s’ is missing from the virtio-win directory or ISO.\n"
-"\n"
-"Guest tools are only provided in the RHV Guest Tools ISO, so this can happen "
-"if you are using the version of virtio-win which contains just the virtio "
-"drivers.  In this case only virtio drivers can be installed in the guest, "
-"and installation of Guest Tools will be skipped."
-msgstr ""
-
-#: ../customize/firstboot.ml:167
+#: ../customize/firstboot.ml:164
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:369
+#: ../customize/firstboot.ml:367
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -3589,7 +3637,7 @@ msgstr ""
 msgid "ignore|warn|error"
 msgstr ""
 
-#: ../v2v/linux_kernels.ml:292
+#: ../v2v/linux_kernels.ml:316
 msgid "ignoring kernel %s in bootloader, as it does not exist."
 msgstr ""
 
@@ -3603,11 +3651,11 @@ msgid ""
 "Requested size = %s, minimum size = %s"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:86
+#: ../v2v/parse_libvirt_xml.ml:97
 msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:91
+#: ../v2v/parse_libvirt_xml.ml:102
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
@@ -3637,7 +3685,7 @@ msgid ""
 "No root device found in this operating system image."
 msgstr ""
 
-#: ../v2v/v2v.ml:285
+#: ../v2v/v2v.ml:279
 msgid ""
 "insufficient free space in the conversion server temporary directory %s "
 "(%s).\n"
@@ -3650,31 +3698,31 @@ msgid ""
 "host\"."
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:144
+#: ../common/mltools/tools_utils.ml:198
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:141
+#: ../common/mltools/tools_utils.ml:195
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:139
+#: ../common/mltools/tools_utils.ml:193
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/linux.ml:129
+#: ../v2v/linux.ml:146
 msgid "internal error: is_file_owned: dpkg command returned no output"
 msgstr ""
 
-#: ../v2v/linux.ml:134
+#: ../v2v/linux.ml:151
 msgid "internal error: is_file_owned: unexpected output from dpkg command: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:707
+#: ../v2v/v2v.ml:701
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
-#: ../v2v/v2v.ml:314
+#: ../v2v/v2v.ml:308
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
@@ -3690,7 +3738,7 @@ msgstr ""
 msgid "invalid -n/--network parameter"
 msgstr ""
 
-#: ../v2v/input_vmx.ml:468
+#: ../v2v/input_vmx.ml:474
 msgid "invalid cpuid.coresPerSocket < number of vCPUs"
 msgstr ""
 
@@ -3698,7 +3746,7 @@ msgstr ""
 msgid "invalid format for '--%s' parameter, see the man page"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:284
+#: ../common/mltools/tools_utils.ml:308
 msgid "invalid format string for --machine-readable: %s"
 msgstr ""
 
@@ -3714,11 +3762,15 @@ msgstr ""
 msgid "invalid offset returned by tar: %S"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:296
+#: ../common/mltools/tools_utils.ml:323
+msgid "invalid output fd for --machine-readable: %s"
+msgstr ""
+
+#: ../common/mltools/tools_utils.ml:325
 msgid "invalid output for --machine-readable: %s"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:293
+#: ../common/mltools/tools_utils.ml:317
 msgid "invalid output stream for --machine-readable: %s"
 msgstr ""
 
@@ -3726,7 +3778,7 @@ msgstr ""
 msgid "invalid password selector ‘%s’; see the man page"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:322
+#: ../common/mltools/tools_utils.ml:351
 msgid "invalid selector string for --key: %s"
 msgstr ""
 
@@ -3758,7 +3810,7 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../common/mltools/tools_utils.ml:135
+#: ../common/mltools/tools_utils.ml:189
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -3767,6 +3819,12 @@ msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
 "probably a bug in libguestfs.  root=%s fmt=%s"
+msgstr ""
+
+#: ../v2v/libvirt_utils.ml:64
+msgid ""
+"libvirt domain ‘%s’ is running or paused.  It must be shut down in order to "
+"perform virt-v2v conversion"
 msgstr ""
 
 #: ../customize/customize_run.ml:53
@@ -3839,7 +3897,7 @@ msgid ""
 "twice"
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:147
+#: ../v2v/output_rhv_upload.ml:143
 msgid ""
 "nbdkit %s plugin is not installed or not working.  It is required if you "
 "want to use ‘-o rhv-upload’.\n"
@@ -3847,7 +3905,7 @@ msgid ""
 "See also the virt-v2v-output-rhv(1) manual."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:174
+#: ../v2v/input_libvirt_vddk.ml:170
 msgid ""
 "nbdkit VDDK plugin is not installed or not working.  It is required if you "
 "want to use VDDK.\n"
@@ -3859,7 +3917,7 @@ msgid ""
 "See also the virt-v2v-input-vmware(1) manual."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:168
+#: ../v2v/input_libvirt_vddk.ml:164
 msgid ""
 "nbdkit VDDK plugin is not installed or not working.  It is required if you "
 "want to use VDDK.\n"
@@ -3871,11 +3929,11 @@ msgid ""
 "See also the virt-v2v-input-vmware(1) manual."
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:327 ../v2v/input_libvirt_vddk.ml:373
+#: ../v2v/output_rhv_upload.ml:323 ../v2v/input_libvirt_vddk.ml:364
 msgid "nbdkit did not start up.  See previous debugging messages for problems."
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:329 ../v2v/input_libvirt_vddk.ml:375
+#: ../v2v/output_rhv_upload.ml:325 ../v2v/input_libvirt_vddk.ml:366
 msgid ""
 "nbdkit did not start up.  There may be errors printed by nbdkit above.\n"
 "\n"
@@ -3883,23 +3941,23 @@ msgid ""
 "the ‘virt-v2v -v -x’ options and examine the debugging output carefully."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:135
+#: ../v2v/input_libvirt_vddk.ml:131
 msgid ""
 "nbdkit is not installed or not working.  It is required to use ‘-it vddk’.  "
 "See the virt-v2v-input-vmware(1) manual."
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:124
+#: ../v2v/output_rhv_upload.ml:120
 msgid ""
 "nbdkit is not installed or not working.  It is required to use ‘-o rhv-"
 "upload’.  See the virt-v2v-output-rhv(1) manual."
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:135 ../v2v/input_libvirt_vddk.ml:146
+#: ../v2v/output_rhv_upload.ml:131 ../v2v/input_libvirt_vddk.ml:142
 msgid "nbdkit is not new enough, you need to upgrade to nbdkit ≥ 1.1.16"
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:164 ../v2v/input_libvirt_vddk.ml:198
+#: ../v2v/output_rhv_upload.ml:160 ../v2v/input_libvirt_vddk.ml:194
 msgid ""
 "nbdkit was compiled without SELinux support.  You will have to recompile "
 "nbdkit with libselinux-devel installed, or else set SELinux to Permissive "
@@ -3910,11 +3968,11 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../v2v/cmdline.ml:378
+#: ../v2v/cmdline.ml:379
 msgid "no -io (input options) are allowed here"
 msgstr ""
 
-#: ../v2v/cmdline.ml:405
+#: ../v2v/cmdline.ml:406
 msgid "no -oo (output options) are allowed here"
 msgstr ""
 
@@ -3945,7 +4003,7 @@ msgstr ""
 msgid "no cache directory\n"
 msgstr ""
 
-#: ../v2v/input_vmx.ml:424
+#: ../v2v/input_vmx.ml:430
 msgid "no displayName key found in VMX file"
 msgstr ""
 
@@ -3963,7 +4021,7 @@ msgstr ""
 msgid "no initrd was found in /boot matching %s %s."
 msgstr ""
 
-#: ../v2v/linux_kernels.ml:267
+#: ../v2v/linux_kernels.ml:291
 msgid ""
 "no installed kernel packages were found.\n"
 "\n"
@@ -3974,7 +4032,7 @@ msgstr ""
 msgid "no kernel found in %s"
 msgstr ""
 
-#: ../v2v/linux_kernels.ml:304
+#: ../v2v/linux_kernels.ml:328
 msgid ""
 "no kernels were found in the bootloader configuration.\n"
 "\n"
@@ -4005,13 +4063,13 @@ msgstr ""
 msgid "no python binary called ‘%s’ can be found on the $PATH"
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:72
+#: ../v2v/input_libvirt.ml:80
 msgid ""
 "no support for remote libvirt connections to '-ic %s'.  The conversion may "
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:414
+#: ../v2v/v2v.ml:408
 msgid ""
 "not enough free space for conversion on filesystem ‘%s’.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -4027,7 +4085,7 @@ msgid ""
 "the output."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:493
+#: ../v2v/convert_linux.ml:505
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -4041,11 +4099,11 @@ msgid ""
 "v2v-copy-to-local(1) manual page."
 msgstr ""
 
-#: ../v2v/cmdline.ml:510
+#: ../v2v/cmdline.ml:522
 msgid "only ‘-it ssh’ can be used here"
 msgstr ""
 
-#: ../v2v/cmdline.ml:476
+#: ../v2v/cmdline.ml:488
 msgid "only ‘-it vddk’ can be used here"
 msgstr ""
 
@@ -4129,7 +4187,7 @@ msgid ""
 "if-partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:616
+#: ../v2v/v2v.ml:610
 msgid ""
 "output format should be ‘raw’ or ‘qcow2’.\n"
 "\n"
@@ -4211,7 +4269,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:759 ../v2v/v2v.ml:310
+#: ../v2v/v2v.ml:753 ../v2v/v2v.ml:304
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -4219,7 +4277,7 @@ msgstr ""
 msgid "qemu-img measure failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:134
+#: ../v2v/input_libvirt_vcenter_https.ml:129
 msgid "qemu-img rebase failed (ignored)"
 msgstr ""
 
@@ -4256,14 +4314,14 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:276
+#: ../v2v/output_rhv_upload.ml:272
 msgid ""
 "rhv-upload: -of %s: Only output format ‘raw’ or ‘qcow2’ is supported.  If "
 "the input is in a different format then force one of these output formats by "
 "adding either ‘-of raw’ or ‘-of qcow2’ on the command line."
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:172
+#: ../v2v/output_rhv_upload.ml:168
 msgid ""
 "rhv-upload: currently you must use ‘%s’.  This restriction will be loosened "
 "in a future version."
@@ -4273,7 +4331,7 @@ msgstr ""
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:296
+#: ../v2v/windows_virtio.ml:303
 msgid ""
 "root directory ‘/’ is missing from the virtio-win directory or ISO.\n"
 "\n"
@@ -4313,39 +4371,39 @@ msgstr ""
 msgid "source and fingerprint lists are not the same length"
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:326 ../v2v/input_libvirt_vcenter_https.ml:92
+#: ../v2v/input_libvirt_vddk.ml:317 ../v2v/input_libvirt_vcenter_https.ml:87
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:833
+#: ../v2v/v2v.ml:827
 msgid "source has multiple hard disk types!"
 msgstr ""
 
-#: ../v2v/v2v.ml:849
+#: ../v2v/v2v.ml:843
 msgid "source has multiple network adapter model!"
 msgstr ""
 
-#: ../v2v/v2v.ml:831 ../v2v/v2v.ml:245
+#: ../v2v/v2v.ml:825 ../v2v/v2v.ml:239
 msgid "source has no hard disks!"
 msgstr ""
 
-#: ../v2v/v2v.ml:841
+#: ../v2v/v2v.ml:835
 msgid "source has unrecognized hard disk type"
 msgstr ""
 
-#: ../v2v/v2v.ml:839
+#: ../v2v/v2v.ml:833
 msgid "source has unsupported hard disk type ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:855
+#: ../v2v/v2v.ml:849
 msgid "source has unsupported network adapter model ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:863
+#: ../v2v/v2v.ml:857
 msgid "source has unsupported video adapter model ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:240
+#: ../v2v/v2v.ml:234
 msgid ""
 "source sockets * cores * threads <> number of vCPUs.\n"
 "Sockets %d * cores per socket %d * threads %d = %d, but number of vCPUs = "
@@ -4356,11 +4414,11 @@ msgid ""
 "target."
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:196
+#: ../v2v/copy_to_local.ml:201
 msgid "ssh copy command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/utils.ml:147
+#: ../v2v/utils.ml:151
 msgid ""
 "ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  "
 "This is required by qemu to do passwordless ssh access.  See the virt-v2v(1) "
@@ -4403,7 +4461,7 @@ msgstr ""
 msgid "subscription-manager credentials required for --sm-register"
 msgstr ""
 
-#: ../v2v/v2v.ml:620
+#: ../v2v/v2v.ml:614
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -4413,7 +4471,7 @@ msgstr ""
 msgid "the --no-trim option has been removed and now does nothing"
 msgstr ""
 
-#: ../v2v/cmdline.ml:183
+#: ../v2v/cmdline.ml:184
 msgid "the --vmtype option has been removed and now does nothing"
 msgstr ""
 
@@ -4421,7 +4479,7 @@ msgstr ""
 msgid "the -ic parameter is required"
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:116
+#: ../v2v/output_rhv_upload.ml:112
 msgid ""
 "the Python module ‘ovirtsdk4’ could not be loaded, is it installed?  See "
 "previous messages for problems."
@@ -4580,7 +4638,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:658
+#: ../v2v/v2v.ml:652
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -4602,12 +4660,17 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:488
+#: ../v2v/parse_libvirt_xml.ml:527
+msgid "this guest has a direct network interface which will be ignored"
+msgid_plural "this guest has direct network interfaces which will be ignored"
+msgstr[0] ""
+
+#: ../v2v/parse_libvirt_xml.ml:509
 msgid "this guest has a passthrough host device which will be ignored"
 msgid_plural "this guest has passthrough host devices which will be ignored"
 msgstr[0] ""
 
-#: ../v2v/parse_libvirt_xml.ml:269 ../v2v/copy_to_local.ml:279
+#: ../v2v/parse_libvirt_xml.ml:280 ../v2v/copy_to_local.ml:284
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -4633,11 +4696,11 @@ msgstr ""
 msgid "too many parameters, only one path to repository is allowed"
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:373
+#: ../v2v/output_rhv_upload.ml:369
 msgid "transfer of disk %d/%d failed, see earlier error messages"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:854
+#: ../v2v/convert_linux.ml:863
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -4656,13 +4719,13 @@ msgstr ""
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:701
+#: ../v2v/convert_linux.ml:713
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:618
+#: ../v2v/convert_linux.ml:630
 msgid ""
 "unable to rebuild initrd (%s) because update-initramfs was not found in the "
 "guest"
@@ -4686,7 +4749,7 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: ../v2v/cmdline.ml:179
+#: ../v2v/cmdline.ml:180
 msgid "unknown --root option: %s"
 msgstr ""
 
@@ -4698,11 +4761,11 @@ msgstr ""
 msgid "unknown -i option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:149
+#: ../v2v/cmdline.ml:150
 msgid "unknown -o option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:160
+#: ../v2v/cmdline.ml:161
 msgid "unknown -oa option: %s"
 msgstr ""
 
@@ -4710,28 +4773,28 @@ msgstr ""
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
-#: ../v2v/input_vmx.ml:481
+#: ../v2v/input_vmx.ml:487
 msgid "unknown firmware value '%s', assuming BIOS"
 msgstr ""
 
-#. ../v2v/create_libvirt_xml.ml:137
+#. ../v2v/create_libvirt_xml.ml:142
 #: ../v2v/create_ovf.ml:442 ../v2v/create_ovf.ml:245
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:320
+#: ../v2v/cmdline.ml:321
 msgid "unknown input transport ‘-it %s’"
 msgstr ""
 
-#: ../v2v/input_vmx.ml:497
+#: ../v2v/input_vmx.ml:503
 msgid "unknown sound device '%s' ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:236
+#: ../v2v/parse_libvirt_xml.ml:247
 msgid "unknown sound model %s ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:221
+#: ../v2v/v2v.ml:215
 msgid "unknown source hypervisor (‘%s’) in metadata"
 msgstr ""
 
@@ -4790,7 +4853,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:82 ../v2v/copy_to_local.ml:146
+#: ../v2v/input_libvirt_vcenter_https.ml:77 ../v2v/copy_to_local.ml:151
 msgid ""
 "vcenter: <vmware:datacenterpath> was not found in the XML.  You need to "
 "upgrade to libvirt ≥ 1.2.20."
@@ -4896,13 +4959,13 @@ msgid ""
 "The os-* parameters and environment variables are optional.\n"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:192
+#: ../v2v/parse_libvirt_xml.ml:203
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:570
+#: ../v2v/v2v.ml:564
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -5006,7 +5069,7 @@ msgid ""
 "further information."
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:277
+#: ../v2v/input_libvirt_vddk.ml:268
 msgid ""
 "you must use the ‘-ic’ parameter.  See the virt-v2v-input-vmware(1) manual."
 msgstr ""
@@ -5015,11 +5078,11 @@ msgstr ""
 msgid "‘%s’ is not a recognized osinfo OS id; using it anyway"
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:274
+#: ../v2v/input_libvirt_vddk.ml:265
 msgid "‘-ic %s’ URL does not contain a host name field"
 msgstr ""
 
-#: ../v2v/input_libvirt_vddk.ml:121
+#: ../v2v/input_libvirt_vddk.ml:117
 msgid ""
 "‘-io vddk-libdir=%s’ does not point to a directory.  See the virt-v2v-input-"
 "vmware(1) manual."
@@ -5404,32 +5467,32 @@ msgstr ""
 msgid "%s: ‘%s’ is not a numeric value.\n"
 msgstr ""
 
-#: common/mltools/getopt-c.c:198 fish/run-0.c:513 fish/run-0.c:586
-#: fish/run-0.c:873 fish/run-0.c:1687 fish/run-0.c:1720 fish/run-0.c:1743
-#: fish/run-0.c:2398 fish/run-0.c:2494 fish/run-1.c:931 fish/run-1.c:1015
-#: fish/run-1.c:1437 fish/run-1.c:1672 fish/run-1.c:1691 fish/run-1.c:1960
-#: fish/run-1.c:2029 fish/run-1.c:2052 fish/run-1.c:2161 fish/run-1.c:2180
-#: fish/run-1.c:2199 fish/run-1.c:2500 fish/run-1.c:2603 fish/run-2.c:582
-#: fish/run-2.c:601 fish/run-2.c:853 fish/run-2.c:1483 fish/run-2.c:1534
-#: fish/run-2.c:1631 fish/run-2.c:1868 fish/run-2.c:1921 fish/run-2.c:1978
-#: fish/run-2.c:2296 fish/run-3.c:578 fish/run-3.c:790 fish/run-3.c:879
-#: fish/run-3.c:1488 fish/run-3.c:1531 fish/run-3.c:2090 fish/run-3.c:2369
-#: fish/run-3.c:2392 fish/run-3.c:2708 fish/run-3.c:2754 fish/run-3.c:2797
-#: fish/run-3.c:2841 fish/run-3.c:2860 fish/run-3.c:2879 fish/run-3.c:2952
-#: fish/run-3.c:3059 fish/run-3.c:3101 fish/run-3.c:3681 fish/run-3.c:3704
-#: fish/run-3.c:3749 fish/run-3.c:3772 fish/run-3.c:4070 fish/run-4.c:144
-#: fish/run-4.c:308 fish/run-4.c:653 fish/run-4.c:953 fish/run-4.c:1284
-#: fish/run-4.c:1374 fish/run-4.c:1441 fish/run-4.c:1485 fish/run-4.c:1530
-#: fish/run-4.c:1549 fish/run-4.c:1568 fish/run-4.c:1749 fish/run-4.c:1793
-#: fish/run-4.c:1836 fish/run-4.c:1880 fish/run-4.c:2262 fish/run-5.c:877
-#: fish/run-5.c:1006 fish/run-5.c:1567 fish/run-5.c:1615 fish/run-5.c:1659
-#: fish/run-5.c:1777 fish/run-5.c:1805 fish/run-5.c:1828 fish/run-5.c:1892
-#: fish/run-5.c:2047 fish/run-5.c:2090 fish/run-5.c:2134 fish/run-5.c:2178
-#: fish/run-5.c:2315 fish/run-5.c:2433 fish/run-5.c:2452 fish/run-5.c:2471
-#: fish/run-5.c:2549 fish/run-5.c:2568 fish/run-5.c:2587 fish/run-5.c:2606
-#: fish/run-5.c:3061 fish/run-6.c:197 fish/run-6.c:434 fish/run-6.c:618
-#: fish/run-6.c:637 fish/run-6.c:1079 fish/run-6.c:1204 fish/run-6.c:1432
-#: fish/run-6.c:1451 fish/run-6.c:1496 fish/run-6.c:1959 fish/run-6.c:2046
+#: common/mltools/getopt-c.c:198 fish/run-0.c:514 fish/run-0.c:587
+#: fish/run-0.c:874 fish/run-0.c:1688 fish/run-0.c:1721 fish/run-0.c:1744
+#: fish/run-0.c:2399 fish/run-0.c:2495 fish/run-1.c:932 fish/run-1.c:1016
+#: fish/run-1.c:1438 fish/run-1.c:1673 fish/run-1.c:1692 fish/run-1.c:1961
+#: fish/run-1.c:2030 fish/run-1.c:2053 fish/run-1.c:2162 fish/run-1.c:2181
+#: fish/run-1.c:2200 fish/run-1.c:2501 fish/run-1.c:2604 fish/run-2.c:583
+#: fish/run-2.c:602 fish/run-2.c:854 fish/run-2.c:1484 fish/run-2.c:1535
+#: fish/run-2.c:1632 fish/run-2.c:1869 fish/run-2.c:1922 fish/run-2.c:1979
+#: fish/run-2.c:2297 fish/run-3.c:579 fish/run-3.c:791 fish/run-3.c:880
+#: fish/run-3.c:1489 fish/run-3.c:1532 fish/run-3.c:2091 fish/run-3.c:2370
+#: fish/run-3.c:2393 fish/run-3.c:2709 fish/run-3.c:2755 fish/run-3.c:2798
+#: fish/run-3.c:2842 fish/run-3.c:2861 fish/run-3.c:2880 fish/run-3.c:2953
+#: fish/run-3.c:3060 fish/run-3.c:3102 fish/run-3.c:3682 fish/run-3.c:3705
+#: fish/run-3.c:3750 fish/run-3.c:3773 fish/run-3.c:4071 fish/run-4.c:145
+#: fish/run-4.c:309 fish/run-4.c:654 fish/run-4.c:954 fish/run-4.c:1285
+#: fish/run-4.c:1375 fish/run-4.c:1442 fish/run-4.c:1486 fish/run-4.c:1531
+#: fish/run-4.c:1550 fish/run-4.c:1569 fish/run-4.c:1750 fish/run-4.c:1794
+#: fish/run-4.c:1837 fish/run-4.c:1881 fish/run-4.c:2263 fish/run-5.c:878
+#: fish/run-5.c:1007 fish/run-5.c:1568 fish/run-5.c:1616 fish/run-5.c:1660
+#: fish/run-5.c:1778 fish/run-5.c:1806 fish/run-5.c:1829 fish/run-5.c:1893
+#: fish/run-5.c:2048 fish/run-5.c:2091 fish/run-5.c:2135 fish/run-5.c:2179
+#: fish/run-5.c:2316 fish/run-5.c:2434 fish/run-5.c:2453 fish/run-5.c:2472
+#: fish/run-5.c:2550 fish/run-5.c:2569 fish/run-5.c:2588 fish/run-5.c:2607
+#: fish/run-5.c:3062 fish/run-6.c:198 fish/run-6.c:435 fish/run-6.c:619
+#: fish/run-6.c:638 fish/run-6.c:1080 fish/run-6.c:1205 fish/run-6.c:1433
+#: fish/run-6.c:1452 fish/run-6.c:1497 fish/run-6.c:1960 fish/run-6.c:2047
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: 範囲外の整数\n"
@@ -5583,27 +5646,27 @@ msgstr ""
 msgid "could not list inactive domains (code %d, domain %d): %s"
 msgstr ""
 
-#: common/utils/utils.c:226
+#: common/utils/utils.c:273
 #, c-format
 msgid "%s exited successfully"
 msgstr "%s が正常に終了しました"
 
-#: common/utils/utils.c:229
+#: common/utils/utils.c:276
 #, c-format
 msgid "%s exited with error status %d"
 msgstr "%s がエラーステータス %d で終了しました"
 
-#: common/utils/utils.c:233
+#: common/utils/utils.c:280
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr "%s がシグナル %d (%s) によりキルされました"
 
-#: common/utils/utils.c:237
+#: common/utils/utils.c:284
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr "%s がシグナル %d (%s) により停止しました"
 
-#: common/utils/utils.c:241
+#: common/utils/utils.c:288
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr "%s が未知の理由で終了しました (ステータス %d)"
@@ -8668,127 +8731,127 @@ msgstr ""
 msgid "reopen: guestfs_create: failed to create handle\n"
 msgstr "reopen: guestfs_create: ハンドルの作成に失敗しました\n"
 
-#: fish/run-0.c:142 fish/run-0.c:160 fish/run-0.c:173 fish/run-0.c:201
-#: fish/run-0.c:349 fish/run-0.c:716 fish/run-0.c:729 fish/run-0.c:1987
-#: fish/run-0.c:2358 fish/run-0.c:2449 fish/run-0.c:2558 fish/run-0.c:2627
-#: fish/run-1.c:300 fish/run-1.c:527 fish/run-1.c:540 fish/run-1.c:553
-#: fish/run-1.c:566 fish/run-1.c:678 fish/run-1.c:691 fish/run-1.c:1161
-#: fish/run-1.c:1174 fish/run-1.c:1187 fish/run-1.c:1200 fish/run-1.c:1477
-#: fish/run-1.c:1490 fish/run-1.c:2343 fish/run-1.c:2387 fish/run-1.c:2400
-#: fish/run-1.c:2413 fish/run-1.c:2426 fish/run-1.c:2439 fish/run-1.c:2693
-#: fish/run-1.c:2741 fish/run-1.c:2815 fish/run-1.c:2999 fish/run-1.c:3012
-#: fish/run-1.c:3061 fish/run-1.c:3142 fish/run-1.c:3155 fish/run-1.c:3168
-#: fish/run-1.c:3181 fish/run-1.c:3194 fish/run-2.c:137 fish/run-2.c:201
-#: fish/run-2.c:514 fish/run-2.c:725 fish/run-2.c:738 fish/run-2.c:1018
-#: fish/run-2.c:1270 fish/run-2.c:1351 fish/run-2.c:1566 fish/run-2.c:1877
-#: fish/run-2.c:2200 fish/run-2.c:2213 fish/run-2.c:2375 fish/run-3.c:416
-#: fish/run-3.c:986 fish/run-3.c:1352 fish/run-3.c:1365 fish/run-3.c:1378
-#: fish/run-3.c:1391 fish/run-3.c:1634 fish/run-3.c:1693 fish/run-3.c:2440
-#: fish/run-3.c:2453 fish/run-3.c:2466 fish/run-3.c:2479 fish/run-3.c:2492
-#: fish/run-3.c:2505 fish/run-3.c:2518 fish/run-3.c:2531 fish/run-3.c:2544
-#: fish/run-3.c:2557 fish/run-3.c:2570 fish/run-3.c:2583 fish/run-3.c:2596
-#: fish/run-3.c:2609 fish/run-3.c:2622 fish/run-3.c:2635 fish/run-3.c:2648
-#: fish/run-3.c:2924 fish/run-3.c:2965 fish/run-3.c:3233 fish/run-3.c:3246
-#: fish/run-3.c:3363 fish/run-3.c:3549 fish/run-3.c:3562 fish/run-3.c:3575
-#: fish/run-3.c:3658 fish/run-4.c:180 fish/run-4.c:490 fish/run-4.c:1638
-#: fish/run-4.c:2087 fish/run-5.c:410 fish/run-5.c:548 fish/run-5.c:561
-#: fish/run-5.c:673 fish/run-5.c:686 fish/run-5.c:1224 fish/run-5.c:1302
-#: fish/run-5.c:2275 fish/run-5.c:2367 fish/run-5.c:2944 fish/run-5.c:2957
-#: fish/run-5.c:2970 fish/run-5.c:3145 fish/run-5.c:3158 fish/run-5.c:3171
-#: fish/run-5.c:3184 fish/run-6.c:258 fish/run-6.c:1657 fish/run-6.c:1803
-#: fish/run-6.c:1816 fish/run-6.c:2099 fish/run-6.c:2118 fish/run-6.c:2131
-#: fish/run-6.c:2144
+#: fish/run-0.c:143 fish/run-0.c:161 fish/run-0.c:174 fish/run-0.c:202
+#: fish/run-0.c:350 fish/run-0.c:717 fish/run-0.c:730 fish/run-0.c:1988
+#: fish/run-0.c:2359 fish/run-0.c:2450 fish/run-0.c:2559 fish/run-0.c:2628
+#: fish/run-1.c:301 fish/run-1.c:528 fish/run-1.c:541 fish/run-1.c:554
+#: fish/run-1.c:567 fish/run-1.c:679 fish/run-1.c:692 fish/run-1.c:1162
+#: fish/run-1.c:1175 fish/run-1.c:1188 fish/run-1.c:1201 fish/run-1.c:1478
+#: fish/run-1.c:1491 fish/run-1.c:2344 fish/run-1.c:2388 fish/run-1.c:2401
+#: fish/run-1.c:2414 fish/run-1.c:2427 fish/run-1.c:2440 fish/run-1.c:2694
+#: fish/run-1.c:2742 fish/run-1.c:2816 fish/run-1.c:3000 fish/run-1.c:3013
+#: fish/run-1.c:3062 fish/run-1.c:3143 fish/run-1.c:3156 fish/run-1.c:3169
+#: fish/run-1.c:3182 fish/run-1.c:3195 fish/run-2.c:138 fish/run-2.c:202
+#: fish/run-2.c:515 fish/run-2.c:726 fish/run-2.c:739 fish/run-2.c:1019
+#: fish/run-2.c:1271 fish/run-2.c:1352 fish/run-2.c:1567 fish/run-2.c:1878
+#: fish/run-2.c:2201 fish/run-2.c:2214 fish/run-2.c:2376 fish/run-3.c:417
+#: fish/run-3.c:987 fish/run-3.c:1353 fish/run-3.c:1366 fish/run-3.c:1379
+#: fish/run-3.c:1392 fish/run-3.c:1635 fish/run-3.c:1694 fish/run-3.c:2441
+#: fish/run-3.c:2454 fish/run-3.c:2467 fish/run-3.c:2480 fish/run-3.c:2493
+#: fish/run-3.c:2506 fish/run-3.c:2519 fish/run-3.c:2532 fish/run-3.c:2545
+#: fish/run-3.c:2558 fish/run-3.c:2571 fish/run-3.c:2584 fish/run-3.c:2597
+#: fish/run-3.c:2610 fish/run-3.c:2623 fish/run-3.c:2636 fish/run-3.c:2649
+#: fish/run-3.c:2925 fish/run-3.c:2966 fish/run-3.c:3234 fish/run-3.c:3247
+#: fish/run-3.c:3364 fish/run-3.c:3550 fish/run-3.c:3563 fish/run-3.c:3576
+#: fish/run-3.c:3659 fish/run-4.c:181 fish/run-4.c:491 fish/run-4.c:1639
+#: fish/run-4.c:2088 fish/run-5.c:411 fish/run-5.c:549 fish/run-5.c:562
+#: fish/run-5.c:674 fish/run-5.c:687 fish/run-5.c:1225 fish/run-5.c:1303
+#: fish/run-5.c:2276 fish/run-5.c:2368 fish/run-5.c:2945 fish/run-5.c:2958
+#: fish/run-5.c:2971 fish/run-5.c:3146 fish/run-5.c:3159 fish/run-5.c:3172
+#: fish/run-5.c:3185 fish/run-6.c:259 fish/run-6.c:1658 fish/run-6.c:1804
+#: fish/run-6.c:1817 fish/run-6.c:2100 fish/run-6.c:2119 fish/run-6.c:2132
+#: fish/run-6.c:2145
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr "%s: '%s': 無効な論理値、'true' または 'false' を使用してください\n"
 
-#: fish/run-0.c:211 fish/run-0.c:359 fish/run-0.c:523 fish/run-0.c:596
-#: fish/run-0.c:739 fish/run-0.c:1753 fish/run-0.c:1873 fish/run-0.c:1997
-#: fish/run-0.c:2568 fish/run-1.c:310 fish/run-1.c:576 fish/run-1.c:701
-#: fish/run-1.c:1210 fish/run-1.c:1500 fish/run-1.c:2084 fish/run-1.c:2449
-#: fish/run-1.c:2703 fish/run-1.c:2880 fish/run-1.c:3022 fish/run-1.c:3214
-#: fish/run-2.c:211 fish/run-2.c:278 fish/run-2.c:748 fish/run-2.c:1028
-#: fish/run-2.c:1280 fish/run-2.c:1361 fish/run-2.c:1686 fish/run-2.c:2223
-#: fish/run-3.c:431 fish/run-3.c:493 fish/run-3.c:588 fish/run-3.c:889
-#: fish/run-3.c:996 fish/run-3.c:1401 fish/run-3.c:1644 fish/run-3.c:1703
-#: fish/run-3.c:2658 fish/run-3.c:2975 fish/run-3.c:3256 fish/run-3.c:3585
-#: fish/run-3.c:3821 fish/run-4.c:400 fish/run-4.c:505 fish/run-4.c:863
-#: fish/run-4.c:1648 fish/run-4.c:2097 fish/run-5.c:571 fish/run-5.c:696
-#: fish/run-5.c:750 fish/run-5.c:1234 fish/run-5.c:1312 fish/run-5.c:1843
-#: fish/run-5.c:3071 fish/run-5.c:3272 fish/run-6.c:1252 fish/run-6.c:1323
-#: fish/run-6.c:1667 fish/run-6.c:1826 fish/run-6.c:2154
+#: fish/run-0.c:212 fish/run-0.c:360 fish/run-0.c:524 fish/run-0.c:597
+#: fish/run-0.c:740 fish/run-0.c:1754 fish/run-0.c:1874 fish/run-0.c:1998
+#: fish/run-0.c:2569 fish/run-1.c:311 fish/run-1.c:577 fish/run-1.c:702
+#: fish/run-1.c:1211 fish/run-1.c:1501 fish/run-1.c:2085 fish/run-1.c:2450
+#: fish/run-1.c:2704 fish/run-1.c:2881 fish/run-1.c:3023 fish/run-1.c:3215
+#: fish/run-2.c:212 fish/run-2.c:279 fish/run-2.c:749 fish/run-2.c:1029
+#: fish/run-2.c:1281 fish/run-2.c:1362 fish/run-2.c:1687 fish/run-2.c:2224
+#: fish/run-3.c:432 fish/run-3.c:494 fish/run-3.c:589 fish/run-3.c:890
+#: fish/run-3.c:997 fish/run-3.c:1402 fish/run-3.c:1645 fish/run-3.c:1704
+#: fish/run-3.c:2659 fish/run-3.c:2976 fish/run-3.c:3257 fish/run-3.c:3586
+#: fish/run-3.c:3822 fish/run-4.c:401 fish/run-4.c:506 fish/run-4.c:864
+#: fish/run-4.c:1649 fish/run-4.c:2098 fish/run-5.c:572 fish/run-5.c:697
+#: fish/run-5.c:751 fish/run-5.c:1235 fish/run-5.c:1313 fish/run-5.c:1844
+#: fish/run-5.c:3072 fish/run-5.c:3273 fish/run-6.c:1253 fish/run-6.c:1324
+#: fish/run-6.c:1668 fish/run-6.c:1827 fish/run-6.c:2155
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: 未知のオプション引数 \"%s\"\n"
 
-#: fish/run-0.c:217 fish/run-0.c:365 fish/run-0.c:529 fish/run-0.c:602
-#: fish/run-0.c:745 fish/run-0.c:1759 fish/run-0.c:1879 fish/run-0.c:2003
-#: fish/run-0.c:2574 fish/run-1.c:316 fish/run-1.c:582 fish/run-1.c:707
-#: fish/run-1.c:1216 fish/run-1.c:1506 fish/run-1.c:2090 fish/run-1.c:2455
-#: fish/run-1.c:2709 fish/run-1.c:2886 fish/run-1.c:3028 fish/run-1.c:3220
-#: fish/run-2.c:217 fish/run-2.c:284 fish/run-2.c:754 fish/run-2.c:1034
-#: fish/run-2.c:1286 fish/run-2.c:1367 fish/run-2.c:1692 fish/run-2.c:2229
-#: fish/run-3.c:437 fish/run-3.c:499 fish/run-3.c:594 fish/run-3.c:895
-#: fish/run-3.c:1002 fish/run-3.c:1407 fish/run-3.c:1650 fish/run-3.c:1709
-#: fish/run-3.c:2664 fish/run-3.c:2981 fish/run-3.c:3262 fish/run-3.c:3591
-#: fish/run-3.c:3827 fish/run-4.c:406 fish/run-4.c:511 fish/run-4.c:869
-#: fish/run-4.c:1654 fish/run-4.c:2103 fish/run-5.c:577 fish/run-5.c:702
-#: fish/run-5.c:756 fish/run-5.c:1240 fish/run-5.c:1318 fish/run-5.c:1849
-#: fish/run-5.c:3077 fish/run-5.c:3278 fish/run-6.c:1258 fish/run-6.c:1329
-#: fish/run-6.c:1673 fish/run-6.c:1832 fish/run-6.c:2160
+#: fish/run-0.c:218 fish/run-0.c:366 fish/run-0.c:530 fish/run-0.c:603
+#: fish/run-0.c:746 fish/run-0.c:1760 fish/run-0.c:1880 fish/run-0.c:2004
+#: fish/run-0.c:2575 fish/run-1.c:317 fish/run-1.c:583 fish/run-1.c:708
+#: fish/run-1.c:1217 fish/run-1.c:1507 fish/run-1.c:2091 fish/run-1.c:2456
+#: fish/run-1.c:2710 fish/run-1.c:2887 fish/run-1.c:3029 fish/run-1.c:3221
+#: fish/run-2.c:218 fish/run-2.c:285 fish/run-2.c:755 fish/run-2.c:1035
+#: fish/run-2.c:1287 fish/run-2.c:1368 fish/run-2.c:1693 fish/run-2.c:2230
+#: fish/run-3.c:438 fish/run-3.c:500 fish/run-3.c:595 fish/run-3.c:896
+#: fish/run-3.c:1003 fish/run-3.c:1408 fish/run-3.c:1651 fish/run-3.c:1710
+#: fish/run-3.c:2665 fish/run-3.c:2982 fish/run-3.c:3263 fish/run-3.c:3592
+#: fish/run-3.c:3828 fish/run-4.c:407 fish/run-4.c:512 fish/run-4.c:870
+#: fish/run-4.c:1655 fish/run-4.c:2104 fish/run-5.c:578 fish/run-5.c:703
+#: fish/run-5.c:757 fish/run-5.c:1241 fish/run-5.c:1319 fish/run-5.c:1850
+#: fish/run-5.c:3078 fish/run-5.c:3279 fish/run-6.c:1259 fish/run-6.c:1330
+#: fish/run-6.c:1674 fish/run-6.c:1833 fish/run-6.c:2161
 #, c-format
 msgid "%s: optional argument \"%s\" given more than once\n"
 msgstr ""
 
-#: fish/run-0.c:507 fish/run-0.c:580 fish/run-0.c:867 fish/run-0.c:1006
-#: fish/run-0.c:1046 fish/run-0.c:1060 fish/run-0.c:1098 fish/run-0.c:1134
-#: fish/run-0.c:1642 fish/run-0.c:1659 fish/run-0.c:1681 fish/run-0.c:1714
-#: fish/run-0.c:1737 fish/run-0.c:1974 fish/run-0.c:2153 fish/run-0.c:2392
-#: fish/run-0.c:2488 fish/run-1.c:287 fish/run-1.c:631 fish/run-1.c:648
-#: fish/run-1.c:665 fish/run-1.c:815 fish/run-1.c:925 fish/run-1.c:1009
-#: fish/run-1.c:1254 fish/run-1.c:1308 fish/run-1.c:1345 fish/run-1.c:1431
-#: fish/run-1.c:1666 fish/run-1.c:1685 fish/run-1.c:1954 fish/run-1.c:2006
-#: fish/run-1.c:2023 fish/run-1.c:2046 fish/run-1.c:2069 fish/run-1.c:2155
-#: fish/run-1.c:2174 fish/run-1.c:2193 fish/run-1.c:2494 fish/run-1.c:2513
-#: fish/run-1.c:2597 fish/run-1.c:2616 fish/run-2.c:256 fish/run-2.c:456
-#: fish/run-2.c:576 fish/run-2.c:595 fish/run-2.c:678 fish/run-2.c:695
-#: fish/run-2.c:712 fish/run-2.c:847 fish/run-2.c:1099 fish/run-2.c:1136
-#: fish/run-2.c:1477 fish/run-2.c:1528 fish/run-2.c:1625 fish/run-2.c:1757
-#: fish/run-2.c:1862 fish/run-2.c:1915 fish/run-2.c:1934 fish/run-2.c:1972
-#: fish/run-2.c:2084 fish/run-2.c:2290 fish/run-2.c:2555 fish/run-3.c:483
-#: fish/run-3.c:572 fish/run-3.c:784 fish/run-3.c:834 fish/run-3.c:873
-#: fish/run-3.c:956 fish/run-3.c:969 fish/run-3.c:1443 fish/run-3.c:1482
-#: fish/run-3.c:1525 fish/run-3.c:1809 fish/run-3.c:2084 fish/run-3.c:2159
-#: fish/run-3.c:2176 fish/run-3.c:2193 fish/run-3.c:2210 fish/run-3.c:2227
-#: fish/run-3.c:2244 fish/run-3.c:2261 fish/run-3.c:2278 fish/run-3.c:2295
-#: fish/run-3.c:2312 fish/run-3.c:2329 fish/run-3.c:2346 fish/run-3.c:2363
-#: fish/run-3.c:2386 fish/run-3.c:2702 fish/run-3.c:2748 fish/run-3.c:2791
-#: fish/run-3.c:2835 fish/run-3.c:2854 fish/run-3.c:2873 fish/run-3.c:2946
-#: fish/run-3.c:3017 fish/run-3.c:3053 fish/run-3.c:3095 fish/run-3.c:3675
-#: fish/run-3.c:3698 fish/run-3.c:3726 fish/run-3.c:3743 fish/run-3.c:3766
-#: fish/run-3.c:3794 fish/run-3.c:3811 fish/run-3.c:3896 fish/run-3.c:3909
-#: fish/run-3.c:3922 fish/run-3.c:3935 fish/run-3.c:4064 fish/run-4.c:138
-#: fish/run-4.c:302 fish/run-4.c:443 fish/run-4.c:604 fish/run-4.c:647
-#: fish/run-4.c:696 fish/run-4.c:709 fish/run-4.c:750 fish/run-4.c:819
-#: fish/run-4.c:836 fish/run-4.c:853 fish/run-4.c:947 fish/run-4.c:1081
-#: fish/run-4.c:1278 fish/run-4.c:1368 fish/run-4.c:1435 fish/run-4.c:1479
-#: fish/run-4.c:1524 fish/run-4.c:1543 fish/run-4.c:1562 fish/run-4.c:1693
-#: fish/run-4.c:1706 fish/run-4.c:1743 fish/run-4.c:1787 fish/run-4.c:1830
-#: fish/run-4.c:1874 fish/run-4.c:2256 fish/run-5.c:501 fish/run-5.c:518
-#: fish/run-5.c:535 fish/run-5.c:626 fish/run-5.c:643 fish/run-5.c:660
-#: fish/run-5.c:871 fish/run-5.c:1000 fish/run-5.c:1068 fish/run-5.c:1397
-#: fish/run-5.c:1561 fish/run-5.c:1609 fish/run-5.c:1653 fish/run-5.c:1771
-#: fish/run-5.c:1799 fish/run-5.c:1822 fish/run-5.c:1886 fish/run-5.c:2041
-#: fish/run-5.c:2084 fish/run-5.c:2128 fish/run-5.c:2172 fish/run-5.c:2309
-#: fish/run-5.c:2427 fish/run-5.c:2446 fish/run-5.c:2465 fish/run-5.c:2543
-#: fish/run-5.c:2562 fish/run-5.c:2581 fish/run-5.c:2600 fish/run-5.c:2765
-#: fish/run-5.c:2987 fish/run-5.c:3004 fish/run-5.c:3021 fish/run-5.c:3038
-#: fish/run-5.c:3055 fish/run-5.c:3201 fish/run-5.c:3218 fish/run-5.c:3235
-#: fish/run-5.c:3252 fish/run-6.c:191 fish/run-6.c:428 fish/run-6.c:473
-#: fish/run-6.c:612 fish/run-6.c:631 fish/run-6.c:787 fish/run-6.c:823
-#: fish/run-6.c:1073 fish/run-6.c:1198 fish/run-6.c:1426 fish/run-6.c:1445
-#: fish/run-6.c:1490 fish/run-6.c:1509 fish/run-6.c:1591 fish/run-6.c:1737
-#: fish/run-6.c:1871 fish/run-6.c:1953 fish/run-6.c:2040
+#: fish/run-0.c:508 fish/run-0.c:581 fish/run-0.c:868 fish/run-0.c:1007
+#: fish/run-0.c:1047 fish/run-0.c:1061 fish/run-0.c:1099 fish/run-0.c:1135
+#: fish/run-0.c:1643 fish/run-0.c:1660 fish/run-0.c:1682 fish/run-0.c:1715
+#: fish/run-0.c:1738 fish/run-0.c:1975 fish/run-0.c:2154 fish/run-0.c:2393
+#: fish/run-0.c:2489 fish/run-1.c:288 fish/run-1.c:632 fish/run-1.c:649
+#: fish/run-1.c:666 fish/run-1.c:816 fish/run-1.c:926 fish/run-1.c:1010
+#: fish/run-1.c:1255 fish/run-1.c:1309 fish/run-1.c:1346 fish/run-1.c:1432
+#: fish/run-1.c:1667 fish/run-1.c:1686 fish/run-1.c:1955 fish/run-1.c:2007
+#: fish/run-1.c:2024 fish/run-1.c:2047 fish/run-1.c:2070 fish/run-1.c:2156
+#: fish/run-1.c:2175 fish/run-1.c:2194 fish/run-1.c:2495 fish/run-1.c:2514
+#: fish/run-1.c:2598 fish/run-1.c:2617 fish/run-2.c:257 fish/run-2.c:457
+#: fish/run-2.c:577 fish/run-2.c:596 fish/run-2.c:679 fish/run-2.c:696
+#: fish/run-2.c:713 fish/run-2.c:848 fish/run-2.c:1100 fish/run-2.c:1137
+#: fish/run-2.c:1478 fish/run-2.c:1529 fish/run-2.c:1626 fish/run-2.c:1758
+#: fish/run-2.c:1863 fish/run-2.c:1916 fish/run-2.c:1935 fish/run-2.c:1973
+#: fish/run-2.c:2085 fish/run-2.c:2291 fish/run-2.c:2556 fish/run-3.c:484
+#: fish/run-3.c:573 fish/run-3.c:785 fish/run-3.c:835 fish/run-3.c:874
+#: fish/run-3.c:957 fish/run-3.c:970 fish/run-3.c:1444 fish/run-3.c:1483
+#: fish/run-3.c:1526 fish/run-3.c:1810 fish/run-3.c:2085 fish/run-3.c:2160
+#: fish/run-3.c:2177 fish/run-3.c:2194 fish/run-3.c:2211 fish/run-3.c:2228
+#: fish/run-3.c:2245 fish/run-3.c:2262 fish/run-3.c:2279 fish/run-3.c:2296
+#: fish/run-3.c:2313 fish/run-3.c:2330 fish/run-3.c:2347 fish/run-3.c:2364
+#: fish/run-3.c:2387 fish/run-3.c:2703 fish/run-3.c:2749 fish/run-3.c:2792
+#: fish/run-3.c:2836 fish/run-3.c:2855 fish/run-3.c:2874 fish/run-3.c:2947
+#: fish/run-3.c:3018 fish/run-3.c:3054 fish/run-3.c:3096 fish/run-3.c:3676
+#: fish/run-3.c:3699 fish/run-3.c:3727 fish/run-3.c:3744 fish/run-3.c:3767
+#: fish/run-3.c:3795 fish/run-3.c:3812 fish/run-3.c:3897 fish/run-3.c:3910
+#: fish/run-3.c:3923 fish/run-3.c:3936 fish/run-3.c:4065 fish/run-4.c:139
+#: fish/run-4.c:303 fish/run-4.c:444 fish/run-4.c:605 fish/run-4.c:648
+#: fish/run-4.c:697 fish/run-4.c:710 fish/run-4.c:751 fish/run-4.c:820
+#: fish/run-4.c:837 fish/run-4.c:854 fish/run-4.c:948 fish/run-4.c:1082
+#: fish/run-4.c:1279 fish/run-4.c:1369 fish/run-4.c:1436 fish/run-4.c:1480
+#: fish/run-4.c:1525 fish/run-4.c:1544 fish/run-4.c:1563 fish/run-4.c:1694
+#: fish/run-4.c:1707 fish/run-4.c:1744 fish/run-4.c:1788 fish/run-4.c:1831
+#: fish/run-4.c:1875 fish/run-4.c:2257 fish/run-5.c:502 fish/run-5.c:519
+#: fish/run-5.c:536 fish/run-5.c:627 fish/run-5.c:644 fish/run-5.c:661
+#: fish/run-5.c:872 fish/run-5.c:1001 fish/run-5.c:1069 fish/run-5.c:1398
+#: fish/run-5.c:1562 fish/run-5.c:1610 fish/run-5.c:1654 fish/run-5.c:1772
+#: fish/run-5.c:1800 fish/run-5.c:1823 fish/run-5.c:1887 fish/run-5.c:2042
+#: fish/run-5.c:2085 fish/run-5.c:2129 fish/run-5.c:2173 fish/run-5.c:2310
+#: fish/run-5.c:2428 fish/run-5.c:2447 fish/run-5.c:2466 fish/run-5.c:2544
+#: fish/run-5.c:2563 fish/run-5.c:2582 fish/run-5.c:2601 fish/run-5.c:2766
+#: fish/run-5.c:2988 fish/run-5.c:3005 fish/run-5.c:3022 fish/run-5.c:3039
+#: fish/run-5.c:3056 fish/run-5.c:3202 fish/run-5.c:3219 fish/run-5.c:3236
+#: fish/run-5.c:3253 fish/run-6.c:192 fish/run-6.c:429 fish/run-6.c:474
+#: fish/run-6.c:613 fish/run-6.c:632 fish/run-6.c:788 fish/run-6.c:824
+#: fish/run-6.c:1074 fish/run-6.c:1199 fish/run-6.c:1427 fish/run-6.c:1446
+#: fish/run-6.c:1491 fish/run-6.c:1510 fish/run-6.c:1592 fish/run-6.c:1738
+#: fish/run-6.c:1872 fish/run-6.c:1954 fish/run-6.c:2041
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
@@ -9079,8 +9142,8 @@ msgstr ""
 msgid "unable to parse XML from stdin"
 msgstr ""
 
-#: inspector/inspector.c:707 lib/launch-libvirt.c:751 lib/libvirt-domain.c:418
-#: lib/libvirt-domain.c:502 lib/libvirt-domain.c:818
+#: inspector/inspector.c:707 lib/launch-libvirt.c:768 lib/launch-libvirt.c:856
+#: lib/libvirt-domain.c:418 lib/libvirt-domain.c:502 lib/libvirt-domain.c:818
 #, c-format
 msgid "unable to create new XPath context"
 msgstr "新規 XPath コンテキストを作成できません"
@@ -9668,7 +9731,7 @@ msgstr "qemu-img info: JSON 構文解析エラー: %s"
 msgid "qemu-img info: unknown JSON parse error"
 msgstr "qemu-img info: 未知の JSON 構文解析エラー"
 
-#: lib/inspect-icon.c:688
+#: lib/inspect-icon.c:728
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s の容量が不当に大きいです (%<PRIi64> バイト)"
@@ -9686,7 +9749,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launch の前に guestfs_add_drive を呼び出す必要があります"
 
-#: lib/launch-direct.c:897 lib/launch-libvirt.c:681
+#: lib/launch-direct.c:897 lib/launch-libvirt.c:698
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "QEMU が起動され、デーモンに接続されましたが、state != READY です"
 
@@ -9695,41 +9758,45 @@ msgstr "QEMU が起動され、デーモンに接続されましたが、state !
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: lib/launch-libvirt.c:206
+#: lib/launch-libvirt.c:208
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:217
+#: lib/launch-libvirt.c:219
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:332
+#: lib/launch-libvirt.c:335
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 "ダイレクトモードフラグは libvirt バックエンドに対してまだサポートされていませ"
 "ん"
 
-#: lib/launch-libvirt.c:346
+#: lib/launch-libvirt.c:349
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the ‘libvirt’ backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:380
+#: lib/launch-libvirt.c:383
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "libvirt (URI = %s) に接続できませんでした"
 
-#: lib/launch-libvirt.c:409
+#: lib/launch-libvirt.c:412
 msgid "could not get libvirt capabilities"
 msgstr "libvirt ケイパビリティを取得できませんでした"
 
-#: lib/launch-libvirt.c:610
+#: lib/launch-libvirt.c:428
+msgid "could not get libvirt domain capabilities"
+msgstr ""
+
+#: lib/launch-libvirt.c:627
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -9739,16 +9806,16 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:745
+#: lib/launch-libvirt.c:762
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr "libvirt により返されたケイパビリティ XML を構文解析できません"
 
-#: lib/launch-libvirt.c:761
+#: lib/launch-libvirt.c:778 lib/launch-libvirt.c:864
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "XPath 表現を評価できません: %s"
 
-#: lib/launch-libvirt.c:796
+#: lib/launch-libvirt.c:813
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -9763,16 +9830,20 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:1332
+#: lib/launch-libvirt.c:850
+msgid "unable to parse domain capabilities XML returned by libvirt"
+msgstr ""
+
+#: lib/launch-libvirt.c:1387
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1378 lib/launch-libvirt.c:1619 lib/qemu.c:815
+#: lib/launch-libvirt.c:1433 lib/launch-libvirt.c:1674 lib/qemu.c:816
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1461
+#: lib/launch-libvirt.c:1516
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -9780,41 +9851,41 @@ msgstr ""
 "libvirt が qemu curl ドライバープロトコル (ftp, http など) をサポートしませ"
 "ん; LIBGUESTFS_BACKEND=direct の設定を試してください"
 
-#: lib/launch-libvirt.c:1830
+#: lib/launch-libvirt.c:1885
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1841
+#: lib/launch-libvirt.c:1896
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1845
+#: lib/launch-libvirt.c:1900
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1866
+#: lib/launch-libvirt.c:1921
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:1879
+#: lib/launch-libvirt.c:1934
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2046
+#: lib/launch-libvirt.c:2104
 msgid "could not destroy libvirt domain"
 msgstr "libvirt 仮想マシンを強制停止できませんでした"
 
-#: lib/launch-libvirt.c:2067 lib/launch-libvirt.c:2100
+#: lib/launch-libvirt.c:2125 lib/launch-libvirt.c:2158
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: エラーメッセージを形成している内部エラー"
 
-#: lib/launch-libvirt.c:2166
+#: lib/launch-libvirt.c:2224
 msgid "could not attach disk to libvirt domain"
 msgstr "libvirt 仮想マシンにディスクを接続できませんでした"
 
-#: lib/launch-libvirt.c:2197
+#: lib/launch-libvirt.c:2255
 msgid "could not detach disk from libvirt domain"
 msgstr "libvirt 仮想マシンからディスクを切断できませんでした"
 
@@ -10112,35 +10183,35 @@ msgstr "ファイルのチャンクの解析に失敗しました"
 msgid "file receive cancelled by daemon"
 msgstr "ファイルの受信がデーモンにより取り消されました"
 
-#: lib/qemu.c:998
+#: lib/qemu.c:986
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: lib/qemu.c:1007
+#: lib/qemu.c:995
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:1014
+#: lib/qemu.c:1002
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:1022
+#: lib/qemu.c:1010
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: lib/qemu.c:1030
+#: lib/qemu.c:1018
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:1053
+#: lib/qemu.c:1041
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
@@ -10379,31 +10450,31 @@ msgstr ""
 msgid "Virtualize a physical machine to run on KVM"
 msgstr ""
 
-#: p2v/gui.c:763
+#: p2v/gui.c:750
 msgid "Target properties"
 msgstr ""
 
-#: p2v/gui.c:769
+#: p2v/gui.c:756
 msgid "_Name:"
 msgstr ""
 
-#: p2v/gui.c:780
+#: p2v/gui.c:767
 msgid "# _vCPUs:"
 msgstr ""
 
-#: p2v/gui.c:795
+#: p2v/gui.c:782
 msgid "_Memory (MB):"
 msgstr ""
 
-#: p2v/gui.c:822
+#: p2v/gui.c:809
 msgid "Virt-v2v output options"
 msgstr ""
 
-#: p2v/gui.c:828
+#: p2v/gui.c:815
 msgid "Output _to (-o):"
 msgstr ""
 
-#: p2v/gui.c:834
+#: p2v/gui.c:821
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -10412,79 +10483,79 @@ msgid ""
 "more information about output options."
 msgstr ""
 
-#: p2v/gui.c:839
+#: p2v/gui.c:826
 msgid "_Output conn. (-oc):"
 msgstr ""
 
-#: p2v/gui.c:845
+#: p2v/gui.c:832
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:851
+#: p2v/gui.c:838
 msgid "Output _storage (-os):"
 msgstr ""
 
-#: p2v/gui.c:857
+#: p2v/gui.c:844
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others, "
 "leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:863
+#: p2v/gui.c:850
 msgid "Output _format (-of):"
 msgstr ""
 
-#: p2v/gui.c:869
+#: p2v/gui.c:856
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
 msgstr ""
 
-#: p2v/gui.c:875
+#: p2v/gui.c:862
 msgid "Output _allocation (-oa):"
 msgstr ""
 
-#: p2v/gui.c:899
+#: p2v/gui.c:886
 msgid "Information"
 msgstr ""
 
-#: p2v/gui.c:907
+#: p2v/gui.c:894
 msgid "Fixed hard disks"
 msgstr ""
 
-#: p2v/gui.c:918
+#: p2v/gui.c:905
 msgid "Removable media"
 msgstr ""
 
-#: p2v/gui.c:929
+#: p2v/gui.c:916
 msgid "Network interfaces"
 msgstr ""
 
-#: p2v/gui.c:939
+#: p2v/gui.c:926
 msgid ""
 "Left click on an interface name to flash the light on the physical interface."
 msgstr ""
 
-#: p2v/gui.c:961
+#: p2v/gui.c:948
 msgid "_Back"
 msgstr ""
 
-#: p2v/gui.c:962
+#: p2v/gui.c:949
 msgid "Start _conversion"
 msgstr ""
 
-#: p2v/gui.c:1012
+#: p2v/gui.c:999
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1015
+#: p2v/gui.c:1002
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
@@ -10493,56 +10564,56 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1133 p2v/gui.c:1184 p2v/gui.c:1254
+#: p2v/gui.c:1120 p2v/gui.c:1171 p2v/gui.c:1241
 msgid "Convert"
 msgstr ""
 
-#: p2v/gui.c:1141 p2v/gui.c:1192 p2v/gui.c:1262
+#: p2v/gui.c:1128 p2v/gui.c:1179 p2v/gui.c:1249
 msgid "Device"
 msgstr ""
 
-#: p2v/gui.c:1232 p2v/gui.c:1233
+#: p2v/gui.c:1219 p2v/gui.c:1220
 msgid "Unknown"
 msgstr ""
 
-#: p2v/gui.c:1270
+#: p2v/gui.c:1257
 msgid "Connect to virtual network"
 msgstr ""
 
-#: p2v/gui.c:1557
+#: p2v/gui.c:1544
 #, c-format
 msgid ""
 "Number of virtual CPUs is larger than what is supported for KVM (max: %d)."
 msgstr ""
 
-#: p2v/gui.c:1567
+#: p2v/gui.c:1554
 #, c-format
 msgid "Memory size is larger than what is supported for KVM (max: %<PRIu64>)."
 msgstr ""
 
-#: p2v/gui.c:1575
+#: p2v/gui.c:1562
 msgid ""
 "If you ignore this warning, conversion can still succeed, but the guest may "
 "not work or may not be supported on the target."
 msgstr ""
 
-#: p2v/gui.c:1722 p2v/gui.c:1731
+#: p2v/gui.c:1709 p2v/gui.c:1718
 msgid "_Shutdown"
 msgstr ""
 
-#: p2v/gui.c:1723 p2v/gui.c:1734
+#: p2v/gui.c:1710 p2v/gui.c:1721
 msgid "_Reboot"
 msgstr ""
 
-#: p2v/gui.c:1741
+#: p2v/gui.c:1728
 msgid "_Cancel conversion ..."
 msgstr ""
 
-#: p2v/gui.c:1748 p2v/gui.c:1757
+#: p2v/gui.c:1735 p2v/gui.c:1744
 msgid "_Shutdown ..."
 msgstr ""
 
-#: p2v/gui.c:1815
+#: p2v/gui.c:1802
 #, c-format
 msgid ""
 "Debug information and log files are saved to this directory on the "
@@ -10550,44 +10621,44 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:2022
+#: p2v/gui.c:2009
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:2023 p2v/gui.c:2044
+#: p2v/gui.c:2010 p2v/gui.c:2031
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:2042
+#: p2v/gui.c:2029
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:2144
+#: p2v/gui.c:2131
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:2145
+#: p2v/gui.c:2132
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:2172
+#: p2v/gui.c:2159
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:2173
+#: p2v/gui.c:2160
 msgid "Conversion was successful"
 msgstr ""
 
-#: p2v/gui.c:2256
+#: p2v/gui.c:2243
 msgid ""
 "Really cancel the conversion? To convert this machine you will need to re-"
 "run the conversion from the beginning."
 msgstr ""
 
-#: p2v/gui.c:2259
+#: p2v/gui.c:2246
 msgid "Cancel the conversion"
 msgstr ""
 
@@ -10926,71 +10997,6 @@ msgstr ""
 #: test-tool/test-tool.c:335
 #, c-format
 msgid "path does not look like a qemu source directory: %s"
-msgstr ""
-
-#: v2v/libvirt_utils-c.c:140 v2v/libvirt_utils-c.c:211
-#: v2v/libvirt_utils-c.c:395 v2v/libvirt_utils-c.c:452
-#, c-format
-msgid "cannot open libvirt connection ‘%s’"
-msgstr ""
-
-#: v2v/libvirt_utils-c.c:142 v2v/libvirt_utils-c.c:213
-#: v2v/libvirt_utils-c.c:397 v2v/libvirt_utils-c.c:454
-#, c-format
-msgid "cannot open libvirt connection"
-msgstr ""
-
-#: v2v/libvirt_utils-c.c:163
-#, c-format
-msgid ""
-"cannot find libvirt pool ‘%s’: %s\n"
-"\n"
-"Use ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-"
-"dumpxml <pool>’ to display details about a particular pool.\n"
-"\n"
-"To set the pool which virt-v2v uses, add the ‘-os <pool>’ option."
-msgstr ""
-
-#: v2v/libvirt_utils-c.c:234 v2v/libvirt_utils-c.c:478
-#, c-format
-msgid "cannot find libvirt domain ‘%s’: %s"
-msgstr ""
-
-#: v2v/libvirt_utils-c.c:249
-#, c-format
-msgid ""
-"libvirt domain ‘%s’ is running or paused.  It must be shut down in order to "
-"perform virt-v2v conversion"
-msgstr ""
-
-#: v2v/libvirt_utils-c.c:262
-#, c-format
-msgid "cannot fetch XML description of guest ‘%s’: %s"
-msgstr ""
-
-#: v2v/libvirt_utils-c.c:299
-#, c-format
-msgid "cannot fetch XML description of pool ‘%s’: %s"
-msgstr ""
-
-#: v2v/libvirt_utils-c.c:342
-#, c-format
-msgid "cannot find libvirt volume ‘%s’: %s"
-msgstr ""
-
-#: v2v/libvirt_utils-c.c:352
-#, c-format
-msgid "cannot fetch XML description of volume ‘%s’: %s"
-msgstr ""
-
-#: v2v/libvirt_utils-c.c:411
-#, c-format
-msgid "cannot get libvirt hypervisor capabilities: %s"
-msgstr ""
-
-#: v2v/libvirt_utils-c.c:506
-#, c-format
-msgid "cannot get libvirt library version: %s"
 msgstr ""
 
 #: tools/virt-list-filesystems:147
