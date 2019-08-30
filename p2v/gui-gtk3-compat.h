@@ -50,6 +50,15 @@ gdk_event_get_button (const GdkEvent *event, guint *button)
 #endif
 
 #if GTK_CHECK_VERSION(3,4,0)   /* gtk >= 3.4 */
+/* Copy this enum from GtkTable, as when building without deprecated
+ * functions this is not automatically pulled in.
+ */
+typedef enum
+{
+  GTK_EXPAND = 1 << 0,
+  GTK_SHRINK = 1 << 1,
+  GTK_FILL   = 1 << 2
+} GtkAttachOptions;
 /* GtkGrid is sufficiently similar to GtkTable that we can just
  * redefine these functions.
  */
