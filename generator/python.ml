@@ -44,6 +44,9 @@ let rec generate_python_actions_h () =
 #include \"guestfs.h\"
 #include \"guestfs-utils.h\"
 
+#define PY_SSIZE_T_CLEAN 1
+#include <Python.h>
+
 #if PY_VERSION_HEX < 0x02050000
 typedef int Py_ssize_t;
 #define PY_SSIZE_T_MAX INT_MAX
@@ -134,12 +137,6 @@ and generate_python_structs () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
-/* This has to be included first, else definitions conflict with
- * glibc header files.  Python is broken.
- */
-#define PY_SSIZE_T_CLEAN 1
-#include <Python.h>
-
 #include <config.h>
 
 #include <stdio.h>
@@ -272,12 +269,6 @@ and generate_python_actions actions () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
-/* This has to be included first, else definitions conflict with
- * glibc header files.  Python is broken.
- */
-#define PY_SSIZE_T_CLEAN 1
-#include <Python.h>
-
 #include <config.h>
 
 /* It is safe to call deprecated functions from this file. */
@@ -569,12 +560,6 @@ and generate_python_module () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
-/* This has to be included first, else definitions conflict with
- * glibc header files.  Python is broken.
- */
-#define PY_SSIZE_T_CLEAN 1
-#include <Python.h>
-
 #include <config.h>
 
 #include <stdio.h>

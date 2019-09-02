@@ -22,12 +22,6 @@
  * F<python/actions-*.c>).
  */
 
-/* This has to be included first, else definitions conflict with
- * glibc header files.  Python is broken.
- */
-#define PY_SSIZE_T_CLEAN 1
-#include <Python.h>
-
 #include <config.h>
 
 #include <stdio.h>
