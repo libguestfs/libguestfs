@@ -45,7 +45,11 @@ let rec generate_python_actions_h () =
 #include \"guestfs-utils.h\"
 
 #define PY_SSIZE_T_CLEAN 1
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored \"-Wcast-align\"
 #include <Python.h>
+#pragma GCC diagnostic pop
 
 #if PY_VERSION_HEX < 0x02050000
 typedef int Py_ssize_t;
