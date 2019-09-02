@@ -27,7 +27,6 @@ EXTRA_DIST = \
 	src/*.rs \
 	src/bin/*.rs \
 	Cargo.toml \
-	Cargo.lock \
 	README.md \
 	run-bindtests \
 	run-tests
