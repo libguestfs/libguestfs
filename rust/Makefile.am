@@ -25,6 +25,7 @@ EXTRA_DIST = \
 	$(generator_built) \
 	tests/*.rs \
 	src/*.rs \
+	src/bin/*.rs \
 	Cargo.toml \
 	Cargo.lock \
 	README.md \
