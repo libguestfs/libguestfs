@@ -331,7 +331,7 @@ ChangeLog: configure.ac
 docs/C_SOURCE_FILES: configure.ac
 	rm -f $@ $@-t
 	find $(DIST_SUBDIRS) -name '*.[ch]' | \
-	grep -v -E '^(builder/index-parse\.|builder/index-scan\.|examples/|gnulib/|gobject/|java/com_redhat_et_libguestfs|perl/|php/extension/config\.h|ruby/ext/guestfs/extconf\.h|tests/|test-data/)' | \
+	grep -v -E '^(builder/index-parse\.|builder/index-scan\.|common/mllibvirt/libvirt_c\.c|examples/|gnulib/|gobject/|java/com_redhat_et_libguestfs|perl/|php/extension/config\.h|ruby/ext/guestfs/extconf\.h|tests/|test-data/)' | \
 	grep -v -E '/(guestfs|rc)_protocol\.' | \
 	grep -v -E '.*/errnostring\.' | \
 	grep -v -E '.*-gperf\.' | \
@@ -347,6 +347,7 @@ po/POTFILES: configure.ac
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
 	grep -v -E '^python/utils\.c$$' | \
 	grep -v -E '^perl/lib/Sys/Guestfs\.c$$' | \
+	grep -v -E '^common/mllibvirt/libvirt_c\.c$$' | \
 	LC_ALL=C sort -u > $@-t
 	mv $@-t $@
 

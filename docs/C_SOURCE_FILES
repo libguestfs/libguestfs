@@ -16,7 +16,6 @@ common/miniexpect/miniexpect.c
 common/miniexpect/miniexpect.h
 common/mlaugeas/augeas-c.c
 common/mlgettext/dummy.c
-common/mllibvirt/libvirt_c.c
 common/mllibvirt/libvirt_c_epilogue.c
 common/mllibvirt/libvirt_c_oneoffs.c
 common/mllibvirt/libvirt_c_prologue.c
