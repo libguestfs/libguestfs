@@ -73,12 +73,11 @@ init (void)
 static void
 raise_pcre_error (const char *msg, int errcode)
 {
-  value *exn = caml_named_value ("PCRE.Error");
   value args[2];
 
   args[0] = caml_copy_string (msg);
   args[1] = Val_int (errcode);
-  caml_raise_with_args (*exn, 2, args);
+  caml_raise_with_args (*caml_named_value ("PCRE.Error"), 2, args);
 }
 
 /* Wrap and unwrap pcre regular expression handles, with a finalizer. */
