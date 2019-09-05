@@ -539,7 +539,9 @@ SUBHTML: {
         lc ($id);
     }
 
-    sub is_a_libguestfs_page
+    # Note this also allows links to related projects because they all
+    # appear together under the http://libguestfs.org website.
+    sub is_a_local_page
     {
         local $_ = shift;
 
@@ -552,7 +554,8 @@ SUBHTML: {
         return 1 if /^guestunmount/;
         return 1 if /^hivex/;
         return 1 if /^supermin/;
-        return 1 if /^nbdkit/;
+        return 1 if /^libnbd/;
+        return 1 if /^nbd/;
         return 0;
     }
 
@@ -564,7 +567,7 @@ SUBHTML: {
         my $r = "";
         if (defined $podname) {
             return $self->SUPER::resolve_pod_page_link (@_)
-                unless is_a_libguestfs_page ($podname);
+                unless is_a_local_page ($podname);
             $r .= "$podname.3.html"
         }
         $r .= "#" . $self->idify ($anchor, 1) if defined $anchor;
@@ -579,7 +582,7 @@ SUBHTML: {
         my $r = "";
         if (defined $name) {
             return $self->SUPER::resolve_man_page_link (@_)
-                unless is_a_libguestfs_page ($name);
+                unless is_a_local_page ($name);
             $name =~ s/\((.*)\)$/.$1/;
             $r .= "$name.html";
         }
