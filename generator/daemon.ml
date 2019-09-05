@@ -746,7 +746,7 @@ let generate_daemon_caml_stubs () =
       let nr_args = List.length args_do_function in
 
       pr "{\n";
-      pr "  static value *cb = NULL;\n";
+      pr "  static const value *cb = NULL;\n";
       pr "  CAMLparam0 ();\n";
       pr "  CAMLlocal2 (v, retv);\n";
       pr "  CAMLlocalN (args, %d);\n"
