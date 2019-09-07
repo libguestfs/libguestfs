@@ -1064,7 +1064,7 @@ guestfs_impl_remove_drive (guestfs_h *g, const char *label)
 
 /**
  * Checkpoint and roll back drives, so that groups of drives can be
- * added atomicly.  Only used by L<guestfs(3)/guestfs_add_domain>.
+ * added atomically.  Only used by L<guestfs(3)/guestfs_add_domain>.
  */
 size_t
 guestfs_int_checkpoint_drives (guestfs_h *g)
