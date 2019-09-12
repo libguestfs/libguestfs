@@ -60,18 +60,36 @@ connection = sdk.Connection(
 
 system_service = connection.system_service()
 
-# Check whether the specified cluster exists.
-clusters_service = system_service.clusters_service()
-clusters = clusters_service.list(
-    search='name=%s' % params['rhv_cluster'],
+# Check whether there is a datacenter for the specified storage.
+data_centers = system_service.data_centers_service().list(
+    search='storage.name=%s' % params['output_storage'],
     case_sensitive=True,
 )
+if len(data_centers) == 0:
+    # The storage domain is not attached to a datacenter
+    # (shouldn't happen, would fail on disk creation).
+    raise RuntimeError("The storage domain ‘%s’ is not attached to a DC" %
+                       (params['output_storage']))
+datacenter = data_centers[0]
+
+# Get the storage domain.
+storage_domains = connection.follow_link(datacenter.storage_domains)
+storage_domain = [sd for sd in storage_domains if sd.name == params['output_storage']][0]
+
+# Get the cluster.
+clusters = connection.follow_link(datacenter.clusters)
+clusters = [cluster for cluster in clusters if cluster.name == params['rhv_cluster']]
 if len(clusters) == 0:
-    raise RuntimeError("The cluster ‘%s’ does not exist" %
-                       (params['rhv_cluster']))
+    raise RuntimeError("The cluster ‘%s’ is not part of the DC ‘%s’, "
+                       "where the storage domain ‘%s’ is" %
+                       (params['rhv_cluster'], datacenter.name,
+                        params['output_storage']))
+cluster = clusters[0]
 
 # Otherwise everything is OK, print a JSON with the results.
 results = {
+  "rhv_storagedomain_uuid": storage_domain.id,
+  "rhv_cluster_uuid": cluster.id,
 }
 
 json.dump(results, sys.stdout)
