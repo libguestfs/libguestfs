@@ -1,5 +1,5 @@
 # -*- python -*-
-# oVirt or RHV pre-upload checks used by ‘virt-v2v -o rhv-upload’
+# oVirt or RHV VM existance check used by ‘virt-v2v -o rhv-upload’
 # Copyright (C) 2018-2019 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -60,14 +60,14 @@ connection = sdk.Connection(
 
 system_service = connection.system_service()
 
-# Check whether the specified cluster exists.
-clusters_service = system_service.clusters_service()
-clusters = clusters_service.list(
-    search='name=%s' % params['rhv_cluster'],
-    case_sensitive=True,
+# Find if a virtual machine already exists with that name.
+vms_service = system_service.vms_service()
+vms = vms_service.list(
+    search = ("name=%s" % params['output_name']),
 )
-if len(clusters) == 0:
-    raise RuntimeError("The cluster ‘%s’ does not exist" %
-                       (params['rhv_cluster']))
+if len(vms) > 0:
+    vm = vms[0]
+    raise RuntimeError("VM already exists with name ‘%s’, id ‘%s’" %
+                       (params['output_name'], vm.id))
 
 # Otherwise everything is OK, exit with no error.

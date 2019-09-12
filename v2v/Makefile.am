@@ -26,7 +26,8 @@ BUILT_SOURCES = \
 	config.ml \
 	output_rhv_upload_createvm_source.ml \
 	output_rhv_upload_plugin_source.ml \
-	output_rhv_upload_precheck_source.ml
+	output_rhv_upload_precheck_source.ml \
+	output_rhv_upload_vmcheck_source.ml
 
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
@@ -36,6 +37,7 @@ EXTRA_DIST = \
 	rhv-upload-createvm.py \
 	rhv-upload-plugin.py \
 	rhv-upload-precheck.py \
+	rhv-upload-vmcheck.py \
 	var_expander_tests.ml \
 	v2v_unit_tests.ml \
 	virt-v2v.pod \
@@ -88,6 +90,7 @@ SOURCES_MLI = \
 	output_rhv_upload_createvm_source.mli \
 	output_rhv_upload_plugin_source.mli \
 	output_rhv_upload_precheck_source.mli \
+	output_rhv_upload_vmcheck_source.mli \
 	output_vdsm.mli \
 	parse_ova.mli \
 	parse_ovf_from_ova.mli \
@@ -153,6 +156,7 @@ SOURCES_ML = \
 	output_rhv_upload_createvm_source.ml \
 	output_rhv_upload_plugin_source.ml \
 	output_rhv_upload_precheck_source.ml \
+	output_rhv_upload_vmcheck_source.ml \
 	output_rhv_upload.ml \
 	output_vdsm.ml \
 	output_openstack.ml \
@@ -172,6 +176,8 @@ output_rhv_upload_createvm_source.ml: $(srcdir)/rhv-upload-createvm.py
 output_rhv_upload_plugin_source.ml: $(srcdir)/rhv-upload-plugin.py
 	$(srcdir)/embed.sh code $^ $@
 output_rhv_upload_precheck_source.ml: $(srcdir)/rhv-upload-precheck.py
+	$(srcdir)/embed.sh code $^ $@
+output_rhv_upload_vmcheck_source.ml: $(srcdir)/rhv-upload-vmcheck.py
 	$(srcdir)/embed.sh code $^ $@
 
 if HAVE_OCAML
