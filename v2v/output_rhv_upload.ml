@@ -234,8 +234,14 @@ object
     error_unless_nbdkit_python_plugin_working ();
     error_unless_output_alloc_sparse ();
     (* Python code prechecks. *)
-    if Python_script.run_command precheck_script json_params [] <> 0 then
+    let precheck_fn = tmpdir // "v2vprecheck.json" in
+    let fd = Unix.openfile precheck_fn [O_WRONLY; O_CREAT] 0o600 in
+    if Python_script.run_command ~stdout_fd:fd
+         precheck_script json_params [] <> 0 then
       error (f_"failed server prechecks, see earlier errors");
+    let json = JSON_parser.json_parser_tree_parse_file precheck_fn in
+    debug "precheck output parsed as: %s"
+          (JSON.string_of_doc ~fmt:JSON.Indented ["", json]);
     if have_selinux then
       error_unless_nbdkit_compiled_with_selinux ()
 
