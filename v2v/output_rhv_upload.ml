@@ -94,10 +94,13 @@ class output_rhv_upload output_alloc output_conn
 
   let diskid_file_of_id id = tmpdir // sprintf "diskid.%d" id in
 
-  (* Create Python scripts for precheck, plugin and create VM. *)
+  (* Create Python scripts for precheck, vmcheck, plugin and create VM. *)
   let precheck_script =
     Python_script.create ~name:"rhv-upload-precheck.py"
                          Output_rhv_upload_precheck_source.code in
+  let vmcheck_script =
+    Python_script.create ~name:"rhv-upload-vmcheck.py"
+                         Output_rhv_upload_vmcheck_source.code in
   let plugin_script =
     Python_script.create ~name:"rhv-upload-plugin.py"
                          Output_rhv_upload_plugin_source.code in
@@ -230,6 +233,9 @@ object
     error_unless_nbdkit_working ();
     error_unless_nbdkit_python_plugin_working ();
     error_unless_output_alloc_sparse ();
+    (* Python code prechecks. *)
+    if Python_script.run_command precheck_script json_params [] <> 0 then
+      error (f_"failed server prechecks, see earlier errors");
     if have_selinux then
       error_unless_nbdkit_compiled_with_selinux ()
 
@@ -251,11 +257,11 @@ object
     let json_params =
       ("output_name", JSON.String output_name) :: json_params in
 
-    (* Python code prechecks.  These can't run in #precheck because
+    (* Check that the VM does not exist.  This can't run in #precheck because
      * we need to know the name of the virtual machine.
      *)
-    if Python_script.run_command precheck_script json_params [] <> 0 then
-      error (f_"failed server prechecks, see earlier errors");
+    if Python_script.run_command vmcheck_script json_params [] <> 0 then
+      error (f_"failed vmchecks, see earlier errors");
 
     (* Create an nbdkit instance for each disk and set the
      * target URI to point to the NBD socket.
