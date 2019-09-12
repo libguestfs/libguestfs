@@ -223,6 +223,11 @@ See also the virt-v2v-output-rhv(1) manual.")
 object
   inherit output
 
+  (* The storage domain UUID. *)
+  val mutable rhv_storagedomain_uuid = None
+  (* The cluster UUID. *)
+  val mutable rhv_cluster_uuid = None
+
   method precheck () =
     Python_script.error_unless_python_interpreter_found ();
     error_unless_ovirtsdk4_module_available ();
@@ -238,6 +243,10 @@ object
     let json = JSON_parser.json_parser_tree_parse_file precheck_fn in
     debug "precheck output parsed as: %s"
           (JSON.string_of_doc ~fmt:JSON.Indented ["", json]);
+    rhv_storagedomain_uuid <-
+       Some (JSON_parser.object_get_string "rhv_storagedomain_uuid" json);
+    rhv_cluster_uuid <-
+       Some (JSON_parser.object_get_string "rhv_cluster_uuid" json);
     if have_selinux then
       error_unless_nbdkit_compiled_with_selinux ()
 
@@ -384,11 +393,11 @@ If the messages above are not sufficient to diagnose the problem then add the â€
           diskid
       ) targets in
 
-    (* We don't have the storage domain UUID, but instead we write
-     * in a magic value which the Python code (which can get it)
-     * will substitute.
-     *)
-    let sd_uuid = "@SD_UUID@" in
+    (* The storage domain UUID. *)
+    let sd_uuid =
+      match rhv_storagedomain_uuid with
+      | None -> assert false
+      | Some uuid -> uuid in
 
     (* The volume and VM UUIDs are made up. *)
     let vol_uuids = List.map (fun _ -> uuidgen ()) targets
@@ -401,6 +410,11 @@ If the messages above are not sufficient to diagnose the problem then add the â€
                             sd_uuid image_uuids vol_uuids vm_uuid
                             OVirt in
     let ovf = DOM.doc_to_string ovf in
+
+    let json_params =
+      match rhv_cluster_uuid with
+      | None -> assert false
+      | Some uuid -> ("rhv_cluster_uuid", JSON.String uuid) :: json_params in
 
     let ovf_file = tmpdir // "vm.ovf" in
     with_open_out ovf_file (fun chan -> output_string chan ovf);

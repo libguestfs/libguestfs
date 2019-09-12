@@ -65,17 +65,14 @@ connection = sdk.Connection(
 
 system_service = connection.system_service()
 
-# Get the storage domain UUID and substitute it into the OVF doc.
-sds_service = system_service.storage_domains_service()
-sd = sds_service.list(search=("name=%s" % params['output_storage']))[0]
-sd_uuid = sd.id
-
-ovf = ovf.replace("@SD_UUID@", sd_uuid)
+# Get the cluster.
+cluster = system_service.clusters_service().cluster_service(params['rhv_cluster_uuid'])
+cluster = cluster.get()
 
 vms_service = system_service.vms_service()
 vm = vms_service.add(
     types.Vm(
-        cluster=types.Cluster(name = params['rhv_cluster']),
+        cluster=cluster,
         initialization=types.Initialization(
             configuration = types.Configuration(
                 type = types.ConfigurationType.OVA,
