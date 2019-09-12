@@ -70,4 +70,8 @@ if len(clusters) == 0:
     raise RuntimeError("The cluster ‘%s’ does not exist" %
                        (params['rhv_cluster']))
 
-# Otherwise everything is OK, exit with no error.
+# Otherwise everything is OK, print a JSON with the results.
+results = {
+}
+
+json.dump(results, sys.stdout)
