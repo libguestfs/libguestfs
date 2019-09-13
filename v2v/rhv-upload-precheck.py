@@ -66,6 +66,15 @@ data_centers = system_service.data_centers_service().list(
     case_sensitive=True,
 )
 if len(data_centers) == 0:
+    storage_domains = system_service.storage_domains_service().list(
+        search='name=%s' % params['output_storage'],
+        case_sensitive=True,
+    )
+    if len(storage_domains) == 0:
+        # The storage domain does not even exist.
+        raise RuntimeError("The storage domain ‘%s’ does not exist" %
+                           (params['output_storage']))
+
     # The storage domain is not attached to a datacenter
     # (shouldn't happen, would fail on disk creation).
     raise RuntimeError("The storage domain ‘%s’ is not attached to a DC" %
