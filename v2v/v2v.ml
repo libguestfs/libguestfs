@@ -798,7 +798,14 @@ and copy_targets cmdline targets input output =
             pc;
           if pc < 0. then eprintf " ! ESTIMATE TOO LOW !";
           eprintf "\n%!";
-      )
+      );
+
+      (* Let the output mode know that the disk was copied successfully,
+       * so it can perform any operations without waiting for all the
+       * other disks to be copied (i.e. before the metadata is actually
+       * created).
+       *)
+      output#disk_copied t i nr_disks
   ) targets
 
 (* Update the target_actual_size field in the target structure. *)
