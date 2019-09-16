@@ -227,6 +227,8 @@ object
   val mutable rhv_storagedomain_uuid = None
   (* The cluster UUID. *)
   val mutable rhv_cluster_uuid = None
+  (* List of disk UUIDs. *)
+  val mutable disks_uuids = []
 
   method precheck () =
     Python_script.error_unless_python_interpreter_found ();
@@ -375,23 +377,21 @@ If the messages above are not sufficient to diagnose the problem then add the â€
         TargetURI ("json:" ^ JSON.string_of_doc json_params)
     ) overlays
 
-  method create_metadata source targets _ guestcaps inspect target_firmware =
-    (* Get the UUIDs of each disk image.  These files are written
-     * out by the nbdkit plugins on successful finalization of the
+  method disk_copied t i nr_disks =
+    (* Get the UUID of the disk image.  This file is written
+     * out by the nbdkit plugin on successful finalization of the
      * transfer.
      *)
-    let nr_disks = List.length targets in
-    let image_uuids =
-      List.mapi (
-        fun i t ->
-          let id = t.target_overlay.ov_source.s_disk_id in
-          let diskid_file = diskid_file_of_id id in
-          if not (wait_for_file diskid_file finalization_timeout) then
-            error (f_"transfer of disk %d/%d failed, see earlier error messages")
-                  (i+1) nr_disks;
-          let diskid = read_whole_file diskid_file in
-          diskid
-      ) targets in
+    let id = t.target_overlay.ov_source.s_disk_id in
+    let diskid_file = diskid_file_of_id id in
+    if not (wait_for_file diskid_file finalization_timeout) then
+      error (f_"transfer of disk %d/%d failed, see earlier error messages")
+            (i+1) nr_disks;
+    let diskid = read_whole_file diskid_file in
+    disks_uuids <- disks_uuids @ [diskid];
+
+  method create_metadata source targets _ guestcaps inspect target_firmware =
+    assert (List.length disks_uuids = List.length targets);
 
     (* The storage domain UUID. *)
     let sd_uuid =
@@ -407,7 +407,7 @@ If the messages above are not sufficient to diagnose the problem then add the â€
     let ovf =
       Create_ovf.create_ovf source targets guestcaps inspect
                             target_firmware output_alloc
-                            sd_uuid image_uuids vol_uuids vm_uuid
+                            sd_uuid disks_uuids vol_uuids vm_uuid
                             OVirt in
     let ovf = DOM.doc_to_string ovf in
 
