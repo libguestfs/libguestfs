@@ -25,6 +25,7 @@ BUILT_SOURCES = \
 	$(generator_built) \
 	config.ml \
 	output_rhv_upload_createvm_source.ml \
+	output_rhv_upload_deletedisks_source.ml \
 	output_rhv_upload_plugin_source.ml \
 	output_rhv_upload_precheck_source.ml \
 	output_rhv_upload_vmcheck_source.ml
@@ -35,6 +36,7 @@ EXTRA_DIST = \
 	copy_to_local.mli \
 	embed.sh \
 	rhv-upload-createvm.py \
+	rhv-upload-deletedisks.py \
 	rhv-upload-plugin.py \
 	rhv-upload-precheck.py \
 	rhv-upload-vmcheck.py \
@@ -88,6 +90,7 @@ SOURCES_MLI = \
 	output_rhv.mli \
 	output_rhv_upload.mli \
 	output_rhv_upload_createvm_source.mli \
+	output_rhv_upload_deletedisks_source.mli \
 	output_rhv_upload_plugin_source.mli \
 	output_rhv_upload_precheck_source.mli \
 	output_rhv_upload_vmcheck_source.mli \
@@ -154,6 +157,7 @@ SOURCES_ML = \
 	output_qemu.ml \
 	output_rhv.ml \
 	output_rhv_upload_createvm_source.ml \
+	output_rhv_upload_deletedisks_source.ml \
 	output_rhv_upload_plugin_source.ml \
 	output_rhv_upload_precheck_source.ml \
 	output_rhv_upload_vmcheck_source.ml \
@@ -172,6 +176,8 @@ SOURCES_C = \
 
 # These files are generated and contain *.py embedded as an OCaml string.
 output_rhv_upload_createvm_source.ml: $(srcdir)/rhv-upload-createvm.py
+	$(srcdir)/embed.sh code $^ $@
+output_rhv_upload_deletedisks_source.ml: $(srcdir)/rhv-upload-deletedisks.py
 	$(srcdir)/embed.sh code $^ $@
 output_rhv_upload_plugin_source.ml: $(srcdir)/rhv-upload-plugin.py
 	$(srcdir)/embed.sh code $^ $@

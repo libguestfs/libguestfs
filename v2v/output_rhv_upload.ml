@@ -107,6 +107,9 @@ class output_rhv_upload output_alloc output_conn
   let createvm_script =
     Python_script.create ~name:"rhv-upload-createvm.py"
                          Output_rhv_upload_createvm_source.code in
+  let deletedisks_script =
+    Python_script.create ~name:"rhv-upload-deletedisks.py"
+                         Output_rhv_upload_deletedisks_source.code in
 
   (* Check that the 'ovirtsdk4' Python module is available. *)
   let error_unless_ovirtsdk4_module_available () =
@@ -220,6 +223,18 @@ See also the virt-v2v-output-rhv(1) manual.")
       else args in
     args in
 
+  (* Delete disks.
+   *
+   * This ignores errors since the only time we are doing this is on
+   * the failure path.
+   *)
+  let delete_disks uuids =
+    let ids = List.map (fun uuid -> JSON.String uuid) uuids in
+    let json_params =
+      ("disk_uuids", JSON.List ids) :: json_params in
+    ignore (Python_script.run_command deletedisks_script json_params [])
+  in
+
 object
   inherit output
 
@@ -229,6 +244,8 @@ object
   val mutable rhv_cluster_uuid = None
   (* List of disk UUIDs. *)
   val mutable disks_uuids = []
+  (* If we didn't finish successfully, delete on exit. *)
+  val mutable delete_disks_on_exit = true
 
   method precheck () =
     Python_script.error_unless_python_interpreter_found ();
@@ -275,6 +292,15 @@ object
      *)
     if Python_script.run_command vmcheck_script json_params [] <> 0 then
       error (f_"failed vmchecks, see earlier errors");
+
+    (* Set up an at-exit handler so we delete the orphan disks on failure. *)
+    at_exit (
+      fun () ->
+        if delete_disks_on_exit then (
+          if disks_uuids <> [] then
+            delete_disks disks_uuids
+        )
+    );
 
     (* Create an nbdkit instance for each disk and set the
      * target URI to point to the NBD socket.
@@ -420,7 +446,10 @@ If the messages above are not sufficient to diagnose the problem then add the â€
     with_open_out ovf_file (fun chan -> output_string chan ovf);
     if Python_script.run_command createvm_script json_params [ovf_file] <> 0
     then
-      error (f_"failed to create virtual machine, see earlier errors")
+      error (f_"failed to create virtual machine, see earlier errors");
+
+    (* Successful so don't delete on exit. *)
+    delete_disks_on_exit <- false
 
 end
 
