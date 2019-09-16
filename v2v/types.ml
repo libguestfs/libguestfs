@@ -521,6 +521,7 @@ class virtual output = object
   method override_output_format (_ : overlay) = (None : string option)
   method virtual prepare_targets : source -> (string * overlay) list -> target_buses -> guestcaps -> inspect -> target_firmware -> target_file list
   method disk_create = (open_guestfs ())#disk_create
+  method disk_copied (_ : target) (_ : int) (_ : int) = ()
   method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
   method keep_serial_console = true
   method install_rhev_apt = false
