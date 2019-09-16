@@ -485,6 +485,8 @@ def flush(h):
     r.read()
 
 def delete_disk_on_failure(h):
+    transfer_service = h['transfer_service']
+    transfer_service.cancel()
     disk_service = h['disk_service']
     disk_service.remove()
 
