@@ -81,14 +81,14 @@ let convert (g : G.guestfs) inspect source output rcaps =
   let rec do_convert () =
     augeas_grub_configuration ();
 
-    Windows_virtio.install_linux_tools g inspect;
-
     unconfigure_xen ();
     unconfigure_vbox ();
     unconfigure_vmware ();
     unconfigure_citrix ();
     unconfigure_kudzu ();
     unconfigure_prltools ();
+
+    install_linux_tools ();
 
     let kernel = configure_kernel () in
 
@@ -491,6 +491,9 @@ let convert (g : G.guestfs) inspect source output rcaps =
           warning (f_"Parallels tools was detected, but uninstallation failed. The error message was: %s (ignored)")
             msg
     )
+
+  and install_linux_tools () =
+    Windows_virtio.install_linux_tools g inspect
 
   and configure_kernel () =
     (* Previously this function would try to install kernels, but we
