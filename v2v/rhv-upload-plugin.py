@@ -135,6 +135,8 @@ def open(readonly):
         disk_format = types.DiskFormat.COW
     disk = disks_service.add(
         disk = types.Disk(
+            # The ID is optional.
+            id = params.get('rhv_disk_uuid'),
             name = params['disk_name'],
             description = "Uploaded by virt-v2v",
             format = disk_format,
