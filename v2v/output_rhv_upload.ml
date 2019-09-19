@@ -105,21 +105,17 @@ class output_rhv_upload output_alloc output_conn
   let diskid_file_of_id id = tmpdir // sprintf "diskid.%d" id in
 
   (* Create Python scripts for precheck, vmcheck, plugin and create VM. *)
-  let precheck_script =
-    Python_script.create ~name:"rhv-upload-precheck.py"
-                         Output_rhv_upload_precheck_source.code in
-  let vmcheck_script =
-    Python_script.create ~name:"rhv-upload-vmcheck.py"
-                         Output_rhv_upload_vmcheck_source.code in
-  let plugin_script =
-    Python_script.create ~name:"rhv-upload-plugin.py"
-                         Output_rhv_upload_plugin_source.code in
-  let createvm_script =
-    Python_script.create ~name:"rhv-upload-createvm.py"
-                         Output_rhv_upload_createvm_source.code in
-  let deletedisks_script =
-    Python_script.create ~name:"rhv-upload-deletedisks.py"
-                         Output_rhv_upload_deletedisks_source.code in
+  let py_create = Python_script.create ~tmpdir in
+  let precheck_script = py_create ~name:"rhv-upload-precheck.py"
+                        Output_rhv_upload_precheck_source.code in
+  let vmcheck_script = py_create ~name:"rhv-upload-vmcheck.py"
+                       Output_rhv_upload_vmcheck_source.code in
+  let plugin_script = py_create ~name:"rhv-upload-plugin.py"
+                      Output_rhv_upload_plugin_source.code in
+  let createvm_script = py_create ~name:"rhv-upload-createvm.py"
+                        Output_rhv_upload_createvm_source.code in
+  let deletedisks_script = py_create ~name:"rhv-upload-deletedisks.py"
+                           Output_rhv_upload_deletedisks_source.code in
 
   (* Check that the 'ovirtsdk4' Python module is available. *)
   let error_unless_ovirtsdk4_module_available () =
