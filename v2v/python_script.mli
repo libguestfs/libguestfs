@@ -20,10 +20,13 @@
 
 type script
 
-val create : ?name:string -> string -> script
+val create : ?name:string -> ?tmpdir:string -> string -> script
 (** Create a Python script object.
 
     The optional parameter [?name] is a hint for the name of the script.
+
+    The optional parameter [?tmpdir] is the temporary directory to use
+    (instead of creating a new one).
 
     The parameter is the Python code.  Usually this is
     [Some_source.code] where [some_source.ml] is generated from
