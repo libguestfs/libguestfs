@@ -32,11 +32,15 @@ class Connection(object):
             ca_file = None,
             log = None,
             insecure = False,
+            debug=True,
     ):
         pass
 
     def close(self):
         pass
+
+    def follow_link(self, objs):
+        return objs
 
     def system_service(self):
         return SystemService()
@@ -60,26 +64,31 @@ class SystemService(object):
     def vms_service(self):
         return VmsService()
 
+class ClusterService(object):
+    def get(self):
+        return types.Cluster()
+
 class ClustersService(object):
-    def list(self, search=None, case_sensitive=False):
-        return ["Default"]
+    def cluster_service(self, id):
+        return ClusterService()
 
 class DataCentersService(object):
     def list(self, search=None, case_sensitive=False):
-        return []
+        return [types.DataCenter()]
 
 class DiskService(object):
     def __init__(self, disk_id):
         self._disk_id = disk_id
 
     def get(self):
-        return types.Disk()
+        return types.Disk(id=self._disk_id)
 
     def remove(self):
         pass
 
 class DisksService(object):
     def add(self, disk=None):
+        disk.id = "756d81b0-d5c0-41bc-9bbe-b343c3fa3490"
         return disk
 
     def disk_service(self, disk_id):
@@ -88,6 +97,9 @@ class DisksService(object):
 class ImageTransferService(object):
     def __init__(self):
         self._finalized = False
+
+    def cancel(self):
+        pass
 
     def get(self):
         if self._finalized:
@@ -105,11 +117,8 @@ class ImageTransfersService(object):
     def image_transfer_service(self, id):
         return ImageTransferService()
 
-class StorageDomain(object):
-    id = "ba87af68-b630-4211-a73a-694c1a689405"
-
 class StorageDomainsService(object):
-    def list(self, search=None):
+    def list(self, search=None, case_sensitive=False):
         return [ StorageDomain() ]
 
 class VmsService(object):

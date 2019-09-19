@@ -22,12 +22,13 @@ from enum import Enum
 from ovirtsdk4 import imageio_port
 
 class Cluster(object):
-    def __init__(self, name):
-        pass
+    id = "2e97537b-a783-4706-af9e-75cb2e032dcd"
+    name = "Default"
 
 class Configuration(object):
     def __init__(self, type=None, data=None):
         pass
+
 class ConfigurationType(Enum):
     OVA = 'ova'
     OVF = 'ovf'
@@ -71,9 +72,8 @@ class Disk(object):
             sparse = False,
             storage_domains = None
     ):
-        pass
+        self.id = id
 
-    id = "123"
     status = DiskStatus.OK
 
 class ImageTransferPhase(Enum):
@@ -104,7 +104,7 @@ class ImageTransfer(object):
     ):
         pass
 
-    id = "456"
+    id = "e26ac8ab-7090-4d5e-95ad-e707b511a359"
     phase = ImageTransferPhase.TRANSFERRING
     transfer_url = "http://localhost:" + str(imageio_port) + "/"
 
@@ -116,6 +116,9 @@ class StorageDomain(object):
     def __init__(self, name = None):
         pass
 
+    id = "ba87af68-b630-4211-a73a-694c1a689405"
+    name = "Storage"
+
 class Vm(object):
     def __init__(
             self,
@@ -123,3 +126,9 @@ class Vm(object):
             initialization = None
     ):
         pass
+
+class DataCenter(object):
+    id = "31d8c73b-554b-4958-bb04-9ce97f0849e1"
+    name = "DC"
+    storage_domains = [StorageDomain()]
+    clusters = [Cluster()]

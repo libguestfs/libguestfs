@@ -50,4 +50,4 @@ $VG virt-v2v --debug-gc -v -x \
     -oo rhv-cafile=/dev/null \
     -oo rhv-direct \
     -op /dev/null \
-    -os .
+    -os Storage
