@@ -9,6 +9,7 @@ virt-v2v-output-rhv - Using virt-v2v to convert guests to oVirt or RHV
                         [-oo rhv-cafile=FILE]
                         [-oo rhv-cluster=CLUSTER]
                         [-oo rhv-direct]
+                        [-oo rhv-disk-uuid=UUID ...]
                         [-oo rhv-verifypeer]
 
  virt-v2v [-i* options] -o rhv -os [esd:/path|/path]
@@ -103,6 +104,29 @@ F</etc/pki/ovirt-engine/ca.pem> on the oVirt engine.
 =item I<-oo rhv-cluster=>C<CLUSTERNAME>
 
 Set the RHV Cluster Name.  If not given it uses C<Default>.
+
+=item I<-oo rhv-disk-uuid=>C<UUID>
+
+This option can used to manually specify UUIDs for the disks when
+creating the virtual machine.  If not specified, the oVirt engine will
+generate random UUIDs for the disks.  Please note that:
+
+=over 4
+
+=item *
+
+you B<must> pass as many I<-oo rhv-disk-uuid=UUID> options as the
+amount of disks in the guest
+
+=item *
+
+the specified UUIDs are used as they are, without checking whether
+they are already used by other disks
+
+=back
+
+This option is considered advanced, and to be used mostly in
+combination with I<--no-copy>.
 
 =item I<-oo rhv-direct>
 
