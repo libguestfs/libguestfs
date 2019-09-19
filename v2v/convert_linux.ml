@@ -493,7 +493,13 @@ let convert (g : G.guestfs) inspect source output rcaps =
     )
 
   and install_linux_tools () =
-    Windows_virtio.install_linux_tools g inspect
+    let has_qemu_guest_agent =
+      List.exists (
+        fun { G.app2_name = name } ->
+          name = "qemu-guest-agent"
+      ) inspect.i_apps in
+    if not has_qemu_guest_agent then
+      Windows_virtio.install_linux_tools g inspect
 
   and configure_kernel () =
     (* Previously this function would try to install kernels, but we
