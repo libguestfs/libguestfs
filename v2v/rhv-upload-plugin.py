@@ -188,7 +188,6 @@ def open(readonly):
     # actual transfer can start when its status is "Transferring".
     endt = time.time() + timeout
     while True:
-        time.sleep(5)
         transfer = transfer_service.get()
         if transfer.phase != types.ImageTransferPhase.INITIALIZING:
             break
@@ -196,6 +195,7 @@ def open(readonly):
             transfer_service.cancel()
             raise RuntimeError("timed out waiting for transfer status "
                                "!= INITIALIZING")
+        time.sleep(5)
 
     # Now we have permission to start the transfer.
     if params['rhv_direct']:
