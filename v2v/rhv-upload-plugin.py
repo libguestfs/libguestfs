@@ -193,12 +193,14 @@ def open(readonly):
         if transfer.phase != types.ImageTransferPhase.INITIALIZING:
             break
         if time.time() > endt:
+            transfer_service.cancel()
             raise RuntimeError("timed out waiting for transfer status "
                                "!= INITIALIZING")
 
     # Now we have permission to start the transfer.
     if params['rhv_direct']:
         if transfer.transfer_url is None:
+            transfer_service.cancel()
             raise RuntimeError("direct upload to host not supported, "
                                "requires ovirt-engine >= 4.2 and only works "
                                "when virt-v2v is run within the oVirt/RHV "
@@ -225,6 +227,7 @@ def open(readonly):
             destination_url.port,
         )
     else:
+        transfer_service.cancel()
         raise RuntimeError("unknown URL scheme (%s)" % destination_url.scheme)
 
     # The first request is to fetch the features of the server.
@@ -259,6 +262,7 @@ def open(readonly):
         pass
 
     else:
+        transfer_service.cancel()
         raise RuntimeError("could not use OPTIONS request: %d: %s" %
                            (r.status, r.reason))
 
