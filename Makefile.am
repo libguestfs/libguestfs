@@ -41,7 +41,7 @@ endif
 SUBDIRS += common/errnostring common/protocol common/qemuopts
 SUBDIRS += common/utils
 SUBDIRS += common/structs
-SUBDIRS += lib docs examples po
+SUBDIRS += lib docs examples
 
 # The daemon and the appliance.
 SUBDIRS += common/mlutils
@@ -200,6 +200,9 @@ SUBDIRS += \
 	utils/max-disks \
 	utils/qemu-boot \
 	utils/qemu-speed-test
+
+# After all source files were used we can generate the translation strings
+SUBDIRS += po
 
 # po-docs must come after tools, inspector.
 if HAVE_PO4A
