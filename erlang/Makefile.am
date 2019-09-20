@@ -83,7 +83,8 @@ erl_guestfs_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
-	-I$(ERLANG_LIB_DIR_erl_interface)/include
+	-I$(ERLANG_LIB_DIR_erl_interface)/include \
+	-DEI_NO_DEPR_WARN
 
 erl_guestfs_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
