@@ -169,6 +169,13 @@ let common_create ?bandwidth plugin_name plugin_args plugin_env =
     )
     else [] in
 
+  (* Retry filter (if it exists) can be used to get around brief
+   * interruptions in service.  It must be closest to the plugin.
+   *)
+  if probe_filter "retry" then (
+    add_arg "--filter"; add_arg "retry"
+  );
+
   let args = get_args () @ [ plugin_name ] @ plugin_args @ rate_args in
 
   { plugin_name; args; env; dump_config; dump_plugin }
