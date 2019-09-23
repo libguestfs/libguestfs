@@ -28,8 +28,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include "read-file.h"
-
 #include "guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
@@ -107,7 +105,7 @@ read_error_file (char *error_file)
   size_t len;
   char *str;
 
-  str = read_file (error_file, &len);
+  str = read_whole_file (error_file, &len);
   if (str == NULL) {
     str = strdup ("(no error)");
     if (str == NULL)

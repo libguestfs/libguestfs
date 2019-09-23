@@ -26,8 +26,6 @@
 #include <errno.h>
 #include <error.h>
 
-#include "read-file.h"
-
 #include "daemon.h"
 #include "actions.h"
 #include "optgroups.h"
@@ -39,7 +37,7 @@ read_error_file (char *error_file)
   size_t len;
   char *str;
 
-  str = read_file (error_file, &len);
+  str = read_whole_file (error_file, &len);
   if (str == NULL) {
     str = strdup ("(no error)");
     if (str == NULL)
