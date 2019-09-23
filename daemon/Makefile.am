@@ -225,13 +225,9 @@ guestfsd_LDADD = \
 	$(HIVEX_LIBS) \
 	$(SD_JOURNAL_LIBS) \
 	$(top_builddir)/gnulib/lib/.libs/libgnu.a \
-	$(GETADDRINFO_LIB) \
-	$(HOSTENT_LIB) \
-	$(INET_NTOP_LIB) \
 	$(LIBSOCKET) \
 	$(LIB_CLOCK_GETTIME) \
 	$(LIBINTL) \
-	$(SERVENT_LIB) \
 	$(PCRE_LIBS) \
 	$(TSK_LIBS) \
 	$(RPC_LIBS) \

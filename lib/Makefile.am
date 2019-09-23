@@ -154,15 +154,10 @@ libguestfs_la_LIBADD = \
 	$(SELINUX_LIBS) \
 	$(JANSSON_LIBS) \
 	../gnulib/lib/libgnu.la \
-	$(GETADDRINFO_LIB) \
-	$(HOSTENT_LIB) \
-	$(INET_NTOP_LIB) \
 	$(LIBSOCKET) \
 	$(LIB_CLOCK_GETTIME) \
 	$(LTLIBINTL) \
 	$(LTLIBTHREAD) \
-	$(LTLIBICONV) \
-	$(SERVENT_LIB) \
 	$(RPC_LIBS)
 
 # Force libtool to name the library 'libguestfs.so.0.$(MAX_PROC_NR).0'.
