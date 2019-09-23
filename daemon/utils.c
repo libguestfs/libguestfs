@@ -827,3 +827,61 @@ cleanup_free_mountable (mountable_t *mountable)
     free (mountable->volume);
   }
 }
+
+/**
+ * Read whole file into dynamically allocated array.  If there is an
+ * error, DON'T call reply_with_perror, just return NULL.  Returns a
+ * C<\0>-terminated string.  C<size_r> can be specified to get the
+ * size of the returned data.
+ */
+char *
+read_whole_file (const char *filename, size_t *size_r)
+{
+  char *r = NULL;
+  size_t alloc = 0, size = 0;
+  int fd;
+
+  fd = open (filename, O_RDONLY|O_CLOEXEC);
+  if (fd == -1) {
+    perror (filename);
+    return NULL;
+  }
+
+  while (1) {
+    alloc += 256;
+    char *r2 = realloc (r, alloc);
+    if (r2 == NULL) {
+      perror ("realloc");
+      free (r);
+      close (fd);
+      return NULL;
+    }
+    r = r2;
+
+    /* The '- 1' in the size calculation ensures there is space below
+     * to add \0 to the end of the input.
+     */
+    ssize_t n = read (fd, r + size, alloc - size - 1);
+    if (n == -1) {
+      fprintf (stderr, "read: %s: %m\n", filename);
+      free (r);
+      close (fd);
+      return NULL;
+    }
+    if (n == 0)
+      break;
+    size += n;
+  }
+
+  if (close (fd) == -1) {
+    fprintf (stderr, "close: %s: %m\n", filename);
+    free (r);
+    return NULL;
+  }
+
+  r[size] = '\0';
+  if (size_r != NULL)
+    *size_r = size;
+
+  return r;
+}

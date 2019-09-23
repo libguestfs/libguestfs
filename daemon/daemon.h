@@ -84,6 +84,7 @@ extern int random_name (char *template);
 extern char *get_random_uuid (void);
 extern char *make_exclude_from_file (const char *function, char *const *excludes);
 extern int asprintf_nowarn (char **strp, const char *fmt, ...);
+extern char *read_whole_file (const char *filename, size_t *size_r);
 
 /* mountable functions (in utils.c) */
 extern char *mountable_to_string (const mountable_t *mountable);

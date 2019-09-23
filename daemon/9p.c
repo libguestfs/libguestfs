@@ -34,8 +34,6 @@
 
 #define BUS_PATH "/sys/bus/virtio/drivers/9pnet_virtio"
 
-static char *read_whole_file (const char *filename);
-
 /* https://bugzilla.redhat.com/show_bug.cgi?id=714981#c1 */
 char **
 do_list_9p (void)
@@ -82,7 +80,7 @@ do_list_9p (void)
        * the mount tag length to be unlimited (or up to 65536 bytes).
        * See: linux/include/linux/virtio_9p.h
        */
-      CLEANUP_FREE char *mount_tag = read_whole_file (mount_tag_path);
+      CLEANUP_FREE char *mount_tag = read_whole_file (mount_tag_path, NULL);
       if (mount_tag == 0)
         continue;
 
@@ -115,60 +113,6 @@ do_list_9p (void)
     return NULL;
 
   return take_stringsbuf (&r);
-}
-
-/* Read whole file into dynamically allocated array.  If there is an
- * error, DON'T call reply_with_perror, just return NULL.  Returns a
- * \0-terminated string.
- */
-static char *
-read_whole_file (const char *filename)
-{
-  char *r = NULL;
-  size_t alloc = 0, size = 0;
-  int fd;
-
-  fd = open (filename, O_RDONLY|O_CLOEXEC);
-  if (fd == -1) {
-    perror (filename);
-    return NULL;
-  }
-
-  while (1) {
-    alloc += 256;
-    char *r2 = realloc (r, alloc);
-    if (r2 == NULL) {
-      perror ("realloc");
-      free (r);
-      close (fd);
-      return NULL;
-    }
-    r = r2;
-
-    /* The '- 1' in the size calculation ensures there is space below
-     * to add \0 to the end of the input.
-     */
-    ssize_t n = read (fd, r + size, alloc - size - 1);
-    if (n == -1) {
-      fprintf (stderr, "read: %s: %m\n", filename);
-      free (r);
-      close (fd);
-      return NULL;
-    }
-    if (n == 0)
-      break;
-    size += n;
-  }
-
-  if (close (fd) == -1) {
-    fprintf (stderr, "close: %s: %m\n", filename);
-    free (r);
-    return NULL;
-  }
-
-  r[size] = '\0';
-
-  return r;
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
