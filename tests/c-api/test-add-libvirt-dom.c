@@ -28,8 +28,6 @@
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
 
-#include "xgetcwd.h"
-
 #include "guestfs.h"
 #include "guestfs-utils.h"
 
@@ -76,11 +74,12 @@ main (int argc, char *argv[])
   virErrorPtr err;
   int r;
   char *backend;
-  char *cwd;
+  char cwd[1024];
   FILE *fp;
-  char libvirt_uri[1024];
+  char libvirt_uri[sizeof cwd + 64];
 
-  cwd = xgetcwd ();
+  if (getcwd (cwd, sizeof cwd) == NULL)
+    error (EXIT_FAILURE, errno, "getcwd");
 
   /* Create the guestfs handle. */
   g = guestfs_create ();
@@ -147,7 +146,6 @@ main (int argc, char *argv[])
 
   virDomainFree (dom);
   virConnectClose (conn);
-  free (cwd);
 
   unlink ("test-add-libvirt-dom.xml");
   unlink ("test-add-libvirt-dom-1.img");
