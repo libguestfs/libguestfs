@@ -26,8 +26,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include "read-file.h"
-
 #include "guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
