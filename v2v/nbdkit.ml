@@ -133,6 +133,17 @@ let common_create plugin_name plugin_args plugin_env =
   if have_selinux then (        (* label the socket so qemu can open it *)
     add_arg "--selinux-label"; add_arg "system_u:object_r:svirt_socket_t:s0"
   );
+
+  (* Probe to see if a filter is installed.  See nbdkit-probing(1)
+   * for recommended method.
+   *)
+  let probe_filter filter_name =
+    let cmd =
+      sprintf "%s nbdkit --dump-plugin --filter=%s null >/dev/null"
+              env_as_string filter_name in
+    Sys.command cmd <> 0
+  in
+
   let args = get_args () @ [ plugin_name ] @ plugin_args in
 
   { plugin_name; args; env; dump_config; dump_plugin }
