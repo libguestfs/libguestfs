@@ -71,7 +71,7 @@ d-i netcfg/get_domain string unassigned-domain
 # If you want to force a hostname, regardless of what either the DHCP
 # server returns or what the reverse DNS entry for the IP is, uncomment
 # and adjust the following line.
-#d-i netcfg/hostname string somehost
+d-i netcfg/hostname string unassigned-hostname.unassigned-domain
 
 # Disable that annoying WEP key dialog.
 d-i netcfg/wireless_wep string
