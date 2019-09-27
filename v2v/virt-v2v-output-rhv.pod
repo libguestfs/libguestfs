@@ -101,6 +101,8 @@ The storage domain.
 The F<ca.pem> file (Certificate Authority), copied from
 F</etc/pki/ovirt-engine/ca.pem> on the oVirt engine.
 
+This option must be specified if I<-oo rhv-verifypeer> is enabled.
+
 =item I<-oo rhv-cluster=>C<CLUSTERNAME>
 
 Set the RHV Cluster Name.  If not given it uses C<Default>.

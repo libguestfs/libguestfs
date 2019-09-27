@@ -28,7 +28,7 @@ open Types
 open Utils
 
 type rhv_options = {
-  rhv_cafile : string;
+  rhv_cafile : string option;
   rhv_cluster : string option;
   rhv_direct : bool;
   rhv_verifypeer : bool;
@@ -76,21 +76,23 @@ let parse_output_options options =
        error (f_"-o rhv-upload: unknown output option ‘-oo %s’") k
   ) options;
 
-  let rhv_cafile =
-    match !rhv_cafile with
-    | Some s -> s
-    | None ->
-       error (f_"-o rhv-upload: must use ‘-oo rhv-cafile’ to supply the path to the oVirt or RHV user’s ‘ca.pem’ file") in
+  let rhv_cafile = !rhv_cafile in
   let rhv_cluster = !rhv_cluster in
   let rhv_direct = !rhv_direct in
   let rhv_verifypeer = !rhv_verifypeer in
   let rhv_disk_uuids = Option.map List.rev !rhv_disk_uuids in
+  if rhv_verifypeer && rhv_cafile = None then
+     error (f_"-o rhv-upload: must use ‘-oo rhv-cafile’ to supply the path to the oVirt or RHV user’s ‘ca.pem’ file");
 
   { rhv_cafile; rhv_cluster; rhv_direct; rhv_verifypeer; rhv_disk_uuids }
 
 let nbdkit_python_plugin = Config.virt_v2v_nbdkit_python_plugin
 let pidfile_timeout = 30
 let finalization_timeout = 5*60
+
+let json_optstring = function
+  | Some s -> JSON.String s
+  | None -> JSON.Null
 
 class output_rhv_upload output_alloc output_conn
                         output_password output_storage
@@ -200,7 +202,7 @@ See also the virt-v2v-output-rhv(1) manual.")
     "output_sparse", JSON.Bool (match output_alloc with
                                 | Sparse -> true
                                 | Preallocated -> false);
-    "rhv_cafile", JSON.String rhv_options.rhv_cafile;
+    "rhv_cafile", json_optstring rhv_options.rhv_cafile;
     "rhv_cluster",
       JSON.String (Option.default "Default" rhv_options.rhv_cluster);
     "rhv_direct", JSON.Bool rhv_options.rhv_direct;
