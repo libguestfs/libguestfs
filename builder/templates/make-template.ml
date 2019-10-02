@@ -821,14 +821,16 @@ and make_boot_media os arch =
      Location (sprintf "http://mirror.centos.org/altarch/%d/os/aarch64/"
                        major)
 
-  | CentOS (major, _), X86_64 ->
+  | CentOS (7, _), X86_64 ->
      (* For 6.x we rebuild this every time there is a new 6.x release, and bump
       * the revision in the index.
       * For 7.x this always points to the latest CentOS, so
       * effectively the minor number is always ignored.
       *)
-     Location (sprintf "http://mirror.centos.org/centos-7/%d/os/x86_64/"
-                       major)
+     Location "http://mirror.centos.org/centos-7/7/os/x86_64/"
+
+  | CentOS (8, _), X86_64 ->
+     Location "http://mirror.centos.org/centos-8/8/BaseOS/x86_64/kickstart"
 
   | Debian (_, dist), arch ->
      Location (sprintf "http://deb.debian.org/debian/dists/%s/main/installer-%s"
@@ -1134,9 +1136,10 @@ and os_variant_of_os ?(for_fedora = false) os arch =
        sprintf "fedora%d" ver
     | Fedora _, _ -> "fedora26" (* max version known in Fedora 28 *)
 
+    | CentOS (8, _), _ -> "rhel8.0" (* temporary until osinfo updated *)
     | CentOS (major, minor), _ when (major, minor) <= (7,0) ->
        sprintf "centos%d.%d" major minor
-    | CentOS _, _ -> "centos7.0" (* max version known in Fedora 24 *)
+    | CentOS _, _ -> "centos7.0" (* max version known in Fedora 31 *)
 
     | RHEL (6, minor), _ when minor <= 8 ->
        sprintf "rhel6.%d" minor
