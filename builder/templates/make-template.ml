@@ -995,10 +995,7 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars
 
   (*add "--print-xml";*)
 
-  (match arch with
-   | PPC64 | PPC64le -> add "--ram=4096"
-   | _ -> add "--ram=2048"
-  );
+  add "--ram=4096";
 
   (match arch with
    | X86_64 ->
