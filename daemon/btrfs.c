@@ -1834,8 +1834,10 @@ do_btrfs_scrub_status (const char *path)
    *   scrub status for 346121d1-1847-40f8-9b7b-2bf3d539c68f
    *           no stats available
    */
-  for (i = 1; lines[i] != NULL; ++i) {
-    if ((i == 1) && STREQ (lines[i], "\tno stats available"))
+  for (i = 0; lines[i] != NULL; ++i) {
+    if (lines[i][0] != '\t')
+      continue;
+    else if (STREQ (lines[i], "\tno stats available"))
       return ret;
     else if (STRPREFIX (lines[i], "\tscrub started at"))
       continue;
