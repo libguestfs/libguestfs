@@ -1,0 +1,20 @@
+# This is the virt-install command which was used to create
+# the virt-builder template 'centos-8.0'
+# NB: This file is generated for documentation purposes ONLY!
+# This script was never run, and is not intended to be run.
+
+'virt-install' \
+    '--transient' \
+    '--name=tmp-1md2o05m' \
+    '--ram=4096' \
+    '--arch=x86_64' \
+    '--cpu=host' \
+    '--vcpus=4' \
+    '--os-variant=rhel8.0' \
+    '--initrd-inject=centos-8.0.ks' \
+    '--extra-args=ks=file:/centos-8.0.ks  console=tty0 console=ttyS0,115200 rd_NO_PLYMOUTH' \
+    '--disk=/home/rjones/d/libguestfs/builder/templates/tmp-1md2o05m.img,size=6,format=raw' \
+    '--location=http://mirror.centos.org/centos-8/8/BaseOS/x86_64/kickstart' \
+    '--serial=pty' \
+    '--nographics' 
+
