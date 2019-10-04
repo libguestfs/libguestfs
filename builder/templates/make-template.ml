@@ -547,6 +547,17 @@ mouse generic
       (kernel_cmdline_of_os os arch);
   bpf "\n";
 
+  (* Required as a workaround for CentOS 8.0, see:
+   * https://lists.centos.org/pipermail/centos-devel/2019-September/017813.html
+   * https://lists.centos.org/pipermail/centos-devel/2019-October/017882.html
+   *)
+  (match os with
+   | CentOS (8, _) ->
+      bpf "url --url=\"http://mirror.centos.org/centos-8/8/BaseOS/x86_64/os\"\n"
+   | _ -> ()
+  );
+  bpf "\n";
+
   (match os with
    | CentOS ((3|4|5|6) as major, _) | RHEL ((3|4|5|6) as major, _) ->
       let bootfs = if major <= 5 then "ext2" else "ext4" in
