@@ -187,6 +187,13 @@ else
     CGO_CFLAGS="$CGO_CFLAGS -I$s/lib"
 fi
 export CGO_CFLAGS
+if [ -z "$CGO_CFLAGS_ALLOW" ]; then
+    CGO_CFLAGS_ALLOW='-UGUESTFS_NO_DEPRECATED'
+    export CGO_CFLAGS_ALLOW
+else
+    echo "Warning: CGO_CFLAGS_ALLOW already defined! Be sure to include"
+    echo "the -U option."
+fi
 if [ -z "$CGO_LDFLAGS" ]; then
     CGO_LDFLAGS="-L$b/lib/.libs"
 else
