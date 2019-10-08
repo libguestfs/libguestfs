@@ -293,6 +293,13 @@ let convert (g : G.guestfs) inspect source output rcaps static_ips =
     if Sys.file_exists tool_path then
       configure_vmdp tool_path;
 
+    (* Install QEMU Guest Agent unconditionally and warn if missing *)
+    let qemu_ga_files = Windows_virtio.copy_qemu_ga g inspect in
+    if qemu_ga_files <> [] then
+      configure_qemu_ga qemu_ga_files
+    else
+      warning (f_"QEMU Guest Agent MSI not found on tools ISO/directory. You may want to install the guest agent manually after conversion.");
+
     unconfigure_xenpv ();
     unconfigure_prltools ();
     unconfigure_vmwaretools ()
@@ -417,6 +424,18 @@ popd
 
     Firstboot.add_firstboot_script g inspect.i_root
       "finish vmdp setup" fb_recover_script
+
+ and configure_qemu_ga files =
+   List.iter (
+     fun msi_path ->
+       let fb_script = "\
+echo Installing qemu-ga from " ^ msi_path ^ "
+\"\\" ^ msi_path ^ "\" /qn /forcerestart /l+*vx \"%cd%\\qemu-ga.log\"
+" in
+      Firstboot.add_firstboot_script g inspect.i_root
+        ("install " ^ msi_path) fb_script;
+    ) files
+
 
   and unconfigure_xenpv () =
     match xenpv_uninst with

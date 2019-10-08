@@ -302,6 +302,13 @@ and copy_drivers g inspect driverdir =
     (fun () ->
       error (f_"root directory ‘/’ is missing from the virtio-win directory or ISO.\n\nThis should not happen and may indicate that virtio-win or virt-v2v is broken in some way.  Please report this as a bug with a full debug log."))
 
+and copy_qemu_ga g inspect =
+  copy_from_virtio_win g inspect "/" "/"
+    virtio_iso_path_matches_qemu_ga
+    (fun () ->
+      error (f_"root directory ‘/’ is missing from the virtio-win directory or ISO.\n\nThis should not happen and may indicate that virtio-win or virt-v2v is broken in some way.  Please report this as a bug with a full debug log."))
+
+
 (* Copy all files from virtio_win directory/ISO located in [srcdir]
  * subdirectory and all its subdirectories to the [destdir]. The directory
  * hierarchy is not preserved, meaning all files will be directly in [destdir].
@@ -432,6 +439,26 @@ and virtio_iso_path_matches_guest_os path inspect =
       match_os_variant os_variant
 
   with Not_found -> false
+
+(* Given a path of a file relative to the root of the directory tree
+ * with virtio-win drivers, figure out if it's suitable for the
+ * specific Windows flavor of the current guest.
+ *)
+and virtio_iso_path_matches_qemu_ga path inspect =
+  let { i_arch = arch } = inspect in
+  (* Lowercased path, since the ISO may contain upper or lowercase path
+   * elements.
+   *)
+  let lc_name = String.lowercase_ascii (Filename.basename path) in
+  lc_name = "rhev-qga.msi" ||
+  match arch, lc_name with
+  | ("i386", "qemu-ga-x86.msi")
+  | ("i386", "qemu-ga-i386.msi")
+  | ("i386", "RHEV-QGA.msi")
+  | ("x86_64", "qemu-ga-x64.msi")
+  | ("x86_64", "qemu-ga-x86_64.msi")
+  | ("x86_64", "RHEV-QGA64.msi") -> true
+  | _ -> false
 
 (* The following function is only exported for unit tests. *)
 module UNIT_TESTS = struct
