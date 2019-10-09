@@ -155,6 +155,7 @@ v2v/linux_kernels.ml
 v2v/measure_disk.ml
 v2v/modules_list.ml
 v2v/name_from_disk.ml
+v2v/nbdkit.ml
 v2v/networks.ml
 v2v/openstack_image_properties.ml
 v2v/output_glance.ml
@@ -167,8 +168,10 @@ v2v/output_qemu.ml
 v2v/output_rhv.ml
 v2v/output_rhv_upload.ml
 v2v/output_rhv_upload_createvm_source.ml
+v2v/output_rhv_upload_deletedisks_source.ml
 v2v/output_rhv_upload_plugin_source.ml
 v2v/output_rhv_upload_precheck_source.ml
+v2v/output_rhv_upload_vmcheck_source.ml
 v2v/output_vdsm.ml
 v2v/parse_libvirt_xml.ml
 v2v/parse_ova.ml
