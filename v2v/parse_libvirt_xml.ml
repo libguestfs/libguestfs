@@ -532,7 +532,6 @@ let parse_libvirt_xml ?bandwidth ?conn xml =
     s_display = display;
     s_video = video;
     s_sound = sound;
-    s_disks = [];
     s_removables = removables;
     s_nics = nics;
    },

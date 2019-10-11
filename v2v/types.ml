@@ -39,7 +39,6 @@ type source = {
   s_display : source_display option;
   s_video : source_video option;
   s_sound : source_sound option;
-  s_disks : source_disk list;
   s_removables : source_removable list;
   s_nics : source_nic list;
 }
@@ -107,7 +106,7 @@ and source_cpu_topology = {
   s_cpu_threads : int;
 }
 
-let rec string_of_source s =
+let rec string_of_source s source_disks =
   sprintf "    source name: %s
 hypervisor type: %s
        VM genid: %s
@@ -149,7 +148,7 @@ NICs:
     (match s.s_sound with
     | None -> ""
     | Some sound -> string_of_source_sound sound)
-    (String.concat "\n" (List.map string_of_source_disk s.s_disks))
+    (String.concat "\n" (List.map string_of_source_disk source_disks))
     (String.concat "\n" (List.map string_of_source_removable s.s_removables))
     (String.concat "\n" (List.map string_of_source_nic s.s_nics))
 
@@ -521,7 +520,7 @@ type static_ip = {
 class virtual input = object
   method precheck () = ()
   method virtual as_options : string
-  method virtual source : ?bandwidth:bandwidth -> unit -> source
+  method virtual source : ?bandwidth:bandwidth -> unit -> (source * source_disk list)
 end
 
 class virtual output = object

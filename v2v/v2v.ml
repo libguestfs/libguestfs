@@ -69,14 +69,14 @@ let rec main () =
   input#precheck ();
   output#precheck ();
 
-  let source = open_source cmdline input in
+  let source, source_disks = open_source cmdline input in
   let source = set_source_name cmdline source in
   let source = set_source_networks_and_bridges cmdline source in
 
   let conversion_mode =
     if not cmdline.in_place then (
       check_host_free_space ();
-      let overlays = create_overlays source.s_disks in
+      let overlays = create_overlays source_disks in
       Copying overlays
     )
     else In_place in
@@ -92,7 +92,7 @@ let rec main () =
   g#set_network true;
   (match conversion_mode with
    | Copying overlays -> populate_overlays g overlays
-   | In_place -> populate_disks g source.s_disks
+   | In_place -> populate_disks g source_disks
   );
 
   g#launch ();
@@ -125,9 +125,9 @@ let rec main () =
       | Copying _ ->
          { rcaps_block_bus = None; rcaps_net_bus = None; rcaps_video = None }
       | In_place ->
-         rcaps_from_source source in
+         rcaps_from_source source source_disks in
 
-    do_convert g inspect source.s_disks output rcaps cmdline.static_ips in
+    do_convert g inspect source_disks output rcaps cmdline.static_ips in
 
   g#umount_all ();
 
@@ -160,7 +160,8 @@ let rec main () =
 
       message (f_"Assigning disks to buses");
       let target_buses =
-        Target_bus_assignment.target_bus_assignment source guestcaps in
+        Target_bus_assignment.target_bus_assignment
+          source_disks source.s_removables guestcaps in
       debug "%s" (string_of_target_buses target_buses);
 
       let target_firmware =
@@ -197,17 +198,17 @@ let rec main () =
 and open_source cmdline input =
   message (f_"Opening the source %s") input#as_options;
   let bandwidth = cmdline.bandwidth in
-  let source = input#source ?bandwidth () in
+  let source, source_disks = input#source ?bandwidth () in
 
   (* Print source and stop. *)
   if cmdline.print_source then (
     printf (f_"Source guest information (--print-source option):\n");
     printf "\n";
-    printf "%s\n" (string_of_source source);
+    printf "%s\n" (string_of_source source source_disks);
     exit 0
   );
 
-  debug "%s" (string_of_source source);
+  debug "%s" (string_of_source source source_disks);
 
   (match source.s_hypervisor with
   | OtherHV hv ->
@@ -234,7 +235,7 @@ and open_source cmdline input =
                 sockets cores threads expected_vcpu source.s_vcpu
   );
 
-  if source.s_disks = [] then
+  if source_disks = [] then
     error (f_"source has no hard disks!");
   let () =
     let ids = ref IntSet.empty in
@@ -244,9 +245,9 @@ and open_source cmdline input =
         (* Check s_disk_id are all unique. *)
         assert (not (IntSet.mem s_disk_id !ids));
         ids := IntSet.add s_disk_id !ids
-    ) source.s_disks in
+    ) source_disks in
 
-  source
+  source, source_disks
 
 (* Map source name. *)
 and set_source_name cmdline source =
@@ -817,9 +818,9 @@ and preserve_overlays overlays src_name =
   ) overlays
 
 (* Request guest caps based on source configuration. *)
-and rcaps_from_source source =
+and rcaps_from_source source source_disks =
   let source_block_types =
-    List.map (fun sd -> sd.s_controller) source.s_disks in
+    List.map (fun sd -> sd.s_controller) source_disks in
   let source_block_type =
     match List.sort_uniq source_block_types with
     | [] -> error (f_"source has no hard disks!")

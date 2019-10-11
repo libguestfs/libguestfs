@@ -63,7 +63,7 @@ object (self)
 
     let source, disks, _ = parse_libvirt_domain ?bandwidth self#conn guest in
     let disks = List.map (fun { p_source_disk = disk } -> disk) disks in
-    { source with s_disks = disks }
+    source, disks
 end
 
 let input_libvirt_other = new input_libvirt_other

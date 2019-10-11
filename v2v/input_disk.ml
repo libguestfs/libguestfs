@@ -93,12 +93,11 @@ class input_disk input_format disk = object
                s_listen = LNoListen; s_port = None };
       s_video = None;
       s_sound = None;
-      s_disks = [disk];
       s_removables = [];
       s_nics = [network];
     } in
 
-    source
+    source, [disk]
 end
 
 let input_disk = new input_disk

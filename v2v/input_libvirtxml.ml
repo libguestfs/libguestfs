@@ -53,7 +53,7 @@ object
         { disk with s_qemu_uri = path }
     ) disks in
 
-    { source with s_disks = disks }
+    source, disks
 end
 
 let input_libvirtxml = new input_libvirtxml

@@ -87,7 +87,7 @@ object (self)
         { disk with s_qemu_uri = qemu_uri; s_format = Some "raw" }
     ) disks in
 
-    { source with s_disks = disks }
+    source, disks
 end
 
 let input_libvirt_vcenter_https = new input_libvirt_vcenter_https

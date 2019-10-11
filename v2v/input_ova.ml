@@ -200,12 +200,11 @@ class input_ova ova = object
       s_display = None; (* XXX *)
       s_video = None;
       s_sound = None;
-      s_disks = disks;
       s_removables = removables;
       s_nics = nics;
     } in
 
-    source
+    source, disks
 end
 
 let input_ova = new input_ova

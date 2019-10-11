@@ -22,13 +22,13 @@ open Common_gettext.Gettext
 
 open Types
 
-let rec target_bus_assignment source guestcaps =
+let rec target_bus_assignment source_disks source_removables guestcaps =
   let virtio_blk_bus = ref [| |]
   and ide_bus = ref [| |]
   and scsi_bus = ref [| |]
   and floppy_bus = ref [| |] in
 
-  (* Assign the fixed disks (source.s_disks) to either the virtio-blk or
+  (* Assign the fixed disks (source_disks) to either the virtio-blk or
    * IDE bus, depending on whether the guest has virtio drivers or not.
    *)
   let () =
@@ -41,7 +41,7 @@ let rec target_bus_assignment source guestcaps =
       fun i d ->
         let d = BusSlotDisk d in
         insert bus i d
-    ) source.s_disks in
+    ) source_disks in
 
   (* Now we have to assign the removable disks.  These go in the
    * same slot they originally occupied, except in two cases: (1) That
@@ -60,7 +60,7 @@ let rec target_bus_assignment source guestcaps =
       function
       | { s_removable_slot = Some _ } -> true
       | { s_removable_slot = None } -> false
-    ) source.s_removables in
+    ) source_removables in
 
   let assign_removables removables =
     List.iter (

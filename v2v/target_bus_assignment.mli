@@ -21,4 +21,4 @@
     Do this as best we can.  This is not solvable for all guests,
     but at least avoid overlapping disks (RHBZ#1238053). *)
 
-val target_bus_assignment : Types.source -> Types.guestcaps -> Types.target_buses
+val target_bus_assignment : Types.source_disk list -> Types.source_removable list -> Types.guestcaps -> Types.target_buses

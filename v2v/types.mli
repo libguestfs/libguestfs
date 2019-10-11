@@ -38,7 +38,7 @@
 │source│
 │struct│
 └──┬───┘
-   │ source.s_disks
+   │ source_disks
    │
    │    ┌───────┐  ┌───────┐  ┌───────┐
    └────┤ disk1 ├──┤ disk2 ├──┤ disk3 │  Source disks
@@ -75,7 +75,6 @@ type source = {
   s_display : source_display option;    (** Guest display. *)
   s_video : source_video option;        (** Video adapter. *)
   s_sound : source_sound option;        (** Sound card. *)
-  s_disks : source_disk list;           (** Disk images. *)
   s_removables : source_removable list; (** CDROMs etc. *)
   s_nics : source_nic list;             (** NICs. *)
 }
@@ -170,7 +169,7 @@ and source_cpu_topology = {
   s_cpu_threads : int;             (** Number of threads per core. *)
 }
 
-val string_of_source : source -> string
+val string_of_source : source -> source_disk list -> string
 val string_of_source_disk : source_disk -> string
 val string_of_controller : s_controller -> string
 val string_of_nic_model : s_nic_model -> string
@@ -392,7 +391,7 @@ type static_ip = {
         ▼
     input#source              Open the source hypervisor connection,
         │                     read metadata, and fill out and return
-        │                     the ‘Types.source’ structure.
+        │                     the ‘Types.source’ structure and disks.
         ▼
     conversion                Guest is converted into a local overlay.
         │
@@ -412,8 +411,10 @@ class virtual input : object
   method virtual as_options : string
   (** Converts the input object back to the equivalent command line options.
       This is just used for pretty-printing log messages. *)
-  method virtual source : ?bandwidth:bandwidth -> unit -> source
-  (** Examine the source hypervisor and create a source struct. *)
+  method virtual source : ?bandwidth:bandwidth -> unit ->
+                          (source * source_disk list)
+  (** Examine the source hypervisor and create a source struct
+      and list of source disks. *)
 end
 (** Encapsulates all [-i], etc input arguments as an object. *)
 

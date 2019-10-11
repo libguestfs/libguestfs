@@ -71,7 +71,7 @@ object (self)
         { disk with s_qemu_uri = qemu_uri }
     ) disks in
 
-    { source with s_disks = disks }
+    source, disks
 end
 
 let input_libvirt_xen_ssh = new input_libvirt_xen_ssh
