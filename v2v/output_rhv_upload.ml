@@ -290,7 +290,7 @@ object
   (* rhev-apt.exe will be installed (if available). *)
   method install_rhev_apt = true
 
-  method prepare_targets source_name overlays _ _ _ _ =
+  method prepare_targets source_name overlays =
     let uuids =
       match rhv_options.rhv_disk_uuids with
       | None ->

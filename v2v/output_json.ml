@@ -71,7 +71,7 @@ class output_json dir json_options = object
 
   method as_options = sprintf "-o json -os %s" dir
 
-  method prepare_targets source_name overlays _ _ _ _ =
+  method prepare_targets source_name overlays =
     List.mapi (
       fun i (_, ov) ->
         let outname =

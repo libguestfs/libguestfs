@@ -75,7 +75,7 @@ object (self)
     | None -> sprintf "-o libvirt -os %s" output_pool
     | Some uri -> sprintf "-o libvirt -oc %s -os %s" uri output_pool
 
-  method prepare_targets source_name overlays _ _ _ _ =
+  method prepare_targets source_name overlays =
     (* Get the capabilities from libvirt. *)
     let xml =
       try

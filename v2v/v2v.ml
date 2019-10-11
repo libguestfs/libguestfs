@@ -172,9 +172,7 @@ let rec main () =
         let target_formats = get_target_formats cmdline output overlays in
         let target_files =
           output#prepare_targets source.s_name
-                                 (List.combine target_formats overlays)
-                                 target_buses guestcaps
-                                 inspect target_firmware in
+            (List.combine target_formats overlays) in
         List.map (
           fun (target_file, target_format, target_overlay) ->
             { target_file; target_format; target_overlay }

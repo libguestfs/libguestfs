@@ -487,7 +487,7 @@ class virtual output : object
       line (silently).  It’s best not to do this, instead modify
       prepare_targets so it gives an error if the output format
       chosen is not supported by the target. *)
-  method virtual prepare_targets : string -> (string * overlay) list -> target_buses -> guestcaps -> inspect -> target_firmware -> target_file list
+  method virtual prepare_targets : string -> (string * overlay) list -> target_file list
   (** Called after conversion but before copying to prepare (but {b not}
       create) the target file.  The [(string * overlay list)] parameter
       is a list of the (format, overlay) for each target disk.  If

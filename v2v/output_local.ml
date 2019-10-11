@@ -31,7 +31,7 @@ class output_local dir = object
 
   method as_options = sprintf "-o local -os %s" dir
 
-  method prepare_targets source_name overlays _ _ _ _ =
+  method prepare_targets source_name overlays =
     List.map (
       fun (_, ov) -> TargetFile (dir // source_name ^ "-" ^ ov.ov_sd)
     ) overlays
