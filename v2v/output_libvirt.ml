@@ -75,7 +75,7 @@ object (self)
     | None -> sprintf "-o libvirt -os %s" output_pool
     | Some uri -> sprintf "-o libvirt -oc %s -os %s" uri output_pool
 
-  method prepare_targets source overlays _ _ _ _ =
+  method prepare_targets source_name overlays _ _ _ _ =
     (* Get the capabilities from libvirt. *)
     let xml =
       try
@@ -98,14 +98,9 @@ object (self)
     capabilities_doc <- Some doc;
 
     (* Does the domain already exist on the target?  (RHBZ#889082) *)
-    if Libvirt_utils.domain_exists self#conn source.s_name then (
-      if source.s_hypervisor = Physical then (* virt-p2v user *)
-        error (f_"a libvirt domain called ‘%s’ already exists on the target.\n\nIf using virt-p2v, select a different ‘Name’ in the ‘Target properties’. Or delete the existing domain on the target using the ‘virsh undefine’ command.")
-              source.s_name
-      else                      (* !virt-p2v *)
-        error (f_"a libvirt domain called ‘%s’ already exists on the target.\n\nIf using virt-v2v directly, use the ‘-on’ option to select a different name. Or delete the existing domain on the target using the ‘virsh undefine’ command.")
-              source.s_name
-    );
+    if Libvirt_utils.domain_exists self#conn source_name then
+        error (f_"a libvirt domain called ‘%s’ already exists on the target.\n\nIf using virt-v2v directly, use the ‘-on’ option to select a different name. Or delete the existing domain on the target using the ‘virsh undefine’ command.\n\nIf using virt-p2v, select a different ‘Name’ in the ‘Target properties’. Or delete the existing domain on the target using the ‘virsh undefine’ command.")
+          source_name;
 
     (* Connect to output libvirt instance and check that the pool exists
      * and dump out its XML.
@@ -140,7 +135,7 @@ object (self)
     (* Set up the targets. *)
     List.map (
       fun (_, ov) ->
-        TargetFile (target_path // source.s_name ^ "-" ^ ov.ov_sd)
+        TargetFile (target_path // source_name ^ "-" ^ ov.ov_sd)
     ) overlays
 
   method supported_firmware = [ TargetBIOS; TargetUEFI ]

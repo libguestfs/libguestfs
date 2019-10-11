@@ -36,10 +36,10 @@ object
   method as_options =
     sprintf "-o qemu -os %s%s" dir (if qemu_boot then " --qemu-boot" else "")
 
-  method prepare_targets source overlays _ _ _ _ =
+  method prepare_targets source_name overlays _ _ _ _ =
     List.map (
       fun (_, ov) ->
-        TargetFile (dir // source.s_name ^ "-" ^ ov.ov_sd)
+        TargetFile (dir // source_name ^ "-" ^ ov.ov_sd)
     ) overlays
 
   method supported_firmware = [ TargetBIOS; TargetUEFI ]

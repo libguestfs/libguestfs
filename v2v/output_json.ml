@@ -71,14 +71,14 @@ class output_json dir json_options = object
 
   method as_options = sprintf "-o json -os %s" dir
 
-  method prepare_targets source overlays _ _ _ _ =
+  method prepare_targets source_name overlays _ _ _ _ =
     List.mapi (
       fun i (_, ov) ->
         let outname =
           let vars_fn = function
             | "DiskNo" -> Some (string_of_int (i+1))
             | "DiskDeviceName" -> Some ov.ov_sd
-            | "GuestName" -> Some source.s_name
+            | "GuestName" -> Some source_name
             | _ -> assert false
           in
           Var_expander.replace_fn json_options.json_disks_pattern vars_fn in

@@ -400,7 +400,7 @@ object
   (* Create the Cinder volumes, wait for them to attach to the
    * appliance, and return the paths of the /dev devices.
    *)
-  method prepare_targets source overlays
+  method prepare_targets source_name overlays
                          target_buses guestcaps inspect target_firmware =
     (* Set up an at-exit handler so we:
      * (1) Unconditionally detach volumes.
@@ -424,7 +424,7 @@ object
      * in the case that virt-v2v crashes.
      *)
     let description =
-      sprintf "virt-v2v temporary volume for %s" source.s_name in
+      sprintf "virt-v2v temporary volume for %s" source_name in
 
     (* Create the Cinder volumes. *)
     List.iter (
@@ -433,7 +433,7 @@ object
          * something related to the guest name.  Cinder volume
          * names do not need to be unique.
          *)
-        let name = sprintf "%s-%s" source.s_name ov.ov_sd in
+        let name = sprintf "%s-%s" source_name ov.ov_sd in
 
         (* Create the cinder volume and add the returned volume
          * ID to the volume_ids list.

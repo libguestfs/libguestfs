@@ -171,7 +171,7 @@ let rec main () =
         (* Decide the format for each output disk. *)
         let target_formats = get_target_formats cmdline output overlays in
         let target_files =
-          output#prepare_targets source
+          output#prepare_targets source.s_name
                                  (List.combine target_formats overlays)
                                  target_buses guestcaps
                                  inspect target_firmware in

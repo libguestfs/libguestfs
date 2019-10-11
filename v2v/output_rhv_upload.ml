@@ -290,7 +290,7 @@ object
   (* rhev-apt.exe will be installed (if available). *)
   method install_rhev_apt = true
 
-  method prepare_targets source overlays _ _ _ _ =
+  method prepare_targets source_name overlays _ _ _ _ =
     let uuids =
       match rhv_options.rhv_disk_uuids with
       | None ->
@@ -301,7 +301,7 @@ object
             (List.length overlays);
         List.map (fun uuid -> Some uuid) uuids in
 
-    let output_name = source.s_name in
+    let output_name = source_name in
     let json_params =
       ("output_name", JSON.String output_name) :: json_params in
 

@@ -148,9 +148,8 @@ object
    * name of the target files that eventually get written by the main
    * code.
    *
-   * 'os' is the output storage (-os nfs:/export).  'source' contains a
-   * few useful fields such as the guest name.  'targets' describes the
-   * destination files.  We modify and return this list.
+   * 'os' is the output storage (-os nfs:/export).  'targets' describes
+   * the destination files.  We modify and return this list.
    *)
   method prepare_targets _ overlays _ _ _ _ =
     let mp, uuid =

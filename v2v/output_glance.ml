@@ -59,7 +59,7 @@ object
 
   method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
-  method prepare_targets source overlays _ _ _ _ =
+  method prepare_targets _ overlays _ _ _ _ =
     (* Write targets to a temporary local file - see above for reason. *)
     List.map (fun (_, ov) -> TargetFile (tmpdir // ov.ov_sd)) overlays
 
