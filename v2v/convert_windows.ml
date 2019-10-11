@@ -38,7 +38,7 @@ module G = Guestfs
  * time the Windows VM is booted on KVM.
  *)
 
-let convert (g : G.guestfs) inspect source output rcaps static_ips =
+let convert (g : G.guestfs) inspect _ output rcaps static_ips =
   (*----------------------------------------------------------------------*)
   (* Inspect the Windows guest. *)
 

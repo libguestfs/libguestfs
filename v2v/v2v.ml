@@ -127,7 +127,7 @@ let rec main () =
       | In_place ->
          rcaps_from_source source in
 
-    do_convert g inspect source output rcaps cmdline.static_ips in
+    do_convert g inspect source.s_disks output rcaps cmdline.static_ips in
 
   g#umount_all ();
 
@@ -281,7 +281,7 @@ and check_host_free_space () =
           overlay_dir (human_size free_space)
 
 (* Create a qcow2 v3 overlay to protect the source image(s). *)
-and create_overlays src_disks =
+and create_overlays source_disks =
   message (f_"Creating an overlay to protect the source from being modified");
   List.mapi (
     fun i ({ s_qemu_uri = qemu_uri; s_format = format } as source) ->
@@ -331,7 +331,7 @@ and create_overlays src_disks =
           target_actual_size = None;
         }
       }
-  ) src_disks
+  ) source_disks
 
 (* Populate guestfs handle with qcow2 overlays. *)
 and populate_overlays g overlays =
@@ -343,12 +343,12 @@ and populate_overlays g overlays =
   ) overlays
 
 (* Populate guestfs handle with source disks.  Only used for [--in-place]. *)
-and populate_disks g src_disks =
+and populate_disks g source_disks =
   List.iter (
     fun ({s_qemu_uri = qemu_uri; s_format = format}) ->
       g#add_drive_opts qemu_uri ?format ~cachemode:"unsafe"
                           ~discard:"besteffort"
-  ) src_disks
+  ) source_disks
 
 (* Collect statvfs information from the guest mountpoints. *)
 and get_mpstats g =
@@ -551,7 +551,7 @@ and estimate_target_size mpstats overlays =
   )
 
 (* Conversion. *)
-and do_convert g inspect source output rcaps interfaces =
+and do_convert g inspect source_disks output rcaps interfaces =
   (match inspect.i_product_name with
   | "unknown" ->
     message (f_"Converting the guest to run on KVM")
@@ -567,7 +567,7 @@ and do_convert g inspect source output rcaps interfaces =
   debug "picked conversion module %s" conversion_name;
   debug "requested caps: %s" (string_of_requested_guestcaps rcaps);
   let guestcaps =
-    convert g inspect source (output :> Types.output_settings) rcaps
+    convert g inspect source_disks (output :> Types.output_settings) rcaps
             interfaces in
   debug "%s" (string_of_guestcaps guestcaps);
 
