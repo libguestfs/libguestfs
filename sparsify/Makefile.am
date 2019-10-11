@@ -52,8 +52,7 @@ virt_sparsify_CPPFLAGS = \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/common/utils \
-	-I$(top_srcdir)/lib \
-	-I$(top_srcdir)/fish
+	-I$(top_srcdir)/lib
 virt_sparsify_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 

@@ -47,8 +47,7 @@ virt_get_kernel_CPPFLAGS = \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils \
-	-I$(top_srcdir)/lib \
-	-I$(top_srcdir)/fish
+	-I$(top_srcdir)/lib
 virt_get_kernel_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
