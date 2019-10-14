@@ -674,6 +674,7 @@ Makefile.in
 /v2v/virt-v2v-output-rhv.1
 /v2v/virt-v2v-support.1
 /v2v/windows.vmdk
+/website/download/builder/*.xz
 /website/*.html
 /website/README.txt
 /website/TODO.txt
