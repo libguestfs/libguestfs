@@ -21,9 +21,7 @@ EXTRA_DIST = \
 	$(generator_built) \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	customize_main.ml \
-	test-firstboot.sh \
 	test-password.pl \
-	test-selinuxrelabel.sh \
 	test-settings.sh \
 	test-virt-customize.sh \
 	test-virt-customize-docs.sh \
@@ -41,12 +39,10 @@ SOURCES_MLI = \
 	customize_cmdline.mli \
 	customize_main.mli \
 	customize_run.mli \
-	firstboot.mli \
 	hostname.mli \
 	password.mli \
 	perl_edit.mli \
 	random_seed.mli \
-	SELinux_relabel.mli \
 	ssh_key.mli \
 	subscription_manager.mli \
 	timezone.mli
@@ -55,12 +51,10 @@ SOURCES_MLI = \
 SOURCES_ML = \
 	append_line.ml \
 	crypt.ml \
-	firstboot.ml \
 	hostname.ml \
 	password.ml \
 	perl_edit.ml \
 	random_seed.ml \
-	SELinux_relabel.ml \
 	ssh_key.ml \
 	subscription_manager.ml \
 	timezone.ml \
@@ -130,6 +124,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlgettext \
 	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/common/mltools \
+	-I $(top_builddir)/common/mlcustomize \
 	-I $(builddir)
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
@@ -162,6 +157,7 @@ OCAMLLINKFLAGS = \
 	mlpcre.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
 	mltools.$(MLARCHIVE) \
+	mlcustomize.$(MLARCHIVE) \
 	customize.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
@@ -180,10 +176,12 @@ virt_customize_DEPENDENCIES = \
 	$(top_srcdir)/ocaml-link.sh \
 	$(CUSTOMIZE_THEOBJECTS) \
 	$(CUSTOMIZE_CMA) \
+	../common/mlcustomize/mlcustomize.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../common/mlgettext/mlgettext.$(MLARCHIVE) \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
-	../common/mltools/mltools.$(MLARCHIVE)
+	../common/mltools/mltools.$(MLARCHIVE) \
+	../common/mlcustomize/mlcustomize.$(MLARCHIVE)
 virt_customize_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
@@ -225,41 +223,11 @@ check-valgrind:
 # Slow tests of virt-customize functionality in real guests.
 
 SLOW_TESTS = \
-	$(firstboot_test_scripts) \
 	$(password_test_scripts) \
-	test-selinuxrelabel.sh \
 	$(settings_test_scripts)
 
 check-slow:
 	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
-
-firstboot_test_scripts := \
-	test-firstboot-rhel-4.9.sh \
-	test-firstboot-rhel-5.11.sh \
-	test-firstboot-rhel-6.8.sh \
-	test-firstboot-rhel-7.2.sh \
-	test-firstboot-debian-6.sh \
-	test-firstboot-debian-7.sh \
-	test-firstboot-debian-8.sh \
-	test-firstboot-fedora-26.sh \
-	test-firstboot-fedora-27.sh \
-	test-firstboot-ubuntu-10.04.sh \
-	test-firstboot-ubuntu-12.04.sh \
-	test-firstboot-ubuntu-14.04.sh \
-	test-firstboot-ubuntu-16.04.sh \
-	test-firstboot-ubuntu-18.04.sh \
-	test-firstboot-windows-6.2-server.sh \
-	test-firstboot-windows-6.3-server.sh \
-	test-firstboot-windows-10.0-server.sh
-# Firstboot is known-broken on RHEL 3:
-#	test-firstboot-rhel-3.9.sh
-
-test-firstboot-%.sh:
-	rm -f $@ $@-t
-	f=`echo "$@" | $(SED) 's/test-firstboot-\(.*\).sh/\1/'`; \
-	echo 'script=$@ exec $$srcdir/test-firstboot.sh' "$$f" > $@-t
-	chmod 0755 $@-t
-	mv $@-t $@
 
 password_test_scripts := \
 	test-password-centos-7.2.sh \
@@ -310,10 +278,8 @@ test-settings-%.sh:
 	mv $@-t $@
 
 CLEANFILES += \
-	$(firstboot_test_scripts) \
 	$(password_test_scripts) \
 	$(settings_test_scripts) \
-	firstboot-*.img \
 	password-*.img \
 	password-*.log \
 	settings-*.img

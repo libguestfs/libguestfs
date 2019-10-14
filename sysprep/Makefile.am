@@ -120,6 +120,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/common/mlvisit \
 	-I $(top_builddir)/common/mltools \
+	-I $(top_builddir)/common/mlcustomize \
 	-I $(top_builddir)/customize
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
@@ -151,6 +152,7 @@ OCAMLLINKFLAGS = \
 	mlcutils.$(MLARCHIVE) \
 	mltools.$(MLARCHIVE) \
 	mlvisit.$(MLARCHIVE) \
+	mlcustomize.$(MLARCHIVE) \
 	customize.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
@@ -161,6 +163,7 @@ virt_sysprep_DEPENDENCIES = \
 	../common/mlgettext/mlgettext.$(MLARCHIVE) \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../common/mltools/mltools.$(MLARCHIVE) \
+	../common/mlcustomize/mlcustomize.$(MLARCHIVE) \
 	../customize/customize.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 virt_sysprep_LINK = \

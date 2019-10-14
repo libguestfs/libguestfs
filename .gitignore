@@ -127,6 +127,8 @@ Makefile.in
 /common/errnostring/errnostring-gperf.gperf
 /common/errnostring/errnostring.h
 /common/mlaugeas/.depend
+/common/mlcustomize/.depend
+/common/mlcustomize/test-firstboot-*.sh
 /common/mlgettext/.depend
 /common/mlgettext/common_gettext.ml
 /common/mllibvirt/.depend
@@ -178,7 +180,6 @@ Makefile.in
 /customize/customize-options.pod
 /customize/customize-synopsis.pod
 /customize/stamp-virt-customize.pod
-/customize/test-firstboot-*.sh
 /customize/test-password-*.sh
 /customize/test-settings-*.sh
 /customize/virt-customize

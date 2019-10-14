@@ -206,8 +206,8 @@ virt_v2v_CFLAGS = \
 	$(LIBVIRT_CFLAGS)
 
 BOBJECTS = \
-	$(top_builddir)/customize/firstboot.cmo \
-	$(top_builddir)/customize/SELinux_relabel.cmo \
+	$(top_builddir)/common/mlcustomize/firstboot.cmo \
+	$(top_builddir)/common/mlcustomize/SELinux_relabel.cmo \
 	$(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
@@ -228,7 +228,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/common/mlxml \
 	-I $(top_builddir)/common/mltools \
 	-I $(top_builddir)/common/mllibvirt \
-	-I $(top_builddir)/customize
+	-I $(top_builddir)/common/mlcustomize
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
@@ -259,6 +259,7 @@ OCAMLLINKFLAGS = \
 	mlcutils.$(MLARCHIVE) \
 	mltools.$(MLARCHIVE) \
 	mllibvirt.$(MLARCHIVE) \
+	mlcustomize.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
 virt_v2v_DEPENDENCIES = $(OBJECTS) $(top_srcdir)/ocaml-link.sh
@@ -305,6 +306,7 @@ virt_v2v_copy_to_local_DEPENDENCIES = \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../common/mltools/mltools.$(MLARCHIVE) \
 	../common/mllibvirt/mllibvirt.$(MLARCHIVE) \
+	../common/mlcustomize/mlcustomize.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 virt_v2v_copy_to_local_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
@@ -678,7 +680,6 @@ check_PROGRAMS += v2v_unit_tests var_expander_tests
 endif
 
 v2v_unit_tests_BOBJECTS = \
-	$(top_builddir)/customize/firstboot.cmo \
 	types.cmo \
 	uefi.cmo \
 	utils.cmo \
@@ -727,6 +728,7 @@ v2v_unit_tests_DEPENDENCIES = \
 	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../common/mltools/mltools.$(MLARCHIVE) \
+	../common/mlcustomize/mlcustomize.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 v2v_unit_tests_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \

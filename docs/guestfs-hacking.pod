@@ -99,6 +99,11 @@ handled by this library.
 Bindings for the Augeas library.  These come from the ocaml-augeas
 library L<http://git.annexia.org/?p=ocaml-augeas.git>
 
+=item F<common/mlcustomize>
+
+Library code associated with C<virt-customize> but also used in other
+tools.
+
 =item F<common/mlgettext>
 
 Small, generated wrapper which allows libguestfs to be compiled with

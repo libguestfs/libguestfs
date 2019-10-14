@@ -237,6 +237,7 @@ AC_CONFIG_FILES([Makefile
                  common/errnostring/Makefile
                  common/edit/Makefile
                  common/mlaugeas/Makefile
+                 common/mlcustomize/Makefile
                  common/mlgettext/Makefile
                  common/mllibvirt/Makefile
                  common/mlpcre/Makefile
