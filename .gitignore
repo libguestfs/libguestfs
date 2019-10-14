@@ -128,10 +128,6 @@ Makefile.in
 /common/errnostring/errnostring.h
 /common/mlaugeas/.depend
 /common/mlcustomize/.depend
-/common/mlcustomize/customize_cmdline.ml
-/common/mlcustomize/customize_cmdline.mli
-/common/mlcustomize/customize-options.pod
-/common/mlcustomize/customize-synopsis.pod
 /common/mlcustomize/test-firstboot-*.sh
 /common/mlgettext/.depend
 /common/mlgettext/common_gettext.ml
@@ -157,8 +153,6 @@ Makefile.in
 /common/mlutils/.depend
 /common/mlutils/c_utils_unit_tests
 /common/mlutils/oUnit-*
-/common/mlv2v/uefi.ml
-/common/mlv2v/uefi.mli
 /common/mlvisit/.depend
 /common/mlvisit/visit_tests
 /common/mlxml/.depend
