@@ -199,7 +199,6 @@ virt_v2v_CPPFLAGS = \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/common/qemuopts \
-	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/lib
 virt_v2v_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
@@ -234,7 +233,6 @@ OCAMLPACKAGES += -package gettext-stub
 endif
 
 OCAMLCLIBS = \
-	-lutils \
 	-lqemuopts \
 	$(LIBVIRT_LIBS) \
 	$(LIBXML2_LIBS) \
@@ -275,7 +273,6 @@ virt_v2v_copy_to_local_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
-	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/lib
 virt_v2v_copy_to_local_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
