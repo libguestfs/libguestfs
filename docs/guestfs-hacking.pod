@@ -133,6 +133,10 @@ C<virt-sysprep>, C<virt-v2v> etc.)
 OCaml bindings for C functions in C<common/utils>, and some POSIX
 bindings which are missing from the OCaml stdlib.
 
+=item F<common/mlv2v>
+
+A few generated files used by virt-v2v.
+
 =item F<common/mlvisit>
 
 OCaml bindings for the visit functions (see F<common/visit>).

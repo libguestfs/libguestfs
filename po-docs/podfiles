@@ -8,8 +8,8 @@
 ../cat/virt-log.pod
 ../cat/virt-ls.pod
 ../cat/virt-tail.pod
-../customize/customize-options.pod
-../customize/customize-synopsis.pod
+../common/mlcustomize/customize-options.pod
+../common/mlcustomize/customize-synopsis.pod
 ../customize/virt-customize.pod
 ../daemon/guestfsd.pod
 ../df/virt-df.pod

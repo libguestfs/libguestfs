@@ -17,18 +17,15 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-generator_built = \
-	uefi.ml \
-	uefi.mli
-
 BUILT_SOURCES = \
-	$(generator_built) \
 	config.ml \
 	output_rhv_upload_createvm_source.ml \
 	output_rhv_upload_deletedisks_source.ml \
 	output_rhv_upload_plugin_source.ml \
 	output_rhv_upload_precheck_source.ml \
-	output_rhv_upload_vmcheck_source.ml
+	output_rhv_upload_vmcheck_source.ml \
+	uefi.ml \
+	uefi.mli
 
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
@@ -187,6 +184,13 @@ output_rhv_upload_precheck_source.ml: $(srcdir)/rhv-upload-precheck.py
 	$(srcdir)/embed.sh code $^ $@
 output_rhv_upload_vmcheck_source.ml: $(srcdir)/rhv-upload-vmcheck.py
 	$(srcdir)/embed.sh code $^ $@
+
+# These are created by the generator in common/mlv2v and
+# need to be copied here.
+uefi.mli: $(top_srcdir)/common/mlv2v/uefi.mli
+	cp $< $@
+uefi.ml: $(top_srcdir)/common/mlv2v/uefi.ml
+	cp $< $@
 
 if HAVE_OCAML
 

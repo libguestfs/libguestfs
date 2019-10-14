@@ -18,11 +18,23 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	$(generator_built) \
 	$(SOURCES_MLI) \
 	$(SOURCES_ML) \
 	$(SOURCES_C) \
 	test-firstboot.sh \
 	test-selinuxrelabel.sh
+
+# Note: So that I don't have to move many modules from virt-customize
+# to here, we don't compile customize_cmdline.ml into the mlcustomize
+# library.  Instead virt-customize links to these files.  They are
+# only located here because they have to be placed in common/ because
+# they are generated (since the repository split).
+generator_built = \
+	customize_cmdline.mli \
+	customize_cmdline.ml \
+	customize-options.pod \
+	customize-synopsis.pod
 
 SOURCES_MLI = \
 	firstboot.mli \

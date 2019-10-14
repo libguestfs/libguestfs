@@ -263,12 +263,12 @@ noinst_DATA += $(top_builddir)/website/virt-builder.1.html
 
 virt-builder.1 $(top_builddir)/website/virt-builder.1.html: stamp-virt-builder.pod
 
-stamp-virt-builder.pod: virt-builder.pod $(top_srcdir)/customize/customize-synopsis.pod $(top_srcdir)/customize/customize-options.pod
+stamp-virt-builder.pod: virt-builder.pod $(top_srcdir)/common/mlcustomize/customize-synopsis.pod $(top_srcdir)/common/mlcustomize/customize-options.pod
 	$(PODWRAPPER) \
 	  --man virt-builder.1 \
 	  --html $(top_builddir)/website/virt-builder.1.html \
-	  --insert $(top_srcdir)/customize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
-	  --insert $(top_srcdir)/customize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
+	  --insert $(top_srcdir)/common/mlcustomize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
+	  --insert $(top_srcdir)/common/mlcustomize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<

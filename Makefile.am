@@ -164,6 +164,7 @@ SUBDIRS += common/mlvisit
 SUBDIRS += common/mlxml
 SUBDIRS += common/mltools
 SUBDIRS += common/mlcustomize
+SUBDIRS += common/mlv2v
 if HAVE_LIBVIRT
 SUBDIRS += common/mllibvirt
 endif

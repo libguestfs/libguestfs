@@ -347,18 +347,18 @@ Run it from the top source directory using the command
   output_to "gobject/src/session.c"
             GObject.generate_gobject_session_source;
 
-  output_to "v2v/uefi.ml"
+  output_to "common/mlv2v/uefi.ml"
             UEFI.generate_uefi_ml;
-  output_to "v2v/uefi.mli"
+  output_to "common/mlv2v/uefi.mli"
             UEFI.generate_uefi_mli;
 
-  output_to "customize/customize_cmdline.mli"
+  output_to "common/mlcustomize/customize_cmdline.mli"
             Customize.generate_customize_cmdline_mli;
-  output_to "customize/customize_cmdline.ml"
+  output_to "common/mlcustomize/customize_cmdline.ml"
             Customize.generate_customize_cmdline_ml;
-  output_to "customize/customize-synopsis.pod"
+  output_to "common/mlcustomize/customize-synopsis.pod"
             Customize.generate_customize_synopsis_pod;
-  output_to "customize/customize-options.pod"
+  output_to "common/mlcustomize/customize-options.pod"
             Customize.generate_customize_options_pod;
 
   output_to "rust/src/guestfs.rs"

@@ -18,7 +18,6 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	$(generator_built) \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	customize_main.ml \
 	test-password.pl \
@@ -26,12 +25,6 @@ EXTRA_DIST = \
 	test-virt-customize.sh \
 	test-virt-customize-docs.sh \
 	virt-customize.pod
-
-generator_built = \
-	customize_cmdline.mli \
-	customize_cmdline.ml \
-	customize-options.pod \
-	customize-synopsis.pod
 
 SOURCES_MLI = \
 	append_line.mli \
@@ -66,6 +59,17 @@ SOURCES_C = \
 	../common/edit/file-edit.h \
 	crypt-c.c \
 	perl_edit-c.c
+
+BUILT_SOURCES = \
+	customize_cmdline.mli \
+	customize_cmdline.ml
+
+# These are created by the generator in common/mlcustomize and
+# need to be copied here.
+customize_cmdline.mli: $(top_srcdir)/common/mlcustomize/customize_cmdline.mli
+	cp $< $@
+customize_cmdline.ml: $(top_srcdir)/common/mlcustomize/customize_cmdline.ml
+	cp $< $@
 
 if HAVE_OCAML
 
@@ -193,12 +197,12 @@ noinst_DATA += $(top_builddir)/website/virt-customize.1.html
 
 virt-customize.1 $(top_builddir)/website/virt-customize.1.html: stamp-virt-customize.pod
 
-stamp-virt-customize.pod: virt-customize.pod $(top_srcdir)/customize/customize-synopsis.pod $(top_srcdir)/customize/customize-options.pod
+stamp-virt-customize.pod: virt-customize.pod $(top_srcdir)/common/mlcustomize/customize-synopsis.pod $(top_srcdir)/common/mlcustomize/customize-options.pod
 	$(PODWRAPPER) \
 	  --man virt-customize.1 \
 	  --html $(top_builddir)/website/virt-customize.1.html \
-	  --insert $(top_srcdir)/customize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
-	  --insert $(top_srcdir)/customize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
+	  --insert $(top_srcdir)/common/mlcustomize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
+	  --insert $(top_srcdir)/common/mlcustomize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
 	  --license GPLv2+ \
 	  --warning general \
 	  $<

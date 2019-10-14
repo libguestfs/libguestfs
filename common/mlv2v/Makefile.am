@@ -1,6 +1,5 @@
-#!/bin/bash -
-# libguestfs
-# Copyright (C) 2016 Red Hat Inc.
+# libguestfs OCaml virt-v2v generated code
+# Copyright (C) 2011-2019 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,14 +15,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-set -e
+include $(top_srcdir)/subdir-rules.mk
 
-$TEST_FUNCTIONS
-skip_if_skipped
+EXTRA_DIST = \
+	$(generator_built)
 
-$top_srcdir/podcheck.pl virt-builder.pod virt-builder \
-  --insert $top_srcdir/common/mlcustomize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
-  --insert $top_srcdir/common/mlcustomize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
-  --ignore=--check-signatures,--no-check-signatures
-
-$srcdir/../podcheck.pl virt-builder-repository.pod virt-builder-repository
+# Note: These are not compiled into a library.  They are used directly
+# by virt-v2v and are only located here because the files are
+# generated (since the split).
+generator_built = \
+	uefi.mli \
+	uefi.ml
