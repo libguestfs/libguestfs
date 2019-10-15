@@ -222,6 +222,8 @@ EXTRA_DIST = \
 	bindtests \
 	cfg.mk \
 	check-mli.sh \
+	common/.gitignore \
+	common/README \
 	contrib/autobuild/autobuild.sh \
 	contrib/intro/libguestfs-intro.html \
 	contrib/intro/overview.png \

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2019-10-09 19:12+0100\n"
+"POT-Creation-Date: 2019-10-15 12:57+0100\n"
 "PO-Revision-Date: 2015-02-21 10:52+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/projects/p/"
@@ -218,7 +218,7 @@ msgstr ""
 msgid "%s: cannot determine the virtual size of %s due to compression"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:371
+#: ../v2v/windows_virtio.ml:378
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -495,6 +495,8 @@ msgstr ""
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:331
+#. ../common/mlcustomize/customize_cmdline.ml:240
 #: ../customize/customize_cmdline.ml:331 ../customize/customize_cmdline.ml:240
 msgid "'CMD+ARGS'"
 msgstr ""
@@ -679,25 +681,25 @@ msgstr ""
 msgid "-o json: unknown output option ‘-oo %s’"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:136
+#: ../v2v/output_libvirt.ml:131
 msgid ""
 "-o libvirt: output pool ‘%s’ does not have /pool/name element.  See virt-v2v-"
 "output-local(1)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:126
+#: ../v2v/output_libvirt.ml:121
 msgid ""
 "-o libvirt: output pool ‘%s’ does not have /pool/target/path element.  See "
 "virt-v2v-output-local(1)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:128
+#: ../v2v/output_libvirt.ml:123
 msgid ""
 "-o libvirt: output pool ‘%s’ has type='dir' but the /pool/target/path "
 "element is not a local directory.  See virt-v2v-output-local(1)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:122
+#: ../v2v/output_libvirt.ml:117
 msgid ""
 "-o libvirt: output pool ‘%s’ is not a directory (type='dir').  See virt-v2v-"
 "output-local(1)"
@@ -835,10 +837,12 @@ msgstr ""
 msgid "Add new a elements location"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:269
 #: ../customize/customize_cmdline.ml:269
 msgid "Add package(s) to install"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:252
 #: ../customize/customize_cmdline.ml:252
 msgid "Add package(s) to install at first boot"
 msgstr ""
@@ -863,6 +867,7 @@ msgstr ""
 msgid "Already existing image with id %s and architecture %s"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:168
 #: ../customize/customize_cmdline.ml:168
 msgid "Append line(s) to the file"
 msgstr ""
@@ -891,6 +896,7 @@ msgstr ""
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:349
 #: ../customize/customize_cmdline.ml:349
 msgid "Attach to a subscription-manager pool"
 msgstr ""
@@ -954,6 +960,7 @@ msgstr ""
 msgid "Change filesystem UUIDs"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:179
 #: ../customize/customize_cmdline.ml:179
 msgid "Change the permissions of a file"
 msgstr ""
@@ -970,11 +977,11 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:381
+#: ../v2v/v2v.ml:380
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:642
+#: ../v2v/v2v.ml:641
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -1024,11 +1031,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:559
+#: ../v2v/v2v.ml:558
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:557
+#: ../v2v/v2v.ml:556
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -1044,10 +1051,12 @@ msgstr ""
 msgid "Converting to qcow2"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:201
 #: ../customize/customize_cmdline.ml:201
 msgid "Copy files in disk image"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:212
 #: ../customize/customize_cmdline.ml:212
 msgid "Copy local files or directories into image"
 msgstr ""
@@ -1064,11 +1073,11 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:686
+#: ../v2v/v2v.ml:685
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:689
+#: ../v2v/v2v.ml:688
 msgid "Copying disk %d/%d to qemu URI %s (%s)"
 msgstr ""
 
@@ -1080,6 +1089,7 @@ msgstr ""
 msgid "Copying: %s to %s"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:286
 #: ../customize/customize_cmdline.ml:286
 msgid "Create a directory"
 msgstr ""
@@ -1092,11 +1102,12 @@ msgstr ""
 msgid "Create overlay file in %s to protect source disk"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:280
 #: ../customize/customize_cmdline.ml:280
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:285
+#: ../v2v/v2v.ml:284
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
@@ -1104,10 +1115,11 @@ msgstr ""
 msgid "Creating index backup copy"
 msgstr ""
 
-#: ../v2v/v2v.ml:188
+#: ../v2v/v2v.ml:187
 msgid "Creating output metadata"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:474
 #: ../customize/customize_cmdline.ml:474
 msgid "Credentials for subscription-manager"
 msgstr ""
@@ -1136,10 +1148,12 @@ msgid ""
 "for installing packages, editing files and so on."
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:285
 #: ../customize/customize_cmdline.ml:285
 msgid "DIR"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:218
 #: ../customize/customize_cmdline.ml:218
 msgid "Delete a file or directory"
 msgstr ""
@@ -1259,6 +1273,7 @@ msgid ""
 "that contains the main operating system from the list below:\n"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:229
 #: ../customize/customize_cmdline.ml:229
 msgid "Edit file using Perl expression"
 msgstr ""
@@ -1360,7 +1375,7 @@ msgstr ""
 msgid "Expanding %s%s using the ‘%s’ method"
 msgstr ""
 
-#: ../v2v/output_rhv.ml:157
+#: ../v2v/output_rhv.ml:156
 msgid "Export Storage Domain"
 msgstr ""
 
@@ -1373,26 +1388,34 @@ msgid "Extracting data out of the image"
 msgstr ""
 
 #. ../customize/customize_cmdline.ml:337
+#. ../common/mlcustomize/customize_cmdline.ml:402
+#. ../common/mlcustomize/customize_cmdline.ml:384
+#. ../common/mlcustomize/customize_cmdline.ml:337
 #: ../customize/customize_cmdline.ml:402 ../customize/customize_cmdline.ml:384
 msgid "FILE"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:437
 #: ../customize/customize_cmdline.ml:437
 msgid "FILE:CONTENT"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:426
 #: ../customize/customize_cmdline.ml:426
 msgid "FILE:DEST"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:224
 #: ../customize/customize_cmdline.ml:224
 msgid "FILE:EXPR"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:163
 #: ../customize/customize_cmdline.ml:163
 msgid "FILE:LINE"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:185
 #: ../customize/customize_cmdline.ml:185
 msgid "FILENAME"
 msgstr ""
@@ -1431,7 +1454,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:198
 #. ../builder/builder.ml:768
-#: ../v2v/v2v.ml:197 ../v2v/copy_to_local.ml:231
+#: ../v2v/v2v.ml:196 ../v2v/copy_to_local.ml:231
 msgid "Finishing off"
 msgstr ""
 
@@ -1527,6 +1550,7 @@ msgstr ""
 msgid "Get kernel from image"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:257
 #: ../customize/customize_cmdline.ml:257
 msgid "HOSTNAME"
 msgstr ""
@@ -1567,10 +1591,11 @@ msgstr ""
 msgid "Importing the image to docker as ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:169
+#: ../v2v/v2v.ml:170
 msgid "Initializing the target %s"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:379
 #: ../customize/customize_cmdline.ml:379
 msgid "Inject a public key into the guest"
 msgstr ""
@@ -1646,6 +1671,7 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:207
 #: ../customize/customize_cmdline.ml:207
 msgid "LOCALPATH:REMOTEDIR"
 msgstr ""
@@ -1714,6 +1740,7 @@ msgstr ""
 msgid "Mount point on host"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:297
 #: ../customize/customize_cmdline.ml:297
 msgid "Move files in disk image"
 msgstr ""
@@ -1778,7 +1805,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../customize/firstboot.ml:253
+#: ../common/mlcustomize/firstboot.ml:253
 msgid ""
 "One of rhsrvany.exe or pvvxsvc.exe is missing in %s.  One of them is "
 "required in order to install Windows firstboot scripts.  You can get one by "
@@ -1801,7 +1828,7 @@ msgstr ""
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:200
+#: ../v2v/v2v.ml:199
 msgid "Opening the source %s"
 msgstr ""
 
@@ -1887,19 +1914,25 @@ msgstr ""
 msgid "Output size"
 msgstr ""
 
-#: ../v2v/v2v.ml:818
+#: ../v2v/v2v.ml:817
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:390
+#. ../common/mlcustomize/customize_cmdline.ml:217
 #: ../customize/customize_cmdline.ml:390 ../customize/customize_cmdline.ml:217
 msgid "PATH"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:174
 #: ../customize/customize_cmdline.ml:174
 msgid "PERMISSIONS:FILE"
 msgstr ""
 
 #. ../customize/customize_cmdline.ml:247
+#. ../common/mlcustomize/customize_cmdline.ml:409
+#. ../common/mlcustomize/customize_cmdline.ml:264
+#. ../common/mlcustomize/customize_cmdline.ml:247
 #: ../customize/customize_cmdline.ml:409 ../customize/customize_cmdline.ml:264
 msgid "PKG,PKG.."
 msgstr ""
@@ -1962,6 +1995,12 @@ msgstr ""
 msgid "Print source and stop"
 msgstr ""
 
+#: ../v2v/convert_windows.ml:301
+msgid ""
+"QEMU Guest Agent MSI not found on tools ISO/directory. You may want to "
+"install the guest agent manually after conversion."
+msgstr ""
+
 #: ../v2v/windows_virtio.ml:223
 msgid "QEMU Guest Agent installed for this guest."
 msgstr ""
@@ -1970,6 +2009,7 @@ msgstr ""
 msgid "RHV does not support the output format ‘%s’, only raw or qcow2"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:190
 #: ../customize/customize_cmdline.ml:190
 msgid "Read customize commands from file"
 msgstr ""
@@ -1978,6 +2018,7 @@ msgstr ""
 msgid "Read passphrases from stdin"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:391
 #: ../customize/customize_cmdline.ml:391
 msgid "Recursively truncate all files in directory"
 msgstr ""
@@ -1986,6 +2027,7 @@ msgstr ""
 msgid "Recursively truncating: %s"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:355
 #: ../customize/customize_cmdline.ml:355
 msgid "Register using subscription-manager"
 msgstr ""
@@ -1994,6 +2036,7 @@ msgstr ""
 msgid "Registering with subscription-manager"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:464
 #: ../customize/customize_cmdline.ml:464
 msgid "Relabel files with correct SELinux labels"
 msgstr ""
@@ -2034,6 +2077,7 @@ msgstr ""
 msgid "Remove Kerberos data in the guest"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:361
 #: ../customize/customize_cmdline.ml:361
 msgid "Remove all the subscriptions"
 msgstr ""
@@ -2215,18 +2259,22 @@ msgstr ""
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:241
 #: ../customize/customize_cmdline.ml:241
 msgid "Run command at first guest boot"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:332
 #: ../customize/customize_cmdline.ml:332
 msgid "Run command in disk image"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:235
 #: ../customize/customize_cmdline.ml:235
 msgid "Run script at first guest boot"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:326
 #: ../customize/customize_cmdline.ml:326
 msgid "Run script in disk image"
 msgstr ""
@@ -2241,6 +2289,7 @@ msgid ""
 "the full absolute path to the script."
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:403
 #: ../customize/customize_cmdline.ml:403
 msgid "Run touch on a file"
 msgstr ""
@@ -2257,12 +2306,17 @@ msgstr ""
 msgid "Running: %s/%s"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:325
+#. ../common/mlcustomize/customize_cmdline.ml:234
 #: ../customize/customize_cmdline.ml:325 ../customize/customize_cmdline.ml:234
 msgid "SCRIPT"
 msgstr ""
 
 #. ../customize/customize_cmdline.ml:315
 #. ../common/mltools/tools_utils.ml:356
+#. ../common/mlcustomize/customize_cmdline.ml:470
+#. ../common/mlcustomize/customize_cmdline.ml:344
+#. ../common/mlcustomize/customize_cmdline.ml:315
 #: ../customize/customize_cmdline.ml:470 ../customize/customize_cmdline.ml:344
 msgid "SELECTOR"
 msgstr ""
@@ -2271,6 +2325,8 @@ msgstr ""
 msgid "SELinux relabelling"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:292
+#. ../common/mlcustomize/customize_cmdline.ml:196
 #: ../customize/customize_cmdline.ml:292 ../customize/customize_cmdline.ml:196
 msgid "SOURCE:DEST"
 msgstr ""
@@ -2351,10 +2407,12 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:338
 #: ../customize/customize_cmdline.ml:338
 msgid "Scrub a file"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:448
 #: ../customize/customize_cmdline.ml:448
 msgid "Scrub build log file"
 msgstr ""
@@ -2463,10 +2521,12 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:458
 #: ../customize/customize_cmdline.ml:458
 msgid "Set password crypto"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:320
 #: ../customize/customize_cmdline.ml:320
 msgid "Set root password"
 msgstr ""
@@ -2483,6 +2543,7 @@ msgstr ""
 msgid "Set temporary block device, directory or prebuilt file"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:397
 #: ../customize/customize_cmdline.ml:397
 msgid "Set the default timezone"
 msgstr ""
@@ -2491,6 +2552,7 @@ msgstr ""
 msgid "Set the format for --list (default: short)"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:258
 #: ../customize/customize_cmdline.ml:258
 msgid "Set the hostname"
 msgstr ""
@@ -2499,6 +2561,7 @@ msgstr ""
 msgid "Set the output architecture"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:309
 #: ../customize/customize_cmdline.ml:309
 msgid "Set user password"
 msgstr ""
@@ -2563,7 +2626,7 @@ msgstr ""
 msgid "Source URI: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:206
+#: ../v2v/v2v.ml:205
 msgid "Source guest information (--print-source option):\n"
 msgstr ""
 
@@ -2579,10 +2642,12 @@ msgstr ""
 msgid "Specify a LUKS key"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:275
 #: ../customize/customize_cmdline.ml:275
 msgid "TARGET:LINK[:LINK..]"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:396
 #: ../customize/customize_cmdline.ml:396
 msgid "TIMEZONE"
 msgstr ""
@@ -2761,11 +2826,11 @@ msgid ""
 "virtual machine’s disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:580
+#: ../v2v/v2v.ml:579
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:578
+#: ../v2v/v2v.ml:577
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2776,7 +2841,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:663
+#: ../v2v/v2v.ml:662
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2801,6 +2866,7 @@ msgstr ""
 msgid "Trimming %s"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:385
 #: ../customize/customize_cmdline.ml:385
 msgid "Truncate a file to zero size"
 msgstr ""
@@ -2813,10 +2879,12 @@ msgstr ""
 msgid "Turn off sparse copying"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:303
 #: ../customize/customize_cmdline.ml:303
 msgid "USER:SELECTOR"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:373
 #: ../customize/customize_cmdline.ml:373
 msgid "USER[:SELECTOR]"
 msgstr ""
@@ -2833,6 +2901,7 @@ msgstr ""
 msgid "Uncompressing"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:414
 #: ../customize/customize_cmdline.ml:414
 msgid "Uninstall package(s)"
 msgstr ""
@@ -2841,6 +2910,7 @@ msgstr ""
 msgid "Uninstalling packages: %s"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:367
 #: ../customize/customize_cmdline.ml:367
 msgid "Unregister using subscription-manager"
 msgstr ""
@@ -2849,6 +2919,7 @@ msgstr ""
 msgid "Unregistering with subscription-manager"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:420
 #: ../customize/customize_cmdline.ml:420
 msgid "Update packages"
 msgstr ""
@@ -2857,6 +2928,7 @@ msgstr ""
 msgid "Updating packages"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:431
 #: ../customize/customize_cmdline.ml:431
 msgid "Upload local file to destination"
 msgstr ""
@@ -2897,6 +2969,12 @@ msgstr ""
 msgid "Using prebuilt file %s as overlay"
 msgstr ""
 
+#: ../v2v/nbdkit.ml:212
+msgid ""
+"VDDK library path %s not found or not a directory.  See the virt-v2v-input-"
+"vmware(1) manual."
+msgstr ""
+
 #: ../dib/output_format_vhd.ml:38
 msgid ""
 "VHD output not produced, most probably vhd-util is old or not patched for "
@@ -2915,6 +2993,7 @@ msgid ""
 "error message was: %s (ignored)"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:442
 #: ../customize/customize_cmdline.ml:442
 msgid "Write file"
 msgstr ""
@@ -2960,21 +3039,16 @@ msgstr ""
 msgid "Zeroing %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:103
-msgid ""
-"a libvirt domain called ‘%s’ already exists on the target.\n"
-"\n"
-"If using virt-p2v, select a different ‘Name’ in the ‘Target properties’. Or "
-"delete the existing domain on the target using the ‘virsh undefine’ command."
-msgstr ""
-
-#: ../v2v/output_libvirt.ml:106
+#: ../v2v/output_libvirt.ml:102
 msgid ""
 "a libvirt domain called ‘%s’ already exists on the target.\n"
 "\n"
 "If using virt-v2v directly, use the ‘-on’ option to select a different name. "
 "Or delete the existing domain on the target using the ‘virsh undefine’ "
-"command."
+"command.\n"
+"\n"
+"If using virt-p2v, select a different ‘Name’ in the ‘Target properties’. Or "
+"delete the existing domain on the target using the ‘virsh undefine’ command."
 msgstr ""
 
 #: ../resize/resize.ml:255
@@ -3068,7 +3142,7 @@ msgid ""
 "Use --list to list available guest types."
 msgstr ""
 
-#: ../customize/firstboot.ml:235
+#: ../common/mlcustomize/firstboot.ml:235
 msgid ""
 "cannot finish firstboot installation by running ‘%s’ because host cpu (%s) "
 "and guest arch (%s) are not compatible.  The firstboot service may not run "
@@ -3120,7 +3194,7 @@ msgid ""
 "the manual)."
 msgstr ""
 
-#: ../v2v/output_rhv.ml:172
+#: ../v2v/output_rhv.ml:171
 msgid ""
 "cannot write files to the NFS server as %d:%d, even though we appear to be "
 "running as root. This probably means the NFS client or idmapd is not "
@@ -3130,16 +3204,18 @@ msgid ""
 "otherwise RHV-M will not be able to import the VM."
 msgstr ""
 
-#: ../v2v/output_rhv.ml:174
+#: ../v2v/output_rhv.ml:173
 msgid ""
 "cannot write files to the NFS server as %d:%d. You might want to stop virt-"
 "v2v (^C) and rerun it as root."
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:493
 #: ../customize/customize_cmdline.ml:493
 msgid "command '%s' cannot be used in command files, see the man page"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:510
 #: ../customize/customize_cmdline.ml:510
 msgid "command '%s' not valid, see the man page"
 msgstr ""
@@ -3162,7 +3238,7 @@ msgid ""
 "messages"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:206
+#: ../v2v/output_libvirt.ml:201
 msgid ""
 "could not define libvirt domain: %s.\n"
 "The libvirt XML is still available in ‘%s’.  Try running ‘virsh -c %s define "
@@ -3187,13 +3263,13 @@ msgstr ""
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:606
+#: ../v2v/convert_windows.ml:625
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
 msgstr ""
 
-#: ../customize/firstboot.ml:232
+#: ../common/mlcustomize/firstboot.ml:232
 msgid ""
 "could not finish firstboot installation by running ‘%s’ because the command "
 "failed: %s"
@@ -3234,7 +3310,7 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:168
+#: ../v2v/output_libvirt.ml:163
 msgid "could not refresh libvirt pool ‘%s’: %s"
 msgstr ""
 
@@ -3294,7 +3370,7 @@ msgstr ""
 msgid "discard/trim is not supported"
 msgstr ""
 
-#: ../v2v/v2v.ml:602
+#: ../v2v/v2v.ml:601
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -3538,7 +3614,7 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../customize/firstboot.ml:144
+#: ../common/mlcustomize/firstboot.ml:144
 msgid ""
 "firstboot: unknown version for old firstboot.service file %s (md5=%s), it "
 "will not be removed"
@@ -3571,7 +3647,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:433
+#: ../v2v/v2v.ml:432
 msgid ""
 "fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
 "To find out more read \"Trimming\" in virt-v2v(1).\n"
@@ -3600,7 +3676,7 @@ msgstr ""
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/v2v.ml:319
+#: ../v2v/v2v.ml:318
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -3615,11 +3691,11 @@ msgid ""
 "workaround."
 msgstr ""
 
-#: ../customize/firstboot.ml:164
+#: ../common/mlcustomize/firstboot.ml:164
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:367
+#: ../common/mlcustomize/firstboot.ml:367
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -3690,7 +3766,7 @@ msgid ""
 "No root device found in this operating system image."
 msgstr ""
 
-#: ../v2v/v2v.ml:280
+#: ../v2v/v2v.ml:279
 msgid ""
 "insufficient free space in the conversion server temporary directory %s "
 "(%s).\n"
@@ -3723,11 +3799,11 @@ msgstr ""
 msgid "internal error: is_file_owned: unexpected output from dpkg command: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:703
+#: ../v2v/v2v.ml:702
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
-#: ../v2v/v2v.ml:309
+#: ../v2v/v2v.ml:308
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
@@ -3751,6 +3827,8 @@ msgstr ""
 msgid "invalid cpuid.coresPerSocket < number of vCPUs"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:154
+#. ../common/mlcustomize/customize_cmdline.ml:143
 #: ../customize/customize_cmdline.ml:154 ../customize/customize_cmdline.ml:143
 msgid "invalid format for '--%s' parameter, see the man page"
 msgstr ""
@@ -3854,6 +3932,7 @@ msgstr ""
 msgid "manifest has a checksum for non-existent file %s (ignored)"
 msgstr ""
 
+#. ../common/mlcustomize/customize_cmdline.ml:454
 #: ../customize/customize_cmdline.ml:454
 msgid "md5|sha256|sha512"
 msgstr ""
@@ -3914,16 +3993,54 @@ msgid ""
 "See also the virt-v2v-output-rhv(1) manual."
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:396
+#: ../v2v/nbdkit.ml:68
+msgid ""
+"nbdkit --dump-config did not print version.  This might be a very old or "
+"broken nbdkit binary."
+msgstr ""
+
+#: ../v2v/nbdkit.ml:73
+msgid "nbdkit --dump-config: could not parse version: %s"
+msgstr ""
+
+#: ../v2v/nbdkit.ml:240
+msgid ""
+"nbdkit VDDK plugin is not installed or not working.  It is required if you "
+"want to use VDDK.\n"
+"\n"
+"It looks like you did not set the right path in the ‘-io vddk-libdir’ "
+"option, or your copy of the VDDK directory is incomplete.  There should be a "
+"library called ’<libdir>/%s/libvixDiskLib.so.?’.\n"
+"\n"
+"See also the virt-v2v-input-vmware(1) manual."
+msgstr ""
+
+#: ../v2v/nbdkit.ml:234
+msgid ""
+"nbdkit VDDK plugin is not installed or not working.  It is required if you "
+"want to use VDDK.\n"
+"\n"
+"The VDDK plugin is not enabled by default when you compile nbdkit.  You have "
+"to read the instructions in the nbdkit sources under ‘plugins/vddk/README."
+"VDDK’ to find out how to enable the VDDK plugin.\n"
+"\n"
+"See also the virt-v2v-input-vmware(1) manual."
+msgstr ""
+
+#: ../v2v/output_rhv_upload.ml:396 ../v2v/nbdkit.ml:377
 msgid "nbdkit did not start up.  See previous debugging messages for problems."
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:398
+#: ../v2v/output_rhv_upload.ml:398 ../v2v/nbdkit.ml:379
 msgid ""
 "nbdkit did not start up.  There may be errors printed by nbdkit above.\n"
 "\n"
 "If the messages above are not sufficient to diagnose the problem then add "
 "the ‘virt-v2v -v -x’ options and examine the debugging output carefully."
+msgstr ""
+
+#: ../v2v/nbdkit.ml:58
+msgid "nbdkit is not installed or not working"
 msgstr ""
 
 #: ../v2v/output_rhv_upload.ml:134
@@ -3936,7 +4053,11 @@ msgstr ""
 msgid "nbdkit is not new enough, you need to upgrade to nbdkit ≥ 1.1.16"
 msgstr ""
 
-#: ../v2v/output_rhv_upload.ml:174
+#: ../v2v/nbdkit.ml:76
+msgid "nbdkit is too old.  nbdkit >= %s is required."
+msgstr ""
+
+#: ../v2v/output_rhv_upload.ml:174 ../v2v/nbdkit.ml:86
 msgid ""
 "nbdkit was compiled without SELinux support.  You will have to recompile "
 "nbdkit with libselinux-devel installed, or else set SELinux to Permissive "
@@ -4048,7 +4169,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:409
+#: ../v2v/v2v.ml:408
 msgid ""
 "not enough free space for conversion on filesystem ‘%s’.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -4166,7 +4287,7 @@ msgid ""
 "if-partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:612
+#: ../v2v/v2v.ml:611
 msgid ""
 "output format should be ‘raw’ or ‘qcow2’.\n"
 "\n"
@@ -4248,7 +4369,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:748 ../v2v/v2v.ml:305
+#: ../v2v/v2v.ml:747 ../v2v/v2v.ml:304
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -4306,7 +4427,7 @@ msgstr ""
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:303
+#: ../v2v/windows_virtio.ml:309 ../v2v/windows_virtio.ml:303
 msgid ""
 "root directory ‘/’ is missing from the virtio-win directory or ISO.\n"
 "\n"
@@ -4350,35 +4471,35 @@ msgstr ""
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:829
+#: ../v2v/v2v.ml:828
 msgid "source has multiple hard disk types!"
 msgstr ""
 
-#: ../v2v/v2v.ml:845
+#: ../v2v/v2v.ml:844
 msgid "source has multiple network adapter model!"
 msgstr ""
 
-#: ../v2v/v2v.ml:827 ../v2v/v2v.ml:240
+#: ../v2v/v2v.ml:826 ../v2v/v2v.ml:239
 msgid "source has no hard disks!"
 msgstr ""
 
-#: ../v2v/v2v.ml:837
+#: ../v2v/v2v.ml:836
 msgid "source has unrecognized hard disk type"
 msgstr ""
 
-#: ../v2v/v2v.ml:835
+#: ../v2v/v2v.ml:834
 msgid "source has unsupported hard disk type ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:851
+#: ../v2v/v2v.ml:850
 msgid "source has unsupported network adapter model ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:859
+#: ../v2v/v2v.ml:858
 msgid "source has unsupported video adapter model ‘%s’"
 msgstr ""
 
-#: ../v2v/v2v.ml:235
+#: ../v2v/v2v.ml:234
 msgid ""
 "source sockets * cores * threads <> number of vCPUs.\n"
 "Sockets %d * cores per socket %d * threads %d = %d, but number of vCPUs = "
@@ -4436,7 +4557,7 @@ msgstr ""
 msgid "subscription-manager credentials required for --sm-register"
 msgstr ""
 
-#: ../v2v/v2v.ml:616
+#: ../v2v/v2v.ml:615
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -4625,7 +4746,7 @@ msgid ""
 "specify the UUIDs of guest disk images (for this guest: %d)"
 msgstr ""
 
-#: ../v2v/v2v.ml:654
+#: ../v2v/v2v.ml:653
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -4783,7 +4904,7 @@ msgstr ""
 msgid "unknown sound model %s ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:216
+#: ../v2v/v2v.ml:215
 msgid "unknown source hypervisor (‘%s’) in metadata"
 msgstr ""
 
@@ -4954,7 +5075,7 @@ msgid ""
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:565
+#: ../v2v/v2v.ml:564
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -5069,6 +5190,12 @@ msgstr ""
 
 #: ../v2v/input_libvirt_vddk.ml:143
 msgid "‘-ic %s’ URL does not contain a host name field"
+msgstr ""
+
+#: ../v2v/nbdkit.ml:205
+msgid ""
+"‘-io vddk-libdir=%s’ does not point to a directory.  See the virt-v2v-input-"
+"vmware(1) manual."
 msgstr ""
 
 #: ../builder/repository_main.ml:157

@@ -15,6 +15,7 @@ common/edit/file-edit.c
 common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
 common/mlaugeas/augeas-c.c
+common/mlcustomize/dummy.c
 common/mlgettext/dummy.c
 common/mllibvirt/generator.pl
 common/mllibvirt/libvirt_c_epilogue.c
