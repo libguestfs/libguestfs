@@ -188,8 +188,10 @@ output_rhv_upload_vmcheck_source.ml: $(srcdir)/rhv-upload-vmcheck.py
 # These are created by the generator in common/mlv2v and
 # need to be copied here.
 uefi.mli: $(top_srcdir)/common/mlv2v/uefi.mli
+	rm -f $@
 	cp $< $@
 uefi.ml: $(top_srcdir)/common/mlv2v/uefi.ml
+	rm -f $@
 	cp $< $@
 
 if HAVE_OCAML

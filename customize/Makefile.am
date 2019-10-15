@@ -67,8 +67,10 @@ BUILT_SOURCES = \
 # These are created by the generator in common/mlcustomize and
 # need to be copied here.
 customize_cmdline.mli: $(top_srcdir)/common/mlcustomize/customize_cmdline.mli
+	rm -f $@
 	cp $< $@
 customize_cmdline.ml: $(top_srcdir)/common/mlcustomize/customize_cmdline.ml
+	rm -f $@
 	cp $< $@
 
 if HAVE_OCAML
