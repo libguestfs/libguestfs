@@ -596,7 +596,9 @@ maintainer-check-authors:
 maintainer-check-extra-dist:
 	zcat $(PACKAGE_NAME)-$(VERSION).tar.gz | tar tf - | sort | \
 	  sed 's,^$(PACKAGE_NAME)-$(VERSION)/,,' > tmp/tarfiles
-	git ls-files | \
+	( git ls-files ; \
+	  cd common; git ls-files | sed 's,^,common/,' ) | \
+	  grep -v '^common$$' | \
 	  grep -v '^intltool-.*\.in' | \
 	  grep -v '^\.gitmodules' | \
 	  grep -v '^\.gnulib' | \
