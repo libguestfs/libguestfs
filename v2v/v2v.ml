@@ -754,6 +754,7 @@ and copy_targets cmdline targets input output =
         (if not (quiet ()) then [ "-p" ] else []) @
         [ "-n"; "-f"; "qcow2"; "-O"; t.target_format ] @
         (if cmdline.compressed then [ "-c" ] else []) @
+        [ "-S"; "64k" ] @
         [ overlay_file; filename ] in
       let start_time = gettimeofday () in
       if run_command cmd <> 0 then
