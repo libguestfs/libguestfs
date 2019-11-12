@@ -26,6 +26,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <libintl.h>
+#include <error.h>
+#include <assert.h>
 
 #include "c-ctype.h"
 
@@ -74,21 +77,37 @@ inspect_do_decrypt (guestfs_h *g, struct key_store *ks)
   if (partitions == NULL)
     exit (EXIT_FAILURE);
 
-  int need_rescan = 0;
-  size_t i;
+  int need_rescan = 0, r;
+  size_t i, j;
+
   for (i = 0; partitions[i] != NULL; ++i) {
     CLEANUP_FREE char *type = guestfs_vfs_type (g, partitions[i]);
     if (type && STREQ (type, "crypto_LUKS")) {
       char mapname[32];
       make_mapname (partitions[i], mapname, sizeof mapname);
 
-      CLEANUP_FREE char *key = get_key (ks, partitions[i]);
-      /* XXX Should we call guestfs_luks_open_ro if readonly flag
-       * is set?  This might break 'mount_ro'.
-       */
-      if (guestfs_luks_open (g, partitions[i], key, mapname) == -1)
-        exit (EXIT_FAILURE);
+      CLEANUP_FREE_STRING_LIST char **keys = get_keys (ks, partitions[i]);
+      assert (guestfs_int_count_strings (keys) > 0);
 
+      /* Try each key in turn. */
+      for (j = 0; keys[j] != NULL; ++j) {
+        /* XXX Should we call guestfs_luks_open_ro if readonly flag
+         * is set?  This might break 'mount_ro'.
+         */
+        guestfs_push_error_handler (g, NULL, NULL);
+        r = guestfs_luks_open (g, partitions[i], keys[j], mapname);
+        guestfs_pop_error_handler (g);
+        if (r == 0)
+          goto opened;
+      }
+      error (EXIT_FAILURE, 0,
+             _("could not find key to open LUKS encrypted %s.\n\n"
+               "Try using --key on the command line.\n\n"
+               "Original error: %s (%d)"),
+             partitions[i], guestfs_last_error (g),
+             guestfs_last_errno (g));
+
+    opened:
       need_rescan = 1;
     }
   }
