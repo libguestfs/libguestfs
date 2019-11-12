@@ -216,7 +216,8 @@ key_store_import_key (struct key_store *ks, const struct key_store_key *key)
   }
   assert (ks != NULL);
 
-  new_keys = realloc (ks->keys, sizeof (*ks->keys) + 1);
+  new_keys = realloc (ks->keys,
+                      (ks->nr_keys + 1) * sizeof (struct key_store_key));
   if (!new_keys)
     error (EXIT_FAILURE, errno, "realloc");
 
