@@ -166,10 +166,6 @@ m4_include([m4/guestfs-rust.m4])
 HEADING([Checking for Vala])
 VAPIGEN_CHECK
 
-dnl virt-v2v.
-HEADING([Checking the virt-v2v dependencies])
-m4_include([m4/guestfs-v2v.m4])
-
 dnl Bash completion.
 HEADING([Checking for bash completion])
 m4_include([m4/guestfs-bash-completion.m4])
@@ -318,8 +314,6 @@ AC_CONFIG_FILES([Makefile
                  test-data/Makefile
                  test-data/binaries/Makefile
                  test-data/blank-disks/Makefile
-                 test-data/fake-virtio-win/Makefile
-                 test-data/fake-virt-tools/Makefile
                  test-data/files/Makefile
                  test-data/phony-guests/Makefile
                  test-data/phony-guests/guests.xml
@@ -369,10 +363,6 @@ AC_CONFIG_FILES([Makefile
                  utils/max-disks/Makefile
                  utils/qemu-boot/Makefile
                  utils/qemu-speed-test/Makefile
-                 v2v/Makefile
-                 v2v/config.ml
-                 v2v/test-harness/Makefile
-                 v2v/test-harness/META
                  website/index.html])
 
 AC_OUTPUT

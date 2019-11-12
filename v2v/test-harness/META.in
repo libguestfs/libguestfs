@@ -1,6 +1,0 @@
-name="v2v_test_harness"
-version="@PACKAGE_VERSION@"
-description="virt-v2v test harness"
-requires="unix,libvirt,guestfs"
-archive(byte)="v2v_test_harness.cma"
-archive(native)="v2v_test_harness.cmxa"

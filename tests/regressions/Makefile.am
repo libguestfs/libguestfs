@@ -45,8 +45,6 @@ EXTRA_DIST = \
 	rhbz1091803.sh \
 	rhbz1174551.sh \
 	rhbz1175196.sh \
-	rhbz1232192.sh \
-	rhbz1232192.xml \
 	rhbz1285847.sh \
 	rhbz1370424.sh \
 	rhbz1370424.xml \
@@ -78,7 +76,6 @@ TESTS = \
 	rhbz1011907-1165785.sh \
 	rhbz1174551.sh \
 	rhbz1175196.sh \
-	rhbz1232192.sh \
 	rhbz1285847.sh \
 	rhbz1370424.sh \
 	rhbz1477623.sh \

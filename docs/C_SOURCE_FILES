@@ -396,6 +396,3 @@ utils/boot-analysis/boot-analysis.h
 utils/boot-benchmark/boot-benchmark.c
 utils/qemu-boot/qemu-boot.c
 utils/qemu-speed-test/qemu-speed-test.c
-v2v/dummy.c
-v2v/qemuopts-c.c
-v2v/test-harness/dummy.c

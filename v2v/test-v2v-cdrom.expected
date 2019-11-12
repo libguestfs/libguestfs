@@ -1,8 +1,0 @@
-    <disk type='file' device='disk'>
-      <driver name='qemu' type='raw' cache='none'/>
-      <target dev='vda' bus='virtio'/>
-    </disk>
-    <disk device='cdrom' type='file'>
-      <driver name='qemu' type='raw'/>
-      <target dev='hdc' bus='ide'/>
-    </disk>

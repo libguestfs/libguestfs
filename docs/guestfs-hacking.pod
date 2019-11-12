@@ -45,7 +45,7 @@ the source code of the core library.  F<generator> is the code
 generator described above, so that is important.  The F<Makefile.am>
 in the root directory will tell you in which order the subdirectories
 get built.  And then if you are looking at a particular tool
-(eg. F<v2v>) or language binding (eg. F<python>), go straight to that
+(eg. F<customize>) or language binding (eg. F<python>), go straight to that
 subdirectory, but remember that if you didn't run the generator yet,
 then you may find files which appear to be missing.
 
@@ -126,16 +126,12 @@ A library of pure OCaml utility functions used in many places.
 =item F<common/mltools>
 
 OCaml utility functions only used by the OCaml virt tools (like
-C<virt-sysprep>, C<virt-v2v> etc.)
+C<virt-sysprep>, C<virt-customize> etc.)
 
 =item F<common/mlutils>
 
 OCaml bindings for C functions in C<common/utils>, and some POSIX
 bindings which are missing from the OCaml stdlib.
-
-=item F<common/mlv2v>
-
-A few generated files used by virt-v2v.
 
 =item F<common/mlvisit>
 
@@ -326,7 +322,9 @@ Miscellaneous utilities, such as C<boot-benchmark>.
 
 =item F<v2v>
 
-L<virt-v2v(1)> command and documentation.
+Up to libguestfs E<gt> 1.42 this contained the L<virt-v2v(1)> tool,
+but this has now moved into a separate repository:
+L<https://github.com/libguestfs/virt-v2v>
 
 =item F<website>
 
@@ -896,7 +894,7 @@ because OCaml programs usually have C files for native bindings etc.
 
 So a typical program is described as just its C sources:
 
- virt_v2v_SOURCES = ... utils-c.c xml-c.c
+ virt_customize_SOURCES = ... crypt-c.c perl_edit-c.c
 
 For programs that have no explicit C sources, we create an empty
 F<dummy.c> file, and list that instead:
@@ -906,17 +904,17 @@ F<dummy.c> file, and list that instead:
 The OCaml objects which contain most of the code are listed as
 automake dependencies (other dependencies may also be listed):
 
- virt_v2v_DEPENDENCIES = ... cmdline.cmx v2v.cmx
+ virt_customize_DEPENDENCIES = ... customize_main.cmx
 
 The only other special thing we need to do is to provide a custom link
 command.  This is needed because automake won't assemble the ocamlopt
 command, the list of objects and the C<-cclib> libraries in the
 correct order otherwise.
 
- virt_v2v_LINK = \
+ virt_customize_LINK = \
      $(top_srcdir)/ocaml-link.sh -cclib '-lutils -lgnu' -- ...
 
-The actual rules, which you can examine in F<v2v/Makefile.am>, are a
+The actual rules, which you can examine in F<customize/Makefile.am>, are a
 little bit more complicated than this because they have to handle:
 
 =over 4
@@ -940,49 +938,6 @@ Automake isn't aware of the complete list of sources for a binary, so
 it will not add them all automatically.
 
 =back
-
-=head2 VIRT-V2V
-
-First a little history.  Virt-v2v has been through at least two
-complete rewrites, so this is probably about the third version (but we
-don't intend to rewrite it again).  The previous version was written
-in Perl and can be found here:
-L<https://git.fedorahosted.org/git/virt-v2v.git>
-
-The current version started out as almost a line-for-line rewrite of
-the Perl code in OCaml + C, and it still has a fairly similar
-structure.  Therefore if there are details of this code that you don't
-understand (especially in the details of guest conversion), checking
-the Perl code may help.
-
-The files to start with when reading this code are:
-
-=over 4
-
-=item *
-
-F<types.mli>
-
-=item *
-
-F<v2v.ml>
-
-=back
-
-F<types.mli> defines all the structures used and passed around when
-communicating between different bits of the program.  F<v2v.ml>
-controls how the program runs in stages.
-
-After studying those files, you may want to branch out into the input
-modules (F<input_*>), the output modules (F<output_*>) or the
-conversion modules (F<convert_*>).  The input and output modules
-define I<-i> and I<-o> options (see the manual).  The conversion
-modules define what guest types we can handle and the detailed steps
-involved in converting them.
-
-Every other file in this directory is a support module / library of
-some sort.  Some code is written in C, especially where we want to use
-an external C library such as libxml2.
 
 =head1 MAINTAINER TASKS
 

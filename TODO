@@ -570,39 +570,3 @@ Subsecond handling in virt-diff, virt-ls
 
 Handle nanoseconds properly.  You should be able to specify them on
 the command line and display them.
-
-virt-v2v -o rhv-upload
-----------------------
-
-* Set or disable the ticket timeout.  The default is going to be
-  increased (from current 60 seconds), so maybe we won't have to
-  set it.  See also:
-  https://bugzilla.redhat.com/show_bug.cgi?id=1563278
-
-* qcow2 cannot be supported yet because there is not yet any
-  concept in imageio of read+write handles.
-  https://bugzilla.redhat.com/show_bug.cgi?id=1563299
-
-* preallocated cannot be supported yet because imageio doesn't
-  know how to zero the image efficiently, instead it runs an
-  fallocate process which writes to every block and that takes
-  many minutes.
-
-* Really check what insecure/rhv_cafile do and implement it correctly.
-
-* Measure and resolve performance problems.
-
-* Allocated image size is unknown for v2v uploads, but imageio needs
-  to know it.  We pass initial_size == provisioned_size == virtual size.
-  That can't be fixed from the v2v side.
-
-* There are unresolved issues about how to clean up disks on failure.
-
-virt-v2v -o openstack
----------------------
-
-Use the metadata service to find the -oo server-id setting.  It would
-no longer need to be specified on the command line.  Note there are
-two variations of metadata service in OpenStack, either the config
-disk or link-local network address.  We would need to support both, or
-the possibility that there is no metadata service.

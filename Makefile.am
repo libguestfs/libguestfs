@@ -174,10 +174,6 @@ SUBDIRS += get-kernel
 SUBDIRS += resize
 SUBDIRS += sparsify
 SUBDIRS += sysprep
-if HAVE_LIBVIRT
-SUBDIRS += v2v
-SUBDIRS += v2v/test-harness
-endif
 if HAVE_FUSE
 SUBDIRS += dib
 endif
@@ -358,9 +354,8 @@ po/POTFILES: configure.ac
 po/POTFILES-ml: configure.ac
 	rm -f $@ $@-t
 	cd $(srcdir); \
-	find builder common/ml* customize dib get-kernel resize sparsify sysprep v2v -name '*.ml' | \
+	find builder common/ml* customize dib get-kernel resize sparsify sysprep -name '*.ml' | \
 	grep -v '^builder/templates/' | \
-	grep -v '^v2v/config.ml$$' | \
 	LC_ALL=C sort > $@-t
 	mv $@-t $@
 

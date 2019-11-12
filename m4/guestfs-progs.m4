@@ -113,13 +113,6 @@ if test "x$YACC" = "xyacc"; then
     AC_MSG_FAILURE([GNU 'bison' is required (yacc won't work).])
 fi
 
-dnl zip/unzip, used by virt-v2v
-AC_PATH_PROGS([ZIP],[zip],[no])
-AC_DEFINE_UNQUOTED([ZIP],["$ZIP"],[Name of zip program.])
-AM_CONDITIONAL([HAVE_ZIP],[test "x$ZIP" != "xno"])
-AC_PATH_PROGS([UNZIP],[unzip],[no])
-AC_DEFINE_UNQUOTED([UNZIP],["$UNZIP"],[Name of unzip program.])
-
 dnl Check for valgrind
 AC_CHECK_PROG([VALGRIND],[valgrind],[valgrind],[no])
 AS_IF([test "x$VALGRIND" != "xno"],[

@@ -1,4 +1,4 @@
-# virt-v2v-copy-to-local bash completion script -*- shell-script -*-
+# libguestfs-test-tool bash completion script -*- shell-script -*-
 # Copyright (C) 2014-2019 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -39,12 +39,6 @@ _guestfs_options_only ()
             return ;;
     esac
 }
-
-_virt_v2v_copy_to_local ()
-{
-    _guestfs_options_only "virt-v2v-copy-to-local"
-} &&
-complete -o default -F _virt_v2v_copy_to_local virt-v2v-copy-to-local
 
 _virt_win_reg ()
 {

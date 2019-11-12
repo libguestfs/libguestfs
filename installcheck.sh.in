@@ -67,8 +67,6 @@ cp @bindir@/virt-sparsify         sparsify/
 cp @bindir@/virt-sysprep          sysprep/
 cp @bindir@/virt-tar-in           fish/
 cp @bindir@/virt-tar-out          fish/
-cp @bindir@/virt-v2v              v2v/
-cp @bindir@/virt-v2v-copy-to-local v2v/
 cp @bindir@/virt-win-reg          tools/
 
 # virt-list-filesystems, virt-list-partitions and virt-tar are not
@@ -102,7 +100,6 @@ compare @libdir@/libguestfs.so lib/.libs/libguestfs.so
 compare @bindir@/guestfish  fish/guestfish
 compare @bindir@/guestmount fuse/guestmount
 compare @bindir@/virt-df    df/virt-df
-compare @bindir@/virt-v2v   v2v/virt-v2v
 compare @libdir@/guestfs/supermin.d/daemon.tar.gz \
                             appliance/supermin.d/daemon.tar.gz
 

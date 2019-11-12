@@ -20,15 +20,13 @@ include $(top_srcdir)/subdir-rules.mk
 scripts = \
 	guestfish \
 	guestmount \
+	libguestfs-test-tool \
 	virt-alignment-scan \
-	virt-rescue \
-	virt-v2v \
-	virt-v2v-copy-to-local
+	virt-rescue
 
 # Some of the scripts are simply symbolic links.
 symlinks = \
 	guestunmount \
-	libguestfs-test-tool \
 	virt-builder \
 	virt-cat \
 	virt-copy-in \
@@ -63,9 +61,9 @@ CLEANFILES += \
 
 # Any tool that has --short-options and --long-options only is handled
 # by this common script.
-libguestfs-test-tool virt-win-reg:
+virt-win-reg:
 	rm -f $@
-	$(LN_S) virt-v2v-copy-to-local $@
+	$(LN_S) libguestfs-test-tool $@
 
 # Any tool that has --short-options and --long-options and a few
 # common options like -d is handled by this common script.  However

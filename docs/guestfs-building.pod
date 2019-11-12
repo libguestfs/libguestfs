@@ -76,7 +76,7 @@ I<Required>.
 
 =item qemu-img E<ge> 1.3.0
 
-I<Required>.  Virt-v2v requires qemu-img E<ge> 2.2.0.
+I<Required>.
 
 =item kernel E<ge> 2.6.34
 
@@ -272,9 +272,6 @@ Optional.  Used only for testing.
 
 Optional.  qemu-nbd is used for testing.
 
-L<virt-v2v(1)> requires nbdkit E<ge> 1.12 for various input and output
-modes.
-
 =item uml_mkcow
 
 Optional.  For the L<UML backend|guestfs(3)/BACKEND>.
@@ -292,12 +289,6 @@ Optional.  Used by virt-builder for checking digital signatures.
 Optional.  If available, virt-builder will use this library
 for fast, parallel uncompression of templates.
 
-=item zip
-
-=item unzip
-
-Optional.  Used by virt-v2v to handle OVA files.
-
 =item python-evtx
 
 Optional.  Used by L<virt-log(1)> to parse Windows Event Log files.
@@ -309,10 +300,6 @@ Optional.  For localizing OCaml virt tools.
 =item ocaml-ounit E<ge> 2.0.0
 
 Optional.  For testing the common OCaml modules.
-
-=item ocaml-libvirt E<ge> 0.6.1.5
-
-Optional.  For building the optional virt-v2v test harness.
 
 =item Perl C<Module::Build> E<ge> 0.19
 

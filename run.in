@@ -104,7 +104,6 @@ prepend PATH "$b/sparsify"
 prepend PATH "$b/sysprep"
 prepend PATH "$b/test-tool"
 prepend PATH "$b/tools"
-prepend PATH "$b/v2v"
 export PATH
 
 # Set LD_LIBRARY_PATH and DYLD_LIBRARY_PATH to contain library.

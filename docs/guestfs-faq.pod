@@ -269,13 +269,6 @@ L<http://koji.fedoraproject.org/koji/packageinfo?packageID=8391>
 
 =over 4
 
-=item RHEL 5
-
-The version shipped in official RHEL 5 is very old and should not be
-used except in conjunction with virt-v2v.  Use the up-to-date
-libguestfs 1.20 package in EPEL 5:
-L<https://fedoraproject.org/wiki/EPEL>
-
 =item RHEL 6
 
 =item RHEL 7
@@ -952,7 +945,7 @@ how you installed libguestfs (eg. from source, C<yum install>, etc.)
 =back
 
 =head2 How do I debug when using any libguestfs program or tool
-(eg. virt-v2v or virt-df)?
+(eg. virt-customize or virt-df)?
 
 There are two C<LIBGUESTFS_*> environment variables you can set in
 order to get more information from libguestfs.

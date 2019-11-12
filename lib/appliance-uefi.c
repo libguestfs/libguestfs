@@ -51,7 +51,7 @@
  * should cause appliance building to fail (no UEFI firmware is not an
  * error).
  *
- * See also F<v2v/utils.ml>:find_uefi_firmware
+ * See also F<virt-v2v.git/v2v/utils.ml>:find_uefi_firmware
  */
 int
 guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags)
