@@ -1,0 +1,843 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.30
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.28.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+=head3 New tools
+
+L<virt-dib(1)> is a secure and safe alternative to the OpenStack
+"diskimage-builder" tool.  It is compatible with diskimage-builder
+elements.  (Pino Toscano)
+
+L<virt-get-kernel(1)> extracts the kernel and ramdisk from a disk
+image.  Previously this functionality was part of L<virt-builder(1)>,
+but the new tool is more featureful.  (Pino Toscano)
+
+=head3 New features in existing tools
+
+L<virt-v2v(1)> I<-i ova> mode can now read a wider range of OVA files,
+and also unpacked files (directories).
+
+virt-v2v now securely passes options to curl, so passwords, cookies
+and so on cannot be seen by users with shell access on the same
+machine.
+
+virt-v2v has a new I<--password-file> option to allow you to securely
+pass in a password, and to avoid an interactive prompt.
+
+virt-v2v disables Windows autoreboot, making debugging conversion
+failures on Windows easier.
+
+virt-v2v now comes with an extensive external test suite.
+See L<virt-v2v-test-harness(1)>.
+
+virt-v2v allows virtio drivers to come from any location (Roman
+Kagan), and drivers can be read directly from the virtio ISO.
+
+virt-v2v supports conversion of Windows E<ge> 8.  Note this is
+experimental, and possibly broken.  Use with caution.
+
+virt-v2v can now convert UEFI guests.
+
+L<virt-p2v(1)> adds a network configuration dialog.
+
+virt-p2v now has C<p2v.pre>, C<p2v.post> and C<p2v.fail> triggers,
+allowing arbitrary scripts for preparing the host for conversion and
+tidying up post-conversion.
+
+virt-p2v now uses the more advanced metacity window manager
+(instead of matchbox).
+
+L<virt-sysprep(1)> will remove C</var/spool/mail/username> for
+non-root accounts (Hu Tao).
+
+L<virt-customize(1)>, L<virt-builder(1)> and virt-sysprep have the
+following new options:
+
+=over 4
+
+=item I<--commands-from-file>
+
+allow long lists of commands to be read from a file instead of from
+the command line (Pino Toscano)
+
+=item I<--copy>
+
+copy files inside the guest (Maros Zatko)
+
+=item I<--copy-in>
+
+copy host files recursively into the guest (Pino Toscano)
+
+=item I<--move>
+
+move files inside the guest (Maros Zatko)
+
+=item I<--ssh-inject>
+
+inject SSH keys into a guest (Pino Toscano)
+
+=item I<--sm-attach>
+
+=item I<--sm-credentials>
+
+=item I<--sm-register>
+
+=item I<--sm-remove>
+
+=item I<--sm-unregister>
+
+register and unregister a guest from subscription-manager
+(Pino Toscano)
+
+=item I<--touch>
+
+touch a file in the guest (Pino Toscano)
+
+=item I<--truncate>
+
+=item I<--truncate-recursive>
+
+truncate files (Maros Zatko)
+
+=back
+
+Improvements to virt-customize firstboot support.  In particular,
+Windows firstboot should work as well as Linux (Roman Kagan).
+
+L<virt-df(1)> can now use PolicyKit, SASL and other authentication
+methods when getting the list of domains from libvirt.
+
+Improvements to guestfish bash completion (Pino Toscano).
+
+Bash completion now completes short options as well as long options
+(Pino Toscano).
+
+L<guestfish(1)> now displays a command synopsis if the number of
+parameters given to a command is wrong (Hu Tao).
+
+virt-builder now supports Red Hat Enterprise Linux versions back to RHEL 3.
+
+virt-builder supports SUSE guests using zypper (Cédric Bosdonnat).
+
+=head3 Language bindings
+
+The Java bindings now include validated Javadoc, and other improvements
+(Pino Toscano).
+
+Multiple fixes and improvements to the PHP bindings (Pino Toscano).
+
+=head3 Inspection
+
+Inspection can now get icons from RHEL 7 and CentOS 7.
+
+F</etc/favicon.png> is now allowed to be a symbolic link.
+
+For RPM-based guests, inspection now returns RPM Epoch fields.
+
+Debian packages now have separate Epoch and Version fields
+(Nikos Skalkotos).
+
+OpenBSD detection added, FreeBSD and NetBSD added as separate
+"distros", and other BSD inspection improvements and bug fixes
+(Nikos Skalkotos).
+
+CoreOS detection added (Nikos Skalkotos).
+
+The package manager in Fedora E<ge> 22 is C<dnf>.
+
+ReactOS guests can be inspected (Maros Zatko).
+
+Add support for UEFI guests.
+
+Inspection now works when kernel modules are gzip or xz compressed
+(Pino Toscano).
+
+Inspection now recognizes ppc64 and ppc64le guests (Maros Zatko).
+
+Inspection lists the installed applications on Archlinux guests
+(Nikos Skalkotos).
+
+=head3 Architectures and platforms
+
+PPC64 (POWER7) and PPC64LE (POWER8) architectures are now much better
+supported, and should work out of the box.
+
+For aarch64, we use AAVMF (an open source UEFI implementation based on
+OVMF) if available to run the appliance.
+
+For armv7, we now use the I<-M virt> machine type by default.
+
+There is better support for compiling on non-Linux platforms
+(Pino Toscano, Margaret Lewicka).
+
+Libguestfs should now work on MIPS 32 bit little endian ("mipsel").  I
+have not been able to try 64 bit or big endian.
+
+=head2 Security
+
+=over 4
+
+=item CVE-2014-8484
+
+=item CVE-2014-8485
+
+Libguestfs previously ran the L<strings(1)> utility on untrusted
+files.  Strings could parse BFD headers in an unsafe way, leading to
+possible arbitrary code execution.  Libguestfs now runs strings with a
+flag to ensure it does not try to parse BFD headers.  This could have
+led to exploitation of the libguestfs appliance, but since libguestfs
+further constrains the appliance through virtualization, SELinux and
+other techniques, it was unlikely to have caused any privilege
+escalation on the host.
+
+=item XPath injection in virt-v2v
+
+One possible XPath injection vulnerability was fixed in virt-v2v.
+This might have allowed a malicious guest which was being converted by
+virt-v2v to construct an arbitrary XPath expression which would have
+been evaluated on the host (by the libxml2 library linked to the
+virt-v2v binary).  It is not clear what the effects of this might be.
+
+For further information, see upstream commit
+L<https://github.com/libguestfs/libguestfs/commit/6c6ce85f94c36803fe2db35a98db436bff0c14b0>
+
+=item Denial of service problems when using C<qemu-img info>
+
+When using the American Fuzzy Lop fuzzer (C<afl-fuzz>) on the
+C<qemu-img info> command, Richard W.M. Jones found that certain files
+can cause the C<qemu-img> program to use lots of memory and time (for
+example 6GB of heap and 14 seconds of CPU time on a fast Intel
+processor), and in some cases to crash.  Since libguestfs may run
+C<qemu-img info> on disk images to find out what they contain, this
+transitively could cause libguestfs to hang or consume lots of memory.
+
+Libguestfs was modified so that it uses resource limits to limit the
+space and time used by C<qemu-img info>, to avoid this problem.  If a
+malicious user tries to pass one of these disk images to libguestfs,
+C<qemu-img> will crash and the crash is reported back to libguestfs
+callers as an error message.
+
+
+
+
+=back
+
+=head2 API
+
+=head3 New APIs
+
+=over 4
+
+=item C<guestfs_add_libvirt_dom>
+
+This exposes a previously private API that allows you to pass a
+C<virDomainPtr> object directly from libvirt to libguestfs.
+
+=item C<guestfs_blockdev_setra>
+
+Adjust readahead parameter for devices.
+See C<blockdev --setra> command.
+
+=item C<guestfs_btrfs_balance>
+
+=item C<guestfs_btrfs_balance_cancel>
+
+=item C<guestfs_btrfs_balance_pause>
+
+=item C<guestfs_btrfs_balance_resume>
+
+=item C<guestfs_btrfs_balance_status>
+
+Balance support for Btrfs filesystems (Hu Tao).
+
+=item C<guestfs_btrfs_filesystem_defragment>
+
+Filesystem defragmentation support for Btrfs filesystems (Hu Tao).
+
+=item C<guestfs_btrfs_image>
+
+Create an image of a Btrfs filesystem (Chen Hanxiao)
+
+=item C<guestfs_btrfs_qgroup_assign>
+
+=item C<guestfs_btrfs_qgroup_create>
+
+=item C<guestfs_btrfs_qgroup_destroy>
+
+=item C<guestfs_btrfs_qgroup_limit>
+
+=item C<guestfs_btrfs_qgroup_remove>
+
+=item C<guestfs_btrfs_qgroup_show>
+
+=item C<guestfs_btrfs_quota_enable>
+
+=item C<guestfs_btrfs_quota_rescan>
+
+Quote support for Btrfs filesystems (Hu Tao).
+
+=item C<guestfs_btrfs_rescue_chunk_recover>
+
+Scan and recover the chunk tree in Btrfs filesystems (Hu Tao).
+
+=item C<guestfs_btrfs_rescue_super_recover>
+
+Restore superblocks in Btrfs filesystems (Hu Tao).
+
+=item C<guestfs_btrfs_replace>
+
+Replace a device in a Btrfs filesystem (Cao Jin).
+
+=item C<guestfs_btrfs_scrub>
+
+=item C<guestfs_btrfs_scrub_cancel>
+
+=item C<guestfs_btrfs_scrub_resume>
+
+=item C<guestfs_btrfs_scrub_status>
+
+Scrub a Btrfs filesystem (Hu Tao).
+
+=item C<guestfs_btrfs_subvolume_get_default>
+
+Get the default subvolume of a Btrfs filesystem (Hu Tao).
+
+=item C<guestfs_btrfs_subvolume_show>
+
+List detailed information about the subvolume of a Btrfs filesystem
+(Hu Tao).
+
+=item C<guestfs_btrfstune_enable_extended_inode_refs>
+
+=item C<guestfs_btrfstune_enable_skinny_metadata_extent_refs>
+
+=item C<guestfs_btrfstune_seeding>
+
+Various tuning parameters for Btrfs filesystems (Chen Hanxiao).
+
+=item C<guestfs_c_pointer>
+
+Return the C pointer to the underlying C<guestfs_h *>.  This allows
+interworking of libguestfs bindings with bindings from other
+libraries.  For further information see
+L<https://bugzilla.redhat.com/1075164>
+
+=item C<guestfs_copy_in>
+
+=item C<guestfs_copy_out>
+
+Flexible APIs for recursively copying directories of files between the
+host and guest filesystem.  Previously these were available only as
+guestfish commands, but now any API users can call them (Pino Toscano).
+
+=item C<guestfs_part_get_gpt_guid>
+
+=item C<guestfs_part_set_gpt_guid>
+
+Get and set the GPT per-partition GUID.
+
+=item C<guestfs_part_get_mbr_part_type>
+
+Get MBR partition type (Chen Hanxiao).
+
+=item C<guestfs_set_uuid_random>
+
+Set the UUID of a filesystem to a randomly generated value; supported
+filesystems currently are ext2/3/4, XFS, Btrfs, and swap partitions.
+(Chen Hanxiao).
+
+=back
+
+=head3 Other API changes
+
+C<guestfs_disk_create> can now use VMDK files as backing files.
+
+C<guestfs_btrfs_subvolume_snapshot> takes extra optional
+parameters (all added by Hu Tao):
+
+=over 4
+
+=item C<ro>
+
+for creating a read-only Btrfs snapshot
+
+=item C<qgroupid>
+
+for adding the snapshot to a qgroup
+
+=back
+
+C<guestfs_btrfs_subvolume_create> can also take the optional
+C<qgroupid> parameter (Hu Tao).
+
+C<guestfs_set_uuid> can set UUID of swap partitions, Btrfs
+(Hu Tao, Chen Hanxiao).
+
+C<guestfs_copy_device_to_file> and C<guestfs_copy_file_to_file> have a
+new optional C<append> parameter, allowing you to append to the output
+file instead of truncating it.
+
+C<guestfs_mkfs> has a new optional C<label> parameter to set the
+initial label of the new filesystem (Pino Toscano).
+
+C<guestfs_set_label> and C<guestfs_set_uuid> now set C<ENOTSUP> as errno
+when there is no implemented support for the filesystem of the specified
+mountable (Chen Hanxiao).
+
+Environment variables now let you write C<LIBGUESTFS_DEBUG=true>,
+C<LIBGUESTFS_DEBUG=0> and so on.
+
+All C<guestfs_sfdisk*> APIs have been deprecated.  Because
+L<sfdisk(8)> was rewritten, incompatibly, upstream, we don't recommend
+using these APIs in future code.  Use the C<guestfs_part*> APIs as
+replacements.
+
+APIs such as C<guestfs_download> do not truncate F</dev/stdout> or
+F</dev/stderr> when writing to them, meaning that if you redirect
+stdout or stderr to a file, the file is no longer truncated.
+
+
+
+
+
+=head2 Build changes
+
+The daemon no longer uses its own separate copy of gnulib.  Instead it
+shares a single copy with the library.
+
+OCaml F<.annot> files are now created, so IDEs and editors like emacs
+and vi can browse OCaml types in the source code.
+
+Various fixes to allow different host/appliance architecture builds
+(Pino Toscano).
+
+Automake is now used directly to build all the OCaml programs, instead
+of ad hoc Makefile rules.  One side effect of this is to enable
+warnings in all the C code used by OCaml programs.
+
+C<-fno-strict-overflow> is used throughout the build to avoid dubious
+GCC optimizations.
+
+Multiple cleanups to support GCC 5.
+
+OCaml OUnit2 is needed to run some OCaml tests.
+
+Creating a statically linked F<libguestfs.a> should work again.
+
+The F<src/api-support> subdirectory and its scripts are no longer
+used.  Instead we store in the F<generator/actions.ml> when the API
+was added to libguestfs.
+
+=head2 Internationalization
+
+The translation service has changed from Transifex to Zanata.
+
+Many more translations are available now, for both library and tools
+messages and documentation.
+
+=head2 Internals
+
+In all OCaml tools, there are now common C<error>, C<warning>, C<info>
+functions, and common way to set and get the I<--quiet>, I<-x> (trace)
+and I<-v> (verbose) flags, and colour highlighting used consistently.
+
+C<COMPILE_REGEXP> macros are used to simplify PCRE constructors and
+destructors.
+
+In the generator, C<Pointer> arguments have finally been implemented.
+
+Internal identifiers no longer use double and triple underscores
+(eg. C<guestfs___program_name>).  These identifiers are invalid for
+C99 and C++ programs, although compilers would accept them.
+
+The daemon no longer parses C<guestfs_*> options from
+F</proc/cmdline>.  Instead it only takes ordinary command line
+options.  The appliance init script turns F</proc/cmdline> into daemon
+command line options.
+
+The tests can now run the daemon as a "captive process", allowing it
+to be run directly on the host.  The main advantage of this is we can
+run valgrind directly on the daemon during testing.
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh 1.28.0..
+
+=end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/1239053>
+
+virt-v2v error reporting when grub.conf cannot be parsed by Augeas
+
+=item L<https://bugzilla.redhat.com/1238053>
+
+v2v:Duplicate disk target set when convert guest with cdrom attached
+
+=item L<https://bugzilla.redhat.com/1237869>
+
+Virtio drivers are not installed for windows 2008 guests by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1234351>
+
+virt-v2v Support for Fedora virtio-win drivers
+
+=item L<https://bugzilla.redhat.com/1232192>
+
+Virt-v2v gives an error on a blank disk: part_get_parttype: unknown signature, of the output: BYT;
+
+=item L<https://bugzilla.redhat.com/1229385>
+
+virt-p2v in kernel command line mode should power off the machine after conversion
+
+=item L<https://bugzilla.redhat.com/1229340>
+
+virt-p2v no GUI mode appends \n to the final command line parameter
+
+=item L<https://bugzilla.redhat.com/1229305>
+
+virt-sysprep at cleanup deletes /var/spool/at/.SEQ which results in failing at
+
+=item L<https://bugzilla.redhat.com/1226794>
+
+"Doing conversion……" still shows after cancel the conversion from virt-p2v client
+
+=item L<https://bugzilla.redhat.com/1215042>
+
+Memory leak in virNetSocketNewConnectUNIX
+
+=item L<https://bugzilla.redhat.com/1213324>
+
+virt-v2v: warning: unknown guest operating system: windows windows 6.3 when converting win8,win8.1,win2012,win2012R2 to rhev
+
+=item L<https://bugzilla.redhat.com/1213247>
+
+virt tools should print the same format of version string
+
+=item L<https://bugzilla.redhat.com/1212808>
+
+RFE: virt-builder --touch
+
+=item L<https://bugzilla.redhat.com/1212807>
+
+virt-builder --selinux-relabel flag fails on cross-architecture builds
+
+=item L<https://bugzilla.redhat.com/1212680>
+
+RFE: virt-inspector xpath query should output a neat format of the query element
+
+=item L<https://bugzilla.redhat.com/1212152>
+
+virt-builder firstboot-command fails: File name too long
+
+=item L<https://bugzilla.redhat.com/1211996>
+
+virt-inspector gives incorrect arch (ppc64) for ppc64le guest
+
+=item L<https://bugzilla.redhat.com/1203817>
+
+RFE: virt-customize --move and --copy
+
+=item L<https://bugzilla.redhat.com/1201526>
+
+index-parser can't parse systemd mount files properly
+
+=item L<https://bugzilla.redhat.com/1196101>
+
+virt-builder --upload option doesn't work to a FAT partition
+
+=item L<https://bugzilla.redhat.com/1196100>
+
+virt-builder -x option on its own does not enable tracing
+
+=item L<https://bugzilla.redhat.com/1195204>
+
+`virt-builder` should create $HOME/.cache directory if it already doesn't exist
+
+=item L<https://bugzilla.redhat.com/1193237>
+
+Virt-builder fingerprint is required even when no check desired
+
+=item L<https://bugzilla.redhat.com/1189284>
+
+virt-resize should preserve GPT partition UUIDs, else EFI guests become unbootable
+
+=item L<https://bugzilla.redhat.com/1188866>
+
+Performance regression in virt-builder when uncompressing image
+
+=item L<https://bugzilla.redhat.com/1186800>
+
+virt-v2v should support gzip format ova as input
+
+=item L<https://bugzilla.redhat.com/1185561>
+
+virt-sparsify should ignore read-only LVs
+
+=item L<https://bugzilla.redhat.com/1182463>
+
+"mknod-b", "mknod-c", and "mkfifo" do not strip non-permissions bits from "mode"
+
+=item L<https://bugzilla.redhat.com/1176493>
+
+virt-v2v ignores sound device when convert xen guest to local kvm
+
+=item L<https://bugzilla.redhat.com/1175676>
+
+Typo error in 'help ping-daemon'
+
+=item L<https://bugzilla.redhat.com/1175196>
+
+"parse-environment" and "parse-environment-list" fail to parse "LIBGUESTFS_TRACE = 0"
+
+=item L<https://bugzilla.redhat.com/1175035>
+
+"is-blockdev"/"is-blockdev-opts" fail to detect "/dev/sda"
+
+=item L<https://bugzilla.redhat.com/1174280>
+
+RFE: Allow v2v conversion of Oracle Linux 5.8 VMware VM
+
+=item L<https://bugzilla.redhat.com/1174200>
+
+New virt-v2v failure: CURL: Error opening file: NSS: client certificate not found (nickname not specified): Invalid argument
+
+=item L<https://bugzilla.redhat.com/1174123>
+
+Graphics password disappear after conversion of virt-v2v
+
+=item L<https://bugzilla.redhat.com/1174073>
+
+The listen address for vnc is changed after conversion by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1171666>
+
+inspection thinks EFI partition is a separate operating system
+
+=item L<https://bugzilla.redhat.com/1171130>
+
+virt-v2v conversion of RHEL 3 guest fails with: All of your loopback devices are in use
+
+=item L<https://bugzilla.redhat.com/1170685>
+
+Conversion of RHEL 4 guest fails: rpm -ql 1:kernel-utils-2.4-23.el4: virt-v2v: error: libguestfs error: command_lines:
+
+=item L<https://bugzilla.redhat.com/1170073>
+
+virt-v2v picks debug kernels over non-debug kernels when versions are equal
+
+=item L<https://bugzilla.redhat.com/1169045>
+
+virt-sparsify: libguestfs error: qemu-img info: 'virtual-size' is not representable as a 64 bit integer
+
+=item L<https://bugzilla.redhat.com/1169015>
+
+virt-resize --expand fails on ubuntu-14.04.img image (regression)
+
+=item L<https://bugzilla.redhat.com/1168144>
+
+warning: fstrim: fstrim: /sysroot/: FITRIM ioctl failed: Operation not supported (ignored) when convert win2003 guest from xen server
+
+=item L<https://bugzilla.redhat.com/1167921>
+
+p2v: No Network Connection dialog
+
+=item L<https://bugzilla.redhat.com/1167774>
+
+virt-p2v fails with error:"nbd.c:nbd_receive_negotiate():L501: read failed"
+
+=item L<https://bugzilla.redhat.com/1167623>
+
+Remove "If reporting bugs, run virt-v2v with debugging enabled .." message when running virt-p2v
+
+=item L<https://bugzilla.redhat.com/1167601>
+
+"Conversion was successful" pop out even virt-p2v fails
+
+=item L<https://bugzilla.redhat.com/1167302>
+
+virt-v2v: warning: ova hard disk has no parent controller when convert from a ova file
+
+=item L<https://bugzilla.redhat.com/1166618>
+
+virt-resize should give out the detail warning info to let customers know what's going wrong
+
+=item L<https://bugzilla.redhat.com/1165975>
+
+File "/boot/grub2/device.map" showing is not right after converting a rhel7 guest from esx server
+
+=item L<https://bugzilla.redhat.com/1165785>
+
+mount-loop command fails: mount failed: Unknown error -1
+
+=item L<https://bugzilla.redhat.com/1165569>
+
+Disable "cancel conversion" button after virt-p2v conversion finished
+
+=item L<https://bugzilla.redhat.com/1165564>
+
+Provide Reboot/Shutdown button after virt-p2v
+
+=item L<https://bugzilla.redhat.com/1164853>
+
+Booting in qemu found no volume groups and failed checking the filesystems
+
+=item L<https://bugzilla.redhat.com/1164732>
+
+The description of 'help append' is not accurately, it add the kernel options to libguestfs appliance not the guest kernel
+
+=item L<https://bugzilla.redhat.com/1164697>
+
+typo errors in man pages
+
+=item L<https://bugzilla.redhat.com/1164619>
+
+Inspect-get-icon failed on RHEL7 guest
+
+=item L<https://bugzilla.redhat.com/1162966>
+
+xfs should also give a warning out to let customer know the limitation
+
+=item L<https://bugzilla.redhat.com/1161575>
+
+Failed to import guest with "rtl8139" nic  to openstack server after converted by v2v
+
+=item L<https://bugzilla.redhat.com/1159651>
+
+virt-sysprep firstboot script is not deleted if it reboot a RHEL 7 guest
+
+=item L<https://bugzilla.redhat.com/1159258>
+
+esx win2008 32 bit guest fail to load after conversion because the firmware isn't ACPI compatible
+
+=item L<https://bugzilla.redhat.com/1159016>
+
+libvirt backend does not set RBD password
+
+=item L<https://bugzilla.redhat.com/1158526>
+
+Use password file instead of process interaction
+
+=item L<https://bugzilla.redhat.com/1157679>
+
+virt-p2v-make-disk should add firmwares
+
+=item L<https://bugzilla.redhat.com/1156449>
+
+libguestfs FTBFS on f21 ppc64le
+
+=item L<https://bugzilla.redhat.com/1156301>
+
+virt-inspector support adding a remote disk, but in its man page -a URI / --add URI is missing
+
+=item L<https://bugzilla.redhat.com/1155121>
+
+Virt-v2v will fail when using relative path for -i ova
+
+=item L<https://bugzilla.redhat.com/1153844>
+
+Redundancy whitespace at the end of directory name when use <TAB> to complete the directory name in guestfish with a xfs filesystem in guest
+
+=item L<https://bugzilla.redhat.com/1153589>
+
+virt-v2v will hang when converting esx guest before disk copy phase
+
+=item L<https://bugzilla.redhat.com/1152998>
+
+virt-v2v / qemu-img fails on ova image
+
+=item L<https://bugzilla.redhat.com/1151910>
+
+virt-ls should remove '/' in the output when specify the directory name as /etc/
+
+=item L<https://bugzilla.redhat.com/1151900>
+
+Should also add a field for directory files when run virt-ls with --csv option
+
+=item L<https://bugzilla.redhat.com/1151033>
+
+virt-v2v conversions from VMware vCenter server run slowly
+
+=item L<https://bugzilla.redhat.com/1146832>
+
+virt-v2v fail to convert guest with disk type volume
+
+=item L<https://bugzilla.redhat.com/1146007>
+
+Input/output error during conversion of esx guest.
+
+=item L<https://bugzilla.redhat.com/1135585>
+
+[RFE] virt-builder should support copying in a directory/list of files
+
+=item L<https://bugzilla.redhat.com/1089566>
+
+[abrt] livecd-tools: kickstart.py:276:apply:IOError: [Errno 2] No such file or directory: '/run/media/jones/2tp001data/createlive/temp/imgcreate-_dX8Us/install_root/etc/rpm/macros.imgcreate'
+
+=item L<https://bugzilla.redhat.com/1079625>
+
+virt-sparsify fails if a btrfs filesystem contains readonly snapshots
+
+=item L<https://bugzilla.redhat.com/1075164>
+
+RFE: allow passing in a pre-opened libvirt connection from python
+
+=item L<https://bugzilla.redhat.com/912499>
+
+Security context on image file gets reset
+
+=item L<https://bugzilla.redhat.com/889082>
+
+[RFE] virt-v2v should check whether guest with same name exist on target first then transfer the disk
+
+=item L<https://bugzilla.redhat.com/855059>
+
+RFE: virt-p2v: display more information about network devices such as topology, bonding, etc.
+
+=item L<https://bugzilla.redhat.com/823758>
+
+p2v client should have largest number restrictions for CPU and Memory settings
+
+=item L<https://bugzilla.redhat.com/709327>
+
+hivex cannot read registry hives from ReactOS
+
+=item L<https://bugzilla.redhat.com/709326>
+
+virt-inspector cannot detect ReactOS
+
+=item L<https://bugzilla.redhat.com/119673>
+
+installation via NFS doesn't seem to work
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

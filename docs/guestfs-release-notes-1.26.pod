@@ -1,0 +1,392 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.26
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.24.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+=head3 Tools
+
+L<virt-customize(1)> is a new tool for customizing virtual machine
+disk images.  It lets you install packages, edit configuration files,
+run scripts, set passwords and so on.  L<virt-builder(1)> and
+L<virt-sysprep(1)> use virt-customize, and command line options across
+all these tools are now identical.
+
+L<virt-diff(1)> is a new tool for showing the differences between the
+filesystems of two virtual machines.  It is mainly useful when showing
+what files have been changed between snapshots.
+
+L<virt-builder(1)> has been greatly enhanced.  There are many more
+ways to customize the virtual machine.  It can pull templates from
+multiple repositories.  A parallelized internal xzcat implementation
+speeds up template decompression.  Virt-builder uses an optimizing
+planner to choose the fastest way to build the VM.  It is now easier
+to use virt-builder from other programs.  Internationalization support
+has been added to metadata.  More efficient SELinux relabelling of
+files.  Can build guests for multiple architectures.  Error messages
+have been improved.
+(Pino Toscano)
+
+L<virt-sparsify(1)> has a new I<--in-place> option.  This sparsifies
+an image in place (without copying it) and is also much faster.
+(Lots of help provided by Paolo Bonzini)
+
+L<virt-sysprep(1)> can delete and scrub files under user control.  You
+can lock user accounts or set random passwords on accounts.  Can
+remove more log files.  Can unsubscribe a guest from Red Hat
+Subscription Manager.  New flexible way to enable and disable
+operations.
+(Wanlong Gao, Pino Toscano)
+
+L<virt-win-reg(1)> allows you to use URIs to specify remote disk
+images.
+
+L<virt-format(1)> can now pass the extra space that it recovers back
+to the host.
+
+L<guestfish(1)> has additional environment variables to give fine
+control over the C<E<gt>E<lt>fsE<gt>> prompt.  Guestfish reads its
+(rarely used) configuration file in a different order now so that
+local settings override global settings.
+(Pino Toscano)
+
+L<virt-make-fs(1)> was rewritten in C, but is unchanged in terms of
+functionality and command line usage.
+
+=head3 Language bindings
+
+The OCaml bindings have a new C<Guestfs.Errno> module, used to check
+the error number returned by C<Guestfs.last_errno>.
+
+PHP tests now work.
+(Pino Toscano)
+
+=head3 Inspection
+
+Inspection can recognize Debian live images.
+
+=head3 Architectures
+
+ARMv7 (32 bit) now supports KVM acceleration.
+
+Aarch64 (ARM 64 bit) is supported, but the appliance part does not
+work yet.
+
+PPC64 support has been fixed and enhanced.
+
+=head2 Security
+
+=over 4
+
+=item Denial of service when inspecting disk images with corrupt btrfs volumes
+
+It was possible to crash libguestfs (and programs that use libguestfs
+as a library) by presenting a disk image containing a corrupt btrfs
+volume.
+
+This was caused by a NULL pointer dereference causing a denial of
+service, and is not thought to be exploitable any further.
+
+See commit d70ceb4cbea165c960710576efac5a5716055486 for the fix.  This
+fix is included in libguestfs stable branches S<E<ge> 1.26.0>, S<E<ge>
+1.24.6> and S<E<ge> 1.22.8>, and also in RHEL S<E<ge> 7.0>.
+Earlier versions of libguestfs are not vulnerable.
+
+=item Better generation of random root passwords and random seeds
+
+When generating random root passwords and random seeds, two bugs were
+fixed which are possibly security related.  Firstly we no longer read
+excessive bytes from F</dev/urandom> (most of which were just thrown
+away).  Secondly we changed the code to avoid modulo bias.  These
+issues were not thought to be exploitable.
+(Both changes suggested by Edwin Török)
+
+=back
+
+=head2 API
+
+GUID parameters are now validated when they are passed to API calls,
+whereas previously you could have passed any string.
+(Pino Toscano)
+
+=head3 New APIs
+
+=over 4
+
+=item C<guestfs_add_drive_opts>: new C<discard> parameter
+
+The new C<discard> parameter allows fine-grained control over
+discard/trim support for a particular disk.  This allows the host file
+to become more sparse (or thin-provisioned) when you delete files or
+issue the C<guestfs_fstrim> API call.
+
+=item C<guestfs_add_domain>: new parameters: C<cachemode>, C<discard>
+
+These parameters are passed through when adding the domain's disks.
+
+=item C<guestfs_blkdiscard>
+
+Discard all blocks on a guestfs device.  Combined with the C<discard>
+parameter above, this makes the host file sparse.
+
+=item C<guestfs_blkdiscardzeroes>
+
+Test if discarded blocks read back as zeroes.
+
+=item C<guestfs_compare_*>
+
+=item C<guestfs_copy_*>
+
+For each struct returned through the API, libguestfs now generates
+C<guestfs_compare_*> and C<guestfs_copy_*> functions to allow you to
+compare and copy structs.
+
+=item C<guestfs_copy_attributes>
+
+Copy attributes (like permissions, xattrs, ownership) from one
+file to another.
+(Pino Toscano)
+
+=item C<guestfs_disk_create>
+
+A flexible API for creating empty disk images from scratch.  This
+avoids the need to call out to external programs like L<qemu-img(1)>.
+
+=item C<guestfs_get_backend_settings>
+
+=item C<guestfs_set_backend_settings>
+
+Per-backend settings (can also be set via the environment variable
+C<LIBGUESTFS_BACKEND_SETTINGS>).  The main use for this is forcing TCG
+mode in the qemu-based backends, for example:
+
+ export LIBGUESTFS_BACKEND=direct
+ export LIBGUESTFS_BACKEND_SETTINGS=force_tcg
+
+=item C<guestfs_part_get_name>
+
+Get the label or name of a partition (for GPT disk images).
+
+=back
+
+=head2 Build changes
+
+The following extra packages are required to build libguestfs 1.26:
+
+=over 4
+
+=item supermin E<ge> 5
+
+Supermin version 5 is required to build this version of libguestfs.
+
+=item flex, bison
+
+Virt-builder now uses a real parser to parse its metadata file, so
+these tools are required.
+
+=item xz
+
+This is now a required build dependency, where previously it was
+(in theory) optional.
+
+=back
+
+=head2 Internals
+
+PO message extraction rewritten to be more robust.
+(Pino Toscano)
+
+C<podwrapper> gives an error if the I<--insert> or I<--verbatim>
+argument pattern is not found.
+
+Libguestfs now passes the qemu I<-enable-fips> option to enable FIPS,
+if qemu supports it.
+
+C<./configure --without-qemu> can be used if you don't want to specify
+a default hypervisor.
+
+Copy-on-write [COW] overlays, used for example for read-only drives,
+are now created through an internal backend API (C<.create_cow_overlay>).
+
+Libvirt backend uses some funky C macros to generate XML.  These are
+simpler and safer.
+
+The ChangeLog file format has changed.  It is now just the same as
+C<git log>, instead of using a custom format.
+
+Appliance start-up has changed:
+
+=over 4
+
+=item *
+
+The libguestfs appliance now initializes LVM the same way as it is
+done on physical machines.
+
+=item *
+
+The libguestfs appliance does not write an empty string to
+F</proc/sys/kernel/hotplug> when starting up.
+
+Note that you B<must> configure your kernel to have
+C<CONFIG_UEVENT_HELPER_PATH=""> otherwise you will get strange LVM
+errors (this applies as much to any Linux machine, not just
+libguestfs).
+(Peter Rajnoha)
+
+=back
+
+Libguestfs can now be built on arches that have L<ocamlc(1)> but not
+L<ocamlopt(1)>.
+(Hilko Bengen, Olaf Hering)
+
+You cannot use C<./configure --disable-daemon --enable-appliance>.  It
+made no sense anyway.  Now it is expressly forbidden by the configure
+script.
+
+The packagelist file uses C<m4> for macro expansion instead of C<cpp>.
+
+=head2 Bugs fixed
+
+=begin comment
+
+./bugs-in-changelog.sh 1.24.0..
+
+=end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/1073906>
+
+java bindings inspect_list_applications2 throws java.lang.ArrayIndexOutOfBoundsException:
+
+=item L<https://bugzilla.redhat.com/1063374>
+
+[RFE] enable subscription manager clean or unregister operation to sysprep
+
+=item L<https://bugzilla.redhat.com/1060404>
+
+virt-resize does not preserve GPT partition names
+
+=item L<https://bugzilla.redhat.com/1057504>
+
+mount-local should give a clearer error if root is not mounted
+
+=item L<https://bugzilla.redhat.com/1056290>
+
+virt-sparsify overwrites block devices if used as output files
+
+=item L<https://bugzilla.redhat.com/1055452>
+
+libguestfs: error: invalid backend: appliance
+
+=item L<https://bugzilla.redhat.com/1054761>
+
+guestfs_pvs prints "unknown device" if a physical volume is missing
+
+=item L<https://bugzilla.redhat.com/1053847>
+
+Recommended default clock/timer settings
+
+=item L<https://bugzilla.redhat.com/1046509>
+
+ruby-libguestfs throws "expecting 0 or 1 arguments" on Guestfs::Guestfs.new
+
+=item L<https://bugzilla.redhat.com/1045450>
+
+Cannot inspect cirros 0.3.1 disk image fully
+
+=item L<https://bugzilla.redhat.com/1045033>
+
+LIBVIRT_DEFAULT_URI=qemu:///system breaks libguestfs
+
+=item L<https://bugzilla.redhat.com/1044585>
+
+virt-builder network (eg. --install) doesn't work if resolv.conf sets nameserver 127.0.0.1
+
+=item L<https://bugzilla.redhat.com/1044014>
+
+When SSSD is installed, libvirt configuration requires authentication, but not clear to user
+
+=item L<https://bugzilla.redhat.com/1039995>
+
+virt-make-fs fails making fat/vfat whole disk: Device partition expected, not making filesystem on entire device '/dev/sda' (use -I to override)
+
+=item L<https://bugzilla.redhat.com/1039540>
+
+virt-sysprep to delete more logfiles
+
+=item L<https://bugzilla.redhat.com/1033207>
+
+RFE: libguestfs inspection does not recognize Free4NAS live CD
+
+=item L<https://bugzilla.redhat.com/1028660>
+
+RFE: virt-sysprep/virt-builder should have an option to lock a user account
+
+=item L<https://bugzilla.redhat.com/1026688>
+
+libguestfs fails examining libvirt guest with ceph drives: rbd: image name must begin with a '/'
+
+=item L<https://bugzilla.redhat.com/1022431>
+
+virt-builder fails if $HOME/.cache doesn't exist
+
+=item L<https://bugzilla.redhat.com/1022184>
+
+libguestfs: do not use versioned jar file
+
+=item L<https://bugzilla.redhat.com/1020806>
+
+All libguestfs LVM operations fail on Debian/Ubuntu
+
+=item L<https://bugzilla.redhat.com/1008417>
+
+Need update helpout of part-set-gpt-type
+
+=item L<https://bugzilla.redhat.com/953907>
+
+virt-sysprep does not correctly set the hostname on Debian/Ubuntu
+
+=item L<https://bugzilla.redhat.com/923355>
+
+guestfish prints literal "\n" in error messages
+
+=item L<https://bugzilla.redhat.com/660687>
+
+guestmount: "touch" command fails: touch: setting times of `timestamp': Invalid argument
+
+=item L<https://bugzilla.redhat.com/593511>
+
+[RFE] function to get partition name
+
+=item L<https://bugzilla.redhat.com/563450>
+
+list-devices returns devices of different types out of order
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

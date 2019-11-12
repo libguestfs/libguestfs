@@ -1,0 +1,52 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR HISTORICAL VERSIONS OF LIBGUESTFS
+
+Before 2010 libguestfs did not have official release notes or a
+formalized version numbering system.  However these are links to
+historically significant versions.
+
+=over 4
+
+=item 2009-11-10 (1.0.78)
+
+L<https://www.redhat.com/archives/libguestfs/2009-November/msg00095.html>
+
+=item 2009-09-13 (1.0.67)
+
+L<https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html>
+
+=item 2009-07-23 (1.0.64)
+
+L<https://www.redhat.com/archives/libguestfs/2009-July/msg00059.html>
+
+=item 2009-07-14 (1.0.59)
+
+L<https://www.redhat.com/archives/libguestfs/2009-July/msg00023.html>
+
+=item 2009-04-01 (the initial announcement)
+
+L<http://rwmj.wordpress.com/2009/04/01/libguestfs-access-and-modify-virtual-machine-disk-images/>
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

@@ -1,0 +1,41 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=begin comment
+
+UPDATED TO <commit id>
+
+=end comment
+
+=begin html
+
+<script>
+document.body.style.backgroundImage = "url('draft.png')";
+document.body.style.backgroundRepeat = "no-repeat";
+</script>
+
+=end html
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.42
+
+I<Preliminary page: version 1.42 has not been released yet>
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

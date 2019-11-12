@@ -1,0 +1,153 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.12
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.10.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+=head3 guestfish
+
+   - guestfish strings can use escapes,
+     eg. ><fs> write /foo "line 1\nline 2\n"
+
+   - guestfish write-append command can be used to append to files.
+
+   - Long-running file uploads and downloads can be cancelled through the
+     API or by hitting ^C in guestfish.
+
+   - New guestfish "display" command for displaying graphical files
+     inside guests.
+
+   - In guestfish, tab completion now works on /dev/mapper devices.
+
+=head3 virt-inspector
+
+   - Inspection API can get an icon or logo for certain guests.
+
+   - virt-inspector includes the logo and hostname for certain guests.
+
+   - virt-inspector can now get the version and release numbers for RPM
+     packages.
+
+   - CentOS and Scientific Linux are now treated as separate distros by
+     the inspection API.
+
+=head3 virt-resize
+
+   - virt-resize can now handle btrfs.
+
+   - New virt-resize --ntfsresize-force option allows Windows VMs to be
+     resized multiple times.
+
+=head3 other virt tools
+
+   - guestfish, guestmount, virt-cat, virt-df, virt-edit, virt-filesystems,
+     virt-inspector, virt-ls and virt-rescue now allow you to use
+     "-d UUID" option to specify a guest by UUID.  This makes them more
+     robust to use from other programs.
+
+   - virt-ls -lR option allows complex file iteration and guest analysis.
+
+   - virt-win-reg supports HKEY_USERS\<SID> and HKEY_USERS\<username>.
+
+   - virt-win-reg new option --unsafe-printable-strings allows printable
+     strings to be displayed in the output (unsafely: read the documentation
+     before using).
+
+   - virt-edit has been rewritten in C.
+
+=head3 API and language bindings
+
+   - Java is now completely supported.
+     See http://libguestfs.org/guestfs-java.3.html
+
+   - JRuby is supported via the Java bindings.
+
+   - guestfs_close now appears in trace messages.
+
+   - Python binding adds explicit g.close() method.
+
+   - Python programs can now use the new event API.
+
+   - Python GIL is released during libguestfs calls, allowing multithreaded
+     Python programs to work properly.
+
+   - 9pfs (Plan 9 filesystems exported from the host) are now supported.
+
+   - Add -DGUESTFS_WARN_DEPRECATED=1 to warn about use of deprecated API
+     functions in C programs.
+
+   - New manual page guestfs-recipes(1) with recipes.
+
+   - mkfs-opts can now set inode size and sector size on created filesystems
+     (thanks Nikita Menkovich).
+
+   - guestfs_last_errno is now accessible from OCaml (as g#last_errno ()).
+
+=head2 Security
+
+ - optargs_bitmask is checked even for calls that have no optional
+   arguments.  This closes a possible exploit in the daemon from
+   untrusted callers.
+
+=head2 New APIs
+
+  btrfs-filesystem-resize, get-pgroup, inspect-get-icon, is-zero,
+  is-zero-device, list-9p, list-dm-devices, mount-9p, ntfsresize-opts,
+  set-pgroup, write-append
+
+=head2 Internals
+
+ - Coverity (a static analysis tool) was run across the codebase and
+   many fixes were made.
+
+ - Generator can handle functions that return RBufferOut and have
+   optional arguments.
+
+ - Compatible with Perl 5.14.
+
+ - Compatible with gcc 4.6.
+
+ - Perform safety checks on QEMU.
+
+ - C API tests can now fully test calls that have optional arguments.
+
+ - Use ./configure --enable-install-daemon to install /usr/sbin/guestfsd.
+
+ - po-docs directory now covers all man pages.
+
+ - stderr from qemu process is now captured by the event subsystem.
+
+=head2 Bugs fixed
+
+ - 602997 part-get-bootable gives wrong result with an unordered part layout
+ - 661280 virt-rescue: panic when shutting down: "/sbin/reboot: No such file or directory"
+ - 700369 qemu-system-x86_64 says 'KVM not supported for this target'
+ - 705200 guestmount attempt results in access denied
+ - 714981 'list-filesystems' does not know about virtio 9p filesystems or detect existing mounts
+ - 717786 libguestfs python bindings should have an explicit close call
+ - 721275 virt-resize in F16 should support btrfs
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

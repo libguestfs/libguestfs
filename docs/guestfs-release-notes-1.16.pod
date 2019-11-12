@@ -1,0 +1,160 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.16
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.14.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+=head3 libguestfs
+
+   - allow XFS filesystems to be created over an existing filesystem
+     (Wanlong Gao)
+
+   - the (unspecified) default alignment for part-disk has been
+     changed to 64K for better support of high-end network-attached
+     storage
+
+   - new guestfs-testing(1) man page
+
+   - list-filesystems returns MD devices containing filesystems
+     (Matthew Booth)
+
+   - support for GCC >= 4.7 (Jim Meyering)
+
+   - check user does not add the same drive twice (Wanlong Gao).
+
+=head3 language bindings
+
+   - Experimental GObject bindings, with support for GObject
+     Introspection.  You can now use libguestfs from Javascript.
+     Please note these are not stable and final in this release.
+     (Matthew Booth).
+
+   - support for Ruby >= 1.9
+
+   - Ruby bindings can be disabled individually (Hilko Bengen)
+
+   - support for Python 2.6, 3.x (Richard Jones, Hilko Bengen)
+
+   - support for PHP >= 5.4
+
+   - new %guestfs_introspection hash is available in Perl bindings so
+     you can query which optional arguments are available
+
+=head3 inspection
+
+   - guests with MD devices can be inspected (Matthew Booth)
+
+   - support for GNU/Hurd guests
+
+=head3 guestfish
+
+   - libguestfs events (such as progress bar events and log messages) can
+     be trapped and processed by user-defined shell scripts.
+
+   - MD devices are tab-completed (Matthew Booth)
+
+=head3 virt tools
+
+   - New tool virt-format for erasing and making blank disks
+
+   - virt-sparsify new --compress and -o options to allow for compressed
+     and different format output
+
+   - virt-sparsify can now detect and sparsify .vdi files
+
+   - virt-sysprep no longer requires xmlstarlet; a new virt-inspector --xpath
+     option has been added to replace this functionality
+
+   - virt-rescue has a new --suggest option which suggests mount commands
+     for the guest
+
+   - virt-resize no longer requires OCaml pcre library
+
+=head3 libguestfs live
+
+   - daemon will no longer try to edit your live /etc/lvm configuration
+
+   - fix a potential security problem with predictable /tmp names (Steve Kemp)
+
+=head2 Security
+
+  CVE-2011-4127, RHBZ#757071
+  Mitigate possible privilege escalation via SG_IO ioctl
+  For more information, see: https://github.com/libguestfs/libguestfs/commit/9a5f784d511a8f00a8386f316eab41fe660430db
+
+=head2 New APIs
+
+  blkid: print all attributes of a device known to blkid (Wanlong Gao)
+  e2fsck: access to more features of e2fsck (Wanlong Gao)
+  list-md-devices: list of Linux MD devices (Matthew Booth)
+  md-create: create an MD device
+  md-detail: returns metadata for an MD device (Matthew Booth)
+  md-stop: stop an MD device (Wanlong Gao)
+  tune2fs: allow ext2/3/4 filesystems to be tuned
+
+=head2 Internals
+
+  Git hosting has moved to http://github.com/libguestfs
+
+  The various test directories have been rearranged logically, and now
+  all appear under 'tests/'.
+
+  There is a 'make extra-tests' rule which runs ordinary tests and
+  additional tests, using valgrind to check for memory problems.
+
+  Multiple memory leaks and other problems found by valgrind and fixed.
+
+  Support for optional arguments in the generator has been rewritten
+  to provide more features and safety (Matthew Booth).
+
+  With gcc -fvisibility=hidden is used for internal symbols, avoiding
+  call indirection via the PLT.
+
+  RHashtable functions can be tested in the generator.
+
+  ADD_ARG macro in daemon allows arg lists to be constructed without
+  risk of stack smashing.
+
+  Fix generation of OCaml functions that have more than 10 arguments.
+
+  psmisc has been added to the appliance, allowing use of 'fuser',
+  'killall' and 'pstree' for debugging.
+
+  bindtests now cover RBufferOut and optional arguments (Matthew Booth).
+
+=head2 Bugs fixed
+
+ - 769680 temporary directories created during appliance builds are not cleaned up on error
+ - 761460 guestfs_utimens hangs on named pipes
+ - 761451 guestfs_utimens cannot set times on a directory
+ - 760775 "guestfish: multi-boot operating systems are not supported by the -i option" should be more explanatory
+ - 760669 guestfish copy-in and <! (inline execution) don't mix well: pclose: No child processes
+ - 760000 libguestfs fails to compile with Ruby >= 1.9
+ - 755729 Error message for resize2fs-M needs tweaking
+ - 750889 Python code incompatible with Python v3.
+ - 596761 Ctrl-\ causes guestfish to abort
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

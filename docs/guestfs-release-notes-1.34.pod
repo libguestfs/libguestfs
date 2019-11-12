@@ -1,0 +1,732 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.34
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.32.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+Multiple performance enhancements were made in libguestfs.  The "hot
+cache" time to launch to appliance should be under 1 second assuming
+recent qemu and kernel are installed.  There are also new utilities
+for precisely benchmarking libguestfs (F<utils/boot-benchmark> and
+F<utils/boot-analysis> in the source tree).
+
+The virt-p2v tool for converting physical machines to virtual machines
+was substantially improved.  This includes: clearer, coloured output
+during conversions, support for Gtk 3, more detailed information about
+hardware, click to identify network interfaces, more debugging tools
+included with the ISO, and many bug fixes.
+
+f2fs (Flash Friendly File System) is now supported (Pino Toscano).
+
+=head3 New tools
+
+L<virt-p2v-make-kiwi(1)> can be used to build the virt-p2v ISO based
+on SLES and openSUSE, using the kiwi utility (Cédric Bosdonnat).
+
+=head3 New features in existing tools
+
+virt-resize will now preserve the GPT GUID.  This was required for
+Windows Server 2012 R2, where the bootloader would become confused if
+the GUID changed (Maxim Perevedentsev).
+
+virt-resize will use sparse copying for (old MBR-style) extended
+partitions.  This makes resizing of guests that use extended
+partitions much faster (Maxim Perevedentsev).
+
+virt-p2v kernel command line options can now be used to set defaults
+for GUI configuration.
+
+The virt-p2v debugging options have been completely removed,
+simplifying the interface and documentation.  Debugging information is
+now captured fully automatically.
+
+virt-p2v-make-disk lets you specify an I<--arch> option, allowing you
+to build a 32 bit virt-p2v, for compatibility with older systems.
+
+virt-p2v-make-disk no longer requires that you specify an
+C<os-version> for the virt-p2v disk.  If omitted it will try to choose
+a suitable C<os-version> depending on your host system.
+
+virt-p2v-make-disk and virt-p2v-make-kickstart both gain a new
+I<--install> option that allows you to add arbitrary extra packages to
+the virt-p2v ISO, for customization, additional debugging tools and so
+on.
+
+virt-v2v will now uninstall Parallels Tools (or the equivalent
+Virtuozzo Tools) from Linux guests.  Also stop the Windows drivers
+from loading at boot.  (Roman Kagan and Pavel Butsykin)
+
+virt-v2v I<--in-place> mode has been enhanced to allow the caller to
+choose whether or not to install certain virtio drivers in the guest
+(Roman Kagan).
+
+virt-v2v conversion of Windows guests was substantially rewritten and
+simplified (Roman Kagan).
+
+virt-v2v I<--in-place> mode now supports installing virtio-scsi
+drivers in guests (Roman Kagan).
+
+virt-v2v can now convert SUSE guests and SUSE guests using UEFI
+(Cédric Bosdonnat and Jim Fehlig).
+
+virt-v2v can now convert guests to Glance that have multiple disks.
+Previously it would fail on such guests.
+
+The virt-v2v I<--no-trim> and I<--vmtype> options are now no-ops.
+They will print a warning but are otherwise ignored.  virt-v2v can now
+generate the OVF vmtype correctly without user intervention.
+
+virt-v2v has now been tested against SUSE Xen as a source hypervisor
+(Cédric Bosdonnat).
+
+virt-v2v adds support for SUSE VMDP drivers (Cédric Bosdonnat).
+
+virt-v2v can convert OVA files containing subfolders, as produced
+by SUSE Studio (Cédric Bosdonnat).
+
+virt-v2v sets the OVF C<E<lt>OriginE<gt>> element correctly.  oVirt
+has been extended to support more source hypervisors (Shahar Havivi).
+
+virt-v2v now supports Windows Server 2016 (Tomáš Golembiovský).
+
+The virt-builder I<--list> option can now be used to show all
+templates or a single template (Pino Toscano).
+
+All OCaml-based tools now use L<getopt_long(3)> for option parsing,
+and I<--help> output has been improved (Pino Toscano).
+
+virt-builder and virt-customize I<--selinux-relabel> option can now
+fully relabel the guest filesystem at build time, without requiring a
+lengthy autorelabel at first boot.
+
+virt-customize I<--delete> now accepts globs.
+
+New virt-customize I<--uninstall> option lets you uninstall packages.
+
+virt-customize can now use C<pvvxsvc> as an alternative to C<rhsrvany>
+for running firstboot scripts in Windows guests (Cédric Bosdonnat).
+
+virt-customize now uses the strongest hashing scheme for passwords on
+Arch and Void Linux (Pino Toscano).
+
+virt-customize I<--install> now works correctly on Arch (Pino
+Toscano).
+
+virt-inspector has new options I<--no-applications> and I<--no-icon>
+to prevent the list of applications and icon from being included in
+the XML output (Pino Toscano).
+
+New virt-sysprep I<--network> option has been added, allowing you to
+actually use the I<--install> etc options which were present in
+virt-sysprep before but did not usually work.  Note that the network
+is still disabled by default.
+
+virt-sysprep C<fs-uuids> operation no longer fails on btrfs guests
+(Maxim Perevedentsev).
+
+virt-dib can output Docker images (Pino Toscano).
+
+virt-dib has a new I<--drive-format> option to allow the user to
+specify the format of the helper drive (Pino Toscano).
+
+All OCaml virt tools now have a I<--colors>/I<--colours> option which
+enables coloured output (using ANSI escape sequences) even if the
+output is not a tty.  The default is to check if the output is a tty
+and disable coloured output if not.  This allows coloured output to be
+consumed by other tools.
+
+=head3 Language bindings
+
+PHP test coverage has been enhanced (Pino Toscano).
+
+PHP 7 is now supported (Pino Toscano).
+
+Python bindings are now compliant with PEP 8 (Pino Toscano).
+
+A Python pip package is available in
+L<http://libguestfs.org/download/python/>
+
+The Ruby bindings now print the full exception if one is thrown by the
+event callback.  Note this is still incorrect behaviour as event
+callbacks should not throw exceptions, but it aids debugging.
+
+All OCaml libraries and programs are now compiled with
+I<-safe-string>, if supported by the OCaml compiler.
+
+=head3 Inspection
+
+Alpine Linux using busybox can now be inspected.  Also the APK package
+manager is supported in virt-customize (Pino Toscano).
+
+We now handle inspection of Mageia 4 (Pino Toscano).
+
+Void Linux and the Void Linux xbps package manager are fully supported
+(Pino Toscano).
+
+Parsing of CoreOS version information has been enhanced (Pino Toscano).
+
+It is now possible to get an icon from ALT Linux (Pino Toscano).
+
+PLD Linux versions E<lt> 3 are now recognized (Pino Toscano).
+
+Windows drive letters are now returned for guests using GPT partitions
+(Dawid Zamirski).
+
+We can now correctly inspect Unix guests that do not have an
+F</etc/fstab> file (Pino Toscano).
+
+Added another source for the Ubuntu icon which doesn't rely on GNOME
+having been installed in the guest.
+
+We can now get an icon for Windows 7 64 bit guests.
+
+Libosinfo integration was rewritten to deal with the new database
+format used by osinfo (Pino Toscano).
+
+=head3 Documentation
+
+New manual page L<guestfs-building(1)> describes how to build
+libguestfs from source.
+
+The man pages, tools and tool I<--help> output is now automatically
+checked to ensure that all tool options are properly documented, that
+warning sections are included where necessary, and that every page has
+a description section.
+
+The L<guestfs-testing(1)> man page has been refreshed and based on a
+newer libguestfs.
+
+=head3 Architectures and platforms
+
+virt-customize now works on POWER7 and POWER8 platforms, both big
+endian and little endian (Xianghua Chen and Hu Zhang).
+
+=head2 Security
+
+See also L<guestfs-security(1)>.
+
+=head3 CVE-2015-8869
+
+L<https://bugzilla.redhat.com/CVE-2015-8869>
+
+This vulnerability in OCaml might affect virt tools written in the
+OCaml programming language.  It affects only 64 bit platforms.
+Because this bug affects code generation it is difficult to predict
+which precise software could be affected, and therefore our
+recommendation is that you recompile libguestfs using a version of the
+OCaml compiler where this bug has been fixed (or ask your Linux distro
+to do the same).
+
+=head3 virt-customize ownership of F<.ssh>, F<.ssh/authorized_keys>
+
+L<https://bugzilla.redhat.com/1337561>
+
+Previously when virt-customize injected an SSH key into a guest, when
+it created the F<~/.ssh> and F<~/.ssh/authorized_keys> directory and
+file (in case they were missing) it created them with owner and group
+C<root.root>.  This has been fixed so the correct user is used.  This
+is not thought to have been exploitable.
+
+=head3 Windows C<%systemroot%>
+
+The inspection code has been made more robust against guests which
+might use very long C<%systemroot%> (derived from the guest-controlled
+Windows Registry).  This is not thought to have been exploitable.
+
+=head3 Virtio-rng is now available in the appliance
+
+virtio-rng (the virtual Random Number Generator device) is now passed
+to the appliance, which should improve the quality random numbers
+generated for GUIDs and cryptographic key generation.
+
+=head2 API
+
+=head3 New APIs
+
+=over 4
+
+=item C<btrfs_filesystem_show>
+
+List all devices where a btrfs filesystem is spanned (Pino Toscano).
+
+=item C<download_blocks>
+
+=item C<download_inode>
+
+=item C<filesystem_walk>
+
+Download filesystem data blocks from a given partition.  Download
+arbitrary files by inode number.  Retrieve all files from a filesystem
+including deleted files.
+
+Note these require optional dependency The Sleuth Kit.  (Matteo
+Cafasso)
+
+=item C<get_sockdir>
+
+Read the path where temporary sockets are stored (Pino Toscano).
+
+=item C<mountable_device>
+
+=item C<mountable_subvolume>
+
+Split a Mountable into device name and subvolume
+(Cédric Bosdonnat).
+
+=item C<ntfscat_i>
+
+Download NTFS file by inode number (Matteo Cafasso).
+
+=item C<part_expand_gpt>
+
+Allow in-place expanding of GPT partitions by moving the second
+(backup) partition table to the end of the disk (Maxim Perevedentsev).
+
+=item C<part_get_disk_guid>
+
+=item C<part_set_disk_guid>
+
+=item C<part_set_disk_guid_random>
+
+Get and set the GPT disk GUID, or set it to a fresh random value
+(Maxim Perevedentsev).
+
+=item C<selinux_relabel>
+
+SELinux-relabel part or all of the guest filesystem.
+
+=back
+
+=head3 Other API changes
+
+C<guestfs_set_selinux>, C<guestfs_get_selinux>, C<guestfs_setcon>,
+C<guestfs_getcon> and C<guestfs_llz> have been deprecated.  Use the
+new API C<guestfs_selinux_relabel> to relabel filesystems.  Use
+C<guestfs_lgetxattrs> to list the C<security.selinux> extended
+attributes of existing files.
+
+C<guestfs_vfs_minimum_size> can now be used on dirty filesystems
+(Maxim Perevedentsev).
+
+C<guestfs_ll> now works on paths which contain absolute symlinks
+(Pino Toscano).
+
+C<guestfs_glob_expand> now has an optional C<directoryslash> boolean
+parameter which controls whether trailing slashes are returned for
+directory names (Pino Toscano).
+
+C<guestfs_lvs> will no longer return LVs which have the
+C<activationskip> flag set.  The reason is that such LVs have no
+C</dev/VG/LV> device node and so code which read the list of LVs and
+then probed the devices themselves would immediately fail.  You can
+use C<guestfs_lvs_full> if you want to read all LVs.
+(Pino Toscano).
+
+C<guestfs_list_disk_labels> now no longer fails if no disks with
+labels were added.  Instead it now returns an empty list (Pino
+Toscano).
+
+C<guestfs_is_lv> no longer fails if passed a btrfs subvolume, it
+returns false instead (Maxim Perevedentsev).
+
+=head2 Build changes
+
+qemu E<ge> 1.3.0 is required.
+
+yajl (a JSON parsing library) is required to build libguestfs.
+
+You can now build with GCC 6.
+
+C<make check-valgrind> now has substantially better coverage.
+
+C<make check-slow> now works again.
+
+Use C<make -C appliance clean-supermin-appliance> to clean the
+supermin appliance (it will be rebuilt on next C<make>).
+
+There are a variety of new rules for running virt-p2v from the source
+directory: C<make -C p2v run-virt-p2v-directly> |
+C<run-virt-p2v-in-a-vm> | C<run-virt-p2v-non-gui-conversion>.  These
+are documented further in L<guestfs-hacking(1)>.
+
+virt-p2v may be built using either Gtk 2 or Gtk 3.  To force a
+particular version of Gtk to be used, C<./configure --with-gtk=2|3>
+
+The C<./configure> options are now mostly documented in
+L<guestfs-building(1)>.
+
+=head2 Internals
+
+In git, versions are now tagged with C<v1.XX.YY> (previously they were
+tagged with C<1.XX.YY>).  Using the C<v-> prefix is more common in git
+repositories.
+
+When using the libvirt backend, we now wait for qemu to exit
+gracefully instead of killing it after 15 seconds.  This helps when
+writing to slow devices (especially cheap USB keys).
+
+Error messages from libvirt now include the C<err-E<gt>int1> field
+which usually contains the C<errno>.
+
+On ARM, all DTB (device tree) code has been removed.  qemu creates the
+right device tree on the fly, we do not need to specify one.
+
+The C API tests now use larger test disks, allowing BTRFS to be tested
+properly (Pino Toscano).
+
+The tests should now work on a pure Python 3 host (Pino Toscano).
+
+In C bindings, internal functions are now (mostly) consistently named
+C<guestfs_int_*> whereas previously there was no consistent scheme.
+
+The old C<safe_malloc> etc functions are now no longer exported by the
+library, nor used in language bindings.
+
+Setting TMPDIR to a path longer than ~ 100 characters will no longer
+cause libguestfs to fail silently and randomly when creating Unix
+domain sockets (Pino Toscano).
+
+The C<COMPILE_REGEXP> macro can now be used in the daemon.
+
+When tracing, results containing structs are now printed in full (Pino
+Toscano).
+
+The Perl C<Sys::Guestfs> module now no longer embeds an incrementing
+API "version number".  This module is now always at phony version
+"1.0".  To find the real version of libguestfs from Perl you must call
+C<$g-E<gt>version>.
+
+All code is compiled with C<-Wstack-usage=10000> and multiple changes
+have been made to remove stack allocation of large strings and
+buffers.
+
+The L<error(3)> function is now used everywhere, replacing most
+previous uses of L<perror(3)> + L<exit(3)>, and L<fprintf(3)> + exit.
+
+In C code, C</**> comments are turned into documentation which is
+automatically added to the L<guestfs-hacking(1)> manual page.
+
+A safe "getumask" function has been added.  For recent Linux kernels
+this uses the newly added C<Umask> field in F</proc/self/status>.  For
+older Linux and other Unix, this uses a thread-safe technique
+involving L<fork(2)> (thanks: Josh Stone, Jiri Jaburek, Eric Blake).
+
+Safe L<posix_fadvise(2)> wrappers have been added, and more hints have
+been added to the code which may make a minor difference to
+performance.
+
+A safe wrapper around L<waitpid(2)> has been added which handles
+C<INTR> properly.
+
+C<podwrapper.pl> (used to generate the manual pages) now stops if any
+POD error is found.  A new script called C<podcheck.pl> does
+cross-checking of I<--help> output, tool options and manual pages.
+
+All version numbers in the library (eg. versions of qemu, versions of
+libvirt, versions of guest operating systems) are unified in a single
+file F<src/version.c> (Pino Toscano).
+
+On Windows guests, virt-customize will use the vendor-neutral path
+S<C<C:\Program Files\Guestfs\Firstboot>> to store firstboot scripts.
+Previously it used S<C<C:\Program Files\Red Hat\Firstboot>>.  This
+change should be invisible to the scripts themselves.
+(Cédric Bosdonnat)
+
+On Linux guests, the firstboot services generated by virt-builder
+I<--firstboot> etc have been renamed to C<guestfs-firstboot>
+(Pino Toscano).
+
+There is now a common C<debug> function used by all OCaml tools,
+replacing previous code which did S<C<if verbose () then printf ...>>.
+
+virt-p2v copies files it needs over to the virt-v2v conversion server
+using L<scp(1)>, instead of trying to send them via the shell session.
+This should improve reliability and should be a completely transparent
+to end users.
+
+All code in F<mllib> is now built into a single C<mllib.cma> or
+C<mllib.cmxa> library.  All code in F<customize> is now built into a
+single C<customize.cma> or C<customize.cmxa> library.  This simplifies
+the build of the OCaml tools.
+
+L<lvmetad(8)> is now used in the appliance when available (Pino Toscano).
+
+"Silent rules" are used for OCaml, Java, Erlang and POD.  Use
+C<make V=1> to see the full command lines again (Pino Toscano).
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh 1.32.0..
+
+=end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/1364347>
+
+virt-sparsify --in-place failed with UEFI system
+
+=item L<https://bugzilla.redhat.com/1362357>
+
+run_command runs exit handlers when execve fails (e.g. due to missing executable)
+
+=item L<https://bugzilla.redhat.com/1362354>
+
+virt-dib failed to create image using DIB_YUM_REPO_CONF
+
+=item L<https://bugzilla.redhat.com/1359652>
+
+Fail to inspect Windows ISO file
+
+=item L<https://bugzilla.redhat.com/1358142>
+
+Some info will show when convert guest to libvirt by virt-v2v with parameter --quiet
+
+=item L<https://bugzilla.redhat.com/1354335>
+
+overlay of disk images does not specify the format of the backing file
+
+=item L<https://bugzilla.redhat.com/1352761>
+
+Virt-manager can't show OS icons of win7/win8/ubuntu guest.
+
+=item L<https://bugzilla.redhat.com/1350363>
+
+Improve error info "remote server timeout unexpectedly waiting for password prompt" when connect to a bogus server at p2v client
+
+=item L<https://bugzilla.redhat.com/1348900>
+
+virt-p2v should update error prompt when 'Test connection' with a non-existing user in conversion server
+
+=item L<https://bugzilla.redhat.com/1345813>
+
+virt-sysprep --install always failed to install the packages specified
+
+=item L<https://bugzilla.redhat.com/1345809>
+
+virt-customize --truncate-recursive should give an error message when specifying a no-existing path
+
+=item L<https://bugzilla.redhat.com/1343423>
+
+[RFE]Should give a better description about 'curl error 22' when failed using ssh identity http url at p2v client
+
+=item L<https://bugzilla.redhat.com/1343414>
+
+Failed SSH to conversion server by ssh identity http url at p2v client
+
+=item L<https://bugzilla.redhat.com/1343375>
+
+[RFE] uninstall packages inside the VM
+
+=item L<https://bugzilla.redhat.com/1342447>
+
+Ifconfig command is not supported on p2v client
+
+=item L<https://bugzilla.redhat.com/1342398>
+
+Convert a guest from RHEL by virt-v2v but its origin info shows RHEV at rhevm
+
+=item L<https://bugzilla.redhat.com/1342337>
+
+Should remind a warning about disk image has a partition when using virt-p2v-make-disk
+
+=item L<https://bugzilla.redhat.com/1341984>
+
+virt-get-kernel prompts an 'invalid value' error when using --format auto
+
+=item L<https://bugzilla.redhat.com/1341564>
+
+virt-p2v spinner should be hidden when it stops spinning
+
+=item L<https://bugzilla.redhat.com/1340809>
+
+Testing connection timeout when input regular user of conversion server with checked "use sudo......"button
+
+=item L<https://bugzilla.redhat.com/1340464>
+
+[RFE] Suggestion give user a reminder for "Cancel conversion" button
+
+=item L<https://bugzilla.redhat.com/1340407>
+
+Multiple network ports will not be aligned at p2v client
+
+=item L<https://bugzilla.redhat.com/1338083>
+
+Update UEFI whitelist for official fedora packages
+
+=item L<https://bugzilla.redhat.com/1337561>
+
+virt-customize --ssh-inject not applying correct file permission
+
+=item L<https://bugzilla.redhat.com/1335671>
+
+extra quotes around UUID confuses findfs in RHEL (but not in Fedora)
+
+=item L<https://bugzilla.redhat.com/1332025>
+
+Inspection does not parse /etc/redhat-release containing "Derived from Red Hat Enterprise Linux 7.1 (Source)"
+
+=item L<https://bugzilla.redhat.com/1327488>
+
+RFE: Allow p2v kernel options without p2v.server to set defaults
+
+=item L<https://bugzilla.redhat.com/1325825>
+
+virt-v2v should prevent using multiple '-b' and '-n' option appears on the command line
+
+=item L<https://bugzilla.redhat.com/1321620>
+
+libguestfs: error: could not parse integer in version number: 7"
+
+=item L<https://bugzilla.redhat.com/1321338>
+
+[1.33.16] Compilation Error: Unbound value List.sort_uniq in v2v.ml line 988, characters 10-24:
+
+=item L<https://bugzilla.redhat.com/1317843>
+
+`virt-builder --update` fails with: "dnf -y --best upgrade: command exited with an error"
+
+=item L<https://bugzilla.redhat.com/1316479>
+
+v2v cmd cannot exit and "block I/O error in device 'appliance': No space left on device (28)" is printed when specified "-v -x"
+
+=item L<https://bugzilla.redhat.com/1316041>
+
+virt-rescue fails, but missing error message
+
+=item L<https://bugzilla.redhat.com/1314244>
+
+RFE: virt-p2v log window should process colour escapes and backspaces
+
+=item L<https://bugzilla.redhat.com/1312254>
+
+virt-v2v -o libvirt doesn't preserve or use correct <graphics type="vnc|spice">
+
+=item L<https://bugzilla.redhat.com/1309706>
+
+error: internal error: Invalid floppy device name: hdb
+
+=item L<https://bugzilla.redhat.com/1309619>
+
+Wrong warning info "use standard VGA" shows when converting windows > 7 by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1309580>
+
+OS name of win8.1 x64 guest shows incorrect in rhevm3.6 general info
+
+=item L<https://bugzilla.redhat.com/1308769>
+
+virt-v2v does not copy additional disks to Glance
+
+=item L<https://bugzilla.redhat.com/1306666>
+
+Failure when disk contains an LV with activationskip=y
+
+=item L<https://bugzilla.redhat.com/1296606>
+
+virt-v2v doesn't remove VirtualBox additions correctly because of file quoting
+
+=item L<https://bugzilla.redhat.com/1293527>
+
+There should be a reminder to avoid user to edit a guest image by multiple tools at the same time in guestfish man page
+
+=item L<https://bugzilla.redhat.com/1293276>
+
+guestfish can not ll a symbolic link dir or edit a file in it
+
+=item L<https://bugzilla.redhat.com/1278878>
+
+guestfish should be able to handle LVM thin layouts
+
+=item L<https://bugzilla.redhat.com/1264835>
+
+ppc64le: virt-customize --install fail to detect the guest arch
+
+=item L<https://bugzilla.redhat.com/1264332>
+
+Test that trimming in virt-v2v doesn't regress
+
+=item L<https://bugzilla.redhat.com/1232192>
+
+Virt-v2v gives an error on a blank disk: part_get_parttype: unknown signature, of the output: BYT;
+
+=item L<https://bugzilla.redhat.com/1229386>
+
+virt-p2v in non-GUI mode doesn't show any conversion progress or status
+
+=item L<https://bugzilla.redhat.com/1227599>
+
+P2V invalid password prints unexpected end of file waiting for command prompt.
+
+=item L<https://bugzilla.redhat.com/1224795>
+
+On Ubuntu, virt-builder --install and --update cannot use the network
+
+=item L<https://bugzilla.redhat.com/1213324>
+
+virt-v2v: warning: unknown guest operating system: windows windows 6.3 when converting win8,win8.1,win2012,win2012R2,win10 to rhev
+
+=item L<https://bugzilla.redhat.com/1203898>
+
+Support inspecting docker images without /etc/fstab
+
+=item L<https://bugzilla.redhat.com/1186935>
+
+libguestfs cannot inspect recent Fedora / RHEL >= 7 when /usr is a separate partition
+
+=item L<https://bugzilla.redhat.com/1167916>
+
+P2V: invalid conversion server prints unexpected end of file waiting for password prompt.
+
+=item L<https://bugzilla.redhat.com/1152825>
+
+virt-rescue --selinux can not work well, when enable selinux in the command line the value of 'getenforce' is still Disabled in virt-rescue appliance
+
+=item L<https://bugzilla.redhat.com/1150298>
+
+ARM 32 bit on Ubuntu: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+
+=item L<https://bugzilla.redhat.com/1089100>
+
+NetworkManager avc unlink denied for resolv.conf after using --selinux-relabel
+
+=item L<https://bugzilla.redhat.com/983969>
+
+RFE: virt-sysprep should be SELinux-aware
+
+=item L<https://bugzilla.redhat.com/855058>
+
+RFE: virt-p2v: display more information about storage devices
+
+=item L<https://bugzilla.redhat.com/554829>
+
+SELinux handling could be done better.
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

@@ -1,0 +1,162 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.10
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.8.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+ - libguestfs and tools can be used against live virtual machines.
+   See the 'guestfish --live' and 'guestmount --live' options, and (for
+   the low-level interface) the new APIs set-attach-method and
+   get-attach-method.
+
+ - New virt tools:
+   virt-copy-in, virt-copy-out, virt-tar-in, virt-tar-out.
+
+ - libguestfs can get the drive letter mappings for Windows guests.
+
+ - virt-inspector displays drive letter mappings for Windows guests.
+
+ - Drive letters can now be used in virt-edit and guestfish programs
+   when operating on Windows guests.
+
+ - virt-resize now works on 32 bit hosts.
+
+ - You can now inspect the install disks and live CDs of many different
+   operating systems.
+
+ - guestfish <! cmd which executes a shell cmd and inlines the result.
+
+ - guestfish, guestmount, virt-rescue now all support --ro and --rw
+   options, and the default for this can be chosen via a configuration
+   file (/etc/libguestfs-tools.conf).
+
+ - New event API allows more than one callback to be registered for
+   each event, makes it possible to call the API from other languages,
+   and allows nearly all log, debug and trace messages to be rerouted
+   from stderr.
+
+ - Greater FHS compliance for temporary files, including using /var/tmp
+   for large cached files that should survive reboot (instead of /tmp).
+
+ - guestfish, guestmount -m option allows mount options to be passed
+   through to the underlying filesystem.
+
+ - mkfs-opts allows filesystem features to be specified.
+
+ - More intelligent handling of mountpoints, allowing mkmountpoint, mount
+   and umount-all commands to work together properly.
+
+ - Trace messages are prefixed with a distinct string, allowing them to
+   be easily 'grepped' out from debug output.
+
+ - guestfs_launch (guestfish 'run' command) now produces progress
+   messages (a guestfish progress bar) if it takes longer than 5
+   seconds to run.
+
+ - Several long-running commands where we are unable to estimate time
+   to completion generate "pulse mode" progress events.  Progress bar
+   in guestfish has been updated to display these.
+
+ - Publish new example code in: C, Perl, Python, OCaml, Ruby.
+
+ - New virt-dhcp-address example program.
+
+ - The Java and Ruby bindings have been improved greatly.
+
+ - Perl includes a way to get the errno of the last error.
+
+ - Python bindings now compatible with rpyc (thanks Erez Shinan).
+
+ - Transifex is now being used to manage translations.
+   http://www.transifex.net/projects/p/libguestfs/
+
+ - Inspection now supports Red Hat Desktop, Slackware distributions.
+
+ - Inspection no longer fails for Windows guests that have two or
+   more disks.
+
+ - Inspection can now tell the difference between Windows 2008 Server
+   and Windows 7.
+
+ - Inspection can detect 32 bit applications installed in 64 bit
+   Windows, running on the WOW64 emulator.
+
+ - A series of protocol fixes has fixed the old bug RHBZ#576879
+   which used to cause errors during the upload command to lose
+   protocol synchronization.
+
+ - New logo!
+
+=head2 Security
+
+  [none]
+
+=head2 New APIs
+
+  first-private, get-attach-method, inspect-get-drive-mappings,
+  inspect-get-product-variant,
+  inspect-get-windows-current-control-set, next-private, resize2fs-M,
+  set-attach-method.
+
+=head2 Internals
+
+ - The 'HACKING' file is obsolete.  The contents have been moved into
+   a section of the guestfs(3) manual page.
+
+ - libguestfs-test-tool simplified.  It no longer needs the static
+   binary or tries to construct an ISO.
+
+ - rpcgen-generated files are compiled with -fno-strict-aliasing
+   which should be safer (thanks Matt Booth).
+
+ - virt-resize was rewritten in OCaml.
+
+ - guestfish and other tools tested with valgrind; some memory leaks
+   were fixed.
+
+=head2 Bugs fixed
+
+ - 502533 Updated Polish translation of libguestfs
+ - 576879 libguestfs protocol loses synchronization if you 'upload' before mounting disks
+ - 599503 document that mkmountpoint and umount-all cannot be mixed
+ - 617440 guestfish: fails to tilde expand '~' when the $HOME env is unset
+ - 664558 RFE: Allow to set log callback in Ruby bindings
+ - 665358 Punjabi Translation Completed (pa_IN)
+ - 666577 libguestfs: unknown filesystem /dev/fd0
+ - 667610 Multiple bugs, memory leaks in libguestfs ruby bindings
+ - 668112 virt-filesystems command fails on guest with corrupt filesystem label
+ - 668574 guestfish -i is trying to mount all mounts from /etc/fstab and fails with an error when device doesn't exists
+ - 673479 Add a grep-friendly string to LIBGUESTFS_TRACE output
+ - 674130 Inspection code fails for Windows guest with two disks
+ - 682756 libguestfs trace segfaults when list-filesystems returns error
+ - 682979 libguestfs incorrectly detects Red Hat desktop as 'redhat-based' instead of 'redhat'
+ - 690819 mkfs fails creating a filesystem on a disk device when using a disk with 'ide' interface
+ - 691389 Extended attributes don't work over guestmount (FUSE)
+ - 691724 virt-inspector reports unknown filesystem /dev/vda1
+ - 692545 inspect-list-applications fails to detect 32 bit apps installed under WOW64 emulator on 64 bit Windows
+ - 693324 sfdisk's python interface only accepts lists of type 'list' for the lines parameter
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

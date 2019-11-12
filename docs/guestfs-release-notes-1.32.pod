@@ -1,0 +1,507 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.32
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.30.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+=head3 New tools
+
+The new L<virt-v2v-copy-to-local(1)> tool is an ancillary tool for
+L<virt-v2v(1)> allowing you to convert source guests that virt-v2v is
+unable to access directly.
+
+=head3 New features in existing tools
+
+Virt-customize knows how to write a random seed to CirrOS (Pino Toscano).
+
+On Fedora, virt-customize runs L<dnf(8)> with the I<--best> flag,
+ensuring it always updates to the latest available packages.
+
+Virt-builder now provides 32 bit Fedora templates.
+
+Virt-builder and virt-customize I<--install> option now works on 32
+bit Fedora guests.  Previously it would try to install 64 bit
+packages (Jan Sedlák).
+
+Virt-builder can now fetch cloud images using Simple Streams v1.0
+metadata (Pino Toscano).
+
+Virt-builder can now fetch openSUSE cloud images out of the box
+(Cédric Bosdonnat).
+
+Virt-customize will now use stronger (SHA-512) encrypted passwords by
+default on openSUSE E<ge> 11 (Pino Toscano).
+
+Virt-builder will now correctly handle output filenames containing
+colon characters (C<:>), and will create temporary files in the
+libguestfs cache directory instead of defaulting to F</tmp>
+(Pino Toscano).
+
+Virt-resize has a new I<--unknown-filesystems> option to control what
+to do when asked to resize a filesystem that libguestfs doesn't know
+how to resize.
+
+Virt-v2v now has an I<--in-place> flag/mode, allowing in-place
+conversion of guests (Roman Kagan).
+
+Virt-v2v has a I<--compressed> option for creating compressed qcow2
+output files.
+
+Virt-v2v can now correctly get the VMware datacenter path (dcPath)
+from libvirt, instead of having to calculate it using an algorithm
+that occasionally got the wrong answer (Matthias Bolte, Tingting
+Zheng).
+
+Virt-v2v now processes RAM sizes correctly for 64 bit guests when
+running on a 32 bit host.
+
+=head3 Language bindings
+
+In Perl and Python programs, the C<get_program_name> API now returns
+the true program name, instead of the incorrect string C<perl> or
+C<python>.
+
+The Python bindings can now be compiled against a different version of
+libguestfs, allowing the pip module to be built against any version of
+libguestfs (instead of requiring the pip module and libguestfs to have
+exactly the same version).
+
+The quality of the Ruby rdoc (documentation) has been improved (Pino
+Toscano).
+
+Perl scripts no longer hard-code the location of perl in the shebang
+line, but use L<env(1)> to locate it instead (Pino Toscano).
+
+In OCaml programs, the guestfs handle was incorrectly made into a
+global root, meaning it could never be garbage collected.  If you
+didn't call the C<close> function explicitly, the handle would not be
+closed until the whole program exited.  This has now been fixed so
+handles will be garbage collected in the usual way.  This changes the
+API of the OCaml function C<Guestfs.event_callback>.  Note that non-C
+language bindings are not covered by the libguestfs API/ABI guarantee,
+although we try hard not to change them, but in this case it was
+essential in order to fix this very serious bug.
+
+=head3 Inspection
+
+Alpine Linux and the APK package manager, ALT Linux, Frugalware, and
+PLD Linux are now recognized (Pino Toscano).
+
+If it exists, F</etc/os-release> will be preferred for inspecting
+Linux guests (Pino Toscano).
+
+The correct kernel version is returned for Windows guests E<ge> 10.
+
+=head3 Documentation
+
+The large L<guestfs(3)> man page has been split into several separate
+man pages: L<guestfs-hacking(1)> L<guestfs-internals(1)>
+L<guestfs-security(1)>.  In the source tree, a new F<docs> directory
+contains this documentation.
+
+=head3 Architectures and platforms
+
+Libguestfs now supports ARM 64 bit platforms with vGICv3.
+
+=head2 Security
+
+See also L<guestfs-security(1)>.
+
+=over 4
+
+=item C<CVE-2015-5745>
+
+L<https://bugzilla.redhat.com/1251157>
+
+This is not a vulnerability in libguestfs, but because we always give
+a virtio-serial port to each guest (since that is how guest-host
+communication happens), an escalation from the appliance to the host
+qemu process is possible.  This could affect you if:
+
+=over 4
+
+=item *
+
+your libguestfs program runs untrusted programs out of the guest
+(using L</guestfs_sh> etc), or
+
+=item *
+
+another exploit was found in (for example) kernel filesystem code that
+allowed a malformed filesystem to take over the appliance.
+
+=back
+
+If you use sVirt to confine qemu, that would thwart some attacks.
+
+=item Virt-customize permissions on F<.ssh>, F<.ssh/authorized_keys>
+
+L<https://bugzilla.redhat.com/1260778>.
+
+Previously when asked to inject an SSH key into a guest,
+virt-customize (hence virt-builder too) would create the F<.ssh>
+directory and F<.ssh/authorized_keys> file with too broad permissions,
+allowing other users to read.  They are now created as C<0700> and
+C<0600> respectively, which is the same as the L<ssh-copy-id(1)>
+utility.
+
+=back
+
+=head2 API
+
+=head3 New APIs
+
+=over 4
+
+=item C<guestfs_get_identifier>
+
+=item C<guestfs_set_identifier>
+
+Get/set a per-handle identifier.  The main effect of this is to
+change trace output from:
+
+ libguestfs: trace: foo
+
+to:
+
+ libguestfs: trace: ID: foo
+
+making it easier to follow traces in multi-threaded programs, or where
+a program uses multiple handles (especially virt-v2v).
+
+=item C<guestfs_vfs_minimum_size>
+
+Return the minimum size of a filesystem (when shrunk).  This supports
+ext2/3/4, XFS and btrfs, and can support other filesystem types in
+future (Maxim Perevedentsev).
+
+=back
+
+=head3 Other API changes
+
+=over 4
+
+=item C<guestfs_disk_create>: add C<preallocation> = C<off>/C<metadata>/C<full>.
+
+For raw, this allows C<off> as a synonym for C<sparse> (making it
+consistent with qcow2).  For qcow2, this allows C<sparse> as a synonym
+for C<off>.
+
+It also adds C<full>, which corresponds to fully allocated, but uses
+L<posix_fallocate(3)> for efficiency.
+
+=item C<guestfs_tar_in>: new C<xattrs>, C<selinux>, C<acl> parameters.
+
+=item C<guestfs_tar_out>: new C<xattrs>, C<selinux>, C<acl> parameters.
+
+These extra parameters control whether extended attributes, SELinux
+contexts and/or POSIX ACLs are restored from / saved to tarballs.
+
+=item C<guestfs_add_drive>
+
+The existing C<username> and C<secret> parameters can be used to
+supply authentication for iSCSI (Pino Toscano).
+
+=back
+
+=head2 Build changes
+
+The C<./configure --enable-valgrind-daemon> option has been removed.
+
+You can no longer build libguestfs on RHEL 5-era (c.2007) machines.
+See the C<oldlinux> branch if you need (limited) RHEL 5 support.
+
+Virt-p2v can now be built on RHEL 6-era (c.2010) Linux distros.
+
+OCaml E<ge> 3.11 (released in 2008) is now required to build from git.
+
+Building the Perl bindings now requires C<Module::Build> (instead of
+C<ExtUtils::MakeMaker>).
+
+Builds should be faster (especially when incrementally rebuilding),
+because work was done to reduce build times.
+
+Both OCaml and the OCaml findlib module are required if you need to
+run the generator at build time.  Previously the build would have
+failed if findlib was not installed.
+
+C<make check> tests now run in parallel (within each test directory).
+
+C<make install> no longer installs OCaml F<bindtests.*> files
+incorrectly.
+
+C<make install> can now be run twice.  Previously it would fail on the
+second run.
+
+C<make clean> should now remove nearly every file that C<make>
+creates.
+
+A new C<make installcheck> rule has been added, allowing the installed
+copy of libguestfs to be tested.
+
+=head2 Internals
+
+Some effort was put into minimizing the size of the appliance, which
+reduces temporary disk space and time needed by libguestfs handles.
+
+The appliance now passes the NIC name to dhcpd, fixing hangs when
+running the appliance on some distros (Cédric Bosdonnat).
+
+OCaml C<Guestfs.Errno> is now generated (Pino Toscano).
+
+In OCaml tools, common code now handles I<--debug-gc>, I<--verbose>
+and other common options (Roman Kagan, Pino Toscano).
+
+The virt-v2v test harness allows us to boot the test guests at fixed
+dates in the past, ensuring that Windows reactivation doesn't kick in.
+
+There is a new internal API for reading/writing a subprocess via a
+pipe from library code.
+
+Used C<deheader> program to remove unused C<#include> directives.
+
+In OCaml tools, the C<Char> and C<String> modules now implicitly
+reference the C<Common_utils.Char> and C<Common_utils.String> modules
+(instead of the ones from stdlib).  The C<Common_utils> modules
+contain a number of extra char/string utility functions, and also hide
+some unsafe functions in stdlib.
+
+Many more virt-v2v tests will now be run even if you don't have
+rhsrvany and virtio-win installed (Roman Kagan).
+
+The huge F<configure.ac> file has been split into several smaller
+files called F<m4/guestfs_*.m4>.
+
+The old F<tests/data> and F<tests/guests> directories have been moved
+to F<test-data/>.  This new top level directory carries all test data
+which is common, large and/or shared between multiple tests.
+
+There is a new top level F<website/> directory containing the public
+L<http://libguestfs.org> website (or most of it).
+
+The fuzz testing of inspection (F<tests/fuzz>) has been removed.
+
+Virt-p2v now saves the source physical machine dmesg output into the
+conversion server debug directory, making it simpler to debug cases of
+missing drivers, firmware etc.
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh 1.30.0..
+
+=end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/1294956>
+
+set-label returns wrong error message when set the ext3/ext4 filesystem label
+
+=item L<https://bugzilla.redhat.com/1288733>
+
+Add a Fedora 23 32-bit base image for virt-builder
+
+=item L<https://bugzilla.redhat.com/1288201>
+
+virt-builder writes temporary files to /tmp
+
+=item L<https://bugzilla.redhat.com/1285847>
+
+virt-resize does not copy logical partitions
+
+=item L<https://bugzilla.redhat.com/1281578>
+
+virt-inspector returns version 6.3 for win10 images (should return 10.0)
+
+=item L<https://bugzilla.redhat.com/1281577>
+
+virt-inspector --xpath segfault on attribute get
+
+=item L<https://bugzilla.redhat.com/1280029>
+
+libguestfs can run commands with stdin not open (or worse still, connected to arbitrary guest-chosen random devices)
+
+=item L<https://bugzilla.redhat.com/1279273>
+
+About compression option for qcow2
+
+=item L<https://bugzilla.redhat.com/1278878>
+
+guestfish should be able to handle LVM thin layouts
+
+=item L<https://bugzilla.redhat.com/1278382>
+
+DNF python programming error when run from virt-builder
+
+=item L<https://bugzilla.redhat.com/1278371>
+
+inspection returns arch="unknown" for Windows guest if file command is not installed
+
+=item L<https://bugzilla.redhat.com/1277274>
+
+Document permissions needed for non-admin users to use virt-v2v
+
+=item L<https://bugzilla.redhat.com/1277122>
+
+RFE: virt-sparsify: make '--in-place' sparsification safe to abort (gracefully or ungracefully)
+
+=item L<https://bugzilla.redhat.com/1277074>
+
+Virt-p2v client shouldn't present the vdsm option because it's not usable
+
+=item L<https://bugzilla.redhat.com/1276540>
+
+virt-v2v fails to convert Windows raw image: error "device name is not a partition"
+
+=item L<https://bugzilla.redhat.com/1275806>
+
+virt-builder: error: [file] is not a regular file in the guest
+
+=item L<https://bugzilla.redhat.com/1270011>
+
+Simplestreams test fails: virt-builder: error: the value for the key 'size' is not an integer
+
+=item L<https://bugzilla.redhat.com/1267032>
+
+guestfish copy-in command behaves oddly/unexpectedly with wildcards
+
+=item L<https://bugzilla.redhat.com/1262983>
+
+python: Cannot compile pip module if installed libguestfs != pip guestfs version
+
+=item L<https://bugzilla.redhat.com/1262127>
+
+Better diagnostic message when virbr0 doesn't exist
+
+=item L<https://bugzilla.redhat.com/1261436>
+
+No warning shows when convert a win7 guest with AVG AntiVirus installed
+
+=item L<https://bugzilla.redhat.com/1260778>
+
+virt-builder --ssh-inject doesn't set proper permissions on created files
+
+=item L<https://bugzilla.redhat.com/1260689>
+
+RFE: V2V to check and warn user to disable group policy and anti virus on Windows guests
+
+=item L<https://bugzilla.redhat.com/1260590>
+
+Wrong graphics protocal and video type set for guest after convert to rhev 3.6 by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1258342>
+
+extra slashes in vcenter URL confuses virt-v2v
+
+=item L<https://bugzilla.redhat.com/1257895>
+
+[RHEV][V2V] virt-v2v ignores NIC if interface source/@network or source/@bridge is an empty string
+
+=item L<https://bugzilla.redhat.com/1256405>
+
+virt-builder created Fedora 22 32bit disk image cannot be updated
+
+=item L<https://bugzilla.redhat.com/1256222>
+
+virt-p2v no GUI mode:error opening control connection to $ip:22:unexpected …rompt
+
+=item L<https://bugzilla.redhat.com/1251909>
+
+Option -oa preallocated -of qcow2 of virt-v2v didn't work efficiently
+
+=item L<https://bugzilla.redhat.com/1250715>
+
+v2v: spaces need to be escaped as %20 in paths
+
+=item L<https://bugzilla.redhat.com/1248678>
+
+Close all incoming ports on virt-p2v ISO
+
+=item L<https://bugzilla.redhat.com/1246882>
+
+man virt-customize shows synopsis twice
+
+=item L<https://bugzilla.redhat.com/1242853>
+
+mount-loop failed to setup loop device: No such file or directory
+
+=item L<https://bugzilla.redhat.com/1237136>
+
+BUG: unable to handle kernel NULL pointer dereference at <addr> in function __blkg_lookup
+
+=item L<https://bugzilla.redhat.com/1230412>
+
+virt-v2v should ignore bogus kernel entries in grub config
+
+=item L<https://bugzilla.redhat.com/1229119>
+
+Unrelated info in fstab makes virt-v2v fail with unclear error info
+
+=item L<https://bugzilla.redhat.com/1227609>
+
+virt-p2v: Using "Back" button causes output list to be repopulated multiple times
+
+=item L<https://bugzilla.redhat.com/1225789>
+
+Wrong video driver is installed for rhel5.11 guest after conversion to libvirt
+
+=item L<https://bugzilla.redhat.com/1204131>
+
+RFE: virt-builder creates qcow v3 images, add build option for qcow v2
+
+=item L<https://bugzilla.redhat.com/1176801>
+
+File /etc/sysconfig/kernel isn't updated when convert XenPV guest with regular kernel installed
+
+=item L<https://bugzilla.redhat.com/1174551>
+
+"lstatnslist" and "lstatlist" don't give an error if the API is used wrongly
+
+=item L<https://bugzilla.redhat.com/1168223>
+
+koji spin-livecd cannot build a working live CD
+
+=item L<https://bugzilla.redhat.com/1165785>
+
+mount-loop command fails: mount failed: Unknown error -1
+
+=item L<https://bugzilla.redhat.com/1164708>
+
+set-label can only set <=127 bytes for btrfs and <=126 bytes for ntfs filesystem which not meet the help message. Also for ntfs it should give a warning message when the length >128 bytes
+
+=item L<https://bugzilla.redhat.com/1020216>
+
+libvirt fails to shut down domain: could not destroy libvirt domain: Requested operation is not valid: domain is not running
+
+=item L<https://bugzilla.redhat.com/1011907>
+
+mount-loop failed to setup loop device: No such file or directory
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

@@ -1,0 +1,561 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.36
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.34.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+=head3 New tools
+
+Virt-tail is a new tool for following (tailing) log files within a
+guest, similar to the regular C<tail -f> command.
+
+=head3 New features in existing tools
+
+Virt-customize, virt-get-kernel, virt-sparsify and virt-sysprep can
+now handle encrypted guests (Pino Toscano).
+
+Virt-builder and virt-customize now support I<--append-line>, which is
+useful for adding lines to the end of configuration files.
+
+Virt-resize can now shrink and expand swap partitions (Pino Toscano).
+
+Virt-resize can now output to non-local disks (Pino Toscano).
+
+Virt-sysprep has a new operation called C<backup-files> for removing
+editor backups, and C<passwd-backups> for removing F</etc/passwd-> and
+similar.
+
+Virt-dib can now create checksums using the new I<--checksum> option
+(Pino Toscano).
+
+Virt-dib can now create tgz files.  In addition, extended attributes
+and SELinux labels are preserved in the output tar file (Pino
+Toscano).
+
+Virt-dib can now create squashfs files (Pino Toscano).
+
+Bash tab-completion is now available in every command line tool that
+is shipped.
+
+=head3 virt-v2v and virt-p2v
+
+Conversions of Debian (6+) and Ubuntu (10.04+) guests are now
+supported (Tomáš Golembiovský, Pino Toscano).
+
+Conversions from SUSE Xen hypervisor have now been tested
+(Cédric Bosdonnat).
+
+Windows conversions may now install a program C<pnp_wait.exe> which
+prevents conflicts between the Windows Plug-and-Play Manager and our
+own scripts that install virtio device drivers.  Enabling this
+requires the C<pnp_wait.exe> program to be built separately
+(Roman Kagan).
+
+OVA files exported from AWS can now be converted (Shahar Havivi).
+
+When converting OVA files, in some circumstances virt-v2v can now read
+disk images directly from the OVA input file instead of needing to
+unpack the OVA file to a temporary directory.  This can save large
+amounts of disk space, and is quicker (Tomáš Golembiovský).
+
+Virt-p2v can now be built on RHEL 5 (2007-era) Linux and RHEL 6, which
+means that 32 bit and hardware with ancient fakeraid disks can be
+virtualized.  Binaries of virt-p2v based on these old versions of
+RHEL can be found at http://oirase.annexia.org/virt-p2v/
+
+Virt-p2v can now use nbdkit (an NBD server) as an alternative to
+qemu-nbd.  In addition, virt-p2v can use "socket activation" which is
+a more robust method for opening the NBD listening socket.  Socket
+activation works with qemu-nbd or nbdkit, but requires the most up to
+date versions.
+
+To prevent timeouts during P2V conversions, virt-p2v inhibits power
+saving on the physical machine, and also sends ping packets over the
+ssh control and data connections.
+
+Virt-v2v no longer removes the C<Processor> and C<Intelppm> nodes from
+the Windows Registry.
+
+Xen and vCenter conversions can now be done using the libvirt backend,
+provided libvirt E<ge> 2.1.0 is used.
+
+F</dev/srX> (SCSI CD-ROM) devices are ignored (Tomáš Golembiovský).
+
+When converting SUSE Linux guests, use F</etc/modprobe.conf.local> if
+it exists.
+
+Removing VMware tools from Linux guests should now work reliably
+(Pino Toscano).
+
+When converting OVA files, virt-v2v now checks the disk image hash
+contained in the manifest file, whereas previously it was ignored
+because of a mistake in the code.  In addition, SHA256 hashes are now
+supported (Tomáš Golembiovský).
+
+When converting OVA files that contain compressed disk images, we now
+trust the C<ovf:compression> attribute from the metadata instead of
+using content sniffing on the disk image (Tomáš Golembiovský).
+
+A new flag I<--vdsm-compat> has been added to I<-o vdsm> mode,
+allowing more efficient qcow2 images to be generated.
+
+Since the RHEV product [commercially supported version of oVirt] has
+now been renamed to RHV, "RHEV" was changed to "RHV" throughout the
+tooling.  In particular, I<-o rhev> becomes I<-o rhv>, although the
+old name can be used for backwards compatibility.
+
+The C<RHEV-APT> utility is only installed when the output hypervisor
+is oVirt or RHV.
+
+A problem with virt-v2v running out of memory when doing an SELinux
+relabel of the guest filesystem should now be resolved.
+
+=head3 Language bindings
+
+Setting C<EXTRA_JAVAC_FLAGS> before F<./configure> allows you to
+add arbitrary flags to C<javac> when compiling the Java bindings.
+
+Use of any libguestfs API which returned a single struct, from Perl or
+Java bindings, would have leaked memory.  This has now been fixed
+(Pino Toscano).
+
+=head3 Inspection
+
+Inspection of Windows guests with mildly corrupted Windows Registry
+hives should now work instead of failing with an error.  This feature
+requires hivex E<ge> 1.3.14 (Dawid Zamirski).
+
+For Debian guests, we can now read the URL, source name, summary and
+full description of installed packages.  For RPM-based guests we can
+read the URL, summary and description (Pino Toscano).
+
+Inspection of guest operating systems that use a separate F</usr>
+partition should now work more reliably (Pino Toscano).
+
+When parsing guest F</etc/fstab>, paths are reduced to a canonical
+form (eg. C<"///usr//local//"> → C<"/usr/local">).
+
+Inspection of btrfs subvolumes now works where the F</etc/fstab>
+options field contains commas.
+
+F</dev/cdN> devices in guest F</etc/fstab> are ignored (Pino Toscano).
+
+=head3 Architectures and platforms
+
+Stable releases are now tested on aarch64, ppc64 and ppc64le
+architectures.
+
+The RISC-V architecture is now handled as a guest, and libguestfs will
+now at least compile on RISC-V (but probably not work as there is no
+usable qemu at the time of writing).
+
+Detection of S/390 and S/390x binaries and guests is now supported.
+
+=head3 Other
+
+ExFAT filesystems are now supported (Miles Wolbe).
+
+=head2 Security
+
+See also L<guestfs-security(1)>.
+
+There were no CVEs reported in this development cycle.  However some
+security-related hardening was carried out as described below.
+
+Temporary filenames are now always generated using randomness from
+F</dev/urandom> (previously the C function L<random(3)> was used in
+one case).
+
+The C<$TERM> environment variable is now validated before passing it
+through to the appliance kernel command line.
+
+=head2 API
+
+=head3 New APIs
+
+=over 4
+
+=item C<guestfs_aug_transform>
+
+Exposes the Augeas C<aug_transform> API (Pino Toscano).
+
+=item C<guestfs_find_inode>
+
+Find files by inode number (Matteo Cafasso).
+
+=item C<guestfs_inspect_get_windows_software_hive>
+
+=item C<guestfs_inspect_get_windows_system_hive>
+
+Return the path to the Windows C<HKLM\SYSTEM> and C<HKLM\SOFTWARE>
+hives computed during inspection.
+
+=item C<guestfs_mksquashfs>
+
+Create a squashfs filesystem from a path (Pino Toscano).
+
+=back
+
+=head3 Other API changes
+
+=over 4
+
+=item C<guestfs_add_domain>
+
+This call now handles libvirt file-based volumes correctly, where
+previously these would have been ignored.  Also handled are disks
+which require libvirt authentication secrets to open (Pino Toscano).
+
+=item C<guestfs_canonical_device_name>
+
+This call will no longer incorrectly modify Linux software RAID device
+names (like F</dev/mdX>).
+
+=item C<guestfs_file_architecture>
+
+Previously the C<file_architecture> API could return either of the
+strings C<i386> or C<i486> for 32 bit x86 binaries.  It now only
+returns C<i386> (as documented).
+
+This API can now return the following new values: C<riscv32>,
+C<riscv64>, C<riscv128>, C<s390>, C<s390x>.
+
+=item C<guestfs_hivex_open>
+
+This now has an optional C<GUESTFS_HIVEX_OPEN_UNSAFE> flag which
+allows certain corrupted Windows Registry hives to be opened.  This
+feature requires hivex E<ge> 1.3.14 (Dawid Zamirski).
+
+=item C<guestfs_list_partitions>
+
+This call now returns Linux software RAID partitions.
+
+=item C<guestfs_part_to_dev>
+
+This call now correctly handles partition names which include
+C<pE<lt>NE<gt>> (Pino Toscano).
+
+=item C<guestfs_set_label>
+
+This call can now change the labels of swap partitions (Pino Toscano).
+
+=back
+
+=head2 Build changes
+
+libmagic, the library part of the C<file> command, is now required at
+build time (previously optional).
+
+GCC 7 is now supported.
+
+"Silent rules" are now used for OCaml programs, Java bindings.  To
+show the full command line executed, add C<V=1> on the make command
+line (Pino Toscano).
+
+Slow testing (C<make check-slow>) now covers: firstboot scripts in
+Linux guests; v2v conversion of a selection of real Linux guests; the
+virt-customize I<--hostname> and I<--timezone> settings; the
+I<--root-password> parameter; that the serial console works in
+virt-builder guests.
+
+Large generated C source files, eg. the list of commands found in
+F<fish/cmds.c> (and many more), have been split into smaller files to
+speed parallel compilation.
+
+C<make maintainer-check-extra-dist> now checks that all generated
+files are included in the tarball.
+
+The tests no longer assume that C<.> is in Perl's C<@INC>, as it is
+going to be removed soon (Pino Toscano).
+
+Debian hosts using UsrMerge are now supported (Pino Toscano).
+
+Header files and C structs can now have internal documentation using
+the special C</** ... */> comments.
+
+C<@VAR@> subtitutions in C<./run> are now fully quoted.  This is
+necessary so that (eg) C<./configure PYTHON=/some/path> works robustly
+if C</some/path> contains characters that need to be quoted (Hilko
+Bengen).
+
+gperf E<ge> 3.1 is now supported.
+
+Kraxel's old edk2 builds can no longer be used for UEFI support.  UEFI
+code is now fully free software, so use the versions bundled with your
+Linux distro instead.
+
+Virt-p2v can now be compiled on RHEL 5 (2007-era) Linux with Gtk 2.10.
+
+=head2 Internals
+
+The generator and mllib C<Common_utils> modules are now shared from
+the same source file.
+
+A considerable amount of common code has been moved into the F<common>
+directory in the source and is now compiled only once.  The
+mini-libraries located under here are: F<common/edit>,
+F<common/errnostring>, F<common/miniexpect>, F<common/options>,
+F<common/parallel>, F<common/progress>, F<common/protocol>,
+F<common/utils>, F<common/visit>, F<common/windows>.
+
+The directory containing the main library code has moved from F<src> →
+F<lib>.
+
+All tests written in shell script now use a common file of utility
+functions (F<tests/test-functions.sh>).  There are several new utility
+functions, mainly for skipping tests.  Also these test scripts can now
+use autoconf-like path variables like C<$abs_top_srcdir>.
+
+UEFI paths are now stored in the generator (F<generator/uefi.ml>).
+
+The way the generator handles actions and procedure numbers was
+changed quite substantially.  See F<generator/actions_*.ml> and
+F<generator/proc_nr.ml>.
+
+The gnulib C<getprogname> module is now used everywhere when
+needing/printing the program name (Pino Toscano).
+
+F<perl/Guestfs.c> is not translatable (Nikos Skalkotos).
+
+Virt-builder templates moved from F<builder/website> to
+F<builder/templates> and there is now a single unified program which
+can build any template.
+
+All Windows registry utilities used by virt-customize and virt-v2v
+have been moved to a common module called C<Registry> under F<mllib>.
+
+All POSIX bindings have been moved to a new module called
+C<Unix_utils> under F<mllib>.
+
+Inspection, virt-customize and virt-v2v no longer recompute the
+Windows C<%systemroot%>, C<CurrentControlSet> or paths to the
+C<HKLM\SYSTEM> and C<HKLM\SOFTWARE> hives in multiple places.  Instead
+these are all computed once (during inspection) and passed to the
+other tools through various C<guestfs_inspect_get_windows_*> APIs.
+
+C</dev/pts> is now available inside the appliance, so any tools we run
+which require a pty will now work (Pino Toscano).
+
+Most OCaml warnings have been fixed.
+
+There is now a single common function for creating temporary
+files (C<guestfs_int_make_temp_path>) (Matteo Cafasso).
+
+The C<$TERM> environment variable is now validated before passing it
+through to the appliance kernel command line.
+
+Useless USB and memballoon devices are no longer created in the
+appliance (Laine Stump).
+
+On aarch64 we now use virtio-pci for the appliance.  This is somewhat
+faster than virtio-mmio.
+
+Use of L<srandom(3)> and L<random(3)> has been minimized.  In
+particular, temporary filenames are no longer created based on
+randomness returned by L<random(3)>, but F</dev/urandom> is used
+instead.
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh v1.34.0..
+
+=end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/1425306>
+
+typo error in virt-tail man page
+
+=item L<https://bugzilla.redhat.com/1418283>
+
+virt-v2v: appliance runs out of memory running setfiles command
+
+=item L<https://bugzilla.redhat.com/1417549>
+
+/usr/bin/x86_64-linux-gnu-ld.bfd.real: ../common/progress/.libs/libprogress.a(libprogress_la-progress.o): undefined reference to symbol 'UP@@NCURSES_TINFO_5.0.19991023'
+
+=item L<https://bugzilla.redhat.com/1417444>
+
+*** No rule to make target '../perl/lib/Sys/Guestfs.c', needed by 'libguestfs.pot'
+
+=item L<https://bugzilla.redhat.com/1416941>
+
+compile of 1.34.3 fails with gperf 3.1
+
+=item L<https://bugzilla.redhat.com/1414682>
+
+guestfs_canonical_device_name incorrectly returns /dev/sd0 for MD devices (/dev/md0)
+
+=item L<https://bugzilla.redhat.com/1414510>
+
+guestfs_list_filesystems does not recognize ddf partitions
+
+=item L<https://bugzilla.redhat.com/1409023>
+
+[Debian] ldmtool not installed in the appliance
+
+=item L<https://bugzilla.redhat.com/1404287>
+
+qemu-kvm cannot boot RHEL 7 kernel with TCG, hangs at "Probing EDD (edd=off to disable)..."
+
+=item L<https://bugzilla.redhat.com/1404182>
+
+RFE: virt-resize should support a URL as the outdisk
+
+=item L<https://bugzilla.redhat.com/1401474>
+
+Importing VMs from VMware is failing with error "Inspection field 'i_arch' was 'unknown'"
+
+=item L<https://bugzilla.redhat.com/1401320>
+
+RFE: Increate virt-sysprep coverage a bit
+
+=item L<https://bugzilla.redhat.com/1400205>
+
+Add --vdsm-compat=1.1 flag for VDSM
+
+=item L<https://bugzilla.redhat.com/1398070>
+
+typo error in man page
+
+=item L<https://bugzilla.redhat.com/1392798>
+
+secrets from libvirt domains are not read
+
+=item L<https://bugzilla.redhat.com/1390876>
+
+"--machine-readable" info should be updated in virt-v2v manual page
+
+=item L<https://bugzilla.redhat.com/1379289>
+
+RFE: virt-p2v should support mnemonic operations
+
+=item L<https://bugzilla.redhat.com/1378022>
+
+There is virt-v2v warning about <listen type='none'> during converting a guest which has listen type='none' in XML
+
+=item L<https://bugzilla.redhat.com/1377081>
+
+virt-p2v manual should update the new dialog information
+
+=item L<https://bugzilla.redhat.com/1375157>
+
+virt-v2v: -i ova: Permission denied when using libvirt and running as root
+
+=item L<https://bugzilla.redhat.com/1374651>
+
+Can't install qxl driver for display device in win7 guest after converting to glance by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1374405>
+
+There is HTTP 404 error info when convert guest to glance by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1374232>
+
+selinux relabel fails on RHEL 6.2 guests with "libguestfs error: selinux_relabel: : Success"
+
+=item L<https://bugzilla.redhat.com/1372668>
+
+Process status is not normal in windows guest after converted from kvm to rhev by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1372269>
+
+Builder does not set hostname properly for Debian 8 (Jessie)
+
+=item L<https://bugzilla.redhat.com/1371843>
+
+Improve OVA import compatibility
+
+=item L<https://bugzilla.redhat.com/1370424>
+
+virt-manager coredump when vm with gluster image exists
+
+=item L<https://bugzilla.redhat.com/1367839>
+
+Cannot import VMs from Xen and VMware when using RHEL7.3 host.
+
+=item L<https://bugzilla.redhat.com/1367738>
+
+Missing bash completion scripts for: virt-diff guestunmount virt-copy-in virt-copy-out virt-customize virt-get-kernel virt-p2v-make-disk virt-p2v-make-kickstart virt-tar-in virt-tar-out virt-v2v-copy-to-local virt-win-reg
+
+=item L<https://bugzilla.redhat.com/1367615>
+
+OVMF file which is built for rhel7.3  can't be used for virt-v2v uefi conversion
+
+=item L<https://bugzilla.redhat.com/1366456>
+
+Converting rhel7 host installed on RAID:warning: fstrim: fstrim: /sysroot/: the discard operation is not supported
+
+=item L<https://bugzilla.redhat.com/1366049>
+
+RFE: libvirt backend: support handling disks stored as volume name in a pool
+
+=item L<https://bugzilla.redhat.com/1365005>
+
+Guest name is incorrect if convert guest from disk image by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1362649>
+
+RFE: virt-sysprep does not utilize libguestfs encryption support
+
+=item L<https://bugzilla.redhat.com/1354507>
+
+virt-v2v conversions from vCenter do not consistently obey the proxy environment variables
+
+=item L<https://bugzilla.redhat.com/1168144>
+
+warning: fstrim: fstrim: /sysroot/: FITRIM ioctl failed: Operation not supported (ignored) when convert win2003 guest from xen server
+
+=item L<https://bugzilla.redhat.com/1161019>
+
+RFE: Only install RHEV-APT if virt-v2v -o rhev/-o vdsm option is used
+
+=item L<https://bugzilla.redhat.com/1152369>
+
+virt-v2v failed to convert RHEL 6.7 UEFI guest: no grub1/grub-legacy or grub2 configuration file was found
+
+=item L<https://bugzilla.redhat.com/1141631>
+
+[RFE] virt-v2v should support convert a guest to a dir-pool with using pool's uuid
+
+=item L<https://bugzilla.redhat.com/1134878>
+
+libvirt reports json "backing file" is missing
+
+=item L<https://bugzilla.redhat.com/1019388>
+
+firstboot scripts (virt-builder, virt-sysprep) don't work for Debian 6 & 7 guests
+
+=item L<https://bugzilla.redhat.com/737600>
+
+virt-v2v windows xp - machine dies BSOD - processr,sys - workaround provided
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

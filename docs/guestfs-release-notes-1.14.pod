@@ -1,0 +1,189 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.14
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.12.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+  Erlang bindings.
+
+  virt-alignment-scan is a new tool to check the alignment of
+  partitions within virtual machines or disk images.
+
+  virt-sparsify is a new tool to make virtual machine disk images
+  sparse.
+
+  virt-sysprep is a new tool to make cloning guests from a template
+  simpler.
+
+=head3 guestfish
+
+   - New commands setenv, unsetenv, to set environment variables.
+
+   - The input file and line number is printed in error messages.
+
+   - guestfish progress bars are now a "mini-library" used by other
+     tools too.
+
+=head3 guestmount
+
+   - the --live option (for access to live VMs) now works.
+
+=head3 virt-cat
+
+   - virt-cat can now handle Windows paths and drive letters (RHBZ#693359).
+
+=head3 virt-filesystems
+
+   - the MBR partition type byte is displayed in --long output.
+
+=head3 virt-make-fs
+
+   - virt-make-fs now sets the MBR partition type byte correctly,
+     improving compatibility with Windows (RHBZ#746295).
+
+=head3 virt-resize
+
+   - virt-resize can now work with guests using extended and logical
+     partitions, in particular Ubuntu guests.
+
+   - virt-resize can now align the first partition of Windows guests,
+     improving performance.  The new virt-resize --align-first option
+     controls this behaviour.
+
+   - The virt-resize --machine-readable flag makes it possible to use
+     virt-resize from other programs.
+
+   - Partitions are now aligned to 128 sectors (usually 64K) by
+     default.  This improves efficiency on high-end storage.  The new
+     virt-resize --alignment option allows the alignment to be
+     adjusted.
+
+=head3 virt-win-reg
+
+   - The syntax for deleting registry keys and values is documented
+     in the man page (RHBZ#737944).
+
+=head3 library
+
+   - non-printing characters are escaped correctly in debug output.
+
+   - GUESTFS_EVENT_ENTER is a new event type generated whenever a
+     libguestfs function is called.
+
+   - the library contains systemtap/DTrace probes.
+
+   - the library can now be compiled without hivex (RHBZ#723474).
+
+=head3 inspection
+
+   - Improve detection of Windows disks.
+
+   - Adds support for:
+         ttylinux - a minimal Linux
+         Mageia (thanks Michael Scherer)
+         OpenSUSE and zypper (thanks Michael Scherer, Vincent Untz)
+         Ubuntu logos (thanks Michael Scherer)
+         NetBSD and pkgsrc (thanks Michael Scherer)
+
+   - Handle some guest types that use /dev/root in /etc/fstab.
+
+   - Fix handling of guests with > 26 disks (thanks Matthew Booth)
+
+   - Add support for guests with HP Smart Array disks (thanks Matthew Booth)
+
+=head3 febootstrap
+
+   - FEBOOTSTRAP_KERNEL, FEBOOTSTRAP_MODULES environment variables can
+     be set in order to choose which kernel to use for the appliance.
+
+=head3 misc
+
+   - ArchLinux support now working with Linux 3.0 (thanks Erik Nolte)
+
+   - libvirt disks marked <readonly/> are now added readonly when
+     using the virt-tools '-d' option.
+
+=head2 Security
+
+  (no security problems were found or fixed in this release)
+
+=head2 New APIs
+
+  compress-out, compress-device-out, copy-device-to-device,
+  copy-device-to-file, copy-file-to-device, copy-file-to-file,
+  get-smp, part-to-partnum, set-smp.
+
+  The mount API no longer implicitly adds -o sync,noatime options.
+
+  add-domain has a new 'readonlydisk' optional parameter to control
+  how <readonly/> disks are handled.
+
+=head2 Internals
+
+ - Coverity was run on the source and more bugs were identified and
+   fixed.
+
+ - PCRE library is now required to build libguestfs.
+
+ - APIC is now the default for the appliance.  You can also enable
+   SMP support in the appliance.
+
+ - OCaml bindings now correctly acquire GC lock during callbacks.
+
+ - Out of tree builds should now work correctly (thanks Hilko Bengen).
+
+ - ./configure --with-extra="..." can be used by packagers to set
+   the extra version string.
+
+ - zero, zero-device APIs: if the blocks already contain zeroes,
+   don't write zeroes, so that we don't unnecessarily make the
+   underlying storage non-sparse.
+
+ - is-zero, is-zero-device APIs: optimize these so zero detection is
+   faster.
+
+=head2 Bugs fixed
+
+ - 748266 libguestfs should detect versions of qemu which require -machine pc option
+ - 747290 libguestfs ignores <readonly/> in libvirt XML
+ - 747287 Misleading error message when permission denied opening a disk image
+ - 746295 virt-make-fs doesn't set partition ID
+ - 744795 guestmount --live is not usable
+ - 737944 virt-win-reg hyphen (delete key) syntax may be wrong, and is not documented
+ - 733297 ruby event handlers fail with "exception in callback: wrong argument type Proc (expected Data)"
+ - 731744 libguestfs should escape special/non-printing characters in debug output
+ - 729887 appliance crashes running aug_init with flags=4
+ - 729075 libguestfs confuses Hp_recovery partition with Windows root filesystem
+ - 727178 error: luks_open: cryptsetup: error while loading shared libraries: libfipscheck.so.1: cannot open shared object file: No such file or directory
+ - 726739 libguestfs: error: aug_get: no matching node, trying to find hostname
+ - 723474 If hivex and/or pcre not installed, libguestfs fails to compile
+ - 693359 virt-cat and virt-edit don't handle case sensitive NTFS paths properly
+ - 678231 virt-inspector reports unknown filesystem UUID
+ - 671082 libguestfs does not work with kernel-rt
+ - 666578 libguestfs: unknown filesystem label SWAP-sda2
+ - 642821 virt-resize falls over on a disk image with a logical swap partition
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

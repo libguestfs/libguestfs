@@ -1,0 +1,162 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.8
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.6.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+ - Support and packages for Debian and Ubuntu.
+
+ - Daily builds from git repository on Debian and Ubuntu to reduce risk
+   of regressions.
+
+ - Port to ArchLinux 'pacman' (thanks Thomas S Hatch).
+
+ - The following tools have been rewritten in C (originally in Perl):
+
+     . virt-cat
+     . virt-df
+     . virt-inspector
+     . virt-ls
+     . virt-rescue
+
+ - Some C tools support encrypted guests automatically.  This is
+   supported in: guestfish, guestmount, virt-cat, virt-inspector,
+   virt-ls.
+
+ - New tool virt-filesystems (in C) which is a replacement for
+   virt-list-filesystems and virt-list-partitions, and has a superset
+   of the functionality of those tools.
+
+ - guestfish, guestmount and the C tools use unified command line option
+   parsing, so they support many common options such as '-a disk.img',
+   '-d libvirt-domain', '-x', '-v'.  The old command line option
+   parsing is preserved for compatibility in scripts etc.
+
+ - guestfish no longer has any dependencies on Perl
+
+ - New man pages containing programming examples: guestfs-examples(3) (C/C++),
+   guestfs-ocaml(3), guestfs-python(3), guestfs-ruby(3).
+
+ - Trace mode prints return values from API functions.
+
+ - virt-inspector can list applications installed in Windows guests, along
+   with a great deal of information about those applications.
+
+ - Add support for inspecting: Linux Mint, Mandriva, FreeBSD.
+
+ - guestfish --rw option (with no effect currently) to make potentially
+   dangerous write access explicit.
+
+ - guestfish --listen --csh for compatibility with csh, tcsh (thanks
+   Eric Blake).
+
+ - The first upstream version that introduced each API function is now
+   documented in guestfs(3).
+
+ - guestfs_last_errno allows you to retrieve the errno from the
+   daemon, correctly translated to the local operating system.
+
+ - Functions can now have optional parameters.
+
+ - Progress bars and progress notifications can now happen for upload
+   commands.
+
+ - Appliance builder more careful about not leaving temporary files
+   around in /tmp.
+
+ - getfattr/setfattr commands added to virt-rescue.
+
+ - ROADMAP file covers roadmap and goals for future releases.
+
+=head2 Security
+
+ - New SECURITY section in guestfs(3) API documentation.
+
+ - virt-inspector no longer runs any guest commands.
+
+ - Inspection code is more careful about avoiding very large files
+   from guests which might previously have caused a denial of service.
+
+ - FUSE calls into guestmount are now traced when using guestmount -x.
+
+=head2 New APIs
+
+ - add-domain
+ - add-drive-opts
+ - getxattr
+ - inspect-get-hostname
+ - inspect-get-package-format
+ - inspect-get-package-management
+ - inspect-get-roots
+ - inspect-list-applications
+ - lgetxattr
+ - mkfs-opts
+
+=head2 Internals
+
+ - C programs now only link precisely with the libraries that they use.
+
+ - PCRE, libmagic, hivex and libvirt libraries are now completely
+   optional for building.
+
+ - Multiple memory leaks and file descriptor leaks fixed.
+
+ - Add a POD wrapper to unify generation of man pages and HTML files
+   across all programs.
+
+ - Source includes phony images of Fedora, Debian, Ubuntu and
+   Windows guests.
+
+ - Ruby bindings have 'make install' rule.
+
+ - <guestfs.h> is now a single file.
+
+ - <guestfs.h> does not require XDR headers.
+
+ - ocaml xml-light library is no longer required to build (thanks
+   Maxim Koltsov).
+
+ - ./configure --disable-[...] for each language binding (thanks
+   Maxim Koltsov).
+
+ - Old ocaml-viewer program removed (use guestfs-browser instead).
+
+ - New C API test type 'InitScratchFS' makes the tests run a little
+   more quickly.
+
+ - Excluded packages in the appliance are now listed in a separate
+   file appliance/excludelist.in, and can be customized per-distro.
+
+=head2 Bugs fixed
+
+ - 663407 readlink and readlinklist returns /sysroot/ in some paths
+ - 661280 virt-rescue: panic when shutting down: "/sbin/reboot: No such file or directory"
+ - 657499 checksum: wrong check sum type causes umount to fail
+ - 655554 Whole disk paths are not made canonical by virt-inspector
+ - 654638 openssl updated to 1.0.0b libguestfs depends on exact file names
+ - 652796 ruby bindings not installed by 'make install', hence omitted from the binary distribution
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

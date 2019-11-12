@@ -1,0 +1,216 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.4
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.2.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+ - guestfish lets you choose a prepared disk image, eg:
+     guestfish -N fs:ext4
+
+ - Add write support to guestmount (FUSE) module.
+
+ - virt-resize can now resize the content of partitions and logical
+   volumes in the guest, and we have better support for shrinking guests.
+
+ - Bash tab-completion script for guestfish.
+
+ - Add ZFS support to virt-rescue.
+
+ - New tool 'virt-make-fs' for creating filesystems with content.
+
+ - Allow suffixes on any guestfish number parameter, eg. "1M".
+
+ - guestfish 'man' command opens the manual page.
+
+ - guestfish supports a "heredoc" syntax for uploading files:
+     upload -<<_end_ /foo
+     content
+     _end_
+
+ - Some guestfish commands now print their output in octal or hex
+   where appropriate (RHBZ#583242).
+
+ - Allow dash prefix on guestfish command line.  This ignores any
+   error from the second command:                   (RHBZ#578407)
+     guestfish -- cmd1 : -cmd2 : cmd3
+
+ - guestfish -h / help command now returns an error for non-existent
+   commands (RHBZ#597145).
+
+ - New 'supported' command in guestfish to list optional groups of
+   commands which are supported by the daemon / configuration.
+
+ - virt-inspector and guestfish -i now work for filenames which
+   contain spaces (RHBZ#507810).
+
+ - Change the protocol to use link-local addresses, to avoid
+   conflicting with any address that the host might be using
+   (RHBZ#588763).
+
+ - libguestfs now sets the correct time and timezone on filesystem
+   modifications.
+
+ - Sort the domains into alphabetical order in virt-df.
+
+ - Make mkfs-b command work for FAT and NTFS by mapping the blocksize
+   parameter to the cluster size (RHBZ#599464).
+
+ - Add version numbers to Perl modules (RHBZ#521674).
+
+ - Localization now works for all the libguestfs tools (RHBZ#559963).
+
+ - Tools now support filesystem-on-image VMs (RHBZ#590167).
+
+ - virt-list-partitions has a '-t' option to show the total size of disks.
+
+ - Include extra Augeas lenses in the supermin appliance (Matthew Booth).
+
+ - Add error and close callbacks.
+
+ - Add explicit close method in the Perl API.
+
+ - Multiple fixes for RHEL 5 compatibility.
+
+ - Multiple fixes for Debian/Ubuntu compatibility.
+
+ - Multiple revisions to improve the documentation.
+
+=head2 Security
+
+ - Fix a potential DoS in virt-inspector and virt-v2v if a specially
+   crafted disk image contained a char device in place of one of the
+   configuration files that we read under /etc (RHBZ#582484).
+
+=head2 New APIs
+
+ - aug-clear - clear Augeas path
+ - available-all-groups - return a list of all optional groups
+ - base64-in - upload base64-encoded data to file
+ - base64-out - download file and encode as base64
+ - checksum-device - compute checksums on the contents of a device
+ - checksums-out - compute checksums of multiple files in a directory
+ - debug-upload - upload a file to the appliance
+ - fallocate64 - preallocate a file in the guest filesystem
+ - fill-pattern - fill a file with a repeating pattern of bytes
+ - get-umask - get the current umask
+ - lvresize-free - expand an LV to fill free space
+ - ntfsresize - resize an NTFS filesystem
+ - ntfsresize-size - resize an NTFS filesystem (with size)
+ - part-del - delete a partition
+ - part-get-bootable - get the bootable flag of a partition
+ - part-get-mbr-id - get the MBR type byte of a partition
+ - part-set-mbr-id - set the MBR type byte of a partition
+ - pvresize-size - resize a physical volume (with size)
+ - pwrite - write to part of a file
+ - resize2fs-size - resize an ext2/3/4 filesystem (with size)
+ - txz-in - unpack compressed tarball to directory (RHBZ#580556)
+ - txz-out - pack directory into compressed tarball (RHBZ#580556)
+ - vfs-label - get the filesystem label
+ - vfs-uuid - get the filesystem UUID
+ - vgscan - rescan for LVM physical volumes, volume groups and logical volumes
+ - write - create a new file
+ - zero-device - write zeroes to an entire device
+
+=head2 Internals
+
+ - Extend the generator to support testing optional features.
+ - Stricter checks on input parameters to many calls (RHBZ#501893 RHBZ#501894)
+ - Extend the protocol to support sending arbitrary 8 bit data buffers.
+ - Ship 'BUGS' file with releases.  This is a summary of the bugs in
+   the Red Hat Bugzilla database.
+ - Ship 'RELEASE-NOTES' file with releases, containing release notes.
+ - Unify supermin appliance building into one place, in febootstrap 2.7.
+ - Fix the protocol code to handle the case where both ends send cancel
+   messages at the same time.
+
+=head2 Bugs fixed
+
+ - 612178 guestfish: using -m option in conjunction with --listen option causes appliance to die
+ - 610880 libguestfs should set broader read perms on tmpdir, so works in some situations when executed with umask 077
+ - 604691 OCaml bindings are not thread safe
+ - 603870 Updates to Spanish translation
+ - 602592 [RFE] expose guestfs_close in perl bindings
+ - 600977 virt-df -h --csv "Argument .. isn't numeric in printf"
+ - 599464 mkfs-b does not support vfat/ntfs
+ - 598807 add_cdrom does not work in RHEL 6
+ - 598309 part-list and several other cmd failed on libguestfs on RHEL5
+ - 597145 guestfish 'help' command should indicate error in exit status with an unknown command
+ - 597135 guestfish write-file cmd does not check "size" parameter
+ - 597118 A warning should be given in the help of mke2journal-L for the length of label
+ - 597112 get-e2uuid should use blkid instead of "tune2fs -l" to get filesystem UUID
+ - 596776 virt-inspector doesn't discover modprobe aliases on RHEL 3 guests
+ - 596763 Updates to Spanish translation
+ - 593292 Updates to Spanish translation
+ - 592883 can not edit files on  images mounted with guestmount cmd
+ - 592360 Updates to Spanish translation
+ - 591250 virt-tar prints "tar_in: tar subcommand failed on directory" if the archive is compressed or not in the right format
+ - 591155 virt-tar prints "tar_in: tar subcommand failed on directory" if a disk image is not writable
+ - 591142 virt-inspector should give an error for unrecognized disk images
+ - 590167 virt-inspector and other virt tools should be able to handle filesystem-on-image VMs
+ - 589039 guestfish read-file cmd will cause daemon hang when read large files
+ - 588851 guestfs_launch() returns -1, but guestfs_last_error() == NULL
+ - 588763 libguestfs should use non-public or link-local addresses for appliance network
+ - 588733 Updates to Spanish translation
+ - 588651 guestfish 'strings-e' cmd does not give proper error message or hint
+ - 587484 lvresize can't reduce size of a volumn
+ - 585961 Updates to Spanish translation
+ - 585223 ntfsresize should support shrinking filesystems
+ - 585222 pvresize should support shrinking PVs
+ - 585221 resize2fs should support shrinking filesystems
+ - 584038 Updates to Spanish translation
+ - 583554 [FEAT] mknod-mode command is needed to set mode explicitly
+ - 583242 [RFE] guestfish should print outputs in a suitable base (eg. octal for modes)
+ - 582993 guestfish eats words when tab completing case (in)sensitive paths
+ - 582953 Misleading help information about lvcreate command
+ - 582948 mknod command doesn't make block, character or FIFO devices
+ - 582929 mknod doesn't check for invalid mode
+ - 582901 guestfish chmod/umask commands do not check invalid mode value
+ - 582899 guestfish:sparse is missed from command autocomplete list
+ - 582891 [Feature Request] behavior and return value of guestfish umask cmd should be changed
+ - 582548 [mknod] umask shouldn't take effect when mode is set explicitly
+ - 582484 some guestfish sub commands can not handle special files properly
+ - 582252 Updates to Spanish translation
+ - 581501 Updates to Spanish translation
+ - 580650 virt-inspector warns "No grub default specified at /usr/lib/perl5/Sys/Guestfs/Lib.pm at [...]"
+ - 580556 request for libguestfs to support .txz tarballs
+ - 580246 tar-in command hangs if uploading more than available space
+ - 580016 aug-ls in guestfish does not take augeas variable as argument
+ - 579664 guestfish doesn't report error when there is not enough space for image allocation
+ - 579608 multiple commands in guestfish can not work for symbol links
+ - 579155 libguestfs hangs if qemu doesn't start (in null vmchannel mode)
+ - 578407 the prefix '-' in sub-command isn't handled by guestfish in remote control mode
+ - 576879 libguestfs protocol loses synchronization if you 'upload' before mounting disks
+ - 559963 libguestfs Perl programs do set locale, but still localization doesn't work
+ - 521674 Perl modules are unversioned, but should carry version numbers
+ - 516096 Race condition in test_swapon_label_0: /sbin/blockdev: BLKRRPART: Device or resource busy
+ - 507810 guestfish -i / virt-inspector cannot handle spaces in filenames
+ - 502533 Updated Polish translation of libguestfs
+ - 501894 Some String parameters should be OptString
+ - 501893 String parameters should be checked for != NULL
+ - 501889 write-file does not support strings containing ASCII NUL
+ - 484986 grub-install fails on virtio disk
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

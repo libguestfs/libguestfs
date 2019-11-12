@@ -25,7 +25,27 @@ EXTRA_DIST = \
 	guestfs-internals.pod \
 	guestfs-performance.pod \
 	guestfs-recipes.pod \
-	guestfs-release-notes.pod \
+	guestfs-release-notes-1.42.pod \
+	guestfs-release-notes-1.40.pod \
+	guestfs-release-notes-1.38.pod \
+	guestfs-release-notes-1.36.pod \
+	guestfs-release-notes-1.34.pod \
+	guestfs-release-notes-1.32.pod \
+	guestfs-release-notes-1.30.pod \
+	guestfs-release-notes-1.28.pod \
+	guestfs-release-notes-1.26.pod \
+	guestfs-release-notes-1.24.pod \
+	guestfs-release-notes-1.22.pod \
+	guestfs-release-notes-1.20.pod \
+	guestfs-release-notes-1.18.pod \
+	guestfs-release-notes-1.16.pod \
+	guestfs-release-notes-1.14.pod \
+	guestfs-release-notes-1.12.pod \
+	guestfs-release-notes-1.10.pod \
+	guestfs-release-notes-1.8.pod \
+	guestfs-release-notes-1.6.pod \
+	guestfs-release-notes-1.4.pod \
+	guestfs-release-notes-historical.pod \
 	guestfs-security.pod \
 	guestfs-testing.pod \
 	make-internal-documentation.pl \
@@ -41,7 +61,27 @@ man_MANS = \
 	guestfs-internals.1 \
 	guestfs-performance.1 \
 	guestfs-recipes.1 \
-	guestfs-release-notes.1 \
+	guestfs-release-notes-1.42.1 \
+	guestfs-release-notes-1.40.1 \
+	guestfs-release-notes-1.38.1 \
+	guestfs-release-notes-1.36.1 \
+	guestfs-release-notes-1.34.1 \
+	guestfs-release-notes-1.32.1 \
+	guestfs-release-notes-1.30.1 \
+	guestfs-release-notes-1.28.1 \
+	guestfs-release-notes-1.26.1 \
+	guestfs-release-notes-1.24.1 \
+	guestfs-release-notes-1.22.1 \
+	guestfs-release-notes-1.20.1 \
+	guestfs-release-notes-1.18.1 \
+	guestfs-release-notes-1.16.1 \
+	guestfs-release-notes-1.14.1 \
+	guestfs-release-notes-1.12.1 \
+	guestfs-release-notes-1.10.1 \
+	guestfs-release-notes-1.8.1 \
+	guestfs-release-notes-1.6.1 \
+	guestfs-release-notes-1.4.1 \
+	guestfs-release-notes-historical.1 \
 	guestfs-security.1 \
 	guestfs-testing.1
 noinst_DATA = \
@@ -51,7 +91,27 @@ noinst_DATA = \
 	$(top_builddir)/website/guestfs-internals.1.html \
 	$(top_builddir)/website/guestfs-performance.1.html \
 	$(top_builddir)/website/guestfs-recipes.1.html \
-	$(top_builddir)/website/guestfs-release-notes.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.42.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.40.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.38.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.36.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.34.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.32.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.30.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.28.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.26.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.24.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.22.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.20.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.18.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.16.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.14.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.12.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.10.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.8.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.6.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.4.1.html \
+	$(top_builddir)/website/guestfs-release-notes-historical.1.html \
 	$(top_builddir)/website/guestfs-security.1.html \
 	$(top_builddir)/website/guestfs-testing.1.html
 
@@ -132,13 +192,233 @@ stamp-guestfs-recipes.pod: guestfs-recipes.pod
 	  $<
 	touch $@
 
-guestfs-release-notes.1 guestfs-release-notes.txt $(top_builddir)/website/guestfs-release-notes.1.html: stamp-guestfs-release-notes.pod
+guestfs-release-notes-1.42.1 guestfs-release-notes-1.42.txt $(top_builddir)/website/guestfs-release-notes-1.42.1.html: stamp-guestfs-release-notes-1.42.pod
 
-stamp-guestfs-release-notes.pod: guestfs-release-notes.pod
+stamp-guestfs-release-notes-1.42.pod: guestfs-release-notes-1.42.pod
 	$(PODWRAPPER) \
 	  --section 1 \
-	  --man guestfs-release-notes.1 \
-	  --html $(top_builddir)/website/guestfs-release-notes.1.html \
+	  --man guestfs-release-notes-1.42.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.42.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.40.1 guestfs-release-notes-1.40.txt $(top_builddir)/website/guestfs-release-notes-1.40.1.html: stamp-guestfs-release-notes-1.40.pod
+
+stamp-guestfs-release-notes-1.40.pod: guestfs-release-notes-1.40.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.40.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.40.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.38.1 guestfs-release-notes-1.38.txt $(top_builddir)/website/guestfs-release-notes-1.38.1.html: stamp-guestfs-release-notes-1.38.pod
+
+stamp-guestfs-release-notes-1.38.pod: guestfs-release-notes-1.38.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.38.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.38.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.36.1 guestfs-release-notes-1.36.txt $(top_builddir)/website/guestfs-release-notes-1.36.1.html: stamp-guestfs-release-notes-1.36.pod
+
+stamp-guestfs-release-notes-1.36.pod: guestfs-release-notes-1.36.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.36.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.36.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.34.1 guestfs-release-notes-1.34.txt $(top_builddir)/website/guestfs-release-notes-1.34.1.html: stamp-guestfs-release-notes-1.34.pod
+
+stamp-guestfs-release-notes-1.34.pod: guestfs-release-notes-1.34.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.34.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.34.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.32.1 guestfs-release-notes-1.32.txt $(top_builddir)/website/guestfs-release-notes-1.32.1.html: stamp-guestfs-release-notes-1.32.pod
+
+stamp-guestfs-release-notes-1.32.pod: guestfs-release-notes-1.32.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.32.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.32.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.30.1 guestfs-release-notes-1.30.txt $(top_builddir)/website/guestfs-release-notes-1.30.1.html: stamp-guestfs-release-notes-1.30.pod
+
+stamp-guestfs-release-notes-1.30.pod: guestfs-release-notes-1.30.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.30.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.30.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.28.1 guestfs-release-notes-1.28.txt $(top_builddir)/website/guestfs-release-notes-1.28.1.html: stamp-guestfs-release-notes-1.28.pod
+
+stamp-guestfs-release-notes-1.28.pod: guestfs-release-notes-1.28.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.28.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.28.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.26.1 guestfs-release-notes-1.26.txt $(top_builddir)/website/guestfs-release-notes-1.26.1.html: stamp-guestfs-release-notes-1.26.pod
+
+stamp-guestfs-release-notes-1.26.pod: guestfs-release-notes-1.26.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.26.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.26.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.24.1 guestfs-release-notes-1.24.txt $(top_builddir)/website/guestfs-release-notes-1.24.1.html: stamp-guestfs-release-notes-1.24.pod
+
+stamp-guestfs-release-notes-1.24.pod: guestfs-release-notes-1.24.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.24.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.24.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.22.1 guestfs-release-notes-1.22.txt $(top_builddir)/website/guestfs-release-notes-1.22.1.html: stamp-guestfs-release-notes-1.22.pod
+
+stamp-guestfs-release-notes-1.22.pod: guestfs-release-notes-1.22.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.22.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.22.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.20.1 guestfs-release-notes-1.20.txt $(top_builddir)/website/guestfs-release-notes-1.20.1.html: stamp-guestfs-release-notes-1.20.pod
+
+stamp-guestfs-release-notes-1.20.pod: guestfs-release-notes-1.20.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.20.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.20.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.18.1 guestfs-release-notes-1.18.txt $(top_builddir)/website/guestfs-release-notes-1.18.1.html: stamp-guestfs-release-notes-1.18.pod
+
+stamp-guestfs-release-notes-1.18.pod: guestfs-release-notes-1.18.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.18.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.18.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.16.1 guestfs-release-notes-1.16.txt $(top_builddir)/website/guestfs-release-notes-1.16.1.html: stamp-guestfs-release-notes-1.16.pod
+
+stamp-guestfs-release-notes-1.16.pod: guestfs-release-notes-1.16.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.16.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.16.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.14.1 guestfs-release-notes-1.14.txt $(top_builddir)/website/guestfs-release-notes-1.14.1.html: stamp-guestfs-release-notes-1.14.pod
+
+stamp-guestfs-release-notes-1.14.pod: guestfs-release-notes-1.14.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.14.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.14.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.12.1 guestfs-release-notes-1.12.txt $(top_builddir)/website/guestfs-release-notes-1.12.1.html: stamp-guestfs-release-notes-1.12.pod
+
+stamp-guestfs-release-notes-1.12.pod: guestfs-release-notes-1.12.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.12.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.12.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.10.1 guestfs-release-notes-1.10.txt $(top_builddir)/website/guestfs-release-notes-1.10.1.html: stamp-guestfs-release-notes-1.10.pod
+
+stamp-guestfs-release-notes-1.10.pod: guestfs-release-notes-1.10.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.10.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.10.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.8.1 guestfs-release-notes-1.8.txt $(top_builddir)/website/guestfs-release-notes-1.8.1.html: stamp-guestfs-release-notes-1.8.pod
+
+stamp-guestfs-release-notes-1.8.pod: guestfs-release-notes-1.8.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.8.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.8.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.6.1 guestfs-release-notes-1.6.txt $(top_builddir)/website/guestfs-release-notes-1.6.1.html: stamp-guestfs-release-notes-1.6.pod
+
+stamp-guestfs-release-notes-1.6.pod: guestfs-release-notes-1.6.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.6.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.6.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.4.1 guestfs-release-notes-1.4.txt $(top_builddir)/website/guestfs-release-notes-1.4.1.html: stamp-guestfs-release-notes-1.4.pod
+
+stamp-guestfs-release-notes-1.4.pod: guestfs-release-notes-1.4.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.4.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.4.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-release-notes-historical.1 guestfs-release-notes-historical.txt $(top_builddir)/website/guestfs-release-notes-historical.1.html: stamp-guestfs-release-notes-historical.pod
+
+stamp-guestfs-release-notes-historical.pod: guestfs-release-notes-historical.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-historical.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-historical.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

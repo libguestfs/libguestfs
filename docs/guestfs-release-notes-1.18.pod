@@ -1,0 +1,258 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.18
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.16.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+=head3 virt tools
+
+   - virt-sysprep has been rewritten and expanded (thanks Wanlong Gao)
+     http://libguestfs.org/virt-sysprep.1.html
+
+   - virt-sparsify --zero is a new option that zeroes the named
+     partition or filesystem
+
+   - virt-sparsify can now safely sparsify Linux swap partitions
+
+   - virt-sparsify fixed so it cleans up after ^C
+     http://libguestfs.org/virt-sparsify.1.html
+
+   - a new tool 'libguestfs-make-fixed-appliance' is provided to build
+     fixed appliances that can be copied to other machines that don't
+     have febootstrap support
+     http://libguestfs.org/libguestfs-make-fixed-appliance.1.html
+
+   - virt-filesystems now displays the parents (containers) of MD
+     devices and volume groups
+
+   - virt-alignment-scan, run with no args, displays alignment information
+     for all libvirt domains
+
+   - virt-df and virt-alignment-scan will display information from all
+     guests even when a disk is inaccessible
+
+   - virt-rescue new --scratch option to make scratch disks
+     https://rwmj.wordpress.com/2012/04/26/virt-rescue-scratch/#content
+
+   - virt-make-fs can now be used to create btrfs
+
+   - virt-edit preserves permissions, UID, GID and SELinux context
+     when editing files
+
+   - guestfish passes the close event over stdout and remote correctly
+
+   - guestfish new '--pipe-error' option lets you detect errors in pipe
+     commands
+
+   - guestfish globs now expand device names
+
+   - comma and colon characters in filenames now handled correctly by
+     all virt tools
+
+=head3 inspection
+
+   - added support for Fedora 17+
+
+   - added support for FreeDOS
+
+   - added support for Buildroot and Cirros
+
+   - inspection is now compatible with Windows guests that have been
+     sysprepped (thanks Grant Williamson).
+
+=head3 API
+
+   - broad support for btrfs added, including adding multiple devices,
+     fsck, snapshots (thanks Wanlong Gao)
+
+   - the new 'mount-local' API brings FUSE support directly into the
+     core libguestfs API
+     https://rwmj.wordpress.com/2012/05/14/tip-using-mount-local-api-from-c/#content
+
+   - new man page: guestfs-performance(1), which contains performance
+     tuning tips
+     http://libguestfs.org/guestfs-performance.1.html
+
+   - new man page: guestfs-faq(1), Frequently Asked Questions
+     http://libguestfs.org/guestfs-faq.1.html
+
+   - ENOTSUP (from guestfs_last_errno) is now returned for APIs that
+     are not supported
+
+=head3 examples
+
+   - 'copy_over' example showing how to copy between two handles
+
+   - 'display_icon' program displays the icon associated with a guest
+
+   - 'mount_local.c' example shows how to use the mount-local API
+
+=head2 Security
+
+  (no security problems were found or fixed in this release)
+
+=head2 New APIs
+
+  btrfs-device-add: Add devices to a btrfs filesystem.
+  btrfs-device-delete: Remove devices from a btrfs filesystem.
+  btrfs-filesystem-sync: Sync a btrfs filesystem.
+  btrfs-filesystem-balance: Balance a btrfs filesystem.
+  btrfs-fsck: Check btrfs filesystem.
+  btrfs-set-seeding: Enable or disable seeding.
+  btrfs-subvolume-create: Create a btrfs snapshot.
+  btrfs-subvolume-delete: Delete a btrfs snapshot.
+  btrfs-subvolume-list: List btrfs snapshots and subvolumes.
+  btrfs-subvolume-set-default: Set default btrfs subvolume.
+  btrfs-subvolume-snapshot: Create a writable btrfs snapshot.
+  get-e2attrs: List ext2 file attributes of a file.
+  get-e2generation: Get ext2 file generation of a file.
+  isoinfo, isoinfo-device: Get information from the header of ISO files.
+  llz: List files with SELinux information.
+  lvcreate-free: Create an LVM logical volume in % remaining free space.
+  md-stat: Return underlying devices from an MD device.
+  mkfs-brtfs: Make btrfs filesystem, with all tunables.
+  mount-local, mount-local-run, umount-local: FUSE support in the API.
+  ntfsclone-in, ntfsclone-out: Save, restore NTFS from backup.
+  ntfsfix: Fix common errors and force Windows to check NTFS.
+  set-e2attrs: Set or clear ext2 file attributes of a file.
+  set-e2generation: Set ext2 file generation of a file.
+  set-label: Unified interface for setting filesystem label.
+  vgmeta: Get volume group metadata.
+  wipefs: Wipe filesystem signatures from a device.
+  zero-free-space: Zero free space in a filesystem.
+
+=head2 Internals
+
+ - The debian/ subdirectory has been removed.  We recommend you use
+   the official Debian packages made by Hilko Bengen.
+   http://people.debian.org/~bengen/libguestfs/
+   http://packages.debian.org/search?keywords=libguestfs
+
+ - O_CLOEXEC / SOCK_CLOEXEC is now used for almost all file
+   descriptors that the library opens.
+
+ - posix_fadvise is called when sequentially reading or writing large
+   files.
+
+ - close all file descriptors and remove all signal handlers in the
+   recovery process
+
+ - multiple gcc warnings and Coverity bugs have been fixed;  many
+   strict-overflow bugs have also been fixed
+
+ - use ./configure --enable-valgrind-daemon to use valgrind on the
+   daemon;  many errors have been fixed
+
+ - use ./configure --with-qemu-options to pass extra options to qemu
+
+ - the daemon now has a growable strings buffer type (DECLARE_STRINGSBUF)
+
+ - the <guestfs.h> header file works with C++ and we have a regression
+   test for this
+
+ - multiple APIs which should only be called in the CONFIG state now
+   give an error if they are not
+
+ - .gitignore fixed to use absolute paths
+
+ - gobject bindings have been expanded, including mapping libguestfs
+   events to gobject signals (thanks Matt Booth)
+
+ - gobject documentation is generated properly (thanks Matt Booth)
+
+ - gobject header files now live in a subdirectory
+
+ - CompareWithString test in the generator now works
+
+ - FUInt32, FUInt64 struct field types now use the correct XDR type
+
+ - OCaml tests are now run on bytecode and native code.
+
+ - java -Xlint:all is used, and all warnings have been fixed
+
+ - bmptopng, wrestool (etc) missing or failure no longer prints
+   warning messages
+
+ - ruby: Use RbConfig instead of Config.
+
+ - PYTHONPATH is set by the ./run script.
+
+ - appliance building is now thread-safe.
+
+ - appliance now uses 'ip' instead of 'ifconfig' and 'netstat'
+   commands
+
+ - several fixes to make parallel builds work properly
+
+ - guestfish --listen now cleans up properly
+
+ - the BUSY state has been removed
+
+ - gettextize has been removed, replaced by a simple Makefile.am
+
+ - gettext support now covers virt-resize, virt-sparsify and virt-sysprep
+
+ - better support for the arm architecture
+
+=head2 Bugs fixed
+
+ - 822490 virt-ls error: "libguestfs: error: checksum: path: parameter cannot be NULL"
+ - 816839 data overflow error when debug progress -1
+ - 816098 virt-make-fs fails to make a btrfs filesystem because it doesn't allocate enough space
+ - 811872 inspection fails on ubuntu 10.04 guest with encrypted swap
+ - 811650 guestfs_last_error not set when qemu fails early during launch
+ - 811649 libguestfs cannot open disk images which are symlinks to files that contain ':' (colon) character
+ - 811117 [RFE][virt-sysprep] net-hwaddr not removed from "ifcfg-*" files on rhel
+ - 811112 [RFE][virt-sysprep] hostname can not be changed on rhel system
+ - 809361 inspection doesn't recognize Fedora 18 (grub2 + GPT)
+ - 807905 mkfs blocksize option breaks when creating btrfs
+ - 805070 virt-filesystems should show 'parents' of LV and RAID devices
+ - 804464 libguestfs cannot be built when LINGUAS is different then ja or uk
+ - 803664 libguestfs inspection fails on Windows XP: libguestfs: error: hivex: could not locate HKLM\SYSTEM\MountedDevices
+ - 803533 guestfish: write error
+ - 802389 event handlers for 'close' event doesn't work in remote mode
+ - 802109 libguestfs uses putc on stderr, results in many individual 1 byte writes of debug messages
+ - 801640 [RFE] the error reported by resize2fs-M need to be more clear
+ - 801298 Possible null dereference and resource leaks
+ - 801273 Document for set-pgroup need to be updated
+ - 798196 virt-resize confuses format and output_format variables; using --output-format sets the input format
+ - 797986 virt-resize on Windows XP in sysprep state causes "UNMOUNTABLE_BOOT_VOLUME" BSOD
+ - 796520 [RFE] Prevent user from running some appliance configure commands after appliance boot up
+ - 790721 multiprovider build error: RuntimeError: link: /tmp/.guestfs-0/kernel /tmp/.guestfs-0/kernel.10139: File exists
+ - 789960 guestfsd crash when try to mount non-exist disk
+ - 789504 virt-df (other tools?) should not give up if a guest disk is missing
+ - 788641 virt-edit doesn't preserve file permissions
+ - 786215 libguestfs inspection does not recognize FreeDOS operating system
+ - 786188 libguestfs inspection does not recognize FreeDOS install CD
+ - 785668 aug-defnode: daemon crash
+ - 784647 Libguestfs uses deprecated net-tools
+ - 769304 virt-resize on RHEL 6 kernel fails to re-read the partition table
+ - 755729 Error message for resize2fs-M needs tweaking
+ - 701814 virt-win-reg fails on a libvirt guest that has no defined disk format: "format parameter is empty or contains disallowed characters"
+ - 679737 libguestfs: improve error message when zerofree is not available in the appliance
+ - 635971 glob mkfs ext2 /dev/vd[b-t]1 does not expand
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2019 Red Hat Inc.

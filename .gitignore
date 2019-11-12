@@ -199,7 +199,7 @@ Makefile.in
 /docs/guestfs-internals.1
 /docs/guestfs-performance.1
 /docs/guestfs-recipes.1
-/docs/guestfs-release-notes.1
+/docs/guestfs-release-notes-*.1
 /docs/guestfs-security.1
 /docs/guestfs-testing.1
 /docs/internal-documentation.pod
@@ -209,7 +209,7 @@ Makefile.in
 /docs/stamp-guestfs-internals.pod
 /docs/stamp-guestfs-performance.pod
 /docs/stamp-guestfs-recipes.pod
-/docs/stamp-guestfs-release-notes.pod
+/docs/stamp-guestfs-release-notes-*.pod
 /docs/stamp-guestfs-security.pod
 /docs/stamp-guestfs-testing.pod
 /edit/stamp-virt-*.pod
