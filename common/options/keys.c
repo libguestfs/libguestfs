@@ -121,15 +121,32 @@ read_first_line_from_file (const char *filename)
   return ret;
 }
 
-char *
-get_key (struct key_store *ks, const char *device)
+/* Return the key(s) matching this particular device from the
+ * keystore.  There may be multiple.  If none are read from the
+ * keystore, ask the user.
+ */
+char **
+get_keys (struct key_store *ks, const char *device)
 {
-  size_t i;
+  size_t i, j, len;
+  char **r;
+  char *s;
+
+  /* We know the returned list must have at least one element and not
+   * more than ks->nr_keys.
+   */
+  len = 1;
+  if (ks)
+    len = MIN (1, ks->nr_keys);
+  r = calloc (len+1, sizeof (char *));
+  if (r == NULL)
+    error (EXIT_FAILURE, errno, "calloc");
+
+  j = 0;
 
   if (ks) {
     for (i = 0; i < ks->nr_keys; ++i) {
       struct key_store_key *key = &ks->keys[i];
-      char *s;
 
       if (STRNEQ (key->device, device))
         continue;
@@ -139,17 +156,25 @@ get_key (struct key_store *ks, const char *device)
         s = strdup (key->string.s);
         if (!s)
           error (EXIT_FAILURE, errno, "strdup");
-        return s;
+        r[j++] = s;
+        break;
       case key_file:
-        return read_first_line_from_file (key->file.name);
+        s = read_first_line_from_file (key->file.name);
+        r[j++] = s;
+        break;
       }
-
-      /* Key not found in the key store, ask the user for it. */
-      break;
     }
   }
 
-  return read_key (device);
+  if (j == 0) {
+    /* Key not found in the key store, ask the user for it. */
+    s = read_key (device);
+    if (!s)
+      error (EXIT_FAILURE, 0, _("could not read key from user"));
+    r[0] = s;
+  }
+
+  return r;
 }
 
 struct key_store *
