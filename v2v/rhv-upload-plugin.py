@@ -161,7 +161,7 @@ def open(readonly):
 
     endt = time.time() + timeout
     while True:
-        time.sleep(5)
+        time.sleep(1)
         disk = disk_service.get()
         if disk.status == types.DiskStatus.OK:
             break
@@ -196,7 +196,7 @@ def open(readonly):
         if time.time() > endt:
             raise RuntimeError("timed out waiting for transfer status "
                                "!= INITIALIZING")
-        time.sleep(5)
+        time.sleep(1)
 
     # Now we have permission to start the transfer.
     if params['rhv_direct']:
