@@ -194,8 +194,10 @@ def open(readonly):
         if transfer.phase != types.ImageTransferPhase.INITIALIZING:
             break
         if time.time() > endt:
-            raise RuntimeError("timed out waiting for transfer status "
-                               "!= INITIALIZING")
+            raise RuntimeError(
+                "timed out waiting for transfer %s status != INITIALIZING"
+                % transfer.id)
+
         time.sleep(1)
 
     # Now we have permission to start the transfer.
