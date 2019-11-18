@@ -121,6 +121,9 @@ guestfs_int_py_event_callback_wrapper (guestfs_h *g,
   PyObject *py_r;
   int threads_initialized = PyEval_ThreadsInitialized ();
 
+  if (_Py_IsFinalizing ())
+    return;
+
   if (threads_initialized)
     py_save = PyGILState_Ensure ();
 
