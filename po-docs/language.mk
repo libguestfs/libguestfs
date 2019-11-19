@@ -41,7 +41,27 @@ MANPAGES = \
 	guestfs-perl.3 \
 	guestfs-python.3 \
 	guestfs-recipes.1 \
-	guestfs-release-notes.1 \
+	guestfs-release-notes-1.42.1 \
+	guestfs-release-notes-1.40.1 \
+	guestfs-release-notes-1.38.1 \
+	guestfs-release-notes-1.36.1 \
+	guestfs-release-notes-1.34.1 \
+	guestfs-release-notes-1.32.1 \
+	guestfs-release-notes-1.30.1 \
+	guestfs-release-notes-1.28.1 \
+	guestfs-release-notes-1.26.1 \
+	guestfs-release-notes-1.24.1 \
+	guestfs-release-notes-1.22.1 \
+	guestfs-release-notes-1.20.1 \
+	guestfs-release-notes-1.18.1 \
+	guestfs-release-notes-1.16.1 \
+	guestfs-release-notes-1.14.1 \
+	guestfs-release-notes-1.12.1 \
+	guestfs-release-notes-1.10.1 \
+	guestfs-release-notes-1.8.1 \
+	guestfs-release-notes-1.6.1 \
+	guestfs-release-notes-1.4.1 \
+	guestfs-release-notes-historical.1 \
 	guestfs-ruby.3 \
 	guestfs-security.1 \
 	guestfs-testing.1 \
