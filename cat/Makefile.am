@@ -188,6 +188,7 @@ stamp-virt-cat.pod: virt-cat.pod
 	$(PODWRAPPER) \
 	  --man virt-cat.1 \
 	  --html $(top_builddir)/website/virt-cat.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<
@@ -210,6 +211,7 @@ stamp-virt-log.pod: virt-log.pod
 	$(PODWRAPPER) \
 	  --man virt-log.1 \
 	  --html $(top_builddir)/website/virt-log.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<
@@ -221,6 +223,7 @@ stamp-virt-ls.pod: virt-ls.pod
 	$(PODWRAPPER) \
 	  --man virt-ls.1 \
 	  --html $(top_builddir)/website/virt-ls.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<
@@ -232,6 +235,7 @@ stamp-virt-tail.pod: virt-tail.pod
 	$(PODWRAPPER) \
 	  --man virt-tail.1 \
 	  --html $(top_builddir)/website/virt-tail.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<

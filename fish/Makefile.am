@@ -201,7 +201,7 @@ stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod 
 	$(PODWRAPPER) \
 	  --man guestfish.1 \
 	  --html $(top_builddir)/website/guestfish.1.html \
-	  --path $(srcdir) \
+	  --path $(srcdir) --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning ro-option \
 	  $<

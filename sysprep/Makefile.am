@@ -192,6 +192,7 @@ stamp-virt-sysprep.pod: virt-sysprep.pod sysprep-extra-options.pod sysprep-opera
 	  --man virt-sysprep.1 \
           --insert sysprep-extra-options.pod:__EXTRA_OPTIONS__ \
           --insert sysprep-operations.pod:__OPERATIONS__ \
+	  --path $(top_srcdir)/common/options \
 	  --html $(top_builddir)/website/virt-sysprep.1.html \
 	  --license GPLv2+ \
 	  --warning general \

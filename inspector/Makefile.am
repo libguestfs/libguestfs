@@ -82,6 +82,7 @@ stamp-virt-inspector.pod: virt-inspector.pod
 	$(PODWRAPPER) \
 	  --man virt-inspector.1 \
 	  --html $(top_builddir)/website/virt-inspector.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<

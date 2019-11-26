@@ -130,6 +130,7 @@ stamp-virt-sparsify.pod: virt-sparsify.pod
 	$(PODWRAPPER) \
 	  --man virt-sparsify.1 \
 	  --html $(top_builddir)/website/virt-sparsify.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning general \
 	  $<

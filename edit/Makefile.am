@@ -62,6 +62,7 @@ stamp-virt-edit.pod: virt-edit.pod
 	$(PODWRAPPER) \
 	  --man virt-edit.1 \
 	  --html $(top_builddir)/website/virt-edit.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning general \
 	  $<

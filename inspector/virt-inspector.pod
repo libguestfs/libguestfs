@@ -114,22 +114,7 @@ parameter is ignored.
 If working with untrusted raw-format guest disk images, you should
 ensure the format is always specified.
 
-=item B<--key> SELECTOR
-
-Specify a key for LUKS, to automatically open a LUKS device when using
-the inspection.  C<SELECTOR> can be in one of the following formats:
-
-=over 4
-
-=item B<--key> C<DEVICE>:key:KEY_STRING
-
-Use the specified C<KEY_STRING> as passphrase.
-
-=item B<--key> C<DEVICE>:file:FILENAME
-
-Read the passphrase from F<FILENAME>.
-
-=back
+__INCLUDE:key-option.pod__
 
 =item B<--keys-from-stdin>
 

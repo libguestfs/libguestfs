@@ -101,6 +101,7 @@ stamp-guestmount.pod: guestmount.pod
 	$(PODWRAPPER) \
 	  --man guestmount.1 \
 	  --html $(top_builddir)/website/guestmount.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning ro-option \
 	  $<

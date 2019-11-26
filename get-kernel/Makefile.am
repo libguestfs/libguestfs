@@ -128,6 +128,7 @@ stamp-virt-get-kernel.pod: virt-get-kernel.pod
 	$(PODWRAPPER) \
 	  --man virt-get-kernel.1 \
 	  --html $(top_builddir)/website/virt-get-kernel.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<
