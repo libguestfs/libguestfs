@@ -62,7 +62,28 @@ output options are I<--man>, I<--html> and I<--text> (see below).
 In C<Makefile.am> files, use a variation of the boilerplate shown in
 the L</SYNOPSIS> section above.
 
-For information about the POD format, see L<perlpod(1)>.
+=head1 POD FORMAT
+
+For general information about the POD format, see L<perlpod(1)>.
+
+podwrapper.pl has a couple of extensions for including files:
+
+=over 4
+
+=item C<__INCLUDE:F<filename.pod>__>
+
+Include another POD file at the current position (this does not work
+recursively).
+
+The filename is found by searching first the current directory,
+then each I<--path> directory (if used).
+
+=item C<__VERBATIM:F<filename.txt>__>
+
+As above but the file is included as verbatim text, meaning it is
+prefixed by one space before being passed to POD processing.
+
+=back
 
 =head1 OPTIONS
 
@@ -132,6 +153,17 @@ my $name;
 
 Set the name of the man page.  If not set, defaults to the basename
 of the input file.
+
+=cut
+
+my @paths;
+
+=item B<--path DIR>
+
+Set the path used for searching for included files (see L</POD FORMAT>
+above).  The current directory is always searched first so you don’t
+need to add that explicitly.  Multiple I<--path> parameters can be
+given, they are searched in order.
 
 =cut
 
@@ -221,6 +253,7 @@ GetOptions ("help|?" => \$help,
             "insert=s" => \@inserts,
             "man=s" => \$man,
             "name=s" => \$name,
+            "path=s" => \@paths,
             "section=s" => \$section,
             "strict-checks!" => \$strict_checks,
             "text=s" => \$text,
@@ -314,6 +347,10 @@ foreach (@inserts) {
         if $content eq $oldcontent;
 }
 
+# Perform INCLUDE directives.
+$content =~ s{__INCLUDE:([-a-z0-9_]+\.pod)__}
+             {read_whole_file ("$1", use_path => 1)}ge;
+
 # Turn external links to this man page into simple cross-section links.
 $content =~ s,\QL<$name($section)/\E,L</,g;
 
@@ -327,6 +364,10 @@ foreach (@verbatims) {
     die "$progname: $input: could not find pattern '$a[1]' in input file\n"
         if $content eq $oldcontent;
 }
+
+# Perform VERBATIM directives.
+$content =~ s{__VERBATIM:([-a-z0-9_]+\.txt)__}
+             {read_verbatim_file ("$1", use_path => 1)}ge;
 
 # There should be no =encoding line present in the content (we will add one).
 die "$progname: $input: =encoding must not be present in input\n"
@@ -642,11 +683,27 @@ if ($text) {
     #print "$progname: wrote $text\n";
 }
 
+sub find_file
+{
+    my $input = shift;
+    my $use_path = shift;
+    local $_;
+
+    my @search_path = (".");
+    push (@search_path, @paths) if $use_path;
+    foreach (@search_path) {
+        return "$_/$input" if -f "$_/$input";
+    }
+    die "$progname: $input: cannot find input file on path"
+}
+
 sub read_whole_file
 {
     my $input = shift;
+    my %options = @_;
     local $/ = undef;
 
+    $input = find_file ($input, $options{use_path});
     open FILE, $input or die "$progname: $input: $!";
     $_ = <FILE>;
     close FILE;
@@ -656,8 +713,10 @@ sub read_whole_file
 sub read_verbatim_file
 {
     my $input = shift;
+    my %options = @_;
     my $r = "";
 
+    $input = find_file ($input, $options{use_path});
     open FILE, $input or die "$progname: $input: $!";
     while (<FILE>) {
         $r .= " $_";
