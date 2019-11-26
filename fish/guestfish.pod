@@ -1133,7 +1133,7 @@ F<test1.img>):
 
  guestfish -N blankdisk.img=disk:200M
 
-__PREPOPTS__
+__INCLUDE:guestfish-prepopts.pod__
 
 =head1 ADDING REMOTE STORAGE
 
@@ -1403,11 +1403,11 @@ With I<-l> or I<--list>, this list all commands.
 
 This exits guestfish.  You can also use C<^D> key.
 
-__FISH_COMMANDS__
+__INCLUDE:guestfish-commands.pod__
 
 =head1 COMMANDS
 
-__ACTIONS__
+__INCLUDE:guestfish-actions.pod__
 
 =head1 EXIT STATUS
 

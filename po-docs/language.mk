@@ -131,9 +131,6 @@ guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod guestfis
 	  --no-strict-checks \
 	  --man $@ \
 	  --license GPLv2+ \
-	  --insert $(srcdir)/guestfish-actions.pod:__ACTIONS__ \
-	  --insert $(srcdir)/guestfish-commands.pod:__FISH_COMMANDS__ \
-	  --insert $(srcdir)/guestfish-prepopts.pod:__PREPOPTS__ \
 	  $<
 
 virt-builder.1: virt-builder.pod customize-synopsis.pod customize-options.pod
