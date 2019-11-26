@@ -153,49 +153,42 @@ get_key (struct key_store *ks, const char *device)
 }
 
 struct key_store *
-key_store_add_from_selector (struct key_store *ks, const char *selector_orig)
+key_store_add_from_selector (struct key_store *ks, const char *selector)
 {
-  CLEANUP_FREE char *selector = strdup (selector_orig);
-  const char *elem;
-  char *saveptr;
+  CLEANUP_FREE_STRING_LIST char **fields =
+    guestfs_int_split_string (':', selector);
   struct key_store_key key;
 
-  if (!selector)
-    error (EXIT_FAILURE, errno, "strdup");
+  if (!fields)
+    error (EXIT_FAILURE, errno, "guestfs_int_split_string");
+
+  if (guestfs_int_count_strings (fields) != 3) {
+   invalid_selector:
+    error (EXIT_FAILURE, 0, "invalid selector for --key: %s", selector);
+  }
 
   /* 1: device */
-  elem = strtok_r (selector, ":", &saveptr);
-  if (!elem) {
-   invalid_selector:
-    error (EXIT_FAILURE, 0, "invalid selector for --key: %s", selector_orig);
-  }
-  key.device = strdup (elem);
+  key.device = strdup (fields[0]);
   if (!key.device)
     error (EXIT_FAILURE, errno, "strdup");
 
   /* 2: key type */
-  elem = strtok_r (NULL, ":", &saveptr);
-  if (!elem)
-    goto invalid_selector;
-  else if (STREQ (elem, "key"))
+  if (STREQ (fields[1], "key"))
     key.type = key_string;
-  else if (STREQ (elem, "file"))
+  else if (STREQ (fields[1], "file"))
     key.type = key_file;
   else
     goto invalid_selector;
 
   /* 3: actual key */
-  elem = strtok_r (NULL, ":", &saveptr);
-  if (!elem)
-    goto invalid_selector;
   switch (key.type) {
   case key_string:
-    key.string.s = strdup (elem);
+    key.string.s = strdup (fields[2]);
     if (!key.string.s)
       error (EXIT_FAILURE, errno, "strdup");
     break;
   case key_file:
-    key.file.name = strdup (elem);
+    key.file.name = strdup (fields[2]);
     if (!key.file.name)
       error (EXIT_FAILURE, errno, "strdup");
     break;
