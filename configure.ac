@@ -235,14 +235,12 @@ AC_CONFIG_FILES([Makefile
                  common/mlaugeas/Makefile
                  common/mlcustomize/Makefile
                  common/mlgettext/Makefile
-                 common/mllibvirt/Makefile
                  common/mlpcre/Makefile
                  common/mlprogress/Makefile
                  common/mlstdutils/Makefile
                  common/mlstdutils/guestfs_config.ml
                  common/mltools/Makefile
                  common/mlutils/Makefile
-                 common/mlv2v/Makefile
                  common/mlvisit/Makefile
                  common/mlxml/Makefile
                  common/options/Makefile
