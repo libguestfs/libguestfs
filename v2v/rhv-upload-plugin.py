@@ -185,20 +185,43 @@ def open(readonly):
     # Get a reference to the created transfer service.
     transfer_service = transfers_service.image_transfer_service(transfer.id)
 
-    # After adding a new transfer for the disk, the transfer's status
-    # will be INITIALIZING.  Wait until the init phase is over. The
-    # actual transfer can start when its status is "Transferring".
+    # Wait until transfer's phase change from INITIALIZING to TRANSFERRING. On
+    # errors transfer's phase can change to PAUSED_SYSTEM or FINISHED_FAILURE.
+    # If the transfer was paused, we need to cancel it to remove the disk,
+    # otherwise the system will remove the disk and transfer shortly after.
+
     endt = time.time() + timeout
     while True:
-        transfer = transfer_service.get()
-        if transfer.phase != types.ImageTransferPhase.INITIALIZING:
-            break
-        if time.time() > endt:
-            raise RuntimeError(
-                "timed out waiting for transfer %s status != INITIALIZING"
-                % transfer.id)
-
         time.sleep(1)
+        try:
+            transfer = transfer_service.get()
+        except sdk.NotFoundError:
+            # The system has removed the disk and the transfer.
+            raise RuntimeError("transfer %s was removed" % transfer.id)
+
+        if transfer.phase == types.ImageTransferPhase.FINISHED_FAILURE:
+            # The system will remove the disk and the transfer soon.
+            raise RuntimeError(
+                "transfer %s has failed" % transfer.id)
+
+        if transfer.phase == types.ImageTransferPhase.PAUSED_SYSTEM:
+            transfer_service.cancel()
+            raise RuntimeError(
+                "transfer %s was paused by system" % transfer.id)
+
+        if transfer.phase == types.ImageTransferPhase.TRANSFERRING:
+            break
+
+        if transfer.phase != types.ImageTransferPhase.INITIALIZING:
+            transfer_service.cancel()
+            raise RuntimeError(
+                "unexpected transfer %s phase %s"
+                % (transfer.id, transfer.phase))
+
+        if time.time() > endt:
+            transfer_service.cancel()
+            raise RuntimeError(
+                "timed out waiting for transfer %s" % transfer.id)
 
     # Now we have permission to start the transfer.
     if params['rhv_direct']:
