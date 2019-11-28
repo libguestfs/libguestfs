@@ -21,8 +21,3 @@ dnl Replace libtool with a wrapper that clobbers dependency_libs in *.la files
 dnl http://lists.fedoraproject.org/pipermail/devel/2010-November/146343.html
 LIBTOOL='bash $(top_srcdir)/libtool-kill-dependency_libs.sh $(top_builddir)/libtool'
 AC_SUBST([LIBTOOL])
-
-dnl Only build boot-analysis program on x86-64 and aarch64.  It
-dnl requires custom work to port to each architecture.
-AM_CONDITIONAL([HAVE_BOOT_ANALYSIS],
-               [test "$host_cpu" = "x86_64" || test "$host_cpu" = "aarch64"])

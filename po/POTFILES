@@ -451,11 +451,3 @@ ruby/ext/guestfs/module.c
 sparsify/dummy.c
 sysprep/dummy.c
 test-tool/test-tool.c
-utils/boot-analysis/boot-analysis-timeline.c
-utils/boot-analysis/boot-analysis-utils.c
-utils/boot-analysis/boot-analysis.c
-utils/boot-benchmark/boot-benchmark-range.pl
-utils/boot-benchmark/boot-benchmark.c
-utils/max-disks/max-disks.pl
-utils/qemu-boot/qemu-boot.c
-utils/qemu-speed-test/qemu-speed-test.c

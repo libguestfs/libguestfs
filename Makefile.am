@@ -185,16 +185,6 @@ if HAVE_FUSE
 SUBDIRS += fuse
 endif
 
-# Miscellaneous utilities.
-if HAVE_BOOT_ANALYSIS
-SUBDIRS += utils/boot-analysis
-endif
-SUBDIRS += \
-	utils/boot-benchmark \
-	utils/max-disks \
-	utils/qemu-boot \
-	utils/qemu-speed-test
-
 # After all source files were used we can generate the translation strings
 SUBDIRS += po
 
@@ -251,7 +241,6 @@ EXTRA_DIST = \
 	tests/test-functions.sh \
 	tmp/.gitignore \
 	update-bugs.sh \
-	utils/README \
 	valgrind-suppressions \
 	website/bugs.png \
 	website/communicate.png \

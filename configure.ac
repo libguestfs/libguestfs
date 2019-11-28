@@ -356,11 +356,6 @@ AC_CONFIG_FILES([Makefile
                  tests/xml/Makefile
                  tests/yara/Makefile
                  tools/Makefile
-                 utils/boot-analysis/Makefile
-                 utils/boot-benchmark/Makefile
-                 utils/max-disks/Makefile
-                 utils/qemu-boot/Makefile
-                 utils/qemu-speed-test/Makefile
                  website/index.html])
 
 AC_OUTPUT
