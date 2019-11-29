@@ -126,7 +126,7 @@ read_first_line_from_file (const char *filename)
  * keystore, ask the user.
  */
 char **
-get_keys (struct key_store *ks, const char *device)
+get_keys (struct key_store *ks, const char *device, const char *uuid)
 {
   size_t i, j, len;
   char **r;
@@ -148,7 +148,7 @@ get_keys (struct key_store *ks, const char *device)
     for (i = 0; i < ks->nr_keys; ++i) {
       struct key_store_key *key = &ks->keys[i];
 
-      if (STRNEQ (key->id, device))
+      if (STRNEQ (key->id, device) && (uuid && STRNEQ (key->id, uuid)))
         continue;
 
       switch (key->type) {

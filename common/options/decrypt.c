@@ -86,7 +86,13 @@ inspect_do_decrypt (guestfs_h *g, struct key_store *ks)
       char mapname[32];
       make_mapname (partitions[i], mapname, sizeof mapname);
 
-      CLEANUP_FREE_STRING_LIST char **keys = get_keys (ks, partitions[i]);
+#ifdef GUESTFS_HAVE_LUKS_UUID
+      CLEANUP_FREE char *uuid = guestfs_luks_uuid (g, partitions[i]);
+#else
+      const char *uuid = NULL;
+#endif
+
+      CLEANUP_FREE_STRING_LIST char **keys = get_keys (ks, partitions[i], uuid);
       assert (guestfs_int_count_strings (keys) > 0);
 
       /* Try each key in turn. */
