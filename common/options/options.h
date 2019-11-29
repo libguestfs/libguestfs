@@ -104,10 +104,12 @@ struct mp {
 
 /* A key in the key store. */
 struct key_store_key {
-  /* The device this key refers to.  There may be multiple matching
-   * devices in the list.
+  /* An ID for the device this key refers to.  It must be the libguestfs
+   * device name.
+   *
+   * There may be multiple matching devices in the list.
    */
-  char *device;
+  char *id;
 
   enum {
     key_string,             /* key specified as string */
