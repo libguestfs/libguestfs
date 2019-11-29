@@ -92,8 +92,8 @@ security problem with malicious guests (CVE-2010-3851).
 =item B<--key> SELECTOR
 
 Specify a key for LUKS, to automatically open a LUKS device when using
-the inspection.  C<ID> must be the libguestfs device name of the LUKS
-device.
+the inspection.  C<ID> can be either the libguestfs device name, or
+the UUID of the LUKS device.
 
 =over 4
 
