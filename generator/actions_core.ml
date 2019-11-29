@@ -9728,4 +9728,12 @@ it is useful when you have added a new device or deleted an
 existing device (such as when the C<guestfs_luks_open> API
 is used)." };
 
+  { defaults with
+    name = "luks_uuid"; added = (1, 41, 9);
+    style = RString (RPlainString, "uuid"), [String (Device, "device")], [];
+    optional = Some "luks";
+    shortdesc = "get the UUID of a LUKS device";
+    longdesc = "\
+This returns the UUID of the LUKS device C<device>." };
+
 ]

@@ -292,3 +292,28 @@ do_luks_kill_slot (const char *device, const char *key, int keyslot)
 
   return 0;
 }
+
+char *
+do_luks_uuid (const char *device)
+{
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+
+  ADD_ARG (argv, i, "cryptsetup");
+  ADD_ARG (argv, i, "luksUUID");
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  char *out = NULL;
+  CLEANUP_FREE char *err = NULL;
+  int r = commandv (&out, &err, (const char * const *) argv);
+
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return NULL;
+  }
+
+  trim (out);
+
+  return out;
+}
