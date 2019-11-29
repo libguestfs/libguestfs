@@ -20,7 +20,8 @@ include $(top_srcdir)/subdir-rules.mk
 TESTS = \
 	test-luks.sh \
 	test-luks-list.sh \
-	test-key-option.sh
+	test-key-option.sh \
+	test-key-option-inspect.sh
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
