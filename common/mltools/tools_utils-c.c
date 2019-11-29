@@ -57,8 +57,8 @@ guestfs_int_mllib_inspect_decrypt (value gv, value gpv, value keysv)
     struct key_store_key key;
 
     elemv = Field (keysv, 0);
-    key.device = strdup (String_val (Field (elemv, 0)));
-    if (!key.device)
+    key.id = strdup (String_val (Field (elemv, 0)));
+    if (!key.id)
       caml_raise_out_of_memory ();
 
     v = Field (elemv, 1);

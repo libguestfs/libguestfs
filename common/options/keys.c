@@ -148,7 +148,7 @@ get_keys (struct key_store *ks, const char *device)
     for (i = 0; i < ks->nr_keys; ++i) {
       struct key_store_key *key = &ks->keys[i];
 
-      if (STRNEQ (key->device, device))
+      if (STRNEQ (key->id, device))
         continue;
 
       switch (key->type) {
@@ -193,8 +193,8 @@ key_store_add_from_selector (struct key_store *ks, const char *selector)
   }
 
   /* 1: device */
-  key.device = strdup (fields[0]);
-  if (!key.device)
+  key.id = strdup (fields[0]);
+  if (!key.id)
     error (EXIT_FAILURE, errno, "strdup");
 
   /* 2: key type */
@@ -265,6 +265,6 @@ free_key_store (struct key_store *ks)
       free (key->file.name);
       break;
     }
-    free (key->device);
+    free (key->id);
   }
 }

@@ -169,15 +169,16 @@ Display file sizes in human-readable format.
 =item B<--key> SELECTOR
 
 Specify a key for LUKS, to automatically open a LUKS device when using
-the inspection.  C<SELECTOR> can be in one of the following formats:
+the inspection.  C<ID> must be the libguestfs device name of the LUKS
+device.
 
 =over 4
 
-=item B<--key> C<DEVICE>:key:KEY_STRING
+=item B<--key> C<ID>:key:KEY_STRING
 
 Use the specified C<KEY_STRING> as passphrase.
 
-=item B<--key> C<DEVICE>:file:FILENAME
+=item B<--key> C<ID>:file:FILENAME
 
 Read the passphrase from F<FILENAME>.
 
