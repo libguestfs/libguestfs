@@ -77,7 +77,7 @@ static const int error_map_len = sizeof error_map / sizeof error_map[0];
 static void
 raise_error (augeas_t t, const char *msg)
 {
-  value *exn = caml_named_value ("Augeas.Error");
+  const value *exn = caml_named_value ("Augeas.Error");
   value args[4];
   const int code = aug_error (t);
   const char *aug_err_minor;
@@ -113,7 +113,7 @@ raise_error (augeas_t t, const char *msg)
 static void
 raise_init_error (const char *msg)
 {
-  value *exn = caml_named_value ("Augeas.Error");
+  const value *exn = caml_named_value ("Augeas.Error");
   value args[4];
 
   args[0] = caml_alloc (1, 0);
