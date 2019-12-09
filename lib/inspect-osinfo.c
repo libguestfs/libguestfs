@@ -40,7 +40,9 @@ guestfs_impl_inspect_get_osinfo (guestfs_h *g, const char *root)
 
   if (STREQ (type, "linux")) {
     if (STREQ (distro, "centos")) {
-      if (major >= 7)
+      if (major >= 8)
+        return safe_asprintf (g, "%s%d", distro, major);
+      else if (major == 7)
         return safe_asprintf (g, "%s%d.0", distro, major);
       else if (major == 6)
         return safe_asprintf (g, "%s%d.%d", distro, major, minor);
