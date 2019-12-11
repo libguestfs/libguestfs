@@ -20,4 +20,5 @@ set -e
 
 $TEST_FUNCTIONS
 
-$top_srcdir/podcheck.pl virt-edit.pod virt-edit
+$top_srcdir/podcheck.pl virt-edit.pod virt-edit \
+  --path $top_srcdir/common/options

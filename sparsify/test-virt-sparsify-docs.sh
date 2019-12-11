@@ -22,4 +22,5 @@ $TEST_FUNCTIONS
 skip_if_skipped
 
 $top_srcdir/podcheck.pl virt-sparsify.pod virt-sparsify \
+                        --path $top_srcdir/common/options \
                         --ignore=--inplace

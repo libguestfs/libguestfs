@@ -21,6 +21,7 @@ set -e
 $TEST_FUNCTIONS
 
 $top_srcdir/podcheck.pl virt-customize.pod virt-customize \
+  --path $top_srcdir/common/options \
   --insert $top_srcdir/common/mlcustomize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
   --insert $top_srcdir/common/mlcustomize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
   --ignore=--dryrun

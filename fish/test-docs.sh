@@ -22,7 +22,5 @@ $TEST_FUNCTIONS
 skip_if_skipped
 
 $top_srcdir/podcheck.pl guestfish.pod guestfish \
-    --insert $srcdir/guestfish-actions.pod:__ACTIONS__ \
-    --insert $srcdir/guestfish-commands.pod:__FISH_COMMANDS__ \
-    --insert $srcdir/guestfish-prepopts.pod:__PREPOPTS__ \
+    --path $srcdir --path $top_srcdir/common/options \
     --ignore=-D
