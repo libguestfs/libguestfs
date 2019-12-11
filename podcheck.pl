@@ -83,6 +83,15 @@ used where the POD includes patterns which podwrapper would substitute.
 
 =cut
 
+my @paths;
+
+=item B<--path DIR>
+
+This works like the L<podwrapper.pl(1)> I<--path> option and should be
+used where the POD includes patterns which podwrapper would substitute.
+
+=cut
+
 # Clean up the program name.
 my $progname = $0;
 $progname =~ s{.*/}{};
@@ -91,6 +100,7 @@ $progname =~ s{.*/}{};
 GetOptions ("help|?" => \$help,
             "ignore=s" => \$ignore,
             "insert=s" => \@inserts,
+            "path=s" => \@paths,
             "verbatim=s" => \@verbatims,
     ) or pod2usage (2);
 pod2usage (1) if $help;
@@ -117,6 +127,10 @@ foreach (@inserts) {
         if $content eq $oldcontent;
 }
 
+# Perform INCLUDE directives.
+$content =~ s{__INCLUDE:([-a-z0-9_]+\.pod)__}
+             {read_whole_file ("$1", use_path => 1)}ge;
+
 # Perform @verbatims.
 foreach (@verbatims) {
     my @a = split /:/, $_, 2;
@@ -127,6 +141,10 @@ foreach (@verbatims) {
     die "$progname: $input: could not find pattern '$a[1]' in input file\n"
         if $content eq $oldcontent;
 }
+
+# Perform VERBATIM directives.
+$content =~ s{__VERBATIM:([-a-z0-9_]+\.txt)__}
+             {read_verbatim_file ("$1", use_path => 1)}ge;
 
 # Run the tool with --long-options and --short-options.
 my @tool_options = ();
@@ -235,11 +253,27 @@ printf "$progname: $tool: checked $tool_options_checked tool options, $pod_optio
 
 exit 0;
 
+sub find_file
+{
+    my $input = shift;
+    my $use_path = shift;
+    local $_;
+
+    my @search_path = (".");
+    push (@search_path, @paths) if $use_path;
+    foreach (@search_path) {
+        return "$_/$input" if -f "$_/$input";
+    }
+    die "$progname: $input: cannot find input file on path"
+}
+
 sub read_whole_file
 {
     my $input = shift;
+    my %options = @_;
     local $/ = undef;
 
+    $input = find_file ($input, $options{use_path});
     open FILE, $input or die "$progname: $input: $!";
     $_ = <FILE>;
     close FILE;
@@ -249,8 +283,10 @@ sub read_whole_file
 sub read_verbatim_file
 {
     my $input = shift;
+    my %options = @_;
     my $r = "";
 
+    $input = find_file ($input, $options{use_path});
     open FILE, $input or die "$progname: $input: $!";
     while (<FILE>) {
         $r .= " $_";
