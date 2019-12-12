@@ -19,7 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
 	src/bin/bindtests.rs \
-	src/lib.rs
+	src/guestfs.rs
 
 EXTRA_DIST = \
 	$(generator_built) \
