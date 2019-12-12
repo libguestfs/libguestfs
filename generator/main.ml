@@ -347,10 +347,13 @@ Run it from the top source directory using the command
   output_to "gobject/src/session.c"
             GObject.generate_gobject_session_source;
 
-  output_to "common/mlv2v/uefi.ml"
-            UEFI.generate_uefi_ml;
-  output_to "common/mlv2v/uefi.mli"
-            UEFI.generate_uefi_mli;
+  (* mlv2v may not be shipped in this source. *)
+  if is_regular_file "common/mlv2v/Makefile.am" then (
+    output_to "common/mlv2v/uefi.ml"
+              UEFI.generate_uefi_ml;
+    output_to "common/mlv2v/uefi.mli"
+              UEFI.generate_uefi_mli;
+  );
 
   output_to "common/mlcustomize/customize_cmdline.mli"
             Customize.generate_customize_cmdline_mli;
