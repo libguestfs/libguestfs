@@ -59,9 +59,13 @@ generator_built = \
 	structs.ml \
 	structs.mli
 
+CONFIGURE_GENERATED_ML = \
+	daemon_config.ml
+
 EXTRA_DIST = \
 	$(generator_built) \
-	$(SOURCES_MLI) $(SOURCES_ML) \
+	$(SOURCES_MLI) \
+	$(filter-out $(CONFIGURE_GENERATED_ML),$(SOURCES_ML)) \
 	daemon_utils_tests.ml \
 	guestfsd.pod
 
@@ -297,7 +301,7 @@ SOURCES_MLI = \
 	utils.mli
 
 SOURCES_ML = \
-	daemon_config.ml \
+	$(CONFIGURE_GENERATED_ML) \
 	utils.ml \
 	structs.ml \
 	optgroups.ml \

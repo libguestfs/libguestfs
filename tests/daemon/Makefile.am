@@ -30,7 +30,6 @@ TESTS = \
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 EXTRA_DIST = \
-	captive-daemon.pm \
 	$(TESTS)
 
 check-valgrind:

@@ -38,8 +38,9 @@ EXTRA_DIST = \
 	setup.py.in \
 	run-bindtests \
 	run-python-tests \
+	t/__init__.py \
 	t/README \
-	t/*.py
+	t/test[0-9]*.py
 
 if HAVE_PYTHON
 
