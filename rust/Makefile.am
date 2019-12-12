@@ -32,7 +32,7 @@ EXTRA_DIST = \
 
 if HAVE_RUST
 
-all: src/lib.rs
+all: $(srcdir)/src/lib.rs
 	$(top_builddir)/run $(CARGO) build --release
 
 TESTS = run-bindtests run-tests
