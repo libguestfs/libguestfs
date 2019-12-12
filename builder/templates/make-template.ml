@@ -1155,6 +1155,7 @@ and os_variant_of_os ?(for_fedora = false) os arch =
     | RHEL (7, minor), _ when minor <= 4 ->
        sprintf "rhel7.%d" minor
     | RHEL (7, _), _ -> "rhel7.5" (* max version known in Fedora 29 *)
+    | RHEL (8, _), _ -> "rhel8.0" (* temporary until osinfo updated *)
     | RHEL (major, minor), _ ->
        sprintf "rhel%d.%d" major minor
 
