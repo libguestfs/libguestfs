@@ -151,9 +151,9 @@ stamp-guestfs-hacking.pod: guestfs-hacking.pod internal-documentation.pod
 
 source_files := $(shell cat $(srcdir)/C_SOURCE_FILES)
 
-internal-documentation.pod: $(source_files:%=$(top_srcdir)/%)
+internal-documentation.pod: $(source_files:%=$(top_srcdir)/%) $(srcdir)/make-internal-documentation.pl
 	rm -f $@ $@-t
-	./make-internal-documentation.pl \
+	$(srcdir)/make-internal-documentation.pl \
 	    --srcdir $(top_srcdir) \
 	    -o $@-t \
 	    $(source_files)
