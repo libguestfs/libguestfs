@@ -59,7 +59,7 @@ clean-local: Build
 	./Build clean
 
 Build: Build.PL
-	$(PERL) $(srcdir)/Build.PL --prefix "@prefix@"
+	$(PERL) Build.PL --prefix "@prefix@"
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
