@@ -87,5 +87,3 @@
 ../tools/virt-list-partitions
 ../tools/virt-tar
 ../tools/virt-win-reg
-../utils/boot-analysis/boot-analysis.pod
-../utils/boot-benchmark/boot-benchmark.pod
