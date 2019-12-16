@@ -223,10 +223,10 @@ AC_CONFIG_FILES([Makefile
                  builder/test-config/virt-builder/repos.d/test-index.conf
                  builder/test-simplestreams/virt-builder/repos.d/cirros.conf
                  builder/test-website/virt-builder/repos.d/libguestfs.conf
+                 bundled/ocaml-augeas/Makefile
                  cat/Makefile
                  common/errnostring/Makefile
                  common/edit/Makefile
-                 common/mlaugeas/Makefile
                  common/mlcustomize/Makefile
                  common/mlgettext/Makefile
                  common/mlpcre/Makefile

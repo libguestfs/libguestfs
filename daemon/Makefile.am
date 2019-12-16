@@ -214,7 +214,7 @@ guestfsd_LDFLAGS = \
 	-L$(shell $(OCAMLC) -where)/hivex \
 	-L../common/mlutils \
 	-L../common/mlstdutils \
-	-L../common/mlaugeas \
+	-L../bundled/ocaml-augeas \
 	-L../common/mlpcre
 guestfsd_LDADD = \
 	../common/errnostring/liberrnostring.la \
@@ -341,7 +341,7 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
 OCAMLPACKAGES = \
 	-package str,unix,hivex \
-	-I $(top_builddir)/common/mlaugeas \
+	-I $(top_builddir)/bundled/ocaml-augeas \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlutils \
 	-I $(top_builddir)/common/utils/.libs \

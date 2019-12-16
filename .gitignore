@@ -109,6 +109,7 @@ Makefile.in
 /builder/virt-index-validate
 /builder/virt-index-validate.1
 /builder/*.xz
+/bundled/ocaml-augeas/.depend
 /cat/stamp-virt-*.pod
 /cat/virt-cat
 /cat/virt-cat.1

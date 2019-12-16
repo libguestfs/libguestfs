@@ -45,7 +45,7 @@ SUBDIRS += lib docs examples
 
 # The daemon and the appliance.
 SUBDIRS += common/mlutils
-SUBDIRS += common/mlaugeas
+SUBDIRS += bundled/ocaml-augeas
 SUBDIRS += common/mlpcre
 if ENABLE_DAEMON
 SUBDIRS += daemon
@@ -316,7 +316,7 @@ ChangeLog: configure.ac
 docs/C_SOURCE_FILES: configure.ac
 	rm -f $@ $@-t
 	find $(DIST_SUBDIRS) -name '*.[ch]' | \
-	grep -v -E '^(builder/index-parse\.|builder/index-scan\.|common/mllibvirt/libvirt_c\.c|examples/|gnulib/|gobject/|java/com_redhat_et_libguestfs|perl/|php/extension/config\.h|ruby/ext/guestfs/extconf\.h|tests/|test-data/)' | \
+	grep -v -E '^(builder/index-parse\.|builder/index-scan\.|common/mllibvirt/libvirt_c\.c|examples/|gnulib/|gobject/|java/com_redhat_et_libguestfs|perl/|php/extension/config\.h|ruby/ext/guestfs/extconf\.h|tests/|test-data/|bundled/)' | \
 	grep -v -E '/(guestfs|rc)_protocol\.' | \
 	grep -v -E '.*/errnostring\.' | \
 	grep -v -E '.*-gperf\.' | \
@@ -328,7 +328,7 @@ po/POTFILES: configure.ac
 	rm -f $@ $@-t
 	cd $(srcdir); \
 	find $(DIST_SUBDIRS) -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
-	grep -v -E '^(examples|gnulib|perl/(blib|examples)|po-docs|tests|test-data)/' | \
+	grep -v -E '^(examples|gnulib|perl/(blib|examples)|po-docs|tests|test-data|bundled)/' | \
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
 	grep -v -E '^python/utils\.c$$' | \
 	grep -v -E '^perl/lib/Sys/Guestfs\.c$$' | \
