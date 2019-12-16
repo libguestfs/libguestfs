@@ -33,6 +33,9 @@ export LANG=C
 # parameters, so we eval those to define the variables.
 while [ $# -ge 1 ]; do eval "$1"; shift; done
 
+# Configure check results.
+source $abs_top_builddir/config.sh
+
 # Skip if $SKIP_<script_name> environment variable is set.
 # Every test should call this function first.
 skip_if_skipped ()

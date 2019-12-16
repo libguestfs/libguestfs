@@ -252,6 +252,7 @@ AC_CONFIG_FILES([Makefile
                  common/utils/Makefile
                  common/visit/Makefile
                  common/windows/Makefile
+                 config.sh
                  csharp/Makefile
                  customize/Makefile
                  daemon/daemon_config.ml

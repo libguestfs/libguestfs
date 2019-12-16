@@ -127,6 +127,7 @@ Makefile.in
 /config.h
 /config.h.in
 /config.log
+/config.sh
 /config.status
 /config.sub
 /configure
