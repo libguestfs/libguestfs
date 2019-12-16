@@ -14,13 +14,8 @@ cat/tail.c
 common/edit/file-edit.c
 common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
-common/mlaugeas/augeas-c.c
 common/mlcustomize/dummy.c
 common/mlgettext/dummy.c
-common/mllibvirt/generator.pl
-common/mllibvirt/libvirt_c_epilogue.c
-common/mllibvirt/libvirt_c_oneoffs.c
-common/mllibvirt/libvirt_c_prologue.c
 common/mlpcre/dummy.c
 common/mlpcre/pcre-c.c
 common/mlprogress/progress-c.c

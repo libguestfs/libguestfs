@@ -12,12 +12,8 @@ cat/ls.c
 cat/tail.c
 common/edit/file-edit.c
 common/edit/file-edit.h
-common/mlaugeas/augeas-c.c
 common/mlcustomize/dummy.c
 common/mlgettext/dummy.c
-common/mllibvirt/libvirt_c_epilogue.c
-common/mllibvirt/libvirt_c_oneoffs.c
-common/mllibvirt/libvirt_c_prologue.c
 common/mlpcre/dummy.c
 common/mlpcre/pcre-c.c
 common/mlprogress/progress-c.c

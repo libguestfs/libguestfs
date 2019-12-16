@@ -18,12 +18,10 @@ builder/sigchecker.ml
 builder/simplestreams_parser.ml
 builder/sources.ml
 builder/utils.ml
-common/mlaugeas/augeas.ml
 common/mlcustomize/SELinux_relabel.ml
 common/mlcustomize/customize_cmdline.ml
 common/mlcustomize/firstboot.ml
 common/mlgettext/common_gettext.ml
-common/mllibvirt/libvirt.ml
 common/mlpcre/PCRE.ml
 common/mlpcre/pcre_tests.ml
 common/mlprogress/progress.ml
