@@ -197,12 +197,6 @@ mkdir -p \
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([appliance/libguestfs-make-fixed-appliance],
                 [chmod +x,-w appliance/libguestfs-make-fixed-appliance])
-AC_CONFIG_FILES([inspector/test-xmllint.sh],
-                [chmod +x,-w inspector/test-xmllint.sh])
-AC_CONFIG_FILES([inspector/test-virt-inspector.sh],
-                [chmod +x,-w inspector/test-virt-inspector.sh])
-AC_CONFIG_FILES([inspector/test-virt-inspector-luks.sh],
-                [chmod +x,-w inspector/test-virt-inspector-luks.sh])
 AC_CONFIG_FILES([installcheck.sh],
                 [chmod +x,-w installcheck.sh])
 AC_CONFIG_FILES([ocaml-dep.sh],

@@ -18,3 +18,5 @@
 
 # This shell script contains the results of some configure checks,
 # mostly used in other shell scripts.
+
+export XMLLINT="@XMLLINT@"

@@ -22,5 +22,5 @@ $TEST_FUNCTIONS
 skip_if_skipped
 
 for f in $srcdir/example-*.xml; do
-    @XMLLINT@ --noout --relaxng $srcdir/virt-inspector.rng $f
+    $XMLLINT --noout --relaxng $srcdir/virt-inspector.rng $f
 done

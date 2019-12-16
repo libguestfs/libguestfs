@@ -35,7 +35,7 @@ if [ -s "$f" ]; then
     echo FEDORA |
     $VG virt-inspector --keys-from-stdin --format=raw -a "$f" > "actual-$b.xml"
     # Check the generated output validate the schema.
-    @XMLLINT@ --noout --relaxng "$srcdir/virt-inspector.rng" "actual-$b.xml"
+    $XMLLINT --noout --relaxng "$srcdir/virt-inspector.rng" "actual-$b.xml"
     # This 'diff' command will fail (because of -e option) if there
     # are any differences.
     diff -ur $diff_ignore "expected-$b.xml" "actual-$b.xml"
