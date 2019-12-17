@@ -580,6 +580,7 @@ maintainer-check-extra-dist:
 	( git ls-files ; \
 	  cd common; git ls-files | sed 's,^,common/,' ) | \
 	  grep -v '^common$$' | \
+	  grep -v '^common/mlv2v/' | \
 	  grep -v '^intltool-.*\.in' | \
 	  grep -v '^\.gitmodules' | \
 	  grep -v '^\.gnulib' | \
@@ -589,7 +590,7 @@ maintainer-check-extra-dist:
 	cat tmp/comm-out
 	[ ! -s tmp/comm-out ]
 	@echo Checking for generated files missing from the tarball ...
-	@for f in `cat generator/files-generated.txt`; do \
+	@for f in `cat generator/files-generated.txt | grep -v '^common/mlv2v/'`; do \
 	  if ! grep -sq "^$$f\$$" tmp/tarfiles; then \
 	    echo generated file missing from tarball: $$f; \
 	    exit 1; \
