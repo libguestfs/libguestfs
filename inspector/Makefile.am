@@ -35,7 +35,7 @@ EXTRA_DIST = \
 	test-virt-inspector.sh \
 	test-virt-inspector-luks.sh \
 	test-virt-inspector-docs.sh \
-	test-xmllint.sh.in \
+	test-xmllint.sh \
 	virt-inspector.pod
 
 docdir = @docdir@
