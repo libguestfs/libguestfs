@@ -21,9 +21,9 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl guestmount.pod guestmount \
+$top_srcdir/podcheck.pl "$srcdir/guestmount.pod" guestmount \
   --path $top_srcdir/common/options
 
 # guestunmount doesn't implement bash completion, so we cannot
 # test it at the moment. XXX
-#$top_srcdir/podcheck.pl guestunmount.pod guestunmount
+#$top_srcdir/podcheck.pl "$srcdir/guestunmount.pod" guestunmount

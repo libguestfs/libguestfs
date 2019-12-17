@@ -21,5 +21,5 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl virt-resize.pod virt-resize \
+$top_srcdir/podcheck.pl "$srcdir/virt-resize.pod" virt-resize \
     --ignore=--LVexpand,--lv-expand,--lvexpand,--dryrun

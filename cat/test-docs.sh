@@ -21,14 +21,14 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl virt-cat.pod virt-cat \
+$top_srcdir/podcheck.pl "$srcdir/virt-cat.pod" virt-cat \
                         --path $top_srcdir/common/options
-$top_srcdir/podcheck.pl virt-filesystems.pod virt-filesystems \
+$top_srcdir/podcheck.pl "$srcdir/virt-filesystems.pod" virt-filesystems \
                         --path $top_srcdir/common/options
-$top_srcdir/podcheck.pl virt-log.pod virt-log \
+$top_srcdir/podcheck.pl "$srcdir/virt-log.pod" virt-log \
                         --path $top_srcdir/common/options
-$top_srcdir/podcheck.pl virt-ls.pod virt-ls \
+$top_srcdir/podcheck.pl "$srcdir/virt-ls.pod" virt-ls \
                         --path $top_srcdir/common/options \
                         --ignore=--checksums,--extra-stat,--time,--uid
-$top_srcdir/podcheck.pl virt-tail.pod virt-tail \
+$top_srcdir/podcheck.pl "$srcdir/virt-tail.pod" virt-tail \
                         --path $top_srcdir/common/options

@@ -21,5 +21,5 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl libguestfs-test-tool.pod libguestfs-test-tool \
+$top_srcdir/podcheck.pl "$srcdir/libguestfs-test-tool.pod" libguestfs-test-tool \
   --ignore=-?

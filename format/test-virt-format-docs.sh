@@ -21,4 +21,4 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl virt-format.pod virt-format
+$top_srcdir/podcheck.pl "$srcdir/virt-format.pod" virt-format

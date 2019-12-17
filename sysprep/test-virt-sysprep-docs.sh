@@ -21,7 +21,7 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl virt-sysprep.pod virt-sysprep \
+$top_srcdir/podcheck.pl "$srcdir/virt-sysprep.pod" virt-sysprep \
     --path $top_srcdir/common/options \
     --insert sysprep-extra-options.pod:__EXTRA_OPTIONS__ \
     --insert sysprep-operations.pod:__OPERATIONS__ \

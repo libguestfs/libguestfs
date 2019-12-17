@@ -24,8 +24,8 @@ fn=test-filename-for-index-validate
 rm -f $fn
 touch $fn
 
-$VG virt-index-validate ../../website/download/builder/index
-$VG virt-index-validate ../../website/download/builder/index.asc
+$VG virt-index-validate "$top_srcdir/website/download/builder/index"
+$VG virt-index-validate "$top_srcdir/website/download/builder/index.asc"
 $VG virt-index-validate $fn
 
 rm $fn

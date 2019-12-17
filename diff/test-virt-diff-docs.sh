@@ -20,6 +20,6 @@ set -e
 
 $TEST_FUNCTIONS
 
-$top_srcdir/podcheck.pl virt-diff.pod virt-diff \
+$top_srcdir/podcheck.pl "$srcdir/virt-diff.pod" virt-diff \
   --path $top_srcdir/common/options \
   --ignore=--checksums,--dir-link,--dir-nlink,--dir-nlinks,--dir-time,--extra-stat,--time,--uid,--xattr

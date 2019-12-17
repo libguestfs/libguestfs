@@ -21,5 +21,5 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl virt-inspector.pod virt-inspector \
+$top_srcdir/podcheck.pl "$srcdir/virt-inspector.pod" virt-inspector \
   --path $top_srcdir/common/options

@@ -39,7 +39,9 @@ $(top_builddir)/website/download/builder/index: $(index_fragments)
 	@echo "    gpg --clearsign --armor $@"
 
 # Validates the index file.
-TESTS_ENVIRONMENT = $(top_builddir)/run --test
+TESTS_ENVIRONMENT = \
+	top_srcdir="$(top_srcdir)" \
+	$(top_builddir)/run --test
 TESTS = validate.sh
 
 check-valgrind:

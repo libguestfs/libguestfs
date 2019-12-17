@@ -21,9 +21,9 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl virt-builder.pod virt-builder \
+$top_srcdir/podcheck.pl "$srcdir/virt-builder.pod" virt-builder \
   --insert $top_srcdir/common/mlcustomize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
   --insert $top_srcdir/common/mlcustomize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
   --ignore=--check-signatures,--no-check-signatures
 
-$srcdir/../podcheck.pl virt-builder-repository.pod virt-builder-repository
+$srcdir/../podcheck.pl "$srcdir/virt-builder-repository.pod" virt-builder-repository

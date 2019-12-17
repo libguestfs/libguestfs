@@ -21,6 +21,6 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl guestfish.pod guestfish \
+$top_srcdir/podcheck.pl "$srcdir/guestfish.pod" guestfish \
     --path $srcdir --path $top_srcdir/common/options \
     --ignore=-D

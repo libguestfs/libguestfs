@@ -21,5 +21,5 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl virt-get-kernel.pod virt-get-kernel \
+$top_srcdir/podcheck.pl "$srcdir/virt-get-kernel.pod" virt-get-kernel \
   --path $top_srcdir/common/options

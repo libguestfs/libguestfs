@@ -21,4 +21,4 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl virt-make-fs.pod virt-make-fs --ignore=--debug
+$top_srcdir/podcheck.pl "$srcdir/virt-make-fs.pod" virt-make-fs --ignore=--debug

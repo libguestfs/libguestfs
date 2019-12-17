@@ -38,5 +38,5 @@ if [ -s "$f" ]; then
     $XMLLINT --noout --relaxng "$srcdir/virt-inspector.rng" "actual-$b.xml"
     # This 'diff' command will fail (because of -e option) if there
     # are any differences.
-    diff -ur $diff_ignore "expected-$b.xml" "actual-$b.xml"
+    diff -ur $diff_ignore "$srcdir/expected-$b.xml" "actual-$b.xml"
 fi

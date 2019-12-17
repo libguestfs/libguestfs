@@ -20,4 +20,4 @@ set -e
 
 $TEST_FUNCTIONS
 
-$top_srcdir/podcheck.pl virt-dib.pod virt-dib
+$top_srcdir/podcheck.pl "$srcdir/virt-dib.pod" virt-dib
