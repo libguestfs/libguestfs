@@ -328,11 +328,12 @@ docs/C_SOURCE_FILES: configure.ac
 po/POTFILES: configure.ac
 	rm -f $@ $@-t
 	cd $(srcdir); \
-	find $(DIST_SUBDIRS) -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
+	find $(DIST_SUBDIRS) -name '*.c' | \
 	grep -v -E '^(examples|gnulib|perl/(blib|examples)|po-docs|tests|test-data|bundled)/' | \
-	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
+	grep -v -E '/((guestfs|rc)_protocol\.c|dummy\.c)$$' | \
 	grep -v -E '^python/utils\.c$$' | \
 	grep -v -E '^perl/lib/Sys/Guestfs\.c$$' | \
+	grep -v -E '.*-(tests|gperf)\.c$$' | \
 	LC_ALL=C sort -u > $@-t
 	mv $@-t $@
 
@@ -341,6 +342,7 @@ po/POTFILES-ml: configure.ac
 	cd $(srcdir); \
 	find builder common/ml* customize dib get-kernel resize sparsify sysprep -name '*.ml' | \
 	grep -v '^builder/templates/' | \
+	grep -v -E '.*_tests\.ml$$' | \
 	LC_ALL=C sort > $@-t
 	mv $@-t $@
 

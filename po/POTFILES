@@ -12,23 +12,15 @@ cat/log.c
 cat/ls.c
 cat/tail.c
 common/edit/file-edit.c
-common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
-common/mlcustomize/dummy.c
-common/mlgettext/dummy.c
-common/mlpcre/dummy.c
 common/mlpcre/pcre-c.c
 common/mlprogress/progress-c.c
-common/mlstdutils/dummy.c
 common/mltools/JSON_parser-c.c
-common/mltools/dummy.c
 common/mltools/getopt-c.c
 common/mltools/tools_utils-c.c
 common/mltools/uri-c.c
 common/mlutils/c_utils-c.c
-common/mlutils/dummy.c
 common/mlutils/unix_utils-c.c
-common/mlvisit/dummy.c
 common/mlvisit/visit-c.c
 common/mlxml/xml-c.c
 common/options/config.c
@@ -43,7 +35,6 @@ common/parallel/domains.c
 common/parallel/estimate-max-threads.c
 common/parallel/parallel.c
 common/progress/progress.c
-common/qemuopts/qemuopts-tests.c
 common/qemuopts/qemuopts.c
 common/structs/structs-cleanups.c
 common/structs/structs-print.c
@@ -54,9 +45,7 @@ common/utils/utils.c
 common/visit/visit.c
 common/windows/windows.c
 customize/crypt-c.c
-customize/dummy.c
 customize/perl_edit-c.c
-customize/test-password.pl
 daemon/9p.c
 daemon/acl.c
 daemon/augeas.c
@@ -181,9 +170,7 @@ daemon/zerofree.c
 df/df.c
 df/main.c
 df/output.c
-dib/dummy.c
 diff/diff.c
-docs/make-internal-documentation.pl
 edit/edit.c
 erlang/actions-0.c
 erlang/actions-1.c
@@ -196,7 +183,6 @@ erlang/dispatch.c
 erlang/main.c
 erlang/structs.c
 fish/alloc.c
-fish/cmds-gperf.c
 fish/cmds.c
 fish/completion.c
 fish/copy.c
@@ -246,7 +232,6 @@ fuse/guestunmount.c
 fuse/test-fuse.c
 fuse/test-guestmount-fd.c
 fuse/test-guestunmount-fd.c
-get-kernel/dummy.c
 gobject/src/optargs-add_domain.c
 gobject/src/optargs-add_drive.c
 gobject/src/optargs-add_drive_scratch.c
@@ -405,7 +390,6 @@ lib/tmpdirs.c
 lib/tsk.c
 lib/uefi.c
 lib/umask.c
-lib/unit-tests.c
 lib/version.c
 lib/wait.c
 lib/whole-file.c
@@ -415,8 +399,6 @@ make-fs/make-fs.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c-errnos.c
 ocaml/guestfs-c.c
-perl/bindtests.pl
-perl/lib/Sys/Guestfs.pm
 php/extension/guestfs_php.c
 python/actions-0.c
 python/actions-1.c
@@ -431,9 +413,6 @@ python/structs.c
 rescue/escape.c
 rescue/rescue.c
 rescue/suggest.c
-rescue/test-virt-rescue.pl
-resize/dummy.c
-resize/test-virt-resize.pl
 ruby/ext/guestfs/actions-0.c
 ruby/ext/guestfs/actions-1.c
 ruby/ext/guestfs/actions-2.c
@@ -443,6 +422,4 @@ ruby/ext/guestfs/actions-5.c
 ruby/ext/guestfs/actions-6.c
 ruby/ext/guestfs/handle.c
 ruby/ext/guestfs/module.c
-sparsify/dummy.c
-sysprep/dummy.c
 test-tool/test-tool.c
