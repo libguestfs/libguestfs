@@ -106,18 +106,6 @@ If you find a folder of files called F<I<guest>.vmx>,
 F<I<guest>.vmxf>, F<I<guest>.nvram> and one or more F<.vmdk> disk
 images, then you can use this method.
 
-=head2 VMX: Remove VMware tools from Windows guests
-
-For Windows guests, you should remove VMware tools before conversion.
-Although this is not strictly necessary, and the guest will still be
-able to run, if you don't do this then the converted guest will
-complain on every boot.  The tools cannot be removed after conversion
-because the uninstaller checks if it is running on VMware and refuses
-to start (which is also the reason that virt-v2v cannot remove them).
-
-This is not necessary for Linux guests, as virt-v2v is able to remove
-VMware tools.
-
 =head2 VMX: Guest must be shut down
 
 B<The guest must be shut down before conversion starts>.  If you don't
@@ -319,18 +307,6 @@ Virt-v2v is able to import guests from VMware’s OVA (Open
 Virtualization Appliance) files.  Only OVAs exported from VMware
 vSphere will work.
 
-=head2 OVA: Remove VMware tools from Windows guests
-
-For Windows guests, you should remove VMware tools before conversion.
-Although this is not strictly necessary, and the guest will still be
-able to run, if you don't do this then the converted guest will
-complain on every boot.  The tools cannot be removed after conversion
-because the uninstaller checks if it is running on VMware and refuses
-to start (which is also the reason that virt-v2v cannot remove them).
-
-This is not necessary for Linux guests, as virt-v2v is able to remove
-VMware tools.
-
 =head2 OVA: Create OVA
 
 To create an OVA in vSphere, use the "Export OVF Template" option
@@ -382,18 +358,6 @@ L</INPUT FROM VMWARE VMX>).
 Virt-v2v uses libvirt for access to vCenter, and therefore the input
 mode should be I<-i libvirt>.  As this is the default, you don't need
 to specify it on the command line.
-
-=head2 vCenter: Remove VMware tools from Windows guests
-
-For Windows guests, you should remove VMware tools before conversion.
-Although this is not strictly necessary, and the guest will still be
-able to run, if you don't do this then the converted guest will
-complain on every boot.  The tools cannot be removed after conversion
-because the uninstaller checks if it is running on VMware and refuses
-to start (which is also the reason that virt-v2v cannot remove them).
-
-This is not necessary for Linux guests, as virt-v2v is able to remove
-VMware tools.
 
 =head2 vCenter: URI
 
