@@ -320,6 +320,7 @@ docs/C_SOURCE_FILES: configure.ac
 	grep -v -E '/(guestfs|rc)_protocol\.' | \
 	grep -v -E '.*/errnostring\.' | \
 	grep -v -E '.*-gperf\.' | \
+	grep -v -E '/dummy.c$$' | \
 	LC_ALL=C sort -u > $@-t
 	mv $@-t $@
 
