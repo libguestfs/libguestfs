@@ -246,6 +246,10 @@ NetBSD.
 
 OpenBSD.
 
+=item \"openmandriva\"
+
+OpenMandriva Lx.
+
 =item \"opensuse\"
 
 OpenSUSE.
