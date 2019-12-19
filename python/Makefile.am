@@ -159,4 +159,4 @@ CLEANFILES += \
 	utils.c
 
 clean-local:
-	rm -rf build dist
+	rm -rf build dist __pycache__ t/__pycache__
