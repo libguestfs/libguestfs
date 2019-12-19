@@ -217,9 +217,6 @@ guestfsd_LDFLAGS = \
 	-L../bundled/ocaml-augeas \
 	-L../common/mlpcre
 guestfsd_LDADD = \
-	../common/errnostring/liberrnostring.la \
-	../common/protocol/libprotocol.la \
-	../common/utils/libutils.la \
 	camldaemon.o \
 	$(ACL_LIBS) \
 	$(CAP_LIBS) \
@@ -236,7 +233,10 @@ guestfsd_LDADD = \
 	$(TSK_LIBS) \
 	$(RPC_LIBS) \
 	$(YARA_LIBS) \
-	$(OCAML_LIBS)
+	$(OCAML_LIBS) \
+	../common/errnostring/liberrnostring.la \
+	../common/protocol/libprotocol.la \
+	../common/utils/libutils.la
 
 guestfsd_CPPFLAGS = \
 	-DCAML_NAME_SPACE \
