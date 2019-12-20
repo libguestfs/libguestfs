@@ -63,7 +63,8 @@ libguestfsmod_la_SOURCES = \
 	actions.h \
 	handle.c \
 	module.c \
-	structs.c
+	structs.c \
+	../common/utils/stringlists-utils.c
 
 libguestfsmod_la_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
@@ -75,7 +76,6 @@ libguestfsmod_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 libguestfsmod_la_LIBADD = \
-	$(top_builddir)/common/utils/libutils_la-utils.lo \
 	$(top_builddir)/lib/libguestfs.la
 
 libguestfsmod_la_LDFLAGS = -avoid-version -shared -module -shrext $(PYTHON_EXT_SUFFIX)
@@ -97,39 +97,19 @@ setup-install: setup.py stamp-extra-files
 # Python's crappy MANIFEST file cannot graft single files, so we have
 # to hard-link any extra files we need into the local directory.
 stamp-extra-files: \
-	  c-ctype.h \
-	  cleanups.c \
-	  cleanups.h \
 	  config.h \
-	  guestfs-internal-all.h \
-	  guestfs-utils.h \
-	  ignore-value.h \
-	  utils.c
+	  guestfs-stringlists-utils.h \
+	  stringlists-utils.c
 	touch $@
 
 config.h:
 	ln ../config.h $@
 
-c-ctype.h:
-	ln $(top_srcdir)/gnulib/lib/c-ctype.h $@
+guestfs-stringlists-utils.h:
+	ln $(top_srcdir)/common/utils/guestfs-stringlists-utils.h $@
 
-cleanups.c:
-	ln $(top_srcdir)/common/utils/cleanups.c $@
-
-cleanups.h:
-	ln $(top_srcdir)/common/utils/cleanups.h $@
-
-ignore-value.h:
-	ln $(top_srcdir)/gnulib/lib/ignore-value.h $@
-
-guestfs-internal-all.h:
-	ln $(top_srcdir)/lib/guestfs-internal-all.h $@
-
-guestfs-utils.h:
-	ln $(top_srcdir)/common/utils/guestfs-utils.h $@
-
-utils.c:
-	ln $(top_srcdir)/common/utils/utils.c $@
+stringlists-utils.c:
+	ln $(top_srcdir)/common/utils/stringlists-utils.c $@
 
 # Tests.
 
@@ -148,15 +128,10 @@ CLEANFILES += \
 	*.pyc \
 	examples/*~ examples/*.pyc \
 	t/*~ t/*.pyc \
-	c-ctype.h \
 	config.h \
-	cleanups.c \
-	cleanups.h \
-	guestfs-internal-all.h \
-	guestfs-utils.h \
-	ignore-value.h \
+	guestfs-stringlists-utils.h \
 	stamp-extra-files \
-	utils.c
+	stringlists-utils.c
 
 clean-local:
 	rm -rf build dist __pycache__ t/__pycache__

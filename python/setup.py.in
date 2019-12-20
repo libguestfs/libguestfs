@@ -62,7 +62,7 @@ This package contains the Python bindings for libguestfs.
                'handle.c',
                'module.c',
                'structs.c',
-               'utils.c'],
+               'stringlists-utils.c'],
 
               include_dirs=['.', '../lib'],
               libraries=['guestfs'],

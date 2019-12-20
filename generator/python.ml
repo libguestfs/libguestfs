@@ -42,7 +42,7 @@ let rec generate_python_actions_h () =
 #define GUESTFS_PYTHON_ACTIONS_H_
 
 #include \"guestfs.h\"
-#include \"guestfs-utils.h\"
+#include \"guestfs-stringlists-utils.h\"
 
 #define PY_SSIZE_T_CLEAN 1
 

@@ -16,9 +16,5 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 include actions.h
-include c-ctype.h
-include cleanups.h
 include config.h
-include guestfs-internal-all.h
-include guestfs-utils.h
-include ignore-value.h
+include guestfs-stringlists-utils.h

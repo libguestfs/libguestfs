@@ -94,7 +94,7 @@ libguestfsocaml_a_SOURCES = \
 	guestfs-c-actions.c \
 	guestfs-c-errnos.c \
 	../common/utils/cleanups.c \
-	../common/utils/utils.c
+	../common/utils/stringlists-utils.c
 
 if HAVE_OCAMLDOC
 
