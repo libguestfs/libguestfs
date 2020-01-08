@@ -70,7 +70,7 @@ guestfs_impl_inspect_get_osinfo (guestfs_h *g, const char *root)
       return safe_asprintf (g, "%s%d.%d", distro, major, minor);
     }
 
-    if (major > 0 || minor > 0)
+    if (STRNEQ (distro, "unknown") && (major > 0 || minor > 0))
       return safe_asprintf (g, "%s%d.%d", distro, major, minor);
   }
   else if (STREQ (type, "freebsd") || STREQ (type, "netbsd") || STREQ (type, "openbsd"))
