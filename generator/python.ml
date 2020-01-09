@@ -51,12 +51,6 @@ let rec generate_python_actions_h () =
 #include <Python.h>
 #pragma GCC diagnostic pop
 
-#if PY_VERSION_HEX < 0x02050000
-typedef int Py_ssize_t;
-#define PY_SSIZE_T_MAX INT_MAX
-#define PY_SSIZE_T_MIN INT_MIN
-#endif
-
 #ifndef HAVE_PYCAPSULE_NEW
 typedef struct {
   PyObject_HEAD
