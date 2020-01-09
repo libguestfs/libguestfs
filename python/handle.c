@@ -382,7 +382,7 @@ guestfs_int_py_put_table (char * const * const argv)
 PyObject *
 guestfs_int_py_fromstring (const char *str)
 {
-#ifdef HAVE_PYSTRING_ASSTRING
+#if PY_MAJOR_VERSION < 3
   return PyString_FromString (str);
 #else
   return PyUnicode_FromString (str);
@@ -392,7 +392,7 @@ guestfs_int_py_fromstring (const char *str)
 PyObject *
 guestfs_int_py_fromstringsize (const char *str, size_t size)
 {
-#ifdef HAVE_PYSTRING_ASSTRING
+#if PY_MAJOR_VERSION < 3
   return PyString_FromStringAndSize (str, size);
 #else
   return PyUnicode_FromStringAndSize (str, size);
@@ -402,7 +402,7 @@ guestfs_int_py_fromstringsize (const char *str, size_t size)
 char *
 guestfs_int_py_asstring (PyObject *obj)
 {
-#ifdef HAVE_PYSTRING_ASSTRING
+#if PY_MAJOR_VERSION < 3
   return PyString_AsString (obj);
 #else
   PyObject *bytes = PyUnicode_AsUTF8String (obj);

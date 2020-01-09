@@ -86,18 +86,6 @@ AS_IF([test "x$enable_python" != "xno"],[
             PYTHON_EXT_SUFFIX=$python_ext_suffix
         fi
         AC_MSG_RESULT([$PYTHON_EXT_SUFFIX])
-
-        dnl Look for some optional symbols in libpython.
-        old_LIBS="$LIBS"
-
-        PYTHON_BLDLIBRARY=`$PYTHON -c "import distutils.sysconfig; \
-                                       print (distutils.sysconfig.get_config_var('BLDLIBRARY'))"`
-        AC_CHECK_LIB([c],[PyString_AsString],
-                     [AC_DEFINE([HAVE_PYSTRING_ASSTRING],1,
-                                [Found PyString_AsString in libpython.])],
-                     [],[$PYTHON_BLDLIBRARY])
-
-        LIBS="$old_LIBS"
     fi
 
     AC_SUBST(PYTHON_PREFIX)
