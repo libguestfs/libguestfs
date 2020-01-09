@@ -19,6 +19,8 @@ dnl Check for Python (optional, for Python bindings).
 PYTHON_PREFIX=
 PYTHON_VERSION=
 PYTHON_INSTALLDIR=
+PYTHON_REQ_MAJOR=2
+PYTHON_REQ_MINOR=7
 
 AC_ARG_ENABLE([python],
     AS_HELP_STRING([--disable-python], [disable Python language bindings]),
@@ -32,6 +34,9 @@ AS_IF([test "x$enable_python" != "xno"],[
         PYTHON_VERSION_MAJOR=`$PYTHON -c "import sys; print (sys.version_info@<:@0@:>@)"`
         PYTHON_VERSION_MINOR=`$PYTHON -c "import sys; print (sys.version_info@<:@1@:>@)"`
         PYTHON_VERSION="$PYTHON_VERSION_MAJOR.$PYTHON_VERSION_MINOR"
+        AS_IF([test "$PYTHON_VERSION_MAJOR" -lt $PYTHON_REQ_MAJOR || ( test "$PYTHON_VERSION_MAJOR" -eq $PYTHON_REQ_MAJOR && test "$PYTHON_VERSION_MINOR" -lt $PYTHON_REQ_MINOR )],[
+           AC_MSG_ERROR([found Python $PYTHON_VERSION, while Python $PYTHON_REQ_MAJOR.$PYTHON_REQ_MINOR is required])
+        ])
 	AC_MSG_RESULT([$PYTHON_VERSION])
 
         # Debian: python-2.7.pc, python-3.2.pc
