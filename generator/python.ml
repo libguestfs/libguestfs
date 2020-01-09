@@ -178,7 +178,7 @@ and generate_python_structs () =
             pr "  value = PyBytes_FromStringAndSize (%s->%s, %s->%s_len);\n"
               typ name typ name;
             pr "#else\n";
-            pr "  value = guestfs_int_py_fromstringsize (%s->%s, %s->%s_len);\n"
+            pr "  value = PyString_FromStringAndSize (%s->%s, %s->%s_len);\n"
               typ name typ name;
             pr "#endif\n";
             pr "  if (value == NULL)\n";
@@ -496,7 +496,7 @@ and generate_python_actions actions () =
            pr "#if PY_MAJOR_VERSION >= 3\n";
            pr "  py_r = PyBytes_FromStringAndSize (r, size);\n";
            pr "#else\n";
-           pr "  py_r = guestfs_int_py_fromstringsize (r, size);\n";
+           pr "  py_r = PyString_FromStringAndSize (r, size);\n";
            pr "#endif\n";
            pr "  free (r);\n";
            pr "  if (py_r == NULL) goto out;\n";
