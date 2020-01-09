@@ -51,35 +51,19 @@ let rec generate_python_actions_h () =
 #include <Python.h>
 #pragma GCC diagnostic pop
 
-#ifndef HAVE_PYCAPSULE_NEW
-typedef struct {
-  PyObject_HEAD
-  guestfs_h *g;
-} Pyguestfs_Object;
-#endif
-
 static inline guestfs_h *
 get_handle (PyObject *obj)
 {
   assert (obj);
   assert (obj != Py_None);
-#ifndef HAVE_PYCAPSULE_NEW
-  return ((Pyguestfs_Object *) obj)->g;
-#else
   return (guestfs_h*) PyCapsule_GetPointer(obj, \"guestfs_h\");
-#endif
 }
 
 static inline PyObject *
 put_handle (guestfs_h *g)
 {
   assert (g);
-#ifndef HAVE_PYCAPSULE_NEW
-  return
-    PyCObject_FromVoidPtrAndDesc ((void *) g, (char *) \"guestfs_h\", NULL);
-#else
   return PyCapsule_New ((void *) g, \"guestfs_h\", NULL);
-#endif
 }
 
 extern void guestfs_int_py_extend_module (PyObject *module);

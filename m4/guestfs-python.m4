@@ -92,10 +92,6 @@ AS_IF([test "x$enable_python" != "xno"],[
 
         PYTHON_BLDLIBRARY=`$PYTHON -c "import distutils.sysconfig; \
                                        print (distutils.sysconfig.get_config_var('BLDLIBRARY'))"`
-        AC_CHECK_LIB([c],[PyCapsule_New],
-                     [AC_DEFINE([HAVE_PYCAPSULE_NEW],1,
-                                [Found PyCapsule_New in libpython.])],
-                     [],[$PYTHON_BLDLIBRARY])
         AC_CHECK_LIB([c],[PyString_AsString],
                      [AC_DEFINE([HAVE_PYSTRING_ASSTRING],1,
                                 [Found PyString_AsString in libpython.])],
