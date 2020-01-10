@@ -24,7 +24,6 @@ import unittest
 import random
 import string
 import os
-import sys
 import guestfs
 from .tests_helper import *
 

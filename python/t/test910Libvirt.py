@@ -22,7 +22,6 @@
 
 import unittest
 import os
-import sys
 import guestfs
 from .tests_helper import *
 

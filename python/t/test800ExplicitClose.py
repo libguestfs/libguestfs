@@ -18,7 +18,6 @@
 # Test implicit vs explicit closes of the handle (RHBZ#717786).
 
 import unittest
-import os
 import guestfs
 
 close_invoked = 0
