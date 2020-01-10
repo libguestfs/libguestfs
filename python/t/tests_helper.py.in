@@ -56,7 +56,7 @@ def skipUnlessLibvirtHasCPointer():
     """
     try:
         import libvirt
-    except:
+    except ImportError:
         return unittest.skip("could not import libvirt")
     # Check we're using the version of libvirt-python that has
     # c_pointer() methods.
