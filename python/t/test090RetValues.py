@@ -91,12 +91,12 @@ class Test090PythonRetValues(unittest.TestCase):
         g = guestfs.GuestFS()
 
         self.assertEqual(g.internal_test_rstructlist("0"), [])
-        l = g.internal_test_rstructlist("5")
-        self.assertIsInstance(l, list)
-        self.assertEqual(len(l), 5)
+        retlist = g.internal_test_rstructlist("5")
+        self.assertIsInstance(retlist, list)
+        self.assertEqual(len(retlist), 5)
         for i in range(0, 5):
-            self.assertIsInstance(l[i], dict)
-            self.assertEqual(l[i]["pv_name"], "pv%d" % i)
+            self.assertIsInstance(retlist[i], dict)
+            self.assertEqual(retlist[i]["pv_name"], "pv%d" % i)
 
         self.assertRaises(RuntimeError, g.internal_test_rstructlisterr)
 
