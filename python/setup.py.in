@@ -39,7 +39,7 @@ This package contains the Python bindings for libguestfs.
           'Development Status :: 5 - Production/Stable',
           'Environment :: Console',
           'Intended Audience :: Developers',
-          'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',
+          'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',  # noqa
           'Operating System :: POSIX :: Linux',
           'Programming Language :: C',
           'Programming Language :: Python :: 2',
