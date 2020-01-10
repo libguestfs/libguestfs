@@ -38,6 +38,7 @@ EXTRA_DIST = \
 	setup.py.in \
 	run-bindtests \
 	run-python-tests \
+	test-pycodestyle.sh \
 	t/__init__.py \
 	t/README \
 	t/test[0-9]*.py
@@ -120,6 +121,10 @@ TESTS = run-bindtests
 if ENABLE_APPLIANCE
 TESTS += run-python-tests
 endif ENABLE_APPLIANCE
+
+if HAVE_PYCODESTYLE
+TESTS += test-pycodestyle.sh
+endif
 
 endif HAVE_PYTHON
 

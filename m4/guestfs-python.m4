@@ -86,6 +86,9 @@ AS_IF([test "x$enable_python" != "xno"],[
             PYTHON_EXT_SUFFIX=$python_ext_suffix
         fi
         AC_MSG_RESULT([$PYTHON_EXT_SUFFIX])
+
+        AC_CHECK_PROGS([PYCODESTYLE],[pycodestyle],[no])
+        AM_CONDITIONAL([HAVE_PYCODESTYLE], [test "x$PYCODESTYLE" != "xno"])
     fi
 
     AC_SUBST(PYTHON_PREFIX)
