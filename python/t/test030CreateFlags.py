@@ -18,6 +18,7 @@
 import unittest
 import guestfs
 
+
 class Test030CreateFlags(unittest.TestCase):
     def test_create_flags(self):
         g = guestfs.GuestFS(python_return_dict=True,

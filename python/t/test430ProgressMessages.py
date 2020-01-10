@@ -21,9 +21,11 @@ import guestfs
 
 callback_invoked = 0
 
+
 def callback(ev, eh, buf, array):
     global callback_invoked
     callback_invoked += 1
+
 
 class Test430ProgressMessages(unittest.TestCase):
     def test_progress_messages(self):

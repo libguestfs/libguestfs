@@ -792,7 +792,6 @@ class GuestFS(object):
         \"\"\"Delete an event callback.\"\"\"
         self._check_not_closed()
         libguestfsmod.delete_event_callback(self._o, event_handle)
-
 ";
 
   let map_join f l =
@@ -809,6 +808,7 @@ class GuestFS(object):
           args ^
         map_join (fun optarg -> sprintf ", %s=None" (name_of_optargt optarg))
           optargs in
+      pr "\n";
       pr "    def %s(%s):\n"
         f.name (indent_python decl_string (9 + len_name) 78);
 
@@ -906,12 +906,11 @@ class GuestFS(object):
       );
 
       pr "        return r\n";
-      pr "\n";
 
       (* Aliases. *)
       List.iter (
         fun alias ->
-          pr "    %s = %s\n\n" alias f.name
+          pr "\n    %s = %s\n" alias f.name
       ) f.non_c_aliases
   ) (actions |> external_functions |> sort)
 

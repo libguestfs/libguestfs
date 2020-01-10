@@ -19,6 +19,7 @@ import unittest
 import warnings
 import guestfs
 
+
 class Test050HandleProperties(unittest.TestCase):
     def test_verbose(self):
         g = guestfs.GuestFS(python_return_dict=True)

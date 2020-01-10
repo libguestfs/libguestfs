@@ -18,8 +18,10 @@
 import unittest
 import guestfs
 
+
 def ignore(_):
     pass
+
 
 class Test040CreateMultiple(unittest.TestCase):
     def test_create_multiple(self):
