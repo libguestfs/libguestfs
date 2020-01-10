@@ -3,7 +3,9 @@
 import sys
 import guestfs
 
-assert(len(sys.argv) == 2)
+if len(sys.argv) < 2:
+    print("inspect_vm: missing disk image to inspect", file=sys.stderr)
+    sys.exit(1)
 disk = sys.argv[1]
 
 # All new Python code should pass python_return_dict=True
@@ -21,7 +23,8 @@ g.launch()
 # Ask libguestfs to inspect for operating systems.
 roots = g.inspect_os()
 if len(roots) == 0:
-    raise(Error("inspect_vm: no operating systems found"))
+    print("inspect_vm: no operating systems found", file=sys.stderr)
+    sys.exit(1)
 
 for root in roots:
     print("Root device: %s" % root)
