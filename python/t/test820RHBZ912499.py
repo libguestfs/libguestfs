@@ -38,7 +38,7 @@ class Test820RHBZ912499(unittest.TestCase):
     def setUp(self):
         # Create a test disk.
         self.filename = os.getcwd() + "/820-rhbz912499.img"
-        guestfs.GuestFS().disk_create(self.filename, "raw", 1024*1024*1024)
+        guestfs.GuestFS().disk_create(self.filename, "raw", 1024 * 1024 * 1024)
 
         # Create a new domain.  This won't work, it will just hang when
         # booted.  But that's sufficient for the test.

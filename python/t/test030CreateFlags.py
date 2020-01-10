@@ -22,5 +22,5 @@ import guestfs
 class Test030CreateFlags(unittest.TestCase):
     def test_create_flags(self):
         g = guestfs.GuestFS(python_return_dict=True,
-                environment=False)
+                            environment=False)
         g.parse_environment()
