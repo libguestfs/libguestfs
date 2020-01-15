@@ -56,6 +56,9 @@
 int
 guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags)
 {
+  *code = *vars = NULL;
+  *flags = 0;
+
 #ifdef __aarch64__
   size_t i;
 
@@ -102,7 +105,5 @@ guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags)
 #endif
 
   /* Not found. */
-  *code = *vars = NULL;
-  *flags = 0;
   return 0;
 }
