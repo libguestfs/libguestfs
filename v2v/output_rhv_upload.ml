@@ -81,8 +81,6 @@ let parse_output_options options =
   let rhv_direct = !rhv_direct in
   let rhv_verifypeer = !rhv_verifypeer in
   let rhv_disk_uuids = Option.map List.rev !rhv_disk_uuids in
-  if rhv_verifypeer && rhv_cafile = None then
-     error (f_"-o rhv-upload: must use ‘-oo rhv-cafile’ to supply the path to the oVirt or RHV user’s ‘ca.pem’ file");
 
   { rhv_cafile; rhv_cluster; rhv_direct; rhv_verifypeer; rhv_disk_uuids }
 
