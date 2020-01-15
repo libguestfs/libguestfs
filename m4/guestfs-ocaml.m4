@@ -67,7 +67,7 @@ if test "x$OCAMLC" != "xno"; then
     AC_MSG_CHECKING([if OCaml ‘-runtime-variant _pic’ works])
     rm -f conftest.ml contest
     echo 'print_endline "hello world"' > conftest.ml
-    if $OCAMLC conftest.ml -runtime-variant _pic -o conftest >&5 2>&5 ; then
+    if $OCAMLOPT conftest.ml -runtime-variant _pic -o conftest >&5 2>&5 ; then
         AC_MSG_RESULT([yes])
         OCAML_RUNTIME_VARIANT_PIC_OPTION="-runtime-variant _pic"
     else
