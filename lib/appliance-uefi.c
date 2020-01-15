@@ -72,6 +72,15 @@ guestfs_int_get_uefi (guestfs_h *g, char *const *firmwares,
 #ifdef __aarch64__
   size_t i;
 
+  if (firmwares && firmware) {
+    for (i = 0; firmwares[i] != NULL; ++i) {
+      if (STREQ(firmwares[i], "efi")) {
+        *firmware = firmwares[i];
+        return 0;
+      }
+    }
+  }
+
   for (i = 0; guestfs_int_uefi_aarch64_firmware[i].code != NULL; ++i) {
     const char *codefile = guestfs_int_uefi_aarch64_firmware[i].code;
     const char *code_debug_file =
