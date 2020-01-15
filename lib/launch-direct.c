@@ -533,7 +533,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 #endif
 
   /* UEFI (firmware) if required. */
-  if (guestfs_int_get_uefi (g, &uefi_code, &uefi_vars, &uefi_flags) == -1)
+  if (guestfs_int_get_uefi (g, NULL, NULL, &uefi_code, &uefi_vars,
+                            &uefi_flags) == -1)
     goto cleanup0;
   if (uefi_flags & UEFI_FLAG_SECURE_BOOT_REQUIRED) {
     /* Implementing this requires changes to the qemu command line.

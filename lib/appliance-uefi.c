@@ -38,14 +38,20 @@
  * is aarch64 only currently, since that's the only architecture where
  * UEFI is mandatory (and that only for RHEL).
  *
+ * C<firmwares> is an optional list of allowed values for the firmware
+ * autoselection of libvirt. It is C<NULL> to indicate it is not
+ * supported. C<*firmware> is set to one of the strings in
+ * C<firmwares> in case one can be used.
+ *
  * C<*code> is initialized with the path to the read-only UEFI code
  * file.  C<*vars> is initialized with the path to a copy of the UEFI
  * vars file (which is cleaned up automatically on exit).
  *
- * If C<*code> == C<*vars> == C<NULL> then no UEFI firmware is
- * available.
+ * In case a UEFI firmare is available, either C<*firmware> is set to
+ * a non-C<NULL> value, or C<*code> and C<*vars> are.
  *
- * C<*code> and C<*vars> should be freed by the caller.
+ * C<*code> and C<*vars> should be freed by the caller, and
+ * C<*firmware> B<must> not.
  *
  * If the function returns C<-1> then there was a real error which
  * should cause appliance building to fail (no UEFI firmware is not an
@@ -54,10 +60,14 @@
  * See also F<virt-v2v.git/v2v/utils.ml>:find_uefi_firmware
  */
 int
-guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags)
+guestfs_int_get_uefi (guestfs_h *g, char *const *firmwares,
+                      const char **firmware, char **code, char **vars,
+                      int *flags)
 {
   *code = *vars = NULL;
   *flags = 0;
+  if (firmware)
+    *firmware = NULL;
 
 #ifdef __aarch64__
   size_t i;

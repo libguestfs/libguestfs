@@ -140,6 +140,10 @@ struct backend_libvirt_data {
                                  * contains a list with supported values for
                                  * <os firmware='...'>
                                  */
+  const char *firmware;         /* firmware to set in autoselection mode;
+                                 * points to one of the elements in
+                                 * "firmware_autoselect"
+                                 */
   char guestfsd_path[UNIX_PATH_MAX]; /* paths to sockets */
   char console_path[UNIX_PATH_MAX];
 };
@@ -442,7 +446,8 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     goto cleanup;
 
   /* UEFI code and variables, on architectures where that is required. */
-  if (guestfs_int_get_uefi (g, &data->uefi_code, &data->uefi_vars,
+  if (guestfs_int_get_uefi (g, data->firmware_autoselect, &data->firmware,
+                            &data->uefi_code, &data->uefi_vars,
                             &uefi_flags) == -1)
     goto cleanup;
   if (uefi_flags & UEFI_FLAG_SECURE_BOOT_REQUIRED) {
@@ -1207,6 +1212,9 @@ construct_libvirt_xml_boot (guestfs_h *g,
   cmdline = guestfs_int_appliance_command_line (g, params->appliance_dev, flags);
 
   start_element ("os") {
+    if (params->data->firmware)
+      attribute ("firmware", params->data->firmware);
+
     start_element ("type") {
 #ifdef MACHINE_TYPE
       attribute ("machine", MACHINE_TYPE);

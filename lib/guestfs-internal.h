@@ -691,7 +691,7 @@ extern char *guestfs_int_appliance_command_line (guestfs_h *g, const char *appli
 #define APPLIANCE_COMMAND_LINE_IS_TCG 1
 
 /* appliance-uefi.c */
-extern int guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags);
+extern int guestfs_int_get_uefi (guestfs_h *g, char *const *firmwares, const char **firmware, char **code, char **vars, int *flags);
 
 /* launch.c */
 extern int64_t guestfs_int_timeval_diff (const struct timeval *x, const struct timeval *y);
