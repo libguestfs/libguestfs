@@ -135,6 +135,11 @@ struct backend_libvirt_data {
   char *uefi_code;		/* UEFI (firmware) code and variables. */
   char *uefi_vars;
   char *default_qemu;           /* default qemu (from domcapabilities) */
+  char **firmware_autoselect;   /* supported firmwares (from domcapabilities);
+                                 * NULL means "not supported", otherwise it
+                                 * contains a list with supported values for
+                                 * <os firmware='...'>
+                                 */
   char guestfsd_path[UNIX_PATH_MAX]; /* paths to sockets */
   char console_path[UNIX_PATH_MAX];
 };
@@ -843,6 +848,8 @@ parse_domcapabilities (guestfs_h *g, const char *domcapabilities_xml,
   CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
   CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
   CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
+  xmlNodeSetPtr nodes;
+  size_t i;
 
   doc = xmlReadMemory (domcapabilities_xml, strlen (domcapabilities_xml),
                        NULL, NULL, XML_PARSE_NONET);
@@ -868,6 +875,26 @@ parse_domcapabilities (guestfs_h *g, const char *domcapabilities_xml,
 
   assert (xpathObj->type == XPATH_STRING);
   data->default_qemu = safe_strdup (g, (char *) xpathObj->stringval);
+
+  /*
+   * This gives us whether the firmware autoselection is supported,
+   * and which values are allowed.
+   */
+#define XPATH_EXPR "/domainCapabilities/os/enum[@name='firmware']/value"
+  xpathObj = xmlXPathEvalExpression (BAD_CAST XPATH_EXPR, xpathCtx);
+  if (xpathObj == NULL) {
+    error (g, _("unable to evaluate XPath expression: %s"), XPATH_EXPR);
+    return -1;
+  }
+#undef XPATH_EXPR
+
+  assert (xpathObj->type == XPATH_NODESET);
+  nodes = xpathObj->nodesetval;
+  if (nodes != NULL) {
+    data->firmware_autoselect = safe_calloc (g, nodes->nodeNr + 1, sizeof (char *));
+    for (i = 0; i < (size_t) nodes->nodeNr; ++i)
+      data->firmware_autoselect[i] = (char *) xmlNodeGetContent(nodes->nodeTab[i]);
+  }
 
   return 0;
 }
@@ -2071,6 +2098,9 @@ shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
 
   free (data->default_qemu);
   data->default_qemu = NULL;
+
+  guestfs_int_free_string_list (data->firmware_autoselect);
+  data->firmware_autoselect = NULL;
 
   return ret;
 }
