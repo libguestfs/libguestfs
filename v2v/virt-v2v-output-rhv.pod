@@ -101,7 +101,10 @@ The storage domain.
 The F<ca.pem> file (Certificate Authority), copied from
 F</etc/pki/ovirt-engine/ca.pem> on the oVirt engine.
 
-This option must be specified if I<-oo rhv-verifypeer> is enabled.
+If I<-oo rhv-verifypeer> is enabled then this option can
+be used to control which CA is used to verify the client’s
+identity.  If this option is not used then the system’s
+global trust store is used.
 
 =item I<-oo rhv-cluster=>C<CLUSTERNAME>
 
