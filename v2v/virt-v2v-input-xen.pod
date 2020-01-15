@@ -37,7 +37,7 @@ to interoperate with RHEL 5 sshd are disabled.  To enable them you may
 need to run this command on the conversion server (ie. ssh client),
 but read L<update-crypto-policies(8)> first:
 
- # update-crypto-policies LEGACY
+ # update-crypto-policies --set LEGACY
 
 =head2 Test libvirt connection to remote Xen host
 
