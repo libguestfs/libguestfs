@@ -431,7 +431,12 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   if (parse_capabilities (g, capabilities_xml, data) == -1)
     goto cleanup;
 
-  domcapabilities_xml = virConnectGetDomainCapabilities (conn, NULL, NULL, NULL,
+  domcapabilities_xml = virConnectGetDomainCapabilities (conn, NULL, NULL,
+#ifdef MACHINE_TYPE
+                                                         MACHINE_TYPE,
+#else
+                                                         NULL,
+#endif
                                                          NULL, 0);
   if (!domcapabilities_xml) {
     libvirt_error (g, _("could not get libvirt domain capabilities"));
