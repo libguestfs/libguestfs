@@ -192,6 +192,7 @@ and install_linux_tools g inspect =
       (match inspect.i_major_version with
        | 6 -> Some "el6"
        | 7 -> Some "el7"
+       | 8 -> Some "el8"
        | _ -> None)
     | "sles" | "suse-based" | "opensuse" -> Some "lp151"
     | _ -> None in
