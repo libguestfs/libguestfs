@@ -4,7 +4,7 @@ guestfs-release-notes - libguestfs Release Notes
 
 =begin comment
 
-UPDATED TO <commit id>
+UPDATED TO a754cd43078e43f1a2b5d10e54b684c70c5525d7
 
 =end comment
 
@@ -19,7 +19,158 @@ document.body.style.backgroundRepeat = "no-repeat";
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.42
 
-I<Preliminary page: version 1.42 has not been released yet>
+Please note that virt-v2v, virt-p2v and the boot analysis tools were
+moved out of the libguestfs package / repository into separate
+projects.  See L<https://github.com/libguestfs/virt-v2v>,
+L<https://github.com/libguestfs/virt-p2v> and
+L<https://github.com/libguestfs/libguestfs-analysis-tools>.  Release
+notes for those packages are published separately.
+
+=head2 New features
+
+Add support for the Vala language (Corentin Noël).
+
+Add support for the Rust language
+(Hiroyuki Katsura, sponsored by Google Summer of Code).
+
+Reproducible builds (Chris Lamb).
+
+=head3 New features in existing tools
+
+Advanced machine readable output in various virt tools now supports
+JSON output, and writing logs to a numbered file descriptor (Pino
+Toscano).
+
+(For changes to virt-p2v and virt-v2v, please see the release notes
+for those tools, published separately).
+
+=head3 Language bindings
+
+Python E<ge> 2.7 is required.
+
+Python bindings are now more extensively tested
+(Hiroyuki Katsura).
+
+Python bindings should now work with Python E<ge> 3.8.
+
+Multiple fixes to avoid crashes in the Python bindings
+(Sam Eiderman).
+
+OCaml bindings are compiled with C<-DCAML_NAME_SPACE>
+to ensure no non-caml_-namespaced symbols are used
+(Pino Toscano).
+
+OCaml bindings should now work with OCaml 4.09 and 4.10.
+
+Erlang has deprecated the old C<erl_interface> library
+which we use for Erlang bindings.  It will be removed in
+OTP 22, which will permanently break Erlang support unless
+someone steps forward to update the Erlang bindings in
+libguestfs.
+
+Fix compatibility with newer cgo for Go bindings
+(Tomáš Golembiovský).
+
+=head3 Inspection
+
+Libguestfs can now extract icons for Gentoo, newer SUSE and
+OpenMandriva guests.  Improved extraction of RHEL icons.
+(Pino Toscano).
+
+Inspection returns the osinfo IDs of newer Windows versions,
+and rolling Linux distros (Pino Toscano).
+
+OpenMandriva is now detected (Bernhard Rosenkränzer).
+
+Arch Linux detection improvements (Pino Toscano).
+
+=head3 Architectures and platforms
+
+Libguestfs can now be compiled on OpenMandriva (Bernhard Rosenkränzer).
+
+Ubuntu fix for enabling network support (Ioanna Alifieraki).
+
+=head3 Other
+
+Use of deprecated libguestfs APIs will now cause compiler deprecation
+warnings by default, whereas previously you have to enable these
+warnings.  To turn off these warnings use
+C<-DGUESTFS_NO_WARN_DEPRECATED=1>.  A new feature is that you can now
+disable deprecated APIs completely if you want, using
+C<-DGUESTFS_NO_DEPRECATED=1> (Pino Toscano).
+
+Fix hostname in virt-builder templates (Pino Toscano).
+
+The single large release notes file is now split into multiple
+documents organized by version.
+
+The C<--key> option of several tools was broken, especially if you
+tried to use the option to pass multiple keys.  This has been
+fixed and a regression test added.
+
+=head2 Security
+
+No security issues were found in this release.
+
+=head2 API
+
+=head3 New APIs
+
+C<luks_uuid> returns the UUID of a LUKS device (Pino Toscano).
+
+=head3 Other API changes
+
+Cope with new output from the C<btrfs scrub> command.  There
+is no visible change at the API level.
+
+=head2 Build changes
+
+Minimum version of Augeas required is 1.2.0 (Pino Toscano).
+
+C<common/> subdirectory is now a git submodule shared with
+the virt-v2v project.
+
+Many gnulib modules which we were not using or which we
+used in only a few places have been removed (Pino Toscano).
+
+Multiple fixes for builddir != sourcedir builds (Pino Toscano).
+
+A new C<bundled/> subdirectory contains one bundled
+library that we currently use, C<ocaml-augeas>
+(Pino Toscano).
+
+=head2 Internals
+
+When linking OCaml programs, automake silent rules and the C<V=1> flag
+are both now obeyed (Pino Toscano).
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh v1.40.0..
+
+=end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/1773520>
+
+Segfault in python bindings for guestfs_int_py_event_callback_wrapper
+
+=item L<https://bugzilla.redhat.com/1705482>
+
+python 3.8 requires using -embed variant of pkgconf file, causing libguestfs to fail to build Python 3.8 bindings
+
+=item L<https://bugzilla.redhat.com/1694268>
+
+[PATCH] Add OpenMandriva support
+
+=item L<https://bugzilla.redhat.com/1661871>
+
+python bindings wrongly using str for APIs with RBufferOut/FBuffer on Python 3
+
+=back
 
 =head1 SEE ALSO
 
@@ -38,4 +189,4 @@ Richard W.M. Jones
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009-2019 Red Hat Inc.
+Copyright (C) 2009-2020 Red Hat Inc.
