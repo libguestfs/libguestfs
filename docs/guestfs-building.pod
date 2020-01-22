@@ -307,7 +307,7 @@ Optional.  For testing the common OCaml modules.
 
 Optional.  Used to build and test the Perl bindings.
 
-=item Python E<ge> 2.2
+=item Python E<ge> 2.7
 
 Optional.  Used to build the Python bindings.  For building
 Python 2 or Python 3 bindings, see
