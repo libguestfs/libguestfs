@@ -202,6 +202,7 @@ EXTRA_DIST = \
 	bugs-in-changelog.sh \
 	autogen.sh \
 	bindtests \
+	build-aux/config.rpath \
 	cfg.mk \
 	check-mli.sh \
 	common/.gitignore \
