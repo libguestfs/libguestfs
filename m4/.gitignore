@@ -61,7 +61,6 @@
 /gnulib-common.m4
 /gnulib-comp.m4
 /gnulib-tool.m4
-/host-cpu-c-abi.m4
 /human.m4
 /include_next.m4
 /inet_pton.m4
@@ -78,9 +77,6 @@
 /langinfo_h.m4
 /largefile.m4
 /lcmessage.m4
-/lib-ld.m4
-/lib-link.m4
-/lib-prefix.m4
 /limits-h.m4
 /localcharset.m4
 /localeconv.m4
@@ -92,7 +88,6 @@
 /locale-zh.m4
 /localtime-buffer.m4
 /lock.m4
-/longlong.m4
 /lseek.m4
 /lstat.m4
 /malloca.m4
@@ -128,6 +123,7 @@
 /open-cloexec.m4
 /opendir.m4
 /open.m4
+/open-slash.m4
 /pathmax.m4
 /perror.m4
 /pipe2.m4
@@ -156,8 +152,10 @@
 /save-cwd.m4
 /sched_h.m4
 /select.m4
+/semaphore.m4
 /setenv.m4
 /setlocale.m4
+/setlocale_null.m4
 /sh-filename.m4
 /sigaction.m4
 /sig_atomic_t.m4
@@ -223,6 +221,7 @@
 /utimes.m4
 /vasnprintf.m4
 /vasprintf.m4
+/visibility.m4
 /vsnprintf.m4
 /waitpid.m4
 /wait-process.m4
@@ -241,3 +240,4 @@
 /xstrtol.m4
 /xvasprintf.m4
 /yield.m4
+/zzgnulib.m4
