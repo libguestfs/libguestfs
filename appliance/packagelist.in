@@ -43,6 +43,7 @@ ifelse(REDHAT,1,
   nilfs-utils
   ntfsprogs
   ntfs-3g
+  ntfs-3g-system-compression
   openssh-clients
   pcre
   policycoreutils
@@ -127,6 +128,7 @@ ifelse(ARCHLINUX,1,
   multipath-tools  dnl for kpartx
   nilfs-utils
   ntfs-3g
+  ntfs-3g-system-compression
   pcre
   reiserfsprogs
   systemd
