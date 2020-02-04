@@ -38,7 +38,7 @@ let openstack_binary = "openstack"
 let available_timeout = 300 (* seconds *)
 
 (* Timeout waiting for Cinder volumes to attach to the appliance. *)
-let attach_timeout = 60 (* seconds *)
+let attach_timeout = 300 (* seconds *)
 
 (* The -oo options supported by this output method. *)
 type os_options = {
@@ -336,7 +336,7 @@ class output_openstack output_conn output_password output_storage
       if String.length id > prefix_len then String.sub id 0 prefix_len
       else id in
 
-    with_timeout
+    with_timeout ~sleep:5
       (sprintf (f_"waiting for cinder volume %s to attach to the conversion appliance") id)
       attach_timeout
       (fun () ->
