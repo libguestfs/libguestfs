@@ -444,14 +444,13 @@ and virtio_iso_path_matches_qemu_ga path inspect =
    * elements.
    *)
   let lc_name = String.lowercase_ascii (Filename.basename path) in
-  lc_name = "rhev-qga.msi" ||
   match arch, lc_name with
   | ("i386", "qemu-ga-x86.msi")
   | ("i386", "qemu-ga-i386.msi")
-  | ("i386", "RHEV-QGA.msi")
+  | ("i386", "rhev-qga.msi")
   | ("x86_64", "qemu-ga-x64.msi")
   | ("x86_64", "qemu-ga-x86_64.msi")
-  | ("x86_64", "RHEV-QGA64.msi") -> true
+  | ("x86_64", "rhev-qga64.msi") -> true
   | _ -> false
 
 (* The following function is only exported for unit tests. *)
