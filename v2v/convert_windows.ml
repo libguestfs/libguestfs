@@ -430,7 +430,13 @@ popd
      fun msi_path ->
        let fb_script = "\
 echo Installing qemu-ga from " ^ msi_path ^ "
-\"\\" ^ msi_path ^ "\" /qn /forcerestart /l+*vx \"%cd%\\qemu-ga.log\"
+\"\\" ^ msi_path ^ "\" /norestart /qn /l+*vx \"%~dpn0.log\"
+set elvl=!errorlevel!
+echo Done installing qemu-ga error_level=!elvl!
+if !elvl! == 0 (
+  echo Restarting Windows...
+  shutdown /r /f /c \"rebooted by firstboot script\"
+)
 " in
       Firstboot.add_firstboot_script g inspect.i_root
         ("install " ^ msi_path) fb_script;
