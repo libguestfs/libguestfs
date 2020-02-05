@@ -88,6 +88,7 @@ guestfs_create_flags (unsigned flags, ...)
   if (!g) return NULL;
 
   gl_recursive_lock_init (g->lock);
+  gl_lock_init (g->error_data_list_lock);
 
   g->state = CONFIG;
 
@@ -176,6 +177,7 @@ guestfs_create_flags (unsigned flags, ...)
   free (g->append);
   guestfs_int_free_error_data_list (g);
   gl_tls_key_destroy (g->error_data);
+  gl_lock_destroy (g->error_data_list_lock);
   gl_recursive_lock_destroy (g->lock);
   free (g);
   return NULL;
