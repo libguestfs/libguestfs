@@ -36,63 +36,63 @@ mkdir -p dir1/dir2
 # Regular overlay files.
 
 qemu-img create -f qcow2 backing1 10M
-qemu-img create -f qcow2 -b $(pwd)/backing1 overlay1
+qemu-img create -f qcow2 -b $(pwd)/backing1 -F qcow2 overlay1
 
 qemu-img create -f qcow2 backing2 10M
-qemu-img create -f qcow2 -b backing2 overlay2
+qemu-img create -f qcow2 -b backing2 -F qcow2 overlay2
 
 qemu-img create -f qcow2 backing3 10M
-qemu-img create -f qcow2 -b ./backing3 overlay3
+qemu-img create -f qcow2 -b ./backing3 -F qcow2 overlay3
 
 qemu-img create -f qcow2 backing4 10M
-qemu-img create -f qcow2 -b ../../tests/relative-paths/backing4 overlay4
+qemu-img create -f qcow2 -b ../../tests/relative-paths/backing4 -F qcow2 overlay4
 
 qemu-img create -f qcow2 backing5 10M
 pushd dir1
-qemu-img create -f qcow2 -b ../backing5 overlay5
+qemu-img create -f qcow2 -b ../backing5 -F qcow2 overlay5
 popd
 
 qemu-img create -f qcow2 backing6 10M
 pushd dir1/dir2
-qemu-img create -f qcow2 -b ../../backing6 overlay6
+qemu-img create -f qcow2 -b ../../backing6 -F qcow2 overlay6
 popd
 
 qemu-img create -f qcow2 dir1/backing7 10M
-qemu-img create -f qcow2 -b dir1/backing7 overlay7
+qemu-img create -f qcow2 -b dir1/backing7 -F qcow2 overlay7
 
 qemu-img create -f qcow2 dir1/dir2/backing8 10M
-qemu-img create -f qcow2 -b dir1/dir2/backing8 overlay8
+qemu-img create -f qcow2 -b dir1/dir2/backing8 -F qcow2 overlay8
 
 qemu-img create -f qcow2 dir1/dir2/backing9 10M
 pushd dir1
-qemu-img create -f qcow2 -b dir2/backing9 overlay9
+qemu-img create -f qcow2 -b dir2/backing9 -F qcow2 overlay9
 popd
 
 qemu-img create -f qcow2 dir1/backing10 10M
 pushd dir1/dir2
-qemu-img create -f qcow2 -b ../backing10 overlay10
+qemu-img create -f qcow2 -b ../backing10 -F qcow2 overlay10
 popd
 
 qemu-img create -f qcow2 dir1/backing11 10M
 pushd dir1
-qemu-img create -f qcow2 -b backing11 overlay11
+qemu-img create -f qcow2 -b backing11 -F qcow2 overlay11
 popd
 
 # Symbolic links.
 
 qemu-img create -f qcow2 backing12 10M
-qemu-img create -f qcow2 -b backing12 overlay12
+qemu-img create -f qcow2 -b backing12 -F qcow2 overlay12
 ln -s overlay12 link12
 
 qemu-img create -f qcow2 dir1/backing13 10M
 pushd dir1
-qemu-img create -f qcow2 -b backing13 overlay13
+qemu-img create -f qcow2 -b backing13 -F qcow2 overlay13
 popd
 ln -s dir1/overlay13 link13
 
 qemu-img create -f qcow2 dir1/dir2/backing14 10M
 pushd dir1
-qemu-img create -f qcow2 -b dir2/backing14 overlay14
+qemu-img create -f qcow2 -b dir2/backing14 -F qcow2 overlay14
 popd
 pushd dir1/dir2
 ln -s ../overlay14 link14
@@ -100,7 +100,7 @@ popd
 
 qemu-img create -f qcow2 dir1/backing15 10M
 pushd dir1/dir2
-qemu-img create -f qcow2 -b ../backing15 overlay15
+qemu-img create -f qcow2 -b ../backing15 -F qcow2 overlay15
 popd
 pushd dir1
 ln -s dir2/overlay15 link15

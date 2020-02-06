@@ -27,7 +27,7 @@ f=$top_builddir/test-data/phony-guests/fedora.img
 fq=test-virt-customize-img.qcow
 out=test-virt-customize.out
 rm -f $fq $out
-qemu-img create -f qcow2 -b $f $fq
+qemu-img create -f qcow2 -b $f -F raw $fq
 
 # Add --no-network so UML works.
 $VG virt-customize --format qcow2 -a $fq --no-network \

@@ -50,4 +50,4 @@ blank-disk-1M.qcow2:
 	qemu-img create -f qcow2 -o preallocation=metadata $@ 1M
 
 blank-disk-with-backing.qcow2: blank-disk-1M.raw
-	qemu-img create -f qcow2 -b $^ $@
+	qemu-img create -f qcow2 -b $^ -F raw $@
