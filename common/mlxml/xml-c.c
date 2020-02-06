@@ -196,7 +196,7 @@ mllib_xml_to_string (value docv, value formatv)
   doc = docptr_val (docv);
   xmlDocDumpFormatMemory (doc, &mem, &size, Bool_val (formatv));
 
-  strv = caml_alloc_initialized_string (size, mem);
+  strv = caml_alloc_initialized_string (size, (const char *) mem);
   free (mem);
 
   CAMLreturn (strv);
