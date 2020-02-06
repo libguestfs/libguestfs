@@ -144,6 +144,14 @@ if test "x$enable_daemon" = "xyes"; then
     AC_SUBST([CAMLRUN])
 fi
 
+dnl Define HIVEX_OPEN_UNSAFE_FLAG based on test above.
+AS_IF([test "x$have_Hivex_OPEN_UNSAFE" = "xno"],[
+    HIVEX_OPEN_UNSAFE_FLAG="None"
+],[
+    HIVEX_OPEN_UNSAFE_FLAG="Some Hivex.OPEN_UNSAFE"
+])
+AC_SUBST([HIVEX_OPEN_UNSAFE_FLAG])
+
 OCAML_PKG_gettext=no
 OCAML_PKG_oUnit=no
 ounit_is_v2=no
@@ -204,13 +212,6 @@ EOF
 ])
 AM_CONDITIONAL([HAVE_BYTES_COMPAT_ML],
 	       [test "x$have_Bytes_module" = "xno"])
-
-AS_IF([test "x$have_Hivex_OPEN_UNSAFE" = "xno"],[
-    HIVEX_OPEN_UNSAFE_FLAG="None"
-],[
-    HIVEX_OPEN_UNSAFE_FLAG="Some Hivex.OPEN_UNSAFE"
-])
-AC_SUBST([HIVEX_OPEN_UNSAFE_FLAG])
 
 dnl Flags we want to pass to every OCaml compiler call.
 OCAML_WARN_ERROR="-warn-error CDEFLMPSUVYZX+52-3"
