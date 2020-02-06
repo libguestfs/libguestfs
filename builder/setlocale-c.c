@@ -44,7 +44,8 @@ virt_builder_setlocale (value val_category, value val_name)
 {
   CAMLparam2 (val_category, val_name);
   CAMLlocal2 (rv, rv2);
-  char *ret, *locstring;
+  const char *locstring;
+  char *ret;
   int category;
 
   category = lc_string_table[Int_val (val_category)];
