@@ -40,6 +40,19 @@
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
+/* Replacement if caml_alloc_initialized_string is missing, added
+ * to OCaml runtime in 2017.
+ */
+#ifndef HAVE_CAML_ALLOC_INITIALIZED_STRING
+static inline value
+caml_alloc_initialized_string (mlsize_t len, const char *p)
+{
+  value sv = caml_alloc_string (len);
+  memcpy ((char *) String_val (sv), p, len);
+  return sv;
+}
+#endif
+
 /* xmlDocPtr type */
 #define docptr_val(v) (*((xmlDocPtr *)Data_custom_val(v)))
 
@@ -183,8 +196,7 @@ mllib_xml_to_string (value docv, value formatv)
   doc = docptr_val (docv);
   xmlDocDumpFormatMemory (doc, &mem, &size, Bool_val (formatv));
 
-  strv = caml_alloc_string (size);
-  memcpy (String_val (strv), mem, size);
+  strv = caml_alloc_initialized_string (size, mem);
   free (mem);
 
   CAMLreturn (strv);

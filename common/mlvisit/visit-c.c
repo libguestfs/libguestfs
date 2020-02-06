@@ -35,6 +35,19 @@
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
+/* Replacement if caml_alloc_initialized_string is missing, added
+ * to OCaml runtime in 2017.
+ */
+#ifndef HAVE_CAML_ALLOC_INITIALIZED_STRING
+static inline value
+caml_alloc_initialized_string (mlsize_t len, const char *p)
+{
+  value sv = caml_alloc_string (len);
+  memcpy ((char *) String_val (sv), p, len);
+  return sv;
+}
+#endif
+
 struct visitor_function_wrapper_args {
   /* In both case we are pointing to local roots, hence why these are
    * value* not value.
@@ -198,8 +211,7 @@ copy_xattr (const struct guestfs_xattr *xattr)
   rv = caml_alloc (2, 0);
   v = caml_copy_string (xattr->attrname);
   Store_field (rv, 0, v);
-  v = caml_alloc_string (xattr->attrval_len);
-  memcpy (String_val (v), xattr->attrval, xattr->attrval_len);
+  v = caml_alloc_initialized_string (xattr->attrval_len, xattr->attrval);
   Store_field (rv, 1, v);
   CAMLreturn (rv);
 }

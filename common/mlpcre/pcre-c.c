@@ -39,6 +39,19 @@
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
+/* Replacement if caml_alloc_initialized_string is missing, added
+ * to OCaml runtime in 2017.
+ */
+#ifndef HAVE_CAML_ALLOC_INITIALIZED_STRING
+static inline value
+caml_alloc_initialized_string (mlsize_t len, const char *p)
+{
+  value sv = caml_alloc_string (len);
+  memcpy ((char *) String_val (sv), p, len);
+  return sv;
+}
+#endif
+
 /* Data on the most recent match is stored in this thread-local
  * variable.  It is freed either by the next call to PCRE.matches or
  * by (clean) thread exit.
@@ -257,8 +270,7 @@ guestfs_int_pcre_sub (value nv)
   if (len < 0)
     raise_pcre_error ("pcre_get_substring", len);
 
-  strv = caml_alloc_string (len);
-  memcpy (String_val (strv), str, len);
+  strv = caml_alloc_initialized_string (len, str);
   CAMLreturn (strv);
 }
 
