@@ -360,8 +360,7 @@ event_callback_wrapper_locked (guestfs_h *g,
 
   ehv = Val_int (event_handle);
 
-  bufv = caml_alloc_string (buf_len);
-  memcpy (String_val (bufv), buf, buf_len);
+  bufv = caml_alloc_initialized_string (buf_len, buf);
 
   arrayv = caml_alloc (array_len, 0);
   for (i = 0; i < array_len; ++i) {

@@ -504,12 +504,11 @@ copy_table (char * const * argv)
            | name, FString ->
                pr "  v = caml_copy_string (%s->%s);\n" typ name
            | name, FBuffer ->
-               pr "  v = caml_alloc_string (%s->%s_len);\n" typ name;
-               pr "  memcpy (String_val (v), %s->%s, %s->%s_len);\n"
+               pr "  v = caml_alloc_initialized_string (%s->%s_len, %s->%s);\n"
                  typ name typ name
            | name, FUUID ->
-               pr "  v = caml_alloc_string (32);\n";
-               pr "  memcpy (String_val (v), %s->%s, 32);\n" typ name
+               pr "  v = caml_alloc_initialized_string (32, %s->%s);\n"
+                 typ name
            | name, (FBytes|FInt64|FUInt64) ->
                pr "  v = caml_copy_int64 (%s->%s);\n" typ name
            | name, (FInt32|FUInt32) ->
@@ -757,8 +756,7 @@ copy_table (char * const * argv)
            pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
            pr "  free (r);\n";
        | RBufferOut _ ->
-           pr "  rv = caml_alloc_string (size);\n";
-           pr "  memcpy (String_val (rv), r, size);\n";
+           pr "  rv = caml_alloc_initialized_string (size, r);\n";
            pr "  free (r);\n"
       );
 

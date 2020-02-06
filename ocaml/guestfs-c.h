@@ -19,6 +19,24 @@
 #ifndef GUESTFS_OCAML_C_H
 #define GUESTFS_OCAML_C_H
 
+#include "config.h"
+
+#include <caml/alloc.h>
+#include <caml/mlvalues.h>
+
+/* Replacement if caml_alloc_initialized_string is missing, added
+ * to OCaml runtime in 2017.
+ */
+#ifndef HAVE_CAML_ALLOC_INITIALIZED_STRING
+static inline value
+caml_alloc_initialized_string (mlsize_t len, const char *p)
+{
+  value sv = caml_alloc_string (len);
+  memcpy ((char *) String_val (sv), p, len);
+  return sv;
+}
+#endif
+
 #define Guestfs_val(v) (*((guestfs_h **)Data_custom_val(v)))
 extern void guestfs_int_ocaml_raise_error (guestfs_h *g, const char *func)
   Noreturn;
