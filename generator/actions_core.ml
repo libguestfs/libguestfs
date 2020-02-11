@@ -210,7 +210,7 @@ this function fails and the C<errno> is set to C<EINVAL>." };
 
   { defaults with
     name = "add_drive"; added = (0, 0, 3);
-    style = RErr, [String (PlainString, "filename")], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"; OString "cachemode"; OString "discard"; OBool "copyonread"];
+    style = RErr, [String (PlainString, "filename")], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"; OString "cachemode"; OString "discard"; OBool "copyonread"; OInt "blocksize"];
     once_had_no_optargs = true;
     blocking = false;
     fish_alias = ["add"];
@@ -469,6 +469,16 @@ of the same area of disk.
 
 The default is false.
 
+=item C<blocksize>
+
+This parameter sets the sector size of the disk.  Possible values are
+C<512> (the default if the parameter is omitted) or C<4096>.  Use
+C<4096> when handling an \"Advanced Format\" disk that uses 4K sector
+size (L<https://en.wikipedia.org/wiki/Advanced_Format>).
+
+Only a subset of the backends support this parameter (currently only the
+libvirt and direct backends do).
+
 =back" };
 
   { defaults with
@@ -558,6 +568,10 @@ Disks with the E<lt>readonly/E<gt> flag are skipped.
 
 =back
 
+If present, the value of C<logical_block_size> attribute of E<lt>blockio/E<gt>
+tag in libvirt XML will be passed as C<blocksize> parameter to
+C<guestfs_add_drive_opts>.
+
 The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>." };
 
@@ -596,6 +610,10 @@ information.
 The optional C<readonlydisk> parameter controls what we do for
 disks which are marked E<lt>readonly/E<gt> in the libvirt XML.
 See C<guestfs_add_domain> for possible values.
+
+If present, the value of C<logical_block_size> attribute of E<lt>blockio/E<gt>
+tag in libvirt XML will be passed as C<blocksize> parameter to
+C<guestfs_add_drive_opts>.
 
 The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>." };
@@ -1280,7 +1298,7 @@ function." };
 
   { defaults with
     name = "add_drive_scratch"; added = (1, 23, 10);
-    style = RErr, [Int64 "size"], [OString "name"; OString "label"];
+    style = RErr, [Int64 "size"], [OString "name"; OString "label"; OInt "blocksize"];
     blocking = false;
     fish_alias = ["scratch"];
     shortdesc = "add a temporary scratch drive";
@@ -1290,8 +1308,8 @@ C<size> parameter is the virtual size (in bytes).  The scratch
 drive is blank initially (all reads return zeroes until you start
 writing to it).  The drive is deleted when the handle is closed.
 
-The optional arguments C<name> and C<label> are passed through to
-C<guestfs_add_drive>." };
+The optional arguments C<name>, C<label> and C<blocksize> are passed through to
+C<guestfs_add_drive_opts>." };
 
   { defaults with
     name = "journal_get"; added = (1, 23, 11);

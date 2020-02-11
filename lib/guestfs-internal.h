@@ -261,6 +261,7 @@ struct drive {
   char *cachemode;
   enum discard discard;
   bool copyonread;
+  int blocksize;
 };
 
 /* Extra hv parameters (from guestfs_config). */

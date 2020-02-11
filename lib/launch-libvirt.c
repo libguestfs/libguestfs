@@ -1043,6 +1043,7 @@ static int construct_libvirt_xml_disk (guestfs_h *g, const struct backend_libvir
 static int construct_libvirt_xml_disk_target (guestfs_h *g, xmlTextWriterPtr xo, size_t drv_index);
 static int construct_libvirt_xml_disk_driver_qemu (guestfs_h *g, const struct backend_libvirt_data *data, struct drive *drv, xmlTextWriterPtr xo, const char *format, const char *cachemode, enum discard discard, bool copyonread);
 static int construct_libvirt_xml_disk_address (guestfs_h *g, xmlTextWriterPtr xo, size_t drv_index);
+static int construct_libvirt_xml_disk_blockio (guestfs_h *g, xmlTextWriterPtr xo, int blocksize);
 static int construct_libvirt_xml_disk_source_hosts (guestfs_h *g, xmlTextWriterPtr xo, const struct drive_source *src);
 static int construct_libvirt_xml_disk_source_seclabel (guestfs_h *g, const struct backend_libvirt_data *data, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
@@ -1578,6 +1579,9 @@ construct_libvirt_xml_disk (guestfs_h *g,
     if (construct_libvirt_xml_disk_address (g, xo, drv_index) == -1)
       return -1;
 
+    if (construct_libvirt_xml_disk_blockio (g, xo, drv->blocksize) == -1)
+      return -1;
+
   } end_element (); /* </disk> */
 
   return 0;
@@ -1681,6 +1685,20 @@ construct_libvirt_xml_disk_address (guestfs_h *g, xmlTextWriterPtr xo,
      */
     attribute ("unit", "0");
   } end_element ();
+
+  return 0;
+}
+
+static int
+construct_libvirt_xml_disk_blockio (guestfs_h *g, xmlTextWriterPtr xo,
+                                    int blocksize)
+{
+  if (blocksize) {
+    start_element ("blockio") {
+        attribute_format ("physical_block_size", "%d", blocksize);
+        attribute_format ("logical_block_size", "%d", blocksize);
+    } end_element ();
+  }
 
   return 0;
 }

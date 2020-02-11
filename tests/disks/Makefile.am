@@ -25,13 +25,15 @@ TESTS = \
 
 if HAVE_LIBVIRT
 TESTS += \
-	test-qemu-drive-libvirt.sh
+	test-qemu-drive-libvirt.sh \
+	test-qemu-drive-with-blocksize-libvirt.sh
 
 if ENABLE_APPLIANCE
 TESTS += \
 	test-27-disks.sh \
 	test-255-disks.sh \
-	test-add-lots-of-disks.sh
+	test-add-lots-of-disks.sh \
+	test-add-drive-with-blocksize.sh
 endif
 endif
 

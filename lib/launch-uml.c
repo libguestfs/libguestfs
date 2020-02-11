@@ -124,6 +124,11 @@ uml_supported (guestfs_h *g)
              _("uml backend does not support drives with ‘discard’ parameter set to ‘enable’"));
       return false;
     }
+    if (drv->blocksize) {
+      error (g,
+             _("uml backend does not support drives with ‘blocksize’ parameter"));
+      return false;
+    }
   }
 
   return true;

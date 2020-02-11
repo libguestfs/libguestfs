@@ -273,6 +273,27 @@ add_drive_standard_params (guestfs_h *g, struct backend_direct_data *data,
   return -1;
 }
 
+/**
+ * Add the physical_block_size and logical_block_size elements of the C<-device>
+ * parameter.
+ */
+static int
+add_device_blocksize_params (guestfs_h *g, struct qemuopts *qopts,
+                           struct drive *drv)
+{
+  if (drv->blocksize) {
+    append_list_format ("physical_block_size=%d", drv->blocksize);
+    append_list_format ("logical_block_size=%d", drv->blocksize);
+  }
+
+  return 0;
+
+  /* This label is called implicitly from the qemuopts macros on error. */
+ qemuopts_error:
+  perrorf (g, "qemuopts");
+  return -1;
+}
+
 static int
 add_drive (guestfs_h *g, struct backend_direct_data *data,
            struct qemuopts *qopts, size_t i, struct drive *drv)
@@ -291,6 +312,8 @@ add_drive (guestfs_h *g, struct backend_direct_data *data,
       append_list_format ("drive=hd%zu", i);
       if (drv->disk_label)
         append_list_format ("serial=%s", drv->disk_label);
+      if (add_device_blocksize_params (g, qopts, drv) == -1)
+        return -1;
     } end_list ();
   }
 #if defined(__arm__) || defined(__aarch64__) || defined(__powerpc__)
@@ -317,6 +340,8 @@ add_drive (guestfs_h *g, struct backend_direct_data *data,
       append_list_format ("drive=hd%zu", i);
       if (drv->disk_label)
         append_list_format ("serial=%s", drv->disk_label);
+      if (add_device_blocksize_params (g, qopts, drv) == -1)
+        return -1;
     } end_list ();
   }
 

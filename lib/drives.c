@@ -58,6 +58,7 @@ struct drive_create_data {
   const char *cachemode;
   enum discard discard;
   bool copyonread;
+  int blocksize;
 };
 
 COMPILE_REGEXP (re_hostname_port, "(.*):(\\d+)$", 0)
@@ -114,6 +115,7 @@ create_drive_file (guestfs_h *g,
   drv->cachemode = data->cachemode ? safe_strdup (g, data->cachemode) : NULL;
   drv->discard = data->discard;
   drv->copyonread = data->copyonread;
+  drv->blocksize = data->blocksize;
 
   if (data->readonly) {
     if (create_overlay (g, drv) == -1) {
@@ -150,6 +152,7 @@ create_drive_non_file (guestfs_h *g,
   drv->cachemode = data->cachemode ? safe_strdup (g, data->cachemode) : NULL;
   drv->discard = data->discard;
   drv->copyonread = data->copyonread;
+  drv->blocksize = data->blocksize;
 
   if (data->readonly) {
     if (create_overlay (g, drv) == -1) {
@@ -501,8 +504,13 @@ guestfs_int_drive_protocol_to_string (enum drive_protocol protocol)
 static char *
 drive_to_string (guestfs_h *g, const struct drive *drv)
 {
+  CLEANUP_FREE char *s_blocksize = NULL;
+
+  if (drv->blocksize)
+    s_blocksize = safe_asprintf (g, "%d", drv->blocksize);
+
   return safe_asprintf
-    (g, "%s%s%s%s protocol=%s%s%s%s%s%s%s%s%s%s%s",
+    (g, "%s%s%s%s protocol=%s%s%s%s%s%s%s%s%s%s%s%s%s",
      drv->src.u.path,
      drv->readonly ? " readonly" : "",
      drv->src.format ? " format=" : "",
@@ -518,7 +526,9 @@ drive_to_string (guestfs_h *g, const struct drive *drv)
      drv->cachemode ? : "",
      drv->discard == discard_disable ? "" :
      drv->discard == discard_enable ? " discard=enable" : " discard=besteffort",
-     drv->copyonread ? " copyonread" : "");
+     drv->copyonread ? " copyonread" : "",
+     drv->blocksize ? " blocksize=" : "",
+     drv->blocksize ? s_blocksize : "");
 }
 
 /**
@@ -616,6 +626,17 @@ valid_port (int port)
   if (port <= 0 || port > 65535)
     return 0;
   return 1;
+}
+
+/**
+ * Check the block size is reasonable.  It can't be other then 512 or 4096.
+ */
+static int
+valid_blocksize (int blocksize)
+{
+  if (blocksize == 512 || blocksize == 4096)
+    return 1;
+  return 0;
 }
 
 static int
@@ -767,6 +788,10 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
     optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_COPYONREAD_BITMASK
     ? optargs->copyonread : false;
 
+  data.blocksize =
+    optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_BLOCKSIZE_BITMASK
+    ? optargs->blocksize : 0;
+
   if (data.readonly && data.discard == discard_enable) {
     error (g, _("discard support cannot be enabled on read-only drives"));
     free_drive_servers (data.servers, data.nr_servers);
@@ -793,6 +818,11 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
   if (data.cachemode &&
       !(STREQ (data.cachemode, "writeback") || STREQ (data.cachemode, "unsafe"))) {
     error (g, _("cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"));
+    free_drive_servers (data.servers, data.nr_servers);
+    return -1;
+  }
+  if (data.blocksize && !valid_blocksize (data.blocksize)) {
+    error (g, _("%s parameter is invalid"), "blocksize");
     free_drive_servers (data.servers, data.nr_servers);
     return -1;
   }
@@ -981,6 +1011,10 @@ guestfs_impl_add_drive_scratch (guestfs_h *g, int64_t size,
   if (optargs->bitmask & GUESTFS_ADD_DRIVE_SCRATCH_LABEL_BITMASK) {
     add_drive_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_LABEL_BITMASK;
     add_drive_optargs.label = optargs->label;
+  }
+  if (optargs->bitmask & GUESTFS_ADD_DRIVE_SCRATCH_BLOCKSIZE_BITMASK) {
+    add_drive_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_BLOCKSIZE_BITMASK;
+    add_drive_optargs.blocksize = optargs->blocksize;
   }
 
   /* Create the temporary file.  We don't have to worry about cleanup

@@ -42,11 +42,12 @@
 #if defined(HAVE_LIBVIRT)
 
 static xmlDocPtr get_domain_xml (guestfs_h *g, virDomainPtr dom);
-static ssize_t for_each_disk (guestfs_h *g, virConnectPtr conn, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, const char *secret, void *data), void *data);
+static ssize_t for_each_disk (guestfs_h *g, virConnectPtr conn, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, const char *secret, int blocksize, void *data), void *data);
 static int libvirt_selinux_label (guestfs_h *g, xmlDocPtr doc, char **label_rtn, char **imagelabel_rtn);
 static char *filename_from_pool (guestfs_h *g, virConnectPtr conn, const char *pool_nane, const char *volume_name);
 static bool xpath_object_is_empty (xmlXPathObjectPtr obj);
 static char *xpath_object_get_string (xmlDocPtr doc, xmlXPathObjectPtr obj);
+static int xpath_object_get_int (xmlDocPtr doc, xmlXPathObjectPtr obj);
 
 static void
 ignore_errors (void *ignore, virErrorPtr ignore2)
@@ -169,7 +170,7 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
   return r;
 }
 
-static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, const char *secret, void *data);
+static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, const char *secret, int blocksize, void *data);
 static int connect_live (guestfs_h *g, virDomainPtr dom);
 
 enum readonlydisk {
@@ -331,7 +332,7 @@ static int
 add_disk (guestfs_h *g,
           const char *filename, const char *format, int readonly_in_xml,
           const char *protocol, char *const *server, const char *username,
-          const char *secret, void *datavp)
+          const char *secret, int blocksize, void *datavp)
 {
   struct add_disk_data *data = datavp;
   /* Copy whole struct so we can make local changes: */
@@ -391,6 +392,10 @@ add_disk (guestfs_h *g,
   if (secret) {
     optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_SECRET_BITMASK;
     optargs.secret = secret;
+  }
+  if (blocksize) {
+    optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_BLOCKSIZE_BITMASK;
+    optargs.blocksize = blocksize;
   }
 
   return guestfs_add_drive_opts_argv (g, filename, &optargs);
@@ -486,7 +491,7 @@ for_each_disk (guestfs_h *g,
                          int readonly,
                          const char *protocol, char *const *server,
                          const char *username, const char *secret,
-                         void *data),
+                         int blocksize, void *data),
                void *data)
 {
   size_t i, nr_added = 0, nr_nodes;
@@ -526,6 +531,7 @@ for_each_disk (guestfs_h *g,
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppool = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpvolume = NULL;
       int readonly;
+      int blocksize = 0;
       int t;
       virErrorPtr err;
 
@@ -778,8 +784,17 @@ for_each_disk (guestfs_h *g,
       if (!xpath_object_is_empty (xpreadonly))
         readonly = 1;
 
+      /* Get logical block size.  Optional. */
+      xpathCtx->node = nodes->nodeTab[i];
+      xpformat = xmlXPathEvalExpression (BAD_CAST
+                                         "./blockio/@logical_block_size",
+                                         xpathCtx);
+      if (!xpath_object_is_empty (xpformat))
+        blocksize = xpath_object_get_int (doc, xpformat);
+
       if (f)
-        t = f (g, filename, format, readonly, protocol, server, username, secret, data);
+        t = f (g, filename, format, readonly, protocol, server, username,
+               secret, blocksize, data);
       else
         t = 0;
 
@@ -971,6 +986,31 @@ xpath_object_get_string (xmlDocPtr doc, xmlXPathObjectPtr obj)
   assert (obj->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
   attr = (xmlAttrPtr) obj->nodesetval->nodeTab[0];
   value = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+  return value;
+}
+
+/* Get the integer value from C<obj>.
+ *
+ * C<obj> is I<required> to not be empty, i.e. that C<xpath_object_is_empty>
+ * is C<false>.
+ *
+ * Any parsing errors are ignored and 0 (zero) will be returned.
+ */
+static int
+xpath_object_get_int (xmlDocPtr doc, xmlXPathObjectPtr obj)
+{
+  xmlAttrPtr attr;
+  CLEANUP_FREE char *str;
+  int value;
+
+  assert (obj->nodesetval->nodeTab[0]);
+  assert (obj->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+  attr = (xmlAttrPtr) obj->nodesetval->nodeTab[0];
+  str = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+  if (sscanf (str, "%d", &value) != 1)
+    value = 0; /* ignore any parsing error */
 
   return value;
 }
