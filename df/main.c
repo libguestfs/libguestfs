@@ -79,6 +79,8 @@ usage (int status)
               "  %s [--options] -a disk.img [-a disk.img ...]\n"
               "Options:\n"
               "  -a|--add image       Add image\n"
+              "  --blocksize[=512|4096]\n"
+              "                       Set sector size of the disk for -a option\n"
               "  -c|--connect uri     Specify libvirt URI for -d option\n"
               "  --csv                Output as Comma-Separated Values\n"
               "  -d|--domain guest    Add disks from libvirt guest\n"
@@ -111,6 +113,7 @@ main (int argc, char *argv[])
   static const char options[] = "a:c:d:hiP:vVx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
+    { "blocksize", 2, 0, 0 },
     { "connect", 1, 0, 'c' },
     { "csv", 0, 0, 0 },
     { "domain", 1, 0, 'd' },
@@ -130,6 +133,8 @@ main (int argc, char *argv[])
   struct drv *drv;
   const char *format = NULL;
   bool format_consumed = true;
+  int blocksize = 0;
+  bool blocksize_consumed = true;
   int c;
   int option_index;
   size_t max_threads = 0;
@@ -151,6 +156,8 @@ main (int argc, char *argv[])
         display_short_options (options);
       else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
+      } else if (STREQ (long_options[option_index].name, "blocksize")) {
+        OPTION_blocksize;
       } else if (STREQ (long_options[option_index].name, "csv")) {
         csv = 1;
       } else if (STREQ (long_options[option_index].name, "one-per-guest")) {
@@ -251,6 +258,7 @@ main (int argc, char *argv[])
     usage (EXIT_FAILURE);
 
   CHECK_OPTION_format_consumed;
+  CHECK_OPTION_blocksize_consumed;
 
   /* -h and --csv doesn't make sense.  Spreadsheets will corrupt these
    * fields.  (RHBZ#600977).

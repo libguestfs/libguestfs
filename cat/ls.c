@@ -104,6 +104,8 @@ usage (int status)
               "  %s [--options] -a disk.img [-a disk.img ...] dir [dir ...]\n"
               "Options:\n"
               "  -a|--add image       Add image\n"
+              "  --blocksize[=512|4096]\n"
+              "                       Set sector size of the disk for -a option\n"
               "  --checksum[=...]     Display file checksums\n"
               "  -c|--connect uri     Specify libvirt URI for -d option\n"
               "  --csv                Comma-Separated Values output\n"
@@ -149,6 +151,7 @@ main (int argc, char *argv[])
   static const char options[] = "a:c:d:hlm:RvVx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
+    { "blocksize", 2, 0, 0 },
     { "checksum", 2, 0, 0 },
     { "checksums", 2, 0, 0 },
     { "csv", 0, 0, 0 },
@@ -185,6 +188,8 @@ main (int argc, char *argv[])
   char *p;
   const char *format = NULL;
   bool format_consumed = true;
+  int blocksize = 0;
+  bool blocksize_consumed = true;
   int c;
   int option_index;
 #define MODE_LS_L  1
@@ -213,6 +218,8 @@ main (int argc, char *argv[])
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
+      } else if (STREQ (long_options[option_index].name, "blocksize")) {
+        OPTION_blocksize;
       } else if (STREQ (long_options[option_index].name, "checksum") ||
                  STREQ (long_options[option_index].name, "checksums")) {
         if (!optarg || STREQ (optarg, ""))
@@ -338,6 +345,7 @@ main (int argc, char *argv[])
   assert (live == 0);
 
   CHECK_OPTION_format_consumed;
+  CHECK_OPTION_blocksize_consumed;
 
   /* Many flags only apply to -lR mode. */
   if (mode != MODE_LS_LR &&

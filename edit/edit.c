@@ -76,6 +76,8 @@ usage (int status)
               "Options:\n"
               "  -a|--add image        Add image\n"
               "  -b|--backup .ext      Backup original as original.ext\n"
+              "  --blocksize[=512|4096]\n"
+              "                       Set sector size of the disk for -a option\n"
               "  -c|--connect uri      Specify libvirt URI for -d option\n"
               "  -d|--domain guest     Add disks from libvirt guest\n"
               "  --echo-keys           Don't turn off echo for passphrases\n"
@@ -109,6 +111,7 @@ main (int argc, char *argv[])
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "backup", 1, 0, 'b' },
+    { "blocksize", 2, 0, 0 },
     { "connect", 1, 0, 'c' },
     { "domain", 1, 0, 'd' },
     { "echo-keys", 0, 0, 0 },
@@ -132,6 +135,8 @@ main (int argc, char *argv[])
   char *p;
   const char *format = NULL;
   bool format_consumed = true;
+  int blocksize = 0;
+  bool blocksize_consumed = true;
   int c;
   int option_index;
   struct key_store *ks = NULL;
@@ -156,6 +161,8 @@ main (int argc, char *argv[])
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
+      } else if (STREQ (long_options[option_index].name, "blocksize")) {
+        OPTION_blocksize;
       } else if (STREQ (long_options[option_index].name, "key")) {
         OPTION_key;
       } else
@@ -257,6 +264,7 @@ main (int argc, char *argv[])
     usage (EXIT_FAILURE);
 
   CHECK_OPTION_format_consumed;
+  CHECK_OPTION_blocksize_consumed;
 
   /* User must have specified some drives. */
   if (drvs == NULL) {

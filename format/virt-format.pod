@@ -79,6 +79,8 @@ B<Any existing data on the disk is erased.>
 
 Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
+__INCLUDE:blocksize-option.pod__
+
 =item B<--filesystem=ext3|ntfs|vfat|...>
 
 Create an empty filesystem of the specified type.  Many filesystem

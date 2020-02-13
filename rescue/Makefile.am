@@ -66,6 +66,7 @@ stamp-virt-rescue.pod: virt-rescue.pod
 	$(PODWRAPPER) \
 	  --man virt-rescue.1 \
 	  --html $(top_builddir)/website/virt-rescue.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning ro-option \
 	  $<

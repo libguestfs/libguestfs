@@ -73,6 +73,8 @@ as well.
 
 Add a disk image from the second virtual machine.
 
+__INCLUDE:blocksize-option.pod__
+
 =item B<--checksum>
 
 =item B<--checksum=crc|md5|sha1|sha224|sha256|sha384|sha512>

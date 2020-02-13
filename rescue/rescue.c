@@ -88,6 +88,8 @@ usage (int status)
               "Options:\n"
               "  -a|--add image       Add image\n"
               "  --append kernelopts  Append kernel options\n"
+              "  --blocksize[=512|4096]\n"
+              "                       Set sector size of the disk for -a option\n"
               "  -c|--connect uri     Specify libvirt URI for -d option\n"
               "  -d|--domain guest    Add disks from libvirt guest\n"
               "  -e ^x|none           Set or disable escape key (default ^])\n"
@@ -127,6 +129,7 @@ main (int argc, char *argv[])
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "append", 1, 0, 0 },
+    { "blocksize", 2, 0, 0 },
     { "connect", 1, 0, 'c' },
     { "domain", 1, 0, 'd' },
     { "format", 2, 0, 0 },
@@ -154,6 +157,8 @@ main (int argc, char *argv[])
   char *p;
   const char *format = NULL;
   bool format_consumed = true;
+  int blocksize = 0;
+  bool blocksize_consumed = true;
   int c;
   int option_index;
   int network = 0;
@@ -187,6 +192,8 @@ main (int argc, char *argv[])
         network = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
+      } else if (STREQ (long_options[option_index].name, "blocksize")) {
+        OPTION_blocksize;
       } else if (STREQ (long_options[option_index].name, "smp")) {
         if (sscanf (optarg, "%d", &smp) != 1)
           error (EXIT_FAILURE, 0,
@@ -334,6 +341,7 @@ main (int argc, char *argv[])
   }
 
   CHECK_OPTION_format_consumed;
+  CHECK_OPTION_blocksize_consumed;
 
   /* User must have specified some drives. */
   if (drvs == NULL) {

@@ -57,6 +57,8 @@ force a particular format use the I<--format=..> option.
 
 Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
+__INCLUDE:blocksize-option.pod__
+
 =item B<-c> URI
 
 =item B<--connect> URI

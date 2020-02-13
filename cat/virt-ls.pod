@@ -271,6 +271,8 @@ force a particular format use the I<--format=..> option.
 
 Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
+__INCLUDE:blocksize-option.pod__
+
 =item B<--checksum>
 
 =item B<--checksum=crc|md5|sha1|sha224|sha256|sha384|sha512>

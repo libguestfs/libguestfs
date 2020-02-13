@@ -21,4 +21,5 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl "$srcdir/virt-alignment-scan.pod" virt-alignment-scan
+$top_srcdir/podcheck.pl "$srcdir/virt-alignment-scan.pod" virt-alignment-scan \
+                        --path $top_srcdir/common/options

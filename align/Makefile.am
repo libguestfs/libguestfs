@@ -66,6 +66,7 @@ stamp-virt-alignment-scan.pod: virt-alignment-scan.pod
 	$(PODWRAPPER) \
 	  --man virt-alignment-scan.1 \
 	  --html $(top_builddir)/website/virt-alignment-scan.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<

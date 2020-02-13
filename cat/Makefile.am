@@ -200,6 +200,7 @@ stamp-virt-filesystems.pod: virt-filesystems.pod
 	$(PODWRAPPER) \
 	  --man virt-filesystems.1 \
 	  --html $(top_builddir)/website/virt-filesystems.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<

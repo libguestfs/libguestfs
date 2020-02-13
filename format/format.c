@@ -80,6 +80,8 @@ usage (int status)
               "  %s [--options] -a disk.img [-a disk.img ...]\n"
               "Options:\n"
               "  -a|--add image       Add image\n"
+              "  --blocksize[=512|4096]\n"
+              "                       Set sector size of the disk for -a option\n"
               "  --filesystem=..      Create empty filesystem\n"
               "  --format[=raw|..]    Force disk format for -a option\n"
               "  --help               Display brief help\n"
@@ -112,6 +114,7 @@ main (int argc, char *argv[])
   static const char options[] = "a:vVx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
+    { "blocksize", 2, 0, 0 },
     { "filesystem", 1, 0, 0 },
     { "format", 2, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
@@ -128,6 +131,8 @@ main (int argc, char *argv[])
   struct drv *drvs = NULL;
   const char *format = NULL;
   bool format_consumed = true;
+  int blocksize = 0;
+  bool blocksize_consumed = true;
   int c;
   int option_index;
   int retry, retries;
@@ -148,6 +153,8 @@ main (int argc, char *argv[])
         display_short_options (options);
       else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
+      } else if (STREQ (long_options[option_index].name, "blocksize")) {
+        OPTION_blocksize;
       } else if (STREQ (long_options[option_index].name, "filesystem")) {
         if (STREQ (optarg, "none"))
           filesystem = NULL;
@@ -233,6 +240,7 @@ main (int argc, char *argv[])
   }
 
   CHECK_OPTION_format_consumed;
+  CHECK_OPTION_blocksize_consumed;
 
   /* The user didn't specify any drives to format. */
   if (drvs == NULL) {

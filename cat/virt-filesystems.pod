@@ -126,6 +126,8 @@ See also I<--long>.
 
 Display block devices.
 
+__INCLUDE:blocksize-option.pod__
+
 =item B<-c> URI
 
 =item B<--connect> URI

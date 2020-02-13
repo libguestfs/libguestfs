@@ -90,6 +90,8 @@ so you would write:
 
 By default, no backup file is made.
 
+__INCLUDE:blocksize-option.pod__
+
 =item B<-c> URI
 
 =item B<--connect> URI

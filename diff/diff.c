@@ -116,6 +116,8 @@ usage (int status)
               "  --all                Same as: --extra-stats --times --uids --xattrs\n"
               "  --atime              Don't ignore access time changes\n"
               "  -A image             Add image from second guest\n"
+              "  --blocksize[=512|4096]\n"
+              "                       Set sector size of the disk for -a or -A option\n"
               "  --checksum[=...]     Use checksum of file content\n"
               "  -c|--connect uri     Specify libvirt URI for -d option\n"
               "  --csv                Comma-Separated Values output\n"
@@ -163,6 +165,7 @@ main (int argc, char *argv[])
     { "add", 1, 0, 'a' },
     { "all", 0, 0, 0 },
     { "atime", 0, 0, 0 },
+    { "blocksize", 2, 0, 0 },
     { "checksum", 2, 0, 0 },
     { "checksums", 2, 0, 0 },
     { "csv", 0, 0, 0 },
@@ -201,6 +204,8 @@ main (int argc, char *argv[])
   struct drv *drvs2 = NULL;     /* Second guest. */
   const char *format = NULL;
   bool format_consumed = true;
+  int blocksize = 0;
+  bool blocksize_consumed = true;
   int c;
   int option_index;
   struct tree *tree1, *tree2;
@@ -232,6 +237,8 @@ main (int argc, char *argv[])
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
+      } else if (STREQ (long_options[option_index].name, "blocksize")) {
+        OPTION_blocksize;
       } else if (STREQ (long_options[option_index].name, "all")) {
         enable_extra_stats = enable_times = enable_uids = enable_xattrs = 1;
       } else if (STREQ (long_options[option_index].name, "atime")) {
@@ -366,6 +373,7 @@ main (int argc, char *argv[])
   assert (live == 0);
 
   CHECK_OPTION_format_consumed;
+  CHECK_OPTION_blocksize_consumed;
 
   unsigned errors = 0;
 

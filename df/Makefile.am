@@ -70,6 +70,7 @@ stamp-virt-df.pod: virt-df.pod
 	$(PODWRAPPER) \
 	  --man virt-df.1 \
 	  --html $(top_builddir)/website/virt-df.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<

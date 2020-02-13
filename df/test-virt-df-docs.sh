@@ -20,4 +20,5 @@ set -e
 
 $TEST_FUNCTIONS
 
-$top_srcdir/podcheck.pl "$srcdir/virt-df.pod" virt-df
+$top_srcdir/podcheck.pl "$srcdir/virt-df.pod" virt-df \
+                        --path $top_srcdir/common/options

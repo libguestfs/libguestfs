@@ -110,6 +110,8 @@ usage (int status)
               "  %s [--options] mountpoint\n"
               "Options:\n"
               "  -a|--add image       Add image\n"
+              "  --blocksize[=512|4096]\n"
+              "                       Set sector size of the disk for -a option\n"
               "  -c|--connect uri     Specify libvirt URI for -d option\n"
               "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
               "  -d|--domain guest    Add disks from libvirt guest\n"
@@ -157,6 +159,7 @@ main (int argc, char *argv[])
   static const char options[] = "a:c:d:im:no:rvVwx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
+    { "blocksize", 2, 0, 0 },
     { "connect", 1, 0, 'c' },
     { "dir-cache-timeout", 1, 0, 0 },
     { "domain", 1, 0, 'd' },
@@ -191,6 +194,8 @@ main (int argc, char *argv[])
   char *p;
   const char *format = NULL;
   bool format_consumed = true;
+  int blocksize = 0;
+  bool blocksize_consumed = true;
   int c, r;
   int option_index;
   struct sigaction sa;
@@ -235,6 +240,8 @@ main (int argc, char *argv[])
         /* nothing */
       } else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
+      } else if (STREQ (long_options[option_index].name, "blocksize")) {
+        OPTION_blocksize;
       } else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
         keys_from_stdin = 1;
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
@@ -316,6 +323,7 @@ main (int argc, char *argv[])
   }
 
   CHECK_OPTION_format_consumed;
+  CHECK_OPTION_blocksize_consumed;
 
   /* Check we have the right options. */
   if (!live) {

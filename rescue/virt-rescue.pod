@@ -112,6 +112,8 @@ Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
 Pass additional options to the rescue kernel.
 
+__INCLUDE:blocksize-option.pod__
+
 =item B<-c> URI
 
 =item B<--connect> URI

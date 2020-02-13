@@ -22,4 +22,5 @@ $TEST_FUNCTIONS
 skip_if_skipped
 
 $top_srcdir/podcheck.pl "$srcdir/virt-rescue.pod" virt-rescue \
+                        --path $top_srcdir/common/options \
                         --ignore=--suggest

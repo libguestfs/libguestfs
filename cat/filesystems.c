@@ -104,6 +104,8 @@ usage (int status)
               "  --all                Display everything\n"
               "  --blkdevs|--block-devices\n"
               "                       Display block devices\n"
+              "  --blocksize[=512|4096]\n"
+              "                       Set sector size of the disk for -a option\n"
               "  -c|--connect uri     Specify libvirt URI for -d option\n"
               "  --csv                Output as Comma-Separated Values\n"
               "  -d|--domain guest    Add disks from libvirt guest\n"
@@ -149,6 +151,7 @@ main (int argc, char *argv[])
     { "all", 0, 0, 0 },
     { "blkdevs", 0, 0, 0 },
     { "block-devices", 0, 0, 0 },
+    { "blocksize", 2, 0, 0 },
     { "connect", 1, 0, 'c' },
     { "csv", 0, 0, 0 },
     { "domain", 1, 0, 'd' },
@@ -183,6 +186,8 @@ main (int argc, char *argv[])
   struct drv *drvs = NULL;
   const char *format = NULL;
   bool format_consumed = true;
+  int blocksize = 0;
+  bool blocksize_consumed = true;
   int c;
   int option_index;
   int no_title = 0;             /* --no-title */
@@ -210,6 +215,8 @@ main (int argc, char *argv[])
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
+      } else if (STREQ (long_options[option_index].name, "blocksize")) {
+        OPTION_blocksize;
       } else if (STREQ (long_options[option_index].name, "all")) {
         output = OUTPUT_ALL;
       } else if (STREQ (long_options[option_index].name, "blkdevs") ||
@@ -306,6 +313,7 @@ main (int argc, char *argv[])
   }
 
   CHECK_OPTION_format_consumed;
+  CHECK_OPTION_blocksize_consumed;
 
   /* -h and --csv doesn't make sense.  Spreadsheets will corrupt these
    * fields.  (RHBZ#600977).

@@ -181,6 +181,8 @@ with C<format:...> if the I<--format=...> flag was given.
 
 Add a remote disk.  See L</ADDING REMOTE STORAGE>.
 
+__INCLUDE:blocksize-option.pod__
+
 =item B<-c> URI
 
 =item B<--connect> URI

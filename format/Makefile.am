@@ -60,6 +60,7 @@ stamp-virt-format.pod: virt-format.pod
 	$(PODWRAPPER) \
 	  --man virt-format.1 \
 	  --html $(top_builddir)/website/virt-format.1.html \
+	  --path $(top_srcdir)/common/options \
 	  --license GPLv2+ \
 	  --warning general \
 	  $<

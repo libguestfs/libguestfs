@@ -124,6 +124,8 @@ usage (int status)
               "  -h|--cmd-help        List available commands\n"
               "  -h|--cmd-help cmd    Display detailed help on ‘cmd’\n"
               "  -a|--add image       Add image\n"
+              "  --blocksize[=512|4096]\n"
+              "                       Set sector size of the disk for -a option\n"
               "  -c|--connect uri     Specify libvirt URI for -d option\n"
               "  --csh                Make --listen csh-compatible\n"
               "  -d|--domain guest    Add disks from libvirt guest\n"
@@ -190,6 +192,7 @@ main (int argc, char *argv[])
   static const char options[] = "a:c:d:Df:h::im:nN:rvVwx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
+    { "blocksize", 2, 0, 0 },
     { "cmd-help", 2, 0, 'h' },
     { "connect", 1, 0, 'c' },
     { "csh", 0, 0, 0 },
@@ -228,6 +231,8 @@ main (int argc, char *argv[])
   char *p, *file = NULL;
   const char *format = NULL;
   bool format_consumed = true;
+  int blocksize = 0;
+  bool blocksize_consumed = true;
   int c;
   int option_index;
   struct sigaction sa;
@@ -285,6 +290,8 @@ main (int argc, char *argv[])
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
+      } else if (STREQ (long_options[option_index].name, "blocksize")) {
+        OPTION_blocksize;
       } else if (STREQ (long_options[option_index].name, "csh")) {
         remote_control_csh = 1;
       } else if (STREQ (long_options[option_index].name, "live")) {
@@ -468,6 +475,7 @@ main (int argc, char *argv[])
   }
 
   CHECK_OPTION_format_consumed;
+  CHECK_OPTION_blocksize_consumed;
 
   /* If we've got drives to add, add them now. */
   add_drives (drvs);
