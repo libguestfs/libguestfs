@@ -26,6 +26,7 @@ module G = Guestfs
 open Printf
 
 let parse_cmdline () =
+  let blocksize = ref 0 in
   let domain = ref None in
   let file = ref None in
   let libvirturi = ref "" in
@@ -52,14 +53,14 @@ let parse_cmdline () =
     prefix := Some p in
 
   let argspec = [
-    [ S 'a'; L"add" ],        Getopt.String (s_"file", set_file),        s_"Add disk image file";
-    [ S 'c'; L"connect" ],        Getopt.Set_string (s_"uri", libvirturi), s_"Set libvirt URI";
-    [ S 'd'; L"domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
-    [ L"format" ],  Getopt.Set_string (s_"format", format),      s_"Format of input disk";
-    [ S 'o'; L"output" ],        Getopt.Set_string (s_"directory", output),  s_"Output directory";
-    [ L"unversioned-names" ], Getopt.Set unversioned,
-                                            s_"Use unversioned names for files";
-    [ L"prefix" ],  Getopt.String (s_"prefix", set_prefix),      s_"Prefix for files";
+    [ S 'a'; L"add" ], Getopt.String (s_"file", set_file), s_"Add disk image file";
+    [ L"blocksize" ], Getopt.Set_int ("512|4096", blocksize), s_"Set disk sector size";
+    [ S 'c'; L"connect" ], Getopt.Set_string (s_"uri", libvirturi), s_"Set libvirt URI";
+    [ S 'd'; L"domain" ], Getopt.String (s_"domain", set_domain), s_"Set libvirt guest name";
+    [ L"format" ], Getopt.Set_string (s_"format", format), s_"Format of input disk";
+    [ S 'o'; L"output" ], Getopt.Set_string (s_"directory", output), s_"Output directory";
+    [ L"unversioned-names" ], Getopt.Set unversioned, s_"Use unversioned names for files";
+    [ L"prefix" ], Getopt.String (s_"prefix", set_prefix), s_"Prefix for files";
   ] in
   let usage_msg =
     sprintf (f_"\
@@ -102,9 +103,10 @@ read the man page virt-get-kernel(1).
       fun g ->
         let { URI.path; protocol; server; username; password } = uri in
         let format = match !format with "auto" -> None | s -> Some s in
+        let blocksize = match !blocksize with 0 -> None | i -> Some i in
         g#add_drive
-          ~readonly:true ?format ~protocol ?server ?username ?secret:password
-          path
+          ~readonly:true ?blocksize ?format ~protocol ?server ?username
+          ?secret:password path
   in
 
   (* Dereference the rest of the args. *)
