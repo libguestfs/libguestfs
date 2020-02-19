@@ -1,5 +1,3 @@
-// +build appliance
-
 /* libguestfs Go tests
  * Copyright (C) 2013 Red Hat Inc.
  *

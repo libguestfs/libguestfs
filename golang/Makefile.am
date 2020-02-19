@@ -37,11 +37,6 @@ EXTRA_DIST = \
 
 if HAVE_GOLANG
 
-GOFLAGS =
-if ENABLE_APPLIANCE
-GOFLAGS += -tags appliance
-endif
-
 golangpkgdir = $(GOROOT)/pkg/$(GOOS)_$(GOARCH)/$(pkg)
 golangsrcdir = $(GOROOT)/src/pkg/$(pkg)
 
@@ -53,7 +48,7 @@ pkg/$(GOOS)_$(GOARCH)/$(pkg).a: src/$(pkg)/guestfs.go
 
 golangsrc_DATA = $(source_files)
 
-TESTS_ENVIRONMENT = pkg=$(pkg) GOFLAGS="$(GOFLAGS)" $(top_builddir)/run $(VG) # --test
+TESTS_ENVIRONMENT = pkg=$(pkg) $(top_builddir)/run $(VG) # --test
 
 TESTS = run-bindtests run-tests
 
