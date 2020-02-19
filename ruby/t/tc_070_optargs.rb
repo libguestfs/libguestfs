@@ -22,9 +22,9 @@ class Test070Optargs < MiniTest::Unit::TestCase
     g = Guestfs::Guestfs.new()
 
     g.add_drive("/dev/null", {})
-    g.add_drive("/dev/null", :readonly => 1)
-    g.add_drive("/dev/null", :readonly => 1, :iface => "virtio")
+    g.add_drive("/dev/null", :readonly => true)
+    g.add_drive("/dev/null", :readonly => true, :iface => "virtio")
     g.add_drive("/dev/null",
-                :readonly => 1, :iface => "virtio", :format => "raw")
+                :readonly => true, :iface => "virtio", :format => "raw")
   end
 end

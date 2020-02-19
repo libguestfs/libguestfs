@@ -7,7 +7,7 @@ guestfs-ruby - How to use libguestfs from Ruby
  require 'guestfs'
  g = Guestfs::Guestfs.new()
  g.add_drive_opts("disk.img",
-                  :readonly => 1, :format => "raw")
+                  :readonly => true, :format => "raw")
  g.launch()
 
 =head1 DESCRIPTION
