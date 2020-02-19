@@ -114,6 +114,11 @@ func (e *GuestfsError) String() string {
     }
 }
 
+/* Implement the error interface */
+func (e *GuestfsError) Error() string {
+     return e.String()
+}
+
 func get_error_from_handle (g *Guestfs, op string) *GuestfsError {
     // NB: DO NOT try to free c_errmsg!
     c_errmsg := C.guestfs_last_error (g.g)
@@ -322,24 +327,24 @@ func return_hashtable (argv **C.char) map[string]string {
       (* Return type. *)
       let noreturn =
         match ret with
-        | RErr -> pr " *GuestfsError"; ""
-        | RInt _ -> pr " (int, *GuestfsError)"; "0, "
-        | RInt64 _ -> pr " (int64, *GuestfsError)"; "0, "
-        | RBool _ -> pr " (bool, *GuestfsError)"; "false, "
+        | RErr -> pr " error"; ""
+        | RInt _ -> pr " (int, error)"; "0, "
+        | RInt64 _ -> pr " (int64, error)"; "0, "
+        | RBool _ -> pr " (bool, error)"; "false, "
         | RConstString _
-        | RString _ -> pr " (string, *GuestfsError)"; "\"\", "
-        | RConstOptString _ -> pr " (*string, *GuestfsError)"; "nil, "
-        | RStringList _ -> pr " ([]string, *GuestfsError)"; "nil, "
+        | RString _ -> pr " (string, error)"; "\"\", "
+        | RConstOptString _ -> pr " (*string, error)"; "nil, "
+        | RStringList _ -> pr " ([]string, error)"; "nil, "
         | RStruct (_, sn) ->
           let sn = camel_name_of_struct sn in
-          pr " (*%s, *GuestfsError)" sn;
+          pr " (*%s, error)" sn;
           sprintf "&%s{}, " sn
         | RStructList (_, sn) ->
           let sn = camel_name_of_struct sn in
-          pr " (*[]%s, *GuestfsError)" sn;
+          pr " (*[]%s, error)" sn;
           "nil, "
-        | RHashtable _ -> pr " (map[string]string, *GuestfsError)"; "nil, "
-        | RBufferOut _ -> pr " ([]byte, *GuestfsError)"; "nil, " in
+        | RHashtable _ -> pr " (map[string]string, error)"; "nil, "
+        | RBufferOut _ -> pr " ([]byte, error)"; "nil, " in
 
       (* Body of the function. *)
       pr " {\n";
