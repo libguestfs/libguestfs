@@ -233,6 +233,9 @@ main (int argc, char *argv[])
   _umask (0);
 #endif
 
+  /* Initialize device name translations cache. */
+  device_name_translation_init ();
+
   /* Connect to virtio-serial channel. */
   if (!channel)
     channel = VIRTIO_SERIAL_CHANNEL;

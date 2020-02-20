@@ -189,6 +189,19 @@ might be replaced by direct use of the library (if this is easier).
 But it is very hard to be compatible between RHEL6 and RHEL5 when
 using the library directly.
 
+Properly fix device name translation
+------------------------------------
+
+Currently for Device parameters we pass a string name like "/dev/sda"
+or "/dev/sdb2" or "/dev/VG/LV" to the daemon.  Since Linux broke
+device enumeration (RHBZ#1804207) this works less well, requiring
+non-trivial translation within the daemon.
+
+It would be far better if in the generator we mapped "/dev/XXX" to a
+proper structure.  Device index + partition | LV | MD | ...
+This would be then used everywhere inside the daemon and mean we would
+no longer need device name translation at all.
+
 Visualization
 -------------
 

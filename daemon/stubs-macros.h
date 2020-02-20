@@ -30,11 +30,6 @@
  */
 #define RESOLVE_DEVICE(path,path_out,is_filein)                         \
   do {									\
-    if (!is_device_parameter ((path))) {                                \
-      if (is_filein) cancel_receive ();                                 \
-      reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
-      return;							        \
-    }									\
     (path_out) = device_name_translation ((path));                      \
     if ((path_out) == NULL) {                                           \
       const int err = errno;                                            \
@@ -43,6 +38,11 @@
       reply_with_perror ("%s: %s", __func__, path);                     \
       return;							        \
     }                                                                   \
+    if (!is_device_parameter ((path_out))) {                            \
+      if (is_filein) cancel_receive ();                                 \
+      reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
+      return;							        \
+    }									\
   } while (0)
 
 /* All functions that take a mountable argument must call this macro.

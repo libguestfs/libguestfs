@@ -215,6 +215,7 @@ extern void notify_progress_no_ratelimit (uint64_t position, uint64_t total, con
 
 /* device-name-translation.c */
 extern char *device_name_translation (const char *device);
+extern void device_name_translation_init (void);
 extern char *reverse_device_name_translation (const char *device);
 
 /* stubs.c (auto-generated) */
