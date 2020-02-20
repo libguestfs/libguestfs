@@ -345,7 +345,6 @@ let proc_nr = [
 332, "btrfs_fsck";
 333, "filesystem_available";
 334, "fstrim";
-335, "device_index";
 336, "nr_devices";
 337, "xfs_info";
 338, "pvchange_uuid";

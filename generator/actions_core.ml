@@ -740,6 +740,23 @@ Converted to F</dev/VG/LV> form using C<guestfs_lvm_canonical_lv_name>.
 Other strings are returned unmodified." };
 
   { defaults with
+    name = "device_index"; added = (1, 19, 7);
+    style = RInt "index", [String (Device, "device")], [];
+    tests = [
+      InitEmpty, Always, TestResult (
+        [["device_index"; "/dev/sda"]], "ret == 0"), []
+    ];
+    shortdesc = "convert device to index";
+    longdesc = "\
+This function takes a device name (eg. \"/dev/sdb\") and
+returns the index of the device in the list of devices.
+
+Index numbers start from 0.  The named device must exist,
+for example as a string returned from C<guestfs_list_devices>.
+
+See also C<guestfs_list_devices>, C<guestfs_part_to_dev>." };
+
+  { defaults with
     name = "shutdown"; added = (1, 19, 16);
     style = RErr, [], [];
     shortdesc = "shutdown the hypervisor";
@@ -7422,24 +7439,6 @@ See also C<guestfs_zero_free_space>.  That is a slightly
 different operation that turns free space in the filesystem
 into zeroes.  It is valid to call C<guestfs_fstrim> either
 instead of, or after calling C<guestfs_zero_free_space>." };
-
-  { defaults with
-    name = "device_index"; added = (1, 19, 7);
-    style = RInt "index", [String (Device, "device")], [];
-    impl = OCaml "Devsparts.device_index";
-    tests = [
-      InitEmpty, Always, TestResult (
-        [["device_index"; "/dev/sda"]], "ret == 0"), []
-    ];
-    shortdesc = "convert device to index";
-    longdesc = "\
-This function takes a device name (eg. \"/dev/sdb\") and
-returns the index of the device in the list of devices.
-
-Index numbers start from 0.  The named device must exist,
-for example as a string returned from C<guestfs_list_devices>.
-
-See also C<guestfs_list_devices>, C<guestfs_part_to_dev>." };
 
   { defaults with
     name = "nr_devices"; added = (1, 19, 15);

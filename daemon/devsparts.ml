@@ -111,14 +111,3 @@ let is_whole_device device =
 
   try ignore (stat devpath); true
   with Unix_error ((ENOENT|ENOTDIR), _, _) -> false
-
-let device_index device =
-  (* This is the algorithm which was used by the C version.  Why
-   * can't we use drive_index from C_utils?  XXX
-   *)
-  let rec loop i = function
-    | [] -> failwithf "%s: device not found" device
-    | dev :: devices when dev = device -> i
-    | _ :: devices -> loop (i+1) devices
-  in
-  loop 0 (list_devices ())

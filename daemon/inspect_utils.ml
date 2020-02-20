@@ -148,11 +148,7 @@ and is_dir_nocase path =
  * the old C inspection code.  XXX fix function and callers
  *)
 let is_partition partition =
-  try
-    let device = Devsparts.part_to_dev partition in
-    ignore (Devsparts.device_index device);
-    true
-  with _ -> false
+  try Devsparts.part_to_dev partition <> partition with _ -> false
 
 let re_major_minor = PCRE.compile "(\\d+)\\.(\\d+)"
 let re_major_no_minor = PCRE.compile "(\\d+)"

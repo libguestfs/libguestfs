@@ -1148,3 +1148,21 @@ free_drive_source (struct drive_source *src)
     free_drive_servers (src->servers, src->nr_servers);
   }
 }
+
+int
+guestfs_impl_device_index (guestfs_h *g, const char *device)
+{
+  size_t len;
+  ssize_t r = -1;
+
+  /* /dev/hd etc. */
+  if (STRPREFIX (device, "/dev/") &&
+      strchr (device+5, '/') == NULL && /* not an LV name */
+      device[5] != 'm' && /* not /dev/md - RHBZ#1414682 */
+      ((len = strcspn (device+5, "d")) > 0 && len <= 2))
+    r = guestfs_int_drive_index (device+5+len+1);
+
+  if (r == -1)
+    error (g, _("%s: device not found"), device);
+  return r;
+}
