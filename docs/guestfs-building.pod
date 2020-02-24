@@ -414,7 +414,8 @@ git.
 
  git clone https://github.com/libguestfs/libguestfs
  cd libguestfs
- ./autogen.sh
+ git submodule update --init
+ CFLAGS=-fPIC ./autogen.sh
  make
 
 =head1 BUILDING FROM TARBALLS
