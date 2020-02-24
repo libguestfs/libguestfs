@@ -54,10 +54,12 @@ int in_virt_rescue = 0;
 
 static const char *format = "raw", *label = NULL,
   *partition = NULL, *size_str = NULL, *type = "ext2";
+static int blocksize = 0;
 
 enum { HELP_OPTION = CHAR_MAX + 1 };
 static const char options[] = "F:s:t:Vvx";
 static const struct option long_options[] = {
+  { "blocksize", 1, 0, 0 },
   { "debug", 0, 0, 'v' }, /* for compat with Perl tool */
   { "floppy", 0, 0, 0 },
   { "format", 1, 0, 'F' },
@@ -87,6 +89,7 @@ usage (int status)
               "  %s [--options] input.tar.gz output.img\n"
               "  %s [--options] directory output.img\n"
               "Options:\n"
+              "  --blocksize=512|4096     Set sector size of the output disk\n"
               "  --floppy                 Make a virtual floppy disk\n"
               "  -F|--format=raw|qcow2|.. Set output format\n"
               "  --help                   Display brief help\n"
@@ -146,6 +149,9 @@ main (int argc, char *argv[])
           partition = "mbr";
         else
           partition = optarg;
+      } else if (STREQ (long_options[option_index].name, "blocksize")) {
+        if (sscanf (optarg, "%d", &blocksize) != 1)
+          error (EXIT_FAILURE, 0, _("--blocksize option is not numeric"));
       } else
         error (EXIT_FAILURE, 0,
                _("unknown long option: %s (%d)"),
@@ -678,11 +684,23 @@ do_make_fs (const char *input, const char *output_str)
              estimate, estimate / 1024, estimate / 4096);
   }
 
+  /* For partition alignment and extra space at the end of the disk: by
+   * default we create first partition at 128 sector boundary and leave the
+   * last 128 sectors at the end of the disk free.
+   */
+  if (partition)
+    estimate += 2 * 128 * blocksize;
+
   estimate += 256 * 1024;       /* For superblocks &c. */
 
   if (STRPREFIX (type, "ext") && type[3] >= '3') {
-    /* For ext3+, add some more for the journal. */
-    estimate += 1024 * 1024;
+    /* For ext3+, add some more for the journal.  Journal should be at least
+     * 1024 file system blocks.  By default file system block size is 1024
+     * bytes if disk sector size is 512 bytes and 4096 bytes if disk sector
+     * size is 4096 bytes.  Note that default file system block size may be
+     * changed via /etc/mke2fs.conf but we cannot handle that at the moment.
+     */
+    estimate += 1024 * (blocksize == 512 ? 1024 : 4096);
   }
 
   else if (STREQ (type, "ntfs")) {
@@ -695,6 +713,13 @@ do_make_fs (const char *input, const char *output_str)
      * duplication below.
      */
     estimate += 256 * 1024 * 1024;
+  }
+
+  else if (STREQ (type, "xfs")) {
+    /* xfs requires at least 4096 file system blocks.  By default block size
+     * is 4096 bytes.
+     */
+    estimate += 4096 * 4096;
   }
 
   /* Add 10%, see above. */
@@ -718,6 +743,7 @@ do_make_fs (const char *input, const char *output_str)
 
   if (guestfs_add_drive_opts (g, output,
                               GUESTFS_ADD_DRIVE_OPTS_FORMAT, format,
+                              GUESTFS_ADD_DRIVE_OPTS_BLOCKSIZE, blocksize,
                               -1) == -1)
     return -1;
 

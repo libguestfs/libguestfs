@@ -122,6 +122,16 @@ or rerun virt-make-fs to build another image from scratch.
 
 Display brief help.
 
+=item B<--blocksize=512>
+
+=item B<--blocksize=4096>
+
+This parameter sets the sector size of the output disk image.
+
+The default is C<512> bytes.
+
+See also L<guestfs(3)/guestfs_add_drive_opts>.
+
 =item B<--floppy>
 
 Create a virtual floppy disk.

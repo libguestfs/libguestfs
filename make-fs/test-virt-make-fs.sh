@@ -83,9 +83,12 @@ size=`random_choice`
 choices=("" --label=FOO)
 label=`random_choice`
 
+choices=(--blocksize=512 --blocksize=4096)
+blocksize=`random_choice`
+
 if [ -n "$LIBGUESTFS_DEBUG" ]; then debug=--debug; fi
 
-params="$type $format $partition $size $label $debug"
+params="$type $format $partition $size $label $blocksize $debug"
 echo "test-virt-make-fs: parameters: $params"
 
 rm -f test.file test.tar output.img
