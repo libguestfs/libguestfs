@@ -508,7 +508,23 @@ do_output_filesystems (void)
       guestfs_pop_error_handler (g);
 
       if (!device || !subvolume) {
-        size = guestfs_blockdev_getsize64 (g, fses[i]);
+        /* Try mounting and stating the device.  This might reasonably
+         * fail, so don't show errors.
+         */
+        guestfs_push_error_handler (g, NULL, NULL);
+
+        if (guestfs_mount_ro (g, fses[i], "/") == 0) {
+          CLEANUP_FREE_STATVFS struct guestfs_statvfs *stat = NULL;
+
+          stat = guestfs_statvfs (g, "/");
+          size = stat->blocks * stat->bsize;
+          guestfs_umount_all (g);
+        } else {
+          size = guestfs_blockdev_getsize64 (g, fses[i]);
+        }
+
+        guestfs_pop_error_handler (g);
+
         if (size == -1)
           exit (EXIT_FAILURE);
       }
