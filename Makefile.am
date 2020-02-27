@@ -234,6 +234,7 @@ EXTRA_DIST = \
 	libtool-kill-dependency_libs.sh \
 	logo/fish.svg logo/fish.png \
 	logo/fish-5yrs.svg logo/fish-5yrs.png \
+	logo/fish-10yrs.svg logo/fish-10yrs.png \
 	logo/virt-builder.svg \
 	m4/.gitignore \
 	ocaml-link.sh \
@@ -255,6 +256,7 @@ EXTRA_DIST = \
 	website/easytoread.css \
 	website/feed.css \
 	website/fish-5yrs.svg \
+	website/fish-10yrs.svg \
 	website/fish.png \
 	website/git.png \
 	website/index.css \

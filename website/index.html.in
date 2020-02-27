@@ -10,7 +10,7 @@
 <link rel="alternate stylesheet" href="easytoread.css" type="text/css" title="High contrast, big fonts"/>
 </head>
 <body>
-<img src="fish-5yrs.svg" width="144" height="148" id="logo"/>
+<img src="fish-10yrs.svg" width="144" height="148" id="logo"/>
 <h1>libguestfs <br/> tools for accessing and modifying virtual machine disk images</h1>
 
 <div class="right">
