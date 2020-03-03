@@ -191,6 +191,10 @@ device_name_translation (const char *device)
       return NULL;
   }
 
+  /* If the device name is different, print the translation. */
+  if (STRNEQ (device, ret))
+    fprintf (stderr, "device name translated: %s -> %s\n", device, ret);
+
   /* Now check the device is openable. */
   fd = open (ret, O_RDONLY|O_CLOEXEC);
   if (fd >= 0) {
@@ -276,6 +280,10 @@ reverse_device_name_translation (const char *device)
       return NULL;
     }
   }
+
+  /* If the device name is different, print the translation. */
+  if (STRNEQ (device, ret))
+    fprintf (stderr, "reverse device name translated: %s -> %s\n", device, ret);
 
   return ret;
 }
