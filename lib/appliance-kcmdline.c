@@ -26,8 +26,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "c-ctype.h"
+#include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -54,15 +56,53 @@
 #define EARLYPRINTK "earlyprintk=pl011,0x9000000"
 #endif
 
+COMPILE_REGEXP (re_uuid, "UUID=([-0-9a-f]+)", 0)
+
+static void
+read_uuid (guestfs_h *g, void *retv, const char *line, size_t len)
+{
+  char **ret = retv;
+
+  *ret = match1 (g, line, re_uuid);
+}
+
+/**
+ * Given a disk image containing an extX filesystem, return the UUID.
+ * The L<file(1)> command does the hard work.
+ */
+static char *
+get_root_uuid (guestfs_h *g, const char *appliance)
+{
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
+  char *ret = NULL;
+  int r;
+
+  guestfs_int_cmd_add_arg (cmd, "file");
+  guestfs_int_cmd_add_arg (cmd, "--");
+  guestfs_int_cmd_add_arg (cmd, appliance);
+  guestfs_int_cmd_set_stdout_callback (cmd, read_uuid, &ret, 0);
+  r = guestfs_int_cmd_run (cmd);
+  if (r == -1) {
+    if (ret) free (ret);
+    return NULL;
+  }
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    guestfs_int_external_command_failed (g, r, "file", NULL);
+    if (ret) free (ret);
+    return NULL;
+  }
+
+  return ret;
+}
+
 /**
  * Construct the Linux command line passed to the appliance.  This is
  * used by the C<direct> and C<libvirt> backends, and is simply
  * located in this file because it's a convenient place for this
  * common code.
  *
- * The C<appliance_dev> parameter must be the full device name of the
- * appliance disk and must have already been adjusted to take into
- * account virtio-blk or virtio-scsi; eg C</dev/sdb>.
+ * The C<appliance> parameter is the filename of the appliance
+ * (could be NULL) from which we obtain the root UUID.
  *
  * The C<flags> parameter can contain the following flags logically
  * or'd together (or 0):
@@ -80,7 +120,8 @@
  * be freed by the caller.
  */
 char *
-guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
+guestfs_int_appliance_command_line (guestfs_h *g,
+                                    const char *appliance,
 				    int flags)
 {
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (argv);
@@ -164,8 +205,12 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
   guestfs_int_add_string (g, &argv, "8250.nr_uarts=1");
 
   /* Tell supermin about the appliance device. */
-  if (appliance_dev)
-    guestfs_int_add_sprintf (g, &argv, "root=%s", appliance_dev);
+  if (appliance) {
+    CLEANUP_FREE char *uuid = get_root_uuid (g, appliance);
+    if (!uuid)
+      return NULL;
+    guestfs_int_add_sprintf (g, &argv, "root=UUID=%s", uuid);
+  }
 
   /* SELinux - deprecated setting, never worked and should not be enabled. */
   if (g->selinux)

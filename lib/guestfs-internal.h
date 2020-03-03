@@ -688,7 +688,7 @@ extern int guestfs_int_build_appliance (guestfs_h *g, char **kernel, char **init
 const char *guestfs_int_get_cpu_model (int kvm);
 
 /* appliance-kcmdline.c */
-extern char *guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);
+extern char *guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance, int flags);
 #define APPLIANCE_COMMAND_LINE_IS_TCG 1
 
 /* appliance-uefi.c */

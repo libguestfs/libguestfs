@@ -153,8 +153,9 @@ struct backend_libvirt_data {
  */
 struct libvirt_xml_params {
   struct backend_libvirt_data *data;
-  char *kernel;                 /* paths to kernel and initrd */
+  char *kernel;                 /* paths to kernel, initrd and appliance */
   char *initrd;
+  char *appliance;
   char *appliance_overlay;      /* path to qcow2 overlay backed by appliance */
   char appliance_dev[64];       /* appliance device name */
   size_t appliance_index;       /* index of appliance */
@@ -323,10 +324,10 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     .data = data,
     .kernel = NULL,
     .initrd = NULL,
+    .appliance = NULL,
     .appliance_overlay = NULL,
   };
   CLEANUP_FREE xmlChar *xml = NULL;
-  CLEANUP_FREE char *appliance = NULL;
   struct sockaddr_un addr;
   struct drive *drv;
   size_t i;
@@ -486,18 +487,18 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   debug (g, "build appliance");
 
   if (guestfs_int_build_appliance (g, &params.kernel, &params.initrd,
-                                   &appliance) == -1)
+                                   &params.appliance) == -1)
     goto cleanup;
 
   guestfs_int_launch_send_progress (g, 3);
   TRACE0 (launch_build_libvirt_appliance_end);
 
   /* Note that appliance can be NULL if using the old-style appliance. */
-  if (appliance) {
+  if (params.appliance) {
 #ifndef APPLIANCE_FORMAT_AUTO
-    params.appliance_overlay = make_qcow2_overlay (g, appliance, "raw");
+    params.appliance_overlay = make_qcow2_overlay (g, params.appliance, "raw");
 #else
-    params.appliance_overlay = make_qcow2_overlay (g, appliance, NULL);
+    params.appliance_overlay = make_qcow2_overlay (g, params.appliance, NULL);
 #endif
     if (!params.appliance_overlay)
       goto cleanup;
@@ -714,7 +715,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     goto cleanup;
   }
 
-  if (appliance)
+  if (params.appliance)
     guestfs_int_add_dummy_appliance_drive (g);
 
   TRACE0 (launch_libvirt_end);
@@ -726,6 +727,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
   free (params.kernel);
   free (params.initrd);
+  free (params.appliance);
   free (params.appliance_overlay);
 
   return 0;
@@ -751,6 +753,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
   free (params.kernel);
   free (params.initrd);
+  free (params.appliance);
   free (params.appliance_overlay);
 
   g->state = CONFIG;
@@ -1216,7 +1219,7 @@ construct_libvirt_xml_boot (guestfs_h *g,
   flags = 0;
   if (!params->data->is_kvm)
     flags |= APPLIANCE_COMMAND_LINE_IS_TCG;
-  cmdline = guestfs_int_appliance_command_line (g, params->appliance_dev, flags);
+  cmdline = guestfs_int_appliance_command_line (g, params->appliance, flags);
 
   start_element ("os") {
     if (params->data->firmware)

@@ -61,8 +61,6 @@ struct backend_direct_data {
   char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
 };
 
-static char *make_appliance_dev (guestfs_h *g);
-
 static char *
 create_cow_overlay_direct (guestfs_h *g, void *datav, struct drive *drv)
 {
@@ -382,7 +380,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   int uefi_flags;
   CLEANUP_FREE char *kernel = NULL, *initrd = NULL, *appliance = NULL;
   int has_appliance_drive;
-  CLEANUP_FREE char *appliance_dev = NULL;
   uint32_t size;
   CLEANUP_FREE void *buf = NULL;
   struct hv_param *hp;
@@ -636,8 +633,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       append_list ("scsi-hd");
       append_list ("drive=appliance");
     } end_list ();
-
-    appliance_dev = make_appliance_dev (g);
   }
 
   /* Create the virtio serial bus. */
@@ -697,7 +692,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   flags = 0;
   if (!has_kvm || force_tcg)
     flags |= APPLIANCE_COMMAND_LINE_IS_TCG;
-  append = guestfs_int_appliance_command_line (g, appliance_dev, flags);
+  append = guestfs_int_appliance_command_line (g, appliance, flags);
   arg ("-append", append);
 
   /* Note: custom command line parameters must come last so that
@@ -959,33 +954,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
   g->state = CONFIG;
   return -1;
-}
-
-/* Calculate the appliance device name.
- *
- * The easy thing would be to use g->nr_drives (indeed, that's what we
- * used to do).  However this breaks if some of the drives being added
- * use the deprecated 'iface' parameter.  To further add confusion,
- * the format of the 'iface' parameter has never been defined, but
- * given existing usage we can assume it has one of only three values:
- * NULL, "ide" or "virtio" (which means virtio-blk).  See RHBZ#975797.
- */
-static char *
-make_appliance_dev (guestfs_h *g)
-{
-  size_t i, index = 0;
-  struct drive *drv;
-  char dev[64] = "/dev/sd";
-
-  /* Calculate the index of the drive. */
-  ITER_DRIVES (g, i, drv) {
-    if (drv->iface == NULL || STREQ (drv->iface, "ide"))
-      index++;
-  }
-
-  guestfs_int_drive_name (index, &dev[7]);
-
-  return safe_strdup (g, dev);  /* Caller frees. */
 }
 
 static int

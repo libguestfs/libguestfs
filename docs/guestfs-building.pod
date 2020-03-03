@@ -83,7 +83,7 @@ I<Required>.
 I<Required>.  The following features must be enabled:
 C<virtio-pci>, C<virtio-serial>, C<virtio-block>, C<virtio-net>.
 
-=item supermin E<ge> 5.1.0
+=item supermin E<ge> 5.1.18
 
 I<Required>.  For alternatives, see L</USING A PREBUILT BINARY APPLIANCE>
 below.
