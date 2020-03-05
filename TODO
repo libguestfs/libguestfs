@@ -75,20 +75,6 @@ Such as:
 initrd-extract
 initrd-replace
 
-virt-rescue pty
----------------
-
-See:
-http://search.cpan.org/~rgiersig/IO-Tty-1.08/Pty.pm
-http://www.perlmonks.org/index.pl?node_id=582185
-
-Note that pty requires cooperation inside the C code too (there are
-two sides to a pty, and one has to be handled after the fork).
-
-[I tried to implement this in the new C virt-rescue, but it doesn't
-work.  qemu is implementing its own ptys, and they are broken.  Need
-to fix qemu.]
-
 Port to Windows
 ---------------
 
