@@ -428,16 +428,13 @@ popd
  and configure_qemu_ga files =
    List.iter (
      fun msi_path ->
-       let fb_script = "\
-echo Installing qemu-ga from " ^ msi_path ^ "
-\"\\" ^ msi_path ^ "\" /norestart /qn /l+*vx \"%~dpn0.log\"
-set elvl=!errorlevel!
-echo Done installing qemu-ga error_level=!elvl!
-if !elvl! == 0 (
-  echo Restarting Windows...
-  shutdown /r /f /c \"rebooted by firstboot script\"
-)
-" in
+       let fb_script = sprintf "\
+echo Removing any previously scheduled qemu-ga installation
+schtasks.exe /Delete /TN Firstboot-qemu-ga /F
+echo Scheduling delayed installation of qemu-ga from %s
+powershell.exe -command \"$d = (get-date).AddSeconds(120); schtasks.exe /Create /SC ONCE /ST $d.ToString('HH:mm') /SD $d.ToString('MM/dd/yyyy') /RU SYSTEM /TN Firstboot-qemu-ga /TR \\\"C:\\%s /forcerestart /qn /l+*vx C:\\%s.log\\\"\"
+      "
+      msi_path msi_path msi_path in
       Firstboot.add_firstboot_script g inspect.i_root
         ("install " ^ msi_path) fb_script;
     ) files
