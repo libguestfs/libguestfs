@@ -261,6 +261,8 @@ do_test (guestfs_h *g, size_t ndisks, bool just_add)
 
   /* Check the disks were added. */
   devices = guestfs_list_devices (g);
+  if (devices == NULL)
+    exit (EXIT_FAILURE);
   n = guestfs_int_count_strings (devices);
   if (n != ndisks) {
     fprintf (stderr, "%s: incorrect number of devices returned by guestfs_list_devices:\n",
