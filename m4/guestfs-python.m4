@@ -88,6 +88,18 @@ AS_IF([test "x$enable_python" != "xno"],[
         AC_MSG_RESULT([$PYTHON_EXT_SUFFIX])
 
         AC_CHECK_PROGS([PYCODESTYLE],[pycodestyle],[no])
+
+        dnl Look for some optional symbols in libpython.
+        old_LIBS="$LIBS"
+
+        PYTHON_BLDLIBRARY=`$PYTHON -c "import distutils.sysconfig; \
+                                       print (distutils.sysconfig.get_config_var('BLDLIBRARY'))"`
+        AC_CHECK_LIB([c],[_Py_IsFinalizing],
+                     [AC_DEFINE([HAVE_PY_ISFINALIZING],1,
+                                [Found _Py_IsFinalizing in libpython.])],
+                     [],[$PYTHON_BLDLIBRARY])
+
+        LIBS="$old_LIBS"
     fi
 
     AC_SUBST(PYTHON_PREFIX)
