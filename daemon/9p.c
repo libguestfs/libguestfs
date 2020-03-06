@@ -29,18 +29,31 @@
 #include <dirent.h>
 #include <fcntl.h>
 
+#include "ignore-value.h"
+
 #include "daemon.h"
 #include "actions.h"
 
 #define BUS_PATH "/sys/bus/virtio/drivers/9pnet_virtio"
+
+static void
+modprobe_9pnet_virtio (void)
+{
+  /* Required with Linux 5.6 and maybe earlier kernels.  For unclear
+   * reasons the module is not an automatic dependency of the 9p
+   * module so doesn't get loaded automatically.
+   */
+  ignore_value (command (NULL, NULL, "modprobe", "9pnet_virtio", NULL));
+}
 
 /* https://bugzilla.redhat.com/show_bug.cgi?id=714981#c1 */
 char **
 do_list_9p (void)
 {
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (r);
-
   DIR *dir;
+
+  modprobe_9pnet_virtio ();
 
   dir = opendir (BUS_PATH);
   if (!dir) {
@@ -157,6 +170,7 @@ do_mount_9p (const char *mount_tag, const char *mountpoint, const char *options)
     }
   }
 
+  modprobe_9pnet_virtio ();
   r = command (NULL, &err,
                "mount", "-o", opts, "-t", "9p", mount_tag, mp, NULL);
   if (r == -1) {
