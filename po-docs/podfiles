@@ -10,6 +10,7 @@
 ../cat/virt-tail.pod
 ../common/mlcustomize/customize-options.pod
 ../common/mlcustomize/customize-synopsis.pod
+../common/options/blocksize-option.pod
 ../common/options/key-option.pod
 ../customize/virt-customize.pod
 ../daemon/guestfsd.pod

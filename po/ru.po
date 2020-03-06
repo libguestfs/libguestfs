@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2020-01-22 13:04+0000\n"
+"POT-Creation-Date: 2020-03-06 20:07+0000\n"
 "PO-Revision-Date: 2015-02-21 10:52+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/libguestfs/"
@@ -230,7 +230,7 @@ msgstr ""
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:65
+#: ../get-kernel/get_kernel.ml:66
 msgid ""
 "%s: extract kernel and ramdisk from a guest\n"
 "\n"
@@ -406,7 +406,7 @@ msgstr ""
 msgid "'CMD+ARGS'"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:39
+#: ../get-kernel/get_kernel.ml:40
 msgid "--add option can only be given once"
 msgstr ""
 
@@ -441,7 +441,7 @@ msgid "--debug parameter must be >= 0"
 msgstr ""
 
 #. ../customize/customize_main.ml:70
-#: ../sysprep/main.ml:65 ../get-kernel/get_kernel.ml:47
+#: ../sysprep/main.ml:65 ../get-kernel/get_kernel.ml:48
 msgid "--domain option can only be given once"
 msgstr ""
 
@@ -485,7 +485,7 @@ msgstr ""
 msgid "--operations: ‘%s’ is not a known operation"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:51
+#: ../get-kernel/get_kernel.ml:52
 msgid "--prefix option can only be given once"
 msgstr ""
 
@@ -527,7 +527,7 @@ msgid "-B must be specified"
 msgstr ""
 
 #. ../customize/customize_main.ml:75
-#: ../sysprep/main.ml:122 ../get-kernel/get_kernel.ml:55
+#: ../sysprep/main.ml:122 ../get-kernel/get_kernel.ml:56
 msgid "Add disk image file"
 msgstr ""
 
@@ -1106,7 +1106,7 @@ msgstr ""
 msgid "Forcefully resize partition"
 msgstr ""
 
-#. ../get-kernel/get_kernel.ml:58
+#. ../get-kernel/get_kernel.ml:60
 #: ../sparsify/cmdline.ml:71 ../resize/resize.ml:203
 msgid "Format of input disk"
 msgstr ""
@@ -1359,7 +1359,7 @@ msgstr ""
 msgid "Output architecture"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:59
+#: ../get-kernel/get_kernel.ml:61
 msgid "Output directory"
 msgstr ""
 
@@ -1422,7 +1422,7 @@ msgstr ""
 msgid "Planning how to build this image"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:62
+#: ../get-kernel/get_kernel.ml:63
 msgid "Prefix for files"
 msgstr ""
 
@@ -1806,17 +1806,21 @@ msgstr ""
 msgid "Set debug level"
 msgstr ""
 
+#: ../get-kernel/get_kernel.ml:57
+msgid "Set disk sector size"
+msgstr ""
+
 #: ../sysprep/main.ml:129 ../customize/customize_main.ml:82
 msgid "Set format (default: auto)"
 msgstr ""
 
 #. ../customize/customize_main.ml:79
-#: ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:56
+#: ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:58
 msgid "Set libvirt URI"
 msgstr ""
 
 #. ../customize/customize_main.ml:80
-#: ../sysprep/main.ml:124 ../get-kernel/get_kernel.ml:57
+#: ../sysprep/main.ml:124 ../get-kernel/get_kernel.ml:59
 msgid "Set libvirt guest name"
 msgstr ""
 
@@ -2237,7 +2241,7 @@ msgstr ""
 msgid "Use ANSI colour sequences even if not tty"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:61
+#: ../get-kernel/get_kernel.ml:62
 msgid "Use unversioned names for files"
 msgstr ""
 
@@ -2364,13 +2368,13 @@ msgid ""
 "the manual)."
 msgstr ""
 
-#. ../common/mlcustomize/customize_cmdline.ml:493
-#: ../customize/customize_cmdline.ml:493
+#. ../common/mlcustomize/customize_cmdline.ml:494
+#: ../customize/customize_cmdline.ml:494
 msgid "command '%s' cannot be used in command files, see the man page"
 msgstr ""
 
-#. ../common/mlcustomize/customize_cmdline.ml:510
-#: ../customize/customize_cmdline.ml:510
+#. ../common/mlcustomize/customize_cmdline.ml:511
+#: ../customize/customize_cmdline.ml:511
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
@@ -2420,7 +2424,7 @@ msgstr ""
 msgid "dir"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:59
+#: ../get-kernel/get_kernel.ml:61
 msgid "directory"
 msgstr ""
 
@@ -2445,11 +2449,11 @@ msgid "docker: a target was not specified, use ‘--docker-target’"
 msgstr ""
 
 #. ../customize/customize_main.ml:80
-#: ../sysprep/main.ml:124 ../get-kernel/get_kernel.ml:57
+#: ../sysprep/main.ml:124 ../get-kernel/get_kernel.ml:59
 msgid "domain"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:183
+#: ../get-kernel/get_kernel.ml:185
 msgid "dual/multi-boot images are not supported by this tool"
 msgstr ""
 
@@ -2474,7 +2478,7 @@ msgid "empty --shrink option"
 msgstr ""
 
 #. ../builder/downloader.ml:72
-#: ../get-kernel/get_kernel.ml:43 ../customize/customize_main.ml:63
+#: ../get-kernel/get_kernel.ml:44 ../customize/customize_main.ml:63
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
@@ -2525,7 +2529,7 @@ msgid "failure: %s"
 msgstr ""
 
 #. ../customize/customize_main.ml:75
-#: ../sysprep/main.ml:122 ../get-kernel/get_kernel.ml:55
+#: ../sysprep/main.ml:122 ../get-kernel/get_kernel.ml:56
 msgid "file"
 msgstr ""
 
@@ -2554,7 +2558,7 @@ msgstr ""
 
 #. ../resize/resize.ml:208
 #. ../resize/resize.ml:203
-#. ../get-kernel/get_kernel.ml:58
+#. ../get-kernel/get_kernel.ml:60
 #. ../dib/cmdline.ml:184
 #. ../customize/customize_main.ml:82
 #: ../sysprep/main.ml:129 ../sparsify/cmdline.ml:71 ../sparsify/cmdline.ml:70
@@ -2746,11 +2750,11 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:156
+#: ../get-kernel/get_kernel.ml:158
 msgid "no kernel found in %s"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:181
+#: ../get-kernel/get_kernel.ml:183
 msgid "no operating system found"
 msgstr ""
 
@@ -2773,7 +2777,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:126
+#: ../get-kernel/get_kernel.ml:128
 msgid "operating system ‘%s’ not supported"
 msgstr ""
 
@@ -2860,7 +2864,7 @@ msgstr ""
 msgid "pread-device: short read"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:62
+#: ../get-kernel/get_kernel.ml:63
 msgid "prefix"
 msgstr ""
 
@@ -3055,7 +3059,7 @@ msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr ""
 
 #. ../customize/customize_main.ml:79
-#: ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:56
+#: ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:58
 msgid "uri"
 msgstr ""
 
@@ -3139,7 +3143,7 @@ msgstr ""
 msgid "xfs_growfs"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:94
+#: ../get-kernel/get_kernel.ml:95
 msgid ""
 "you cannot give -a and -d options together.  Read virt-get-kernel(1) man "
 "page for further information."
@@ -3189,7 +3193,7 @@ msgstr ""
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:92
+#: ../get-kernel/get_kernel.ml:93
 msgid ""
 "you must give either -a or -d options.  Read virt-get-kernel(1) man page for "
 "further information."
@@ -3218,7 +3222,7 @@ msgstr ""
 #: align/scan.c:80 cat/cat.c:59 cat/filesystems.c:94 cat/log.c:69 cat/ls.c:97
 #: cat/tail.c:66 df/main.c:72 diff/diff.c:106 edit/edit.c:68 fish/fish.c:115
 #: fuse/guestmount.c:103 fuse/guestunmount.c:56 inspector/inspector.c:85
-#: make-fs/make-fs.c:80 rescue/rescue.c:80
+#: make-fs/make-fs.c:82 rescue/rescue.c:80
 #, c-format
 msgid "Try ‘%s --help’ for more information.\n"
 msgstr ""
@@ -3233,6 +3237,8 @@ msgid ""
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
@@ -3246,36 +3252,36 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:160 builder/index-validate.c:88 cat/cat.c:150
-#: cat/filesystems.c:247 cat/log.c:153 cat/ls.c:248 cat/tail.c:158
-#: df/main.c:162 diff/diff.c:282 edit/edit.c:163 fish/fish.c:303
-#: format/format.c:185 fuse/guestmount.c:256 fuse/guestunmount.c:130
-#: inspector/inspector.c:181 make-fs/make-fs.c:151 rescue/rescue.c:218
+#: align/scan.c:167 builder/index-validate.c:88 cat/cat.c:157
+#: cat/filesystems.c:254 cat/log.c:160 cat/ls.c:255 cat/tail.c:165
+#: df/main.c:169 diff/diff.c:289 edit/edit.c:170 fish/fish.c:310
+#: format/format.c:192 fuse/guestmount.c:263 fuse/guestunmount.c:130
+#: inspector/inspector.c:188 make-fs/make-fs.c:157 rescue/rescue.c:225
 #: test-tool/test-tool.c:123
 #, c-format
 msgid "unknown long option: %s (%d)"
 msgstr ""
 
-#: align/scan.c:178 df/main.c:188
+#: align/scan.c:185 df/main.c:195
 #, c-format
 msgid "-P option is not numeric"
 msgstr ""
 
-#: align/scan.c:233
+#: align/scan.c:241
 #, c-format
 msgid "compiled without support for libvirt"
 msgstr ""
 
-#: align/scan.c:237
+#: align/scan.c:245
 #, c-format
 msgid "--uuid option cannot be used with -a or -d"
 msgstr ""
 
-#: align/scan.c:336
+#: align/scan.c:344
 msgid "alignment < 4K"
 msgstr ""
 
-#: align/scan.c:339
+#: align/scan.c:347
 msgid "alignment < 64K"
 msgstr ""
 
@@ -3332,6 +3338,8 @@ msgid ""
 "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --echo-keys          Don't turn off echo for passphrases\n"
@@ -3347,9 +3355,9 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/cat.c:238 cat/filesystems.c:344 cat/log.c:210 cat/ls.c:362
-#: cat/tail.c:223 diff/diff.c:336 edit/edit.c:263 fuse/guestmount.c:323
-#: inspector/inspector.c:281 rescue/rescue.c:340
+#: cat/cat.c:246 cat/filesystems.c:352 cat/log.c:218 cat/ls.c:370
+#: cat/tail.c:231 diff/diff.c:343 edit/edit.c:271 fuse/guestmount.c:331
+#: inspector/inspector.c:289 rescue/rescue.c:348
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
 msgstr ""
@@ -3367,6 +3375,8 @@ msgid ""
 "  --all                Display everything\n"
 "  --blkdevs|--block-devices\n"
 "                       Display block devices\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  --csv                Output as Comma-Separated Values\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
@@ -3393,19 +3403,19 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/filesystems.c:301 cat/log.c:199 inspector/inspector.c:257
+#: cat/filesystems.c:308 cat/log.c:206 inspector/inspector.c:264
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
 
-#: cat/filesystems.c:315 cat/ls.c:354 df/main.c:259 diff/diff.c:350
+#: cat/filesystems.c:323 cat/ls.c:362 df/main.c:267 diff/diff.c:357
 #, c-format
 msgid "you cannot use -h and --csv options together."
 msgstr ""
 
-#: cat/filesystems.c:493
+#: cat/filesystems.c:501
 #, c-format
 msgid "%s: cannot determine the subvolume for %s: %s: %s\n"
 msgstr ""
@@ -3420,6 +3430,8 @@ msgid ""
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --echo-keys          Don't turn off echo for passphrases\n"
@@ -3433,17 +3445,17 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/log.c:263
+#: cat/log.c:271
 #, c-format
 msgid "%s: Windows Event Log for pre-Vista guests is not supported.\n"
 msgstr ""
 
-#: cat/log.c:371
+#: cat/log.c:379
 #, c-format
 msgid "%s: could not format journal entry timestamp\n"
 msgstr ""
 
-#: cat/log.c:437
+#: cat/log.c:445
 #, c-format
 msgid ""
 "%s: you need to install ‘evtxdump.py’ (from the python-evtx package)\n"
@@ -3452,7 +3464,7 @@ msgid ""
 "from this guest, and examine in a binary file viewer.\n"
 msgstr ""
 
-#: cat/log.c:456
+#: cat/log.c:464
 #, c-format
 msgid "%s: Windows Event Log file (%s) not found\n"
 msgstr ""
@@ -3467,6 +3479,8 @@ msgid ""
 "  %s [--options] -a disk.img [-a disk.img ...] dir [dir ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  --checksum[=...]     Display file checksums\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  --csv                Comma-Separated Values output\n"
@@ -3493,7 +3507,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/ls.c:347
+#: cat/ls.c:355
 #, c-format
 msgid ""
 "used a flag which can only be combined with -lR mode\n"
@@ -3510,6 +3524,8 @@ msgid ""
 "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --echo-keys          Don't turn off echo for passphrases\n"
@@ -3526,19 +3542,19 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/tail.c:213
+#: cat/tail.c:220
 #, c-format
 msgid ""
 "%s: error: missing filenames on command line.\n"
 "Please specify at least one file to follow.\n"
 msgstr ""
 
-#: cat/tail.c:416
+#: cat/tail.c:424
 #, c-format
 msgid "%s: error: none of the files were found in the disk image\n"
 msgstr ""
 
-#: cat/tail.c:421
+#: cat/tail.c:429
 #, c-format
 msgid "%s: all files deleted, exiting\n"
 msgstr ""
@@ -3558,27 +3574,28 @@ msgstr ""
 #: fish/run-0.c:2399 fish/run-0.c:2495 fish/run-1.c:932 fish/run-1.c:1016
 #: fish/run-1.c:1438 fish/run-1.c:1673 fish/run-1.c:1692 fish/run-1.c:1961
 #: fish/run-1.c:2030 fish/run-1.c:2053 fish/run-1.c:2162 fish/run-1.c:2181
-#: fish/run-1.c:2200 fish/run-1.c:2501 fish/run-1.c:2604 fish/run-2.c:583
-#: fish/run-2.c:602 fish/run-2.c:854 fish/run-2.c:1484 fish/run-2.c:1535
-#: fish/run-2.c:1632 fish/run-2.c:1869 fish/run-2.c:1922 fish/run-2.c:1979
-#: fish/run-2.c:2297 fish/run-3.c:579 fish/run-3.c:791 fish/run-3.c:880
-#: fish/run-3.c:1489 fish/run-3.c:1532 fish/run-3.c:2114 fish/run-3.c:2393
-#: fish/run-3.c:2416 fish/run-3.c:2732 fish/run-3.c:2778 fish/run-3.c:2821
-#: fish/run-3.c:2865 fish/run-3.c:2884 fish/run-3.c:2903 fish/run-3.c:2976
-#: fish/run-3.c:3083 fish/run-3.c:3125 fish/run-3.c:3705 fish/run-3.c:3728
-#: fish/run-3.c:3773 fish/run-3.c:3796 fish/run-3.c:4094 fish/run-4.c:145
-#: fish/run-4.c:309 fish/run-4.c:654 fish/run-4.c:954 fish/run-4.c:1285
-#: fish/run-4.c:1375 fish/run-4.c:1442 fish/run-4.c:1486 fish/run-4.c:1531
-#: fish/run-4.c:1550 fish/run-4.c:1569 fish/run-4.c:1750 fish/run-4.c:1794
-#: fish/run-4.c:1837 fish/run-4.c:1881 fish/run-4.c:2263 fish/run-5.c:878
-#: fish/run-5.c:1007 fish/run-5.c:1568 fish/run-5.c:1616 fish/run-5.c:1660
-#: fish/run-5.c:1778 fish/run-5.c:1806 fish/run-5.c:1829 fish/run-5.c:1893
-#: fish/run-5.c:2048 fish/run-5.c:2091 fish/run-5.c:2135 fish/run-5.c:2179
-#: fish/run-5.c:2316 fish/run-5.c:2434 fish/run-5.c:2453 fish/run-5.c:2472
-#: fish/run-5.c:2550 fish/run-5.c:2569 fish/run-5.c:2588 fish/run-5.c:2607
-#: fish/run-5.c:3062 fish/run-6.c:198 fish/run-6.c:435 fish/run-6.c:619
-#: fish/run-6.c:638 fish/run-6.c:1080 fish/run-6.c:1205 fish/run-6.c:1433
-#: fish/run-6.c:1452 fish/run-6.c:1497 fish/run-6.c:1960 fish/run-6.c:2047
+#: fish/run-1.c:2200 fish/run-1.c:2501 fish/run-1.c:2604 fish/run-2.c:225
+#: fish/run-2.c:315 fish/run-2.c:629 fish/run-2.c:648 fish/run-2.c:900
+#: fish/run-2.c:1530 fish/run-2.c:1581 fish/run-2.c:1678 fish/run-2.c:1915
+#: fish/run-2.c:1968 fish/run-2.c:2025 fish/run-2.c:2343 fish/run-3.c:579
+#: fish/run-3.c:791 fish/run-3.c:880 fish/run-3.c:1489 fish/run-3.c:1532
+#: fish/run-3.c:2114 fish/run-3.c:2393 fish/run-3.c:2416 fish/run-3.c:2732
+#: fish/run-3.c:2778 fish/run-3.c:2821 fish/run-3.c:2865 fish/run-3.c:2884
+#: fish/run-3.c:2903 fish/run-3.c:2976 fish/run-3.c:3083 fish/run-3.c:3125
+#: fish/run-3.c:3705 fish/run-3.c:3728 fish/run-3.c:3773 fish/run-3.c:3796
+#: fish/run-3.c:4094 fish/run-4.c:145 fish/run-4.c:309 fish/run-4.c:654
+#: fish/run-4.c:954 fish/run-4.c:1285 fish/run-4.c:1375 fish/run-4.c:1442
+#: fish/run-4.c:1486 fish/run-4.c:1531 fish/run-4.c:1550 fish/run-4.c:1569
+#: fish/run-4.c:1750 fish/run-4.c:1794 fish/run-4.c:1837 fish/run-4.c:1881
+#: fish/run-4.c:2263 fish/run-5.c:878 fish/run-5.c:1007 fish/run-5.c:1568
+#: fish/run-5.c:1616 fish/run-5.c:1660 fish/run-5.c:1778 fish/run-5.c:1806
+#: fish/run-5.c:1829 fish/run-5.c:1893 fish/run-5.c:2048 fish/run-5.c:2091
+#: fish/run-5.c:2135 fish/run-5.c:2179 fish/run-5.c:2316 fish/run-5.c:2434
+#: fish/run-5.c:2453 fish/run-5.c:2472 fish/run-5.c:2550 fish/run-5.c:2569
+#: fish/run-5.c:2588 fish/run-5.c:2607 fish/run-5.c:3062 fish/run-6.c:198
+#: fish/run-6.c:435 fish/run-6.c:619 fish/run-6.c:638 fish/run-6.c:1080
+#: fish/run-6.c:1205 fish/run-6.c:1433 fish/run-6.c:1452 fish/run-6.c:1497
+#: fish/run-6.c:1960 fish/run-6.c:2047
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr ""
@@ -3681,24 +3698,24 @@ msgstr ""
 msgid "could not read key from user"
 msgstr ""
 
-#: common/options/options.c:268
+#: common/options/options.c:283
 #, c-format
 msgid "%s: ‘%s’ could not be mounted.\n"
 msgstr ""
 
-#: common/options/options.c:272
+#: common/options/options.c:287
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options ‘%s’\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
 
-#: common/options/options.c:276
+#: common/options/options.c:291
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
 
-#: common/options/options.c:289
+#: common/options/options.c:304
 #, c-format
 msgid "cannot determine the subvolume for %s: %s (%d)"
 msgstr ""
@@ -3718,7 +3735,7 @@ msgstr ""
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
 msgstr ""
 
-#: common/parallel/domains.c:106 lib/libvirt-domain.c:108
+#: common/parallel/domains.c:106 lib/libvirt-domain.c:109
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr ""
@@ -3798,6 +3815,8 @@ msgid ""
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  --csv                Output as Comma-Separated Values\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
@@ -3814,7 +3833,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: df/main.c:274
+#: df/main.c:282
 #, c-format
 msgid "compiled without support for libvirt."
 msgstr ""
@@ -3876,6 +3895,8 @@ msgid ""
 "  --all                Same as: --extra-stats --times --uids --xattrs\n"
 "  --atime              Don't ignore access time changes\n"
 "  -A image             Add image from second guest\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a or -A option\n"
 "  --checksum[=...]     Use checksum of file content\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  --csv                Comma-Separated Values output\n"
@@ -3902,12 +3923,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:341
+#: diff/diff.c:348
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:353
+#: diff/diff.c:360
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
@@ -3915,12 +3936,12 @@ msgid ""
 "%s'.\n"
 msgstr ""
 
-#: diff/diff.c:761
+#: diff/diff.c:769
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 
-#: diff/diff.c:765
+#: diff/diff.c:773
 msgid "End of diff"
 msgstr ""
 
@@ -3935,6 +3956,8 @@ msgid ""
 "Options:\n"
 "  -a|--add image        Add image\n"
 "  -b|--backup .ext      Backup original as original.ext\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  -c|--connect uri      Specify libvirt URI for -d option\n"
 "  -d|--domain guest     Add disks from libvirt guest\n"
 "  --echo-keys           Don't turn off echo for passphrases\n"
@@ -3951,12 +3974,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: edit/edit.c:173
+#: edit/edit.c:180
 #, c-format
 msgid "-b option given multiple times"
 msgstr ""
 
-#: edit/edit.c:187
+#: edit/edit.c:194
 #, c-format
 msgid "-e option given multiple times"
 msgstr ""
@@ -6304,6 +6327,8 @@ msgid ""
 "  -h|--cmd-help        List available commands\n"
 "  -h|--cmd-help cmd    Display detailed help on ‘cmd’\n"
 "  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  --csh                Make --listen csh-compatible\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
@@ -6347,42 +6372,42 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:268
+#: fish/fish.c:273
 #, c-format
 msgid "--listen=PID: PID was not a number: %s"
 msgstr ""
 
-#: fish/fish.c:273
+#: fish/fish.c:278
 #, c-format
 msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
 msgstr ""
 
-#: fish/fish.c:320
+#: fish/fish.c:327
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 
-#: fish/fish.c:327
+#: fish/fish.c:334
 #, c-format
 msgid "only one -f parameter can be given"
 msgstr ""
 
-#: fish/fish.c:509
+#: fish/fish.c:517
 #, c-format
 msgid "cannot use --listen and --remote options at the same time"
 msgstr ""
 
-#: fish/fish.c:514
+#: fish/fish.c:522
 #, c-format
 msgid "extra parameters on the command line with --listen flag"
 msgstr ""
 
-#: fish/fish.c:517
+#: fish/fish.c:525
 #, c-format
 msgid "cannot use --listen and --file options at the same time"
 msgstr ""
 
-#: fish/fish.c:694
+#: fish/fish.c:702
 #, c-format
 msgid ""
 "\n"
@@ -6395,50 +6420,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:868 fish/fish.c:884
+#: fish/fish.c:876 fish/fish.c:892
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 
-#: fish/fish.c:878
+#: fish/fish.c:886
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr ""
 
-#: fish/fish.c:908
+#: fish/fish.c:916
 #, c-format
 msgid "%s: internal error parsing string at ‘%s’\n"
 msgstr ""
 
-#: fish/fish.c:925
+#: fish/fish.c:933
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr ""
 
-#: fish/fish.c:1001
+#: fish/fish.c:1009
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:1010
+#: fish/fish.c:1018
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr ""
 
-#: fish/fish.c:1075
+#: fish/fish.c:1083
 #, c-format
 msgid "empty command on command line"
 msgstr ""
 
-#: fish/fish.c:1229
+#: fish/fish.c:1237
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:1231
+#: fish/fish.c:1239
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:1242
+#: fish/fish.c:1250
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -6447,29 +6472,29 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:1251
+#: fish/fish.c:1259
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:1256
+#: fish/fish.c:1264
 #, c-format
 msgid "%s: command not known: "
 msgstr ""
 
-#: fish/fish.c:1258
+#: fish/fish.c:1266
 #, c-format
 msgid "use 'help --list' to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1260
+#: fish/fish.c:1268
 #, c-format
 msgid "use -h to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1280
+#: fish/fish.c:1288
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -6477,36 +6502,36 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1291
+#: fish/fish.c:1299
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1418
+#: fish/fish.c:1426
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr ""
 
-#: fish/fish.c:1750
+#: fish/fish.c:1758
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1756
+#: fish/fish.c:1764
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: fish/fish.c:1770
+#: fish/fish.c:1778
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1789
+#: fish/fish.c:1797
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -6759,9 +6784,9 @@ msgstr ""
 #: fish/run-1.c:2742 fish/run-1.c:2816 fish/run-1.c:3000 fish/run-1.c:3013
 #: fish/run-1.c:3062 fish/run-1.c:3143 fish/run-1.c:3156 fish/run-1.c:3169
 #: fish/run-1.c:3182 fish/run-1.c:3195 fish/run-2.c:138 fish/run-2.c:202
-#: fish/run-2.c:515 fish/run-2.c:726 fish/run-2.c:739 fish/run-2.c:1019
-#: fish/run-2.c:1271 fish/run-2.c:1352 fish/run-2.c:1567 fish/run-2.c:1878
-#: fish/run-2.c:2201 fish/run-2.c:2214 fish/run-2.c:2376 fish/run-3.c:417
+#: fish/run-2.c:561 fish/run-2.c:772 fish/run-2.c:785 fish/run-2.c:1065
+#: fish/run-2.c:1317 fish/run-2.c:1398 fish/run-2.c:1613 fish/run-2.c:1924
+#: fish/run-2.c:2247 fish/run-2.c:2260 fish/run-2.c:2422 fish/run-3.c:417
 #: fish/run-3.c:987 fish/run-3.c:1353 fish/run-3.c:1366 fish/run-3.c:1379
 #: fish/run-3.c:1392 fish/run-3.c:1635 fish/run-3.c:1694 fish/run-3.c:2464
 #: fish/run-3.c:2477 fish/run-3.c:2490 fish/run-3.c:2503 fish/run-3.c:2516
@@ -6787,8 +6812,8 @@ msgstr ""
 #: fish/run-0.c:2569 fish/run-1.c:311 fish/run-1.c:577 fish/run-1.c:702
 #: fish/run-1.c:1211 fish/run-1.c:1501 fish/run-1.c:2085 fish/run-1.c:2450
 #: fish/run-1.c:2704 fish/run-1.c:2881 fish/run-1.c:3023 fish/run-1.c:3215
-#: fish/run-2.c:212 fish/run-2.c:279 fish/run-2.c:749 fish/run-2.c:1029
-#: fish/run-2.c:1281 fish/run-2.c:1362 fish/run-2.c:1687 fish/run-2.c:2224
+#: fish/run-2.c:235 fish/run-2.c:325 fish/run-2.c:795 fish/run-2.c:1075
+#: fish/run-2.c:1327 fish/run-2.c:1408 fish/run-2.c:1733 fish/run-2.c:2270
 #: fish/run-3.c:432 fish/run-3.c:494 fish/run-3.c:589 fish/run-3.c:890
 #: fish/run-3.c:997 fish/run-3.c:1402 fish/run-3.c:1645 fish/run-3.c:1704
 #: fish/run-3.c:2682 fish/run-3.c:2999 fish/run-3.c:3280 fish/run-3.c:3609
@@ -6806,8 +6831,8 @@ msgstr ""
 #: fish/run-0.c:2575 fish/run-1.c:317 fish/run-1.c:583 fish/run-1.c:708
 #: fish/run-1.c:1217 fish/run-1.c:1507 fish/run-1.c:2091 fish/run-1.c:2456
 #: fish/run-1.c:2710 fish/run-1.c:2887 fish/run-1.c:3029 fish/run-1.c:3221
-#: fish/run-2.c:218 fish/run-2.c:285 fish/run-2.c:755 fish/run-2.c:1035
-#: fish/run-2.c:1287 fish/run-2.c:1368 fish/run-2.c:1693 fish/run-2.c:2230
+#: fish/run-2.c:241 fish/run-2.c:331 fish/run-2.c:801 fish/run-2.c:1081
+#: fish/run-2.c:1333 fish/run-2.c:1414 fish/run-2.c:1739 fish/run-2.c:2276
 #: fish/run-3.c:438 fish/run-3.c:500 fish/run-3.c:595 fish/run-3.c:896
 #: fish/run-3.c:1003 fish/run-3.c:1408 fish/run-3.c:1651 fish/run-3.c:1710
 #: fish/run-3.c:2688 fish/run-3.c:3005 fish/run-3.c:3286 fish/run-3.c:3615
@@ -6830,45 +6855,46 @@ msgstr ""
 #: fish/run-1.c:1667 fish/run-1.c:1686 fish/run-1.c:1955 fish/run-1.c:2007
 #: fish/run-1.c:2024 fish/run-1.c:2047 fish/run-1.c:2070 fish/run-1.c:2156
 #: fish/run-1.c:2175 fish/run-1.c:2194 fish/run-1.c:2495 fish/run-1.c:2514
-#: fish/run-1.c:2598 fish/run-1.c:2617 fish/run-2.c:257 fish/run-2.c:457
-#: fish/run-2.c:577 fish/run-2.c:596 fish/run-2.c:679 fish/run-2.c:696
-#: fish/run-2.c:713 fish/run-2.c:848 fish/run-2.c:1100 fish/run-2.c:1137
-#: fish/run-2.c:1478 fish/run-2.c:1529 fish/run-2.c:1626 fish/run-2.c:1758
-#: fish/run-2.c:1863 fish/run-2.c:1916 fish/run-2.c:1935 fish/run-2.c:1973
-#: fish/run-2.c:2085 fish/run-2.c:2291 fish/run-2.c:2556 fish/run-3.c:484
-#: fish/run-3.c:573 fish/run-3.c:785 fish/run-3.c:835 fish/run-3.c:874
-#: fish/run-3.c:957 fish/run-3.c:970 fish/run-3.c:1444 fish/run-3.c:1483
-#: fish/run-3.c:1526 fish/run-3.c:1810 fish/run-3.c:2108 fish/run-3.c:2183
-#: fish/run-3.c:2200 fish/run-3.c:2217 fish/run-3.c:2234 fish/run-3.c:2251
-#: fish/run-3.c:2268 fish/run-3.c:2285 fish/run-3.c:2302 fish/run-3.c:2319
-#: fish/run-3.c:2336 fish/run-3.c:2353 fish/run-3.c:2370 fish/run-3.c:2387
-#: fish/run-3.c:2410 fish/run-3.c:2726 fish/run-3.c:2772 fish/run-3.c:2815
-#: fish/run-3.c:2859 fish/run-3.c:2878 fish/run-3.c:2897 fish/run-3.c:2970
-#: fish/run-3.c:3041 fish/run-3.c:3077 fish/run-3.c:3119 fish/run-3.c:3699
-#: fish/run-3.c:3722 fish/run-3.c:3750 fish/run-3.c:3767 fish/run-3.c:3790
-#: fish/run-3.c:3818 fish/run-3.c:3835 fish/run-3.c:3920 fish/run-3.c:3933
-#: fish/run-3.c:3946 fish/run-3.c:3959 fish/run-3.c:4088 fish/run-4.c:139
-#: fish/run-4.c:303 fish/run-4.c:444 fish/run-4.c:605 fish/run-4.c:648
-#: fish/run-4.c:697 fish/run-4.c:710 fish/run-4.c:751 fish/run-4.c:820
-#: fish/run-4.c:837 fish/run-4.c:854 fish/run-4.c:948 fish/run-4.c:1082
-#: fish/run-4.c:1279 fish/run-4.c:1369 fish/run-4.c:1436 fish/run-4.c:1480
-#: fish/run-4.c:1525 fish/run-4.c:1544 fish/run-4.c:1563 fish/run-4.c:1694
-#: fish/run-4.c:1707 fish/run-4.c:1744 fish/run-4.c:1788 fish/run-4.c:1831
-#: fish/run-4.c:1875 fish/run-4.c:2257 fish/run-5.c:502 fish/run-5.c:519
-#: fish/run-5.c:536 fish/run-5.c:627 fish/run-5.c:644 fish/run-5.c:661
-#: fish/run-5.c:872 fish/run-5.c:1001 fish/run-5.c:1069 fish/run-5.c:1398
-#: fish/run-5.c:1562 fish/run-5.c:1610 fish/run-5.c:1654 fish/run-5.c:1772
-#: fish/run-5.c:1800 fish/run-5.c:1823 fish/run-5.c:1887 fish/run-5.c:2042
-#: fish/run-5.c:2085 fish/run-5.c:2129 fish/run-5.c:2173 fish/run-5.c:2310
-#: fish/run-5.c:2428 fish/run-5.c:2447 fish/run-5.c:2466 fish/run-5.c:2544
-#: fish/run-5.c:2563 fish/run-5.c:2582 fish/run-5.c:2601 fish/run-5.c:2766
-#: fish/run-5.c:2988 fish/run-5.c:3005 fish/run-5.c:3022 fish/run-5.c:3039
-#: fish/run-5.c:3056 fish/run-5.c:3202 fish/run-5.c:3219 fish/run-5.c:3236
-#: fish/run-5.c:3253 fish/run-6.c:192 fish/run-6.c:429 fish/run-6.c:474
-#: fish/run-6.c:613 fish/run-6.c:632 fish/run-6.c:788 fish/run-6.c:824
-#: fish/run-6.c:1074 fish/run-6.c:1199 fish/run-6.c:1427 fish/run-6.c:1446
-#: fish/run-6.c:1491 fish/run-6.c:1510 fish/run-6.c:1592 fish/run-6.c:1738
-#: fish/run-6.c:1872 fish/run-6.c:1954 fish/run-6.c:2041
+#: fish/run-1.c:2598 fish/run-1.c:2617 fish/run-2.c:219 fish/run-2.c:280
+#: fish/run-2.c:309 fish/run-2.c:503 fish/run-2.c:623 fish/run-2.c:642
+#: fish/run-2.c:725 fish/run-2.c:742 fish/run-2.c:759 fish/run-2.c:894
+#: fish/run-2.c:1146 fish/run-2.c:1183 fish/run-2.c:1524 fish/run-2.c:1575
+#: fish/run-2.c:1672 fish/run-2.c:1804 fish/run-2.c:1909 fish/run-2.c:1962
+#: fish/run-2.c:1981 fish/run-2.c:2019 fish/run-2.c:2131 fish/run-2.c:2337
+#: fish/run-2.c:2602 fish/run-3.c:484 fish/run-3.c:573 fish/run-3.c:785
+#: fish/run-3.c:835 fish/run-3.c:874 fish/run-3.c:957 fish/run-3.c:970
+#: fish/run-3.c:1444 fish/run-3.c:1483 fish/run-3.c:1526 fish/run-3.c:1810
+#: fish/run-3.c:2108 fish/run-3.c:2183 fish/run-3.c:2200 fish/run-3.c:2217
+#: fish/run-3.c:2234 fish/run-3.c:2251 fish/run-3.c:2268 fish/run-3.c:2285
+#: fish/run-3.c:2302 fish/run-3.c:2319 fish/run-3.c:2336 fish/run-3.c:2353
+#: fish/run-3.c:2370 fish/run-3.c:2387 fish/run-3.c:2410 fish/run-3.c:2726
+#: fish/run-3.c:2772 fish/run-3.c:2815 fish/run-3.c:2859 fish/run-3.c:2878
+#: fish/run-3.c:2897 fish/run-3.c:2970 fish/run-3.c:3041 fish/run-3.c:3077
+#: fish/run-3.c:3119 fish/run-3.c:3699 fish/run-3.c:3722 fish/run-3.c:3750
+#: fish/run-3.c:3767 fish/run-3.c:3790 fish/run-3.c:3818 fish/run-3.c:3835
+#: fish/run-3.c:3920 fish/run-3.c:3933 fish/run-3.c:3946 fish/run-3.c:3959
+#: fish/run-3.c:4088 fish/run-4.c:139 fish/run-4.c:303 fish/run-4.c:444
+#: fish/run-4.c:605 fish/run-4.c:648 fish/run-4.c:697 fish/run-4.c:710
+#: fish/run-4.c:751 fish/run-4.c:820 fish/run-4.c:837 fish/run-4.c:854
+#: fish/run-4.c:948 fish/run-4.c:1082 fish/run-4.c:1279 fish/run-4.c:1369
+#: fish/run-4.c:1436 fish/run-4.c:1480 fish/run-4.c:1525 fish/run-4.c:1544
+#: fish/run-4.c:1563 fish/run-4.c:1694 fish/run-4.c:1707 fish/run-4.c:1744
+#: fish/run-4.c:1788 fish/run-4.c:1831 fish/run-4.c:1875 fish/run-4.c:2257
+#: fish/run-5.c:502 fish/run-5.c:519 fish/run-5.c:536 fish/run-5.c:627
+#: fish/run-5.c:644 fish/run-5.c:661 fish/run-5.c:872 fish/run-5.c:1001
+#: fish/run-5.c:1069 fish/run-5.c:1398 fish/run-5.c:1562 fish/run-5.c:1610
+#: fish/run-5.c:1654 fish/run-5.c:1772 fish/run-5.c:1800 fish/run-5.c:1823
+#: fish/run-5.c:1887 fish/run-5.c:2042 fish/run-5.c:2085 fish/run-5.c:2129
+#: fish/run-5.c:2173 fish/run-5.c:2310 fish/run-5.c:2428 fish/run-5.c:2447
+#: fish/run-5.c:2466 fish/run-5.c:2544 fish/run-5.c:2563 fish/run-5.c:2582
+#: fish/run-5.c:2601 fish/run-5.c:2766 fish/run-5.c:2988 fish/run-5.c:3005
+#: fish/run-5.c:3022 fish/run-5.c:3039 fish/run-5.c:3056 fish/run-5.c:3202
+#: fish/run-5.c:3219 fish/run-5.c:3236 fish/run-5.c:3253 fish/run-6.c:192
+#: fish/run-6.c:429 fish/run-6.c:474 fish/run-6.c:613 fish/run-6.c:632
+#: fish/run-6.c:788 fish/run-6.c:824 fish/run-6.c:1074 fish/run-6.c:1199
+#: fish/run-6.c:1427 fish/run-6.c:1446 fish/run-6.c:1491 fish/run-6.c:1510
+#: fish/run-6.c:1592 fish/run-6.c:1738 fish/run-6.c:1872 fish/run-6.c:1954
+#: fish/run-6.c:2041
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
@@ -6919,6 +6945,8 @@ msgid ""
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  --filesystem=..      Create empty filesystem\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
 "  --help               Display brief help\n"
@@ -6935,17 +6963,17 @@ msgid ""
 "\n"
 msgstr ""
 
-#: format/format.c:155
+#: format/format.c:162
 #, c-format
 msgid "no filesystem was specified"
 msgstr ""
 
-#: format/format.c:161
+#: format/format.c:168
 #, c-format
 msgid "--lvm option cannot be given multiple times"
 msgstr ""
 
-#: format/format.c:228
+#: format/format.c:235
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
@@ -6953,12 +6981,12 @@ msgid ""
 "format=%s'.\n"
 msgstr ""
 
-#: format/format.c:239
+#: format/format.c:247
 #, c-format
 msgid "%s: error: you must specify at least one -a option.\n"
 msgstr ""
 
-#: format/format.c:281
+#: format/format.c:289
 #, c-format
 msgid ""
 "failed to rescan the disks after two attempts.  This\n"
@@ -6967,7 +6995,7 @@ msgid ""
 "is a bug, please file a bug at http://libguestfs.org/\n"
 msgstr ""
 
-#: format/format.c:317
+#: format/format.c:325
 #, c-format
 msgid "cannot parse --lvm option (%s)"
 msgstr ""
@@ -6982,6 +7010,8 @@ msgid ""
 "  %s [--options] mountpoint\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
@@ -7007,37 +7037,37 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:251
+#: fuse/guestmount.c:258
 #, c-format
 msgid "unable to parse --fd option value: %s"
 msgstr ""
 
-#: fuse/guestmount.c:328
+#: fuse/guestmount.c:336
 #, c-format
 msgid "%s: error: you must specify either -i at least one -m option.\n"
 msgstr ""
 
-#: fuse/guestmount.c:337
+#: fuse/guestmount.c:345
 #, c-format
 msgid "--live is not compatible with --ro option"
 msgstr ""
 
-#: fuse/guestmount.c:340
+#: fuse/guestmount.c:348
 #, c-format
 msgid "--live is not compatible with -i option"
 msgstr ""
 
-#: fuse/guestmount.c:352
+#: fuse/guestmount.c:360
 #, c-format
 msgid "with --live, you must use exactly one -d option"
 msgstr ""
 
-#: fuse/guestmount.c:355
+#: fuse/guestmount.c:363
 #, c-format
 msgid "--live is not compatible with -a option"
 msgstr ""
 
-#: fuse/guestmount.c:361
+#: fuse/guestmount.c:369
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
 msgstr ""
@@ -7094,6 +7124,8 @@ msgid ""
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --echo-keys          Don't turn off echo for passphrases\n"
@@ -7110,12 +7142,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: inspector/inspector.c:272
+#: inspector/inspector.c:280
 #, c-format
 msgid "cannot use --xpath together with other options."
 msgstr ""
 
-#: inspector/inspector.c:309
+#: inspector/inspector.c:317
 #, c-format
 msgid ""
 "no operating system could be detected inside this disk image.\n"
@@ -7132,49 +7164,49 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: inspector/inspector.c:325
+#: inspector/inspector.c:333
 #, c-format
 msgid "xmlOutputBufferCreateFd: failed to open stdout"
 msgstr ""
 
-#: inspector/inspector.c:331
+#: inspector/inspector.c:339
 #, c-format
 msgid "xmlNewTextWriter: failed to create libxml2 writer"
 msgstr ""
 
-#: inspector/inspector.c:703
+#: inspector/inspector.c:711
 #, c-format
 msgid "unable to parse XML from stdin"
 msgstr ""
 
-#: inspector/inspector.c:707 lib/launch-libvirt.c:783 lib/launch-libvirt.c:873
-#: lib/libvirt-domain.c:418 lib/libvirt-domain.c:502 lib/libvirt-domain.c:818
+#: inspector/inspector.c:715 lib/launch-libvirt.c:786 lib/launch-libvirt.c:876
+#: lib/libvirt-domain.c:423 lib/libvirt-domain.c:507 lib/libvirt-domain.c:834
 #, c-format
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: inspector/inspector.c:711 lib/libvirt-domain.c:436 lib/libvirt-domain.c:509
-#: lib/libvirt-domain.c:833
+#: inspector/inspector.c:719 lib/libvirt-domain.c:441 lib/libvirt-domain.c:514
+#: lib/libvirt-domain.c:849
 #, c-format
 msgid "unable to evaluate XPath expression"
 msgstr ""
 
-#: inspector/inspector.c:722
+#: inspector/inspector.c:730
 #, c-format
 msgid "xmlSaveToFd failed"
 msgstr ""
 
-#: inspector/inspector.c:727
+#: inspector/inspector.c:735
 #, c-format
 msgid "xmlNewDoc failed"
 msgstr ""
 
-#: inspector/inspector.c:730
+#: inspector/inspector.c:738
 #, c-format
 msgid "xmlCopyNode failed"
 msgstr ""
 
-#: inspector/inspector.c:735
+#: inspector/inspector.c:743
 #, c-format
 msgid "xmlSaveDoc failed"
 msgstr ""
@@ -7266,7 +7298,7 @@ msgstr ""
 msgid "backingformat parameter cannot be used with raw format"
 msgstr ""
 
-#: lib/create.c:154 lib/create.c:283
+#: lib/create.c:154 lib/create.c:284
 #, c-format
 msgid "invalid value for preallocation parameter ‘%s’"
 msgstr ""
@@ -7309,19 +7341,24 @@ msgstr ""
 msgid "%s: close"
 msgstr ""
 
-#: lib/create.c:268
+#: lib/create.c:269
 #, c-format
 msgid "invalid value for backingformat parameter ‘%s’"
 msgstr ""
 
-#: lib/create.c:291
+#: lib/create.c:292
 #, c-format
 msgid "invalid value for compat parameter ‘%s’"
 msgstr ""
 
-#: lib/create.c:299
+#: lib/create.c:300
 #, c-format
 msgid "invalid value for clustersize parameter ‘%d’"
+msgstr ""
+
+#: lib/create.c:312
+#, c-format
+msgid "could not auto-detect the format of the backing file %s"
 msgstr ""
 
 #: lib/dbdump.c:83
@@ -7337,206 +7374,216 @@ msgstr ""
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr ""
 
-#: lib/drives.c:82
+#: lib/drives.c:83
 msgid "this backend does not support adding read-only drives"
 msgstr ""
 
-#: lib/drives.c:173
+#: lib/drives.c:176
 msgid "curl: you must specify exactly one server"
 msgstr ""
 
-#: lib/drives.c:179
+#: lib/drives.c:182
 msgid "curl: only tcp transport is supported"
 msgstr ""
 
-#: lib/drives.c:184
+#: lib/drives.c:187
 msgid "curl: pathname should not be an empty string"
 msgstr ""
 
-#: lib/drives.c:189
+#: lib/drives.c:192
 msgid "curl: pathname must begin with a '/'"
 msgstr ""
 
-#: lib/drives.c:201
+#: lib/drives.c:204
 msgid "gluster: you cannot specify a username with this protocol"
 msgstr ""
 
-#: lib/drives.c:205
+#: lib/drives.c:208
 msgid "gluster: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: lib/drives.c:210
+#: lib/drives.c:213
 msgid "gluster: you must specify exactly one server"
 msgstr ""
 
-#: lib/drives.c:215
+#: lib/drives.c:218
 msgid "gluster: volume name parameter should not be an empty string"
 msgstr ""
 
-#: lib/drives.c:220
+#: lib/drives.c:223
 msgid "gluster: volume/image must not begin with a '/'"
 msgstr ""
 
-#: lib/drives.c:244
+#: lib/drives.c:247
 msgid "nbd: you cannot specify a username with this protocol"
 msgstr ""
 
-#: lib/drives.c:248
+#: lib/drives.c:251
 msgid "nbd: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: lib/drives.c:253
+#: lib/drives.c:256
 msgid "nbd: you must specify exactly one server"
 msgstr ""
 
-#: lib/drives.c:272
+#: lib/drives.c:275
 msgid "rbd: only tcp transport is supported"
 msgstr ""
 
-#: lib/drives.c:276
+#: lib/drives.c:279
 msgid "rbd: port number must be specified"
 msgstr ""
 
-#: lib/drives.c:282
+#: lib/drives.c:285
 msgid "rbd: image name parameter should not be an empty string"
 msgstr ""
 
-#: lib/drives.c:287
+#: lib/drives.c:290
 msgid "rbd: image name must not begin with a '/'"
 msgstr ""
 
-#: lib/drives.c:301
+#: lib/drives.c:304
 msgid "sheepdog: you cannot specify a username with this protocol"
 msgstr ""
 
-#: lib/drives.c:305
+#: lib/drives.c:308
 msgid "sheepdog: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: lib/drives.c:312
+#: lib/drives.c:315
 msgid "sheepdog: only tcp transport is supported"
 msgstr ""
 
-#: lib/drives.c:316
+#: lib/drives.c:319
 msgid "sheepdog: port number must be specified"
 msgstr ""
 
-#: lib/drives.c:322
+#: lib/drives.c:325
 msgid "sheepdog: volume parameter should not be an empty string"
 msgstr ""
 
-#: lib/drives.c:327
+#: lib/drives.c:330
 msgid "sheepdog: volume parameter must not begin with a '/'"
 msgstr ""
 
-#: lib/drives.c:339
+#: lib/drives.c:342
 msgid "ssh: you must specify exactly one server"
 msgstr ""
 
-#: lib/drives.c:345
+#: lib/drives.c:348
 msgid "ssh: only tcp transport is supported"
 msgstr ""
 
-#: lib/drives.c:350
+#: lib/drives.c:353
 msgid "ssh: pathname should not be an empty string"
 msgstr ""
 
-#: lib/drives.c:355
+#: lib/drives.c:358
 msgid "ssh: pathname must begin with a '/'"
 msgstr ""
 
-#: lib/drives.c:360
+#: lib/drives.c:363
 msgid "ssh: username should not be an empty string"
 msgstr ""
 
-#: lib/drives.c:372
+#: lib/drives.c:375
 msgid "iscsi: you must specify exactly one server"
 msgstr ""
 
-#: lib/drives.c:378
+#: lib/drives.c:381
 msgid "iscsi: only tcp transport is supported"
 msgstr ""
 
-#: lib/drives.c:383
+#: lib/drives.c:386
 msgid "iscsi: target name should not be an empty string"
 msgstr ""
 
-#: lib/drives.c:388
+#: lib/drives.c:391
 msgid "iscsi: target string must not begin with a '/'"
 msgstr ""
 
-#: lib/drives.c:415
+#: lib/drives.c:418
 msgid "for device ‘/dev/null’, format must be ‘raw’"
 msgstr ""
 
-#: lib/drives.c:644
+#: lib/drives.c:665
 msgid "missing Unix domain socket path"
 msgstr ""
 
-#: lib/drives.c:656
+#: lib/drives.c:677
 #, c-format
 msgid "invalid port number ‘%s’"
 msgstr ""
 
-#: lib/drives.c:663
+#: lib/drives.c:684
 #, c-format
 msgid "invalid hostname ‘%s’"
 msgstr ""
 
-#: lib/drives.c:674
+#: lib/drives.c:695
 #, c-format
 msgid "invalid hostname or server string ‘%s’"
 msgstr ""
 
-#: lib/drives.c:758
+#: lib/drives.c:779
 msgid "discard parameter must be ‘disable’, ‘enable’ or ‘besteffort’"
 msgstr ""
 
-#: lib/drives.c:771
+#: lib/drives.c:796
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 
-#: lib/drives.c:777 lib/drives.c:783
+#: lib/drives.c:802 lib/drives.c:808
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: lib/drives.c:789
+#: lib/drives.c:814
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: lib/drives.c:795
+#: lib/drives.c:820
 msgid "cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"
 msgstr ""
 
-#: lib/drives.c:802
+#: lib/drives.c:825
+#, c-format
+msgid "%s parameter is invalid"
+msgstr ""
+
+#: lib/drives.c:832
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: lib/drives.c:807
+#: lib/drives.c:837
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: lib/drives.c:811
+#: lib/drives.c:841
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: lib/drives.c:874
+#: lib/drives.c:904
 #, c-format
 msgid "unknown protocol ‘%s’"
 msgstr ""
 
-#: lib/drives.c:892 lib/drives.c:1043
+#: lib/drives.c:922 lib/drives.c:1077
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
-#: lib/drives.c:898
+#: lib/drives.c:928
 msgid "‘label’ is required when hotplugging drives"
 msgstr ""
 
-#: lib/drives.c:1028
+#: lib/drives.c:1062
 #, c-format
 msgid "disk with label ‘%s’ not found"
+msgstr ""
+
+#: lib/drives.c:1166
+#, c-format
+msgid "%s: device not found"
 msgstr ""
 
 #: lib/errors.c:425
@@ -7653,47 +7700,47 @@ msgid ""
 "found when libguestfs was compiled"
 msgstr ""
 
-#: lib/handle.c:140
+#: lib/handle.c:141
 msgid ""
 "libguestfs was built with an invalid default backend, using ‘direct’ instead"
 msgstr ""
 
-#: lib/handle.c:142
+#: lib/handle.c:143
 msgid "‘direct’ backend does not work"
 msgstr ""
 
-#: lib/handle.c:200 lib/handle.c:210
+#: lib/handle.c:202 lib/handle.c:212
 #, c-format
 msgid "%s=%s: non-boolean value"
 msgstr ""
 
-#: lib/handle.c:252
+#: lib/handle.c:254
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
-#: lib/handle.c:334
+#: lib/handle.c:336
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr ""
 
-#: lib/handle.c:560
+#: lib/handle.c:562
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: lib/handle.c:613
+#: lib/handle.c:615
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: lib/handle.c:730
+#: lib/handle.c:732
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: lib/handle.c:836
+#: lib/handle.c:838
 msgid "setting not found"
 msgstr ""
 
@@ -7729,7 +7776,7 @@ msgstr ""
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: lib/launch-direct.c:151
+#: lib/launch-direct.c:149
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -7738,11 +7785,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:374 lib/launch-uml.c:154
+#: lib/launch-direct.c:396 lib/launch-uml.c:159
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:898 lib/launch-libvirt.c:713
+#: lib/launch-direct.c:918 lib/launch-libvirt.c:714
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -7751,43 +7798,43 @@ msgstr ""
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: lib/launch-libvirt.c:217
+#: lib/launch-libvirt.c:218
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:228
+#: lib/launch-libvirt.c:229
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:344
+#: lib/launch-libvirt.c:345
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:358
+#: lib/launch-libvirt.c:359
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the ‘libvirt’ backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:392
+#: lib/launch-libvirt.c:393
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: lib/launch-libvirt.c:421
+#: lib/launch-libvirt.c:422
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:442
+#: lib/launch-libvirt.c:443
 msgid "could not get libvirt domain capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:642
+#: lib/launch-libvirt.c:643
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -7797,16 +7844,16 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:777
+#: lib/launch-libvirt.c:780
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:793 lib/launch-libvirt.c:881 lib/launch-libvirt.c:896
+#: lib/launch-libvirt.c:796 lib/launch-libvirt.c:884 lib/launch-libvirt.c:900
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:828
+#: lib/launch-libvirt.c:831
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -7821,60 +7868,60 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:867
+#: lib/launch-libvirt.c:870
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1427
+#: lib/launch-libvirt.c:1432
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1473 lib/launch-libvirt.c:1714 lib/qemu.c:816
+#: lib/launch-libvirt.c:1478 lib/launch-libvirt.c:1736 lib/qemu.c:816
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1556
+#: lib/launch-libvirt.c:1561
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1925
+#: lib/launch-libvirt.c:1947
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1936
+#: lib/launch-libvirt.c:1958
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1940
+#: lib/launch-libvirt.c:1962
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1961
+#: lib/launch-libvirt.c:1983
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:1974
+#: lib/launch-libvirt.c:1996
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2147
+#: lib/launch-libvirt.c:2169
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2168 lib/launch-libvirt.c:2201
+#: lib/launch-libvirt.c:2190 lib/launch-libvirt.c:2223
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2267
+#: lib/launch-libvirt.c:2289
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2298
+#: lib/launch-libvirt.c:2320
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -7907,7 +7954,11 @@ msgid ""
 "uml backend does not support drives with ‘discard’ parameter set to ‘enable’"
 msgstr ""
 
-#: lib/launch-uml.c:461
+#: lib/launch-uml.c:129
+msgid "uml backend does not support drives with ‘blocksize’ parameter"
+msgstr ""
+
+#: lib/launch-uml.c:466
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -7998,25 +8049,25 @@ msgid ""
 "was compiled without libvirt"
 msgstr ""
 
-#: lib/libvirt-domain.c:96 lib/libvirt-domain.c:246
+#: lib/libvirt-domain.c:97 lib/libvirt-domain.c:247
 msgid "you cannot set both live and readonly flags"
 msgstr ""
 
-#: lib/libvirt-domain.c:129
+#: lib/libvirt-domain.c:130
 #, c-format
 msgid "no libvirt domain called ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:228
+#: lib/libvirt-domain.c:229
 msgid "unknown readonlydisk parameter"
 msgstr ""
 
-#: lib/libvirt-domain.c:257
+#: lib/libvirt-domain.c:258
 #, c-format
 msgid "error getting domain info: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:271
+#: lib/libvirt-domain.c:272
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -8026,77 +8077,77 @@ msgid ""
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 
-#: lib/libvirt-domain.c:364
+#: lib/libvirt-domain.c:365
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: lib/libvirt-domain.c:455
+#: lib/libvirt-domain.c:460
 msgid "expected <seclabel/> to be an XML element"
 msgstr ""
 
-#: lib/libvirt-domain.c:617
+#: lib/libvirt-domain.c:624
 #, c-format
 msgid "no secret with UUID ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:625
+#: lib/libvirt-domain.c:632
 #, c-format
 msgid "cannot get the value of the secret with UUID ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:653
+#: lib/libvirt-domain.c:660
 #, c-format
 msgid "no secret for usage ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:661
+#: lib/libvirt-domain.c:668
 #, c-format
 msgid "cannot get the value of the secret with usage ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:794
+#: lib/libvirt-domain.c:810
 msgid "libvirt domain has no disks"
 msgstr ""
 
-#: lib/libvirt-domain.c:857
+#: lib/libvirt-domain.c:873
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
 
-#: lib/libvirt-domain.c:876
+#: lib/libvirt-domain.c:892
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:886
+#: lib/libvirt-domain.c:902
 msgid "unable to parse XML information returned by libvirt"
-msgstr ""
-
-#: lib/libvirt-domain.c:907
-#, c-format
-msgid "no libvirt pool called ‘%s’: %s"
-msgstr ""
-
-#: lib/libvirt-domain.c:915
-#, c-format
-msgid "no volume called ‘%s’ in the libvirt pool ‘%s’: %s"
 msgstr ""
 
 #: lib/libvirt-domain.c:923
 #, c-format
+msgid "no libvirt pool called ‘%s’: %s"
+msgstr ""
+
+#: lib/libvirt-domain.c:931
+#, c-format
+msgid "no volume called ‘%s’ in the libvirt pool ‘%s’: %s"
+msgstr ""
+
+#: lib/libvirt-domain.c:939
+#, c-format
 msgid "cannot get information of the libvirt volume ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:937
+#: lib/libvirt-domain.c:953
 #, c-format
 msgid "cannot get the filename of the libvirt volume ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:981
+#: lib/libvirt-domain.c:1022
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
@@ -8255,7 +8306,7 @@ msgstr ""
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: make-fs/make-fs.c:83
+#: make-fs/make-fs.c:85
 #, c-format
 msgid ""
 "%s: make a filesystem from a tar archive or files\n"
@@ -8265,6 +8316,7 @@ msgid ""
 "  %s [--options] input.tar.gz output.img\n"
 "  %s [--options] directory output.img\n"
 "Options:\n"
+"  --blocksize=512|4096     Set sector size of the output disk\n"
 "  --floppy                 Make a virtual floppy disk\n"
 "  -F|--format=raw|qcow2|.. Set output format\n"
 "  --help                   Display brief help\n"
@@ -8278,43 +8330,48 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: make-fs/make-fs.c:189
+#: make-fs/make-fs.c:154
+#, c-format
+msgid "--blocksize option is not numeric"
+msgstr ""
+
+#: make-fs/make-fs.c:195
 #, c-format
 msgid "%s: missing input and output arguments on the command line\n"
 msgstr ""
 
-#: make-fs/make-fs.c:208
+#: make-fs/make-fs.c:214
 #, c-format
 msgid "%s: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 
-#: make-fs/make-fs.c:258 make-fs/make-fs.c:322
+#: make-fs/make-fs.c:264 make-fs/make-fs.c:328
 #, c-format
 msgid "%s: %s command failed\n"
 msgstr ""
 
-#: make-fs/make-fs.c:447
+#: make-fs/make-fs.c:453
 #, c-format
 msgid "%s: cannot parse the output of ‘du’ command: %s\n"
 msgstr ""
 
-#: make-fs/make-fs.c:482
+#: make-fs/make-fs.c:488
 #, c-format
 msgid ""
 "%s: %s: input is not a directory, tar archive or compressed tar archive\n"
 msgstr ""
 
-#: make-fs/make-fs.c:513
+#: make-fs/make-fs.c:519
 #, c-format
 msgid "%s: %s: unknown compressed input format (%s)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:636
+#: make-fs/make-fs.c:642
 #, c-format
 msgid "%s: %s: invalid size parameter ‘%s’ (%s returned %u)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:842
+#: make-fs/make-fs.c:868
 #, c-format
 msgid "%s: subprocess failed\n"
 msgstr ""
@@ -8410,6 +8467,8 @@ msgid ""
 "Options:\n"
 "  -a|--add image       Add image\n"
 "  --append kernelopts  Append kernel options\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  -e ^x|none           Set or disable escape key (default ^])\n"
@@ -8430,37 +8489,37 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: rescue/rescue.c:193
+#: rescue/rescue.c:200
 #, c-format
 msgid "could not parse --smp parameter ‘%s’"
 msgstr ""
 
-#: rescue/rescue.c:196
+#: rescue/rescue.c:203
 #, c-format
 msgid "--smp parameter ‘%s’ should be >= 1"
 msgstr ""
 
-#: rescue/rescue.c:206
+#: rescue/rescue.c:213
 #, c-format
 msgid "could not parse --scratch parameter ‘%s’"
 msgstr ""
 
-#: rescue/rescue.c:209
+#: rescue/rescue.c:216
 #, c-format
 msgid "--scratch parameter ‘%s’ should be >= 1"
 msgstr ""
 
-#: rescue/rescue.c:215
+#: rescue/rescue.c:222
 #, c-format
 msgid "could not parse memory size ‘%s’"
 msgstr ""
 
-#: rescue/rescue.c:237
+#: rescue/rescue.c:244
 #, c-format
 msgid "unrecognized escape key: %s"
 msgstr ""
 
-#: rescue/rescue.c:329
+#: rescue/rescue.c:336
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
