@@ -524,6 +524,7 @@ for_each_disk (guestfs_h *g,
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xptype = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpformat = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpreadonly = NULL;
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xplbs = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpfilename = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpprotocol = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xphost = NULL;
@@ -786,11 +787,11 @@ for_each_disk (guestfs_h *g,
 
       /* Get logical block size.  Optional. */
       xpathCtx->node = nodes->nodeTab[i];
-      xpformat = xmlXPathEvalExpression (BAD_CAST
-                                         "./blockio/@logical_block_size",
-                                         xpathCtx);
-      if (!xpath_object_is_empty (xpformat))
-        blocksize = xpath_object_get_int (doc, xpformat);
+      xplbs = xmlXPathEvalExpression (BAD_CAST
+                                      "./blockio/@logical_block_size",
+                                      xpathCtx);
+      if (!xpath_object_is_empty (xplbs))
+        blocksize = xpath_object_get_int (doc, xplbs);
 
       if (f)
         t = f (g, filename, format, readonly, protocol, server, username,

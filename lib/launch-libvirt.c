@@ -891,6 +891,7 @@ parse_domcapabilities (guestfs_h *g, const char *domcapabilities_xml,
    * and which values are allowed.
    */
 #define XPATH_EXPR "/domainCapabilities/os/enum[@name='firmware']/value"
+  xmlXPathFreeObject (xpathObj);
   xpathObj = xmlXPathEvalExpression (BAD_CAST XPATH_EXPR, xpathCtx);
   if (xpathObj == NULL) {
     error (g, _("unable to evaluate XPath expression: %s"), XPATH_EXPR);
