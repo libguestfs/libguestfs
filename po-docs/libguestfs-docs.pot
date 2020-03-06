@@ -1114,7 +1114,7 @@ msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:551 ../daemon/guestfsd.pod:154 ../df/virt-df.pod:270 ../diff/virt-diff.pod:281 ../docs/guestfs-building.pod:825 ../docs/guestfs-hacking.pod:1110 ../docs/guestfs-internals.pod:415 ../docs/guestfs-recipes.pod:741 ../docs/guestfs-release-notes-1.10.pod:162 ../docs/guestfs-release-notes-1.12.pod:153 ../docs/guestfs-release-notes-1.14.pod:189 ../docs/guestfs-release-notes-1.16.pod:160 ../docs/guestfs-release-notes-1.18.pod:258 ../docs/guestfs-release-notes-1.20.pod:612 ../docs/guestfs-release-notes-1.22.pod:377 ../docs/guestfs-release-notes-1.24.pod:332 ../docs/guestfs-release-notes-1.26.pod:392 ../docs/guestfs-release-notes-1.28.pod:515 ../docs/guestfs-release-notes-1.30.pod:843 ../docs/guestfs-release-notes-1.32.pod:507 ../docs/guestfs-release-notes-1.34.pod:732 ../docs/guestfs-release-notes-1.36.pod:561 ../docs/guestfs-release-notes-1.38.pod:615 ../docs/guestfs-release-notes-1.4.pod:216 ../docs/guestfs-release-notes-1.40.pod:406 ../docs/guestfs-release-notes-1.42.pod:41 ../docs/guestfs-release-notes-1.6.pod:187 ../docs/guestfs-release-notes-1.8.pod:162 ../docs/guestfs-release-notes-historical.pod:52 ../docs/guestfs-security.pod:423 ../edit/virt-edit.pod:417 ../fish/guestfish.pod:1681 ../fuse/guestmount.pod:463 ../lib/guestfs.pod:3527 ../rescue/virt-rescue.pod:510 ../test-tool/libguestfs-test-tool.pod:190 ../tools/virt-list-partitions:280
-msgid "Copyright (C) 2009-2019 Red Hat Inc."
+msgid "Copyright (C) 2009-2020 Red Hat Inc."
 msgstr ""
 
 #. type: =end
@@ -1490,7 +1490,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:212
-msgid "Copyright (C) 2016-2019 SUSE Inc."
+msgid "Copyright (C) 2016-2020 SUSE Inc."
 msgstr ""
 
 #. type: textblock
@@ -6592,7 +6592,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-log.pod:170 ../examples/guestfs-examples.pod:75 ../make-fs/virt-make-fs.pod:235
-msgid "Copyright (C) 2010-2019 Red Hat Inc."
+msgid "Copyright (C) 2010-2020 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -7477,7 +7477,7 @@ msgstr ""
 #: ../common/mlcustomize/customize-options.pod:9 ../fish/guestfish-actions.pod:9 ../fish/guestfish-commands.pod:9 ../fish/guestfish-prepopts.pod:9 ../lib/guestfs-actions.pod:9 ../lib/guestfs-availability.pod:9 ../lib/guestfs-structs.pod:9
 #, no-wrap
 msgid ""
-" Copyright (C) 2009-2019 Red Hat Inc.\n"
+" Copyright (C) 2009-2020 Red Hat Inc.\n"
 "\n"
 msgstr ""
 
@@ -8499,7 +8499,7 @@ msgstr ""
 
 #. type: textblock
 #: ../customize/virt-customize.pod:326 ../fish/libguestfs-tools.conf.pod:102 ../sparsify/virt-sparsify.pod:493 ../sysprep/virt-sysprep.pod:641
-msgid "Copyright (C) 2011-2019 Red Hat Inc."
+msgid "Copyright (C) 2011-2020 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -14959,7 +14959,7 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:1416 ../docs/guestfs-performance.pod:634 ../gobject/guestfs-gobject.pod:64
-msgid "Copyright (C) 2012-2019 Red Hat Inc."
+msgid "Copyright (C) 2012-2020 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -73642,7 +73642,7 @@ msgstr ""
 
 #. type: textblock
 #: ../get-kernel/virt-get-kernel.pod:219
-msgid "Copyright (C) 2013-2019 Red Hat Inc."
+msgid "Copyright (C) 2013-2020 Red Hat Inc."
 msgstr ""
 
 #. type: textblock

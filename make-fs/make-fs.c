@@ -1,5 +1,5 @@
 /* virt-make-fs
- * Copyright (C) 2010-2019 Red Hat Inc.
+ * Copyright (C) 2010-2020 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,7 +83,7 @@ usage (int status)
              getprogname ());
   else {
     printf (_("%s: make a filesystem from a tar archive or files\n"
-              "Copyright (C) 2010-2019 Red Hat Inc.\n"
+              "Copyright (C) 2010-2020 Red Hat Inc.\n"
               "Usage:\n"
               "  %s [--options] input.tar output.img\n"
               "  %s [--options] input.tar.gz output.img\n"

@@ -1,5 +1,5 @@
 /* virt-edit
- * Copyright (C) 2009-2019 Red Hat Inc.
+ * Copyright (C) 2009-2020 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,7 +69,7 @@ usage (int status)
              getprogname ());
   else {
     printf (_("%s: Edit a file in a virtual machine\n"
-              "Copyright (C) 2009-2019 Red Hat Inc.\n"
+              "Copyright (C) 2009-2020 Red Hat Inc.\n"
               "Usage:\n"
               "  %s [--options] -d domname file [file ...]\n"
               "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"

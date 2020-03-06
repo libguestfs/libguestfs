@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2019 Red Hat Inc.
+ * Copyright (C) 2009-2020 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,7 +68,7 @@ let version_added = function
     Some (sprintf "%d.%d.%d" major minor release)
   | _ -> None
 
-let copyright_years = "2009-2019"
+let copyright_years = "2009-2020"
 
 (* Generate a header block in a number of standard styles. *)
 type comment_style =

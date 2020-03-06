@@ -318,4 +318,4 @@ Richard W.M. Jones.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012-2019 Red Hat Inc.
+Copyright (C) 2012-2020 Red Hat Inc.
