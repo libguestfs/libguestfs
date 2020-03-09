@@ -345,6 +345,7 @@ po/POTFILES-ml: configure.ac
 	cd $(srcdir); \
 	find builder common/ml* customize dib get-kernel resize sparsify sysprep -name '*.ml' | \
 	grep -v '^builder/templates/' | \
+	grep -v '^common/mlv2v/' | \
 	grep -v -E '.*_tests\.ml$$' | \
 	LC_ALL=C sort > $@-t
 	mv $@-t $@
