@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.42.0\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2020-03-06 19:45+0000\n"
+"POT-Creation-Date: 2020-03-09 14:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -779,7 +779,7 @@ msgid "This program returns:"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:358 ../align/virt-alignment-scan.pod:364 ../align/virt-alignment-scan.pod:370 ../align/virt-alignment-scan.pod:377 ../appliance/libguestfs-make-fixed-appliance.pod:22 ../appliance/libguestfs-make-fixed-appliance.pod:28 ../appliance/libguestfs-make-fixed-appliance.pod:34 ../appliance/libguestfs-make-fixed-appliance.pod:52 ../appliance/libguestfs-make-fixed-appliance.pod:73 ../builder/virt-builder.pod:934 ../builder/virt-builder.pod:941 ../builder/virt-builder.pod:945 ../builder/virt-builder.pod:949 ../builder/virt-builder.pod:954 ../builder/virt-builder.pod:958 ../builder/virt-builder.pod:962 ../builder/virt-builder.pod:967 ../builder/virt-builder.pod:1142 ../builder/virt-builder.pod:1147 ../builder/virt-builder.pod:1720 ../builder/virt-builder.pod:1724 ../builder/virt-builder.pod:1728 ../builder/virt-index-validate.pod:32 ../builder/virt-index-validate.pod:37 ../builder/virt-index-validate.pod:51 ../builder/virt-index-validate.pod:56 ../cat/virt-cat.pod:220 ../cat/virt-cat.pod:225 ../cat/virt-cat.pod:230 ../cat/virt-cat.pod:241 ../cat/virt-cat.pod:245 ../cat/virt-tail.pod:25 ../cat/virt-tail.pod:29 ../cat/virt-tail.pod:34 ../cat/virt-tail.pod:204 ../cat/virt-tail.pod:209 ../cat/virt-tail.pod:214 ../cat/virt-tail.pod:225 ../cat/virt-tail.pod:229 ../common/mlcustomize/customize-options.pod:290 ../common/mlcustomize/customize-options.pod:294 ../docs/guestfs-building.pod:13 ../docs/guestfs-building.pod:17 ../docs/guestfs-building.pod:21 ../docs/guestfs-building.pod:25 ../docs/guestfs-building.pod:786 ../docs/guestfs-building.pod:791 ../docs/guestfs-faq.pod:188 ../docs/guestfs-faq.pod:194 ../docs/guestfs-faq.pod:198 ../docs/guestfs-faq.pod:203 ../docs/guestfs-faq.pod:761 ../docs/guestfs-faq.pod:767 ../docs/guestfs-faq.pod:806 ../docs/guestfs-faq.pod:812 ../docs/guestfs-faq.pod:1374 ../docs/guestfs-faq.pod:1385 ../docs/guestfs-faq.pod:1390 ../docs/guestfs-hacking.pod:699 ../docs/guestfs-hacking.pod:704 ../docs/guestfs-hacking.pod:711 ../docs/guestfs-hacking.pod:716 ../docs/guestfs-hacking.pod:735 ../docs/guestfs-hacking.pod:740 ../docs/guestfs-hacking.pod:746 ../docs/guestfs-hacking.pod:751 ../docs/guestfs-hacking.pod:771 ../docs/guestfs-hacking.pod:775 ../docs/guestfs-hacking.pod:779 ../docs/guestfs-hacking.pod:783 ../docs/guestfs-hacking.pod:787 ../docs/guestfs-hacking.pod:931 ../docs/guestfs-hacking.pod:935 ../docs/guestfs-hacking.pod:942 ../docs/guestfs-hacking.pod:1002 ../docs/guestfs-hacking.pod:1022 ../docs/guestfs-hacking.pod:1026 ../docs/guestfs-hacking.pod:1030 ../docs/guestfs-hacking.pod:1044 ../docs/guestfs-hacking.pod:1048 ../docs/guestfs-hacking.pod:1053 ../docs/guestfs-hacking.pod:1057 ../docs/guestfs-hacking.pod:1069 ../docs/guestfs-hacking.pod:1076 ../docs/guestfs-hacking.pod:1080 ../docs/guestfs-performance.pod:111 ../docs/guestfs-performance.pod:117 ../docs/guestfs-performance.pod:122 ../docs/guestfs-performance.pod:249 ../docs/guestfs-performance.pod:254 ../docs/guestfs-performance.pod:259 ../docs/guestfs-performance.pod:379 ../docs/guestfs-performance.pod:383 ../docs/guestfs-performance.pod:389 ../docs/guestfs-performance.pod:395 ../docs/guestfs-recipes.pod:280 ../docs/guestfs-recipes.pod:284 ../docs/guestfs-recipes.pod:288 ../docs/guestfs-recipes.pod:314 ../docs/guestfs-recipes.pod:319 ../docs/guestfs-recipes.pod:426 ../docs/guestfs-recipes.pod:430 ../docs/guestfs-recipes.pod:434 ../docs/guestfs-recipes.pod:438 ../docs/guestfs-recipes.pod:442 ../docs/guestfs-release-notes-1.20.pod:20 ../docs/guestfs-release-notes-1.20.pod:24 ../docs/guestfs-release-notes-1.20.pod:28 ../docs/guestfs-release-notes-1.20.pod:90 ../docs/guestfs-release-notes-1.20.pod:94 ../docs/guestfs-release-notes-1.20.pod:98 ../docs/guestfs-release-notes-1.20.pod:102 ../docs/guestfs-release-notes-1.20.pod:106 ../docs/guestfs-release-notes-1.20.pod:110 ../docs/guestfs-release-notes-1.20.pod:115 ../docs/guestfs-release-notes-1.20.pod:119 ../docs/guestfs-release-notes-1.20.pod:123 ../docs/guestfs-release-notes-1.20.pod:127 ../docs/guestfs-release-notes-1.20.pod:323 ../docs/guestfs-release-notes-1.20.pod:328 ../docs/guestfs-release-notes-1.20.pod:333 ../docs/guestfs-release-notes-1.22.pod:19 ../docs/guestfs-release-notes-1.22.pod:23 ../docs/guestfs-release-notes-1.22.pod:27 ../docs/guestfs-release-notes-1.22.pod:31 ../docs/guestfs-release-notes-1.22.pod:35 ../docs/guestfs-release-notes-1.22.pod:39 ../docs/guestfs-release-notes-1.22.pod:43 ../docs/guestfs-release-notes-1.22.pod:48 ../docs/guestfs-release-notes-1.22.pod:52 ../docs/guestfs-release-notes-1.26.pod:227 ../docs/guestfs-release-notes-1.26.pod:232 ../docs/guestfs-release-notes-1.32.pod:129 ../docs/guestfs-release-notes-1.32.pod:134 ../docs/guestfs-security.pod:81 ../docs/guestfs-security.pod:85 ../docs/guestfs-security.pod:89 ../docs/guestfs-security.pod:93 ../docs/guestfs-security.pod:97 ../docs/guestfs-security.pod:101 ../docs/guestfs-security.pod:311 ../docs/guestfs-security.pod:316 ../docs/guestfs-testing.pod:62 ../docs/guestfs-testing.pod:69 ../docs/guestfs-testing.pod:80 ../docs/guestfs-testing.pod:86 ../docs/guestfs-testing.pod:194 ../docs/guestfs-testing.pod:198 ../docs/guestfs-testing.pod:202 ../docs/internal-documentation.pod:41 ../docs/internal-documentation.pod:46 ../docs/internal-documentation.pod:1432 ../docs/internal-documentation.pod:1436 ../docs/internal-documentation.pod:1653 ../docs/internal-documentation.pod:1657 ../docs/internal-documentation.pod:2584 ../docs/internal-documentation.pod:2592 ../docs/internal-documentation.pod:2598 ../docs/internal-documentation.pod:2605 ../docs/internal-documentation.pod:2863 ../docs/internal-documentation.pod:2870 ../docs/internal-documentation.pod:2874 ../docs/internal-documentation.pod:2903 ../docs/internal-documentation.pod:2910 ../docs/internal-documentation.pod:2914 ../docs/internal-documentation.pod:2945 ../docs/internal-documentation.pod:2950 ../docs/internal-documentation.pod:2957 ../docs/internal-documentation.pod:3137 ../docs/internal-documentation.pod:3142 ../docs/internal-documentation.pod:3258 ../docs/internal-documentation.pod:3262 ../docs/internal-documentation.pod:3481 ../docs/internal-documentation.pod:3485 ../docs/internal-documentation.pod:3489 ../docs/internal-documentation.pod:3494 ../docs/internal-documentation.pod:4094 ../docs/internal-documentation.pod:4099 ../edit/virt-edit.pod:306 ../edit/virt-edit.pod:311 ../edit/virt-edit.pod:316 ../edit/virt-edit.pod:327 ../edit/virt-edit.pod:331 ../fish/guestfish-actions.pod:786 ../fish/guestfish-actions.pod:792 ../fish/guestfish-actions.pod:800 ../fish/guestfish-actions.pod:807 ../fish/guestfish-actions.pod:814 ../fish/guestfish-actions.pod:2542 ../fish/guestfish-actions.pod:2546 ../fish/guestfish-actions.pod:2550 ../fish/guestfish-actions.pod:2554 ../fish/guestfish-actions.pod:2562 ../fish/guestfish-actions.pod:2566 ../fish/guestfish-actions.pod:2570 ../fish/guestfish-actions.pod:2580 ../fish/guestfish-actions.pod:2584 ../fish/guestfish-actions.pod:2588 ../fish/guestfish-actions.pod:2850 ../fish/guestfish-actions.pod:2854 ../fish/guestfish-actions.pod:2859 ../fish/guestfish-actions.pod:2913 ../fish/guestfish-actions.pod:2917 ../fish/guestfish-actions.pod:2922 ../fish/guestfish-actions.pod:3546 ../fish/guestfish-actions.pod:3553 ../fish/guestfish-actions.pod:3560 ../fish/guestfish-actions.pod:4296 ../fish/guestfish-actions.pod:4302 ../fish/guestfish-actions.pod:4310 ../fish/guestfish-actions.pod:4317 ../fish/guestfish-actions.pod:4324 ../fish/guestfish.pod:480 ../fish/guestfish.pod:484 ../fish/guestfish.pod:488 ../fish/guestfish.pod:492 ../fish/guestfish.pod:1346 ../fish/guestfish.pod:1352 ../fish/libguestfs-tools.conf.pod:22 ../fish/libguestfs-tools.conf.pod:26 ../fish/libguestfs-tools.conf.pod:30 ../fish/libguestfs-tools.conf.pod:60 ../fish/libguestfs-tools.conf.pod:65 ../fish/libguestfs-tools.conf.pod:69 ../fish/libguestfs-tools.conf.pod:75 ../golang/examples/guestfs-golang.pod:58 ../golang/examples/guestfs-golang.pod:62 ../inspector/virt-inspector.pod:507 ../inspector/virt-inspector.pod:511 ../lib/guestfs-actions.pod:1194 ../lib/guestfs-actions.pod:1200 ../lib/guestfs-actions.pod:1208 ../lib/guestfs-actions.pod:1215 ../lib/guestfs-actions.pod:1222 ../lib/guestfs-actions.pod:4362 ../lib/guestfs-actions.pod:4366 ../lib/guestfs-actions.pod:4370 ../lib/guestfs-actions.pod:4374 ../lib/guestfs-actions.pod:4382 ../lib/guestfs-actions.pod:4386 ../lib/guestfs-actions.pod:4390 ../lib/guestfs-actions.pod:4400 ../lib/guestfs-actions.pod:4404 ../lib/guestfs-actions.pod:4408 ../lib/guestfs-actions.pod:4744 ../lib/guestfs-actions.pod:4748 ../lib/guestfs-actions.pod:4753 ../lib/guestfs-actions.pod:4840 ../lib/guestfs-actions.pod:4844 ../lib/guestfs-actions.pod:4849 ../lib/guestfs-actions.pod:5858 ../lib/guestfs-actions.pod:5865 ../lib/guestfs-actions.pod:5872 ../lib/guestfs-actions.pod:6905 ../lib/guestfs-actions.pod:6911 ../lib/guestfs-actions.pod:6919 ../lib/guestfs-actions.pod:6926 ../lib/guestfs-actions.pod:6933 ../lib/guestfs.pod:436 ../lib/guestfs.pod:441 ../lib/guestfs.pod:446 ../lib/guestfs.pod:450 ../lib/guestfs.pod:455 ../lib/guestfs.pod:459 ../lib/guestfs.pod:464 ../lib/guestfs.pod:469 ../lib/guestfs.pod:799 ../lib/guestfs.pod:806 ../lib/guestfs.pod:812 ../lib/guestfs.pod:818 ../lib/guestfs.pod:824 ../lib/guestfs.pod:829 ../lib/guestfs.pod:835 ../lib/guestfs.pod:1054 ../lib/guestfs.pod:1058 ../lib/guestfs.pod:1064 ../lib/guestfs.pod:1149 ../lib/guestfs.pod:1154 ../lib/guestfs.pod:1158 ../lib/guestfs.pod:1164 ../lib/guestfs.pod:1168 ../lib/guestfs.pod:1172 ../lib/guestfs.pod:1177 ../lib/guestfs.pod:1738 ../lib/guestfs.pod:1743 ../lib/guestfs.pod:1747 ../lib/guestfs.pod:2382 ../lib/guestfs.pod:2387 ../lib/guestfs.pod:2391 ../lib/guestfs.pod:2495 ../lib/guestfs.pod:2500 ../lib/guestfs.pod:2504 ../lib/guestfs.pod:2514 ../lib/guestfs.pod:2945 ../lib/guestfs.pod:2950 ../lib/guestfs.pod:2956 ../lib/guestfs.pod:2964 ../lib/guestfs.pod:3121 ../lib/guestfs.pod:3127 ../lib/guestfs.pod:3132 ../lib/guestfs.pod:3138 ../resize/virt-resize.pod:376 ../resize/virt-resize.pod:380 ../resize/virt-resize.pod:389 ../resize/virt-resize.pod:395 ../resize/virt-resize.pod:399 ../resize/virt-resize.pod:403 ../resize/virt-resize.pod:411 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:50 ../sparsify/virt-sparsify.pod:59 ../sparsify/virt-sparsify.pod:64 ../sparsify/virt-sparsify.pod:69 ../sparsify/virt-sparsify.pod:75 ../sparsify/virt-sparsify.pod:137 ../sparsify/virt-sparsify.pod:141 ../sparsify/virt-sparsify.pod:145 ../sparsify/virt-sparsify.pod:150 ../sparsify/virt-sparsify.pod:292 ../sparsify/virt-sparsify.pod:297 ../sparsify/virt-sparsify.pod:302 ../sysprep/sysprep-extra-options.pod:334 ../sysprep/sysprep-extra-options.pod:338 ../sysprep/virt-sysprep.pod:324 ../sysprep/virt-sysprep.pod:328 ../sysprep/virt-sysprep.pod:332 ../sysprep/virt-sysprep.pod:336 ../sysprep/virt-sysprep.pod:351 ../sysprep/virt-sysprep.pod:355 ../sysprep/virt-sysprep.pod:359 ../sysprep/virt-sysprep.pod:363 ../sysprep/virt-sysprep.pod:367 ../sysprep/virt-sysprep.pod:420 ../sysprep/virt-sysprep.pod:432 ../sysprep/virt-sysprep.pod:436 ../sysprep/virt-sysprep.pod:444 ../sysprep/virt-sysprep.pod:450 ../tools/virt-win-reg:194 ../tools/virt-win-reg:199 ../tools/virt-win-reg:205 ../tools/virt-win-reg:773 ../tools/virt-win-reg:779 ../tools/virt-win-reg:785
+#: ../align/virt-alignment-scan.pod:358 ../align/virt-alignment-scan.pod:364 ../align/virt-alignment-scan.pod:370 ../align/virt-alignment-scan.pod:377 ../appliance/libguestfs-make-fixed-appliance.pod:22 ../appliance/libguestfs-make-fixed-appliance.pod:28 ../appliance/libguestfs-make-fixed-appliance.pod:34 ../appliance/libguestfs-make-fixed-appliance.pod:52 ../appliance/libguestfs-make-fixed-appliance.pod:73 ../builder/virt-builder.pod:934 ../builder/virt-builder.pod:941 ../builder/virt-builder.pod:945 ../builder/virt-builder.pod:949 ../builder/virt-builder.pod:954 ../builder/virt-builder.pod:958 ../builder/virt-builder.pod:962 ../builder/virt-builder.pod:967 ../builder/virt-builder.pod:1142 ../builder/virt-builder.pod:1147 ../builder/virt-builder.pod:1720 ../builder/virt-builder.pod:1724 ../builder/virt-builder.pod:1728 ../builder/virt-index-validate.pod:32 ../builder/virt-index-validate.pod:37 ../builder/virt-index-validate.pod:51 ../builder/virt-index-validate.pod:56 ../cat/virt-cat.pod:220 ../cat/virt-cat.pod:225 ../cat/virt-cat.pod:230 ../cat/virt-cat.pod:241 ../cat/virt-cat.pod:245 ../cat/virt-tail.pod:25 ../cat/virt-tail.pod:29 ../cat/virt-tail.pod:34 ../cat/virt-tail.pod:204 ../cat/virt-tail.pod:209 ../cat/virt-tail.pod:214 ../cat/virt-tail.pod:225 ../cat/virt-tail.pod:229 ../common/mlcustomize/customize-options.pod:290 ../common/mlcustomize/customize-options.pod:294 ../docs/guestfs-building.pod:13 ../docs/guestfs-building.pod:17 ../docs/guestfs-building.pod:21 ../docs/guestfs-building.pod:25 ../docs/guestfs-building.pod:786 ../docs/guestfs-building.pod:791 ../docs/guestfs-faq.pod:188 ../docs/guestfs-faq.pod:194 ../docs/guestfs-faq.pod:198 ../docs/guestfs-faq.pod:203 ../docs/guestfs-faq.pod:761 ../docs/guestfs-faq.pod:767 ../docs/guestfs-faq.pod:806 ../docs/guestfs-faq.pod:812 ../docs/guestfs-faq.pod:1374 ../docs/guestfs-faq.pod:1385 ../docs/guestfs-faq.pod:1390 ../docs/guestfs-hacking.pod:699 ../docs/guestfs-hacking.pod:704 ../docs/guestfs-hacking.pod:711 ../docs/guestfs-hacking.pod:716 ../docs/guestfs-hacking.pod:735 ../docs/guestfs-hacking.pod:740 ../docs/guestfs-hacking.pod:746 ../docs/guestfs-hacking.pod:751 ../docs/guestfs-hacking.pod:771 ../docs/guestfs-hacking.pod:775 ../docs/guestfs-hacking.pod:779 ../docs/guestfs-hacking.pod:783 ../docs/guestfs-hacking.pod:787 ../docs/guestfs-hacking.pod:931 ../docs/guestfs-hacking.pod:935 ../docs/guestfs-hacking.pod:942 ../docs/guestfs-hacking.pod:1002 ../docs/guestfs-hacking.pod:1022 ../docs/guestfs-hacking.pod:1026 ../docs/guestfs-hacking.pod:1030 ../docs/guestfs-hacking.pod:1044 ../docs/guestfs-hacking.pod:1048 ../docs/guestfs-hacking.pod:1053 ../docs/guestfs-hacking.pod:1057 ../docs/guestfs-hacking.pod:1069 ../docs/guestfs-hacking.pod:1076 ../docs/guestfs-hacking.pod:1080 ../docs/guestfs-performance.pod:111 ../docs/guestfs-performance.pod:117 ../docs/guestfs-performance.pod:122 ../docs/guestfs-performance.pod:249 ../docs/guestfs-performance.pod:254 ../docs/guestfs-performance.pod:259 ../docs/guestfs-performance.pod:379 ../docs/guestfs-performance.pod:383 ../docs/guestfs-performance.pod:389 ../docs/guestfs-performance.pod:395 ../docs/guestfs-recipes.pod:280 ../docs/guestfs-recipes.pod:284 ../docs/guestfs-recipes.pod:288 ../docs/guestfs-recipes.pod:314 ../docs/guestfs-recipes.pod:319 ../docs/guestfs-recipes.pod:426 ../docs/guestfs-recipes.pod:430 ../docs/guestfs-recipes.pod:434 ../docs/guestfs-recipes.pod:438 ../docs/guestfs-recipes.pod:442 ../docs/guestfs-release-notes-1.20.pod:20 ../docs/guestfs-release-notes-1.20.pod:24 ../docs/guestfs-release-notes-1.20.pod:28 ../docs/guestfs-release-notes-1.20.pod:90 ../docs/guestfs-release-notes-1.20.pod:94 ../docs/guestfs-release-notes-1.20.pod:98 ../docs/guestfs-release-notes-1.20.pod:102 ../docs/guestfs-release-notes-1.20.pod:106 ../docs/guestfs-release-notes-1.20.pod:110 ../docs/guestfs-release-notes-1.20.pod:115 ../docs/guestfs-release-notes-1.20.pod:119 ../docs/guestfs-release-notes-1.20.pod:123 ../docs/guestfs-release-notes-1.20.pod:127 ../docs/guestfs-release-notes-1.20.pod:323 ../docs/guestfs-release-notes-1.20.pod:328 ../docs/guestfs-release-notes-1.20.pod:333 ../docs/guestfs-release-notes-1.22.pod:19 ../docs/guestfs-release-notes-1.22.pod:23 ../docs/guestfs-release-notes-1.22.pod:27 ../docs/guestfs-release-notes-1.22.pod:31 ../docs/guestfs-release-notes-1.22.pod:35 ../docs/guestfs-release-notes-1.22.pod:39 ../docs/guestfs-release-notes-1.22.pod:43 ../docs/guestfs-release-notes-1.22.pod:48 ../docs/guestfs-release-notes-1.22.pod:52 ../docs/guestfs-release-notes-1.26.pod:227 ../docs/guestfs-release-notes-1.26.pod:232 ../docs/guestfs-release-notes-1.32.pod:129 ../docs/guestfs-release-notes-1.32.pod:134 ../docs/guestfs-release-notes-1.42.pod:13 ../docs/guestfs-release-notes-1.42.pod:17 ../docs/guestfs-release-notes-1.42.pod:21 ../docs/guestfs-security.pod:81 ../docs/guestfs-security.pod:85 ../docs/guestfs-security.pod:89 ../docs/guestfs-security.pod:93 ../docs/guestfs-security.pod:97 ../docs/guestfs-security.pod:101 ../docs/guestfs-security.pod:311 ../docs/guestfs-security.pod:316 ../docs/guestfs-testing.pod:62 ../docs/guestfs-testing.pod:69 ../docs/guestfs-testing.pod:80 ../docs/guestfs-testing.pod:86 ../docs/guestfs-testing.pod:194 ../docs/guestfs-testing.pod:198 ../docs/guestfs-testing.pod:202 ../docs/internal-documentation.pod:41 ../docs/internal-documentation.pod:46 ../docs/internal-documentation.pod:1432 ../docs/internal-documentation.pod:1436 ../docs/internal-documentation.pod:1653 ../docs/internal-documentation.pod:1657 ../docs/internal-documentation.pod:2584 ../docs/internal-documentation.pod:2592 ../docs/internal-documentation.pod:2598 ../docs/internal-documentation.pod:2605 ../docs/internal-documentation.pod:2863 ../docs/internal-documentation.pod:2870 ../docs/internal-documentation.pod:2874 ../docs/internal-documentation.pod:2903 ../docs/internal-documentation.pod:2910 ../docs/internal-documentation.pod:2914 ../docs/internal-documentation.pod:2945 ../docs/internal-documentation.pod:2950 ../docs/internal-documentation.pod:2957 ../docs/internal-documentation.pod:3137 ../docs/internal-documentation.pod:3142 ../docs/internal-documentation.pod:3258 ../docs/internal-documentation.pod:3262 ../docs/internal-documentation.pod:3481 ../docs/internal-documentation.pod:3485 ../docs/internal-documentation.pod:3489 ../docs/internal-documentation.pod:3494 ../docs/internal-documentation.pod:4094 ../docs/internal-documentation.pod:4099 ../edit/virt-edit.pod:306 ../edit/virt-edit.pod:311 ../edit/virt-edit.pod:316 ../edit/virt-edit.pod:327 ../edit/virt-edit.pod:331 ../fish/guestfish-actions.pod:786 ../fish/guestfish-actions.pod:792 ../fish/guestfish-actions.pod:800 ../fish/guestfish-actions.pod:807 ../fish/guestfish-actions.pod:814 ../fish/guestfish-actions.pod:2542 ../fish/guestfish-actions.pod:2546 ../fish/guestfish-actions.pod:2550 ../fish/guestfish-actions.pod:2554 ../fish/guestfish-actions.pod:2562 ../fish/guestfish-actions.pod:2566 ../fish/guestfish-actions.pod:2570 ../fish/guestfish-actions.pod:2580 ../fish/guestfish-actions.pod:2584 ../fish/guestfish-actions.pod:2588 ../fish/guestfish-actions.pod:2850 ../fish/guestfish-actions.pod:2854 ../fish/guestfish-actions.pod:2859 ../fish/guestfish-actions.pod:2913 ../fish/guestfish-actions.pod:2917 ../fish/guestfish-actions.pod:2922 ../fish/guestfish-actions.pod:3546 ../fish/guestfish-actions.pod:3553 ../fish/guestfish-actions.pod:3560 ../fish/guestfish-actions.pod:4296 ../fish/guestfish-actions.pod:4302 ../fish/guestfish-actions.pod:4310 ../fish/guestfish-actions.pod:4317 ../fish/guestfish-actions.pod:4324 ../fish/guestfish.pod:480 ../fish/guestfish.pod:484 ../fish/guestfish.pod:488 ../fish/guestfish.pod:492 ../fish/guestfish.pod:1346 ../fish/guestfish.pod:1352 ../fish/libguestfs-tools.conf.pod:22 ../fish/libguestfs-tools.conf.pod:26 ../fish/libguestfs-tools.conf.pod:30 ../fish/libguestfs-tools.conf.pod:60 ../fish/libguestfs-tools.conf.pod:65 ../fish/libguestfs-tools.conf.pod:69 ../fish/libguestfs-tools.conf.pod:75 ../golang/examples/guestfs-golang.pod:58 ../golang/examples/guestfs-golang.pod:62 ../inspector/virt-inspector.pod:507 ../inspector/virt-inspector.pod:511 ../lib/guestfs-actions.pod:1194 ../lib/guestfs-actions.pod:1200 ../lib/guestfs-actions.pod:1208 ../lib/guestfs-actions.pod:1215 ../lib/guestfs-actions.pod:1222 ../lib/guestfs-actions.pod:4362 ../lib/guestfs-actions.pod:4366 ../lib/guestfs-actions.pod:4370 ../lib/guestfs-actions.pod:4374 ../lib/guestfs-actions.pod:4382 ../lib/guestfs-actions.pod:4386 ../lib/guestfs-actions.pod:4390 ../lib/guestfs-actions.pod:4400 ../lib/guestfs-actions.pod:4404 ../lib/guestfs-actions.pod:4408 ../lib/guestfs-actions.pod:4744 ../lib/guestfs-actions.pod:4748 ../lib/guestfs-actions.pod:4753 ../lib/guestfs-actions.pod:4840 ../lib/guestfs-actions.pod:4844 ../lib/guestfs-actions.pod:4849 ../lib/guestfs-actions.pod:5858 ../lib/guestfs-actions.pod:5865 ../lib/guestfs-actions.pod:5872 ../lib/guestfs-actions.pod:6905 ../lib/guestfs-actions.pod:6911 ../lib/guestfs-actions.pod:6919 ../lib/guestfs-actions.pod:6926 ../lib/guestfs-actions.pod:6933 ../lib/guestfs.pod:436 ../lib/guestfs.pod:441 ../lib/guestfs.pod:446 ../lib/guestfs.pod:450 ../lib/guestfs.pod:455 ../lib/guestfs.pod:459 ../lib/guestfs.pod:464 ../lib/guestfs.pod:469 ../lib/guestfs.pod:799 ../lib/guestfs.pod:806 ../lib/guestfs.pod:812 ../lib/guestfs.pod:818 ../lib/guestfs.pod:824 ../lib/guestfs.pod:829 ../lib/guestfs.pod:835 ../lib/guestfs.pod:1054 ../lib/guestfs.pod:1058 ../lib/guestfs.pod:1064 ../lib/guestfs.pod:1149 ../lib/guestfs.pod:1154 ../lib/guestfs.pod:1158 ../lib/guestfs.pod:1164 ../lib/guestfs.pod:1168 ../lib/guestfs.pod:1172 ../lib/guestfs.pod:1177 ../lib/guestfs.pod:1738 ../lib/guestfs.pod:1743 ../lib/guestfs.pod:1747 ../lib/guestfs.pod:2382 ../lib/guestfs.pod:2387 ../lib/guestfs.pod:2391 ../lib/guestfs.pod:2495 ../lib/guestfs.pod:2500 ../lib/guestfs.pod:2504 ../lib/guestfs.pod:2514 ../lib/guestfs.pod:2945 ../lib/guestfs.pod:2950 ../lib/guestfs.pod:2956 ../lib/guestfs.pod:2964 ../lib/guestfs.pod:3121 ../lib/guestfs.pod:3127 ../lib/guestfs.pod:3132 ../lib/guestfs.pod:3138 ../resize/virt-resize.pod:376 ../resize/virt-resize.pod:380 ../resize/virt-resize.pod:389 ../resize/virt-resize.pod:395 ../resize/virt-resize.pod:399 ../resize/virt-resize.pod:403 ../resize/virt-resize.pod:411 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:50 ../sparsify/virt-sparsify.pod:59 ../sparsify/virt-sparsify.pod:64 ../sparsify/virt-sparsify.pod:69 ../sparsify/virt-sparsify.pod:75 ../sparsify/virt-sparsify.pod:137 ../sparsify/virt-sparsify.pod:141 ../sparsify/virt-sparsify.pod:145 ../sparsify/virt-sparsify.pod:150 ../sparsify/virt-sparsify.pod:292 ../sparsify/virt-sparsify.pod:297 ../sparsify/virt-sparsify.pod:302 ../sysprep/sysprep-extra-options.pod:334 ../sysprep/sysprep-extra-options.pod:338 ../sysprep/virt-sysprep.pod:324 ../sysprep/virt-sysprep.pod:328 ../sysprep/virt-sysprep.pod:332 ../sysprep/virt-sysprep.pod:336 ../sysprep/virt-sysprep.pod:351 ../sysprep/virt-sysprep.pod:355 ../sysprep/virt-sysprep.pod:359 ../sysprep/virt-sysprep.pod:363 ../sysprep/virt-sysprep.pod:367 ../sysprep/virt-sysprep.pod:420 ../sysprep/virt-sysprep.pod:432 ../sysprep/virt-sysprep.pod:436 ../sysprep/virt-sysprep.pod:444 ../sysprep/virt-sysprep.pod:450 ../tools/virt-win-reg:194 ../tools/virt-win-reg:199 ../tools/virt-win-reg:205 ../tools/virt-win-reg:773 ../tools/virt-win-reg:779 ../tools/virt-win-reg:785
 msgid "*"
 msgstr ""
 
@@ -828,7 +828,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:386 ../appliance/libguestfs-make-fixed-appliance.pod:140 ../builder/virt-builder-repository.pod:201 ../builder/virt-builder.pod:1881 ../builder/virt-index-validate.pod:79 ../cat/virt-cat.pod:279 ../cat/virt-filesystems.pod:388 ../cat/virt-log.pod:140 ../cat/virt-ls.pod:522 ../cat/virt-tail.pod:240 ../customize/virt-customize.pod:288 ../daemon/guestfsd.pod:143 ../df/virt-df.pod:258 ../dib/virt-dib.pod:708 ../diff/virt-diff.pod:252 ../docs/guestfs-building.pod:807 ../docs/guestfs-faq.pod:1404 ../docs/guestfs-hacking.pod:1100 ../docs/guestfs-internals.pod:400 ../docs/guestfs-performance.pod:603 ../docs/guestfs-recipes.pod:719 ../docs/guestfs-release-notes-1.10.pod:145 ../docs/guestfs-release-notes-1.12.pod:136 ../docs/guestfs-release-notes-1.14.pod:172 ../docs/guestfs-release-notes-1.16.pod:143 ../docs/guestfs-release-notes-1.18.pod:241 ../docs/guestfs-release-notes-1.20.pod:595 ../docs/guestfs-release-notes-1.22.pod:360 ../docs/guestfs-release-notes-1.24.pod:315 ../docs/guestfs-release-notes-1.26.pod:375 ../docs/guestfs-release-notes-1.28.pod:498 ../docs/guestfs-release-notes-1.30.pod:826 ../docs/guestfs-release-notes-1.32.pod:490 ../docs/guestfs-release-notes-1.34.pod:715 ../docs/guestfs-release-notes-1.36.pod:544 ../docs/guestfs-release-notes-1.38.pod:598 ../docs/guestfs-release-notes-1.4.pod:199 ../docs/guestfs-release-notes-1.40.pod:389 ../docs/guestfs-release-notes-1.42.pod:175 ../docs/guestfs-release-notes-1.6.pod:170 ../docs/guestfs-release-notes-1.8.pod:145 ../docs/guestfs-release-notes-historical.pod:35 ../docs/guestfs-security.pod:409 ../docs/guestfs-testing.pod:395 ../edit/virt-edit.pod:387 ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55 ../fish/guestfish.pod:1625 ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:42 ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:39 ../fish/virt-tar-out.pod:39 ../format/virt-format.pod:187 ../fuse/guestmount.pod:430 ../fuse/guestunmount.pod:147 ../get-kernel/virt-get-kernel.pod:198 ../gobject/guestfs-gobject.pod:44 ../golang/examples/guestfs-golang.pod:76 ../inspector/virt-inspector.pod:494 ../java/examples/guestfs-java.pod:159 ../lib/guestfs.pod:3443 ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:225 ../ocaml/examples/guestfs-ocaml.pod:80 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:63 ../rescue/virt-rescue.pod:496 ../resize/virt-resize.pod:842 ../ruby/examples/guestfs-ruby.pod:34 ../sparsify/virt-sparsify.pod:459 ../sysprep/virt-sysprep.pod:601 ../test-tool/libguestfs-test-tool.pod:178 ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263 ../tools/virt-tar:292 ../tools/virt-win-reg:804
+#: ../align/virt-alignment-scan.pod:386 ../appliance/libguestfs-make-fixed-appliance.pod:140 ../builder/virt-builder-repository.pod:201 ../builder/virt-builder.pod:1881 ../builder/virt-index-validate.pod:79 ../cat/virt-cat.pod:279 ../cat/virt-filesystems.pod:388 ../cat/virt-log.pod:140 ../cat/virt-ls.pod:522 ../cat/virt-tail.pod:240 ../customize/virt-customize.pod:288 ../daemon/guestfsd.pod:143 ../df/virt-df.pod:258 ../dib/virt-dib.pod:708 ../diff/virt-diff.pod:252 ../docs/guestfs-building.pod:807 ../docs/guestfs-faq.pod:1404 ../docs/guestfs-hacking.pod:1100 ../docs/guestfs-internals.pod:400 ../docs/guestfs-performance.pod:603 ../docs/guestfs-recipes.pod:719 ../docs/guestfs-release-notes-1.10.pod:145 ../docs/guestfs-release-notes-1.12.pod:136 ../docs/guestfs-release-notes-1.14.pod:172 ../docs/guestfs-release-notes-1.16.pod:143 ../docs/guestfs-release-notes-1.18.pod:241 ../docs/guestfs-release-notes-1.20.pod:595 ../docs/guestfs-release-notes-1.22.pod:360 ../docs/guestfs-release-notes-1.24.pod:315 ../docs/guestfs-release-notes-1.26.pod:375 ../docs/guestfs-release-notes-1.28.pod:498 ../docs/guestfs-release-notes-1.30.pod:826 ../docs/guestfs-release-notes-1.32.pod:490 ../docs/guestfs-release-notes-1.34.pod:715 ../docs/guestfs-release-notes-1.36.pod:544 ../docs/guestfs-release-notes-1.38.pod:598 ../docs/guestfs-release-notes-1.4.pod:199 ../docs/guestfs-release-notes-1.40.pod:389 ../docs/guestfs-release-notes-1.42.pod:272 ../docs/guestfs-release-notes-1.6.pod:170 ../docs/guestfs-release-notes-1.8.pod:145 ../docs/guestfs-release-notes-historical.pod:35 ../docs/guestfs-security.pod:409 ../docs/guestfs-testing.pod:395 ../edit/virt-edit.pod:387 ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55 ../fish/guestfish.pod:1625 ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:42 ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:39 ../fish/virt-tar-out.pod:39 ../format/virt-format.pod:187 ../fuse/guestmount.pod:430 ../fuse/guestunmount.pod:147 ../get-kernel/virt-get-kernel.pod:198 ../gobject/guestfs-gobject.pod:44 ../golang/examples/guestfs-golang.pod:76 ../inspector/virt-inspector.pod:494 ../java/examples/guestfs-java.pod:159 ../lib/guestfs.pod:3443 ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:225 ../ocaml/examples/guestfs-ocaml.pod:80 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:63 ../rescue/virt-rescue.pod:496 ../resize/virt-resize.pod:842 ../ruby/examples/guestfs-ruby.pod:34 ../sparsify/virt-sparsify.pod:459 ../sysprep/virt-sysprep.pod:601 ../test-tool/libguestfs-test-tool.pod:178 ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263 ../tools/virt-tar:292 ../tools/virt-win-reg:804
 msgid "SEE ALSO"
 msgstr ""
 
@@ -840,7 +840,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:395 ../builder/virt-builder-repository.pod:206 ../builder/virt-builder.pod:1902 ../builder/virt-index-validate.pod:84 ../cat/virt-cat.pod:290 ../cat/virt-filesystems.pod:399 ../cat/virt-log.pod:151 ../cat/virt-ls.pod:532 ../cat/virt-tail.pod:251 ../daemon/guestfsd.pod:148 ../df/virt-df.pod:266 ../dib/virt-dib.pod:715 ../diff/virt-diff.pod:262 ../docs/guestfs-release-notes-1.10.pod:156 ../docs/guestfs-release-notes-1.12.pod:147 ../docs/guestfs-release-notes-1.14.pod:183 ../docs/guestfs-release-notes-1.16.pod:154 ../docs/guestfs-release-notes-1.18.pod:252 ../docs/guestfs-release-notes-1.20.pod:606 ../docs/guestfs-release-notes-1.22.pod:371 ../docs/guestfs-release-notes-1.24.pod:326 ../docs/guestfs-release-notes-1.26.pod:386 ../docs/guestfs-release-notes-1.28.pod:509 ../docs/guestfs-release-notes-1.30.pod:837 ../docs/guestfs-release-notes-1.32.pod:501 ../docs/guestfs-release-notes-1.34.pod:726 ../docs/guestfs-release-notes-1.36.pod:555 ../docs/guestfs-release-notes-1.38.pod:609 ../docs/guestfs-release-notes-1.4.pod:210 ../docs/guestfs-release-notes-1.40.pod:400 ../docs/guestfs-release-notes-1.42.pod:186 ../docs/guestfs-release-notes-1.6.pod:181 ../docs/guestfs-release-notes-1.8.pod:156 ../docs/guestfs-release-notes-historical.pod:46 ../edit/virt-edit.pod:398 ../format/virt-format.pod:197 ../get-kernel/virt-get-kernel.pod:206 ../make-fs/virt-make-fs.pod:239 ../rescue/virt-rescue.pod:506 ../resize/virt-resize.pod:867 ../sparsify/virt-sparsify.pod:472 ../tools/virt-list-filesystems:193 ../tools/virt-list-partitions:274 ../tools/virt-tar:306 ../tools/virt-win-reg:819
+#: ../align/virt-alignment-scan.pod:395 ../builder/virt-builder-repository.pod:206 ../builder/virt-builder.pod:1902 ../builder/virt-index-validate.pod:84 ../cat/virt-cat.pod:290 ../cat/virt-filesystems.pod:399 ../cat/virt-log.pod:151 ../cat/virt-ls.pod:532 ../cat/virt-tail.pod:251 ../daemon/guestfsd.pod:148 ../df/virt-df.pod:266 ../dib/virt-dib.pod:715 ../diff/virt-diff.pod:262 ../docs/guestfs-release-notes-1.10.pod:156 ../docs/guestfs-release-notes-1.12.pod:147 ../docs/guestfs-release-notes-1.14.pod:183 ../docs/guestfs-release-notes-1.16.pod:154 ../docs/guestfs-release-notes-1.18.pod:252 ../docs/guestfs-release-notes-1.20.pod:606 ../docs/guestfs-release-notes-1.22.pod:371 ../docs/guestfs-release-notes-1.24.pod:326 ../docs/guestfs-release-notes-1.26.pod:386 ../docs/guestfs-release-notes-1.28.pod:509 ../docs/guestfs-release-notes-1.30.pod:837 ../docs/guestfs-release-notes-1.32.pod:501 ../docs/guestfs-release-notes-1.34.pod:726 ../docs/guestfs-release-notes-1.36.pod:555 ../docs/guestfs-release-notes-1.38.pod:609 ../docs/guestfs-release-notes-1.4.pod:210 ../docs/guestfs-release-notes-1.40.pod:400 ../docs/guestfs-release-notes-1.6.pod:181 ../docs/guestfs-release-notes-1.8.pod:156 ../docs/guestfs-release-notes-historical.pod:46 ../edit/virt-edit.pod:398 ../format/virt-format.pod:197 ../get-kernel/virt-get-kernel.pod:206 ../make-fs/virt-make-fs.pod:239 ../rescue/virt-rescue.pod:506 ../resize/virt-resize.pod:867 ../sparsify/virt-sparsify.pod:472 ../tools/virt-list-filesystems:193 ../tools/virt-list-partitions:274 ../tools/virt-tar:306 ../tools/virt-win-reg:819
 msgid "AUTHOR"
 msgstr ""
 
@@ -850,7 +850,7 @@ msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:399 ../appliance/libguestfs-make-fixed-appliance.pod:152 ../builder/virt-builder-repository.pod:210 ../builder/virt-builder.pod:1906 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:294 ../cat/virt-filesystems.pod:403 ../cat/virt-log.pod:155 ../cat/virt-ls.pod:536 ../cat/virt-tail.pod:255 ../customize/virt-customize.pod:309 ../daemon/guestfsd.pod:152 ../df/virt-df.pod:270 ../dib/virt-dib.pod:719 ../diff/virt-diff.pod:266 ../docs/guestfs-building.pod:824 ../docs/guestfs-faq.pod:1414 ../docs/guestfs-hacking.pod:1117 ../docs/guestfs-internals.pod:413 ../docs/guestfs-performance.pod:620 ../docs/guestfs-recipes.pod:739 ../docs/guestfs-release-notes-1.10.pod:160 ../docs/guestfs-release-notes-1.12.pod:151 ../docs/guestfs-release-notes-1.14.pod:187 ../docs/guestfs-release-notes-1.16.pod:158 ../docs/guestfs-release-notes-1.18.pod:256 ../docs/guestfs-release-notes-1.20.pod:610 ../docs/guestfs-release-notes-1.22.pod:375 ../docs/guestfs-release-notes-1.24.pod:330 ../docs/guestfs-release-notes-1.26.pod:390 ../docs/guestfs-release-notes-1.28.pod:513 ../docs/guestfs-release-notes-1.30.pod:841 ../docs/guestfs-release-notes-1.32.pod:505 ../docs/guestfs-release-notes-1.34.pod:730 ../docs/guestfs-release-notes-1.36.pod:559 ../docs/guestfs-release-notes-1.38.pod:613 ../docs/guestfs-release-notes-1.4.pod:214 ../docs/guestfs-release-notes-1.40.pod:404 ../docs/guestfs-release-notes-1.42.pod:190 ../docs/guestfs-release-notes-1.6.pod:185 ../docs/guestfs-release-notes-1.8.pod:160 ../docs/guestfs-release-notes-historical.pod:50 ../docs/guestfs-security.pod:421 ../docs/guestfs-testing.pod:406 ../edit/virt-edit.pod:402 ../erlang/examples/guestfs-erlang.pod:115 ../examples/guestfs-examples.pod:73 ../fish/guestfish.pod:1666 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:56 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:54 ../fish/virt-tar-out.pod:53 ../format/virt-format.pod:201 ../fuse/guestmount.pod:448 ../fuse/guestunmount.pod:160 ../get-kernel/virt-get-kernel.pod:210 ../gobject/guestfs-gobject.pod:62 ../golang/examples/guestfs-golang.pod:96 ../inspector/virt-inspector.pod:517 ../java/examples/guestfs-java.pod:179 ../lib/guestfs.pod:3525 ../lua/examples/guestfs-lua.pod:156 ../make-fs/virt-make-fs.pod:243 ../ocaml/examples/guestfs-ocaml.pod:100 ../perl/examples/guestfs-perl.pod:58 ../python/examples/guestfs-python.pod:82 ../rescue/virt-rescue.pod:510 ../resize/virt-resize.pod:871 ../ruby/examples/guestfs-ruby.pod:53 ../sparsify/virt-sparsify.pod:476 ../sysprep/virt-sysprep.pod:624 ../test-tool/libguestfs-test-tool.pod:188 ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278 ../tools/virt-tar:310 ../tools/virt-win-reg:823
+#: ../align/virt-alignment-scan.pod:399 ../appliance/libguestfs-make-fixed-appliance.pod:152 ../builder/virt-builder-repository.pod:210 ../builder/virt-builder.pod:1906 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:294 ../cat/virt-filesystems.pod:403 ../cat/virt-log.pod:155 ../cat/virt-ls.pod:536 ../cat/virt-tail.pod:255 ../customize/virt-customize.pod:309 ../daemon/guestfsd.pod:152 ../df/virt-df.pod:270 ../dib/virt-dib.pod:719 ../diff/virt-diff.pod:266 ../docs/guestfs-building.pod:824 ../docs/guestfs-faq.pod:1414 ../docs/guestfs-hacking.pod:1117 ../docs/guestfs-internals.pod:413 ../docs/guestfs-performance.pod:620 ../docs/guestfs-recipes.pod:739 ../docs/guestfs-release-notes-1.10.pod:160 ../docs/guestfs-release-notes-1.12.pod:151 ../docs/guestfs-release-notes-1.14.pod:187 ../docs/guestfs-release-notes-1.16.pod:158 ../docs/guestfs-release-notes-1.18.pod:256 ../docs/guestfs-release-notes-1.20.pod:610 ../docs/guestfs-release-notes-1.22.pod:375 ../docs/guestfs-release-notes-1.24.pod:330 ../docs/guestfs-release-notes-1.26.pod:390 ../docs/guestfs-release-notes-1.28.pod:513 ../docs/guestfs-release-notes-1.30.pod:841 ../docs/guestfs-release-notes-1.32.pod:505 ../docs/guestfs-release-notes-1.34.pod:730 ../docs/guestfs-release-notes-1.36.pod:559 ../docs/guestfs-release-notes-1.38.pod:613 ../docs/guestfs-release-notes-1.4.pod:214 ../docs/guestfs-release-notes-1.40.pod:404 ../docs/guestfs-release-notes-1.42.pod:307 ../docs/guestfs-release-notes-1.6.pod:185 ../docs/guestfs-release-notes-1.8.pod:160 ../docs/guestfs-release-notes-historical.pod:50 ../docs/guestfs-security.pod:421 ../docs/guestfs-testing.pod:406 ../edit/virt-edit.pod:402 ../erlang/examples/guestfs-erlang.pod:115 ../examples/guestfs-examples.pod:73 ../fish/guestfish.pod:1666 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:56 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:54 ../fish/virt-tar-out.pod:53 ../format/virt-format.pod:201 ../fuse/guestmount.pod:448 ../fuse/guestunmount.pod:160 ../get-kernel/virt-get-kernel.pod:210 ../gobject/guestfs-gobject.pod:62 ../golang/examples/guestfs-golang.pod:96 ../inspector/virt-inspector.pod:517 ../java/examples/guestfs-java.pod:179 ../lib/guestfs.pod:3525 ../lua/examples/guestfs-lua.pod:156 ../make-fs/virt-make-fs.pod:243 ../ocaml/examples/guestfs-ocaml.pod:100 ../perl/examples/guestfs-perl.pod:58 ../python/examples/guestfs-python.pod:82 ../rescue/virt-rescue.pod:510 ../resize/virt-resize.pod:871 ../ruby/examples/guestfs-ruby.pod:53 ../sparsify/virt-sparsify.pod:476 ../sysprep/virt-sysprep.pod:624 ../test-tool/libguestfs-test-tool.pod:188 ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278 ../tools/virt-tar:310 ../tools/virt-win-reg:823
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -1108,7 +1108,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:148 ../customize/virt-customize.pod:305 ../docs/guestfs-building.pod:820 ../docs/guestfs-faq.pod:1410 ../docs/guestfs-hacking.pod:1113 ../docs/guestfs-internals.pod:409 ../docs/guestfs-performance.pod:616 ../docs/guestfs-recipes.pod:735 ../docs/guestfs-security.pod:417 ../docs/guestfs-testing.pod:402 ../erlang/examples/guestfs-erlang.pod:111 ../examples/guestfs-examples.pod:69 ../fish/guestfish.pod:1662 ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:52 ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:50 ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:444 ../fuse/guestunmount.pod:156 ../gobject/guestfs-gobject.pod:58 ../golang/examples/guestfs-golang.pod:92 ../inspector/virt-inspector.pod:503 ../java/examples/guestfs-java.pod:175 ../lib/guestfs.pod:3521 ../lua/examples/guestfs-lua.pod:152 ../ocaml/examples/guestfs-ocaml.pod:96 ../perl/examples/guestfs-perl.pod:54 ../python/examples/guestfs-python.pod:78 ../ruby/examples/guestfs-ruby.pod:49 ../sysprep/virt-sysprep.pod:618 ../test-tool/libguestfs-test-tool.pod:184
+#: ../appliance/libguestfs-make-fixed-appliance.pod:148 ../customize/virt-customize.pod:305 ../docs/guestfs-building.pod:820 ../docs/guestfs-faq.pod:1410 ../docs/guestfs-hacking.pod:1113 ../docs/guestfs-internals.pod:409 ../docs/guestfs-performance.pod:616 ../docs/guestfs-recipes.pod:735 ../docs/guestfs-release-notes-1.42.pod:283 ../docs/guestfs-security.pod:417 ../docs/guestfs-testing.pod:402 ../erlang/examples/guestfs-erlang.pod:111 ../examples/guestfs-examples.pod:69 ../fish/guestfish.pod:1662 ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:52 ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:50 ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:444 ../fuse/guestunmount.pod:156 ../gobject/guestfs-gobject.pod:58 ../golang/examples/guestfs-golang.pod:92 ../inspector/virt-inspector.pod:503 ../java/examples/guestfs-java.pod:175 ../lib/guestfs.pod:3521 ../lua/examples/guestfs-lua.pod:152 ../ocaml/examples/guestfs-ocaml.pod:96 ../perl/examples/guestfs-perl.pod:54 ../python/examples/guestfs-python.pod:78 ../ruby/examples/guestfs-ruby.pod:49 ../sysprep/virt-sysprep.pod:618 ../test-tool/libguestfs-test-tool.pod:184
 msgid "AUTHORS"
 msgstr ""
 
@@ -1118,12 +1118,12 @@ msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:538 ../daemon/guestfsd.pod:154 ../df/virt-df.pod:272 ../diff/virt-diff.pod:268 ../docs/guestfs-building.pod:826 ../docs/guestfs-hacking.pod:1119 ../docs/guestfs-internals.pod:415 ../docs/guestfs-recipes.pod:741 ../docs/guestfs-release-notes-1.10.pod:162 ../docs/guestfs-release-notes-1.12.pod:153 ../docs/guestfs-release-notes-1.14.pod:189 ../docs/guestfs-release-notes-1.16.pod:160 ../docs/guestfs-release-notes-1.18.pod:258 ../docs/guestfs-release-notes-1.20.pod:612 ../docs/guestfs-release-notes-1.22.pod:377 ../docs/guestfs-release-notes-1.24.pod:332 ../docs/guestfs-release-notes-1.26.pod:392 ../docs/guestfs-release-notes-1.28.pod:515 ../docs/guestfs-release-notes-1.30.pod:843 ../docs/guestfs-release-notes-1.32.pod:507 ../docs/guestfs-release-notes-1.34.pod:732 ../docs/guestfs-release-notes-1.36.pod:561 ../docs/guestfs-release-notes-1.38.pod:615 ../docs/guestfs-release-notes-1.4.pod:216 ../docs/guestfs-release-notes-1.40.pod:406 ../docs/guestfs-release-notes-1.42.pod:192 ../docs/guestfs-release-notes-1.6.pod:187 ../docs/guestfs-release-notes-1.8.pod:162 ../docs/guestfs-release-notes-historical.pod:52 ../docs/guestfs-security.pod:423 ../edit/virt-edit.pod:404 ../fish/guestfish.pod:1668 ../fuse/guestmount.pod:450 ../lib/guestfs.pod:3527 ../rescue/virt-rescue.pod:512 ../test-tool/libguestfs-test-tool.pod:190 ../tools/virt-list-partitions:280
+#: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:538 ../daemon/guestfsd.pod:154 ../df/virt-df.pod:272 ../diff/virt-diff.pod:268 ../docs/guestfs-building.pod:826 ../docs/guestfs-hacking.pod:1119 ../docs/guestfs-internals.pod:415 ../docs/guestfs-recipes.pod:741 ../docs/guestfs-release-notes-1.10.pod:162 ../docs/guestfs-release-notes-1.12.pod:153 ../docs/guestfs-release-notes-1.14.pod:189 ../docs/guestfs-release-notes-1.16.pod:160 ../docs/guestfs-release-notes-1.18.pod:258 ../docs/guestfs-release-notes-1.20.pod:612 ../docs/guestfs-release-notes-1.22.pod:377 ../docs/guestfs-release-notes-1.24.pod:332 ../docs/guestfs-release-notes-1.26.pod:392 ../docs/guestfs-release-notes-1.28.pod:515 ../docs/guestfs-release-notes-1.30.pod:843 ../docs/guestfs-release-notes-1.32.pod:507 ../docs/guestfs-release-notes-1.34.pod:732 ../docs/guestfs-release-notes-1.36.pod:561 ../docs/guestfs-release-notes-1.38.pod:615 ../docs/guestfs-release-notes-1.4.pod:216 ../docs/guestfs-release-notes-1.40.pod:406 ../docs/guestfs-release-notes-1.42.pod:309 ../docs/guestfs-release-notes-1.6.pod:187 ../docs/guestfs-release-notes-1.8.pod:162 ../docs/guestfs-release-notes-historical.pod:52 ../docs/guestfs-security.pod:423 ../edit/virt-edit.pod:404 ../fish/guestfish.pod:1668 ../fuse/guestmount.pod:450 ../lib/guestfs.pod:3527 ../rescue/virt-rescue.pod:512 ../test-tool/libguestfs-test-tool.pod:190 ../tools/virt-list-partitions:280
 msgid "Copyright (C) 2009-2020 Red Hat Inc."
 msgstr ""
 
 #. type: =end
-#: ../builder/virt-builder-repository.pod:1 ../builder/virt-builder-repository.pod:6 ../builder/virt-builder.pod:1 ../builder/virt-builder.pod:6 ../docs/guestfs-faq.pod:248 ../docs/guestfs-faq.pod:253 ../docs/guestfs-faq.pod:898 ../docs/guestfs-faq.pod:903 ../docs/guestfs-faq.pod:1090 ../docs/guestfs-faq.pod:1095 ../docs/guestfs-release-notes-1.42.pod:11 ../docs/guestfs-release-notes-1.42.pod:18 ../lib/guestfs.pod:1428 ../lib/guestfs.pod:1433
+#: ../builder/virt-builder-repository.pod:1 ../builder/virt-builder-repository.pod:6 ../builder/virt-builder.pod:1 ../builder/virt-builder.pod:6 ../docs/guestfs-faq.pod:248 ../docs/guestfs-faq.pod:253 ../docs/guestfs-faq.pod:898 ../docs/guestfs-faq.pod:903 ../docs/guestfs-faq.pod:1090 ../docs/guestfs-faq.pod:1095 ../lib/guestfs.pod:1428 ../lib/guestfs.pod:1433
 msgid "html"
 msgstr ""
 
@@ -7435,7 +7435,7 @@ msgid "Copyright (C) 2016 Red Hat Inc."
 msgstr ""
 
 #. type: =end
-#: ../common/mlcustomize/customize-options.pod:1 ../common/mlcustomize/customize-options.pod:25 ../docs/guestfs-recipes.pod:1 ../docs/guestfs-recipes.pod:6 ../docs/guestfs-release-notes-1.20.pod:425 ../docs/guestfs-release-notes-1.20.pod:429 ../docs/guestfs-release-notes-1.22.pod:226 ../docs/guestfs-release-notes-1.22.pod:230 ../docs/guestfs-release-notes-1.24.pod:189 ../docs/guestfs-release-notes-1.24.pod:193 ../docs/guestfs-release-notes-1.26.pod:257 ../docs/guestfs-release-notes-1.26.pod:261 ../docs/guestfs-release-notes-1.28.pod:208 ../docs/guestfs-release-notes-1.28.pod:212 ../docs/guestfs-release-notes-1.30.pod:472 ../docs/guestfs-release-notes-1.30.pod:476 ../docs/guestfs-release-notes-1.32.pod:296 ../docs/guestfs-release-notes-1.32.pod:300 ../docs/guestfs-release-notes-1.34.pod:465 ../docs/guestfs-release-notes-1.34.pod:469 ../docs/guestfs-release-notes-1.36.pod:366 ../docs/guestfs-release-notes-1.36.pod:370 ../docs/guestfs-release-notes-1.38.pod:352 ../docs/guestfs-release-notes-1.38.pod:356 ../docs/guestfs-release-notes-1.40.pod:206 ../docs/guestfs-release-notes-1.40.pod:210 ../docs/guestfs-release-notes-1.42.pod:5 ../docs/guestfs-release-notes-1.42.pod:9 ../docs/guestfs-release-notes-1.42.pod:149 ../docs/guestfs-release-notes-1.42.pod:153 ../fish/guestfish-actions.pod:1 ../fish/guestfish-actions.pod:25 ../fish/guestfish-commands.pod:1 ../fish/guestfish-commands.pod:25 ../fish/guestfish-prepopts.pod:1 ../fish/guestfish-prepopts.pod:25 ../lib/guestfs-actions.pod:1 ../lib/guestfs-actions.pod:25 ../lib/guestfs-availability.pod:1 ../lib/guestfs-availability.pod:25 ../lib/guestfs-structs.pod:1 ../lib/guestfs-structs.pod:25
+#: ../common/mlcustomize/customize-options.pod:1 ../common/mlcustomize/customize-options.pod:25 ../docs/guestfs-recipes.pod:1 ../docs/guestfs-recipes.pod:6 ../docs/guestfs-release-notes-1.20.pod:425 ../docs/guestfs-release-notes-1.20.pod:429 ../docs/guestfs-release-notes-1.22.pod:226 ../docs/guestfs-release-notes-1.22.pod:230 ../docs/guestfs-release-notes-1.24.pod:189 ../docs/guestfs-release-notes-1.24.pod:193 ../docs/guestfs-release-notes-1.26.pod:257 ../docs/guestfs-release-notes-1.26.pod:261 ../docs/guestfs-release-notes-1.28.pod:208 ../docs/guestfs-release-notes-1.28.pod:212 ../docs/guestfs-release-notes-1.30.pod:472 ../docs/guestfs-release-notes-1.30.pod:476 ../docs/guestfs-release-notes-1.32.pod:296 ../docs/guestfs-release-notes-1.32.pod:300 ../docs/guestfs-release-notes-1.34.pod:465 ../docs/guestfs-release-notes-1.34.pod:469 ../docs/guestfs-release-notes-1.36.pod:366 ../docs/guestfs-release-notes-1.36.pod:370 ../docs/guestfs-release-notes-1.38.pod:352 ../docs/guestfs-release-notes-1.38.pod:356 ../docs/guestfs-release-notes-1.40.pod:206 ../docs/guestfs-release-notes-1.40.pod:210 ../docs/guestfs-release-notes-1.42.pod:194 ../docs/guestfs-release-notes-1.42.pod:198 ../fish/guestfish-actions.pod:1 ../fish/guestfish-actions.pod:25 ../fish/guestfish-commands.pod:1 ../fish/guestfish-commands.pod:25 ../fish/guestfish-prepopts.pod:1 ../fish/guestfish-prepopts.pod:25 ../lib/guestfs-actions.pod:1 ../lib/guestfs-actions.pod:25 ../lib/guestfs-availability.pod:1 ../lib/guestfs-availability.pod:25 ../lib/guestfs-structs.pod:1 ../lib/guestfs-structs.pod:25
 msgid "comment"
 msgstr ""
 
@@ -20642,7 +20642,7 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-release-notes-1.10.pod:11 ../docs/guestfs-release-notes-1.12.pod:11 ../docs/guestfs-release-notes-1.14.pod:11 ../docs/guestfs-release-notes-1.16.pod:11 ../docs/guestfs-release-notes-1.18.pod:11 ../docs/guestfs-release-notes-1.20.pod:11 ../docs/guestfs-release-notes-1.22.pod:11 ../docs/guestfs-release-notes-1.24.pod:11 ../docs/guestfs-release-notes-1.26.pod:11 ../docs/guestfs-release-notes-1.28.pod:11 ../docs/guestfs-release-notes-1.30.pod:11 ../docs/guestfs-release-notes-1.32.pod:11 ../docs/guestfs-release-notes-1.34.pod:11 ../docs/guestfs-release-notes-1.36.pod:11 ../docs/guestfs-release-notes-1.38.pod:11 ../docs/guestfs-release-notes-1.4.pod:11 ../docs/guestfs-release-notes-1.40.pod:11 ../docs/guestfs-release-notes-1.42.pod:29 ../docs/guestfs-release-notes-1.6.pod:11 ../docs/guestfs-release-notes-1.8.pod:11
+#: ../docs/guestfs-release-notes-1.10.pod:11 ../docs/guestfs-release-notes-1.12.pod:11 ../docs/guestfs-release-notes-1.14.pod:11 ../docs/guestfs-release-notes-1.16.pod:11 ../docs/guestfs-release-notes-1.18.pod:11 ../docs/guestfs-release-notes-1.20.pod:11 ../docs/guestfs-release-notes-1.22.pod:11 ../docs/guestfs-release-notes-1.24.pod:11 ../docs/guestfs-release-notes-1.26.pod:11 ../docs/guestfs-release-notes-1.28.pod:11 ../docs/guestfs-release-notes-1.30.pod:11 ../docs/guestfs-release-notes-1.32.pod:11 ../docs/guestfs-release-notes-1.34.pod:11 ../docs/guestfs-release-notes-1.36.pod:11 ../docs/guestfs-release-notes-1.38.pod:11 ../docs/guestfs-release-notes-1.4.pod:11 ../docs/guestfs-release-notes-1.40.pod:11 ../docs/guestfs-release-notes-1.42.pod:30 ../docs/guestfs-release-notes-1.6.pod:11 ../docs/guestfs-release-notes-1.8.pod:11
 msgid "New features"
 msgstr ""
 
@@ -20904,7 +20904,7 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-release-notes-1.10.pod:96 ../docs/guestfs-release-notes-1.12.pod:92 ../docs/guestfs-release-notes-1.14.pod:112 ../docs/guestfs-release-notes-1.16.pod:85 ../docs/guestfs-release-notes-1.18.pod:96 ../docs/guestfs-release-notes-1.20.pod:192 ../docs/guestfs-release-notes-1.22.pod:136 ../docs/guestfs-release-notes-1.24.pod:76 ../docs/guestfs-release-notes-1.26.pod:83 ../docs/guestfs-release-notes-1.28.pod:84 ../docs/guestfs-release-notes-1.30.pod:184 ../docs/guestfs-release-notes-1.32.pod:112 ../docs/guestfs-release-notes-1.34.pod:210 ../docs/guestfs-release-notes-1.36.pod:164 ../docs/guestfs-release-notes-1.38.pod:142 ../docs/guestfs-release-notes-1.4.pod:84 ../docs/guestfs-release-notes-1.40.pod:114 ../docs/guestfs-release-notes-1.42.pod:111 ../docs/guestfs-release-notes-1.6.pod:96 ../docs/guestfs-release-notes-1.8.pod:77
+#: ../docs/guestfs-release-notes-1.10.pod:96 ../docs/guestfs-release-notes-1.12.pod:92 ../docs/guestfs-release-notes-1.14.pod:112 ../docs/guestfs-release-notes-1.16.pod:85 ../docs/guestfs-release-notes-1.18.pod:96 ../docs/guestfs-release-notes-1.20.pod:192 ../docs/guestfs-release-notes-1.22.pod:136 ../docs/guestfs-release-notes-1.24.pod:76 ../docs/guestfs-release-notes-1.26.pod:83 ../docs/guestfs-release-notes-1.28.pod:84 ../docs/guestfs-release-notes-1.30.pod:184 ../docs/guestfs-release-notes-1.32.pod:112 ../docs/guestfs-release-notes-1.34.pod:210 ../docs/guestfs-release-notes-1.36.pod:164 ../docs/guestfs-release-notes-1.38.pod:142 ../docs/guestfs-release-notes-1.4.pod:84 ../docs/guestfs-release-notes-1.40.pod:114 ../docs/guestfs-release-notes-1.42.pod:128 ../docs/guestfs-release-notes-1.6.pod:96 ../docs/guestfs-release-notes-1.8.pod:77
 msgid "Security"
 msgstr ""
 
@@ -20917,7 +20917,7 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-release-notes-1.10.pod:100 ../docs/guestfs-release-notes-1.12.pod:98 ../docs/guestfs-release-notes-1.14.pod:116 ../docs/guestfs-release-notes-1.16.pod:91 ../docs/guestfs-release-notes-1.18.pod:100 ../docs/guestfs-release-notes-1.20.pod:213 ../docs/guestfs-release-notes-1.22.pod:140 ../docs/guestfs-release-notes-1.24.pod:96 ../docs/guestfs-release-notes-1.26.pod:118 ../docs/guestfs-release-notes-1.28.pod:113 ../docs/guestfs-release-notes-1.30.pod:235 ../docs/guestfs-release-notes-1.32.pod:158 ../docs/guestfs-release-notes-1.34.pod:250 ../docs/guestfs-release-notes-1.36.pod:180 ../docs/guestfs-release-notes-1.38.pod:150 ../docs/guestfs-release-notes-1.4.pod:90 ../docs/guestfs-release-notes-1.40.pod:125 ../docs/guestfs-release-notes-1.42.pod:117 ../docs/guestfs-release-notes-1.6.pod:106 ../docs/guestfs-release-notes-1.8.pod:88
+#: ../docs/guestfs-release-notes-1.10.pod:100 ../docs/guestfs-release-notes-1.12.pod:98 ../docs/guestfs-release-notes-1.14.pod:116 ../docs/guestfs-release-notes-1.16.pod:91 ../docs/guestfs-release-notes-1.18.pod:100 ../docs/guestfs-release-notes-1.20.pod:213 ../docs/guestfs-release-notes-1.22.pod:140 ../docs/guestfs-release-notes-1.24.pod:96 ../docs/guestfs-release-notes-1.26.pod:118 ../docs/guestfs-release-notes-1.28.pod:113 ../docs/guestfs-release-notes-1.30.pod:235 ../docs/guestfs-release-notes-1.32.pod:158 ../docs/guestfs-release-notes-1.34.pod:250 ../docs/guestfs-release-notes-1.36.pod:180 ../docs/guestfs-release-notes-1.38.pod:150 ../docs/guestfs-release-notes-1.4.pod:90 ../docs/guestfs-release-notes-1.40.pod:125 ../docs/guestfs-release-notes-1.42.pod:134 ../docs/guestfs-release-notes-1.6.pod:106 ../docs/guestfs-release-notes-1.8.pod:88
 msgid "New APIs"
 msgstr ""
 
@@ -20933,7 +20933,7 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-release-notes-1.10.pod:107 ../docs/guestfs-release-notes-1.12.pod:104 ../docs/guestfs-release-notes-1.14.pod:127 ../docs/guestfs-release-notes-1.16.pod:101 ../docs/guestfs-release-notes-1.18.pod:130 ../docs/guestfs-release-notes-1.20.pod:297 ../docs/guestfs-release-notes-1.22.pod:157 ../docs/guestfs-release-notes-1.24.pod:153 ../docs/guestfs-release-notes-1.26.pod:200 ../docs/guestfs-release-notes-1.28.pod:155 ../docs/guestfs-release-notes-1.30.pod:446 ../docs/guestfs-release-notes-1.32.pod:248 ../docs/guestfs-release-notes-1.34.pod:364 ../docs/guestfs-release-notes-1.36.pod:295 ../docs/guestfs-release-notes-1.38.pod:255 ../docs/guestfs-release-notes-1.4.pod:120 ../docs/guestfs-release-notes-1.40.pod:166 ../docs/guestfs-release-notes-1.42.pod:142 ../docs/guestfs-release-notes-1.6.pod:119 ../docs/guestfs-release-notes-1.8.pod:101
+#: ../docs/guestfs-release-notes-1.10.pod:107 ../docs/guestfs-release-notes-1.12.pod:104 ../docs/guestfs-release-notes-1.14.pod:127 ../docs/guestfs-release-notes-1.16.pod:101 ../docs/guestfs-release-notes-1.18.pod:130 ../docs/guestfs-release-notes-1.20.pod:297 ../docs/guestfs-release-notes-1.22.pod:157 ../docs/guestfs-release-notes-1.24.pod:153 ../docs/guestfs-release-notes-1.26.pod:200 ../docs/guestfs-release-notes-1.28.pod:155 ../docs/guestfs-release-notes-1.30.pod:446 ../docs/guestfs-release-notes-1.32.pod:248 ../docs/guestfs-release-notes-1.34.pod:364 ../docs/guestfs-release-notes-1.36.pod:295 ../docs/guestfs-release-notes-1.38.pod:255 ../docs/guestfs-release-notes-1.4.pod:120 ../docs/guestfs-release-notes-1.40.pod:166 ../docs/guestfs-release-notes-1.42.pod:170 ../docs/guestfs-release-notes-1.6.pod:119 ../docs/guestfs-release-notes-1.8.pod:101
 msgid "Internals"
 msgstr ""
 
@@ -20982,7 +20982,7 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-release-notes-1.10.pod:123 ../docs/guestfs-release-notes-1.12.pod:126 ../docs/guestfs-release-notes-1.14.pod:151 ../docs/guestfs-release-notes-1.16.pod:131 ../docs/guestfs-release-notes-1.18.pod:203 ../docs/guestfs-release-notes-1.20.pod:423 ../docs/guestfs-release-notes-1.22.pod:224 ../docs/guestfs-release-notes-1.24.pod:187 ../docs/guestfs-release-notes-1.26.pod:255 ../docs/guestfs-release-notes-1.28.pod:206 ../docs/guestfs-release-notes-1.30.pod:470 ../docs/guestfs-release-notes-1.32.pod:294 ../docs/guestfs-release-notes-1.34.pod:463 ../docs/guestfs-release-notes-1.36.pod:364 ../docs/guestfs-release-notes-1.38.pod:350 ../docs/guestfs-release-notes-1.4.pod:132 ../docs/guestfs-release-notes-1.40.pod:204 ../docs/guestfs-release-notes-1.42.pod:147 ../docs/guestfs-release-notes-1.6.pod:135 ../docs/guestfs-release-notes-1.8.pod:136
+#: ../docs/guestfs-release-notes-1.10.pod:123 ../docs/guestfs-release-notes-1.12.pod:126 ../docs/guestfs-release-notes-1.14.pod:151 ../docs/guestfs-release-notes-1.16.pod:131 ../docs/guestfs-release-notes-1.18.pod:203 ../docs/guestfs-release-notes-1.20.pod:423 ../docs/guestfs-release-notes-1.22.pod:224 ../docs/guestfs-release-notes-1.24.pod:187 ../docs/guestfs-release-notes-1.26.pod:255 ../docs/guestfs-release-notes-1.28.pod:206 ../docs/guestfs-release-notes-1.30.pod:470 ../docs/guestfs-release-notes-1.32.pod:294 ../docs/guestfs-release-notes-1.34.pod:463 ../docs/guestfs-release-notes-1.36.pod:364 ../docs/guestfs-release-notes-1.38.pod:350 ../docs/guestfs-release-notes-1.4.pod:132 ../docs/guestfs-release-notes-1.40.pod:204 ../docs/guestfs-release-notes-1.42.pod:192 ../docs/guestfs-release-notes-1.6.pod:135 ../docs/guestfs-release-notes-1.8.pod:136
 msgid "Bugs fixed"
 msgstr ""
 
@@ -21020,7 +21020,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.10.pod:147 ../docs/guestfs-release-notes-1.12.pod:138 ../docs/guestfs-release-notes-1.14.pod:174 ../docs/guestfs-release-notes-1.16.pod:145 ../docs/guestfs-release-notes-1.18.pod:243 ../docs/guestfs-release-notes-1.20.pod:597 ../docs/guestfs-release-notes-1.22.pod:362 ../docs/guestfs-release-notes-1.24.pod:317 ../docs/guestfs-release-notes-1.26.pod:377 ../docs/guestfs-release-notes-1.28.pod:500 ../docs/guestfs-release-notes-1.30.pod:828 ../docs/guestfs-release-notes-1.32.pod:492 ../docs/guestfs-release-notes-1.34.pod:717 ../docs/guestfs-release-notes-1.36.pod:546 ../docs/guestfs-release-notes-1.38.pod:600 ../docs/guestfs-release-notes-1.4.pod:201 ../docs/guestfs-release-notes-1.40.pod:391 ../docs/guestfs-release-notes-1.42.pod:177 ../docs/guestfs-release-notes-1.6.pod:172 ../docs/guestfs-release-notes-1.8.pod:147 ../docs/guestfs-release-notes-historical.pod:37
+#: ../docs/guestfs-release-notes-1.10.pod:147 ../docs/guestfs-release-notes-1.12.pod:138 ../docs/guestfs-release-notes-1.14.pod:174 ../docs/guestfs-release-notes-1.16.pod:145 ../docs/guestfs-release-notes-1.18.pod:243 ../docs/guestfs-release-notes-1.20.pod:597 ../docs/guestfs-release-notes-1.22.pod:362 ../docs/guestfs-release-notes-1.24.pod:317 ../docs/guestfs-release-notes-1.26.pod:377 ../docs/guestfs-release-notes-1.28.pod:500 ../docs/guestfs-release-notes-1.30.pod:828 ../docs/guestfs-release-notes-1.32.pod:492 ../docs/guestfs-release-notes-1.34.pod:717 ../docs/guestfs-release-notes-1.36.pod:546 ../docs/guestfs-release-notes-1.38.pod:600 ../docs/guestfs-release-notes-1.4.pod:201 ../docs/guestfs-release-notes-1.40.pod:391 ../docs/guestfs-release-notes-1.42.pod:274 ../docs/guestfs-release-notes-1.6.pod:172 ../docs/guestfs-release-notes-1.8.pod:147 ../docs/guestfs-release-notes-historical.pod:37
 msgid ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
 "L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
@@ -21028,7 +21028,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.10.pod:158 ../docs/guestfs-release-notes-1.12.pod:149 ../docs/guestfs-release-notes-1.14.pod:185 ../docs/guestfs-release-notes-1.16.pod:156 ../docs/guestfs-release-notes-1.18.pod:254 ../docs/guestfs-release-notes-1.20.pod:608 ../docs/guestfs-release-notes-1.22.pod:373 ../docs/guestfs-release-notes-1.24.pod:328 ../docs/guestfs-release-notes-1.26.pod:388 ../docs/guestfs-release-notes-1.28.pod:511 ../docs/guestfs-release-notes-1.30.pod:839 ../docs/guestfs-release-notes-1.32.pod:503 ../docs/guestfs-release-notes-1.34.pod:728 ../docs/guestfs-release-notes-1.36.pod:557 ../docs/guestfs-release-notes-1.38.pod:611 ../docs/guestfs-release-notes-1.4.pod:212 ../docs/guestfs-release-notes-1.40.pod:402 ../docs/guestfs-release-notes-1.42.pod:188 ../docs/guestfs-release-notes-1.6.pod:183 ../docs/guestfs-release-notes-1.8.pod:158 ../docs/guestfs-release-notes-historical.pod:48
+#: ../docs/guestfs-release-notes-1.10.pod:158 ../docs/guestfs-release-notes-1.12.pod:149 ../docs/guestfs-release-notes-1.14.pod:185 ../docs/guestfs-release-notes-1.16.pod:156 ../docs/guestfs-release-notes-1.18.pod:254 ../docs/guestfs-release-notes-1.20.pod:608 ../docs/guestfs-release-notes-1.22.pod:373 ../docs/guestfs-release-notes-1.24.pod:328 ../docs/guestfs-release-notes-1.26.pod:388 ../docs/guestfs-release-notes-1.28.pod:511 ../docs/guestfs-release-notes-1.30.pod:839 ../docs/guestfs-release-notes-1.32.pod:503 ../docs/guestfs-release-notes-1.34.pod:728 ../docs/guestfs-release-notes-1.36.pod:557 ../docs/guestfs-release-notes-1.38.pod:611 ../docs/guestfs-release-notes-1.4.pod:212 ../docs/guestfs-release-notes-1.40.pod:402 ../docs/guestfs-release-notes-1.42.pod:295 ../docs/guestfs-release-notes-1.6.pod:183 ../docs/guestfs-release-notes-1.8.pod:158 ../docs/guestfs-release-notes-historical.pod:48
 msgid "Richard W.M. Jones"
 msgstr ""
 
@@ -22419,7 +22419,7 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-release-notes-1.18.pod:69 ../docs/guestfs-release-notes-1.22.pod:13 ../docs/guestfs-release-notes-1.24.pod:56 ../docs/guestfs-release-notes-1.26.pod:112 ../docs/guestfs-release-notes-1.28.pod:111 ../docs/guestfs-release-notes-1.30.pod:233 ../docs/guestfs-release-notes-1.32.pod:156 ../docs/guestfs-release-notes-1.34.pod:248 ../docs/guestfs-release-notes-1.36.pod:178 ../docs/guestfs-release-notes-1.38.pod:148 ../docs/guestfs-release-notes-1.40.pod:123 ../docs/guestfs-release-notes-1.42.pod:115
+#: ../docs/guestfs-release-notes-1.18.pod:69 ../docs/guestfs-release-notes-1.22.pod:13 ../docs/guestfs-release-notes-1.24.pod:56 ../docs/guestfs-release-notes-1.26.pod:112 ../docs/guestfs-release-notes-1.28.pod:111 ../docs/guestfs-release-notes-1.30.pod:233 ../docs/guestfs-release-notes-1.32.pod:156 ../docs/guestfs-release-notes-1.34.pod:248 ../docs/guestfs-release-notes-1.36.pod:178 ../docs/guestfs-release-notes-1.38.pod:148 ../docs/guestfs-release-notes-1.40.pod:123 ../docs/guestfs-release-notes-1.42.pod:132
 msgid "API"
 msgstr ""
 
@@ -24149,7 +24149,7 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/guestfs-release-notes-1.22.pod:101 ../docs/guestfs-release-notes-1.24.pod:52 ../docs/guestfs-release-notes-1.26.pod:62 ../docs/guestfs-release-notes-1.28.pod:60 ../docs/guestfs-release-notes-1.30.pod:130 ../docs/guestfs-release-notes-1.32.pod:64 ../docs/guestfs-release-notes-1.34.pod:144 ../docs/guestfs-release-notes-1.36.pod:119 ../docs/guestfs-release-notes-1.38.pod:109 ../docs/guestfs-release-notes-1.40.pod:91 ../docs/guestfs-release-notes-1.42.pod:47
+#: ../docs/guestfs-release-notes-1.22.pod:101 ../docs/guestfs-release-notes-1.24.pod:52 ../docs/guestfs-release-notes-1.26.pod:62 ../docs/guestfs-release-notes-1.28.pod:60 ../docs/guestfs-release-notes-1.30.pod:130 ../docs/guestfs-release-notes-1.32.pod:64 ../docs/guestfs-release-notes-1.34.pod:144 ../docs/guestfs-release-notes-1.36.pod:119 ../docs/guestfs-release-notes-1.38.pod:109 ../docs/guestfs-release-notes-1.40.pod:91 ../docs/guestfs-release-notes-1.42.pod:56
 msgid "Language bindings"
 msgstr ""
 
@@ -24197,7 +24197,7 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/guestfs-release-notes-1.22.pod:123 ../docs/guestfs-release-notes-1.36.pod:160 ../docs/guestfs-release-notes-1.38.pod:136 ../docs/guestfs-release-notes-1.40.pod:110 ../docs/guestfs-release-notes-1.42.pod:93
+#: ../docs/guestfs-release-notes-1.22.pod:123 ../docs/guestfs-release-notes-1.36.pod:160 ../docs/guestfs-release-notes-1.38.pod:136 ../docs/guestfs-release-notes-1.40.pod:110 ../docs/guestfs-release-notes-1.42.pod:107
 msgid "Other"
 msgstr ""
 
@@ -24233,7 +24233,7 @@ msgid "to add arbitrary extra options to supermin."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.22.pod:138 ../docs/guestfs-release-notes-1.42.pod:113
+#: ../docs/guestfs-release-notes-1.22.pod:138 ../docs/guestfs-release-notes-1.42.pod:130
 msgid "No security issues were found in this release."
 msgstr ""
 
@@ -24857,7 +24857,7 @@ msgid "New GUESTFS_EVENT_WARNING event for warning messages."
 msgstr ""
 
 #. type: =head3
-#: ../docs/guestfs-release-notes-1.24.pod:68 ../docs/guestfs-release-notes-1.26.pod:70 ../docs/guestfs-release-notes-1.28.pod:68 ../docs/guestfs-release-notes-1.30.pod:137 ../docs/guestfs-release-notes-1.32.pod:91 ../docs/guestfs-release-notes-1.34.pod:162 ../docs/guestfs-release-notes-1.36.pod:128 ../docs/guestfs-release-notes-1.38.pod:116 ../docs/guestfs-release-notes-1.40.pod:97 ../docs/guestfs-release-notes-1.42.pod:74
+#: ../docs/guestfs-release-notes-1.24.pod:68 ../docs/guestfs-release-notes-1.26.pod:70 ../docs/guestfs-release-notes-1.28.pod:68 ../docs/guestfs-release-notes-1.30.pod:137 ../docs/guestfs-release-notes-1.32.pod:91 ../docs/guestfs-release-notes-1.34.pod:162 ../docs/guestfs-release-notes-1.36.pod:128 ../docs/guestfs-release-notes-1.38.pod:116 ../docs/guestfs-release-notes-1.40.pod:97 ../docs/guestfs-release-notes-1.42.pod:88
 msgid "Inspection"
 msgstr ""
 
@@ -24942,7 +24942,7 @@ msgid "C<add-drive> has a new C<cachemode> parameter."
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-release-notes-1.24.pod:116 ../docs/guestfs-release-notes-1.26.pod:178 ../docs/guestfs-release-notes-1.28.pod:144 ../docs/guestfs-release-notes-1.30.pod:411 ../docs/guestfs-release-notes-1.32.pod:213 ../docs/guestfs-release-notes-1.34.pod:338 ../docs/guestfs-release-notes-1.36.pod:250 ../docs/guestfs-release-notes-1.38.pod:196 ../docs/guestfs-release-notes-1.40.pod:154 ../docs/guestfs-release-notes-1.42.pod:126
+#: ../docs/guestfs-release-notes-1.24.pod:116 ../docs/guestfs-release-notes-1.26.pod:178 ../docs/guestfs-release-notes-1.28.pod:144 ../docs/guestfs-release-notes-1.30.pod:411 ../docs/guestfs-release-notes-1.32.pod:213 ../docs/guestfs-release-notes-1.34.pod:338 ../docs/guestfs-release-notes-1.36.pod:250 ../docs/guestfs-release-notes-1.38.pod:196 ../docs/guestfs-release-notes-1.40.pod:154 ../docs/guestfs-release-notes-1.42.pod:146
 msgid "Build changes"
 msgstr ""
 
@@ -27244,7 +27244,7 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/guestfs-release-notes-1.30.pod:23 ../docs/guestfs-release-notes-1.32.pod:19 ../docs/guestfs-release-notes-1.34.pod:32 ../docs/guestfs-release-notes-1.36.pod:18 ../docs/guestfs-release-notes-1.38.pod:21 ../docs/guestfs-release-notes-1.40.pod:13 ../docs/guestfs-release-notes-1.42.pod:38
+#: ../docs/guestfs-release-notes-1.30.pod:23 ../docs/guestfs-release-notes-1.32.pod:19 ../docs/guestfs-release-notes-1.34.pod:32 ../docs/guestfs-release-notes-1.36.pod:18 ../docs/guestfs-release-notes-1.38.pod:21 ../docs/guestfs-release-notes-1.40.pod:13 ../docs/guestfs-release-notes-1.42.pod:46
 msgid "New features in existing tools"
 msgstr ""
 
@@ -27567,7 +27567,7 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/guestfs-release-notes-1.30.pod:168 ../docs/guestfs-release-notes-1.32.pod:108 ../docs/guestfs-release-notes-1.34.pod:205 ../docs/guestfs-release-notes-1.36.pod:149 ../docs/guestfs-release-notes-1.38.pod:131 ../docs/guestfs-release-notes-1.40.pod:106 ../docs/guestfs-release-notes-1.42.pod:87
+#: ../docs/guestfs-release-notes-1.30.pod:168 ../docs/guestfs-release-notes-1.32.pod:108 ../docs/guestfs-release-notes-1.34.pod:205 ../docs/guestfs-release-notes-1.36.pod:149 ../docs/guestfs-release-notes-1.38.pod:131 ../docs/guestfs-release-notes-1.40.pod:106 ../docs/guestfs-release-notes-1.42.pod:101
 msgid "Architectures and platforms"
 msgstr ""
 
@@ -27959,7 +27959,7 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/guestfs-release-notes-1.30.pod:359 ../docs/guestfs-release-notes-1.32.pod:186 ../docs/guestfs-release-notes-1.34.pod:306 ../docs/guestfs-release-notes-1.36.pod:205 ../docs/guestfs-release-notes-1.38.pod:179 ../docs/guestfs-release-notes-1.40.pod:143 ../docs/guestfs-release-notes-1.42.pod:121
+#: ../docs/guestfs-release-notes-1.30.pod:359 ../docs/guestfs-release-notes-1.32.pod:186 ../docs/guestfs-release-notes-1.34.pod:306 ../docs/guestfs-release-notes-1.36.pod:205 ../docs/guestfs-release-notes-1.38.pod:179 ../docs/guestfs-release-notes-1.40.pod:143 ../docs/guestfs-release-notes-1.42.pod:138
 msgid "Other API changes"
 msgstr ""
 
@@ -35240,99 +35240,120 @@ msgid ""
 "guestfs_set_network"
 msgstr ""
 
-#. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:7
-msgid "UPDATED TO a754cd43078e43f1a2b5d10e54b684c70c5525d7"
-msgstr ""
-
-#. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:13
-msgid ""
-"<script> document.body.style.backgroundImage = \"url('draft.png')\"; "
-"document.body.style.backgroundRepeat = \"no-repeat\"; </script>"
-msgstr ""
-
 #. type: =head1
-#: ../docs/guestfs-release-notes-1.42.pod:20
+#: ../docs/guestfs-release-notes-1.42.pod:5
 msgid "RELEASE NOTES FOR LIBGUESTFS 1.42"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:22
+#: ../docs/guestfs-release-notes-1.42.pod:7
 msgid ""
 "Please note that virt-v2v, virt-p2v and the boot analysis tools were moved "
-"out of the libguestfs package / repository into separate projects.  See "
-"L<https://github.com/libguestfs/virt-v2v>, "
-"L<https://github.com/libguestfs/virt-p2v> and "
-"L<https://github.com/libguestfs/libguestfs-analysis-tools>.  Release notes "
-"for those packages are published separately."
+"out of the libguestfs package / repository into separate projects.  See:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:31
+#: ../docs/guestfs-release-notes-1.42.pod:15
+msgid "L<https://github.com/libguestfs/virt-v2v>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:19
+msgid "L<https://github.com/libguestfs/virt-p2v>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:23
+msgid "L<https://github.com/libguestfs/libguestfs-analysis-tools>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:27
+msgid ""
+"Those projects are now on a separate release cycle.  Release notes are "
+"published separately."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:32
 msgid "Add support for the Vala language (Corentin Noël)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:33
+#: ../docs/guestfs-release-notes-1.42.pod:34
 msgid ""
 "Add support for the Rust language (Hiroyuki Katsura, sponsored by Google "
 "Summer of Code)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:36
+#: ../docs/guestfs-release-notes-1.42.pod:37
 msgid "Reproducible builds (Chris Lamb)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:40
+#: ../docs/guestfs-release-notes-1.42.pod:39
+msgid ""
+"Advanced Format disks (which use 4K sectors) can now be processed by "
+"libguestfs.  Use the new optional C<blocksize> parameter to "
+"C<guestfs_add_drive_opts>, and the I<--blocksize> option added to several "
+"tools (Nikolay Ivanets)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:44
+msgid "Windows CompactOS (NTFS file compression) is now supported."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:48
 msgid ""
 "Advanced machine readable output in various virt tools now supports JSON "
 "output, and writing logs to a numbered file descriptor (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:44
+#: ../docs/guestfs-release-notes-1.42.pod:52
 msgid ""
-"(For changes to virt-p2v and virt-v2v, please see the release notes for "
-"those tools, published separately)."
+"virt-filesystems tool now more accurately reports filesystem total size, in "
+"the case where for example the filesystem does not occupy the whole of its "
+"containing device (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:49
+#: ../docs/guestfs-release-notes-1.42.pod:58
 msgid "Python E<ge> 2.7 is required."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:51
+#: ../docs/guestfs-release-notes-1.42.pod:60
 msgid "Python bindings are now more extensively tested (Hiroyuki Katsura)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:54
+#: ../docs/guestfs-release-notes-1.42.pod:63
 msgid "Python bindings should now work with Python E<ge> 3.8."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:56
+#: ../docs/guestfs-release-notes-1.42.pod:65
 msgid "Multiple fixes to avoid crashes in the Python bindings (Sam Eiderman)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:59
+#: ../docs/guestfs-release-notes-1.42.pod:68
 msgid ""
 "OCaml bindings are compiled with C<-DCAML_NAME_SPACE> to ensure no "
 "non-caml_-namespaced symbols are used (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:63
+#: ../docs/guestfs-release-notes-1.42.pod:72
 msgid "OCaml bindings should now work with OCaml 4.09 and 4.10."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:65
+#: ../docs/guestfs-release-notes-1.42.pod:74
 msgid ""
 "Erlang has deprecated the old C<erl_interface> library which we use for "
 "Erlang bindings.  It will be removed in OTP 22, which will permanently break "
@@ -35341,46 +35362,58 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:71
+#: ../docs/guestfs-release-notes-1.42.pod:80
 msgid "Fix compatibility with newer cgo for Go bindings (Tomáš Golembiovský)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:76
+#: ../docs/guestfs-release-notes-1.42.pod:83
+msgid "Go API error handling is now more idiomatic (Csaba Henk)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:85
+msgid ""
+"Update documentation about how to handle boolean parameters in Ruby bindings "
+"(Csaba Henk)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:90
 msgid ""
 "Libguestfs can now extract icons for Gentoo, newer SUSE and OpenMandriva "
 "guests.  Improved extraction of RHEL icons.  (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:80
+#: ../docs/guestfs-release-notes-1.42.pod:94
 msgid ""
 "Inspection returns the osinfo IDs of newer Windows versions, and rolling "
 "Linux distros (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:83
+#: ../docs/guestfs-release-notes-1.42.pod:97
 msgid "OpenMandriva is now detected (Bernhard Rosenkränzer)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:85
+#: ../docs/guestfs-release-notes-1.42.pod:99
 msgid "Arch Linux detection improvements (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:89
+#: ../docs/guestfs-release-notes-1.42.pod:103
 msgid "Libguestfs can now be compiled on OpenMandriva (Bernhard Rosenkränzer)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:91
+#: ../docs/guestfs-release-notes-1.42.pod:105
 msgid "Ubuntu fix for enabling network support (Ioanna Alifieraki)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:95
+#: ../docs/guestfs-release-notes-1.42.pod:109
 msgid ""
 "Use of deprecated libguestfs APIs will now cause compiler deprecation "
 "warnings by default, whereas previously you have to enable these warnings.  "
@@ -35390,19 +35423,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:102
+#: ../docs/guestfs-release-notes-1.42.pod:116
 msgid "Fix hostname in virt-builder templates (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:104
+#: ../docs/guestfs-release-notes-1.42.pod:118
 msgid ""
 "The single large release notes file is now split into multiple documents "
 "organized by version."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:107
+#: ../docs/guestfs-release-notes-1.42.pod:121
 msgid ""
 "The C<--key> option of several tools was broken, especially if you tried to "
 "use the option to pass multiple keys.  This has been fixed and a regression "
@@ -35410,102 +35443,360 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:119
+#: ../docs/guestfs-release-notes-1.42.pod:125
+msgid ""
+"Augeas exceptions occurring in daemon (eg. during inspection) will now "
+"produced detailed errors (Pino Toscano)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:136
 msgid "C<luks_uuid> returns the UUID of a LUKS device (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:123
+#: ../docs/guestfs-release-notes-1.42.pod:140
 msgid ""
 "Cope with new output from the C<btrfs scrub> command.  There is no visible "
 "change at the API level."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:128
+#: ../docs/guestfs-release-notes-1.42.pod:143
+msgid ""
+"New optional parameter C<blocksize> added to C<guestfs_add_drive_opts> to "
+"support Advanced Format disks (Nikolay Ivanets)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:148
 msgid "Minimum version of Augeas required is 1.2.0 (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:130
+#: ../docs/guestfs-release-notes-1.42.pod:150
 msgid ""
 "C<common/> subdirectory is now a git submodule shared with the virt-v2v "
 "project."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:133
+#: ../docs/guestfs-release-notes-1.42.pod:153
+msgid "Supermin E<ge> 5.1.18 is required."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:155
+msgid ""
+"There were several bugs in libvirt 5.10.0 and 6.0 which affected "
+"libguestfs.  It is highly advisable to use libvirt 6.1 where these bugs are "
+"fixed (versions of libvirt E<lt> 5.10.0 are also fine)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:159
 msgid ""
 "Many gnulib modules which we were not using or which we used in only a few "
 "places have been removed (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:136
+#: ../docs/guestfs-release-notes-1.42.pod:162
 msgid "Multiple fixes for builddir != sourcedir builds (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:138
+#: ../docs/guestfs-release-notes-1.42.pod:164
 msgid ""
 "A new C<bundled/> subdirectory contains one bundled library that we "
 "currently use, C<ocaml-augeas> (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:144
+#: ../docs/guestfs-release-notes-1.42.pod:168
+msgid "Fix compatibility issues when being compiled with GCC 10."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:172
 msgid ""
 "When linking OCaml programs, automake silent rules and the C<V=1> flag are "
 "both now obeyed (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:151
+#: ../docs/guestfs-release-notes-1.42.pod:175
+msgid ""
+"The C<guestfs_device_index> API was reimplemented in library code instead of "
+"in the daemon.  There should be no observable effect of this change."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:179
+msgid ""
+"Since Linux 5.6 enumerates C</dev/sdX> devices in parallel, libguestfs was "
+"changed to map API device names to appliance device names, and then do the "
+"reverse mapping when returning names from the appliance.  Hopefully this "
+"should have no observable effect, but can produce somewhat confusing "
+"debugging messages since device names in the debug might not match device "
+"names passed in to APIs.  Furthermore the C<root=UUID=...> option is always "
+"passed to the appliance (instead of naming the device containing the root "
+"filesystem)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:188
+msgid ""
+"We expect to move from the Zanata service to the Weblate service for "
+"translated strings.  For more information see "
+"L<https://bugzilla.redhat.com/1787301>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:196
 msgid "https_proxy= ./bugs-in-changelog.sh v1.40.0.."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-release-notes-1.42.pod:157
+#: ../docs/guestfs-release-notes-1.42.pod:202
 msgid "L<https://bugzilla.redhat.com/1773520>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:159
+#: ../docs/guestfs-release-notes-1.42.pod:204
 msgid "Segfault in python bindings for guestfs_int_py_event_callback_wrapper"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-release-notes-1.42.pod:161
+#: ../docs/guestfs-release-notes-1.42.pod:206
+msgid "L<https://bugzilla.redhat.com/1746699>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:208
+msgid ""
+"Can't import guest from export domain to data domain on rhv4.3 due to error "
+"\"Invalid parameter: 'DiskType=1'\""
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:210
+msgid "L<https://bugzilla.redhat.com/1733168>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:212
+msgid "virt-v2v: Use scp -T in -i vmx -it ssh mode"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:214
+msgid "L<https://bugzilla.redhat.com/1723305>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:216
+msgid ""
+"Delete info\"export PATH=/path/to/nbdkit-1.1.x:$PATH\" in "
+"virt-v2v-input-vmware manual page"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:218
 msgid "L<https://bugzilla.redhat.com/1705482>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:163
+#: ../docs/guestfs-release-notes-1.42.pod:220
 msgid ""
 "python 3.8 requires using -embed variant of pkgconf file, causing libguestfs "
 "to fail to build Python 3.8 bindings"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-release-notes-1.42.pod:165
+#: ../docs/guestfs-release-notes-1.42.pod:222
+msgid "L<https://bugzilla.redhat.com/1703463>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:224
+msgid ""
+"libguestfs cannot inspect disks using WIndows 10 NTFS compression, error "
+"\"unsupported reparse point\""
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:226
 msgid "L<https://bugzilla.redhat.com/1694268>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:167
+#: ../docs/guestfs-release-notes-1.42.pod:228
 msgid "[PATCH] Add OpenMandriva support"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-release-notes-1.42.pod:169
+#: ../docs/guestfs-release-notes-1.42.pod:230
+msgid "L<https://bugzilla.redhat.com/1691659>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:232
+msgid ""
+"virt-v2v should show a message when qemu-guest-agent is installed in guest "
+"successfully during conversion"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:234
+msgid "L<https://bugzilla.redhat.com/1690574>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:236
+msgid ""
+"virt-v2v fails to import a guest while cannot find `file_architecture` for a "
+"file"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:238
+msgid "L<https://bugzilla.redhat.com/1680361>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:240
+msgid ""
+"[v2v][RHV][Scale] v2v Migration to RHV failed on timed out waiting for "
+"transfer to finalize"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:242
 msgid "L<https://bugzilla.redhat.com/1661871>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-release-notes-1.42.pod:171
+#: ../docs/guestfs-release-notes-1.42.pod:244
 msgid ""
 "python bindings wrongly using str for APIs with RBufferOut/FBuffer on Python "
 "3"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:246
+msgid "L<https://bugzilla.redhat.com/1626503>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:248
+msgid "Unable to maintain static IP address configuration post VM migration"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:250
+msgid "L<https://bugzilla.redhat.com/1612653>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:252
+msgid ""
+"Guest has no disk after rhv-upload converting if target data domain has "
+"similar name with other data domain on rhv4.2"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:254
+msgid "L<https://bugzilla.redhat.com/1605242>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:256
+msgid "Update nbdkit info for vddk in v2v man page"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:258
+msgid "L<https://bugzilla.redhat.com/1584678>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:260
+msgid ""
+"On W2K12r2 rhev-apt does not run non-interactively, causing race when "
+"starting rhev-apt service from the command line"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:262
+msgid "L<https://bugzilla.redhat.com/1518539>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:264
+msgid "Macvtap network will be lost during v2v conversion"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-release-notes-1.42.pod:266
+msgid "L<https://bugzilla.redhat.com/1351000>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:268
+msgid ""
+"virt-customize --commands-from-file will fail if there is an extra blank in "
+"the file"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:285
+msgid "Ioanna Alifieraki"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:287
+msgid "Sam Eiderman"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:289
+msgid "Tomáš Golembiovský"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:291
+msgid "Csaba Henk"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:293
+msgid "Nikolay Ivanets"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:297
+msgid "Hiroyuki Katsura"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:299
+msgid "Chris Lamb"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:301
+msgid "Corentin Noël"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:303
+msgid "Bernhard Rosenkränzer"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-release-notes-1.42.pod:305
+msgid "Pino Toscano"
 msgstr ""
 
 #. type: =head1

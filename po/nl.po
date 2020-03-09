@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2020-03-06 20:07+0000\n"
+"POT-Creation-Date: 2020-03-09 13:22+0000\n"
 "PO-Revision-Date: 2015-02-21 10:51+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/libguestfs/"
@@ -7349,7 +7349,7 @@ msgstr ""
 msgid "backingformat parameter cannot be used with raw format"
 msgstr ""
 
-#: lib/create.c:154 lib/create.c:284
+#: lib/create.c:154 lib/create.c:283
 #, c-format
 msgid "invalid value for preallocation parameter ‘%s’"
 msgstr ""
@@ -7392,24 +7392,19 @@ msgstr ""
 msgid "%s: close"
 msgstr ""
 
-#: lib/create.c:269
+#: lib/create.c:268
 #, c-format
 msgid "invalid value for backingformat parameter ‘%s’"
 msgstr ""
 
-#: lib/create.c:292
+#: lib/create.c:291
 #, c-format
 msgid "invalid value for compat parameter ‘%s’"
 msgstr ""
 
-#: lib/create.c:300
+#: lib/create.c:299
 #, c-format
 msgid "invalid value for clustersize parameter ‘%d’"
-msgstr ""
-
-#: lib/create.c:312
-#, c-format
-msgid "could not auto-detect the format of the backing file %s"
 msgstr ""
 
 #: lib/dbdump.c:83
