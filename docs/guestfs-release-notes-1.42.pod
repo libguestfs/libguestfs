@@ -2,29 +2,30 @@
 
 guestfs-release-notes - libguestfs Release Notes
 
-=begin comment
-
-UPDATED TO a754cd43078e43f1a2b5d10e54b684c70c5525d7
-
-=end comment
-
-=begin html
-
-<script>
-document.body.style.backgroundImage = "url('draft.png')";
-document.body.style.backgroundRepeat = "no-repeat";
-</script>
-
-=end html
-
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.42
 
 Please note that virt-v2v, virt-p2v and the boot analysis tools were
 moved out of the libguestfs package / repository into separate
-projects.  See L<https://github.com/libguestfs/virt-v2v>,
-L<https://github.com/libguestfs/virt-p2v> and
-L<https://github.com/libguestfs/libguestfs-analysis-tools>.  Release
-notes for those packages are published separately.
+projects.  See:
+
+=over 4
+
+=item *
+
+L<https://github.com/libguestfs/virt-v2v>
+
+=item *
+
+L<https://github.com/libguestfs/virt-p2v>
+
+=item *
+
+L<https://github.com/libguestfs/libguestfs-analysis-tools>
+
+=back
+
+Those projects are now on a separate release cycle.  Release notes are
+published separately.
 
 =head2 New features
 
@@ -35,14 +36,22 @@ Add support for the Rust language
 
 Reproducible builds (Chris Lamb).
 
+Advanced Format disks (which use 4K sectors) can now be processed by
+libguestfs.  Use the new optional C<blocksize> parameter to
+C<guestfs_add_drive_opts>, and the I<--blocksize> option added to
+several tools (Nikolay Ivanets).
+
+Windows CompactOS (NTFS file compression) is now supported.
+
 =head3 New features in existing tools
 
 Advanced machine readable output in various virt tools now supports
 JSON output, and writing logs to a numbered file descriptor (Pino
 Toscano).
 
-(For changes to virt-p2v and virt-v2v, please see the release notes
-for those tools, published separately).
+virt-filesystems tool now more accurately reports filesystem total
+size, in the case where for example the filesystem does not occupy the
+whole of its containing device (Pino Toscano).
 
 =head3 Language bindings
 
@@ -70,6 +79,11 @@ libguestfs.
 
 Fix compatibility with newer cgo for Go bindings
 (Tomáš Golembiovský).
+
+Go API error handling is now more idiomatic (Csaba Henk).
+
+Update documentation about how to handle boolean parameters in Ruby
+bindings (Csaba Henk).
 
 =head3 Inspection
 
@@ -108,6 +122,9 @@ The C<--key> option of several tools was broken, especially if you
 tried to use the option to pass multiple keys.  This has been
 fixed and a regression test added.
 
+Augeas exceptions occurring in daemon (eg. during inspection) will now
+produced detailed errors (Pino Toscano).
+
 =head2 Security
 
 No security issues were found in this release.
@@ -123,12 +140,21 @@ C<luks_uuid> returns the UUID of a LUKS device (Pino Toscano).
 Cope with new output from the C<btrfs scrub> command.  There
 is no visible change at the API level.
 
+New optional parameter C<blocksize> added to C<guestfs_add_drive_opts>
+to support Advanced Format disks (Nikolay Ivanets).
+
 =head2 Build changes
 
 Minimum version of Augeas required is 1.2.0 (Pino Toscano).
 
 C<common/> subdirectory is now a git submodule shared with
 the virt-v2v project.
+
+Supermin E<ge> 5.1.18 is required.
+
+There were several bugs in libvirt 5.10.0 and 6.0 which affected
+libguestfs.  It is highly advisable to use libvirt 6.1 where these
+bugs are fixed (versions of libvirt E<lt> 5.10.0 are also fine).
 
 Many gnulib modules which we were not using or which we
 used in only a few places have been removed (Pino Toscano).
@@ -139,10 +165,29 @@ A new C<bundled/> subdirectory contains one bundled
 library that we currently use, C<ocaml-augeas>
 (Pino Toscano).
 
+Fix compatibility issues when being compiled with GCC 10.
+
 =head2 Internals
 
 When linking OCaml programs, automake silent rules and the C<V=1> flag
 are both now obeyed (Pino Toscano).
+
+The C<guestfs_device_index> API was reimplemented in library code
+instead of in the daemon.  There should be no observable effect of
+this change.
+
+Since Linux 5.6 enumerates C</dev/sdX> devices in parallel, libguestfs
+was changed to map API device names to appliance device names, and
+then do the reverse mapping when returning names from the appliance.
+Hopefully this should have no observable effect, but can produce
+somewhat confusing debugging messages since device names in the debug
+might not match device names passed in to APIs.  Furthermore the
+C<root=UUID=...> option is always passed to the appliance (instead of
+naming the device containing the root filesystem).
+
+We expect to move from the Zanata service to the Weblate service for
+translated strings.  For more information see
+L<https://bugzilla.redhat.com/1787301>
 
 =head2 Bugs fixed
 
@@ -158,17 +203,69 @@ https_proxy= ./bugs-in-changelog.sh v1.40.0..
 
 Segfault in python bindings for guestfs_int_py_event_callback_wrapper
 
+=item L<https://bugzilla.redhat.com/1746699>
+
+Can't import guest from export domain to data domain on rhv4.3 due to error "Invalid parameter: 'DiskType=1'"
+
+=item L<https://bugzilla.redhat.com/1733168>
+
+virt-v2v: Use scp -T in -i vmx -it ssh mode
+
+=item L<https://bugzilla.redhat.com/1723305>
+
+Delete info"export PATH=/path/to/nbdkit-1.1.x:$PATH" in virt-v2v-input-vmware manual page
+
 =item L<https://bugzilla.redhat.com/1705482>
 
 python 3.8 requires using -embed variant of pkgconf file, causing libguestfs to fail to build Python 3.8 bindings
+
+=item L<https://bugzilla.redhat.com/1703463>
+
+libguestfs cannot inspect disks using WIndows 10 NTFS compression, error "unsupported reparse point"
 
 =item L<https://bugzilla.redhat.com/1694268>
 
 [PATCH] Add OpenMandriva support
 
+=item L<https://bugzilla.redhat.com/1691659>
+
+virt-v2v should show a message when qemu-guest-agent is installed in guest successfully during conversion
+
+=item L<https://bugzilla.redhat.com/1690574>
+
+virt-v2v fails to import a guest while cannot find `file_architecture` for a file
+
+=item L<https://bugzilla.redhat.com/1680361>
+
+[v2v][RHV][Scale] v2v Migration to RHV failed on timed out waiting for transfer to finalize
+
 =item L<https://bugzilla.redhat.com/1661871>
 
 python bindings wrongly using str for APIs with RBufferOut/FBuffer on Python 3
+
+=item L<https://bugzilla.redhat.com/1626503>
+
+Unable to maintain static IP address configuration post VM migration
+
+=item L<https://bugzilla.redhat.com/1612653>
+
+Guest has no disk after rhv-upload converting if target data domain has similar name with other data domain on rhv4.2
+
+=item L<https://bugzilla.redhat.com/1605242>
+
+Update nbdkit info for vddk in v2v man page
+
+=item L<https://bugzilla.redhat.com/1584678>
+
+On W2K12r2 rhev-apt does not run non-interactively, causing race when starting rhev-apt service from the command line
+
+=item L<https://bugzilla.redhat.com/1518539>
+
+Macvtap network will be lost during v2v conversion
+
+=item L<https://bugzilla.redhat.com/1351000>
+
+virt-customize --commands-from-file will fail if there is an extra blank in the file
 
 =back
 
@@ -183,9 +280,29 @@ L<guestfs(3)>,
 L<guestfish(1)>,
 L<http://libguestfs.org/>
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+Ioanna Alifieraki
+
+Sam Eiderman
+
+Tomáš Golembiovský
+
+Csaba Henk
+
+Nikolay Ivanets
 
 Richard W.M. Jones
+
+Hiroyuki Katsura
+
+Chris Lamb
+
+Corentin Noël
+
+Bernhard Rosenkränzer
+
+Pino Toscano
 
 =head1 COPYRIGHT
 
