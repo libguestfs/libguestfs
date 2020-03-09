@@ -255,7 +255,6 @@ disk_create_qcow2 (guestfs_h *g, const char *filename, int64_t size,
                    const struct guestfs_disk_create_argv *optargs)
 {
   const char *backingformat = NULL;
-  CLEANUP_FREE char *backingformat_free = NULL;
   const char *preallocation = NULL;
   const char *compat = NULL;
   int clustersize = -1;
@@ -299,18 +298,6 @@ disk_create_qcow2 (guestfs_h *g, const char *filename, int64_t size,
         !is_power_of_2 ((unsigned) clustersize)) {
       error (g, _("invalid value for clustersize parameter ‘%d’"),
              clustersize);
-      return -1;
-    }
-  }
-
-  /* With libvirt >= 6.0 the backing format must be specified. */
-  if (backingfile != NULL && backingformat == NULL) {
-    backingformat = backingformat_free = guestfs_disk_format (g, backingfile);
-    if (!backingformat)
-      return -1;
-    if (STREQ (backingformat, "unknown")) {
-      error (g, _("could not auto-detect the format of the backing file %s"),
-             backingfile);
       return -1;
     }
   }
