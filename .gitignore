@@ -337,6 +337,7 @@ Makefile.in
 /lib/libguestfs.syms
 /lib/.libs/libguestfs.so
 /lib/libvirt-is-version
+/lib/local/libguestfs.pc
 /lib/stamp-guestfs.pod
 /lib/structs-compare.c
 /lib/structs-copy.c

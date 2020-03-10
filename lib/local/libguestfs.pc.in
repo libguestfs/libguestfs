@@ -1,0 +1,36 @@
+# @configure_input@
+# Copyright (C) 2020 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+
+# Dummy pkg-config file which is used to allow out of tree packages to
+# be configured against the libguestfs tree without libguestfs needing
+# to be installed.
+#
+# Note if you are using the ./run script then you don't need to worry
+# about this because the script sets PKG_CONFIG_PATH correctly.
+
+prefix=@abs_top_builddir@
+exec_prefix=@abs_top_builddir@
+libdir=@abs_top_builddir@/lib/.libs
+includedir=@abs_top_srcdir@/lib
+
+Name: libguestfs
+Version: @VERSION@
+Description: libguestfs library for accessing and modifying VM images
+Requires:
+Cflags: -I${includedir}
+Libs: -L${libdir} -lguestfs

@@ -47,6 +47,7 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	MAX_PROC_NR \
 	libguestfs.pc.in \
+	local/libguestfs.pc.in \
 	guestfs.pod
 
 include_HEADERS = guestfs.h
