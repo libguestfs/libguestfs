@@ -1238,7 +1238,8 @@ and make_rhel_yum_conf major minor arch =
                    major major minor in
          sprintf "%s/Server/%s/os" topurl arch,
          sprintf "%s/source/SRPMS" topurl,
-         Some (sprintf "%s/Server/optional/%s/os" arch topurl,
+         Some ("Optional",
+               sprintf "%s/Server/optional/%s/os" arch topurl,
                sprintf "%s/Server/optional/source/SRPMS" topurl)
       | 7, (X86_64|PPC64|PPC64le|S390X) ->
          let topurl =
@@ -1246,7 +1247,8 @@ and make_rhel_yum_conf major minor arch =
                    major major minor in
          sprintf "%s/Server/%s/os" topurl (string_of_arch arch),
          sprintf "%s/Server/source/tree" topurl,
-         Some (sprintf "%s/Server-optional/%s/os" topurl (string_of_arch arch),
+         Some ("Optional",
+               sprintf "%s/Server-optional/%s/os" topurl (string_of_arch arch),
                sprintf "%s/Server-optional/source/tree" topurl)
       | 7, Aarch64 ->
          let topurl =
@@ -1254,7 +1256,8 @@ and make_rhel_yum_conf major minor arch =
                    major major minor in
          sprintf "%s/Server/%s/os" topurl (string_of_arch arch),
          sprintf "%s/Server/source/tree" topurl,
-         Some (sprintf "%s/Server-optional/%s/os" topurl (string_of_arch arch),
+         Some ("Optional",
+               sprintf "%s/Server-optional/%s/os" topurl (string_of_arch arch),
                sprintf "%s/Server-optional/source/tree" topurl)
       | 8, arch ->
          let topurl =
@@ -1262,7 +1265,9 @@ and make_rhel_yum_conf major minor arch =
                    major major minor in
          sprintf "%s/BaseOS/%s/os" topurl (string_of_arch arch),
          sprintf "%s/BaseOS/source/tree" topurl,
-         None (* XXX sort out AppStream and CRB *)
+         Some ("AppStream",
+               sprintf "%s/AppStream/%s/os" topurl (string_of_arch arch),
+               sprintf "%s/AppStream/source/tree" topurl)
       | _ -> assert false in
 
     bpf "\
@@ -1285,23 +1290,25 @@ keepcache=0
 
     (match optional with
      | None -> ()
-     | Some (optionalbaseurl, optionalsrpms) ->
+     | Some (name, optionalbaseurl, optionalsrpms) ->
+        let lc_name = String.lowercase_ascii name in
         bpf "\
 
-[rhel%d-optional]
-name=RHEL %d Server Optional
+[rhel%d-%s]
+name=RHEL %d Server %s
 baseurl=%s
 enabled=1
 gpgcheck=0
 keepcache=0
 
-[rhel%d-optional-source]
-name=RHEL %d Server Optional
+[rhel%d-%s-source]
+name=RHEL %d Server %s
 baseurl=%s
 enabled=0
 gpgcheck=0
 keepcache=0
-" major major optionalbaseurl major major optionalsrpms
+" major lc_name major lc_name optionalbaseurl
+  major lc_name major lc_name optionalsrpms
     )
   ) else (
     assert false (* not implemented for RHEL major >= 9 *)
