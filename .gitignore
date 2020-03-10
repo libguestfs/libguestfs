@@ -379,6 +379,7 @@ Makefile.in
 /ocaml/examples/guestfs-ocaml.3
 /ocaml/examples/inspect_vm
 /ocaml/examples/stamp-guestfs-ocaml.pod
+/ocaml/guestfs
 /ocaml/guestfs-c-actions.c
 /ocaml/guestfs-c-errnos.c
 /ocaml/guestfs.ml

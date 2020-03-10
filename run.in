@@ -227,6 +227,8 @@ export MALLOC_PERTURB_=$random_val
 # local libguestfs.
 prepend PKG_CONFIG_PATH "$b/lib/local"
 export PKG_CONFIG_PATH
+prepend OCAMLPATH "$b/ocaml"
+export OCAMLPATH
 
 # Do we have libtool?  If we have it then we can use it to make
 # running valgrind simpler.  However don't depend on it.

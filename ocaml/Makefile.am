@@ -197,4 +197,21 @@ install-data-hook:
 
 CLEANFILES += $(noinst_DATA) $(check_DATA)
 
-endif
+# This "tricks" ocamlfind into allowing us to compile other OCaml
+# programs against a locally compiled copy of the libguestfs sources.
+# ocamlfind needs to see a directory called ‘guestfs’ which contains
+# ‘META’.  The current directory is called ‘ocaml’, but if we make
+# this symlink then we can create the required directory structure.
+#
+# Note if you just want to use this, make sure you use
+# ‘../libguestfs/run make’ in your other program and everything should
+# just work.
+CLEANFILES += guestfs
+
+all-local: guestfs
+
+guestfs:
+	rm -f $@
+	$(LN_S) . $@
+
+endif HAVE_OCAML
