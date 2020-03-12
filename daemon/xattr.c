@@ -89,6 +89,36 @@ do_lremovexattr (const char *xattr, const char *path)
   return _removexattr (xattr, path, lremovexattr);
 }
 
+/**
+ * L<listxattr(2)> returns the string C<"foo\0bar\0baz"> of length
+ * C<len>.  (The last string in the list is \0-terminated but the \0
+ * is not included in C<len>).
+ *
+ * This function splits it into a regular list of strings.
+ *
+ * B<Note> that the returned list contains pointers to the original
+ * strings in C<buf> so be careful that you do not double-free them.
+ */
+static char **
+split_attr_names (char *buf, size_t len)
+{
+  size_t i;
+  DECLARE_STRINGSBUF (ret);
+
+  for (i = 0; i < len; i += strlen (&buf[i]) + 1) {
+    if (add_string_nodup (&ret, &buf[i]) == -1) {
+      free (ret.argv);
+      return NULL;
+    }
+  }
+  if (end_stringsbuf (&ret) == -1) {
+    free (ret.argv);
+    return NULL;
+  }
+
+  return take_stringsbuf (&ret);
+}
+
 static int
 compare_xattrs (const void *vxa1, const void *vxa2)
 {
@@ -106,12 +136,17 @@ getxattrs (const char *path,
 {
   ssize_t len, vlen;
   CLEANUP_FREE char *buf = NULL;
-  size_t i, j;
+  CLEANUP_FREE /* not string list */ char **names = NULL;
+  size_t i;
   guestfs_int_xattr_list *r = NULL;
 
   buf = _listxattrs (path, listxattr, &len);
   if (buf == NULL)
     /* _listxattrs issues reply_with_perror already. */
+    goto error;
+
+  names = split_attr_names (buf, len);
+  if (names == NULL)
     goto error;
 
   r = calloc (1, sizeof (*r));
@@ -120,12 +155,7 @@ getxattrs (const char *path,
     goto error;
   }
 
-  /* What we get from the kernel is a string "foo\0bar\0baz" of length
-   * len.  First count the strings.
-   */
-  r->guestfs_int_xattr_list_len = 0;
-  for (i = 0; i < (size_t) len; i += strlen (&buf[i]) + 1)
-    r->guestfs_int_xattr_list_len++;
+  r->guestfs_int_xattr_list_len = guestfs_int_count_strings (names);
 
   r->guestfs_int_xattr_list_val =
     calloc (r->guestfs_int_xattr_list_len, sizeof (guestfs_int_xattr));
@@ -134,34 +164,34 @@ getxattrs (const char *path,
     goto error;
   }
 
-  for (i = 0, j = 0; i < (size_t) len; i += strlen (&buf[i]) + 1, ++j) {
+  for (i = 0; names[i] != NULL; ++i) {
     CHROOT_IN;
-    vlen = getxattr (path, &buf[i], NULL, 0);
+    vlen = getxattr (path, names[i], NULL, 0);
     CHROOT_OUT;
     if (vlen == -1) {
-      reply_with_perror ("getxattr");
+      reply_with_perror ("getxattr: %s", names[i]);
       goto error;
     }
 
     if (vlen > XATTR_SIZE_MAX) {
       /* The next call to getxattr will fail anyway, so ... */
-      reply_with_error ("extended attribute is too large");
+      reply_with_error ("%s: extended attribute is too large", names[i]);
       goto error;
     }
 
-    r->guestfs_int_xattr_list_val[j].attrname = strdup (&buf[i]);
-    r->guestfs_int_xattr_list_val[j].attrval.attrval_val = malloc (vlen);
-    r->guestfs_int_xattr_list_val[j].attrval.attrval_len = vlen;
+    r->guestfs_int_xattr_list_val[i].attrname = strdup (names[i]);
+    r->guestfs_int_xattr_list_val[i].attrval.attrval_val = malloc (vlen);
+    r->guestfs_int_xattr_list_val[i].attrval.attrval_len = vlen;
 
-    if (r->guestfs_int_xattr_list_val[j].attrname == NULL ||
-        r->guestfs_int_xattr_list_val[j].attrval.attrval_val == NULL) {
+    if (r->guestfs_int_xattr_list_val[i].attrname == NULL ||
+        r->guestfs_int_xattr_list_val[i].attrval.attrval_val == NULL) {
       reply_with_perror ("malloc");
       goto error;
     }
 
     CHROOT_IN;
-    vlen = getxattr (path, &buf[i],
-                     r->guestfs_int_xattr_list_val[j].attrval.attrval_val,
+    vlen = getxattr (path, names[i],
+                     r->guestfs_int_xattr_list_val[i].attrval.attrval_val,
                      vlen);
     CHROOT_OUT;
     if (vlen == -1) {
@@ -276,7 +306,7 @@ guestfs_int_xattr_list *
 do_internal_lxattrlist (const char *path, char *const *names)
 {
   guestfs_int_xattr_list *ret = NULL;
-  size_t i, j;
+  size_t i;
   size_t k, m, nr_attrs;
   ssize_t len, vlen;
 
@@ -293,6 +323,7 @@ do_internal_lxattrlist (const char *path, char *const *names)
     void *newptr;
     CLEANUP_FREE char *pathname = NULL;
     CLEANUP_FREE char *buf = NULL;
+    CLEANUP_FREE /* not string list */ char **attrnames = NULL;
 
     /* Be careful in this loop about which errors cause the whole call
      * to abort, and which errors allow us to continue processing
@@ -350,12 +381,10 @@ do_internal_lxattrlist (const char *path, char *const *names)
     if (len == -1)
       continue; /* not fatal */
 
-    /* What we get from the kernel is a string "foo\0bar\0baz" of length
-     * len.  First count the strings.
-     */
-    nr_attrs = 0;
-    for (i = 0; i < (size_t) len; i += strlen (&buf[i]) + 1)
-      nr_attrs++;
+    attrnames = split_attr_names (buf, len);
+    if (attrnames == NULL)
+      goto error;
+    nr_attrs = guestfs_int_count_strings (attrnames);
 
     newptr =
       realloc (ret->guestfs_int_xattr_list_val,
@@ -378,36 +407,36 @@ do_internal_lxattrlist (const char *path, char *const *names)
       entry[m].attrval.attrval_val = NULL;
     }
 
-    for (i = 0, j = 0; i < (size_t) len; i += strlen (&buf[i]) + 1, ++j) {
+    for (i = 0; attrnames[i] != NULL; ++i) {
       CHROOT_IN;
-      vlen = lgetxattr (pathname, &buf[i], NULL, 0);
+      vlen = lgetxattr (pathname, attrnames[i], NULL, 0);
       CHROOT_OUT;
       if (vlen == -1) {
-        reply_with_perror ("getxattr");
+        reply_with_perror ("getxattr: %s", attrnames[i]);
         goto error;
       }
 
       if (vlen > XATTR_SIZE_MAX) {
-        reply_with_error ("extended attribute is too large");
+        reply_with_error ("%s: extended attribute is too large", attrnames[i]);
         goto error;
       }
 
-      entry[j+1].attrname = strdup (&buf[i]);
-      entry[j+1].attrval.attrval_val = malloc (vlen);
-      entry[j+1].attrval.attrval_len = vlen;
+      entry[i+1].attrname = strdup (attrnames[i]);
+      entry[i+1].attrval.attrval_val = malloc (vlen);
+      entry[i+1].attrval.attrval_len = vlen;
 
-      if (entry[j+1].attrname == NULL ||
-          entry[j+1].attrval.attrval_val == NULL) {
+      if (entry[i+1].attrname == NULL ||
+          entry[i+1].attrval.attrval_val == NULL) {
         reply_with_perror ("malloc");
         goto error;
       }
 
       CHROOT_IN;
-      vlen = lgetxattr (pathname, &buf[i],
-                        entry[j+1].attrval.attrval_val, vlen);
+      vlen = lgetxattr (pathname, attrnames[i],
+                        entry[i+1].attrval.attrval_val, vlen);
       CHROOT_OUT;
       if (vlen == -1) {
-        reply_with_perror ("getxattr");
+        reply_with_perror ("getxattr: %s", attrnames[i]);
         goto error;
       }
     }
@@ -510,6 +539,7 @@ copy_xattrs (const char *src, const char *dest)
 {
   ssize_t len, vlen, ret, attrval_len = 0;
   CLEANUP_FREE char *buf = NULL, *attrval = NULL;
+  CLEANUP_FREE /* not string list */ char **names = NULL;
   size_t i;
 
   buf = _listxattrs (src, listxattr, &len);
@@ -517,21 +547,22 @@ copy_xattrs (const char *src, const char *dest)
     /* _listxattrs issues reply_with_perror already. */
     goto error;
 
-  /* What we get from the kernel is a string "foo\0bar\0baz" of length
-   * len.
-   */
-  for (i = 0; i < (size_t) len; i += strlen (&buf[i]) + 1) {
+  names = split_attr_names (buf, len);
+  if (names == NULL)
+    goto error;
+
+  for (i = 0; names[i] != NULL; ++i) {
     CHROOT_IN;
-    vlen = getxattr (src, &buf[i], NULL, 0);
+    vlen = getxattr (src, names[i], NULL, 0);
     CHROOT_OUT;
     if (vlen == -1) {
-      reply_with_perror ("getxattr: %s, %s", src, &buf[i]);
+      reply_with_perror ("getxattr: %s, %s", src, names[i]);
       goto error;
     }
 
     if (vlen > XATTR_SIZE_MAX) {
       /* The next call to getxattr will fail anyway, so ... */
-      reply_with_error ("extended attribute is too large");
+      reply_with_error ("%s: extended attribute is too large", names[i]);
       goto error;
     }
 
@@ -546,18 +577,18 @@ copy_xattrs (const char *src, const char *dest)
     }
 
     CHROOT_IN;
-    vlen = getxattr (src, &buf[i], attrval, vlen);
+    vlen = getxattr (src, names[i], attrval, vlen);
     CHROOT_OUT;
     if (vlen == -1) {
-      reply_with_perror ("getxattr: %s, %s", src, &buf[i]);
+      reply_with_perror ("getxattr: %s, %s", src, names[i]);
       goto error;
     }
 
     CHROOT_IN;
-    ret = setxattr (dest, &buf[i], attrval, vlen, 0);
+    ret = setxattr (dest, names[i], attrval, vlen, 0);
     CHROOT_OUT;
     if (ret == -1) {
-      reply_with_perror ("setxattr: %s, %s", dest, &buf[i]);
+      reply_with_perror ("setxattr: %s, %s", dest, names[i]);
       goto error;
     }
   }
