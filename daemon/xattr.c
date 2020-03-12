@@ -19,6 +19,8 @@
 #include <config.h>
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include <limits.h>
 #include <unistd.h>
 
@@ -119,6 +121,29 @@ split_attr_names (char *buf, size_t len)
   return take_stringsbuf (&ret);
 }
 
+/* We hide one extended attribute automatically.  This is used by NTFS
+ * to store the compressed contents of a file when using "CompactOS"
+ * (per-file compression).  I justify this by:
+ *
+ * (1) The attribute is only used internally by NTFS.  The actual file
+ * contents are still available.
+ *
+ * (2) It's probably not valid to copy this attribute when copying the
+ * other attributes of a file.  ntfs-3g-system-compression doesn't
+ * support writing compressed files.
+ *
+ * (3) This file isn't readable by the Linux kernel.  Reading it will
+ * always return -E2BIG (RHBZ#1811539).  So we can't read it even if
+ * we wanted to.
+ *
+ * (4) The Linux kernel itself hides other attributes.
+ */
+static bool
+not_hidden_xattr (const char *attrname)
+{
+  return STRNEQ (attrname, "user.WofCompressedData");
+}
+
 static int
 compare_xattrs (const void *vxa1, const void *vxa2)
 {
@@ -136,6 +161,7 @@ getxattrs (const char *path,
 {
   ssize_t len, vlen;
   CLEANUP_FREE char *buf = NULL;
+  CLEANUP_FREE /* not string list */ char **names_unfiltered = NULL;
   CLEANUP_FREE /* not string list */ char **names = NULL;
   size_t i;
   guestfs_int_xattr_list *r = NULL;
@@ -145,7 +171,10 @@ getxattrs (const char *path,
     /* _listxattrs issues reply_with_perror already. */
     goto error;
 
-  names = split_attr_names (buf, len);
+  names_unfiltered = split_attr_names (buf, len);
+  if (names_unfiltered == NULL)
+    goto error;
+  names = filter_list (not_hidden_xattr, names_unfiltered);
   if (names == NULL)
     goto error;
 
@@ -323,6 +352,7 @@ do_internal_lxattrlist (const char *path, char *const *names)
     void *newptr;
     CLEANUP_FREE char *pathname = NULL;
     CLEANUP_FREE char *buf = NULL;
+    CLEANUP_FREE /* not string list */ char **attrnames_unfiltered = NULL;
     CLEANUP_FREE /* not string list */ char **attrnames = NULL;
 
     /* Be careful in this loop about which errors cause the whole call
@@ -381,7 +411,10 @@ do_internal_lxattrlist (const char *path, char *const *names)
     if (len == -1)
       continue; /* not fatal */
 
-    attrnames = split_attr_names (buf, len);
+    attrnames_unfiltered = split_attr_names (buf, len);
+    if (attrnames_unfiltered == NULL)
+      goto error;
+    attrnames = filter_list (not_hidden_xattr, attrnames_unfiltered);
     if (attrnames == NULL)
       goto error;
     nr_attrs = guestfs_int_count_strings (attrnames);
@@ -539,6 +572,7 @@ copy_xattrs (const char *src, const char *dest)
 {
   ssize_t len, vlen, ret, attrval_len = 0;
   CLEANUP_FREE char *buf = NULL, *attrval = NULL;
+  CLEANUP_FREE /* not string list */ char **names_unfiltered = NULL;
   CLEANUP_FREE /* not string list */ char **names = NULL;
   size_t i;
 
@@ -547,7 +581,10 @@ copy_xattrs (const char *src, const char *dest)
     /* _listxattrs issues reply_with_perror already. */
     goto error;
 
-  names = split_attr_names (buf, len);
+  names_unfiltered = split_attr_names (buf, len);
+  if (names_unfiltered == NULL)
+    goto error;
+  names = filter_list (not_hidden_xattr, names_unfiltered);
   if (names == NULL)
     goto error;
 
