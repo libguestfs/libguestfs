@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <errno.h>
 #include <unistd.h>
 
@@ -74,6 +75,7 @@ extern void free_stringsbuf (struct stringsbuf *sb);
 extern struct stringsbuf split_lines_sb (char *str);
 extern char **split_lines (char *str);
 extern char **empty_list (void);
+extern char **filter_list (bool (*p) (const char *), char **strs);
 extern int is_power_of_2 (unsigned long v);
 extern void trim (char *str);
 extern int parse_btrfsvol (const char *desc, mountable_t *mountable);
