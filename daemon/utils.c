@@ -24,6 +24,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <unistd.h>
 #include <rpc/types.h>
@@ -480,6 +481,35 @@ empty_list (void)
     return NULL;
 
   return ret.argv;
+}
+
+/**
+ * Filter a list of strings.  Returns a newly allocated list of only
+ * the strings where C<p (str) == true>.
+ *
+ * B<Note> it does not copy the strings, be careful not to double-free
+ * them.
+ */
+char **
+filter_list (bool (*p) (const char *str), char **strs)
+{
+  DECLARE_STRINGSBUF (ret);
+  size_t i;
+
+  for (i = 0; strs[i] != NULL; ++i) {
+    if (p (strs[i])) {
+      if (add_string_nodup (&ret, strs[i]) == -1) {
+        free (ret.argv);
+        return NULL;
+      }
+    }
+  }
+  if (end_stringsbuf (&ret) == -1) {
+    free (ret.argv);
+    return NULL;
+  }
+
+  return take_stringsbuf (&ret);
 }
 
 /**
