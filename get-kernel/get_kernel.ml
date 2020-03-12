@@ -144,6 +144,9 @@ and pick_kernel_files_linux (g : Guestfs.guestfs) root =
   let kernels = glob "/boot/vmlinuz-*" in
   let initrds = glob "/boot/initramfs-*" in
 
+  (* Uncompressed kernels: *)
+  let kernels = if kernels <> [] then kernels else glob "/boot/vmlinux-*" in
+
   (* Old RHEL: *)
   let initrds = if initrds <> [] then initrds else glob "/boot/initrd-*" in
 
