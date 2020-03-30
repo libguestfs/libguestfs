@@ -857,34 +857,40 @@ it, eg:
 
 Libguestfs has some support for Linux guests encrypted according to
 the Linux Unified Key Setup (LUKS) standard, which includes nearly all
-whole disk encryption systems used by modern Linux guests.  Currently
-only LVM-on-LUKS is supported.
+whole disk encryption systems used by modern Linux guests, and Windows
+BitLocker.
 
 Identify encrypted block devices and partitions using L</vfs-type>:
 
  ><fs> vfs-type /dev/sda2
  crypto_LUKS
 
-Then open those devices using L</luks-open>.  This creates a
-device-mapper device called F</dev/mapper/luksdev>.
+or:
 
- ><fs> luks-open /dev/sda2 luksdev
+ ><fs> vfs-type /dev/sda2
+ BitLocker
+
+Then open those devices using L</cryptsetup-open>.
+This creates a device-mapper device called F</dev/mapper/name>.
+
+ ><fs> cryptsetup-open /dev/sda2 name
  Enter key or passphrase ("key"): <enter the passphrase>
 
-Finally you have to tell LVM to scan for volume groups on
-the newly created mapper device:
+For Linux guests you have to tell LVM to scan for volume groups on the
+newly created mapper device:
 
  vgscan
  vg-activate-all true
 
-The logical volume(s) can now be mounted in the usual way.
+The filesystems or logical volumes can now be mounted in the usual way.
 
-Before closing a LUKS device you must unmount any logical volumes on
-it and deactivate the volume groups by calling C<vg-activate false VG>
-on each one.  Then you can close the mapper device:
+Before closing an encrypted device you must unmount any logical
+volumes on it and deactivate the volume groups by calling
+C<vg-activate false VG> on each one.  Then you can close the mapper
+device:
 
  vg-activate false /dev/VG
- luks-close /dev/mapper/luksdev
+ cryptsetup-close /dev/mapper/name
 
 =head1 WINDOWS PATHS
 
