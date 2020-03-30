@@ -46,8 +46,21 @@ guestfs_impl_canonical_device_name (guestfs_h *g, const char *device)
   }
   else if (STRPREFIX (device, "/dev/mapper/") ||
            STRPREFIX (device, "/dev/dm-")) {
-    /* XXX hide errors */
+    /* Note about error behaviour: The API documentation is inconsistent
+     * but existing users expect that this API will not return an
+     * error but instead return the original string.
+     *
+     * In addition LUKS / BitLocker volumes return EINVAL here, which
+     * is an expected error.
+     *
+     * So in the error case the error message goes to debug and we
+     * return the original string.
+     *
+     * https://www.redhat.com/archives/libguestfs/2020-October/msg00061.html
+     */
+    guestfs_push_error_handler (g, NULL, NULL);
     ret = guestfs_lvm_canonical_lv_name (g, device);
+    guestfs_pop_error_handler (g);
     if (ret == NULL)
       ret = safe_strdup (g, device);
   }
