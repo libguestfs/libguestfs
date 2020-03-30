@@ -141,8 +141,8 @@ and check_with_vfs_type ret device =
   else if String.is_suffix vfs_type "_member" then
     ()
 
-  (* Ignore LUKS-encrypted partitions.  These are also containers, as above. *)
-  else if vfs_type = "crypto_LUKS" then
+  (* Ignore encrypted partitions.  These are also containers, as above. *)
+  else if vfs_type = "crypto_LUKS" || vfs_type = "BitLocker" then
     ()
 
   (* A single btrfs device can turn into many volumes. *)
