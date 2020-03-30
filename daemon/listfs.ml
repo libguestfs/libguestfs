@@ -35,6 +35,14 @@ let rec list_filesystems () =
   let devices = List.filter is_not_partitioned_device devices in
   List.iter (check_with_vfs_type ret) devices;
 
+  (* Device-mapper devices.
+   * We include these in case any encrypted devices contain
+   * direct filesystems.
+   *)
+  let devices = Lvm_dm.list_dm_devices () in
+  let devices = List.filter is_not_partitioned_device devices in
+  List.iter (check_with_vfs_type ret) devices;
+
   (* Partitions. *)
   let partitions = Devsparts.list_partitions () in
   let partitions = List.filter is_partition_can_hold_filesystem partitions in
@@ -64,6 +72,11 @@ let rec list_filesystems () =
  * such devices.
  *)
 and is_not_partitioned_device device =
+  let device =
+    if String.is_prefix device "/dev/mapper/" then
+      Unix_utils.Realpath.realpath device
+    else
+      device in
   assert (String.is_prefix device "/dev/");
   let dev_name = String.sub device 5 (String.length device - 5) in
   let dev_dir = "/sys/block/" ^ dev_name in
