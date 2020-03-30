@@ -28,38 +28,36 @@ let rec list_filesystems () =
   let has_lvm2 = Optgroups.lvm2_available () in
   let has_ldm = Optgroups.ldm_available () in
 
+  let ret = ref [] in
+
   (* Devices. *)
   let devices = Devsparts.list_devices () in
   let devices = List.filter is_not_partitioned_device devices in
-  let ret = List.filter_map check_with_vfs_type devices in
+  List.iter (check_with_vfs_type ret) devices;
 
   (* Partitions. *)
   let partitions = Devsparts.list_partitions () in
   let partitions = List.filter is_partition_can_hold_filesystem partitions in
-  let ret = ret @ List.filter_map check_with_vfs_type partitions in
+  List.iter (check_with_vfs_type ret) partitions;
 
   (* MD. *)
   let mds = Md.list_md_devices () in
   let mds = List.filter is_not_partitioned_device mds in
-  let ret = ret @ List.filter_map check_with_vfs_type mds in
+  List.iter (check_with_vfs_type ret) mds;
 
   (* LVM. *)
-  let ret =
-    if has_lvm2 then (
-      let lvs = Lvm.lvs () in
-      ret @ List.filter_map check_with_vfs_type lvs
-    )
-    else ret in
+  if has_lvm2 then (
+    let lvs = Lvm.lvs () in
+    List.iter (check_with_vfs_type ret) lvs
+  );
 
   (* LDM. *)
-  let ret =
-    if has_ldm then (
-      let ldmvols = Ldm.list_ldm_volumes () in
-      ret @ List.filter_map check_with_vfs_type ldmvols
-    )
-    else ret in
+  if has_ldm then (
+    let ldmvols = Ldm.list_ldm_volumes () in
+    List.iter (check_with_vfs_type ret) ldmvols
+  );
 
-  List.flatten ret
+  !ret
 
 (* Look to see if device can directly contain filesystem (RHBZ#590167).
  * Partitioned devices cannot contain filesystem, so we will exclude
@@ -120,11 +118,10 @@ and is_mbr_extended parttype device partnum =
     Parted.part_get_mbr_part_type device partnum = "extended"
 
 (* Use vfs-type to check for a filesystem of some sort of [device].
- * Returns [Some [device, vfs_type; ...]] if found (there may be
- * multiple devices found in the case of btrfs), else [None] if nothing
- * is found.
+ * Appends (device, vfs_type) to the ret parameter (there may be
+ * multiple devices found in the case of btrfs).
  *)
-and check_with_vfs_type device =
+and check_with_vfs_type ret device =
   let mountable = Mountable.of_device device in
   let vfs_type =
     try Blkid.vfs_type mountable
@@ -135,18 +132,18 @@ and check_with_vfs_type device =
        "" in
 
   if vfs_type = "" then
-    Some [mountable, "unknown"]
+    List.push_back ret (mountable, "unknown")
 
   (* Ignore all "*_member" strings.  In libblkid these are returned
    * for things which are members of some RAID or LVM set, most
    * importantly "LVM2_member" which is a PV.
    *)
   else if String.is_suffix vfs_type "_member" then
-    None
+    ()
 
   (* Ignore LUKS-encrypted partitions.  These are also containers, as above. *)
   else if vfs_type = "crypto_LUKS" then
-    None
+    ()
 
   (* A single btrfs device can turn into many volumes. *)
   else if vfs_type = "btrfs" then (
@@ -162,15 +159,18 @@ and check_with_vfs_type device =
         fun { Structs.btrfssubvolume_id = id } -> id <> default_volume
       ) vols in
 
-    Some (
-      (mountable, vfs_type) (* whole device = default volume *)
-      :: List.map (
-           fun { Structs.btrfssubvolume_path = path } ->
-             let mountable = Mountable.of_btrfsvol device path in
-             (mountable, "btrfs")
-         ) vols
-      )
+    (* whole device = default volume *)
+    List.push_back ret (mountable, vfs_type);
+
+    (* subvolumes *)
+    List.push_back_list ret (
+      List.map (
+        fun { Structs.btrfssubvolume_path = path } ->
+          let mountable = Mountable.of_btrfsvol device path in
+          (mountable, "btrfs")
+      ) vols
+    )
   )
 
   else
-    Some [mountable, vfs_type]
+    List.push_back ret (mountable, vfs_type)
