@@ -164,6 +164,7 @@ Makefile.in
 /daemon/link.mli
 /daemon/listfs.mli
 /daemon/lvm.mli
+/daemon/lvm_dm.mli
 /daemon/lvm-tokenization.c
 /daemon/md.mli
 /daemon/mount.mli

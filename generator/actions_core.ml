@@ -6180,6 +6180,7 @@ parameter." };
   { defaults with
     name = "list_dm_devices"; added = (1, 11, 15);
     style = RStringList (RDevice, "devices"), [], [];
+    impl = OCaml "Lvm_dm.list_dm_devices";
     shortdesc = "list device mapper devices";
     longdesc = "\
 List all device mapper devices.

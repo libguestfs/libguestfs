@@ -50,6 +50,7 @@ generator_built = \
 	link.mli \
 	listfs.mli \
 	lvm.mli \
+	lvm_dm.mli \
 	md.mli \
 	mount.mli \
 	optgroups.ml \
@@ -289,6 +290,7 @@ SOURCES_MLI = \
 	link.mli \
 	listfs.mli \
 	lvm.mli \
+	lvm_dm.mli \
 	lvm_utils.mli \
 	md.mli \
 	mount.mli \
@@ -321,6 +323,7 @@ SOURCES_ML = \
 	link.ml \
 	lvm.ml \
 	lvm_utils.ml \
+	lvm_dm.ml \
 	findfs.ml \
 	md.ml \
 	mount.ml \
