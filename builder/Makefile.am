@@ -240,9 +240,9 @@ virt_builder_DEPENDENCIES = \
 	../common/mltools/mltools.$(MLARCHIVE) \
 	../common/mlcustomize/mlcustomize.$(MLARCHIVE) \
 	../customize/customize.$(MLARCHIVE) \
-	$(top_srcdir)/ocaml-link.sh
+	$(top_builddir)/ocaml-link.sh
 virt_builder_LINK = \
-	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
+	$(top_builddir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
 	  $(OBJECTS) -o $@
 
@@ -250,9 +250,9 @@ virt_builder_repository_DEPENDENCIES = \
 	$(REPOSITORY_OBJECTS) \
 	../common/mltools/mltools.$(MLARCHIVE) \
 	../common/mlxml/mlxml.$(MLARCHIVE) \
-	$(top_srcdir)/ocaml-link.sh
+	$(top_builddir)/ocaml-link.sh
 virt_builder_repository_LINK = \
-	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
+	$(top_builddir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
 	  $(REPOSITORY_OBJECTS) -o $@
 
@@ -348,9 +348,9 @@ endif
 index_parser_tests_DEPENDENCIES = \
 	$(index_parser_tests_THEOBJECTS) \
 	../common/mltools/mltools.$(MLARCHIVE) \
-	$(top_srcdir)/ocaml-link.sh
+	$(top_builddir)/ocaml-link.sh
 index_parser_tests_LINK = \
-	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
+	$(top_builddir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) $(OCAMLLINKFLAGS) \
 	  $(index_parser_tests_THEOBJECTS) -o $@
 

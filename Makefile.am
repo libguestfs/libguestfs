@@ -237,7 +237,6 @@ EXTRA_DIST = \
 	logo/fish-10yrs.svg logo/fish-10yrs.png \
 	logo/virt-builder.svg \
 	m4/.gitignore \
-	ocaml-link.sh \
 	podcheck.pl \
 	tests/automake2junit.ml \
 	tests/test-functions.sh \

@@ -921,7 +921,7 @@ command, the list of objects and the C<-cclib> libraries in the
 correct order otherwise.
 
  virt_customize_LINK = \
-     $(top_srcdir)/ocaml-link.sh -cclib '-lutils -lgnu' -- ...
+     $(top_builddir)/ocaml-link.sh -cclib '-lutils -lgnu' -- ...
 
 The actual rules, which you can examine in F<customize/Makefile.am>, are a
 little bit more complicated than this because they have to handle:

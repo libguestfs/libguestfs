@@ -436,9 +436,9 @@ OCAMLLINKFLAGS = \
 
 daemon_utils_tests_DEPENDENCIES = \
 	$(daemon_utils_tests_THEOBJECTS) \
-	$(top_srcdir)/ocaml-link.sh
+	$(top_builddir)/ocaml-link.sh
 daemon_utils_tests_LINK = \
-	$(top_srcdir)/ocaml-link.sh \
+	$(top_builddir)/ocaml-link.sh \
 	  -cclib '-lutils -lgnu' \
 	  -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \
