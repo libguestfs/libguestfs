@@ -679,3 +679,53 @@ let with_timeout op timeout ?(sleep = 2) fn =
        loop ()
   in
   loop ()
+
+let run_in_guest_command g root ?logfile ?incompatible_fn cmd =
+  (* Is the host_cpu compatible with the guest arch?  ie. Can we
+   * run commands in this guest?
+   *)
+  let guest_arch = g#inspect_get_arch root in
+  let guest_arch_compatible = guest_arch_compatible guest_arch in
+  if not guest_arch_compatible then (
+    match incompatible_fn with
+    | None -> ()
+    | Some fn -> fn ()
+  )
+  else (
+    (* Add a prologue to the scripts:
+     * - Pass environment variables through from the host.
+     * - Optionally send stdout and stderr to a log file so we capture
+     *   all output in error messages.
+     * - Use setarch when running x86_64 host + i686 guest.
+     *)
+    let env_vars =
+      List.filter_map (
+        fun name ->
+          try Some (sprintf "export %s=%s" name (quote (Sys.getenv name)))
+          with Not_found -> None
+      ) [ "http_proxy"; "https_proxy"; "ftp_proxy"; "no_proxy" ] in
+    let env_vars = String.concat "\n" env_vars ^ "\n" in
+
+    let cmd =
+      match Guestfs_config.host_cpu, guest_arch with
+      | "x86_64", ("i386"|"i486"|"i586"|"i686") ->
+        sprintf "setarch i686 <<\"__EOCMD\"
+%s
+__EOCMD
+" cmd
+      | _ -> cmd in
+
+    let logfile_redirect =
+      match logfile with
+      | None -> ""
+      | Some logfile -> sprintf "exec >>%s 2>&1" (quote logfile) in
+
+    let cmd = sprintf "\
+%s
+%s
+%s
+" (logfile_redirect) env_vars cmd in
+
+    debug "running command:\n%s" cmd;
+    ignore (g#sh cmd)
+  )
