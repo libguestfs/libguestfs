@@ -212,3 +212,13 @@ val with_timeout : string -> int -> ?sleep:int -> (unit -> 'a option) -> 'a
     calls {!error} and the program exits.  The error message will
     contain the diagnostic string [op] to identify the operation
     which timed out. *)
+
+val run_in_guest_command : Guestfs.guestfs -> string -> ?logfile:string -> ?incompatible_fn:(unit -> unit) -> string -> unit
+(** [run_in_guest_command g root ?incompatible_archs_fn cmd]
+    runs a command in the guest, which is already mounted for the
+    specified [root].  The command is run directly in case the
+    architecture of the host and the guest are compatible, optionally
+    calling [?incompatible_fn] in case they are not.
+
+    [?logfile] is an optional file in the guest to where redirect
+    stdout and stderr of the command. *)
