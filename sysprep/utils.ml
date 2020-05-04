@@ -20,6 +20,9 @@
 
 open Printf
 
+open Tools_utils
+open Common_gettext.Gettext
+
 let rec pod_of_list ?(style = `Dot) xs =
   match style with
   | `Verbatim -> String.concat "\n" (List.map ((^) " ") xs)
@@ -31,3 +34,32 @@ and _pod_of_list delim xs =
   "=over 4\n\n" ^
   String.concat "" (List.map (sprintf "=item %s\n\n%s\n\n" delim) xs) ^
   "=back"
+
+let rec update_system_ca_store g root =
+  let cmd = update_system_ca_store_command g root in
+  match cmd with
+  | None -> ()
+  | Some cmd ->
+    (* Try to run the command directly if possible, adding it as
+     * firstboot script in case of incompatible architectures.
+     *)
+    let cmd = String.concat " " cmd in
+    let incompatible_fn () =
+      Firstboot.add_firstboot_script g root cmd cmd
+    in
+
+    run_in_guest_command g root ~incompatible_fn cmd
+
+and update_system_ca_store_command g root =
+  let typ = g#inspect_get_type root in
+  let distro = g#inspect_get_distro root in
+  match typ, distro with
+  | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"oraclelinux"|"redhat-based") ->
+    Some [ "update-ca-trust"; "extract" ]
+
+  | "linux", ("debian"|"ubuntu"|"kalilinux") ->
+    Some [ "update-ca-certificates" ]
+
+  | _, _ ->
+    warning (f_"updating the system CA store on this guest %s/%s is not supported") typ distro;
+    None
