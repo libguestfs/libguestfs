@@ -25,6 +25,7 @@ open Common_gettext.Gettext
 open Getopt.OptionName
 
 open Sysprep_operation
+open Utils
 
 module G = Guestfs
 
@@ -235,6 +236,10 @@ read the man page virt-sysprep(1).
         (* Perform the filesystem operations. *)
         Sysprep_operation.perform_operations_on_filesystems
           ?operations g root side_effects;
+
+        (* Do we need to update the system CA store? *)
+        if side_effects#get_update_system_ca_store then
+          update_system_ca_store g root;
 
         (* Unmount everything in this guest. *)
         g#umount_all ();

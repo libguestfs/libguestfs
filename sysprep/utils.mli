@@ -26,3 +26,7 @@ val pod_of_list : ?style:[`Verbatim|`Star|`Dash|`Dot] -> string list -> string
     use a space-indented (verbatim) block.  [`Star], [`Dash] or [`Dot]
     meaning use a real list with [*], [-] or [·].  The default
     style is [·] ([`Dot]). *)
+
+val update_system_ca_store : Guestfs.guestfs -> string -> unit
+(** Update the system CA store on the guest for the specified root
+    (which is fully mounted). *)
