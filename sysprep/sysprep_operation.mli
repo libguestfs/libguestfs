@@ -23,6 +23,8 @@ class filesystem_side_effects : object
   method get_created_file : bool
   method changed_file : unit -> unit
   method get_changed_file : bool
+  method update_system_ca_store : unit -> unit
+  method get_update_system_ca_store : bool
 end
 (** The callback should indicate if it has side effects by calling
     methods in this class. *)
