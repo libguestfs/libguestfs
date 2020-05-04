@@ -30,12 +30,6 @@ open Append_line
 module G = Guestfs
 
 let run (g : G.guestfs) root (ops : ops) =
-  (* Is the host_cpu compatible with the guest arch?  ie. Can we
-   * run commands in this guest?
-   *)
-  let guest_arch = g#inspect_get_arch root in
-  let guest_arch_compatible = guest_arch_compatible guest_arch in
-
   (* Based on the guest type, choose a log file location. *)
   let logfile =
     match g#inspect_get_type root with
@@ -54,42 +48,14 @@ let run (g : G.guestfs) root (ops : ops) =
 
   (* Useful wrapper for scripts. *)
   let do_run ~display ?(warn_failed_no_network = false) cmd =
-    if not guest_arch_compatible then
+    let incompatible_fn () =
+      let guest_arch = g#inspect_get_arch root in
       error (f_"host cpu (%s) and guest arch (%s) are not compatible, so you cannot use command line options that involve running commands in the guest.  Use --firstboot scripts instead.")
-            Guestfs_config.host_cpu guest_arch;
+            Guestfs_config.host_cpu guest_arch
+    in
 
-    (* Add a prologue to the scripts:
-     * - Pass environment variables through from the host.
-     * - Send stdout and stderr to a log file so we capture all output
-     *   in error messages.
-     * - Use setarch when running x86_64 host + i686 guest.
-     * Also catch errors and dump the log file completely on error.
-     *)
-    let env_vars =
-      List.filter_map (
-        fun name ->
-          try Some (sprintf "export %s=%s" name (quote (Sys.getenv name)))
-          with Not_found -> None
-      ) [ "http_proxy"; "https_proxy"; "ftp_proxy"; "no_proxy" ] in
-    let env_vars = String.concat "\n" env_vars ^ "\n" in
-
-    let cmd =
-      match Guestfs_config.host_cpu, guest_arch with
-      | "x86_64", ("i386"|"i486"|"i586"|"i686") ->
-        sprintf "setarch i686 <<\"__EOCMD\"
-%s
-__EOCMD
-" cmd
-      | _ -> cmd in
-
-    let cmd = sprintf "\
-exec >>%s 2>&1
-%s
-%s
-" (quote logfile) env_vars cmd in
-
-    debug "running command:\n%s" cmd;
-    try ignore (g#sh cmd)
+    try
+      run_in_guest_command g root ~logfile ~incompatible_fn cmd
     with
       G.Error msg ->
         debug_logfile ();
