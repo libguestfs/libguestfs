@@ -39,7 +39,11 @@ let ca_certificates_perform (g : Guestfs.guestfs) root side_effects =
     let set = StringSet.diff set excepts in
     StringSet.iter (
       fun filename ->
-        try g#rm filename with G.Error _ -> ()
+        try
+          g#rm filename;
+          side_effects#update_system_ca_store ()
+        with
+          G.Error _ -> ()
     ) set
   )
 
@@ -48,6 +52,8 @@ let op = {
     name = "ca-certificates";
     enabled_by_default = false;
     heading = s_"Remove CA certificates in the guest";
+    pod_description = Some (s_"\
+In case any certificate is removed, the system CA store is updated.");
     perform_on_filesystems = Some ca_certificates_perform;
 }
 
