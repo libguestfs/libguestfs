@@ -77,6 +77,12 @@ and use_setfiles g =
   let specfile =
     sprintf "/etc/selinux/%s/contexts/files/file_contexts" policy in
 
+  (* If the spec file doesn't exist then fall back to using
+   * autorelabel (RHBZ#1828952).
+   *)
+  if not (g#is_file ~followsymlinks:true specfile) then
+    failwith "no spec file";
+
   (* RHEL 6.2 - 6.5 had a malformed specfile that contained the
    * invalid regular expression "/var/run/spice-vdagentd.\pid"
    * (instead of "\.p").  This stops setfiles from working on
