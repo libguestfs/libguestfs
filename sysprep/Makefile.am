@@ -43,6 +43,7 @@ operations = \
 	flag_reconfiguration \
 	firewall_rules \
 	fs_uuids \
+	ipa_client \
 	kerberos_data \
 	lvm_uuids \
 	logfiles \
