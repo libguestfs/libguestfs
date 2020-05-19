@@ -213,7 +213,9 @@ and fetch_headers_from_url password_file uri sslverify https_url =
     | [] ->
        dump_response stderr;
        error (f_"vcenter: no status code in output of ‘curl’ command.  Is ‘curl’ installed?")
-    | ss -> String.sub (List.hd (List.rev ss)) 9 3 in
+    | ss ->
+      let s = List.hd (List.rev ss) in
+      String.sub s (String.index s ' ' + 1) 3 in
 
   let headers =
     List.map (
