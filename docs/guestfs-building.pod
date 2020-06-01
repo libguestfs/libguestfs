@@ -358,11 +358,12 @@ Optional.  Used to build the Vala bindings.
 
 Optional.  Used to build the LUA bindings.
 
-=item Erlang
+=item Erlang E<ge> 23
 
-=item erl_interface
+=item ei
 
-Optional.  Used to build the Erlang bindings.
+Optional.  Used to build the Erlang bindings.  Note that Erlang E<le>
+22 will not work unless you use libguestfs E<le> 1.42.
 
 =item golang E<ge> 1.1.1
 
