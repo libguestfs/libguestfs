@@ -90,7 +90,6 @@ erl_guestfs_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 erl_guestfs_LDADD = \
-	$(ERLANG_LIB_DIR_erl_interface)/lib/liberl_interface.a \
 	$(ERLANG_LIB_DIR_erl_interface)/lib/libei.a \
 	-lpthread \
 	$(top_builddir)/common/utils/libutils.la \

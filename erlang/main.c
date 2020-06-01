@@ -25,11 +25,7 @@
 #include <errno.h>
 #include <arpa/inet.h>
 
-#include <erl_interface.h>
-/* We should switch over to using
-  #include <ei.h>
-instead of erl_interface.
-*/
+#include <ei.h>
 
 #include "error.h"
 #include "full-read.h"
@@ -38,36 +34,25 @@ instead of erl_interface.
 #include "guestfs.h"
 #include "guestfs-utils.h"
 
-guestfs_h *g;
+#include "actions.h"
 
-extern ETERM *dispatch (ETERM *message);
-extern int atom_equals (ETERM *atom, const char *name);
-extern ETERM *make_error (const char *funname);
-extern ETERM *unknown_optarg (const char *funname, ETERM *optargname);
-extern ETERM *unknown_function (ETERM *fun);
-extern ETERM *make_string_list (char **r);
-extern ETERM *make_table (char **r);
-extern ETERM *make_bool (int r);
-extern char **get_string_list (ETERM *term);
-extern int get_bool (ETERM *term);
-extern int get_int (ETERM *term);
-extern int64_t get_int64 (ETERM *term);
+guestfs_h *g;
 
 /* This stops things getting out of hand, but also lets us detect
  * protocol problems quickly.
  */
 #define MAX_MESSAGE_SIZE (32*1024*1024)
 
-static unsigned char *read_message (void);
-static void write_reply (ETERM *);
+static char *read_message (void);
+static void write_reply (ei_x_buff *);
 
 int
 main (void)
 {
-  unsigned char *buf;
-  ETERM *ret, *message;
-
-  erl_init (NULL, 0);
+  char *buff;
+  int index;
+  int version;
+  ei_x_buff reply;
 
   /* This process has a single libguestfs handle.  If the Erlang
    * system creates more than one handle, then more than one of these
@@ -79,15 +64,20 @@ main (void)
 
   guestfs_set_error_handler (g, NULL, NULL);
 
-  while ((buf = read_message ()) != NULL) {
-    message = erl_decode (buf);
-    free (buf);
+  while ((buff = read_message ()) != NULL) {
+    if (ei_x_new_with_version (&reply) != 0)
+      error (EXIT_FAILURE, 0, "could not allocate reply buffer");
 
-    ret = dispatch (message);
-    erl_free_term (message);
+    index = 0;
+    if (ei_decode_version (buff, &index, &version) != 0)
+      error (EXIT_FAILURE, 0, "could not interpret the input message");
 
-    write_reply (ret);
-    erl_free_term (ret);
+    if (dispatch (&reply, buff, &index) != 0)
+      error (EXIT_FAILURE, 0, "could not decode input data or encode reply message");
+
+    free (buff);
+    write_reply (&reply);
+    ei_x_free (&reply);
   }
 
   guestfs_close (g);
@@ -98,12 +88,12 @@ main (void)
 /* The Erlang port always sends the length of the buffer as 4
  * bytes in network byte order, followed by the message buffer.
  */
-static unsigned char *
+static char *
 read_message (void)
 {
   uint32_t buf;
   size_t size;
-  unsigned char *r;
+  char *r;
 
   errno = 0;
   if (full_read (0, &buf, 4) != 4) {
@@ -129,19 +119,10 @@ read_message (void)
 }
 
 static void
-write_reply (ETERM *term)
+write_reply (ei_x_buff *buff)
 {
-  size_t size;
+  size_t size = buff->index;
   unsigned char sbuf[4];
-  unsigned char *buf;
-
-  size = erl_term_len (term);
-
-  buf = malloc (size);
-  if (buf == NULL)
-    error (EXIT_FAILURE, errno, "malloc");
-
-  erl_encode (term, buf);
 
   sbuf[0] = (size >> 24) & 0xff;
   sbuf[1] = (size >> 16) & 0xff;
@@ -151,171 +132,228 @@ write_reply (ETERM *term)
   if (full_write (1, sbuf, 4) != 4)
     error (EXIT_FAILURE, errno, "write message size");
 
-  if (full_write (1, buf, size) != size)
+  if (full_write (1, buff->buff, size) != size)
     error (EXIT_FAILURE, errno, "write message content");
-
-  free (buf);
 }
 
 /* Note that all published Erlang code/examples etc uses strncmp in
  * a buggy way.  This is the right way to do it.
  */
 int
-atom_equals (ETERM *atom, const char *name)
+atom_equals (const char *atom, const char *name)
 {
   const size_t namelen = strlen (name);
-  const size_t atomlen = ERL_ATOM_SIZE (atom);
+  const size_t atomlen = strlen (atom);
   if (namelen != atomlen) return 0;
-  return strncmp (ERL_ATOM_PTR (atom), name, atomlen) == 0;
+  return strncmp (atom, name, atomlen) == 0;
 }
 
-ETERM *
-make_error (const char *funname)
+int
+make_error (ei_x_buff *buff, const char *funname)
 {
-  ETERM *error = erl_mk_atom ("error");
-  ETERM *msg = erl_mk_string (guestfs_last_error (g));
-  ETERM *num = erl_mk_int (guestfs_last_errno (g));
-  ETERM *t[3] = { error, msg, num };
-  return erl_mk_tuple (t, 3);
+  if (ei_x_encode_tuple_header (buff, 3) != 0) return -1;
+  if (ei_x_encode_atom (buff, "error") != 0) return -1;
+  if (ei_x_encode_string (buff, guestfs_last_error (g)) != 0) return -1;
+  if (ei_x_encode_long (buff, guestfs_last_errno (g)) != 0) return -1;
+  return 0;
 }
 
-ETERM *
-unknown_function (ETERM *fun)
+int
+unknown_function (ei_x_buff *buff, const char *fun)
 {
-  ETERM *unknown = erl_mk_atom ("unknown");
-  ETERM *funcopy = erl_copy_term (fun);
-  ETERM *t[2] = { unknown, funcopy };
-  return erl_mk_tuple (t, 2);
+  if (ei_x_encode_tuple_header (buff, 2) != 0) return -1;
+  if (ei_x_encode_atom (buff, "unknown") != 0) return -1;
+  if (ei_x_encode_atom (buff, fun) != 0) return -1;
+  return 0;
 }
 
-ETERM *
-unknown_optarg (const char *funname, ETERM *optargname)
+int
+unknown_optarg (ei_x_buff *buff, const char *funname, const char *optargname)
 {
-  ETERM *unknownarg = erl_mk_atom ("unknownarg");
-  ETERM *copy = erl_copy_term (optargname);
-  ETERM *t[2] = { unknownarg, copy };
-  return erl_mk_tuple (t, 2);
+  if (ei_x_encode_tuple_header (buff, 2) != 0) return -1;
+  if (ei_x_encode_atom (buff, "unknownarg") != 0) return -1;
+  if (ei_x_encode_atom (buff, optargname) != 0) return -1;
+  return 0;
 }
 
-ETERM *
-make_string_list (char **r)
+int
+make_string_list (ei_x_buff *buff, char **r)
 {
   size_t i, size;
-  CLEANUP_FREE ETERM **t = NULL;
 
-  for (size = 0; r[size] != NULL; ++size)
-    ;
+  for (size = 0; r[size] != NULL; ++size);
 
-  t = malloc (sizeof (ETERM *) * size);
-  if (t == NULL)
-    return make_error ("make_string_list");
+  if (ei_x_encode_list_header (buff, size) != 0) return -1;
 
   for (i = 0; r[i] != NULL; ++i)
-    t[i] = erl_mk_string (r[i]);
+    if (ei_x_encode_string (buff, r[i]) != 0) return -1;
 
-  return erl_mk_list (t, size);
+  if (size > 0)
+    if (ei_x_encode_empty_list (buff) != 0) return -1;
+
+  return 0;
 }
 
 /* Make a hash table.  The number of elements returned by the C
  * function is always even.
  */
-ETERM *
-make_table (char **r)
+int
+make_table (ei_x_buff *buff, char **r)
 {
   size_t i, size;
-  CLEANUP_FREE ETERM **t = NULL;
-  ETERM *a[2];
 
-  for (size = 0; r[size] != NULL; ++size)
-    ;
+  for (size = 0; r[size] != NULL; ++size);
 
-  t = malloc (sizeof (ETERM *) * (size/2));
-  if (t == NULL)
-    return make_error ("make_table");
+  if (ei_x_encode_list_header (buff, size/2) != 0) return -1;
 
   for (i = 0; r[i] != NULL; i += 2) {
-    a[0] = erl_mk_string (r[i]);
-    a[1] = erl_mk_string (r[i+1]);
-    t[i/2] = erl_mk_tuple (a, 2);
+    if (ei_x_encode_tuple_header (buff, 2) != 0) return -1;
+    if (ei_x_encode_string (buff, r[i]) != 0) return -1;
+    if (ei_x_encode_string (buff, r[i+1]) != 0) return -1;
   }
 
-  return erl_mk_list (t, size/2);
+  if (size/2 > 0)
+    if (ei_x_encode_empty_list (buff) != 0) return -1;
+
+  return 0;
 }
 
-ETERM *
-make_bool (int r)
+int
+make_bool (ei_x_buff *buff, int r)
 {
   if (r)
-    return erl_mk_atom ("true");
+    return ei_x_encode_atom (buff, "true");
   else
-    return erl_mk_atom ("false");
+    return ei_x_encode_atom (buff, "false");
 }
 
-char **
-get_string_list (ETERM *term)
+int
+decode_string_list (const char *buff, int *index, char ***res)
 {
-  ETERM *t;
-  size_t i, size;
+  int i, size;
   char **r;
 
-  for (size = 0, t = term; !ERL_IS_EMPTY_LIST (t);
-       size++, t = ERL_CONS_TAIL (t))
-    ;
+  if (ei_decode_list_header (buff, index, &size) != 0)
+    error (EXIT_FAILURE, 0, "not a list");
 
   r = malloc ((size+1) * sizeof (char *));
   if (r == NULL)
     error (EXIT_FAILURE, errno, "malloc");
 
-  for (i = 0, t = term; !ERL_IS_EMPTY_LIST (t); i++, t = ERL_CONS_TAIL (t))
-    r[i] = erl_iolist_to_string (ERL_CONS_HEAD (t));
+  for (i = 0; i < size; i++)
+    if (decode_string (buff, index, &r[i]) != 0) return -1;
+
+  // End of a list is encoded by an empty list, so skip it
+  if (size > 0 && buff[*index] == ERL_NIL_EXT)
+    (*index)++;
+
   r[size] = NULL;
+  *res = r;
 
-  return r;
+  return 0;
 }
 
 int
-get_bool (ETERM *term)
+decode_string (const char *buff, int *index, char **res)
 {
-  if (atom_equals (term, "true"))
-    return 1;
+  size_t size;
+
+  if (decode_binary (buff, index, res, &size) != 0) return -1;
+
+  (*res)[size] = 0;
+
+  return 0;
+}
+
+int
+decode_binary (const char *buff, int *index, char **res, size_t *size)
+{
+  int index0;
+  int size0;
+  char *r;
+
+  index0 = *index;
+  if (ei_decode_iodata (buff, index, &size0, NULL) != 0) return -1;
+
+  r = malloc (size0+1); // In case if it's called from decode_string ()
+  if (r == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
+
+  *index = index0;
+  if (ei_decode_iodata (buff, index, NULL, r) != 0) {
+      free (r);
+      return -1;
+  }
+
+  *res = r;
+  *size = (size_t) size0;
+
+  return 0;
+}
+
+int
+decode_bool (const char *buff, int *index, int *res)
+{
+  char atom[MAXATOMLEN];
+
+  if (ei_decode_atom (buff, index, atom) != 0) return -1;
+
+  if (atom_equals (atom, "true"))
+    *res = 1;
   else
-    return 0;
+    *res = 0;
+
+  return 0;
 }
 
 int
-get_int (ETERM *term)
+decode_int (const char *buff, int *index, int *res)
 {
-  switch (ERL_TYPE (term)) {
-  case ERL_INTEGER:
-    return ERL_INT_VALUE (term);
-  case ERL_U_INTEGER:
-    return (int) ERL_INT_UVALUE (term);
-  case ERL_LONGLONG:
-    /* XXX check for overflow */
-    return (int) ERL_LL_VALUE (term);
-  case ERL_U_LONGLONG:
-    /* XXX check for overflow */
-    return (int) ERL_LL_UVALUE (term);
-  default:
-    /* XXX fail in some way */
-    return -1;
+  unsigned char c;
+  long l;
+  long long ll;
+
+  if (ei_decode_char (buff, index, (char *) &c) == 0) {
+    // Byte integers in Erlang are to be treated as unsigned
+    *res = (int) c;
+    return 0;
   }
+  if (ei_decode_long (buff, index, &l) == 0) {
+    /* XXX check for overflow */
+    *res = (int) l;
+    return 0;
+  }
+  if (ei_decode_longlong (buff, index, &ll) == 0) {
+    /* XXX check for overflow */
+    *res = (int) ll;
+    return 0;
+  }
+  /* XXX fail in some way */
+  return -1;
 }
 
-int64_t
-get_int64 (ETERM *term)
+int
+decode_int64 (const char *buff, int *index, int64_t *res)
 {
-  switch (ERL_TYPE (term)) {
-  case ERL_INTEGER:
-    return ERL_INT_VALUE (term);
-  case ERL_U_INTEGER:
-    return ERL_INT_UVALUE (term);
-  case ERL_LONGLONG:
-    return ERL_LL_VALUE (term);
-  case ERL_U_LONGLONG:
-    return (int64_t) ERL_LL_UVALUE (term);
-  default:
-    /* XXX fail in some way */
-    return -1;
+  unsigned char c;
+  long l;
+  long long ll;
+
+  if (ei_decode_char (buff, index, (char *) &c) == 0) {
+    // Byte integers in Erlang are to be treated as unsigned
+    *res = (int64_t) c;
+    return 0;
   }
+  if (ei_decode_long (buff, index, &l) == 0) {
+    *res = (int64_t) l;
+    return 0;
+  }
+  if (ei_decode_longlong (buff, index, &ll) == 0) {
+    /* XXX check for overflow */
+    *res = (int64_t) ll;
+    return 0;
+  }
+  /* XXX fail in some way */
+  return -1;
 }
+

@@ -192,30 +192,30 @@ and generate_erlang_actions_h () =
 
 extern guestfs_h *g;
 
-extern ETERM *dispatch (ETERM *args_tuple);
-extern int atom_equals (ETERM *atom, const char *name);
-extern ETERM *make_error (const char *funname);
-extern ETERM *unknown_optarg (const char *funname, ETERM *optargname);
-extern ETERM *unknown_function (ETERM *fun);
-extern ETERM *make_string_list (char **r);
-extern ETERM *make_table (char **r);
-extern ETERM *make_bool (int r);
-extern char **get_string_list (ETERM *term);
-extern int get_bool (ETERM *term);
-extern int get_int (ETERM *term);
-extern int64_t get_int64 (ETERM *term);
-
-#define ARG(i) (ERL_TUPLE_ELEMENT(args_tuple,(i)+1))
+extern int dispatch (ei_x_buff *retbuff, const char *buff, int *index);
+extern int make_error (ei_x_buff *retbuff, const char *funname);
+extern int unknown_optarg (ei_x_buff *retbuff, const char *funname, const char *optargname);
+extern int unknown_function (ei_x_buff *retbuff, const char *fun);
+extern int make_string_list (ei_x_buff *buff, char **r);
+extern int make_table (ei_x_buff *buff, char **r);
+extern int make_bool (ei_x_buff *buff, int r);
+extern int atom_equals (const char *atom, const char *name);
+extern int decode_string_list (const char *buff, int *index, char ***res);
+extern int decode_string (const char *buff, int *index, char **res);
+extern int decode_binary (const char *buff, int *index, char **res, size_t *size);
+extern int decode_bool (const char *buff, int *index, int *res);
+extern int decode_int (const char *buff, int *index, int *res);
+extern int decode_int64 (const char *buff, int *index, int64_t *res);
 
 ";
 
   let emit_copy_list_decl typ =
-    pr "ETERM *make_%s_list (const struct guestfs_%s_list *%ss);\n"
+    pr "int make_%s_list (ei_x_buff *buff, const struct guestfs_%s_list *%ss);\n"
        typ typ typ;
   in
   List.iter (
     fun { s_name = typ; s_cols = cols } ->
-      pr "ETERM *make_%s (const struct guestfs_%s *%s);\n" typ typ typ;
+      pr "int make_%s (ei_x_buff *buff, const struct guestfs_%s *%s);\n" typ typ typ;
   ) external_structs;
 
   List.iter (
@@ -229,7 +229,7 @@ extern int64_t get_int64 (ETERM *term);
 
   List.iter (
     fun { name } ->
-      pr "ETERM *run_%s (ETERM *args_tuple);\n" name
+      pr "int run_%s (ei_x_buff *retbuff, const char *buff, int *index);\n" name
   ) (actions |> external_functions |> sort);
 
   pr "\n";
@@ -247,11 +247,7 @@ and generate_erlang_structs () =
 #include <string.h>
 #include <errno.h>
 
-#include <erl_interface.h>
-/* We should switch over to using
-  #include <ei.h>
-instead of erl_interface.
-*/
+#include <ei.h>
 
 #include \"guestfs.h\"
 #include \"guestfs-utils.h\"
@@ -262,57 +258,61 @@ instead of erl_interface.
   (* Struct copy functions. *)
   let emit_copy_list_function typ =
     pr "\n";
-    pr "ETERM *\n";
-    pr "make_%s_list (const struct guestfs_%s_list *%ss)\n" typ typ typ;
+    pr "int\n";
+    pr "make_%s_list (ei_x_buff *buff, const struct guestfs_%s_list *%ss)\n" typ typ typ;
     pr "{\n";
     pr "  size_t len = %ss->len;\n" typ;
     pr "  size_t i;\n";
-    pr "  CLEANUP_FREE ETERM **t;\n";
     pr "\n";
-    pr "  t = malloc (sizeof (ETERM *) * len);\n";
-    pr "  if (t == NULL)\n";
-    pr "    return make_error (\"make_%s_list\");\n" typ;
+    pr "  if (ei_x_encode_list_header (buff, len) != 0) return -1;\n";
+    pr "  for (i = 0; i < len; ++i) {\n";
+    pr "    if (make_%s (buff, &%ss->val[i]) != 0) return -1;\n" typ typ;
+    pr "  }\n";
+    pr "  if (len > 0)\n";
+    pr "    if (ei_x_encode_empty_list (buff) != 0) return -1;\n";
     pr "\n";
-    pr "  for (i = 0; i < len; ++i)\n";
-    pr "    t[i] = make_%s (&%ss->val[i]);\n" typ typ;
-    pr "\n";
-    pr "  return erl_mk_list (t, len);\n";
+    pr "  return 0;\n";
     pr "}\n";
   in
 
   List.iter (
     fun { s_name = typ; s_cols = cols } ->
       pr "\n";
-      pr "ETERM *\n";
-      pr "make_%s (const struct guestfs_%s *%s)\n" typ typ typ;
+      pr "int\n";
+      pr "make_%s (ei_x_buff *buff, const struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";
-      pr "  ETERM *t[%d];\n" (List.length cols);
+      pr "  if (ei_x_encode_list_header (buff, %d) !=0) return -1;\n" (List.length cols);
       pr "\n";
       List.iteri (
         fun i col ->
           (match col with
            | name, FString ->
-               pr "  t[%d] = erl_mk_string (%s->%s);\n" i typ name
+               pr "  if (ei_x_encode_string (buff, %s->%s) != 0) return -1;\n" typ name
            | name, FBuffer ->
-               pr "  t[%d] = erl_mk_estring (%s->%s, %s->%s_len);\n"
-                 i typ name typ name
+               pr "  if (ei_x_encode_string_len (buff, %s->%s, %s->%s_len) != 0) return -1;\n"
+                 typ name typ name
            | name, FUUID ->
-               pr "  t[%d] = erl_mk_estring (%s->%s, 32);\n" i typ name
+               pr "  if (ei_x_encode_string_len (buff, %s->%s, 32) != 0) return -1;\n" typ name
            | name, (FBytes|FInt64|FUInt64) ->
-               pr "  t[%d] = erl_mk_longlong (%s->%s);\n" i typ name
+               pr "  if (ei_x_encode_longlong (buff, %s->%s) != 0) return -1;\n" typ name
            | name, (FInt32|FUInt32) ->
-               pr "  t[%d] = erl_mk_int (%s->%s);\n" i typ name
+               pr "  if (ei_x_encode_long (buff, %s->%s) != 0) return -1;\n" typ name
            | name, FOptPercent ->
-               pr "  if (%s->%s >= 0)\n" typ name;
-               pr "    t[%d] = erl_mk_float (%s->%s);\n" i typ name;
-               pr "  else\n";
-               pr "    t[%d] = erl_mk_atom (\"undefined\");\n" i;
+               pr "  if (%s->%s >= 0) {\n" typ name;
+               pr "    if (ei_x_encode_double (buff, %s->%s) != 0) return -1;\n" typ name;
+               pr "  } else {\n";
+               pr "    if (ei_x_encode_atom (buff, \"undefined\") != 0) return -1;\n";
+               pr "  }\n"
            | name, FChar ->
-               pr "  t[%d] = erl_mk_int (%s->%s);\n" i typ name
+               pr "  if (ei_x_encode_char (buff, %s->%s) != 0) return -1;\n" typ name
           );
       ) cols;
+      if cols <> [] then (
+        pr "\n";
+        pr "  if (ei_x_encode_empty_list (buff) != 0) return -1;\n"
+      );
       pr "\n";
-      pr "  return erl_mk_list (t, %d);\n" (List.length cols);
+      pr "  return 0;\n";
       pr "}\n";
   ) external_structs;
 
@@ -341,11 +341,7 @@ and generate_erlang_actions actions () =
 #include <string.h>
 #include <errno.h>
 
-#include <erl_interface.h>
-/* We should switch over to using
-  #include <ei.h>
-instead of erl_interface.
-*/
+#include <ei.h>
 
 #include \"guestfs.h\"
 #include \"guestfs-utils.h\"
@@ -358,33 +354,43 @@ instead of erl_interface.
     fun { name; style = (ret, args, optargs as style);
           c_function; c_optarg_prefix } ->
       pr "\n";
-      pr "ETERM *\n";
-      pr "run_%s (ETERM *args_tuple)\n" name;
+      pr "int\n";
+      pr "run_%s (ei_x_buff *retbuff, const char *buff, int *idx)\n" name;
       pr "{\n";
 
       List.iteri (
         fun i ->
           function
           | String (_, n) ->
-            pr "  CLEANUP_FREE char *%s = erl_iolist_to_string (ARG (%d));\n" n i
+            pr "  CLEANUP_FREE char *%s;\n" n;
+            pr "  if (decode_string (buff, idx, &%s) != 0) return -1;\n" n
           | OptString n ->
             pr "  CLEANUP_FREE char *%s;\n" n;
-            pr "  if (atom_equals (ARG (%d), \"undefined\"))\n" i;
-            pr "    %s = NULL;\n" n;
-            pr "  else\n";
-            pr "    %s = erl_iolist_to_string (ARG (%d));\n" n i
+            pr "  char %s_opt[MAXATOMLEN];\n" n;
+            pr "  if (ei_decode_atom(buff, idx, %s_opt) == 0) {\n" n;
+            pr "    if (atom_equals (%s_opt, \"undefined\"))\n" n;
+            pr "      %s = NULL;\n" n;
+            pr "    else\n";
+            pr "      %s = %s_opt;\n" n n;
+            pr "  } else {\n";
+            pr "    if (decode_string (buff, idx, &%s) != 0) return -1;\n" n;
+            pr "  }\n"
           | BufferIn n ->
-            pr "  ETERM *%s_bin = erl_iolist_to_binary (ARG (%d));\n" n i;
-            pr "  const void *%s = ERL_BIN_PTR (%s_bin);\n" n n;
-            pr "  size_t %s_size = ERL_BIN_SIZE (%s_bin);\n" n n
+            pr "  CLEANUP_FREE char *%s;\n" n;
+            pr "  size_t %s_size;\n" n;
+            pr "  if (decode_binary (buff, idx, &%s, &%s_size) != 0) return -1;\n" n n
           | StringList (_, n) ->
-            pr "  CLEANUP_FREE_STRING_LIST char **%s = get_string_list (ARG (%d));\n" n i
+            pr "  CLEANUP_FREE_STRING_LIST char **%s;\n" n;
+            pr "  if (decode_string_list (buff, idx, &%s) != 0) return -1;\n" n
           | Bool n ->
-            pr "  int %s = get_bool (ARG (%d));\n" n i
+            pr "  int %s;\n" n;
+            pr "  if (decode_bool (buff, idx, &%s) != 0) return -1;\n" n
           | Int n ->
-            pr "  int %s = get_int (ARG (%d));\n" n i
+            pr "  int %s;\n" n;
+            pr "  if (decode_int (buff, idx, &%s) != 0) return -1;\n" n
           | Int64 n ->
-            pr "  int64_t %s = get_int64 (ARG (%d));\n" n i
+            pr "  int64_t %s;\n" n;
+            pr "  if (decode_int64 (buff, idx, &%s) != 0) return -1;\n" n
           | Pointer (t, n) ->
             pr "  void * /* %s */ %s = POINTER_NOT_IMPLEMENTED (\"%s\");\n" t n t
       ) args;
@@ -394,11 +400,13 @@ instead of erl_interface.
         pr "\n";
         pr "  struct %s optargs_s = { .bitmask = 0 };\n" c_function;
         pr "  struct %s *optargs = &optargs_s;\n" c_function;
-        pr "  ETERM *optargst = ARG (%d);\n" (List.length args);
-        pr "  while (!ERL_IS_EMPTY_LIST (optargst)) {\n";
-        pr "    ETERM *hd = ERL_CONS_HEAD (optargst);\n";
-        pr "    ETERM *hd_name = ERL_TUPLE_ELEMENT (hd, 0);\n";
-        pr "    ETERM *hd_value = ERL_TUPLE_ELEMENT (hd, 1);\n";
+        pr "  int optargsize;\n";
+        pr "  if (ei_decode_list_header (buff, idx, &optargsize) != 0) return -1;\n";
+        pr "  for (int i = 0; i < optargsize; i++) {\n";
+        pr "    int hd;\n";
+        pr "    if (ei_decode_tuple_header (buff, idx, &hd) != 0) return -1;\n";
+        pr "    char hd_name[MAXATOMLEN];\n";
+        pr "    if (ei_decode_atom (buff, idx, hd_name) != 0) return -1;\n";
         pr "\n";
         List.iter (
           fun argt ->
@@ -407,21 +415,22 @@ instead of erl_interface.
             pr "    if (atom_equals (hd_name, \"%s\")) {\n" n;
             pr "      optargs_s.bitmask |= %s_%s_BITMASK;\n"
               c_optarg_prefix uc_n;
-            pr "      optargs_s.%s = " n;
+            pr "      ";
             (match argt with
-             | OBool _ -> pr "get_bool (hd_value)"
-             | OInt _ -> pr "get_int (hd_value)"
-             | OInt64 _ -> pr "get_int64 (hd_value)"
-             | OString _ -> pr "erl_iolist_to_string (hd_value)"
-             | OStringList n -> pr "get_string_list (hd_value)"
+             | OBool _ -> pr "if (decode_bool (buff, idx, &optargs_s.%s) != 0) return -1;" n
+             | OInt _ -> pr "if (decode_int (buff, idx, &optargs_s.%s) != 0) return -1" n
+             | OInt64 _ -> pr "if (decode_int64 (buff, idx, &optargs_s.%s) != 0) return -1" n
+             | OString _ -> pr "if (decode_string (buff, idx, (char **) &optargs_s.%s) != 0) return -1" n
+             | OStringList n -> pr "if (decode_string_list (buff, idx, (char ***) &optargs_s.%s) != 0) return -1" n
             );
             pr ";\n";
             pr "    }\n";
             pr "    else\n";
         ) optargs;
-        pr "      return unknown_optarg (\"%s\", hd_name);\n" name;
-        pr "    optargst = ERL_CONS_TAIL (optargst);\n";
+        pr "      return unknown_optarg (retbuff, \"%s\", hd_name);\n" name;
         pr "  }\n";
+        pr "  if (optargsize > 0 && buff[*idx] == ERL_NIL_EXT)\n";
+        pr "    (*idx)++;\n";
         pr "\n";
       );
 
@@ -471,52 +480,46 @@ instead of erl_interface.
        | `CannotReturnError -> ()
        | `ErrorIsMinusOne ->
            pr "  if (r == -1)\n";
-           pr "    return make_error (\"%s\");\n" name;
+           pr "    return make_error (retbuff, \"%s\");\n" name;
        | `ErrorIsNULL ->
            pr "  if (r == NULL)\n";
-           pr "    return make_error (\"%s\");\n" name;
+           pr "    return make_error (retbuff, \"%s\");\n" name;
       );
       pr "\n";
 
       (match ret with
-       | RErr -> pr "  return erl_mk_atom (\"ok\");\n"
-       | RInt _ -> pr "  return erl_mk_int (r);\n"
-       | RInt64 _ -> pr "  return erl_mk_longlong (r);\n"
-       | RBool _ -> pr "  return make_bool (r);\n"
-       | RConstString _ -> pr "  return erl_mk_string (r);\n"
+       | RErr -> pr "  if (ei_x_encode_atom (retbuff, \"ok\") != 0) return -1;\n"
+       | RInt _ -> pr "  if (ei_x_encode_long (retbuff, r) != 0) return -1;\n"
+       | RInt64 _ -> pr "  if (ei_x_encode_longlong (retbuff, r) != 0) return -1;\n"
+       | RBool _ -> pr "  if (make_bool (retbuff, r) != 0) return -1;\n"
+       | RConstString _ -> pr "  if (ei_x_encode_string (retbuff, r) != 0) return -1;\n"
        | RConstOptString _ ->
-           pr "  ETERM *rt;\n";
-           pr "  if (r)\n";
-           pr "    rt = erl_mk_string (r);\n";
-           pr "  else\n";
-           pr "    rt = erl_mk_atom (\"undefined\");\n";
-           pr "  return rt;\n"
+           pr "  if (r) {\n";
+           pr "    if (ei_x_encode_string (retbuff, r) != 0) return -1;\n";
+           pr "  } else {\n";
+           pr "    if (ei_x_encode_atom (retbuff, \"undefined\") != 0) return -1;\n";
+           pr "  }\n"
        | RString _ ->
-           pr "  ETERM *rt = erl_mk_string (r);\n";
+           pr "  if (ei_x_encode_string (retbuff, r) != 0) return -1;\n";
            pr "  free (r);\n";
-           pr "  return rt;\n"
        | RStringList _ ->
-           pr "  ETERM *rt = make_string_list (r);\n";
-           pr "  guestfs_int_free_string_list (r);\n\n";
-           pr "  return rt;\n"
+           pr "  if (make_string_list (retbuff, r) != 0) return -1;\n";
+           pr "  guestfs_int_free_string_list (r);\n"
        | RStruct (_, typ) ->
-           pr "  ETERM *rt = make_%s (r);\n" typ;
-           pr "  guestfs_free_%s (r);\n" typ;
-           pr "  return rt;\n"
+           pr "  if (make_%s (retbuff, r) != 0) return -1;\n" typ;
+           pr "  guestfs_free_%s (r);\n" typ
        | RStructList (_, typ) ->
-           pr "  ETERM *rt = make_%s_list (r);\n" typ;
-           pr "  guestfs_free_%s_list (r);\n" typ;
-           pr "  return rt;\n"
+           pr "  if (make_%s_list (retbuff, r) != 0) return -1;\n" typ;
+           pr "  guestfs_free_%s_list (r);\n" typ
        | RHashtable _ ->
-           pr "  ETERM *rt = make_table (r);\n";
-           pr "  guestfs_int_free_string_list (r);\n";
-           pr "  return rt;\n"
+           pr "  if (make_table (retbuff, r) != 0) return -1;\n";
+           pr "  guestfs_int_free_string_list (r);\n"
        | RBufferOut _ ->
-           pr "  ETERM *rt = erl_mk_estring (r, size);\n";
+           pr "  if (ei_x_encode_binary (retbuff, r, size) != 0) return -1;\n";
            pr "  free (r);\n";
-           pr "  return rt;\n"
       );
 
+      pr "  return 0;\n";
       pr "}\n";
   ) (actions |> external_functions |> sort);
 
@@ -532,23 +535,21 @@ and generate_erlang_dispatch () =
 #include <string.h>
 #include <errno.h>
 
-#include <erl_interface.h>
-/* We should switch over to using
-  #include <ei.h>
-instead of erl_interface.
-*/
+#include <ei.h>
 
 #include \"guestfs.h\"
 #include \"guestfs-utils.h\"
 
 #include \"actions.h\"
 
-ETERM *
-dispatch (ETERM *args_tuple)
+int
+dispatch (ei_x_buff *retbuff, const char *buff, int *index)
 {
-  ETERM *fun;
+  int arity;
+  char fun[MAXATOMLEN];
 
-  fun = ERL_TUPLE_ELEMENT (args_tuple, 0);
+  if (ei_decode_tuple_header (buff, index, &arity) != 0) return -1;
+  if (ei_decode_atom (buff, index, fun) != 0) return -1;
 
   /* XXX We should use gperf here. */
   ";
@@ -556,10 +557,10 @@ dispatch (ETERM *args_tuple)
   List.iter (
     fun { name; style = ret, args, optargs } ->
       pr "if (atom_equals (fun, \"%s\"))\n" name;
-      pr "    return run_%s (args_tuple);\n" name;
+      pr "    return run_%s (retbuff, buff, index);\n" name;
       pr "  else ";
   ) (actions |> external_functions |> sort);
 
-  pr "return unknown_function (fun);
+  pr "return unknown_function (retbuff, fun);
 }
 ";
