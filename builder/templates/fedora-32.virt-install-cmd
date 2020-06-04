@@ -1,0 +1,20 @@
+# This is the virt-install command which was used to create
+# the virt-builder template 'fedora-32'
+# NB: This file is generated for documentation purposes ONLY!
+# This script was never run, and is not intended to be run.
+
+'virt-install' \
+    '--transient' \
+    '--name=tmp-pzrl639w' \
+    '--ram=4096' \
+    '--arch=x86_64' \
+    '--cpu=host' \
+    '--vcpus=4' \
+    '--os-variant=fedora26' \
+    '--initrd-inject=fedora-32.ks' \
+    '--extra-args=ks=file:/fedora-32.ks  console=tty0 console=ttyS0,115200 rd_NO_PLYMOUTH' \
+    '--disk=/home/rjones/d/libguestfs/builder/templates/tmp-pzrl639w.img,size=6,format=raw' \
+    '--location=http://mirror.bytemark.co.uk/fedora/linux/releases/32/Server/x86_64/os/' \
+    '--serial=pty' \
+    '--nographics' 
+
