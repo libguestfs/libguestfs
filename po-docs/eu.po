@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2020-03-09 14:31+0000\n"
+"POT-Creation-Date: 2020-07-06 15:00+0100\n"
 "PO-Revision-Date: 2015-02-21 10:17+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/libguestfs/"
@@ -1178,7 +1178,7 @@ msgstr ""
 #: ../common/mlcustomize/customize-options.pod:294
 #: ../docs/guestfs-building.pod:13 ../docs/guestfs-building.pod:17
 #: ../docs/guestfs-building.pod:21 ../docs/guestfs-building.pod:25
-#: ../docs/guestfs-building.pod:786 ../docs/guestfs-building.pod:791
+#: ../docs/guestfs-building.pod:766 ../docs/guestfs-building.pod:771
 #: ../docs/guestfs-faq.pod:188 ../docs/guestfs-faq.pod:194
 #: ../docs/guestfs-faq.pod:198 ../docs/guestfs-faq.pod:203
 #: ../docs/guestfs-faq.pod:761 ../docs/guestfs-faq.pod:767
@@ -1273,8 +1273,8 @@ msgstr ""
 #: ../docs/internal-documentation.pod:3485
 #: ../docs/internal-documentation.pod:3489
 #: ../docs/internal-documentation.pod:3494
-#: ../docs/internal-documentation.pod:4094
-#: ../docs/internal-documentation.pod:4099 ../edit/virt-edit.pod:306
+#: ../docs/internal-documentation.pod:4121
+#: ../docs/internal-documentation.pod:4126 ../edit/virt-edit.pod:306
 #: ../edit/virt-edit.pod:311 ../edit/virt-edit.pod:316
 #: ../edit/virt-edit.pod:327 ../edit/virt-edit.pod:331
 #: ../fish/guestfish-actions.pod:786 ../fish/guestfish-actions.pod:792
@@ -1408,7 +1408,7 @@ msgstr ""
 #: ../cat/virt-ls.pod:522 ../cat/virt-tail.pod:240
 #: ../customize/virt-customize.pod:288 ../daemon/guestfsd.pod:143
 #: ../df/virt-df.pod:258 ../dib/virt-dib.pod:708 ../diff/virt-diff.pod:252
-#: ../docs/guestfs-building.pod:807 ../docs/guestfs-faq.pod:1404
+#: ../docs/guestfs-building.pod:787 ../docs/guestfs-faq.pod:1404
 #: ../docs/guestfs-hacking.pod:1100 ../docs/guestfs-internals.pod:400
 #: ../docs/guestfs-performance.pod:603 ../docs/guestfs-recipes.pod:719
 #: ../docs/guestfs-release-notes-1.10.pod:145
@@ -1520,7 +1520,7 @@ msgstr ""
 #: ../cat/virt-ls.pod:536 ../cat/virt-tail.pod:255
 #: ../customize/virt-customize.pod:309 ../daemon/guestfsd.pod:152
 #: ../df/virt-df.pod:270 ../dib/virt-dib.pod:719 ../diff/virt-diff.pod:266
-#: ../docs/guestfs-building.pod:824 ../docs/guestfs-faq.pod:1414
+#: ../docs/guestfs-building.pod:804 ../docs/guestfs-faq.pod:1414
 #: ../docs/guestfs-hacking.pod:1117 ../docs/guestfs-internals.pod:413
 #: ../docs/guestfs-performance.pod:620 ../docs/guestfs-recipes.pod:739
 #: ../docs/guestfs-release-notes-1.10.pod:160
@@ -1829,7 +1829,7 @@ msgstr ""
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:148
-#: ../customize/virt-customize.pod:305 ../docs/guestfs-building.pod:820
+#: ../customize/virt-customize.pod:305 ../docs/guestfs-building.pod:800
 #: ../docs/guestfs-faq.pod:1410 ../docs/guestfs-hacking.pod:1113
 #: ../docs/guestfs-internals.pod:409 ../docs/guestfs-performance.pod:616
 #: ../docs/guestfs-recipes.pod:735 ../docs/guestfs-release-notes-1.42.pod:283
@@ -1852,7 +1852,7 @@ msgstr "EGILEAK"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:150
-#: ../docs/guestfs-building.pod:822 ../docs/guestfs-faq.pod:1412
+#: ../docs/guestfs-building.pod:802 ../docs/guestfs-faq.pod:1412
 #: ../docs/guestfs-hacking.pod:1115 ../docs/guestfs-internals.pod:411
 #: ../docs/guestfs-performance.pod:618 ../docs/guestfs-recipes.pod:737
 #: ../docs/guestfs-security.pod:419 ../docs/guestfs-testing.pod:404
@@ -1875,7 +1875,7 @@ msgstr "Richard W.M. Jones (C<rjones abildua redhat puntu com>)"
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:538
 #: ../daemon/guestfsd.pod:154 ../df/virt-df.pod:272 ../diff/virt-diff.pod:268
-#: ../docs/guestfs-building.pod:826 ../docs/guestfs-hacking.pod:1119
+#: ../docs/guestfs-building.pod:806 ../docs/guestfs-hacking.pod:1119
 #: ../docs/guestfs-internals.pod:415 ../docs/guestfs-recipes.pod:741
 #: ../docs/guestfs-release-notes-1.10.pod:162
 #: ../docs/guestfs-release-notes-1.12.pod:153
@@ -12270,141 +12270,143 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-building.pod:310
-msgid "Python E<ge> 2.7"
+msgid "Python E<ge> 3.4"
 msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:312
 msgid ""
-"Optional.  Used to build the Python bindings.  For building Python 2 or "
-"Python 3 bindings, see L</BUILDING PYTHON 2 AND PYTHON 3 BINDINGS> below."
+"Optional.  Used to build the Python bindings.  S<Python 2> support was "
+"removed in S<libguestfs 1.42.1>."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:316
+#: ../docs/guestfs-building.pod:315
 msgid "Python C<unittest>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:318
+#: ../docs/guestfs-building.pod:317
 msgid "Optional.  Used to run the Python testsuite."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:320
+#: ../docs/guestfs-building.pod:319
 msgid "Ruby"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:322
+#: ../docs/guestfs-building.pod:321
 msgid "rake"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:324
+#: ../docs/guestfs-building.pod:323
 msgid "rubygem-minitest"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:326
+#: ../docs/guestfs-building.pod:325
 msgid "rubygem-rdoc"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:328
+#: ../docs/guestfs-building.pod:327
 msgid "Optional.  Used to build the Ruby bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:330
+#: ../docs/guestfs-building.pod:329
 msgid "Java E<ge> 1.6"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:332
+#: ../docs/guestfs-building.pod:331
 msgid ""
 "Optional.  Java, JNI and jpackage-utils are needed for building Java "
 "bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:335
+#: ../docs/guestfs-building.pod:334
 msgid "GHC"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:337
+#: ../docs/guestfs-building.pod:336
 msgid "Optional.  Used to build the Haskell bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:339
+#: ../docs/guestfs-building.pod:338
 msgid "PHP"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:341
+#: ../docs/guestfs-building.pod:340
 msgid "phpize"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:343
+#: ../docs/guestfs-building.pod:342
 msgid "Optional.  Used to build the PHP bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:345
+#: ../docs/guestfs-building.pod:344
 msgid "glib2"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:347
+#: ../docs/guestfs-building.pod:346
 msgid "gobject-introspection"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:349
+#: ../docs/guestfs-building.pod:348
 msgid "gjs"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:351
+#: ../docs/guestfs-building.pod:350
 msgid "Optional.  Used to build and test the GObject bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:353
+#: ../docs/guestfs-building.pod:352
 msgid "vala"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:355
+#: ../docs/guestfs-building.pod:354
 msgid "Optional.  Used to build the Vala bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:357
+#: ../docs/guestfs-building.pod:356
 msgid "LUA"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:359
+#: ../docs/guestfs-building.pod:358
 msgid "Optional.  Used to build the LUA bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:361
-msgid "Erlang"
+#: ../docs/guestfs-building.pod:360
+msgid "Erlang E<ge> 23"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:363
-msgid "erl_interface"
+#: ../docs/guestfs-building.pod:362
+msgid "ei"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:365
-msgid "Optional.  Used to build the Erlang bindings."
+#: ../docs/guestfs-building.pod:364
+msgid ""
+"Optional.  Used to build the Erlang bindings.  Note that Erlang E<le> 22 "
+"will not work unless you use libguestfs E<le> 1.42."
 msgstr ""
 
 #. type: =item
@@ -12807,15 +12809,13 @@ msgstr ""
 #: ../docs/guestfs-building.pod:530
 #, no-wrap
 msgid ""
-" # Use an alternate python binary.\n"
-" export PYTHON=python3\n"
 " # Skip this test, it is broken.\n"
 " export SKIP_TEST_BTRFS_FSCK=1\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:535
+#: ../docs/guestfs-building.pod:533
 msgid ""
 "Note that F<localenv> is included by the top Makefile (so it’s a Makefile "
 "fragment).  But if it is also sourced by your F<localconfigure> script then "
@@ -12823,17 +12823,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:539
+#: ../docs/guestfs-building.pod:537
 msgid "SELECTED ./configure SETTINGS"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:541
+#: ../docs/guestfs-building.pod:539
 msgid "There are many C<./configure> options.  Use:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:543
+#: ../docs/guestfs-building.pod:541
 #, no-wrap
 msgid ""
 " ./configure --help\n"
@@ -12841,86 +12841,86 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:545
+#: ../docs/guestfs-building.pod:543
 msgid "to list them all.  This section covers some of the more important ones."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:550
+#: ../docs/guestfs-building.pod:548
 msgid "B<--disable-appliance --disable-daemon>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:552
+#: ../docs/guestfs-building.pod:550
 msgid "See L</USING A PREBUILT BINARY APPLIANCE> below."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:554
+#: ../docs/guestfs-building.pod:552
 msgid "B<--disable-erlang>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:556
+#: ../docs/guestfs-building.pod:554
 msgid "B<--disable-gobject>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:558
+#: ../docs/guestfs-building.pod:556
 msgid "B<--disable-golang>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:560
+#: ../docs/guestfs-building.pod:558
 msgid "B<--disable-haskell>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:562
+#: ../docs/guestfs-building.pod:560
 msgid "B<--disable-lua>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:564
+#: ../docs/guestfs-building.pod:562
 msgid "B<--disable-ocaml>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:566
+#: ../docs/guestfs-building.pod:564
 msgid "B<--disable-perl>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:568
+#: ../docs/guestfs-building.pod:566
 msgid "B<--disable-php>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:570
+#: ../docs/guestfs-building.pod:568
 msgid "B<--disable-python>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:572
+#: ../docs/guestfs-building.pod:570
 msgid "B<--disable-ruby>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:574
+#: ../docs/guestfs-building.pod:572
 msgid ""
 "Disable specific language bindings, even if C<./configure> finds all the "
 "necessary libraries are installed so that they could be compiled."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:577
+#: ../docs/guestfs-building.pod:575
 msgid ""
 "Note that disabling OCaml (bindings) or Perl will have the knock-on effect "
 "of disabling parts of the test suite and some tools."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:580
+#: ../docs/guestfs-building.pod:578
 msgid ""
 "OCaml is required to build libguestfs and this requirement cannot be "
 "removed.  Using I<--disable-ocaml> only disables the bindings and OCaml "
@@ -12928,44 +12928,44 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:584
+#: ../docs/guestfs-building.pod:582
 msgid "B<--disable-fuse>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:586
+#: ../docs/guestfs-building.pod:584
 msgid "Disable FUSE support in the API and the L<guestmount(1)> tool."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:588
+#: ../docs/guestfs-building.pod:586
 msgid "B<--disable-gnulib-tests>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:590
+#: ../docs/guestfs-building.pod:588
 msgid ""
 "On some platforms the GNUlib test suite can be flaky.  This disables it, "
 "since errors in the GNUlib test suite are often not important."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:593
+#: ../docs/guestfs-building.pod:591
 msgid "B<--disable-static>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:595
+#: ../docs/guestfs-building.pod:593
 msgid "Don’t build a static linked version of the libguestfs library."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:597
+#: ../docs/guestfs-building.pod:595
 msgid "B<--enable-install-daemon>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:599
+#: ../docs/guestfs-building.pod:597
 msgid ""
 "Normally L<guestfsd(8)> is not installed by C<make install>, since that "
 "wouldn't be useful (instead it is \"installed\" inside the supermin "
@@ -12974,12 +12974,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:604
+#: ../docs/guestfs-building.pod:602
 msgid "B<--enable-werror>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:606
+#: ../docs/guestfs-building.pod:604
 msgid ""
 "This turns compiler warnings into errors (ie. C<-Werror>).  Use this for "
 "development, especially when submitting patches.  It should generally I<not> "
@@ -12987,12 +12987,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:610
+#: ../docs/guestfs-building.pod:608
 msgid "B<--with-default-backend=libvirt>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:612
+#: ../docs/guestfs-building.pod:610
 msgid ""
 "This controls the default method that libguestfs uses to run qemu (see "
 "L<guestfs(3)/BACKEND>).  If not specified, the default backend is C<direct>, "
@@ -13000,7 +13000,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:616
+#: ../docs/guestfs-building.pod:614
 msgid ""
 "Fedora and Red Hat Enterprise Linux (RHEL) E<ge> 7 use this flag to change "
 "the default backend to C<libvirt>, because (especially in RHEL)  the policy "
@@ -13008,7 +13008,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:620
+#: ../docs/guestfs-building.pod:618
 msgid ""
 "Note that despite this setting, all backends are built into libguestfs, and "
 "you can override the backend at runtime by setting the C<"
@@ -13016,12 +13016,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:624
+#: ../docs/guestfs-building.pod:622
 msgid "B<--with-distro=REDHAT|DEBIAN|...>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:626
+#: ../docs/guestfs-building.pod:624
 msgid ""
 "Libguestfs needs to know which Linux distro is in use so it can choose "
 "package names for the appliance correctly (see for example F<appliance/"
@@ -13029,7 +13029,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:630
+#: ../docs/guestfs-building.pod:628
 msgid ""
 "However if you can building or packaging libguestfs on a new distro then you "
 "can use I<--with-distro> to specify that the distro is similar to an "
@@ -13038,24 +13038,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:635
+#: ../docs/guestfs-building.pod:633
 msgid ""
 "Note that if your distro is completely new then it may still require "
 "upstream modifications."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:638
+#: ../docs/guestfs-building.pod:636
 msgid "B<--with-extra=\">I<distroname>=I<version>,libvirt,...B<\">"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:640
+#: ../docs/guestfs-building.pod:638
 msgid "B<--with-extra=\"local\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:642
+#: ../docs/guestfs-building.pod:640
 msgid ""
 "This option controls the \"extra\" field returned by L<guestfs(3)/"
 "guestfs_version> and also printed by virt tools' I<--version> option.  It is "
@@ -13066,48 +13066,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:649
+#: ../docs/guestfs-building.pod:647
 msgid ""
 "For custom and/or local builds, this can be set to C<local> to indicate this "
 "is I<not> a distro build."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:652
+#: ../docs/guestfs-building.pod:650
 msgid "B<--without-libvirt>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:654
+#: ../docs/guestfs-building.pod:652
 msgid ""
 "Compile libguestfs without libvirt support, even if libvirt development "
 "libraries are installed."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:657
+#: ../docs/guestfs-building.pod:655
 msgid "B<--with-qemu=\">bin1 bin2 ...B<\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:659
+#: ../docs/guestfs-building.pod:657
 msgid ""
 "Provide an alternate qemu binary (or list of binaries).  This can be "
 "overridden at runtime by setting the C<LIBGUESTFS_HV> environment variable."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:663
+#: ../docs/guestfs-building.pod:661
 msgid "B<--with-supermin-packager-config=>I<yum.conf>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:665
+#: ../docs/guestfs-building.pod:663
 msgid "This passes the I<--packager-config> option to L<supermin(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:667
+#: ../docs/guestfs-building.pod:665
 msgid ""
 "The most common use for this is to build the appliance using an alternate "
 "repository (instead of using the installed yum/dnf/apt/etc configuration to "
@@ -13118,38 +13118,37 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:675
+#: ../docs/guestfs-building.pod:673
 msgid "B<--with-supermin-extra-options=\">--opt1 --opt2 ...B<\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:677
+#: ../docs/guestfs-building.pod:675
 msgid ""
 "Pass additional options to L<supermin(1)>.  See F<appliance/make.sh.in> to "
 "understand precisely what this does."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:680
+#: ../docs/guestfs-building.pod:678
 msgid "B<PYTHON>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:682
+#: ../docs/guestfs-building.pod:680
 msgid ""
 "This environment variable may be set to point to a python binary (eg. "
 "C<python3>).  When C<./configure> runs, it inspects this python binary to "
-"find the version of Python, the location of Python libraries and so on.  See "
-"L</BUILDING PYTHON 2 AND PYTHON 3 BINDINGS> below."
+"find the version of Python, the location of Python libraries and so on."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-building.pod:688
+#: ../docs/guestfs-building.pod:685
 msgid "B<SUPERMIN>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:690
+#: ../docs/guestfs-building.pod:687
 msgid ""
 "This environment variable can be set to choose an alternative L<supermin(1)> "
 "binary.  This might be used, for example, if you want to use a newer "
@@ -13159,17 +13158,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:698
+#: ../docs/guestfs-building.pod:695
 msgid "NOTES ABOUT QEMU AND KVM"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:700
+#: ../docs/guestfs-building.pod:697
 msgid "A common problem is with broken or incompatible qemu releases."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:702
+#: ../docs/guestfs-building.pod:699
 msgid ""
 "Different versions of qemu have problems booting the appliance for different "
 "reasons.  This varies between versions of qemu, and Linux distributions "
@@ -13177,7 +13176,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:706
+#: ../docs/guestfs-building.pod:703
 msgid ""
 "If you find a problem, you could try using your own qemu built from source "
 "(qemu is very easy to build from source), with a \"qemu wrapper\".  See "
@@ -13185,14 +13184,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:710
+#: ../docs/guestfs-building.pod:707
 msgid ""
 "By default the configure script will look for qemu-kvm (KVM support).  KVM "
 "is much faster than using plain qemu."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:713
+#: ../docs/guestfs-building.pod:710
 msgid ""
 "You may also need to enable KVM support for non-root users, by following "
 "these instructions: L<http://www.linux-kvm.org/page/"
@@ -13200,12 +13199,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:717
+#: ../docs/guestfs-building.pod:714
 msgid "On some systems, this will work too:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:719
+#: ../docs/guestfs-building.pod:716
 #, no-wrap
 msgid ""
 " chmod 0666 /dev/kvm\n"
@@ -13213,19 +13212,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:721
+#: ../docs/guestfs-building.pod:718
 msgid ""
 "On some systems, the chmod will not survive a reboot, and you will need to "
 "make edits to the udev configuration."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:724
+#: ../docs/guestfs-building.pod:721
 msgid "USING CLANG (LLVM) INSTEAD OF GCC"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:726
+#: ../docs/guestfs-building.pod:723
 #, no-wrap
 msgid ""
 " export CC=clang\n"
@@ -13235,19 +13234,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:730
+#: ../docs/guestfs-building.pod:727
 msgid "USING A PREBUILT BINARY APPLIANCE"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:732
+#: ../docs/guestfs-building.pod:729
 msgid ""
 "To understand what the libguestfs appliance means, see L<guestfs-"
 "internals(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:735
+#: ../docs/guestfs-building.pod:732
 msgid ""
 "If you are using non-Linux, or a Linux distribution that does not have "
 "L<supermin(1)> support, or simply if you don't want to build your own "
@@ -13256,12 +13255,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:741
+#: ../docs/guestfs-building.pod:738
 msgid "Build libguestfs like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:743
+#: ../docs/guestfs-building.pod:740
 #, no-wrap
 msgid ""
 " ./configure --disable-appliance --disable-daemon\n"
@@ -13270,14 +13269,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:746
+#: ../docs/guestfs-building.pod:743
 msgid ""
 "Set C<$LIBGUESTFS_PATH> to the path where you unpacked the appliance "
 "tarball, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:749 ../docs/guestfs-faq.pod:560
+#: ../docs/guestfs-building.pod:746 ../docs/guestfs-faq.pod:560
 #: ../docs/guestfs-performance.pod:147
 #, no-wrap
 msgid ""
@@ -13286,106 +13285,70 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:751
+#: ../docs/guestfs-building.pod:748
 msgid ""
 "and run the libguestfs programs and virt tools in the normal way, eg. using "
 "the F<./run> script (see above)."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:754
-msgid "BUILDING PYTHON 2 AND PYTHON 3 BINDINGS"
-msgstr ""
-
-#. type: textblock
-#: ../docs/guestfs-building.pod:756
-msgid ""
-"The F<./configure> script detects the currently installed version of Python "
-"using whatever program is called C<python> in the current C<$PATH>.  "
-"Libguestfs will build Python 2 or Python 3 bindings as appropriate."
-msgstr ""
-
-#. type: textblock
-#: ../docs/guestfs-building.pod:761
-msgid ""
-"You can override this behaviour by specifying an alternate Python binary, eg:"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/guestfs-building.pod:764
-#, no-wrap
-msgid ""
-" PYTHON=/usr/bin/python3 ./configure\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/guestfs-building.pod:766
-msgid ""
-"To build parallel Python 2 and Python 3 bindings, you will need to build "
-"libguestfs twice.  The second time, you can disable all the other bindings "
-"and tools and just build the Python bindings.  See the Fedora spec file (see "
-"below) for a complete example of how to do this."
-msgstr ""
-
-#. type: =head1
-#: ../docs/guestfs-building.pod:771
+#: ../docs/guestfs-building.pod:751
 msgid "BUILDING A PACKAGE FOR FEDORA"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:773
+#: ../docs/guestfs-building.pod:753
 msgid ""
 "The Fedora spec file is stored under: L<http://pkgs.fedoraproject.org/cgit/"
 "rpms/libguestfs.git/>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:776
+#: ../docs/guestfs-building.pod:756
 msgid ""
 "Libguestfs is built in Fedora using the ordinary Fedora build system (Koji)."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:779
+#: ../docs/guestfs-building.pod:759
 msgid "BUILDING A PACKAGE FOR RED HAT ENTERPRISE LINUX"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:781
+#: ../docs/guestfs-building.pod:761
 msgid ""
 "Red Hat Enterprise Linux (RHEL) builds of libguestfs are heavily patched.  "
 "There are broadly two types of patches we apply:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:788
+#: ../docs/guestfs-building.pod:768
 msgid ""
 "We disable many features that we do not wish to support for RHEL customers.  "
 "For example, the \"libguestfs live\" feature is disabled."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:793
+#: ../docs/guestfs-building.pod:773
 msgid "We backport upstream features."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:797
+#: ../docs/guestfs-building.pod:777
 msgid ""
 "The patches we apply to RHEL releases are available publically in the "
 "upstream git repository, in a branch called C<rhel-x.y>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:800
+#: ../docs/guestfs-building.pod:780
 msgid ""
 "For example, the RHEL 7.3 patches are available here: L<https://github.com/"
 "libguestfs/libguestfs/commits/rhel-7.3>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:803
+#: ../docs/guestfs-building.pod:783
 msgid ""
 "The sources and spec files for RHEL versions of libguestfs are available on "
 "L<https://git.centos.org/project/rpms>, and see also L<https://wiki.centos."
@@ -13393,7 +13356,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:809
+#: ../docs/guestfs-building.pod:789
 msgid ""
 "L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-hacking(1)>, L<guestfs-"
 "internals(1)>, L<guestfs-performance(1)>, L<guestfs-release-notes(1)>, "
@@ -18117,7 +18080,7 @@ msgstr ""
 #, no-wrap
 msgid ""
 " virt_customize_LINK = \\\n"
-"     $(top_srcdir)/ocaml-link.sh -cclib '-lutils -lgnu' -- ...\n"
+"     $(top_builddir)/ocaml-link.sh -cclib '-lutils -lgnu' -- ...\n"
 "\n"
 msgstr ""
 
@@ -40739,7 +40702,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/internal-documentation.pod:549
-#: ../docs/internal-documentation.pod:3946 ../fuse/guestunmount.pod:131
+#: ../docs/internal-documentation.pod:3973 ../fuse/guestunmount.pod:131
 msgid "C<1>"
 msgstr ""
 
@@ -40750,7 +40713,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/internal-documentation.pod:553
-#: ../docs/internal-documentation.pod:3950
+#: ../docs/internal-documentation.pod:3977
 msgid "C<0>"
 msgstr ""
 
@@ -40761,7 +40724,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/internal-documentation.pod:557
-#: ../docs/internal-documentation.pod:3954
+#: ../docs/internal-documentation.pod:3981
 msgid "C<-1>"
 msgstr ""
 
@@ -47907,11 +47870,38 @@ msgstr ""
 
 #. type: =head4
 #: ../docs/internal-documentation.pod:3784
-msgid "Function C<daemon/utils.c:trim>"
+msgid "Function C<daemon/utils.c:filter_list>"
 msgstr ""
 
 #. type: verbatim
 #: ../docs/internal-documentation.pod:3786
+#, no-wrap
+msgid ""
+" char **\n"
+" filter_list (bool (*p) (const char *str), char **strs)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3789
+msgid ""
+"Filter a list of strings.  Returns a newly allocated list of only the "
+"strings where C<p (str) == true>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3792
+msgid ""
+"B<Note> it does not copy the strings, be careful not to double-free them."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3795
+msgid "Function C<daemon/utils.c:trim>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3797
 #, no-wrap
 msgid ""
 " void\n"
@@ -47920,18 +47910,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3789
+#: ../docs/internal-documentation.pod:3800
 msgid ""
 "Skip leading and trailing whitespace, updating the original string in-place."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3792
+#: ../docs/internal-documentation.pod:3803
 msgid "Function C<daemon/utils.c:parse_btrfsvol>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3794
+#: ../docs/internal-documentation.pod:3805
 #, no-wrap
 msgid ""
 " int\n"
@@ -47940,19 +47930,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3797
+#: ../docs/internal-documentation.pod:3808
 msgid ""
 "Parse the mountable descriptor for a btrfs subvolume.  Don't call this "
 "directly; it is only used from the stubs."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3800
+#: ../docs/internal-documentation.pod:3811
 msgid "A btrfs subvolume is given as:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3802
+#: ../docs/internal-documentation.pod:3813
 #, no-wrap
 msgid ""
 " btrfsvol:/dev/sda3/root\n"
@@ -47960,7 +47950,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3804
+#: ../docs/internal-documentation.pod:3815
 msgid ""
 "where F</dev/sda3> is a block device containing a btrfs filesystem, and root "
 "is the name of a subvolume on it. This function is passed the string "
@@ -47968,19 +47958,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3808
+#: ../docs/internal-documentation.pod:3819
 msgid ""
 "On success, C<mountable-E<gt>device> and C<mountable-E<gt>volume> must be "
 "freed by the caller."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3811
+#: ../docs/internal-documentation.pod:3822
 msgid "Function C<daemon/utils.c:mountable_to_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3813
+#: ../docs/internal-documentation.pod:3824
 #, no-wrap
 msgid ""
 " char *\n"
@@ -47989,24 +47979,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3816
+#: ../docs/internal-documentation.pod:3827
 msgid "Convert a C<mountable_t> back to its string representation"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3818
+#: ../docs/internal-documentation.pod:3829
 msgid ""
 "This function can be used in an error path, so must not call "
 "C<reply_with_error>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3821
+#: ../docs/internal-documentation.pod:3832
 msgid "Function C<daemon/utils.c:prog_exists>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3823
+#: ../docs/internal-documentation.pod:3834
 #, no-wrap
 msgid ""
 " int\n"
@@ -48015,17 +48005,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3826
+#: ../docs/internal-documentation.pod:3837
 msgid "Check program exists and is executable on C<$PATH>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3828
+#: ../docs/internal-documentation.pod:3839
 msgid "Function C<daemon/utils.c:random_name>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3830
+#: ../docs/internal-documentation.pod:3841
 #, no-wrap
 msgid ""
 " int\n"
@@ -48034,7 +48024,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3833
+#: ../docs/internal-documentation.pod:3844
 msgid ""
 "Pass a template such as C<\"/sysroot/XXXXXXXX.XXX\">.  This updates the "
 "template to contain a randomly named file.  Any C<'X'> characters after the "
@@ -48042,7 +48032,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3838
+#: ../docs/internal-documentation.pod:3849
 msgid ""
 "Notes: You should probably use an 8.3 path, so it's compatible with all "
 "filesystems including basic FAT.  Also this only substitutes lowercase ASCII "
@@ -48051,24 +48041,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3843
+#: ../docs/internal-documentation.pod:3854
 msgid ""
 "This doesn't create a file or check whether or not the file exists (it would "
 "be extremely unlikely to exist as long as the RNG is working)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3847
+#: ../docs/internal-documentation.pod:3858
 msgid "If there is an error, C<-1> is returned."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3849
+#: ../docs/internal-documentation.pod:3860
 msgid "Function C<daemon/utils.c:udev_settle_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3851
+#: ../docs/internal-documentation.pod:3862
 #, no-wrap
 msgid ""
 " void\n"
@@ -48077,7 +48067,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3854
+#: ../docs/internal-documentation.pod:3865
 msgid ""
 "LVM and other commands aren't synchronous, especially when udev is "
 "involved.  eg. You can create or remove some device, but the C</dev> device "
@@ -48086,19 +48076,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3859
+#: ../docs/internal-documentation.pod:3870
 msgid ""
 "Use C<udevadm settle> after certain commands, but don't be too fussed if it "
 "fails."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3862
+#: ../docs/internal-documentation.pod:3873
 msgid "Function C<daemon/utils.c:make_exclude_from_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3864
+#: ../docs/internal-documentation.pod:3875
 #, no-wrap
 msgid ""
 " char *\n"
@@ -48107,26 +48097,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3867
+#: ../docs/internal-documentation.pod:3878
 msgid ""
 "Turn list C<excludes> into a temporary file, and return a string containing "
 "the temporary file name.  Caller must unlink the file and free the string."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3871
+#: ../docs/internal-documentation.pod:3882
 msgid ""
 "C<function> is the function that invoked this helper, and it is used mainly "
 "for errors/debugging."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3874
+#: ../docs/internal-documentation.pod:3885
 msgid "Function C<daemon/utils.c:read_whole_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3876
+#: ../docs/internal-documentation.pod:3887
 #, no-wrap
 msgid ""
 " char *\n"
@@ -48135,35 +48125,74 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3879
+#: ../docs/internal-documentation.pod:3890
 msgid ""
 "Read whole file into dynamically allocated array.  If there is an error, "
 "DON'T call reply_with_perror, just return NULL.  Returns a C<\\0>-terminated "
 "string.  C<size_r> can be specified to get the size of the returned data."
 msgstr ""
 
+#. type: =head3
+#: ../docs/internal-documentation.pod:3895
+msgid "File F<daemon/xattr.c>"
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3897
+msgid "Function C<daemon/xattr.c:split_attr_names>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3899
+#, no-wrap
+msgid ""
+" static char **\n"
+" split_attr_names (char *buf, size_t len)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3902
+msgid ""
+"L<listxattr(2)> returns the string C<\"foo\\0bar\\0baz\"> of length C<len>.  "
+"(The last string in the list is \\0-terminated but the \\0 is not included "
+"in C<len>)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3906
+msgid "This function splits it into a regular list of strings."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3908
+msgid ""
+"B<Note> that the returned list contains pointers to the original strings in "
+"C<buf> so be careful that you do not double-free them."
+msgstr ""
+
 #. type: =head2
-#: ../docs/internal-documentation.pod:3884
+#: ../docs/internal-documentation.pod:3911
 msgid "Subdirectory F<fish>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3886
+#: ../docs/internal-documentation.pod:3913
 msgid "File F<fish/alloc.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3888
+#: ../docs/internal-documentation.pod:3915
 msgid "This file implements the guestfish C<alloc> and C<sparse> commands."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3890
+#: ../docs/internal-documentation.pod:3917
 msgid "Function C<fish/alloc.c:alloc_disk>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3892
+#: ../docs/internal-documentation.pod:3919
 #, no-wrap
 msgid ""
 " int\n"
@@ -48172,95 +48201,95 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3895
+#: ../docs/internal-documentation.pod:3922
 msgid ""
 "This is the underlying allocation function.  It's called from a few other "
 "places in guestfish."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3898
+#: ../docs/internal-documentation.pod:3925
 msgid "File F<fish/copy.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3900
+#: ../docs/internal-documentation.pod:3927
 msgid "This file implements the guestfish commands C<copy-in> and C<copy-out>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3903
+#: ../docs/internal-documentation.pod:3930
 msgid "File F<fish/destpaths.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3905
+#: ../docs/internal-documentation.pod:3932
 msgid "The file handles tab-completion of filesystem paths in guestfish."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3907
+#: ../docs/internal-documentation.pod:3934
 msgid "File F<fish/display.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3909
+#: ../docs/internal-documentation.pod:3936
 msgid ""
 "The file implements the guestfish C<display> command, for displaying "
 "graphical files (icons, images) in disk images."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3912
+#: ../docs/internal-documentation.pod:3939
 msgid "File F<fish/echo.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3914
+#: ../docs/internal-documentation.pod:3941
 msgid "The file implements the guestfish C<echo> command."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3916
+#: ../docs/internal-documentation.pod:3943
 msgid "File F<fish/edit.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3918
+#: ../docs/internal-documentation.pod:3945
 msgid "guestfish C<edit> command, suggested by Ján Ondrej."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3920
+#: ../docs/internal-documentation.pod:3947
 msgid "File F<fish/events.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3922
+#: ../docs/internal-documentation.pod:3949
 msgid ""
 "This file implements the guestfish event-related commands, C<event>, "
 "C<delete-event> and C<list-events>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3925
+#: ../docs/internal-documentation.pod:3952
 msgid "File F<fish/fish.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3927
+#: ../docs/internal-documentation.pod:3954
 msgid ""
 "guestfish, the guest filesystem shell.  This file contains the main loop and "
 "utilities."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3930
+#: ../docs/internal-documentation.pod:3957
 msgid "Function C<fish/fish.c:parse_command_line>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3932
+#: ../docs/internal-documentation.pod:3959
 #, no-wrap
 msgid ""
 " static struct parsed_command\n"
@@ -48269,47 +48298,47 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3935
+#: ../docs/internal-documentation.pod:3962
 msgid ""
 "Parse a command string, splitting at whitespace, handling C<'!'>, C<'#'> "
 "etc.  This destructively updates C<buf>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3938
+#: ../docs/internal-documentation.pod:3965
 msgid ""
 "C<exit_on_error_rtn> is used to pass in the global C<exit_on_error> setting "
 "and to return the local setting (eg. if the command begins with C<'-'>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3942
+#: ../docs/internal-documentation.pod:3969
 msgid "Returns in C<parsed_command.status>:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3948
+#: ../docs/internal-documentation.pod:3975
 msgid ""
 "got a guestfish command (returned in C<cmd_rtn>/C<argv_rtn>/C<pipe_rtn>)"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3952
+#: ../docs/internal-documentation.pod:3979
 msgid "no guestfish command, but otherwise OK"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3956
+#: ../docs/internal-documentation.pod:3983
 msgid "an error"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3960
+#: ../docs/internal-documentation.pod:3987
 msgid "Function C<fish/fish.c:parse_quoted_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3962
+#: ../docs/internal-documentation.pod:3989
 #, no-wrap
 msgid ""
 " static ssize_t\n"
@@ -48318,7 +48347,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3965
+#: ../docs/internal-documentation.pod:3992
 msgid ""
 "Parse double-quoted strings, replacing backslash escape sequences with the "
 "true character.  Since the string is returned in place, the escapes must "
@@ -48326,12 +48355,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3969
+#: ../docs/internal-documentation.pod:3996
 msgid "Function C<fish/fish.c:execute_and_inline>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3971
+#: ../docs/internal-documentation.pod:3998
 #, no-wrap
 msgid ""
 " static int\n"
@@ -48340,17 +48369,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3974
+#: ../docs/internal-documentation.pod:4001
 msgid "Used to handle C<E<lt>!> (execute command and inline result)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3976
+#: ../docs/internal-documentation.pod:4003
 msgid "Function C<fish/fish.c:issue_command>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3978
+#: ../docs/internal-documentation.pod:4005
 #, no-wrap
 msgid ""
 " int\n"
@@ -48360,12 +48389,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3982
+#: ../docs/internal-documentation.pod:4009
 msgid "Run a command."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3984
+#: ../docs/internal-documentation.pod:4011
 msgid ""
 "C<rc_exit_on_error_flag> is the C<exit_on_error> flag that we pass to the "
 "remote server (when issuing I<--remote> commands).  It does not cause "
@@ -48373,12 +48402,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3988
+#: ../docs/internal-documentation.pod:4015
 msgid "Function C<fish/fish.c:extended_help_message>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3990
+#: ../docs/internal-documentation.pod:4017
 #, no-wrap
 msgid ""
 " void\n"
@@ -48387,14 +48416,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3993
+#: ../docs/internal-documentation.pod:4020
 msgid ""
 "Print an extended help message when the user types in an unknown command for "
 "the first command issued.  A common case is the user doing:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3997
+#: ../docs/internal-documentation.pod:4024
 #, no-wrap
 msgid ""
 "  guestfish disk.img\n"
@@ -48402,19 +48431,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3999
+#: ../docs/internal-documentation.pod:4026
 msgid ""
 "expecting guestfish to open F<disk.img> (in fact, this tried to run a non-"
 "existent command C<disk.img>)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4002
+#: ../docs/internal-documentation.pod:4029
 msgid "Function C<fish/fish.c:error_cb>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4004
+#: ../docs/internal-documentation.pod:4031
 #, no-wrap
 msgid ""
 " static void\n"
@@ -48423,17 +48452,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4007
+#: ../docs/internal-documentation.pod:4034
 msgid "Error callback.  This replaces the standard libguestfs error handler."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4009
+#: ../docs/internal-documentation.pod:4036
 msgid "Function C<fish/fish.c:free_n_strings>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4011
+#: ../docs/internal-documentation.pod:4038
 #, no-wrap
 msgid ""
 " static void\n"
@@ -48442,17 +48471,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4014
+#: ../docs/internal-documentation.pod:4041
 msgid "Free strings from a non-NULL terminated C<char**>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4016
+#: ../docs/internal-documentation.pod:4043
 msgid "Function C<fish/fish.c:decode_ps1>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4018
+#: ../docs/internal-documentation.pod:4045
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -48461,17 +48490,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4021
+#: ../docs/internal-documentation.pod:4048
 msgid "Decode C<str> into the final printable prompt string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4023
+#: ../docs/internal-documentation.pod:4050
 msgid "Function C<fish/fish.c:win_prefix>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4025
+#: ../docs/internal-documentation.pod:4052
 #, no-wrap
 msgid ""
 " char *\n"
@@ -48480,26 +48509,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4028
+#: ../docs/internal-documentation.pod:4055
 msgid ""
 "Resolve the special C<win:...> form for Windows-specific paths.  The "
 "generated code calls this for all device or path arguments."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4031
+#: ../docs/internal-documentation.pod:4058
 msgid ""
 "The function returns a newly allocated string, and the caller must free this "
 "string; else display an error and return C<NULL>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4034
+#: ../docs/internal-documentation.pod:4061
 msgid "Function C<fish/fish.c:file_in>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4036
+#: ../docs/internal-documentation.pod:4063
 #, no-wrap
 msgid ""
 " char *\n"
@@ -48508,24 +48537,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4039
+#: ../docs/internal-documentation.pod:4066
 msgid "Resolve the special C<FileIn> paths (C<-> or C<-<<END> or filename)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4041
+#: ../docs/internal-documentation.pod:4068
 msgid ""
 "The caller (F<fish/cmds.c>) will call C<free_file_in> after the command has "
 "run which should clean up resources."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4044
+#: ../docs/internal-documentation.pod:4071
 msgid "Function C<fish/fish.c:file_out>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4046
+#: ../docs/internal-documentation.pod:4073
 #, no-wrap
 msgid ""
 " char *\n"
@@ -48534,24 +48563,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4049
+#: ../docs/internal-documentation.pod:4076
 msgid "Resolve the special C<FileOut> paths (C<-> or filename)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4051
+#: ../docs/internal-documentation.pod:4078
 msgid ""
 "The caller (F<fish/cmds.c>) will call S<C<free (str)>> after the command has "
 "run."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4054
+#: ../docs/internal-documentation.pod:4081
 msgid "Function C<fish/fish.c:progress_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4056
+#: ../docs/internal-documentation.pod:4083
 #, no-wrap
 msgid ""
 " void\n"
@@ -48563,27 +48592,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4062
+#: ../docs/internal-documentation.pod:4089
 msgid "Callback which displays a progress bar."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4064
+#: ../docs/internal-documentation.pod:4091
 msgid "File F<fish/glob.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4066
+#: ../docs/internal-documentation.pod:4093
 msgid "This file implements the guestfish C<glob> command."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4068
+#: ../docs/internal-documentation.pod:4095
 msgid "Function C<fish/glob.c:expand_devicename>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4070
+#: ../docs/internal-documentation.pod:4097
 #, no-wrap
 msgid ""
 " static char **\n"
@@ -48592,21 +48621,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4073
+#: ../docs/internal-documentation.pod:4100
 msgid ""
 "Glob-expand device patterns, such as C</dev/sd*> (L<https://bugzilla.redhat."
 "com/635971>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4076
+#: ../docs/internal-documentation.pod:4103
 msgid ""
 "There is no C<guestfs_glob_expand_device> function because the equivalent "
 "can be implemented using functions like C<guestfs_list_devices>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4080
+#: ../docs/internal-documentation.pod:4107
 msgid ""
 "It's not immediately clear what it means to expand a pattern like C</dev/"
 "sd*>.  Should that include device name translation? Should the result "
@@ -48614,42 +48643,42 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4084
+#: ../docs/internal-documentation.pod:4111
 msgid ""
 "Should C<\"/dev/\"> + C<\"*\"> return every possible device and filesystem? "
 "How about VGs? LVs?"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4087
+#: ../docs/internal-documentation.pod:4114
 msgid ""
 "To solve this what we do is build up a list of every device, partition, "
 "etc., then glob against that list."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4090
+#: ../docs/internal-documentation.pod:4117
 msgid "Notes for future work (XXX):"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4096
+#: ../docs/internal-documentation.pod:4123
 msgid ""
 "This doesn't handle device name translation.  It wouldn't be too hard to add."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4101
+#: ../docs/internal-documentation.pod:4128
 msgid "Could have an API function for returning all device-like things."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4105
+#: ../docs/internal-documentation.pod:4132
 msgid "Function C<fish/glob.c:add_strings_matching>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4107
+#: ../docs/internal-documentation.pod:4134
 #, no-wrap
 msgid ""
 " static int\n"
@@ -48659,7 +48688,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4111
+#: ../docs/internal-documentation.pod:4138
 msgid ""
 "Using POSIX L<fnmatch(3)>, find strings in the list C<pp> which match "
 "pattern C<glob>.  Add strings which match to the C<ret> array.  C<*size_r> "
@@ -48667,12 +48696,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4116
+#: ../docs/internal-documentation.pod:4143
 msgid "Function C<fish/glob.c:single_element_list>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4118
+#: ../docs/internal-documentation.pod:4145
 #, no-wrap
 msgid ""
 " static char **\n"
@@ -48681,27 +48710,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4121
+#: ../docs/internal-documentation.pod:4148
 msgid "Return a single element list containing C<element>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4123
+#: ../docs/internal-documentation.pod:4150
 msgid "File F<fish/help.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4125
+#: ../docs/internal-documentation.pod:4152
 msgid "The file implements the guestfish C<help> command."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4127
+#: ../docs/internal-documentation.pod:4154
 msgid "Function C<fish/help.c:display_help>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4129
+#: ../docs/internal-documentation.pod:4156
 #, no-wrap
 msgid ""
 " int\n"
@@ -48710,12 +48739,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4132
+#: ../docs/internal-documentation.pod:4159
 msgid "The C<help> command."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4134
+#: ../docs/internal-documentation.pod:4161
 msgid ""
 "This used to just list all commands, but that's not very useful.  Instead "
 "display some useful context-sensitive help.  This could be improved if we "
@@ -48724,27 +48753,27 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4139
+#: ../docs/internal-documentation.pod:4166
 msgid "File F<fish/hexedit.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4141
+#: ../docs/internal-documentation.pod:4168
 msgid "This file implements the guestfish C<hexedit> command."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4143
+#: ../docs/internal-documentation.pod:4170
 msgid "File F<fish/lcd.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4145
+#: ../docs/internal-documentation.pod:4172
 msgid "Function C<fish/lcd.c:run_lcd>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4147
+#: ../docs/internal-documentation.pod:4174
 #, no-wrap
 msgid ""
 " int\n"
@@ -48753,22 +48782,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4150
+#: ../docs/internal-documentation.pod:4177
 msgid "guestfish C<lcd> command (similar to the C<lcd> command in BSD ftp)."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4152
+#: ../docs/internal-documentation.pod:4179
 msgid "File F<fish/man.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4154
+#: ../docs/internal-documentation.pod:4181
 msgid "Function C<fish/man.c:run_man>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4156
+#: ../docs/internal-documentation.pod:4183
 #, no-wrap
 msgid ""
 " int\n"
@@ -48777,49 +48806,49 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4159
+#: ../docs/internal-documentation.pod:4186
 msgid "guestfish C<man> command"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4161
+#: ../docs/internal-documentation.pod:4188
 msgid "File F<fish/more.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4163
+#: ../docs/internal-documentation.pod:4190
 msgid "This file implements the guestfish C<more> command."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4165
+#: ../docs/internal-documentation.pod:4192
 msgid "File F<fish/prep.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4167
+#: ../docs/internal-documentation.pod:4194
 msgid ""
 "This file implements the guestfish I<-N> option for creating pre-prepared "
 "disk layouts."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4170
+#: ../docs/internal-documentation.pod:4197
 msgid "File F<fish/rc.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4172
+#: ../docs/internal-documentation.pod:4199
 msgid "This file implements guestfish remote (command) support."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4174
+#: ../docs/internal-documentation.pod:4201
 msgid "Function C<fish/rc.c:rc_listen>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4176
+#: ../docs/internal-documentation.pod:4203
 #, no-wrap
 msgid ""
 " void\n"
@@ -48828,17 +48857,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4179
+#: ../docs/internal-documentation.pod:4206
 msgid "The remote control server (ie. C<guestfish --listen>)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4181
+#: ../docs/internal-documentation.pod:4208
 msgid "Function C<fish/rc.c:rc_remote>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4183
+#: ../docs/internal-documentation.pod:4210
 #, no-wrap
 msgid ""
 " int\n"
@@ -48848,59 +48877,59 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4187
+#: ../docs/internal-documentation.pod:4214
 msgid "The remote control client (ie. C<guestfish --remote>)."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4189
+#: ../docs/internal-documentation.pod:4216
 msgid "File F<fish/reopen.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4191
+#: ../docs/internal-documentation.pod:4218
 msgid "This file implements the guestfish C<reopen> command."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4193
+#: ../docs/internal-documentation.pod:4220
 msgid "File F<fish/setenv.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4195
+#: ../docs/internal-documentation.pod:4222
 msgid "This file implements the guestfish C<setenv> and C<unsetenv> commands."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4198
+#: ../docs/internal-documentation.pod:4225
 msgid "File F<fish/supported.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4200
+#: ../docs/internal-documentation.pod:4227
 msgid "This file implements the guestfish C<supported> command."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4202
+#: ../docs/internal-documentation.pod:4229
 msgid "File F<fish/tilde.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4204
+#: ../docs/internal-documentation.pod:4231
 msgid ""
 "This file implements tilde (C<~>) expansion of home directories in "
 "L<guestfish(1)>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4207
+#: ../docs/internal-documentation.pod:4234
 msgid "Function C<fish/tilde.c:try_tilde_expansion>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4209
+#: ../docs/internal-documentation.pod:4236
 #, no-wrap
 msgid ""
 " char *\n"
@@ -48909,19 +48938,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4212
+#: ../docs/internal-documentation.pod:4239
 msgid ""
 "This is called from the script loop if we find a candidate for C<~username> "
 "(tilde-expansion)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4215
+#: ../docs/internal-documentation.pod:4242
 msgid "Function C<fish/tilde.c:expand_home>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4217
+#: ../docs/internal-documentation.pod:4244
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -48930,17 +48959,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4220
+#: ../docs/internal-documentation.pod:4247
 msgid "Return C<$HOME> + append string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4222
+#: ../docs/internal-documentation.pod:4249
 msgid "Function C<fish/tilde.c:find_home_for_username>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4224
+#: ../docs/internal-documentation.pod:4251
 #, no-wrap
 msgid ""
 " static const char *\n"
@@ -48949,34 +48978,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4227
+#: ../docs/internal-documentation.pod:4254
 msgid ""
 "Lookup C<username> (of length C<ulen>), return home directory if found, or "
 "C<NULL> if not found."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4230
+#: ../docs/internal-documentation.pod:4257
 msgid "File F<fish/time.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4232
+#: ../docs/internal-documentation.pod:4259
 msgid "This file implements the guestfish C<time> command."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:4234
+#: ../docs/internal-documentation.pod:4261
 msgid "Subdirectory F<python>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4236
+#: ../docs/internal-documentation.pod:4263
 msgid "File F<python/handle.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4238
+#: ../docs/internal-documentation.pod:4265
 msgid ""
 "This file contains a small number of functions that are written by hand.  "
 "The majority of the bindings are generated (see F<python/actions-*.c>)."
@@ -107763,45 +107792,45 @@ msgstr ""
 #: ../sysprep/sysprep-operations.pod:19 ../sysprep/sysprep-operations.pod:23
 #: ../sysprep/sysprep-operations.pod:34 ../sysprep/sysprep-operations.pod:38
 #: ../sysprep/sysprep-operations.pod:42 ../sysprep/sysprep-operations.pod:46
-#: ../sysprep/sysprep-operations.pod:50 ../sysprep/sysprep-operations.pod:162
-#: ../sysprep/sysprep-operations.pod:166 ../sysprep/sysprep-operations.pod:170
-#: ../sysprep/sysprep-operations.pod:174 ../sysprep/sysprep-operations.pod:178
-#: ../sysprep/sysprep-operations.pod:182 ../sysprep/sysprep-operations.pod:186
-#: ../sysprep/sysprep-operations.pod:190 ../sysprep/sysprep-operations.pod:194
-#: ../sysprep/sysprep-operations.pod:198 ../sysprep/sysprep-operations.pod:202
-#: ../sysprep/sysprep-operations.pod:206 ../sysprep/sysprep-operations.pod:210
-#: ../sysprep/sysprep-operations.pod:214 ../sysprep/sysprep-operations.pod:218
-#: ../sysprep/sysprep-operations.pod:222 ../sysprep/sysprep-operations.pod:226
-#: ../sysprep/sysprep-operations.pod:230 ../sysprep/sysprep-operations.pod:234
-#: ../sysprep/sysprep-operations.pod:238 ../sysprep/sysprep-operations.pod:242
-#: ../sysprep/sysprep-operations.pod:246 ../sysprep/sysprep-operations.pod:250
-#: ../sysprep/sysprep-operations.pod:254 ../sysprep/sysprep-operations.pod:258
-#: ../sysprep/sysprep-operations.pod:262 ../sysprep/sysprep-operations.pod:266
-#: ../sysprep/sysprep-operations.pod:270 ../sysprep/sysprep-operations.pod:274
-#: ../sysprep/sysprep-operations.pod:278 ../sysprep/sysprep-operations.pod:282
-#: ../sysprep/sysprep-operations.pod:286 ../sysprep/sysprep-operations.pod:290
-#: ../sysprep/sysprep-operations.pod:294 ../sysprep/sysprep-operations.pod:298
-#: ../sysprep/sysprep-operations.pod:302 ../sysprep/sysprep-operations.pod:306
-#: ../sysprep/sysprep-operations.pod:310 ../sysprep/sysprep-operations.pod:314
-#: ../sysprep/sysprep-operations.pod:318 ../sysprep/sysprep-operations.pod:322
-#: ../sysprep/sysprep-operations.pod:326 ../sysprep/sysprep-operations.pod:330
-#: ../sysprep/sysprep-operations.pod:334 ../sysprep/sysprep-operations.pod:338
-#: ../sysprep/sysprep-operations.pod:342 ../sysprep/sysprep-operations.pod:346
-#: ../sysprep/sysprep-operations.pod:350 ../sysprep/sysprep-operations.pod:354
-#: ../sysprep/sysprep-operations.pod:358 ../sysprep/sysprep-operations.pod:362
-#: ../sysprep/sysprep-operations.pod:366 ../sysprep/sysprep-operations.pod:370
-#: ../sysprep/sysprep-operations.pod:374 ../sysprep/sysprep-operations.pod:378
-#: ../sysprep/sysprep-operations.pod:382 ../sysprep/sysprep-operations.pod:386
-#: ../sysprep/sysprep-operations.pod:390 ../sysprep/sysprep-operations.pod:394
-#: ../sysprep/sysprep-operations.pod:398 ../sysprep/sysprep-operations.pod:402
-#: ../sysprep/sysprep-operations.pod:406 ../sysprep/sysprep-operations.pod:410
-#: ../sysprep/sysprep-operations.pod:414 ../sysprep/sysprep-operations.pod:418
-#: ../sysprep/sysprep-operations.pod:422 ../sysprep/sysprep-operations.pod:426
-#: ../sysprep/sysprep-operations.pod:430 ../sysprep/sysprep-operations.pod:434
-#: ../sysprep/sysprep-operations.pod:438 ../sysprep/sysprep-operations.pod:510
-#: ../sysprep/sysprep-operations.pod:514 ../sysprep/sysprep-operations.pod:518
-#: ../sysprep/sysprep-operations.pod:522 ../sysprep/sysprep-operations.pod:526
-#: ../sysprep/sysprep-operations.pod:530
+#: ../sysprep/sysprep-operations.pod:50 ../sysprep/sysprep-operations.pod:180
+#: ../sysprep/sysprep-operations.pod:184 ../sysprep/sysprep-operations.pod:188
+#: ../sysprep/sysprep-operations.pod:192 ../sysprep/sysprep-operations.pod:196
+#: ../sysprep/sysprep-operations.pod:200 ../sysprep/sysprep-operations.pod:204
+#: ../sysprep/sysprep-operations.pod:208 ../sysprep/sysprep-operations.pod:212
+#: ../sysprep/sysprep-operations.pod:216 ../sysprep/sysprep-operations.pod:220
+#: ../sysprep/sysprep-operations.pod:224 ../sysprep/sysprep-operations.pod:228
+#: ../sysprep/sysprep-operations.pod:232 ../sysprep/sysprep-operations.pod:236
+#: ../sysprep/sysprep-operations.pod:240 ../sysprep/sysprep-operations.pod:244
+#: ../sysprep/sysprep-operations.pod:248 ../sysprep/sysprep-operations.pod:252
+#: ../sysprep/sysprep-operations.pod:256 ../sysprep/sysprep-operations.pod:260
+#: ../sysprep/sysprep-operations.pod:264 ../sysprep/sysprep-operations.pod:268
+#: ../sysprep/sysprep-operations.pod:272 ../sysprep/sysprep-operations.pod:276
+#: ../sysprep/sysprep-operations.pod:280 ../sysprep/sysprep-operations.pod:284
+#: ../sysprep/sysprep-operations.pod:288 ../sysprep/sysprep-operations.pod:292
+#: ../sysprep/sysprep-operations.pod:296 ../sysprep/sysprep-operations.pod:300
+#: ../sysprep/sysprep-operations.pod:304 ../sysprep/sysprep-operations.pod:308
+#: ../sysprep/sysprep-operations.pod:312 ../sysprep/sysprep-operations.pod:316
+#: ../sysprep/sysprep-operations.pod:320 ../sysprep/sysprep-operations.pod:324
+#: ../sysprep/sysprep-operations.pod:328 ../sysprep/sysprep-operations.pod:332
+#: ../sysprep/sysprep-operations.pod:336 ../sysprep/sysprep-operations.pod:340
+#: ../sysprep/sysprep-operations.pod:344 ../sysprep/sysprep-operations.pod:348
+#: ../sysprep/sysprep-operations.pod:352 ../sysprep/sysprep-operations.pod:356
+#: ../sysprep/sysprep-operations.pod:360 ../sysprep/sysprep-operations.pod:364
+#: ../sysprep/sysprep-operations.pod:368 ../sysprep/sysprep-operations.pod:372
+#: ../sysprep/sysprep-operations.pod:376 ../sysprep/sysprep-operations.pod:380
+#: ../sysprep/sysprep-operations.pod:384 ../sysprep/sysprep-operations.pod:388
+#: ../sysprep/sysprep-operations.pod:392 ../sysprep/sysprep-operations.pod:396
+#: ../sysprep/sysprep-operations.pod:400 ../sysprep/sysprep-operations.pod:404
+#: ../sysprep/sysprep-operations.pod:408 ../sysprep/sysprep-operations.pod:412
+#: ../sysprep/sysprep-operations.pod:416 ../sysprep/sysprep-operations.pod:420
+#: ../sysprep/sysprep-operations.pod:424 ../sysprep/sysprep-operations.pod:428
+#: ../sysprep/sysprep-operations.pod:432 ../sysprep/sysprep-operations.pod:436
+#: ../sysprep/sysprep-operations.pod:440 ../sysprep/sysprep-operations.pod:444
+#: ../sysprep/sysprep-operations.pod:448 ../sysprep/sysprep-operations.pod:452
+#: ../sysprep/sysprep-operations.pod:456 ../sysprep/sysprep-operations.pod:528
+#: ../sysprep/sysprep-operations.pod:532 ../sysprep/sysprep-operations.pod:536
+#: ../sysprep/sysprep-operations.pod:540 ../sysprep/sysprep-operations.pod:544
+#: ../sysprep/sysprep-operations.pod:548
 msgid "·"
 msgstr ""
 
@@ -107897,114 +107926,119 @@ msgstr ""
 msgid "Remove CA certificates in the guest."
 msgstr ""
 
-#. type: =head2
+#. type: textblock
 #: ../sysprep/sysprep-operations.pod:79
+msgid "In case any certificate is removed, the system CA store is updated."
+msgstr ""
+
+#. type: =head2
+#: ../sysprep/sysprep-operations.pod:81
 msgid "B<crash-data> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:82
+#: ../sysprep/sysprep-operations.pod:84
 msgid "Remove the crash data generated by kexec-tools."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:84
+#: ../sysprep/sysprep-operations.pod:86
 msgid "Remove the automatically generated kdump kernel crash data."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:86
+#: ../sysprep/sysprep-operations.pod:88
 msgid "B<cron-spool> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:89
+#: ../sysprep/sysprep-operations.pod:91
 msgid "Remove user at-jobs and cron-jobs."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:91
+#: ../sysprep/sysprep-operations.pod:93
 msgid "B<customize> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:94
+#: ../sysprep/sysprep-operations.pod:96
 msgid "Customize the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:96
+#: ../sysprep/sysprep-operations.pod:98
 msgid ""
 "Customize the guest by providing L<virt-customize(1)> options for installing "
 "packages, editing files and so on."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:99
+#: ../sysprep/sysprep-operations.pod:101
 msgid "B<dhcp-client-state> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:102
+#: ../sysprep/sysprep-operations.pod:104
 msgid "Remove DHCP client leases."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:104
+#: ../sysprep/sysprep-operations.pod:106
 msgid "B<dhcp-server-state> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:107
+#: ../sysprep/sysprep-operations.pod:109
 msgid "Remove DHCP server leases."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:109
+#: ../sysprep/sysprep-operations.pod:111
 msgid "B<dovecot-data> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:112
+#: ../sysprep/sysprep-operations.pod:114
 msgid "Remove Dovecot (mail server) data."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:114
+#: ../sysprep/sysprep-operations.pod:116
 msgid "B<firewall-rules>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:116
+#: ../sysprep/sysprep-operations.pod:118
 msgid "Remove the firewall rules."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:118
+#: ../sysprep/sysprep-operations.pod:120
 msgid ""
 "This removes custom firewall rules by removing C</etc/sysconfig/iptables> or "
 "custom firewalld configuration in C</etc/firewalld/*/*>."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:121
+#: ../sysprep/sysprep-operations.pod:123
 msgid ""
 "Note this is I<not> enabled by default since it may expose guests to "
 "exploits.  Use with care."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:124
+#: ../sysprep/sysprep-operations.pod:126
 msgid "B<flag-reconfiguration>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:126
+#: ../sysprep/sysprep-operations.pod:128
 msgid "Flag the system for reconfiguration."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:128
+#: ../sysprep/sysprep-operations.pod:130
 msgid ""
 "For Linux guests, this touches C</.unconfigured>, which causes the first "
 "boot to interactively query the user for settings such as the root password "
@@ -108012,29 +108046,29 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:132
+#: ../sysprep/sysprep-operations.pod:134
 msgid "B<fs-uuids>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:134
+#: ../sysprep/sysprep-operations.pod:136
 msgid "Change filesystem UUIDs."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:136
+#: ../sysprep/sysprep-operations.pod:138
 msgid ""
 "On guests and filesystem types where this is supported, new random UUIDs are "
 "generated and assigned to filesystems."
 msgstr ""
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:139
+#: ../sysprep/sysprep-operations.pod:141
 msgid "Notes on fs-uuids"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:141
+#: ../sysprep/sysprep-operations.pod:143
 msgid ""
 "The fs-uuids operation is disabled by default because it does not yet find "
 "and update all the places in the guest that use the UUIDs.  For example C</"
@@ -108043,414 +108077,447 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:147
+#: ../sysprep/sysprep-operations.pod:149
 msgid "See: L<https://bugzilla.redhat.com/show_bug.cgi?id=991641>"
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:149
-msgid "B<kerberos-data>"
+#: ../sysprep/sysprep-operations.pod:151
+msgid "B<ipa-client> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:151
-msgid "Remove Kerberos data in the guest."
-msgstr ""
-
-#. type: =head2
-#: ../sysprep/sysprep-operations.pod:153
-msgid "B<logfiles> *"
+#: ../sysprep/sysprep-operations.pod:154
+msgid "Remove the IPA files."
 msgstr ""
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:156
-msgid "Remove many log files from the guest."
+msgid ""
+"Remove all the files related to an IPA (Identity, Policy, Audit) system.  "
+"This effectively unenrolls the guest from an IPA server without interacting "
+"with it."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:158 ../sysprep/sysprep-operations.pod:506
-msgid "On Linux the following files are removed:"
+#: ../sysprep/sysprep-operations.pod:160
+msgid "This operation does not run C<ipa-client>."
+msgstr ""
+
+#. type: =head2
+#: ../sysprep/sysprep-operations.pod:162
+msgid "B<kerberos-data>"
 msgstr ""
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:164
+msgid "Remove Kerberos data in the guest."
+msgstr ""
+
+#. type: =head2
+#: ../sysprep/sysprep-operations.pod:166
+msgid "B<kerberos-hostkeytab> *"
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:169
+msgid "Remove the Kerberos host keytab file in the guest."
+msgstr ""
+
+#. type: =head2
+#: ../sysprep/sysprep-operations.pod:171
+msgid "B<logfiles> *"
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:174
+msgid "Remove many log files from the guest."
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:176 ../sysprep/sysprep-operations.pod:524
+msgid "On Linux the following files are removed:"
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:182
 msgid "/etc/Pegasus/*.cnf"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:168
+#: ../sysprep/sysprep-operations.pod:186
 msgid "/etc/Pegasus/*.crt"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:172
+#: ../sysprep/sysprep-operations.pod:190
 msgid "/etc/Pegasus/*.csr"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:176
+#: ../sysprep/sysprep-operations.pod:194
 msgid "/etc/Pegasus/*.pem"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:180
+#: ../sysprep/sysprep-operations.pod:198
 msgid "/etc/Pegasus/*.srl"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:184
+#: ../sysprep/sysprep-operations.pod:202
 msgid "/root/anaconda-ks.cfg"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:188
+#: ../sysprep/sysprep-operations.pod:206
 msgid "/root/anaconda-post.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:192
+#: ../sysprep/sysprep-operations.pod:210
 msgid "/root/initial-setup-ks.cfg"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:196
+#: ../sysprep/sysprep-operations.pod:214
 msgid "/root/install.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:200
+#: ../sysprep/sysprep-operations.pod:218
 msgid "/root/install.log.syslog"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:204
+#: ../sysprep/sysprep-operations.pod:222
 msgid "/root/original-ks.cfg"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:208
+#: ../sysprep/sysprep-operations.pod:226
 msgid "/var/cache/fontconfig/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:212
+#: ../sysprep/sysprep-operations.pod:230
 msgid "/var/cache/gdm/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:216
+#: ../sysprep/sysprep-operations.pod:234
 msgid "/var/cache/man/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:220
+#: ../sysprep/sysprep-operations.pod:238
 msgid "/var/lib/AccountService/users/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:224
+#: ../sysprep/sysprep-operations.pod:242
 msgid "/var/lib/fprint/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:228
+#: ../sysprep/sysprep-operations.pod:246
 msgid "/var/lib/logrotate.status"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:232
+#: ../sysprep/sysprep-operations.pod:250
 msgid "/var/log/*.log*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:236
+#: ../sysprep/sysprep-operations.pod:254
 msgid "/var/log/BackupPC/LOG"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:240
+#: ../sysprep/sysprep-operations.pod:258
 msgid "/var/log/ConsoleKit/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:244
+#: ../sysprep/sysprep-operations.pod:262
 msgid "/var/log/anaconda.syslog"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:248
+#: ../sysprep/sysprep-operations.pod:266
 msgid "/var/log/anaconda/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:252
+#: ../sysprep/sysprep-operations.pod:270
 msgid "/var/log/apache2/*_log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:256
+#: ../sysprep/sysprep-operations.pod:274
 msgid "/var/log/apache2/*_log-*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:260
+#: ../sysprep/sysprep-operations.pod:278
 msgid "/var/log/apt/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:264
+#: ../sysprep/sysprep-operations.pod:282
 msgid "/var/log/aptitude*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:268
+#: ../sysprep/sysprep-operations.pod:286
 msgid "/var/log/audit/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:272
+#: ../sysprep/sysprep-operations.pod:290
 msgid "/var/log/btmp*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:276
+#: ../sysprep/sysprep-operations.pod:294
 msgid "/var/log/ceph/*.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:280
+#: ../sysprep/sysprep-operations.pod:298
 msgid "/var/log/chrony/*.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:284
+#: ../sysprep/sysprep-operations.pod:302
 msgid "/var/log/cron*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:288
+#: ../sysprep/sysprep-operations.pod:306
 msgid "/var/log/cups/*_log*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:292
+#: ../sysprep/sysprep-operations.pod:310
 msgid "/var/log/debug*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:296
+#: ../sysprep/sysprep-operations.pod:314
 msgid "/var/log/dmesg*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:300
+#: ../sysprep/sysprep-operations.pod:318
 msgid "/var/log/exim4/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:304
+#: ../sysprep/sysprep-operations.pod:322
 msgid "/var/log/faillog*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:308
+#: ../sysprep/sysprep-operations.pod:326
 msgid "/var/log/firewalld*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:312
+#: ../sysprep/sysprep-operations.pod:330
 msgid "/var/log/gdm/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:316
+#: ../sysprep/sysprep-operations.pod:334
 msgid "/var/log/glusterfs/*glusterd.vol.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:320
+#: ../sysprep/sysprep-operations.pod:338
 msgid "/var/log/glusterfs/glusterfs.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:324
+#: ../sysprep/sysprep-operations.pod:342
 msgid "/var/log/grubby*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:328
+#: ../sysprep/sysprep-operations.pod:346
 msgid "/var/log/httpd/*log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:332
+#: ../sysprep/sysprep-operations.pod:350
 msgid "/var/log/installer/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:336
+#: ../sysprep/sysprep-operations.pod:354
 msgid "/var/log/jetty/jetty-console.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:340
+#: ../sysprep/sysprep-operations.pod:358
 msgid "/var/log/journal/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:344
+#: ../sysprep/sysprep-operations.pod:362
 msgid "/var/log/lastlog*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:348
+#: ../sysprep/sysprep-operations.pod:366
 msgid "/var/log/libvirt/libvirtd.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:352
+#: ../sysprep/sysprep-operations.pod:370
 msgid "/var/log/libvirt/libxl/*.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:356
+#: ../sysprep/sysprep-operations.pod:374
 msgid "/var/log/libvirt/lxc/*.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:360
+#: ../sysprep/sysprep-operations.pod:378
 msgid "/var/log/libvirt/qemu/*.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:364
+#: ../sysprep/sysprep-operations.pod:382
 msgid "/var/log/libvirt/uml/*.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:368
+#: ../sysprep/sysprep-operations.pod:386
 msgid "/var/log/lightdm/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:372
+#: ../sysprep/sysprep-operations.pod:390
 msgid "/var/log/mail/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:376
+#: ../sysprep/sysprep-operations.pod:394
 msgid "/var/log/maillog*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:380
+#: ../sysprep/sysprep-operations.pod:398
 msgid "/var/log/messages*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:384
+#: ../sysprep/sysprep-operations.pod:402
 msgid "/var/log/ntp"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:388
+#: ../sysprep/sysprep-operations.pod:406
 msgid "/var/log/ntpstats/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:392
+#: ../sysprep/sysprep-operations.pod:410
 msgid "/var/log/ppp/connect-errors"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:396
+#: ../sysprep/sysprep-operations.pod:414
 msgid "/var/log/rhsm/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:400
+#: ../sysprep/sysprep-operations.pod:418
 msgid "/var/log/sa/*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:404
+#: ../sysprep/sysprep-operations.pod:422
 msgid "/var/log/secure*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:408
+#: ../sysprep/sysprep-operations.pod:426
 msgid "/var/log/setroubleshoot/*.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:412
+#: ../sysprep/sysprep-operations.pod:430
 msgid "/var/log/spooler*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:416
+#: ../sysprep/sysprep-operations.pod:434
 msgid "/var/log/squid/*.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:420
+#: ../sysprep/sysprep-operations.pod:438
 msgid "/var/log/syslog*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:424
+#: ../sysprep/sysprep-operations.pod:442
 msgid "/var/log/tallylog*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:428
+#: ../sysprep/sysprep-operations.pod:446
 msgid "/var/log/tuned/tuned.log"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:432
+#: ../sysprep/sysprep-operations.pod:450
 msgid "/var/log/wtmp*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:436
+#: ../sysprep/sysprep-operations.pod:454
 msgid "/var/log/xferlog*"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:440
+#: ../sysprep/sysprep-operations.pod:458
 msgid "/var/named/data/named.run"
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:444
+#: ../sysprep/sysprep-operations.pod:462
 msgid "B<lvm-uuids> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:447
+#: ../sysprep/sysprep-operations.pod:465
 msgid "Change LVM2 PV and VG UUIDs."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:449
+#: ../sysprep/sysprep-operations.pod:467
 msgid ""
 "On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
 "(VGs), new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:452
+#: ../sysprep/sysprep-operations.pod:470
 msgid "B<machine-id> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:455
+#: ../sysprep/sysprep-operations.pod:473
 msgid "Remove the local machine ID."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:457
+#: ../sysprep/sysprep-operations.pod:475
 msgid ""
 "The machine ID is usually generated from a random source during system "
 "installation and stays constant for all subsequent boots.  Optionally, for "
@@ -108459,195 +108526,195 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:462
+#: ../sysprep/sysprep-operations.pod:480
 msgid "B<mail-spool> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:465
+#: ../sysprep/sysprep-operations.pod:483
 msgid "Remove email from the local mail spool directory."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:467
+#: ../sysprep/sysprep-operations.pod:485
 msgid "B<net-hostname> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:470
+#: ../sysprep/sysprep-operations.pod:488
 msgid "Remove HOSTNAME and DHCP_HOSTNAME in network interface configuration."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:472 ../sysprep/sysprep-operations.pod:480
+#: ../sysprep/sysprep-operations.pod:490 ../sysprep/sysprep-operations.pod:498
 msgid ""
 "For Fedora and Red Hat Enterprise Linux, this is removed from C<ifcfg-*> "
 "files."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:475
+#: ../sysprep/sysprep-operations.pod:493
 msgid "B<net-hwaddr> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:478
+#: ../sysprep/sysprep-operations.pod:496
 msgid "Remove HWADDR (hard-coded MAC address) configuration."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:483
+#: ../sysprep/sysprep-operations.pod:501
 msgid "B<pacct-log> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:486
+#: ../sysprep/sysprep-operations.pod:504
 msgid "Remove the process accounting log files."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:488
+#: ../sysprep/sysprep-operations.pod:506
 msgid ""
 "The system wide process accounting will store to the pacct log files if the "
 "process accounting is on."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:491
+#: ../sysprep/sysprep-operations.pod:509
 msgid "B<package-manager-cache> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:494
+#: ../sysprep/sysprep-operations.pod:512
 msgid "Remove package manager cache."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:496
+#: ../sysprep/sysprep-operations.pod:514
 msgid "B<pam-data> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:499
+#: ../sysprep/sysprep-operations.pod:517
 msgid "Remove the PAM data in the guest."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:501
+#: ../sysprep/sysprep-operations.pod:519
 msgid "B<passwd-backups> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:504
+#: ../sysprep/sysprep-operations.pod:522
 msgid "Remove /etc/passwd- and similar backup files."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:512
+#: ../sysprep/sysprep-operations.pod:530
 msgid "/etc/group-"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:516
+#: ../sysprep/sysprep-operations.pod:534
 msgid "/etc/gshadow-"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:520
+#: ../sysprep/sysprep-operations.pod:538
 msgid "/etc/passwd-"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:524
+#: ../sysprep/sysprep-operations.pod:542
 msgid "/etc/shadow-"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:528
+#: ../sysprep/sysprep-operations.pod:546
 msgid "/etc/subgid-"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:532
+#: ../sysprep/sysprep-operations.pod:550
 msgid "/etc/subuid-"
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:536
+#: ../sysprep/sysprep-operations.pod:554
 msgid "B<puppet-data-log> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:539
+#: ../sysprep/sysprep-operations.pod:557
 msgid "Remove the data and log files of puppet."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:541
+#: ../sysprep/sysprep-operations.pod:559
 msgid "B<rh-subscription-manager> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:544
+#: ../sysprep/sysprep-operations.pod:562
 msgid "Remove the RH subscription manager files."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:546
+#: ../sysprep/sysprep-operations.pod:564
 msgid "B<rhn-systemid> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:549
+#: ../sysprep/sysprep-operations.pod:567
 msgid "Remove the RHN system ID."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:551
+#: ../sysprep/sysprep-operations.pod:569
 msgid "B<rpm-db> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:554
+#: ../sysprep/sysprep-operations.pod:572
 msgid "Remove host-specific RPM database files."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:556
+#: ../sysprep/sysprep-operations.pod:574
 msgid ""
 "Remove host-specific RPM database files and locks.  RPM will recreate these "
 "files automatically if needed."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:559
+#: ../sysprep/sysprep-operations.pod:577
 msgid "B<samba-db-log> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:562
+#: ../sysprep/sysprep-operations.pod:580
 msgid "Remove the database and log files of Samba."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:564
+#: ../sysprep/sysprep-operations.pod:582
 msgid "B<script> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:567
+#: ../sysprep/sysprep-operations.pod:585
 msgid "Run arbitrary scripts against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:569
+#: ../sysprep/sysprep-operations.pod:587
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs "
 "against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:572
+#: ../sysprep/sysprep-operations.pod:590
 msgid ""
 "Note this feature requires FUSE support.  You may have to enable this in "
 "your host, for example by adding the current user to the C<fuse> group, or "
@@ -108655,14 +108722,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:576
+#: ../sysprep/sysprep-operations.pod:594
 msgid ""
 "Use one or more I<--script> parameters to specify scripts or programs that "
 "will be run against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:579
+#: ../sysprep/sysprep-operations.pod:597
 msgid ""
 "The script or program is run with its current directory being the guest’s "
 "root directory, so relative paths should be used.  For example: C<rm etc/"
@@ -108671,14 +108738,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:585
+#: ../sysprep/sysprep-operations.pod:603
 msgid ""
 "Normally a temporary mount point for the guest is used, but you can choose a "
 "specific one by using the I<--scriptdir> parameter."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:588
+#: ../sysprep/sysprep-operations.pod:606
 msgid ""
 "B<Note:> This is different from I<--firstboot> scripts (which run in the "
 "context of the guest when it is booting first time).  I<--script> scripts "
@@ -108686,41 +108753,41 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:592
+#: ../sysprep/sysprep-operations.pod:610
 msgid "B<smolt-uuid> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:595
+#: ../sysprep/sysprep-operations.pod:613
 msgid "Remove the Smolt hardware UUID."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:597
+#: ../sysprep/sysprep-operations.pod:615
 msgid "B<ssh-hostkeys> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:600
+#: ../sysprep/sysprep-operations.pod:618
 msgid "Remove the SSH host keys in the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:602
+#: ../sysprep/sysprep-operations.pod:620
 msgid ""
 "The SSH host keys are regenerated (differently) next time the guest is "
 "booted."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:605
+#: ../sysprep/sysprep-operations.pod:623
 msgid ""
 "If, after cloning, the guest gets the same IP address, ssh will give you a "
 "stark warning about the host key changing:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:608
+#: ../sysprep/sysprep-operations.pod:626
 #, no-wrap
 msgid ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
@@ -108731,29 +108798,29 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:613
+#: ../sysprep/sysprep-operations.pod:631
 msgid "B<ssh-userdir> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:616
+#: ../sysprep/sysprep-operations.pod:634
 msgid "Remove \".ssh\" directories in the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:618
+#: ../sysprep/sysprep-operations.pod:636
 msgid ""
 "Remove the C<.ssh> directory of user \"root\" and any other users who have a "
 "C<.ssh> directory in their home directory."
 msgstr ""
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:621
+#: ../sysprep/sysprep-operations.pod:639
 msgid "Notes on ssh-userdir"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:623
+#: ../sysprep/sysprep-operations.pod:641
 msgid ""
 "Currently this only looks in C</root> and C</home/*> for home directories, "
 "so users with home directories in other locations won't have the ssh files "
@@ -108761,49 +108828,49 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:627
+#: ../sysprep/sysprep-operations.pod:645
 msgid "B<sssd-db-log> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:630
+#: ../sysprep/sysprep-operations.pod:648
 msgid "Remove the database and log files of sssd."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:632
+#: ../sysprep/sysprep-operations.pod:650
 msgid "B<tmp-files> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:635
+#: ../sysprep/sysprep-operations.pod:653
 msgid "Remove temporary files."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:637
+#: ../sysprep/sysprep-operations.pod:655
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:639
+#: ../sysprep/sysprep-operations.pod:657
 msgid "B<udev-persistent-net> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:642
+#: ../sysprep/sysprep-operations.pod:660
 msgid "Remove udev persistent net rules."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:644
+#: ../sysprep/sysprep-operations.pod:662
 msgid ""
 "Remove udev persistent net rules which map the guest’s existing MAC address "
 "to a fixed ethernet device (eg. eth0)."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:647
+#: ../sysprep/sysprep-operations.pod:665
 msgid ""
 "After a guest is cloned, the MAC address usually changes.  Since the old MAC "
 "address occupies the old name (eg. eth0), this means the fresh MAC address "
@@ -108812,41 +108879,41 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:652
+#: ../sysprep/sysprep-operations.pod:670
 msgid "B<user-account>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:654
+#: ../sysprep/sysprep-operations.pod:672
 msgid "Remove the user accounts in the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:656
+#: ../sysprep/sysprep-operations.pod:674
 msgid ""
 "By default remove all the user accounts and their home directories.  The "
 "\"root\" account is not removed."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:659
+#: ../sysprep/sysprep-operations.pod:677
 msgid ""
 "See the I<--remove-user-accounts> parameter for a way to specify how to "
 "remove only some users, or to not remove some others."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:662
+#: ../sysprep/sysprep-operations.pod:680
 msgid "B<utmp> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:665
+#: ../sysprep/sysprep-operations.pod:683
 msgid "Remove the utmp file."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:667
+#: ../sysprep/sysprep-operations.pod:685
 msgid ""
 "This file records who is currently logged in on a machine.  In modern Linux "
 "distros it is stored in a ramdisk and hence not part of the virtual "
@@ -108854,17 +108921,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:671
+#: ../sysprep/sysprep-operations.pod:689
 msgid "B<yum-uuid> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:674
+#: ../sysprep/sysprep-operations.pod:692
 msgid "Remove the yum UUID."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:676
+#: ../sysprep/sysprep-operations.pod:694
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the "
 "original UUID has been erased."

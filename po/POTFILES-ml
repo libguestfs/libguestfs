@@ -90,7 +90,9 @@ sysprep/sysprep_operation_dovecot_data.ml
 sysprep/sysprep_operation_firewall_rules.ml
 sysprep/sysprep_operation_flag_reconfiguration.ml
 sysprep/sysprep_operation_fs_uuids.ml
+sysprep/sysprep_operation_ipa_client.ml
 sysprep/sysprep_operation_kerberos_data.ml
+sysprep/sysprep_operation_kerberos_hostkeytab.ml
 sysprep/sysprep_operation_logfiles.ml
 sysprep/sysprep_operation_lvm_uuids.ml
 sysprep/sysprep_operation_machine_id.ml
