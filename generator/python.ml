@@ -174,13 +174,8 @@ and generate_python_structs () =
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
         | name, FBuffer ->
-            pr "#if PY_MAJOR_VERSION >= 3\n";
             pr "  value = PyBytes_FromStringAndSize (%s->%s, %s->%s_len);\n"
               typ name typ name;
-            pr "#else\n";
-            pr "  value = PyString_FromStringAndSize (%s->%s, %s->%s_len);\n"
-              typ name typ name;
-            pr "#endif\n";
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
@@ -493,11 +488,7 @@ and generate_python_actions actions () =
            pr "  guestfs_int_free_string_list (r);\n";
            pr "  if (py_r == NULL) goto out;\n";
        | RBufferOut _ ->
-           pr "#if PY_MAJOR_VERSION >= 3\n";
            pr "  py_r = PyBytes_FromStringAndSize (r, size);\n";
-           pr "#else\n";
-           pr "  py_r = PyString_FromStringAndSize (r, size);\n";
-           pr "#endif\n";
            pr "  free (r);\n";
            pr "  if (py_r == NULL) goto out;\n";
       );
@@ -575,7 +566,6 @@ and generate_python_module () =
 
   (* Init function. *)
   pr "\
-#if PY_MAJOR_VERSION >= 3
 static struct PyModuleDef moduledef = {
   PyModuleDef_HEAD_INIT,
   \"libguestfsmod\",     /* m_name */
@@ -587,18 +577,13 @@ static struct PyModuleDef moduledef = {
   NULL,                  /* m_clear */
   NULL,                  /* m_free */
 };
-#endif
 
 static PyObject *
 moduleinit (void)
 {
   PyObject *m;
 
-#if PY_MAJOR_VERSION >= 3
   m = PyModule_Create (&moduledef);
-#else
-  m = Py_InitModule ((char *) \"libguestfsmod\", methods);
-#endif
 
   if (m != NULL)
     guestfs_int_py_extend_module (m);
@@ -606,7 +591,6 @@ moduleinit (void)
   return m; /* m might be NULL if module init failed */
 }
 
-#if PY_MAJOR_VERSION >= 3
 extern PyMODINIT_FUNC PyInit_libguestfsmod (void);
 
 PyMODINIT_FUNC
@@ -614,15 +598,6 @@ PyInit_libguestfsmod (void)
 {
   return moduleinit ();
 }
-#else
-extern void initlibguestfsmod (void);
-
-void
-initlibguestfsmod (void)
-{
-  (void) moduleinit ();
-}
-#endif
 "
 
 (* Generate Python module. *)

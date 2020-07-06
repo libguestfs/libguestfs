@@ -307,11 +307,10 @@ Optional.  For testing the common OCaml modules.
 
 Optional.  Used to build and test the Perl bindings.
 
-=item Python E<ge> 2.7
+=item Python E<ge> 3.4
 
-Optional.  Used to build the Python bindings.  For building
-Python 2 or Python 3 bindings, see
-L</BUILDING PYTHON 2 AND PYTHON 3 BINDINGS> below.
+Optional.  Used to build the Python bindings.
+S<Python 2> support was removed in S<libguestfs 1.42.1>.
 
 =item Python C<unittest>
 
@@ -528,8 +527,6 @@ If there is a file in the top build directory called F<localenv>, then
 it will be sourced by C<make>.  This file can contain any local
 environment variables needed, eg. for skipping tests:
 
- # Use an alternate python binary.
- export PYTHON=python3
  # Skip this test, it is broken.
  export SKIP_TEST_BTRFS_FSCK=1
 
@@ -683,8 +680,7 @@ F<appliance/make.sh.in> to understand precisely what this does.
 This environment variable may be set to point to a python binary
 (eg. C<python3>).  When C<./configure> runs, it inspects this python
 binary to find the version of Python, the location of Python libraries
-and so on.  See
-L</BUILDING PYTHON 2 AND PYTHON 3 BINDINGS> below.
+and so on.
 
 =item B<SUPERMIN>
 
@@ -751,23 +747,6 @@ tarball, eg:
 
 and run the libguestfs programs and virt tools in the normal way,
 eg. using the F<./run> script (see above).
-
-=head1 BUILDING PYTHON 2 AND PYTHON 3 BINDINGS
-
-The F<./configure> script detects the currently installed version of
-Python using whatever program is called C<python> in the current
-C<$PATH>.  Libguestfs will build Python 2 or Python 3 bindings as
-appropriate.
-
-You can override this behaviour by specifying an alternate Python
-binary, eg:
-
- PYTHON=/usr/bin/python3 ./configure
-
-To build parallel Python 2 and Python 3 bindings, you will need to
-build libguestfs twice.  The second time, you can disable all the
-other bindings and tools and just build the Python bindings.  See the
-Fedora spec file (see below) for a complete example of how to do this.
 
 =head1 BUILDING A PACKAGE FOR FEDORA
 

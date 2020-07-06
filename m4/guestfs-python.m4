@@ -19,27 +19,40 @@ dnl Check for Python (optional, for Python bindings).
 PYTHON_PREFIX=
 PYTHON_VERSION=
 PYTHON_INSTALLDIR=
-PYTHON_REQ_MAJOR=2
-PYTHON_REQ_MINOR=7
 
 AC_ARG_ENABLE([python],
     AS_HELP_STRING([--disable-python], [disable Python language bindings]),
     [],
     [enable_python=yes])
 AS_IF([test "x$enable_python" != "xno"],[
-    AC_CHECK_PROG([PYTHON],[python],[python],[no])
+    AC_CHECK_PROGS([PYTHON],[python3 python],[no])
 
     if test "x$PYTHON" != "xno"; then
 	AC_MSG_CHECKING([Python version])
         PYTHON_VERSION_MAJOR=`$PYTHON -c "import sys; print (sys.version_info@<:@0@:>@)"`
         PYTHON_VERSION_MINOR=`$PYTHON -c "import sys; print (sys.version_info@<:@1@:>@)"`
         PYTHON_VERSION="$PYTHON_VERSION_MAJOR.$PYTHON_VERSION_MINOR"
-        AS_IF([test "$PYTHON_VERSION_MAJOR" -lt $PYTHON_REQ_MAJOR || ( test "$PYTHON_VERSION_MAJOR" -eq $PYTHON_REQ_MAJOR && test "$PYTHON_VERSION_MINOR" -lt $PYTHON_REQ_MINOR )],[
-           AC_MSG_ERROR([found Python $PYTHON_VERSION, while Python $PYTHON_REQ_MAJOR.$PYTHON_REQ_MINOR is required])
+        AS_IF([test -n "$PYTHON_VERSION"],[
+            AC_MSG_RESULT([$PYTHON_VERSION])
+        ],[
+            AC_MSG_NOTICE([Python bindings disabled])
+            enable_python=no
         ])
-	AC_MSG_RESULT([$PYTHON_VERSION])
 
-        # Debian: python-2.7.pc, python-3.2.pc
+        AC_MSG_CHECKING([Python major version is 3])
+        AS_IF([test "x$PYTHON_VERSION_MAJOR" = "x3"],[
+            AC_MSG_RESULT([yes])
+        ],[
+            AC_MSG_RESULT([no])
+            AC_MSG_ERROR([Python $PYTHON_VERSION_MAJOR <> 3 is no longer supported.
+
+Python 2 end of life is 2020-01-01 and libguestfs >= 1.42.1 no longer
+supports it.
+
+If you want to use Python 2, you will need to use libguestfs 1.40 or 1.42.0.])
+        ])
+
+        # Debian: python-3.2.pc
         PKG_CHECK_MODULES([PYTHON], [python-"$PYTHON_VERSION"],[
             have_python_module=1
             AC_SUBST([PYTHON_CFLAGS])
