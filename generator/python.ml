@@ -645,6 +645,7 @@ logvols = g.lvs()
 import os
 import sys
 import libguestfsmod
+from typing import Union, List, Tuple, Optional
 
 ";
 
@@ -762,14 +763,44 @@ class GuestFS(object):
     fun f ->
       let ret, args, optargs = f.style in
       let len_name = String.length f.name in
+      let ret_type_hint =
+        match ret with
+        | RErr -> "None"
+        | RInt _ | RInt64 _ -> "int"
+        | RBool _ -> "bool"
+        | RConstOptString _ -> "Optional[str]"
+        | RConstString _ | RString _ -> "str"
+        | RBufferOut _ -> "bytes"
+        | RStringList _ -> "List[str]"
+        | RStruct _ -> "dict"
+        | RStructList _ -> "List[dict]"
+        | RHashtable _ -> "Union[List[Tuple[str, str]], dict]" in
+      let type_hint_of_argt arg =
+        match arg with
+        | String _ -> ": str"
+        | OptString _ -> ": Optional[str]"
+        | Bool _ -> ": bool"
+        | Int _ | Int64 _ -> ": int"
+        | BufferIn _ -> ": bytes"
+        | StringList _ -> ": List[str]"
+        | Pointer _ -> ""
+      in
+      let type_hint_of_optargt optarg =
+        match optarg with
+        | OBool _ -> "bool"
+        | OInt _ | OInt64 _ -> "int"
+        | OString _ -> "str"
+        | OStringList _ -> "List[str]"
+      in
       let decl_string =
         "self" ^
-        map_join (fun arg ->sprintf ", %s" (name_of_argt arg))
+        map_join (fun arg ->sprintf ", %s%s" (name_of_argt arg) (type_hint_of_argt arg))
           args ^
-        map_join (fun optarg -> sprintf ", %s=None" (name_of_optargt optarg))
-          optargs in
+        map_join (fun optarg -> sprintf ", %s: Optional[%s] = None" (name_of_optargt optarg) (type_hint_of_optargt optarg))
+          optargs ^
+        ") -> " ^ ret_type_hint ^ ":" in
       pr "\n";
-      pr "    def %s(%s):\n"
+      pr "    def %s(%s\n"
         f.name (indent_python decl_string (9 + len_name) 78);
 
       if is_documented f then (
