@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2020-03-09 13:22+0000\n"
+"POT-Creation-Date: 2020-07-06 15:00+0100\n"
 "PO-Revision-Date: 2015-02-21 10:52+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/projects/p/"
@@ -56,7 +56,7 @@ msgid ""
 "Options:\n"
 msgstr ""
 
-#: ../customize/customize_run.ml:480 ../common/mltools/tools_utils.ml:640
+#: ../customize/customize_run.ml:446 ../common/mltools/tools_utils.ml:640
 msgid "%s (ignored)"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "%s did not return any output"
 msgstr ""
 
-#: ../customize/customize_run.ml:278
+#: ../customize/customize_run.ml:244
 msgid "%s does not exist in the guest"
 msgstr ""
 
@@ -87,7 +87,7 @@ msgstr ""
 msgid "%s is not a Simple Streams (products) v1.0 JSON file (format: %s)"
 msgstr ""
 
-#: ../customize/customize_run.ml:281
+#: ../customize/customize_run.ml:247
 msgid "%s is not a regular file in the guest"
 msgstr ""
 
@@ -200,7 +200,7 @@ msgstr ""
 msgid "%s: cannot use a URI (‘%s’) in the index file\n"
 msgstr ""
 
-#: ../customize/customize_run.ml:101
+#: ../customize/customize_run.ml:67
 msgid "%s: command exited with an error"
 msgstr ""
 
@@ -322,7 +322,7 @@ msgstr ""
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
-#: ../sysprep/main.ml:140
+#: ../sysprep/main.ml:141
 msgid ""
 "%s: reset or unconfigure a virtual machine so clones can be made\n"
 "\n"
@@ -410,7 +410,7 @@ msgstr ""
 msgid "--add option can only be given once"
 msgstr ""
 
-#: ../customize/customize_run.ml:240
+#: ../customize/customize_run.ml:206
 msgid ""
 "--append-line: line must not contain newline characters.  Use the --append-"
 "line option multiple times to add several lines."
@@ -441,15 +441,15 @@ msgid "--debug parameter must be >= 0"
 msgstr ""
 
 #. ../customize/customize_main.ml:70
-#: ../sysprep/main.ml:65 ../get-kernel/get_kernel.ml:48
+#: ../sysprep/main.ml:66 ../get-kernel/get_kernel.ml:48
 msgid "--domain option can only be given once"
 msgstr ""
 
-#: ../sysprep/main.ml:75
+#: ../sysprep/main.ml:76
 msgid "--enable option can only be given once"
 msgstr ""
 
-#: ../sysprep/main.ml:83
+#: ../sysprep/main.ml:84
 msgid "--enable: ‘%s’ is not a known operation"
 msgstr ""
 
@@ -457,7 +457,7 @@ msgstr ""
 msgid "--expand option given more than once"
 msgstr ""
 
-#: ../sysprep/main.ml:155 ../customize/customize_main.ml:109
+#: ../sysprep/main.ml:156 ../customize/customize_main.ml:109
 msgid "--format parameter must appear before -a parameter"
 msgstr ""
 
@@ -465,7 +465,7 @@ msgstr ""
 msgid "--get-kernel: too many parameters"
 msgstr ""
 
-#: ../customize/customize_run.ml:135 ../customize/customize_run.ml:133
+#: ../customize/customize_run.ml:101 ../customize/customize_run.ml:99
 msgid "--install"
 msgstr ""
 
@@ -477,11 +477,11 @@ msgstr ""
 msgid "--notes: too many parameters, expecting ‘os-version’"
 msgstr ""
 
-#: ../sysprep/main.ml:102
+#: ../sysprep/main.ml:103
 msgid "--operations: empty operation name"
 msgstr ""
 
-#: ../sysprep/main.ml:113
+#: ../sysprep/main.ml:114
 msgid "--operations: ‘%s’ is not a known operation"
 msgstr ""
 
@@ -514,11 +514,11 @@ msgstr ""
 msgid "--tmp prebuilt:file: %s: file format is not qcow2"
 msgstr ""
 
-#: ../customize/customize_run.ml:189 ../customize/customize_run.ml:187
+#: ../customize/customize_run.ml:155 ../customize/customize_run.ml:153
 msgid "--uninstall"
 msgstr ""
 
-#: ../customize/customize_run.ml:165 ../customize/customize_run.ml:163
+#: ../customize/customize_run.ml:131 ../customize/customize_run.ml:129
 msgid "--update"
 msgstr ""
 
@@ -527,7 +527,7 @@ msgid "-B must be specified"
 msgstr ""
 
 #. ../customize/customize_main.ml:75
-#: ../sysprep/main.ml:122 ../get-kernel/get_kernel.ml:56
+#: ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:56
 msgid "Add disk image file"
 msgstr ""
 
@@ -578,7 +578,7 @@ msgstr ""
 msgid "Append line(s) to the file"
 msgstr ""
 
-#: ../customize/customize_run.ml:242
+#: ../customize/customize_run.ml:208
 msgid "Appending line to %s"
 msgstr ""
 
@@ -603,11 +603,11 @@ msgstr ""
 msgid "Attach to a subscription-manager pool"
 msgstr ""
 
-#: ../customize/customize_run.ml:344
+#: ../customize/customize_run.ml:310
 msgid "Attaching to compatible subscriptions"
 msgstr ""
 
-#: ../customize/customize_run.ml:348
+#: ../customize/customize_run.ml:314
 msgid "Attaching to the pool %s"
 msgstr ""
 
@@ -659,7 +659,7 @@ msgstr ""
 msgid "Change the permissions of a file"
 msgstr ""
 
-#: ../customize/customize_run.ml:246
+#: ../customize/customize_run.ml:212
 msgid "Changing permissions of %s to %s"
 msgstr ""
 
@@ -681,7 +681,7 @@ msgstr ""
 msgid "Clearing Linux swap on %s"
 msgstr ""
 
-#: ../sysprep/main.ml:135
+#: ../sysprep/main.ml:136
 msgid "Compatibility option, does nothing"
 msgstr ""
 
@@ -735,11 +735,11 @@ msgstr ""
 msgid "Copying %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:263
+#: ../customize/customize_run.ml:229
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:267
+#: ../customize/customize_run.ml:233
 msgid "Copying: %s to %s"
 msgstr ""
 
@@ -812,7 +812,7 @@ msgstr ""
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../customize/customize_run.ml:271 ../builder/builder.ml:138
+#: ../customize/customize_run.ml:237 ../builder/builder.ml:138
 msgid "Deleting: %s"
 msgstr ""
 
@@ -821,7 +821,7 @@ msgstr ""
 msgid "Disable appliance network"
 msgstr ""
 
-#: ../sysprep/main.ml:133
+#: ../sysprep/main.ml:134
 msgid "Disable appliance network (default)"
 msgstr ""
 
@@ -918,7 +918,7 @@ msgstr ""
 msgid "Edit file using Perl expression"
 msgstr ""
 
-#: ../customize/customize_run.ml:275
+#: ../customize/customize_run.ml:241
 msgid "Editing: %s"
 msgstr ""
 
@@ -926,7 +926,7 @@ msgstr ""
 msgid "Elements: %s"
 msgstr ""
 
-#: ../sysprep/main.ml:132
+#: ../sysprep/main.ml:133
 msgid "Enable appliance network"
 msgstr ""
 
@@ -943,7 +943,7 @@ msgstr ""
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
-#: ../sysprep/main.ml:128
+#: ../sysprep/main.ml:129
 msgid "Enable specific operations"
 msgstr ""
 
@@ -951,7 +951,7 @@ msgstr ""
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
-#: ../sysprep/main.ml:136
+#: ../sysprep/main.ml:137
 msgid "Enable/disable specific operations"
 msgstr ""
 
@@ -963,7 +963,7 @@ msgstr ""
 msgid "Examining %s"
 msgstr ""
 
-#: ../sysprep/main.ml:208 ../customize/customize_main.ml:155
+#: ../sysprep/main.ml:209 ../customize/customize_main.ml:155
 msgid "Examining the guest ..."
 msgstr ""
 
@@ -1201,6 +1201,10 @@ msgstr ""
 msgid "Importing the image to docker as ‘%s’"
 msgstr ""
 
+#: ../sysprep/sysprep_operation_ca_certificates.ml:55
+msgid "In case any certificate is removed, the system CA store is updated."
+msgstr ""
+
 #. ../common/mlcustomize/customize_cmdline.ml:379
 #: ../customize/customize_cmdline.ml:379
 msgid "Inject a public key into the guest"
@@ -1210,19 +1214,19 @@ msgstr ""
 msgid "Installation type"
 msgstr ""
 
-#: ../customize/customize_run.ml:286
+#: ../customize/customize_run.ml:252
 msgid "Installing firstboot command: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:290
+#: ../customize/customize_run.ml:256
 msgid "Installing firstboot packages: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:297
+#: ../customize/customize_run.ml:263
 msgid "Installing firstboot script: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:307
+#: ../customize/customize_run.ml:273
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -1243,7 +1247,7 @@ msgstr ""
 msgid "Label for the root fs"
 msgstr ""
 
-#: ../customize/customize_run.ml:314
+#: ../customize/customize_run.ml:280
 msgid "Linking: %s -> %s"
 msgstr ""
 
@@ -1251,7 +1255,7 @@ msgstr ""
 msgid "List available templates"
 msgstr ""
 
-#: ../sysprep/main.ml:130
+#: ../sysprep/main.ml:131
 msgid "List supported operations"
 msgstr ""
 
@@ -1267,7 +1271,7 @@ msgstr ""
 msgid "Make output machine readable"
 msgstr ""
 
-#: ../customize/customize_run.ml:319
+#: ../customize/customize_run.ml:285
 msgid "Making directory: %s"
 msgstr ""
 
@@ -1292,7 +1296,7 @@ msgstr ""
 msgid "Moving files to final destination"
 msgstr ""
 
-#: ../customize/customize_run.ml:323
+#: ../customize/customize_run.ml:289
 msgid "Moving: %s -> %s"
 msgstr ""
 
@@ -1304,7 +1308,7 @@ msgstr ""
 msgid "No new image found"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:193
+#: ../sysprep/sysprep_operation.ml:196
 msgid "Notes on %s"
 msgstr ""
 
@@ -1402,19 +1406,19 @@ msgstr ""
 msgid "PKG,PKG.."
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:159
+#: ../sysprep/sysprep_operation.ml:162
 msgid "POD for %s must not end with newline"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:168
+#: ../sysprep/sysprep_operation.ml:171
 msgid "POD notes for %s must not end with newline"
 msgstr ""
 
-#: ../sysprep/main.ml:125 ../customize/customize_main.ml:81
+#: ../sysprep/main.ml:126 ../customize/customize_main.ml:81
 msgid "Perform a dry run"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:315 ../sysprep/sysprep_operation.ml:294
+#: ../sysprep/sysprep_operation.ml:318 ../sysprep/sysprep_operation.ml:297
 msgid "Performing %S ..."
 msgstr ""
 
@@ -1452,7 +1456,7 @@ msgstr ""
 msgid "Recursively truncate all files in directory"
 msgstr ""
 
-#: ../customize/customize_run.ml:388
+#: ../customize/customize_run.ml:354
 msgid "Recursively truncating: %s"
 msgstr ""
 
@@ -1461,7 +1465,7 @@ msgstr ""
 msgid "Register using subscription-manager"
 msgstr ""
 
-#: ../customize/customize_run.ml:354
+#: ../customize/customize_run.ml:320
 msgid "Registering with subscription-manager"
 msgstr ""
 
@@ -1478,7 +1482,7 @@ msgstr ""
 msgid "Remove /etc/passwd- and similar backup files"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_ca_certificates.ml:50
+#: ../sysprep/sysprep_operation_ca_certificates.ml:54
 msgid "Remove CA certificates in the guest"
 msgstr ""
 
@@ -1654,7 +1658,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../customize/customize_run.ml:367
+#: ../customize/customize_run.ml:333
 msgid "Removing all the subscriptions"
 msgstr ""
 
@@ -1719,11 +1723,11 @@ msgstr ""
 msgid "Run touch on a file"
 msgstr ""
 
-#: ../customize/customize_run.ml:397
+#: ../customize/customize_run.ml:363
 msgid "Running touch: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:333 ../customize/customize_run.ml:254
+#: ../customize/customize_run.ml:299 ../customize/customize_run.ml:220
 msgid "Running: %s"
 msgstr ""
 
@@ -1746,7 +1750,7 @@ msgstr ""
 msgid "SELECTOR"
 msgstr ""
 
-#: ../customize/customize_run.ml:453
+#: ../customize/customize_run.ml:419
 msgid "SELinux relabelling"
 msgstr ""
 
@@ -1756,11 +1760,11 @@ msgstr ""
 msgid "SOURCE:DEST"
 msgstr ""
 
-#: ../customize/customize_run.ml:381
+#: ../customize/customize_run.ml:347
 msgid "SSH key could be injected for this type of guest"
 msgstr ""
 
-#: ../customize/customize_run.ml:378
+#: ../customize/customize_run.ml:344
 msgid "SSH key inject: %s"
 msgstr ""
 
@@ -1778,11 +1782,11 @@ msgstr ""
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:464
+#: ../customize/customize_run.ml:430
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:338
+#: ../customize/customize_run.ml:304
 msgid "Scrubbing: %s"
 msgstr ""
 
@@ -1810,17 +1814,17 @@ msgstr ""
 msgid "Set disk sector size"
 msgstr ""
 
-#: ../sysprep/main.ml:129 ../customize/customize_main.ml:82
+#: ../sysprep/main.ml:130 ../customize/customize_main.ml:82
 msgid "Set format (default: auto)"
 msgstr ""
 
 #. ../customize/customize_main.ml:79
-#: ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:58
+#: ../sysprep/main.ml:124 ../get-kernel/get_kernel.ml:58
 msgid "Set libvirt URI"
 msgstr ""
 
 #. ../customize/customize_main.ml:80
-#: ../sysprep/main.ml:124 ../get-kernel/get_kernel.ml:59
+#: ../sysprep/main.ml:125 ../get-kernel/get_kernel.ml:59
 msgid "Set libvirt guest name"
 msgstr ""
 
@@ -1829,7 +1833,7 @@ msgstr ""
 msgid "Set memory size"
 msgstr ""
 
-#: ../sysprep/main.ml:131
+#: ../sysprep/main.ml:132
 msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
@@ -1895,11 +1899,11 @@ msgstr ""
 msgid "Set user password"
 msgstr ""
 
-#: ../customize/customize_run.ml:200
+#: ../customize/customize_run.ml:166
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../customize/customize_run.ml:444
+#: ../customize/customize_run.ml:410
 msgid "Setting passwords"
 msgstr ""
 
@@ -1907,15 +1911,15 @@ msgstr ""
 msgid "Setting random password of %s to %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:302
+#: ../customize/customize_run.ml:268
 msgid "Setting the hostname: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:215
+#: ../customize/customize_run.ml:181
 msgid "Setting the machine ID in %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:392
+#: ../customize/customize_run.ml:358
 msgid "Setting the timezone: %s"
 msgstr ""
 
@@ -2171,7 +2175,7 @@ msgstr ""
 msgid "Truncate a file to zero size"
 msgstr ""
 
-#: ../customize/customize_run.ml:384
+#: ../customize/customize_run.ml:350
 msgid "Truncating: %s"
 msgstr ""
 
@@ -2206,7 +2210,7 @@ msgstr ""
 msgid "Uninstall package(s)"
 msgstr ""
 
-#: ../customize/customize_run.ml:401
+#: ../customize/customize_run.ml:367
 msgid "Uninstalling packages: %s"
 msgstr ""
 
@@ -2215,7 +2219,7 @@ msgstr ""
 msgid "Unregister using subscription-manager"
 msgstr ""
 
-#: ../customize/customize_run.ml:372
+#: ../customize/customize_run.ml:338
 msgid "Unregistering with subscription-manager"
 msgstr ""
 
@@ -2224,7 +2228,7 @@ msgstr ""
 msgid "Update packages"
 msgstr ""
 
-#: ../customize/customize_run.ml:406
+#: ../customize/customize_run.ml:372
 msgid "Updating packages"
 msgstr ""
 
@@ -2233,7 +2237,7 @@ msgstr ""
 msgid "Upload local file to destination"
 msgstr ""
 
-#: ../customize/customize_run.ml:411
+#: ../customize/customize_run.ml:377
 msgid "Uploading: %s to %s"
 msgstr ""
 
@@ -2268,7 +2272,7 @@ msgstr ""
 msgid "Write file"
 msgstr ""
 
-#: ../customize/customize_run.ml:436
+#: ../customize/customize_run.ml:402
 msgid "Writing: %s"
 msgstr ""
 
@@ -2355,7 +2359,7 @@ msgstr ""
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:193
+#: ../customize/customize_run.ml:159
 msgid ""
 "cannot use ‘%s’ because no package manager has been detected for this guest "
 "OS.\n"
@@ -2436,7 +2440,7 @@ msgstr ""
 msgid "disallowed character (%c) in format name"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:145
+#: ../sysprep/sysprep_operation.ml:148
 msgid "disallowed character (%c) in operation name"
 msgstr ""
 
@@ -2449,11 +2453,11 @@ msgid "docker: a target was not specified, use ‘--docker-target’"
 msgstr ""
 
 #. ../customize/customize_main.ml:80
-#: ../sysprep/main.ml:124 ../get-kernel/get_kernel.ml:59
+#: ../sysprep/main.ml:125 ../get-kernel/get_kernel.ml:59
 msgid "domain"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:185
+#: ../get-kernel/get_kernel.ml:188
 msgid "dual/multi-boot images are not supported by this tool"
 msgstr ""
 
@@ -2461,7 +2465,7 @@ msgstr ""
 msgid "duplicate format name (%s)"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:133
+#: ../sysprep/sysprep_operation.ml:136
 msgid "duplicate operation name (%s)"
 msgstr ""
 
@@ -2482,7 +2486,7 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../sysprep/main.ml:59 ../resize/resize.ml:327 ../resize/resize.ml:320
+#: ../sysprep/main.ml:60 ../resize/resize.ml:327 ../resize/resize.ml:320
 msgid "error parsing URI ‘%s’. Look for error messages printed above."
 msgstr ""
 
@@ -2529,7 +2533,7 @@ msgid "failure: %s"
 msgstr ""
 
 #. ../customize/customize_main.ml:75
-#: ../sysprep/main.ml:122 ../get-kernel/get_kernel.ml:56
+#: ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:56
 msgid "file"
 msgstr ""
 
@@ -2561,7 +2565,7 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:60
 #. ../dib/cmdline.ml:184
 #. ../customize/customize_main.ml:82
-#: ../sysprep/main.ml:129 ../sparsify/cmdline.ml:71 ../sparsify/cmdline.ml:70
+#: ../sysprep/main.ml:130 ../sparsify/cmdline.ml:71 ../sparsify/cmdline.ml:70
 msgid "format"
 msgstr ""
 
@@ -2591,18 +2595,18 @@ msgstr ""
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:151
+#: ../sysprep/sysprep_operation.ml:154
 msgid "heading for %s must not end with newline or period"
 msgstr ""
 
-#: ../customize/customize_run.ml:58
+#: ../customize/customize_run.ml:53
 msgid ""
 "host cpu (%s) and guest arch (%s) are not compatible, so you cannot use "
 "command line options that involve running commands in the guest.  Use --"
 "firstboot scripts instead."
 msgstr ""
 
-#: ../customize/customize_run.ml:304
+#: ../customize/customize_run.ml:270
 msgid "hostname could not be set for this type of guest"
 msgstr ""
 
@@ -2682,7 +2686,7 @@ msgstr ""
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:53
+#: ../customize/customize_run.ml:47
 msgid "log file %s: %s (ignored)"
 msgstr ""
 
@@ -2715,7 +2719,7 @@ msgstr ""
 msgid "moving file ‘%s’ to ‘%s’ failed"
 msgstr ""
 
-#: ../customize/customize_run.ml:228
+#: ../customize/customize_run.ml:194
 msgid ""
 "multiple --root-password/--password options set the password for user ‘%s’ "
 "twice"
@@ -2750,15 +2754,15 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:158
+#: ../get-kernel/get_kernel.ml:161
 msgid "no kernel found in %s"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:183
+#: ../get-kernel/get_kernel.ml:186
 msgid "no operating system found"
 msgstr ""
 
-#: ../sysprep/main.ml:224 ../customize/customize_main.ml:182
+#: ../sysprep/main.ml:225 ../customize/customize_main.ml:182
 msgid "no operating systems were found in the guest image"
 msgstr ""
 
@@ -2781,23 +2785,23 @@ msgstr ""
 msgid "operating system ‘%s’ not supported"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:157
+#: ../sysprep/sysprep_operation.ml:160
 msgid "operation %s has no POD"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:166
+#: ../sysprep/sysprep_operation.ml:169
 msgid "operation %s has no POD notes"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:149
+#: ../sysprep/sysprep_operation.ml:152
 msgid "operation %s has no heading"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:140
+#: ../sysprep/sysprep_operation.ml:143
 msgid "operation name is an empty string"
 msgstr ""
 
-#: ../sysprep/main.ml:136 ../sysprep/main.ml:128
+#: ../sysprep/main.ml:137 ../sysprep/main.ml:129
 msgid "operations"
 msgstr ""
 
@@ -2805,7 +2809,7 @@ msgstr ""
 msgid "option"
 msgstr ""
 
-#: ../sysprep/main.ml:131
+#: ../sysprep/main.ml:132
 msgid "opts"
 msgstr ""
 
@@ -2852,7 +2856,7 @@ msgid ""
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
 
-#: ../customize/customize_run.ml:449
+#: ../customize/customize_run.ml:415
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
@@ -2880,7 +2884,7 @@ msgstr ""
 msgid "quit (^C) at user request"
 msgstr ""
 
-#: ../customize/customize_run.ml:202
+#: ../customize/customize_run.ml:168
 msgid "random seed could not be set for this type of guest"
 msgstr ""
 
@@ -2916,7 +2920,7 @@ msgstr ""
 msgid "sectors"
 msgstr ""
 
-#: ../customize/customize_run.ml:196
+#: ../customize/customize_run.ml:162
 msgid ""
 "sorry, ‘%s’ with the ‘%s’ package manager has not been implemented yet.\n"
 "\n"
@@ -2952,11 +2956,11 @@ msgstr ""
 msgid "sub-process killed by signal (%d)"
 msgstr ""
 
-#: ../customize/customize_run.ml:358
+#: ../customize/customize_run.ml:324
 msgid "subscription-manager credentials required for --sm-register"
 msgstr ""
 
-#: ../customize/customize_run.ml:98
+#: ../customize/customize_run.ml:64
 msgid ""
 "the command may have failed because the network is disabled.  Try either "
 "removing ‘--no-network’ or adding ‘--network’ on the command line."
@@ -3015,7 +3019,7 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../customize/customize_run.ml:394
+#: ../customize/customize_run.ml:360
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
@@ -3058,8 +3062,12 @@ msgstr ""
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr ""
 
+#: ../sysprep/utils.ml:64
+msgid "updating the system CA store on this guest %s/%s is not supported"
+msgstr ""
+
 #. ../customize/customize_main.ml:79
-#: ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:58
+#: ../sysprep/main.ml:124 ../get-kernel/get_kernel.ml:58
 msgid "uri"
 msgstr ""
 
@@ -3149,7 +3157,7 @@ msgid ""
 "page for further information."
 msgstr ""
 
-#: ../sysprep/main.ml:175
+#: ../sysprep/main.ml:176
 msgid ""
 "you cannot give -a and -d options together.  Read virt-sysprep(1) man page "
 "for further information."
@@ -3161,7 +3169,7 @@ msgid ""
 "for further information."
 msgstr ""
 
-#: ../sysprep/main.ml:77
+#: ../sysprep/main.ml:78
 msgid "you cannot pass an empty argument to --enable"
 msgstr ""
 
@@ -3199,7 +3207,7 @@ msgid ""
 "further information."
 msgstr ""
 
-#: ../sysprep/main.ml:164
+#: ../sysprep/main.ml:165
 msgid ""
 "you must give either -a or -d options.  Read virt-sysprep(1) man page for "
 "further information."
@@ -3760,27 +3768,27 @@ msgstr ""
 msgid "could not list inactive domains (code %d, domain %d): %s"
 msgstr ""
 
-#: common/utils/utils.c:108
+#: common/utils/utils.c:107
 #, c-format
 msgid "%s exited successfully"
 msgstr ""
 
-#: common/utils/utils.c:111
+#: common/utils/utils.c:110
 #, c-format
 msgid "%s exited with error status %d"
 msgstr ""
 
-#: common/utils/utils.c:115
+#: common/utils/utils.c:114
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr ""
 
-#: common/utils/utils.c:119
+#: common/utils/utils.c:118
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr ""
 
-#: common/utils/utils.c:123
+#: common/utils/utils.c:122
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""
