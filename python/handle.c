@@ -62,7 +62,6 @@ guestfs_int_py_create (PyObject *self, PyObject *args)
 PyObject *
 guestfs_int_py_close (PyObject *self, PyObject *args)
 {
-  PyThreadState *py_save = NULL;
   PyObject *py_g;
   guestfs_h *g;
   size_t len;
@@ -85,11 +84,9 @@ guestfs_int_py_close (PyObject *self, PyObject *args)
   if (len != 0 && callbacks == NULL)
     return NULL;
 
-  if (PyEval_ThreadsInitialized ())
-    py_save = PyEval_SaveThread ();
+  Py_BEGIN_ALLOW_THREADS;
   guestfs_close (g);
-  if (PyEval_ThreadsInitialized ())
-    PyEval_RestoreThread (py_save);
+  Py_END_ALLOW_THREADS;
 
   if (len > 0) {
     size_t i;
@@ -119,15 +116,13 @@ guestfs_int_py_event_callback_wrapper (guestfs_h *g,
   PyObject *a;
   size_t i;
   PyObject *py_r;
-  int threads_initialized = PyEval_ThreadsInitialized ();
 
 #ifdef HAVE_PY_ISFINALIZING
   if (_Py_IsFinalizing ())
     return;
 #endif
 
-  if (threads_initialized)
-    py_save = PyGILState_Ensure ();
+  py_save = PyGILState_Ensure ();
 
   py_array = PyList_New (array_len);
   for (i = 0; i < array_len; ++i) {
@@ -151,8 +146,7 @@ guestfs_int_py_event_callback_wrapper (guestfs_h *g,
     /* Callback threw an exception: print it. */
     PyErr_PrintEx (0);
 
-  if (threads_initialized)
-    PyGILState_Release (py_save);
+  PyGILState_Release (py_save);
 }
 
 PyObject *

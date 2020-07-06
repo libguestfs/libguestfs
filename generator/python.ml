@@ -268,9 +268,6 @@ and generate_python_actions actions () =
       pr "guestfs_int_py_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
 
-      if blocking then
-        pr "  PyThreadState *py_save = NULL;\n";
-
       pr "  PyObject *py_g;\n";
       pr "  guestfs_h *g;\n";
       pr "  PyObject *py_r = NULL;\n";
@@ -413,26 +410,14 @@ and generate_python_actions actions () =
         pr "\n"
       );
 
-      if blocking then (
-        (* Release Python GIL while running.  This code is from
-         * libvirt/python/typewrappers.h.  Thanks to Dan Berrange for
-         * showing us how to do this properly.
-         *)
-        pr "  if (PyEval_ThreadsInitialized ())\n";
-        pr "    py_save = PyEval_SaveThread ();\n";
-        pr "\n"
-      );
-
+      if blocking then
+        pr "  Py_BEGIN_ALLOW_THREADS\n";
       pr "  r = %s " c_function;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
+      if blocking then
+        pr "  Py_END_ALLOW_THREADS\n";
       pr "\n";
-
-      if blocking then (
-        pr "  if (PyEval_ThreadsInitialized ())\n";
-        pr "    PyEval_RestoreThread (py_save);\n";
-        pr "\n"
-      );
 
       (match errcode_of_ret ret with
        | `CannotReturnError -> ()
