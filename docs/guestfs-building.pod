@@ -307,7 +307,7 @@ Optional.  For testing the common OCaml modules.
 
 Optional.  Used to build and test the Perl bindings.
 
-=item Python E<ge> 3.4
+=item Python E<ge> 3.6
 
 Optional.  Used to build the Python bindings.
 S<Python 2> support was removed in S<libguestfs 1.42.1>.
