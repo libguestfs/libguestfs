@@ -63,8 +63,7 @@ char *
 do_getcon (void)
 {
 #if defined(HAVE_GETCON)
-  security_context_t context;
-  char *r;
+  char *context, *r;
 
   if (getcon (&context) == -1) {
     reply_with_perror ("getcon");

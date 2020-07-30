@@ -288,8 +288,7 @@ create_cow_overlay_libvirt (guestfs_h *g, void *datav, struct drive *drv)
   if (data->selinux_imagelabel) {
     debug (g, "setting SELinux label on %s to %s",
            overlay, data->selinux_imagelabel);
-    if (setfilecon (overlay,
-                    (security_context_t) data->selinux_imagelabel) == -1)
+    if (setfilecon (overlay, data->selinux_imagelabel) == -1)
       selinux_warning (g, __func__, "setfilecon", overlay);
   }
 #endif
@@ -840,7 +839,7 @@ is_custom_hv (guestfs_h *g)
 static void
 set_socket_create_context (guestfs_h *g)
 {
-  security_context_t scon; /* this is actually a 'char *' */
+  char *scon;
   context_t con;
 
   if (getcon (&scon) == -1) {
