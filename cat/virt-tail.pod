@@ -127,10 +127,7 @@ security problem with malicious guests (CVE-2010-3851).
 
 __INCLUDE:key-option.pod__
 
-=item B<--keys-from-stdin>
-
-Read key or passphrase parameters from stdin.  The default is
-to try to read passphrases from the user by opening F</dev/tty>.
+__INCLUDE:keys-from-stdin-option.pod__
 
 =item B<-m> dev[:mountpoint[:options[:fstype]]]
 
