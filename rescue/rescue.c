@@ -393,7 +393,7 @@ main (int argc, char *argv[])
 
   /* Also bind-mount /dev etc under /sysroot, if -i was given. */
   if (inspector) {
-    CLEANUP_FREE_STRING_LIST char **roots;
+    CLEANUP_FREE_STRING_LIST char **roots = NULL;
     int windows;
 
     roots = guestfs_inspect_get_roots (g);
