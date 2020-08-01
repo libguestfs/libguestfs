@@ -92,7 +92,7 @@ dnl Now some warnings we want to enable and/or customize ...
 
 dnl Warn about large stack frames.  This does not include alloca and
 dnl variable length arrays.  Coverity warns about 10000 byte frames.
-gl_WARN_ADD([-Wframe-larger-than=5000])
+gl_WARN_ADD([-Wframe-larger-than=6000])
 
 dnl Warn about large stack frames, including estimates for alloca
 dnl and variable length arrays.
