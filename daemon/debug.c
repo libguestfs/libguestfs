@@ -984,22 +984,8 @@ do_internal_rhbz914931 (int count)
   return 0;
 }
 
-#pragma GCC diagnostic push
-#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 60000 /* gcc >= 6 */
-#pragma GCC diagnostic ignored "-Wnull-dereference"
-#endif
-
 static void
 deliberately_cause_a_segfault (void)
 {
-  /* http://blog.llvm.org/2011/05/what-every-c-programmer-should-know.html
-   * "Dereferencing a NULL Pointer: contrary to popular belief,
-   * dereferencing a null pointer in C is undefined. It is not defined
-   * to trap [...]"
-   */
-  volatile int *ptr = NULL;
-  /* coverity[var_deref_op] */
-  *ptr = 1;
+  __builtin_trap ();
 }
-
-#pragma GCC diagnostic pop
