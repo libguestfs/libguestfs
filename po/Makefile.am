@@ -23,7 +23,7 @@ MSGID_BUGS_ADDRESS = https://bugzilla.redhat.com/enter_bug.cgi?component=libgues
 
 # Languages.
 # Don't use LINGUAS (uppercase) as Gentoo defines it (RHBZ#804464).
-linguas     := cs de en_GB es eu fr gu hi ja kn ml mr nl or pa pl ru ta te tg uk zh_CN
+linguas     := $(shell cat $(srcdir)/LINGUAS)
 
 POTFILES    := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES)
 POTFILES_PL := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES-pl)
@@ -32,6 +32,7 @@ POFILES     := $(linguas:%=%.po)
 GMOFILES    := $(linguas:%=%.gmo)
 
 EXTRA_DIST = \
+	LINGUAS \
 	POTFILES POTFILES-pl POTFILES-ml \
 	$(DOMAIN).pot \
 	$(POFILES) \
