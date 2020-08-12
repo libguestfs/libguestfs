@@ -12,6 +12,7 @@
 ../common/mlcustomize/customize-synopsis.pod
 ../common/options/blocksize-option.pod
 ../common/options/key-option.pod
+../common/options/keys-from-stdin-option.pod
 ../customize/virt-customize.pod
 ../daemon/guestfsd.pod
 ../df/virt-df.pod
