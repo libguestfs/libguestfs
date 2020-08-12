@@ -59,8 +59,9 @@ AC_CHECK_PROG([XMLLINT],[xmllint],[xmllint],[no])
 AM_CONDITIONAL([HAVE_XMLLINT],[test "x$XMLLINT" != "xno"])
 
 dnl po4a for translating man pages and POD files (optional).
-AC_CHECK_PROG([PO4A],[po4a],[po4a],[no])
-AM_CONDITIONAL([HAVE_PO4A], [test "x$PO4A" != "xno"])
+AC_CHECK_PROG([PO4A_GETTEXTIZE],[po4a-gettextize],[po4a-gettextize],[no])
+AC_CHECK_PROG([PO4A_TRANSLATE],[po4a-translate],[po4a-translate],[no])
+AM_CONDITIONAL([HAVE_PO4A], [test "x$PO4A_GETTEXTIZE" != "xno" && test "x$PO4A_TRANSLATE" != "xno"])
 
 dnl Check for db_dump, db_load (optional).
 GUESTFS_FIND_DB_TOOL([DB_DUMP], [dump])

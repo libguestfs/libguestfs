@@ -444,7 +444,6 @@ Makefile.in
 /po-docs/*/*.3
 /po-docs/*/*.5
 /po-docs/*/*.8
-/po-docs/po4a.conf
 /po-docs/*/*.pod
 /podwrapper.1
 /podwrapper.pl

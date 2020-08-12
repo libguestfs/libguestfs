@@ -22,7 +22,7 @@ include $(top_srcdir)/subdir-rules.mk
 LINGUA = $(shell basename -- `pwd`)
 
 # Before 1.23.23, the old Perl tools were called *.pl.
-CLEANFILES += *.pl
+CLEANFILES += *.pl *.pod
 
 MANPAGES = \
 	guestfish.1 \
@@ -195,19 +195,20 @@ virt-p2v.1: virt-p2v.pod virt-p2v-kernel-config.pod
 	  --section 8 \
 	  $<
 
-# If a POD file is missing, the user needs to run make update-po.
-# This cannot be done automatically by make because it would be unsafe
-# to run po4a or update podfiles potentially in parallel.  Therefore
-# tell the user what to do and stop.
-$(podfiles):
-	@if ! test -f $@; then \
-	  echo "***"; \
-	  echo "*** You need to run the following commands:"; \
-	  echo "***     rm po-docs/podfiles; make -C po-docs update-po"; \
-	  echo "*** After that, rerun make."; \
-	  echo "***"; \
-	  exit 1; \
-	fi
+# Note: po4a puts the following junk at the top of every POD file it
+# generates:
+#  - a warning
+#  - a probably bogus =encoding line
+# Remove both.
+# XXX Fix po4a so it doesn't do this.
+%.pod: $(srcdir)/../$(LINGUA).po
+	$(guestfs_am_v_po4a_translate)$(PO4A_TRANSLATE) \
+	  -f pod \
+	  -M utf-8 -L utf-8 \
+	  -k 0 \
+	  -m $(srcdir)/../$(shell grep '/$(notdir $@)$$' $(top_srcdir)/po-docs/podfiles) \
+	  -p $< \
+	  | $(SED) '0,/^=encoding/d' > $@
 
 # XXX Can automake do this properly?
 install-data-hook:
