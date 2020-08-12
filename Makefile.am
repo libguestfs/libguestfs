@@ -261,9 +261,7 @@ EXTRA_DIST = \
 	website/index.css \
 	website/index.html.in \
 	website/pod.css \
-	website/standard.css \
-	zanata.xml \
-	zanata-pull.sh
+	website/standard.css
 
 WEBSITESDIR = $(HOME)/d/websites
 

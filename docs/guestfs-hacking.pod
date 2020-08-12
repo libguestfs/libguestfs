@@ -1029,20 +1029,6 @@ Finalize F<guestfs-release-notes.pod>
 
 =item *
 
-Push and pull from Zanata.
-
-Run:
-
- zanata push
-
-to push the latest POT files to Zanata.  Then run:
-
- ./zanata-pull.sh
-
-which is a wrapper to pull the latest translated F<*.po> files.
-
-=item *
-
 Consider updating gnulib to latest upstream version.
 
 =item *
