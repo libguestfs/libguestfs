@@ -126,7 +126,7 @@ guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-stru
 # generated in any translated manual.  To fix this we need to expand
 # out all the %.1 pattern rules below.
 
-guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod guestfish-prepopts.pod
+guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod guestfish-prepopts.pod blocksize-option.pod key-option.pod keys-from-stdin-option.pod
 	$(PODWRAPPER) \
 	  --no-strict-checks \
 	  --man $@ \
