@@ -206,7 +206,7 @@ virt-p2v.1: virt-p2v.pod virt-p2v-kernel-config.pod
 	  -f pod \
 	  -M utf-8 -L utf-8 \
 	  -k 0 \
-	  -m $(srcdir)/../$(shell grep '/$(notdir $@)$$' $(top_srcdir)/po-docs/podfiles) \
+	  -m $(top_srcdir)/$(shell grep '/$(notdir $@)$$' $(top_srcdir)/po-docs/podfiles) \
 	  -p $< \
 	  | $(SED) '0,/^=encoding/d' > $@
 
