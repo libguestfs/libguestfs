@@ -40,17 +40,6 @@ EXTRA_DIST = \
 
 if HAVE_GNU_GETTEXT
 
-dist-hook:
-	$(MAKE) update-po
-	cp *.po *.gmo $(distdir)/
-
-update-po:
-	$(MAKE) $(DOMAIN).pot
-	$(MAKE) $(POFILES)
-	$(MAKE) update-gmo
-
-update-gmo: Makefile $(GMOFILES)
-
 XGETTEXT_ARGS = \
 	--default-domain=$(DOMAIN) \
 	--from-code=utf-8 \
@@ -87,9 +76,6 @@ endif
 	  --files-from=$(abs_srcdir)/POTFILES-pl
 	mv $@-t $@
 
-%.po: $(DOMAIN).pot
-	cd $(srcdir) && $(MSGMERGE) -N --update $@ $(DOMAIN).pot
-
 .po.gmo:
 	rm -f $@ $@-t
 	$(MSGFMT) -c -o $@-t $(srcdir)/$<
@@ -108,10 +94,5 @@ install-data-hook: $(GMOFILES)
 	done
 
 .PRECIOUS: $(DOMAIN).pot $(POFILES)
-
-else
-
-# If no GNU gettext, 'make update-po' is a dummy rule.
-update-po:
 
 endif
