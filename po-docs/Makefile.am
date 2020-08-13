@@ -21,25 +21,24 @@ include $(top_srcdir)/subdir-rules.mk
 # into the po/ directory and the translations into the usual
 # libguestfs.pot file.
 
-# Languages that we translate.
+# Languages.
 # Don't use LINGUAS (uppercase) as Gentoo defines it (RHBZ#804464).
-linguas = ja uk
+linguas     := $(shell cat $(srcdir)/LINGUAS)
 
-# Languages that we have PO files for, but we don't translate
-# because there is insufficient coverage.
-linguas_not_translated = cs de en_GB es eu fr nl pt_BR tg zh_CN
+# Languages that we translate, as they have enough coverage.
+linguas_translated = ja uk
 
 EXTRA_DIST = \
+	LINGUAS \
 	libguestfs-docs.pot \
 	$(linguas:%=%.po) \
-	$(linguas_not_translated:%=%.po) \
 	podfiles
 
 # Build the final man pages from the translated POD files.  Each
 # language directory contains a Makefile.am that we need to keep up to
 # date (note each $lang/Makefile.am should be identical).
 # XXX Is there a better way?
-SUBDIRS = $(linguas)
+SUBDIRS = $(linguas_translated)
 
 libguestfs-docs.pot:
 	cd $(top_srcdir) && $(PO4A_GETTEXTIZE) \
