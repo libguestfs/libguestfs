@@ -71,7 +71,7 @@ read_uuid (guestfs_h *g, void *retv, const char *line, size_t len)
  * The L<file(1)> command does the hard work.
  */
 static char *
-get_root_uuid (guestfs_h *g, const char *appliance)
+get_root_uuid_with_file (guestfs_h *g, const char *appliance)
 {
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   char *ret = NULL;
@@ -93,6 +93,67 @@ get_root_uuid (guestfs_h *g, const char *appliance)
   }
 
   return ret;
+}
+
+/**
+ * Read the first 256k bytes of the in_file with L<qemu-img(1)> command
+ * and write them into the out_file. That may be useful to get UUID of
+ * the QCOW2 disk image with further L<file(1)> command.
+ * The function returns zero if successful, otherwise -1.
+ */
+static int
+run_qemu_img_dd (guestfs_h *g, const char *in_file, char *out_file)
+{
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
+  int r;
+
+  guestfs_int_cmd_add_arg (cmd, "qemu-img");
+  guestfs_int_cmd_add_arg (cmd, "dd");
+  guestfs_int_cmd_add_arg_format (cmd, "if=%s", in_file);
+  guestfs_int_cmd_add_arg_format (cmd, "of=%s", out_file);
+  guestfs_int_cmd_add_arg (cmd, "bs=256k");
+  guestfs_int_cmd_add_arg (cmd, "count=1");
+
+  r = guestfs_int_cmd_run (cmd);
+  if (r == -1) {
+    error (g, "Failed to run qemu-img");
+    return -1;
+  }
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    guestfs_int_external_command_failed (g, r, "qemu-img dd", NULL);
+    return -1;
+  }
+
+  return 0;
+}
+
+/**
+ * Get the UUID from the appliance disk image.
+ */
+static char *
+get_root_uuid (guestfs_h *g, const char *appliance)
+{
+  char *uuid = NULL;
+  CLEANUP_UNLINK_FREE char *tmpfile = NULL;
+
+  uuid = get_root_uuid_with_file (g, appliance);
+  if (uuid) {
+      return uuid;
+  }
+
+  tmpfile = guestfs_int_make_temp_path (g, "root", "raw");
+  if (!tmpfile)
+    return NULL;
+
+  if (run_qemu_img_dd (g, appliance, tmpfile) == -1)
+    return NULL;
+
+  uuid = get_root_uuid_with_file (g, tmpfile);
+  if (!uuid) {
+    error (g, "Failed to get the appliance UUID");
+  }
+
+  return uuid;
 }
 
 /**
