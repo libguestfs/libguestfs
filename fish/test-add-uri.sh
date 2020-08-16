@@ -59,7 +59,7 @@ $VG guestfish -x -a 'nbd://?socket=/sk' </dev/null >test-add-uri.out 2>&1
 grep -sq 'add_drive "" "protocol:nbd" "server:unix:/sk"' test-add-uri.out || fail
 
 $VG guestfish -x -a 'nbd:///export?socket=/sk' </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "/export" "protocol:nbd" "server:unix:/sk"' test-add-uri.out || fail
+grep -sq 'add_drive "export" "protocol:nbd" "server:unix:/sk"' test-add-uri.out || fail
 
 # rbd
 $VG guestfish -x -a rbd://example.com:6789/pool/disk </dev/null >test-add-uri.out 2>&1

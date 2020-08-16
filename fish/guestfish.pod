@@ -1187,7 +1187,7 @@ The equivalent API command would be:
 
 Add a disk located on Network Block Device (nbd) storage.
 
-The I</exportname> part of the URI specifies an NBD export name, but
+The I<exportname> part of the URI specifies an NBD export name, but
 is usually left empty.
 
 The optional I<?socket> parameter can be used to specify a Unix domain
