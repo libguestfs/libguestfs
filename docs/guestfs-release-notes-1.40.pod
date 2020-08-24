@@ -33,7 +33,7 @@ Virt-builder I<--uninstall> option now works on SUSE
 (Sebastian Meyer).
 
 Virt-builder now supports Windows.  We are not able to ship Windows
-templates in the public respository for obvious licensing reasons, but
+templates in the public repository for obvious licensing reasons, but
 if you are an MSDN subscriber you may build your own.  See
 L<https://rwmj.wordpress.com/2018/09/13/creating-windows-templates-for-virt-builder/>
 

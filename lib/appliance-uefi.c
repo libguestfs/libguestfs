@@ -47,7 +47,7 @@
  * file.  C<*vars> is initialized with the path to a copy of the UEFI
  * vars file (which is cleaned up automatically on exit).
  *
- * In case a UEFI firmare is available, either C<*firmware> is set to
+ * In case a UEFI firmware is available, either C<*firmware> is set to
  * a non-C<NULL> value, or C<*code> and C<*vars> are.
  *
  * C<*code> and C<*vars> should be freed by the caller, and
