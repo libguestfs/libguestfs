@@ -514,6 +514,8 @@ let proc_nr = [
 505, "f2fs_expand";
 506, "lvm_scan";
 507, "luks_uuid";
+508, "cryptsetup_open";
+509, "cryptsetup_close";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list

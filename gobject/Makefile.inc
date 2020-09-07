@@ -69,6 +69,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-copy_file_to_device.h \
   include/guestfs-gobject/optargs-copy_file_to_file.h \
   include/guestfs-gobject/optargs-cpio_out.h \
+  include/guestfs-gobject/optargs-cryptsetup_open.h \
   include/guestfs-gobject/optargs-disk_create.h \
   include/guestfs-gobject/optargs-download_blocks.h \
   include/guestfs-gobject/optargs-e2fsck.h \
@@ -162,6 +163,7 @@ guestfs_gobject_sources= \
   src/optargs-copy_file_to_device.c \
   src/optargs-copy_file_to_file.c \
   src/optargs-cpio_out.c \
+  src/optargs-cryptsetup_open.c \
   src/optargs-disk_create.c \
   src/optargs-download_blocks.c \
   src/optargs-e2fsck.c \

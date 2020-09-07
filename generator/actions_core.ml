@@ -5665,52 +5665,6 @@ This command also clears the LVM cache and performs a volume
 group scan." };
 
   { defaults with
-    name = "luks_open"; added = (1, 5, 1);
-    style = RErr, [String (Device, "device"); String (Key, "key"); String (PlainString, "mapname")], [];
-    optional = Some "luks";
-    shortdesc = "open a LUKS-encrypted block device";
-    longdesc = "\
-This command opens a block device which has been encrypted
-according to the Linux Unified Key Setup (LUKS) standard.
-
-C<device> is the encrypted block device or partition.
-
-The caller must supply one of the keys associated with the
-LUKS block device, in the C<key> parameter.
-
-This creates a new block device called F</dev/mapper/mapname>.
-Reads and writes to this block device are decrypted from and
-encrypted to the underlying C<device> respectively.
-
-If this block device contains LVM volume groups, then
-calling C<guestfs_lvm_scan> with the C<activate>
-parameter C<true> will make them visible.
-
-Use C<guestfs_list_dm_devices> to list all device mapper
-devices." };
-
-  { defaults with
-    name = "luks_open_ro"; added = (1, 5, 1);
-    style = RErr, [String (Device, "device"); String (Key, "key"); String (PlainString, "mapname")], [];
-    optional = Some "luks";
-    shortdesc = "open a LUKS-encrypted block device read-only";
-    longdesc = "\
-This is the same as C<guestfs_luks_open> except that a read-only
-mapping is created." };
-
-  { defaults with
-    name = "luks_close"; added = (1, 5, 1);
-    style = RErr, [String (Device, "device")], [];
-    optional = Some "luks";
-    shortdesc = "close a LUKS device";
-    longdesc = "\
-This closes a LUKS device that was created earlier by
-C<guestfs_luks_open> or C<guestfs_luks_open_ro>.  The
-C<device> parameter must be the name of the LUKS mapping
-device (ie. F</dev/mapper/mapname>) and I<not> the name
-of the underlying block device." };
-
-  { defaults with
     name = "luks_format"; added = (1, 5, 2);
     style = RErr, [String (Device, "device"); String (Key, "key"); Int "keyslot"], [];
     optional = Some "luks";
@@ -9752,5 +9706,68 @@ is used)." };
     shortdesc = "get the UUID of a LUKS device";
     longdesc = "\
 This returns the UUID of the LUKS device C<device>." };
+
+  { defaults with
+    name = "cryptsetup_open"; added = (1, 43, 2);
+    style = RErr, [String (Device, "device"); String (Key, "key"); String (PlainString, "mapname")], [OBool "readonly"; OString "crypttype"];
+    impl = OCaml "Cryptsetup.cryptsetup_open";
+    optional = Some "luks";
+    test_excuse = "no way to format BitLocker, and smallest device is huge";
+    shortdesc = "open an encrypted block device";
+    longdesc = "\
+This command opens a block device which has been encrypted
+according to the Linux Unified Key Setup (LUKS) standard,
+Windows BitLocker, or some other types.
+
+C<device> is the encrypted block device or partition.
+
+The caller must supply one of the keys associated with the
+encrypted block device, in the C<key> parameter.
+
+This creates a new block device called F</dev/mapper/mapname>.
+Reads and writes to this block device are decrypted from and
+encrypted to the underlying C<device> respectively.
+
+C<mapname> cannot be C<\"control\"> because that name is reserved
+by device-mapper.
+
+If the optional C<crypttype> parameter is not present then
+libguestfs tries to guess the correct type (for example
+LUKS or BitLocker).  However you can override this by
+specifying one of the following types:
+
+=over 4
+
+=item C<luks>
+
+A Linux LUKS device.
+
+=item C<bitlk>
+
+A Windows BitLocker device.
+
+=back
+
+The optional C<readonly> flag, if set to true, creates a
+read-only mapping.
+
+If this block device contains LVM volume groups, then
+calling C<guestfs_lvm_scan> with the C<activate>
+parameter C<true> will make them visible.
+
+Use C<guestfs_list_dm_devices> to list all device mapper
+devices." };
+
+  { defaults with
+    name = "cryptsetup_close"; added = (1, 43, 2);
+    style = RErr, [String (Device, "device")], [];
+    impl = OCaml "Cryptsetup.cryptsetup_close";
+    optional = Some "luks";
+    shortdesc = "close an encrypted device";
+    longdesc = "\
+This closes an encrypted device that was created earlier by
+C<guestfs_cryptsetup_open>.  The C<device> parameter must be
+the name of the mapping device (ie. F</dev/mapper/mapname>)
+and I<not> the name of the underlying block device." };
 
 ]

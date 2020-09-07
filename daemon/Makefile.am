@@ -39,6 +39,7 @@ generator_built = \
 	blkid.mli \
 	btrfs.mli \
 	callbacks.ml \
+	cryptsetup.mli \
 	devsparts.mli \
 	file.mli \
 	filearch.mli \
@@ -269,6 +270,7 @@ SOURCES_MLI = \
 	btrfs.mli \
 	callbacks.mli \
 	chroot.mli \
+	cryptsetup.mli \
 	daemon.mli \
 	daemon_config.mli \
 	devsparts.mli \
@@ -310,6 +312,7 @@ SOURCES_ML = \
 	chroot.ml \
 	blkid.ml \
 	btrfs.ml \
+	cryptsetup.ml \
 	devsparts.ml \
 	file.ml \
 	filearch.ml \

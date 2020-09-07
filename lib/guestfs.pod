@@ -585,17 +585,18 @@ Libguestfs allows you to access Linux guests which have been
 encrypted using whole disk encryption that conforms to the
 Linux Unified Key Setup (LUKS) standard.  This includes
 nearly all whole disk encryption systems used by modern
-Linux guests.
+Linux guests.  Windows BitLocker is also supported.
 
-Use L</guestfs_vfs_type> to identify LUKS-encrypted block
-devices (it returns the string C<crypto_LUKS>).
+Use L</guestfs_vfs_type> to identify encrypted block
+devices.  For LUKS it returns the string C<crypto_LUKS>.
+For Windows BitLocker it returns C<BitLocker>.
 
-Then open these devices by calling L</guestfs_luks_open>.
+Then open these devices by calling L</guestfs_cryptsetup_open>.
 Obviously you will require the passphrase!
 
-Opening a LUKS device creates a new device mapper device
+Opening an encrypted device creates a new device mapper device
 called F</dev/mapper/mapname> (where C<mapname> is the
-string you supply to L</guestfs_luks_open>).
+string you supply to L</guestfs_cryptsetup_open>).
 Reads and writes to this mapper device are decrypted from and
 encrypted to the underlying block device respectively.
 
@@ -603,11 +604,11 @@ LVM volume groups on the device can be made visible by calling
 L</guestfs_vgscan> followed by L</guestfs_vg_activate_all>.
 The logical volume(s) can now be mounted in the usual way.
 
-Use the reverse process to close a LUKS device.  Unmount
+Use the reverse process to close an encrypted device.  Unmount
 any logical volumes on it, deactivate the volume groups
 by calling C<guestfs_vg_activate (g, 0, ["/dev/VG"])>.
 Then close the mapper device by calling
-L</guestfs_luks_close> on the F</dev/mapper/mapname>
+L</guestfs_cryptsetup_close> on the F</dev/mapper/mapname>
 device (I<not> the underlying encrypted block device).
 
 =head2 MOUNT LOCAL

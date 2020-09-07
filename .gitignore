@@ -147,6 +147,7 @@ Makefile.in
 /daemon/btrfs.mli
 /daemon/callbacks.ml
 /daemon/caml-stubs.c
+/daemon/cryptsetup.mli
 /daemon/daemon_config.ml
 /daemon/daemon_utils_tests
 /daemon/devsparts.mli

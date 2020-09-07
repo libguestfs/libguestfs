@@ -847,4 +847,56 @@ allows you to specify the new size (in bytes) explicitly." };
 This rescans all block devices and rebuilds the list of LVM
 physical volumes, volume groups and logical volumes." };
 
+  { defaults with
+    name = "luks_open"; added = (1, 5, 1);
+    style = RErr, [String (Device, "device"); String (Key, "key"); String (PlainString, "mapname")], [];
+    impl = OCaml "Cryptsetup.luks_open";
+    optional = Some "luks";
+    deprecated_by = Replaced_by "cryptsetup_open";
+    shortdesc = "open a LUKS-encrypted block device";
+    longdesc = "\
+This command opens a block device which has been encrypted
+according to the Linux Unified Key Setup (LUKS) standard.
+
+C<device> is the encrypted block device or partition.
+
+The caller must supply one of the keys associated with the
+LUKS block device, in the C<key> parameter.
+
+This creates a new block device called F</dev/mapper/mapname>.
+Reads and writes to this block device are decrypted from and
+encrypted to the underlying C<device> respectively.
+
+If this block device contains LVM volume groups, then
+calling C<guestfs_lvm_scan> with the C<activate>
+parameter C<true> will make them visible.
+
+Use C<guestfs_list_dm_devices> to list all device mapper
+devices." };
+
+  { defaults with
+    name = "luks_open_ro"; added = (1, 5, 1);
+    style = RErr, [String (Device, "device"); String (Key, "key"); String (PlainString, "mapname")], [];
+    impl = OCaml "Cryptsetup.luks_open_ro";
+    optional = Some "luks";
+    deprecated_by = Replaced_by "cryptsetup_open";
+    shortdesc = "open a LUKS-encrypted block device read-only";
+    longdesc = "\
+This is the same as C<guestfs_luks_open> except that a read-only
+mapping is created." };
+
+  { defaults with
+    name = "luks_close"; added = (1, 5, 1);
+    style = RErr, [String (Device, "device")], [];
+    impl = OCaml "Cryptsetup.luks_close";
+    optional = Some "luks";
+    deprecated_by = Replaced_by "cryptsetup_close";
+    shortdesc = "close a LUKS device";
+    longdesc = "\
+This closes a LUKS device that was created earlier by
+C<guestfs_luks_open> or C<guestfs_luks_open_ro>.  The
+C<device> parameter must be the name of the LUKS mapping
+device (ie. F</dev/mapper/mapname>) and I<not> the name
+of the underlying block device." };
+
 ]
