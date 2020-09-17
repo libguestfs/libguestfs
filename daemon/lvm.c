@@ -757,7 +757,7 @@ do_lvm_canonical_lv_name (const char *device)
     return NULL;
 
   if (r == 0) {
-    reply_with_error ("%s: not a logical volume", device);
+    reply_with_error_errno (EINVAL, "%s: not a logical volume", device);
     return NULL;
   }
 

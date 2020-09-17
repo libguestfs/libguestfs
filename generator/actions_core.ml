@@ -5994,7 +5994,8 @@ might find to the canonical name.  For example, F</dev/mapper/VG-LV>
 is converted to F</dev/VG/LV>.
 
 This command returns an error if the C<lvname> parameter does
-not refer to a logical volume.
+not refer to a logical volume.  In this case errno will be
+set to C<EINVAL>.
 
 See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>." };
 
