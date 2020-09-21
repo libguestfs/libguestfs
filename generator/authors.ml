@@ -36,6 +36,7 @@ let authors = [
 "Adam Huffman", [], [ Development ];
 "Adam Robinson", [], [ Development ];
 "Andrea Bolognani", [], [ Development ];
+"Andrey Shinkevich", [], [ Development ];
 "Angus Salkeld", [], [ Development ];
 "Ani Peter", [], [ Development ];
 "Bastien ROUCARIÈS", [], [ Development ];
