@@ -212,38 +212,45 @@ func return_hashtable (argv **C.char) map[string]string {
       pr "\n";
       pr "type %s struct {\n" name;
       List.iter (
-        function
-        | n, FChar -> pr "    %s byte\n" n
-        | n, FString -> pr "    %s string\n" n
-        | n, FBuffer -> pr "    %s []byte\n" n
-        | n, FUInt32 -> pr "    %s uint32\n" n
-        | n, FInt32 -> pr "    %s int32\n" n
-        | n, FUInt64 -> pr "    %s uint64\n" n
-        | n, FInt64 -> pr "    %s int64\n" n
-        | n, FBytes -> pr "    %s uint64\n" n
-        | n, FUUID -> pr "    %s [32]byte\n" n
-        | n, FOptPercent -> pr "    %s float32\n" n
+        fun (n, field) ->
+          (* We capitalize the field names so that they are
+           * publicly accessible.
+           *)
+          let n = String.capitalize_ascii n in
+          match field with
+          | FChar -> pr "    %s byte\n" n
+          | FString -> pr "    %s string\n" n
+          | FBuffer -> pr "    %s []byte\n" n
+          | FUInt32 -> pr "    %s uint32\n" n
+          | FInt32 -> pr "    %s int32\n" n
+          | FUInt64 -> pr "    %s uint64\n" n
+          | FInt64 -> pr "    %s int64\n" n
+          | FBytes -> pr "    %s uint64\n" n
+          | FUUID -> pr "    %s [32]byte\n" n
+          | FOptPercent -> pr "    %s float32\n" n
       ) cols;
       pr "}\n";
       pr "\n";
       pr "func return_%s (c *C.struct_guestfs_%s) *%s {\n" name c_name name;
       pr "    r := %s{}\n" name;
       List.iter (
-        function
-        | n, FChar -> pr "    r.%s = byte (c.%s)\n" n n
-        | n, FString -> pr "    r.%s = C.GoString (c.%s)\n" n n
-        | n, FBuffer ->
-          pr "    r.%s = C.GoBytes (unsafe.Pointer (c.%s), C.int (c.%s_len))\n"
-            n n n
-        | n, FUInt32 -> pr "    r.%s = uint32 (c.%s)\n" n n
-        | n, FInt32 -> pr "    r.%s = int32 (c.%s)\n" n n
-        | n, FUInt64 -> pr "    r.%s = uint64 (c.%s)\n" n n
-        | n, FInt64 -> pr "    r.%s = int64 (c.%s)\n" n n
-        | n, FBytes -> pr "    r.%s = uint64 (c.%s)\n" n n
-        | n, FOptPercent -> pr "    r.%s = float32 (c.%s)\n" n n
-        | n, FUUID ->
-          pr "    // XXX doesn't work XXX r.%s = C.GoBytes (c.%s, len (c.%s))\n" n n n;
-          pr "    r.%s = [32]byte{}\n" n
+        fun (n, field) ->
+          let gon = String.capitalize_ascii n in
+          match field with
+          | FChar -> pr "    r.%s = byte (c.%s)\n" gon n
+          | FString -> pr "    r.%s = C.GoString (c.%s)\n" gon n
+          | FBuffer ->
+             pr "    r.%s = C.GoBytes (unsafe.Pointer (c.%s), C.int (c.%s_len))\n"
+               gon n n
+          | FUInt32 -> pr "    r.%s = uint32 (c.%s)\n" gon n
+          | FInt32 -> pr "    r.%s = int32 (c.%s)\n" gon n
+          | FUInt64 -> pr "    r.%s = uint64 (c.%s)\n" gon n
+          | FInt64 -> pr "    r.%s = int64 (c.%s)\n" gon n
+          | FBytes -> pr "    r.%s = uint64 (c.%s)\n" gon n
+          | FOptPercent -> pr "    r.%s = float32 (c.%s)\n" gon n
+          | FUUID ->
+             pr "    // XXX doesn't work XXX r.%s = C.GoBytes (c.%s, len (c.%s))\n" gon n n;
+             pr "    r.%s = [32]byte{}\n" gon
       ) cols;
       pr "    return &r\n";
       pr "}\n";
