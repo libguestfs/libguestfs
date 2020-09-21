@@ -41,6 +41,7 @@ virt_cat_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -69,6 +70,7 @@ virt_filesystems_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -97,6 +99,7 @@ virt_log_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -124,6 +127,7 @@ virt_ls_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/visit \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
@@ -153,6 +157,7 @@ virt_tail_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib

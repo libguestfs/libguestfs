@@ -41,7 +41,7 @@ endif
 SUBDIRS += common/errnostring common/protocol common/qemuopts
 SUBDIRS += common/utils
 SUBDIRS += common/structs
-SUBDIRS += lib docs examples
+SUBDIRS += include lib docs examples
 
 # The daemon and the appliance.
 SUBDIRS += common/mlutils

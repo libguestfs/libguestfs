@@ -110,6 +110,7 @@ libcmds_la_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 libcmds_la_CFLAGS =
 libcmds_la_LIBADD = \
@@ -128,6 +129,7 @@ guestfish_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/edit -I$(top_builddir)/common/edit \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/common/progress -I$(top_builddir)/common/progress \

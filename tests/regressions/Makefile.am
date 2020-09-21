@@ -105,7 +105,8 @@ rhbz501893_SOURCES = rhbz501893.c
 rhbz501893_CPPFLAGS = \
 	-DGUESTFS_NO_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/lib -I$(top_builddir)/lib
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include
 rhbz501893_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz501893_LDADD = \
@@ -116,7 +117,8 @@ rhbz790721_SOURCES = rhbz790721.c
 rhbz790721_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/lib -I$(top_builddir)/lib
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include
 rhbz790721_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
@@ -130,6 +132,7 @@ rhbz914931_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-DGUESTFS_PRIVATE=1
 rhbz914931_CFLAGS = \
 	-pthread \
@@ -144,7 +147,8 @@ rhbz1055452_SOURCES = rhbz1055452.c
 rhbz1055452_CPPFLAGS = \
 	-DGUESTFS_NO_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/lib -I$(top_builddir)/lib
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include
 rhbz1055452_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
@@ -155,7 +159,8 @@ rhbz1055452_LDADD = \
 test_big_heap_SOURCES = test-big-heap.c
 test_big_heap_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/lib -I$(top_builddir)/lib
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include
 test_big_heap_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_big_heap_LDADD = \

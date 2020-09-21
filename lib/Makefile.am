@@ -20,7 +20,6 @@ include $(top_srcdir)/subdir-rules.mk
 noinst_PROGRAMS =
 
 generator_built = \
-	guestfs.h \
 	guestfs-internal-actions.h \
 	actions-0.c \
 	actions-1.c \
@@ -50,8 +49,6 @@ EXTRA_DIST = \
 	local/libguestfs.pc.in \
 	guestfs.pod
 
-include_HEADERS = guestfs.h
-
 lib_LTLIBRARIES = libguestfs.la
 
 libguestfs_la_SOURCES = \
@@ -60,7 +57,7 @@ libguestfs_la_SOURCES = \
 	../common/qemuopts/qemuopts.h \
 	../common/utils/guestfs-utils.h \
 	../common/structs/structs-cleanups.h \
-	guestfs.h \
+	../include/guestfs.h \
 	guestfs-internal.h \
 	guestfs-internal-all.h \
 	actions-0.c \
@@ -133,7 +130,8 @@ libguestfs_la_CPPFLAGS = \
 	-I$(top_srcdir)/common/qemuopts -I$(top_builddir)/common/qemuopts \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
-	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/include
 
 libguestfs_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
@@ -206,7 +204,7 @@ unit_tests_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
-	-I$(top_srcdir)/lib -I.
+	-I$(top_srcdir)/lib -I$(top_srcdir)/include -I.
 unit_tests_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(RPC_CFLAGS)

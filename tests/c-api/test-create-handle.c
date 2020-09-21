@@ -26,7 +26,6 @@
 #include <error.h>
 
 #include "guestfs.h"
-#include "guestfs-utils.h"
 
 int
 main (int argc, char *argv[])

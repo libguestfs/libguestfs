@@ -30,7 +30,6 @@
 #include <error.h>
 
 #include "guestfs.h"
-#include "guestfs-utils.h"
 
 #include "ignore-value.h"
 

@@ -50,7 +50,9 @@ libguestfs_gobject_1_0_ladir = $(includedir)/guestfs-gobject
 
 libguestfs_gobject_1_0_la_HEADERS = $(guestfs_gobject_headers)
 libguestfs_gobject_1_0_la_SOURCES = $(guestfs_gobject_sources)
-libguestfs_gobject_1_0_la_CFLAGS = -I$(top_srcdir)/lib -I$(srcdir)/include \
+libguestfs_gobject_1_0_la_CFLAGS = -I$(top_srcdir)/lib \
+	                           -I$(top_srcdir)/include \
+	                           -I$(srcdir)/include \
                                    -DGUESTFS_PRIVATE=1 \
                                    $(GOBJECT_CFLAGS)
 libguestfs_gobject_1_0_la_LDFLAGS = $(LDFLAGS) -L$(top_builddir)/lib

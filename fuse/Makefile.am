@@ -40,6 +40,7 @@ guestmount_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -70,6 +71,7 @@ guestunmount_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -144,6 +146,7 @@ test_fuse_SOURCES = \
 test_fuse_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 test_fuse_CFLAGS = \
@@ -163,6 +166,7 @@ test_guestmount_fd_SOURCES = \
 test_guestmount_fd_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 test_guestmount_fd_CFLAGS = \
@@ -182,6 +186,7 @@ test_guestunmount_fd_SOURCES = \
 test_guestunmount_fd_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 test_guestunmount_fd_CFLAGS = \

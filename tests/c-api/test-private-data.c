@@ -29,7 +29,6 @@
 #include <error.h>
 
 #include "guestfs.h"
-#include "guestfs-utils.h"
 
 #define PREFIX "test_"
 

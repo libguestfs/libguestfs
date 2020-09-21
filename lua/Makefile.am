@@ -43,7 +43,8 @@ libluaguestfs_la_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/lib -I$(top_builddir)/lib
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include
 
 libluaguestfs_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \

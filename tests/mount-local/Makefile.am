@@ -33,6 +33,7 @@ test_parallel_mount_local_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/parallel -I$(top_builddir)/common/parallel \
 	-I$(top_srcdir)/df
 test_parallel_mount_local_CFLAGS = \

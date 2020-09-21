@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2012 Red Hat Inc.
+# Copyright (C) 2010-2012 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,23 +17,8 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-EXTRA_DIST = \
-	test-mountable-inspect.sh
+generator_built = guestfs.h
 
-TESTS_ENVIRONMENT = $(top_builddir)/run --test
+EXTRA_DIST = guestfs.h
 
-TESTS=test-internal-parse-mountable test-mountable-inspect.sh
-check_PROGRAMS = test-internal-parse-mountable
-
-test_internal_parse_mountable_SOURCES = test-internal-parse-mountable.c
-test_internal_parse_mountable_CPPFLAGS = \
-	-DGUESTFS_NO_DEPRECATED=1 \
-	-DGUESTFS_PRIVATE=1 \
-	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
-	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
-	-I$(top_srcdir)/include
-test_internal_parse_mountable_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
-test_internal_parse_mountable_LDADD = \
-	$(top_builddir)/lib/libguestfs.la \
-	$(top_builddir)/gnulib/lib/libgnu.la
+include_HEADERS = guestfs.h

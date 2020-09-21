@@ -82,6 +82,7 @@ erl_guestfs_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-I$(ERLANG_LIB_DIR_erl_interface)/include \
 	-DEI_NO_DEPR_WARN

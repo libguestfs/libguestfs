@@ -308,6 +308,7 @@ Makefile.in
 /haskell/Guestfs030Config
 /haskell/Guestfs050LVCreate
 /haskell/Guestfs.hs
+/include/guestfs.h
 /inspector/actual-*.xml
 /inspector/stamp-virt-inspector.pod
 /inspector/virt-inspector
@@ -329,7 +330,6 @@ Makefile.in
 /lib/guestfs.3
 /lib/guestfs-actions.pod
 /lib/guestfs-availability.pod
-/lib/guestfs.h
 /lib/guestfs-internal-actions.h
 /lib/guestfs-structs.pod
 /lib/libguestfs.3

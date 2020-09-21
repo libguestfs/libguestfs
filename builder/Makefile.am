@@ -143,7 +143,8 @@ virt_builder_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/utils \
-	-I$(top_srcdir)/lib
+	-I$(top_srcdir)/lib \
+	-I$(top_srcdir)/include
 virt_builder_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
@@ -449,7 +450,8 @@ virt_index_validate_CPPFLAGS = \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils \
-	-I$(top_srcdir)/lib
+	-I$(top_srcdir)/lib \
+	-I$(top_srcdir)/include
 virt_index_validate_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	-Wno-unused-macros

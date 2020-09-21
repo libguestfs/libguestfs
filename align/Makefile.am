@@ -33,6 +33,7 @@ virt_alignment_scan_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/common/parallel -I$(top_builddir)/common/parallel \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \

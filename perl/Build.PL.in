@@ -62,6 +62,7 @@ my $build = Module::Build->new (
     include_dirs => [
         '@top_builddir@/lib',
         '@top_srcdir@/lib',
+        '@top_srcdir@/include',
     ],
     extra_linker_flags => [
         '-L@top_builddir@/lib/.libs',

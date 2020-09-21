@@ -263,6 +263,7 @@ fuse/guestunmount.c
 fuse/test-fuse.c
 fuse/test-guestmount-fd.c
 fuse/test-guestunmount-fd.c
+include/guestfs.h
 inspector/inspector.c
 java/actions-0.c
 java/actions-1.c
@@ -303,7 +304,6 @@ lib/fuse.c
 lib/guestfs-internal-actions.h
 lib/guestfs-internal-all.h
 lib/guestfs-internal.h
-lib/guestfs.h
 lib/guid.c
 lib/handle.c
 lib/info.c

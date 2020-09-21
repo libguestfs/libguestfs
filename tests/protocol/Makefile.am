@@ -47,7 +47,8 @@ test_error_messages_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/common/protocol -I$(top_builddir)/common/protocol \
-	-I$(top_srcdir)/lib -I$(top_builddir)/lib
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include
 test_error_messages_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(RPC_CFLAGS)

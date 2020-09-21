@@ -37,6 +37,7 @@ virt_rescue_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib

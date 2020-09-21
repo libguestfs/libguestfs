@@ -71,7 +71,8 @@ libguestfsmod_la_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
 	$(PYTHON_CFLAGS) \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/lib -I$(top_builddir)/lib
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include
 
 libguestfsmod_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)

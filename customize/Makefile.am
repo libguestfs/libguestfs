@@ -99,6 +99,7 @@ libcustomize_a_CPPFLAGS = \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common/edit
 libcustomize_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \

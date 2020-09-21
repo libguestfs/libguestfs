@@ -83,6 +83,7 @@ libguestfsocaml_a_CPPFLAGS = \
 	-I$(top_builddir) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/gnulib/lib -I../gnulib/lib
 
 libguestfsocaml_a_CFLAGS = \
