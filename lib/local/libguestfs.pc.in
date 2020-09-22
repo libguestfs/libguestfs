@@ -26,7 +26,7 @@
 prefix=@abs_top_builddir@
 exec_prefix=@abs_top_builddir@
 libdir=@abs_top_builddir@/lib/.libs
-includedir=@abs_top_srcdir@/lib
+includedir=@abs_top_srcdir@/include
 
 Name: libguestfs
 Version: @VERSION@
