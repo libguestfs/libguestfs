@@ -330,8 +330,9 @@ mount_local_access (const char *path, int mask)
 
   fuse = fuse_get_context ();
 
-  /* Root user should be able to access everything, so only bother
-   * with these fine-grained tests for non-root.  (RHBZ#1106548).
+  /* Root user should be able to read and write everything, so only
+   * bother with these fine-grained tests for non-root.
+   * (RHBZ#1106548).
    */
   if (fuse->uid != 0) {
     if (mask & R_OK)
@@ -344,12 +345,16 @@ mount_local_access (const char *path, int mask)
         (  fuse->uid == statbuf.st_uid ? statbuf.st_mode & S_IWUSR
            : fuse->gid == statbuf.st_gid ? statbuf.st_mode & S_IWGRP
            : statbuf.st_mode & S_IWOTH);
-    if (mask & X_OK)
-      ok = ok &&
-        (  fuse->uid == statbuf.st_uid ? statbuf.st_mode & S_IXUSR
-           : fuse->gid == statbuf.st_gid ? statbuf.st_mode & S_IXGRP
-           : statbuf.st_mode & S_IXOTH);
   }
+  /* We still want the -x test because otherwise root is unable to
+   * test if a file is executable.
+   * https://stackoverflow.com/questions/64273334/test-x-in-mounted-filesystem
+   */
+  if (mask & X_OK)
+    ok = ok &&
+      (  fuse->uid == statbuf.st_uid ? statbuf.st_mode & S_IXUSR
+         : fuse->gid == statbuf.st_gid ? statbuf.st_mode & S_IXGRP
+         : statbuf.st_mode & S_IXOTH);
 
   debug (g, "%s: "
          "testing access mask%s%s%s%s: "
