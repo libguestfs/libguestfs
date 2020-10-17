@@ -38,6 +38,7 @@ Makefile.in
 /align/stamp-virt-alignment-scan.pod
 /align/virt-alignment-scan
 /align/virt-alignment-scan.1
+/appliance/guestfsd.deps
 /appliance/libguestfs-make-fixed-appliance
 /appliance/libguestfs-make-fixed-appliance.1
 /appliance/make.sh

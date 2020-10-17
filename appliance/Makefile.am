@@ -79,7 +79,30 @@ make.sh: make.sh.in $(top_builddir)/config.log $(top_builddir)/config.status
 
 PACKAGELIST_CPP_FLAGS = -D$(DISTRO)=1 -DEXTRA_PACKAGES="$(EXTRA_PACKAGES)"
 
-packagelist: packagelist.in Makefile
+
+if HAVE_RPM
+QUERY_FILES_CMD := xargs rpm -qf --qf '%{name}\n'
+endif
+if HAVE_DPKG
+QUERY_FILES_CMD := xargs dpkg -S | cut -d: -f1
+endif
+if HAVE_PACMAN
+QUERY_FILES_CMD := xargs pacman -Qo | sed -r 's/.* is owned by ([^ ]+) .*/\1/'
+endif
+
+# Automatically generate library dependency list
+guestfsd.deps: ../daemon/guestfsd
+	/sbin/ldconfig -p > ld.so.cache.txt
+	objdump -p $^ |\
+		sed -ne '/NEEDED/{s/ *NEEDED *//; p;}' |\
+		xargs -i grep -F {} ld.so.cache.txt |\
+		sed -ne '/ => /{s/.* => *//; p;}' |\
+		$(QUERY_FILES_CMD) |\
+		sort -u > $@.t
+	rm -f ld.so.cache.txt
+	mv $@.t $@
+
+packagelist: packagelist.in Makefile guestfsd.deps
 	m4 $(PACKAGELIST_CPP_FLAGS) $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
 	cmp -s $@ $@-t || mv $@-t $@
@@ -153,5 +176,6 @@ stamp-libguestfs-make-fixed-appliance.pod: libguestfs-make-fixed-appliance.pod
 
 DISTCLEANFILES += \
 	make.sh \
+	guestfsd.deps \
 	packagelist \
 	supermin.d/*

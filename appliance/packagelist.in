@@ -23,7 +23,6 @@ dnl Basically the same with a few minor tweaks.
 ifelse(UBUNTU,1,`define(`DEBIAN',1)')
 
 ifelse(REDHAT,1,
-  augeas-libs
   cryptsetup
   cryptsetup-luks      dnl old name used before Fedora 17
   dhclient
@@ -32,28 +31,20 @@ ifelse(REDHAT,1,
   gfs2-utils
   grub
   hfsplus-tools
-  hivex
   iproute
   iputils
-  jansson
   kernel
-  libcap
-  libldm
-  libtirpc
   nilfs-utils
   ntfsprogs
   ntfs-3g
   ntfs-3g-system-compression
   openssh-clients
-  pcre
   policycoreutils
   reiserfs-utils
-  libselinux
   syslinux-extlinux
   systemd              dnl for /sbin/reboot and udevd
   vim-minimal
   xz
-  yara
   zfs-fuse
 )
 
@@ -79,17 +70,7 @@ dnl iproute has been renamed to iproute2
   iputils-tracepath
   isc-dhcp-client
   ldmtool
-  libaugeas0
   libc-bin
-  libcap2
-  libhivex0
-  libjansson4
-  libpcre3
-  libsystemd0
-  libsystemd-id128-0
-  libsystemd-journal0
-  libtirpc1
-  libyara3
   linux-image
   dnl syslinux 'suggests' mtools, but in reality it's a hard dependency:
   mtools
@@ -107,19 +88,14 @@ dnl iproute has been renamed to iproute2
 )
 
 ifelse(ARCHLINUX,1,
-  augeas
   cdrkit
   cdrtools
   cryptsetup
   dhcpcd
   gptfdisk
   grub
-  hivex
   iproute2
   iputils
-  jansson
-  libcap
-  libtirpc
   linux
   lrzip
   dnl syslinux has mtools as optional dependency, but in reality it's
@@ -129,16 +105,13 @@ ifelse(ARCHLINUX,1,
   nilfs-utils
   ntfs-3g
   ntfs-3g-system-compression
-  pcre
   reiserfsprogs
   systemd
   vim
   xz
-  yara
 )
 
 ifelse(SUSE,1,
-  augeas
   dnl It seems no other augeas package depends on it.
   augeas-lenses
   btrfsprogs
@@ -149,16 +122,9 @@ ifelse(SUSE,1,
   genisoimage
   glibc-locale
   gptfdisk
-  hivex
   initviocons
   iproute2
   iputils
-  libcap2
-  libhivex0
-  libjansson4
-  libselinux1
-  libtirpc3
-  libyara3
   mkisofs
   ntfsprogs
   ntfs-3g
@@ -167,11 +133,9 @@ ifelse(SUSE,1,
   systemd
   vim
   xz
-  yara
 )
 
 ifelse(FRUGALWARE,1,
-  augeas
   cryptsetup-luks
   cdrkit
   dhclient
@@ -179,14 +143,10 @@ ifelse(FRUGALWARE,1,
   hfsplus
   iproute2
   iputils
-  jansson
   kernel
-  libcap
-  libtirpc
   ntfsprogs
   ntfs-3g
   openssh
-  pcre
   reiserfsprogs
   systemd
   vim
@@ -197,7 +157,6 @@ ifelse(FRUGALWARE,1,
 )
 
 ifelse(MAGEIA,1,
-  augeas
   cryptsetup
   chkconfig /* for /etc/init.d */
   cdrkit-genisoimage
@@ -207,30 +166,21 @@ ifelse(MAGEIA,1,
   gfs2-utils
   grub
   hfsplus-tools
-  hivex
   iproute2
   iputils
-  libcap
-  libjansson4
-  lib64jansson4 /* lib64jansson4 does not provide libjansson4 */
-  libldm
-  libtirpc
   dnl syslinux uses mtools without depending on it
   mtools
   nilfs-utils
   ntfsprogs
   ntfs-3g
   openssh-clients
-  pcre
   reiserfs-utils
-  libselinux
   systemd /* for /sbin/reboot and udevd */
   vim-minimal
   xz
 )
 
 ifelse(OPENMANDRIVA,1,
-  augeas
   cryptsetup
   chkconfig /* for /etc/init.d */
   cdrkit-genisoimage
@@ -238,26 +188,19 @@ ifelse(OPENMANDRIVA,1,
   dhcp-client
   extlinux
   grub2
-  lib64hivex0
-  hivex
   iproute2
   iputils
-  libcap
-  libjansson4
-  lib64jansson4 /* lib64jansson4 does not provide libjansson4 */
-  libldm
-  libtirpc
   dnl syslinux uses mtools without depending on it
   mtools
   nilfs-utils
   ntfs-3g
   openssh-clients
-  pcre
-  libselinux
   systemd /* for /sbin/reboot and udevd */
   vim-minimal
   xz
 )
+
+include(guestfsd.deps)
 
 acl
 attr
@@ -280,7 +223,6 @@ gzip
 jfsutils
 kmod
 less
-libxml2
 lsof
 lsscsi
 lvm2
