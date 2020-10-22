@@ -242,7 +242,7 @@ run_delete_event (const char *cmd, size_t argc, char *argv[])
   const struct entry key = { .name = argv[0] };
   struct entry *entry, *p;
 
-  entry = hash_delete (event_handlers, &key);
+  entry = hash_remove (event_handlers, &key);
   if (!entry) {
     fprintf (stderr, _("delete-event: %s: no such event handler\n"), argv[0]);
     return -1;

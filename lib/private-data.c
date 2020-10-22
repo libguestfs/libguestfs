@@ -94,7 +94,7 @@ guestfs_set_private (guestfs_h *g, const char *key, void *data)
   new_entry->key = safe_strdup (g, key);
   new_entry->data = data;
 
-  old_entry = hash_delete (g->pda, new_entry);
+  old_entry = hash_remove (g->pda, new_entry);
   freer (old_entry);
 
   entry = hash_insert (g->pda, new_entry);

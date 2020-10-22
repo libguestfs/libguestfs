@@ -1296,7 +1296,7 @@ gen_remove_if_expired (void *x, void *data)
     struct gen_remove_data *d = data;
 
     if (p->timeout < d->now)
-      d->freer (hash_delete (d->ht, x));
+      d->freer (hash_remove (d->ht, x));
   }
 
   return 1;
@@ -1331,7 +1331,7 @@ gen_replace (guestfs_h *g, Hash_table *ht,
 {
   struct entry_common *old_entry;
 
-  old_entry = hash_delete (ht, new_entry);
+  old_entry = hash_remove (ht, new_entry);
   freer (old_entry);
 
   old_entry = hash_insert (ht, new_entry);
@@ -1498,7 +1498,7 @@ gen_remove (Hash_table *ht, const char *pathname, Hash_data_freer freer)
   const struct entry_common key = { .pathname = (char *) pathname };
   struct entry_common *entry;
 
-  entry = hash_delete (ht, &key);
+  entry = hash_remove (ht, &key);
 
   freer (entry);
 }
