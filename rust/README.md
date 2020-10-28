@@ -1,7 +1,7 @@
 # libguestfs bindings for Rust
 
 This package contains the libguestfs bindings for Rust. You can use this crate
-by using cargo. See [crates.io](https://https://crates.io/crates/guestfs)
+by using cargo. See [crates.io](https://crates.io/crates/guestfs)
 
 # For maintainer
 
