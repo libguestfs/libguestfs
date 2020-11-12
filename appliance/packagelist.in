@@ -173,6 +173,7 @@ ifelse(MAGEIA,1,
   nilfs-utils
   ntfsprogs
   ntfs-3g
+  ntfs-3g-system-compression
   openssh-clients
   reiserfs-utils
   systemd /* for /sbin/reboot and udevd */
