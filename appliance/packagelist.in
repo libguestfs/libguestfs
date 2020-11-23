@@ -284,6 +284,7 @@ debootstrap
 dnl exFAT is not usually available in free software repos
 exfat-fuse
 exfat-utils
+exfatprogs
 fuse-exfat
 
 dnl Define this by doing: ./configure --with-extra-packages="..."
