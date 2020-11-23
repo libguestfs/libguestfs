@@ -20,7 +20,7 @@ AC_DEFUN([GUESTFS_FIND_DB_TOOL],[
     TOOL=$2
 
     db_tool_name="db_$TOOL"
-    db_versions="5.3 5.2 5.1 4.8 4.7 4.6"
+    db_versions="53 5.3 5.2 5.1 4.8 4.7 4.6"
     db_tool_patterns="dbX_$TOOL dbX.Y_$TOOL"
     db_tool_patterns="dbX_$TOOL db_$TOOL-X dbX.Y_$TOOL db_$TOOL-X.Y"
 
