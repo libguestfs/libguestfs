@@ -176,6 +176,7 @@ ifelse(MAGEIA,1,
   ntfs-3g-system-compression
   openssh-clients
   reiserfs-utils
+  rpm /* for "supermin: ext2fs_namei: parent directory not found: /var/lib/rpm: File not found by ext2_lookup" */
   systemd /* for /sbin/reboot and udevd */
   vim-minimal
   xz
