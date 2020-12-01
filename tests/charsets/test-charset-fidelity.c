@@ -29,6 +29,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <error.h>
+#include <assert.h>
 
 #include "guestfs.h"
 #include "guestfs-utils.h"
@@ -199,6 +200,8 @@ test_ascii (guestfs_h *g, const struct filesystem *fs)
   ignore_lost_and_found (files);
   count = guestfs_int_count_strings (files);
 
+  assert (files[0] != NULL);
+
   if (fs->fs_case_insensitive) { /* case insensitive */
     if (count != 2)
       error (EXIT_FAILURE, 0,
@@ -264,6 +267,8 @@ test_latin1 (guestfs_h *g, const struct filesystem *fs)
   ignore_lost_and_found (files);
   count = guestfs_int_count_strings (files);
 
+  assert (files[0] != NULL);
+
   if (fs->fs_case_insensitive) { /* case insensitive */
     if (count != 1)
       error (EXIT_FAILURE, 0,
@@ -325,6 +330,8 @@ test_latin2 (guestfs_h *g, const struct filesystem *fs)
     exit (EXIT_FAILURE);
   ignore_lost_and_found (files);
   count = guestfs_int_count_strings (files);
+
+  assert (files[0] != NULL);
 
   if (fs->fs_case_insensitive) { /* case insensitive */
     if (count != 1)
@@ -398,13 +405,15 @@ test_chinese (guestfs_h *g, const struct filesystem *fs)
            __func__, fs->fs_name, count, nr_filenames);
 
   for (j = 0; j < count; ++j) {
-    for (i = 0; i < nr_filenames; ++i)
+    for (i = 0; i < nr_filenames; ++i) {
+      assert (files[j] != NULL);
       if (memcmp (files[j], &filenames[i][1], 4) == 0)
         goto next;
     error (EXIT_FAILURE, 0,
            "error: %s: %s returned unexpected filename '%s'",
            __func__, fs->fs_name, files[j]);
 
+    }
   next:;
   }
 
