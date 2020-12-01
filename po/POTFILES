@@ -252,6 +252,7 @@ gobject/src/optargs-copy_device_to_file.c
 gobject/src/optargs-copy_file_to_device.c
 gobject/src/optargs-copy_file_to_file.c
 gobject/src/optargs-cpio_out.c
+gobject/src/optargs-cryptsetup_open.c
 gobject/src/optargs-disk_create.c
 gobject/src/optargs-download_blocks.c
 gobject/src/optargs-e2fsck.c
