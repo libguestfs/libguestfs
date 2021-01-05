@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.43.3\n"
+"Project-Id-Version: libguestfs 1.43.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2020-12-01 16:46+0000\n"
+"POT-Creation-Date: 2021-01-05 14:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3811,12 +3811,12 @@ msgstr ""
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
-#: common/windows/windows.c:139
+#: common/windows/windows.c:142
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
 
-#: common/windows/windows.c:150
+#: common/windows/windows.c:153
 #, c-format
 msgid "drive '%c:' not found."
 msgstr ""
@@ -7019,7 +7019,7 @@ msgid ""
 "is a bug, please file a bug at http://libguestfs.org/\n"
 msgstr ""
 
-#: format/format.c:325
+#: format/format.c:327
 #, c-format
 msgid "cannot parse --lvm option (%s)"
 msgstr ""
