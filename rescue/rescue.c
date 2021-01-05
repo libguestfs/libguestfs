@@ -627,12 +627,12 @@ raw_tty (void)
 
   if (tcgetattr (STDIN_FILENO, &termios) == -1) {
     perror ("tcgetattr: stdin");
-    exit (EXIT_FAILURE);
+    _exit (EXIT_FAILURE);
   }
   cfmakeraw (&termios);
   if (tcsetattr (STDIN_FILENO, TCSANOW, &termios) == -1) {
     perror ("tcsetattr: stdin");
-    exit (EXIT_FAILURE);
+    _exit (EXIT_FAILURE);
   }
 }
 
