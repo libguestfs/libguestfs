@@ -1,6 +1,7 @@
 /00gnulib.m4
 /absolute-header.m4
 /accept4.m4
+/access.m4
 /alloca.m4
 /arpa_inet_h.m4
 /asm-underscore.m4
@@ -13,6 +14,7 @@
 /closedir.m4
 /close.m4
 /codeset.m4
+/creat.m4
 /ctype.m4
 /dirent_h.m4
 /dirfd.m4
@@ -20,6 +22,7 @@
 /d-type.m4
 /dup2.m4
 /dup.m4
+/eaccess.m4
 /eealloc.m4
 /environ.m4
 /errno_h.m4
@@ -34,6 +37,7 @@
 /fcntl-o.m4
 /fdopen.m4
 /filenamecat.m4
+/findprog-in.m4
 /flexmember.m4
 /float_h.m4
 /fnmatch_h.m4
@@ -181,6 +185,7 @@
 /stdint.m4
 /stdio_h.m4
 /stdlib_h.m4
+/stpcpy.m4
 /strchrnul.m4
 /strdup.m4
 /strerror.m4
