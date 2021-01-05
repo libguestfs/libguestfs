@@ -54,6 +54,8 @@ guestfs_impl_yara_scan (guestfs_h *g, const char *path)
   return parse_yara_detection_file (g, tmpfile);  /* caller frees */
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-file-leak"
 /* Parse the file content and return detections list.
  * Return a list of yara_detection on success, NULL on error.
  */
@@ -86,6 +88,7 @@ parse_yara_detection_file (guestfs_h *g, const char *tmpfile)
 
   return detections;
 }
+#pragma GCC diagnostic pop
 
 /* Deserialise the file content and populate the detection list.
  * Return the number of deserialised detections, -1 on error.
