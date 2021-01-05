@@ -302,6 +302,8 @@ main (int argc, char *argv[])
   exit (EXIT_SUCCESS);
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-null-argument"
 /* Parse lvm string of the form "/dev/VG/LV" or "VG/LV".
  * This sets the global variables 'vg' and 'lv', or exits on failure.
  */
@@ -327,6 +329,7 @@ parse_vg_lv (const char *lvm)
   if (strchr (vg, '/') || strchr (lv, '/'))
     goto cannot_parse;
 }
+#pragma GCC diagnostic pop
 
 /* Returns 0 on success, 1 if we need to retry. */
 static int

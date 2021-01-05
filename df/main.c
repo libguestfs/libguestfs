@@ -313,6 +313,8 @@ main (int argc, char *argv[])
   exit (err == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-null-argument"
 /* Generate a display name for the single guest mode.  See comments in
  * https://bugzilla.redhat.com/show_bug.cgi?id=880801
  */
@@ -370,6 +372,7 @@ single_drive_display_name (struct drv *drvs)
 
   return name;
 }
+#pragma GCC diagnostic pop
 
 static char *
 make_display_name (struct drv *drvs)

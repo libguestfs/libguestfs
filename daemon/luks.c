@@ -34,6 +34,8 @@ optgroup_luks_available (void)
   return prog_exists ("cryptsetup");
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-possible-null-argument"
 /* Callers must also call remove_temp (tempfile). */
 static char *
 write_key_to_temp (const char *key)
@@ -73,6 +75,7 @@ write_key_to_temp (const char *key)
   free (tempfile);
   return NULL;
 }
+#pragma GCC diagnostic pop
 
 static void
 remove_temp (char *tempfile)
