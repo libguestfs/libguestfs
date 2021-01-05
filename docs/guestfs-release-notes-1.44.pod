@@ -1,0 +1,148 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.44
+
+=head2 Language bindings
+
+Python 2 support has been dropped.  The minimum version of Python
+required is 3.6.
+
+Python bindings no longer use deprecated C<PyEval_ThreadsInitialized>.
+
+Python bindings now include type hints (Sam Eiderman).
+
+Erlang bindings now use libei instead of liberl_interface
+(Sergei Golovan).
+
+=head2 Tools
+
+L<virt-get-kernel(1)> can now find uncompressed kernels
+(Pino Toscano).
+
+L<virt-sysprep(1)> now regenerates the guest certificate store when a
+certificate is removed from the guest (Pino Toscano).
+
+L<virt-sysprep(1)> can now remove IPA enrollment files and Kerberos
+keytabs (Pino Toscano, Christian Heimes and François Cami).
+
+=head2 API
+
+=head3 New APIs
+
+C<cryptsetup-open> and C<cryptsetup-close> replace C<luks-open>,
+L<luks-open-ro> and L<luks-close>.  The new APIs add support for
+BitLocker encryption.
+
+=head3 Other API changes
+
+C<lvm-canonical-lv> no longer produces a noisy error message when
+called with a non-LV parameter.
+
+=head2 Build changes
+
+C programs using libguestfs can now be compiled against the build
+directory:
+
+ ../libguestfs/run ./configure
+ ../libguestfs/run make
+
+OCaml components are now linked correctly when building in a different
+directory from the source (Geoff Toole).
+
+GCC LTO is now supported.
+
+Weblate is now used for localization instead of Zanata
+(Pino Toscano).
+
+The dependencies for guestfsd are no longer hard-coded but are now
+generated from the built binary, ensuring that they shouldn't get out
+of synch in future (Hilko Bengen).
+
+=head2 Internals
+
+F<lib/guestfs.h> was moved to F<include/guestfs.h> in the source.
+This is not an externally visible change but affected a lot of places
+inside the build system.
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh v1.42.0..
+
+=end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/1811539>
+
+The virt-diff command doesn't work on windows 2019 image
+
+=item L<https://bugzilla.redhat.com/1384241>
+
+The tar-in command does not allow restoring file capabilities
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHORS
+
+=over 4
+
+=item *
+
+Andrey Shinkevich
+
+=item *
+
+Dmitry Tantsur
+
+=item *
+
+Geoff Toole
+
+=item *
+
+Hilko Bengen
+
+=item *
+
+Pino Toscano
+
+=item *
+
+Richard W.M. Jones
+
+=item *
+
+Sam Eiderman
+
+=item *
+
+Sergei Golovan
+
+=item *
+
+Thierry Vignaud
+
+=item *
+
+Yuri Chornoivan
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2021 Red Hat Inc.
