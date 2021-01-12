@@ -108,6 +108,9 @@ gl_WARN_ADD([-Wformat-truncation=1])
 dnl GCC 9 at level 2 gives apparently bogus errors when %.*s is used.
 gl_WARN_ADD([-Wformat-overflow=1])
 
+dnl GCC < 11 gives warnings when disabling GCC 11 warnings.
+gl_WARN_ADD([-Wno-pragmas])
+
 AC_SUBST([WARN_CFLAGS])
 
 NO_SNV_CFLAGS=
