@@ -5,7 +5,7 @@
 
 'virt-install' \
     '--transient' \
-    '--name=tmp-hosoapgs' \
+    '--name=tmp-vxsw7p2j' \
     '--ram=4096' \
     '--arch=x86_64' \
     '--cpu=host' \
@@ -13,7 +13,7 @@
     '--os-variant=fedora26' \
     '--initrd-inject=fedora-33.ks' \
     '--extra-args=ks=file:/fedora-33.ks  console=tty0 console=ttyS0,115200 rd_NO_PLYMOUTH' \
-    '--disk=/home/rjones/d/libguestfs/builder/templates/tmp-hosoapgs.img,size=6,format=raw' \
+    '--disk=/home/rjones/d/libguestfs/builder/templates/tmp-vxsw7p2j.img,size=6,format=raw' \
     '--location=http://mirror.bytemark.co.uk/fedora/linux/releases/33/Server/x86_64/os/' \
     '--serial=pty' \
     '--nographics' 

@@ -28,7 +28,7 @@ poweroff
 
 %post
 # Ensure the installation is up-to-date.
-dnf -y --best upgrade
+#dnf -y --best upgrade
 # Enable Xen domU support.
 pushd /etc/dracut.conf.d
 echo 'add_drivers+=" xen:vbd xen:vif "' > virt-builder-xen-drivers.conf

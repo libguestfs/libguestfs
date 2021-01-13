@@ -3,10 +3,11 @@ name=Fedora® 33 Server
 osinfo=fedora33
 arch=x86_64
 file=fedora-33.xz
-checksum[sha512]=7ef3a333456ee4deda38c369616a4423652029837f7aa09862940327608d285c79e1c7ed90c3bb4814878dbdce3fa1f11a8625439739743bce73947fc80c08eb
+revision=2
+checksum[sha512]=f80a018b494d5f2e44873094855f03a1f15080ee46f88d825bfe1de55b5903f5d9d822de18122ecac00d6295b2a8e7461950befef4c494ebcfe6b1f5e3aa5cc3
 format=raw
 size=6442450944
-compressed_size=501145952
+compressed_size=392812568
 expand=/dev/sda3
 notes=Fedora® 33 Server
  
