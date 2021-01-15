@@ -135,12 +135,17 @@ AC_ARG_WITH([extra-packages],
 AC_SUBST([EXTRA_PACKAGES])
 
 dnl Set guestfs default path
+dnl Expand $libdir to the actual path to avoid autoconf stupidity.
+real_libdir="$(
+        if test "$exec_prefix" = NONE ; then exec_prefix=/usr/local; fi
+        echo "$libdir" | sed "s|\${exec_prefix}|$exec_prefix|"
+        )"
 AC_MSG_CHECKING([for guestfs path])
 AC_ARG_WITH([guestfs-path],
     [AS_HELP_STRING([--with-guestfs-path=PATH],
-                   [specify guestfs path (default=$libdir/guestfs)])],
+                   [specify guestfs path (default=$real_libdir/guestfs)])],
     [GUESTFS_DEFAULT_PATH="$withval"],
-    [GUESTFS_DEFAULT_PATH="$libdir/guestfs"])
+    [GUESTFS_DEFAULT_PATH="$real_libdir/guestfs"])
 AC_MSG_RESULT([$GUESTFS_DEFAULT_PATH])
 AC_SUBST([GUESTFS_DEFAULT_PATH])
 
