@@ -86,6 +86,16 @@
   CLEANUP_GL_RECURSIVE_LOCK_UNLOCK gl_recursive_lock_t *_lock = &(g)->lock; \
   gl_recursive_lock_lock (*_lock)
 
+#define CLEANUP_GL_RECURSIVE_LOCK_UNLOCK \
+  __attribute__((cleanup(guestfs_int_cleanup_gl_recursive_lock_unlock)))
+
+static inline void
+guestfs_int_cleanup_gl_recursive_lock_unlock (void *ptr)
+{
+  gl_recursive_lock_t *lockp = * (gl_recursive_lock_t **) ptr;
+  gl_recursive_lock_unlock (*lockp);
+}
+
 /* Default and minimum appliance memory size. */
 
 /* Needs to be larger on ppc64 because of the larger page size (64K).
