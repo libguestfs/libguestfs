@@ -1,0 +1,20 @@
+# This is the virt-install command which was used to create
+# the virt-builder template 'ubuntu-20.04'
+# NB: This file is generated for documentation purposes ONLY!
+# This script was never run, and is not intended to be run.
+
+'virt-install' \
+    '--transient' \
+    '--name=tmp-9v0642sj' \
+    '--ram=4096' \
+    '--arch=x86_64' \
+    '--cpu=host' \
+    '--vcpus=4' \
+    '--os-variant=ubuntu19.10' \
+    '--initrd-inject=/tmp/0h0s8yc8.tmp/preseed.cfg' \
+    '--extra-args=auto  console=tty0 console=ttyS0,115200 rd_NO_PLYMOUTH' \
+    '--disk=/home/rjones/d/libguestfs/builder/templates/tmp-9v0642sj.img,size=6,format=raw' \
+    '--location=http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64' \
+    '--serial=pty' \
+    '--nographics' 
+
