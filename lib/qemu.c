@@ -380,6 +380,8 @@ write_cache_query_kvm (guestfs_h *g, const struct qemu_data *data,
   return generic_write_cache (g, filename, data->query_kvm);
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-file-leak"
 static int
 read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data,
                       const char *filename)
@@ -400,7 +402,10 @@ read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data,
 
   return 1;
 }
+#pragma GCC diagnostic pop
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-file-leak"
 static int
 write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data,
                        const char *filename)
@@ -424,6 +429,7 @@ write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data,
 
   return 0;
 }
+#pragma GCC diagnostic pop
 
 /**
  * Parse the first line of C<qemu_help> into the major and minor
