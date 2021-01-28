@@ -1169,6 +1169,15 @@ construct_libvirt_xml_cpu (guestfs_h *g,
           attribute ("fallback", "allow");
         } end_element ();
       }
+      else if (STREQ (cpu_model, "max")) {
+        if (params->data->is_kvm)
+          attribute ("mode", "host-passthrough");
+        else
+          attribute ("mode", "host-model");
+        start_element ("model") {
+          attribute ("fallback", "allow");
+        } end_element ();
+      }
       else
         single_element ("model", cpu_model);
     } end_element ();
