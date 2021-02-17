@@ -91,6 +91,7 @@ ifelse(ARCHLINUX,1,
   cdrkit
   cdrtools
   cryptsetup
+  dhclient
   dhcpcd
   gptfdisk
   grub

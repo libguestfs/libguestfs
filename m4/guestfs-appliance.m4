@@ -107,7 +107,7 @@ AC_ARG_WITH([distro],
             AS_CASE([$DISTRO],
                     [FEDORA | RHEL | CENTOS],[DISTRO=REDHAT],
                     [OPENSUSE* | SLED | SLES],[DISTRO=SUSE],
-                    [ARCH],[DISTRO=ARCHLINUX],
+                    [ARCH | MANJARO],[DISTRO=ARCHLINUX],
                     [OPENMANDRIVA],[DISTRO=OPENMANDRIVA])
             AC_MSG_RESULT([$DISTRO (from /etc/os-release)])
         else
