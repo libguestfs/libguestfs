@@ -374,6 +374,9 @@ single_drive_display_name (struct drv *drvs)
 }
 #pragma GCC diagnostic pop
 
+// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=99193
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-mismatching-deallocation"
 static char *
 make_display_name (struct drv *drvs)
 {
@@ -411,3 +414,4 @@ make_display_name (struct drv *drvs)
 
   return ret;
 }
+#pragma GCC diagnostic pop
