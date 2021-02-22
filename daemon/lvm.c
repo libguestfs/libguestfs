@@ -219,7 +219,7 @@ do_lvcreate (const char *logvol, const char *volgroup, int mbytes)
   snprintf (size, sizeof size, "%d", mbytes);
 
   r = command (NULL, &err,
-               "lvm", "lvcreate",
+               "lvm", "lvcreate", "--yes",
                "-L", size, "-n", logvol, volgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
