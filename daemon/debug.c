@@ -111,6 +111,9 @@ do_debug (const char *subcmd, char *const *argv)
   return NULL;
 }
 
+// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=99193
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-mismatching-deallocation"
 static char *
 debug_help (const char *subcmd, size_t argc, char *const *const argv)
 {
@@ -140,6 +143,7 @@ debug_help (const char *subcmd, size_t argc, char *const *const argv)
 
   return r;
 }
+#pragma GCC diagnostic pop
 
 /* Show open FDs. */
 static char *
