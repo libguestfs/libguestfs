@@ -489,8 +489,10 @@ write_pid_file (const char *pid_file, pid_t pid)
     return -1;
   }
 
-  if (fprintf (fp, "%d\n", pid) == -1)
+  if (fprintf (fp, "%d\n", pid) == -1) {
+    fclose (fp);
     goto error;
+  }
 
   if (fclose (fp) == -1)
     goto error;
