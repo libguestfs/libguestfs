@@ -773,8 +773,8 @@ diff (struct file *file1, guestfs_h *g1, struct file *file2, guestfs_h *g2)
   printf ("@@ %s @@\n", _("End of diff"));
 
  out:
-  unlink (tmpda);
-  unlink (tmpdb);
+  if (tmpda) unlink (tmpda);
+  if (tmpdb) unlink (tmpdb);
   rmdir (tmpd);
 }
 
