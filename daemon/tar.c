@@ -98,6 +98,9 @@ is_chown_supported (const char *dir)
   return 1;
 }
 
+// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=99196
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-null-argument"
 /* Read the error file.  Returns a string that the caller must free. */
 static char *
 read_error_file (char *error_file)
@@ -119,6 +122,7 @@ read_error_file (char *error_file)
 
   return str;                   /* caller frees */
 }
+#pragma GCC diagnostic pop
 
 static int
 write_cb (void *fd_ptr, const void *buf, size_t len)
