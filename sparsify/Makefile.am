@@ -80,6 +80,7 @@ OCAMLPACKAGES += -package gettext-stub
 endif
 
 OCAMLCLIBS = \
+	-pthread -lpthread \
 	-lprogress \
 	-lutils \
 	$(LIBTINFO_LIBS) \

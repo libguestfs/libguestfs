@@ -169,6 +169,7 @@ OCAMLLINKFLAGS = \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
 OCAMLCLIBS = \
+	-pthread -lpthread \
 	-lutils \
 	$(LIBTINFO_LIBS) \
 	$(LIBCRYPT_LIBS) \

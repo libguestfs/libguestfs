@@ -129,6 +129,7 @@ OCAMLPACKAGES += -package gettext-stub
 endif
 
 OCAMLCLIBS = \
+	-pthread -lpthread \
 	-lvisit \
 	-lstructs \
 	-lutils \
