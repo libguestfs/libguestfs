@@ -98,9 +98,15 @@ and generate_php_c () =
 
 static int res_guestfs_h;
 
+/* removed from PHP 8 */
+#ifndef TSRMLS_CC
+#define TSRMLS_DC
+#define TSRMLS_CC
+#endif
+
 #if ZEND_MODULE_API_NO >= 20151012
 # define GUESTFS_RETURN_STRING(x, duplicate) \\
-    do { if (duplicate) RETURN_STRING(x) else { RETVAL_STRING(x); efree ((char *)x); return; } } while (0)
+    do { if (duplicate) { RETURN_STRING(x); } else { RETVAL_STRING(x); efree ((char *)x); return; } } while (0)
 # define guestfs_add_assoc_string(arg, key, str, dup) \\
     add_assoc_string(arg, key, str)
 # define guestfs_add_assoc_stringl(arg, key, str, len, dup) \\
