@@ -60,6 +60,5 @@ podfiles: Makefile
 	  grep -v ^stamp- | \
 	  grep -v /stamp- \
 	  > $(abs_srcdir)/$@-t
-	cat $(top_srcdir)/po/POTFILES-pl >> $@-t
 	LC_ALL=C sort -o $@-t $@-t
 	mv $@-t $@

@@ -36,13 +36,8 @@ include_dirs="
 bundled/ocaml-augeas
 common/mlgettext
 common/mlpcre
-common/mlprogress
 common/mlstdutils
-common/mltools
 common/mlutils
-common/mlvisit
-common/mlxml
-customize
 ocaml
 "
 

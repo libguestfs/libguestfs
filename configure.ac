@@ -213,30 +213,16 @@ AC_CONFIG_FILES([run],
                 [chmod +x,-w run])
 
 AC_CONFIG_FILES([Makefile
-                 align/Makefile
                  appliance/Makefile
                  bash/Makefile
-                 builder/Makefile
-                 builder/libguestfs.conf
-                 builder/opensuse.conf
-                 builder/templates/Makefile
-                 builder/test-config/virt-builder/repos.d/test-index.conf
-                 builder/test-simplestreams/virt-builder/repos.d/cirros.conf
-                 builder/test-website/virt-builder/repos.d/libguestfs.conf
                  bundled/ocaml-augeas/Makefile
-                 cat/Makefile
                  common/errnostring/Makefile
                  common/edit/Makefile
-                 common/mlcustomize/Makefile
                  common/mlgettext/Makefile
                  common/mlpcre/Makefile
-                 common/mlprogress/Makefile
                  common/mlstdutils/Makefile
                  common/mlstdutils/guestfs_config.ml
-                 common/mltools/Makefile
                  common/mlutils/Makefile
-                 common/mlvisit/Makefile
-                 common/mlxml/Makefile
                  common/options/Makefile
                  common/parallel/Makefile
                  common/progress/Makefile
@@ -248,22 +234,15 @@ AC_CONFIG_FILES([Makefile
                  common/windows/Makefile
                  config.sh
                  csharp/Makefile
-                 customize/Makefile
                  daemon/daemon_config.ml
                  daemon/Makefile
-                 df/Makefile
-                 dib/Makefile
-                 diff/Makefile
                  docs/Makefile
-                 edit/Makefile
                  erlang/Makefile
                  erlang/examples/Makefile
                  examples/Makefile
                  fish/Makefile
-                 format/Makefile
                  fuse/Makefile
                  generator/Makefile
-                 get-kernel/Makefile
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
                  gobject/libguestfs-gobject-1.0.pc
@@ -272,7 +251,6 @@ AC_CONFIG_FILES([Makefile
                  golang/examples/Makefile
                  haskell/Makefile
                  include/Makefile
-                 inspector/Makefile
                  java/Makefile
                  java/examples/Makefile
                  lib/Makefile
@@ -280,7 +258,6 @@ AC_CONFIG_FILES([Makefile
                  lib/local/libguestfs.pc
                  lua/Makefile
                  lua/examples/Makefile
-                 make-fs/Makefile
                  ocaml/META
                  ocaml/Makefile
                  ocaml/examples/Makefile
@@ -297,15 +274,12 @@ AC_CONFIG_FILES([Makefile
                  python/setup.py
                  python/t/tests_helper.py
                  rescue/Makefile
-                 resize/Makefile
                  ruby/Makefile
                  ruby/Rakefile
                  ruby/examples/Makefile
                  ruby/ext/guestfs/extconf.rb
                  rust/Makefile
                  rust/Cargo.toml
-                 sparsify/Makefile
-                 sysprep/Makefile
                  test-data/Makefile
                  test-data/binaries/Makefile
                  test-data/blank-disks/Makefile
@@ -352,7 +326,6 @@ AC_CONFIG_FILES([Makefile
                  tests/xfs/Makefile
                  tests/xml/Makefile
                  tests/yara/Makefile
-                 tools/Makefile
                  website/index.html])
 
 AC_OUTPUT
@@ -368,19 +341,15 @@ echo
 echo       "Daemon .............................. $enable_daemon"
 echo       "Appliance ........................... $ENABLE_APPLIANCE"
 echo       "QEMU ................................ $QEMU"
-echo       "guestfish and C-based virt tools .... yes"
+echo       "guestfish ........................... yes"
 echo       "FUSE filesystem ..................... $enable_fuse"
 echo       "Default backend ..................... $DEFAULT_BACKEND"
 AS_ECHO_N(["GNU gettext for i18n ................ "])
 if test "x$HAVE_GNU_GETTEXT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["OCaml bindings ...................... "])
 if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["OCaml-based virt tools .............. "])
-if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["Perl bindings ....................... "])
 if test "x$HAVE_PERL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["Perl-based virt tools ............... "])
-if test "x$HAVE_TOOLS_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["Python bindings ..................... "])
 if test "x$HAVE_PYTHON_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["Ruby bindings ....................... "])

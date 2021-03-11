@@ -26,14 +26,13 @@ MSGID_BUGS_ADDRESS = https://bugzilla.redhat.com/enter_bug.cgi?component=libgues
 linguas     := $(shell cat $(srcdir)/LINGUAS)
 
 POTFILES    := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES)
-POTFILES_PL := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES-pl)
 POTFILES_ML := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES-ml)
 POFILES     := $(linguas:%=%.po)
 GMOFILES    := $(linguas:%=%.gmo)
 
 EXTRA_DIST = \
 	LINGUAS \
-	POTFILES POTFILES-pl POTFILES-ml \
+	POTFILES POTFILES-ml \
 	$(DOMAIN).pot \
 	$(POFILES) \
 	$(GMOFILES)
@@ -61,7 +60,7 @@ XGETTEXT_ARGS = \
 FIX_CHARSET = \
 	$(SED) -i 's|text/plain; charset=CHARSET|text/plain; charset=utf-8|g'
 
-$(DOMAIN).pot: Makefile POTFILES $(POTFILES) POTFILES-pl $(POTFILES_PL) POTFILES-ml $(POTFILES_ML)
+$(DOMAIN).pot: Makefile POTFILES $(POTFILES) POTFILES-ml $(POTFILES_ML)
 	rm -f $@-t
 	touch $@-t
 if HAVE_OCAML_GETTEXT
@@ -72,8 +71,6 @@ endif
 	$(XGETTEXT) -j -o $@-t $(XGETTEXT_ARGS) \
 	  --files-from=$(abs_srcdir)/POTFILES
 	$(FIX_CHARSET) $@-t
-	$(XGETTEXT) -j -o $@-t $(XGETTEXT_ARGS) --language=Perl \
-	  --files-from=$(abs_srcdir)/POTFILES-pl
 	mv $@-t $@
 
 .po.gmo:

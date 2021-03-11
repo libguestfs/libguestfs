@@ -1,3 +1,0 @@
-[libguestfs.org]
-uri=file://@abs_top_srcdir@/website/download/builder/index.asc
-gpgkey=file://@abs_top_srcdir@/builder/libguestfs.gpg

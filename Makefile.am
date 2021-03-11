@@ -47,6 +47,7 @@ SUBDIRS += include lib docs examples
 SUBDIRS += common/mlutils
 SUBDIRS += bundled/ocaml-augeas
 SUBDIRS += common/mlpcre
+SUBDIRS += common/mlgettext
 if ENABLE_DAEMON
 SUBDIRS += daemon
 SUBDIRS += tests/daemon
@@ -102,14 +103,8 @@ SUBDIRS += common/progress
 SUBDIRS += common/visit
 SUBDIRS += common/windows
 
-# libguestfs-test-tool
-SUBDIRS += test-tool
-
-# Guestfish.
-SUBDIRS += fish
-
-# virt-tools in C.
-SUBDIRS += align cat diff df edit format inspector make-fs rescue
+# Small tools written in C.
+SUBDIRS += test-tool fish rescue
 
 # bash-completion
 SUBDIRS += bash
@@ -154,31 +149,6 @@ endif
 
 # Unconditional because nothing is built yet.
 SUBDIRS += csharp
-
-# OCaml tools.  Note 'common/ml*' and 'customize' contain shared code
-# used by other OCaml tools, so these must come first.
-if HAVE_OCAML
-SUBDIRS += common/mlgettext
-SUBDIRS += common/mlprogress
-SUBDIRS += common/mlvisit
-SUBDIRS += common/mlxml
-SUBDIRS += common/mltools
-SUBDIRS += common/mlcustomize
-SUBDIRS += customize
-SUBDIRS += builder builder/templates
-SUBDIRS += get-kernel
-SUBDIRS += resize
-SUBDIRS += sparsify
-SUBDIRS += sysprep
-if HAVE_FUSE
-SUBDIRS += dib
-endif
-endif
-
-# Perl tools.
-if HAVE_TOOLS
-SUBDIRS += tools
-endif
 
 # guestmount
 if HAVE_FUSE
@@ -292,8 +262,6 @@ maintainer-upload-website:
 #  docs/C_SOURCE_FILES
 #                 - source files scanned for internal documentation
 #  po/POTFILES    - files with ordinary extensions, but not OCaml files
-#  po/POTFILES-pl - Perl files that don't end in *.pl, which need a
-#                   special xgettext option [not generated here]
 #  po/POTFILES-ml - OCaml files, which need a special tool to translate
 
 dist-hook: BUGS ChangeLog docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
@@ -335,16 +303,6 @@ po/POTFILES: configure.ac
 	grep -v -E '^perl/lib/Sys/Guestfs\.c$$' | \
 	grep -v -E '.*-(tests|gperf)\.c$$' | \
 	LC_ALL=C sort -u > $@-t
-	mv $@-t $@
-
-po/POTFILES-ml: configure.ac
-	rm -f $@ $@-t
-	cd $(srcdir); \
-	find builder common/ml* customize dib get-kernel resize sparsify sysprep -name '*.ml' | \
-	grep -v '^builder/templates/' | \
-	grep -v '^common/mlv2v/' | \
-	grep -v -E '.*_tests\.ml$$' | \
-	LC_ALL=C sort > $@-t
 	mv $@-t $@
 
 # Try to stop people using 'make install' without 'DESTDIR'.
@@ -584,7 +542,12 @@ maintainer-check-extra-dist:
 	( git ls-files ; \
 	  cd common; git ls-files | sed 's,^,common/,' ) | \
 	  grep -v '^common$$' | \
+	  grep -v '^common/mlcustomize/' | \
+	  grep -v '^common/mlprogress/' | \
+	  grep -v '^common/mltools/' | \
 	  grep -v '^common/mlv2v/' | \
+	  grep -v '^common/mlvisit/' | \
+	  grep -v '^common/mlxml/' | \
 	  grep -v '^intltool-.*\.in' | \
 	  grep -v '^\.gitmodules' | \
 	  grep -v '^\.gnulib' | \
@@ -594,7 +557,7 @@ maintainer-check-extra-dist:
 	cat tmp/comm-out
 	[ ! -s tmp/comm-out ]
 	@echo Checking for generated files missing from the tarball ...
-	@for f in `cat generator/files-generated.txt | grep -v '^common/mlv2v/'`; do \
+	@for f in `cat generator/files-generated.txt | grep -v '^common/mlcustomize' | grep -v '^common/mlv2v/'`; do \
 	  if ! grep -sq "^$$f\$$" tmp/tarfiles; then \
 	    echo generated file missing from tarball: $$f; \
 	    exit 1; \

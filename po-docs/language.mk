@@ -71,34 +71,11 @@ MANPAGES = \
 	libguestfs-make-fixed-appliance.1 \
 	libguestfs-test-tool.1 \
 	libguestfs-tools.conf.5 \
-	virt-alignment-scan.1 \
-	virt-builder.1 \
-	virt-cat.1 \
 	virt-copy-in.1 \
 	virt-copy-out.1 \
-	virt-customize.1 \
-	virt-df.1 \
-	virt-dib.1 \
-	virt-diff.1 \
-	virt-edit.1 \
-	virt-filesystems.1 \
-	virt-format.1 \
-	virt-get-kernel.1 \
-	virt-index-validate.1 \
-	virt-inspector.1 \
-	virt-list-filesystems.1 \
-	virt-list-partitions.1 \
-	virt-log.1 \
-	virt-ls.1 \
-	virt-make-fs.1 \
 	virt-rescue.1 \
-	virt-resize.1 \
-	virt-sparsify.1 \
-	virt-sysprep.1 \
-	virt-tar.1 \
 	virt-tar-in.1 \
-	virt-tar-out.1 \
-	virt-win-reg.1
+	virt-tar-out.1
 
 podfiles := $(shell for f in `cat $(top_srcdir)/po-docs/podfiles`; do echo `basename $$f .pod`.pod; done)
 
