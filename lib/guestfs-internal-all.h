@@ -116,16 +116,20 @@ is_zero (const char *buffer, size_t size)
 #define COMPILE_REGEXP(name,pattern,options)                            \
   static void compile_regexp_##name (void) __attribute__((constructor)); \
   static void free_regexp_##name (void) __attribute__((destructor));    \
-  static pcre *name;                                                    \
+  static pcre2_code *name;                                              \
                                                                         \
   static void                                                           \
   compile_regexp_##name (void)                                          \
   {                                                                     \
-    const char *err;                                                    \
-    int offset;                                                         \
-    name = pcre_compile ((pattern), (options), &err, &offset, NULL);    \
+    int errnum;                                                         \
+    PCRE2_SIZE offset;                                                  \
+    name = pcre2_compile ((PCRE2_SPTR)(pattern),                        \
+                          PCRE2_ZERO_TERMINATED,                        \
+                          (options), &errnum, &offset, NULL);           \
     if (name == NULL) {                                                 \
-      ignore_value (write (2, err, strlen (err)));                      \
+      PCRE2_UCHAR err[256];                                             \
+      pcre2_get_error_message (errnum, err, sizeof err);                \
+      ignore_value (write (2, err, strlen ((char *)err)));              \
       abort ();                                                         \
     }                                                                   \
   }                                                                     \
@@ -133,7 +137,7 @@ is_zero (const char *buffer, size_t size)
   static void                                                           \
   free_regexp_##name (void)                                             \
   {                                                                     \
-    pcre_free (name);                                                   \
+    pcre2_code_free (name);                                             \
   }
 
 /* The type field of a parsed mountable.

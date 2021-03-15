@@ -29,7 +29,8 @@
 #include <assert.h>
 #include <sys/utsname.h>
 
-#include <pcre.h>
+#define PCRE2_CODE_UNIT_WIDTH 8
+#include <pcre2.h>
 
 #include "guestfs.h"
 #include "guestfs-utils.h"
@@ -334,20 +335,25 @@ check_hash (char **ret, const char *key, const char *expected)
 int
 match_re (const char *str, const char *pattern)
 {
-  const char *err;
-  int offset;
-  pcre *re;
-  const size_t len = strlen (str);
-  int vec[30], r;
+  int errnum;
+  PCRE2_SIZE offset;
+  pcre2_code *re;
+  int r;
 
-  re = pcre_compile (pattern, 0, &err, &offset, NULL);
+  re = pcre2_compile ((PCRE2_SPTR)pattern, PCRE2_ZERO_TERMINATED,
+                      0, &errnum, &offset, NULL);
   if (re == NULL)
     error (EXIT_FAILURE, 0,
-           "cannot compile regular expression '%s': %s", pattern, err);
-  r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
-  pcre_free (re);
+           "cannot compile regular expression '%s': %d", pattern, errnum);
 
-  return r != PCRE_ERROR_NOMATCH;
+  CLEANUP_PCRE2_MATCH_DATA_FREE pcre2_match_data *match_data =
+    pcre2_match_data_create_from_pattern (re, NULL);
+
+  r = pcre2_match (re, (PCRE2_SPTR)str, PCRE2_ZERO_TERMINATED,
+                   0, 0, match_data, NULL);
+  pcre2_code_free (re);
+
+  return r != PCRE2_ERROR_NOMATCH;
 }
 
 /* Used for FileIn parameters in tests.  If the path starts with

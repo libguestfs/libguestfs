@@ -231,7 +231,7 @@ guestfsd_LDADD = \
 	$(LIBSOCKET) \
 	$(LIB_CLOCK_GETTIME) \
 	$(LIBINTL) \
-	$(PCRE_LIBS) \
+	$(PCRE2_LIBS) \
 	$(TSK_LIBS) \
 	$(RPC_LIBS) \
 	$(YARA_LIBS) \
@@ -262,7 +262,7 @@ guestfsd_CFLAGS = \
 	$(HIVEX_CFLAGS) \
 	$(SD_JOURNAL_CFLAGS) \
 	$(JANSSON_CFLAGS) \
-	$(PCRE_CFLAGS)
+	$(PCRE2_CFLAGS)
 
 # Parts of the daemon are written in OCaml.  These are linked into a
 # library and then linked to the daemon.  See

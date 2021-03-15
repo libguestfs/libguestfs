@@ -36,7 +36,7 @@
 
 COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)
 
-static int version_from_x_y_or_x (guestfs_h *g, struct version *v, const char *str, const pcre *re, bool allow_only_x);
+static int version_from_x_y_or_x (guestfs_h *g, struct version *v, const char *str, const pcre2_code *re, bool allow_only_x);
 
 void
 guestfs_int_version_from_libvirt (struct version *v, int vernum)
@@ -77,7 +77,7 @@ guestfs_int_version_from_x_y (guestfs_h *g, struct version *v, const char *str)
  */
 int
 guestfs_int_version_from_x_y_re (guestfs_h *g, struct version *v,
-                                 const char *str, const pcre *re)
+                                 const char *str, const pcre2_code *re)
 {
   return version_from_x_y_or_x (g, v, str, re, false);
 }
@@ -115,7 +115,7 @@ guestfs_int_version_cmp_ge (const struct version *a, const struct version *b)
 
 static int
 version_from_x_y_or_x (guestfs_h *g, struct version *v, const char *str,
-                       const pcre *re, bool allow_only_x)
+                       const pcre2_code *re, bool allow_only_x)
 {
   CLEANUP_FREE char *major = NULL;
   CLEANUP_FREE char *minor = NULL;
