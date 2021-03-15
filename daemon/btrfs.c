@@ -21,10 +21,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
-#include <pcre.h>
 #include <string.h>
 #include <unistd.h>
 #include <assert.h>
+
+#define PCRE2_CODE_UNIT_WIDTH 8
+#include <pcre2.h>
 
 #include "daemon.h"
 #include "actions.h"
@@ -1651,8 +1653,9 @@ do_btrfs_balance_status (const char *path)
   int r;
   guestfs_int_btrfsbalance *ret;
   size_t nlines;
-#define N_MATCH 2
-  int ovector[N_MATCH * 3];
+  CLEANUP_PCRE2_MATCH_DATA_FREE pcre2_match_data *match_data =
+    pcre2_match_data_create_from_pattern (re_btrfs_balance_status, NULL);
+  PCRE2_SIZE *ovector;
 
   path_buf = sysroot_path (path);
   if (path_buf == NULL) {
@@ -1715,13 +1718,14 @@ do_btrfs_balance_status (const char *path)
     return ret;
   }
 
-  if (pcre_exec (re_btrfs_balance_status,
-                 NULL, lines[0], strlen (lines[0]), 0, 0,
-                 ovector, N_MATCH * 3) < 0) {
+  if (pcre2_match (re_btrfs_balance_status,
+                   (PCRE2_SPTR)lines[0], PCRE2_ZERO_TERMINATED, 0, 0,
+                   match_data, NULL) < 0) {
     reply_with_error ("unexpected output from 'btrfs balance status' command: %s", lines[0]);
     goto error;
   }
-#undef N_MATCH
+
+  ovector = pcre2_get_ovector_pointer (match_data);
 
   if (STREQ (lines[0] + ovector[2], "running"))
     ret->btrfsbalance_status = strdup ("running");

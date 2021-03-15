@@ -31,7 +31,8 @@
 #include <rpc/types.h>  /* Needed on libc's different than glibc. */
 #include <rpc/xdr.h>
 
-#include <pcre.h>
+#define PCRE2_CODE_UNIT_WIDTH 8
+#include <pcre2.h>
 
 /* Minimum required version of libvirt for the libvirt backend.
  *
@@ -613,12 +614,12 @@ extern void guestfs_int_trace_open (struct trace_buffer *tb);
 extern void guestfs_int_trace_send_line (guestfs_h *g, struct trace_buffer *tb);
 
 /* match.c */
-extern int guestfs_int_match (guestfs_h *g, const char *str, const pcre *re);
-extern char *guestfs_int_match1 (guestfs_h *g, const char *str, const pcre *re);
-extern int guestfs_int_match2 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2);
-extern int guestfs_int_match3 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2, char **ret3);
-extern int guestfs_int_match4 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2, char **ret3, char **ret4);
-extern int guestfs_int_match6 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2, char **ret3, char **ret4, char **ret5, char **ret6);
+extern int guestfs_int_match (guestfs_h *g, const char *str, const pcre2_code *re);
+extern char *guestfs_int_match1 (guestfs_h *g, const char *str, const pcre2_code *re);
+extern int guestfs_int_match2 (guestfs_h *g, const char *str, const pcre2_code *re, char **ret1, char **ret2);
+extern int guestfs_int_match3 (guestfs_h *g, const char *str, const pcre2_code *re, char **ret1, char **ret2, char **ret3);
+extern int guestfs_int_match4 (guestfs_h *g, const char *str, const pcre2_code *re, char **ret1, char **ret2, char **ret3, char **ret4);
+extern int guestfs_int_match6 (guestfs_h *g, const char *str, const pcre2_code *re, char **ret1, char **ret2, char **ret3, char **ret4, char **ret5, char **ret6);
 
 #define match guestfs_int_match
 #define match1 guestfs_int_match1
@@ -815,7 +816,7 @@ extern int guestfs_int_wait4 (guestfs_h *g, pid_t pid, int *status, struct rusag
 extern void guestfs_int_version_from_libvirt (struct version *v, int vernum);
 extern void guestfs_int_version_from_values (struct version *v, int maj, int min, int mic);
 extern int guestfs_int_version_from_x_y (guestfs_h *g, struct version *v, const char *str);
-extern int guestfs_int_version_from_x_y_re (guestfs_h *g, struct version *v, const char *str, const pcre *re);
+extern int guestfs_int_version_from_x_y_re (guestfs_h *g, struct version *v, const char *str, const pcre2_code *re);
 extern int guestfs_int_version_from_x_y_or_x (guestfs_h *g, struct version *v, const char *str);
 extern bool guestfs_int_version_ge (const struct version *v, int maj, int min, int mic);
 extern bool guestfs_int_version_cmp_ge (const struct version *a, const struct version *b);

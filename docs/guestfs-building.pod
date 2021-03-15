@@ -148,7 +148,7 @@ I<Required>.
 
 I<Required>.
 
-=item Perl-compatible Regular Expressions (PCRE) library
+=item Perl-compatible Regular Expressions (PCRE2) library
 
 I<Required>.
 

@@ -22,7 +22,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <pcre.h>
+#define PCRE2_CODE_UNIT_WIDTH 8
+#include <pcre2.h>
+
+#include "cleanups.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -31,13 +34,15 @@
  * true if it matches or false if it doesn't.
  */
 int
-guestfs_int_match (guestfs_h *g, const char *str, const pcre *re)
+guestfs_int_match (guestfs_h *g, const char *str, const pcre2_code *re)
 {
-  const size_t len = strlen (str);
-  int vec[30], r;
+  CLEANUP_PCRE2_MATCH_DATA_FREE pcre2_match_data *match_data =
+    pcre2_match_data_create_from_pattern (re, NULL);
+  int r;
 
-  r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
-  if (r == PCRE_ERROR_NOMATCH)
+  r = pcre2_match (re, (PCRE2_SPTR)str, PCRE2_ZERO_TERMINATED,
+                   0, 0, match_data, NULL);
+  if (r == PCRE2_ERROR_NOMATCH)
     return 0;
 
   return 1;
@@ -48,29 +53,39 @@ guestfs_int_match (guestfs_h *g, const char *str, const pcre *re)
  * caller must free the result.
  */
 char *
-guestfs_int_match1 (guestfs_h *g, const char *str, const pcre *re)
+guestfs_int_match1 (guestfs_h *g, const char *str, const pcre2_code *re)
 {
-  const size_t len = strlen (str);
-  int vec[30], r;
+  CLEANUP_PCRE2_MATCH_DATA_FREE pcre2_match_data *match_data =
+    pcre2_match_data_create_from_pattern (re, NULL);
+  PCRE2_SIZE *vec;
+  int r;
 
-  r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
-  if (r == PCRE_ERROR_NOMATCH)
+  r = pcre2_match (re, (PCRE2_SPTR)str, PCRE2_ZERO_TERMINATED,
+                   0, 0, match_data, NULL);
+  if (r == PCRE2_ERROR_NOMATCH)
     return NULL;
+
+  vec = pcre2_get_ovector_pointer (match_data);
 
   return r == 2 ? safe_strndup (g, &str[vec[2]], vec[3]-vec[2]) : NULL;
 }
 
 /* Match a regular expression which contains exactly two captures. */
 int
-guestfs_int_match2 (guestfs_h *g, const char *str, const pcre *re,
+guestfs_int_match2 (guestfs_h *g, const char *str, const pcre2_code *re,
 		    char **ret1, char **ret2)
 {
-  const size_t len = strlen (str);
-  int vec[30], r;
+  CLEANUP_PCRE2_MATCH_DATA_FREE pcre2_match_data *match_data =
+    pcre2_match_data_create_from_pattern (re, NULL);
+  PCRE2_SIZE *vec;
+  int r;
 
-  r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
-  if (r == PCRE_ERROR_NOMATCH)
+  r = pcre2_match (re, (PCRE2_SPTR)str, PCRE2_ZERO_TERMINATED,
+                   0, 0, match_data, NULL);
+  if (r == PCRE2_ERROR_NOMATCH)
     return 0;
+
+  vec = pcre2_get_ovector_pointer (match_data);
 
   *ret1 = NULL;
   *ret2 = NULL;
@@ -83,15 +98,20 @@ guestfs_int_match2 (guestfs_h *g, const char *str, const pcre *re,
 
 /* Match a regular expression which contains exactly three captures. */
 int
-guestfs_int_match3 (guestfs_h *g, const char *str, const pcre *re,
+guestfs_int_match3 (guestfs_h *g, const char *str, const pcre2_code *re,
 		    char **ret1, char **ret2, char **ret3)
 {
-  const size_t len = strlen (str);
-  int vec[30], r;
+  CLEANUP_PCRE2_MATCH_DATA_FREE pcre2_match_data *match_data =
+    pcre2_match_data_create_from_pattern (re, NULL);
+  PCRE2_SIZE *vec;
+  int r;
 
-  r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
-  if (r == PCRE_ERROR_NOMATCH)
+  r = pcre2_match (re, (PCRE2_SPTR)str, PCRE2_ZERO_TERMINATED,
+                   0, 0, match_data, NULL);
+  if (r == PCRE2_ERROR_NOMATCH)
     return 0;
+
+  vec = pcre2_get_ovector_pointer (match_data);
 
   *ret1 = NULL;
   *ret2 = NULL;
@@ -106,15 +126,20 @@ guestfs_int_match3 (guestfs_h *g, const char *str, const pcre *re,
 
 /* Match a regular expression which contains exactly four captures. */
 int
-guestfs_int_match4 (guestfs_h *g, const char *str, const pcre *re,
+guestfs_int_match4 (guestfs_h *g, const char *str, const pcre2_code *re,
 		    char **ret1, char **ret2, char **ret3, char **ret4)
 {
-  const size_t len = strlen (str);
-  int vec[30], r;
+  CLEANUP_PCRE2_MATCH_DATA_FREE pcre2_match_data *match_data =
+    pcre2_match_data_create_from_pattern (re, NULL);
+  PCRE2_SIZE *vec;
+  int r;
 
-  r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
-  if (r == PCRE_ERROR_NOMATCH)
+  r = pcre2_match (re, (PCRE2_SPTR)str, PCRE2_ZERO_TERMINATED,
+                   0, 0, match_data, NULL);
+  if (r == PCRE2_ERROR_NOMATCH)
     return 0;
+
+  vec = pcre2_get_ovector_pointer (match_data);
 
   *ret1 = NULL;
   *ret2 = NULL;
@@ -131,16 +156,21 @@ guestfs_int_match4 (guestfs_h *g, const char *str, const pcre *re,
 
 /* Match a regular expression which contains exactly six captures. */
 int
-guestfs_int_match6 (guestfs_h *g, const char *str, const pcre *re,
+guestfs_int_match6 (guestfs_h *g, const char *str, const pcre2_code *re,
 		    char **ret1, char **ret2, char **ret3, char **ret4,
 		    char **ret5, char **ret6)
 {
-  const size_t len = strlen (str);
-  int vec[30], r;
+  CLEANUP_PCRE2_MATCH_DATA_FREE pcre2_match_data *match_data =
+    pcre2_match_data_create_from_pattern (re, NULL);
+  PCRE2_SIZE *vec;
+  int r;
 
-  r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
-  if (r == PCRE_ERROR_NOMATCH)
+  r = pcre2_match (re, (PCRE2_SPTR)str, PCRE2_ZERO_TERMINATED,
+                   0, 0, match_data, NULL);
+  if (r == PCRE2_ERROR_NOMATCH)
     return 0;
+
+  vec = pcre2_get_ovector_pointer (match_data);
 
   *ret1 = NULL;
   *ret2 = NULL;

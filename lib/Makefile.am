@@ -137,7 +137,7 @@ libguestfs_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(RPC_CFLAGS) \
 	$(GCC_VISIBILITY_HIDDEN) \
-	$(PCRE_CFLAGS) \
+	$(PCRE2_CFLAGS) \
 	$(LIBVIRT_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(JANSSON_CFLAGS)
@@ -148,7 +148,7 @@ libguestfs_la_LIBADD = \
 	../common/qemuopts/libqemuopts.la \
 	../common/structs/libstructs.la \
 	../common/utils/libutils.la \
-	$(PCRE_LIBS) \
+	$(PCRE2_LIBS) \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
 	$(SELINUX_LIBS) \
 	$(JANSSON_LIBS) \

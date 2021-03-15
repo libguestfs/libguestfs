@@ -100,9 +100,9 @@ tests_CPPFLAGS = \
 	-I$(top_srcdir)/include
 tests_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(PCRE_CFLAGS)
+	$(PCRE2_CFLAGS)
 tests_LDADD = \
-	$(PCRE_LIBS) \
+	$(PCRE2_LIBS) \
 	$(top_builddir)/common/structs/libstructs.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
