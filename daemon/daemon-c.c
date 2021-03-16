@@ -73,7 +73,7 @@ guestfs_int_daemon_exn_to_reply_with_error (const char *func, value exn)
                       message,
                       minor ? ": " : "", minor ? minor : "",
                       details ? ": " : "", details ? details : "");
-}
+  }
   else if (STREQ (exn_name, "PCRE.Error")) {
     value pair = Field (exn, 1);
     reply_with_error ("PCRE error: %s (PCRE error code: %d)",
