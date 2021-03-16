@@ -1530,6 +1530,15 @@ Using:
 will force the direct and libvirt backends to use TCG (software
 emulation) instead of KVM (hardware accelerated virtualization).
 
+=head3 force_kvm
+
+Using:
+
+ export LIBGUESTFS_BACKEND_SETTINGS=force_kvm
+
+will force the direct and libvirt backends to use KVM (hardware
+accelerated virtualization) instead of TCG (software emulation).
+
 =head3 gdb
 
 The direct backend supports:

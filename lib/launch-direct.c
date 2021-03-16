@@ -385,6 +385,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   struct hv_param *hp;
   bool has_kvm;
   int force_tcg;
+  int force_kvm;
+  const char *accel_val = "kvm:tcg";
   const char *cpu_model;
   CLEANUP_FREE char *append = NULL;
   CLEANUP_FREE_STRING_LIST char **argv = NULL;
@@ -433,9 +435,27 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   force_tcg = guestfs_int_get_backend_setting_bool (g, "force_tcg");
   if (force_tcg == -1)
     return -1;
+  else if (force_tcg)
+    accel_val = "tcg";
 
-  if (!has_kvm && !force_tcg)
-    debian_kvm_warning (g);
+  force_kvm = guestfs_int_get_backend_setting_bool (g, "force_kvm");
+  if (force_kvm == -1)
+    return -1;
+  else if (force_kvm)
+    accel_val = "kvm";
+
+  if (force_kvm && force_tcg) {
+    error (g, "Both force_kvm and force_tcg backend settings supplied.");
+    return -1;
+  }
+  if (!has_kvm) {
+    if (!force_tcg)
+      debian_kvm_warning (g);
+    if (force_kvm) {
+      error (g, "force_kvm supplied but kvm not available.");
+      return -1;
+    }
+  }
 
   /* Using virtio-serial, we need to create a local Unix domain socket
    * for qemu to connect to.
@@ -530,7 +550,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     if (has_kvm && !force_tcg)
       append_list ("gic-version=host");
 #endif
-    append_list_format ("accel=%s", !force_tcg ? "kvm:tcg" : "tcg");
+    append_list_format ("accel=%s", accel_val);
   } end_list ();
 
   cpu_model = guestfs_int_get_cpu_model (has_kvm && !force_tcg);

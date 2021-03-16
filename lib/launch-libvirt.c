@@ -772,6 +772,7 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
   xmlAttrPtr attr;
   size_t seen_qemu, seen_kvm;
   int force_tcg;
+  int force_kvm;
 
   doc = xmlReadMemory (capabilities_xml, strlen (capabilities_xml),
                        NULL, NULL, XML_PARSE_NONET);
@@ -819,11 +820,15 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
     }
   }
 
+  force_kvm = guestfs_int_get_backend_setting_bool (g, "force_kvm");
+  if (force_kvm == -1)
+    return -1;
+
   /* This was RHBZ#886915: in that case the default libvirt URI
    * pointed to a Xen hypervisor, and so could not create the
    * appliance VM.
    */
-  if (!seen_qemu && !seen_kvm) {
+  if ((!seen_qemu || force_kvm) && !seen_kvm) {
     CLEANUP_FREE char *backend = guestfs_get_backend (g);
 
     error (g,
@@ -844,6 +849,14 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
   force_tcg = guestfs_int_get_backend_setting_bool (g, "force_tcg");
   if (force_tcg == -1)
     return -1;
+
+  if (force_kvm && force_tcg) {
+    error (g, "Both force_kvm and force_tcg backend settings supplied.");
+    return -1;
+  }
+
+  /* if force_kvm then seen_kvm */
+  assert (!force_kvm || seen_kvm);
 
   if (!force_tcg)
     data->is_kvm = seen_kvm;
