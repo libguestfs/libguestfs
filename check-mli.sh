@@ -27,7 +27,6 @@ for f in $(
     grep -v contrib/ |
     grep -v ocaml/examples/ |
     grep -v ocaml/t/ |
-    grep -v 'tests/automake2junit.ml$' |
     grep -v 'bindtests.ml$' |
     grep -v '_tests.ml$' |
     sort
