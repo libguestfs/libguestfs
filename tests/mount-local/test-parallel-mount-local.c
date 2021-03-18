@@ -366,7 +366,7 @@ guestunmount (const char *mp, unsigned flags)
   }
 
   snprintf (cmd, sizeof cmd,
-            "../../fuse/guestunmount%s %s",
+            "../fuse/guestunmount%s %s",
             (flags & GUESTUNMOUNT_SILENT) ? " --quiet" : "", mp);
 
   status = system (cmd);

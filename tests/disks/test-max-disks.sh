@@ -21,4 +21,4 @@ $TEST_FUNCTIONS
 skip_if_skipped
 slow_test
 
-./test-add-disks --max
+disks/test-add-disks --max

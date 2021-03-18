@@ -29,7 +29,7 @@ let daemon_functions = [
     optional = Some "hivex";
     tests = [
       InitScratchFS, Always, TestRun (
-        [["upload"; "$srcdir/../../test-data/files/minimal"; "/hivex_open"];
+        [["upload"; "$srcdir/../test-data/files/minimal"; "/hivex_open"];
          ["hivex_open"; "/hivex_open"; ""; ""; "false"; ""];
          ["hivex_root"]; (* in this hive, it returns 0x1020 *)
          ["hivex_node_name"; "0x1020"];
@@ -181,11 +181,11 @@ data." };
     optional = Some "hivex";
     tests = [
       InitScratchFS, Always, TestRun (
-        [["upload"; "$srcdir/../../test-data/files/minimal"; "/hivex_commit1"];
+        [["upload"; "$srcdir/../test-data/files/minimal"; "/hivex_commit1"];
          ["hivex_open"; "/hivex_commit1"; ""; ""; "true"; ""];
          ["hivex_commit"; "NULL"]]), [["hivex_close"]];
       InitScratchFS, Always, TestResultTrue (
-        [["upload"; "$srcdir/../../test-data/files/minimal"; "/hivex_commit2"];
+        [["upload"; "$srcdir/../test-data/files/minimal"; "/hivex_commit2"];
          ["hivex_open"; "/hivex_commit2"; ""; ""; "true"; ""];
          ["hivex_commit"; "/hivex_commit2_copy"];
          ["is_file"; "/hivex_commit2_copy"; "false"]]), [["hivex_close"]]

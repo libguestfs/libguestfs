@@ -1048,19 +1048,19 @@ hidden files are shown." };
     style = RString (RPlainString, "format"), [String (PlainString, "filename")], [];
     tests = [
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "../../test-data/blank-disks/blank-disk-1s.raw"]], "raw"), [];
+        [["disk_format"; "../test-data/blank-disks/blank-disk-1s.raw"]], "raw"), [];
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "../../test-data/blank-disks/blank-disk-1s.qcow2"]], "qcow2"), [];
+        [["disk_format"; "../test-data/blank-disks/blank-disk-1s.qcow2"]], "qcow2"), [];
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "../../test-data/blank-disks/blank-disk-1K.raw"]], "raw"), [];
+        [["disk_format"; "../test-data/blank-disks/blank-disk-1K.raw"]], "raw"), [];
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "../../test-data/blank-disks/blank-disk-1K.qcow2"]], "qcow2"), [];
+        [["disk_format"; "../test-data/blank-disks/blank-disk-1K.qcow2"]], "qcow2"), [];
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "../../test-data/blank-disks/blank-disk-1M.raw"]], "raw"), [];
+        [["disk_format"; "../test-data/blank-disks/blank-disk-1M.raw"]], "raw"), [];
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "../../test-data/blank-disks/blank-disk-1M.qcow2"]], "qcow2"), [];
+        [["disk_format"; "../test-data/blank-disks/blank-disk-1M.qcow2"]], "qcow2"), [];
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "../../test-data/blank-disks/blank-disk-with-backing.qcow2"]], "qcow2"), [];
+        [["disk_format"; "../test-data/blank-disks/blank-disk-with-backing.qcow2"]], "qcow2"), [];
     ];
     shortdesc = "detect the disk format of a disk image";
     longdesc = "\
@@ -1078,19 +1078,19 @@ See also: L<guestfs(3)/DISK IMAGE FORMATS>" };
     style = RInt64 "size", [String (PlainString, "filename")], [];
     tests = [
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "../../test-data/blank-disks/blank-disk-1s.raw"]], "ret == 512"), [];
+        [["disk_virtual_size"; "../test-data/blank-disks/blank-disk-1s.raw"]], "ret == 512"), [];
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "../../test-data/blank-disks/blank-disk-1s.qcow2"]], "ret == 512"), [];
+        [["disk_virtual_size"; "../test-data/blank-disks/blank-disk-1s.qcow2"]], "ret == 512"), [];
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "../../test-data/blank-disks/blank-disk-1K.raw"]], "ret == 1024"), [];
+        [["disk_virtual_size"; "../test-data/blank-disks/blank-disk-1K.raw"]], "ret == 1024"), [];
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "../../test-data/blank-disks/blank-disk-1K.qcow2"]], "ret == 1024"), [];
+        [["disk_virtual_size"; "../test-data/blank-disks/blank-disk-1K.qcow2"]], "ret == 1024"), [];
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "../../test-data/blank-disks/blank-disk-1M.raw"]], "ret == 1024*1024"), [];
+        [["disk_virtual_size"; "../test-data/blank-disks/blank-disk-1M.raw"]], "ret == 1024*1024"), [];
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "../../test-data/blank-disks/blank-disk-1M.qcow2"]], "ret == 1024*1024"), [];
+        [["disk_virtual_size"; "../test-data/blank-disks/blank-disk-1M.qcow2"]], "ret == 1024*1024"), [];
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "../../test-data/blank-disks/blank-disk-with-backing.qcow2"]], "ret == 1024*1024"), [];
+        [["disk_virtual_size"; "../test-data/blank-disks/blank-disk-with-backing.qcow2"]], "ret == 1024*1024"), [];
     ];
     shortdesc = "return virtual size of a disk";
     longdesc = "\
@@ -1105,19 +1105,19 @@ circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
     style = RBool "backingfile", [String (PlainString, "filename")], [];
     tests = [
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "../../test-data/blank-disks/blank-disk-1s.raw"]]), [];
+        [["disk_has_backing_file"; "../test-data/blank-disks/blank-disk-1s.raw"]]), [];
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "../../test-data/blank-disks/blank-disk-1s.qcow2"]]), [];
+        [["disk_has_backing_file"; "../test-data/blank-disks/blank-disk-1s.qcow2"]]), [];
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "../../test-data/blank-disks/blank-disk-1K.raw"]]), [];
+        [["disk_has_backing_file"; "../test-data/blank-disks/blank-disk-1K.raw"]]), [];
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "../../test-data/blank-disks/blank-disk-1K.qcow2"]]), [];
+        [["disk_has_backing_file"; "../test-data/blank-disks/blank-disk-1K.qcow2"]]), [];
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "../../test-data/blank-disks/blank-disk-1M.raw"]]), [];
+        [["disk_has_backing_file"; "../test-data/blank-disks/blank-disk-1M.raw"]]), [];
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "../../test-data/blank-disks/blank-disk-1M.qcow2"]]), [];
+        [["disk_has_backing_file"; "../test-data/blank-disks/blank-disk-1M.qcow2"]]), [];
       InitEmpty, Always, TestResultTrue (
-        [["disk_has_backing_file"; "../../test-data/blank-disks/blank-disk-with-backing.qcow2"]]), [];
+        [["disk_has_backing_file"; "../test-data/blank-disks/blank-disk-with-backing.qcow2"]]), [];
     ];
     shortdesc = "return whether disk has a backing file";
     longdesc = "\
@@ -2532,7 +2532,7 @@ This uses the L<blockdev(8)> command." };
       InitScratchFS, Always, TestResultString (
         (* Pick a file from cwd which isn't likely to change. *)
         [["mkdir"; "/upload"];
-         ["upload"; "$srcdir/../../COPYING.LIB"; "/upload/COPYING.LIB"];
+         ["upload"; "$srcdir/../COPYING.LIB"; "/upload/COPYING.LIB"];
          ["checksum"; "md5"; "/upload/COPYING.LIB"]],
         Digest.to_hex (Digest.file "COPYING.LIB")), []
     ];
@@ -2553,7 +2553,7 @@ See also C<guestfs_download>." };
       InitScratchFS, Always, TestResultString (
         (* Pick a file from cwd which isn't likely to change. *)
         [["mkdir"; "/download"];
-         ["upload"; "$srcdir/../../COPYING.LIB"; "/download/COPYING.LIB"];
+         ["upload"; "$srcdir/../COPYING.LIB"; "/download/COPYING.LIB"];
          ["download"; "/download/COPYING.LIB"; "testdownload.tmp"];
          ["upload"; "testdownload.tmp"; "/download/upload"];
          ["checksum"; "md5"; "/download/upload"]],
@@ -2647,15 +2647,15 @@ To get the checksums for many files, use C<guestfs_checksums_out>." };
     tests = [
       InitScratchFS, Always, TestResultString (
         [["mkdir"; "/tar_in"];
-         ["tar_in"; "$srcdir/../../test-data/files/helloworld.tar"; "/tar_in"; "NOARG"; ""; ""; ""];
+         ["tar_in"; "$srcdir/../test-data/files/helloworld.tar"; "/tar_in"; "NOARG"; ""; ""; ""];
          ["cat"; "/tar_in/hello"]], "hello\n"), [];
       InitScratchFS, Always, TestResultString (
         [["mkdir"; "/tar_in_gz"];
-         ["tar_in"; "$srcdir/../../test-data/files/helloworld.tar.gz"; "/tar_in_gz"; "gzip"; ""; ""; ""];
+         ["tar_in"; "$srcdir/../test-data/files/helloworld.tar.gz"; "/tar_in_gz"; "gzip"; ""; ""; ""];
          ["cat"; "/tar_in_gz/hello"]], "hello\n"), [];
       InitScratchFS, IfAvailable "xz", TestResultString (
         [["mkdir"; "/tar_in_xz"];
-         ["tar_in"; "$srcdir/../../test-data/files/helloworld.tar.xz"; "/tar_in_xz"; "xz"; ""; ""; ""];
+         ["tar_in"; "$srcdir/../test-data/files/helloworld.tar.xz"; "/tar_in_xz"; "xz"; ""; ""; ""];
          ["cat"; "/tar_in_xz/hello"]], "hello\n"), []
     ];
     shortdesc = "unpack tarfile to directory";
@@ -5356,7 +5356,7 @@ types (see C<guestfs_part_get_parttype>)." };
     tests = [
       InitISOFS, Always, TestResult (
         [["checksum_device"; "md5"; "/dev/sdd"]],
-        "check_file_md5 (ret, \"../../test-data/test.iso\") == 0"), []
+        "check_file_md5 (ret, \"../test-data/test.iso\") == 0"), []
     ];
     shortdesc = "compute MD5, SHAx or CRC checksum of the contents of a device";
     longdesc = "\
@@ -5403,7 +5403,7 @@ unless it has been set by calling C<guestfs_umask>." };
     cancellable = true;
     tests = [
       InitScratchFS, Always, TestResultString (
-        [["base64_in"; "../../test-data/files/hello.b64"; "/base64_in"];
+        [["base64_in"; "../test-data/files/hello.b64"; "/base64_in"];
          ["cat"; "/base64_in"]], "hello\n"), []
     ];
     shortdesc = "upload base64-encoded data to file";
@@ -5882,7 +5882,7 @@ See also C<guestfs_part_to_partnum>, C<guestfs_device_index>." };
     tests =
       (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in [
         InitScratchFS, Always, TestResultString (
-          [["upload_offset"; "$srcdir/../../COPYING.LIB"; "/upload_offset"; "0"];
+          [["upload_offset"; "$srcdir/../COPYING.LIB"; "/upload_offset"; "0"];
            ["checksum"; "md5"; "/upload_offset"]], md5), []
       ]);
     shortdesc = "upload a file from the local machine with offset";
@@ -5916,7 +5916,7 @@ See also C<guestfs_upload>, C<guestfs_pwrite>." };
          InitScratchFS, Always, TestResultString (
            (* Pick a file from cwd which isn't likely to change. *)
            [["mkdir"; "/download_offset"];
-            ["upload"; "$srcdir/../../COPYING.LIB"; "/download_offset/COPYING.LIB"];
+            ["upload"; "$srcdir/../COPYING.LIB"; "/download_offset/COPYING.LIB"];
             ["download_offset"; "/download_offset/COPYING.LIB"; "testdownload.tmp"; offset; size];
             ["upload_offset"; "testdownload.tmp"; "/download_offset/COPYING.LIB"; offset];
             ["checksum"; "md5"; "/download_offset/COPYING.LIB"]], md5), []

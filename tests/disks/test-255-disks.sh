@@ -22,4 +22,4 @@ skip_if_skipped
 
 skip_unless_backend libvirt
 
-./test-add-disks -n 255
+disks/test-add-disks -n 255

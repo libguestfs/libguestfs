@@ -285,45 +285,9 @@ AC_CONFIG_FILES([Makefile
                  test-data/phony-guests/Makefile
                  test-data/phony-guests/guests.xml
                  test-tool/Makefile
-                 tests/9p/Makefile
-                 tests/bigdirs/Makefile
-                 tests/btrfs/Makefile
-                 tests/c-api/Makefile
-                 tests/charsets/Makefile
-                 tests/create/Makefile
-                 tests/daemon/Makefile
+                 tests/Makefile
                  tests/daemon/captive-daemon.pm
-                 tests/discard/Makefile
-                 tests/disks/Makefile
                  tests/disks/test-qemu-drive-libvirt.xml
-                 tests/disk-labels/Makefile
-                 tests/events/Makefile
-                 tests/gdisk/Makefile
-                 tests/hotplug/Makefile
-                 tests/http/Makefile
-                 tests/journal/Makefile
-                 tests/luks/Makefile
-                 tests/lvm/Makefile
-                 tests/md/Makefile
-                 tests/mount-local/Makefile
-                 tests/mountable/Makefile
-                 tests/nbd/Makefile
-                 tests/network/Makefile
-                 tests/ntfs/Makefile
-                 tests/parallel/Makefile
-                 tests/protocol/Makefile
-                 tests/qemu/Makefile
-                 tests/regressions/Makefile
-                 tests/relabel/Makefile
-                 tests/relative-paths/Makefile
-                 tests/rsync/Makefile
-                 tests/selinux/Makefile
-                 tests/syslinux/Makefile
-                 tests/tmpdirs/Makefile
-                 tests/tsk/Makefile
-                 tests/xfs/Makefile
-                 tests/xml/Makefile
-                 tests/yara/Makefile
                  website/index.html])
 
 AC_OUTPUT

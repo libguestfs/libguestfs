@@ -18,19 +18,20 @@
 # Test that disks map to the correct qemu -drive parameter.
 
 set -e
+set -x
 
 $TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_libvirt_minimum_version 1 1 3
 
-guestfish="guestfish -c test://$abs_builddir/test-qemu-drive-libvirt.xml"
+guestfish="guestfish -c test://$abs_builddir/disks/test-qemu-drive-libvirt.xml"
 
 export LIBGUESTFS_BACKEND=direct
-export LIBGUESTFS_HV="${abs_srcdir}/debug-qemu.sh"
+export LIBGUESTFS_HV="${abs_srcdir}/disks/debug-qemu.sh"
 export DEBUG_QEMU_FILE="${abs_builddir}/test-qemu-drive-libvirt.out"
 
 # Setup the fake pool.
-pool_dir=tmp
+pool_dir=disks/tmp
 rm -rf "$pool_dir"
 mkdir "$pool_dir"
 touch "$pool_dir/in-pool"
@@ -96,7 +97,7 @@ rm "$DEBUG_QEMU_FILE"
 
 $guestfish -d pool1 run ||:
 check_output
-grep -sq -- "-drive file=$abs_builddir/tmp/in-pool" "$DEBUG_QEMU_FILE" || fail pool1
+grep -sq -- "-drive file=$abs_builddir/disks/tmp/in-pool" "$DEBUG_QEMU_FILE" || fail pool1
 rm "$DEBUG_QEMU_FILE"
 
 # To do:

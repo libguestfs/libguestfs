@@ -24,10 +24,10 @@ $TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_libvirt_minimum_version 1 1 3
 
-guestfish="guestfish -c test://$abs_builddir/test-qemu-drive-libvirt.xml"
+guestfish="guestfish -c test://$abs_builddir/disks/test-qemu-drive-libvirt.xml"
 
 export LIBGUESTFS_BACKEND=direct
-export LIBGUESTFS_HV="${abs_srcdir}/debug-qemu.sh"
+export LIBGUESTFS_HV="${abs_srcdir}/disks/debug-qemu.sh"
 export DEBUG_QEMU_FILE="${abs_builddir}/test-qemu-drive-with-blocksize-libvirt.out"
 
 function check_output ()

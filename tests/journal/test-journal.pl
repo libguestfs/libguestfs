@@ -28,7 +28,7 @@ use Sys::Guestfs;
 exit 77 if $ENV{SKIP_TEST_JOURNAL_PL};
 
 my $g = Sys::Guestfs->new ();
-$g->add_drive ("../../test-data/phony-guests/fedora.img",
+$g->add_drive ("../test-data/phony-guests/fedora.img",
                readonly => 1, format => "raw");
 $g->launch ();
 

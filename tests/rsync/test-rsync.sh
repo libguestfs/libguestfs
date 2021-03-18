@@ -55,7 +55,7 @@ case "$backend" in
 esac
 
 pwd="$(pwd)"
-datadir="$(cd ../../test-data/files && pwd)"
+datadir="$(cd ../test-data/files && pwd)"
 
 rm -rf tmp
 mkdir tmp

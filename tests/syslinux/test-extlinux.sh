@@ -16,4 +16,4 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-BOOTLOADER=extlinux $srcdir/test-syslinux.pl
+BOOTLOADER=extlinux $srcdir/syslinux/test-syslinux.pl

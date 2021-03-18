@@ -191,7 +191,7 @@ C<blocksize> option of C<guestfs_mkfs>." };
     tests = [
       InitScratchFS, Always, TestResultString (
         [["mkdir"; "/tgz_in"];
-         ["tgz_in"; "$srcdir/../../test-data/files/helloworld.tar.gz"; "/tgz_in"];
+         ["tgz_in"; "$srcdir/../test-data/files/helloworld.tar.gz"; "/tgz_in"];
          ["cat"; "/tgz_in/hello"]], "hello\n"), []
     ];
     shortdesc = "unpack compressed tarball to directory";
@@ -754,7 +754,7 @@ This command cannot do partial copies
     tests = [
       InitScratchFS, Always, TestResultString (
         [["mkdir"; "/txz_in"];
-         ["txz_in"; "$srcdir/../../test-data/files/helloworld.tar.xz"; "/txz_in"];
+         ["txz_in"; "$srcdir/../test-data/files/helloworld.tar.xz"; "/txz_in"];
          ["cat"; "/txz_in/hello"]], "hello\n"), []
     ];
     shortdesc = "unpack compressed tarball to directory";

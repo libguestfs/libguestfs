@@ -39,7 +39,7 @@ rule TestRule
 EOF
 
 output=$(
-guestfish --ro -a ../../test-data/phony-guests/blank-fs.img <<EOF
+guestfish --ro -a ../test-data/phony-guests/blank-fs.img <<EOF
 run
 mount /dev/sda1 /
 write /text.txt "some text"

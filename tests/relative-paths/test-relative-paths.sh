@@ -45,7 +45,7 @@ qemu-img create -f qcow2 backing3 10M
 qemu-img create -f qcow2 -b ./backing3 -F qcow2 overlay3
 
 qemu-img create -f qcow2 backing4 10M
-qemu-img create -f qcow2 -b ../../tests/relative-paths/backing4 -F qcow2 overlay4
+qemu-img create -f qcow2 -b ../tests/backing4 -F qcow2 overlay4
 
 qemu-img create -f qcow2 backing5 10M
 pushd dir1

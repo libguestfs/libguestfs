@@ -23,4 +23,4 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-./test-add-disks -n 27
+disks/test-add-disks -n 27

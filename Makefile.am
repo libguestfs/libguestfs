@@ -22,13 +22,8 @@ ACLOCAL_AMFLAGS = -I m4
 # The generator - must be before anything else.
 SUBDIRS = common/mlstdutils generator
 
-# Must be the first tests that run.
-if ENABLE_APPLIANCE
-SUBDIRS += tests/qemu
-endif
-
 # Files and other test data used by the tests.  Must be before any
-# tests run, except tests/qemu.
+# tests run.
 SUBDIRS += test-data
 
 # Gnulib - must be built and tested before the library.
@@ -50,50 +45,13 @@ SUBDIRS += common/mlpcre
 SUBDIRS += common/mlgettext
 if ENABLE_DAEMON
 SUBDIRS += daemon
-SUBDIRS += tests/daemon
 endif
 if ENABLE_APPLIANCE
 SUBDIRS += appliance
 endif
 
-# Tests - order is important.
-if ENABLE_APPLIANCE
-SUBDIRS += tests/c-api
-SUBDIRS += tests/tmpdirs
-SUBDIRS += tests/protocol
-SUBDIRS += tests/events
-SUBDIRS += tests/parallel
-SUBDIRS += tests/create
-SUBDIRS += tests/disks
-SUBDIRS += tests/discard
-SUBDIRS += tests/mountable
-SUBDIRS += tests/network
-SUBDIRS += tests/lvm
-SUBDIRS += tests/luks
-SUBDIRS += tests/md
-SUBDIRS += tests/selinux
-SUBDIRS += tests/relabel
-SUBDIRS += tests/ntfs
-SUBDIRS += tests/btrfs
-SUBDIRS += tests/xfs
-SUBDIRS += tests/charsets
-SUBDIRS += tests/xml
-SUBDIRS += tests/mount-local
-SUBDIRS += tests/9p
-SUBDIRS += tests/rsync
-SUBDIRS += tests/bigdirs
-SUBDIRS += tests/disk-labels
-SUBDIRS += tests/hotplug
-SUBDIRS += tests/nbd
-SUBDIRS += tests/http
-SUBDIRS += tests/syslinux
-SUBDIRS += tests/journal
-SUBDIRS += tests/relative-paths
-SUBDIRS += tests/gdisk
-SUBDIRS += tests/regressions
-SUBDIRS += tests/tsk
-SUBDIRS += tests/yara
-endif
+# Tests.
+SUBDIRS += tests
 
 # Common code used by the tools.
 SUBDIRS += common/edit

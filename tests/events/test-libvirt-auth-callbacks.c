@@ -71,7 +71,8 @@ main (int argc, char *argv[])
   if (cwd == NULL)
     error (EXIT_FAILURE, errno, "getcwd");
 
-  if (asprintf (&test_uri, "test://%s/%s/libvirt-auth.xml", cwd, srcdir) == -1)
+  if (asprintf (&test_uri, "test://%s/%s/events/libvirt-auth.xml",
+                cwd, srcdir) == -1)
     error (EXIT_FAILURE, errno, "asprintf");
 
   free (cwd);

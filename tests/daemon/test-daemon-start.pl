@@ -21,7 +21,7 @@
 use strict;
 use warnings;
 
-require './captive-daemon.pm';
+require './daemon/captive-daemon.pm';
 
 sub tests {
     my $g = shift;

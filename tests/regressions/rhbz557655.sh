@@ -82,6 +82,6 @@ grep -E 'set[-_]memsize|truncate[-_]size' rhbz557655.err~ |
   grep -Ev '(<=|=>) truncate_size' > rhbz557655.err
 rm rhbz557655.err~
 
-diff -u $srcdir/rhbz557655-expected.stdout rhbz557655.out
-diff -u $srcdir/rhbz557655-expected.stderr rhbz557655.err
+diff -u $srcdir/regressions/rhbz557655-expected.stdout rhbz557655.out
+diff -u $srcdir/regressions/rhbz557655-expected.stderr rhbz557655.err
 rm rhbz557655.out rhbz557655.err rhbz557655.img

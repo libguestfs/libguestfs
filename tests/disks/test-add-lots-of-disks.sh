@@ -22,4 +22,4 @@ N=255
 $TEST_FUNCTIONS
 skip_if_skipped
 
-./test-add-disks --just-add -n $N
+disks/test-add-disks --just-add -n $N

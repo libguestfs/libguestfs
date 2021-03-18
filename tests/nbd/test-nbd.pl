@@ -22,8 +22,6 @@ use POSIX qw(getcwd);
 
 use Sys::Guestfs;
 
-my $disk = "../../test-data/phony-guests/fedora.img";
-
 my $pid = 0;
 END { kill 15, $pid if $pid > 0 };
 
@@ -40,10 +38,15 @@ if (system ("qemu-nbd --help >/dev/null 2>&1") != 0) {
     exit 77
 }
 
+# Make a local copy of the disk so we can open it for writes.
+my $disk = "../test-data/phony-guests/fedora.img";
 if (! -r $disk || -z $disk) {
     print "$0: test skipped because $disk is not found\n";
     exit 77
 }
+
+system ("cp $disk fedora-nbd.img") == 0 || die;
+$disk = "fedora-nbd.img";
 
 my $has_format_opt = system ("qemu-nbd --help | grep -q -- --format") == 0;
 
@@ -125,5 +128,7 @@ if (Sys::Guestfs->new()->get_backend() !~ /^libvirt/) {
     printf "skipping Unix domain socket test:\n";
     printf "https://bugzilla.redhat.com/show_bug.cgi?id=922888\n";
 }
+
+unlink $disk;
 
 exit 0

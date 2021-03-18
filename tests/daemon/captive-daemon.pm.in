@@ -29,7 +29,6 @@ $| = 1;
 
 # Filled in by autoconf.
 my %var;
-$var{top_builddir} = "@top_builddir@";
 $var{abs_top_srcdir} = "@abs_top_srcdir@";
 $var{abs_top_builddir} = "@abs_top_builddir@";
 $var{VALGRIND} = "@VALGRIND@";
@@ -60,11 +59,11 @@ sub run_tests {
 
     # Assemble the command we will run in the subprocess.
     my $cmd =
-        "$var{top_builddir}/daemon/guestfsd --channel $sockname -r -t -l";
+        "$var{abs_top_builddir}/daemon/guestfsd --channel $sockname -r -t -l";
     if ($verbose) {
         $cmd = $cmd . " -v"
     }
-    if ($ENV{TEST_WITH_VALGRIND}) {
+    if ($ENV{VG}) { # $VG env var will be set when make check-valgrind.
         $cmd = $VG . " " . $cmd
     }
 

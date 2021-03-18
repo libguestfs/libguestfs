@@ -28,7 +28,7 @@ skip_unless_test_iso
 rm -f rhbz563450b.out
 
 guestfish --ro > rhbz563450b.out <<EOF
-add-cdrom ../../test-data/test.iso
+add-cdrom ../test-data/test.iso
 
 run
 

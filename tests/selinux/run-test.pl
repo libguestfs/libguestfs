@@ -137,7 +137,7 @@ if ($test_via eq "direct") {
     my $pid = fork ();
     die "fork: $!" unless defined $pid;
     if ($pid == 0) {
-        exec ("$srcdir/run-test.pl", "--test", $mpdir, $test_type);
+        exec ("$srcdir/selinux/run-test.pl", "--test", $mpdir, $test_type);
         die "run-test.pl: exec failed: $!\n";
     }
 
@@ -168,7 +168,7 @@ sub run_fuse_tests
     }
 
     # Unmount the test directory.
-    if (system ("../../fuse/guestunmount", $mpdir) != 0) {
+    if (system ("../fuse/guestunmount", $mpdir) != 0) {
         die "failed to unmount FUSE directory\n";
     }
 
