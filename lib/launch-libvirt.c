@@ -1170,13 +1170,8 @@ construct_libvirt_xml_cpu (guestfs_h *g,
         } end_element ();
       }
       else if (STREQ (cpu_model, "max")) {
-        if (params->data->is_kvm)
-          attribute ("mode", "host-passthrough");
-        else
-          attribute ("mode", "host-model");
-        start_element ("model") {
-          attribute ("fallback", "allow");
-        } end_element ();
+        /* https://bugzilla.redhat.com/show_bug.cgi?id=1935572#c11 */
+        attribute ("mode", "maximum");
       }
       else
         single_element ("model", cpu_model);
