@@ -376,14 +376,6 @@ Optional.  For testing memory problems.
 
 Optional.  For testing Python libvirt/libguestfs interactions.
 
-=item Perl C<Win::Hivex>
-
-Optional.  Used by the L<virt-win-reg(1)> tool.
-
-=item Perl C<Pod::Usage>
-
-Optional.  Used by some Perl virt tools.
-
 =item Perl C<libintl>
 
 Optional.
