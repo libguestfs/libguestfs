@@ -238,7 +238,6 @@ EXTRA_DIST = \
 	logo/virt-builder.svg \
 	m4/.gitignore \
 	podcheck.pl \
-	tests/automake2junit.ml \
 	tests/test-functions.sh \
 	tmp/.gitignore \
 	update-bugs.sh \
