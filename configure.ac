@@ -205,8 +205,6 @@ AC_CONFIG_FILES([ocaml-link.sh],
                 [chmod +x,-w ocaml-link.sh])
 AC_CONFIG_FILES([php/extension/php-for-tests.sh],
                 [chmod +x,-w php/extension/php-for-tests.sh])
-AC_CONFIG_FILES([pick-guests.pl],
-                [chmod +x,-w pick-guests.pl])
 AC_CONFIG_FILES([podwrapper.pl],
                 [chmod +x,-w podwrapper.pl])
 AC_CONFIG_FILES([run],

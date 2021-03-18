@@ -372,10 +372,6 @@ Optional.  Used to build the Go bindings.
 
 Optional.  For testing memory problems.
 
-=item Perl C<Sys::Virt>
-
-Optional.
-
 =item libvirt-python
 
 Optional.  For testing Python libvirt/libguestfs interactions.

@@ -365,7 +365,6 @@ Makefile.in
 /php/extension/tests/guestfs_*.sh
 /php/extension/tests/guestfs_090_bindtests.phpt
 /php/extension/tmp-php.ini
-/pick-guests.pl
 /po-docs/*/*.1
 /po-docs/*/*.3
 /po-docs/*/*.5

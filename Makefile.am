@@ -368,7 +368,6 @@ check-all:
 	$(MAKE) -j1 \
 	  check \
 	  check-valgrind \
-	  check-valgrind-local-guests \
 	  check-direct \
 	  check-valgrind-direct \
 	  check-uml \
@@ -391,15 +390,6 @@ check-valgrind: build-test-guests
 	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
 	  echo $(MAKE) -C `dirname $$f` $@; \
 	  $(MAKE) -C `dirname $$f` $@ || (( errors++ )); \
-	done; \
-	exit $$(( $$errors ? 1 : 0 ))
-
-check-valgrind-local-guests:
-	@GUESTS=`$(top_builddir)/run ./pick-guests.pl 5`; \
-	errors=0; \
-	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
-	  echo $(MAKE) GUESTS="$$GUESTS" -C `dirname $$f` $@; \
-	  $(MAKE) GUESTS="$$GUESTS" -C `dirname $$f` $@ || (( errors++ )); \
 	done; \
 	exit $$(( $$errors ? 1 : 0 ))
 
@@ -576,7 +566,6 @@ help:
 	@echo "make -k check                       ... and display all errors at once."
 	@echo
 	@echo "make check-valgrind               Run a subset of the tests under valgrind."
-	@echo "make check-valgrind-local-guests  Test under valgrind using local guests."
 	@echo "make check-direct                 Test using direct backend."
 	@echo "make check-valgrind-direct        Test valgrind + direct backend."
 	@echo "make check-uml                    Test using User-Mode Linux."

@@ -66,7 +66,7 @@ AM_CONDITIONAL([HAVE_PERL],
 dnl Check for Perl modules needed by Perl virt tools (virt-df, etc.)
 AS_IF([test "x$PERL" != "xno"],[
     missing_perl_modules=no
-    for pm in Pod::Usage Getopt::Long Sys::Virt Locale::TextDomain Win::Hivex Win::Hivex::Regedit ; do
+    for pm in Pod::Usage Getopt::Long Locale::TextDomain Win::Hivex Win::Hivex::Regedit ; do
         AC_MSG_CHECKING([for $pm])
         if ! $PERL -M$pm -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
             AC_MSG_RESULT([no])
