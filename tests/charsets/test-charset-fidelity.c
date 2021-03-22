@@ -409,11 +409,11 @@ test_chinese (guestfs_h *g, const struct filesystem *fs)
       assert (files[j] != NULL);
       if (memcmp (files[j], &filenames[i][1], 4) == 0)
         goto next;
+    }
     error (EXIT_FAILURE, 0,
            "error: %s: %s returned unexpected filename '%s'",
            __func__, fs->fs_name, files[j]);
 
-    }
   next:;
   }
 
