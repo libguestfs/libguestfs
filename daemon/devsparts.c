@@ -55,8 +55,7 @@ do_list_disk_labels (void)
     return NULL;
   }
 
-  errno = 0;
-  while ((d = readdir (dir)) != NULL) {
+  while (errno = 0, (d = readdir (dir)) != NULL) {
     CLEANUP_FREE char *path = NULL;
     char *rawdev;
 
