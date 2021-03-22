@@ -355,14 +355,17 @@ Run it from the top source directory using the command
               UEFI.generate_uefi_mli;
   );
 
-  output_to "common/mlcustomize/customize_cmdline.mli"
-            Customize.generate_customize_cmdline_mli;
-  output_to "common/mlcustomize/customize_cmdline.ml"
-            Customize.generate_customize_cmdline_ml;
-  output_to "common/mlcustomize/customize-synopsis.pod"
-            Customize.generate_customize_synopsis_pod;
-  output_to "common/mlcustomize/customize-options.pod"
-            Customize.generate_customize_options_pod;
+  (* mlcustomize may not be shipped in this source. *)
+  if is_regular_file "common/mlcustomize/Makefile.am" then (
+    output_to "common/mlcustomize/customize_cmdline.mli"
+              Customize.generate_customize_cmdline_mli;
+    output_to "common/mlcustomize/customize_cmdline.ml"
+              Customize.generate_customize_cmdline_ml;
+    output_to "common/mlcustomize/customize-synopsis.pod"
+              Customize.generate_customize_synopsis_pod;
+    output_to "common/mlcustomize/customize-options.pod"
+              Customize.generate_customize_options_pod
+  );
 
   output_to "rust/src/guestfs.rs"
             Rust.generate_rust;
