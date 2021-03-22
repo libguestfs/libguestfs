@@ -148,7 +148,6 @@ do_mkfs_btrfs (char *const *devices,
   size_t i = 0, j;
   int r;
   CLEANUP_FREE char *err = NULL;
-  char allocstart_s[64];
   char bytecount_s[64];
   char leafsize_s[64];
   char nodesize_s[64];
@@ -163,13 +162,9 @@ do_mkfs_btrfs (char *const *devices,
 
   /* Optional arguments. */
   if (optargs_bitmask & GUESTFS_MKFS_BTRFS_ALLOCSTART_BITMASK) {
-    if (allocstart < 0) {
-      reply_with_error ("allocstart must be >= 0");
-      return -1;
-    }
-    snprintf (allocstart_s, sizeof allocstart_s, "%" PRIi64, allocstart);
-    ADD_ARG (argv, i, "--alloc-start");
-    ADD_ARG (argv, i, allocstart_s);
+    /* --alloc-start was deprecated in btrfs-progs 4.14.1.  Ignore
+     * this option if present.
+     */
   }
 
   if (optargs_bitmask & GUESTFS_MKFS_BTRFS_BYTECOUNT_BITMASK) {
