@@ -51,8 +51,10 @@ sub run_test {
     my $readonly = shift;
     my $tcp = shift;
 
+    my $cwd = getcwd ();
     my $server;
-    my @qemu_nbd = ("qemu-nbd", $disk, "-t");
+    my $pidfile = "$cwd/nbd.pid";
+    my @qemu_nbd = ("qemu-nbd", $disk, "-t", "--pid-file", $pidfile);
     if ($has_format_opt) {
         push @qemu_nbd, "--format", "raw";
     }
@@ -64,7 +66,6 @@ sub run_test {
     }
     else {
         # qemu-nbd insists the socket path is absolute.
-        my $cwd = getcwd ();
         my $socket = "$cwd/unix.sock";
         unlink "$socket";
         push @qemu_nbd, "-k", "$socket";
@@ -78,6 +79,13 @@ sub run_test {
         exec (@qemu_nbd);
         die "qemu-nbd: $!";
     }
+
+    # Wait for the pid file to appear.
+    for (my $i = 0; $i < 60; ++$i) {
+        last if -f $pidfile;
+        sleep 1
+    }
+    die "qemu-nbd did not start up\n" if ! -f $pidfile;
 
     # XXX qemu-nbd lacks any way to tell if it is awake and listening
     # for connections.  It could write a pid file or something.  Could
@@ -104,26 +112,16 @@ sub run_test {
     kill 15, $pid;
     waitpid ($pid, 0) or die "waitpid: $pid: $!";
     $pid = 0;
+    unlink $pidfile
 }
 
 # Since read-only and read-write paths are quite different, we have to
 # test both separately.
 for my $readonly (1, 0) {
-    if ($readonly && Sys::Guestfs->new()->get_backend() eq "direct") {
-        printf "skipping readonly + appliance case:\n";
-        printf "https://bugs.launchpad.net/qemu/+bug/1155677\n";
-        next;
-    }
-
     run_test ($readonly, 1);
 }
 
 # Test Unix domain socket codepath.
-if (Sys::Guestfs->new()->get_backend() !~ /^libvirt/) {
-    run_test (0, 0);
-} else {
-    printf "skipping Unix domain socket test:\n";
-    printf "https://bugzilla.redhat.com/show_bug.cgi?id=922888\n";
-}
+run_test (0, 0);
 
 exit 0
