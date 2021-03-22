@@ -64,6 +64,8 @@ static struct filesystem filesystems[] = {
   { "ntfs",  0, 0, NULL, "ntfs3g", 0, 0 },
 };
 
+static unsigned errors = 0;
+
 static void test_filesystem (guestfs_h *g, const struct filesystem *fs);
 static void make_filesystem (guestfs_h *g, const struct filesystem *fs);
 static void mount_filesystem (guestfs_h *g, const struct filesystem *fs);
@@ -110,7 +112,7 @@ main (int argc, char *argv[])
 
   guestfs_close (g);
 
-  exit (EXIT_SUCCESS);
+  exit (errors == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
 }
 
 /* This function coordinates the test for each filesystem type. */
@@ -136,6 +138,7 @@ test_filesystem (guestfs_h *g, const struct filesystem *fs)
   }
 
   printf ("testing charset fidelity on %s\n", fs->fs_name);
+  fflush (stdout);
 
   make_filesystem (g, fs);
   mount_filesystem (g, fs);
@@ -203,31 +206,39 @@ test_ascii (guestfs_h *g, const struct filesystem *fs)
   assert (files[0] != NULL);
 
   if (fs->fs_case_insensitive) { /* case insensitive */
-    if (count != 2)
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s is supposed to be case-insensitive, but %zu files "
-             "(instead of 2) were returned",
-             __func__, fs->fs_name, count);
+    if (count != 2) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s is supposed to be case-insensitive, but "
+               "%zu files (instead of 2) were returned\n",
+               __func__, fs->fs_name, count);
+    }
 
-    if (STRCASENEQ (files[0], "abc") ||
-        STRCASENEQ (files[1], "def"))
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s returned unexpected filenames '%s' and '%s'",
-             __func__, fs->fs_name, files[0], files[1]);
+    if (count == 2 && (STRCASENEQ (files[0], "abc") ||
+                       STRCASENEQ (files[1], "def"))) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s returned unexpected filenames '%s' and '%s'\n",
+               __func__, fs->fs_name, files[0], files[1]);
+    }
   }
   else {                        /* case sensitive */
-    if (count != 3)
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s is supposed to be case-sensitive, but %zu files "
-             "(instead of 3) were returned",
-             __func__, fs->fs_name, count);
+    if (count != 3) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s is supposed to be case-sensitive, but "
+               "%zu files (instead of 3) were returned\n",
+               __func__, fs->fs_name, count);
+    }
 
-    if (STRNEQ (files[0], "ABC") ||
-        STRNEQ (files[1], "abc") ||
-        STRNEQ (files[2], "def"))
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s returned unexpected filenames '%s', '%s', '%s'",
-             __func__, fs->fs_name, files[0], files[1], files[2]);
+    if (count == 3 && (STRNEQ (files[0], "ABC") ||
+                       STRNEQ (files[1], "abc") ||
+                       STRNEQ (files[2], "def"))) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s returned unexpected filenames '%s', '%s', '%s'\n",
+               __func__, fs->fs_name, files[0], files[1], files[2]);
+    }
 
     if (guestfs_rm (g, "/abc") == -1)
       exit (EXIT_FAILURE);
@@ -270,30 +281,38 @@ test_latin1 (guestfs_h *g, const struct filesystem *fs)
   assert (files[0] != NULL);
 
   if (fs->fs_case_insensitive) { /* case insensitive */
-    if (count != 1)
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s is supposed to be case-insensitive, but %zu files "
-             "(instead of 1) were returned",
-             __func__, fs->fs_name, count);
+    if (count != 1) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s is supposed to be case-insensitive, but "
+               "%zu files (instead of 1) were returned\n",
+               __func__, fs->fs_name, count);
+    }
 
-    if (memcmp (files[0], o_tilde, 3) != 0 &&
-        memcmp (files[0], O_tilde, 3) != 0)
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s returned unexpected filename '%s'",
-             __func__, fs->fs_name, files[0]);
+    if (count == 1 && (memcmp (files[0], o_tilde, 3) != 0 &&
+                       memcmp (files[0], O_tilde, 3) != 0)) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s returned unexpected filename '%s'\n",
+               __func__, fs->fs_name, files[0]);
+    }
   }
   else {                        /* case sensitive */
-    if (count != 2)
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s is supposed to be case-sensitive, but %zu files "
-             "(instead of 2) were returned",
-             __func__, fs->fs_name, count);
+    if (count != 2) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s is supposed to be case-sensitive, but "
+               "%zu files (instead of 2) were returned\n",
+               __func__, fs->fs_name, count);
+    }
 
-    if (memcmp (files[0], O_tilde, 3) != 0 ||
-        memcmp (files[1], o_tilde, 3) != 0)
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s returned unexpected filenames '%s' and '%s'",
-             __func__, fs->fs_name, files[0], files[1]);
+    if (count == 2 && (memcmp (files[0], O_tilde, 3) != 0 ||
+                       memcmp (files[1], o_tilde, 3) != 0)) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s returned unexpected filenames '%s' and '%s'\n",
+               __func__, fs->fs_name, files[0], files[1]);
+    }
 
     if (guestfs_rm (g, slash_O_tilde) == -1)
       exit (EXIT_FAILURE);
@@ -334,30 +353,38 @@ test_latin2 (guestfs_h *g, const struct filesystem *fs)
   assert (files[0] != NULL);
 
   if (fs->fs_case_insensitive) { /* case insensitive */
-    if (count != 1)
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s is supposed to be case-insensitive, but %zu files "
-             "(instead of 1) were returned",
-             __func__, fs->fs_name, count);
+    if (count != 1) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s is supposed to be case-insensitive, but "
+               "%zu files (instead of 1) were returned\n",
+               __func__, fs->fs_name, count);
+    }
 
-    if (memcmp (files[0], o_dacute, 3) != 0 &&
-        memcmp (files[0], O_dacute, 3) != 0)
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s returned unexpected filename '%s'",
-             __func__, fs->fs_name, files[0]);
+    if (count == 1 && (memcmp (files[0], o_dacute, 3) != 0 &&
+                       memcmp (files[0], O_dacute, 3) != 0)) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s returned unexpected filename '%s'\n",
+               __func__, fs->fs_name, files[0]);
+    }
   }
   else {                        /* case sensitive */
-    if (count != 2)
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s is supposed to be case-sensitive, but %zu files "
-             "(instead of 2) were returned",
-             __func__, fs->fs_name, count);
+    if (count != 2) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s is supposed to be case-sensitive, but "
+               "%zu files (instead of 2) were returned\n",
+               __func__, fs->fs_name, count);
+    }
 
-    if (memcmp (files[0], O_dacute, 3) != 0 ||
-        memcmp (files[1], o_dacute, 3) != 0)
-      error (EXIT_FAILURE, 0,
-             "error: %s: %s returned unexpected filenames '%s' and '%s'",
-             __func__, fs->fs_name, files[0], files[1]);
+    if (count == 2 && (memcmp (files[0], O_dacute, 3) != 0 ||
+                       memcmp (files[1], o_dacute, 3) != 0)) {
+      errors++;
+      fprintf (stderr,
+               "error: %s: %s returned unexpected filenames '%s' and '%s'\n",
+               __func__, fs->fs_name, files[0], files[1]);
+    }
 
     if (guestfs_rm (g, slash_O_dacute) == -1)
       exit (EXIT_FAILURE);
@@ -398,11 +425,13 @@ test_chinese (guestfs_h *g, const struct filesystem *fs)
   ignore_lost_and_found (files);
   count = guestfs_int_count_strings (files);
 
-  if (count != nr_filenames)
-    error (EXIT_FAILURE, 0,
-           "error: %s: %s returned unexpected number of files "
-           "(%zu, expecting %zu)",
-           __func__, fs->fs_name, count, nr_filenames);
+  if (count != nr_filenames) {
+    errors++;
+    fprintf (stderr,
+             "error: %s: %s returned unexpected number of files "
+             "(%zu, expecting %zu)\n",
+             __func__, fs->fs_name, count, nr_filenames);
+  }
 
   for (j = 0; j < count; ++j) {
     for (i = 0; i < nr_filenames; ++i) {
@@ -410,10 +439,10 @@ test_chinese (guestfs_h *g, const struct filesystem *fs)
       if (memcmp (files[j], &filenames[i][1], 4) == 0)
         goto next;
     }
-    error (EXIT_FAILURE, 0,
-           "error: %s: %s returned unexpected filename '%s'",
-           __func__, fs->fs_name, files[j]);
-
+    errors++;
+    fprintf (stderr,
+             "error: %s: %s returned unexpected filename '%s'\n",
+             __func__, fs->fs_name, files[j]);
   next:;
   }
 
