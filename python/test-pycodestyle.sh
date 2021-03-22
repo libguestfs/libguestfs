@@ -25,4 +25,8 @@ skip_if_skipped
 # (-u is passed to to sort to avoid duplicates in case builddir==srcdir)
 files="$(find "$srcdir" . -name '*.py' | sort -u)"
 
-$PYCODESTYLE $files
+# Ignore E128 ("continuation line under-indented for visual indent") which
+# was broken in
+# commit 66a5913462a84399bd9790b736814620371a80f8 ("python: Add type hints")
+# and is hard to fix.
+$PYCODESTYLE --ignore=E128 $files
