@@ -47,6 +47,7 @@ TESTS += 9p/test-9p.sh
 EXTRA_DIST += 9p/test-9p.sh
 
 SLOW_TESTS += bigdirs/test-big-dirs.pl
+EXTRA_DIST += bigdirs/test-big-dirs.pl
 
 TESTS += \
 	btrfs/test-btrfs-misc.pl \
@@ -606,7 +607,7 @@ EXTRA_DIST += \
 check_PROGRAMS += protocol/test-error-messages
 
 protocol_test_error_messages_SOURCES = \
-	../../common/protocol/guestfs_protocol.h \
+	../common/protocol/guestfs_protocol.h \
 	protocol/test-error-messages.c
 protocol_test_error_messages_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
@@ -827,6 +828,7 @@ TESTS += \
 	syslinux/test-extlinux.sh
 
 EXTRA_DIST += \
+	syslinux/README \
 	syslinux/test-syslinux.sh \
 	syslinux/test-extlinux.sh \
 	syslinux/test-syslinux.pl
@@ -871,9 +873,10 @@ EXTRA_DIST += xfs/test-xfs-misc.pl
 # endif
 
 EXTRA_DIST += \
+	xml/fake-libvirt-xml.c \
 	xml/rhbz701814.pl \
 	xml/rhbz701814-faked.xml \
 	xml/rhbz701814-node.xml
 
 TESTS += yara/test-yara-scan.sh
-TESTS += yara/test-yara-scan.sh
+EXTRA_DIST += yara/test-yara-scan.sh
