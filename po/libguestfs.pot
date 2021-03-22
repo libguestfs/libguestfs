@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.45.1\n"
+"Project-Id-Version: libguestfs 1.45.2\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-03-11 13:58+0000\n"
+"POT-Creation-Date: 2021-03-22 16:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3884,11 +3884,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:396 lib/launch-uml.c:159
+#: lib/launch-direct.c:398 lib/launch-uml.c:159
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:918 lib/launch-libvirt.c:713
+#: lib/launch-direct.c:938 lib/launch-libvirt.c:713
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -3943,21 +3943,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:779
+#: lib/launch-libvirt.c:780
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:785 lib/launch-libvirt.c:875 lib/libvirt-domain.c:423
+#: lib/launch-libvirt.c:786 lib/launch-libvirt.c:888 lib/libvirt-domain.c:423
 #: lib/libvirt-domain.c:507 lib/libvirt-domain.c:834
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: lib/launch-libvirt.c:795 lib/launch-libvirt.c:883 lib/launch-libvirt.c:899
+#: lib/launch-libvirt.c:796 lib/launch-libvirt.c:896 lib/launch-libvirt.c:912
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:830
+#: lib/launch-libvirt.c:835
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -3972,60 +3972,60 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:869
+#: lib/launch-libvirt.c:882
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1440
+#: lib/launch-libvirt.c:1448
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1486 lib/launch-libvirt.c:1744 lib/qemu.c:822
+#: lib/launch-libvirt.c:1494 lib/launch-libvirt.c:1752 lib/qemu.c:822
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1569
+#: lib/launch-libvirt.c:1577
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1955
+#: lib/launch-libvirt.c:1963
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1966
+#: lib/launch-libvirt.c:1974
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1970
+#: lib/launch-libvirt.c:1978
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1991
+#: lib/launch-libvirt.c:1999
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2004
+#: lib/launch-libvirt.c:2012
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2177
+#: lib/launch-libvirt.c:2185
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2198 lib/launch-libvirt.c:2231
+#: lib/launch-libvirt.c:2206 lib/launch-libvirt.c:2239
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2297
+#: lib/launch-libvirt.c:2305
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2328
+#: lib/launch-libvirt.c:2336
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
