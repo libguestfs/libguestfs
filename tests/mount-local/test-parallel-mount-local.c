@@ -274,6 +274,9 @@ start_thread (void *statevp)
   pthread_exit (&state->exit_status);
 }
 
+/* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=99716 */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-double-fclose"
 /* This runs as a subprocess and must test the mountpoint at 'mp'. */
 static void
 test_mountpoint (const char *mp)
@@ -281,7 +284,6 @@ test_mountpoint (const char *mp)
   const int nr_passes = 5 + (random () & 31);
   int pass;
   int ret = EXIT_FAILURE;
-  FILE *fp;
 
   if (!mp || STREQ (mp, ""))
     error (EXIT_FAILURE, 0, "%s: invalid or empty mountpoint path", __func__);
@@ -301,6 +303,8 @@ test_mountpoint (const char *mp)
    * testing the FUSE data path, so we don't do much here.
    */
   for (pass = 0; pass < nr_passes; ++pass) {
+    FILE *fp;
+
     if (mkdir ("tmp.d", 0700) == -1) {
       perror ("mkdir: tmp.d");
       goto error;
@@ -352,6 +356,7 @@ test_mountpoint (const char *mp)
 
   exit (ret);
 }
+#pragma GCC diagnostic pop
 
 static int
 guestunmount (const char *mp, unsigned flags)
