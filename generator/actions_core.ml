@@ -8039,7 +8039,7 @@ If no capabilities are attached to a file, an empty string is returned." };
       InitScratchFS, Always, TestResultString (
         [["touch"; "/cap_set_file_0"];
          ["cap_set_file"; "/cap_set_file_0"; "cap_chown=p cap_chown+e"];
-         ["cap_get_file"; "/cap_set_file_0"]], "= cap_chown+ep"), [];
+         ["cap_get_file"; "/cap_set_file_0"]], "cap_chown=ep"), [];
     ];
     shortdesc = "set the Linux capabilities attached to a file";
     longdesc = "\
