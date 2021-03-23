@@ -215,25 +215,18 @@ maintainer-upload-website:
 # When doing 'make dist' update a few files automatically.
 #
 #  BUGS           - list of bugs (created from Bugzilla)
-#  ChangeLog      - changelog (created from git)
 #  docs/C_SOURCE_FILES
 #                 - source files scanned for internal documentation
 #  po/POTFILES    - files with ordinary extensions, but not OCaml files
 #  po/POTFILES-ml - OCaml files, which need a special tool to translate
 
-dist-hook: BUGS ChangeLog docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
+dist-hook: BUGS docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
 	cp BUGS $(distdir)/BUGS
-	cp ChangeLog $(distdir)/ChangeLog
 
 BUGS: configure.ac
 	rm -f $@ $@-t
 	unset LC_ALL; \
 	$(top_srcdir)/update-bugs.sh > $@-t
-	mv $@-t $@
-
-ChangeLog: configure.ac
-	rm -f $@ $@-t
-	git log --decorate=false > $@-t
 	mv $@-t $@
 
 # This has to be in the top-level Makefile.am so that we have access

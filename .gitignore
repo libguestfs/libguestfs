@@ -81,7 +81,6 @@ Makefile.in
 /build-aux/test-driver
 /build-aux/ylwrap
 /bundled/ocaml-augeas/.depend
-/ChangeLog
 /compile
 /config.cache
 /config.guess
