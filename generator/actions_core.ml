@@ -2176,67 +2176,67 @@ C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>." };
     tests = [
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command"];
-         ["upload"; "test-command"; "/command/test-command"];
+         ["upload"; "c-api/test-command"; "/command/test-command"];
          ["chmod"; "0o755"; "/command/test-command"];
          ["command"; "/command/test-command 1"]], "Result1"), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command2"];
-         ["upload"; "test-command"; "/command2/test-command"];
+         ["upload"; "c-api/test-command"; "/command2/test-command"];
          ["chmod"; "0o755"; "/command2/test-command"];
          ["command"; "/command2/test-command 2"]], "Result2\n"), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command3"];
-         ["upload"; "test-command"; "/command3/test-command"];
+         ["upload"; "c-api/test-command"; "/command3/test-command"];
          ["chmod"; "0o755"; "/command3/test-command"];
          ["command"; "/command3/test-command 3"]], "\nResult3"), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command4"];
-         ["upload"; "test-command"; "/command4/test-command"];
+         ["upload"; "c-api/test-command"; "/command4/test-command"];
          ["chmod"; "0o755"; "/command4/test-command"];
          ["command"; "/command4/test-command 4"]], "\nResult4\n"), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command5"];
-         ["upload"; "test-command"; "/command5/test-command"];
+         ["upload"; "c-api/test-command"; "/command5/test-command"];
          ["chmod"; "0o755"; "/command5/test-command"];
          ["command"; "/command5/test-command 5"]], "\nResult5\n\n"), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command6"];
-         ["upload"; "test-command"; "/command6/test-command"];
+         ["upload"; "c-api/test-command"; "/command6/test-command"];
          ["chmod"; "0o755"; "/command6/test-command"];
          ["command"; "/command6/test-command 6"]], "\n\nResult6\n\n"), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command7"];
-         ["upload"; "test-command"; "/command7/test-command"];
+         ["upload"; "c-api/test-command"; "/command7/test-command"];
          ["chmod"; "0o755"; "/command7/test-command"];
          ["command"; "/command7/test-command 7"]], ""), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command8"];
-         ["upload"; "test-command"; "/command8/test-command"];
+         ["upload"; "c-api/test-command"; "/command8/test-command"];
          ["chmod"; "0o755"; "/command8/test-command"];
          ["command"; "/command8/test-command 8"]], "\n"), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command9"];
-         ["upload"; "test-command"; "/command9/test-command"];
+         ["upload"; "c-api/test-command"; "/command9/test-command"];
          ["chmod"; "0o755"; "/command9/test-command"];
          ["command"; "/command9/test-command 9"]], "\n\n"), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command10"];
-         ["upload"; "test-command"; "/command10/test-command"];
+         ["upload"; "c-api/test-command"; "/command10/test-command"];
          ["chmod"; "0o755"; "/command10/test-command"];
          ["command"; "/command10/test-command 10"]], "Result10-1\nResult10-2\n"), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command11"];
-         ["upload"; "test-command"; "/command11/test-command"];
+         ["upload"; "c-api/test-command"; "/command11/test-command"];
          ["chmod"; "0o755"; "/command11/test-command"];
          ["command"; "/command11/test-command 11"]], "Result11-1\nResult11-2"), [];
       InitScratchFS, IfNotCrossAppliance, TestLastFail (
         [["mkdir"; "/command12"];
-         ["upload"; "test-command"; "/command12/test-command"];
+         ["upload"; "c-api/test-command"; "/command12/test-command"];
          ["chmod"; "0o755"; "/command12/test-command"];
          ["command"; "/command12/test-command"]]), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/pwd"];
-         ["upload"; "test-pwd"; "/pwd/test-pwd"];
+         ["upload"; "c-api/test-pwd"; "/pwd/test-pwd"];
          ["chmod"; "0o755"; "/pwd/test-pwd"];
          ["command"; "/pwd/test-pwd"]], "/"), [];
     ];
@@ -2279,67 +2279,67 @@ locations." };
     tests = [
       InitScratchFS, IfNotCrossAppliance, TestResult (
         [["mkdir"; "/command_lines"];
-         ["upload"; "test-command"; "/command_lines/test-command"];
+         ["upload"; "c-api/test-command"; "/command_lines/test-command"];
          ["chmod"; "0o755"; "/command_lines/test-command"];
          ["command_lines"; "/command_lines/test-command 1"]],
         "is_string_list (ret, 1, \"Result1\")"), [];
       InitScratchFS, IfNotCrossAppliance, TestResult (
         [["mkdir"; "/command_lines2"];
-         ["upload"; "test-command"; "/command_lines2/test-command"];
+         ["upload"; "c-api/test-command"; "/command_lines2/test-command"];
          ["chmod"; "0o755"; "/command_lines2/test-command"];
          ["command_lines"; "/command_lines2/test-command 2"]],
         "is_string_list (ret, 1, \"Result2\")"), [];
       InitScratchFS, IfNotCrossAppliance, TestResult (
         [["mkdir"; "/command_lines3"];
-         ["upload"; "test-command"; "/command_lines3/test-command"];
+         ["upload"; "c-api/test-command"; "/command_lines3/test-command"];
          ["chmod"; "0o755"; "/command_lines3/test-command"];
          ["command_lines"; "/command_lines3/test-command 3"]],
         "is_string_list (ret, 2, \"\", \"Result3\")"), [];
       InitScratchFS, IfNotCrossAppliance, TestResult (
         [["mkdir"; "/command_lines4"];
-         ["upload"; "test-command"; "/command_lines4/test-command"];
+         ["upload"; "c-api/test-command"; "/command_lines4/test-command"];
          ["chmod"; "0o755"; "/command_lines4/test-command"];
          ["command_lines"; "/command_lines4/test-command 4"]],
         "is_string_list (ret, 2, \"\", \"Result4\")"), [];
       InitScratchFS, IfNotCrossAppliance, TestResult (
         [["mkdir"; "/command_lines5"];
-         ["upload"; "test-command"; "/command_lines5/test-command"];
+         ["upload"; "c-api/test-command"; "/command_lines5/test-command"];
          ["chmod"; "0o755"; "/command_lines5/test-command"];
          ["command_lines"; "/command_lines5/test-command 5"]],
         "is_string_list (ret, 3, \"\", \"Result5\", \"\")"), [];
       InitScratchFS, IfNotCrossAppliance, TestResult (
         [["mkdir"; "/command_lines6"];
-         ["upload"; "test-command"; "/command_lines6/test-command"];
+         ["upload"; "c-api/test-command"; "/command_lines6/test-command"];
          ["chmod"; "0o755"; "/command_lines6/test-command"];
          ["command_lines"; "/command_lines6/test-command 6"]],
         "is_string_list (ret, 4, \"\", \"\", \"Result6\", \"\")"), [];
       InitScratchFS, IfNotCrossAppliance, TestResult (
         [["mkdir"; "/command_lines7"];
-         ["upload"; "test-command"; "/command_lines7/test-command"];
+         ["upload"; "c-api/test-command"; "/command_lines7/test-command"];
          ["chmod"; "0o755"; "/command_lines7/test-command"];
          ["command_lines"; "/command_lines7/test-command 7"]],
         "is_string_list (ret, 0)"), [];
       InitScratchFS, IfNotCrossAppliance, TestResult (
         [["mkdir"; "/command_lines8"];
-         ["upload"; "test-command"; "/command_lines8/test-command"];
+         ["upload"; "c-api/test-command"; "/command_lines8/test-command"];
          ["chmod"; "0o755"; "/command_lines8/test-command"];
          ["command_lines"; "/command_lines8/test-command 8"]],
         "is_string_list (ret, 1, \"\")"), [];
       InitScratchFS, IfNotCrossAppliance, TestResult (
         [["mkdir"; "/command_lines9"];
-         ["upload"; "test-command"; "/command_lines9/test-command"];
+         ["upload"; "c-api/test-command"; "/command_lines9/test-command"];
          ["chmod"; "0o755"; "/command_lines9/test-command"];
          ["command_lines"; "/command_lines9/test-command 9"]],
         "is_string_list (ret, 2, \"\", \"\")"), [];
       InitScratchFS, IfNotCrossAppliance, TestResult (
         [["mkdir"; "/command_lines10"];
-         ["upload"; "test-command"; "/command_lines10/test-command"];
+         ["upload"; "c-api/test-command"; "/command_lines10/test-command"];
          ["chmod"; "0o755"; "/command_lines10/test-command"];
          ["command_lines"; "/command_lines10/test-command 10"]],
         "is_string_list (ret, 2, \"Result10-1\", \"Result10-2\")"), [];
       InitScratchFS, IfNotCrossAppliance, TestResult (
         [["mkdir"; "/command_lines11"];
-         ["upload"; "test-command"; "/command_lines11/test-command"];
+         ["upload"; "c-api/test-command"; "/command_lines11/test-command"];
          ["chmod"; "0o755"; "/command_lines11/test-command"];
          ["command_lines"; "/command_lines11/test-command 11"]],
         "is_string_list (ret, 2, \"Result11-1\", \"Result11-2\")"), []
