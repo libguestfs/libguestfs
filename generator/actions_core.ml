@@ -6982,7 +6982,7 @@ replacement
     tests = [
       InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs_btrfs"; "/dev/sda1"; "0"; "268435456"; "single"; ""; "test"; "single"; "65536"; "512"]]), []
+         ["mkfs_btrfs"; "/dev/sda1"; "0"; "268435456"; "single"; ""; "test"; "single"; "65536"; "4096"]]), []
     ];
     shortdesc = "create a btrfs filesystem";
     longdesc = "\
