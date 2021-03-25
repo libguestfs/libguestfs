@@ -153,7 +153,7 @@ AS_IF([test "x$have_Hivex_OPEN_UNSAFE" = "xno"],[
 AC_SUBST([HIVEX_OPEN_UNSAFE_FLAG])
 
 OCAML_PKG_gettext=no
-OCAML_PKG_oUnit=no
+OCAML_PKG_ounit2=no
 ounit_is_v2=no
 have_Bytes_module=no
 AS_IF([test "x$OCAMLC" != "xno"],[
@@ -165,11 +165,11 @@ AS_IF([test "x$OCAMLC" != "xno"],[
 
     GUESTFS_CREATE_COMMON_GETTEXT_ML([common/mlgettext/common_gettext.ml])
 
-    AC_CHECK_OCAML_PKG(oUnit)
+    AC_CHECK_OCAML_PKG(ounit2)
 
     # oUnit >= 2 is required, so check that it has OUnit2.
-    if test "x$OCAML_PKG_oUnit" != "xno"; then
-        AC_CHECK_OCAML_MODULE(ounit_is_v2,[OUnit.OUnit2],OUnit2,[+oUnit])
+    if test "x$OCAML_PKG_ounit2" != "xno"; then
+        AC_CHECK_OCAML_MODULE(ounit_is_v2,[OUnit.OUnit2],OUnit2,[+ounit2])
     fi
 
     # Check if we have the 'Bytes' module.  If not (OCaml < 4.02) then
@@ -189,7 +189,7 @@ AS_IF([test "x$OCAMLC" != "xno"],[
 AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
                [test "x$OCAML_PKG_gettext" != "xno"])
 AM_CONDITIONAL([HAVE_OCAML_PKG_OUNIT],
-               [test "x$OCAML_PKG_oUnit" != "xno" && test "x$ounit_is_v2" != "xno"])
+               [test "x$OCAML_PKG_ounit2" != "xno" && test "x$ounit_is_v2" != "xno"])
 
 AC_CHECK_PROG([OCAML_GETTEXT],[ocaml-gettext],[ocaml-gettext],[no])
 AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
