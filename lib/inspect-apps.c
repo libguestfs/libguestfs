@@ -47,22 +47,12 @@
 
 /* Some limits on what the inspection code will read, for safety. */
 
-/* Maximum RPM 'Packages' file we will download to /tmp.  This file
- * can get very large: 70 MB is roughly the standard size for a new
- * Fedora install, and after lots of package installation/removal
- * I have seen well over 400 MB databases.
- */
-#define MAX_RPM_PACKAGES_SIZE          (500 * 1000 * 1000)
-/* Maximum RPM 'Name' file we will download to /tmp. */
-#define MAX_RPM_NAME_SIZE              (50 * 1000 * 1000)
 /* Maximum dpkg 'status' file we will download to /tmp. */
 #define MAX_DPKG_STATUS_SIZE           (50 * 1000 * 1000)
 /* Maximum APK 'installed' file we will download to /tmp. */
 #define MAX_APK_INSTALLED_SIZE         (50 * 1000 * 1000)
 
-#ifdef DB_DUMP
 static struct guestfs_application2_list *list_applications_rpm (guestfs_h *g, const char *root);
-#endif
 static struct guestfs_application2_list *list_applications_deb (guestfs_h *g, const char *root);
 static struct guestfs_application2_list *list_applications_pacman (guestfs_h *g, const char *root);
 static struct guestfs_application2_list *list_applications_apk (guestfs_h *g, const char *root);
@@ -136,11 +126,9 @@ guestfs_impl_inspect_list_applications2 (guestfs_h *g, const char *root)
 
   if (STREQ (type, "linux") || STREQ (type, "hurd")) {
     if (STREQ (package_format, "rpm")) {
-#ifdef DB_DUMP
       ret = list_applications_rpm (g, root);
       if (ret == NULL)
         return NULL;
-#endif
     }
     else if (STREQ (package_format, "deb")) {
       ret = list_applications_deb (g, root);
@@ -178,253 +166,14 @@ guestfs_impl_inspect_list_applications2 (guestfs_h *g, const char *root)
   return ret;
 }
 
-#ifdef DB_DUMP
-
-/* This data comes from the Name database, and contains the application
- * names and the first 4 bytes of each link field.
- */
-struct rpm_names_list {
-  struct rpm_name *names;
-  size_t len;
-};
-struct rpm_name {
-  char *name;
-  char link[4];
-};
-
-static void
-free_rpm_names_list (struct rpm_names_list *list)
-{
-  size_t i;
-
-  for (i = 0; i < list->len; ++i)
-    free (list->names[i].name);
-  free (list->names);
-}
-
-static int
-compare_links (const void *av, const void *bv)
-{
-  const struct rpm_name *a = av;
-  const struct rpm_name *b = bv;
-  return memcmp (a->link, b->link, 4);
-}
-
-static int
-read_rpm_name (guestfs_h *g,
-               const unsigned char *key, size_t keylen,
-               const unsigned char *value, size_t valuelen,
-               void *listv)
-{
-  struct rpm_names_list *list = listv;
-  const unsigned char *link_p;
-  char *name;
-
-  /* Ignore bogus entries. */
-  if (keylen == 0 || valuelen < 4)
-    return 0;
-
-  /* A name entry will have as many links as installed instances of
-   * that package.  For example, if glibc.i686 and glibc.x86_64 are
-   * both installed, then there will be a link for each Packages
-   * entry.  Add an entry onto list for all installed instances.
-   */
-  for (link_p = value; link_p < value + valuelen; link_p += 8) {
-    name = safe_strndup (g, (const char *) key, keylen);
-
-    list->names = safe_realloc (g, list->names,
-                                (list->len + 1) * sizeof (struct rpm_name));
-    list->names[list->len].name = name;
-    memcpy (list->names[list->len].link, link_p, 4);
-    list->len++;
-  }
-
-  return 0;
-}
-
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-align"
-
-/* tag constants, see rpmtag.h in RPM for complete list */
-#define RPMTAG_VERSION 1001
-#define RPMTAG_RELEASE 1002
-#define RPMTAG_EPOCH 1003
-#define RPMTAG_ARCH 1022
-#define RPMTAG_URL 1020
-#define RPMTAG_SUMMARY 1004
-#define RPMTAG_DESCRIPTION 1005
-
-static char *
-get_rpm_header_tag (guestfs_h *g, const unsigned char *header_start,
-                    size_t header_len, uint32_t tag, char type)
-{
-  uint32_t num_fields, offset;
-  const unsigned char *cursor = header_start + 8, *store, *header_end;
-  size_t max_len;
-  char iv[4];
-
-  /* This function parses the RPM header structure to pull out various
-   * tag strings (version, release, arch, etc.).  For more detail on the
-   * header format, see:
-   * http://www.rpm.org/max-rpm/s1-rpm-file-format-rpm-file-format.html#S2-RPM-FILE-FORMAT-HEADER
-   */
-
-  /* The minimum header size that makes sense here is 24 bytes.  Four
-   * bytes for number of fields, followed by four bytes denoting the
-   * size of the store, then 16 bytes for the first index entry.
-   */
-  if (header_len < 24)
-    return NULL;
-
-  num_fields = be32toh (*(uint32_t *) header_start);
-  store = header_start + 8 + (16 * num_fields);
-
-  /* The first byte *after* the buffer.  If you are here, you've gone
-   * too far! */
-  header_end = header_start + header_len;
-
-  while (cursor < store && cursor <= header_end - 16) {
-    if (be32toh (*(uint32_t *) cursor) == tag) {
-      offset = be32toh(*(uint32_t *) (cursor + 8));
-
-      if (store + offset >= header_end)
-        return NULL;
-      max_len = header_end - (store + offset);
-
-      switch (type) {
-      case 's':
-        return safe_strndup (g, (const char *) (store + offset), max_len);
-
-      case 'i':
-        memset (iv, 0, sizeof iv);
-        memcpy (iv, (void *) (store + offset),
-                max_len > sizeof iv ? sizeof iv : max_len);
-        return safe_memdup (g, iv, sizeof iv);
-
-      default:
-        abort ();
-      }
-    }
-    cursor += 16;
-  }
-
-  return NULL;
-}
-
-struct read_package_data {
-  struct rpm_names_list *list;
-  struct guestfs_application2_list *apps;
-};
-
-static int
-read_package (guestfs_h *g,
-              const unsigned char *key, size_t keylen,
-              const unsigned char *value, size_t valuelen,
-              void *datav)
-{
-  struct read_package_data *data = datav;
-  struct rpm_name nkey, *entry;
-  CLEANUP_FREE char *version = NULL, *release = NULL,
-    *epoch_str = NULL, *arch = NULL, *url = NULL, *summary = NULL,
-    *description = NULL;
-  int32_t epoch;
-
-  /* This function reads one (key, value) pair from the Packages
-   * database.  The key is the link field (see struct rpm_name).  The
-   * value is a long binary string, but we can extract the header data
-   * from it as below.  First we have to look up the link field in the
-   * list of links (which is sorted by link field).
-   */
-
-  /* Ignore bogus entries. */
-  if (keylen < 4 || valuelen == 0)
-    return 0;
-
-  /* Look up the link (key) in the list. */
-  memcpy (nkey.link, key, 4);
-  entry = bsearch (&nkey, data->list->names, data->list->len,
-                   sizeof (struct rpm_name), compare_links);
-  if (!entry)
-    return 0;                   /* Not found - ignore it. */
-
-  /* We found a matching link entry, so that gives us the application
-   * name (entry->name).  Now we can get other data for this
-   * application out of the binary value string.
-   */
-
-  version = get_rpm_header_tag (g, value, valuelen, RPMTAG_VERSION, 's');
-  release = get_rpm_header_tag (g, value, valuelen, RPMTAG_RELEASE, 's');
-  epoch_str = get_rpm_header_tag (g, value, valuelen, RPMTAG_EPOCH, 'i');
-  arch = get_rpm_header_tag (g, value, valuelen, RPMTAG_ARCH, 's');
-  url = get_rpm_header_tag (g, value, valuelen, RPMTAG_URL, 's');
-  summary = get_rpm_header_tag (g, value, valuelen, RPMTAG_SUMMARY, 's');
-  description = get_rpm_header_tag (g, value, valuelen, RPMTAG_DESCRIPTION, 's');
-
-  /* The epoch is stored as big-endian integer. */
-  if (epoch_str)
-    epoch = be32toh (*(int32_t *) epoch_str);
-  else
-    epoch = 0;
-
-  /* Add the application and what we know. */
-  if (version && release)
-    add_application (g, data->apps, entry->name, "", epoch, version, release,
-                     arch ? arch : "", "", "", url ? : "", "",
-                     summary ? : "", description ? : "");
-
-  return 0;
-}
-
-#pragma GCC diagnostic pop
-
 static struct guestfs_application2_list *
 list_applications_rpm (guestfs_h *g, const char *root)
 {
-  CLEANUP_FREE char *Name = NULL, *Packages = NULL;
-  struct rpm_names_list list = { .names = NULL, .len = 0 };
-  struct guestfs_application2_list *apps = NULL;
-  struct read_package_data data;
-
-  Name = guestfs_int_download_to_tmp (g, "/var/lib/rpm/Name", NULL,
-				      MAX_RPM_NAME_SIZE);
-  if (Name == NULL)
-    goto error;
-
-  Packages = guestfs_int_download_to_tmp (g, "/var/lib/rpm/Packages", NULL,
-					  MAX_RPM_PACKAGES_SIZE);
-  if (Packages == NULL)
-    goto error;
-
-  /* Read Name database. */
-  if (guestfs_int_read_db_dump (g, Name, &list, read_rpm_name) == -1)
-    goto error;
-
-  /* Sort the names by link field for fast searching. */
-  qsort (list.names, list.len, sizeof (struct rpm_name), compare_links);
-
-  /* Allocate 'apps' list. */
-  apps = safe_malloc (g, sizeof *apps);
-  apps->len = 0;
-  apps->val = NULL;
-
-  /* Read Packages database. */
-  data.list = &list;
-  data.apps = apps;
-  if (guestfs_int_read_db_dump (g, Packages, &data, read_package) == -1)
-    goto error;
-
-  free_rpm_names_list (&list);
-
-  return apps;
-
- error:
-  free_rpm_names_list (&list);
-  guestfs_free_application2_list (apps);
-
-  return NULL;
+  /* We don't need the ‘root’ parameter here.  The caller is supposed
+   * to have mounted the guest up before calling the public API.
+   */
+  return guestfs_internal_list_rpm_applications (g);
 }
-
-#endif /* defined DB_DUMP */
 
 static struct guestfs_application2_list *
 list_applications_deb (guestfs_h *g, const char *root)

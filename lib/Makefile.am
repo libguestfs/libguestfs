@@ -81,7 +81,6 @@ libguestfs_la_SOURCES = \
 	conn-socket.c \
 	copy-in-out.c \
 	create.c \
-	dbdump.c \
 	drives.c \
 	errors.c \
 	event-string.c \

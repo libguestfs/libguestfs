@@ -176,6 +176,7 @@ Makefile.in
 /daemon/optgroups.mli
 /daemon/parted.mli
 /daemon/realpath.mli
+/daemon/rpm.mli
 /daemon/stamp-guestfsd.pod
 /daemon/statvfs.mli
 /daemon/structs-cleanups.c
