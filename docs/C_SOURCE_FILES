@@ -130,6 +130,7 @@ daemon/pingdaemon.c
 daemon/proto.c
 daemon/readdir.c
 daemon/rename.c
+daemon/rpm-c.c
 daemon/rsync.c
 daemon/scrub.c
 daemon/selinux-relabel.c
@@ -266,7 +267,6 @@ lib/command.c
 lib/conn-socket.c
 lib/copy-in-out.c
 lib/create.c
-lib/dbdump.c
 lib/drives.c
 lib/errors.c
 lib/event-string.c

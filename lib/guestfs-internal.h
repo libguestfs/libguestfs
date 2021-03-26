@@ -730,10 +730,6 @@ extern int guestfs_int_set_backend (guestfs_h *g, const char *method);
 /* inspect.c */
 extern char *guestfs_int_download_to_tmp (guestfs_h *g, const char *filename, const char *extension, uint64_t max_size);
 
-/* dbdump.c */
-typedef int (*guestfs_int_db_dump_callback) (guestfs_h *g, const unsigned char *key, size_t keylen, const unsigned char *value, size_t valuelen, void *opaque);
-extern int guestfs_int_read_db_dump (guestfs_h *g, const char *dumpfile, void *opaque, guestfs_int_db_dump_callback callback);
-
 /* lpj.c */
 extern int guestfs_int_get_lpj (guestfs_h *g);
 

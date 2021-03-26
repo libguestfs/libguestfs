@@ -607,6 +607,16 @@ Please read L<guestfs(3)/INSPECTION> for more details.
 See also C<guestfs_inspect_get_mountpoints>,
 C<guestfs_inspect_get_filesystems>." };
 
+  { defaults with
+    name = "internal_list_rpm_applications"; added = (1, 45, 3);
+    style = RStructList ("applications2", "application2"), [], [];
+    visibility = VInternal;
+    impl = OCaml "Rpm.internal_list_rpm_applications";
+    shortdesc = "get applications from RPM guest";
+    longdesc = "\
+This internal function is used by C<guestfs_inspect_list_applications2>
+to list the applications for RPM guests."};
+
 ]
 
 let non_daemon_functions = [

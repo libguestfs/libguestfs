@@ -41,6 +41,7 @@ ifelse(REDHAT,1,
   openssh-clients
   policycoreutils
   reiserfs-utils
+  rpm-libs
   syslinux-extlinux
   systemd              dnl for /sbin/reboot and udevd
   vim-minimal
@@ -71,6 +72,7 @@ dnl iproute has been renamed to iproute2
   isc-dhcp-client
   ldmtool
   libc-bin
+  librpm9
   linux-image
   dnl syslinux 'suggests' mtools, but in reality it's a hard dependency:
   mtools

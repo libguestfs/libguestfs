@@ -102,6 +102,14 @@ PKG_CHECK_MODULES([HIVEX], [hivex],[
     [AC_MSG_FAILURE([hivex library is required])])
 AM_CONDITIONAL([HAVE_HIVEX],[test "x$HIVEX_LIBS" != "x"])
 
+dnl librpm library (optional)
+PKG_CHECK_MODULES([LIBRPM], [rpm >= 4.6.0],[
+    AC_SUBST([LIBRPM_CFLAGS])
+    AC_SUBST([LIBRPM_LIBS])
+    AC_DEFINE([HAVE_LIBRPM],[1],[librpm library found at compile time.])
+],[AC_MSG_WARN([librpm library not found])]
+)
+
 dnl systemd journal library (optional)
 PKG_CHECK_MODULES([SD_JOURNAL], [libsystemd],[
     AC_SUBST([SD_JOURNAL_CFLAGS])

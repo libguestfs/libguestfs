@@ -57,6 +57,7 @@ generator_built = \
 	optgroups.mli \
 	parted.mli \
 	realpath.mli \
+	rpm.mli \
 	statvfs.mli \
 	structs.ml \
 	structs.mli
@@ -168,6 +169,7 @@ guestfsd_SOURCES = \
 	proto.c \
 	readdir.c \
 	rename.c \
+	rpm-c.c \
 	rsync.c \
 	scrub.c \
 	selinux.c \
@@ -232,6 +234,7 @@ guestfsd_LDADD = \
 	$(LIB_CLOCK_GETTIME) \
 	$(LIBINTL) \
 	$(PCRE2_LIBS) \
+	$(LIBRPM_LIBS) \
 	$(TSK_LIBS) \
 	$(RPC_LIBS) \
 	$(YARA_LIBS) \
@@ -262,7 +265,8 @@ guestfsd_CFLAGS = \
 	$(HIVEX_CFLAGS) \
 	$(SD_JOURNAL_CFLAGS) \
 	$(JANSSON_CFLAGS) \
-	$(PCRE2_CFLAGS)
+	$(PCRE2_CFLAGS) \
+	$(LIBRPM_CFLAGS)
 
 # Parts of the daemon are written in OCaml.  These are linked into a
 # library and then linked to the daemon.  See
@@ -300,6 +304,7 @@ SOURCES_MLI = \
 	optgroups.mli \
 	parted.mli \
 	realpath.mli \
+	rpm.mli \
 	statvfs.mli \
 	structs.mli \
 	sysroot.mli \
@@ -340,6 +345,7 @@ SOURCES_ML = \
 	inspect_fs_windows.ml \
 	inspect_fs.ml \
 	inspect.ml \
+	rpm.ml \
 	callbacks.ml \
 	daemon.ml
 

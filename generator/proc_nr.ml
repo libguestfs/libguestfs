@@ -516,6 +516,7 @@ let proc_nr = [
 507, "luks_uuid";
 508, "cryptsetup_open";
 509, "cryptsetup_close";
+510, "internal_list_rpm_applications";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list

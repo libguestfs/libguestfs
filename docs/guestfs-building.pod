@@ -210,11 +210,6 @@ eg. F</etc/libguestfs-tools.conf>.
 Optional.  Used by the L<libvirt backend|guestfs(3)/BACKEND> to
 securely confine the appliance (sVirt).
 
-=item Berkeley DB utils (db_dump, db_load, etc)
-
-Optional.  Usually found in a package called C<db-utils>,
-C<db4-utils>, C<db4.X-utils> etc.
-
 =item systemtap
 
 Optional.  For userspace probes.
@@ -251,6 +246,10 @@ Optional.  Render icons from guests.
 =item icoutils
 
 Optional.  Render icons from Windows guests.
+
+=item librpm
+
+Optional.  To parse the list of applications from RPM-based guests.
 
 =item Perl C<Expect>
 
