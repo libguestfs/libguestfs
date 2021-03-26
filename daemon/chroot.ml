@@ -62,6 +62,10 @@ let f t func arg =
   (* Parent. *)
   close wfd;
 
+  let chan = in_channel_of_descr rfd in
+  let ret = input_value chan in
+  close_in chan;
+
   let _, status = waitpid [] pid in
   (match status with
    | WEXITED 0 -> ()
@@ -75,10 +79,6 @@ let f t func arg =
       close rfd;
       failwithf "chroot ‘%s’ stopped by signal %d" t.name i
   );
-
-  let chan = in_channel_of_descr rfd in
-  let ret = input_value chan in
-  close_in chan;
 
   match ret with
   | Either ret -> ret
