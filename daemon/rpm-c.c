@@ -108,13 +108,16 @@ guestfs_int_daemon_rpm_next_application (value unitv)
 
   h = headerLink (h);
   app.app2_name = headerFormat (h, "%{NAME}", NULL);
-  // XXXapp.app2_epoch = headerFormat (h, "%{NAME}", NULL);
   app.app2_version = headerFormat (h, "%{VERSION}", NULL);
   app.app2_release = headerFormat (h, "%{RELEASE}", NULL);
   app.app2_arch = headerFormat (h, "%{ARCH}", NULL);
   app.app2_url = headerFormat (h, "%{URL}", NULL);
   app.app2_summary = headerFormat (h, "%{SUMMARY}", NULL);
   app.app2_description = headerFormat (h, "%{DESCRIPTION}", NULL);
+
+  /* epoch is special as the only int field. */
+  app.app2_epoch = headerGetNumber (h, RPMTAG_EPOCH);
+
   headerFree (h);
 
   /* Convert this to an OCaml struct.  Any NULL fields must be turned
