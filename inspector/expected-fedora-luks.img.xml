@@ -30,22 +30,212 @@
     </filesystems>
     <applications>
       <application>
-        <name>test1</name>
-        <version>1.0</version>
-        <release>1.fc14</release>
-        <arch>x86_64</arch>
+        <name>basesystem</name>
+        <version>11</version>
+        <release>10.fc33</release>
+        <arch>noarch</arch>
+        <url>(none)</url>
+        <summary>The skeleton package which defines a simple Fedora system</summary>
+        <description>Basesystem defines the components of a basic Fedora system
+(for example, the package installation order to use during bootstrapping).
+Basesystem should be in every installation of a system, and it
+should never be removed.</description>
       </application>
       <application>
-        <name>test2</name>
-        <version>2.0</version>
-        <release>2.fc14</release>
+        <name>bash</name>
+        <version>5.0.17</version>
+        <release>2.fc33</release>
         <arch>x86_64</arch>
+        <url>https://www.gnu.org/software/bash</url>
+        <summary>The GNU Bourne Again shell</summary>
+        <description>The GNU Bourne Again shell (Bash) is a shell or command language
+interpreter that is compatible with the Bourne shell (sh). Bash
+incorporates useful features from the Korn shell (ksh) and the C shell
+(csh). Most sh scripts can be run by bash without modification.</description>
       </application>
       <application>
-        <name>test3</name>
-        <version>3.0</version>
-        <release>3.fc14</release>
+        <name>fedora-gpg-keys</name>
+        <version>33</version>
+        <release>3</release>
+        <arch>noarch</arch>
+        <url>https://fedoraproject.org/</url>
+        <summary>Fedora RPM keys</summary>
+        <description>This package provides the RPM signature keys.</description>
+      </application>
+      <application>
+        <name>fedora-release</name>
+        <version>33</version>
+        <release>3</release>
+        <arch>noarch</arch>
+        <url>https://fedoraproject.org/</url>
+        <summary>Fedora release files</summary>
+        <description>Fedora release files such as various /etc/ files that define the release
+and systemd preset files that determine which services are enabled by default.</description>
+      </application>
+      <application>
+        <name>fedora-release-common</name>
+        <version>33</version>
+        <release>3</release>
+        <arch>noarch</arch>
+        <url>https://fedoraproject.org/</url>
+        <summary>Fedora release files</summary>
+        <description>Release files common to all Editions and Spins of Fedora</description>
+      </application>
+      <application>
+        <name>fedora-release-identity-basic</name>
+        <version>33</version>
+        <release>3</release>
+        <arch>noarch</arch>
+        <url>https://fedoraproject.org/</url>
+        <summary>Package providing the basic Fedora identity</summary>
+        <description>Provides the necessary files for a Fedora installation that is not identifying
+itself as a particular Edition or Spin.</description>
+      </application>
+      <application>
+        <name>fedora-repos</name>
+        <version>33</version>
+        <release>3</release>
+        <arch>noarch</arch>
+        <url>https://fedoraproject.org/</url>
+        <summary>Fedora package repositories</summary>
+        <description>Fedora package repository files for yum and dnf along with gpg public keys.</description>
+      </application>
+      <application>
+        <name>filesystem</name>
+        <version>3.14</version>
+        <release>3.fc33</release>
         <arch>x86_64</arch>
+        <url>https://pagure.io/filesystem</url>
+        <summary>The basic directory layout for a Linux system</summary>
+        <description>The filesystem package is one of the basic packages that is installed
+on a Linux system. Filesystem contains the basic directory layout
+for a Linux operating system, including the correct permissions for
+the directories.</description>
+      </application>
+      <application>
+        <name>glibc</name>
+        <version>2.32</version>
+        <release>4.fc33</release>
+        <arch>x86_64</arch>
+        <url>http://www.gnu.org/software/glibc/</url>
+        <summary>The GNU libc libraries</summary>
+        <description>The glibc package contains standard libraries which are used by
+multiple programs on the system. In order to save disk space and
+memory, as well as to make upgrading easier, common system code is
+kept in one place and shared between programs. This particular package
+contains the most important sets of shared libraries: the standard C
+library and the standard math library. Without these two libraries, a
+Linux system will not function.</description>
+      </application>
+      <application>
+        <name>glibc-all-langpacks</name>
+        <version>2.32</version>
+        <release>4.fc33</release>
+        <arch>x86_64</arch>
+        <url>http://www.gnu.org/software/glibc/</url>
+        <summary>All language packs for glibc.</summary>
+      </application>
+      <application>
+        <name>glibc-common</name>
+        <version>2.32</version>
+        <release>4.fc33</release>
+        <arch>x86_64</arch>
+        <url>http://www.gnu.org/software/glibc/</url>
+        <summary>Common binaries and locale data for glibc</summary>
+        <description>The glibc-common package includes common binaries for the GNU libc
+libraries, as well as national language (locale) support.</description>
+      </application>
+      <application>
+        <name>gpg-pubkey</name>
+        <version>9570ff31</version>
+        <release>5e3006fb</release>
+        <arch>(none)</arch>
+        <url>(none)</url>
+        <summary>Fedora (33) &lt;fedora-33-primary@fedoraproject.org&gt; public key</summary>
+        <description>-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: rpm-4.16.1.2 (NSS-3)
+
+mQINBF4wBvsBEADQmcGbVUbDRUoXADReRmOOEMeydHghtKC9uRs9YNpGYZIB+bie
+bGYZmflQayfh/wEpO2W/IZfGpHPL42V7SbyvqMjwNls/fnXsCtf4LRofNK8Qd9fN
+kYargc9R7BEz/mwXKMiRQVx+DzkmqGWy2gq4iD0/mCyf5FdJCE40fOWoIGJXaOI1
+Tz1vWqKwLS5T0dfmi9U4Tp/XsKOZGvN8oi5h0KmqFk7LEZr1MXarhi2Va86sgxsF
+QcZEKfu5tgD0r00vXzikoSjn3qA5JW5FW07F1pGP4bF5f9J3CZbQyOjTSWMmmfTm
+2d2BURWzaDiJN9twY2yjzkoOMuPdXXvovg7KxLcQerKT+FbKbq8DySJX2rnOA77k
+UG4c9BGf/L1uBkAT8dpHLk6Uf5BfmypxUkydSWT1xfTDnw1MqxO0MsLlAHOR3J7c
+oW9kLcOLuCQn1hBEwfZv7VSWBkGXSmKfp0LLIxAFgRtv+Dh+rcMMRdJgKr1V3FU+
+rZ1+ZAfYiBpQJFPjv70vx+rGEgS801D3PJxBZUEy4Ic4ZYaKNhK9x9PRQuWcIBuW
+6eTe/6lKWZeyxCumLLdiS75mF2oTcBaWeoc3QxrPRV15eDKeYJMbhnUai/7lSrhs
+EWCkKR1RivgF4slYmtNE5ZPGZ/d61zjwn2xi4xNJVs8q9WRPMpHp0vCyMwARAQAB
+tDFGZWRvcmEgKDMzKSA8ZmVkb3JhLTMzLXByaW1hcnlAZmVkb3JhcHJvamVjdC5v
+cmc+iQI4BBMBAgAiBQJeMAb7AhsPBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAK
+CRBJ/XdJlXD/MZm2D/9kriL43vd3+0DNMeA82n2v9mSR2PQqKny39xNlYPyy/1yZ
+P/KXoa4NYSCA971LSd7lv4n/h5bEKgGHxZfttfOzOnWMVSSTfjRyM/df/NNzTUEV
+7ORA5GW18g8PEtS7uRxVBf3cLvWu5q+8jmqES5HqTAdGVcuIFQeBXFN8Gy1Jinuz
+AH8rJSdkUeZ0cehWbERq80BWM9dhad5dW+/+Gv0foFBvP15viwhWqajr8V0B8es+
+2/tHI0k86FAujV5i0rrXl5UOoLilO57QQNDZH/qW9GsHwVI+2yecLstpUNLq+EZC
+GqTZCYoxYRpl0gAMbDLztSL/8Bc0tJrCRG3tavJotFYlgUK60XnXlQzRkh9rgsfT
+EXbQifWdQMMogzjCJr0hzJ+V1d0iozdUxB2ZEgTjukOvatkB77DY1FPZRkSFIQs+
+fdcjazDIBLIxwJu5QwvTNW8lOLnJ46g4sf1WJoUdNTbR0BaC7HHj1inVWi0p7IuN
+66EPGzJOSjLK+vW+J0ncPDEgLCV74RF/0nR5fVTdrmiopPrzFuguHf9S9gYI3Zun
+Yl8FJUu4kRO6JPPTicUXWX+8XZmE94aK14RCJL23nOSi8T1eW8JLW43dCBRO8QUE
+Aso1t2pypm/1zZexJdOV8yGME3g5l2W6PLgpz58DBECgqc/kda+VWgEAp7rO2A==
+=EPL3
+-----END PGP PUBLIC KEY BLOCK-----
+</description>
+      </application>
+      <application>
+        <name>libgcc</name>
+        <version>10.2.1</version>
+        <release>9.fc33</release>
+        <arch>x86_64</arch>
+        <url>http://gcc.gnu.org</url>
+        <summary>GCC version 10 shared support library</summary>
+        <description>This package contains GCC shared support library which is needed
+e.g. for exception handling support.</description>
+      </application>
+      <application>
+        <name>ncurses-base</name>
+        <version>6.2</version>
+        <release>3.20200222.fc33</release>
+        <arch>noarch</arch>
+        <url>https://invisible-island.net/ncurses/ncurses.html</url>
+        <summary>Descriptions of common terminals</summary>
+        <description>This package contains descriptions of common terminals. Other terminal
+descriptions are included in the ncurses-term package.</description>
+      </application>
+      <application>
+        <name>ncurses-libs</name>
+        <version>6.2</version>
+        <release>3.20200222.fc33</release>
+        <arch>x86_64</arch>
+        <url>https://invisible-island.net/ncurses/ncurses.html</url>
+        <summary>Ncurses libraries</summary>
+        <description>The curses library routines are a terminal-independent method of
+updating character screens with reasonable optimization.  The ncurses
+(new curses) library is a freely distributable replacement for the
+discontinued 4.4 BSD classic curses library.
+
+This package contains the ncurses libraries.</description>
+      </application>
+      <application>
+        <name>setup</name>
+        <version>2.13.7</version>
+        <release>2.fc33</release>
+        <arch>noarch</arch>
+        <url>https://pagure.io/setup/</url>
+        <summary>A set of system configuration and setup files</summary>
+        <description>The setup package contains a set of important system configuration and
+setup files, such as passwd, group, and profile.</description>
+      </application>
+      <application>
+        <name>tzdata</name>
+        <version>2021a</version>
+        <release>1.fc33</release>
+        <arch>noarch</arch>
+        <url>https://www.iana.org/time-zones</url>
+        <summary>Timezone data</summary>
+        <description>This package contains data files with rules for various timezones around
+the world.</description>
       </application>
     </applications>
   </operatingsystem>
