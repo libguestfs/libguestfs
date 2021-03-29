@@ -246,6 +246,7 @@ $g->mkdir ('/usr/share/zoneinfo');
 $g->mkdir ('/usr/share/zoneinfo/Europe');
 $g->touch ('/usr/share/zoneinfo/Europe/London');
 $g->mkdir_p ('/var/lib/rpm');
+$g->mkdir_p ('/usr/lib/rpm');
 $g->mkdir_p ('/var/log/journal');
 
 $g->write ('/etc/shadow', "root::15440:0:99999:7:::\n");
@@ -264,8 +265,12 @@ if (-f "fedora.mdadm") {
     unlink ("fedora.mdadm") or die;
 }
 
-$g->upload ($ENV{SRCDIR}.'/fedora-name.db', '/var/lib/rpm/Name');
-$g->upload ($ENV{SRCDIR}.'/fedora-packages.db', '/var/lib/rpm/Packages');
+$g->upload ($ENV{SRCDIR}.'/fedora.db', '/var/lib/rpm/rpmdb.sqlite');
+$g->touch ('/usr/lib/rpm/rpmrc');
+$g->write ('/usr/lib/rpm/macros', <<EOF);
+%_dbpath /var/lib/rpm
+%_db_backend sqlite
+EOF
 
 $g->upload ($ENV{SRCDIR}.'/../binaries/bin-x86_64-dynamic', '/bin/ls');
 

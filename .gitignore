@@ -458,8 +458,7 @@ Makefile.in
 /test-data/phony-guests/fedora-luks.img
 /test-data/phony-guests/fedora-md1.img
 /test-data/phony-guests/fedora-md2.img
-/test-data/phony-guests/fedora-name.db
-/test-data/phony-guests/fedora-packages.db
+/test-data/phony-guests/fedora.db
 /test-data/phony-guests/guests.xml
 /test-data/phony-guests/guests-all-good.xml
 /test-data/phony-guests/stamp-fedora-md.img

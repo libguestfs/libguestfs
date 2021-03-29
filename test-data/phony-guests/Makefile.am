@@ -23,10 +23,8 @@ EXTRA_DIST = \
 	debian-syslog \
 	make-fedora-img.pl \
 	fedora-journal.tar.xz \
-	fedora-name.db.txt \
-	fedora-name.db \
-	fedora-packages.db.txt \
-	fedora-packages.db \
+	fedora-db.sql.xz \
+	fedora.db \
 	make-ubuntu-img.sh \
 	make-archlinux-img.sh \
 	archlinux-package \
@@ -78,8 +76,7 @@ blank-%.img:
 # Make a (dummy) Fedora image.
 fedora.img: make-fedora-img.pl \
 		fedora-journal.tar.xz \
-		fedora-name.db \
-		fedora-packages.db
+		fedora.db
 	SRCDIR=$(srcdir) LAYOUT=partitions $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Fedora image using md devices
@@ -87,8 +84,7 @@ fedora-md1.img fedora-md2.img: stamp-fedora-md.img
 
 stamp-fedora-md.img: make-fedora-img.pl \
 		fedora-journal.tar.xz \
-		fedora-name.db \
-		fedora-packages.db
+		fedora.db
 	rm -f $@
 	SRCDIR=$(srcdir) LAYOUT=partitions-md $(top_builddir)/run --test ./$<
 	touch $@
@@ -97,15 +93,13 @@ stamp-fedora-md.img: make-fedora-img.pl \
 # for root and home.
 fedora-btrfs.img: make-fedora-img.pl \
 		fedora-journal.tar.xz \
-		fedora-name.db \
-		fedora-packages.db
+		fedora.db
 	SRCDIR=$(srcdir) LAYOUT=btrfs $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Fedora image with LVM encrypted with LUKS.
 fedora-luks.img: make-fedora-img.pl \
 		fedora-journal.tar.xz \
-		fedora-name.db \
-		fedora-packages.db
+		fedora.db
 	SRCDIR=$(srcdir) LAYOUT=lvm-luks $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Debian image.
@@ -138,14 +132,9 @@ guests-all-good.xml: make-guests-all-good.pl $(disk_images)
 # Since users might not have the tools needed to create this, we also
 # distribute these files and they are only cleaned by 'make distclean'
 # not regular 'make clean'.
-fedora-name.db: fedora-name.db.txt
+fedora.db: fedora-db.sql.xz
 	rm -f $@ $@-t
-	$(DB_LOAD) $@-t < $<
-	mv $@-t $@
-
-fedora-packages.db: fedora-packages.db.txt
-	rm -f $@ $@-t
-	$(DB_LOAD) $@-t < $<
+	xzcat $< | $(SQLITE3) $@-t
 	mv $@-t $@
 
 windows-software: windows-software.reg
@@ -161,8 +150,7 @@ windows-system: windows-system.reg
 	mv $@-t $@
 
 DISTCLEANFILES += \
-	fedora-name.db \
-	fedora-packages.db \
+	fedora.db \
 	windows-software \
 	windows-system
 
