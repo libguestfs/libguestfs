@@ -297,32 +297,7 @@ die "$progname: ./configure substitutions were not performed"
     $package_name && $package_version;
 
 # Create a stable date (thanks Hilko Bengen).
-my $date;
-my $filename = "$abs_top_srcdir/ChangeLog";
-if (-r $filename) {
-    open FILE, $filename or die "$progname: $filename: $!";
-    while (<FILE>) {
-        if (/^Date:\s+...\s+(...)\s+(\d+)\s+..:..:..\s+(\d{4})\s+.*$/) {
-            my $i = 0;
-            my %month =
-              map { $_ => ++$i }
-                (qw< Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec >);
-            $date = sprintf '%04d-%02d-%02d', $3, $month{$1}, $2;
-            last;
-        }
-    }
-    close FILE;
-}
-$filename = "$abs_top_srcdir/.git";
-if (!$date && -d $filename) {
-    local $ENV{GIT_DIR} = $filename;
-    $_ = `git show -s --format=%ci`;
-    $date = $1 if /^(\d+-\d+-\d+)\s/;
-}
-if (!$date) {
-    my ($day, $month, $year) = (gmtime($ENV{SOURCE_DATE_EPOCH} || time))[3,4,5];
-    $date = sprintf ("%04d-%02d-%02d", $year+1900, $month+1, $day);
-}
+my $date = "@RELEASE_DATE@";
 
 # Create a release string.
 my $release = "$package_name-$package_version";
