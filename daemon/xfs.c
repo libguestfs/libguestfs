@@ -62,7 +62,7 @@ parse_uint32 (uint32_t *ret, const char *str)
   uint32_t r;
 
   if (sscanf (str, "%" SCNu32, &r) != 1) {
-    reply_with_error ("cannot parse numeric field from isoinfo: %s", str);
+    reply_with_error ("cannot parse numeric field from xfs_info: %s", str);
     return -1;
   }
 
@@ -76,7 +76,7 @@ parse_uint64 (uint64_t *ret, const char *str)
   uint64_t r;
 
   if (sscanf (str, "%" SCNu64, &r) != 1) {
-    reply_with_error ("cannot parse numeric field from isoinfo: %s", str);
+    reply_with_error ("cannot parse numeric field from xfs_info: %s", str);
     return -1;
   }
 
