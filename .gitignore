@@ -92,6 +92,7 @@ Makefile.in
 /daemon/guestfsd.exe
 /daemon/inspect.mli
 /daemon/is.mli
+/daemon/isoinfo.mli
 /daemon/ldm.mli
 /daemon/link.mli
 /daemon/listfs.mli

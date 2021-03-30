@@ -46,6 +46,7 @@ generator_built = \
 	findfs.mli \
 	inspect.mli \
 	is.mli \
+	isoinfo.mli \
 	ldm.mli \
 	link.mli \
 	listfs.mli \
@@ -142,7 +143,6 @@ guestfsd_SOURCES = \
 	inotify.c \
 	internal.c \
 	is.c \
-	isoinfo.c \
 	journal.c \
 	labels.c \
 	ldm.c \
@@ -291,6 +291,7 @@ SOURCES_MLI = \
 	inspect_types.mli \
 	inspect_utils.mli \
 	is.mli \
+	isoinfo.mli \
 	ldm.mli \
 	link.mli \
 	listfs.mli \
@@ -324,6 +325,7 @@ SOURCES_ML = \
 	devsparts.ml \
 	file.ml \
 	filearch.ml \
+	isoinfo.ml \
 	is.ml \
 	ldm.ml \
 	link.ml \

@@ -45,6 +45,7 @@ ifelse(REDHAT,1,
   syslinux-extlinux
   systemd              dnl for /sbin/reboot and udevd
   vim-minimal
+  xorriso              dnl alternative for genisoimage
   xz
   zfs-fuse
 )
@@ -84,6 +85,7 @@ dnl iproute has been renamed to iproute2
   systemd                   dnl alternative for /sbin/reboot
   ufsutils
   vim-tiny
+  xorriso                   dnl alternative for genisoimage
   xz-utils
   zfs-fuse
   uuid-runtime

@@ -103,7 +103,6 @@ daemon/initrd.c
 daemon/inotify.c
 daemon/internal.c
 daemon/is.c
-daemon/isoinfo.c
 daemon/journal.c
 daemon/labels.c
 daemon/ldm.c

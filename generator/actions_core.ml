@@ -6878,6 +6878,7 @@ this will create the largest possible LV." };
   { defaults with
     name = "isoinfo_device"; added = (1, 17, 19);
     style = RStruct ("isodata", "isoinfo"), [String (Device, "device")], [];
+    impl = OCaml "Isoinfo.isoinfo_device";
     tests = [
       InitNone, Always, TestResult (
         [["isoinfo_device"; "/dev/sdd"]],
@@ -6904,6 +6905,7 @@ L<https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor>" };
   { defaults with
     name = "isoinfo"; added = (1, 17, 19);
     style = RStruct ("isodata", "isoinfo"), [String (Pathname, "isofile")], [];
+    impl = OCaml "Isoinfo.isoinfo";
     shortdesc = "get ISO information from primary volume descriptor of ISO file";
     longdesc = "\
 This is the same as C<guestfs_isoinfo_device> except that it
