@@ -98,6 +98,6 @@ test.iso: $(images_files)
 	cp $(image_files) d/
 	mkdir -p d/directory
 	cd d && ln -sf /10klines abssymlink
-	cd d && $(GENISOIMAGE) -J -r -o ../$@-t .
+	cd d && $(MKISOFS) -J -r -o ../$@-t .
 	rm -rf d
 	mv $@-t $@

@@ -152,9 +152,9 @@ I<Required>.
 
 I<Required>.
 
-=item genisoimage
+=item xorriso, genisoimage or mkisofs
 
-I<Required>.
+One of these is I<Required>.
 
 =item libxml2
 
