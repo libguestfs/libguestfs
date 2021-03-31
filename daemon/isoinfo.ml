@@ -17,157 +17,32 @@
  *)
 
 open Printf
-open Scanf
 open Unix
 
 open Std_utils
-open Unix_utils
-
-open Mountable
-open Utils
 
 include Structs
 
-type tool = Isoinfo | Xorriso
-let tool = ref None
-
-let get_tool () =
-  match !tool with
-  | Some t -> t
-  | None ->
-     (* Prefer isoinfo because we've been using that tool for longer. *)
-     if Sys.command "isoinfo -version" = 0 then (
-       tool := Some Isoinfo;
-       Isoinfo
-     )
-     else if Sys.command "xorriso -version" = 0 then (
-       tool := Some Xorriso;
-       Xorriso
-     )
-     else
-       failwith "isoinfo or xorriso not available"
-
-(* Default each int field in the struct to -1 and each string to "". *)
-let default_iso = {
-  iso_system_id = "";
-  iso_volume_id = "";
-  iso_volume_space_size = -1_l;
-  iso_volume_set_size = -1_l;
-  iso_volume_sequence_number = -1_l;
-  (* This is almost always true for CDs because of the media itself,
-   * and is not available from xorriso.
-   *)
-  iso_logical_block_size = 2048_l;
-  iso_volume_set_id = "";
-  iso_publisher_id = "";
-  iso_data_preparer_id = "";
-  iso_application_id = "";
-  iso_copyright_file_id = "";
-  iso_abstract_file_id = "";
-  iso_bibliographic_file_id = "";
-  iso_volume_creation_t = -1_L;
-  iso_volume_modification_t = -1_L;
-  iso_volume_expiration_t = -1_L;
-  iso_volume_effective_t = -1_L;
-}
-
-(* This is always in a fixed format:
- * "2012 03 16 11:05:46.00"
- * or if the field is not present, then:
- * "0000 00 00 00:00:00.00"
+(* We treat ISO "strA" and "strD" formats the same way, simply
+ * discarding any trailing spaces.
  *)
-let parse_isoinfo_date str =
-  if str = "0000 00 00 00:00:00.00" ||
-     str = "             :  :  .  " then
-    -1_L
-  else (
-    sscanf str "%04d %02d %02d %02d:%02d:%02d"
-      (fun tm_year tm_mon tm_mday tm_hour tm_min tm_sec ->
-        (* Adjust fields. *)
-        let tm_year = tm_year - 1900 in
-        let tm_mon = tm_mon - 1 in
+let iso_parse_strA str =
+  let len = String.length str in
+  let rec loop len =
+    if len > 0 && str.[len-1] = ' ' then loop (len-1) else len
+  in
+  let len = loop len in
+  String.sub str 0 len
 
-        (* Convert to time_t *)
-        let tm = { tm_sec; tm_min; tm_hour; tm_mday; tm_mon; tm_year;
-                   tm_wday = -1; tm_yday = -1; tm_isdst = false } in
-        Int64.of_float (fst (Unix.mktime tm))
-      )
-  )
+let iso_parse_strD = iso_parse_strA
 
-let do_isoinfo dev =
-  (* --debug is necessary to get additional fields, in particular
-   * the date & time fields.
-   *)
-  let lines = command "isoinfo" ["--debug"; "-d"; "-i"; dev] in
-  let lines = String.nsplit "\n" lines in
+(* These always parse the intX_LSB (little endian) version. *)
+let iso_parse_int16 s = s |> int_of_le16 |> Int64.to_int32
+let iso_parse_int32 s = s |> int_of_le32 |> Int64.to_int32
 
-  let ret = ref default_iso in
-  List.iter (
-    fun line ->
-      let n = String.length line in
-      if String.is_prefix line "System id: " then
-        ret := { !ret with iso_system_id = String.sub line 11 (n-11) }
-      else if String.is_prefix line "Volume id: " then
-        ret := { !ret with iso_volume_id = String.sub line 11 (n-11) }
-      else if String.is_prefix line "Volume set id: " then
-        ret := { !ret with iso_volume_set_id = String.sub line 15 (n-15) }
-      else if String.is_prefix line "Publisher id: " then
-        ret := { !ret with iso_publisher_id = String.sub line 14 (n-14) }
-      else if String.is_prefix line "Data preparer id: " then
-        ret := { !ret with iso_data_preparer_id = String.sub line 18 (n-18) }
-      else if String.is_prefix line "Application id: " then
-        ret := { !ret with iso_application_id = String.sub line 16 (n-16) }
-      else if String.is_prefix line "Copyright File id: " then
-        ret := { !ret with iso_copyright_file_id = String.sub line 19 (n-19) }
-      else if String.is_prefix line "Abstract File id: " then
-        ret := { !ret with iso_abstract_file_id = String.sub line 18 (n-18) }
-      else if String.is_prefix line "Bibliographic File id: " then
-        ret := { !ret with
-                 iso_bibliographic_file_id = String.sub line 23 (n-23) }
-      else if String.is_prefix line "Volume size is: " then (
-        let i = Int32.of_string (String.sub line 16 (n-16)) in
-        ret := { !ret with iso_volume_space_size = i }
-      )
-      else if String.is_prefix line "Volume set size is: " then (
-        let i = Int32.of_string (String.sub line 20 (n-20)) in
-        ret := { !ret with iso_volume_set_size = i }
-      )
-      else if String.is_prefix line "Volume set sequence number is: " then (
-        let i = Int32.of_string (String.sub line 31 (n-31)) in
-        ret := { !ret with iso_volume_sequence_number = i }
-      )
-      else if String.is_prefix line "Logical block size is: " then (
-        let i = Int32.of_string (String.sub line 23 (n-23)) in
-        ret := { !ret with iso_logical_block_size = i }
-      )
-      else if String.is_prefix line "Creation Date:     " then (
-        let t = parse_isoinfo_date (String.sub line 19 (n-19)) in
-        ret := { !ret with iso_volume_creation_t = t }
-      )
-      else if String.is_prefix line "Modification Date: " then (
-        let t = parse_isoinfo_date (String.sub line 19 (n-19)) in
-        ret := { !ret with iso_volume_modification_t = t }
-      )
-      else if String.is_prefix line "Expiration Date:   " then (
-        let t = parse_isoinfo_date (String.sub line 19 (n-19)) in
-        ret := { !ret with iso_volume_expiration_t = t }
-      )
-      else if String.is_prefix line "Effective Date:    " then (
-        let t = parse_isoinfo_date (String.sub line 19 (n-19)) in
-        ret := { !ret with iso_volume_effective_t = t }
-      )
-  ) lines;
-  !ret
-
-(* This is always in a fixed format:
- * "2021033012313200"
- * or if the field is not present, then:
- * "0000000000000000"
- * XXX Parse the time zone fields too.
- *)
-let parse_xorriso_date str =
-  if str = "0000000000000000" then -1_L
-  else if String.length str <> 16 then -1_L
+(* Parse ISO dec-datetime to a Unix time_t. *)
+let iso_parse_datetime str =
+  if String.sub str 0 16 = "0000000000000000" then -1_L
   else (
     let tm_year = int_of_string (String.sub str 0 4) in
     let tm_mon = int_of_string (String.sub str 4 2) in
@@ -180,69 +55,76 @@ let parse_xorriso_date str =
     let tm_year = tm_year - 1900 in
     let tm_mon = tm_mon - 1 in
 
-    (* Convert to time_t *)
+    (* Convert to time_t in UTC timezone. *)
     let tm = { tm_sec; tm_min; tm_hour; tm_mday; tm_mon; tm_year;
                tm_wday = -1; tm_yday = -1; tm_isdst = false } in
-    Int64.of_float (fst (Unix.mktime tm))
+    let old_TZ = try Some (getenv "TZ") with Not_found -> None in
+    putenv "TZ" "UTC";
+    let r = Int64.of_float (fst (mktime tm)) in
+    Option.may (putenv "TZ") old_TZ;
+
+    (* The final byte is a time zone offset from GMT.
+     *
+     * The documentation of this at
+     * https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor
+     * is wrong.  See the ECMA 119 documentation for a correct
+     * description.
+     *
+     * For a disk image which we know was created
+     * in BST (GMT+1), this contains 0x4, ie. 4 * 15 mins ahead.
+     * We have to subtract this from the gmtime above.
+     *)
+    let tz = Char.code str.[16] in
+    let tz = if tz >= 128 then tz - 256 else tz in
+    r -^ (Int64.of_int (tz * 15 * 60))
   )
 
-let do_xorriso dev =
-  (* stdio: prefix is to work around a stupidity of xorriso. *)
-  let lines = command "xorriso" ["-indev"; "stdio:" ^ dev; "-pvd_info"] in
-  let lines = String.nsplit "\n" lines in
-
-  let ret = ref default_iso in
-  List.iter (
-    fun line ->
-      let n = String.length line in
-      if String.is_prefix line "System Id    : " then
-        ret := { !ret with iso_system_id = String.sub line 15 (n-15) }
-      else if String.is_prefix line "Volume Id    : " then
-        ret := { !ret with iso_volume_id = String.sub line 15 (n-15) }
-      else if String.is_prefix line "Volume Set Id: " then
-        ret := { !ret with iso_volume_set_id = String.sub line 15 (n-15) }
-      else if String.is_prefix line "Publisher Id : " then
-        ret := { !ret with iso_publisher_id = String.sub line 15 (n-15) }
-      else if String.is_prefix line "App Id       : " then
-        ret := { !ret with iso_application_id = String.sub line 15 (n-15) }
-      else if String.is_prefix line "CopyrightFile: " then
-        ret := { !ret with iso_copyright_file_id = String.sub line 15 (n-15) }
-      else if String.is_prefix line "Abstract File: " then
-        ret := { !ret with iso_abstract_file_id = String.sub line 15 (n-15) }
-      else if String.is_prefix line "Biblio File  : " then
-        ret := { !ret with
-                 iso_bibliographic_file_id = String.sub line 15 (n-15) }
-      (* XXX The following fields don't appear to be available
-       * with xorriso:
-       * - iso_volume_space_size (only available on stderr)
-       * - iso_volume_sequence_number
-       * - iso_logical_block_size
-       *)
-      (* XXX xorriso provides a timezone for these fields, but
-       * we don't use it here.
-       *)
-      else if String.is_prefix line "Creation Time: " then (
-        let t = parse_xorriso_date (String.sub line 15 (n-15)) in
-        ret := { !ret with iso_volume_creation_t = t }
-      )
-      else if String.is_prefix line "Modif. Time  : " then (
-        let t = parse_xorriso_date (String.sub line 15 (n-15)) in
-        ret := { !ret with iso_volume_modification_t = t }
-      )
-      else if String.is_prefix line "Expir. Time  : " then (
-        let t = parse_xorriso_date (String.sub line 15 (n-15)) in
-        ret := { !ret with iso_volume_expiration_t = t }
-      )
-      else if String.is_prefix line "Eff. Time    : " then (
-        let t = parse_xorriso_date (String.sub line 15 (n-15)) in
-        ret := { !ret with iso_volume_effective_t = t }
-      )
-  ) lines;
-  !ret
-
 let isoinfo dev =
-  match get_tool () with
-  | Isoinfo -> do_isoinfo dev
-  | Xorriso -> do_xorriso dev
+  let r, pvd =
+    with_openfile dev [O_RDONLY] 0 (
+        fun fd ->
+        ignore (lseek fd 32768 SEEK_SET);
+        let pvd = Bytes.create 2048 in
+        let r = read fd pvd 0 2048 in
+        r, Bytes.to_string pvd
+      ) in
+
+  let sub = String.sub pvd in
+
+  (* Check that it looks like an ISO9660 Primary Volume Descriptor.
+   * https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor
+   *)
+  if r <> 2048 || pvd.[0] <> '\001' || sub 1 5 <> "CD001" then
+    failwithf "%s: not an ISO file or CD-ROM" dev;
+
+  (* Parse out the PVD fields. *)
+  let iso_system_id = sub 8 32 |> iso_parse_strA in
+  let iso_volume_id = sub 40 32 |> iso_parse_strA in
+  let iso_volume_space_size = sub 80 4 |> iso_parse_int32 in
+  let iso_volume_set_size = sub 120 2 |> iso_parse_int16 in
+  let iso_volume_sequence_number = sub 124 2 |> iso_parse_int16 in
+  let iso_logical_block_size = sub 128 2 |> iso_parse_int16 in
+  let iso_volume_set_id = sub 190 128 |> iso_parse_strD in
+  let iso_publisher_id = sub 318 128 |> iso_parse_strA in
+  let iso_data_preparer_id = sub 446 128 |> iso_parse_strA in
+  let iso_application_id = sub 574 128 |> iso_parse_strA in
+  let iso_copyright_file_id = sub 702 38 |> iso_parse_strD in
+  let iso_abstract_file_id = sub 740 36 |> iso_parse_strD in
+  let iso_bibliographic_file_id = sub 776 37 |> iso_parse_strD in
+  let iso_volume_creation_t = sub 813 17 |> iso_parse_datetime in
+  let iso_volume_modification_t = sub 830 17 |> iso_parse_datetime in
+  let iso_volume_expiration_t = sub 847 17 |> iso_parse_datetime in
+  let iso_volume_effective_t = sub 864 17 |> iso_parse_datetime in
+
+  (* Return the struct. *)
+  {
+    iso_system_id; iso_volume_id; iso_volume_space_size;
+    iso_volume_set_size; iso_volume_sequence_number;
+    iso_logical_block_size; iso_volume_set_id; iso_publisher_id;
+    iso_data_preparer_id; iso_application_id; iso_copyright_file_id;
+    iso_abstract_file_id; iso_bibliographic_file_id;
+    iso_volume_creation_t; iso_volume_modification_t;
+    iso_volume_expiration_t; iso_volume_effective_t;
+  }
 
 let isoinfo_device = isoinfo

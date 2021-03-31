@@ -26,7 +26,6 @@ ifelse(REDHAT,1,
   cryptsetup
   cryptsetup-luks      dnl old name used before Fedora 17
   dhclient
-  genisoimage
   gfs-utils
   gfs2-utils
   grub
@@ -45,7 +44,6 @@ ifelse(REDHAT,1,
   syslinux-extlinux
   systemd              dnl for /sbin/reboot and udevd
   vim-minimal
-  xorriso              dnl alternative for genisoimage
   xz
   zfs-fuse
 )
@@ -57,7 +55,6 @@ dnl old name used in Jessie and earlier
   cryptsetup
   dash
   extlinux
-  genisoimage
 dnl gfs-tools, gfs2-tools have been renamed to gfs2-utils
   gfs-tools
   gfs2-tools
@@ -85,7 +82,6 @@ dnl iproute has been renamed to iproute2
   systemd                   dnl alternative for /sbin/reboot
   ufsutils
   vim-tiny
-  xorriso                   dnl alternative for genisoimage
   xz-utils
   zfs-fuse
   uuid-runtime
@@ -124,13 +120,11 @@ ifelse(SUSE,1,
   cryptsetup
   dhcpcd
   dhcp-client
-  genisoimage
   glibc-locale
   gptfdisk
   initviocons
   iproute2
   iputils
-  mkisofs
   ntfsprogs
   ntfs-3g
   reiserfs
@@ -164,8 +158,6 @@ ifelse(FRUGALWARE,1,
 ifelse(MAGEIA,1,
   cryptsetup
   chkconfig /* for /etc/init.d */
-  cdrkit-genisoimage
-  cdrkit-isotools
   dhcp-client
   extlinux
   gfs2-utils
@@ -190,8 +182,6 @@ ifelse(MAGEIA,1,
 ifelse(OPENMANDRIVA,1,
   cryptsetup
   chkconfig /* for /etc/init.d */
-  cdrkit-genisoimage
-  cdrkit-isotools
   dhcp-client
   extlinux
   grub2
