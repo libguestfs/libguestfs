@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.45.3\n"
+"Project-Id-Version: libguestfs 1.45.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-03-29 18:40+0100\n"
+"POT-Creation-Date: 2021-04-03 12:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3313,6 +3313,26 @@ msgstr ""
 #: fuse/guestunmount.c:218
 #, c-format
 msgid "%s: %s is not mounted: %s\n"
+msgstr ""
+
+#: lib/appliance-kcmdline.c:74
+#, c-format
+msgid "open: %s"
+msgstr ""
+
+#: lib/appliance-kcmdline.c:79
+#, c-format
+msgid "%s: cannot read extfs magic in superblock"
+msgstr ""
+
+#: lib/appliance-kcmdline.c:86
+#, c-format
+msgid "%s: appliance is not an extfs filesystem"
+msgstr ""
+
+#: lib/appliance-kcmdline.c:92
+#, c-format
+msgid "%s: cannot read UUID in superblock"
 msgstr ""
 
 #: lib/appliance.c:219
