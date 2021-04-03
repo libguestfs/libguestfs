@@ -56,12 +56,6 @@ let rec generate_c_api_tests () =
 
 #include \"tests.h\"
 
-#ifdef __linux__
-#define GUESTFS_ISO_SYSTEM_ID \"LINUX\"
-#else
-#error Missing GUESTFS_ISO_SYSTEM_ID for the current OS
-#endif
-
 ";
 
   (* Generate a list of commands which are not tested anywhere. *)
