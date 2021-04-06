@@ -48,8 +48,6 @@ let rec generate_bindtests () =
 #include \"guestfs-internal-actions.h\"
 #include \"guestfs_protocol.h\"
 
-#include \"intprops.h\"
-
 int
 guestfs_impl_internal_test_set_output (guestfs_h *g, const char *filename)
 {
@@ -255,8 +253,8 @@ fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
              pr "  }\n";
              pr "  strs = safe_malloc (g, (n+1) * sizeof (char *));\n";
              pr "  for (i = 0; i < n; ++i) {\n";
-             pr "    strs[i] = safe_malloc (g, INT_BUFSIZE_BOUND (i));\n";
-             pr "    snprintf (strs[i], INT_BUFSIZE_BOUND (i), \"%%zu\", i);\n";
+             pr "    strs[i] = safe_malloc (g, 32);\n";
+             pr "    snprintf (strs[i], 32, \"%%zu\", i);\n";
              pr "  }\n";
              pr "  strs[n] = NULL;\n";
              pr "  return strs;\n"
@@ -287,10 +285,10 @@ fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
              pr "  }\n";
              pr "  strs = safe_malloc (g, (n*2+1) * sizeof (*strs));\n";
              pr "  for (i = 0; i < n; ++i) {\n";
-             pr "    strs[i*2] = safe_malloc (g, INT_BUFSIZE_BOUND (i));\n";
-             pr "    strs[i*2+1] = safe_malloc (g, INT_BUFSIZE_BOUND (i));\n";
-             pr "    snprintf (strs[i*2], INT_BUFSIZE_BOUND (i), \"%%zu\", i);\n";
-             pr "    snprintf (strs[i*2+1], INT_BUFSIZE_BOUND (i), \"%%zu\", i);\n";
+             pr "    strs[i*2] = safe_malloc (g, 32);\n";
+             pr "    strs[i*2+1] = safe_malloc (g, 32);\n";
+             pr "    snprintf (strs[i*2], 32, \"%%zu\", i);\n";
+             pr "    snprintf (strs[i*2+1], 32, \"%%zu\", i);\n";
              pr "  }\n";
              pr "  strs[n*2] = NULL;\n";
              pr "  return strs;\n"
