@@ -25,7 +25,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include "glthread/lock.h"
+#include <pthread.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -50,7 +50,7 @@
  * (Suggested by Marcelo Tosatti)
  */
 
-gl_lock_define_initialized (static, lpj_lock);
+static pthread_mutex_t lpj_lock = PTHREAD_MUTEX_INITIALIZER;
 static int lpj = 0;
 static int read_lpj_from_dmesg (guestfs_h *g);
 static int read_lpj_from_files (guestfs_h *g);
@@ -61,9 +61,9 @@ guestfs_int_get_lpj (guestfs_h *g)
 {
   int r;
 
-  gl_lock_lock (lpj_lock);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&lpj_lock);
   if (lpj != 0)
-    goto out;
+    return lpj;
 
   /* Try reading lpj from these sources:
    * - /proc/cpuinfo [in future]
@@ -73,14 +73,10 @@ guestfs_int_get_lpj (guestfs_h *g)
    *   + /var/log/boot.msg
    */
   r = read_lpj_from_dmesg (g);
-  if (r > 0) {
-    lpj = r;
-    goto out;
-  }
-  lpj = read_lpj_from_files (g);
+  if (r > 0)
+    return lpj = r;
 
- out:
-  gl_lock_unlock (lpj_lock);
+  lpj = read_lpj_from_files (g);
   return lpj;
 }
 

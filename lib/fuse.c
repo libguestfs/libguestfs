@@ -47,7 +47,6 @@
 #endif
 
 #include "cloexec.h"
-#include "glthread/lock.h"
 #include "hash.h"
 #include "hash-pjw.h"
 
@@ -71,7 +70,7 @@ static const struct guestfs_xattr_list *xac_lookup (guestfs_h *, const char *pat
 static const char *rlc_lookup (guestfs_h *, const char *pathname);
 
 /* This lock protects access to g->localmountpoint. */
-gl_lock_define_initialized (static, mount_local_lock);
+static pthread_mutex_t mount_local_lock = PTHREAD_MUTEX_INITIALIZER;
 
 #define DECL_G() guestfs_h *g = fuse_get_context()->private_data
 #define DEBUG_CALL(fs,...)					\
@@ -965,9 +964,10 @@ guestfs_impl_mount_local (guestfs_h *g, const char *localmountpoint,
   int fd;
 
   /* You can only mount each handle in one place in one thread. */
-  gl_lock_lock (mount_local_lock);
-  t = g->localmountpoint;
-  gl_lock_unlock (mount_local_lock);
+  {
+    ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&mount_local_lock);
+    t = g->localmountpoint;
+  }
   if (t) {
     error (g, _("filesystem is already mounted in another thread"));
     return -1;
@@ -1041,9 +1041,8 @@ guestfs_impl_mount_local (guestfs_h *g, const char *localmountpoint,
   debug (g, "%s: leaving fuse_mount_local", __func__);
 
   /* Set g->localmountpoint in the handle. */
-  gl_lock_lock (mount_local_lock);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&mount_local_lock);
   g->localmountpoint = safe_strdup (g, localmountpoint);
-  gl_lock_unlock (mount_local_lock);
 
   return 0;
 }
@@ -1053,9 +1052,10 @@ guestfs_impl_mount_local_run (guestfs_h *g)
 {
   int r, mounted;
 
-  gl_lock_lock (mount_local_lock);
-  mounted = g->localmountpoint != NULL;
-  gl_lock_unlock (mount_local_lock);
+  {
+    ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&mount_local_lock);
+    mounted = g->localmountpoint != NULL;
+  }
 
   if (!mounted) {
     error (g, _("you must call guestfs_mount_local first"));
@@ -1084,10 +1084,9 @@ guestfs_impl_mount_local_run (guestfs_h *g)
   debug (g, "%s: leaving fuse_loop", __func__);
 
   guestfs_int_free_fuse (g);
-  gl_lock_lock (mount_local_lock);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&mount_local_lock);
   free (g->localmountpoint);
   g->localmountpoint = NULL;
-  gl_lock_unlock (mount_local_lock);
 
   /* By inspection, I found that fuse_loop only returns 0 or -1, but
    * don't rely on this in future.
@@ -1122,12 +1121,13 @@ guestfs_impl_umount_local (guestfs_h *g,
   /* Make a local copy of g->localmountpoint.  It could be freed from
    * under us by another thread, except when we are holding the lock.
    */
-  gl_lock_lock (mount_local_lock);
-  if (g->localmountpoint)
-    localmountpoint = safe_strdup (g, g->localmountpoint);
-  else
-    localmountpoint = NULL;
-  gl_lock_unlock (mount_local_lock);
+  {
+    ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&mount_local_lock);
+    if (g->localmountpoint)
+      localmountpoint = safe_strdup (g, g->localmountpoint);
+    else
+      localmountpoint = NULL;
+  }
 
   if (!localmountpoint) {
     error (g, _("no filesystem is mounted"));

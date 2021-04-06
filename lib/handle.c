@@ -31,8 +31,6 @@
 #include <libxml/parser.h>
 #include <libxml/xmlversion.h>
 
-#include "glthread/lock.h"
-#include "glthread/tls.h"
 #include "ignore-value.h"
 #include "c-ctype.h"
 #include "getprogname.h"
@@ -44,11 +42,11 @@
 static int shutdown_backend (guestfs_h *g, int check_for_errors);
 static void close_handles (void);
 
-gl_lock_define_initialized (static, handles_lock);
+static pthread_mutex_t handles_lock = PTHREAD_MUTEX_INITIALIZER;
 static guestfs_h *handles = NULL;
 static int atexit_handler_set = 0;
 
-gl_lock_define_initialized (static, init_lock);
+static pthread_mutex_t init_lock = PTHREAD_MUTEX_INITIALIZER;
 
 static void init_libguestfs (void) __attribute__((constructor));
 
@@ -61,7 +59,7 @@ static void init_libguestfs (void) __attribute__((constructor));
 static void
 init_libguestfs (void)
 {
-  gl_lock_lock (init_lock);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&init_lock);
 
 #ifdef HAVE_LIBVIRT
   virInitialize ();
@@ -69,8 +67,6 @@ init_libguestfs (void)
 
   xmlInitParser ();
   LIBXML_TEST_VERSION;
-
-  gl_lock_unlock (init_lock);
 }
 
 guestfs_h *
@@ -83,18 +79,23 @@ guestfs_h *
 guestfs_create_flags (unsigned flags, ...)
 {
   guestfs_h *g;
+  pthread_mutexattr_t attr;
 
   g = calloc (1, sizeof (*g));
   if (!g) return NULL;
 
-  gl_recursive_lock_init (g->lock);
-  gl_lock_init (g->error_data_list_lock);
+  /* The per-handle lock is recursive. */
+  pthread_mutexattr_init (&attr);
+  pthread_mutexattr_settype (&attr, PTHREAD_MUTEX_RECURSIVE);
+  pthread_mutex_init (&g->lock, &attr);
+
+  pthread_mutex_init (&g->error_data_list_lock, NULL);
 
   g->state = CONFIG;
 
   g->conn = NULL;
 
-  gl_tls_key_init (g->error_data, NULL);
+  pthread_key_create (&g->error_data, NULL);
   g->abort_cb = abort;
 
   g->recovery_proc = 1;
@@ -152,14 +153,13 @@ guestfs_create_flags (unsigned flags, ...)
     g->close_on_exit = true;
 
     /* Link the handles onto a global list. */
-    gl_lock_lock (handles_lock);
+    ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&handles_lock);
     g->next = handles;
     handles = g;
     if (!atexit_handler_set) {
       atexit (close_handles);
       atexit_handler_set = 1;
     }
-    gl_lock_unlock (handles_lock);
   }
 
   debug (g, "create: flags = %u, handle = %p, program = %s",
@@ -176,9 +176,9 @@ guestfs_create_flags (unsigned flags, ...)
   free (g->hv);
   free (g->append);
   guestfs_int_free_error_data_list (g);
-  gl_tls_key_destroy (g->error_data);
-  gl_lock_destroy (g->error_data_list_lock);
-  gl_recursive_lock_destroy (g->lock);
+  pthread_key_delete (g->error_data);
+  pthread_mutex_destroy (&g->error_data_list_lock);
+  pthread_mutex_destroy (&g->lock);
   free (g);
   return NULL;
 }
@@ -329,7 +329,6 @@ guestfs_close (guestfs_h *g)
 {
   struct hv_param *hp, *hp_next;
   guestfs_h **gg;
-  int r;
 
   if (g->state == NO_HANDLE) {
     /* Not safe to call ANY callbacks here, so ... */
@@ -339,11 +338,10 @@ guestfs_close (guestfs_h *g)
 
   /* Remove the handle from the handles list. */
   if (g->close_on_exit) {
-    gl_lock_lock (handles_lock);
+    ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&handles_lock);
     for (gg = &handles; *gg != g; gg = &(*gg)->next)
       ;
     *gg = g->next;
-    gl_lock_unlock (handles_lock);
   }
 
   if (g->trace) {
@@ -409,22 +407,8 @@ guestfs_close (guestfs_h *g)
   guestfs_int_free_string_list (g->backend_settings);
   free (g->append);
   guestfs_int_free_error_data_list (g);
-  gl_tls_key_destroy (g->error_data);
-  r = glthread_recursive_lock_destroy (&g->lock);
-  if (r != 0) {
-    /* If pthread_mutex_destroy returns 16 (EBUSY), this indicates
-     * that the lock is held somewhere.  That means a programming
-     * error if the main program is using threads.
-     */
-    errno = r;
-    perror ("guestfs_close: g->lock");
-    /* While we're debugging locks in libguestfs I want this to fail
-     * noisily.  Remove this later since there are valid times when
-     * this might fail such as if the program exits during a
-     * libguestfs operation.
-     */
-    abort ();
-  }
+  pthread_key_delete (g->error_data);
+  pthread_mutex_destroy (&g->lock);
   free (g);
 }
 

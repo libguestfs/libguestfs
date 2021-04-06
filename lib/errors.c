@@ -126,7 +126,7 @@ guestfs_int_free_error_data_list (guestfs_h *g)
 {
   struct error_data *p, *next_p;
 
-  gl_lock_lock (g->error_data_list_lock);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->error_data_list_lock);
 
   for (p = g->error_data_list; p != NULL; p = next_p) {
     next_p = p->next;
@@ -134,8 +134,6 @@ guestfs_int_free_error_data_list (guestfs_h *g)
   }
 
   g->error_data_list = NULL;
-
-  gl_lock_unlock (g->error_data_list_lock);
 }
 
 /* Get thread-specific error_data struct.  Create it if necessary. */
@@ -144,7 +142,7 @@ get_error_data (guestfs_h *g)
 {
   struct error_data *ret;
 
-  ret = gl_tls_get (g->error_data);
+  ret = pthread_getspecific (g->error_data);
 
   /* Not allocated yet for this thread, so allocate one. */
   if (ret == NULL) {
@@ -159,15 +157,16 @@ get_error_data (guestfs_h *g)
      * associated with this handle, so we can free them when the
      * handle is closed.
      */
-    gl_lock_lock (g->error_data_list_lock);
-    ret->next = g->error_data_list;
-    g->error_data_list = ret;
-    gl_lock_unlock (g->error_data_list_lock);
+    {
+      ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->error_data_list_lock);
+      ret->next = g->error_data_list;
+      g->error_data_list = ret;
+    }
 
     /* Set the TLS to point to the struct.  This is safe because we
      * should have acquired the handle lock.
      */
-    gl_tls_set (g->error_data, ret);
+    pthread_setspecific (g->error_data, ret);
   }
 
   return ret;
@@ -176,14 +175,14 @@ get_error_data (guestfs_h *g)
 const char *
 guestfs_last_error (guestfs_h *g)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
   return get_error_data (g)->last_error;
 }
 
 int
 guestfs_last_errno (guestfs_h *g)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
   return get_error_data (g)->last_errnum;
 }
 
@@ -347,14 +346,14 @@ guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)
 void
 guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb cb)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
   g->abort_cb = cb;
 }
 
 guestfs_abort_cb
 guestfs_get_out_of_memory_handler (guestfs_h *g)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
   return g->abort_cb;
 }
 
@@ -362,7 +361,7 @@ void
 guestfs_set_error_handler (guestfs_h *g,
                            guestfs_error_handler_cb cb, void *data)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
   struct error_data *error_data;
 
   error_data = get_error_data (g);
@@ -373,7 +372,7 @@ guestfs_set_error_handler (guestfs_h *g,
 guestfs_error_handler_cb
 guestfs_get_error_handler (guestfs_h *g, void **data_rtn)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
   struct error_data *error_data = get_error_data (g);
 
   if (data_rtn) *data_rtn = error_data->error_cb_data;
@@ -384,7 +383,7 @@ void
 guestfs_push_error_handler (guestfs_h *g,
                             guestfs_error_handler_cb cb, void *data)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
   struct error_data *error_data;
   struct error_cb_stack *old_stack;
 
@@ -401,7 +400,7 @@ guestfs_push_error_handler (guestfs_h *g,
 void
 guestfs_pop_error_handler (guestfs_h *g)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
   struct error_data *error_data;
   struct error_cb_stack *next_stack;
 

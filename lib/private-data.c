@@ -81,7 +81,7 @@ freer (void *x)
 void
 guestfs_set_private (guestfs_h *g, const char *key, void *data)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
   struct pda_entry *new_entry, *old_entry, *entry;
 
   if (g->pda == NULL) {
@@ -106,7 +106,7 @@ guestfs_set_private (guestfs_h *g, const char *key, void *data)
 void *
 guestfs_get_private (guestfs_h *g, const char *key)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
 
   if (g->pda == NULL)
     return NULL;                /* no keys have been set */
@@ -123,7 +123,7 @@ guestfs_get_private (guestfs_h *g, const char *key)
 void *
 guestfs_first_private (guestfs_h *g, const char **key_rtn)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
 
   if (g->pda == NULL)
     return NULL;
@@ -144,7 +144,7 @@ guestfs_first_private (guestfs_h *g, const char **key_rtn)
 void *
 guestfs_next_private (guestfs_h *g, const char **key_rtn)
 {
-  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);
 
   if (g->pda == NULL)
     return NULL;

@@ -27,12 +27,15 @@
 #define GUESTFS_INTERNAL_H_
 
 #include <stdbool.h>
+#include <assert.h>
 
 #include <rpc/types.h>  /* Needed on libc's different than glibc. */
 #include <rpc/xdr.h>
 
 #define PCRE2_CODE_UNIT_WIDTH 8
 #include <pcre2.h>
+
+#include <pthread.h>
 
 /* Minimum required version of libvirt for the libvirt backend.
  *
@@ -53,8 +56,6 @@
 #endif
 #endif
 
-#include "glthread/lock.h"
-#include "glthread/tls.h"
 #include "hash.h"
 
 #include "guestfs-utils.h"
@@ -79,22 +80,29 @@
 #define TRACE4(name, arg1, arg2, arg3, arg4)
 #endif
 
+/* https://stackoverflow.com/a/1597129 */
+#define XXUNIQUE_VAR(name, line) name ## line
+#define XUNIQUE_VAR(name, line) XXUNIQUE_VAR (name, line)
+#define UNIQUE_VAR(name) XUNIQUE_VAR (name, __LINE__)
+
 /* Acquire and release the per-handle lock.  Note the release happens
  * in an __attribute__((cleanup)) handler, making it simple to write
  * bug-free code.
  */
-#define ACQUIRE_LOCK_FOR_CURRENT_SCOPE(g) \
-  CLEANUP_GL_RECURSIVE_LOCK_UNLOCK gl_recursive_lock_t *_lock = &(g)->lock; \
-  gl_recursive_lock_lock (*_lock)
+#define ACQUIRE_LOCK_FOR_CURRENT_SCOPE(mutex)                           \
+  CLEANUP_MUTEX_UNLOCK pthread_mutex_t *UNIQUE_VAR(_lock) = mutex;      \
+  do {                                                                  \
+    int _r = pthread_mutex_lock (UNIQUE_VAR(_lock));                    \
+    assert (!_r);                                                       \
+  } while (0)
 
-#define CLEANUP_GL_RECURSIVE_LOCK_UNLOCK \
-  __attribute__((cleanup(guestfs_int_cleanup_gl_recursive_lock_unlock)))
+#define CLEANUP_MUTEX_UNLOCK __attribute__((cleanup (cleanup_mutex_unlock)))
 
 static inline void
-guestfs_int_cleanup_gl_recursive_lock_unlock (void *ptr)
+cleanup_mutex_unlock (pthread_mutex_t **ptr)
 {
-  gl_recursive_lock_t *lockp = * (gl_recursive_lock_t **) ptr;
-  gl_recursive_lock_unlock (*lockp);
+  int r = pthread_mutex_unlock (*ptr);
+  assert (!r);
 }
 
 /* Default and minimum appliance memory size. */
@@ -389,7 +397,7 @@ struct guestfs_h {
   /* Lock acquired when entering any public guestfs_* function to
    * protect the handle.
    */
-  gl_recursive_lock_define (, lock);
+  pthread_mutex_t lock;
 
   /**** Configuration of the handle. ****/
   bool verbose;                 /* Debugging. */
@@ -459,12 +467,12 @@ struct guestfs_h {
   char *int_cachedir; /* $LIBGUESTFS_CACHEDIR or guestfs_set_cachedir or NULL */
 
   /* Error handler, plus stack of old error handlers. */
-  gl_tls_key_t error_data;
+  pthread_key_t error_data;
 
   /* Linked list of error_data structures allocated for this handle,
    * plus a mutex to protect the linked list.
    */
-  gl_lock_define (, error_data_list_lock);
+  pthread_mutex_t error_data_list_lock;
   struct error_data *error_data_list;
 
   /* Out of memory error handler. */

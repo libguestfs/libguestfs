@@ -1704,7 +1704,7 @@ and generate_client_actions actions () =
         ~dll_public:true
         c_name style;
     pr "{\n";
-    pr "  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);\n";
+    pr "  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);\n";
 
     handle_null_optargs optargs c_name;
 
@@ -1791,7 +1791,7 @@ and generate_client_actions actions () =
         c_name style;
 
     pr "{\n";
-    pr "  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);\n";
+    pr "  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);\n";
 
     handle_null_optargs optargs c_name;
 
@@ -2137,7 +2137,7 @@ and generate_client_actions_variants () =
       ~handle:"g" ~prefix:"guestfs_" ~suffix:"_va" ~optarg_proto:VA
       c_name style;
     pr "{\n";
-    pr "  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);\n";
+    pr "  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);\n";
     pr "  struct guestfs_%s_argv optargs_s;\n" c_name;
     pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" c_name;
     pr "  int i;\n";
@@ -2195,7 +2195,7 @@ and generate_client_actions_variants () =
       ~handle:"g" ~prefix:"guestfs_"
       name (ret, args, []);
     pr "{\n";
-    pr "  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);\n";
+    pr "  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&g->lock);\n";
     pr "  struct guestfs_%s_opts_argv optargs_s = { .bitmask = 0 };\n" name;
     pr "  struct guestfs_%s_opts_argv *optargs = &optargs_s;\n" name;
     pr "\n";
