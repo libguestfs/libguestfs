@@ -37,6 +37,13 @@
 
 #include <pthread.h>
 
+#include "guestfs-utils.h"
+
+/* Defined in gnulib "hash.h", but we explicitly define it here to
+ * avoid having to include that header everywhere.
+ */
+typedef struct hash_table Hash_table;
+
 /* Minimum required version of libvirt for the libvirt backend.
  *
  * This is also checked at runtime because you can dynamically link
@@ -55,10 +62,6 @@
 #define HAVE_LIBVIRT_BACKEND
 #endif
 #endif
-
-#include "hash.h"
-
-#include "guestfs-utils.h"
 
 #if ENABLE_PROBES
 #include <sys/sdt.h>

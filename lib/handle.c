@@ -31,6 +31,7 @@
 #include <libxml/parser.h>
 #include <libxml/xmlversion.h>
 
+#include "hash.h"
 #include "ignore-value.h"
 #include "c-ctype.h"
 #include "getprogname.h"
