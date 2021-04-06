@@ -24,8 +24,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <limits.h>
-
-#include "areadlink.h"
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "daemon.h"
 #include "actions.h"
@@ -47,20 +47,36 @@ do_internal_readlinklist (const char *path, char *const *names)
   }
 
   for (i = 0; names[i] != NULL; ++i) {
+    CLEANUP_FREE char *link = NULL;
+    struct stat statbuf;
+    size_t n;
+    ssize_t r;
+
     /* Because of the way this function is intended to be used,
      * we actually expect to see errors here, and they are not fatal.
      */
-    CLEANUP_FREE char *link = areadlinkat (fd_cwd, names[i]);
 
-    if (link != NULL) {
-      if (add_string (&ret, link) == -1) {
-      add_string_failed:
+    if (fstatat (fd_cwd, names[i], &statbuf, AT_SYMLINK_NOFOLLOW) == -1) {
+    add_empty_string:
+      if (add_string (&ret, "") == -1) {
         close (fd_cwd);
         return NULL;
       }
-    } else {
-      if (add_string (&ret, "") == -1)
-        goto add_string_failed;
+    }
+    if (!S_ISLNK (statbuf.st_mode))
+      goto add_empty_string;
+    n = statbuf.st_size;
+    link = malloc (n+1);
+    if (link == NULL)
+      goto add_empty_string;
+    r = readlinkat (fd_cwd, names[i], link, n);
+    if (r == -1 || r != n)
+      goto add_empty_string;
+    link[n] = '\0';
+
+    if (add_string (&ret, link) == -1) {
+      close (fd_cwd);
+      return NULL;
     }
   }
 

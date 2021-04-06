@@ -26,13 +26,8 @@ SUBDIRS = common/mlstdutils generator
 # tests run.
 SUBDIRS += test-data
 
-# Gnulib - must be built and tested before the library.
-SUBDIRS += gnulib/lib
-if ENABLE_GNULIB_TESTS
-SUBDIRS += gnulib/tests
-endif
-
 # Basic source for the library.
+SUBDIRS += gnulib/lib
 SUBDIRS += common/errnostring common/protocol common/qemuopts
 SUBDIRS += common/utils
 SUBDIRS += common/structs
@@ -126,12 +121,9 @@ EXTRA_DIST = \
 	.gitignore \
 	.lvimrc \
 	.mailmap \
-	bootstrap \
 	bugs-in-changelog.sh \
-	autogen.sh \
 	bindtests \
 	build-aux/config.rpath \
-	cfg.mk \
 	check-mli.sh \
 	common/.gitignore \
 	common/README \
@@ -234,7 +226,7 @@ BUGS: configure.ac
 docs/C_SOURCE_FILES: configure.ac
 	rm -f $@ $@-t
 	find $(DIST_SUBDIRS) -name '*.[ch]' | \
-	grep -v -E '^(builder/index-parse\.|builder/index-scan\.|examples/|gnulib/|gobject/|java/com_redhat_et_libguestfs|perl/|php/extension/config\.h|ruby/ext/guestfs/extconf\.h|tests/|test-data/|bundled/)' | \
+	grep -v -E '^(builder/index-parse\.|builder/index-scan\.|examples/|gobject/|java/com_redhat_et_libguestfs|perl/|php/extension/config\.h|ruby/ext/guestfs/extconf\.h|tests/|test-data/|bundled/)' | \
 	grep -v -E '/(guestfs|rc)_protocol\.' | \
 	grep -v -E '.*/errnostring\.' | \
 	grep -v -E '.*-gperf\.' | \
@@ -247,7 +239,7 @@ po/POTFILES: configure.ac
 	rm -f $@ $@-t
 	cd $(srcdir); \
 	find $(DIST_SUBDIRS) -name '*.c' | \
-	grep -v -E '^(examples|gnulib|perl/(blib|examples)|po-docs|tests|test-data|bundled)/' | \
+	grep -v -E '^(examples|perl/(blib|examples)|po-docs|tests|test-data|bundled)/' | \
 	grep -v -E '/((guestfs|rc)_protocol\.c|dummy\.c)$$' | \
 	grep -v -E '^python/utils\.c$$' | \
 	grep -v -E '^perl/lib/Sys/Guestfs\.c$$' | \
@@ -490,7 +482,6 @@ maintainer-check-extra-dist:
 	  grep -v '^common/mlxml/' | \
 	  grep -v '^intltool-.*\.in' | \
 	  grep -v '^\.gitmodules' | \
-	  grep -v '^\.gnulib' | \
 	  sort > tmp/gitfiles
 	comm -13 tmp/tarfiles tmp/gitfiles > tmp/comm-out
 	@echo Checking for differences between EXTRA_DIST and git ...

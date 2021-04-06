@@ -24,114 +24,27 @@ AC_PROG_CC_STDC
 AC_PROG_INSTALL
 AC_PROG_CPP
 
-AC_ARG_ENABLE([werror],
-    [AS_HELP_STRING([--enable-werror],
-                    [turn GCC warnings into errors (for developers)])],
-    [case $enableval in
-     yes|no) ;;
-     *)      AC_MSG_ERROR([bad value $enableval for werror option]) ;;
-     esac
-     gl_gcc_werror=$enableval],
-    [gl_gcc_werror=no]
-)
-
-if test "$gl_gcc_werror" = yes; then
-    gl_WARN_ADD([-Werror], [WERROR_CFLAGS])
-    AC_SUBST([WERROR_CFLAGS])
-fi
-
-dnl This, $nw, is the list of warnings we disable.
-nw=
-nw="$nw -Waggregate-return"          # anachronistic
-nw="$nw -Wundef"                     # Warns on '#if GNULIB_FOO' etc in gnulib
-nw="$nw -Wtraditional"               # Warns on #elif which we use often
-nw="$nw -Wsystem-headers"            # Don't let system headers trigger warnings
-nw="$nw -Wpadded"                    # Our structs are not padded
-nw="$nw -Wvla"                       # Allow variable length arrays.
-nw="$nw -Wvla-larger-than=4031"
-nw="$nw -Winline"                    # inline functions in Python binding
-nw="$nw -Wshadow"                    # Not useful, as it applies to global vars
-nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
-                                     # was not possible, safe to ignore
-nw="$nw -Wstack-protector"           # Useless warning when stack protector
-                                     # cannot being used in a function.
-nw="$nw -Wcast-align"                # Useless warning on arm >= 7, intel
-nw="$nw -Wabi"                       # Broken in GCC 8.1.
-dnl things I might fix soon:
-nw="$nw -Wpacked"                    # Allow attribute((packed)) on structs
-nw="$nw -Wlong-long"                 # Allow long long since it's required
-                                     # by Python, Ruby and xstrtoll.
-nw="$nw -Wsuggest-attribute=pure"    # Don't suggest pure functions.
-nw="$nw -Wsuggest-attribute=const"   # Don't suggest const functions.
-nw="$nw -Wsuggest-attribute=malloc"  # Don't suggest malloc functions.
-nw="$nw -Wunsuffixed-float-constants" # Don't care about these.
-nw="$nw -Wswitch-default"            # This warning is actively dangerous.
-nw="$nw -Woverlength-strings"        # Who cares about stupid ISO C99 limit.
-
-gl_MANYWARN_ALL_GCC([ws])
-gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
-for w in $ws; do
-    gl_WARN_ADD([$w])
-done
-
-dnl Normally we disable warnings in $nw above.  However $nw only
-dnl filters out exact matching warning strings from a list inside
-dnl gnulib (see m4/manywarnings.m4).  So we need to explicitly list a
-dnl few disabled warnings below.
-
-dnl Unused parameters are not a bug.
-gl_WARN_ADD([-Wno-unused-parameter])
-
-dnl Missing field initializers is not a bug in C.
-gl_WARN_ADD([-Wno-missing-field-initializers])
-
-dnl Display the name of the warning option with the warning.
-gl_WARN_ADD([-fdiagnostics-show-option])
-
-dnl Now some warnings we want to enable and/or customize ...
-
-dnl Warn about large stack frames.  This does not include alloca and
-dnl variable length arrays.  Coverity warns about 10000 byte frames.
-gl_WARN_ADD([-Wframe-larger-than=6000])
-
-dnl Warn about large stack frames, including estimates for alloca
-dnl and variable length arrays.
-gl_WARN_ADD([-Wstack-usage=10000])
-
-dnl Warn about implicit fallthrough in case statements, but suppress
-dnl the warning if /*FALLTHROUGH*/ comment is used.
-gl_WARN_ADD([-Wimplicit-fallthrough=4])
-
-dnl GCC level 2 gives incorrect warnings, so use level 1.
-gl_WARN_ADD([-Wformat-truncation=1])
-
-dnl GCC 9 at level 2 gives apparently bogus errors when %.*s is used.
-gl_WARN_ADD([-Wformat-overflow=1])
-
-dnl GCC < 11 gives warnings when disabling GCC 11 warnings.
-gl_WARN_ADD([-Wno-pragmas])
-
-AC_SUBST([WARN_CFLAGS])
-
-NO_SNV_CFLAGS=
-gl_COMPILER_OPTION_IF([-Wno-shift-negative-value],[
-    NO_SNV_CFLAGS="-Wno-shift-negative-value"
-])
-AC_SUBST([NO_SNV_CFLAGS])
-
-NO_UM_CFLAGS=
-gl_COMPILER_OPTION_IF([-Wno-unused-macros],[
-    NO_UM_CFLAGS="-Wno-unused-macros"
-])
-AC_SUBST([NO_UM_CFLAGS])
-
-AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
-AC_DEFINE([GNULIB_PORTCHECK], [1], [Enable some gnulib portability checks.])
-
 AC_C_PROTOTYPES
 test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
 
 AM_PROG_CC_C_O
+
+AC_ARG_ENABLE([werror],
+    [AS_HELP_STRING([--enable-error],
+                    [turn on lots of GCC warnings (for developers)])],
+     [case $enableval in
+      yes|no) ;;
+      *)      AC_MSG_ERROR([bad value $enableval for werror option]) ;;
+      esac
+      gcc_warnings=$enableval],
+      [gcc_warnings=no]
+)
+WARN_CFLAGS="-Wall"
+AC_SUBST([WARN_CFLAGS])
+if test "x$gcc_warnings" = "xyes"; then
+    WERROR_CFLAGS="-Werror"
+fi
+AC_SUBST([WERROR_CFLAGS])
 
 # Provide a global place to set CFLAGS.  (Note that setting AM_CFLAGS
 # is no use because it doesn't override target_CFLAGS).
@@ -204,16 +117,6 @@ The code will still compile, but is likely to leak memory and other
 resources when it runs.])])
 dnl restore CFLAGS
 CFLAGS="${acx_nbdkit_save_CFLAGS}"
-
-dnl Should we run the gnulib tests?
-AC_MSG_CHECKING([if we should run the GNUlib tests])
-AC_ARG_ENABLE([gnulib-tests],
-    [AS_HELP_STRING([--disable-gnulib-tests],
-        [disable running GNU Portability library tests @<:@default=yes@:>@])],
-        [ENABLE_GNULIB_TESTS="$enableval"],
-        [ENABLE_GNULIB_TESTS=yes])
-AM_CONDITIONAL([ENABLE_GNULIB_TESTS],[test "x$ENABLE_GNULIB_TESTS" = "xyes"])
-AC_MSG_RESULT([$ENABLE_GNULIB_TESTS])
 
 dnl Define this so that include/guestfs.h is included
 dnl instead of the possibly installed <guestfs.h>.  This is

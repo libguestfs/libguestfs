@@ -33,6 +33,7 @@
 #include <signal.h>
 #include <errno.h>
 #include <error.h>
+#include <limits.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <locale.h>
@@ -52,7 +53,6 @@
 #include "progress.h"
 
 #include "c-ctype.h"
-#include "closeout.h"
 #include "ignore-value.h"
 #include "getprogname.h"
 
@@ -178,9 +178,6 @@ usage (int status)
 int
 main (int argc, char *argv[])
 {
-  /* Initialize gnulib closeout module. */
-  atexit (close_stdout);
-
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);

@@ -30,6 +30,7 @@
 #include <error.h>
 #include <getopt.h>
 #include <signal.h>
+#include <limits.h>
 #include <locale.h>
 #include <libintl.h>
 

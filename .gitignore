@@ -205,8 +205,6 @@ Makefile.in
 /generator/stamp-generator
 /.gitattributes
 /.git-module-status
-/gnulib
-/GNUmakefile
 /gobject/bindtests.js
 /gobject/Guestfs-1.0.gir
 /gobject/Guestfs-1.0.typelib
@@ -266,7 +264,6 @@ Makefile.in
 /lua/guestfs.so
 /lua/lua-guestfs.c
 /m4/ChangeLog
-/m4/gnulib-cache.m4
 /m4/intmax.m4
 /m4/libtool.m4
 /m4/lt~obsolete.m4

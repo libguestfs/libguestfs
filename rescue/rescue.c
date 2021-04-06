@@ -30,6 +30,7 @@
 #include <termios.h>
 #include <poll.h>
 #include <locale.h>
+#include <limits.h>
 #include <assert.h>
 #include <libintl.h>
 
@@ -37,7 +38,6 @@
 #include "getprogname.h"
 #include "ignore-value.h"
 #include "nonblocking.h"
-#include "xvasprintf.h"
 
 #include "guestfs.h"
 #include "guestfs-utils.h"
@@ -364,9 +364,12 @@ main (int argc, char *argv[])
   /* Kernel command line must include guestfs_rescue=1 (see
    * appliance/init) as well as other options.
    */
-  append_full = xasprintf ("guestfs_rescue=1%s%s",
-                           append ? " " : "",
-                           append ? append : "");
+  if (asprintf (&append_full, "guestfs_rescue=1%s%s",
+                append ? " " : "",
+                append ? append : "") == -1) {
+    perror ("asprintf");
+    exit (EXIT_FAILURE);
+  }
   if (guestfs_set_append (g, append_full) == -1)
     exit (EXIT_FAILURE);
   free (append_full);

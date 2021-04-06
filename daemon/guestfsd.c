@@ -49,7 +49,6 @@
 
 #include "c-ctype.h"
 #include "ignore-value.h"
-#include "sockets.h"
 
 #include "daemon.h"
 

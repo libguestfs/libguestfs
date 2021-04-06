@@ -14,7 +14,7 @@ L<https://github.com/libguestfs/libguestfs>
 Large amounts of boilerplate code in libguestfs (RPC, bindings,
 documentation) are generated.  This means that many source files will
 appear to be missing from a straightforward git checkout.  You have to
-run the generator (C<./autogen.sh && make -C generator>) in order to
+run the generator (C<./configure && make -C generator>) in order to
 create those files.
 
 Libguestfs uses an autotools-based build system, with the main files
@@ -249,11 +249,6 @@ large amounts of boilerplate C code for things like RPC and bindings.
 =item F<get-kernel>
 
 L<virt-get-kernel(1)> command and documentation.
-
-=item F<gnulib>
-
-Gnulib is used as a portability library.  A copy of gnulib is included
-under here.
 
 =item F<inspector>
 
@@ -799,7 +794,7 @@ the libguestfs source tree must be the same.
 
 Do:
 
- ./autogen.sh
+ ./configure
  make clean ||:
  make
  make installcheck
@@ -921,7 +916,7 @@ command, the list of objects and the C<-cclib> libraries in the
 correct order otherwise.
 
  virt_customize_LINK = \
-     $(top_builddir)/ocaml-link.sh -cclib '-lutils -lgnu' -- ...
+     $(top_builddir)/ocaml-link.sh -cclib '-lutils' -- ...
 
 The actual rules, which you can examine in F<customize/Makefile.am>, are a
 little bit more complicated than this because they have to handle:
@@ -1026,10 +1021,6 @@ Check C<./configure --without-libvirt> works.
 =item *
 
 Finalize F<guestfs-release-notes.pod>
-
-=item *
-
-Consider updating gnulib to latest upstream version.
 
 =item *
 

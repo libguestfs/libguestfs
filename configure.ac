@@ -85,11 +85,6 @@ PACKAGE_VERSION_FULL="libguestfs_major.libguestfs_minor.libguestfs_release${libg
 AC_DEFINE_UNQUOTED([PACKAGE_VERSION_FULL],["$PACKAGE_VERSION_FULL"],[Full version string.])
 AC_SUBST([PACKAGE_VERSION_FULL])
 
-dnl Early gnulib initialization.
-HEADING([Configuring Gnulib])
-gl_EARLY
-gl_INIT
-
 dnl Check for external programs required to either build or run
 dnl libguestfs.
 HEADING([Checking for external programs])
@@ -242,7 +237,6 @@ AC_CONFIG_FILES([Makefile
                  fuse/Makefile
                  generator/Makefile
                  gnulib/lib/Makefile
-                 gnulib/tests/Makefile
                  gobject/libguestfs-gobject-1.0.pc
                  gobject/Makefile
                  golang/Makefile

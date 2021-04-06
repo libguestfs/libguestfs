@@ -402,7 +402,8 @@ git.
  git clone https://github.com/libguestfs/libguestfs
  cd libguestfs
  git submodule update --init
- CFLAGS=-fPIC ./autogen.sh
+ autoreconf -i
+ ./configure CFLAGS=-fPIC
  make
 
 =head1 BUILDING FROM TARBALLS
@@ -497,11 +498,11 @@ are ignored by git.  These files can contain local configuration or
 scripts that you need to build libguestfs.
 
 I have a file called F<localconfigure> which is a simple wrapper
-around F<autogen.sh> containing local configure customizations that I
+around F<configure> containing local configure customizations that I
 need.  It looks like this:
 
  . localenv
- ./autogen.sh \
+ ./configure.sh \
      -C \
      --enable-werror \
      "$@"
@@ -569,11 +570,6 @@ OCaml tools.
 =item B<--disable-fuse>
 
 Disable FUSE support in the API and the L<guestmount(1)> tool.
-
-=item B<--disable-gnulib-tests>
-
-On some platforms the GNUlib test suite can be flaky.  This disables
-it, since errors in the GNUlib test suite are often not important.
 
 =item B<--disable-static>
 
