@@ -480,7 +480,7 @@ func return_hashtable (argv **C.char) map[string]string {
         pr "    return C.GoString (r), nil\n"
       | RConstOptString _ ->
         pr "    if r != nil {\n";
-        pr "        r_s := string (*r)\n";
+        pr "        r_s := string (rune (*r))\n";
         pr "        return &r_s, nil\n";
         pr "    } else {\n";
         pr "        return nil, nil\n";
