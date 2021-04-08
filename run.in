@@ -178,8 +178,6 @@ export LUA_CPATH
 
 # For golang.
 export GOLANG="@GOLANG@"
-prepend GOPATH "$b/golang"
-export GOPATH
 if [ -z "$CGO_CFLAGS" ]; then
     CGO_CFLAGS="-I$s/include"
 else

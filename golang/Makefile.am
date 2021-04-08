@@ -26,27 +26,20 @@ source_files = \
 
 generator_built = \
 	$(source_files) \
-	bindtests.go
+	bindtests/bindtests.go
 
 EXTRA_DIST = \
 	src/libguestfs.org/guestfs/.gitignore \
 	$(generator_built) \
+	bindtests/go.mod \
 	config-test.go \
 	run-bindtests \
 	run-tests
 
 if HAVE_GOLANG
 
-golangpkgdir = $(GOROOT)/pkg/$(GOOS)_$(GOARCH)/$(pkg)
-golangsrcdir = $(GOROOT)/src/pkg/$(pkg)
-
-golangpkg_DATA = \
-	pkg/$(GOOS)_$(GOARCH)/$(pkg).a
-
-pkg/$(GOOS)_$(GOARCH)/$(pkg).a: src/$(pkg)/guestfs.go
-	$(top_builddir)/run $(GOLANG) install $(pkg)
-
-golangsrc_DATA = $(source_files)
+all-local: $(source_files)
+	cd src/$(pkg) && $(GOLANG) build
 
 TESTS_ENVIRONMENT = pkg=$(pkg) $(top_builddir)/run $(VG) # --test
 
@@ -55,6 +48,3 @@ TESTS = run-bindtests run-tests
 endif
 
 CLEANFILES += src/$(pkg)/*~
-
-clean-local:
-	rm -rf pkg
