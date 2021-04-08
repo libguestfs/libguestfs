@@ -301,10 +301,9 @@ Makefile.in
 /gobject/guestfs-gobject.3
 /gobject/libguestfs-gobject-1.0.vapi
 /gobject/stamp-guestfs-gobject.pod
-/golang/bindtests.go
+/golang/bindtests/bindtests.go
 /golang/examples/guestfs-golang.3
 /golang/examples/stamp-guestfs-golang.pod
-/golang/pkg
 /haskell/Bindtests
 /haskell/Bindtests.hs
 /haskell/Guestfs010Load

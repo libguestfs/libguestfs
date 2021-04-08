@@ -26,14 +26,6 @@ AS_IF([test "x$enable_golang" != "xno"],[
         AC_MSG_CHECKING([if $GOLANG is usable])
         AS_IF([$GOLANG run $srcdir/golang/config-test.go 2>&AS_MESSAGE_LOG_FD],[
             AC_MSG_RESULT([yes])
-
-            # Substitute some golang environment.
-            GOOS=`$GOLANG env GOOS`
-            GOARCH=`$GOLANG env GOARCH`
-            GOROOT=`$GOLANG env GOROOT`
-            AC_SUBST([GOOS])
-            AC_SUBST([GOARCH])
-            AC_SUBST([GOROOT])
         ],[
             AC_MSG_RESULT([no])
             AC_MSG_WARN([golang ($GOLANG) is installed but not usable])

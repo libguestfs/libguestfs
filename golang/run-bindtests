@@ -18,6 +18,7 @@
 
 set -e
 
-$GOLANG run $srcdir/bindtests.go > bindtests.tmp
-diff -u $srcdir/../bindtests bindtests.tmp
+cd $srcdir/bindtests
+$GOLANG run bindtests.go > bindtests.tmp
+diff -u $srcdir/../../bindtests bindtests.tmp
 rm bindtests.tmp

@@ -301,7 +301,7 @@ Run it from the top source directory using the command
 
   output_to "golang/src/libguestfs.org/guestfs/guestfs.go"
             Golang.generate_golang_go;
-  output_to "golang/bindtests.go"
+  output_to "golang/bindtests/bindtests.go"
             Bindtests.generate_golang_bindtests;
 
   output_to "gobject/bindtests.js"
