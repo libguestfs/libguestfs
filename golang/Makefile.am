@@ -40,7 +40,8 @@ EXTRA_DIST = \
 if HAVE_GOLANG
 
 all-local: $(source_files)
-	-[ $(srcdir) != $(builddir) ] && ln -s $(abs_srcdir)/src $(builddir)/src
+	-[ "$(srcdir)" != "$(builddir)" ] && \
+	    ln -s $(abs_srcdir)/src $(builddir)/src
 	cd src/$(pkg) && \
 	    $(abs_top_builddir)/run $(GOLANG) build
 
