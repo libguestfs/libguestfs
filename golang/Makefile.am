@@ -39,6 +39,7 @@ EXTRA_DIST = \
 if HAVE_GOLANG
 
 all-local: $(source_files)
+	-[ $(srcdir) != $(builddir) ] && ln -s $(abs_srcdir)/src $(builddir)/src
 	cd src/$(pkg) && $(GOLANG) build
 
 TESTS_ENVIRONMENT = pkg=$(pkg) $(top_builddir)/run $(VG) # --test
