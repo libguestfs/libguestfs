@@ -30,6 +30,7 @@ generator_built = \
 
 EXTRA_DIST = \
 	src/libguestfs.org/guestfs/.gitignore \
+	src/libguestfs.org/guestfs/go.mod \
 	$(generator_built) \
 	bindtests/go.mod \
 	config-test.go \
