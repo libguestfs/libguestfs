@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.45.4\n"
+"Project-Id-Version: libguestfs 1.45.5\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-04-03 12:09+0100\n"
+"POT-Creation-Date: 2021-04-09 11:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2547,7 +2547,7 @@ msgstr ""
 msgid "use ‘list-events’ to list event handlers\n"
 msgstr ""
 
-#: fish/fish.c:115 fuse/guestmount.c:103 fuse/guestunmount.c:56
+#: fish/fish.c:115 fuse/guestmount.c:104 fuse/guestunmount.c:57
 #: rescue/rescue.c:80
 #, c-format
 msgid "Try ‘%s --help’ for more information.\n"
@@ -2610,48 +2610,48 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:273
+#: fish/fish.c:270
 #, c-format
 msgid "--listen=PID: PID was not a number: %s"
 msgstr ""
 
-#: fish/fish.c:278
+#: fish/fish.c:275
 #, c-format
 msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
 msgstr ""
 
-#: fish/fish.c:310 fuse/guestmount.c:263 fuse/guestunmount.c:130
+#: fish/fish.c:307 fuse/guestmount.c:264 fuse/guestunmount.c:131
 #: rescue/rescue.c:225 test-tool/test-tool.c:123
 #, c-format
 msgid "unknown long option: %s (%d)"
 msgstr ""
 
-#: fish/fish.c:327
+#: fish/fish.c:324
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 
-#: fish/fish.c:334
+#: fish/fish.c:331
 #, c-format
 msgid "only one -f parameter can be given"
 msgstr ""
 
-#: fish/fish.c:517
+#: fish/fish.c:514
 #, c-format
 msgid "cannot use --listen and --remote options at the same time"
 msgstr ""
 
-#: fish/fish.c:522
+#: fish/fish.c:519
 #, c-format
 msgid "extra parameters on the command line with --listen flag"
 msgstr ""
 
-#: fish/fish.c:525
+#: fish/fish.c:522
 #, c-format
 msgid "cannot use --listen and --file options at the same time"
 msgstr ""
 
-#: fish/fish.c:702
+#: fish/fish.c:699
 #, c-format
 msgid ""
 "\n"
@@ -2664,50 +2664,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:876 fish/fish.c:892
+#: fish/fish.c:873 fish/fish.c:889
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 
-#: fish/fish.c:886
+#: fish/fish.c:883
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr ""
 
-#: fish/fish.c:916
+#: fish/fish.c:913
 #, c-format
 msgid "%s: internal error parsing string at ‘%s’\n"
 msgstr ""
 
-#: fish/fish.c:933
+#: fish/fish.c:930
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr ""
 
-#: fish/fish.c:1009
+#: fish/fish.c:1006
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:1018
+#: fish/fish.c:1015
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr ""
 
-#: fish/fish.c:1083
+#: fish/fish.c:1080
 #, c-format
 msgid "empty command on command line"
 msgstr ""
 
-#: fish/fish.c:1237
+#: fish/fish.c:1234
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:1239
+#: fish/fish.c:1236
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:1250
+#: fish/fish.c:1247
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2716,29 +2716,29 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:1259
+#: fish/fish.c:1256
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:1264
+#: fish/fish.c:1261
 #, c-format
 msgid "%s: command not known: "
 msgstr ""
 
-#: fish/fish.c:1266
+#: fish/fish.c:1263
 #, c-format
 msgid "use 'help --list' to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1268
+#: fish/fish.c:1265
 #, c-format
 msgid "use -h to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1288
+#: fish/fish.c:1285
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2746,36 +2746,36 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1299
+#: fish/fish.c:1296
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1426
+#: fish/fish.c:1423
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr ""
 
-#: fish/fish.c:1758
+#: fish/fish.c:1755
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1764
+#: fish/fish.c:1761
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: fish/fish.c:1778
+#: fish/fish.c:1775
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1797
+#: fish/fish.c:1794
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3196,7 +3196,7 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr ""
 
-#: fuse/guestmount.c:106
+#: fuse/guestmount.c:107
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -3233,47 +3233,47 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:258
+#: fuse/guestmount.c:259
 #, c-format
 msgid "unable to parse --fd option value: %s"
 msgstr ""
 
-#: fuse/guestmount.c:331 rescue/rescue.c:348
+#: fuse/guestmount.c:332 rescue/rescue.c:348
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
 msgstr ""
 
-#: fuse/guestmount.c:336
+#: fuse/guestmount.c:337
 #, c-format
 msgid "%s: error: you must specify either -i at least one -m option.\n"
 msgstr ""
 
-#: fuse/guestmount.c:345
+#: fuse/guestmount.c:346
 #, c-format
 msgid "--live is not compatible with --ro option"
 msgstr ""
 
-#: fuse/guestmount.c:348
+#: fuse/guestmount.c:349
 #, c-format
 msgid "--live is not compatible with -i option"
 msgstr ""
 
-#: fuse/guestmount.c:360
+#: fuse/guestmount.c:361
 #, c-format
 msgid "with --live, you must use exactly one -d option"
 msgstr ""
 
-#: fuse/guestmount.c:363
+#: fuse/guestmount.c:364
 #, c-format
 msgid "--live is not compatible with -a option"
 msgstr ""
 
-#: fuse/guestmount.c:369
+#: fuse/guestmount.c:370
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
 msgstr ""
 
-#: fuse/guestunmount.c:59
+#: fuse/guestunmount.c:60
 #, c-format
 msgid ""
 "%s: clean up a mounted filesystem\n"
@@ -3290,27 +3290,27 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 msgstr ""
 
-#: fuse/guestunmount.c:120
+#: fuse/guestunmount.c:121
 #, c-format
 msgid "cannot parse fd option ‘%s’"
 msgstr ""
 
-#: fuse/guestunmount.c:126
+#: fuse/guestunmount.c:127
 #, c-format
 msgid "cannot parse retries option or value is too large ‘%s’"
 msgstr ""
 
-#: fuse/guestunmount.c:157
+#: fuse/guestunmount.c:158
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem\n"
 msgstr ""
 
-#: fuse/guestunmount.c:207
+#: fuse/guestunmount.c:208
 #, c-format
 msgid "%s: failed to unmount %s: %s\n"
 msgstr ""
 
-#: fuse/guestunmount.c:218
+#: fuse/guestunmount.c:219
 #, c-format
 msgid "%s: %s is not mounted: %s\n"
 msgstr ""
@@ -3692,65 +3692,65 @@ msgstr ""
 msgid "%s: device not found"
 msgstr ""
 
-#: lib/errors.c:425
+#: lib/errors.c:424
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr ""
 
-#: lib/errors.c:453
+#: lib/errors.c:452
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: lib/errors.c:484
+#: lib/errors.c:483
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 
-#: lib/errors.c:487
+#: lib/errors.c:486
 msgid ""
 "guestfs_launch failed.\n"
 "This usually means the libguestfs appliance failed to start or crashed.\n"
 msgstr ""
 
-#: lib/errors.c:500
+#: lib/errors.c:499
 msgid ""
 "appliance closed the connection unexpectedly, see earlier error messages"
 msgstr ""
 
-#: lib/errors.c:504
+#: lib/errors.c:503
 msgid ""
 "appliance closed the connection unexpectedly.\n"
 "This usually means the libguestfs appliance crashed.\n"
 msgstr ""
 
-#: lib/errors.c:517
+#: lib/errors.c:516
 msgid "appliance launch timed out, see earlier error messages"
 msgstr ""
 
-#: lib/errors.c:520
+#: lib/errors.c:519
 msgid ""
 "appliance launch timed out.\n"
 "This usually means the kernel or appliance hung during launch.\n"
 msgstr ""
 
-#: lib/errors.c:543
+#: lib/errors.c:542
 #, c-format
 msgid "%s, see debug messages above"
 msgstr ""
 
-#: lib/errors.c:545
+#: lib/errors.c:544
 #, c-format
 msgid "%s: %s: %s, see debug messages above"
 msgstr ""
 
-#: lib/errors.c:550
+#: lib/errors.c:549
 #, c-format
 msgid ""
 "%s.\n"
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: lib/errors.c:555
+#: lib/errors.c:554
 #, c-format
 msgid ""
 "%s: %s: %s.\n"
@@ -3806,21 +3806,21 @@ msgid ""
 "found when libguestfs was compiled"
 msgstr ""
 
-#: lib/handle.c:141
+#: lib/handle.c:143
 msgid ""
 "libguestfs was built with an invalid default backend, using ‘direct’ instead"
 msgstr ""
 
-#: lib/handle.c:143
+#: lib/handle.c:145
 msgid "‘direct’ backend does not work"
 msgstr ""
 
-#: lib/handle.c:202 lib/handle.c:212
+#: lib/handle.c:203 lib/handle.c:213
 #, c-format
 msgid "%s=%s: non-boolean value"
 msgstr ""
 
-#: lib/handle.c:254
+#: lib/handle.c:255
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
@@ -3829,24 +3829,24 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr ""
 
-#: lib/handle.c:562
+#: lib/handle.c:547
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: lib/handle.c:615
+#: lib/handle.c:600
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: lib/handle.c:732
+#: lib/handle.c:717
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: lib/handle.c:838
+#: lib/handle.c:823
 msgid "setting not found"
 msgstr ""
 
