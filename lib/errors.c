@@ -47,6 +47,7 @@
 #include <libintl.h>
 
 #include "c-ctype.h"
+#include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -330,7 +331,7 @@ guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)
 
   if (err < 0) return;
 
-  strerror_r (errnum, buf, sizeof buf);
+  ignore_value (strerror_r (errnum, buf, sizeof buf));
 
   msg = safe_realloc (g, msg, strlen (msg) + 2 + strlen (buf) + 1);
   strcat (msg, ": ");
