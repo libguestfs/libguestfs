@@ -164,10 +164,10 @@ and check_filesystem mountable =
     ()
   )
   (* Linux /usr? *)
-  else if Is.is_dir "/etc" &&
-          Is.is_dir "/bin" &&
-          Is.is_dir "/share" &&
+  else if Is.is_dir "/bin" &&
           Is.is_dir "/local" &&
+          Is.is_dir "/share" &&
+          Is.is_dir "/src" &&
           not (Is.is_file "/etc/fstab") then (
     debug_matching "Linux /usr";
     role := `Usr;
