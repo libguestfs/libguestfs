@@ -182,11 +182,9 @@ and check_for_duplicated_bsd_root fses =
 and collect_linux_inspection_info fses =
   List.map (
     function
-    | { role = RoleRoot { distro = Some d } } as root ->
-       if d <> DISTRO_COREOS then
-         collect_linux_inspection_info_for fses root
-       else
-         root
+    | { role = RoleRoot { distro = Some DISTRO_COREOS } } as root -> root
+    | { role = RoleRoot _ } as root ->
+       collect_linux_inspection_info_for fses root
     | fs -> fs
   ) fses
 
@@ -196,29 +194,28 @@ and collect_linux_inspection_info fses =
  * or other ways to identify the OS).
  *)
 and collect_linux_inspection_info_for fses root =
-  let root_distro, root_fstab =
+  let root_fstab =
     match root with
-    | { role = RoleRoot { distro = Some d; fstab = f } } -> d, f
+    | { role = RoleRoot { fstab = f } } -> f
     | _ -> assert false in
 
   try
     let usr =
       List.find (
         function
-        | { role = RoleUsr { distro = d } }
-             when d = Some root_distro || d = None -> true
+        | { role = RoleUsr _; fs_location = usr_mp } ->
+           (* This checks that this usr is found in the fstab of
+            * the root filesystem.
+            *)
+           List.exists (
+             fun (mountable, _) ->
+               usr_mp.mountable = mountable
+           ) root_fstab
         | _ -> false
       ) fses in
 
-    let usr_mountable = usr.fs_location.mountable in
-
-    (* This checks that [usr] is found in the fstab of the root
-     * filesystem.  If not, [Not_found] is thrown.
-     *)
-    ignore (
-      List.find (fun (mountable, _) -> usr_mountable = mountable) root_fstab
-    );
-
+    eprintf "collect_linux_inspection_info_for: merging:\n%sinto:\n%s"
+      (string_of_fs usr) (string_of_fs root);
     merge usr root;
     root
   with
