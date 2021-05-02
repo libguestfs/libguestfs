@@ -258,7 +258,7 @@ AC_CHECK_FUNCS([aug_source])
 LIBS="$old_LIBS"
 
 dnl libmagic (required)
-AC_CHECK_LIB([magic],[magic_file],[
+PKG_CHECK_MODULES([LIBMAGIC], [libmagic], [
     AC_CHECK_HEADER([magic.h],[
         AC_SUBST([MAGIC_LIBS], ["-lmagic"])
     ], [])
