@@ -994,7 +994,7 @@ and generate_rust_bindtests () =
   pr "fn main() {\n";
   pr "    let g = match Handle::create() {\n";
   pr "        Ok(g) => g,\n";
-  pr "        Err(e) => panic!(format!(\" could not create handle {:?}\", e)),\n";
+  pr "        Err(e) => panic!(\"could not create handle {:?}\", e),\n";
   pr "    };\n";
   generate_lang_bindtests (
     fun f args optargs ->
