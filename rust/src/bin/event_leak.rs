@@ -6,7 +6,7 @@ fn main() {
     for _ in 0..256 {
         let mut g = match Handle::create() {
             Ok(g) => g,
-            Err(e) => panic!(format!(" could not create handle {:?}", e)),
+            Err(e) => panic!("could not create handle {:?}", e),
         };
         g.set_event_callback(
             |e, _, _, _| match e {
