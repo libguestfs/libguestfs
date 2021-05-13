@@ -59,9 +59,11 @@ do_internal_readlinklist (const char *path, char *const *names)
     if (fstatat (fd_cwd, names[i], &statbuf, AT_SYMLINK_NOFOLLOW) == -1) {
     add_empty_string:
       if (add_string (&ret, "") == -1) {
+      add_string_failed:
         close (fd_cwd);
         return NULL;
       }
+      continue;
     }
     if (!S_ISLNK (statbuf.st_mode))
       goto add_empty_string;
@@ -74,10 +76,8 @@ do_internal_readlinklist (const char *path, char *const *names)
       goto add_empty_string;
     link[n] = '\0';
 
-    if (add_string (&ret, link) == -1) {
-      close (fd_cwd);
-      return NULL;
-    }
+    if (add_string (&ret, link) == -1)
+      goto add_string_failed;
   }
 
   close (fd_cwd);
