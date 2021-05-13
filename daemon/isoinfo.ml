@@ -79,7 +79,7 @@ let iso_parse_datetime str =
     r -^ (Int64.of_int (tz * 15 * 60))
   )
 
-let isoinfo dev =
+let isoinfo_device dev =
   let r, pvd =
     with_openfile dev [O_RDONLY] 0 (
         fun fd ->
@@ -127,4 +127,6 @@ let isoinfo dev =
     iso_volume_expiration_t; iso_volume_effective_t;
   }
 
-let isoinfo_device = isoinfo
+let isoinfo file =
+  let chroot = Chroot.create ~name:(sprintf "isoinfo: %s" file) () in
+  Chroot.f chroot isoinfo_device file
