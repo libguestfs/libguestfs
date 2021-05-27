@@ -195,7 +195,7 @@ EOF
 
     # Put LUKS on the second partition.
     $g->luks_format ('/dev/sda2', 'FEDORA', 0);
-    $g->luks_open ('/dev/sda2', 'FEDORA', 'luks');
+    $g->cryptsetup_open ('/dev/sda2', 'FEDORA', 'luks');
 
     init_lvm_root ('/dev/mapper/luks');
 }
