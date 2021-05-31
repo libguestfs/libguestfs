@@ -24,8 +24,8 @@ AS_IF([test "x$enable_rust" != "xno"],[
     AC_CHECK_PROG([RUSTC],[rustc],[rustc],[no])
     AC_CHECK_PROG([CARGO],[cargo],[cargo],[no])
 
-    AS_IF([test "x$RUSTC" == "xno"], [AC_MSG_WARN([rustc not found])])
-    AS_IF([test "x$CARGO" == "xno"], [AC_MSG_WARN([cargo not found])])
+    AS_IF([test "x$RUSTC" = "xno"], [AC_MSG_WARN([rustc not found])])
+    AS_IF([test "x$CARGO" = "xno"], [AC_MSG_WARN([cargo not found])])
 ],[
     RUSTC=no
     CARGO=no
