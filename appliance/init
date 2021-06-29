@@ -76,6 +76,14 @@ if ! test -e /etc/mtab; then
   ln -s /proc/mounts /etc/mtab
 fi
 
+# openssl 3 requires /etc/crypto-policies/back-ends/opensslcnf.config
+# to exist, but it is created in a %post script in crypto-policies
+# https://bugzilla.redhat.com/show_bug.cgi?id=1977214#c13
+if ! test -r /etc/crypto-policies/back-ends/opensslcnf.config &&
+     test -f /usr/share/crypto-policies/DEFAULT/opensslcnf.txt; then
+  ln -s /usr/share/crypto-policies/DEFAULT/opensslcnf.txt /etc/crypto-policies/back-ends/opensslcnf.config
+fi
+
 # Static nodes must happen before udev is started.
 
 # Set up kmod static-nodes (RHBZ#1011907).
