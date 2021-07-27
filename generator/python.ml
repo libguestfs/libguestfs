@@ -173,44 +173,52 @@ and generate_python_structs () =
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+            pr "  Py_DECREF (value);\n"
         | name, FBuffer ->
             pr "  value = PyBytes_FromStringAndSize (%s->%s, %s->%s_len);\n"
               typ name typ name;
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+            pr "  Py_DECREF (value);\n"
         | name, FUUID ->
             pr "  value = guestfs_int_py_fromstringsize (%s->%s, 32);\n"
               typ name;
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+            pr "  Py_DECREF (value);\n"
         | name, (FBytes|FUInt64) ->
             pr "  value = PyLong_FromUnsignedLongLong (%s->%s);\n" typ name;
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+            pr "  Py_DECREF (value);\n"
         | name, FInt64 ->
             pr "  value = PyLong_FromLongLong (%s->%s);\n" typ name;
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+            pr "  Py_DECREF (value);\n"
         | name, FUInt32 ->
             pr "  value = PyLong_FromUnsignedLong (%s->%s);\n" typ name;
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+            pr "  Py_DECREF (value);\n"
         | name, FInt32 ->
             pr "  value = PyLong_FromLong (%s->%s);\n" typ name;
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+            pr "  Py_DECREF (value);\n"
         | name, FOptPercent ->
             pr "  if (%s->%s >= 0) {\n" typ name;
             pr "    value = PyFloat_FromDouble ((double) %s->%s);\n" typ name;
             pr "    if (value == NULL)\n";
             pr "      goto err;\n";
             pr "    PyDict_SetItemString (dict, \"%s\", value);\n" name;
+            pr "    Py_DECREF (value);\n";
             pr "  }\n";
             pr "  else {\n";
             pr "    Py_INCREF (Py_None);\n";
@@ -222,6 +230,7 @@ and generate_python_structs () =
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";
             pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+            pr "  Py_DECREF (value);\n"
       ) cols;
       pr "  return dict;\n";
       pr " err:\n";
