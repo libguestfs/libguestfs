@@ -157,6 +157,9 @@ cleanup_mutex_unlock (pthread_mutex_t **ptr)
 #ifdef __powerpc__
 #define MACHINE_TYPE "pseries"
 #endif
+#ifdef __riscv
+#define MACHINE_TYPE "virt"
+#endif
 
 /* Differences in qemu device names on ARMv7 (virtio-mmio), s/390x
  * (CCW) vs normal hardware with PCI.
