@@ -146,6 +146,9 @@ guestfs_int_cleanup_gl_recursive_lock_unlock (void *ptr)
 #ifdef __powerpc__
 #define MACHINE_TYPE "pseries"
 #endif
+#ifdef __riscv
+#define MACHINE_TYPE "virt"
+#endif
 
 /* Differences in qemu device names on ARMv7 (virtio-mmio), s/390x
  * (CCW) vs normal hardware with PCI.
