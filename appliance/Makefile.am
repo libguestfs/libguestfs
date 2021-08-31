@@ -84,7 +84,7 @@ if HAVE_RPM
 QUERY_FILES_CMD := xargs rpm -qf --qf '%{name}\n'
 endif
 if HAVE_DPKG
-QUERY_FILES_CMD := xargs dpkg -S | cut -d: -f1
+QUERY_FILES_CMD := sed -e 's,^/,\*/,' | xargs dpkg -S | cut -d: -f1
 endif
 if HAVE_PACMAN
 QUERY_FILES_CMD := xargs pacman -Qo | sed -r 's/.* is owned by ([^ ]+) .*/\1/'
