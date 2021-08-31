@@ -255,6 +255,7 @@ disk_create_qcow2 (guestfs_h *g, const char *filename, int64_t size,
                    const struct guestfs_disk_create_argv *optargs)
 {
   const char *backingformat = NULL;
+  CLEANUP_FREE char *backingformat_free = NULL;
   const char *preallocation = NULL;
   const char *compat = NULL;
   int clustersize = -1;
@@ -269,6 +270,14 @@ disk_create_qcow2 (guestfs_h *g, const char *filename, int64_t size,
              backingformat);
       return -1;
     }
+  }
+  else if (backingfile) {
+    /* Since qemu 6.1, qemu-img create has requires a backing format (-F)
+     * parameter if backing file (-b) is used (RHBZ#1998820).
+     */
+    backingformat = backingformat_free = guestfs_disk_format (g, backingfile);
+    if (!backingformat)
+      return -1;
   }
   if (optargs->bitmask & GUESTFS_DISK_CREATE_PREALLOCATION_BITMASK) {
     if (STREQ (optargs->preallocation, "off") ||
