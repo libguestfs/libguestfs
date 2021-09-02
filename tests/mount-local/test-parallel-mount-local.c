@@ -223,7 +223,7 @@ start_thread (void *statevp)
       execlp ("./test-parallel-mount-local",
               "test-parallel-mount-local", "--test", state->mp, NULL);
       perror ("execlp");
-      goto error;
+      _exit (EXIT_FAILURE);
     }
 
     /* Run the FUSE main loop.  We don't really want to see libguestfs
