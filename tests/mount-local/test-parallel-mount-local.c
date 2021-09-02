@@ -220,7 +220,7 @@ start_thread (void *statevp)
 
     if (pid == 0) { /* child */
       setpgid (0, 0);           /* so we don't get ^C from parent */
-      execlp ("./test-parallel-mount-local",
+      execlp ("mount-local/test-parallel-mount-local",
               "test-parallel-mount-local", "--test", state->mp, NULL);
       perror ("execlp");
       _exit (EXIT_FAILURE);
