@@ -75,6 +75,7 @@ dnl iproute has been renamed to iproute2
   linux-image
   dnl syslinux 'suggests' mtools, but in reality it's a hard dependency:
   mtools
+  mount                     dnl util-linux subpackage containing mount cmd
   nilfs-tools
   ntfs-3g
   openssh-client
