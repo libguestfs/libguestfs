@@ -638,11 +638,6 @@ mountable_to_string (const mountable_t *mountable)
   }
 }
 
-#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wstack-usage="
-#endif
-
 /**
  * Check program exists and is executable on C<$PATH>.
  */
@@ -650,23 +645,20 @@ int
 prog_exists (const char *prog)
 {
   const char *pathc = getenv ("PATH");
-
   if (!pathc)
     return 0;
 
-  const size_t proglen = strlen (prog);
+  CLEANUP_FREE char *path = strdup (pathc);
+  if (path == NULL) abort ();
+
   const char *elem;
   char *saveptr;
-  const size_t len = strlen (pathc) + 1;
-  char path[len];
-  strcpy (path, pathc);
 
   elem = strtok_r (path, ":", &saveptr);
   while (elem) {
-    const size_t n = strlen (elem) + proglen + 2;
-    char testprog[n];
+    CLEANUP_FREE char *testprog;
 
-    snprintf (testprog, n, "%s/%s", elem, prog);
+    if (asprintf (&testprog, "%s/%s", elem, prog) == -1) abort ();
     if (access (testprog, X_OK) == 0)
       return 1;
 
@@ -676,10 +668,6 @@ prog_exists (const char *prog)
   /* Not found. */
   return 0;
 }
-
-#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
-#pragma GCC diagnostic pop
-#endif
 
 /**
  * Pass a template such as C<"/sysroot/XXXXXXXX.XXX">.  This updates
