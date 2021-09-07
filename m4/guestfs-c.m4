@@ -106,7 +106,8 @@ gl_WARN_ADD([-Wframe-larger-than=6000])
 
 dnl Warn about large stack frames, including estimates for alloca
 dnl and variable length arrays.
-gl_WARN_ADD([-Wstack-usage=10000])
+dnl Disabled because this affects some daemon/stubs-*.c when using LTO.
+dnl gl_WARN_ADD([-Wstack-usage=10000])
 
 dnl Warn about implicit fallthrough in case statements, but suppress
 dnl the warning if /*FALLTHROUGH*/ comment is used.
