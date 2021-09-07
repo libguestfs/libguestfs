@@ -88,6 +88,16 @@ gl_WARN_ADD([-Wno-missing-field-initializers])
 dnl Display the name of the warning option with the warning.
 gl_WARN_ADD([-fdiagnostics-show-option])
 
+dnl Some -fanalyzer warnings which are broken in GCC 11.
+dnl
+dnl These only affect specific files (xfs.c at time of writing)
+dnl but because of LTO GCC doesn't locate the errors accurately.
+dnl eg. They can appear to originate in other files like tar.c.
+dnl Place them centrally for now.  Eventually we hope that
+dnl -fanalyzer is fixed and we can remove these lines.
+gl_WARN_ADD([-Wno-analyzer-possible-null-argument])
+gl_WARN_ADD([-Wno-analyzer-double-free])
+
 dnl Now some warnings we want to enable and/or customize ...
 
 dnl Warn about large stack frames.  This does not include alloca and
