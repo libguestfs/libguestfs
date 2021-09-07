@@ -77,12 +77,15 @@ write_key_to_temp (const char *key)
 }
 #pragma GCC diagnostic pop
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-double-free"
 static void
 remove_temp (char *tempfile)
 {
   unlink (tempfile);
   free (tempfile);
 }
+#pragma GCC diagnostic pop
 
 static int
 luks_format (const char *device, const char *key, int keyslot,
