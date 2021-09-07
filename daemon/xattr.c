@@ -474,7 +474,7 @@ do_internal_lxattrlist (const char *path, char *const *names)
       }
     }
 
-    char num[16];
+    char num[32];
     snprintf (num, sizeof num, "%zu", nr_attrs);
     entry[0].attrval.attrval_len = strlen (num) + 1;
     entry[0].attrval.attrval_val = strdup (num);
