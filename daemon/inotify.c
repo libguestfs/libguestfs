@@ -311,7 +311,7 @@ do_inotify_files (void)
 {
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
   unsigned int i;
-  FILE *fp = NULL;
+  FILE *pp = NULL, *fp = NULL;
   guestfs_int_inotify_event_list *events;
   char buf[PATH_MAX];
   char tempfile[] = "/tmp/inotifyXXXXXX";
@@ -328,16 +328,20 @@ do_inotify_files (void)
 
   snprintf (cmd, sizeof cmd, "sort -u > %s", tempfile);
 
-  fp = popen (cmd, "w");
-  if (fp == NULL) {
+  pp = popen (cmd, "w");
+  if (pp == NULL) {
     reply_with_perror ("sort");
+    unlink (tempfile);
     return NULL;
   }
 
   while (1) {
     events = do_inotify_read ();
-    if (events == NULL)
-      goto error;
+    if (events == NULL) {
+      pclose (pp);
+      unlink (tempfile);
+      return NULL;
+    }
 
     if (events->guestfs_int_inotify_event_list_len == 0) {
       free (events);
@@ -348,14 +352,14 @@ do_inotify_files (void)
       const char *name = events->guestfs_int_inotify_event_list_val[i].in_name;
 
       if (name[0] != '\0')
-        fprintf (fp, "%s\n", name);
+        fprintf (pp, "%s\n", name);
     }
 
     xdr_free ((xdrproc_t) xdr_guestfs_int_inotify_event_list, (char *) events);
     free (events);
   }
 
-  pclose (fp);
+  pclose (pp);
 
   fp = fdopen (fd, "r");
   if (fp == NULL) {
@@ -371,25 +375,22 @@ do_inotify_files (void)
     if (len > 0 && buf[len-1] == '\n')
       buf[len-1] = '\0';
 
-    if (add_string (&ret, buf) == -1)
-      goto error;
+    if (add_string (&ret, buf) == -1) {
+      fclose (fp);
+      unlink (tempfile);
+      return NULL;
+    }
   }
 
   fclose (fp); /* implicitly closes fd */
-  fp = NULL;
 
-  if (end_stringsbuf (&ret) == -1)
-    goto error;
+  if (end_stringsbuf (&ret) == -1) {
+    unlink (tempfile);
+    return NULL;
+  }
 
   unlink (tempfile);
   return take_stringsbuf (&ret);
-
- error:
-  if (fp != NULL)
-    fclose (fp);
-
-  unlink (tempfile);
-  return NULL;
 }
 
 #else /* !HAVE_SYS_INOTIFY_H */
