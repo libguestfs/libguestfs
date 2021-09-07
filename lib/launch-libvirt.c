@@ -1888,7 +1888,7 @@ add_secret (guestfs_h *g, virConnectPtr conn,
   CLEANUP_VIRSECRETFREE virSecretPtr secret_obj = NULL;
   const char *secret = drv->src.secret;
   CLEANUP_FREE unsigned char *secret_raw = NULL;
-  size_t secret_raw_len = 0;
+  idx_t secret_raw_len = 0;
   size_t i;
 
   if (secret == NULL)
