@@ -88,7 +88,7 @@ guestfs_int_py_close (PyObject *self, PyObject *args)
   guestfs_close (g);
   Py_END_ALLOW_THREADS;
 
-  if (len > 0) {
+  if (callbacks && len > 0) {
     size_t i;
     for (i = 0; i < len; ++i)
       Py_XDECREF (callbacks[i]);

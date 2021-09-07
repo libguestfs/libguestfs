@@ -96,7 +96,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 
   guestfs_close (g);
 
-  if (len > 0) {
+  if (data && len > 0) {
     size_t i;
     for (i = 0; i < len; ++i) {
       (*env)->DeleteGlobalRef (env, data[i]->callback);
