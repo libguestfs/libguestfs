@@ -79,7 +79,7 @@ guestfs_finalize (value gv)
     guestfs_close (g);
 
     /* Now unregister the global roots. */
-    if (len > 0) {
+    if (roots && len > 0) {
       size_t i;
       for (i = 0; i < len; ++i) {
         caml_remove_generational_global_root (roots[i]);
