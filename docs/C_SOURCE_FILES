@@ -55,6 +55,7 @@ common/utils/guestfs-stringlists-utils.h
 common/utils/guestfs-utils.h
 common/utils/libxml2-cleanups.c
 common/utils/libxml2-writer-macros.h
+common/utils/pcre2-cleanups.c
 common/utils/stringlists-utils.c
 common/utils/utils.c
 common/visit/visit.c
