@@ -9,13 +9,14 @@
 /btowc.m4
 /builtin-expect.m4
 /byteswap.m4
+/calloc.m4
 /chdir-long.m4
 /clock_time.m4
 /closedir.m4
 /close.m4
 /codeset.m4
 /creat.m4
-/ctype.m4
+/ctype_h.m4
 /dirent_h.m4
 /dirfd.m4
 /double-slash-root.m4
@@ -44,6 +45,7 @@
 /fnmatch.m4
 /fpending.m4
 /fpieee.m4
+/free.m4
 /fstatat.m4
 /fstat.m4
 /ftruncate.m4
@@ -149,12 +151,14 @@
 /readlinkat.m4
 /readlink.m4
 /read.m4
+/reallocarray.m4
 /realloc.m4
 /rmdir.m4
 /safe-read.m4
 /safe-write.m4
 /save-cwd.m4
 /sched_h.m4
+/sched_yield.m4
 /select.m4
 /semaphore.m4
 /setenv.m4
@@ -247,5 +251,6 @@
 /xsize.m4
 /xstrtol.m4
 /xvasprintf.m4
+/year2038.m4
 /yield.m4
 /zzgnulib.m4
