@@ -98,6 +98,9 @@ dnl -fanalyzer is fixed and we can remove these lines.
 gl_WARN_ADD([-Wno-analyzer-possible-null-argument])
 gl_WARN_ADD([-Wno-analyzer-double-free])
 
+dnl When compiling with LTO, this appears in virt-rescue:
+gl_WARN_ADD([-Wno-null-dereference])
+
 dnl Now some warnings we want to enable and/or customize ...
 
 dnl Warn about large stack frames.  This does not include alloca and
