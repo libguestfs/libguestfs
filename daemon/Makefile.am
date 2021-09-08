@@ -453,7 +453,7 @@ daemon_utils_tests_DEPENDENCIES = \
 	$(top_builddir)/ocaml-link.sh
 daemon_utils_tests_LINK = \
 	$(top_builddir)/ocaml-link.sh \
-	  -cclib '-lutils -lgnu' \
+	  -cclib '-lutils -lgnu $(HIVEX_LIBS)' \
 	  -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \
 	  $(OCAMLPACKAGES) \
