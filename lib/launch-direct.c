@@ -544,6 +544,13 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       append_list ("gic-version=host");
 #endif
     append_list_format ("accel=%s", accel_val);
+#if defined(__i386__) || defined(__x86_64__)
+    /* Tell seabios to send debug messages to the serial port.
+     * This used to be done by sgabios.
+     */
+    if (g->verbose)
+      append_list ("graphics=off");
+#endif
   } end_list ();
 
   cpu_model = guestfs_int_get_cpu_model (has_kvm && !force_tcg);
@@ -664,18 +671,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     append_list ("chardev=charconsole0");
   } end_list ();
 #endif
-
-  if (g->verbose &&
-      guestfs_int_qemu_supports_device (g, data->qemu_data,
-                                        "Serial Graphics Adapter")) {
-    /* Use sgabios instead of vgabios.  This means we'll see BIOS
-     * messages on the serial port, and also works around this bug
-     * in qemu 1.1.0:
-     * https://bugs.launchpad.net/qemu/+bug/1021649
-     * QEmu has included sgabios upstream since just before 1.0.
-     */
-    arg ("-device", "sga");
-  }
 
   /* Set up virtio-serial for the communications channel. */
   start_list ("-chardev") {
