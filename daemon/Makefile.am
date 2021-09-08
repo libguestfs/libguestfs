@@ -215,7 +215,7 @@ guestfsd_SOURCES = \
 
 guestfsd_LDFLAGS = \
 	-L$(shell $(OCAMLC) -where) \
-	-L$(shell $(OCAMLC) -where)/hivex \
+	-L$(shell $(OCAMLFIND) query hivex) \
 	-L../common/mlutils \
 	-L../common/mlstdutils \
 	-L../bundled/ocaml-augeas \
@@ -246,7 +246,6 @@ guestfsd_LDADD = \
 guestfsd_CPPFLAGS = \
 	-DCAML_NAME_SPACE \
 	-I$(shell $(OCAMLC) -where) \
-	-I$(shell $(OCAMLC) -where)/hivex \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/lib \
