@@ -255,6 +255,7 @@ guestfsd_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils \
 	-I$(top_builddir)/common/utils
 guestfsd_CFLAGS = \
+	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(RPC_CFLAGS) \
 	$(AUGEAS_CFLAGS) \
