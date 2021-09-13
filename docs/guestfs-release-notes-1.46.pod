@@ -1,0 +1,242 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.46
+
+The big news in this release is that the virt tools like
+L<virt-builder(1)>, L<virt-cat(1)>, L<virt-customize(1)>,
+L<virt-df(1)>, and many more were moved to a new project.  The
+temporary repository for the new guestfs-tools project is here:
+L<https://github.com/rwmjones/guestfs-tools> while we set up a
+permanent home for it on gitlab.  The tarballs containing the tools
+are here: L<https://download.libguestfs.org/guestfs-tools/>
+
+Spinning out all of the tools into a new repository has made
+libguestfs a bit easier and simpler to build and manage, and allows us
+to focus on just being the API.
+
+Note that the tools L<guestfish(1)> (which is really a "shell API"),
+L<guestmount(1)>, L<libguestfs-test-tool(1)> and L<virt-rescue(1)> are
+still part of the libguestfs repo.
+
+The not quite so big news is that we have moved away from FreeNode to
+Libera Chat for IRC.  The new channel on Libera is called C<#guestfs>
+(thanks Daniel Berrangé).
+
+=head2 Language bindings
+
+Libguestfs is now compatible with Go 1.16, and defines a Go module
+(thanks Gianfranco Costamagna).
+
+Memory leaks in Python APIs that returned structs are fixed (thanks 朱丹).
+
+Python PyPi code has been relicensed to LGPLv2+ (from GPLv2+).
+
+=head2 Inspection
+
+Inspection of RPM guests now uses librpm instead of trying to parse
+the Berkeley DB directly.  Since most RPM-based guests have replaced
+BDB with sqlite this allows us to read these newer guests while
+retaining compatibility with the older guests (thanks Panu Matilainen).
+
+Inspection of RHEL 8+ with split /usr configuration has been made more
+reliable.
+
+Inspection of Windows Server 2022 should now work correctly (Yongkui
+Guo).
+
+=head2 API
+
+=head3 New APIs
+
+
+=head3 Other API changes
+
+The output of the C<guestfs_cap_get_file> API has changed slightly
+because of changes in the underlying libcap.  This isn't strictly
+speaking an API break because the new output is a still valid but more
+compact description of file capabilities, but because it is different
+it may cause problems for users of the API.
+
+The C<guestfs_mkfs_btrfs> API now ignores the C<allocstart> parameter
+since it was deprecated by btrfs 4.14.1 and later removed.
+
+C<guestfs_isoinfo_*> APIs now directly parse the CD Primary Volume
+Descriptor instead of using an external tool.  The APIs should appear
+to work exactly the same (thanks Thomas Schmitt).
+
+You can now force the appliance to use KVM or fail if not supported
+(Sam Eiderman).
+
+
+=head2 Build changes
+
+The build now uses and requires PCRE2 (instead of PCRE).
+
+This version requires libvirt E<ge> 7.1.0, if libvirt is enabled.
+
+gnulib is no longer bundled with libguestfs, making builds from git
+much simpler.
+
+Perl C<Sys::Virt> (libvirt bindings for Perl) are no longer required
+by libguestfs.
+
+The code has been compiled with both LTO and GCC I<-fanalyzer> and
+many bugs and warnings fixed.
+
+Allow projects like guestfs-tools and virt-v2v to be compiled with
+locally built (but not installed) libguestfs (Laszlo Ersek).
+
+Tests now run in parallel (thanks Laszlo Ersek for fixing my first
+attempt to implement this).
+
+Support for RISC-V (Heinrich Schuchardt).
+
+Support for building on Alma and Cloud Linux (Александр Кравченко).
+
+Fix to compile with OCaml 4.12.
+
+The tarball no longer includes the F<ChangeLog> file.  To get a
+detailed changelog, please look at the upstream git repository.
+
+Don't assume bash in the F<./configure> script (Martin Kletzander).
+
+Fix F<./configure --with-distro> option (Alexandre Iooss).
+
+Various fixes for qemu 6.1.
+
+Fix creating appliance dependencies on Debian (Hilko Bengen).
+
+=head2 Internals
+
+We now use the qemu / libvirt feature I<-cpu max> to select the best
+CPU to run the appliance.  This should improve performance for things
+like encrypted disks (Daniel Berrangé).
+
+When passing the appliance filesystem UUID to supermin we now read it
+directly out of the appliance instead of using the L<file(1)> program.
+This is more reliable, especially as file often breaks or changed
+its output.
+
+The qemu I<-enable-fips> option is no longer used.  It was not needed
+and has been deprecated by qemu.
+
+On Fedora, pull in glibc-gconv-extra to fix the C<guestfs_syslinux>
+API (Yongkui Guo).
+
+We no longer use qemu's sga (Serial Graphics Adapter) option ROM,
+instead using the equivalent seabios feature.
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh v1.44.0..
+
+=end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/2002325>
+
+Use -machine graphics=off instead of sga device
+
+=item L<https://bugzilla.redhat.com/2001636>
+
+[RFE] libguestfs: Add detection of AlmaLinux and CloudLinux
+
+=item L<https://bugzilla.redhat.com/1997446>
+
+osinfo is not correct when handling windows server 2022 image
+
+=item L<https://bugzilla.redhat.com/1990720>
+
+syslinux: failed to create ldlinux.sys
+
+=item L<https://bugzilla.redhat.com/1985912>
+
+The lstatns function has a memory leak. (python3)
+
+=item L<https://bugzilla.redhat.com/1960217>
+
+[Regression] ls: cannot read symbolic link after running guestmount
+
+=item L<https://bugzilla.redhat.com/1949683>
+
+virt-v2v: error: inspection could not detect the source guest (or physical  machine)
+
+=item L<https://bugzilla.redhat.com/1938982>
+
+Move libguestfs from PCRE to PCRE2
+
+=item L<https://bugzilla.redhat.com/1930996>
+
+[Regression] lvcreate fails to wipe signatures again
+
+=item L<https://bugzilla.redhat.com/1930133>
+
+Virt-v2v can't convert rhel8 guest whose usr partition is independent
+
+=item L<https://bugzilla.redhat.com/1915646>
+
+libguestfs-1.44.0 - guestfs appliance path broken
+
+=item L<https://bugzilla.redhat.com/1911177>
+
+virt-builder + virt-install creates a VM that cannot boot fedora 33
+
+=item L<https://bugzilla.redhat.com/1766487>
+
+libguestfs assumes rpmdb is in Berkeley DB format
+
+=item L<https://bugzilla.redhat.com/1409024>
+
+[Debian] Missing db_dump abort inspection
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHORS
+
+=begin comment
+
+git shortlog -s v1.44.0..
+
+=end comment
+
+=over 4
+
+=item Alexandre Iooss
+
+=item Daniel P. Berrangé
+
+=item Heinrich Schuchardt
+
+=item Hilko Bengen
+
+=item Laszlo Ersek
+
+=item Martin Kletzander
+
+=item Remi Collet
+
+=item Richard W.M. Jones
+
+=item Sam Eiderman
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2021 Red Hat Inc.
