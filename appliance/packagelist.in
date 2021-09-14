@@ -131,7 +131,9 @@ ifelse(SUSE,1,
   ntfs-3g
   reiserfs
   squashfs
+  sysconfig-netconfig
   systemd
+  systemd-sysvinit
   vim
   xz
 )
