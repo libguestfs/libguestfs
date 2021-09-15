@@ -72,6 +72,7 @@ fi
 
 # devtmpfs is required since udev 176
 mount -t devtmpfs /dev /dev
+ln -s /proc/self/fd /dev/fd
 mkdir -p /dev/pts
 mount -t devpts /dev/pts /dev/pts
 mkdir -p /dev/shm
