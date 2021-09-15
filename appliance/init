@@ -27,12 +27,12 @@ for d in /lib64 /lib; do
   fi
 done
 
-mkdir -p /sysroot
-
-# Mount /proc.
-if [ ! -d /proc ]; then rm -f /proc; fi
-mkdir -p /proc
+mkdir -p /proc /sys
 mount -t proc /proc /proc
+mount -t sysfs /sys /sys
+# devtmpfs is required since udev 176
+mount -t devtmpfs /dev /dev
+ln -s /proc/self/fd /dev/fd
 
 # Parse the kernel command line early (must be after /proc is mounted).
 cmdline=$(</proc/cmdline)
@@ -54,32 +54,26 @@ if [[ $cmdline == *guestfs_boot_analysis=1* ]]; then
     guestfs_boot_analysis=1
 fi
 
-# Mount the other special filesystems.
-if [ ! -d /sys ]; then rm -f /sys; fi
-mkdir -p /sys
-mount -t sysfs /sys /sys
+mkdir -p /dev/pts /dev/shm
+mount -t devpts /dev/pts /dev/pts
+mount -t tmpfs -o mode=1777 shmfs /dev/shm
+
+mkdir -p /sysroot
+
 # taken from initramfs-tools/init --Hilko Bengen
 mkdir -p /run
 mount -t tmpfs -o "nosuid,size=20%,mode=0755" tmpfs /run
 mkdir -p /run/lock
 ln -s ../run/lock /var/lock
 
+if [[ $cmdline == *selinux=1* ]]; then
+  mount -t selinuxfs none /sys/fs/selinux
+fi
+
 # On Fedora 23, util-linux creates /etc/mtab in %post .. stupid
 # and e2fsprogs fails if the link doesn't exist .. stupid stupid
 if ! test -e /etc/mtab; then
   ln -s /proc/mounts /etc/mtab
-fi
-
-# devtmpfs is required since udev 176
-mount -t devtmpfs /dev /dev
-ln -s /proc/self/fd /dev/fd
-mkdir -p /dev/pts
-mount -t devpts /dev/pts /dev/pts
-mkdir -p /dev/shm
-mount -t tmpfs -o mode=1777 shmfs /dev/shm
-
-if [[ $cmdline == *selinux=1* ]]; then
-  mount -t selinuxfs none /sys/fs/selinux
 fi
 
 # Static nodes must happen before udev is started.
