@@ -53,7 +53,7 @@ trap cleanup INT QUIT TERM EXIT
 # sda2: 20M PV (vg1)
 # sda3: 20M MD (md125)
 #
-# sdb1: 20M PV (vg0)
+# sdb1: 24M PV (vg0) [*]
 # sdb2: 20M PV (vg2)
 # sdb3: 20M MD (md125)
 #
@@ -66,6 +66,9 @@ trap cleanup INT QUIT TERM EXIT
 # vg3   : VG (md125)
 # lv3   : LV (vg3)
 #
+# [*] The reason for making sdb1 4M larger than sda1 is that the LVM metadata
+# will consume one 4MB extent, and we need lv0 to offer exactly as much space
+# as sda1 does, for combining them in md127. Refer to RHBZ#2005485.
 
 guestfish <<EOF
 # Add 2 empty disks
@@ -79,9 +82,9 @@ part-add /dev/sda p 64 41023
 part-add /dev/sda p 41024 81983
 part-add /dev/sda p 81984 122943
 part-init /dev/sdb mbr
-part-add /dev/sdb p 64 41023
-part-add /dev/sdb p 41024 81983
-part-add /dev/sdb p 81984 122943
+part-add /dev/sdb p 64 49215
+part-add /dev/sdb p 49216 90175
+part-add /dev/sdb p 90176 131135
 
 # Create volume group and logical volume on sdb1
 pvcreate /dev/sdb1
