@@ -7644,12 +7644,6 @@ with zeroes)." };
     style = RErr, [String (Device, "device")], [OBool "extunwritten"; OBool "imgfile"; OBool "v2log"; OBool "projid32bit"; OBool "lazycounter"; OString "label"; OString "uuid"];
     optional = Some "xfs";
     tests = [
-        InitEmpty, Always, TestResult (
-          [["part_disk"; "/dev/sda"; "mbr"];
-           ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
-           ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; "false"; "NOARG"; "NOARG"];
-           ["mount"; "/dev/sda1"; "/"];
-           ["xfs_info"; "/"]], "ret->xfs_lazycount == 0"), [];
         InitEmpty, Always, TestResultString (
           [["part_disk"; "/dev/sda"; "mbr"];
            ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
