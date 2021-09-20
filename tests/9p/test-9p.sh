@@ -45,7 +45,7 @@ guestfish <<EOF
 sparse test-9p.img 1M
 
 config -device '$virtio_9p,fsdev=test9p,mount_tag=test9p'
-config -fsdev 'local,id=test9p,path=${abs_srcdir},security_model=passthrough'
+config -fsdev 'local,id=test9p,path=${abs_srcdir}/9p,security_model=passthrough'
 
 run
 
