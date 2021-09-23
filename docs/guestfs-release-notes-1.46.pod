@@ -50,6 +50,7 @@ Guo).
 
 =head3 New APIs
 
+No new APIs were added in libguestfs 1.46.
 
 =head3 Other API changes
 
@@ -69,6 +70,9 @@ to work exactly the same (thanks Thomas Schmitt).
 You can now force the appliance to use KVM or fail if not supported
 (Sam Eiderman).
 
+Because of a change to XFS in version 5, disabling lazy-counters no
+longer works.  The API still works for earlier versions of XFS (Laszlo
+Ersek).
 
 =head2 Build changes
 
@@ -88,8 +92,9 @@ many bugs and warnings fixed.
 Allow projects like guestfs-tools and virt-v2v to be compiled with
 locally built (but not installed) libguestfs (Laszlo Ersek).
 
-Tests now run in parallel (thanks Laszlo Ersek for fixing my first
-attempt to implement this).
+Tests now run in parallel (many additional fixes by Laszlo Ersek).
+
+Work around RAID0 regression in Linux 3.14/5.4 (Laszlo Ersek).
 
 Support for RISC-V (Heinrich Schuchardt).
 
@@ -107,6 +112,9 @@ Fix F<./configure --with-distro> option (Alexandre Iooss).
 Various fixes for qemu 6.1.
 
 Fix creating appliance dependencies on Debian (Hilko Bengen).
+
+Update appliance packages on SUSE and several other improvements to
+the init script (Olaf Hering).
 
 =head2 Internals
 
