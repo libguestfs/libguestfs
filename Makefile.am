@@ -117,7 +117,7 @@ SUBDIRS += po-docs
 endif
 
 EXTRA_DIST = \
-	AUTHORS BUGS HACKING RELEASES TODO \
+	AUTHORS HACKING RELEASES TODO \
 	.gitignore \
 	.lvimrc \
 	.mailmap \
@@ -159,7 +159,6 @@ EXTRA_DIST = \
 	podcheck.pl \
 	tests/test-functions.sh \
 	tmp/.gitignore \
-	update-bugs.sh \
 	valgrind-suppressions \
 	website/bugs.png \
 	website/communicate.png \
@@ -205,20 +204,12 @@ maintainer-upload-website:
 
 # When doing 'make dist' update a few files automatically.
 #
-#  BUGS           - list of bugs (created from Bugzilla)
 #  docs/C_SOURCE_FILES
 #                 - source files scanned for internal documentation
 #  po/POTFILES    - files with ordinary extensions, but not OCaml files
 #  po/POTFILES-ml - OCaml files, which need a special tool to translate
 
-dist-hook: BUGS docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
-	cp BUGS $(distdir)/BUGS
-
-BUGS: configure.ac
-	rm -f $@ $@-t
-	unset LC_ALL; \
-	$(top_srcdir)/update-bugs.sh > $@-t
-	mv $@-t $@
+dist-hook: docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
 
 # This has to be in the top-level Makefile.am so that we have access
 # to DIST_SUBDIRS.

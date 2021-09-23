@@ -50,7 +50,7 @@ let output_to_subset fs f =
 (* Main program. *)
 let () =
   let lock_fd =
-    try openfile "BUGS" [O_RDWR] 0
+    try openfile "RELEASES" [O_RDWR] 0
     with
     | Unix_error (ENOENT, _, _) ->
         eprintf "\
