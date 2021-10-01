@@ -151,6 +151,7 @@ and distro_of_os_release_id = function
   | "openmandriva" -> Some DISTRO_OPENMANDRIVA
   | "opensuse" -> Some DISTRO_OPENSUSE
   | s when String.is_prefix s "opensuse-" -> Some DISTRO_OPENSUSE
+  | "pardus" -> Some DISTRO_PARDUS
   | "pld" -> Some DISTRO_PLD_LINUX
   | "rhel" -> Some DISTRO_RHEL
   | "sles" | "sled" -> Some DISTRO_SLES
