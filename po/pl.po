@@ -8,23 +8,24 @@
 # Piotr Drąg <piotrdrag@gmail.com>, 2011-2013
 # rjones <rjones@redhat.com>, 2011
 # Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata
+# Michał Smyk <fedora@smyk.it>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2020-09-21 18:55+0100\n"
-"PO-Revision-Date: 2016-09-14 05:28+0000\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/libguestfs/"
-"language/pl/)\n"
+"PO-Revision-Date: 2020-09-27 10:18+0000\n"
+"Last-Translator: Michał Smyk <fedora@smyk.it>\n"
+"Language-Team: Polish <https://translate.fedoraproject.org/projects/"
+"libguestfs/libguestfs-master/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.2.2\n"
 
 #: dib/elements.ml:155
 msgid "  %s: already provided by %s"
@@ -6665,10 +6666,11 @@ msgid ""
 "  'hexedit %s <max>' (eg. 'hexedit %s 1M') or a range using\n"
 "  'hexedit %s <start> <max>'.\n"
 msgstr ""
-"hexedit: %s jest dłuższe niż %s. Należy podać ograniczenie\n"
-"  za pomocą polecenia „hexedit %s <maksimum>” (np.\n"
-"  „hexedit %s 1M”) lub zakres za pomocą polecenia\n"
-"  „hexedit %s <rozpoczęcie> <maksymalnie>”.\n"
+"hexedit: %s jest dłuższe niż %s. Należy podać ograniczenie za pomocą "
+"polecenia\n"
+"  „hexedit %s <maksimum>” (np. „hexedit %s 1M”) lub zakres za pomocą "
+"polecenia\n"
+"  „hexedit %s <wartość poczatkowa> <maksimum>”.\n"
 
 #: fish/hexedit.c:97
 #, c-format
@@ -7454,7 +7456,7 @@ msgstr ""
 
 #: lib/dbdump.c:219
 msgid "unexpected non-hex digits in output of db_dump command"
-msgstr "nieoczekiwane nieszesnastkowe cyfry w wyjściu polecenia db_dump "
+msgstr "nieoczekiwane nieszesnastkowe cyfry w wyjściu polecenia db_dump"
 
 #: lib/drives.c:83
 msgid "this backend does not support adding read-only drives"
@@ -8164,10 +8166,12 @@ msgid ""
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 "błąd: domena jest maszyną wirtualną live.\n"
-"Zapisywanie na dyskach uruchomionej maszyny wirtualnej może spowodować\n"
-"uszkodzenie danych. Należy użyć dostępu tylko do odczytu lub jeśli gość\n"
-"ma uruchomioną usługę guestfsd, należy podać dostęp live.\n"
-"W większości narzędzi biblioteki libguestfs te opcje to odpowiednio --ro\n"
+"Zapisywanie na dyskach uruchomionej maszyny wirtualnej może spowodować "
+"uszkodzenie dysku. \n"
+"Należy użyć dostępu tylko do odczytu lub jeśli gość ma uruchomioną usługę "
+"guestfsd, \n"
+"należy podać dostęp live. W większości narzędzi biblioteki libguestfs te "
+"opcje to odpowiednio --ro\n"
 "lub --live. Dokumentacja zawiera więcej informacji."
 
 #: lib/libvirt-domain.c:365
@@ -8790,14 +8794,17 @@ msgid ""
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
-"{prog}: nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu "
-"dysku.\n"
+"{prog}: Nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu dysku."
+"\n"
 "\n"
 "Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest "
-"maszyną wirtualną lub biblioteka libguestfs nie rozumie tego typu systemu.\n"
+"obrazem \n"
+"maszyny wirtualnej lub biblioteka libguestfs nie rozumie tego typu systemu "
+"operacyjnego.\n"
 "\n"
 "Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu, dołączając tak dużo "
-"informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
+"informacji \n"
+"o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
 
 #: tools/virt-tar:262 tools/virt-win-reg:320
 #, perl-brace-format
