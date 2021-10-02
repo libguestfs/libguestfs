@@ -9,14 +9,15 @@
 # rjones <rjones@redhat.com>, 2011
 # Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021.
 # Michał Smyk <fedora@smyk.it>, 2020.
+# Marcin Stanclik <mstanclik@yahoo.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2021-01-06 10:17+0000\n"
-"PO-Revision-Date: 2021-01-17 11:33+0000\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"PO-Revision-Date: 2021-02-17 10:40+0000\n"
+"Last-Translator: Marcin Stanclik <mstanclik@yahoo.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/pl/>\n"
 "Language: pl\n"
@@ -65,7 +66,7 @@ msgstr ""
 
 #: customize/customize_run.ml:446 common/mltools/tools_utils.ml:640
 msgid "%s (ignored)"
-msgstr ""
+msgstr "%s (zignorowany)"
 
 #: builder/builder.ml:319
 msgid ""
