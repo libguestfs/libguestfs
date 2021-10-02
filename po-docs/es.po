@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2020-10-15 09:31+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
+"PO-Revision-Date: 2021-10-02 12:05+0000\n"
+"Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
 "Language: es\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2.2\n"
+"X-Generator: Weblate 4.8\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -79,6 +79,8 @@ msgstr "NOMBRE"
 #: ../align/virt-alignment-scan.pod:3
 msgid "virt-alignment-scan - Check alignment of virtual machine partitions"
 msgstr ""
+"virt-alignment-scan - Comprueba el alineamiento de las particiones de la "
+"máquina virtual"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:5
@@ -115,6 +117,8 @@ msgid ""
 " virt-alignment-scan [--options] -d domname\n"
 "\n"
 msgstr ""
+" virt-alignment-scan [--options] -d domname\n"
+"\n"
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:9
@@ -123,6 +127,8 @@ msgid ""
 " virt-alignment-scan [--options] -a disk.img [-a disk.img ...]\n"
 "\n"
 msgstr ""
+" virt-alignment-scan [--opciones] -a disk.img [-a disk.img ...]\n"
+"\n"
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:11
@@ -131,6 +137,8 @@ msgid ""
 " virt-alignment-scan [--options]\n"
 "\n"
 msgstr ""
+" virt-alignment-scan [--opciones]\n"
+"\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:13
@@ -173,6 +181,12 @@ msgid ""
 "partitions can result in an operating system issuing more I/O than should be "
 "necessary."
 msgstr ""
+"Cuando los sistemas operativos mas antiguos se instalan por si solos, las "
+"herramientas de particionamiento sitúan las particiones en un sector "
+"desalineado con el almacenamiento subyacente (comúnmente la primera "
+"partición empieza en el sector C<63>).  Las particiones desalineadas pueden "
+"provocar que un sistema operativo envíe más E/S de las que deberían ser "
+"necesarias."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:21
@@ -180,6 +194,9 @@ msgid ""
 "The virt-alignment-scan tool checks the alignment of partitions in virtual "
 "machines and disk images and warns you if there are alignment problems."
 msgstr ""
+"La herramienta virt-alignment-scan comprueba el alineamiento de las "
+"particiones en las maquinas virtuales y las imágenes de disco y le avisa si "
+"hay problemas de alieamiento."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:25
@@ -189,11 +206,15 @@ msgid ""
 "summarises the problem and possible solutions: L<http://media.netapp.com/"
 "documents/tr-3747.pdf>"
 msgstr ""
+"Actualmente no existe una herramienta virtual para corregir problemas de "
+"alineación.  Sólo se puede reinstalar el sistema operativo invitado.  El "
+"siguiente documento NetApp resume el problema y sus posibles soluciones: "
+"L<http://media.netapp.com/documents/tr-3747.pdf>"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:30
 msgid "OUTPUT"
-msgstr ""
+msgstr "SALIDA"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:32
@@ -210,6 +231,9 @@ msgid ""
 " /dev/sda1        32256          512    bad (alignment < 4K)\n"
 "\n"
 msgstr ""
+" $ virt-alignment-scan -a winxp.img\n"
+" /dev/sda1        32256          512    bad (alignment < 4K)\n"
+"\n"
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:37
@@ -221,6 +245,11 @@ msgid ""
 " /dev/sda3    526385152         2048K   ok\n"
 "\n"
 msgstr ""
+" $ virt-alignment-scan -a fedora16.img\n"
+" /dev/sda1      1048576         1024K   ok\n"
+" /dev/sda2      2097152         2048K   ok\n"
+" /dev/sda3    526385152         2048K   ok\n"
+"\n"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:42
@@ -228,6 +257,8 @@ msgid ""
 "To run the tool on a guest known to libvirt, use the I<-d> option and "
 "possibly the I<-c> option:"
 msgstr ""
+"Para correr la herramienta sobre un invitado conocido por libvirt, use la "
+"opción I<-d> y posiblemente la opción I<-c>:"
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:45
@@ -238,6 +269,10 @@ msgid ""
 " /dev/sda2    106928640          512    bad (alignment < 4K)\n"
 "\n"
 msgstr ""
+" # virt-alignment-scan -d RHEL5\n"
+" /dev/sda1        32256          512    bad (alignment < 4K)\n"
+" /dev/sda2    106928640          512    bad (alignment < 4K)\n"
+"\n"
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:49
@@ -249,6 +284,11 @@ msgid ""
 " /dev/sdb1        65536           64K   ok\n"
 "\n"
 msgstr ""
+" $ virt-alignment-scan -c qemu:///system -d Win7TwoDisks\n"
+" /dev/sda1      1048576         1024K   ok\n"
+" /dev/sda2    105906176         1024K   ok\n"
+" /dev/sdb1        65536           64K   ok\n"
+"\n"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:54
@@ -256,6 +296,8 @@ msgid ""
 "Run virt-alignment-scan without any I<-a> or I<-d> options to scan all "
 "libvirt domains."
 msgstr ""
+"Ejecute virt-alignment-scan sin ninguna de las opciones I<-a> o I<-d> pra "
+"escanear todos los dominios libvirt."
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:57
@@ -267,6 +309,11 @@ msgid ""
 " F16x64:/dev/sda3    526385152         2048K   ok\n"
 "\n"
 msgstr ""
+" # virt-alignment-scan\n"
+" F16x64:/dev/sda1      1048576         1024K   ok\n"
+" F16x64:/dev/sda2      2097152         2048K   ok\n"
+" F16x64:/dev/sda3    526385152         2048K   ok\n"
+"\n"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:62
@@ -275,11 +322,14 @@ msgid ""
 "first 4 columns are significant if you want to parse this from a program.  "
 "The columns are:"
 msgstr ""
+"La salida consta de 4 o más columnas separadas por espacios en blanco. Sólo "
+"son significativas las primeras 4 columnas si desea anaizar esto con un "
+"programa. Las columnas son:"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:68
 msgid "col 1"
-msgstr ""
+msgstr "col 1"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:70
@@ -287,6 +337,8 @@ msgid ""
 "The device and partition name (eg. F</dev/sda1> meaning the first partition "
 "on the first block device)."
 msgstr ""
+"El dispositivo y el nombre de la partición (eg. F</dev/sda1> significa la "
+"primera partición en el primer dispositivo de bloque)."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:73
@@ -295,11 +347,14 @@ msgid ""
 "column is prefixed by the libvirt name or UUID (if I<--uuid> is given).  eg: "
 "C<WinXP:/dev/sda1>"
 msgstr ""
+"Cuando se listan todos los dominios libvirt (no se da la opción I<-a> o "
+"I<-d>) esta columna va precedida por el nombre libvirt name o UUID (si se da "
+"I<--uuid>).  eg: C<WinXP:/dev/sda1>"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:77
 msgid "col 2"
-msgstr ""
+msgstr "col 2"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:79
@@ -309,17 +364,17 @@ msgstr "el inicio de la partición en bytes"
 #. type: =item
 #: ../align/virt-alignment-scan.pod:81
 msgid "col 3"
-msgstr ""
+msgstr "col 3"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:83
 msgid "the alignment in bytes or Kbytes (eg. C<512> or C<4K>)"
-msgstr ""
+msgstr "el alineamiento en bytes o Kbytes (eg. C<512> o C<4K>)"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:85
 msgid "col 4"
-msgstr ""
+msgstr "col 4"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:87
@@ -327,6 +382,8 @@ msgid ""
 "C<ok> if the alignment is best for performance, or C<bad> if the alignment "
 "can cause performance problems"
 msgstr ""
+"C<ok> si el alineamiento es mejor para el rendimiento o C<bad> si el "
+"alineamiento puede causar problemas de rendimiento"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:90
@@ -336,7 +393,7 @@ msgstr ""
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:92
 msgid "optional free-text explanation."
-msgstr ""
+msgstr "explicación opcional en texto libre."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:96
@@ -344,6 +401,8 @@ msgid ""
 "The exit code from the program changes depending on whether poorly aligned "
 "partitions were found.  See L</EXIT STATUS> below."
 msgstr ""
+"El código de salida de los cambios de programa depende de si se encuentran "
+"particiones pobremente alineadas. Vea L</EXIT STATUS> abajo."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:99
