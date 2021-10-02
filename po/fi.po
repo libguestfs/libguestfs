@@ -2,14 +2,15 @@
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the libguestfs package.
 # Jan Kuparinen <copper_fin@hotmail.com>, 2020, 2021.
+# Ricky Tigg <ricky.tigg@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.43.2\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-01-06 10:17+0000\n"
-"PO-Revision-Date: 2021-01-12 16:38+0000\n"
-"Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2021-03-03 10:57+0000\n"
+"PO-Revision-Date: 2021-03-05 15:49+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/fi/>\n"
 "Language: fi\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4\n"
+"X-Generator: Weblate 4.4.2\n"
 
 #: dib/elements.ml:155
 msgid "  %s: already provided by %s"
@@ -108,6 +109,10 @@ msgid ""
 "within this partition.  (This error came from ‘%s’ option on the command "
 "line.)"
 msgstr ""
+"%s :Tämä laajennettu osio sisältää loogisia osioita, jotka saattavat "
+"vahingoittua pienentämällä sitä. Jos haluat pienentää tätä osiota, sinun on "
+"käytettävä vaihtoehtoa '--resize-force', mutta se voi tuhota loogiset osiot "
+"tässä osiossa. (Tämä virhe tuli komentorivin vaihtoehdosta ‘%s’ .)"
 
 #: resize/resize.ml:951
 msgid "%s: This logical volume will be expanded to maximum size."
@@ -121,6 +126,11 @@ msgid ""
 "but that could destroy any data on this partition.  (This error came from "
 "‘%s’ option on the command line.)"
 msgstr ""
+"%s: Tämä osio sisältää% s tiedostojärjestelmän, joka vahingoittuu "
+"kutistamalla sen alle %Ld tavua (käyttäjä pyysi kutistamaan sen %Ld tavuksi)"
+". Jos haluat pienentää tätä osiota, sinun on käytettävä vaihtoehtoa "
+"‘--resize-force’, mutta se voi tuhota kaikki tämän osion tiedot. (Tämä virhe "
+"tuli komentorivin vaihtoehdosta ‘%s’ .)"
 
 #: resize/resize.ml:698
 msgid ""
@@ -130,6 +140,11 @@ msgid ""
 "but that could destroy any data on this partition.  (This error came from "
 "‘%s‘ option on the command line.)"
 msgstr ""
+"%s: Tämä osio sisältää LVM-fyysisen tilavuuden, joka vaurioituu kutistamalla "
+"sen alle %Ld tavua (käyttäjä pyysi kutistamaan sen %Ld tavuksi). Jos haluat "
+"pienentää tätä osiota, sinun on käytettävä vaihtoehtoa ‘--resize-force’, "
+"mutta se voi tuhota kaikki tämän osion tiedot. (Tämä virhe tuli komentorivin "
+"vaihtoehdosta %s.)"
 
 #: resize/resize.ml:695
 msgid ""
@@ -138,6 +153,10 @@ msgid ""
 "force’ option, but that could destroy any data on this partition.  (This "
 "error came from ‘%s’ option on the command line.)"
 msgstr ""
+"%s: Tällä osiolla on tuntematonta sisältöä, joka saattaa vahingoittua "
+"pienentämällä sitä. Jos haluat pienentää tätä osiota, sinun on käytettävä "
+"vaihtoehtoa ‘--resize-force’, mutta se voi tuhota kaikki tämän osion tiedot. "
+"(Tämä virhe tuli komentorivin vaihtoehdosta %s.)"
 
 #: resize/resize.ml:916
 msgid ""
@@ -199,7 +218,7 @@ msgstr ""
 
 #: customize/customize_run.ml:67
 msgid "%s: command exited with an error"
-msgstr ""
+msgstr "%s: komento poistui virheellä"
 
 #: builder/repository_main.ml:62
 msgid ""
@@ -259,6 +278,9 @@ msgid ""
 "‘--lv-expand’ option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
 msgstr ""
+"%s: loogista taltiotta ei löydy lähdelevykuvasta (tämä virhe tuli "
+"komentorivin vaihtoehdolta '--lv-expand '). Yritä suorittaa tämä komento: "
+"'virt-filesystems --logical-volume --long -a %s'"
 
 #: resize/resize.ml:725
 msgid "%s: missing size field in ‘%s’ option"
@@ -306,6 +328,9 @@ msgid ""
 "option on the command line).  Try running this command: virt-filesystems --"
 "partitions --long -a %s"
 msgstr ""
+"%s: loogista taltiotta ei löydy lähdelevykuvasta (tämä virhe tuli "
+"komentorivin vaihtoehdolta '--lv-expand '). Yritä suorittaa tämä komento: "
+"'virt-filesystems --partitions --long -a %s'"
 
 #: resize/resize.ml:543
 msgid "%s: partition size %Ld < filesystem size %Ld"
@@ -405,7 +430,7 @@ msgstr ""
 
 #: get-kernel/get_kernel.ml:40
 msgid "--add option can only be given once"
-msgstr ""
+msgstr "vaihtoehto '--add' voidaan antaa vain kerran"
 
 #: customize/customize_run.ml:206
 msgid ""
@@ -440,11 +465,11 @@ msgstr ""
 #: sysprep/main.ml:66 get-kernel/get_kernel.ml:48
 #: customize/customize_main.ml:70
 msgid "--domain option can only be given once"
-msgstr ""
+msgstr "vaihtoehto '--domain' voidaan antaa vain kerran"
 
 #: sysprep/main.ml:76
 msgid "--enable option can only be given once"
-msgstr ""
+msgstr "vaihtoehto '--enable' voidaan antaa vain kerran"
 
 #: sysprep/main.ml:84
 msgid "--enable: ‘%s’ is not a known operation"
@@ -484,7 +509,7 @@ msgstr ""
 
 #: get-kernel/get_kernel.ml:52
 msgid "--prefix option can only be given once"
-msgstr ""
+msgstr "vaihtoehto '--prefix ' voidaan antaa vain kerran"
 
 #: sysprep/sysprep_operation_script.ml:35
 msgid "--scriptdir cannot be used more than once"
@@ -794,7 +819,7 @@ msgstr ""
 #: customize/customize_cmdline.ml:285
 #: common/mlcustomize/customize_cmdline.ml:285
 msgid "DIR"
-msgstr ""
+msgstr "HAKEMISTO"
 
 #: customize/customize_cmdline.ml:218
 #: common/mlcustomize/customize_cmdline.ml:218
@@ -847,7 +872,7 @@ msgstr "Näytä nimi: "
 
 #: common/mltools/tools_utils.ml:332
 msgid "Display version and exit"
-msgstr "Näytä versio ja lopeta"
+msgstr "Näytä versio ja poistu"
 
 #: dib/output_format_qcow2.ml:49
 msgid "Do not compress the qcow2 image"
@@ -1206,11 +1231,11 @@ msgstr ""
 
 #: dib/cmdline.ml:166
 msgid "Installation type"
-msgstr ""
+msgstr "Asennustyyppi"
 
 #: customize/customize_run.ml:252
 msgid "Installing firstboot command: %s"
-msgstr ""
+msgstr "firstboot-komennon asentaminen: %s"
 
 #: customize/customize_run.ml:256
 msgid "Installing firstboot packages: %s"
@@ -1359,7 +1384,7 @@ msgstr ""
 
 #: get-kernel/get_kernel.ml:61
 msgid "Output directory"
-msgstr ""
+msgstr "Ulostulohakemisto"
 
 #: builder/builder.ml:753
 msgid "Output file"
@@ -1439,7 +1464,7 @@ msgstr ""
 #: customize/customize_cmdline.ml:190
 #: common/mlcustomize/customize_cmdline.ml:190
 msgid "Read customize commands from file"
-msgstr ""
+msgstr "Lue mukautuskomennot tiedostosta"
 
 #: common/mltools/tools_utils.ml:355
 msgid "Read passphrases from stdin"
@@ -1702,12 +1727,12 @@ msgstr ""
 #: customize/customize_cmdline.ml:241
 #: common/mlcustomize/customize_cmdline.ml:241
 msgid "Run command at first guest boot"
-msgstr ""
+msgstr "Suorita komento ensimmäisen vieraskäynnistyksen yhteydessä"
 
 #: customize/customize_cmdline.ml:332
 #: common/mlcustomize/customize_cmdline.ml:332
 msgid "Run command in disk image"
-msgstr ""
+msgstr "Suorita komento levykuvassa"
 
 #: customize/customize_cmdline.ml:235
 #: common/mlcustomize/customize_cmdline.ml:235
@@ -1750,7 +1775,7 @@ msgstr ""
 #. common/mlcustomize/customize_cmdline.ml:234
 #: customize/customize_cmdline.ml:325 customize/customize_cmdline.ml:234
 msgid "SCRIPT"
-msgstr "SKRIPTI"
+msgstr "KOMENTOSARJA"
 
 #. customize/customize_cmdline.ml:315
 #. common/mltools/tools_utils.ml:356
@@ -1803,7 +1828,7 @@ msgstr ""
 
 #: builder/repository_main.ml:52 builder/cmdline.ml:151
 msgid "Set GPG binary/command"
-msgstr ""
+msgstr "Aseta GPG-binaari/komento"
 
 #: dib/cmdline.ml:173
 msgid "Set Python interpreter"
@@ -1815,7 +1840,7 @@ msgstr ""
 
 #: builder/cmdline.ml:141
 msgid "Set curl binary/command"
-msgstr ""
+msgstr "Aseta curl-binaari/komento"
 
 #: dib/cmdline.ml:193
 msgid "Set debug level"
@@ -1958,7 +1983,7 @@ msgstr ""
 
 #: sparsify/copying.ml:252
 msgid "Skipping %s, as it is a read-only btrfs snapshot."
-msgstr ""
+msgstr "Ohitetaan %s, koska se on vain luettava btrfs-tilannevedos."
 
 #: sparsify/copying.ml:254
 msgid "Skipping %s, as it is a read-only device."
@@ -2305,7 +2330,7 @@ msgstr ""
 
 #: sparsify/cmdline.ml:76
 msgid "Zero filesystem"
-msgstr ""
+msgstr "Nolla tiedostojärjestelmää"
 
 #: sparsify/in_place.ml:86 sparsify/copying.ml:242
 msgid "Zeroing %s"
@@ -2341,7 +2366,7 @@ msgstr ""
 
 #: builder/cache.ml:60
 msgid "cached"
-msgstr "Välimuistissa"
+msgstr "välimuistissa"
 
 #: sparsify/copying.ml:64
 msgid "cannot detect input disk format; use the --format parameter"
@@ -2384,12 +2409,12 @@ msgstr ""
 #: customize/customize_cmdline.ml:494
 #: common/mlcustomize/customize_cmdline.ml:494
 msgid "command '%s' cannot be used in command files, see the man page"
-msgstr ""
+msgstr "komentoa '%s' ei voi käyttää komentotiedostoissa, katso man-sivu"
 
 #: customize/customize_cmdline.ml:511
 #: common/mlcustomize/customize_cmdline.ml:511
 msgid "command '%s' not valid, see the man page"
-msgstr ""
+msgstr "komentoa '%s'ei kelpaa, katso man-sivua"
 
 #: builder/sigchecker.ml:123
 msgid ""
@@ -2406,6 +2431,8 @@ msgid ""
 "could not finish firstboot installation by running ‘%s’ because the command "
 "failed: %s"
 msgstr ""
+"firstboot-asennusta ei voitu suorittaa loppuun suorittamalla '%s', koska "
+"komento epäonnistui: %s"
 
 #: builder/sigchecker.ml:46
 msgid ""
@@ -2415,7 +2442,7 @@ msgstr ""
 
 #: builder/downloader.ml:92
 msgid "cp (download) command failed copying ‘%s’"
-msgstr ""
+msgstr "komento 'cp' ('download') epäonnistui ‘%s’:n kopioinnissa"
 
 #: builder/builder.ml:161
 msgid "curl is not installed (or does not work)"
@@ -2511,19 +2538,19 @@ msgstr ""
 
 #: sparsify/copying.ml:335
 msgid "external command failed: %s"
-msgstr ""
+msgstr "ulkoinen komento epäonnistui: %s"
 
 #: dib/dib.ml:998 common/mltools/tools_utils.ml:382
 msgid "external command ‘%s’ exited with error %d"
-msgstr ""
+msgstr "ulkoinen komento '%s' poistui virheellä %d"
 
 #: common/mltools/tools_utils.ml:463 common/mltools/tools_utils.ml:384
 msgid "external command ‘%s’ killed by signal %d"
-msgstr ""
+msgstr "signaalin %d tappamana ulkoinen komento '%s'"
 
 #: common/mltools/tools_utils.ml:465 common/mltools/tools_utils.ml:386
 msgid "external command ‘%s’ stopped by signal %d"
-msgstr ""
+msgstr "signaalin %d pyrähtämänä ulkoinen komento '%s'"
 
 #: builder/downloader.ml:126
 msgid "failed to download %s: HTTP status code %s"
@@ -2539,7 +2566,7 @@ msgstr ""
 
 #: common/mltools/tools_utils.ml:191
 msgid "failure: %s"
-msgstr "Epäonnistuminen: %s"
+msgstr "epäonnistuminen: %s"
 
 #: sysprep/main.ml:123 get-kernel/get_kernel.ml:56
 #: customize/customize_main.ml:75
@@ -2614,6 +2641,9 @@ msgid ""
 "command line options that involve running commands in the guest.  Use --"
 "firstboot scripts instead."
 msgstr ""
+"isännän CPU (%s) ja vierasarkkitehtuuri (%s) eivät ole yhteensopivia, joten "
+"et voi käyttää komentorivivalintoja, joihin liittyy komentojen suorittaminen "
+"vieraassa. Käytä sen sijaan '--firstboot' -komentosarjoja."
 
 #: customize/customize_run.ml:270
 msgid "hostname could not be set for this type of guest"
@@ -2785,6 +2815,9 @@ msgid ""
 "the required size, format etc. This is a bug in libguestfs!\n"
 "Please file a bug, giving the command line arguments you used."
 msgstr ""
+"levykuvan luomista varten ei löytynyt suunnitelmaa\n"
+"vaadittu koko, muoto jne. Tämä on vika libguestfs:ssä!\n"
+"Lähetä vika antamalla käyttämäsi komentoriviargumentit."
 
 #: resize/resize.ml:144
 msgid "ntfsresize"
@@ -2974,6 +3007,8 @@ msgid ""
 "the command may have failed because the network is disabled.  Try either "
 "removing ‘--no-network’ or adding ‘--network’ on the command line."
 msgstr ""
+"komento on saattanut epäonnistua, koska verkko on poistettu käytöstä. Yritä "
+"joko poistaa ”--no-network” tai lisätä ”--network” komentoriville."
 
 #: common/mltools/JSON_parser.ml:76
 msgid "the key ‘%s’ was not found in a list of objects"
@@ -3053,6 +3088,8 @@ msgid ""
 "unexpected output from curl command, enable debug and look at previous "
 "messages"
 msgstr ""
+"odottamaton ulostulo komennosta 'curl', ota käyttöön virheenkorjaus ja katso "
+"edelliset viestit"
 
 #: common/mltools/checksums.ml:58
 msgid "unhandled checksum type ‘%s’"
@@ -3234,7 +3271,7 @@ msgstr ""
 
 #: builder/repository_main.ml:157
 msgid "‘xz’ command failed"
-msgstr ""
+msgstr "‘xz’ komento epäonnistui"
 
 #: align/scan.c:80 cat/cat.c:59 cat/filesystems.c:94 cat/log.c:69 cat/ls.c:97
 #: cat/tail.c:66 df/main.c:72 diff/diff.c:106 edit/edit.c:68 fish/fish.c:115
@@ -3268,6 +3305,29 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: tarkista virtuaalikoneen osioiden kohdistus\n"
+"Tekijänoikeus (C) 2011 Red Hat Inc.\n"
+"\n"
+"Käyttö::\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Vaihtoehdot:\n"
+"  -a|--add image       Lisää kuva\n"
+"    valitsimelle '-a'\n"
+"    --blocksize[=512|4096]      Aseta levyn lohkokoko\n"
+"    --format[=raw|..]    Pakota levyn muoto\n"
+"  -d|--domain guest     Lisää  libvirt-vieraan levyt\n"
+"    valitsimelle '-d'\n"
+"    -c|--connect uri     Määritä libvirt:n URI\n"
+"  --help               Näytä lyhyt ohje\n"
+"  -P n                 Käytä enintään n virtaa\n"
+"  -q|--quiet           Ei ulostuloa, vain poistumiskoodi\n"
+"  --uuid               Tulosta UUID:t nimien sijaan\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version         Näytä versio ja poistu\n"
+"  -x                   Jäljitä libguestfs-sovellusliittymäkutsuja\n"
+"\n"
+"Lisätietoja on man-sivulla %s(1).\n"
 
 #: align/scan.c:167 builder/index-validate.c:88 cat/cat.c:157
 #: cat/filesystems.c:254 cat/log.c:160 cat/ls.c:255 cat/tail.c:165
@@ -3371,6 +3431,31 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: Näytä tiedostot virtuaalikoneessa\n"
+"Tekijänoikeus (C) 2010 Red Hat Inc.\n"
+"\n"
+"Käyttö::\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Vaihtoehdot:\n"
+"  -a|--add image       Lisää kuva\n"
+"    valitsimelle '-a'\n"
+"    --blocksize[=512|4096]  Aseta levyn lohkokoko\n"
+"    --format[=raw|..]       Pakota levyn muoto\n"
+"  -d|--domain guest    Lisää  libvirt-vieraan levyt\n"
+"    valitsimelle '-d'\n"
+"    -c|--connect uri        Määritä libvirt:n URI\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --help               Display brief help\n"
+"  --key selector       Specify a LUKS key\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                       Mount dev on mnt (if omitted, /)\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version         Näytä versio ja poistu\n"
+"  -x                   Jäljitä libguestfs-sovellusliittymäkutsuja\n"
+"\n"
+"Lisätietoja on man-sivulla %s(1).\n"
 
 #: cat/cat.c:246 cat/filesystems.c:352 cat/log.c:218 cat/ls.c:370
 #: cat/tail.c:231 diff/diff.c:343 edit/edit.c:271 fuse/guestmount.c:331
@@ -3419,6 +3504,46 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s:luetteloi tiedostojärjestelmät, osiot, lohkolaitteet, LVM "
+"virtuaalikoneessa\n"
+"Tekijänoikeus (C) 2010 Red Hat Inc.\n"
+"\n"
+"Käyttö::\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Vaihtoehdot:\n"
+"  -a|--add image       Lisää kuva\n"
+"    valitsimelle '-a'\n"
+"    --blocksize[=512|4096]  Aseta levyn lohkokoko\n"
+"    --format[=raw|..]       Pakota levyn muoto\n"
+"  --all                Display everything\n"
+"  --blkdevs|--block-devices\n"
+"                       Display block devices\n"
+"  --csv                Output as Comma-Separated Values\n"
+"  -d|--domain guest    Lisää  libvirt-vieraan levyt\n"
+"    valitsimelle '-d'\n"
+"    -c|--connect uri        Määritä libvirt:n URI\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --extra              Display swap and data filesystems\n"
+"  --filesystems        Display mountable filesystems\n"
+"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -l|--long            Long output\n"
+"  --lvs|--logvols|--logical-volumes\n"
+"                       Display LVM logical volumes\n"
+"  --no-title           No title in --long output\n"
+"  --parts|--partitions Display partitions\n"
+"  --pvs|--physvols|--physical-volumes\n"
+"                       Display LVM physical volumes\n"
+"  --uuid|--uuids       Add UUIDs to --long output\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version         Näytä versio ja poistu\n"
+"  --vgs|--volgroups|--volume-groups\n"
+"                       Näytä LVM-taltioryhmät\n"
+"  -x                   Jäljitä libguestfs-sovellusliittymäkutsuja\n"
+"\n"
+"Lisätietoja on man-sivulla %s(1).\n"
 
 #: cat/filesystems.c:308 cat/log.c:206 inspector/inspector.c:264
 #, c-format
@@ -3426,6 +3551,8 @@ msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
+"%s: virhe: ylimääräinen argumentti '%s' komentorivillä.\n"
+"Muista määrittää argumentti '--format' kuten '--format=%s'.\n"
 
 #: cat/filesystems.c:323 cat/ls.c:362 df/main.c:267 diff/diff.c:357
 #, c-format
@@ -3523,6 +3650,42 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s:luetteloi tiedostot virtuaalikoneessa\n"
+"Tekijänoikeus (C) 2010-2012 Red Hat Inc.\n"
+"\n"
+"Käyttö::\n"
+"  %s [--options] -d domname dir [dir ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] dir [dir ...]\n"
+"Vaihtoehdot:\n"
+"  -a|--add image       Lisää kuva\n"
+"    valitsimelle '-a'\n"
+"    --blocksize[=512|4096]  Aseta levyn lohkokoko\n"
+"    --format[=raw|..]       Pakota levyn muoto\n"
+"  --checksum[=...]     Display file checksums\n"
+"  -d|--domain guest    Lisää  libvirt-vieraan levyt\n"
+"    valitsimelle '-d'\n"
+"    -c|--connect uri        Määritä libvirt:n URI\n"
+"  --csv                Comma-Separated Values output\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --extra-stats        Display extra stats\n"
+"  --help               Display brief help\n"
+"  -h|--human-readable  Human-readable sizes in output\n"
+"  --key selector       Specify a LUKS key\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -l|--long            Long listing\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                       Mount dev on mnt (if omitted, /)\n"
+"  -R|--recursive       Recursive listing\n"
+"  --times              Display file times\n"
+"  --time-days          Display file times as days before now\n"
+"  --time-relative      Display file times as seconds before now\n"
+"  --time-t             Display file times as time_t's\n"
+"  --uids                Tulosta UID, GID\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version         Näytä versio ja poistu\n"
+"  -x                   Jäljitä libguestfs-sovellusliittymäkutsuja\n"
+"\n"
+"Lisätietoja on man-sivulla %s(1).\n"
 
 #: cat/ls.c:355
 #, c-format
@@ -3558,6 +3721,31 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: seuraa (tail) tiedostoja virtuaalikoneessa\n"
+"Copyright (C) 2016 Red Hat Inc.\n"
+"\n"
+"Usage:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Vaihtoehdot:\n"
+"  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  -f|--follow          Ignored for compatibility with tail\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --key selector       Specify a LUKS key\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                       Mount dev on mnt (if omitted, /)\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version         Näytä versio ja poistu\n"
+"  -x                   Jäljitä libguestfs-sovellusliittymäkutsuja\n"
+"\n"
+"Lisätietoja on man-sivulla %s(1).\n"
 
 #: cat/tail.c:220
 #, c-format
@@ -3565,6 +3753,8 @@ msgid ""
 "%s: error: missing filenames on command line.\n"
 "Please specify at least one file to follow.\n"
 msgstr ""
+"%s: virhe: puuttuvat tiedostonimet komentoriviltä.\n"
+"Määritä vähintään yksi seurattava tiedosto.\n"
 
 #: cat/tail.c:424
 #, c-format
@@ -3630,7 +3820,7 @@ msgstr ""
 #: common/mltools/getopt-c.c:423
 #, c-format
 msgid "Extra parameter on the command line: ‘%s’.\n"
-msgstr ""
+msgstr "Ylimääräinen parametri komentorivillä: ‘%s’.\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -3646,6 +3836,11 @@ msgid ""
 "\n"
 "Original error: %s (%d)"
 msgstr ""
+"ei löytynyt avainta salatun LUKS %s avaamiseen.\n"
+"\n"
+"Yritä käyttää '--key' komentorivillä.\n"
+"\n"
+"Alkuperäinen virhe: %s (%d)"
 
 #: common/options/inspect.c:71
 #, c-format
@@ -3670,6 +3865,21 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: tältä levyltä ei löytynyt käyttöjärjestelmää\n"
+"\n"
+"Jos käytät guestfish ‘-i’ -vaihtoehtoa, poista tämä vaihtoehto ja\n"
+"sen sijaan käytä komentoja 'run' ja sitten 'list-filesystems'.\n"
+"Tämän jälkeen voit liittää haluamasi tiedostojärjestelmät käsin\n"
+"'Mount' tai 'mount-ro' -komento.\n"
+"\n"
+"Jos käytät guestmount ‘-i’, poista tämä vaihtoehto ja valitse\n"
+"tiedostojärjestelmät, jotka haluat nähdä lisäämällä manuaalisesti\n"
+"'-m' -vaihtoehdot. Käytä virt-filesystems-sovellusta nähdäksesi\n"
+"käytettävissä olevat tiedostojärjestelmät.\n"
+"\n"
+"Jos käytät muita virt-työkaluja, tämä levykuva ei toimi näiden\n"
+"työkalujen avulla. Käytä guestfish-vastaavia komentoja\n"
+"(katso virt-työkalun käyttöoppaan sivu).\n"
 
 #: common/options/inspect.c:102
 #, c-format
@@ -3689,6 +3899,21 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: monikäynnistyskäyttöjärjestelmiä ei tueta\n"
+"\n"
+"Jos käytät guestfish ‘-i’ -vaihtoehtoa, poista tämä vaihtoehto ja\n"
+"sen sijaan käytä komentoja 'run' ja sitten 'list-filesystems'.\n"
+"Tämän jälkeen voit liittää haluamasi tiedostojärjestelmät käsin\n"
+"'Mount' tai 'mount-ro' -komento.\n"
+"\n"
+"Jos käytät guestmount ‘-i’, poista tämä vaihtoehto ja valitse\n"
+"tiedostojärjestelmät, jotka haluat nähdä lisäämällä manuaalisesti\n"
+"'-m' -vaihtoehdot. Käytä virt-filesystems-sovellusta nähdäksesi\n"
+"käytettävissä olevat tiedostojärjestelmät.\n"
+"\n"
+"Jos käytät muita virt-työkaluja, monikäynnistyskäyttöjärjestelmät\n"
+"eivät toimi näiden työkalujen avulla. Käytä guestfish-vastaavia komentoja\n"
+"(katso virt-työkalun käyttöoppaan sivu).\n"
 
 #: common/options/inspect.c:164
 #, c-format
@@ -3755,27 +3980,35 @@ msgstr ""
 #: common/parallel/domains.c:106 lib/libvirt-domain.c:109
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr ""
+msgstr "ei voinut muodostaa yhteyttä libvirtiin (koodi %d, toimialue %d): %s"
 
 #: common/parallel/domains.c:114
 #, c-format
 msgid "could not get number of running domains (code %d, domain %d): %s"
 msgstr ""
+"käynnissä olevien toimialueiden lukumäärää ei voitu saada (koodi %d, "
+"toimialue %d): %s"
 
 #: common/parallel/domains.c:125
 #, c-format
 msgid "could not list running domains (code %d, domain %d): %s"
 msgstr ""
+"käynnissä olevien toimialueiden luetteloa ei voitu saada (koodi %d, "
+"toimialue %d): %s"
 
 #: common/parallel/domains.c:135
 #, c-format
 msgid "could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
+"ei käynnissä olevien toimialueiden lukumäärää ei voitu saada (koodi %d, "
+"toimialue %d): %s"
 
 #: common/parallel/domains.c:146
 #, c-format
 msgid "could not list inactive domains (code %d, domain %d): %s"
 msgstr ""
+"ei käynnissä olevien toimialueiden luetteloa ei voitu saada (koodi %d, "
+"toimialue %d): %s"
 
 #: common/utils/utils.c:107
 #, c-format
@@ -3849,6 +4082,32 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: näyttää vapaata tilaa virtuaalisissa tiedostojärjestelmissä\n"
+"Tekijänoikeus (C) 2010 Red Hat Inc.\n"
+"\n"
+"Käyttö::\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Vaihtoehdot:\n"
+"  -a|--add image       Lisää kuva\n"
+"    valitsimelle '-a'\n"
+"    --blocksize[=512|4096]  Aseta levyn lohkokoko\n"
+"    --format[=raw|..]       Pakota levyn muoto\n"
+"  --csv                Output as Comma-Separated Values\n"
+"  -d|--domain guest    Lisää libvirt-vieraan levyt\n"
+"    valitsimelle '-d'\n"
+"    -c|--connect uri        Määritä libvirt:n URI\n"
+"  --help               Näytä lyhyt ohje\n"
+"  -i|--inodes          Näytä inodit\n"
+"  --one-per-guest      Erillinen laite vierasta kohden\n"
+"  -P n                 Käytä enintään n virtaa\n"
+"  -q|--quiet           Ei ulostuloa, vain poistumiskoodi\n"
+"  --uuid               Tulosta UUID: t nimien sijaan\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version         Näytä versio ja poistu\n"
+"  -x                   Jäljitä libguestfs-sovellusliittymäkutsuja\n"
+"\n"
+"Lisätietoja on man-sivulla %s(1).\n"
 
 #: df/main.c:282
 #, c-format
@@ -3897,7 +4156,7 @@ msgstr ""
 
 #: df/output.c:63
 msgid "IUse%"
-msgstr ""
+msgstr "IUse%"
 
 #: diff/diff.c:109
 #, c-format
@@ -3952,11 +4211,13 @@ msgid ""
 "Make sure to specify the argument for --checksum or --format like '--format="
 "%s'.\n"
 msgstr ""
+"%s: virhe: ylimääräinen argumentti '%s' komentorivillä.\n"
+"Muista määrittää argumentti --checksum tai '--format' kuten '--format=%s'.\n"
 
 #: diff/diff.c:769
 #, c-format
 msgid "%s: external diff command failed\n"
-msgstr ""
+msgstr "%s: ulkoinen komento 'diff' epäonnistui\n"
 
 #: diff/diff.c:773
 msgid "End of diff"
@@ -4055,7 +4316,7 @@ msgstr ""
 
 #: fish/cmds.c:499
 msgid "add the disk(s) from a named libvirt domain"
-msgstr ""
+msgstr "lisää levyt nimellisestä libvirt-toimialueesta"
 
 #: fish/cmds.c:500
 msgid "add an image to examine or modify"
@@ -4063,7 +4324,7 @@ msgstr ""
 
 #: fish/cmds.c:501
 msgid "add a drive in snapshot mode (read-only)"
-msgstr ""
+msgstr "lisää asema tilannevedostilassa (vain luku)"
 
 #: fish/cmds.c:502
 msgid "add a drive read-only specifying the QEMU block emulation to use"
@@ -4203,7 +4464,7 @@ msgstr ""
 
 #: fish/cmds.c:551
 msgid "reread partition table"
-msgstr ""
+msgstr "lue uudelleen osiotaulukko"
 
 #: fish/cmds.c:552
 msgid "set blocksize of block device"
@@ -4344,15 +4605,15 @@ msgstr ""
 
 #: fish/cmds.c:589
 msgid "delete a btrfs subvolume or snapshot"
-msgstr ""
+msgstr "poista btrfs-alitaltio tai tilannevedos"
 
 #: fish/cmds.c:590
 msgid "get the default subvolume or snapshot of a filesystem"
-msgstr ""
+msgstr "hae tiedostojärjestelmän oletusalitaltio tai tilannevedos"
 
 #: fish/cmds.c:591
 msgid "list btrfs snapshots and subvolumes"
-msgstr ""
+msgstr "luettele btrfs-tilannevedokset ja alitaltiot"
 
 #: fish/cmds.c:592
 msgid "set default btrfs subvolume"
@@ -4364,7 +4625,7 @@ msgstr ""
 
 #: fish/cmds.c:594
 msgid "create a btrfs snapshot"
-msgstr ""
+msgstr "luo btrfs-tilannevedos"
 
 #: fish/cmds.c:595
 msgid "enable extended inode refs"
@@ -4428,11 +4689,11 @@ msgstr ""
 
 #: fish/cmds.c:613
 msgid "run a command from the guest filesystem"
-msgstr ""
+msgstr "Suorita komento vierastiedostojärjestelmästä"
 
 #: fish/cmds.c:614
 msgid "run a command, returning lines"
-msgstr ""
+msgstr "suorita komento, palautetaan rivit"
 
 #: fish/cmds.c:615
 msgid "output compressed device"
@@ -4802,7 +5063,7 @@ msgstr ""
 
 #: fish/cmds.c:726
 msgid "get command trace enabled flag"
-msgstr ""
+msgstr "hae komento 'trace':n käytössä :n lippu"
 
 #: fish/cmds.c:727
 msgid "get the current umask"
@@ -4826,7 +5087,7 @@ msgstr ""
 
 #: fish/cmds.c:732
 msgid "expand wildcards in command"
-msgstr ""
+msgstr "laajenna jokerit komennossa"
 
 #: fish/cmds.c:733
 msgid "expand a wildcard path"
@@ -5830,7 +6091,7 @@ msgstr ""
 
 #: fish/cmds.c:1048
 msgid "add options to kernel command line"
-msgstr ""
+msgstr "lisää vaihtoehtoja ytimen komentoriville"
 
 #: fish/cmds.c:1049 fish/cmds.c:1051
 msgid "set the backend"
@@ -5934,7 +6195,7 @@ msgstr ""
 
 #: fish/cmds.c:1075
 msgid "enable or disable command traces"
-msgstr ""
+msgstr "Ota komento 'traces' käyttöön tai poista se käytöstä"
 
 #: fish/cmds.c:1076
 msgid "set the filesystem UUID"
@@ -5978,11 +6239,11 @@ msgstr ""
 
 #: fish/cmds.c:1088
 msgid "run a command via the shell"
-msgstr ""
+msgstr "suorita komento komentotulkin kautta"
 
 #: fish/cmds.c:1089
 msgid "run a command via the shell returning lines"
-msgstr ""
+msgstr "suorita komento linjat palaavan komentotulkin kautta"
 
 #: fish/cmds.c:1090
 msgid "shutdown the hypervisor"
@@ -6010,7 +6271,7 @@ msgstr ""
 
 #: fish/cmds.c:1101
 msgid "list supported groups of commands"
-msgstr ""
+msgstr "luettele tuetut komentojen ryhmät"
 
 #: fish/cmds.c:1102
 msgid "disable swap on device"
@@ -6078,7 +6339,7 @@ msgstr ""
 
 #: fish/cmds.c:1118
 msgid "print elapsed time taken to run a command"
-msgstr ""
+msgstr "tulostaa komennon suorittamiseen kulunut aika"
 
 #: fish/cmds.c:1122
 msgid "update file timestamps or create a new file"
@@ -6106,7 +6367,7 @@ msgstr ""
 
 #: fish/cmds.c:1133
 msgid "unmount a filesystem"
-msgstr ""
+msgstr "irrota tiedostojärjestelmä"
 
 #: fish/cmds.c:1134
 msgid "unmount all filesystems"
@@ -6291,6 +6552,8 @@ msgstr ""
 #: fish/cmds.c:1198
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
+"Käytä '-h <komento>' / 'help <komento>' näyttääksesi komennon "
+"yksityiskohtaisen ohjeen."
 
 #: fish/copy.c:42
 #, c-format
@@ -6396,6 +6659,63 @@ msgid ""
 "\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: vieras tiedostojärjestelmän komentotulkki\n"
+"%s antaa sinun muokata virtuaalikoneen tiedostojärjestelmiä\n"
+"Tekijänoikeus (C) 2009-2020 Red Hat Inc.\n"
+"\n"
+"Käyttö:\n"
+"   %s [--options] cmd [: cmd: cmd ...]\n"
+"Vaihtoehdot:\n"
+"  -h|--cmd-help        Luettele käytettävissä olevat komennot\n"
+"  -h|--cmd-help cmd    Näytä yksityiskohtainen ohje ‘cmd’:lla\n"
+"  -a|--add image       Lisää kuva\n"
+"   '-a':ta varten\n"
+"    --blocksize[=512|4096]   Aseta levyn sektorikoko\n"
+"    --format[=raw|..]    Pakota levyn alustaminen\n"
+"  -c|--connect uri     Määritä libvirt:n URI '-d':ta varten\n"
+"  --csh                Tee '--listen' csh-yhteensopivaksi\n"
+"  -d|--domain guest    Lisää levyt libvirt-vieraasta\n"
+"  --echo-keys          Älä sammuta 'echo':ta salasanoista\n"
+"  -f|--file file       Lue komennot tiedostosta\n"
+"  --help               Näytä lyhyt ohje\n"
+"  -i|--inspector       Liitä tiedostojärjestelmät automaattisesti\n"
+"  --key selector       Määritä LUKS-avain\n"
+"  --keys-from-stdin    Lue tunnuslauseet stdiniltä\n"
+"  --listen             Kuuntele etäkomentoja\n"
+"  --live              Yhdistä elävään-virtuaalikoneeseen\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                      Liitä dev mnt:lle (jos se jätetään pois, /)\n"
+"  --network           Ota verkko käyttöön\n"
+"  -N|--new [filename=]type\n"
+"                       Luo valmis levy (test<N>.img tai filename)\n"
+"  -n|--no-sync         Älä autosync\n"
+"  --no-dest-paths      Don’t tab-complete paths from guest fs\n"
+"  --pipe-error         Putkikomennot voivat havaita kirjoitusvirheet\n"
+"  --progress-bars      Ota etenemispalkit käyttöön, vaikka ne eivät "
+"olisikaan vuorovaikutteisia\n"
+"  --no-progress-bars   Poista etenemispalkit käytöstä\n"
+"  --remote[=pid]       Lähetä komennot etätietokoneelle %s\n"
+"  -r|--ro              Liitä luku-vain:na\n"
+"  --selinux            Vain taaksepäin yhteensopivuutta varten, ei tee "
+"mitään\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version        Näytä versio ja poistu\n"
+"  -w|--rw              Liitä luku-kirjoitus:na\n"
+"  -x                   Toista 'echo':lla jokainen komento ennen sen "
+"suorittamista\n"
+"\n"
+"Levykuvan, ISO:n, kiintolevyn, tiedostojärjestelmän jne., tarkasteleminen:\n"
+"  %s [--ro|--rw] -i -a /polku_levyyn.img\n"
+"tai\n"
+"  %s [--ro|--rw] -i -d <libvirt:n_toimialueen_nimi>\n"
+"\n"
+"‘--ro’ on suositeltavaa välttääkseen levykuvaan kirjoittamista.\n"
+"\n"
+"Jos '-i' -vaihtoehto epäonnistuu, suorita uudelleen ilman '-i' ja käytä "
+"'run' +\n"
+"’list-filesystems’ + ’mount’ -komennot.\n"
+"\n"
+"Katso lisätietoja man-sivulta %s(1).\n"
 
 #: fish/fish.c:273
 #, c-format
@@ -6425,7 +6745,7 @@ msgstr ""
 #: fish/fish.c:522
 #, c-format
 msgid "extra parameters on the command line with --listen flag"
-msgstr ""
+msgstr "ylimääräisiä parametreja komentorivillä '--listen':-lipulla"
 
 #: fish/fish.c:525
 #, c-format
@@ -6444,11 +6764,19 @@ msgid ""
 "      ‘quit’ to quit the shell\n"
 "\n"
 msgstr ""
+"\n"
+"Tervetuloa guestfishiin, vieraan tiedostojärjestelmän komentotulkki\n"
+"virtuaalikoneen tiedostojärjestelmien ja levykuvien muokkaamiseen.\n"
+"\n"
+"Kirjoita: 'help', jos tarvitset apua komentoihin, 'man' käyttöoppaan "
+"lukemiseen\n"
+"ja 'quit' komentotulkin lopettamiseen.\n"
+"\n"
 
 #: fish/fish.c:876 fish/fish.c:892
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
-msgstr ""
+msgstr "%s: komentoargumentit ei erotettu välilyönnillä\n"
 
 #: fish/fish.c:886
 #, c-format
@@ -6478,11 +6806,11 @@ msgstr ""
 #: fish/fish.c:1083
 #, c-format
 msgid "empty command on command line"
-msgstr ""
+msgstr "tyhjä komento komentorivillä"
 
 #: fish/fish.c:1237
 msgid "display a list of commands or help on a command"
-msgstr ""
+msgstr "näyttää luettelon komennoista tai apua komentoon"
 
 #: fish/fish.c:1239
 msgid "quit guestfish"
@@ -6496,6 +6824,10 @@ msgid ""
 "     help cmd\n"
 "     help\n"
 msgstr ""
+"help - näyttää luettelon komennoista tai apua komentoon\n"
+"     help --list\n"
+"     help cmd\n"
+"     help\n"
 
 #: fish/fish.c:1259
 #, c-format
@@ -6507,17 +6839,17 @@ msgstr ""
 #: fish/fish.c:1264
 #, c-format
 msgid "%s: command not known: "
-msgstr ""
+msgstr "%s: komentoa ei tunneta: "
 
 #: fish/fish.c:1266
 #, c-format
 msgid "use 'help --list' to list all commands\n"
-msgstr ""
+msgstr "käytä 'help --list' luetteloidaksesi kaikki komennot\n"
 
 #: fish/fish.c:1268
 #, c-format
 msgid "use -h to list all commands\n"
-msgstr ""
+msgstr "käytä '-h' luetteloidaksesi kaikki komennot\n"
 
 #: fish/fish.c:1288
 #, c-format
@@ -6526,6 +6858,9 @@ msgid ""
 "For a list of commands:             guestfish -h\n"
 "For complete documentation:         man guestfish\n"
 msgstr ""
+"Tarkoititko avata levykuvan?  guestfish -a disk.img\n"
+"Luettelo komentoista:                guestfish -h\n"
+"Täydellinen dokumentaatio:   man guestfish\n"
 
 #: fish/fish.c:1299
 #, c-format
@@ -6543,6 +6878,8 @@ msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
+"%s: Jos haluat käyttää Windows-aseman kirjaimia, sinun on tarkastettava "
+"vieras (\"-i\" -vaihtoehto tai suoritettava 'inspect-os'-komento)\n"
 
 #: fish/fish.c:1764
 #, c-format
@@ -6567,7 +6904,7 @@ msgstr ""
 #: fish/glob.c:74
 #, c-format
 msgid "use 'glob command [args...]'\n"
-msgstr ""
+msgstr "käytä 'glob command [args...]'\n"
 
 #: fish/glob.c:142
 #, c-format
@@ -6582,6 +6919,10 @@ msgid ""
 "Or create a new disk image using ‘-N’, or the ‘alloc’ or ‘sparse’ commands.\n"
 "Once you have done this, use the ‘run’ command.\n"
 msgstr ""
+"Lisää tutkittavia levykuvia käyttämällä '-a' - tai '-d'-vaihtoehtoja tai "
+"'add'-komentoa.\n"
+"Tai luo uusi levykuva komennoilla '-N' tai 'alloc' tai 'sparse'.\n"
+"Kun olet tehnyt tämän, käytä 'run'-komentoa.\n"
 
 #: fish/help.c:54
 #, c-format
@@ -6598,11 +6939,16 @@ msgid ""
 "\n"
 "To read the manual, type ‘man’.\n"
 msgstr ""
+"Jos haluat lisätietoja komennosta, käytä ‘help <komento>’.\n"
+"\n"
+"Lue käyttöopas kirjoittamalla 'man'.\n"
 
 #: fish/help.c:81
 #, c-format
 msgid "use 'help', 'help <cmd>' or 'help -l|--list' to list all commands\n"
 msgstr ""
+"käytä 'help', 'help <komento>' tai 'help -l | --list' kaikkien komentojen "
+"luetteloimiseksi\n"
 
 #: fish/hexedit.c:46
 #, c-format
@@ -6690,12 +7036,12 @@ msgstr ""
 #: fish/prep-boot.c:131 fish/prep-lv.c:88 fish/prep-lv.c:129
 #, c-format
 msgid "failed to create PV: %s: %s"
-msgstr "PV: %s: luominen epäonnistui %s"
+msgstr "PV:n luominen epäonnistui: %s: %s"
 
 #: fish/prep-boot.c:136 fish/prep-lv.c:93 fish/prep-lv.c:134
 #, c-format
 msgid "failed to create VG: %s: %s"
-msgstr "VG: %s: luominen epäonnistui %s"
+msgstr "VG:n luominen epäonnistui: %s: %s"
 
 #: fish/prep-boot.c:141 fish/prep-lv.c:98 fish/prep-lv.c:139
 #, c-format
@@ -6791,7 +7137,7 @@ msgstr ""
 #: fish/reopen.c:43
 #, c-format
 msgid "‘reopen’ command takes no parameters\n"
-msgstr ""
+msgstr "komento ‘reopen’ ei ota parametreja\n"
 
 #: fish/reopen.c:56
 #, c-format
@@ -6945,7 +7291,7 @@ msgstr "ei"
 #: fish/time.c:41
 #, c-format
 msgid "use 'time command [args...]'\n"
-msgstr ""
+msgstr "käytä 'time command [args...]'\n"
 
 #: format/format.c:68
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
@@ -6987,6 +7333,30 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"%s: pyyhi ja tee tyhjä levy\n"
+"Tekijänoikeus (C) 2012 Red Hat Inc.\n"
+"%s\n"
+"\n"
+"Käyttö:\n"
+"   %s [--options] -a disk.img [-a disk.img ...]\n"
+"Vaihtoehdot:\n"
+"  -a|--add image       Lisää kuva\n"
+"    '-a':ta varten\n"
+"    --blocksize[=512|4096]   Aseta levyn sektorikoko\n"
+"    --format[=raw|..]    Pakota levyn alustaminen\n"
+"  --filesystem=..      Luo tyhjä tiedostojärjestelmä\n"
+"  --help               Näytä lyhyt ohje\n"
+"  --label=..           Aseta tiedostojärjestelmän nimiö\n"
+"  --lvm=..            Luo looginen Linux LVM2 -taltio\n"
+"  --partition=..      Luo/Määritä osiotyyppi\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version        Näytä versio ja poistu\n"
+"  --wipe               Kirjoita nollia koko levylle\n"
+"  -x                   Jäljitä libguestfs-sovellusliittymäkutsuja\n"
+"\n"
+"Katso lisätietoja man-sivulta %s(1).\n"
+"%s\n"
+"\n"
 
 #: format/format.c:162
 #, c-format
@@ -7005,6 +7375,9 @@ msgid ""
 "Make sure to specify the argument for --format, --lvm or --partition like '--"
 "format=%s'.\n"
 msgstr ""
+"%s: virhe: ylimääräinen argumentti '%s' komentorivillä.\n"
+"Muista määrittää argumentti näille '--format', '--lvm' tai '--partition' "
+"kuten '--format=%s'.\n"
 
 #: format/format.c:247
 #, c-format
@@ -7061,6 +7434,44 @@ msgid ""
 "  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
+"%s: FUSE-moduuli libguestfs:lle\n"
+"%s antaa sinun liittää virtuaalikoneen tiedostojärjestelmän\n"
+"Tekijänoikeus (C) 2009-2020 Red Hat Inc.\n"
+"\n"
+"Käyttö:\n"
+"  %s [--options] mountpoint\n"
+"Vaihtoehdot:\n"
+"  -h|--cmd-help        Luettele käytettävissä olevat komennot\n"
+"  -h|--cmd-help cmd    Näytä yksityiskohtainen ohje ‘cmd’:lla\n"
+"  -a|--add image       Lisää kuva\n"
+"    valitsimelle '-a'\n"
+"    --blocksize[=512|4096]   Aseta levyn sektorikoko\n"
+"    --format[=raw|..]    Pakota levyn alustaminen\n"
+"  -d|--domain guest    Lisää levyt libvir-vieraasta\n"
+"    valitsimelle '-d'\n"
+"    -c|--connect uri        Määritä libvirt:n URI\n"
+"  --dir-cache-timeout  Aseta readdir-välimuistin aikakatkaisu (oletus 5 s)\n"
+"  --echo-keys          Älä sammuta 'echo':ta salasanoista\n"
+"  --fd=FD              Kirjoita putkeen FD, kun liitoskohta on valmis\n"
+"  --fuse-help          Näytä ylimääräiset FUSE-vaihtoehdot\n"
+"  --help               Näytä lyhyt ohje\n"
+"  -i|--inspector       Liitä tiedostojärjestelmät automaattisesti\n"
+"  --key selector       Määritä LUKS-avain\n"
+"  --keys-from-stdin    Lue tunnuslauseet stdiniltä\n"
+"  --live              Yhdistä elävään-virtuaalikoneeseen\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                      Liitä dev mnt:lle (jos se jätetään pois, /)\n"
+"  --no-fork            Älä daemonize\n"
+"  -n|--no-sync         Älä autosync\n"
+"  -o|--option opt      Siirrä ylimääräinen vaihtoehto FUSE:lle\n"
+"  --pid-file filename  Kirjoita PID tiedostonimeen\n"
+"  -r|--ro              Liitä luku-vain:na\n"
+"  --selinux            Vain taaksepäin yhteensopivuutta varten, ei tee "
+"mitään\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version        Näytä versio ja poistu\n"
+"  -w|--rw              Liitä luku-kirjoitus:na\n"
+"  -x|--trace           Jäljitä libguestfs-sovellusliittymäkutsuja\n"
 
 #: fuse/guestmount.c:258
 #, c-format
@@ -7113,6 +7524,19 @@ msgid ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 msgstr ""
+"%s: siivota liitetty tiedostojärjestelmä\n"
+"Tekijänoikeus (C) 2013 Red Hat Inc.\n"
+"\n"
+"Käyttö:\n"
+"  %s [--fd=FD] mountpoint\n"
+"Vaihtoehdot:\n"
+"  --fd=FD              Kirjoita putkeen FD, kun liitoskohta on valmis\n"
+"  --help               Näytä lyhyt ohje\n"
+"  -q|--quiet          Älä tulosta kiinnitysyksikön fusermount :n virheitä\n"
+"  --no-retry          Älä yritä uudelleen fusermount:ta\n"
+"  --retry=N            Yritä fusermount:ta uudelleen N kertaa (oletus: 5)\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version        Näytä versio ja poistu\n"
 
 #: fuse/guestunmount.c:120
 #, c-format
@@ -7166,6 +7590,30 @@ msgid ""
 "  --xpath query        Perform an XPath query\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: näyttää virtuaalikoneen tietoja\n"
+"Tekijänoikeus (C) 2010 Red Hat Inc.\n"
+"\n"
+"Käyttö:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Vaihtoehdot:\n"
+"  -a|--add image       Lisää kuva\n"
+"    valitsimelle '-a'\n"
+"    --blocksize[=512|4096]   Aseta levyn sektorikoko\n"
+"    --format[=raw|..]        Pakota levyn alustaminen\n"
+"  -d|--domain guest    Lisää levyt libvir-vieraasta\n"
+"    valitsimelle '-d'\n"
+"    -c|--connect uri        Määritä libvirt:n URI\n"
+"  --echo-keys          Älä sammuta 'echo':ta salasanoista\n"
+"  --help               Näytä lyhyt ohje\n"
+"  --key selector       Määritä LUKS-avain\n"
+"  --keys-from-stdin    Lue tunnuslauseet stdiniltä\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version         Näytä versio ja poistu\n"
+"  -x                   Jäljitä libguestfs-sovellusliittymäkutsuja\n"
+"  --xpath query        Suorita XPath-kysely\n"
+"\n"
+"Katso lisätietoja man-sivulta %s(1).\n"
 
 #: inspector/inspector.c:280
 #, c-format
@@ -7388,11 +7836,11 @@ msgstr ""
 
 #: lib/dbdump.c:118 lib/dbdump.c:137
 msgid "unexpected line from db_dump command, no space prefix"
-msgstr ""
+msgstr "odottamaton rivi db_dump-komennosta, ei välilyöntiä"
 
 #: lib/dbdump.c:219
 msgid "unexpected non-hex digits in output of db_dump command"
-msgstr ""
+msgstr "odottamattomat ei-heksadesimaaliluvut 'db_dump':n ulostulossa"
 
 #: lib/drives.c:83
 msgid "this backend does not support adding read-only drives"
@@ -7528,7 +7976,7 @@ msgstr ""
 
 #: lib/drives.c:665
 msgid "missing Unix domain socket path"
-msgstr ""
+msgstr "puuttuu Unix-toimialueen pistoke"
 
 #: lib/drives.c:677
 #, c-format
@@ -7781,6 +8229,8 @@ msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
 msgstr ""
+"komento 'qemu-img info' tuotti tyhjän ulostulon, mutta ei palauttanut "
+"virhetilakoodia"
 
 #: lib/info.c:210
 #, c-format
@@ -7848,11 +8298,11 @@ msgstr ""
 
 #: lib/launch-libvirt.c:421
 msgid "could not get libvirt capabilities"
-msgstr ""
+msgstr "ei voinut saada libvirt-toimialueen kykyjä"
 
 #: lib/launch-libvirt.c:442
 msgid "could not get libvirt domain capabilities"
-msgstr ""
+msgstr "ei voinut saada libvirt-toimialueen kykyjä"
 
 #: lib/launch-libvirt.c:642
 msgid ""
@@ -7866,7 +8316,7 @@ msgstr ""
 
 #: lib/launch-libvirt.c:779
 msgid "unable to parse capabilities XML returned by libvirt"
-msgstr ""
+msgstr "libvirtin palauttamien XML-kykyjen jäsentäminen ei onnistu"
 
 #: lib/launch-libvirt.c:795 lib/launch-libvirt.c:883 lib/launch-libvirt.c:899
 #, c-format
@@ -7890,7 +8340,7 @@ msgstr ""
 
 #: lib/launch-libvirt.c:869
 msgid "unable to parse domain capabilities XML returned by libvirt"
-msgstr ""
+msgstr "libvirtin palauttama toimialueen kykyjen XML jäsentäminen ei onnistu"
 
 #: lib/launch-libvirt.c:1431
 msgid "‘iface’ parameter is not supported by the libvirt backend"
@@ -7930,7 +8380,7 @@ msgstr ""
 
 #: lib/launch-libvirt.c:2168
 msgid "could not destroy libvirt domain"
-msgstr ""
+msgstr "ei voinut tuhota libvirt-toimialuetta"
 
 #: lib/launch-libvirt.c:2189 lib/launch-libvirt.c:2222
 #, c-format
@@ -7939,11 +8389,11 @@ msgstr ""
 
 #: lib/launch-libvirt.c:2288
 msgid "could not attach disk to libvirt domain"
-msgstr ""
+msgstr "levyä ei voitu liittää libvirt-toimialueeseen"
 
 #: lib/launch-libvirt.c:2319
 msgid "could not detach disk from libvirt domain"
-msgstr ""
+msgstr "levyä ei voitu irrota libvirt-toimialueesta"
 
 #: lib/launch-uml.c:94
 msgid "uml backend does not support networking"
@@ -8068,6 +8518,8 @@ msgid ""
 "libvirt authentication APIs not available since this version of libguestfs "
 "was compiled without libvirt"
 msgstr ""
+"libvirt-todennuksen sovellusliittymät eivät ole käytettävissä, koska tämä "
+"libguestfs-versio on käännetty ilman libvirtia"
 
 #: lib/libvirt-domain.c:97 lib/libvirt-domain.c:247
 msgid "you cannot set both live and readonly flags"
@@ -8076,7 +8528,7 @@ msgstr ""
 #: lib/libvirt-domain.c:130
 #, c-format
 msgid "no libvirt domain called ‘%s’: %s"
-msgstr ""
+msgstr "ei libvirt-toimialuetta nimeltä ‘%s’: %s"
 
 #: lib/libvirt-domain.c:229
 msgid "unknown readonlydisk parameter"
@@ -8085,7 +8537,7 @@ msgstr ""
 #: lib/libvirt-domain.c:258
 #, c-format
 msgid "error getting domain info: %s"
-msgstr ""
+msgstr "virhe toimialueen tietojen saamisessa: %s"
 
 #: lib/libvirt-domain.c:272
 msgid ""
@@ -8096,6 +8548,14 @@ msgid ""
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
+"virhe: toimialue onelävä virtuaalikone.\n"
+"Kirjoittaminen käynnissä olevan virtuaalikoneen levyille voi aiheuttaa levyn "
+"vioittumista.\n"
+"Käytä joko vain luku -oikeutta tai jos vieras suorittaa guestfsd-daemonia, "
+"määritä\n"
+"reaaliaikainen käyttöoikeus. Useimmissa libguestfs-työkaluissa nämä "
+"vaihtoehdot ovat\n"
+"'--ro' tai '--live' vastaavasti. Katso lisätietoja asiakirjoista."
 
 #: lib/libvirt-domain.c:365
 #, c-format
@@ -8130,7 +8590,7 @@ msgstr ""
 
 #: lib/libvirt-domain.c:810
 msgid "libvirt domain has no disks"
-msgstr ""
+msgstr "libvirt-toimialueessa ei ole levyjä"
 
 #: lib/libvirt-domain.c:873
 msgid ""
@@ -8172,6 +8632,8 @@ msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
 msgstr ""
+"sovellusliittymä add-domainI ei ole käytettävissä, koska tämä libguestfs-"
+"versio on käännetty ilman libvirtia"
 
 #: lib/proto.c:238
 #, c-format
@@ -8349,6 +8811,27 @@ msgid ""
 "  -x                       Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: tekee tiedostojärjestelmä tar-arkistosta tai tiedostoista\n"
+"Tekijänoikeus (C) 2010-2020 Red Hat Inc.\n"
+"\n"
+"Usage:\n"
+"  %s [--options] input.tar output.img\n"
+"  %s [--options] input.tar.gz output.img\n"
+"  %s [--options] directory output.img\n"
+"Options:\n"
+"  --blocksize[=512|4096]   Aseta levyn sektorikoko\n"
+"  --floppy                 Luo virtuaalinen levyke\n"
+"  -F|--format=raw|qcow2|..  Määritä ulostulon muoto\n"
+"  --help               Näytä lyhyt ohje\n"
+"  --label=<nimiö>           Aseta tiedostojärjestelmän nimiö\n"
+"  --partition=mbr|gpt|..   Määritä osiotyyppi\n"
+"  -s|--size=size|+size     Määritä ulostulolevyn koko\n"
+"  -t|--type=ext4|..        Aseta tiedostojärjestelmän tyyppi\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version         Näytä versio ja poistu\n"
+"  -x                   Jäljitä libguestfs-sovellusliittymäkutsuj\n"
+"\n"
+"Katso lisätietoja man-sivulta %s(1).\n"
 
 #: make-fs/make-fs.c:154
 #, c-format
@@ -8358,7 +8841,7 @@ msgstr ""
 #: make-fs/make-fs.c:195
 #, c-format
 msgid "%s: missing input and output arguments on the command line\n"
-msgstr ""
+msgstr "%s: puuttuvat sisään- ja ulostuloargumentit komentoriviltä\n"
 
 #: make-fs/make-fs.c:214
 #, c-format
@@ -8368,12 +8851,12 @@ msgstr ""
 #: make-fs/make-fs.c:264 make-fs/make-fs.c:328
 #, c-format
 msgid "%s: %s command failed\n"
-msgstr ""
+msgstr "%s: %s komento epäonnistui\n"
 
 #: make-fs/make-fs.c:453
 #, c-format
 msgid "%s: cannot parse the output of ‘du’ command: %s\n"
-msgstr ""
+msgstr "%s: ei voi jäsentää komennon 'du' ulostuloa: %s\n"
 
 #: make-fs/make-fs.c:488
 #, c-format
@@ -8508,6 +8991,39 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: Suorita pelastuskuori virtuaalikoneella\n"
+"Tekijänoikeus (C) 2009-2020 Red Hat Inc.\n"
+"\n"
+"Käyttö:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Vaihtoehdot:\n"
+"  -a|--add image       Lisää kuva\n"
+"    valitsimelle '-a'\n"
+"    --blocksize[=512|4096]   Aseta levyn sektorikoko\n"
+"    --format[=raw|..]    Pakota levyn alustaminen\n"
+"  --append kernelopts   Liitä ytimen asetukset\n"
+"  -d|--domain guest    Lisää levyt libvirt-vieraasta\n"
+"    valitsimelle '-d'\n"
+"    -c|--connect uri     Määritä libvirt:n URI\n"
+"  -e ^x|none           Aseta tai poista poistumisnäppäin (oletus ^])\n"
+"  --help               Näytä lyhyt ohje\n"
+"  -i|--inspector       Liitä tiedostojärjestelmät automaattisesti\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                      Liitä dev mnt:lle (jos se jätetään pois, /)\n"
+"  --memsize MB         Aseta muistikoko megatavuina\n"
+"  --network           Ota verkko käyttöön\n"
+"  -r|--ro              Liitä luku-vain:na\n"
+"  --scratch[=N]        Lisää raaputuslevy(t)\n"
+"  --selinux            Vain taaksepäin yhteensopivuutta varten, ei tee "
+"mitään\n"
+"  --smp N              Ota SMP käyttöön N> = 2 virtuaalisella suorittimella\n"
+"  -v|--verbose         Yksityiskohtaiset viestit\n"
+"  -V|--version        Näytä versio ja poistu\n"
+"  -w|--rw              Liitä luku-kirjoitus:na\n"
+"  -x                   Jäljitä libguestfs-sovellusliittymäkutsuja\n"
+"\n"
+"Katso lisätietoja man-sivulta %s(1).\n"
 
 #: rescue/rescue.c:200
 #, c-format
@@ -8546,6 +9062,9 @@ msgid ""
 "Make sure to specify the argument for --format or --scratch like '--format="
 "%s'.\n"
 msgstr ""
+"%s: virhe: ylimääräinen argumentti '%s' komentorivillä.\n"
+"Muista määrittää argumentti näille '--format' tai '--scratch' kuten '--"
+"format=%s'.\n"
 
 #: rescue/suggest.c:62
 #, c-format
@@ -8561,6 +9080,11 @@ msgid ""
 "commands in virt-rescue (at the ><rescue> prompt) to mount the filesystems.\n"
 "\n"
 msgstr ""
+"Tämä levy sisältää yhden tai useamman käyttöjärjestelmän. Voit käyttää näitä "
+"komentoja\n"
+"'mount' virt-rescue:ssa (> <rescue> -kehotteessa) tiedostojärjestelmien "
+"liittämiseksi.\n"
+"\n"
 
 #: rescue/suggest.c:96
 #, c-format
@@ -8589,6 +9113,12 @@ msgid ""
 "><rescue> prompt) to mount these filesystems.\n"
 "\n"
 msgstr ""
+"Tämä levy sisältää vähintään yhden tiedostojärjestelmän, mutta emme "
+"tunnista\n"
+"yhtään käyttöjärjestelmä. Voit käyttää näitä komentoja 'mount' virt-rescue:"
+"ssa\n"
+"(> <rescue> -kehotteessa) tiedostojärjestelmien liittämiseksi.\n"
+"\n"
 
 #: rescue/suggest.c:167
 #, c-format
@@ -8611,6 +9141,18 @@ msgid ""
 "  --version\n"
 "  -V             Display libguestfs version and exit\n"
 msgstr ""
+"libguestfs-test-tool: vuorovaikutteinen testityökalu\n"
+"Tekijänoikeus (C) 2009-2020 Red Hat Inc.\n"
+"\n"
+"Käyttö:\n"
+"   libguestfs-test-tool [--options]\n"
+"Vaihtoehdot:\n"
+"  --help               Näytä ohje\n"
+"  --qemudir  Määritä QEMU-lähdehakemisto\n"
+"  --qemu       Määritä QEMU-binaari\n"
+"  -t|--timeout        Aseta käynnistymisen aikakatkaisu (oletus: %d sekuntia)"
+"\n"
+"  -V|--version        Näytä versio ja poistu\n"
 
 #: test-tool/test-tool.c:129
 #, c-format
@@ -8620,12 +9162,12 @@ msgstr ""
 #: test-tool/test-tool.c:151
 #, c-format
 msgid "unexpected command line option %d"
-msgstr ""
+msgstr "odottamaton komentorivivaihtoehto %d"
 
 #: test-tool/test-tool.c:156
 #, c-format
 msgid "extra arguments on the command line"
-msgstr ""
+msgstr "ylimääräisiä argumentteja komentorivillä"
 
 #: test-tool/test-tool.c:175
 #, c-format
@@ -8633,6 +9175,8 @@ msgid ""
 "failed parsing environment variables.\n"
 "Check earlier messages, and the output of the ‘printenv’ command."
 msgstr ""
+"ympäristömuuttujien jäsentäminen epäonnistui.\n"
+"Tarkista aikaisemmat viestit ja 'printenv'-komennon ulostulo."
 
 #: test-tool/test-tool.c:317
 #, c-format
@@ -8663,6 +9207,8 @@ msgstr ""
 msgid ""
 "virt-tar: extract/upload mode specified more than once on the command line\n"
 msgstr ""
+"virt-tar: extract/upload-tila määritetty useammin kuin kerran "
+"komentorivillä\n"
 
 #: tools/virt-tar:219
 msgid "virt-tar: no image, VM names, directory or filename given"
@@ -8670,7 +9216,7 @@ msgstr ""
 
 #: tools/virt-tar:222
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
-msgstr ""
+msgstr "virt-tar: joko '-x' tai '-u' tulee määrittää komentorivillä\n"
 
 #: tools/virt-tar:233
 #, perl-brace-format
@@ -8702,7 +9248,7 @@ msgstr ""
 
 #: tools/virt-win-reg:260
 msgid "no libvirt domain name or disk image given\n"
-msgstr ""
+msgstr "libvirt-toimialuetta tai levykuvaa ei annettu\n"
 
 #: tools/virt-win-reg:342
 msgid ""
