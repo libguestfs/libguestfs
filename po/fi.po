@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.43.2\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-03-03 10:57+0000\n"
-"PO-Revision-Date: 2021-03-05 15:49+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2021-03-11 13:58+0000\n"
+"PO-Revision-Date: 2021-03-23 13:01+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/fi/>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.2\n"
+"X-Generator: Weblate 4.5.1\n"
 
 #: dib/elements.ml:155
 msgid "  %s: already provided by %s"
-msgstr ""
+msgstr "  %s: jo toimittanut  %s"
 
 #: resize/resize.ml:980
 msgid "  An extra partition will be created for the surplus."
@@ -46,17 +46,19 @@ msgstr ""
 
 #: common/mltools/tools_utils.ml:187
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: common/mltools/getopt.ml:73
 msgid ""
 "%s\n"
 "Options:\n"
 msgstr ""
+"%s\n"
+"Vaihtoehdot:\n"
 
 #: customize/customize_run.ml:446 common/mltools/tools_utils.ml:640
 msgid "%s (ignored)"
-msgstr ""
+msgstr "%s (ohitettu)"
 
 #: builder/builder.ml:319
 msgid ""
@@ -68,26 +70,33 @@ msgid ""
 " - Delete the cache: virt-builder --delete-cache\n"
 " - Check no one has tampered with the website or your network!"
 msgstr ""
+"%s mallin tarkistussumma ei vastannut odotettua tarkistussummaa!\n"
+"   löytyi tarkistussumma: %s\n"
+"   odotettu tarkistussumma: %s\n"
+"Yrittää:\n"
+"  - Käytä '-v'-vaihtoehtoa ja etsi aikaisempia virheilmoituksia.\n"
+"  - Poista välimuisti: 'virt-builder --delete-cache'\n"
+"  - Tarkista, ettei kukaan ole muuttanut verkkosivustoa tai verkkoasi!"
 
 #: common/mltools/checksums.ml:71
 msgid "%s did not return any output"
-msgstr ""
+msgstr "%s ei palauttanut mitään ulostuloa"
 
 #: customize/customize_run.ml:244
 msgid "%s does not exist in the guest"
-msgstr ""
+msgstr "%s:ta ei ole olemassa vieraassa"
 
 #: builder/simplestreams_parser.ml:59
 msgid "%s is not a Simple Streams (index) v1.0 JSON file (format: %s)"
-msgstr ""
+msgstr "%s ei ole Simple Streams (index) v1.0 JSON -tiedosto (format: %s)"
 
 #: builder/simplestreams_parser.ml:78
 msgid "%s is not a Simple Streams (products) v1.0 JSON file (format: %s)"
-msgstr ""
+msgstr "%s ei ole Simple Streams (products) v1.0 JSON -tiedosto (format: %s)"
 
 #: customize/customize_run.ml:247
 msgid "%s is not a regular file in the guest"
-msgstr ""
+msgstr "%s ei ole tavallinen tiedosto vieraassa"
 
 #: dib/utils.ml:97
 msgid "%s needed but not found"
@@ -202,19 +211,19 @@ msgstr ""
 
 #: builder/index_parser.ml:196
 msgid "%s: cannot parse ‘hidden’ field for ‘%s’\n"
-msgstr ""
+msgstr "%s: ei voi jäsentää piilotettua kenttää ‘%s’:ta varten\n"
 
 #: builder/index_parser.ml:132
 msgid "%s: cannot parse ‘revision’ field for ‘%s’\n"
-msgstr ""
+msgstr "%s: ‘revision’-kenttää ei voi jäsentää ‘%s’:ta varten\n"
 
 #: builder/index_parser.ml:162
 msgid "%s: cannot parse ‘size’ field for ‘%s’\n"
-msgstr ""
+msgstr "%s: ‘size’-kenttää ei voi jäsentää ‘%s’:ta varten\n"
 
 #: builder/index_parser.ml:246
 msgid "%s: cannot use a URI (‘%s’) in the index file\n"
-msgstr ""
+msgstr "%s: ei voi käyttää URI: tä (’%s’) hakemistotiedostossa\n"
 
 #: customize/customize_run.ml:67
 msgid "%s: command exited with an error"
@@ -229,6 +238,12 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-builder-repository(1).\n"
 msgstr ""
+"%s: luo ohjelmistolähde virt-builderia varten\n"
+"\n"
+"   virt-builder-repository REPOSITORY_PATH\n"
+"\n"
+"Lyhyt yhteenveto vaihtoehdoista on annettu alla. Yksityiskohtaista apua;\n"
+"lue man-sivu virt-builder-repository(1).\n"
 
 #: customize/customize_main.ml:94
 msgid ""
@@ -241,6 +256,14 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-customize(1).\n"
 msgstr ""
+"%s: räätälöi virtuaalikone\n"
+"\n"
+"  virt-customize [--options] -d domname\n"
+"\n"
+"  virt-customize [--options] -a disk.img [-a disk.img ...]\n"
+"\n"
+"Lyhyt yhteenveto vaihtoehdoista on annettu alla. Yksityiskohtaista apua;\n"
+"lue man-sivu virt-customize(1).\n"
 
 #: common/mltools/tools_utils.ml:125
 msgid "%s: error: %s"
@@ -253,24 +276,32 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-get-kernel(1).\n"
 msgstr ""
+"%s: pura ydin ja ramdisk vieraasta\n"
+"\n"
+"Lyhyt yhteenveto vaihtoehdoista on annettu alla. Yksityiskohtaista apua;\n"
+"lue man-sivu virt-get-kernel(1).\n"
 
 #: resize/resize.ml:415 resize/resize.ml:412
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
-msgstr ""
+msgstr "%s: tiedosto on liian pieni ollakseen levykuva (%Ld tavua)"
 
 #: builder/index_parser.ml:76
 msgid "%s: index is corrupt: %s: field ‘%s[%s]’ appears two or more times\n"
 msgstr ""
+"%s: Indeksi on vioittunut: %s: kenttä ‘%s[%s]’ näkyy vähintään kaksi kertaa\n"
 
 #: builder/index_parser.ml:78
 msgid "%s: index is corrupt: %s: field ‘%s’ appears two or more times\n"
 msgstr ""
+"%s: Indeksi on vioittunut: %s: kenttä ‘%s’ näkyy vähintään kaksi kertaa\n"
 
 #: builder/index_parser.ml:60
 msgid ""
 "%s: index is corrupt: os-version ‘%s’ with architecture ‘%s’ appears two or "
 "more times\n"
 msgstr ""
+"%s: Indeksi on vioittunut: os-versio ’%s’ arkkitehtuurilla ‘%s’ näkyy "
+"vähintään kaksi kertaa\n"
 
 #: resize/resize.ml:852
 msgid ""
@@ -284,43 +315,43 @@ msgstr ""
 
 #: resize/resize.ml:725
 msgid "%s: missing size field in ‘%s’ option"
-msgstr ""
+msgstr "%s: puuttuu koko-kenttä vaihtoehdossa ‘%s’"
 
 #: resize/resize.ml:734
 msgid "%s: new partition size is zero or negative"
-msgstr ""
+msgstr "%s: uuden osion koko on nolla tai negatiivinen"
 
 #: builder/index_parser.ml:109
 msgid "%s: no ‘arch’ entry for %s and failed to guess it\n"
-msgstr ""
+msgstr "%s: ei 'arch'-merkintää %s:lle, eikä sitä arvattu\n"
 
 #: builder/index_parser.ml:116
 msgid "%s: no ‘arch’ entry for ‘%s’\n"
-msgstr ""
+msgstr "%s: ei 'arch'-merkintää %s:lle\n"
 
 #: builder/index_parser.ml:97
 msgid "%s: no ‘file’ (URI) entry for ‘%s’\n"
-msgstr ""
+msgstr "%s: ei ”tiedosto” (URI) -merkintää ‘%s’:lle\n"
 
 #: builder/index_parser.ml:155
 msgid "%s: no ‘size’ field for ‘%s’\n"
-msgstr ""
+msgstr "%s: ei ”koko” (URI) -merkintää ‘%s’:lle\n"
 
 #: builder/sources.ml:48
 msgid "%s: no ‘uri’ entry for ‘%s’ in %s, skipping it\n"
-msgstr ""
+msgstr "%s: ei ”uri”-merkintää ‘%s’:lle %s:ssa, ohitetaan se\n"
 
 #: common/mltools/tools_utils.ml:673
 msgid "%s: operation timed out"
-msgstr ""
+msgstr "%s: toiminta aikakatkaistiin"
 
 #: resize/resize.ml:646
 msgid "%s: partition already deleted, you cannot use it in ‘%s’ option"
-msgstr ""
+msgstr "%s: osio on jo poistettu, et voi käyttää sitä vaihtoehdossa '%s'"
 
 #: resize/resize.ml:642
 msgid "%s: partition already ignored, you cannot use it in ‘%s’ option"
-msgstr ""
+msgstr "%s: osio jo ohitettu, et voi käyttää sitä vaihtoehdossa '%s'"
 
 #: resize/resize.ml:638
 msgid ""
@@ -334,15 +365,15 @@ msgstr ""
 
 #: resize/resize.ml:543
 msgid "%s: partition size %Ld < filesystem size %Ld"
-msgstr ""
+msgstr "%s: osion koko %Ld <tiedostojärjestelmän koko %Ld"
 
 #: resize/resize.ml:538
 msgid "%s: partition size %Ld < physical volume size %Ld"
-msgstr ""
+msgstr "%s: osion koko %Ld < fyysisen taltion koko %Ld"
 
 #: resize/resize.ml:450
 msgid "%s: physical volume not returned by pvs_full"
-msgstr ""
+msgstr "%s: pvs_full ei ole palauttanut fyysistä taliota"
 
 #: sysprep/main.ml:141
 msgid ""
@@ -355,6 +386,15 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-sysprep(1).\n"
 msgstr ""
+"%s: nollaa virtuaalikone tai poista sen asetuksia, jotta kloonit voidaan "
+"tehdä\n"
+"\n"
+"  virt-sysprep [--options] -d domname\n"
+"\n"
+"  virt-sysprep [--options] -a disk.img [-a disk.img ...]\n"
+"\n"
+"Lyhyt yhteenveto vaihtoehdoista on annettu alla. Yksityiskohtaista apua;\n"
+"lue man-sivu virt-sysprep(1).\n"
 
 #: resize/resize.ml:219
 msgid ""
@@ -363,6 +403,10 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-resize(1).\n"
 msgstr ""
+"%s: muuta virtuaalikoneen levyn kokoa\n"
+"\n"
+"Lyhyt yhteenveto vaihtoehdoista on annettu alla. Yksityiskohtaista apua;\n"
+"lue man-sivu virt-resize(1).\n"
 
 #: dib/cmdline.ml:63
 msgid ""
@@ -373,6 +417,12 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-dib(1).\n"
 msgstr ""
+"%s: aja diskimage-builder-elementtejä kuvien luomiseksi\n"
+"\n"
+"  virt-dib -B DIB-LIB -p -ELEMENTIT-PATH-elementit ...\n"
+"\n"
+"Lyhyt yhteenveto vaihtoehdoista on annettu alla. Yksityiskohtaista apua;\n"
+"lue man-sivu virt-dib(1).\n"
 
 #: sparsify/cmdline.ml:81
 msgid ""
@@ -385,48 +435,61 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-sparsify(1).\n"
 msgstr ""
+"%s: parsifioi virtuaalikoneen levy\n"
+"\n"
+"  virt-sparsify [--options] indisk outdisk\n"
+"\n"
+"  virt-sparsify [--options] --in-place levy\n"
+"\n"
+"Lyhyt yhteenveto vaihtoehdoista on annettu alla. Yksityiskohtaista apua;\n"
+"lue man-sivuvirt-sparsify(1).s\n"
 
 #: builder/builder.ml:322
 msgid ""
 "%s: template not downloaded or deleted.  You may have run ‘virt-builder --"
 "delete-cache’ in parallel."
 msgstr ""
+"%s: mallia ei ladattu tai poistettu. Olet saattanut suorittaa rinnakkain "
+"'virt-builder --delete-cache'."
 
 #: resize/resize.ml:680
 msgid "%s: this partition has already been ignored or deleted"
-msgstr ""
+msgstr "%s:tämä osio on jo ohitettu tai poistettu"
 
 #: resize/resize.ml:676
 msgid "%s: this partition has already been marked for resizing"
-msgstr ""
+msgstr "%s: tämä osio on jo merkitty koon uudelleen muutettavaksi"
 
 #: resize/resize.ml:553
 msgid "%s: this partition overlaps the previous one"
-msgstr ""
+msgstr "%s: tämä osio on päällekkäinen edellisen kanssa"
 
 #: resize/resize.ml:427
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
+"%s: tuntematon osiotaulukkotyyppi\n"
+"virt-resize tukee vain MBR (DOS) - ja GPT-osiotauluja."
 
 #: common/mltools/tools_utils.ml:144
 msgid "%s: warning: %s"
-msgstr ""
+msgstr "%s: varoitus: %s"
 
 #: builder/index_parser.ml:250
 msgid "%s: you must use relative paths (not ‘%s’) in the index file\n"
 msgstr ""
+"%s: sinun on käytettävä suhteellisia polkuja (ei ‘%s’) indeksin tiedostossa\n"
 
 #: builder/index_parser.ml:242
 msgid "%s: zero length path in the index file\n"
-msgstr ""
+msgstr "%s: nollan pituus polku hakemistotiedostossa\n"
 
 #. common/mlcustomize/customize_cmdline.ml:331
 #. common/mlcustomize/customize_cmdline.ml:240
 #: customize/customize_cmdline.ml:331 customize/customize_cmdline.ml:240
 msgid "'CMD+ARGS'"
-msgstr ""
+msgstr "'CMD+ARGS'"
 
 #: get-kernel/get_kernel.ml:40
 msgid "--add option can only be given once"
@@ -437,30 +500,36 @@ msgid ""
 "--append-line: line must not contain newline characters.  Use the --append-"
 "line option multiple times to add several lines."
 msgstr ""
+"--append-line: rivi ei saa sisältää uuden rivin merkkejä. Käytä '--append-"
+"line' -vaihtoehtoa useita kertoja lisätäksesi useita rivejä."
 
 #: customize/customize_main.ml:112
 msgid "--attach-format parameter must appear before --attach parameter"
-msgstr ""
+msgstr "'--attach-format' -parametrin on oltava ennen '--attach '-parametria"
 
 #: builder/cmdline.ml:266
 msgid ""
 "--cache-all-templates/--print-cache/--delete-cache does not need any extra "
 "arguments"
 msgstr ""
+"'--cache-all-templates/--print-cache/--delete-cache' ei tarvitse "
+"ylimääräisiä argumentteja"
 
 #: sparsify/cmdline.ml:55
 msgid "--check-tmpdir: unknown argument ‘%s’"
-msgstr ""
+msgstr "--check-tmpdir: tuntematon argumentti ‘%s’"
 
 #: sparsify/copying.ml:69
 msgid ""
 "--compress cannot be used for raw output.  Remove this option or use --"
 "convert qcow2."
 msgstr ""
+"'--compress':ta ei voida käyttää raakaulostuloon. Poista tämä vaihtoehto tai "
+"käytä '--convert qcow2'."
 
 #: dib/cmdline.ml:88
 msgid "--debug parameter must be >= 0"
-msgstr ""
+msgstr "'--debug'-parametrin on oltava >= 0"
 
 #: sysprep/main.ml:66 get-kernel/get_kernel.ml:48
 #: customize/customize_main.ml:70
@@ -473,39 +542,39 @@ msgstr "vaihtoehto '--enable' voidaan antaa vain kerran"
 
 #: sysprep/main.ml:84
 msgid "--enable: ‘%s’ is not a known operation"
-msgstr ""
+msgstr "--enable: ‘%s’ei ole tunnettu toiminto"
 
 #: resize/resize.ml:173
 msgid "--expand option given more than once"
-msgstr ""
+msgstr "'--expand'-vaihtoehto annettu useammin kuin kerran"
 
 #: sysprep/main.ml:156 customize/customize_main.ml:109
 msgid "--format parameter must appear before -a parameter"
-msgstr ""
+msgstr "'--format'--parametrin on oltava ennen parametriä '-a'"
 
 #: builder/cmdline.ml:274
 msgid "--get-kernel: too many parameters"
-msgstr ""
+msgstr "--get-kernel: liian monta parametria"
 
 #: customize/customize_run.ml:101 customize/customize_run.ml:99
 msgid "--install"
-msgstr ""
+msgstr "'--install'"
 
 #: builder/cmdline.ml:245
 msgid "--list: use ‘--list-format’, not ‘--format’"
-msgstr ""
+msgstr "--list: käytä ‘--list-format’, eikä ‘--format’"
 
 #: builder/cmdline.ml:258
 msgid "--notes: too many parameters, expecting ‘os-version’"
-msgstr ""
+msgstr "--notes: liian monta parametria, odotetaan ‘os-version’:ta"
 
 #: sysprep/main.ml:103
 msgid "--operations: empty operation name"
-msgstr ""
+msgstr "--operations: tyhjä toiminnon nimi"
 
 #: sysprep/main.ml:114
 msgid "--operations: ‘%s’ is not a known operation"
-msgstr ""
+msgstr "--operations: ‘%s’ei ole tunnettu toiminto"
 
 #: get-kernel/get_kernel.ml:52
 msgid "--prefix option can only be given once"
@@ -513,20 +582,22 @@ msgstr "vaihtoehto '--prefix ' voidaan antaa vain kerran"
 
 #: sysprep/sysprep_operation_script.ml:35
 msgid "--scriptdir cannot be used more than once"
-msgstr ""
+msgstr "'--scriptdir':ta ei voi käyttää useammin kuin kerran"
 
 #: resize/resize.ml:188
 msgid "--shrink option given more than once"
-msgstr ""
+msgstr "'--shrink'-vaihtoehto annettu useammin kuin kerran"
 
 #: sparsify/copying.ml:89
 msgid ""
 "--tmp parameter must point to a directory, block device or prebuilt file"
 msgstr ""
+"'--tmp'-parametrin on osoitettava hakemistoon, lohkolaitteeseen tai "
+"valmiiksi rakennettuun tiedostoon"
 
 #: sparsify/copying.ml:80
 msgid "--tmp prebuilt:file: %s: file does not exist"
-msgstr ""
+msgstr "--tmp prebuilt:file: %s: tiedostoa ei ole olemassa"
 
 #: sparsify/copying.ml:85
 msgid "--tmp prebuilt:file: %s: file does not have backing file"
@@ -534,75 +605,75 @@ msgstr ""
 
 #: sparsify/copying.ml:83
 msgid "--tmp prebuilt:file: %s: file format is not qcow2"
-msgstr ""
+msgstr "--tmp prebuilt:file: %s: tiedostomuoto ei ole qcow2"
 
 #: customize/customize_run.ml:155 customize/customize_run.ml:153
 msgid "--uninstall"
-msgstr ""
+msgstr "'--uninstall'"
 
 #: customize/customize_run.ml:131 customize/customize_run.ml:129
 msgid "--update"
-msgstr ""
+msgstr "'--update'"
 
 #: dib/cmdline.ml:241
 msgid "-B must be specified"
-msgstr ""
+msgstr "-B on määriteltävä"
 
 #: sysprep/main.ml:123 get-kernel/get_kernel.ml:56
 #: customize/customize_main.ml:75
 msgid "Add disk image file"
-msgstr ""
+msgstr "Lisää levytiedostotiedosto"
 
 #: dib/cmdline.ml:171
 msgid "Add extra packages to install"
-msgstr ""
+msgstr "Lisää asennettavia paketteja"
 
 #: dib/cmdline.ml:169
 msgid "Add mkfs options"
-msgstr ""
+msgstr "Lisää mkfs-vaihtoehdot"
 
 #: dib/cmdline.ml:158
 msgid "Add new a elements location"
-msgstr ""
+msgstr "Lisää uusi elementtien sijainti"
 
 #: customize/customize_cmdline.ml:269
 #: common/mlcustomize/customize_cmdline.ml:269
 msgid "Add package(s) to install"
-msgstr ""
+msgstr "Lisää asennettavat paketit"
 
 #: customize/customize_cmdline.ml:252
 #: common/mlcustomize/customize_cmdline.ml:252
 msgid "Add package(s) to install at first boot"
-msgstr ""
+msgstr "Lisää ensimmäisen käynnistyksen yhteydessä asennettavat paketit"
 
 #: sparsify/cmdline.ml:74 dib/output_format_qcow2.ml:50
 msgid "Add qemu-img options"
-msgstr ""
+msgstr "Lisää qemu-img-vaihtoehdot"
 
 #: builder/list_entries.ml:83
 msgid "Aliases:"
-msgstr ""
+msgstr "Aliakset:"
 
 #: resize/resize.ml:195
 msgid "Align first partition (default: auto)"
-msgstr ""
+msgstr "Kohdistaa ensimmäinen osio (oletus: auto)"
 
 #: builder/repository_main.ml:214
 msgid "Allowed characters are letters, digits, - _ and ."
-msgstr ""
+msgstr "Sallitut merkit ovat kirjaimia, numeroita, - _ ja ."
 
 #: builder/repository_main.ml:277
 msgid "Already existing image with id %s and architecture %s"
-msgstr ""
+msgstr "Jo olemassa oleva kuva tunnuksella %s ja arkkitehtuurilla %s"
 
 #: customize/customize_cmdline.ml:168
 #: common/mlcustomize/customize_cmdline.ml:168
 msgid "Append line(s) to the file"
-msgstr ""
+msgstr "Liitä tiedostoon rivit"
 
 #: customize/customize_run.ml:208
 msgid "Appending line to %s"
-msgstr ""
+msgstr "Liitetään %s:een rivi"
 
 #: builder/list_entries.ml:77
 msgid "Architecture:"
@@ -614,38 +685,42 @@ msgstr "Arkkitehtuuri: "
 
 #: builder/repository_main.ml:55
 msgid "Ask the user about missing data"
-msgstr ""
+msgstr "Kysy käyttäjältä puuttuvista tiedoista"
 
 #: customize/customize_main.ml:76 builder/cmdline.ml:130
 msgid "Attach data disk/ISO during install"
-msgstr ""
+msgstr "Liitä datalevy/ISO asennuksen aikana"
 
 #: customize/customize_cmdline.ml:349
 #: common/mlcustomize/customize_cmdline.ml:349
 msgid "Attach to a subscription-manager pool"
-msgstr ""
+msgstr "Liitä tilaus-manager-varantoon"
 
 #: customize/customize_run.ml:310
 msgid "Attaching to compatible subscriptions"
-msgstr ""
+msgstr "Liittäminen yhteensopiviin tilauksiin"
 
 #: customize/customize_run.ml:314
 msgid "Attaching to the pool %s"
-msgstr ""
+msgstr "Liittäminen varantoon %s"
 
 #: dib/cmdline.ml:194
 msgid "Base path of diskimage-builder library"
-msgstr ""
+msgstr "diskimage-builder-kirjaston peruspolku"
 
 #: sparsify/copying.ml:340
 msgid ""
 "Before deleting the old disk, carefully check that the target disk boots and "
 "works correctly."
 msgstr ""
+"Ennen kuin poistat vanhan levyn, tarkista huolellisesti, että kohdelevy "
+"käynnistyy ja toimii oikein."
 
 #: resize/resize.ml:214
 msgid "Behaviour on expand unknown filesystems (default: warn)"
 msgstr ""
+"Käyttäytyminen laajentamalla tuntemattomia tiedostojärjestelmiä (oletusarvo: "
+"warn)"
 
 #: sysprep/sysprep_operation_user_account.ml:105
 msgid ""
@@ -655,137 +730,144 @@ msgid ""
 "See the I<--remove-user-accounts> parameter for a way to specify\n"
 "how to remove only some users, or to not remove some others."
 msgstr ""
+"Poista oletuksena kaikki käyttäjätilit ja niiden kotihakemistonsa.\n"
+"root-tiliä ei poisteta.\n"
+"\n"
+"Katso määrittelytapa parametrista I <--remove-user-accounts>\n"
+"kuinka poistaa vain joitain käyttäjiä tai ei poistaa joitain muita."
 
 #: sysprep/sysprep_operation_user_account.ml:83
 msgid "Cannot get the home directory for %s"
-msgstr ""
+msgstr "Kotihakemistoa ei voi hakea %s:lle"
 
 #: dib/dib.ml:592
 msgid "Carried environment variables: %s"
-msgstr ""
+msgstr "Kannetut ympäristömuuttujat: %s"
 
 #: dib/cmdline.ml:163
 msgid "Carry/set this environment variable"
-msgstr ""
+msgstr "Kanna/Määrittele tämä ympäristömuuttuja"
 
 #: sysprep/sysprep_operation_lvm_uuids.ml:44
 msgid "Change LVM2 PV and VG UUIDs"
-msgstr ""
+msgstr "Vaihda LVM2 PV ja VG UUID:t"
 
 #: sysprep/sysprep_operation_fs_uuids.ml:48
 msgid "Change filesystem UUIDs"
-msgstr ""
+msgstr "Vaihda tiedostojärjestelmän UUID:t"
 
 #: customize/customize_cmdline.ml:179
 #: common/mlcustomize/customize_cmdline.ml:179
 msgid "Change the permissions of a file"
-msgstr ""
+msgstr "Muuta tiedoston käyttöoikeuksia"
 
 #: customize/customize_run.ml:212
 msgid "Changing permissions of %s to %s"
-msgstr ""
+msgstr "Muuta %s:n käyttöoikeuksia %s:ksi"
 
 #: builder/cmdline.ml:138
 msgid "Check digital signatures"
-msgstr ""
+msgstr "Tarkista digitaaliset allekirjoitukset"
 
 #: sparsify/cmdline.ml:68
 msgid "Check there is enough space in $TMPDIR"
-msgstr ""
+msgstr "Tarkista, että tilaa $TMPDIR:ssa on tarpeeksi"
 
 #: builder/repository_main.ml:200
 msgid ""
 "Choose one from the list below:\n"
 " %s\n"
 msgstr ""
+"Valitse yksi alla olevasta luettelosta:\n"
+" %s\n"
 
 #: sparsify/in_place.ml:119 sparsify/copying.ml:271
 msgid "Clearing Linux swap on %s"
-msgstr ""
+msgstr "Tyhjennetään Linux-sivutus %s:lla"
 
 #: sysprep/main.ml:136
 msgid "Compatibility option, does nothing"
-msgstr ""
+msgstr "Yhteensopivuusvaihtoehto, ei tee mitään"
 
 #: sparsify/cmdline.ml:69
 msgid "Compressed output format"
-msgstr ""
+msgstr "Pakatun ulostulon muoto"
 
 #: dib/output_format_squashfs.ml:28
 msgid "Compressing the image as squashfs"
-msgstr ""
+msgstr "Pakataan kuvaa muotona squashfs"
 
 #: dib/output_format_tar.ml:25
 msgid "Compressing the image as tar"
-msgstr ""
+msgstr "Pakataan kuvaa muotona tar"
 
 #: dib/output_format_tgz.ml:25
 msgid "Compressing the image as tar.gz"
-msgstr ""
+msgstr "Pakataan kuvaa muotona tar.gz"
 
 #: builder/builder.ml:683
 msgid "Converting %s to %s"
-msgstr ""
+msgstr "Muunnetaan %s %s:ksi"
 
 #: builder/builder.ml:682
 msgid "Converting to %s"
-msgstr ""
+msgstr "Muunnetaan %s:ksi"
 
 #: dib/output_format_vhd.ml:29
 msgid "Converting to VHD"
-msgstr ""
+msgstr "Muunnetaan VHD:ksi"
 
 #: dib/output_format_qcow2.ml:35
 msgid "Converting to qcow2"
-msgstr ""
+msgstr "Muunnetaan qcow2:ksi"
 
 #: customize/customize_cmdline.ml:201
 #: common/mlcustomize/customize_cmdline.ml:201
 msgid "Copy files in disk image"
-msgstr ""
+msgstr "Kopioi levykuvan tiedostot"
 
 #: customize/customize_cmdline.ml:212
 #: common/mlcustomize/customize_cmdline.ml:212
 msgid "Copy local files or directories into image"
-msgstr ""
+msgstr "Kopioi paikalliset tiedostot tai hakemistot kuvaan"
 
 #: builder/builder.ml:618
 msgid "Copying"
-msgstr ""
+msgstr "Kopioidaan"
 
 #: resize/resize.ml:1246
 msgid "Copying %s"
-msgstr ""
+msgstr "Kopioidaan %s"
 
 #: customize/customize_run.ml:229
 msgid "Copying (in image): %s to %s"
-msgstr ""
+msgstr "Kopioidaan (kuvassa): %s %s:een"
 
 #: customize/customize_run.ml:233
 msgid "Copying: %s to %s"
-msgstr ""
+msgstr "Kopioidaan: %s %s:een"
 
 #: customize/customize_cmdline.ml:286
 #: common/mlcustomize/customize_cmdline.ml:286
 msgid "Create a directory"
-msgstr ""
+msgstr "Luo hakemisto"
 
 #: sparsify/copying.ml:145
 msgid "Create overlay device %s to protect source disk"
-msgstr ""
+msgstr "Luo peittolaite %s lähdelevyn suojaamiseksi"
 
 #: sparsify/copying.ml:143
 msgid "Create overlay file in %s to protect source disk"
-msgstr ""
+msgstr "Luo %s:n peittotiedosto lähdelevyn suojaamiseksi"
 
 #: customize/customize_cmdline.ml:280
 #: common/mlcustomize/customize_cmdline.ml:280
 msgid "Create symbolic links"
-msgstr ""
+msgstr "Luo symbolisia linkkejä"
 
 #: builder/repository_main.ml:559
 msgid "Creating index backup copy"
-msgstr ""
+msgstr "Luodaan hakemiston varmuuskopio"
 
 #: customize/customize_cmdline.ml:474
 #: common/mlcustomize/customize_cmdline.ml:474
@@ -4729,7 +4811,7 @@ msgstr ""
 
 #: fish/cmds.c:623
 msgid "copy local files or directories into an image"
-msgstr ""
+msgstr "kopioi paikalliset tiedostot tai hakemistot kuvaan"
 
 #: fish/cmds.c:624
 msgid "copy remote files or directories out of an image"
@@ -5511,7 +5593,7 @@ msgstr ""
 
 #: fish/cmds.c:856 fish/cmds.c:857
 msgid "create a symbolic link"
-msgstr ""
+msgstr "luo symbolinen linkki"
 
 #: fish/cmds.c:858 fish/cmds.c:1021
 msgid "remove extended attribute of a file or directory"
@@ -5647,7 +5729,7 @@ msgstr ""
 
 #: fish/cmds.c:901
 msgid "create a directory"
-msgstr ""
+msgstr "luo hakemisto"
 
 #: fish/cmds.c:902
 msgid "create a directory with a particular mode"
@@ -5755,7 +5837,7 @@ msgstr ""
 
 #: fish/cmds.c:930
 msgid "mount 9p filesystem"
-msgstr ""
+msgstr "liitä 9p-tiedostojärjestelmä"
 
 #: fish/cmds.c:931
 msgid "mount on the local filesystem"
@@ -6371,7 +6453,7 @@ msgstr "irrota tiedostojärjestelmä"
 
 #: fish/cmds.c:1134
 msgid "unmount all filesystems"
-msgstr ""
+msgstr "irrota kaikki tiedostojärjestelmät"
 
 #: fish/cmds.c:1135
 msgid "unmount a locally mounted filesystem"
