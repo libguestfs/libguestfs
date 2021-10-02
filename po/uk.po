@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Yuri Chornoivan <yurchor@ukr.net>, 2011-2014, 2020.
-# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2020.
-# Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata, 2020.
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020.
-# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020.
-# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020.
-# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2011-2014, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2021-01-06 10:17+0000\n"
-"PO-Revision-Date: 2020-08-16 15:29+0000\n"
+"PO-Revision-Date: 2021-01-13 17:36+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/uk/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.4.1\n"
 
 #: dib/elements.ml:155
 msgid "  %s: already provided by %s"
@@ -5365,16 +5365,12 @@ msgid "pack directory into cpio file"
 msgstr "запакувати каталог до файла cpio"
 
 #: fish/cmds.c:630
-#, fuzzy
-#| msgid "open a LUKS-encrypted block device"
 msgid "close an encrypted device"
-msgstr "відкрити зашифрований LUKS блоковий пристрій"
+msgstr "закрити зашифрований пристрій"
 
 #: fish/cmds.c:631
-#, fuzzy
-#| msgid "open a LUKS-encrypted block device"
 msgid "open an encrypted block device"
-msgstr "відкрити зашифрований LUKS блоковий пристрій"
+msgstr "відкрити зашифрований блоковий пристрій"
 
 #: fish/cmds.c:632
 msgid "copy from source to destination using dd"
