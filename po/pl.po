@@ -15,9 +15,9 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
 "cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-01-06 10:17+0000\n"
-"PO-Revision-Date: 2021-02-17 10:40+0000\n"
-"Last-Translator: Marcin Stanclik <mstanclik@yahoo.com>\n"
+"POT-Creation-Date: 2021-03-03 10:57+0000\n"
+"PO-Revision-Date: 2021-03-05 15:48+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/pl/>\n"
 "Language: pl\n"
@@ -66,7 +66,7 @@ msgstr ""
 
 #: customize/customize_run.ml:446 common/mltools/tools_utils.ml:640
 msgid "%s (ignored)"
-msgstr "%s (zignorowany)"
+msgstr "%s (zignorowane)"
 
 #: builder/builder.ml:319
 msgid ""
@@ -1370,7 +1370,7 @@ msgstr ""
 
 #: get-kernel/get_kernel.ml:61
 msgid "Output directory"
-msgstr ""
+msgstr "Katalog wyjściowy"
 
 #: builder/builder.ml:753
 msgid "Output file"
@@ -2316,11 +2316,11 @@ msgstr ""
 
 #: sparsify/cmdline.ml:76
 msgid "Zero filesystem"
-msgstr ""
+msgstr "Zeruje system plików"
 
 #: sparsify/in_place.ml:86 sparsify/copying.ml:242
 msgid "Zeroing %s"
-msgstr ""
+msgstr "Zerowanie %s"
 
 #: resize/resize.ml:255
 msgid "alignment cannot be < 1"
@@ -4506,16 +4506,12 @@ msgid "pack directory into cpio file"
 msgstr "pakuje katalog do pliku cpio"
 
 #: fish/cmds.c:630
-#, fuzzy
-#| msgid "open a LUKS-encrypted block device"
 msgid "close an encrypted device"
-msgstr "otwiera urządzenie blokowe zaszyfrowane za pomocą LUKS"
+msgstr "zamyka zaszyfrowane urządzenie"
 
 #: fish/cmds.c:631
-#, fuzzy
-#| msgid "open a LUKS-encrypted block device"
 msgid "open an encrypted block device"
-msgstr "otwiera urządzenie blokowe zaszyfrowane za pomocą LUKS"
+msgstr "otwiera zaszyfrowane urządzenie blokowe"
 
 #: fish/cmds.c:632
 msgid "copy from source to destination using dd"
