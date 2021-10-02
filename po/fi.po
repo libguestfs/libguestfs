@@ -6,11 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.43.2\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-09-23 14:41+0100\n"
-"PO-Revision-Date: 2021-03-23 13:01+0000\n"
-"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2021-04-09 11:37+0100\n"
+"PO-Revision-Date: 2021-08-17 19:04+0000\n"
+"Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/fi/>\n"
 "Language: fi\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5.1\n"
+"X-Generator: Weblate 4.7.2\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -3499,7 +3499,7 @@ msgstr ""
 #: lib/appliance-kcmdline.c:74
 #, c-format
 msgid "open: %s"
-msgstr ""
+msgstr "avaa: %s"
 
 #: lib/appliance-kcmdline.c:79
 #, c-format
@@ -3800,7 +3800,7 @@ msgstr "puuttuu Unix-toimialueen pistoke"
 #: lib/drives.c:677
 #, c-format
 msgid "invalid port number ‘%s’"
-msgstr ""
+msgstr "virheellinen portin numero: %s"
 
 #: lib/drives.c:684
 #, c-format
@@ -3871,7 +3871,7 @@ msgstr ""
 #: lib/drives.c:1166
 #, c-format
 msgid "%s: device not found"
-msgstr ""
+msgstr "%s: laitetta ei löydy"
 
 #: lib/errors.c:425
 #, c-format
@@ -4438,7 +4438,7 @@ msgstr ""
 #: lib/libvirt-domain.c:923
 #, c-format
 msgid "no libvirt pool called ‘%s’: %s"
-msgstr ""
+msgstr "ei libvirt-varantoa nimeltä ‘%s’: %s"
 
 #: lib/libvirt-domain.c:931
 #, c-format

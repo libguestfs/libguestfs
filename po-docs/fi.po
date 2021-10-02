@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.43.1\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2020-08-12 15:34+0200\n"
-"PO-Revision-Date: 2021-03-07 12:01+0000\n"
-"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
+"PO-Revision-Date: 2021-05-02 19:02+0000\n"
+"Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/fi/>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5.1\n"
+"X-Generator: Weblate 4.6.1\n"
 
 #. type: =head1
 #: align/virt-alignment-scan.pod:1
@@ -325,7 +325,7 @@ msgstr ""
 #. type: =item
 #: align/virt-alignment-scan.pod:77
 msgid "col 2"
-msgstr ""
+msgstr "sar 2"
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:79
@@ -335,7 +335,7 @@ msgstr ""
 #. type: =item
 #: align/virt-alignment-scan.pod:81
 msgid "col 3"
-msgstr ""
+msgstr "sar 3"
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:83
@@ -345,7 +345,7 @@ msgstr ""
 #. type: =item
 #: align/virt-alignment-scan.pod:85
 msgid "col 4"
-msgstr ""
+msgstr "sar 4"
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:87
@@ -394,7 +394,7 @@ msgstr ""
 #: tools/virt-list-filesystems:52 tools/virt-list-partitions:53
 #: tools/virt-tar:100 tools/virt-win-reg:93
 msgid "OPTIONS"
-msgstr ""
+msgstr "VALINNAT"
 
 #. type: =item
 #: align/virt-alignment-scan.pod:105
@@ -1333,7 +1333,7 @@ msgstr ""
 #. type: textblock
 #: align/virt-alignment-scan.pod:360
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:362
@@ -1343,7 +1343,7 @@ msgstr ""
 #. type: =item
 #: align/virt-alignment-scan.pod:366 lib/guestfs.pod:1985
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:368
@@ -1353,7 +1353,7 @@ msgstr ""
 #. type: =item
 #: align/virt-alignment-scan.pod:372 lib/guestfs.pod:1989
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:374
@@ -1535,7 +1535,7 @@ msgstr ""
 #. type: textblock
 #: align/virt-alignment-scan.pod:401
 msgid "Copyright (C) 2011 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2011 Red Hat Inc."
 
 #. type: textblock
 #: appliance/libguestfs-make-fixed-appliance.pod:3
@@ -1749,7 +1749,7 @@ msgstr ""
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:123
 msgid "LICENSING"
-msgstr ""
+msgstr "LISENSOINTI"
 
 #. type: textblock
 #: appliance/libguestfs-make-fixed-appliance.pod:125
@@ -1861,7 +1861,7 @@ msgstr ""
 #: lib/guestfs.pod:3527 rescue/virt-rescue.pod:512
 #: test-tool/libguestfs-test-tool.pod:190 tools/virt-list-partitions:280
 msgid "Copyright (C) 2009-2020 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2009–2020 Red Hat Inc."
 
 #. type: =end
 #: builder/virt-builder-repository.pod:1 builder/virt-builder-repository.pod:6
@@ -2561,7 +2561,7 @@ msgstr ""
 #. type: =head2
 #: builder/virt-builder.pod:120
 msgid "Installing software"
-msgstr ""
+msgstr "Asennetaan ohjelmistoja"
 
 #. type: textblock
 #: builder/virt-builder.pod:122
@@ -3754,7 +3754,7 @@ msgstr ""
 #. type: =head3
 #: builder/virt-builder.pod:687
 msgid "Creating user accounts"
-msgstr ""
+msgstr "Luodaan Käyttäjätilejä"
 
 #. type: textblock
 #: builder/virt-builder.pod:689
@@ -3783,7 +3783,7 @@ msgstr ""
 #. type: =head2
 #: builder/virt-builder.pod:699
 msgid "KEYBOARD LAYOUT"
-msgstr ""
+msgstr "NÄPPÄIMISTÖASETTELU"
 
 #. type: textblock
 #: builder/virt-builder.pod:701
@@ -4236,7 +4236,7 @@ msgstr ""
 #. type: =head2
 #: builder/virt-builder.pod:928
 msgid "INSTALLATION PROCESS"
-msgstr ""
+msgstr "ASENNUKSEN EDISTYMINEN"
 
 #. type: textblock
 #: builder/virt-builder.pod:930
@@ -6131,7 +6131,7 @@ msgstr ""
 #: builder/virt-builder.pod:1908 builder/virt-index-validate.pod:90
 #: fuse/guestunmount.pod:162 golang/examples/guestfs-golang.pod:98
 msgid "Copyright (C) 2013 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2013 Red Hat Inc."
 
 #. type: textblock
 #: builder/virt-index-validate.pod:3
@@ -6682,7 +6682,7 @@ msgstr ""
 #: python/examples/guestfs-python.pod:84 resize/virt-resize.pod:873
 #: ruby/examples/guestfs-ruby.pod:55
 msgid "Copyright (C) 2010-2012 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2010–2012 Red Hat Inc."
 
 #. type: textblock
 #: cat/virt-filesystems.pod:3
@@ -7379,6 +7379,8 @@ msgid ""
 " virt-log [--options] -a disk.img [-a disk.img ...]\n"
 "\n"
 msgstr ""
+" virt-log [--options] -a disk.img [-a disk.img ...]\n"
+"\n"
 
 #. type: textblock
 #: cat/virt-log.pod:13
@@ -7466,7 +7468,7 @@ msgstr ""
 #: cat/virt-log.pod:154 examples/guestfs-examples.pod:75
 #: make-fs/virt-make-fs.pod:245
 msgid "Copyright (C) 2010-2020 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2010–2020 Red Hat Inc."
 
 #. type: textblock
 #: cat/virt-ls.pod:3
@@ -7813,7 +7815,7 @@ msgstr ""
 #. type: =item
 #: cat/virt-ls.pod:147
 msgid "type"
-msgstr ""
+msgstr "tyyppi"
 
 #. type: textblock
 #: cat/virt-ls.pod:149
@@ -7859,7 +7861,7 @@ msgstr ""
 #. type: =item
 #: cat/virt-ls.pod:173
 msgid "link"
-msgstr ""
+msgstr "linkki"
 
 #. type: textblock
 #: cat/virt-ls.pod:175
@@ -7947,7 +7949,7 @@ msgstr ""
 #. type: =item
 #: cat/virt-ls.pod:221
 msgid "device"
-msgstr ""
+msgstr "laite"
 
 #. type: textblock
 #: cat/virt-ls.pod:223
@@ -7989,7 +7991,7 @@ msgstr ""
 #. type: =item
 #: cat/virt-ls.pod:239
 msgid "blocks"
-msgstr ""
+msgstr "lohkot"
 
 #. type: textblock
 #: cat/virt-ls.pod:241
@@ -8330,7 +8332,7 @@ msgstr ""
 #. type: textblock
 #: cat/virt-tail.pod:254
 msgid "Copyright (C) 2016 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2016 Red Hat Inc."
 
 #. type: =end
 #: common/mlcustomize/customize-options.pod:1
@@ -8366,7 +8368,7 @@ msgstr ""
 #: lib/guestfs-availability.pod:25 lib/guestfs-structs.pod:1
 #: lib/guestfs-structs.pod:25
 msgid "comment"
-msgstr ""
+msgstr "kommentti"
 
 #. type: verbatim
 #: common/mlcustomize/customize-options.pod:3
@@ -8390,6 +8392,8 @@ msgid ""
 " Copyright (C) 2009-2020 Red Hat Inc.\n"
 "\n"
 msgstr ""
+" Tekijänoikeus (C) 2009–2020 Red Hat Inc.\n"
+"\n"
 
 #. type: verbatim
 #: common/mlcustomize/customize-options.pod:11 fish/guestfish-actions.pod:11
@@ -9608,7 +9612,7 @@ msgstr ""
 #: customize/virt-customize.pod:308 fish/libguestfs-tools.conf.pod:102
 #: sparsify/virt-sparsify.pod:475 sysprep/virt-sysprep.pod:623
 msgid "Copyright (C) 2011-2020 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2011–2020 Red Hat Inc."
 
 #. type: textblock
 #: daemon/guestfsd.pod:3
@@ -9768,7 +9772,7 @@ msgstr ""
 #: daemon/guestfsd.pod:104 fish/guestfish.pod:1558 fuse/guestmount.pod:403
 #: rescue/virt-rescue.pod:477
 msgid "FILES"
-msgstr ""
+msgstr "TIEDOSTOT"
 
 #. type: =item
 #: daemon/guestfsd.pod:108
@@ -11248,7 +11252,7 @@ msgstr ""
 #. type: textblock
 #: dib/virt-dib.pod:666
 msgid "(none)"
-msgstr ""
+msgstr "(ei mitään)"
 
 #. type: textblock
 #: dib/virt-dib.pod:672
@@ -11318,7 +11322,7 @@ msgstr ""
 #. type: textblock
 #: dib/virt-dib.pod:721
 msgid "Copyright (C) 2015 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2015 Red Hat Inc."
 
 #. type: textblock
 #: diff/virt-diff.pod:3
@@ -12216,7 +12220,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-building.pod:319
 msgid "Ruby"
-msgstr ""
+msgstr "Ruby"
 
 #. type: =item
 #: docs/guestfs-building.pod:321
@@ -12263,7 +12267,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-building.pod:338
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #. type: =item
 #: docs/guestfs-building.pod:340
@@ -12360,7 +12364,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-building.pod:377 docs/guestfs-building.pod:393
 msgid "Optional."
-msgstr ""
+msgstr "Valinnainen."
 
 #. type: =item
 #: docs/guestfs-building.pod:379
@@ -16054,7 +16058,7 @@ msgstr ""
 #: docs/guestfs-faq.pod:1416 docs/guestfs-performance.pod:622
 #: gobject/guestfs-gobject.pod:64
 msgid "Copyright (C) 2012-2020 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2012–2020 Red Hat Inc."
 
 #. type: textblock
 #: docs/guestfs-hacking.pod:3
@@ -22011,7 +22015,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.42.pod:128
 #: docs/guestfs-release-notes-1.6.pod:96 docs/guestfs-release-notes-1.8.pod:77
 msgid "Security"
-msgstr ""
+msgstr "Turvallisuus"
 
 #. type: verbatim
 #: docs/guestfs-release-notes-1.10.pod:98
@@ -23696,7 +23700,7 @@ msgstr ""
 #. type: =head3
 #: docs/guestfs-release-notes-1.18.pod:88
 msgid "examples"
-msgstr ""
+msgstr "esimerkit"
 
 #. type: verbatim
 #: docs/guestfs-release-notes-1.18.pod:90
@@ -24353,7 +24357,7 @@ msgstr ""
 #. type: =head3
 #: docs/guestfs-release-notes-1.20.pod:177
 msgid "ports"
-msgstr ""
+msgstr "portit"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.20.pod:179
@@ -25245,7 +25249,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-release-notes-1.22.pod:37
 msgid "iSCSI"
-msgstr ""
+msgstr "iSCSI"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.22.pod:41
@@ -25422,7 +25426,7 @@ msgstr ""
 #. type: =head3
 #: docs/guestfs-release-notes-1.22.pod:118
 msgid "Examples"
-msgstr ""
+msgstr "Esimerkit"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.22.pod:120
@@ -25438,7 +25442,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.40.pod:110
 #: docs/guestfs-release-notes-1.42.pod:107
 msgid "Other"
-msgstr ""
+msgstr "Muu"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.22.pod:125
@@ -26748,7 +26752,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.26.pod:74
 #: docs/guestfs-release-notes-1.28.pod:77
 msgid "Architectures"
-msgstr ""
+msgstr "Arkkitehtuurit"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.26.pod:76
@@ -29408,7 +29412,7 @@ msgstr ""
 #. type: =head2
 #: docs/guestfs-release-notes-1.30.pod:439
 msgid "Internationalization"
-msgstr ""
+msgstr "Kansainvälistäminen"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.30.pod:441
@@ -30557,7 +30561,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.32.pod:101
 #: docs/guestfs-release-notes-1.34.pod:192
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentaatio"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.32.pod:103
@@ -39456,7 +39460,7 @@ msgstr ""
 #: fish/virt-tar-out.pod:55 java/examples/guestfs-java.pod:181
 #: perl/examples/guestfs-perl.pod:60
 msgid "Copyright (C) 2011-2012 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2011–2012 Red Hat Inc."
 
 #. type: =head2
 #: docs/internal-documentation.pod:1
@@ -40670,7 +40674,7 @@ msgstr ""
 #. type: =item
 #: docs/internal-documentation.pod:559 docs/internal-documentation.pod:1556
 msgid "error"
-msgstr ""
+msgstr "virhe"
 
 #. type: =head4
 #: docs/internal-documentation.pod:563
@@ -41190,7 +41194,7 @@ msgstr ""
 #. type: textblock
 #: docs/internal-documentation.pod:773
 msgid "Print a warning."
-msgstr ""
+msgstr "Tulosta varoitus."
 
 #. type: textblock
 #: docs/internal-documentation.pod:775
@@ -51410,7 +51414,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:756
 msgid "available"
-msgstr ""
+msgstr "saatavilla olevat"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:758
@@ -53379,7 +53383,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:1688
 msgid "command"
-msgstr ""
+msgstr "komento"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:1690
@@ -53473,7 +53477,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:1725
 msgid "command-lines"
-msgstr ""
+msgstr "komentorivit"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:1727
@@ -54250,7 +54254,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:2116
 msgid "download"
-msgstr ""
+msgstr "lataa"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:2118
@@ -55488,7 +55492,7 @@ msgstr ""
 #: fish/guestfish-actions.pod:2742 fish/guestfish-actions.pod:7656
 #: lib/guestfs-actions.pod:4581 lib/guestfs-actions.pod:12437
 msgid "Directory"
-msgstr ""
+msgstr "Hakemisto"
 
 #. type: =item
 #: fish/guestfish-actions.pod:2744 fish/guestfish-actions.pod:7658
@@ -55512,7 +55516,7 @@ msgstr ""
 #: fish/guestfish-actions.pod:2750 fish/guestfish-actions.pod:7664
 #: lib/guestfs-actions.pod:4589 lib/guestfs-actions.pod:12445
 msgid "Symbolic link"
-msgstr ""
+msgstr "Symbolinen linkki"
 
 #. type: =item
 #: fish/guestfish-actions.pod:2752 fish/guestfish-actions.pod:7666
@@ -55524,7 +55528,7 @@ msgstr ""
 #: fish/guestfish-actions.pod:2754 fish/guestfish-actions.pod:7668
 #: lib/guestfs-actions.pod:4593 lib/guestfs-actions.pod:12449
 msgid "Regular file"
-msgstr ""
+msgstr "Tavallinen tiedosto"
 
 #. type: =item
 #: fish/guestfish-actions.pod:2756 fish/guestfish-actions.pod:3115
@@ -55537,7 +55541,7 @@ msgstr ""
 #: fish/guestfish-actions.pod:2758 fish/guestfish-actions.pod:7672
 #: lib/guestfs-actions.pod:4597 lib/guestfs-actions.pod:12453
 msgid "Socket"
-msgstr ""
+msgstr "Pistoke"
 
 #. type: =item
 #: fish/guestfish-actions.pod:2760 fish/guestfish-actions.pod:3097
@@ -55571,7 +55575,7 @@ msgstr ""
 #: fish/guestfish-actions.pod:2770 fish/guestfish-actions.pod:7676
 #: lib/guestfs-actions.pod:4609 lib/guestfs-actions.pod:12457
 msgid "Unknown file type"
-msgstr ""
+msgstr "Tuntematon tiedostotyyppi"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:2774 fish/guestfish-actions.pod:2876
@@ -58082,7 +58086,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:4012 lib/guestfs-actions.pod:6572
 msgid "Alpine Linux."
-msgstr ""
+msgstr "Alpine Linux."
 
 #. type: =item
 #: fish/guestfish-actions.pod:4014 lib/guestfs-actions.pod:6574
@@ -58162,7 +58166,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:4044 lib/guestfs-actions.pod:6604
 msgid "Fedora."
-msgstr ""
+msgstr "Fedora."
 
 #. type: =item
 #: fish/guestfish-actions.pod:4046 fish/guestfish-actions.pod:4519
@@ -60364,7 +60368,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:5212
 msgid "launch"
-msgstr ""
+msgstr "käynnistä"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:5214
@@ -63254,7 +63258,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:6687
 msgid "mount"
-msgstr ""
+msgstr "liitos"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:6689
@@ -63457,7 +63461,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:6785
 msgid "mount-options"
-msgstr ""
+msgstr "liitosvalinnat"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:6787
@@ -63581,7 +63585,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:6836
 msgid "mountpoints"
-msgstr ""
+msgstr "liitoskohdat"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:6838
@@ -63602,7 +63606,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:6844
 msgid "mounts"
-msgstr ""
+msgstr "liitokset"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:6846
@@ -63955,7 +63959,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:7023
 msgid "parse-environment"
-msgstr ""
+msgstr "jäsennys-ympäristö"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:7025
@@ -65502,7 +65506,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:7769
 msgid "rename"
-msgstr ""
+msgstr "nimeä uudelleen"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:7771
@@ -66001,7 +66005,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:8014
 msgid "append"
-msgstr ""
+msgstr "lisää"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:8016
@@ -66223,7 +66227,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:8121
 msgid "direct"
-msgstr ""
+msgstr "suora"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:8123
@@ -66454,7 +66458,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:8243
 msgid "identifier"
-msgstr ""
+msgstr "tunniste"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:8245
@@ -66579,7 +66583,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish-actions.pod:8295 lib/guestfs-actions.pod:13483
 msgid "btrfs"
-msgstr ""
+msgstr "btrfs"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8297 lib/guestfs-actions.pod:13485
@@ -66755,7 +66759,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:8383
 msgid "network"
-msgstr ""
+msgstr "verkko"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:8385
@@ -66895,7 +66899,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:8441
 msgid "qemu"
-msgstr ""
+msgstr "qemu"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:8443
@@ -67519,7 +67523,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:8767
 msgid "shutdown"
-msgstr ""
+msgstr "sammuta"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:8769
@@ -67650,7 +67654,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:8826
 msgid "strings"
-msgstr ""
+msgstr "merkkijonot"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:8828
@@ -67704,7 +67708,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish-actions.pod:8852 lib/guestfs-actions.pod:14244
 msgid "s"
-msgstr ""
+msgstr "s"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8854
@@ -67726,7 +67730,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish-actions.pod:8861 lib/guestfs-actions.pod:14253
 msgid "b"
-msgstr ""
+msgstr "b"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8863 lib/guestfs-actions.pod:14255
@@ -67748,7 +67752,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish-actions.pod:8871 lib/guestfs-actions.pod:14263
 msgid "B"
-msgstr ""
+msgstr "B"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8873 lib/guestfs-actions.pod:14265
@@ -68611,12 +68615,12 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:9333
 msgid "umount"
-msgstr ""
+msgstr "irrota liitos"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:9335
 msgid "unmount"
-msgstr ""
+msgstr "irrota liitos"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:9337
@@ -68882,7 +68886,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:9464
 msgid "version"
-msgstr ""
+msgstr "versio"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:9466
@@ -69508,7 +69512,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:9737
 msgid "write"
-msgstr ""
+msgstr "kirjoita"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:9739
@@ -70333,7 +70337,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-commands.pod:107
 msgid "edit"
-msgstr ""
+msgstr "muokkaa"
 
 #. type: =head2
 #: fish/guestfish-commands.pod:109
@@ -70343,7 +70347,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-commands.pod:111
 msgid "emacs"
-msgstr ""
+msgstr "Emacs"
 
 #. type: verbatim
 #: fish/guestfish-commands.pod:113
@@ -70588,12 +70592,12 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-commands.pod:216
 msgid "man"
-msgstr ""
+msgstr "man"
 
 #. type: =head2
 #: fish/guestfish-commands.pod:218
 msgid "manual"
-msgstr ""
+msgstr "käsikirja"
 
 #. type: verbatim
 #: fish/guestfish-commands.pod:220
@@ -70736,7 +70740,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-commands.pod:275
 msgid "supported"
-msgstr ""
+msgstr "tuettu"
 
 #. type: verbatim
 #: fish/guestfish-commands.pod:277
@@ -73981,7 +73985,7 @@ msgstr ""
 #. type: =head1
 #: fish/guestfish.pod:1392
 msgid "COMMANDS"
-msgstr ""
+msgstr "KOMENNOT"
 
 #. type: textblock
 #: fish/guestfish.pod:1394
@@ -75209,7 +75213,7 @@ msgstr ""
 #. type: textblock
 #: format/virt-format.pod:203 lua/examples/guestfs-lua.pod:158
 msgid "Copyright (C) 2012 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2012 Red Hat Inc."
 
 #. type: textblock
 #: fuse/guestmount.pod:3
@@ -76283,7 +76287,7 @@ msgstr ""
 #. type: textblock
 #: get-kernel/virt-get-kernel.pod:209
 msgid "Copyright (C) 2013-2020 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2013–2020 Red Hat Inc."
 
 #. type: textblock
 #: gobject/guestfs-gobject.pod:3
@@ -98622,7 +98626,7 @@ msgstr ""
 #. type: =head3
 #: lib/guestfs.pod:763
 msgid "ISCSI"
-msgstr ""
+msgstr "ISCSI"
 
 #. type: textblock
 #: lib/guestfs.pod:765
@@ -100054,7 +100058,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs.pod:1525
 msgid "Using:"
-msgstr ""
+msgstr "Käyttäminen:"
 
 #. type: verbatim
 #: lib/guestfs.pod:1527
@@ -104537,7 +104541,7 @@ msgstr ""
 #. type: textblock
 #: python/examples/guestfs-python.pod:37
 msgid "Type:"
-msgstr ""
+msgstr "Tyyppi:"
 
 #. type: verbatim
 #: python/examples/guestfs-python.pod:39
@@ -104938,7 +104942,7 @@ msgstr ""
 #. type: =head1
 #: rescue/virt-rescue.pod:314
 msgid "NETWORK"
-msgstr ""
+msgstr "VERKKO"
 
 #. type: textblock
 #: rescue/virt-rescue.pod:316
@@ -105393,7 +105397,7 @@ msgstr ""
 #. type: =item
 #: resize/virt-resize.pod:76
 msgid "1. Shut down the virtual machine"
-msgstr ""
+msgstr "1. Sammuta virtuaalikone"
 
 #. type: =item
 #: resize/virt-resize.pod:78
@@ -108063,7 +108067,7 @@ msgstr ""
 #. type: textblock
 #: sysprep/sysprep-operations.pod:136
 msgid "Change filesystem UUIDs."
-msgstr ""
+msgstr "Vaihda tiedostojärjestelmän UUID:t."
 
 #. type: textblock
 #: sysprep/sysprep-operations.pod:138
@@ -108507,7 +108511,7 @@ msgstr ""
 #. type: textblock
 #: sysprep/sysprep-operations.pod:465
 msgid "Change LVM2 PV and VG UUIDs."
-msgstr ""
+msgstr "Vaihda LVM2 PV ja VG UUID:t."
 
 #. type: textblock
 #: sysprep/sysprep-operations.pod:467
@@ -109367,7 +109371,7 @@ msgstr ""
 #. type: textblock
 #: sysprep/virt-sysprep.pod:327 sysprep/virt-sysprep.pod:354
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 #. type: textblock
 #: sysprep/virt-sysprep.pod:331
@@ -110181,7 +110185,7 @@ msgstr ""
 #. type: textblock
 #: tools/virt-list-filesystems:199 tools/virt-tar:312
 msgid "Copyright (C) 2009 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2009 Red Hat Inc."
 
 #. type: textblock
 #: tools/virt-list-partitions:29
@@ -110344,7 +110348,7 @@ msgstr ""
 #. type: =head1
 #: tools/virt-tar:61 tools/virt-win-reg:48
 msgid "WARNING"
-msgstr ""
+msgstr "VAROITUS"
 
 #. type: textblock
 #: tools/virt-tar:63
@@ -111139,4 +111143,4 @@ msgstr ""
 #. type: textblock
 #: tools/virt-win-reg:825
 msgid "Copyright (C) 2010 Red Hat Inc."
-msgstr ""
+msgstr "Tekijänoikeus (C) 2010 Red Hat Inc."
