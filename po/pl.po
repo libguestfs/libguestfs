@@ -5,18 +5,18 @@
 # Translators:
 # Mateusz Marzantowicz <mmarzantowicz@osdf.com.pl>, 2013
 # Mateusz Marzantowicz <mmarzantowicz@osdf.com.pl>, 2012
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2013
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2013, 2020, 2021.
 # rjones <rjones@redhat.com>, 2011
-# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata
+# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021.
 # Michał Smyk <fedora@smyk.it>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
 "cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2020-09-21 18:55+0100\n"
-"PO-Revision-Date: 2020-09-27 10:18+0000\n"
-"Last-Translator: Michał Smyk <fedora@smyk.it>\n"
+"POT-Creation-Date: 2021-01-06 10:17+0000\n"
+"PO-Revision-Date: 2021-01-17 11:33+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/pl/>\n"
 "Language: pl\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.2.2\n"
+"X-Generator: Weblate 4.4.2\n"
 
 #: dib/elements.ml:155
 msgid "  %s: already provided by %s"
@@ -53,13 +53,15 @@ msgstr ""
 
 #: common/mltools/tools_utils.ml:187
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: common/mltools/getopt.ml:73
 msgid ""
 "%s\n"
 "Options:\n"
 msgstr ""
+"%s\n"
+"Opcje:\n"
 
 #: customize/customize_run.ml:446 common/mltools/tools_utils.ml:640
 msgid "%s (ignored)"
@@ -102,11 +104,11 @@ msgstr ""
 
 #: common/mltools/tools_utils.ml:183 common/mltools/tools_utils.ml:155
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: common/mltools/tools_utils.ml:185
 msgid "%s: %s: %s"
-msgstr ""
+msgstr "%s: %s: %s"
 
 #: resize/resize.ml:706
 msgid ""
@@ -233,7 +235,7 @@ msgstr ""
 
 #: common/mltools/tools_utils.ml:125
 msgid "%s: error: %s"
-msgstr ""
+msgstr "%s: błąd: %s"
 
 #: get-kernel/get_kernel.ml:66
 msgid ""
@@ -395,7 +397,7 @@ msgstr ""
 
 #: common/mltools/tools_utils.ml:144
 msgid "%s: warning: %s"
-msgstr ""
+msgstr "%s: ostrzeżenie: %s"
 
 #: builder/index_parser.ml:250
 msgid "%s: you must use relative paths (not ‘%s’) in the index file\n"
@@ -589,11 +591,11 @@ msgstr ""
 
 #: builder/list_entries.ml:77
 msgid "Architecture:"
-msgstr ""
+msgstr "Architektura:"
 
 #: builder/repository_main.ml:221
 msgid "Architecture: "
-msgstr ""
+msgstr "Architektura: "
 
 #: builder/repository_main.ml:55
 msgid "Ask the user about missing data"
@@ -730,7 +732,7 @@ msgstr ""
 #: customize/customize_cmdline.ml:212
 #: common/mlcustomize/customize_cmdline.ml:212
 msgid "Copy local files or directories into image"
-msgstr ""
+msgstr "Kopiuje lokalne pliki lub katalogi do obrazu"
 
 #: builder/builder.ml:618
 msgid "Copying"
@@ -751,7 +753,7 @@ msgstr ""
 #: customize/customize_cmdline.ml:286
 #: common/mlcustomize/customize_cmdline.ml:286
 msgid "Create a directory"
-msgstr ""
+msgstr "Tworzy katalog"
 
 #: sparsify/copying.ml:145
 msgid "Create overlay device %s to protect source disk"
@@ -764,7 +766,7 @@ msgstr ""
 #: customize/customize_cmdline.ml:280
 #: common/mlcustomize/customize_cmdline.ml:280
 msgid "Create symbolic links"
-msgstr ""
+msgstr "Tworzy dowiązania symboliczne"
 
 #: builder/repository_main.ml:559
 msgid "Creating index backup copy"
@@ -802,7 +804,7 @@ msgstr ""
 #: customize/customize_cmdline.ml:285
 #: common/mlcustomize/customize_cmdline.ml:285
 msgid "DIR"
-msgstr ""
+msgstr "KATALOG"
 
 #: customize/customize_cmdline.ml:218
 #: common/mlcustomize/customize_cmdline.ml:218
@@ -811,7 +813,7 @@ msgstr ""
 
 #: resize/resize.ml:199
 msgid "Delete partition"
-msgstr ""
+msgstr "Usuwa partycję"
 
 #: builder/cmdline.ml:143
 msgid "Delete the template cache"
@@ -851,11 +853,11 @@ msgstr ""
 
 #: builder/repository_main.ml:284
 msgid "Display name: "
-msgstr ""
+msgstr "Wyświetlana nazwa: "
 
 #: common/mltools/tools_utils.ml:332
 msgid "Display version and exit"
-msgstr ""
+msgstr "Wyświetla wersję i kończy działanie"
 
 #: dib/output_format_qcow2.ml:49
 msgid "Do not compress the qcow2 image"
@@ -871,7 +873,7 @@ msgstr ""
 
 #: dib/dib.ml:1005
 msgid "Done"
-msgstr ""
+msgstr "Gotowe"
 
 #: builder/repository_main.ml:56
 msgid "Don’t compress the new images in the index"
@@ -915,7 +917,7 @@ msgstr ""
 
 #: builder/builder.ml:304 builder/builder.ml:256
 msgid "Downloading: %s"
-msgstr ""
+msgstr "Pobieranie: %s"
 
 #: customize/customize_cmdline.ml:229
 #: common/mlcustomize/customize_cmdline.ml:229
@@ -1020,7 +1022,7 @@ msgstr ""
 #. common/mlcustomize/customize_cmdline.ml:337
 #: customize/customize_cmdline.ml:402 customize/customize_cmdline.ml:384
 msgid "FILE"
-msgstr ""
+msgstr "PLIK"
 
 #: customize/customize_cmdline.ml:437
 #: common/mlcustomize/customize_cmdline.ml:437
@@ -1045,7 +1047,7 @@ msgstr ""
 #: customize/customize_cmdline.ml:185
 #: common/mlcustomize/customize_cmdline.ml:185
 msgid "FILENAME"
-msgstr ""
+msgstr "NAZWA-PLIKU"
 
 #: resize/resize.ml:1041
 msgid ""
@@ -1131,11 +1133,11 @@ msgstr ""
 
 #: builder/builder.ml:758
 msgid "Free space"
-msgstr ""
+msgstr "Wolne miejsce"
 
 #: builder/list_entries.ml:76
 msgid "Full name:"
-msgstr ""
+msgstr "Pełna nazwa:"
 
 #: builder/sigchecker.ml:110
 msgid ""
@@ -1173,7 +1175,7 @@ msgstr ""
 #: customize/customize_cmdline.ml:257
 #: common/mlcustomize/customize_cmdline.ml:257
 msgid "HOSTNAME"
-msgstr ""
+msgstr "NAZWA-KOMPUTERA"
 
 #: builder/repository_main.ml:54
 msgid "ID of the GPG key to sign the repo with"
@@ -1181,7 +1183,7 @@ msgstr ""
 
 #: builder/repository_main.ml:212
 msgid "Identifier: "
-msgstr ""
+msgstr "Identyfikator: "
 
 #: common/mltools/tools_utils.ml:130
 msgid ""
@@ -1214,7 +1216,7 @@ msgstr ""
 
 #: dib/cmdline.ml:166
 msgid "Installation type"
-msgstr ""
+msgstr "Typ instalacji"
 
 #: customize/customize_run.ml:252
 msgid "Installing firstboot command: %s"
@@ -1234,7 +1236,7 @@ msgstr ""
 
 #: dib/dib.ml:514
 msgid "Installing: %s"
-msgstr ""
+msgstr "Instalowanie: %s"
 
 #: builder/list_entries.ml:66
 msgid "Key: %s\n"
@@ -1371,11 +1373,11 @@ msgstr ""
 
 #: builder/builder.ml:753
 msgid "Output file"
-msgstr ""
+msgstr "Plik wyjściowy"
 
 #: builder/builder.ml:755
 msgid "Output format"
-msgstr ""
+msgstr "Format wyjściowy"
 
 #: builder/cmdline.ml:148
 msgid "Output format (default: raw)"
@@ -1383,7 +1385,7 @@ msgstr ""
 
 #: dib/cmdline.ml:181
 msgid "Output formats"
-msgstr ""
+msgstr "Formaty wyjściowe"
 
 #: builder/builder.ml:754
 msgid "Output size"
@@ -1758,7 +1760,7 @@ msgstr ""
 #. common/mlcustomize/customize_cmdline.ml:234
 #: customize/customize_cmdline.ml:325 customize/customize_cmdline.ml:234
 msgid "SCRIPT"
-msgstr ""
+msgstr "SKRYPT"
 
 #. customize/customize_cmdline.ml:315
 #. common/mltools/tools_utils.ml:356
@@ -2185,12 +2187,12 @@ msgstr ""
 
 #: sparsify/in_place.ml:97
 msgid "Trimming %s"
-msgstr ""
+msgstr "Przycinanie %s"
 
 #: customize/customize_cmdline.ml:385
 #: common/mlcustomize/customize_cmdline.ml:385
 msgid "Truncate a file to zero size"
-msgstr ""
+msgstr "Skraca plik do zerowego rozmiaru"
 
 #: customize/customize_run.ml:350
 msgid "Truncating: %s"
@@ -2225,7 +2227,7 @@ msgstr ""
 #: customize/customize_cmdline.ml:414
 #: common/mlcustomize/customize_cmdline.ml:414
 msgid "Uninstall package(s)"
-msgstr ""
+msgstr "Odinstalowuje pakiety"
 
 #: customize/customize_run.ml:367
 msgid "Uninstalling packages: %s"
@@ -2349,7 +2351,7 @@ msgstr ""
 
 #: builder/cache.ml:60
 msgid "cached"
-msgstr ""
+msgstr "w pamięci podręcznej"
 
 #: sparsify/copying.ml:64
 msgid "cannot detect input disk format; use the --format parameter"
@@ -2447,7 +2449,7 @@ msgstr ""
 
 #: get-kernel/get_kernel.ml:61
 msgid "directory"
-msgstr ""
+msgstr "katalog"
 
 #: builder/builder.ml:176
 msgid "disabling the cache"
@@ -2463,7 +2465,7 @@ msgstr ""
 
 #: sparsify/in_place.ml:62
 msgid "discard/trim is not supported"
-msgstr ""
+msgstr "discard/trim nie jest obsługiwane"
 
 #: dib/output_format_docker.ml:32
 msgid "docker: a target was not specified, use ‘--docker-target’"
@@ -2472,7 +2474,7 @@ msgstr ""
 #: sysprep/main.ml:125 get-kernel/get_kernel.ml:59
 #: customize/customize_main.ml:80
 msgid "domain"
-msgstr ""
+msgstr "domena"
 
 #: get-kernel/get_kernel.ml:188
 msgid "dual/multi-boot images are not supported by this tool"
@@ -2547,12 +2549,12 @@ msgstr ""
 
 #: common/mltools/tools_utils.ml:191
 msgid "failure: %s"
-msgstr ""
+msgstr "niepowodzenie: %s"
 
 #: sysprep/main.ml:123 get-kernel/get_kernel.ml:56
 #: customize/customize_main.ml:75
 msgid "file"
-msgstr ""
+msgstr "plik"
 
 #: builder/sigchecker.ml:220
 msgid ""
@@ -2584,7 +2586,7 @@ msgstr ""
 #. customize/customize_main.ml:82
 #: sysprep/main.ml:130 sparsify/cmdline.ml:71 sparsify/cmdline.ml:70
 msgid "format"
-msgstr ""
+msgstr "format"
 
 #: dib/output_format.ml:97
 msgid "format name is an empty string"
@@ -2701,7 +2703,7 @@ msgstr ""
 
 #: common/mltools/tools_utils.ml:189
 msgid "libguestfs error: %s"
-msgstr ""
+msgstr "błąd biblioteki libguestfs: %s"
 
 #: customize/customize_run.ml:47
 msgid "log file %s: %s (ignored)"
@@ -2887,7 +2889,7 @@ msgstr ""
 
 #: get-kernel/get_kernel.ml:63
 msgid "prefix"
-msgstr ""
+msgstr "przedrostek"
 
 #: resize/resize.ml:142
 msgid "pvresize"
@@ -2919,7 +2921,7 @@ msgstr ""
 
 #: sysprep/sysprep_operation_script.ml:148
 msgid "script"
-msgstr ""
+msgstr "skrypt"
 
 #: sysprep/sysprep_operation_script.ml:75
 msgid "script failed"
@@ -3115,7 +3117,7 @@ msgstr ""
 #. sysprep/sysprep_operation_user_account.ml:112
 #: sysprep/sysprep_operation_user_account.ml:127
 msgid "users"
-msgstr ""
+msgstr "użytkownicy"
 
 #: dib/utils.ml:55
 msgid ""
@@ -3250,7 +3252,7 @@ msgstr ""
 #: make-fs/make-fs.c:82 rescue/rescue.c:80
 #, c-format
 msgid "Try ‘%s --help’ for more information.\n"
-msgstr ""
+msgstr "Polecenie „%s --help” wyświetli więcej informacji.\n"
 
 #: align/scan.c:83
 #, c-format
@@ -3721,7 +3723,7 @@ msgstr "Proszę podać klucz lub hasło („%s”): "
 #: common/options/keys.c:173
 #, c-format
 msgid "could not read key from user"
-msgstr ""
+msgstr "nie można odczytać klucza od użytkownika"
 
 #: common/options/options.c:283
 #, c-format
@@ -3823,7 +3825,7 @@ msgstr "%s: błąd: nie można przetworzyć licznika xattr dla %s %s\n"
 #: common/windows/windows.c:139
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
-msgstr ""
+msgstr "musi być gościem systemu Windows, aby użyć liter dysków systemu Windows"
 
 #: common/windows/windows.c:150
 #, c-format
@@ -4022,7 +4024,7 @@ msgstr "należy użyć „sparse plik rozmiar”, aby utworzyć rzadki obraz\n"
 #: fish/alloc.c:105
 #, c-format
 msgid "%s: invalid integer parameter (%s returned %u)\n"
-msgstr ""
+msgstr "%s: nieprawidłowy parametr liczby całkowitej (%s zwróciło %u)\n"
 
 #: fish/cmds.c:487
 msgid "Command"
@@ -4257,7 +4259,7 @@ msgstr "usuwa urządzenia z systemu plików btrfs"
 
 #: fish/cmds.c:565
 msgid "balance a btrfs filesystem"
-msgstr ""
+msgstr "wyrównuje system plików btrfs"
 
 #: fish/cmds.c:566
 msgid "defragment a file or directory"
@@ -4273,7 +4275,7 @@ msgstr ""
 
 #: fish/cmds.c:569
 msgid "sync a btrfs filesystem"
-msgstr ""
+msgstr "synchronizuje system plików btrfs"
 
 #: fish/cmds.c:570
 msgid "check a btrfs filesystem"
@@ -4499,7 +4501,7 @@ msgstr "rekursywnie kopiuje plik lub katalog"
 
 #: fish/cmds.c:629
 msgid "pack directory into cpio file"
-msgstr ""
+msgstr "pakuje katalog do pliku cpio"
 
 #: fish/cmds.c:630
 msgid "copy from source to destination using dd"
@@ -4687,7 +4689,7 @@ msgstr "wykonuje sprawdzanie systemu plików"
 
 #: fish/cmds.c:690
 msgid "trim free space in a filesystem"
-msgstr ""
+msgstr "przycina wolne miejsce w systemie plików"
 
 #: fish/cmds.c:694
 msgid "get the additional kernel options"
@@ -4859,7 +4861,7 @@ msgstr "modyfikuje za pomocą edytora szesnastkowego"
 
 #: fish/cmds.c:739
 msgid "close the current hivex handle"
-msgstr ""
+msgstr "zamyka bieżący program obsługi hivex"
 
 #: fish/cmds.c:740
 msgid "commit (write) changes back to the hive"
@@ -5338,7 +5340,7 @@ msgstr ""
 
 #: fish/cmds.c:877
 msgid "scan for LVM physical volumes, volume groups and logical volumes"
-msgstr ""
+msgstr "skanuje woluminy fizyczne, grupy woluminów i woluminy logiczne LVM"
 
 #: fish/cmds.c:878
 msgid "set LVM device filter"
@@ -5632,7 +5634,7 @@ msgstr ""
 
 #: fish/cmds.c:964
 msgid "get partition name"
-msgstr ""
+msgstr "uzyskuje nazwę partycji"
 
 #: fish/cmds.c:965
 msgid "get the partition table type"
@@ -5954,7 +5956,7 @@ msgstr "włącza lub wyłącza śledzenie poleceń"
 
 #: fish/cmds.c:1074
 msgid "set the filesystem UUID"
-msgstr ""
+msgstr "ustawia UUID systemu plików"
 
 #: fish/cmds.c:1075
 msgid "set a random UUID for the filesystem"
@@ -6670,7 +6672,7 @@ msgstr ""
 "polecenia\n"
 "  „hexedit %s <maksimum>” (np. „hexedit %s 1M”) lub zakres za pomocą "
 "polecenia\n"
-"  „hexedit %s <wartość poczatkowa> <maksimum>”.\n"
+"  „hexedit %s <wartość początkowa> <maksimum>”.\n"
 
 #: fish/hexedit.c:97
 #, c-format
@@ -6982,7 +6984,7 @@ msgstr ""
 #: fish/run-6.c:2041
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
-msgstr ""
+msgstr "%s: %s: nieprawidłowy parametr liczby całkowitej (%s zwróciło %u)\n"
 
 #: fish/setenv.c:40
 #, c-format
@@ -7017,6 +7019,8 @@ msgid ""
 "Try ‘%s --help’ for more information.\n"
 "%s\n"
 msgstr ""
+"Polecenie „%s --help” wyświetli więcej informacji.\n"
+"%s\n"
 
 #: format/format.c:74
 #, c-format
@@ -7597,7 +7601,7 @@ msgstr ""
 #: lib/drives.c:677
 #, c-format
 msgid "invalid port number ‘%s’"
-msgstr ""
+msgstr "nieprawidłowy numer portu „%s”"
 
 #: lib/drives.c:684
 #, c-format
@@ -7650,7 +7654,7 @@ msgstr ""
 #: lib/drives.c:904
 #, c-format
 msgid "unknown protocol ‘%s’"
-msgstr ""
+msgstr "nieznany protokół „%s”"
 
 #: lib/drives.c:922 lib/drives.c:1077
 msgid "the current backend does not support hotplugging drives"
@@ -7668,7 +7672,7 @@ msgstr ""
 #: lib/drives.c:1166
 #, c-format
 msgid "%s: device not found"
-msgstr ""
+msgstr "%s: nie odnaleziono urządzenia"
 
 #: lib/errors.c:425
 #, c-format
@@ -7938,7 +7942,7 @@ msgstr ""
 #: lib/launch-libvirt.c:795 lib/launch-libvirt.c:883 lib/launch-libvirt.c:899
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
-msgstr ""
+msgstr "nie można sprawdzić wyrażenia XPath: %s"
 
 #: lib/launch-libvirt.c:830
 #, c-format
@@ -8048,6 +8052,7 @@ msgstr ""
 #: lib/launch-uml.c:466
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
+"vmlinux zostało uruchomione i skontaktowano się z usługą, ale stan != GOTOWY"
 
 #: lib/launch-unix.c:46
 msgid "cannot set hv parameters with the 'unix:' backend"
@@ -8794,7 +8799,7 @@ msgid ""
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
-"{prog}: Nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu dysku."
+"{prog}: nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu dysku."
 "\n"
 "\n"
 "Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest "
