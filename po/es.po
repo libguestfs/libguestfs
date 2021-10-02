@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-01-06 10:17+0000\n"
+"POT-Creation-Date: 2021-03-03 10:57+0000\n"
 "PO-Revision-Date: 2015-03-16 07:04+0000\n"
 "Last-Translator: Alex Puchades <alex94puchades@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -3622,17 +3622,17 @@ msgstr ""
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: entero fuera de rango\n"
 
-#: common/mltools/getopt-c.c:385
+#: common/mltools/getopt-c.c:388
 #, c-format
 msgid "%s: ‘%s’ is not allowed for -%c; allowed values are:\n"
 msgstr ""
 
-#: common/mltools/getopt-c.c:388
+#: common/mltools/getopt-c.c:391
 #, c-format
 msgid "%s: ‘%s’ is not allowed for %s%s; allowed values are:\n"
 msgstr ""
 
-#: common/mltools/getopt-c.c:423
+#: common/mltools/getopt-c.c:426
 #, c-format
 msgid "Extra parameter on the command line: ‘%s’.\n"
 msgstr ""
@@ -7753,50 +7753,50 @@ msgid ""
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: lib/fuse.c:982
+#: lib/fuse.c:972
 msgid "filesystem is already mounted in another thread"
 msgstr ""
 
-#: lib/fuse.c:1006
+#: lib/fuse.c:996
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr ""
 
-#: lib/fuse.c:1023
+#: lib/fuse.c:1013
 #, c-format
 msgid "fuse_mount failed: %s, see error messages above"
 msgstr ""
 
-#: lib/fuse.c:1042
+#: lib/fuse.c:1032
 #, c-format
 msgid "fuse_new: %s"
 msgstr ""
 
-#: lib/fuse.c:1071
+#: lib/fuse.c:1061
 msgid "you must call guestfs_mount_local first"
 msgstr ""
 
-#: lib/fuse.c:1082
+#: lib/fuse.c:1072
 #, c-format
 msgid ""
 "you must call ‘guestfs_mount’ first to mount a filesystem on '/'.\n"
 "Note: ‘%s’ is still mounted.  Use ‘guestunmount %s’ to clean up."
 msgstr ""
 
-#: lib/fuse.c:1092
+#: lib/fuse.c:1082
 #, c-format
 msgid "fuse_loop: %s"
 msgstr ""
 
-#: lib/fuse.c:1143
+#: lib/fuse.c:1133
 msgid "no filesystem is mounted"
 msgstr ""
 
-#: lib/fuse.c:1262
+#: lib/fuse.c:1252
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: lib/fuse.c:1517
+#: lib/fuse.c:1507
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -7975,56 +7975,56 @@ msgstr ""
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1431
+#: lib/launch-libvirt.c:1440
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1477 lib/launch-libvirt.c:1735 lib/qemu.c:816
+#: lib/launch-libvirt.c:1486 lib/launch-libvirt.c:1744 lib/qemu.c:822
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1560
+#: lib/launch-libvirt.c:1569
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1946
+#: lib/launch-libvirt.c:1955
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1957
+#: lib/launch-libvirt.c:1966
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1961
+#: lib/launch-libvirt.c:1970
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1982
+#: lib/launch-libvirt.c:1991
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:1995
+#: lib/launch-libvirt.c:2004
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2168
+#: lib/launch-libvirt.c:2177
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2189 lib/launch-libvirt.c:2222
+#: lib/launch-libvirt.c:2198 lib/launch-libvirt.c:2231
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2288
+#: lib/launch-libvirt.c:2297
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2319
+#: lib/launch-libvirt.c:2328
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -8324,35 +8324,35 @@ msgstr "falló al analizar porciones del archivo"
 msgid "file receive cancelled by daemon"
 msgstr "el demonio ha cancelado la recepción del archivo"
 
-#: lib/qemu.c:986
+#: lib/qemu.c:992
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: lib/qemu.c:995
+#: lib/qemu.c:1001
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:1002
+#: lib/qemu.c:1008
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:1010
+#: lib/qemu.c:1016
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: lib/qemu.c:1018
+#: lib/qemu.c:1024
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:1041
+#: lib/qemu.c:1047
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
