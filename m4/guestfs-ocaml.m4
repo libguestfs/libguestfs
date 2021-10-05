@@ -232,7 +232,7 @@ EOF
 ])
 
 dnl Flags we want to pass to every OCaml compiler call.
-OCAML_WARN_ERROR="-warn-error CDEFLMPSUVYZX+52-3"
+OCAML_WARN_ERROR="-warn-error +C+D+E+F+L+M+P+S+U+V+Y+Z+X+52-3"
 AC_SUBST([OCAML_WARN_ERROR])
 OCAML_FLAGS="-g -annot $safe_string_option"
 AC_SUBST([OCAML_FLAGS])
