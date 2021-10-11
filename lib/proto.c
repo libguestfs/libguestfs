@@ -433,7 +433,7 @@ send_file_cancellation (guestfs_h *g)
 static int
 send_file_complete (guestfs_h *g)
 {
-  char buf[1];
+  char buf[1] = { '\0' };
   return send_file_chunk (g, 0, buf, 0);
 }
 
