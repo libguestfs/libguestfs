@@ -30,7 +30,7 @@ test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
 AM_PROG_CC_C_O
 
 AC_ARG_ENABLE([werror],
-    [AS_HELP_STRING([--enable-error],
+    [AS_HELP_STRING([--enable-werror],
                     [turn on lots of GCC warnings (for developers)])],
      [case $enableval in
       yes|no) ;;
