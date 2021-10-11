@@ -56,10 +56,21 @@ static YR_RULES *rules = NULL;
 static bool initialized = false;
 
 static int compile_rules_file (const char *);
-static void compile_error_callback (int, const char *, int, const char *, void *);
 static void cleanup_destroy_yara_compiler (void *ptr);
-static int yara_rules_callback (int , void *, void *);
 static int send_detection_info (const char *, YR_RULE *);
+
+/* Typedefs that effectively strip the pointer derivation from Yara's
+ * YR_CALLBACK_FUNC and YR_COMPILER_CALLBACK_FUNC types, using GCC's "typeof"
+ * extension.
+ */
+typedef typeof (*(YR_CALLBACK_FUNC)NULL)          guestfs_yr_callback;
+typedef typeof (*(YR_COMPILER_CALLBACK_FUNC)NULL) guestfs_yr_compiler_callback;
+
+/* Declarations of our callback functions expressed in terms of Yara's
+ * typedefs. Note: these are *function declarations*.
+ */
+static guestfs_yr_callback          yara_rules_callback;
+static guestfs_yr_compiler_callback compile_error_callback;
 
 /* Has one FileIn parameter.
  * Takes optional arguments, consult optargs_bitmask.
@@ -210,7 +221,7 @@ compile_rules_file (const char *rules_path)
  */
 static void
 compile_error_callback (int level, const char *name, int line,
-                        const char *message, void *data)
+                        const YR_RULE *rule, const char *message, void *data)
 {
   if (level == YARA_ERROR_LEVEL_ERROR)
     fprintf (stderr, "Yara error (line %d): %s\n", line, message);
@@ -222,7 +233,8 @@ compile_error_callback (int level, const char *name, int line,
  * Return 0 on success, -1 on error.
  */
 static int
-yara_rules_callback (int code, void *message, void *data)
+yara_rules_callback (YR_SCAN_CONTEXT *context, int code, void *message,
+                     void *data)
 {
   int ret = 0;
 
