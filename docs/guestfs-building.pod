@@ -387,7 +387,7 @@ Optional.  For tab-completion of commands in bash.
 
 Optional.  Library for filesystem forensics analysis.
 
-=item yara
+=item yara E<ge> 4.0.0
 
 Optional.  Tool for categorizing files based on their content.
 
