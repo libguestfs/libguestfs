@@ -134,7 +134,7 @@ AC_CHECK_LIB([tsk],[tsk_version_print],[
 ],[AC_MSG_WARN([The Sleuth Kit library (libtsk) not found])])
 
 dnl yara library (optional)
-PKG_CHECK_MODULES([YARA], [libyara],[
+PKG_CHECK_MODULES([YARA], [yara],[
     AC_SUBST([YARA_CFLAGS])
     AC_SUBST([YARA_LIBS])
     AC_DEFINE([HAVE_YARA],[1],[yara library found at compile time.])
