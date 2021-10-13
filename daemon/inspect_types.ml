@@ -79,6 +79,7 @@ and distro =
   | DISTRO_FRUGALWARE
   | DISTRO_GENTOO
   | DISTRO_KALI_LINUX
+  | DISTRO_KYLIN
   | DISTRO_LINUX_MINT
   | DISTRO_MAGEIA
   | DISTRO_MANDRIVA
@@ -211,6 +212,7 @@ and string_of_distro = function
   | DISTRO_FRUGALWARE -> "frugalware"
   | DISTRO_GENTOO -> "gentoo"
   | DISTRO_KALI_LINUX -> "kalilinux"
+  | DISTRO_KYLIN -> "kylin"
   | DISTRO_LINUX_MINT -> "linuxmint"
   | DISTRO_MAGEIA -> "mageia"
   | DISTRO_MANDRIVA -> "mandriva"
