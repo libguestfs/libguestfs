@@ -214,6 +214,10 @@ Gentoo.
 
 Kali Linux.
 
+=item \"kylin\"
+
+Kylin.
+
 =item \"linuxmint\"
 
 Linux Mint.

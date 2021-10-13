@@ -275,6 +275,7 @@ and check_package_format { distro } =
      Some PACKAGE_FORMAT_RPM
   | Some DISTRO_DEBIAN
   | Some DISTRO_KALI_LINUX
+  | Some DISTRO_KYLIN (* supposedly another Ubuntu derivative *)
   | Some DISTRO_LINUX_MINT
   | Some DISTRO_UBUNTU ->
      Some PACKAGE_FORMAT_DEB
@@ -345,6 +346,7 @@ and check_package_management { distro; version } =
   | Some DISTRO_ALTLINUX
   | Some DISTRO_DEBIAN
   | Some DISTRO_KALI_LINUX
+  | Some DISTRO_KYLIN (* supposedly another Ubuntu derivative *)
   | Some DISTRO_LINUX_MINT
   | Some DISTRO_UBUNTU ->
      Some PACKAGE_MANAGEMENT_APT

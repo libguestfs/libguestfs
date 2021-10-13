@@ -146,6 +146,7 @@ and distro_of_os_release_id = function
   | "frugalware" -> Some DISTRO_FRUGALWARE
   | "gentoo" -> Some DISTRO_GENTOO
   | "kali" -> Some DISTRO_KALI_LINUX
+  | "kylin" -> Some DISTRO_KYLIN
   | "mageia" -> Some DISTRO_MAGEIA
   | "neokylin" -> Some DISTRO_NEOKYLIN
   | "openmandriva" -> Some DISTRO_OPENMANDRIVA
