@@ -138,11 +138,4 @@ PKG_CHECK_MODULES([YARA], [yara],[
     AC_SUBST([YARA_CFLAGS])
     AC_SUBST([YARA_LIBS])
     AC_DEFINE([HAVE_YARA],[1],[yara library found at compile time.])
-],[
-    AC_CHECK_LIB([yara],[yr_initialize],[
-        AC_CHECK_HEADER([yara.h],[
-            AC_SUBST([YARA_LIBS], [-lyara])
-            AC_DEFINE([HAVE_YARA], [1], [Define to 1 if Yara library is available.])
-        ], [])
-    ],[AC_MSG_WARN([Yara library not found])])
-])
+],[AC_MSG_WARN([Yara library not found])])
