@@ -77,7 +77,8 @@ let firmware = [
     [];
 ]
 
-let arches = List.sort_uniq (List.map (fun (arch, _, _, _, _) -> arch) firmware)
+let arches =
+  List.sort_uniq compare (List.map (fun (arch, _, _, _, _) -> arch) firmware)
 
 let generate_uefi_c () =
   generate_header CStyle LGPLv2plus;
