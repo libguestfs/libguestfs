@@ -23,7 +23,7 @@ open Std_utils
 open Utils
 
 external is_raid_device : string -> bool =
-  "guestfs_int_daemon_is_raid_device" "noalloc"
+  "guestfs_int_daemon_is_raid_device" [@@noalloc]
 
 let re_md = PCRE.compile "^md[0-9]+$"
 

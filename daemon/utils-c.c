@@ -37,35 +37,35 @@
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
-/* NB: This is a "noalloc" call. */
+/* NB: This is a [@@noalloc] call. */
 value
 guestfs_int_daemon_get_verbose_flag (value unitv)
 {
   return Val_bool (verbose);
 }
 
-/* NB: This is a "noalloc" call. */
+/* NB: This is a [@@noalloc] call. */
 value
 guestfs_int_daemon_is_device_parameter (value device)
 {
   return Val_bool (is_device_parameter (String_val (device)));
 }
 
-/* NB: This is a "noalloc" call. */
+/* NB: This is a [@@noalloc] call. */
 value
 guestfs_int_daemon_is_root_device (value device)
 {
   return Val_bool (is_root_device (String_val (device)));
 }
 
-/* NB: This is a "noalloc" call. */
+/* NB: This is a [@@noalloc] call. */
 value
 guestfs_int_daemon_prog_exists (value prog)
 {
   return Val_bool (prog_exists (String_val (prog)));
 }
 
-/* NB: This is a "noalloc" call. */
+/* NB: This is a [@@noalloc] call. */
 value
 guestfs_int_daemon_udev_settle (value optfilenamev, value unitv)
 {

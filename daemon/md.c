@@ -51,7 +51,7 @@ optgroup_mdadm_available (void)
  */
 extern value guestfs_int_daemon_is_raid_device (value devicev);
 
-/* NB: This is a "noalloc" call. */
+/* NB: This is a [@@noalloc] call. */
 value
 guestfs_int_daemon_is_raid_device (value devv)
 {
