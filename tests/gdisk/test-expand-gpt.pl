@@ -35,7 +35,7 @@ sub tests {
 
 	$g->close ();
 
-	die if system ("qemu-img resize disk_gpt.img 100M &>/dev/null");
+	die if system ("qemu-img resize disk_gpt.img 100M >/dev/null");
 
 	$g = Sys::Guestfs->new ();
 
@@ -61,7 +61,7 @@ sub tests {
 	$g->close ();
 
 	# Disk shrink test
-	die if system ("qemu-img resize --shrink disk_gpt.img 50M &>/dev/null");
+	die if system ("qemu-img resize --shrink disk_gpt.img 50M >/dev/null");
 
 	$g = Sys::Guestfs->new ();
 
