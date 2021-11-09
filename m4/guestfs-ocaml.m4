@@ -155,7 +155,6 @@ AC_SUBST([HIVEX_OPEN_UNSAFE_FLAG])
 OCAML_PKG_gettext=no
 OCAML_PKG_ounit2=no
 ounit_is_v2=no
-have_Bytes_module=no
 AS_IF([test "x$OCAMLC" != "xno"],[
     # Create common/mlgettext/common_gettext.ml gettext functions or stubs.
 
@@ -171,20 +170,6 @@ AS_IF([test "x$OCAMLC" != "xno"],[
     if test "x$OCAML_PKG_ounit2" != "xno"; then
         AC_CHECK_OCAML_MODULE(ounit_is_v2,[OUnit.OUnit2],OUnit2,[+ounit2])
     fi
-
-    # Check if we have the 'Bytes' module.  If not (OCaml < 4.02) then
-    # we need to create a compatibility module.
-    # AC_CHECK_OCAML_MODULE is a bit broken, so open code this test.
-    AC_MSG_CHECKING([for OCaml module Bytes])
-    rm -f conftest.ml
-    echo 'let s = Bytes.empty' > conftest.ml
-    if $OCAMLC -c conftest.ml >&5 2>&5 ; then
-        AC_MSG_RESULT([yes])
-        have_Bytes_module=yes
-    else
-        AC_MSG_RESULT([not found])
-        have_Bytes_module=no
-    fi
 ])
 AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
                [test "x$OCAML_PKG_gettext" != "xno"])
@@ -194,24 +179,6 @@ AM_CONDITIONAL([HAVE_OCAML_PKG_OUNIT],
 AC_CHECK_PROG([OCAML_GETTEXT],[ocaml-gettext],[ocaml-gettext],[no])
 AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
                [test "x$OCAML_PKG_gettext" != "xno" && test "x$OCAML_GETTEXT" != "xno"])
-
-dnl Create the backwards compatibility Bytes module for OCaml < 4.02.
-mkdir -p common/mlstdutils
-rm -f common/mlstdutils/bytes.ml common/mlstdutils/bytes.mli
-AS_IF([test "x$have_Bytes_module" = "xno"],[
-    cat > common/mlstdutils/bytes.ml <<EOF
-include String
-let of_string = String.copy
-let to_string = String.copy
-let sub_string = String.sub
-EOF
-    $OCAMLC -i common/mlstdutils/bytes.ml > common/mlstdutils/bytes.mli
-    safe_string_option=
-],[
-    safe_string_option="-safe-string"
-])
-AM_CONDITIONAL([HAVE_BYTES_COMPAT_ML],
-	       [test "x$have_Bytes_module" = "xno"])
 
 dnl Check if OCaml has caml_alloc_initialized_string (added 2017).
 AS_IF([test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && \
