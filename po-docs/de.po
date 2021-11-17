@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2015-02-21 09:57+0000\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
-"language/de/)\n"
+"PO-Revision-Date: 2021-11-18 23:16+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"Language-Team: German <https://translate.fedoraproject.org/projects/"
+"libguestfs/libguestfs-docs-master/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -8573,7 +8573,7 @@ msgstr ""
 #: ../lib/guestfs-availability.pod:25 ../lib/guestfs-structs.pod:1
 #: ../lib/guestfs-structs.pod:25
 msgid "comment"
-msgstr ""
+msgstr "Kommentar"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:3
@@ -74978,7 +74978,7 @@ msgstr ""
 #. type: =item
 #: ../fish/guestfish.pod:1526 ../lib/guestfs.pod:1363 ../lib/guestfs.pod:3407
 msgid "PATH"
-msgstr ""
+msgstr "PFAD"
 
 #. type: textblock
 #: ../fish/guestfish.pod:1528
