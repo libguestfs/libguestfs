@@ -6,22 +6,23 @@
 # Fabian Affolter <fab@fedoraproject.org>, 2011
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2011
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2011
+# Ettore Atalan <atalanttore@googlemail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2021-09-23 14:41+0100\n"
-"PO-Revision-Date: 2015-02-21 10:48+0000\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
-"language/de/)\n"
+"PO-Revision-Date: 2021-11-18 23:16+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"Language-Team: German <https://translate.fedoraproject.org/projects/"
+"libguestfs/libguestfs-master/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -99,7 +100,7 @@ msgstr "%s eingehängt auf %s\n"
 #: common/options/keys.c:62
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
-msgstr ""
+msgstr "Schlüssel oder Passphrase eingeben („%s“): "
 
 #: common/options/keys.c:173
 #, c-format
@@ -451,11 +452,11 @@ msgstr ""
 
 #: fish/cmds.c:563
 msgid "add devices to a btrfs filesystem"
-msgstr ""
+msgstr "Geräte zu einem btrfs-Dateisystem hinzufügen"
 
 #: fish/cmds.c:564
 msgid "remove devices from a btrfs filesystem"
-msgstr ""
+msgstr "Geräte aus einem btrfs-Dateisystem entfernen"
 
 #: fish/cmds.c:565
 msgid "balance a btrfs filesystem"
@@ -463,7 +464,7 @@ msgstr ""
 
 #: fish/cmds.c:566
 msgid "defragment a file or directory"
-msgstr ""
+msgstr "eine Datei oder ein Verzeichnis defragmentieren"
 
 #: fish/cmds.c:567
 msgid "resize a btrfs filesystem"
@@ -471,19 +472,19 @@ msgstr "Größe eines btrfs-Dateisystems ändern"
 
 #: fish/cmds.c:568
 msgid "list devices for btrfs filesystem"
-msgstr ""
+msgstr "Geräte für btrfs-Dateisystem auflisten"
 
 #: fish/cmds.c:569
 msgid "sync a btrfs filesystem"
-msgstr ""
+msgstr "ein btrfs-Dateisystem synchronisieren"
 
 #: fish/cmds.c:570
 msgid "check a btrfs filesystem"
-msgstr ""
+msgstr "ein btrfs-Dateisystem überprüfen"
 
 #: fish/cmds.c:571
 msgid "create an image of a btrfs filesystem"
-msgstr ""
+msgstr "ein Abbild eines btrfs-Dateisystems erstellen"
 
 #: fish/cmds.c:572
 msgid "add a qgroup to a parent qgroup"
@@ -520,7 +521,7 @@ msgstr ""
 
 #: fish/cmds.c:580
 msgid "replace a btrfs managed device with another device"
-msgstr ""
+msgstr "ein mit btrfs verwaltetes Gerät durch ein anderes Gerät ersetzen"
 
 #: fish/cmds.c:581
 msgid "recover the chunk tree of btrfs filesystem"
@@ -576,7 +577,7 @@ msgstr ""
 
 #: fish/cmds.c:594
 msgid "create a btrfs snapshot"
-msgstr ""
+msgstr "einen btrfs-Schnappschuss erstellen"
 
 #: fish/cmds.c:595
 msgid "enable extended inode refs"
@@ -600,11 +601,11 @@ msgstr ""
 
 #: fish/cmds.c:603
 msgid "get the Linux capabilities attached to a file"
-msgstr ""
+msgstr "die an eine Datei angehängten Linux-Fähigkeiten abrufen"
 
 #: fish/cmds.c:604
 msgid "set the Linux capabilities attached to a file"
-msgstr ""
+msgstr "die an eine Datei angehängten Linux-Fähigkeiten festlegen"
 
 #: fish/cmds.c:605
 msgid "return true path on case-insensitive filesystem"
@@ -612,7 +613,7 @@ msgstr ""
 
 #: fish/cmds.c:606
 msgid "list the contents of a file"
-msgstr "Den Inhalt einer Datei auflisten"
+msgstr "den Inhalt einer Datei auflisten"
 
 #: fish/cmds.c:607
 msgid "compute MD5, SHAx or CRC checksum of file"
@@ -632,7 +633,7 @@ msgstr "Dateimodus ändern"
 
 #: fish/cmds.c:611 fish/cmds.c:826
 msgid "change file owner and group"
-msgstr "Dateibesitzer und -gruppe ändern"
+msgstr "Dateieigentümer und -gruppe ändern"
 
 #: fish/cmds.c:612
 msgid "remove a single per-backend settings string"
@@ -656,7 +657,7 @@ msgstr ""
 
 #: fish/cmds.c:617
 msgid "add hypervisor parameters"
-msgstr ""
+msgstr "Hypervisor-Parameter hinzufügen"
 
 #: fish/cmds.c:618
 msgid "copy the attributes of a path (file/directory) to another"
@@ -709,10 +710,8 @@ msgid "close an encrypted device"
 msgstr "Ein LUKS-verschlüsseltes Gerät öffnen"
 
 #: fish/cmds.c:631
-#, fuzzy
-#| msgid "open a LUKS-encrypted block device"
 msgid "open an encrypted block device"
-msgstr "Ein LUKS-verschlüsseltes Gerät öffnen"
+msgstr "ein verschlüsseltes blockorientiertes Gerät öffnen"
 
 #: fish/cmds.c:632
 msgid "copy from source to destination using dd"
@@ -748,11 +747,11 @@ msgstr ""
 
 #: fish/cmds.c:643
 msgid "create a blank disk image"
-msgstr ""
+msgstr "ein leeres Festplattenabbild erstellen"
 
 #: fish/cmds.c:644
 msgid "detect the disk format of a disk image"
-msgstr ""
+msgstr "das Festplattenformat eines Festplattenabbildes erkennen"
 
 #: fish/cmds.c:645
 msgid "return whether disk has a backing file"
@@ -760,7 +759,7 @@ msgstr ""
 
 #: fish/cmds.c:646
 msgid "return virtual size of a disk"
-msgstr ""
+msgstr "virtuelle Größe einer Festplatte zurückgeben"
 
 #: fish/cmds.c:647
 msgid "display an image"
@@ -834,7 +833,7 @@ msgstr ""
 
 #: fish/cmds.c:672
 msgid "expand a f2fs filesystem"
-msgstr ""
+msgstr "ein f2fs-Dateisystem erweitern"
 
 #: fish/cmds.c:673 fish/cmds.c:674
 msgid "preallocate a file in the guest filesystem"
@@ -854,11 +853,11 @@ msgstr "Die Größe einer Datei in Bytes zurückgeben"
 
 #: fish/cmds.c:681
 msgid "check if filesystem is available"
-msgstr ""
+msgstr "prüfen, ob das Dateisystem verfügbar ist"
 
 #: fish/cmds.c:682
 msgid "walk through the filesystem content"
-msgstr ""
+msgstr "durch den Inhalt des Dateisystems gehen"
 
 #: fish/cmds.c:683
 msgid "fill a file with octets"
@@ -866,7 +865,7 @@ msgstr ""
 
 #: fish/cmds.c:684
 msgid "fill a directory with empty files"
-msgstr ""
+msgstr "ein Verzeichnis mit leeren Dateien füllen"
 
 #: fish/cmds.c:685
 msgid "fill a file with a repeating pattern of bytes"
@@ -990,7 +989,7 @@ msgstr ""
 
 #: fish/cmds.c:719
 msgid "get the program name"
-msgstr ""
+msgstr "den Programmnamen abrufen"
 
 #: fish/cmds.c:720
 msgid "get the hypervisor binary (usually qemu)"
@@ -1050,15 +1049,15 @@ msgstr "Einen Platzhalter-Pfad expandieren"
 
 #: fish/cmds.c:736
 msgid "install GRUB 1"
-msgstr ""
+msgstr "GRUB 1 installieren"
 
 #: fish/cmds.c:737
 msgid "return first 10 lines of a file"
-msgstr ""
+msgstr "die ersten 10 Zeilen einer Datei zurückgeben"
 
 #: fish/cmds.c:738
 msgid "return first N lines of a file"
-msgstr ""
+msgstr "die ersten N Zeilen einer Datei zurückgeben"
 
 #: fish/cmds.c:739
 msgid "dump a file in hexadecimal"
@@ -1066,7 +1065,7 @@ msgstr ""
 
 #: fish/cmds.c:740
 msgid "edit with a hex editor"
-msgstr ""
+msgstr "mit einem Hex-Editor bearbeiten"
 
 #: fish/cmds.c:741
 msgid "close the current hivex handle"
@@ -1086,7 +1085,7 @@ msgstr ""
 
 #: fish/cmds.c:745
 msgid "delete a node (recursively)"
-msgstr ""
+msgstr "einen Knoten (rekursiv) löschen"
 
 #: fish/cmds.c:746
 msgid "return the named child of node"
@@ -1098,7 +1097,7 @@ msgstr ""
 
 #: fish/cmds.c:748
 msgid "return the name of the node"
-msgstr ""
+msgstr "den Namen des Knotens zurückgeben"
 
 #: fish/cmds.c:749
 msgid "return the parent of node"
@@ -1317,8 +1316,9 @@ msgid "test if symbolic link"
 msgstr "Überprüfen, ob es eine symbolische Verknüpfung ist"
 
 #: fish/cmds.c:810
+#, fuzzy
 msgid "test if a device is a whole device"
-msgstr ""
+msgstr "prüfen, ob ein Gerät ein vollständiges Gerät ist"
 
 #: fish/cmds.c:811
 msgid "test if a file contains all zero bytes"
@@ -1338,7 +1338,7 @@ msgstr ""
 
 #: fish/cmds.c:815
 msgid "close the systemd journal"
-msgstr ""
+msgstr "das systemd-Journal schließen"
 
 #: fish/cmds.c:816
 msgid "read the current journal entry"
@@ -1358,7 +1358,7 @@ msgstr ""
 
 #: fish/cmds.c:820
 msgid "open the systemd journal"
-msgstr ""
+msgstr "das systemd-Journal öffnen"
 
 #: fish/cmds.c:821
 msgid "set the data threshold for reading journal entries"
@@ -1482,7 +1482,7 @@ msgstr "Die Dateien in einem Ordner auflisten"
 
 #: fish/cmds.c:860
 msgid "get list of files in a directory"
-msgstr ""
+msgstr "Liste der Dateien in einem Verzeichnis abrufen"
 
 #: fish/cmds.c:861 fish/cmds.c:1081
 msgid "set extended attribute of a file or directory"
@@ -1522,7 +1522,7 @@ msgstr "Ein LUKS-verschlüsseltes Blockgerät schreibgeschützt öffnen"
 
 #: fish/cmds.c:873
 msgid "get the UUID of a LUKS device"
-msgstr ""
+msgstr "die UUID eines LUKS-Geräts abrufen"
 
 #: fish/cmds.c:874
 msgid "create an LVM logical volume"
@@ -1594,7 +1594,7 @@ msgstr ""
 
 #: fish/cmds.c:895
 msgid "obtain metadata for an MD device"
-msgstr ""
+msgstr "Metadaten für ein MD-Gerät abrufen"
 
 #: fish/cmds.c:896
 msgid "get underlying devices from an MD device"
@@ -1622,7 +1622,7 @@ msgstr "Einen temporären Ordner erstellen"
 
 #: fish/cmds.c:905
 msgid "create an ext2/ext3/ext4 filesystem on device"
-msgstr ""
+msgstr "ein ext2/ext3/ext4-Dateisystem auf dem Gerät erstellen"
 
 #: fish/cmds.c:906 fish/cmds.c:907 fish/cmds.c:908
 msgid "make ext2/3/4 filesystem with external journal"
@@ -1654,7 +1654,7 @@ msgstr ""
 
 #: fish/cmds.c:915
 msgid "create a btrfs filesystem"
-msgstr ""
+msgstr "ein btrfs-Dateisystem erstellen"
 
 #: fish/cmds.c:916
 msgid "make lost+found directory on an ext2/3/4 filesystem"
@@ -1678,7 +1678,7 @@ msgstr ""
 
 #: fish/cmds.c:921
 msgid "create a squashfs filesystem"
-msgstr ""
+msgstr "ein squashfs-Dateisystem erstellen"
 
 #: fish/cmds.c:922
 msgid "create a swap partition"
@@ -1698,7 +1698,7 @@ msgstr "Eine Auslagerungsdatei erstellen"
 
 #: fish/cmds.c:926
 msgid "create a temporary file"
-msgstr ""
+msgstr "eine temporäre Datei erstellen"
 
 #: fish/cmds.c:927
 msgid "load a kernel module"
@@ -1714,11 +1714,11 @@ msgstr ""
 
 #: fish/cmds.c:930
 msgid "mount 9p filesystem"
-msgstr ""
+msgstr "9p-Dateisystem einhängen"
 
 #: fish/cmds.c:931
 msgid "mount on the local filesystem"
-msgstr ""
+msgstr "in das lokale Dateisystem einhängen"
 
 #: fish/cmds.c:932
 msgid "run main loop of mount on the local filesystem"
@@ -1770,15 +1770,15 @@ msgstr ""
 
 #: fish/cmds.c:948
 msgid "restore NTFS from backup file"
-msgstr ""
+msgstr "NTFS aus einer Sicherungsdatei wiederherstellen"
 
 #: fish/cmds.c:949
 msgid "save NTFS to backup file"
-msgstr ""
+msgstr "NTFS in Sicherungsdatei speichern"
 
 #: fish/cmds.c:950
 msgid "fix common errors and force Windows to check NTFS"
-msgstr ""
+msgstr "häufige Fehler korrigieren und Windows zwingen, NTFS zu überprüfen"
 
 #: fish/cmds.c:951
 msgid "resize an NTFS filesystem"
@@ -1786,7 +1786,7 @@ msgstr "Größe eines NTFS-Dateisystems ändern"
 
 #: fish/cmds.c:952
 msgid "resize an NTFS filesystem (with size)"
-msgstr ""
+msgstr "Größe eines NTFS-Dateisystems ändern (mit Größe)"
 
 #: fish/cmds.c:953 fish/cmds.c:954
 msgid "parse the environment and set handle flags accordingly"
@@ -1810,7 +1810,7 @@ msgstr ""
 
 #: fish/cmds.c:959
 msgid "return true if a partition is bootable"
-msgstr ""
+msgstr "wahr zurückgeben, wenn eine Partition bootfähig ist"
 
 #: fish/cmds.c:960
 msgid "get the GUID of a GPT-partitioned disk"
@@ -1838,7 +1838,7 @@ msgstr ""
 
 #: fish/cmds.c:966
 msgid "get partition name"
-msgstr ""
+msgstr "Partitionsname abrufen"
 
 #: fish/cmds.c:967
 msgid "get the partition table type"
@@ -1854,7 +1854,7 @@ msgstr "Partitionen auf einem Gerät auflisten"
 
 #: fish/cmds.c:970
 msgid "resize a partition"
-msgstr ""
+msgstr "Größe einer Partition ändern"
 
 #: fish/cmds.c:971
 msgid "make a partition bootable"
@@ -1902,11 +1902,11 @@ msgstr ""
 
 #: fish/cmds.c:991
 msgid "read part of a file"
-msgstr ""
+msgstr "Teil einer Datei lesen"
 
 #: fish/cmds.c:992
 msgid "read part of a device"
-msgstr ""
+msgstr "Teil eines Geräts lesen"
 
 #: fish/cmds.c:996
 msgid "generate a new random UUID for a physical volume"
@@ -1978,11 +1978,11 @@ msgstr ""
 
 #: fish/cmds.c:1020
 msgid "remove a disk image"
-msgstr ""
+msgstr "ein Festplattenabbild entfernen"
 
 #: fish/cmds.c:1022
 msgid "rename a file on the same filesystem"
-msgstr ""
+msgstr "eine Datei im selben Dateisystem umbenennen"
 
 #: fish/cmds.c:1023
 msgid "close and reopen libguestfs handle"
@@ -2023,7 +2023,7 @@ msgstr "Einen Einhängepunkt entfernen"
 
 #: fish/cmds.c:1032
 msgid "synchronize the contents of two directories"
-msgstr ""
+msgstr "den Inhalt von zwei Verzeichnissen synchronisieren"
 
 #: fish/cmds.c:1033
 msgid "synchronize host or remote filesystem with filesystem"
@@ -2079,7 +2079,7 @@ msgstr ""
 
 #: fish/cmds.c:1056
 msgid "set ext2 file attributes of a file"
-msgstr ""
+msgstr "ext2-Dateiattribute einer Datei festlegen"
 
 #: fish/cmds.c:1057
 msgid "set ext2 file generation of a file"
@@ -2131,7 +2131,7 @@ msgstr ""
 
 #: fish/cmds.c:1069
 msgid "set the program name"
-msgstr ""
+msgstr "den Programmnamen festlegen"
 
 #: fish/cmds.c:1070
 msgid "set the hypervisor binary (usually qemu)"
@@ -2139,7 +2139,7 @@ msgstr ""
 
 #: fish/cmds.c:1071
 msgid "enable or disable the recovery process"
-msgstr ""
+msgstr "den Wiederherstellungsprozess aktivieren oder deaktivieren"
 
 #: fish/cmds.c:1072
 msgid "set SELinux enabled or disabled at appliance boot"
@@ -2151,7 +2151,7 @@ msgstr ""
 
 #: fish/cmds.c:1074
 msgid "set the temporary directory"
-msgstr ""
+msgstr "das temporäre Verzeichnis festlegen"
 
 #: fish/cmds.c:1075
 msgid "enable or disable command traces"
@@ -2167,27 +2167,27 @@ msgstr ""
 
 #: fish/cmds.c:1078
 msgid "set verbose mode"
-msgstr ""
+msgstr "ausführlichen Modus festlegen"
 
 #: fish/cmds.c:1079
 msgid "set SELinux security context"
-msgstr ""
+msgstr "SELinux-Sicherheitskontext festlegen"
 
 #: fish/cmds.c:1080
 msgid "set an environment variable"
-msgstr ""
+msgstr "eine Umgebungsvariable festlegen"
 
 #: fish/cmds.c:1082 fish/cmds.c:1083
 msgid "create partitions on a block device"
-msgstr ""
+msgstr "Partitionen auf einem blockorientierten Gerät erstellen"
 
 #: fish/cmds.c:1084
 msgid "modify a single partition on a block device"
-msgstr ""
+msgstr "eine einzelne Partition auf einem blockorientierten Gerät ändern"
 
 #: fish/cmds.c:1085
 msgid "display the disk geometry from the partition table"
-msgstr ""
+msgstr "die Festplattengeometrie aus der Partitionstabelle anzeigen"
 
 #: fish/cmds.c:1086
 msgid "display the kernel geometry"
@@ -2195,7 +2195,7 @@ msgstr ""
 
 #: fish/cmds.c:1087
 msgid "display the partition table"
-msgstr ""
+msgstr "die Partitionstabelle anzeigen"
 
 #: fish/cmds.c:1088
 msgid "run a command via the shell"
@@ -2207,11 +2207,11 @@ msgstr ""
 
 #: fish/cmds.c:1090
 msgid "shutdown the hypervisor"
-msgstr ""
+msgstr "den Hypervisor herunterfahren"
 
 #: fish/cmds.c:1091
 msgid "sleep for some seconds"
-msgstr ""
+msgstr "für einige Sekunden schlafen"
 
 #: fish/cmds.c:1095
 msgid "create a sparse disk image and add"
@@ -2223,7 +2223,7 @@ msgstr "Informationen zur Datei ermitteln"
 
 #: fish/cmds.c:1098
 msgid "get file system statistics"
-msgstr ""
+msgstr "Dateisystemstatistiken abrufen"
 
 #: fish/cmds.c:1099 fish/cmds.c:1100
 msgid "print the printable strings in a file"
@@ -2235,35 +2235,35 @@ msgstr ""
 
 #: fish/cmds.c:1102
 msgid "disable swap on device"
-msgstr ""
+msgstr "Auslagerung auf Gerät deaktivieren"
 
 #: fish/cmds.c:1103
 msgid "disable swap on file"
-msgstr ""
+msgstr "Auslagerung in Datei deaktivieren"
 
 #: fish/cmds.c:1104
 msgid "disable swap on labeled swap partition"
-msgstr ""
+msgstr "Auslagerung auf bezeichnete Auslagerungspartition deaktivieren"
 
 #: fish/cmds.c:1105
 msgid "disable swap on swap partition by UUID"
-msgstr ""
+msgstr "Auslagerung auf Auslagerungspartition nach UUID deaktivieren"
 
 #: fish/cmds.c:1106
 msgid "enable swap on device"
-msgstr ""
+msgstr "Auslagerung auf Gerät aktivieren"
 
 #: fish/cmds.c:1107
 msgid "enable swap on file"
-msgstr ""
+msgstr "Auslagerung in Datei aktivieren"
 
 #: fish/cmds.c:1108
 msgid "enable swap on labeled swap partition"
-msgstr ""
+msgstr "Auslagerung auf bezeichnete Auslagerungspartition aktivieren"
 
 #: fish/cmds.c:1109
 msgid "enable swap on swap partition by UUID"
-msgstr ""
+msgstr "Auslagerung auf Auslagerungspartition nach UUID aktivieren"
 
 #: fish/cmds.c:1110
 msgid "sync disks, writes are flushed through to the disk image"
@@ -2271,7 +2271,7 @@ msgstr ""
 
 #: fish/cmds.c:1111
 msgid "install the SYSLINUX bootloader"
-msgstr ""
+msgstr "den SYSLINUX-Bootloader installieren"
 
 #: fish/cmds.c:1112
 msgid "return last 10 lines of a file"
@@ -2315,7 +2315,7 @@ msgstr "Eine Datei auf eine bestimmte Größe beschneiden"
 
 #: fish/cmds.c:1128
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
-msgstr ""
+msgstr "ext2/ext3/ext4-Dateisystemparameter anpassen"
 
 #: fish/cmds.c:1129
 msgid "get ext2/ext3/ext4 superblock details"
@@ -2371,7 +2371,7 @@ msgstr "Dateisystembezeichnung ermitteln"
 
 #: fish/cmds.c:1153
 msgid "get minimum filesystem size"
-msgstr ""
+msgstr "minimale Dateisystemgröße abrufen"
 
 #: fish/cmds.c:1154
 msgid "get the Linux VFS type corresponding to a mounted device"
@@ -2463,19 +2463,19 @@ msgstr "Eine Datei anlegen"
 
 #: fish/cmds.c:1180
 msgid "change parameters of an XFS filesystem"
-msgstr ""
+msgstr "Parameter eines XFS-Dateisystems ändern"
 
 #: fish/cmds.c:1181
 msgid "expand an existing XFS filesystem"
-msgstr ""
+msgstr "ein bestehendes XFS-Dateisystem erweitern"
 
 #: fish/cmds.c:1182
 msgid "get geometry of XFS filesystem"
-msgstr ""
+msgstr "Geometrie eines XFS-Dateisystems abrufen"
 
 #: fish/cmds.c:1183
 msgid "repair an XFS filesystem"
-msgstr ""
+msgstr "ein XFS-Dateisystem reparieren"
 
 #: fish/cmds.c:1184
 msgid "destroy previously loaded yara rules"
@@ -2539,7 +2539,7 @@ msgstr ""
 #: fish/event-names.c:69
 #, c-format
 msgid "unknown event name: %s\n"
-msgstr ""
+msgstr "unbekannter Ereignisname: %s\n"
 
 #: fish/events.c:179
 #, c-format
@@ -2638,7 +2638,7 @@ msgstr ""
 #: rescue/rescue.c:225 test-tool/test-tool.c:123
 #, c-format
 msgid "unknown long option: %s (%d)"
-msgstr ""
+msgstr "unbekannte lange Option: %s (%d)"
 
 #: fish/fish.c:324
 #, c-format
@@ -2741,7 +2741,7 @@ msgstr ""
 #: fish/fish.c:1261
 #, c-format
 msgid "%s: command not known: "
-msgstr ""
+msgstr "%s: Befehl nicht bekannt: "
 
 #: fish/fish.c:1263
 #, c-format
@@ -2841,7 +2841,7 @@ msgstr ""
 #: fish/hexedit.c:46
 #, c-format
 msgid "hexedit (device|filename) [max | start max]\n"
-msgstr ""
+msgstr "hexedit (Gerät|Dateiname) [max | start max]\n"
 
 #: fish/hexedit.c:57
 #, c-format
