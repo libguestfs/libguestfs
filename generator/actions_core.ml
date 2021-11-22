@@ -7665,7 +7665,10 @@ can modify parameters.
 
 Some of the parameters of a mounted filesystem can be examined
 and modified using the C<guestfs_xfs_info> and
-C<guestfs_xfs_growfs> calls." };
+C<guestfs_xfs_growfs> calls.
+
+Beginning with XFS version 5, it is no longer possible to modify
+the lazy-counters setting (ie. C<lazycounter> parameter has no effect)." };
 
   { defaults with
     name = "xfs_repair"; added = (1, 19, 36);
