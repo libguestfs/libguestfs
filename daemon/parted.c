@@ -341,7 +341,7 @@ get_table_field (const char *line, int n)
 }
 
 static char *
-print_partition_table (const char *device, bool add_m_option)
+print_partition_table (const char *device)
 {
   char *out;
   CLEANUP_FREE char *err = NULL;
@@ -349,14 +349,9 @@ print_partition_table (const char *device, bool add_m_option)
 
   udev_settle ();
 
-  if (add_m_option)
-    r = command (&out, &err, "parted", "-m", "-s", "--", device,
-                 "unit", "b",
-                 "print", NULL);
-  else
-    r = command (&out, &err, "parted", "-s", "--", device,
-                 "unit", "b",
-                 "print", NULL);
+  r = command (&out, &err, "parted", "-m", "-s", "--", device,
+               "unit", "b",
+               "print", NULL);
 
   udev_settle ();
 
@@ -383,7 +378,7 @@ do_part_get_bootable (const char *device, int partnum)
     return -1;
   }
 
-  CLEANUP_FREE char *out = print_partition_table (device, true);
+  CLEANUP_FREE char *out = print_partition_table (device);
   if (!out)
     return -1;
 
@@ -555,7 +550,7 @@ do_part_get_name (const char *device, int partnum)
     return NULL;
 
   if (STREQ (parttype, "gpt")) {
-    CLEANUP_FREE char *out = print_partition_table (device, true);
+    CLEANUP_FREE char *out = print_partition_table (device);
     if (!out)
       return NULL;
 
