@@ -109,6 +109,8 @@ and is_partition_can_hold_filesystem partition =
   if is_gpt_or_mbr then (
     if is_mbr_extended parttype device partnum then
       false
+    else if is_mbr_bogus parttype device partnum then
+      true
     else (
       (* MBR partition id will be converted into corresponding GPT type. *)
       let gpt_type = Parted.part_get_gpt_type device partnum in
@@ -129,6 +131,9 @@ and is_partition_can_hold_filesystem partition =
 and is_mbr_extended parttype device partnum =
   parttype = "msdos" &&
     Parted.part_get_mbr_part_type device partnum = "extended"
+
+and is_mbr_bogus parttype device partnum =
+  parttype = "msdos" && partnum = 1 && Utils.has_bogus_mbr device
 
 (* Use vfs-type to check for a filesystem of some sort of [device].
  * Appends (device, vfs_type) to the ret parameter (there may be
