@@ -30,6 +30,14 @@
 
 #define MAX_ARGS 64
 
+enum fat_mbr_option {
+  FMO_UNCHECKED,
+  FMO_DOESNT_EXIST,
+  FMO_EXISTS,
+};
+
+static enum fat_mbr_option fat_mbr_option = FMO_UNCHECKED;
+
 /* Takes optional arguments, consult optargs_bitmask. */
 int
 do_mkfs (const char *fstype, const char *device, int blocksize,
@@ -100,6 +108,25 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
   if (STREQ (fstype, "fat") || STREQ (fstype, "vfat") ||
       STREQ (fstype, "msdos"))
     ADD_ARG (argv, i, "-I");
+
+  /* Prevent mkfs.fat from creating a bogus partition table (RHBZ#1931821). */
+  if (STREQ (fstype, "fat") || STREQ (fstype, "vfat") ||
+      STREQ (fstype, "msdos")) {
+    if (fat_mbr_option == FMO_UNCHECKED) {
+      CLEANUP_FREE char *usage_err = NULL;
+
+      fat_mbr_option = FMO_DOESNT_EXIST;
+      /* Invoking either version 3 of version 4 of mkfs.fat without any options
+       * will make it (a) print a usage summary to stderr, (b) exit with status
+       * 1.
+       */
+      r = commandr (NULL, &usage_err, "mkfs.fat", (char *)NULL);
+      if (r == 1 && strstr (usage_err, "--mbr[=") != NULL)
+        fat_mbr_option = FMO_EXISTS;
+    }
+    if (fat_mbr_option == FMO_EXISTS)
+      ADD_ARG (argv, i, "--mbr=n");
+  }
 
   /* Process blocksize parameter if set. */
   if (optargs_bitmask & GUESTFS_MKFS_BLOCKSIZE_BITMASK) {
