@@ -118,7 +118,12 @@ let part_get_parttype device =
   let fields = String.nsplit ":" device_line in
   match fields with
   | _::_::_::_::_::"loop"::_ -> (* If "loop" return an error (RHBZ#634246). *)
-     failwithf "%s: not a partitioned device" device
+     (* ... Unless parted failed to recognize the fake MBR that mkfs.fat from
+      * dosfstools-4.2+ created. In that case, return "msdos" for MBR
+      * (RHBZ#1931821).
+      *)
+     if Utils.has_bogus_mbr device then "msdos"
+     else failwithf "%s: not a partitioned device" device
   | _::_::_::_::_::ret::_ -> ret
   | _ ->
      failwithf "%s: cannot parse the output of parted" device
