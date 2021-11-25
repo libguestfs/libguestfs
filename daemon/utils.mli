@@ -56,6 +56,16 @@ val sort_device_names : string list -> string list
     This also deals with partition numbers, and works whether or not
     [/dev/] is present. *)
 
+val has_bogus_mbr : string -> bool
+(** Check whether the first sector of the device contains a bogus MBR partition
+    table; namely one where the first partition table entry describes a
+    partition that starts at absolute sector 0, thereby overlapping the
+    partition table itself.
+
+    dosfstools-4.2+ creates bogus partition tables like this by default when
+    formatting non-removable, non-partitioned block devices. Refer to
+    RHBZ#1931821. *)
+
 val proc_unmangle_path : string -> string
 (** Reverse kernel path escaping done in fs/seq_file.c:mangle_path.
     This is inconsistently used for /proc fields. *)
