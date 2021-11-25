@@ -106,14 +106,14 @@ do_list_9p (void)
 
   /* Check readdir didn't fail */
   if (errno != 0) {
-    reply_with_perror ("readdir: /sys/block");
+    reply_with_perror ("readdir: " BUS_PATH);
     closedir (dir);
     return NULL;
   }
 
   /* Close the directory handle */
   if (closedir (dir) == -1) {
-    reply_with_perror ("closedir: /sys/block");
+    reply_with_perror ("closedir: " BUS_PATH);
     return NULL;
   }
 
