@@ -57,10 +57,8 @@ let part_get_mbr_id device partnum =
   (* It's printed in hex, possibly with a leading space. *)
   sscanf out " %x" identity
 
-(* This is not equivalent to print_partition_table in the C code, as
- * it only deals with the ‘-m’ option output, and it partially parses
- * that.  If we convert other functions that don't use the ‘-m’ version
- * we'll have to refactor this. XXX
+(* This is almost equivalent to print_partition_table in the C code. The
+ * difference is that here we enforce the "BYT;" header internally.
  *)
 let print_partition_table_machine_readable device =
   udev_settle ();
