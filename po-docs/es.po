@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2021-10-02 12:05+0000\n"
+"PO-Revision-Date: 2021-12-02 22:16+0000\n"
 "Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.9.1\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -388,7 +388,7 @@ msgstr ""
 #. type: =item
 #: ../align/virt-alignment-scan.pod:90
 msgid "cols 5+"
-msgstr ""
+msgstr "cols 5+"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:92
@@ -407,7 +407,7 @@ msgstr ""
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:99
 msgid "If you just want the exit code with no output, use the I<-q> option."
-msgstr ""
+msgstr "Si solo desea el código de salida sin salir, utilice la opción I<-q>."
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:101
@@ -449,7 +449,7 @@ msgstr "OPCIONES"
 #: ../tools/virt-list-partitions:61 ../tools/virt-tar:108
 #: ../tools/virt-win-reg:101
 msgid "B<--help>"
-msgstr ""
+msgstr "B<--help>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:107 ../cat/virt-cat.pod:57
@@ -462,7 +462,7 @@ msgstr ""
 #: ../tools/virt-list-filesystems:62 ../tools/virt-list-partitions:63
 #: ../tools/virt-tar:110 ../tools/virt-win-reg:103
 msgid "Display brief help."
-msgstr ""
+msgstr "Muestra una breve ayuda."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:109 ../cat/virt-cat.pod:59
@@ -472,7 +472,7 @@ msgstr ""
 #: ../format/virt-format.pod:65 ../get-kernel/virt-get-kernel.pod:31
 #: ../inspector/virt-inspector.pod:60 ../sysprep/virt-sysprep.pod:46
 msgid "B<-a> file"
-msgstr ""
+msgstr "B<-a> archivo"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:111 ../cat/virt-cat.pod:61
@@ -482,13 +482,14 @@ msgstr ""
 #: ../format/virt-format.pod:67 ../get-kernel/virt-get-kernel.pod:33
 #: ../inspector/virt-inspector.pod:62 ../sysprep/virt-sysprep.pod:48
 msgid "B<--add> file"
-msgstr ""
+msgstr "B<--add> archivo"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:113 ../customize/virt-customize.pod:44
 #: ../get-kernel/virt-get-kernel.pod:35 ../sysprep/virt-sysprep.pod:50
 msgid "Add I<file> which should be a disk image from a virtual machine."
 msgstr ""
+"Añade I<file> que debería ser una imagen de disco desde una máquina virtual."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:115 ../cat/virt-cat.pod:67
