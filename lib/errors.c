@@ -322,6 +322,7 @@ guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)
   const int errnum = errno;
   int err;
   char buf[256];
+  const char *errstr;
   struct error_data *error_data = get_error_data (g);
 
   va_start (args, fs);
@@ -330,11 +331,11 @@ guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)
 
   if (err < 0) return;
 
-  ignore_value (strerror_r (errnum, buf, sizeof buf));
+  errstr = guestfs_int_strerror (errnum, buf, sizeof buf);
 
-  msg = safe_realloc (g, msg, strlen (msg) + 2 + strlen (buf) + 1);
+  msg = safe_realloc (g, msg, strlen (msg) + 2 + strlen (errstr) + 1);
   strcat (msg, ": ");
-  strcat (msg, buf);
+  strcat (msg, errstr);
 
   /* set_last_error first so that the callback can access the error
    * message and errno through the handle if it wishes.
