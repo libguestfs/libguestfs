@@ -353,7 +353,7 @@ module Errno = struct
   List.iter (
     fun e ->
       let le = String.lowercase_ascii e in
-      pr "  external %s : unit -> int = \"guestfs_int_ocaml_get_%s\" \"noalloc\"\n"
+      pr "  external %s : unit -> int = \"guestfs_int_ocaml_get_%s\" [@@noalloc]\n"
         le e;
       pr "  let errno_%s = %s ()\n" e le
   ) ocaml_errnos;
@@ -818,7 +818,7 @@ and generate_ocaml_c_errnos () =
     fun e ->
       pr "\
 
-/* NB: \"noalloc\" function. */
+/* NB: [@@noalloc] function. */
 value
 guestfs_int_ocaml_get_%s (value unitv)
 {
