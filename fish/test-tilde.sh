@@ -26,6 +26,14 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
+# Set XDG_CACHE_HOME correctly, unless set already.  See:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2031135
+if [ "x$XDG_CACHE_HOME" = "x" ] && [ "x$HOME" != "x" ]; then
+    XDG_CACHE_HOME=$HOME/.cache
+    export XDG_CACHE_HOME
+    echo XDG_CACHE_HOME=$XDG_CACHE_HOME
+fi
+
 # Don't rely on $HOME being set when this script is called.
 HOME=$(pwd)
 export HOME
