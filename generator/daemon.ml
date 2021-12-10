@@ -1179,7 +1179,7 @@ let generate_daemon_optgroups_c () =
       pr "extern value guestfs_int_daemon_optgroup_%s_available (value);\n"
          group;
       pr "\n";
-      pr "/* NB: This is a \"noalloc\" call. */\n";
+      pr "/* NB: This is a [@@noalloc] call. */\n";
       pr "value\n";
       pr "guestfs_int_daemon_optgroup_%s_available (value unitv)\n" group;
       pr "{\n";
@@ -1242,7 +1242,7 @@ let generate_daemon_optgroups_ml () =
   List.iter (
     fun group ->
       pr "external %s_available : unit -> bool =\n" group;
-      pr "  \"guestfs_int_daemon_optgroup_%s_available\" \"noalloc\"\n" group
+      pr "  \"guestfs_int_daemon_optgroup_%s_available\" [@@noalloc]\n" group
   ) optgroups_names
 
 let generate_daemon_optgroups_mli () =
