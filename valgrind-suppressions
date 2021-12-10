@@ -129,62 +129,46 @@
 # OCaml, by design, doesn't bother to free the major heap before
 # calling exit.  Ignore that leak.
 {
-   ocaml_heap_leak
+   caml_alloc_for_heap
    Memcheck:Leak
    ...
    fun:caml_alloc_for_heap
 }
-# On the other hand, these seem to be a real bugs in OCaml:
+
+# OCaml caml_stat_* allocations are meant to be "static" so OCaml will
+# never free them by design.  See the OCaml manual, chapter
+# "Interfacing C with OCaml".
 {
-   ocaml_heap_leak_2
-   Memcheck:Leak
-   fun:malloc
-   fun:caml_thread_new_descriptor
-   fun:caml_thread_new
-}
-{
-   ocaml_heap_leak_3
-   Memcheck:Leak
-   fun:malloc
-   fun:caml_thread_new_descriptor
-   fun:caml_thread_initialize
-}
-{
-   ocaml_heap_leak_4
+   caml_stat_allocations
    Memcheck:Leak
    ...
-   fun:pthread_create*
-   ...
-   fun:caml_thread_new
-}
-{
-   ocaml_heap_leak_5
-   Memcheck:Leak
-   fun:malloc
-   fun:caml_stat_alloc
-}
-{
-   ocaml_heap_leak_6
-   Memcheck:Leak
-   fun:malloc
-   ...
-   fun:caml_build_primitive_table
+   fun:caml_stat_alloc*
 }
 
-# Add for OCaml 4.10.
+# Real leak in OCaml 4.13, later fixed:
+# https://github.com/ocaml/ocaml/issues/10698
 {
-   ocaml_heap_leak_7
+   caml_setup_stack_overflow_detection
    Memcheck:Leak
-   fun:malloc
    ...
-   fun:caml_init_domain
+   fun:caml_setup_stack_overflow_detection
 }
+
+# Real leak in bytecode programs.
 {
-   ocaml_heap_leak_8
+   caml_init_atom_table
    Memcheck:Leak
-   fun:malloc
    ...
    fun:caml_init_atom_table
+}
+
+# Real leak in bytecode programs.
+{
+   caml_executable_name
+   Memcheck:Leak
+   fun:malloc
+   fun:caml_executable_name
+   fun:caml_main
 }
 
 # The OCaml PCRE.compile function calls pcre_compile2 which allocates
@@ -280,6 +264,7 @@
    ...
    fun:virFileFindResourceFull
 }
+
 # RHBZ#1135388
 {
    libvirt_leak_6
@@ -287,6 +272,7 @@
    ...
    fun:testDomainGenerateIfnames
 }
+
 # Possibly RHBZ#1145649
 {
    libvirt_leak_7
@@ -295,6 +281,7 @@
    fun:selabel_close
    fun:virSecuritySELinuxSecurityDriverClose
 }
+
 # RHBZ#1215042
 {
    libvirt_leak_8
@@ -302,6 +289,15 @@
    ...
    fun:virGetUserRuntimeDirectory
    fun:virNetSocketNewConnectUNIX
+}
+
+{
+   libvirt_leak_9
+   Memcheck:Leak
+   ...
+   fun:g_malloc0
+   fun:virClassNew
+   fun:virDataTypesOnce
 }
 
 # FUSE leaks the per-thread context (although the code looks
