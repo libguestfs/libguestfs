@@ -32,6 +32,8 @@ let re_rhel_no_minor = PCRE.compile "Red Hat.*release (\\d+)"
 let re_centos_old = PCRE.compile "CentOS.*release (\\d+).*Update (\\d+)"
 let re_centos = PCRE.compile "CentOS.*release (\\d+)\\.(\\d+)"
 let re_centos_no_minor = PCRE.compile "CentOS.*release (\\d+)"
+let re_rocky = PCRE.compile "Rocky Linux.*release (\\d+)\\.(\\d+)"
+let re_rocky_no_minor = PCRE.compile "Rocky Linux.*release (\\d+)"
 let re_scientific_linux_old =
   PCRE.compile "Scientific Linux.*release (\\d+).*Update (\\d+)"
 let re_scientific_linux =
@@ -106,7 +108,7 @@ let rec parse_os_release release_file data =
         * we detect that situation then bail out and use the release
         * files instead.
         *)
-       | { distro = Some (DISTRO_DEBIAN|DISTRO_CENTOS);
+       | { distro = Some (DISTRO_DEBIAN|DISTRO_CENTOS|DISTRO_ROCKY);
            version = Some (_, 0) } ->
           false
 
@@ -155,6 +157,7 @@ and distro_of_os_release_id = function
   | "pardus" -> Some DISTRO_PARDUS
   | "pld" -> Some DISTRO_PLD_LINUX
   | "rhel" -> Some DISTRO_RHEL
+  | "rocky" -> Some DISTRO_ROCKY
   | "sles" | "sled" -> Some DISTRO_SLES
   | "ubuntu" -> Some DISTRO_UBUNTU
   | "void" -> Some DISTRO_VOID_LINUX
@@ -405,6 +408,10 @@ let linux_root_tests : tests = [
                                        DISTRO_CENTOS;
   "/etc/centos-release", parse_generic ~rex:re_centos_no_minor
                                        DISTRO_CENTOS;
+  "/etc/rocky-release", parse_generic ~rex:re_rocky
+                                       DISTRO_ROCKY;
+  "/etc/rocky-release", parse_generic ~rex:re_rocky_no_minor
+                                       DISTRO_ROCKY;
   "/etc/altlinux-release", parse_generic DISTRO_ALTLINUX;
   "/etc/redhat-release", parse_generic ~rex:re_fedora
                                        DISTRO_FEDORA;
@@ -420,6 +427,10 @@ let linux_root_tests : tests = [
                                        DISTRO_CENTOS;
   "/etc/redhat-release", parse_generic ~rex:re_centos_no_minor
                                        DISTRO_CENTOS;
+  "/etc/redhat-release", parse_generic ~rex:re_rocky
+                                       DISTRO_ROCKY;
+  "/etc/redhat-release", parse_generic ~rex:re_rocky_no_minor
+                                       DISTRO_ROCKY;
   "/etc/redhat-release", parse_generic ~rex:re_scientific_linux_old
                                        DISTRO_SCIENTIFIC_LINUX;
   "/etc/redhat-release", parse_generic ~rex:re_scientific_linux

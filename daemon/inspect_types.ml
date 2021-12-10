@@ -95,6 +95,7 @@ and distro =
   | DISTRO_PLD_LINUX
   | DISTRO_REDHAT_BASED
   | DISTRO_RHEL
+  | DISTRO_ROCKY
   | DISTRO_SCIENTIFIC_LINUX
   | DISTRO_SLACKWARE
   | DISTRO_SLES
@@ -228,6 +229,7 @@ and string_of_distro = function
   | DISTRO_PLD_LINUX -> "pldlinux"
   | DISTRO_REDHAT_BASED -> "redhat-based"
   | DISTRO_RHEL -> "rhel"
+  | DISTRO_ROCKY -> "rocky"
   | DISTRO_SCIENTIFIC_LINUX -> "scientificlinux"
   | DISTRO_SLACKWARE -> "slackware"
   | DISTRO_SLES -> "sles"
