@@ -259,6 +259,7 @@ and check_package_format { distro } =
   | None -> None
   | Some DISTRO_ALTLINUX
   | Some DISTRO_CENTOS
+  | Some DISTRO_ROCKY
   | Some DISTRO_FEDORA
   | Some DISTRO_MAGEIA
   | Some DISTRO_MANDRIVA
@@ -329,6 +330,7 @@ and check_package_management { distro; version } =
      Some PACKAGE_MANAGEMENT_DNF
 
   | Some DISTRO_CENTOS
+  | Some DISTRO_ROCKY
   | Some DISTRO_ORACLE_LINUX
   | Some DISTRO_REDHAT_BASED
   | Some DISTRO_RHEL

@@ -47,6 +47,10 @@ guestfs_impl_inspect_get_osinfo (guestfs_h *g, const char *root)
       else if (major == 6)
         return safe_asprintf (g, "%s%d.%d", distro, major, minor);
     }
+    else if (STREQ (distro, "rocky")) {
+      if (major >= 8)
+        return safe_asprintf (g, "%s%d", distro, major);
+    }
     else if (STREQ (distro, "debian")) {
       if (major >= 4)
         return safe_asprintf (g, "%s%d", distro, major);
