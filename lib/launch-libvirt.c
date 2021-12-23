@@ -1396,6 +1396,28 @@ construct_libvirt_xml_devices (guestfs_h *g,
       } end_element ();
     } end_element ();
 
+    /* Virtio-net NIC with SLIRP (= userspace) back-end, if networking is
+     * enabled. Starting with libvirt 3.8.0, we can specify the network address
+     * and prefix for SLIRP in the domain XML. Therefore, we can add the NIC
+     * via the standard <interface> element rather than <qemu:commandline>, and
+     * so libvirt can manage the PCI address of the virtio-net NIC like the PCI
+     * addresses of all other devices. Refer to RHBZ#2034160.
+     */
+    if (g->enable_network &&
+        guestfs_int_version_ge (&params->data->libvirt_version, 3, 8, 0)) {
+      start_element ("interface") {
+        attribute ("type", "user");
+        start_element ("model") {
+          attribute ("type", "virtio");
+        } end_element ();
+        start_element ("ip") {
+          attribute ("family", "ipv4");
+          attribute ("address", NETWORK_ADDRESS);
+          attribute ("prefix", NETWORK_PREFIX);
+        } end_element ();
+      } end_element ();
+    }
+
     /* Libvirt adds some devices by default.  Indicate to libvirt
      * that we don't want them.
      */
@@ -1818,9 +1840,10 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
     } end_element ();
 
     /* Workaround because libvirt user networking cannot specify "net="
-     * parameter.
+     * parameter. Necessary only before libvirt 3.8.0; refer to RHBZ#2034160.
      */
-    if (g->enable_network) {
+    if (g->enable_network &&
+        !guestfs_int_version_ge (&params->data->libvirt_version, 3, 8, 0)) {
       start_element ("qemu:arg") {
         attribute ("value", "-netdev");
       } end_element ();
