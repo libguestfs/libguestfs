@@ -147,6 +147,17 @@
 #define VIRTIO_DEVICE_NAME(type) type "-pci"
 #endif
 
+/* Place the virtio-net controller in slot 0x1e on the root bus, on normal
+ * hardware with PCI. Refer to RHBZ#2034160.
+ */
+#ifdef HAVE_LIBVIRT_BACKEND
+#if defined(__arm__) || defined(__s390x__)
+#define VIRTIO_NET_PCI_ADDR ""
+#else
+#define VIRTIO_NET_PCI_ADDR ",addr=1e.0"
+#endif
+#endif
+
 /* Guestfs handle and associated structures. */
 
 /* State. */
