@@ -1826,7 +1826,8 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
       } end_element ();
 
       start_element ("qemu:arg") {
-        attribute ("value", "user,id=usernet,net=169.254.0.0/16");
+        attribute ("value",
+                   "user,id=usernet,net=" NETWORK_ADDRESS "/" NETWORK_PREFIX);
       } end_element ();
 
       start_element ("qemu:arg") {
