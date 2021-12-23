@@ -689,7 +689,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     start_list ("-netdev") {
       append_list ("user");
       append_list ("id=usernet");
-      append_list ("net=169.254.0.0/16");
+      append_list ("net=" NETWORK_ADDRESS "/" NETWORK_PREFIX);
     } end_list ();
     start_list ("-device") {
       append_list (VIRTIO_DEVICE_NAME ("virtio-net"));

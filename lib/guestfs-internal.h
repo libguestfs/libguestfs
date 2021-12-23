@@ -183,6 +183,12 @@ cleanup_mutex_unlock (pthread_mutex_t **ptr)
 #endif
 #endif
 
+/* Network address and network mask (expressed as address prefix) that the
+ * appliance will see (if networking is enabled).
+ */
+#define NETWORK_ADDRESS "169.254.0.0"
+#define NETWORK_PREFIX  "16"
+
 /* Guestfs handle and associated structures. */
 
 /* State. */
