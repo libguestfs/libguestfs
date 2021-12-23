@@ -173,7 +173,8 @@ cleanup_mutex_unlock (pthread_mutex_t **ptr)
 #endif
 
 /* Place the virtio-net controller in slot 0x1e on the root bus, on normal
- * hardware with PCI. Refer to RHBZ#2034160.
+ * hardware with PCI. Necessary only before libvirt 3.8.0. Refer to
+ * RHBZ#2034160.
  */
 #ifdef HAVE_LIBVIRT_BACKEND
 #if defined(__arm__) || defined(__s390x__)
