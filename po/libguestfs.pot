@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.47.1\n"
+"Project-Id-Version: libguestfs 1.47.2\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-12-09 17:24+0000\n"
+"POT-Creation-Date: 2021-12-24 10:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3877,7 +3877,7 @@ msgstr ""
 msgid "qemu-img info: unknown JSON parse error"
 msgstr ""
 
-#: lib/inspect-icon.c:728
+#: lib/inspect-icon.c:729
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -3983,56 +3983,56 @@ msgstr ""
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1448
+#: lib/launch-libvirt.c:1470
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1494 lib/launch-libvirt.c:1752 lib/qemu.c:822
+#: lib/launch-libvirt.c:1516 lib/launch-libvirt.c:1774 lib/qemu.c:822
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1577
+#: lib/launch-libvirt.c:1599
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1963
+#: lib/launch-libvirt.c:1989
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1974
+#: lib/launch-libvirt.c:2000
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1978
+#: lib/launch-libvirt.c:2004
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1999
+#: lib/launch-libvirt.c:2025
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2012
+#: lib/launch-libvirt.c:2038
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2185
+#: lib/launch-libvirt.c:2211
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2206 lib/launch-libvirt.c:2239
+#: lib/launch-libvirt.c:2232 lib/launch-libvirt.c:2265
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2305
+#: lib/launch-libvirt.c:2331
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2336
+#: lib/launch-libvirt.c:2362
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
