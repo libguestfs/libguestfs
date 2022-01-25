@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.43.2\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
-"cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-04-09 11:37+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2021-12-24 10:07+0000\n"
 "PO-Revision-Date: 2021-09-08 19:04+0000\n"
 "Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
@@ -3873,65 +3873,65 @@ msgstr ""
 msgid "%s: device not found"
 msgstr "%s: laitetta ei löydy"
 
-#: lib/errors.c:425
+#: lib/errors.c:426
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr ""
 
-#: lib/errors.c:453
+#: lib/errors.c:454
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: lib/errors.c:484
+#: lib/errors.c:485
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 
-#: lib/errors.c:487
+#: lib/errors.c:488
 msgid ""
 "guestfs_launch failed.\n"
 "This usually means the libguestfs appliance failed to start or crashed.\n"
 msgstr ""
 
-#: lib/errors.c:500
+#: lib/errors.c:501
 msgid ""
 "appliance closed the connection unexpectedly, see earlier error messages"
 msgstr ""
 
-#: lib/errors.c:504
+#: lib/errors.c:505
 msgid ""
 "appliance closed the connection unexpectedly.\n"
 "This usually means the libguestfs appliance crashed.\n"
 msgstr ""
 
-#: lib/errors.c:517
+#: lib/errors.c:518
 msgid "appliance launch timed out, see earlier error messages"
 msgstr ""
 
-#: lib/errors.c:520
+#: lib/errors.c:521
 msgid ""
 "appliance launch timed out.\n"
 "This usually means the kernel or appliance hung during launch.\n"
 msgstr ""
 
-#: lib/errors.c:543
+#: lib/errors.c:544
 #, c-format
 msgid "%s, see debug messages above"
 msgstr ""
 
-#: lib/errors.c:545
+#: lib/errors.c:546
 #, c-format
 msgid "%s: %s: %s, see debug messages above"
 msgstr ""
 
-#: lib/errors.c:550
+#: lib/errors.c:551
 #, c-format
 msgid ""
 "%s.\n"
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: lib/errors.c:555
+#: lib/errors.c:556
 #, c-format
 msgid ""
 "%s: %s: %s.\n"
@@ -4060,7 +4060,7 @@ msgstr ""
 msgid "qemu-img info: unknown JSON parse error"
 msgstr ""
 
-#: lib/inspect-icon.c:728
+#: lib/inspect-icon.c:729
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -4166,56 +4166,56 @@ msgstr ""
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr "libvirtin palauttama toimialueen kykyjen XML jäsentäminen ei onnistu"
 
-#: lib/launch-libvirt.c:1448
+#: lib/launch-libvirt.c:1470
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1494 lib/launch-libvirt.c:1752 lib/qemu.c:822
+#: lib/launch-libvirt.c:1516 lib/launch-libvirt.c:1774 lib/qemu.c:822
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1577
+#: lib/launch-libvirt.c:1599
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1963
+#: lib/launch-libvirt.c:1989
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1974
+#: lib/launch-libvirt.c:2000
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1978
+#: lib/launch-libvirt.c:2004
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1999
+#: lib/launch-libvirt.c:2025
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2012
+#: lib/launch-libvirt.c:2038
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2185
+#: lib/launch-libvirt.c:2211
 msgid "could not destroy libvirt domain"
 msgstr "ei voinut tuhota libvirt-toimialuetta"
 
-#: lib/launch-libvirt.c:2206 lib/launch-libvirt.c:2239
+#: lib/launch-libvirt.c:2232 lib/launch-libvirt.c:2265
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2305
+#: lib/launch-libvirt.c:2331
 msgid "could not attach disk to libvirt domain"
 msgstr "levyä ei voitu liittää libvirt-toimialueeseen"
 
-#: lib/launch-libvirt.c:2336
+#: lib/launch-libvirt.c:2362
 msgid "could not detach disk from libvirt domain"
 msgstr "levyä ei voitu irrota libvirt-toimialueesta"
 
