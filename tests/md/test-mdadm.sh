@@ -63,13 +63,13 @@ part-add /dev/sdd p $p4_start $p4_end
 
 # RAID 1.
 md-create r1t1 "/dev/sda1 /dev/sdb1"
-md-create r1t2 "/dev/sdc1 /dev/sdd1" chunk:65536
+md-create r1t2 "/dev/sdc1 /dev/sdd1"
 
 # RAID 5.
 md-create r5t1 "/dev/sda2 /dev/sdb2 /dev/sdc2 /dev/sdd2" \
   missingbitmap:0x10 nrdevices:4 spare:1 level:5
 
-md-create r5t2 "/dev/sda3 /dev/sdb3" missingbitmap:0x1 level:5
+md-create r5t2 "/dev/sda3 /dev/sdb3" missingbitmap:0x1 level:5 chunk:65536
 
 md-create r5t3 "/dev/sdc3 /dev/sdd3" \
   missingbitmap:0x6 nrdevices:2 spare:2 level:5

@@ -6566,6 +6566,9 @@ If not set, this defaults to C<0>.
 
 The chunk size in bytes.
 
+The C<chunk> parameter does not make sense, and should not be specified,
+when C<level> is C<raid1> (which is the default; see below).
+
 =item C<level>
 
 The RAID level, which can be one of:
