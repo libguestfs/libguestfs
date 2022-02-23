@@ -24,9 +24,9 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_feature_available luks
-skip_unless_phony_guest fedora-luks.img
+skip_unless_phony_guest fedora-lvm-on-luks.img
 
-disk=../test-data/phony-guests/fedora-luks.img
+disk=../test-data/phony-guests/fedora-lvm-on-luks.img
 device=/dev/sda2
 
 # Get the UUID of the LUKS device.

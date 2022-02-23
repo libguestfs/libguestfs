@@ -464,12 +464,12 @@ TESTS += \
 	luks/test-luks.sh \
 	luks/test-luks-list.sh \
 	luks/test-key-option.sh \
-	luks/test-key-option-inspect.sh
+	luks/test-key-option-inspect-lvm-on-luks.sh
 EXTRA_DIST += \
 	luks/test-luks.sh \
 	luks/test-luks-list.sh \
 	luks/test-key-option.sh \
-	luks/test-key-option-inspect.sh
+	luks/test-key-option-inspect-lvm-on-luks.sh
 
 TESTS += \
 	lvm/test-lvm-filtering.sh \

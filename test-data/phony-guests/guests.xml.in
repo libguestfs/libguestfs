@@ -185,7 +185,7 @@
 
   <!-- LUKS password is 'FEDORA' -->
   <domain type='test'>
-    <name>fedora-luks</name>
+    <name>fedora-lvm-on-luks</name>
     <memory>1048576</memory>
     <os>
       <type>hvm</type>
@@ -194,7 +194,7 @@
     <devices>
       <disk type='file' device='disk'>
         <driver name='qemu' type='raw'/>
-        <source file='@abs_builddir@/fedora-luks.img'/>
+        <source file='@abs_builddir@/fedora-lvm-on-luks.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
     </devices>

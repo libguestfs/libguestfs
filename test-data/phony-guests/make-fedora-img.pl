@@ -171,8 +171,8 @@ EOF
     }
 }
 
-elsif ($ENV{LAYOUT} eq 'lvm-luks') {
-    push (@images, "fedora-luks.img-t");
+elsif ($ENV{LAYOUT} eq 'lvm-on-luks') {
+    push (@images, "fedora-lvm-on-luks.img-t");
 
     open (my $fstab, '>', "fedora.fstab") or die;
     print $fstab <<EOF;
@@ -183,9 +183,9 @@ EOF
 
     $bootdev = '/dev/sda1';
 
-    $g->disk_create ("fedora-luks.img-t", "raw", $IMAGE_SIZE);
+    $g->disk_create ("fedora-lvm-on-luks.img-t", "raw", $IMAGE_SIZE);
 
-    $g->add_drive ("fedora-luks.img-t", format => "raw");
+    $g->add_drive ("fedora-lvm-on-luks.img-t", format => "raw");
     $g->launch ();
 
     $g->part_init ('/dev/sda', 'mbr');
