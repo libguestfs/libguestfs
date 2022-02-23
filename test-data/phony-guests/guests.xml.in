@@ -183,6 +183,24 @@
     </devices>
   </domain>
 
+  <!-- LUKS passwords are 'FEDORA-Root', 'FEDORA-LV1', 'FEDORA-LV2',
+       'FEDORA-LV3' -->
+  <domain type='test'>
+    <name>fedora-luks-on-lvm</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu' type='raw'/>
+        <source file='@abs_builddir@/fedora-luks-on-lvm.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
   <!-- LUKS password is 'FEDORA' -->
   <domain type='test'>
     <name>fedora-lvm-on-luks</name>

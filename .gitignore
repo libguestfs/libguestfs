@@ -452,6 +452,7 @@ Makefile.in
 /test-data/phony-guests/debian.img
 /test-data/phony-guests/fedora.img
 /test-data/phony-guests/fedora-btrfs.img
+/test-data/phony-guests/fedora-luks-on-lvm.img
 /test-data/phony-guests/fedora-lvm-on-luks.img
 /test-data/phony-guests/fedora-md1.img
 /test-data/phony-guests/fedora-md2.img

@@ -49,6 +49,7 @@ disk_images = \
 	fedora-md1.img \
 	fedora-md2.img \
 	fedora-btrfs.img \
+	fedora-luks-on-lvm.img \
 	fedora-lvm-on-luks.img \
 	ubuntu.img \
 	archlinux.img \
@@ -95,6 +96,12 @@ fedora-btrfs.img: make-fedora-img.pl \
 		fedora-journal.tar.xz \
 		fedora.db
 	SRCDIR=$(srcdir) LAYOUT=btrfs $(top_builddir)/run --test ./$<
+
+# Make a (dummy) Fedora image with LUKS-on-LVM.
+fedora-luks-on-lvm.img: make-fedora-img.pl \
+		fedora-journal.tar.xz \
+		fedora.db
+	SRCDIR=$(srcdir) LAYOUT=luks-on-lvm $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Fedora image with LVM-on-LUKS.
 fedora-lvm-on-luks.img: make-fedora-img.pl \
