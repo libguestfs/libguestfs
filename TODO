@@ -161,16 +161,6 @@ Could we make guestfish interactive if commands are used without params?
 Image name? disk.img
 Size of image? 10M
 
-Better support for encrypted devices
-------------------------------------
-
-Currently LUKS support only works if the device contains volume
-groups.  If it contains, eg., partitions, you cannot access them.
-We would like to add:
-
-  - Direct access to the /dev/mapper device (eg. if it contains
-    anything apart from VGs).
-
 Display image as PS
 -------------------
 
