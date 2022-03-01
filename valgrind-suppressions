@@ -167,6 +167,7 @@
    caml_executable_name
    Memcheck:Leak
    fun:malloc
+   ...
    fun:caml_executable_name
    fun:caml_main
 }
@@ -297,6 +298,7 @@
    ...
    fun:g_malloc0
    fun:virClassNew
+   ...
    fun:virDataTypesOnce
 }
 
