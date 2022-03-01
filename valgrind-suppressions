@@ -217,6 +217,15 @@
    fun:setenv
 }
 
+# These appeared in glibc 2.35.
+# See also nbdkit commit f6409b4137c1aeb97d01eef5753f22033d64bfd4
+{
+   glibc_leak_4
+   Memcheck:Leak
+   ...
+   fun:dlopen@@*
+}
+
 # libvirt calls gnutls_global_init but doesn't call the
 # corresponding gnutls_global_deinit function because of
 # thread-safety issues (in GnuTLS).
