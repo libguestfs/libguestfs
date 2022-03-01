@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.47.2\n"
+"Project-Id-Version: libguestfs 1.47.3\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-12-24 10:07+0000\n"
+"POT-Creation-Date: 2022-03-01 11:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "%s: line %d: error parsing configuration file: %s"
 msgstr ""
 
-#: common/options/decrypt.c:122
+#: common/options/decrypt.c:134
 #, c-format
 msgid ""
 "could not find key to open LUKS encrypted %s.\n"
@@ -4121,9 +4121,14 @@ msgstr ""
 msgid "parameter ‘%s’ isn't allowed"
 msgstr ""
 
-#: lib/launch.c:332
+#: lib/launch.c:335
 #, c-format
 msgid "socket path too long: %s/%s"
+msgstr ""
+
+#: lib/launch.c:339
+#, c-format
+msgid "%s"
 msgstr ""
 
 #: lib/libvirt-auth.c:96
@@ -4568,8 +4573,8 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format or --scratch like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --format or --scratch like '--"
+"format=%s'.\n"
 msgstr ""
 
 #: rescue/suggest.c:62
