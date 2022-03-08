@@ -24,9 +24,10 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-rm -f test.output
+output=rhbz602997.output
+rm -f $output
 
-guestfish > test.output <<EOF
+guestfish > $output <<EOF
 scratch 100M
 run
 part-init /dev/sda mbr
@@ -40,15 +41,15 @@ part-get-bootable /dev/sda 1
 part-get-bootable /dev/sda 2
 EOF
 
-if [ "$(cat test.output)" != "true
+if [ "$(cat $output)" != "true
 false" ]; then
     echo "rhbz602997.sh: Unexpected output from test:"
-    cat test.output
+    cat $output
     echo "[end of output]"
     exit 1
 fi
 
-guestfish > test.output <<EOF
+guestfish > $output <<EOF
 scratch 100M
 run
 part-init /dev/sda mbr
@@ -61,11 +62,11 @@ part-get-bootable /dev/sda 3
 ping-daemon
 EOF
 
-if [ "$(cat test.output)" != "false" ]; then
+if [ "$(cat $output)" != "false" ]; then
     echo "rhbz602997.sh: Unexpected output from test:"
-    cat test.output
+    cat $output
     echo "[end of output]"
     exit 1
 fi
 
-rm test.output
+rm $output
