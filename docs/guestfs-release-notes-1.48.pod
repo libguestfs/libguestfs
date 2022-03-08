@@ -1,0 +1,119 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.48
+
+=head2 Language bindings
+
+Fix allocation and deallocation of string lists in golang bindings
+(Laszlo Ersek).
+
+Multiple fixes to the OCaml bindings: Fix warnings, move minimum
+version to OCaml 4.04, replace various deprecated OCaml features with
+modern OCaml features.
+
+Running C<make distclean> in the F<rust> directory now completely
+cleans the cargo temporary files.
+
+=head2 Inspection
+
+Fix inspection of modern Pardus GNU/Linux (Laszlo Ersek).
+
+Add support for Kylin (Laszlo Ersek).
+
+Add support for Rocky Linux (Neil Hanlon).
+
+Inspection of guests which use LUKS encryption on top of LVM logical
+volumes should now work (Laszlo Ersek).
+
+=head2 API
+
+=head3 New APIs
+
+No new APIs were added in libguestfs 1.48.
+
+=head3 Other API changes
+
+In C<guestfs_xfs_admin> the C<lazycounter> parameter is deprecated
+because it is no longer supported in recent versions of XFS.
+
+Partition APIs now cope with the broken MBR partition tables created
+by dosfstools E<ge> 4.2 (Laszlo Ersek).
+
+In C<guestfs_md_create> the C<chunk> parameter should not be used with
+RAID 1.  Previously it was allowed but ignored, but now it will give
+an error (Laszlo Ersek).
+
+=head2 Build changes
+
+Multiple compiler warnings fixed and/or analyzed and suppressed
+(Laszlo Ersek).
+
+Fix detection of optional Yara library using pkg-config instead of
+checking for library/header file (Laszlo Ersek).
+
+Update valgrind suppressions for glibc 2.35, OCaml 4.13 and libvirt
+7.7.  C<make check-valgrind> works again.
+
+If using libvirt E<ge> 3.8.0, we now use E<lt>interfaceE<gt> to create
+the appliance network interface instead of adding qemu command line
+parameters (Laszlo Ersek).
+
+The L<guestfs-release-notes(1)> page was a broken link, but it has now
+been restored as a new page that links to the release notes from each
+stable release.
+
+=head2 Internals
+
+The libc API L<strerror_r(3)> is difficult to use correctly because of
+differing signatures in glibc and other libc.  A wrapper
+C<guestfs_int_strerror> has been created to hide the differences.
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh v1.46.0..
+
+=end comment
+
+=over 4
+
+
+
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHORS
+
+=begin comment
+
+git shortlog -s v1.46.0..
+
+=end comment
+
+=over 4
+
+=item Laszlo Ersek
+
+=item Neil Hanlon
+
+=item Richard W.M. Jones
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2022 Red Hat Inc.
