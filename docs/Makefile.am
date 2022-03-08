@@ -47,7 +47,7 @@ EXTRA_DIST = \
 	guestfs-release-notes-1.8.pod \
 	guestfs-release-notes-1.6.pod \
 	guestfs-release-notes-1.4.pod \
-	guestfs-release-notes-historical.pod \
+	guestfs-release-notes.pod \
 	guestfs-security.pod \
 	guestfs-testing.pod \
 	make-internal-documentation.pl \
@@ -85,7 +85,7 @@ man_MANS = \
 	guestfs-release-notes-1.8.1 \
 	guestfs-release-notes-1.6.1 \
 	guestfs-release-notes-1.4.1 \
-	guestfs-release-notes-historical.1 \
+	guestfs-release-notes.1 \
 	guestfs-security.1 \
 	guestfs-testing.1
 noinst_DATA = \
@@ -117,7 +117,7 @@ noinst_DATA = \
 	$(top_builddir)/website/guestfs-release-notes-1.8.1.html \
 	$(top_builddir)/website/guestfs-release-notes-1.6.1.html \
 	$(top_builddir)/website/guestfs-release-notes-1.4.1.html \
-	$(top_builddir)/website/guestfs-release-notes-historical.1.html \
+	$(top_builddir)/website/guestfs-release-notes.1.html \
 	$(top_builddir)/website/guestfs-security.1.html \
 	$(top_builddir)/website/guestfs-testing.1.html
 
@@ -440,13 +440,13 @@ stamp-guestfs-release-notes-1.4.pod: guestfs-release-notes-1.4.pod
 	  $<
 	touch $@
 
-guestfs-release-notes-historical.1 guestfs-release-notes-historical.txt $(top_builddir)/website/guestfs-release-notes-historical.1.html: stamp-guestfs-release-notes-historical.pod
+guestfs-release-notes.1 guestfs-release-notes.txt $(top_builddir)/website/guestfs-release-notes.1.html: stamp-guestfs-release-notes.pod
 
-stamp-guestfs-release-notes-historical.pod: guestfs-release-notes-historical.pod
+stamp-guestfs-release-notes.pod: guestfs-release-notes.pod
 	$(PODWRAPPER) \
 	  --section 1 \
-	  --man guestfs-release-notes-historical.1 \
-	  --html $(top_builddir)/website/guestfs-release-notes-historical.1.html \
+	  --man guestfs-release-notes.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
