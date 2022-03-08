@@ -499,11 +499,8 @@ EXTRA_DIST += \
 	md/test-mdadm.sh \
 	md/test-partitioned-md-devices.sh
 
-EXTRA_DIST += \
-	mountable/test-mountable-inspect.sh
-
 TESTS += \
-	mountable/test-internal-parse-mountable
+	mountable/test-internal-parse-mountable \
 	mountable/test-mountable-inspect.sh
 EXTRA_DIST += \
 	mountable/test-mountable-inspect.sh
