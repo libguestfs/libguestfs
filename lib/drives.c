@@ -737,7 +737,6 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
   struct drive_create_data data;
   const char *protocol;
   struct drive *drv;
-  size_t i, drv_index;
 
   data.nr_servers = 0;
   data.servers = NULL;
@@ -917,40 +916,9 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
     return 0;
   }
 
-  /* ... else, hotplugging case. */
-  if (!g->backend_ops->hot_add_drive) {
-    error (g, _("the current backend does not support hotplugging drives"));
-    free_drive_struct (drv);
-    return -1;
-  }
-
-  if (!drv->disk_label) {
-    error (g, _("‘label’ is required when hotplugging drives"));
-    free_drive_struct (drv);
-    return -1;
-  }
-
-  /* Get the first free index, or add it at the end. */
-  drv_index = g->nr_drives;
-  for (i = 0; i < g->nr_drives; ++i)
-    if (g->drives[i] == NULL)
-      drv_index = i;
-
-  /* Hot-add the drive. */
-  if (g->backend_ops->hot_add_drive (g, g->backend_data,
-                                     drv, drv_index) == -1) {
-    free_drive_struct (drv);
-    return -1;
-  }
-
-  add_drive_to_handle_at (g, drv, drv_index);
-  /* drv is now owned by the handle */
-
-  /* Call into the appliance to wait for the new drive to appear. */
-  if (guestfs_internal_hot_add_drive (g, drv->disk_label) == -1)
-    return -1;
-
-  return 0;
+  /* ... else the old hotplugging case */
+  error (g, _("hotplugging support was removed in libguestfs 1.48"));
+  return -1;
 }
 
 int
@@ -1039,61 +1007,11 @@ guestfs_impl_add_cdrom (guestfs_h *g, const char *filename)
   return guestfs_impl_add_drive_ro (g, filename);
 }
 
-/**
- * This function implements L<guestfs(3)/guestfs_remove_drive>.
- *
- * Depending on whether we are hotplugging or not, this function does
- * slightly different things: If not hotplugging, then the drive just
- * disappears as if it had never been added.  The later drives "move
- * up" to fill the space.  When hotplugging we have to do some complex
- * stuff, and we usually end up leaving an empty (C<NULL>) slot in the
- * C<g-E<gt>drives> vector.
- */
 int
 guestfs_impl_remove_drive (guestfs_h *g, const char *label)
 {
-  size_t i;
-  struct drive *drv;
-
-  ITER_DRIVES (g, i, drv) {
-    if (drv->disk_label && STREQ (label, drv->disk_label))
-      goto found;
-  }
-  error (g, _("disk with label ‘%s’ not found"), label);
+  error (g, _("hotplugging support was removed in libguestfs 1.48"));
   return -1;
-
- found:
-  if (g->state == CONFIG) {     /* Not hotplugging. */
-    free_drive_struct (drv);
-
-    g->nr_drives--;
-    for (; i < g->nr_drives; ++i)
-      g->drives[i] = g->drives[i+1];
-
-    return 0;
-  }
-  else {                        /* Hotplugging. */
-    if (!g->backend_ops->hot_remove_drive) {
-      error (g, _("the current backend does not support hotplugging drives"));
-      return -1;
-    }
-
-    if (guestfs_internal_hot_remove_drive_precheck (g, label) == -1)
-      return -1;
-
-    if (g->backend_ops->hot_remove_drive (g, g->backend_data, drv, i) == -1)
-      return -1;
-
-    free_drive_struct (drv);
-    g->drives[i] = NULL;
-    if (i == g->nr_drives-1)
-      g->nr_drives--;
-
-    if (guestfs_internal_hot_remove_drive (g, label) == -1)
-      return -1;
-
-    return 0;
-  }
 }
 
 /**

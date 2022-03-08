@@ -137,6 +137,15 @@ refers to.
 
 This is the same as the L<lstat(2)> system call." };
 
+  { defaults with
+    name = "remove_drive"; added = (1, 19, 49);
+    style = RErr, [String (PlainString, "label")], [];
+    deprecated_by = Deprecated_no_replacement;
+    blocking = false;
+    shortdesc = "remove a disk image";
+    longdesc = "\
+This call does nothing and returns an error." };
+
 ]
 
 let daemon_functions = [

@@ -224,12 +224,6 @@ usual case) then the first time you call this function,
 the disk appears in the API as F</dev/sda>, the second time
 as F</dev/sdb>, and so on.
 
-In libguestfs E<ge> 1.20 you can also call this function
-after launch (with some restrictions).  This is called
-\"hotplugging\".  When hotplugging, you must specify a
-C<label> so that the new disk gets a predictable name.
-For more information see L<guestfs(3)/HOTPLUGGING>.
-
 You don't necessarily need to be root when using libguestfs.  However
 you obviously do need sufficient permissions to access the filename
 for whatever operations you want to perform (ie. read access if you
@@ -1116,25 +1110,6 @@ backing file.
 
 Note that detecting disk features can be insecure under some
 circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
-
-  { defaults with
-    name = "remove_drive"; added = (1, 19, 49);
-    style = RErr, [String (PlainString, "label")], [];
-    blocking = false;
-    shortdesc = "remove a disk image";
-    longdesc = "\
-This function is conceptually the opposite of C<guestfs_add_drive_opts>.
-It removes the drive that was previously added with label C<label>.
-
-Note that in order to remove drives, you have to add them with
-labels (see the optional C<label> argument to C<guestfs_add_drive_opts>).
-If you didn't use a label, then they cannot be removed.
-
-You can call this function before or after launching the handle.
-If called after launch, if the backend supports it, we try to hot
-unplug the drive: see L<guestfs(3)/HOTPLUGGING>.  The disk B<must not>
-be in use (eg. mounted) when you do this.  We try to detect if the
-disk is in use and stop you from doing this." };
 
   { defaults with
     name = "set_libvirt_supported_credentials"; added = (1, 19, 52);
@@ -7808,30 +7783,6 @@ are the full raw block device and partition names
 (eg. F</dev/sda> and F</dev/sda1>)." };
 
   { defaults with
-    name = "internal_hot_add_drive"; added = (1, 19, 49);
-    style = RErr, [String (PlainString, "label")], [];
-    visibility = VInternal;
-    shortdesc = "internal hotplugging operation";
-    longdesc = "\
-This function is used internally when hotplugging drives." };
-
-  { defaults with
-    name = "internal_hot_remove_drive_precheck"; added = (1, 19, 49);
-    style = RErr, [String (PlainString, "label")], [];
-    visibility = VInternal;
-    shortdesc = "internal hotplugging operation";
-    longdesc = "\
-This function is used internally when hotplugging drives." };
-
-  { defaults with
-    name = "internal_hot_remove_drive"; added = (1, 19, 49);
-    style = RErr, [String (PlainString, "label")], [];
-    visibility = VInternal;
-    shortdesc = "internal hotplugging operation";
-    longdesc = "\
-This function is used internally when hotplugging drives." };
-
-  { defaults with
     name = "mktemp"; added = (1, 19, 53);
     style = RString (RPlainString, "path"), [String (Pathname, "tmpl")], [OString "suffix"];
     tests = [
@@ -8053,9 +8004,7 @@ Call C<guestfs_list_ldm_volumes> and C<guestfs_list_ldm_partitions>
 to return all devices.
 
 Note that you B<don't> normally need to call this explicitly,
-since it is done automatically at C<guestfs_launch> time.
-However you might want to call this function if you have
-hotplugged disks or have just created a Windows dynamic disk." };
+since it is done automatically at C<guestfs_launch> time." };
 
   { defaults with
     name = "ldmtool_remove_all"; added = (1, 20, 0);

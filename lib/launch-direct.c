@@ -391,9 +391,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   CLEANUP_FREE char *append = NULL;
   CLEANUP_FREE_STRING_LIST char **argv = NULL;
 
-  /* At present you must add drives before starting the appliance.  In
-   * future when we enable hotplugging you won't need to do this.
-   */
   if (!g->nr_drives) {
     error (g, _("you must call guestfs_add_drive before guestfs_launch"));
     return -1;

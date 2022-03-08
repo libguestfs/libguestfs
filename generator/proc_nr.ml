@@ -379,9 +379,6 @@ let proc_nr = [
 367, "rm_f";
 368, "mke2fs";
 369, "list_disk_labels";
-370, "internal_hot_add_drive";
-371, "internal_hot_remove_drive_precheck";
-372, "internal_hot_remove_drive";
 373, "mktemp";
 374, "mklost_and_found";
 375, "acl_get_file";

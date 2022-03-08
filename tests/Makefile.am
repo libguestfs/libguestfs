@@ -415,14 +415,6 @@ endif
 TESTS += gdisk/test-expand-gpt.pl
 EXTRA_DIST += gdisk/test-expand-gpt.pl
 
-TESTS += \
-	hotplug/test-hot-add.pl \
-	hotplug/test-hot-remove.pl
-EXTRA_DIST += \
-	hotplug/test-hot-add.pl \
-	hotplug/test-hot-remove.pl \
-	hotplug/test-hotplug-repeated.pl
-
 # Test uses the Python SimpleHTTPServer module which is
 # conveniently part of Python core.
 

@@ -280,7 +280,7 @@ enum discard {
 };
 
 /**
- * There is one C<struct drive> per drive, including hot-plugged drives.
+ * There is one C<struct drive> per drive.
  */
 struct drive {
   /* Original source of the drive, eg. file:..., http:... */
@@ -346,10 +346,6 @@ struct backend_ops {
   /* Miscellaneous. */
   int (*get_pid) (guestfs_h *g, void *data);
   int (*max_disks) (guestfs_h *g, void *data);
-
-  /* Hotplugging drives. */
-  int (*hot_add_drive) (guestfs_h *g, void *data, struct drive *drv, size_t drv_index);
-  int (*hot_remove_drive) (guestfs_h *g, void *data, struct drive *drv, size_t drv_index);
 };
 
 /**
@@ -452,10 +448,6 @@ struct guestfs_h {
    *
    * During launch, a dummy slot may be added which represents the
    * slot taken up by the appliance drive.
-   *
-   * When hotplugging is supported by the backend, drives can be
-   * added to the end of this list after launch.  Also hot-removing a
-   * drive causes a NULL slot to appear in the list.
    *
    * During shutdown, this list is deleted, so that each launch gets a
    * fresh set of drives (however callers: don't do this, create a new

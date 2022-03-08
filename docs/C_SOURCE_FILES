@@ -97,7 +97,6 @@ daemon/guestfsd.c
 daemon/headtail.c
 daemon/hexdump.c
 daemon/hivex.c
-daemon/hotplug.c
 daemon/htonl.c
 daemon/initrd.c
 daemon/inotify.c

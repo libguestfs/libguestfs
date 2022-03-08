@@ -538,8 +538,8 @@ directly:
     non-RHEL
 
 The libvirt backend is more sophisticated, supporting SELinux/sVirt
-(see above), hotplugging and more.  It is, however, more complex and
-so less robust.
+(see above) and more.  It is, however, more complex and so less
+robust.
 
 If you have permissions problems using the libvirt backend, you can
 switch to the direct backend by setting this environment variable:

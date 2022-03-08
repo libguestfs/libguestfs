@@ -188,9 +188,6 @@ You can call L</guestfs_list_devices> to get a list of the device
 names, in the order that you added them.
 See also L</BLOCK DEVICE NAMING> below.
 
-There are slightly different rules when hotplugging disks (in
-libguestfs E<ge> 1.20).  See L</HOTPLUGGING> below.
-
 =head2 MOUNTING
 
 Before you can read or write files, create directories and so on in a
@@ -658,39 +655,6 @@ L</guestfs_last_errno>).
 Libguestfs on top of FUSE performs quite poorly.  For best performance
 do not use it.  Use ordinary libguestfs filesystem calls, upload,
 download etc. instead.
-
-=head2 HOTPLUGGING
-
-In libguestfs E<ge> 1.20, you may add drives and remove after calling
-L</guestfs_launch>.  There are some restrictions, see below.  This is
-called I<hotplugging>.
-
-Only a subset of the backends support hotplugging (currently only the
-libvirt backend has support).  It also requires that you use libvirt
-E<ge> 0.10.3 and qemu E<ge> 1.2.
-
-To hot-add a disk, simply call L</guestfs_add_drive_opts> after
-L</guestfs_launch>.  It is mandatory to specify the C<label> parameter
-so that the newly added disk has a predictable name.  For example:
-
- if (guestfs_launch (g) == -1)
-   error ("launch failed");
- 
- if (guestfs_add_drive_opts (g, filename,
-                             GUESTFS_ADD_DRIVE_OPTS_LABEL, "newdisk",
-                             -1) == -1)
-   error ("hot-add of disk failed");
- 
- if (guestfs_part_disk ("/dev/disk/guestfs/newdisk", "mbr") == -1)
-   error ("partitioning of hot-added disk failed");
-
-To hot-remove a disk, call L</guestfs_remove_drive>.  You can call
-this before or after L</guestfs_launch>.  You can only remove disks
-that were previously added with a label.
-
-Backends that support hotplugging do not require that you add
-E<ge> 1 disk before calling launch.  When hotplugging is supported
-you don't need to add any disks.
 
 =head2 REMOTE STORAGE
 
@@ -1478,8 +1442,7 @@ C<libvirt:I<URI>> uses I<URI> as the libvirt connection URI (see
 L<http://libvirt.org/uri.html>).  The typical libvirt backend with a
 URI would be C<libvirt:qemu:///session>
 
-The libvirt backend supports more features, including
-hotplugging (see L</HOTPLUGGING>) and sVirt.
+The libvirt backend supports more features, including sVirt.
 
 =back
 
@@ -3066,9 +3029,6 @@ Before libguestfs 1.19.7, disk names had to be a single character
 (eg. F</dev/sda> through F</dev/sdz>), and since one disk is reserved,
 that meant the limit was 25.  This has been fixed in more recent
 versions.
-
-In libguestfs E<ge> 1.20 it is possible to hot plug disks.  See
-L</HOTPLUGGING>.
 
 =head2 MAXIMUM NUMBER OF PARTITIONS PER DISK
 

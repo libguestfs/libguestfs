@@ -136,7 +136,6 @@ guestfsd_SOURCES = \
 	guestfsd.c \
 	headtail.c \
 	hexdump.c \
-	hotplug.c \
 	hivex.c \
 	htonl.c \
 	initrd.c \
