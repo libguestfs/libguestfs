@@ -16,10 +16,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Used when preparing the guestfs-release-notes(1) man page.  This
-# script looks at the bugs noted in the git changelog since the last
-# stable release (or any release).  To use it, the only parameter
-# should be the git commit range, eg:
+# Used when preparing the release notes.  This script looks at the
+# bugs noted in the git changelog since the last stable release (or
+# any release).  To use it, the only parameter should be the git
+# commit range, eg:
 #
 #   ./bugs-in-changelog.sh "1.0.89.."
 
@@ -30,8 +30,9 @@ fi
 
 # Comma-separated list of Bugzilla IDs.
 bugids=$(
-    git log "$1" | egrep -o 'RHBZ#[0-9]+' |
-    sed 's/RHBZ#//' |
+    git log "$1" |
+    egrep -io 'RHBZ#[0-9]+|https?://bugzilla.redhat.com/[a-z\.\?/_=]*[0-9]+' |
+    sed 's/^[^0-9]*//' |
     sort -u |
     tr '\n' ',' |
     sed 's/,$//'
@@ -39,8 +40,14 @@ bugids=$(
 
 #echo bugids "$bugids"
 
-# Filter out any bugs which may still be in NEW or ASSIGNED:
-bugzilla query -b "$bugids" \
+# Filter out any bugs which may still be in NEW or ASSIGNED.
+#
+# Ensure user is logged in, otherwise bugzilla will silently truncate
+# the number of responses.  To log in, see "API KEYS" in bugzilla(1).
+bugzilla \
+    --ensure-logged-in \
+    query \
+    -b "$bugids" \
     -s MODIFIED,POST,ON_QA,PASSES_QA,VERIFIED,RELEASE_PENDING,CLOSED \
     --outputformat='%{bug_id} %{short_desc}' |
     sort -n -r |
