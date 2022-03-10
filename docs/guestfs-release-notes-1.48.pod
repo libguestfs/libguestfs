@@ -4,6 +4,40 @@ guestfs-release-notes - libguestfs Release Notes
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.48
 
+=head2 Some features removed
+
+The following little used, experimental or unsafe features have been
+removed:
+
+"Libguestfs live" was an experimental feature that allowed you (in
+theory) to connect to an existing instance of the libguestfs daemon in
+a running guest.  If you want to do this we recommend installing
+qemu-guest-agent in the guest instead and using the APIs provided by
+it.  The related C<unix:> backend has been removed.  The
+L<guestfish(1)> and L<guestmount(1)> I<--live> option now prints an
+error.
+
+The User-mode Linux (C<uml>) backend has been removed.  It was an
+alternate hypervisor that could be used instead of qemu.  It had many
+limitations including lack of network support, and lack of qemu native
+features like qcow2 or network-backed disks.  In addition it was
+slower than KVM and particular features like bulk upload/download were
+painfully slow.  Also the UML feature of Linux that it was based on
+often does not work.
+
+The 9pfs APIs C<guestfs_list_9p> and C<guestfs_mount_9p> have been
+deprecated and now return errors.  This was related to an experimental
+feature for passing through host filesystems to the appliance.  You
+had to hand-hack the qemu command line for this to work and it did not
+fit the libguestfs model very well.
+
+C<guestfs_add_drive> no longer supports hotplugging (adding a drive
+after launch), and C<guestfs_remove_drive> has been deprecated and now
+returns an error.  Hotplugging was an unsuccessful feature which was
+complicated to implement and maintain, and was slow and insecure.  It
+also only worked with the non-default libvirt backend, and was never
+implemented in the default "direct" backend.
+
 =head2 Language bindings
 
 Fix allocation and deallocation of string lists in golang bindings
@@ -34,6 +68,11 @@ volumes should now work (Laszlo Ersek).
 No new APIs were added in libguestfs 1.48.
 
 =head3 Other API changes
+
+C<guestfs_list_9p> and C<guestfs_mount_9p> are deprecated and now
+return errors.
+
+C<guestfs_remove_drive> has been deprecated and now returns an error.
 
 In C<guestfs_xfs_admin> the C<lazycounter> parameter is deprecated
 because it is no longer supported in recent versions of XFS.
