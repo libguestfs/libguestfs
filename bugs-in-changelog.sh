@@ -49,6 +49,7 @@ bugzilla \
     query \
     -b "$bugids" \
     -s MODIFIED,POST,ON_QA,PASSES_QA,VERIFIED,RELEASE_PENDING,CLOSED \
+    --component libguestfs \
     --outputformat='%{bug_id} %{short_desc}' |
     sort -n -r |
     perl -pe '
