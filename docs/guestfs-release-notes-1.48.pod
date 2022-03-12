@@ -119,8 +119,33 @@ https_proxy= ./bugs-in-changelog.sh v1.46.0..
 
 =over 4
 
+=item L<https://bugzilla.redhat.com/2030709>
 
+[RFE] libguestfs: Add Rocky Linux support
 
+=item L<https://bugzilla.redhat.com/2030396>
+
+Fix usage of strerror_r which caused corrupted error messages
+
+=item L<https://bugzilla.redhat.com/2024022>
+
+xfs-admin: Cannot disable lazy-counters on V5 fs
+
+=item L<https://bugzilla.redhat.com/1995391>
+
+RFE: virt-inspector fails to detect the distro and applications on Kylin-Desktop-V10 image
+
+=item L<https://bugzilla.redhat.com/1993842>
+
+RFE: virt-inspector fails to detect the distro on Pardus-19.5 image
+
+=item L<https://bugzilla.redhat.com/1931821>
+
+work around mkfs.vfat writes corrupted filesystem/partition table when used on whole block device
+
+=item L<https://bugzilla.redhat.com/1451665>
+
+RFE: Virt-v2v can't convert the guest which has encrypted partition
 
 =back
 
