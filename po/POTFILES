@@ -76,7 +76,6 @@ daemon/guestfsd.c
 daemon/headtail.c
 daemon/hexdump.c
 daemon/hivex.c
-daemon/hotplug.c
 daemon/htonl.c
 daemon/initrd.c
 daemon/inotify.c
@@ -356,8 +355,6 @@ lib/inspect-osinfo.c
 lib/journal.c
 lib/launch-direct.c
 lib/launch-libvirt.c
-lib/launch-uml.c
-lib/launch-unix.c
 lib/launch.c
 lib/libvirt-auth.c
 lib/libvirt-domain.c

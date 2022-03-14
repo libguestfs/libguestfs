@@ -4,6 +4,11 @@ guestfs-release-notes - libguestfs Release Notes
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.48
 
+These are the release notes for libguestfs stable release 1.48.
+This describes the major changes since 1.46.
+
+Libguestfs 1.48.0 was released on B<14 March 2022>.
+
 =head2 Some features removed
 
 The following little used, experimental or unsafe features have been
