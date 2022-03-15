@@ -90,7 +90,12 @@ value
 guestfs_int_daemon_rpm_start_iterator (value unitv)
 {
   CAMLparam1 (unitv);
+
   ts = rpmtsCreate ();
+
+  /* Disable signature checking (RHBZ#2064182). */
+  rpmtsSetVSFlags (ts, rpmtsVSFlags (ts) | RPMVSF_MASK_NOSIGNATURES);
+
   iter = rpmtsInitIterator (ts, RPMDBI_PACKAGES, NULL, 0);
   CAMLreturn (Val_unit);
 }
