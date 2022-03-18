@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2021-12-02 22:16+0000\n"
+"PO-Revision-Date: 2022-03-19 16:16+0000\n"
 "Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 4.11.2\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -502,20 +502,22 @@ msgid ""
 "The format of the disk image is auto-detected.  To override this and force a "
 "particular format use the I<--format=..> option."
 msgstr ""
+"Se autodetecta el formato de la imagen de disco.  Para anular esto y forzar "
+"un formato concreto use la opción I<--format=..>."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:118 ../cat/virt-cat.pod:70
 #: ../cat/virt-filesystems.pod:108 ../cat/virt-log.pod:54
 #: ../cat/virt-ls.pod:268 ../cat/virt-tail.pod:65
 msgid "B<-a URI>"
-msgstr ""
+msgstr "B<-a URI>"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:120 ../cat/virt-cat.pod:72
 #: ../cat/virt-filesystems.pod:110 ../cat/virt-log.pod:56
 #: ../cat/virt-ls.pod:270 ../cat/virt-tail.pod:67
 msgid "B<--add URI>"
-msgstr ""
+msgstr "B<--add URI>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:122 ../cat/virt-cat.pod:74
@@ -525,7 +527,7 @@ msgstr ""
 #: ../format/virt-format.pod:80 ../fuse/guestmount.pod:173
 #: ../inspector/virt-inspector.pod:75 ../rescue/virt-rescue.pod:109
 msgid "Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>."
-msgstr ""
+msgstr "Añade un disco remoto.  Vea L<guestfish(1)/ADDING REMOTE STORAGE>."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:124 ../cat/virt-cat.pod:76
@@ -535,7 +537,7 @@ msgstr ""
 #: ../format/virt-format.pod:82 ../fuse/guestmount.pod:175
 #: ../inspector/virt-inspector.pod:77 ../rescue/virt-rescue.pod:115
 msgid "__INCLUDE:blocksize-option.pod__"
-msgstr ""
+msgstr "__INCLUDE:blocksize-option.pod__"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:126 ../cat/virt-cat.pod:78
@@ -547,7 +549,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:79 ../rescue/virt-rescue.pod:117
 #: ../sysprep/virt-sysprep.pod:71
 msgid "B<-c> URI"
-msgstr ""
+msgstr "B<-c> URI"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:128 ../cat/virt-cat.pod:80
