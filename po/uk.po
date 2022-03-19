@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Yuri Chornoivan <yurchor@ukr.net>, 2011-2014, 2020, 2021.
-# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2020, 2021.
-# Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata, 2020, 2021.
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021.
-# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021.
-# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021.
-# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2011-2014, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2022-03-14 13:36+0000\n"
-"PO-Revision-Date: 2021-08-17 19:04+0000\n"
+"PO-Revision-Date: 2022-03-20 17:17+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/uk/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.7.2\n"
+"X-Generator: Weblate 4.11.2\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -36,7 +36,7 @@ msgstr "%s: рядок %d: помилка під час спроби оброб�
 #: common/options/decrypt.c:48
 #, c-format
 msgid "string size overflow"
-msgstr ""
+msgstr "переповнення розміру рядка"
 
 #: common/options/decrypt.c:170
 #, c-format
@@ -2680,60 +2680,7 @@ msgid "Try ‘%s --help’ for more information.\n"
 msgstr "Віддайте команду «%s --help», щоб дізнатися більше.\n"
 
 #: fish/fish.c:117
-#, fuzzy, c-format
-#| msgid ""
-#| "%s: guest filesystem shell\n"
-#| "%s lets you edit virtual machine filesystems\n"
-#| "Copyright (C) 2009-2020 Red Hat Inc.\n"
-#| "Usage:\n"
-#| "  %s [--options] cmd [: cmd : cmd ...]\n"
-#| "Options:\n"
-#| "  -h|--cmd-help        List available commands\n"
-#| "  -h|--cmd-help cmd    Display detailed help on ‘cmd’\n"
-#| "  -a|--add image       Add image\n"
-#| "  --blocksize[=512|4096]\n"
-#| "                       Set sector size of the disk for -a option\n"
-#| "  -c|--connect uri     Specify libvirt URI for -d option\n"
-#| "  --csh                Make --listen csh-compatible\n"
-#| "  -d|--domain guest    Add disks from libvirt guest\n"
-#| "  --echo-keys          Don’t turn off echo for passphrases\n"
-#| "  -f|--file file       Read commands from file\n"
-#| "  --format[=raw|..]    Force disk format for -a option\n"
-#| "  --help               Display brief help\n"
-#| "  -i|--inspector       Automatically mount filesystems\n"
-#| "  --key selector       Specify a LUKS key\n"
-#| "  --keys-from-stdin    Read passphrases from stdin\n"
-#| "  --listen             Listen for remote commands\n"
-#| "  --live               Connect to a live virtual machine\n"
-#| "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
-#| "                       Mount dev on mnt (if omitted, /)\n"
-#| "  --network            Enable network\n"
-#| "  -N|--new [filename=]type\n"
-#| "                       Create prepared disk (test<N>.img or filename)\n"
-#| "  -n|--no-sync         Don’t autosync\n"
-#| "  --no-dest-paths      Don’t tab-complete paths from guest fs\n"
-#| "  --pipe-error         Pipe commands can detect write errors\n"
-#| "  --progress-bars      Enable progress bars even when not interactive\n"
-#| "  --no-progress-bars   Disable progress bars\n"
-#| "  --remote[=pid]       Send commands to remote %s\n"
-#| "  -r|--ro              Mount read-only\n"
-#| "  --selinux            For backwards compat only, does nothing\n"
-#| "  -v|--verbose         Verbose messages\n"
-#| "  -V|--version         Display version and exit\n"
-#| "  -w|--rw              Mount read-write\n"
-#| "  -x                   Echo each command before executing it\n"
-#| "\n"
-#| "To examine a disk image, ISO, hard disk, filesystem etc:\n"
-#| "  %s [--ro|--rw] -i -a /path/to/disk.img\n"
-#| "or\n"
-#| "  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
-#| "\n"
-#| "‘--ro’ is recommended to avoid any writes to the disk image.\n"
-#| "\n"
-#| "If ‘-i’ option fails run again without ‘-i’ and use ‘run’ +\n"
-#| "‘list-filesystems’ + ‘mount’ cmds.\n"
-#| "\n"
-#| "For more information, see the manpage %s(1).\n"
+#, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -2809,9 +2756,8 @@ msgstr ""
 "  --key варіант        Вказати ключ LUKS\n"
 "  --keys-from-stdin    Читати паролі зі stdin\n"
 "  --listen             Очікувати на віддалені команди\n"
-"  --live               З’єднатися з вже запущеною віртуальною машиною\n"
-"  -m|--mount dev[:mnt[:параметри]] Змонтувати dev до mnt (якщо пропущено, "
-"до /)\n"
+"  -m|--mount dev[:mnt[:параметри]] Змонтувати dev до mnt (якщо пропущено, до "
+"/)\n"
 "  --network            Увімкнути роботу у мережі\n"
 "  -N|--new [назва файла=]тип\n"
 "                       Створити приготований диск (test<N>.img або «назва "
@@ -2860,7 +2806,7 @@ msgstr "remote: для ідентифікатора віддаленого пр�
 #: lib/libvirt-domain.c:144 lib/libvirt-domain.c:246
 #, c-format
 msgid "libguestfs live support was removed in libguestfs 1.48"
-msgstr ""
+msgstr "Підтримку портативної версії libguestfs було вилучено у libguestfs 1.48"
 
 #: fish/fish.c:306 fuse/guestmount.c:263 fuse/guestunmount.c:131
 #: rescue/rescue.c:225 test-tool/test-tool.c:123
@@ -3524,40 +3470,7 @@ msgid "use 'time command [args...]'\n"
 msgstr "скористайтеся командою «time команда [аргументи...]»\n"
 
 #: fuse/guestmount.c:106
-#, fuzzy, c-format
-#| msgid ""
-#| "%s: FUSE module for libguestfs\n"
-#| "%s lets you mount a virtual machine filesystem\n"
-#| "Copyright (C) 2009-2020 Red Hat Inc.\n"
-#| "Usage:\n"
-#| "  %s [--options] mountpoint\n"
-#| "Options:\n"
-#| "  -a|--add image       Add image\n"
-#| "  --blocksize[=512|4096]\n"
-#| "                       Set sector size of the disk for -a option\n"
-#| "  -c|--connect uri     Specify libvirt URI for -d option\n"
-#| "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-#| "  -d|--domain guest    Add disks from libvirt guest\n"
-#| "  --echo-keys          Don't turn off echo for passphrases\n"
-#| "  --fd=FD              Write to pipe FD when mountpoint is ready\n"
-#| "  --format[=raw|..]    Force disk format for -a option\n"
-#| "  --fuse-help          Display extra FUSE options\n"
-#| "  -i|--inspector       Automatically mount filesystems\n"
-#| "  --help               Display help message and exit\n"
-#| "  --key selector       Specify a LUKS key\n"
-#| "  --keys-from-stdin    Read passphrases from stdin\n"
-#| "  --live               Connect to a live virtual machine\n"
-#| "  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
-#| "  --no-fork            Don't daemonize\n"
-#| "  -n|--no-sync         Don't autosync\n"
-#| "  -o|--option opt      Pass extra option to FUSE\n"
-#| "  --pid-file filename  Write PID to filename\n"
-#| "  -r|--ro              Mount read-only\n"
-#| "  --selinux            For backwards compat only, does nothing\n"
-#| "  -v|--verbose         Verbose messages\n"
-#| "  -V|--version         Display version and exit\n"
-#| "  -w|--rw              Mount read-write\n"
-#| "  -x|--trace           Trace guestfs API calls\n"
+#, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
@@ -3613,7 +3526,6 @@ msgstr ""
 "  --help               Показати додаткове повідомлення і завершити роботу\n"
 "  --key selector       Вказати ключ LUKS\n"
 "  --keys-from-stdin    Прочитати паролі із джерела стандартного введення\n"
-"  --live               З'єднатися із запущеною віртуальною машиною\n"
 "  -m|--mount dev[:mnt[:парам[:тип_фс]] Змонтувати dev до mnt (якщо "
 "пропущено, до /)\n"
 "  --no-fork            Не створювати фонової служби\n"
@@ -4091,7 +4003,7 @@ msgstr "невідомий протокол «%s»"
 
 #: lib/drives.c:920 lib/drives.c:1013
 msgid "hotplugging support was removed in libguestfs 1.48"
-msgstr ""
+msgstr "підтримку з'єднання «угарячу» було вилучено у libguestfs 1.48"
 
 #: lib/drives.c:1084
 #, c-format
@@ -4616,15 +4528,6 @@ msgid "error getting domain info: %s"
 msgstr "помилка під час отримання даних щодо домену: %s"
 
 #: lib/libvirt-domain.c:263
-#, fuzzy
-#| msgid ""
-#| "error: domain is a live virtual machine.\n"
-#| "Writing to the disks of a running virtual machine can cause disk "
-#| "corruption.\n"
-#| "Either use read-only access, or if the guest is running the guestfsd "
-#| "daemon\n"
-#| "specify live access.  In most libguestfs tools these options are --ro or\n"
-#| "--live respectively.  Consult the documentation for further information."
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -4634,12 +4537,8 @@ msgstr ""
 "помилка: домен є запущеною віртуальною машиною.\n"
 "Запис на диски запущеної віртуальної машини може призвести до пошкодження "
 "диска.\n"
-"Ви можете або скористатися доступом лише для читання, або, якщо у гостьовій "
-"системі\n"
-"працює фонова служба guestfsd, вказати інтерактивний доступ. Відповідними "
-"параметрами\n"
-"інструментів libguestfs є --ro і --live. Докладніші дані можна знайти у "
-"документації."
+"Скористайтеся доступом лише для читання. У більшості інструментів libguestfs "
+"користуйтеся --ro."
 
 #: lib/libvirt-domain.c:354
 #, c-format
