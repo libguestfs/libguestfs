@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2021-12-24 10:07+0000\n"
+"POT-Creation-Date: 2022-03-14 13:36+0000\n"
 "PO-Revision-Date: 2015-02-21 10:49+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hindi (http://www.transifex.com/projects/p/libguestfs/"
@@ -27,7 +27,12 @@ msgstr ""
 msgid "%s: line %d: error parsing configuration file: %s"
 msgstr ""
 
-#: common/options/decrypt.c:122
+#: common/options/decrypt.c:48
+#, c-format
+msgid "string size overflow"
+msgstr ""
+
+#: common/options/decrypt.c:170
 #, c-format
 msgid ""
 "could not find key to open LUKS encrypted %s.\n"
@@ -37,12 +42,7 @@ msgid ""
 "Original error: %s (%d)"
 msgstr ""
 
-#: common/options/inspect.c:71
-#, c-format
-msgid "don’t use --live and -i options together"
-msgstr ""
-
-#: common/options/inspect.c:81
+#: common/options/inspect.c:78
 #, c-format
 msgid ""
 "%s: no operating system was found on this disk\n"
@@ -61,7 +61,7 @@ msgid ""
 "(see the virt tool manual page).\n"
 msgstr ""
 
-#: common/options/inspect.c:102
+#: common/options/inspect.c:99
 #, c-format
 msgid ""
 "%s: multi-boot operating systems are not supported\n"
@@ -80,17 +80,17 @@ msgid ""
 "(see the virt tool manual page).\n"
 msgstr ""
 
-#: common/options/inspect.c:164
+#: common/options/inspect.c:161
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
 
-#: common/options/inspect.c:181
+#: common/options/inspect.c:178
 #, c-format
 msgid "Operating system: %s\n"
 msgstr ""
 
-#: common/options/inspect.c:199
+#: common/options/inspect.c:196
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr ""
@@ -2553,13 +2553,13 @@ msgstr ""
 msgid "use ‘list-events’ to list event handlers\n"
 msgstr ""
 
-#: fish/fish.c:115 fuse/guestmount.c:104 fuse/guestunmount.c:57
+#: fish/fish.c:114 fuse/guestmount.c:103 fuse/guestunmount.c:57
 #: rescue/rescue.c:80
 #, c-format
 msgid "Try ‘%s --help’ for more information.\n"
 msgstr ""
 
-#: fish/fish.c:118
+#: fish/fish.c:117
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -2584,7 +2584,6 @@ msgid ""
 "  --key selector       Specify a LUKS key\n"
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  --listen             Listen for remote commands\n"
-"  --live               Connect to a live virtual machine\n"
 "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
 "                       Mount dev on mnt (if omitted, /)\n"
 "  --network            Enable network\n"
@@ -2616,48 +2615,54 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:270
+#: fish/fish.c:268
 #, c-format
 msgid "--listen=PID: PID was not a number: %s"
 msgstr ""
 
-#: fish/fish.c:275
+#: fish/fish.c:273
 #, c-format
 msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
 msgstr ""
 
-#: fish/fish.c:307 fuse/guestmount.c:264 fuse/guestunmount.c:131
+#: fish/fish.c:294 fuse/guestmount.c:250 lib/libvirt-domain.c:97
+#: lib/libvirt-domain.c:144 lib/libvirt-domain.c:246
+#, c-format
+msgid "libguestfs live support was removed in libguestfs 1.48"
+msgstr ""
+
+#: fish/fish.c:306 fuse/guestmount.c:263 fuse/guestunmount.c:131
 #: rescue/rescue.c:225 test-tool/test-tool.c:123
 #, c-format
 msgid "unknown long option: %s (%d)"
 msgstr ""
 
-#: fish/fish.c:324
+#: fish/fish.c:323
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 
-#: fish/fish.c:331
+#: fish/fish.c:330
 #, c-format
 msgid "only one -f parameter can be given"
 msgstr ""
 
-#: fish/fish.c:514
+#: fish/fish.c:513
 #, c-format
 msgid "cannot use --listen and --remote options at the same time"
 msgstr ""
 
-#: fish/fish.c:519
+#: fish/fish.c:518
 #, c-format
 msgid "extra parameters on the command line with --listen flag"
 msgstr ""
 
-#: fish/fish.c:522
+#: fish/fish.c:521
 #, c-format
 msgid "cannot use --listen and --file options at the same time"
 msgstr ""
 
-#: fish/fish.c:699
+#: fish/fish.c:698
 #, c-format
 msgid ""
 "\n"
@@ -2670,50 +2675,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:873 fish/fish.c:889
+#: fish/fish.c:872 fish/fish.c:888
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: कमांड तर्क खाली स्थान से अलग नहीं\n"
 
-#: fish/fish.c:883
+#: fish/fish.c:882
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: unterminated single quote\n"
 
-#: fish/fish.c:913
+#: fish/fish.c:912
 #, c-format
 msgid "%s: internal error parsing string at ‘%s’\n"
 msgstr ""
 
-#: fish/fish.c:930
+#: fish/fish.c:929
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: too many arguments\n"
 
-#: fish/fish.c:1006
+#: fish/fish.c:1005
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:1015
+#: fish/fish.c:1014
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: unterminated double quote\n"
 
-#: fish/fish.c:1080
+#: fish/fish.c:1079
 #, c-format
 msgid "empty command on command line"
 msgstr ""
 
-#: fish/fish.c:1234
+#: fish/fish.c:1233
 msgid "display a list of commands or help on a command"
 msgstr "कमांड पर मदद या कमांड की सूची दिखाएँ"
 
-#: fish/fish.c:1236
+#: fish/fish.c:1235
 msgid "quit guestfish"
 msgstr "quit guestfish"
 
-#: fish/fish.c:1247
+#: fish/fish.c:1246
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2722,7 +2727,7 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:1256
+#: fish/fish.c:1255
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2731,22 +2736,22 @@ msgstr ""
 "quit - quit guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1261
+#: fish/fish.c:1260
 #, c-format
 msgid "%s: command not known: "
 msgstr ""
 
-#: fish/fish.c:1263
+#: fish/fish.c:1262
 #, c-format
 msgid "use 'help --list' to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1265
+#: fish/fish.c:1264
 #, c-format
 msgid "use -h to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1285
+#: fish/fish.c:1284
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2754,36 +2759,36 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1296
+#: fish/fish.c:1295
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1423
+#: fish/fish.c:1422
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "स्ट्रिंग में \"%s\" रवअवे उद्धरण\n"
 
-#: fish/fish.c:1755
+#: fish/fish.c:1754
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1761
+#: fish/fish.c:1760
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: fish/fish.c:1775
+#: fish/fish.c:1774
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1794
+#: fish/fish.c:1793
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3204,7 +3209,7 @@ msgstr "नहीं"
 msgid "use 'time command [args...]'\n"
 msgstr "use 'time command [args...]'\n"
 
-#: fuse/guestmount.c:107
+#: fuse/guestmount.c:106
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -3227,7 +3232,6 @@ msgid ""
 "  --help               Display help message and exit\n"
 "  --key selector       Specify a LUKS key\n"
 "  --keys-from-stdin    Read passphrases from stdin\n"
-"  --live               Connect to a live virtual machine\n"
 "  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
 "  --no-fork            Don't daemonize\n"
 "  -n|--no-sync         Don't autosync\n"
@@ -3241,42 +3245,22 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:259
+#: fuse/guestmount.c:258
 #, c-format
 msgid "unable to parse --fd option value: %s"
 msgstr ""
 
-#: fuse/guestmount.c:332 rescue/rescue.c:348
+#: fuse/guestmount.c:330 rescue/rescue.c:348
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
 msgstr ""
 
-#: fuse/guestmount.c:337
+#: fuse/guestmount.c:335
 #, c-format
 msgid "%s: error: you must specify either -i at least one -m option.\n"
 msgstr ""
 
-#: fuse/guestmount.c:346
-#, c-format
-msgid "--live is not compatible with --ro option"
-msgstr ""
-
-#: fuse/guestmount.c:349
-#, c-format
-msgid "--live is not compatible with -i option"
-msgstr ""
-
-#: fuse/guestmount.c:361
-#, c-format
-msgid "with --live, you must use exactly one -d option"
-msgstr ""
-
-#: fuse/guestmount.c:364
-#, c-format
-msgid "--live is not compatible with -a option"
-msgstr ""
-
-#: fuse/guestmount.c:370
+#: fuse/guestmount.c:343
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
 msgstr ""
@@ -3639,63 +3623,54 @@ msgstr ""
 msgid "invalid hostname or server string ‘%s’"
 msgstr ""
 
-#: lib/drives.c:779
+#: lib/drives.c:778
 msgid "discard parameter must be ‘disable’, ‘enable’ or ‘besteffort’"
 msgstr ""
 
-#: lib/drives.c:796
+#: lib/drives.c:795
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 
-#: lib/drives.c:802 lib/drives.c:808
+#: lib/drives.c:801 lib/drives.c:807
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: lib/drives.c:814
+#: lib/drives.c:813
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: lib/drives.c:820
+#: lib/drives.c:819
 msgid "cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"
 msgstr ""
 
-#: lib/drives.c:825
+#: lib/drives.c:824
 #, c-format
 msgid "%s parameter is invalid"
 msgstr ""
 
-#: lib/drives.c:832
+#: lib/drives.c:831
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: lib/drives.c:837
+#: lib/drives.c:836
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: lib/drives.c:841
+#: lib/drives.c:840
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: lib/drives.c:904
+#: lib/drives.c:903
 #, c-format
 msgid "unknown protocol ‘%s’"
 msgstr ""
 
-#: lib/drives.c:922 lib/drives.c:1077
-msgid "the current backend does not support hotplugging drives"
+#: lib/drives.c:920 lib/drives.c:1013
+msgid "hotplugging support was removed in libguestfs 1.48"
 msgstr ""
 
-#: lib/drives.c:928
-msgid "‘label’ is required when hotplugging drives"
-msgstr ""
-
-#: lib/drives.c:1062
-#, c-format
-msgid "disk with label ‘%s’ not found"
-msgstr ""
-
-#: lib/drives.c:1166
+#: lib/drives.c:1084
 #, c-format
 msgid "%s: device not found"
 msgstr ""
@@ -3899,11 +3874,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:398 lib/launch-uml.c:159
+#: lib/launch-direct.c:395
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: lib/launch-direct.c:926 lib/launch-libvirt.c:713
+#: lib/launch-direct.c:923 lib/launch-libvirt.c:713
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
@@ -3962,8 +3937,8 @@ msgstr ""
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:786 lib/launch-libvirt.c:888 lib/libvirt-domain.c:423
-#: lib/libvirt-domain.c:507 lib/libvirt-domain.c:834
+#: lib/launch-libvirt.c:786 lib/launch-libvirt.c:888 lib/libvirt-domain.c:412
+#: lib/libvirt-domain.c:496
 msgid "unable to create new XPath context"
 msgstr ""
 
@@ -4036,68 +4011,6 @@ msgstr ""
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2331
-msgid "could not attach disk to libvirt domain"
-msgstr ""
-
-#: lib/launch-libvirt.c:2362
-msgid "could not detach disk from libvirt domain"
-msgstr ""
-
-#: lib/launch-uml.c:94
-msgid "uml backend does not support networking"
-msgstr ""
-
-#: lib/launch-uml.c:98
-msgid "uml backend does not support SMP"
-msgstr ""
-
-#: lib/launch-uml.c:104
-msgid "uml backend does not support remote drives"
-msgstr ""
-
-#: lib/launch-uml.c:108
-msgid "uml backend does not support non-raw-format drives"
-msgstr ""
-
-#: lib/launch-uml.c:113
-msgid "uml backend does not support drives with ‘iface’ parameter"
-msgstr ""
-
-#: lib/launch-uml.c:118
-msgid "uml backend does not support drives with ‘label’ parameter"
-msgstr ""
-
-#: lib/launch-uml.c:124
-msgid ""
-"uml backend does not support drives with ‘discard’ parameter set to ‘enable’"
-msgstr ""
-
-#: lib/launch-uml.c:129
-msgid "uml backend does not support drives with ‘blocksize’ parameter"
-msgstr ""
-
-#: lib/launch-uml.c:466
-msgid "vmlinux launched and contacted daemon, but state != READY"
-msgstr ""
-
-#: lib/launch-unix.c:46
-msgid "cannot set hv parameters with the 'unix:' backend"
-msgstr ""
-
-#: lib/launch-unix.c:51
-#, c-format
-msgid "socket filename too long (more than %d characters): %s"
-msgstr ""
-
-#: lib/launch-unix.c:88
-msgid "guestfs_launch failed, unexpected initial message from guestfsd"
-msgstr ""
-
-#: lib/launch-unix.c:95
-msgid "contacted guestfsd, but state != READY"
-msgstr ""
-
 #: lib/launch.c:63
 msgid "the libguestfs handle has already been launched"
 msgstr ""
@@ -4124,14 +4037,19 @@ msgstr ""
 msgid "qemu has not been launched yet"
 msgstr "qemu को अबतक लॉन्च नहीं किया गया है"
 
-#: lib/launch.c:306
+#: lib/launch.c:298
 #, c-format
 msgid "parameter ‘%s’ isn't allowed"
 msgstr ""
 
-#: lib/launch.c:332
+#: lib/launch.c:327
 #, c-format
 msgid "socket path too long: %s/%s"
+msgstr ""
+
+#: lib/launch.c:331
+#, c-format
+msgid "%s"
 msgstr ""
 
 #: lib/libvirt-auth.c:96
@@ -4168,109 +4086,97 @@ msgid ""
 "was compiled without libvirt"
 msgstr ""
 
-#: lib/libvirt-domain.c:97 lib/libvirt-domain.c:247
-msgid "you cannot set both live and readonly flags"
-msgstr ""
-
 #: lib/libvirt-domain.c:130
 #, c-format
 msgid "no libvirt domain called ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:229
+#: lib/libvirt-domain.c:228
 msgid "unknown readonlydisk parameter"
 msgstr ""
 
-#: lib/libvirt-domain.c:258
+#: lib/libvirt-domain.c:257
 #, c-format
 msgid "error getting domain info: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:272
+#: lib/libvirt-domain.c:263
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
 "corruption.\n"
-"Either use read-only access, or if the guest is running the guestfsd daemon\n"
-"specify live access.  In most libguestfs tools these options are --ro or\n"
-"--live respectively.  Consult the documentation for further information."
+"Use read-only access.  In most libguestfs tools use --ro."
 msgstr ""
 
-#: lib/libvirt-domain.c:365
+#: lib/libvirt-domain.c:354
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: lib/libvirt-domain.c:441 lib/libvirt-domain.c:514 lib/libvirt-domain.c:849
+#: lib/libvirt-domain.c:430 lib/libvirt-domain.c:503
 msgid "unable to evaluate XPath expression"
 msgstr ""
 
-#: lib/libvirt-domain.c:460
+#: lib/libvirt-domain.c:449
 msgid "expected <seclabel/> to be an XML element"
 msgstr ""
 
-#: lib/libvirt-domain.c:624
+#: lib/libvirt-domain.c:613
 #, c-format
 msgid "no secret with UUID ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:632
+#: lib/libvirt-domain.c:621
 #, c-format
 msgid "cannot get the value of the secret with UUID ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:660
+#: lib/libvirt-domain.c:649
 #, c-format
 msgid "no secret for usage ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:668
+#: lib/libvirt-domain.c:657
 #, c-format
 msgid "cannot get the value of the secret with usage ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:810
+#: lib/libvirt-domain.c:799
 msgid "libvirt domain has no disks"
 msgstr ""
 
-#: lib/libvirt-domain.c:873
-msgid ""
-"this guest has no libvirt <channel> definition for guestfsd\n"
-"See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
-msgstr ""
-
-#: lib/libvirt-domain.c:892
+#: lib/libvirt-domain.c:816
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:902
+#: lib/libvirt-domain.c:826
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
-#: lib/libvirt-domain.c:923
+#: lib/libvirt-domain.c:847
 #, c-format
 msgid "no libvirt pool called ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:931
+#: lib/libvirt-domain.c:855
 #, c-format
 msgid "no volume called ‘%s’ in the libvirt pool ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:939
+#: lib/libvirt-domain.c:863
 #, c-format
 msgid "cannot get information of the libvirt volume ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:953
+#: lib/libvirt-domain.c:877
 #, c-format
 msgid "cannot get the filename of the libvirt volume ‘%s’: %s"
 msgstr ""
 
-#: lib/libvirt-domain.c:1022
+#: lib/libvirt-domain.c:946
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
