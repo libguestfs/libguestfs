@@ -27,7 +27,7 @@ skip_if_skipped
 
 guestfish <<EOF
 -add-domain rhbz1370424 \
-            libvirturi:test://$(pwd)/rhbz1370424.xml \
+            libvirturi:test://$srcdir/regressions/rhbz1370424.xml \
             readonly:true
 # The test is just that the above command does not segfault.
 # We don't need to do anything else here.
