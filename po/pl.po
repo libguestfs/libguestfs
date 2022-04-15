@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-03-14 13:36+0000\n"
+"POT-Creation-Date: 2022-04-14 15:53+0100\n"
 "PO-Revision-Date: 2021-08-16 14:27+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/"
@@ -38,7 +38,7 @@ msgstr "%s: %d. wiersz: błąd podczas przetwarzania pliku konfiguracji: %s"
 msgid "string size overflow"
 msgstr ""
 
-#: common/options/decrypt.c:170
+#: common/options/decrypt.c:169
 #, c-format
 msgid ""
 "could not find key to open LUKS encrypted %s.\n"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-03-14 13:36+0000\n"
+"POT-Creation-Date: 2022-04-14 15:53+0100\n"
 "PO-Revision-Date: 2015-02-21 10:50+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/libguestfs/"
@@ -31,7 +31,7 @@ msgstr ""
 msgid "string size overflow"
 msgstr ""
 
-#: common/options/decrypt.c:170
+#: common/options/decrypt.c:169
 #, c-format
 msgid ""
 "could not find key to open LUKS encrypted %s.\n"
