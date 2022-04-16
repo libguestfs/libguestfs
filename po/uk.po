@@ -13,9 +13,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
-"cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-03-14 13:36+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2022-04-14 15:53+0100\n"
 "PO-Revision-Date: 2022-03-20 17:17+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
@@ -38,7 +38,7 @@ msgstr "%s: рядок %d: помилка під час спроби оброб�
 msgid "string size overflow"
 msgstr "переповнення розміру рядка"
 
-#: common/options/decrypt.c:170
+#: common/options/decrypt.c:169
 #, c-format
 msgid ""
 "could not find key to open LUKS encrypted %s.\n"
@@ -2756,8 +2756,8 @@ msgstr ""
 "  --key варіант        Вказати ключ LUKS\n"
 "  --keys-from-stdin    Читати паролі зі stdin\n"
 "  --listen             Очікувати на віддалені команди\n"
-"  -m|--mount dev[:mnt[:параметри]] Змонтувати dev до mnt (якщо пропущено, до "
-"/)\n"
+"  -m|--mount dev[:mnt[:параметри]] Змонтувати dev до mnt (якщо пропущено, "
+"до /)\n"
 "  --network            Увімкнути роботу у мережі\n"
 "  -N|--new [назва файла=]тип\n"
 "                       Створити приготований диск (test<N>.img або «назва "
@@ -2806,7 +2806,8 @@ msgstr "remote: для ідентифікатора віддаленого пр�
 #: lib/libvirt-domain.c:144 lib/libvirt-domain.c:246
 #, c-format
 msgid "libguestfs live support was removed in libguestfs 1.48"
-msgstr "Підтримку портативної версії libguestfs було вилучено у libguestfs 1.48"
+msgstr ""
+"Підтримку портативної версії libguestfs було вилучено у libguestfs 1.48"
 
 #: fish/fish.c:306 fuse/guestmount.c:263 fuse/guestunmount.c:131
 #: rescue/rescue.c:225 test-tool/test-tool.c:123
