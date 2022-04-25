@@ -65,13 +65,17 @@
 static char *
 get_root_uuid_with_file (guestfs_h *g, const char *appliance)
 {
-  unsigned char magic[2], uuid[16];
+  unsigned char magic[4], uuid[16];
   char *ret;
   int fd;
 
   fd = open (appliance, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     perrorf (g, _("open: %s"), appliance);
+    return NULL;
+  }
+  if (read (fd, magic, 4) != 4 || !strncmp ((char *) magic, "QFI\xfb", 4)) {
+    /* No point looking for extfs signature in QCOW2 directly. */
     return NULL;
   }
   if (lseek (fd, 0x438, SEEK_SET) != 0x438) {
