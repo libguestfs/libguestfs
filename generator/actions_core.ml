@@ -6829,7 +6829,8 @@ this will create the largest possible LV." };
     tests = [
       InitNone, Always, TestResult (
         [["isoinfo_device"; "/dev/sdd"]],
-          "STREQ (ret->iso_volume_id, \"ISOIMAGE\") && "^
+          "(STREQ (ret->iso_volume_id, \"CDROM\") || "^
+          " STREQ (ret->iso_volume_id, \"ISOIMAGE\")) && "^
           "STREQ (ret->iso_volume_set_id, \"\") && "^
           "ret->iso_volume_set_size == 1 && "^
           "ret->iso_volume_sequence_number == 1 && "^
