@@ -737,7 +737,29 @@ returns the index of the device in the list of devices.
 Index numbers start from 0.  The named device must exist,
 for example as a string returned from C<guestfs_list_devices>.
 
-See also C<guestfs_list_devices>, C<guestfs_part_to_dev>." };
+See also C<guestfs_list_devices>, C<guestfs_part_to_dev>,
+C<guestfs_device_name>." };
+
+  { defaults with
+    name = "device_name"; added = (1, 49, 1);
+    style = RString (RPlainString, "name"), [Int "index"], [];
+    tests = [
+      InitEmpty, Always, TestResult (
+        [["device_name"; "0"]], "STREQ (ret, \"/dev/sda\")"), [];
+      InitEmpty, Always, TestResult (
+        [["device_name"; "1"]], "STREQ (ret, \"/dev/sdb\")"), [];
+      InitEmpty, Always, TestLastFail (
+        [["device_name"; "99"]]), []
+    ];
+    shortdesc = "convert device index to name";
+    longdesc = "\
+This function takes a device index and returns the device
+name.  For example index C<0> will return the string C</dev/sda>.
+
+The drive index must have been added to the handle.
+
+See also C<guestfs_list_devices>, C<guestfs_part_to_dev>,
+C<guestfs_device_index>." };
 
   { defaults with
     name = "shutdown"; added = (1, 19, 16);
