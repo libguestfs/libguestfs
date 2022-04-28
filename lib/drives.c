@@ -31,6 +31,7 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <assert.h>
+#include <errno.h>
 #include <libintl.h>
 
 #include "c-ctype.h"
@@ -1083,4 +1084,18 @@ guestfs_impl_device_index (guestfs_h *g, const char *device)
   if (r == -1)
     error (g, _("%s: device not found"), device);
   return r;
+}
+
+char *
+guestfs_impl_device_name (guestfs_h *g, int index)
+{
+  char drive_name[64];
+
+  if (index < 0 || index >= g->nr_drives) {
+    guestfs_int_error_errno (g, EINVAL, _("drive index out of range"));
+    return NULL;
+  }
+
+  guestfs_int_drive_name (index, drive_name);
+  return safe_asprintf (g, "/dev/sd%s", drive_name);
 }
