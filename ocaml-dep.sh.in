@@ -65,7 +65,7 @@ echo >> $output-t
 # 3. Generated _config.ml in srcdir: Rewrite to builddir
 # 4. Other object files below abs_top_srcdir: rewrite to corresponding builddir
 # 5. Eliminate "./" prefix
-@OCAMLFIND@ ocamldep @OCAMLDEP_ALL@ @OCAMLDEP_ONE_LINE@ $includes "$@" \
+@OCAMLFIND@ ocamldep -all -one-line $includes "$@" \
     | sed \
           -e "s,@abs_top_srcdir@/${subdir},.,g" \
           -e "s,\B${srcdir_re}/\\([^ ]*[.]\\)\\(cm[^ ]*\\|o\\),\\1\\2,g" \
