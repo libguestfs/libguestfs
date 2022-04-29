@@ -108,7 +108,7 @@ AC_ARG_WITH([distro],
                     [FEDORA | RHEL | CENTOS | ALMALINUX | CLOUDLINUX],
                         [DISTRO=REDHAT],
                     [OPENSUSE* | SLED | SLES],[DISTRO=SUSE],
-                    [ARCH | MANJARO],[DISTRO=ARCHLINUX],
+                    [ARCH | MANJARO | ARTIX],[DISTRO=ARCHLINUX],
                     [OPENMANDRIVA],[DISTRO=OPENMANDRIVA])
             AC_MSG_RESULT([$DISTRO (from /etc/os-release)])
         else
@@ -123,7 +123,7 @@ AM_CONDITIONAL([HAVE_DPKG],
     [AS_CASE([$DISTRO], [DEBIAN | UBUNTU ], [true],
                         [*], [false])])
 AM_CONDITIONAL([HAVE_PACMAN],
-    [AS_CASE([$DISTRO], [ARCHLINUX | FRUGALWARE ], [true],
+    [AS_CASE([$DISTRO], [ARCHLINUX | FRUGALWARE | ARTIX], [true],
                         [*], [false])])
 AC_SUBST([DISTRO])
 
