@@ -484,14 +484,6 @@ this approach works, it doesn't solve the MBR problem, so likely we'd
 have to write a library for that (or perhaps go back to sfdisk but
 using a very abstracted interface over sfdisk).
 
-Reimplement some APIs to avoid protocol limits
-----------------------------------------------
-
-Mostly this item was done (eg. commits a69f44f56f and before).  The
-most notable API with a protocol limit remaining is:
-
- - guestfs_readdir
-
 hivex
 -----
 
