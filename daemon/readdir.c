@@ -16,77 +16,67 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <config.h>
+#include <config.h> /* HAVE_STRUCT_DIRENT_D_TYPE */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <dirent.h>
+#include <dirent.h>    /* readdir() */
+#include <errno.h>     /* errno */
+#include <rpc/xdr.h>   /* xdrmem_create() */
+#include <stdio.h>     /* perror() */
+#include <stdlib.h>    /* malloc() */
+#include <sys/types.h> /* opendir() */
 
-#include "daemon.h"
-#include "actions.h"
+#include "daemon.h" /* reply_with_perror() */
 
-static void
-free_int_dirent_list (guestfs_int_dirent *p, size_t len)
+/* Has one FileOut parameter. */
+int
+do_internal_readdir (const char *dir)
 {
-  size_t i;
+  int ret;
+  DIR *dirstream;
+  void *xdr_buf;
+  XDR xdr;
 
-  for (i = 0; i < len; ++i) {
-    free (p[i].name);
-  }
-  free (p);
-}
-
-guestfs_int_dirent_list *
-do_readdir (const char *path)
-{
-  guestfs_int_dirent_list *ret;
-  guestfs_int_dirent v;
-  DIR *dir;
-  struct dirent *d;
-  size_t i;
-
-  ret = malloc (sizeof *ret);
-  if (ret == NULL) {
-    reply_with_perror ("malloc");
-    return NULL;
-  }
-
-  ret->guestfs_int_dirent_list_len = 0;
-  ret->guestfs_int_dirent_list_val = NULL;
+  /* Prepare to fail. */
+  ret = -1;
 
   CHROOT_IN;
-  dir = opendir (path);
+  dirstream = opendir (dir);
   CHROOT_OUT;
 
-  if (dir == NULL) {
-    reply_with_perror ("opendir: %s", path);
-    free (ret);
-    return NULL;
+  if (dirstream == NULL) {
+    reply_with_perror ("opendir: %s", dir);
+    return ret;
   }
 
-  i = 0;
-  while ((d = readdir (dir)) != NULL) {
-    guestfs_int_dirent *p;
+  xdr_buf = malloc (GUESTFS_MAX_CHUNK_SIZE);
+  if (xdr_buf == NULL) {
+    reply_with_perror ("malloc");
+    goto close_dir;
+  }
+  xdrmem_create (&xdr, xdr_buf, GUESTFS_MAX_CHUNK_SIZE, XDR_ENCODE);
 
-    p = realloc (ret->guestfs_int_dirent_list_val,
-                 sizeof (guestfs_int_dirent) * (i+1));
-    v.name = strdup (d->d_name);
-    if (!p || !v.name) {
-      reply_with_perror ("allocate");
-      if (p) {
-        free_int_dirent_list (p, i);
-      } else {
-        free_int_dirent_list (ret->guestfs_int_dirent_list_val, i);
-      }
-      free (v.name);
-      free (ret);
-      closedir (dir);
-      return NULL;
+  /* Send an "OK" reply, before starting the file transfer. */
+  reply (NULL, NULL);
+
+  /* From this point on, we can only report errors by canceling the file
+   * transfer.
+   */
+  for (;;) {
+    struct dirent *d;
+    guestfs_int_dirent v;
+
+    errno = 0;
+    d = readdir (dirstream);
+    if (d == NULL) {
+      if (errno == 0)
+        ret = 0;
+      else
+        perror ("readdir");
+
+      break;
     }
-    ret->guestfs_int_dirent_list_val = p;
 
+    v.name = d->d_name;
     v.ino = d->d_ino;
 #ifdef HAVE_STRUCT_DIRENT_D_TYPE
     switch (d->d_type) {
@@ -104,19 +94,29 @@ do_readdir (const char *path)
     v.ftyp = 'u';
 #endif
 
-    ret->guestfs_int_dirent_list_val[i] = v;
+    if (!xdr_guestfs_int_dirent (&xdr, &v)) {
+      fprintf (stderr, "xdr_guestfs_int_dirent failed\n");
+      break;
+    }
 
-    i++;
+    if (send_file_write (xdr_buf, xdr_getpos (&xdr)) != 0)
+      break;
+
+    xdr_setpos (&xdr, 0);
   }
 
-  ret->guestfs_int_dirent_list_len = i;
+  /* Finish or cancel the transfer. Note that if (ret == -1) because the library
+   * canceled, we still need to cancel back!
+   */
+  send_file_end (ret == -1);
 
-  if (closedir (dir) == -1) {
-    reply_with_perror ("closedir");
-    free (ret->guestfs_int_dirent_list_val);
-    free (ret);
-    return NULL;
-  }
+  xdr_destroy (&xdr);
+  free (xdr_buf);
+
+close_dir:
+  if (closedir (dirstream) == -1)
+    /* Best we can do here is log an error. */
+    perror ("closedir");
 
   return ret;
 }

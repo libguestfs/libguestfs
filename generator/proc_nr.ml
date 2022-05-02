@@ -152,7 +152,6 @@ let proc_nr = [
 135, "mknod_b";
 136, "mknod_c";
 137, "umask";
-138, "readdir";
 139, "sfdiskM";
 140, "zfile";
 141, "getxattrs";
@@ -514,6 +513,7 @@ let proc_nr = [
 508, "cryptsetup_open";
 509, "cryptsetup_close";
 510, "internal_list_rpm_applications";
+511, "internal_readdir";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list
