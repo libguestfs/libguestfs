@@ -35,6 +35,9 @@ do_internal_readdir (const char *dir)
   DIR *dirstream;
   void *xdr_buf;
   XDR xdr;
+  struct dirent fill;
+  guestfs_int_dirent v;
+  unsigned max_encoded;
 
   /* Prepare to fail. */
   ret = -1;
@@ -55,6 +58,20 @@ do_internal_readdir (const char *dir)
   }
   xdrmem_create (&xdr, xdr_buf, GUESTFS_MAX_CHUNK_SIZE, XDR_ENCODE);
 
+  /* Calculate the max number of bytes a "guestfs_int_dirent" can be encoded to.
+   */
+  memset (fill.d_name, 'a', sizeof fill.d_name - 1);
+  fill.d_name[sizeof fill.d_name - 1] = '\0';
+  v.ino = INT64_MAX;
+  v.ftyp = '?';
+  v.name = fill.d_name;
+  if (!xdr_guestfs_int_dirent (&xdr, &v)) {
+    fprintf (stderr, "xdr_guestfs_int_dirent failed\n");
+    goto release_xdr;
+  }
+  max_encoded = xdr_getpos (&xdr);
+  xdr_setpos (&xdr, 0);
+
   /* Send an "OK" reply, before starting the file transfer. */
   reply (NULL, NULL);
 
@@ -63,7 +80,6 @@ do_internal_readdir (const char *dir)
    */
   for (;;) {
     struct dirent *d;
-    guestfs_int_dirent v;
 
     errno = 0;
     d = readdir (dirstream);
@@ -94,22 +110,32 @@ do_internal_readdir (const char *dir)
     v.ftyp = 'u';
 #endif
 
+    /* Flush "xdr_buf" if we may not have enough room for encoding "v". */
+    if (GUESTFS_MAX_CHUNK_SIZE - xdr_getpos (&xdr) < max_encoded) {
+      if (send_file_write (xdr_buf, xdr_getpos (&xdr)) != 0)
+        break;
+
+      xdr_setpos (&xdr, 0);
+    }
+
     if (!xdr_guestfs_int_dirent (&xdr, &v)) {
       fprintf (stderr, "xdr_guestfs_int_dirent failed\n");
       break;
     }
-
-    if (send_file_write (xdr_buf, xdr_getpos (&xdr)) != 0)
-      break;
-
-    xdr_setpos (&xdr, 0);
   }
+
+  /* Flush "xdr_buf" if the loop completed successfully and "xdr_buf" is not
+   * empty. */
+  if (ret == 0 && xdr_getpos (&xdr) > 0 &&
+      send_file_write (xdr_buf, xdr_getpos (&xdr)) != 0)
+    ret = -1;
 
   /* Finish or cancel the transfer. Note that if (ret == -1) because the library
    * canceled, we still need to cancel back!
    */
   send_file_end (ret == -1);
 
+release_xdr:
   xdr_destroy (&xdr);
   free (xdr_buf);
 
