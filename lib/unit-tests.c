@@ -434,7 +434,7 @@ test_stringsbuf (void)
 }
 
 /* Use the same macros as in lib/drives.c */
-#define VALID_FORMAT_IFACE(str) \
+#define VALID_FORMAT(str) \
   guestfs_int_string_is_valid ((str), 1, 0, \
                                VALID_FLAG_ALPHA|VALID_FLAG_DIGIT, "-_")
 #define VALID_DISK_LABEL(str) \
@@ -446,18 +446,18 @@ test_stringsbuf (void)
 static void
 test_valid (void)
 {
-  assert (!VALID_FORMAT_IFACE (""));
+  assert (!VALID_FORMAT (""));
   assert (!VALID_DISK_LABEL (""));
   assert (!VALID_HOSTNAME (""));
 
   assert (!VALID_DISK_LABEL ("012345678901234567890"));
 
-  assert (VALID_FORMAT_IFACE ("abc"));
-  assert (VALID_FORMAT_IFACE ("ABC"));
-  assert (VALID_FORMAT_IFACE ("abc123"));
-  assert (VALID_FORMAT_IFACE ("abc123-"));
-  assert (VALID_FORMAT_IFACE ("abc123_"));
-  assert (!VALID_FORMAT_IFACE ("abc123."));
+  assert (VALID_FORMAT ("abc"));
+  assert (VALID_FORMAT ("ABC"));
+  assert (VALID_FORMAT ("abc123"));
+  assert (VALID_FORMAT ("abc123-"));
+  assert (VALID_FORMAT ("abc123_"));
+  assert (!VALID_FORMAT ("abc123."));
 
   assert (VALID_DISK_LABEL ("abc"));
   assert (VALID_DISK_LABEL ("ABC"));

@@ -593,7 +593,7 @@ guestfs_int_free_drives (guestfs_h *g)
  * Check string parameter matches regular expression
  * C<^[-_[:alnum:]]+$> (in C locale).
  */
-#define VALID_FORMAT_IFACE(str) \
+#define VALID_FORMAT(str) \
   guestfs_int_string_is_valid ((str), 1, 0, \
                                VALID_FLAG_ALPHA|VALID_FLAG_DIGIT, "-_")
 
@@ -790,7 +790,7 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
     return -1;
   }
 
-  if (data.format && !VALID_FORMAT_IFACE (data.format)) {
+  if (data.format && !VALID_FORMAT (data.format)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "format");
     free_drive_servers (data.servers, data.nr_servers);
