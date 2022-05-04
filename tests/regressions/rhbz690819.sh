@@ -19,18 +19,14 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=690819
 # mkfs fails creating a filesytem on a disk device when using a disk
 # with 'ide' interface
+#
+# The 'iface' parameter is now ignored:
+# https://bugzilla.redhat.com/show_bug.cgi?id=1844341
 
 set -e
 
 $TEST_FUNCTIONS
 skip_if_skipped
-# These architectures don't support the 'ide' interface.
-skip_if_arch arm
-skip_if_arch aarch64
-skip_if_arch ppc64
-skip_if_arch ppc64le
-skip_if_arch s390x
-skip_if_backend libvirt
 
 rm -f rhbz690819.img
 
