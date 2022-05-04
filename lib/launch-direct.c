@@ -296,52 +296,19 @@ static int
 add_drive (guestfs_h *g, struct backend_direct_data *data,
            struct qemuopts *qopts, size_t i, struct drive *drv)
 {
-  /* If there's an explicit 'iface', use it.  Otherwise default to
-   * virtio-scsi.
-   */
-  if (drv->iface && STREQ (drv->iface, "virtio")) { /* virtio-blk */
-    start_list ("-drive") {
-      if (add_drive_standard_params (g, data, qopts, i, drv) == -1)
-        return -1;
-      append_list ("if=none");
-    } end_list ();
-    start_list ("-device") {
-      append_list (VIRTIO_DEVICE_NAME ("virtio-blk"));
-      append_list_format ("drive=hd%zu", i);
-      if (drv->disk_label)
-        append_list_format ("serial=%s", drv->disk_label);
-      if (add_device_blocksize_params (g, qopts, drv) == -1)
-        return -1;
-    } end_list ();
-  }
-#if defined(__arm__) || defined(__aarch64__) || defined(__powerpc__)
-  else if (drv->iface && STREQ (drv->iface, "ide")) {
-    error (g, "'ide' interface does not work on ARM or PowerPC");
-    return -1;
-  }
-#endif
-  else if (drv->iface) {
-    start_list ("-drive") {
-      if (add_drive_standard_params (g, data, qopts, i, drv) == -1)
-        return -1;
-      append_list_format ("if=%s", drv->iface);
-    } end_list ();
-  }
-  else /* default case: virtio-scsi */ {
-    start_list ("-drive") {
-      if (add_drive_standard_params (g, data, qopts, i, drv) == -1)
-        return -1;
-      append_list ("if=none");
-    } end_list ();
-    start_list ("-device") {
-      append_list ("scsi-hd");
-      append_list_format ("drive=hd%zu", i);
-      if (drv->disk_label)
-        append_list_format ("serial=%s", drv->disk_label);
-      if (add_device_blocksize_params (g, qopts, drv) == -1)
-        return -1;
-    } end_list ();
-  }
+  start_list ("-drive") {
+    if (add_drive_standard_params (g, data, qopts, i, drv) == -1)
+      return -1;
+    append_list ("if=none");
+  } end_list ();
+  start_list ("-device") {
+    append_list ("scsi-hd");
+    append_list_format ("drive=hd%zu", i);
+    if (drv->disk_label)
+      append_list_format ("serial=%s", drv->disk_label);
+    if (add_device_blocksize_params (g, qopts, drv) == -1)
+      return -1;
+  } end_list ();
 
   return 0;
 
