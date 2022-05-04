@@ -74,8 +74,7 @@ of C<guestfs_add_drive_ro>." };
     longdesc = "\
 This is the same as C<guestfs_add_drive> but it allows you
 to specify the QEMU interface emulation to use at run time.
-The libvirt backend rejects a non-empty C<iface> argument.
-The direct backend ignores C<iface>." };
+Both the direct and the libvirt backends ignore C<iface>." };
 
   { defaults with
     name = "add_drive_ro_with_if"; added = (1, 0, 84);
@@ -86,8 +85,7 @@ The direct backend ignores C<iface>." };
     longdesc = "\
 This is the same as C<guestfs_add_drive_ro> but it allows you
 to specify the QEMU interface emulation to use at run time.
-The libvirt backend rejects a non-empty C<iface> argument.
-The direct backend ignores C<iface>." };
+Both the direct and the libvirt backends ignore C<iface>." };
 
   { defaults with
     name = "lstatlist"; added = (1, 0, 77);
