@@ -19,18 +19,14 @@
 # Regression test for:
 # https://bugzilla.redhat.com/show_bug.cgi?id=975797
 # Ensure the appliance doesn't hang when using the 'iface' parameter.
+#
+# The 'iface' parameter is now ignored:
+# https://bugzilla.redhat.com/show_bug.cgi?id=1844341
 
 set -e
 
 $TEST_FUNCTIONS
 skip_if_skipped
-# These architectures don't support the 'ide' interface.
-skip_if_arch arm
-skip_if_arch aarch64
-skip_if_arch ppc64
-skip_if_arch ppc64le
-skip_if_arch s390x
-skip_if_backend libvirt
 
 rm -f rhbz975797-*.img
 
