@@ -68,7 +68,6 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
   int live;
   int allowuuid;
   const char *readonlydisk;
-  const char *iface;
   const char *cachemode;
   const char *discard;
   bool copyonread;
@@ -78,8 +77,6 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
     ? optargs->libvirturi : NULL;
   readonly = optargs->bitmask & GUESTFS_ADD_DOMAIN_READONLY_BITMASK
     ? optargs->readonly : 0;
-  iface = optargs->bitmask & GUESTFS_ADD_DOMAIN_IFACE_BITMASK
-    ? optargs->iface : NULL;
   live = optargs->bitmask & GUESTFS_ADD_DOMAIN_LIVE_BITMASK
     ? optargs->live : 0;
   allowuuid = optargs->bitmask & GUESTFS_ADD_DOMAIN_ALLOWUUID_BITMASK
@@ -136,10 +133,6 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
     optargs2.bitmask |= GUESTFS_ADD_LIBVIRT_DOM_READONLY_BITMASK;
     optargs2.readonly = readonly;
   }
-  if (iface) {
-    optargs2.bitmask |= GUESTFS_ADD_LIBVIRT_DOM_IFACE_BITMASK;
-    optargs2.iface = iface;
-  }
   if (live) {
     error (g, _("libguestfs live support was removed in libguestfs 1.48"));
     goto cleanup;
@@ -193,7 +186,6 @@ guestfs_impl_add_libvirt_dom (guestfs_h *g, void *domvp,
   virDomainPtr dom = domvp;
   ssize_t r;
   int readonly;
-  const char *iface;
   const char *cachemode;
   const char *discard;
   bool copyonread;
@@ -208,9 +200,6 @@ guestfs_impl_add_libvirt_dom (guestfs_h *g, void *domvp,
   readonly =
     optargs->bitmask & GUESTFS_ADD_LIBVIRT_DOM_READONLY_BITMASK
     ? optargs->readonly : 0;
-  iface =
-    optargs->bitmask & GUESTFS_ADD_LIBVIRT_DOM_IFACE_BITMASK
-    ? optargs->iface : NULL;
   live =
     optargs->bitmask & GUESTFS_ADD_LIBVIRT_DOM_LIVE_BITMASK
     ? optargs->live : 0;
@@ -289,10 +278,6 @@ guestfs_impl_add_libvirt_dom (guestfs_h *g, void *domvp,
   data.optargs.bitmask = 0;
   data.readonly = readonly;
   data.readonlydisk = readonlydisk;
-  if (iface) {
-    data.optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK;
-    data.optargs.iface = iface;
-  }
   if (cachemode) {
     data.optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_CACHEMODE_BITMASK;
     data.optargs.cachemode = cachemode;

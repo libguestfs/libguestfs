@@ -298,7 +298,6 @@ struct drive {
 
   /* Various per-drive flags. */
   bool readonly;
-  char *iface;
   char *name;
   char *disk_label;
   char *cachemode;

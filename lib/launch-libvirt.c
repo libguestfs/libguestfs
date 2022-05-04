@@ -1465,12 +1465,6 @@ construct_libvirt_xml_disk (guestfs_h *g,
   const char *type, *uuid;
   int r;
 
-  /* XXX We probably could support this if we thought about it some more. */
-  if (drv->iface) {
-    error (g, _("‘iface’ parameter is not supported by the libvirt backend"));
-    return -1;
-  }
-
   start_element ("disk") {
     attribute ("device", "disk");
 
