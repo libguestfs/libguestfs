@@ -575,7 +575,7 @@ This will attempt to relabel files immediately, but if the operation fails
 this will instead touch F</.autorelabel> on the image to schedule a
 relabel operation for the next time the image boots.
 
-You should only use this option for guests which support SELinux.";
+This option is a no-op for guests that do not support SELinux.";
   };
 
   { flag_name = "sm-credentials";
