@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2022-03-19 16:16+0000\n"
+"PO-Revision-Date: 2022-05-10 15:18+0000\n"
 "Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.12.1\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -561,7 +561,7 @@ msgstr "B<-c> URI"
 #: ../inspector/virt-inspector.pod:81 ../rescue/virt-rescue.pod:119
 #: ../sysprep/virt-sysprep.pod:73
 msgid "B<--connect> URI"
-msgstr ""
+msgstr "B<--connect> URI"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:130 ../cat/virt-cat.pod:82
@@ -577,6 +577,8 @@ msgid ""
 "If using libvirt, connect to the given I<URI>.  If omitted, then we connect "
 "to the default libvirt hypervisor."
 msgstr ""
+"Si se usa libvirt, conecta con la I<URI> dada.  Si se omite, conectamos con "
+"el hipervisor libvirt predeterminado."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:133 ../cat/virt-cat.pod:85
@@ -589,6 +591,8 @@ msgid ""
 "If you specify guest block devices directly (I<-a>), then libvirt is not "
 "used at all."
 msgstr ""
+"Si usted especifica dispositivo de bloques invitados directamente (I<-a>), "
+"libvirt no se usa en absoluto."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:136 ../cat/virt-cat.pod:88
