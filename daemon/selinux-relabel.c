@@ -38,17 +38,19 @@ optgroup_selinuxrelabel_available (void)
 }
 
 static int
-setfiles_has_m_option (void)
+setfiles_has_option (int *flag, char opt_char)
 {
-  static int flag = -1;
   CLEANUP_FREE char *err = NULL;
 
-  if (flag == -1) {
-    ignore_value (command (NULL, &err, "setfiles", "-m", NULL));
-    flag = err && strstr (err, /* "invalid option -- " */ "'m'") == NULL;
+  if (*flag == -1) {
+    char option[] = { '-', opt_char, '\0' };       /* "-X" */
+    char err_opt[] = { '\'', opt_char, '\'', '\0'}; /* "'X'" */
+
+    ignore_value (command (NULL, &err, "setfiles", option, NULL));
+    *flag = err && strstr (err, /* "invalid option -- " */ err_opt) == NULL;
   }
 
-  return flag;
+  return *flag;
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
@@ -56,6 +58,7 @@ int
 do_selinux_relabel (const char *specfile, const char *path,
                     int force)
 {
+  static int flag_m = -1;
   const char *argv[MAX_ARGS];
   CLEANUP_FREE char *s_dev = NULL, *s_proc = NULL, *s_selinux = NULL,
     *s_sys = NULL, *s_specfile = NULL, *s_path = NULL;
@@ -101,7 +104,7 @@ do_selinux_relabel (const char *specfile, const char *path,
    * setfiles puts all the mountpoints on the excludes list for no
    * useful reason (RHBZ#1433577).
    */
-  if (setfiles_has_m_option ())
+  if (setfiles_has_option (&flag_m, 'm'))
     ADD_ARG (argv, i, "-m");
 
   /* Relabelling in a chroot. */
