@@ -59,11 +59,13 @@ do_selinux_relabel (const char *specfile, const char *path,
                     int force)
 {
   static int flag_m = -1;
+  static int flag_C = -1;
   const char *argv[MAX_ARGS];
   CLEANUP_FREE char *s_dev = NULL, *s_proc = NULL, *s_selinux = NULL,
     *s_sys = NULL, *s_specfile = NULL, *s_path = NULL;
   CLEANUP_FREE char *err = NULL;
   size_t i = 0;
+  int setfiles_status;
 
   s_dev = sysroot_path ("/dev");
   if (!s_dev) {
@@ -107,6 +109,13 @@ do_selinux_relabel (const char *specfile, const char *path,
   if (setfiles_has_option (&flag_m, 'm'))
     ADD_ARG (argv, i, "-m");
 
+  /* Not only do we want setfiles to trudge through individual relabeling
+   * errors, we also want the setfiles exit status to differentiate a fatal
+   * error from "relabeling errors only". See RHBZ#1794518.
+   */
+  if (setfiles_has_option (&flag_C, 'C'))
+    ADD_ARG (argv, i, "-C");
+
   /* Relabelling in a chroot. */
   if (STRNEQ (sysroot, "/")) {
     ADD_ARG (argv, i, "-r");
@@ -124,10 +133,10 @@ do_selinux_relabel (const char *specfile, const char *path,
   ADD_ARG (argv, i, s_path);
   ADD_ARG (argv, i, NULL);
 
-  if (commandv (NULL, &err, argv) == -1) {
-    reply_with_error ("%s", err);
-    return -1;
-  }
+  setfiles_status = commandrv (NULL, &err, argv);
+  if ((setfiles_status == 0) || (setfiles_status == 1 && flag_C))
+    return 0;
 
-  return 0;
+  reply_with_error ("%s", err);
+  return -1;
 }
