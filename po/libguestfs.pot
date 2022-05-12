@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.48.1\n"
+"Project-Id-Version: libguestfs 1.48.2\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-04-14 15:53+0100\n"
+"POT-Creation-Date: 2022-05-12 15:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3304,17 +3304,17 @@ msgstr ""
 msgid "open: %s"
 msgstr ""
 
-#: lib/appliance-kcmdline.c:79
+#: lib/appliance-kcmdline.c:83
 #, c-format
 msgid "%s: cannot read extfs magic in superblock"
 msgstr ""
 
-#: lib/appliance-kcmdline.c:86
+#: lib/appliance-kcmdline.c:90
 #, c-format
 msgid "%s: appliance is not an extfs filesystem"
 msgstr ""
 
-#: lib/appliance-kcmdline.c:92
+#: lib/appliance-kcmdline.c:96
 #, c-format
 msgid "%s: cannot read UUID in superblock"
 msgstr ""
