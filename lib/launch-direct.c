@@ -518,8 +518,19 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   } end_list ();
 
   cpu_model = guestfs_int_get_cpu_model (has_kvm && !force_tcg);
-  if (cpu_model)
-    arg ("-cpu", cpu_model);
+  if (cpu_model) {
+#if defined(__x86_64__)
+    /* Temporary workaround for RHBZ#2082806 */
+    if (STREQ (cpu_model, "max")) {
+      start_list ("-cpu") {
+        append_list (cpu_model);
+        append_list ("la57=off");
+      } end_list ();
+    }
+    else
+#endif
+      arg ("-cpu", cpu_model);
+  }
 
   if (g->smp > 1)
     arg_format ("-smp", "%d", g->smp);
