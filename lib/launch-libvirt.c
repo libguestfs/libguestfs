@@ -1172,6 +1172,13 @@ construct_libvirt_xml_cpu (guestfs_h *g,
       else if (STREQ (cpu_model, "max")) {
         /* https://bugzilla.redhat.com/show_bug.cgi?id=1935572#c11 */
         attribute ("mode", "maximum");
+#if defined(__x86_64__)
+        /* Temporary workaround for RHBZ#2082806 */
+        start_element ("feature") {
+          attribute ("policy", "disable");
+          attribute ("name", "la57");
+        } end_element ();
+#endif
       }
       else
         single_element ("model", cpu_model);
