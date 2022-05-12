@@ -365,6 +365,7 @@ lib/mountable.c
 lib/private-data.c
 lib/proto.c
 lib/qemu.c
+lib/readdir.c
 lib/rescue.c
 lib/stringsbuf.c
 lib/structs-compare.c
