@@ -187,7 +187,7 @@ LATEST-URL: http://libguestfs.org/download/1.45-development/libguestfs-@PACKAGE_
 LATEST-VERSION: @PACKAGE_VERSION@
   -->
   <a href="download/1.45-development/">Latest development version: <strong>@PACKAGE_VERSION@</strong></a> (released <strong>@RELEASE_DATE@</strong>).<br/>
-  Stable branche:
+  Stable branch:
   <strong>
   <a href="download/1.48-stable/">1.48.x</a>,
   </strong>
