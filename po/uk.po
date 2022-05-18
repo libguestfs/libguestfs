@@ -13,10 +13,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2022-05-12 14:41+0100\n"
-"PO-Revision-Date: 2022-03-20 17:17+0000\n"
+"PO-Revision-Date: 2022-05-18 20:18+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/uk/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.12.2\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -190,8 +190,7 @@ msgid "%s: %s: scheme of URI is NULL or empty\n"
 msgstr "%s: %s: схема адреси є нульовою або порожньою\n"
 
 #: common/options/uri.c:138
-#, fuzzy, c-format
-#| msgid "%s: %s: cannot both a server name and a socket query parameter\n"
+#, c-format
 msgid "%s: %s: cannot have both a server name and a socket query parameter\n"
 msgstr ""
 "%s: %s: не можна вказувати одразу назву сервера та параметр запиту до "
@@ -803,10 +802,8 @@ msgid "convert device to index"
 msgstr "перетворити пристрій на покажчик"
 
 #: fish/cmds.c:638
-#, fuzzy
-#| msgid "convert device to index"
 msgid "convert device index to name"
-msgstr "перетворити пристрій на покажчик"
+msgstr "перетворити індекс пристрою на назву"
 
 #: fish/cmds.c:639
 msgid "report file system disk space usage"
@@ -4020,10 +4017,8 @@ msgid "%s: device not found"
 msgstr "%s: пристрій не знайдено"
 
 #: lib/drives.c:1074
-#, fuzzy
-#| msgid "credential index out of range"
 msgid "drive index out of range"
-msgstr "індекс реєстраційних даних лежить поза допустимим діапазоном"
+msgstr "індекс диска лежить поза допустимим діапазоном"
 
 #: lib/errors.c:426
 #, c-format
