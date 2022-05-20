@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.43.2\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2022-05-12 14:41+0100\n"
-"PO-Revision-Date: 2022-03-27 07:32+0000\n"
+"PO-Revision-Date: 2022-05-20 18:18+0000\n"
 "Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/fi/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.12.2\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -2138,7 +2138,7 @@ msgstr ""
 
 #: fish/cmds.c:1063
 msgid "set filesystem label"
-msgstr ""
+msgstr "Aseta tiedostojärjestelmän nimiö"
 
 #: fish/cmds.c:1064
 msgid "pass requested credential back to libvirt"
@@ -2402,7 +2402,7 @@ msgstr ""
 
 #: fish/cmds.c:1153
 msgid "get the filesystem label"
-msgstr ""
+msgstr "hae tiedostojärjestelmän nimiö"
 
 #: fish/cmds.c:1154
 msgid "get minimum filesystem size"
