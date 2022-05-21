@@ -101,6 +101,8 @@ guestfsd.deps: ../daemon/guestfsd
 		sort -u > $@.t
 	rm -f ld.so.cache.txt
 	mv $@.t $@
+	@echo "guestfsd.deps:"
+	@cat $@
 
 packagelist: packagelist.in Makefile guestfsd.deps
 	m4 $(PACKAGELIST_CPP_FLAGS) $< | \
