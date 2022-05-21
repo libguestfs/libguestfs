@@ -79,16 +79,19 @@ make.sh: make.sh.in $(top_builddir)/config.log $(top_builddir)/config.status
 
 PACKAGELIST_CPP_FLAGS = -D$(DISTRO)=1 -DEXTRA_PACKAGES="$(EXTRA_PACKAGES)"
 
-
 if HAVE_RPM
 QUERY_FILES_CMD := xargs rpm -qf --qf '%{name}\n'
-endif
+else
 if HAVE_DPKG
 QUERY_FILES_CMD := sed -e 's,^/,\*/,' | xargs dpkg -S | cut -d: -f1
-endif
+else
 if HAVE_PACMAN
 QUERY_FILES_CMD := xargs pacman -Qo | sed -r 's/.* is owned by ([^ ]+) .*/\1/'
-endif
+else
+$(error Error: Unknown Linux distribution "$(DISTRO)".  Please add support to m4/guestfs-appliance.m4 and appliance/Makefile.am and send a patch upstream to libguestfs@redhat.com)
+endif !HAVE_PACMAN
+endif !HAVE_DPKG
+endif !HAVE_RPM
 
 # Automatically generate library dependency list
 guestfsd.deps: ../daemon/guestfsd
