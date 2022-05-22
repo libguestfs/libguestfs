@@ -102,8 +102,16 @@ AC_ARG_WITH([distro],
         AC_MSG_RESULT([$DISTRO (manually specified)])
     ],[
         if test -f /etc/os-release; then
-            ( . /etc/os-release && echo $ID | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@' ) >&AS_MESSAGE_LOG_FD
-            DISTRO="`. /etc/os-release && echo $ID | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'`"
+            echo "/etc/os-release:" >&AS_MESSAGE_LOG_FD
+            cat /etc/os-release >&AS_MESSAGE_LOG_FD
+            DISTRO="$(
+                . /etc/os-release
+                if test -n "$ID_LIKE"; then
+                    echo $ID_LIKE | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'
+                else
+                    echo $ID      | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'
+                fi
+            )"
             AS_CASE([$DISTRO],
                     [FEDORA | RHEL | CENTOS | ALMALINUX | CLOUDLINUX | ROCKY],
                         [DISTRO=REDHAT],
@@ -116,6 +124,7 @@ AC_ARG_WITH([distro],
         fi
     ]
 )
+AC_SUBST([DISTRO])
 AM_CONDITIONAL([HAVE_RPM],
     [AS_CASE([$DISTRO], [REDHAT | SUSE | OPENMANDRIVA | MAGEIA ], [true],
                         [*], [false])])
@@ -125,7 +134,6 @@ AM_CONDITIONAL([HAVE_DPKG],
 AM_CONDITIONAL([HAVE_PACMAN],
     [AS_CASE([$DISTRO], [ARCHLINUX | FRUGALWARE | ARTIX], [true],
                         [*], [false])])
-AC_SUBST([DISTRO])
 
 dnl Add extra packages to the appliance.
 AC_ARG_WITH([extra-packages],
