@@ -24,6 +24,7 @@
 #include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include <caml/alloc.h>
 #include <caml/fail.h>
@@ -79,7 +80,14 @@ value
 guestfs_int_daemon_rpm_init (value unitv)
 {
   CAMLparam1 (unitv);
-  rpmReadConfigFiles (NULL, NULL);
+
+  /* Nothing in actual RPM C code bothers to check if this call
+   * succeeds, so using that as an example, just print a debug message
+   * if it failed, but continue.  (The librpm Python bindings do check)
+   */
+  if (rpmReadConfigFiles (NULL, NULL) == -1)
+    fprintf (stderr, "rpmReadConfigFiles: failed, errno=%d\n", errno);
+
   CAMLreturn (Val_unit);
 }
 
@@ -92,6 +100,8 @@ guestfs_int_daemon_rpm_start_iterator (value unitv)
   CAMLparam1 (unitv);
 
   ts = rpmtsCreate ();
+  if (ts == NULL)
+    caml_failwith ("rpmtsCreate");
 
 #ifdef RPMVSF_MASK_NOSIGNATURES
   /* Disable signature checking (RHBZ#2064182). */
@@ -99,6 +109,14 @@ guestfs_int_daemon_rpm_start_iterator (value unitv)
 #endif
 
   iter = rpmtsInitIterator (ts, RPMDBI_PACKAGES, NULL, 0);
+  /* This could return NULL in theory if there are no packages, but
+   * that could not happen in a real guest.  However it also returns
+   * NULL when unable to open the database (RHBZ#2089623) which is
+   * something we do need to detect.
+   */
+  if (iter == NULL)
+    caml_failwith ("rpmtsInitIterator");
+
   CAMLreturn (Val_unit);
 }
 
