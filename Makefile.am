@@ -119,6 +119,7 @@ endif
 EXTRA_DIST = \
 	AUTHORS HACKING RELEASES TODO \
 	.gitignore \
+	.gitpublish \
 	.lvimrc \
 	.mailmap \
 	bugs-in-changelog.sh \
