@@ -106,11 +106,11 @@ AC_ARG_WITH([distro],
             cat /etc/os-release >&AS_MESSAGE_LOG_FD
             DISTRO="$(
                 . /etc/os-release
-                if test -n "$ID_LIKE"; then
-                    echo $ID_LIKE | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'
-                else
-                    echo $ID      | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'
-                fi
+                ( if test -n "$ID_LIKE"; then
+                      echo $ID_LIKE | $AWK '{print $1}'
+                  else
+                      echo $ID
+                  fi ) | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'
             )"
             AS_CASE([$DISTRO],
                     [FEDORA | RHEL | CENTOS | ALMALINUX | CLOUDLINUX | ROCKY],
