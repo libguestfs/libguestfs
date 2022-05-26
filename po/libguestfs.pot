@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.48.2\n"
+"Project-Id-Version: libguestfs 1.48.3\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-05-12 15:09+0100\n"
+"POT-Creation-Date: 2022-05-26 11:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3870,7 +3870,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:923 lib/launch-libvirt.c:713
+#: lib/launch-direct.c:934 lib/launch-libvirt.c:713
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -3958,47 +3958,47 @@ msgstr ""
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1470
+#: lib/launch-libvirt.c:1477
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1516 lib/launch-libvirt.c:1774 lib/qemu.c:822
+#: lib/launch-libvirt.c:1523 lib/launch-libvirt.c:1781 lib/qemu.c:822
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1599
+#: lib/launch-libvirt.c:1606
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1989
+#: lib/launch-libvirt.c:1996
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2000
+#: lib/launch-libvirt.c:2007
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:2004
+#: lib/launch-libvirt.c:2011
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:2025
+#: lib/launch-libvirt.c:2032
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2038
+#: lib/launch-libvirt.c:2045
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2211
+#: lib/launch-libvirt.c:2218
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2232 lib/launch-libvirt.c:2265
+#: lib/launch-libvirt.c:2239 lib/launch-libvirt.c:2272
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
