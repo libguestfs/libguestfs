@@ -68,6 +68,19 @@ free_lvm_system_dir (void)
   free (lvm_system_dir);
 }
 
+static bool
+devicesfile_feature (void)
+{
+  static bool checked, available;
+
+  if (!checked) {
+    checked = true;
+    available = command (NULL, NULL, "lvmdevices", "--help", NULL) == 0 ||
+                command (NULL, NULL, "vgimportdevices", "--help", NULL) == 0;
+  }
+  return available;
+}
+
 /* Rewrite the 'filter = [ ... ]' line in lvm.conf. */
 static int
 set_filter (char *const *filters)
@@ -88,6 +101,13 @@ set_filter (char *const *filters)
   }
 
   fprintf (fp, "devices {\n");
+
+  /* If lvm2 supports a "devices file", we need to disable its use
+   * (RHBZ#1965941).
+   */
+  if (devicesfile_feature ())
+    fprintf (fp, "    use_devicesfile = 0\n");
+
   for (j = 0; filter_types[j] != NULL; ++j) {
     fprintf (fp, "    %s = [\n", filter_types[j]);
     fprintf (fp, "        ");
