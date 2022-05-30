@@ -134,6 +134,17 @@ mdadm -As --auto=yes --no-degraded
 # Empty LVM configuration file means "all defaults".
 mkdir -p /tmp/lvm
 touch /tmp/lvm/lvm.conf
+
+# If lvm2 supports a "devices file", we need to disable its use
+# (RHBZ#1965941).
+if command -v lvmdevices || command -v vgimportdevices; then
+  {
+    printf 'devices {\n'
+    printf '\tuse_devicesfile = 0\n'
+    printf '}\n'
+  } >> /tmp/lvm/lvm.conf
+fi
+
 LVM_SYSTEM_DIR=/tmp/lvm
 export LVM_SYSTEM_DIR
 lvmetad
