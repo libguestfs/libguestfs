@@ -325,6 +325,7 @@ Makefile.in
 /php/extension/configure.in
 /php/extension/env
 /php/extension/guestfs_php.c
+/php/extension/guestfs_php.dep
 /php/extension/install-sh
 /php/extension/libtool
 /php/extension/ltmain.sh

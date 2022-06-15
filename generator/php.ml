@@ -130,6 +130,37 @@ typedef size_t guestfs_string_length;
 typedef int guestfs_string_length;
 #endif
 
+/* Declare argument info structures */
+ZEND_BEGIN_ARG_INFO_EX(arginfo_create, 0, 0, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_last_error, 0, 0, 1)
+  ZEND_ARG_INFO(0, g)
+ZEND_END_ARG_INFO()
+
+";
+  List.iter (
+    fun { name = shortname; style = ret, args, optargs; } ->
+      let len = List.length args in
+      pr "ZEND_BEGIN_ARG_INFO_EX(arginfo_%s, 0, 0, %d)\n" shortname (len + 1);
+      pr "  ZEND_ARG_INFO(0, g)\n";
+      List.iter (
+        function
+        | BufferIn n | Bool n | Int n | Int64 n | OptString n
+        | Pointer(_, n) | String (_, n) | StringList (_, n) ->
+          pr "  ZEND_ARG_INFO(0, %s)\n" n
+        ) args;
+
+      List.iter (
+        function
+        | OBool n | OInt n | OInt64 n | OString n | OStringList n ->
+          pr "  ZEND_ARG_INFO(0, %s)\n" n
+      ) optargs;
+      pr "ZEND_END_ARG_INFO()\n\n";
+  ) (actions |> external_functions |> sort);
+
+  pr "
+
 /* Convert array to list of strings.
  * http://marc.info/?l=pecl-dev&m=112205192100631&w=2
  */
@@ -204,12 +235,12 @@ PHP_MINIT_FUNCTION (guestfs_php)
 }
 
 static zend_function_entry guestfs_php_functions[] = {
-  PHP_FE (guestfs_create, NULL)
-  PHP_FE (guestfs_last_error, NULL)
+  PHP_FE (guestfs_create, arginfo_create)
+  PHP_FE (guestfs_last_error, arginfo_last_error)
 ";
 
   List.iter (
-    fun { name } -> pr "  PHP_FE (guestfs_%s, NULL)\n" name
+    fun { name } -> pr "  PHP_FE (guestfs_%s, arginfo_%s)\n" name name
   ) (actions |> external_functions |> sort);
 
   pr "  { NULL, NULL, NULL }
