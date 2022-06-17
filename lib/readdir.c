@@ -16,12 +16,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include <config.h> /* UNIX_PATH_MAX, needed by "guestfs-internal.h" */
+#include <config.h>
 
-#include <rpc/xdr.h> /* xdrstdio_create() */
-#include <stdint.h>  /* UINT32_MAX */
-#include <stdio.h>   /* fopen() */
-#include <string.h>  /* memset() */
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+#include <unistd.h>
+
+#include <rpc/xdr.h>
 
 #include "guestfs.h"                  /* guestfs_internal_readdir() */
 #include "guestfs_protocol.h"         /* guestfs_int_dirent */
