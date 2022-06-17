@@ -103,9 +103,6 @@ commandf (char **stdoutput, char **stderror, unsigned flags,
   return r;
 }
 
-// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=99193
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wanalyzer-mismatching-deallocation"
 /**
  * Same as C<command>, but we allow the status code from the
  * subcommand to be non-zero, and return that status code.
@@ -154,7 +151,6 @@ commandrf (char **stdoutput, char **stderror, unsigned flags,
 
   return r;
 }
-#pragma GCC diagnostic pop
 
 /**
  * Same as C<command>, but passing in an argv array.
