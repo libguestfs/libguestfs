@@ -13,9 +13,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
-"cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-05-12 14:41+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2022-05-26 10:49+0100\n"
 "PO-Revision-Date: 2022-05-18 20:18+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
@@ -4266,7 +4266,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: lib/launch-direct.c:890 lib/launch-libvirt.c:713
+#: lib/launch-direct.c:901 lib/launch-libvirt.c:713
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
@@ -4392,12 +4392,12 @@ msgstr ""
 "не вдалося обробити запис можливостей домену у форматі XML, повернутий "
 "libvirt"
 
-#: lib/launch-libvirt.c:1510 lib/launch-libvirt.c:1768 lib/qemu.c:822
+#: lib/launch-libvirt.c:1517 lib/launch-libvirt.c:1775 lib/qemu.c:822
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: lib/launch-libvirt.c:1593
+#: lib/launch-libvirt.c:1600
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -4405,33 +4405,33 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: lib/launch-libvirt.c:1983
+#: lib/launch-libvirt.c:1990
 msgid "could not define libvirt secret"
 msgstr "не вдалося визначити реєстраційні дані libvirt"
 
-#: lib/launch-libvirt.c:1994
+#: lib/launch-libvirt.c:2001
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 "реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
 
-#: lib/launch-libvirt.c:1998
+#: lib/launch-libvirt.c:2005
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr "base64_decode_alloc: %m"
 
-#: lib/launch-libvirt.c:2019
+#: lib/launch-libvirt.c:2026
 msgid "could not set libvirt secret value"
 msgstr "не вдалося встановити значення реєстраційних даних libvirt"
 
-#: lib/launch-libvirt.c:2032
+#: lib/launch-libvirt.c:2039
 msgid "could not get UUID from libvirt secret"
 msgstr "не вдалося отримати UUID із реєстраційних даних libvirt"
 
-#: lib/launch-libvirt.c:2205
+#: lib/launch-libvirt.c:2212
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: lib/launch-libvirt.c:2226 lib/launch-libvirt.c:2259
+#: lib/launch-libvirt.c:2233 lib/launch-libvirt.c:2266
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
