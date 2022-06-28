@@ -406,6 +406,34 @@ The libvirt backend is not affected.
 The solution is to update qemu to a version containing the fix (see
 L<https://lists.gnu.org/archive/html/qemu-devel/2018-06/msg01012.html>).
 
+=head2 CVE-2022-2211
+
+L<https://bugzilla.redhat.com/CVE-2022-2211>
+
+The C<get_keys> function in F<libguestfs-common/options/keys.c> collects
+those I<--key> options from the command line into a new array that match
+a particular block device that's being decrypted for inspection. The
+function intends to size the result array such that potentially all
+I<--key> options, plus a terminating C<NULL> element, fit into it. The
+code mistakenly uses the C<MIN> macro instead of C<MAX>, and therefore
+only one element is allocated before the C<NULL> terminator.
+
+Passing precisely two I<--key ID:...> options on the command line for
+the encrypted block device C<ID> causes C<get_keys> to overwrite the
+terminating C<NULL>, leading to an out-of-bounds read in
+C<decrypt_mountables>, file F<libguestfs-common/options/decrypt.c>.
+
+Passing more than two I<--key ID:...> options on the command line for
+the encrypted block device C<ID> causes C<get_keys> itself to perform
+out-of-bounds writes. The most common symptom is a crash with C<SIGSEGV>
+later on.
+
+This issue affects -- broadly speaking -- all libguestfs-based utilities
+that accept I<--key>, namely: C<guestfish>, C<guestmount>, C<virt-cat>,
+C<virt-customize>, C<virt-diff>, C<virt-edit>, C<virt-get-kernel>,
+C<virt-inspector>, C<virt-log>, C<virt-ls>, C<virt-sparsify>,
+C<virt-sysprep>, C<virt-tail>, C<virt-v2v>.
+
 =head1 SEE ALSO
 
 L<guestfs(3)>,
