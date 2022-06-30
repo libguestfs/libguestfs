@@ -348,6 +348,10 @@ main (int argc, char *argv[])
 
   /* Do the guest drives and mountpoints. */
   add_drives (drvs);
+
+  if (key_store_requires_network (ks) && guestfs_set_network (g, 1) == -1)
+    exit (EXIT_FAILURE);
+
   if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);
   if (inspector)

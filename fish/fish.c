@@ -476,6 +476,9 @@ main (int argc, char *argv[])
   /* If we've got drives to add, add them now. */
   add_drives (drvs);
 
+  if (key_store_requires_network (ks) && guestfs_set_network (g, 1) == -1)
+    exit (EXIT_FAILURE);
+
   /* If we've got mountpoints or prepared drives or -i option, we must
    * launch the guest and mount them.
    */
