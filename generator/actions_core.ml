@@ -9720,4 +9720,44 @@ and I<not> the name of the underlying block device." };
     shortdesc = "read directories entries";
     longdesc = "Internal function for readdir." };
 
+  { defaults with
+    name = "clevis_luks_unlock"; added = (1, 49, 3);
+    style = RErr,
+            [String (Device, "device"); String (PlainString, "mapname")],
+            [];
+    optional = Some "clevisluks";
+    test_excuse = "needs networking and a configured Tang server";
+    shortdesc = "open an encrypted LUKS block device with Clevis and Tang";
+    longdesc = "\
+This command opens a block device that has been encrypted according to
+the Linux Unified Key Setup (LUKS) standard, using network-bound disk
+encryption (NBDE).
+
+C<device> is the encrypted block device.
+
+The appliance will connect to the Tang servers noted in the tree of
+Clevis pins that is bound to a keyslot of the LUKS header.  The Clevis
+pin tree may comprise C<sss> (redudancy) pins as internal nodes
+(optionally), and C<tang> pins as leaves.  C<tpm2> pins are not
+supported.  The appliance unlocks the encrypted block device by
+combining responses from the Tang servers with metadata from the LUKS
+header; there is no C<key> parameter.
+
+This command will fail if networking has not been enabled for the
+appliance. Refer to C<guestfs_set_network>.
+
+The command creates a new block device called F</dev/mapper/mapname>.
+Reads and writes to this block device are decrypted from and encrypted
+to the underlying C<device> respectively.  Close the decrypted block
+device with C<guestfs_cryptsetup_close>.
+
+C<mapname> cannot be C<\"control\"> because that name is reserved by
+device-mapper.
+
+If this block device contains LVM volume groups, then calling
+C<guestfs_lvm_scan> with the C<activate> parameter C<true> will make
+them visible.
+
+Use C<guestfs_list_dm_devices> to list all device mapper devices." };
+
 ]
