@@ -591,11 +591,22 @@ For Windows BitLocker it returns C<BitLocker>.
 Then open these devices by calling L</guestfs_cryptsetup_open>.
 Obviously you will require the passphrase!
 
+Passphrase-less unlocking is supported for LUKS (not BitLocker)
+block devices that have been encrypted with network-bound disk
+encryption (NBDE), using Clevis on the Linux guest side, and
+Tang on a separate Linux server.  Open such devices with
+L</guestfs_clevis_luks_unlock>.  The appliance will need
+networking enabled (refer to L</guestfs_set_network>) and actual
+connectivity to the Tang servers noted in the C<tang> Clevis
+pins that are bound to the LUKS header.  (This includes the
+ability to resolve the names of the Tang servers.)
+
 Opening an encrypted device creates a new device mapper device
-called F</dev/mapper/mapname> (where C<mapname> is the
-string you supply to L</guestfs_cryptsetup_open>).
-Reads and writes to this mapper device are decrypted from and
-encrypted to the underlying block device respectively.
+called F</dev/mapper/mapname> (where C<mapname> is the string
+you supply to L</guestfs_cryptsetup_open> or
+L</guestfs_clevis_luks_unlock>). Reads and writes to this mapper
+device are decrypted from and encrypted to the underlying block
+device respectively.
 
 LVM volume groups on the device can be made visible by calling
 L</guestfs_vgscan> followed by L</guestfs_vg_activate_all>.

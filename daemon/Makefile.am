@@ -98,6 +98,7 @@ guestfsd_SOURCES = \
 	cap.c \
 	checksum.c \
 	cleanups.c \
+	clevis-luks.c \
 	cmp.c \
 	command.c \
 	command.h \
