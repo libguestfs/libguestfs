@@ -57,6 +57,7 @@ daemon/caml-stubs.c
 daemon/cap.c
 daemon/checksum.c
 daemon/cleanups.c
+daemon/clevis-luks.c
 daemon/cmp.c
 daemon/command.c
 daemon/command.h
