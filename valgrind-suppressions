@@ -172,6 +172,24 @@
    fun:caml_main
 }
 
+# Valgrind bug affecting OCaml 4.14
+# https://bugs.kde.org/show_bug.cgi?id=455711
+{
+  caml_terminate_signals_uninitialized_sigaltstack
+  Memcheck:Param
+  sigaltstack(ss)
+  fun:sigaltstack
+  fun:caml_terminate_signals
+}
+
+{
+  caml_stop_stack_overflow_detection_uninitialized_sigaltstack
+  Memcheck:Param
+  sigaltstack(ss)
+  fun:sigaltstack
+  fun:caml_stop_stack_overflow_detection
+}
+
 # The OCaml PCRE.compile function calls pcre_compile2 which allocates
 # memory.  If these regexps are stored in a global variable then they
 # can never be freed.  This is not really a bug, so ignore it.
