@@ -418,6 +418,14 @@ test_fuse (void)
     return -1;
   }
 
+#if 0
+  /* This fails because of caching.  The problem is that the linked file
+   * ("hello.txt") is cached with a link count of 1.  unlink("link")
+   * invalidates the cache for "link", but _not_ for "hello.txt" which
+   * still has the now-incorrect cached value.  However there's not much
+   * we can do about this since searching for all linked inodes of a file
+   * is an O(n) operation.
+   */
   if (stat ("hello.txt", &statbuf) == -1) {
     perror ("stat: hello.txt");
     return -1;
@@ -433,14 +441,6 @@ test_fuse (void)
     return -1;
   }
 
-#if 0
-  /* This fails because of caching.  The problem is that the linked file
-   * ("hello.txt") is cached with a link count of 2.  unlink("link")
-   * invalidates the cache for "link", but _not_ for "hello.txt" which
-   * still has the now-incorrect cached value.  However there's not much
-   * we can do about this since searching for all linked inodes of a file
-   * is an O(n) operation.
-   */
   if (stat ("hello.txt", &statbuf) == -1) {
     perror ("stat: hello.txt");
     return -1;
