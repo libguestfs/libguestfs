@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.48.3\n"
+"Project-Id-Version: libguestfs 1.48.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-05-26 11:35+0100\n"
+"POT-Creation-Date: 2022-07-06 13:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,14 @@ msgstr ""
 msgid "string size overflow"
 msgstr ""
 
-#: common/options/decrypt.c:169
+#: common/options/decrypt.c:166
+#, c-format
+msgid ""
+"'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
+"libguestfs version"
+msgstr ""
+
+#: common/options/decrypt.c:180
 #, c-format
 msgid ""
 "could not find key to open LUKS encrypted %s.\n"
@@ -96,9 +103,44 @@ msgstr ""
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr ""
 
-#: common/options/keys.c:173
+#: common/options/keys.c:144
+#, c-format
+msgid "size_t overflow"
+msgstr ""
+
+#: common/options/keys.c:187
 #, c-format
 msgid "could not read key from user"
+msgstr ""
+
+#: common/options/keys.c:226
+#, c-format
+msgid "selector '%s': missing ID"
+msgstr ""
+
+#: common/options/keys.c:233
+#, c-format
+msgid "selector '%s': missing TYPE"
+msgstr ""
+
+#: common/options/keys.c:239
+#, c-format
+msgid "selector '%s': missing KEY_STRING, or too many fields"
+msgstr ""
+
+#: common/options/keys.c:248
+#, c-format
+msgid "selector '%s': missing FILENAME, or too many fields"
+msgstr ""
+
+#: common/options/keys.c:256
+#, c-format
+msgid "selector '%s': too many fields"
+msgstr ""
+
+#: common/options/keys.c:258
+#, c-format
+msgid "selector '%s': invalid TYPE"
 msgstr ""
 
 #: common/options/options.c:283
@@ -135,7 +177,7 @@ msgstr ""
 
 #: common/options/uri.c:138
 #, c-format
-msgid "%s: %s: cannot both a server name and a socket query parameter\n"
+msgid "%s: %s: cannot have both a server name and a socket query parameter\n"
 msgstr ""
 
 #: common/parallel/domains.c:106 lib/libvirt-domain.c:109
