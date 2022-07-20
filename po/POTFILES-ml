@@ -1,6 +1,0 @@
-common/mlgettext/common_gettext.ml
-common/mlpcre/PCRE.ml
-common/mlstdutils/guestfs_config.ml
-common/mlstdutils/std_utils.ml
-common/mlstdutils/stringMap.ml
-common/mlstdutils/stringSet.ml

@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-dnl Check for OCaml (required, for OCaml bindings and OCaml tools).
+dnl Check for OCaml (required)
 
 dnl OCAMLC and OCAMLFIND have to be unset first, otherwise
 dnl AC_CHECK_TOOL (inside AC_PROG_OCAML) will not look.
@@ -32,9 +32,9 @@ AS_IF([test "x$OCAMLFIND" = "xno"],[
     AC_MSG_ERROR([OCaml findlib is required])
 ])
 
-dnl --disable-ocaml only disables OCaml bindings and OCaml virt tools.
+dnl --disable-ocaml only disables OCaml bindings.
 AC_ARG_ENABLE([ocaml],
-    AS_HELP_STRING([--disable-ocaml], [disable OCaml language bindings and tools]),
+    AS_HELP_STRING([--disable-ocaml], [disable OCaml language bindings]),
     [],
     [enable_ocaml=yes])
 
@@ -132,51 +132,29 @@ AS_IF([test "x$have_Hivex_OPEN_UNSAFE" = "xno"],[
 ])
 AC_SUBST([HIVEX_OPEN_UNSAFE_FLAG])
 
-OCAML_PKG_gettext=no
-OCAML_PKG_ounit2=no
-ounit_is_v2=no
-AS_IF([test "x$OCAMLC" != "xno"],[
-    # Create common/mlgettext/common_gettext.ml gettext functions or stubs.
-
-    # If we're building in a different directory, then common/mlgettext
-    # might not exist yet, so create it:
-    mkdir -p common/mlgettext
-
-    GUESTFS_CREATE_COMMON_GETTEXT_ML([common/mlgettext/common_gettext.ml])
-
-    AC_CHECK_OCAML_PKG(ounit2)
-
-    # oUnit >= 2 is required, so check that it has OUnit2.
-    if test "x$OCAML_PKG_ounit2" != "xno"; then
-        AC_CHECK_OCAML_MODULE(ounit_is_v2,[OUnit.OUnit2],OUnit2,[+ounit2])
-    fi
-])
-AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
-               [test "x$OCAML_PKG_gettext" != "xno"])
+# oUnit is optional, used by some tests in common/mlstdutils (that we
+# should replace with regular tests one day).  If used, oUnit >= 2 is
+# required.
+if test "x$OCAML_PKG_ounit2" != "xno"; then
+    AC_CHECK_OCAML_MODULE(ounit_is_v2,[OUnit.OUnit2],OUnit2,[+ounit2])
+fi
 AM_CONDITIONAL([HAVE_OCAML_PKG_OUNIT],
                [test "x$OCAML_PKG_ounit2" != "xno" && test "x$ounit_is_v2" != "xno"])
 
-AC_CHECK_PROG([OCAML_GETTEXT],[ocaml-gettext],[ocaml-gettext],[no])
-AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
-               [test "x$OCAML_PKG_gettext" != "xno" && test "x$OCAML_GETTEXT" != "xno"])
-
 dnl Check if OCaml has caml_alloc_initialized_string (added 2017).
-AS_IF([test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && \
-       test "x$enable_ocaml" = "xyes"],[
-    AC_MSG_CHECKING([for caml_alloc_initialized_string])
-    cat >conftest.c <<'EOF'
+AC_MSG_CHECKING([for caml_alloc_initialized_string])
+cat >conftest.c <<'EOF'
 #include <caml/alloc.h>
 int main () { char *p = (void *) caml_alloc_initialized_string; return 0; }
 EOF
-    AS_IF([$OCAMLC conftest.c >&AS_MESSAGE_LOG_FD 2>&1],[
-        AC_MSG_RESULT([yes])
-        AC_DEFINE([HAVE_CAML_ALLOC_INITIALIZED_STRING],[1],
-                  [caml_alloc_initialized_string found at compile time.])
-    ],[
-        AC_MSG_RESULT([no])
-    ])
-    rm -f conftest.c conftest.o
+AS_IF([$OCAMLC conftest.c >&AS_MESSAGE_LOG_FD 2>&1],[
+    AC_MSG_RESULT([yes])
+    AC_DEFINE([HAVE_CAML_ALLOC_INITIALIZED_STRING],[1],
+              [caml_alloc_initialized_string found at compile time.])
+],[
+    AC_MSG_RESULT([no])
 ])
+rm -f conftest.c conftest.o
 
 dnl Flags we want to pass to every OCaml compiler call.
 OCAML_WARN_ERROR="-warn-error +C+D+E+F+L+M+P+S+U+V+Y+Z+X+52-3-6 -w -6"

@@ -211,7 +211,6 @@ AC_CONFIG_FILES([Makefile
                  bundled/ocaml-augeas/Makefile
                  common/errnostring/Makefile
                  common/edit/Makefile
-                 common/mlgettext/Makefile
                  common/mlpcre/Makefile
                  common/mlstdutils/Makefile
                  common/mlstdutils/guestfs_config.ml
