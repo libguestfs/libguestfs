@@ -551,15 +551,28 @@ and check_hostname_linux () =
      else
        None
 
-(* Parse the hostname where it is stored directly in a file. *)
+(* Parse the hostname where it is stored directly in a file.
+ *
+ * For /etc/hostname:
+ * "The file should contain a single newline-terminated hostname
+ * string. Comments (lines starting with a "#") are ignored."
+ * [https://www.freedesktop.org/software/systemd/man/hostname.html]
+ *
+ * For other hostname files the exact format is not clear, but
+ * hostnames cannot begin with "#" and cannot be empty, so ignoring
+ * those lines seems safe.
+ *)
 and check_hostname_from_file filename =
   let chroot =
     let name = sprintf "check_hostname_from_file: %s" filename in
     Chroot.create ~name () in
 
   let hostname = Chroot.f chroot read_small_file filename in
-  match hostname with
-  | None | Some [] | Some [""] -> None
+
+  let keep_line line = line <> "" && not (String.is_prefix line "#") in
+  let lines = Option.map (List.filter keep_line) hostname in
+  match lines with
+  | None | Some [] -> None
   | Some (hostname :: _) -> Some hostname
 
 (* Parse the hostname from /etc/sysconfig/network.  This must be
