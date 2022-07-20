@@ -26,13 +26,12 @@ MSGID_BUGS_ADDRESS = https://bugzilla.redhat.com/enter_bug.cgi?component=libgues
 linguas     := $(shell cat $(srcdir)/LINGUAS)
 
 POTFILES    := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES)
-POTFILES_ML := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES-ml)
 POFILES     := $(linguas:%=%.po)
 GMOFILES    := $(linguas:%=%.gmo)
 
 EXTRA_DIST = \
 	LINGUAS \
-	POTFILES POTFILES-ml \
+	POTFILES \
 	$(DOMAIN).pot \
 	$(POFILES) \
 	$(GMOFILES)
@@ -60,14 +59,9 @@ XGETTEXT_ARGS = \
 FIX_CHARSET = \
 	$(SED) -i 's|text/plain; charset=CHARSET|text/plain; charset=utf-8|g'
 
-$(DOMAIN).pot: Makefile POTFILES $(POTFILES) POTFILES-ml $(POTFILES_ML)
+$(DOMAIN).pot: Makefile POTFILES $(POTFILES)
 	rm -f $@-t
 	touch $@-t
-if HAVE_OCAML_GETTEXT
-	cd $(top_srcdir) && $(OCAML_GETTEXT) --action extract --extract-pot $(abs_srcdir)/$@-t $(shell cat $(abs_srcdir)/POTFILES-ml)
-	 \
-	$(FIX_CHARSET) $@-t
-endif
 	$(XGETTEXT) -j -o $@-t $(XGETTEXT_ARGS) \
 	  --files-from=$(abs_srcdir)/POTFILES
 	$(FIX_CHARSET) $@-t

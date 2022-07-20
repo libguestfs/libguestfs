@@ -37,7 +37,6 @@ SUBDIRS += include lib docs examples
 SUBDIRS += common/mlutils
 SUBDIRS += bundled/ocaml-augeas
 SUBDIRS += common/mlpcre
-SUBDIRS += common/mlgettext
 if ENABLE_DAEMON
 SUBDIRS += daemon
 endif
@@ -208,9 +207,8 @@ maintainer-upload-website:
 #  docs/C_SOURCE_FILES
 #                 - source files scanned for internal documentation
 #  po/POTFILES    - files with ordinary extensions, but not OCaml files
-#  po/POTFILES-ml - OCaml files, which need a special tool to translate
 
-dist-hook: docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
+dist-hook: docs/C_SOURCE_FILES po/POTFILES
 
 # This has to be in the top-level Makefile.am so that we have access
 # to DIST_SUBDIRS.
@@ -446,6 +444,7 @@ maintainer-check-extra-dist:
 	  cd common; git ls-files | sed 's,^,common/,' ) | \
 	  grep -v '^common$$' | \
 	  grep -v '^common/mlcustomize/' | \
+	  grep -v '^common/mlgettext/' | \
 	  grep -v '^common/mlprogress/' | \
 	  grep -v '^common/mltools/' | \
 	  grep -v '^common/mlv2v/' | \
