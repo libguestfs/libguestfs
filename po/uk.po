@@ -13,10 +13,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2022-07-01 15:27+0100\n"
-"PO-Revision-Date: 2022-05-18 20:18+0000\n"
+"PO-Revision-Date: 2022-08-01 12:19+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/uk/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.12.2\n"
+"X-Generator: Weblate 4.13\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -44,6 +44,8 @@ msgid ""
 "'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
 "libguestfs version"
 msgstr ""
+"у цій версії libguestfs «clevis_luks_unlock», потрібна для розшифрування %s, "
+"є недоступною"
 
 #: common/options/decrypt.c:180
 #, c-format
@@ -157,10 +159,9 @@ msgid "Enter key or passphrase (\"%s\"): "
 msgstr "Введіть ключ або пароль («%s»): "
 
 #: common/options/keys.c:144
-#, fuzzy, c-format
-#| msgid "string size overflow"
+#, c-format
 msgid "size_t overflow"
-msgstr "переповнення розміру рядка"
+msgstr "переповнення size_t"
 
 #: common/options/keys.c:187
 #, c-format
@@ -170,32 +171,32 @@ msgstr "не вдалося прочитати ключ з запису кори
 #: common/options/keys.c:226
 #, c-format
 msgid "selector '%s': missing ID"
-msgstr ""
+msgstr "вибір «%s»: пропущено ідентифікатор"
 
 #: common/options/keys.c:233
 #, c-format
 msgid "selector '%s': missing TYPE"
-msgstr ""
+msgstr "вибір «%s»: пропущено TYPE"
 
 #: common/options/keys.c:239
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
-msgstr ""
+msgstr "вибір «%s»: пропущено KEY_STRING або забагато полів"
 
 #: common/options/keys.c:248
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
-msgstr ""
+msgstr "вибір «%s»: пропущено FILENAME або забагато полів"
 
 #: common/options/keys.c:256
 #, c-format
 msgid "selector '%s': too many fields"
-msgstr ""
+msgstr "вибір «%s»: забагато полів"
 
 #: common/options/keys.c:258
 #, c-format
 msgid "selector '%s': invalid TYPE"
-msgstr ""
+msgstr "вибір «%s»: некоректне значення TYPE"
 
 #: common/options/options.c:283
 #, c-format
@@ -748,10 +749,8 @@ msgid "remove a single per-backend settings string"
 msgstr "вилучити окремий рядок параметрів, специфічний для модуля"
 
 #: fish/cmds.c:613
-#, fuzzy
-#| msgid "open an encrypted block device"
 msgid "open an encrypted LUKS block device with Clevis and Tang"
-msgstr "відкрити зашифрований блоковий пристрій"
+msgstr "відкрити зашифрований блоковий пристрій LUKS із Clevis і Tang"
 
 #: fish/cmds.c:614
 msgid "run a command from the guest filesystem"
