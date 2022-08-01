@@ -5,16 +5,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.49.1\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2022-05-26 10:49+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-07-31 07:19+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
+"libguestfs/libguestfs-master/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -223,11 +226,11 @@ msgstr ""
 
 #: fish/cmds.c:487
 msgid "Command"
-msgstr ""
+msgstr "ბრძანება"
 
 #: fish/cmds.c:487
 msgid "Description"
-msgstr ""
+msgstr "აღწერა"
 
 #: fish/cmds.c:489
 msgid "delete the default POSIX ACL of a directory"
@@ -416,7 +419,7 @@ msgstr ""
 
 #: fish/cmds.c:553
 msgid "set readahead"
-msgstr ""
+msgstr "წინასწარი კითხვის ჩართვა"
 
 #: fish/cmds.c:554
 msgid "set block device to read-only"
@@ -1427,7 +1430,7 @@ msgstr ""
 
 #: fish/cmds.c:848
 msgid "list filesystems"
-msgstr ""
+msgstr "ფაილური სისტემების სია"
 
 #: fish/cmds.c:849
 msgid "list all Windows dynamic disk partitions"
@@ -1739,7 +1742,7 @@ msgstr ""
 
 #: fish/cmds.c:940
 msgid "show mountpoints"
-msgstr ""
+msgstr "მიმაგრების წერტილების ჩვენება"
 
 #: fish/cmds.c:941
 msgid "show mounted filesystems"
@@ -3193,11 +3196,11 @@ msgstr ""
 
 #: fish/supported.c:58
 msgid "yes"
-msgstr ""
+msgstr "დიახ"
 
 #: fish/supported.c:58
 msgid "no"
-msgstr ""
+msgstr "არა"
 
 #: fish/time.c:41
 #, c-format
@@ -4045,7 +4048,7 @@ msgstr ""
 #: lib/launch.c:331
 #, c-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: lib/libvirt-auth.c:96
 #, c-format
