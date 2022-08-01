@@ -5,18 +5,18 @@
 # Translators:
 # Mateusz Marzantowicz <mmarzantowicz@osdf.com.pl>, 2013
 # Mateusz Marzantowicz <mmarzantowicz@osdf.com.pl>, 2012
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2013, 2020, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2013, 2020, 2021, 2022.
 # rjones <rjones@redhat.com>, 2011
-# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021, 2022.
 # Michał Smyk <fedora@smyk.it>, 2020.
 # Marcin Stanclik <mstanclik@yahoo.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2022-07-01 15:27+0100\n"
-"PO-Revision-Date: 2021-08-16 14:27+0000\n"
+"PO-Revision-Date: 2022-07-31 11:55+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/pl/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.7.2\n"
+"X-Generator: Weblate 4.13\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -690,10 +690,8 @@ msgid "remove a single per-backend settings string"
 msgstr ""
 
 #: fish/cmds.c:613
-#, fuzzy
-#| msgid "open an encrypted block device"
 msgid "open an encrypted LUKS block device with Clevis and Tang"
-msgstr "otwiera zaszyfrowane urządzenie blokowe"
+msgstr "otwiera zaszyfrowane urządzenie blokowe LUKS za pomocą Clevis i Tang"
 
 #: fish/cmds.c:614
 msgid "run a command from the guest filesystem"
@@ -792,10 +790,8 @@ msgid "convert device to index"
 msgstr ""
 
 #: fish/cmds.c:639
-#, fuzzy
-#| msgid "convert partition name to device name"
 msgid "convert device index to name"
-msgstr "konwertuje nazwę partycji na nazwę urządzenia"
+msgstr "konwertuje indeks urządzenia na nazwę"
 
 #: fish/cmds.c:640
 msgid "report file system disk space usage"
@@ -3868,10 +3864,8 @@ msgid "%s: device not found"
 msgstr "%s: nie odnaleziono urządzenia"
 
 #: lib/drives.c:1074
-#, fuzzy
-#| msgid "%s: %s: integer out of range\n"
 msgid "drive index out of range"
-msgstr "%s: %s: liczba całkowita spoza zakresu\n"
+msgstr "indeks urządzenia spoza zakresu"
 
 #: lib/errors.c:426
 #, c-format
