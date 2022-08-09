@@ -95,6 +95,10 @@ AC_PATH_PROGS([XZCAT],[xzcat],[no])
 test "x$XZCAT" = "xno" && AC_MSG_ERROR([xzcat must be installed])
 AC_DEFINE_UNQUOTED([XZCAT],["$XZCAT"],[Name of xzcat program.])
 
+dnl Check for zstdcat (required).
+AC_PATH_PROGS([ZSTDCAT],[zstdcat],[no])
+test "x$ZSTDCAT" = "xno" && AC_MSG_ERROR([zstdcat must be installed])
+
 dnl (f)lex and bison for virt-builder (required).
 dnl XXX Could be optional with some work.
 AC_PROG_LEX

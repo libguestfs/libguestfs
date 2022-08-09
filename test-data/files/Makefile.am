@@ -40,6 +40,7 @@ noinst_DATA = \
 	initrd-x86_64.img \
 	initrd-x86_64.img.gz \
 	lib-i586.so.xz \
+	lib-i586.so.zst \
 	test-grep.txt.gz
 
 CLEANFILES += $(noinst_DATA)
@@ -115,4 +116,9 @@ bin-x86_64-dynamic.gz: $(top_srcdir)/test-data/binaries/bin-x86_64-dynamic
 lib-i586.so.xz: $(top_srcdir)/test-data/binaries/lib-i586.so
 	rm -f $@ $@-t
 	xz -c $< > $@-t
+	mv $@-t $@
+
+lib-i586.so.zst: $(top_srcdir)/test-data/binaries/lib-i586.so
+	rm -f $@ $@-t
+	zstd -c $< > $@-t
 	mv $@-t $@
