@@ -447,6 +447,7 @@ Makefile.in
 /test-data/files/initrd-x86_64.img
 /test-data/files/initrd-x86_64.img.gz
 /test-data/files/lib-i586.so.xz
+/test-data/files/lib-i586.so.zst
 /test-data/files/test-grep.txt.gz
 /test-data/phony-guests/archlinux.img
 /test-data/phony-guests/blank-*.img

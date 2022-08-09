@@ -172,6 +172,10 @@ I<Required>.
 
 I<Required>.
 
+=item zstd
+
+I<Required>.
+
 =item Jansson E<ge> 2.7
 
 I<Required>.

@@ -85,6 +85,7 @@ image_files = \
 	files/initrd-x86_64.img \
 	files/initrd-x86_64.img.gz \
 	files/lib-i586.so.xz \
+	files/lib-i586.so.zst \
 	files/test-grep.txt.gz
 
 noinst_DATA = test.iso

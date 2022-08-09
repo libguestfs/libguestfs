@@ -106,6 +106,7 @@ and cpio_arch magic orig_path path =
     if String.find magic "gzip" >= 0 then "zcat"
     else if String.find magic "bzip2" >= 0 then "bzcat"
     else if String.find magic "XZ compressed" >= 0 then "xzcat"
+    else if String.find magic "Zstandard compressed" >= 0 then "zstdcat"
     else "cat" in
 
   let tmpdir = Mkdtemp.temp_dir "filearch" in
