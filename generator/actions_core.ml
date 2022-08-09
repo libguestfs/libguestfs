@@ -9373,6 +9373,8 @@ with large files, such as the resulting squashfs will be over 3GB big." };
         [["file_architecture"; "/bin-x86_64-dynamic.gz"]], "x86_64"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-i586.so.xz"]], "i386"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-i586.so.zst"]], "i386"), [];
     ];
     shortdesc = "detect the architecture of a binary file";
     longdesc = "\
