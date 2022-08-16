@@ -39,8 +39,6 @@ static char *expand_home (char *orig, const char *append);
 static const char *find_home_for_username (const char *, size_t);
 static const char *find_home_for_current_user (void);
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wanalyzer-null-argument"
 /**
  * This is called from the script loop if we find a candidate for
  * C<~username> (tilde-expansion).
@@ -80,10 +78,7 @@ try_tilde_expansion (char *str)
   /* No match, return the original string. */
   return str;
 }
-#pragma GCC diagnostic pop
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wanalyzer-null-argument"
 /**
  * Return C<$HOME> + append string.
  */
@@ -115,7 +110,6 @@ expand_home (char *orig, const char *append)
 
   return str;
 }
-#pragma GCC diagnostic pop
 
 /**
  * Lookup C<username> (of length C<ulen>), return home directory if
