@@ -19,6 +19,8 @@
 #ifndef GUESTFS_GETPROGNAME
 #define GUESTFS_GETPROGNAME
 
+#ifndef HAVE_GETPROGNAME
+
 #include <errno.h>
 
 static inline char const *
@@ -26,5 +28,7 @@ getprogname (void)
 {
   return program_invocation_short_name;
 }
+
+#endif
 
 #endif /* GUESTFS_GETPROGNAME */
