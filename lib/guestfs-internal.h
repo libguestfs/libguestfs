@@ -63,26 +63,6 @@ typedef struct hash_table Hash_table;
 #endif
 #endif
 
-#if ENABLE_PROBES
-#include <sys/sdt.h>
-/* NB: The 'name' parameter is a literal identifier, NOT a string! */
-#define TRACE0(name) DTRACE_PROBE(guestfs, name)
-#define TRACE1(name, arg1) \
-  DTRACE_PROBE(guestfs, name, (arg1))
-#define TRACE2(name, arg1, arg2) \
-  DTRACE_PROBE(guestfs, name, (arg1), (arg2))
-#define TRACE3(name, arg1, arg2, arg3) \
-  DTRACE_PROBE(guestfs, name, (arg1), (arg2), (arg3))
-#define TRACE4(name, arg1, arg2, arg3, arg4) \
-  DTRACE_PROBE(guestfs, name, (arg1), (arg2), (arg3), (arg4))
-#else /* !ENABLE_PROBES */
-#define TRACE0(name)
-#define TRACE1(name, arg1)
-#define TRACE2(name, arg1, arg2)
-#define TRACE3(name, arg1, arg2, arg3)
-#define TRACE4(name, arg1, arg2, arg3, arg4)
-#endif
-
 /* https://stackoverflow.com/a/1597129 */
 #define XXUNIQUE_VAR(name, line) name ## line
 #define XUNIQUE_VAR(name, line) XXUNIQUE_VAR (name, line)

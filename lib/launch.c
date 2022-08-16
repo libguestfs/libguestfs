@@ -79,7 +79,6 @@ guestfs_impl_launch (guestfs_h *g)
 
   /* Start the clock ... */
   gettimeofday (&g->launch_t, NULL);
-  TRACE0 (launch_start);
 
   /* Make the temporary directory. */
   if (guestfs_int_lazy_make_tmpdir (g) == -1)

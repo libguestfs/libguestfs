@@ -365,14 +365,10 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   guestfs_int_launch_send_progress (g, 0);
 
-  TRACE0 (launch_build_appliance_start);
-
   /* Locate and/or build the appliance. */
   if (guestfs_int_build_appliance (g, &kernel, &initrd, &appliance) == -1)
     return -1;
   has_appliance_drive = appliance != NULL;
-
-  TRACE0 (launch_build_appliance_end);
 
   guestfs_int_launch_send_progress (g, 3);
 
@@ -760,8 +756,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     setenv ("LC_ALL", "C", 1);
     setenv ("QEMU_AUDIO_DRV", "none", 1); /* Prevents qemu opening /dev/dsp */
 
-    TRACE0 (launch_run_qemu);
-
     execv (g->hv, argv);        /* Run qemu. */
     perror (g->hv);
     _exit (EXIT_FAILURE);
@@ -901,8 +895,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     error (g, _("qemu launched and contacted daemon, but state != READY"));
     goto cleanup1;
   }
-
-  TRACE0 (launch_end);
 
   guestfs_int_launch_send_progress (g, 12);
 

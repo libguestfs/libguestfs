@@ -218,10 +218,6 @@ eg. F</etc/libguestfs-tools.conf>.
 Optional.  Used by the L<libvirt backend|guestfs(3)/BACKEND> to
 securely confine the appliance (sVirt).
 
-=item systemtap
-
-Optional.  For userspace probes.
-
 =item readline
 
 Optional.  For nicer command line editing in L<guestfish(1)>.

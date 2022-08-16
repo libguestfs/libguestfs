@@ -362,7 +362,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
 
   guestfs_int_launch_send_progress (g, 0);
-  TRACE0 (launch_libvirt_start);
 
   /* Create a random name for the guest. */
   memcpy (data->name, "guestfs-", 8);
@@ -481,8 +480,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   guestfs_pop_error_handler (g);
 
   /* Locate and/or build the appliance. */
-  TRACE0 (launch_build_libvirt_appliance_start);
-
   debug (g, "build appliance");
 
   if (guestfs_int_build_appliance (g, &params.kernel, &params.initrd,
@@ -490,7 +487,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     goto cleanup;
 
   guestfs_int_launch_send_progress (g, 3);
-  TRACE0 (launch_build_libvirt_appliance_end);
 
   /* Note that appliance can be NULL if using the old-style appliance. */
   if (params.appliance) {
@@ -502,8 +498,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     if (!params.appliance_overlay)
       goto cleanup;
   }
-
-  TRACE0 (launch_build_libvirt_qcow2_overlay_end);
 
   /* Using virtio-serial, we need to create a local Unix domain socket
    * for qemu to connect to.
@@ -716,8 +710,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
   if (params.appliance)
     guestfs_int_add_dummy_appliance_drive (g);
-
-  TRACE0 (launch_libvirt_end);
 
   guestfs_int_launch_send_progress (g, 12);
 

@@ -225,21 +225,6 @@ if test "x$have_libselinux" = "xyes"; then
 fi
 AC_SUBST([SELINUX_LIBS])
 
-dnl Check for systemtap/DTrace userspace probes (optional).
-dnl Since the probe points break under clang, allow this to be disabled.
-AC_ARG_ENABLE([probes],
-    AS_HELP_STRING([--disable-probes], [disable systemtap/DTrace userspace probes]),
-    [],
-    [enable_probes=yes])
-AS_IF([test "x$enable_probes" != "xno"],[
-    dnl http://sourceware.org/systemtap/wiki/AddingUserSpaceProbingToApps
-    AC_CHECK_HEADERS([sys/sdt.h])
-    dnl AC_CHECK_PROG([DTRACE],[dtrace],[dtrace],[no])
-    AS_IF([test "x$ac_cv_header_sys_sdt_h" = "xyes"],[
-        AC_DEFINE([ENABLE_PROBES],[1],[Enable systemtap/DTrace userspace probes.])
-    ])
-])
-
 dnl Enable packet dumps when in verbose mode.  This generates lots
 dnl of debug info, only useful for people debugging the RPC mechanism.
 AC_ARG_ENABLE([packet-dump],[
