@@ -94,37 +94,40 @@ dnl which packages to install in the appliance, since the package
 dnl names vary slightly across distros.  (See
 dnl appliance/packagelist.in, appliance/excludefiles.in,
 dnl appliance/hostfiles.in)
-AC_MSG_CHECKING([which Linux distro for package names])
-AC_ARG_WITH([distro],
-    [AS_HELP_STRING([--with-distro="DISTRO_ID"],
-                    [distro ID @<:@default=ID in /etc/os-release@:>@])],[
-        DISTRO="$withval"
-        AC_MSG_RESULT([$DISTRO (manually specified)])
-    ],[
-        if test -f /etc/os-release; then
-            echo "/etc/os-release:" >&AS_MESSAGE_LOG_FD
-            cat /etc/os-release >&AS_MESSAGE_LOG_FD
-            DISTRO="$(
-                . /etc/os-release
-                ( if test -n "$ID_LIKE"; then
-                      echo $ID_LIKE | $AWK '{print $1}'
-                  else
-                      echo $ID
-                  fi ) | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'
-            )"
-            AS_CASE([$DISTRO],
-                    [FEDORA | RHEL | CENTOS | ALMALINUX | CLOUDLINUX | ROCKY],
-                        [DISTRO=REDHAT],
-                    [OPENSUSE* | SLED | SLES],[DISTRO=SUSE],
-                    [ARCH | MANJARO | ARTIX],[DISTRO=ARCHLINUX],
-                    [OPENMANDRIVA],[DISTRO=OPENMANDRIVA])
-            AC_MSG_RESULT([$DISTRO (from /etc/os-release)])
-        else
-            AC_MSG_ERROR([/etc/os-release not available, please specify the distro using --with-distro=DISTRO])
-        fi
-    ]
-)
-AC_SUBST([DISTRO])
+if test "x$ENABLE_APPLIANCE" = "xyes"; then
+    AC_MSG_CHECKING([which Linux distro for package names])
+    AC_ARG_WITH([distro],
+        [AS_HELP_STRING([--with-distro="DISTRO_ID"],
+                        [distro ID @<:@default=ID in /etc/os-release@:>@])],[
+            DISTRO="$withval"
+            AC_MSG_RESULT([$DISTRO (manually specified)])
+        ],[
+            if test -f /etc/os-release; then
+                echo "/etc/os-release:" >&AS_MESSAGE_LOG_FD
+                cat /etc/os-release >&AS_MESSAGE_LOG_FD
+                DISTRO="$(
+                    . /etc/os-release
+                    ( if test -n "$ID_LIKE"; then
+                          echo $ID_LIKE | $AWK '{print $1}'
+                      else
+                          echo $ID
+                      fi ) | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'
+                )"
+                AS_CASE([$DISTRO],
+                        [FEDORA | RHEL | CENTOS | ALMALINUX | CLOUDLINUX \
+			 | ROCKY],
+                            [DISTRO=REDHAT],
+                        [OPENSUSE* | SLED | SLES],[DISTRO=SUSE],
+                        [ARCH | MANJARO | ARTIX],[DISTRO=ARCHLINUX],
+                        [OPENMANDRIVA],[DISTRO=OPENMANDRIVA])
+                AC_MSG_RESULT([$DISTRO (from /etc/os-release)])
+            else
+                AC_MSG_ERROR([/etc/os-release not available, please specify the distro using --with-distro=DISTRO])
+            fi
+        ]
+    )
+    AC_SUBST([DISTRO])
+fi
 AM_CONDITIONAL([HAVE_RPM],
     [AS_CASE([$DISTRO], [REDHAT | SUSE | OPENMANDRIVA | MAGEIA ], [true],
                         [*], [false])])
