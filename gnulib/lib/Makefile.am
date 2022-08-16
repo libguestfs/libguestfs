@@ -30,6 +30,8 @@ libgnu_la_SOURCES = \
 	c-ctype.h \
 	cloexec.c \
 	cloexec.h \
+	error.c \
+	error.h \
 	full-read.c \
 	full-read.h \
 	full-write.c \
