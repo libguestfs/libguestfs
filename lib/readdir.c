@@ -23,6 +23,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <rpc/types.h>
 #include <rpc/xdr.h>
 
 #include "guestfs.h"                  /* guestfs_internal_readdir() */
