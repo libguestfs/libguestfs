@@ -60,8 +60,10 @@ extern const char *sysroot;
 extern size_t sysroot_len;
 extern dev_t root_device;
 
+extern void shell_quote (const char *str, FILE *fp);
 extern char *sysroot_path (const char *path);
 extern char *sysroot_realpath (const char *path);
+extern void sysroot_shell_quote (const char *path, FILE *fp);
 extern int is_root_device (const char *device);
 extern int is_device_parameter (const char *device);
 extern int xwrite (int sock, const void *buf, size_t len)
@@ -85,7 +87,6 @@ extern void udev_settle (void);
 extern int random_name (char *template);
 extern char *get_random_uuid (void);
 extern char *make_exclude_from_file (const char *function, char *const *excludes);
-extern int asprintf_nowarn (char **strp, const char *fmt, ...);
 extern char *read_whole_file (const char *filename, size_t *size_r);
 
 /* mountable functions (in utils.c) */

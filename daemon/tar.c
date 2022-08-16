@@ -140,6 +140,7 @@ do_tar_in (const char *dir, const char *compress, int xattrs, int selinux, int a
   int err, r;
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
   char error_file[] = "/tmp/tarXXXXXX";
   int fd, chown_supported;
 
@@ -186,25 +187,31 @@ do_tar_in (const char *dir, const char *compress, int xattrs, int selinux, int a
   close (fd);
 
   /* "tar -C /sysroot%s -xf -" but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "%s -C %R%s -xf - %s%s%s%s2> %s",
-                       "tar",
-                       dir, filter,
-                       chown_supported ? "" : "--no-same-owner ",
-                       /* --xattrs-include=* is a workaround for a bug
-                        * in tar, and hopefully won't be required
-                        * forever.  See RHBZ#771927.
-                        */
-                       xattrs ? "--xattrs --xattrs-include='*' " : "",
-                       selinux ? "--selinux " : "",
-                       acls ? "--acls " : "",
-                       error_file) == -1) {
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
     err = errno;
     r = cancel_receive ();
     errno = err;
-    reply_with_perror ("asprintf");
+    reply_with_perror ("open_memstream");
     unlink (error_file);
     return -1;
   }
+  fprintf (fp, "tar -C ");
+  sysroot_shell_quote (dir, fp);
+  fprintf (fp, "%s -xf - %s%s%s%s2> %s",
+           filter,
+           chown_supported ? "" : "--no-same-owner ",
+           /* --xattrs-include=* is a workaround for a bug
+            * in tar, and hopefully won't be required
+            * forever.  See RHBZ#771927.
+            */
+           xattrs ? "--xattrs --xattrs-include='*' " : "",
+           selinux ? "--selinux " : "",
+           acls ? "--acls " : "",
+           error_file);
+  if (fclose (fp) == EOF)
+    goto cmd_error;
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);
@@ -285,6 +292,7 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
   FILE *fp;
   CLEANUP_UNLINK_FREE char *exclude_from_file = NULL;
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
   CLEANUP_FREE char *buffer = NULL;
 
   buffer = malloc (GUESTFS_MAX_CHUNK_SIZE);
@@ -347,18 +355,24 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
   }
 
   /* "tar -C /sysroot%s -cf - ." but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "%s -C %Q%s%s%s%s%s%s%s -cf - .",
-                       "tar",
-                       buf, filter,
-                       numericowner ? " --numeric-owner" : "",
-                       exclude_from_file ? " -X " : "",
-                       exclude_from_file ? exclude_from_file : "",
-                       xattrs ? " --xattrs" : "",
-                       selinux ? " --selinux" : "",
-                       acls ? " --acls" : "") == -1) {
-    reply_with_perror ("asprintf");
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
+    reply_with_perror ("open_memstream");
     return -1;
   }
+  fprintf (fp, "tar -C ");
+  shell_quote (buf, fp);
+  fprintf (fp, "%s%s%s%s%s%s%s -cf - .",
+           filter,
+           numericowner ? " --numeric-owner" : "",
+           exclude_from_file ? " -X " : "",
+           exclude_from_file ? exclude_from_file : "",
+           xattrs ? " --xattrs" : "",
+           selinux ? " --selinux" : "",
+           acls ? " --acls" : "");
+  if (fclose (fp) == EOF)
+    goto cmd_error;
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);

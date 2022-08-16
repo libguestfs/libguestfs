@@ -127,7 +127,6 @@ guestfsd_SOURCES = \
 	file.c \
 	fill.c \
 	find.c \
-	format.c \
 	fs-min-size.c \
 	fsck.c \
 	fstrim.c \

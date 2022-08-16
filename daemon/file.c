@@ -452,6 +452,7 @@ do_zfile (const char *method, const char *path)
   size_t len;
   const char *zcat;
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
   FILE *fp;
   char line[256];
 
@@ -464,10 +465,17 @@ do_zfile (const char *method, const char *path)
     return NULL;
   }
 
-  if (asprintf_nowarn (&cmd, "%s %R | file -bsL -", zcat, path) == -1) {
-    reply_with_perror ("asprintf");
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
+    reply_with_perror ("open_memstream");
     return NULL;
   }
+  fprintf (fp, "%s ", zcat);
+  sysroot_shell_quote (path, fp);
+  fprintf (fp, " | file -bsL -");
+  if (fclose (fp) == EOF)
+    goto cmd_error;
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);

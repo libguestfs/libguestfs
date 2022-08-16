@@ -41,6 +41,7 @@ do_cpio_out (const char *dir, const char *format)
   int r;
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
   CLEANUP_FREE char *buffer = NULL;
 
   buffer = malloc (GUESTFS_MAX_CHUNK_SIZE);
@@ -76,13 +77,17 @@ do_cpio_out (const char *dir, const char *format)
   else
     format = "newc";
 
-  if (asprintf_nowarn (&cmd, "cd %Q && find -print0 | %s -0 -o -H %s --quiet",
-                       buf,
-                       "cpio",
-                       format) == -1) {
-    reply_with_perror ("asprintf");
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
+    reply_with_perror ("open_memstream");
     return -1;
   }
+  fprintf (fp, "cd ");
+  shell_quote (buf, fp);
+  fprintf (fp, " && find -print0 | %s -0 -o -H %s --quiet", "cpio", format);
+  if (fclose (fp) == EOF)
+    goto cmd_error;
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);

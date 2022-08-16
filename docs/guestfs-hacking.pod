@@ -824,37 +824,6 @@ and CC to L<rjones@redhat.com>.
 You do not need to subscribe to the mailing list if you don’t want to.
 There may be a short delay while your message is moderated.
 
-=head2 DAEMON CUSTOM PRINTF FORMATTERS
-
-In the daemon code we have created custom printf formatters C<%Q> and
-C<%R>, which are used to do shell quoting.
-
-=over 4
-
-=item %Q
-
-Simple shell quoted string.  Any spaces or other shell characters are
-escaped for you.
-
-=item %R
-
-Same as C<%Q> except the string is treated as a path which is prefixed
-by the sysroot.
-
-=back
-
-For example:
-
- asprintf (&cmd, "cat %R", path);
-
-would produce C<cat /sysroot/some\ path\ with\ spaces>
-
-I<Note:> Do I<not> use these when you are passing parameters to the
-C<command{,r,v,rv}()> functions.  These parameters do NOT need to be
-quoted because they are not passed via the shell (instead, straight to
-exec).  You probably want to use the C<sysroot_path()> function
-however.
-
 =head2 INTERNATIONALIZATION (I18N) SUPPORT
 
 We support i18n (gettext anyhow) in the library.

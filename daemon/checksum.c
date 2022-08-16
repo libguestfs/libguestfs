@@ -126,6 +126,7 @@ do_checksums_out (const char *csumtype, const char *dir)
   CLEANUP_FREE char *str = NULL;
   CLEANUP_FREE char *sysrootdir = NULL;
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
   FILE *fp;
 
   str = malloc (GUESTFS_MAX_CHUNK_SIZE);
@@ -154,12 +155,18 @@ do_checksums_out (const char *csumtype, const char *dir)
     return -1;
   }
 
-  cmd = NULL;
-  if (asprintf_nowarn (&cmd, "cd %Q && %s -type f -print0 | %s -0 %s",
-                       sysrootdir, "find", "xargs", program) == -1) {
-    reply_with_perror ("asprintf");
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
+    reply_with_perror ("open_memstream");
     return -1;
   }
+  fprintf (fp, "cd ");
+  shell_quote (sysrootdir, fp);
+  fprintf (fp, " && %s -type f -print0 | %s -0 %s",
+           "find", "xargs", program);
+  if (fclose (fp) == EOF)
+    goto cmd_error;
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);

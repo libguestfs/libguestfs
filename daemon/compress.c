@@ -34,6 +34,7 @@ do_compressX_out (const char *file, const char *filter, int is_device)
   int r;
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
   CLEANUP_FREE char *buf = NULL;
 
   buf = malloc (GUESTFS_MAX_CHUNK_SIZE);
@@ -53,17 +54,21 @@ do_compressX_out (const char *file, const char *filter, int is_device)
    * unhelpfully refuses to compress anything that isn't a regular
    * file.
    */
-  if (!is_device) {
-    if (asprintf_nowarn (&cmd, "%s %R", filter, file) == -1) {
-      reply_with_perror ("asprintf");
-      return -1;
-    }
-  } else {
-    if (asprintf_nowarn (&cmd, "%s < %Q", filter, file) == -1) {
-      reply_with_perror ("asprintf");
-      return -1;
-    }
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
+    reply_with_perror ("open_memstream");
+    return -1;
   }
+  fprintf (fp, "%s ", filter);
+  if (!is_device) {
+    sysroot_shell_quote (file, fp);
+  } else {
+    fprintf (fp, "< ");
+    shell_quote (file, fp);
+  }
+  if (fclose (fp) == EOF)
+    goto cmd_error;
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);
