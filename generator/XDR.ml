@@ -50,6 +50,10 @@ let generate_xdr () =
   pr "\n";
   pr "%%#include <config.h>\n";
   pr "\n";
+  pr "%%#ifndef HAVE_XDR_UINT64_T\n";
+  pr "%%#define xdr_uint64_t xdr_int64_t\n";
+  pr "%%#endif\n";
+  pr "\n";
 
   pr "/* This has to be defined to get around a limitation in Sun's rpcgen. */\n";
   pr "typedef string guestfs_str<>;\n";

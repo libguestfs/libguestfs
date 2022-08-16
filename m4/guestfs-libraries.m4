@@ -196,6 +196,13 @@ PKG_CHECK_MODULES([RPC], [libtirpc], [], [
     AC_SUBST([RPC_LIBS])
 ])
 
+dnl Unsigned 64 bit ints are not available on macOS, but
+dnl the signed functions can be used instead.
+old_LIBS="$LIBS"
+LIBS="$LIBS $RPC_LIBS"
+AC_CHECK_FUNCS([xdr_uint64_t])
+LIBS="$old_LIBS"
+
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
 AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])
 
