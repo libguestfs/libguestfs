@@ -71,8 +71,6 @@ guestfs_impl_find_inode (guestfs_h *g, const char *mountable, int64_t inode)
   return parse_dirent_file (g, tmpfile);  /* caller frees */
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wanalyzer-file-leak"
 /* Parse the file content and return dirents list.
  * Return a list of tsk_dirent on success, NULL on error.
  */
@@ -103,7 +101,6 @@ parse_dirent_file (guestfs_h *g, const char *tmpfile)
 
   return dirents;
 }
-#pragma GCC diagnostic pop
 
 /* Deserialise the file content and populate the dirent list.
  * Return the number of deserialised dirents, -1 on error.
