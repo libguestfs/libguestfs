@@ -44,10 +44,10 @@ ocaml
 # Output file is always created in the current directory.
 output=.depend
 
-subdir=$(realpath --relative-to=@abs_top_builddir@ .)
-srcdir=$(realpath --relative-to=. @abs_top_srcdir@/${subdir})
-srcdir_re=$(realpath --relative-to=. @abs_top_srcdir@/${subdir} | sed 's/\./[.]/g')
-top_builddir=$(realpath --relative-to=. @abs_top_builddir@)
+subdir=$(@REALPATH@ --relative-to=@abs_top_builddir@ .)
+srcdir=$(@REALPATH@ --relative-to=. @abs_top_srcdir@/${subdir})
+srcdir_re=$(@REALPATH@ --relative-to=. @abs_top_srcdir@/${subdir} | sed 's/\./[.]/g')
+top_builddir=$(@REALPATH@ --relative-to=. @abs_top_builddir@)
 
 includes="-I @abs_top_srcdir@/$subdir -I @abs_top_builddir@/$subdir"
 for i in $include_dirs; do

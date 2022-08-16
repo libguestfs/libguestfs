@@ -142,6 +142,10 @@ I<Required>.
 
 I<Required>.
 
+=item realpath
+
+I<Required>.
+
 =item flex
 
 =item bison
