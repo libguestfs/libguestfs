@@ -36,6 +36,7 @@ do_initrd_list (const char *path)
 {
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (filenames);
   CLEANUP_FREE char *filename = NULL;
   size_t allocsize;
@@ -43,10 +44,17 @@ do_initrd_list (const char *path)
   int ret;
 
   /* "zcat /sysroot/<path> | cpio --quiet -it", but path must be quoted. */
-  if (asprintf_nowarn (&cmd, "zcat %R | cpio --quiet -it", path) == -1) {
-    reply_with_perror ("asprintf");
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
+    reply_with_perror ("open_memstream");
     return NULL;
   }
+  fprintf (fp, "zcat ");
+  sysroot_shell_quote (path, fp);
+  fprintf (fp, " | cpio --quiet -it");
+  if (fclose (fp) == EOF)
+    goto cmd_error;
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);
@@ -92,6 +100,8 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
 {
   char tmpdir[] = "/tmp/initrd-cat-XXXXXX";
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
+  FILE *fp;
   struct stat statbuf;
   int fd, r;
   char *ret = NULL;
@@ -108,12 +118,21 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
    * cpio is silent in this case.
    */
   /* "zcat /sysroot/<path> | cpio --quiet -id file", but paths must be quoted */
-  if (asprintf_nowarn (&cmd, "cd %Q && zcat %R | cpio --quiet -id %Q",
-                       tmpdir, path, filename) == -1) {
-    reply_with_perror ("asprintf");
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
+    reply_with_perror ("open_memstream");
     rmdir (tmpdir);
     return NULL;
   }
+  fprintf (fp, "cd ");
+  shell_quote (tmpdir, fp);
+  fprintf (fp, " && zcat ");
+  sysroot_shell_quote (path, fp);
+  fprintf (fp, " | cpio --quiet -id ");
+  shell_quote (filename, fp);
+  if (fclose (fp) == EOF)
+    goto cmd_error;
 
   r = system (cmd);
   if (r == -1) {

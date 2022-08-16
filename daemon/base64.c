@@ -44,15 +44,22 @@ do_base64_in (const char *file)
   int err, r;
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
   int fd;
 
-  if (asprintf_nowarn (&cmd, "%s -d -i > %R", "base64", file) == -1) {
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
     err = errno;
     cancel_receive ();
     errno = err;
-    reply_with_perror ("asprintf");
+    reply_with_perror ("malloc");
     return -1;
   }
+  fprintf (fp, "%s -d -i > ", "base64");
+  sysroot_shell_quote (file, fp);
+  if (fclose (fp) == EOF)
+    goto cmd_error;
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);
@@ -104,6 +111,7 @@ do_base64_out (const char *file)
   int r;
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
   CLEANUP_FREE char *buffer = NULL;
 
   buffer = malloc (GUESTFS_MAX_CHUNK_SIZE);
@@ -130,10 +138,16 @@ do_base64_out (const char *file)
   }
 
   /* Construct the command. */
-  if (asprintf_nowarn (&cmd, "%s %Q", "base64", buf) == -1) {
-    reply_with_perror ("asprintf");
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
+    reply_with_perror ("open_memstream");
     return -1;
   }
+  fprintf (fp, "base64 ");
+  shell_quote (buf, fp);
+  if (fclose (fp) == EOF)
+    goto cmd_error;
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);

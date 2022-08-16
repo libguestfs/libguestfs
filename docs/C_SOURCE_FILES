@@ -86,7 +86,6 @@ daemon/fallocate.c
 daemon/file.c
 daemon/fill.c
 daemon/find.c
-daemon/format.c
 daemon/fs-min-size.c
 daemon/fsck.c
 daemon/fstrim.c

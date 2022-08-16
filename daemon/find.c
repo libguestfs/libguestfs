@@ -57,6 +57,7 @@ do_find0 (const char *dir)
   int r;
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
   CLEANUP_FREE char *sysrootdir = NULL;
   size_t sysrootdirlen;
   CLEANUP_FREE char *str = NULL;
@@ -85,10 +86,17 @@ do_find0 (const char *dir)
 
   sysrootdirlen = strlen (sysrootdir);
 
-  if (asprintf_nowarn (&cmd, "find %Q -print0", sysrootdir) == -1) {
-    reply_with_perror ("asprintf");
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
+    reply_with_perror ("open_memstream");
     return -1;
   }
+  fprintf (fp, "find ");
+  shell_quote (sysrootdir, fp);
+  fprintf (fp, " -print0");
+  if (fclose (fp) == EOF)
+    goto cmd_error;
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);

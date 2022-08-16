@@ -53,17 +53,6 @@
 #include "daemon.h"
 
 static void makeraw (const char *channel, int fd);
-static int print_shell_quote (FILE *stream, const struct printf_info *info, const void *const *args);
-static int print_sysroot_shell_quote (FILE *stream, const struct printf_info *info, const void *const *args);
-#ifdef HAVE_REGISTER_PRINTF_SPECIFIER
-static int print_arginfo (const struct printf_info *info, size_t n, int *argtypes, int *size);
-#else
-#ifdef HAVE_REGISTER_PRINTF_FUNCTION
-static int print_arginfo (const struct printf_info *info, size_t n, int *argtypes);
-#else
-#error "HAVE_REGISTER_PRINTF_{SPECIFIER|FUNCTION} not defined"
-#endif
-#endif
 
 #ifdef WIN32
 static int
@@ -114,19 +103,6 @@ main (int argc, char *argv[])
 
   if (winsock_init () == -1)
     error (EXIT_FAILURE, 0, "winsock initialization failed");
-
-#ifdef HAVE_REGISTER_PRINTF_SPECIFIER
-  /* http://udrepper.livejournal.com/20948.html */
-  register_printf_specifier ('Q', print_shell_quote, print_arginfo);
-  register_printf_specifier ('R', print_sysroot_shell_quote, print_arginfo);
-#else
-#ifdef HAVE_REGISTER_PRINTF_FUNCTION
-  register_printf_function ('Q', print_shell_quote, print_arginfo);
-  register_printf_function ('R', print_sysroot_shell_quote, print_arginfo);
-#else
-#error "HAVE_REGISTER_PRINTF_{SPECIFIER|FUNCTION} not defined"
-#endif
-#endif
 
   /* XXX The appliance /init script sets LD_PRELOAD=../libSegFault.so.
    * However if we CHROOT_IN to the sysroot that file might not exist,
@@ -347,62 +323,30 @@ makeraw (const char *channel, int fd)
 }
 
 /**
- * printf helper function so we can use C<%Q> ("quoted") and C<%R> to
- * print shell-quoted strings.  See L<guestfs-hacking(1)> for more
- * details.
+ * Write C<str> to the file C<fp>, ensuring it is shell quoted.
  */
-static int
-print_shell_quote (FILE *stream,
-                   const struct printf_info *info ATTRIBUTE_UNUSED,
-                   const void *const *args)
+void
+shell_quote (const char *str, FILE *fp)
 {
 #define SAFE(c) (c_isalnum((c)) ||					\
                  (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
-  int i, len;
-  const char *str = *((const char **) (args[0]));
+  size_t i;
 
-  for (i = len = 0; str[i]; ++i) {
+  for (i = 0; str[i]; ++i) {
     if (!SAFE (str[i])) {
-      putc ('\\', stream);
-      len ++;
+      putc ('\\', fp);
     }
-    putc (str[i], stream);
-    len ++;
+    putc (str[i], fp);
   }
-
-  return len;
 }
 
-static int
-print_sysroot_shell_quote (FILE *stream,
-                           const struct printf_info *info,
-                           const void *const *args)
+/**
+ * Write C<sysroot> + C<path> to the file C<fp>, ensuring it is shell
+ * quoted.  The path must be an absolute path.
+ */
+void
+sysroot_shell_quote (const char *path, FILE *fp)
 {
-  fputs (sysroot, stream);
-  return sysroot_len + print_shell_quote (stream, info, args);
+  fputs (sysroot, fp);
+  shell_quote (path, fp);
 }
-
-#ifdef HAVE_REGISTER_PRINTF_SPECIFIER
-static int
-print_arginfo (const struct printf_info *info ATTRIBUTE_UNUSED,
-               size_t n, int *argtypes, int *size)
-{
-  if (n > 0) {
-    argtypes[0] = PA_STRING;
-    size[0] = sizeof (const char *);
-  }
-  return 1;
-}
-#else
-#ifdef HAVE_REGISTER_PRINTF_FUNCTION
-static int
-print_arginfo (const struct printf_info *info, size_t n, int *argtypes)
-{
-  if (n > 0)
-    argtypes[0] = PA_STRING;
-  return 1;
-}
-#else
-#error "HAVE_REGISTER_PRINTF_{SPECIFIER|FUNCTION} not defined"
-#endif
-#endif

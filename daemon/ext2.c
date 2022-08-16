@@ -1314,12 +1314,24 @@ int
 do_mklost_and_found (const char *mountpoint)
 {
   CLEANUP_FREE char *cmd = NULL;
+  size_t cmd_size;
+  FILE *fp;
   int r;
 
-  if (asprintf_nowarn (&cmd, "cd %R && mklost+found", mountpoint) == -1) {
-    reply_with_perror ("asprintf");
+  fp = open_memstream (&cmd, &cmd_size);
+  if (fp == NULL) {
+  cmd_error:
+    reply_with_perror ("open_memstream");
     return -1;
   }
+  fprintf (fp, "cd ");
+  sysroot_shell_quote (mountpoint, fp);
+  fprintf (fp, " && mklost+found");
+  if (fclose (fp) == EOF)
+    goto cmd_error;
+
+  if (verbose)
+    fprintf (stderr, "%s\n", cmd);
 
   r = system (cmd);
   if (r == -1) {
