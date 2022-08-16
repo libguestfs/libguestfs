@@ -152,4 +152,16 @@ typedef enum {
   MOUNTABLE_PATH        /* An already mounted path: device = path */
 } mountable_type_t;
 
+/* Some functions replaced by gnulib */
+#ifndef HAVE_ACCEPT4
+#include <sys/socket.h>
+
+extern int accept4 (int sockfd, struct sockaddr *restrict addr,
+		    socklen_t *restrict addrlen, int flags);
+#endif
+
+#ifndef HAVE_PIPE2
+extern int pipe2(int pipefd[2], int flags);
+#endif
+
 #endif /* GUESTFS_INTERNAL_ALL_H_ */

@@ -23,6 +23,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 noinst_LTLIBRARIES = libgnu.la
 libgnu_la_SOURCES = \
+	accept4.c \
 	base64.c \
 	base64.h \
 	bitrotate.h \
@@ -41,6 +42,7 @@ libgnu_la_SOURCES = \
 	ignore-value.h \
 	nonblocking.c \
 	nonblocking.h \
+	pipe2.c \
 	safe-read.c \
 	safe-read.h \
 	safe-write.c \

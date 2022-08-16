@@ -64,6 +64,7 @@ AC_CHECK_HEADERS([\
 
 dnl Functions.
 AC_CHECK_FUNCS([\
+    accept4 \
     be32toh \
     fsync \
     futimens \
@@ -79,6 +80,7 @@ AC_CHECK_FUNCS([\
     mknod \
     ntohl \
     ntohs \
+    pipe2 \
     posix_fallocate \
     posix_fadvise \
     removexattr \
