@@ -31,6 +31,9 @@ AC_CHECK_MEMBER([struct stat.st_mtim.tv_nsec],[
 AC_CHECK_MEMBER([struct stat.st_ctim.tv_nsec],[
     AC_DEFINE([HAVE_STRUCT_STAT_ST_CTIM_TV_NSEC],[1],[Define to 1 if 'st_mtim.tv_nsec' is a member of 'struct stat'.])])
 
+dnl Test if it's GNU or XSI strerror_r.
+AC_FUNC_STRERROR_R
+
 dnl Define a C symbol for the host CPU architecture.
 AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 
