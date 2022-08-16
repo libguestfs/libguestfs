@@ -38,7 +38,7 @@ do_grub_install (const char *root, const char *device)
   int r;
   CLEANUP_FREE char *err = NULL, *buf = NULL, *out = NULL;
 
-  if (asprintf_nowarn (&buf, "--root-directory=%R", root) == -1) {
+  if (asprintf (&buf, "--root-directory=%s%s", sysroot, root) == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }
