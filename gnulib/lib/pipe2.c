@@ -16,6 +16,8 @@
 
 #include <config.h>
 
+#ifndef HAVE_PIPE2
+
 /* Specification.  */
 #include <unistd.h>
 
@@ -49,26 +51,6 @@ pipe2 (int fd[2], int flags)
   int tmp[2];
   tmp[0] = fd[0];
   tmp[1] = fd[1];
-
-#if HAVE_PIPE2
-# undef pipe2
-  /* Try the system call first, if it exists.  (We may be running with a glibc
-     that has the function but with an older kernel that lacks it.)  */
-  {
-    /* Cache the information whether the system call really exists.  */
-    static int have_pipe2_really; /* 0 = unknown, 1 = yes, -1 = no */
-    if (have_pipe2_really >= 0)
-      {
-        int result = pipe2 (fd, flags);
-        if (!(result < 0 && errno == ENOSYS))
-          {
-            have_pipe2_really = 1;
-            return result;
-          }
-        have_pipe2_really = -1;
-      }
-  }
-#endif
 
   /* Check the supported flags.  */
   if ((flags & ~(O_CLOEXEC | O_NONBLOCK | O_BINARY | O_TEXT)) != 0)
@@ -169,3 +151,5 @@ pipe2 (int fd[2], int flags)
   }
 #endif
 }
+
+#endif /* !HAVE_PIPE2 */

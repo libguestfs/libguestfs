@@ -16,6 +16,8 @@
 
 #include <config.h>
 
+#ifndef HAVE_ACCEPT4
+
 /* Specification.  */
 #include <sys/socket.h>
 
@@ -43,26 +45,6 @@ int
 accept4 (int sockfd, struct sockaddr *addr, socklen_t *addrlen, int flags)
 {
   int fd;
-
-#if HAVE_DECL_ACCEPT4
-# undef accept4
-  /* Try the system call first, if it exists.  (We may be running with a glibc
-     that has the function but with an older kernel that lacks it.)  */
-  {
-    /* Cache the information whether the system call really exists.  */
-    static int have_accept4_really; /* 0 = unknown, 1 = yes, -1 = no */
-    if (have_accept4_really >= 0)
-      {
-        int result = accept4 (sockfd, addr, addrlen, flags);
-        if (!(result < 0 && errno == ENOSYS))
-          {
-            have_accept4_really = 1;
-            return result;
-          }
-        have_accept4_really = -1;
-      }
-  }
-#endif
 
   /* Check the supported flags.  */
   if ((flags & ~(SOCK_CLOEXEC | SOCK_NONBLOCK | O_TEXT | O_BINARY)) != 0)
@@ -153,3 +135,5 @@ accept4 (int sockfd, struct sockaddr *addr, socklen_t *addrlen, int flags)
 
   return fd;
 }
+
+#endif /* !HAVE_ACCEPT4 */
