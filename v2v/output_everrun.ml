@@ -53,6 +53,33 @@ let get_doh_session () =
     error (f_"login failed")
 ;;
 
+let do_doh_request doh_cmd =
+  if verbose () then printf "Output_everrun::do_doh_request\n";
+  get_doh_session ();
+  let cmd_curl = sprintf "curl  -s -b cookie_file -c cookie_file -H \"Content-type: text/xml\" -d \"<requests output='XML'>%s</requests>\" http://localhost/doh/ > %s" doh_cmd !tmp_output_file in
+  if verbose () then printf "%s\n" cmd_curl;
+  if Sys.command cmd_curl <> 0 then
+    error (f_"do doh request failed");
+  let xml = read_whole_file !tmp_output_file in
+  clean_up ();
+  let doc = Xml.parse_memory xml in
+  let xpathctx = Xml.xpath_new_context doc in
+  let xpath_string = xpath_string xpathctx in
+  let status = match xpath_string "/responses/response/@status" with
+               | None -> ""
+               | Some s -> (string_trim s) in
+  if status <> "ok" then
+    error (f_"do doh request %s failed, status is %s") cmd_curl status;
+  xml
+;;
+
+let do_doh_request_ignore_response doh_cmd =
+  let resp_xml = do_doh_request doh_cmd in
+  let cmd = sprintf "echo %s > /dev/null" resp_xml in
+  if Sys.command cmd <> 0 && verbose () then
+    printf "Warning: output response to /dev/null failed\n";
+;;
+
 let trigger_doh_alert () =
   if verbose () then printf "Output_everrun::trigger_doh_alert\n";
   get_doh_session ();
@@ -71,35 +98,6 @@ let trigger_doh_alert () =
                | Some s -> (string_trim s) in
   if status <> "ok" then
     error (f_"Everrun Doh command failed status was: %s") status;
-;;
-
-let do_doh_request doh_cmd =
-  if verbose () then printf "Output_everrun::do_doh_request\n";
-  get_doh_session ();
-  let cmd_curl = sprintf "curl  -s -b cookie_file -c cookie_file -H \"Content-type: text/xml\" -d \"<requests output='XML'>%s</requests>\" http://localhost/doh/ > %s" doh_cmd !tmp_output_file in
-  if verbose () then printf "%s\n" cmd_curl;
-  if Sys.command cmd_curl <> 0 then
-    error (f_"do doh request failed");
-  let xml = read_whole_file !tmp_output_file in
-  clean_up ();
-  let doc = Xml.parse_memory xml in
-  let xpathctx = Xml.xpath_new_context doc in
-  let xpath_string = xpath_string xpathctx in
-  let status = match xpath_string "/responses/response/@status" with
-               | None -> ""
-               | Some s -> (string_trim s) in
-  if status <> "ok" then (
-    trigger_doh_alert ();
-    error (f_"do doh request %s failed, status is %s, see detail:\n %s") cmd_curl status xml;
-  );
-  xml
-;;
-
-let do_doh_request_ignore_response doh_cmd =
-  let resp_xml = do_doh_request doh_cmd in
-  let cmd = sprintf "echo %s > /dev/null" resp_xml in
-  if Sys.command cmd <> 0 && verbose () then
-    printf "Warning: output response to /dev/null failed\n";
 ;;
 
 let get_primary_host_oid () =
