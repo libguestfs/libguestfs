@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.49.1\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-07-01 15:27+0100\n"
-"PO-Revision-Date: 2022-07-31 07:19+0000\n"
+"POT-Creation-Date: 2022-08-01 14:13+0100\n"
+"PO-Revision-Date: 2022-09-06 09:19+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ka/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13\n"
+"X-Generator: Weblate 4.14\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -2436,7 +2436,7 @@ msgstr ""
 
 #: fish/cmds.c:1162
 msgid "create an LVM volume group"
-msgstr ""
+msgstr "LVM2 საცავის ჯგუფის შექმნა"
 
 #: fish/cmds.c:1163
 msgid "get the LV UUIDs of all LVs in the volume group"
