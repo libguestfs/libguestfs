@@ -651,6 +651,13 @@ do_lvm_scan (int activate)
   const char *argv[MAX_ARGS];
   size_t i = 0;
 
+  /* Historically this call was never added to the "lvm2" optgroup.
+   * Rather than changing that and have the small risk of breaking
+   * callers, just make it into a no-op if LVM is not available.
+   */
+  if (optgroup_lvm2_available () == 0)
+    return 0;
+
   ADD_ARG (argv, i, "lvm");
   ADD_ARG (argv, i, "pvscan");
   ADD_ARG (argv, i, "--cache");
