@@ -235,12 +235,15 @@ fuse/guestunmount.c
 fuse/test-fuse.c
 fuse/test-guestmount-fd.c
 fuse/test-guestunmount-fd.c
+gnulib/lib/accept4.c
 gnulib/lib/base64.c
 gnulib/lib/base64.h
 gnulib/lib/bitrotate.h
 gnulib/lib/c-ctype.h
 gnulib/lib/cloexec.c
 gnulib/lib/cloexec.h
+gnulib/lib/error.c
+gnulib/lib/error.h
 gnulib/lib/full-read.c
 gnulib/lib/full-read.h
 gnulib/lib/full-write.c
@@ -253,6 +256,7 @@ gnulib/lib/hash.h
 gnulib/lib/ignore-value.h
 gnulib/lib/nonblocking.c
 gnulib/lib/nonblocking.h
+gnulib/lib/pipe2.c
 gnulib/lib/safe-read.c
 gnulib/lib/safe-read.h
 gnulib/lib/safe-write.c

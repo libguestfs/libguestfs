@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.49.4\n"
+"Project-Id-Version: libguestfs 1.49.5\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-08-01 14:13+0100\n"
+"POT-Creation-Date: 2022-10-11 14:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,19 +23,19 @@ msgstr ""
 msgid "%s: line %d: error parsing configuration file: %s"
 msgstr ""
 
-#: common/options/decrypt.c:48
+#: common/options/decrypt.c:52
 #, c-format
 msgid "string size overflow"
 msgstr ""
 
-#: common/options/decrypt.c:166
+#: common/options/decrypt.c:172
 #, c-format
 msgid ""
 "'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
 "libguestfs version"
 msgstr ""
 
-#: common/options/decrypt.c:180
+#: common/options/decrypt.c:186
 #, c-format
 msgid ""
 "could not find key to open LUKS encrypted %s.\n"
@@ -240,12 +240,12 @@ msgstr ""
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
-#: common/windows/windows.c:142
+#: common/windows/windows.c:139
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
 
-#: common/windows/windows.c:153
+#: common/windows/windows.c:150
 #, c-format
 msgid "drive '%c:' not found."
 msgstr ""
@@ -3350,6 +3350,10 @@ msgstr ""
 msgid "%s: %s is not mounted: %s\n"
 msgstr ""
 
+#: gnulib/lib/error.c:146
+msgid "Unknown system error"
+msgstr ""
+
 #: lib/appliance-kcmdline.c:74
 #, c-format
 msgid "open: %s"
@@ -3925,7 +3929,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:901 lib/launch-libvirt.c:713
+#: lib/launch-direct.c:895 lib/launch-libvirt.c:707
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -3957,20 +3961,20 @@ msgstr ""
 msgid "you must have libvirt >= %d.%d.%d to use the ‘libvirt’ backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:392
+#: lib/launch-libvirt.c:391
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: lib/launch-libvirt.c:421
+#: lib/launch-libvirt.c:420
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:442
+#: lib/launch-libvirt.c:441
 msgid "could not get libvirt domain capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:642
+#: lib/launch-libvirt.c:636
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -3980,21 +3984,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:780
+#: lib/launch-libvirt.c:772
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:786 lib/launch-libvirt.c:888 lib/libvirt-domain.c:397
+#: lib/launch-libvirt.c:778 lib/launch-libvirt.c:880 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: lib/launch-libvirt.c:796 lib/launch-libvirt.c:896 lib/launch-libvirt.c:912
+#: lib/launch-libvirt.c:788 lib/launch-libvirt.c:888 lib/launch-libvirt.c:904
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:835
+#: lib/launch-libvirt.c:827
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -4009,56 +4013,56 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:882
+#: lib/launch-libvirt.c:874
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1517 lib/launch-libvirt.c:1775 lib/qemu.c:822
+#: lib/launch-libvirt.c:1509 lib/launch-libvirt.c:1767 lib/qemu.c:816
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1600
+#: lib/launch-libvirt.c:1592
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1990
+#: lib/launch-libvirt.c:1982
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2001
+#: lib/launch-libvirt.c:1993
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:2005
+#: lib/launch-libvirt.c:1997
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:2026
+#: lib/launch-libvirt.c:2018
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2039
+#: lib/launch-libvirt.c:2031
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2212
+#: lib/launch-libvirt.c:2204
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2233 lib/launch-libvirt.c:2266
+#: lib/launch-libvirt.c:2225 lib/launch-libvirt.c:2258
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch.c:63
+#: lib/launch.c:64
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: lib/launch.c:76
+#: lib/launch.c:77
 #, c-format
 msgid ""
 "too many drives have been added, the current backend only supports %d drives"
@@ -4275,35 +4279,35 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: lib/qemu.c:992
+#: lib/qemu.c:986
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: lib/qemu.c:1001
+#: lib/qemu.c:995
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:1008
+#: lib/qemu.c:1002
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:1016
+#: lib/qemu.c:1010
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: lib/qemu.c:1024
+#: lib/qemu.c:1018
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:1047
+#: lib/qemu.c:1041
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
