@@ -76,6 +76,13 @@ if ! test -e /etc/mtab; then
   ln -s /proc/mounts /etc/mtab
 fi
 
+# For openssl (RHBZ#2133884).
+if test -d /etc/crypto-policies/back-ends &&
+        ! test -f /etc/crypto-policies/back-ends/opensslcnf.config &&
+        test -f /usr/share/crypto-policies/DEFAULT/opensslcnf.txt ; then
+    ln -sf /usr/share/crypto-policies/DEFAULT/opensslcnf.txt /etc/crypto-policies/back-ends/opensslcnf.config
+fi
+
 # Static nodes must happen before udev is started.
 
 # Set up kmod static-nodes (RHBZ#1011907).
