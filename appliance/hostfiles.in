@@ -14,12 +14,6 @@ dnl   FRUGALWARE=1   For Frugalware.
 dnl   MAGEIA=1       For Mageia.
 dnl   OPENMANDRIVA=1 For OpenMandriva.
 
-# Work around broken openssl in Fedora 37+ by forcibly copying in
-# these host configuration files (RHBZ#2133884).
-ifelse(REDHAT,1,
-/etc/crypto-policies/back-ends/*.config
-)
-
 /etc/ld.so.cache
 /lib/lsb/*
 /usr/share/augeas/lenses/*.aug
