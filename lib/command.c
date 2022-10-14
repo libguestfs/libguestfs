@@ -452,13 +452,15 @@ debug_command (struct command *cmd)
   }
 }
 
-static void run_child (struct command *cmd) __attribute__((noreturn));
+static void run_child (struct command *cmd,
+                       char **env) __attribute__((noreturn));
 
 static int
 run_command (struct command *cmd)
 {
   int errorfd[2] = { -1, -1 };
   int outfd[2] = { -1, -1 };
+  CLEANUP_FREE_STRING_LIST char **env = NULL;
 
   /* Set up a pipe to capture command output and send it to the error log. */
   if (cmd->capture_errors) {
@@ -475,6 +477,10 @@ run_command (struct command *cmd)
       goto error;
     }
   }
+
+  env = guestfs_int_copy_environ (environ, "LC_ALL", "C", NULL);
+  if (env == NULL)
+    goto error;
 
   cmd->pid = fork ();
   if (cmd->pid == -1) {
@@ -519,7 +525,7 @@ run_command (struct command *cmd)
   if (cmd->stderr_to_stdout)
     dup2 (1, 2);
 
-  run_child (cmd);
+  run_child (cmd, env);
   /*NOTREACHED*/
 
  error:
@@ -536,7 +542,7 @@ run_command (struct command *cmd)
 }
 
 static void
-run_child (struct command *cmd)
+run_child (struct command *cmd, char **env)
 {
   struct sigaction sa;
   int i, err, fd, max_fd, r;
@@ -570,9 +576,6 @@ run_child (struct command *cmd)
     for (fd = 3; fd < max_fd; ++fd)
       close (fd);
   }
-
-  /* Clean up the environment. */
-  setenv ("LC_ALL", "C", 1);
 
   /* Set the umask for all subcommands to something sensible (RHBZ#610880). */
   umask (022);
@@ -609,6 +612,12 @@ run_child (struct command *cmd)
    * There is a regression test for this.  See:
    * tests/regressions/test-big-heap.c
    */
+
+  /* Note the assignment of environ avoids using execvpe which is a
+   * GNU extension.  See also:
+   * https://github.com/libguestfs/libnbd/commit/dc64ac5cdd0bc80ca4e18935ad0e8801d11a8644
+   */
+  environ = env;
 
   /* Run the command. */
   switch (cmd->style) {
@@ -792,6 +801,7 @@ guestfs_int_cmd_pipe_run (struct command *cmd, const char *mode)
   int errfd = -1;
   int r_mode;
   int ret;
+  CLEANUP_FREE_STRING_LIST char **env = NULL;
 
   finish_command (cmd);
 
@@ -825,6 +835,10 @@ guestfs_int_cmd_pipe_run (struct command *cmd, const char *mode)
     perrorf (cmd->g, "open: %s", cmd->error_file);
     goto error;
   }
+
+  env = guestfs_int_copy_environ (environ, "LC_ALL", "C", NULL);
+  if (env == NULL)
+    goto error;
 
   cmd->pid = fork ();
   if (cmd->pid == -1) {
@@ -864,7 +878,7 @@ guestfs_int_cmd_pipe_run (struct command *cmd, const char *mode)
     close (fd[0]);
   }
 
-  run_child (cmd);
+  run_child (cmd, env);
   /*NOTREACHED*/
 
  error:
