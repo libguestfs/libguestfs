@@ -390,6 +390,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   const char *cpu_model;
   CLEANUP_FREE char *append = NULL;
   CLEANUP_FREE_STRING_LIST char **argv = NULL;
+  CLEANUP_FREE_STRING_LIST char **env = NULL;
 
   if (!g->nr_drives) {
     error (g, _("you must call guestfs_add_drive before guestfs_launch"));
@@ -726,6 +727,15 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   /* Get the argv list from the command line. */
   argv = qemuopts_to_argv (qopts);
 
+  /* Create the environ for the child process. */
+  env = guestfs_int_copy_environ (environ,
+                                  "LC_ALL", "C",
+                                  /* Prevents qemu opening /dev/dsp */
+                                  "QEMU_AUDIO_DRV", "none",
+                                  NULL);
+  if (env == NULL)
+    goto cleanup0;
+
   r = fork ();
   if (r == -1) {
     perrorf (g, "fork");
@@ -790,12 +800,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     if (g->pgroup)
       setpgid (0, 0);
 
-    setenv ("LC_ALL", "C", 1);
-    setenv ("QEMU_AUDIO_DRV", "none", 1); /* Prevents qemu opening /dev/dsp */
-
     TRACE0 (launch_run_qemu);
 
-    execv (g->hv, argv);        /* Run qemu. */
+    execve (g->hv, argv, env);        /* Run qemu. */
     perror (g->hv);
     _exit (EXIT_FAILURE);
   }
