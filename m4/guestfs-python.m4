@@ -86,16 +86,16 @@ If you want to use Python 2, you will need to use libguestfs 1.40 or 1.42.0.])
 	    PYTHON_INSTALLDIR=
             AC_MSG_CHECKING([for Python site-packages path])
             if test -z "$PYTHON_INSTALLDIR"; then
-                PYTHON_INSTALLDIR=`$PYTHON -c "import distutils.sysconfig; \
-                                               print (distutils.sysconfig.get_python_lib(1,0));"`
+                PYTHON_INSTALLDIR=`$PYTHON -c "import sysconfig; \
+                                               print (sysconfig.get_path('platlib'));"`
             fi
             AC_MSG_RESULT([$PYTHON_INSTALLDIR])
         fi
 
         AC_MSG_CHECKING([for Python extension suffix (PEP-3149)])
         if test -z "$PYTHON_EXT_SUFFIX"; then
-            python_ext_suffix=`$PYTHON -c "import distutils.sysconfig; \
-                                         print (distutils.sysconfig.get_config_var('EXT_SUFFIX') or distutils.sysconfig.get_config_var('SO'))"`
+            python_ext_suffix=`$PYTHON -c "import sysconfig; \
+                                         print (sysconfig.get_config_var('EXT_SUFFIX') or sysconfig.get_config_var('SO'))"`
             PYTHON_EXT_SUFFIX=$python_ext_suffix
         fi
         AC_MSG_RESULT([$PYTHON_EXT_SUFFIX])
@@ -105,8 +105,8 @@ If you want to use Python 2, you will need to use libguestfs 1.40 or 1.42.0.])
         dnl Look for some optional symbols in libpython.
         old_LIBS="$LIBS"
 
-        PYTHON_BLDLIBRARY=`$PYTHON -c "import distutils.sysconfig; \
-                                       print (distutils.sysconfig.get_config_var('BLDLIBRARY'))"`
+        PYTHON_BLDLIBRARY=`$PYTHON -c "import sysconfig; \
+                                       print (sysconfig.get_config_var('BLDLIBRARY'))"`
         AC_CHECK_LIB([c],[_Py_IsFinalizing],
                      [AC_DEFINE([HAVE_PY_ISFINALIZING],1,
                                 [Found _Py_IsFinalizing in libpython.])],
