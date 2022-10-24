@@ -339,10 +339,6 @@ let generate_gobject_optargs_source filename name optargs f () =
   pr "\n";
   pr "#include <string.h>\n\n";
 
-  pr "#define GUESTFS_%s_GET_PRIVATE(obj) " uc_name;
-  pr "(G_TYPE_INSTANCE_GET_PRIVATE ((obj), %s, %sPrivate))\n\n"
-    type_define camel_name;
-
   pr "struct _%sPrivate {\n" camel_name;
   List.iter (
     function
@@ -354,7 +350,9 @@ let generate_gobject_optargs_source filename name optargs f () =
   ) optargs;
   pr "};\n\n";
 
-  pr "G_DEFINE_TYPE (%s, guestfs_%s, G_TYPE_OBJECT);\n\n" camel_name name;
+  pr "G_DEFINE_TYPE_WITH_CODE (%s, guestfs_%s, G_TYPE_OBJECT,\n"
+    camel_name name;
+  pr "                         G_ADD_PRIVATE (%s));\n\n" camel_name;
 
   pr "enum {\n";
   pr "  PROP_GUESTFS_%s_PROP0" uc_name;
@@ -495,12 +493,11 @@ let generate_gobject_optargs_source filename name optargs f () =
   ) optargs;
 
   pr "  object_class->finalize = guestfs_%s_finalize;\n" name;
-  pr "  g_type_class_add_private (klass, sizeof (%sPrivate));\n" camel_name;
   pr "}\n\n";
 
   pr "static void\nguestfs_%s_init (%s *o)\n" name camel_name;
   pr "{\n";
-  pr "  o->priv = GUESTFS_%s_GET_PRIVATE (o);\n" uc_name;
+  pr "  o->priv = guestfs_%s_get_instance_private (o);\n" name;
   pr "  /* XXX: Find out if gobject already zeroes private structs */\n";
   pr "  memset (o->priv, 0, sizeof (%sPrivate));\n" camel_name;
   pr "}\n\n";
@@ -821,18 +818,14 @@ guestfs_session_event_get_type (void)
 
 /* GuestfsSession */
 
-#define GUESTFS_SESSION_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ( \
-                                            (obj), \
-                                            GUESTFS_TYPE_SESSION, \
-                                            GuestfsSessionPrivate))
-
 struct _GuestfsSessionPrivate
 {
   guestfs_h *g;
   int event_handle;
 };
 
-G_DEFINE_TYPE (GuestfsSession, guestfs_session, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_CODE (GuestfsSession, guestfs_session, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GuestfsSession));
 
 static void
 guestfs_session_finalize (GObject *object)
@@ -850,9 +843,7 @@ guestfs_session_class_init (GuestfsSessionClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  object_class->finalize = guestfs_session_finalize;
-
-  g_type_class_add_private (klass, sizeof (GuestfsSessionPrivate));";
+  object_class->finalize = guestfs_session_finalize;";
 
   List.iter (
     fun (name, _) ->
@@ -883,7 +874,7 @@ guestfs_session_class_init (GuestfsSessionClass *klass)
 static void
 guestfs_session_init (GuestfsSession *session)
 {
-  session->priv = GUESTFS_SESSION_GET_PRIVATE (session);
+  session->priv = guestfs_session_get_instance_private (session);
   session->priv->g = guestfs_create ();
 
   guestfs_h *g = session->priv->g;
