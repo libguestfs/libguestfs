@@ -17,16 +17,6 @@ if [ ! -d /tmp ] || [ ! -d /var/tmp ]; then
     chmod 1777 /tmp /var/tmp
 fi
 
-# Try to print a stack trace for segfaults inside the appliance.
-for d in /lib64 /lib; do
-  f=$d/libSegFault.so
-  if [ -f "$f" ]; then
-    LD_PRELOAD=$f
-    export LD_PRELOAD
-    break
-  fi
-done
-
 mkdir -p /proc /sys
 mount -t proc /proc /proc
 mount -t sysfs /sys /sys
