@@ -35,6 +35,7 @@ ifelse(REDHAT,1,
   iproute
   iputils
   kernel
+  libldm
   nilfs-utils
   ntfsprogs
   ntfs-3g
@@ -177,6 +178,7 @@ ifelse(MAGEIA,1,
   hfsplus-tools
   iproute2
   iputils
+  libldm
   dnl syslinux uses mtools without depending on it
   mtools
   nilfs-utils
@@ -200,6 +202,7 @@ ifelse(OPENMANDRIVA,1,
   grub2
   iproute2
   iputils
+  libldm
   dnl syslinux uses mtools without depending on it
   mtools
   nilfs-utils
@@ -234,6 +237,7 @@ gzip
 jfsutils
 kmod
 less
+libxml2
 lsof
 lsscsi
 lvm2
