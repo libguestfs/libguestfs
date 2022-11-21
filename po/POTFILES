@@ -19,6 +19,7 @@ common/qemuopts/qemuopts.c
 common/structs/structs-cleanups.c
 common/structs/structs-print.c
 common/utils/cleanups.c
+common/utils/environ.c
 common/utils/gnulib-cleanups.c
 common/utils/libxml2-cleanups.c
 common/utils/pcre2-cleanups.c

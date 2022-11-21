@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.48.4\n"
+"Project-Id-Version: libguestfs 1.48.5\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-07-06 13:58+0100\n"
+"POT-Creation-Date: 2022-11-21 18:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,19 +23,19 @@ msgstr ""
 msgid "%s: line %d: error parsing configuration file: %s"
 msgstr ""
 
-#: common/options/decrypt.c:48
+#: common/options/decrypt.c:52
 #, c-format
 msgid "string size overflow"
 msgstr ""
 
-#: common/options/decrypt.c:166
+#: common/options/decrypt.c:170
 #, c-format
 msgid ""
 "'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
 "libguestfs version"
 msgstr ""
 
-#: common/options/decrypt.c:180
+#: common/options/decrypt.c:184
 #, c-format
 msgid ""
 "could not find key to open LUKS encrypted %s.\n"
@@ -240,12 +240,12 @@ msgstr ""
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
-#: common/windows/windows.c:142
+#: common/windows/windows.c:139
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
 
-#: common/windows/windows.c:153
+#: common/windows/windows.c:150
 #, c-format
 msgid "drive '%c:' not found."
 msgstr ""
@@ -3908,11 +3908,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:395
+#: lib/launch-direct.c:396
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:934 lib/launch-libvirt.c:713
+#: lib/launch-direct.c:941 lib/launch-libvirt.c:713
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -4004,7 +4004,7 @@ msgstr ""
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1523 lib/launch-libvirt.c:1781 lib/qemu.c:822
+#: lib/launch-libvirt.c:1523 lib/launch-libvirt.c:1781 lib/qemu.c:816
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
@@ -4045,43 +4045,43 @@ msgstr ""
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch.c:63
+#: lib/launch.c:64
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: lib/launch.c:76
+#: lib/launch.c:77
 #, c-format
 msgid ""
 "too many drives have been added, the current backend only supports %d drives"
 msgstr ""
 
-#: lib/launch.c:201
+#: lib/launch.c:202
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: lib/launch.c:207
+#: lib/launch.c:208
 msgid "the current backend does not support ‘get-pid’"
 msgstr ""
 
-#: lib/launch.c:221
+#: lib/launch.c:222
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: lib/launch.c:235
+#: lib/launch.c:236
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: lib/launch.c:298
+#: lib/launch.c:299
 #, c-format
 msgid "parameter ‘%s’ isn't allowed"
 msgstr ""
 
-#: lib/launch.c:327
+#: lib/launch.c:328
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
 
-#: lib/launch.c:331
+#: lib/launch.c:332
 #, c-format
 msgid "%s"
 msgstr ""
@@ -4266,35 +4266,35 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: lib/qemu.c:992
+#: lib/qemu.c:986
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: lib/qemu.c:1001
+#: lib/qemu.c:995
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:1008
+#: lib/qemu.c:1002
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:1016
+#: lib/qemu.c:1010
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: lib/qemu.c:1024
+#: lib/qemu.c:1018
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:1047
+#: lib/qemu.c:1041
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
