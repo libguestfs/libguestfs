@@ -31,6 +31,7 @@ common/structs/structs-print.c
 common/structs/structs-print.h
 common/utils/cleanups.c
 common/utils/cleanups.h
+common/utils/environ.c
 common/utils/gnulib-cleanups.c
 common/utils/guestfs-stringlists-utils.h
 common/utils/guestfs-utils.h

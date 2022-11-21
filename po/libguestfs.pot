@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.49.5\n"
+"Project-Id-Version: libguestfs 1.49.6\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-10-11 14:22+0100\n"
+"POT-Creation-Date: 2022-11-21 16:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,14 +28,14 @@ msgstr ""
 msgid "string size overflow"
 msgstr ""
 
-#: common/options/decrypt.c:172
+#: common/options/decrypt.c:170
 #, c-format
 msgid ""
 "'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
 "libguestfs version"
 msgstr ""
 
-#: common/options/decrypt.c:186
+#: common/options/decrypt.c:184
 #, c-format
 msgid ""
 "could not find key to open LUKS encrypted %s.\n"
@@ -3925,11 +3925,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:362
+#: lib/launch-direct.c:363
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:895 lib/launch-libvirt.c:707
+#: lib/launch-direct.c:902 lib/launch-libvirt.c:707
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
