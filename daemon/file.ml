@@ -43,7 +43,7 @@ let file path =
     | S_SOCK -> "socket"
     | S_REG ->
        (* Regular file, so now run [file] on it. *)
-       let out = command "file" ["-zb"; Sysroot.sysroot_path path] in
+       let out = command "file" ["-zSb"; Sysroot.sysroot_path path] in
 
        (*  We need to remove the trailing \n from output of file(1).
         *
@@ -54,6 +54,6 @@ let file path =
        String.trimr out
   )
   else (* it's a device *) (
-    let out = command "file" ["-zbsL"; path] in
+    let out = command "file" ["-zSbsL"; path] in
     String.trimr out
   )

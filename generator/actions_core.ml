@@ -2204,9 +2204,8 @@ the type or contents of the file.
 This call will also transparently look inside various types
 of compressed file.
 
-The exact command which runs is C<file -zb path>.  Note in
-particular that the filename is not prepended to the output
-(the I<-b> option).
+The filename is not prepended to the output
+(like the file command I<-b> option).
 
 The output depends on the output of the underlying L<file(1)>
 command and it can change in future in ways beyond our control.
