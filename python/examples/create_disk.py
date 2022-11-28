@@ -26,7 +26,7 @@ g.launch()
 # above, we expect that this list should contain a single
 # element.
 devices = g.list_devices()
-assert(len(devices) == 1)
+assert (len(devices) == 1)
 
 # Partition the disk as one single MBR partition.
 g.part_disk(devices[0], "mbr")
@@ -34,7 +34,7 @@ g.part_disk(devices[0], "mbr")
 # Get the list of partitions.  We expect a single element, which
 # is the partition we have just created.
 partitions = g.list_partitions()
-assert(len(partitions) == 1)
+assert (len(partitions) == 1)
 
 # Create a filesystem on the partition.
 g.mkfs("ext4", partitions[0])
