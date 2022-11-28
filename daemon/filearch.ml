@@ -128,7 +128,7 @@ and cpio_arch magic orig_path path =
         | bin :: bins ->
            let bin_path = tmpdir // bin in
            if is_regular_file bin_path then (
-             let out = command "file" ["-zb"; bin_path] in
+             let out = command "file" ["-zSb"; bin_path] in
              file_architecture_of_magic out orig_path bin_path
            )
            else
