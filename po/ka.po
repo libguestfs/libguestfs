@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.49.1\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2022-08-01 14:13+0100\n"
-"PO-Revision-Date: 2022-09-06 09:19+0000\n"
+"POT-Creation-Date: 2022-11-28 11:07+0000\n"
+"PO-Revision-Date: 2022-11-30 18:19+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ka/>\n"
@@ -17,26 +17,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: common/options/config.c:72
 #, c-format
 msgid "%s: line %d: error parsing configuration file: %s"
-msgstr ""
+msgstr "%s: ხაზი %d: შეცდომა კონფიგურაციის ფაილის დამუშავებისას: %s"
 
-#: common/options/decrypt.c:48
+#: common/options/decrypt.c:52
 #, c-format
 msgid "string size overflow"
-msgstr ""
+msgstr "სტრიქონის ზომის გადავსება"
 
-#: common/options/decrypt.c:166
+#: common/options/decrypt.c:170
 #, c-format
 msgid ""
 "'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
 "libguestfs version"
 msgstr ""
+"'clevis_luks_unlock', რომელიც საჭიროა %s-ის გაშიფვრისთვის, libguestfs -ის ამ "
+"ვერსიაში ხელმიუწვდომელია"
 
-#: common/options/decrypt.c:180
+#: common/options/decrypt.c:184
 #, c-format
 msgid ""
 "could not find key to open LUKS encrypted %s.\n"
@@ -87,67 +89,67 @@ msgstr ""
 #: common/options/inspect.c:161
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr ""
+msgstr "%s: ზოგიერთი ფაილური სისტემის მიმაგრება შეუძლებელია (იგნორირება)\n"
 
 #: common/options/inspect.c:178
 #, c-format
 msgid "Operating system: %s\n"
-msgstr ""
+msgstr "ოპერაციული სისტემა: %s\n"
 
 #: common/options/inspect.c:196
 #, c-format
 msgid "%s mounted on %s\n"
-msgstr ""
+msgstr "%s მიმაგრებულია %s-ზე\n"
 
 #: common/options/keys.c:62
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
-msgstr ""
+msgstr "შეიყვანეთ გასაღები ან საკვანძო ფრაზა (\"%s\"): "
 
 #: common/options/keys.c:144
 #, c-format
 msgid "size_t overflow"
-msgstr ""
+msgstr "size_t -ის გადავსება"
 
 #: common/options/keys.c:187
 #, c-format
 msgid "could not read key from user"
-msgstr ""
+msgstr "მომხმარებლიდან გასაღების წაკითხვის შეცდომა"
 
 #: common/options/keys.c:226
 #, c-format
 msgid "selector '%s': missing ID"
-msgstr ""
+msgstr "სელექტორი '%s': აკლია ID"
 
 #: common/options/keys.c:233
 #, c-format
 msgid "selector '%s': missing TYPE"
-msgstr ""
+msgstr "სელექტორი '%s': აკლია TYPE"
 
 #: common/options/keys.c:239
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
-msgstr ""
+msgstr "სელექტორი '%s': აკლია KEY_STRING ან მეტისმეტად ბევრი ველი"
 
 #: common/options/keys.c:248
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
-msgstr ""
+msgstr "სელექტორი '%s': აკლია FILENAME ან მეტისმეტად ბევრი ველი"
 
 #: common/options/keys.c:256
 #, c-format
 msgid "selector '%s': too many fields"
-msgstr ""
+msgstr "სელექტორი '%s': მეტისმეტად ბევრი ველი"
 
 #: common/options/keys.c:258
 #, c-format
 msgid "selector '%s': invalid TYPE"
-msgstr ""
+msgstr "სელექტორი '%s': არასწორი TYPE"
 
 #: common/options/options.c:283
 #, c-format
 msgid "%s: ‘%s’ could not be mounted.\n"
-msgstr ""
+msgstr "%s: ‘%s’ მიმაგრების შეცდომა.\n"
 
 #: common/options/options.c:287
 #, c-format
@@ -159,112 +161,119 @@ msgstr ""
 #: common/options/options.c:291
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
-msgstr ""
+msgstr "%s: გულისხმობდით ამ ფაილური სისტემებიდან ერთ ერთის მიმაგრებას?\n"
 
 #: common/options/options.c:304
 #, c-format
 msgid "cannot determine the subvolume for %s: %s (%d)"
-msgstr ""
+msgstr "%s-ის ქვეტომის აღმოჩენის შეცდომა: %s (%d)"
 
 #: common/options/uri.c:119
 #, c-format
 msgid "%s: --add: could not parse URI ‘%s’\n"
-msgstr ""
+msgstr "%s: --add: URI ‘%s’-ის დამუშავების შეცდომა\n"
 
 #: common/options/uri.c:130
 #, c-format
 msgid "%s: %s: scheme of URI is NULL or empty\n"
-msgstr ""
+msgstr "%s: %s: URI-ის სქემა NULL ან ცარიელია\n"
 
 #: common/options/uri.c:138
 #, c-format
 msgid "%s: %s: cannot have both a server name and a socket query parameter\n"
 msgstr ""
+"%s: %s: ორივეს, სერვერის სახელის და სოკეტის მოთხოვნის პარამეტრის ქონა "
+"შეუძლებელია\n"
 
 #: common/parallel/domains.c:106 lib/libvirt-domain.c:106
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr ""
+msgstr "libvirt-თან მიერთების შეცდომა (კოდი %d, დომენი %d): %s"
 
 #: common/parallel/domains.c:114
 #, c-format
 msgid "could not get number of running domains (code %d, domain %d): %s"
 msgstr ""
+"გაშვებული დომენების რაოდენობის მიღების შეცდომა (კოდი %d, დომენი %d): %s"
 
 #: common/parallel/domains.c:125
 #, c-format
 msgid "could not list running domains (code %d, domain %d): %s"
-msgstr ""
+msgstr "გაშვებული დომენების ჩამოთვლის შეცდომა (კოდი %d, დომენი %d): %s"
 
 #: common/parallel/domains.c:135
 #, c-format
 msgid "could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
+"არააქტიური დომენების რაოდენობის მიღების შეცდომა (კოდი %d, დომენი %d): %s"
 
 #: common/parallel/domains.c:146
 #, c-format
 msgid "could not list inactive domains (code %d, domain %d): %s"
-msgstr ""
+msgstr "არააქტიური დომენების ჩამოთვლის შეცდომა (კოდი %d, დომენი %d): %s"
 
 #: common/utils/utils.c:107
 #, c-format
 msgid "%s exited successfully"
-msgstr ""
+msgstr "%s წარმატებით დასრულდა"
 
 #: common/utils/utils.c:110
 #, c-format
 msgid "%s exited with error status %d"
-msgstr ""
+msgstr "%s დასრულდა შეცდომის კოდით %d"
 
 #: common/utils/utils.c:114
 #, c-format
 msgid "%s killed by signal %d (%s)"
-msgstr ""
+msgstr "%s მოკვდა სიგნალით %d (%s)"
 
 #: common/utils/utils.c:118
 #, c-format
 msgid "%s stopped by signal %d (%s)"
-msgstr ""
+msgstr "%s გაჩერდა სიგნალით %d (%s)"
 
 #: common/utils/utils.c:122
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
-msgstr ""
+msgstr "%s გავიდა უცნობი მიზეზით (სტატუსი %d)"
 
 #: common/visit/visit.c:133
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
-msgstr ""
+msgstr "%s: შეცდომა გაფართოებული ატრიბუტების მიღებისას სამიზნისთვის %s %s\n"
 
 #: common/visit/visit.c:147
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
+"%s: შეცდომა: xattr -ის რაოდენობის დამუშავების შეცდომა სამიზნისთვის %s %s\n"
 
-#: common/windows/windows.c:142
+#: common/windows/windows.c:139
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
+"იმისთვის, რომ Windows-ის დისკის სიმბოლოები გამოიყენოთ, ეს Windows-ის სტუმარს "
+"უნდა წარმოადგენდეს"
 
-#: common/windows/windows.c:153
+#: common/windows/windows.c:150
 #, c-format
 msgid "drive '%c:' not found."
-msgstr ""
+msgstr "დისკი '%c:' ვერ ვიპოვე."
 
 #: fish/alloc.c:42
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
-msgstr ""
+msgstr "ასლის შესაქმნელად გამოიყენეთ 'alloc file size'\n"
 
 #: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr ""
+msgstr "გაბნეული ასლის შესაქმნელად გამოიყენეთ 'sparse file size'\n"
 
 #: fish/alloc.c:105
 #, c-format
 msgid "%s: invalid integer parameter (%s returned %u)\n"
-msgstr ""
+msgstr "%s: არასწორი მთელი რიცხვი პარამეტრი (%s -მა დააბრუნა %u)\n"
 
 #: fish/cmds.c:487
 msgid "Command"
@@ -276,15 +285,15 @@ msgstr "აღწერა"
 
 #: fish/cmds.c:489
 msgid "delete the default POSIX ACL of a directory"
-msgstr ""
+msgstr "საქაღალდის ნაგულისხმები POSIX ACL-ების წაშლა"
 
 #: fish/cmds.c:490
 msgid "get the POSIX ACL attached to a file"
-msgstr ""
+msgstr "ფაილზე მიმაგრებული POSIX ACL-ების მიღება"
 
 #: fish/cmds.c:491
 msgid "set the POSIX ACL attached to a file"
-msgstr ""
+msgstr "ფაილზე მიმაგრებული POSIX ACL-ების დაყენება"
 
 #: fish/cmds.c:493 fish/cmds.c:496 fish/cmds.c:507 fish/cmds.c:510
 #: fish/cmds.c:513 fish/cmds.c:533 fish/cmds.c:538 fish/cmds.c:557
@@ -297,23 +306,23 @@ msgstr ""
 #: fish/cmds.c:1142 fish/cmds.c:1151 fish/cmds.c:1173
 #, c-format
 msgid "alias for '%s'"
-msgstr ""
+msgstr "'%s'-ის მეტსახელი"
 
 #: fish/cmds.c:498
 msgid "add a CD-ROM disk image to examine"
-msgstr ""
+msgstr "გასასინჯად CD-ROM დისკის ასლის მიმაგრება"
 
 #: fish/cmds.c:499
 msgid "add the disk(s) from a named libvirt domain"
-msgstr ""
+msgstr "მითითებული libvirt დომენიდან დისკის დამატება"
 
 #: fish/cmds.c:500
 msgid "add an image to examine or modify"
-msgstr ""
+msgstr "გასასინჯად ან შესაცვლელად დისკის დამატება"
 
 #: fish/cmds.c:501
 msgid "add a drive in snapshot mode (read-only)"
-msgstr ""
+msgstr "დისკის სწრაფი ასლის რეჟიმში (მხოლოდ კითხვისთვის) დამატება"
 
 #: fish/cmds.c:502
 msgid "add a drive read-only specifying the QEMU block emulation to use"
@@ -329,75 +338,75 @@ msgstr ""
 
 #: fish/cmds.c:505
 msgid "allocate and add a disk file"
-msgstr ""
+msgstr "დისკის ფაილის გამოყოფა და დამატება"
 
 #: fish/cmds.c:515
 msgid "clear Augeas path"
-msgstr ""
+msgstr "\"Augeas\"-ის ბილიკის გასუფთავება"
 
 #: fish/cmds.c:516
 msgid "close the current Augeas handle"
-msgstr ""
+msgstr "მიმდინარე Augeas-ის კაუჭის დახურვა"
 
 #: fish/cmds.c:517
 msgid "define an Augeas node"
-msgstr ""
+msgstr "\"Augeas\"-ის კვანძის აღწერა"
 
 #: fish/cmds.c:518
 msgid "define an Augeas variable"
-msgstr ""
+msgstr "\"Augeas\"-ის ცვლადის აღწერა"
 
 #: fish/cmds.c:519
 msgid "look up the value of an Augeas path"
-msgstr ""
+msgstr "\"Augeas\"-ის ბილიკის მნიშვნელობის მოძებნა"
 
 #: fish/cmds.c:520
 msgid "create a new Augeas handle"
-msgstr ""
+msgstr "\"Augeas\"-ის ახალი კაუჭის შექმნა"
 
 #: fish/cmds.c:521
 msgid "insert a sibling Augeas node"
-msgstr ""
+msgstr "\"Augeas\"-ის და კვანძის ჩასმა"
 
 #: fish/cmds.c:522
 msgid "return the label from an Augeas path expression"
-msgstr ""
+msgstr "\"Augeas\"-ის ბილიკის გამოსახულებიდან ჭდის დაბრუნება"
 
 #: fish/cmds.c:523
 msgid "load files into the tree"
-msgstr ""
+msgstr "ხეში ფაილების შეტვირთვა"
 
 #: fish/cmds.c:524
 msgid "list Augeas nodes under augpath"
-msgstr ""
+msgstr "\"Augeas\"-ის კვანძების სია augpath-ში"
 
 #: fish/cmds.c:525
 msgid "return Augeas nodes which match augpath"
-msgstr ""
+msgstr "აბრუნებს Augeath-ის კვანძებს, რომლებიც augpath-ს ემთხვევა"
 
 #: fish/cmds.c:526
 msgid "move Augeas node"
-msgstr ""
+msgstr "\"Augeas\"-ის კვანძის გადატანა"
 
 #: fish/cmds.c:527
 msgid "remove an Augeas path"
-msgstr ""
+msgstr "\"Augeas\"-ის ბილიკის წაშლა"
 
 #: fish/cmds.c:528
 msgid "write all pending Augeas changes to disk"
-msgstr ""
+msgstr "\"Augeas\"-ის ყველა დარჩენილი ცვლილების დისკზე ჩაწერა"
 
 #: fish/cmds.c:529
 msgid "set Augeas path to value"
-msgstr ""
+msgstr "\"Augeas\"-ის ბილიკის მნიშვნელობის დაყენება"
 
 #: fish/cmds.c:530
 msgid "set multiple Augeas nodes"
-msgstr ""
+msgstr "\"Augeas\"-ის მრავალი კვანძის დაყენება"
 
 #: fish/cmds.c:531
 msgid "add/remove an Augeas lens transformation"
-msgstr ""
+msgstr "\"Augeas\"-ის ლინზის ტრანსფორმაციის დამატება/წაშლა"
 
 #: fish/cmds.c:535 fish/cmds.c:677
 msgid "test availability of some parts of the API"
@@ -405,59 +414,59 @@ msgstr ""
 
 #: fish/cmds.c:536
 msgid "return a list of all optional groups"
-msgstr ""
+msgstr "ყველა არასავალდებულო ჯგუფის სიის დაბრუნება"
 
 #: fish/cmds.c:540
 msgid "upload base64-encoded data to file"
-msgstr ""
+msgstr "base64-ით კოდირებული მონაცემების ფაილში ატვირთვა"
 
 #: fish/cmds.c:541
 msgid "download file and encode as base64"
-msgstr ""
+msgstr "ფაილის გადმოწერა და base64-ით კოდირება"
 
 #: fish/cmds.c:542
 msgid "discard all blocks on a device"
-msgstr ""
+msgstr "მოწყობილობაზე ყველა ბლოკის მოცილება"
 
 #: fish/cmds.c:543
 msgid "return true if discarded blocks are read as zeroes"
-msgstr ""
+msgstr "აბრუნებს 1-ს, თუ მოცილებული ბლოკები ნულებად წაიკითხება"
 
 #: fish/cmds.c:544
 msgid "print block device attributes"
-msgstr ""
+msgstr "ბლოკური მოწყობილობის ატრიბუტების გამოტანა"
 
 #: fish/cmds.c:545
 msgid "flush device buffers"
-msgstr ""
+msgstr "მოწყობილობის ბუფერების ჩაწერა"
 
 #: fish/cmds.c:546
 msgid "get blocksize of block device"
-msgstr ""
+msgstr "ბლოკური მოწყობილობის ბლოკის ზომის მიღება"
 
 #: fish/cmds.c:547
 msgid "is block device set to read-only"
-msgstr ""
+msgstr "არის ბლოკური მოწყობილობა მხოლოდ კითხვადი, თუ არა"
 
 #: fish/cmds.c:548
 msgid "get total size of device in bytes"
-msgstr ""
+msgstr "მოწყობილობის სრული ზომის ბაიტებშ მიღება"
 
 #: fish/cmds.c:549
 msgid "get sectorsize of block device"
-msgstr ""
+msgstr "ბლოკური მოწყობილობის სექტორის ზომის მიღება"
 
 #: fish/cmds.c:550
 msgid "get total size of device in 512-byte sectors"
-msgstr ""
+msgstr "მოწყობილობის სრული ზომის 512 ბაიტიან სექტორებში მიღება"
 
 #: fish/cmds.c:551
 msgid "reread partition table"
-msgstr ""
+msgstr "დანაყოფების ცხრილის თავიდან წაკითხვა"
 
 #: fish/cmds.c:552
 msgid "set blocksize of block device"
-msgstr ""
+msgstr "ბლოკური მოწყობილობის ბლოკის ზომის დაყენება"
 
 #: fish/cmds.c:553
 msgid "set readahead"
@@ -465,91 +474,91 @@ msgstr "წინასწარი კითხვის ჩართვა"
 
 #: fish/cmds.c:554
 msgid "set block device to read-only"
-msgstr ""
+msgstr "ბლოკური მოწყობილობის მხოლოდ-კითხვადი რეჟიმის დაყენება"
 
 #: fish/cmds.c:555
 msgid "set block device to read-write"
-msgstr ""
+msgstr "ბლოკური მოწყობილობის ჩაწერა-კითხვადი რეჟიმის დაყენება"
 
 #: fish/cmds.c:559
 msgid "cancel a running or paused balance"
-msgstr ""
+msgstr "გაშვებული ან შეჩერებული ბალანსის გაუქმება"
 
 #: fish/cmds.c:560
 msgid "pause a running balance"
-msgstr ""
+msgstr "გაშვებული ბალანსის შეჩერება"
 
 #: fish/cmds.c:561
 msgid "resume a paused balance"
-msgstr ""
+msgstr "შეჩერებული ბალანსის გაგრძელება"
 
 #: fish/cmds.c:562
 msgid "show the status of a running or paused balance"
-msgstr ""
+msgstr "გაშვებული ან შეჩერებული ბალანსის სტატუსის ჩვენება"
 
 #: fish/cmds.c:563
 msgid "add devices to a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ფაილურ სისტემისთვის მოწყობილობების დამატება"
 
 #: fish/cmds.c:564
 msgid "remove devices from a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ფაილური სისტემიდან მოწყობილობების წაშლა"
 
 #: fish/cmds.c:565
 msgid "balance a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ფაილური სისტემის ბალანსი"
 
 #: fish/cmds.c:566
 msgid "defragment a file or directory"
-msgstr ""
+msgstr "ფაილის ან საქაღალდის დეფრაგმენტაცა"
 
 #: fish/cmds.c:567
 msgid "resize a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ფაილური სისტემის ზომის შეცვლა"
 
 #: fish/cmds.c:568
 msgid "list devices for btrfs filesystem"
-msgstr ""
+msgstr "btrfs ფაილური სისტემისთვის მოწყობილობების სია"
 
 #: fish/cmds.c:569
 msgid "sync a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ფაილური სისტემის სინქრონიზაცია"
 
 #: fish/cmds.c:570
 msgid "check a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ფაილური სისტემის შემოწმება"
 
 #: fish/cmds.c:571
 msgid "create an image of a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ფაილური სისტემის ასლის შექმნა"
 
 #: fish/cmds.c:572
 msgid "add a qgroup to a parent qgroup"
-msgstr ""
+msgstr "მშობელ qgroup-ში qgroup-ის დამატება"
 
 #: fish/cmds.c:573
 msgid "create a subvolume quota group"
-msgstr ""
+msgstr "ქვეტომის კვოტის ჯგუფის დამატება"
 
 #: fish/cmds.c:574
 msgid "destroy a subvolume quota group"
-msgstr ""
+msgstr "ქვეტომის კვოტის ჯგუფის წაშლა"
 
 #: fish/cmds.c:575
 msgid "limit the size of a subvolume"
-msgstr ""
+msgstr "ქვეტომის ზომის შეზღუდვა"
 
 #: fish/cmds.c:576
 msgid "remove a qgroup from its parent qgroup"
-msgstr ""
+msgstr "qgroup-ის მშობელი qgroup-დან წაშლა"
 
 #: fish/cmds.c:577
 msgid "show subvolume quota groups"
-msgstr ""
+msgstr "ქვეტომის კვოტის ჯგუფების ჩვენება"
 
 #: fish/cmds.c:578
 msgid "enable or disable subvolume quota support"
-msgstr ""
+msgstr "ქვეტომის კვოტის მხარდაჭერის ჩართვა/გამორთვა"
 
 #: fish/cmds.c:579
 msgid ""
@@ -558,7 +567,7 @@ msgstr ""
 
 #: fish/cmds.c:580
 msgid "replace a btrfs managed device with another device"
-msgstr ""
+msgstr "btrfs-ის მიერ მართული მოწყობილობის სხვა მოწყობილობით ჩანაცვლება"
 
 #: fish/cmds.c:581
 msgid "recover the chunk tree of btrfs filesystem"
@@ -566,7 +575,7 @@ msgstr ""
 
 #: fish/cmds.c:582
 msgid "recover bad superblocks from good copies"
-msgstr ""
+msgstr "დაზიანებული ზებლოკების კარგი ასლებიდან აღდგენა"
 
 #: fish/cmds.c:583
 msgid "cancel a running scrub"
@@ -590,35 +599,35 @@ msgstr ""
 
 #: fish/cmds.c:588
 msgid "create a btrfs subvolume"
-msgstr ""
+msgstr "btrfs ქვეტომის შექმნა"
 
 #: fish/cmds.c:589
 msgid "delete a btrfs subvolume or snapshot"
-msgstr ""
+msgstr "btrfs ქვეტომის ან სწრაფი ასლის წაშლა"
 
 #: fish/cmds.c:590
 msgid "get the default subvolume or snapshot of a filesystem"
-msgstr ""
+msgstr "ფაილური სისტემის ნაგულისხმები ქვეტომის ან სწრაფი ასლის მიღება"
 
 #: fish/cmds.c:591
 msgid "list btrfs snapshots and subvolumes"
-msgstr ""
+msgstr "btrfs -ის სწრაფი ასლებისა და ქვეტომების სია"
 
 #: fish/cmds.c:592
 msgid "set default btrfs subvolume"
-msgstr ""
+msgstr "btrfs -ის ნაგულისხმები ქვეტომის დაყენება"
 
 #: fish/cmds.c:593
 msgid "return detailed information of the subvolume"
-msgstr ""
+msgstr "აბრუნებს ქვეტომის შესახებ დეტალურ ინფორმაციას"
 
 #: fish/cmds.c:594
 msgid "create a btrfs snapshot"
-msgstr ""
+msgstr "btrfs -ის სწრაფი ასლის შექმნა"
 
 #: fish/cmds.c:595
 msgid "enable extended inode refs"
-msgstr ""
+msgstr "გაფართოებული inode ref-ების ჩართვა"
 
 #: fish/cmds.c:596
 msgid "enable skinny metadata extent refs"
@@ -650,7 +659,7 @@ msgstr ""
 
 #: fish/cmds.c:606
 msgid "list the contents of a file"
-msgstr ""
+msgstr "ფაილის შემცველობის ჩამოთვლა"
 
 #: fish/cmds.c:607
 msgid "compute MD5, SHAx or CRC checksum of file"
@@ -666,11 +675,11 @@ msgstr ""
 
 #: fish/cmds.c:610
 msgid "change file mode"
-msgstr ""
+msgstr "ფაილის რეჟიმის შეცვლა"
 
 #: fish/cmds.c:611 fish/cmds.c:828
 msgid "change file owner and group"
-msgstr ""
+msgstr "ფაილის მფლობელისა და ჯგუფის შეცვლა"
 
 #: fish/cmds.c:612
 msgid "remove a single per-backend settings string"
@@ -734,23 +743,23 @@ msgstr ""
 
 #: fish/cmds.c:627
 msgid "copy a file"
-msgstr ""
+msgstr "ფაილის კოირება"
 
 #: fish/cmds.c:628 fish/cmds.c:629
 msgid "copy a file or directory recursively"
-msgstr ""
+msgstr "ფაილის ან საქაღალდის რეკურსიული კოპირება"
 
 #: fish/cmds.c:630
 msgid "pack directory into cpio file"
-msgstr ""
+msgstr "საქაღალდის cpio ფაილში შეკვრა"
 
 #: fish/cmds.c:631
 msgid "close an encrypted device"
-msgstr ""
+msgstr "დაშიფრული მოწყობილობის დახურვა"
 
 #: fish/cmds.c:632
 msgid "open an encrypted block device"
-msgstr ""
+msgstr "დაშიფრული ბლოკური მოწყობილობის გახსნა"
 
 #: fish/cmds.c:633
 msgid "copy from source to destination using dd"
@@ -758,11 +767,11 @@ msgstr ""
 
 #: fish/cmds.c:634
 msgid "debugging and internals"
-msgstr ""
+msgstr "შეცდომების აღმოჩენა და შიდა ფუნქციები"
 
 #: fish/cmds.c:635
 msgid "debug the drives (internal use only)"
-msgstr ""
+msgstr "დისკების შეცდომების აღმოჩენა (მხოლოდ შიდა გამოყენებისთვის)"
 
 #: fish/cmds.c:636
 msgid "upload a file to the appliance (internal use only)"
@@ -774,11 +783,11 @@ msgstr ""
 
 #: fish/cmds.c:638
 msgid "convert device to index"
-msgstr ""
+msgstr "მოწყობილობის ინდექსად გარდაქმნა"
 
 #: fish/cmds.c:639
 msgid "convert device index to name"
-msgstr ""
+msgstr "მოწყობილობის ინდექსის სახელად გარდაქმნა"
 
 #: fish/cmds.c:640
 msgid "report file system disk space usage"
@@ -802,15 +811,15 @@ msgstr ""
 
 #: fish/cmds.c:648
 msgid "return virtual size of a disk"
-msgstr ""
+msgstr "აბრუნებს ვირტუალური დისკის ზომას"
 
 #: fish/cmds.c:649
 msgid "display an image"
-msgstr ""
+msgstr "ასლის ჩვენება"
 
 #: fish/cmds.c:650
 msgid "return kernel messages"
-msgstr ""
+msgstr "აბრუნებს ბირთვის შეტყობინებებს"
 
 #: fish/cmds.c:654
 msgid "download a file to the local machine"
@@ -2140,7 +2149,7 @@ msgstr ""
 
 #: fish/cmds.c:1064
 msgid "set filesystem label"
-msgstr ""
+msgstr "ფაილური სისტემის ჭდე"
 
 #: fish/cmds.c:1065
 msgid "pass requested credential back to libvirt"
@@ -2168,7 +2177,7 @@ msgstr ""
 
 #: fish/cmds.c:1071
 msgid "set the program name"
-msgstr ""
+msgstr "პროგრამის სახელის დაყენება"
 
 #: fish/cmds.c:1072
 msgid "set the hypervisor binary (usually qemu)"
@@ -2436,7 +2445,7 @@ msgstr ""
 
 #: fish/cmds.c:1162
 msgid "create an LVM volume group"
-msgstr "LVM2 საცავის ჯგუფის შექმნა"
+msgstr "\"LVM\" საცავის ჯგუფის შექმნა"
 
 #: fish/cmds.c:1163
 msgid "get the LV UUIDs of all LVs in the volume group"
@@ -3351,10 +3360,14 @@ msgstr ""
 msgid "%s: %s is not mounted: %s\n"
 msgstr ""
 
+#: gnulib/lib/error.c:146
+msgid "Unknown system error"
+msgstr ""
+
 #: lib/appliance-kcmdline.c:74
 #, c-format
 msgid "open: %s"
-msgstr ""
+msgstr "open(): %s"
 
 #: lib/appliance-kcmdline.c:83
 #, c-format
@@ -3879,7 +3892,7 @@ msgstr ""
 
 #: lib/handle.c:823
 msgid "setting not found"
-msgstr ""
+msgstr "პარამეტრი ნაპოვნი არაა"
 
 #: lib/info.c:83
 msgid "qemu-img info: JSON output did not contain ‘format’ key"
@@ -3922,11 +3935,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:362
+#: lib/launch-direct.c:363
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:901 lib/launch-libvirt.c:713
+#: lib/launch-direct.c:902 lib/launch-libvirt.c:707
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -3958,20 +3971,20 @@ msgstr ""
 msgid "you must have libvirt >= %d.%d.%d to use the ‘libvirt’ backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:392
+#: lib/launch-libvirt.c:391
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: lib/launch-libvirt.c:421
+#: lib/launch-libvirt.c:420
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:442
+#: lib/launch-libvirt.c:441
 msgid "could not get libvirt domain capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:642
+#: lib/launch-libvirt.c:636
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -3981,21 +3994,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:780
+#: lib/launch-libvirt.c:772
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:786 lib/launch-libvirt.c:888 lib/libvirt-domain.c:397
+#: lib/launch-libvirt.c:778 lib/launch-libvirt.c:880 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: lib/launch-libvirt.c:796 lib/launch-libvirt.c:896 lib/launch-libvirt.c:912
+#: lib/launch-libvirt.c:788 lib/launch-libvirt.c:888 lib/launch-libvirt.c:904
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:835
+#: lib/launch-libvirt.c:827
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -4010,56 +4023,56 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:882
+#: lib/launch-libvirt.c:874
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1517 lib/launch-libvirt.c:1775 lib/qemu.c:822
+#: lib/launch-libvirt.c:1509 lib/launch-libvirt.c:1767 lib/qemu.c:816
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1600
+#: lib/launch-libvirt.c:1592
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1990
+#: lib/launch-libvirt.c:1982
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2001
+#: lib/launch-libvirt.c:1993
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:2005
+#: lib/launch-libvirt.c:1997
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:2026
+#: lib/launch-libvirt.c:2018
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2039
+#: lib/launch-libvirt.c:2031
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2212
+#: lib/launch-libvirt.c:2204
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2233 lib/launch-libvirt.c:2266
+#: lib/launch-libvirt.c:2225 lib/launch-libvirt.c:2258
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch.c:63
+#: lib/launch.c:64
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: lib/launch.c:76
+#: lib/launch.c:77
 #, c-format
 msgid ""
 "too many drives have been added, the current backend only supports %d drives"
@@ -4276,35 +4289,35 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: lib/qemu.c:992
+#: lib/qemu.c:986
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: lib/qemu.c:1001
+#: lib/qemu.c:995
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:1008
+#: lib/qemu.c:1002
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:1016
+#: lib/qemu.c:1010
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: lib/qemu.c:1024
+#: lib/qemu.c:1018
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:1047
+#: lib/qemu.c:1041
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
