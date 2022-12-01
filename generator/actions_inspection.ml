@@ -532,6 +532,25 @@ You can use C<guestfs_hivex_open> to read or write to the hive.
 Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
+    name = "inspect_get_build_id"; added = (1, 49, 8);
+    style = RString (RPlainString, "buildid"), [String (Mountable, "root")], [];
+    impl = OCaml "Inspect.inspect_get_build_id";
+    shortdesc = "get the system build ID";
+    longdesc = "\
+This returns the build ID of the system, or the string
+C<\"unknown\"> if the system does not have a build ID.
+
+For Windows, this gets the build number.  Although it is
+returned as a string, it is (so far) always a number.  See
+L<https://en.wikipedia.org/wiki/List_of_Microsoft_Windows_versions>
+for some possible values.
+
+For Linux, this returns the C<BUILD_ID> string from
+F</etc/os-release>, although this is not often used.
+
+Please read L<guestfs(3)/INSPECTION> for more details." };
+
+  { defaults with
     name = "inspect_get_mountpoints"; added = (1, 5, 3);
     style = RHashtable (RPlainString, RMountable, "mountpoints"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_mountpoints";

@@ -96,6 +96,8 @@ let rec parse_os_release release_file data =
            data.product_name <- Some value
          else if key = "VERSION_ID" then
            parse_os_release_version_id value data
+         else if key = "BUILD_ID" then
+           data.build_id <- Some value
        ) values;
 
      (* If we haven't got all the fields, exit right away. *)

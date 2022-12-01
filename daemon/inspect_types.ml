@@ -48,6 +48,7 @@ and inspection_data = {
   mutable version : version option;
   mutable arch : string option;
   mutable hostname : string option;
+  mutable build_id : string option;
   mutable fstab : fstab_entry list;
   mutable windows_systemroot : string option;
   mutable windows_software_hive : string option;
@@ -167,6 +168,8 @@ and string_of_inspection_data data =
              data.arch;
   Option.may (fun v -> bpf "    hostname: %s\n" v)
              data.hostname;
+  Option.may (fun v -> bpf "    build ID: %s\n" v)
+             data.build_id;
   if data.fstab <> [] then (
     let v = List.map (
       fun (a, b) -> sprintf "(%s, %s)" (Mountable.to_string a) b
@@ -272,6 +275,7 @@ let null_inspection_data = {
   version = None;
   arch = None;
   hostname = None;
+  build_id = None;
   fstab = [];
   windows_systemroot = None;
   windows_software_hive = None;
@@ -294,6 +298,7 @@ let merge_inspection_data child parent =
   parent.version <-         merge child.version parent.version;
   parent.arch <-            merge child.arch parent.arch;
   parent.hostname <-        merge child.hostname parent.hostname;
+  parent.build_id <-        merge child.build_id parent.build_id;
   parent.fstab <-           child.fstab @ parent.fstab;
   parent.windows_systemroot <-
     merge child.windows_systemroot parent.windows_systemroot;

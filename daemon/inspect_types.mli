@@ -51,6 +51,7 @@ and inspection_data = {
   mutable version : version option;
   mutable arch : string option;
   mutable hostname : string option;
+  mutable build_id : string option;
   mutable fstab : fstab_entry list;
   mutable windows_systemroot : string option;
   mutable windows_software_hive : string option;
