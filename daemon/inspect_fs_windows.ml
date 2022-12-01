@@ -263,6 +263,20 @@ and check_windows_software_registry software_hive data =
          with
            Not_found -> ()
         );
+
+        (* CurrentBuildNumber (build_id).
+         *
+         * In modern Windows, the "CurrentBuild" and "CurrentBuildNumber"
+         * keys are the same.  But in Windows XP, "CurrentBuild"
+         * contained something quite different.  So always use
+         * "CurrentBuildNumber".
+         *)
+        (try
+           let v = List.assoc "CurrentBuildNumber" values in
+           data.build_id <- Some (Hivex.value_string h v)
+         with
+           Not_found -> ()
+        );
       with
       | Not_found ->
          if verbose () then

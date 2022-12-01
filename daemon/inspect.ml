@@ -335,6 +335,12 @@ and inspect_get_hostname root =
   | Some v -> v
   | None -> "unknown"
 
+and inspect_get_build_id root =
+  let root = search_for_root root in
+  match root.inspection_data.build_id with
+  | Some v -> v
+  | None -> "unknown"
+
 and inspect_get_windows_systemroot root =
   let root = search_for_root root in
   match root.inspection_data.windows_systemroot with
