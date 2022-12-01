@@ -86,6 +86,8 @@ guestfs_impl_inspect_get_osinfo (guestfs_h *g, const char *root)
   else if (STREQ (type, "windows")) {
     CLEANUP_FREE char *product_name = NULL;
     CLEANUP_FREE char *product_variant = NULL;
+    CLEANUP_FREE char *build_id_str = NULL;
+    int build_id;
 
     product_name = guestfs_inspect_get_product_name (g, root);
     if (!product_name)
@@ -142,8 +144,26 @@ guestfs_impl_inspect_get_osinfo (guestfs_h *g, const char *root)
             return safe_strdup (g, "win2k19");
           else
             return safe_strdup (g, "win2k16");
-        } else
-          return safe_strdup (g, "win10");
+        }
+        else {
+          /* For Windows >= 10 Client we can only distinguish between
+           * versions by looking at the build ID.  See:
+           * https://learn.microsoft.com/en-us/answers/questions/586619/windows-11-build-ver-is-still-10022000194.html
+           * https://github.com/cygwin/cygwin/blob/a263fe0b268580273c1adc4b1bad256147990222/winsup/cygwin/wincap.cc#L429
+           */
+          build_id_str = guestfs_inspect_get_build_id (g, root);
+          if (!build_id_str)
+            return NULL;
+
+          build_id = guestfs_int_parse_unsigned_int (g, build_id_str);
+          if (build_id == -1)
+            return NULL;
+
+          if (build_id >= 22000)
+            return safe_strdup (g, "win11");
+          else
+            return safe_strdup (g, "win10");
+        }
       }
       break;
     }
