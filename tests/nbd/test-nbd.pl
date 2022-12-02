@@ -86,11 +86,6 @@ sub run_test {
     }
     die "qemu-nbd did not start up\n" if ! -f $pidfile;
 
-    # XXX qemu-nbd lacks any way to tell if it is awake and listening
-    # for connections.  It could write a pid file or something.  Could
-    # we check that the socket has been opened by looking in netstat?
-    sleep (2);
-
     my $g = Sys::Guestfs->new ();
 
     # Add an NBD drive.
