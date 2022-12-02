@@ -51,7 +51,7 @@ sub run_test {
 
     my $cwd = getcwd ();
     my $server;
-    my $pidfile = "$cwd/nbd.pid";
+    my $pidfile = "$cwd/nbd/nbd.pid";
     my @qemu_nbd = ("qemu-nbd", $disk, "-t", "--pid-file", $pidfile);
     if ($has_format_opt) {
         push @qemu_nbd, "--format", "raw";
@@ -64,7 +64,7 @@ sub run_test {
     }
     else {
         # qemu-nbd insists the socket path is absolute.
-        my $socket = "$cwd/unix.sock";
+        my $socket = "$cwd/nbd/unix.sock";
         unlink "$socket";
         push @qemu_nbd, "-k", "$socket";
         $server = "unix:$socket";
