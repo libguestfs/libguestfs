@@ -52,6 +52,7 @@ sub run_test {
     my $cwd = getcwd ();
     my $server;
     my $pidfile = "$cwd/nbd/nbd.pid";
+    unlink "$pidfile";
     my @qemu_nbd = ("qemu-nbd", $disk, "-t", "--pid-file", $pidfile);
     if ($has_format_opt) {
         push @qemu_nbd, "--format", "raw";
