@@ -115,7 +115,7 @@ if test "x$ENABLE_APPLIANCE" = "xyes"; then
                 )"
                 AS_CASE([$DISTRO],
                         [FEDORA | RHEL | CENTOS | ALMALINUX | CLOUDLINUX \
-			 | ROCKY],
+			 | ROCKY | VIRTUOZZO],
                             [DISTRO=REDHAT],
                         [OPENSUSE* | SLED | SLES],[DISTRO=SUSE],
                         [ARCH | MANJARO | ARTIX],[DISTRO=ARCHLINUX],
