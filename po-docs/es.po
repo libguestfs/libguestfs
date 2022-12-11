@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2022-05-10 15:18+0000\n"
+"PO-Revision-Date: 2022-12-11 16:19+0000\n"
 "Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.12.1\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -603,7 +603,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:90 ../rescue/virt-rescue.pod:127
 #: ../sysprep/virt-sysprep.pod:81
 msgid "B<-d> guest"
-msgstr ""
+msgstr "B<-d> invitado"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:138 ../cat/virt-cat.pod:90
@@ -614,7 +614,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:92 ../rescue/virt-rescue.pod:129
 #: ../sysprep/virt-sysprep.pod:83
 msgid "B<--domain> guest"
-msgstr ""
+msgstr "B<--domain> invitado"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:140 ../cat/virt-cat.pod:92
