@@ -13,10 +13,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2022-12-10 12:16+0000\n"
-"PO-Revision-Date: 2022-12-01 19:19+0000\n"
+"PO-Revision-Date: 2022-12-12 19:20+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/uk/>\n"
@@ -1293,10 +1293,8 @@ msgid "get architecture of inspected operating system"
 msgstr "отримати значення архітектури операційної системи, яка вивчається"
 
 #: fish/cmds.c:776
-#, fuzzy
-#| msgid "get the filesystem UUID"
 msgid "get the system build ID"
-msgstr "отримати UUID файлової системи"
+msgstr "отримати ідентифікатор збирання системи"
 
 #: fish/cmds.c:777
 msgid "get distro of inspected operating system"
