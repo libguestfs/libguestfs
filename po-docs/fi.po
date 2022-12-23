@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.43.1\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2020-08-12 15:34+0200\n"
-"PO-Revision-Date: 2022-05-17 19:18+0000\n"
+"PO-Revision-Date: 2022-12-23 18:20+0000\n"
 "Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/fi/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.12.2\n"
+"X-Generator: Weblate 4.15\n"
 
 #. type: =head1
 #: align/virt-alignment-scan.pod:1
@@ -58334,7 +58334,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:4108 lib/guestfs-actions.pod:6668
 msgid "Oracle Linux."
-msgstr ""
+msgstr "Oracle Linux."
 
 #. type: =item
 #: fish/guestfish-actions.pod:4110 lib/guestfs-actions.pod:6670
