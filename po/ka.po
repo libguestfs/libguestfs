@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the libguestfs package.
-# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022.
+# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.49.1\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
 "cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2022-12-10 12:16+0000\n"
-"PO-Revision-Date: 2022-12-21 03:19+0000\n"
+"PO-Revision-Date: 2023-01-13 20:20+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ka/>\n"
@@ -3241,7 +3241,7 @@ msgstr ""
 #: fish/run-6.c:2139
 #, c-format
 msgid "%s: %s: integer out of range\n"
-msgstr ""
+msgstr "%s: %s: მთელი მნიშვნელობა დიაპაზონს გარეთაა\n"
 
 #: fish/setenv.c:40
 #, c-format
