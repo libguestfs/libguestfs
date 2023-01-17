@@ -237,6 +237,62 @@ Set the hostname of the guest to C<HOSTNAME>.  You can use a
 dotted hostname.domainname (FQDN) if you want.";
   };
 
+  { op_name = "inject-qemu-ga";
+    op_type = String "METHOD";
+    op_discrim = "`InjectQemuGA";
+    op_shortdesc = "Inject the QEMU Guest Agent into a Windows guest";
+    op_pod_longdesc = "\
+Inject the QEMU Guest Agent into a Windows guest.  The guest
+agent communicates with qemu through a socket in order to
+provide enhanced features (see L<qemu-ga(8)>).  This operation
+also injects a firstboot script so that the Guest Agent is
+installed when the guest boots.
+
+The parameter is the same as used by the I<--inject-virtio-win> operation.
+
+Note that to do a full conversion of a Windows guest from a
+foreign hypervisor like VMware (which involves many other operations)
+you should use the L<virt-v2v(1)> tool instead of this.";
+  };
+
+  { op_name = "inject-virtio-win";
+    op_type = String "METHOD";
+    op_discrim = "`InjectVirtioWin";
+    op_shortdesc = "Inject virtio-win drivers into a Windows guest";
+    op_pod_longdesc = "\
+Inject virtio-win drivers into a Windows guest.  These drivers
+add virtio accelerated drivers suitable when running on top of
+a hypervisor that supports virtio (such as qemu/KVM).  The
+operation also adjusts the Windows Registry so that the drivers
+are installed when the guest boots.
+
+The parameter can be one of:
+
+=over 4
+
+=item ISO
+
+The path to the ISO image containing the virtio-win drivers
+(eg. F</usr/share/virtio-win/virtio-win.iso>).
+
+=item DIR
+
+The directory containing the unpacked virtio-win drivers
+(eg. F</usr/share/virtio-win>).
+
+=item B<\"osinfo\">
+
+The literal string C<\"osinfo\"> means to use the
+libosinfo database to locate the drivers.  (See
+L<osinfo-query(1)>.
+
+=back
+
+Note that to do a full conversion of a Windows guest from a
+foreign hypervisor like VMware (which involves many other operations)
+you should use the L<virt-v2v(1)> tool instead of this.";
+  };
+
   { op_name = "install";
     op_type = StringList "PKG,PKG..";
     op_discrim = "`InstallPackages";
