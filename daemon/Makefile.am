@@ -215,9 +215,9 @@ guestfsd_SOURCES = \
 guestfsd_LDFLAGS = \
 	-L$(shell $(OCAMLC) -where) \
 	-L$(shell $(OCAMLFIND) query hivex) \
+	-L$(shell $(OCAMLFIND) query augeas) \
 	-L../common/mlutils \
 	-L../common/mlstdutils \
-	-L../bundled/ocaml-augeas \
 	-L../common/mlpcre
 guestfsd_LDADD = \
 	camldaemon.o \
@@ -353,8 +353,7 @@ BOBJECTS = $(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
 OCAMLPACKAGES = \
-	-package str,unix,hivex \
-	-I $(top_builddir)/bundled/ocaml-augeas \
+	-package str,unix,augeas,hivex \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlutils \
 	-I $(top_builddir)/common/utils/.libs \
@@ -385,7 +384,6 @@ camldaemon.o: $(OBJECTS)
 	$(OCAMLFIND) $(BEST) -output-obj -o $@ \
 	    $(OCAMLFLAGS) $(OCAMLPACKAGES) \
 	    -linkpkg \
-	    mlaugeas.$(MLARCHIVE) \
 	    mlpcre.$(MLARCHIVE) \
 	    mlstdutils.$(MLARCHIVE) \
 	    mlcutils.$(MLARCHIVE) \
@@ -444,7 +442,6 @@ OCAMLLINKFLAGS = \
 	mlpcre.$(MLARCHIVE) \
 	mlstdutils.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
-	mlaugeas.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
 daemon_utils_tests_DEPENDENCIES = \

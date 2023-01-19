@@ -1,8 +1,0 @@
-The files augeas-c.c, augeas.ml and augeas.mli come from the
-ocaml-augeas library:
-
-  http://git.annexia.org/?p=ocaml-augeas.git
-
-which is released under a compatible license.  We try to keep them
-identical, so if you make changes to these files then you must also
-submit the changes to ocaml-augeas, and vice versa.

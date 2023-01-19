@@ -172,6 +172,11 @@ I<Required>.
 
 I<Required>.
 
+=item ocaml-augeas
+
+I<Required>.  These are the OCaml bindings for Augeas, found at:
+L<http://people.redhat.com/~rjones/augeas/>
+
 =item xz
 
 I<Required>.

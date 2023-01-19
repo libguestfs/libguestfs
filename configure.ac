@@ -208,7 +208,6 @@ AC_CONFIG_FILES([run],
 AC_CONFIG_FILES([Makefile
                  appliance/Makefile
                  bash/Makefile
-                 bundled/ocaml-augeas/Makefile
                  common/errnostring/Makefile
                  common/edit/Makefile
                  common/mlpcre/Makefile
