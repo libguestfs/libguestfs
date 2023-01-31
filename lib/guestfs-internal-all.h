@@ -161,7 +161,7 @@ extern int accept4 (int sockfd, struct sockaddr *restrict addr,
 #endif
 
 #ifndef HAVE_PIPE2
-extern int pipe2(int pipefd[2], int flags);
+extern int pipe2 (int pipefd[2], int flags);
 #endif
 
 #endif /* GUESTFS_INTERNAL_ALL_H_ */
