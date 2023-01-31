@@ -156,8 +156,8 @@ typedef enum {
 #ifndef HAVE_ACCEPT4
 #include <sys/socket.h>
 
-extern int accept4 (int sockfd, struct sockaddr *restrict addr,
-		    socklen_t *restrict addrlen, int flags);
+extern int accept4 (int sockfd, struct sockaddr *__restrict__ addr,
+		    socklen_t *__restrict__ addrlen, int flags);
 #endif
 
 #ifndef HAVE_PIPE2
