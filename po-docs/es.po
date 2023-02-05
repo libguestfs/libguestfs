@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2022-12-11 16:19+0000\n"
+"PO-Revision-Date: 2023-02-05 15:20+0000\n"
 "Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 4.15.2\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -628,6 +628,8 @@ msgid ""
 "Add all the disks from the named libvirt guest.  Domain UUIDs can be used "
 "instead of names."
 msgstr ""
+"Añadir todos los discos desde el invitado libvirt denominado. Se pueden usar "
+"UUIDs de dominio en lugar de nombres."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:143 ../cat/virt-cat.pod:102
@@ -638,7 +640,7 @@ msgstr ""
 #: ../fuse/guestmount.pod:221 ../inspector/virt-inspector.pod:104
 #: ../rescue/virt-rescue.pod:157
 msgid "B<--format=raw|qcow2|..>"
-msgstr ""
+msgstr "B<--format=raw|qcow2|..>"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:145 ../cat/virt-cat.pod:104
@@ -649,7 +651,7 @@ msgstr ""
 #: ../fuse/guestmount.pod:223 ../inspector/virt-inspector.pod:106
 #: ../rescue/virt-rescue.pod:159
 msgid "B<--format>"
-msgstr ""
+msgstr "B<--format>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:147 ../cat/virt-cat.pod:106
@@ -664,6 +666,10 @@ msgid ""
 "the command line.  Using I<--format> with no argument switches back to auto-"
 "detection for subsequent I<-a> options."
 msgstr ""
+"Lo predeterminado para la opción I<-a> es auto-detectar el formato del disco "
+"imagen. Usando esto fuerza el formato de disco para las opciones I<-a> que "
+"siguen en la línea de comandos. Usando I<--format> sin argumento conmuta a "
+"la auto-detección atrás para las subsiguientes opciones I<-a>."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:152 ../builder/virt-builder.pod:150
@@ -687,6 +693,8 @@ msgid ""
 " virt-alignment-scan --format=raw -a disk.img\n"
 "\n"
 msgstr ""
+" virt-alignment-scan --format=raw -a disk.img\n"
+"\n"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:156 ../cat/virt-cat.pod:115
