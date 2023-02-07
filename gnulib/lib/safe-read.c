@@ -1,6 +1,6 @@
 /* An interface to read and write that retries after interrupts.
 
-   Copyright (C) 1993-1994, 1998, 2002-2006, 2009-2021 Free Software
+   Copyright (C) 1993-1994, 1998, 2002-2006, 2009-2023 Free Software
    Foundation, Inc.
 
    (NB: I modified the original GPL boilerplate here to LGPLv2+.  This

@@ -1,5 +1,5 @@
 /* base64.h -- Encode binary data using printable characters.
-   Copyright (C) 2004-2006, 2009-2021 Free Software Foundation, Inc.
+   Copyright (C) 2004-2006, 2009-2023 Free Software Foundation, Inc.
    Written by Simon Josefsson.
 
    (NB: I modified the original GPL boilerplate here to LGPLv2+.  This

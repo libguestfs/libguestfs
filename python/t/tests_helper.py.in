@@ -1,5 +1,5 @@
 # libguestfs Python bindings
-# Copyright (C) 2016-2020 Red Hat Inc.
+# Copyright (C) 2016-2023 Red Hat Inc.
 # @configure_input@
 #
 # This program is free software; you can redistribute it and/or modify

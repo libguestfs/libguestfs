@@ -1,5 +1,5 @@
 /* base64.c -- Encode binary data using printable characters.
-   Copyright (C) 1999-2001, 2004-2006, 2009-2021 Free Software Foundation, Inc.
+   Copyright (C) 1999-2001, 2004-2006, 2009-2023 Free Software Foundation, Inc.
 
    (NB: I modified the original GPL boilerplate here to LGPLv2+.  This
    is because of the weird way that gnulib uses licenses, where the

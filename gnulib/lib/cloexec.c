@@ -1,6 +1,6 @@
 /* cloexec.c - set or clear the close-on-exec descriptor flag
 
-   Copyright (C) 1991, 2004-2006, 2009-2021 Free Software Foundation, Inc.
+   Copyright (C) 1991, 2004-2006, 2009-2023 Free Software Foundation, Inc.
 
    (NB: I modified the original GPL boilerplate here to LGPLv2+.  This
    is because of the weird way that gnulib uses licenses, where the
