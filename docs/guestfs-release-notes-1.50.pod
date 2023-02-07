@@ -7,7 +7,7 @@ guestfs-release-notes - libguestfs Release Notes
 These are the release notes for libguestfs stable release 1.50.
 This describes the major changes since 1.48.
 
-Libguestfs 1.50.0 was released on B<XXX February 2023>.
+Libguestfs 1.50.0 was released on B<7 February 2023>.
 
 =head2 Language bindings
 
