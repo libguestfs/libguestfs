@@ -110,7 +110,6 @@ ifelse(ARCHLINUX,1,
   dnl syslinux has mtools as optional dependency, but in reality it's
   dnl a hard one:
   mtools
-  multipath-tools  dnl for kpartx
   nilfs-utils
   ntfs-3g
   ntfs-3g-system-compression
@@ -265,35 +264,6 @@ util-linux
 util-linux-ng
 xfsprogs
 zerofree
-
-dnl tools needed by virt-dib
-ifelse(REDHAT,1,
-  qemu-img
-  which
-)
-ifelse(DEBIAN,1,
-  qemu-utils
-)
-ifelse(ARCHLINUX,1,
-  qemu
-  which
-)
-ifelse(SUSE,1,
-  qemu-tools
-  which
-)
-ifelse(FRUGALWARE,1,
-  qemu
-  which
-)
-ifelse(MAGEIA,1,
-  qemu-img
-  which
-)
-curl
-kpartx
-dnl (virt-dib) tools optionally used for elements
-debootstrap
 
 dnl exFAT is not usually available in free software repos
 exfat-fuse
