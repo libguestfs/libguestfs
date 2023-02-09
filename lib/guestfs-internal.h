@@ -128,6 +128,9 @@ cleanup_mutex_unlock (pthread_mutex_t **ptr)
 #define MAX_WINDOWS_EXPLORER_SIZE (4 * 1000 * 1000)
 
 /* Machine types. */
+#if defined(__x86_64__)
+#define MACHINE_TYPE "q35"
+#endif
 #ifdef __arm__
 #define MACHINE_TYPE "virt"
 #endif
