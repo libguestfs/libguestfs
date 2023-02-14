@@ -131,7 +131,7 @@ guestfs_int_py_event_callback_wrapper (guestfs_h *g,
   }
 
   /* XXX As with Perl we don't pass the guestfs_h handle here. */
-  args = Py_BuildValue ("(Kis#O)",
+  args = Py_BuildValue ("(Kiy#O)",
                         (unsigned PY_LONG_LONG) event, event_handle,
                         buf, buf_len, py_array);
   if (args == NULL) {
