@@ -134,18 +134,21 @@ guestfs_int_py_event_callback_wrapper (guestfs_h *g,
   args = Py_BuildValue ("(Kis#O)",
                         (unsigned PY_LONG_LONG) event, event_handle,
                         buf, buf_len, py_array);
+  if (args == NULL) {
+    PyErr_PrintEx (0);
+    goto out;
+  }
+
   Py_INCREF (args);
-
   py_r = PyObject_CallObject (py_callback, args);
-
   Py_DECREF (args);
-
   if (py_r != NULL)
     Py_DECREF (py_r);
   else
     /* Callback threw an exception: print it. */
     PyErr_PrintEx (0);
 
+ out:
   PyGILState_Release (py_save);
 }
 
