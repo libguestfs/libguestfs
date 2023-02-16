@@ -50,7 +50,7 @@ let output_to_subset fs f =
 (* Main program. *)
 let () =
   let lock_fd =
-    try openfile "RELEASES" [O_RDWR] 0
+    try openfile "podwrapper.pl.in" [O_RDWR] 0
     with
     | Unix_error (ENOENT, _, _) ->
         eprintf "\
@@ -60,7 +60,7 @@ Run it from the top source directory using the command
 ";
         exit 1
     | exn ->
-        perror "open: BUGS" exn;
+        perror "open: podwrapper.pl.in" exn;
         exit 1 in
 
   (* Acquire a lock so parallel builds won't try to run the generator
@@ -70,7 +70,7 @@ Run it from the top source directory using the command
    *)
   (try lockf lock_fd F_LOCK 1
    with exn ->
-     perror "lock: BUGS" exn;
+     perror "lock: podwrapper.pl.in" exn;
      exit 1);
 
   output_to "AUTHORS"
