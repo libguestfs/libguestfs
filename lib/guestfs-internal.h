@@ -44,23 +44,8 @@
  */
 typedef struct hash_table Hash_table;
 
-/* Minimum required version of libvirt for the libvirt backend.
- *
- * This is also checked at runtime because you can dynamically link
- * with a different version from what you were compiled with.
- */
-#define MIN_LIBVIRT_MAJOR 0
-#define MIN_LIBVIRT_MINOR 10
-#define MIN_LIBVIRT_MICRO 2 /* XXX patches in > 2 already */
-#define MIN_LIBVIRT_VERSION (MIN_LIBVIRT_MAJOR * 1000000 +	\
-                             MIN_LIBVIRT_MINOR * 1000 +		\
-                             MIN_LIBVIRT_MICRO)
-
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
-#if LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION
-#define HAVE_LIBVIRT_BACKEND
-#endif
 #endif
 
 /* https://stackoverflow.com/a/1597129 */
@@ -159,7 +144,7 @@ cleanup_mutex_unlock (pthread_mutex_t **ptr)
  * hardware with PCI. Necessary only before libvirt 3.8.0. Refer to
  * RHBZ#2034160.
  */
-#ifdef HAVE_LIBVIRT_BACKEND
+#ifdef HAVE_LIBVIRT
 #if defined(__arm__) || defined(__s390x__)
 #define VIRTIO_NET_PCI_ADDR ""
 #else
@@ -514,7 +499,7 @@ struct guestfs_h {
   int ml_debug_calls;        /* Extra debug info on each FUSE call. */
 #endif
 
-#ifdef HAVE_LIBVIRT_BACKEND
+#ifdef HAVE_LIBVIRT
   /* Used by lib/libvirt-auth.c. */
 #define NR_CREDENTIAL_TYPES 9
   unsigned int nr_supported_credentials;
@@ -783,7 +768,7 @@ extern void guestfs_int_cleanup_cmd_close (struct command **);
 
 /* launch-*.c constructors */
 void guestfs_int_init_direct_backend (void) __attribute__((constructor));
-#ifdef HAVE_LIBVIRT_BACKEND
+#ifdef HAVE_LIBVIRT
 void guestfs_int_init_libvirt_backend (void) __attribute__((constructor));
 #endif
 
