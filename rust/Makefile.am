@@ -36,7 +36,7 @@ all: $(srcdir)/src/lib.rs
 	$(top_builddir)/run $(CARGO) build --release
 
 distclean-local:
-	$(top_builddir)/run $(CARGO) clean
+	-$(top_builddir)/run $(CARGO) clean
 
 TESTS = run-bindtests run-tests
 
