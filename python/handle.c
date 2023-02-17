@@ -139,7 +139,6 @@ guestfs_int_py_event_callback_wrapper (guestfs_h *g,
     goto out;
   }
 
-  Py_INCREF (args);
   py_r = PyObject_CallObject (py_callback, args);
   Py_DECREF (args);
   if (py_r != NULL)
