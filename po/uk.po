@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2023-01-19 23:27+0000\n"
+"POT-Creation-Date: 2023-02-16 11:55+0000\n"
 "PO-Revision-Date: 2022-12-12 19:20+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
@@ -2736,11 +2736,63 @@ msgid "Try ‘%s --help’ for more information.\n"
 msgstr "Віддайте команду «%s --help», щоб дізнатися більше.\n"
 
 #: fish/fish.c:117
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "%s: guest filesystem shell\n"
+#| "%s lets you edit virtual machine filesystems\n"
+#| "Copyright (C) 2009-2020 Red Hat Inc.\n"
+#| "Usage:\n"
+#| "  %s [--options] cmd [: cmd : cmd ...]\n"
+#| "Options:\n"
+#| "  -h|--cmd-help        List available commands\n"
+#| "  -h|--cmd-help cmd    Display detailed help on ‘cmd’\n"
+#| "  -a|--add image       Add image\n"
+#| "  --blocksize[=512|4096]\n"
+#| "                       Set sector size of the disk for -a option\n"
+#| "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#| "  --csh                Make --listen csh-compatible\n"
+#| "  -d|--domain guest    Add disks from libvirt guest\n"
+#| "  --echo-keys          Don’t turn off echo for passphrases\n"
+#| "  -f|--file file       Read commands from file\n"
+#| "  --format[=raw|..]    Force disk format for -a option\n"
+#| "  --help               Display brief help\n"
+#| "  -i|--inspector       Automatically mount filesystems\n"
+#| "  --key selector       Specify a LUKS key\n"
+#| "  --keys-from-stdin    Read passphrases from stdin\n"
+#| "  --listen             Listen for remote commands\n"
+#| "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+#| "                       Mount dev on mnt (if omitted, /)\n"
+#| "  --network            Enable network\n"
+#| "  -N|--new [filename=]type\n"
+#| "                       Create prepared disk (test<N>.img or filename)\n"
+#| "  -n|--no-sync         Don’t autosync\n"
+#| "  --no-dest-paths      Don’t tab-complete paths from guest fs\n"
+#| "  --pipe-error         Pipe commands can detect write errors\n"
+#| "  --progress-bars      Enable progress bars even when not interactive\n"
+#| "  --no-progress-bars   Disable progress bars\n"
+#| "  --remote[=pid]       Send commands to remote %s\n"
+#| "  -r|--ro              Mount read-only\n"
+#| "  --selinux            For backwards compat only, does nothing\n"
+#| "  -v|--verbose         Verbose messages\n"
+#| "  -V|--version         Display version and exit\n"
+#| "  -w|--rw              Mount read-write\n"
+#| "  -x                   Echo each command before executing it\n"
+#| "\n"
+#| "To examine a disk image, ISO, hard disk, filesystem etc:\n"
+#| "  %s [--ro|--rw] -i -a /path/to/disk.img\n"
+#| "or\n"
+#| "  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
+#| "\n"
+#| "‘--ro’ is recommended to avoid any writes to the disk image.\n"
+#| "\n"
+#| "If ‘-i’ option fails run again without ‘-i’ and use ‘run’ +\n"
+#| "‘list-filesystems’ + ‘mount’ cmds.\n"
+#| "\n"
+#| "For more information, see the manpage %s(1).\n"
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009-2020 Red Hat Inc.\n"
+"Copyright (C) 2009-2023 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
 "Options:\n"
@@ -3528,11 +3580,43 @@ msgid "use 'time command [args...]'\n"
 msgstr "скористайтеся командою «time команда [аргументи...]»\n"
 
 #: fuse/guestmount.c:106
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "%s: FUSE module for libguestfs\n"
+#| "%s lets you mount a virtual machine filesystem\n"
+#| "Copyright (C) 2009-2020 Red Hat Inc.\n"
+#| "Usage:\n"
+#| "  %s [--options] mountpoint\n"
+#| "Options:\n"
+#| "  -a|--add image       Add image\n"
+#| "  --blocksize[=512|4096]\n"
+#| "                       Set sector size of the disk for -a option\n"
+#| "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#| "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+#| "  -d|--domain guest    Add disks from libvirt guest\n"
+#| "  --echo-keys          Don't turn off echo for passphrases\n"
+#| "  --fd=FD              Write to pipe FD when mountpoint is ready\n"
+#| "  --format[=raw|..]    Force disk format for -a option\n"
+#| "  --fuse-help          Display extra FUSE options\n"
+#| "  -i|--inspector       Automatically mount filesystems\n"
+#| "  --help               Display help message and exit\n"
+#| "  --key selector       Specify a LUKS key\n"
+#| "  --keys-from-stdin    Read passphrases from stdin\n"
+#| "  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
+#| "  --no-fork            Don't daemonize\n"
+#| "  -n|--no-sync         Don't autosync\n"
+#| "  -o|--option opt      Pass extra option to FUSE\n"
+#| "  --pid-file filename  Write PID to filename\n"
+#| "  -r|--ro              Mount read-only\n"
+#| "  --selinux            For backwards compat only, does nothing\n"
+#| "  -v|--verbose         Verbose messages\n"
+#| "  -V|--version         Display version and exit\n"
+#| "  -w|--rw              Mount read-write\n"
+#| "  -x|--trace           Trace guestfs API calls\n"
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009-2020 Red Hat Inc.\n"
+"Copyright (C) 2009-2023 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] mountpoint\n"
 "Options:\n"
@@ -4322,7 +4406,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: lib/launch-direct.c:902 lib/launch-libvirt.c:707
+#: lib/launch-direct.c:902 lib/launch-libvirt.c:698
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
@@ -4363,26 +4447,20 @@ msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 "у модулі libvirt ще не передбачено підтримки прапорця безпосереднього режиму"
 
-#: lib/launch-libvirt.c:358
-#, c-format
-msgid "you must have libvirt >= %d.%d.%d to use the ‘libvirt’ backend"
-msgstr ""
-"щоб скористатися модулем «libvirt», вам слід встановити libvirt >= %d.%d.%d"
-
-#: lib/launch-libvirt.c:391
+#: lib/launch-libvirt.c:382
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: lib/launch-libvirt.c:420
+#: lib/launch-libvirt.c:411
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
-#: lib/launch-libvirt.c:441
+#: lib/launch-libvirt.c:432
 msgid "could not get libvirt domain capabilities"
 msgstr "не вдалося визначити можливості домену libvirt"
 
-#: lib/launch-libvirt.c:636
+#: lib/launch-libvirt.c:627
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -4399,22 +4477,22 @@ msgstr ""
 "\n"
 "Початкове повідомлення від libvirt"
 
-#: lib/launch-libvirt.c:772
+#: lib/launch-libvirt.c:763
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 "не вдалося обробити запис можливостей у форматі XML, повернутий libvirt"
 
-#: lib/launch-libvirt.c:778 lib/launch-libvirt.c:880 lib/libvirt-domain.c:397
+#: lib/launch-libvirt.c:769 lib/launch-libvirt.c:871 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
 msgid "unable to create new XPath context"
 msgstr "не вдалося створити контекст XPath"
 
-#: lib/launch-libvirt.c:788 lib/launch-libvirt.c:888 lib/launch-libvirt.c:904
+#: lib/launch-libvirt.c:779 lib/launch-libvirt.c:879 lib/launch-libvirt.c:895
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "не вдалося обробити вираз XPath: %s"
 
-#: lib/launch-libvirt.c:827
+#: lib/launch-libvirt.c:818
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -4442,18 +4520,18 @@ msgstr ""
 "guestfs(3) та списком поширених питань щодо libguestfs та відповідей\n"
 "на ці питання."
 
-#: lib/launch-libvirt.c:874
+#: lib/launch-libvirt.c:865
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 "не вдалося обробити запис можливостей домену у форматі XML, повернутий "
 "libvirt"
 
-#: lib/launch-libvirt.c:1509 lib/launch-libvirt.c:1767 lib/qemu.c:816
+#: lib/launch-libvirt.c:1500 lib/launch-libvirt.c:1758 lib/qemu.c:816
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: lib/launch-libvirt.c:1592
+#: lib/launch-libvirt.c:1583
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -4461,33 +4539,33 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: lib/launch-libvirt.c:1982
+#: lib/launch-libvirt.c:1973
 msgid "could not define libvirt secret"
 msgstr "не вдалося визначити реєстраційні дані libvirt"
 
-#: lib/launch-libvirt.c:1993
+#: lib/launch-libvirt.c:1984
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 "реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
 
-#: lib/launch-libvirt.c:1997
+#: lib/launch-libvirt.c:1988
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr "base64_decode_alloc: %m"
 
-#: lib/launch-libvirt.c:2018
+#: lib/launch-libvirt.c:2009
 msgid "could not set libvirt secret value"
 msgstr "не вдалося встановити значення реєстраційних даних libvirt"
 
-#: lib/launch-libvirt.c:2031
+#: lib/launch-libvirt.c:2022
 msgid "could not get UUID from libvirt secret"
 msgstr "не вдалося отримати UUID із реєстраційних даних libvirt"
 
-#: lib/launch-libvirt.c:2204
+#: lib/launch-libvirt.c:2195
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: lib/launch-libvirt.c:2225 lib/launch-libvirt.c:2258
+#: lib/launch-libvirt.c:2216 lib/launch-libvirt.c:2249
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
@@ -4937,10 +5015,39 @@ msgid "  distro: %s"
 msgstr "  дистрибутив: %s"
 
 #: rescue/rescue.c:83
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "%s: Run a rescue shell on a virtual machine\n"
+#| "Copyright (C) 2009-2020 Red Hat Inc.\n"
+#| "Usage:\n"
+#| "  %s [--options] -d domname\n"
+#| "  %s [--options] -a disk.img [-a disk.img ...]\n"
+#| "Options:\n"
+#| "  -a|--add image       Add image\n"
+#| "  --append kernelopts  Append kernel options\n"
+#| "  --blocksize[=512|4096]\n"
+#| "                       Set sector size of the disk for -a option\n"
+#| "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#| "  -d|--domain guest    Add disks from libvirt guest\n"
+#| "  -e ^x|none           Set or disable escape key (default ^])\n"
+#| "  --format[=raw|..]    Force disk format for -a option\n"
+#| "  --help               Display brief help\n"
+#| "  -i|--inspector       Automatically mount filesystems\n"
+#| "  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
+#| "  --memsize MB         Set memory size in megabytes\n"
+#| "  --network            Enable network\n"
+#| "  -r|--ro              Access read-only\n"
+#| "  --scratch[=N]        Add scratch disk(s)\n"
+#| "  --selinux            For backwards compat only, does nothing\n"
+#| "  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
+#| "  -v|--verbose         Verbose messages\n"
+#| "  -V|--version         Display version and exit\n"
+#| "  -w|--rw              Mount read-write\n"
+#| "  -x                   Trace libguestfs API calls\n"
+#| "For more information, see the manpage %s(1).\n"
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
-"Copyright (C) 2009-2020 Red Hat Inc.\n"
+"Copyright (C) 2009-2023 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname\n"
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
@@ -5111,10 +5218,23 @@ msgid "# %s has type ‘%s’\n"
 msgstr "# %s належить до типу «%s»\n"
 
 #: test-tool/test-tool.c:57
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "libguestfs-test-tool: interactive test tool\n"
+#| "Copyright (C) 2009-2020 Red Hat Inc.\n"
+#| "Usage:\n"
+#| "  libguestfs-test-tool [--options]\n"
+#| "Options:\n"
+#| "  --help         Display usage\n"
+#| "  --qemudir dir  Specify QEMU source directory\n"
+#| "  --qemu qemu    Specify QEMU binary\n"
+#| "  --timeout n\n"
+#| "  -t n           Set launch timeout (default: %d seconds)\n"
+#| "  --version\n"
+#| "  -V             Display libguestfs version and exit\n"
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009-2020 Red Hat Inc.\n"
+"Copyright (C) 2009-2023 Red Hat Inc.\n"
 "Usage:\n"
 "  libguestfs-test-tool [--options]\n"
 "Options:\n"
@@ -5183,6 +5303,11 @@ msgstr "виконуваного файла «%s» не існує або вка
 #, c-format
 msgid "path does not look like a qemu source directory: %s"
 msgstr "шлях не є каталогом початкових кодів qemu: %s"
+
+#~ msgid "you must have libvirt >= %d.%d.%d to use the ‘libvirt’ backend"
+#~ msgstr ""
+#~ "щоб скористатися модулем «libvirt», вам слід встановити libvirt >= %d.%d."
+#~ "%d"
 
 #~ msgid "‘iface’ parameter is not supported by the libvirt backend"
 #~ msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
