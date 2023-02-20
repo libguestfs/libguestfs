@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2023-01-19 23:27+0000\n"
+"POT-Creation-Date: 2023-02-16 11:55+0000\n"
 "PO-Revision-Date: 2015-02-21 10:50+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/libguestfs/"
@@ -2625,7 +2625,7 @@ msgstr ""
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009-2020 Red Hat Inc.\n"
+"Copyright (C) 2009-2023 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
 "Options:\n"
@@ -3279,7 +3279,7 @@ msgstr "'time command [args...]' ಅನ್ನು ಬಳಸು\n"
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009-2020 Red Hat Inc.\n"
+"Copyright (C) 2009-2023 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] mountpoint\n"
 "Options:\n"
@@ -3953,7 +3953,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ನೀವು guestfs_launch ನ ಮೊದಲು guestfs_add_drive ಅನ್ನು ಕರೆಯಬೇಕು"
 
-#: lib/launch-direct.c:902 lib/launch-libvirt.c:707
+#: lib/launch-direct.c:902 lib/launch-libvirt.c:698
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
@@ -3980,25 +3980,20 @@ msgstr ""
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:358
-#, c-format
-msgid "you must have libvirt >= %d.%d.%d to use the ‘libvirt’ backend"
-msgstr ""
-
-#: lib/launch-libvirt.c:391
+#: lib/launch-libvirt.c:382
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: lib/launch-libvirt.c:420
+#: lib/launch-libvirt.c:411
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:441
+#: lib/launch-libvirt.c:432
 msgid "could not get libvirt domain capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:636
+#: lib/launch-libvirt.c:627
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -4008,21 +4003,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:772
+#: lib/launch-libvirt.c:763
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:778 lib/launch-libvirt.c:880 lib/libvirt-domain.c:397
+#: lib/launch-libvirt.c:769 lib/launch-libvirt.c:871 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: lib/launch-libvirt.c:788 lib/launch-libvirt.c:888 lib/launch-libvirt.c:904
+#: lib/launch-libvirt.c:779 lib/launch-libvirt.c:879 lib/launch-libvirt.c:895
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:827
+#: lib/launch-libvirt.c:818
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -4037,47 +4032,47 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:874
+#: lib/launch-libvirt.c:865
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1509 lib/launch-libvirt.c:1767 lib/qemu.c:816
+#: lib/launch-libvirt.c:1500 lib/launch-libvirt.c:1758 lib/qemu.c:816
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1592
+#: lib/launch-libvirt.c:1583
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1982
+#: lib/launch-libvirt.c:1973
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1993
+#: lib/launch-libvirt.c:1984
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1997
+#: lib/launch-libvirt.c:1988
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:2018
+#: lib/launch-libvirt.c:2009
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2031
+#: lib/launch-libvirt.c:2022
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2204
+#: lib/launch-libvirt.c:2195
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2225 lib/launch-libvirt.c:2258
+#: lib/launch-libvirt.c:2216 lib/launch-libvirt.c:2249
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
@@ -4490,7 +4485,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
-"Copyright (C) 2009-2020 Red Hat Inc.\n"
+"Copyright (C) 2009-2023 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname\n"
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
@@ -4609,7 +4604,7 @@ msgstr ""
 #, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009-2020 Red Hat Inc.\n"
+"Copyright (C) 2009-2023 Red Hat Inc.\n"
 "Usage:\n"
 "  libguestfs-test-tool [--options]\n"
 "Options:\n"
