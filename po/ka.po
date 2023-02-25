@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.49.1\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2023-02-16 11:55+0000\n"
-"PO-Revision-Date: 2023-02-20 19:20+0000\n"
+"PO-Revision-Date: 2023-02-25 10:20+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ka/>\n"
@@ -1041,7 +1041,7 @@ msgstr ""
 
 #: fish/cmds.c:721
 msgid "get the program name"
-msgstr ""
+msgstr "პროგრამის სახელის მიღება"
 
 #: fish/cmds.c:722
 msgid "get the hypervisor binary (usually qemu)"
@@ -1121,7 +1121,7 @@ msgstr ""
 
 #: fish/cmds.c:743
 msgid "close the current hivex handle"
-msgstr ""
+msgstr "hivex-ის მიმდინარე დამმუშავებლის დახურვა"
 
 #: fish/cmds.c:744
 msgid "commit (write) changes back to the hive"
@@ -1469,7 +1469,7 @@ msgstr ""
 
 #: fish/cmds.c:845
 msgid "list 9p filesystems"
-msgstr ""
+msgstr "9p ფაილური სისტემების სია"
 
 #: fish/cmds.c:846
 msgid "list the block devices"
@@ -1565,7 +1565,7 @@ msgstr ""
 
 #: fish/cmds.c:874
 msgid "open a LUKS-encrypted block device"
-msgstr ""
+msgstr "დაშიფრული ბლოკური მოწყობილობის გახსნა"
 
 #: fish/cmds.c:875
 msgid "open a LUKS-encrypted block device read-only"
@@ -1705,7 +1705,7 @@ msgstr ""
 
 #: fish/cmds.c:918
 msgid "create a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ფაილური სისტემის შექმნა"
 
 #: fish/cmds.c:919
 msgid "make lost+found directory on an ext2/3/4 filesystem"
@@ -2061,7 +2061,7 @@ msgstr ""
 
 #: fish/cmds.c:1032
 msgid "remove a file or directory recursively"
-msgstr ""
+msgstr "ფაილის ან საქაღალდის რეკურსიული წაშლა"
 
 #: fish/cmds.c:1033
 msgid "remove a directory"
@@ -2337,7 +2337,7 @@ msgstr ""
 
 #: fish/cmds.c:1118
 msgid "pack directory into tarfile"
-msgstr ""
+msgstr "საქაღალდის tar ფაილში შეკვრა"
 
 #: fish/cmds.c:1119 fish/cmds.c:1133
 msgid "unpack compressed tarball to directory"
@@ -2465,11 +2465,11 @@ msgstr ""
 
 #: fish/cmds.c:1167
 msgid "remove an LVM volume group"
-msgstr ""
+msgstr "\"LVM\" საცავის ჯგუფის წაშლა"
 
 #: fish/cmds.c:1168
 msgid "rename an LVM volume group"
-msgstr ""
+msgstr "\"LVM\" საცავის ჯგუფის სახელის გადარქმევა"
 
 #: fish/cmds.c:1169 fish/cmds.c:1170
 msgid "list the LVM volume groups (VGs)"
@@ -2836,6 +2836,8 @@ msgstr ""
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
+"%s: იმისთვის, რომ Windows-ის დისკის სიმბოლოები გამოიყენოთ, ეს Windows-ის "
+"სტუმარს უნდა წარმოადგენდეს\n"
 
 #: fish/fish.c:1777
 #, c-format
@@ -2948,7 +2950,7 @@ msgstr ""
 #: fish/prep-lv.c:116 fish/prep-part.c:42
 #, c-format
 msgid "failed to partition disk: %s"
-msgstr ""
+msgstr "დისკის დაყოფის შეცდომა: %s"
 
 #: fish/prep-boot.c:58 fish/prep-boot.c:108
 #, c-format
@@ -2978,12 +2980,12 @@ msgstr ""
 #: fish/prep-boot.c:131 fish/prep-lv.c:88 fish/prep-lv.c:129
 #, c-format
 msgid "failed to create PV: %s: %s"
-msgstr ""
+msgstr "PV-ის (%s) შექმნის შეცდომა: %s"
 
 #: fish/prep-boot.c:136 fish/prep-lv.c:93 fish/prep-lv.c:134
 #, c-format
 msgid "failed to create VG: %s: %s"
-msgstr ""
+msgstr "VG-ის (%s) შექმნის შეცდომა: %s"
 
 #: fish/prep-boot.c:141 fish/prep-lv.c:98 fish/prep-lv.c:139
 #, c-format
@@ -3210,7 +3212,7 @@ msgstr ""
 #: fish/run-6.c:2046 fish/run-6.c:2133
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
-msgstr ""
+msgstr "%s: %s: არასწორი მთელრიცხვიანი პარამეტრი (%s -მა %u დააბრუნა)\n"
 
 #: fish/run-0.c:537 fish/run-0.c:610 fish/run-0.c:720 fish/run-0.c:960
 #: fish/run-0.c:1774 fish/run-0.c:1807 fish/run-0.c:1830 fish/run-0.c:2485
@@ -3672,7 +3674,7 @@ msgstr ""
 #: lib/drives.c:672
 #, c-format
 msgid "invalid port number ‘%s’"
-msgstr ""
+msgstr "პორტის არასწორი ნომერი: %s"
 
 #: lib/drives.c:679
 #, c-format
