@@ -61,6 +61,7 @@ Makefile.in
 /build-aux/snippet/
 /build-aux/test-driver
 /build-aux/ylwrap
+/bundled/ocaml-augeas/.depend
 /compile
 /config.cache
 /config.guess

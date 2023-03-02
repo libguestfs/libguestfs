@@ -71,6 +71,20 @@ Various build scripts used by autotools.
 
 L<virt-builder(1)> command and documentation.
 
+=item F<bundled>
+
+Embedded copies of other libraries, mostly for convenience (and the embedded
+library is not widespread enough).
+
+=over 4
+
+=item F<bundled/ocaml-augeas>
+
+Bindings for the Augeas library.  These come from the ocaml-augeas
+library L<http://git.annexia.org/?p=ocaml-augeas.git>
+
+=back
+
 =item F<cat>
 
 The L<virt-cat(1)>, L<virt-filesystems(1)>, L<virt-log(1)>,
