@@ -149,23 +149,23 @@ and string_of_root { root_location; inspection_data } =
 and string_of_inspection_data data =
   let b = Buffer.create 1024 in
   let bpf fs = bprintf b fs in
-    (fun v -> bpf "    type: %s\n" (string_of_os_type v))
+  Option.may (fun v -> bpf "    type: %s\n" (string_of_os_type v))
              data.os_type;
-    (fun v -> bpf "    distro: %s\n" (string_of_distro v))
+  Option.may (fun v -> bpf "    distro: %s\n" (string_of_distro v))
              data.distro;
-    (fun v -> bpf "    package_format: %s\n" (string_of_package_format v))
+  Option.may (fun v -> bpf "    package_format: %s\n" (string_of_package_format v))
              data.package_format;
-    (fun v -> bpf "    package_management: %s\n" (string_of_package_management v))
+  Option.may (fun v -> bpf "    package_management: %s\n" (string_of_package_management v))
              data.package_management;
-    (fun v -> bpf "    product_name: %s\n" v)
+  Option.may (fun v -> bpf "    product_name: %s\n" v)
              data.product_name;
-    (fun v -> bpf "    product_variant: %s\n" v)
+  Option.may (fun v -> bpf "    product_variant: %s\n" v)
              data.product_variant;
-    (fun (major, minor) -> bpf "    version: %d.%d\n" major minor)
+  Option.may (fun (major, minor) -> bpf "    version: %d.%d\n" major minor)
              data.version;
-    (fun v -> bpf "    arch: %s\n" v)
+  Option.may (fun v -> bpf "    arch: %s\n" v)
              data.arch;
-    (fun v -> bpf "    hostname: %s\n" v)
+  Option.may (fun v -> bpf "    hostname: %s\n" v)
              data.hostname;
   if data.fstab <> [] then (
     let v = List.map (
@@ -173,13 +173,13 @@ and string_of_inspection_data data =
     ) data.fstab in
     bpf "    fstab: [%s]\n" (String.concat ", " v)
   );
-    (fun v -> bpf "    windows_systemroot: %s\n" v)
+  Option.may (fun v -> bpf "    windows_systemroot: %s\n" v)
              data.windows_systemroot;
-    (fun v -> bpf "    windows_software_hive: %s\n" v)
+  Option.may (fun v -> bpf "    windows_software_hive: %s\n" v)
              data.windows_software_hive;
-    (fun v -> bpf "    windows_system_hive: %s\n" v)
+  Option.may (fun v -> bpf "    windows_system_hive: %s\n" v)
              data.windows_system_hive;
-    (fun v -> bpf "    windows_current_control_set: %s\n" v)
+  Option.may (fun v -> bpf "    windows_current_control_set: %s\n" v)
              data.windows_current_control_set;
   if data.drive_mappings <> [] then (
     let v =
