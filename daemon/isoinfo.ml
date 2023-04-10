@@ -61,7 +61,7 @@ let iso_parse_datetime str =
     let old_TZ = try Some (getenv "TZ") with Not_found -> None in
     putenv "TZ" "UTC";
     let r = Int64.of_float (fst (mktime tm)) in
-    Option.may (putenv "TZ") old_TZ;
+    putenv "TZ" old_TZ;
 
     (* The final byte is a time zone offset from GMT.
      *
