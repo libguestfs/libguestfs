@@ -21,7 +21,9 @@ open Std_utils
 open Utils
 
 let option_default default_val value =
-  if value = null then default_val else value
+  match value with
+    | None -> default_val
+    | Some value -> value
 
 let rec vfs_type { Mountable.m_device = device } =
   option_default "" (get_blkid_tag device "TYPE")
