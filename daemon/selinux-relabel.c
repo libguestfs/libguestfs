@@ -73,6 +73,7 @@ do_selinux_relabel (const char *specfile, const char *path,
 {
   static int flag_m = -1;
   static int flag_C = -1;
+  static int flag_T = -1;
   const char *argv[MAX_ARGS];
   CLEANUP_FREE char *s_dev = NULL, *s_proc = NULL, *s_selinux = NULL,
     *s_sys = NULL, *s_specfile = NULL, *s_path = NULL;
@@ -130,6 +131,17 @@ do_selinux_relabel (const char *specfile, const char *path,
    */
   if (setfiles_has_option (&flag_C, 'C'))
     ADD_ARG (argv, i, "-C");
+
+  /* If the appliance is being run with multiple vCPUs, running setfiles
+   * in multithreading mode might speeds up the process.  Option "-T" was
+   * introduced in SELinux userspace v3.4, and we need to check whether it's
+   * supported.  Passing "-T 0" creates as many threads as there're available
+   * vCPU cores.
+   * https://github.com/SELinuxProject/selinux/releases/tag/3.4
+   */
+  if (setfiles_has_option (&flag_T, 'T')) {
+    ADD_ARG (argv, i, "-T"); ADD_ARG (argv, i, "0");
+  }
 
   /* Relabelling in a chroot. */
   if (STRNEQ (sysroot, "/")) {
