@@ -56,8 +56,9 @@ setfiles_has_option (int *flag, char opt_char)
 
   if (*flag == -1) {
     char option[] = { '-', opt_char, '\0' };       /* "-X" */
-    char err_opt[] = { '\'', opt_char, '\'', '\0'}; /* "'X'" */
+    char err_opt[32];     /* "invalid option -- 'X'" */
 
+    snprintf(err_opt, sizeof(err_opt), "invalid option -- '%c'", opt_char);
     ignore_value (command (NULL, &err, "setfiles", option, NULL));
     *flag = err && strstr (err, /* "invalid option -- " */ err_opt) == NULL;
   }
