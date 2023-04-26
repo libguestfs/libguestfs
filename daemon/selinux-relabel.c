@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 
 #include "guestfs_protocol.h"
 #include "daemon.h"
@@ -35,6 +36,17 @@ int
 optgroup_selinuxrelabel_available (void)
 {
   return prog_exists ("setfiles");
+}
+
+static int
+dir_exists (const char *dir)
+{
+  struct stat statbuf;
+
+  if (stat (dir, &statbuf) == 0 && S_ISDIR (statbuf.st_mode))
+    return 1;
+  else
+    return 0;
 }
 
 static int
@@ -99,8 +111,10 @@ do_selinux_relabel (const char *specfile, const char *path,
    */
   ADD_ARG (argv, i, "-e"); ADD_ARG (argv, i, s_dev);
   ADD_ARG (argv, i, "-e"); ADD_ARG (argv, i, s_proc);
-  ADD_ARG (argv, i, "-e"); ADD_ARG (argv, i, s_selinux);
   ADD_ARG (argv, i, "-e"); ADD_ARG (argv, i, s_sys);
+  if (dir_exists (s_selinux)) {
+    ADD_ARG (argv, i, "-e"); ADD_ARG (argv, i, s_selinux);
+  }
 
   /* You have to use the -m option (where available) otherwise
    * setfiles puts all the mountpoints on the excludes list for no
