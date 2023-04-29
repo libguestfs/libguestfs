@@ -159,6 +159,10 @@ do_tar_in (const char *dir, const char *compress, int xattrs, int selinux, int a
       filter = " --xz";
     else if (STREQ (compress, "lzop"))
       filter = " --lzop";
+    else if (STREQ (compress, "lzma"))
+      filter = " --lzma";
+    else if (STREQ (compress, "zstd"))
+      filter = " --zstd";
     else {
       reply_with_error ("unknown compression type: %s", compress);
       return -1;
@@ -312,6 +316,10 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
       filter = " --xz";
     else if (STREQ (compress, "lzop"))
       filter = " --lzop";
+    else if (STREQ (compress, "lzma"))
+      filter = " --lzma";
+    else if (STREQ (compress, "zstd"))
+      filter = " --zstd";
     else {
       reply_with_error ("unknown compression type: %s", compress);
       return -1;
