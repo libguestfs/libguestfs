@@ -275,7 +275,7 @@ disk_create_qcow2 (guestfs_h *g, const char *filename, int64_t size,
     /* Since qemu 6.1, qemu-img create has requires a backing format (-F)
      * parameter if backing file (-b) is used (RHBZ#1998820).
      */
-    backingformat = "vpc";
+    backingformat = "VHDX";
   }
   if (optargs->bitmask & GUESTFS_DISK_CREATE_PREALLOCATION_BITMASK) {
     if (STREQ (optargs->preallocation, "off") ||
