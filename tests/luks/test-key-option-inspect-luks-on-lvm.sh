@@ -101,3 +101,21 @@ eval "$fish_ref"
 
 # Repeat the test.
 check_filesystems
+
+# Exit the current guestfish background process.
+guestfish --remote -- exit
+GUESTFISH_PID=
+
+# Start up another guestfish background process, and specify the keys in
+# /dev/mapper/VG-LV format this time.
+keys_by_mapper_lvname=(
+  --key /dev/mapper/Volume--Group-Root:key:FEDORA-Root
+  --key /dev/mapper/Volume--Group-Logical--Volume--1:key:FEDORA-LV1
+  --key /dev/mapper/Volume--Group-Logical--Volume--2:key:FEDORA-LV2
+  --key /dev/mapper/Volume--Group-Logical--Volume--3:key:FEDORA-LV3
+)
+fish_ref=$("${guestfish[@]}" "${keys_by_mapper_lvname[@]}")
+eval "$fish_ref"
+
+# Repeat the test.
+check_filesystems
