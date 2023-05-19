@@ -224,23 +224,27 @@ EOF
 
     # Create the Volume Group on /dev/sda2.
     $g->pvcreate ('/dev/sda2');
-    $g->vgcreate ('VG', ['/dev/sda2']);
-    $g->lvcreate ('Root', 'VG', 32);
-    $g->lvcreate ('LV1',  'VG', 32);
-    $g->lvcreate ('LV2',  'VG', 32);
-    $g->lvcreate ('LV3',  'VG', 64);
+    $g->vgcreate ('Volume-Group', ['/dev/sda2']);
+    $g->lvcreate ('Root',              'Volume-Group', 32);
+    $g->lvcreate ('Logical-Volume-1',  'Volume-Group', 32);
+    $g->lvcreate ('Logical-Volume-2',  'Volume-Group', 32);
+    $g->lvcreate ('Logical-Volume-3',  'Volume-Group', 64);
 
     # Format each Logical Group as a LUKS device, with a different password.
-    $g->luks_format ('/dev/VG/Root', 'FEDORA-Root', 0);
-    $g->luks_format ('/dev/VG/LV1',  'FEDORA-LV1',  0);
-    $g->luks_format ('/dev/VG/LV2',  'FEDORA-LV2',  0);
-    $g->luks_format ('/dev/VG/LV3',  'FEDORA-LV3',  0);
+    $g->luks_format ('/dev/Volume-Group/Root',              'FEDORA-Root', 0);
+    $g->luks_format ('/dev/Volume-Group/Logical-Volume-1',  'FEDORA-LV1',  0);
+    $g->luks_format ('/dev/Volume-Group/Logical-Volume-2',  'FEDORA-LV2',  0);
+    $g->luks_format ('/dev/Volume-Group/Logical-Volume-3',  'FEDORA-LV3',  0);
 
     # Open the LUKS devices. This creates nodes like /dev/mapper/*-luks.
-    $g->cryptsetup_open ('/dev/VG/Root', 'FEDORA-Root', 'Root-luks');
-    $g->cryptsetup_open ('/dev/VG/LV1',  'FEDORA-LV1',  'LV1-luks');
-    $g->cryptsetup_open ('/dev/VG/LV2',  'FEDORA-LV2',  'LV2-luks');
-    $g->cryptsetup_open ('/dev/VG/LV3',  'FEDORA-LV3',  'LV3-luks');
+    $g->cryptsetup_open ('/dev/Volume-Group/Root',
+                         'FEDORA-Root', 'Root-luks');
+    $g->cryptsetup_open ('/dev/Volume-Group/Logical-Volume-1',
+                         'FEDORA-LV1',  'LV1-luks');
+    $g->cryptsetup_open ('/dev/Volume-Group/Logical-Volume-2',
+                         'FEDORA-LV2',  'LV2-luks');
+    $g->cryptsetup_open ('/dev/Volume-Group/Logical-Volume-3',
+                         'FEDORA-LV3',  'LV3-luks');
 
     # Phony root filesystem.
     $g->mkfs ('ext2', '/dev/mapper/Root-luks', blocksize => 4096, label => 'ROOT');

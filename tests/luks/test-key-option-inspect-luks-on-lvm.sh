@@ -30,10 +30,10 @@ skip_unless_phony_guest fedora-luks-on-lvm.img
 # Volume names.
 guestfish=(guestfish --listen --ro --inspector
            --add ../test-data/phony-guests/fedora-luks-on-lvm.img)
-keys_by_lvname=(--key /dev/VG/Root:key:FEDORA-Root
-                --key /dev/VG/LV1:key:FEDORA-LV1
-                --key /dev/VG/LV2:key:FEDORA-LV2
-                --key /dev/VG/LV3:key:FEDORA-LV3)
+keys_by_lvname=(--key /dev/Volume-Group/Root:key:FEDORA-Root
+                --key /dev/Volume-Group/Logical-Volume-1:key:FEDORA-LV1
+                --key /dev/Volume-Group/Logical-Volume-2:key:FEDORA-LV2
+                --key /dev/Volume-Group/Logical-Volume-3:key:FEDORA-LV3)
 
 # The variable assignment below will fail, and abort the script, if guestfish
 # refuses to start up.
@@ -56,10 +56,10 @@ function cleanup_guestfish
 trap cleanup_guestfish EXIT
 
 # Get the UUIDs of the LUKS devices.
-uuid_root=$(guestfish --remote -- luks-uuid /dev/VG/Root)
-uuid_lv1=$( guestfish --remote -- luks-uuid /dev/VG/LV1)
-uuid_lv2=$( guestfish --remote -- luks-uuid /dev/VG/LV2)
-uuid_lv3=$( guestfish --remote -- luks-uuid /dev/VG/LV3)
+uuid_root=$(guestfish --remote -- luks-uuid /dev/Volume-Group/Root)
+uuid_lv1=$( guestfish --remote -- luks-uuid /dev/Volume-Group/Logical-Volume-1)
+uuid_lv2=$( guestfish --remote -- luks-uuid /dev/Volume-Group/Logical-Volume-2)
+uuid_lv3=$( guestfish --remote -- luks-uuid /dev/Volume-Group/Logical-Volume-3)
 
 # The actual test.
 function check_filesystems
