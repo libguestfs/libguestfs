@@ -38,10 +38,10 @@ AC_ARG_ENABLE([ocaml],
     [],
     [enable_ocaml=yes])
 
-dnl OCaml >= 4.04 is required.
-ocaml_ver_str=4.04
+dnl OCaml >= 4.07 is required.
+ocaml_ver_str=4.07
 ocaml_min_major=4
-ocaml_min_minor=4
+ocaml_min_minor=7
 AC_MSG_CHECKING([if OCaml version >= $ocaml_ver_str])
 ocaml_major="`echo $OCAMLVERSION | $AWK -F. '{print $1}'`"
 ocaml_minor="`echo $OCAMLVERSION | $AWK -F. '{print $2}' | sed 's/^0//'`"
