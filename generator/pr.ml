@@ -25,7 +25,7 @@ open Std_utils
 open Utils
 
 (* Output channel, 'pr' prints to this. *)
-let chan = ref Pervasives.stdout
+let chan = ref Stdlib.stdout
 
 (* Number of lines generated. *)
 let lines = ref 0
@@ -53,7 +53,7 @@ let output_to ?(perm = 0o444) filename k =
   chan := open_out filename_new;
   k ();
   close_out !chan;
-  chan := Pervasives.stdout;
+  chan := Stdlib.stdout;
 
   (* Is the new file different from the current file? *)
   if Sys.file_exists filename && files_equal filename filename_new then

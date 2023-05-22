@@ -51,7 +51,7 @@ let f t func arg =
     try
       let chan = out_channel_of_descr wfd in
       output_value chan ret;
-      Pervasives.flush chan;
+      Stdlib.flush chan;
       Exit._exit 0
     with
       exn ->
