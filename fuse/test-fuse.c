@@ -271,7 +271,6 @@ test_fuse (void)
   fp = fopen ("hello.txt", "r");
   if (fp == NULL) {
     perror ("open: hello.txt");
-    fclose (fp);
     return -1;
   }
   if (getline (&line, &len, fp) == -1) {
@@ -289,7 +288,6 @@ test_fuse (void)
   fp = fopen ("world.txt", "r");
   if (fp == NULL) {
     perror ("open: world.txt");
-    fclose (fp);
     return -1;
   }
   if (getline (&line, &len, fp) == -1) {
@@ -352,7 +350,6 @@ test_fuse (void)
   fp = fopen ("new", "w");
   if (fp == NULL) {
     perror ("open: new");
-    fclose (fp);
     return -1;
   }
   fclose (fp);
@@ -615,7 +612,6 @@ test_fuse (void)
   fp = fopen ("new.txt", "w");
   if (fp == NULL) {
     perror ("open: new.txt");
-    fclose (fp);
     return -1;
   }
   for (u = 0; u < 1000; ++u) {
