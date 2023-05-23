@@ -763,6 +763,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     if (g->pgroup)
       setpgid (0, 0);
 
+    TRACE0 (launch_run_qemu);
+
     execve (g->hv, argv, env);        /* Run qemu. */
     perror (g->hv);
     _exit (EXIT_FAILURE);

@@ -132,14 +132,6 @@ AS_IF([test "x$have_Hivex_OPEN_UNSAFE" = "xno"],[
 ])
 AC_SUBST([HIVEX_OPEN_UNSAFE_FLAG])
 
-if test "x$enable_daemon" = "xyes"; then
-    OCAML_PKG_augeas=no
-    AC_CHECK_OCAML_PKG(augeas)
-    if test "x$OCAML_PKG_augeas" = "xno"; then
-        AC_MSG_ERROR([the OCaml module 'augeas' is required])
-    fi
-fi
-
 # oUnit is optional, used by some tests in common/mlstdutils (that we
 # should replace with regular tests one day).  If used, oUnit >= 2 is
 # required.

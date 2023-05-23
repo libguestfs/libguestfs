@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009-2023 Red Hat Inc.
+# Copyright (C) 2009-2020 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -190,14 +190,14 @@
   fun:caml_stop_stack_overflow_detection
 }
 
-# The OCaml PCRE.compile function calls pcre2_compile_8 which allocates
+# The OCaml PCRE.compile function calls pcre_compile2 which allocates
 # memory.  If these regexps are stored in a global variable then they
 # can never be freed.  This is not really a bug, so ignore it.
 {
    ocaml_pcre_globals
    Memcheck:Leak
    fun:malloc
-   fun:pcre2_compile_8
+   fun:pcre_compile2
    ...
 }
 
@@ -327,16 +327,6 @@
    fun:virClassNew
    ...
    fun:virDataTypesOnce
-}
-
-{
-   libvirt_leak_10
-   Memcheck:Leak
-   ...
-   fun:g_malloc0
-   fun:virClassNew
-   ...
-   fun:virOnce
 }
 
 # FUSE leaks the per-thread context (although the code looks

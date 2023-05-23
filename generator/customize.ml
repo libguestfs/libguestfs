@@ -634,14 +634,7 @@ customization will instead touch F</.autorelabel> on the image to
 schedule a relabel operation for the next time the image boots.)  This
 option disables the automatic relabeling.
 
-The option is a no-op for guests that do not support SELinux.";
-  };
-
-  { flag_name = "selinux-relabel";
-    flag_type = FlagBool false;
-    flag_ml_var = "selinux_relabel_ignored";
-    flag_shortdesc = "Compatibility option doing nothing";
-    flag_pod_longdesc = "This is a compatibility option that does nothing.";
+This option is a no-op for guests that do not support SELinux.";
   };
 
   { flag_name = "sm-credentials";

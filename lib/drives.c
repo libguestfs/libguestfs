@@ -735,7 +735,6 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
 
   data.nr_servers = 0;
   data.servers = NULL;
-  data.exportname = filename;
 
   data.readonly = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK
     ? optargs->readonly : false;
@@ -759,6 +758,24 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
     ? optargs->secret : NULL;
   data.cachemode = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_CACHEMODE_BITMASK
     ? optargs->cachemode : NULL;
+
+   /* If http or https are being used then the full path should
+   * be the path + query string.
+   */
+  char *fullPath = NULL;
+  if ((STREQ (protocol, "http") || STREQ (protocol, "https")) &&
+      optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_QUERY_BITMASK ) {
+
+    if (asprintf(&fullPath, "%s?%s", filename, optargs->query) != -1) {
+      data.exportname = fullPath;
+    } else {
+      error (g, _("path and query_string concatenation must not fail."));
+      free_drive_servers (data.servers, data.nr_servers);
+      return -1;
+    }
+  } else {
+    data.exportname = filename;
+  }
 
   if (optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_DISCARD_BITMASK) {
     if (STREQ (optargs->discard, "disable"))

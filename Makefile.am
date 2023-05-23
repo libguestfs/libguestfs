@@ -443,7 +443,6 @@ maintainer-check-extra-dist:
 	  cd common; git ls-files | sed 's,^,common/,' ) | \
 	  grep -v '^common$$' | \
 	  grep -v '^common/mlcustomize/' | \
-	  grep -v '^common/mldrivers/' | \
 	  grep -v '^common/mlgettext/' | \
 	  grep -v '^common/mlprogress/' | \
 	  grep -v '^common/mltools/' | \
