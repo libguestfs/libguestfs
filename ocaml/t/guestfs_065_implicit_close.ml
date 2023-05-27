@@ -30,7 +30,7 @@ let () =
  *)
 
 (* This should cause the GC to close the handle. *)
-let () = Gc.compact ()
+let () = Gc.full_major ()
 
 let () = assert  (!close_invoked = 1)
 
