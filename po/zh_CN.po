@@ -4,22 +4,23 @@
 #
 # Translators:
 # Christopher Meng <cickumqt@gmail.com>, 2012
+# Tian Shixiong <tiansworld@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2023-02-21 22:39+0000\n"
-"PO-Revision-Date: 2015-02-21 10:55+0000\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
-"libguestfs/language/zh_CN/)\n"
+"PO-Revision-Date: 2023-05-30 16:20+0000\n"
+"Last-Translator: Tian Shixiong <tiansworld@gmail.com>\n"
+"Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
+"projects/libguestfs/libguestfs-master/zh_CN/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 4.6.2\n"
+"X-Generator: Weblate 4.17\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -29,14 +30,14 @@ msgstr ""
 #: common/options/decrypt.c:52
 #, c-format
 msgid "string size overflow"
-msgstr ""
+msgstr "字符串长度溢出"
 
 #: common/options/decrypt.c:170
 #, c-format
 msgid ""
 "'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
 "libguestfs version"
-msgstr ""
+msgstr "用于解密 %s 的 \"clevis_luks_unlock\" 在此 libguestfs 版本中不可用"
 
 #: common/options/decrypt.c:184
 #, c-format
@@ -47,6 +48,11 @@ msgid ""
 "\n"
 "Original error: %s (%d)"
 msgstr ""
+"找不到密钥来打开 LUKS 加密的 %s 。\n"
+"\n"
+"尝试在命令行使用 --key 选项。\n"
+"\n"
+"原始错误：%s (%d)"
 
 #: common/options/inspect.c:78
 #, c-format
@@ -66,6 +72,20 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s：在本硬盘上未能找到操作系统\n"
+"\n"
+"如果使用了 guestfish 的 “-i”选项，请停用该选项，并\n"
+"使用 “run”命令加 “list-filesystems” 参数代替。\n"
+"然后可以使用 \"mount\" 或 “mount-ro” 命令手动挂载\n"
+"文件系统。\n"
+"\n"
+"如果使用了 guestfish 的 “-i”选项，请停用该选项，并\n"
+"手动增加 “-m” 选项来选择要查看的文件系统。\n"
+"可以使用 \"virt-filesystems” 命令查看已有的文件系统。\n"
+"\n"
+"如果是使用了其它虚拟化工具，那么它们并不能操作\n"
+"本硬盘镜像。可使用与 guestfish 等效的其它命令。\n"
+"（请查看 virt 工具的手册）。\n"
 
 #: common/options/inspect.c:99
 #, c-format
