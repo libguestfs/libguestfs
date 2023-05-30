@@ -3,9 +3,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
-"cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2023-02-21 22:39+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2023-04-19 12:17+0100\n"
 "PO-Revision-Date: 2023-04-06 20:20+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/"
@@ -893,7 +893,8 @@ msgstr "zjistit typ souboru"
 
 #: fish/cmds.c:681
 msgid "detect the architecture of a binary file"
-msgstr "zjistit pro jakou architekturu procesoru byl binární soubor zkompilován"
+msgstr ""
+"zjistit pro jakou architekturu procesoru byl binární soubor zkompilován"
 
 #: fish/cmds.c:682
 msgid "return the size of the file in bytes"
@@ -4558,8 +4559,8 @@ msgstr "nerozpoznaná úniková klávesa: %s"
 #, c-format
 msgid ""
 "%s: error: extra argument ‘%s’ on command line.\n"
-"Make sure to specify the argument for --format or --scratch like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --format or --scratch like '--"
+"format=%s'.\n"
 msgstr ""
 
 #: rescue/suggest.c:62
