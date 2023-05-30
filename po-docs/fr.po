@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2015-02-21 10:19+0000\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/libguestfs/"
-"language/fr/)\n"
+"PO-Revision-Date: 2023-03-21 09:20+0000\n"
+"Last-Translator: grimst <grimaitres@gmail.com>\n"
+"Language-Team: French <https://translate.fedoraproject.org/projects/"
+"libguestfs/libguestfs-docs-master/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.15.2\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -22691,7 +22691,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes-1.6.pod:11
 #: ../docs/guestfs-release-notes-1.8.pod:11
 msgid "New features"
-msgstr ""
+msgstr "Nouvelles fonctionnalités"
 
 #. type: verbatim
 #: ../docs/guestfs-release-notes-1.10.pod:13
@@ -23129,7 +23129,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes-1.6.pod:119
 #: ../docs/guestfs-release-notes-1.8.pod:101
 msgid "Internals"
-msgstr ""
+msgstr "Internes"
 
 #. type: verbatim
 #: ../docs/guestfs-release-notes-1.10.pod:109
@@ -85635,6 +85635,13 @@ msgid ""
 "                               const struct guestfs_copy_attributes_argv *optargs);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_copy_attributes_argv (guestfs_h *g,\n"
+"                               const char *src,\n"
+"                               const char *dest,\n"
+"                               const struct guestfs_copy_attributes_argv "
+"*optargs) ;\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:3020
@@ -86250,7 +86257,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:3393
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_cpio_out (guestfs_h *g,\n"
@@ -86259,6 +86266,12 @@ msgid ""
 "                   ...);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_cpio_out (guestfs_h *g,\n"
+"                   const char *directory,\n"
+"                   const char *cpiofile,\n"
+"                   ...);\n"
+"\n"
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:3404
@@ -86280,7 +86293,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:3433
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_cpio_out_va (guestfs_h *g,\n"
@@ -86289,6 +86302,12 @@ msgid ""
 "                      va_list args);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_cpio_out_va (guestfs_h *g,\n"
+"                      const char *directory,\n"
+"                      const char *cpiofile,\n"
+"                      va_list args);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:3439
@@ -86302,7 +86321,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:3445
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_cpio_out_argv (guestfs_h *g,\n"
@@ -86311,6 +86330,12 @@ msgid ""
 "                        const struct guestfs_cpio_out_argv *optargs);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_cpio_out_argv (guestfs_h *g,\n"
+"                        const char *directory,\n"
+"                        const char *cpiofile,\n"
+"                        const struct guestfs_cpio_out_argv *optargs);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:3451
@@ -87159,13 +87184,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:4122
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_f2fs_expand (guestfs_h *g,\n"
 "                      const char *device);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_f2fs_expand (guestfs_h *g,\n"
+"                      const char *device);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:4131
@@ -87979,12 +88008,15 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:5017
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char **\n"
 " guestfs_get_backend_settings (guestfs_h *g);\n"
 "\n"
 msgstr ""
+" char **\n"
+" guestfs_get_backend_settings (guestfs_h *g);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:5022
@@ -88198,12 +88230,15 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:5261
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " const char *\n"
 " guestfs_get_identifier (guestfs_h *g);\n"
 "\n"
 msgstr ""
+" const char *\n"
+" guestfs_get_identifier (guestfs_h *g);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:5264
@@ -88577,12 +88612,15 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:5492
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char *\n"
 " guestfs_get_sockdir (guestfs_h *g);\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_get_sockdir (guestfs_h *g);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:5497
@@ -89582,13 +89620,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:6248
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char *\n"
 " guestfs_hivex_value_string (guestfs_h *g,\n"
 "                             int64_t valueh);\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_hivex_value_string (guestfs_h *g,\n"
+"                             int64_t valueh);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:6252 ../lib/guestfs-actions.pod:6300
@@ -90235,13 +90277,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:7054
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char *\n"
 " guestfs_inspect_get_osinfo (guestfs_h *g,\n"
 "                             const char *root);\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_inspect_get_osinfo (guestfs_h *g,\n"
+"                             const char *root);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:7070
@@ -90441,13 +90487,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:7284
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char *\n"
 " guestfs_inspect_get_windows_software_hive (guestfs_h *g,\n"
 "                                            const char *root);\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_inspect_get_windows_software_hive (guestfs_h *g,\n"
+"                                            const char *root);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:7296 ../lib/guestfs-actions.pod:7319
@@ -90466,13 +90516,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:7307
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char *\n"
 " guestfs_inspect_get_windows_system_hive (guestfs_h *g,\n"
 "                                          const char *root);\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_inspect_get_windows_system_hive (guestfs_h *g,\n"
+"                                          const char *root);\n"
+"\n"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:7328
@@ -91318,13 +91372,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:8038
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_is_lv (guestfs_h *g,\n"
 "                const char *mountable);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_is_lv (guestfs_h *g,\n"
+"                const char *mountable);\n"
+"\n"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:8049
@@ -91694,12 +91752,15 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:8286
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int64_t\n"
 " guestfs_journal_get_realtime_usec (guestfs_h *g);\n"
 "\n"
 msgstr ""
+" int64_t\n"
+" guestfs_journal_get_realtime_usec (guestfs_h *g);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:8296
@@ -92789,13 +92850,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:9116
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " struct guestfs_statns *\n"
 " guestfs_lstatns (guestfs_h *g,\n"
 "                  const char *path);\n"
 "\n"
 msgstr ""
+" struct guestfs_statns *\n"
+" guestfs_lstatns (guestfs_h *g,\n"
+"                  const char *path);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:9122
@@ -92824,7 +92889,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:9136
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " struct guestfs_statns_list *\n"
 " guestfs_lstatnslist (guestfs_h *g,\n"
@@ -92832,6 +92897,11 @@ msgid ""
 "                      char *const *names);\n"
 "\n"
 msgstr ""
+" struct guestfs_statns_list *\n"
+" guestfs_lstatnslist (guestfs_h *g,\n"
+"                      const char *path,\n"
+"                      char *const *names);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:9141
@@ -94699,7 +94769,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:10626
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_mksquashfs_argv (guestfs_h *g,\n"
@@ -94708,6 +94778,12 @@ msgid ""
 "                          const struct guestfs_mksquashfs_argv *optargs);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_mksquashfs_argv (guestfs_h *g,\n"
+"                          const char *path,\n"
+"                          const char *filename,\n"
+"                          const struct guestfs_mksquashfs_argv *optargs);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:10632
@@ -94900,6 +94976,9 @@ msgid ""
 "This command just writes a swap file signature to an existing file.  To "
 "create the file itself, use something like C<guestfs_fallocate>."
 msgstr ""
+"Cette commande ne fait qu'écrire la signature d'un fichier d'échange dans un "
+"fichier existant.  Pour créer le fichier lui-même, utilisez quelque chose "
+"comme C<guestfs_fallocate>."
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:10757
@@ -95412,13 +95491,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11079
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char *\n"
 " guestfs_mountable_device (guestfs_h *g,\n"
 "                           const char *mountable);\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_mountable_device (guestfs_h *g,\n"
+"                           const char *mountable);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:11086
@@ -96178,13 +96261,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11584
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_part_expand_gpt (guestfs_h *g,\n"
 "                          const char *device);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_part_expand_gpt (guestfs_h *g,\n"
+"                          const char *device);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:11597 ../lib/guestfs-actions.pod:11630
@@ -96236,13 +96323,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11620
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char *\n"
 " guestfs_part_get_disk_guid (guestfs_h *g,\n"
 "                             const char *device);\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_part_get_disk_guid (guestfs_h *g,\n"
+"                             const char *device);\n"
+"\n"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11635
@@ -96251,7 +96342,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11637
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int64_t\n"
 " guestfs_part_get_gpt_attributes (guestfs_h *g,\n"
@@ -96259,6 +96350,11 @@ msgid ""
 "                                  int partnum);\n"
 "\n"
 msgstr ""
+" int64_t\n"
+" guestfs_part_get_gpt_attributes (guestfs_h *g,\n"
+"                                  const char *device,\n"
+"                                  int partnum);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:11650 ../lib/guestfs-actions.pod:11686
@@ -96273,7 +96369,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11654
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char *\n"
 " guestfs_part_get_gpt_guid (guestfs_h *g,\n"
@@ -96281,6 +96377,11 @@ msgid ""
 "                            int partnum);\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_part_get_gpt_guid (guestfs_h *g,\n"
+"                            const char *device,\n"
+"                            int partnum);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:11667 ../lib/guestfs-actions.pod:11997
@@ -96344,7 +96445,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11708
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char *\n"
 " guestfs_part_get_mbr_part_type (guestfs_h *g,\n"
@@ -96352,6 +96453,11 @@ msgid ""
 "                                 int partnum);\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_part_get_mbr_part_type (guestfs_h *g,\n"
+"                                 const char *device,\n"
+"                                 int partnum);\n"
+"\n"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11723
@@ -96360,7 +96466,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11725
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char *\n"
 " guestfs_part_get_name (guestfs_h *g,\n"
@@ -96368,6 +96474,11 @@ msgid ""
 "                        int partnum);\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_part_get_name (guestfs_h *g,\n"
+"                        const char *device,\n"
+"                        int partnum);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:11739
@@ -96470,7 +96581,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11884
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_part_resize (guestfs_h *g,\n"
@@ -96479,6 +96590,12 @@ msgid ""
 "                      int64_t endsect);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_part_resize (guestfs_h *g,\n"
+"                      const char *device,\n"
+"                      int partnum,\n"
+"                      int64_t endsect);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:11893
@@ -96523,7 +96640,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11926
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_part_set_disk_guid (guestfs_h *g,\n"
@@ -96531,6 +96648,11 @@ msgid ""
 "                             const char *guid);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_part_set_disk_guid (guestfs_h *g,\n"
+"                             const char *device,\n"
+"                             const char *guid);\n"
+"\n"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11942
@@ -96554,7 +96676,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11961
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_part_set_gpt_attributes (guestfs_h *g,\n"
@@ -96563,6 +96685,12 @@ msgid ""
 "                                  int64_t attributes);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_part_set_gpt_attributes (guestfs_h *g,\n"
+"                                  const char *device,\n"
+"                                  int partnum,\n"
+"                                  int64_t attributes);\n"
+"\n"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11980
@@ -96571,7 +96699,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:11982
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_part_set_gpt_guid (guestfs_h *g,\n"
@@ -96580,6 +96708,12 @@ msgid ""
 "                            const char *guid);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_part_set_gpt_guid (guestfs_h *g,\n"
+"                            const char *device,\n"
+"                            int partnum,\n"
+"                            const char *guid);\n"
+"\n"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11999
@@ -98432,13 +98566,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:13424
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_set_identifier (guestfs_h *g,\n"
 "                         const char *identifier);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_set_identifier (guestfs_h *g,\n"
+"                         const char *identifier);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:13449
@@ -98815,13 +98953,17 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:13829
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " int\n"
 " guestfs_set_uuid_random (guestfs_h *g,\n"
 "                          const char *device);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_set_uuid_random (guestfs_h *g,\n"
+"                          const char *device);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:13844
@@ -99268,6 +99410,10 @@ msgid ""
 "                 const char *path);\n"
 "\n"
 msgstr ""
+" struct guestfs_statns *\n"
+" guestfs_statns (guestfs_h *g,\n"
+"                 const char *path) ;\n"
+"\n"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:14189 ../lib/guestfs-structs.pod:232
@@ -101682,6 +101828,10 @@ msgid ""
 "                    const char *filename);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_add_cdrom (guestfs_h *g,\n"
+"                    const char *filename) ;\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:16031
@@ -104377,7 +104527,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs.pod:41
 msgid "Frequently Asked Questions (FAQ)."
-msgstr ""
+msgstr "Foire aux questions (FAQ)"
 
 #. type: =item
 #: ../lib/guestfs.pod:43
@@ -105849,7 +105999,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs.pod:747
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char **servers = { \"gluster.example.org:24007\", NULL };\n"
 " guestfs_add_drive_opts (g, \"volname/image\",\n"
@@ -105859,6 +106009,13 @@ msgid ""
 "                         -1);\n"
 "\n"
 msgstr ""
+" char **servers = { \"gluster.example.org:24007\", NULL };\n"
+" guestfs_add_drive_opts (g, \"volname/image\",\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, \"gluster\",\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,\n"
+"                         -1);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs.pod:754
@@ -105879,7 +106036,7 @@ msgstr ""
 #. type: =head3
 #: ../lib/guestfs.pod:763
 msgid "ISCSI"
-msgstr ""
+msgstr "ISCSI"
 
 #. type: textblock
 #: ../lib/guestfs.pod:765
@@ -105894,7 +106051,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs.pod:770
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " char **server = { \"iscsi.example.org:3000\", NULL };\n"
 " guestfs_add_drive_opts (g, \"target-iqn-name/lun\",\n"
@@ -105904,6 +106061,13 @@ msgid ""
 "                         -1);\n"
 "\n"
 msgstr ""
+" char **server = { \"iscsi.example.org:3000\", NULL };\n"
+" guestfs_add_drive_opts (g, \"target-iqn-name/lun\",\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, \"iscsi\",\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_SERVER, server,\n"
+"                         -1);\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs.pod:777
@@ -106018,6 +106182,13 @@ msgid ""
 "                         -1);\n"
 "\n"
 msgstr ""
+" char **servers = { /* optional servers ... */ NULL } ;\n"
+" guestfs_add_drive_opts (g, \"volume\",\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, \"sheepdog\",\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,\n"
+"                         -1) ;\n"
+"\n"
 
 #. type: textblock
 #: ../lib/guestfs.pod:857
@@ -106030,7 +106201,7 @@ msgstr ""
 #. type: =head3
 #: ../lib/guestfs.pod:861
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 #. type: textblock
 #: ../lib/guestfs.pod:863
@@ -107377,7 +107548,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs.pod:1525
 msgid "Using:"
-msgstr ""
+msgstr "Utilisation :"
 
 #. type: verbatim
 #: ../lib/guestfs.pod:1527
@@ -107883,8 +108054,8 @@ msgid ""
 " char **groups = [ \"btrfs\", NULL ];\n"
 " \n"
 msgstr ""
-" guestfs_h *g;\n"
-" char **groups = [ \"btrfs\", NULL ];\n"
+" guestfs_h *g ;\n"
+" char **groups = [ \"btrfs\", NULL ] ;\n"
 " \n"
 
 #. type: verbatim
@@ -107902,15 +108073,15 @@ msgid ""
 " guestfs_close (g);\n"
 "\n"
 msgstr ""
-" g = guestfs_create ();\n"
-" guestfs_add_drive (g, \"/dev/null\");\n"
-" guestfs_launch (g);\n"
+" g = guestfs_create () ;\n"
+" guestfs_add_drive (g, \"/dev/null\") ;\n"
+" guestfs_launch (g) ;\n"
 " if (guestfs_available (g, groups) == 0) {\n"
 "   // group(s) are available\n"
 " } else {\n"
 "   // group(s) are not available\n"
 " }\n"
-" guestfs_close (g);\n"
+" guestfs_close (g) ;\n"
 "\n"
 
 #. type: =head2
@@ -108118,7 +108289,7 @@ msgid ""
 " guestfs_h *guestfs_create (void);\n"
 "\n"
 msgstr ""
-" guestfs_h *guestfs_create (void);\n"
+" guestfs_h *guestfs_create (void) ;\n"
 "\n"
 
 #. type: textblock
@@ -108165,7 +108336,7 @@ msgid ""
 " guestfs_h *guestfs_create_flags (unsigned flags [, ...]);\n"
 "\n"
 msgstr ""
-" guestfs_h *guestfs_create_flags (unsigned flags [, ...]);\n"
+" guestfs_h *guestfs_create_flags (unsigned flags [, ...]) ;\n"
 "\n"
 
 #. type: textblock
@@ -108235,7 +108406,7 @@ msgstr ""
 #. type: =head3
 #: ../lib/guestfs.pod:1943
 msgid "USING C<GUESTFS_CREATE_NO_ENVIRONMENT>"
-msgstr ""
+msgstr "UTILISATION DE C<GUESTFS_CREATE_NO_ENVIRONMENT>"
 
 #. type: textblock
 #: ../lib/guestfs.pod:1945
@@ -108252,8 +108423,8 @@ msgid ""
 " int r;\n"
 " \n"
 msgstr ""
-" guestfs_h *g;\n"
-" int r;\n"
+" guestfs_h *g ;\n"
+" int r ;\n"
 " \n"
 
 #. type: verbatim
@@ -108270,14 +108441,14 @@ msgid ""
 "   exit (EXIT_FAILURE);\n"
 "\n"
 msgstr ""
-" g = guestfs_create_flags (GUESTFS_CREATE_NO_ENVIRONMENT);\n"
-" if (!g) {\n"
-"   perror (\"guestfs_create_flags\");\n"
-"   exit (EXIT_FAILURE);\n"
+" g = guestfs_create_flags (GUESTFS_CREATE_NO_ENVIRONMENT) ;\n"
+" if ( !g) {\n"
+"   perror (\"guestfs_create_flags\") ;\n"
+"   exit (EXIT_FAILURE) ;\n"
 " }\n"
-" r = guestfs_parse_environment (g);\n"
+" r = guestfs_parse_environment (g) ;\n"
 " if (r == -1)\n"
-"   exit (EXIT_FAILURE);\n"
+"   exit (EXIT_FAILURE) ;\n"
 "\n"
 
 #. type: textblock
@@ -108307,7 +108478,7 @@ msgid ""
 " void guestfs_close (guestfs_h *g);\n"
 "\n"
 msgstr ""
-" void guestfs_close (guestfs_h *g);\n"
+" void guestfs_close (guestfs_h *g) ;\n"
 "\n"
 
 #. type: textblock
@@ -108335,7 +108506,7 @@ msgstr ""
 " if (guestfs_shutdown (g) == -1) {\n"
 "   /* handle write errors here */\n"
 " }\n"
-" guestfs_close (g);\n"
+" guestfs_close (g) ;\n"
 "\n"
 
 #. type: textblock
@@ -108362,7 +108533,7 @@ msgstr ""
 #. type: =item
 #: ../lib/guestfs.pod:1997
 msgid "4"
-msgstr ""
+msgstr "4"
 
 #. type: textblock
 #: ../lib/guestfs.pod:1999
@@ -108416,7 +108587,7 @@ msgid ""
 "\n"
 msgstr ""
 " if (guestfs_launch (g) == -1)\n"
-"   exit (EXIT_FAILURE);\n"
+"   exit (EXIT_FAILURE) ;\n"
 "\n"
 
 #. type: textblock
@@ -108443,8 +108614,8 @@ msgid ""
 " int errnum;\n"
 " \n"
 msgstr ""
-" const char *msg;\n"
-" int errnum;\n"
+" const char *msg ;\n"
+" int errnum ;\n"
 " \n"
 
 #. type: verbatim
@@ -108456,9 +108627,9 @@ msgid ""
 " guestfs_set_error_handler (g, NULL, NULL);\n"
 " \n"
 msgstr ""
-" /* This disables the default behaviour of printing errors\n"
-"    on stderr. */\n"
-" guestfs_set_error_handler (g, NULL, NULL);\n"
+" /* Ceci désactive le comportement par défaut des erreurs d’impression\n"
+"    sur stderr. */\n"
+" guestfs_set_error_handler (g, NULL, NULL) ;\n"
 " \n"
 
 #. type: verbatim
@@ -108473,7 +108644,7 @@ msgid ""
 " \n"
 msgstr ""
 " if (guestfs_launch (g) == -1) {\n"
-"   /* Examine the error message and print it, throw it,\n"
+"   /* Examinez le message d’erreur et l'imprimez, le jetez ,\n"
 "      etc. */\n"
 "   msg = guestfs_last_error (g);\n"
 "   errnum = guestfs_last_errno (g);\n"
@@ -108489,10 +108660,11 @@ msgid ""
 "   fprintf (stderr, \"\\n\");\n"
 " \n"
 msgstr ""
-"   fprintf (stderr, \"%s\", msg);\n"
-"   if (errnum != 0)\n"
-"     fprintf (stderr, \": %s\", strerror (errnum));\n"
-"   fprintf (stderr, \"\\n\");\n"
+"   fprintf (stderr, \"%s\", msg) ;\n"
+"   if (errnum != 0)\n"
+"     fprintf (stderr, \" : %s\", strerror (errnum)) ;\n"
+"   fprintf (stderr, \"\\n"
+"\") ;\n"
 " \n"
 
 #. type: verbatim
@@ -108538,7 +108710,7 @@ msgid ""
 " const char *guestfs_last_error (guestfs_h *g);\n"
 "\n"
 msgstr ""
-" const char *guestfs_last_error (guestfs_h *g);\n"
+" const char *guestfs_last_error (guestfs_h *g) ;\n"
 "\n"
 
 #. type: textblock
@@ -108576,7 +108748,7 @@ msgid ""
 " int guestfs_last_errno (guestfs_h *g);\n"
 "\n"
 msgstr ""
-" int guestfs_last_errno (guestfs_h *g);\n"
+" int guestfs_last_errno (guestfs_h *g) ;\n"
 "\n"
 
 #. type: textblock
@@ -108653,10 +108825,10 @@ msgid ""
 msgstr ""
 " typedef void (*guestfs_error_handler_cb) (guestfs_h *g,\n"
 "                                           void *opaque,\n"
-"                                           const char *msg);\n"
+"                                           const char *msg) ;\n"
 " void guestfs_set_error_handler (guestfs_h *g,\n"
 "                                 guestfs_error_handler_cb cb,\n"
-"                                 void *opaque);\n"
+"                                 void *opaque) ;\n"
 "\n"
 
 #. type: textblock
@@ -108706,7 +108878,7 @@ msgid ""
 "\n"
 msgstr ""
 " guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g,\n"
-"                                                     void **opaque_rtn);\n"
+"                                                     void **opaque_rtn) ;\n"
 "\n"
 
 #. type: textblock
@@ -108730,7 +108902,7 @@ msgid ""
 msgstr ""
 " void guestfs_push_error_handler (guestfs_h *g,\n"
 "                                  guestfs_error_handler_cb cb,\n"
-"                                  void *opaque);\n"
+"                                  void *opaque) ;\n"
 "\n"
 
 #. type: textblock
@@ -108758,7 +108930,7 @@ msgid ""
 " void guestfs_pop_error_handler (guestfs_h *g);\n"
 "\n"
 msgstr ""
-" void guestfs_pop_error_handler (guestfs_h *g);\n"
+" void guestfs_pop_error_handler (guestfs_h *g) ;\n"
 "\n"
 
 #. type: textblock
@@ -108788,9 +108960,9 @@ msgid ""
 "                                         guestfs_abort_cb);\n"
 "\n"
 msgstr ""
-" typedef void (*guestfs_abort_cb) (void);\n"
+" typedef void (*guestfs_abort_cb) (void) ;\n"
 " void guestfs_set_out_of_memory_handler (guestfs_h *g,\n"
-"                                         guestfs_abort_cb);\n"
+"                                         guestfs_abort_cb) ;\n"
 "\n"
 
 #. type: textblock
@@ -108823,7 +108995,7 @@ msgid ""
 " guestfs_abort_fn guestfs_get_out_of_memory_handler (guestfs_h *g);\n"
 "\n"
 msgstr ""
-" guestfs_abort_fn guestfs_get_out_of_memory_handler (guestfs_h *g);\n"
+" guestfs_abort_fn guestfs_get_out_of_memory_handler (guestfs_h *g) ;\n"
 "\n"
 
 #. type: textblock
@@ -109017,8 +109189,8 @@ msgstr ""
 " main ()\n"
 " {\n"
 " #ifdef GUESTFS_HAVE_DD\n"
-"   void *dl;\n"
-"   int has_function;\n"
+"   void *dl ;\n"
+"   int has_function ;\n"
 " \n"
 
 #. type: verbatim
@@ -109035,14 +109207,16 @@ msgid ""
 "   dlclose (dl);\n"
 " \n"
 msgstr ""
-"   /* Test if the function guestfs_dd is really available. */\n"
-"   dl = dlopen (NULL, RTLD_LAZY);\n"
-"   if (!dl) {\n"
-"     fprintf (stderr, \"dlopen: %s\\n\", dlerror ());\n"
-"     exit (EXIT_FAILURE);\n"
+"   /* Regarder le message d'erreur et l'imprimer, le jeter,\n"
+"      etc. */\n"
+"   dl = dlopen (NULL, RTLD_LAZY) ;\n"
+"   if ( !dl) {\n"
+"     fprintf (stderr, \"dlopen : %s\\n"
+"\", dlerror ()) ;\n"
+"     exit (EXIT_FAILURE) ;\n"
 "   }\n"
-"   has_function = dlsym (dl, \"guestfs_dd\") != NULL;\n"
-"   dlclose (dl);\n"
+"   has_function = dlsym (dl, \"guestfs_dd\") != NULL ;\n"
+"   dlclose (dl) ;\n"
 " \n"
 
 #. type: verbatim
@@ -109063,16 +109237,20 @@ msgid ""
 "  }\n"
 "\n"
 msgstr ""
-"   if (!has_function)\n"
-"     printf (\"this libguestfs.so does NOT have guestfs_dd function\\n\");\n"
+"   if ( !has_function)\n"
+"     printf (\"cette libguestfs.so n’a PAS guestfs_dd fonction\\n"
+"\") ;\n"
 "   else {\n"
-"     printf (\"this libguestfs.so has guestfs_dd function\\n\");\n"
+"     printf (\"cette libguestfs.so a guestfs_dd fonction\\n"
+"\") ;\n"
 "     /* Now it's safe to call\n"
-"     guestfs_dd (g, \"foo\", \"bar\");\n"
+"     guestfs_dd (g, \"foo\", \"bar\") ;\n"
 "     */\n"
 "   }\n"
 " #else\n"
-"   printf (\"guestfs_dd function was not found at compile time\\n\");\n"
+"   printf (\"fonction guestfs_dd est introuvable au moment de la "
+"compilation\\n"
+"\") ;\n"
 " #endif\n"
 "  }\n"
 "\n"
@@ -109092,7 +109270,7 @@ msgid ""
 " Requires: libguestfs >= 1.0.80\n"
 "\n"
 msgstr ""
-" Requires: libguestfs >= 1.0.80\n"
+" Requiert : libguestfs >= 1.0.80\n"
 "\n"
 
 #. type: =head1
@@ -109115,7 +109293,7 @@ msgid ""
 " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
 "\n"
 msgstr ""
-" int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+" int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...) ;\n"
 "\n"
 
 #. type: textblock
@@ -109132,7 +109310,7 @@ msgid ""
 " guestfs_add_drive_opts (g, filename, -1);\n"
 "\n"
 msgstr ""
-" guestfs_add_drive_opts (g, filename, -1);\n"
+" guestfs_add_drive_opts (g, filename, -1) ;\n"
 "\n"
 
 #. type: textblock
@@ -109151,7 +109329,7 @@ msgid ""
 msgstr ""
 " guestfs_add_drive_opts (g, filename,\n"
 "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"qcow2\",\n"
-"                         -1);\n"
+"                         -1) ;\n"
 "\n"
 
 #. type: textblock
@@ -109172,7 +109350,7 @@ msgstr ""
 " guestfs_add_drive_opts (g, filename,\n"
 "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"qcow2\",\n"
 "                         GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,\n"
-"                         -1);\n"
+"                         -1) ;\n"
 "\n"
 
 #. type: textblock
@@ -109204,7 +109382,7 @@ msgid ""
 "\n"
 msgstr ""
 " int guestfs_add_drive_opts_va (guestfs_h *g, const char *filename,\n"
-"                                va_list args);\n"
+"                                va_list args) ;\n"
 "\n"
 
 #. type: =head2
@@ -109237,13 +109415,13 @@ msgid ""
 "\n"
 msgstr ""
 " struct guestfs_add_drive_opts_argv {\n"
-"   uint64_t bitmask;\n"
-"   int readonly;\n"
-"   const char *format;\n"
+"   uint64_t bitmask ;\n"
+"   int readonly ;\n"
+"   const char *format ;\n"
 "   /* ... */\n"
-" };\n"
+" } ;\n"
 " int guestfs_add_drive_opts_argv (guestfs_h *g, const char *filename,\n"
-"              const struct guestfs_add_drive_opts_argv *optargs);\n"
+"              const struct guestfs_add_drive_opts_argv *optargs) ;\n"
 "\n"
 
 #. type: textblock
@@ -109268,7 +109446,7 @@ msgstr ""
 "              GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK,\n"
 "   .readonly = 1,\n"
 "   .format = \"qcow2\"\n"
-" };\n"
+" } ;\n"
 " \n"
 
 #. type: verbatim
@@ -109278,7 +109456,7 @@ msgid ""
 " guestfs_add_drive_opts_argv (g, filename, &optargs);\n"
 "\n"
 msgstr ""
-" guestfs_add_drive_opts_argv (g, filename, &optargs);\n"
+" guestfs_add_drive_opts_argv (g, filename, &optargs) ;\n"
 "\n"
 
 #. type: textblock
@@ -109683,7 +109861,7 @@ msgstr ""
 "                                 guestfs_event_callback cb,\n"
 "                                 uint64_t event_bitmask,\n"
 "                                 int flags,\n"
-"                                 void *opaque);\n"
+"                                 void *opaque) ;\n"
 "\n"
 
 #. type: textblock
@@ -109755,7 +109933,7 @@ msgid ""
 " void guestfs_delete_event_callback (guestfs_h *g, int event_handle);\n"
 "\n"
 msgstr ""
-" void guestfs_delete_event_callback (guestfs_h *g, int event_handle);\n"
+" void guestfs_delete_event_callback (guestfs_h *g, int event_handle) ;\n"
 "\n"
 
 #. type: textblock
@@ -109769,7 +109947,7 @@ msgstr ""
 #. type: =head3
 #: ../lib/guestfs.pod:2658
 msgid "guestfs_event_to_string"
-msgstr ""
+msgstr "guestfs_event_to_string"
 
 #. type: verbatim
 #: ../lib/guestfs.pod:2660
@@ -109778,7 +109956,7 @@ msgid ""
 " char *guestfs_event_to_string (uint64_t event);\n"
 "\n"
 msgstr ""
-" char *guestfs_event_to_string (uint64_t event);\n"
+" char *guestfs_event_to_string (uint64_t event) ;\n"
 "\n"
 
 #. type: textblock
@@ -109843,7 +110021,7 @@ msgstr ""
 "                  int event_handle,\n"
 "                  int flags,\n"
 "                  const char *buf, size_t buf_len,\n"
-"                  const uint64_t *array, size_t array_len);\n"
+"                  const uint64_t *array, size_t array_len) ;\n"
 "\n"
 
 #. type: textblock
@@ -109942,7 +110120,7 @@ msgstr ""
 "      GUESTFS_EVENT_WARNING | GUESTFS_EVENT_TRACE,\n"
 "      0, NULL) == -1)\n"
 " if (eh == -1) {\n"
-"   // handle error in the usual way\n"
+"   // gérer l’erreur de manière habituelle\n"
 " }\n"
 "\n"
 
@@ -109983,9 +110161,9 @@ msgstr ""
 "         const char *buf, size_t buf_len,\n"
 "         const uint64_t *array, size_t array_len)\n"
 " {\n"
-"   const int priority = LOG_USER|LOG_INFO;\n"
+"   const int priority = LOG_USER|LOG_INFO ;\n"
 "   if (buf_len > 0)\n"
-"     syslog (priority, \"event 0x%lx: %s\", event, buf);\n"
+"     syslog (priority, \"event 0x%lx : %s\", event, buf) ;\n"
 " }\n"
 "\n"
 
@@ -110069,9 +110247,9 @@ msgid ""
 msgstr ""
 " main ()\n"
 " {\n"
-"   guestfs_h *g;\n"
-"   char *creds[] = { \"authname\", \"passphrase\", NULL };\n"
-"   int r, eh;\n"
+"   guestfs_h *g ;\n"
+"   char *creds[] = { \"authname\", \"passphrase\", NULL } ;\n"
+"   int r, eh ;\n"
 " \n"
 
 #. type: verbatim
@@ -110082,8 +110260,8 @@ msgid ""
 "   if (!g) exit (EXIT_FAILURE);\n"
 " \n"
 msgstr ""
-"   g = guestfs_create ();\n"
-"   if (!g) exit (EXIT_FAILURE);\n"
+"   g = guestfs_create () ;\n"
+"   if ( !g) exit (EXIT_FAILURE) ;\n"
 " \n"
 
 #. type: verbatim
@@ -110096,10 +110274,11 @@ msgid ""
 "     exit (EXIT_FAILURE);\n"
 " \n"
 msgstr ""
-"   /* Tell libvirt what credentials the program supports. */\n"
-"   r = guestfs_set_libvirt_supported_credentials (g, creds);\n"
+"   /* Indiquez à libvirt quelles informations d’identification le programme "
+"prend en charge. */\n"
+"   r = guestfs_set_libvirt_supported_credentials (g, creds) ;\n"
 "   if (r == -1)\n"
-"     exit (EXIT_FAILURE);\n"
+"     exit (EXIT_FAILURE) ;\n"
 " \n"
 
 #. type: verbatim
@@ -110114,12 +110293,12 @@ msgid ""
 "     exit (EXIT_FAILURE);\n"
 " \n"
 msgstr ""
-"   /* Set up the event handler. */\n"
+"   /* Configurez le gestionnaire d’événements. */\n"
 "   eh = guestfs_set_event_callback (\n"
 "       g, do_auth,\n"
-"       GUESTFS_EVENT_LIBVIRT_AUTH, 0, NULL);\n"
+"       GUESTFS_EVENT_LIBVIRT_AUTH, 0, NULL) ;\n"
 "   if (eh == -1)\n"
-"     exit (EXIT_FAILURE);\n"
+"     exit (EXIT_FAILURE) ;\n"
 " \n"
 
 #. type: verbatim
@@ -110135,13 +110314,14 @@ msgid ""
 "     exit (EXIT_FAILURE);\n"
 " \n"
 msgstr ""
-"   /* An example of a call that may ask for credentials. */\n"
+"   /* Exemple d’appel pouvant demander des informations d’identification. */"
+"\n"
 "   r = guestfs_add_domain (\n"
 "       g, \"dom\",\n"
-"       GUESTFS_ADD_DOMAIN_LIBVIRTURI, \"qemu:///system\",\n"
-"       -1);\n"
+"       GUESTFS_ADD_DOMAIN_LIBVIRTURI, \"qemu :///system\",\n"
+"       -1) ;\n"
 "   if (r == -1)\n"
-"     exit (EXIT_FAILURE);\n"
+"     exit (EXIT_FAILURE) ;\n"
 " \n"
 
 #. type: verbatim
@@ -110152,7 +110332,7 @@ msgid ""
 " }\n"
 " \n"
 msgstr ""
-"   exit (EXIT_SUCCESS);\n"
+"   exit (EXIT_SUCCESS) ;\n"
 " }\n"
 " \n"
 
@@ -110186,12 +110366,12 @@ msgstr ""
 "          const char *buf, size_t buf_len,\n"
 "          const uint64_t *array, size_t array_len)\n"
 " {\n"
-"   char **creds;\n"
-"   size_t i;\n"
-"   char *prompt;\n"
-"   char *reply;\n"
-"   size_t replylen;\n"
-"   int r;\n"
+"   char **creds ;\n"
+"   size_t i ;\n"
+"   char *prompt ;\n"
+"   char *reply ;\n"
+"   size_t replylen ;\n"
+"   int r ;\n"
 " \n"
 
 #. type: verbatim
@@ -110203,9 +110383,10 @@ msgid ""
 "           buf);\n"
 " \n"
 msgstr ""
-"   // buf will be the libvirt URI.  buf_len may be ignored.\n"
-"   printf (\"Authentication required for libvirt conn '%s'\\n\",\n"
-"           buf);\n"
+"   // buf sera l’URI libvirt.  buf_len peuvent être ignorés.\n"
+"   printf (\"Authentication required for libvirt conn '%s'\\n"
+"\",\n"
+"           buf) ;\n"
 " \n"
 
 #. type: verbatim
@@ -110218,10 +110399,11 @@ msgid ""
 "     exit (EXIT_FAILURE);\n"
 " \n"
 msgstr ""
-"   // Ask libguestfs what credentials libvirt is demanding.\n"
-"   creds = guestfs_get_libvirt_requested_credentials (g);\n"
+"   // Demandez à libguestfs quelles informations d’identification libvirt "
+"exige.\n"
+"   creds = guestfs_get_libvirt_requested_credentials (g) ;\n"
 "   if (creds == NULL)\n"
-"     exit (EXIT_FAILURE);\n"
+"     exit (EXIT_FAILURE) ;\n"
 " \n"
 
 #. type: verbatim
@@ -110241,17 +110423,17 @@ msgid ""
 "       free (prompt);\n"
 " \n"
 msgstr ""
-"   // Now ask the user for answers.\n"
-"   for (i = 0; creds[i] != NULL; ++i)\n"
+"   // Maintenant, demandez des réponses à l’utilisateur.\n"
+"   for (i = 0 ; creds[i] != NULL ; ++i)\n"
 "   {\n"
 "     if (strcmp (creds[i], \"authname\") == 0 ||\n"
 "         strcmp (creds[i], \"passphrase\") == 0)\n"
 "     {\n"
 "       prompt =\n"
-"         guestfs_get_libvirt_requested_credential_prompt (g, i);\n"
-"       if (prompt && strcmp (prompt, \"\") != 0)\n"
-"         printf (\"%s: \", prompt);\n"
-"       free (prompt);\n"
+"         guestfs_get_libvirt_requested_credential_prompt (g, i) ;\n"
+"       if (prompt && strcmp (prompt, \"\") != 0)\n"
+"         printf (\"%s : \", prompt) ;\n"
+"       free (prompt) ;\n"
 " \n"
 
 #. type: verbatim
@@ -110263,9 +110445,9 @@ msgid ""
 "       // Put the reply in 'reply', length 'replylen' (bytes).\n"
 " \n"
 msgstr ""
-"       // Some code here to ask for the credential.\n"
+"       // Un peu de code ici pour demander le justificatif d'identité.\n"
 "       // ...\n"
-"       // Put the reply in 'reply', length 'replylen' (bytes).\n"
+"       // Placez la réponse dans 'reply', longueur 'replylen' (octets).\n"
 " \n"
 
 #. type: verbatim
@@ -110280,9 +110462,9 @@ msgid ""
 " \n"
 msgstr ""
 "      r = guestfs_set_libvirt_requested_credential (g, i,\n"
-"          reply, replylen);\n"
+"          reply, replylen) ;\n"
 "      if (r == -1)\n"
-"        exit (EXIT_FAILURE);\n"
+"        exit (EXIT_FAILURE) ;\n"
 "     }\n"
 " \n"
 
@@ -111175,7 +111357,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs.pod:3326
 msgid "The output goes to stderr."
-msgstr ""
+msgstr "La sortie va vers stderr."
 
 #. type: textblock
 #: ../lib/guestfs.pod:3344
@@ -112049,8 +112231,8 @@ msgid ""
 "\n"
 msgstr ""
 " let g = Guestfs.create () in\n"
-" Guestfs.add_drive_opts g ~format:\"raw\" ~readonly:true \"disk.img\";\n"
-" Guestfs.launch g;\n"
+" Guestfs.add_drive_opts g ~format :\"raw\" ~readonly :true \"disk.img\" ;\n"
+" Guestfs.launch g ;\n"
 "\n"
 
 #. type: textblock
@@ -112068,8 +112250,8 @@ msgid ""
 "\n"
 msgstr ""
 " let g = new Guestfs.guestfs () in\n"
-" g#add_drive_opts ~format:\"raw\" ~readonly:true \"disk.img\";\n"
-" g#launch ();\n"
+" g#add_drive_opts ~format :\"raw\" ~readonly :true \"disk.img\" ;\n"
+" g#launch () ;\n"
 "\n"
 
 #. type: verbatim
@@ -112082,7 +112264,7 @@ msgid ""
 "\n"
 msgstr ""
 " ocamlfind opt prog.ml -package guestfs -linkpkg -o prog\n"
-"or:\n"
+"or :\n"
 " ocamlopt -I +guestfs mlguestfs.cmxa prog.ml -o prog\n"
 "\n"
 
@@ -112114,7 +112296,7 @@ msgid ""
 " int guestfs_set_verbose (guestfs_h *g, int flag);\n"
 "\n"
 msgstr ""
-" int guestfs_set_verbose (guestfs_h *g, int flag);\n"
+" int guestfs_set_verbose (guestfs_h *g, int flag) ;\n"
 "\n"
 
 #. type: textblock
@@ -112203,7 +112385,7 @@ msgid ""
 " use Sys::Guestfs;\n"
 " \n"
 msgstr ""
-" use Sys::Guestfs;\n"
+" use Sys ::Guestfs ;\n"
 " \n"
 
 #. type: verbatim
@@ -112219,13 +112401,13 @@ msgid ""
 " $g->close ();\n"
 "\n"
 msgstr ""
-" my $g = Sys::Guestfs->new ();\n"
-" $g->add_drive_opts ('guest.img', format => 'raw');\n"
-" $g->launch ();\n"
-" $g->mount ('/dev/sda1', '/');\n"
-" $g->touch ('/hello');\n"
-" $g->shutdown ();\n"
-" $g->close ();\n"
+" my $g = Sys ::Guestfs->new () ;\n"
+" $g->add_drive_opts ('guest.img', format => 'raw') ;\n"
+" $g->launch () ;\n"
+" $g->mount ('/dev/sda1', '/') ;\n"
+" $g->touch ('/hello') ;\n"
+" $g->shutdown () ;\n"
+" $g->close () ;\n"
 "\n"
 
 #. type: textblock
@@ -112323,7 +112505,7 @@ msgstr ""
 #. type: textblock
 #: ../python/examples/guestfs-python.pod:37
 msgid "Type:"
-msgstr ""
+msgstr "Type :"
 
 #. type: verbatim
 #: ../python/examples/guestfs-python.pod:39
@@ -112389,11 +112571,13 @@ msgstr ""
 
 #. type: verbatim
 #: ../rescue/virt-rescue.pod:9
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " virt-rescue [--options] -a disk.img [-a disk.img ...] [-i]\n"
 "\n"
 msgstr ""
+" virt-rescue [--options] -a disk.img [-a disk.img ...] [-i]\n"
+"\n"
 
 #. type: verbatim
 #: ../rescue/virt-rescue.pod:13
@@ -112446,6 +112630,8 @@ msgid ""
 " virt-rescue --ro -a /path/to/disk.img -i\n"
 "\n"
 msgstr ""
+" virt-rescue --ro -a /path/to/disk.img -i\n"
+"\n"
 
 #. type: verbatim
 #: ../rescue/virt-rescue.pod:31
@@ -112751,7 +112937,7 @@ msgstr ""
 #. type: =head1
 #: ../rescue/virt-rescue.pod:314
 msgid "NETWORK"
-msgstr ""
+msgstr "RÉSEAU"
 
 #. type: textblock
 #: ../rescue/virt-rescue.pod:316
@@ -113254,7 +113440,7 @@ msgstr ""
 #. type: =item
 #: ../resize/virt-resize.pod:76
 msgid "1. Shut down the virtual machine"
-msgstr ""
+msgstr "1. Éteindre la machine virtuelle"
 
 #. type: =item
 #: ../resize/virt-resize.pod:78
@@ -113280,7 +113466,7 @@ msgid ""
 "\n"
 msgstr ""
 " # virsh dumpxml guestname | xpath /domain/devices/disk/source\n"
-" Found 1 nodes:\n"
+" Found 1 nodes :\n"
 " -- NODE --\n"
 " <source dev=\"/dev/vg/lv_guest\" />\n"
 "\n"
@@ -114761,7 +114947,7 @@ msgstr ""
 " require 'guestfs'\n"
 " g = Guestfs::Guestfs.new()\n"
 " g.add_drive_opts(\"disk.img\",\n"
-"                  :readonly => 1, :format => \"raw\")\n"
+"                  :readonly => true, :format => \"raw\")\n"
 " g.launch()\n"
 "\n"
 
@@ -116774,9 +116960,9 @@ msgid ""
 "\n"
 msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
-" @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n"
+" @    AVERTISSEMENT : L'IDENTIFICATION DE L'HÔTE DISTANT A CHANGÉ !     @\n"
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
-" IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!\n"
+" IL EST POSSIBLE QUE QUELQU'UN FASSE QUELQUE CHOSE DE MALINTENTIONNÉ !\n"
 "\n"
 
 #. type: =head2
@@ -117057,6 +117243,8 @@ msgid ""
 " --operations ssh-hostkeys,udev-persistent-net\n"
 "\n"
 msgstr ""
+" --operations ssh-hostkeys, udev-persistent-net\n"
+"\n"
 
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:128
@@ -117167,10 +117355,10 @@ msgid ""
 "\n"
 msgstr ""
 " $ virt-sysprep --list-operations\n"
-" bash-history * Remove the bash history in the guest\n"
-" cron-spool * Remove user at-jobs and cron-jobs\n"
-" dhcp-client-state * Remove DHCP client leases\n"
-" dhcp-server-state * Remove DHCP server leases\n"
+" bash-history * Supprime l'historique bash dans l'invité\n"
+" cron-spool * Supprime les at-jobs et les cron-jobs des utilisateurs\n"
+" dhcp-client-state * Supprime les baux des clients DHCP\n"
+" dhcp-server-state * Supprime les baux du serveur DHCP\n"
 " [etc]\n"
 "\n"
 
@@ -117338,7 +117526,7 @@ msgstr ""
 #. type: =item
 #: ../sysprep/virt-sysprep.pod:314
 msgid "I<configuration>"
-msgstr ""
+msgstr "I<configuration>"
 
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:316
@@ -117356,12 +117544,12 @@ msgstr ""
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:326
 msgid "name"
-msgstr ""
+msgstr "nom"
 
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:330 ../sysprep/virt-sysprep.pod:357
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:334
@@ -118240,7 +118428,7 @@ msgstr ""
 #. type: textblock
 #: ../tools/virt-list-filesystems:199 ../tools/virt-tar:312
 msgid "Copyright (C) 2009 Red Hat Inc."
-msgstr ""
+msgstr "Copyright (C) 2009 Red Hat, Inc."
 
 #. type: textblock
 #: ../tools/virt-list-partitions:29
@@ -118425,7 +118613,7 @@ msgstr ""
 #. type: =head1
 #: ../tools/virt-tar:61 ../tools/virt-win-reg:48
 msgid "WARNING"
-msgstr ""
+msgstr "AVERTISSEMENT"
 
 #. type: textblock
 #: ../tools/virt-tar:63
@@ -118598,7 +118786,7 @@ msgid ""
 " virt-win-reg [--options] disk.img ... # instead of domname\n"
 "\n"
 msgstr ""
-" virt-win-reg [--options] disk.img ... # instead of domname\n"
+" virt-win-reg [--options] disk.img ... # à la place de domname\n"
 "\n"
 
 #. type: textblock
@@ -118690,7 +118878,7 @@ msgstr ""
 #. type: =head2
 #: ../tools/virt-win-reg:85
 msgid "NOTE"
-msgstr ""
+msgstr "NOTE"
 
 #. type: textblock
 #: ../tools/virt-win-reg:87
@@ -118956,9 +119144,10 @@ msgid ""
 " with CRLF line terminators\n"
 "\n"
 msgstr ""
-" $ file software.reg\n"
-" software.reg: Little-endian UTF-16 Unicode text, with very long lines,\n"
-" with CRLF line terminators\n"
+" $ fichier software.reg\n"
+" software.reg : texte Unicode UTF-16 little-endian, avec de très longues "
+"lignes,\n"
+" avec des terminaisons de ligne CRLF\n"
 "\n"
 
 #. type: textblock
@@ -119288,4 +119477,4 @@ msgstr ""
 #. type: textblock
 #: ../tools/virt-win-reg:825
 msgid "Copyright (C) 2010 Red Hat Inc."
-msgstr ""
+msgstr "Copyright (C) 2010 Red Hat, Inc."
