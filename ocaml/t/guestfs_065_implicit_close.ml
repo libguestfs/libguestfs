@@ -16,22 +16,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-let close_invoked = ref 0
+let [@inline never][@local never] run () =
+  let close_invoked = ref 0 in
 
-let close _ _ _ _ =
-  incr close_invoked
+  let close _ _ _ _ =
+    incr close_invoked
+  in
 
-let () =
-  let g = new Guestfs.guestfs () in
-  ignore (g#set_event_callback close [Guestfs.EVENT_CLOSE]);
-  assert (!close_invoked = 0)
-(* Allow the 'g' handle to go out of scope here, to ensure there is no
- * reference held on the stack.
- *)
+  let () =
+    let g = new Guestfs.guestfs () in
+    ignore (g#set_event_callback close [Guestfs.EVENT_CLOSE]);
+    assert (!close_invoked = 0)
+  (* Allow the 'g' handle to go out of scope here, to ensure there is no
+   * reference held on the stack.
+   *)
+  in
 
-(* This should cause the GC to close the handle. *)
-let () = Gc.full_major ()
+  (* This should cause the GC to close the handle. *)
+  Gc.full_major ();
 
-let () = assert  (!close_invoked = 1)
+  assert  (!close_invoked = 1);
 
-let () = Gc.compact ()
+  Gc.compact ()
+
+let () = run ()
