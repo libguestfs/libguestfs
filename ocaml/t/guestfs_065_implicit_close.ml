@@ -16,14 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-let () =
-  (* In OCaml 5, Gc.full_major does not actually collect the handle
-   * for unknown reasons.  Skip the test until we can resolve this.
-   * https://discuss.ocaml.org/t/ocaml-5-forcing-objects-to-be-collected-and-finalized/12492/2
-   *)
-  if Sys.ocaml_version >= "5" then
-    exit 77
-
 let close_invoked = ref 0
 
 let close _ _ _ _ =
