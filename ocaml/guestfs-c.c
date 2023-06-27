@@ -412,7 +412,7 @@ event_callback_wrapper (guestfs_h *g,
    * https://discuss.ocaml.org/t/test-caml-state-and-conditionally-caml-acquire-runtime-system-good-or-bad/12489
    */
 #if OCAML_VERSION_MAJOR >= 5
-  bool acquired = caml_state != NULL;
+  bool acquired = Caml_state_opt != NULL;
 #else
   const bool acquired = false;
 #endif
