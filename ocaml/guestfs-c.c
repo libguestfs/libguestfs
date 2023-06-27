@@ -19,6 +19,7 @@
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <errno.h>
 
@@ -36,6 +37,7 @@
 #include <caml/signals.h>
 #include <caml/threads.h>
 #include <caml/unixsupport.h>
+#include <caml/version.h>
 
 #include "guestfs-c.h"
 
@@ -397,13 +399,32 @@ event_callback_wrapper (guestfs_h *g,
 {
   /* Ensure we are holding the GC lock before any GC operations are
    * possible. (RHBZ#725824)
+   *
+   * There are many paths where we already hold the OCaml lock before
+   * this function, for example "non-blocking" calls, and the
+   * libguestfs global atexit path (which calls guestfs_close).  To
+   * avoid double acquisition we need to check if we already hold the
+   * lock.  OCaml 5 is strict about this.  In earlier OCaml versions
+   * there is no way to check, but they did not implement the lock as
+   * a mutex and so it didn't cause problems.
+   *
+   * See also:
+   * https://discuss.ocaml.org/t/test-caml-state-and-conditionally-caml-acquire-runtime-system-good-or-bad/12489
    */
-  caml_acquire_runtime_system ();
+#if OCAML_VERSION_MAJOR >= 5
+  bool acquired = caml_state != NULL;
+#else
+  const bool acquired = false;
+#endif
+
+  if (!acquired)
+    caml_acquire_runtime_system ();
 
   event_callback_wrapper_locked (g, data, event, event_handle, flags,
                                  buf, buf_len, array, array_len);
 
-  caml_release_runtime_system ();
+  if (!acquired)
+    caml_release_runtime_system ();
 }
 
 value
