@@ -77,7 +77,9 @@ guestfs_finalize (value gv)
      * above, which is why we don't want to delete them before
      * closing the handle.
      */
+    caml_release_runtime_system ();
     guestfs_close (g);
+    caml_acquire_runtime_system ();
 
     /* Now unregister the global roots. */
     if (roots && len > 0) {
