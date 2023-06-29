@@ -95,6 +95,34 @@ I<Note>: C<PERMISSIONS> by default would be decimal, unless you prefix
 it with C<0> to get octal, ie. use C<0700> not C<700>.";
   };
 
+  { op_name = "chown";
+    op_type = StringPair "UID.GID:PATH";
+    op_discrim = "`Chown";
+    op_shortdesc = "Change the owner user and group ID of a file or directory";
+    op_pod_longdesc = "\
+Change the owner user and group ID of a file or directory in the guest.
+Note:
+
+=over 4
+
+=item *
+
+Only numeric UIDs and GIDs will work, and these may not be the same
+inside the guest as on the host.
+
+=item *
+
+This will not work with Windows guests.
+
+=back
+
+For example:
+
+ virt-customize --chown '0.0:/var/log/audit.log'
+
+See also: I<--upload>.";
+  };
+
   { op_name = "commands-from-file";
     op_type = StringFn ("FILENAME", "customize_read_from_file");
     op_discrim = "`CommandsFromFile";
