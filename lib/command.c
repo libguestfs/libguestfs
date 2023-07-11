@@ -152,9 +152,6 @@ struct command
   /* When using the pipe_* APIs, stderr is pointed to a temporary file. */
   char *error_file;
 
-  /* Close file descriptors (defaults to true). */
-  bool close_files;
-
   /* Supply a callback to receive stdout. */
   cmd_stdout_callback stdout_callback;
   void *stdout_data;
@@ -186,7 +183,6 @@ guestfs_int_new_command (guestfs_h *g)
   cmd = safe_calloc (g, 1, sizeof *cmd);
   cmd->g = g;
   cmd->capture_errors = true;
-  cmd->close_files = true;
   cmd->errorfd = -1;
   cmd->outfd = -1;
   return cmd;
@@ -356,17 +352,6 @@ void
 guestfs_int_cmd_clear_capture_errors (struct command *cmd)
 {
   cmd->capture_errors = false;
-}
-
-/**
- * Don't close file descriptors after the fork.
- *
- * XXX Should allow single fds to be sent to child process.
- */
-void
-guestfs_int_cmd_clear_close_files (struct command *cmd)
-{
-  cmd->close_files = false;
 }
 
 /**
@@ -564,18 +549,16 @@ run_child (struct command *cmd, char **env)
   for (i = 1; i < NSIG; ++i)
     sigaction (i, &sa, NULL);
 
-  if (cmd->close_files) {
-    /* Close all other file descriptors.  This ensures that we don't
-     * hold open (eg) pipes from the parent process.
-     */
-    max_fd = sysconf (_SC_OPEN_MAX);
-    if (max_fd == -1)
-      max_fd = 1024;
-    if (max_fd > 65536)
-      max_fd = 65536;        /* bound the amount of work we do here */
-    for (fd = 3; fd < max_fd; ++fd)
-      close (fd);
-  }
+  /* Close all other file descriptors.  This ensures that we don't
+   * hold open (eg) pipes from the parent process.
+   */
+  max_fd = sysconf (_SC_OPEN_MAX);
+  if (max_fd == -1)
+    max_fd = 1024;
+  if (max_fd > 65536)
+    max_fd = 65536;        /* bound the amount of work we do here */
+  for (fd = 3; fd < max_fd; ++fd)
+    close (fd);
 
   /* Set the umask for all subcommands to something sensible (RHBZ#610880). */
   umask (022);
