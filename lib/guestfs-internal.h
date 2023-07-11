@@ -751,7 +751,6 @@ extern void guestfs_int_cmd_set_stdout_callback (struct command *, cmd_stdout_ca
 extern void guestfs_int_cmd_set_stderr_to_stdout (struct command *);
 extern void guestfs_int_cmd_set_child_rlimit (struct command *, int resource, long limit);
 extern void guestfs_int_cmd_clear_capture_errors (struct command *);
-extern void guestfs_int_cmd_clear_close_files (struct command *);
 extern void guestfs_int_cmd_set_child_callback (struct command *, cmd_child_callback child_callback, void *data);
 extern int guestfs_int_cmd_run (struct command *);
 extern void guestfs_int_cmd_close (struct command *);
