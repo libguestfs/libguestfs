@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.49.1\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2023-04-19 12:17+0100\n"
-"PO-Revision-Date: 2023-02-25 10:20+0000\n"
+"POT-Creation-Date: 2023-06-27 14:04+0100\n"
+"PO-Revision-Date: 2023-07-05 14:21+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ka/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -1565,7 +1565,7 @@ msgstr ""
 
 #: fish/cmds.c:874
 msgid "open a LUKS-encrypted block device"
-msgstr "დაშიფრული ბლოკური მოწყობილობის გახსნა"
+msgstr "LUKS-ით დაშიფრული ბლოკური მოწყობილობის გახსნა"
 
 #: fish/cmds.c:875
 msgid "open a LUKS-encrypted block device read-only"
