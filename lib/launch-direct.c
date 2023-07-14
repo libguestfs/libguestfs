@@ -32,6 +32,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <sys/stat.h>
@@ -48,6 +49,7 @@
 #include "guestfs-internal.h"
 #include "guestfs_protocol.h"
 #include "qemuopts.h"
+#include "ignore-value.h"
 
 /* Per-handle data. */
 struct backend_direct_data {
@@ -333,6 +335,115 @@ add_drives (guestfs_h *g, struct backend_direct_data *data,
   return 0;
 }
 
+/**
+ * Launch passt such that it daemonizes.
+ *
+ * On error, C<-1> is returned; C<passt_pid> and C<sockpath> are not modified.
+ *
+ * On success, C<0> is returned.  C<passt_pid> contains the PID of the passt
+ * background process.  C<sockpath> contains the pathname of the unix domain
+ * socket where passt will accept a single connection.
+ */
+static int
+launch_passt (guestfs_h *g, long *passt_pid, char (*sockpath)[UNIX_PATH_MAX])
+{
+  int rc;
+  char sockpath_local[sizeof *sockpath];
+  char *pid_path;
+  struct command *cmd;
+  int passt_status;
+  int passt_exit;
+  char *pid_str;
+  long passt_pid_local;
+  char *endptr;
+
+  rc = -1;
+  if (guestfs_int_create_socketname (g, "passt.sock", &sockpath_local) == -1)
+    return rc;
+
+  pid_path = guestfs_int_make_pid_path (g, "passt");
+  if (pid_path == NULL)
+    return rc;
+
+  cmd = guestfs_int_new_command (g);
+  if (cmd == NULL)
+    goto free_pid_path;
+
+  guestfs_int_cmd_add_arg (cmd, "passt");
+  guestfs_int_cmd_add_arg (cmd, "--one-off");
+  guestfs_int_cmd_add_arg (cmd, "--socket");
+  guestfs_int_cmd_add_arg (cmd, sockpath_local);
+  guestfs_int_cmd_add_arg (cmd, "--pid");
+  guestfs_int_cmd_add_arg (cmd, pid_path);
+  guestfs_int_cmd_add_arg (cmd, "--address");
+  guestfs_int_cmd_add_arg (cmd, NETWORK_ADDRESS);
+  guestfs_int_cmd_add_arg (cmd, "--netmask");
+  guestfs_int_cmd_add_arg (cmd, NETWORK_PREFIX);
+  guestfs_int_cmd_add_arg (cmd, "--mac-addr");
+  guestfs_int_cmd_add_arg (cmd, NETWORK_GW_MAC);
+  guestfs_int_cmd_add_arg (cmd, "--gateway");
+  guestfs_int_cmd_add_arg (cmd, NETWORK_GW_IP);
+
+  passt_status = guestfs_int_cmd_run (cmd);
+  if (passt_status == -1)
+    /* guestfs_int_cmd_run() reports errors internally, so just bail here */
+    goto close_cmd;
+
+  if (WIFSIGNALED (passt_status)) {
+    error (g, _("passt was killed with signal %d"), WTERMSIG (passt_status));
+    goto close_cmd;
+  }
+
+  if (!WIFEXITED (passt_status)) {
+    error (g, _("internal error: unexpected exit status from passt (%d)"),
+           passt_status);
+    goto close_cmd;
+  }
+
+  passt_exit = WEXITSTATUS (passt_status);
+  if (passt_exit != 0) {
+    error (g, _("passt exited with status %d"), passt_exit);
+    goto close_cmd;
+  }
+
+  /* At this point passt has forked into the background, dropped privileges, and
+   * written a PID file.  Due to "--one-off", passt will exit once our QEMU
+   * appliance disappears (forcibly or cleanly); however, we still need the
+   * passt PID *temporarily*, so we can kill passt in case we encounter an error
+   * *before* starting the appliance.
+   */
+  if (guestfs_int_read_whole_file (g, pid_path, &pid_str, NULL) == -1)
+    /* Any error has been reported internally, so just bail.  We can't kill
+     * passt here because we've failed to get its PID in the first place...
+     */
+    goto close_cmd;
+
+  errno = 0;
+  passt_pid_local = strtol (pid_str, &endptr, 10);
+  if (endptr == pid_str || (*endptr != '\0' && *endptr != '\n') || errno != 0 ||
+      passt_pid_local <= 1) {
+    /* Same thing, we can't kill passt just yet. */
+    error (g, _("failed to parse passt PID from '%s'"), pid_path);
+    goto free_pid_str;
+  }
+
+  /* We're done. */
+  *passt_pid = passt_pid_local;
+  ignore_value (strcpy (*sockpath, sockpath_local));
+  rc = 0;
+
+free_pid_str:
+  free (pid_str);
+
+close_cmd:
+  guestfs_int_cmd_close (cmd);
+
+free_pid_path:
+  free (pid_path);
+
+  return rc;
+}
+
 static int
 launch_direct (guestfs_h *g, void *datav, const char *arg)
 {
@@ -340,6 +451,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   struct qemuopts *qopts = NULL;
   int daemon_accept_sock = -1, console_sock = -1;
   int r;
+  long passt_pid = -1;
   int flags;
   int sv[2];
   struct sockaddr_un addr;
@@ -658,11 +770,30 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   /* Enable user networking. */
   if (g->enable_network) {
-    start_list ("-netdev") {
-      append_list ("user");
-      append_list ("id=usernet");
-      append_list ("net=" NETWORK_ADDRESS "/" NETWORK_PREFIX);
-    } end_list ();
+    /* If qemu is 7.2.0+ and "passt" is available, ask for passt rather
+     * than SLIRP.  RHBZ#2184967.
+     */
+    if (guestfs_int_version_ge (&data->qemu_version, 7, 2, 0) &&
+        guestfs_int_passt_runnable (g)) {
+      char passt_sock[UNIX_PATH_MAX];
+
+      if (launch_passt (g, &passt_pid, &passt_sock) == -1)
+        goto cleanup0;
+
+      start_list ("-netdev") {
+        append_list ("stream");
+        append_list ("id=usernet");
+        append_list ("addr.type=unix");
+        append_list_format ("addr.path=%s", passt_sock);
+      } end_list ();
+    }
+    else {
+      start_list ("-netdev") {
+        append_list ("user");
+        append_list ("id=usernet");
+        append_list ("net=" NETWORK_ADDRESS "/" NETWORK_PREFIX);
+      } end_list ();
+    }
     start_list ("-device") {
       append_list (VIRTIO_DEVICE_NAME ("virtio-net"));
       append_list ("netdev=usernet");
@@ -893,6 +1024,15 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   debug (g, "appliance is up");
 
+  /* From this point onward, even if we fail, QEMU terminating (forcefully or
+   * gracefully) will cause passt to go away as well.  Note that we can't
+   * precisely tell whether QEMU managed to open the passt socket before QEMU
+   * failed.  Therefore, err on the side of killing passt needlessly, rather
+   * than not killing it when needed -- that's why we re-set "passt_pid" to (-1)
+   * only this late during QEMU startup verification.
+   */
+  passt_pid = -1;
+
   /* This is possible in some really strange situations, such as
    * guestfsd starts up OK but then qemu immediately exits.  Check for
    * it because the caller is probably expecting to be able to send
@@ -924,6 +1064,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   data->qemu_data = NULL;
 
  cleanup0:
+  if (passt_pid != -1)
+    kill (passt_pid, SIGTERM);
   if (qopts != NULL)
     qemuopts_free (qopts);
   if (daemon_accept_sock >= 0)

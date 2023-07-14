@@ -158,6 +158,32 @@ cleanup_mutex_unlock (pthread_mutex_t **ptr)
 #define NETWORK_ADDRESS "169.254.2.15"
 #define NETWORK_PREFIX  "16"
 
+/* The IP address and the MAC address of the host, as seen from the appliance.
+ *
+ * NETWORK_GW_IP should be the same as NETWORK_ADDRESS, only replacing ".15" in
+ * the rightmost octet with ".2".  NETWORK_GW_MAC cannot be changed.  These
+ * restrictions are a consequence of the following landscape:
+ *
+ * libguestfs backend  userspace network stack  restrictions
+ * ------------------  -----------------------  --------------------------------
+ * direct              passt                    None; both NETWORK_GW_IP and
+ *                                              NETWORK_GW_MAC can be set on the
+ *                                              passt command line.
+ *
+ * direct              SLIRP                    SLIRP hard-codes NETWORK_GW_MAC.
+ *
+ * libvirt             passt                    The domain XML does not expose
+ *                                              either knob (RHBZ#2222766), even
+ *                                              though passt could accept both.
+ *
+ * libvirt             SLIRP                    The domain XML does not expose
+ *                                              either knob (RHBZ#2222766), and
+ *                                              SLIRP hard-codes NETWORK_GW_MAC
+ *                                              anyway.
+ */
+#define NETWORK_GW_IP   "169.254.2.2"
+#define NETWORK_GW_MAC  "52:56:00:00:00:02"
+
 /* Guestfs handle and associated structures. */
 
 /* State. */
