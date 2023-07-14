@@ -3223,7 +3223,7 @@ non-essential runtime files.
 If it is set, then is used to store temporary sockets.  Otherwise,
 F</tmp> is used.
 
-See also L</get-sockdir>,
+See also L</guestfs_get_sockdir>,
 L<http://www.freedesktop.org/wiki/Specifications/basedir-spec/>.
 
 =back
