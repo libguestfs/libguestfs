@@ -595,13 +595,17 @@ Get the handle identifier.  See C<guestfs_set_identifier>." };
     name = "get_sockdir"; added = (1, 33, 8);
     style = RString (RPlainString, "sockdir"), [], [];
     blocking = false;
-    shortdesc = "get the temporary directory for sockets";
+    shortdesc = "get the temporary directory for sockets and PID files";
     longdesc = "\
-Get the directory used by the handle to store temporary socket files.
+Get the directory used by the handle to store temporary socket and PID
+files.
 
 This is different from C<guestfs_get_tmpdir>, as we need shorter
 paths for sockets (due to the limited buffers of filenames for UNIX
 sockets), and C<guestfs_get_tmpdir> may be too long for them.
+Furthermore, sockets and PID files must be accessible to such background
+services started by libguestfs that may not have permission to access
+the temporary directory returned by C<guestfs_get_tmpdir>.
 
 The environment variable C<XDG_RUNTIME_DIR> controls the default
 value: If C<XDG_RUNTIME_DIR> is set, then that is the default.
