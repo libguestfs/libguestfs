@@ -280,6 +280,21 @@ guestfs_int_create_socketname (guestfs_h *g, const char *filename,
 }
 
 /**
+ * Generate unique paths for PID files.
+ *
+ * Returns a unique path or NULL on error.  On success, the pathname points
+ * under sockdir and not tmpdir; daemons that write PID files after dropping
+ * privileges may not have access to tmpdir.
+ */
+char *
+guestfs_int_make_pid_path (guestfs_h *g, const char *name)
+{
+  if (guestfs_int_lazy_make_sockdir (g) < 0)
+    return NULL;
+  return safe_asprintf (g, "%s/%s%d.pid", g->sockdir, name, ++g->unique);
+}
+
+/**
  * Create the supermin appliance directory under cachedir, if it does
  * not exist.
  *

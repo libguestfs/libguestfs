@@ -669,6 +669,7 @@ extern int guestfs_int_lazy_make_tmpdir (guestfs_h *g);
 extern int guestfs_int_lazy_make_sockdir (guestfs_h *g);
 extern char *guestfs_int_make_temp_path (guestfs_h *g, const char *name, const char *extension);
 extern int guestfs_int_create_socketname (guestfs_h *g, const char *filename, char (*sockname)[UNIX_PATH_MAX]);
+extern char *guestfs_int_make_pid_path (guestfs_h *g, const char *name);
 extern char *guestfs_int_lazy_make_supermin_appliance_dir (guestfs_h *g);
 extern void guestfs_int_remove_tmpdir (guestfs_h *g);
 extern void guestfs_int_remove_sockdir (guestfs_h *g);
