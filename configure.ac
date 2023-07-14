@@ -20,8 +20,8 @@
 # freeform string.
 m4_define([libguestfs_major],   [1])
 m4_define([libguestfs_minor],   [51])
-m4_define([libguestfs_release], [4])
-m4_define([release_date],       [2023-06-27])
+m4_define([libguestfs_release], [5])
+m4_define([release_date],       [2023-07-14])
 
 AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
 AC_SUBST([RELEASE_DATE],release_date)
