@@ -703,6 +703,7 @@ extern void guestfs_int_unblock_sigterm (void);
 extern int guestfs_int_create_socketname (guestfs_h *g, const char *filename, char (*sockname)[UNIX_PATH_MAX]);
 extern void guestfs_int_register_backend (const char *name, const struct backend_ops *);
 extern int guestfs_int_set_backend (guestfs_h *g, const char *method);
+extern bool guestfs_int_passt_runnable (guestfs_h *g);
 
 /* Close all file descriptors matching the condition. */
 #define close_file_descriptors(cond) do {                               \

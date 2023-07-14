@@ -36,6 +36,7 @@
 #include <signal.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <errno.h>
 #include <assert.h>
 #include <libintl.h>
@@ -412,6 +413,36 @@ guestfs_int_set_backend (guestfs_h *g, const char *method)
     g->backend_data = NULL;
 
   return 0;
+}
+
+/**
+ * Return C<true> if we can call S<C<passt --help>>, and it exits with status
+ * C<0> or C<1>.
+ *
+ * (At least C<passt-0^20230222.g4ddbcb9-2.el9_2.x86_64> terminates with status
+ * C<1> in response to "--help", which is arguably wrong, and potentially
+ * subject to change, but it doesn't really matter.)
+ */
+bool
+guestfs_int_passt_runnable (guestfs_h *g)
+{
+  CLEANUP_CMD_CLOSE struct command *cmd = NULL;
+  int r, ex;
+
+  cmd = guestfs_int_new_command (g);
+  if (cmd == NULL)
+    return false;
+
+  guestfs_int_cmd_add_string_unquoted (cmd, "passt --help");
+  if (!g->verbose)
+    guestfs_int_cmd_add_string_unquoted (cmd, " >/dev/null 2>&1");
+
+  r = guestfs_int_cmd_run (cmd);
+  if (r == -1 || !WIFEXITED (r))
+    return false;
+
+  ex = WEXITSTATUS (r);
+  return ex == 0 || ex == 1;
 }
 
 /* This hack is only required to make static linking work.  See:
