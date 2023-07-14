@@ -668,6 +668,7 @@ extern int guestfs_int_set_env_runtimedir (guestfs_h *g, const char *envname, co
 extern int guestfs_int_lazy_make_tmpdir (guestfs_h *g);
 extern int guestfs_int_lazy_make_sockdir (guestfs_h *g);
 extern char *guestfs_int_make_temp_path (guestfs_h *g, const char *name, const char *extension);
+extern int guestfs_int_create_socketname (guestfs_h *g, const char *filename, char (*sockname)[UNIX_PATH_MAX]);
 extern char *guestfs_int_lazy_make_supermin_appliance_dir (guestfs_h *g);
 extern void guestfs_int_remove_tmpdir (guestfs_h *g);
 extern void guestfs_int_remove_sockdir (guestfs_h *g);
@@ -700,7 +701,6 @@ extern int guestfs_int_get_uefi (guestfs_h *g, char *const *firmwares, const cha
 extern int64_t guestfs_int_timeval_diff (const struct timeval *x, const struct timeval *y);
 extern void guestfs_int_launch_send_progress (guestfs_h *g, int perdozen);
 extern void guestfs_int_unblock_sigterm (void);
-extern int guestfs_int_create_socketname (guestfs_h *g, const char *filename, char (*sockname)[UNIX_PATH_MAX]);
 extern void guestfs_int_register_backend (const char *name, const struct backend_ops *);
 extern int guestfs_int_set_backend (guestfs_h *g, const char *method);
 extern bool guestfs_int_passt_runnable (guestfs_h *g);
