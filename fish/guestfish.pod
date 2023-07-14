@@ -1492,8 +1492,8 @@ See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>.
 This directory represents a user-specific directory for storing
 non-essential runtime files.
 
-If it is set, then is used to store temporary sockets.  Otherwise,
-F</tmp> is used.
+If it is set, then is used to store temporary sockets and PID files.
+Otherwise, F</tmp> is used.
 
 See also L</get-sockdir>,
 L<http://www.freedesktop.org/wiki/Specifications/basedir-spec/>.
