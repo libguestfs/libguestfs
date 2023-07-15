@@ -41,6 +41,7 @@ and op_type =
 | Unit                                  (* no argument *)
 | String of string                      (* string *)
 | StringPair of string                  (* string:string *)
+| StringTriplet of string               (* string:string:string *)
 | StringList of string                  (* string,string,... *)
 | TargetLinks of string                 (* target:link[:link...] *)
 | PasswordSelector of string            (* password selector *)
@@ -96,7 +97,7 @@ it with C<0> to get octal, ie. use C<0700> not C<700>.";
   };
 
   { op_name = "chown";
-    op_type = StringPair "UID.GID:PATH";
+    op_type = StringTriplet "UID:GID:PATH";
     op_discrim = "`Chown";
     op_shortdesc = "Change the owner user and group ID of a file or directory";
     op_pod_longdesc = "\
@@ -118,7 +119,7 @@ This will not work with Windows guests.
 
 For example:
 
- virt-customize --chown '0.0:/var/log/audit.log'
+ virt-customize --chown '0:0:/var/log/audit.log'
 
 See also: I<--upload>.";
   };
@@ -761,8 +762,13 @@ let rec argspec () =
           option_name in
     let len = String.length arg in
     String.sub arg 0 i, String.sub arg (i+1) (len-(i+1))
-  in
-  let split_string_list arg =
+  and split_string_triplet option_name arg =
+    match String.nsplit ~max:3 \",\" arg with
+    | [a; b; c] -> a, b, c
+    | _ ->
+        error (f_\"invalid format for '--%%s' parameter, see the man page\")
+          option_name
+  and split_string_list arg =
     String.nsplit \",\" arg
   in
   let split_links_list option_name arg =
@@ -802,6 +808,19 @@ let rec argspec () =
       pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
       pr "          let p = split_string_pair \"%s\" s in\n" name;
+      pr "          List.push_front (%s p) ops\n" discrim;
+      pr "      ),\n";
+      pr "      s_\"%s\"\n" shortdesc;
+      pr "    ),\n";
+      pr "    Some %S, %S;\n" v longdesc
+    | { op_type = StringTriplet v; op_name = name; op_discrim = discrim;
+        op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
+      pr "    (\n";
+      pr "      [ L\"%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
+      pr "        fun s ->\n";
+      pr "          let p = split_string_triplet \"%s\" s in\n" name;
       pr "          List.push_front (%s p) ops\n" discrim;
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
@@ -956,6 +975,7 @@ let rec argspec () =
     | { op_type = Unit; }
     | { op_type = String _; }
     | { op_type = StringPair _; }
+    | { op_type = StringTriplet _; }
     | { op_type = StringList _; }
     | { op_type = TargetLinks _; }
     | { op_type = PasswordSelector _; }
@@ -1021,6 +1041,10 @@ type ops = {
     | { op_type = StringPair v; op_discrim = discrim;
         op_name = name } ->
       pr "  | %s of string * string\n      (* --%s %s *)\n" discrim name v
+    | { op_type = StringTriplet v; op_discrim = discrim;
+        op_name = name } ->
+      pr "  | %s of string * string * string\n      (* --%s %s *)\n"
+        discrim name v
     | { op_type = StringList v; op_discrim = discrim;
         op_name = name } ->
       pr "  | %s of string list\n      (* --%s %s *)\n" discrim name v
@@ -1073,9 +1097,9 @@ let generate_customize_synopsis_pod () =
       function
       | { op_type = Unit; op_name = n } ->
         n, sprintf "[--%s]" n
-      | { op_type = String v | StringPair v | StringList v | TargetLinks v
-            | PasswordSelector v | UserPasswordSelector v | SSHKeySelector v
-            | StringFn (v, _) | SMPoolSelector v;
+      | { op_type = String v | StringPair v | StringTriplet v | StringList v
+            | TargetLinks v | PasswordSelector v | UserPasswordSelector v
+            | SSHKeySelector v | StringFn (v, _) | SMPoolSelector v;
           op_name = n } ->
         n, sprintf "[--%s %s]" n v
     ) ops @
@@ -1116,9 +1140,9 @@ let generate_customize_options_pod () =
       function
       | { op_type = Unit; op_name = n; op_pod_longdesc = ld } ->
         n, sprintf "B<--%s>" n, ld
-      | { op_type = String v | StringPair v | StringList v | TargetLinks v
-            | PasswordSelector v | UserPasswordSelector v | SSHKeySelector v
-            | StringFn (v, _) | SMPoolSelector v;
+      | { op_type = String v | StringPair v | StringTriplet v | StringList v
+            | TargetLinks v | PasswordSelector v | UserPasswordSelector v
+            | SSHKeySelector v | StringFn (v, _) | SMPoolSelector v;
           op_name = n; op_pod_longdesc = ld } ->
         n, sprintf "B<--%s> %s" n v, ld
     ) ops @
