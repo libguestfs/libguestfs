@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2023-06-27 14:04+0100\n"
+"POT-Creation-Date: 2023-07-20 17:10+0100\n"
 "PO-Revision-Date: 2023-02-21 20:20+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
@@ -1127,7 +1127,9 @@ msgid "get number of virtual CPUs in appliance"
 msgstr "отримати дані щодо кількості віртуальних процесорів на пристрої"
 
 #: fish/cmds.c:726
-msgid "get the temporary directory for sockets"
+#, fuzzy
+#| msgid "get the temporary directory for sockets"
+msgid "get the temporary directory for sockets and PID files"
 msgstr "отримати тимчасовий каталог для сокетів"
 
 #: fish/cmds.c:727
@@ -4304,7 +4306,7 @@ msgstr "Інформація від qemu-img: невідома помилка п
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
 
-#: lib/launch-direct.c:149
+#: lib/launch-direct.c:151
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -4318,11 +4320,34 @@ msgstr ""
 "kvm» або додати поточного користувача до групи KVM (ймовірно, вам доведеться "
 "вийти і знову увійти до облікового запису цього користувача)."
 
-#: lib/launch-direct.c:363
+#: lib/launch-direct.c:393
+#, fuzzy, c-format
+#| msgid "script: killed by signal (%d)"
+msgid "passt was killed with signal %d"
+msgstr "скрипт: перервано за сигналом (%d)"
+
+#: lib/launch-direct.c:398
+#, c-format
+msgid "internal error: unexpected exit status from passt (%d)"
+msgstr ""
+
+#: lib/launch-direct.c:405
+#, fuzzy, c-format
+#| msgid "%s exited with error status %d"
+msgid "passt exited with status %d"
+msgstr "Роботу %s завершено зі станом виходу %d"
+
+#: lib/launch-direct.c:426
+#, fuzzy, c-format
+#| msgid "failed to create PV: %s: %s"
+msgid "failed to parse passt PID from '%s'"
+msgstr "не вдалося створити фізичний том: %s: %s"
+
+#: lib/launch-direct.c:475
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: lib/launch-direct.c:902 lib/launch-libvirt.c:698
+#: lib/launch-direct.c:1042 lib/launch-libvirt.c:698
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
@@ -4442,12 +4467,12 @@ msgstr ""
 "не вдалося обробити запис можливостей домену у форматі XML, повернутий "
 "libvirt"
 
-#: lib/launch-libvirt.c:1500 lib/launch-libvirt.c:1758 lib/qemu.c:816
+#: lib/launch-libvirt.c:1511 lib/launch-libvirt.c:1769 lib/qemu.c:816
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: lib/launch-libvirt.c:1583
+#: lib/launch-libvirt.c:1594
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -4455,42 +4480,42 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: lib/launch-libvirt.c:1973
+#: lib/launch-libvirt.c:1984
 msgid "could not define libvirt secret"
 msgstr "не вдалося визначити реєстраційні дані libvirt"
 
-#: lib/launch-libvirt.c:1984
+#: lib/launch-libvirt.c:1995
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 "реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
 
-#: lib/launch-libvirt.c:1988
+#: lib/launch-libvirt.c:1999
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr "base64_decode_alloc: %m"
 
-#: lib/launch-libvirt.c:2009
+#: lib/launch-libvirt.c:2020
 msgid "could not set libvirt secret value"
 msgstr "не вдалося встановити значення реєстраційних даних libvirt"
 
-#: lib/launch-libvirt.c:2022
+#: lib/launch-libvirt.c:2033
 msgid "could not get UUID from libvirt secret"
 msgstr "не вдалося отримати UUID із реєстраційних даних libvirt"
 
-#: lib/launch-libvirt.c:2195
+#: lib/launch-libvirt.c:2206
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: lib/launch-libvirt.c:2216 lib/launch-libvirt.c:2249
+#: lib/launch-libvirt.c:2227 lib/launch-libvirt.c:2260
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: lib/launch.c:64
+#: lib/launch.c:65
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: lib/launch.c:77
+#: lib/launch.c:78
 #, c-format
 msgid ""
 "too many drives have been added, the current backend only supports %d drives"
@@ -4498,38 +4523,28 @@ msgstr ""
 "було додано забагато дисків, у поточному модулі передбачено підтримку лише "
 "%d дисків"
 
-#: lib/launch.c:201
+#: lib/launch.c:202
 msgid "get-pid can only be called after launch"
 msgstr "get-pid можна викликати лише після launch"
 
-#: lib/launch.c:207
+#: lib/launch.c:208
 msgid "the current backend does not support ‘get-pid’"
 msgstr "у поточному модулі не передбачено підтримки «get-pid»"
 
-#: lib/launch.c:221
+#: lib/launch.c:222
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 "у поточному модулі не передбачено опитування щодо максимальної кількості "
 "дисків"
 
-#: lib/launch.c:235
+#: lib/launch.c:236
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: lib/launch.c:298
+#: lib/launch.c:299
 #, c-format
 msgid "parameter ‘%s’ isn't allowed"
 msgstr "не можна використовувати параметр «%s»"
-
-#: lib/launch.c:327
-#, c-format
-msgid "socket path too long: %s/%s"
-msgstr "шлях до сокета є надто довгим: %s/%s"
-
-#: lib/launch.c:331
-#, c-format
-msgid "%s"
-msgstr "%s"
 
 #: lib/libvirt-auth.c:96
 #, c-format
@@ -4816,22 +4831,32 @@ msgstr ""
 "можна коригуванням значення XDG_RUNTIME_DIR і, ймовірно, створенням /run/"
 "user/%d із відповідною належністю користувачу."
 
-#: lib/tmpdirs.c:282
+#: lib/tmpdirs.c:271
+#, c-format
+msgid "socket path too long: %s/%s"
+msgstr "шлях до сокета є надто довгим: %s/%s"
+
+#: lib/tmpdirs.c:275
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: lib/tmpdirs.c:323
 #, c-format
 msgid "stat: %s"
 msgstr "статистика: %s"
 
-#: lib/tmpdirs.c:287
+#: lib/tmpdirs.c:328
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr "безпека: кешований пристрій %s не належить UID %ju"
 
-#: lib/tmpdirs.c:293
+#: lib/tmpdirs.c:334
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "безпека: кешований пристрій %s не є каталогом (режим %o)"
 
-#: lib/tmpdirs.c:299
+#: lib/tmpdirs.c:340
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
@@ -7980,9 +8005,6 @@ msgstr "шлях не є каталогом початкових кодів qemu
 
 #~ msgid "script: failed (code %d)"
 #~ msgstr "скрипт: помилка (код %d)"
-
-#~ msgid "script: killed by signal (%d)"
-#~ msgstr "скрипт: перервано за сигналом (%d)"
 
 #~ msgid "sectors"
 #~ msgstr "сектори"
