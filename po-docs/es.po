@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2023-02-05 15:20+0000\n"
+"PO-Revision-Date: 2023-08-05 11:21+0000\n"
 "Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -705,7 +705,7 @@ msgstr ""
 #: ../fish/guestfish.pod:242 ../format/virt-format.pod:106
 #: ../rescue/virt-rescue.pod:170 ../sysprep/virt-sysprep.pod:178
 msgid "forces raw format (no auto-detection) for F<disk.img>."
-msgstr ""
+msgstr "fuerza el formato raw (sin autodetección) para F<disk.img>."
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:158
@@ -714,6 +714,8 @@ msgid ""
 " virt-alignment-scan --format=raw -a disk.img --format -a another.img\n"
 "\n"
 msgstr ""
+" virt-alignment-scan --format=raw -a disk.img --format -a another.img\n"
+"\n"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:160 ../cat/virt-cat.pod:119
@@ -727,6 +729,8 @@ msgid ""
 "forces raw format (no auto-detection) for F<disk.img> and reverts to auto-"
 "detection for F<another.img>."
 msgstr ""
+"fuerza el formato raw (sin autodetección) para F<disk.img> y revierte para "
+"autodetección para F<another.img>."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:163 ../cat/virt-cat.pod:122
@@ -741,11 +745,15 @@ msgid ""
 "option to specify the disk format.  This avoids a possible security problem "
 "with malicious guests (CVE-2010-3851)."
 msgstr ""
+"Si tiene imágenes en disco invitado en formato raw en las que no "
+"confíe,debería usar esta opción para especificar el formato del disco. Esto "
+"evita un posible probable de seguridad con invitados maliciosos "
+"(CVE-2010-3851)."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:167 ../df/virt-df.pod:164
 msgid "B<-P> nr_threads"
-msgstr ""
+msgstr "B<-P> nr_threads"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:169
@@ -756,6 +764,11 @@ msgid ""
 "is started.  You can force virt-alignment-scan to use at most C<nr_threads> "
 "by using the I<-P> option."
 msgstr ""
+"Desde libguestfs 1.22, virt-alignment-scan es multiproceso y examina a los "
+"invitados en paralelo. De manera predeterminada el número de procesos a usar "
+"es escogido en base de la cantidad de memoria disponible en el momento en "
+"que se arranca virt-alignment-scan. Puede forzar a  virt-alignment-scan a "
+"usar como máximo C<nr_threads> usando la opción I<-P>."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:176 ../df/virt-df.pod:172
@@ -763,6 +776,8 @@ msgid ""
 "Note that I<-P 0> means to autodetect, and I<-P 1> means to use a single "
 "thread."
 msgstr ""
+"Tenga en cuenta que I<-P 0> significa autodetección y I<-P 1> significa usar "
+"un solo proceso."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:179
@@ -772,7 +787,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:530 ../sparsify/virt-sparsify.pod:262
 #: ../sysprep/virt-sysprep.pod:237
 msgid "B<-q>"
-msgstr ""
+msgstr "B<-q>"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:181
