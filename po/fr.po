@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2023-06-27 14:04+0100\n"
+"POT-Creation-Date: 2023-07-20 17:10+0100\n"
 "PO-Revision-Date: 2023-03-21 09:20+0000\n"
 "Last-Translator: grimst <grimaitres@gmail.com>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/"
@@ -1085,8 +1085,10 @@ msgid "get number of virtual CPUs in appliance"
 msgstr "obtenir le nombre de processeurs virtuels dans l'appareil"
 
 #: fish/cmds.c:726
-msgid "get the temporary directory for sockets"
-msgstr ""
+#, fuzzy
+#| msgid "get the temporary directory"
+msgid "get the temporary directory for sockets and PID files"
+msgstr "obtenir le répertoire temporaire"
 
 #: fish/cmds.c:727
 msgid "get the temporary directory"
@@ -4195,7 +4197,7 @@ msgstr "information qemu-img : erreur d'analyse JSON inconnue"
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "la taille de %s est déraisonnablement grande (%<PRIi64> octets)"
 
-#: lib/launch-direct.c:149
+#: lib/launch-direct.c:151
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -4204,11 +4206,34 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:363
+#: lib/launch-direct.c:393
+#, fuzzy, c-format
+#| msgid "%s killed by signal %d (%s)"
+msgid "passt was killed with signal %d"
+msgstr "%s a été tué par le signal %d (%s) "
+
+#: lib/launch-direct.c:398
+#, c-format
+msgid "internal error: unexpected exit status from passt (%d)"
+msgstr ""
+
+#: lib/launch-direct.c:405
+#, fuzzy, c-format
+#| msgid "%s exited with error status %d"
+msgid "passt exited with status %d"
+msgstr "%s s'est terminé avec l'état d'erreur %d"
+
+#: lib/launch-direct.c:426
+#, fuzzy, c-format
+#| msgid "failed to create PV: %s: %s"
+msgid "failed to parse passt PID from '%s'"
+msgstr "impossible de créer le volume physique : %s : %s"
+
+#: lib/launch-direct.c:475
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "vous devez appeler guestfs_add_drive avant guestfs_launch"
 
-#: lib/launch-direct.c:902 lib/launch-libvirt.c:698
+#: lib/launch-direct.c:1042 lib/launch-libvirt.c:698
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu est lancé et a contacté le démon, mais l'état est != PRÊT"
 
@@ -4292,86 +4317,76 @@ msgstr ""
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1500 lib/launch-libvirt.c:1758 lib/qemu.c:816
+#: lib/launch-libvirt.c:1511 lib/launch-libvirt.c:1769 lib/qemu.c:816
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1583
+#: lib/launch-libvirt.c:1594
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1973
+#: lib/launch-libvirt.c:1984
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1984
+#: lib/launch-libvirt.c:1995
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1988
+#: lib/launch-libvirt.c:1999
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:2009
+#: lib/launch-libvirt.c:2020
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2022
+#: lib/launch-libvirt.c:2033
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2195
+#: lib/launch-libvirt.c:2206
 msgid "could not destroy libvirt domain"
 msgstr "impossible d'arrêter le domaine libvirt"
 
-#: lib/launch-libvirt.c:2216 lib/launch-libvirt.c:2249
+#: lib/launch-libvirt.c:2227 lib/launch-libvirt.c:2260
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s : erreur interne lors de la construction du message d'erreur"
 
-#: lib/launch.c:64
+#: lib/launch.c:65
 msgid "the libguestfs handle has already been launched"
 msgstr "l'identificateur libguestfs a déjà été lancé"
 
-#: lib/launch.c:77
+#: lib/launch.c:78
 #, c-format
 msgid ""
 "too many drives have been added, the current backend only supports %d drives"
 msgstr ""
 
-#: lib/launch.c:201
+#: lib/launch.c:202
 msgid "get-pid can only be called after launch"
 msgstr "get-pid ne peut être appelé qu'après l'exécution"
 
-#: lib/launch.c:207
+#: lib/launch.c:208
 msgid "the current backend does not support ‘get-pid’"
 msgstr ""
 
-#: lib/launch.c:221
+#: lib/launch.c:222
 msgid "the current backend does not allow max disks to be queried"
 msgstr "le moteur actuel ne permet pas d'interroger le nombre max de disques"
 
-#: lib/launch.c:235
+#: lib/launch.c:236
 msgid "qemu has not been launched yet"
 msgstr "qemu n'a pas encore été lancé"
 
-#: lib/launch.c:298
+#: lib/launch.c:299
 #, c-format
 msgid "parameter ‘%s’ isn't allowed"
-msgstr ""
-
-#: lib/launch.c:327
-#, c-format
-msgid "socket path too long: %s/%s"
-msgstr ""
-
-#: lib/launch.c:331
-#, c-format
-msgid "%s"
 msgstr ""
 
 #: lib/libvirt-auth.c:96
@@ -4652,22 +4667,32 @@ msgid ""
 "creating /run/user/%d with the right ownership."
 msgstr ""
 
-#: lib/tmpdirs.c:282
+#: lib/tmpdirs.c:271
+#, c-format
+msgid "socket path too long: %s/%s"
+msgstr ""
+
+#: lib/tmpdirs.c:275
+#, c-format
+msgid "%s"
+msgstr ""
+
+#: lib/tmpdirs.c:323
 #, c-format
 msgid "stat: %s"
 msgstr ""
 
-#: lib/tmpdirs.c:287
+#: lib/tmpdirs.c:328
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr ""
 
-#: lib/tmpdirs.c:293
+#: lib/tmpdirs.c:334
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "security : le cache de l'appareil %s n'est pas un répertoire (mode %o)"
 
-#: lib/tmpdirs.c:299
+#: lib/tmpdirs.c:340
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
