@@ -266,6 +266,7 @@ and check_package_format { distro } =
   | Some DISTRO_MEEGO
   | Some DISTRO_NEOKYLIN
   | Some DISTRO_OPENMANDRIVA
+  | Some DISTRO_OPENCLOUDOS
   | Some DISTRO_OPENSUSE
   | Some DISTRO_ORACLE_LINUX
   | Some DISTRO_REDHAT_BASED
@@ -380,6 +381,8 @@ and check_package_management { distro; version } =
   | Some DISTRO_OPENMANDRIVA ->
      Some PACKAGE_MANAGEMENT_DNF
 
+  | Some DISTRO_OPENCLOUDOS ->
+     Some PACKAGE_MANAGEMENT_DNF
   | Some DISTRO_BUILDROOT
   | Some DISTRO_CIRROS
   | Some DISTRO_COREOS

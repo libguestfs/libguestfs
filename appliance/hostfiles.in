@@ -13,6 +13,7 @@ dnl   SUSE=1         For OpenSUSE.
 dnl   FRUGALWARE=1   For Frugalware.
 dnl   MAGEIA=1       For Mageia.
 dnl   OPENMANDRIVA=1 For OpenMandriva.
+dnl   OPENCLOUDOS=1  For OpenCloudOS.
 
 /etc/ld.so.cache
 /lib/lsb/*
