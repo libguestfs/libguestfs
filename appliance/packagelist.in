@@ -4,13 +4,14 @@ dnl
 dnl This file is processed by m4 with one of the
 dnl following symbols defined (depending on the distro):
 dnl
-dnl   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
-dnl   DEBIAN=1     For Debian.
-dnl   UBUNTU=1     For Ubuntu.
-dnl   ARCHLINUX=1  For Archlinux.
-dnl   SUSE=1       For OpenSUSE.
-dnl   FRUGALWARE=1 For Frugalware.
-dnl   MAGEIA=1     For Mageia.
+dnl   REDHAT=1      For Fedora, RHEL, EPEL and workalikes.
+dnl   DEBIAN=1      For Debian.
+dnl   UBUNTU=1      For Ubuntu.
+dnl   ARCHLINUX=1   For Archlinux.
+dnl   SUSE=1        For OpenSUSE.
+dnl   FRUGALWARE=1  For Frugalware.
+dnl   MAGEIA=1      For Mageia.
+dnl   OPENCLOUDOS=1 For OpencloudOS.
 dnl
 dnl There is also a list of packages which are excluded if they appear
 dnl as dependencies of the packages below.  See: excludelist.in
@@ -208,6 +209,29 @@ ifelse(OPENMANDRIVA,1,
   ntfs-3g
   openssh-clients
   systemd /* for /sbin/reboot and udevd */
+  vim-minimal
+  xz
+  zstd
+)
+
+ifelse(OPENCLOUDOS,1,
+  clevis-luks
+  cryptsetup
+  cryptsetup-luks 
+  dhclient
+  gfs2-utils
+  glibc-gconv-extra
+  hfsplus-tools
+  iproute
+  iputils
+  kernel
+  ntfsprogs
+  ntfs-3g
+  openssh-clients
+  policycoreutils
+  rpm-libs
+  syslinux-extlinux
+  systemd
   vim-minimal
   xz
   zstd
