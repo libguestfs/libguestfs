@@ -280,6 +280,7 @@ SOURCES_MLI = \
 	devsparts.mli \
 	file.mli \
 	filearch.mli \
+	file_helper.mli \
 	findfs.mli \
 	inspect.mli \
 	inspect_fs.mli \
@@ -321,6 +322,7 @@ SOURCES_ML = \
 	btrfs.ml \
 	cryptsetup.ml \
 	devsparts.ml \
+	file_helper.ml \
 	file.ml \
 	filearch.ml \
 	isoinfo.ml \
