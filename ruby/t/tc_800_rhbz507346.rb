@@ -17,7 +17,7 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class Test800RHBZ507346 < MiniTest::Unit::TestCase
+class Test800RHBZ507346 < Minitest::Test
   def test_800_rhbz507346
     g = Guestfs::Guestfs.new()
     exception = assert_raises TypeError do
