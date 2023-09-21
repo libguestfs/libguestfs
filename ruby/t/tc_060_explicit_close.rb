@@ -17,7 +17,7 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class Test060ExplicitClose < MiniTest::Unit::TestCase
+class Test060ExplicitClose < Minitest::Test
   def test_060_explicit_close
     g = Guestfs::Guestfs.new()
     refute_nil (g)

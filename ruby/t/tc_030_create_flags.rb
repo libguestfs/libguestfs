@@ -17,7 +17,7 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class Test030CreateFlags < MiniTest::Unit::TestCase
+class Test030CreateFlags < Minitest::Test
   def test_030_create_flags
     g = Guestfs::Guestfs.new(:environment => false, :close_on_exit => true)
     refute_nil (g)
