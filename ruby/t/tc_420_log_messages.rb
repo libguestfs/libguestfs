@@ -17,7 +17,7 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class Test420LogMessages < MiniTest::Unit::TestCase
+class Test420LogMessages < Minitest::Test
   def test_420_log_messages
     g = Guestfs::Guestfs.new()
 

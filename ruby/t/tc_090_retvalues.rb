@@ -17,7 +17,7 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class Test090RetValues < MiniTest::Unit::TestCase
+class Test090RetValues < Minitest::Test
   def test_090_retvalues
     g = Guestfs::Guestfs.new()
 

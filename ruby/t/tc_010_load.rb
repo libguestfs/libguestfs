@@ -17,7 +17,7 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class Test010Load < MiniTest::Unit::TestCase
+class Test010Load < Minitest::Test
   def test_010_load
   end
 end

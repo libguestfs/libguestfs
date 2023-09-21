@@ -17,7 +17,7 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class Test020Create < MiniTest::Unit::TestCase
+class Test020Create < Minitest::Test
   def test_020_create
     g = Guestfs::Guestfs.new()
     refute_nil (g)
