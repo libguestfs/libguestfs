@@ -19,7 +19,8 @@
 # the interpreter to segfault.  See:
 # https://bugzilla.redhat.com/show_bug.cgi?id=664558#c6
 
-require File::join(File::dirname(__FILE__), 'test_helper')
+require 'minitest/autorun'
+require 'guestfs'
 
 class Test810RHBZ664558C6 < Minitest::Test
   def test_810_rhbz_664558c6
