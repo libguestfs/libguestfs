@@ -376,9 +376,11 @@ OCAML_LIBS = \
 	-lmlstdutils \
 	-lmlaugeas \
 	-lmlhivex \
-	-lcamlstr \
-	-lunix \
-	-l$(CAMLRUN) -ldl -lm
+	-l$(CAMLSTR) \
+	-l$(CAMLUNIX) \
+	-l$(CAMLRUN) \
+	$(LIBZSTD_LIBS) \
+	-ldl -lm
 
 CLEANFILES += camldaemon.o
 

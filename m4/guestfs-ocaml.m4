@@ -122,6 +122,47 @@ if test "x$enable_daemon" = "xyes"; then
         AC_MSG_ERROR([could not find or link to libasmrun or libcamlrun])
     fi
     AC_SUBST([CAMLRUN])
+
+    dnl OCaml 5.1 changed -lcamlstr to -lcamlstrnat / -lcamlstrbyt
+    dnl and -lunix to -lunixnat / -lunixbyt so we need to detect
+    dnl the new or old libraries.  As above we cannot use AC_CHECK_LIB.
+    AC_MSG_CHECKING([how to link the daemon with -lcamlstr*])
+    if test "x$OCAMLOPT" != "xno"; then
+        choices="camlstrnat camlstr"
+    else
+        choices="camlstrbyt camlstr"
+    fi
+    for f in $choices; do
+        if test -f "$OCAMLLIB/lib$f.a"; then
+            CAMLSTR=$f
+            break
+        fi
+    done
+    if test "x$CAMLSTR" != "x"; then
+        AC_MSG_RESULT([$CAMLSTR])
+    else
+        AC_MSG_ERROR([could not find or link to -lcamlstr*])
+    fi
+    AC_SUBST([CAMLSTR])
+
+    AC_MSG_CHECKING([how to link the daemon with -lunix*])
+    if test "x$OCAMLOPT" != "xno"; then
+        choices="unixnat unix"
+    else
+        choices="unixbyt unix"
+    fi
+    for f in $choices; do
+        if test -f "$OCAMLLIB/lib$f.a"; then
+            CAMLUNIX=$f
+            break
+        fi
+    done
+    if test "x$CAMLUNIX" != "x"; then
+        AC_MSG_RESULT([$CAMLUNIX])
+    else
+        AC_MSG_ERROR([could not find or link to -lunix*])
+    fi
+    AC_SUBST([CAMLUNIX])
 fi
 
 dnl Define HIVEX_OPEN_UNSAFE_FLAG based on test above.
