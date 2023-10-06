@@ -248,6 +248,9 @@ PKG_CHECK_MODULES([PCRE2], [libpcre2-8], [], [
     PCRE_LIBS=`$PCRE2_CONFIG --libs8`
 ])
 
+dnl Check for zstd (required since OCaml 5.1)
+PKG_CHECK_MODULES([LIBZSTD], [libzstd])
+
 dnl Check for Augeas >= 1.2.0 (required).
 PKG_CHECK_MODULES([AUGEAS],[augeas >= 1.2.0])
 
