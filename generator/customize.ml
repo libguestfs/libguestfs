@@ -510,23 +510,6 @@ You can have multiple I<--ssh-inject> options, for different users
 and also for more keys for each user."
   };
 
-  { op_name = "truncate";
-    op_type = String "FILE";
-    op_discrim = "`Truncate";
-    op_shortdesc = "Truncate a file to zero size";
-    op_pod_longdesc = "\
-This command truncates C<FILE> to a zero-length file. The file must exist
-already.";
-  };
-
-  { op_name = "truncate-recursive";
-    op_type = String "PATH";
-    op_discrim = "`TruncateRecursive";
-    op_shortdesc = "Recursively truncate all files in directory";
-    op_pod_longdesc = "\
-This command recursively truncates all files under C<PATH> to zero-length.";
-  };
-
   { op_name = "timezone";
     op_type = String "TIMEZONE";
     op_discrim = "`Timezone";
@@ -542,6 +525,23 @@ string like C<Europe/London>";
     op_shortdesc = "Run touch on a file";
     op_pod_longdesc = "\
 This command performs a L<touch(1)>-like operation on C<FILE>.";
+  };
+
+  { op_name = "truncate";
+    op_type = String "FILE";
+    op_discrim = "`Truncate";
+    op_shortdesc = "Truncate a file to zero size";
+    op_pod_longdesc = "\
+This command truncates C<FILE> to a zero-length file. The file must exist
+already.";
+  };
+
+  { op_name = "truncate-recursive";
+    op_type = String "PATH";
+    op_discrim = "`TruncateRecursive";
+    op_shortdesc = "Recursively truncate all files in directory";
+    op_pod_longdesc = "\
+This command recursively truncates all files under C<PATH> to zero-length.";
   };
 
   { op_name = "uninstall";
