@@ -510,6 +510,18 @@ You can have multiple I<--ssh-inject> options, for different users
 and also for more keys for each user."
   };
 
+  { op_name = "tar-in";
+    op_type = StringPair "TARFILE:REMOTEDIR";
+    op_discrim = "`TarIn";
+    op_shortdesc = "Copy local files or directories from a tarball into image";
+    op_pod_longdesc = "\
+Copy local files or directories from a local tar file
+called C<TARFILE> into the disk image, placing them in the
+directory C<REMOTEDIR> (which must exist).  Note that
+the tar file must be uncompressed (F<.tar.gz> files will not work
+here)";
+  };
+
   { op_name = "timezone";
     op_type = String "TIMEZONE";
     op_discrim = "`Timezone";
