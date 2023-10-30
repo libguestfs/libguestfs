@@ -28,6 +28,7 @@ ifelse(REDHAT,1,
   cryptsetup
   cryptsetup-luks      dnl old name used before Fedora 17
   dhclient
+  dhcpcd
   gfs-utils
   gfs2-utils
   glibc-gconv-extra    dnl syslinux requires IBM850 iconv converter
