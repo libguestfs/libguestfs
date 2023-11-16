@@ -46,7 +46,7 @@ libguestfs-docs.pot:
 	  -M utf-8 -L utf-8 \
 	  --package-name $(PACKAGE_NAME) \
 	  --package-version $(PACKAGE_VERSION) \
-	  --msgid-bugs-address libguestfs@redhat.com \
+	  --msgid-bugs-address guestfs@lists.libguestfs.org \
 	  --copyright-holder "Red Hat Inc." \
 	  -p $(abs_srcdir)/$@ \
 	  $(patsubst %,-m %,$(shell cat $(srcdir)/podfiles))
