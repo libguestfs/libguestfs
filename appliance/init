@@ -121,6 +121,11 @@ if test "$guestfs_network" = 1; then
         dhclient $iface
     else
         dhcpcd $iface
+        # https://github.com/NetworkConfiguration/dhcpcd/issues/258
+        for i in `seq 0 10`; do
+            if grep nameserver /etc/resolv.conf; then break; fi
+            sleep 1
+        done
     fi
 fi
 
