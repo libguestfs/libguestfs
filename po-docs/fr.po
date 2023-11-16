@@ -16363,7 +16363,7 @@ msgstr ""
 #: ../docs/guestfs-faq.pod:1297
 msgid ""
 "Large new features that you intend to contribute should be discussed on the "
-"mailing list first (L<https://www.redhat.com/mailman/listinfo/libguestfs>).  "
+"mailing list first (L<https://lists.libguestfs.org>).  "
 "This avoids disappointment and wasted work if we don't think the feature "
 "would fit into the libguestfs project."
 msgstr ""
@@ -40728,7 +40728,7 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-testing.pod:24
-msgid "L<https://www.redhat.com/mailman/listinfo/libguestfs>"
+msgid "L<https://lists.libguestfs.org>"
 msgstr ""
 
 #. type: =head1
