@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
+"Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
 "PO-Revision-Date: 2017-01-29 09:50+0000\n"
 "Last-Translator: Rodrigo de Araujo Sousa Fonseca "

@@ -88,7 +88,7 @@ else
 if HAVE_PACMAN
 QUERY_FILES_CMD := xargs pacman -Qo | sed -r 's/.* is owned by ([^ ]+) .*/\1/'
 else
-$(error Error: Unknown Linux distribution "$(DISTRO)".  Please add support to m4/guestfs-appliance.m4 and appliance/Makefile.am and send a patch upstream to libguestfs@redhat.com)
+$(error Error: Unknown Linux distribution "$(DISTRO)".  Please add support to m4/guestfs-appliance.m4 and appliance/Makefile.am and send a patch upstream to guestfs@lists.libguestfs.org)
 endif !HAVE_PACMAN
 endif !HAVE_DPKG
 endif !HAVE_RPM
