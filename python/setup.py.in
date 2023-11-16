@@ -30,7 +30,7 @@ This package contains the Python bindings for libguestfs.
 """,
 
       author='The @PACKAGE_NAME@ team',
-      author_email='libguestfs@redhat.com',
+      author_email='guestfs@lists.libguestfs.org',
       url='http://libguestfs.org',
 
       license='LGPLv2+',
