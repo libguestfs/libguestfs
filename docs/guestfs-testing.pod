@@ -21,7 +21,7 @@ or post on the mailing list (registration is B<not> required, but if
 you're not registered then you'll have to wait for a moderator to
 manually approve your message):
 
-L<https://www.redhat.com/mailman/listinfo/libguestfs>
+L<https://lists.libguestfs.org>
 
 =head1 TESTS
 

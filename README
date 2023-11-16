@@ -6,7 +6,7 @@ disk images.  For more information see the home page:
 For discussion, development, patches, etc. please use the mailing
 list:
 
-  http://www.redhat.com/mailman/listinfo/libguestfs
+  https://lists.libguestfs.org
 
 To find out how to build libguestfs from source, read:
 

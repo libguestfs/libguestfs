@@ -15,7 +15,7 @@ L<https://access.redhat.com/security/team/contact>
 
 If the security problem is not so serious, you can simply file a bug
 (see L</BUGS> below), or send an email to our mailing list
-(L<https://www.redhat.com/mailman/listinfo/libguestfs>).  You do not
+(L<https://lists.libguestfs.org>).  You do not
 need to subscribe to the mailing list to send email, but there will be
 a delay while the message is moderated.
 

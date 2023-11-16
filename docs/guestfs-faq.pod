@@ -106,7 +106,7 @@ contact S<Red Hat Support>: L<http://redhat.com/support>
 
 There is a mailing list, mainly for development, but users are also
 welcome to ask questions about libguestfs and the virt tools:
-L<https://www.redhat.com/mailman/listinfo/libguestfs>
+L<https://lists.libguestfs.org>
 
 You can also talk to us on IRC channel C<#guestfs> on Libera Chat.
 We're not always around, so please stay in the channel after asking
@@ -1289,7 +1289,7 @@ documented stable API.
 =head2 Where do I send patches?
 
 Please send patches to the libguestfs mailing list
-L<https://www.redhat.com/mailman/listinfo/libguestfs>.  You don't have
+L<https://lists.libguestfs.org>.  You don't have
 to be subscribed, but there will be a delay until your posting is
 manually approved.
 
@@ -1302,7 +1302,7 @@ prefer to have a linear history.
 
 Large new features that you intend to contribute should be discussed
 on the mailing list first
-(L<https://www.redhat.com/mailman/listinfo/libguestfs>).  This avoids
+(L<https://lists.libguestfs.org>).  This avoids
 disappointment and wasted work if we don't think the feature would fit
 into the libguestfs project.
 
