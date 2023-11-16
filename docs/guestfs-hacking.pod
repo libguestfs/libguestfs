@@ -804,7 +804,7 @@ examining the F<tmp/valgrind*> log files carefully.
 =head2 SUBMITTING PATCHES
 
 Submit patches to the mailing list:
-L<http://www.redhat.com/mailman/listinfo/libguestfs>
+L<https://lists.libguestfs.org>
 and CC to L<rjones@redhat.com>.
 
 You do not need to subscribe to the mailing list if you don’t want to.

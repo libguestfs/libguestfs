@@ -54,7 +54,7 @@ guestfish --ro -i -a disk.img
 
 <p>
 Join us on
-the <a href="http://www.redhat.com/mailman/listinfo/libguestfs">libguestfs
+the <a href="https://lists.libguestfs.org">libguestfs
 mailing list</a>, or on IRC channel <code>#guestfs</code>
 on <a href="https://libera.chat/">Libera Chat</a>.
 </p>

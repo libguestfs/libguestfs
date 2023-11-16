@@ -13453,7 +13453,7 @@ msgstr ""
 msgid ""
 "There is a mailing list, mainly for development, but users are also welcome "
 "to ask questions about libguestfs and the virt tools: "
-"L<https://www.redhat.com/mailman/listinfo/libguestfs>"
+"L<https://lists.libguestfs.org>"
 msgstr ""
 
 #. type: textblock
@@ -15795,7 +15795,7 @@ msgstr ""
 #: docs/guestfs-faq.pod:1285
 msgid ""
 "Please send patches to the libguestfs mailing list "
-"L<https://www.redhat.com/mailman/listinfo/libguestfs>.  You don't have to be "
+"L<https://lists.libguestfs.org>.  You don't have to be "
 "subscribed, but there will be a delay until your posting is manually "
 "approved."
 msgstr ""
@@ -15818,7 +15818,7 @@ msgstr ""
 #: docs/guestfs-faq.pod:1297
 msgid ""
 "Large new features that you intend to contribute should be discussed on the "
-"mailing list first (L<https://www.redhat.com/mailman/listinfo/libguestfs>).  "
+"mailing list first (L<https://lists.libguestfs.org>).  "
 "This avoids disappointment and wasted work if we don't think the feature "
 "would fit into the libguestfs project."
 msgstr ""
@@ -17762,7 +17762,7 @@ msgstr ""
 #: docs/guestfs-hacking.pod:840
 msgid ""
 "Submit patches to the mailing list: "
-"L<http://www.redhat.com/mailman/listinfo/libguestfs> and CC to "
+"L<https://lists.libguestfs.org> and CC to "
 "L<rjones@redhat.com>."
 msgstr ""
 
@@ -37939,7 +37939,7 @@ msgstr ""
 msgid ""
 "If the security problem is not so serious, you can simply file a bug (see "
 "L</BUGS> below), or send an email to our mailing list "
-"(L<https://www.redhat.com/mailman/listinfo/libguestfs>).  You do not need to "
+"(L<https://lists.libguestfs.org>).  You do not need to "
 "subscribe to the mailing list to send email, but there will be a delay while "
 "the message is moderated."
 msgstr ""
@@ -38542,7 +38542,7 @@ msgstr ""
 
 #. type: textblock
 #: docs/guestfs-testing.pod:24
-msgid "L<https://www.redhat.com/mailman/listinfo/libguestfs>"
+msgid "L<https://lists.libguestfs.org>"
 msgstr ""
 
 #. type: =head1

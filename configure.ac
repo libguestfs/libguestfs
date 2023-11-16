@@ -321,7 +321,7 @@ echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceding messages."
 echo
 echo "Please report bugs back to the mailing list:"
-echo "http://www.redhat.com/mailman/listinfo/libguestfs"
+echo "https://lists.libguestfs.org"
 echo
 echo "Next you should type 'make' to build the package,"
 echo "then 'make check' to run the tests."
