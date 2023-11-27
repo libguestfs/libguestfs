@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.49.1\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2023-11-16 11:22+0000\n"
-"PO-Revision-Date: 2023-07-05 14:21+0000\n"
+"PO-Revision-Date: 2023-11-26 21:01+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ka/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.2.1\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -3942,10 +3942,9 @@ msgid ""
 msgstr ""
 
 #: lib/launch-direct.c:393
-#, fuzzy, c-format
-#| msgid "%s killed by signal %d (%s)"
+#, c-format
 msgid "passt was killed with signal %d"
-msgstr "%s მოკვდა სიგნალით %d (%s)"
+msgstr "passt მოკვდა სიგნალით %d"
 
 #: lib/launch-direct.c:398
 #, c-format
@@ -3953,16 +3952,14 @@ msgid "internal error: unexpected exit status from passt (%d)"
 msgstr ""
 
 #: lib/launch-direct.c:405
-#, fuzzy, c-format
-#| msgid "%s exited with error status %d"
+#, c-format
 msgid "passt exited with status %d"
-msgstr "%s დასრულდა შეცდომის კოდით %d"
+msgstr "passt დასრულდა შეცდომის კოდით %d"
 
 #: lib/launch-direct.c:426
-#, fuzzy, c-format
-#| msgid "failed to create PV: %s: %s"
+#, c-format
 msgid "failed to parse passt PID from '%s'"
-msgstr "PV-ის (%s) შექმნის შეცდომა: %s"
+msgstr "'%s'-დან მოწოდებული passt-is PID-ის დამუშავება ჩავარდა"
 
 #: lib/launch-direct.c:475
 msgid "you must call guestfs_add_drive before guestfs_launch"
