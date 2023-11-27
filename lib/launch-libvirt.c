@@ -38,6 +38,7 @@
 #include <libvirt/virterror.h>
 #endif
 
+#include <libxml/parser.h>
 #include <libxml/xmlwriter.h>
 #include <libxml/xpath.h>
 
