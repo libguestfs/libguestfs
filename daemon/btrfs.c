@@ -551,6 +551,7 @@ do_btrfs_filesystem_balance (const char *fs)
 
   ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "balance");
+  ADD_ARG (argv, i, "start");
   ADD_ARG (argv, i, fs_buf);
   ADD_ARG (argv, i, NULL);
 
