@@ -61,43 +61,10 @@ value guestfs_int_ocaml_delete_event_callback (value gv, value eh);
 value guestfs_int_ocaml_event_to_string (value events);
 value guestfs_int_ocaml_last_errno (value gv);
 
-/* Allocate handles and deal with finalization. */
-static void
-guestfs_finalize (value gv)
-{
-  guestfs_h *g = Guestfs_val (gv);
-
-  if (g) {
-    /* There is a nasty, difficult to solve case here where the
-     * user deletes events in one of the callbacks that we are
-     * about to invoke, resulting in a double-free.  XXX
-     */
-    size_t len;
-    value **roots = get_all_event_callbacks (g, &len);
-
-    /* Close the handle: this could invoke callbacks from the list
-     * above, which is why we don't want to delete them before
-     * closing the handle.
-     */
-    caml_release_runtime_system ();
-    guestfs_close (g);
-    caml_acquire_runtime_system ();
-
-    /* Now unregister the global roots. */
-    if (roots && len > 0) {
-      size_t i;
-      for (i = 0; i < len; ++i) {
-        caml_remove_generational_global_root (roots[i]);
-        free (roots[i]);
-      }
-      free (roots);
-    }
-  }
-}
-
+/* Allocate handles. */
 static struct custom_operations guestfs_custom_operations = {
   (char *) "guestfs_custom_operations",
-  guestfs_finalize,
+  custom_finalize_default,
   custom_compare_default,
   custom_hash_default,
   custom_serialize_default,
@@ -179,11 +146,37 @@ value
 guestfs_int_ocaml_close (value gv)
 {
   CAMLparam1 (gv);
+  guestfs_h *g = Guestfs_val (gv);
 
-  guestfs_finalize (gv);
+  if (g) {
+    /* There is a nasty, difficult to solve case here where the
+     * user deletes events in one of the callbacks that we are
+     * about to invoke, resulting in a double-free.  XXX
+     */
+    size_t len;
+    value **roots = get_all_event_callbacks (g, &len);
 
-  /* So we don't double-free in the finalizer. */
-  Guestfs_val (gv) = NULL;
+    /* Close the handle: this could invoke callbacks from the list
+     * above, which is why we don't want to delete them before
+     * closing the handle.
+     */
+    caml_release_runtime_system ();
+    guestfs_close (g);
+    caml_acquire_runtime_system ();
+
+    /* Now unregister the global roots. */
+    if (roots && len > 0) {
+      size_t i;
+      for (i = 0; i < len; ++i) {
+        caml_remove_generational_global_root (roots[i]);
+        free (roots[i]);
+      }
+      free (roots);
+    }
+
+    /* So we don't double-free. */
+    Guestfs_val (gv) = NULL;
+  }
 
   CAMLreturn (Val_unit);
 }
