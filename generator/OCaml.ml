@@ -312,9 +312,14 @@ type t
 exception Error of string
 exception Handle_closed of string
 
-external create : ?environment:bool -> ?close_on_exit:bool -> unit -> t =
+external _create : ?environment:bool -> ?close_on_exit:bool -> unit -> t =
   \"guestfs_int_ocaml_create\"
 external close : t -> unit = \"guestfs_int_ocaml_close\"
+
+let create ?environment ?close_on_exit () =
+  let g = _create ?environment ?close_on_exit () in
+  Gc.finalise close g;
+  g
 
 type event =
 ";
