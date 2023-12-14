@@ -156,6 +156,9 @@ guestfs_int_ocaml_close (value gv)
     size_t len;
     value **roots = get_all_event_callbacks (g, &len);
 
+    /* So we don't double-free. */
+    Guestfs_val (gv) = NULL;
+
     /* Close the handle: this could invoke callbacks from the list
      * above, which is why we don't want to delete them before
      * closing the handle.
@@ -173,9 +176,6 @@ guestfs_int_ocaml_close (value gv)
       }
       free (roots);
     }
-
-    /* So we don't double-free. */
-    Guestfs_val (gv) = NULL;
   }
 
   CAMLreturn (Val_unit);
