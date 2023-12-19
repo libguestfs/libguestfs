@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.51.9\n"
+"Project-Id-Version: libguestfs 1.51.10\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2023-12-09 11:43+0000\n"
+"POT-Creation-Date: 2023-12-19 14:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,47 +98,47 @@ msgstr ""
 msgid "%s mounted on %s\n"
 msgstr ""
 
-#: common/options/keys.c:62
+#: common/options/keys.c:63
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr ""
 
-#: common/options/keys.c:144
+#: common/options/keys.c:145
 #, c-format
 msgid "size_t overflow"
 msgstr ""
 
-#: common/options/keys.c:187
+#: common/options/keys.c:192
 #, c-format
 msgid "could not read key from user"
 msgstr ""
 
-#: common/options/keys.c:226
+#: common/options/keys.c:231
 #, c-format
 msgid "selector '%s': missing ID"
 msgstr ""
 
-#: common/options/keys.c:233
+#: common/options/keys.c:238
 #, c-format
 msgid "selector '%s': missing TYPE"
 msgstr ""
 
-#: common/options/keys.c:239
+#: common/options/keys.c:244
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:248
+#: common/options/keys.c:253
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:256
+#: common/options/keys.c:261
 #, c-format
 msgid "selector '%s': too many fields"
 msgstr ""
 
-#: common/options/keys.c:258
+#: common/options/keys.c:263
 #, c-format
 msgid "selector '%s': invalid TYPE"
 msgstr ""
