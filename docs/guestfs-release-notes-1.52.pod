@@ -147,9 +147,9 @@ git shortlog -s v1.50.0..
 
 =item grimst
 
-=item Jan Kuparinen
+=item HATAYAMA Daisuke
 
-=item Juergen Hoetzel
+=item Jan Kuparinen
 
 =item Jürgen Hötzel
 
