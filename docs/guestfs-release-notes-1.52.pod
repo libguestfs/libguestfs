@@ -1,0 +1,174 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.52
+
+These are the release notes for libguestfs stable release 1.52.
+This describes the major changes since 1.50.
+
+Libguestfs 1.52.0 was released on B<XXX XXX 2024>.
+
+=head2 Language bindings
+
+The Python bindings now use C<bytes> (instead of C<str>) for the event
+callback message, since it may contain arbitrary 8 bit data (thanks
+Yonatan Shtarkman).
+
+Also in the Python bindings, fix a rare crash, and avoid memory leaks
+in event callbacks (thanks Yonatan Shtarkman, Laszlo Ersek, Eric
+Blake).
+
+Support for OCaml 5, and OCaml E<ge> 4.07 is now the minimum (thanks
+Guillaume Munch-Maccagnoni, Jerry James, Josh Berdine, Jürgen Hötzel,
+Vincent Laviron).
+
+The OCaml bindings now release the runtime lock around calls to
+C<guestfs_close>, since that call might be long-running (for example
+it might have to shut down the appliance and synch disks).
+
+=head2 Inspection
+
+Support OpencloudOS (cunshunxia@tencent).
+
+=head2 API
+
+SELinux relabelling now runs in parallel if supported by the current
+SELinux implementation, meaning it's a lot quicker (Andrey Drobyshev).
+
+Add support for lzma and zstd compression methods in tar APIs (like
+C<guestfs_tar_in>) (Zixun LI).
+
+C<guestfs_pvs_full> previously didn't always return the correct device
+names.  This has now been fixed.
+
+C<guestfs_btrfs_filesystem_balance> fixed so it now works with more
+modern btrfs tools (Jürgen Hötzel).
+
+=head2 Tools
+
+The L<guestfish(1)> I<--key> option now recognizes LVM names like
+F</dev/mapper/rhel boot--73--75--123-root> (Laszlo Ersek).
+
+guestfish I<--key> option also supports a new S<I<--key all:...>>
+selector to try the same key on all devices.
+
+In L<guestmount(1)> avoid calling C<fclose(NULL)> on error paths,
+which might have caused a crash on some platforms.
+
+=head2 Build changes
+
+The C<RELEASES> file (which listed release dates) has been removed and
+replaced with a simple C<RELEASE_DATE> set in F<./configure>.  This
+should simplify builds.
+
+Optionally L<passt(1)> may be used for networking (Laszlo Ersek).
+
+L<dhcpcd(8)> is now used in preference to dh-client on Red Hat
+platforms.
+
+Old Ruby C<MiniTest> and C<Test::Unit> dependencies replaced with new
+C<Minitest>.
+
+Fix compatibility issues with libxml2 2.12.
+
+=head2 Internals
+
+On x86-64 we now use the more modern q35 machine type when running the
+appliance.  This should perform slightly better and has more
+development attention from the qemu community.  The change should be
+invisible to libguestfs users.
+
+Fix a segmentation fault when C<TERM> environment variable was set to
+C<dumb> (Daisuke HATAYAMA).
+
+Avoid a warning on modern Fedora which does not have F</selinux>
+(Andrey Drobyshev).
+
+Fix build on OpenSUSE LEAP 15 or other distros with a L<file(1)>
+command which did not understand the I<-S> option (thanks Olaf
+Hering).
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh v1.50.0..
+
+=end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/2247057>
+
+Remove dependency on dhcp-client in libguestfs
+
+=item L<https://bugzilla.redhat.com/2184967>
+
+RFE: support passt for appliance networking, as QEMU userspace
+networking backend
+
+=item L<https://bugzilla.redhat.com/2168578>
+
+use q35 machine type for libguestfs appliance
+
+=item L<https://bugzilla.redhat.com/1910039>
+
+virt-dib doesn't work with newer diskimage-builder version on RHEL8
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHORS
+
+=begin comment
+
+git shortlog -s v1.50.0..
+
+=end comment
+
+=over 4
+
+=item Andrey Drobyshev
+
+=item cunshunxia
+
+=item Emilio Herrera
+
+=item grimst
+
+=item Jan Kuparinen
+
+=item Juergen Hoetzel
+
+=item Jürgen Hötzel
+
+=item Laszlo Ersek
+
+=item Pavel Borecki
+
+=item Richard W.M. Jones
+
+=item Temuri Doghonadze
+
+=item Tian Shixiong
+
+=item Yuri Chornoivan
+
+=item Zixun LI
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2024 Red Hat Inc.
