@@ -33,8 +33,8 @@ Support OpencloudOS (cunshunxia@tencent).
 
 =head2 API
 
-SELinux relabelling now runs in parallel if supported by the current
-SELinux implementation, meaning it's a lot quicker (Andrey Drobyshev).
+SELinux relabelling now runs in parallel, meaning it's a lot quicker
+(Andrey Drobyshev).
 
 Add support for lzma and zstd compression methods in tar APIs (like
 C<guestfs_tar_in>) (Zixun LI).
@@ -59,7 +59,7 @@ which might have caused a crash on some platforms.
 =head2 Build changes
 
 The C<RELEASES> file (which listed release dates) has been removed and
-replaced with a simple C<RELEASE_DATE> set in F<./configure>.  This
+replaced with a simple C<RELEASE_DATE> macro in F<./configure>.  This
 should simplify builds.
 
 Optionally L<passt(1)> may be used for networking (Laszlo Ersek).
