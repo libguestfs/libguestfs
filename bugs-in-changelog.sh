@@ -31,7 +31,7 @@ fi
 # Comma-separated list of Bugzilla IDs.
 bugids=$(
     git log "$1" |
-    egrep -io 'RHBZ#[0-9]+|https?://bugzilla.redhat.com/[a-z\.\?/_=]*[0-9]+' |
+    grep -Eio 'RHBZ#[0-9]+|https?://bugzilla.redhat.com/[a-z\.\?/_=]*[0-9]+' |
     sed 's/^[^0-9]*//' |
     sort -u |
     tr '\n' ',' |
