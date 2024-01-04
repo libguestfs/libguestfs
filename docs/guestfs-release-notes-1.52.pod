@@ -48,7 +48,7 @@ modern btrfs tools (Jürgen Hötzel).
 =head2 Tools
 
 The L<guestfish(1)> I<--key> option now recognizes LVM names like
-F</dev/mapper/rhel boot--73--75--123-root> (Laszlo Ersek).
+F</dev/mapper/rhel_bootp--73--75--123-root> (Laszlo Ersek).
 
 guestfish I<--key> option also supports a new S<I<--key all:...>>
 selector to try the same key on all devices.
