@@ -2652,6 +2652,13 @@ parameter which must have one of the following values:
 Compute the cyclic redundancy check (CRC) specified by POSIX
 for the C<cksum> command.
 
+=item C<gost>
+
+=item C<gost12>
+
+Compute the checksum using GOST R34.11-94 or
+GOST R34.11-2012 message digest.
+
 =item C<md5>
 
 Compute the MD5 hash (using the L<md5sum(1)> program).

@@ -256,6 +256,7 @@ file
 findutils
 gawk
 gdisk
+gostsum
 grep
 gzip
 jfsutils
