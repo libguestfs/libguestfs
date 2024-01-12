@@ -46,8 +46,12 @@ program_of_csum (const char *csumtype)
     return "sha384sum";
   else if (STRCASEEQ (csumtype, "sha512"))
     return "sha512sum";
+  else if (STRCASEEQ (csumtype, "gost"))
+    return "gostsum";
+  else if (STRCASEEQ (csumtype, "gost12"))
+    return "gost12sum";
   else {
-    reply_with_error ("unknown checksum type, expecting crc|md5|sha1|sha224|sha256|sha384|sha512");
+    reply_with_error ("unknown checksum type, expecting crc|md5|sha1|sha224|sha256|sha384|sha512|gost|gost12");
     return NULL;
   }
 }
