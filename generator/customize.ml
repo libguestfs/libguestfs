@@ -775,7 +775,7 @@ let rec argspec () =
     let len = String.length arg in
     String.sub arg 0 i, String.sub arg (i+1) (len-(i+1))
   and split_string_triplet option_name arg =
-    match String.nsplit ~max:3 \",\" arg with
+    match String.nsplit ~max:3 \":\" arg with
     | [a; b; c] -> a, b, c
     | _ ->
         error (f_\"invalid format for '--%%s' parameter, see the man page\")
