@@ -138,6 +138,7 @@ guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
     else if (STREQ (distro, "rhel") ||
              STREQ (distro, "redhat-based") ||
              STREQ (distro, "centos") ||
+             STREQ (distro, "circle") ||
              STREQ (distro, "rocky") ||
              STREQ (distro, "scientificlinux") ||
              STREQ (distro, "oraclelinux")) {

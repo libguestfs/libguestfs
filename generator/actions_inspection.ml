@@ -178,6 +178,10 @@ Buildroot-derived distro, but not one we specifically recognize.
 
 CentOS.
 
+=item \"circle\"
+
+Circle Linux.
+
 =item \"cirros\"
 
 Cirros.
