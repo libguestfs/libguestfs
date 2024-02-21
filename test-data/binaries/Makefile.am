@@ -27,6 +27,7 @@ EXTRA_DIST = \
 	bin-ppc64-dynamic \
 	bin-ppc64le-dynamic \
 	bin-riscv64-dynamic \
+	bin-loongarch64-dynamic \
 	bin-s390x-dynamic \
 	bin-sparc-dynamic \
 	bin-win32.exe \
@@ -40,6 +41,7 @@ EXTRA_DIST = \
 	lib-ppc64le.so \
 	lib-mipsel.so \
 	lib-riscv64.so \
+	lib-loongarch64.so \
 	lib-s390x.so \
 	lib-sparc.so \
 	lib-win32.dll \

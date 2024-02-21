@@ -9384,6 +9384,8 @@ with large files, such as the resulting squashfs will be over 3GB big." };
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-riscv64-dynamic"]], "riscv64"), [];
       InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-loongarch64-dynamic"]], "loongarch64"), [];
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-s390x-dynamic"]], "s390x"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-sparc-dynamic"]], "sparc"), [];
@@ -9405,6 +9407,8 @@ with large files, such as the resulting squashfs will be over 3GB big." };
         [["file_architecture"; "/lib-ppc64le.so"]], "ppc64le"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-riscv64.so"]], "riscv64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-loongarch64.so"]], "loongarch64"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-s390x.so"]], "s390x"), [];
       InitISOFS, Always, TestResultString (
@@ -9463,6 +9467,10 @@ Intel Itanium.
 =item \"ppc64le\"
 
 64 bit Power PC (little endian).
+
+=item \"loongarch64\"
+
+64 bit LoongArch64 (little endian).
 
 =item \"riscv32\"
 
