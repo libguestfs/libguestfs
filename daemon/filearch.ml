@@ -98,6 +98,8 @@ and canonical_elf_arch bits endianness elf_arch =
     | "64" -> "s390x"
     | _ -> failwithf "unknown S/390 bit size: %s" bits
   )
+  else if substr "LoongArch" then
+    sprintf "loongarch%s" bits
   else
     elf_arch
 
