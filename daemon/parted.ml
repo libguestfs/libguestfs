@@ -173,7 +173,7 @@ let sgdisk_info_extract_field device partnum field extractor =
     commandr ~fold_stdout_on_stderr:true
              "sgdisk" [ device; "-i"; string_of_int partnum ] in
   if r <> 0 then
-    failwithf "sgdisk: %s" err;
+    failwithf "getting %S: sgdisk: %s" field err;
 
   udev_settle ();
 
