@@ -29,7 +29,7 @@ In a future version of libguestfs, this will become the default.
 
 =head2 EXCEPTIONS
 
-Errors from libguestfs functions are mapped into C<RuntimeException>
+Errors from libguestfs functions are mapped into C<RuntimeError>
 with a single string argument which is the error message.
 
 =head2 MORE DOCUMENTATION
