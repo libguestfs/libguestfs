@@ -61,7 +61,7 @@ MANPAGES = \
 	guestfs-release-notes-1.8.1 \
 	guestfs-release-notes-1.6.1 \
 	guestfs-release-notes-1.4.1 \
-	guestfs-release-notes-historical.1 \
+	guestfs-release-notes.1 \
 	guestfs-ruby.3 \
 	guestfs-security.1 \
 	guestfs-testing.1 \
