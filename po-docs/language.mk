@@ -110,6 +110,13 @@ guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod guestfis
 	  --license GPLv2+ \
 	  $<
 
+guestmount.1: guestmount.pod blocksize-option.pod key-option.pod keys-from-stdin-option.pod
+	$(PODWRAPPER) \
+	  --no-strict-checks \
+	  --man $@ \
+	  --license GPLv2+ \
+	  $<
+
 virt-builder.1: virt-builder.pod customize-synopsis.pod customize-options.pod
 	$(PODWRAPPER) \
 	  --no-strict-checks \
