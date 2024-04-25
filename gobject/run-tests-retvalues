@@ -22,4 +22,4 @@ $TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_environment_variable_set GJS
 
-$GJS $srcdir/bindtests-retvalues.js 2>/dev/null
+$GJS $srcdir/bindtests-retvalues.js
