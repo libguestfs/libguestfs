@@ -327,6 +327,7 @@ $g->write ('/usr/lib/rpm/macros', <<EOF);
 EOF
 
 $g->upload ($ENV{SRCDIR}.'/../binaries/bin-x86_64-dynamic', '/bin/ls');
+$g->chmod (0755, '/bin/ls');
 
 $g->tar_in ($ENV{SRCDIR}.'/fedora-journal.tar.xz', '/var/log/journal', compress => "xz");
 
