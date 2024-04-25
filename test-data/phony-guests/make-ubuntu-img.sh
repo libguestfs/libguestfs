@@ -76,6 +76,7 @@ write /etc/hostname "ubuntu.invalid"
 upload $SRCDIR/debian-packages /var/lib/dpkg/status
 
 upload $SRCDIR/../binaries/bin-x86_64-dynamic /bin/ls
+chmod 0755 /bin/ls
 
 mkdir /boot/grub
 touch /boot/grub/grub.conf

@@ -50,6 +50,7 @@ write /etc/hostname "archlinux.test"
 upload $SRCDIR/archlinux-package /var/lib/pacman/local/test-package-1:0.1-1/desc
 
 upload $SRCDIR/../binaries/bin-x86_64-dynamic /bin/ls
+chmod 0755 /bin/ls
 
 mkdir /boot/grub
 touch /boot/grub/grub.conf
