@@ -5,14 +5,15 @@
 # Translators:
 # Christopher Meng <cickumqt@gmail.com>, 2012
 # Tian Shixiong <tiansworld@gmail.com>, 2023.
+# zhanchun li <lzc777@126.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2023-11-16 11:22+0000\n"
-"PO-Revision-Date: 2023-05-30 16:20+0000\n"
-"Last-Translator: Tian Shixiong <tiansworld@gmail.com>\n"
+"PO-Revision-Date: 2024-05-09 09:36+0000\n"
+"Last-Translator: zhanchun li <lzc777@126.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-master/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -109,12 +110,12 @@ msgstr ""
 #: common/options/inspect.c:161
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr ""
+msgstr "%s: 某些文件系统无法挂载(忽略了)\n"
 
 #: common/options/inspect.c:178
 #, c-format
 msgid "Operating system: %s\n"
-msgstr ""
+msgstr "操作系统: %s\n"
 
 #: common/options/inspect.c:196
 #, c-format
@@ -124,12 +125,12 @@ msgstr ""
 #: common/options/keys.c:62
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
-msgstr ""
+msgstr "输入密钥或密码(\"%s\"): "
 
 #: common/options/keys.c:144
 #, c-format
 msgid "size_t overflow"
-msgstr ""
+msgstr "size_t 溢出"
 
 #: common/options/keys.c:187
 #, c-format
