@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2023-11-16 11:22+0000\n"
+"POT-Creation-Date: 2024-04-25 13:42+0100\n"
 "PO-Revision-Date: 2015-02-21 10:49+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Gujarati (http://www.transifex.com/projects/p/libguestfs/"
@@ -102,47 +102,47 @@ msgstr "ઓપરેટીંગ સિસ્ટમ: %s\n"
 msgid "%s mounted on %s\n"
 msgstr ""
 
-#: common/options/keys.c:62
+#: common/options/keys.c:63
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr "કી અથવા પાસફ્રેઝને દાખલ કરો (\"%s\"): "
 
-#: common/options/keys.c:144
+#: common/options/keys.c:145
 #, c-format
 msgid "size_t overflow"
 msgstr ""
 
-#: common/options/keys.c:187
+#: common/options/keys.c:192
 #, c-format
 msgid "could not read key from user"
 msgstr ""
 
-#: common/options/keys.c:226
+#: common/options/keys.c:231
 #, c-format
 msgid "selector '%s': missing ID"
 msgstr ""
 
-#: common/options/keys.c:233
+#: common/options/keys.c:238
 #, c-format
 msgid "selector '%s': missing TYPE"
 msgstr ""
 
-#: common/options/keys.c:239
+#: common/options/keys.c:244
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:248
+#: common/options/keys.c:253
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:256
+#: common/options/keys.c:261
 #, c-format
 msgid "selector '%s': too many fields"
 msgstr ""
 
-#: common/options/keys.c:258
+#: common/options/keys.c:263
 #, c-format
 msgid "selector '%s': invalid TYPE"
 msgstr ""
@@ -3934,7 +3934,7 @@ msgstr ""
 msgid "qemu-img info: unknown JSON parse error"
 msgstr ""
 
-#: lib/inspect-icon.c:729
+#: lib/inspect-icon.c:730
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -3972,47 +3972,47 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "તમારે guestfs_launch પહેલાં guestfs_add_drive ને કોલ કરવુ જ જોઇએ"
 
-#: lib/launch-direct.c:1042 lib/launch-libvirt.c:698
+#: lib/launch-direct.c:1042 lib/launch-libvirt.c:699
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu શરૂ થયેલ છે, ડિમનનો સંપર્ક થયેલ છે, પરંતુ state != READY"
 
-#: lib/launch-libvirt.c:61
+#: lib/launch-libvirt.c:62
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: lib/launch-libvirt.c:218
+#: lib/launch-libvirt.c:219
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:229
+#: lib/launch-libvirt.c:230
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:344
+#: lib/launch-libvirt.c:345
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:382
+#: lib/launch-libvirt.c:383
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: lib/launch-libvirt.c:411
+#: lib/launch-libvirt.c:412
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:432
+#: lib/launch-libvirt.c:433
 msgid "could not get libvirt domain capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:627
+#: lib/launch-libvirt.c:628
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -4022,21 +4022,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:763
+#: lib/launch-libvirt.c:764
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:769 lib/launch-libvirt.c:871 lib/libvirt-domain.c:397
+#: lib/launch-libvirt.c:770 lib/launch-libvirt.c:872 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: lib/launch-libvirt.c:779 lib/launch-libvirt.c:879 lib/launch-libvirt.c:895
+#: lib/launch-libvirt.c:780 lib/launch-libvirt.c:880 lib/launch-libvirt.c:896
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:818
+#: lib/launch-libvirt.c:819
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -4051,47 +4051,47 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:865
+#: lib/launch-libvirt.c:866
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1511 lib/launch-libvirt.c:1769 lib/qemu.c:816
+#: lib/launch-libvirt.c:1512 lib/launch-libvirt.c:1770 lib/qemu.c:816
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1594
+#: lib/launch-libvirt.c:1595
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1984
+#: lib/launch-libvirt.c:1985
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1995
+#: lib/launch-libvirt.c:1996
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1999
+#: lib/launch-libvirt.c:2000
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:2020
+#: lib/launch-libvirt.c:2021
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2033
+#: lib/launch-libvirt.c:2034
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2206
+#: lib/launch-libvirt.c:2207
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2227 lib/launch-libvirt.c:2260
+#: lib/launch-libvirt.c:2228 lib/launch-libvirt.c:2261
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
