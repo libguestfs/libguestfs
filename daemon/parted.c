@@ -457,12 +457,6 @@ do_part_set_mbr_id (const char *device, int partnum, int idbyte)
 }
 
 int
-optgroup_gdisk_available (void)
-{
-  return prog_exists ("sgdisk");
-}
-
-int
 do_part_set_gpt_type (const char *device, int partnum, const char *guid)
 {
   if (partnum <= 0) {
@@ -657,22 +651,6 @@ do_part_set_disk_guid_random (const char *device)
 
   if (r == -1) {
     reply_with_error ("%s %s -U R: %s", "sgdisk", device, err);
-    return -1;
-  }
-
-  return 0;
-}
-
-int
-do_part_expand_gpt(const char *device)
-{
-  CLEANUP_FREE char *err = NULL;
-
-  int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                    "sgdisk", "-e", device, NULL);
-
-  if (r == -1) {
-    reply_with_error ("%s -e %s: %s", "sgdisk", device, err);
     return -1;
   }
 

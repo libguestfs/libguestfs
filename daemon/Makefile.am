@@ -130,6 +130,7 @@ guestfsd_SOURCES = \
 	fs-min-size.c \
 	fsck.c \
 	fstrim.c \
+	gdisk.c \
 	glob.c \
 	grep.c \
 	grub.c \
