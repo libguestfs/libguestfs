@@ -793,7 +793,7 @@ let generate_daemon_caml_stubs () =
            | Bool n -> pr "Val_bool (%s)" n
            | Int n -> pr "Val_int (%s)" n
            | Int64 n -> pr "caml_copy_int64 (%s)" n
-           | String ((PlainString|Device|Pathname|Dev_or_Path|Key), n) ->
+           | String ((PlainString|Device|Pathname|Dev_or_Path|Key|GUID), n) ->
               pr "caml_copy_string (%s)" n
            | String ((Mountable|Mountable_or_Path), n) ->
               pr "guestfs_int_daemon_copy_mountable (%s)" n
