@@ -111,8 +111,9 @@ and is_partition_can_hold_filesystem partition =
       false
     else if is_mbr_bogus parttype device partnum then
       true
+    else if is_mbr then
+      true
     else (
-      (* MBR partition id will be converted into corresponding GPT type. *)
       let gpt_type = Parted.part_get_gpt_type device partnum in
       match gpt_type with
       (* Windows Logical Disk Manager metadata partition. *)
