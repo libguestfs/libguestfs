@@ -8169,9 +8169,7 @@ for a useful list of type GUIDs." };
     ];
     shortdesc = "get the type GUID of a GPT partition";
     longdesc = "\
-Return the type GUID of numbered GPT partition C<partnum>. For MBR partitions,
-return an appropriate GUID corresponding to the MBR type. Behaviour is undefined
-for other partition types." };
+Return the type GUID of numbered GPT partition C<partnum>." };
 
   { defaults with
     name = "part_set_gpt_attributes"; added = (1, 21, 1);
