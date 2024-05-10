@@ -25,33 +25,13 @@ open Utils
 
 include Structs
 
-(* Test if [sfdisk] is recent enough to have [--part-type], to be used
- * instead of [--print-id] and [--change-id].
- *)
-let test_sfdisk_has_part_type = lazy (
-  let out = command "sfdisk" ["--help"] in
-  String.find out "--part-type" >= 0
-)
-
-(* Currently we use sfdisk for getting and setting the ID byte.  In
- * future, extend parted to provide this functionality.  As a result
- * of using sfdisk, this won't work for non-MBR-style partitions, but
- * that limitation is noted in the documentation and we can extend it
- * later without breaking the ABI.
- *)
 let part_get_mbr_id device partnum =
   if partnum <= 0 then
     failwith "partition number must be >= 1";
 
-  let param =
-    if Lazy.force test_sfdisk_has_part_type then
-      "--part-type"
-    else
-      "--print-id" in
-
   udev_settle ();
   let out =
-    command "sfdisk" [param; device; string_of_int partnum] in
+    command "sfdisk" ["--part-type"; device; string_of_int partnum] in
   udev_settle ();
 
   (* It's printed in hex, possibly with a leading space. *)
