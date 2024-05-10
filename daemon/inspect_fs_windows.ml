@@ -419,7 +419,7 @@ and map_registry_disk_blob_gpt partitions blob =
           let typ = Parted.part_get_parttype device in
           if typ <> "gpt" then false
           else (
-            let guid = Parted.part_get_gpt_guid device partnum in
+            let guid = Sfdisk.part_get_gpt_guid device partnum in
             String.lowercase_ascii guid = blob_guid
           )
       ) partitions in

@@ -5309,7 +5309,7 @@ See also C<guestfs_part_set_bootable>." };
   { defaults with
     name = "part_get_mbr_id"; added = (1, 3, 2);
     style = RInt "idbyte", [String (Device, "device"); Int "partnum"], [];
-    impl = OCaml "Parted.part_get_mbr_id";
+    impl = OCaml "Sfdisk.part_get_mbr_id";
     fish_output = Some FishOutputHexadecimal;
     tests = [
       InitEmpty, Always, TestResult (
@@ -8136,7 +8136,7 @@ group with GUID C<diskgroup>." };
   { defaults with
     name = "part_set_gpt_type"; added = (1, 21, 1);
     style = RErr, [String (Device, "device"); Int "partnum"; String (GUID, "guid")], [];
-    optional = Some "gdisk";
+    impl = OCaml "Sfdisk.part_set_gpt_type";
     tests = [
       InitGPT, Always, TestLastFail (
         [["part_set_gpt_type"; "/dev/sda"; "1"; "f"]]), [];
@@ -8158,8 +8158,7 @@ for a useful list of type GUIDs." };
   { defaults with
     name = "part_get_gpt_type"; added = (1, 21, 1);
     style = RString (RPlainString, "guid"), [String (Device, "device"); Int "partnum"], [];
-    impl = OCaml "Parted.part_get_gpt_type";
-    optional = Some "gdisk";
+    impl = OCaml "Sfdisk.part_get_gpt_type";
     tests = [
       InitGPT, Always, TestResultString (
         [["part_set_gpt_type"; "/dev/sda"; "1";
@@ -8174,8 +8173,7 @@ Return the type GUID of numbered GPT partition C<partnum>." };
   { defaults with
     name = "part_set_gpt_attributes"; added = (1, 21, 1);
     style = RErr, [String (Device, "device"); Int "partnum"; Int64 "attributes"], [];
-    impl = OCaml "Parted.part_set_gpt_attributes";
-    optional = Some "gdisk";
+    impl = OCaml "Sfdisk.part_set_gpt_attributes";
     tests = [
       InitGPT, Always, TestResult (
         [["part_set_gpt_attributes"; "/dev/sda"; "1";
@@ -8194,8 +8192,7 @@ for a useful list of partition attributes." };
   { defaults with
     name = "part_get_gpt_attributes"; added = (1, 21, 1);
     style = RInt64 "attributes", [String (Device, "device"); Int "partnum"], [];
-    impl = OCaml "Parted.part_get_gpt_attributes";
-    optional = Some "gdisk";
+    impl = OCaml "Sfdisk.part_get_gpt_attributes";
     tests = [
       InitGPT, Always, TestResult (
         [["part_set_gpt_attributes"; "/dev/sda"; "1";
@@ -8995,7 +8992,7 @@ Recover bad superblocks from good copies." };
   { defaults with
     name = "part_set_gpt_guid"; added = (1, 29, 25);
     style = RErr, [String (Device, "device"); Int "partnum"; String (GUID, "guid")], [];
-    optional = Some "gdisk";
+    impl = OCaml "Sfdisk.part_set_gpt_guid";
     tests = [
       InitGPT, Always, TestLastFail (
         [["part_set_gpt_guid"; "/dev/sda"; "1"; "f"]]), [];
@@ -9014,8 +9011,7 @@ valid GUID." };
   { defaults with
     name = "part_get_gpt_guid"; added = (1, 29, 25);
     style = RString (RPlainString, "guid"), [String (Device, "device"); Int "partnum"], [];
-    impl = OCaml "Parted.part_get_gpt_guid";
-    optional = Some "gdisk";
+    impl = OCaml "Sfdisk.part_get_gpt_guid";
     tests = [
       InitGPT, Always, TestResultString (
         [["part_set_gpt_guid"; "/dev/sda"; "1";
@@ -9214,7 +9210,7 @@ This is the internal call which implements C<guestfs_feature_available>." };
   { defaults with
     name = "part_set_disk_guid"; added = (1, 33, 2);
     style = RErr, [String (Device, "device"); String (GUID, "guid")], [];
-    optional = Some "gdisk";
+    impl = OCaml "Sfdisk.part_set_disk_guid";
     tests = [
       InitGPT, Always, TestLastFail (
         [["part_set_disk_guid"; "/dev/sda"; "f"]]), [];
@@ -9233,7 +9229,7 @@ or if C<guid> is not a valid GUID." };
   { defaults with
     name = "part_get_disk_guid"; added = (1, 33, 2);
     style = RString (RPlainString, "guid"), [String (Device, "device")], [];
-    optional = Some "gdisk";
+    impl = OCaml "Sfdisk.part_get_disk_guid";
     tests = [
       InitGPT, Always, TestResultString (
         [["part_set_disk_guid"; "/dev/sda";
@@ -9249,7 +9245,7 @@ Behaviour is undefined for other partition types." };
   { defaults with
     name = "part_set_disk_guid_random"; added = (1, 33, 2);
     style = RErr, [String (Device, "device")], [];
-    optional = Some "gdisk";
+    impl = OCaml "Sfdisk.part_set_disk_guid_random";
     tests = [
       InitGPT, Always, TestRun (
         [["part_set_disk_guid_random"; "/dev/sda"]]), [];

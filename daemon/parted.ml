@@ -25,18 +25,6 @@ open Utils
 
 include Structs
 
-let part_get_mbr_id device partnum =
-  if partnum <= 0 then
-    failwith "partition number must be >= 1";
-
-  udev_settle ();
-  let out =
-    command "sfdisk" ["--part-type"; device; string_of_int partnum] in
-  udev_settle ();
-
-  (* It's printed in hex, possibly with a leading space. *)
-  sscanf out " %x" identity
-
 (* This is almost equivalent to print_partition_table in the C code. The
  * difference is that here we enforce the "BYT;" header internally.
  *)
@@ -110,7 +98,7 @@ let part_get_parttype device =
 
 let part_get_mbr_part_type device partnum =
   let parttype = part_get_parttype device in
-  let mbr_id = part_get_mbr_id device partnum in
+  let mbr_id = Sfdisk.part_get_mbr_id device partnum in
 
   (* 0x05 - extended partition.
    * 0x0f - extended partition using BIOS INT 13h extensions.
@@ -120,81 +108,3 @@ let part_get_mbr_part_type device partnum =
   | "msdos", (1|2|3|4), _ -> "primary"
   | "msdos", _, _ -> "logical"
   | _, _, _ -> "primary"
-
-let part_set_gpt_attributes device partnum attributes =
-  if partnum <= 0 then failwith "partition number must be >= 1";
-
-  udev_settle ();
-
-  let arg = sprintf "%d:=:%LX" partnum attributes in
-  let r, _, err =
-    commandr ~fold_stdout_on_stderr:true
-             "sgdisk" [ device; "-A"; arg ] in
-  if r <> 0 then
-    failwithf "sgdisk: %s" err;
-
-  udev_settle ()
-
-let extract_guid value =
-  (* The value contains only valid GUID characters. *)
-  String.sub value 0 (String.span value "-0123456789ABCDEF")
-
-let extract_hex value =
-  (* The value contains only valid numeric characters. *)
-  let str = String.sub value 0 (String.span value "0123456789ABCDEF") in
-  Int64.of_string ("0x" ^ str)
-
-let sgdisk_info_extract_field device partnum field extractor =
-  if partnum <= 0 then failwith "partition number must be >= 1";
-
-  udev_settle ();
-
-  let r, _, err =
-    commandr ~fold_stdout_on_stderr:true
-             "sgdisk" [ device; "-i"; string_of_int partnum ] in
-  if r <> 0 then
-    failwithf "getting %S: sgdisk: %s" field err;
-
-  udev_settle ();
-
-  let err = String.trim err in
-  let lines = String.nsplit "\n" err in
-
-  (* Parse the output of sgdisk -i:
-   * Partition GUID code: 21686148-6449-6E6F-744E-656564454649 (BIOS boot partition)
-   * Partition unique GUID: 19AEC5FE-D63A-4A15-9D37-6FCBFB873DC0
-   * First sector: 2048 (at 1024.0 KiB)
-   * Last sector: 411647 (at 201.0 MiB)
-   * Partition size: 409600 sectors (200.0 MiB)
-   * Attribute flags: 0000000000000000
-   * Partition name: 'EFI System Partition'
-   *)
-  let field_len = String.length field in
-  let rec loop = function
-    | [] ->
-       failwithf "%s: sgdisk output did not contain '%s'" device field
-    | line :: _ when String.is_prefix line field &&
-                     String.length line >= field_len + 2 &&
-                     line.[field_len] = ':' ->
-       let value =
-         String.sub line (field_len+1) (String.length line - field_len - 1) in
-
-       (* Skip any whitespace after the colon. *)
-       let value = String.triml value in
-
-       (* Extract the value. *)
-       extractor value
-
-    | _ :: lines -> loop lines
-  in
-  loop lines
-
-let rec part_get_gpt_type device partnum =
-  sgdisk_info_extract_field device partnum "Partition GUID code"
-                            extract_guid
-and part_get_gpt_guid device partnum =
-  sgdisk_info_extract_field device partnum "Partition unique GUID"
-                            extract_guid
-and part_get_gpt_attributes device partnum =
-  sgdisk_info_extract_field device partnum "Attribute flags"
-                            extract_hex

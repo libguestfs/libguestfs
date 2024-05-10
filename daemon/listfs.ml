@@ -114,7 +114,7 @@ and is_partition_can_hold_filesystem partition =
     else if is_mbr then
       true
     else (
-      let gpt_type = Parted.part_get_gpt_type device partnum in
+      let gpt_type = Sfdisk.part_get_gpt_type device partnum in
       match gpt_type with
       (* Windows Logical Disk Manager metadata partition. *)
       | "5808C8AA-7E8F-42E0-85D2-E1E90434CFB3"
