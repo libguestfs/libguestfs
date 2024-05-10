@@ -59,6 +59,7 @@ generator_built = \
 	parted.mli \
 	realpath.mli \
 	rpm.mli \
+	sfdisk.mli \
 	statvfs.mli \
 	structs.ml \
 	structs.mli
@@ -306,6 +307,7 @@ SOURCES_MLI = \
 	parted.mli \
 	realpath.mli \
 	rpm.mli \
+	sfdisk.mli \
 	statvfs.mli \
 	structs.mli \
 	sysroot.mli \
@@ -337,6 +339,7 @@ SOURCES_ML = \
 	md.ml \
 	mount.ml \
 	mount_utils.ml \
+	sfdisk.ml \
 	parted.ml \
 	listfs.ml \
 	realpath.ml \
