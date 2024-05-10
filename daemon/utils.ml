@@ -26,6 +26,7 @@ external is_device_parameter : string -> bool = "guestfs_int_daemon_is_device_pa
 external is_root_device : string -> bool = "guestfs_int_daemon_is_root_device" [@@noalloc]
 external prog_exists : string -> bool = "guestfs_int_daemon_prog_exists" [@@noalloc]
 external udev_settle : ?filename:string -> unit -> unit = "guestfs_int_daemon_udev_settle" [@@noalloc]
+external get_random_uuid : unit -> string = "guestfs_int_get_random_uuid"
 
 let commandr ?(fold_stdout_on_stderr = false) prog args =
   if verbose () then

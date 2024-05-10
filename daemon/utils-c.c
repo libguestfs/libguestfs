@@ -80,3 +80,15 @@ guestfs_int_daemon_udev_settle (value optfilenamev, value unitv)
 
   return Val_unit;
 }
+
+value
+guestfs_int_get_random_uuid (value unitv)
+{
+  CAMLparam1 (unitv);
+  CAMLlocal1 (rv);
+  CLEANUP_FREE char *uuid = get_random_uuid ();
+
+  rv = caml_copy_string (uuid);
+
+  CAMLreturn (rv);
+}

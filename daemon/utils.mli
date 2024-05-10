@@ -34,6 +34,9 @@ val udev_settle : ?filename:string -> unit -> unit
  * file is created (or if it exists at the start).
  *)
 
+val get_random_uuid : unit -> string
+(** Binding for utils.c get_random_uuid *)
+
 val is_root_device : string -> bool
 (** Return true if this is the root (appliance) device. *)
 
