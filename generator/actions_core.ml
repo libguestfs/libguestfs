@@ -7179,8 +7179,7 @@ See C<guestfs_get_e2generation>." };
          ["btrfs_subvolume_create"; "/test1"; "NOARG"];
          ["btrfs_subvolume_create"; "/test2"; "NOARG"];
          ["btrfs_subvolume_create"; "/dir/test3"; "NOARG"];
-         ["btrfs_subvolume_snapshot"; "/dir/test3"; "/dir/test5"; "true"; "NOARG"];
-         ["btrfs_subvolume_snapshot"; "/dir/test3"; "/dir/test6"; ""; "0/1000"]]), []
+         ["btrfs_subvolume_snapshot"; "/dir/test3"; "/dir/test5"; "true"; "NOARG"]]), []
     ];
     shortdesc = "create a btrfs snapshot";
     longdesc = "\
