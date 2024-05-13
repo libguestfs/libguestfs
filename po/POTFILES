@@ -70,6 +70,7 @@ daemon/find.c
 daemon/fs-min-size.c
 daemon/fsck.c
 daemon/fstrim.c
+daemon/gdisk.c
 daemon/glob.c
 daemon/grep.c
 daemon/grub.c
