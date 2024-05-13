@@ -32,6 +32,7 @@ EXTRA_DIST = \
 	.gitignore \
 	bindtests-retvalues.js \
 	guestfs-gobject.pod \
+	libguestfs-gobject-1.0.deps \
 	tests-misc.js \
 	run-tests \
 	run-tests-retvalues \
@@ -121,8 +122,6 @@ libguestfs_gobject_1_0_vapi_FILES = Guestfs-1.0.gir
 vapidir = $(datadir)/vala/vapi
 vapi_DATA = $(VAPIGEN_VAPIS) $(VAPIGEN_VAPIS:.vapi=.deps)
 endif
-
-EXTRA_DIST += libguestfs-gobject-1.0.deps
 
 endif HAVE_INTROSPECTION
 
