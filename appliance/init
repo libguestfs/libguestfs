@@ -119,8 +119,7 @@ if test "$guestfs_network" = 1; then
     rm -f /etc/dhcp/dhclient-enter-hooks.d/resolved
     if dhclient --version >/dev/null 2>&1; then
         dhclient $iface
-    else
-        dhcpcd $iface
+    elif dhcpcd $iface; then
         # https://github.com/NetworkConfiguration/dhcpcd/issues/258
         for i in `seq 0 10`; do
             if grep nameserver /etc/resolv.conf; then break; fi
