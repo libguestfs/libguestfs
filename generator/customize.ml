@@ -266,6 +266,22 @@ Set the hostname of the guest to C<HOSTNAME>.  You can use a
 dotted hostname.domainname (FQDN) if you want.";
   };
 
+  { op_name = "inject-blnsvr";
+    op_type = String "METHOD";
+    op_discrim = "`InjectBalloonServer";
+    op_shortdesc = "Inject the Balloon Server into a Windows guest";
+    op_pod_longdesc = "\
+Inject the Balloon Server (F<blnsvr.exe>) into a Windows guest.
+This operation also injects a firstboot script so that the Balloon
+Server is installed when the guest boots.
+
+The parameter is the same as used by the I<--inject-virtio-win> operation.
+
+Note that to do a full conversion of a Windows guest from a
+foreign hypervisor like VMware (which involves many other operations)
+you should use the L<virt-v2v(1)> tool instead of this.";
+  };
+
   { op_name = "inject-qemu-ga";
     op_type = String "METHOD";
     op_discrim = "`InjectQemuGA";
