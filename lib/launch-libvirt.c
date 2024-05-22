@@ -625,12 +625,8 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   dom = virDomainCreateXML (conn, (char *) xml, VIR_DOMAIN_START_AUTODESTROY);
   if (!dom) {
     libvirt_error (g, _(
-                        "could not create appliance through libvirt.\n"
-                        "\n"
-                        "Try running qemu directly without libvirt using this environment variable:\n"
-                        "export LIBGUESTFS_BACKEND=direct\n"
-                        "\n"
-                        "Original error from libvirt"));
+                        "could not create appliance through libvirt. "
+			"Original error from libvirt"));
     goto cleanup;
   }
 
