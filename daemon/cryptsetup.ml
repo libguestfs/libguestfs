@@ -23,7 +23,7 @@ open Std_utils
 
 open Utils
 
-let cryptsetup_open ?(readonly = false) ?crypttype device key mapname =
+let cryptsetup_open ?(readonly = false) ?crypttype ?cipher device key mapname =
   (* Sanity check: /dev/mapper/mapname must not exist already.  Note
    * that the device-mapper control device (/dev/mapper/control) is
    * always there, so you can't ever have mapname == "control".
@@ -53,6 +53,7 @@ let cryptsetup_open ?(readonly = false) ?crypttype device key mapname =
   List.push_back_list args ["-d"; keyfile];
   if readonly then List.push_back args "--readonly";
   List.push_back_list args ["open"; device; mapname; "--type"; crypttype];
+  Option.iter (fun s -> List.push_back_list args ["--cipher"; s]) cipher;
 
   (* Make sure we always remove the temporary file. *)
   protect ~f:(fun () -> ignore (command "cryptsetup" !args))
