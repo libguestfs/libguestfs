@@ -9661,7 +9661,7 @@ This returns the UUID of the LUKS device C<device>." };
 
   { defaults with
     name = "cryptsetup_open"; added = (1, 43, 2);
-    style = RErr, [String (Device, "device"); String (Key, "key"); String (PlainString, "mapname")], [OBool "readonly"; OString "crypttype"];
+    style = RErr, [String (Device, "device"); String (Key, "key"); String (PlainString, "mapname")], [OBool "readonly"; OString "crypttype"; OString "cipher";];
     impl = OCaml "Cryptsetup.cryptsetup_open";
     optional = Some "luks";
     test_excuse = "no way to format BitLocker, and smallest device is huge";
@@ -9702,6 +9702,9 @@ A Windows BitLocker device.
 
 The optional C<readonly> flag, if set to true, creates a
 read-only mapping.
+
+The optional C<cipher> parameter allows specifying which
+cipher to use.
 
 If this block device contains LVM volume groups, then
 calling C<guestfs_lvm_scan> with the C<activate>
