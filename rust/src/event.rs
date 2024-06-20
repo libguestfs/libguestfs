@@ -105,8 +105,16 @@ impl<'a> base::Handle<'a> {
                 None => panic!("Failed to parse bitmask: {}", event),
             };
             let eh = EventHandle { eh: event_handle };
-            let buf = unsafe { slice::from_raw_parts(buf as *const u8, buf_len) };
-            let array = unsafe { slice::from_raw_parts(array, array_len) };
+            let buf = if !buf.is_null() {
+                unsafe { slice::from_raw_parts(buf as *const u8, buf_len) }
+            } else {
+                &[]
+            };
+            let array = if !array.is_null() {
+                unsafe { slice::from_raw_parts(array, array_len) }
+            } else {
+                &[]
+            };
 
             let callback: &Box<dyn Fn(guestfs::Event, EventHandle, &[u8], &[u64])> =
                 Box::leak(unsafe { Box::from_raw(opaque as *mut _) });
