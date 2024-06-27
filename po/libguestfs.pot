@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.53.2\n"
+"Project-Id-Version: libguestfs 1.53.3\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2024-05-10 16:46+0100\n"
+"POT-Creation-Date: 2024-06-27 16:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3103,9 +3103,9 @@ msgstr ""
 #: fish/run-5.c:674 fish/run-5.c:687 fish/run-5.c:1225 fish/run-5.c:1303
 #: fish/run-5.c:2276 fish/run-5.c:2368 fish/run-5.c:2945 fish/run-5.c:2958
 #: fish/run-5.c:2971 fish/run-5.c:3146 fish/run-5.c:3159 fish/run-5.c:3172
-#: fish/run-5.c:3185 fish/run-6.c:259 fish/run-6.c:367 fish/run-6.c:1750
-#: fish/run-6.c:1896 fish/run-6.c:1909 fish/run-6.c:2192 fish/run-6.c:2211
-#: fish/run-6.c:2224 fish/run-6.c:2237
+#: fish/run-5.c:3185 fish/run-6.c:259 fish/run-6.c:367 fish/run-6.c:1755
+#: fish/run-6.c:1901 fish/run-6.c:1914 fish/run-6.c:2197 fish/run-6.c:2216
+#: fish/run-6.c:2229 fish/run-6.c:2242
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr ""
@@ -3123,8 +3123,8 @@ msgstr ""
 #: fish/run-3.c:3845 fish/run-4.c:401 fish/run-4.c:506 fish/run-4.c:864
 #: fish/run-4.c:1649 fish/run-4.c:2098 fish/run-5.c:572 fish/run-5.c:697
 #: fish/run-5.c:751 fish/run-5.c:1235 fish/run-5.c:1313 fish/run-5.c:1844
-#: fish/run-5.c:3072 fish/run-5.c:3273 fish/run-6.c:382 fish/run-6.c:1345
-#: fish/run-6.c:1416 fish/run-6.c:1760 fish/run-6.c:1919 fish/run-6.c:2247
+#: fish/run-5.c:3072 fish/run-5.c:3273 fish/run-6.c:387 fish/run-6.c:1350
+#: fish/run-6.c:1421 fish/run-6.c:1765 fish/run-6.c:1924 fish/run-6.c:2252
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr ""
@@ -3142,8 +3142,8 @@ msgstr ""
 #: fish/run-3.c:3851 fish/run-4.c:407 fish/run-4.c:512 fish/run-4.c:870
 #: fish/run-4.c:1655 fish/run-4.c:2104 fish/run-5.c:578 fish/run-5.c:703
 #: fish/run-5.c:757 fish/run-5.c:1241 fish/run-5.c:1319 fish/run-5.c:1850
-#: fish/run-5.c:3078 fish/run-5.c:3279 fish/run-6.c:388 fish/run-6.c:1351
-#: fish/run-6.c:1422 fish/run-6.c:1766 fish/run-6.c:1925 fish/run-6.c:2253
+#: fish/run-5.c:3078 fish/run-5.c:3279 fish/run-6.c:393 fish/run-6.c:1356
+#: fish/run-6.c:1427 fish/run-6.c:1771 fish/run-6.c:1930 fish/run-6.c:2258
 #, c-format
 msgid "%s: optional argument \"%s\" given more than once\n"
 msgstr ""
@@ -3193,11 +3193,11 @@ msgstr ""
 #: fish/run-5.c:2582 fish/run-5.c:2601 fish/run-5.c:2766 fish/run-5.c:2988
 #: fish/run-5.c:3005 fish/run-5.c:3022 fish/run-5.c:3039 fish/run-5.c:3056
 #: fish/run-5.c:3202 fish/run-5.c:3219 fish/run-5.c:3236 fish/run-5.c:3253
-#: fish/run-6.c:192 fish/run-6.c:498 fish/run-6.c:543 fish/run-6.c:682
-#: fish/run-6.c:701 fish/run-6.c:857 fish/run-6.c:893 fish/run-6.c:1166
-#: fish/run-6.c:1291 fish/run-6.c:1519 fish/run-6.c:1538 fish/run-6.c:1583
-#: fish/run-6.c:1602 fish/run-6.c:1684 fish/run-6.c:1830 fish/run-6.c:1964
-#: fish/run-6.c:2046 fish/run-6.c:2133
+#: fish/run-6.c:192 fish/run-6.c:503 fish/run-6.c:548 fish/run-6.c:687
+#: fish/run-6.c:706 fish/run-6.c:862 fish/run-6.c:898 fish/run-6.c:1171
+#: fish/run-6.c:1296 fish/run-6.c:1524 fish/run-6.c:1543 fish/run-6.c:1588
+#: fish/run-6.c:1607 fish/run-6.c:1689 fish/run-6.c:1835 fish/run-6.c:1969
+#: fish/run-6.c:2051 fish/run-6.c:2138
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
@@ -3225,10 +3225,10 @@ msgstr ""
 #: fish/run-5.c:1893 fish/run-5.c:2048 fish/run-5.c:2091 fish/run-5.c:2135
 #: fish/run-5.c:2179 fish/run-5.c:2316 fish/run-5.c:2434 fish/run-5.c:2453
 #: fish/run-5.c:2472 fish/run-5.c:2550 fish/run-5.c:2569 fish/run-5.c:2588
-#: fish/run-5.c:2607 fish/run-5.c:3062 fish/run-6.c:198 fish/run-6.c:504
-#: fish/run-6.c:688 fish/run-6.c:707 fish/run-6.c:1172 fish/run-6.c:1297
-#: fish/run-6.c:1525 fish/run-6.c:1544 fish/run-6.c:1589 fish/run-6.c:2052
-#: fish/run-6.c:2139
+#: fish/run-5.c:2607 fish/run-5.c:3062 fish/run-6.c:198 fish/run-6.c:509
+#: fish/run-6.c:693 fish/run-6.c:712 fish/run-6.c:1177 fish/run-6.c:1302
+#: fish/run-6.c:1530 fish/run-6.c:1549 fish/run-6.c:1594 fish/run-6.c:2057
+#: fish/run-6.c:2144
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr ""
@@ -3543,190 +3543,146 @@ msgstr ""
 msgid "curl: pathname must begin with a '/'"
 msgstr ""
 
-#: lib/drives.c:202
-msgid "gluster: you cannot specify a username with this protocol"
-msgstr ""
-
-#: lib/drives.c:206
-msgid "gluster: you cannot specify a secret with this protocol"
-msgstr ""
-
-#: lib/drives.c:211
-msgid "gluster: you must specify exactly one server"
-msgstr ""
-
-#: lib/drives.c:216
-msgid "gluster: volume name parameter should not be an empty string"
-msgstr ""
-
-#: lib/drives.c:221
-msgid "gluster: volume/image must not begin with a '/'"
-msgstr ""
-
-#: lib/drives.c:245
+#: lib/drives.c:214
 msgid "nbd: you cannot specify a username with this protocol"
 msgstr ""
 
-#: lib/drives.c:249
+#: lib/drives.c:218
 msgid "nbd: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: lib/drives.c:254
+#: lib/drives.c:223
 msgid "nbd: you must specify exactly one server"
 msgstr ""
 
-#: lib/drives.c:273
+#: lib/drives.c:242
 msgid "rbd: only tcp transport is supported"
 msgstr ""
 
-#: lib/drives.c:277
+#: lib/drives.c:246
 msgid "rbd: port number must be specified"
 msgstr ""
 
-#: lib/drives.c:283
+#: lib/drives.c:252
 msgid "rbd: image name parameter should not be an empty string"
 msgstr ""
 
-#: lib/drives.c:288
+#: lib/drives.c:257
 msgid "rbd: image name must not begin with a '/'"
 msgstr ""
 
-#: lib/drives.c:302
-msgid "sheepdog: you cannot specify a username with this protocol"
-msgstr ""
-
-#: lib/drives.c:306
-msgid "sheepdog: you cannot specify a secret with this protocol"
-msgstr ""
-
-#: lib/drives.c:313
-msgid "sheepdog: only tcp transport is supported"
-msgstr ""
-
-#: lib/drives.c:317
-msgid "sheepdog: port number must be specified"
-msgstr ""
-
-#: lib/drives.c:323
-msgid "sheepdog: volume parameter should not be an empty string"
-msgstr ""
-
-#: lib/drives.c:328
-msgid "sheepdog: volume parameter must not begin with a '/'"
-msgstr ""
-
-#: lib/drives.c:340
+#: lib/drives.c:269
 msgid "ssh: you must specify exactly one server"
 msgstr ""
 
-#: lib/drives.c:346
+#: lib/drives.c:275
 msgid "ssh: only tcp transport is supported"
 msgstr ""
 
-#: lib/drives.c:351
+#: lib/drives.c:280
 msgid "ssh: pathname should not be an empty string"
 msgstr ""
 
-#: lib/drives.c:356
+#: lib/drives.c:285
 msgid "ssh: pathname must begin with a '/'"
 msgstr ""
 
-#: lib/drives.c:361
+#: lib/drives.c:290
 msgid "ssh: username should not be an empty string"
 msgstr ""
 
-#: lib/drives.c:373
+#: lib/drives.c:302
 msgid "iscsi: you must specify exactly one server"
 msgstr ""
 
-#: lib/drives.c:379
+#: lib/drives.c:308
 msgid "iscsi: only tcp transport is supported"
 msgstr ""
 
-#: lib/drives.c:384
+#: lib/drives.c:313
 msgid "iscsi: target name should not be an empty string"
 msgstr ""
 
-#: lib/drives.c:389
+#: lib/drives.c:318
 msgid "iscsi: target string must not begin with a '/'"
 msgstr ""
 
-#: lib/drives.c:416
+#: lib/drives.c:345
 msgid "for device ‘/dev/null’, format must be ‘raw’"
 msgstr ""
 
-#: lib/drives.c:660
+#: lib/drives.c:586
 msgid "missing Unix domain socket path"
 msgstr ""
 
-#: lib/drives.c:672
+#: lib/drives.c:598
 #, c-format
 msgid "invalid port number ‘%s’"
 msgstr ""
 
-#: lib/drives.c:679
+#: lib/drives.c:605
 #, c-format
 msgid "invalid hostname ‘%s’"
 msgstr ""
 
-#: lib/drives.c:690
+#: lib/drives.c:616
 #, c-format
 msgid "invalid hostname or server string ‘%s’"
 msgstr ""
 
-#: lib/drives.c:771
+#: lib/drives.c:697
 msgid "discard parameter must be ‘disable’, ‘enable’ or ‘besteffort’"
 msgstr ""
 
-#: lib/drives.c:788
+#: lib/drives.c:714
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 
-#: lib/drives.c:794
+#: lib/drives.c:720
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: lib/drives.c:800
+#: lib/drives.c:726
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: lib/drives.c:806
+#: lib/drives.c:732
 msgid "cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"
 msgstr ""
 
-#: lib/drives.c:811
+#: lib/drives.c:737
 #, c-format
 msgid "%s parameter is invalid"
 msgstr ""
 
-#: lib/drives.c:818
+#: lib/drives.c:744
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: lib/drives.c:823
+#: lib/drives.c:749
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: lib/drives.c:827
+#: lib/drives.c:753
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: lib/drives.c:890
+#: lib/drives.c:804
 #, c-format
 msgid "unknown protocol ‘%s’"
 msgstr ""
 
-#: lib/drives.c:907 lib/drives.c:993
+#: lib/drives.c:821 lib/drives.c:907
 msgid "hotplugging support was removed in libguestfs 1.48"
 msgstr ""
 
-#: lib/drives.c:1064
+#: lib/drives.c:978
 #, c-format
 msgid "%s: device not found"
 msgstr ""
 
-#: lib/drives.c:1074
+#: lib/drives.c:988
 msgid "drive index out of range"
 msgstr ""
 
@@ -3953,7 +3909,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:1042 lib/launch-libvirt.c:699
+#: lib/launch-direct.c:1042 lib/launch-libvirt.c:695
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -3994,30 +3950,24 @@ msgid "could not get libvirt domain capabilities"
 msgstr ""
 
 #: lib/launch-libvirt.c:628
-msgid ""
-"could not create appliance through libvirt.\n"
-"\n"
-"Try running qemu directly without libvirt using this environment variable:\n"
-"export LIBGUESTFS_BACKEND=direct\n"
-"\n"
-"Original error from libvirt"
+msgid "could not create appliance through libvirt. Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:764
+#: lib/launch-libvirt.c:760
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:770 lib/launch-libvirt.c:872 lib/libvirt-domain.c:397
+#: lib/launch-libvirt.c:766 lib/launch-libvirt.c:868 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: lib/launch-libvirt.c:780 lib/launch-libvirt.c:880 lib/launch-libvirt.c:896
+#: lib/launch-libvirt.c:776 lib/launch-libvirt.c:876 lib/launch-libvirt.c:892
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:819
+#: lib/launch-libvirt.c:815
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -4032,47 +3982,47 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:866
+#: lib/launch-libvirt.c:862
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1512 lib/launch-libvirt.c:1770 lib/qemu.c:816
+#: lib/launch-libvirt.c:1508 lib/launch-libvirt.c:1761 lib/qemu.c:816
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1595
+#: lib/launch-libvirt.c:1586
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1985
+#: lib/launch-libvirt.c:1976
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1996
+#: lib/launch-libvirt.c:1987
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:2000
+#: lib/launch-libvirt.c:1991
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:2021
+#: lib/launch-libvirt.c:2009
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2034
+#: lib/launch-libvirt.c:2022
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2207
+#: lib/launch-libvirt.c:2192
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2228 lib/launch-libvirt.c:2261
+#: lib/launch-libvirt.c:2213 lib/launch-libvirt.c:2246
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
@@ -4288,35 +4238,35 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: lib/qemu.c:986
+#: lib/qemu.c:960
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: lib/qemu.c:995
+#: lib/qemu.c:969
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:1002
+#: lib/qemu.c:976
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:1010
+#: lib/qemu.c:984
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: lib/qemu.c:1018
+#: lib/qemu.c:992
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:1041
+#: lib/qemu.c:1012
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
