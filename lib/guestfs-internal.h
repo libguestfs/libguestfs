@@ -216,7 +216,6 @@ enum drive_protocol {
   drive_protocol_nbd,
   drive_protocol_rbd,
   drive_protocol_ssh,
-  drive_protocol_tftp,
 };
 
 enum drive_transport {

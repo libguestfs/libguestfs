@@ -416,7 +416,6 @@ guestfs_int_drive_protocol_to_string (enum drive_protocol protocol)
   case drive_protocol_nbd: return "nbd";
   case drive_protocol_rbd: return "rbd";
   case drive_protocol_ssh: return "ssh";
-  case drive_protocol_tftp: return "tftp";
   }
   abort ();
 }
@@ -800,10 +799,6 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
   else if (STREQ (protocol, "ssh")) {
     data.protocol = drive_protocol_ssh;
     drv = create_drive_ssh (g, &data);
-  }
-  else if (STREQ (protocol, "tftp")) {
-    data.protocol = drive_protocol_tftp;
-    drv = create_drive_curl (g, &data);
   }
   else {
     error (g, _("unknown protocol ‘%s’"), protocol);

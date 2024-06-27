@@ -929,10 +929,6 @@ guestfs_int_drive_source_qemu_param (guestfs_h *g,
   case drive_protocol_ssh:
     return make_uri (g, "ssh", src->username, src->secret,
                      &src->servers[0], src->u.exportname);
-
-  case drive_protocol_tftp:
-    return make_uri (g, "tftp", src->username, src->secret,
-                     &src->servers[0], src->u.exportname);
   }
 
   abort ();
@@ -1012,7 +1008,6 @@ guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
   case drive_protocol_http:
   case drive_protocol_https:
   case drive_protocol_ssh:
-  case drive_protocol_tftp:
     NOT_SUPPORTED (g, -1,
                    _("discard cannot be enabled on this drive: "
                      "protocol ‘%s’ does not support discard"),

@@ -1583,7 +1583,6 @@ construct_libvirt_xml_disk (guestfs_h *g,
       case drive_protocol_ftps:
       case drive_protocol_http:
       case drive_protocol_https:
-      case drive_protocol_tftp:
         error (g, _("libvirt does not support the qemu curl driver protocols (ftp, http, etc.); try setting LIBGUESTFS_BACKEND=direct"));
         return -1;
       }
@@ -2001,7 +2000,6 @@ add_secret (guestfs_h *g, virConnectPtr conn,
   case drive_protocol_iscsi:
   case drive_protocol_nbd:
   case drive_protocol_ssh:
-  case drive_protocol_tftp:
     secret_raw = (unsigned char *) safe_strdup (g, secret);
     secret_raw_len = strlen (secret);
   }
@@ -2080,7 +2078,6 @@ find_secret (guestfs_h *g,
       case drive_protocol_https:
       case drive_protocol_nbd:
       case drive_protocol_ssh:
-      case drive_protocol_tftp:
         /* set to a default value above */ ;
       }
 

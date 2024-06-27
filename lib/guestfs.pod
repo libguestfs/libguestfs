@@ -723,10 +723,10 @@ a qcow2 backing file specification, libvirt does not construct an
 ephemeral secret object from those, for Ceph authentication.  Refer to
 L<https://bugzilla.redhat.com/2033247>.
 
-=head3 FTP, HTTP AND TFTP
+=head3 FTP AND HTTP
 
-Libguestfs can access remote disks over FTP, FTPS, HTTP, HTTPS
-or TFTP protocols.
+Libguestfs can access remote disks over FTP, FTPS, HTTP or HTTPS
+protocols.
 
 To do this, set the optional C<protocol> and C<server> parameters of
 L</guestfs_add_drive_opts> like this:
@@ -739,11 +739,11 @@ L</guestfs_add_drive_opts> like this:
                          -1);
 
 The C<protocol> can be one of C<"ftp">, C<"ftps">, C<"http">,
-C<"https"> or C<"tftp">.
+or C<"https">.
 
 C<servers> (the C<server> parameter) is a list which must have a
-single element.  The single element is a string defining the web,
-FTP or TFTP server.  The format of this string is documented in
+single element.  The single element is a string defining the web
+or FTP server.  The format of this string is documented in
 L</guestfs_add_drive_opts>.
 
 =head3 GLUSTER

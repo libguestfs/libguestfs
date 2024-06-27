@@ -350,12 +350,12 @@ F<filename> is interpreted as a local file or device.
 This is the default if the optional protocol parameter
 is omitted.
 
-=item C<protocol = \"ftp\"|\"ftps\"|\"http\"|\"https\"|\"tftp\">
+=item C<protocol = \"ftp\"|\"ftps\"|\"http\"|\"https\">
 
-Connect to a remote FTP, HTTP or TFTP server.
+Connect to a remote FTP or HTTP server.
 The C<server> parameter must also be supplied - see below.
 
-See also: L<guestfs(3)/FTP, HTTP AND TFTP>
+See also: L<guestfs(3)/FTP AND HTTP>
 
 =item C<protocol = \"iscsi\">
 
@@ -401,7 +401,7 @@ is a list of server(s).
  Protocol       Number of servers required
  --------       --------------------------
  file           List must be empty or param not used at all
- ftp|ftps|http|https|tftp  Exactly one
+ ftp|ftps|http|https  Exactly one
  iscsi          Exactly one
  nbd            Exactly one
  rbd            Zero or more
@@ -421,8 +421,8 @@ for the protocol is used (see F</etc/services>).
 
 =item C<username>
 
-For the C<ftp>, C<ftps>, C<http>, C<https>, C<iscsi>, C<rbd>, C<ssh>
-and C<tftp> protocols, this specifies the remote username.
+For the C<ftp>, C<ftps>, C<http>, C<https>, C<iscsi>, C<rbd> and C<ssh>
+protocols, this specifies the remote username.
 
 If not given, then the local username is used for C<ssh>, and no authentication
 is attempted for ceph.  But note this sometimes may give unexpected results, for

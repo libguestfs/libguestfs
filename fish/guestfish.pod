@@ -1152,9 +1152,7 @@ Add the local disk image (or device) called F<disk.img>.
 
 =head2 B<-a https://[user@]example.com[:port]/disk.img>
 
-=head2 B<-a tftp://[user@]example.com[:port]/disk.img>
-
-Add a disk located on a remote FTP, HTTP or TFTP server.
+Add a disk located on a remote FTP or HTTP server.
 
 The equivalent API command would be:
 
