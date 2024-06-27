@@ -44,10 +44,6 @@ grep -sq 'add_drive ".*/test-add-uri.img"' test-add-uri.out || fail
 $VG guestfish -x -a ftp://user@example.com/disk.img </dev/null >test-add-uri.out 2>&1
 grep -sq 'add_drive "/disk.img" "protocol:ftp" "server:tcp:example.com" "username:user"' test-add-uri.out || fail
 
-# gluster
-$VG guestfish -x -a gluster://example.com/disk </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "disk" "protocol:gluster" "server:tcp:example.com"' test-add-uri.out || fail
-
 # NBD
 $VG guestfish -x -a nbd://example.com </dev/null >test-add-uri.out 2>&1
 grep -sq 'add_drive "" "protocol:nbd" "server:tcp:example.com"' test-add-uri.out || fail

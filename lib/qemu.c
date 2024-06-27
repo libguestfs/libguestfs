@@ -827,20 +827,6 @@ guestfs_int_drive_source_qemu_param (guestfs_h *g,
     return make_uri (g, "ftps", src->username, src->secret,
                      &src->servers[0], src->u.exportname);
 
-  case drive_protocol_gluster:
-    switch (src->servers[0].transport) {
-    case drive_transport_none:
-      return make_uri (g, "gluster", NULL, NULL,
-                       &src->servers[0], src->u.exportname);
-    case drive_transport_tcp:
-      return make_uri (g, "gluster+tcp", NULL, NULL,
-                       &src->servers[0], src->u.exportname);
-    case drive_transport_unix:
-      return make_uri (g, "gluster+unix", NULL, NULL,
-                       &src->servers[0], NULL);
-    }
-    break;
-
   case drive_protocol_http:
     return make_uri (g, "http", src->username, src->secret,
                      &src->servers[0], src->u.exportname);
@@ -1023,7 +1009,6 @@ guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
   switch (drv->src.protocol) {
     /* Protocols which support discard. */
   case drive_protocol_file:
-  case drive_protocol_gluster:
   case drive_protocol_iscsi:
   case drive_protocol_nbd:
   case drive_protocol_rbd:

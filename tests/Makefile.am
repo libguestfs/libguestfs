@@ -642,7 +642,6 @@ TESTS += \
 	regressions/rhbz1011907-1165785.sh \
 	regressions/rhbz1174551.sh \
 	regressions/rhbz1175196.sh \
-	regressions/rhbz1370424.sh \
 	regressions/rhbz1477623.sh \
 	regressions/rhbz1930996.sh \
 	regressions/test-big-heap \
@@ -675,8 +674,6 @@ EXTRA_DIST += \
 	regressions/rhbz1091803.sh \
 	regressions/rhbz1174551.sh \
 	regressions/rhbz1175196.sh \
-	regressions/rhbz1370424.sh \
-	regressions/rhbz1370424.xml \
 	regressions/rhbz1477623.sh \
 	regressions/rhbz1930996.sh \
 	regressions/test-noexec-stack.pl

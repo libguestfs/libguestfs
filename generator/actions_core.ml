@@ -357,13 +357,6 @@ The C<server> parameter must also be supplied - see below.
 
 See also: L<guestfs(3)/FTP, HTTP AND TFTP>
 
-=item C<protocol = \"gluster\">
-
-Connect to the GlusterFS server.
-The C<server> parameter must also be supplied - see below.
-
-See also: L<guestfs(3)/GLUSTER>
-
 =item C<protocol = \"iscsi\">
 
 Connect to the iSCSI server.
@@ -416,7 +409,6 @@ is a list of server(s).
  --------       --------------------------
  file           List must be empty or param not used at all
  ftp|ftps|http|https|tftp  Exactly one
- gluster        Exactly one
  iscsi          Exactly one
  nbd            Exactly one
  rbd            Zero or more

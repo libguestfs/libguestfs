@@ -1537,8 +1537,6 @@ construct_libvirt_xml_disk (guestfs_h *g,
          * or:
          *       <host transport='unix' socket='/path/to/socket'/>
          */
-      case drive_protocol_gluster:
-        protocol_str = "gluster"; goto network_protocols;
       case drive_protocol_iscsi:
         protocol_str = "iscsi"; goto network_protocols;
       case drive_protocol_nbd:
@@ -2000,7 +1998,6 @@ add_secret (guestfs_h *g, virConnectPtr conn,
   case drive_protocol_file:
   case drive_protocol_ftp:
   case drive_protocol_ftps:
-  case drive_protocol_gluster:
   case drive_protocol_http:
   case drive_protocol_https:
   case drive_protocol_iscsi:
@@ -2082,7 +2079,6 @@ find_secret (guestfs_h *g,
       case drive_protocol_file:
       case drive_protocol_ftp:
       case drive_protocol_ftps:
-      case drive_protocol_gluster:
       case drive_protocol_http:
       case drive_protocol_https:
       case drive_protocol_nbd:

@@ -194,37 +194,6 @@ create_drive_curl (guestfs_h *g,
   return create_drive_non_file (g, data);
 }
 
-static struct drive *
-create_drive_gluster (guestfs_h *g,
-                      const struct drive_create_data *data)
-{
-  if (data->username != NULL) {
-    error (g, _("gluster: you cannot specify a username with this protocol"));
-    return NULL;
-  }
-  if (data->secret != NULL) {
-    error (g, _("gluster: you cannot specify a secret with this protocol"));
-    return NULL;
-  }
-
-  if (data->nr_servers != 1) {
-    error (g, _("gluster: you must specify exactly one server"));
-    return NULL;
-  }
-
-  if (STREQ (data->exportname, "")) {
-    error (g, _("gluster: volume name parameter should not be an empty string"));
-    return NULL;
-  }
-
-  if (data->exportname[0] == '/') {
-    error (g, _("gluster: volume/image must not begin with a '/'"));
-    return NULL;
-  }
-
-  return create_drive_non_file (g, data);
-}
-
 static int
 nbd_port (void)
 {
@@ -481,7 +450,6 @@ guestfs_int_drive_protocol_to_string (enum drive_protocol protocol)
   case drive_protocol_file: return "file";
   case drive_protocol_ftp: return "ftp";
   case drive_protocol_ftps: return "ftps";
-  case drive_protocol_gluster: return "gluster";
   case drive_protocol_http: return "http";
   case drive_protocol_https: return "https";
   case drive_protocol_iscsi: return "iscsi";
@@ -849,10 +817,6 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
   else if (STREQ (protocol, "ftps")) {
     data.protocol = drive_protocol_ftps;
     drv = create_drive_curl (g, &data);
-  }
-  else if (STREQ (protocol, "gluster")) {
-    data.protocol = drive_protocol_gluster;
-    drv = create_drive_gluster (g, &data);
   }
   else if (STREQ (protocol, "http")) {
     data.protocol = drive_protocol_http;

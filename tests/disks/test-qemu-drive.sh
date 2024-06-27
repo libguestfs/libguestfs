@@ -72,16 +72,6 @@ check_output
 grep -sq -- '-drive file=http://www.example.com/disk.img,' "$DEBUG_QEMU_FILE" || fail
 rm "$DEBUG_QEMU_FILE"
 
-# Gluster.
-
-guestfish <<EOF ||:
-  add "volname/image" "format:raw" "protocol:gluster" "server:www.example.com:24007"
-  run
-EOF
-check_output
-grep -sq -- '-drive file=gluster://www.example.com:24007/volname/image,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
 # iSCSI.
 
 guestfish <<EOF ||:

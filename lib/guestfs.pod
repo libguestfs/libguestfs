@@ -748,26 +748,7 @@ L</guestfs_add_drive_opts>.
 
 =head3 GLUSTER
 
-Libguestfs can access Gluster disks.
-
-To do this, set the optional C<protocol> and C<server> parameters of
-L</guestfs_add_drive_opts> like this:
-
- char **servers = { "gluster.example.org:24007", NULL };
- guestfs_add_drive_opts (g, "volname/image",
-                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "gluster",
-                         GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
-                         -1);
-
-C<servers> (the C<server> parameter) is a list which must have a
-single element.  The single element is a string defining the Gluster
-server.  The format of this string is documented in
-L</guestfs_add_drive_opts>.
-
-Note that gluster usually requires the client process (ie. libguestfs)
-to run as B<root> and will give unfathomable errors if it is not
-(eg. "No data available").
+Glusterfs support was removed in libguestfs 1.54 (2024).
 
 =head3 ISCSI
 

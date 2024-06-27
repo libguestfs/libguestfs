@@ -1160,16 +1160,6 @@ The equivalent API command would be:
 
  ><fs> add /disk.img protocol:(ftp|...) server:tcp:example.com
 
-=head2 B<-a gluster://example.com[:port]/volname/image>
-
-Add a disk image located on GlusterFS storage.
-
-The server is the one running C<glusterd>, and may be C<localhost>.
-
-The equivalent API command would be:
-
- ><fs> add volname/image protocol:gluster server:tcp:example.com
-
 =head2 B<-a iscsi://example.com[:port]/target-iqn-name[/lun]>
 
 Add a disk located on an iSCSI server.
