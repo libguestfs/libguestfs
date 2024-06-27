@@ -109,16 +109,6 @@ check_output
 grep -sq -- '-drive file=nbd:unix:/socket,' "$DEBUG_QEMU_FILE" || fail
 rm "$DEBUG_QEMU_FILE"
 
-# Sheepdog.
-
-guestfish <<EOF ||:
-  add "volume" "format:raw" "protocol:sheepdog"
-  run
-EOF
-check_output
-grep -sq -- '-drive file=sheepdog:volume,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
 # SSH.
 
 guestfish <<EOF ||:

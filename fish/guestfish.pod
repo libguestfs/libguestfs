@@ -1202,18 +1202,6 @@ The equivalent API command would be:
 
  ><fs> add pool/disk protocol:rbd server:tcp:example.com:port
 
-=head2 B<-a sheepdog://[example.com[:port]]/volume/image>
-
-Add a disk image located on a Sheepdog volume.
-
-The server name is optional.  Although libguestfs and Sheepdog
-supports multiple servers, only at most one server can be specified
-when using this URI syntax.
-
-The equivalent API command would be:
-
- ><fs> add volume protocol:sheepdog [server:tcp:example.com]
-
 =head2 B<-a ssh://[user@]example.com[:port]/disk.img>
 
 Add a disk image located on a remote server, accessed using the Secure

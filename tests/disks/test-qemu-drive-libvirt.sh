@@ -79,13 +79,6 @@ check_output
 grep -sq -- '-drive file=nbd:1.2.3.4:1234,' "$DEBUG_QEMU_FILE" || fail nbd
 rm "$DEBUG_QEMU_FILE"
 
-# Sheepdog.
-
-$guestfish -d sheepdog run ||:
-check_output
-grep -sq -- '-drive file=sheepdog:volume,' "$DEBUG_QEMU_FILE" || fail sheepdog
-rm "$DEBUG_QEMU_FILE"
-
 # Local, stored in a pool.
 
 $guestfish -d pool1 run ||:

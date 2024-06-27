@@ -832,21 +832,7 @@ L<https://bugs.launchpad.net/qemu/+bug/1155677>
 
 =head3 SHEEPDOG
 
-Libguestfs can access Sheepdog disks.
-
-To do this, set the optional C<protocol> and C<server> parameters of
-L</guestfs_add_drive_opts> like this:
-
- char **servers = { /* optional servers ... */ NULL };
- guestfs_add_drive_opts (g, "volume",
-                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "sheepdog",
-                         GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
-                         -1);
-
-The optional list of C<servers> may be zero or more server addresses
-(C<"hostname:port">).  The format of the server strings is documented
-in L</guestfs_add_drive_opts>.
+Sheepdog support was removed in libguestfs 1.54 (2024).
 
 =head3 SSH
 

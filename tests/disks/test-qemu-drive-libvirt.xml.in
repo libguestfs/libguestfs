@@ -99,23 +99,6 @@
 
   <domain type='test' xmlns:test='http://libvirt.org/schemas/domain/test/1.0'>
     <test:runstate>5</test:runstate> <!-- 5 == VIR_DOMAIN_SHUTOFF -->
-    <name>sheepdog</name>
-    <memory>1048576</memory>
-    <os>
-      <type>hvm</type>
-      <boot dev='hd'/>
-    </os>
-    <devices>
-      <disk type='network' device='disk'>
-        <driver name='qemu'/>
-        <source protocol='sheepdog' name='volume'/>
-        <target dev='vda' bus='virtio'/>
-      </disk>
-    </devices>
-  </domain>
-
-  <domain type='test' xmlns:test='http://libvirt.org/schemas/domain/test/1.0'>
-    <test:runstate>5</test:runstate> <!-- 5 == VIR_DOMAIN_SHUTOFF -->
     <name>pool1</name>
     <memory>1048576</memory>
     <os>

@@ -262,46 +262,6 @@ create_drive_rbd (guestfs_h *g,
 }
 
 static struct drive *
-create_drive_sheepdog (guestfs_h *g,
-                       const struct drive_create_data *data)
-{
-  size_t i;
-
-  if (data->username != NULL) {
-    error (g, _("sheepdog: you cannot specify a username with this protocol"));
-    return NULL;
-  }
-  if (data->secret != NULL) {
-    error (g, _("sheepdog: you cannot specify a secret with this protocol"));
-    return NULL;
-  }
-
-  for (i = 0; i < data->nr_servers; ++i) {
-    if (data->servers[i].transport != drive_transport_none &&
-        data->servers[i].transport != drive_transport_tcp) {
-      error (g, _("sheepdog: only tcp transport is supported"));
-      return NULL;
-    }
-    if (data->servers[i].port == 0) {
-      error (g, _("sheepdog: port number must be specified"));
-      return NULL;
-    }
-  }
-
-  if (STREQ (data->exportname, "")) {
-    error (g, _("sheepdog: volume parameter should not be an empty string"));
-    return NULL;
-  }
-
-  if (data->exportname[0] == '/') {
-    error (g, _("sheepdog: volume parameter must not begin with a '/'"));
-    return NULL;
-  }
-
-  return create_drive_non_file (g, data);
-}
-
-static struct drive *
 create_drive_ssh (guestfs_h *g,
                   const struct drive_create_data *data)
 {
@@ -455,7 +415,6 @@ guestfs_int_drive_protocol_to_string (enum drive_protocol protocol)
   case drive_protocol_iscsi: return "iscsi";
   case drive_protocol_nbd: return "nbd";
   case drive_protocol_rbd: return "rbd";
-  case drive_protocol_sheepdog: return "sheepdog";
   case drive_protocol_ssh: return "ssh";
   case drive_protocol_tftp: return "tftp";
   }
@@ -837,10 +796,6 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
   else if (STREQ (protocol, "rbd")) {
     data.protocol = drive_protocol_rbd;
     drv = create_drive_rbd (g, &data);
-  }
-  else if (STREQ (protocol, "sheepdog")) {
-    data.protocol = drive_protocol_sheepdog;
-    drv = create_drive_sheepdog (g, &data);
   }
   else if (STREQ (protocol, "ssh")) {
     data.protocol = drive_protocol_ssh;

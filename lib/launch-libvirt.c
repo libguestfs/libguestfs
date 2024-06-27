@@ -1543,8 +1543,6 @@ construct_libvirt_xml_disk (guestfs_h *g,
         protocol_str = "nbd"; goto network_protocols;
       case drive_protocol_rbd:
         protocol_str = "rbd"; goto network_protocols;
-      case drive_protocol_sheepdog:
-        protocol_str = "sheepdog"; goto network_protocols;
       case drive_protocol_ssh:
         protocol_str = "ssh";
         /*FALLTHROUGH*/
@@ -2002,7 +2000,6 @@ add_secret (guestfs_h *g, virConnectPtr conn,
   case drive_protocol_https:
   case drive_protocol_iscsi:
   case drive_protocol_nbd:
-  case drive_protocol_sheepdog:
   case drive_protocol_ssh:
   case drive_protocol_tftp:
     secret_raw = (unsigned char *) safe_strdup (g, secret);
@@ -2082,7 +2079,6 @@ find_secret (guestfs_h *g,
       case drive_protocol_http:
       case drive_protocol_https:
       case drive_protocol_nbd:
-      case drive_protocol_sheepdog:
       case drive_protocol_ssh:
       case drive_protocol_tftp:
         /* set to a default value above */ ;

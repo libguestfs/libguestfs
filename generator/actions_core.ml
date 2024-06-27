@@ -382,13 +382,6 @@ The C<secret> parameter may be supplied.  See below.
 
 See also: L<guestfs(3)/CEPH>.
 
-=item C<protocol = \"sheepdog\">
-
-Connect to the Sheepdog server.
-The C<server> parameter may also be supplied - see below.
-
-See also: L<guestfs(3)/SHEEPDOG>.
-
 =item C<protocol = \"ssh\">
 
 Connect to the Secure Shell (ssh) server.
@@ -412,7 +405,6 @@ is a list of server(s).
  iscsi          Exactly one
  nbd            Exactly one
  rbd            Zero or more
- sheepdog       Zero or more
  ssh            Exactly one
 
 Each list element is a string specifying a server.  The string must be

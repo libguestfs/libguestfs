@@ -926,14 +926,6 @@ guestfs_int_drive_source_qemu_param (guestfs_h *g,
                           secret ? secret : "");
   }
 
-  case drive_protocol_sheepdog:
-    if (src->nr_servers == 0)
-      return safe_asprintf (g, "sheepdog:%s", src->u.exportname);
-    else                        /* XXX How to pass multiple hosts? */
-      return safe_asprintf (g, "sheepdog:%s:%d:%s",
-                            src->servers[0].u.hostname, src->servers[0].port,
-                            src->u.exportname);
-
   case drive_protocol_ssh:
     return make_uri (g, "ssh", src->username, src->secret,
                      &src->servers[0], src->u.exportname);
@@ -1012,7 +1004,6 @@ guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
   case drive_protocol_iscsi:
   case drive_protocol_nbd:
   case drive_protocol_rbd:
-  case drive_protocol_sheepdog: /* XXX depends on server version */
     break;
 
     /* Protocols which don't support discard. */
