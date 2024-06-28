@@ -65,6 +65,8 @@ my $build = Module::Build->new (
         '@top_srcdir@/include',
     ],
     extra_linker_flags => [
+        '-DGUESTFS_PRIVATE=1',
+        split (' ', '@CFLAGS@'),
         '-L@top_builddir@/lib/.libs',
         '-lguestfs',
     ],
