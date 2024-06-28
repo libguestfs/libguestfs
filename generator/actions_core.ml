@@ -8179,9 +8179,9 @@ for a useful list of partition attributes." };
     tests = [
       InitGPT, Always, TestResult (
         [["part_set_gpt_attributes"; "/dev/sda"; "1";
-          "0"];
+          (* bits 0, 2, 48 and 49 set *) "844424930131973"];
          ["part_get_gpt_attributes"; "/dev/sda"; "1"]],
-        "ret == 0"), [];
+        "ret == 844424930131973"), [];
     ];
     shortdesc = "get the attribute flags of a GPT partition";
     longdesc = "\
