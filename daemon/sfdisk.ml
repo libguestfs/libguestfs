@@ -114,28 +114,76 @@ let part_get_gpt_attributes device partnum =
     command "sfdisk" ["--part-attrs"; device; string_of_int partnum] in
   udev_settle ();
 
+  let out = String.trimr out in
+
   (* The output is a whitespace-separated list of:
+   *
    * "RequiredPartition" (equivalent to bit 0)
    * "NoBlockIOProtocol" (equivalent to bit 1)
    * "LegacyBIOSBootable" (equivalent to bit 2)
-   * "48", "49", ..., "63"
+   * "GUID:" followed by a comma-separated list of bit numbers
+   *
+   * eg: "LegacyBIOSBootable RequiredPartition GUID:48,49"
+   *
+   * So this is a massive PITA to parse.
    *)
-  let out = String.trimr out in
-  let attrs = String.nsplit " " out in
-  List.fold_left (
-    fun bits attr ->
+  let rec loop out acc =
+    let len = String.length out in
+    eprintf "part_get_gpt_attributes: %S [%s]\n%!"
+      out (String.concat "," (List.map string_of_int acc));
+    if len = 0 then (
+      acc
+    )
+    else if Char.isspace out.[0] then (
+      let out = String.triml out in
+      loop out acc
+    )
+    else if out.[0] = ',' then (
+      let out = String.sub out 1 (len-1) in
+      loop out acc
+    )
+    else if String.is_prefix out "RequiredPartition" then (
+      let acc = 0 :: acc in
+      let out = String.sub out 17 (len-17) in
+      loop out acc
+    )
+    else if String.is_prefix out "NoBlockIOProtocol" then (
+      let acc = 1 :: acc in
+      let out = String.sub out 17 (len-17) in
+      loop out acc
+    )
+    else if String.is_prefix out "LegacyBIOSBootable" then (
+      let acc = 2 :: acc in
+      let out = String.sub out 18 (len-18) in
+      loop out acc
+    )
+    else if String.is_prefix out "GUID:" then (
+      let out = String.sub out 5 (len-5) in
+      loop out acc
+    )
+    else if Char.isdigit out.[0] then (
+      let n = String.span out "0123456789" in
+      let num, out = String.break n out in
       let bit =
-        match attr with
-        | "" -> -1
-        | "RequiredPartition" -> 0
-        | "NoBlockIOProtocol" -> 1
-        | "LegacyBIOSBootable" -> 2
-        | n -> int_of_string n in
-      if bit >= 0 then
-        Int64.logor bits (Int64.shift_left 1_L bit)
-      else
-        bits
-  ) 0_L attrs
+        try int_of_string num
+        with Failure _ ->
+          failwithf "part_get_gpt_attributes: cannot parse number %S" num in
+      let acc = bit :: acc in
+      loop out acc
+    )
+    else (
+      failwithf "part_get_gpt_attributes: cannot parse %S" out
+    )
+  in
+  let attrs = loop out [] in
+
+  let bits =
+    List.fold_left (
+      fun bits bit -> Int64.logor bits (Int64.shift_left 1_L bit)
+    ) 0_L attrs in
+  eprintf "part_get_gpt_attributes: [%s] -> %Ld\n%!"
+    (String.concat "," (List.map string_of_int attrs)) bits;
+  bits
 
 let part_set_gpt_attributes device partnum attrs =
   if partnum <= 0 then
