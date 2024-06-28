@@ -835,7 +835,7 @@ let generate_daemon_caml_stubs () =
        | RInt _ ->
           pr "  CAMLreturnT (int, Int_val (retv));\n"
        | RInt64 _ ->
-          pr "  CAMLreturnT (int, Int64_val (retv));\n"
+          pr "  CAMLreturnT (int64_t, Int64_val (retv));\n"
        | RBool _ ->
           pr "  CAMLreturnT (int, Bool_val (retv));\n"
        | RConstString _ -> assert false
