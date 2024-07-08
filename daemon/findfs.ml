@@ -26,7 +26,7 @@ open Utils
 let rec findfs_uuid uuid =
   findfs "UUID" uuid
 and findfs_label label =
-  findfs "LABEL"label
+  findfs "LABEL" label
 
 and findfs tag str =
   (* Kill the cache file, forcing blkid to reread values from the
