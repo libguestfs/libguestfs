@@ -5724,6 +5724,30 @@ filesystem can be found.
 To find the label of a filesystem, use C<guestfs_vfs_label>." };
 
   { defaults with
+    name = "findfs_partuuid"; added = (1, 5, 3);
+    style = RString (RDevice, "device"), [String (PlainString, "uuid")], [];
+    impl = OCaml "Findfs.findfs_partuuid";
+    shortdesc = "find a partition by UUID";
+    longdesc = "\
+This command searches the partitions and returns the one
+which has the given partition UUID.  An error is returned if no such
+partition can be found.
+
+To find the UUID of a partition, use C<guestfs_blkid> (C<PART_ENTRY_UUID>)." };
+
+  { defaults with
+    name = "findfs_partlabel"; added = (1, 5, 3);
+    style = RString (RDevice, "device"), [String (PlainString, "label")], [];
+    impl = OCaml "Findfs.findfs_partlabel";
+    shortdesc = "find a partition by label";
+    longdesc = "\
+This command searches the partitions and returns the one
+which has the given label.  An error is returned if no such
+partition can be found.
+
+To find the label of a partition, use C<guestfs_blkid> (C<PART_ENTRY_NAME>)." };
+
+  { defaults with
     name = "is_chardev"; added = (1, 5, 10);
     style = RBool "flag", [String (Pathname, "path")], [OBool "followsymlinks"];
     once_had_no_optargs = true;
