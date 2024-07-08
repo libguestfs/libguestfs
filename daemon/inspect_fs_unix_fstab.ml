@@ -131,6 +131,25 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
         with
           Failure _ -> return None
       )
+      (* EFI partition UUIDs and labels. *)
+      else if String.is_prefix spec "PARTUUID=" then (
+        let uuid = String.sub spec 9 (String.length spec - 9) in
+        let uuid = shell_unquote uuid in
+        (* Just ignore the device if the UUID cannot be resolved. *)
+        try
+          Mountable.of_device (Findfs.findfs_partuuid uuid)
+        with
+          Failure _ -> return None
+      )
+      else if String.is_prefix spec "PARTLABEL=" then (
+        let label = String.sub spec 10 (String.length spec - 10) in
+        let label = shell_unquote label in
+        (* Just ignore the device if the label cannot be resolved. *)
+        try
+          Mountable.of_device (Findfs.findfs_partlabel label)
+        with
+          Failure _ -> return None
+      )
       (* Resolve /dev/root to the current device.
        * Do the same for the / partition of the *BSD
        * systems, since the BSD -> Linux device
