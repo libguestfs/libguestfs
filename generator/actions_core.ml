@@ -5724,7 +5724,7 @@ filesystem can be found.
 To find the label of a filesystem, use C<guestfs_vfs_label>." };
 
   { defaults with
-    name = "findfs_partuuid"; added = (1, 5, 3);
+    name = "findfs_partuuid"; added = (1, 53, 5);
     style = RString (RDevice, "device"), [String (PlainString, "uuid")], [];
     impl = OCaml "Findfs.findfs_partuuid";
     shortdesc = "find a partition by UUID";
@@ -5736,7 +5736,7 @@ partition can be found.
 To find the UUID of a partition, use C<guestfs_blkid> (C<PART_ENTRY_UUID>)." };
 
   { defaults with
-    name = "findfs_partlabel"; added = (1, 5, 3);
+    name = "findfs_partlabel"; added = (1, 53, 5);
     style = RString (RDevice, "device"), [String (PlainString, "label")], [];
     impl = OCaml "Findfs.findfs_partlabel";
     shortdesc = "find a partition by label";
