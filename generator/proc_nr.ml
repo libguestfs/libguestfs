@@ -516,6 +516,8 @@ let proc_nr = [
 511, "internal_readdir";
 512, "clevis_luks_unlock";
 513, "inspect_get_build_id";
+514, "findfs_partuuid";
+515, "findfs_partlabel";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list
