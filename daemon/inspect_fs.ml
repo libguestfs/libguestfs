@@ -260,19 +260,19 @@ and check_package_format { distro } =
   | Some DISTRO_ALTLINUX
   | Some DISTRO_CENTOS
   | Some DISTRO_CIRCLE
-  | Some DISTRO_ROCKY
   | Some DISTRO_FEDORA
+  | Some DISTRO_KYLIN
   | Some DISTRO_MAGEIA
   | Some DISTRO_MANDRIVA
   | Some DISTRO_MEEGO
   | Some DISTRO_NEOKYLIN
-  | Some DISTRO_KYLIN
-  | Some DISTRO_OPENMANDRIVA
   | Some DISTRO_OPENCLOUDOS
+  | Some DISTRO_OPENMANDRIVA
   | Some DISTRO_OPENSUSE
   | Some DISTRO_ORACLE_LINUX
   | Some DISTRO_REDHAT_BASED
   | Some DISTRO_RHEL
+  | Some DISTRO_ROCKY
   | Some DISTRO_SCIENTIFIC_LINUX
   | Some DISTRO_SLES
   | Some DISTRO_SUSE_BASED ->
@@ -333,11 +333,11 @@ and check_package_management { distro; version } =
 
   | Some DISTRO_CENTOS
   | Some DISTRO_CIRCLE
-  | Some DISTRO_ROCKY
+  | Some DISTRO_KYLIN
   | Some DISTRO_ORACLE_LINUX
   | Some DISTRO_REDHAT_BASED
   | Some DISTRO_RHEL
-  | Some DISTRO_KYLIN
+  | Some DISTRO_ROCKY
   | Some DISTRO_SCIENTIFIC_LINUX ->
      if major >= 8 then
        Some PACKAGE_MANAGEMENT_DNF
