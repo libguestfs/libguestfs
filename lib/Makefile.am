@@ -178,10 +178,12 @@ libvirt_is_version_SOURCES = libvirt-is-version.c
 
 libvirt_is_version_LDADD = \
 	$(LIBVIRT_LIBS) \
-	$(LTLIBINTL)
+	$(LTLIBINTL) \
+	$(top_builddir)/gnulib/lib/.libs/libgnu.a
 
 libvirt_is_version_CPPFLAGS = \
-	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 
 libvirt_is_version_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
