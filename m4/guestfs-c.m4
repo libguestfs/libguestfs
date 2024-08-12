@@ -55,9 +55,12 @@ AC_SUBST([WERROR_CFLAGS])
 CFLAGS="$CFLAGS -fno-strict-overflow -Wno-strict-overflow"
 
 dnl Work out how to specify the linker script to the linker.
+AS_CASE([$host_os],
+  [darwin*], [MAP_SCRIPT_FLAGS="-Wl,-map"],
+  [MAP_SCRIPT_FLAGS="-Wl,-M"])
 VERSION_SCRIPT_FLAGS=-Wl,--version-script=
 `/usr/bin/ld --help 2>&1 | grep -- --version-script >/dev/null` || \
-    VERSION_SCRIPT_FLAGS="-Wl,-M -Wl,"
+    VERSION_SCRIPT_FLAGS="$MAP_SCRIPT_FLAGS -Wl,"
 AC_SUBST(VERSION_SCRIPT_FLAGS)
 
 dnl Use -fvisibility=hidden by default in the library.
