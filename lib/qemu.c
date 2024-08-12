@@ -309,7 +309,7 @@ test_qemu_devices (guestfs_h *g, struct qemu_data *data)
 #ifdef MACHINE_TYPE
                            MACHINE_TYPE ","
 #endif
-                           "accel=kvm:tcg");
+                           "accel=kvm:hvf:tcg");
   guestfs_int_cmd_add_arg (cmd, "-device");
   guestfs_int_cmd_add_arg (cmd, "?");
   guestfs_int_cmd_clear_capture_errors (cmd);
@@ -574,7 +574,7 @@ generic_qmp_test (guestfs_h *g, struct qemu_data *data,
 #ifdef MACHINE_TYPE
                                      MACHINE_TYPE ","
 #endif
-                                     "accel=kvm:tcg");
+                                     "accel=kvm:hvf:tcg");
   guestfs_int_cmd_add_string_unquoted (cmd, " -qmp stdio");
   guestfs_int_cmd_clear_capture_errors (cmd);
 
