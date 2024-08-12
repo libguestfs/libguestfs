@@ -26,6 +26,11 @@
 #ifndef GUESTFS_INTERNAL_H_
 #define GUESTFS_INTERNAL_H_
 
+#ifdef __APPLE__
+#include <crt_externs.h>
+#define environ (*_NSGetEnviron())
+#endif // __APPLE__
+
 #include <stdbool.h>
 #include <assert.h>
 

@@ -27,6 +27,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <libintl.h>
+#include <errno.h>
 
 #include <libxml/parser.h>
 #include <libxml/xmlversion.h>
