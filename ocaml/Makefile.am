@@ -185,16 +185,16 @@ data_hook_files += *.cmx *.cmxa
 endif
 
 install-data-hook:
-	mkdir -p $(DESTDIR)$(OCAMLLIB)
-	mkdir -p $(DESTDIR)$(OCAMLLIB)/stublibs
-	rm -rf $(DESTDIR)$(OCAMLLIB)/guestfs
-	rm -rf $(DESTDIR)$(OCAMLLIB)/stublibs/dllmlguestfs.so*
+	mkdir -p $(DESTDIR)$(INSTALL_OCAMLLIB)
+	mkdir -p $(DESTDIR)$(INSTALL_OCAMLLIB)/stublibs
+	rm -rf $(DESTDIR)$(INSTALL_OCAMLLIB)/guestfs
+	rm -rf $(DESTDIR)$(INSTALL_OCAMLLIB)/stublibs/dllmlguestfs.so*
 	$(OCAMLFIND) install \
-	  -ldconf ignore -destdir $(DESTDIR)$(OCAMLLIB) \
+	  -ldconf ignore -destdir $(DESTDIR)$(INSTALL_OCAMLLIB) \
 	  guestfs \
 	  $(data_hook_files)
-	rm -f $(DESTDIR)$(OCAMLLIB)/guestfs/bindtests.*
-	rm $(DESTDIR)$(OCAMLLIB)/guestfs/libguestfsocaml.a
+	rm -f $(DESTDIR)$(INSTALL_OCAMLLIB)/guestfs/bindtests.*
+	rm $(DESTDIR)$(INSTALL_OCAMLLIB)/guestfs/libguestfsocaml.a
 
 CLEANFILES += $(noinst_DATA) $(check_DATA)
 

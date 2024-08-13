@@ -210,3 +210,8 @@ OCAML_WARN_ERROR="-warn-error +C+D+E+F+L+M+P+S+U+V+Y+Z+X+52-3-6 -w -6"
 AC_SUBST([OCAML_WARN_ERROR])
 OCAML_FLAGS="-g -annot $safe_string_option"
 AC_SUBST([OCAML_FLAGS])
+
+if test "x$INSTALL_OCAMLLIB" = "x"; then
+	INSTALL_OCAMLLIB=$OCAMLLIB
+fi
+AC_SUBST([INSTALL_OCAMLLIB])
