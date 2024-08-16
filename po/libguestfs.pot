@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.53.5\n"
+"Project-Id-Version: libguestfs 1.53.6\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2024-07-08 16:21+0100\n"
+"POT-Creation-Date: 2024-08-16 15:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3808,47 +3808,47 @@ msgid ""
 "found when libguestfs was compiled"
 msgstr ""
 
-#: lib/handle.c:143
+#: lib/handle.c:144
 msgid ""
 "libguestfs was built with an invalid default backend, using ‘direct’ instead"
 msgstr ""
 
-#: lib/handle.c:145
+#: lib/handle.c:146
 msgid "‘direct’ backend does not work"
 msgstr ""
 
-#: lib/handle.c:203 lib/handle.c:213
+#: lib/handle.c:204 lib/handle.c:214
 #, c-format
 msgid "%s=%s: non-boolean value"
 msgstr ""
 
-#: lib/handle.c:255
+#: lib/handle.c:256
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
-#: lib/handle.c:336
+#: lib/handle.c:337
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr ""
 
-#: lib/handle.c:547
+#: lib/handle.c:548
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: lib/handle.c:600
+#: lib/handle.c:601
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: lib/handle.c:717
+#: lib/handle.c:718
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: lib/handle.c:823
+#: lib/handle.c:824
 msgid "setting not found"
 msgstr ""
 
