@@ -104,8 +104,6 @@ udevadm settle --timeout=600
 # Increase the SCSI timeout so we can read remote images.
 shopt -s nullglob
 for f in /sys/block/sd*/device/timeout; do echo 300 > $f; done
-# https://access.redhat.com/site/solutions/5427
-for f in /sys/block/{h,s,ub,v}d*/queue/scheduler; do echo noop > $f; done
 shopt -u nullglob
 
 # Set up the network.
