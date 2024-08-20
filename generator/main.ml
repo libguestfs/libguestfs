@@ -364,7 +364,11 @@ Run it from the top source directory using the command
     output_to "common/mlcustomize/customize-synopsis.pod"
               Customize.generate_customize_synopsis_pod;
     output_to "common/mlcustomize/customize-options.pod"
-              Customize.generate_customize_options_pod
+              Customize.generate_customize_options_pod;
+    output_to "common/mlcustomize/v2v-customize-synopsis.pod"
+              (Customize.generate_customize_synopsis_pod ~v2v:true);
+    output_to "common/mlcustomize/v2v-customize-options.pod"
+              (Customize.generate_customize_options_pod ~v2v:true)
   );
 
   output_to "rust/src/guestfs.rs"

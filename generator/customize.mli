@@ -18,5 +18,5 @@
 
 val generate_customize_cmdline_ml : unit -> unit
 val generate_customize_cmdline_mli : unit -> unit
-val generate_customize_options_pod : unit -> unit
-val generate_customize_synopsis_pod : unit -> unit
+val generate_customize_options_pod : ?v2v:bool -> unit -> unit
+val generate_customize_synopsis_pod : ?v2v:bool -> unit -> unit

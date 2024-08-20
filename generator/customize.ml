@@ -26,14 +26,15 @@ open Pr
 
 let generate_header = generate_header ~inputs:["generator/customize.ml"]
 
-(* Command-line arguments used by virt-customize, virt-builder and
- * virt-sysprep.
+(* Command-line arguments used by virt-customize, virt-builder,
+ * virt-sysprep and (some for) virt-v2v.
  *)
 
 type op = {
   op_name : string;          (* argument name, without "--" *)
   op_type : op_type;         (* argument value type *)
   op_discrim : string;       (* argument discriminator in OCaml code *)
+  op_exclude_v2v : bool;     (* if true, don't include for virt-v2v *)
   op_shortdesc : string;     (* single-line description *)
   op_pod_longdesc : string;  (* multi-line description *)
 }
@@ -54,6 +55,7 @@ let ops = [
   { op_name = "append-line";
     op_type = StringPair "FILE:LINE";
     op_discrim = "`AppendLine";
+    op_exclude_v2v = false;
     op_shortdesc = "Append line(s) to the file";
     op_pod_longdesc = "\
 Append a single line of text to the C<FILE>.  If the file does not already
@@ -88,6 +90,7 @@ To insert a blank line before the appended line, do:
   { op_name = "chmod";
     op_type = StringPair "PERMISSIONS:FILE";
     op_discrim = "`Chmod";
+    op_exclude_v2v = false;
     op_shortdesc = "Change the permissions of a file";
     op_pod_longdesc = "\
 Change the permissions of C<FILE> to C<PERMISSIONS>.
@@ -99,6 +102,7 @@ it with C<0> to get octal, ie. use C<0700> not C<700>.";
   { op_name = "chown";
     op_type = StringTriplet "UID:GID:PATH";
     op_discrim = "`Chown";
+    op_exclude_v2v = false;
     op_shortdesc = "Change the owner user and group ID of a file or directory";
     op_pod_longdesc = "\
 Change the owner user and group ID of a file or directory in the guest.
@@ -127,6 +131,7 @@ See also: I<--upload>.";
   { op_name = "commands-from-file";
     op_type = StringFn ("FILENAME", "customize_read_from_file");
     op_discrim = "`CommandsFromFile";
+    op_exclude_v2v = false;
     op_shortdesc = "Read customize commands from file";
     op_pod_longdesc = "\
 Read the customize commands from a file, one (and its arguments)
@@ -155,6 +160,7 @@ line.";
   { op_name = "copy";
     op_type = StringPair "SOURCE:DEST";
     op_discrim = "`Copy";
+    op_exclude_v2v = false;
     op_shortdesc = "Copy files in disk image";
     op_pod_longdesc = "\
 Copy files or directories recursively inside the guest.
@@ -165,6 +171,7 @@ Wildcards cannot be used.";
   { op_name = "copy-in";
     op_type = StringPair "LOCALPATH:REMOTEDIR";
     op_discrim = "`CopyIn";
+    op_exclude_v2v = false;
     op_shortdesc = "Copy local files or directories into image";
     op_pod_longdesc = "\
 Copy local files or directories recursively into the disk image,
@@ -176,6 +183,7 @@ Wildcards cannot be used.";
   { op_name = "delete";
     op_type = String "PATH";
     op_discrim = "`Delete";
+    op_exclude_v2v = false;
     op_shortdesc = "Delete a file or directory";
     op_pod_longdesc = "\
 Delete a file from the guest.  Or delete a directory (and all its
@@ -193,6 +201,7 @@ See also: I<--upload>, I<--scrub>.";
   { op_name = "edit";
     op_type = StringPair "FILE:EXPR";
     op_discrim = "`Edit";
+    op_exclude_v2v = false;
     op_shortdesc = "Edit file using Perl expression";
     op_pod_longdesc = "\
 Edit C<FILE> using the Perl expression C<EXPR>.
@@ -208,6 +217,7 @@ See L<virt-edit(1)/NON-INTERACTIVE EDITING>.";
   { op_name = "firstboot";
     op_type = String "SCRIPT";
     op_discrim = "`FirstbootScript";
+    op_exclude_v2v = false;
     op_shortdesc = "Run script at first guest boot";
     op_pod_longdesc = "\
 Install C<SCRIPT> inside the guest, so that when the guest first boots
@@ -230,6 +240,7 @@ See also I<--run>.";
   { op_name = "firstboot-command";
     op_type = String "'CMD+ARGS'";
     op_discrim = "`FirstbootCommand";
+    op_exclude_v2v = false;
     op_shortdesc = "Run command at first guest boot";
     op_pod_longdesc = "\
 Run command (and arguments) inside the guest when the guest first
@@ -247,6 +258,7 @@ See also I<--run>.";
   { op_name = "firstboot-install";
     op_type = StringList "PKG,PKG..";
     op_discrim = "`FirstbootPackages";
+    op_exclude_v2v = false;
     op_shortdesc = "Add package(s) to install at first boot";
     op_pod_longdesc = "\
 Install the named packages (a comma-separated list).  These are
@@ -260,6 +272,7 @@ L<virt-builder(1)/INSTALLING PACKAGES>.";
   { op_name = "hostname";
     op_type = String "HOSTNAME";
     op_discrim = "`Hostname";
+    op_exclude_v2v = false;
     op_shortdesc = "Set the hostname";
     op_pod_longdesc = "\
 Set the hostname of the guest to C<HOSTNAME>.  You can use a
@@ -269,6 +282,7 @@ dotted hostname.domainname (FQDN) if you want.";
   { op_name = "inject-blnsvr";
     op_type = String "METHOD";
     op_discrim = "`InjectBalloonServer";
+    op_exclude_v2v = true;
     op_shortdesc = "Inject the Balloon Server into a Windows guest";
     op_pod_longdesc = "\
 Inject the Balloon Server (F<blnsvr.exe>) into a Windows guest.
@@ -285,6 +299,7 @@ you should use the L<virt-v2v(1)> tool instead of this.";
   { op_name = "inject-qemu-ga";
     op_type = String "METHOD";
     op_discrim = "`InjectQemuGA";
+    op_exclude_v2v = true;
     op_shortdesc = "Inject the QEMU Guest Agent into a Windows guest";
     op_pod_longdesc = "\
 Inject the QEMU Guest Agent into a Windows guest.  The guest
@@ -303,6 +318,7 @@ you should use the L<virt-v2v(1)> tool instead of this.";
   { op_name = "inject-virtio-win";
     op_type = String "METHOD";
     op_discrim = "`InjectVirtioWin";
+    op_exclude_v2v = true;
     op_shortdesc = "Inject virtio-win drivers into a Windows guest";
     op_pod_longdesc = "\
 Inject virtio-win drivers into a Windows guest.  These drivers
@@ -341,6 +357,7 @@ you should use the L<virt-v2v(1)> tool instead of this.";
   { op_name = "install";
     op_type = StringList "PKG,PKG..";
     op_discrim = "`InstallPackages";
+    op_exclude_v2v = false;
     op_shortdesc = "Add package(s) to install";
     op_pod_longdesc = "\
 Install the named packages (a comma-separated list).  These are
@@ -356,6 +373,7 @@ See also I<--update>, I<--uninstall>.";
   { op_name = "link";
     op_type = TargetLinks "TARGET:LINK[:LINK..]";
     op_discrim = "`Link";
+    op_exclude_v2v = false;
     op_shortdesc = "Create symbolic links";
     op_pod_longdesc = "\
 Create symbolic link(s) in the guest, starting at C<LINK> and
@@ -365,6 +383,7 @@ pointing at C<TARGET>.";
   { op_name = "mkdir";
     op_type = String "DIR";
     op_discrim = "`Mkdir";
+    op_exclude_v2v = false;
     op_shortdesc = "Create a directory";
     op_pod_longdesc = "\
 Create a directory in the guest.
@@ -376,6 +395,7 @@ and it also works if the directory already exists.";
   { op_name = "move";
     op_type = StringPair "SOURCE:DEST";
     op_discrim = "`Move";
+    op_exclude_v2v = false;
     op_shortdesc = "Move files in disk image";
     op_pod_longdesc = "\
 Move files or directories inside the guest.
@@ -386,6 +406,7 @@ Wildcards cannot be used.";
   { op_name = "password";
     op_type = UserPasswordSelector "USER:SELECTOR";
     op_discrim = "`Password";
+    op_exclude_v2v = false;
     op_shortdesc = "Set user password";
     op_pod_longdesc = "\
 Set the password for C<USER>.  (Note this option does I<not>
@@ -398,6 +419,7 @@ the C<SELECTOR> field, and also how to set up user accounts.";
   { op_name = "root-password";
     op_type = PasswordSelector "SELECTOR";
     op_discrim = "`RootPassword";
+    op_exclude_v2v = false;
     op_shortdesc = "Set root password";
     op_pod_longdesc = "\
 Set the root password.
@@ -412,6 +434,7 @@ then the guest is given a I<random> root password.";
   { op_name = "run";
     op_type = String "SCRIPT";
     op_discrim = "`Script";
+    op_exclude_v2v = false;
     op_shortdesc = "Run script in disk image";
     op_pod_longdesc = "\
 Run the shell script (or any program) called C<SCRIPT> on the disk
@@ -435,6 +458,7 @@ See also: I<--firstboot>, I<--attach>, I<--upload>.";
   { op_name = "run-command";
     op_type = String "'CMD+ARGS'";
     op_discrim = "`Command";
+    op_exclude_v2v = false;
     op_shortdesc = "Run command in disk image";
     op_pod_longdesc = "\
 Run the command and arguments on the disk image.  The command runs
@@ -455,6 +479,7 @@ See also: I<--firstboot>, I<--attach>, I<--upload>.";
   { op_name = "scrub";
     op_type = String "FILE";
     op_discrim = "`Scrub";
+    op_exclude_v2v = false;
     op_shortdesc = "Scrub a file";
     op_pod_longdesc = "\
 Scrub a file from the guest.  This is like I<--delete> except that:
@@ -475,6 +500,7 @@ It cannot delete directories, only regular files.
   { op_name = "sm-attach";
     op_type = SMPoolSelector "SELECTOR";
     op_discrim = "`SMAttach";
+    op_exclude_v2v = false;
     op_shortdesc = "Attach to a subscription-manager pool";
     op_pod_longdesc = "\
 Attach to a pool using C<subscription-manager>.
@@ -486,6 +512,7 @@ the C<SELECTOR> field.";
   { op_name = "sm-register";
     op_type = Unit;
     op_discrim = "`SMRegister";
+    op_exclude_v2v = false;
     op_shortdesc = "Register using subscription-manager";
     op_pod_longdesc = "\
 Register the guest using C<subscription-manager>.
@@ -496,6 +523,7 @@ This requires credentials being set using I<--sm-credentials>.";
   { op_name = "sm-remove";
     op_type = Unit;
     op_discrim = "`SMRemove";
+    op_exclude_v2v = false;
     op_shortdesc = "Remove all the subscriptions";
     op_pod_longdesc = "\
 Remove all the subscriptions from the guest using
@@ -505,6 +533,7 @@ C<subscription-manager>.";
   { op_name = "sm-unregister";
     op_type = Unit;
     op_discrim = "`SMUnregister";
+    op_exclude_v2v = false;
     op_shortdesc = "Unregister using subscription-manager";
     op_pod_longdesc = "\
 Unregister the guest using C<subscription-manager>.";
@@ -513,6 +542,7 @@ Unregister the guest using C<subscription-manager>.";
   { op_name = "ssh-inject";
     op_type = SSHKeySelector "USER[:SELECTOR]";
     op_discrim = "`SSHInject";
+    op_exclude_v2v = false;
     op_shortdesc = "Inject a public key into the guest";
     op_pod_longdesc = "\
 Inject an ssh key so the given C<USER> will be able to log in over
@@ -529,6 +559,7 @@ and also for more keys for each user."
   { op_name = "tar-in";
     op_type = StringPair "TARFILE:REMOTEDIR";
     op_discrim = "`TarIn";
+    op_exclude_v2v = false;
     op_shortdesc = "Copy local files or directories from a tarball into image";
     op_pod_longdesc = "\
 Copy local files or directories from a local tar file
@@ -541,6 +572,7 @@ here)";
   { op_name = "timezone";
     op_type = String "TIMEZONE";
     op_discrim = "`Timezone";
+    op_exclude_v2v = false;
     op_shortdesc = "Set the default timezone";
     op_pod_longdesc = "\
 Set the default timezone of the guest to C<TIMEZONE>.  Use a location
@@ -550,6 +582,7 @@ string like C<Europe/London>";
   { op_name = "touch";
     op_type = String "FILE";
     op_discrim = "`Touch";
+    op_exclude_v2v = false;
     op_shortdesc = "Run touch on a file";
     op_pod_longdesc = "\
 This command performs a L<touch(1)>-like operation on C<FILE>.";
@@ -558,6 +591,7 @@ This command performs a L<touch(1)>-like operation on C<FILE>.";
   { op_name = "truncate";
     op_type = String "FILE";
     op_discrim = "`Truncate";
+    op_exclude_v2v = false;
     op_shortdesc = "Truncate a file to zero size";
     op_pod_longdesc = "\
 This command truncates C<FILE> to a zero-length file. The file must exist
@@ -567,6 +601,7 @@ already.";
   { op_name = "truncate-recursive";
     op_type = String "PATH";
     op_discrim = "`TruncateRecursive";
+    op_exclude_v2v = false;
     op_shortdesc = "Recursively truncate all files in directory";
     op_pod_longdesc = "\
 This command recursively truncates all files under C<PATH> to zero-length.";
@@ -575,6 +610,7 @@ This command recursively truncates all files under C<PATH> to zero-length.";
   { op_name = "uninstall";
     op_type = StringList "PKG,PKG..";
     op_discrim = "`UninstallPackages";
+    op_exclude_v2v = false;
     op_shortdesc = "Uninstall package(s)";
     op_pod_longdesc = "\
 Uninstall the named packages (a comma-separated list).  These are
@@ -588,6 +624,7 @@ See also I<--install>, I<--update>.";
   { op_name = "update";
     op_type = Unit;
     op_discrim = "`Update";
+    op_exclude_v2v = false;
     op_shortdesc = "Update packages";
     op_pod_longdesc = "\
 Do the equivalent of C<yum update>, C<apt-get upgrade>, or whatever
@@ -600,6 +637,7 @@ See also I<--install>, I<--uninstall>.";
   { op_name = "upload";
     op_type = StringPair "FILE:DEST";
     op_discrim = "`Upload";
+    op_exclude_v2v = false;
     op_shortdesc = "Upload local file to destination";
     op_pod_longdesc = "\
 Upload local file C<FILE> to destination C<DEST> in the disk image.
@@ -619,6 +657,7 @@ See also: I<--mkdir>, I<--delete>, I<--scrub>.";
   { op_name = "write";
     op_type = StringPair "FILE:CONTENT";
     op_discrim = "`Write";
+    op_exclude_v2v = false;
     op_shortdesc = "Write file";
     op_pod_longdesc = "\
 Write C<CONTENT> to C<FILE>.";
@@ -727,14 +766,17 @@ let rec generate_customize_cmdline_mli () =
 
   pr "\
 type argspec = Getopt.keys * Getopt.spec * Getopt.doc
-val argspec : unit -> (argspec * string option * string) list * (unit -> ops)
+val argspec : ?v2v:bool -> unit -> (argspec * string option * string) list * (unit -> ops)
 (** This returns a pair [(list, get_ops)].
 
     [list] is a list of the command line arguments, plus some extra data.
 
     [get_ops] is a function you can call {i after} command line parsing
     which will return the actual operations specified by the user on the
-    command line. *)"
+    command line.
+
+    If the parameter [~v2v] is true then this excludes parameters
+    that should be excluded from virt-v2v. *)"
 
 and generate_customize_cmdline_ml () =
   generate_header OCamlStyle GPLv2plus;
@@ -758,7 +800,7 @@ open Getopt.OptionName
   pr "\
 type argspec = Getopt.keys * Getopt.spec * Getopt.doc
 
-let rec argspec () =
+let rec argspec ?(v2v = false) () =
   let ops = ref [] in
 ";
   List.iter (
@@ -813,22 +855,25 @@ let rec argspec () =
   List.iter (
     function
     | { op_type = Unit; op_name = name; op_discrim = discrim;
+        op_exclude_v2v = exclude_v2v;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.Unit (fun () -> List.push_front %s ops),\n" discrim;
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    None, %S;\n" longdesc
+      pr "    None, %S, %b;\n" longdesc exclude_v2v
     | { op_type = String v; op_name = name; op_discrim = discrim;
+        op_exclude_v2v = exclude_v2v;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (s_\"%s\", fun s -> List.push_front (%s s) ops),\n" v discrim;
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, %b;\n" v longdesc exclude_v2v
     | { op_type = StringPair v; op_name = name; op_discrim = discrim;
+        op_exclude_v2v = exclude_v2v;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      [ L\"%s\" ],\n" name;
@@ -840,8 +885,9 @@ let rec argspec () =
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, %b;\n" v longdesc exclude_v2v
     | { op_type = StringTriplet v; op_name = name; op_discrim = discrim;
+        op_exclude_v2v = exclude_v2v;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      [ L\"%s\" ],\n" name;
@@ -853,8 +899,9 @@ let rec argspec () =
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, %b;\n" v longdesc exclude_v2v
     | { op_type = StringList v; op_name = name; op_discrim = discrim;
+        op_exclude_v2v = exclude_v2v;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      [ L\"%s\" ],\n" name;
@@ -866,8 +913,9 @@ let rec argspec () =
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, %b;\n" v longdesc exclude_v2v
     | { op_type = TargetLinks v; op_name = name; op_discrim = discrim;
+        op_exclude_v2v = exclude_v2v;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      [ L\"%s\" ],\n" name;
@@ -879,8 +927,9 @@ let rec argspec () =
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, %b;\n" v longdesc exclude_v2v
     | { op_type = PasswordSelector v; op_name = name; op_discrim = discrim;
+        op_exclude_v2v = exclude_v2v;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      [ L\"%s\" ],\n" name;
@@ -892,8 +941,9 @@ let rec argspec () =
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, %b;\n" v longdesc exclude_v2v
     | { op_type = UserPasswordSelector v; op_name = name; op_discrim = discrim;
+        op_exclude_v2v = exclude_v2v;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      [ L\"%s\" ],\n" name;
@@ -906,8 +956,9 @@ let rec argspec () =
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, %b;\n" v longdesc exclude_v2v
     | { op_type = SSHKeySelector v; op_name = name; op_discrim = discrim;
+        op_exclude_v2v = exclude_v2v;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      [ L\"%s\" ],\n" name;
@@ -920,8 +971,9 @@ let rec argspec () =
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, %b;\n" v longdesc exclude_v2v
     | { op_type = StringFn (v, fn); op_name = name; op_discrim = discrim;
+        op_exclude_v2v = exclude_v2v;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      [ L\"%s\" ],\n" name;
@@ -933,8 +985,9 @@ let rec argspec () =
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, %b;\n" v longdesc exclude_v2v
     | { op_type = SMPoolSelector v; op_name = name; op_discrim = discrim;
+        op_exclude_v2v = exclude_v2v;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      [ L\"%s\" ],\n" name;
@@ -946,7 +999,7 @@ let rec argspec () =
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, %b;\n" v longdesc exclude_v2v
   ) ops;
 
   List.iter (
@@ -961,7 +1014,7 @@ let rec argspec () =
         pr "      Getopt.Set %s,\n" var;
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    None, %S;\n" longdesc
+      pr "    None, %S, false;\n" longdesc
     | { flag_type = FlagPasswordCrypto v; flag_ml_var = var;
         flag_name = name; flag_shortdesc = shortdesc;
         flag_pod_longdesc = longdesc } ->
@@ -974,7 +1027,7 @@ let rec argspec () =
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, false;\n" v longdesc
     | { flag_type = FlagSMCredentials v; flag_ml_var = var;
         flag_name = name; flag_shortdesc = shortdesc;
         flag_pod_longdesc = longdesc } ->
@@ -988,7 +1041,7 @@ let rec argspec () =
       pr "      ),\n";
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
-      pr "    Some %S, %S;\n" v longdesc
+      pr "    Some %S, %S, false;\n" v longdesc
   ) flags;
 
   pr "  ]
@@ -1031,8 +1084,8 @@ pr "    ] in
     List.iter (
       fun (cmd, arg) ->
         try
-          let ((_, spec, _), _, _) = List.find (
-            fun ((keys, _, _), _, _) ->
+          let ((_, spec, _), _, _, _) = List.find (
+            fun ((keys, _, _), _, _, _) ->
               List.mem (L cmd) keys
           ) argspec in
           (match spec with
@@ -1046,6 +1099,14 @@ pr "    ] in
             cmd
     ) cmds
   in
+
+  (* If we're in virt-v2v, drop the excluded from virt-v2v args. *)
+  let argspec =
+    List.filter_map (
+      fun (keys, spec, doc, exclude_v2v) ->
+        if v2v && exclude_v2v then None
+        else Some (keys, spec, doc)
+    ) argspec in
 
   argspec, get_ops
 "
@@ -1117,19 +1178,20 @@ type ops = {
   ) flags;
   pr "}\n"
 
-let generate_customize_synopsis_pod () =
+let generate_customize_synopsis_pod ?(v2v = false) () =
   (* generate_header PODStyle GPLv2plus; - NOT POSSIBLE *)
 
   let options =
-    List.map (
+    List.filter_map (
       function
+      | { op_exclude_v2v = true } when v2v -> None
       | { op_type = Unit; op_name = n } ->
-        n, sprintf "[--%s]" n
+         Some (n, sprintf "[--%s]" n)
       | { op_type = String v | StringPair v | StringTriplet v | StringList v
             | TargetLinks v | PasswordSelector v | UserPasswordSelector v
             | SSHKeySelector v | StringFn (v, _) | SMPoolSelector v;
           op_name = n } ->
-        n, sprintf "[--%s %s]" n v
+         Some (n, sprintf "[--%s %s]" n v)
     ) ops @
       List.map (
         function
@@ -1158,21 +1220,23 @@ let generate_customize_synopsis_pod () =
   if !col > 4 then
     pr "\n"
 
-let generate_customize_options_pod () =
+let generate_customize_options_pod ?(v2v = false) () =
   generate_header PODStyle GPLv2plus;
 
   pr "=over 4\n\n";
 
   let pod =
-    List.map (
+    List.filter_map (
       function
+      | { op_exclude_v2v = true } when v2v ->
+         None
       | { op_type = Unit; op_name = n; op_pod_longdesc = ld } ->
-        n, sprintf "B<--%s>" n, ld
+         Some (n, sprintf "B<--%s>" n, ld)
       | { op_type = String v | StringPair v | StringTriplet v | StringList v
             | TargetLinks v | PasswordSelector v | UserPasswordSelector v
             | SSHKeySelector v | StringFn (v, _) | SMPoolSelector v;
           op_name = n; op_pod_longdesc = ld } ->
-        n, sprintf "B<--%s> %s" n v, ld
+         Some (n, sprintf "B<--%s> %s" n v, ld)
     ) ops @
       List.map (
         function
