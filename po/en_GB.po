@@ -4,32 +4,33 @@
 #
 # Translators:
 # seanf <sflaniga@redhat.com>, 2011
+# Andi Chandler <andi@gowling.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2024-04-25 13:42+0100\n"
-"PO-Revision-Date: 2015-02-21 10:48+0000\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
-"libguestfs/language/en_GB/)\n"
+"PO-Revision-Date: 2024-09-02 13:38+0000\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>\n"
+"Language-Team: English (United Kingdom) <https://translate.fedoraproject.org/"
+"projects/libguestfs/libguestfs-master/en_GB/>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.7.1\n"
 
 #: common/options/config.c:72
 #, c-format
 msgid "%s: line %d: error parsing configuration file: %s"
-msgstr ""
+msgstr "%s: line %d: error parsing configuration file: %s"
 
 #: common/options/decrypt.c:52
 #, c-format
 msgid "string size overflow"
-msgstr ""
+msgstr "string size overflow"
 
 #: common/options/decrypt.c:170
 #, c-format
@@ -37,6 +38,8 @@ msgid ""
 "'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
 "libguestfs version"
 msgstr ""
+"'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
+"libguestfs version"
 
 #: common/options/decrypt.c:184
 #, c-format
@@ -47,6 +50,11 @@ msgid ""
 "\n"
 "Original error: %s (%d)"
 msgstr ""
+"could not find key to open LUKS encrypted %s.\n"
+"\n"
+"Try using --key on the command line.\n"
+"\n"
+"Original error: %s (%d)"
 
 #: common/options/inspect.c:78
 #, c-format
@@ -66,6 +74,20 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: no operating system was found on this disk\n"
+"\n"
+"If using guestfish ‘-i’ option, remove this option and instead\n"
+"use the commands ‘run’ followed by ‘list-filesystems’.\n"
+"You can then mount filesystems you want by hand using the\n"
+"‘mount’ or ‘mount-ro’ command.\n"
+"\n"
+"If using guestmount ‘-i’, remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding ‘-m’ option(s).\n"
+"Use ‘virt-filesystems’ to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, this disk image won’t work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
 
 #: common/options/inspect.c:99
 #, c-format
@@ -85,16 +107,30 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: multi-boot operating systems are not supported\n"
+"\n"
+"If using guestfish ‘-i’ option, remove this option and instead\n"
+"use the commands ‘run’ followed by ‘list-filesystems’.\n"
+"You can then mount filesystems you want by hand using the\n"
+"‘mount’ or ‘mount-ro’ command.\n"
+"\n"
+"If using guestmount ‘-i’, remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding ‘-m’ option(s).\n"
+"Use ‘virt-filesystems’ to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, multi-boot operating systems won’t work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
 
 #: common/options/inspect.c:161
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr ""
+msgstr "%s: some filesystems could not be mounted (ignored)\n"
 
 #: common/options/inspect.c:178
 #, c-format
 msgid "Operating system: %s\n"
-msgstr ""
+msgstr "Operating system: %s\n"
 
 #: common/options/inspect.c:196
 #, c-format

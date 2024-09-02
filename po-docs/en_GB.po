@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2015-02-21 10:15+0000\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
-"libguestfs/language/en_GB/)\n"
+"PO-Revision-Date: 2024-09-02 13:38+0000\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>\n"
+"Language-Team: English (United Kingdom) <https://translate.fedoraproject.org/"
+"projects/libguestfs/libguestfs-docs-master/en_GB/>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.7.1\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -9026,18 +9026,25 @@ msgid ""
 " ANY CHANGES YOU MAKE TO THIS FILE WILL BE LOST.\n"
 "\n"
 msgstr ""
+"libguestfs generated file\n"
+" WARNING: THIS FILE IS GENERATED FROM THE FOLLOWING FILES:\n"
+"          generator/customize.ml\n"
+"          and from the code in the generator/ subdirectory.\n"
+" ANY CHANGES YOU MAKE TO THIS FILE WILL BE LOST.\n"
+"\n"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:9
 #: ../fish/guestfish-actions.pod:9 ../fish/guestfish-commands.pod:9
 #: ../fish/guestfish-prepopts.pod:9 ../lib/guestfs-actions.pod:9
 #: ../lib/guestfs-availability.pod:9 ../lib/guestfs-structs.pod:9
-#, fuzzy, no-wrap
-#| msgid "Copyright (C) 2010-2012 Red Hat Inc."
+#, no-wrap
 msgid ""
 " Copyright (C) 2009-2020 Red Hat Inc.\n"
 "\n"
-msgstr "Copyright (C) 2010-2012 Red Hat Inc."
+msgstr ""
+" Copyright (C) 2009-2020 Red Hat Inc.\n"
+"\n"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:11
@@ -9052,6 +9059,11 @@ msgid ""
 " (at your option) any later version.\n"
 "\n"
 msgstr ""
+" This program is free software; you can redistribute it and/or modify\n"
+" it under the terms of the GNU General Public Licence as published by\n"
+" the Free Software Foundation; either version 2 of the Licence, or\n"
+" (at your option) any later version.\n"
+"\n"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:16
@@ -9066,6 +9078,11 @@ msgid ""
 " GNU General Public License for more details.\n"
 "\n"
 msgstr ""
+" This program is distributed in the hope that it will be useful,\n"
+" but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+" GNU General Public Licence for more details.\n"
+"\n"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:21
@@ -9079,11 +9096,15 @@ msgid ""
 " 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 "\n"
 msgstr ""
+" You should have received a copy of the GNU General Public Licence along\n"
+" with this program; if not, write to the Free Software Foundation, Inc.,\n"
+" 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+"\n"
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:29
 msgid "B<--append-line> FILE:LINE"
-msgstr ""
+msgstr "B<--append-line> FILE:LINE"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:31
