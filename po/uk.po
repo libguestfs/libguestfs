@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Yuri Chornoivan <yurchor@ukr.net>, 2011-2014, 2020, 2021, 2022, 2023.
-# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2020, 2021, 2022, 2023.
-# Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata, 2020, 2021, 2022, 2023.
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021, 2022, 2023.
-# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021, 2022, 2023.
-# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021, 2022, 2023.
-# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2020, 2021, 2022, 2023.
+# Yuri Chornoivan <yurchor@ukr.net>, 2011-2014, 2020, 2021, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2020, 2021, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata, 2020, 2021, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2020, 2021, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2024-08-16 15:29+0100\n"
-"PO-Revision-Date: 2023-02-21 20:20+0000\n"
+"PO-Revision-Date: 2024-09-04 10:38+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/uk/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 5.7.1\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -1006,18 +1006,12 @@ msgid "find a filesystem by label"
 msgstr "знайти файлову систему за міткою"
 
 #: fish/cmds.c:692
-#, fuzzy
-#| msgid "find a filesystem by label"
 msgid "find a partition by label"
-msgstr "знайти файлову систему за міткою"
+msgstr "знайти розділ за міткою"
 
 #: fish/cmds.c:693
-#, fuzzy
-#| msgid "disable swap on swap partition by UUID"
 msgid "find a partition by UUID"
-msgstr ""
-"вимкнути резервування місця на розділі резервної пам’яті, вказаному за "
-"допомогою UUID"
+msgstr "знайти розділ за UUID"
 
 #: fish/cmds.c:694
 msgid "find a filesystem by UUID"
@@ -1141,10 +1135,8 @@ msgid "get number of virtual CPUs in appliance"
 msgstr "отримати дані щодо кількості віртуальних процесорів на пристрої"
 
 #: fish/cmds.c:728
-#, fuzzy
-#| msgid "get the temporary directory for sockets"
 msgid "get the temporary directory for sockets and PID files"
-msgstr "отримати тимчасовий каталог для сокетів"
+msgstr "отримати тимчасовий каталог для сокетів та файлів PID"
 
 #: fish/cmds.c:729
 msgid "get the temporary directory"
@@ -4284,27 +4276,24 @@ msgstr ""
 "вийти і знову увійти до облікового запису цього користувача)."
 
 #: lib/launch-direct.c:393
-#, fuzzy, c-format
-#| msgid "script: killed by signal (%d)"
+#, c-format
 msgid "passt was killed with signal %d"
-msgstr "скрипт: перервано за сигналом (%d)"
+msgstr "роботу passt було перервано сигналом %d"
 
 #: lib/launch-direct.c:398
 #, c-format
 msgid "internal error: unexpected exit status from passt (%d)"
-msgstr ""
+msgstr "внутрішня помилка: неочікуваний стан виходу від passt (%d)"
 
 #: lib/launch-direct.c:405
-#, fuzzy, c-format
-#| msgid "%s exited with error status %d"
+#, c-format
 msgid "passt exited with status %d"
-msgstr "Роботу %s завершено зі станом виходу %d"
+msgstr "passt завершила роботу зі станом %d"
 
 #: lib/launch-direct.c:426
-#, fuzzy, c-format
-#| msgid "failed to create PV: %s: %s"
+#, c-format
 msgid "failed to parse passt PID from '%s'"
-msgstr "не вдалося створити фізичний том: %s: %s"
+msgstr "не вдалося обробити PID passt з «%s»"
 
 #: lib/launch-direct.c:475
 msgid "you must call guestfs_add_drive before guestfs_launch"
@@ -4367,6 +4356,8 @@ msgstr "не вдалося визначити можливості домену
 #: lib/launch-libvirt.c:628
 msgid "could not create appliance through libvirt. Original error from libvirt"
 msgstr ""
+"не вдалося створити розгортання за допомогою libvirt. Початкова помилка від "
+"libvirt"
 
 #: lib/launch-libvirt.c:760
 msgid "unable to parse capabilities XML returned by libvirt"
