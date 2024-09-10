@@ -157,6 +157,7 @@ and distro_of_os_release_id = function
   | "kylin" -> Some DISTRO_KYLIN
   | "mageia" -> Some DISTRO_MAGEIA
   | "neokylin" -> Some DISTRO_NEOKYLIN
+  | "openEuler" -> Some DISTRO_OPENEULER
   | "openmandriva" -> Some DISTRO_OPENMANDRIVA
   | "opencloudos" -> Some DISTRO_OPENCLOUDOS
   | "opensuse" -> Some DISTRO_OPENSUSE

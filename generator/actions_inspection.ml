@@ -254,6 +254,10 @@ NetBSD.
 
 OpenBSD.
 
+=item \"openeuler\"
+
+openEuler.
+
 =item \"openmandriva\"
 
 OpenMandriva Lx.

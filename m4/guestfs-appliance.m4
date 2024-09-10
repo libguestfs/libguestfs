@@ -120,7 +120,8 @@ if test "x$ENABLE_APPLIANCE" = "xyes"; then
                         [OPENSUSE* | SLED | SLES],[DISTRO=SUSE],
                         [ARCH | MANJARO | ARTIX],[DISTRO=ARCHLINUX],
                         [OPENMANDRIVA],[DISTRO=OPENMANDRIVA],
-                        [OPENCLOUDOS],[DISTRO=OPENCLOUDOS])
+                        [OPENCLOUDOS],[DISTRO=OPENCLOUDOS],
+                        [OPENEULER],[DISTRO=OPENEULER])
                 AC_MSG_RESULT([$DISTRO (from /etc/os-release)])
             else
                 AC_MSG_ERROR([/etc/os-release not available, please specify the distro using --with-distro=DISTRO])
@@ -130,7 +131,7 @@ if test "x$ENABLE_APPLIANCE" = "xyes"; then
     AC_SUBST([DISTRO])
 fi
 AM_CONDITIONAL([HAVE_RPM],
-    [AS_CASE([$DISTRO], [REDHAT | SUSE | OPENMANDRIVA | MAGEIA | OPENCLOUDOS ], [true],
+    [AS_CASE([$DISTRO], [REDHAT | SUSE | OPENMANDRIVA | MAGEIA | OPENCLOUDOS | OPENEULER ], [true],
                         [*], [false])])
 AM_CONDITIONAL([HAVE_DPKG],
     [AS_CASE([$DISTRO], [DEBIAN | UBUNTU ], [true],
