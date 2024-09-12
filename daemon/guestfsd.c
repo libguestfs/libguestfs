@@ -228,7 +228,7 @@ main (int argc, char *argv[])
                  "libguestfs library chose to use.  Please run\n"
                  "'libguestfs-test-tool' and provide the complete, unedited\n"
                  "output to the libguestfs developers, either in a bug report\n"
-                 "or on the libguestfs redhat com mailing list.\n"
+                 "or on the guestfs@lists.libguestfs.org mailing list.\n"
                  "\n");
         error (EXIT_FAILURE, errno, "open: %s", channel);
       }

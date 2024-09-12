@@ -914,7 +914,7 @@ standalone programs).
 
 If no libguestfs program seems to work at all, run the program below
 and paste the B<complete, unedited> output into an email to
-C<libguestfs> @ C<redhat.com>:
+C<guestfs@lists.libguestfs.org>:
 
  libguestfs-test-tool
 
