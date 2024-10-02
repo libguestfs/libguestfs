@@ -1,6 +1,8 @@
 appliance/libguestfs-make-fixed-appliance.pod
 common/mlcustomize/customize-options.pod
 common/mlcustomize/customize-synopsis.pod
+common/mlcustomize/v2v-customize-options.pod
+common/mlcustomize/v2v-customize-synopsis.pod
 common/options/blocksize-option.pod
 common/options/key-option.pod
 common/options/keys-from-stdin-option.pod
