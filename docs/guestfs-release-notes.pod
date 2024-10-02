@@ -8,6 +8,10 @@ guestfs-release-notes - libguestfs Release Notes
 
 =item *
 
+L<guestfs-release-notes-1.54(1)>
+
+=item *
+
 L<guestfs-release-notes-1.52(1)>
 
 =item *

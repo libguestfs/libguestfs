@@ -1,0 +1,179 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.54
+
+These are the release notes for libguestfs stable release 1.54.
+This describes the major changes since 1.52.
+
+Libguestfs 1.54.0 was released on B<XXX October 2024>.
+
+=begin comment
+
+=head2 Language bindings
+
+=end comment
+
+=head2 Inspection
+
+Add detection of Circle Linux (Bella Zhang).
+
+Add support for LoongArch (liuxiang).
+
+Add detection of Kylin (grass-lu).
+
+Add detection of openEuler (Wang Guoquan).
+
+C<PARTUUID> and C<PARTLABEL> are now resolved in guest F</etc/fstab>.
+
+=head2 API
+
+B<New APIs> C<findfs_partuuid> and C<findfs_partlabel>.  These can be
+used to efficiently look up a filesystem by its GPT partition UUID or
+label.
+
+Support for the following inactive or infrequently used device
+types has been B<removed>: Gluster, Sheepdog, TFTP.
+
+Add GOST R34.11-94 message digest algorithm to checksum APIs (Alexey
+Shabalin).
+
+Allow C<nbd+unix://> URIs (NBD over Unix domain socket) in guestfish
+and other places.
+
+Various C<part_*> (partition) APIs related to GPT have been
+reimplemented to use util-linux sfdisk instead of sgdisk.  Util-linux
+is more widely available, so this reduces dependencies in the common
+case.  One optional API remains that still uses sgdisk.  (Thanks
+Yongkui Guo).
+
+Add C<cipher> suboption to C<cryptsetup_open>
+(Jonatan Pålsson).
+
+Because of a bug, the C<part_get_gpt_attributes> API could truncate
+the return value from 64 to 32 bits.  This has been fixed.
+
+=begin comment
+
+=head2 Tools
+
+=end comment
+
+=head2 Build changes
+
+Fix btrfs compatibility with kernel changes in Linux 6.7.
+
+Removed some compatibility code for versions of util-linux (sfdisk)
+prior to 2014.
+
+Pass CFLAGS through when building the Perl bindings.  In particular
+this means that I<-g> should be passed through correctly, enabling
+debugging symbols.
+
+Fix build on macOS (Antonio Caggiano).
+
+=head2 Internals
+
+Libguestfs will now no longer recommend using
+C<LIBGUESTFS_BACKEND=direct>.  This was shown previously when libvirt
+failed to start the appliance.  However it is felt that this now does
+more harm than good.
+
+Fix generation of virt-customize I<--chown> parameter (Yongkui Guo).
+
+In the appliance, reduce boot time when dhcp isn't needed (Olaf
+Hering).
+
+A deadlock in the appliance caused by a regression in Linux 6.11 has
+been worked around.  The deadlock was also fixed in Linux 6.12.
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh v1.52.0..
+
+=end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/2303267>
+
+Rare hangs while starting the appliance, at 'echo noop' into /sys/block/{h,s,ub,v}d*/queue/scheduler
+
+=item L<https://issues.redhat.com/browse/RHEL-35998>
+
+Drop dependency from libguestfs -> gdisk
+
+=item L<https://issues.redhat.com/browse/RHEL-46596>
+
+libguestfs inspection does not know about /etc/fstab PARTLABEL=<label>
+
+=item L<https://github.com/libguestfs/libguestfs/issues/136>
+
+1.52.0: btrfs related c_api/tests are failing (unable to create quota
+group: Invalid argument)
+
+=item L<https://github.com/libguestfs/libguestfs/issues/138>
+
+Python how-to incorrect exception name
+
+=item L<https://github.com/libguestfs/libguestfs/issues/145>
+
+ 1.52.1: Rust test 410_close_event fails
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHORS
+
+=begin comment
+
+git shortlog -s v1.52.0..
+
+=end comment
+
+=over 4
+
+=item Alexey Shabalin
+
+=item Andi Chandler
+
+=item Antonio Caggiano
+
+=item Bella Zhang
+
+=item grass-lu
+
+=item Jonatan Pålsson
+
+=item Jürgen Hötzel
+
+=item liuxiang
+
+=item Olaf Hering
+
+=item Richard W.M. Jones
+
+=item Wang Guoquan
+
+=item Yuri Chornoivan
+
+=item zhanchun li
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2024 Red Hat Inc.
