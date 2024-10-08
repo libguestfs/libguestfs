@@ -7,7 +7,7 @@ guestfs-release-notes - libguestfs Release Notes
 These are the release notes for libguestfs stable release 1.54.
 This describes the major changes since 1.52.
 
-Libguestfs 1.54.0 was released on B<XXX October 2024>.
+Libguestfs 1.54.0 was released on B<8 October 2024>.
 
 =begin comment
 
