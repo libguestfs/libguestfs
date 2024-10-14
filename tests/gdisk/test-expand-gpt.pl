@@ -20,6 +20,11 @@ use warnings;
 
 use Sys::Guestfs;
 
+if ($ENV{SKIP_TEST_EXPAND_GPT_PL}) {
+    print "$0: test skipped because SKIP_TEST_EXPAND_GPT_PL is set\n";
+    exit 77;
+}
+
 sub tests {
 	my $g = Sys::Guestfs->new ();
 
