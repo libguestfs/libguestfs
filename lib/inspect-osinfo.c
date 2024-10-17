@@ -142,7 +142,9 @@ guestfs_impl_inspect_get_osinfo (guestfs_h *g, const char *root)
       switch (minor) {
       case 0:
         if (strstr (product_variant, "Server")) {
-          if (strstr (product_name, "2022"))
+          if (strstr (product_name, "2025"))
+            return safe_strdup (g, "win2k25");
+          else if (strstr (product_name, "2022"))
             return safe_strdup (g, "win2k22");
           else if (strstr (product_name, "2019"))
             return safe_strdup (g, "win2k19");
