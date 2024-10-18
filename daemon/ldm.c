@@ -25,7 +25,7 @@
 #include <sys/stat.h>
 #include <string.h>
 
-#include <jansson.h>
+#include <json.h>
 
 #include "daemon.h"
 #include "actions.h"
@@ -65,44 +65,54 @@ do_ldmtool_remove_all (void)
   return 0;
 }
 
-static json_t *
-parse_json (const char *json, const char *func)
+static json_object *
+parse_json (const char *json, const char *caller)
 {
-  json_t *tree;
-  json_error_t err;
+  json_object *tree = NULL;
+  json_tokener *tok = NULL;
+  enum json_tokener_error err;
 
   if (verbose)
-    fprintf (stderr, "%s: parsing json: %s\n", func, json);
+    fprintf (stderr, "%s: parsing json: %s\n", caller, json);
 
-  tree = json_loads (json, 0, &err);
-  if (tree == NULL) {
-    reply_with_error ("parse error: %s",
-                      strlen (err.text) ? err.text : "unknown error");
+  tok = json_tokener_new ();
+  json_tokener_set_flags (tok,
+                          JSON_TOKENER_STRICT | JSON_TOKENER_VALIDATE_UTF8);
+  tree = json_tokener_parse_ex (tok, json, strlen (json));
+  err = json_tokener_get_error (tok);
+  if (err != json_tokener_success) {
+    reply_with_error ("%s: parse error: %s",
+                      caller, json_tokener_error_desc (err));
+    json_tokener_free (tok);
     return NULL;
   }
 
-  /* Caller should free this by doing 'json_decref (tree);'. */
+  json_tokener_free (tok);
+
+  /* Caller should free this by doing json_object_put (tree). */
   return tree;
 }
 
 #define TYPE_ERROR ((char **) -1)
 
 static char **
-json_value_to_string_list (json_t *node)
+json_value_to_string_list (json_object *node)
 {
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (strs);
-  json_t *n;
+  json_object *n;
   size_t i;
 
-  if (!json_is_array (node))
+  if (json_object_get_type (node) != json_type_array)
     return TYPE_ERROR;
 
-  json_array_foreach (node, i, n) {
-    if (!json_is_string (n))
+  for (i = 0; i < json_object_array_length (node); ++i) {
+    n = json_object_array_get_idx (node, i); /* Doesn't incr the refcount. */
+    if (json_object_get_type (n) != json_type_string)
       return TYPE_ERROR;
-    if (add_string (&strs, json_string_value (n)) == -1)
+    if (add_string (&strs, json_object_get_string (n)) == -1)
       return NULL;
   }
+
   if (end_stringsbuf (&strs) == -1)
     return NULL;
 
@@ -111,17 +121,17 @@ json_value_to_string_list (json_t *node)
 
 static char **
 parse_json_get_string_list (const char *json,
-                            const char *func, const char *cmd)
+                            const char *caller, const char *cmd)
 {
   char **ret;
-  json_t *tree = NULL;
+  json_object *tree = NULL;
 
-  tree = parse_json (json, func);
+  tree = parse_json (json, caller);
   if (tree == NULL)
     return NULL;
 
   ret = json_value_to_string_list (tree);
-  json_decref (tree);
+  json_object_put (tree);
   if (ret == TYPE_ERROR) {
     reply_with_error ("output of '%s' was not a JSON array of strings", cmd);
     return NULL;
@@ -133,74 +143,73 @@ parse_json_get_string_list (const char *json,
 
 static char *
 parse_json_get_object_string (const char *json, const char *key, int flags,
-                              const char *func, const char *cmd)
+                              const char *caller, const char *cmd)
 {
   const char *str;
   char *ret;
-  json_t *tree = NULL, *node;
+  json_object *tree = NULL, *node;
 
-  tree = parse_json (json, func);
+  tree = parse_json (json, caller);
   if (tree == NULL)
     return NULL;
 
-  if (!json_is_object (tree))
+  if (json_object_get_type (tree) != json_type_object)
     goto bad_type;
 
-  node = json_object_get (tree, key);
+  node = json_object_object_get (tree, key);
   if (node == NULL)
     goto bad_type;
 
-  if ((flags & GET_STRING_NULL_TO_EMPTY) && json_is_null (node))
+  if ((flags & GET_STRING_NULL_TO_EMPTY) &&
+      json_object_get_type (node) == json_type_null)
     ret = strdup ("");
   else {
-    str = json_string_value (node);
-    if (str == NULL)
-      goto bad_type;
-    ret = strndup (str, json_string_length (node));
+    str = json_object_get_string (node);
+    ret = strndup (str, strlen (str));
   }
   if (ret == NULL)
     reply_with_perror ("strdup");
 
-  json_decref (tree);
+  json_object_put (tree);
 
   return ret;
 
  bad_type:
   reply_with_error ("output of '%s' was not a JSON object "
                     "containing a key '%s' of type string", cmd, key);
-  json_decref (tree);
+  json_object_put (tree);
   return NULL;
 }
 
 static char **
 parse_json_get_object_string_list (const char *json, const char *key,
-                                   const char *func, const char *cmd)
+                                   const char *caller, const char *cmd)
 {
   char **ret;
-  json_t *tree, *node;
+  json_object *tree, *node;
 
-  tree = parse_json (json, func);
+  tree = parse_json (json, caller);
   if (tree == NULL)
     return NULL;
 
-  if (!json_is_object (tree))
+  if (json_object_get_type (tree) != json_type_object)
     goto bad_type;
 
-  node = json_object_get (tree, key);
+  node = json_object_object_get (tree, key);
   if (node == NULL)
     goto bad_type;
 
   ret = json_value_to_string_list (node);
   if (ret == TYPE_ERROR)
     goto bad_type;
-  json_decref (tree);
+  json_object_put (tree);
   return ret;
 
  bad_type:
   reply_with_error ("output of '%s' was not a JSON object "
                     "containing a key '%s' of type array of strings",
                     cmd, key);
-  json_decref (tree);
+  json_object_put (tree);
   return NULL;
 }
 

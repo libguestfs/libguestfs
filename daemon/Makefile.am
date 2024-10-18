@@ -225,7 +225,7 @@ guestfsd_LDADD = \
 	camldaemon.o \
 	$(ACL_LIBS) \
 	$(CAP_LIBS) \
-	$(JANSSON_LIBS) \
+	$(JSON_C_LIBS) \
 	$(SELINUX_LIBS) \
 	$(AUGEAS_LIBS) \
 	$(HIVEX_LIBS) \
@@ -264,7 +264,7 @@ guestfsd_CFLAGS = \
 	$(AUGEAS_CFLAGS) \
 	$(HIVEX_CFLAGS) \
 	$(SD_JOURNAL_CFLAGS) \
-	$(JANSSON_CFLAGS) \
+	$(JSON_C_CFLAGS) \
 	$(PCRE2_CFLAGS) \
 	$(LIBRPM_CFLAGS)
 
