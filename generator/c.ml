@@ -817,7 +817,6 @@ and generate_client_structs_cleanups_h () =
 #ifndef GUESTFS_STRUCTS_CLEANUPS_H_
 #define GUESTFS_STRUCTS_CLEANUPS_H_
 
-#ifdef HAVE_ATTRIBUTE_CLEANUP
 ";
 
   List.iter (
@@ -828,16 +827,7 @@ and generate_client_structs_cleanups_h () =
       pr "  __attribute__((cleanup(guestfs_int_cleanup_free_%s_list)))\n" name
   ) structs;
 
-  pr "#else /* !HAVE_ATTRIBUTE_CLEANUP */\n";
-
-  List.iter (
-    fun { s_name = name } ->
-      pr "#define CLEANUP_FREE_%s\n" (String.uppercase_ascii name);
-      pr "#define CLEANUP_FREE_%s_LIST\n" (String.uppercase_ascii name)
-  ) structs;
-
   pr "\
-#endif /* !HAVE_ATTRIBUTE_CLEANUP */
 
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.

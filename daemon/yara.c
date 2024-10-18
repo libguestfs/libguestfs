@@ -39,12 +39,8 @@
 
 #include <yara.h>
 
-#ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_DESTROY_YARA_COMPILER                           \
   __attribute__((cleanup(cleanup_destroy_yara_compiler)))
-#else
-#define CLEANUP_DESTROY_YARA_COMPILER
-#endif
 
 struct write_callback_data {
   int fd;
@@ -208,10 +204,6 @@ compile_rules_file (const char *rules_path)
   }
 
  err:
-#ifndef HAVE_ATTRIBUTE_CLEANUP
-  yr_compiler_destroy (compiler);
-#endif
-
   return ret;
 }
 

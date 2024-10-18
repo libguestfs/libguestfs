@@ -32,13 +32,8 @@
 
 #include "ignore-value.h"
 
-#ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_BIND_STATE __attribute__((cleanup(free_bind_state)))
 #define CLEANUP_RESOLVER_STATE __attribute__((cleanup(free_resolver_state)))
-#else
-#define CLEANUP_BIND_STATE
-#define CLEANUP_RESOLVER_STATE
-#endif
 
 struct bind_state {
   bool mounted;

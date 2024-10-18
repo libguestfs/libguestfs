@@ -109,15 +109,12 @@ main (int argc, char *argv[])
     AC_MSG_RESULT([yes])
     AC_DEFINE([HAVE_ATTRIBUTE_CLEANUP],[1],[Define to 1 if '__attribute__((cleanup(...)))' works with this compiler.])
     ],[
-    AC_MSG_WARN(
+    AC_MSG_ERROR(
 ['__attribute__((cleanup(...)))' does not work.
 
 You may not be using a sufficiently recent version of GCC or CLANG, or
 you may be using a C compiler which does not support this attribute,
-or the configure test may be wrong.
-
-The code will still compile, but is likely to leak memory and other
-resources when it runs.])])
+or the configure test may be wrong.])])
 dnl restore CFLAGS
 CFLAGS="${acx_nbdkit_save_CFLAGS}"
 

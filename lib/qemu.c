@@ -46,7 +46,6 @@
 #include "guestfs-internal.h"
 #include "guestfs_protocol.h"
 
-#ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_JSON_T_DECREF __attribute__((cleanup(cleanup_json_t_decref)))
 
 static void
@@ -54,10 +53,6 @@ cleanup_json_t_decref (void *ptr)
 {
   json_decref (* (json_t **) ptr);
 }
-
-#else
-#define CLEANUP_JSON_T_DECREF
-#endif
 
 struct qemu_data {
   int generation;               /* MEMO_GENERATION read from qemu.stat */

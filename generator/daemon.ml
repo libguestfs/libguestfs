@@ -127,8 +127,6 @@ let generate_daemon_stubs actions () =
                     args_passed_to_daemon in
 
       if args_passed_to_daemon <> [] then (
-        pr "#ifdef HAVE_ATTRIBUTE_CLEANUP\n";
-        pr "\n";
         pr "#define CLEANUP_XDR_FREE_%s_ARGS \\\n" uc_name;
         pr "    __attribute__((cleanup(cleanup_xdr_free_%s_args)))\n" name;
         pr "\n";
@@ -140,9 +138,6 @@ let generate_daemon_stubs actions () =
            name;
         pr "}\n";
         pr "\n";
-        pr "#else /* !HAVE_ATTRIBUTE_CLEANUP */\n";
-        pr "#define CLEANUP_XDR_FREE_%s_ARGS\n" uc_name;
-        pr "#endif /* !HAVE_ATTRIBUTE_CLEANUP */\n";
         pr "\n"
       );
 
@@ -1315,7 +1310,6 @@ let generate_daemon_structs_cleanups_h () =
 #ifndef GUESTFS_DAEMON_STRUCTS_CLEANUPS_H_
 #define GUESTFS_DAEMON_STRUCTS_CLEANUPS_H_
 
-#ifdef HAVE_ATTRIBUTE_CLEANUP
 ";
 
   List.iter (
@@ -1326,16 +1320,7 @@ let generate_daemon_structs_cleanups_h () =
       pr "  __attribute__((cleanup(cleanup_free_int_%s_list)))\n" name
   ) structs;
 
-  pr "#else /* !HAVE_ATTRIBUTE_CLEANUP */\n";
-
-  List.iter (
-    fun { s_name = name } ->
-      pr "#define CLEANUP_FREE_%s\n" (String.uppercase_ascii name);
-      pr "#define CLEANUP_FREE_%s_LIST\n" (String.uppercase_ascii name)
-  ) structs;
-
   pr "\
-#endif /* !HAVE_ATTRIBUTE_CLEANUP */
 
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.

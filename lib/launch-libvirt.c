@@ -97,7 +97,6 @@ xmlBufferDetach (xmlBufferPtr buf)
 }
 #endif
 
-#ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_VIRSECRETFREE __attribute__((cleanup(cleanup_virSecretFree)))
 
 static void
@@ -107,10 +106,6 @@ cleanup_virSecretFree (void *ptr)
   if (secret_obj)
     virSecretFree (secret_obj);
 }
-
-#else /* !HAVE_ATTRIBUTE_CLEANUP */
-#define CLEANUP_VIRSECRETFREE
-#endif
 
 /* List used to store a mapping of secret to libvirt secret UUID. */
 struct secret {

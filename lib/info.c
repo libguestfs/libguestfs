@@ -43,7 +43,6 @@
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 
-#ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_JSON_T_DECREF __attribute__((cleanup(cleanup_json_t_decref)))
 
 static void
@@ -51,10 +50,6 @@ cleanup_json_t_decref (void *ptr)
 {
   json_decref (* (json_t **) ptr);
 }
-
-#else
-#define CLEANUP_JSON_T_DECREF
-#endif
 
 static json_t *get_json_output (guestfs_h *g, const char *filename);
 static int qemu_img_supports_U_option (guestfs_h *g);

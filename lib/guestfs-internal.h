@@ -661,11 +661,7 @@ extern void guestfs_int_end_stringsbuf (guestfs_h *g, struct stringsbuf *sb);
 
 extern void guestfs_int_free_stringsbuf (struct stringsbuf *sb);
 
-#ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_FREE_STRINGSBUF __attribute__((cleanup(guestfs_int_cleanup_free_stringsbuf)))
-#else
-#define CLEANUP_FREE_STRINGSBUF
-#endif
 extern void guestfs_int_cleanup_free_stringsbuf (struct stringsbuf *sb);
 
 /* proto.c */
@@ -785,11 +781,7 @@ extern int guestfs_int_cmd_pipe_run (struct command *cmd, const char *mode);
 extern int guestfs_int_cmd_pipe_wait (struct command *cmd);
 extern char *guestfs_int_cmd_get_pipe_errors (struct command *cmd);
 
-#ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_CMD_CLOSE __attribute__((cleanup(guestfs_int_cleanup_cmd_close)))
-#else
-#define CLEANUP_CMD_CLOSE
-#endif
 extern void guestfs_int_cleanup_cmd_close (struct command **);
 
 /* launch-*.c constructors */
