@@ -37,7 +37,7 @@
 
 #include <libxml/uri.h>
 
-#include <jansson.h>
+#include <json.h>
 
 #include "full-write.h"
 #include "ignore-value.h"
@@ -46,12 +46,13 @@
 #include "guestfs-internal.h"
 #include "guestfs_protocol.h"
 
-#define CLEANUP_JSON_T_DECREF __attribute__((cleanup(cleanup_json_t_decref)))
+#define CLEANUP_JSON_OBJECT_PUT \
+  __attribute__((cleanup(cleanup_json_object_put)))
 
 static void
-cleanup_json_t_decref (void *ptr)
+cleanup_json_object_put (void *ptr)
 {
-  json_decref (* (json_t **) ptr);
+  json_object_put (* (json_object **) ptr);
 }
 
 struct qemu_data {
@@ -66,7 +67,7 @@ struct qemu_data {
 
   /* The following fields are derived from the fields above. */
   struct version qemu_version;  /* Parsed qemu version number. */
-  json_t *qmp_schema_tree;      /* qmp_schema parsed into a JSON tree */
+  json_object *qmp_schema_tree; /* qmp_schema parsed into a JSON tree */
   bool has_kvm;                 /* If KVM is available. */
 };
 
@@ -86,7 +87,7 @@ static int write_cache_query_kvm (guestfs_h *g, const struct qemu_data *data, co
 static int read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static void parse_qemu_version (guestfs_h *g, const char *, struct version *qemu_version);
-static void parse_json (guestfs_h *g, const char *, json_t **);
+static void parse_json (guestfs_h *g, const char *, json_object **);
 static void parse_has_kvm (guestfs_h *g, const char *, bool *);
 static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 static int generic_read_cache (guestfs_h *g, const char *filename, char **strp);
@@ -442,20 +443,24 @@ parse_qemu_version (guestfs_h *g, const char *qemu_help,
  * is not possible.
  */
 static void
-parse_json (guestfs_h *g, const char *json, json_t **treep)
+parse_json (guestfs_h *g, const char *json, json_object **treep)
 {
-  json_error_t err;
+  json_tokener *tok;
+  enum json_tokener_error err;
 
   if (!json)
     return;
 
-  *treep = json_loads (json, 0, &err);
-  if (*treep == NULL) {
-    if (strlen (err.text) > 0)
-      debug (g, "QMP parse error: %s (ignored)", err.text);
-    else
-      debug (g, "QMP unknown parse error (ignored)");
-  }
+  tok = json_tokener_new ();
+  json_tokener_set_flags (tok,
+                          JSON_TOKENER_STRICT | JSON_TOKENER_VALIDATE_UTF8);
+  *treep = json_tokener_parse_ex (tok, json, strlen (json));
+  err = json_tokener_get_error (tok);
+  if (err != json_tokener_success)
+    debug (g, "QMP parse error: %s (ignored)", json_tokener_error_desc (err));
+  json_tokener_free (tok);
+
+  /* Caller should do json_object_put (*treep) */
 }
 
 /**
@@ -469,37 +474,35 @@ parse_json (guestfs_h *g, const char *json, json_t **treep)
 static void
 parse_has_kvm (guestfs_h *g, const char *json, bool *ret)
 {
-  CLEANUP_JSON_T_DECREF json_t *tree = NULL;
-  json_error_t err;
-  json_t *return_node, *enabled_node;
+  CLEANUP_JSON_OBJECT_PUT json_object *tree = NULL;
+  json_tokener *tok;
+  enum json_tokener_error err;
+  json_object *return_node, *enabled_node;
 
   *ret = true;                  /* Assume KVM is enabled. */
 
   if (!json)
     return;
 
-  tree = json_loads (json, 0, &err);
-  if (tree == NULL) {
-    if (strlen (err.text) > 0)
-      debug (g, "QMP parse error: %s (ignored)", err.text);
-    else
-      debug (g, "QMP unknown parse error (ignored)");
+  tok = json_tokener_new ();
+  json_tokener_set_flags (tok,
+                          JSON_TOKENER_STRICT | JSON_TOKENER_VALIDATE_UTF8);
+  tree = json_tokener_parse_ex (tok, json, strlen (json));
+  err = json_tokener_get_error (tok);
+  if (err != json_tokener_success) {
+    debug (g, "QMP parse error: %s (ignored)", json_tokener_error_desc (err));
+    json_tokener_free (tok);
     return;
   }
+  json_tokener_free (tok);
 
-  return_node = json_object_get (tree, "return");
-  if (!json_is_object (return_node)) {
+  return_node = json_object_object_get (tree, "return");
+  if (json_object_get_type (return_node) != json_type_object) {
     debug (g, "QMP query-kvm: no \"return\" node (ignored)");
     return;
   }
-  enabled_node = json_object_get (return_node, "enabled");
-  /* Note that json_is_boolean will check that enabled_node != NULL. */
-  if (!json_is_boolean (enabled_node)) {
-    debug (g, "QMP query-kvm: no \"enabled\" node or not a boolean (ignored)");
-    return;
-  }
-
-  *ret = json_is_true (enabled_node);
+  enabled_node = json_object_object_get (return_node, "enabled");
+  *ret = json_object_get_boolean (enabled_node);
 }
 
 /**
@@ -975,7 +978,7 @@ guestfs_int_free_qemu_data (struct qemu_data *data)
     free (data->qemu_devices);
     free (data->qmp_schema);
     free (data->query_kvm);
-    json_decref (data->qmp_schema_tree);
+    json_object_put (data->qmp_schema_tree);
     free (data);
   }
 }
