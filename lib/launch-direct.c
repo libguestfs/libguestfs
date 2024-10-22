@@ -57,7 +57,6 @@ struct backend_direct_data {
   pid_t recoverypid;            /* Recovery process PID. */
 
   struct version qemu_version;  /* qemu version (0 if unable to parse). */
-  int qemu_mandatory_locking;   /* qemu >= 2.10 does mandatory locking */
   struct qemu_data *qemu_data;  /* qemu -help output etc. */
 
   char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
@@ -240,13 +239,13 @@ add_drive_standard_params (guestfs_h *g, struct backend_direct_data *data,
     }
   }
   else {
-    /* Writable qcow2 overlay on top of read-only drive. */
-    if (data->qemu_mandatory_locking &&
-	/* Add the file-specific locking option only for files, as
-	 * qemu won't accept options unknown to the block driver in
-	 * use.
-	 */
-	drv->src.protocol == drive_protocol_file) {
+    /* Writable qcow2 overlay on top of read-only drive.
+     *
+     * Add the file-specific locking option only for files, as
+     * qemu won't accept options unknown to the block driver in
+     * use.
+     */
+    if (drv->src.protocol == drive_protocol_file) {
       append_list_format ("file.file.filename=%s", drv->overlay);
       append_list ("file.driver=qcow2");
       append_list ("file.backing.file.locking=off");
@@ -495,10 +494,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     data->qemu_version = guestfs_int_qemu_version (g, data->qemu_data);
     debug (g, "qemu version: %d.%d",
            data->qemu_version.v_major, data->qemu_version.v_minor);
-    data->qemu_mandatory_locking =
-      guestfs_int_qemu_mandatory_locking (g, data->qemu_data);
-    debug (g, "qemu mandatory locking: %s",
-           data->qemu_mandatory_locking ? "yes" : "no");
   }
 
   /* Work out if KVM is supported or if the user wants to force TCG. */
