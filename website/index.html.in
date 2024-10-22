@@ -183,7 +183,7 @@ git clone <a href="https://github.com/libguestfs/libguestfs">https://github.com/
 <p class="latest">
 <em><small>
   <!--
-LATEST-URL: http://libguestfs.org/download/1.53-development/libguestfs-@PACKAGE_VERSION@.tar.gz
+LATEST-URL: http://libguestfs.org/download/1.55-development/libguestfs-@PACKAGE_VERSION@.tar.gz
 LATEST-VERSION: @PACKAGE_VERSION@
   -->
   <a href="download/1.55-development/">Latest development version: <strong>@PACKAGE_VERSION@</strong></a> (released <strong>@RELEASE_DATE@</strong>).<br/>
