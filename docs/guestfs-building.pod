@@ -189,6 +189,10 @@ I<Required>.
 
 I<Required>.
 
+=item json-c E<ge> 0.14
+
+I<Required>.
+
 =item po4a
 
 I<Required> if compiling from git.
