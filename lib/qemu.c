@@ -662,54 +662,6 @@ guestfs_int_qemu_supports_device (guestfs_h *g,
   return strstr (data->qemu_devices, device_name) != NULL;
 }
 
-/**
- * Test if the qemu binary uses mandatory file locking, added in
- * QEMU >= 2.10 (but sometimes disabled).
- */
-int
-guestfs_int_qemu_mandatory_locking (guestfs_h *g,
-                                    const struct qemu_data *data)
-{
-  json_t *schema, *v, *meta_type, *members, *m, *name;
-  size_t i, j;
-
-  /* If there's no QMP schema, fall back to checking the version. */
-  if (!data->qmp_schema_tree) {
-  fallback:
-    return guestfs_int_version_ge (&data->qemu_version, 2, 10, 0);
-  }
-
-  /* Top element of qmp_schema_tree is the { "return": ... } wrapper.
-   * Extract the schema from the wrapper.  Note the returned ‘schema’
-   * will be an array.
-   */
-  schema = json_object_get (data->qmp_schema_tree, "return");
-  if (!json_is_array (schema))
-    goto fallback;
-
-  /* Now look for any member of the array which has:
-   * { "meta-type": "object",
-   *   "members": [ ... { "name": "locking", ... } ... ] ... }
-   */
-  json_array_foreach (schema, i, v) {
-    meta_type = json_object_get (v, "meta-type");
-    if (json_is_string (meta_type) &&
-        STREQ (json_string_value (meta_type), "object")) {
-      members = json_object_get (v, "members");
-      if (json_is_array (members)) {
-        json_array_foreach (members, j, m) {
-          name = json_object_get (m, "name");
-          if (json_is_string (name) &&
-              STREQ (json_string_value (name), "locking"))
-            return 1;
-        }
-      }
-    }
-  }
-
-  return 0;
-}
-
 bool
 guestfs_int_platform_has_kvm (guestfs_h *g, const struct qemu_data *data)
 {
