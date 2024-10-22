@@ -37,42 +37,45 @@
 #include <sys/resource.h>
 #endif
 
-#include <jansson.h>
+#include <json.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 
-#define CLEANUP_JSON_T_DECREF __attribute__((cleanup(cleanup_json_t_decref)))
+#define CLEANUP_JSON_OBJECT_PUT \
+  __attribute__((cleanup(cleanup_json_object_put)))
 
 static void
-cleanup_json_t_decref (void *ptr)
+cleanup_json_object_put (void *ptr)
 {
-  json_decref (* (json_t **) ptr);
+  json_object_put (* (json_object **) ptr);
 }
 
-static json_t *get_json_output (guestfs_h *g, const char *filename);
+static json_object *get_json_output (guestfs_h *g, const char *filename);
 static int qemu_img_supports_U_option (guestfs_h *g);
 static void set_child_rlimits (struct command *);
 
 char *
 guestfs_impl_disk_format (guestfs_h *g, const char *filename)
 {
-  CLEANUP_JSON_T_DECREF json_t *tree = get_json_output (g, filename);
-  json_t *node;
+  CLEANUP_JSON_OBJECT_PUT json_object *tree = get_json_output (g, filename);
+  json_object *node;
+  const char *format;
 
   if (tree == NULL)
     return NULL;
 
-  if (!json_is_object (tree))
+  if (json_object_get_type (tree) != json_type_object)
     goto bad_type;
 
-  node = json_object_get (tree, "format");
-  if (!json_is_string (node))
+  node = json_object_object_get (tree, "format");
+  if (node == NULL)
     goto bad_type;
 
-  return safe_strndup (g, json_string_value (node),
-                          json_string_length (node)); /* caller frees */
+  format = json_object_get_string (node);
+
+  return safe_strdup (g, format); /* caller frees */
 
  bad_type:
   error (g, _("qemu-img info: JSON output did not contain ‘format’ key"));
@@ -82,20 +85,20 @@ guestfs_impl_disk_format (guestfs_h *g, const char *filename)
 int64_t
 guestfs_impl_disk_virtual_size (guestfs_h *g, const char *filename)
 {
-  CLEANUP_JSON_T_DECREF json_t *tree = get_json_output (g, filename);
-  json_t *node;
+  CLEANUP_JSON_OBJECT_PUT json_object *tree = get_json_output (g, filename);
+  json_object *node;
 
   if (tree == NULL)
     return -1;
 
-  if (!json_is_object (tree))
+  if (json_object_get_type (tree) != json_type_object)
     goto bad_type;
 
-  node = json_object_get (tree, "virtual-size");
-  if (!json_is_integer (node))
+  node = json_object_object_get (tree, "virtual-size");
+  if (node == NULL)
     goto bad_type;
 
-  return json_integer_value (node);
+  return json_object_get_int64 (node);
 
  bad_type:
   error (g, _("qemu-img info: JSON output did not contain ‘virtual-size’ key"));
@@ -105,24 +108,18 @@ guestfs_impl_disk_virtual_size (guestfs_h *g, const char *filename)
 int
 guestfs_impl_disk_has_backing_file (guestfs_h *g, const char *filename)
 {
-  CLEANUP_JSON_T_DECREF json_t *tree = get_json_output (g, filename);
-  json_t *node;
+  CLEANUP_JSON_OBJECT_PUT json_object *tree = get_json_output (g, filename);
+  json_object *node;
 
   if (tree == NULL)
     return -1;
 
-  if (!json_is_object (tree))
+  if (json_object_get_type (tree) != json_type_object)
     goto bad_type;
 
-  node = json_object_get (tree, "backing-filename");
+  node = json_object_object_get (tree, "backing-filename");
   if (node == NULL)
-    return 0; /* no backing-filename key means no backing file */
-
-  /* Work on the assumption that if this field is null, it means
-   * no backing file, rather than being an error.
-   */
-  if (json_is_null (node))
-    return 0;
+    return 0; /* no backing-filename key or null means no backing file */
   return 1;
 
  bad_type:
@@ -136,12 +133,12 @@ guestfs_impl_disk_has_backing_file (guestfs_h *g, const char *filename)
 static void parse_json (guestfs_h *g, void *treevp, const char *input, size_t len);
 #define PARSE_JSON_NO_OUTPUT ((void *) -1)
 
-static json_t *
+static json_object *
 get_json_output (guestfs_h *g, const char *filename)
 {
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r;
-  json_t *tree = NULL;
+  json_object *tree = NULL;
 
   guestfs_int_cmd_add_arg (cmd, "qemu-img");
   guestfs_int_cmd_add_arg (cmd, "info");
@@ -176,15 +173,16 @@ get_json_output (guestfs_h *g, const char *filename)
     return NULL;
   }
 
-  return tree;          /* caller must call json_decref (tree) */
+  return tree;          /* caller must call json_object_put (tree) */
 }
 
 /* Parse the JSON document printed by qemu-img info --output json. */
 static void
 parse_json (guestfs_h *g, void *treevp, const char *input, size_t len)
 {
-  json_t **tree_ret = treevp;
-  json_error_t err;
+  json_tokener *tok = NULL;
+  json_object **tree_ret = treevp;
+  enum json_tokener_error err;
 
   assert (*tree_ret == NULL);
 
@@ -197,15 +195,20 @@ parse_json (guestfs_h *g, void *treevp, const char *input, size_t len)
     return;
   }
 
-  debug (g, "%s: qemu-img info JSON output:\n%.*s\n", __func__, (int) len, input);
+  debug (g, "%s: qemu-img info JSON output:\n%.*s\n",
+         __func__, (int) len, input);
 
-  *tree_ret = json_loadb (input, len, 0, &err);
-  if (*tree_ret == NULL) {
-    if (strlen (err.text) > 0)
-      error (g, _("qemu-img info: JSON parse error: %s"), err.text);
-    else
-      error (g, _("qemu-img info: unknown JSON parse error"));
+  tok = json_tokener_new ();
+  json_tokener_set_flags (tok,
+                          JSON_TOKENER_STRICT | JSON_TOKENER_VALIDATE_UTF8);
+  *tree_ret = json_tokener_parse_ex (tok, input, len);
+  err = json_tokener_get_error (tok);
+  if (err != json_tokener_success) {
+    error (g, _("qemu-img info: JSON parse error: %s"),
+           json_tokener_error_desc (err));
+    *tree_ret = NULL;           /* should already be */
   }
+  json_tokener_free (tok);
 }
 
 static void

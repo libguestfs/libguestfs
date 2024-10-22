@@ -138,7 +138,8 @@ libguestfs_la_CFLAGS = \
 	$(PCRE2_CFLAGS) \
 	$(LIBVIRT_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
-	$(JANSSON_CFLAGS)
+	$(JANSSON_CFLAGS) \
+	$(JSON_C_CFLAGS)
 
 libguestfs_la_LIBADD = \
 	../common/errnostring/liberrnostring.la \
@@ -150,6 +151,7 @@ libguestfs_la_LIBADD = \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
 	$(SELINUX_LIBS) \
 	$(JANSSON_LIBS) \
+	$(JSON_C_LIBS) \
 	../gnulib/lib/libgnu.la \
 	$(LIBSOCKET) \
 	$(LIB_CLOCK_GETTIME) \
