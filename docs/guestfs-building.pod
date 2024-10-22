@@ -185,10 +185,6 @@ I<Required>.
 
 I<Required>.
 
-=item Jansson E<ge> 2.7
-
-I<Required>.
-
 =item json-c E<ge> 0.14
 
 I<Required>.

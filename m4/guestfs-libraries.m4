@@ -301,9 +301,6 @@ LIBS="$LIBS $LIBXML2_LIBS"
 AC_CHECK_FUNCS([xmlBufferDetach])
 LIBS="$old_LIBS"
 
-dnl Check for Jansson JSON library (required).
-PKG_CHECK_MODULES([JANSSON], [jansson >= 2.7])
-
 dnl Check for JSON-C library (required).
 PKG_CHECK_MODULES([JSON_C], [json-c >= 0.14])
 

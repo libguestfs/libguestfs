@@ -138,7 +138,6 @@ libguestfs_la_CFLAGS = \
 	$(PCRE2_CFLAGS) \
 	$(LIBVIRT_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
-	$(JANSSON_CFLAGS) \
 	$(JSON_C_CFLAGS)
 
 libguestfs_la_LIBADD = \
@@ -150,7 +149,6 @@ libguestfs_la_LIBADD = \
 	$(PCRE2_LIBS) \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
 	$(SELINUX_LIBS) \
-	$(JANSSON_LIBS) \
 	$(JSON_C_LIBS) \
 	../gnulib/lib/libgnu.la \
 	$(LIBSOCKET) \
