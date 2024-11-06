@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2024-08-16 15:29+0100\n"
+"POT-Creation-Date: 2024-10-22 17:20+0100\n"
 "PO-Revision-Date: 2017-02-24 07:33+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -4112,19 +4112,19 @@ msgstr ""
 msgid "setting not found"
 msgstr ""
 
-#: lib/info.c:83
+#: lib/info.c:81
 msgid "qemu-img info: JSON output did not contain ‘format’ key"
 msgstr ""
 
-#: lib/info.c:106
+#: lib/info.c:104
 msgid "qemu-img info: JSON output did not contain ‘virtual-size’ key"
 msgstr ""
 
-#: lib/info.c:134
+#: lib/info.c:126
 msgid "qemu-img info: JSON output was not an object"
 msgstr "qemu-img info: JSON 出力がオブジェクトではありませんでした"
 
-#: lib/info.c:180
+#: lib/info.c:172
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
@@ -4132,21 +4132,17 @@ msgstr ""
 "qemu-img info コマンドが何も出力しませんでしたが、エラー状態コードを返しませ"
 "んでした"
 
-#: lib/info.c:210
+#: lib/info.c:207
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
 msgstr "qemu-img info: JSON 構文解析エラー: %s"
-
-#: lib/info.c:212
-msgid "qemu-img info: unknown JSON parse error"
-msgstr "qemu-img info: 未知の JSON 構文解析エラー"
 
 #: lib/inspect-icon.c:730
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s の容量が不当に大きいです (%<PRIi64> バイト)"
 
-#: lib/launch-direct.c:151
+#: lib/launch-direct.c:150
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -4155,34 +4151,34 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:393
+#: lib/launch-direct.c:392
 #, fuzzy, c-format
 #| msgid "%s killed by signal %d (%s)"
 msgid "passt was killed with signal %d"
 msgstr "%s がシグナル %d (%s) によりキルされました"
 
-#: lib/launch-direct.c:398
+#: lib/launch-direct.c:397
 #, c-format
 msgid "internal error: unexpected exit status from passt (%d)"
 msgstr ""
 
-#: lib/launch-direct.c:405
+#: lib/launch-direct.c:404
 #, fuzzy, c-format
 #| msgid "%s exited with error status %d"
 msgid "passt exited with status %d"
 msgstr "%s がエラーステータス %d で終了しました"
 
-#: lib/launch-direct.c:426
+#: lib/launch-direct.c:425
 #, fuzzy, c-format
 #| msgid "failed to create PV: %s: %s"
 msgid "failed to parse passt PID from '%s'"
 msgstr "物理ボリュームの作成に失敗しました: %s: %s"
 
-#: lib/launch-direct.c:475
+#: lib/launch-direct.c:474
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launch の前に guestfs_add_drive を呼び出す必要があります"
 
-#: lib/launch-direct.c:1042 lib/launch-libvirt.c:695
+#: lib/launch-direct.c:1037 lib/launch-libvirt.c:690
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "QEMU が起動され、デーモンに接続されましたが、state != READY です"
 
@@ -4191,58 +4187,58 @@ msgstr "QEMU が起動され、デーモンに接続されましたが、state !
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: lib/launch-libvirt.c:219
+#: lib/launch-libvirt.c:214
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:230
+#: lib/launch-libvirt.c:225
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:345
+#: lib/launch-libvirt.c:340
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 "ダイレクトモードフラグは libvirt バックエンドに対してまだサポートされていませ"
 "ん"
 
-#: lib/launch-libvirt.c:383
+#: lib/launch-libvirt.c:378
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "libvirt (URI = %s) に接続できませんでした"
 
-#: lib/launch-libvirt.c:412
+#: lib/launch-libvirt.c:407
 msgid "could not get libvirt capabilities"
 msgstr "libvirt ケイパビリティを取得できませんでした"
 
-#: lib/launch-libvirt.c:433
+#: lib/launch-libvirt.c:428
 msgid "could not get libvirt domain capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:628
+#: lib/launch-libvirt.c:623
 msgid "could not create appliance through libvirt. Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:760
+#: lib/launch-libvirt.c:755
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr "libvirt により返されたケイパビリティ XML を構文解析できません"
 
-#: lib/launch-libvirt.c:766 lib/launch-libvirt.c:868 lib/libvirt-domain.c:397
+#: lib/launch-libvirt.c:761 lib/launch-libvirt.c:863 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
 msgid "unable to create new XPath context"
 msgstr "新規 XPath コンテキストを作成できません"
 
-#: lib/launch-libvirt.c:776 lib/launch-libvirt.c:876 lib/launch-libvirt.c:892
+#: lib/launch-libvirt.c:771 lib/launch-libvirt.c:871 lib/launch-libvirt.c:887
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "XPath 表現を評価できません: %s"
 
-#: lib/launch-libvirt.c:815
+#: lib/launch-libvirt.c:810
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -4257,16 +4253,16 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:862
+#: lib/launch-libvirt.c:857
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1508 lib/launch-libvirt.c:1761 lib/qemu.c:816
+#: lib/launch-libvirt.c:1503 lib/launch-libvirt.c:1756 lib/qemu.c:766
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1586
+#: lib/launch-libvirt.c:1581
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -4274,32 +4270,32 @@ msgstr ""
 "libvirt が qemu curl ドライバープロトコル (ftp, http など) をサポートしませ"
 "ん; LIBGUESTFS_BACKEND=direct の設定を試してください"
 
-#: lib/launch-libvirt.c:1976
+#: lib/launch-libvirt.c:1971
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1987
+#: lib/launch-libvirt.c:1982
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1991
+#: lib/launch-libvirt.c:1986
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:2009
+#: lib/launch-libvirt.c:2004
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2022
+#: lib/launch-libvirt.c:2017
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2192
+#: lib/launch-libvirt.c:2187
 msgid "could not destroy libvirt domain"
 msgstr "libvirt 仮想マシンを強制停止できませんでした"
 
-#: lib/launch-libvirt.c:2213 lib/launch-libvirt.c:2246
+#: lib/launch-libvirt.c:2208 lib/launch-libvirt.c:2241
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: エラーメッセージを形成している内部エラー"
@@ -4542,35 +4538,35 @@ msgstr "ファイルのチャンクの解析に失敗しました"
 msgid "file receive cancelled by daemon"
 msgstr "ファイルの受信がデーモンにより取り消されました"
 
-#: lib/qemu.c:960
+#: lib/qemu.c:910
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: lib/qemu.c:969
+#: lib/qemu.c:919
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:976
+#: lib/qemu.c:926
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:984
+#: lib/qemu.c:934
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: lib/qemu.c:992
+#: lib/qemu.c:942
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:1012
+#: lib/qemu.c:962
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
@@ -5001,6 +4997,9 @@ msgstr ""
 #, c-format
 msgid "path does not look like a qemu source directory: %s"
 msgstr ""
+
+#~ msgid "qemu-img info: unknown JSON parse error"
+#~ msgstr "qemu-img info: 未知の JSON 構文解析エラー"
 
 #~ msgid "gluster: you cannot specify a username with this protocol"
 #~ msgstr "gluster: このプロトコルでユーザー名を指定できません"
