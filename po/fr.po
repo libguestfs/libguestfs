@@ -8,14 +8,15 @@
 # Kévin Raymond <shaiton@fedoraproject.org>, 2012
 # Αικατερίνη Χ. Καταπόδη <spanish.katerina@gmail.com>, 2013
 # grimst <grimaitres@gmail.com>, 2023.
+# Léane GRASSER <leane.grasser@proton.me>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug."
+"cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2024-08-16 15:29+0100\n"
-"PO-Revision-Date: 2023-03-21 09:20+0000\n"
-"Last-Translator: grimst <grimaitres@gmail.com>\n"
+"PO-Revision-Date: 2024-11-06 12:16+0000\n"
+"Last-Translator: Léane GRASSER <leane.grasser@proton.me>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/fr/>\n"
 "Language: fr\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -903,7 +904,7 @@ msgstr "tester si le fichier ou le répertoire existe"
 #: fish/cmds.c:673
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
 msgstr ""
-"installer l'amorceur SYSLINUX sur un système de fichiers ext2/3/4 ou btrfs"
+"installer le bootloader SYSLINUX sur un système de fichiers ext2/3/4 ou btrfs"
 
 #: fish/cmds.c:674
 msgid "expand a f2fs filesystem"
@@ -1920,7 +1921,7 @@ msgstr ""
 
 #: fish/cmds.c:964
 msgid "return true if a partition is bootable"
-msgstr "afficher true si une partition est amorçable"
+msgstr "retourner true si une partition est bootable"
 
 #: fish/cmds.c:965
 msgid "get the GUID of a GPT-partitioned disk"
@@ -1968,7 +1969,7 @@ msgstr ""
 
 #: fish/cmds.c:976
 msgid "make a partition bootable"
-msgstr "créer une partition amorçable"
+msgstr "rendre une partition bootable"
 
 #: fish/cmds.c:977
 msgid "set the GUID of a GPT-partitioned disk"
@@ -2389,7 +2390,7 @@ msgstr ""
 
 #: fish/cmds.c:1116
 msgid "install the SYSLINUX bootloader"
-msgstr "installer l'amorceur SYSLINUX"
+msgstr "installer le bootloader SYSLINUX"
 
 #: fish/cmds.c:1117
 msgid "return last 10 lines of a file"
