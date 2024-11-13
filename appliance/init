@@ -115,6 +115,10 @@ if test "$guestfs_network" = 1; then
     # Two workarounds for Ubuntu:
     touch /etc/fstab
     rm -f /etc/dhcp/dhclient-enter-hooks.d/resolved
+    # Prevent dhcpcd from failing when /etc/resolv.conf is a dangling symlink.
+    if [ -L "/etc/resolv.conf" ] && [ ! -e "/etc/resolv.conf" ]; then
+        rm -f /etc/resolv.conf
+    fi
     if dhclient --version >/dev/null 2>&1; then
         dhclient $iface
     elif dhcpcd $iface; then
