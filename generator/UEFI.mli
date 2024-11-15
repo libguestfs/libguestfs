@@ -17,5 +17,3 @@
  *)
 
 val generate_uefi_c : unit -> unit
-val generate_uefi_ml : unit -> unit
-val generate_uefi_mli : unit -> unit

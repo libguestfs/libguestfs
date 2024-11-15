@@ -23,9 +23,9 @@ open Utils
 open Pr
 open Docstrings
 
-(* danpb is proposing that libvirt supports E<lt>loader type="efi"/E<gt>
- * (L<https://bugzilla.redhat.com/1217444#c6>).  If that happens we can
- * simplify or even remove this code.
+(* This code is currently only used when starting the appliance
+ * on aarch64 (and probably only on RHEL).  (See lib/appliance-uefi.c)
+ * It is vestigial and we should think about deleting it.
  *)
 
 (* Order is significant *within architectures only*. *)
@@ -110,55 +110,3 @@ let generate_uefi_c () =
       ) firmware;
       pr "};\n";
   ) arches
-
-let generate_uefi_ml () =
-  generate_header OCamlStyle GPLv2plus;
-
-  pr "\
-type uefi_firmware = {
-  code : string;
-  code_debug : string option;
-  vars : string;
-  flags : uefi_flags;
-}
-and uefi_flags = uefi_flag list
-and uefi_flag = UEFI_FLAG_SECURE_BOOT_REQUIRED
-";
-  List.iter (
-    fun arch ->
-      let firmware =
-        List.filter (fun (arch', _, _, _, _) -> arch = arch') firmware in
-      pr "\n";
-      pr "let uefi_%s_firmware = [\n" arch;
-      List.iter (
-        fun (_, code, code_debug, vars, flags) ->
-          pr "  { code = %S;\n" code;
-          (match code_debug with
-           | None -> pr "    code_debug = None;\n"
-           | Some code_debug -> pr "    code_debug = Some %S;\n" code_debug
-          );
-          pr "    vars = %S;\n" vars;
-          pr "    flags = [%s];\n" (String.concat "; " flags);
-          pr "  };\n";
-      ) firmware;
-      pr "]\n";
-  ) arches
-
-let generate_uefi_mli () =
-  generate_header OCamlStyle GPLv2plus;
-
-  pr "\
-(** UEFI paths. *)
-
-type uefi_firmware = {
-  code : string;                (** code file *)
-  code_debug : string option;   (** code debug file *)
-  vars : string;                (** vars template file *)
-  flags : uefi_flags;           (** flags *)
-}
-and uefi_flags = uefi_flag list
-and uefi_flag = UEFI_FLAG_SECURE_BOOT_REQUIRED
-
-";
-
-  List.iter (pr "val uefi_%s_firmware : uefi_firmware list\n") arches

@@ -447,7 +447,6 @@ maintainer-check-extra-dist:
 	  grep -v '^common/mlgettext/' | \
 	  grep -v '^common/mlprogress/' | \
 	  grep -v '^common/mltools/' | \
-	  grep -v '^common/mlv2v/' | \
 	  grep -v '^common/mlvisit/' | \
 	  grep -v '^common/mlxml/' | \
 	  grep -v '^intltool-.*\.in' | \
@@ -458,7 +457,7 @@ maintainer-check-extra-dist:
 	cat tmp/comm-out
 	[ ! -s tmp/comm-out ]
 	@echo Checking for generated files missing from the tarball ...
-	@for f in `cat generator/files-generated.txt | grep -v '^common/mlcustomize' | grep -v '^common/mlv2v/'`; do \
+	@for f in `cat generator/files-generated.txt | grep -v '^common/mlcustomize'`; do \
 	  if ! grep -sq "^$$f\$$" tmp/tarfiles; then \
 	    echo generated file missing from tarball: $$f; \
 	    exit 1; \
