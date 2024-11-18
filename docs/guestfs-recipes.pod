@@ -398,18 +398,18 @@ Save the following script into a file called F<product-name.sh>:
 
 Make the script executable and run it on a named guest:
 
- # product-name.sh RHEL60x64
- Red Hat Enterprise Linux Server release 6.0 (Santiago)
+ $ product-name.sh fedora-40.img
+ Fedora Linux 40 (Forty)
 
 You can also use an XPath query on the L<virt-inspector(1)> XML using
 the C<xpath> command line tool or from your favourite programming
 language:
 
- # virt-inspector RHEL60x64 > xml
- # xpath '//product_name' < xml
- Found 1 nodes:
+ $ virt-inspector -a fedora-40.img > xml
+ $ xpath -e '//product_name' < xml
+ Found 1 nodes in stdin:
  -- NODE --
- <product_name>Red Hat Enterprise Linux Server release 6.0 (Santiago)</product_name>
+ <product_name>Fedora Linux 40 (Forty)</product_name>
 
 =head1 Get the default boot kernel for a Linux VM
 
