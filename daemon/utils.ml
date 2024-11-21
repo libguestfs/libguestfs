@@ -188,11 +188,6 @@ and compare_device_names a b =
     )
   )
 
-(* Bytes.get_uint8 was added in OCaml 4.08, so when we depend on
- * that version, remove this definition.
- *)
-external bytes_get_uint8 : bytes -> int -> int = "%bytes_safe_get"
-
 let has_bogus_mbr device =
   try
     with_openfile device [O_RDONLY; O_CLOEXEC] 0 (fun fd ->
@@ -207,7 +202,7 @@ let has_bogus_mbr device =
                        0x0E  (* FAT16B LBA *)] in
       let sec0 = Bytes.create sec0size in
       let sec0read = read fd sec0 0 sec0size in
-      let sec0at = bytes_get_uint8 sec0 in
+      let sec0at = Bytes.get_uint8 sec0 in
 
       (* sector read completely *)
       sec0read = sec0size &&

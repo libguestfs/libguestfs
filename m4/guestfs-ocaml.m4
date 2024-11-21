@@ -38,10 +38,10 @@ AC_ARG_ENABLE([ocaml],
     [],
     [enable_ocaml=yes])
 
-dnl OCaml >= 4.07 is required.
-ocaml_ver_str=4.07
+dnl OCaml >= 4.08 is required.
+ocaml_ver_str=4.08
 ocaml_min_major=4
-ocaml_min_minor=7
+ocaml_min_minor=8
 AC_MSG_CHECKING([if OCaml version >= $ocaml_ver_str])
 ocaml_major="`echo $OCAMLVERSION | $AWK -F. '{print $1}'`"
 ocaml_minor="`echo $OCAMLVERSION | $AWK -F. '{print $2}' | sed 's/^0//'`"
@@ -189,21 +189,6 @@ if test "x$OCAML_PKG_ounit2" != "xno"; then
 fi
 AM_CONDITIONAL([HAVE_OCAML_PKG_OUNIT],
                [test "x$OCAML_PKG_ounit2" != "xno" && test "x$ounit_is_v2" != "xno"])
-
-dnl Check if OCaml has caml_alloc_initialized_string (added 2017).
-AC_MSG_CHECKING([for caml_alloc_initialized_string])
-cat >conftest.c <<'EOF'
-#include <caml/alloc.h>
-int main () { char *p = (void *) caml_alloc_initialized_string; return 0; }
-EOF
-AS_IF([$OCAMLC conftest.c >&AS_MESSAGE_LOG_FD 2>&1],[
-    AC_MSG_RESULT([yes])
-    AC_DEFINE([HAVE_CAML_ALLOC_INITIALIZED_STRING],[1],
-              [caml_alloc_initialized_string found at compile time.])
-],[
-    AC_MSG_RESULT([no])
-])
-rm -f conftest.c conftest.o
 
 dnl Flags we want to pass to every OCaml compiler call.
 OCAML_WARN_ERROR="-warn-error +C+D+E+F+L+M+P+S+U+V+Y+Z+X+52-3-6 -w -6"
