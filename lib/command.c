@@ -91,7 +91,7 @@
 #include <assert.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/select.h>
+#include <poll.h>
 
 #ifdef HAVE_SYS_TIME_H
 #include <sys/time.h>
@@ -642,37 +642,37 @@ run_child (struct command *cmd, char **env)
 static int
 loop (struct command *cmd)
 {
-  fd_set rset, rset2;
-  int maxfd = -1, r;
+  struct pollfd fds[2];
+  int r;
   size_t nr_fds = 0;
   CLEANUP_FREE char *buf = safe_malloc (cmd->g, BUFSIZ);
   ssize_t n;
 
-  FD_ZERO (&rset);
+  fds[0].fd = -1;
+  fds[1].fd = -1;
 
   if (cmd->errorfd >= 0) {
-    FD_SET (cmd->errorfd, &rset);
-    maxfd = MAX (cmd->errorfd, maxfd);
+    fds[0].fd = cmd->errorfd;
+    fds[0].events = POLLIN;
     nr_fds++;
   }
 
   if (cmd->outfd >= 0) {
-    FD_SET (cmd->outfd, &rset);
-    maxfd = MAX (cmd->outfd, maxfd);
+    fds[1].fd = cmd->outfd;
+    fds[1].events = POLLIN;
     nr_fds++;
   }
 
   while (nr_fds > 0) {
-    rset2 = rset;
-    r = select (maxfd+1, &rset2, NULL, NULL, NULL);
+    r = poll(fds, 2, -1);
     if (r == -1) {
       if (errno == EINTR || errno == EAGAIN)
         continue;
-      perrorf (cmd->g, "select");
+      perrorf (cmd->g, "poll");
       return -1;
     }
 
-    if (cmd->errorfd >= 0 && FD_ISSET (cmd->errorfd, &rset2)) {
+    if (cmd->errorfd >= 0 && fds[0].revents) {
       /* Read output and send it to the log. */
       n = read (cmd->errorfd, buf, BUFSIZ);
       if (n > 0)
@@ -681,20 +681,20 @@ loop (struct command *cmd)
       else if (n == 0) {
         if (close (cmd->errorfd) == -1)
           perrorf (cmd->g, "close: errorfd");
-        FD_CLR (cmd->errorfd, &rset);
+        fds[0].fd = -1;
         cmd->errorfd = -1;
         nr_fds--;
       }
       else if (n == -1) {
         perrorf (cmd->g, "read: errorfd");
         close (cmd->errorfd);
-        FD_CLR (cmd->errorfd, &rset);
+        fds[0].fd = -1;
         cmd->errorfd = -1;
         nr_fds--;
       }
     }
 
-    if (cmd->outfd >= 0 && FD_ISSET (cmd->outfd, &rset2)) {
+    if (cmd->outfd >= 0 && fds[1].revents) {
       /* Read the output, buffer it up to the end of the line, then
        * pass it to the callback.
        */
@@ -708,14 +708,14 @@ loop (struct command *cmd)
           cmd->outbuf.close_data (cmd);
         if (close (cmd->outfd) == -1)
           perrorf (cmd->g, "close: outfd");
-        FD_CLR (cmd->outfd, &rset);
+        fds[1].fd = -1;
         cmd->outfd = -1;
         nr_fds--;
       }
       else if (n == -1) {
         perrorf (cmd->g, "read: outfd");
         close (cmd->outfd);
-        FD_CLR (cmd->outfd, &rset);
+        fds[1].fd = -1;
         cmd->outfd = -1;
         nr_fds--;
       }
