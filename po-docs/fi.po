@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.43.1\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-08-12 15:34+0200\n"
-"PO-Revision-Date: 2024-12-20 09:38+0000\n"
+"PO-Revision-Date: 2024-12-20 15:48+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/fi/>\n"
@@ -72478,7 +72478,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:672
 msgid "The size in petabytes (multiplied by 2**50)."
-msgstr ""
+msgstr "Koko petatavuina (kerrottu 2**50:llä)."
 
 #. type: =item
 #: fish/guestfish.pod:674
@@ -72488,7 +72488,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:676
 msgid "The size in SI 10**15 byte units."
-msgstr ""
+msgstr "Koko SI:n 10**15 tavuyksikköinä."
 
 #. type: =item
 #: fish/guestfish.pod:678
@@ -72498,7 +72498,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:680
 msgid "The size in exabytes (multiplied by 2**60)."
-msgstr ""
+msgstr "Koko eksatavuina (kerrottu 2**60:lla)."
 
 #. type: =item
 #: fish/guestfish.pod:682
@@ -72508,7 +72508,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:684
 msgid "The size in SI 10**18 byte units."
-msgstr ""
+msgstr "Koko SI:n 10**18 tavuyksikköinä."
 
 #. type: =item
 #: fish/guestfish.pod:686
@@ -72518,7 +72518,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:688
 msgid "The size in zettabytes (multiplied by 2**70)."
-msgstr ""
+msgstr "Koko zettatavuina (kerrottu 2**70:llä)."
 
 #. type: =item
 #: fish/guestfish.pod:690
@@ -72528,7 +72528,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:692
 msgid "The size in SI 10**21 byte units."
-msgstr ""
+msgstr "Koko SI:n 10**22 tavuyksikköinä."
 
 #. type: =item
 #: fish/guestfish.pod:694
@@ -72538,7 +72538,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:696
 msgid "The size in yottabytes (multiplied by 2**80)."
-msgstr ""
+msgstr "Koko yottatavuina (kerrottu 2**80:lla)."
 
 #. type: =item
 #: fish/guestfish.pod:698
@@ -72548,7 +72548,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:700
 msgid "The size in SI 10**24 byte units."
-msgstr ""
+msgstr "Koko SI:n 10**24 tavuyksikköinä."
 
 #. type: verbatim
 #: fish/guestfish.pod:706
@@ -72561,7 +72561,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:708
 msgid "would truncate the file to 1 gigabyte."
-msgstr ""
+msgstr "katkaisisi tiedoston 1 gigatavuun."
 
 #. type: textblock
 #: fish/guestfish.pod:710
@@ -72570,6 +72570,9 @@ msgid ""
 "(eg. the parameter to L</memsize> is specified in megabytes already).  "
 "Adding a suffix will probably not do what you expect."
 msgstr ""
+"Ole varovainen, sillä muutaman komennon koko on kilotavuina tai megatavuina ("
+"esim. parametri L</memsize> on jo määritetty megatavuina). Loppuliitteen "
+"lisääminen ei todennäköisesti tuota sitä, mitä odotat."
 
 #. type: =head2
 #: fish/guestfish.pod:714
@@ -74325,7 +74328,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:1490 lib/guestfs.pod:3378
 msgid "Set the memory allocated to the qemu process, in megabytes.  For example:"
-msgstr ""
+msgstr "Aseta qemu-prosessille varattu muisti megatavuina. Esimerkiksi:"
 
 #. type: verbatim
 #: fish/guestfish.pod:1493 lib/guestfs.pod:3381
@@ -75748,6 +75751,10 @@ msgid ""
 "be used in conjunction with I<--no-fork> in order to run guestmount captive "
 "under another process."
 msgstr ""
+"Määritä putki- tai eventfd-tiedoston kuvaaja. Kun liitoskohta on valmis "
+"käytettäväksi, guestmount kirjoittaa yhden tavun tähän tiedostokuvaajaan. "
+"Tätä voidaan käyttää yhdessä I<--no-fork>:n kanssa guestmountin kaappauksen "
+"suorittamiseen toisen prosessin alaisena."
 
 #. type: textblock
 #: fuse/guestmount.pod:230
