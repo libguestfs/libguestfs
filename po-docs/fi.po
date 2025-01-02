@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.43.1\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-08-12 15:34+0200\n"
-"PO-Revision-Date: 2022-12-23 18:20+0000\n"
-"Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
+"PO-Revision-Date: 2024-12-20 15:48+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/fi/>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15\n"
+"X-Generator: Weblate 5.9.1\n"
 
 #. type: =head1
 #: align/virt-alignment-scan.pod:1
@@ -330,7 +330,7 @@ msgstr "sar 2"
 #. type: textblock
 #: align/virt-alignment-scan.pod:79
 msgid "the start of the partition in bytes"
-msgstr ""
+msgstr "osion alku tavuina"
 
 #. type: =item
 #: align/virt-alignment-scan.pod:81
@@ -340,7 +340,7 @@ msgstr "sar 3"
 #. type: textblock
 #: align/virt-alignment-scan.pod:83
 msgid "the alignment in bytes or Kbytes (eg. C<512> or C<4K>)"
-msgstr ""
+msgstr "kohdistus tavuina tai kilotavuina (esim. C<512> tai C<4K>)"
 
 #. type: =item
 #: align/virt-alignment-scan.pod:85
@@ -878,6 +878,14 @@ msgid ""
 "places the first partition at the start of the second \"track\", at sector "
 "63."
 msgstr ""
+"Käyttöjärjestelmät, jotka ovat vanhemmat kuin Windows 2008 ja Linux ennen "
+"noin 2010, sijoittavat ensimmäisen osion ensimmäisen sektorin sektoriin 63, "
+"sektorin koolla 512 tavua. Tämä tapahtuu historiallisen onnettomuuden "
+"vuoksi. Asemien on raportoitava sylinterin/pään/sektorin (CHS) geometria "
+"BIOSiin. Geometria on täysin merkityksetön nykyaikaisissa käytöissä, mutta "
+"tapahtuu niin, että raportoitavassa geometriassa on aina 63 sektoria raitaa "
+"kohden. Siksi käyttöjärjestelmä sijoittaa ensimmäisen osion toisen \"raidan\""
+" alkuun sektoriin 63."
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:224
@@ -889,7 +897,7 @@ msgstr ""
 #. type: =item
 #: align/virt-alignment-scan.pod:229
 msgid "* 512 bytes"
-msgstr ""
+msgstr "* 512 tavua"
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:231
@@ -897,11 +905,13 @@ msgid ""
 "if the host OS uses local storage directly on hard drive partitions, and the "
 "hard drive has 512 byte physical sectors."
 msgstr ""
+"jos isäntäkäyttöjärjestelmä käyttää paikallista tallennustilaa suoraan "
+"kiintolevyosioille ja kiintolevyllä on 512 tavun fyysiset sektorit."
 
 #. type: =item
 #: align/virt-alignment-scan.pod:234
 msgid "* 4 Kbytes"
-msgstr ""
+msgstr "* 4 kilotavua"
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:236
@@ -910,11 +920,15 @@ msgid ""
 "file-backed storage on filesystems with 4Kbyte block size; or for some types "
 "of network-attached storage."
 msgstr ""
+"paikallista tallennusta varten uusille kiintolevyille, joissa on 4 kt:n "
+"fyysiset sektorit; tiedostojen tuettu tallennus tiedostojärjestelmissä, "
+"joiden lohkokoko on 4 kilotavua; tai joillekin verkkoon liitetyille "
+"tallennustyypeille."
 
 #. type: =item
 #: align/virt-alignment-scan.pod:240
 msgid "* 64 Kbytes"
-msgstr ""
+msgstr "* 64 kilotavua"
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:242
@@ -926,7 +940,7 @@ msgstr ""
 #. type: =item
 #: align/virt-alignment-scan.pod:245
 msgid "* 1 Mbyte"
-msgstr ""
+msgstr "* 1 megatavu"
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:247
@@ -979,7 +993,7 @@ msgstr ""
 #. type: textblock
 #: align/virt-alignment-scan.pod:273
 msgid "For a typical consumer hard drive with 512 byte sectors:"
-msgstr ""
+msgstr "Tyypilliselle kuluttajakiintolevylle, jossa on 512 tavun sektoreita:"
 
 #. type: verbatim
 #: align/virt-alignment-scan.pod:275
@@ -1001,7 +1015,7 @@ msgstr ""
 #. type: textblock
 #: align/virt-alignment-scan.pod:286
 msgid "For a new consumer hard drive with 4Kbyte sectors:"
-msgstr ""
+msgstr "Uudelle kuluttajakiintolevylle, jossa on 4 kilotavun sektorit:"
 
 #. type: verbatim
 #: align/virt-alignment-scan.pod:288
@@ -1046,6 +1060,8 @@ msgid ""
 "The NetApp allows 512 byte accesses (but they will be very inefficient), "
 "prefers a minimum 4K I/O size, but the optimal I/O size is 64K."
 msgstr ""
+"NetApp sallii 512 tavun pääsyt (mutta ne ovat erittäin tehottomia), suosii "
+"vähintään 4 k I/O-kokoa, mutta optimaalinen I/O-koko on 64 k."
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:314
@@ -1080,6 +1096,9 @@ msgid ""
 "starting at sector 2048, and subsequent partitions (if any)  will start at a "
 "multiple of 2048 sectors."
 msgstr ""
+"Olettaen 512 tavun sektorit vieraassa, näet nyt ensimmäisen osion alkaen "
+"sektorista 2048 ja myöhemmät osiot (jos sellaisia on) alkavat 2048 sektorin "
+"kerrannaiselta."
 
 #. type: textblock
 #: align/virt-alignment-scan.pod:329
@@ -3357,6 +3376,8 @@ msgid ""
 "Select the size of the output disk, where the size can be specified using "
 "common names such as C<32G> (32 gigabytes) etc."
 msgstr ""
+"Valitse tulostuslevyn koko, jolle koko voidaan määrittää yleisillä nimillä, "
+"kuten C<32G> (32 gigatavua) jne."
 
 #. type: textblock
 #: builder/virt-builder.pod:488
@@ -3377,6 +3398,8 @@ msgid ""
 "To specify size in bytes, the number must be followed by the lowercase "
 "letter I<b>, eg: S<C<--size 10737418240b>>."
 msgstr ""
+"Jos haluat määrittää koon tavuina, numeron perässä on oltava pieni kirjain "
+"I<b>, esim.: S<C<--size 10737418240b>>."
 
 #. type: =item
 #: builder/virt-builder.pod:499 customize/virt-customize.pod:211
@@ -5228,6 +5251,9 @@ msgid ""
 "uncompressed.  If using a non-raw format such as qcow2 then it means the "
 "virtual disk size, not the size of the qcow2 file."
 msgstr ""
+"Kuvan virtuaalinen koko tavuina. Tämä on kuvan koko pakkaamattomana. Jos "
+"käytät muuta kuin raakamuotoa, kuten qcow2, se tarkoittaa virtuaalilevyn "
+"kokoa, ei qcow2-tiedoston kokoa."
 
 #. type: textblock
 #: builder/virt-builder.pod:1427
@@ -5249,6 +5275,9 @@ msgid ""
 "I<file=..>.  This is just used for information (when using C<long>, and "
 "C<json> formats of I<--list>)."
 msgstr ""
+"Levykuvan todellinen koko tavuina, eli se, mikä määritettiin kohdassa "
+"I<tiedosto=..>. Tätä käytetään vain tiedoksi (käytettäessä I<--list>:n "
+"C<long>- ja C<json>-muotoja)."
 
 #. type: =item
 #: builder/virt-builder.pod:1437
@@ -7024,6 +7053,8 @@ msgid ""
 "Use I<-h> if you want sizes to be displayed in human-readable format.  The "
 "default is to show raw numbers of I<bytes>."
 msgstr ""
+"Käytä I<-h>-näppäintä, jos haluat koot näkyvän ihmisen luettavassa muodossa. "
+"Oletusarvo on näyttää I<tavua> käsittelemättömät numerot."
 
 #. type: textblock
 #: cat/virt-filesystems.pod:224
@@ -7220,6 +7251,9 @@ msgid ""
 "comprehensive list of partition types can be found here: "
 "L<http://www.win.tue.nl/~aeb/partitions/partition_types-1.html>"
 msgstr ""
+"Osion tyypin tavu, joka näytetään kaksinumeroisena heksadesimaalilukuna. "
+"Kattava luettelo osiotyypeistä löytyy täältä: L<http://www.win.tue.nl/~aeb/"
+"partitions/partition_types-1.html>"
 
 #. type: textblock
 #: cat/virt-filesystems.pod:328
@@ -7237,6 +7271,8 @@ msgid ""
 "The size of the object in bytes.  If the I<--human> option is used then the "
 "size is displayed in a human-readable form."
 msgstr ""
+"Objektin koko tavuina. Jos I<--human> -vaihtoehtoa käytetään, koko näytetään "
+"ihmisen luettavassa muodossa."
 
 #. type: =item
 #: cat/virt-filesystems.pod:335
@@ -7847,6 +7883,9 @@ msgid ""
 "I<--human-readable> option is given, in which case this is shown as a "
 "human-readable number."
 msgstr ""
+"Tiedoston koko. Tämä näytetään tavuina, ellei I<-h> tai I<--human-readable> -"
+"vaihtoehtoa ole annettu, jolloin tämä näytetään ihmisen luettavissa olevana "
+"numerona."
 
 #. type: =head2
 #: cat/virt-ls.pod:169 fish/guestfish-actions.pod:8398
@@ -7996,7 +8035,7 @@ msgstr "lohkot"
 #. type: textblock
 #: cat/virt-ls.pod:241
 msgid "The number of 512 byte blocks allocated to the file."
-msgstr ""
+msgstr "Tiedostolle varattujen 512 tavun lohkojen määrä."
 
 #. type: textblock
 #: cat/virt-ls.pod:245
@@ -9342,6 +9381,10 @@ msgid ""
 "value which is usually 512 bytes.  See also "
 "L<guestfs(3)/guestfs_add_drive_opts>."
 msgstr ""
+"Tämä parametri määrittää levyvedoksen sektorikoon. Se vaikuttaa kaikkiin "
+"tämän parametrin jälkeen erikseen lisättyihin levyihin. Kun I<--blocksize>-"
+"arvoa ei käytetä, levysektorin koko vaihdetaan oletusarvoon, joka on yleensä "
+"512 tavua. Katso myös L<guestfs(3)/guestfs_add_drive_opts>."
 
 #. type: =item
 #: common/options/key-option.pod:1
@@ -10860,6 +10903,8 @@ msgid ""
 "Select the size of the output disk, where the size can be specified using "
 "common names such as C<32G> (32 gigabytes) etc.  The default size is C<5G>."
 msgstr ""
+"Valitse tulostelevyn koko, jolle koko voidaan määrittää käyttämällä yleisiä "
+"nimiä, kuten C<32G> (32 gigatavua) jne. Oletuskoko on C<5G>."
 
 #. type: textblock
 #: dib/virt-dib.pod:423
@@ -18009,7 +18054,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-hacking.pod:933
 msgid "Compiling for byte code or native code."
-msgstr ""
+msgstr "Kääntäminen tavukoodia tai alkuperäistä koodia varten."
 
 #. type: textblock
 #: docs/guestfs-hacking.pod:937
@@ -18707,6 +18752,9 @@ msgid ""
 "byte message C<GUESTFS_LAUNCH_FLAG>, which initiates the communication "
 "protocol (see below)."
 msgstr ""
+"Daemon muodostaa yhteyden tähän porttiin (ja siten kirjastoon) ja lähettää "
+"nelitavuisen viestin C<GUESTFS_LAUNCH_FLAG>, joka käynnistää "
+"viestintäprotokollan (katso alla)."
 
 #. type: =head2
 #: docs/guestfs-internals.pod:203
@@ -18775,6 +18823,11 @@ msgid ""
 "is limited to C<GUESTFS_MESSAGE_MAX> bytes (currently 4MB), which means the "
 "effective size of any request is limited to somewhere under this size."
 msgstr ""
+"Kokonaispituuskenttä sallii demonin varata kiinteän kokoisen puskurin, johon "
+"se liittää loppuosan viestistä. Tämän seurauksena kokonaispituus on "
+"rajoitettu C<GUESTFS_MESSAGE_MAX> tavuun (tällä hetkellä 4 Mt), mikä "
+"tarkoittaa, että minkä tahansa pyynnön todellinen koko on rajoitettu "
+"johonkin tämän koon alapuolelle."
 
 #. type: textblock
 #: docs/guestfs-internals.pod:237
@@ -21198,7 +21251,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-recipes.pod:486
 msgid "(C<0x200> = 512 bytes which is the size of traditional PC sectors)"
-msgstr ""
+msgstr "(C<0x200> = 512 tavua, joka on perinteisten PC:den sektoreiden koko)"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:488
@@ -22736,6 +22789,8 @@ msgid ""
 "   - the MBR partition type byte is displayed in --long output.\n"
 "\n"
 msgstr ""
+"   - MBR-osion tyyppinen tavu näkyy -'-long' tulosteena.\n"
+"\n"
 
 #. type: =head3
 #: docs/guestfs-release-notes-1.14.pod:45
@@ -26811,6 +26866,12 @@ msgid ""
 "we changed the code to avoid modulo bias.  These issues were not thought to "
 "be exploitable.  (Both changes suggested by Edwin Török)"
 msgstr ""
+"Luotaessa satunnaisia pääsalasanoja ja satunnaisia siemeniä korjattiin kaksi "
+"virhettä, jotka mahdollisesti liittyvät tietoturvaan. Ensinnäkin emme enää "
+"lue ylimääräisiä tavuja F</dev/urandom>:sta (joista suurin osa vain "
+"heitettiin pois). Toiseksi muutimme koodia modulo biasin välttämiseksi. "
+"Näitä ongelmia ei pidetty hyödynnettävissä. (Molemmat muutokset ehdotti "
+"Edwin Török)"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.26.pod:114
@@ -31393,6 +31454,9 @@ msgid ""
 "filesystem which not meet the help message. Also for ntfs it should give a "
 "warning message when the length >128 bytes"
 msgstr ""
+"set-label voi asettaa vain <=127 tavua btrfs:lle ja <=126 tavua ntfs-"
+"tiedostojärjestelmälle, jotka eivät vastaa ohjeviestiä. Myös ntfs:lle sen "
+"pitäisi antaa varoitusviesti, kun pituus >128 tavua"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.32.pod:480
@@ -35626,6 +35690,37 @@ msgid ""
 " - zero-device - write zeroes to an entire device\n"
 "\n"
 msgstr ""
+" - aug-clear - selkeä Augeas-polku\n"
+" - available-all-groups - palauttaa luettelon kaikista valinnaisista "
+"ryhmistä\n"
+" - base64-in - lataa base64-koodatut tiedot tiedostoon\n"
+" - base64-out - lataa tiedosto ja koodaa base64:ksi\n"
+" - checksum-device - laskee tarkistussummat laitteen sisällöstä\n"
+" - checksums-out - laskee useiden tiedostojen tarkistussummat hakemistossa\n"
+" - debug-upload - lataa tiedosto laitteeseen\n"
+" - fallocate64 - varata tiedosto etukäteen vierastiedostojärjestelmässä\n"
+" - fill-pattern - täytä tiedosto toistuvalla tavukuviolla\n"
+" - get-umask - hanki nykyinen umask\n"
+" - lvresize-free - laajenna LV täyttääksesi vapaan tilan\n"
+" - ntfsresize - muuttaa NTFS-tiedostojärjestelmän kokoa\n"
+" - ntfsresize-size - muuta NTFS-tiedostojärjestelmän kokoa (koon kanssa)\n"
+" - part-del - osion poistaminen\n"
+" - part-get-bootable - hanki osion käynnistettävä lippu\n"
+" - part-get-mbr-id - hanki osion MBR-tyyppinen tavu\n"
+" - part-set-mbr-id - aseta osion MBR-tyyppinen tavu\n"
+" - pvresize-size - muuta fyysisen tilavuuden kokoa (koon kanssa)\n"
+" - pwrite - kirjoittaa tiedoston osaan\n"
+" - resize2fs-size - muuttaa ext2/3/4-tiedostojärjestelmän kokoa (koon kanssa)"
+"\n"
+" - txz-in - pura pakattu tarball hakemistoon (RHBZ#580556)\n"
+" - txz-out - pakkaa hakemisto pakattuun tarballiin (RHBZ#580556)\n"
+" - vfs-label - hanki tiedostojärjestelmän nimi\n"
+" - vfs-uuid - hanki tiedostojärjestelmän UUID\n"
+" - vgscan - etsi LVM:n fyysiset asemat, taltioryhmät ja loogiset taltiot "
+"uudelleen\n"
+" - write - luo uusi tiedosto\n"
+" - zero-device - kirjoittaa nollia koko laitteeseen\n"
+"\n"
 
 #. type: verbatim
 #: docs/guestfs-release-notes-1.4.pod:122
@@ -38221,6 +38316,10 @@ msgid ""
 "for one of the known headers, and if none is found then assuming the disk "
 "image must be raw."
 msgstr ""
+"Raaka levykuva on vain raakatavuja, otsikkoa ei ole. Muut levykuvat, kuten "
+"qcow2, sisältävät erityisen otsikon. Qemu käsittelee tämän etsimällä yhtä "
+"tunnetuista otsikoista, ja jos sellaista ei löydy, olettaen, että levykuvan "
+"on oltava raaka."
 
 #. type: textblock
 #: docs/guestfs-security.pod:159
@@ -51844,7 +51943,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:953 lib/guestfs-actions.pod:1424
 msgid "This returns the size of the device in bytes."
-msgstr ""
+msgstr "Tämä palauttaa laitteen koon tavuina."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:955
@@ -51895,6 +51994,8 @@ msgid ""
 "This returns the size of the device in units of 512-byte sectors (even if "
 "the sectorsize isn't 512 bytes ... weird)."
 msgstr ""
+"Tämä palauttaa laitteen koon 512-tavuisten sektoreiden yksiköissä (vaikka "
+"sektorin koko ei olisi 512 tavua; outoa)."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:978
@@ -51902,6 +52003,8 @@ msgid ""
 "See also L</blockdev-getss> for the real sector size of the device, and "
 "L</blockdev-getsize64> for the more useful I<size in bytes>."
 msgstr ""
+"Katso myös L</blockdev-getss> laitteen todellisesta sektorin koosta ja L"
+"</blockdev-getsize64> hyödyllisemmistä I<koko tavuina>."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:984
@@ -52247,6 +52350,8 @@ msgid ""
 "The new size (in bytes) of the filesystem.  If omitted, the filesystem is "
 "resized to the maximum size."
 msgstr ""
+"Tiedostojärjestelmän uusi koko (tavuina). Jos se jätetään pois, "
+"tiedostojärjestelmän koko muutetaan enimmäiskokoon."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1134 lib/guestfs-actions.pod:1742
@@ -54463,7 +54568,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:2216 lib/guestfs-actions.pod:3889
 msgid "The result is the estimated size in I<kilobytes> (ie. units of 1024 bytes)."
-msgstr ""
+msgstr "Tuloksena on arvioitu koko I<kilotavuina> (eli 1024 tavun yksiköinä)."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:2219
@@ -56613,7 +56718,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:3263 lib/guestfs-actions.pod:5347
 msgid "This gets the memory size in megabytes allocated to the hypervisor."
-msgstr ""
+msgstr "Tämä saa hypervisorille varatun muistin koon megatavuina."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3266
@@ -60020,6 +60125,8 @@ msgid ""
 "This returns true iff the file exists and the file is empty or it contains "
 "all zero bytes."
 msgstr ""
+"Tämä palauttaa arvon true, jos tiedosto on olemassa ja tiedosto on tyhjä tai "
+"se sisältää kaikki nolla tavua."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:5048
@@ -60038,6 +60145,8 @@ msgstr ""
 #: fish/guestfish-actions.pod:5052 lib/guestfs-actions.pod:8172
 msgid "This returns true iff the device exists and contains all zero bytes."
 msgstr ""
+"Tämä palauttaa arvon true, jos laite on olemassa ja sisältää kaikki nolla "
+"tavua."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:5054 lib/guestfs-actions.pod:8174
@@ -64585,7 +64694,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:7296 lib/guestfs-actions.pod:11868
 msgid "End of the partition in bytes."
-msgstr ""
+msgstr "Osion loppu tavuina."
 
 #. type: =item
 #: fish/guestfish-actions.pod:7298 lib/guestfs-actions.pod:11870
@@ -64595,7 +64704,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:7300 lib/guestfs-actions.pod:11872
 msgid "Size of the partition in bytes."
-msgstr ""
+msgstr "Osion koko tavuina."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7304
@@ -65602,6 +65711,8 @@ msgid ""
 "This command is the same as L</resize2fs> except that it allows you to "
 "specify the new size (in bytes) explicitly."
 msgstr ""
+"Tämä komento on sama kuin L</resize2fs>, paitsi että sen avulla voit "
+"määrittää uuden koon (tavuina) yksiselitteisesti."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7810
@@ -66558,7 +66669,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:8284 lib/guestfs-actions.pod:13472
 msgid "Labels are limited to 16 bytes."
-msgstr ""
+msgstr "Nimiöt on rajoitettu 16 tavuun."
 
 #. type: =item
 #: fish/guestfish-actions.pod:8286 lib/guestfs-actions.pod:13474
@@ -66581,6 +66692,8 @@ msgid ""
 "The label is limited to 12 bytes.  The filesystem must not be mounted when "
 "trying to set the label."
 msgstr ""
+"Nimiö on rajoitettu 12 tavuun. Tiedostojärjestelmää ei saa liittää, kun "
+"yritetään asettaa nimiö."
 
 #. type: =item
 #: fish/guestfish-actions.pod:8295 lib/guestfs-actions.pod:13483
@@ -66595,6 +66708,10 @@ msgid ""
 "filesystem.  The filesystem must not be mounted when trying to set the "
 "label."
 msgstr ""
+"Nimiö on rajoitettu 255 tavuun, ja jotkin merkit eivät ole sallittuja. "
+"Nimiön asettaminen btrfs-alitaltiolle asettaa tunnisteen sen "
+"päätiedostojärjestelmään. Tiedostojärjestelmää ei saa liittää, kun yritetään "
+"asettaa nimiö."
 
 #. type: =item
 #: fish/guestfish-actions.pod:8302 lib/guestfs-actions.pod:13490
@@ -66604,7 +66721,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:8304 lib/guestfs-actions.pod:13492
 msgid "The label is limited to 11 bytes."
-msgstr ""
+msgstr "Nimiö on rajoitettu 11 tavuun."
 
 #. type: =item
 #: fish/guestfish-actions.pod:8306 lib/guestfs-actions.pod:13494
@@ -66614,7 +66731,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:8308 lib/guestfs-actions.pod:13496
 msgid "The label is limited to 16 bytes."
-msgstr ""
+msgstr "Nimiö on rajoitettu 16 tavuun."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8312 lib/guestfs-actions.pod:13500
@@ -67727,7 +67844,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:8859 lib/guestfs-actions.pod:14251
 msgid "Single 8-bit-byte characters."
-msgstr ""
+msgstr "Yksittäiset 8-bittiset tavumerkit."
 
 #. type: =item
 #: fish/guestfish-actions.pod:8861 lib/guestfs-actions.pod:14253
@@ -68996,6 +69113,8 @@ msgid ""
 "Get the minimum size of filesystem in bytes.  This is the minimum possible "
 "size for filesystem shrinking."
 msgstr ""
+"Hae tiedostojärjestelmän vähimmäiskoko tavuina. Tämä on pienin mahdollinen "
+"koko tiedostojärjestelmän kutistamiseksi."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:9516 lib/guestfs-actions.pod:15355
@@ -70519,6 +70638,7 @@ msgid ""
 "which would allow you to edit anywhere within the first megabyte of the "
 "disk."
 msgstr ""
+"jonka avulla voit muokata missä tahansa levyn ensimmäisen megatavun sisällä."
 
 #. type: textblock
 #: fish/guestfish-commands.pod:188
@@ -72267,6 +72387,8 @@ msgid ""
 "When the command takes a parameter measured in bytes, you can use one of the "
 "following suffixes to specify kilobytes, megabytes and larger sizes:"
 msgstr ""
+"Kun komento ottaa tavuina mitatun parametrin, voit määrittää kilotavuja, "
+"megatavuja ja suurempia kokoja jollakin seuraavista jälkiliitteistä:"
 
 #. type: =item
 #: fish/guestfish.pod:638
@@ -72276,7 +72398,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:640
 msgid "The size in kilobytes (multiplied by 1024)."
-msgstr ""
+msgstr "Koko kilotavuina (kerrottu 1024:llä)."
 
 #. type: =item
 #: fish/guestfish.pod:642
@@ -72286,7 +72408,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:644
 msgid "The size in SI 1000 byte units."
-msgstr ""
+msgstr "Koko SI:n 1000 tavuyksikköinä."
 
 #. type: =item
 #: fish/guestfish.pod:646
@@ -72296,7 +72418,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:648
 msgid "The size in megabytes (multiplied by 1048576)."
-msgstr ""
+msgstr "Koko megatavuina (kerrottu 1048576:lla)."
 
 #. type: =item
 #: fish/guestfish.pod:650
@@ -72306,7 +72428,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:652
 msgid "The size in SI 1000000 byte units."
-msgstr ""
+msgstr "Koko SI:n 1000000 tavuyksikköinä."
 
 #. type: =item
 #: fish/guestfish.pod:654
@@ -72316,7 +72438,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:656
 msgid "The size in gigabytes (multiplied by 2**30)."
-msgstr ""
+msgstr "Koko gigatavuina (kerrottu 2**30:lla)."
 
 #. type: =item
 #: fish/guestfish.pod:658
@@ -72326,7 +72448,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:660
 msgid "The size in SI 10**9 byte units."
-msgstr ""
+msgstr "Koko SI:n 10**9 tavuyksikköinä."
 
 #. type: =item
 #: fish/guestfish.pod:662
@@ -72336,7 +72458,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:664
 msgid "The size in terabytes (multiplied by 2**40)."
-msgstr ""
+msgstr "Koko teratavuina (kerrottu 2**40:llä)."
 
 #. type: =item
 #: fish/guestfish.pod:666
@@ -72346,7 +72468,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:668
 msgid "The size in SI 10**12 byte units."
-msgstr ""
+msgstr "Koko SI:n 10**12 tavuyksikköinä."
 
 #. type: =item
 #: fish/guestfish.pod:670
@@ -72356,7 +72478,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:672
 msgid "The size in petabytes (multiplied by 2**50)."
-msgstr ""
+msgstr "Koko petatavuina (kerrottu 2**50:llä)."
 
 #. type: =item
 #: fish/guestfish.pod:674
@@ -72366,7 +72488,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:676
 msgid "The size in SI 10**15 byte units."
-msgstr ""
+msgstr "Koko SI:n 10**15 tavuyksikköinä."
 
 #. type: =item
 #: fish/guestfish.pod:678
@@ -72376,7 +72498,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:680
 msgid "The size in exabytes (multiplied by 2**60)."
-msgstr ""
+msgstr "Koko eksatavuina (kerrottu 2**60:lla)."
 
 #. type: =item
 #: fish/guestfish.pod:682
@@ -72386,7 +72508,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:684
 msgid "The size in SI 10**18 byte units."
-msgstr ""
+msgstr "Koko SI:n 10**18 tavuyksikköinä."
 
 #. type: =item
 #: fish/guestfish.pod:686
@@ -72396,7 +72518,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:688
 msgid "The size in zettabytes (multiplied by 2**70)."
-msgstr ""
+msgstr "Koko zettatavuina (kerrottu 2**70:llä)."
 
 #. type: =item
 #: fish/guestfish.pod:690
@@ -72406,7 +72528,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:692
 msgid "The size in SI 10**21 byte units."
-msgstr ""
+msgstr "Koko SI:n 10**22 tavuyksikköinä."
 
 #. type: =item
 #: fish/guestfish.pod:694
@@ -72416,7 +72538,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:696
 msgid "The size in yottabytes (multiplied by 2**80)."
-msgstr ""
+msgstr "Koko yottatavuina (kerrottu 2**80:lla)."
 
 #. type: =item
 #: fish/guestfish.pod:698
@@ -72426,7 +72548,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:700
 msgid "The size in SI 10**24 byte units."
-msgstr ""
+msgstr "Koko SI:n 10**24 tavuyksikköinä."
 
 #. type: verbatim
 #: fish/guestfish.pod:706
@@ -72439,7 +72561,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:708
 msgid "would truncate the file to 1 gigabyte."
-msgstr ""
+msgstr "katkaisisi tiedoston 1 gigatavuun."
 
 #. type: textblock
 #: fish/guestfish.pod:710
@@ -72448,6 +72570,9 @@ msgid ""
 "(eg. the parameter to L</memsize> is specified in megabytes already).  "
 "Adding a suffix will probably not do what you expect."
 msgstr ""
+"Ole varovainen, sillä muutaman komennon koko on kilotavuina tai megatavuina ("
+"esim. parametri L</memsize> on jo määritetty megatavuina). Loppuliitteen "
+"lisääminen ei todennäköisesti tuota sitä, mitä odotat."
 
 #. type: =head2
 #: fish/guestfish.pod:714
@@ -74203,7 +74328,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:1490 lib/guestfs.pod:3378
 msgid "Set the memory allocated to the qemu process, in megabytes.  For example:"
-msgstr ""
+msgstr "Aseta qemu-prosessille varattu muisti megatavuina. Esimerkiksi:"
 
 #. type: verbatim
 #: fish/guestfish.pod:1493 lib/guestfs.pod:3381
@@ -75626,6 +75751,10 @@ msgid ""
 "be used in conjunction with I<--no-fork> in order to run guestmount captive "
 "under another process."
 msgstr ""
+"Määritä putki- tai eventfd-tiedoston kuvaaja. Kun liitoskohta on valmis "
+"käytettäväksi, guestmount kirjoittaa yhden tavun tähän tiedostokuvaajaan. "
+"Tätä voidaan käyttää yhdessä I<--no-fork>:n kanssa guestmountin kaappauksen "
+"suorittamiseen toisen prosessin alaisena."
 
 #. type: textblock
 #: fuse/guestmount.pod:230
