@@ -206,8 +206,12 @@ maintainer-upload-website:
 #  docs/C_SOURCE_FILES
 #                 - source files scanned for internal documentation
 #  po/POTFILES    - files with ordinary extensions, but not OCaml files
+#  po-docs/libguestfs-docs.pot
+#                 - combined list of strings from documentation
 
 dist-hook: docs/C_SOURCE_FILES po/POTFILES
+	rm -f po-docs/libguestfs-docs.pot
+	$(MAKE) -C po-docs libguestfs-docs.pot
 
 # This has to be in the top-level Makefile.am so that we have access
 # to DIST_SUBDIRS.
