@@ -41,9 +41,9 @@ EXTRA_DIST = \
 SUBDIRS = $(linguas_translated)
 
 libguestfs-docs.pot:
-	cd $(top_srcdir) && $(PO4A_GETTEXTIZE) \
+	cd $(top_srcdir) && $(PO4A_UPDATEPO) \
 	  -f pod \
-	  -M utf-8 -L utf-8 \
+	  -M utf-8 \
 	  --package-name $(PACKAGE_NAME) \
 	  --package-version $(PACKAGE_VERSION) \
 	  --msgid-bugs-address guestfs@lists.libguestfs.org \
