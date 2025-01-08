@@ -72,7 +72,7 @@ simplified (Roman Kagan).
 virt-v2v I<--in-place> mode now supports installing virtio-scsi
 drivers in guests (Roman Kagan).
 
-virt-v2v can now convert SUSE guests and SUSE guests using UEFI
+virt-v2v can now convert SUSE guests with and without UEFI
 (Cédric Bosdonnat and Jim Fehlig).
 
 virt-v2v can now convert guests to Glance that have multiple disks.
