@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.43.1\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-08-12 15:34+0200\n"
-"PO-Revision-Date: 2024-12-20 15:48+0000\n"
+"PO-Revision-Date: 2025-01-09 08:38+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/fi/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.1\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. type: =head1
 #: align/virt-alignment-scan.pod:1
@@ -28646,7 +28646,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-release-notes-1.30.pod:47
 msgid "virt-v2v can now convert UEFI guests."
-msgstr ""
+msgstr "virt-v2v voi nyt muuntaa UEFI-vieraat."
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.30.pod:49
@@ -28891,7 +28891,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-release-notes-1.30.pod:158
 msgid "Add support for UEFI guests."
-msgstr ""
+msgstr "Lisää tuki UEFI-vieraille."
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.30.pod:160
@@ -28936,6 +28936,8 @@ msgid ""
 "For aarch64, we use AAVMF (an open source UEFI implementation based on OVMF) "
 "if available to run the appliance."
 msgstr ""
+"Aarch64:ssä käytämme AAVMF:a (avoimen lähdekoodin UEFI-toteutus, joka "
+"perustuu OVMF:aan), jos se on käytettävissä laitteiston suorittamiseen."
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.30.pod:176
@@ -32394,7 +32396,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-release-notes-1.34.pod:475
 msgid "virt-sparsify --in-place failed with UEFI system"
-msgstr ""
+msgstr "\"virt-sparsify --in-place\" epäonnistui UEFI-järjestelmässä"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.34.pod:477
@@ -32632,7 +32634,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-release-notes-1.34.pod:563
 msgid "Update UEFI whitelist for official fedora packages"
-msgstr ""
+msgstr "Päivitä virallisten Fedora-pakettien UEFIn valkolista"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.34.pod:567
@@ -33556,6 +33558,9 @@ msgid ""
 "is now fully free software, so use the versions bundled with your Linux "
 "distro instead."
 msgstr ""
+"Kraxelin vanhoja edk2-koontiversioita ei voi enää käyttää UEFI-tukeen. UEFI-"
+"koodi on nyt täysin vapaa ohjelmisto, joten käytä sen sijaan Linux-jakeluusi "
+"mukana toimitettuja versioita."
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.36.pod:293
@@ -33599,7 +33604,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-release-notes-1.36.pod:315
 msgid "UEFI paths are now stored in the generator (F<generator/uefi.ml>)."
-msgstr ""
+msgstr "UEFI-polut on nyt tallennettu generaattoriin (F<generator/uefi.ml>)."
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.36.pod:317
@@ -34030,6 +34035,8 @@ msgid ""
 "OVMF file which is built for rhel7.3 can't be used for virt-v2v uefi "
 "conversion"
 msgstr ""
+"OVMF-tiedostoa, joka on rakennettu rhel7.3:lle, ei voida käyttää virt-v2v "
+"uefi-muunnokseen"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.36.pod:494
@@ -34108,6 +34115,8 @@ msgid ""
 "virt-v2v failed to convert RHEL 6.7 UEFI guest: no grub1/grub-legacy or "
 "grub2 configuration file was found"
 msgstr ""
+"virt-v2v epäonnistui RHEL 6.7 UEFI -vieraan muuntaminen: grub1/grub-legacy- "
+"tai grub2-määritystiedostoa ei löytynyt"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.36.pod:528
@@ -34326,6 +34335,8 @@ msgid ""
 "Virt-v2v I<-o glance> now generates the right properties for UEFI guests "
 "(Pino Toscano)."
 msgstr ""
+"Virt-v2v I<-o glance> luo nyt oikeat ominaisuudet UEFI-vieraille (Pino "
+"Toscano)."
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.38.pod:93
@@ -35262,7 +35273,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-release-notes-1.38.pod:522
 msgid "Windows 8 UEFI from VMware to KVM fails to boot after conversion"
-msgstr ""
+msgstr "Windows 8 UEFI VMwaresta KVM:iin ei käynnisty muuntamisen jälkeen"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.38.pod:524
@@ -35984,7 +35995,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-release-notes-1.40.pod:82
 msgid "Virt-v2v can now support UEFI conversions to RHV (Tomáš Golembiovský)."
-msgstr ""
+msgstr "Virt-v2v voi nyt tukea UEFI-muunnoksia RHV:ksi (Tomáš Golembiovský)."
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.40.pod:84
@@ -39774,12 +39785,12 @@ msgstr ""
 #. type: =head3
 #: docs/internal-documentation.pod:103
 msgid "File F<lib/appliance-uefi.c>"
-msgstr ""
+msgstr "Tiedosto F<lib/appliance-uefi.c>"
 
 #. type: textblock
 #: docs/internal-documentation.pod:105
 msgid "Find the UEFI firmware needed to boot the appliance."
-msgstr ""
+msgstr "Etsi laitteen käynnistämiseen tarvittava UEFI-laiteohjelmisto."
 
 #. type: textblock
 #: docs/internal-documentation.pod:107
@@ -39787,11 +39798,13 @@ msgid ""
 "See also F<lib/uefi.c> (autogenerated file) containing the firmware file "
 "locations."
 msgstr ""
+"Katso myös F<lib/uefi.c> (automaattisesti luotu tiedosto), joka sisältää "
+"laiteohjelmistotiedostojen sijainnit."
 
 #. type: =head4
 #: docs/internal-documentation.pod:110
 msgid "Function C<lib/appliance-uefi.c:guestfs_int_get_uefi>"
-msgstr ""
+msgstr "Funktio C<lib/appliance-uefi.c:guestfs_int_get_uefi>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:112
@@ -39811,6 +39824,9 @@ msgid ""
 "aarch64 only currently, since that's the only architecture where UEFI is "
 "mandatory (and that only for RHEL)."
 msgstr ""
+"Palauta laitteen käynnistämiseen tarvittavan laiteohjelmiston sijainti. Tämä "
+"on tällä hetkellä vain aarch64, koska se on ainoa arkkitehtuuri, jossa UEFI "
+"on pakollinen (ja se vain RHEL:lle)."
 
 #. type: textblock
 #: docs/internal-documentation.pod:121
@@ -39828,6 +39844,9 @@ msgid ""
 "C<*vars> is initialized with the path to a copy of the UEFI vars file (which "
 "is cleaned up automatically on exit)."
 msgstr ""
+"C<*code> alustetaan polulla vain luku -muotoiseen UEFI-kooditiedostoon. C<*"
+"vars> alustetaan polulla UEFI vars -tiedoston kopioon (joka puhdistetaan "
+"automaattisesti poistuttaessa)."
 
 #. type: textblock
 #: docs/internal-documentation.pod:130
@@ -39849,11 +39868,14 @@ msgid ""
 "If the function returns C<-1> then there was a real error which should cause "
 "appliance building to fail (no UEFI firmware is not an error)."
 msgstr ""
+"Jos funktio palauttaa C<-1>, tapahtui todellinen virhe, jonka pitäisi "
+"aiheuttaa laitteen kokoamisen epäonnistumisen (UEFI-laiteohjelmiston "
+"puuttuminen ei ole virhe)."
 
 #. type: textblock
 #: docs/internal-documentation.pod:140
 msgid "See also F<virt-v2v.git/v2v/utils.ml>:find_uefi_firmware"
-msgstr ""
+msgstr "Katso myös F<virt-v2v.git/v2v/utils.ml>:find_uefi_firmware"
 
 #. type: =head3
 #: docs/internal-documentation.pod:142
