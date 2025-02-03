@@ -2,14 +2,14 @@
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the libguestfs package.
 # Jan Kuparinen <copper_fin@hotmail.com>, 2020, 2021, 2022, 2023.
-# Ricky Tigg <ricky.tigg@gmail.com>, 2021, 2024.
+# Ricky Tigg <ricky.tigg@gmail.com>, 2021, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.43.2\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2025-01-08 17:25+0000\n"
-"PO-Revision-Date: 2024-12-20 09:38+0000\n"
+"PO-Revision-Date: 2025-01-11 07:16+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/fi/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.1\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -4089,10 +4089,9 @@ msgid "passt exited with status %d"
 msgstr ""
 
 #: lib/launch-direct.c:425
-#, fuzzy, c-format
-#| msgid "failed to create PV: %s: %s"
+#, c-format
 msgid "failed to parse passt PID from '%s'"
-msgstr "PV:n luominen epäonnistui: %s: %s"
+msgstr "aiemman PID:n jäsentäminen epäonnistui '%s':sta"
 
 #: lib/launch-direct.c:474
 msgid "you must call guestfs_add_drive before guestfs_launch"
