@@ -74,7 +74,9 @@ dnl iproute has been renamed to iproute2
   iputils-ping
   iputils-arping
   iputils-tracepath
+dnl isc-dhcp-client has been replaced with dhcpcd-base
   isc-dhcp-client
+  dhcpcd-base
   ldmtool
   libc-bin
   librpm9
