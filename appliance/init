@@ -50,6 +50,22 @@ mount -t tmpfs -o mode=1777 shmfs /dev/shm
 
 mkdir -p /sysroot
 
+# On Fedora 42+ fix symlinks in /usr/sbin
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/PCU2WWLEGLGIOY4TCCBIHLYS6ZCZ4GSS/
+# Probably we can remove this eventually.
+if test -f /etc/fedora-release &&
+   test -f /etc/os-release &&
+   ! test -L /usr/sbin ; then
+    ver="$(sed -n 's/^VERSION_ID=\(.*\)/\1/p' < /etc/os-release)"
+    if (( $ver >= 42 )); then
+        for f in /usr/bin/*; do
+            if test -x "$f"; then
+                ln -s "$f" /usr/sbin/
+            fi
+        done
+    fi
+fi
+
 # taken from initramfs-tools/init --Hilko Bengen
 mkdir -p /run
 mount -t tmpfs -o "nosuid,size=20%,mode=0755" tmpfs /run
