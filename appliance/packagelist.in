@@ -62,6 +62,7 @@ dnl old name used in Jessie and earlier
   cryptsetup
   dash
   extlinux
+  fdisk
 dnl gfs-tools, gfs2-tools have been renamed to gfs2-utils
   gfs-tools
   gfs2-tools
