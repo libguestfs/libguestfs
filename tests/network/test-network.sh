@@ -20,9 +20,10 @@
 # especially testing that the network in fact works.  For now just
 # test that the network device can be added.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 guestfish --network -a /dev/null run

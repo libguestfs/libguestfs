@@ -20,9 +20,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=1054761
 # Handle broken/missing PVs gracefully.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f rhbz1054761-[ab].img

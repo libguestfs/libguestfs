@@ -24,9 +24,10 @@
 # may or may not send all of its data because the error condition is
 # detected.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 tmpfile=`mktemp`

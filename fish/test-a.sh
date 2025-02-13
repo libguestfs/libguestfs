@@ -18,9 +18,10 @@
 
 # Test guestfish -a option.
 
+source ../tests/functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f test-a.out

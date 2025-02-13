@@ -18,9 +18,10 @@
 
 # Test guestfish finds logical volume (LV) created on md device
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 disk1=lvm-on-md-devices-1.img

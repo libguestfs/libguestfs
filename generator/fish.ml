@@ -1154,9 +1154,11 @@ and generate_fish_test_prep_sh () =
   let all_disks = sprintf "prep{1..%d}.img" (List.length prepopts) in
 
   pr "\
-set -e
 
-$TEST_FUNCTIONS
+source ../tests/functions.sh
+set -e
+set -x
+
 skip_if_skipped
 
 rm -f %s

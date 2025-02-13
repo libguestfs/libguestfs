@@ -671,8 +671,8 @@ normal test.
 
 Modify the test so it checks if the C<SLOW=1> environment variable is
 set, and if I<not> set it skips (ie. returns with exit code 77).  If
-using C<$TEST_FUNCTIONS>, you can call the function C<slow_test> for
-this.
+using F<tests/functions.sh>, you can call the function C<slow_test>
+for this.
 
 =item *
 
@@ -706,8 +706,8 @@ normal test.
 =item *
 
 Modify the test so it checks if euid == 0, and if I<not> set it skips
-(ie. returns with exit code 77).  If using C<$TEST_FUNCTIONS>, you can
-call the function C<root_test> for this.
+(ie. returns with exit code 77).  If using F<tests/functions.sh>, you
+can call the function C<root_test> for this.
 
 =item *
 

@@ -25,9 +25,10 @@
 # is inaccessible so it is easy observable that md device is missing (raid1 in
 # this case will be operable but in degraded state).
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 disk1=md-and-lvm-devices-1.img

@@ -20,9 +20,10 @@
 # md device and does't take into account md device itself (similar to as
 # physical devices are skipped if they are partitioned)
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 disk1=list-filesystems2-1.img

@@ -18,7 +18,10 @@
 
 # Test the filesystem-walk command.
 
-$TEST_FUNCTIONS
+source ./functions.sh
+set -e
+set -x
+
 skip_if_skipped
 skip_unless_feature_available libtsk
 skip_unless_phony_guest windows.img

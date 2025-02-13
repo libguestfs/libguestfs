@@ -18,9 +18,10 @@
 # The significance of 27 is that it's the minimum number of disks
 # supported by every known backend in every supported configuration.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 disks/test-add-disks -n 27

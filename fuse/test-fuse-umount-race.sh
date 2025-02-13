@@ -19,9 +19,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=838592
 # This tests that the --pid-file option can be used to fix the race.
 
+source ../tests/functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped "test-fuse.sh"
 skip_if_skipped
 skip_unless_phony_guest fedora.img

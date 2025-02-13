@@ -18,9 +18,10 @@
 
 # Test guestfish list-mddevices command
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f list-fs.output

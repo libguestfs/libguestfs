@@ -18,9 +18,10 @@
 
 # Test if we can handle qemu death from the kill-subprocess command.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_backend direct
 

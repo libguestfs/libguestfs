@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2014-2023 Red Hat Inc.
+# Copyright (C) 2014-2025 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,19 +19,24 @@
 # Most of the tests written in shell script source this file for
 # useful functions.
 #
-# To include this file, the test must do:
+# To include this file, the test should do:
 #
-#   $TEST_FUNCTIONS
-#
-# (this macro is defined in subdir-rules.mk).
+#   source ./functions.sh
+#   set -e
+#   set -x
 
 # Clean up the environment in every test script.
 unset CDPATH
 export LANG=C
 
-# When test-functions.sh is invoked, a list of variables is passed as
-# parameters, so we eval those to define the variables.
-while [ $# -ge 1 ]; do eval "$1"; shift; done
+# Various variables defined by autoconf that test scripts might want
+# to use.
+top_srcdir="@top_srcdir@"
+top_builddir="@top_builddir@"
+abs_top_srcdir="@abs_top_srcdir@"
+abs_top_builddir="@abs_top_builddir@"
+abs_builddir="$PWD"
+abs_srcdir="$(cd "@srcdir@" && pwd)"
 
 # Configure check results.
 source $abs_top_builddir/config.sh

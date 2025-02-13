@@ -20,9 +20,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=1477623
 # Check that the 'file' API doesn't break on some chardevs.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_phony_guest fedora.img
 

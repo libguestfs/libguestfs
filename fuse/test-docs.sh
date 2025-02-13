@@ -18,7 +18,10 @@
 
 set -e
 
-$TEST_FUNCTIONS
+source ../tests/functions.sh
+set -e
+set -x
+
 skip_if_skipped
 
 $top_srcdir/podcheck.pl "$srcdir/guestmount.pod" guestmount \

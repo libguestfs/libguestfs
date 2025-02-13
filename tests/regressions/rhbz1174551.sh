@@ -21,9 +21,10 @@
 # check that list-alike APIs accept only relative paths and reject
 # absolute ones
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_phony_guest fedora.img
 

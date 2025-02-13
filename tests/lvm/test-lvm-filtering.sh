@@ -18,9 +18,10 @@
 
 # Test LVM device filtering.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f test-lvm-filtering-1.img test-lvm-filtering-2.img

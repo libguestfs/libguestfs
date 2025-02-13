@@ -18,9 +18,10 @@
 
 # Test the download_blocks command.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_feature_available sleuthkit
 skip_unless_phony_guest blank-fs.img

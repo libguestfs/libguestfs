@@ -18,9 +18,10 @@
 
 # Test guestfish edit command.
 
+source ../tests/functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 # This test fails on some versions of mock which lack /dev/fd

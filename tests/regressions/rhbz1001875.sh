@@ -20,9 +20,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=1001875
 # tar-out excludes option.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f rhbz1001875.img rhbz1001875-[123].tar

@@ -21,9 +21,10 @@
 # prefix '-' in sub-command isn't handled by guestfish in remote control mode
 # Reported by Qixiang Wan.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 # Start remote guestfish.

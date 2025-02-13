@@ -20,9 +20,10 @@
 # available space.
 # https://bugzilla.redhat.com/show_bug.cgi?id=580246
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f rhbz580246.img rhbz580246.tar

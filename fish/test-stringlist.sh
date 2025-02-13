@@ -18,9 +18,10 @@
 
 # Test remote control of guestfish.
 
+source ../tests/functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f test-stringlist.img

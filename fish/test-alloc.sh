@@ -18,9 +18,10 @@
 
 # Test guestfish alloc and sparse commands.
 
+source ../tests/functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f test-alloc.img

@@ -20,9 +20,10 @@
 # Note this is the first boot test that we run, so it's looking for
 # all sorts of qemu/kernel/supermin problems.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f liveness1.img

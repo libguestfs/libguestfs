@@ -20,9 +20,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=1175196
 # Parse 'LIBGUESTFS_TRACE=0' in the environment.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 output="$(guestfish <<EOF

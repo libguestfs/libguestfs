@@ -21,9 +21,10 @@
 # RHBZ#511372 guestfish doesn't understand '~' in filenames
 # and multiple other fixes to tilde handling.
 
+source ../tests/functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 # Set XDG_CACHE_HOME correctly, unless set already.  See:

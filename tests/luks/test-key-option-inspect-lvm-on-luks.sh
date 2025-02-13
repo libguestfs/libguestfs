@@ -19,9 +19,10 @@
 # Test the --key option.  It is handled by common code so we only need
 # to test one tool (guestfish).
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_feature_available luks
 skip_unless_phony_guest fedora-lvm-on-luks.img

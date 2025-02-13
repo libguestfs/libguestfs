@@ -18,9 +18,10 @@
 
 # Test the yara_scan command.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_feature_available libyara
 skip_unless_phony_guest blank-fs.img

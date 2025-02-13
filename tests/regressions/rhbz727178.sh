@@ -20,9 +20,10 @@
 # Check that all binaries that we ship in the appliance contain
 # corresponding libraries.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 output=rhbz727178.output

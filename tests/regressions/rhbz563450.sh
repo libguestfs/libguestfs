@@ -19,9 +19,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=563450
 # Test the order of added images
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_phony_guest fedora.img
 skip_unless_phony_guest debian.img

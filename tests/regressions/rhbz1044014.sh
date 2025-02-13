@@ -19,9 +19,10 @@
 # Regression test for:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1044014
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_backend libvirt
 skip_unless_libvirt_minimum_version 1 2 1

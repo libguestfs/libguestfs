@@ -20,9 +20,10 @@
 #
 # This is pretty easy - we just upload a too-large source file.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 guestfish \

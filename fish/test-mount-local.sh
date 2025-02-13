@@ -18,7 +18,10 @@
 
 # Test guestfish mount-local / mount-local-run commands.
 
-$TEST_FUNCTIONS
+source ../tests/functions.sh
+set -e
+set -x
+
 skip_if_skipped
 skip_unless_fuse
 

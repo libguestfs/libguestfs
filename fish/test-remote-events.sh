@@ -18,9 +18,10 @@
 
 # Test remote events in guestfish.
 
+source ../tests/functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 eval "$(guestfish --listen)"

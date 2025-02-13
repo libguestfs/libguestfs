@@ -20,9 +20,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=557655
 # "guestfish number parsing should not use atoi, should support '0...' for octal and '0x...' for hexadecimal"
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f rhbz557655.out rhbz557655.err

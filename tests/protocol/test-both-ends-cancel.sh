@@ -20,9 +20,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=576879#c5
 # where both ends send cancel messages simultaneously.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 guestfish <<EOF

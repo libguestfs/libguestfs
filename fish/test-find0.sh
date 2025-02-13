@@ -18,9 +18,10 @@
 
 # Test find0 call.
 
+source ../tests/functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_test_iso
 

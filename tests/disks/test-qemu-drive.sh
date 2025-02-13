@@ -17,9 +17,10 @@
 
 # Test that disks map to the correct qemu -drive parameter.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 export LIBGUESTFS_BACKEND=direct

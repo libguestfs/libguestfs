@@ -20,7 +20,10 @@
 # Test that guestunmount returns the correct error code if
 # there is no mounted FUSE filesystem.
 
-$TEST_FUNCTIONS
+source ../tests/functions.sh
+#set -e  # command below deliberately fails
+set -x
+
 skip_if_skipped "test-fuse.sh"
 skip_if_skipped
 skip_unless_fuse

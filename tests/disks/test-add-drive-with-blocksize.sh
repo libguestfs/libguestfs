@@ -18,9 +18,10 @@
 
 # Test blocksize parameter of add-drive command
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 # Test valid values

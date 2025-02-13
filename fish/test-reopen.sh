@@ -19,9 +19,10 @@
 # Test reopening the handle in the same process.  This used to fail
 # but was corrected in 03e1f74ee08dc71bc09cc7655bf4732685f80b43.
 
+source ../tests/functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f test-reopen.img

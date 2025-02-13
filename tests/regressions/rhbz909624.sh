@@ -23,9 +23,10 @@
 # this fails, it fails by causing guestfish to segfault (inside
 # libguestfs).
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 slow_test
 skip_if_skipped
 

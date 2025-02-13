@@ -20,9 +20,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=576879#c0
 # upload loses synchronization if the disk is not mounted
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 guestfish <<EOF

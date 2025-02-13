@@ -24,9 +24,10 @@
 #         (In some cases useful info about processes that use
 #          the device is found by lsof(8) or fuser(1))
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 guestfish -N rhbz503169c13.img=fs -m /dev/sda1 <<EOF

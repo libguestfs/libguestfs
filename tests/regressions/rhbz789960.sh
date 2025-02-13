@@ -19,9 +19,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=789960
 # Test the mount command error paths.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_phony_guest fedora.img
 

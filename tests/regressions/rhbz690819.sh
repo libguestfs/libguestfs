@@ -23,9 +23,10 @@
 # The 'iface' parameter is now ignored:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1844341
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f rhbz690819.img

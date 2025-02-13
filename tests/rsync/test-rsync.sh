@@ -19,9 +19,10 @@
 # Test rsync by copying a local directory using an involved and
 # unrealistic method.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless rsync --help
 skip_unless_feature_available rsync

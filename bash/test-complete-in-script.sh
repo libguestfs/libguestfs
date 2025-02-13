@@ -19,7 +19,10 @@
 # Test that the correct 'complete' command is included in the script.
 # Mainly prevents symlinking errors and some omissions.
 
-$TEST_FUNCTIONS
+source ../tests/functions.sh
+set -e
+set -x
+
 skip_if_skipped
 
 if [ -z "$commands" ]; then

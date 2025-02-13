@@ -20,9 +20,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=895904
 # Ensure we have a test of the 'checksums-out' command.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f rhbz895904.img rhbz895904.out

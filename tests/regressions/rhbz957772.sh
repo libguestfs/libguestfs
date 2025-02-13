@@ -20,9 +20,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=957772
 # Ensure that tar-out and base64-out commands properly quote arguments.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 guestfish -N rhbz957772.img=fs -m /dev/sda1 <<EOF

@@ -18,7 +18,10 @@
 
 # Check force_tcg really forces TCG mode.
 
-$TEST_FUNCTIONS
+source ./functions.sh
+set -e
+set -x
+
 skip_if_skipped
 
 set -e

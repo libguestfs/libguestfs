@@ -19,9 +19,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=811649
 # Test filenames containing a variety of characters.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 declare -a filenames

@@ -18,9 +18,10 @@
 # Test that disks with <blockio .../> tag map to the correct qemu -device
 # parameters and respect to logical_block_size value.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_libvirt_minimum_version 1 1 3
 

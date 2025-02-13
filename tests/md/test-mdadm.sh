@@ -18,9 +18,10 @@
 
 # Test guestfish md-create and md-detail commands.
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f mdadm-{1,2,3,4}.img

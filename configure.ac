@@ -191,6 +191,8 @@ AC_CONFIG_FILES([podwrapper.pl],
                 [chmod +x,-w podwrapper.pl])
 AC_CONFIG_FILES([run],
                 [chmod +x,-w run])
+AC_CONFIG_FILES([tests/functions.sh],
+                [chmod +x,-w tests/functions.sh])
 
 AC_CONFIG_FILES([Makefile
                  appliance/Makefile

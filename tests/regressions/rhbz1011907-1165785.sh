@@ -22,9 +22,10 @@
 # i.e., mount-loop option, which means correct startup sequence and creation
 # of base devices (like /dev/loop-control for loopback setup)
 
+source ./functions.sh
 set -e
+set -x
 
-$TEST_FUNCTIONS
 skip_if_skipped
 
 rm -f rhbz1011907-1165785-loop.img rhbz1011907-1165785.img
