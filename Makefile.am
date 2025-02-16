@@ -156,7 +156,6 @@ EXTRA_DIST = \
 	logo/fish-10yrs.svg logo/fish-10yrs.png \
 	logo/virt-builder.svg \
 	podcheck.pl \
-	tests/test-functions.sh \
 	tmp/.gitignore \
 	valgrind-suppressions \
 	website/bugs.png \
