@@ -708,7 +708,7 @@ msgstr ""
 #: docs/guestfs-security.pod:451 fish/guestfish.pod:1642
 #: fuse/guestmount.pod:442 lib/guestfs.pod:3282 rescue/virt-rescue.pod:512
 #: test-tool/libguestfs-test-tool.pod:190
-msgid "Copyright (C) 2009-2023 Red Hat Inc."
+msgid "Copyright (C) 2009-2025 Red Hat Inc."
 msgstr ""
 
 #. type: =end
@@ -796,7 +796,7 @@ msgstr ""
 #: lib/guestfs-structs.pod:9
 #, no-wrap
 msgid ""
-" Copyright (C) 2009-2023 Red Hat Inc.\n"
+" Copyright (C) 2009-2025 Red Hat Inc.\n"
 "\n"
 msgstr ""
 
@@ -6925,7 +6925,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-faq.pod:1422 docs/guestfs-performance.pod:519
 #: gobject/guestfs-gobject.pod:64
-msgid "Copyright (C) 2012-2023 Red Hat Inc."
+msgid "Copyright (C) 2012-2025 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -29267,7 +29267,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-release-notes-1.52.pod:174
 #: docs/guestfs-release-notes-1.54.pod:179
-msgid "Copyright (C) 2009-2024 Red Hat Inc."
+msgid "Copyright (C) 2009-2025 Red Hat Inc."
 msgstr ""
 
 #. type: =head1
@@ -32093,7 +32093,7 @@ msgstr ""
 #: fish/libguestfs-tools.conf.pod:102 fish/virt-copy-in.pod:58
 #: fish/virt-copy-out.pod:53 fish/virt-tar-in.pod:56 fish/virt-tar-out.pod:55
 #: java/examples/guestfs-java.pod:181 perl/examples/guestfs-perl.pod:60
-msgid "Copyright (C) 2011-2023 Red Hat Inc."
+msgid "Copyright (C) 2011-2025 Red Hat Inc."
 msgstr ""
 
 #. type: =head2
@@ -41987,7 +41987,7 @@ msgstr ""
 #. type: textblock
 #: examples/guestfs-examples.pod:75 ocaml/examples/guestfs-ocaml.pod:102
 #: python/examples/guestfs-python.pod:84 ruby/examples/guestfs-ruby.pod:55
-msgid "Copyright (C) 2010-2023 Red Hat Inc."
+msgid "Copyright (C) 2010-2025 Red Hat Inc."
 msgstr ""
 
 #. type: verbatim

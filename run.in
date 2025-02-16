@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs 'run' programs locally script
-# Copyright (C) 2011-2023 Red Hat Inc.
+# Copyright (C) 2011-2025 Red Hat Inc.
 #
 # @configure_input@
 #

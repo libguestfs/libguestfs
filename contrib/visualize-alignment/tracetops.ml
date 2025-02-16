@@ -1,7 +1,7 @@
 #!/usr/bin/ocamlrun /usr/bin/ocaml
 
 (* Convert *.qtr (qemu block device trace) to Postscript.
- * Copyright (C) 2009-2023 Red Hat Inc.
+ * Copyright (C) 2009-2025 Red Hat Inc.
  * By Richard W.M. Jones <rjones@redhat.com>.
  *
  * This program is free software; you can redistribute it and/or modify
