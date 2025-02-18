@@ -47,8 +47,8 @@ CLEANFILES += \
 	t/*~ \
 	ext/guestfs/*~ \
 	ext/guestfs/extconf.h \
-	ext/guestfs/_guestfs.o \
-	ext/guestfs/_guestfs.$(DLEXT) \
+	ext/guestfs/*.o \
+	ext/guestfs/*.$(DLEXT) \
 	ext/guestfs/mkmf.log \
 	ext/guestfs/Makefile
 
