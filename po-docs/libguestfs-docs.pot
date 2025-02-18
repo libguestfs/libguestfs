@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.55.2\n"
+"Project-Id-Version: libguestfs 1.54.1\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2025-01-08 12:09+0000\n"
+"POT-Creation-Date: 2025-02-18 16:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2638,7 +2638,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-building.pod:122
-msgid "OCaml E<ge> 4.08"
+msgid "OCaml E<ge> 4.07"
 msgstr ""
 
 #. type: =item
@@ -2746,7 +2746,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-building.pod:188
-msgid "json-c E<ge> 0.14"
+msgid "Jansson E<ge> 2.7"
 msgstr ""
 
 #. type: =item
@@ -35898,7 +35898,7 @@ msgstr ""
 #, no-wrap
 msgid ""
 " static void\n"
-" parse_json (guestfs_h *g, const char *json, json_object **treep)\n"
+" parse_json (guestfs_h *g, const char *json, json_t **treep)\n"
 "\n"
 msgstr ""
 
