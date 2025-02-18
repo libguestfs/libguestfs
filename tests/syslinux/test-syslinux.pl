@@ -26,7 +26,7 @@ exit 77 if $ENV{SKIP_TEST_SYSLINUX_PL};
 
 my $bootloader = $ENV{BOOTLOADER} || "syslinux";
 
-my $disk = "$bootloader-guest.img";
+my $disk = "syslinux/$bootloader-guest.img";
 
 # Find prerequisites.
 my $mbr;
@@ -115,3 +115,6 @@ $g->part_set_bootable ("/dev/sda", 1, 1);
 
 # Finish off.
 $g->shutdown ();
+
+# Clean up the test file.
+unlink ($disk);
