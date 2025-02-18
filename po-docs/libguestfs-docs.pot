@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.55.4\n"
+"Project-Id-Version: libguestfs 1.55.5\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2025-02-05 13:31+0000\n"
+"POT-Creation-Date: 2025-02-18 10:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -703,6 +703,8 @@ msgstr ""
 #: docs/guestfs-release-notes-1.46.pod:250
 #: docs/guestfs-release-notes-1.48.pod:188
 #: docs/guestfs-release-notes-1.50.pod:245
+#: docs/guestfs-release-notes-1.52.pod:174
+#: docs/guestfs-release-notes-1.54.pod:179
 #: docs/guestfs-release-notes-1.6.pod:187
 #: docs/guestfs-release-notes-1.8.pod:162 docs/guestfs-release-notes.pod:162
 #: docs/guestfs-security.pod:451 fish/guestfish.pod:1642
@@ -8389,7 +8391,7 @@ msgstr ""
 msgid ""
 "Modify the test so it checks if the C<SLOW=1> environment variable is set, "
 "and if I<not> set it skips (ie. returns with exit code 77).  If using "
-"C<$TEST_FUNCTIONS>, you can call the function C<slow_test> for this."
+"F<tests/functions.sh>, you can call the function C<slow_test> for this."
 msgstr ""
 
 #. type: textblock
@@ -8433,8 +8435,8 @@ msgstr ""
 #: docs/guestfs-hacking.pod:708
 msgid ""
 "Modify the test so it checks if euid == 0, and if I<not> set it skips "
-"(ie. returns with exit code 77).  If using C<$TEST_FUNCTIONS>, you can call "
-"the function C<root_test> for this."
+"(ie. returns with exit code 77).  If using F<tests/functions.sh>, you can "
+"call the function C<root_test> for this."
 msgstr ""
 
 #. type: textblock
@@ -29262,12 +29264,6 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.52.pod:168
 msgid "Zixun LI"
-msgstr ""
-
-#. type: textblock
-#: docs/guestfs-release-notes-1.52.pod:174
-#: docs/guestfs-release-notes-1.54.pod:179
-msgid "Copyright (C) 2009-2025 Red Hat Inc."
 msgstr ""
 
 #. type: =head1
