@@ -44,7 +44,7 @@ foreach my $m (@mbr_paths) {
   }
 }
 unless (defined $mbr) {
-    print "$0: mbr.bin (from SYSLINUX) not found, skipping test\n";
+    print STDERR "$0: mbr.bin (from SYSLINUX) not found, skipping test\n";
     exit 77;
 }
 print "mbr: $mbr\n";
@@ -60,7 +60,7 @@ die "invalid mbr.bin" unless length ($mbr_data) == 440;
 my $kernel = `ls -1rv /boot/vmlinuz* | head -1`;
 chomp $kernel;
 unless ($kernel) {
-    print "$0: kernel could not be found, skipping test\n";
+    print STDERR "$0: kernel could not be found, skipping test\n";
     exit 77;
 }
 print "kernel: $kernel\n";
@@ -74,7 +74,8 @@ $g->add_drive ($disk, format => "raw");
 $g->launch ();
 
 unless ($g->feature_available ([$bootloader])) {
-    print "$0: skipping test because '$bootloader' feature is not available\n";
+    print STDERR
+        "$0: skipping test because '$bootloader' feature is not available\n";
     exit 77
 }
 
