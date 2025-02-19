@@ -423,6 +423,7 @@ Makefile.in
 /tests/disks/test-add-disks
 /tests/disks/test-qemu-drive-libvirt.xml
 /tests/events/test-libvirt-auth-callbacks
+/tests/large-command/test-large-command
 /tests/mount-local/test-parallel-mount-local
 /tests/mountable/test-internal-parse-mountable
 /tests/parallel/test-parallel
