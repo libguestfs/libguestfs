@@ -2381,6 +2381,19 @@ result into a list of lines.
 See also: C<guestfs_sh_lines>" };
 
   { defaults with
+    name = "command_out"; added = (1, 55, 6);
+    style = RErr, [StringList (PlainString, "arguments"); String (FileOut, "output")], [];
+    progress = true; cancellable = true;
+    test_excuse = "there is a separate test in the tests directory";
+    shortdesc = "run a command from the guest filesystem";
+    longdesc = "\
+This is the same as C<guestfs_command>, but streams the output
+back, handling the case where the output from the command is
+larger than the protocol limit.
+
+See also: C<guestfs_sh_out>" };
+
+  { defaults with
     name = "statvfs"; added = (1, 9, 2);
     style = RStruct ("statbuf", "statvfs"), [String (Pathname, "path")], [];
     impl = OCaml "Statvfs.statvfs";
@@ -3488,6 +3501,18 @@ This is the same as C<guestfs_sh>, but splits the result
 into a list of lines.
 
 See also: C<guestfs_command_lines>" };
+
+  { defaults with
+    name = "sh_out"; added = (1, 55, 6);
+    style = RErr, [String (PlainString, "command"); String (FileOut, "output")], [];
+    test_excuse = "there is a separate test in the tests directory";
+    shortdesc = "run a command via the shell";
+    longdesc = "\
+This is the same as C<guestfs_sh>, but streams the output
+back, handling the case where the output from the command is
+larger than the protocol limit.
+
+See also: C<guestfs_command_out>" };
 
   { defaults with
     name = "glob_expand"; added = (1, 0, 50);

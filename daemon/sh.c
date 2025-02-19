@@ -294,6 +294,40 @@ do_command_lines (char *const *argv)
   return lines;			/* Caller frees. */
 }
 
+/* Has one FileOut parameter. */
+int
+do_command_out (char *const *argv)
+{
+  /* We could in theory spool the command to output as it is running,
+   * but error handling mid-command, and progress bars would not work
+   * if we did that.  If we encounter a case where this is a problem,
+   * another approach would be to save the output in a temporary file.
+   */
+  CLEANUP_FREE char *out = NULL;
+  size_t i, n;
+
+  out = do_command (argv);
+  if (out == NULL)
+    return -1;
+
+  /* Send the reply message.  We know that we're not going to fail now
+   * (except for client cancellation).
+   */
+  reply (NULL, NULL);
+
+  n = strlen (out);
+  for (i = 0; i < n; i += GUESTFS_MAX_CHUNK_SIZE) {
+    if (send_file_write (out+i, MIN (GUESTFS_MAX_CHUNK_SIZE, n-i)) < 0)
+      return -1;
+    notify_progress (i, n);
+  }
+
+  if (send_file_end (0))
+    return -1;
+
+  return 0;
+}
+
 char *
 do_sh (const char *cmd)
 {
@@ -308,4 +342,12 @@ do_sh_lines (const char *cmd)
   const char *argv[] = { "/bin/sh", "-c", cmd, NULL };
 
   return do_command_lines ((char **) argv);
+}
+
+int
+do_sh_out (const char *cmd)
+{
+  const char *argv[] = { "/bin/sh", "-c", cmd, NULL };
+
+  return do_command_out ((char **) argv);
 }

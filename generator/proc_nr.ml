@@ -518,6 +518,8 @@ let proc_nr = [
 513, "inspect_get_build_id";
 514, "findfs_partuuid";
 515, "findfs_partlabel";
+516, "command_out";
+517, "sh_out";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list
