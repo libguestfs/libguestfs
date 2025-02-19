@@ -440,6 +440,16 @@ EXTRA_DIST += http/test-http.py
 TESTS += journal/test-journal.pl
 EXTRA_DIST += journal/test-journal.pl
 
+# This binary must be statically linked.  It is used for testing
+# the "guestfs_command_out" function.
+
+large_command_test_large_command_SOURCES = large-command/test-large-command.c
+large_command_test_large_command_LDFLAGS = -all-static
+
+check_PROGRAMS += large-command/test-large-command
+TESTS += large-command/test-large-command.sh
+EXTRA_DIST += large-command/test-large-command.sh
+
 TESTS += \
 	luks/test-luks.sh \
 	luks/test-luks-list.sh \
