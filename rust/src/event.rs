@@ -29,7 +29,7 @@ type GuestfsEventCallback = extern "C" fn(
     u64,
     i32,
     i32,
-    *const i8,
+    *const c_char,
     usize,
     *const u64,
     usize,
