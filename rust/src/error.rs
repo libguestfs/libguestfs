@@ -46,6 +46,42 @@ pub enum Error {
     Create,
 }
 
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Error::API(err) => {
+                write!(
+                    f,
+                    "API Error:\n\tOperation: {}\n\tMessage: {}\n\tError Number: {}",
+                    err.operation, err.message, err.errno
+                )
+            }
+            Error::IllegalString(err) => {
+                write!(
+                    f,
+                    "Illegal string Error:\nNull byte found\n\tDetails: {}",
+                    err
+                )
+            }
+            Error::Utf8Error(err) => {
+                write!(
+                    f,
+                    "Utf8 Error:\nFailed to interpret string as utf-8\n\tDetails: {}",
+                    err
+                )
+            }
+            Error::UnixError(err, op) => {
+                write!(f, "Unix Error:\n\tError: {}\n\tOperation: {}", err, op)
+            }
+            Error::Create => {
+                write!(f, "Creation Error:\nFailed to create a guestfs handle")
+            }
+        }
+    }
+}
+
+impl std::error::Error for Error {}
+
 impl convert::From<ffi::NulError> for Error {
     fn from(error: ffi::NulError) -> Self {
         Error::IllegalString(error)
