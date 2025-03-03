@@ -61,6 +61,7 @@ let re_neokylin_version = PCRE.compile "^V(\\d+)Update(\\d+)$"
 let re_openmandriva =
   PCRE.compile "OpenMandriva.*release (\\d+)\\.(\\d+)\\.?(\\d+)? .*"
 let re_opencloudos = PCRE.compile "OpenCloudOS.*release (\\d+)"
+let re_tencentos = PCRE.compile "TencentOS.* (\\d+)\\.(\\d+)"
 
 let arch_binaries =
   [ "/bin/bash"; "/bin/ls"; "/bin/echo"; "/bin/rm"; "/bin/sh" ]
@@ -160,6 +161,7 @@ and distro_of_os_release_id = function
   | "openEuler" -> Some DISTRO_OPENEULER
   | "openmandriva" -> Some DISTRO_OPENMANDRIVA
   | "opencloudos" -> Some DISTRO_OPENCLOUDOS
+  | "tencentos" -> Some DISTRO_TENCENTOS
   | "opensuse" -> Some DISTRO_OPENSUSE
   | s when String.is_prefix s "opensuse-" -> Some DISTRO_OPENSUSE
   | "pardus" -> Some DISTRO_PARDUS
@@ -403,6 +405,9 @@ let linux_root_tests : tests = [
 
   "/etc/opencloudos-release", parse_generic ~rex:re_opencloudos
                                              DISTRO_OPENCLOUDOS;
+
+  "/etc/tencentos-release", parse_generic ~rex:re_tencentos
+                                             DISTRO_TENCENTOS;
 
   (* RHEL-based distros include a [/etc/redhat-release] file, hence their
    * checks need to be performed before the Red-Hat one.
