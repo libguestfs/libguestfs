@@ -12,6 +12,7 @@ dnl   SUSE=1        For OpenSUSE.
 dnl   FRUGALWARE=1  For Frugalware.
 dnl   MAGEIA=1      For Mageia.
 dnl   OPENCLOUDOS=1 For OpencloudOS.
+dnl   TENCENTOS=1   For TecentOS.
 dnl
 dnl There is also a list of packages which are excluded if they appear
 dnl as dependencies of the packages below.  See: excludelist.in
@@ -219,6 +220,29 @@ ifelse(OPENMANDRIVA,1,
 )
 
 ifelse(OPENCLOUDOS,1,
+  clevis-luks
+  cryptsetup
+  cryptsetup-luks
+  dhclient
+  gfs2-utils
+  glibc-gconv-extra
+  hfsplus-tools
+  iproute
+  iputils
+  kernel
+  ntfsprogs
+  ntfs-3g
+  openssh-clients
+  policycoreutils
+  rpm-libs
+  syslinux-extlinux
+  systemd
+  vim-minimal
+  xz
+  zstd
+)
+
+ifelse(TENCENTOS,1,
   clevis-luks
   cryptsetup
   cryptsetup-luks
