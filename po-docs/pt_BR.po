@@ -5,16 +5,16 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2017-01-29 09:50+0000\n"
-"Last-Translator: Rodrigo de Araujo Sousa Fonseca "
-"<rodrigodearaujo@fedoraproject.org>\n"
-"Language-Team: Portuguese (Brazil)\n"
+"PO-Revision-Date: 2025-03-03 21:05+0000\n"
+"Last-Translator: Krascovict Petrov <krascovict@yandex.ru>\n"
+"Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
+"projects/libguestfs/libguestfs-docs-master/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 5.10.2\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -362,7 +362,7 @@ msgstr ""
 #: ../tools/virt-list-partitions:53 ../tools/virt-tar:100
 #: ../tools/virt-win-reg:93
 msgid "OPTIONS"
-msgstr ""
+msgstr "OPÇÕES"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:105
@@ -395,7 +395,7 @@ msgstr ""
 #: ../tools/virt-list-filesystems:62 ../tools/virt-list-partitions:63
 #: ../tools/virt-tar:110 ../tools/virt-win-reg:103
 msgid "Display brief help."
-msgstr ""
+msgstr "Exibir ajuda breve."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:109 ../cat/virt-cat.pod:59
@@ -434,6 +434,8 @@ msgid ""
 "The format of the disk image is auto-detected.  To override this and force a "
 "particular format use the I<--format=..> option."
 msgstr ""
+"O formato de imagem de disco é detectado automaticamente.  Para substituí-lo "
+"e forçar um determinado formato de usar o I<--format=..> opção."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:118 ../cat/virt-cat.pod:70
@@ -458,6 +460,8 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:75 ../rescue/virt-rescue.pod:109
 msgid "Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>."
 msgstr ""
+"Adicionar um disco remoto.  Ver L<guestfish(1)/ADICIONAR ARMAZENAMENTO "
+"REMOTO>."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:124 ../cat/virt-cat.pod:76
@@ -467,7 +471,7 @@ msgstr ""
 #: ../format/virt-format.pod:82 ../fuse/guestmount.pod:175
 #: ../inspector/virt-inspector.pod:77 ../rescue/virt-rescue.pod:115
 msgid "__INCLUDE:blocksize-option.pod__"
-msgstr ""
+msgstr "__INCLUEM:tamanho de bloco-opção.pod__"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:126 ../cat/virt-cat.pod:78
@@ -491,7 +495,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:81 ../rescue/virt-rescue.pod:119
 #: ../sysprep/virt-sysprep.pod:73
 msgid "B<--connect> URI"
-msgstr ""
+msgstr "B<--conectar> URI"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:130 ../cat/virt-cat.pod:82
@@ -507,6 +511,8 @@ msgid ""
 "If using libvirt, connect to the given I<URI>.  If omitted, then we connect "
 "to the default libvirt hypervisor."
 msgstr ""
+"Se utilizar o libvirt, conectar-se a um dado I<URI>.  Se omitido, então "
+"vamos conectar o padrão libvirt hipervisor."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:133 ../cat/virt-cat.pod:85
@@ -519,6 +525,8 @@ msgid ""
 "If you specify guest block devices directly (I<-a>), then libvirt is not "
 "used at all."
 msgstr ""
+"Se você especificar convidado dispositivos de bloco diretamente (I<-a>) e, "
+"em seguida, a libvirt não é usado em tudo."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:136 ../cat/virt-cat.pod:88
@@ -529,7 +537,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:90 ../rescue/virt-rescue.pod:127
 #: ../sysprep/virt-sysprep.pod:81
 msgid "B<-d> guest"
-msgstr ""
+msgstr "B<-d> de hóspedes"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:138 ../cat/virt-cat.pod:90
@@ -540,7 +548,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:92 ../rescue/virt-rescue.pod:129
 #: ../sysprep/virt-sysprep.pod:83
 msgid "B<--domain> guest"
-msgstr ""
+msgstr "B<--domain> de hóspedes"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:140 ../cat/virt-cat.pod:92
@@ -554,6 +562,8 @@ msgid ""
 "Add all the disks from the named libvirt guest.  Domain UUIDs can be used "
 "instead of names."
 msgstr ""
+"Adicionar todos os discos do chamado libvirt convidado.  Domínio Uuid pode "
+"ser usado em vez de nomes."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:143 ../cat/virt-cat.pod:102
@@ -590,6 +600,10 @@ msgid ""
 "the command line.  Using I<--format> with no argument switches back to auto-"
 "detection for subsequent I<-a> options."
 msgstr ""
+"O padrão para I<-a> opção é auto-detectar o formato de imagem de disco.  "
+"Usando esta força o formato de disco para I<-a> opções que se seguem a linha "
+"de comando.  Usando I<--format> com nenhum argumento, muda de volta para a "
+"detecção automática para posterior I<-a> opções."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:152 ../builder/virt-builder.pod:150
@@ -604,7 +618,7 @@ msgstr ""
 #: ../rescue/virt-rescue.pod:166 ../sysprep/virt-sysprep.pod:174
 #: ../sysprep/virt-sysprep.pod:227
 msgid "For example:"
-msgstr ""
+msgstr "Por exemplo:"
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:154
@@ -623,7 +637,7 @@ msgstr ""
 #: ../fish/guestfish.pod:242 ../format/virt-format.pod:106
 #: ../rescue/virt-rescue.pod:170 ../sysprep/virt-sysprep.pod:178
 msgid "forces raw format (no auto-detection) for F<disk.img>."
-msgstr ""
+msgstr "forças formato raw (sem detecção automática) para F<disco.img>."
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:158
@@ -645,6 +659,8 @@ msgid ""
 "forces raw format (no auto-detection) for F<disk.img> and reverts to auto-"
 "detection for F<another.img>."
 msgstr ""
+"forças formato raw (sem detecção automática) para F<disco.img> e reverte "
+"para a detecção automática para F<outro.img>."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:163 ../cat/virt-cat.pod:122
@@ -659,6 +675,9 @@ msgid ""
 "option to specify the disk format.  This avoids a possible security problem "
 "with malicious guests (CVE-2010-3851)."
 msgstr ""
+"Se você não confiáveis de matérias-formato de hóspedes imagens de disco, "
+"você deve usar esta opção para especificar o formato de disco.  Isso evita "
+"um possível problema de segurança com convidados maliciosos (CVE-2010-3851)."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:167 ../df/virt-df.pod:164
@@ -827,7 +846,7 @@ msgstr ""
 #: ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71
 #: ../tools/virt-tar:118 ../tools/virt-win-reg:111
 msgid "Display version number and exit."
-msgstr ""
+msgstr "Exibir o número da versão e sai."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:207
@@ -857,7 +876,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:636 ../sparsify/virt-sparsify.pod:325
 #: ../sysprep/virt-sysprep.pod:272
 msgid "Enable tracing of libguestfs API calls."
-msgstr ""
+msgstr "Activar o rastreio de libguestfs chamadas de API."
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:213
@@ -1142,7 +1161,7 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:448 ../sysprep/virt-sysprep.pod:561
 #: ../test-tool/libguestfs-test-tool.pod:168
 msgid "EXIT STATUS"
-msgstr ""
+msgstr "ESTADO DE SAÍDA"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:354
@@ -1447,7 +1466,7 @@ msgstr ""
 #: ../tools/virt-list-partitions:263 ../tools/virt-tar:292
 #: ../tools/virt-win-reg:804
 msgid "SEE ALSO"
-msgstr ""
+msgstr "VEJA TAMBÉM"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:388
@@ -8439,7 +8458,7 @@ msgstr ""
 #: ../lib/guestfs-availability.pod:25 ../lib/guestfs-structs.pod:1
 #: ../lib/guestfs-structs.pod:25
 msgid "comment"
-msgstr ""
+msgstr "comentário"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:3

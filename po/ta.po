@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2025-01-08 17:25+0000\n"
+"POT-Creation-Date: 2025-02-19 16:36+0000\n"
 "PO-Revision-Date: 2015-02-21 10:53+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Tamil (http://www.transifex.com/projects/p/libguestfs/"
@@ -290,13 +290,13 @@ msgstr ""
 
 #: fish/cmds.c:493 fish/cmds.c:496 fish/cmds.c:507 fish/cmds.c:510
 #: fish/cmds.c:513 fish/cmds.c:533 fish/cmds.c:538 fish/cmds.c:557
-#: fish/cmds.c:600 fish/cmds.c:643 fish/cmds.c:652 fish/cmds.c:668
-#: fish/cmds.c:698 fish/cmds.c:764 fish/cmds.c:767 fish/cmds.c:843
-#: fish/cmds.c:896 fish/cmds.c:904 fish/cmds.c:948 fish/cmds.c:987
-#: fish/cmds.c:990 fish/cmds.c:993 fish/cmds.c:999 fish/cmds.c:1013
-#: fish/cmds.c:1022 fish/cmds.c:1041 fish/cmds.c:1044 fish/cmds.c:1050
-#: fish/cmds.c:1098 fish/cmds.c:1125 fish/cmds.c:1129 fish/cmds.c:1142
-#: fish/cmds.c:1145 fish/cmds.c:1154 fish/cmds.c:1176
+#: fish/cmds.c:600 fish/cmds.c:644 fish/cmds.c:653 fish/cmds.c:669
+#: fish/cmds.c:699 fish/cmds.c:765 fish/cmds.c:768 fish/cmds.c:844
+#: fish/cmds.c:897 fish/cmds.c:905 fish/cmds.c:949 fish/cmds.c:988
+#: fish/cmds.c:991 fish/cmds.c:994 fish/cmds.c:1000 fish/cmds.c:1014
+#: fish/cmds.c:1023 fish/cmds.c:1042 fish/cmds.c:1045 fish/cmds.c:1051
+#: fish/cmds.c:1100 fish/cmds.c:1127 fish/cmds.c:1131 fish/cmds.c:1144
+#: fish/cmds.c:1147 fish/cmds.c:1156 fish/cmds.c:1178
 #, c-format
 msgid "alias for '%s'"
 msgstr ""
@@ -401,7 +401,7 @@ msgstr ""
 msgid "add/remove an Augeas lens transformation"
 msgstr ""
 
-#: fish/cmds.c:535 fish/cmds.c:677
+#: fish/cmds.c:535 fish/cmds.c:678
 msgid "test availability of some parts of the API"
 msgstr "APIன் சில பகுதிகளில் சோதனை கிடைக்கப்பெறுகிறது"
 
@@ -670,7 +670,7 @@ msgstr ""
 msgid "change file mode"
 msgstr "கோப்பு முறைமையை மாற்று"
 
-#: fish/cmds.c:611 fish/cmds.c:831
+#: fish/cmds.c:611 fish/cmds.c:832
 msgid "change file owner and group"
 msgstr "கோப்பு உரிமையாளர் மற்றும் குழுவை மாற்று"
 
@@ -684,7 +684,7 @@ msgstr ""
 msgid "open an encrypted LUKS block device with Clevis and Tang"
 msgstr "தொகுதி சாதனத்திற்கான செக்டர் அளவைப் பெறு"
 
-#: fish/cmds.c:614
+#: fish/cmds.c:614 fish/cmds.c:616
 msgid "run a command from the guest filesystem"
 msgstr "விருந்தினர் கோப்புமுறைமையிலிருந்து ஒரு கட்டளையை இயக்கு"
 
@@ -692,1886 +692,1886 @@ msgstr "விருந்தினர் கோப்புமுறைமை�
 msgid "run a command, returning lines"
 msgstr "திரும்பிவரும் வரிகளிலிருந்து, ஒரு கட்டளையை இயக்கு"
 
-#: fish/cmds.c:616
+#: fish/cmds.c:617
 msgid "output compressed device"
 msgstr ""
 
-#: fish/cmds.c:617
+#: fish/cmds.c:618
 msgid "output compressed file"
 msgstr ""
 
-#: fish/cmds.c:618
+#: fish/cmds.c:619
 msgid "add hypervisor parameters"
 msgstr ""
 
-#: fish/cmds.c:619
+#: fish/cmds.c:620
 msgid "copy the attributes of a path (file/directory) to another"
 msgstr ""
 
-#: fish/cmds.c:620
+#: fish/cmds.c:621
 msgid "copy from source device to destination device"
 msgstr ""
 
-#: fish/cmds.c:621
+#: fish/cmds.c:622
 msgid "copy from source device to destination file"
 msgstr ""
 
-#: fish/cmds.c:622
+#: fish/cmds.c:623
 msgid "copy from source file to destination device"
 msgstr ""
 
-#: fish/cmds.c:623
+#: fish/cmds.c:624
 msgid "copy from source file to destination file"
 msgstr ""
 
-#: fish/cmds.c:624
+#: fish/cmds.c:625
 msgid "copy local files or directories into an image"
 msgstr ""
 
-#: fish/cmds.c:625
+#: fish/cmds.c:626
 msgid "copy remote files or directories out of an image"
 msgstr ""
 
-#: fish/cmds.c:626
+#: fish/cmds.c:627
 msgid "copy size bytes from source to destination using dd"
 msgstr ""
 
-#: fish/cmds.c:627
+#: fish/cmds.c:628
 msgid "copy a file"
 msgstr "ஒரு கோப்பினை நகலெடு"
 
-#: fish/cmds.c:628 fish/cmds.c:629
+#: fish/cmds.c:629 fish/cmds.c:630
 msgid "copy a file or directory recursively"
 msgstr "ஒரு கோப்பு அல்லது அடைவை மறுபடியும் நகலெடு"
 
-#: fish/cmds.c:630
+#: fish/cmds.c:631
 msgid "pack directory into cpio file"
 msgstr ""
 
-#: fish/cmds.c:631
+#: fish/cmds.c:632
 msgid "close an encrypted device"
 msgstr ""
 
-#: fish/cmds.c:632
+#: fish/cmds.c:633
 #, fuzzy
 #| msgid "get sectorsize of block device"
 msgid "open an encrypted block device"
 msgstr "தொகுதி சாதனத்திற்கான செக்டர் அளவைப் பெறு"
 
-#: fish/cmds.c:633
+#: fish/cmds.c:634
 msgid "copy from source to destination using dd"
 msgstr "ddஐ பயன்படுத்தும் இலக்கை மூலத்திலிருந்து நகலெடு"
 
-#: fish/cmds.c:634
+#: fish/cmds.c:635
 msgid "debugging and internals"
 msgstr "பிழைத்திருத்தம் மற்றும் உள்ளார்ந்தவை"
 
-#: fish/cmds.c:635
+#: fish/cmds.c:636
 msgid "debug the drives (internal use only)"
 msgstr ""
 
-#: fish/cmds.c:636
+#: fish/cmds.c:637
 msgid "upload a file to the appliance (internal use only)"
 msgstr ""
 
-#: fish/cmds.c:637
+#: fish/cmds.c:638
 msgid "delete a previously registered event handler"
 msgstr ""
 
-#: fish/cmds.c:638
+#: fish/cmds.c:639
 msgid "convert device to index"
 msgstr ""
 
-#: fish/cmds.c:639
+#: fish/cmds.c:640
 msgid "convert device index to name"
 msgstr ""
 
-#: fish/cmds.c:640
+#: fish/cmds.c:641
 msgid "report file system disk space usage"
 msgstr "கோப்புமுறைமை வட்டு இடப் பயன்பாட்டை அறிக்கையிடு"
 
-#: fish/cmds.c:641
+#: fish/cmds.c:642
 msgid "report file system disk space usage (human readable)"
 msgstr "கோப்புமுறைமை வட்டு இடப் பயன்பாட்டை அறிக்கையிடு (வாசிக்கக்கூடிய)"
 
-#: fish/cmds.c:645
+#: fish/cmds.c:646
 msgid "create a blank disk image"
 msgstr ""
 
-#: fish/cmds.c:646
+#: fish/cmds.c:647
 msgid "detect the disk format of a disk image"
 msgstr ""
 
-#: fish/cmds.c:647
+#: fish/cmds.c:648
 msgid "return whether disk has a backing file"
 msgstr ""
 
-#: fish/cmds.c:648
+#: fish/cmds.c:649
 msgid "return virtual size of a disk"
 msgstr ""
 
-#: fish/cmds.c:649
+#: fish/cmds.c:650
 msgid "display an image"
 msgstr ""
 
-#: fish/cmds.c:650
+#: fish/cmds.c:651
 msgid "return kernel messages"
 msgstr "கெர்னல் செய்திகளை திருப்பு"
 
-#: fish/cmds.c:654
+#: fish/cmds.c:655
 msgid "download a file to the local machine"
 msgstr "உள்ளமை கணினியில் ஒரு கோப்பினை பதிவிறக்கு"
 
-#: fish/cmds.c:655
+#: fish/cmds.c:656
 msgid "download the given data units from the disk"
 msgstr ""
 
-#: fish/cmds.c:656 fish/cmds.c:952
+#: fish/cmds.c:657 fish/cmds.c:953
 msgid "download a file to the local machine given its inode"
 msgstr ""
 
-#: fish/cmds.c:657
+#: fish/cmds.c:658
 msgid "download a file to the local machine with offset and size"
 msgstr ""
 
-#: fish/cmds.c:658
+#: fish/cmds.c:659
 msgid "drop kernel page cache, dentries and inodes"
 msgstr "drop kernel page cache, dentries and inodes"
 
-#: fish/cmds.c:659
+#: fish/cmds.c:660
 msgid "estimate file space usage"
 msgstr "கோப்பு இடைவெளிப் பயன்பாட்டை மதிப்பிடு"
 
-#: fish/cmds.c:660 fish/cmds.c:661
+#: fish/cmds.c:661 fish/cmds.c:662
 msgid "check an ext2/ext3 filesystem"
 msgstr "ஒரு ext2/ext3 கோப்புமுறையை சரிபார்"
 
-#: fish/cmds.c:662
+#: fish/cmds.c:663
 msgid "display a line of text"
 msgstr "உரையின் ஒரு வரியைக் காட்டு"
 
-#: fish/cmds.c:663
+#: fish/cmds.c:664
 msgid "echo arguments back to the client"
 msgstr "எதிரொலி விவாதங்கள் க்ளையன்ட்டுக்குவருகிறது"
 
-#: fish/cmds.c:664
+#: fish/cmds.c:665
 msgid "edit a file"
 msgstr ""
 
-#: fish/cmds.c:665 fish/cmds.c:666 fish/cmds.c:678 fish/cmds.c:679
-#: fish/cmds.c:738 fish/cmds.c:739 fish/cmds.c:1192 fish/cmds.c:1193
-#: fish/cmds.c:1198 fish/cmds.c:1199 fish/cmds.c:1201 fish/cmds.c:1202
+#: fish/cmds.c:666 fish/cmds.c:667 fish/cmds.c:679 fish/cmds.c:680
+#: fish/cmds.c:739 fish/cmds.c:740 fish/cmds.c:1194 fish/cmds.c:1195
+#: fish/cmds.c:1200 fish/cmds.c:1201 fish/cmds.c:1203 fish/cmds.c:1204
 msgid "return lines matching a pattern"
 msgstr "திரும்பும் வரிகள் ஒரு பாணியில் பொருந்துகிறது"
 
-#: fish/cmds.c:670
+#: fish/cmds.c:671
 msgid "test if two files have equal contents"
 msgstr "இரண்டு கோப்புகள் சமமான உள்ளடக்கங்களைப் பெற்றிருந்தால் அவற்றை பரசோதி"
 
-#: fish/cmds.c:671
+#: fish/cmds.c:672
 msgid "register a handler for an event or events"
 msgstr ""
 
-#: fish/cmds.c:672
+#: fish/cmds.c:673
 msgid "test if file or directory exists"
 msgstr "அடைவைப் பெற்றிருந்தால் கோப்பினை பர்சோதி"
 
-#: fish/cmds.c:673
+#: fish/cmds.c:674
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:674
+#: fish/cmds.c:675
 msgid "expand a f2fs filesystem"
 msgstr ""
 
-#: fish/cmds.c:675 fish/cmds.c:676
+#: fish/cmds.c:676 fish/cmds.c:677
 msgid "preallocate a file in the guest filesystem"
 msgstr "விருந்தினர் கோப்புமுறைமையில் ஒரு கோப்பை முன் ஒதுக்கீடவும்"
 
-#: fish/cmds.c:680
+#: fish/cmds.c:681
 msgid "determine file type"
 msgstr "கோப்பு வகையை வரைநறு"
 
-#: fish/cmds.c:681
+#: fish/cmds.c:682
 msgid "detect the architecture of a binary file"
 msgstr ""
 
-#: fish/cmds.c:682
+#: fish/cmds.c:683
 msgid "return the size of the file in bytes"
 msgstr ""
 
-#: fish/cmds.c:683
+#: fish/cmds.c:684
 msgid "check if filesystem is available"
 msgstr ""
 
-#: fish/cmds.c:684
+#: fish/cmds.c:685
 msgid "walk through the filesystem content"
 msgstr ""
 
-#: fish/cmds.c:685
+#: fish/cmds.c:686
 msgid "fill a file with octets"
 msgstr "ஆக்டெட்ஸ் உடன் ஒரு கோப்பை நிரப்பு"
 
-#: fish/cmds.c:686
+#: fish/cmds.c:687
 msgid "fill a directory with empty files"
 msgstr ""
 
-#: fish/cmds.c:687
+#: fish/cmds.c:688
 msgid "fill a file with a repeating pattern of bytes"
 msgstr ""
 
-#: fish/cmds.c:688
+#: fish/cmds.c:689
 msgid "find all files and directories"
 msgstr "அனைத்து கோப்புகள் மற்றும் அடைவுகளை தேடு"
 
-#: fish/cmds.c:689
+#: fish/cmds.c:690
 msgid "find all files and directories, returning NUL-separated list"
 msgstr ""
 "அனைத்து கோப்புகள் மற்றும் அடைவுகளை தேடு, NUL-பிரிக்கப்பட்ட பட்டியலிருந்து திரும்புகிறது"
 
-#: fish/cmds.c:690
+#: fish/cmds.c:691
 msgid "search the entries associated to the given inode"
 msgstr ""
 
-#: fish/cmds.c:691
+#: fish/cmds.c:692
 msgid "find a filesystem by label"
 msgstr ""
 
-#: fish/cmds.c:692
+#: fish/cmds.c:693
 #, fuzzy
 #| msgid "make a partition bootable"
 msgid "find a partition by label"
 msgstr "ஒரு துவக்கக்கூடிய பகிர்வை உருவாக்கு"
 
-#: fish/cmds.c:693
+#: fish/cmds.c:694
 #, fuzzy
 #| msgid "disable swap on swap partition by UUID"
 msgid "find a partition by UUID"
 msgstr "ஸ்வாப் பகிர்வில் UUID படி ஸ்வாப்பை செயல்நீக்கு"
 
-#: fish/cmds.c:694
+#: fish/cmds.c:695
 msgid "find a filesystem by UUID"
 msgstr ""
 
-#: fish/cmds.c:695
+#: fish/cmds.c:696
 msgid "run the filesystem checker"
 msgstr "மோப்புமுறை சாரிகாட்டியை இயக்கு"
 
-#: fish/cmds.c:696
+#: fish/cmds.c:697
 msgid "trim free space in a filesystem"
 msgstr ""
 
-#: fish/cmds.c:700
+#: fish/cmds.c:701
 msgid "get the additional kernel options"
 msgstr "கூடுதல் கெர்னல் விருப்பங்களை பெறு"
 
-#: fish/cmds.c:701 fish/cmds.c:703
+#: fish/cmds.c:702 fish/cmds.c:704
 msgid "get the backend"
 msgstr ""
 
-#: fish/cmds.c:702
+#: fish/cmds.c:703
 msgid "get autosync mode"
 msgstr "தானியக்கஒத்திசை முறையையை பொறு"
 
-#: fish/cmds.c:704
+#: fish/cmds.c:705
 msgid "get a single per-backend settings string"
 msgstr ""
 
-#: fish/cmds.c:705
+#: fish/cmds.c:706
 msgid "get per-backend settings"
 msgstr ""
 
-#: fish/cmds.c:706
+#: fish/cmds.c:707
 msgid "get the appliance cache directory"
 msgstr ""
 
-#: fish/cmds.c:707
+#: fish/cmds.c:708
 msgid "get direct appliance mode flag"
 msgstr "நேரடி பயன்பாட்டு முறைமை கொடியை பெறு"
 
-#: fish/cmds.c:708
+#: fish/cmds.c:709
 msgid "get ext2 file attributes of a file"
 msgstr ""
 
-#: fish/cmds.c:709
+#: fish/cmds.c:710
 msgid "get ext2 file generation of a file"
 msgstr ""
 
-#: fish/cmds.c:710
+#: fish/cmds.c:711
 msgid "get the ext2/3/4 filesystem label"
 msgstr "ext2/3/4 கோப்புமுறைமை லேபிலைப் பெறு"
 
-#: fish/cmds.c:711
+#: fish/cmds.c:712
 msgid "get the ext2/3/4 filesystem UUID"
 msgstr "ext2/3/4 கோப்புமுறை UUIDஐ பெறு"
 
-#: fish/cmds.c:712
+#: fish/cmds.c:713
 msgid "get the hypervisor binary"
 msgstr ""
 
-#: fish/cmds.c:713
+#: fish/cmds.c:714
 msgid "get the handle identifier"
 msgstr ""
 
-#: fish/cmds.c:714
+#: fish/cmds.c:715
 msgid "challenge of i'th requested credential"
 msgstr ""
 
-#: fish/cmds.c:715
+#: fish/cmds.c:716
 msgid "default result of i'th requested credential"
 msgstr ""
 
-#: fish/cmds.c:716
+#: fish/cmds.c:717
 msgid "prompt of i'th requested credential"
 msgstr ""
 
-#: fish/cmds.c:717
+#: fish/cmds.c:718
 msgid "get list of credentials requested by libvirt"
 msgstr ""
 
-#: fish/cmds.c:718
+#: fish/cmds.c:719
 msgid "get memory allocated to the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:719
+#: fish/cmds.c:720
 msgid "get enable network flag"
 msgstr ""
 
-#: fish/cmds.c:720
+#: fish/cmds.c:721
 msgid "get the search path"
 msgstr "தேடும் பாதையை பெறு"
 
-#: fish/cmds.c:721
+#: fish/cmds.c:722
 msgid "get process group flag"
 msgstr ""
 
-#: fish/cmds.c:722
+#: fish/cmds.c:723
 msgid "get PID of hypervisor"
 msgstr ""
 
-#: fish/cmds.c:723
+#: fish/cmds.c:724
 msgid "get the program name"
 msgstr ""
 
-#: fish/cmds.c:724
+#: fish/cmds.c:725
 msgid "get the hypervisor binary (usually qemu)"
 msgstr ""
 
-#: fish/cmds.c:725
+#: fish/cmds.c:726
 msgid "get recovery process enabled flag"
 msgstr "செயல்படக்கூடிய கொடிக்கு திரும்பப்பெற்ற செயல்பாட்டை பெறவும்"
 
-#: fish/cmds.c:726
+#: fish/cmds.c:727
 msgid "get SELinux enabled flag"
 msgstr "SELinux செயல்படுத்தப்பட்ட கொடியைப் பெறு"
 
-#: fish/cmds.c:727
+#: fish/cmds.c:728
 msgid "get number of virtual CPUs in appliance"
 msgstr ""
 
-#: fish/cmds.c:728
+#: fish/cmds.c:729
 msgid "get the temporary directory for sockets and PID files"
 msgstr ""
 
-#: fish/cmds.c:729
+#: fish/cmds.c:730
 msgid "get the temporary directory"
 msgstr ""
 
-#: fish/cmds.c:730
+#: fish/cmds.c:731
 msgid "get command trace enabled flag"
 msgstr "get command trace enabled flag"
 
-#: fish/cmds.c:731
+#: fish/cmds.c:732
 msgid "get the current umask"
 msgstr ""
 
-#: fish/cmds.c:732
+#: fish/cmds.c:733
 msgid "get verbose mode"
 msgstr "வெர்போஸ் முறைமையைப் பெறு"
 
-#: fish/cmds.c:733
+#: fish/cmds.c:734
 msgid "get SELinux security context"
 msgstr "SELinux பாதுகாப்பு உரையை பெறு"
 
-#: fish/cmds.c:734 fish/cmds.c:845
+#: fish/cmds.c:735 fish/cmds.c:846
 msgid "get a single extended attribute"
 msgstr ""
 
-#: fish/cmds.c:735 fish/cmds.c:846
+#: fish/cmds.c:736 fish/cmds.c:847
 msgid "list extended attributes of a file or directory"
 msgstr "ஒரு கோப்பு அல்லது அடைவின் விரிவாக்கப்பட்ட தன்மைகளை பட்டியலிடு"
 
-#: fish/cmds.c:736
+#: fish/cmds.c:737
 msgid "expand wildcards in command"
 msgstr "கட்டளையில் வைல்கார்ட்டை விவரி"
 
-#: fish/cmds.c:737
+#: fish/cmds.c:738
 msgid "expand a wildcard path"
 msgstr "ஒரு வில்கார்ட் பாதையை விரிக்கவும்"
 
-#: fish/cmds.c:740
+#: fish/cmds.c:741
 msgid "install GRUB 1"
 msgstr ""
 
-#: fish/cmds.c:741
+#: fish/cmds.c:742
 msgid "return first 10 lines of a file"
 msgstr "ஒரு கோப்பின் முதல் 10 வரிகளை திருப்பு"
 
-#: fish/cmds.c:742
+#: fish/cmds.c:743
 msgid "return first N lines of a file"
 msgstr "ஒரு கோப்பின் முதல் N வரிகளை திருப்பு "
 
-#: fish/cmds.c:743
+#: fish/cmds.c:744
 msgid "dump a file in hexadecimal"
 msgstr "ஹெக்ஸா தசமத்தில் ஒரு கோப்பை அழுத்து"
 
-#: fish/cmds.c:744
+#: fish/cmds.c:745
 msgid "edit with a hex editor"
 msgstr ""
 
-#: fish/cmds.c:745
+#: fish/cmds.c:746
 msgid "close the current hivex handle"
 msgstr ""
 
-#: fish/cmds.c:746
+#: fish/cmds.c:747
 msgid "commit (write) changes back to the hive"
 msgstr ""
 
-#: fish/cmds.c:747
+#: fish/cmds.c:748
 msgid "add a child node"
 msgstr ""
 
-#: fish/cmds.c:748
+#: fish/cmds.c:749
 msgid "return list of nodes which are subkeys of node"
 msgstr ""
 
-#: fish/cmds.c:749
+#: fish/cmds.c:750
 msgid "delete a node (recursively)"
 msgstr ""
 
-#: fish/cmds.c:750
+#: fish/cmds.c:751
 msgid "return the named child of node"
 msgstr ""
 
-#: fish/cmds.c:751
+#: fish/cmds.c:752
 msgid "return the named value"
 msgstr ""
 
-#: fish/cmds.c:752
+#: fish/cmds.c:753
 msgid "return the name of the node"
 msgstr ""
 
-#: fish/cmds.c:753
+#: fish/cmds.c:754
 msgid "return the parent of node"
 msgstr ""
 
-#: fish/cmds.c:754
+#: fish/cmds.c:755
 msgid "set or replace a single value in a node"
 msgstr ""
 
-#: fish/cmds.c:755
+#: fish/cmds.c:756
 msgid "return list of values attached to node"
 msgstr ""
 
-#: fish/cmds.c:756
+#: fish/cmds.c:757
 msgid "open a Windows Registry hive file"
 msgstr ""
 
-#: fish/cmds.c:757
+#: fish/cmds.c:758
 msgid "return the root node of the hive"
 msgstr ""
 
-#: fish/cmds.c:758
+#: fish/cmds.c:759
 msgid "return the key field from the (key, datatype, data) tuple"
 msgstr ""
 
-#: fish/cmds.c:759 fish/cmds.c:761
+#: fish/cmds.c:760 fish/cmds.c:762
 msgid "return the data field as a UTF-8 string"
 msgstr ""
 
-#: fish/cmds.c:760
+#: fish/cmds.c:761
 msgid "return the data type from the (key, datatype, data) tuple"
 msgstr ""
 
-#: fish/cmds.c:762
+#: fish/cmds.c:763
 msgid "return the data field from the (key, datatype, data) tuple"
 msgstr ""
 
-#: fish/cmds.c:769
+#: fish/cmds.c:770
 msgid "list the contents of a single file in an initrd"
 msgstr ""
 
-#: fish/cmds.c:770
+#: fish/cmds.c:771
 msgid "list files in an initrd"
 msgstr "ஒரு initrdல் கோப்புகளைப் பட்டியலிடு"
 
-#: fish/cmds.c:771
+#: fish/cmds.c:772
 msgid "add an inotify watch"
 msgstr "ஒரு inotify கடிகாரத்தைச் சேர்"
 
-#: fish/cmds.c:772
+#: fish/cmds.c:773
 msgid "close the inotify handle"
 msgstr "inotify ஹாண்டிலை மூடு"
 
-#: fish/cmds.c:773
+#: fish/cmds.c:774
 msgid "return list of watched files that had events"
 msgstr "கவனிக்கப்பட்ட கோப்புகளிலிருந்து திரும்பிய பட்டியல்கள் நிகழ்வுகளைப் பெற்றிருந்தது"
 
-#: fish/cmds.c:774
+#: fish/cmds.c:775
 msgid "create an inotify handle"
 msgstr "ஒரு inotify ஹாண்டிலை உருவாக்கு"
 
-#: fish/cmds.c:775
+#: fish/cmds.c:776
 msgid "return list of inotify events"
 msgstr "inotify நிகழ்வுகளின் பட்டியலைக் கொடுத்தது"
 
-#: fish/cmds.c:776
+#: fish/cmds.c:777
 msgid "remove an inotify watch"
 msgstr "ஒரு inotify கடிகாரத்தை நீக்கு"
 
-#: fish/cmds.c:777
+#: fish/cmds.c:778
 msgid "get architecture of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:778
+#: fish/cmds.c:779
 #, fuzzy
 #| msgid "get the ext2/3/4 filesystem UUID"
 msgid "get the system build ID"
 msgstr "ext2/3/4 கோப்புமுறை UUIDஐ பெறு"
 
-#: fish/cmds.c:779
+#: fish/cmds.c:780
 msgid "get distro of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:780
+#: fish/cmds.c:781
 msgid "get drive letter mappings"
 msgstr ""
 
-#: fish/cmds.c:781
+#: fish/cmds.c:782
 msgid "get filesystems associated with inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:782
+#: fish/cmds.c:783
 msgid "get format of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:783
+#: fish/cmds.c:784
 msgid "get hostname of the operating system"
 msgstr ""
 
-#: fish/cmds.c:784
+#: fish/cmds.c:785
 msgid "get the icon corresponding to this operating system"
 msgstr ""
 
-#: fish/cmds.c:785
+#: fish/cmds.c:786
 msgid "get major version of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:786
+#: fish/cmds.c:787
 msgid "get minor version of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:787
+#: fish/cmds.c:788
 msgid "get mountpoints of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:788
+#: fish/cmds.c:789
 msgid "get a possible osinfo short ID corresponding to this operating system"
 msgstr ""
 
-#: fish/cmds.c:789
+#: fish/cmds.c:790
 msgid "get package format used by the operating system"
 msgstr ""
 
-#: fish/cmds.c:790
+#: fish/cmds.c:791
 msgid "get package management tool used by the operating system"
 msgstr ""
 
-#: fish/cmds.c:791
+#: fish/cmds.c:792
 msgid "get product name of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:792
+#: fish/cmds.c:793
 msgid "get product variant of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:793
+#: fish/cmds.c:794
 msgid "return list of operating systems found by last inspection"
 msgstr ""
 
-#: fish/cmds.c:794
+#: fish/cmds.c:795
 msgid "get type of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:795
+#: fish/cmds.c:796
 msgid "get Windows CurrentControlSet of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:796
+#: fish/cmds.c:797
 msgid "get the path of the Windows software hive"
 msgstr ""
 
-#: fish/cmds.c:797
+#: fish/cmds.c:798
 msgid "get the path of the Windows system hive"
 msgstr ""
 
-#: fish/cmds.c:798
+#: fish/cmds.c:799
 msgid "get Windows systemroot of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:799
+#: fish/cmds.c:800
 msgid "get live flag for install disk"
 msgstr ""
 
-#: fish/cmds.c:800
+#: fish/cmds.c:801
 msgid "get multipart flag for install disk"
 msgstr ""
 
-#: fish/cmds.c:801
+#: fish/cmds.c:802
 msgid "get netinst (network installer) flag for install disk"
 msgstr ""
 
-#: fish/cmds.c:802 fish/cmds.c:803
+#: fish/cmds.c:803 fish/cmds.c:804
 msgid "get list of applications installed in the operating system"
 msgstr ""
 
-#: fish/cmds.c:804
+#: fish/cmds.c:805
 msgid "inspect disk and return list of operating systems found"
 msgstr ""
 
-#: fish/cmds.c:805
+#: fish/cmds.c:806
 msgid "cause the daemon to exit (internal use only)"
 msgstr ""
 
-#: fish/cmds.c:806
+#: fish/cmds.c:807
 msgid "test if block device"
 msgstr ""
 
-#: fish/cmds.c:807
+#: fish/cmds.c:808
 msgid "test if character device"
 msgstr ""
 
-#: fish/cmds.c:808
+#: fish/cmds.c:809
 msgid "is in configuration state"
 msgstr "அது கட்டமைப்பு நிலையில் உள்ளது"
 
-#: fish/cmds.c:809
+#: fish/cmds.c:810
 msgid "test if a directory"
 msgstr ""
 
-#: fish/cmds.c:810
+#: fish/cmds.c:811
 msgid "test if FIFO (named pipe)"
 msgstr ""
 
-#: fish/cmds.c:811
+#: fish/cmds.c:812
 msgid "test if a regular file"
 msgstr ""
 
-#: fish/cmds.c:812
+#: fish/cmds.c:813
 msgid "test if mountable is a logical volume"
 msgstr ""
 
-#: fish/cmds.c:813
+#: fish/cmds.c:814
 msgid "test if socket"
 msgstr ""
 
-#: fish/cmds.c:814
+#: fish/cmds.c:815
 msgid "test if symbolic link"
 msgstr ""
 
-#: fish/cmds.c:815
+#: fish/cmds.c:816
 msgid "test if a device is a whole device"
 msgstr ""
 
-#: fish/cmds.c:816
+#: fish/cmds.c:817
 msgid "test if a file contains all zero bytes"
 msgstr ""
 
-#: fish/cmds.c:817
+#: fish/cmds.c:818
 msgid "test if a device contains all zero bytes"
 msgstr ""
 
-#: fish/cmds.c:818
+#: fish/cmds.c:819
 msgid "get ISO information from primary volume descriptor of ISO file"
 msgstr ""
 
-#: fish/cmds.c:819
+#: fish/cmds.c:820
 msgid "get ISO information from primary volume descriptor of device"
 msgstr ""
 
-#: fish/cmds.c:820
+#: fish/cmds.c:821
 msgid "close the systemd journal"
 msgstr ""
 
-#: fish/cmds.c:821
+#: fish/cmds.c:822
 msgid "read the current journal entry"
 msgstr ""
 
-#: fish/cmds.c:822
+#: fish/cmds.c:823
 msgid "get the data threshold for reading journal entries"
 msgstr ""
 
-#: fish/cmds.c:823
+#: fish/cmds.c:824
 msgid "get the timestamp of the current journal entry"
 msgstr ""
 
-#: fish/cmds.c:824
+#: fish/cmds.c:825
 msgid "move to the next journal entry"
 msgstr ""
 
-#: fish/cmds.c:825
+#: fish/cmds.c:826
 msgid "open the systemd journal"
 msgstr ""
 
-#: fish/cmds.c:826
+#: fish/cmds.c:827
 msgid "set the data threshold for reading journal entries"
 msgstr ""
 
-#: fish/cmds.c:827
+#: fish/cmds.c:828
 msgid "skip forwards or backwards in the journal"
 msgstr ""
 
-#: fish/cmds.c:828
+#: fish/cmds.c:829
 msgid "kill the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:829
+#: fish/cmds.c:830
 msgid "launch the backend"
 msgstr ""
 
-#: fish/cmds.c:830
+#: fish/cmds.c:831
 msgid "change working directory"
 msgstr ""
 
-#: fish/cmds.c:832
+#: fish/cmds.c:833
 msgid "scan and create Windows dynamic disk volumes"
 msgstr ""
 
-#: fish/cmds.c:833
+#: fish/cmds.c:834
 msgid "return the disks in a Windows dynamic disk group"
 msgstr ""
 
-#: fish/cmds.c:834
+#: fish/cmds.c:835
 msgid "return the name of a Windows dynamic disk group"
 msgstr ""
 
-#: fish/cmds.c:835
+#: fish/cmds.c:836
 msgid "return the volumes in a Windows dynamic disk group"
 msgstr ""
 
-#: fish/cmds.c:836
+#: fish/cmds.c:837
 msgid "remove all Windows dynamic disk volumes"
 msgstr ""
 
-#: fish/cmds.c:837 fish/cmds.c:838
+#: fish/cmds.c:838 fish/cmds.c:839
 msgid "scan for Windows dynamic disks"
 msgstr ""
 
-#: fish/cmds.c:839
+#: fish/cmds.c:840
 msgid "return the hint field of a Windows dynamic disk volume"
 msgstr ""
 
-#: fish/cmds.c:840
+#: fish/cmds.c:841
 msgid "return the partitions in a Windows dynamic disk volume"
 msgstr ""
 
-#: fish/cmds.c:841
+#: fish/cmds.c:842
 msgid "return the type of a Windows dynamic disk volume"
 msgstr ""
 
-#: fish/cmds.c:847
+#: fish/cmds.c:848
 msgid "list 9p filesystems"
 msgstr ""
 
-#: fish/cmds.c:848
+#: fish/cmds.c:849
 msgid "list the block devices"
 msgstr "தடுப்பு சாதனங்களின் பட்டியல்"
 
-#: fish/cmds.c:849
+#: fish/cmds.c:850
 msgid "mapping of disk labels to devices"
 msgstr ""
 
-#: fish/cmds.c:850
+#: fish/cmds.c:851
 msgid "list device mapper devices"
 msgstr ""
 
-#: fish/cmds.c:851
+#: fish/cmds.c:852
 msgid "list event handlers"
 msgstr ""
 
-#: fish/cmds.c:852
+#: fish/cmds.c:853
 msgid "list filesystems"
 msgstr ""
 
-#: fish/cmds.c:853
+#: fish/cmds.c:854
 msgid "list all Windows dynamic disk partitions"
 msgstr ""
 
-#: fish/cmds.c:854
+#: fish/cmds.c:855
 msgid "list all Windows dynamic disk volumes"
 msgstr ""
 
-#: fish/cmds.c:855
+#: fish/cmds.c:856
 msgid "list Linux md (RAID) devices"
 msgstr ""
 
-#: fish/cmds.c:856
+#: fish/cmds.c:857
 msgid "list the partitions"
 msgstr "பகிர்வுகளின் பட்டியல்"
 
-#: fish/cmds.c:857
+#: fish/cmds.c:858
 msgid "list the files in a directory (long format)"
 msgstr "ஒரு அடைவில் கோப்புகளை பட்டியலிடு (நீண்ட வடிவில்)"
 
-#: fish/cmds.c:858
+#: fish/cmds.c:859
 msgid "list the files in a directory (long format with SELinux contexts)"
 msgstr ""
 
-#: fish/cmds.c:859 fish/cmds.c:860
+#: fish/cmds.c:860 fish/cmds.c:861
 msgid "create a hard link"
 msgstr "ஒரு வன் இணைப்பை உருவாக்கு"
 
-#: fish/cmds.c:861 fish/cmds.c:862
+#: fish/cmds.c:862 fish/cmds.c:863
 msgid "create a symbolic link"
 msgstr "ஒரு symbolic இணைப்பை உருவாக்கு"
 
-#: fish/cmds.c:863 fish/cmds.c:1026
+#: fish/cmds.c:864 fish/cmds.c:1027
 msgid "remove extended attribute of a file or directory"
 msgstr "ஒரு கோப்பு அல்லது அடைவின்  விரிவாக்கப்பட்ட தன்மையை நீக்கு"
 
-#: fish/cmds.c:864
+#: fish/cmds.c:865
 msgid "list the files in a directory"
 msgstr "ஒரு அடைவிலுள்ள கோப்புகளின் பட்டியல்"
 
-#: fish/cmds.c:865
+#: fish/cmds.c:866
 msgid "get list of files in a directory"
 msgstr ""
 
-#: fish/cmds.c:866 fish/cmds.c:1086
+#: fish/cmds.c:867 fish/cmds.c:1087
 msgid "set extended attribute of a file or directory"
 msgstr "ஒரு கோப்பு அல்லது அடைவின் விரிவாக்கப்பட்ட தன்மையை அமை"
 
-#: fish/cmds.c:867 fish/cmds.c:869
+#: fish/cmds.c:868 fish/cmds.c:870
 msgid "get file information for a symbolic link"
 msgstr "ஒரு symbolic இணைப்பிற்கான கோப்பு தகவலைப் பெறு"
 
-#: fish/cmds.c:868 fish/cmds.c:870
+#: fish/cmds.c:869 fish/cmds.c:871
 msgid "lstat on multiple files"
 msgstr "பல கோப்புகளிலுள்ள lstat "
 
-#: fish/cmds.c:871
+#: fish/cmds.c:872
 msgid "add a key on a LUKS encrypted device"
 msgstr ""
 
-#: fish/cmds.c:872
+#: fish/cmds.c:873
 msgid "close a LUKS device"
 msgstr ""
 
-#: fish/cmds.c:873 fish/cmds.c:874
+#: fish/cmds.c:874 fish/cmds.c:875
 msgid "format a block device as a LUKS encrypted device"
 msgstr ""
 
-#: fish/cmds.c:875
+#: fish/cmds.c:876
 msgid "remove a key from a LUKS encrypted device"
 msgstr ""
 
-#: fish/cmds.c:876
+#: fish/cmds.c:877
 msgid "open a LUKS-encrypted block device"
 msgstr ""
 
-#: fish/cmds.c:877
+#: fish/cmds.c:878
 msgid "open a LUKS-encrypted block device read-only"
 msgstr ""
 
-#: fish/cmds.c:878
+#: fish/cmds.c:879
 msgid "get the UUID of a LUKS device"
 msgstr ""
 
-#: fish/cmds.c:879
+#: fish/cmds.c:880
 msgid "create an LVM logical volume"
 msgstr ""
 
-#: fish/cmds.c:880
+#: fish/cmds.c:881
 msgid "create an LVM logical volume in % remaining free space"
 msgstr ""
 
-#: fish/cmds.c:881
+#: fish/cmds.c:882
 msgid "get canonical name of an LV"
 msgstr ""
 
-#: fish/cmds.c:882
+#: fish/cmds.c:883
 msgid "clear LVM device filter"
 msgstr ""
 
-#: fish/cmds.c:883
+#: fish/cmds.c:884
 msgid "remove all LVM LVs, VGs and PVs"
 msgstr "அனைத்து LVM LVs, VGs மற்றும் PVsஐ நீக்கு"
 
-#: fish/cmds.c:884
+#: fish/cmds.c:885
 msgid "scan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 
-#: fish/cmds.c:885
+#: fish/cmds.c:886
 msgid "set LVM device filter"
 msgstr ""
 
-#: fish/cmds.c:886
+#: fish/cmds.c:887
 msgid "remove an LVM logical volume"
 msgstr "ஒரு LVM வரைகலை தொகுதியை நீக்கு"
 
-#: fish/cmds.c:887
+#: fish/cmds.c:888
 msgid "rename an LVM logical volume"
 msgstr ""
 
-#: fish/cmds.c:888
+#: fish/cmds.c:889
 msgid "resize an LVM logical volume"
 msgstr "ஒரு LVM வரைகலை தொகுதியை மறுஅளவிடு"
 
-#: fish/cmds.c:889
+#: fish/cmds.c:890
 msgid "expand an LV to fill free space"
 msgstr ""
 
-#: fish/cmds.c:890 fish/cmds.c:891
+#: fish/cmds.c:891 fish/cmds.c:892
 msgid "list the LVM logical volumes (LVs)"
 msgstr "LVM வலைகலை தொகுதிகளை பட்டியலிடு (LVs)"
 
-#: fish/cmds.c:892
+#: fish/cmds.c:893
 msgid "get the UUID of a logical volume"
 msgstr ""
 
-#: fish/cmds.c:893
+#: fish/cmds.c:894
 msgid "lgetxattr on multiple files"
 msgstr "lgetxattr ல் பல கோப்புகள்"
 
-#: fish/cmds.c:894
+#: fish/cmds.c:895
 msgid "open the manual"
 msgstr ""
 
-#: fish/cmds.c:898
+#: fish/cmds.c:899
 msgid "maximum number of disks that may be added"
 msgstr ""
 
-#: fish/cmds.c:899
+#: fish/cmds.c:900
 msgid "create a Linux md (RAID) device"
 msgstr ""
 
-#: fish/cmds.c:900
+#: fish/cmds.c:901
 msgid "obtain metadata for an MD device"
 msgstr ""
 
-#: fish/cmds.c:901
+#: fish/cmds.c:902
 msgid "get underlying devices from an MD device"
 msgstr ""
 
-#: fish/cmds.c:902
+#: fish/cmds.c:903
 msgid "stop a Linux md (RAID) device"
 msgstr ""
 
-#: fish/cmds.c:906
+#: fish/cmds.c:907
 msgid "create a directory"
 msgstr "ஒரு அடைவினை உருவாக்கு"
 
-#: fish/cmds.c:907
+#: fish/cmds.c:908
 msgid "create a directory with a particular mode"
 msgstr "ஒரு முக்கிய முறைமையை ஒரு அடைவுடன் உருவாக்கு"
 
-#: fish/cmds.c:908
+#: fish/cmds.c:909
 msgid "create a directory and parents"
 msgstr "ஒரு அடைவு மற்றும் பொற்றோர்களை உருவாக்கு"
 
-#: fish/cmds.c:909
+#: fish/cmds.c:910
 msgid "create a temporary directory"
 msgstr "ஒரு தற்காலிக அடைவினை உருவாக்கு"
 
-#: fish/cmds.c:910
+#: fish/cmds.c:911
 msgid "create an ext2/ext3/ext4 filesystem on device"
 msgstr ""
 
-#: fish/cmds.c:911 fish/cmds.c:912 fish/cmds.c:913
+#: fish/cmds.c:912 fish/cmds.c:913 fish/cmds.c:914
 msgid "make ext2/3/4 filesystem with external journal"
 msgstr "ext2/3/4 கோப்புமுறையை வெளிப்புற ஜர்னலுடன் உருவாக்குகிறது"
 
-#: fish/cmds.c:914
+#: fish/cmds.c:915
 msgid "make ext2/3/4 external journal"
 msgstr "ext2/3/4ஐ வெளிப்புற ஜர்னலுடன் செய்யவும்"
 
-#: fish/cmds.c:915
+#: fish/cmds.c:916
 msgid "make ext2/3/4 external journal with label"
 msgstr "ext2/3/4 லேபிலுடன் வெளிப்புற ஜர்னலை உருவாக்குகிறது"
 
-#: fish/cmds.c:916
+#: fish/cmds.c:917
 msgid "make ext2/3/4 external journal with UUID"
 msgstr "ext2/3/4  UUID உடன் வெளிப்புள ஜர்னலை உருவாக்குகிறது"
 
-#: fish/cmds.c:917
+#: fish/cmds.c:918
 msgid "make FIFO (named pipe)"
 msgstr "FIFOஐ செய் (pipe என்று பெயரிடப்பட்டது)"
 
-#: fish/cmds.c:918
+#: fish/cmds.c:919
 msgid "make a filesystem"
 msgstr "ஒரு கோப்புமுறையை செய்"
 
-#: fish/cmds.c:919
+#: fish/cmds.c:920
 msgid "make a filesystem with block size"
 msgstr "ஒரு கோப்புமுறையை தடுப்பு அளவுடன் செய்"
 
-#: fish/cmds.c:920
+#: fish/cmds.c:921
 msgid "create a btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:921
+#: fish/cmds.c:922
 msgid "make lost+found directory on an ext2/3/4 filesystem"
 msgstr ""
 
-#: fish/cmds.c:922
+#: fish/cmds.c:923
 msgid "create a mountpoint"
 msgstr "ஒரு ஏறும்புள்ளியை உருவாக்கு"
 
-#: fish/cmds.c:923
+#: fish/cmds.c:924
 msgid "make block, character or FIFO devices"
 msgstr "தொகுதி , எழுத்து அல்லது FIFO சாதனங்களுக்காக செய்"
 
-#: fish/cmds.c:924
+#: fish/cmds.c:925
 msgid "make block device node"
 msgstr "தொகுதி சாதன முனையை செய்"
 
-#: fish/cmds.c:925
+#: fish/cmds.c:926
 msgid "make char device node"
 msgstr "எழுத்துச் சாதன முனையைசெ செய்"
 
-#: fish/cmds.c:926
+#: fish/cmds.c:927
 msgid "create a squashfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:927
+#: fish/cmds.c:928
 msgid "create a swap partition"
 msgstr "ஒரு ஸ்வாப் பகிர்வை உருவாக்கு"
 
-#: fish/cmds.c:928
+#: fish/cmds.c:929
 msgid "create a swap partition with a label"
 msgstr "ஒரு ஸ்வாப் பகிர்வை ஒரு லேபிலுடன் உருவாக்கு"
 
-#: fish/cmds.c:929
+#: fish/cmds.c:930
 msgid "create a swap partition with an explicit UUID"
 msgstr "ஒரு தெளிவான UUID உடன் ஒரு ஸ்வாப் பகிர்வை உருவாக்கு"
 
-#: fish/cmds.c:930
+#: fish/cmds.c:931
 msgid "create a swap file"
 msgstr "ஒரு ஸ்வாப் கோப்பை உருவாக்கு"
 
-#: fish/cmds.c:931
+#: fish/cmds.c:932
 msgid "create a temporary file"
 msgstr ""
 
-#: fish/cmds.c:932
+#: fish/cmds.c:933
 msgid "load a kernel module"
 msgstr "ஒரு கெர்னல் தொகுதியை உருவாக்கு"
 
-#: fish/cmds.c:933
+#: fish/cmds.c:934
 msgid "view a file"
 msgstr ""
 
-#: fish/cmds.c:934
+#: fish/cmds.c:935
 msgid "mount a guest disk at a position in the filesystem"
 msgstr "கோப்புமுறைமையிலுள்ள இடத்தில் விருந்தினர் வட்டை ஏற்று"
 
-#: fish/cmds.c:935
+#: fish/cmds.c:936
 msgid "mount 9p filesystem"
 msgstr ""
 
-#: fish/cmds.c:936
+#: fish/cmds.c:937
 msgid "mount on the local filesystem"
 msgstr ""
 
-#: fish/cmds.c:937
+#: fish/cmds.c:938
 msgid "run main loop of mount on the local filesystem"
 msgstr ""
 
-#: fish/cmds.c:938
+#: fish/cmds.c:939
 msgid "mount a file using the loop device"
 msgstr "லூப் சாதனத்தை பயன்படுத்தி ஒரு கோப்பை ஏற்றுகிறது"
 
-#: fish/cmds.c:939
+#: fish/cmds.c:940
 msgid "mount a guest disk with mount options"
 msgstr "ஏறும் விருப்பங்களுடன் ஒரு விருந்தினர் வட்டை ஏற்று"
 
-#: fish/cmds.c:940
+#: fish/cmds.c:941
 msgid "mount a guest disk, read-only"
 msgstr "விருப்பங்களுடன் ஒரு விருந்தினர் வட்டை ஏற்று, வாசிக்க-மட்டும்"
 
-#: fish/cmds.c:941
+#: fish/cmds.c:942
 msgid "mount a guest disk with mount options and vfstype"
 msgstr "mount a guest disk with mount options and vfstype"
 
-#: fish/cmds.c:942
+#: fish/cmds.c:943
 msgid "extract the device part of a mountable"
 msgstr ""
 
-#: fish/cmds.c:943
+#: fish/cmds.c:944
 msgid "extract the subvolume part of a mountable"
 msgstr ""
 
-#: fish/cmds.c:944
+#: fish/cmds.c:945
 msgid "show mountpoints"
 msgstr "ஏற்ம்புள்ளிகளைக் காட்டு"
 
-#: fish/cmds.c:945
+#: fish/cmds.c:946
 msgid "show mounted filesystems"
 msgstr "ஏறிய கோப்புமுறைகளைக் காட்டு"
 
-#: fish/cmds.c:946
+#: fish/cmds.c:947
 msgid "move a file"
 msgstr "ஒரு கோப்பினை நகர்த்து"
 
-#: fish/cmds.c:950
+#: fish/cmds.c:951
 msgid "return number of whole block devices (disks) added"
 msgstr ""
 
-#: fish/cmds.c:951
+#: fish/cmds.c:952
 msgid "probe NTFS volume"
 msgstr "NTFS தொகுதியை ஆய்வு செய்"
 
-#: fish/cmds.c:953
+#: fish/cmds.c:954
 msgid "restore NTFS from backup file"
 msgstr ""
 
-#: fish/cmds.c:954
+#: fish/cmds.c:955
 msgid "save NTFS to backup file"
 msgstr ""
 
-#: fish/cmds.c:955
+#: fish/cmds.c:956
 msgid "fix common errors and force Windows to check NTFS"
 msgstr ""
 
-#: fish/cmds.c:956
+#: fish/cmds.c:957
 msgid "resize an NTFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:957
+#: fish/cmds.c:958
 msgid "resize an NTFS filesystem (with size)"
 msgstr ""
 
-#: fish/cmds.c:958 fish/cmds.c:959
+#: fish/cmds.c:959 fish/cmds.c:960
 msgid "parse the environment and set handle flags accordingly"
 msgstr ""
 
-#: fish/cmds.c:960
+#: fish/cmds.c:961
 msgid "add a partition to the device"
 msgstr "ஒரு பகிர்வை சாதனத்தில் சேர்"
 
-#: fish/cmds.c:961
+#: fish/cmds.c:962
 msgid "delete a partition"
 msgstr ""
 
-#: fish/cmds.c:962
+#: fish/cmds.c:963
 msgid "partition whole disk with a single primary partition"
 msgstr "ஒரு ஒற்றை முதன்மை பகிர்வுடன் மொத்த வட்டை பகிர்வு செய்"
 
-#: fish/cmds.c:963
+#: fish/cmds.c:964
 msgid "move backup GPT header to the end of the disk"
 msgstr ""
 
-#: fish/cmds.c:964
+#: fish/cmds.c:965
 msgid "return true if a partition is bootable"
 msgstr ""
 
-#: fish/cmds.c:965
+#: fish/cmds.c:966
 msgid "get the GUID of a GPT-partitioned disk"
 msgstr ""
 
-#: fish/cmds.c:966
+#: fish/cmds.c:967
 msgid "get the attribute flags of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:967
+#: fish/cmds.c:968
 msgid "get the GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:968
+#: fish/cmds.c:969
 msgid "get the type GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:969
+#: fish/cmds.c:970
 msgid "get the MBR type byte (ID byte) from a partition"
 msgstr ""
 
-#: fish/cmds.c:970
+#: fish/cmds.c:971
 msgid "get the MBR partition type"
 msgstr ""
 
-#: fish/cmds.c:971
+#: fish/cmds.c:972
 msgid "get partition name"
 msgstr ""
 
-#: fish/cmds.c:972
+#: fish/cmds.c:973
 msgid "get the partition table type"
 msgstr "பகிர்வு அட்டவணை வகையை பெறு"
 
-#: fish/cmds.c:973
+#: fish/cmds.c:974
 msgid "create an empty partition table"
 msgstr "ஒரு காலி பகிர்வு அட்டவணையை உருவாக்கு"
 
-#: fish/cmds.c:974
+#: fish/cmds.c:975
 msgid "list partitions on a device"
 msgstr "ஒரு சாதனத்தின் பகிர்வுகளின் பட்டியல்"
 
-#: fish/cmds.c:975
+#: fish/cmds.c:976
 msgid "resize a partition"
 msgstr ""
 
-#: fish/cmds.c:976
+#: fish/cmds.c:977
 msgid "make a partition bootable"
 msgstr "ஒரு துவக்கக்கூடிய பகிர்வை உருவாக்கு"
 
-#: fish/cmds.c:977
+#: fish/cmds.c:978
 msgid "set the GUID of a GPT-partitioned disk"
 msgstr ""
 
-#: fish/cmds.c:978
+#: fish/cmds.c:979
 msgid "set the GUID of a GPT-partitioned disk to random value"
 msgstr ""
 
-#: fish/cmds.c:979
+#: fish/cmds.c:980
 msgid "set the attribute flags of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:980
+#: fish/cmds.c:981
 msgid "set the GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:981
+#: fish/cmds.c:982
 msgid "set the type GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:982
+#: fish/cmds.c:983
 msgid "set the MBR type byte (ID byte) of a partition"
 msgstr ""
 
-#: fish/cmds.c:983
+#: fish/cmds.c:984
 msgid "set partition name"
 msgstr "பகிர்வு பெயரை அமை"
 
-#: fish/cmds.c:984
+#: fish/cmds.c:985
 msgid "convert partition name to device name"
 msgstr ""
 
-#: fish/cmds.c:985
+#: fish/cmds.c:986
 msgid "convert partition name to partition number"
 msgstr ""
 
-#: fish/cmds.c:995
+#: fish/cmds.c:996
 msgid "ping the guest daemon"
 msgstr "விருந்தினர் டொமைனை பிங் செய்"
 
-#: fish/cmds.c:996
+#: fish/cmds.c:997
 msgid "read part of a file"
 msgstr "ஒரு கோப்பின் பகுதியை வாசி"
 
-#: fish/cmds.c:997
+#: fish/cmds.c:998
 msgid "read part of a device"
 msgstr ""
 
-#: fish/cmds.c:1001
+#: fish/cmds.c:1002
 msgid "generate a new random UUID for a physical volume"
 msgstr ""
 
-#: fish/cmds.c:1002
+#: fish/cmds.c:1003
 msgid "generate new random UUIDs for all physical volumes"
 msgstr ""
 
-#: fish/cmds.c:1003
+#: fish/cmds.c:1004
 msgid "create an LVM physical volume"
 msgstr "ஒரு LVM பருநிலை தொகுதியை உருவாக்கு"
 
-#: fish/cmds.c:1004
+#: fish/cmds.c:1005
 msgid "remove an LVM physical volume"
 msgstr "ஒரு  LVM பருநிலை தொகுதியை உருவாக்கு"
 
-#: fish/cmds.c:1005
+#: fish/cmds.c:1006
 msgid "resize an LVM physical volume"
 msgstr "ஒரு  LVM பருநிலை தொகுதியை மறுஅளவிடு"
 
-#: fish/cmds.c:1006
+#: fish/cmds.c:1007
 msgid "resize an LVM physical volume (with size)"
 msgstr ""
 
-#: fish/cmds.c:1007 fish/cmds.c:1008
+#: fish/cmds.c:1008 fish/cmds.c:1009
 msgid "list the LVM physical volumes (PVs)"
 msgstr "LVM பருநிலை தொகுதிகளின் பட்டியல் (PVs)"
 
-#: fish/cmds.c:1009
+#: fish/cmds.c:1010
 msgid "get the UUID of a physical volume"
 msgstr ""
 
-#: fish/cmds.c:1010
+#: fish/cmds.c:1011
 msgid "write to part of a file"
 msgstr ""
 
-#: fish/cmds.c:1011
+#: fish/cmds.c:1012
 msgid "write to part of a device"
 msgstr ""
 
-#: fish/cmds.c:1015
+#: fish/cmds.c:1016
 msgid "read a file"
 msgstr "ஒரு கோப்பினை வாசி"
 
-#: fish/cmds.c:1016
+#: fish/cmds.c:1017
 msgid "read file as lines"
 msgstr "கோப்பினை வரிகளாக வாசி"
 
-#: fish/cmds.c:1017
+#: fish/cmds.c:1018
 msgid "read directories entries"
 msgstr "அடைவுகளின் உள்ளீட்டை வாசி"
 
-#: fish/cmds.c:1018
+#: fish/cmds.c:1019
 msgid "read the target of a symbolic link"
 msgstr "ஒரு symbolic இணைப்பின் இலக்கை வாசி"
 
-#: fish/cmds.c:1019
+#: fish/cmds.c:1020
 msgid "readlink on multiple files"
 msgstr "பல கோப்புகளின் வாசிக்கும் இணைப்பு"
 
-#: fish/cmds.c:1020
+#: fish/cmds.c:1021
 msgid "canonicalized absolute pathname"
 msgstr "canonicalized absolute pathname"
 
-#: fish/cmds.c:1024
+#: fish/cmds.c:1025
 msgid "remount a filesystem with different options"
 msgstr ""
 
-#: fish/cmds.c:1025
+#: fish/cmds.c:1026
 msgid "remove a disk image"
 msgstr ""
 
-#: fish/cmds.c:1027
+#: fish/cmds.c:1028
 msgid "rename a file on the same filesystem"
 msgstr ""
 
-#: fish/cmds.c:1028
+#: fish/cmds.c:1029
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ஹாண்டிலை மூடு மற்றும் மறுபடி திற"
 
-#: fish/cmds.c:1029
+#: fish/cmds.c:1030
 msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr ""
 
-#: fish/cmds.c:1030
+#: fish/cmds.c:1031
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr ""
 
-#: fish/cmds.c:1031
+#: fish/cmds.c:1032
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr ""
 
-#: fish/cmds.c:1032
+#: fish/cmds.c:1033
 msgid "remove a file"
 msgstr "ஒரு கோப்பினை நீக்கு"
 
-#: fish/cmds.c:1033
+#: fish/cmds.c:1034
 msgid "remove a file ignoring errors"
 msgstr ""
 
-#: fish/cmds.c:1034
+#: fish/cmds.c:1035
 msgid "remove a file or directory recursively"
 msgstr "மறுபடியும் ஒரு கோப்பு அல்லது அடைவை நீக்கு"
 
-#: fish/cmds.c:1035
+#: fish/cmds.c:1036
 msgid "remove a directory"
 msgstr "ஒரு அடைவினை நீக்கு"
 
-#: fish/cmds.c:1036
+#: fish/cmds.c:1037
 msgid "remove a mountpoint"
 msgstr "ஒரு ஏறும்புள்ளியை நீக்கு"
 
-#: fish/cmds.c:1037
+#: fish/cmds.c:1038
 msgid "synchronize the contents of two directories"
 msgstr ""
 
-#: fish/cmds.c:1038
+#: fish/cmds.c:1039
 msgid "synchronize host or remote filesystem with filesystem"
 msgstr ""
 
-#: fish/cmds.c:1039
+#: fish/cmds.c:1040
 msgid "synchronize filesystem with host or remote filesystem"
 msgstr ""
 
-#: fish/cmds.c:1046
+#: fish/cmds.c:1047
 msgid "scrub (securely wipe) a device"
 msgstr "ஒரு சாதனத்தை (பாதுகாப்பாக துடை) துடை"
 
-#: fish/cmds.c:1047
+#: fish/cmds.c:1048
 msgid "scrub (securely wipe) a file"
 msgstr "ஒரு கோப்பை (பாதுகாப்பாக துடை) துடை"
 
-#: fish/cmds.c:1048
+#: fish/cmds.c:1049
 msgid "scrub (securely wipe) free space"
 msgstr "காலியான இடத்தை (பாதுகாப்பாக துடை) துடை"
 
-#: fish/cmds.c:1052
+#: fish/cmds.c:1053
 msgid "relabel parts of the filesystem"
 msgstr ""
 
-#: fish/cmds.c:1053
+#: fish/cmds.c:1054
 msgid "add options to kernel command line"
 msgstr "கெர்னல் கட்டளை வரிக்கு விருப்பங்களைச் சேர்"
 
-#: fish/cmds.c:1054 fish/cmds.c:1056
+#: fish/cmds.c:1055 fish/cmds.c:1057
 msgid "set the backend"
 msgstr ""
 
-#: fish/cmds.c:1055
+#: fish/cmds.c:1056
 msgid "set autosync mode"
 msgstr "தானியங்கு ஒத்திணை முறையை அமை"
 
-#: fish/cmds.c:1057
+#: fish/cmds.c:1058
 msgid "set a single per-backend settings string"
 msgstr ""
 
-#: fish/cmds.c:1058
+#: fish/cmds.c:1059
 msgid "replace per-backend settings strings"
 msgstr ""
 
-#: fish/cmds.c:1059
+#: fish/cmds.c:1060
 msgid "set the appliance cache directory"
 msgstr ""
 
-#: fish/cmds.c:1060
+#: fish/cmds.c:1061
 msgid "enable or disable direct appliance mode"
 msgstr "நேரடி பயன்பாடு முறைமையை செயல்படுத்து அல்லது செயல்நீக்கு"
 
-#: fish/cmds.c:1061
+#: fish/cmds.c:1062
 msgid "set ext2 file attributes of a file"
 msgstr ""
 
-#: fish/cmds.c:1062
+#: fish/cmds.c:1063
 msgid "set ext2 file generation of a file"
 msgstr ""
 
-#: fish/cmds.c:1063
+#: fish/cmds.c:1064
 msgid "set the ext2/3/4 filesystem label"
 msgstr "ext2/3/4 கோப்புமுறைமை லேபிலை அமை"
 
-#: fish/cmds.c:1064
+#: fish/cmds.c:1065
 msgid "set the ext2/3/4 filesystem UUID"
 msgstr "ext2/3/4 கோப்புமுறைமை UUIDஐ அமை"
 
-#: fish/cmds.c:1065
+#: fish/cmds.c:1066
 msgid "set the hypervisor binary"
 msgstr ""
 
-#: fish/cmds.c:1066
+#: fish/cmds.c:1067
 msgid "set the handle identifier"
 msgstr ""
 
-#: fish/cmds.c:1067
+#: fish/cmds.c:1068
 msgid "set filesystem label"
 msgstr ""
 
-#: fish/cmds.c:1068
+#: fish/cmds.c:1069
 msgid "pass requested credential back to libvirt"
 msgstr ""
 
-#: fish/cmds.c:1069
+#: fish/cmds.c:1070
 msgid "set libvirt credentials supported by calling program"
 msgstr ""
 
-#: fish/cmds.c:1070
+#: fish/cmds.c:1071
 msgid "set memory allocated to the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:1071
+#: fish/cmds.c:1072
 msgid "set enable network flag"
 msgstr ""
 
-#: fish/cmds.c:1072
+#: fish/cmds.c:1073
 msgid "set the search path"
 msgstr "தேடும் பாதையை அமை"
 
-#: fish/cmds.c:1073
+#: fish/cmds.c:1074
 msgid "set process group flag"
 msgstr ""
 
-#: fish/cmds.c:1074
+#: fish/cmds.c:1075
 msgid "set the program name"
 msgstr ""
 
-#: fish/cmds.c:1075
+#: fish/cmds.c:1076
 msgid "set the hypervisor binary (usually qemu)"
 msgstr ""
 
-#: fish/cmds.c:1076
+#: fish/cmds.c:1077
 msgid "enable or disable the recovery process"
 msgstr "enable or disable the recovery process"
 
-#: fish/cmds.c:1077
+#: fish/cmds.c:1078
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr "set SELinux enabled or disabled at appliance boot"
 
-#: fish/cmds.c:1078
+#: fish/cmds.c:1079
 msgid "set number of virtual CPUs in appliance"
 msgstr ""
 
-#: fish/cmds.c:1079
+#: fish/cmds.c:1080
 msgid "set the temporary directory"
 msgstr ""
 
-#: fish/cmds.c:1080
+#: fish/cmds.c:1081
 msgid "enable or disable command traces"
 msgstr "enable or disable command traces"
 
-#: fish/cmds.c:1081
+#: fish/cmds.c:1082
 msgid "set the filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:1082
+#: fish/cmds.c:1083
 msgid "set a random UUID for the filesystem"
 msgstr ""
 
-#: fish/cmds.c:1083
+#: fish/cmds.c:1084
 msgid "set verbose mode"
 msgstr "வெர்போஸ் முறைமையை அமை"
 
-#: fish/cmds.c:1084
+#: fish/cmds.c:1085
 msgid "set SELinux security context"
 msgstr "SELinux பாதுகாப்பு உரையை அமை"
 
-#: fish/cmds.c:1085
+#: fish/cmds.c:1086
 msgid "set an environment variable"
 msgstr ""
 
-#: fish/cmds.c:1087 fish/cmds.c:1088
+#: fish/cmds.c:1088 fish/cmds.c:1089
 msgid "create partitions on a block device"
 msgstr "ஒரு தொகுதி சாதனத்திற்கு பகிர்வுகளை உருவாக்கு"
 
-#: fish/cmds.c:1089
+#: fish/cmds.c:1090
 msgid "modify a single partition on a block device"
 msgstr "ஒரு தொருதி சாதனத்தில் ஒரு ஒற்றை பகிர்வை மாற்றியமை"
 
-#: fish/cmds.c:1090
+#: fish/cmds.c:1091
 msgid "display the disk geometry from the partition table"
 msgstr "display the disk geometry from the partition table"
 
-#: fish/cmds.c:1091
+#: fish/cmds.c:1092
 msgid "display the kernel geometry"
 msgstr "கெர்னல் வடிவியலைக் காட்டு"
 
-#: fish/cmds.c:1092
+#: fish/cmds.c:1093
 msgid "display the partition table"
 msgstr "பகிர்வு அட்டவணையைக் காட்டு"
 
-#: fish/cmds.c:1093
+#: fish/cmds.c:1094 fish/cmds.c:1096
 msgid "run a command via the shell"
 msgstr "ஷெல் வழியாக ஒரு கட்டளையைக் காட்டு"
 
-#: fish/cmds.c:1094
+#: fish/cmds.c:1095
 msgid "run a command via the shell returning lines"
 msgstr "ஷெல் வழியாக கொடுக்கும் வரிகளுக்கு ஒரு கட்டளையை இயக்கு"
 
-#: fish/cmds.c:1095
+#: fish/cmds.c:1097
 msgid "shutdown the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:1096
+#: fish/cmds.c:1098
 msgid "sleep for some seconds"
 msgstr "சில விநாடிகளுக்கு ஓய்வெடு"
 
-#: fish/cmds.c:1100
+#: fish/cmds.c:1102
 msgid "create a sparse disk image and add"
 msgstr ""
 
-#: fish/cmds.c:1101 fish/cmds.c:1102
+#: fish/cmds.c:1103 fish/cmds.c:1104
 msgid "get file information"
 msgstr "கோப்பு தகவலைப் பெறு"
 
-#: fish/cmds.c:1103
+#: fish/cmds.c:1105
 msgid "get file system statistics"
 msgstr "கோப்புமுறைமையின் புள்ளிவிவரத்தைப் பெறு"
 
-#: fish/cmds.c:1104 fish/cmds.c:1105
+#: fish/cmds.c:1106 fish/cmds.c:1107
 msgid "print the printable strings in a file"
 msgstr "ஒரு கோப்பில் அச்சடிடக்கூடிய சரங்களை அச்சிடு"
 
-#: fish/cmds.c:1106
+#: fish/cmds.c:1108
 msgid "list supported groups of commands"
 msgstr ""
 
-#: fish/cmds.c:1107
+#: fish/cmds.c:1109
 msgid "disable swap on device"
 msgstr "சாதனத்தில் ஸ்வாப்பை செயல்நீக்கு"
 
-#: fish/cmds.c:1108
+#: fish/cmds.c:1110
 msgid "disable swap on file"
 msgstr "கோப்பில் ஸ்வாப்பை செயல்நீக்கு"
 
-#: fish/cmds.c:1109
+#: fish/cmds.c:1111
 msgid "disable swap on labeled swap partition"
 msgstr "லேபிலிடப்பட்ட ஸ்வாப் பகிர்வில் ஸ்வாப்பை செயல்நீக்கு"
 
-#: fish/cmds.c:1110
+#: fish/cmds.c:1112
 msgid "disable swap on swap partition by UUID"
 msgstr "ஸ்வாப் பகிர்வில் UUID படி ஸ்வாப்பை செயல்நீக்கு"
 
-#: fish/cmds.c:1111
+#: fish/cmds.c:1113
 msgid "enable swap on device"
 msgstr "சாதனத்தில் ஸ்வாப்பை செயல்படுத்து "
 
-#: fish/cmds.c:1112
+#: fish/cmds.c:1114
 msgid "enable swap on file"
 msgstr "கொப்பில் ஸ்வாப்பை செயல்படுத்து"
 
-#: fish/cmds.c:1113
+#: fish/cmds.c:1115
 msgid "enable swap on labeled swap partition"
 msgstr "லேபிலிடப்பட்ட ஸ்வாப் பகிர்வில் ஸ்வாப்பை செயல்படுத்து"
 
-#: fish/cmds.c:1114
+#: fish/cmds.c:1116
 msgid "enable swap on swap partition by UUID"
 msgstr "enable swap on swap partition by UUID"
 
-#: fish/cmds.c:1115
+#: fish/cmds.c:1117
 msgid "sync disks, writes are flushed through to the disk image"
 msgstr "sync disks, writes are flushed through to the disk image"
 
-#: fish/cmds.c:1116
+#: fish/cmds.c:1118
 msgid "install the SYSLINUX bootloader"
 msgstr ""
 
-#: fish/cmds.c:1117
+#: fish/cmds.c:1119
 msgid "return last 10 lines of a file"
 msgstr "ஒரு கோப்பின் கடைசி10 வரிகளை கொடுத்தது"
 
-#: fish/cmds.c:1118
+#: fish/cmds.c:1120
 msgid "return last N lines of a file"
 msgstr "ஒரு கோப்பின் கடைசி N வரிகளை கொடுத்தது"
 
-#: fish/cmds.c:1119
+#: fish/cmds.c:1121
 msgid "unpack tarfile to directory"
 msgstr "unpack tarfile to directory"
 
-#: fish/cmds.c:1120
+#: fish/cmds.c:1122
 msgid "pack directory into tarfile"
 msgstr "pack directory into tarfile"
 
-#: fish/cmds.c:1121 fish/cmds.c:1135
+#: fish/cmds.c:1123 fish/cmds.c:1137
 msgid "unpack compressed tarball to directory"
 msgstr "unpack compressed tarball to directory"
 
-#: fish/cmds.c:1122 fish/cmds.c:1136
+#: fish/cmds.c:1124 fish/cmds.c:1138
 msgid "pack directory into compressed tarball"
 msgstr "pack directory into compressed tarball"
 
-#: fish/cmds.c:1123
+#: fish/cmds.c:1125
 msgid "print elapsed time taken to run a command"
 msgstr ""
 
-#: fish/cmds.c:1127
+#: fish/cmds.c:1129
 msgid "update file timestamps or create a new file"
 msgstr "கோப்பு நேரஸ்டேம்ப்புக்களை மேம்படுத்து அல்லது ஒரு புதிய கோப்பை உருவாக்கு"
 
-#: fish/cmds.c:1131
+#: fish/cmds.c:1133
 msgid "truncate a file to zero size"
 msgstr "ஒரு கோப்பினை பூஜ்ஜிய அளவுக்கு வெட்டிக் குறை"
 
-#: fish/cmds.c:1132
+#: fish/cmds.c:1134
 msgid "truncate a file to a particular size"
 msgstr "ஒரு கோப்பினில் ஒரு குறிப்பிட்ட அளவை வெட்டிக் குறை"
 
-#: fish/cmds.c:1133
+#: fish/cmds.c:1135
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
 msgstr ""
 
-#: fish/cmds.c:1134
+#: fish/cmds.c:1136
 msgid "get ext2/ext3/ext4 superblock details"
 msgstr "ext2/ext3/ext4 சிறந்த தொகுதி விவரங்களை பெறு"
 
-#: fish/cmds.c:1137
+#: fish/cmds.c:1139
 msgid "set file mode creation mask (umask)"
 msgstr "set file mode creation mask (umask)"
 
-#: fish/cmds.c:1138
+#: fish/cmds.c:1140
 msgid "unmount a filesystem"
 msgstr "ஏற முடியாத ஒரு கோப்புமுறைமை"
 
-#: fish/cmds.c:1139
+#: fish/cmds.c:1141
 msgid "unmount all filesystems"
 msgstr "ஏறாத அனைத்து கோப்புமுறைமை"
 
-#: fish/cmds.c:1140
+#: fish/cmds.c:1142
 msgid "unmount a locally mounted filesystem"
 msgstr ""
 
-#: fish/cmds.c:1147
+#: fish/cmds.c:1149
 msgid "unset an environment variable"
 msgstr ""
 
-#: fish/cmds.c:1148
+#: fish/cmds.c:1150
 msgid "upload a file from the local machine"
 msgstr "உள்ளமை கணினியிலிருந்து ஒரு கோப்பை மேம்படுத்து"
 
-#: fish/cmds.c:1149
+#: fish/cmds.c:1151
 msgid "upload a file from the local machine with offset"
 msgstr ""
 
-#: fish/cmds.c:1150
+#: fish/cmds.c:1152
 msgid "cancel the current upload or download operation"
 msgstr ""
 
-#: fish/cmds.c:1151
+#: fish/cmds.c:1153
 msgid "set timestamp of a file with nanosecond precision"
 msgstr "set timestamp of a file with nanosecond precision"
 
-#: fish/cmds.c:1152
+#: fish/cmds.c:1154
 msgid "appliance kernel version"
 msgstr ""
 
-#: fish/cmds.c:1156
+#: fish/cmds.c:1158
 msgid "get the library version number"
 msgstr "நூலக பதிப்பு எண்ணிக்கையை பெறு"
 
-#: fish/cmds.c:1157
+#: fish/cmds.c:1159
 msgid "get the filesystem label"
 msgstr ""
 
-#: fish/cmds.c:1158
+#: fish/cmds.c:1160
 msgid "get minimum filesystem size"
 msgstr ""
 
-#: fish/cmds.c:1159
+#: fish/cmds.c:1161
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr "get the Linux VFS type corresponding to a mounted device"
 
-#: fish/cmds.c:1160
+#: fish/cmds.c:1162
 msgid "get the filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:1161
+#: fish/cmds.c:1163
 msgid "activate or deactivate some volume groups"
 msgstr "சில தொகுதி குழுக்களையும் செயற்படுத்து அல்லது செயல்நீக்கு"
 
-#: fish/cmds.c:1162
+#: fish/cmds.c:1164
 msgid "activate or deactivate all volume groups"
 msgstr "அனைத்து தொகுதி குழுக்களையும் செயற்படுத்து அல்லது செயல்நீக்கு"
 
-#: fish/cmds.c:1163
+#: fish/cmds.c:1165
 msgid "generate a new random UUID for a volume group"
 msgstr ""
 
-#: fish/cmds.c:1164
+#: fish/cmds.c:1166
 msgid "generate new random UUIDs for all volume groups"
 msgstr ""
 
-#: fish/cmds.c:1165
+#: fish/cmds.c:1167
 msgid "create an LVM volume group"
 msgstr "ஒரு LVM தொகுதி குழுவினை உருவாக்கு"
 
-#: fish/cmds.c:1166
+#: fish/cmds.c:1168
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr ""
 
-#: fish/cmds.c:1167
+#: fish/cmds.c:1169
 msgid "get volume group metadata"
 msgstr ""
 
-#: fish/cmds.c:1168
+#: fish/cmds.c:1170
 msgid "get the PV UUIDs containing the volume group"
 msgstr ""
 
-#: fish/cmds.c:1169
+#: fish/cmds.c:1171
 msgid "remove an LVM volume group"
 msgstr "ஒருLVM தொகுதி குழுவை நீக்கு"
 
-#: fish/cmds.c:1170
+#: fish/cmds.c:1172
 msgid "rename an LVM volume group"
 msgstr ""
 
-#: fish/cmds.c:1171 fish/cmds.c:1172
+#: fish/cmds.c:1173 fish/cmds.c:1174
 msgid "list the LVM volume groups (VGs)"
 msgstr "LVM தொகுதி குழுக்களை பட்டியலிடு (VGs)"
 
-#: fish/cmds.c:1173
+#: fish/cmds.c:1175
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 
-#: fish/cmds.c:1174
+#: fish/cmds.c:1176
 msgid "get the UUID of a volume group"
 msgstr ""
 
-#: fish/cmds.c:1178
+#: fish/cmds.c:1180
 msgid "count characters in a file"
 msgstr "ஒரு கோப்பிலுள்ள எழுத்துகளை கணக்கிடு"
 
-#: fish/cmds.c:1179
+#: fish/cmds.c:1181
 msgid "count lines in a file"
 msgstr "ஒரு கோப்பிலுள்ள வரிகளை கணக்கிடு"
 
-#: fish/cmds.c:1180
+#: fish/cmds.c:1182
 msgid "count words in a file"
 msgstr "ஒரு கோப்பிலுள்ள வார்த்தைகளை கணக்கிடு"
 
-#: fish/cmds.c:1181
+#: fish/cmds.c:1183
 msgid "wipe a filesystem signature from a device"
 msgstr ""
 
-#: fish/cmds.c:1182
+#: fish/cmds.c:1184
 msgid "create a new file"
 msgstr ""
 
-#: fish/cmds.c:1183
+#: fish/cmds.c:1185
 msgid "append content to end of file"
 msgstr ""
 
-#: fish/cmds.c:1184
+#: fish/cmds.c:1186
 msgid "create a file"
 msgstr "ஒரு கோப்பை உருவாக்கு"
 
-#: fish/cmds.c:1185
+#: fish/cmds.c:1187
 msgid "change parameters of an XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1186
+#: fish/cmds.c:1188
 msgid "expand an existing XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1187
+#: fish/cmds.c:1189
 msgid "get geometry of XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1188
+#: fish/cmds.c:1190
 msgid "repair an XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1189
+#: fish/cmds.c:1191
 msgid "destroy previously loaded yara rules"
 msgstr ""
 
-#: fish/cmds.c:1190
+#: fish/cmds.c:1192
 msgid "load yara rules within libguestfs"
 msgstr ""
 
-#: fish/cmds.c:1191
+#: fish/cmds.c:1193
 msgid "scan a file with the loaded yara rules"
 msgstr ""
 
-#: fish/cmds.c:1194
+#: fish/cmds.c:1196
 msgid "write zeroes to the device"
 msgstr "சாதனத்திற்கு பூஜ்ஜியங்களை எழுது"
 
-#: fish/cmds.c:1195
+#: fish/cmds.c:1197
 msgid "write zeroes to an entire device"
 msgstr ""
 
-#: fish/cmds.c:1196
+#: fish/cmds.c:1198
 msgid "zero free space in a filesystem"
 msgstr ""
 
-#: fish/cmds.c:1197
+#: fish/cmds.c:1199
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr "zero unused inodes and disk blocks on ext2/3 filesystem"
 
-#: fish/cmds.c:1200
+#: fish/cmds.c:1202
 msgid "determine file type inside a compressed file"
 msgstr "கோப்பு வகையில் உள்ள ஒரு அழுந்தியுள்ள கோப்பை வரையறு"
 
-#: fish/cmds.c:1203
+#: fish/cmds.c:1205
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr "Use -h <cmd> / help <cmd> to show detailed help for a command."
 
@@ -2634,7 +2634,7 @@ msgstr ""
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009-2023 Red Hat Inc.\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
 "Options:\n"
@@ -3112,9 +3112,9 @@ msgstr "reopen: guestfs_create: ஹாண்டிலை உருவாக்�
 #: fish/run-1.c:2742 fish/run-1.c:2816 fish/run-1.c:3000 fish/run-1.c:3013
 #: fish/run-1.c:3062 fish/run-1.c:3143 fish/run-1.c:3156 fish/run-1.c:3169
 #: fish/run-1.c:3182 fish/run-1.c:3195 fish/run-2.c:138 fish/run-2.c:202
-#: fish/run-2.c:561 fish/run-2.c:772 fish/run-2.c:785 fish/run-2.c:1088
-#: fish/run-2.c:1340 fish/run-2.c:1421 fish/run-2.c:1636 fish/run-2.c:1947
-#: fish/run-2.c:2270 fish/run-2.c:2283 fish/run-2.c:2445 fish/run-3.c:417
+#: fish/run-2.c:561 fish/run-2.c:801 fish/run-2.c:814 fish/run-2.c:1117
+#: fish/run-2.c:1369 fish/run-2.c:1450 fish/run-2.c:1665 fish/run-2.c:1976
+#: fish/run-2.c:2299 fish/run-2.c:2312 fish/run-2.c:2474 fish/run-3.c:417
 #: fish/run-3.c:987 fish/run-3.c:1353 fish/run-3.c:1366 fish/run-3.c:1379
 #: fish/run-3.c:1392 fish/run-3.c:1635 fish/run-3.c:1694 fish/run-3.c:2464
 #: fish/run-3.c:2477 fish/run-3.c:2490 fish/run-3.c:2503 fish/run-3.c:2516
@@ -3140,8 +3140,8 @@ msgstr ""
 #: fish/run-0.c:2655 fish/run-1.c:311 fish/run-1.c:577 fish/run-1.c:702
 #: fish/run-1.c:1211 fish/run-1.c:1501 fish/run-1.c:2085 fish/run-1.c:2450
 #: fish/run-1.c:2704 fish/run-1.c:2881 fish/run-1.c:3023 fish/run-1.c:3215
-#: fish/run-2.c:235 fish/run-2.c:325 fish/run-2.c:795 fish/run-2.c:1098
-#: fish/run-2.c:1350 fish/run-2.c:1431 fish/run-2.c:1756 fish/run-2.c:2293
+#: fish/run-2.c:235 fish/run-2.c:325 fish/run-2.c:824 fish/run-2.c:1127
+#: fish/run-2.c:1379 fish/run-2.c:1460 fish/run-2.c:1785 fish/run-2.c:2322
 #: fish/run-3.c:432 fish/run-3.c:494 fish/run-3.c:589 fish/run-3.c:890
 #: fish/run-3.c:997 fish/run-3.c:1402 fish/run-3.c:1645 fish/run-3.c:1704
 #: fish/run-3.c:2682 fish/run-3.c:2999 fish/run-3.c:3280 fish/run-3.c:3609
@@ -3159,8 +3159,8 @@ msgstr ""
 #: fish/run-0.c:2661 fish/run-1.c:317 fish/run-1.c:583 fish/run-1.c:708
 #: fish/run-1.c:1217 fish/run-1.c:1507 fish/run-1.c:2091 fish/run-1.c:2456
 #: fish/run-1.c:2710 fish/run-1.c:2887 fish/run-1.c:3029 fish/run-1.c:3221
-#: fish/run-2.c:241 fish/run-2.c:331 fish/run-2.c:801 fish/run-2.c:1104
-#: fish/run-2.c:1356 fish/run-2.c:1437 fish/run-2.c:1762 fish/run-2.c:2299
+#: fish/run-2.c:241 fish/run-2.c:331 fish/run-2.c:830 fish/run-2.c:1133
+#: fish/run-2.c:1385 fish/run-2.c:1466 fish/run-2.c:1791 fish/run-2.c:2328
 #: fish/run-3.c:438 fish/run-3.c:500 fish/run-3.c:595 fish/run-3.c:896
 #: fish/run-3.c:1003 fish/run-3.c:1408 fish/run-3.c:1651 fish/run-3.c:1710
 #: fish/run-3.c:2688 fish/run-3.c:3005 fish/run-3.c:3286 fish/run-3.c:3615
@@ -3185,11 +3185,11 @@ msgstr ""
 #: fish/run-1.c:2156 fish/run-1.c:2175 fish/run-1.c:2194 fish/run-1.c:2495
 #: fish/run-1.c:2514 fish/run-1.c:2598 fish/run-1.c:2617 fish/run-2.c:219
 #: fish/run-2.c:280 fish/run-2.c:309 fish/run-2.c:503 fish/run-2.c:623
-#: fish/run-2.c:642 fish/run-2.c:725 fish/run-2.c:742 fish/run-2.c:759
-#: fish/run-2.c:894 fish/run-2.c:1169 fish/run-2.c:1206 fish/run-2.c:1547
-#: fish/run-2.c:1598 fish/run-2.c:1695 fish/run-2.c:1827 fish/run-2.c:1932
-#: fish/run-2.c:1985 fish/run-2.c:2004 fish/run-2.c:2042 fish/run-2.c:2154
-#: fish/run-2.c:2360 fish/run-2.c:2625 fish/run-3.c:484 fish/run-3.c:573
+#: fish/run-2.c:642 fish/run-2.c:754 fish/run-2.c:771 fish/run-2.c:788
+#: fish/run-2.c:923 fish/run-2.c:1198 fish/run-2.c:1235 fish/run-2.c:1576
+#: fish/run-2.c:1627 fish/run-2.c:1724 fish/run-2.c:1856 fish/run-2.c:1961
+#: fish/run-2.c:2014 fish/run-2.c:2033 fish/run-2.c:2071 fish/run-2.c:2183
+#: fish/run-2.c:2389 fish/run-2.c:2654 fish/run-3.c:484 fish/run-3.c:573
 #: fish/run-3.c:785 fish/run-3.c:835 fish/run-3.c:874 fish/run-3.c:957
 #: fish/run-3.c:970 fish/run-3.c:1444 fish/run-3.c:1483 fish/run-3.c:1526
 #: fish/run-3.c:1810 fish/run-3.c:2108 fish/run-3.c:2183 fish/run-3.c:2200
@@ -3208,7 +3208,7 @@ msgstr ""
 #: fish/run-4.c:1392 fish/run-4.c:1459 fish/run-4.c:1503 fish/run-4.c:1548
 #: fish/run-4.c:1567 fish/run-4.c:1586 fish/run-4.c:1717 fish/run-4.c:1730
 #: fish/run-4.c:1767 fish/run-4.c:1811 fish/run-4.c:1854 fish/run-4.c:1898
-#: fish/run-4.c:2280 fish/run-5.c:502 fish/run-5.c:519 fish/run-5.c:536
+#: fish/run-4.c:2306 fish/run-5.c:502 fish/run-5.c:519 fish/run-5.c:536
 #: fish/run-5.c:627 fish/run-5.c:644 fish/run-5.c:661 fish/run-5.c:872
 #: fish/run-5.c:1001 fish/run-5.c:1069 fish/run-5.c:1398 fish/run-5.c:1562
 #: fish/run-5.c:1610 fish/run-5.c:1654 fish/run-5.c:1772 fish/run-5.c:1800
@@ -3233,9 +3233,9 @@ msgstr ""
 #: fish/run-1.c:1673 fish/run-1.c:1692 fish/run-1.c:1961 fish/run-1.c:2030
 #: fish/run-1.c:2053 fish/run-1.c:2162 fish/run-1.c:2181 fish/run-1.c:2200
 #: fish/run-1.c:2501 fish/run-1.c:2604 fish/run-2.c:225 fish/run-2.c:315
-#: fish/run-2.c:629 fish/run-2.c:648 fish/run-2.c:900 fish/run-2.c:1553
-#: fish/run-2.c:1604 fish/run-2.c:1701 fish/run-2.c:1938 fish/run-2.c:1991
-#: fish/run-2.c:2048 fish/run-2.c:2366 fish/run-3.c:579 fish/run-3.c:791
+#: fish/run-2.c:629 fish/run-2.c:648 fish/run-2.c:929 fish/run-2.c:1582
+#: fish/run-2.c:1633 fish/run-2.c:1730 fish/run-2.c:1967 fish/run-2.c:2020
+#: fish/run-2.c:2077 fish/run-2.c:2395 fish/run-3.c:579 fish/run-3.c:791
 #: fish/run-3.c:880 fish/run-3.c:1489 fish/run-3.c:1532 fish/run-3.c:2114
 #: fish/run-3.c:2393 fish/run-3.c:2416 fish/run-3.c:2732 fish/run-3.c:2778
 #: fish/run-3.c:2821 fish/run-3.c:2865 fish/run-3.c:2884 fish/run-3.c:2903
@@ -3244,7 +3244,7 @@ msgstr ""
 #: fish/run-4.c:145 fish/run-4.c:309 fish/run-4.c:654 fish/run-4.c:977
 #: fish/run-4.c:1308 fish/run-4.c:1398 fish/run-4.c:1465 fish/run-4.c:1509
 #: fish/run-4.c:1554 fish/run-4.c:1573 fish/run-4.c:1592 fish/run-4.c:1773
-#: fish/run-4.c:1817 fish/run-4.c:1860 fish/run-4.c:1904 fish/run-4.c:2286
+#: fish/run-4.c:1817 fish/run-4.c:1860 fish/run-4.c:1904 fish/run-4.c:2312
 #: fish/run-5.c:878 fish/run-5.c:1007 fish/run-5.c:1568 fish/run-5.c:1616
 #: fish/run-5.c:1660 fish/run-5.c:1778 fish/run-5.c:1806 fish/run-5.c:1829
 #: fish/run-5.c:1893 fish/run-5.c:2048 fish/run-5.c:2091 fish/run-5.c:2135
@@ -3286,7 +3286,7 @@ msgstr "'நேர கட்டளையைப் பயன்படுத்த
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009-2023 Red Hat Inc.\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] mountpoint\n"
 "Options:\n"
@@ -4456,7 +4456,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
-"Copyright (C) 2009-2023 Red Hat Inc.\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname\n"
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
@@ -4575,7 +4575,7 @@ msgstr ""
 #, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009-2023 Red Hat Inc.\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
 "Usage:\n"
 "  libguestfs-test-tool [--options]\n"
 "Options:\n"
