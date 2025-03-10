@@ -36,6 +36,7 @@
 #include <signal.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/utsname.h>
 #include <errno.h>
 #include <assert.h>
 #include <libintl.h>
@@ -92,6 +93,7 @@ guestfs_impl_launch (guestfs_h *g)
     struct backend *b;
     CLEANUP_FREE char *backend = guestfs_get_backend (g);
     int mask;
+    struct utsname utsname;
 
     debug (g, "launch: program=%s", g->program);
     if (STRNEQ (g->identifier, ""))
@@ -108,6 +110,10 @@ guestfs_impl_launch (guestfs_h *g)
     if (mask >= 0)
       debug (g, "launch: umask=0%03o", (unsigned) mask);
     debug (g, "launch: euid=%ju", (uintmax_t) geteuid ());
+    if (uname (&utsname) == 0)
+      debug (g, "launch: host: %s %s %s %s %s",
+             utsname.sysname, utsname.nodename, utsname.release,
+             utsname.version, utsname.machine);
   }
 
   /* Launch the appliance. */
