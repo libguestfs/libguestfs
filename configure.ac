@@ -31,12 +31,14 @@ term_bold=""
 term_red=""
 term_green=""
 term_restore=""
-AS_CASE(["$TERM"],
-        [xterm*|vt220*], [
-          term_bold="$(printf "\e@<:@1m")"
-          term_red="$(printf "\e@<:@22;31m")"
-          term_green="$(printf "\e@<:@22;32m")"
-          term_restore="$(printf "\e@<:@0m")"
+AS_IF([test -t 1], [
+    AS_CASE(["$TERM"],
+            [xterm*|vt220*], [
+              term_bold="$(printf "\e@<:@1m")"
+              term_red="$(printf "\e@<:@22;31m")"
+              term_green="$(printf "\e@<:@22;32m")"
+              term_restore="$(printf "\e@<:@0m")"
+    ])
 ])
 m4_define([HEADING],
           [AS_ECHO
