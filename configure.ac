@@ -27,9 +27,16 @@ AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
 AC_SUBST([RELEASE_DATE],release_date)
 
 # Headings within the configure script output.
+term_bold=""
+term_restore=""
+AS_CASE(["$TERM"],
+        [xterm*|vt220*], [
+          term_bold="$(printf "\e@<:@1m")"
+          term_restore="$(printf "\e@<:@0m")"
+])
 m4_define([HEADING],
           [AS_ECHO
-           AS_ECHO(["--- $1 ---"])])
+           AS_ECHO(["${term_bold}$1${term_restore}"])])
 
 AC_CONFIG_AUX_DIR([build-aux])
 AC_REQUIRE_AUX_FILE([guestfs-test-driver])
@@ -276,7 +283,7 @@ dnl Produce summary.
 echo
 echo
 echo "------------------------------------------------------------"
-echo "Thank you for downloading $PACKAGE_STRING"
+HEADING([Thank you for downloading $PACKAGE_STRING])
 echo
 echo "This is how we have configured the optional components for you today:"
 echo
