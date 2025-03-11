@@ -474,7 +474,6 @@ Makefile.in
 /test-tool/libguestfs-test-tool.1
 /test-tool/libguestfs-test-tool-helper
 /test-tool/stamp-libguestfs-test-tool.pod
-/website/download/builder/*.xz
 /website/*.html
 /website/README.txt
 /website/TODO.txt
