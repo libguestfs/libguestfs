@@ -280,44 +280,48 @@ echo "Thank you for downloading $PACKAGE_STRING"
 echo
 echo "This is how we have configured the optional components for you today:"
 echo
-echo       "Daemon .............................. $enable_daemon"
-echo       "Appliance ........................... $ENABLE_APPLIANCE"
-echo       "QEMU ................................ $QEMU"
-echo       "guestfish ........................... yes"
-echo       "FUSE filesystem ..................... $enable_fuse"
-echo       "Default backend ..................... $DEFAULT_BACKEND"
-AS_ECHO_N(["GNU gettext for i18n ................ "])
-if test "x$HAVE_GNU_GETTEXT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["OCaml bindings ...................... "])
-if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["Perl bindings ....................... "])
-if test "x$HAVE_PERL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["Python bindings ..................... "])
-if test "x$HAVE_PYTHON_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["Ruby bindings ....................... "])
-if test "x$HAVE_RUBY_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["Java bindings ....................... "])
-if test "x$HAVE_JAVA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["Haskell bindings .................... "])
-if test "x$HAVE_HASKELL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["PHP bindings ........................ "])
-if test "x$HAVE_PHP_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["Erlang bindings ..................... "])
-if test "x$HAVE_ERLANG_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["Lua bindings ........................ "])
-if test "x$HAVE_LUA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["Go bindings ......................... "])
-if test "x$HAVE_GOLANG_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["gobject bindings .................... "])
-if test "x$HAVE_GOBJECT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["gobject introspection ............... "])
-if test "x$HAVE_INTROSPECTION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["Vala bindings ....................... "])
-if test "x$ENABLE_VAPIGEN_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["bash completion ..................... "])
-if test "x$HAVE_BASH_COMPLETION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-AS_ECHO_N(["Rust bindings ....................... "])
-if test "x$HAVE_RUST_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+
+print ()
+{
+    printf '    %.40s %s\n' \
+        "$1 ........................................" "$2"
+}
+
+feature ()
+{
+    feat="$1"
+    shift
+    if "$@"; then
+        print "$feat" "yes"
+    else
+        print "$feat" "no"
+    fi
+}
+
+feature "Daemon"                test "x$enable_daemon" = "xyes"
+feature "Appliance"             test "x$ENABLE_APPLIANCE" = "xyes"
+print   "QEMU"                  "$QEMU"
+feature "guestfish"             true  ;# always enabled
+feature "FUSE filesystem"       test "x$enable_fuse" = "xyes"
+print   "Default backend"       "$DEFAULT_BACKEND"
+
+feature "GNU gettext for i18n"  test "x$HAVE_GNU_GETTEXT_TRUE" = "x"
+feature "OCaml bindings"        test "x$HAVE_OCAML_TRUE" = "x"
+feature "Perl bindings"         test "x$HAVE_PERL_TRUE" = "x"
+feature "Python bindings"       test "x$HAVE_PYTHON_TRUE" = "x"
+feature "Ruby bindings"         test "x$HAVE_RUBY_TRUE" = "x"
+feature "Java bindings"         test "x$HAVE_JAVA_TRUE" = "x"
+feature "Haskell bindings"      test "x$HAVE_HASKELL_TRUE" = "x"
+feature "PHP bindings"          test "x$HAVE_PHP_TRUE" = "x"
+feature "Erlang bindings"       test "x$HAVE_ERLANG_TRUE" = "x"
+feature "Lua bindings"          test "x$HAVE_LUA_TRUE" = "x"
+feature "Go bindings"           test "x$HAVE_GOLANG_TRUE" = "x"
+feature "gobject bindings"      test "x$HAVE_GOBJECT_TRUE" = "x"
+feature "gobject introspection" test "x$HAVE_INTROSPECTION_TRUE" = "x"
+feature "Vala bindings"         test "x$ENABLE_VAPIGEN_TRUE" = "x"
+feature "bash completion"       test "x$HAVE_BASH_COMPLETION_TRUE" = "x"
+feature "Rust bindings"         test "x$HAVE_RUST_TRUE" = "x"
+
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceding messages."
