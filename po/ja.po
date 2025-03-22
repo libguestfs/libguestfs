@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2025-02-19 16:36+0000\n"
+"POT-Creation-Date: 2025-03-11 14:34+0000\n"
 "PO-Revision-Date: 2017-02-24 07:33+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -4300,33 +4300,33 @@ msgstr "libvirt 仮想マシンを強制停止できませんでした"
 msgid "%s: internal error forming error message"
 msgstr "%s: エラーメッセージを形成している内部エラー"
 
-#: lib/launch.c:65
+#: lib/launch.c:66
 msgid "the libguestfs handle has already been launched"
 msgstr "libguestfs ハンドルがすでに開始されています"
 
-#: lib/launch.c:78
+#: lib/launch.c:79
 #, c-format
 msgid ""
 "too many drives have been added, the current backend only supports %d drives"
 msgstr ""
 
-#: lib/launch.c:202
+#: lib/launch.c:208
 msgid "get-pid can only be called after launch"
 msgstr "get-pid は launch 後にのみ呼び出せます"
 
-#: lib/launch.c:208
+#: lib/launch.c:214
 msgid "the current backend does not support ‘get-pid’"
 msgstr ""
 
-#: lib/launch.c:222
+#: lib/launch.c:228
 msgid "the current backend does not allow max disks to be queried"
 msgstr "現在のバックエンドが最大ディスクを問い合わせできません"
 
-#: lib/launch.c:236
+#: lib/launch.c:242
 msgid "qemu has not been launched yet"
 msgstr "QEMU がまだ開始されていません"
 
-#: lib/launch.c:299
+#: lib/launch.c:305
 #, c-format
 msgid "parameter ‘%s’ isn't allowed"
 msgstr ""

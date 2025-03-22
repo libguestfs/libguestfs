@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2025-02-19 16:36+0000\n"
+"POT-Creation-Date: 2025-03-11 14:34+0000\n"
 "PO-Revision-Date: 2023-04-06 20:20+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/"
@@ -4067,11 +4067,11 @@ msgstr "nepodařilo se zlikvidovat libvirt doménu"
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch.c:65
+#: lib/launch.c:66
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: lib/launch.c:78
+#: lib/launch.c:79
 #, c-format
 msgid ""
 "too many drives have been added, the current backend only supports %d drives"
@@ -4079,23 +4079,23 @@ msgstr ""
 "přidáno příliš mnoho disků – stávající podpůrná vrstva podporuje pouze %d "
 "disků"
 
-#: lib/launch.c:202
+#: lib/launch.c:208
 msgid "get-pid can only be called after launch"
 msgstr "get-pid je možné spouštět pouze po spuštění"
 
-#: lib/launch.c:208
+#: lib/launch.c:214
 msgid "the current backend does not support ‘get-pid’"
 msgstr "stávající podpůrná vrstva nepodporuje „get-pid“"
 
-#: lib/launch.c:222
+#: lib/launch.c:228
 msgid "the current backend does not allow max disks to be queried"
 msgstr "stávající podpůrná vrstva nepodporuje dotazování na maximum disků"
 
-#: lib/launch.c:236
+#: lib/launch.c:242
 msgid "qemu has not been launched yet"
 msgstr "qemu zatím ještě nebylo spuštěno"
 
-#: lib/launch.c:299
+#: lib/launch.c:305
 #, c-format
 msgid "parameter ‘%s’ isn't allowed"
 msgstr "parametr „%s“ není povolený"
