@@ -105,18 +105,6 @@ dnl Check for zstdcat (required).
 AC_PATH_PROGS([ZSTDCAT],[zstdcat],[no])
 test "x$ZSTDCAT" = "xno" && AC_MSG_ERROR([zstdcat must be installed])
 
-dnl (f)lex and bison for virt-builder (required).
-dnl XXX Could be optional with some work.
-AC_PROG_LEX
-AC_PROG_YACC
-dnl These macros don't fail, instead they set some useless defaults.
-if test "x$LEX" = "x:"; then
-    AC_MSG_FAILURE([GNU 'flex' is required.])
-fi
-if test "x$YACC" = "xyacc"; then
-    AC_MSG_FAILURE([GNU 'bison' is required (yacc won't work).])
-fi
-
 dnl Check for valgrind
 AC_CHECK_PROG([VALGRIND],[valgrind],[valgrind],[no])
 AS_IF([test "x$VALGRIND" != "xno"],[

@@ -146,12 +146,6 @@ I<Required>.
 
 I<Required>.
 
-=item flex
-
-=item bison
-
-I<Required>.
-
 =item Perl-compatible Regular Expressions (PCRE2) library
 
 I<Required>.
