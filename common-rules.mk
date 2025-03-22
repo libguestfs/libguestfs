@@ -36,9 +36,6 @@ CLEANFILES += *.cmi *.cmo *.cma *.cmx *.cmxa dll*.so *.a
 # OCaml -annot files (used for displaying types in some IDEs).
 CLEANFILES += *.annot
 
-# OCaml oUnit generated files.
-CLEANFILES += oUnit-*.cache oUnit-*.log
-
 # Manual pages - these are all generated from *.pod, so the
 # pages themselves should all be removed by 'make clean'.
 CLEANFILES += *.1 *.3 *.5 *.8

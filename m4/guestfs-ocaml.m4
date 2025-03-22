@@ -181,15 +181,6 @@ if test "x$enable_daemon" = "xyes"; then
     fi
 fi
 
-# oUnit is optional, used by some tests in common/mlstdutils (that we
-# should replace with regular tests one day).  If used, oUnit >= 2 is
-# required.
-if test "x$OCAML_PKG_ounit2" != "xno"; then
-    AC_CHECK_OCAML_MODULE(ounit_is_v2,[OUnit.OUnit2],OUnit2,[+ounit2])
-fi
-AM_CONDITIONAL([HAVE_OCAML_PKG_OUNIT],
-               [test "x$OCAML_PKG_ounit2" != "xno" && test "x$ounit_is_v2" != "xno"])
-
 dnl Flags we want to pass to every OCaml compiler call.
 OCAML_WARN_ERROR="-warn-error +C+D+E+F+L+M+P+S+U+V+Y+Z+X+52-3-6 -w -6"
 AC_SUBST([OCAML_WARN_ERROR])

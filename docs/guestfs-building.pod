@@ -295,10 +295,6 @@ Optional.  Used by L<virt-log(1)> to parse Windows Event Log files.
 
 Optional.  For localizing OCaml virt tools.
 
-=item ocaml-ounit E<ge> 2.0.0
-
-Optional.  For testing the common OCaml modules.
-
 =item Perl C<Module::Build> E<ge> 0.19
 
 =item Perl C<Test::More>
