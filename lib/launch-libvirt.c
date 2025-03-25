@@ -1312,13 +1312,6 @@ construct_libvirt_xml_devices (guestfs_h *g,
      */
     if (is_custom_hv (g, params->data))
       single_element ("emulator", g->hv);
-#if defined(__arm__)
-    /* Hopefully temporary hack to make ARM work (otherwise libvirt
-     * chooses to run /usr/bin/qemu-kvm).
-     */
-    else
-      single_element ("emulator", QEMU);
-#endif
 
     /* Add a random number generator (backend for virtio-rng).  This
      * requires Cole Robinson's patch to permit /dev/urandom to be
