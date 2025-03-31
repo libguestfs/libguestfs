@@ -6,14 +6,14 @@
 # Fabian Affolter <fab@fedoraproject.org>, 2011
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2011
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2011
-# Ettore Atalan <atalanttore@googlemail.com>, 2021.
+# Ettore Atalan <atalanttore@googlemail.com>, 2021, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2025-03-11 14:34+0000\n"
-"PO-Revision-Date: 2021-11-18 23:16+0000\n"
+"PO-Revision-Date: 2025-03-31 11:53+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/de/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -32,7 +32,7 @@ msgstr ""
 #: common/options/decrypt.c:52
 #, c-format
 msgid "string size overflow"
-msgstr ""
+msgstr "Überlauf der Zeichenkettengröße"
 
 #: common/options/decrypt.c:170
 #, c-format
