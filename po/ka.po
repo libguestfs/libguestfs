@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.49.1\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2025-03-11 14:34+0000\n"
+"POT-Creation-Date: 2025-04-03 19:19+0100\n"
 "PO-Revision-Date: 2023-11-26 21:01+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
@@ -4006,43 +4006,43 @@ msgstr ""
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1503 lib/launch-libvirt.c:1756 lib/qemu.c:766
+#: lib/launch-libvirt.c:1496 lib/launch-libvirt.c:1749 lib/qemu.c:766
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1581
+#: lib/launch-libvirt.c:1574
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1971
+#: lib/launch-libvirt.c:1964
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1982
+#: lib/launch-libvirt.c:1975
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1986
+#: lib/launch-libvirt.c:1979
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:2004
+#: lib/launch-libvirt.c:1997
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2017
+#: lib/launch-libvirt.c:2010
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2187
+#: lib/launch-libvirt.c:2180
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2208 lib/launch-libvirt.c:2241
+#: lib/launch-libvirt.c:2201 lib/launch-libvirt.c:2234
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""

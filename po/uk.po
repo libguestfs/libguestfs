@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2025-03-11 14:34+0000\n"
+"POT-Creation-Date: 2025-04-03 19:19+0100\n"
 "PO-Revision-Date: 2025-03-05 06:38+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
@@ -4404,12 +4404,12 @@ msgstr ""
 "не вдалося обробити запис можливостей домену у форматі XML, повернутий "
 "libvirt"
 
-#: lib/launch-libvirt.c:1503 lib/launch-libvirt.c:1756 lib/qemu.c:766
+#: lib/launch-libvirt.c:1496 lib/launch-libvirt.c:1749 lib/qemu.c:766
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: lib/launch-libvirt.c:1581
+#: lib/launch-libvirt.c:1574
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -4417,33 +4417,33 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: lib/launch-libvirt.c:1971
+#: lib/launch-libvirt.c:1964
 msgid "could not define libvirt secret"
 msgstr "не вдалося визначити реєстраційні дані libvirt"
 
-#: lib/launch-libvirt.c:1982
+#: lib/launch-libvirt.c:1975
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 "реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
 
-#: lib/launch-libvirt.c:1986
+#: lib/launch-libvirt.c:1979
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr "base64_decode_alloc: %m"
 
-#: lib/launch-libvirt.c:2004
+#: lib/launch-libvirt.c:1997
 msgid "could not set libvirt secret value"
 msgstr "не вдалося встановити значення реєстраційних даних libvirt"
 
-#: lib/launch-libvirt.c:2017
+#: lib/launch-libvirt.c:2010
 msgid "could not get UUID from libvirt secret"
 msgstr "не вдалося отримати UUID із реєстраційних даних libvirt"
 
-#: lib/launch-libvirt.c:2187
+#: lib/launch-libvirt.c:2180
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: lib/launch-libvirt.c:2208 lib/launch-libvirt.c:2241
+#: lib/launch-libvirt.c:2201 lib/launch-libvirt.c:2234
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
