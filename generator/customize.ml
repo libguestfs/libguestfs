@@ -341,12 +341,6 @@ The path to the ISO image containing the virtio-win drivers
 The directory containing the unpacked virtio-win drivers
 (eg. F</usr/share/virtio-win>).
 
-=item B<\"osinfo\">
-
-The literal string C<\"osinfo\"> means to use the
-libosinfo database to locate the drivers.  (See
-L<osinfo-query(1)>.
-
 =back
 
 Note that to do a full conversion of a Windows guest from a
