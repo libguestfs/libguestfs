@@ -62,7 +62,7 @@ bugzilla \
 # list them.
 jiraids=$(
     git log "$1" |
-    grep -Eio 'RHEL-[0-9]+' |
+    grep -Eio 'RHEL-[0-9]{3,}' |
     sort -u
 )
 
