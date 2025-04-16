@@ -97,7 +97,7 @@ Makefile.in
 /daemon/listfs.mli
 /daemon/lvm.mli
 /daemon/lvm_dm.mli
-/daemon/lvm-tokenization.c
+/daemon/lvm_full.mli
 /daemon/md.mli
 /daemon/mount.mli
 /daemon/names.c

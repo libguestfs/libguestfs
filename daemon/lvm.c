@@ -139,28 +139,6 @@ do_vgs (void)
   return convert_lvm_output (out, NULL);
 }
 
-/* These were so complex to implement that I ended up auto-generating
- * the code.  That code is in stubs.c, and it is generated as usual
- * by generator.ml.
- */
-guestfs_int_lvm_pv_list *
-do_pvs_full (void)
-{
-  return parse_command_line_pvs ();
-}
-
-guestfs_int_lvm_vg_list *
-do_vgs_full (void)
-{
-  return parse_command_line_vgs ();
-}
-
-guestfs_int_lvm_lv_list *
-do_lvs_full (void)
-{
-  return parse_command_line_lvs ();
-}
-
 int
 do_pvcreate (const char *device)
 {

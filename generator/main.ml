@@ -147,8 +147,6 @@ Run it from the top source directory using the command
             Daemon.generate_daemon_optgroups_ml;
   output_to "daemon/optgroups.mli"
             Daemon.generate_daemon_optgroups_mli;
-  output_to "daemon/lvm-tokenization.c"
-            Daemon.generate_daemon_lvm_tokenization;
   output_to "daemon/structs-cleanups.c"
             Daemon.generate_daemon_structs_cleanups_c;
   output_to "daemon/structs-cleanups.h"
