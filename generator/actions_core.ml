@@ -1795,6 +1795,7 @@ See also C<guestfs_lvs_full>, C<guestfs_list_filesystems>." };
   { defaults with
     name = "pvs_full"; added = (0, 0, 4);
     style = RStructList ("physvols", "lvm_pv"), [], [];
+    impl = OCaml "Lvm_full.pvs_full";
     optional = Some "lvm2";
     shortdesc = "list the LVM physical volumes (PVs)";
     longdesc = "\
@@ -1804,6 +1805,7 @@ of the L<pvs(8)> command.  The \"full\" version includes all fields." };
   { defaults with
     name = "vgs_full"; added = (0, 0, 4);
     style = RStructList ("volgroups", "lvm_vg"), [], [];
+    impl = OCaml "Lvm_full.vgs_full";
     optional = Some "lvm2";
     shortdesc = "list the LVM volume groups (VGs)";
     longdesc = "\
@@ -1813,6 +1815,7 @@ of the L<vgs(8)> command.  The \"full\" version includes all fields." };
   { defaults with
     name = "lvs_full"; added = (0, 0, 4);
     style = RStructList ("logvols", "lvm_lv"), [], [];
+    impl = OCaml "Lvm_full.lvs_full";
     optional = Some "lvm2";
     shortdesc = "list the LVM logical volumes (LVs)";
     longdesc = "\

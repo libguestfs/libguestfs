@@ -22,7 +22,6 @@ BUILT_SOURCES = \
 	caml-stubs.c \
 	dispatch.c \
 	names.c \
-	lvm-tokenization.c \
 	structs-cleanups.c \
 	structs-cleanups.h \
 	stubs-0.c \
@@ -52,6 +51,7 @@ generator_built = \
 	listfs.mli \
 	lvm.mli \
 	lvm_dm.mli \
+	lvm_full.mli \
 	md.mli \
 	mount.mli \
 	optgroups.ml \
@@ -152,7 +152,6 @@ guestfsd_SOURCES = \
 	luks.c \
 	lvm.c \
 	lvm-filter.c \
-	lvm-tokenization.c \
 	md.c \
 	mkfs.c \
 	mknod.c \
@@ -298,6 +297,7 @@ SOURCES_MLI = \
 	listfs.mli \
 	lvm.mli \
 	lvm_dm.mli \
+	lvm_full.mli \
 	lvm_utils.mli \
 	md.mli \
 	mount.mli \
@@ -333,6 +333,7 @@ SOURCES_ML = \
 	ldm.ml \
 	link.ml \
 	lvm.ml \
+	lvm_full.ml \
 	lvm_utils.ml \
 	lvm_dm.ml \
 	findfs.ml \

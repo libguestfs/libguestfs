@@ -34,13 +34,6 @@ type struc = {
 val structs : struc list
 (** List of structures. *)
 
-val lvm_pv_cols : cols
-val lvm_vg_cols : cols
-val lvm_lv_cols : cols
-(** These are exported to the daemon code generator where they are
-    used to generate code for parsing the output of commands like
-    [lvs].  One day replace this with liblvm API calls. *)
-
 val lookup_struct : string -> struc
 (** Lookup a struct by name. *)
 

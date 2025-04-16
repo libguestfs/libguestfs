@@ -111,7 +111,6 @@ daemon/link.c
 daemon/ls.c
 daemon/luks.c
 daemon/lvm-filter.c
-daemon/lvm-tokenization.c
 daemon/lvm.c
 daemon/md.c
 daemon/mkfs.c

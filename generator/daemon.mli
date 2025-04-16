@@ -23,7 +23,6 @@ val generate_daemon_caml_stubs : unit -> unit
 val generate_daemon_caml_callbacks_ml : unit -> unit
 val generate_daemon_caml_interface : string -> unit -> unit
 val generate_daemon_dispatch : unit -> unit
-val generate_daemon_lvm_tokenization : unit -> unit
 val generate_daemon_names : unit -> unit
 val generate_daemon_optgroups_c : unit -> unit
 val generate_daemon_optgroups_h : unit -> unit
