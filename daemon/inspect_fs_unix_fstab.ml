@@ -27,6 +27,7 @@ open Inspect_utils
 
 let re_cciss = PCRE.compile "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$"
 let re_diskbyid = PCRE.compile "^/dev/disk/by-id/.*-part(\\d+)$"
+let re_dmuuid = PCRE.compile "^/dev/disk/by-id/dm-uuid-LVM-([0-9a-zA-Z]{32})([0-9a-zA-Z]{32})$"
 let re_freebsd_gpt = PCRE.compile "^/dev/(ada{0,1}|vtbd)(\\d+)p(\\d+)$"
 let re_freebsd_mbr = PCRE.compile "^/dev/(ada{0,1}|vtbd)(\\d+)s(\\d+)([a-z])$"
 let re_hurd_dev = PCRE.compile "^/dev/(h)d(\\d+)s(\\d+)$"
@@ -405,6 +406,26 @@ and resolve_fstab_device spec md_map os_type =
       Mountable.of_device (Findfs.findfs_uuid uuid)
     with
       Failure _ -> default
+  )
+
+  (* Ubuntu 22+ uses /dev/disk/by-id/dm-uuid-LVM-... followed by a
+   * double UUID which identifies an LV.  The first part of the UUID
+   * is the VG UUID.  The second part is the LV UUID.
+   *)
+  else if PCRE.matches re_dmuuid spec then (
+    debug_matching "dmuuid";
+    let vg_uuid_spec = PCRE.sub 1 and lv_uuid_spec = PCRE.sub 2 in
+    try
+      (* Get the list of all VGs and LVs. *)
+      let vgs = Lvm_full.vgs_full () and lvs = Lvm_full.lvs_full () in
+      (* Find one VG & LV (hopefully) that matches the UUIDs. *)
+      let vg =
+        List.find (fun { Structs.vg_uuid } -> vg_uuid = vg_uuid_spec) vgs
+      and lv =
+        List.find (fun { Structs.lv_uuid } -> lv_uuid = lv_uuid_spec) lvs in
+      Mountable.of_device (sprintf "/dev/%s/%s" vg.vg_name lv.lv_name)
+    with
+      Failure _ | Not_found -> default
   )
 
   else if PCRE.matches re_freebsd_gpt spec then (
