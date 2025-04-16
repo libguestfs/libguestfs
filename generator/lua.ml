@@ -824,7 +824,7 @@ push_event (lua_State *L, uint64_t event)
         (match field with
         | FChar ->
           pr "  lua_pushlstring (L, &v->%s, 1);\n" n
-        | FString ->
+        | FString | FDevice ->
           pr "  lua_pushstring (L, v->%s);\n" n
         | FBuffer ->
           pr "  lua_pushlstring (L, v->%s, v->%s_len);\n" n n

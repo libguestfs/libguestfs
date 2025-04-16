@@ -248,7 +248,7 @@ func return_hashtable (argv **C.char) map[string]string {
           let n = String.capitalize_ascii n in
           match field with
           | FChar -> pr "    %s byte\n" n
-          | FString -> pr "    %s string\n" n
+          | FString | FDevice -> pr "    %s string\n" n
           | FBuffer -> pr "    %s []byte\n" n
           | FUInt32 -> pr "    %s uint32\n" n
           | FInt32 -> pr "    %s int32\n" n
@@ -267,7 +267,7 @@ func return_hashtable (argv **C.char) map[string]string {
           let gon = String.capitalize_ascii n in
           match field with
           | FChar -> pr "    r.%s = byte (c.%s)\n" gon n
-          | FString -> pr "    r.%s = C.GoString (c.%s)\n" gon n
+          | FString | FDevice -> pr "    r.%s = C.GoString (c.%s)\n" gon n
           | FBuffer ->
              pr "    r.%s = C.GoBytes (unsafe.Pointer (c.%s), C.int (c.%s_len))\n"
                gon n n

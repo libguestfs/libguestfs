@@ -66,7 +66,7 @@ let generate_xdr () =
         pr "struct guestfs_int_%s {\n" typ;
         List.iter (function
                    | name, FChar -> pr "  char %s;\n" name
-                   | name, FString -> pr "  string %s<>;\n" name
+                   | name, (FString|FDevice) -> pr "  string %s<>;\n" name
                    | name, FBuffer -> pr "  opaque %s<>;\n" name
                    | name, FUUID -> pr "  opaque %s[32];\n" name
                    | name, FInt32 -> pr "  int %s;\n" name
