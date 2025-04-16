@@ -352,7 +352,7 @@ and generate_structs_pod () =
         | name, FInt32 -> pr "   int32_t %s;\n" name
         | name, (FUInt64|FBytes) -> pr "   uint64_t %s;\n" name
         | name, FInt64 -> pr "   int64_t %s;\n" name
-        | name, FString -> pr "   char *%s;\n" name
+        | name, (FString|FDevice) -> pr "   char *%s;\n" name
         | name, FBuffer ->
             pr "   /* The next two fields describe a byte array. */\n";
             pr "   uint32_t %s_len;\n" name;
@@ -609,7 +609,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
       List.iter (
         function
         | name, FChar -> pr "  char %s;\n" name
-        | name, FString -> pr "  char *%s;\n" name
+        | name, (FString|FDevice) -> pr "  char *%s;\n" name
         | name, FBuffer ->
             pr "  uint32_t %s_len;\n" name;
             pr "  char *%s;\n" name
@@ -916,7 +916,7 @@ and generate_client_structs_compare () =
     fun { s_name = typ; s_cols = cols } ->
       let has_nonnumeric_cols =
         let nonnumeric = function
-          | _,(FString|FUUID|FBuffer) -> true
+          | _,(FString|FDevice|FUUID|FBuffer) -> true
           | _,(FChar|FUInt32|FInt32|FUInt64|FBytes|FInt64|FOptPercent) -> false
         in
         List.exists nonnumeric cols in
@@ -932,7 +932,7 @@ and generate_client_structs_compare () =
       );
       List.iter (
         function
-        | name, FString ->
+        | name, (FString|FDevice) ->
           pr "  r = strcmp (s1->%s, s2->%s);\n" name name;
           pr "  if (r != 0) return r;\n"
         | name, FBuffer ->
@@ -1001,7 +1001,7 @@ and generate_client_structs_copy () =
     fun { s_name = typ; s_cols = cols } ->
       let has_boxed_cols =
         let boxed = function
-          | _,(FString|FBuffer) -> true
+          | _,(FString|FDevice|FBuffer) -> true
           | _,(FChar|FUUID|FUInt32|FInt32|FUInt64|FBytes|FInt64|FOptPercent) ->
             false
         in
@@ -1014,8 +1014,7 @@ and generate_client_structs_copy () =
         pr "{\n";
         List.iter (
           function
-          | name, FString
-          | name, FBuffer -> pr "  free (s->%s);\n" name
+          | name, (FString|FDevice|FBuffer) -> pr "  free (s->%s);\n" name
           | _, FChar
           | _, FUUID
           | _, FUInt32
@@ -1038,8 +1037,7 @@ and generate_client_structs_copy () =
         pr "\n";
         List.iter (
           function
-          | name, FString
-          | name, FBuffer -> pr "  out->%s = NULL;\n" name
+          | name, (FString|FDevice|FBuffer) -> pr "  out->%s = NULL;\n" name
           | _, FChar
           | _, FUUID
           | _, FUInt32
@@ -1051,7 +1049,7 @@ and generate_client_structs_copy () =
         ) cols;
         List.iter (
           function
-          | name, FString ->
+          | name, (FString|FDevice) ->
             pr "  out->%s = strdup (inp->%s);\n" name name;
             pr "  if (out->%s == NULL) goto error;\n" name
           | name, FBuffer ->
@@ -1234,7 +1232,7 @@ and generate_client_structs_print_c () =
         );
         List.iter (
           function
-          | name, FString ->
+          | name, (FString|FDevice) ->
               pr "  fprintf (dest, \"%%s%s: %%s%%s\", indent, %s->%s, linesep);\n"
                 name typ name
           | name, FUUID ->
