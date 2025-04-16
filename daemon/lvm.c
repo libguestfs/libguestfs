@@ -146,34 +146,7 @@ do_vgs (void)
 guestfs_int_lvm_pv_list *
 do_pvs_full (void)
 {
-  guestfs_int_lvm_pv_list *r;
-  size_t i;
-  char *din, *dout;
-
-  r = parse_command_line_pvs ();
-  if (r == NULL)
-    /* parse_command_line_pvs has already called reply_with_error */
-    return NULL;
-
-  /* The pv_name fields contain device names which must be reverse
-   * translated.  The problem here is that the generator does not have
-   * a "FMountable" field type in types.mli.
-   */
-  for (i = 0; i < r->guestfs_int_lvm_pv_list_len; ++i) {
-    din = r->guestfs_int_lvm_pv_list_val[i].pv_name;
-    if (din) {
-      dout = reverse_device_name_translation (din);
-      if (!dout) {
-        /* reverse_device_name_translation has already called reply_with_error*/
-        /* XXX memory leak here */
-        return NULL;
-      }
-      r->guestfs_int_lvm_pv_list_val[i].pv_name = dout;
-      free (din);
-    }
-  }
-
-  return r;
+  return parse_command_line_pvs ();
 }
 
 guestfs_int_lvm_vg_list *
