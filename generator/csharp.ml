@@ -119,7 +119,7 @@ namespace Guestfs
       List.iter (
         function
         | name, FChar -> pr "      char %s;\n" name
-        | name, FString -> pr "      string %s;\n" name
+        | name, (FString | FDevice) -> pr "      string %s;\n" name
         | name, FBuffer ->
             pr "      uint %s_len;\n" name;
             pr "      string %s;\n" name

@@ -115,7 +115,7 @@ extern \"C\" {
       List.iter (
         function
         | n, FChar -> pr "    pub %s: i8,\n" n
-        | n, FString -> pr "    pub %s: String,\n" n
+        | n, (FString|FDevice) -> pr "    pub %s: String,\n" n
         | n, FBuffer -> pr "    pub %s: Vec<u8>,\n" n
         | n, FUInt32 -> pr "    pub %s: u32,\n" n
         | n, FInt32 -> pr "    pub %s: i32,\n" n
@@ -130,7 +130,7 @@ extern \"C\" {
       List.iter (
         function
         | n, FChar -> pr "    %s: c_char,\n" n
-        | n, FString -> pr "    %s: *const c_char,\n" n
+        | n, (FString|FDevice) -> pr "    %s: *const c_char,\n" n
         | n, FBuffer ->
           pr "    %s_len: usize,\n" n;
           pr "    %s: *const c_char,\n" n;
@@ -154,7 +154,7 @@ extern \"C\" {
           match x with
           | n, FChar ->
             pr "%s: (*raw).%s as i8,\n" n n;
-          | n, FString ->
+          | n, (FString|FDevice) ->
             pr "%s: char_ptr_to_string((*raw).%s)?,\n" n n;
           | n, FBuffer ->
             pr "%s: slice::from_raw_parts((*raw).%s as *const u8, (*raw).%s_len).to_vec(),\n" n n n
