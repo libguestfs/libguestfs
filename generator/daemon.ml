@@ -606,6 +606,7 @@ let generate_daemon_caml_stubs () =
 #include <string.h>
 #include <inttypes.h>
 #include <errno.h>
+#include <assert.h>
 
 #include <caml/alloc.h>
 #include <caml/callback.h>
@@ -641,9 +642,12 @@ let generate_daemon_caml_stubs () =
       fun i ->
         pr "  v = Field (retv, %d);\n" i;
         function
-        | n, (FString|FDevice|FUUID) ->
+        | n, (FString|FDevice) ->
            pr "  ret->%s = strdup (String_val (v));\n" n;
            pr "  if (ret->%s == NULL) return NULL;\n" n
+        | n, FUUID ->
+           pr "  assert (caml_string_length (v) == sizeof ret->%s);\n" n;
+           pr "  memcpy (ret->%s, String_val (v), sizeof ret->%s);\n" n n
         | n, FBuffer ->
            pr "  ret->%s_len = caml_string_length (v);\n" n;
            pr "  ret->%s = strdup (String_val (v));\n" n;
