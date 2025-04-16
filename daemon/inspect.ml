@@ -47,18 +47,21 @@ let rec inspect_os () =
    * multiple filesystems. Gather all the inspected information in the
    * inspect_fs struct of the root filesystem.
    *)
+  eprintf "inspect_os: collect_coreos_inspection_info\n%!";
   let fses = collect_coreos_inspection_info fses in
 
   (* Check if the same filesystem was listed twice as root in fses.
    * This may happen for the *BSD root partition where an MBR partition
    * is a shadow of the real root partition probably /dev/sda5
    *)
+  eprintf "inspect_os: check_for_duplicated_bsd_root\n%!";
   let fses = check_for_duplicated_bsd_root fses in
 
   (* For Linux guests with a separate /usr filesystem, merge some of the
    * inspected information in that partition to the inspect_fs struct
    * of the root filesystem.
    *)
+  eprintf "inspect_os: collect_linux_inspection_info\n%!";
   let fses = collect_linux_inspection_info fses in
 
   (* Save what we found in a global variable. *)
@@ -194,6 +197,9 @@ and collect_linux_inspection_info fses =
  * or other ways to identify the OS).
  *)
 and collect_linux_inspection_info_for fses root =
+  eprintf "inspect_os: collect_linux_inspection_info_for %s\n"
+    (string_of_location root.fs_location);
+
   let root_fstab =
     match root with
     | { role = RoleRoot { fstab = f } } -> f
@@ -207,14 +213,21 @@ and collect_linux_inspection_info_for fses root =
            (* This checks that this usr is found in the fstab of
             * the root filesystem.
             *)
+           eprintf "inspect_os: checking if %s found in fstab of this root\n"
+             (string_of_location usr_mp);
            List.exists (
              fun (mountable, _) ->
+               eprintf "inspect_os: collect_linux_inspection_info_for: \
+                        compare %s = %s\n"
+                 (Mountable.to_string usr_mp.mountable)
+                 (Mountable.to_string mountable);
                usr_mp.mountable = mountable
            ) root_fstab
         | _ -> false
       ) fses in
 
-    eprintf "collect_linux_inspection_info_for: merging:\n%sinto:\n%s"
+    eprintf "inspect_os: collect_linux_inspection_info_for: merging:\n\
+             %sinto:\n%s"
       (string_of_fs usr) (string_of_fs root);
     merge usr root;
     root
