@@ -31,9 +31,7 @@ type struc = {
   s_unused : unit; (* Silences warning 23 when using 'defaults with ...' *)
 }
 
-(* Because we generate extra parsing code for LVM command line tools,
- * we have to pull out the LVM columns separately here.
- *)
+(* XXX These must match daemon/lvm_full.ml *)
 let lvm_pv_cols = [
   "pv_name", FDevice;
   "pv_uuid", FUUID;
