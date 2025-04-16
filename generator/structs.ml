@@ -35,7 +35,7 @@ type struc = {
  * we have to pull out the LVM columns separately here.
  *)
 let lvm_pv_cols = [
-  "pv_name", FString;
+  "pv_name", FDevice;
   "pv_uuid", FUUID;
   "pv_fmt", FString;
   "pv_size", FBytes;
