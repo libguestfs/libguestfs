@@ -394,6 +394,19 @@ and resolve_fstab_device spec md_map os_type =
     resolve_diskbyid part default
   )
 
+  (* Ubuntu 22+ uses /dev/disk/by-uuid/ followed by a UUID. *)
+  else if String.is_prefix spec "/dev/disk/by-uuid/" then (
+    debug_matching "diskbyuuid";
+    let uuid = String.sub spec 18 (String.length spec - 18) in
+    try
+      (* Try a filesystem UUID.  Unclear if this could be a partition UUID
+       * as well, but in the Ubuntu guest I tried it was an fs UUID XXX.
+       *)
+      Mountable.of_device (Findfs.findfs_uuid uuid)
+    with
+      Failure _ -> default
+  )
+
   else if PCRE.matches re_freebsd_gpt spec then (
     debug_matching "FreeBSD GPT";
     (* group 1 (type) is not used *)
