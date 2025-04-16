@@ -442,15 +442,37 @@ let generate_daemon_stubs actions () =
             pr "  ret.%s.%s_val = r;\n" n n;
             pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
               name
-        | RStruct (n, _) ->
+        | RStruct (n, typ) ->
+            (* XXX RStruct containing an FDevice field would require
+             * reverse device name translation.  That is not implemented.
+             * See also RStructList immediately below this.
+             *)
+            let cols = (Structs.lookup_struct typ).s_cols in
+            assert (not (List.exists
+                           (function (_, FDevice) -> true | _ -> false) cols));
             pr "  struct guestfs_%s_ret ret;\n" name;
             pr "  ret.%s = *r;\n" n;
             pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
               name;
             pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
               name
-        | RStructList (n, _) ->
+        | RStructList (n, typ) ->
             pr "  struct guestfs_%s_ret ret;\n" name;
+            let cols = (Structs.lookup_struct typ).s_cols in
+            List.iter (
+              function
+              | (fname, FDevice) ->
+                pr "  for (size_t i = 0; i < r->guestfs_int_%s_list_len; ++i) {\n"
+                  typ;
+                pr "    char *field = r->guestfs_int_%s_list_val[i].%s;\n"
+                  typ fname;
+                pr "    char *rr = reverse_device_name_translation (field);\n";
+                pr "    if (!rr) abort ();\n";
+                pr "    free (field);\n";
+                pr "    r->guestfs_int_%s_list_val[i].%s = rr;\n" typ fname;
+                pr "  }\n";
+              | _ -> ()
+            ) cols;
             pr "  ret.%s = *r;\n" n;
             pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
               name;
@@ -619,7 +641,7 @@ let generate_daemon_caml_stubs () =
       fun i ->
         pr "  v = Field (retv, %d);\n" i;
         function
-        | n, (FString|FUUID) ->
+        | n, (FString|FDevice|FUUID) ->
            pr "  ret->%s = strdup (String_val (v));\n" n;
            pr "  if (ret->%s == NULL) return NULL;\n" n
         | n, FBuffer ->
@@ -986,7 +1008,7 @@ let generate_daemon_lvm_tokenization () =
             pr "  if (*p) next = p+1; else next = NULL;\n";
             pr "  *p = '\\0';\n";
             (match coltype with
-             | FString ->
+             | FString | FDevice ->
                  pr "  r->%s = strdup (tok);\n" name;
                  pr "  if (r->%s == NULL) {\n" name;
                  pr "    perror (\"strdup\");\n";

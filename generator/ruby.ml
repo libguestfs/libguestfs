@@ -526,7 +526,7 @@ and generate_ruby_struct_code typ cols =
   pr "  volatile VALUE rv = rb_hash_new ();\n";
   List.iter (
     function
-    | name, FString ->
+    | name, (FString|FDevice) ->
         pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new2 (r->%s));\n" name name
     | name, FBuffer ->
         pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new (r->%s, r->%s_len));\n" name name name
@@ -556,7 +556,7 @@ and generate_ruby_struct_list_code typ cols =
   pr "    volatile VALUE hv = rb_hash_new ();\n";
   List.iter (
     function
-    | name, FString ->
+    | name, (FString|FDevice) ->
         pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new2 (r->val[i].%s));\n" name name
     | name, FBuffer ->
         pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new (r->val[i].%s, r->val[i].%s_len));\n" name name name

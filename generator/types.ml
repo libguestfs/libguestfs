@@ -215,6 +215,7 @@ let defaults = { name = "";
 type field =
   | FChar			(* C 'char' (really, a 7 bit byte). *)
   | FString			(* nul-terminated ASCII string, NOT NULL. *)
+  | FDevice                     (* device name, needs reverse transl. *)
   | FBuffer			(* opaque buffer of bytes, (char *, int) pair *)
   | FUInt32
   | FInt32

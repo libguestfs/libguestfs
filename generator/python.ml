@@ -168,7 +168,7 @@ and generate_python_structs () =
       pr "    return NULL;\n";
       List.iter (
         function
-        | name, FString ->
+        | name, (FString|FDevice) ->
             pr "  value = guestfs_int_py_fromstring (%s->%s);\n" typ name;
             pr "  if (value == NULL)\n";
             pr "    goto err;\n";

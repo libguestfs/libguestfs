@@ -286,7 +286,7 @@ and generate_erlang_structs () =
       List.iteri (
         fun i col ->
           (match col with
-           | name, FString ->
+           | name, (FString|FDevice) ->
                pr "  if (ei_x_encode_string (buff, %s->%s) != 0) return -1;\n" typ name
            | name, FBuffer ->
                pr "  if (ei_x_encode_string_len (buff, %s->%s, %s->%s_len) != 0) return -1;\n"

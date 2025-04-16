@@ -560,6 +560,7 @@ public class %s {
   List.iter (
     function
     | name, FString
+    | name, FDevice
     | name, FUUID
     | name, FBuffer -> pr "  public String %s;\n" name
     | name, (FBytes|FUInt64|FInt64) -> pr "  public long %s;\n" name
@@ -947,7 +948,7 @@ and generate_java_struct_return typ jtyp cols =
   pr "  jr = (*env)->AllocObject (env, cl);\n";
   List.iter (
     function
-    | name, FString ->
+    | name, (FString|FDevice) ->
         pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
         pr "  (*env)->SetObjectField (env, jr, fl, (*env)->NewStringUTF (env, r->%s));\n" name;
     | name, FUUID ->
@@ -997,7 +998,7 @@ and generate_java_struct_list_return typ jtyp cols =
     fun (name, ftyp) ->
       (* Get the field ID in 'fl'. *)
       let java_field_type = match ftyp with
-        | FString | FUUID | FBuffer -> "Ljava/lang/String;"
+        | FString | FDevice | FUUID | FBuffer -> "Ljava/lang/String;"
         | FBytes | FUInt64 | FInt64 -> "J"
         | FUInt32 | FInt32 -> "I"
         | FOptPercent -> "F"
@@ -1007,7 +1008,7 @@ and generate_java_struct_list_return typ jtyp cols =
 
       (* Assign the value to this field. *)
       match ftyp with
-      | FString ->
+      | FString | FDevice ->
         pr "    (*env)->SetObjectField (env, jfl, fl,\n";
         pr "                            (*env)->NewStringUTF (env, r->val[i].%s));\n" name;
       | FUUID ->

@@ -616,7 +616,7 @@ and generate_php_struct_code typ cols =
   pr "  array_init (return_value);\n";
   List.iter (
     function
-    | name, FString ->
+    | name, (FString|FDevice) ->
         pr "  guestfs_add_assoc_string (return_value, \"%s\", r->%s, 1);\n" name name
     | name, FBuffer ->
         pr "  guestfs_add_assoc_stringl (return_value, \"%s\", r->%s, r->%s_len, 1);\n"
@@ -650,7 +650,7 @@ and generate_php_struct_list_code typ cols =
   pr "    array_init (z_elem);\n";
   List.iter (
     function
-    | name, FString ->
+    | name, (FString|FDevice) ->
         pr "    guestfs_add_assoc_string (z_elem, \"%s\", r->val[c].%s, 1);\n"
           name name
     | name, FBuffer ->
