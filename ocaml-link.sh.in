@@ -28,18 +28,16 @@
 # Pass the cclib argument separately, and the rest as separated
 # arguments.
 
-TEMP=`getopt -a -o '' --long 'cclib:' \
-  -n "$(basename $0)" -- "$@"`
-if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
-eval set -- "$TEMP"
-
 cclib=
 
 while true ; do
   case "$1" in
     -cclib|--cclib) cclib="$2" ; shift 2 ;;
+    -cclib=*|--cclib=*) cclib="${1#*=}"; shift 1 ;;
     --) shift ; break ;;
-    *) echo "Internal error!" ; exit 1 ;;
+    *)
+        printf >&2 "usage: %s [-cclib lib] -- arg ...\n" "$(basename "$0")"
+        exit 2 ;;
   esac
 done
 
