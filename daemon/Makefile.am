@@ -214,7 +214,7 @@ guestfsd_SOURCES = \
 	zerofree.c
 
 guestfsd_LDFLAGS = \
-	-L$(shell $(OCAMLC) -where) \
+	-L$(OCAMLLIB) \
 	-L$(shell $(OCAMLFIND) query hivex) \
 	-L$(shell $(OCAMLFIND) query augeas) \
 	-L../common/mlutils \
@@ -245,7 +245,7 @@ guestfsd_LDADD = \
 
 guestfsd_CPPFLAGS = \
 	-DCAML_NAME_SPACE \
-	-I$(shell $(OCAMLC) -where) \
+	-I$(OCAMLLIB) \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/lib \
@@ -422,7 +422,7 @@ daemon_utils_tests_CPPFLAGS = \
 	-DCAML_NAME_SPACE \
 	-I. \
 	-I$(top_builddir) \
-	-I$(shell $(OCAMLC) -where) \
+	-I$(OCAMLLIB) \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/errnostring \
