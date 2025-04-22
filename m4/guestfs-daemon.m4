@@ -58,8 +58,20 @@ if test "x$enable_daemon" = "xyes"; then
     fi
     AC_MSG_RESULT([$DAEMON_SUPERMIN_DIR])
     AC_SUBST([DAEMON_SUPERMIN_DIR])
+
+    dnl Check for Augeas >= 1.2.0 (required, daemon only).
+    PKG_CHECK_MODULES([AUGEAS],[augeas >= 1.2.0])
+
+    dnl hivex library (required, daemon only)
+    PKG_CHECK_MODULES([HIVEX], [hivex],[
+        AC_SUBST([HIVEX_CFLAGS])
+        AC_SUBST([HIVEX_LIBS])
+        AC_DEFINE([HAVE_HIVEX],[1],[hivex library found at compile time.])
+    ],
+        [AC_MSG_FAILURE([hivex library is required])])
 fi
 AM_CONDITIONAL([INSTALL_DAEMON],[test "x$enable_install_daemon" = "xyes"])
+AM_CONDITIONAL([HAVE_HIVEX],[test "x$HIVEX_LIBS" != "x"])
 
 dnl POSIX acl library (highly recommended)
 AC_CHECK_LIB([acl],[acl_from_text],[
@@ -76,15 +88,6 @@ AC_CHECK_LIB([cap],[cap_from_text],[
         AC_DEFINE([HAVE_CAP], [1], [Define to 1 if the Linux capabilities library (libcap) is available.])
     ], [])
 ],[AC_MSG_WARN([Linux capabilities library (libcap) not found])])
-
-dnl hivex library (required)
-PKG_CHECK_MODULES([HIVEX], [hivex],[
-    AC_SUBST([HIVEX_CFLAGS])
-    AC_SUBST([HIVEX_LIBS])
-    AC_DEFINE([HAVE_HIVEX],[1],[hivex library found at compile time.])
-],
-    [AC_MSG_FAILURE([hivex library is required])])
-AM_CONDITIONAL([HAVE_HIVEX],[test "x$HIVEX_LIBS" != "x"])
 
 dnl librpm library (optional)
 PKG_CHECK_MODULES([LIBRPM], [rpm >= 4.6.0],[

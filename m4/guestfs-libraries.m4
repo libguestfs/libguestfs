@@ -251,9 +251,6 @@ PKG_CHECK_MODULES([PCRE2], [libpcre2-8], [], [
 dnl Check for zstd (required since OCaml 5.1)
 PKG_CHECK_MODULES([LIBZSTD], [libzstd])
 
-dnl Check for Augeas >= 1.2.0 (required).
-PKG_CHECK_MODULES([AUGEAS],[augeas >= 1.2.0])
-
 dnl Check for aug_source function, added in Augeas 1.8.0.
 old_LIBS="$LIBS"
 LIBS="$AUGEAS_LIBS"
