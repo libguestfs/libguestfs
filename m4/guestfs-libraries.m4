@@ -260,16 +260,6 @@ LIBS="$AUGEAS_LIBS"
 AC_CHECK_FUNCS([aug_source])
 LIBS="$old_LIBS"
 
-dnl libmagic (required)
-AC_CHECK_LIB([magic],[magic_file],[
-    AC_CHECK_HEADER([magic.h],[
-        AC_SUBST([MAGIC_LIBS], ["-lmagic"])
-    ], [])
-],[])
-AS_IF([test -z "$MAGIC_LIBS"],
-    [AC_MSG_ERROR([libmagic (part of the "file" command) is required.
-                   Please install the file devel package])])
-
 dnl libvirt (highly recommended)
 AC_ARG_WITH([libvirt],[
     AS_HELP_STRING([--without-libvirt],
