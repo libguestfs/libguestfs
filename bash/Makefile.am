@@ -57,7 +57,7 @@ all-local: $(scripts) $(symlinks)
 
 install-data-local:
 	$(mkdir_p) $(DESTDIR)$(bashcompletiondir)
-	cp -d $(scripts) $(symlinks) $(DESTDIR)$(bashcompletiondir)
+	cp -P $(scripts) $(symlinks) $(DESTDIR)$(bashcompletiondir)
 
 clean-local:
 	-test $(srcdir) != $(builddir) && rm -f $(scripts)
