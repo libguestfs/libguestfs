@@ -50,10 +50,11 @@ done
 #echo "${args[@]}"
 "${args[@]}"
 
-if [ -n "$output" ]; then
+# Only do this for *.la files.
+case "$output" in *.la )
     cp -p "$output" "$output.tmp"
 
     # Remove dependency_libs from output.
     sed "s/^dependency_libs=.*/dependency_libs=''/" < "$output.tmp" > "$output"
     rm "$output.tmp"
-fi
+esac
