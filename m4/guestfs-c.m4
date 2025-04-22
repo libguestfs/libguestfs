@@ -20,7 +20,7 @@ dnl Define the host CPU architecture (defines 'host_cpu')
 AC_CANONICAL_HOST
 
 dnl Check for basic C environment.
-AC_PROG_CC_STDC
+AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_CPP
 
