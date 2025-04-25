@@ -101,8 +101,19 @@ do_fstrim (const char *path,
   ADD_ARG (argv, i, buf);
   ADD_ARG (argv, i, NULL);
 
+  /* Run the command twice to workaround
+   * https://issues.redhat.com/browse/RHEL-88450
+   */
+  r = commandv (&out, &err, argv);
+  if (r == -1) goto error;
+  if (verbose)
+    fprintf (stderr, "%s\n", out);
+  free (out); out = NULL;
+  free (err); err = NULL;
+
   r = commandv (&out, &err, argv);
   if (r == -1) {
+  error:
     /* If the error is about the kernel operation not being supported
      * for this filesystem type, then return errno ENOTSUP here.
      */
