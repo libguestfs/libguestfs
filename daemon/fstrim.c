@@ -116,5 +116,13 @@ do_fstrim (const char *path,
   if (verbose)
     fprintf (stderr, "%s\n", out);
 
+  /* Sync the disks again.  In practice we always call fstrim
+   * expecting that afterwards the results are visible in the qemu
+   * devices backing the guest.  Depending on the Linux filesystem,
+   * fstrim may issue asynch discard requests, so it's not necessarily
+   * true that everything has been written out before this point.
+   */
+  sync_disks ();
+
   return 0;
 }
