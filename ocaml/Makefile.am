@@ -64,13 +64,13 @@ endif
 
 stamp-mlguestfs: libguestfsocaml.a $(guestfs_cmm)
 	$(OCAMLMKLIB) -o mlguestfs \
-	  -ldopt '$(LDFLAGS)' \
+	  -ldopt '$(LDFLAGS) -L../lib/.libs' \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmo \
 	  $(LTLIBINTL) \
 	  -lguestfs
 if HAVE_OCAMLOPT
 	$(OCAMLMKLIB) -o mlguestfs \
-	  -ldopt '$(LDFLAGS)' \
+	  -ldopt '$(LDFLAGS) -L../lib/.libs' \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmx \
 	  $(LTLIBINTL) \
 	  -lguestfs
