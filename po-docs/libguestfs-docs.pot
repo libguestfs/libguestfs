@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.55.9\n"
+"Project-Id-Version: libguestfs 1.55.10\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2025-04-16 21:46+0100\n"
+"POT-Creation-Date: 2025-04-26 11:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,7 +137,7 @@ msgstr ""
 #: common/mlcustomize/v2v-customize-options.pod:331
 #: docs/guestfs-building.pod:13 docs/guestfs-building.pod:17
 #: docs/guestfs-building.pod:21 docs/guestfs-building.pod:25
-#: docs/guestfs-building.pod:743 docs/guestfs-building.pod:748
+#: docs/guestfs-building.pod:739 docs/guestfs-building.pod:744
 #: docs/guestfs-faq.pod:188 docs/guestfs-faq.pod:194 docs/guestfs-faq.pod:198
 #: docs/guestfs-faq.pod:203 docs/guestfs-faq.pod:767 docs/guestfs-faq.pod:773
 #: docs/guestfs-faq.pod:812 docs/guestfs-faq.pod:818 docs/guestfs-faq.pod:1380
@@ -539,7 +539,7 @@ msgstr ""
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:140 daemon/guestfsd.pod:143
-#: docs/guestfs-building.pod:764 docs/guestfs-faq.pod:1410
+#: docs/guestfs-building.pod:760 docs/guestfs-faq.pod:1410
 #: docs/guestfs-hacking.pod:1017 docs/guestfs-internals.pod:400
 #: docs/guestfs-performance.pod:500 docs/guestfs-recipes.pod:719
 #: docs/guestfs-release-notes-1.10.pod:145
@@ -591,7 +591,7 @@ msgstr ""
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:148
-#: docs/guestfs-building.pod:777 docs/guestfs-faq.pod:1416
+#: docs/guestfs-building.pod:773 docs/guestfs-faq.pod:1416
 #: docs/guestfs-hacking.pod:1030 docs/guestfs-internals.pod:409
 #: docs/guestfs-performance.pod:513 docs/guestfs-recipes.pod:735
 #: docs/guestfs-release-notes-1.42.pod:283
@@ -616,7 +616,7 @@ msgstr ""
 
 #. type: textblock
 #: appliance/libguestfs-make-fixed-appliance.pod:150
-#: docs/guestfs-building.pod:779 docs/guestfs-faq.pod:1418
+#: docs/guestfs-building.pod:775 docs/guestfs-faq.pod:1418
 #: docs/guestfs-hacking.pod:1032 docs/guestfs-internals.pod:411
 #: docs/guestfs-performance.pod:515 docs/guestfs-recipes.pod:737
 #: docs/guestfs-security.pod:447 docs/guestfs-testing.pod:404
@@ -634,7 +634,7 @@ msgstr ""
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:152 daemon/guestfsd.pod:152
-#: docs/guestfs-building.pod:781 docs/guestfs-faq.pod:1420
+#: docs/guestfs-building.pod:777 docs/guestfs-faq.pod:1420
 #: docs/guestfs-hacking.pod:1034 docs/guestfs-internals.pod:413
 #: docs/guestfs-performance.pod:517 docs/guestfs-recipes.pod:739
 #: docs/guestfs-release-notes-1.10.pod:160
@@ -679,7 +679,7 @@ msgstr ""
 
 #. type: textblock
 #: appliance/libguestfs-make-fixed-appliance.pod:154 daemon/guestfsd.pod:154
-#: docs/guestfs-building.pod:783 docs/guestfs-hacking.pod:1036
+#: docs/guestfs-building.pod:779 docs/guestfs-hacking.pod:1036
 #: docs/guestfs-internals.pod:415 docs/guestfs-recipes.pod:741
 #: docs/guestfs-release-notes-1.10.pod:162
 #: docs/guestfs-release-notes-1.12.pod:153
@@ -977,7 +977,7 @@ msgstr ""
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:84
 #: common/mlcustomize/v2v-customize-options.pod:84
-#: docs/guestfs-building.pod:452 docs/guestfs-recipes.pod:508
+#: docs/guestfs-building.pod:448 docs/guestfs-recipes.pod:508
 #: docs/internal-documentation.pod:3116 fish/guestfish.pod:238
 #: fish/guestfish.pod:699 rescue/virt-rescue.pod:166
 msgid "For example:"
@@ -2753,487 +2753,477 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-building.pod:198
-msgid "libmagic"
-msgstr ""
-
-#. type: textblock
-#: docs/guestfs-building.pod:200
-msgid "I<Required>.  This is the library used by the L<file(1)> command."
-msgstr ""
-
-#. type: =item
-#: docs/guestfs-building.pod:202
 msgid "libvirt E<ge> 0.10.2"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:204
+#: docs/guestfs-building.pod:200
 msgid "Optional.  Always use the latest possible version of libvirt."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:206
+#: docs/guestfs-building.pod:202
 msgid "xmllint"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:208
+#: docs/guestfs-building.pod:204
 msgid "Optional.  Used only for tests."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:210
+#: docs/guestfs-building.pod:206
 msgid "libconfig"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:212
+#: docs/guestfs-building.pod:208
 msgid ""
 "Optional.  Used to parse libguestfs’s own config files, "
 "eg. F</etc/libguestfs-tools.conf>."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:215
+#: docs/guestfs-building.pod:211
 msgid "libselinux"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:217
+#: docs/guestfs-building.pod:213
 msgid ""
 "Optional.  Used by the L<libvirt backend|guestfs(3)/BACKEND> to securely "
 "confine the appliance (sVirt)."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:220
+#: docs/guestfs-building.pod:216
 msgid "readline"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:222
+#: docs/guestfs-building.pod:218
 msgid "Optional.  For nicer command line editing in L<guestfish(1)>."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:224
+#: docs/guestfs-building.pod:220
 msgid "acl"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:226
+#: docs/guestfs-building.pod:222
 msgid "Optional.  Library and programs for handling POSIX ACLs."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:228
+#: docs/guestfs-building.pod:224
 msgid "libcap"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:230
+#: docs/guestfs-building.pod:226
 msgid "Optional.  Library and programs for handling Linux capabilities."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:232
+#: docs/guestfs-building.pod:228
 msgid "libldm"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:234
+#: docs/guestfs-building.pod:230
 msgid "Optional.  Library and L<ldmtool(1)> for handling Windows Dynamic Disks."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:237 docs/guestfs-release-notes-1.24.pod:131
+#: docs/guestfs-building.pod:233 docs/guestfs-release-notes-1.24.pod:131
 msgid "sd-journal"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:239
+#: docs/guestfs-building.pod:235
 msgid "Optional.  Library for accessing systemd journals."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:241
+#: docs/guestfs-building.pod:237
 msgid "gdisk"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:243
+#: docs/guestfs-building.pod:239
 msgid "Optional.  GPT disk support."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:245
+#: docs/guestfs-building.pod:241
 msgid "netpbm"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:247
+#: docs/guestfs-building.pod:243
 msgid "Optional.  Render icons from guests."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:249
+#: docs/guestfs-building.pod:245
 msgid "icoutils"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:251
+#: docs/guestfs-building.pod:247
 msgid "Optional.  Render icons from Windows guests."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:253
+#: docs/guestfs-building.pod:249
 msgid "librpm"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:255
+#: docs/guestfs-building.pod:251
 msgid "Optional.  To parse the list of applications from RPM-based guests."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:257
+#: docs/guestfs-building.pod:253
 msgid "Perl C<Expect>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:259
+#: docs/guestfs-building.pod:255
 msgid "Optional.  Perl module used to test L<virt-rescue(1)>."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:261
+#: docs/guestfs-building.pod:257
 msgid "FUSE"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:263
+#: docs/guestfs-building.pod:259
 msgid ""
 "Optional.  L<fusermount(1)>, libfuse and kernel module are all needed if you "
 "want L<guestmount(1)> and/or L<mount-local|guestfs(3)/MOUNT LOCAL> support."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:267
+#: docs/guestfs-building.pod:263
 msgid "static glibc"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:269
+#: docs/guestfs-building.pod:265
 msgid "Optional.  Used only for testing."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:271
+#: docs/guestfs-building.pod:267
 msgid "qemu-nbd"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:273
+#: docs/guestfs-building.pod:269
 msgid "nbdkit E<ge> 1.12"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:275
+#: docs/guestfs-building.pod:271
 msgid "Optional.  qemu-nbd is used for testing."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:277 docs/guestfs-release-notes-1.24.pod:139
+#: docs/guestfs-building.pod:273 docs/guestfs-release-notes-1.24.pod:139
 msgid "curl"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:279
+#: docs/guestfs-building.pod:275
 msgid "Optional.  Used by virt-builder for downloads."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:281
+#: docs/guestfs-building.pod:277
 msgid "GNU Privacy Guard (GnuPG, gpg) v1 or v2"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:283
+#: docs/guestfs-building.pod:279
 msgid "Optional.  Used by virt-builder for checking digital signatures."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:285
+#: docs/guestfs-building.pod:281
 msgid "liblzma"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:287
+#: docs/guestfs-building.pod:283
 msgid ""
 "Optional.  If available, virt-builder will use this library for fast, "
 "parallel uncompression of templates."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:290
+#: docs/guestfs-building.pod:286
 msgid "python-evtx"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:292
+#: docs/guestfs-building.pod:288
 msgid "Optional.  Used by L<virt-log(1)> to parse Windows Event Log files."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:294
+#: docs/guestfs-building.pod:290
 msgid "OCaml gettext"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:296
+#: docs/guestfs-building.pod:292
 msgid "Optional.  For localizing OCaml virt tools."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:298
+#: docs/guestfs-building.pod:294
 msgid "Perl C<Module::Build> E<ge> 0.19"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:300
+#: docs/guestfs-building.pod:296
 msgid "Perl C<Test::More>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:302
+#: docs/guestfs-building.pod:298
 msgid "Optional.  Used to build and test the Perl bindings."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:304
+#: docs/guestfs-building.pod:300
 msgid "Python E<ge> 3.6"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:306
+#: docs/guestfs-building.pod:302
 msgid ""
 "Optional.  Used to build the Python bindings.  S<Python 2> support was "
 "removed in S<libguestfs 1.42.1>."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:309
+#: docs/guestfs-building.pod:305
 msgid "Python C<unittest>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:311
+#: docs/guestfs-building.pod:307
 msgid "Optional.  Used to run the Python testsuite."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:313
+#: docs/guestfs-building.pod:309
 msgid "Ruby"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:315
+#: docs/guestfs-building.pod:311
 msgid "rake"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:317
+#: docs/guestfs-building.pod:313
 msgid "rubygem-minitest"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:319
+#: docs/guestfs-building.pod:315
 msgid "rubygem-rdoc"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:321
+#: docs/guestfs-building.pod:317
 msgid "Optional.  Used to build the Ruby bindings."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:323
+#: docs/guestfs-building.pod:319
 msgid "Java E<ge> 1.6"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:325
+#: docs/guestfs-building.pod:321
 msgid ""
 "Optional.  Java, JNI and jpackage-utils are needed for building Java "
 "bindings."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:328
+#: docs/guestfs-building.pod:324
 msgid "GHC"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:330
+#: docs/guestfs-building.pod:326
 msgid "Optional.  Used to build the Haskell bindings."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:332
+#: docs/guestfs-building.pod:328
 msgid "PHP"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:334
+#: docs/guestfs-building.pod:330
 msgid "phpize"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:336
+#: docs/guestfs-building.pod:332
 msgid "Optional.  Used to build the PHP bindings."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:338
+#: docs/guestfs-building.pod:334
 msgid "glib2"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:340
+#: docs/guestfs-building.pod:336
 msgid "gobject-introspection"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:342
+#: docs/guestfs-building.pod:338
 msgid "gjs"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:344
+#: docs/guestfs-building.pod:340
 msgid "Optional.  Used to build and test the GObject bindings."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:346
+#: docs/guestfs-building.pod:342
 msgid "vala"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:348
+#: docs/guestfs-building.pod:344
 msgid "Optional.  Used to build the Vala bindings."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:350
+#: docs/guestfs-building.pod:346
 msgid "LUA"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:352
+#: docs/guestfs-building.pod:348
 msgid "Optional.  Used to build the LUA bindings."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:354
+#: docs/guestfs-building.pod:350
 msgid "Erlang E<ge> 23"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:356
+#: docs/guestfs-building.pod:352
 msgid "ei"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:358
+#: docs/guestfs-building.pod:354
 msgid ""
 "Optional.  Used to build the Erlang bindings.  Note that Erlang E<le> 22 "
 "will not work unless you use libguestfs E<le> 1.42."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:361 docs/guestfs-release-notes-1.24.pod:147
+#: docs/guestfs-building.pod:357 docs/guestfs-release-notes-1.24.pod:147
 msgid "golang E<ge> 1.1.1"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:363
+#: docs/guestfs-building.pod:359
 msgid "Optional.  Used to build the Go bindings."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:365
+#: docs/guestfs-building.pod:361
 msgid "valgrind"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:367
+#: docs/guestfs-building.pod:363
 msgid "Optional.  For testing memory problems."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:369
+#: docs/guestfs-building.pod:365
 msgid "libvirt-python"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:371
+#: docs/guestfs-building.pod:367
 msgid "Optional.  For testing Python libvirt/libguestfs interactions."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:373
+#: docs/guestfs-building.pod:369
 msgid "Perl C<libintl>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:375
+#: docs/guestfs-building.pod:371
 msgid "Optional."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:377
+#: docs/guestfs-building.pod:373
 msgid "bash-completion"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:379
+#: docs/guestfs-building.pod:375
 msgid "Optional.  For tab-completion of commands in bash."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:381
+#: docs/guestfs-building.pod:377
 msgid "libtsk"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:383
+#: docs/guestfs-building.pod:379
 msgid "Optional.  Library for filesystem forensics analysis."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:385
+#: docs/guestfs-building.pod:381
 msgid "yara E<ge> 4.0.0"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:387
+#: docs/guestfs-building.pod:383
 msgid "Optional.  Tool for categorizing files based on their content."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:391
+#: docs/guestfs-building.pod:387
 msgid "BUILDING FROM GIT"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:393
+#: docs/guestfs-building.pod:389
 msgid ""
 "You will need to install additional dependencies C<autoconf>, C<automake>, "
 "C<gettext>, OCaml findlib and po4a when building from git."
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:397
+#: docs/guestfs-building.pod:393
 #, no-wrap
 msgid ""
 " git clone https://github.com/libguestfs/libguestfs\n"
@@ -3246,12 +3236,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:404
+#: docs/guestfs-building.pod:400
 msgid "BUILDING FROM TARBALLS"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:406
+#: docs/guestfs-building.pod:402
 msgid ""
 "Tarballs are downloaded from L<http://download.libguestfs.org/>.  Stable "
 "tarballs are signed with the GnuPG key for C<rich@annexia.org>, see "
@@ -3260,12 +3250,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:412
+#: docs/guestfs-building.pod:408
 msgid "Download and unpack the tarball."
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:414
+#: docs/guestfs-building.pod:410
 #, no-wrap
 msgid ""
 " cd libguestfs-1.xx.yy\n"
@@ -3275,24 +3265,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:418
+#: docs/guestfs-building.pod:414
 msgid "RUNNING THE TESTS"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:420
+#: docs/guestfs-building.pod:416
 msgid ""
 "B<DO NOT run the tests as root!> Libguestfs can be built and tested as "
 "non-root.  Running the tests as root could even be dangerous, don't do it."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:424
+#: docs/guestfs-building.pod:420
 msgid "To sanity check that the build worked, do:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:426
+#: docs/guestfs-building.pod:422
 #, no-wrap
 msgid ""
 " make quickcheck\n"
@@ -3300,12 +3290,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:428
+#: docs/guestfs-building.pod:424
 msgid "To run the basic tests, do:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:430
+#: docs/guestfs-building.pod:426
 #, no-wrap
 msgid ""
 " make check\n"
@@ -3313,19 +3303,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:432
+#: docs/guestfs-building.pod:428
 msgid ""
 "There are many more tests you can run.  See L<guestfs-hacking(1)> for "
 "details."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:435
+#: docs/guestfs-building.pod:431
 msgid "INSTALLING"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:437
+#: docs/guestfs-building.pod:433
 msgid ""
 "B<DO NOT use C<make install>!> You'll end up with conflicting versions of "
 "libguestfs installed, and this causes constant headaches for users.  See the "
@@ -3333,12 +3323,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:441
+#: docs/guestfs-building.pod:437
 msgid "Distro packagers can use:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:443
+#: docs/guestfs-building.pod:439
 #, no-wrap
 msgid ""
 " make INSTALLDIRS=vendor DESTDIR=[temp-build-dir] install\n"
@@ -3346,12 +3336,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:445
+#: docs/guestfs-building.pod:441
 msgid "THE ./run SCRIPT"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:447
+#: docs/guestfs-building.pod:443
 msgid ""
 "You can run L<guestfish(1)>, L<guestmount(1)> and the virt tools without "
 "needing to install them by using the F<./run> script in the top directory.  "
@@ -3359,7 +3349,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:454
+#: docs/guestfs-building.pod:450
 #, no-wrap
 msgid ""
 " ./run guestfish [usual guestfish args ...]\n"
@@ -3367,7 +3357,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:456
+#: docs/guestfs-building.pod:452
 #, no-wrap
 msgid ""
 " ./run virt-inspector [usual virt-inspector args ...]\n"
@@ -3375,7 +3365,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:458
+#: docs/guestfs-building.pod:454
 msgid ""
 "The F<./run> script adds every libguestfs binary to the C<$PATH>, so the "
 "above examples run guestfish and virt-inspector from the build directory "
@@ -3383,14 +3373,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:462
+#: docs/guestfs-building.pod:458
 msgid ""
 "You can use the script from any directory.  If you wanted to run your own "
 "libguestfs-using program, then the following command will also work:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:466
+#: docs/guestfs-building.pod:462
 #, no-wrap
 msgid ""
 " /path/to/libguestfs/run ./my_program [...]\n"
@@ -3398,12 +3388,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:468
+#: docs/guestfs-building.pod:464
 msgid "You can also run the C programs under valgrind like this:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:470
+#: docs/guestfs-building.pod:466
 #, no-wrap
 msgid ""
 " ./run valgrind [valgrind opts...] virt-cat [virt-cat opts...]\n"
@@ -3411,12 +3401,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:472
+#: docs/guestfs-building.pod:468
 msgid "or under gdb:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:474
+#: docs/guestfs-building.pod:470
 #, no-wrap
 msgid ""
 " ./run gdb --args virt-cat [virt-cat opts...]\n"
@@ -3424,14 +3414,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:476
+#: docs/guestfs-building.pod:472
 msgid ""
 "This also works with sudo (eg. if you need root access for libvirt or to "
 "access a block device):"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:479
+#: docs/guestfs-building.pod:475
 #, no-wrap
 msgid ""
 " sudo ./run virt-cat -d LinuxGuest /etc/passwd\n"
@@ -3439,12 +3429,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:481
+#: docs/guestfs-building.pod:477
 msgid "To set environment variables, you can either do:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:483
+#: docs/guestfs-building.pod:479
 #, no-wrap
 msgid ""
 " LIBGUESTFS_HV=/my/qemu ./run guestfish\n"
@@ -3452,7 +3442,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:485 docs/guestfs-hacking.pod:493
+#: docs/guestfs-building.pod:481 docs/guestfs-hacking.pod:493
 #: docs/guestfs-testing.pod:76 docs/guestfs-testing.pod:138
 #: docs/guestfs-testing.pod:245 docs/guestfs-testing.pod:258
 #: docs/guestfs-testing.pod:322 fish/guestfish.pod:863 fish/guestfish.pod:1057
@@ -3461,7 +3451,7 @@ msgid "or:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:487
+#: docs/guestfs-building.pod:483
 #, no-wrap
 msgid ""
 " ./run env LIBGUESTFS_HV=/my/qemu guestfish\n"
@@ -3469,12 +3459,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:489
+#: docs/guestfs-building.pod:485
 msgid "F<local*> FILES"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:491
+#: docs/guestfs-building.pod:487
 msgid ""
 "Files in the top source directory that begin with the prefix F<local*> are "
 "ignored by git.  These files can contain local configuration or scripts that "
@@ -3482,7 +3472,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:495
+#: docs/guestfs-building.pod:491
 msgid ""
 "I have a file called F<localconfigure> which is a simple wrapper around "
 "F<configure> containing local configure customizations that I need.  It "
@@ -3490,7 +3480,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:499
+#: docs/guestfs-building.pod:495
 #, no-wrap
 msgid ""
 " . localenv\n"
@@ -3502,12 +3492,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:505
+#: docs/guestfs-building.pod:501
 msgid "So I can use this to build libguestfs:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:507
+#: docs/guestfs-building.pod:503
 #, no-wrap
 msgid ""
 " ./localconfigure && make\n"
@@ -3515,7 +3505,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:509
+#: docs/guestfs-building.pod:505
 msgid ""
 "If there is a file in the top build directory called F<localenv>, then it "
 "will be sourced by C<make>.  This file can contain any local environment "
@@ -3523,7 +3513,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:513
+#: docs/guestfs-building.pod:509
 #, no-wrap
 msgid ""
 " # Skip this test, it is broken.\n"
@@ -3532,7 +3522,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:516
+#: docs/guestfs-building.pod:512
 msgid ""
 "Note that F<localenv> is included by the top Makefile (so it’s a Makefile "
 "fragment).  But if it is also sourced by your F<localconfigure> script then "
@@ -3540,17 +3530,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:520
+#: docs/guestfs-building.pod:516
 msgid "SELECTED ./configure SETTINGS"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:522
+#: docs/guestfs-building.pod:518
 msgid "There are many C<./configure> options.  Use:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:524
+#: docs/guestfs-building.pod:520
 #, no-wrap
 msgid ""
 " ./configure --help\n"
@@ -3558,118 +3548,118 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:526
+#: docs/guestfs-building.pod:522
 msgid "to list them all.  This section covers some of the more important ones."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:531
+#: docs/guestfs-building.pod:527
 msgid "B<--disable-appliance --disable-daemon>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:533
+#: docs/guestfs-building.pod:529
 msgid "See L</USING A PREBUILT BINARY APPLIANCE> below."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:535
+#: docs/guestfs-building.pod:531
 msgid "B<--disable-erlang>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:537
+#: docs/guestfs-building.pod:533
 msgid "B<--disable-gobject>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:539
+#: docs/guestfs-building.pod:535
 msgid "B<--disable-golang>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:541
+#: docs/guestfs-building.pod:537
 msgid "B<--disable-haskell>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:543
+#: docs/guestfs-building.pod:539
 msgid "B<--disable-lua>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:545
+#: docs/guestfs-building.pod:541
 msgid "B<--disable-ocaml>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:547
+#: docs/guestfs-building.pod:543
 msgid "B<--disable-perl>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:549
+#: docs/guestfs-building.pod:545
 msgid "B<--disable-php>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:551
+#: docs/guestfs-building.pod:547
 msgid "B<--disable-python>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:553
+#: docs/guestfs-building.pod:549
 msgid "B<--disable-ruby>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:555
+#: docs/guestfs-building.pod:551
 msgid ""
 "Disable specific language bindings, even if C<./configure> finds all the "
 "necessary libraries are installed so that they could be compiled."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:558
+#: docs/guestfs-building.pod:554
 msgid ""
 "Note that disabling OCaml (bindings) or Perl will have the knock-on effect "
 "of disabling parts of the test suite and some tools."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:561
+#: docs/guestfs-building.pod:557
 msgid ""
 "OCaml is required to build libguestfs and this requirement cannot be "
 "removed.  Using I<--disable-ocaml> only disables the bindings."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:564
+#: docs/guestfs-building.pod:560
 msgid "B<--disable-fuse>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:566
+#: docs/guestfs-building.pod:562
 msgid "Disable FUSE support in the API and the L<guestmount(1)> tool."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:568
+#: docs/guestfs-building.pod:564
 msgid "B<--disable-static>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:570
+#: docs/guestfs-building.pod:566
 msgid "Don’t build a static linked version of the libguestfs library."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:572
+#: docs/guestfs-building.pod:568
 msgid "B<--enable-install-daemon>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:574
+#: docs/guestfs-building.pod:570
 msgid ""
 "Normally L<guestfsd(8)> is not installed by C<make install>, since that "
 "wouldn't be useful (instead it is \"installed\" inside the supermin "
@@ -3678,12 +3668,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:579
+#: docs/guestfs-building.pod:575
 msgid "B<--enable-werror>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:581
+#: docs/guestfs-building.pod:577
 msgid ""
 "This turns compiler warnings into errors (ie. C<-Werror>).  Use this for "
 "development, especially when submitting patches.  It should generally I<not> "
@@ -3691,12 +3681,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:585
+#: docs/guestfs-building.pod:581
 msgid "B<--with-default-backend=libvirt>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:587
+#: docs/guestfs-building.pod:583
 msgid ""
 "This controls the default method that libguestfs uses to run qemu (see "
 "L<guestfs(3)/BACKEND>).  If not specified, the default backend is C<direct>, "
@@ -3704,7 +3694,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:591
+#: docs/guestfs-building.pod:587
 msgid ""
 "Fedora and Red Hat Enterprise Linux (RHEL) E<ge> 7 use this flag to change "
 "the default backend to C<libvirt>, because (especially in RHEL)  the policy "
@@ -3712,7 +3702,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:595
+#: docs/guestfs-building.pod:591
 msgid ""
 "Note that despite this setting, all backends are built into libguestfs, and "
 "you can override the backend at runtime by setting the "
@@ -3720,12 +3710,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:599
+#: docs/guestfs-building.pod:595
 msgid "B<--with-distro=REDHAT|DEBIAN|...>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:601
+#: docs/guestfs-building.pod:597
 msgid ""
 "Libguestfs needs to know which Linux distro is in use so it can choose "
 "package names for the appliance correctly (see for example "
@@ -3733,7 +3723,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:605
+#: docs/guestfs-building.pod:601
 msgid ""
 "However if you can building or packaging libguestfs on a new distro then you "
 "can use I<--with-distro> to specify that the distro is similar to an "
@@ -3742,24 +3732,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:610
+#: docs/guestfs-building.pod:606
 msgid ""
 "Note that if your distro is completely new then it may still require "
 "upstream modifications."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:613
+#: docs/guestfs-building.pod:609
 msgid "B<--with-extra=\">I<distroname>=I<version>,libvirt,...B<\">"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:615
+#: docs/guestfs-building.pod:611
 msgid "B<--with-extra=\"local\">"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:617
+#: docs/guestfs-building.pod:613
 msgid ""
 "This option controls the \"extra\" field returned by "
 "L<guestfs(3)/guestfs_version> and also printed by virt tools' I<--version> "
@@ -3770,48 +3760,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:624
+#: docs/guestfs-building.pod:620
 msgid ""
 "For custom and/or local builds, this can be set to C<local> to indicate this "
 "is I<not> a distro build."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:627
+#: docs/guestfs-building.pod:623
 msgid "B<--without-libvirt>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:629
+#: docs/guestfs-building.pod:625
 msgid ""
 "Compile libguestfs without libvirt support, even if libvirt development "
 "libraries are installed."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:632
+#: docs/guestfs-building.pod:628
 msgid "B<--with-qemu=\">bin1 bin2 ...B<\">"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:634
+#: docs/guestfs-building.pod:630
 msgid ""
 "Provide an alternate qemu binary (or list of binaries).  This can be "
 "overridden at runtime by setting the C<LIBGUESTFS_HV> environment variable."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:638
+#: docs/guestfs-building.pod:634
 msgid "B<--with-supermin-packager-config=>I<yum.conf>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:640
+#: docs/guestfs-building.pod:636
 msgid "This passes the I<--packager-config> option to L<supermin(1)>."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:642
+#: docs/guestfs-building.pod:638
 msgid ""
 "The most common use for this is to build the appliance using an alternate "
 "repository (instead of using the installed yum/dnf/apt/etc configuration to "
@@ -3822,24 +3812,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:650
+#: docs/guestfs-building.pod:646
 msgid "B<--with-supermin-extra-options=\">--opt1 --opt2 ...B<\">"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:652
+#: docs/guestfs-building.pod:648
 msgid ""
 "Pass additional options to L<supermin(1)>.  See F<appliance/make.sh.in> to "
 "understand precisely what this does."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:655
+#: docs/guestfs-building.pod:651
 msgid "B<PYTHON>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:657
+#: docs/guestfs-building.pod:653
 msgid ""
 "This environment variable may be set to point to a python binary "
 "(eg. C<python3>).  When C<./configure> runs, it inspects this python binary "
@@ -3847,12 +3837,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-building.pod:662
+#: docs/guestfs-building.pod:658
 msgid "B<SUPERMIN>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:664
+#: docs/guestfs-building.pod:660
 msgid ""
 "This environment variable can be set to choose an alternative L<supermin(1)> "
 "binary.  This might be used, for example, if you want to use a newer "
@@ -3862,17 +3852,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:672
+#: docs/guestfs-building.pod:668
 msgid "NOTES ABOUT QEMU AND KVM"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:674
+#: docs/guestfs-building.pod:670
 msgid "A common problem is with broken or incompatible qemu releases."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:676
+#: docs/guestfs-building.pod:672
 msgid ""
 "Different versions of qemu have problems booting the appliance for different "
 "reasons.  This varies between versions of qemu, and Linux distributions "
@@ -3880,7 +3870,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:680
+#: docs/guestfs-building.pod:676
 msgid ""
 "If you find a problem, you could try using your own qemu built from source "
 "(qemu is very easy to build from source), with a \"qemu wrapper\".  See "
@@ -3888,14 +3878,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:684
+#: docs/guestfs-building.pod:680
 msgid ""
 "By default the configure script will look for qemu-kvm (KVM support).  KVM "
 "is much faster than using plain qemu."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:687
+#: docs/guestfs-building.pod:683
 msgid ""
 "You may also need to enable KVM support for non-root users, by following "
 "these instructions: "
@@ -3903,12 +3893,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:691
+#: docs/guestfs-building.pod:687
 msgid "On some systems, this will work too:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:693
+#: docs/guestfs-building.pod:689
 #, no-wrap
 msgid ""
 " chmod 0666 /dev/kvm\n"
@@ -3916,19 +3906,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:695
+#: docs/guestfs-building.pod:691
 msgid ""
 "On some systems, the chmod will not survive a reboot, and you will need to "
 "make edits to the udev configuration."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:698
+#: docs/guestfs-building.pod:694
 msgid "USING CLANG (LLVM) INSTEAD OF GCC"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:700
+#: docs/guestfs-building.pod:696
 #, no-wrap
 msgid ""
 " export CC=clang\n"
@@ -3938,19 +3928,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:704
+#: docs/guestfs-building.pod:700
 msgid "USING A PREBUILT BINARY APPLIANCE"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:706
+#: docs/guestfs-building.pod:702
 msgid ""
 "To understand what the libguestfs appliance means, see "
 "L<guestfs-internals(1)>."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:709
+#: docs/guestfs-building.pod:705
 msgid ""
 "If you are using non-Linux, or a Linux distribution that does not have "
 "L<supermin(1)> support, or simply if you don't want to build your own "
@@ -3959,12 +3949,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:715
+#: docs/guestfs-building.pod:711
 msgid "Build libguestfs like this:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:717
+#: docs/guestfs-building.pod:713
 #, no-wrap
 msgid ""
 " ./configure --disable-appliance --disable-daemon\n"
@@ -3973,14 +3963,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:720
+#: docs/guestfs-building.pod:716
 msgid ""
 "Set C<$LIBGUESTFS_PATH> to the path where you unpacked the appliance "
 "tarball, eg:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-building.pod:723 docs/guestfs-faq.pod:566
+#: docs/guestfs-building.pod:719 docs/guestfs-faq.pod:566
 #: docs/guestfs-performance.pod:147
 #, no-wrap
 msgid ""
@@ -3989,69 +3979,69 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:725
+#: docs/guestfs-building.pod:721
 msgid ""
 "and run the libguestfs programs and virt tools in the normal way, eg. using "
 "the F<./run> script (see above)."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:728
+#: docs/guestfs-building.pod:724
 msgid "BUILDING A PACKAGE FOR FEDORA"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:730
+#: docs/guestfs-building.pod:726
 msgid ""
 "The Fedora spec file is stored under: "
 "L<http://pkgs.fedoraproject.org/cgit/rpms/libguestfs.git/>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:733
+#: docs/guestfs-building.pod:729
 msgid "Libguestfs is built in Fedora using the ordinary Fedora build system (Koji)."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-building.pod:736
+#: docs/guestfs-building.pod:732
 msgid "BUILDING A PACKAGE FOR RED HAT ENTERPRISE LINUX"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:738
+#: docs/guestfs-building.pod:734
 msgid ""
 "Red Hat Enterprise Linux (RHEL) builds of libguestfs are heavily patched.  "
 "There are broadly two types of patches we apply:"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:745
+#: docs/guestfs-building.pod:741
 msgid ""
 "We disable many features that we do not wish to support for RHEL customers.  "
 "For example, the \"libguestfs live\" feature is disabled."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:750
+#: docs/guestfs-building.pod:746
 msgid "We backport upstream features."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:754
+#: docs/guestfs-building.pod:750
 msgid ""
 "The patches we apply to RHEL releases are available publically in the "
 "upstream git repository, in a branch called C<rhel-x.y>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:757
+#: docs/guestfs-building.pod:753
 msgid ""
 "For example, the RHEL 7.3 patches are available here: "
 "L<https://github.com/libguestfs/libguestfs/commits/rhel-7.3>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:760
+#: docs/guestfs-building.pod:756
 msgid ""
 "The sources and spec files for RHEL versions of libguestfs are available on "
 "L<https://git.centos.org/project/rpms>, and see also "
@@ -4059,7 +4049,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-building.pod:766
+#: docs/guestfs-building.pod:762
 msgid ""
 "L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-hacking(1)>, "
 "L<guestfs-internals(1)>, L<guestfs-performance(1)>, "
