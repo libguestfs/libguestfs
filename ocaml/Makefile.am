@@ -165,7 +165,7 @@ endif
 
 if HAVE_OCAMLOPT
 %.opt: %.cmx mlguestfs.cmxa
-	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) -cclib -L$(top_builddir)/lib/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
+	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) -ccopt -L$(top_builddir)/lib/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 endif
 
 check-valgrind:
