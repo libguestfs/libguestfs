@@ -67,13 +67,13 @@ stamp-mlguestfs: libguestfsocaml.a $(guestfs_cmm)
 	  -ldopt '$(LDFLAGS)' \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmo \
 	  $(LTLIBINTL) \
-	  -L../lib/.libs -lguestfs
+	  -lguestfs
 if HAVE_OCAMLOPT
 	$(OCAMLMKLIB) -o mlguestfs \
 	  -ldopt '$(LDFLAGS)' \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmx \
 	  $(LTLIBINTL) \
-	  -L../lib/.libs -lguestfs
+	  -lguestfs
 endif
 	touch $@
 
