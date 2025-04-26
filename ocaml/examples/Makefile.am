@@ -48,7 +48,7 @@ if HAVE_OCAML
 
 noinst_SCRIPTS = create_disk debug_logging inspect_vm
 
-OCAMLFINDFLAGS = -cclib -L$(top_builddir)/lib/.libs
+OCAMLFINDFLAGS = -ccopt -L$(top_builddir)/lib/.libs
 
 if HAVE_OCAMLOPT
 create_disk: create_disk.ml
