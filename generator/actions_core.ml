@@ -7402,10 +7402,28 @@ In the case where the kernel vfs driver does not support
 trimming, this call will fail with errno set to C<ENOTSUP>.
 Currently this happens when trying to trim FAT filesystems.
 
+See also C<guestfs_fstrim_estimate> which is the same as
+this call, but returns an estimate of the amount of space
+that was trimmed.
+
 See also C<guestfs_zero_free_space>.  That is a slightly
 different operation that turns free space in the filesystem
 into zeroes.  It is valid to call C<guestfs_fstrim> either
 instead of, or after calling C<guestfs_zero_free_space>." };
+
+  { defaults with
+    name = "fstrim_estimate"; added = (1, 55, 11);
+    style = RInt64 "estimate", [String (Pathname, "mountpoint")], [OInt64 "offset"; OInt64 "length"; OInt64 "minimumfreeextent"];
+    optional = Some "fstrim";
+    shortdesc = "trim free space in a filesystem";
+    longdesc = "\
+Trim the free space in the filesystem mounted on C<mountpoint>.
+The filesystem must be mounted read-write.
+
+This is the same as C<guestfs_fstrim> but it returns an
+estimate of the amount of space that was trimmed, in bytes.
+If the estimate is unavailable but the operation was successful,
+this returns C<0>." };
 
   { defaults with
     name = "nr_devices"; added = (1, 19, 15);

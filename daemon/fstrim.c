@@ -22,18 +22,28 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <sys/stat.h>
+
+#ifdef HAVE_LINUX_FS_H
+#include <linux/fs.h>
+#endif
 
 #include "guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
 #include "optgroups.h"
 
-#define MAX_ARGS 64
+#if defined(HAVE_LINUX_FS_H) && defined(FITRIM)
+
+static int64_t get_filesystem_size (const char *path);
 
 int
 optgroup_fstrim_available (void)
 {
-  return prog_exists ("fstrim");
+  return 1;
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
@@ -41,29 +51,56 @@ int
 do_fstrim (const char *path,
            int64_t offset, int64_t length, int64_t minimumfreeextent)
 {
-  const char *argv[MAX_ARGS];
-  size_t i = 0;
-  char offset_s[64], length_s[64], mfe_s[64];
-  CLEANUP_FREE char *buf = NULL;
-  CLEANUP_FREE char *out = NULL, *err = NULL;
-  int r;
+  int64_t r = do_fstrim_estimate (path, offset, length, minimumfreeextent);
+  return r >= 0 ? 0 : r;
+}
+
+/* Takes optional arguments, consult optargs_bitmask. */
+int64_t
+do_fstrim_estimate (const char *path,
+                    int64_t offset, int64_t length, int64_t minimumfreeextent)
+{
+  CLEANUP_CLOSE int fd = -1;
+  int i;
+  struct stat sb;
+  struct fstrim_range range = { .len = UINT64_MAX };
+  int64_t ret = 0;
+  int64_t fs_size;
+
+  fs_size = get_filesystem_size (path); /* ignore errors */
+
+  /* XXX util-linux uses realpath here, but it's unclear why that is
+   * necessary.  In this code I just open the path directly.
+   */
+  CHROOT_IN;
+  fd = open (path, O_RDONLY);
+  CHROOT_OUT;
+  if (fd == -1) {
+    reply_with_perror ("open: %s", path);
+    return -1;
+  }
+
+  /* The util-linux code also refuses to run unless path is a directory. */
+  if (fstat (fd, &sb) == -1) {
+    reply_with_perror ("fstat: %s", path);
+    return -1;
+  }
+  if (!S_ISDIR (sb.st_mode)) {
+    reply_with_error ("fstrim: %s is not a directory", path);
+    return -1;
+  }
 
   /* Suggested by Paolo Bonzini to fix fstrim problem.
    * https://lists.gnu.org/archive/html/qemu-devel/2014-03/msg02978.html
    */
   sync_disks ();
 
-  ADD_ARG (argv, i, "fstrim");
-
   if ((optargs_bitmask & GUESTFS_FSTRIM_OFFSET_BITMASK)) {
     if (offset < 0) {
       reply_with_error ("offset < 0");
       return -1;
     }
-
-    snprintf (offset_s, sizeof offset_s, "%" PRIi64, offset);
-    ADD_ARG (argv, i, "-o");
-    ADD_ARG (argv, i, offset_s);
+    range.start = offset;
   }
 
   if ((optargs_bitmask & GUESTFS_FSTRIM_LENGTH_BITMASK)) {
@@ -71,10 +108,7 @@ do_fstrim (const char *path,
       reply_with_error ("length <= 0");
       return -1;
     }
-
-    snprintf (length_s, sizeof length_s, "%" PRIi64, length);
-    ADD_ARG (argv, i, "-l");
-    ADD_ARG (argv, i, length_s);
+    range.len = length;
   }
 
   if ((optargs_bitmask & GUESTFS_FSTRIM_MINIMUMFREEEXTENT_BITMASK)) {
@@ -82,50 +116,39 @@ do_fstrim (const char *path,
       reply_with_error ("minimumfreeextent <= 0");
       return -1;
     }
-
-    snprintf (mfe_s, sizeof mfe_s, "%" PRIi64, minimumfreeextent);
-    ADD_ARG (argv, i, "-m");
-    ADD_ARG (argv, i, mfe_s);
+    range.minlen = minimumfreeextent;
   }
 
-  /* When running in debug mode, use -v, capture stdout and print it below. */
-  if (verbose)
-    ADD_ARG (argv, i, "-v");
-
-  buf = sysroot_path (path);
-  if (!buf) {
-    reply_with_error ("malloc");
-    return -1;
-  }
-
-  ADD_ARG (argv, i, buf);
-  ADD_ARG (argv, i, NULL);
-
-  /* Run the command twice to workaround
+  /* Run the FITRIM operation twice to workaround
    * https://issues.redhat.com/browse/RHEL-88450
    */
-  r = commandv (&out, &err, argv);
-  if (r == -1) goto error;
-  if (verbose)
-    fprintf (stderr, "%s\n", out);
-  free (out); out = NULL;
-  free (err); err = NULL;
-
-  r = commandv (&out, &err, argv);
-  if (r == -1) {
-  error:
-    /* If the error is about the kernel operation not being supported
-     * for this filesystem type, then return errno ENOTSUP here.
+  for (i = 0; i < 2; ++i) {
+    if (ioctl (fd, FITRIM, &range) == -1) {
+      if (errno == EOPNOTSUPP)
+        errno = ENOTSUP;
+      reply_with_perror ("fstrim: %s", path);
+      return -1;
+    }
+    /* range.len is an estimate of the amount trimmed.  However XFS
+     * returns the full device size here, unhelpfully, so ignore that.
+     * (XFS brokenness caused by kernel commit 410e8a18f8 ("xfs: don't
+     * bother reporting blocks trimmed via FITRIM")).  We can't easily
+     * get the device size, but we can get the filesystem size (which
+     * is smaller).  Note that fs_size == -1 if there was an error
+     * getting the filesystem size, which we ignore.
      */
-    if (strstr (err, "discard operation is not supported"))
-      reply_with_error_errno (ENOTSUP, "%s", err);
-    else
-      reply_with_error ("%s", err);
-    return -1;
+    if (fs_size == -1 || range.len < fs_size)
+      ret += range.len;
   }
 
-  if (verbose)
-    fprintf (stderr, "%s\n", out);
+  /* Simulate what util-linux fstrim -v prints. */
+  if (verbose) {
+    if (ret > 0)
+      fprintf (stderr, "%s: %" PRIi64 " bytes trimmed\n",
+               path, ret);
+    else
+      fprintf (stderr, "%s: unknown number of bytes trimmed\n", path);
+  }
 
   /* Sync the disks again.  In practice we always call fstrim
    * expecting that afterwards the results are visible in the qemu
@@ -135,5 +158,62 @@ do_fstrim (const char *path,
    */
   sync_disks ();
 
+  return ret;
+}
+
+static int64_t
+get_filesystem_size (const char *path)
+{
+  CLEANUP_FREE char *buf = sysroot_path (path);
+  CLEANUP_FREE char *out = NULL, *err = NULL;
+  uint64_t size;
+  int r;
+
+  if (buf == NULL) {
+    perror ("get_device_size: malloc");
+    return -1;
+  }
+
+  r = command (&out, &err,
+               "findmnt",       /* part of util-linux */
+               "-n", "-o", "SIZE", "--bytes",
+               "--target", buf,
+               NULL);
+  if (r == -1) {
+    fprintf (stderr, "get_device_size: findmnt: %s\n", err);
+    return -1;
+  }
+
+  if (sscanf (out, "%" SCNu64, &size) != 1) {
+    fprintf (stderr, "get_device_size: cannot parse: %s\n", out);
+    return -1;
+  }
+
+  return size;
+}
+
+#else /* ioctl FITRIM not supported */
+
+int
+optgroup_fstrim_available (void)
+{
   return 0;
 }
+
+int
+do_fstrim (const char *path,
+           int64_t offset, int64_t length, int64_t minimumfreeextent)
+{
+  reply_with_error_erno (ENOTSUP, "fstrim");
+  return -1;
+}
+
+int
+do_fstrim_estimate (const char *path,
+                    int64_t offset, int64_t length, int64_t minimumfreeextent)
+{
+  reply_with_error_erno (ENOTSUP, "fstrim");
+  return -1;
+}
+
+#endif

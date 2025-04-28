@@ -74,6 +74,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-download_blocks.h \
   include/guestfs-gobject/optargs-e2fsck.h \
   include/guestfs-gobject/optargs-fstrim.h \
+  include/guestfs-gobject/optargs-fstrim_estimate.h \
   include/guestfs-gobject/optargs-glob_expand.h \
   include/guestfs-gobject/optargs-grep.h \
   include/guestfs-gobject/optargs-hivex_open.h \
@@ -168,6 +169,7 @@ guestfs_gobject_sources= \
   src/optargs-download_blocks.c \
   src/optargs-e2fsck.c \
   src/optargs-fstrim.c \
+  src/optargs-fstrim_estimate.c \
   src/optargs-glob_expand.c \
   src/optargs-grep.c \
   src/optargs-hivex_open.c \
