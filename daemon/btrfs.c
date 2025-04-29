@@ -685,7 +685,7 @@ do_btrfs_device_delete (char *const *devices, const char *fs)
  * -U UUID      change fsid to UUID
  * -u           change fsid, use a random one
  * since v4.1
- * We could check wheter 'btrfstune' support
+ * We could check whether 'btrfstune' support
  * '-u' and '-U UUID' option by checking the output of
  * 'btrfstune' command.
  */
@@ -1176,7 +1176,7 @@ do_btrfs_qgroup_destroy (const char *qgroupid, const char *subvolume)
 /* btrfs qgroup show command change default output to
  * binary prefix since v3.18.2, such as KiB;
  * also introduced '--raw' to keep traditional behaviour.
- * We could check wheter 'btrfs qgroup show' support '--raw'
+ * We could check whether 'btrfs qgroup show' support '--raw'
  * option by checking the output of
  * 'btrfs qgroup show' support --help' command.
  */

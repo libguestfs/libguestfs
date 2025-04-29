@@ -365,7 +365,7 @@ type action = {
   protocol_limit_warning : bool;  (** warn about protocol size limits *)
   fish_alias : string list;       (** alias(es) for this cmd in guestfish *)
   fish_output : fish_output_t option; (** how to display output in guestfish *)
-  visibility: visibility;         (** The visbility of function *)
+  visibility: visibility;         (** The visibility of function *)
   deprecated_by : deprecated_by;  (** function is deprecated *)
   optional : string option;       (** function is part of an optional group *)
   progress : bool;                (** function can generate progress messages *)

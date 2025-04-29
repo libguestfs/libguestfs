@@ -116,7 +116,7 @@ Disable the LVM2 devicesfile in the appliance since it interferes with
 cloned LVs that have the same UUID (Laszlo Ersek).
 
 Don't use C<-cpu max> on RISC-V as it is not yet supported by qemu's
-TCG emulation of that architecture.  This will be reenabled when qemu
+TCG emulation of that architecture.  This will be re-enabled when qemu
 gets support.
 
 Avoid a rare hang that would happen when launching the appliance.

@@ -41,7 +41,7 @@ if [ "$(cat inspect-fstab-md.output)" != "true" ]; then
     exit 1
 fi
 
-# Test inspection when /boot is specfied as /dev/md/bootdev
+# Test inspection when /boot is specified as /dev/md/bootdev
 cat <<'EOF' > inspect-fstab-md.fstab
 /dev/VG/Root / ext2 default 0 0
 /dev/md/bootdev /boot ext2 default 0 0

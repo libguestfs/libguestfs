@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=690819
-# mkfs fails creating a filesytem on a disk device when using a disk
+# mkfs fails creating a filesystem on a disk device when using a disk
 # with 'ide' interface
 #
 # The 'iface' parameter is now ignored:

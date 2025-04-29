@@ -451,7 +451,7 @@ virt-builder "proxy=off" setting doesn't turn off the proxy for downloads
 
 =item L<https://bugzilla.redhat.com/1094746>
 
-virt-sparsify man failes to mention what happens to snapshots within a qcow2 image (they are discarded)
+virt-sparsify man fails to mention what happens to snapshots within a qcow2 image (they are discarded)
 
 =item L<https://bugzilla.redhat.com/1092753>
 

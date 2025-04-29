@@ -187,7 +187,7 @@ extern Hash_table *hash_xinitialize (size_t candidate,
                                      Hash_data_freer data_freer);
 
 /* Make all buckets empty, placing any chained entries on the free list.
-   Apply the user-specified function data_freer (if any) to the datas of any
+   Apply the user-specified function data_freer (if any) to the data of any
    affected entries.  */
 extern void hash_clear (Hash_table *table);
 

@@ -747,7 +747,7 @@ We backport upstream features.
 
 =back
 
-The patches we apply to RHEL releases are available publically in the
+The patches we apply to RHEL releases are available publicly in the
 upstream git repository, in a branch called C<rhel-x.y>
 
 For example, the RHEL 7.3 patches are available here:

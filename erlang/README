@@ -1,4 +1,4 @@
-REAMDE for the Erlang bindings to libguestfs
+README for the Erlang bindings to libguestfs
 ----------------------------------------------------------------------
 
 To get started, take a look at the man page guestfs-erlang(3) and the

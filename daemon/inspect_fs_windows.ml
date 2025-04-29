@@ -428,7 +428,7 @@ and map_registry_disk_blob_gpt partitions blob =
   | Not_found -> None
 
 (* Extracts the binary GUID stored in blob from Windows registry
- * HKLM\SYSTYEM\MountedDevices\DosDevices value and converts it to a
+ * HKLM\SYSTEM\MountedDevices\DosDevices value and converts it to a
  * GUID string so that it can be matched against libguestfs partition
  * device GPT GUID.
  *)

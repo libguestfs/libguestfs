@@ -158,7 +158,7 @@ the git repository, or the ChangeLog file distributed in the tarball.
  - 588763 libguestfs should use non-public or link-local addresses for appliance network
  - 588733 Updates to Spanish translation
  - 588651 guestfish 'strings-e' cmd does not give proper error message or hint
- - 587484 lvresize can't reduce size of a volumn
+ - 587484 lvresize can't reduce size of a volume
  - 585961 Updates to Spanish translation
  - 585223 ntfsresize should support shrinking filesystems
  - 585222 pvresize should support shrinking PVs

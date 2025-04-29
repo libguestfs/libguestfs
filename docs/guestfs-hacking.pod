@@ -817,7 +817,7 @@ We support i18n (gettext anyhow) in the library.
 However many messages come from the daemon, and we don’t translate
 those at the moment.  One reason is that the appliance generally has
 all locale files removed from it, because they take up a lot of space.
-So we'd have to readd some of those, as well as copying our PO files
+So we'd have to re-add some of those, as well as copying our PO files
 into the appliance.
 
 Debugging messages are never translated, since they are intended for

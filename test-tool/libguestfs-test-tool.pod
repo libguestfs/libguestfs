@@ -156,7 +156,7 @@ You can convert AVCs into suggested SELinux policy rules using tools
 like L<audit2allow(1)>.  For more information, see the "Security
 Enhanced Linux User Guide".
 
-To reenable SELinux and sVirt, do:
+To re-enable SELinux and sVirt, do:
 
  setenforce Enforcing
 

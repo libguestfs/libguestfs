@@ -170,7 +170,7 @@ device_name_translation (const char *device)
     start = &device[5+len+1];
     len = strspn (start, "abcdefghijklmnopqrstuvwxyz");
     if (len >= sizeof dev - 1) {
-      fprintf (stderr, "unparseable device name: %s\n", device);
+      fprintf (stderr, "unparsable device name: %s\n", device);
       return NULL;
     }
     strcpy (dev, start);

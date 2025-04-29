@@ -395,7 +395,7 @@ RFE: V2V to check and warn user to disable group policy and anti virus on Window
 
 =item L<https://bugzilla.redhat.com/1260590>
 
-Wrong graphics protocal and video type set for guest after convert to rhev 3.6 by virt-v2v
+Wrong graphics protocol and video type set for guest after convert to rhev 3.6 by virt-v2v
 
 =item L<https://bugzilla.redhat.com/1258342>
 
