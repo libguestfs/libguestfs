@@ -119,7 +119,7 @@ disk_create_raw_block (guestfs_h *g, const char *filename)
   if (ioctl (fd, BLKGETSIZE64, &size) == 0) {
     range[0] = 0;
     range[1] = size;
-    if (ioctl (fd, BLKDISCARD, range) == 0)
+    if (ioctl (fd, BLKDISCARD, range) == -1)
       debug (g, "disk_create: %s: BLKDISCARD failed on this device: %m",
              filename);
   }
