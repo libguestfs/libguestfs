@@ -113,7 +113,8 @@ die "$0: surprising result: full size <= original size\n"
 # Remove the file and then try to trim the filesystem.
 
 $g->rm ("/data");
-$g->fstrim ("/");
+my $estimate = $g->fstrim_estimate ("/");
+print "estimated trimmed:\t$estimate (bytes)\n";
 $g->shutdown ();
 $g->close ();
 
