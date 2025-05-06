@@ -1,0 +1,196 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.56
+
+These are the release notes for libguestfs stable release 1.56.
+This describes the major changes since 1.54.
+
+Libguestfs 1.56.0 was released on B<XXX XXX 2025>.
+
+=head2 Inspection
+
+Add support for Windows 2025 (thanks Ming Xie).
+
+Add support for TencentOS (Denise Cheng).
+
+Inspection of Ubuntu 22+ guests that use a split F</usr> configuration
+now works properly (thanks Jaroslav Spanko, Daniel Berrange).
+
+=head2 API
+
+New C<command_out> and C<sh_out> APIs which allow you to capture
+output from guest commands that generate more output than the protocol
+limit allows.
+
+The C<fstrim> API has been modified to work around several issues in
+upstream and RHEL 9 kernels related to XFS support (Eric Sandeen, Dave
+Chinner).
+
+=begin comment
+
+=head2 Tools
+
+=end comment
+
+=head2 Language bindings
+
+Previously C<-L../lib/.libs> got embedded in the distributed OCaml
+bindings.  This has been fixed.
+
+=head2 Build changes
+
+json-c is now required.  This replaces Jansson which was previously
+used for parsing JSON input files.
+
+OCaml E<ge> 4.08 is now required.
+
+OCaml oUnit is no longer used.
+
+We now assume that C<__attribute__((cleanup))> always works.  This
+requires gcc or Clang.
+
+Fix compatibility with L<file(1)> E<ge> 5.46.
+
+Fix compatibility with Fedora E<ge> 42 which merges F</usr/sbin> into
+F</usr/bin>.
+
+Fix compatibility with latest Rust compiler (Jacob Reger).
+
+L<lex(1)>, L<yacc(1)> and libmagic (part of L<file(1)>) have not been
+required by libguestfs for a long time, but were still checked by the
+F<./configure> script.  This has been fixed, they are no longer build
+dependencies (thanks Mohamed Akram).
+
+When using C<./configure --disable-daemon> we no longer require augeas
+and hivex (thanks Mohamed Akram).
+
+=head2 Internals
+
+The tests were modified to use a set of common functions and remove
+use of the weird C<$TEST_FUNCTIONS> macro, similar to how we do it in
+nbdkit.
+
+Fix dhcpcd failing on systemd-resolved stub (Thomas Wouters).
+
+Add support for dhcpcd and sfdisk on Debian (Daniel Gomez).
+
+Print the kernel utsname in debug output.
+
+The legacy C<pvs_full>, C<vgs_full> and C<lvs_full> APIs were
+completely rewritten in OCaml.
+
+Some deprecated autoconf macros are no longer used.
+
+We no longer emit a false warning about C<BLKDISCARD> when creating a
+block device.
+
+=head2 Bugs fixed
+
+=begin comment
+
+./bugs-in-changelog.sh v1.54.0..
+
+=end comment
+
+=over 4
+
+=item L<https://issues.redhat.com/browse/RHEL-62935>
+
+[rhel 9.6] windows version of win2025 guest shows incorrect during v2v conversion
+
+=item L<https://issues.redhat.com/browse/RHEL-80159>
+
+Add new APIs to allow command output E<gt> 4MB
+
+=item L<https://issues.redhat.com/browse/RHEL-87493>
+
+The Ubuntu 22.04 VM from VMware fails with Inspection field ‘i_arch’ was ‘unknown’ [rhel-9.7]
+
+=item L<https://issues.redhat.com/browse/RHEL-88450>
+
+fstrim on a RHEL 7.2-created XFS filesystem does not trim as much as expected
+
+=item L<https://issues.redhat.com/browse/RHEL-88508>
+
+Run fstrim twice to work around incorrect fstrim behaviour in RHEL 9 kernel
+
+=item L<https://github.com/libguestfs/libguestfs/issues/155>
+
+1.54.0: gdisk/test-expand-gpt.pl fails
+
+=item L<https://github.com/libguestfs/libguestfs/issues/162>
+
+New test suite failure in c-api with file-5.46
+
+=item L<https://github.com/libguestfs/libguestfs/issues/167>
+
+Weblate | erroneous source strings
+
+=item L<https://github.com/libguestfs/libguestfs/issues/182>
+
+sed: RE error: illegal byte sequence in build
+
+=item L<https://github.com/libguestfs/libguestfs/issues/183>
+
+bash-completion fails to install on macOS
+
+=item L<https://github.com/libguestfs/libguestfs/issues/184>
+
+augeas, hivex and libmagic required even when daemon is disabled
+
+=item L<https://github.com/libguestfs/libguestfs/issues/191>
+
+Failing to build ocaml/examples
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHORS
+
+=begin comment
+
+git shortlog -s v1.54.0..
+
+=end comment
+
+=over 4
+
+=item Cole Robinson
+
+=item Daniel Gomez
+
+=item Denise Cheng
+
+=item Ettore Atalan
+
+=item Jacob Reger
+
+=item Krascovict Petrov
+
+=item Léane GRASSER
+
+=item Richard W.M. Jones
+
+=item Ricky Tigg
+
+=item Thomas Wouters
+
+=item Yuri Chornoivan
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2025 Red Hat Inc.
