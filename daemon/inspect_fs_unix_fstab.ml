@@ -53,8 +53,10 @@ and check_fstab_aug mdadm_conf root_mountable os_type aug =
   let md_map = if mdadm_conf then map_md_devices aug else StringMap.empty in
 
   let path = "/files/etc/fstab/*[label() != '#comment']" in
-  let entries = aug_matches_noerrors aug path in
-  List.filter_map (check_fstab_entry md_map root_mountable os_type aug) entries
+  path |>
+    aug_matches_noerrors aug |>
+    List.filter_map (check_fstab_entry md_map root_mountable os_type aug) |>
+    remove_duplicate_root_mountpoints
 
 and check_fstab_entry md_map root_mountable os_type aug entry =
   with_return (fun {return} ->
@@ -603,4 +605,29 @@ and resolve_diskbyid part default =
     let dev = sprintf "/dev/sda%d" part in
     if is_partition dev then Mountable.of_device dev
     else default
+  )
+
+(* Remove duplicate root mountpoints if they are identical.  If
+ * there are multiple non-identical roots we pick the first and
+ * emit a warning (RHEL-90168).
+ *)
+and remove_duplicate_root_mountpoints (entries : fstab_entry list) =
+  let root_entries, non_root_entries =
+    List.partition (function (_, "/") -> true | _ -> false) entries in
+  (* If there is one root entry (the normal case) return the list unmodified. *)
+  if List.length root_entries <= 1 then entries
+  else (
+    (* If they are not the same, issue a warning. *)
+    if not (List.same root_entries) then
+      eprintf "check_fstab: multiple, non-identical root mountpoints found \
+               in the /etc/fstab of this guest, picking the first.  The \
+               root entries were: [%s]\n"
+        (String.concat "; "
+           (List.map (fun (mountable, mp) ->
+                sprintf "%s -> %s" (Mountable.to_string mountable) mp)
+              root_entries)
+        );
+
+    (* Choose the first root entry and return it. *)
+    List.hd root_entries :: non_root_entries
   )
