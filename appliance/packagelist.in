@@ -51,7 +51,6 @@ ifelse(REDHAT,1,
   systemd              dnl for /sbin/reboot and udevd
   vim-minimal
   xz
-  zfs-fuse
   zstd
 )
 
@@ -95,7 +94,6 @@ dnl isc-dhcp-client has been replaced with dhcpcd-base
   ufsutils
   vim-tiny
   xz-utils
-  zfs-fuse
   zstd
   uuid-runtime
 )
