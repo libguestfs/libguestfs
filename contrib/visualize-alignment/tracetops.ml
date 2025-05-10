@@ -185,7 +185,7 @@ let ranges =
           loop i0 rest
       | (false, i1) :: rest ->
           let i1 = i1 - 1 in
-          let rest = List.dropwhile (function (v, _) -> not v) rest in
+          let rest = List.drop_while (function (v, _) -> not v) rest in
           (match rest with
            | [] -> [i0, i1]
            | (_, i2) :: rest -> (i0, i1) :: loop i2 rest)
