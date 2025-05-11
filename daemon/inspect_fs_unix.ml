@@ -163,7 +163,7 @@ and distro_of_os_release_id = function
   | "opencloudos" -> Some DISTRO_OPENCLOUDOS
   | "tencentos" -> Some DISTRO_TENCENTOS
   | "opensuse" -> Some DISTRO_OPENSUSE
-  | s when String.is_prefix s "opensuse-" -> Some DISTRO_OPENSUSE
+  | s when String.starts_with "opensuse-" s -> Some DISTRO_OPENSUSE
   | "pardus" -> Some DISTRO_PARDUS
   | "pld" -> Some DISTRO_PLD_LINUX
   | "rhel" -> Some DISTRO_RHEL
@@ -593,7 +593,7 @@ and check_hostname_from_file filename =
 
   let hostname = Chroot.f chroot read_small_file filename in
 
-  let keep_line line = line <> "" && not (String.is_prefix line "#") in
+  let keep_line line = line <> "" && not (String.starts_with "#" line) in
   let lines = Option.map (List.filter keep_line) hostname in
   match lines with
   | None | Some [] -> None
@@ -699,11 +699,11 @@ and check_hostname_freebsd () =
     let rec loop = function
       | [] ->
          raise Not_found
-      | line :: _ when String.is_prefix line "hostname=\"" ||
-                       String.is_prefix line "hostname='" ->
+      | line :: _ when String.starts_with "hostname=\"" line ||
+                       String.starts_with "hostname='" line ->
          let len = String.length line - 10 - 1 in
          String.sub line 10 len
-      | line :: _ when String.is_prefix line "hostname=" ->
+      | line :: _ when String.starts_with "hostname=" line ->
          let len = String.length line - 9 in
          String.sub line 9 len
       | _ :: lines ->

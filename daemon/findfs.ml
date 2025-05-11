@@ -46,8 +46,8 @@ and findfs tag str =
   (* Trim trailing \n if present. *)
   let out = String.trim out in
 
-  if String.is_prefix out "/dev/mapper/" ||
-     String.is_prefix out "/dev/dm-" then (
+  if String.starts_with "/dev/mapper/" out ||
+     String.starts_with "/dev/dm-" out then (
     match Lvm_utils.lv_canonical out with
     | None ->
        (* Ignore the case where 'out' doesn't appear to be an LV.

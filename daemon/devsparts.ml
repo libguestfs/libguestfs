@@ -38,18 +38,18 @@ let map_block_devices f =
       fun file ->
         let dev = Unix_utils.Realpath.realpath (sprintf "%s/%s" path file) in
         (* Ignore non-/dev devices, and return without /dev/ prefix. *)
-        if String.is_prefix dev "/dev/" then
+        if String.starts_with "/dev/" dev then
           Some (String.sub dev 5 (String.length dev - 5))
         else
           None
     ) devs in
   let devs = List.filter (
     fun dev ->
-      String.is_prefix dev "sd" ||
-      String.is_prefix dev "hd" ||
-      String.is_prefix dev "ubd" ||
-      String.is_prefix dev "vd" ||
-      String.is_prefix dev "sr"
+      String.starts_with "sd" dev ||
+      String.starts_with "hd" dev ||
+      String.starts_with "ubd" dev ||
+      String.starts_with "vd" dev ||
+      String.starts_with "sr" dev
   ) devs in
 
   (* Ignore the root device. *)
@@ -81,7 +81,7 @@ let map_md_devices f =
   let devs = Array.to_list devs in
   let devs = List.filter (
     fun dev ->
-      String.is_prefix dev "md" &&
+      String.starts_with "md" dev &&
       String.length dev >= 3 && Char.isdigit dev.[2]
   ) devs in
   List.map f devs
@@ -111,7 +111,7 @@ and add_partitions dev =
   (* Look in /sys/block/<device>/ for entries starting with
    * <device>, eg. /sys/block/sda/sda1.
    *)
-  let parts = List.filter (fun part -> String.is_prefix part dev) parts in
+  let parts = List.filter (fun part -> String.starts_with dev part) parts in
   let parts = List.map ((^) "/dev/") parts in
   sort_device_names parts
 
@@ -133,7 +133,7 @@ let is_whole_device device =
   (* A 'whole' block device will have a symlink to the device in its
    * /sys/block directory
    *)
-  assert (String.is_prefix device "/dev/");
+  assert (String.starts_with "/dev/" device);
   let device = String.sub device 5 (String.length device - 5) in
   let devpath = sprintf "/sys/block/%s/device" device in
 

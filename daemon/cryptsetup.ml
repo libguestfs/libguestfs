@@ -63,7 +63,7 @@ let cryptsetup_open ?(readonly = false) ?crypttype ?cipher device key mapname =
 
 let cryptsetup_close device =
   (* Must be /dev/mapper/... *)
-  if not (String.is_prefix device "/dev/mapper/") then
+  if not (String.starts_with "/dev/mapper/" device) then
     failwithf "%s: you must call this on the /dev/mapper device created by cryptsetup-open" device;
 
   let mapname = String.sub device 12 (String.length device - 12) in

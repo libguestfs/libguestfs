@@ -82,13 +82,13 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
      * /dev/iso9660/FREEBSD_INSTALL can be found in FreeBSD's
      * installation discs.
      *)
-    if (String.is_prefix spec "/dev/fd" &&
+    if (String.starts_with "/dev/fd" spec &&
         String.length spec >= 8 && Char.isdigit spec.[7]) ||
-       (String.is_prefix spec "/dev/cd" &&
+       (String.starts_with "/dev/cd" spec &&
         String.length spec >= 8 && Char.isdigit spec.[7]) ||
        spec = "/dev/floppy" ||
        spec = "/dev/cdrom" ||
-       String.is_prefix spec "/dev/iso9660/" then
+       String.starts_with "/dev/iso9660/" spec then
       return None;
 
     let mp = aug_get_noerrors aug (entry ^ "/file") in
@@ -103,20 +103,20 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
     if verbose () then eprintf "check_fstab_entry: mp=%s\n%!" mp;
 
     (* Ignore certain mountpoints. *)
-    if String.is_prefix mp "/dev/" ||
+    if String.starts_with "/dev/" mp ||
        mp = "/dev" ||
-       String.is_prefix mp "/media/" ||
-       String.is_prefix mp "/proc/" ||
+       String.starts_with "/media/" mp ||
+       String.starts_with "/proc/" mp ||
        mp = "/proc" ||
-       String.is_prefix mp "/selinux/" ||
+       String.starts_with "/selinux/" mp ||
        mp = "/selinux" ||
-       String.is_prefix mp "/sys/" ||
+       String.starts_with "/sys/" mp ||
        mp = "/sys" then
       return None;
 
     let mountable =
       (* Resolve UUID= and LABEL= to the actual device. *)
-      if String.is_prefix spec "UUID=" then (
+      if String.starts_with "UUID=" spec then (
         let uuid = String.sub spec 5 (String.length spec - 5) in
         let uuid = shell_unquote uuid in
         (* Just ignore the device if the UUID cannot be resolved. *)
@@ -125,7 +125,7 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
         with
           Failure _ -> return None
       )
-      else if String.is_prefix spec "LABEL=" then (
+      else if String.starts_with "LABEL=" spec then (
         let label = String.sub spec 6 (String.length spec - 6) in
         let label = shell_unquote label in
         (* Just ignore the device if the label cannot be resolved. *)
@@ -135,7 +135,7 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
           Failure _ -> return None
       )
       (* EFI partition UUIDs and labels. *)
-      else if String.is_prefix spec "PARTUUID=" then (
+      else if String.starts_with "PARTUUID=" spec then (
         let uuid = String.sub spec 9 (String.length spec - 9) in
         let uuid = shell_unquote uuid in
         (* Just ignore the device if the UUID cannot be resolved. *)
@@ -144,7 +144,7 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
         with
           Failure _ -> return None
       )
-      else if String.is_prefix spec "PARTLABEL=" then (
+      else if String.starts_with "PARTLABEL=" spec then (
         let label = String.sub spec 10 (String.length spec - 10) in
         let label = shell_unquote label in
         (* Just ignore the device if the label cannot be resolved. *)
@@ -161,7 +161,7 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
       else if spec = "/dev/root" || (is_bsd && mp = "/") then
         root_mountable
       (* Resolve guest block device names. *)
-      else if String.is_prefix spec "/dev/" then
+      else if String.starts_with "/dev/" spec then
         resolve_fstab_device spec md_map os_type
       (* In OpenBSD's fstab you can specify partitions
        * on a disk by appending a period and a partition
@@ -347,7 +347,7 @@ and resolve_fstab_device spec md_map os_type =
       eprintf "resolve_fstab_device: %s matched %s\n%!" spec what
   in
 
-  if String.is_prefix spec "/dev/mapper" then (
+  if String.starts_with "/dev/mapper" spec then (
     debug_matching "/dev/mapper";
     (* LVM2 does some strange munging on /dev/mapper paths for VGs and
      * LVs which contain '-' character:
@@ -398,7 +398,7 @@ and resolve_fstab_device spec md_map os_type =
   )
 
   (* Ubuntu 22+ uses /dev/disk/by-uuid/ followed by a UUID. *)
-  else if String.is_prefix spec "/dev/disk/by-uuid/" then (
+  else if String.starts_with "/dev/disk/by-uuid/" spec then (
     debug_matching "diskbyuuid";
     let uuid = String.sub spec 18 (String.length spec - 18) in
     try

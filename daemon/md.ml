@@ -68,7 +68,7 @@ let md_detail md =
        * remainder to lower case.
        *)
       let key =
-        if String.is_prefix key "MD_" then
+        if String.starts_with "MD_" key then
           String.sub key 3 (String.length key - 3)
         else
           key in

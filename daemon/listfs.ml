@@ -73,18 +73,18 @@ let rec list_filesystems () =
  *)
 and is_not_partitioned_device device =
   let device =
-    if String.is_prefix device "/dev/mapper/" then
+    if String.starts_with "/dev/mapper/" device then
       Unix_utils.Realpath.realpath device
     else
       device in
-  assert (String.is_prefix device "/dev/");
+  assert (String.starts_with "/dev/" device);
   let dev_name = String.sub device 5 (String.length device - 5) in
   let dev_dir = "/sys/block/" ^ dev_name in
 
   (* Open the device's directory under /sys/block/<dev_name> and
    * look for entries starting with <dev_name>, eg. /sys/block/sda/sda1
    *)
-  let is_device_partition file = String.is_prefix file dev_name in
+  let is_device_partition file = String.starts_with dev_name file in
   let files = Array.to_list (Sys.readdir dev_dir) in
   let has_partition = List.exists is_device_partition files in
 
@@ -157,7 +157,7 @@ and check_with_vfs_type ret device =
    * for things which are members of some RAID or LVM set, most
    * importantly "LVM2_member" which is a PV.
    *)
-  else if String.is_suffix vfs_type "_member" then
+  else if String.ends_with "_member" vfs_type then
     ()
 
   (* Ignore encrypted partitions.  These are also containers, as above. *)

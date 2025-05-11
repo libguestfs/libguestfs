@@ -38,7 +38,7 @@ and list prefix =
     let dir = Sys.readdir "/dev/mapper" in
     let dir = Array.to_list dir in
     let dir =
-      List.filter (fun d -> String.is_prefix d prefix) dir in
+      List.filter (fun d -> String.starts_with prefix d) dir in
     let dir = List.map ((^) "/dev/mapper/") dir in
     List.sort compare dir
   )

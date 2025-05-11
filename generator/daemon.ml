@@ -511,7 +511,7 @@ let rec generate_daemon_caml_interface modname () =
   generate_header OCamlStyle GPLv2plus;
 
   let is_ocaml_module_function = function
-    | { impl = OCaml m } when String.is_prefix m (modname ^ ".") -> true
+    | { impl = OCaml m } when String.starts_with (modname ^ ".") m -> true
     | { impl = OCaml _ } -> false
     | { impl = C } -> false
   in

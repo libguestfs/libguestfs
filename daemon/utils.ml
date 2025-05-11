@@ -85,11 +85,11 @@ let commandr ?(fold_stdout_on_stderr = false) prog args =
   if verbose () then (
     if stdout <> "" then (
       eprintf "command: %s: stdout:\n%s%!" prog stdout;
-      if not (String.is_suffix stdout "\n") then eprintf "\n%!"
+      if not (String.ends_with "\n" stdout) then eprintf "\n%!"
     );
     if stderr <> "" then (
       eprintf "command: %s: stderr:\n%s%!" prog stderr;
-      if not (String.is_suffix stderr "\n") then eprintf "\n%!"
+      if not (String.ends_with "\n" stderr) then eprintf "\n%!"
     )
   );
 
@@ -114,7 +114,7 @@ let command ?fold_stdout_on_stderr prog args =
 let split_device_partition dev =
   (* Skip /dev/ prefix if present. *)
   let dev =
-    if String.is_prefix dev "/dev/" then
+    if String.starts_with "/dev/" dev then
       String.sub dev 5 (String.length dev - 5)
     else dev in
 
