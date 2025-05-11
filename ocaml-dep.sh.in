@@ -33,7 +33,6 @@ set -e
 # directories must have unique names (eg. not ‘Utils’) else
 # dependencies don't get built right.
 include_dirs="
-common/mlgettext
 common/mlpcre
 common/mlstdutils
 common/mlutils
