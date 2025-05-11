@@ -35,7 +35,7 @@ let part_get_mbr_id device partnum =
   udev_settle ();
 
   (* It's printed in hex, possibly with a leading space. *)
-  sscanf out " %x" identity
+  sscanf out " %x" Fun.id
 
 let part_get_gpt_type device partnum =
   if partnum <= 0 then

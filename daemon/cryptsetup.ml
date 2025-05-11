@@ -56,7 +56,7 @@ let cryptsetup_open ?(readonly = false) ?crypttype ?cipher device key mapname =
   Option.iter (fun s -> List.push_back_list args ["--cipher"; s]) cipher;
 
   (* Make sure we always remove the temporary file. *)
-  protect ~f:(fun () -> ignore (command "cryptsetup" !args))
+  Fun.protect (fun () -> ignore (command "cryptsetup" !args))
     ~finally:(fun () -> unlink keyfile);
 
   udev_settle ()

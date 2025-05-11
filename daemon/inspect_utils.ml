@@ -57,8 +57,8 @@ let rec with_augeas ?name configfiles f =
     Augeas.create (Sysroot.sysroot ()) None
                   [Augeas.AugSaveNoop; Augeas.AugNoLoad] in
 
-  protect
-    ~f:(fun () ->
+  Fun.protect
+    (fun () ->
       (* Tell Augeas to only load configfiles and no other files.  This
        * prevents a rogue guest from performing a denial of service attack
        * by having large, over-complicated configuration files which are
@@ -179,4 +179,4 @@ let with_hive hive_filename f =
     | Some f -> f :: flags in
   let flags = if verbose () then Hivex.OPEN_VERBOSE :: flags else flags in
   let h = Hivex.open_file hive_filename flags in
-  protect ~f:(fun () -> f h (Hivex.root h)) ~finally:(fun () -> Hivex.close h)
+  Fun.protect (fun () -> f h (Hivex.root h)) ~finally:(fun () -> Hivex.close h)

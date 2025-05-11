@@ -116,7 +116,7 @@ and cpio_arch magic orig_path path =
   let tmpdir = Mkdtemp.temp_dir "filearch" in
   let finally () = ignore (Sys.command (sprintf "rm -rf %s" (quote tmpdir))) in
 
-  protect ~finally ~f:(
+  Fun.protect ~finally (
     fun () ->
       (* Construct a command to extract named binaries from the initrd file. *)
       let cmd =

@@ -48,7 +48,7 @@ let rec with_mounted mountable f =
       rmdir tmpdir
     in
 
-    protect ~finally ~f:(fun () -> mount_cmd tmpdir; f tmpdir)
+    Fun.protect ~finally (fun () -> mount_cmd tmpdir; f tmpdir)
   in
 
   match mountable.m_type with
@@ -124,4 +124,4 @@ let btrfs_subvolume_get_default mountable =
     with_mounted mountable (
       fun mp -> command "btrfs" ["subvolume"; "get-default"; mp]
     ) in
-  sscanf out "ID %Ld" identity
+  sscanf out "ID %Ld" Fun.id
