@@ -18,6 +18,8 @@ Add support for TencentOS (Denise Cheng).
 Inspection of Ubuntu 22+ guests that use a split F</usr> configuration
 now works properly (thanks Jaroslav Spanko, Daniel Berrange).
 
+Inspecting guests that have duplicated root mountpoints now works.
+
 =head2 API
 
 New C<command_out> and C<sh_out> APIs which allow you to capture
@@ -66,6 +68,9 @@ dependencies (thanks Mohamed Akram).
 When using C<./configure --disable-daemon> we no longer require augeas
 and hivex (thanks Mohamed Akram).
 
+C<zfs-fuse> support has been dropped.  The project is unmaintained
+upstream.
+
 =head2 Internals
 
 The tests were modified to use a set of common functions and remove
@@ -85,6 +90,9 @@ Some deprecated autoconf macros are no longer used.
 
 We no longer emit a false warning about C<BLKDISCARD> when creating a
 block device.
+
+Some internal OCaml List and String functions that we used have been
+replaced by ones from the OCaml stdlib, reducing code maintenance.
 
 =head2 Bugs fixed
 
@@ -115,6 +123,11 @@ fstrim on a RHEL 7.2-created XFS filesystem does not trim as much as expected
 =item L<https://issues.redhat.com/browse/RHEL-88508>
 
 Run fstrim twice to work around incorrect fstrim behaviour in RHEL 9 kernel
+
+=item L<https://issues.redhat.com/browse/RHEL-90168>
+
+virt-v2v fails with mount exited with status 32: mount: /sysroot:
+/dev/sda2 already mounted on /sysroot. [rhel-9.7]
 
 =item L<https://github.com/libguestfs/libguestfs/issues/155>
 
