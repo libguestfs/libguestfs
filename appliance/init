@@ -116,6 +116,9 @@ $UDEVD --daemon #--debug
 udevadm trigger
 udevadm settle --timeout=600
 
+# Recreate module dependencies (RHEL only)
+depmod -a
+
 # Disk optimizations.
 # Increase the SCSI timeout so we can read remote images.
 shopt -s nullglob
