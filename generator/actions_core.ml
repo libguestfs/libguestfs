@@ -7345,20 +7345,6 @@ Enable or disable the seeding feature of a device that contains
 a btrfs filesystem." };
 
   { defaults with
-    name = "btrfs_fsck"; added = (1, 17, 43);
-    style = RErr, [String (Device, "device")], [OInt64 "superblock"; OBool "repair"];
-    optional = Some "btrfs";
-    tests = [
-      InitPartition, Always, TestRun (
-        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
-         ["btrfs_fsck"; "/dev/sda1"; ""; ""]]), []
-    ];
-    shortdesc = "check a btrfs filesystem";
-    longdesc = "\
-Used to check a btrfs filesystem, C<device> is the device file where the
-filesystem is stored." };
-
-  { defaults with
     name = "filesystem_available"; added = (1, 19, 5);
     style = RBool "fsavail", [String (PlainString, "filesystem")], [];
     shortdesc = "check if filesystem is available";
@@ -9081,6 +9067,21 @@ Show the status of a running or paused balance on a btrfs filesystem." };
     shortdesc = "show status of running or finished scrub";
     longdesc = "\
 Show status of running or finished scrub on a btrfs filesystem." };
+
+  { defaults with
+    name = "btrfs_scrub_full"; added = (1, 55, 12);
+    style = RErr, [String (Pathname, "path")], [OBool "readonly"];
+    optional = Some "btrfs"; camel_name = "BTRFSScrubFull";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_scrub_full"; "/"; "false"]]), [];
+    ];
+    shortdesc = "run a full scrub on a btrfs filesystem";
+    longdesc = "\
+Run a full scrub on a btrfs filesystem and wait for it to finish.
+If the filesystem has errors this will return an error." };
 
   { defaults with
     name = "btrfstune_seeding"; added = (1, 29, 29);

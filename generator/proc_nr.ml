@@ -520,6 +520,7 @@ let proc_nr = [
 515, "findfs_partlabel";
 516, "command_out";
 517, "sh_out";
+518, "btrfs_scrub_full";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list
