@@ -26,6 +26,9 @@ New C<command_out> and C<sh_out> APIs which allow you to capture
 output from guest commands that generate more output than the protocol
 limit allows.
 
+New C<btrfs_scrub_full> API which runs a full Btrfs scrub,
+synchronously.  It works more like fsck for other filesystems.
+
 The C<fstrim> API has been modified to work around several issues in
 upstream and RHEL 9 kernels related to XFS support (Eric Sandeen, Dave
 Chinner).
