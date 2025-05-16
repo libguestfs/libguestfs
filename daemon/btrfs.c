@@ -1450,6 +1450,47 @@ do_btrfs_scrub_resume (const char *path)
   return 0;
 }
 
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_btrfs_scrub_full (const char *path, int readonly)
+{
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  CLEANUP_FREE char *path_buf = NULL;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
+  int r;
+
+  path_buf = sysroot_path (path);
+  if (path_buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, "scrub");
+  ADD_ARG (argv, i, "start");
+  ADD_ARG (argv, i, "-B");      /* foreground */
+
+  /* Optional arguments. */
+  if ((optargs_bitmask & GUESTFS_BTRFS_SCRUB_FULL_READONLY_BITMASK) &&
+      readonly)
+    ADD_ARG (argv, i, "-r");
+
+  ADD_ARG (argv, i, path_buf);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandvf (&out, &err,
+                 COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                 argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", path, err);
+    return -1;
+  }
+
+  return 0;
+}
+
 int
 do_btrfs_balance_pause (const char *path)
 {

@@ -927,4 +927,19 @@ This call does nothing and returns an error." };
     longdesc = "\
 This call does nothing and returns an error." };
 
+  { defaults with
+    name = "btrfs_fsck"; added = (1, 17, 43);
+    style = RErr, [String (Device, "device")], [OInt64 "superblock"; OBool "repair"];
+    optional = Some "btrfs";
+    deprecated_by = Replaced_by "btrfs_scrub_full";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["btrfs_fsck"; "/dev/sda1"; ""; ""]]), []
+    ];
+    shortdesc = "check a btrfs filesystem";
+    longdesc = "\
+Used to check a btrfs filesystem, C<device> is the device file where the
+filesystem is stored." };
+
 ]

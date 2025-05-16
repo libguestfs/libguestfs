@@ -59,6 +59,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-btrfs_filesystem_resize.h \
   include/guestfs-gobject/optargs-btrfs_fsck.h \
   include/guestfs-gobject/optargs-btrfs_image.h \
+  include/guestfs-gobject/optargs-btrfs_scrub_full.h \
   include/guestfs-gobject/optargs-btrfs_subvolume_create.h \
   include/guestfs-gobject/optargs-btrfs_subvolume_snapshot.h \
   include/guestfs-gobject/optargs-compress_device_out.h \
@@ -153,6 +154,7 @@ guestfs_gobject_sources= \
   src/optargs-btrfs_filesystem_resize.c \
   src/optargs-btrfs_fsck.c \
   src/optargs-btrfs_image.c \
+  src/optargs-btrfs_scrub_full.c \
   src/optargs-btrfs_subvolume_create.c \
   src/optargs-btrfs_subvolume_snapshot.c \
   src/optargs-compress_device_out.c \
