@@ -80,6 +80,8 @@ and hivex (thanks Mohamed Akram).
 C<zfs-fuse> support has been dropped.  The project is unmaintained
 upstream.
 
+Fix compatibility with GNU gettext 0.25.
+
 =head2 Internals
 
 The tests were modified to use a set of common functions and remove
