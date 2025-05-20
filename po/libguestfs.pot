@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.55.12\n"
+"Project-Id-Version: libguestfs 1.55.13\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2025-05-19 14:06+0100\n"
+"POT-Creation-Date: 2025-05-20 14:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3089,42 +3089,42 @@ msgid "reopen: guestfs_create: failed to create handle\n"
 msgstr ""
 
 #: fish/run-0.c:143 fish/run-0.c:161 fish/run-0.c:174 fish/run-0.c:202
-#: fish/run-0.c:350 fish/run-0.c:803 fish/run-0.c:816 fish/run-0.c:2074
-#: fish/run-0.c:2445 fish/run-0.c:2536 fish/run-0.c:2645 fish/run-0.c:2714
-#: fish/run-1.c:301 fish/run-1.c:528 fish/run-1.c:541 fish/run-1.c:554
-#: fish/run-1.c:567 fish/run-1.c:679 fish/run-1.c:692 fish/run-1.c:1162
-#: fish/run-1.c:1175 fish/run-1.c:1188 fish/run-1.c:1201 fish/run-1.c:1478
-#: fish/run-1.c:1491 fish/run-1.c:2344 fish/run-1.c:2388 fish/run-1.c:2401
-#: fish/run-1.c:2414 fish/run-1.c:2427 fish/run-1.c:2440 fish/run-1.c:2694
-#: fish/run-1.c:2742 fish/run-1.c:2816 fish/run-1.c:3000 fish/run-1.c:3013
-#: fish/run-1.c:3062 fish/run-1.c:3143 fish/run-1.c:3156 fish/run-1.c:3169
-#: fish/run-1.c:3182 fish/run-1.c:3195 fish/run-2.c:138 fish/run-2.c:202
-#: fish/run-2.c:561 fish/run-2.c:801 fish/run-2.c:814 fish/run-2.c:1117
-#: fish/run-2.c:1369 fish/run-2.c:1450 fish/run-2.c:1665 fish/run-2.c:1976
-#: fish/run-2.c:2299 fish/run-2.c:2312 fish/run-2.c:2474 fish/run-3.c:417
-#: fish/run-3.c:987 fish/run-3.c:1353 fish/run-3.c:1366 fish/run-3.c:1379
-#: fish/run-3.c:1392 fish/run-3.c:1635 fish/run-3.c:1694 fish/run-3.c:2464
-#: fish/run-3.c:2477 fish/run-3.c:2490 fish/run-3.c:2503 fish/run-3.c:2516
-#: fish/run-3.c:2529 fish/run-3.c:2542 fish/run-3.c:2555 fish/run-3.c:2568
-#: fish/run-3.c:2581 fish/run-3.c:2594 fish/run-3.c:2607 fish/run-3.c:2620
-#: fish/run-3.c:2633 fish/run-3.c:2646 fish/run-3.c:2659 fish/run-3.c:2672
-#: fish/run-3.c:2948 fish/run-3.c:2989 fish/run-3.c:3257 fish/run-3.c:3270
-#: fish/run-3.c:3387 fish/run-3.c:3573 fish/run-3.c:3586 fish/run-3.c:3599
-#: fish/run-3.c:3682 fish/run-4.c:181 fish/run-4.c:491 fish/run-4.c:1662
-#: fish/run-4.c:2111 fish/run-5.c:394 fish/run-5.c:469 fish/run-5.c:607
-#: fish/run-5.c:620 fish/run-5.c:732 fish/run-5.c:745 fish/run-5.c:1283
-#: fish/run-5.c:1361 fish/run-5.c:2334 fish/run-5.c:2426 fish/run-5.c:3003
-#: fish/run-5.c:3016 fish/run-5.c:3029 fish/run-5.c:3204 fish/run-5.c:3217
-#: fish/run-5.c:3230 fish/run-5.c:3243 fish/run-6.c:259 fish/run-6.c:367
-#: fish/run-6.c:1755 fish/run-6.c:1901 fish/run-6.c:1914 fish/run-6.c:2197
-#: fish/run-6.c:2216 fish/run-6.c:2229 fish/run-6.c:2242
+#: fish/run-0.c:350 fish/run-0.c:803 fish/run-0.c:816 fish/run-0.c:829
+#: fish/run-0.c:2087 fish/run-0.c:2458 fish/run-0.c:2549 fish/run-0.c:2658
+#: fish/run-0.c:2727 fish/run-1.c:301 fish/run-1.c:528 fish/run-1.c:541
+#: fish/run-1.c:554 fish/run-1.c:567 fish/run-1.c:679 fish/run-1.c:692
+#: fish/run-1.c:1162 fish/run-1.c:1175 fish/run-1.c:1188 fish/run-1.c:1201
+#: fish/run-1.c:1478 fish/run-1.c:1491 fish/run-1.c:2344 fish/run-1.c:2388
+#: fish/run-1.c:2401 fish/run-1.c:2414 fish/run-1.c:2427 fish/run-1.c:2440
+#: fish/run-1.c:2694 fish/run-1.c:2742 fish/run-1.c:2816 fish/run-1.c:3000
+#: fish/run-1.c:3013 fish/run-1.c:3062 fish/run-1.c:3143 fish/run-1.c:3156
+#: fish/run-1.c:3169 fish/run-1.c:3182 fish/run-1.c:3195 fish/run-2.c:138
+#: fish/run-2.c:202 fish/run-2.c:561 fish/run-2.c:801 fish/run-2.c:814
+#: fish/run-2.c:1117 fish/run-2.c:1369 fish/run-2.c:1450 fish/run-2.c:1665
+#: fish/run-2.c:1976 fish/run-2.c:2299 fish/run-2.c:2312 fish/run-2.c:2474
+#: fish/run-3.c:417 fish/run-3.c:987 fish/run-3.c:1353 fish/run-3.c:1366
+#: fish/run-3.c:1379 fish/run-3.c:1392 fish/run-3.c:1635 fish/run-3.c:1694
+#: fish/run-3.c:2464 fish/run-3.c:2477 fish/run-3.c:2490 fish/run-3.c:2503
+#: fish/run-3.c:2516 fish/run-3.c:2529 fish/run-3.c:2542 fish/run-3.c:2555
+#: fish/run-3.c:2568 fish/run-3.c:2581 fish/run-3.c:2594 fish/run-3.c:2607
+#: fish/run-3.c:2620 fish/run-3.c:2633 fish/run-3.c:2646 fish/run-3.c:2659
+#: fish/run-3.c:2672 fish/run-3.c:2948 fish/run-3.c:2989 fish/run-3.c:3257
+#: fish/run-3.c:3270 fish/run-3.c:3387 fish/run-3.c:3573 fish/run-3.c:3586
+#: fish/run-3.c:3599 fish/run-3.c:3682 fish/run-4.c:181 fish/run-4.c:491
+#: fish/run-4.c:1662 fish/run-4.c:2111 fish/run-5.c:394 fish/run-5.c:469
+#: fish/run-5.c:607 fish/run-5.c:620 fish/run-5.c:732 fish/run-5.c:745
+#: fish/run-5.c:1283 fish/run-5.c:1361 fish/run-5.c:2334 fish/run-5.c:2426
+#: fish/run-5.c:3003 fish/run-5.c:3016 fish/run-5.c:3029 fish/run-5.c:3204
+#: fish/run-5.c:3217 fish/run-5.c:3230 fish/run-5.c:3243 fish/run-6.c:259
+#: fish/run-6.c:367 fish/run-6.c:1755 fish/run-6.c:1901 fish/run-6.c:1914
+#: fish/run-6.c:2197 fish/run-6.c:2216 fish/run-6.c:2229 fish/run-6.c:2242
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr ""
 
 #: fish/run-0.c:212 fish/run-0.c:360 fish/run-0.c:547 fish/run-0.c:620
-#: fish/run-0.c:826 fish/run-0.c:1840 fish/run-0.c:1960 fish/run-0.c:2084
-#: fish/run-0.c:2655 fish/run-1.c:311 fish/run-1.c:577 fish/run-1.c:702
+#: fish/run-0.c:839 fish/run-0.c:1853 fish/run-0.c:1973 fish/run-0.c:2097
+#: fish/run-0.c:2668 fish/run-1.c:311 fish/run-1.c:577 fish/run-1.c:702
 #: fish/run-1.c:1211 fish/run-1.c:1501 fish/run-1.c:2085 fish/run-1.c:2450
 #: fish/run-1.c:2704 fish/run-1.c:2881 fish/run-1.c:3023 fish/run-1.c:3215
 #: fish/run-2.c:235 fish/run-2.c:325 fish/run-2.c:824 fish/run-2.c:1127
@@ -3143,8 +3143,8 @@ msgid "%s: unknown optional argument \"%s\"\n"
 msgstr ""
 
 #: fish/run-0.c:218 fish/run-0.c:366 fish/run-0.c:553 fish/run-0.c:626
-#: fish/run-0.c:832 fish/run-0.c:1846 fish/run-0.c:1966 fish/run-0.c:2090
-#: fish/run-0.c:2661 fish/run-1.c:317 fish/run-1.c:583 fish/run-1.c:708
+#: fish/run-0.c:845 fish/run-0.c:1859 fish/run-0.c:1979 fish/run-0.c:2103
+#: fish/run-0.c:2674 fish/run-1.c:317 fish/run-1.c:583 fish/run-1.c:708
 #: fish/run-1.c:1217 fish/run-1.c:1507 fish/run-1.c:2091 fish/run-1.c:2456
 #: fish/run-1.c:2710 fish/run-1.c:2887 fish/run-1.c:3029 fish/run-1.c:3221
 #: fish/run-2.c:241 fish/run-2.c:331 fish/run-2.c:830 fish/run-2.c:1133
@@ -3162,11 +3162,11 @@ msgstr ""
 msgid "%s: optional argument \"%s\" given more than once\n"
 msgstr ""
 
-#: fish/run-0.c:531 fish/run-0.c:604 fish/run-0.c:714 fish/run-0.c:954
-#: fish/run-0.c:1093 fish/run-0.c:1133 fish/run-0.c:1147 fish/run-0.c:1185
-#: fish/run-0.c:1221 fish/run-0.c:1729 fish/run-0.c:1746 fish/run-0.c:1768
-#: fish/run-0.c:1801 fish/run-0.c:1824 fish/run-0.c:2061 fish/run-0.c:2240
-#: fish/run-0.c:2479 fish/run-0.c:2575 fish/run-1.c:288 fish/run-1.c:632
+#: fish/run-0.c:531 fish/run-0.c:604 fish/run-0.c:714 fish/run-0.c:967
+#: fish/run-0.c:1106 fish/run-0.c:1146 fish/run-0.c:1160 fish/run-0.c:1198
+#: fish/run-0.c:1234 fish/run-0.c:1742 fish/run-0.c:1759 fish/run-0.c:1781
+#: fish/run-0.c:1814 fish/run-0.c:1837 fish/run-0.c:2074 fish/run-0.c:2253
+#: fish/run-0.c:2492 fish/run-0.c:2588 fish/run-1.c:288 fish/run-1.c:632
 #: fish/run-1.c:649 fish/run-1.c:666 fish/run-1.c:816 fish/run-1.c:926
 #: fish/run-1.c:1010 fish/run-1.c:1255 fish/run-1.c:1309 fish/run-1.c:1346
 #: fish/run-1.c:1432 fish/run-1.c:1667 fish/run-1.c:1686 fish/run-1.c:1955
@@ -3216,9 +3216,9 @@ msgstr ""
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
 
-#: fish/run-0.c:537 fish/run-0.c:610 fish/run-0.c:720 fish/run-0.c:960
-#: fish/run-0.c:1774 fish/run-0.c:1807 fish/run-0.c:1830 fish/run-0.c:2485
-#: fish/run-0.c:2581 fish/run-1.c:932 fish/run-1.c:1016 fish/run-1.c:1438
+#: fish/run-0.c:537 fish/run-0.c:610 fish/run-0.c:720 fish/run-0.c:973
+#: fish/run-0.c:1787 fish/run-0.c:1820 fish/run-0.c:1843 fish/run-0.c:2498
+#: fish/run-0.c:2594 fish/run-1.c:932 fish/run-1.c:1016 fish/run-1.c:1438
 #: fish/run-1.c:1673 fish/run-1.c:1692 fish/run-1.c:1961 fish/run-1.c:2030
 #: fish/run-1.c:2053 fish/run-1.c:2162 fish/run-1.c:2181 fish/run-1.c:2200
 #: fish/run-1.c:2501 fish/run-1.c:2604 fish/run-2.c:225 fish/run-2.c:315
