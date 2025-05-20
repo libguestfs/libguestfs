@@ -33,6 +33,9 @@ The C<fstrim> API has been modified to work around several issues in
 upstream and RHEL 9 kernels related to XFS support (Eric Sandeen, Dave
 Chinner).
 
+The existing C<e2fsck> API has a new C<FORCENO> option enabling use of
+the command line I<-n> flag.
+
 =begin comment
 
 =head2 Tools

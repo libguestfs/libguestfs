@@ -3409,8 +3409,8 @@ are activated or deactivated." };
          ["umount"; "/"; "false"; "false"];
          ["lvresize"; "/dev/VG/LV"; "20"];
          ["e2fsck_f"; "/dev/VG/LV"];
-         ["e2fsck"; "/dev/VG/LV"; "true"; "false"];
-         ["e2fsck"; "/dev/VG/LV"; "false"; "true"];
+         ["e2fsck"; "/dev/VG/LV"; "true"; "false"; "false"];
+         ["e2fsck"; "/dev/VG/LV"; "false"; "true"; "false"];
          ["resize2fs"; "/dev/VG/LV"];
          ["mount"; "/dev/VG/LV"; "/"];
          ["cat"; "/new"]], "test content"), [];
@@ -6683,7 +6683,7 @@ The usage of this device, for example C<filesystem> or C<raid>.
 
   { defaults with
     name = "e2fsck"; added = (1, 15, 17);
-    style = RErr, [String (Device, "device")], [OBool "correct"; OBool "forceall"];
+    style = RErr, [String (Device, "device")], [OBool "correct"; OBool "forceall"; OBool "forceno"];
     shortdesc = "check an ext2/ext3 filesystem";
     longdesc = "\
 This runs the ext2/ext3 filesystem checker on C<device>.
@@ -6697,14 +6697,24 @@ Automatically repair the file system. This option will cause e2fsck
 to automatically fix any filesystem problems that can be safely
 fixed without human intervention.
 
-This option may not be specified at the same time as the C<forceall> option.
+This option may not be specified at the same time as the C<forceall>
+or C<forceno> options.
 
 =item C<forceall>
 
 Assume an answer of ‘yes’ to all questions; allows e2fsck to be used
 non-interactively.
 
-This option may not be specified at the same time as the C<correct> option.
+This option may not be specified at the same time as the C<correct>
+or C<forceno> options.
+
+=item C<forceno>
+
+Open the filesystem readonly and assume an answer of ‘no’ to all
+questions; allows e2fsck to be used non-interactively.
+
+This option may not be specified at the same time as the C<correct>
+or C<forceall> options.
 
 =back" };
 

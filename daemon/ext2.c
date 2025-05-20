@@ -192,7 +192,7 @@ if_not_mounted_run_e2fsck (const char *device)
 
   if (!mounted) {
     optargs_bitmask = GUESTFS_E2FSCK_FORCEALL_BITMASK;
-    r = do_e2fsck (device, 0, 1);
+    r = do_e2fsck (device, 0, 1, 0);
   }
 
   return r;
@@ -350,7 +350,8 @@ ext_minimum_size (const char *device)
 int
 do_e2fsck (const char *device,
            int correct,
-           int forceall)
+           int forceall,
+           int forceno)
 {
   const char *argv[MAX_ARGS];
   CLEANUP_FREE char *err = NULL;
@@ -362,9 +363,12 @@ do_e2fsck (const char *device,
     correct = 0;
   if (!(optargs_bitmask & GUESTFS_E2FSCK_FORCEALL_BITMASK))
     forceall = 0;
+  if (!(optargs_bitmask & GUESTFS_E2FSCK_FORCENO_BITMASK))
+    forceno = 0;
 
-  if (correct && forceall) {
-    reply_with_error ("only one of the options 'correct', 'forceall' may be specified");
+  if (correct + forceall + forceno > 1) {
+    reply_with_error ("only one of the options 'correct', 'forceall' "
+                      "or 'forceno' may be specified");
     return -1;
   }
 
@@ -376,6 +380,9 @@ do_e2fsck (const char *device,
 
   if (forceall)
     ADD_ARG (argv, i, "-y");
+
+  if (forceno)
+    ADD_ARG (argv, i, "-n");
 
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
@@ -402,7 +409,7 @@ int
 do_e2fsck_f (const char *device)
 {
   optargs_bitmask = GUESTFS_E2FSCK_CORRECT_BITMASK;
-  return do_e2fsck (device, 1, 0);
+  return do_e2fsck (device, 1, 0, 0);
 }
 
 int
