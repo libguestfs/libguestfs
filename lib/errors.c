@@ -536,18 +536,25 @@ guestfs_int_external_command_failed (guestfs_h *g, int status,
 {
   const size_t len = 80 + strlen (cmd_name);
   CLEANUP_FREE char *status_string = safe_malloc (g, len);
+  CLEANUP_FREE char *extra_clean = NULL;
 
   guestfs_int_exit_status_to_string (status, cmd_name, status_string, len);
 
+  if (extra) {
+    extra_clean = guestfs_int_replace_string(extra, "\n", " ");
+    if (!extra_clean)
+      g->abort_cb ();
+  }
+
   if (g->verbose) {
-    if (!extra)
+    if (!extra_clean)
       error (g, _("%s, see debug messages above"), status_string);
     else
       error (g, _("%s: %s: %s, see debug messages above"),
-             cmd_name, extra, status_string);
+             cmd_name, extra_clean, status_string);
   }
   else {
-    if (!extra)
+    if (!extra_clean)
       error (g, _("%s.\n"
 		  "To see full error messages you may need to enable debugging.\n"
 		  DEBUG_ADVICE),
@@ -556,6 +563,6 @@ guestfs_int_external_command_failed (guestfs_h *g, int status,
       error (g, _("%s: %s: %s.\n"
 		  "To see full error messages you may need to enable debugging.\n"
 		  DEBUG_ADVICE),
-             cmd_name, extra, status_string);
+             cmd_name, extra_clean, status_string);
   }
 }
