@@ -61,6 +61,11 @@ let rec inspect_os () =
      *)
     check_for_duplicated_bsd_root |>
 
+    (* Check if the root filesystems are duplicated by btrfs snapshots.
+     * This happens especially for SLES guests.
+     *)
+    check_for_duplicated_btrfs_snapshots_of_root |>
+
     (* For Linux guests with a separate /usr filesystem, merge some of the
      * inspected information in that partition to the inspect_fs struct
      * of the root filesystem.
@@ -189,6 +194,52 @@ and check_for_duplicated_bsd_root fses =
     if shadow_exists then fses_without_bsd_primary else fses
   with
     Not_found -> fses
+
+(* Check for the case where the root filesystem gets duplicated by
+ * btrfs snapshots.  Ignore the snapshots in this case (RHEL-93109).
+ *)
+and check_for_duplicated_btrfs_snapshots_of_root fses =
+  eprintf "inspect_os: check_for_duplicated_btrfs_snapshots_of_root\n%!";
+
+  let fs_is_btrfs_snapshot_of_root = function
+    (* Is this filesystem a btrfs snapshot of root? *)
+    | { fs_location =
+          { mountable = { m_type = MountableBtrfsVol _; m_device = dev1 };
+            vfs_type = "btrfs" };
+        role = RoleRoot inspection_data1 } as fs1 ->
+       (* Return true if it duplicates the parent device which has
+        * a root role.
+        *)
+       List.exists (function
+         | { fs_location =
+               { mountable = { m_type = MountableDevice; m_device = dev2 };
+                 vfs_type = "btrfs" };
+             role = RoleRoot inspection_data2 }
+              when dev1 = dev2 ->
+            (* Check the roles are similar enough.  In my test I saw
+             * that /etc/fstab was slightly different in the parent
+             * and snapshot.  It's possible this is because the snapshot
+             * was created during installation, but it's not clear.
+             *)
+            let similar =
+              inspection_data1.os_type = inspection_data2.os_type &&
+              inspection_data1.distro = inspection_data2.distro &&
+              inspection_data1.product_name = inspection_data2.product_name &&
+              inspection_data1.version = inspection_data2.version in
+            if verbose () && similar then
+              eprintf "check_for_duplicated_btrfs_snapshots_of_root: \
+                       dropping duplicate btrfs snapshot:\n%s\n"
+                (string_of_fs fs1);
+            similar
+         | _ -> false
+       ) fses
+
+    (* Anything else is not a snapshot. *)
+    | _ -> false
+  in
+
+  (* Filter out the duplicates. *)
+  List.filter (Fun.negate fs_is_btrfs_snapshot_of_root) fses
 
 (* Traverse through the filesystem list and find out if it contains
  * the [/] and [/usr] filesystems of a Linux image (but not CoreOS,
