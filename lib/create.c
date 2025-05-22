@@ -369,7 +369,7 @@ disk_create_qcow2 (guestfs_h *g, const char *filename, int64_t size,
     guestfs_int_external_command_failed (g, r, "qemu-img", cmd_stdout);
     return -1;
   } else {
-    debug (g, cmd_stdout);
+    debug (g, "%s", cmd_stdout);
   }
 
   return 0;
