@@ -70,7 +70,7 @@ let rec inspect_os () =
   (* Save what we found in a global variable. *)
   Inspect_types.inspect_fses := fses;
 
-  (* At this point we have, in the handle, a list of all filesystems
+  (* At this point we have (in a global variable) a list of all filesystems
    * found and data about each one.  Now we assemble the list of
    * filesystems which are root devices.
    *
