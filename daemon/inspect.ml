@@ -29,40 +29,43 @@ let re_primary_partition = PCRE.compile "^/dev/(?:h|s|v)d.[1234]$"
 let rec inspect_os () =
   Mount_utils.umount_all ();
 
-  (* Iterate over all detected filesystems.  Inspect each one in turn. *)
-  let fses = Listfs.list_filesystems () in
+  (* Start with the full list of filesystems, and inspect each one
+   * in turn to determine its possible role (root, /usr, homedir, etc.)
+   * Then we filter out duplicates and merge some filesystems into
+   * others.
+   *)
 
   let fses =
+    Listfs.list_filesystems () |>
+
+    (* Filter out those filesystems which are mountable, and inspect
+     * each one to find its possible role.  Converts the list to
+     * type: {!Inspect_types.fs} list.
+     *)
     List.filter_map (
       fun (mountable, vfs_type) ->
         Inspect_fs.check_for_filesystem_on mountable vfs_type
-  ) fses in
-  if verbose () then (
-    eprintf "inspect_os: fses:\n";
-    List.iter (fun fs -> eprintf "%s" (string_of_fs fs)) fses;
-    flush stderr
-  );
+    ) |>
 
-  (* The OS inspection information for CoreOS are gathered by inspecting
-   * multiple filesystems. Gather all the inspected information in the
-   * inspect_fs struct of the root filesystem.
-   *)
-  eprintf "inspect_os: collect_coreos_inspection_info\n%!";
-  let fses = collect_coreos_inspection_info fses in
+    debug_list_of_filesystems |>
 
-  (* Check if the same filesystem was listed twice as root in fses.
-   * This may happen for the *BSD root partition where an MBR partition
-   * is a shadow of the real root partition probably /dev/sda5
-   *)
-  eprintf "inspect_os: check_for_duplicated_bsd_root\n%!";
-  let fses = check_for_duplicated_bsd_root fses in
+    (* The OS inspection information for CoreOS are gathered by inspecting
+     * multiple filesystems. Gather all the inspected information in the
+     * inspect_fs struct of the root filesystem.
+     *)
+    collect_coreos_inspection_info |>
 
-  (* For Linux guests with a separate /usr filesystem, merge some of the
-   * inspected information in that partition to the inspect_fs struct
-   * of the root filesystem.
-   *)
-  eprintf "inspect_os: collect_linux_inspection_info\n%!";
-  let fses = collect_linux_inspection_info fses in
+    (* Check if the same filesystem was listed twice as root in fses.
+     * This may happen for the *BSD root partition where an MBR partition
+     * is a shadow of the real root partition probably /dev/sda5
+     *)
+    check_for_duplicated_bsd_root |>
+
+    (* For Linux guests with a separate /usr filesystem, merge some of the
+     * inspected information in that partition to the inspect_fs struct
+     * of the root filesystem.
+     *)
+    collect_linux_inspection_info in
 
   (* Save what we found in a global variable. *)
   Inspect_types.inspect_fses := fses;
@@ -75,11 +78,21 @@ let rec inspect_os () =
    *)
   inspect_get_roots ()
 
+and debug_list_of_filesystems fses =
+  if verbose () then (
+    eprintf "inspect_os: fses:\n";
+    List.iter (fun fs -> eprintf "%s" (string_of_fs fs)) fses;
+    flush stderr
+  );
+  fses
+
 (* Traverse through the filesystem list and find out if it contains
  * the [/] and [/usr] filesystems of a CoreOS image. If this is the
  * case, sum up all the collected information on the root fs.
  *)
 and collect_coreos_inspection_info fses =
+  eprintf "inspect_os: collect_coreos_inspection_info\n%!";
+
   (* Split the list into CoreOS root(s), CoreOS usr(s), and
    * everything else.
    *)
@@ -137,6 +150,8 @@ and collect_coreos_inspection_info fses =
  * [http://www.freebsd.org/doc/handbook/disk-organization.html])
  *)
 and check_for_duplicated_bsd_root fses =
+  eprintf "inspect_os: check_for_duplicated_bsd_root\n%!";
+
   try
     let is_primary_partition = function
       | { m_type = (MountablePath | MountableBtrfsVol _) } -> false
@@ -183,6 +198,8 @@ and check_for_duplicated_bsd_root fses =
  * root fs from the respective [/usr] filesystems.
  *)
 and collect_linux_inspection_info fses =
+  eprintf "inspect_os: collect_linux_inspection_info\n%!";
+
   List.map (
     function
     | { role = RoleRoot { distro = Some DISTRO_COREOS } } as root -> root
