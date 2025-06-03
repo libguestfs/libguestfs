@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.55.13\n"
+"Project-Id-Version: libguestfs 1.55.14\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2025-05-20 14:54+0100\n"
+"POT-Creation-Date: 2025-06-03 16:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3479,7 +3479,7 @@ msgstr ""
 msgid "backingformat parameter cannot be used with raw format"
 msgstr ""
 
-#: lib/create.c:154 lib/create.c:292
+#: lib/create.c:154 lib/create.c:301
 #, c-format
 msgid "invalid value for preallocation parameter ‘%s’"
 msgstr ""
@@ -3522,17 +3522,17 @@ msgstr ""
 msgid "%s: close"
 msgstr ""
 
-#: lib/create.c:269
+#: lib/create.c:278
 #, c-format
 msgid "invalid value for backingformat parameter ‘%s’"
 msgstr ""
 
-#: lib/create.c:300
+#: lib/create.c:309
 #, c-format
 msgid "invalid value for compat parameter ‘%s’"
 msgstr ""
 
-#: lib/create.c:308
+#: lib/create.c:317
 #, c-format
 msgid "invalid value for clustersize parameter ‘%d’"
 msgstr ""
@@ -3741,24 +3741,24 @@ msgid ""
 "This usually means the kernel or appliance hung during launch.\n"
 msgstr ""
 
-#: lib/errors.c:544
+#: lib/errors.c:551
 #, c-format
 msgid "%s, see debug messages above"
 msgstr ""
 
-#: lib/errors.c:546
+#: lib/errors.c:553
 #, c-format
 msgid "%s: %s: %s, see debug messages above"
 msgstr ""
 
-#: lib/errors.c:551
+#: lib/errors.c:558
 #, c-format
 msgid ""
 "%s.\n"
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: lib/errors.c:556
+#: lib/errors.c:563
 #, c-format
 msgid ""
 "%s: %s: %s.\n"
