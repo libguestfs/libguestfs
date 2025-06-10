@@ -2,6 +2,10 @@
 
 guestfs-gobject - How to use libguestfs with the GObject bindings
 
+=head1 DEPRECATED
+
+These bindings are deprecated and will be removed in libguestfs 1.58.
+
 =head1 SYNOPSIS
 
 From Javascript using gjs:

@@ -47,6 +47,9 @@ the command line I<-n> flag.
 Previously C<-L../lib/.libs> got embedded in the distributed OCaml
 bindings.  This has been fixed.
 
+GObject bindings have been deprecated and will be removed in
+S<libguestfs 1.58>.
+
 =head2 Build changes
 
 json-c is now required.  This replaces Jansson which was previously

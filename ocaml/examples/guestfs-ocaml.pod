@@ -82,7 +82,6 @@ function that you called.
 L<guestfs(3)>,
 L<guestfs-examples(3)>,
 L<guestfs-erlang(3)>,
-L<guestfs-gobject(3)>,
 L<guestfs-golang(3)>,
 L<guestfs-java(3)>,
 L<guestfs-lua(3)>,
