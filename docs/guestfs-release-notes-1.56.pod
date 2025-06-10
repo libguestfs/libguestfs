@@ -20,6 +20,9 @@ now works properly (thanks Jaroslav Spanko, Daniel Berrange).
 
 Inspecting guests that have duplicated root mountpoints now works.
 
+Inspection of SUSE Linux guests using btrfs snapshots now ignore
+snapshots that mirror content in the root filesystem.
+
 =head2 API
 
 New C<command_out> and C<sh_out> APIs which allow you to capture
@@ -105,6 +108,9 @@ block device.
 Some internal OCaml List and String functions that we used have been
 replaced by ones from the OCaml stdlib, reducing code maintenance.
 
+If L<qemu-img(1)> commands fail during snapshot creation, make sure we
+capture and print stderr from the qemu command (Cole Robinson).
+
 =head2 Bugs fixed
 
 =begin comment
@@ -139,6 +145,15 @@ Run fstrim twice to work around incorrect fstrim behaviour in RHEL 9 kernel
 
 virt-v2v fails with mount exited with status 32: mount: /sysroot:
 /dev/sda2 already mounted on /sysroot. [rhel-9.7]
+
+=item L<https://issues.redhat.com/browse/RHEL-92239>
+
+Lost error when opening wrong format of image readonly [rhel-10.1]
+
+=item L<https://issues.redhat.com/browse/RHEL-93109>
+
+RFE: Investigate & do something useful with btrfsvol:...snapshots in
+SUSE Linux guests
 
 =item L<https://github.com/libguestfs/libguestfs/issues/155>
 
