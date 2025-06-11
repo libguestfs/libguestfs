@@ -415,28 +415,6 @@ endif
 TESTS += gdisk/test-expand-gpt.pl
 EXTRA_DIST += gdisk/test-expand-gpt.pl
 
-# Test uses the Python SimpleHTTPServer module which is
-# conveniently part of Python core.
-
-if HAVE_PYTHON
-
-# Test disabled for now.  Several things conspire to stop this working:
-#
-# (1) Python may throw "Broken pipe" errors:
-# http://bugs.python.org/issue14574
-# Fixed upstream in Python >= 2.7.5.
-#
-# (2) Fedora 18's Curl is broken.  Can be resolved by compiling Curl
-# from git and setting LD_LIBRARY_PATH=~/curl/lib/.libs
-
-# TESTS = test-http.py
-#
-# TESTS_ENVIRONMENT = $(top_builddir)/run --test $(PYTHON)
-
-endif
-
-EXTRA_DIST += http/test-http.py
-
 TESTS += journal/test-journal.pl
 EXTRA_DIST += journal/test-journal.pl
 
