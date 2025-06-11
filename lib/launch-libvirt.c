@@ -1175,6 +1175,10 @@ construct_libvirt_xml_cpu (guestfs_h *g,
 
   single_element_format ("vcpu", "%d", g->smp);
 
+  start_element ("features") {
+    empty_element ("acpi");
+  } end_element ();
+
   start_element ("clock") {
     attribute ("offset", "utc");
 
