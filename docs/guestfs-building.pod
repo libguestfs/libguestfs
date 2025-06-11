@@ -263,10 +263,6 @@ Optional.  Used only for testing.
 
 Optional.  qemu-nbd is used for testing.
 
-=item python-evtx
-
-Optional.  Used by L<virt-log(1)> to parse Windows Event Log files.
-
 =item OCaml gettext
 
 Optional.  For localizing OCaml virt tools.
