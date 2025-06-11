@@ -7,7 +7,7 @@ guestfs-release-notes - libguestfs Release Notes
 These are the release notes for libguestfs stable release 1.56.
 This describes the major changes since 1.54.
 
-Libguestfs 1.56.0 was released on B<XXX XXX 2025>.
+Libguestfs 1.56.0 was released on B<11th June 2025>.
 
 =head2 Inspection
 
@@ -20,8 +20,9 @@ now works properly (thanks Jaroslav Spanko, Daniel Berrange).
 
 Inspecting guests that have duplicated root mountpoints now works.
 
-Inspection of SUSE Linux guests using btrfs snapshots now ignore
-snapshots that mirror content in the root filesystem.
+Inspection of SUSE Linux guests using btrfs snapshots now ignores
+snapshots that mirror content in the root filesystem (thanks Ming
+Xie).
 
 Inspection of SUSE Linux >= 15 now returns the correct osinfo short
 name (eg. C<"sle15">) (thanks Ming Xie).
@@ -84,7 +85,7 @@ When using C<./configure --disable-daemon> we no longer require augeas
 and hivex (thanks Mohamed Akram).
 
 C<zfs-fuse> support has been dropped.  The project is unmaintained
-upstream.
+upstream (thanks Paul Bolle, Gwyn Ciesla, Timothée Ravier).
 
 Fix compatibility with GNU gettext 0.25.
 
