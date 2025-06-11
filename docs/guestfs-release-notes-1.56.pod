@@ -23,6 +23,9 @@ Inspecting guests that have duplicated root mountpoints now works.
 Inspection of SUSE Linux guests using btrfs snapshots now ignore
 snapshots that mirror content in the root filesystem.
 
+Inspection of SUSE Linux >= 15 now returns the correct osinfo short
+name (eg. C<"sle15">) (thanks Ming Xie).
+
 =head2 API
 
 New C<command_out> and C<sh_out> APIs which allow you to capture
@@ -154,6 +157,10 @@ Lost error when opening wrong format of image readonly [rhel-10.1]
 
 RFE: Investigate & do something useful with btrfsvol:...snapshots in
 SUSE Linux guests
+
+=item L<https://issues.redhat.com/browse/RHEL-95791>
+
+libguestfs generates the wrong osinfo for SLES 15 guests [rhel-9.6]
 
 =item L<https://github.com/libguestfs/libguestfs/issues/155>
 

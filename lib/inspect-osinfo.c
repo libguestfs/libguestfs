@@ -62,10 +62,11 @@ guestfs_impl_inspect_get_osinfo (guestfs_h *g, const char *root)
     else if (STREQ (distro, "fedora") || STREQ (distro, "mageia"))
       return safe_asprintf (g, "%s%d", distro, major);
     else if (STREQ (distro, "sles")) {
+      const char *base = major >= 15 ? "sle" : "sles";
       if (minor == 0)
-        return safe_asprintf (g, "%s%d", distro, major);
+        return safe_asprintf (g, "%s%d", base, major);
       else
-        return safe_asprintf (g, "%s%dsp%d", distro, major, minor);
+        return safe_asprintf (g, "%s%dsp%d", base, major, minor);
     }
     else if (STREQ (distro, "ubuntu"))
       return safe_asprintf (g, "%s%d.%02d", distro, major, minor);
