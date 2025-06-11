@@ -88,11 +88,6 @@ C<virtio-pci>, C<virtio-serial>, C<virtio-block>, C<virtio-net>.
 I<Required>.  For alternatives, see L</USING A PREBUILT BINARY APPLIANCE>
 below.
 
-=item glibc
-
-I<Required>.  We use the custom printf formatters extension of
-glibc (see L<guestfs-hacking(1)/DAEMON CUSTOM PRINTF FORMATTERS>).
-
 =item XDR (tirpc, glibc or other)
 
 I<Required>.  We use the XDR implementation from
