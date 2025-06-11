@@ -263,10 +263,6 @@ Optional.  Used only for testing.
 
 Optional.  qemu-nbd is used for testing.
 
-=item OCaml gettext
-
-Optional.  For localizing OCaml virt tools.
-
 =item Perl C<Module::Build> E<ge> 0.19
 
 =item Perl C<Test::More>
