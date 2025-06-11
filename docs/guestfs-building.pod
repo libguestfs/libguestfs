@@ -263,11 +263,6 @@ Optional.  Used only for testing.
 
 Optional.  qemu-nbd is used for testing.
 
-=item liblzma
-
-Optional.  If available, virt-builder will use this library
-for fast, parallel uncompression of templates.
-
 =item python-evtx
 
 Optional.  Used by L<virt-log(1)> to parse Windows Event Log files.

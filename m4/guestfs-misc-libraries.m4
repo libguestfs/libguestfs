@@ -38,20 +38,6 @@ CFLAGS="$CFLAGS $LIBCRYPT_CFLAGS"
 AC_CHECK_HEADERS([crypt.h])
 CFLAGS="$old_CFLAGS"
 
-dnl liblzma can be used by virt-builder (optional).
-PKG_CHECK_MODULES([LIBLZMA], [liblzma], [
-    AC_SUBST([LIBLZMA_CFLAGS])
-    AC_SUBST([LIBLZMA_LIBS])
-    AC_DEFINE([HAVE_LIBLZMA],[1],[liblzma found at compile time.])
-
-    dnl Old lzma in RHEL 6 didn't have some APIs we need.
-    old_LIBS="$LIBS"
-    LIBS="$LIBS $LIBLZMA_LIBS"
-    AC_CHECK_FUNCS([lzma_index_stream_flags lzma_index_stream_padding])
-    LIBS="$old_LIBS"
-],
-[AC_MSG_WARN([liblzma not found, virt-builder will be slower])])
-
 dnl Readline (used by guestfish).
 AC_ARG_WITH([readline],[
     AS_HELP_STRING([--with-readline],
