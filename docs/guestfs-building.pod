@@ -261,8 +261,6 @@ Optional.  Used only for testing.
 
 =item qemu-nbd
 
-=item nbdkit E<ge> 1.12
-
 Optional.  qemu-nbd is used for testing.
 
 =item curl
