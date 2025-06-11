@@ -263,10 +263,6 @@ Optional.  Used only for testing.
 
 Optional.  qemu-nbd is used for testing.
 
-=item GNU Privacy Guard (GnuPG, gpg) v1 or v2
-
-Optional.  Used by virt-builder for checking digital signatures.
-
 =item liblzma
 
 Optional.  If available, virt-builder will use this library
