@@ -349,23 +349,7 @@ and resolve_fstab_device spec md_map os_type =
 
   if String.starts_with "/dev/mapper" spec then (
     debug_matching "/dev/mapper";
-    (* LVM2 does some strange munging on /dev/mapper paths for VGs and
-     * LVs which contain '-' character:
-     *
-     * ><fs> lvcreate LV--test VG--test 32
-     * ><fs> debug ls /dev/mapper
-     * VG----test-LV----test
-     *
-     * This makes it impossible to reverse those paths directly, so
-     * we have implemented lvm_canonical_lv_name in the daemon.
-     *)
-    try
-      match Lvm_utils.lv_canonical spec with
-      | None -> Mountable.of_device spec
-      | Some device -> Mountable.of_device device
-    with
-    (* Ignore devices that don't exist. (RHBZ#811872) *)
-    | Unix.Unix_error (Unix.ENOENT, _, _) -> default
+    resolve_dev_mapper spec default
   )
 
   else if PCRE.matches re_xdev spec then (
@@ -538,6 +522,25 @@ and resolve_fstab_device spec md_map os_type =
     debug_matching "no known device scheme";
     default
   )
+
+and resolve_dev_mapper spec default =
+  (* LVM2 does some strange munging on /dev/mapper paths for VGs and
+   * LVs which contain '-' character:
+   *
+   * ><fs> lvcreate LV--test VG--test 32
+   * ><fs> debug ls /dev/mapper
+   * VG----test-LV----test
+   *
+   * This makes it impossible to reverse those paths directly, so
+   * we have implemented lvm_canonical_lv_name in the daemon.
+   *)
+  try
+    match Lvm_utils.lv_canonical spec with
+    | None -> default
+    | Some device -> Mountable.of_device device
+  with
+  (* Ignore devices that don't exist. (RHBZ#811872) *)
+  | Unix.Unix_error (Unix.ENOENT, _, _) -> default
 
 (* type: (h|s|v|xv)
  * disk: [a-z]+
