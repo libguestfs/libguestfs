@@ -41,7 +41,7 @@ let rec check_fstab ?(mdadm_conf = false) (root_mountable : Mountable.t)
                     os_type =
   let mdadmfiles =
     if mdadm_conf then ["/etc/mdadm.conf"; "/etc/mdadm/mdadm.conf"] else [] in
-  let configfiles = "/etc/fstab" :: mdadmfiles in
+  let configfiles = "/etc/fstab" :: "/etc/crypttab" :: mdadmfiles in
 
   (* If verbose, dump the contents of each config file as that can be
    * useful for debugging.
@@ -179,7 +179,7 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
         root_mountable
       (* Resolve guest block device names. *)
       else if String.starts_with "/dev/" spec then
-        resolve_fstab_device spec md_map os_type
+        resolve_fstab_device spec md_map os_type aug
       (* In OpenBSD's fstab you can specify partitions
        * on a disk by appending a period and a partition
        * letter to a Disklable Unique Identifier. The
@@ -194,7 +194,7 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
          * assume that this is the first disk.
          *)
         let device = sprintf "/dev/sd0%c" part in
-        resolve_fstab_device device md_map os_type
+        resolve_fstab_device device md_map os_type aug
       )
       (* Ignore "/.swap" (Pardus) and pseudo-devices
        * like "tmpfs".  If we haven't resolved the device
@@ -353,7 +353,7 @@ and parse_md_uuid uuid =
  * the real VM, which is a reasonable assumption to make.  Return
  * anything we don't recognize unchanged.
  *)
-and resolve_fstab_device spec md_map os_type =
+and resolve_fstab_device spec md_map os_type aug =
   (* In any case where we didn't match a device pattern or there was
    * another problem, return this default mountable derived from [spec].
    *)
@@ -366,7 +366,7 @@ and resolve_fstab_device spec md_map os_type =
 
   if String.starts_with "/dev/mapper" spec then (
     debug_matching "/dev/mapper";
-    resolve_dev_mapper spec default
+    resolve_dev_mapper spec default aug
   )
 
   else if PCRE.matches re_xdev spec then (
@@ -540,24 +540,71 @@ and resolve_fstab_device spec md_map os_type =
     default
   )
 
-and resolve_dev_mapper spec default =
-  (* LVM2 does some strange munging on /dev/mapper paths for VGs and
-   * LVs which contain '-' character:
-   *
-   * ><fs> lvcreate LV--test VG--test 32
-   * ><fs> debug ls /dev/mapper
-   * VG----test-LV----test
-   *
-   * This makes it impossible to reverse those paths directly, so
-   * we have implemented lvm_canonical_lv_name in the daemon.
-   *)
-  try
-    match Lvm_utils.lv_canonical spec with
-    | None -> default
-    | Some device -> Mountable.of_device device
-  with
-  (* Ignore devices that don't exist. (RHBZ#811872) *)
-  | Unix.Unix_error (Unix.ENOENT, _, _) -> default
+and resolve_dev_mapper spec default aug =
+  let augpath =
+    sprintf "/files/etc/crypttab/*[target='%s']/device"
+            (Filename.basename spec) in
+  match aug_get_noerrors aug augpath with
+  | Some device ->
+     (* /dev/mapper name is present in /etc/crypttab *)
+     if verbose() then eprintf "mapped to crypttab device=%s\n%!" device;
+     (* device string is one of:
+      *  + UUID=... without any shell quoting
+      *  + An absolute path
+      *)
+     if String.starts_with "UUID=" device then (
+       (* We found the UUID for the encrypted LUKS partition, now we use
+        * that to get the unencrypted /dev/dm-X via
+        * /dev/disk/by-id/dm-uuid-CRYPT-* automagic paths. The format is
+        *
+        * /dev/disk/by-id/dm-uuid-CRYPT-$TYPE-$LUKSUUID-$DMNAME
+        *
+        * The fields are
+        * + $TYPE: `LUKS1` or `LUKS2`
+        * + $LUKSUUID: The UUID we got from crypttab, but with `-` removed
+        * + $DMNAME: this would be `cr_root` for `/dev/mapper/cr_root`, but
+        *            we just ignore that.
+        *)
+       let byid_dir = "/dev/disk/by-id" in
+       let uuid = String.sub device 5 (String.length device - 5) in
+       let short_uuid = String.replace uuid "-" "" in
+       let regstr = sprintf "^dm-uuid-CRYPT-LUKS.-%s-.*$" short_uuid in
+       let re_dmcrypt = PCRE.compile regstr in
+       let entries = Sys.readdir byid_dir |> Array.to_list in
+       try
+         let filename = List.find (fun f -> PCRE.matches re_dmcrypt f) entries in
+         let fullpath = Filename.concat byid_dir filename in
+         let resolved_path = Unix_utils.Realpath.realpath fullpath in
+         eprintf("Found crypttab mapping %s -> %s\n%!") fullpath resolved_path;
+         Mountable.of_device (resolved_path)
+       with
+         Failure _ | Not_found ->
+           eprintf("Failed to find matching regex %s/%s\n%!") byid_dir regstr;
+           Mountable.of_device spec
+     ) else (
+       Mountable.of_device spec
+     )
+  | None ->
+     (* Assume /dev/mapper device is LVM *)
+
+     (* LVM2 does some strange munging on /dev/mapper paths for VGs and
+      * LVs which contain '-' character:
+      *
+      * ><fs> lvcreate LV--test VG--test 32
+      * ><fs> debug ls /dev/mapper
+      * VG----test-LV----test
+      *
+      * This makes it impossible to reverse those paths directly, so
+      * we have implemented lvm_canonical_lv_name in the daemon.
+      *)
+     try
+       match Lvm_utils.lv_canonical spec with
+       | None -> default
+       | Some device -> Mountable.of_device device
+     with
+     (* Ignore devices that don't exist. (RHBZ#811872) *)
+     | Unix.Unix_error (Unix.ENOENT, _, _) -> default
+
 
 (* type: (h|s|v|xv)
  * disk: [a-z]+
