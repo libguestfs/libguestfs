@@ -41,7 +41,7 @@ let rec check_fstab ?(mdadm_conf = false) (root_mountable : Mountable.t)
                     os_type =
   let mdadmfiles =
     if mdadm_conf then ["/etc/mdadm.conf"; "/etc/mdadm/mdadm.conf"] else [] in
-  let configfiles = "/etc/fstab" :: mdadmfiles in
+  let configfiles = "/etc/fstab" :: "/etc/crypttab" :: mdadmfiles in
 
   with_augeas ~name:"check_fstab_aug"
               configfiles (check_fstab_aug mdadm_conf root_mountable os_type)
@@ -162,7 +162,7 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
         root_mountable
       (* Resolve guest block device names. *)
       else if String.starts_with "/dev/" spec then
-        resolve_fstab_device spec md_map os_type
+        resolve_fstab_device spec md_map os_type aug
       (* In OpenBSD's fstab you can specify partitions
        * on a disk by appending a period and a partition
        * letter to a Disklable Unique Identifier. The
@@ -177,7 +177,7 @@ and check_fstab_entry md_map root_mountable os_type aug entry =
          * assume that this is the first disk.
          *)
         let device = sprintf "/dev/sd0%c" part in
-        resolve_fstab_device device md_map os_type
+        resolve_fstab_device device md_map os_type aug
       )
       (* Ignore "/.swap" (Pardus) and pseudo-devices
        * like "tmpfs".  If we haven't resolved the device
@@ -336,7 +336,7 @@ and parse_md_uuid uuid =
  * the real VM, which is a reasonable assumption to make.  Return
  * anything we don't recognize unchanged.
  *)
-and resolve_fstab_device spec md_map os_type =
+and resolve_fstab_device spec md_map os_type aug =
   (* In any case where we didn't match a device pattern or there was
    * another problem, return this default mountable derived from [spec].
    *)
@@ -349,7 +349,7 @@ and resolve_fstab_device spec md_map os_type =
 
   if String.starts_with "/dev/mapper" spec then (
     debug_matching "/dev/mapper";
-    resolve_dev_mapper spec default
+    resolve_dev_mapper spec default aug
   )
 
   else if PCRE.matches re_xdev spec then (
@@ -523,7 +523,7 @@ and resolve_fstab_device spec md_map os_type =
     default
   )
 
-and resolve_dev_mapper spec default =
+and resolve_lvm spec default =
   (* LVM2 does some strange munging on /dev/mapper paths for VGs and
    * LVs which contain '-' character:
    *
@@ -541,6 +541,32 @@ and resolve_dev_mapper spec default =
   with
   (* Ignore devices that don't exist. (RHBZ#811872) *)
   | Unix.Unix_error (Unix.ENOENT, _, _) -> default
+
+and resolve_crypttab spec aug =
+  let augpath = sprintf "/files/etc/crypttab/*[target='%s']/device"
+    (Filename.basename spec) in
+  match aug_get_noerrors aug augpath with
+  | None -> None
+  | Some device ->
+    (if verbose() then eprintf "mapped to crypttab device=%s\n%!" device;
+     (* device string is one of:
+      *  + UUID=... without any shell quoting
+      *  + An absolute path
+      *)
+      if String.starts_with "UUID=" device then (
+        (* Map the UUID to the /dev/mapper naming that libguestfs will
+         * use by default when doing cryptsetup dance. *)
+        let uuid = String.sub device 5 (String.length device - 5) in
+        Some(Mountable.of_device (sprintf "/dev/mapper/luks-%s" uuid))
+      ) else (
+        Some(Mountable.of_device device)
+      )
+    )
+
+and resolve_dev_mapper spec default aug =
+    match resolve_crypttab spec aug with
+    | Some device -> device
+    | None -> resolve_lvm spec default
 
 (* type: (h|s|v|xv)
  * disk: [a-z]+
