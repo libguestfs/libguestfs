@@ -127,7 +127,7 @@ ip addr add 127.0.0.1/8 brd + dev lo scope host
 ip link set dev lo up
 
 if test "$guestfs_network" = 1; then
-    iface=$(ls -I all -I default -I lo /proc/sys/net/ipv4/conf)
+    iface=$(ls -I all -I default -I lo -I sit0 /proc/sys/net/ipv4/conf)
     # Two workarounds for Ubuntu:
     touch /etc/fstab
     rm -f /etc/dhcp/dhclient-enter-hooks.d/resolved
