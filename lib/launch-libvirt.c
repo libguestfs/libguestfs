@@ -2181,8 +2181,10 @@ destroy_domain (guestfs_h *g, virDomainPtr dom, int check_for_errors)
   /* Retry (indefinitely) if we're just waiting for qemu to shut down.  See:
    * https://www.redhat.com/archives/libvir-list/2016-January/msg00767.html
    */
-  if (err && err->code == VIR_ERR_SYSTEM_ERROR && err->int1 == EBUSY)
+  if (err && err->code == VIR_ERR_SYSTEM_ERROR && err->int1 == EBUSY) {
+    sleep (1);
     goto again;
+  }
 
   /* "Domain not found" is not treated as an error. */
   if (err && err->code == VIR_ERR_NO_DOMAIN)
