@@ -2173,6 +2173,10 @@ destroy_domain (guestfs_h *g, virDomainPtr dom, int check_for_errors)
 
   /* Error returned by virDomainDestroyFlags ... */
   err = virGetLastError ();
+  if (err && err->code != 0) {
+    debug (g, "virDomainDestroy: %s [code=%d int1=%d]",
+           err->message, err->code, err->int1);
+  }
 
   /* Retry (indefinitely) if we're just waiting for qemu to shut down.  See:
    * https://www.redhat.com/archives/libvir-list/2016-January/msg00767.html
