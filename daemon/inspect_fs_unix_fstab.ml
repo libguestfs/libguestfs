@@ -43,6 +43,23 @@ let rec check_fstab ?(mdadm_conf = false) (root_mountable : Mountable.t)
     if mdadm_conf then ["/etc/mdadm.conf"; "/etc/mdadm/mdadm.conf"] else [] in
   let configfiles = "/etc/fstab" :: mdadmfiles in
 
+  (* If verbose, dump the contents of each config file as that can be
+   * useful for debugging.
+   *)
+  if verbose () then (
+    List.iter (
+      fun filename ->
+        let sysroot_filename = Sysroot.sysroot_path filename in
+        if Sys.file_exists sysroot_filename then (
+          eprintf "info: %s in %s\n%!"
+            filename (Mountable.to_string root_mountable);
+          let cmd = sprintf "cat -A %s >&2" (quote sysroot_filename) in
+          ignore (Sys.command cmd);
+          eprintf "\n%!"
+        )
+    ) configfiles
+  );
+
   with_augeas ~name:"check_fstab_aug"
               configfiles (check_fstab_aug mdadm_conf root_mountable os_type)
 
