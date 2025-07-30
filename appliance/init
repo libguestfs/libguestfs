@@ -164,6 +164,8 @@ if test "$guestfs_verbose" = 1 && test "$guestfs_boot_analysis" != 1; then
     ls -lR /dev
     cat /proc/mounts
     cat /proc/mdstat
+    lsblk
+    blkid
     lvm config
     lvm pvs
     lvm vgs
