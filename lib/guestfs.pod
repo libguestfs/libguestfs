@@ -984,7 +984,7 @@ Ntfs-3g tries to rewrite "Junction Points" and NTFS "symbolic links"
 to provide something which looks like a Linux symlink.  The way it
 tries to do the rewriting is described here:
 
-L<http://www.tuxera.com/community/ntfs-3g-advanced/junction-points-and-symbolic-links/>
+L<https://github.com/tuxera/ntfs-3g/wiki/Junctions-Points,-Symbolic-Links-and-Reparse-Points>
 
 The essential problem is that ntfs-3g simply does not have enough
 information to do a correct job.  NTFS links can contain drive letters
@@ -1003,7 +1003,7 @@ format documented in various places around the web).
 There are other useful extended attributes that can be read from
 ntfs-3g filesystems (using L</guestfs_getxattr>).  See:
 
-L<http://www.tuxera.com/community/ntfs-3g-advanced/extended-attributes/>
+L<https://github.com/tuxera/ntfs-3g/wiki/Using-Extended-Attributes>
 
 =head3 WINDOWS HIBERNATION AND WINDOWS 8 FAST STARTUP
 

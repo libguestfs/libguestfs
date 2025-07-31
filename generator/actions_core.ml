@@ -4661,8 +4661,8 @@ as F<C:\\windows> may appear as F</WINDOWS> or F</windows>
 they were created.  In Windows itself this would not be
 a problem.
 
-Bug or feature?  You decide:
-L<https://www.tuxera.com/community/ntfs-3g-faq/#posixfilenames1>
+Bug or feature?  You decide. See the relevant entry in the ntfs-3g FAQ:
+L<https://github.com/tuxera/ntfs-3g/wiki/NTFS-3G-FAQ>
 
 C<guestfs_case_sensitive_path> attempts to resolve the true case of
 each element in the path. It will return a resolved path if either the
