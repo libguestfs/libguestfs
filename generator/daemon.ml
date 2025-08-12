@@ -558,7 +558,7 @@ and generate_ocaml_daemon_prototype name (ret, args, optargs) =
     | OInt n -> pr "?%s:int -> " n
     | OInt64 n -> pr "?%s:int64 -> " n
     | OString n -> pr "?%s:string -> " n
-    | OStringList n -> pr "?%s:string array -> " n
+    | OStringList n -> pr "?%s:string list -> " n
   ) optargs;
   if args <> [] then
     List.iter (
@@ -566,7 +566,7 @@ and generate_ocaml_daemon_prototype name (ret, args, optargs) =
       | String (typ, _) -> pr "%s -> " (type_for_stringt typ)
       | BufferIn _ -> pr "string -> "
       | OptString _ -> pr "string option -> "
-      | StringList (typ, _) -> pr "%s array -> " (type_for_stringt typ)
+      | StringList (typ, _) -> pr "%s list -> " (type_for_stringt typ)
       | Bool _ -> pr "bool -> "
       | Int _ -> pr "int -> "
       | Int64 _ | Pointer _ -> pr "int64 -> "
@@ -820,6 +820,8 @@ let generate_daemon_caml_stubs () =
               pr "guestfs_int_daemon_copy_mountable (%s)" n
            | String _ -> assert false
            | OptString _ -> assert false
+           | StringList ((PlainString|Filename|Pathname), n) ->
+              pr "guestfs_int_daemon_copy_string_list (%s)" n
            | StringList _ -> assert false
            | BufferIn _ -> assert false
            | Pointer _ -> assert false
