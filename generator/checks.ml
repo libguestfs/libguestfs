@@ -166,7 +166,6 @@ let () =
         | StringList (FileIn, _)
         | StringList (FileOut, _)
         | StringList (Mountable, _)
-        | StringList (Pathname, _)
         | StringList (Dev_or_Path, _)
         | StringList (Mountable_or_Path, _)
         | StringList (Key, _)
