@@ -114,6 +114,30 @@ guestfs_int_daemon_copy_mountable (const mountable_t *mountable)
   CAMLreturn (r);
 }
 
+/* Implement StringList(...) parameter. */
+value
+guestfs_int_daemon_copy_string_list (char * const *strs)
+{
+  CAMLparam0 ();
+  CAMLlocal3 (v, tlv, rv);
+  size_t i;
+
+  /* We need to build the list backwards so start at the end. */
+  for (i = 0; strs[i] != NULL; ++i)
+    ;
+
+  while (i > 0) {
+    --i;
+    v = caml_copy_string (strs[i]);
+    rv = caml_alloc (2, 0);
+    Store_field (rv, 0, v);
+    Store_field (rv, 1, tlv);
+    tlv = rv;
+  }
+
+  CAMLreturn (rv);
+}
+
 /* Implement RStringList. */
 char **
 guestfs_int_daemon_return_string_list (value retv)

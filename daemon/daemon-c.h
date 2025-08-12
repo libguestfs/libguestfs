@@ -29,6 +29,7 @@
 
 extern void guestfs_int_daemon_exn_to_reply_with_error (const char *func, value exn);
 extern value guestfs_int_daemon_copy_mountable (const mountable_t *mountable);
+extern value guestfs_int_daemon_copy_string_list (char * const *strs);
 extern char **guestfs_int_daemon_return_string_list (value retv);
 extern char *guestfs_int_daemon_return_string_mountable (value retv);
 extern char **guestfs_int_daemon_return_string_mountable_list (value retv);
