@@ -173,7 +173,7 @@ let generate_daemon_stubs actions () =
           | String ((Mountable|Mountable_or_Path), n) ->
             pr "  CLEANUP_FREE_MOUNTABLE mountable_t %s\n" n;
             pr "      = { .device = NULL, .volume = NULL };\n"
-          | StringList ((PlainString|Filename), n) ->
+          | StringList ((PlainString|Filename|Pathname), n) ->
             pr "  char **%s;\n" n
           | StringList (Device, n) ->
             pr "  CLEANUP_FREE_STRING_LIST char **%s = NULL;\n" n
@@ -184,7 +184,7 @@ let generate_daemon_stubs actions () =
               pr "  const char *%s;\n" n;
               pr "  size_t %s_size;\n" n
           | String ((FileIn|FileOut|Filename), _)
-          | StringList ((Mountable|Pathname|FileIn|FileOut|Key|GUID
+          | StringList ((Mountable|FileIn|FileOut|Key|GUID
                          |Dev_or_Path|Mountable_or_Path), _)
           | Pointer _ -> assert false
         ) args_passed_to_daemon
@@ -260,7 +260,7 @@ let generate_daemon_stubs actions () =
                 n n is_filein;
           | String ((PlainString|Key|GUID), n) -> pr_args n
           | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
-          | StringList ((PlainString|Filename) as arg, n) ->
+          | StringList ((PlainString|Filename|Pathname) as arg, n) ->
             (match arg with
             | Filename ->
               pr "  {\n";
@@ -273,6 +273,14 @@ let generate_daemon_stubs actions () =
                 n n;
               pr "        return;\n";
               pr "      }\n";
+              pr "    }\n";
+              pr "  }\n"
+            | Pathname ->
+              pr "  {\n";
+              pr "    size_t i;\n";
+              pr "    for (i = 0; i < args.%s.%s_len; ++i) {\n" n n;
+              pr "      ABS_PATH (args.%s.%s_val[i], %b, return);\n"
+                n n is_filein;
               pr "    }\n";
               pr "  }\n"
             | _ -> ()
@@ -307,7 +315,7 @@ let generate_daemon_stubs actions () =
               pr "  %s = args.%s.%s_val;\n" n n n;
               pr "  %s_size = args.%s.%s_len;\n" n n n
           | String ((FileIn|FileOut|Filename), _)
-          | StringList ((Mountable|Pathname|FileIn|FileOut|Key|GUID
+          | StringList ((Mountable|FileIn|FileOut|Key|GUID
                          |Dev_or_Path|Mountable_or_Path), _)
           | Pointer _ -> assert false
         ) args_passed_to_daemon;
