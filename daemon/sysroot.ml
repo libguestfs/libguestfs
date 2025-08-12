@@ -18,7 +18,10 @@
 
 open Std_utils
 
-external sysroot : unit -> string = "guestfs_int_daemon_sysroot"
+external get_sysroot : unit -> string = "guestfs_int_daemon_get_sysroot"
+
+let sysroot = lazy (get_sysroot ())
+let sysroot () = Lazy.force sysroot
 
 let sysroot_path path =
   let sysroot = sysroot () in
