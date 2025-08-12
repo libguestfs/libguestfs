@@ -39,6 +39,13 @@ optgroup_selinux_available (void)
   return 1;
 }
 
+/* For historical reasons, this is really "is setfiles available" */
+int
+optgroup_selinuxrelabel_available (void)
+{
+  return prog_exists ("setfiles");
+}
+
 /* setcon is only valid under the following circumstances:
  * - single threaded
  * - enforcing=0
