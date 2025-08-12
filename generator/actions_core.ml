@@ -9359,6 +9359,7 @@ fails and the C<errno> is set to C<ENODEV>." };
   { defaults with
     name = "selinux_relabel"; added = (1, 33, 43);
     style = RErr, [String (PlainString, "specfile"); String (Pathname, "path")], [OBool "force"];
+    impl = OCaml "Selinux.selinux_relabel";
     optional = Some "selinuxrelabel";
     test_excuse = "tests are in the tests/relabel directory";
     shortdesc = "relabel parts of the filesystem";

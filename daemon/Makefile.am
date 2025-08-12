@@ -59,6 +59,7 @@ generator_built = \
 	parted.mli \
 	realpath.mli \
 	rpm.mli \
+	selinux.mli \
 	sfdisk.mli \
 	statvfs.mli \
 	structs.ml \
@@ -173,7 +174,6 @@ guestfsd_SOURCES = \
 	rsync.c \
 	scrub.c \
 	selinux.c \
-	selinux-relabel.c \
 	sfdisk.c \
 	sh.c \
 	sleep.c \
@@ -307,6 +307,7 @@ SOURCES_MLI = \
 	parted.mli \
 	realpath.mli \
 	rpm.mli \
+	selinux.mli \
 	sfdisk.mli \
 	statvfs.mli \
 	structs.mli \
@@ -345,6 +346,7 @@ SOURCES_ML = \
 	listfs.ml \
 	realpath.ml \
 	statvfs.ml \
+	selinux.ml \
 	inspect_types.ml \
 	inspect_utils.ml \
 	inspect_fs_unix_fstab.ml \

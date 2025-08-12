@@ -110,7 +110,6 @@ daemon/rename.c
 daemon/rpm-c.c
 daemon/rsync.c
 daemon/scrub.c
-daemon/selinux-relabel.c
 daemon/selinux.c
 daemon/sfdisk.c
 daemon/sh.c

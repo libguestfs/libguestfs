@@ -108,6 +108,7 @@ Makefile.in
 /daemon/parted.mli
 /daemon/realpath.mli
 /daemon/rpm.mli
+/daemon/selinux.mli
 /daemon/sfdisk.mli
 /daemon/stamp-guestfsd.pod
 /daemon/statvfs.mli
