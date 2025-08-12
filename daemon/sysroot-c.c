@@ -28,10 +28,10 @@
 
 #include "daemon.h"
 
-extern value guestfs_int_daemon_sysroot (value unitv);
+extern value guestfs_int_daemon_get_sysroot (value unitv);
 
 value
-guestfs_int_daemon_sysroot (value unitv)
+guestfs_int_daemon_get_sysroot (value unitv)
 {
   return caml_copy_string (sysroot);
 }
