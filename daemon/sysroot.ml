@@ -20,4 +20,8 @@ open Std_utils
 
 external sysroot : unit -> string = "guestfs_int_daemon_sysroot"
 
-let sysroot_path path = sysroot () // path
+let sysroot_path path =
+  let sysroot = sysroot () in
+  if path = "" then sysroot
+  else if path.[0] = '/' then sysroot ^ path
+  else sysroot // path
