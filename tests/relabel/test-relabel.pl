@@ -87,7 +87,7 @@ $g->write ("/etc/file_contexts", <<'EOF');
 EOF
 
 # Do the relabel.
-$g->selinux_relabel ("/etc/file_contexts", "/", force => 1);
+$g->setfiles ("/etc/file_contexts", ["/"], force => 1);
 
 # Check the labels were set correctly.
 my $errors = 0;

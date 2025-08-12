@@ -521,6 +521,7 @@ let proc_nr = [
 516, "command_out";
 517, "sh_out";
 518, "btrfs_scrub_full";
+519, "setfiles";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list

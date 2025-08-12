@@ -942,4 +942,28 @@ This call does nothing and returns an error." };
 Used to check a btrfs filesystem, C<device> is the device file where the
 filesystem is stored." };
 
+  { defaults with
+    name = "selinux_relabel"; added = (1, 33, 43);
+    style = RErr, [String (PlainString, "specfile"); String (Pathname, "path")], [OBool "force"];
+    impl = OCaml "Selinux.selinux_relabel";
+    optional = Some "selinuxrelabel";
+    deprecated_by = Replaced_by "setfiles";
+    test_excuse = "tests are in the tests/relabel directory";
+    shortdesc = "relabel parts of the filesystem";
+    longdesc = "\
+SELinux relabel parts of the filesystem.
+
+The C<specfile> parameter controls the policy spec file used.
+You have to parse C</etc/selinux/config> to find the correct
+SELinux policy and then pass the spec file, usually:
+C</etc/selinux/> + I<selinuxtype> + C</contexts/files/file_contexts>.
+
+The required C<path> parameter is the top level directory where
+relabelling starts.  Normally you should pass C<path> as C</>
+to relabel the whole guest filesystem.
+
+The optional C<force> boolean controls whether the context
+is reset for customizable files, and also whether the
+user, role and range parts of the file context is changed." };
+
 ]

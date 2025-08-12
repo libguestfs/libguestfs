@@ -44,58 +44,65 @@ let setfiles_has_option_m,
   (fun () -> Lazy.force setfiles_has_option_C),
   (fun () -> Lazy.force setfiles_has_option_T)
 
-let selinux_relabel ?(force = false) specfile path =
-  (* Prefix /sysroot on all paths. *)
-  let ignored_paths =
-    [ "/dev"; "/proc"; "/selinux"; "/sys" ] |>
-    List.map sysroot_path in
-  let specfile = sysroot_path specfile in
-  let path = sysroot_path path in
+let setfiles ?(force = false) specfile paths =
+  if paths = [] then ()
+  else (
+    (* Prefix /sysroot on all paths. *)
+    let ignored_paths =
+      [ "/dev"; "/proc"; "/selinux"; "/sys" ] |>
+      List.map sysroot_path in
+    let specfile = sysroot_path specfile in
+    let paths = List.map sysroot_path paths in
 
-  let args = ref [] in
-  if force then List.push_back args "-F";
-  List.iter (
-    fun ignored_path ->
-      List.push_back_list args [ "-e"; ignored_path ]
-  ) ignored_paths;
+    let args = ref [] in
+    if force then List.push_back args "-F";
+    List.iter (
+      fun ignored_path ->
+        List.push_back_list args [ "-e"; ignored_path ]
+    ) ignored_paths;
 
-  (* You have to use the -m option (where available) otherwise
-   * setfiles puts all the mountpoints on the excludes list for no
-   * useful reason (RHBZ#1433577).
-   *)
-  if setfiles_has_option_m () then List.push_back args "-m";
+    (* You have to use the -m option (where available) otherwise
+     * setfiles puts all the mountpoints on the excludes list for no
+     * useful reason (RHBZ#1433577).
+     *)
+    if setfiles_has_option_m () then List.push_back args "-m";
 
-  (* Not only do we want setfiles to trudge through individual relabeling
-   * errors, we also want the setfiles exit status to differentiate a fatal
-   * error from "relabeling errors only". See RHBZ#1794518.
-   *)
-  if setfiles_has_option_C () then List.push_back args "-C";
+    (* Not only do we want setfiles to trudge through individual relabeling
+     * errors, we also want the setfiles exit status to differentiate a fatal
+     * error from "relabeling errors only". See RHBZ#1794518.
+     *)
+    if setfiles_has_option_C () then List.push_back args "-C";
 
-  (* If the appliance is being run with multiple vCPUs, running setfiles
-   * in multithreading mode might speeds up the process.  Option "-T" was
-   * introduced in SELinux userspace v3.4, and we need to check whether it's
-   * supported.  Passing "-T 0" creates as many threads as there're available
-   * vCPU cores.
-   * https://github.com/SELinuxProject/selinux/releases/tag/3.4
-   *)
-  if setfiles_has_option_T () then
-    List.push_back_list args [ "-T"; "0" ];
+    (* If the appliance is being run with multiple vCPUs, running setfiles
+     * in multithreading mode might speeds up the process.  Option "-T" was
+     * introduced in SELinux userspace v3.4, and we need to check whether it's
+     * supported.  Passing "-T 0" creates as many threads as there're available
+     * vCPU cores.
+     * https://github.com/SELinuxProject/selinux/releases/tag/3.4
+     *)
+    if setfiles_has_option_T () then
+      List.push_back_list args [ "-T"; "0" ];
 
-  (* Relabelling in a chroot. *)
-  if sysroot () <> "/" then
-    List.push_back_list args [ "-r"; sysroot () ];
+    (* Relabelling in a chroot. *)
+    if sysroot () <> "/" then
+      List.push_back_list args [ "-r"; sysroot () ];
 
-  if verbose () then
-    List.push_back args "-v"
-  else
-    (* Suppress non-error output. *)
-    List.push_back args "-q";
+    if verbose () then
+      List.push_back args "-v"
+    else
+      (* Suppress non-error output. *)
+      List.push_back args "-q";
 
-  (* Add parameters. *)
-  List.push_back_list args [ specfile; path ];
+    (* Add parameters. *)
+    List.push_back args specfile;
+    List.push_back_list args paths;
 
-  let args = !args in
-  let r, _, err = commandr "setfiles" args in
+    let args = !args in
+    let r, _, err = commandr "setfiles" args in
 
-  let ok = r = 0 || r = 1 && setfiles_has_option_C () in
-  if not ok then failwithf "setfiles: %s" err
+    let ok = r = 0 || r = 1 && setfiles_has_option_C () in
+    if not ok then failwithf "setfiles: %s" err
+  )
+
+(* This is the deprecated selinux_relabel function from libguestfs <= 1.56. *)
+let selinux_relabel ?force specfile path = setfiles ?force specfile [path]

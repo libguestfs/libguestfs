@@ -9357,29 +9357,6 @@ If not all the devices for the filesystems are present, then this function
 fails and the C<errno> is set to C<ENODEV>." };
 
   { defaults with
-    name = "selinux_relabel"; added = (1, 33, 43);
-    style = RErr, [String (PlainString, "specfile"); String (Pathname, "path")], [OBool "force"];
-    impl = OCaml "Selinux.selinux_relabel";
-    optional = Some "selinuxrelabel";
-    test_excuse = "tests are in the tests/relabel directory";
-    shortdesc = "relabel parts of the filesystem";
-    longdesc = "\
-SELinux relabel parts of the filesystem.
-
-The C<specfile> parameter controls the policy spec file used.
-You have to parse C</etc/selinux/config> to find the correct
-SELinux policy and then pass the spec file, usually:
-C</etc/selinux/> + I<selinuxtype> + C</contexts/files/file_contexts>.
-
-The required C<path> parameter is the top level directory where
-relabelling starts.  Normally you should pass C<path> as C</>
-to relabel the whole guest filesystem.
-
-The optional C<force> boolean controls whether the context
-is reset for customizable files, and also whether the
-user, role and range parts of the file context is changed." };
-
-  { defaults with
     name = "mksquashfs"; added = (1, 35, 25);
     style = RErr, [String (Pathname, "path"); String (FileOut, "filename")], [OString "compress"; OStringList "excludes"];
     optional = Some "squashfs";
@@ -9819,5 +9796,31 @@ C<guestfs_lvm_scan> with the C<activate> parameter C<true> will make
 them visible.
 
 Use C<guestfs_list_dm_devices> to list all device mapper devices." };
+
+  { defaults with
+    name = "setfiles"; added = (1, 57, 1);
+    style = RErr, [String (PlainString, "specfile"); StringList (Pathname, "paths")], [OBool "force"];
+    impl = OCaml "Selinux.setfiles";
+    optional = Some "selinuxrelabel";
+    test_excuse = "tests are in the tests/relabel directory";
+    shortdesc = "low level relabel parts of the filesystem";
+    longdesc = "\
+This invokes the SELinux C<setfiles> command which is a low
+level tool used to relabel parts of the filesystem.
+
+The C<specfile> parameter controls the policy spec file used.
+You have to parse C</etc/selinux/config> to find the correct
+SELinux policy and then pass the spec file, usually:
+C</etc/selinux/> + I<selinuxtype> + C</contexts/files/file_contexts>.
+
+The required C<paths> parameter is the list of top level directories
+where relabelling starts.  C<setfiles> will only relabel up to
+filesystem boundaries so, for example, passing just C<\"/\"> will
+relabel the whole root filesystem, but no other mounted filesystems.
+If the list is empty, setfiles is not called.
+
+The optional C<force> boolean controls whether the context
+is reset for customizable files, and also whether the
+user, role and range parts of the file context is changed." };
 
 ]
