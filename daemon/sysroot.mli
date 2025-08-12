@@ -22,4 +22,4 @@ val sysroot : unit -> string
     in default. *)
 
 val sysroot_path : string -> string
-(** Equivalent to calling [sysroot () // path] *)
+(** Prepend [path] parameter with the sysroot. *)
