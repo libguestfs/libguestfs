@@ -278,6 +278,7 @@ gobject/src/optargs-rsync_in.c
 gobject/src/optargs-rsync_out.c
 gobject/src/optargs-selinux_relabel.c
 gobject/src/optargs-set_e2attrs.c
+gobject/src/optargs-setfiles.c
 gobject/src/optargs-syslinux.c
 gobject/src/optargs-tar_in.c
 gobject/src/optargs-tar_out.c
