@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.56.1\n"
+"Project-Id-Version: libguestfs 1.56.2\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2025-06-16 16:52+0100\n"
+"POT-Creation-Date: 2025-08-13 17:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45585,8 +45585,8 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:1524 lib/guestfs-actions.pod:2561
 msgid ""
-"Bug or feature? You decide: "
-"L<https://www.tuxera.com/community/ntfs-3g-faq/#posixfilenames1>"
+"Bug or feature? You decide. See the relevant entry in the ntfs-3g FAQ: "
+"L<https://github.com/tuxera/ntfs-3g/wiki/NTFS-3G-FAQ>"
 msgstr ""
 
 #. type: textblock
@@ -91279,7 +91279,7 @@ msgstr ""
 
 #. type: textblock
 #: lib/guestfs.pod:987
-msgid "L<http://www.tuxera.com/community/ntfs-3g-advanced/junction-points-and-symbolic-links/>"
+msgid "L<https://github.com/tuxera/ntfs-3g/wiki/Junctions-Points,-Symbolic-Links-and-Reparse-Points>"
 msgstr ""
 
 #. type: textblock
@@ -91315,7 +91315,7 @@ msgstr ""
 
 #. type: textblock
 #: lib/guestfs.pod:1006
-msgid "L<http://www.tuxera.com/community/ntfs-3g-advanced/extended-attributes/>"
+msgid "L<https://github.com/tuxera/ntfs-3g/wiki/Using-Extended-Attributes>"
 msgstr ""
 
 #. type: =head3

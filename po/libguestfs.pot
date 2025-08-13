@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.56.1\n"
+"Project-Id-Version: libguestfs 1.56.2\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2025-06-16 16:52+0100\n"
+"POT-Creation-Date: 2025-08-13 17:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4028,11 +4028,11 @@ msgstr ""
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2187
+#: lib/launch-libvirt.c:2193
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2208 lib/launch-libvirt.c:2241
+#: lib/launch-libvirt.c:2214 lib/launch-libvirt.c:2247
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
