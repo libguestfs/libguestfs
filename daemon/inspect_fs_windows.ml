@@ -389,8 +389,18 @@ and map_registry_disk_blob_mbr devices blob =
     let device =
       List.find (
         fun dev ->
-          Parted.part_get_parttype dev = "msdos" &&
+          try
+            Parted.part_get_parttype dev = "msdos" &&
             pread dev 4 0x01b8 = diskid
+          with Unix.Unix_error (EINVAL, "parted", msg) ->
+             (* Errors can happen here if the disk is empty.  Just ignore
+              * them.  It means the drive mapping might have missing
+              * entries but that's not important.  (RHEL-108803)
+              *)
+             if verbose () then
+               eprintf "map_registry_disk_blob_mbr: parted returned: \
+                        %s (ignored)\n" msg;
+             false
       ) devices in
 
     (* Next 8 bytes are the offset of the partition in bytes(!) given as
@@ -428,14 +438,21 @@ and map_registry_disk_blob_gpt partitions blob =
     let partition =
       List.find (
         fun part ->
-          let partnum = Devsparts.part_to_partnum part in
-          let device = Devsparts.part_to_dev part in
-          let typ = Parted.part_get_parttype device in
-          if typ <> "gpt" then false
-          else (
-            let guid = Sfdisk.part_get_gpt_guid device partnum in
-            String.lowercase_ascii guid = blob_guid
-          )
+          try
+            let partnum = Devsparts.part_to_partnum part in
+            let device = Devsparts.part_to_dev part in
+            let typ = Parted.part_get_parttype device in
+            if typ <> "gpt" then false
+            else (
+              let guid = Sfdisk.part_get_gpt_guid device partnum in
+              String.lowercase_ascii guid = blob_guid
+            )
+          with Unix.Unix_error (EINVAL, "parted", msg) ->
+             (* See comment in MBR code above (RHEL-108803) *)
+             if verbose () then
+               eprintf "map_registry_disk_blob_gpt: parted returned: \
+                        %s (ignored)\n" msg;
+             false
       ) partitions in
     Some partition
   with
