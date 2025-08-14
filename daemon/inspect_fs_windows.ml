@@ -376,6 +376,10 @@ and map_registry_disk_blob_mbr devices blob =
      * disk with this disk ID.
      *)
     let diskid = String.sub blob 0 4 in
+    if verbose () then
+      eprintf "map_registry_disk_blob_mbr: searching for MBR disk ID %s\n%!"
+        (hex_of_string diskid);
+
     let device =
       List.find (
         fun dev ->
@@ -388,6 +392,10 @@ and map_registry_disk_blob_mbr devices blob =
      * partition byte offset from Parted.part_list.
      *)
     let offset = String.sub blob 4 8 in
+    if verbose () then
+      eprintf "map_registry_disk_blob_mbr: searching for MBR partition offset \
+               %s\n%!"
+        (hex_of_string offset);
     let offset = int_of_le64 offset in
     let partitions = Parted.part_list device in
     let partition =
