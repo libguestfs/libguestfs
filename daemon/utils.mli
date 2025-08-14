@@ -121,5 +121,9 @@ val parse_key_value_strings : ?unquote:(string -> string) -> string list -> (str
     it is applied on the values as unquote function.  Empty lines,
     or that start with a comment character [#], are ignored. *)
 
+val hex_of_string : string -> string
+(** Return a string as a list of hex bytes.
+    Use this for debugging msgs only. *)
+
 (**/**)
 val get_verbose_flag : unit -> bool

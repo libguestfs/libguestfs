@@ -296,3 +296,7 @@ let parse_key_value_strings ?unquote lines =
   match unquote with
   | None -> lines
   | Some f -> List.map (fun (k, v) -> (k, f v)) lines
+
+let hex_of_string s =
+  let bytes = String.map_chars (fun c -> sprintf "%02x" (Char.code c)) s in
+  String.concat " " bytes
