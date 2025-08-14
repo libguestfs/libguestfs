@@ -207,6 +207,12 @@ and check_windows_registry systemroot data =
     if Is.is_file system_hive then Some system_hive else None in
   data.windows_system_hive <- system_hive;
 
+  if verbose () then
+    eprintf "check_windows_registry: software hive: %s\n\
+             check_windows_registry: system hive: %s\n%!"
+      (Option.value ~default:"None" software_hive)
+      (Option.value ~default:"None" system_hive);
+
   match software_hive, system_hive with
   | None, _ | Some _, None -> ()
   | Some software_hive, Some system_hive ->
