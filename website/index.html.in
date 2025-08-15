@@ -189,11 +189,7 @@ LATEST-VERSION: @PACKAGE_VERSION@
   <a href="download/1.57-development/">Latest development version: <strong>@PACKAGE_VERSION@</strong></a> (released <strong>@RELEASE_DATE@</strong>).<br/>
   Stable branch:
   <strong>
-  <a href="download/1.56-stable/">1.56.x</a>,
-  <a href="download/1.54-stable/">1.54.x</a>,
-  <a href="download/1.52-stable/">1.52.x</a>,
-  <a href="download/1.50-stable/">1.50.x</a>,
-  <a href="download/1.48-stable/">1.48.x</a>
+  <a href="download/1.56-stable/">1.56.x</a>
   </strong>
 </small></em>
 </p>
