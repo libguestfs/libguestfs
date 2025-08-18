@@ -32,6 +32,7 @@
 #include <libintl.h>
 #include <poll.h>
 #include <limits.h>
+#include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
