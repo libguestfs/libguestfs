@@ -74,7 +74,7 @@ let setfiles ?(force = false) specfile paths =
     if setfiles_has_option_C () then List.push_back args "-C";
 
     (* If the appliance is being run with multiple vCPUs, running setfiles
-     * in multithreading mode might speeds up the process.  Option "-T" was
+     * in multithreading mode might speed up the process.  Option "-T" was
      * introduced in SELinux userspace v3.4, and we need to check whether it's
      * supported.  Passing "-T 0" creates as many threads as there're available
      * vCPU cores.
