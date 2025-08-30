@@ -28,21 +28,21 @@ open Utils
  * The only way to do this is to run setfiles with the option alone, and
  * test for the stderr message [invalid option -- 'X'].
  *)
-let setfiles_has_option_m,
-    setfiles_has_option_C,
-    setfiles_has_option_T =
-  let setfiles_has_option flag =
+let setfiles_has_option =
+  let test_setfiles flag =
     let err_msg = sprintf "invalid option -- '%c'" flag in
     let opt = sprintf "-%c" flag in
     let _, _, err = commandr "setfiles" [opt] in
     String.find err err_msg = -1
   in
-  let setfiles_has_option_m = lazy (setfiles_has_option 'm')
-  and setfiles_has_option_C = lazy (setfiles_has_option 'C')
-  and setfiles_has_option_T = lazy (setfiles_has_option 'T') in
-  (fun () -> Lazy.force setfiles_has_option_m),
-  (fun () -> Lazy.force setfiles_has_option_C),
-  (fun () -> Lazy.force setfiles_has_option_T)
+  let h = Hashtbl.create 13 in
+  fun flag ->
+    try Hashtbl.find h flag
+    with
+    | Not_found ->
+       let r = test_setfiles flag in
+       Hashtbl.add h flag r;
+       r
 
 let setfiles ?(force = false) specfile paths =
   if paths = [] then ()
@@ -65,13 +65,13 @@ let setfiles ?(force = false) specfile paths =
      * setfiles puts all the mountpoints on the excludes list for no
      * useful reason (RHBZ#1433577).
      *)
-    if setfiles_has_option_m () then List.push_back args "-m";
+    if setfiles_has_option 'm' then List.push_back args "-m";
 
     (* Not only do we want setfiles to trudge through individual relabeling
      * errors, we also want the setfiles exit status to differentiate a fatal
      * error from "relabeling errors only". See RHBZ#1794518.
      *)
-    if setfiles_has_option_C () then List.push_back args "-C";
+    if setfiles_has_option 'C' then List.push_back args "-C";
 
     (* If the appliance is being run with multiple vCPUs, running setfiles
      * in multithreading mode might speed up the process.  Option "-T" was
@@ -80,7 +80,7 @@ let setfiles ?(force = false) specfile paths =
      * vCPU cores.
      * https://github.com/SELinuxProject/selinux/releases/tag/3.4
      *)
-    if setfiles_has_option_T () then
+    if setfiles_has_option 'T' then
       List.push_back_list args [ "-T"; "0" ];
 
     (* Relabelling in a chroot. *)
@@ -100,7 +100,7 @@ let setfiles ?(force = false) specfile paths =
     let args = !args in
     let r, _, err = commandr "setfiles" args in
 
-    let ok = r = 0 || r = 1 && setfiles_has_option_C () in
+    let ok = r = 0 || r = 1 && setfiles_has_option 'C' in
     if not ok then failwithf "setfiles: %s" err
   )
 
