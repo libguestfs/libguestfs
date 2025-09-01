@@ -337,7 +337,7 @@ and get_drive_mappings h root data =
           let key = Hivex.value_key h value in
           let keylen = String.length key in
           if keylen >= 14 &&
-             String.lowercase_ascii (String.sub key 0 12) = "\\dosdevices\\" &&
+             String.lowercase_ascii (String.sub key 0 12) = {|\dosdevices\|} &&
              Char.isalpha key.[12] && key.[13] = ':' then (
             let drive_letter = String.sub key 12 1 in
 
