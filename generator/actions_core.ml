@@ -898,7 +898,7 @@ The returned list is sorted." };
     ];
     shortdesc = "read a file";
     longdesc = "\
-This calls returns the contents of the file C<path> as a
+This call returns the contents of the file C<path> as a
 buffer.
 
 Unlike C<guestfs_cat>, this function can correctly
