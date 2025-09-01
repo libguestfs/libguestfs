@@ -44,8 +44,7 @@ let drop_empty_trailing_lines l =
 let rec generate_java_java () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-package com.redhat.et.libguestfs;
+  pr {|package com.redhat.et.libguestfs;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,8 +59,8 @@ import java.util.Map;
  * the following man pages:
  * </p>
  * <ol>
- * <li> <a href=\"http://libguestfs.org/guestfs-java.3.html\"><code>guestfs-java(3)</code></a> and </li>
- * <li> <a href=\"http://libguestfs.org/guestfs.3.html\"><code>guestfs(3)</code></a>. </li>
+ * <li> <a href="http://libguestfs.org/guestfs-java.3.html"><code>guestfs-java(3)</code></a> and </li>
+ * <li> <a href="http://libguestfs.org/guestfs.3.html"><code>guestfs(3)</code></a>. </li>
  * </ol>
  * <p>
  * This javadoc is <b>not</b> a good introduction to using libguestfs.
@@ -72,7 +71,7 @@ import java.util.Map;
 public class GuestFS {
   // Load the native code.
   static {
-    System.loadLibrary (\"guestfs_jni\");
+    System.loadLibrary ("guestfs_jni");
   }
 
   /**
@@ -97,11 +96,11 @@ public class GuestFS {
     Object _optobj;
     _optobj = null;
     if (optargs != null)
-      _optobj = optargs.get (\"environment\");
+      _optobj = optargs.get ("environment");
     if (_optobj != null && !((Boolean) _optobj).booleanValue())
       flags |= CREATE_NO_ENVIRONMENT;
     if (optargs != null)
-      _optobj = optargs.get (\"close_on_exit\");
+      _optobj = optargs.get ("close_on_exit");
     if (_optobj != null && !((Boolean) _optobj).booleanValue())
       flags |= CREATE_NO_CLOSE_ON_EXIT;
 
@@ -146,7 +145,7 @@ public class GuestFS {
     close ();
   }
 
-";
+|};
 
   (* Events. *)
   pr "  // Event bitmasks.\n\n";
@@ -166,8 +165,7 @@ public class GuestFS {
   pr "  public static final long EVENT_ALL = 0x%x;\n" all_events_bitmask;
   pr "\n";
 
-  pr "\
-  /**
+  pr {|/**
    * Utility function to turn an event number or bitmask into a string.
    *
    * @param events the event number to convert
@@ -210,7 +208,7 @@ public class GuestFS {
    * </p>
    *
    * @throws LibGuestFSException If there is a libguestfs error.
-   * @see \"The section &quot;EVENTS&quot; in the guestfs(3) manual\"
+   * @see "The section &quot;EVENTS&quot; in the guestfs(3) manual"
    * @see #delete_event_callback
    * @return handle for the event
    */
@@ -218,7 +216,7 @@ public class GuestFS {
     throws LibGuestFSException
   {
     if (g == 0)
-      throw new LibGuestFSException (\"set_event_callback: handle is closed\");
+      throw new LibGuestFSException ("set_event_callback: handle is closed");
 
     return _set_event_callback (g, callback, events);
   }
@@ -246,14 +244,14 @@ public class GuestFS {
     throws LibGuestFSException
   {
     if (g == 0)
-      throw new LibGuestFSException (\"delete_event_callback: handle is closed\");
+      throw new LibGuestFSException ("delete_event_callback: handle is closed");
 
     _delete_event_callback (g, eh);
   }
 
   private native void _delete_event_callback (long g, int eh);
 
-";
+|};
 
   (* Methods. *)
   List.iter (
@@ -545,8 +543,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
 and generate_java_struct jtyp cols () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-package com.redhat.et.libguestfs;
+  pr {|package com.redhat.et.libguestfs;
 
 /**
  * %s structure.
@@ -555,7 +552,7 @@ package com.redhat.et.libguestfs;
  * @see GuestFS
  */
 public class %s {
-" jtyp jtyp;
+|} jtyp jtyp;
 
   List.iter (
     function
@@ -576,8 +573,7 @@ public class %s {
 and generate_java_c actions () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 /* It is safe to call deprecated functions from this file. */
 #define GUESTFS_NO_WARN_DEPRECATED
@@ -588,10 +584,10 @@ and generate_java_c actions () =
 #include <string.h>
 #include <inttypes.h>
 
-#include \"com_redhat_et_libguestfs_GuestFS.h\"
-#include \"guestfs.h\"
-#include \"guestfs-utils.h\"
-#include \"structs-cleanups.h\"
+#include "com_redhat_et_libguestfs_GuestFS.h"
+#include "guestfs.h"
+#include "guestfs-utils.h"
+#include "structs-cleanups.h"
 
 /* Note that this function returns.  The exception is not thrown
  * until after the wrapper function returns.
@@ -601,7 +597,7 @@ throw_exception (JNIEnv *env, const char *msg)
 {
   jclass cl;
   cl = (*env)->FindClass (env,
-                          \"com/redhat/et/libguestfs/LibGuestFSException\");
+                          "com/redhat/et/libguestfs/LibGuestFSException");
   (*env)->ThrowNew (env, cl, msg);
 }
 
@@ -613,10 +609,10 @@ throw_out_of_memory (JNIEnv *env, const char *msg)
 {
   jclass cl;
   cl = (*env)->FindClass (env,
-                          \"com/redhat/et/libguestfs/LibGuestFSOutOfMemory\");
+                          "com/redhat/et/libguestfs/LibGuestFSOutOfMemory");
   (*env)->ThrowNew (env, cl, msg);
 }
-";
+|};
 
   List.iter (
     fun { name; style = (ret, args, optargs as style);

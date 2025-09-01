@@ -94,8 +94,7 @@ let generate_daemon_stubs_h () =
 let generate_daemon_stubs actions () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -106,15 +105,15 @@ let generate_daemon_stubs actions () =
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
-#include \"daemon.h\"
-#include \"c-ctype.h\"
-#include \"guestfs_protocol.h\"
-#include \"actions.h\"
-#include \"optgroups.h\"
-#include \"stubs.h\"
-#include \"stubs-macros.h\"
+#include "daemon.h"
+#include "c-ctype.h"
+#include "guestfs_protocol.h"
+#include "actions.h"
+#include "optgroups.h"
+#include "stubs.h"
+#include "stubs-macros.h"
 
-";
+|};
 
   List.iter (
     fun { name; style = ret, args, optargs; optional } ->
@@ -605,8 +604,7 @@ and generate_ocaml_daemon_prototype name (ret, args, optargs) =
 let generate_daemon_caml_stubs () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -622,11 +620,11 @@ let generate_daemon_caml_stubs () =
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
-#include \"daemon.h\"
-#include \"actions.h\"
-#include \"daemon-c.h\"
+#include "daemon.h"
+#include "actions.h"
+#include "daemon-c.h"
 
-";
+|};
 
   (* Implement code for returning structs and struct lists. *)
   let emit_return_struct typ =
@@ -922,8 +920,7 @@ let generate_daemon_caml_stubs () =
 let generate_daemon_dispatch () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -933,14 +930,14 @@ let generate_daemon_dispatch () =
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
-#include \"daemon.h\"
-#include \"c-ctype.h\"
-#include \"guestfs_protocol.h\"
-#include \"actions.h\"
-#include \"optgroups.h\"
-#include \"stubs.h\"
+#include "daemon.h"
+#include "c-ctype.h"
+#include "guestfs_protocol.h"
+#include "actions.h"
+#include "optgroups.h"
+#include "stubs.h"
 
-";
+|};
 
   (* Dispatch function. *)
   pr "void\n";
@@ -1043,8 +1040,7 @@ let generate_daemon_optgroups_h () =
 
   pr "\n";
 
-  pr "\
-/* These macros can be used to disable an entire group of functions.
+  pr {|/* These macros can be used to disable an entire group of functions.
  * The advantage of generating this code is that it avoids an
  * undetected error when a new function in a group is added, but
  * the appropriate abort function is not added to the daemon (because
@@ -1052,7 +1048,7 @@ let generate_daemon_optgroups_h () =
  * is not present).
  */
 
-";
+|};
   List.iter (
     fun (group, fns) ->
       pr "#define OPTGROUP_%s_NOT_AVAILABLE \\\n"
@@ -1098,16 +1094,15 @@ let generate_daemon_optgroups_mli () =
 let generate_daemon_structs_cleanups_c () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 
-#include \"daemon.h\"
-#include \"guestfs_protocol.h\"
+#include "daemon.h"
+#include "guestfs_protocol.h"
 
-";
+|};
 
   pr "/* Cleanup functions used by CLEANUP_* macros.  Do not call\n";
   pr " * these functions directly.\n";
@@ -1148,15 +1143,14 @@ let generate_daemon_structs_cleanups_c () =
 let generate_daemon_structs_cleanups_h () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-/* These CLEANUP_* macros automatically free the struct or struct list
+  pr {|/* These CLEANUP_* macros automatically free the struct or struct list
  * pointed to by the local variable at the end of the current scope.
  */
 
 #ifndef GUESTFS_DAEMON_STRUCTS_CLEANUPS_H_
 #define GUESTFS_DAEMON_STRUCTS_CLEANUPS_H_
 
-";
+|};
 
   List.iter (
     fun { s_name = name } ->
@@ -1166,13 +1160,12 @@ let generate_daemon_structs_cleanups_h () =
       pr "  __attribute__((cleanup(cleanup_free_int_%s_list)))\n" name
   ) structs;
 
-  pr "\
-
+  pr {|
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.
  */
 
-";
+|};
 
   List.iter (
     fun { s_name = name } ->

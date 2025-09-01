@@ -253,43 +253,57 @@ and generate_actions_pod_entry ({ c_name;
     pr "This function returns a string, or NULL on error.
 The string is owned by the guest handle and must I<not> be freed.\n\n"
   | RConstOptString _ ->
-    pr "This function returns a string which may be NULL.
+    pr {|This function returns a string which may be NULL.
 There is no way to return an error from this function.
-The string is owned by the guest handle and must I<not> be freed.\n\n"
+The string is owned by the guest handle and must I<not> be freed.
+
+|}
   | RString _ ->
     pr "This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.\n\n"
   | RStringList _ ->
-    pr "This function returns a NULL-terminated array of strings
+    pr {|This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
-I<The caller must free the strings and the array after use>.\n\n"
+I<The caller must free the strings and the array after use>.
+
+|}
   | RStruct (_, typ) ->
-    pr "This function returns a C<struct guestfs_%s *>,
+    pr {|This function returns a C<struct guestfs_%s *>,
 or NULL if there was an error.
-I<The caller must call C<guestfs_free_%s> after use>.\n\n" typ typ
+I<The caller must call C<guestfs_free_%s> after use>.
+
+|} typ typ
   | RStructList (_, typ) ->
-    pr "This function returns a C<struct guestfs_%s_list *>,
+    pr {|This function returns a C<struct guestfs_%s_list *>,
 or NULL if there was an error.
-I<The caller must call C<guestfs_free_%s_list> after use>.\n\n" typ typ
+I<The caller must call C<guestfs_free_%s_list> after use>.
+
+|} typ typ
   | RHashtable _ ->
-    pr "This function returns a NULL-terminated array of
+    pr {|This function returns a NULL-terminated array of
 strings, or NULL if there was an error.
 The array of strings will always have length C<2n+1>, where
 C<n> keys and values alternate, followed by the trailing NULL entry.
-I<The caller must free the strings and the array after use>.\n\n"
+I<The caller must free the strings and the array after use>.
+
+|}
   | RBufferOut _ ->
-    pr "This function returns a buffer, or NULL on error.
+    pr {|This function returns a buffer, or NULL on error.
 The size of the returned buffer is written to C<*size_r>.
-I<The caller must free the returned buffer after use>.\n\n"
+I<The caller must free the returned buffer after use>.
+
+|}
   );
   if f.progress then
     pr "%s\n\n" progress_message;
   if f.protocol_limit_warning then
     pr "%s\n\n" protocol_limit_warning;
   if List.exists (function String (Key, _) -> true | _ -> false) args then
-    pr "This function takes a key or passphrase parameter which
+    pr {|This function takes a key or passphrase parameter which
 could contain sensitive material.  Read the section
-L</KEYS AND PASSPHRASES> for more information.\n\n";
+L</KEYS AND PASSPHRASES> for more information.
+
+|};
   (match f.optional with
   | None -> ()
   | Some opt ->
@@ -408,8 +422,7 @@ and generate_availability_pod () =
 and generate_guestfs_h () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-/* ---------- IMPORTANT NOTE ----------
+  pr {|/* ---------- IMPORTANT NOTE ----------
  *
  * All API documentation is in the manpage, 'guestfs(3)'.
  * To read it, type:           man 3 guestfs
@@ -427,7 +440,7 @@ and generate_guestfs_h () =
 #define GUESTFS_H_
 
 #ifdef __cplusplus
-extern \"C\" {
+extern "C" {
 #endif
 
 #include <stddef.h>
@@ -435,7 +448,7 @@ extern \"C\" {
 #include <stdarg.h>
 
 #if defined(__GNUC__) && !defined(GUESTFS_GCC_VERSION)
-# define GUESTFS_GCC_VERSION \\
+# define GUESTFS_GCC_VERSION \
     (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 #endif
 
@@ -447,12 +460,12 @@ extern \"C\" {
 #    undef GUESTFS_DEPRECATED_NO_REPLACEMENT
 #    undef GUESTFS_DEPRECATED_REPLACED_BY
 #    define GUESTFS_DEPRECATED_NO_REPLACEMENT __attribute__((__deprecated__))
-#    define GUESTFS_DEPRECATED_REPLACED_BY(s) __attribute__((__deprecated__(\"change the program to use guestfs_\" s \" instead of this deprecated function\")))
+#    define GUESTFS_DEPRECATED_REPLACED_BY(s) __attribute__((__deprecated__("change the program to use guestfs_" s " instead of this deprecated function")))
 #  endif
 #endif /* !GUESTFS_NO_WARN_DEPRECATED */
 
 #if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40000 /* gcc >= 4.0 */
-# define GUESTFS_DLL_PUBLIC __attribute__((visibility (\"default\")))
+# define GUESTFS_DLL_PUBLIC __attribute__((visibility ("default")))
 #else
 # define GUESTFS_DLL_PUBLIC
 #endif
@@ -503,7 +516,7 @@ extern GUESTFS_DLL_PUBLIC void guestfs_set_out_of_memory_handler (guestfs_h *g, 
 extern GUESTFS_DLL_PUBLIC guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 
 /* Events. */
-";
+|};
 
   List.iter (
     fun (name, bitmask) ->
@@ -513,8 +526,7 @@ extern GUESTFS_DLL_PUBLIC guestfs_abort_cb guestfs_get_out_of_memory_handler (gu
   pr "#define GUESTFS_EVENT_%-16s 0x%04x\n" "ALL" all_events_bitmask;
   pr "\n";
 
-  pr "\
-#ifndef GUESTFS_TYPEDEF_EVENT_CALLBACK
+  pr {|#ifndef GUESTFS_TYPEDEF_EVENT_CALLBACK
 #define GUESTFS_TYPEDEF_EVENT_CALLBACK 1
 typedef void (*guestfs_event_callback) (
                         guestfs_h *g,
@@ -561,17 +573,17 @@ typedef void (*guestfs_progress_cb) (guestfs_h *g, void *opaque, int proc_nr, in
 
 #ifndef GUESTFS_NO_DEPRECATED
 extern GUESTFS_DLL_PUBLIC void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque)
-  GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
+  GUESTFS_DEPRECATED_REPLACED_BY("set_event_callback");
 extern GUESTFS_DLL_PUBLIC void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque)
-  GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
+  GUESTFS_DEPRECATED_REPLACED_BY("set_event_callback");
 extern GUESTFS_DLL_PUBLIC void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque)
-  GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
+  GUESTFS_DEPRECATED_REPLACED_BY("set_event_callback");
 #define GUESTFS_HAVE_SET_CLOSE_CALLBACK 1
 extern GUESTFS_DLL_PUBLIC void guestfs_set_close_callback (guestfs_h *g, guestfs_close_cb cb, void *opaque)
-  GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
+  GUESTFS_DEPRECATED_REPLACED_BY("set_event_callback");
 #define GUESTFS_HAVE_SET_PROGRESS_CALLBACK 1
 extern GUESTFS_DLL_PUBLIC void guestfs_set_progress_callback (guestfs_h *g, guestfs_progress_cb cb, void *opaque)
-  GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
+  GUESTFS_DEPRECATED_REPLACED_BY("set_event_callback");
 #endif /* !GUESTFS_NO_DEPRECATED */
 
 /* Private data area. */
@@ -585,7 +597,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_first_private (guestfs_h *g, const char 
 extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
 
 /* Structures. */
-";
+|};
 
   (* The structures are carefully written to have exactly the same
    * in-memory format as the XDR structures that we use on the wire to
@@ -731,8 +743,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
 
   generate_all_headers public_functions_sorted;
 
-  pr "\
-#if GUESTFS_PRIVATE
+  pr {|#if GUESTFS_PRIVATE
 /* Symbols protected by GUESTFS_PRIVATE are NOT part of the public,
  * stable API, and can change at any time!  We export them because
  * they are used by some of the language bindings.
@@ -740,7 +751,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
 
 /* Private functions. */
 
-";
+|};
 
   generate_all_headers private_functions_sorted;
 
@@ -751,8 +762,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
 
   generate_all_structs internal_structs;
 
-pr "\
-
+pr {|
 #endif /* End of GUESTFS_PRIVATE. */
 
 /* Deprecated macros.  Use GUESTFS_HAVE_* instead. */
@@ -770,14 +780,14 @@ pr "\
 #define LIBGUESTFS_HAVE_FIRST_PRIVATE 1
 #define LIBGUESTFS_HAVE_NEXT_PRIVATE 1
 
-";
+|};
 
   List.iter (
     fun { name = shortname } ->
       pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase_ascii shortname);
   ) public_functions_sorted;
 
-  pr "
+  pr {|
 /* End of deprecated macros. */
 
 #ifdef __cplusplus
@@ -785,7 +795,7 @@ pr "\
 #endif
 
 #endif /* GUESTFS_H_ */
-"
+|}
 
 (* Generate the guestfs-internal-actions.h file. *)
 and generate_internal_actions_h () =
@@ -809,15 +819,14 @@ and generate_internal_actions_h () =
 and generate_client_structs_cleanups_h () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-/* These CLEANUP_* macros automatically free the struct or struct list
+  pr {|/* These CLEANUP_* macros automatically free the struct or struct list
  * pointed to by the local variable at the end of the current scope.
  */
 
 #ifndef GUESTFS_STRUCTS_CLEANUPS_H_
 #define GUESTFS_STRUCTS_CLEANUPS_H_
 
-";
+|};
 
   List.iter (
     fun { s_name = name } ->
@@ -827,13 +836,12 @@ and generate_client_structs_cleanups_h () =
       pr "  __attribute__((cleanup(guestfs_int_cleanup_free_%s_list)))\n" name
   ) structs;
 
-  pr "\
-
+  pr {|
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.
  */
 
-";
+|};
 
   List.iter (
     fun { s_name = name } ->
@@ -850,17 +858,16 @@ and generate_client_structs_cleanups_h () =
 and generate_client_structs_free () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-internal.h\"
-#include \"guestfs_protocol.h\"
+#include "guestfs.h"
+#include "guestfs-internal.h"
+#include "guestfs_protocol.h"
 
-";
+|};
 
   pr "/* Structure-freeing functions.  These rely on the fact that the\n";
   pr " * structure format is identical to the XDR format.  See note in\n";
@@ -897,18 +904,17 @@ and generate_client_structs_free () =
 and generate_client_structs_compare () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-internal.h\"
+#include "guestfs.h"
+#include "guestfs-internal.h"
 
-";
+|};
 
   pr "/* Structure-comparison functions. */\n";
 
@@ -982,18 +988,17 @@ and generate_client_structs_compare () =
 and generate_client_structs_copy () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-internal.h\"
+#include "guestfs.h"
+#include "guestfs-internal.h"
 
-";
+|};
 
   pr "/* Structure-copying functions. */\n";
 
@@ -1165,16 +1170,15 @@ and generate_client_structs_copy () =
 and generate_client_structs_cleanups_c () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 
-#include \"guestfs.h\"
-#include \"structs-cleanups.h\"
+#include "guestfs.h"
+#include "structs-cleanups.h"
 
-";
+|};
 
   pr "/* Cleanup functions used by CLEANUP_* macros.  Do not call\n";
   pr " * these functions directly.\n";
@@ -1204,17 +1208,16 @@ and generate_client_structs_cleanups_c () =
 and generate_client_structs_print_c () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <inttypes.h>
 
-#include \"c-ctype.h\"
+#include "c-ctype.h"
 
-#include \"guestfs.h\"
-#include \"structs-print.h\"
+#include "guestfs.h"
+#include "structs-print.h"
 
-";
+|};
 
   let write_structs =
     List.iter (
@@ -1292,13 +1295,12 @@ and generate_client_structs_print_c () =
 and generate_client_structs_print_h () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#ifndef GUESTFS_INTERNAL_STRUCTS_PRINT_H_
+  pr {|#ifndef GUESTFS_INTERNAL_STRUCTS_PRINT_H_
 #define GUESTFS_INTERNAL_STRUCTS_PRINT_H_
 
 #include <stdio.h>
 
-";
+|};
 
   let write_structs =
     List.iter (
@@ -1317,19 +1319,17 @@ and generate_client_structs_print_h () =
 
   write_structs internal_structs;
 
-  pr "\
-
+  pr {|
 #endif /* End of GUESTFS_PRIVATE. */
 
 #endif /* GUESTFS_INTERNAL_STRUCTS_PRINT_H_ */
-"
+|}
 
 (* Generate the client-side dispatch stubs. *)
 and generate_client_actions actions () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 /* It is safe to call deprecated functions from this file. */
 #undef GUESTFS_NO_DEPRECATED
@@ -1342,14 +1342,14 @@ and generate_client_actions actions () =
 #include <sys/stat.h>
 #include <string.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-internal.h\"
-#include \"guestfs-internal-actions.h\"
-#include \"guestfs_protocol.h\"
-#include \"errnostring.h\"
-#include \"structs-print.h\"
+#include "guestfs.h"
+#include "guestfs-internal.h"
+#include "guestfs-internal-actions.h"
+#include "guestfs_protocol.h"
+#include "errnostring.h"
+#include "structs-print.h"
 
-";
+|};
 
   (* Generate code for enter events. *)
   let enter_event shortname =
@@ -2060,19 +2060,18 @@ and generate_client_actions actions () =
 and generate_client_actions_variants () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <inttypes.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-internal.h\"
-#include \"guestfs-internal-actions.h\"
+#include "guestfs.h"
+#include "guestfs-internal.h"
+#include "guestfs-internal-actions.h"
 
-";
+|};
 
   let generate_va_variants { name; c_name;
                              style = ret, args, optargs as style } =
@@ -2215,16 +2214,15 @@ and generate_event_string_c () =
       if len > longest then len else longest
   ) 0 events in
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <libintl.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-internal.h\"
+#include "guestfs.h"
+#include "guestfs-internal.h"
 
 GUESTFS_DLL_PUBLIC char *
 guestfs_event_to_string (uint64_t event)
@@ -2247,7 +2245,7 @@ guestfs_event_to_string (uint64_t event)
 
   len = 0;
 
-" (List.length events) (longest + 1);
+|} (List.length events) (longest + 1);
 
   (* Sort the events alphabetically so the events are returned sorted. *)
   let sorted_event_names = List.sort compare (List.map fst events) in
@@ -2261,15 +2259,15 @@ guestfs_event_to_string (uint64_t event)
       pr "  }\n";
   ) sorted_event_names;
 
-  pr "
+  pr {|
   if (len > 0)
-    ret[len-1] = '\\0'; /* truncates the final trailing comma */
+    ret[len-1] = '\0'; /* truncates the final trailing comma */
   else
-    ret[0] = '\\0';
+    ret[0] = '\0';
 
   return ret;
 }
-"
+|}
 
 (* Generate the linker script which controls the visibility of
  * symbols in the public ABI and ensures no other symbols get

@@ -57,9 +57,8 @@ let rec generate_erlang_erl () =
 
   pr "\n";
 
-  pr "\
-create() ->
-  create(\"erl-guestfs\").
+  pr {|create() ->
+  create("erl-guestfs").
 
 create(ExtProg) ->
   G = spawn(?MODULE, init, [ExtProg]),
@@ -96,7 +95,7 @@ loop(Port) ->
       exit(port_terminated)
   end.
 
-";
+|};
 
   (* These bindings just marshal the parameters and call the back-end
    * process which dispatches them to the port.
@@ -186,8 +185,7 @@ loop(Port) ->
 and generate_erlang_actions_h () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#ifndef GUESTFS_ERLANG_ACTIONS_H_
+  pr {|#ifndef GUESTFS_ERLANG_ACTIONS_H_
 #define GUESTFS_ERLANG_ACTIONS_H_
 
 extern guestfs_h *g;
@@ -207,7 +205,7 @@ extern int decode_bool (const char *buff, int *index, int *res);
 extern int decode_int (const char *buff, int *index, int *res);
 extern int decode_int64 (const char *buff, int *index, int64_t *res);
 
-";
+|};
 
   let emit_copy_list_decl typ =
     pr "int make_%s_list (ei_x_buff *buff, const struct guestfs_%s_list *%ss);\n"
@@ -238,8 +236,7 @@ extern int decode_int64 (const char *buff, int *index, int64_t *res);
 and generate_erlang_structs () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -249,11 +246,11 @@ and generate_erlang_structs () =
 
 #include <ei.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-utils.h\"
+#include "guestfs.h"
+#include "guestfs-utils.h"
 
-#include \"actions.h\"
-";
+#include "actions.h"
+|};
 
   (* Struct copy functions. *)
   let emit_copy_list_function typ =
@@ -328,8 +325,7 @@ and generate_erlang_structs () =
 and generate_erlang_actions actions () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 /* It is safe to call deprecated functions from this file. */
 #define GUESTFS_NO_WARN_DEPRECATED
@@ -343,11 +339,11 @@ and generate_erlang_actions actions () =
 
 #include <ei.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-utils.h\"
+#include "guestfs.h"
+#include "guestfs-utils.h"
 
-#include \"actions.h\"
-";
+#include "actions.h"
+|};
 
   (* The wrapper functions. *)
   List.iter (
@@ -526,8 +522,7 @@ and generate_erlang_actions actions () =
 and generate_erlang_dispatch () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -537,10 +532,10 @@ and generate_erlang_dispatch () =
 
 #include <ei.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-utils.h\"
+#include "guestfs.h"
+#include "guestfs-utils.h"
 
-#include \"actions.h\"
+#include "actions.h"
 
 int
 dispatch (ei_x_buff *retbuff, const char *buff, int *index)
@@ -552,7 +547,7 @@ dispatch (ei_x_buff *retbuff, const char *buff, int *index)
   if (ei_decode_atom (buff, index, fun) != 0) return -1;
 
   /* XXX We should use gperf here. */
-  ";
+  |};
 
   List.iter (
     fun { name; style = ret, args, optargs } ->

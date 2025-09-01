@@ -36,36 +36,36 @@ The default size can be changed by supplying an optional parameter.");
    "create a partitioned disk",
    [ "size", "1G", "the size of the disk image";
      "partition", "mbr", "partition table type" ],
-   "Create a disk with a single partition.  By default the size of the disk
+   {|Create a disk with a single partition.  By default the size of the disk
 is 1G (the available space in the partition will be a tiny bit smaller)
 and the partition table will be MBR (old DOS-style).
 
-These defaults can be changed by supplying optional parameters.");
+These defaults can be changed by supplying optional parameters.|});
 
   ("fs",
    "create a filesystem",
    [ "filesystem", "ext2", "the type of filesystem to use";
      "size", "1G", "the size of the disk image";
      "partition", "mbr", "partition table type" ],
-   "Create a disk with a single partition, with the partition containing
+   {|Create a disk with a single partition, with the partition containing
 an empty filesystem.  This defaults to creating a 1G disk (the available
 space in the filesystem will be a tiny bit smaller) with an MBR (old
 DOS-style) partition table and an ext2 filesystem.
 
-These defaults can be changed by supplying optional parameters.");
+These defaults can be changed by supplying optional parameters.|});
 
   ("lv",
    "create a disk with logical volume",
    [ "name", "/dev/VG/LV", "the name of the VG and LV to use";
      "size", "1G", "the size of the disk image";
      "partition", "mbr", "partition table type" ],
-   "Create a disk with a single partition, set up the partition as an
+   {|Create a disk with a single partition, set up the partition as an
 LVM2 physical volume, and place a volume group and logical volume
 on there.  This defaults to creating a 1G disk with the VG and
 LV called C</dev/VG/LV>.  You can change the name of the VG and LV
 by supplying an alternate name as the first optional parameter.
 
-Note this does not create a filesystem.  Use 'lvfs' to do that.");
+Note this does not create a filesystem.  Use 'lvfs' to do that.|});
 
   ("lvfs",
    "create a disk with logical volume and filesystem",
@@ -73,11 +73,11 @@ Note this does not create a filesystem.  Use 'lvfs' to do that.");
      "filesystem", "ext2", "the type of filesystem to use";
      "size", "1G", "the size of the disk image";
      "partition", "mbr", "partition table type" ],
-   "Create a disk with a single partition, set up the partition as an
+   {|Create a disk with a single partition, set up the partition as an
 LVM2 physical volume, and place a volume group and logical volume
 on there.  Then format the LV with a filesystem.  This defaults to
 creating a 1G disk with the VG and LV called C</dev/VG/LV>, with an
-ext2 filesystem.");
+ext2 filesystem.|});
 
   ("bootroot",
    "create a boot and root filesystem",

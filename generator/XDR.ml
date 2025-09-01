@@ -189,8 +189,7 @@ let generate_xdr () =
   pr "\n";
 
   (* Message header, etc. *)
-  pr "\
-const GUESTFS_PROGRAM = 0x2000F5F5;
+  pr {|const GUESTFS_PROGRAM = 0x2000F5F5;
 const GUESTFS_PROTOCOL_VERSION = 4;
 
 /* These constants must be larger than any possible message length. */
@@ -208,14 +207,13 @@ enum guestfs_message_status {
   GUESTFS_STATUS_ERROR = 1
 };
 
-";
+|};
 
   pr "const GUESTFS_ERROR_LEN = %d;\n" (64 * 1024);
   pr "\n";
 
-  pr "\
-struct guestfs_message_error {
-  string errno_string<32>;           /* errno eg. \"EINVAL\", empty string
+  pr {|struct guestfs_message_error {
+  string errno_string<32>;           /* errno eg. "EINVAL", empty string
                                         if errno not available */
   string error_message<GUESTFS_ERROR_LEN>;
 };
@@ -261,4 +259,4 @@ struct guestfs_progress {
   uint64_t total;                    /* @16: total size of operation */
                                      /* @24: size of structure */
 };
-"
+|}

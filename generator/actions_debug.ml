@@ -41,14 +41,13 @@ let daemon_functions = [
     style = RString (RPlainString, "result"), [String (PlainString, "subcmd"); StringList (PlainString, "extraargs")], [];
     visibility = VDebug;
     shortdesc = "debugging and internals";
-    longdesc = "\
-The C<guestfs_debug> command exposes some internals of
+    longdesc = {|The C<guestfs_debug> command exposes some internals of
 C<guestfsd> (the guestfs daemon) that runs inside the
 hypervisor.
 
 There is no comprehensive help for this command.  You have
 to look at the file F<daemon/debug.c> in the libguestfs source
-to find out what you can do." };
+to find out what you can do.|} };
 
   { defaults with
     name = "debug_upload"; added = (1, 3, 5);
@@ -56,12 +55,11 @@ to find out what you can do." };
     visibility = VDebug;
     cancellable = true;
     shortdesc = "upload a file to the appliance (internal use only)";
-    longdesc = "\
-The C<guestfs_debug_upload> command uploads a file to
+    longdesc = {|The C<guestfs_debug_upload> command uploads a file to
 the libguestfs appliance.
 
 There is no comprehensive help for this command.  You have
 to look at the file F<daemon/debug.c> in the libguestfs source
-to find out what it is for." };
+to find out what it is for.|} };
 
 ]

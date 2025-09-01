@@ -31,8 +31,7 @@ let non_daemon_functions = [
     deprecated_by = Deprecated_no_replacement;
     blocking = false;
     shortdesc = "wait until the hypervisor launches (no op)";
-    longdesc = "\
-This function is a no op.
+    longdesc = {|This function is a no op.
 
 In versions of the API E<lt> 1.0.71 you had to call this function
 just after calling C<guestfs_launch> to wait for the launch
@@ -41,7 +40,7 @@ C<guestfs_launch> now does the waiting.
 
 If you see any calls to this function in code then you can just
 remove them, unless you want to retain compatibility with older
-versions of the API." };
+versions of the API.|} };
 
   { defaults with
     name = "kill_subprocess"; added = (0, 0, 3);
@@ -92,8 +91,7 @@ Both the direct and the libvirt backends ignore C<iface>." };
     style = RStructList ("statbufs", "stat"), [String (Pathname, "path"); StringList (Filename, "names")], [];
     deprecated_by = Replaced_by "lstatnslist";
     shortdesc = "lstat on multiple files";
-    longdesc = "\
-This call allows you to perform the C<guestfs_lstat> operation
+    longdesc = {|This call allows you to perform the C<guestfs_lstat> operation
 on multiple files, where all files are in the directory C<path>.
 C<names> is the list of files from this directory.
 
@@ -105,7 +103,7 @@ is set to C<-1>.
 This call is intended for programs that want to efficiently
 list a directory contents without making many round-trips.
 See also C<guestfs_lxattrlist> for a similarly efficient call
-for getting extended attributes." };
+for getting extended attributes.|} };
 
   { defaults with
     name = "stat"; added = (1, 9, 2);
@@ -130,14 +128,13 @@ This is the same as the L<stat(2)> system call." };
         [["lstat"; "/empty"]], "ret->size == 0"), []
     ];
     shortdesc = "get file information for a symbolic link";
-    longdesc = "\
-Returns file information for the given C<path>.
+    longdesc = {|Returns file information for the given C<path>.
 
 This is the same as C<guestfs_stat> except that if C<path>
 is a symbolic link, then the link is stat-ed, not the file it
 refers to.
 
-This is the same as the L<lstat(2)> system call." };
+This is the same as the L<lstat(2)> system call.|} };
 
   { defaults with
     name = "remove_drive"; added = (1, 19, 49);
@@ -158,8 +155,7 @@ let daemon_functions = [
                    StringList (PlainString, "lines")], [];
     deprecated_by = Replaced_by "part_add";
     shortdesc = "create partitions on a block device";
-    longdesc = "\
-This is a direct interface to the L<sfdisk(8)> program for creating
+    longdesc = {|This is a direct interface to the L<sfdisk(8)> program for creating
 partitions on block devices.
 
 C<device> should be a block device, for example F</dev/sda>.
@@ -180,19 +176,18 @@ pass C<lines> as a single element list, when the single element being
 the string C<,> (comma).
 
 See also: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>,
-C<guestfs_part_init>" };
+C<guestfs_part_init>|} };
 
   { defaults with
     name = "blockdev_setbsz"; added = (1, 9, 3);
     style = RErr, [String (Device, "device"); Int "blocksize"], [];
     deprecated_by = Deprecated_no_replacement;
     shortdesc = "set blocksize of block device";
-    longdesc = "\
-This call does nothing and has never done anything
+    longdesc = {|This call does nothing and has never done anything
 because of a bug in blockdev.  B<Do not use it.>
 
 If you need to set the filesystem block size, use the
-C<blocksize> option of C<guestfs_mkfs>." };
+C<blocksize> option of C<guestfs_mkfs>.|} };
 
   { defaults with
     name = "tgz_in"; added = (1, 0, 3);
@@ -230,13 +225,12 @@ it to local file C<tarball>." };
          ["get_e2label"; "/dev/sda1"]], "testlabel"), []
     ];
     shortdesc = "set the ext2/3/4 filesystem label";
-    longdesc = "\
-This sets the ext2/3/4 filesystem label of the filesystem on
+    longdesc = {|This sets the ext2/3/4 filesystem label of the filesystem on
 C<device> to C<label>.  Filesystem labels are limited to
 16 characters.
 
 You can use either C<guestfs_tune2fs_l> or C<guestfs_get_e2label>
-to return the existing label on a filesystem." };
+to return the existing label on a filesystem.|} };
 
   { defaults with
     name = "get_e2label"; added = (1, 0, 15);
@@ -266,14 +260,13 @@ C<device>." };
           [["set_e2uuid"; "/dev/sda1"; "time"]]), []
       ];
     shortdesc = "set the ext2/3/4 filesystem UUID";
-    longdesc = "\
-This sets the ext2/3/4 filesystem UUID of the filesystem on
+    longdesc = {|This sets the ext2/3/4 filesystem UUID of the filesystem on
 C<device> to C<uuid>.  The format of the UUID and alternatives
 such as C<clear>, C<random> and C<time> are described in the
 L<tune2fs(8)> manpage.
 
 You can use C<guestfs_vfs_uuid> to return the existing UUID
-of a filesystem." };
+of a filesystem.|} };
 
   { defaults with
     name = "get_e2uuid"; added = (1, 0, 15);
@@ -298,26 +291,24 @@ C<device>." };
                    String (PlainString, "line")], [];
     deprecated_by = Replaced_by "part_add";
     shortdesc = "modify a single partition on a block device";
-    longdesc = "\
-This runs L<sfdisk(8)> option to modify just the single
+    longdesc = {|This runs L<sfdisk(8)> option to modify just the single
 partition C<n> (note: C<n> counts from 1).
 
 For other parameters, see C<guestfs_sfdisk>.  You should usually
 pass C<0> for the cyls/heads/sectors parameters.
 
-See also: C<guestfs_part_add>" };
+See also: C<guestfs_part_add>|} };
 
   { defaults with
     name = "sfdisk_l"; added = (1, 0, 26);
     style = RString (RDevice, "partitions"), [String (Device, "device")], [];
     deprecated_by = Replaced_by "part_list";
     shortdesc = "display the partition table";
-    longdesc = "\
-This displays the partition table on C<device>, in the
+    longdesc = {|This displays the partition table on C<device>, in the
 human-readable output of the L<sfdisk(8)> command.  It is
 not intended to be parsed.
 
-See also: C<guestfs_part_list>" };
+See also: C<guestfs_part_list>|} };
 
   { defaults with
     name = "e2fsck_f"; added = (1, 0, 29);
@@ -339,12 +330,11 @@ even if the filesystem appears to be clean (I<-f>)." };
          ["mkswap_L"; "hello"; "/dev/sda1"]]), []
     ];
     shortdesc = "create a swap partition with a label";
-    longdesc = "\
-Create a swap partition on C<device> with label C<label>.
+    longdesc = {|Create a swap partition on C<device> with label C<label>.
 
 Note that you cannot attach a swap label to a block device
 (eg. F</dev/sda>), just to a partition.  This appears to be
-a limitation of the kernel or swap tools." };
+a limitation of the kernel or swap tools.|} };
 
   { defaults with
     name = "mkswap_U"; added = (1, 0, 55);
@@ -365,29 +355,27 @@ Create a swap partition on C<device> with UUID C<uuid>." };
     style = RErr, [String (Device, "device"); StringList (PlainString, "lines")], [];
     deprecated_by = Replaced_by "part_add";
     shortdesc = "create partitions on a block device";
-    longdesc = "\
-This is a simplified interface to the C<guestfs_sfdisk>
+    longdesc = {|This is a simplified interface to the C<guestfs_sfdisk>
 command, where partition sizes are specified in megabytes
 only (rounded to the nearest cylinder) and you don't need
 to specify the cyls, heads and sectors parameters which
 were rarely if ever used anyway.
 
 See also: C<guestfs_sfdisk>, the L<sfdisk(8)> manpage
-and C<guestfs_part_disk>" };
+and C<guestfs_part_disk>|} };
 
   { defaults with
     name = "zfile"; added = (1, 0, 59);
     style = RString (RPlainString, "description"), [String (PlainString, "meth"); String (Pathname, "path")], [];
     deprecated_by = Replaced_by "file";
     shortdesc = "determine file type inside a compressed file";
-    longdesc = "\
-This command runs L<file(1)> after first decompressing C<path>
+    longdesc = {|This command runs L<file(1)> after first decompressing C<path>
 using C<meth>.
 
 C<meth> must be one of C<gzip>, C<compress> or C<bzip2>.
 
 Since 1.0.63, use C<guestfs_file> instead which can now
-process compressed files." };
+process compressed files.|} };
 
   { defaults with
     name = "egrep"; added = (1, 0, 66);
@@ -565,14 +553,13 @@ matching lines." };
          ["stat"; "/fallocate"]], "ret->size == 1000000"), []
     ];
     shortdesc = "preallocate a file in the guest filesystem";
-    longdesc = "\
-This command preallocates a file (containing zero bytes) named
+    longdesc = {|This command preallocates a file (containing zero bytes) named
 C<path> of size C<len> bytes.  If the file exists already, it
 is overwritten.
 
 Do not confuse this with the guestfish-specific
 C<alloc> command which allocates a file in the host and
-attaches it as a device." };
+attaches it as a device.|} };
 
   { defaults with
     name = "setcon"; added = (1, 0, 67);
@@ -626,14 +613,13 @@ and C<guestfs_setcon>" };
          ["mkfs_b"; "ntfs"; "32768"; "/dev/sda1"]]), []
     ];
     shortdesc = "make a filesystem with block size";
-    longdesc = "\
-This call is similar to C<guestfs_mkfs>, but it allows you to
+    longdesc = {|This call is similar to C<guestfs_mkfs>, but it allows you to
 control the block size of the resulting filesystem.  Supported
 block sizes depend on the filesystem type, but typically they
 are C<1024>, C<2048> or C<4096> only.
 
 For VFAT and NTFS the C<blocksize> parameter is treated as
-the requested cluster size." };
+the requested cluster size.|} };
 
   { defaults with
     name = "mke2journal"; added = (1, 0, 68);
@@ -701,14 +687,13 @@ This creates an ext2 external journal on C<device> with UUID C<uuid>." };
     style = RErr, [String (PlainString, "fstype"); Int "blocksize"; String (Device, "device"); String (Device, "journal")], [];
     deprecated_by = Replaced_by "mke2fs";
     shortdesc = "make ext2/3/4 filesystem with external journal";
-    longdesc = "\
-This creates an ext2/3/4 filesystem on C<device> with
+    longdesc = {|This creates an ext2/3/4 filesystem on C<device> with
 an external journal on C<journal>.  It is equivalent
 to the command:
 
  mke2fs -t fstype -b blocksize -J device=<journal> <device>
 
-See also C<guestfs_mke2journal>." };
+See also C<guestfs_mke2journal>.|} };
 
   { defaults with
     name = "mke2fs_JL"; added = (1, 0, 68);
@@ -746,8 +731,7 @@ See also C<guestfs_mke2journal_U>." };
         "compare_buffers (ret, size, \"hello, world\", 12) == 0"), []
     ];
     shortdesc = "copy from source to destination using dd";
-    longdesc = "\
-This command copies from one source device or file C<src>
+    longdesc = {|This command copies from one source device or file C<src>
 to another destination device or file C<dest>.  Normally you
 would use this to copy to or from a device or partition, for
 example to duplicate a filesystem.
@@ -755,7 +739,7 @@ example to duplicate a filesystem.
 If the destination is a device, it must be as large or larger
 than the source file or device, otherwise the copy will fail.
 This command cannot do partial copies
-(see C<guestfs_copy_device_to_device>)." };
+(see C<guestfs_copy_device_to_device>).|} };
 
   { defaults with
     name = "txz_in"; added = (1, 3, 2);
@@ -804,8 +788,7 @@ is I<not> intended that you try to parse the output string." };
         [["write_file"; "/write_file"; "abc"; "10000"]], []
     ];
     shortdesc = "create a file";
-    longdesc = "\
-This call creates a file called C<path>.  The contents of the
+    longdesc = {|This call creates a file called C<path>.  The contents of the
 file is the string C<content> (which can contain any 8 bit data),
 with length C<size>.
 
@@ -814,7 +797,7 @@ then the length is calculated using C<strlen> (so in this case
 the content cannot contain embedded ASCII NULs).
 
 I<NB.> Owing to a bug, writing content containing ASCII NUL
-characters does I<not> work, even if the length is specified." };
+characters does I<not> work, even if the length is specified.|} };
 
   { defaults with
     name = "copy_size"; added = (1, 0, 87);
@@ -829,12 +812,11 @@ characters does I<not> work, even if the length is specified." };
         "compare_buffers (ret, size, \"hello\", 5) == 0"), []
     ];
     shortdesc = "copy size bytes from source to destination using dd";
-    longdesc = "\
-This command copies exactly C<size> bytes from one source device
+    longdesc = {|This command copies exactly C<size> bytes from one source device
 or file C<src> to another destination device or file C<dest>.
 
 Note this will fail if the source is too short or if the destination
-is not large enough." };
+is not large enough.|} };
 
   { defaults with
     name = "ntfsresize_size"; added = (1, 3, 14);
@@ -865,8 +847,7 @@ physical volumes, volume groups and logical volumes." };
     optional = Some "luks";
     deprecated_by = Replaced_by "cryptsetup_open";
     shortdesc = "open a LUKS-encrypted block device";
-    longdesc = "\
-This command opens a block device which has been encrypted
+    longdesc = {|This command opens a block device which has been encrypted
 according to the Linux Unified Key Setup (LUKS) standard.
 
 C<device> is the encrypted block device or partition.
@@ -883,7 +864,7 @@ calling C<guestfs_lvm_scan> with the C<activate>
 parameter C<true> will make them visible.
 
 Use C<guestfs_list_dm_devices> to list all device mapper
-devices." };
+devices.|} };
 
   { defaults with
     name = "luks_open_ro"; added = (1, 5, 1);
@@ -903,12 +884,11 @@ mapping is created." };
     optional = Some "luks";
     deprecated_by = Replaced_by "cryptsetup_close";
     shortdesc = "close a LUKS device";
-    longdesc = "\
-This closes a LUKS device that was created earlier by
+    longdesc = {|This closes a LUKS device that was created earlier by
 C<guestfs_luks_open> or C<guestfs_luks_open_ro>.  The
 C<device> parameter must be the name of the LUKS mapping
 device (ie. F</dev/mapper/mapname>) and I<not> the name
-of the underlying block device." };
+of the underlying block device.|} };
 
   { defaults with
     name = "list_9p"; added = (1, 11, 12);
@@ -950,8 +930,7 @@ filesystem is stored." };
     deprecated_by = Replaced_by "setfiles";
     test_excuse = "tests are in the tests/relabel directory";
     shortdesc = "relabel parts of the filesystem";
-    longdesc = "\
-SELinux relabel parts of the filesystem.
+    longdesc = {|SELinux relabel parts of the filesystem.
 
 The C<specfile> parameter controls the policy spec file used.
 You have to parse C</etc/selinux/config> to find the correct
@@ -964,6 +943,6 @@ to relabel the whole guest filesystem.
 
 The optional C<force> boolean controls whether the context
 is reset for customizable files, and also whether the
-user, role and range parts of the file context is changed." };
+user, role and range parts of the file context is changed.|} };
 
 ]

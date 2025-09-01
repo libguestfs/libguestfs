@@ -48,8 +48,7 @@ let ocaml_errnos = [
 let rec generate_ocaml_mli () =
   generate_header OCamlStyle LGPLv2plus;
 
-  pr "\
-(** libguestfs bindings for OCaml.
+  pr {|(** libguestfs bindings for OCaml.
 
     For API documentation, the canonical reference is the
     {{:http://libguestfs.org/guestfs.3.html}guestfs(3)} man page.
@@ -98,15 +97,14 @@ val close : t -> unit
 (** {3 Events} *)
 
 type event =
-";
+|};
   List.iter (
     fun (name, _) ->
       pr "  | EVENT_%s\n" (String.uppercase_ascii name)
   ) events;
   pr "\n";
 
-  pr "\
-val event_all : event list
+  pr {|val event_all : event list
 (** A list containing all event types. *)
 
 type event_handle
@@ -149,18 +147,17 @@ val last_errno : t -> int
     which you can use to test the return value of {!Guestfs.last_errno}. *)
 
 module Errno : sig
-";
+|};
   List.iter (
     fun e ->
       pr "  val errno_%s : int\n" e;
       pr "  (** Integer value of errno [%s].  See {!Guestfs.last_errno}. *)\n" e
   ) ocaml_errnos;
-  pr "\
-end
+  pr {|end
 
 (** {3 Structs} *)
 
-";
+|};
   generate_ocaml_structure_decls ();
 
   pr "\
@@ -234,8 +231,7 @@ end
       pr "\n";
   ) (actions |> external_functions |> sort);
 
-  pr "\
-(** {2 Object-oriented API}
+  pr {|(** {2 Object-oriented API}
 
     This is an alternate way of calling the API using an object-oriented
     style, so you can use
@@ -268,7 +264,7 @@ class guestfs : ?environment:bool -> ?close_on_exit:bool -> unit -> object
   (** See {!Guestfs.last_errno} *)
   method ocaml_handle : t
   (** Return the {!Guestfs.t} handle *)
-";
+|};
 
   List.iter (
     fun ({ name; style; non_c_aliases } as f) ->
@@ -306,15 +302,14 @@ class guestfs : ?environment:bool -> ?close_on_exit:bool -> unit -> object
 and generate_ocaml_ml () =
   generate_header OCamlStyle LGPLv2plus;
 
-  pr "\
-type t
+  pr {|type t
 
 exception Error of string
 exception Handle_closed of string
 
 external _create : ?environment:bool -> ?close_on_exit:bool -> unit -> t =
-  \"guestfs_int_ocaml_create\"
-external close : t -> unit = \"guestfs_int_ocaml_close\"
+  "guestfs_int_ocaml_create"
+external close : t -> unit = "guestfs_int_ocaml_close"
 
 let create ?environment ?close_on_exit () =
   let g = _create ?environment ?close_on_exit () in
@@ -322,7 +317,7 @@ let create ?environment ?close_on_exit () =
   g
 
 type event =
-";
+|};
   List.iter (
     fun (name, _) ->
       pr "  | EVENT_%s\n" (String.uppercase_ascii name)
@@ -337,24 +332,23 @@ let event_all = [
       pr "  EVENT_%s;\n" (String.uppercase_ascii name)
   ) events;
 
-  pr "\
-]
+  pr {|]
 
 type event_handle = int
 
 type event_callback = event -> event_handle -> string -> int64 array -> unit
 
 external set_event_callback : t -> event_callback -> event list -> event_handle
-  = \"guestfs_int_ocaml_set_event_callback\"
+  = "guestfs_int_ocaml_set_event_callback"
 external delete_event_callback : t -> event_handle -> unit
-  = \"guestfs_int_ocaml_delete_event_callback\"
+  = "guestfs_int_ocaml_delete_event_callback"
 external event_to_string : event list -> string
-  = \"guestfs_int_ocaml_event_to_string\"
+  = "guestfs_int_ocaml_event_to_string"
 
-external last_errno : t -> int = \"guestfs_int_ocaml_last_errno\"
+external last_errno : t -> int = "guestfs_int_ocaml_last_errno"
 
 module Errno = struct
-";
+|};
   List.iter (
     fun e ->
       let le = String.lowercase_ascii e in
@@ -362,15 +356,14 @@ module Errno = struct
         le e;
       pr "  let errno_%s = %s ()\n" e le
   ) ocaml_errnos;
-  pr "\
-end
+  pr {|end
 
 (* Give the exceptions names, so they can be raised from the C code. *)
 let () =
-  Callback.register_exception \"guestfs_int_ocaml_error\" (Error \"\");
-  Callback.register_exception \"guestfs_int_ocaml_closed\" (Handle_closed \"\")
+  Callback.register_exception "guestfs_int_ocaml_error" (Error "");
+  Callback.register_exception "guestfs_int_ocaml_closed" (Handle_closed "")
 
-";
+|};
 
   generate_ocaml_structure_decls ();
 
@@ -382,7 +375,7 @@ let () =
   ) (actions |> external_functions |> sort);
 
   (* OO API. *)
-  pr "
+  pr {|
 class guestfs ?environment ?close_on_exit () =
   let g = create ?environment ?close_on_exit () in
   object (self)
@@ -391,7 +384,7 @@ class guestfs ?environment ?close_on_exit () =
     method delete_event_callback = delete_event_callback g
     method last_errno () = last_errno g
     method ocaml_handle = g
-";
+|};
 
   List.iter (
     fun { name; style; non_c_aliases } ->
@@ -415,8 +408,7 @@ class guestfs ?environment ?close_on_exit () =
 and generate_ocaml_c () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 /* It is safe to call deprecated functions from this file. */
 #define GUESTFS_NO_WARN_DEPRECATED
@@ -437,9 +429,9 @@ and generate_ocaml_c () =
 #include <caml/threads.h>
 
 #include <guestfs.h>
-#include \"guestfs-utils.h\"
+#include "guestfs-utils.h"
 
-#include \"guestfs-c.h\"
+#include "guestfs-c.h"
 
 /* Copy a hashtable of string pairs into an assoc-list.  We return
  * the list in reverse order, but hashtables aren't supposed to be
@@ -468,7 +460,7 @@ copy_table (char * const * argv)
   CAMLreturn (rv);
 }
 
-";
+|};
 
   (* Struct copy functions. *)
 
@@ -795,8 +787,7 @@ copy_table (char * const * argv)
 and generate_ocaml_c_errnos () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -809,12 +800,12 @@ and generate_ocaml_c_errnos () =
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
-#include \"guestfs.h\"
+#include "guestfs.h"
 
-#include \"guestfs-c.h\"
+#include "guestfs-c.h"
 
 /* These prototypes are solely to quiet gcc warnings. */
-";
+|};
   List.iter (
     fun e ->
       pr "value guestfs_int_ocaml_get_%s (value unitv);\n" e
@@ -822,15 +813,14 @@ and generate_ocaml_c_errnos () =
 
   List.iter (
     fun e ->
-      pr "\
-
+      pr {|
 /* NB: [@@noalloc] function. */
 value
 guestfs_int_ocaml_get_%s (value unitv)
 {
   return Val_int (%s);
 }
-" e e
+|} e e
   ) ocaml_errnos
 
 and generate_ocaml_structure_decls () =

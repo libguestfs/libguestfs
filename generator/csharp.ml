@@ -37,8 +37,7 @@ let rec generate_csharp () =
   (* XXX Make this configurable by the C# assembly users. *)
   let library = "libguestfs.so.0" in
 
-  pr "\
-// These C# bindings are highly experimental at present.
+  pr {|// These C# bindings are highly experimental at present.
 //
 // Firstly they only work on Linux (ie. Mono).  In order to get them
 // to work on Windows (ie. .Net) you would need to port the library
@@ -85,17 +84,17 @@ namespace Guestfs
   {
     IntPtr _handle;
 
-    [DllImport (\"%s\")]
+    [DllImport ("%s")]
     static extern IntPtr guestfs_create ();
 
     public Guestfs ()
     {
       _handle = guestfs_create ();
       if (_handle == IntPtr.Zero)
-        throw new Error (\"could not create guestfs handle\");
+        throw new Error ("could not create guestfs handle");
     }
 
-    [DllImport (\"%s\")]
+    [DllImport ("%s")]
     static extern void guestfs_close (IntPtr h);
 
     ~Guestfs ()
@@ -103,10 +102,10 @@ namespace Guestfs
       guestfs_close (_handle);
     }
 
-    [DllImport (\"%s\")]
+    [DllImport ("%s")]
     static extern string guestfs_last_error (IntPtr h);
 
-" library library library;
+|} library library library;
 
   (* Generate C# structure bindings.  We prefix struct names with
    * underscore because C# cannot have conflicting struct names and

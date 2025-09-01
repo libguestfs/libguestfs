@@ -64,15 +64,14 @@ let test_functions = [
     visibility = VBindTest; cancellable = true;
     blocking = false;
     shortdesc = "internal test function - do not use";
-    longdesc = "\
-This is an internal test function which is used to test whether
+    longdesc = {|This is an internal test function which is used to test whether
 the automatically generated bindings can handle every possible
 parameter type correctly.
 
 It echos the contents of each parameter to stdout (by default)
 or to a file (if C<guestfs_internal_test_set_output> was called).
 
-You probably don't want to call this function." };
+You probably don't want to call this function.|} };
 
   { defaults with
     name = "internal_test_only_optargs";
@@ -80,15 +79,14 @@ You probably don't want to call this function." };
     visibility = VBindTest; cancellable = true;
     blocking = false;
     shortdesc = "internal test function - do not use";
-    longdesc = "\
-This is an internal test function which is used to test whether
+    longdesc = {|This is an internal test function which is used to test whether
 the automatically generated bindings can handle no args, some
 optargs correctly.
 
 It echos the contents of each parameter to stdout (by default)
 or to a file (if C<guestfs_internal_test_set_output> was called).
 
-You probably don't want to call this function." };
+You probably don't want to call this function.|} };
 
   { defaults with
     name = "internal_test_63_optargs";
@@ -96,8 +94,7 @@ You probably don't want to call this function." };
     visibility = VBindTest; cancellable = true;
     blocking = false;
     shortdesc = "internal test function - do not use";
-    longdesc = "\
-This is an internal test function which is used to test whether
+    longdesc = {|This is an internal test function which is used to test whether
 the automatically generated bindings can handle the full range
 of 63 optargs correctly.  (Note that 63 is not an absolute limit
 and it could be raised by changing the XDR protocol).
@@ -105,7 +102,7 @@ and it could be raised by changing the XDR protocol).
 It echos the contents of each parameter to stdout (by default)
 or to a file (if C<guestfs_internal_test_set_output> was called).
 
-You probably don't want to call this function." }
+You probably don't want to call this function.|} }
 
 ] @ List.flatten (
   List.map (
@@ -116,28 +113,26 @@ You probably don't want to call this function." }
         visibility = VBindTest;
         blocking = false;
         shortdesc = "internal test function - do not use";
-        longdesc = "\
-This is an internal test function which is used to test whether
+        longdesc = {|This is an internal test function which is used to test whether
 the automatically generated bindings can handle every possible
 return type correctly.
 
 It converts string C<val> to the return type.
 
-You probably don't want to call this function." };
+You probably don't want to call this function.|} };
       { defaults with
         name = name ^ "err";
         style = ret, [], [];
         visibility = VBindTest;
         blocking = false;
         shortdesc = "internal test function - do not use";
-        longdesc = "\
-This is an internal test function which is used to test whether
+        longdesc = {|This is an internal test function which is used to test whether
 the automatically generated bindings can handle every possible
 return type correctly.
 
 This function always returns an error.
 
-You probably don't want to call this function." }
+You probably don't want to call this function.|} }
     ]
   ) test_all_rets
 )
@@ -149,14 +144,13 @@ let test_support_functions = [
     visibility = VBindTest;
     blocking = false;
     shortdesc = "internal test function - do not use";
-    longdesc = "\
-This is an internal test function which is used to test whether
+    longdesc = {|This is an internal test function which is used to test whether
 the automatically generated bindings can handle every possible
 parameter type correctly.
 
 It sets the output file used by C<guestfs_internal_test>.
 
-You probably don't want to call this function." };
+You probably don't want to call this function.|} };
 
   { defaults with
     name = "internal_test_close_output";
@@ -164,13 +158,12 @@ You probably don't want to call this function." };
     visibility = VBindTest;
     blocking = false;
     shortdesc = "internal test function - do not use";
-    longdesc = "\
-This is an internal test function which is used to test whether
+    longdesc = {|This is an internal test function which is used to test whether
 the automatically generated bindings can handle every possible
 parameter type correctly.
 
 It closes the output file previously opened by
 C<guestfs_internal_test_set_output>.
 
-You probably don't want to call this function." };
+You probably don't want to call this function.|} };
 ]

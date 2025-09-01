@@ -34,8 +34,7 @@ let daemon_functions = [
          ["aug_get"; "/files/etc/hostname/hostname"]], "test.example.org"), [["aug_close"]]
     ];
     shortdesc = "create a new Augeas handle";
-    longdesc = "\
-Create a new Augeas handle for editing configuration files.
+    longdesc = {|Create a new Augeas handle for editing configuration files.
 If there was any previous Augeas handle associated with this
 guestfs session, then it is closed.
 
@@ -85,7 +84,7 @@ Do not load the tree in C<guestfs_aug_init>.
 
 To close the handle, you can call C<guestfs_aug_close>.
 
-To find out more about Augeas, see L<http://augeas.net/>." };
+To find out more about Augeas, see L<http://augeas.net/>.|} };
 
   { defaults with
     name = "aug_close"; added = (0, 0, 7);
@@ -101,20 +100,18 @@ Augeas functions." };
     name = "aug_defvar"; added = (0, 0, 7);
     style = RInt "nrnodes", [String (PlainString, "name"); OptString "expr"], [];
     shortdesc = "define an Augeas variable";
-    longdesc = "\
-Defines an Augeas variable C<name> whose value is the result
+    longdesc = {|Defines an Augeas variable C<name> whose value is the result
 of evaluating C<expr>.  If C<expr> is NULL, then C<name> is
 undefined.
 
 On success this returns the number of nodes in C<expr>, or
-C<0> if C<expr> evaluates to something which is not a nodeset." };
+C<0> if C<expr> evaluates to something which is not a nodeset.|} };
 
   { defaults with
     name = "aug_defnode"; added = (0, 0, 7);
     style = RStruct ("nrnodescreated", "int_bool"), [String (PlainString, "name"); String (PlainString, "expr"); String (PlainString, "val")], [];
     shortdesc = "define an Augeas node";
-    longdesc = "\
-Defines a variable C<name> whose value is the result of
+    longdesc = {|Defines a variable C<name> whose value is the result of
 evaluating C<expr>.
 
 If C<expr> evaluates to an empty nodeset, a node is created,
@@ -123,7 +120,7 @@ C<name> will be the nodeset containing that single node.
 
 On success this returns a pair containing the
 number of nodes in the nodeset, and a boolean flag
-if a node was created." };
+if a node was created.|} };
 
   { defaults with
     name = "aug_get"; added = (0, 0, 7);
@@ -145,13 +142,12 @@ matches exactly one node, the C<value> is returned." };
          ["aug_get"; "/files/etc/hostname/hostname"]], "replace.example.com"), [["aug_close"]]
     ];
     shortdesc = "set Augeas path to value";
-    longdesc = "\
-Set the value associated with C<augpath> to C<val>.
+    longdesc = {|Set the value associated with C<augpath> to C<val>.
 
 In the Augeas API, it is possible to clear a node by setting
 the value to NULL.  Due to an oversight in the libguestfs API
 you cannot do that with this call.  Instead you must use the
-C<guestfs_aug_clear> call." };
+C<guestfs_aug_clear> call.|} };
 
   { defaults with
     name = "aug_insert"; added = (0, 0, 7);
@@ -170,14 +166,13 @@ C<guestfs_aug_clear> call." };
          ["cat"; "/etc/hosts"]], "\n127.0.0.1\tlocalhost\n"), [["aug_close"]]
     ];
     shortdesc = "insert a sibling Augeas node";
-    longdesc = "\
-Create a new sibling C<label> for C<path>, inserting it into
+    longdesc = {|Create a new sibling C<label> for C<path>, inserting it into
 the tree before or after C<path> (depending on the boolean
 flag C<before>).
 
 C<path> must match exactly one existing node in the tree, and
 C<label> must be a label, ie. not contain F</>, C<*> or end
-with a bracketed index C<[N]>." };
+with a bracketed index C<[N]>.|} };
 
   { defaults with
     name = "aug_rm"; added = (0, 0, 7);
@@ -253,11 +248,10 @@ is the same as the L<augtool(1)> C<clear> command." };
     name = "aug_transform"; added = (1, 35, 2);
     style = RErr, [String (PlainString, "lens"); String (PlainString, "file")], [ OBool "remove"];
     shortdesc = "add/remove an Augeas lens transformation";
-    longdesc = "\
-Add an Augeas transformation for the specified C<lens> so it can
+    longdesc = {|Add an Augeas transformation for the specified C<lens> so it can
 handle C<file>.
 
 If C<remove> is true (C<false> by default), then the transformation
-is removed." };
+is removed.|} };
 
 ]

@@ -37,17 +37,16 @@ let generate_header = generate_header ~inputs:["generator/python.ml"]
 let rec generate_python_actions_h () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#ifndef GUESTFS_PYTHON_ACTIONS_H_
+  pr {|#ifndef GUESTFS_PYTHON_ACTIONS_H_
 #define GUESTFS_PYTHON_ACTIONS_H_
 
-#include \"guestfs.h\"
-#include \"guestfs-stringlists-utils.h\"
+#include "guestfs.h"
+#include "guestfs-stringlists-utils.h"
 
 #define PY_SSIZE_T_CLEAN 1
 
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored \"-Wcast-align\"
+#pragma GCC diagnostic ignored "-Wcast-align"
 #include <Python.h>
 #pragma GCC diagnostic pop
 
@@ -56,14 +55,14 @@ get_handle (PyObject *obj)
 {
   assert (obj);
   assert (obj != Py_None);
-  return (guestfs_h*) PyCapsule_GetPointer(obj, \"guestfs_h\");
+  return (guestfs_h*) PyCapsule_GetPointer(obj, "guestfs_h");
 }
 
 static inline PyObject *
 put_handle (guestfs_h *g)
 {
   assert (g);
-  return PyCapsule_New ((void *) g, \"guestfs_h\", NULL);
+  return PyCapsule_New ((void *) g, "guestfs_h", NULL);
 }
 
 extern void guestfs_int_py_extend_module (PyObject *module);
@@ -80,7 +79,7 @@ extern PyObject *guestfs_int_py_fromstring (const char *str);
 extern PyObject *guestfs_int_py_fromstringsize (const char *str, size_t size);
 extern char *guestfs_int_py_asstring (PyObject *obj);
 
-";
+|};
 
   let emit_put_list_decl typ =
     pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase_ascii typ);
@@ -118,16 +117,15 @@ extern char *guestfs_int_py_asstring (PyObject *obj);
 and generate_python_structs () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
-#include \"actions.h\"
+#include "actions.h"
 
-";
+|};
 
   let emit_put_list_function typ =
     pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase_ascii typ);
@@ -254,8 +252,7 @@ and generate_python_structs () =
 and generate_python_actions actions () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 /* It is safe to call deprecated functions from this file. */
 #define GUESTFS_NO_WARN_DEPRECATED
@@ -265,9 +262,9 @@ and generate_python_actions actions () =
 #include <stdlib.h>
 #include <assert.h>
 
-#include \"actions.h\"
+#include "actions.h"
 
-";
+|};
 
   List.iter (
     fun { name; style = (ret, args, optargs as style);
@@ -526,16 +523,15 @@ and generate_python_actions actions () =
 and generate_python_module () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
-#include \"actions.h\"
+#include "actions.h"
 
-";
+|};
 
   (* Table of functions. *)
   pr "static PyMethodDef methods[] = {\n";
@@ -559,11 +555,10 @@ and generate_python_module () =
   pr "\n";
 
   (* Init function. *)
-  pr "\
-static struct PyModuleDef moduledef = {
+  pr {|static struct PyModuleDef moduledef = {
   PyModuleDef_HEAD_INIT,
-  \"libguestfsmod\",     /* m_name */
-  \"libguestfs module\",   /* m_doc */
+  "libguestfsmod",     /* m_name */
+  "libguestfs module",   /* m_doc */
   -1,                    /* m_size */
   methods,               /* m_methods */
   NULL,                  /* m_reload */
@@ -592,7 +587,7 @@ PyInit_libguestfsmod (void)
 {
   return moduleinit ();
 }
-"
+|}
 
 (* Generate Python module. *)
 and generate_python_py () =
@@ -603,12 +598,11 @@ and generate_python_py () =
 
   generate_header HashStyle LGPLv2plus;
 
-  pr "\
-\"\"\"Python bindings for libguestfs
+  pr {|"""Python bindings for libguestfs
 
 import guestfs
 g = guestfs.GuestFS(python_return_dict=True)
-g.add_drive_opts(\"guest.img\", format=\"raw\")
+g.add_drive_opts("guest.img", format="raw")
 g.launch()
 parts = g.list_partitions()
 
@@ -641,7 +635,7 @@ sequence of calls:
 # Create the handle, call add_drive* at least once, and possibly
 # several times if the guest has multiple block devices:
 g = guestfs.GuestFS()
-g.add_drive_opts(\"guest.img\", format=\"raw\")
+g.add_drive_opts("guest.img", format="raw")
 
 # Launch the qemu subprocess and wait for it to become ready:
 g.launch()
@@ -649,14 +643,14 @@ g.launch()
 # Now you can issue commands, for example:
 logvols = g.lvs()
 
-\"\"\"
+"""
 
 import os
 import sys
 import libguestfsmod
 from typing import Union, List, Tuple, Optional
 
-";
+|};
 
   List.iter (
     fun (name, bitmask) ->
@@ -664,10 +658,9 @@ from typing import Union, List, Tuple, Optional
   ) events;
   pr "EVENT_ALL = 0x%x\n" all_events_bitmask;
   pr "\n";
-  pr "\
-
+  pr {|
 def event_to_string(events):
-    \"\"\"Return a printable string from an event or event bitmask\"\"\"
+    """Return a printable string from an event or event bitmask"""
     return libguestfsmod.event_to_string(events)
 
 
@@ -676,13 +669,13 @@ class ClosedHandle(ValueError):
 
 
 class GuestFS(object):
-    \"\"\"Instances of this class are libguestfs API handles.\"\"\"
+    """Instances of this class are libguestfs API handles."""
 
     def __init__(self, python_return_dict=False,
                  environment=True, close_on_exit=True):
-        \"\"\"Create a new libguestfs handle.
+        """Create a new libguestfs handle.
 
-        Note about \"python_return_dict\" flag:
+        Note about "python_return_dict" flag:
 
         Setting this flag to 'True' causes all functions
         that internally return hashes to return a dict.  This is
@@ -692,7 +685,7 @@ class GuestFS(object):
         If this flag is not present then hashes are returned
         as lists of pairs.  This was the only possible behaviour
         in libguestfs <= 1.20.
-        \"\"\"
+        """
         flags = 0
         if not environment:
             flags |= libguestfsmod.GUESTFS_CREATE_NO_ENVIRONMENT
@@ -711,7 +704,7 @@ class GuestFS(object):
 
     def _check_not_closed(self):
         if not self._o:
-            raise ClosedHandle(\"GuestFS: method called on closed handle\")
+            raise ClosedHandle("GuestFS: method called on closed handle")
 
     def _maybe_convert_to_dict(self, r):
         if self._python_return_dict:
@@ -719,7 +712,7 @@ class GuestFS(object):
         return r
 
     def close(self):
-        \"\"\"Explicitly close the guestfs handle.
+        """Explicitly close the guestfs handle.
 
         The handle is closed implicitly when its reference count goes
         to zero (eg. when it goes out of scope or the program ends).
@@ -728,41 +721,41 @@ class GuestFS(object):
         close now.  After calling this, the program must not call
         any method on the handle (except the implicit call to
         __del__ which happens when the final reference is cleaned up).
-        \"\"\"
+        """
         self._check_not_closed()
         libguestfsmod.close(self._o)
         self._o = None
 
     def set_event_callback(self, cb, event_bitmask):
-        \"\"\"Register an event callback.
+        """Register an event callback.
 
-        Register \"cb\" as a callback function for all of the
-        events in \"event_bitmask\".  \"event_bitmask\" should be
-        one or more \"guestfs.EVENT_*\" flags logically or'd together.
+        Register "cb" as a callback function for all of the
+        events in "event_bitmask".  "event_bitmask" should be
+        one or more "guestfs.EVENT_*" flags logically or'd together.
 
         This function returns an event handle which can be used
-        to delete the callback (see \"delete_event_callback\").
+        to delete the callback (see "delete_event_callback").
 
         The callback function receives 4 parameters:
 
         cb (event, event_handle, buf, array)
 
-        \"event\" is one of the \"EVENT_*\" flags.  \"buf\" is a
-        message buffer (only for some types of events).  \"array\"
+        "event" is one of the "EVENT_*" flags.  "buf" is a
+        message buffer (only for some types of events).  "array"
         is an array of integers (only for some types of events).
 
         You should read the documentation for
-        \"guestfs_set_event_callback\" in guestfs(3) before using
+        "guestfs_set_event_callback" in guestfs(3) before using
         this function.
-        \"\"\"
+        """
         self._check_not_closed()
         return libguestfsmod.set_event_callback(self._o, cb, event_bitmask)
 
     def delete_event_callback(self, event_handle):
-        \"\"\"Delete an event callback.\"\"\"
+        """Delete an event callback."""
         self._check_not_closed()
         libguestfsmod.delete_event_callback(self._o, event_handle)
-";
+|};
 
   let map_join f l =
     String.concat "" (List.map f l)

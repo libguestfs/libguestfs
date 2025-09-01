@@ -208,20 +208,20 @@ let () =
 let generate_errnostring_h () =
   generate_header CStyle LGPLv2plus;
 
-  pr "
+  pr {|
 #ifndef GUESTFS_ERRNOSTRING_H_
 #define GUESTFS_ERRNOSTRING_H_
 
-/* Convert errno (eg. EIO) to its string representation (\"EIO\").
+/* Convert errno (eg. EIO) to its string representation ("EIO").
  * This only works for a set of errors that are listed in the generator
  * AND are supported on the local operating system.  For other errors
- * the string (\"EINVAL\") is returned.
+ * the string ("EINVAL") is returned.
  *
  * NOTE: It is an error to call this function with errnum == 0.
  */
 extern const char *guestfs_int_errno_to_string (int errnum);
 
-/* Convert string representation of an error (eg. \"EIO\") to the errno
+/* Convert string representation of an error (eg. "EIO") to the errno
  * value (EIO).  As for the function above, this only works for a
  * subset of errors.  For errors not supported by the local operating
  * system, EINVAL is returned (all POSIX-conforming systems must
@@ -233,22 +233,21 @@ extern int guestfs_int_string_to_errno (const char *errnostr);
 struct errnostring_entry { char *name; int errnum; };
 
 #endif /* GUESTFS_ERRNOSTRING_H_ */
-"
+|}
 
 let generate_errnostring_c () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 
-#include \"errnostring.h\"
+#include "errnostring.h"
 
 static const char *errno_to_string[] = {
-";
+|};
 
   List.iter (
     fun e ->
@@ -257,10 +256,9 @@ static const char *errno_to_string[] = {
       pr "#endif\n"
   ) errnos;
 
-  pr "\
-};
+  pr {|};
 
-#define ERRNO_TO_STRING_SIZE \\
+#define ERRNO_TO_STRING_SIZE \
   (sizeof errno_to_string / sizeof errno_to_string[0])
 
 const char *
@@ -272,17 +270,16 @@ guestfs_int_errno_to_string (int errnum)
 
   if (errnum < 0 || (size_t) errnum >= ERRNO_TO_STRING_SIZE ||
       errno_to_string[errnum] == NULL)
-    return \"EINVAL\";
+    return "EINVAL";
   else
     return errno_to_string[errnum];
 }
-"
+|}
 
 let generate_errnostring_gperf () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-%%language=ANSI-C
+  pr {|%%language=ANSI-C
 %%define lookup-function-name guestfs_int_string_to_errno_lookup
 %%readonly-tables
 %%null-strings
@@ -295,9 +292,9 @@ let generate_errnostring_gperf () =
 #include <string.h>
 #include <errno.h>
 
-#include \"errnostring.h\"
+#include "errnostring.h"
 
-";
+|};
 
   (* Some of these errnos might not exist on the target platform, but
    * we are going to include E_ macros directly in the C output of
@@ -313,22 +310,20 @@ let generate_errnostring_gperf () =
       pr "#endif\n";
   ) errnos;
 
-  pr "\
-
+  pr {|
 %%}
 
 struct errnostring_entry;
 
 %%%%
-";
+|};
 
   List.iter (
     fun e ->
       pr "%s, %s\n" e e
   ) errnos;
 
-  pr "\
-%%%%
+  pr {|%%%%
 
 int
 guestfs_int_string_to_errno (const char *errnostr)
@@ -340,4 +335,4 @@ guestfs_int_string_to_errno (const char *errnostr)
   else
     return EINVAL;
 }
-"
+|}

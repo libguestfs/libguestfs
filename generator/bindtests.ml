@@ -35,27 +35,26 @@ let generate_header = generate_header ~inputs:["generator/bindtests.ml"]
 let rec generate_bindtests () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
 #include <string.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-internal.h\"
-#include \"guestfs-internal-actions.h\"
-#include \"guestfs_protocol.h\"
+#include "guestfs.h"
+#include "guestfs-internal.h"
+#include "guestfs-internal-actions.h"
+#include "guestfs_protocol.h"
 
 int
 guestfs_impl_internal_test_set_output (guestfs_h *g, const char *filename)
 {
   FILE *fp;
 
-  fp = fopen (filename, \"w\");
+  fp = fopen (filename, "w");
   if (fp == NULL) {
-    perrorf (g, \"cannot open output file %%s\\n\", filename);
+    perrorf (g, "cannot open output file %%s\n", filename);
     return -1;
   }
 
@@ -74,7 +73,7 @@ guestfs_impl_internal_test_close_output (guestfs_h *g)
 {
   if (g->test_fp != NULL) {
     if (fclose (g->test_fp) == EOF) {
-      perrorf (g, \"fclose\");
+      perrorf (g, "fclose");
       g->test_fp = NULL;
       return -1;
     }
@@ -99,12 +98,12 @@ print_strings (guestfs_h *g, char *const *argv)
   FILE *fp = get_fp (g);
   size_t argc;
 
-  fprintf (fp, \"[\");
+  fprintf (fp, "[");
   for (argc = 0; argv[argc] != NULL; ++argc) {
-    if (argc > 0) fprintf (fp, \", \");
-    fprintf (fp, \"\\\"%%s\\\"\", argv[argc]);
+    if (argc > 0) fprintf (fp, ", ");
+    fprintf (fp, "\"%%s\"", argv[argc]);
   }
-  fprintf (fp, \"]\\n\");
+  fprintf (fp, "]\n");
 }
 
 /* Fill an lvm_pv struct with known data.  Used by
@@ -113,23 +112,23 @@ print_strings (guestfs_h *g, char *const *argv)
 static void
 fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
 {
-  pv->pv_name = safe_asprintf (g, \"pv%%zu\", i);
-  memcpy (pv->pv_uuid, \"12345678901234567890123456789012\", 32);
-  pv->pv_fmt = safe_strdup (g, \"unknown\");
+  pv->pv_name = safe_asprintf (g, "pv%%zu", i);
+  memcpy (pv->pv_uuid, "12345678901234567890123456789012", 32);
+  pv->pv_fmt = safe_strdup (g, "unknown");
   pv->pv_size = i;
   pv->dev_size = i;
   pv->pv_free = i;
   pv->pv_used = i;
-  pv->pv_attr = safe_asprintf (g, \"attr%%zu\", i);
+  pv->pv_attr = safe_asprintf (g, "attr%%zu", i);
   pv->pv_pe_count = i;
   pv->pv_pe_alloc_count = i;
-  pv->pv_tags = safe_asprintf (g, \"tag%%zu\", i);
+  pv->pv_tags = safe_asprintf (g, "tag%%zu", i);
   pv->pe_start = i;
   pv->pv_mda_count = i;
   pv->pv_mda_free = i;
 }
 
-";
+|};
 
   let ptests, rtests =
     match test_functions with
@@ -372,14 +371,13 @@ and generate_perl_bindtests () =
   pr "#!/usr/bin/env perl\n";
   generate_header HashStyle GPLv2plus;
 
-  pr "\
-use strict;
+  pr {|use strict;
 use warnings;
 
 use Sys::Guestfs;
 
 my $g = Sys::Guestfs->new ();
-";
+|};
 
   let mkargs args optargs =
     let optargs =
@@ -524,12 +522,11 @@ g = Guestfs::Guestfs.new()
 and generate_java_bindtests () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-import java.util.Map;
+  pr {|import java.util.Map;
 import java.util.HashMap;
 import com.redhat.et.libguestfs.*;
 
-@SuppressWarnings(\"serial\")
+@SuppressWarnings("serial")
 public class Bindtests {
     public static void main (String[] argv)
     {
@@ -537,7 +534,7 @@ public class Bindtests {
             GuestFS g = new GuestFS ();
             Map<String, Object> o;
 
-";
+|};
 
   let mkoptargs =
     function
@@ -595,8 +592,8 @@ public class Bindtests {
       pr "            g.%s (%s, o);\n" f (mkargs args)
   );
 
-  pr "
-            System.out.println (\"EOF\");
+  pr {|
+            System.out.println ("EOF");
         }
         catch (Exception exn) {
             System.err.println (exn);
@@ -604,18 +601,17 @@ public class Bindtests {
         }
     }
 }
-"
+|}
 
 and generate_haskell_bindtests () =
   generate_header HaskellStyle GPLv2plus;
 
-  pr "\
-module Bindtests where
+  pr {|module Bindtests where
 import qualified Guestfs
 
 main = do
   g <- Guestfs.create
-";
+|};
 
   let mkargs args =
     String.concat " " (
@@ -646,13 +642,12 @@ main = do
 and generate_gobject_js_bindtests () =
   generate_header CPlusPlusStyle GPLv2plus;
 
-  pr "\
-const Guestfs = imports.gi.Guestfs;
+  pr {|const Guestfs = imports.gi.Guestfs;
 
 var g = new Guestfs.Session();
 var o;
 
-";
+|};
 
     let mkoptargs = function
     | Some optargs ->

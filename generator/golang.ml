@@ -36,15 +36,14 @@ let generate_header = generate_header ~inputs:["generator/golang.ml"]
 let generate_golang_go () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-package guestfs
+  pr {|package guestfs
 
 /*
 #cgo CFLAGS:  -DGUESTFS_PRIVATE=1 -DGUESTFS_NO_WARN_DEPRECATED -UGUESTFS_NO_DEPRECATED
 #cgo LDFLAGS: -lguestfs
 #include <stdio.h>
 #include <stdlib.h>
-#include \"guestfs.h\"
+#include "guestfs.h"
 
 // cgo can't deal with variable argument functions.
 static guestfs_h *
@@ -87,13 +86,13 @@ void freeStringArray (pChar *array)
     free (array);
 }
 */
-import \"C\"
+import "C"
 
 import (
-    \"fmt\"
-    \"runtime\"
-    \"syscall\"
-    \"unsafe\"
+    "fmt"
+    "runtime"
+    "syscall"
+    "unsafe"
 )
 
 /* Handle. */
@@ -103,7 +102,7 @@ type Guestfs struct {
 
 /* Convert handle to string (just for debugging). */
 func (g *Guestfs) String () string {
-    return \"&Guestfs{}\"
+    return "&Guestfs{}"
 }
 
 /* Create a new handle with flags. */
@@ -142,9 +141,9 @@ type GuestfsError struct {
 
 func (e *GuestfsError) String() string {
     if e.Errno != 0 {
-        return fmt.Sprintf (\"%%s: %%s\", e.Op, e.Errmsg);
+        return fmt.Sprintf ("%%s: %%s", e.Op, e.Errmsg);
     } else {
-        return fmt.Sprintf (\"%%s: %%s: %%s\", e.Op, e.Errmsg, e.Errno);
+        return fmt.Sprintf ("%%s: %%s: %%s", e.Op, e.Errmsg, e.Errno);
     }
 }
 
@@ -164,14 +163,14 @@ func get_error_from_handle (g *Guestfs, op string) *GuestfsError {
 }
 
 func closed_handle_error (op string) *GuestfsError {
-    return &GuestfsError{ Op : op, Errmsg : \"handle is closed\",
+    return &GuestfsError{ Op : op, Errmsg : "handle is closed",
                           Errno : syscall.Errno (0) }
 }
 
 /* Close the handle. */
 func (g *Guestfs) Close () *GuestfsError {
     if g.g == nil {
-        return closed_handle_error (\"close\")
+        return closed_handle_error ("close")
     }
     C.guestfs_close (g.g)
     g.g = nil
@@ -222,7 +221,7 @@ func return_hashtable (argv **C.char) map[string]string {
         argv = (**C.char) (unsafe.Pointer (uintptr (unsafe.Pointer (argv)) +
                                            unsafe.Sizeof (*argv)))
         if *argv == nil {
-            panic (\"odd number of items in hash table\")
+            panic ("odd number of items in hash table")
         }
 
         r[key] = C.GoString (*argv)
@@ -233,7 +232,7 @@ func return_hashtable (argv **C.char) map[string]string {
 }
 
 /* XXX Events/callbacks not yet implemented. */
-";
+|};
 
   (* Structures. *)
   List.iter (

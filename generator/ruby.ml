@@ -37,14 +37,13 @@ let generate_header = generate_header ~inputs:["generator/ruby.ml"]
 let rec generate_ruby_h () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#ifndef GUESTFS_RUBY_ACTIONS_H_
+  pr {|#ifndef GUESTFS_RUBY_ACTIONS_H_
 #define GUESTFS_RUBY_ACTIONS_H_
 
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored \"-Wstrict-prototypes\"
+#pragma GCC diagnostic ignored "-Wstrict-prototypes"
 #if defined(__GNUC__) && __GNUC__ >= 6 /* gcc >= 6 */
-#pragma GCC diagnostic ignored \"-Wshift-overflow\"
+#pragma GCC diagnostic ignored "-Wshift-overflow"
 #endif
 #include <ruby.h>
 #pragma GCC diagnostic pop
@@ -54,10 +53,10 @@ let rec generate_ruby_h () =
 #undef _
 #endif
 
-#include \"guestfs.h\"
-#include \"guestfs-utils.h\" /* Only for POINTER_NOT_IMPLEMENTED */
+#include "guestfs.h"
+#include "guestfs-utils.h" /* Only for POINTER_NOT_IMPLEMENTED */
 
-#include \"extconf.h\"
+#include "extconf.h"
 
 /* For Ruby < 1.9 */
 #ifndef RARRAY_LEN
@@ -85,7 +84,7 @@ extern VALUE guestfs_int_ruby_set_event_callback (VALUE gv, VALUE cbv, VALUE eve
 extern VALUE guestfs_int_ruby_delete_event_callback (VALUE gv, VALUE event_handlev);
 extern VALUE guestfs_int_ruby_event_to_string (VALUE modulev, VALUE eventsv);
 
-";
+|};
 
   List.iter (
     fun f ->
@@ -108,8 +107,7 @@ extern VALUE guestfs_int_ruby_event_to_string (VALUE modulev, VALUE eventsv);
 and generate_ruby_c actions () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 /* It is safe to call deprecated functions from this file. */
 #define GUESTFS_NO_WARN_DEPRECATED
@@ -122,9 +120,9 @@ and generate_ruby_c actions () =
 #include <errno.h>
 #include <assert.h>
 
-#include \"actions.h\"
+#include "actions.h"
 
-";
+|};
 
   List.iter (
     fun f ->
@@ -186,8 +184,7 @@ and generate_ruby_c actions () =
           | RStringList _
           | RStructList _ -> "list" in
 
-        pr "\
-/*
+        pr {|/*
  * call-seq:
  *   g.%s(%s) -> %s
  *
@@ -198,16 +195,15 @@ and generate_ruby_c actions () =
  * [C API] For the C API documentation for this function, see
  *         {guestfs_%s}[http://libguestfs.org/guestfs.3.html#guestfs_%s].
  */
-" f.name args ret f.shortdesc doc f.name f.name
+|} f.name args ret f.shortdesc doc f.name f.name
       ) else (
-        pr "\
-/*
+        pr {|/*
  * call-seq:
  *   g.%s
  *
  * :nodoc:
  */
-" f.name
+|} f.name
       );
 
       (* Generate the function.  Prototype is completely different
@@ -441,8 +437,7 @@ and generate_ruby_c actions () =
 and generate_ruby_module () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -451,7 +446,7 @@ and generate_ruby_module () =
 #include <errno.h>
 #include <assert.h>
 
-#include \"actions.h\"
+#include "actions.h"
 
 VALUE m_guestfs;                  /* guestfs module */
 VALUE c_guestfs;                  /* guestfs_h handle */
@@ -463,9 +458,9 @@ extern void Init__guestfs (void); /* keep GCC warnings happy */
 void
 Init__guestfs (void)
 {
-  m_guestfs = rb_define_module (\"Guestfs\");
-  c_guestfs = rb_define_class_under (m_guestfs, \"Guestfs\", rb_cObject);
-  e_Error = rb_define_class_under (m_guestfs, \"Error\", rb_eStandardError);
+  m_guestfs = rb_define_module ("Guestfs");
+  c_guestfs = rb_define_class_under (m_guestfs, "Guestfs", rb_cObject);
+  e_Error = rb_define_class_under (m_guestfs, "Error", rb_eStandardError);
 
 #ifdef HAVE_RB_DEFINE_ALLOC_FUNC
 #ifndef HAVE_TYPE_RB_ALLOC_FUNC_T
@@ -474,24 +469,24 @@ Init__guestfs (void)
   rb_define_alloc_func (c_guestfs, (rb_alloc_func_t) guestfs_int_ruby_alloc_handle);
 #endif
 
-  rb_define_method (c_guestfs, \"initialize\",
+  rb_define_method (c_guestfs, "initialize",
                     guestfs_int_ruby_initialize_handle, -1);
-  rb_define_method (c_guestfs, \"close\",
+  rb_define_method (c_guestfs, "close",
                     guestfs_int_ruby_close_handle, 0);
-  rb_define_method (c_guestfs, \"set_event_callback\",
+  rb_define_method (c_guestfs, "set_event_callback",
                     guestfs_int_ruby_set_event_callback, 2);
-  rb_define_method (c_guestfs, \"delete_event_callback\",
+  rb_define_method (c_guestfs, "delete_event_callback",
                     guestfs_int_ruby_delete_event_callback, 1);
-  rb_define_module_function (m_guestfs, \"event_to_string\",
+  rb_define_module_function (m_guestfs, "event_to_string",
                              guestfs_int_ruby_event_to_string, 1);
 
   /* For backwards compatibility with older code, define a ::create
    * module function.
    */
-  rb_define_module_function (m_guestfs, \"create\",
+  rb_define_module_function (m_guestfs, "create",
                              guestfs_int_ruby_compat_create_handle, -1);
 
-";
+|};
 
   (* Constants. *)
   List.iter (

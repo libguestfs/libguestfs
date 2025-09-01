@@ -32,8 +32,7 @@ let non_daemon_functions = [
     blocking = false;
     deprecated_by = Replaced_by "set_hv";
     shortdesc = "set the hypervisor binary (usually qemu)";
-    longdesc = "\
-Set the hypervisor binary (usually qemu) that we will use.
+    longdesc = {|Set the hypervisor binary (usually qemu) that we will use.
 
 The default is chosen when the library was compiled by the
 configure script.
@@ -49,7 +48,7 @@ operations depend on testing qemu features (by running C<qemu -help>).
 If the qemu binary changes, we don't retest features, and
 so you might see inconsistent results.  Using the environment
 variable C<LIBGUESTFS_HV> is safest of all since that picks
-the qemu binary at the same time as the handle is created." };
+the qemu binary at the same time as the handle is created.|} };
 
   { defaults with
     name = "get_qemu"; added = (1, 0, 6);
@@ -74,15 +73,14 @@ return the default qemu binary name." };
     blocking = false;
     deprecated_by = Replaced_by "selinux_relabel";
     shortdesc = "set SELinux enabled or disabled at appliance boot";
-    longdesc = "\
-This sets the selinux flag that is passed to the appliance
+    longdesc = {|This sets the selinux flag that is passed to the appliance
 at boot time.  The default is C<selinux=0> (disabled).
 
 Note that if SELinux is enabled, it is always in
 Permissive mode (C<enforcing=0>).
 
 For more information on the architecture of libguestfs,
-see L<guestfs(3)>." };
+see L<guestfs(3)>.|} };
 
   { defaults with
     name = "get_selinux"; added = (1, 0, 67);
@@ -90,12 +88,11 @@ see L<guestfs(3)>." };
     blocking = false;
     deprecated_by = Replaced_by "selinux_relabel";
     shortdesc = "get SELinux enabled flag";
-    longdesc = "\
-This returns the current setting of the selinux flag which
+    longdesc = {|This returns the current setting of the selinux flag which
 is passed to the appliance at boot time.  See C<guestfs_set_selinux>.
 
 For more information on the architecture of libguestfs,
-see L<guestfs(3)>." };
+see L<guestfs(3)>.|} };
 
   { defaults with
     name = "set_attach_method"; added = (1, 9, 8);
@@ -132,8 +129,7 @@ See C<guestfs_set_backend> and L<guestfs(3)/BACKEND>." };
     fish_alias = ["direct"]; config_only = true;
     blocking = false;
     shortdesc = "enable or disable direct appliance mode";
-    longdesc = "\
-If the direct appliance mode flag is enabled, then stdin and
+    longdesc = {|If the direct appliance mode flag is enabled, then stdin and
 stdout are passed directly through to the appliance once it
 is launched.
 
@@ -144,7 +140,7 @@ but go straight to stdout.
 You probably don't want to use this unless you know what you
 are doing.
 
-The default is disabled." };
+The default is disabled.|} };
 
   { defaults with
     name = "get_direct"; added = (1, 0, 72);

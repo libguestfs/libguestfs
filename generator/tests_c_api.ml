@@ -35,8 +35,7 @@ let generate_header = generate_header ~inputs:["generator/tests_c_api.ml"]
 let rec generate_c_api_tests () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 /* It is safe to call deprecated functions from this file. */
 #define GUESTFS_NO_WARN_DEPRECATED
@@ -50,13 +49,13 @@ let rec generate_c_api_tests () =
 #include <sys/stat.h>
 #include <errno.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-utils.h\"
-#include \"structs-cleanups.h\"
+#include "guestfs.h"
+#include "guestfs-utils.h"
+#include "structs-cleanups.h"
 
-#include \"tests.h\"
+#include "tests.h"
 
-";
+|};
 
   (* Generate a list of commands which are not tested anywhere. *)
   pr "void\n";
@@ -124,16 +123,15 @@ and generate_one_test name optional i (init, prereq, test, cleanup) =
   );
   pr "\n";
 
-  pr "\
-static int
+  pr {|static int
 %s (guestfs_h *g)
 {
   if (%s_skip ()) {
-    skipped (\"%s\", \"environment variable set\");
+    skipped ("%s", "environment variable set");
     return 0;
   }
 
-" test_name test_name test_name;
+|} test_name test_name test_name;
 
   (* Optional functions should only be tested if the relevant
    * support is available in the daemon.
@@ -181,23 +179,22 @@ static int
   pr "}\n";
   pr "\n";
 
-  pr "\
-static int
+  pr {|static int
 %s_skip (void)
 {
   const char *str;
 
-  str = getenv (\"TEST_ONLY\");
+  str = getenv ("TEST_ONLY");
   if (str)
-    return strstr (str, \"%s\") == NULL;
-  str = getenv (\"SKIP_%s\");
-  if (str && STREQ (str, \"1\")) return 1;
-  str = getenv (\"SKIP_TEST_%s\");
-  if (str && STREQ (str, \"1\")) return 1;
+    return strstr (str, "%s") == NULL;
+  str = getenv ("SKIP_%s");
+  if (str && STREQ (str, "1")) return 1;
+  str = getenv ("SKIP_TEST_%s");
+  if (str && STREQ (str, "1")) return 1;
   return 0;
 }
 
-" test_name name
+|} test_name name
      (String.uppercase_ascii test_name)
      (String.uppercase_ascii name);
 

@@ -29,8 +29,7 @@ let non_daemon_functions = [
     optional = Some "libyara";
     progress = true; cancellable = true;
     shortdesc = "scan a file with the loaded yara rules";
-    longdesc = "\
-Scan a file with the previously loaded Yara rules.
+    longdesc = {|Scan a file with the previously loaded Yara rules.
 
 For each matching rule, a C<yara_detection> structure is returned.
 
@@ -46,7 +45,7 @@ Path of the file matching a Yara rule.
 
 Identifier of the Yara rule which matched against the given file.
 
-=back" };
+=back|} };
 
 ]
 
@@ -57,8 +56,7 @@ let daemon_functions = [
       progress = true; cancellable = true;
       optional = Some "libyara";
       shortdesc = "load yara rules within libguestfs";
-      longdesc = "\
-Upload a set of Yara rules from local file F<filename>.
+      longdesc = {|Upload a set of Yara rules from local file F<filename>.
 
 Yara rules allow to categorize files based on textual or binary patterns
 within their content.
@@ -71,7 +69,7 @@ compiled and then loaded.
 Rules in source code format cannot include external files. In such cases,
 it is recommended to compile them first.
 
-Previously loaded rules will be destroyed." };
+Previously loaded rules will be destroyed.|} };
 
   { defaults with
     name = "yara_destroy"; added = (1, 37, 13);

@@ -29,8 +29,7 @@ let non_daemon_functions = [
     fish_alias = ["hv"]; config_only = true;
     blocking = false;
     shortdesc = "set the hypervisor binary";
-    longdesc = "\
-Set the hypervisor binary that we will use.  The hypervisor
+    longdesc = {|Set the hypervisor binary that we will use.  The hypervisor
 depends on the backend, but is usually the location of the
 qemu/KVM hypervisor.
 
@@ -46,7 +45,7 @@ operations depend on testing qemu features (by running C<qemu -help>).
 If the qemu binary changes, we don't retest features, and
 so you might see inconsistent results.  Using the environment
 variable C<LIBGUESTFS_HV> is safest of all since that picks
-the qemu binary at the same time as the handle is created." };
+the qemu binary at the same time as the handle is created.|} };
 
   { defaults with
     name = "get_hv"; added = (1, 23, 17);
@@ -69,13 +68,12 @@ return the default qemu binary name." };
     fish_alias = ["path"]; config_only = true;
     blocking = false;
     shortdesc = "set the search path";
-    longdesc = "\
-Set the path that libguestfs searches for kernel and initrd.img.
+    longdesc = {|Set the path that libguestfs searches for kernel and initrd.img.
 
 The default is C<$libdir/guestfs> unless overridden by setting
 C<LIBGUESTFS_PATH> environment variable.
 
-Setting C<path> to C<NULL> restores the default path." };
+Setting C<path> to C<NULL> restores the default path.|} };
 
   { defaults with
     name = "get_path"; added = (0, 0, 3);
@@ -98,15 +96,14 @@ return the default path." };
     fish_alias = ["append"]; config_only = true;
     blocking = false;
     shortdesc = "add options to kernel command line";
-    longdesc = "\
-This function is used to add additional options to the
+    longdesc = {|This function is used to add additional options to the
 libguestfs appliance kernel command line.
 
 The default is C<NULL> unless overridden by setting
 C<LIBGUESTFS_APPEND> environment variable.
 
 Setting C<append> to C<NULL> means I<no> additional options
-are passed (libguestfs always adds a few of its own)." };
+are passed (libguestfs always adds a few of its own).|} };
 
   { defaults with
     name = "get_append"; added = (1, 0, 26);
@@ -129,14 +126,13 @@ If C<NULL> then no options are added." };
     fish_alias = ["autosync"];
     blocking = false;
     shortdesc = "set autosync mode";
-    longdesc = "\
-If C<autosync> is true, this enables autosync.  Libguestfs will make a
+    longdesc = {|If C<autosync> is true, this enables autosync.  Libguestfs will make a
 best effort attempt to make filesystems consistent and synchronized
 when the handle is closed
 (also if the program exits without closing handles).
 
 This is enabled by default (since libguestfs 1.5.24, previously it was
-disabled by default)." };
+disabled by default).|} };
 
   { defaults with
     name = "get_autosync"; added = (0, 0, 3);
@@ -156,15 +152,14 @@ Get the autosync flag." };
     fish_alias = ["verbose"];
     blocking = false;
     shortdesc = "set verbose mode";
-    longdesc = "\
-If C<verbose> is true, this turns on verbose messages.
+    longdesc = {|If C<verbose> is true, this turns on verbose messages.
 
 Verbose messages are disabled unless the environment variable
 C<LIBGUESTFS_DEBUG> is defined and set to C<1>.
 
 Verbose messages are normally sent to C<stderr>, unless you
 register a callback to send them somewhere else (see
-C<guestfs_set_event_callback>)." };
+C<guestfs_set_event_callback>).|} };
 
   { defaults with
     name = "get_verbose"; added = (0, 0, 3);
@@ -180,8 +175,7 @@ This returns the verbose messages flag." };
     fish_alias = ["memsize"]; config_only = true;
     blocking = false;
     shortdesc = "set memory allocated to the hypervisor";
-    longdesc = "\
-This sets the memory size in megabytes allocated to the
+    longdesc = {|This sets the memory size in megabytes allocated to the
 hypervisor.  This only has any effect if called before
 C<guestfs_launch>.
 
@@ -190,7 +184,7 @@ variable C<LIBGUESTFS_MEMSIZE> before the handle is
 created.
 
 For more information on the architecture of libguestfs,
-see L<guestfs(3)>." };
+see L<guestfs(3)>.|} };
 
   { defaults with
     name = "get_memsize"; added = (1, 0, 55);
@@ -201,8 +195,7 @@ see L<guestfs(3)>." };
       [["get_memsize"]], "ret >= 256"), []
     ];
     shortdesc = "get memory allocated to the hypervisor";
-    longdesc = "\
-This gets the memory size in megabytes allocated to the
+    longdesc = {|This gets the memory size in megabytes allocated to the
 hypervisor.
 
 If C<guestfs_set_memsize> was not called
@@ -210,7 +203,7 @@ on this handle, and if C<LIBGUESTFS_MEMSIZE> was not set,
 then this returns the compiled-in default value for memsize.
 
 For more information on the architecture of libguestfs,
-see L<guestfs(3)>." };
+see L<guestfs(3)>.|} };
 
   { defaults with
     name = "get_pid"; added = (1, 0, 56);
@@ -235,8 +228,7 @@ This is an internal call used for debugging and testing." };
          ["get_trace"]]), []
     ];
     shortdesc = "enable or disable command traces";
-    longdesc = "\
-If the command trace flag is set to 1, then libguestfs
+    longdesc = {|If the command trace flag is set to 1, then libguestfs
 calls, parameters and return values are traced.
 
 If you want to trace C API calls into libguestfs (and
@@ -248,7 +240,7 @@ C<LIBGUESTFS_TRACE> is defined and set to C<1>.
 
 Trace messages are normally sent to C<stderr>, unless you
 register a callback to send them somewhere else (see
-C<guestfs_set_event_callback>)." };
+C<guestfs_set_event_callback>).|} };
 
   { defaults with
     name = "get_trace"; added = (1, 0, 69);
@@ -264,8 +256,7 @@ Return the command trace flag." };
     fish_alias = ["recovery-proc"]; config_only = true;
     blocking = false;
     shortdesc = "enable or disable the recovery process";
-    longdesc = "\
-If this is called with the parameter C<false> then
+    longdesc = {|If this is called with the parameter C<false> then
 C<guestfs_launch> does not create a recovery process.  The
 purpose of the recovery process is to stop runaway hypervisor
 processes in the case where the main program aborts abruptly.
@@ -275,9 +266,9 @@ and the default is true.
 
 About the only time when you would want to disable this is
 if the main process will fork itself into the background
-(\"daemonize\" itself).  In this case the recovery process
+("daemonize" itself).  In this case the recovery process
 thinks that the main program has disappeared and so kills
-the hypervisor, which is not very helpful." };
+the hypervisor, which is not very helpful.|} };
 
   { defaults with
     name = "get_recovery_proc"; added = (1, 0, 77);
@@ -293,15 +284,14 @@ Return the recovery process enabled flag." };
     fish_alias = ["network"]; config_only = true;
     blocking = false;
     shortdesc = "set enable network flag";
-    longdesc = "\
-If C<network> is true, then the network is enabled in the
+    longdesc = {|If C<network> is true, then the network is enabled in the
 libguestfs appliance.  The default is false.
 
 This affects whether commands are able to access the network
 (see L<guestfs(3)/RUNNING COMMANDS>).
 
 You must call this before calling C<guestfs_launch>, otherwise
-it has no effect." };
+it has no effect.|} };
 
   { defaults with
     name = "get_network"; added = (1, 5, 4);
@@ -317,13 +307,12 @@ This returns the enable network flag." };
     fish_alias = ["backend"]; config_only = true;
     blocking = false;
     shortdesc = "set the backend";
-    longdesc = "\
-Set the method that libguestfs uses to connect to the backend
+    longdesc = {|Set the method that libguestfs uses to connect to the backend
 guestfsd daemon.
 
-This handle property was previously called the \"attach method\".
+This handle property was previously called the "attach method".
 
-See L<guestfs(3)/BACKEND>." };
+See L<guestfs(3)/BACKEND>.|} };
 
   { defaults with
     name = "get_backend"; added = (1, 21, 26);
@@ -334,12 +323,11 @@ See L<guestfs(3)/BACKEND>." };
         [["get_backend"]]), []
     ];
     shortdesc = "get the backend";
-    longdesc = "\
-Return the current backend.
+    longdesc = {|Return the current backend.
 
-This handle property was previously called the \"attach method\".
+This handle property was previously called the "attach method".
 
-See C<guestfs_set_backend> and L<guestfs(3)/BACKEND>." };
+See C<guestfs_set_backend> and L<guestfs(3)/BACKEND>.|} };
 
   { defaults with
     name = "set_pgroup"; added = (1, 11, 18);
@@ -347,8 +335,7 @@ See C<guestfs_set_backend> and L<guestfs(3)/BACKEND>." };
     fish_alias = ["pgroup"]; config_only = true;
     blocking = false;
     shortdesc = "set process group flag";
-    longdesc = "\
-If C<pgroup> is true, child processes are placed into
+    longdesc = {|If C<pgroup> is true, child processes are placed into
 their own process group.
 
 The practical upshot of this is that signals like C<SIGINT> (from
@@ -357,7 +344,7 @@ users pressing C<^C>) won't be received by the child process.
 The default for this flag is false, because usually you want
 C<^C> to kill the subprocess.  Guestfish sets this flag to
 true when used interactively, so that C<^C> can cancel
-long-running commands gracefully (see C<guestfs_user_cancel>)." };
+long-running commands gracefully (see C<guestfs_user_cancel>).|} };
 
   { defaults with
     name = "get_pgroup"; added = (1, 11, 18);
@@ -373,12 +360,11 @@ This returns the process group flag." };
     fish_alias = ["smp"]; config_only = true;
     blocking = false;
     shortdesc = "set number of virtual CPUs in appliance";
-    longdesc = "\
-Change the number of virtual CPUs assigned to the appliance.  The
+    longdesc = {|Change the number of virtual CPUs assigned to the appliance.  The
 default is C<1>.  Increasing this may improve performance, though
 often it has no effect.
 
-This function must be called before C<guestfs_launch>." };
+This function must be called before C<guestfs_launch>.|} };
 
   { defaults with
     name = "get_smp"; added = (1, 13, 15);
@@ -394,13 +380,12 @@ This returns the number of virtual CPUs assigned to the appliance." };
     fish_alias = ["tmpdir"]; config_only = true;
     blocking = false;
     shortdesc = "set the temporary directory";
-    longdesc = "\
-Set the directory used by the handle to store temporary files.
+    longdesc = {|Set the directory used by the handle to store temporary files.
 
 The environment variables C<LIBGUESTFS_TMPDIR> and C<TMPDIR>
 control the default value: If C<LIBGUESTFS_TMPDIR> is set, then
 that is the default.  Else if C<TMPDIR> is set, then that is
-the default.  Else F</tmp> is the default." };
+the default.  Else F</tmp> is the default.|} };
 
   { defaults with
     name = "get_tmpdir"; added = (1, 19, 58);
@@ -416,8 +401,7 @@ Get the directory used by the handle to store temporary files." };
     fish_alias = ["cachedir"]; config_only = true;
     blocking = false;
     shortdesc = "set the appliance cache directory";
-    longdesc = "\
-Set the directory used by the handle to store the appliance
+    longdesc = {|Set the directory used by the handle to store the appliance
 cache, when using a supermin appliance.  The appliance is
 cached and shared between all handles which have the same
 effective user ID.
@@ -425,7 +409,7 @@ effective user ID.
 The environment variables C<LIBGUESTFS_CACHEDIR> and C<TMPDIR>
 control the default value: If C<LIBGUESTFS_CACHEDIR> is set, then
 that is the default.  Else if C<TMPDIR> is set, then that is
-the default.  Else F</var/tmp> is the default." };
+the default.  Else F</var/tmp> is the default.|} };
 
   { defaults with
     name = "get_cachedir"; added = (1, 19, 58);
@@ -441,13 +425,12 @@ Get the directory used by the handle to store the appliance cache." };
     fish_alias = ["program"];
     blocking = false;
     shortdesc = "set the program name";
-    longdesc = "\
-Set the program name.  This is an informative string which the
+    longdesc = {|Set the program name.  This is an informative string which the
 main program may optionally set in the handle.
 
 When the handle is created, the program name in the handle is
 set to the basename from C<argv[0]>.  The program name can never
-be C<NULL>." };
+be C<NULL>.|} };
 
   { defaults with
     name = "get_program"; added = (1, 21, 29);
@@ -470,13 +453,12 @@ Get the program name.  See C<guestfs_set_program>." };
         [["get_backend_settings"]]), []
     ];
     shortdesc = "get per-backend settings";
-    longdesc = "\
-Return the current backend settings.
+    longdesc = {|Return the current backend settings.
 
 This call returns all backend settings strings.  If you want to
 find a single backend setting, see C<guestfs_get_backend_setting>.
 
-See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>.|} };
 
   { defaults with
     name = "set_backend_settings"; added = (1, 25, 24);
@@ -484,8 +466,7 @@ See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
     config_only = true;
     blocking = false;
     shortdesc = "replace per-backend settings strings";
-    longdesc = "\
-Set a list of zero or more settings which are passed through to
+    longdesc = {|Set a list of zero or more settings which are passed through to
 the current backend.  Each setting is a string which is interpreted
 in a backend-specific way, or ignored if not understood by the
 backend.
@@ -500,24 +481,23 @@ a single backend setting, see C<guestfs_set_backend_setting>.
 If you want to clear a single backend setting, see
 C<guestfs_clear_backend_setting>.
 
-See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>.|} };
 
   { defaults with
     name = "get_backend_setting"; added = (1, 27, 2);
     style = RString (RPlainString, "val"), [String (PlainString, "name")], [];
     blocking = false;
     shortdesc = "get a single per-backend settings string";
-    longdesc = "\
-Find a backend setting string which is either C<\"name\"> or
-begins with C<\"name=\">.  If C<\"name\">, this returns the
-string C<\"1\">.  If C<\"name=\">, this returns the part
+    longdesc = {|Find a backend setting string which is either C<"name"> or
+begins with C<"name=">.  If C<"name">, this returns the
+string C<"1">.  If C<"name=">, this returns the part
 after the equals sign (which may be an empty string).
 
 If no such setting is found, this function throws an error.
 The errno (see C<guestfs_last_errno>) will be C<ESRCH> in this
 case.
 
-See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>.|} };
 
   { defaults with
     name = "set_backend_setting"; added = (1, 27, 2);
@@ -525,12 +505,11 @@ See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
     config_only = true;
     blocking = false;
     shortdesc = "set a single per-backend settings string";
-    longdesc = "\
-Append C<\"name=value\"> to the backend settings string list.
-However if a string already exists matching C<\"name\">
-or beginning with C<\"name=\">, then that setting is replaced.
+    longdesc = {|Append C<"name=value"> to the backend settings string list.
+However if a string already exists matching C<"name">
+or beginning with C<"name=">, then that setting is replaced.
 
-See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>.|} };
 
   { defaults with
     name = "clear_backend_setting"; added = (1, 27, 2);
@@ -538,15 +517,14 @@ See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
     config_only = true;
     blocking = false;
     shortdesc = "remove a single per-backend settings string";
-    longdesc = "\
-If there is a backend setting string matching C<\"name\"> or
-beginning with C<\"name=\">, then that string is removed
+    longdesc = {|If there is a backend setting string matching C<"name"> or
+beginning with C<"name=">, then that string is removed
 from the backend settings.
 
 This call returns the number of strings which were removed
 (which may be 0, 1 or greater than 1).
 
-See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>.|} };
 
   { defaults with
     name = "set_identifier"; added = (1, 31, 14);
@@ -554,8 +532,7 @@ See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
     fish_alias = ["identifier"];
     blocking = false;
     shortdesc = "set the handle identifier";
-    longdesc = "\
-This is an informative string which the caller may optionally
+    longdesc = {|This is an informative string which the caller may optionally
 set in the handle.  It is printed in various places, allowing
 the current handle to be identified in debugging output.
 
@@ -564,12 +541,12 @@ identifier string is not an empty string, then trace messages
 change from this:
 
  libguestfs: trace: get_tmpdir
- libguestfs: trace: get_tmpdir = \"/tmp\"
+ libguestfs: trace: get_tmpdir = "/tmp"
 
 to this:
 
  libguestfs: trace: ID: get_tmpdir
- libguestfs: trace: ID: get_tmpdir = \"/tmp\"
+ libguestfs: trace: ID: get_tmpdir = "/tmp"
 
 where C<ID> is the identifier string set by this call.
 
@@ -577,7 +554,7 @@ The identifier must only contain alphanumeric ASCII characters,
 underscore and minus sign.  The default is the empty string.
 
 See also C<guestfs_set_program>, C<guestfs_set_trace>,
-C<guestfs_get_identifier>." };
+C<guestfs_get_identifier>.|} };
 
   { defaults with
     name = "get_identifier"; added = (1, 31, 14);
@@ -596,8 +573,7 @@ Get the handle identifier.  See C<guestfs_set_identifier>." };
     style = RString (RPlainString, "sockdir"), [], [];
     blocking = false;
     shortdesc = "get the temporary directory for sockets and PID files";
-    longdesc = "\
-Get the directory used by the handle to store temporary socket and PID
+    longdesc = {|Get the directory used by the handle to store temporary socket and PID
 files.
 
 This is different from C<guestfs_get_tmpdir>, as we need shorter
@@ -609,7 +585,7 @@ the temporary directory returned by C<guestfs_get_tmpdir>.
 
 The environment variable C<XDG_RUNTIME_DIR> controls the default
 value: If C<XDG_RUNTIME_DIR> is set, then that is the default.
-Else F</tmp> is the default." };
+Else F</tmp> is the default.|} };
 
 ]
 

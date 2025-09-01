@@ -120,23 +120,23 @@ let header_start filename =
   let guard = "GUESTFS_GOBJECT_" ^ String.uppercase_ascii guard ^ "_H__" in
   pr "#ifndef %s\n" guard;
   pr "#define %s\n" guard;
-  pr "
+  pr {|
 #include <glib-object.h>
 #include <gio/gio.h>
 
 #include <guestfs-gobject.h>
 
 G_BEGIN_DECLS
-"
+|}
 
 and header_end filename =
   let guard = Str.global_replace (Str.regexp "-") "_" filename in
   let guard = "GUESTFS_GOBJECT_" ^ String.uppercase_ascii guard ^ "_H__" in
-  pr "
+  pr {|
 G_END_DECLS
 
 #endif /* %s */
-" guard
+|} guard
 
 let source_start ?title ?shortdesc ?longdesc filename =
   generate_header CStyle GPLv2plus;
@@ -518,7 +518,7 @@ let generate_gobject_optargs_source filename name optargs f () =
 let generate_gobject_tristate_header () =
   let filename = "tristate" in
   header_start filename;
-  pr "
+  pr {|
 /**
  * GuestfsTristate:
  * @GUESTFS_TRISTATE_FALSE: False
@@ -539,7 +539,7 @@ typedef enum
 
 GType guestfs_tristate_get_type (void);
 #define GUESTFS_TYPE_TRISTATE (guestfs_tristate_get_type ())
-";
+|};
   header_end filename
 
 let generate_gobject_tristate_source () =
@@ -547,33 +547,33 @@ let generate_gobject_tristate_source () =
   let title = "GuestfsTristate" in
   let shortdesc = "An object representing a tristate value" in
   source_start ~title ~shortdesc filename;
-  pr "
+  pr {|
 GType
 guestfs_tristate_get_type (void)
 {
   static GType etype = 0;
   if (etype == 0) {
     static const GEnumValue values[] = {
-      { GUESTFS_TRISTATE_FALSE, \"GUESTFS_TRISTATE_FALSE\", \"false\" },
-      { GUESTFS_TRISTATE_TRUE,  \"GUESTFS_TRISTATE_TRUE\",  \"true\" },
-      { GUESTFS_TRISTATE_NONE,  \"GUESTFS_TRISTATE_NONE\",  \"none\" },
+      { GUESTFS_TRISTATE_FALSE, "GUESTFS_TRISTATE_FALSE", "false" },
+      { GUESTFS_TRISTATE_TRUE,  "GUESTFS_TRISTATE_TRUE",  "true" },
+      { GUESTFS_TRISTATE_NONE,  "GUESTFS_TRISTATE_NONE",  "none" },
       { 0, NULL, NULL }
     };
-    etype = g_enum_register_static (\"GuestfsTristate\", values);
+    etype = g_enum_register_static ("GuestfsTristate", values);
   }
   return etype;
 }
-"
+|}
 
 let generate_gobject_session_header () =
   let filename = "session" in
   header_start filename;
-  pr "
+  pr {|
 /* GuestfsSessionEvent */
 
 /**
  * GuestfsSessionEvent:
-";
+|};
 
   List.iter (
     fun (name, _) ->
@@ -581,18 +581,18 @@ let generate_gobject_session_header () =
         (String.uppercase_ascii name) name;
   ) events;
 
-  pr " *
- * For more detail on libguestfs events, see \"SETTING CALLBACKS TO HANDLE
- * EVENTS\" in guestfs(3).
+  pr {| *
+ * For more detail on libguestfs events, see "SETTING CALLBACKS TO HANDLE
+ * EVENTS" in guestfs(3).
  */
-typedef enum {";
+typedef enum {|};
 
   List.iter (
     fun (name, _) ->
       pr "\n  GUESTFS_SESSION_EVENT_%s," (String.uppercase_ascii name);
   ) events;
 
-  pr "
+  pr {|
 } GuestfsSessionEvent;
 GType guestfs_session_event_get_type (void);
 #define GUESTFS_TYPE_SESSION_EVENT (guestfs_session_event_get_type ())
@@ -625,24 +625,11 @@ GType guestfs_session_event_params_get_type (void);
 
 /* GuestfsSession object definition */
 #define GUESTFS_TYPE_SESSION             (guestfs_session_get_type ())
-#define GUESTFS_SESSION(obj)             (G_TYPE_CHECK_INSTANCE_CAST ( \
-                                          (obj), \
-                                          GUESTFS_TYPE_SESSION, \
-                                          GuestfsSession))
-#define GUESTFS_SESSION_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ( \
-                                          (klass), \
-                                          GUESTFS_TYPE_SESSION, \
-                                          GuestfsSessionClass))
-#define GUESTFS_IS_SESSION(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ( \
-                                          (obj), \
-                                          GUESTFS_TYPE_SESSION))
-#define GUESTFS_IS_SESSION_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ( \
-                                          (klass), \
-                                          GUESTFS_TYPE_SESSION))
-#define GUESTFS_SESSION_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ( \
-                                          (obj), \
-                                          GUESTFS_TYPE_SESSION, \
-                                          GuestfsSessionClass))
+#define GUESTFS_SESSION(obj)             (G_TYPE_CHECK_INSTANCE_CAST ( (obj), GUESTFS_TYPE_SESSION, GuestfsSession))
+#define GUESTFS_SESSION_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ( (klass), GUESTFS_TYPE_SESSION, GuestfsSessionClass))
+#define GUESTFS_IS_SESSION(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ( (obj), GUESTFS_TYPE_SESSION))
+#define GUESTFS_IS_SESSION_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ( (klass), GUESTFS_TYPE_SESSION))
+#define GUESTFS_SESSION_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ( (obj), GUESTFS_TYPE_SESSION, GuestfsSessionClass))
 
 typedef struct _GuestfsSessionPrivate GuestfsSessionPrivate;
 
@@ -674,7 +661,7 @@ GType guestfs_session_get_type (void);
 GuestfsSession *guestfs_session_new (void);
 gboolean guestfs_session_close (GuestfsSession *session, GError **err);
 
-";
+|};
 
   List.iter (
     fun ({ name; style } as f) ->
@@ -689,7 +676,7 @@ let generate_gobject_session_source () =
   let shortdesc = "A libguestfs session" in
   source_start ~shortdesc filename;
 
-  pr "
+  pr {|
 /* It is safe to call deprecated functions from this file. */
 #define GUESTFS_NO_WARN_DEPRECATED
 #undef GUESTFS_NO_DEPRECATED
@@ -709,7 +696,7 @@ let generate_gobject_session_source () =
 static GQuark
 guestfs_error_quark (void)
 {
-  return g_quark_from_static_string (\"guestfs\");
+  return g_quark_from_static_string ("guestfs");
 }
 
 /* Cancellation handler */
@@ -739,15 +726,15 @@ G_DEFINE_BOXED_TYPE (GuestfsSessionEventParams,
                     guestfs_session_event_params_free)
 
 /* Event callback */
-";
+|};
 
   pr "static guint signals[%i] = { 0 };\n" (List.length events);
 
-pr "
+pr {|
 static GuestfsSessionEvent
 guestfs_session_event_from_guestfs_event (uint64_t event)
 {
-  switch (event) {";
+  switch (event) {|};
 
   List.iter (
     fun (name, _) ->
@@ -756,10 +743,10 @@ guestfs_session_event_from_guestfs_event (uint64_t event)
       pr "\n    case %s: return %s;" guestfs_name enum_name;
   ) events;
 
-pr "
+pr {|
   }
 
-  g_warning (\"guestfs_session_event_from_guestfs_event: invalid event %%\" PRIu64,
+  g_warning ("guestfs_session_event_from_guestfs_event: invalid event %%" PRIu64,
             event);
   return UINT32_MAX;
 }
@@ -801,7 +788,7 @@ guestfs_session_event_get_type (void)
 {
   static GType etype = 0;
   if (etype == 0) {
-    static const GEnumValue values[] = {";
+    static const GEnumValue values[] = {|};
 
   List.iter (
     fun (name, _) ->
@@ -809,9 +796,9 @@ guestfs_session_event_get_type (void)
       pr "\n      { %s, \"%s\", \"%s\" }," enum_name enum_name name
   ) events;
 
-  pr "
+  pr {|
     };
-    etype = g_enum_register_static (\"GuestfsSessionEvent\", values);
+    etype = g_enum_register_static ("GuestfsSessionEvent", values);
   }
   return etype;
 }
@@ -843,7 +830,7 @@ guestfs_session_class_init (GuestfsSessionClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  object_class->finalize = guestfs_session_finalize;";
+  object_class->finalize = guestfs_session_finalize;|};
 
   List.iter (
     fun (name, _) ->
@@ -868,7 +855,7 @@ guestfs_session_class_init (GuestfsSessionClass *klass)
       pr "                 1, guestfs_session_event_params_get_type ());";
   ) events;
 
-  pr "
+  pr {|
 }
 
 static void
@@ -912,7 +899,7 @@ guestfs_session_close (GuestfsSession *session, GError **err)
   guestfs_h *g = session->priv->g;
 
   if (g == NULL) {
-    g_set_error_literal (err, GUESTFS_ERROR, 0, \"session is already closed\");
+    g_set_error_literal (err, GUESTFS_ERROR, 0, "session is already closed");
     return FALSE;
   }
 
@@ -920,7 +907,7 @@ guestfs_session_close (GuestfsSession *session, GError **err)
   session->priv->g = NULL;
 
   return TRUE;
-}";
+}|};
 
   let urls = Str.regexp "L<\\(https?\\)://\\([^>]*\\)>" in
   let bz = Str.regexp "RHBZ#\\([0-9]+\\)" in

@@ -55,7 +55,7 @@ let translate_bad_symbols s =
 let generate_rust () =
   generate_header ~copyrights CStyle LGPLv2plus;
 
-  pr "
+  pr {|
 use crate::base::*;
 use crate::utils::*;
 use crate::error::*;
@@ -67,10 +67,10 @@ use std::os::raw::{c_char, c_int, c_void};
 use std::ptr;
 use std::slice;
 
-extern \"C\" {
+extern "C" {
     fn free(buf: *const c_void);
 }
-";
+|};
 
   (* event enum *)
   pr "\n";

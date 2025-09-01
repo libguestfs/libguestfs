@@ -28,8 +28,7 @@ let non_daemon_functions = [
     style = RStructList ("applications", "application"), [String (Mountable, "root")], [];
     deprecated_by = Replaced_by "inspect_list_applications2";
     shortdesc = "get list of applications installed in the operating system";
-    longdesc = "\
-Return the list of applications installed in the operating system.
+    longdesc = {|Return the list of applications installed in the operating system.
 
 I<Note:> This call works differently from other parts of the
 inspection API.  You have to call C<guestfs_inspect_os>, then
@@ -58,7 +57,7 @@ name.
 The display name of the application, sometimes localized to the
 install language of the guest operating system.
 
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 Callers needing to display something can use C<app_name> instead.
 
 =item C<app_epoch>
@@ -69,13 +68,13 @@ the package (an integer).  If unavailable, this is returned as C<0>.
 =item C<app_version>
 
 The version string of the application or package.  If unavailable
-this is returned as an empty string C<\"\">.
+this is returned as an empty string C<"">.
 
 =item C<app_release>
 
 The release string of the application or package, for package
 managers that use this.  If unavailable this is returned as an
-empty string C<\"\">.
+empty string C<"">.
 
 =item C<app_install_path>
 
@@ -84,42 +83,42 @@ such as Windows which use installation paths).  This path is
 in the format used by the guest operating system, it is not
 a libguestfs path.
 
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 
 =item C<app_trans_path>
 
 The install path translated into a libguestfs path.
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 
 =item C<app_publisher>
 
 The name of the publisher of the application, for package
 managers that use this.  If unavailable this is returned
-as an empty string C<\"\">.
+as an empty string C<"">.
 
 =item C<app_url>
 
 The URL (eg. upstream URL) of the application.
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 
 =item C<app_source_package>
 
 For packaging systems which support this, the name of the source
-package.  If unavailable this is returned as an empty string C<\"\">.
+package.  If unavailable this is returned as an empty string C<"">.
 
 =item C<app_summary>
 
 A short (usually one line) description of the application or package.
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 
 =item C<app_description>
 
 A longer description of the application or package.
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 
 =back
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
 ]
 
@@ -130,8 +129,7 @@ let daemon_functions = [
     impl = OCaml "Inspect.inspect_get_format";
     deprecated_by = Deprecated_no_replacement;
     shortdesc = "get format of inspected operating system";
-    longdesc = "\
-Before libguestfs 1.38, there was some unreliable support for detecting
+    longdesc = {|Before libguestfs 1.38, there was some unreliable support for detecting
 installer CDs.  This API would return:
 
 =over 4
@@ -154,7 +152,7 @@ The format of this disk image is not known.
 In libguestfs E<ge> 1.38, this only returns C<installed>.
 Use libosinfo directly to detect installer CDs.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_is_live"; added = (1, 9, 4);

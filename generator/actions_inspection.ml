@@ -28,8 +28,7 @@ let daemon_functions = [
     style = RStringList (RMountable, "roots"), [], [];
     impl = OCaml "Inspect.inspect_os";
     shortdesc = "inspect disk and return list of operating systems found";
-    longdesc = "\
-This function uses other libguestfs functions and certain
+    longdesc = {|This function uses other libguestfs functions and certain
 heuristics to inspect the disk(s) (usually disks belonging to
 a virtual machine), looking for operating systems.
 
@@ -59,67 +58,65 @@ disk is encrypted.
 
 Please read L<guestfs(3)/INSPECTION> for more details.
 
-See also C<guestfs_list_filesystems>." };
+See also C<guestfs_list_filesystems>.|} };
 
   { defaults with
     name = "inspect_get_roots"; added = (1, 7, 3);
     style = RStringList (RMountable, "roots"), [], [];
     impl = OCaml "Inspect.inspect_get_roots";
     shortdesc = "return list of operating systems found by last inspection";
-    longdesc = "\
-This function is a convenient way to get the list of root
+    longdesc = {|This function is a convenient way to get the list of root
 devices, as returned from a previous call to C<guestfs_inspect_os>,
 but without redoing the whole inspection process.
 
 This returns an empty list if either no root devices were
 found or the caller has not called C<guestfs_inspect_os>.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_type"; added = (1, 5, 3);
     style = RString (RPlainString, "name"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_type";
     shortdesc = "get type of inspected operating system";
-    longdesc = "\
-This returns the type of the inspected operating system.
+    longdesc = {|This returns the type of the inspected operating system.
 Currently defined types are:
 
 =over 4
 
-=item \"linux\"
+=item "linux"
 
 Any Linux-based operating system.
 
-=item \"windows\"
+=item "windows"
 
 Any Microsoft Windows operating system.
 
-=item \"freebsd\"
+=item "freebsd"
 
 FreeBSD.
 
-=item \"netbsd\"
+=item "netbsd"
 
 NetBSD.
 
-=item \"openbsd\"
+=item "openbsd"
 
 OpenBSD.
 
-=item \"hurd\"
+=item "hurd"
 
 GNU/Hurd.
 
-=item \"dos\"
+=item "dos"
 
 MS-DOS, FreeDOS and others.
 
-=item \"minix\"
+=item "minix"
 
 MINIX.
 
-=item \"unknown\"
+=item "unknown"
 
 The operating system type could not be determined.
 
@@ -128,201 +125,199 @@ The operating system type could not be determined.
 Future versions of libguestfs may return other strings here.
 The caller should be prepared to handle any string.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_arch"; added = (1, 5, 3);
     style = RString (RPlainString, "arch"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_arch";
     shortdesc = "get architecture of inspected operating system";
-    longdesc = "\
-This returns the architecture of the inspected operating system.
+    longdesc = {|This returns the architecture of the inspected operating system.
 The possible return values are listed under
 C<guestfs_file_architecture>.
 
 If the architecture could not be determined, then the
 string C<unknown> is returned.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_distro"; added = (1, 5, 3);
     style = RString (RPlainString, "distro"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_distro";
     shortdesc = "get distro of inspected operating system";
-    longdesc = "\
-This returns the distro (distribution) of the inspected operating
+    longdesc = {|This returns the distro (distribution) of the inspected operating
 system.
 
 Currently defined distros are:
 
 =over 4
 
-=item \"alpinelinux\"
+=item "alpinelinux"
 
 Alpine Linux.
 
-=item \"altlinux\"
+=item "altlinux"
 
 ALT Linux.
 
-=item \"archlinux\"
+=item "archlinux"
 
 Arch Linux.
 
-=item \"buildroot\"
+=item "buildroot"
 
 Buildroot-derived distro, but not one we specifically recognize.
 
-=item \"centos\"
+=item "centos"
 
 CentOS.
 
-=item \"circle\"
+=item "circle"
 
 Circle Linux.
 
-=item \"cirros\"
+=item "cirros"
 
 Cirros.
 
-=item \"coreos\"
+=item "coreos"
 
 CoreOS.
 
-=item \"debian\"
+=item "debian"
 
 Debian.
 
-=item \"fedora\"
+=item "fedora"
 
 Fedora.
 
-=item \"freebsd\"
+=item "freebsd"
 
 FreeBSD.
 
-=item \"freedos\"
+=item "freedos"
 
 FreeDOS.
 
-=item \"frugalware\"
+=item "frugalware"
 
 Frugalware.
 
-=item \"gentoo\"
+=item "gentoo"
 
 Gentoo.
 
-=item \"kalilinux\"
+=item "kalilinux"
 
 Kali Linux.
 
-=item \"kylin\"
+=item "kylin"
 
 Kylin.
 
-=item \"linuxmint\"
+=item "linuxmint"
 
 Linux Mint.
 
-=item \"mageia\"
+=item "mageia"
 
 Mageia.
 
-=item \"mandriva\"
+=item "mandriva"
 
 Mandriva.
 
-=item \"meego\"
+=item "meego"
 
 MeeGo.
 
-=item \"msdos\"
+=item "msdos"
 
 Microsoft DOS.
 
-=item \"neokylin\"
+=item "neokylin"
 
 NeoKylin.
 
-=item \"netbsd\"
+=item "netbsd"
 
 NetBSD.
 
-=item \"openbsd\"
+=item "openbsd"
 
 OpenBSD.
 
-=item \"openeuler\"
+=item "openeuler"
 
 openEuler.
 
-=item \"openmandriva\"
+=item "openmandriva"
 
 OpenMandriva Lx.
 
-=item \"opensuse\"
+=item "opensuse"
 
 OpenSUSE.
 
-=item \"oraclelinux\"
+=item "oraclelinux"
 
 Oracle Linux.
 
-=item \"pardus\"
+=item "pardus"
 
 Pardus.
 
-=item \"pldlinux\"
+=item "pldlinux"
 
 PLD Linux.
 
-=item \"redhat-based\"
+=item "redhat-based"
 
 Some Red Hat-derived distro.
 
-=item \"rhel\"
+=item "rhel"
 
 Red Hat Enterprise Linux.
 
-=item \"rocky\"
+=item "rocky"
 
 Rocky Linux.
 
-=item \"scientificlinux\"
+=item "scientificlinux"
 
 Scientific Linux.
 
-=item \"slackware\"
+=item "slackware"
 
 Slackware.
 
-=item \"sles\"
+=item "sles"
 
 SuSE Linux Enterprise Server or Desktop.
 
-=item \"suse-based\"
+=item "suse-based"
 
 Some openSuSE-derived distro.
 
-=item \"ttylinux\"
+=item "ttylinux"
 
 ttylinux.
 
-=item \"ubuntu\"
+=item "ubuntu"
 
 Ubuntu.
 
-=item \"unknown\"
+=item "unknown"
 
 The distro could not be determined.
 
-=item \"voidlinux\"
+=item "voidlinux"
 
 Void Linux.
 
-=item \"windows\"
+=item "windows"
 
 Windows does not have distributions.  This string is
 returned if the OS type is Windows.
@@ -332,49 +327,46 @@ returned if the OS type is Windows.
 Future versions of libguestfs may return other strings here.
 The caller should be prepared to handle any string.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_major_version"; added = (1, 5, 3);
     style = RInt "major", [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_major_version";
     shortdesc = "get major version of inspected operating system";
-    longdesc = "\
-This returns the major version number of the inspected operating
+    longdesc = {|This returns the major version number of the inspected operating
 system.
 
 Windows uses a consistent versioning scheme which is I<not>
 reflected in the popular public names used by the operating system.
-Notably the operating system known as \"Windows 7\" is really
+Notably the operating system known as "Windows 7" is really
 version 6.1 (ie. major = 6, minor = 1).  You can find out the
 real versions corresponding to releases of Windows by consulting
 Wikipedia or MSDN.
 
 If the version could not be determined, then C<0> is returned.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_minor_version"; added = (1, 5, 3);
     style = RInt "minor", [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_minor_version";
     shortdesc = "get minor version of inspected operating system";
-    longdesc = "\
-This returns the minor version number of the inspected operating
+    longdesc = {|This returns the minor version number of the inspected operating
 system.
 
 If the version could not be determined, then C<0> is returned.
 
 Please read L<guestfs(3)/INSPECTION> for more details.
-See also C<guestfs_inspect_get_major_version>." };
+See also C<guestfs_inspect_get_major_version>.|} };
 
   { defaults with
     name = "inspect_get_product_name"; added = (1, 5, 3);
     style = RString (RPlainString, "product"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_product_name";
     shortdesc = "get product name of inspected operating system";
-    longdesc = "\
-This returns the product name of the inspected operating
+    longdesc = {|This returns the product name of the inspected operating
 system.  The product name is generally some freeform string
 which can be displayed to the user, but should not be
 parsed by programs.
@@ -382,30 +374,28 @@ parsed by programs.
 If the product name could not be determined, then the
 string C<unknown> is returned.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_windows_systemroot"; added = (1, 5, 25);
     style = RString (RPlainString, "systemroot"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_windows_systemroot";
     shortdesc = "get Windows systemroot of inspected operating system";
-    longdesc = "\
-This returns the Windows systemroot of the inspected guest.
+    longdesc = {|This returns the Windows systemroot of the inspected guest.
 The systemroot is a directory path such as F</WINDOWS>.
 
 This call assumes that the guest is Windows and that the
 systemroot could be determined by inspection.  If this is not
 the case then an error is returned.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_package_format"; added = (1, 7, 5);
     style = RString (RPlainString, "packageformat"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_package_format";
     shortdesc = "get package format used by the operating system";
-    longdesc = "\
-This function and C<guestfs_inspect_get_package_management> return
+    longdesc = {|This function and C<guestfs_inspect_get_package_management> return
 the package format and package management tool used by the
 inspected operating system.  For example for Fedora these
 functions would return C<rpm> (package format), and
@@ -420,15 +410,14 @@ C<rpm>, C<deb>, C<ebuild>, C<pisi>, C<pacman>, C<pkgsrc>, C<apk>,
 C<xbps>.
 Future versions of libguestfs may return other strings.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_package_management"; added = (1, 7, 5);
     style = RString (RPlainString, "packagemanagement"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_package_management";
     shortdesc = "get package management tool used by the operating system";
-    longdesc = "\
-C<guestfs_inspect_get_package_format> and this function return
+    longdesc = {|C<guestfs_inspect_get_package_format> and this function return
 the package format and package management tool used by the
 inspected operating system.  For example for Fedora these
 functions would return C<rpm> (package format), and
@@ -443,33 +432,31 @@ C<apt> (for all Debian derivatives),
 C<portage>, C<pisi>, C<pacman>, C<urpmi>, C<zypper>, C<apk>, C<xbps>.
 Future versions of libguestfs may return other strings.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_hostname"; added = (1, 7, 9);
     style = RString (RPlainString, "hostname"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_hostname";
     shortdesc = "get hostname of the operating system";
-    longdesc = "\
-This function returns the hostname of the operating system
+    longdesc = {|This function returns the hostname of the operating system
 as found by inspection of the guest’s configuration files.
 
 If the hostname could not be determined, then the
 string C<unknown> is returned.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_product_variant"; added = (1, 9, 13);
     style = RString (RPlainString, "variant"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_product_variant";
     shortdesc = "get product variant of inspected operating system";
-    longdesc = "\
-This returns the product variant of the inspected operating
+    longdesc = {|This returns the product variant of the inspected operating
 system.
 
 For Windows guests, this returns the contents of the Registry key
-C<HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion>
+C<HKLM\Software\Microsoft\Windows NT\CurrentVersion>
 C<InstallationType> which is usually a string such as
 C<Client> or C<Server> (other values are possible).  This
 can be used to distinguish consumer and enterprise versions
@@ -486,31 +473,29 @@ string C<unknown> is returned.
 
 Please read L<guestfs(3)/INSPECTION> for more details.
 See also C<guestfs_inspect_get_product_name>,
-C<guestfs_inspect_get_major_version>." };
+C<guestfs_inspect_get_major_version>.|} };
 
   { defaults with
     name = "inspect_get_windows_current_control_set"; added = (1, 9, 17);
     style = RString (RPlainString, "controlset"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_windows_current_control_set";
     shortdesc = "get Windows CurrentControlSet of inspected operating system";
-    longdesc = "\
-This returns the Windows CurrentControlSet of the inspected guest.
+    longdesc = {|This returns the Windows CurrentControlSet of the inspected guest.
 The CurrentControlSet is a registry key name such as C<ControlSet001>.
 
 This call assumes that the guest is Windows and that the
 Registry could be examined by inspection.  If this is not
 the case then an error is returned.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_windows_software_hive"; added = (1, 35, 26);
     style = RString (RPlainString, "path"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_windows_software_hive";
     shortdesc = "get the path of the Windows software hive";
-    longdesc = "\
-This returns the path to the hive (binary Windows Registry file)
-corresponding to HKLM\\SOFTWARE.
+    longdesc = {|This returns the path to the hive (binary Windows Registry file)
+corresponding to HKLM\SOFTWARE.
 
 This call assumes that the guest is Windows and that the guest
 has a software hive file with the right name.  If this is not the
@@ -519,16 +504,15 @@ hive is a valid Windows Registry hive.
 
 You can use C<guestfs_hivex_open> to read or write to the hive.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_windows_system_hive"; added = (1, 35, 26);
     style = RString (RPlainString, "path"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_windows_system_hive";
     shortdesc = "get the path of the Windows system hive";
-    longdesc = "\
-This returns the path to the hive (binary Windows Registry file)
-corresponding to HKLM\\SYSTEM.
+    longdesc = {|This returns the path to the hive (binary Windows Registry file)
+corresponding to HKLM\SYSTEM.
 
 This call assumes that the guest is Windows and that the guest
 has a system hive file with the right name.  If this is not the
@@ -537,16 +521,15 @@ hive is a valid Windows Registry hive.
 
 You can use C<guestfs_hivex_open> to read or write to the hive.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_build_id"; added = (1, 49, 8);
     style = RString (RPlainString, "buildid"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_build_id";
     shortdesc = "get the system build ID";
-    longdesc = "\
-This returns the build ID of the system, or the string
-C<\"unknown\"> if the system does not have a build ID.
+    longdesc = {|This returns the build ID of the system, or the string
+C<"unknown"> if the system does not have a build ID.
 
 For Windows, this gets the build number.  Although it is
 returned as a string, it is (so far) always a number.  See
@@ -556,15 +539,14 @@ for some possible values.
 For Linux, this returns the C<BUILD_ID> string from
 F</etc/os-release>, although this is not often used.
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_mountpoints"; added = (1, 5, 3);
     style = RHashtable (RPlainString, RMountable, "mountpoints"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_mountpoints";
     shortdesc = "get mountpoints of inspected operating system";
-    longdesc = "\
-This returns a hash of where we think the filesystems
+    longdesc = {|This returns a hash of where we think the filesystems
 associated with this operating system should be mounted.
 Callers should note that this is at best an educated guess
 made by reading configuration files such as F</etc/fstab>.
@@ -583,20 +565,19 @@ returned in this list.
 
 For operating systems like Windows which still use drive
 letters, this call will only return an entry for the first
-drive \"mounted on\" F</>.  For information about the
+drive "mounted on" F</>.  For information about the
 mapping of drive letters to partitions, see
 C<guestfs_inspect_get_drive_mappings>.
 
 Please read L<guestfs(3)/INSPECTION> for more details.
-See also C<guestfs_inspect_get_filesystems>." };
+See also C<guestfs_inspect_get_filesystems>.|} };
 
   { defaults with
     name = "inspect_get_filesystems"; added = (1, 5, 3);
     style = RStringList (RMountable, "filesystems"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_filesystems";
     shortdesc = "get filesystems associated with inspected operating system";
-    longdesc = "\
-This returns a list of all the filesystems that we think
+    longdesc = {|This returns a list of all the filesystems that we think
 are associated with this operating system.  This includes
 the root filesystem, other ordinary filesystems, and
 non-mounted devices like swap partitions.
@@ -605,16 +586,15 @@ In the case of a multi-boot virtual machine, it is possible
 for a filesystem to be shared between operating systems.
 
 Please read L<guestfs(3)/INSPECTION> for more details.
-See also C<guestfs_inspect_get_mountpoints>." };
+See also C<guestfs_inspect_get_mountpoints>.|} };
 
   { defaults with
     name = "inspect_get_drive_mappings"; added = (1, 9, 17);
     style = RHashtable (RPlainString, RDevice, "drives"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_drive_mappings";
     shortdesc = "get drive letter mappings";
-    longdesc = "\
-This call is useful for Windows which uses a primitive system
-of assigning drive letters (like F<C:\\>) to partitions.
+    longdesc = {|This call is useful for Windows which uses a primitive system
+of assigning drive letters (like F<C:\>) to partitions.
 This inspection API examines the Windows Registry to find out
 how disks/partitions are mapped to drive letters, and returns
 a hash table as in the example below:
@@ -640,7 +620,7 @@ could not be determined, this returns an empty hash table.
 
 Please read L<guestfs(3)/INSPECTION> for more details.
 See also C<guestfs_inspect_get_mountpoints>,
-C<guestfs_inspect_get_filesystems>." };
+C<guestfs_inspect_get_filesystems>.|} };
 
   { defaults with
     name = "internal_list_rpm_applications"; added = (1, 45, 3);
@@ -659,8 +639,7 @@ let non_daemon_functions = [
     name = "inspect_list_applications2"; added = (1, 19, 56);
     style = RStructList ("applications2", "application2"), [String (Mountable, "root")], [];
     shortdesc = "get list of applications installed in the operating system";
-    longdesc = "\
-Return the list of applications installed in the operating system.
+    longdesc = {|Return the list of applications installed in the operating system.
 
 I<Note:> This call works differently from other parts of the
 inspection API.  You have to call C<guestfs_inspect_os>, then
@@ -689,7 +668,7 @@ name.
 The display name of the application, sometimes localized to the
 install language of the guest operating system.
 
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 Callers needing to display something can use C<app2_name> instead.
 
 =item C<app2_epoch>
@@ -700,19 +679,19 @@ the package (an integer).  If unavailable, this is returned as C<0>.
 =item C<app2_version>
 
 The version string of the application or package.  If unavailable
-this is returned as an empty string C<\"\">.
+this is returned as an empty string C<"">.
 
 =item C<app2_release>
 
 The release string of the application or package, for package
 managers that use this.  If unavailable this is returned as an
-empty string C<\"\">.
+empty string C<"">.
 
 =item C<app2_arch>
 
 The architecture string of the application or package, for package
 managers that use this.  If unavailable this is returned as an empty
-string C<\"\">.
+string C<"">.
 
 =item C<app2_install_path>
 
@@ -721,49 +700,48 @@ such as Windows which use installation paths).  This path is
 in the format used by the guest operating system, it is not
 a libguestfs path.
 
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 
 =item C<app2_trans_path>
 
 The install path translated into a libguestfs path.
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 
 =item C<app2_publisher>
 
 The name of the publisher of the application, for package
 managers that use this.  If unavailable this is returned
-as an empty string C<\"\">.
+as an empty string C<"">.
 
 =item C<app2_url>
 
 The URL (eg. upstream URL) of the application.
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 
 =item C<app2_source_package>
 
 For packaging systems which support this, the name of the source
-package.  If unavailable this is returned as an empty string C<\"\">.
+package.  If unavailable this is returned as an empty string C<"">.
 
 =item C<app2_summary>
 
 A short (usually one line) description of the application or package.
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 
 =item C<app2_description>
 
 A longer description of the application or package.
-If unavailable this is returned as an empty string C<\"\">.
+If unavailable this is returned as an empty string C<"">.
 
 =back
 
-Please read L<guestfs(3)/INSPECTION> for more details." };
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
     name = "inspect_get_icon"; added = (1, 11, 12);
     style = RBufferOut "icon", [String (Mountable, "root")],  [OBool "favicon"; OBool "highquality"];
     shortdesc = "get the icon corresponding to this operating system";
-    longdesc = "\
-This function returns an icon corresponding to the inspected
+    longdesc = {|This function returns an icon corresponding to the inspected
 operating system.  The icon is returned as a buffer containing a
 PNG image (re-encoded to PNG if necessary).
 
@@ -771,7 +749,7 @@ If it was not possible to get an icon this function returns a
 zero-length (non-NULL) buffer.  I<Callers must check for this case>.
 
 Libguestfs will start by looking for a file called
-F</etc/favicon.png> or F<C:\\etc\\favicon.png>
+F</etc/favicon.png> or F<C:\etc\favicon.png>
 and if it has the correct format, the contents of this file will
 be returned.  You can disable favicons by passing the
 optional C<favicon> boolean as false (default is true).
@@ -821,20 +799,19 @@ from the C<netpbm> package.  These must be installed separately.
 Operating system icons are usually trademarks.  Seek legal
 advice before using trademarks in applications.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "inspect_get_osinfo"; added = (1, 39, 1);
     style = RString (RPlainString, "id"), [String (Mountable, "root")], [];
     shortdesc = "get a possible osinfo short ID corresponding to this operating system";
-    longdesc = "\
-This function returns a possible short ID for libosinfo corresponding
+    longdesc = {|This function returns a possible short ID for libosinfo corresponding
 to the guest.
 
 I<Note:> The returned ID is only a guess by libguestfs, and nothing
 ensures that it actually exists in osinfo-db.
 
 If no ID could not be determined, then the string C<unknown> is
-returned." };
+returned.|} };
 
 ]

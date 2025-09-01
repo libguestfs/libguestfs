@@ -577,7 +577,15 @@ Guestfish will prompt for these separately."
         else "" in
 
       let pod =
-        sprintf "%s - %s\n\n=head1 SYNOPSIS\n\n %s\n\n=head1 DESCRIPTION\n\n%s%s%s"
+        sprintf {|%s - %s
+
+=head1 SYNOPSIS
+
+ %s
+
+=head1 DESCRIPTION
+
+%s%s%s|}
           name2 shortdesc synopsis longdesc warnings describe_alias in
       let text =
         String.concat "\n" (pod2text ~trim:false ~discard:false "NAME" pod)
@@ -629,7 +637,13 @@ let generate_fish_cmds () =
         else "" in
 
       let pod =
-        sprintf "%s - %s\n\n=head1 DESCRIPTION\n\n%s\n\n%s"
+        sprintf {|%s - %s
+
+=head1 DESCRIPTION
+
+%s
+
+%s|}
           name2 shortdesc longdesc describe_alias in
       let text =
         String.concat "\n" (pod2text ~trim:false ~discard:false "NAME" pod)
@@ -688,8 +702,7 @@ and generate_fish_cmds_h () =
 and generate_fish_cmds_gperf () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-%%language=ANSI-C
+  pr {|%%language=ANSI-C
 %%define lookup-function-name lookup_fish_command
 %%ignore-case
 %%readonly-tables
@@ -704,24 +717,23 @@ and generate_fish_cmds_gperf () =
 #include <string.h>
 #include <libintl.h>
 
-#include \"fish.h\"
-#include \"run.h\"
-#include \"cmds-gperf.h\"
+#include "fish.h"
+#include "run.h"
+#include "cmds-gperf.h"
 
-";
+|};
 
   List.iter (
     fun { name } ->
       pr "extern struct command_entry %s_cmd_entry;\n" name
   ) fish_functions_and_commands_sorted;
 
-  pr "\
-%%}
+  pr {|%%}
 
 struct command_table;
 
 %%%%
-";
+|};
 
   List.iter (
     fun ({ name } as f) ->
@@ -742,8 +754,7 @@ struct command_table;
       ) aliases;
   ) fish_functions_and_commands_sorted;
 
-  pr "\
-%%%%
+  pr {|%%%%
 
 int
 display_command (const char *cmd)
@@ -772,28 +783,27 @@ run_action (const char *cmd, size_t argc, char *argv[])
      * that this function should print the command synopsis.
      */
     if (ret == RUN_WRONG_ARGS) {
-      fprintf (stderr, _(\"error: incorrect number of arguments\\n\"));
+      fprintf (stderr, _("error: incorrect number of arguments\n"));
       if (ct->entry->synopsis)
-        fprintf (stderr, _(\"usage: %%s\\n\"), ct->entry->synopsis);
-      fprintf (stderr, _(\"type 'help %%s' for more help on %%s\\n\"), cmd, cmd);
+        fprintf (stderr, _("usage: %%s\n"), ct->entry->synopsis);
+      fprintf (stderr, _("type 'help %%s' for more help on %%s\n"), cmd, cmd);
       ret = -1;
     }
   }
   else {
-    fprintf (stderr, _(\"%%s: unknown command\\n\"), cmd);
+    fprintf (stderr, _("%%s: unknown command\n"), cmd);
     if (command_num == 1)
       extended_help_message ();
   }
   return ret;
 }
-"
+|}
 
 (* Readline completion for guestfish. *)
 and generate_fish_completion () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -803,13 +813,13 @@ and generate_fish_completion () =
 #include <readline/readline.h>
 #endif
 
-#include \"fish.h\"
+#include "fish.h"
 
 #ifdef HAVE_LIBREADLINE
 
 static const char *const commands[] = {
   BUILTIN_COMMANDS_FOR_COMPLETION,
-";
+|};
 
   (* Get the commands, including the aliases.  They don't need to be
    * sorted - the generator() function just does a dumb linear search.
@@ -825,7 +835,7 @@ static const char *const commands[] = {
 
   List.iter (pr "  \"%s\",\n") commands;
 
-  pr "  NULL
+  pr {|  NULL
 };
 
 static char *
@@ -876,7 +886,7 @@ do_completion (const char *text, int start, int end)
 
   return matches;
 }
-";
+|};
 
 (* Generate the POD documentation for guestfish. *)
 and generate_fish_actions_pod () =
@@ -976,9 +986,8 @@ and generate_fish_prep_options_h () =
   pr "#ifndef PREPOPTS_H\n";
   pr "\n";
 
-  pr "\
-struct prep {
-  const char *name;             /* eg. \"fs\" */
+  pr {|struct prep {
+  const char *name;             /* eg. "fs" */
 
   size_t nr_params;             /* optional parameters */
   struct prep_param *params;
@@ -1000,7 +1009,7 @@ struct prep_param {
 extern const struct prep preps[];
 #define NR_PREPS %d
 
-" (List.length prepopts);
+|} (List.length prepopts);
 
   List.iter (
     fun (name, _, _, _) ->
@@ -1016,15 +1025,14 @@ extern void prep_postlaunch_%s (const char *filename, prep_data *data, const cha
 and generate_fish_prep_options_c () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 
-#include \"fish.h\"
-#include \"prepopts.h\"
+#include "fish.h"
+#include "prepopts.h"
 
-";
+|};
 
   List.iter (
     fun (name, _, args, _) ->
@@ -1056,11 +1064,11 @@ and generate_fish_prep_options_c () =
       let longdesc = loop longdesc in
       let longdesc = String.concat "" longdesc in
 
-      pr "  { \"%s\", %d, %s_args,
-    \"%s\",
-    \"%s\",
+      pr {|  { "%s", %d, %s_args,
+    "%s",
+    "%s",
     prep_prelaunch_%s, prep_postlaunch_%s },
-"
+|}
         name (List.length args) name
         (c_quote shortdesc) (c_quote longdesc)
         name name;
@@ -1097,22 +1105,21 @@ and generate_fish_prep_options_pod () =
 and generate_fish_event_names () =
   generate_header CStyle GPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <libintl.h>
 
-#include \"fish.h\"
+#include "fish.h"
 
 int
 event_bitmask_of_event_set (const char *arg, uint64_t *eventset_r)
 {
   size_t n;
 
-  if (STREQ (arg, \"*\")) {
+  if (STREQ (arg, "*")) {
     *eventset_r = GUESTFS_EVENT_ALL;
     return 0;
   }
@@ -1120,9 +1127,9 @@ event_bitmask_of_event_set (const char *arg, uint64_t *eventset_r)
   *eventset_r = 0;
 
   while (*arg) {
-    n = strcspn (arg, \",\");
+    n = strcspn (arg, ",");
 
-    ";
+    |};
 
   List.iter (
     fun (name, _) ->
@@ -1132,9 +1139,8 @@ event_bitmask_of_event_set (const char *arg, uint64_t *eventset_r)
       pr "    else ";
   ) events;
 
-  pr "\
-{
-      fprintf (stderr, _(\"unknown event name: %%s\\n\"), arg);
+  pr {|{
+      fprintf (stderr, _("unknown event name: %%s\n"), arg);
       return -1;
     }
 
@@ -1145,7 +1151,7 @@ event_bitmask_of_event_set (const char *arg, uint64_t *eventset_r)
 
   return 0;
 }
-"
+|}
 
 and generate_fish_test_prep_sh () =
   pr "#!/bin/bash -\n";
@@ -1153,8 +1159,7 @@ and generate_fish_test_prep_sh () =
 
   let all_disks = sprintf "prep{1..%d}.img" (List.length prepopts) in
 
-  pr "\
-
+  pr {|
 source ../tests/functions.sh
 set -e
 set -x
@@ -1163,8 +1168,8 @@ skip_if_skipped
 
 rm -f %s
 
-$VG guestfish \\
-" all_disks;
+$VG guestfish \
+|} all_disks;
 
   let vg_count = ref 0 in
 

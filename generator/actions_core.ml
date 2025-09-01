@@ -29,14 +29,13 @@ let non_daemon_functions = [
     style = RErr, [], [];
     fish_alias = ["run"]; progress = true; config_only = true;
     shortdesc = "launch the backend";
-    longdesc = "\
-You should call this after configuring the handle
+    longdesc = {|You should call this after configuring the handle
 (eg. adding drives) but before performing any actions.
 
 Do not call C<guestfs_launch> twice on the same handle.  Although
 it will not give an error (for historical reasons), the precise
 behaviour when you do this is not well defined.  Handles are
-very cheap to create, so create a new one for each launch." };
+very cheap to create, so create a new one for each launch.|} };
 
   { defaults with
     name = "add_drive_ro"; added = (1, 0, 38);
@@ -56,15 +55,14 @@ automatically." };
     config_only = true;
     blocking = false;
     shortdesc = "add hypervisor parameters";
-    longdesc = "\
-This can be used to add arbitrary hypervisor parameters of the
+    longdesc = {|This can be used to add arbitrary hypervisor parameters of the
 form I<-param value>.  Actually it’s not quite arbitrary - we
 prevent you from setting some parameters which would interfere with
 parameters that we use.
 
 The first character of C<hvparam> string must be a C<-> (dash).
 
-C<hvvalue> can be NULL." };
+C<hvvalue> can be NULL.|} };
 
   { defaults with
     name = "is_ready"; added = (1, 0, 2);
@@ -146,8 +144,7 @@ For more information on states, see L<guestfs(3)>." };
     style = RStructList ("entries", "dirent"), [String (Pathname, "dir")], [];
     progress = true; cancellable = true;
     shortdesc = "read directories entries";
-    longdesc = "\
-This returns the list of directory entries in directory C<dir>.
+    longdesc = {|This returns the list of directory entries in directory C<dir>.
 
 All entries in the directory are returned, including C<.> and
 C<..>.  The entries are I<not> sorted, but returned in the same
@@ -199,7 +196,7 @@ unexpected value
 
 This function is primarily intended for use by programs.  To
 get a simple list of names, use C<guestfs_ls>.  To get a printable
-directory for human consumption, use C<guestfs_ll>." };
+directory for human consumption, use C<guestfs_ll>.|} };
 
   { defaults with
     name = "version"; added = (1, 0, 58);
@@ -210,8 +207,7 @@ directory for human consumption, use C<guestfs_ll>." };
         [["version"]], "ret->major == 1"), []
     ];
     shortdesc = "get the library version number";
-    longdesc = "\
-Return the libguestfs version number that the program is linked
+    longdesc = {|Return the libguestfs version number that the program is linked
 against.
 
 Note that because of dynamic linking this is not necessarily
@@ -240,33 +236,31 @@ I<Note:> Don't use this call to test for availability
 of features.  In enterprise distributions we backport
 features from later versions into earlier versions,
 making this an unreliable way to test for features.
-Use C<guestfs_available> or C<guestfs_feature_available> instead." };
+Use C<guestfs_available> or C<guestfs_feature_available> instead.|} };
 
   { defaults with
     name = "mountable_device"; added = (1, 33, 15);
     style = RString (RDevice, "device"), [String (Mountable, "mountable")], [];
     shortdesc = "extract the device part of a mountable";
-    longdesc = "\
-Returns the device name of a mountable. In quite a lot of
+    longdesc = {|Returns the device name of a mountable. In quite a lot of
 cases, the mountable is the device name.
 
 However this doesn't apply for btrfs subvolumes, where the
 mountable is a combination of both the device name and the
 subvolume path (see also C<guestfs_mountable_subvolume> to
-extract the subvolume path of the mountable if any)." };
+extract the subvolume path of the mountable if any).|} };
 
   { defaults with
     name = "mountable_subvolume"; added = (1, 33, 15);
     style = RString (RPlainString, "subvolume"), [String (Mountable, "mountable")], [];
     shortdesc = "extract the subvolume part of a mountable";
-    longdesc = "\
-Returns the subvolume path of a mountable. Btrfs subvolumes
+    longdesc = {|Returns the subvolume path of a mountable. Btrfs subvolumes
 mountables are a combination of both the device name and the
 subvolume path (see also C<guestfs_mountable_device> to extract
 the device of the mountable).
 
 If the mountable does not represent a btrfs subvolume, then
-this function fails and the C<errno> is set to C<EINVAL>." };
+this function fails and the C<errno> is set to C<EINVAL>.|} };
 
   { defaults with
     name = "add_drive"; added = (0, 0, 3);
@@ -275,8 +269,7 @@ this function fails and the C<errno> is set to C<EINVAL>." };
     blocking = false;
     fish_alias = ["add"];
     shortdesc = "add an image to examine or modify";
-    longdesc = "\
-This function adds a disk image called F<filename> to the handle.
+    longdesc = {|This function adds a disk image called F<filename> to the handle.
 F<filename> may be a regular host file or a host device.
 
 When this function is called before C<guestfs_launch> (the
@@ -292,7 +285,7 @@ image).
 
 This call checks that F<filename> exists.
 
-F<filename> may be the special string C<\"/dev/null\">.
+F<filename> may be the special string C<"/dev/null">.
 See L<guestfs(3)/NULL DISKS>.
 
 The optional arguments are:
@@ -344,20 +337,20 @@ See also: L<guestfs(3)/REMOTE STORAGE>.
 
 =over 4
 
-=item C<protocol = \"file\">
+=item C<protocol = "file">
 
 F<filename> is interpreted as a local file or device.
 This is the default if the optional protocol parameter
 is omitted.
 
-=item C<protocol = \"ftp\"|\"ftps\"|\"http\"|\"https\">
+=item C<protocol = "ftp"|"ftps"|"http"|"https">
 
 Connect to a remote FTP or HTTP server.
 The C<server> parameter must also be supplied - see below.
 
 See also: L<guestfs(3)/FTP AND HTTP>
 
-=item C<protocol = \"iscsi\">
+=item C<protocol = "iscsi">
 
 Connect to the iSCSI server.
 The C<server> parameter must also be supplied - see below.
@@ -366,14 +359,14 @@ The C<secret> parameter may be supplied.  See below.
 
 See also: L<guestfs(3)/ISCSI>.
 
-=item C<protocol = \"nbd\">
+=item C<protocol = "nbd">
 
 Connect to the Network Block Device server.
 The C<server> parameter must also be supplied - see below.
 
 See also: L<guestfs(3)/NETWORK BLOCK DEVICE>.
 
-=item C<protocol = \"rbd\">
+=item C<protocol = "rbd">
 
 Connect to the Ceph (librbd/RBD) server.
 The C<server> parameter must also be supplied - see below.
@@ -382,7 +375,7 @@ The C<secret> parameter may be supplied.  See below.
 
 See also: L<guestfs(3)/CEPH>.
 
-=item C<protocol = \"ssh\">
+=item C<protocol = "ssh">
 
 Connect to the Secure Shell (ssh) server.
 
@@ -446,7 +439,7 @@ or not (unsafe but fast).  The possible values for this string are:
 
 =over 4
 
-=item C<cachemode = \"writeback\">
+=item C<cachemode = "writeback">
 
 This is the default.
 
@@ -459,7 +452,7 @@ filesystem journalling, will not return until an L<fdatasync(2)>
 call has completed in the host, indicating that data has been
 committed to disk.
 
-=item C<cachemode = \"unsafe\">
+=item C<cachemode = "unsafe">
 
 In this mode, there are no guarantees.  Libguestfs may cache
 anything and ignore sync requests.  This is suitable only
@@ -478,15 +471,15 @@ Possible discard settings are:
 
 =over 4
 
-=item C<discard = \"disable\">
+=item C<discard = "disable">
 
 Disable discard support.  This is the default.
 
-=item C<discard = \"enable\">
+=item C<discard = "enable">
 
 Enable discard support.  Fail if discard is not possible.
 
-=item C<discard = \"besteffort\">
+=item C<discard = "besteffort">
 
 Enable discard support if possible, but don't fail if it is not
 supported.
@@ -510,21 +503,20 @@ The default is false.
 
 This parameter sets the sector size of the disk.  Possible values are
 C<512> (the default if the parameter is omitted) or C<4096>.  Use
-C<4096> when handling an \"Advanced Format\" disk that uses 4K sector
+C<4096> when handling an "Advanced Format" disk that uses 4K sector
 size (L<https://en.wikipedia.org/wiki/Advanced_Format>).
 
 Only a subset of the backends support this parameter (currently only the
 libvirt and direct backends do).
 
-=back" };
+=back|} };
 
   { defaults with
     name = "add_domain"; added = (1, 7, 4);
     style = RInt "nrdisks", [String (PlainString, "dom")], [OString "libvirturi"; OBool "readonly"; OString "iface"; OBool "live"; OBool "allowuuid"; OString "readonlydisk"; OString "cachemode"; OString "discard"; OBool "copyonread"];
     fish_alias = ["domain"]; config_only = true;
     shortdesc = "add the disk(s) from a named libvirt domain";
-    longdesc = "\
-This function adds the disk(s) attached to the named libvirt
+    longdesc = {|This function adds the disk(s) attached to the named libvirt
 domain C<dom>.  It works by connecting to libvirt, requesting
 the domain and domain XML from libvirt, parsing it for disks,
 and calling C<guestfs_add_drive_opts> on each one.
@@ -560,7 +552,7 @@ Possible values are:
 
 =over 4
 
-=item readonlydisk = \"error\"
+=item readonlydisk = "error"
 
 If C<readonly> is false:
 
@@ -571,7 +563,7 @@ If C<readonly> is true:
 
 Disks with the E<lt>readonly/E<gt> flag are added read-only.
 
-=item readonlydisk = \"read\"
+=item readonlydisk = "read"
 
 If C<readonly> is false:
 
@@ -582,7 +574,7 @@ If C<readonly> is true:
 
 Disks with the E<lt>readonly/E<gt> flag are added read-only.
 
-=item readonlydisk = \"write\" (default)
+=item readonlydisk = "write" (default)
 
 If C<readonly> is false:
 
@@ -592,7 +584,7 @@ If C<readonly> is true:
 
 Disks with the E<lt>readonly/E<gt> flag are added read-only.
 
-=item readonlydisk = \"ignore\"
+=item readonlydisk = "ignore"
 
 If C<readonly> is true or false:
 
@@ -605,15 +597,14 @@ tag in libvirt XML will be passed as C<blocksize> parameter to
 C<guestfs_add_drive_opts>.
 
 The other optional parameters are passed directly through to
-C<guestfs_add_drive_opts>." };
+C<guestfs_add_drive_opts>.|} };
 
   { defaults with
     name = "add_libvirt_dom"; added = (1, 29, 14);
     style = RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [OBool "readonly"; OString "iface"; OBool "live"; OString "readonlydisk"; OString "cachemode"; OString "discard"; OBool "copyonread"];
     config_only = true;
     shortdesc = "add the disk(s) from a libvirt domain";
-    longdesc = "\
-This function adds the disk(s) attached to the libvirt domain C<dom>.
+    longdesc = {|This function adds the disk(s) attached to the libvirt domain C<dom>.
 It works by requesting the domain XML from libvirt, parsing it for
 disks, and calling C<guestfs_add_drive_opts> on each one.
 
@@ -643,14 +634,13 @@ tag in libvirt XML will be passed as C<blocksize> parameter to
 C<guestfs_add_drive_opts>.
 
 The other optional parameters are passed directly through to
-C<guestfs_add_drive_opts>." };
+C<guestfs_add_drive_opts>.|} };
 
   { defaults with
     name = "mount_local"; added = (1, 17, 22);
     style = RErr, [String (PlainString, "localmountpoint")], [OBool "readonly"; OString "options"; OInt "cachetimeout"; OBool "debugcalls"];
     shortdesc = "mount on the local filesystem";
-    longdesc = "\
-This call exports the libguestfs-accessible filesystem to
+    longdesc = {|This call exports the libguestfs-accessible filesystem to
 a local mountpoint (directory) called C<localmountpoint>.
 Ordinary reads and writes to files and directories under
 C<localmountpoint> are redirected through libguestfs.
@@ -672,15 +662,14 @@ When C<guestfs_mount_local> returns, the filesystem is ready,
 but is not processing requests (access to it will block).  You
 have to call C<guestfs_mount_local_run> to run the main loop.
 
-See L<guestfs(3)/MOUNT LOCAL> for full documentation." };
+See L<guestfs(3)/MOUNT LOCAL> for full documentation.|} };
 
   { defaults with
     name = "mount_local_run"; added = (1, 17, 22);
     style = RErr, [], [];
     cancellable = true (* in a future version *);
     shortdesc = "run main loop of mount on the local filesystem";
-    longdesc = "\
-Run the main loop which translates kernel calls to libguestfs
+    longdesc = {|Run the main loop which translates kernel calls to libguestfs
 calls.
 
 This should only be called after C<guestfs_mount_local>
@@ -695,7 +684,7 @@ called C<guestfs_mount_local>, subject to the usual rules
 for threads and libguestfs (see
 L<guestfs(3)/MULTIPLE HANDLES AND MULTIPLE THREADS>).
 
-See L<guestfs(3)/MOUNT LOCAL> for full documentation." };
+See L<guestfs(3)/MOUNT LOCAL> for full documentation.|} };
 
   { defaults with
     name = "umount_local"; added = (1, 17, 22);
@@ -713,15 +702,14 @@ See L<guestfs(3)/MOUNT LOCAL> for full documentation." };
     style = RInt "disks", [], [];
     blocking = false;
     shortdesc = "maximum number of disks that may be added";
-    longdesc = "\
-Return the maximum number of disks that may be added to a
+    longdesc = {|Return the maximum number of disks that may be added to a
 handle (eg. by C<guestfs_add_drive_opts> and similar calls).
 
 This function was added in libguestfs 1.19.7.  In previous
 versions of libguestfs the limit was 25.
 
 See L<guestfs(3)/MAXIMUM NUMBER OF DISKS> for additional
-information on this topic." };
+information on this topic.|} };
 
   { defaults with
     name = "canonical_device_name"; added = (1, 19, 7);
@@ -741,8 +729,7 @@ information on this topic." };
         [["canonical_device_name"; "/dev/md127"]], "/dev/md127"), [];
     ];
     shortdesc = "return canonical device name";
-    longdesc = "\
-This utility function is useful when displaying device names to
+    longdesc = {|This utility function is useful when displaying device names to
 the user.  It takes a number of irregular device names and
 returns them in a consistent format:
 
@@ -764,7 +751,7 @@ Converted to F</dev/VG/LV> form using C<guestfs_lvm_canonical_lv_name>.
 
 =back
 
-Other strings are returned unmodified." };
+Other strings are returned unmodified.|} };
 
   { defaults with
     name = "device_index"; added = (1, 19, 7);
@@ -774,15 +761,14 @@ Other strings are returned unmodified." };
         [["device_index"; "/dev/sda"]], "ret == 0"), []
     ];
     shortdesc = "convert device to index";
-    longdesc = "\
-This function takes a device name (eg. \"/dev/sdb\") and
+    longdesc = {|This function takes a device name (eg. "/dev/sdb") and
 returns the index of the device in the list of devices.
 
 Index numbers start from 0.  The named device must exist,
 for example as a string returned from C<guestfs_list_devices>.
 
 See also C<guestfs_list_devices>, C<guestfs_part_to_dev>,
-C<guestfs_device_name>." };
+C<guestfs_device_name>.|} };
 
   { defaults with
     name = "device_name"; added = (1, 49, 1);
@@ -796,21 +782,19 @@ C<guestfs_device_name>." };
         [["device_name"; "99"]]), []
     ];
     shortdesc = "convert device index to name";
-    longdesc = "\
-This function takes a device index and returns the device
+    longdesc = {|This function takes a device index and returns the device
 name.  For example index C<0> will return the string C</dev/sda>.
 
 The drive index must have been added to the handle.
 
 See also C<guestfs_list_devices>, C<guestfs_part_to_dev>,
-C<guestfs_device_index>." };
+C<guestfs_device_index>.|} };
 
   { defaults with
     name = "shutdown"; added = (1, 19, 16);
     style = RErr, [], [];
     shortdesc = "shutdown the hypervisor";
-    longdesc = "\
-This is the opposite of C<guestfs_launch>.  It performs an orderly
+    longdesc = {|This is the opposite of C<guestfs_launch>.  It performs an orderly
 shutdown of the backend process(es).  If the autosync flag is set
 (which is the default) then the disk image is synchronized.
 
@@ -824,7 +808,7 @@ This call does I<not> close or free up the handle.  You still
 need to call C<guestfs_close> afterwards.
 
 C<guestfs_close> will call this if you don't do it explicitly,
-but note that any errors are ignored in that case." };
+but note that any errors are ignored in that case.|} };
 
   { defaults with
     name = "cat"; added = (0, 0, 4);
@@ -834,13 +818,12 @@ but note that any errors are ignored in that case." };
         [["cat"; "/known-2"]], "abcdef\n"), []
     ];
     shortdesc = "list the contents of a file";
-    longdesc = "\
-Return the contents of the file named C<path>.
+    longdesc = {|Return the contents of the file named C<path>.
 
 Because, in C, this function returns a C<char *>, there is no
-way to differentiate between a C<\\0> character in a file and
+way to differentiate between a C<\0> character in a file and
 end of string.  To handle binary files, use the C<guestfs_read_file>
-or C<guestfs_download> functions." };
+or C<guestfs_download> functions.|} };
 
   { defaults with
     name = "find"; added = (1, 0, 27);
@@ -862,8 +845,7 @@ or C<guestfs_download> functions." };
         "is_string_list (ret, 2, \"c\", \"c/d\")"), []
     ];
     shortdesc = "find all files and directories";
-    longdesc = "\
-This command lists out all files and directories, recursively,
+    longdesc = {|This command lists out all files and directories, recursively,
 starting at F<directory>.  It is essentially equivalent to
 running the shell command C<find directory -print> but some
 post-processing happens on the output, described below.
@@ -886,7 +868,7 @@ then the returned list from C<guestfs_find> F</tmp> would be
 If F<directory> is not a directory, then this command returns
 an error.
 
-The returned list is sorted." };
+The returned list is sorted.|} };
 
   { defaults with
     name = "read_file"; added = (1, 0, 63);
@@ -897,12 +879,11 @@ The returned list is sorted." };
         "compare_buffers (ret, size, \"abc\\ndef\\nghi\", 11) == 0"), []
     ];
     shortdesc = "read a file";
-    longdesc = "\
-This call returns the contents of the file C<path> as a
+    longdesc = {|This call returns the contents of the file C<path> as a
 buffer.
 
 Unlike C<guestfs_cat>, this function can correctly
-handle files that contain embedded ASCII NUL characters." };
+handle files that contain embedded ASCII NUL characters.|} };
 
   { defaults with
     name = "read_lines"; added = (0, 0, 7);
@@ -948,16 +929,15 @@ handle files that contain embedded ASCII NUL characters." };
         "is_string_list (ret, 3, \"a\", \"b\", \"\")"), [];
     ];
     shortdesc = "read file as lines";
-    longdesc = "\
-Return the contents of the file named C<path>.
+    longdesc = {|Return the contents of the file named C<path>.
 
 The file contents are returned as a list of lines.  Trailing
 C<LF> and C<CRLF> character sequences are I<not> returned.
 
 Note that this function cannot correctly handle binary files
-(specifically, files containing C<\\0> character which is treated
+(specifically, files containing C<\0> character which is treated
 as end of string).  For those you need to use the C<guestfs_read_file>
-function and split the buffer into lines yourself." };
+function and split the buffer into lines yourself.|} };
 
   { defaults with
     name = "write"; added = (1, 3, 14);
@@ -1011,8 +991,7 @@ See also C<guestfs_write>." };
     name = "lstatnslist"; added = (1, 27, 53);
     style = RStructList ("statbufs", "statns"), [String (Pathname, "path"); StringList (Filename, "names")], [];
     shortdesc = "lstat on multiple files";
-    longdesc = "\
-This call allows you to perform the C<guestfs_lstatns> operation
+    longdesc = {|This call allows you to perform the C<guestfs_lstatns> operation
 on multiple files, where all files are in the directory C<path>.
 C<names> is the list of files from this directory.
 
@@ -1024,15 +1003,14 @@ is set to C<-1>.
 This call is intended for programs that want to efficiently
 list a directory contents without making many round-trips.
 See also C<guestfs_lxattrlist> for a similarly efficient call
-for getting extended attributes." };
+for getting extended attributes.|} };
 
   { defaults with
     name = "lxattrlist"; added = (1, 0, 77);
     style = RStructList ("xattrs", "xattr"), [String (Pathname, "path"); StringList (Filename, "names")], [];
     optional = Some "linuxxattrs";
     shortdesc = "lgetxattr on multiple files";
-    longdesc = "\
-This call allows you to get the extended attributes
+    longdesc = {|This call allows you to get the extended attributes
 of multiple files, where all files are in the directory C<path>.
 C<names> is the list of files from this directory.
 
@@ -1042,21 +1020,20 @@ C<attrname>.  C<attrval> in this struct is zero-length
 to indicate there was an error doing C<guestfs_lgetxattr> for this
 file, I<or> is a C string which is a decimal number
 (the number of following attributes for this file, which could
-be C<\"0\">).  Then after the first xattr struct are the
+be C<"0">).  Then after the first xattr struct are the
 zero or more attributes for the first named file.
 This repeats for the second and subsequent files.
 
 This call is intended for programs that want to efficiently
 list a directory contents without making many round-trips.
 See also C<guestfs_lstatlist> for a similarly efficient call
-for getting standard stats." };
+for getting standard stats.|} };
 
   { defaults with
     name = "readlinklist"; added = (1, 0, 77);
     style = RStringList (RPlainString, "links"), [String (Pathname, "path"); StringList (Filename, "names")], [];
     shortdesc = "readlink on multiple files";
-    longdesc = "\
-This call allows you to do a C<readlink> operation
+    longdesc = {|This call allows you to do a C<readlink> operation
 on multiple files, where all files are in the directory C<path>.
 C<names> is the list of files from this directory.
 
@@ -1065,14 +1042,14 @@ correspondence to the C<names> list.  Each string is the
 value of the symbolic link.
 
 If the L<readlink(2)> operation fails on any name, then
-the corresponding result string is the empty string C<\"\">.
+the corresponding result string is the empty string C<"">.
 However the whole operation is completed even if there
 were L<readlink(2)> errors, and so you can call this
 function with names where you don't know if they are
 symbolic links already (albeit slightly less efficient).
 
 This call is intended for programs that want to efficiently
-list a directory contents without making many round-trips." };
+list a directory contents without making many round-trips.|} };
 
   { defaults with
     name = "ls"; added = (0, 0, 4);
@@ -1112,15 +1089,14 @@ hidden files are shown." };
         [["disk_format"; "../test-data/blank-disks/blank-disk-with-backing.qcow2"]], "qcow2"), [];
     ];
     shortdesc = "detect the disk format of a disk image";
-    longdesc = "\
-Detect and return the format of the disk image called F<filename>.
+    longdesc = {|Detect and return the format of the disk image called F<filename>.
 F<filename> can also be a host device, etc.  If the format of the
-image could not be detected, then C<\"unknown\"> is returned.
+image could not be detected, then C<"unknown"> is returned.
 
 Note that detecting the disk format can be insecure under some
 circumstances.  See L<guestfs(3)/CVE-2010-3851>.
 
-See also: L<guestfs(3)/DISK IMAGE FORMATS>" };
+See also: L<guestfs(3)/DISK IMAGE FORMATS>|} };
 
   { defaults with
     name = "disk_virtual_size"; added = (1, 19, 39);
@@ -1142,12 +1118,11 @@ See also: L<guestfs(3)/DISK IMAGE FORMATS>" };
         [["disk_virtual_size"; "../test-data/blank-disks/blank-disk-with-backing.qcow2"]], "ret == 1024*1024"), [];
     ];
     shortdesc = "return virtual size of a disk";
-    longdesc = "\
-Detect and return the virtual size in bytes of the disk image
+    longdesc = {|Detect and return the virtual size in bytes of the disk image
 called F<filename>.
 
 Note that detecting disk features can be insecure under some
-circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
+circumstances.  See L<guestfs(3)/CVE-2010-3851>.|} };
 
   { defaults with
     name = "disk_has_backing_file"; added = (1, 19, 39);
@@ -1169,20 +1144,18 @@ circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
         [["disk_has_backing_file"; "../test-data/blank-disks/blank-disk-with-backing.qcow2"]]), [];
     ];
     shortdesc = "return whether disk has a backing file";
-    longdesc = "\
-Detect and return whether the disk image F<filename> has a
+    longdesc = {|Detect and return whether the disk image F<filename> has a
 backing file.
 
 Note that detecting disk features can be insecure under some
-circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
+circumstances.  See L<guestfs(3)/CVE-2010-3851>.|} };
 
   { defaults with
     name = "set_libvirt_supported_credentials"; added = (1, 19, 52);
     style = RErr, [StringList (PlainString, "creds")], [];
     blocking = false;
     shortdesc = "set libvirt credentials supported by calling program";
-    longdesc = "\
-Call this function before setting an event handler for
+    longdesc = {|Call this function before setting an event handler for
 C<GUESTFS_EVENT_LIBVIRT_AUTH>, to supply the list of credential types
 that the program knows how to process.
 
@@ -1213,58 +1186,54 @@ Possible strings are:
 
 See libvirt documentation for the meaning of these credential types.
 
-See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
+See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code.|} };
 
   { defaults with
     name = "get_libvirt_requested_credentials"; added = (1, 19, 52);
     style = RStringList (RPlainString, "creds"), [], [];
     blocking = false;
     shortdesc = "get list of credentials requested by libvirt";
-    longdesc = "\
-This should only be called during the event callback
+    longdesc = {|This should only be called during the event callback
 for events of type C<GUESTFS_EVENT_LIBVIRT_AUTH>.
 
 Return the list of credentials requested by libvirt.  Possible
 values are a subset of the strings provided when you called
 C<guestfs_set_libvirt_supported_credentials>.
 
-See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
+See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code.|} };
 
   { defaults with
     name = "get_libvirt_requested_credential_prompt"; added = (1, 19, 52);
     style = RString (RPlainString, "prompt"), [Int "index"], [];
     blocking = false;
     shortdesc = "prompt of i'th requested credential";
-    longdesc = "\
-Get the prompt (provided by libvirt) for the C<index>'th
+    longdesc = {|Get the prompt (provided by libvirt) for the C<index>'th
 requested credential.  If libvirt did not provide a prompt,
-this returns the empty string C<\"\">.
+this returns the empty string C<"">.
 
-See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
+See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code.|} };
 
   { defaults with
     name = "get_libvirt_requested_credential_challenge"; added = (1, 19, 52);
     style = RString (RPlainString, "challenge"), [Int "index"], [];
     blocking = false;
     shortdesc = "challenge of i'th requested credential";
-    longdesc = "\
-Get the challenge (provided by libvirt) for the C<index>'th
+    longdesc = {|Get the challenge (provided by libvirt) for the C<index>'th
 requested credential.  If libvirt did not provide a challenge,
-this returns the empty string C<\"\">.
+this returns the empty string C<"">.
 
-See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
+See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code.|} };
 
   { defaults with
     name = "get_libvirt_requested_credential_defresult"; added = (1, 19, 52);
     style = RString (RPlainString, "defresult"), [Int "index"], [];
     blocking = false;
     shortdesc = "default result of i'th requested credential";
-    longdesc = "\
-Get the default result (provided by libvirt) for the C<index>'th
+    longdesc = {|Get the default result (provided by libvirt) for the C<index>'th
 requested credential.  If libvirt did not provide a default result,
-this returns the empty string C<\"\">.
+this returns the empty string C<"">.
 
-See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
+See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code.|} };
 
   { defaults with
     name = "set_libvirt_requested_credential"; added = (1, 19, 52);
@@ -1282,8 +1251,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
     style = RErr, [], [];
     blocking = false;
     shortdesc = "parse the environment and set handle flags accordingly";
-    longdesc = "\
-Parse the program’s environment and set flags in the handle
+    longdesc = {|Parse the program’s environment and set flags in the handle
 accordingly.  For example if C<LIBGUESTFS_DEBUG=1> then the
 ‘verbose’ flag is set in the handle.
 
@@ -1293,30 +1261,28 @@ when you call C<guestfs_create>.
 See L<guestfs(3)/ENVIRONMENT VARIABLES> for a list of environment
 variables that can affect libguestfs handles.  See also
 L<guestfs(3)/guestfs_create_flags>, and
-C<guestfs_parse_environment_list>." };
+C<guestfs_parse_environment_list>.|} };
 
   { defaults with
     name = "parse_environment_list"; added = (1, 19, 53);
     style = RErr, [StringList (PlainString, "environment")], [];
     blocking = false;
     shortdesc = "parse the environment and set handle flags accordingly";
-    longdesc = "\
-Parse the list of strings in the argument C<environment>
+    longdesc = {|Parse the list of strings in the argument C<environment>
 and set flags in the handle accordingly.
 For example if C<LIBGUESTFS_DEBUG=1> is a string in the list,
 then the ‘verbose’ flag is set in the handle.
 
 This is the same as C<guestfs_parse_environment> except that
 it parses an explicit list of strings instead of the program's
-environment." };
+environment.|} };
 
   { defaults with
     name = "user_cancel"; added = (1, 11, 18);
     style = RErr, [], [];
     blocking = false; wrapper = false;
     shortdesc = "cancel the current upload or download operation";
-    longdesc = "\
-This function cancels the current upload or download operation.
+    longdesc = {|This function cancels the current upload or download operation.
 
 Unlike most other libguestfs calls, this function is signal safe and
 thread safe.  You can call it from a signal handler or from another
@@ -1341,7 +1307,7 @@ child processes don't receive the C<^C> signal).
 
 In a graphical program, when the main thread is displaying a progress
 bar with a cancel button, wire up the cancel button to call this
-function." };
+function.|} };
 
   { defaults with
     name = "add_drive_scratch"; added = (1, 23, 10);
@@ -1349,14 +1315,13 @@ function." };
     blocking = false;
     fish_alias = ["scratch"];
     shortdesc = "add a temporary scratch drive";
-    longdesc = "\
-This command adds a temporary scratch drive to the handle.  The
+    longdesc = {|This command adds a temporary scratch drive to the handle.  The
 C<size> parameter is the virtual size (in bytes).  The scratch
 drive is blank initially (all reads return zeroes until you start
 writing to it).  The drive is deleted when the handle is closed.
 
 The optional arguments C<name>, C<label> and C<blocksize> are passed through to
-C<guestfs_add_drive_opts>." };
+C<guestfs_add_drive_opts>.|} };
 
   { defaults with
     name = "journal_get"; added = (1, 23, 11);
@@ -1364,14 +1329,13 @@ C<guestfs_add_drive_opts>." };
     optional = Some "journal";
     test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "read the current journal entry";
-    longdesc = "\
-Read the current journal entry.  This returns all the fields
+    longdesc = {|Read the current journal entry.  This returns all the fields
 in the journal as a set of C<(attrname, attrval)> pairs.  The
 C<attrname> is the field name (a string).
 
 The C<attrval> is the field value (a binary blob, often but
 not always a string).  Please note that C<attrval> is a byte
-array, I<not> a \\0-terminated C string.
+array, I<not> a \0-terminated C string.
 
 The length of data may be truncated to the data threshold
 (see: C<guestfs_journal_set_data_threshold>,
@@ -1379,15 +1343,14 @@ C<guestfs_journal_get_data_threshold>).
 
 If you set the data threshold to unlimited (C<0>) then this call
 can read a journal entry of any size, ie. it is not limited by
-the libguestfs protocol." };
+the libguestfs protocol.|} };
 
   { defaults with
     name = "disk_create"; added = (1, 25, 31);
     style = RErr, [String (PlainString, "filename"); String (PlainString, "format"); Int64 "size"], [OString "backingfile"; OString "backingformat"; OString "preallocation"; OString "compat"; OInt "clustersize"];
     test_excuse = "tests in tests/create subdirectory";
     shortdesc = "create a blank disk image";
-    longdesc = "\
-Create a blank disk image called F<filename> (a host file)
+    longdesc = {|Create a blank disk image called F<filename> (a host file)
 with format C<format> (usually C<raw> or C<qcow2>).
 The size is C<size> bytes.
 
@@ -1432,7 +1395,7 @@ this setting may be any power of two between 512 and 2097152.
 =back
 
 Note that this call does not add the new disk to the handle.  You
-may need to call C<guestfs_add_drive_opts> separately." };
+may need to call C<guestfs_add_drive_opts> separately.|} };
 
   { defaults with
     name = "c_pointer"; added = (1, 29, 17);
@@ -1453,20 +1416,18 @@ to allow other libraries to interwork with libguestfs." };
     style = RErr, [String (PlainString, "localpath"); String (Pathname, "remotedir")], [];
     visibility = VPublicNoFish;
     shortdesc = "copy local files or directories into an image";
-    longdesc = "\
-C<guestfs_copy_in> copies local files or directories recursively into
+    longdesc = {|C<guestfs_copy_in> copies local files or directories recursively into
 the disk image, placing them in the directory called C<remotedir>
 (which must exist).
 
-Wildcards cannot be used." };
+Wildcards cannot be used.|} };
 
   { defaults with
     name = "copy_out"; added = (1, 29, 24);
     style = RErr, [String (Pathname, "remotepath"); String (PlainString, "localdir")], [];
     visibility = VPublicNoFish;
     shortdesc = "copy remote files or directories out of an image";
-    longdesc = "\
-C<guestfs_copy_out> copies remote files or directories recursively
+    longdesc = {|C<guestfs_copy_out> copies remote files or directories recursively
 out of the disk image, placing them on the host disk in a local
 directory called C<localdir> (which must exist).
 
@@ -1474,7 +1435,7 @@ To download to the current directory, use C<.> as in:
 
  C<guestfs_copy_out> /home .
 
-Wildcards cannot be used." };
+Wildcards cannot be used.|} };
 
   { defaults with
     name = "available"; added = (1, 0, 80);
@@ -1483,8 +1444,7 @@ Wildcards cannot be used." };
       InitNone, Always, TestRun [["available"; ""]], []
     ];
     shortdesc = "test availability of some parts of the API";
-    longdesc = "\
-This command is used to check the availability of some
+    longdesc = {|This command is used to check the availability of some
 groups of functionality in the appliance, which not all builds of
 the libguestfs appliance will be able to provide.
 
@@ -1494,7 +1454,7 @@ You can also fetch this list at runtime by calling
 C<guestfs_available_all_groups>.
 
 The argument C<groups> is a list of group names, eg:
-C<[\"inotify\", \"augeas\"]> would check for the availability of
+C<["inotify", "augeas"]> would check for the availability of
 the Linux inotify functions and Augeas (configuration file
 editing) functions.
 
@@ -1547,7 +1507,7 @@ See also C<guestfs_version>.
 
 =back
 
-See also C<guestfs_filesystem_available>." };
+See also C<guestfs_filesystem_available>.|} };
 
   { defaults with
     name = "feature_available"; added = (1, 21, 26);
@@ -1589,8 +1549,7 @@ let daemon_functions = [
          ["cat"; "/new"]], "new file contents"), []
     ];
     shortdesc = "mount a guest disk at a position in the filesystem";
-    longdesc = "\
-Mount a guest disk at a position in the filesystem.  Block devices
+    longdesc = {|Mount a guest disk at a position in the filesystem.  Block devices
 are named F</dev/sda>, F</dev/sdb> and so on, as they were added to
 the guest.  If those block devices contain partitions, they will have
 the usual names (eg. F</dev/sda1>).  Also LVM F</dev/VG/LV>-style
@@ -1610,7 +1569,7 @@ C<sync> and C<noatime>.  The C<sync> option greatly slowed
 writes and caused many problems for users.  If your program
 might need to work with older versions of libguestfs, use
 C<guestfs_mount_options> instead (using an empty string for the
-first parameter if you don't want any options)." };
+first parameter if you don't want any options).|} };
 
   { defaults with
     name = "sync"; added = (0, 0, 3);
@@ -1619,12 +1578,11 @@ first parameter if you don't want any options)." };
       InitEmpty, Always, TestRun [["sync"]], []
     ];
     shortdesc = "sync disks, writes are flushed through to the disk image";
-    longdesc = "\
-This syncs the disk, so that any writes are flushed through to the
+    longdesc = {|This syncs the disk, so that any writes are flushed through to the
 underlying disk image.
 
 You should always call this if you have modified a disk image, before
-closing the handle." };
+closing the handle.|} };
 
   { defaults with
     name = "touch"; added = (0, 0, 3);
@@ -1635,25 +1593,23 @@ closing the handle." };
          ["exists"; "/touch"]]), []
     ];
     shortdesc = "update file timestamps or create a new file";
-    longdesc = "\
-Touch acts like the L<touch(1)> command.  It can be used to
+    longdesc = {|Touch acts like the L<touch(1)> command.  It can be used to
 update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.
 
 This command only works on regular files, and will fail on other
-file types such as directories, symbolic links, block special etc." };
+file types such as directories, symbolic links, block special etc.|} };
 
   { defaults with
     name = "ll"; added = (0, 0, 4);
     style = RString (RPlainString, "listing"), [String (Pathname, "directory")], [];
     test_excuse = "tricky to test because it depends on the exact format of the 'ls -l' command, which changed between Fedora 10 and Fedora 11";
     shortdesc = "list the files in a directory (long format)";
-    longdesc = "\
-List the files in F<directory> (relative to the root directory,
+    longdesc = {|List the files in F<directory> (relative to the root directory,
 there is no cwd) in the format of C<ls -la>.
 
 This command is mostly useful for interactive sessions.  It
-is I<not> intended that you try to parse the output string." };
+is I<not> intended that you try to parse the output string.|} };
 
   { defaults with
     name = "list_devices"; added = (0, 0, 4);
@@ -1665,12 +1621,11 @@ is I<not> intended that you try to parse the output string." };
         "is_device_list (ret, 4, \"/dev/sda\", \"/dev/sdb\", \"/dev/sdc\", \"/dev/sdd\")"), []
     ];
     shortdesc = "list the block devices";
-    longdesc = "\
-List all the block devices.
+    longdesc = {|List all the block devices.
 
 The full block device names are returned, eg. F</dev/sda>.
 
-See also C<guestfs_list_filesystems>." };
+See also C<guestfs_list_filesystems>.|} };
 
   { defaults with
     name = "list_partitions"; added = (0, 0, 4);
@@ -1689,15 +1644,14 @@ See also C<guestfs_list_filesystems>." };
         "is_device_list (ret, 4, \"/dev/sda1\", \"/dev/sda2\", \"/dev/sda3\", \"/dev/sdb1\")"), []
     ];
     shortdesc = "list the partitions";
-    longdesc = "\
-List all the partitions detected on all block devices.
+    longdesc = {|List all the partitions detected on all block devices.
 
 The full partition device names are returned, eg. F</dev/sda1>
 
 This does not return logical volumes.  For that you will need to
 call C<guestfs_lvs>.
 
-See also C<guestfs_list_filesystems>." };
+See also C<guestfs_list_filesystems>.|} };
 
   { defaults with
     name = "pvs"; added = (0, 0, 4);
@@ -1718,14 +1672,13 @@ See also C<guestfs_list_filesystems>." };
         "is_device_list (ret, 3, \"/dev/sda1\", \"/dev/sda2\", \"/dev/sda3\")"), []
     ];
     shortdesc = "list the LVM physical volumes (PVs)";
-    longdesc = "\
-List all the physical volumes detected.  This is the equivalent
+    longdesc = {|List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.
 
 This returns a list of just the device names that contain
 PVs (eg. F</dev/sda2>).
 
-See also C<guestfs_pvs_full>." };
+See also C<guestfs_pvs_full>.|} };
 
   { defaults with
     name = "vgs"; added = (0, 0, 4);
@@ -1748,14 +1701,13 @@ See also C<guestfs_pvs_full>." };
         "is_string_list (ret, 2, \"VG1\", \"VG2\")"), []
     ];
     shortdesc = "list the LVM volume groups (VGs)";
-    longdesc = "\
-List all the volumes groups detected.  This is the equivalent
+    longdesc = {|List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.
 
 This returns a list of just the volume group names that were
 detected (eg. C<VolGroup00>).
 
-See also C<guestfs_vgs_full>." };
+See also C<guestfs_vgs_full>.|} };
 
   { defaults with
     name = "lvs"; added = (0, 0, 4);
@@ -1783,14 +1735,13 @@ See also C<guestfs_vgs_full>." };
         "is_string_list (ret, 3, \"/dev/VG1/LV1\", \"/dev/VG1/LV2\", \"/dev/VG2/LV3\")"), []
     ];
     shortdesc = "list the LVM logical volumes (LVs)";
-    longdesc = "\
-List all the logical volumes detected.  This is the equivalent
+    longdesc = {|List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.
 
 This returns a list of the logical volume device names
 (eg. F</dev/VolGroup00/LogVol00>).
 
-See also C<guestfs_lvs_full>, C<guestfs_list_filesystems>." };
+See also C<guestfs_lvs_full>, C<guestfs_list_filesystems>.|} };
 
   { defaults with
     name = "pvs_full"; added = (0, 0, 4);
@@ -1919,26 +1870,24 @@ as necessary.  This is like the C<mkdir -p> shell command." };
     name = "chmod"; added = (0, 0, 8);
     style = RErr, [Int "mode"; String (Pathname, "path")], [];
     shortdesc = "change file mode";
-    longdesc = "\
-Change the mode (permissions) of C<path> to C<mode>.  Only
+    longdesc = {|Change the mode (permissions) of C<path> to C<mode>.  Only
 numeric modes are supported.
 
 I<Note>: When using this command from guestfish, C<mode>
 by default would be decimal, unless you prefix it with
 C<0> to get octal, ie. use C<0700> not C<700>.
 
-The mode actually set is affected by the umask." };
+The mode actually set is affected by the umask.|} };
 
   { defaults with
     name = "chown"; added = (0, 0, 8);
     style = RErr, [Int "owner"; Int "group"; String (Pathname, "path")], [];
     shortdesc = "change file owner and group";
-    longdesc = "\
-Change the file owner to C<owner> and group to C<group>.
+    longdesc = {|Change the file owner to C<owner> and group to C<group>.
 
 Only numeric uid and gid are supported.  If you want to use
 names, you will need to locate and parse the password file
-yourself (Augeas support makes this relatively easy)." };
+yourself (Augeas support makes this relatively easy).|} };
 
   { defaults with
     name = "exists"; added = (0, 0, 8);
@@ -1970,8 +1919,7 @@ See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>." };
         [["is_file"; "/abssymlink"; "true"]]), []
     ];
     shortdesc = "test if a regular file";
-    longdesc = "\
-This returns C<true> if and only if there is a regular file
+    longdesc = {|This returns C<true> if and only if there is a regular file
 with the given C<path> name.  Note that it returns false for
 other objects like directories.
 
@@ -1979,7 +1927,7 @@ If the optional flag C<followsymlinks> is true, then a symlink
 (or chain of symlinks) that ends with a file also causes the
 function to return true.
 
-See also C<guestfs_stat>." };
+See also C<guestfs_stat>.|} };
 
   { defaults with
     name = "is_dir"; added = (0, 0, 8);
@@ -1993,8 +1941,7 @@ See also C<guestfs_stat>." };
         [["is_dir"; "/directory"; ""]]), []
     ];
     shortdesc = "test if a directory";
-    longdesc = "\
-This returns C<true> if and only if there is a directory
+    longdesc = {|This returns C<true> if and only if there is a directory
 with the given C<path> name.  Note that it returns false for
 other objects like files.
 
@@ -2002,7 +1949,7 @@ If the optional flag C<followsymlinks> is true, then a symlink
 (or chain of symlinks) that ends with a directory also causes the
 function to return true.
 
-See also C<guestfs_stat>." };
+See also C<guestfs_stat>.|} };
 
   { defaults with
     name = "pvcreate"; added = (0, 0, 8);
@@ -2118,13 +2065,12 @@ contains the filesystem." };
         [["mounts"]], "is_device_list (ret, 1, \"/dev/sdb1\")"), []
     ];
     shortdesc = "show mounted filesystems";
-    longdesc = "\
-This returns the list of currently mounted filesystems.  It returns
+    longdesc = {|This returns the list of currently mounted filesystems.  It returns
 the list of devices (eg. F</dev/sda1>, F</dev/VG/LV>).
 
 Some internal mounts are not shown.
 
-See also: C<guestfs_mountpoints>" };
+See also: C<guestfs_mountpoints>|} };
 
   { defaults with
     name = "umount_all"; added = (0, 0, 8);
@@ -2184,8 +2130,7 @@ and physical volumes." };
         [["file"; "/directory"]], "directory"), []
     ];
     shortdesc = "determine file type";
-    longdesc = "\
-This call uses the standard L<file(1)> command to determine
+    longdesc = {|This call uses the standard L<file(1)> command to determine
 the type or contents of the file.
 
 This call will also transparently look inside various types
@@ -2199,7 +2144,7 @@ command and it can change in future in ways beyond our control.
 In other words, the output is not guaranteed by the ABI.
 
 See also: L<file(1)>, C<guestfs_vfs_type>, C<guestfs_lstat>,
-C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>." };
+C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>.|} };
 
   { defaults with
     name = "command"; added = (1, 9, 1);
@@ -2235,7 +2180,11 @@ C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>." };
         [["mkdir"; "/command6"];
          ["upload"; "c-api/test-command"; "/command6/test-command"];
          ["chmod"; "0o755"; "/command6/test-command"];
-         ["command"; "/command6/test-command 6"]], "\n\nResult6\n\n"), [];
+         ["command"; "/command6/test-command 6"]], {|
+
+Result6
+
+|}), [];
       InitScratchFS, IfNotCrossAppliance, TestResultString (
         [["mkdir"; "/command7"];
          ["upload"; "c-api/test-command"; "/command7/test-command"];
@@ -2273,8 +2222,7 @@ C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>." };
          ["command"; "/pwd/test-pwd"]], "/"), [];
     ];
     shortdesc = "run a command from the guest filesystem";
-    longdesc = "\
-This call runs a command from the guest filesystem.  The
+    longdesc = {|This call runs a command from the guest filesystem.  The
 filesystem must be mounted, and must contain a compatible
 operating system (ie. something Linux, with the same
 or compatible processor architecture).
@@ -2302,7 +2250,7 @@ Shared libraries and data files required by the program
 must be available on filesystems which are mounted in the
 correct places.  It is the caller’s responsibility to ensure
 all filesystems that are needed are mounted at the right
-locations." };
+locations.|} };
 
   { defaults with
     name = "command_lines"; added = (1, 9, 1);
@@ -2389,12 +2337,11 @@ See also: C<guestfs_sh_lines>" };
     progress = true; cancellable = true;
     test_excuse = "there is a separate test in the tests directory";
     shortdesc = "run a command from the guest filesystem";
-    longdesc = "\
-This is the same as C<guestfs_command>, but streams the output
+    longdesc = {|This is the same as C<guestfs_command>, but streams the output
 back, handling the case where the output from the command is
 larger than the protocol limit.
 
-See also: C<guestfs_sh_out>" };
+See also: C<guestfs_sh_out>|} };
 
   { defaults with
     name = "statvfs"; added = (1, 9, 2);
@@ -2405,12 +2352,11 @@ See also: C<guestfs_sh_out>" };
         [["statvfs"; "/"]], "ret->namemax == 255"), []
     ];
     shortdesc = "get file system statistics";
-    longdesc = "\
-Returns file system statistics for any mounted file system.
+    longdesc = {|Returns file system statistics for any mounted file system.
 C<path> should be a file or directory in the mounted file system
 (typically it is the mount point itself, but it doesn't need to be).
 
-This is the same as the L<statvfs(2)> system call." };
+This is the same as the L<statvfs(2)> system call.|} };
 
   { defaults with
     name = "tune2fs_l"; added = (1, 9, 2);
@@ -2422,14 +2368,13 @@ This is the same as the L<statvfs(2)> system call." };
           "check_hash (ret, \"Filesystem OS type\", \"Linux\") == 0"), [];
     ];
     shortdesc = "get ext2/ext3/ext4 superblock details";
-    longdesc = "\
-This returns the contents of the ext2, ext3 or ext4 filesystem
+    longdesc = {|This returns the contents of the ext2, ext3 or ext4 filesystem
 superblock on C<device>.
 
 It is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>
 manpage for more details.  The list of fields returned isn't
 clearly defined, and depends on both the version of C<tune2fs>
-that libguestfs was built against, and the filesystem itself." };
+that libguestfs was built against, and the filesystem itself.|} };
 
   { defaults with
     name = "blockdev_setro"; added = (1, 9, 3);
@@ -2482,22 +2427,20 @@ This uses the L<blockdev(8)> command." };
         [["blockdev_getss"; "/dev/sda"]], "ret == 512"), []
     ];
     shortdesc = "get sectorsize of block device";
-    longdesc = "\
-This returns the size of sectors on a block device.
+    longdesc = {|This returns the size of sectors on a block device.
 Usually 512, but can be larger for modern devices.
 
 (Note, this is not the size in sectors, use C<guestfs_blockdev_getsz>
 for that).
 
-This uses the L<blockdev(8)> command." };
+This uses the L<blockdev(8)> command.|} };
 
   { defaults with
     name = "blockdev_getbsz"; added = (1, 9, 3);
     style = RInt "blocksize", [String (Device, "device")], [];
     test_excuse = "cannot be tested because output differs depending on page size";
     shortdesc = "get blocksize of block device";
-    longdesc = "\
-This returns the block size of a device.
+    longdesc = {|This returns the block size of a device.
 
 Note: this is different from both I<size in blocks> and
 I<filesystem block size>.  Also this setting is not really
@@ -2505,7 +2448,7 @@ used by anything.  You should probably not use it for
 anything.  Filesystems have their own idea about what
 block size to choose.
 
-This uses the L<blockdev(8)> command." };
+This uses the L<blockdev(8)> command.|} };
 
   { defaults with
     name = "blockdev_getsz"; added = (1, 9, 3);
@@ -2516,15 +2459,14 @@ This uses the L<blockdev(8)> command." };
           "ret == INT64_C(2)*1024*1024*1024/512"), []
     ];
     shortdesc = "get total size of device in 512-byte sectors";
-    longdesc = "\
-This returns the size of the device in units of 512-byte sectors
+    longdesc = {|This returns the size of the device in units of 512-byte sectors
 (even if the sectorsize isn't 512 bytes ... weird).
 
 See also C<guestfs_blockdev_getss> for the real sector size of
 the device, and C<guestfs_blockdev_getsize64> for the more
 useful I<size in bytes>.
 
-This uses the L<blockdev(8)> command." };
+This uses the L<blockdev(8)> command.|} };
 
   { defaults with
     name = "blockdev_getsize64"; added = (1, 9, 3);
@@ -2535,12 +2477,11 @@ This uses the L<blockdev(8)> command." };
           "ret == INT64_C(2)*1024*1024*1024"), []
     ];
     shortdesc = "get total size of device in bytes";
-    longdesc = "\
-This returns the size of the device in bytes.
+    longdesc = {|This returns the size of the device in bytes.
 
 See also C<guestfs_blockdev_getsz>.
 
-This uses the L<blockdev(8)> command." };
+This uses the L<blockdev(8)> command.|} };
 
   { defaults with
     name = "blockdev_flushbufs"; added = (1, 9, 3);
@@ -2582,13 +2523,12 @@ This uses the L<blockdev(8)> command." };
         Digest.to_hex (Digest.file "COPYING.LIB")), []
     ];
     shortdesc = "upload a file from the local machine";
-    longdesc = "\
-Upload local file F<filename> to F<remotefilename> on the
+    longdesc = {|Upload local file F<filename> to F<remotefilename> on the
 filesystem.
 
 F<filename> can also be a named pipe.
 
-See also C<guestfs_download>." };
+See also C<guestfs_download>.|} };
 
   { defaults with
     name = "download"; added = (1, 0, 2);
@@ -2605,13 +2545,12 @@ See also C<guestfs_download>." };
         Digest.to_hex (Digest.file "COPYING.LIB")), []
     ];
     shortdesc = "download a file to the local machine";
-    longdesc = "\
-Download file F<remotefilename> and save it as F<filename>
+    longdesc = {|Download file F<remotefilename> and save it as F<filename>
 on the local machine.
 
 F<filename> can also be a named pipe.
 
-See also C<guestfs_upload>, C<guestfs_cat>." };
+See also C<guestfs_upload>, C<guestfs_cat>.|} };
 
   { defaults with
     name = "checksum"; added = (1, 0, 2);
@@ -2638,8 +2577,7 @@ See also C<guestfs_upload>, C<guestfs_cat>." };
         [["checksum"; "sha512"; "/abssymlink"]], "5f57d0639bc95081c53afc63a449403883818edc64da48930ad6b1a4fb49be90404686877743fbcd7c99811f3def7df7bc22635c885c6a8cf79c806b43451c1a"), []
     ];
     shortdesc = "compute MD5, SHAx or CRC checksum of file";
-    longdesc = "\
-This call computes the MD5, SHAx or CRC checksum of the
+    longdesc = {|This call computes the MD5, SHAx or CRC checksum of the
 file named C<path>.
 
 The type of checksum to compute is given by the C<csumtype>
@@ -2689,7 +2627,7 @@ The checksum is returned as a printable string.
 
 To get the checksum for a device, use C<guestfs_checksum_device>.
 
-To get the checksums for many files, use C<guestfs_checksums_out>." };
+To get the checksums for many files, use C<guestfs_checksums_out>.|} };
 
   { defaults with
     name = "tar_in"; added = (1, 0, 3);
@@ -2711,8 +2649,7 @@ To get the checksums for many files, use C<guestfs_checksums_out>." };
          ["cat"; "/tar_in_xz/hello"]], "hello\n"), []
     ];
     shortdesc = "unpack tarfile to directory";
-    longdesc = "\
-This command uploads and unpacks local file C<tarfile> into F<directory>.
+    longdesc = {|This command uploads and unpacks local file C<tarfile> into F<directory>.
 
 The optional C<compress> flag controls compression.  If not given,
 then the input should be an uncompressed tar file.  Otherwise one
@@ -2737,7 +2674,7 @@ If set to true, SELinux contexts are restored from the tar file.
 
 If set to true, POSIX ACLs are restored from the tar file.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "tar_out"; added = (1, 0, 3);
@@ -2745,8 +2682,7 @@ If set to true, POSIX ACLs are restored from the tar file.
     once_had_no_optargs = true;
     cancellable = true;
     shortdesc = "pack directory into tarfile";
-    longdesc = "\
-This command packs the contents of F<directory> and downloads
+    longdesc = {|This command packs the contents of F<directory> and downloads
 it to local file C<tarfile>.
 
 The optional C<compress> flag controls compression.  If not given,
@@ -2782,7 +2718,7 @@ If set to true, SELinux contexts are saved in the output tar.
 
 If set to true, POSIX ACLs are saved in the output tar.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "mount_ro"; added = (1, 0, 10);
@@ -2809,14 +2745,13 @@ mounts the filesystem with the read-only (I<-o ro>) flag." };
     style = RErr, [String (PlainString, "options"); String (Mountable, "mountable"); String (PlainString, "mountpoint")], [];
     impl = OCaml "Mount.mount_options";
     shortdesc = "mount a guest disk with mount options";
-    longdesc = "\
-This is the same as the C<guestfs_mount> command, but it
+    longdesc = {|This is the same as the C<guestfs_mount> command, but it
 allows you to set the mount options as for the
 L<mount(8)> I<-o> flag.
 
 If the C<options> parameter is an empty string, then
 no options are passed (all options default to whatever
-the filesystem uses)." };
+the filesystem uses).|} };
 
   { defaults with
     name = "mount_vfs"; added = (1, 0, 10);
@@ -2862,12 +2797,11 @@ as for the L<mount(8)> I<-o> and I<-t> flags." };
         "is_string_list (ret, 1, \"VG\")"), []
     ];
     shortdesc = "remove an LVM logical volume";
-    longdesc = "\
-Remove an LVM logical volume C<device>, where C<device> is
+    longdesc = {|Remove an LVM logical volume C<device>, where C<device> is
 the path to the LV, such as F</dev/VG/LV>.
 
 You can also remove all LVs in a volume group by specifying
-the VG name, F</dev/VG>." };
+the VG name, F</dev/VG>.|} };
 
   { defaults with
     name = "vgremove"; added = (1, 0, 13);
@@ -2937,13 +2871,12 @@ group (if any)." };
         "is_string_list (ret, 0)"), []
     ];
     shortdesc = "remove an LVM physical volume";
-    longdesc = "\
-This wipes a physical volume C<device> so that LVM will no longer
+    longdesc = {|This wipes a physical volume C<device> so that LVM will no longer
 recognise it.
 
 The implementation uses the L<pvremove(8)> command which refuses to
 wipe physical volumes that contain any volume groups, so you have
-to remove those first." };
+to remove those first.|} };
 
   { defaults with
     name = "fsck"; added = (1, 0, 16);
@@ -2959,8 +2892,7 @@ to remove those first." };
          ["fsck"; "ext2"; "/dev/sda1"]], "ret == 8"), []
     ];
     shortdesc = "run the filesystem checker";
-    longdesc = "\
-This runs the filesystem checker (fsck) on C<device> which
+    longdesc = {|This runs the filesystem checker (fsck) on C<device> which
 should have filesystem type C<fstype>.
 
 The returned integer is the status.  See L<fsck(8)> for the
@@ -2976,7 +2908,7 @@ Multiple status codes can be summed together.
 
 =item *
 
-A non-zero return code can mean \"success\", for example if
+A non-zero return code can mean "success", for example if
 errors have been corrected on the filesystem.
 
 =item *
@@ -2986,7 +2918,7 @@ Checking or repairing NTFS volumes is not supported
 
 =back
 
-This command is entirely equivalent to running C<fsck -a -t fstype device>." };
+This command is entirely equivalent to running C<fsck -a -t fstype device>.|} };
 
   { defaults with
     name = "zero"; added = (1, 0, 16);
@@ -2998,8 +2930,7 @@ This command is entirely equivalent to running C<fsck -a -t fstype device>." };
          ["zero"; "/dev/sda1"]]), []
     ];
     shortdesc = "write zeroes to the device";
-    longdesc = "\
-This command writes zeroes over the first few blocks of C<device>.
+    longdesc = {|This command writes zeroes over the first few blocks of C<device>.
 
 How many blocks are zeroed isn't specified (but it’s I<not> enough
 to securely wipe the device).  It should be sufficient to remove
@@ -3010,7 +2941,7 @@ zeroes.  This prevents the underlying device from becoming non-sparse
 or growing unnecessarily.
 
 See also: C<guestfs_zero_device>, C<guestfs_scrub_device>,
-C<guestfs_is_zero_device>" };
+C<guestfs_is_zero_device>|} };
 
   { defaults with
     name = "grub_install"; added = (1, 0, 17);
@@ -3028,8 +2959,7 @@ C<guestfs_is_zero_device>" };
          ["is_dir"; "/boot"; ""]]), []
     ];
     shortdesc = "install GRUB 1";
-    longdesc = "\
-This command installs GRUB 1 (the Grand Unified Bootloader) on
+    longdesc = {|This command installs GRUB 1 (the Grand Unified Bootloader) on
 C<device>, with the root directory being C<root>.
 
 Notes:
@@ -3053,7 +2983,7 @@ is advisable.
 =item *
 
 If grub-install reports the error
-\"No suitable drive was found in the generated device map.\"
+"No suitable drive was found in the generated device map."
 it may be that you need to create a F</boot/grub/device.map>
 file first that contains the mapping between grub device names
 and Linux device names.  It is usually sufficient to create
@@ -3063,7 +2993,7 @@ a file containing:
 
 replacing F</dev/vda> with the name of the installation device.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "cp"; added = (1, 0, 18);
@@ -3137,8 +3067,7 @@ See also: C<guestfs_rename>." };
         [["drop_caches"; "3"]]), []
     ];
     shortdesc = "drop kernel page cache, dentries and inodes";
-    longdesc = "\
-This instructs the guest kernel to drop its page cache,
+    longdesc = {|This instructs the guest kernel to drop its page cache,
 and/or dentries and inode caches.  The parameter C<whattodrop>
 tells the kernel what precisely to drop, see
 L<https://linux-mm.org/Drop_Caches>
@@ -3146,7 +3075,7 @@ L<https://linux-mm.org/Drop_Caches>
 Setting C<whattodrop> to 3 should drop everything.
 
 This automatically calls L<sync(2)> before the operation,
-so that the maximum guest memory is freed." };
+so that the maximum guest memory is freed.|} };
 
   { defaults with
     name = "dmesg"; added = (1, 0, 18);
@@ -3156,15 +3085,14 @@ so that the maximum guest memory is freed." };
         [["dmesg"]]), []
     ];
     shortdesc = "return kernel messages";
-    longdesc = "\
-This returns the kernel messages (L<dmesg(1)> output) from
+    longdesc = {|This returns the kernel messages (L<dmesg(1)> output) from
 the guest kernel.  This is sometimes useful for extended
 debugging of problems.
 
 Another way to get the same information is to enable
 verbose messages with C<guestfs_set_verbose> or by setting
 the environment variable C<LIBGUESTFS_DEBUG=1> before
-running the program." };
+running the program.|} };
 
   { defaults with
     name = "ping_daemon"; added = (1, 0, 18);
@@ -3221,13 +3149,12 @@ The external L<cmp(1)> program is used for the comparison." };
         [["strings"; "/abssymlink"]]), []
     ];
     shortdesc = "print the printable strings in a file";
-    longdesc = "\
-This runs the L<strings(1)> command on a file and returns
+    longdesc = {|This runs the L<strings(1)> command on a file and returns
 the list of printable strings found.
 
 The C<strings> command has, in the past, had problems with
 parsing untrusted files.  These are mitigated in the current
-version of libguestfs, but see L<guestfs(3)/CVE-2014-8484>." };
+version of libguestfs, but see L<guestfs(3)/CVE-2014-8484>.|} };
 
   { defaults with
     name = "strings_e"; added = (1, 0, 22);
@@ -3243,8 +3170,7 @@ version of libguestfs, but see L<guestfs(3)/CVE-2014-8484>." };
         "is_string_list (ret, 2, \"hello\", \"world\")"), []
     ];
     shortdesc = "print the printable strings in a file";
-    longdesc = "\
-This is like the C<guestfs_strings> command, but allows you to
+    longdesc = {|This is like the C<guestfs_strings> command, but allows you to
 specify the encoding of strings that are looked for in
 the source file C<path>.
 
@@ -3285,7 +3211,7 @@ The returned strings are transcoded to UTF-8.
 
 The C<strings> command has, in the past, had problems with
 parsing untrusted files.  These are mitigated in the current
-version of libguestfs, but see L<guestfs(3)/CVE-2014-8484>." };
+version of libguestfs, but see L<guestfs(3)/CVE-2014-8484>.|} };
 
   { defaults with
     name = "hexdump"; added = (1, 0, 22);
@@ -3324,8 +3250,7 @@ the human-readable, canonical hex dump of the file." };
          ["cat"; "/new"]], "test file"), []
     ];
     shortdesc = "zero unused inodes and disk blocks on ext2/3 filesystem";
-    longdesc = "\
-This runs the I<zerofree> program on C<device>.  This program
+    longdesc = {|This runs the I<zerofree> program on C<device>.  This program
 claims to zero unused inodes and disk blocks on an ext2/3
 filesystem, thus making it possible to compress the filesystem
 more effectively.
@@ -3334,7 +3259,7 @@ You should B<not> run this program if the filesystem is
 mounted.
 
 It is possible that using this program can damage the filesystem
-or data on the filesystem." };
+or data on the filesystem.|} };
 
   { defaults with
     name = "pvresize"; added = (1, 0, 26);
@@ -3359,14 +3284,13 @@ be parsed." };
     name = "sfdisk_disk_geometry"; added = (1, 0, 26);
     style = RString (RPlainString, "partitions"), [String (Device, "device")], [];
     shortdesc = "display the disk geometry from the partition table";
-    longdesc = "\
-This displays the disk geometry of C<device> read from the
+    longdesc = {|This displays the disk geometry of C<device> read from the
 partition table.  Especially in the case where the underlying
 block device has been resized, this can be different from the
 kernel’s idea of the geometry (see C<guestfs_sfdisk_kernel_geometry>).
 
 The result is in human-readable format, and not designed to
-be parsed." };
+be parsed.|} };
 
   { defaults with
     name = "vg_activate_all"; added = (1, 0, 26);
@@ -3384,14 +3308,13 @@ This command is the same as running C<vgchange -a y|n>" };
     style = RErr, [Bool "activate"; StringList (PlainString, "volgroups")], [];
     optional = Some "lvm2";
     shortdesc = "activate or deactivate some volume groups";
-    longdesc = "\
-This command activates or (if C<activate> is false) deactivates
+    longdesc = {|This command activates or (if C<activate> is false) deactivates
 all logical volumes in the listed volume groups C<volgroups>.
 
 This command is the same as running C<vgchange -a y|n volgroups...>
 
 Note that if C<volgroups> is an empty list then B<all> volume groups
-are activated or deactivated." };
+are activated or deactivated.|} };
 
   { defaults with
     name = "lvresize"; added = (1, 0, 27);
@@ -3464,8 +3387,7 @@ Sleep for C<secs> seconds." };
          ["ntfs_3g_probe"; "true"; "/dev/sda1"]], "ret == 12"), []
     ];
     shortdesc = "probe NTFS volume";
-    longdesc = "\
-This command runs the L<ntfs-3g.probe(8)> command which probes
+    longdesc = {|This command runs the L<ntfs-3g.probe(8)> command which probes
 an NTFS C<device> for mountability.  (Not all NTFS volumes can
 be mounted read-write, and some cannot be mounted at all).
 
@@ -3475,25 +3397,24 @@ you want to test if the volume can be mounted read-only.
 
 The return value is an integer which C<0> if the operation
 would succeed, or some non-zero value documented in the
-L<ntfs-3g.probe(8)> manual page." };
+L<ntfs-3g.probe(8)> manual page.|} };
 
   { defaults with
     name = "sh"; added = (1, 0, 50);
     style = RString (RPlainString, "output"), [String (PlainString, "command")], [];
     shortdesc = "run a command via the shell";
-    longdesc = "\
-This call runs a command from the guest filesystem via the
+    longdesc = {|This call runs a command from the guest filesystem via the
 guest’s F</bin/sh>.
 
 This is like C<guestfs_command>, but passes the command to:
 
- /bin/sh -c \"command\"
+ /bin/sh -c "command"
 
 Depending on the guest’s shell, this usually results in
 wildcards being expanded, shell expressions being interpolated
 and so on.
 
-All the provisos about C<guestfs_command> apply to this call." };
+All the provisos about C<guestfs_command> apply to this call.|} };
 
   { defaults with
     name = "sh_lines"; added = (1, 0, 50);
@@ -3510,12 +3431,11 @@ See also: C<guestfs_command_lines>" };
     style = RErr, [String (PlainString, "command"); String (FileOut, "output")], [];
     test_excuse = "there is a separate test in the tests directory";
     shortdesc = "run a command via the shell";
-    longdesc = "\
-This is the same as C<guestfs_sh>, but streams the output
+    longdesc = {|This is the same as C<guestfs_sh>, but streams the output
 back, handling the case where the output from the command is
 larger than the protocol limit.
 
-See also: C<guestfs_command_out>" };
+See also: C<guestfs_command_out>|} };
 
   { defaults with
     name = "glob_expand"; added = (1, 0, 50);
@@ -3553,8 +3473,7 @@ See also: C<guestfs_command_out>" };
         "is_string_list (ret, 2, \"/glob_expand4/b\", \"/glob_expand4/b1\")"), [];
     ];
     shortdesc = "expand a wildcard path";
-    longdesc = "\
-This command searches for all the pathnames matching
+    longdesc = {|This command searches for all the pathnames matching
 C<pattern> according to the wildcard expansion rules
 used by the shell.
 
@@ -3571,7 +3490,7 @@ off to return no trailing slashes in filenames of directories.
 
 Notice that there is no equivalent command for expanding a device
 name (eg. F</dev/sd*>).  Use C<guestfs_list_devices>,
-C<guestfs_list_partitions> etc functions instead." };
+C<guestfs_list_partitions> etc functions instead.|} };
 
   { defaults with
     name = "scrub_device"; added = (1, 0, 52);
@@ -3582,12 +3501,11 @@ C<guestfs_list_partitions> etc functions instead." };
         [["scrub_device"; "/dev/sdc"]]), []
     ];
     shortdesc = "scrub (securely wipe) a device";
-    longdesc = "\
-This command writes patterns over C<device> to make data retrieval
+    longdesc = {|This command writes patterns over C<device> to make data retrieval
 more difficult.
 
 It is an interface to the L<scrub(1)> program.  See that
-manual page for more details." };
+manual page for more details.|} };
 
   { defaults with
     name = "scrub_file"; added = (1, 0, 52);
@@ -3610,14 +3528,13 @@ manual page for more details." };
          ["scrub_file"; "/scrub_file_4_link"]]), [];
     ];
     shortdesc = "scrub (securely wipe) a file";
-    longdesc = "\
-This command writes patterns over a file to make data retrieval
+    longdesc = {|This command writes patterns over a file to make data retrieval
 more difficult.
 
 The file is I<removed> after scrubbing.
 
 It is an interface to the L<scrub(1)> program.  See that
-manual page for more details." };
+manual page for more details.|} };
 
   { defaults with
     name = "scrub_freespace"; added = (1, 0, 52);
@@ -3625,15 +3542,14 @@ manual page for more details." };
     optional = Some "scrub";
     tests = [] (* XXX needs testing *);
     shortdesc = "scrub (securely wipe) free space";
-    longdesc = "\
-This command creates the directory C<dir> and then fills it
+    longdesc = {|This command creates the directory C<dir> and then fills it
 with files until the filesystem is full, and scrubs the files
 as for C<guestfs_scrub_file>, and deletes them.
 The intention is to scrub any free space on the partition
 containing C<dir>.
 
 It is an interface to the L<scrub(1)> program.  See that
-manual page for more details." };
+manual page for more details.|} };
 
   { defaults with
     name = "mkdtemp"; added = (1, 0, 54);
@@ -3644,13 +3560,12 @@ manual page for more details." };
          ["mkdtemp"; "/mkdtemp/tmpXXXXXX"]]), []
     ];
     shortdesc = "create a temporary directory";
-    longdesc = "\
-This command creates a temporary directory.  The
+    longdesc = {|This command creates a temporary directory.  The
 C<tmpl> parameter should be a full pathname for the
 temporary directory name with the final six characters being
-\"XXXXXX\".
+"XXXXXX".
 
-For example: \"/tmp/myprogXXXXXX\" or \"/Temp/myprogXXXXXX\",
+For example: "/tmp/myprogXXXXXX" or "/Temp/myprogXXXXXX",
 the second one being suitable for Windows filesystems.
 
 The name of the temporary directory that was created
@@ -3662,7 +3577,7 @@ and is owned by root.
 The caller is responsible for deleting the temporary
 directory and its contents after use.
 
-See also: L<mkdtemp(3)>" };
+See also: L<mkdtemp(3)>|} };
 
   { defaults with
     name = "wc_l"; added = (1, 0, 54);
@@ -3737,14 +3652,13 @@ a list of strings." };
         "is_string_list (ret, 0)"), []
     ];
     shortdesc = "return first N lines of a file";
-    longdesc = "\
-If the parameter C<nrlines> is a positive number, this returns the first
+    longdesc = {|If the parameter C<nrlines> is a positive number, this returns the first
 C<nrlines> lines of the file C<path>.
 
 If the parameter C<nrlines> is a negative number, this returns lines
 from the file C<path>, excluding the last C<nrlines> lines.
 
-If the parameter C<nrlines> is zero, this returns an empty list." };
+If the parameter C<nrlines> is zero, this returns an empty list.|} };
 
   { defaults with
     name = "tail"; added = (1, 0, 54);
@@ -3776,39 +3690,36 @@ a list of strings." };
         "is_string_list (ret, 0)"), []
     ];
     shortdesc = "return last N lines of a file";
-    longdesc = "\
-If the parameter C<nrlines> is a positive number, this returns the last
+    longdesc = {|If the parameter C<nrlines> is a positive number, this returns the last
 C<nrlines> lines of the file C<path>.
 
 If the parameter C<nrlines> is a negative number, this returns lines
 from the file C<path>, starting with the C<-nrlines>'th line.
 
-If the parameter C<nrlines> is zero, this returns an empty list." };
+If the parameter C<nrlines> is zero, this returns an empty list.|} };
 
   { defaults with
     name = "df"; added = (1, 0, 54);
     style = RString (RPlainString, "output"), [], [];
     test_excuse = "tricky to test because it depends on the exact format of the 'df' command and other imponderables";
     shortdesc = "report file system disk space usage";
-    longdesc = "\
-This command runs the L<df(1)> command to report disk space used.
+    longdesc = {|This command runs the L<df(1)> command to report disk space used.
 
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.
-Use C<guestfs_statvfs> from programs." };
+Use C<guestfs_statvfs> from programs.|} };
 
   { defaults with
     name = "df_h"; added = (1, 0, 54);
     style = RString (RPlainString, "output"), [], [];
     test_excuse = "tricky to test because it depends on the exact format of the 'df' command and other imponderables";
     shortdesc = "report file system disk space usage (human readable)";
-    longdesc = "\
-This command runs the C<df -h> command to report disk space used
+    longdesc = {|This command runs the C<df -h> command to report disk space used
 in human-readable format.
 
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.
-Use C<guestfs_statvfs> from programs." };
+Use C<guestfs_statvfs> from programs.|} };
 
   { defaults with
     name = "du"; added = (1, 0, 54);
@@ -3819,8 +3730,7 @@ Use C<guestfs_statvfs> from programs." };
         [["du"; "/directory"]], "ret == 2" (* ISO fs blocksize is 2K *)), []
     ];
     shortdesc = "estimate file space usage";
-    longdesc = "\
-This command runs the C<du -s> command to estimate file space
+    longdesc = {|This command runs the C<du -s> command to estimate file space
 usage for C<path>.
 
 C<path> can be a file or a directory.  If C<path> is a directory
@@ -3828,7 +3738,7 @@ then the estimate includes the contents of the directory and all
 subdirectories (recursively).
 
 The result is the estimated size in I<kilobytes>
-(ie. units of 1024 bytes)." };
+(ie. units of 1024 bytes).|} };
 
   { defaults with
     name = "initrd_list"; added = (1, 0, 54);
@@ -3839,8 +3749,7 @@ The result is the estimated size in I<kilobytes>
         "is_string_list (ret, 6, \"empty\", \"known-1\", \"known-2\", \"known-3\", \"known-4\", \"known-5\")"), []
     ];
     shortdesc = "list files in an initrd";
-    longdesc = "\
-This command lists out files contained in an initrd.
+    longdesc = {|This command lists out files contained in an initrd.
 
 The files are listed without any initial F</> character.  The
 files are listed in the order they appear (not necessarily
@@ -3848,7 +3757,7 @@ alphabetical).  Directory names are listed as separate items.
 
 Old Linux kernels (2.4 and earlier) used a compressed ext2
 filesystem as initrd.  We I<only> support the newer initramfs
-format (compressed cpio files)." };
+format (compressed cpio files).|} };
 
   { defaults with
     name = "mount_loop"; added = (1, 0, 54);
@@ -3902,8 +3811,7 @@ label and/or UUID of the new swap partition." };
         "S_ISBLK (ret->mode) && (ret->mode & 0777) == 0755"), []
     ];
     shortdesc = "make block, character or FIFO devices";
-    longdesc = "\
-This call creates block or character special devices, or
+    longdesc = {|This call creates block or character special devices, or
 named pipes (FIFOs).
 
 The C<mode> parameter should be the mode, using the standard
@@ -3919,7 +3827,7 @@ C<guestfs_mknod_b>, C<guestfs_mknod_c> or C<guestfs_mkfifo>
 which are wrappers around this command which bitwise OR
 in the appropriate constant for you.
 
-The mode actually set is affected by the umask." };
+The mode actually set is affected by the umask.|} };
 
   { defaults with
     name = "mkfifo"; added = (1, 0, 55);
@@ -3934,15 +3842,14 @@ The mode actually set is affected by the umask." };
         [["mkfifo"; "0o20777"; "/mkfifo-2"]]), [];
     ];
     shortdesc = "make FIFO (named pipe)";
-    longdesc = "\
-This call creates a FIFO (named pipe) called C<path> with
+    longdesc = {|This call creates a FIFO (named pipe) called C<path> with
 mode C<mode>.  It is just a convenient wrapper around
 C<guestfs_mknod>.
 
 Unlike with C<guestfs_mknod>, C<mode> B<must> contain only permissions
 bits.
 
-The mode actually set is affected by the umask." };
+The mode actually set is affected by the umask.|} };
 
   { defaults with
     name = "mknod_b"; added = (1, 0, 55);
@@ -3957,15 +3864,14 @@ The mode actually set is affected by the umask." };
         [["mknod_b"; "0o10777"; "99"; "66"; "/mknod_b-2"]]), [];
     ];
     shortdesc = "make block device node";
-    longdesc = "\
-This call creates a block device node called C<path> with
+    longdesc = {|This call creates a block device node called C<path> with
 mode C<mode> and device major/minor C<devmajor> and C<devminor>.
 It is just a convenient wrapper around C<guestfs_mknod>.
 
 Unlike with C<guestfs_mknod>, C<mode> B<must> contain only permissions
 bits.
 
-The mode actually set is affected by the umask." };
+The mode actually set is affected by the umask.|} };
 
   { defaults with
     name = "mknod_c"; added = (1, 0, 55);
@@ -3980,15 +3886,14 @@ The mode actually set is affected by the umask." };
         [["mknod_c"; "0o20777"; "99"; "66"; "/mknod_c-2"]]), [];
     ];
     shortdesc = "make char device node";
-    longdesc = "\
-This call creates a char device node called C<path> with
+    longdesc = {|This call creates a char device node called C<path> with
 mode C<mode> and device major/minor C<devmajor> and C<devminor>.
 It is just a convenient wrapper around C<guestfs_mknod>.
 
 Unlike with C<guestfs_mknod>, C<mode> B<must> contain only permissions
 bits.
 
-The mode actually set is affected by the umask." };
+The mode actually set is affected by the umask.|} };
 
   { defaults with
     name = "umask"; added = (1, 0, 55);
@@ -3999,14 +3904,13 @@ The mode actually set is affected by the umask." };
         [["umask"; "0o22"]], "ret == 022"), []
     ];
     shortdesc = "set file mode creation mask (umask)";
-    longdesc = "\
-This function sets the mask used for creating new files and
+    longdesc = {|This function sets the mask used for creating new files and
 device nodes to C<mask & 0777>.
 
 Typical umask values would be C<022> which creates new files
-with permissions like \"-rw-r--r--\" or \"-rwxr-xr-x\", and
+with permissions like "-rw-r--r--" or "-rwxr-xr-x", and
 C<002> which creates new files with permissions like
-\"-rw-rw-r--\" or \"-rwxrwxr-x\".
+"-rw-rw-r--" or "-rwxrwxr-x".
 
 The default umask is C<022>.  This is important because it
 means that directories and device nodes will be created with
@@ -4015,21 +3919,20 @@ C<0644> or C<0755> mode even if you specify C<0777>.
 See also C<guestfs_get_umask>,
 L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir>.
 
-This call returns the previous umask." };
+This call returns the previous umask.|} };
 
   { defaults with
     name = "getxattrs"; added = (1, 0, 59);
     style = RStructList ("xattrs", "xattr"), [String (Pathname, "path")], [];
     optional = Some "linuxxattrs";
     shortdesc = "list extended attributes of a file or directory";
-    longdesc = "\
-This call lists the extended attributes of the file or directory
+    longdesc = {|This call lists the extended attributes of the file or directory
 C<path>.
 
 At the system call level, this is a combination of the
 L<listxattr(2)> and L<getxattr(2)> calls.
 
-See also: C<guestfs_lgetxattrs>, L<attr(5)>." };
+See also: C<guestfs_lgetxattrs>, L<attr(5)>.|} };
 
   { defaults with
     name = "lgetxattrs"; added = (1, 0, 59);
@@ -4048,12 +3951,11 @@ of the link itself." };
                    String (Pathname, "path")], [];
     optional = Some "linuxxattrs";
     shortdesc = "set extended attribute of a file or directory";
-    longdesc = "\
-This call sets the extended attribute named C<xattr>
+    longdesc = {|This call sets the extended attribute named C<xattr>
 of the file C<path> to the value C<val> (of length C<vallen>).
 The value is arbitrary 8 bit data.
 
-See also: C<guestfs_lsetxattr>, L<attr(5)>." };
+See also: C<guestfs_lsetxattr>, L<attr(5)>.|} };
 
   { defaults with
     name = "lsetxattr"; added = (1, 0, 59);
@@ -4106,8 +4008,7 @@ device name to directory where the device is mounted." };
      *)
     style = RErr, [String (PlainString, "exemptpath")], [];
     shortdesc = "create a mountpoint";
-    longdesc = "\
-C<guestfs_mkmountpoint> and C<guestfs_rmmountpoint> are
+    longdesc = {|C<guestfs_mkmountpoint> and C<guestfs_rmmountpoint> are
 specialized calls that can be used to create extra mountpoints
 before mounting the first filesystem.
 
@@ -4115,7 +4016,7 @@ These calls are I<only> necessary in some very limited circumstances,
 mainly the case where you want to mount a mix of unrelated and/or
 read-only filesystems together.
 
-For example, live CDs often contain a \"Russian doll\" nest of
+For example, live CDs often contain a "Russian doll" nest of
 filesystems, an ISO outer layer, with a squashfs image inside, with
 an ext2/3 image inside that.  You can unpack this as follows
 in guestfish:
@@ -4144,7 +4045,7 @@ For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>
 
 Autosync [see C<guestfs_set_autosync>, this is set by default on
 handles] can cause C<guestfs_umount_all> to be called when the handle
-is closed which can also trigger these issues." };
+is closed which can also trigger these issues.|} };
 
   { defaults with
     name = "rmmountpoint"; added = (1, 0, 62);
@@ -4205,8 +4106,7 @@ for full details." };
         "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")"), []
     ];
     shortdesc = "return lines matching a pattern";
-    longdesc = "\
-This calls the external L<grep(1)> program and returns the
+    longdesc = {|This calls the external L<grep(1)> program and returns the
 matching lines.
 
 The optional flags are:
@@ -4232,7 +4132,7 @@ Match case-insensitive.  This is the same as using the I<-i> flag.
 Use L<zgrep(1)> instead of L<grep(1)>.  This allows the input to be
 compress- or gzip-compressed.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "realpath"; added = (1, 0, 66);
@@ -4325,8 +4225,7 @@ This command reads the target of a symbolic link." };
          ["swapoff_device"; "/dev/sda1"]]), []
     ];
     shortdesc = "enable swap on device";
-    longdesc = "\
-This command enables the libguestfs appliance to use the
+    longdesc = {|This command enables the libguestfs appliance to use the
 swap device or partition named C<device>.  The increased
 memory is made available for all commands, for example
 those run using C<guestfs_command> or C<guestfs_sh>.
@@ -4336,7 +4235,7 @@ partitions unless you know what you are doing.  They may
 contain hibernation information, or other information that
 the guest doesn't want you to trash.  You also risk leaking
 information about the host to the guest this way.  Instead,
-attach a new host device to the guest and swap on that." };
+attach a new host device to the guest and swap on that.|} };
 
   { defaults with
     name = "swapoff_device"; added = (1, 0, 66);
@@ -4444,8 +4343,7 @@ file.  To create the file itself, use something like C<guestfs_fallocate>." };
         [["inotify_init"; "0"]]), []
     ];
     shortdesc = "create an inotify handle";
-    longdesc = "\
-This command creates a new inotify handle.
+    longdesc = {|This command creates a new inotify handle.
 The inotify subsystem can be used to notify events which happen to
 objects in the guest filesystem.
 
@@ -4477,7 +4375,7 @@ watches automatically.
 See also L<inotify(7)> for an overview of the inotify interface
 as exposed by the Linux kernel, which is roughly what we expose
 via libguestfs.  Note that there is one global inotify handle
-per libguestfs instance." };
+per libguestfs instance.|} };
 
   { defaults with
     name = "inotify_add_watch"; added = (1, 0, 66);
@@ -4494,8 +4392,7 @@ per libguestfs instance." };
         "is_string_list (ret, 2, \"a\", \"b\")"), []
     ];
     shortdesc = "add an inotify watch";
-    longdesc = "\
-Watch C<path> for the events listed in C<mask>.
+    longdesc = {|Watch C<path> for the events listed in C<mask>.
 
 Note that if C<path> is a directory then events within that
 directory are watched, but this does I<not> happen recursively
@@ -4503,7 +4400,7 @@ directory are watched, but this does I<not> happen recursively
 
 Note for non-C or non-Linux callers: the inotify events are
 defined by the Linux kernel ABI and are listed in
-F</usr/include/sys/inotify.h>." };
+F</usr/include/sys/inotify.h>.|} };
 
   { defaults with
     name = "inotify_rm_watch"; added = (1, 0, 66);
@@ -4519,8 +4416,7 @@ See C<guestfs_inotify_add_watch>." };
     style = RStructList ("events", "inotify_event"), [], [];
     optional = Some "inotify";
     shortdesc = "return list of inotify events";
-    longdesc = "\
-Return the complete queue of events that have happened
+    longdesc = {|Return the complete queue of events that have happened
 since the previous read call.
 
 If no events have happened, this returns an empty list.
@@ -4529,7 +4425,7 @@ I<Note>: In order to make sure that all events have been
 read, you must call this function repeatedly until it
 returns an empty list.  The reason is that the call will
 read events up to the maximum appliance-to-host message
-size and leave remaining events in the queue." };
+size and leave remaining events in the queue.|} };
 
   { defaults with
     name = "inotify_files"; added = (1, 0, 66);
@@ -4572,13 +4468,12 @@ This loads a kernel module in the appliance." };
         [["echo_daemon"; ""]], ""), [];
     ];
     shortdesc = "echo arguments back to the client";
-    longdesc = "\
-This command concatenates the list of C<words> passed with single spaces
+    longdesc = {|This command concatenates the list of C<words> passed with single spaces
 between them and returns the resulting string.
 
 You can use this command to test the connection through to the daemon.
 
-See also C<guestfs_ping_daemon>." };
+See also C<guestfs_ping_daemon>.|} };
 
   { defaults with
     name = "find0"; added = (1, 0, 74);
@@ -4586,8 +4481,7 @@ See also C<guestfs_ping_daemon>." };
     cancellable = true;
     test_excuse = "there is a regression test for this";
     shortdesc = "find all files and directories, returning NUL-separated list";
-    longdesc = "\
-This command lists out all files and directories, recursively,
+    longdesc = {|This command lists out all files and directories, recursively,
 starting at F<directory>, placing the resulting list in the
 external file called F<files>.
 
@@ -4603,13 +4497,13 @@ The resulting list is written to an external file.
 =item *
 
 Items (filenames) in the result are separated
-by C<\\0> characters.  See L<find(1)> option I<-print0>.
+by C<\0> characters.  See L<find(1)> option I<-print0>.
 
 =item *
 
 The result list is not sorted.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "case_sensitive_path"; added = (1, 0, 75);
@@ -4644,8 +4538,7 @@ The result list is not sorted.
          ["case_sensitive_path"; "/case_SENSITIVE_path4/new_file"]], "/case_sensitive_path4/new_file"), []
     ];
     shortdesc = "return true path on case-insensitive filesystem";
-    longdesc = "\
-This can be used to resolve case insensitive paths on
+    longdesc = {|This can be used to resolve case insensitive paths on
 a filesystem which is case sensitive.  The use case is
 to resolve paths which you have read from Windows configuration
 files or the Windows Registry, to the true path.
@@ -4656,7 +4549,7 @@ the underlying filesystem is case-insensitive, the driver
 exports the filesystem to Linux as case-sensitive.
 
 One consequence of this is that special directories such
-as F<C:\\windows> may appear as F</WINDOWS> or F</windows>
+as F<C:\windows> may appear as F</WINDOWS> or F</windows>
 (or other things) depending on the precise details of how
 they were created.  In Windows itself this would not be
 a problem.
@@ -4669,19 +4562,19 @@ each element in the path. It will return a resolved path if either the
 full path or its parent directory exists. If the parent directory
 exists but the full path does not, the case of the parent directory
 will be correctly resolved, and the remainder appended unmodified. For
-example, if the file C<\"/Windows/System32/netkvm.sys\"> exists:
+example, if the file C<"/Windows/System32/netkvm.sys"> exists:
 
 =over 4
 
-=item C<guestfs_case_sensitive_path> (\"/windows/system32/netkvm.sys\")
+=item C<guestfs_case_sensitive_path> ("/windows/system32/netkvm.sys")
 
-\"Windows/System32/netkvm.sys\"
+"Windows/System32/netkvm.sys"
 
-=item C<guestfs_case_sensitive_path> (\"/windows/system32/NoSuchFile\")
+=item C<guestfs_case_sensitive_path> ("/windows/system32/NoSuchFile")
 
-\"Windows/System32/NoSuchFile\"
+"Windows/System32/NoSuchFile"
 
-=item C<guestfs_case_sensitive_path> (\"/windows/system33/netkvm.sys\")
+=item C<guestfs_case_sensitive_path> ("/windows/system33/netkvm.sys")
 
 I<ERROR>
 
@@ -4694,7 +4587,7 @@ be used to check for the existence of a file.
 I<Note>:
 This function does not handle drive names, backslashes etc.
 
-See also C<guestfs_realpath>." };
+See also C<guestfs_realpath>.|} };
 
   { defaults with
     name = "vfs_type"; added = (1, 0, 75);
@@ -4705,14 +4598,13 @@ See also C<guestfs_realpath>." };
         [["vfs_type"; "/dev/sdb1"]], "ext2"), []
     ];
     shortdesc = "get the Linux VFS type corresponding to a mounted device";
-    longdesc = "\
-This command gets the filesystem type corresponding to
+    longdesc = {|This command gets the filesystem type corresponding to
 the filesystem on C<mountable>.
 
 For most filesystems, the result is the name of the Linux
 VFS module which would be used to mount this filesystem
 if you mounted it without specifying the filesystem type.
-For example a string such as C<ext3> or C<ntfs>." };
+For example a string such as C<ext3> or C<ntfs>.|} };
 
   { defaults with
     name = "truncate"; added = (1, 0, 77);
@@ -4738,15 +4630,14 @@ file must exist already." };
          ["stat"; "/truncate_size"]], "ret->size == 1000"), []
     ];
     shortdesc = "truncate a file to a particular size";
-    longdesc = "\
-This command truncates C<path> to size C<size> bytes.  The file
+    longdesc = {|This command truncates C<path> to size C<size> bytes.  The file
 must exist already.
 
 If the current file size is less than C<size> then
 the file is extended to the required size with zero bytes.
 This creates a sparse file (ie. disk blocks are not allocated
 for the file until you write to it).  To create a non-sparse
-file of zeroes, use C<guestfs_fallocate64> instead." };
+file of zeroes, use C<guestfs_fallocate64> instead.|} };
 
   { defaults with
     name = "utimens"; added = (1, 0, 77);
@@ -4779,8 +4670,7 @@ file of zeroes, use C<guestfs_fallocate64> instead." };
          ["stat"; "/utimens-char"]], "ret->mtime == 9876"), []
     ];
     shortdesc = "set timestamp of a file with nanosecond precision";
-    longdesc = "\
-This command sets the timestamps of a file with nanosecond
+    longdesc = {|This command sets the timestamps of a file with nanosecond
 precision.
 
 C<atsecs>, C<atnsecs> are the last access time (atime) in secs and
@@ -4795,7 +4685,7 @@ C<*secs> field is ignored in this case).
 
 If the C<*nsecs> field contains the special value C<-2> then
 the corresponding timestamp is left unchanged.  (The
-C<*secs> field is ignored in this case)." };
+C<*secs> field is ignored in this case).|} };
 
   { defaults with
     name = "mkdir_mode"; added = (1, 0, 77);
@@ -4807,28 +4697,26 @@ C<*secs> field is ignored in this case)." };
         "S_ISDIR (ret->mode) && (ret->mode & 0777) == 0111"), []
     ];
     shortdesc = "create a directory with a particular mode";
-    longdesc = "\
-This command creates a directory, setting the initial permissions
+    longdesc = {|This command creates a directory, setting the initial permissions
 of the directory to C<mode>.
 
 For common Linux filesystems, the actual mode which is set will
 be C<mode & ~umask & 01777>.  Non-native-Linux filesystems may
 interpret the mode in other ways.
 
-See also C<guestfs_mkdir>, C<guestfs_umask>" };
+See also C<guestfs_mkdir>, C<guestfs_umask>|} };
 
   { defaults with
     name = "lchown"; added = (1, 0, 77);
     style = RErr, [Int "owner"; Int "group"; String (Pathname, "path")], [];
     shortdesc = "change file owner and group";
-    longdesc = "\
-Change the file owner to C<owner> and group to C<group>.
+    longdesc = {|Change the file owner to C<owner> and group to C<group>.
 This is like C<guestfs_chown> but if C<path> is a symlink then
 the link itself is changed, not the target.
 
 Only numeric uid and gid are supported.  If you want to use
 names, you will need to locate and parse the password file
-yourself (Augeas support makes this relatively easy)." };
+yourself (Augeas support makes this relatively easy).|} };
 
   { defaults with
     name = "internal_lxattrlist"; added = (1, 19, 32);
@@ -4836,8 +4724,7 @@ yourself (Augeas support makes this relatively easy)." };
     visibility = VInternal;
     optional = Some "linuxxattrs";
     shortdesc = "lgetxattr on multiple files";
-    longdesc = "\
-This call allows you to get the extended attributes
+    longdesc = {|This call allows you to get the extended attributes
 of multiple files, where all files are in the directory C<path>.
 C<names> is the list of files from this directory.
 
@@ -4847,7 +4734,7 @@ C<attrname>.  C<attrval> in this struct is zero-length
 to indicate there was an error doing C<lgetxattr> for this
 file, I<or> is a C string which is a decimal number
 (the number of following attributes for this file, which could
-be C<\"0\">).  Then after the first xattr struct are the
+be C<"0">).  Then after the first xattr struct are the
 zero or more attributes for the first named file.
 This repeats for the second and subsequent files.
 
@@ -4857,15 +4744,14 @@ See also C<guestfs_lstatlist> for a similarly efficient call
 for getting standard stats.  Very long directory listings
 might cause the protocol message size to be exceeded, causing
 this call to fail.  The caller must split up such requests
-into smaller groups of names." };
+into smaller groups of names.|} };
 
   { defaults with
     name = "internal_readlinklist"; added = (1, 19, 32);
     style = RStringList (RPlainString, "links"), [String (Pathname, "path"); StringList (Filename, "names")], [];
     visibility = VInternal;
     shortdesc = "readlink on multiple files";
-    longdesc = "\
-This call allows you to do a C<readlink> operation
+    longdesc = {|This call allows you to do a C<readlink> operation
 on multiple files, where all files are in the directory C<path>.
 C<names> is the list of files from this directory.
 
@@ -4874,7 +4760,7 @@ correspondence to the C<names> list.  Each string is the
 value of the symbolic link.
 
 If the L<readlink(2)> operation fails on any name, then
-the corresponding result string is the empty string C<\"\">.
+the corresponding result string is the empty string C<"">.
 However the whole operation is completed even if there
 were L<readlink(2)> errors, and so you can call this
 function with names where you don't know if they are
@@ -4885,7 +4771,7 @@ list a directory contents without making many round-trips.
 Very long directory listings might cause the protocol
 message size to be exceeded, causing
 this call to fail.  The caller must split up such requests
-into smaller groups of names." };
+into smaller groups of names.|} };
 
   { defaults with
     name = "pread"; added = (1, 0, 77);
@@ -4900,14 +4786,13 @@ into smaller groups of names." };
         "compare_buffers (ret, size, NULL, 0) == 0"), []
     ];
     shortdesc = "read part of a file";
-    longdesc = "\
-This command lets you read part of a file.  It reads C<count>
+    longdesc = {|This command lets you read part of a file.  It reads C<count>
 bytes of the file, starting at C<offset>, from file C<path>.
 
 This may read fewer bytes than requested.  For further details
 see the L<pread(2)> system call.
 
-See also C<guestfs_pwrite>, C<guestfs_pread_device>." };
+See also C<guestfs_pwrite>, C<guestfs_pread_device>.|} };
 
   { defaults with
     name = "part_init"; added = (1, 0, 78);
@@ -4917,8 +4802,7 @@ See also C<guestfs_pwrite>, C<guestfs_pread_device>." };
         [["part_init"; "/dev/sda"; "gpt"]]), []
     ];
     shortdesc = "create an empty partition table";
-    longdesc = "\
-This creates an empty partition table on C<device> of one of the
+    longdesc = {|This creates an empty partition table on C<device> of one of the
 partition types listed below.  Usually C<parttype> should be
 either C<msdos> or C<gpt> (for large disks).
 
@@ -4943,7 +4827,7 @@ compatibility with the C<mbr> format.
 
 =item C<msdos>
 
-The standard PC \"Master Boot Record\" (MBR) format used
+The standard PC "Master Boot Record" (MBR) format used
 by MS-DOS and Windows.  This partition type will B<only> work
 for device sizes up to 2 TB.  For large disks we recommend
 using C<gpt>.
@@ -4963,7 +4847,7 @@ AIX disk labels.
 
 =item C<rdb>
 
-Amiga \"Rigid Disk Block\" format.
+Amiga "Rigid Disk Block" format.
 
 =item C<bsd>
 
@@ -4989,7 +4873,7 @@ NEC PC-98 format, common in Japan apparently.
 
 Sun disk labels.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "part_add"; added = (1, 0, 78);
@@ -5010,8 +4894,7 @@ Sun disk labels.
          ["part_add"; "/dev/sda"; "primary"; "512"; "-1"]]), []
     ];
     shortdesc = "add a partition to the device";
-    longdesc = "\
-This command adds a partition to C<device>.  If there is no partition
+    longdesc = {|This command adds a partition to C<device>.  If there is no partition
 table on the device, call C<guestfs_part_init> first.
 
 The C<prlogex> parameter is the type of partition.  Normally you
@@ -5024,7 +4907,7 @@ in I<sectors>.  C<endsect> may be negative, which means it counts
 backwards from the end of the disk (C<-1> is the last sector).
 
 Creating a partition which covers the whole disk is not so easy.
-Use C<guestfs_part_disk> to do that." };
+Use C<guestfs_part_disk> to do that.|} };
 
   { defaults with
     name = "part_disk"; added = (1, 0, 78);
@@ -5036,13 +4919,12 @@ Use C<guestfs_part_disk> to do that." };
         [["part_disk"; "/dev/sda"; "gpt"]]), []
     ];
     shortdesc = "partition whole disk with a single primary partition";
-    longdesc = "\
-This command is simply a combination of C<guestfs_part_init>
+    longdesc = {|This command is simply a combination of C<guestfs_part_init>
 followed by C<guestfs_part_add> to create a single primary partition
 covering the whole disk.
 
 C<parttype> is the partition table type, usually C<mbr> or C<gpt>,
-but other possible values are described in C<guestfs_part_init>." };
+but other possible values are described in C<guestfs_part_init>.|} };
 
   { defaults with
     name = "part_set_bootable"; added = (1, 0, 78);
@@ -5053,13 +4935,12 @@ but other possible values are described in C<guestfs_part_init>." };
          ["part_set_bootable"; "/dev/sda"; "1"; "true"]]), []
     ];
     shortdesc = "make a partition bootable";
-    longdesc = "\
-This sets the bootable flag on partition numbered C<partnum> on
+    longdesc = {|This sets the bootable flag on partition numbered C<partnum> on
 device C<device>.  Note that partitions are numbered from 1.
 
 The bootable flag is used by some operating systems (notably
 Windows) to determine which partition to boot from.  It is by
-no means universally recognized." };
+no means universally recognized.|} };
 
   { defaults with
     name = "part_set_name"; added = (1, 0, 78);
@@ -5070,12 +4951,11 @@ no means universally recognized." };
          ["part_set_name"; "/dev/sda"; "1"; "thepartname"]]), []
     ];
     shortdesc = "set partition name";
-    longdesc = "\
-This sets the partition name on partition numbered C<partnum> on
+    longdesc = {|This sets the partition name on partition numbered C<partnum> on
 device C<device>.  Note that partitions are numbered from 1.
 
 The partition name can only be set on certain types of partition
-table.  This works on C<gpt> but not on C<mbr> partitions." };
+table.  This works on C<gpt> but not on C<mbr> partitions.|} };
 
   { defaults with
     name = "part_list"; added = (1, 0, 78);
@@ -5083,8 +4963,7 @@ table.  This works on C<gpt> but not on C<mbr> partitions." };
     impl = OCaml "Parted.part_list";
     tests = [] (* XXX Add a regression test for this. *);
     shortdesc = "list partitions on a device";
-    longdesc = "\
-This command parses the partition table on C<device> and
+    longdesc = {|This command parses the partition table on C<device> and
 returns the list of partitions found.
 
 The fields in the returned structure are:
@@ -5108,7 +4987,7 @@ End of the partition in bytes.
 
 Size of the partition in bytes.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "part_get_parttype"; added = (1, 0, 78);
@@ -5120,14 +4999,13 @@ Size of the partition in bytes.
          ["part_get_parttype"; "/dev/sda"]], "gpt"), []
     ];
     shortdesc = "get the partition table type";
-    longdesc = "\
-This command examines the partition table on C<device> and
+    longdesc = {|This command examines the partition table on C<device> and
 returns the partition table type (format) being used.
 
 Common return values include: C<msdos> (a DOS/Windows style MBR
 partition table), C<gpt> (a GPT/EFI-style partition table).  Other
 values are possible, although unusual.  See C<guestfs_part_init>
-for a full list." };
+for a full list.|} };
 
   { defaults with
     name = "fill"; added = (1, 0, 79);
@@ -5140,15 +5018,14 @@ for a full list." };
         "compare_buffers (ret, size, \"cccccccccc\", 10) == 0"), []
     ];
     shortdesc = "fill a file with octets";
-    longdesc = "\
-This command creates a new file called C<path>.  The initial
+    longdesc = {|This command creates a new file called C<path>.  The initial
 content of the file is C<len> octets of C<c>, where C<c>
 must be a number in the range C<[0..255]>.
 
 To fill a file with zero bytes (sparsely), it is
 much more efficient to use C<guestfs_truncate_size>.
 To create a file with a pattern of repeating bytes
-use C<guestfs_fill_pattern>." };
+use C<guestfs_fill_pattern>.|} };
 
   { defaults with
     name = "filesize"; added = (1, 0, 82);
@@ -5159,12 +5036,11 @@ use C<guestfs_fill_pattern>." };
          ["filesize"; "/filesize"]], "ret == 12"), []
     ];
     shortdesc = "return the size of the file in bytes";
-    longdesc = "\
-This command returns the size of F<file> in bytes.
+    longdesc = {|This command returns the size of F<file> in bytes.
 
 To get other stats about a file, use C<guestfs_stat>, C<guestfs_lstat>,
 C<guestfs_is_dir>, C<guestfs_is_file> etc.
-To get the size of block devices, use C<guestfs_blockdev_getsize64>." };
+To get the size of block devices, use C<guestfs_blockdev_getsize64>.|} };
 
   { defaults with
     name = "lvrename"; added = (1, 0, 83);
@@ -5206,8 +5082,7 @@ Rename a volume group C<volgroup> with the new name C<newvolgroup>." };
         "compare_buffers (ret, size, \"abc\\ndef\\nghi\", 11) == 0"), []
     ];
     shortdesc = "list the contents of a single file in an initrd";
-    longdesc = "\
-This command unpacks the file F<filename> from the initrd file
+    longdesc = {|This command unpacks the file F<filename> from the initrd file
 called F<initrdpath>.  The filename must be given I<without> the
 initial F</> character.
 
@@ -5217,7 +5092,7 @@ contained in a Linux initrd or initramfs image:
 
  initrd-cat /boot/initrd-<version>.img init
 
-See also C<guestfs_initrd_list>." };
+See also C<guestfs_initrd_list>.|} };
 
   { defaults with
     name = "pvuuid"; added = (1, 0, 87);
@@ -5244,27 +5119,25 @@ This command returns the UUID of the LVM LV C<device>." };
     name = "vgpvuuids"; added = (1, 0, 87);
     style = RStringList (RPlainString, "uuids"), [String (PlainString, "vgname")], [];
     shortdesc = "get the PV UUIDs containing the volume group";
-    longdesc = "\
-Given a VG called C<vgname>, this returns the UUIDs of all
+    longdesc = {|Given a VG called C<vgname>, this returns the UUIDs of all
 the physical volumes that this volume group resides on.
 
 You can use this along with C<guestfs_pvs> and C<guestfs_pvuuid>
 calls to associate physical volumes and volume groups.
 
-See also C<guestfs_vglvuuids>." };
+See also C<guestfs_vglvuuids>.|} };
 
   { defaults with
     name = "vglvuuids"; added = (1, 0, 87);
     style = RStringList (RPlainString, "uuids"), [String (PlainString, "vgname")], [];
     shortdesc = "get the LV UUIDs of all LVs in the volume group";
-    longdesc = "\
-Given a VG called C<vgname>, this returns the UUIDs of all
+    longdesc = {|Given a VG called C<vgname>, this returns the UUIDs of all
 the logical volumes created in this volume group.
 
 You can use this along with C<guestfs_lvs> and C<guestfs_lvuuid>
 calls to associate logical volumes and volume groups.
 
-See also C<guestfs_vgpvuuids>." };
+See also C<guestfs_vgpvuuids>.|} };
 
   { defaults with
     name = "zero_device"; added = (1, 3, 1);
@@ -5275,14 +5148,13 @@ See also C<guestfs_vgpvuuids>." };
         [["zero_device"; "/dev/VG/LV"]]), []
     ];
     shortdesc = "write zeroes to an entire device";
-    longdesc = "\
-This command writes zeroes over the entire C<device>.  Compare
+    longdesc = {|This command writes zeroes over the entire C<device>.  Compare
 with C<guestfs_zero> which just zeroes the first few blocks of
 a device.
 
 If blocks are already zero, then this command avoids writing
 zeroes.  This prevents the underlying device from becoming non-sparse
-or growing unnecessarily." };
+or growing unnecessarily.|} };
 
   { defaults with
     name = "part_del"; added = (1, 3, 2);
@@ -5294,12 +5166,11 @@ or growing unnecessarily." };
          ["part_del"; "/dev/sda"; "1"]]), []
     ];
     shortdesc = "delete a partition";
-    longdesc = "\
-This command deletes the partition numbered C<partnum> on C<device>.
+    longdesc = {|This command deletes the partition numbered C<partnum> on C<device>.
 
 Note that in the case of MBR partitioning, deleting an
 extended partition also deletes any logical partitions
-it contains." };
+it contains.|} };
 
   { defaults with
     name = "part_get_bootable"; added = (1, 3, 2);
@@ -5331,28 +5202,26 @@ See also C<guestfs_part_set_bootable>." };
          ["part_get_mbr_id"; "/dev/sda"; "1"]], "ret == 0x7f"), []
     ];
     shortdesc = "get the MBR type byte (ID byte) from a partition";
-    longdesc = "\
-Returns the MBR type byte (also known as the ID byte) from
+    longdesc = {|Returns the MBR type byte (also known as the ID byte) from
 the numbered partition C<partnum>.
 
 Note that only MBR (old DOS-style) partitions have type bytes.
 You will get undefined results for other partition table
-types (see C<guestfs_part_get_parttype>)." };
+types (see C<guestfs_part_get_parttype>).|} };
 
   { defaults with
     name = "part_set_mbr_id"; added = (1, 3, 2);
     style = RErr, [String (Device, "device"); Int "partnum"; Int "idbyte"], [];
     shortdesc = "set the MBR type byte (ID byte) of a partition";
-    longdesc = "\
-Sets the MBR type byte (also known as the ID byte) of
+    longdesc = {|Sets the MBR type byte (also known as the ID byte) of
 the numbered partition C<partnum> to C<idbyte>.  Note
 that the type bytes quoted in most documentation are
 in fact hexadecimal numbers, but usually documented
-without any leading \"0x\" which might be confusing.
+without any leading "0x" which might be confusing.
 
 Note that only MBR (old DOS-style) partitions have type bytes.
 You will get undefined results for other partition table
-types (see C<guestfs_part_get_parttype>)." };
+types (see C<guestfs_part_get_parttype>).|} };
 
   { defaults with
     name = "checksum_device"; added = (1, 3, 2);
@@ -5381,12 +5250,11 @@ checksums supported see the C<guestfs_checksum> command." };
          ["lvresize_free"; "/dev/VG/LV"; "100"]]), []
     ];
     shortdesc = "expand an LV to fill free space";
-    longdesc = "\
-This expands an existing logical volume C<lv> so that it fills
+    longdesc = {|This expands an existing logical volume C<lv> so that it fills
 C<pc> % of the remaining free space in the volume group.  Commonly
 you would call this with pc = 100 which expands the logical volume
 as much as possible, using all remaining free space in the volume
-group." };
+group.|} };
 
   { defaults with
     name = "get_umask"; added = (1, 3, 4);
@@ -5429,8 +5297,7 @@ it out to local file C<base64file> encoded as base64." };
     style = RErr, [String (PlainString, "csumtype"); String (Pathname, "directory"); String (FileOut, "sumsfile")], [];
     cancellable = true;
     shortdesc = "compute MD5, SHAx or CRC checksum of files in a directory";
-    longdesc = "\
-This command computes the checksums of all regular files in
+    longdesc = {|This command computes the checksums of all regular files in
 F<directory> and then emits a list of those checksums to
 the local output file C<sumsfile>.
 
@@ -5440,7 +5307,7 @@ attention to the output of the checksum command (it uses
 the ones from GNU coreutils).  In particular when the
 filename is not printable, coreutils uses a special
 backslash syntax.  For more information, see the GNU
-coreutils info file." };
+coreutils info file.|} };
 
   { defaults with
     name = "fill_pattern"; added = (1, 3, 12);
@@ -5510,8 +5377,7 @@ See also C<guestfs_write_append>." };
          ["cat"; "/pwrite3"]], "new file contents"), []
     ];
     shortdesc = "write to part of a file";
-    longdesc = "\
-This command writes to part of a file.  It writes the data
+    longdesc = {|This command writes to part of a file.  It writes the data
 buffer C<content> to the file C<path> starting at offset C<offset>.
 
 This command implements the L<pwrite(2)> system call, and like
@@ -5520,7 +5386,7 @@ return value is the number of bytes that were actually written
 to the file.  This could even be 0, although short writes are
 unlikely for regular files in ordinary circumstances.
 
-See also C<guestfs_pread>, C<guestfs_pwrite_device>." };
+See also C<guestfs_pread>, C<guestfs_pwrite_device>.|} };
 
   { defaults with
     name = "resize2fs_size"; added = (1, 3, 14);
@@ -5548,15 +5414,14 @@ allows you to specify the new size (in bytes) explicitly." };
       InitNone, Always, TestRun [["available_all_groups"]], []
     ];
     shortdesc = "return a list of all optional groups";
-    longdesc = "\
-This command returns a list of all optional groups that this
+    longdesc = {|This command returns a list of all optional groups that this
 daemon knows about.  Note this returns both supported and unsupported
 groups.  To find out which ones the daemon can actually support
 you have to call C<guestfs_available> / C<guestfs_feature_available>
 on each member of the returned list.
 
 See also C<guestfs_available>, C<guestfs_feature_available>
-and L<guestfs(3)/AVAILABILITY>." };
+and L<guestfs(3)/AVAILABILITY>.|} };
 
   { defaults with
     name = "fallocate64"; added = (1, 3, 17);
@@ -5567,8 +5432,7 @@ and L<guestfs(3)/AVAILABILITY>." };
          ["stat"; "/fallocate64"]], "ret->size == 1000000"), []
     ];
     shortdesc = "preallocate a file in the guest filesystem";
-    longdesc = "\
-This command preallocates a file (containing zero bytes) named
+    longdesc = {|This command preallocates a file (containing zero bytes) named
 C<path> of size C<len> bytes.  If the file exists already, it
 is overwritten.
 
@@ -5582,7 +5446,7 @@ of files created through that call to 1GB.
 
 Do not confuse this with the guestfish-specific
 C<alloc> and C<sparse> commands which create
-a file in the host and attach it as a device." };
+a file in the host and attach it as a device.|} };
 
   { defaults with
     name = "vfs_label"; added = (1, 3, 18);
@@ -5602,12 +5466,11 @@ a file in the host and attach it as a device." };
          ["vfs_label"; "/dev/sda1"]], "test-label-btrfs"), [];
     ];
     shortdesc = "get the filesystem label";
-    longdesc = "\
-This returns the label of the filesystem on C<mountable>.
+    longdesc = {|This returns the label of the filesystem on C<mountable>.
 
 If the filesystem is unlabeled, this returns the empty string.
 
-To find a filesystem from the label, use C<guestfs_findfs_label>." };
+To find a filesystem from the label, use C<guestfs_findfs_label>.|} };
 
   { defaults with
     name = "vfs_uuid"; added = (1, 3, 18);
@@ -5619,12 +5482,11 @@ To find a filesystem from the label, use C<guestfs_findfs_label>." };
            ["vfs_uuid"; "/dev/sda1"]], stable_uuid), []
       ];
     shortdesc = "get the filesystem UUID";
-    longdesc = "\
-This returns the filesystem UUID of the filesystem on C<mountable>.
+    longdesc = {|This returns the filesystem UUID of the filesystem on C<mountable>.
 
 If the filesystem does not have a UUID, this returns the empty string.
 
-To find a filesystem from the UUID, use C<guestfs_findfs_uuid>." };
+To find a filesystem from the UUID, use C<guestfs_findfs_uuid>.|} };
 
   { defaults with
     name = "lvm_set_filter"; added = (1, 5, 1);
@@ -5632,9 +5494,8 @@ To find a filesystem from the UUID, use C<guestfs_findfs_uuid>." };
     optional = Some "lvm2";
     test_excuse = "cannot be tested with the current framework because the VG is being used by the mounted filesystem, so the 'vgchange -an' command we do first will fail";
     shortdesc = "set LVM device filter";
-    longdesc = "\
-This sets the LVM device filter so that LVM will only be
-able to \"see\" the block devices in the list C<devices>,
+    longdesc = {|This sets the LVM device filter so that LVM will only be
+able to "see" the block devices in the list C<devices>,
 and will ignore all other attached block devices.
 
 Where disk image(s) contain duplicate PVs or VGs, this
@@ -5654,19 +5515,18 @@ You can filter whole block devices or individual partitions.
 
 You cannot use this if any VG is currently in use (eg.
 contains a mounted filesystem), even if you are not
-filtering out that VG." };
+filtering out that VG.|} };
 
   { defaults with
     name = "lvm_clear_filter"; added = (1, 5, 1);
     style = RErr, [], [];
     test_excuse = "cannot be tested with the current framework because the VG is being used by the mounted filesystem, so the 'vgchange -an' command we do first will fail";
     shortdesc = "clear LVM device filter";
-    longdesc = "\
-This undoes the effect of C<guestfs_lvm_set_filter>.  LVM
+    longdesc = {|This undoes the effect of C<guestfs_lvm_set_filter>.  LVM
 will be able to see every block device.
 
 This command also clears the LVM cache and performs a volume
-group scan." };
+group scan.|} };
 
   { defaults with
     name = "luks_format"; added = (1, 5, 2);
@@ -5693,15 +5553,14 @@ it also allows you to set the C<cipher> used." };
     style = RErr, [String (Device, "device"); String (Key, "key"); String (Key, "newkey"); Int "keyslot"], [];
     optional = Some "luks";
     shortdesc = "add a key on a LUKS encrypted device";
-    longdesc = "\
-This command adds a new key on LUKS device C<device>.
+    longdesc = {|This command adds a new key on LUKS device C<device>.
 C<key> is any existing key, and is used to access the device.
 C<newkey> is the new key to add.  C<keyslot> is the key slot
 that will be replaced.
 
 Note that if C<keyslot> already contains a key, then this
 command will fail.  You have to use C<guestfs_luks_kill_slot>
-first to remove that key." };
+first to remove that key.|} };
 
   { defaults with
     name = "luks_kill_slot"; added = (1, 5, 2);
@@ -5732,48 +5591,44 @@ returns true iff this is the case." };
     style = RString (RDevice, "device"), [String (PlainString, "uuid")], [];
     impl = OCaml "Findfs.findfs_uuid";
     shortdesc = "find a filesystem by UUID";
-    longdesc = "\
-This command searches the filesystems and returns the one
+    longdesc = {|This command searches the filesystems and returns the one
 which has the given UUID.  An error is returned if no such
 filesystem can be found.
 
-To find the UUID of a filesystem, use C<guestfs_vfs_uuid>." };
+To find the UUID of a filesystem, use C<guestfs_vfs_uuid>.|} };
 
   { defaults with
     name = "findfs_label"; added = (1, 5, 3);
     style = RString (RDevice, "device"), [String (PlainString, "label")], [];
     impl = OCaml "Findfs.findfs_label";
     shortdesc = "find a filesystem by label";
-    longdesc = "\
-This command searches the filesystems and returns the one
+    longdesc = {|This command searches the filesystems and returns the one
 which has the given label.  An error is returned if no such
 filesystem can be found.
 
-To find the label of a filesystem, use C<guestfs_vfs_label>." };
+To find the label of a filesystem, use C<guestfs_vfs_label>.|} };
 
   { defaults with
     name = "findfs_partuuid"; added = (1, 53, 5);
     style = RString (RDevice, "device"), [String (PlainString, "uuid")], [];
     impl = OCaml "Findfs.findfs_partuuid";
     shortdesc = "find a partition by UUID";
-    longdesc = "\
-This command searches the partitions and returns the one
+    longdesc = {|This command searches the partitions and returns the one
 which has the given partition UUID.  An error is returned if no such
 partition can be found.
 
-To find the UUID of a partition, use C<guestfs_blkid> (C<PART_ENTRY_UUID>)." };
+To find the UUID of a partition, use C<guestfs_blkid> (C<PART_ENTRY_UUID>).|} };
 
   { defaults with
     name = "findfs_partlabel"; added = (1, 53, 5);
     style = RString (RDevice, "device"), [String (PlainString, "label")], [];
     impl = OCaml "Findfs.findfs_partlabel";
     shortdesc = "find a partition by label";
-    longdesc = "\
-This command searches the partitions and returns the one
+    longdesc = {|This command searches the partitions and returns the one
 which has the given label.  An error is returned if no such
 partition can be found.
 
-To find the label of a partition, use C<guestfs_blkid> (C<PART_ENTRY_NAME>)." };
+To find the label of a partition, use C<guestfs_blkid> (C<PART_ENTRY_NAME>).|} };
 
   { defaults with
     name = "is_chardev"; added = (1, 5, 10);
@@ -5787,15 +5642,14 @@ To find the label of a partition, use C<guestfs_blkid> (C<PART_ENTRY_NAME>)." };
          ["is_chardev"; "/is_chardev"; ""]]), []
     ];
     shortdesc = "test if character device";
-    longdesc = "\
-This returns C<true> if and only if there is a character device
+    longdesc = {|This returns C<true> if and only if there is a character device
 with the given C<path> name.
 
 If the optional flag C<followsymlinks> is true, then a symlink
 (or chain of symlinks) that ends with a chardev also causes the
 function to return true.
 
-See also C<guestfs_stat>." };
+See also C<guestfs_stat>.|} };
 
   { defaults with
     name = "is_blockdev"; added = (1, 5, 10);
@@ -5809,8 +5663,7 @@ See also C<guestfs_stat>." };
          ["is_blockdev"; "/is_blockdev"; ""]]), []
     ];
     shortdesc = "test if block device";
-    longdesc = "\
-This returns C<true> if and only if there is a block device
+    longdesc = {|This returns C<true> if and only if there is a block device
 with the given C<path> name.
 
 If the optional flag C<followsymlinks> is true, then a symlink
@@ -5821,7 +5674,7 @@ This call only looks at files within the guest filesystem.  Libguestfs
 partitions and block devices (eg. F</dev/sda>) cannot be used as the
 C<path> parameter of this call.
 
-See also C<guestfs_stat>." };
+See also C<guestfs_stat>.|} };
 
   { defaults with
     name = "is_fifo"; added = (1, 5, 10);
@@ -5835,15 +5688,14 @@ See also C<guestfs_stat>." };
          ["is_fifo"; "/is_fifo"; ""]]), []
     ];
     shortdesc = "test if FIFO (named pipe)";
-    longdesc = "\
-This returns C<true> if and only if there is a FIFO (named pipe)
+    longdesc = {|This returns C<true> if and only if there is a FIFO (named pipe)
 with the given C<path> name.
 
 If the optional flag C<followsymlinks> is true, then a symlink
 (or chain of symlinks) that ends with a FIFO also causes the
 function to return true.
 
-See also C<guestfs_stat>." };
+See also C<guestfs_stat>.|} };
 
   { defaults with
     name = "is_symlink"; added = (1, 5, 10);
@@ -5872,15 +5724,14 @@ See also C<guestfs_stat>." };
         [["is_socket"; "/directory"; ""]]), []
     ];
     shortdesc = "test if socket";
-    longdesc = "\
-This returns C<true> if and only if there is a Unix domain socket
+    longdesc = {|This returns C<true> if and only if there is a Unix domain socket
 with the given C<path> name.
 
 If the optional flag C<followsymlinks> is true, then a symlink
 (or chain of symlinks) that ends with a socket also causes the
 function to return true.
 
-See also C<guestfs_stat>." };
+See also C<guestfs_stat>.|} };
 
   { defaults with
     name = "part_to_dev"; added = (1, 5, 15);
@@ -5893,15 +5744,14 @@ See also C<guestfs_stat>." };
         [["part_to_dev"; "/dev/sda"]]), []
     ];
     shortdesc = "convert partition name to device name";
-    longdesc = "\
-This function takes a partition name (eg. \"/dev/sdb1\") and
+    longdesc = {|This function takes a partition name (eg. "/dev/sdb1") and
 removes the partition number, returning the device name
-(eg. \"/dev/sdb\").
+(eg. "/dev/sdb").
 
 The named partition must exist, for example as a string returned
 from C<guestfs_list_partitions>.
 
-See also C<guestfs_part_to_partnum>, C<guestfs_device_index>." };
+See also C<guestfs_part_to_partnum>, C<guestfs_device_index>.|} };
 
   { defaults with
     name = "upload_offset"; added = (1, 5, 17);
@@ -5914,14 +5764,13 @@ See also C<guestfs_part_to_partnum>, C<guestfs_device_index>." };
            ["checksum"; "md5"; "/upload_offset"]], md5), []
       ]);
     shortdesc = "upload a file from the local machine with offset";
-    longdesc = "\
-Upload local file F<filename> to F<remotefilename> on the
+    longdesc = {|Upload local file F<filename> to F<remotefilename> on the
 filesystem.
 
 F<remotefilename> is overwritten starting at the byte C<offset>
 specified.  The intention is to overwrite parts of existing
 files or devices, although if a non-existent file is specified
-then it is created with a \"hole\" before C<offset>.  The
+then it is created with a "hole" before C<offset>.  The
 size of the data written is implicit in the size of the
 source F<filename>.
 
@@ -5930,7 +5779,7 @@ can be uploaded with this call, unlike with C<guestfs_pwrite>,
 and this call always writes the full amount unless an
 error occurs.
 
-See also C<guestfs_upload>, C<guestfs_pwrite>." };
+See also C<guestfs_upload>, C<guestfs_pwrite>.|} };
 
   { defaults with
     name = "download_offset"; added = (1, 5, 17);
@@ -5950,8 +5799,7 @@ See also C<guestfs_upload>, C<guestfs_pwrite>." };
             ["checksum"; "md5"; "/download_offset/COPYING.LIB"]], md5), []
        ]);
     shortdesc = "download a file to the local machine with offset and size";
-    longdesc = "\
-Download file F<remotefilename> and save it as F<filename>
+    longdesc = {|Download file F<remotefilename> and save it as F<filename>
 on the local machine.
 
 F<remotefilename> is read for C<size> bytes starting at C<offset>
@@ -5962,7 +5810,7 @@ can be downloaded with this call, unlike with C<guestfs_pread>,
 and this call always reads the full amount unless an
 error occurs.
 
-See also C<guestfs_download>, C<guestfs_pread>." };
+See also C<guestfs_download>, C<guestfs_pread>.|} };
 
   { defaults with
     name = "pwrite_device"; added = (1, 5, 20);
@@ -5976,8 +5824,7 @@ See also C<guestfs_download>, C<guestfs_pread>." };
         "is_device_list (ret, 1, \"/dev/sdb1\")"), []
     ];
     shortdesc = "write to part of a device";
-    longdesc = "\
-This command writes to part of a device.  It writes the data
+    longdesc = {|This command writes to part of a device.  It writes the data
 buffer C<content> to C<device> starting at offset C<offset>.
 
 This command implements the L<pwrite(2)> system call, and like
@@ -5985,7 +5832,7 @@ that system call it may not write the full data requested
 (although short writes to disk devices and partitions are
 probably impossible with standard Linux kernels).
 
-See also C<guestfs_pwrite>." };
+See also C<guestfs_pwrite>.|} };
 
   { defaults with
     name = "pread_device"; added = (1, 5, 21);
@@ -5997,14 +5844,13 @@ See also C<guestfs_pwrite>." };
         "compare_buffers (ret, size, \"\\1CD001\\1\\0\", 8) == 0"), []
     ];
     shortdesc = "read part of a device";
-    longdesc = "\
-This command lets you read part of a block device.  It reads C<count>
+    longdesc = {|This command lets you read part of a block device.  It reads C<count>
 bytes of C<device>, starting at C<offset>.
 
 This may read fewer bytes than requested.  For further details
 see the L<pread(2)> system call.
 
-See also C<guestfs_pread>." };
+See also C<guestfs_pread>.|} };
 
   { defaults with
     name = "lvm_canonical_lv_name"; added = (1, 5, 24);
@@ -6016,8 +5862,7 @@ See also C<guestfs_pread>." };
         [["lvm_canonical_lv_name"; "/dev/VG/LV"]], "/dev/VG/LV"), []
     ];
     shortdesc = "get canonical name of an LV";
-    longdesc = "\
-This converts alternative naming schemes for LVs that you
+    longdesc = {|This converts alternative naming schemes for LVs that you
 might find to the canonical name.  For example, F</dev/mapper/VG-LV>
 is converted to F</dev/VG/LV>.
 
@@ -6025,7 +5870,7 @@ This command returns an error if the C<lvname> parameter does
 not refer to a logical volume.  In this case errno will be
 set to C<EINVAL>.
 
-See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>." };
+See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>.|} };
 
   { defaults with
     name = "mkfs"; added = (0, 0, 8);
@@ -6040,8 +5885,7 @@ See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>." };
          ["cat"; "/new"]], "new file contents"), []
     ];
     shortdesc = "make a filesystem";
-    longdesc = "\
-This function creates a filesystem on C<device>.  The filesystem
+    longdesc = {|This function creates a filesystem on C<device>.  The filesystem
 type is C<fstype>, for example C<ext3>.
 
 The optional arguments are:
@@ -6080,15 +5924,14 @@ which sets the inode size (only for ext2/3/4 filesystems at present).
 This passes the I<-S> parameter to external L<mkfs.ufs(8)> program,
 which sets sector size for ufs filesystem.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "getxattr"; added = (1, 7, 24);
     style = RBufferOut "xattr", [String (Pathname, "path"); String (PlainString, "name")], [];
     optional = Some "linuxxattrs";
     shortdesc = "get a single extended attribute";
-    longdesc = "\
-Get a single extended attribute from file C<path> named C<name>.
+    longdesc = {|Get a single extended attribute from file C<path> named C<name>.
 This call follows symlinks.  If you want to lookup an extended
 attribute for the symlink itself, use C<guestfs_lgetxattr>.
 
@@ -6102,15 +5945,14 @@ in advance and call this function.
 Extended attribute values are blobs of binary data.  If there
 is no extended attribute named C<name>, this returns an error.
 
-See also: C<guestfs_getxattrs>, C<guestfs_lgetxattr>, L<attr(5)>." };
+See also: C<guestfs_getxattrs>, C<guestfs_lgetxattr>, L<attr(5)>.|} };
 
   { defaults with
     name = "lgetxattr"; added = (1, 7, 24);
     style = RBufferOut "xattr", [String (Pathname, "path"); String (PlainString, "name")], [];
     optional = Some "linuxxattrs";
     shortdesc = "get a single extended attribute";
-    longdesc = "\
-Get a single extended attribute from file C<path> named C<name>.
+    longdesc = {|Get a single extended attribute from file C<path> named C<name>.
 If C<path> is a symlink, then this call returns an extended
 attribute from the symlink.
 
@@ -6124,14 +5966,13 @@ in advance and call this function.
 Extended attribute values are blobs of binary data.  If there
 is no extended attribute named C<name>, this returns an error.
 
-See also: C<guestfs_lgetxattrs>, C<guestfs_getxattr>, L<attr(5)>." };
+See also: C<guestfs_lgetxattrs>, C<guestfs_getxattr>, L<attr(5)>.|} };
 
   { defaults with
     name = "resize2fs_M"; added = (1, 9, 4);
     style = RErr, [String (Device, "device")], [];
     shortdesc = "resize an ext2, ext3 or ext4 filesystem to the minimum size";
-    longdesc = "\
-This command is the same as C<guestfs_resize2fs>, but the filesystem
+    longdesc = {|This command is the same as C<guestfs_resize2fs>, but the filesystem
 is resized to its minimum size.  This works like the I<-M> option
 to the L<resize2fs(8)> command.
 
@@ -6140,19 +5981,18 @@ C<guestfs_tune2fs_l> and read the C<Block size> and C<Block count>
 values.  These two numbers, multiplied together, give the
 resulting size of the minimal filesystem in bytes.
 
-See also L<guestfs(3)/RESIZE2FS ERRORS>." };
+See also L<guestfs(3)/RESIZE2FS ERRORS>.|} };
 
   { defaults with
     name = "internal_autosync"; added = (1, 9, 7);
     style = RErr, [], [];
     visibility = VInternal;
     shortdesc = "internal autosync operation";
-    longdesc = "\
-This command performs the autosync operation just before the
+    longdesc = {|This command performs the autosync operation just before the
 handle is closed.  You should not call this command directly.
 Instead, use the autosync flag (C<guestfs_set_autosync>) to
 control whether or not this operation is performed when the
-handle is closed." };
+handle is closed.|} };
 
   { defaults with
     name = "is_zero"; added = (1, 11, 8);
@@ -6190,15 +6030,14 @@ Note that for large devices this can take a long time to run." };
     style = RStringList (RDevice, "devices"), [], [];
     impl = OCaml "Lvm_dm.list_dm_devices";
     shortdesc = "list device mapper devices";
-    longdesc = "\
-List all device mapper devices.
+    longdesc = {|List all device mapper devices.
 
 The returned list contains F</dev/mapper/*> devices, eg. ones created
 by a previous call to C<guestfs_luks_open>.
 
 Device mapper devices which correspond to logical volumes are I<not>
 returned in this list.  Call C<guestfs_lvs> if you want to list logical
-volumes." };
+volumes.|} };
 
   { defaults with
     name = "ntfsresize"; added = (1, 3, 2);
@@ -6206,8 +6045,7 @@ volumes." };
     once_had_no_optargs = true;
     optional = Some "ntfsprogs"; camel_name = "NTFSResizeOpts";
     shortdesc = "resize an NTFS filesystem";
-    longdesc = "\
-This command resizes an NTFS filesystem, expanding or
+    longdesc = {|This command resizes an NTFS filesystem, expanding or
 shrinking it to the size of the underlying device.
 
 The optional parameters are:
@@ -6233,15 +6071,14 @@ single filesystem without booting into Windows between each resize.
 
 =back
 
-See also L<ntfsresize(8)>." };
+See also L<ntfsresize(8)>.|} };
 
   { defaults with
     name = "btrfs_filesystem_resize"; added = (1, 11, 17);
     style = RErr, [String (Pathname, "mountpoint")], [OInt64 "size"];
     optional = Some "btrfs"; camel_name = "BTRFSFilesystemResize";
     shortdesc = "resize a btrfs filesystem";
-    longdesc = "\
-This command resizes a btrfs filesystem.
+    longdesc = {|This command resizes a btrfs filesystem.
 
 Note that unlike other resize calls, the filesystem has to be
 mounted and the parameter is the mountpoint not the device
@@ -6258,7 +6095,7 @@ is resized to the maximum size.
 
 =back
 
-See also L<btrfs(8)>." };
+See also L<btrfs(8)>.|} };
 
   { defaults with
     name = "internal_write_append"; added = (1, 19, 32);
@@ -6285,31 +6122,29 @@ See also C<guestfs_write>." };
     style = RErr, [String (PlainString, "ctype"); String (Pathname, "file"); String (FileOut, "zfile")], [OInt "level"];
     cancellable = true;
     shortdesc = "output compressed file";
-    longdesc = "\
-This command compresses F<file> and writes it out to the local
+    longdesc = {|This command compresses F<file> and writes it out to the local
 file F<zfile>.
 
 The compression program used is controlled by the C<ctype> parameter.
 Currently this includes: C<compress>, C<gzip>, C<bzip2>, C<xz> or C<lzop>.
 Some compression types may not be supported by particular builds of
 libguestfs, in which case you will get an error containing the
-substring \"not supported\".
+substring "not supported".
 
 The optional C<level> parameter controls compression level.  The
 meaning and default for this parameter depends on the compression
-program being used." };
+program being used.|} };
 
   { defaults with
     name = "compress_device_out"; added = (1, 13, 15);
     style = RErr, [String (PlainString, "ctype"); String (Device, "device"); String (FileOut, "zdevice")], [OInt "level"];
     cancellable = true;
     shortdesc = "output compressed device";
-    longdesc = "\
-This command compresses C<device> and writes it out to the local
+    longdesc = {|This command compresses C<device> and writes it out to the local
 file C<zdevice>.
 
 The C<ctype> and optional C<level> parameters have the same meaning
-as in C<guestfs_compress_out>." };
+as in C<guestfs_compress_out>.|} };
 
   { defaults with
     name = "part_to_partnum"; added = (1, 13, 25);
@@ -6322,22 +6157,20 @@ as in C<guestfs_compress_out>." };
         [["part_to_partnum"; "/dev/sda"]]), []
     ];
     shortdesc = "convert partition name to partition number";
-    longdesc = "\
-This function takes a partition name (eg. \"/dev/sdb1\") and
+    longdesc = {|This function takes a partition name (eg. "/dev/sdb1") and
 returns the partition number (eg. C<1>).
 
 The named partition must exist, for example as a string returned
 from C<guestfs_list_partitions>.
 
-See also C<guestfs_part_to_dev>." };
+See also C<guestfs_part_to_dev>.|} };
 
   { defaults with
     name = "copy_device_to_device"; added = (1, 13, 25);
     style = RErr, [String (Device, "src"); String (Device, "dest")], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"; OBool "sparse"; OBool "append"];
     progress = true;
     shortdesc = "copy from source device to destination device";
-    longdesc = "\
-The four calls C<guestfs_copy_device_to_device>,
+    longdesc = {|The four calls C<guestfs_copy_device_to_device>,
 C<guestfs_copy_device_to_file>,
 C<guestfs_copy_file_to_device>, and
 C<guestfs_copy_file_to_file>
@@ -6365,7 +6198,7 @@ If the C<sparse> flag is true then the call avoids writing
 blocks that contain only zeroes, which can help in some situations
 where the backing disk is thin-provisioned.  Note that unless
 the target is already zeroed, using this option will result
-in incorrect copying." };
+in incorrect copying.|} };
 
   { defaults with
     name = "copy_device_to_file"; added = (1, 13, 25);
@@ -6414,14 +6247,13 @@ of this call." };
         "compare_buffers (ret, size, \"hello, worldhello, worldhello, world\", 12*3) == 0"), [];
     ];
     shortdesc = "copy from source file to destination file";
-    longdesc = "\
-See C<guestfs_copy_device_to_device> for a general overview
+    longdesc = {|See C<guestfs_copy_device_to_device> for a general overview
 of this call.
 
 This is B<not> the function you want for copying files.  This
 is for copying blocks within existing files.  See C<guestfs_cp>,
 C<guestfs_cp_a> and C<guestfs_mv> for general file copying and
-moving functions." };
+moving functions.|} };
 
   { defaults with
     name = "tune2fs"; added = (1, 15, 4);
@@ -6450,8 +6282,7 @@ moving functions." };
           "match_re (get_key (ret, \"Reserved blocks gid\"), \"\\\\d+ \\\\(group \\\\S+\\\\)\")"), [];
     ];
     shortdesc = "adjust ext2/ext3/ext4 filesystem parameters";
-    longdesc = "\
-This call allows you to adjust various filesystem parameters of
+    longdesc = {|This call allows you to adjust various filesystem parameters of
 an ext2/ext3/ext4 filesystem called C<device>.
 
 The optional parameters are:
@@ -6522,15 +6353,14 @@ can only be specified as a number.
 
 To get the current values of filesystem parameters, see
 C<guestfs_tune2fs_l>.  For precise details of how tune2fs
-works, see the L<tune2fs(8)> man page." };
+works, see the L<tune2fs(8)> man page.|} };
 
   { defaults with
     name = "md_create"; added = (1, 15, 6);
     style = RErr, [String (PlainString, "name"); StringList (Device, "devices")], [OInt64 "missingbitmap"; OInt "nrdevices"; OInt "spare"; OInt64 "chunk"; OString "level"];
     optional = Some "mdadm"; camel_name = "MDCreate";
     shortdesc = "create a Linux md (RAID) device";
-    longdesc = "\
-Create a Linux md (RAID) device named C<name> on the devices
+    longdesc = {|Create a Linux md (RAID) device named C<name> on the devices
 in the list C<devices>.
 
 The optional parameters are:
@@ -6545,11 +6375,11 @@ corresponds to the first device in the array.
 
 As examples:
 
-If C<devices = [\"/dev/sda\"]> and C<missingbitmap = 0x1> then
-the resulting array would be C<[E<lt>missingE<gt>, \"/dev/sda\"]>.
+If C<devices = ["/dev/sda"]> and C<missingbitmap = 0x1> then
+the resulting array would be C<[E<lt>missingE<gt>, "/dev/sda"]>.
 
-If C<devices = [\"/dev/sda\"]> and C<missingbitmap = 0x2> then
-the resulting array would be C<[\"/dev/sda\", E<lt>missingE<gt>]>.
+If C<devices = ["/dev/sda"]> and C<missingbitmap = 0x2> then
+the resulting array would be C<["/dev/sda", E<lt>missingE<gt>]>.
 
 This defaults to C<0> (no missing devices).
 
@@ -6585,7 +6415,7 @@ Some of these are synonymous, and more levels may be added in future.
 
 If not set, this defaults to C<raid1>.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "list_md_devices"; added = (1, 15, 4);
@@ -6601,8 +6431,7 @@ List all Linux md devices." };
     impl = OCaml "Md.md_detail";
     optional = Some "mdadm";
     shortdesc = "obtain metadata for an MD device";
-    longdesc = "\
-This command exposes the output of C<mdadm -DY E<lt>mdE<gt>>.
+    longdesc = {|This command exposes the output of C<mdadm -DY E<lt>mdE<gt>>.
 The following fields are usually present in the returned hash.
 Other fields may also be present.
 
@@ -6628,7 +6457,7 @@ The UUID of the MD device.
 
 The name of the MD device.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "md_stop"; added = (1, 15, 6);
@@ -6653,8 +6482,7 @@ device is stopped, but it is not destroyed or zeroed." };
           "check_hash (ret, \"PART_ENTRY_SIZE\", \"4194049\") == 0"), [];
     ];
     shortdesc = "print block device attributes";
-    longdesc = "\
-This command returns block device attributes for C<device>. The following fields are
+    longdesc = {|This command returns block device attributes for C<device>. The following fields are
 usually present in the returned hash. Other fields may also be present.
 
 =over
@@ -6679,14 +6507,13 @@ The filesystem type or RAID of this device.
 
 The usage of this device, for example C<filesystem> or C<raid>.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "e2fsck"; added = (1, 15, 17);
     style = RErr, [String (Device, "device")], [OBool "correct"; OBool "forceall"; OBool "forceno"];
     shortdesc = "check an ext2/ext3 filesystem";
-    longdesc = "\
-This runs the ext2/ext3 filesystem checker on C<device>.
+    longdesc = {|This runs the ext2/ext3 filesystem checker on C<device>.
 It can take the following optional arguments:
 
 =over 4
@@ -6716,7 +6543,7 @@ questions; allows e2fsck to be used non-interactively.
 This option may not be specified at the same time as the C<correct>
 or C<forceall> options.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "wipefs"; added = (1, 17, 6);
@@ -6728,15 +6555,14 @@ or C<forceall> options.
          ["wipefs"; "/dev/VG/LV"]]), []
     ];
     shortdesc = "wipe a filesystem signature from a device";
-    longdesc = "\
-This command erases filesystem or RAID signatures from
+    longdesc = {|This command erases filesystem or RAID signatures from
 the specified C<device> to make the filesystem invisible to libblkid.
 
 This does not erase the filesystem itself nor any other data from the
 C<device>.
 
 Compare with C<guestfs_zero> which zeroes the first few blocks of a
-device." };
+device.|} };
 
   { defaults with
     name = "ntfsfix"; added = (1, 17, 9);
@@ -6748,8 +6574,7 @@ device." };
          ["ntfsfix"; "/dev/sda1"; "false"]]), []
     ];
     shortdesc = "fix common errors and force Windows to check NTFS";
-    longdesc = "\
-This command repairs some fundamental NTFS inconsistencies,
+    longdesc = {|This command repairs some fundamental NTFS inconsistencies,
 resets the NTFS journal file, and schedules an NTFS consistency
 check for the first boot into Windows.
 
@@ -6757,7 +6582,7 @@ This is I<not> an equivalent of Windows C<chkdsk>.  It does I<not>
 scan the filesystem for inconsistencies.
 
 The optional C<clearbadsectors> flag clears the list of bad sectors.
-This is useful after cloning a disk with bad sectors to a new disk." };
+This is useful after cloning a disk with bad sectors to a new disk.|} };
 
   { defaults with
     name = "ntfsclone_out"; added = (1, 17, 9);
@@ -6765,8 +6590,7 @@ This is useful after cloning a disk with bad sectors to a new disk." };
     optional = Some "ntfs3g"; cancellable = true;
     test_excuse = "tested in tests/ntfsclone";
     shortdesc = "save NTFS to backup file";
-    longdesc = "\
-Stream the NTFS filesystem C<device> to the local file
+    longdesc = {|Stream the NTFS filesystem C<device> to the local file
 C<backupfile>.  The format used for the backup file is a
 special format used by the L<ntfsclone(8)> tool.
 
@@ -6779,7 +6603,7 @@ and C<force> flags have precise meanings detailed in the
 L<ntfsclone(8)> man page.
 
 Use C<guestfs_ntfsclone_in> to restore the file back to a
-libguestfs device." };
+libguestfs device.|} };
 
   { defaults with
     name = "ntfsclone_in"; added = (1, 17, 9);
@@ -6808,8 +6632,7 @@ any existing contents of this device." };
          ["set_label"; "/dev/sda1"; "testlabel2"]]), []
     ];
     shortdesc = "set filesystem label";
-    longdesc = "\
-Set the filesystem label on C<mountable> to C<label>.
+    longdesc = {|Set the filesystem label on C<mountable> to C<label>.
 
 Only some filesystem types support labels, and libguestfs supports
 setting labels on only a subset of these.
@@ -6850,7 +6673,7 @@ If there is no support for changing the label
 for the type of the specified filesystem,
 set_label will fail and set errno as ENOTSUP.
 
-To read the label on a filesystem, call C<guestfs_vfs_label>." };
+To read the label on a filesystem, call C<guestfs_vfs_label>.|} };
 
   { defaults with
     name = "zero_free_space"; added = (1, 17, 18);
@@ -6861,16 +6684,15 @@ To read the label on a filesystem, call C<guestfs_vfs_label>." };
         [["zero_free_space"; "/"]]), []
     ];
     shortdesc = "zero free space in a filesystem";
-    longdesc = "\
-Zero the free space in the filesystem mounted on F<directory>.
+    longdesc = {|Zero the free space in the filesystem mounted on F<directory>.
 The filesystem must be mounted read-write.
 
 The filesystem contents are not affected, but any free space
 in the filesystem is freed.
 
-Free space is not \"trimmed\".  You may want to call
+Free space is not "trimmed".  You may want to call
 C<guestfs_fstrim> either as an alternative to this,
-or after calling this, depending on your requirements." };
+or after calling this, depending on your requirements.|} };
 
   { defaults with
     name = "lvcreate_free"; added = (1, 17, 18);
@@ -6910,8 +6732,7 @@ this will create the largest possible LV." };
           "ret->iso_logical_block_size == 2048"), []
     ];
     shortdesc = "get ISO information from primary volume descriptor of device";
-    longdesc = "\
-C<device> is an ISO device.  This returns a struct of information
+    longdesc = {|C<device> is an ISO device.  This returns a struct of information
 read from the primary volume descriptor (the ISO equivalent of the
 superblock) of the device.
 
@@ -6920,39 +6741,36 @@ with the I<-d> option on the host to analyze ISO files,
 instead of going through libguestfs.
 
 For information on the primary volume descriptor fields, see
-L<https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor>" };
+L<https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor>|} };
 
   { defaults with
     name = "isoinfo"; added = (1, 17, 19);
     style = RStruct ("isodata", "isoinfo"), [String (Pathname, "isofile")], [];
     impl = OCaml "Isoinfo.isoinfo";
     shortdesc = "get ISO information from primary volume descriptor of ISO file";
-    longdesc = "\
-This is the same as C<guestfs_isoinfo_device> except that it
+    longdesc = {|This is the same as C<guestfs_isoinfo_device> except that it
 works for an ISO file located inside some other mounted filesystem.
 Note that in the common case where you have added an ISO file
 as a libguestfs device, you would I<not> call this.  Instead
-you would call C<guestfs_isoinfo_device>." };
+you would call C<guestfs_isoinfo_device>.|} };
 
   { defaults with
     name = "vgmeta"; added = (1, 17, 20);
     style = RBufferOut "metadata", [String (PlainString, "vgname")], [];
     optional = Some "lvm2";
     shortdesc = "get volume group metadata";
-    longdesc = "\
-C<vgname> is an LVM volume group.  This command examines the
+    longdesc = {|C<vgname> is an LVM volume group.  This command examines the
 volume group and returns its metadata.
 
 Note that the metadata is an internal structure used by LVM,
-subject to change at any time, and is provided for information only." };
+subject to change at any time, and is provided for information only.|} };
 
   { defaults with
     name = "md_stat"; added = (1, 17, 21);
     style = RStructList ("devices", "mdstat"), [String (Device, "md")], [];
     optional = Some "mdadm";
     shortdesc = "get underlying devices from an MD device";
-    longdesc = "\
-This call returns a list of the underlying devices which make
+    longdesc = {|This call returns a list of the underlying devices which make
 up the single software RAID array device C<md>.
 
 To get a list of software RAID devices, call C<guestfs_list_md_devices>.
@@ -6995,7 +6813,7 @@ replacement
 
 =back
 
-=back" };
+=back|} };
 
   { defaults with
     name = "mkfs_btrfs"; added = (1, 17, 25);
@@ -7007,14 +6825,13 @@ replacement
          ["mkfs_btrfs"; "/dev/sda1"; "0"; "268435456"; "single"; ""; "test"; "single"; "65536"; "4096"]]), []
     ];
     shortdesc = "create a btrfs filesystem";
-    longdesc = "\
-Create a btrfs filesystem, allowing all configurables to be set.
+    longdesc = {|Create a btrfs filesystem, allowing all configurables to be set.
 For more information on the optional arguments, see L<mkfs.btrfs(8)>.
 
 Since btrfs filesystems can span multiple devices, this takes a
 non-empty list of devices.
 
-To create general filesystems, use C<guestfs_mkfs>." };
+To create general filesystems, use C<guestfs_mkfs>.|} };
 
   { defaults with
     name = "get_e2attrs"; added = (1, 17, 31);
@@ -7055,8 +6872,7 @@ To create general filesystems, use C<guestfs_mkfs>." };
          ["set_e2attrs"; "/e2attrs8"; "BabcdB"; "false"]]), []
     ];
     shortdesc = "get ext2 file attributes of a file";
-    longdesc = "\
-This returns the file attributes associated with F<file>.
+    longdesc = {|This returns the file attributes associated with F<file>.
 
 The attributes are a set of bits associated with each
 inode which affect the behaviour of the file.  The attributes
@@ -7162,14 +6978,13 @@ detailed information, consult the L<chattr(1)> man page.
 See also C<guestfs_set_e2attrs>.
 
 Don't confuse these attributes with extended attributes
-(see C<guestfs_getxattr>)." };
+(see C<guestfs_getxattr>).|} };
 
   { defaults with
     name = "set_e2attrs"; added = (1, 17, 31);
     style = RErr, [String (Pathname, "file"); String (PlainString, "attrs")], [OBool "clear"];
     shortdesc = "set ext2 file attributes of a file";
-    longdesc = "\
-This sets or clears the file attributes C<attrs>
+    longdesc = {|This sets or clears the file attributes C<attrs>
 associated with the inode F<file>.
 
 C<attrs> is a string of characters representing
@@ -7187,7 +7002,7 @@ string are left unchanged.
 
 These attributes are only present when the file is located on
 an ext2/3/4 filesystem.  Using this call on other filesystem
-types will result in an error." };
+types will result in an error.|} };
 
   { defaults with
     name = "get_e2generation"; added = (1, 17, 31);
@@ -7199,16 +7014,15 @@ types will result in an error." };
          ["get_e2generation"; "/e2generation"]], "ret == 123456"), []
     ];
     shortdesc = "get ext2 file generation of a file";
-    longdesc = "\
-This returns the ext2 file generation of a file.  The generation
-(which used to be called the \"version\") is a number associated
+    longdesc = {|This returns the ext2 file generation of a file.  The generation
+(which used to be called the "version") is a number associated
 with an inode.  This is most commonly used by NFS servers.
 
 The generation is only present when the file is located on
 an ext2/3/4 filesystem.  Using this call on other filesystem
 types will result in an error.
 
-See C<guestfs_set_e2generation>." };
+See C<guestfs_set_e2generation>.|} };
 
   { defaults with
     name = "set_e2generation"; added = (1, 17, 31);
@@ -7235,14 +7049,13 @@ See C<guestfs_get_e2generation>." };
          ["btrfs_subvolume_snapshot"; "/dir/test3"; "/dir/test5"; "true"; "NOARG"]]), []
     ];
     shortdesc = "create a btrfs snapshot";
-    longdesc = "\
-Create a snapshot of the btrfs subvolume C<source>.
+    longdesc = {|Create a snapshot of the btrfs subvolume C<source>.
 The C<dest> argument is the destination directory and the name
 of the snapshot, in the form F</path/to/dest/name>. By default
 the newly created snapshot is writable, if the value of optional
 parameter C<ro> is true, then a readonly snapshot is created. The
 optional parameter C<qgroupid> represents the qgroup which the
-newly created snapshot will be added to." };
+newly created snapshot will be added to.|} };
 
   { defaults with
     name = "btrfs_subvolume_delete"; added = (1, 17, 35);
@@ -7358,8 +7171,7 @@ a btrfs filesystem." };
     name = "filesystem_available"; added = (1, 19, 5);
     style = RBool "fsavail", [String (PlainString, "filesystem")], [];
     shortdesc = "check if filesystem is available";
-    longdesc = "\
-Check whether libguestfs supports the named filesystem.
+    longdesc = {|Check whether libguestfs supports the named filesystem.
 The argument C<filesystem> is a filesystem name, such as
 C<ext3>.
 
@@ -7373,19 +7185,18 @@ or having incompatible features, or lacking the right
 mkfs.E<lt>I<fs>E<gt> tool.
 
 See also C<guestfs_available>, C<guestfs_feature_available>,
-L<guestfs(3)/AVAILABILITY>." };
+L<guestfs(3)/AVAILABILITY>.|} };
 
   { defaults with
     name = "fstrim"; added = (1, 19, 6);
     style = RErr, [String (Pathname, "mountpoint")], [OInt64 "offset"; OInt64 "length"; OInt64 "minimumfreeextent"];
     optional = Some "fstrim";
     shortdesc = "trim free space in a filesystem";
-    longdesc = "\
-Trim the free space in the filesystem mounted on C<mountpoint>.
+    longdesc = {|Trim the free space in the filesystem mounted on C<mountpoint>.
 The filesystem must be mounted read-write.
 
 The filesystem contents are not affected, but any free space
-in the filesystem is \"trimmed\", that is, given back to the host
+in the filesystem is "trimmed", that is, given back to the host
 device, thus making disk images more sparse, allowing unused space
 in qcow2 files to be reused, etc.
 
@@ -7401,7 +7212,7 @@ Currently this happens when trying to trim FAT filesystems.
 See also C<guestfs_zero_free_space>.  That is a slightly
 different operation that turns free space in the filesystem
 into zeroes.  It is valid to call C<guestfs_fstrim> either
-instead of, or after calling C<guestfs_zero_free_space>." };
+instead of, or after calling C<guestfs_zero_free_space>.|} };
 
   { defaults with
     name = "nr_devices"; added = (1, 19, 15);
@@ -7412,13 +7223,12 @@ instead of, or after calling C<guestfs_zero_free_space>." };
         [["nr_devices"]], "ret == 4"), []
     ];
     shortdesc = "return number of whole block devices (disks) added";
-    longdesc = "\
-This returns the number of whole block devices that were
+    longdesc = {|This returns the number of whole block devices that were
 added.  This is the same as the number of devices that would
 be returned if you called C<guestfs_list_devices>.
 
 To find out the maximum number of devices that could be added,
-call C<guestfs_max_disks>." };
+call C<guestfs_max_disks>.|} };
 
   { defaults with
     name = "xfs_info"; added = (1, 19, 21);
@@ -7432,13 +7242,12 @@ call C<guestfs_max_disks>." };
          ["xfs_info"; "/"]], "ret->xfs_blocksize == 4096"), []
     ];
     shortdesc = "get geometry of XFS filesystem";
-    longdesc = "\
-C<pathordevice> is a mounted XFS filesystem or a device containing
+    longdesc = {|C<pathordevice> is a mounted XFS filesystem or a device containing
 an XFS filesystem.  This command returns the geometry of the filesystem.
 
 The returned struct contains geometry information.  Missing
 fields are returned as C<-1> (for numeric fields) or empty
-string." };
+string.|} };
 
   { defaults with
     name = "pvchange_uuid"; added = (1, 19, 26);
@@ -7528,12 +7337,11 @@ in the returned structure is defined by the API." };
          ["xfs_info"; "/"]], "ret->xfs_blocksize == 4096"), [];
     ];
     shortdesc = "expand an existing XFS filesystem";
-    longdesc = "\
-Grow the XFS filesystem mounted at C<path>.
+    longdesc = {|Grow the XFS filesystem mounted at C<path>.
 
 The returned struct contains geometry information.  Missing
 fields are returned as C<-1> (for numeric fields) or empty
-string." };
+string.|} };
 
   { defaults with
     name = "rsync"; added = (1, 19, 29);
@@ -7541,8 +7349,7 @@ string." };
     optional = Some "rsync";
     test_excuse = "tests are in tests/rsync";
     shortdesc = "synchronize the contents of two directories";
-    longdesc = "\
-This call may be used to copy or synchronize two directories
+    longdesc = {|This call may be used to copy or synchronize two directories
 under the same libguestfs handle.  This uses the L<rsync(1)>
 program which uses a fast algorithm that avoids copying files
 unnecessarily.
@@ -7563,7 +7370,7 @@ I<--archive> flag to C<rsync>.
 
 Delete files at the destination that do not exist at the source.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "rsync_in"; added = (1, 19, 29);
@@ -7571,8 +7378,7 @@ Delete files at the destination that do not exist at the source.
     optional = Some "rsync";
     test_excuse = "tests are in tests/rsync";
     shortdesc = "synchronize host or remote filesystem with filesystem";
-    longdesc = "\
-This call may be used to copy or synchronize the filesystem
+    longdesc = {|This call may be used to copy or synchronize the filesystem
 on the host or on a remote computer with the filesystem
 within libguestfs.  This uses the L<rsync(1)> program
 which uses a fast algorithm that avoids copying files unnecessarily.
@@ -7588,7 +7394,7 @@ The format of the remote server string is defined by L<rsync(1)>.
 Note that there is no way to supply a password or passphrase
 so the target must be set up not to require one.
 
-The optional arguments are the same as those of C<guestfs_rsync>." };
+The optional arguments are the same as those of C<guestfs_rsync>.|} };
 
   { defaults with
     name = "rsync_out"; added = (1, 19, 29);
@@ -7596,8 +7402,7 @@ The optional arguments are the same as those of C<guestfs_rsync>." };
     optional = Some "rsync";
     test_excuse = "tests are in tests/rsync";
     shortdesc = "synchronize filesystem with host or remote filesystem";
-    longdesc = "\
-This call may be used to copy or synchronize the filesystem within
+    longdesc = {|This call may be used to copy or synchronize the filesystem within
 libguestfs with a filesystem on the host or on a remote computer.
 This uses the L<rsync(1)> program which uses a fast algorithm that
 avoids copying files unnecessarily.
@@ -7620,20 +7425,19 @@ which use the API directly you have to expand wildcards yourself
 (see C<guestfs_glob_expand>).  In guestfish you can use the C<glob>
 command (see L<guestfish(1)/glob>), for example:
 
- ><fs> glob rsync-out /* rsync://remote/" };
+ ><fs> glob rsync-out /* rsync://remote/|} };
 
   { defaults with
     name = "ls0"; added = (1, 19, 32);
     style = RErr, [String (Pathname, "dir"); String (FileOut, "filenames")], [];
     shortdesc = "get list of files in a directory";
-    longdesc = "\
-This specialized command is used to get a listing of
+    longdesc = {|This specialized command is used to get a listing of
 the filenames in the directory C<dir>.  The list of filenames
 is written to the local file F<filenames> (on the host).
 
-In the output file, the filenames are separated by C<\\0> characters.
+In the output file, the filenames are separated by C<\0> characters.
 
-C<.> and C<..> are not returned.  The filenames are not sorted." };
+C<.> and C<..> are not returned.  The filenames are not sorted.|} };
 
   { defaults with
     name = "fill_dir"; added = (1, 19, 32);
@@ -7662,8 +7466,7 @@ with zeroes)." };
            ["vfs_label"; "/dev/sda1"]], "LBL-TEST"), [];
       ];
     shortdesc = "change parameters of an XFS filesystem";
-    longdesc = "\
-Change the parameters of the XFS filesystem on C<device>.
+    longdesc = {|Change the parameters of the XFS filesystem on C<device>.
 
 Devices that are mounted cannot be modified.
 Administrators must unmount filesystems before this call
@@ -7674,7 +7477,7 @@ and modified using the C<guestfs_xfs_info> and
 C<guestfs_xfs_growfs> calls.
 
 Beginning with XFS version 5, it is no longer possible to modify
-the lazy-counters setting (ie. C<lazycounter> parameter has no effect)." };
+the lazy-counters setting (ie. C<lazycounter> parameter has no effect).|} };
 
   { defaults with
     name = "xfs_repair"; added = (1, 19, 36);
@@ -7688,8 +7491,7 @@ the lazy-counters setting (ie. C<lazycounter> parameter has no effect)." };
         ]), []
     ];
     shortdesc = "repair an XFS filesystem";
-    longdesc = "\
-Repair corrupt or damaged XFS filesystem on C<device>.
+    longdesc = {|Repair corrupt or damaged XFS filesystem on C<device>.
 
 The filesystem is specified using the C<device> argument which should be
 the device name of the disk partition or volume containing the filesystem.
@@ -7701,7 +7503,7 @@ Regardless, the filesystem to be repaired must be unmounted, otherwise,
 the resulting filesystem may be inconsistent or corrupt.
 
 The returned status indicates whether filesystem corruption was
-detected (returns C<1>) or was not detected (returns C<0>)." };
+detected (returns C<1>) or was not detected (returns C<0>).|} };
 
   { defaults with
     name = "rm_f"; added = (1, 19, 42);
@@ -7719,15 +7521,14 @@ detected (returns C<1>) or was not detected (returns C<0>)." };
          ["rm_f"; "/rm_f2/foo"]], []
     ];
     shortdesc = "remove a file ignoring errors";
-    longdesc = "\
-Remove the file C<path>.
+    longdesc = {|Remove the file C<path>.
 
 If the file doesn't exist, that error is ignored.  (Other errors,
 eg. I/O errors or bad paths, are not ignored)
 
 This call cannot remove directories.
 Use C<guestfs_rmdir> to remove an empty directory,
-or C<guestfs_rm_rf> to remove directories recursively." };
+or C<guestfs_rm_rf> to remove directories recursively.|} };
 
   { defaults with
     name = "mke2fs"; added = (1, 19, 44);
@@ -7805,14 +7606,13 @@ or C<guestfs_rm_rf> to remove directories recursively." };
       ];
     shortdesc = "create an ext2/ext3/ext4 filesystem on device";
     (* XXX document optional args properly *)
-    longdesc = "\
-C<mke2fs> is used to create an ext2, ext3, or ext4 filesystem
+    longdesc = {|C<mke2fs> is used to create an ext2, ext3, or ext4 filesystem
 on C<device>.
 
 The optional C<blockscount> is the size of the filesystem in blocks.
 If omitted it defaults to the size of C<device>.  Note if the
 filesystem is too small to contain a journal, C<mke2fs> will
-silently create an ext2 filesystem instead." };
+silently create an ext2 filesystem instead.|} };
 
   { defaults with
     name = "list_disk_labels"; added = (1, 19, 49);
@@ -7830,8 +7630,7 @@ silently create an ext2 filesystem instead." };
         "is_string_list (ret, 0)"), [];
     ];
     shortdesc = "mapping of disk labels to devices";
-    longdesc = "\
-If you add drives using the optional C<label> parameter
+    longdesc = {|If you add drives using the optional C<label> parameter
 of C<guestfs_add_drive_opts>, you can use this call to
 map between disk labels, and raw block device and partition
 names (like F</dev/sda> and F</dev/sda1>).
@@ -7839,7 +7638,7 @@ names (like F</dev/sda> and F</dev/sda1>).
 This returns a hashtable, where keys are the disk labels
 (I<without> the F</dev/disk/guestfs> prefix), and the values
 are the full raw block device and partition names
-(eg. F</dev/sda> and F</dev/sda1>)." };
+(eg. F</dev/sda> and F</dev/sda1>).|} };
 
   { defaults with
     name = "mktemp"; added = (1, 19, 53);
@@ -7851,13 +7650,12 @@ are the full raw block device and partition names
          ["mktemp"; "/mktemp/tmpXXXXXX"; "suff"]]), []
     ];
     shortdesc = "create a temporary file";
-    longdesc = "\
-This command creates a temporary file.  The
+    longdesc = {|This command creates a temporary file.  The
 C<tmpl> parameter should be a full pathname for the
 temporary directory name with the final six characters being
-\"XXXXXX\".
+"XXXXXX".
 
-For example: \"/tmp/myprogXXXXXX\" or \"/Temp/myprogXXXXXX\",
+For example: "/tmp/myprogXXXXXX" or "/Temp/myprogXXXXXX",
 the second one being suitable for Windows filesystems.
 
 The name of the temporary file that was created
@@ -7872,7 +7670,7 @@ file after use.
 If the optional C<suffix> parameter is given, then the suffix
 (eg. C<.txt>) is appended to the temporary name.
 
-See also: C<guestfs_mkdtemp>." };
+See also: C<guestfs_mkdtemp>.|} };
 
   { defaults with
     name = "mklost_and_found"; added = (1, 19, 56);
@@ -7893,9 +7691,8 @@ which we try to create the C<lost+found> directory." };
     style = RString (RPlainString, "acl"), [String (Pathname, "path"); String (PlainString, "acltype")], [];
     optional = Some "acl";
     shortdesc = "get the POSIX ACL attached to a file";
-    longdesc = "\
-This function returns the POSIX Access Control List (ACL) attached
-to C<path>.  The ACL is returned in \"long text form\" (see L<acl(5)>).
+    longdesc = {|This function returns the POSIX Access Control List (ACL) attached
+to C<path>.  The ACL is returned in "long text form" (see L<acl(5)>).
 
 The C<acltype> parameter may be:
 
@@ -7911,7 +7708,7 @@ other filesystem object.
 Return the default ACL.  Normally this only makes sense if
 C<path> is a directory.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "acl_set_file"; added = (1, 19, 63);
@@ -7942,8 +7739,7 @@ C<path> is a directory.
          ["acl_set_file"; "/acl_set_file_5"; "default"; "u::r-x,g::r-x,o::r-x"]]), [];
     ];
     shortdesc = "set the POSIX ACL attached to a file";
-    longdesc = "\
-This function sets the POSIX Access Control List (ACL) attached
+    longdesc = {|This function sets the POSIX Access Control List (ACL) attached
 to C<path>.
 
 The C<acltype> parameter may be:
@@ -7962,8 +7758,8 @@ C<path> is a directory.
 
 =back
 
-The C<acl> parameter is the new ACL in either \"long text form\"
-or \"short text form\" (see L<acl(5)>).  The new ACL completely
+The C<acl> parameter is the new ACL in either "long text form"
+or "short text form" (see L<acl(5)>).  The new ACL completely
 replaces any previous ACL on the file.  The ACL must contain the
 full Unix permissions (eg. C<u::rwx,g::rx,o::rx>).
 
@@ -7973,11 +7769,11 @@ C<u:I<ID>:...> and/or C<g:I<ID>:...> field(s).  A full ACL
 string might therefore look like this:
 
  u::rwx,g::rwx,o::rwx,m::rwx,u:500:rwx,g:500:rwx
- \\ Unix permissions / \\mask/ \\      ACL        /
+ \ Unix permissions / \mask/ \      ACL        /
 
 You should use numeric UIDs and GIDs.  To map usernames and
 groupnames to the correct numeric ID in the context of the
-guest, use the Augeas functions (see C<guestfs_aug_init>)." };
+guest, use the Augeas functions (see C<guestfs_aug_init>).|} };
 
   { defaults with
     name = "acl_delete_def_file"; added = (1, 19, 63);
@@ -8054,8 +7850,7 @@ device names." };
     style = RErr, [], [];
     optional = Some "ldm";
     shortdesc = "scan and create Windows dynamic disk volumes";
-    longdesc = "\
-This function scans all block devices looking for Windows
+    longdesc = {|This function scans all block devices looking for Windows
 dynamic disk volumes and partitions, and creates devices
 for any that were found.
 
@@ -8063,7 +7858,7 @@ Call C<guestfs_list_ldm_volumes> and C<guestfs_list_ldm_partitions>
 to return all devices.
 
 Note that you B<don't> normally need to call this explicitly,
-since it is done automatically at C<guestfs_launch> time." };
+since it is done automatically at C<guestfs_launch> time.|} };
 
   { defaults with
     name = "ldmtool_remove_all"; added = (1, 20, 0);
@@ -8080,26 +7875,24 @@ volumes" };
     style = RStringList (RPlainString, "guids"), [], [];
     optional = Some "ldm";
     shortdesc = "scan for Windows dynamic disks";
-    longdesc = "\
-This function scans for Windows dynamic disks.  It returns a list
+    longdesc = {|This function scans for Windows dynamic disks.  It returns a list
 of identifiers (GUIDs) for all disk groups that were found.  These
 identifiers can be passed to other C<guestfs_ldmtool_*> functions.
 
 This function scans all block devices.  To scan a subset of
-block devices, call C<guestfs_ldmtool_scan_devices> instead." };
+block devices, call C<guestfs_ldmtool_scan_devices> instead.|} };
 
   { defaults with
     name = "ldmtool_scan_devices"; added = (1, 20, 0);
     style = RStringList (RPlainString, "guids"), [StringList (Device, "devices")], [];
     optional = Some "ldm";
     shortdesc = "scan for Windows dynamic disks";
-    longdesc = "\
-This function scans for Windows dynamic disks.  It returns a list
+    longdesc = {|This function scans for Windows dynamic disks.  It returns a list
 of identifiers (GUIDs) for all disk groups that were found.  These
 identifiers can be passed to other C<guestfs_ldmtool_*> functions.
 
 The parameter C<devices> is a list of block devices which are
-scanned.  If this list is empty, all block devices are scanned." };
+scanned.  If this list is empty, all block devices are scanned.|} };
 
   { defaults with
     name = "ldmtool_diskgroup_name"; added = (1, 20, 0);
@@ -8136,13 +7929,12 @@ the list returned by C<guestfs_ldmtool_scan>." };
     style = RString (RPlainString, "voltype"), [String (PlainString, "diskgroup"); String (PlainString, "volume")], [];
     optional = Some "ldm";
     shortdesc = "return the type of a Windows dynamic disk volume";
-    longdesc = "\
-Return the type of the volume named C<volume> in the disk
+    longdesc = {|Return the type of the volume named C<volume> in the disk
 group with GUID C<diskgroup>.
 
 Possible volume types that can be returned here include:
 C<simple>, C<spanned>, C<striped>, C<mirrored>, C<raid5>.
-Other types may also be returned." };
+Other types may also be returned.|} };
 
   { defaults with
     name = "ldmtool_volume_hint"; added = (1, 20, 0);
@@ -8178,13 +7970,12 @@ group with GUID C<diskgroup>." };
         "01234567-89AB-CDEF-0123-456789ABCDEF"), [];
     ];
     shortdesc = "set the type GUID of a GPT partition";
-    longdesc = "\
-Set the type GUID of numbered GPT partition C<partnum> to C<guid>. Return an
+    longdesc = {|Set the type GUID of numbered GPT partition C<partnum> to C<guid>. Return an
 error if the partition table of C<device> isn't GPT, or if C<guid> is not a
 valid GUID.
 
 See L<https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs>
-for a useful list of type GUIDs." };
+for a useful list of type GUIDs.|} };
 
   { defaults with
     name = "part_get_gpt_type"; added = (1, 21, 1);
@@ -8213,12 +8004,11 @@ Return the type GUID of numbered GPT partition C<partnum>." };
         "ret == 4"), [];
     ];
     shortdesc = "set the attribute flags of a GPT partition";
-    longdesc = "\
-Set the attribute flags of numbered GPT partition C<partnum> to C<attributes>. Return an
+    longdesc = {|Set the attribute flags of numbered GPT partition C<partnum> to C<attributes>. Return an
 error if the partition table of C<device> isn't GPT.
 
 See L<https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_entries>
-for a useful list of partition attributes." };
+for a useful list of partition attributes.|} };
 
   { defaults with
     name = "part_get_gpt_attributes"; added = (1, 21, 1);
@@ -8292,12 +8082,11 @@ deliberately crashes guestfsd." };
     style = RErr, [String (Device, "device")], [OString "directory"];
     optional = Some "syslinux";
     shortdesc = "install the SYSLINUX bootloader";
-    longdesc = "\
-Install the SYSLINUX bootloader on C<device>.
+    longdesc = {|Install the SYSLINUX bootloader on C<device>.
 
 The device parameter must be either a whole disk formatted
 as a FAT filesystem, or a partition formatted as a FAT filesystem.
-In the latter case, the partition should be marked as \"active\"
+In the latter case, the partition should be marked as "active"
 (C<guestfs_part_set_bootable>) and a Master Boot Record must be
 installed (eg. using C<guestfs_pwrite_device>) on the first
 sector of the whole disk.
@@ -8321,22 +8110,21 @@ either in the root directory, or under F<directory> if that
 optional argument is being used.  For further information
 about the contents of this file, see L<syslinux(1)>.
 
-See also C<guestfs_extlinux>." };
+See also C<guestfs_extlinux>.|} };
 
   { defaults with
     name = "extlinux"; added = (1, 21, 27);
     style = RErr, [String (Pathname, "directory")], [];
     optional = Some "extlinux";
     shortdesc = "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem";
-    longdesc = "\
-Install the SYSLINUX bootloader on the device mounted at F<directory>.
+    longdesc = {|Install the SYSLINUX bootloader on the device mounted at F<directory>.
 Unlike C<guestfs_syslinux> which requires a FAT filesystem, this can
 be used on an ext2/3/4 or btrfs filesystem.
 
 The F<directory> parameter can be either a mountpoint, or a
 directory within the mountpoint.
 
-You also have to mark the partition as \"active\"
+You also have to mark the partition as "active"
 (C<guestfs_part_set_bootable>) and a Master Boot Record must
 be installed (eg. using C<guestfs_pwrite_device>) on the first
 sector of the whole disk.
@@ -8348,7 +8136,7 @@ placing a file called F<extlinux.conf> on the filesystem
 under F<directory>.  For further information
 about the contents of this file, see L<extlinux(1)>.
 
-See also C<guestfs_syslinux>." };
+See also C<guestfs_syslinux>.|} };
 
   { defaults with
     name = "cp_r"; added = (1, 21, 38);
@@ -8362,14 +8150,13 @@ See also C<guestfs_syslinux>." };
          ["cat"; "/cp_r2/cp_r1/file"]], "file content"), []
     ];
     shortdesc = "copy a file or directory recursively";
-    longdesc = "\
-This copies a file or directory from C<src> to C<dest>
+    longdesc = {|This copies a file or directory from C<src> to C<dest>
 recursively using the C<cp -rP> command.
 
 Most users should use C<guestfs_cp_a> instead.  This command
 is useful when you don't want to preserve permissions, because
 the target filesystem does not support it (primarily when
-writing to DOS FAT filesystems)." };
+writing to DOS FAT filesystems).|} };
 
   { defaults with
     name = "remount"; added = (1, 23, 2);
@@ -8384,13 +8171,12 @@ writing to DOS FAT filesystems)." };
          ["write"; "/remount2"; "data"]]), []
     ];
     shortdesc = "remount a filesystem with different options";
-    longdesc = "\
-This call allows you to change the C<rw> (readonly/read-write)
+    longdesc = {|This call allows you to change the C<rw> (readonly/read-write)
 flag on an already mounted filesystem at C<mountpoint>,
 converting a readonly filesystem to be read-write, or vice-versa.
 
-Note that at the moment you must supply the \"optional\" C<rw>
-parameter.  In future we may allow other flags to be adjusted." };
+Note that at the moment you must supply the "optional" C<rw>
+parameter.  In future we may allow other flags to be adjusted.|} };
 
   { defaults with
     name = "set_uuid"; added = (1, 23, 10);
@@ -8401,15 +8187,14 @@ parameter.  In future we may allow other flags to be adjusted." };
            ["vfs_uuid"; "/dev/sda1"]], stable_uuid), [];
       ];
     shortdesc = "set the filesystem UUID";
-    longdesc = "\
-Set the filesystem UUID on C<device> to C<uuid>.
+    longdesc = {|Set the filesystem UUID on C<device> to C<uuid>.
 If this fails and the errno is ENOTSUP,
 means that there is no support for changing the UUID
 for the type of the specified filesystem.
 
 Only some filesystem types support setting UUIDs.
 
-To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
+To read the UUID on a filesystem, call C<guestfs_vfs_uuid>.|} };
 
   { defaults with
     name = "journal_open"; added = (1, 23, 11);
@@ -8417,15 +8202,14 @@ To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
     optional = Some "journal";
     test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "open the systemd journal";
-    longdesc = "\
-Open the systemd journal located in F<directory>.  Any previously
+    longdesc = {|Open the systemd journal located in F<directory>.  Any previously
 opened journal handle is closed.
 
 The contents of the journal can be read using C<guestfs_journal_next>
 and C<guestfs_journal_get>.
 
 After you have finished using the journal, you should close the
-handle by calling C<guestfs_journal_close>." };
+handle by calling C<guestfs_journal_close>.|} };
 
   { defaults with
     name = "journal_close"; added = (1, 23, 11);
@@ -8442,15 +8226,14 @@ Close the journal handle." };
     optional = Some "journal";
     test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "move to the next journal entry";
-    longdesc = "\
-Move to the next journal entry.  You have to call this
+    longdesc = {|Move to the next journal entry.  You have to call this
 at least once after opening the handle before you are able
 to read data.
 
 The returned boolean tells you if there are any more journal
 records to read.  C<true> means you can read the next record
 (eg. using C<guestfs_journal_get>), and C<false> means you
-have reached the end of the journal." };
+have reached the end of the journal.|} };
 
   { defaults with
     name = "journal_skip"; added = (1, 23, 11);
@@ -8458,14 +8241,13 @@ have reached the end of the journal." };
     optional = Some "journal";
     test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "skip forwards or backwards in the journal";
-    longdesc = "\
-Skip forwards (C<skip E<ge> 0>) or backwards (C<skip E<lt> 0>) in the
+    longdesc = {|Skip forwards (C<skip E<ge> 0>) or backwards (C<skip E<lt> 0>) in the
 journal.
 
 The number of entries actually skipped is returned (note S<C<rskip E<ge> 0>>).
 If this is not the same as the absolute value of the skip parameter
 (C<|skip|>) you passed in then it means you have reached the end or
-the start of the journal." };
+the start of the journal.|} };
 
   { defaults with
     name = "internal_journal_get"; added = (1, 23, 11);
@@ -8483,13 +8265,12 @@ This function is used internally when reading the journal." };
     optional = Some "journal";
     test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "get the data threshold for reading journal entries";
-    longdesc = "\
-Get the current data threshold for reading journal entries.
+    longdesc = {|Get the current data threshold for reading journal entries.
 This is a hint to the journal that it may truncate data fields to
 this size when reading them (note also that it may not truncate them).
 If this returns C<0>, then the threshold is unlimited.
 
-See also C<guestfs_journal_set_data_threshold>." };
+See also C<guestfs_journal_set_data_threshold>.|} };
 
   { defaults with
     name = "journal_set_data_threshold"; added = (1, 23, 11);
@@ -8497,13 +8278,12 @@ See also C<guestfs_journal_set_data_threshold>." };
     optional = Some "journal";
     test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "set the data threshold for reading journal entries";
-    longdesc = "\
-Set the data threshold for reading journal entries.
+    longdesc = {|Set the data threshold for reading journal entries.
 This is a hint to the journal that it may truncate data fields to
 this size when reading them (note also that it may not truncate them).
 If you set this to C<0>, then the threshold is unlimited.
 
-See also C<guestfs_journal_get_data_threshold>." };
+See also C<guestfs_journal_get_data_threshold>.|} };
 
   { defaults with
     name = "aug_setm"; added = (1, 23, 14);
@@ -8518,14 +8298,13 @@ See also C<guestfs_journal_get_data_threshold>." };
          ["cat"; "/etc/passwd"]], "root:x:0:0:root:/root:/sbin/nologin\nbin:x:1:1:bin:/bin:/sbin/nologin\ndaemon:x:2:2:daemon:/sbin:/sbin/nologin\n"), [["aug_close"]]
     ];
     shortdesc = "set multiple Augeas nodes";
-    longdesc = "\
-Change multiple Augeas nodes in a single operation.  C<base> is
+    longdesc = {|Change multiple Augeas nodes in a single operation.  C<base> is
 an expression matching multiple nodes.  C<sub> is a path expression
 relative to C<base>.  All nodes matching C<base> are found, and then
 for each node, C<sub> is changed to C<val>.  C<sub> may also be C<NULL>
 in which case the C<base> nodes are modified.
 
-This returns the number of nodes modified." };
+This returns the number of nodes modified.|} };
 
   { defaults with
     name = "aug_label"; added = (1, 23, 14);
@@ -8566,8 +8345,7 @@ This function is used internally when testing the appliance." };
     name = "copy_attributes"; added = (1, 25, 21);
     style = RErr, [String (Pathname, "src"); String (Pathname, "dest")], [OBool "all"; OBool "mode"; OBool "xattributes"; OBool "ownership"];
     shortdesc = "copy the attributes of a path (file/directory) to another";
-    longdesc = "\
-Copy the attributes of a path (which can be a file or a directory)
+    longdesc = {|Copy the attributes of a path (which can be a file or a directory)
 to another path.
 
 By default B<no> attribute is copied, so make sure to specify any
@@ -8597,54 +8375,50 @@ Copy the owner uid and the group gid of C<source> to C<destination>.
 Copy B<all> the attributes from C<source> to C<destination>. Enabling it
 enables all the other flags, if they are not specified already.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "part_get_name"; added = (1, 25, 33);
     style = RString (RPlainString, "name"), [String (Device, "device"); Int "partnum"], [];
     shortdesc = "get partition name";
-    longdesc = "\
-This gets the partition name on partition numbered C<partnum> on
+    longdesc = {|This gets the partition name on partition numbered C<partnum> on
 device C<device>.  Note that partitions are numbered from 1.
 
 The partition name can only be read on certain types of partition
-table.  This works on C<gpt> but not on C<mbr> partitions." };
+table.  This works on C<gpt> but not on C<mbr> partitions.|} };
 
   { defaults with
     name = "blkdiscard"; added = (1, 25, 44);
     style = RErr, [String (Device, "device")], [];
     optional = Some "blkdiscard";
     shortdesc = "discard all blocks on a device";
-    longdesc = "\
-This discards all blocks on the block device C<device>, giving
+    longdesc = {|This discards all blocks on the block device C<device>, giving
 the free space back to the host.
 
 This operation requires support in libguestfs, the host filesystem,
 qemu and the host kernel.  If this support isn't present it may give
 an error or even appear to run but do nothing.  You must also
 set the C<discard> attribute on the underlying drive (see
-C<guestfs_add_drive_opts>)." };
+C<guestfs_add_drive_opts>).|} };
 
   { defaults with
     name = "blkdiscardzeroes"; added = (1, 25, 44);
     style = RBool "zeroes", [String (Device, "device")], [];
     optional = Some "blkdiscardzeroes";
     shortdesc = "return true if discarded blocks are read as zeroes";
-    longdesc = "\
-This call returns true if blocks on C<device> that have been
+    longdesc = {|This call returns true if blocks on C<device> that have been
 discarded by a call to C<guestfs_blkdiscard> are returned as
 blocks of zero bytes when read the next time.
 
 If it returns false, then it may be that discarded blocks are
-read as stale or random data." };
+read as stale or random data.|} };
 
   { defaults with
     name = "cpio_out"; added = (1, 27, 9);
     style = RErr, [String (PlainString, "directory"); String (FileOut, "cpiofile")], [OString "format"];
     cancellable = true;
     shortdesc = "pack directory into cpio file";
-    longdesc = "\
-This command packs the contents of F<directory> and downloads
+    longdesc = {|This command packs the contents of F<directory> and downloads
 it to local file C<cpiofile>.
 
 The optional C<format> parameter can be used to select the format.
@@ -8663,7 +8437,7 @@ This is the default format.
 
 New (SVR4) portable format with a checksum.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "journal_get_realtime_usec"; added = (1, 27, 18);
@@ -8695,14 +8469,13 @@ This is the same as the L<stat(2)> system call." };
         [["lstatns"; "/empty"]], "ret->st_size == 0"), []
     ];
     shortdesc = "get file information for a symbolic link";
-    longdesc = "\
-Returns file information for the given C<path>.
+    longdesc = {|Returns file information for the given C<path>.
 
 This is the same as C<guestfs_statns> except that if C<path>
 is a symbolic link, then the link is stat-ed, not the file it
 refers to.
 
-This is the same as the L<lstat(2)> system call." };
+This is the same as the L<lstat(2)> system call.|} };
 
   { defaults with
     name = "internal_lstatnslist"; added = (1, 27, 53);
@@ -9190,14 +8963,13 @@ It returns C<primary>, C<logical>, or C<extended>." };
     optional = Some "btrfs"; camel_name = "BTRFSReplace";
     test_excuse = "put the test in 'tests/btrfs' directory";
     shortdesc = "replace a btrfs managed device with another device";
-    longdesc = "\
-Replace device of a btrfs filesystem. On a live filesystem, duplicate the data
+    longdesc = {|Replace device of a btrfs filesystem. On a live filesystem, duplicate the data
 to the target device which is currently stored on the source device.
 After completion of the operation, the source device is wiped out and
 removed from the filesystem.
 
 The C<targetdev> needs to be same size or larger than the C<srcdev>. Devices
-which are currently mounted are never allowed to be used as the C<targetdev>." };
+which are currently mounted are never allowed to be used as the C<targetdev>.|} };
 
   { defaults with
     name = "set_uuid_random"; added = (1, 29, 50);
@@ -9207,15 +8979,14 @@ which are currently mounted are never allowed to be used as the C<targetdev>." }
             [["set_uuid_random"; "/dev/sda1"]]), [];
       ];
     shortdesc = "set a random UUID for the filesystem";
-    longdesc = "\
-Set the filesystem UUID on C<device> to a random UUID.
+    longdesc = {|Set the filesystem UUID on C<device> to a random UUID.
 If this fails and the errno is ENOTSUP,
 means that there is no support for changing the UUID
 for the type of the specified filesystem.
 
 Only some filesystem types support setting UUIDs.
 
-To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
+To read the UUID on a filesystem, call C<guestfs_vfs_uuid>.|} };
 
   { defaults with
     name = "vfs_minimum_size"; added = (1, 31, 18);
@@ -9236,14 +9007,13 @@ To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
          ["vfs_minimum_size"; "/dev/sda1"]]), [];
     ];
     shortdesc = "get minimum filesystem size";
-    longdesc = "\
-Get the minimum size of filesystem in bytes.
+    longdesc = {|Get the minimum size of filesystem in bytes.
 This is the minimum possible size for filesystem shrinking.
 
 If getting minimum size of specified filesystem is not supported,
 this will fail and set errno as ENOTSUP.
 
-See also L<ntfsresize(8)>, L<resize2fs(8)>, L<btrfs(8)>, L<xfs_info(8)>." };
+See also L<ntfsresize(8)>, L<resize2fs(8)>, L<btrfs(8)>, L<xfs_info(8)>.|} };
 
   { defaults with
     name = "internal_feature_available"; added = (1, 31, 25);
@@ -9307,28 +9077,26 @@ Return an error if the partition table of C<device> isn't GPT." };
     style = RErr, [String (Device, "device")], [];
     optional = Some "gdisk";
     shortdesc = "move backup GPT header to the end of the disk";
-    longdesc = "\
-Move backup GPT data structures to the end of the disk.
+    longdesc = {|Move backup GPT data structures to the end of the disk.
 This is useful in case of in-place image expand
 since disk space after backup GPT header is not usable.
 This is equivalent to C<sgdisk -e>.
 
-See also L<sgdisk(8)>." };
+See also L<sgdisk(8)>.|} };
 
   { defaults with
     name = "ntfscat_i"; added = (1, 33, 14);
     style = RErr, [String (Mountable, "device"); Int64 "inode"; String (FileOut, "filename")], [];
     progress = true; cancellable = true;
     shortdesc = "download a file to the local machine given its inode";
-    longdesc = "\
-Download a file given its inode from a NTFS filesystem and save it as
+    longdesc = {|Download a file given its inode from a NTFS filesystem and save it as
 F<filename> on the local machine.
 
 This allows to download some otherwise inaccessible files such as the ones
 within the C<$Extend> folder.
 
 The filesystem from which to extract the file must be unmounted,
-otherwise the call will fail." };
+otherwise the call will fail.|} };
 
   { defaults with
     name = "btrfs_filesystem_show"; added = (1, 33, 29);
@@ -9362,8 +9130,7 @@ fails and the C<errno> is set to C<ENODEV>." };
     optional = Some "squashfs";
     cancellable = true;
     shortdesc = "create a squashfs filesystem";
-    longdesc = "\
-Create a squashfs filesystem for the specified C<path>.
+    longdesc = {|Create a squashfs filesystem for the specified C<path>.
 
 The optional C<compress> flag controls compression.  If not given,
 then the output compressed using C<gzip>.  Otherwise one
@@ -9382,7 +9149,7 @@ wildcards.
 =back
 
 Please note that this API may fail when used to compress directories
-with large files, such as the resulting squashfs will be over 3GB big." };
+with large files, such as the resulting squashfs will be over 3GB big.|} };
 
   { defaults with
     name = "file_architecture"; added = (1, 5, 3);
@@ -9449,72 +9216,71 @@ with large files, such as the resulting squashfs will be over 3GB big." };
         [["file_architecture"; "/lib-i586.so.zst"]], "i386"), [];
     ];
     shortdesc = "detect the architecture of a binary file";
-    longdesc = "\
-This detects the architecture of the binary F<filename>,
+    longdesc = {|This detects the architecture of the binary F<filename>,
 and returns it if known.
 
 Currently defined architectures are:
 
 =over 4
 
-=item \"aarch64\"
+=item "aarch64"
 
 64 bit ARM.
 
-=item \"arm\"
+=item "arm"
 
 32 bit ARM.
 
-=item \"i386\"
+=item "i386"
 
 This string is returned for all 32 bit i386, i486, i586, i686 binaries
 irrespective of the precise processor requirements of the binary.
 
-=item \"ia64\"
+=item "ia64"
 
 Intel Itanium.
 
-=item \"ppc\"
+=item "ppc"
 
 32 bit Power PC.
 
-=item \"ppc64\"
+=item "ppc64"
 
 64 bit Power PC (big endian).
 
-=item \"ppc64le\"
+=item "ppc64le"
 
 64 bit Power PC (little endian).
 
-=item \"loongarch64\"
+=item "loongarch64"
 
 64 bit LoongArch64 (little endian).
 
-=item \"riscv32\"
+=item "riscv32"
 
-=item \"riscv64\"
+=item "riscv64"
 
-=item \"riscv128\"
+=item "riscv128"
 
 RISC-V 32-, 64- or 128-bit variants.
 
-=item \"s390\"
+=item "s390"
 
 31 bit IBM S/390.
 
-=item \"s390x\"
+=item "s390x"
 
 64 bit IBM S/390.
 
-=item \"sparc\"
+=item "sparc"
 
 32 bit SPARC.
 
-=item \"sparc64\"
+=item "sparc64"
 
 64 bit SPARC V9 and above.
 
-=item \"x86_64\"
+=item "x86_64"
 
 64 bit x86-64.
 
@@ -9581,15 +9347,14 @@ compressed code, and are horribly hard to unpack.  If you want to find
 the architecture of a kernel, use the architecture of the associated
 initrd or kernel module(s) instead.
 
-=back" };
+=back|} };
 
   { defaults with
     name = "list_filesystems"; added = (1, 5, 15);
     style = RHashtable (RMountable, RPlainString, "fses"), [], [];
     impl = OCaml "Listfs.list_filesystems";
     shortdesc = "list filesystems";
-    longdesc = "\
-This inspection command looks for filesystems on partitions,
+    longdesc = {|This inspection command looks for filesystems on partitions,
 block devices and logical volumes, returning a list of C<mountables>
 containing filesystems and their type.
 
@@ -9597,17 +9362,17 @@ The return value is a hash, where the keys are the devices
 containing filesystems, and the values are the filesystem types.
 For example:
 
- \"/dev/sda1\" => \"ntfs\"
- \"/dev/sda2\" => \"ext2\"
- \"/dev/vg_guest/lv_root\" => \"ext4\"
- \"/dev/vg_guest/lv_swap\" => \"swap\"
+ "/dev/sda1" => "ntfs"
+ "/dev/sda2" => "ext2"
+ "/dev/vg_guest/lv_root" => "ext4"
+ "/dev/vg_guest/lv_swap" => "swap"
 
 The key is not necessarily a block device. It may also be an opaque
 ‘mountable’ string which can be passed to C<guestfs_mount>.
 
-The value can have the special value \"unknown\", meaning the
+The value can have the special value "unknown", meaning the
 content of the device is undetermined or empty.
-\"swap\" means a Linux swap partition.
+"swap" means a Linux swap partition.
 
 In libguestfs E<le> 1.36 this command ran other libguestfs commands,
 which might have included C<guestfs_mount> and C<guestfs_umount>, and
@@ -9621,7 +9386,7 @@ this command does not check that each filesystem
 found is valid and mountable, and some filesystems might
 be mountable but require special options.  Filesystems may
 not all belong to a single logical operating system
-(use C<guestfs_inspect_os> to look for OSes)." };
+(use C<guestfs_inspect_os> to look for OSes).|} };
 
   { defaults with
     name = "part_resize"; added = (1, 37, 20);
@@ -9633,8 +9398,7 @@ not all belong to a single logical operating system
          ["part_resize"; "/dev/sda"; "1"; "-1"]]), []
     ];
     shortdesc = "resize a partition";
-    longdesc = "\
-This command resizes the partition numbered C<partnum> on C<device>
+    longdesc = {|This command resizes the partition numbered C<partnum> on C<device>
 by moving the end position.
 
 Note that this does not modify any filesystem present in the partition.
@@ -9643,7 +9407,7 @@ commands like C<guestfs_resize2fs>.
 
 When growing a partition you will want to grow the filesystem
 afterwards, but when shrinking, you need to shrink the filesystem
-before the partition." };
+before the partition.|} };
 
   { defaults with
     name = "f2fs_expand"; added = (1, 39, 3);
@@ -9662,8 +9426,7 @@ device." };
         [["lvm_scan"; "true"]]), []
     ];
     shortdesc = "scan for LVM physical volumes, volume groups and logical volumes";
-    longdesc = "\
-This scans all block devices and rebuilds the list of LVM
+    longdesc = {|This scans all block devices and rebuilds the list of LVM
 physical volumes, volume groups and logical volumes.
 
 If the C<activate> parameter is C<true> then newly found
@@ -9674,7 +9437,7 @@ When a libguestfs handle is launched it scans for existing
 devices, so you do not normally need to use this API.  However
 it is useful when you have added a new device or deleted an
 existing device (such as when the C<guestfs_luks_open> API
-is used)." };
+is used).|} };
 
   { defaults with
     name = "luks_uuid"; added = (1, 41, 9);
@@ -9691,8 +9454,7 @@ This returns the UUID of the LUKS device C<device>." };
     optional = Some "luks";
     test_excuse = "no way to format BitLocker, and smallest device is huge";
     shortdesc = "open an encrypted block device";
-    longdesc = "\
-This command opens a block device which has been encrypted
+    longdesc = {|This command opens a block device which has been encrypted
 according to the Linux Unified Key Setup (LUKS) standard,
 Windows BitLocker, or some other types.
 
@@ -9705,7 +9467,7 @@ This creates a new block device called F</dev/mapper/mapname>.
 Reads and writes to this block device are decrypted from and
 encrypted to the underlying C<device> respectively.
 
-C<mapname> cannot be C<\"control\"> because that name is reserved
+C<mapname> cannot be C<"control"> because that name is reserved
 by device-mapper.
 
 If the optional C<crypttype> parameter is not present then
@@ -9736,7 +9498,7 @@ calling C<guestfs_lvm_scan> with the C<activate>
 parameter C<true> will make them visible.
 
 Use C<guestfs_list_dm_devices> to list all device mapper
-devices." };
+devices.|} };
 
   { defaults with
     name = "cryptsetup_close"; added = (1, 43, 2);
@@ -9765,8 +9527,7 @@ and I<not> the name of the underlying block device." };
     optional = Some "clevisluks";
     test_excuse = "needs networking and a configured Tang server";
     shortdesc = "open an encrypted LUKS block device with Clevis and Tang";
-    longdesc = "\
-This command opens a block device that has been encrypted according to
+    longdesc = {|This command opens a block device that has been encrypted according to
 the Linux Unified Key Setup (LUKS) standard, using network-bound disk
 encryption (NBDE).
 
@@ -9788,14 +9549,14 @@ Reads and writes to this block device are decrypted from and encrypted
 to the underlying C<device> respectively.  Close the decrypted block
 device with C<guestfs_cryptsetup_close>.
 
-C<mapname> cannot be C<\"control\"> because that name is reserved by
+C<mapname> cannot be C<"control"> because that name is reserved by
 device-mapper.
 
 If this block device contains LVM volume groups, then calling
 C<guestfs_lvm_scan> with the C<activate> parameter C<true> will make
 them visible.
 
-Use C<guestfs_list_dm_devices> to list all device mapper devices." };
+Use C<guestfs_list_dm_devices> to list all device mapper devices.|} };
 
   { defaults with
     name = "setfiles"; added = (1, 57, 1);
@@ -9804,8 +9565,7 @@ Use C<guestfs_list_dm_devices> to list all device mapper devices." };
     optional = Some "selinuxrelabel";
     test_excuse = "tests are in the tests/relabel directory";
     shortdesc = "low level relabel parts of the filesystem";
-    longdesc = "\
-This invokes the SELinux C<setfiles> command which is a low
+    longdesc = {|This invokes the SELinux C<setfiles> command which is a low
 level tool used to relabel parts of the filesystem.
 
 The C<specfile> parameter controls the policy spec file used.
@@ -9815,12 +9575,12 @@ C</etc/selinux/> + I<selinuxtype> + C</contexts/files/file_contexts>.
 
 The required C<paths> parameter is the list of top level directories
 where relabelling starts.  C<setfiles> will only relabel up to
-filesystem boundaries so, for example, passing just C<\"/\"> will
+filesystem boundaries so, for example, passing just C<"/"> will
 relabel the whole root filesystem, but no other mounted filesystems.
 If the list is empty, setfiles is not called.
 
 The optional C<force> boolean controls whether the context
 is reset for customizable files, and also whether the
-user, role and range parts of the file context is changed." };
+user, role and range parts of the file context is changed.|} };
 
 ]

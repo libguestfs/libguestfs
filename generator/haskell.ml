@@ -65,7 +65,7 @@ module Guestfs (
       if can_generate style then pr ",\n  %s" name
   ) (actions |> external_functions |> sort);
 
-  pr "
+  pr {|
   ) where
 
 -- Unfortunately some symbols duplicate ones already present
@@ -84,11 +84,11 @@ data GuestfsS = GuestfsS            -- represents the opaque C struct
 type GuestfsP = Ptr GuestfsS        -- guestfs_h *
 type GuestfsH = ForeignPtr GuestfsS -- guestfs_h * with attached finalizer
 
-foreign import ccall unsafe \"guestfs.h guestfs_create\" c_create
+foreign import ccall unsafe "guestfs.h guestfs_create" c_create
   :: IO GuestfsP
-foreign import ccall unsafe \"guestfs.h &guestfs_close\" c_close
+foreign import ccall unsafe "guestfs.h &guestfs_close" c_close
   :: FunPtr (GuestfsP -> IO ())
-foreign import ccall unsafe \"guestfs.h guestfs_set_error_handler\" c_set_error_handler
+foreign import ccall unsafe "guestfs.h guestfs_set_error_handler" c_set_error_handler
   :: GuestfsP -> Ptr CInt -> Ptr CInt -> IO ()
 
 create :: IO GuestfsH
@@ -98,28 +98,28 @@ create = do
   h <- newForeignPtr c_close p
   return h
 
-foreign import ccall unsafe \"guestfs.h guestfs_last_error\" c_last_error
+foreign import ccall unsafe "guestfs.h guestfs_last_error" c_last_error
   :: GuestfsP -> IO CString
 
 -- last_error :: GuestfsH -> IO (Maybe String)
 -- last_error h = do
---   str <- withForeignPtr h (\\p -> c_last_error p)
+--   str <- withForeignPtr h (\p -> c_last_error p)
 --   maybePeek peekCString str
 
 last_error :: GuestfsH -> IO String
 last_error h = do
-  str <- withForeignPtr h (\\p -> c_last_error p)
+  str <- withForeignPtr h (\p -> c_last_error p)
   if (str == nullPtr)
-    then return \"no error\"
+    then return "no error"
     else peekCString str
 
 assocListOfHashtable :: Eq a => [a] -> [(a,a)]
 assocListOfHashtable [] = []
 assocListOfHashtable [a] =
-  fail \"RHashtable returned an odd number of elements\"
+  fail "RHashtable returned an odd number of elements"
 assocListOfHashtable (a:b:rest) = (a,b) : assocListOfHashtable rest
 
-";
+|};
 
   (* Generate wrappers for each foreign function. *)
   List.iter (

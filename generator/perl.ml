@@ -37,8 +37,7 @@ let generate_header = generate_header ~inputs:["generator/perl.ml"]
 let rec generate_perl_xs () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 /* It is safe to call deprecated functions from this file. */
 #define GUESTFS_NO_WARN_DEPRECATED
@@ -50,9 +49,9 @@ let rec generate_perl_xs () =
 #include <inttypes.h>
 #include <errno.h>
 
-#include \"EXTERN.h\"
-#include \"perl.h\"
-#include \"XSUB.h\"
+#include "EXTERN.h"
+#include "perl.h"
+#include "XSUB.h"
 
 /* perl CORE/config.h defines '_' to something completely bonkers. */
 #ifdef _
@@ -60,7 +59,7 @@ let rec generate_perl_xs () =
 #endif
 
 #include <guestfs.h>
-#include \"guestfs-internal-all.h\"
+#include "guestfs-internal-all.h"
 
 static SV *
 my_newSVll(long long val) {
@@ -69,7 +68,7 @@ my_newSVll(long long val) {
 #else
   char buf[100];
   int len;
-  len = snprintf(buf, 100, \"%%\" PRId64, val);
+  len = snprintf(buf, 100, "%%" PRId64, val);
   return newSVpv(buf, len);
 #endif
 }
@@ -81,7 +80,7 @@ my_newSVull(unsigned long long val) {
 #else
   char buf[100];
   int len;
-  len = snprintf(buf, 100, \"%%\" PRIu64, val);
+  len = snprintf(buf, 100, "%%" PRIu64, val);
   return newSVpv(buf, len);
 #endif
 }
@@ -100,7 +99,7 @@ my_SvIV64 (SV *sv)
     const char *str = SvPV_nolen (sv);
     int64_t r;
 
-    sscanf (str, \"%%\" SCNi64, &r);
+    sscanf (str, "%%" SCNi64, &r);
     return r;
   }
   else
@@ -116,19 +115,19 @@ XS_unpack_charPtrPtr (SV *arg) {
   I32 i;
 
   if (!arg || !SvOK (arg) || !SvROK (arg) || SvTYPE (SvRV (arg)) != SVt_PVAV)
-    croak (\"array reference expected\");
+    croak ("array reference expected");
 
   av = (AV *)SvRV (arg);
   ret = malloc ((av_len (av) + 1 + 1) * sizeof (char *));
   if (!ret)
-    croak (\"malloc failed\");
+    croak ("malloc failed");
 
   for (i = 0; i <= av_len (av); i++) {
     SV **elem = av_fetch (av, i, 0);
 
     if (!elem || !*elem) {
       free (ret);
-      croak (\"missing element in list\");
+      croak ("missing element in list");
     }
 
     ret[i] = SvPV_nolen (*elem);
@@ -155,7 +154,7 @@ _event_callback_wrapper (guestfs_h *g,
   PUSHMARK (SP);
   XPUSHs (sv_2mortal (my_newSVull (event)));
   XPUSHs (sv_2mortal (newSViv (event_handle)));
-  XPUSHs (sv_2mortal (newSVpvn (buf ? buf : \"\", buf_len)));
+  XPUSHs (sv_2mortal (newSVpvn (buf ? buf : "", buf_len)));
   AV *av = newAV ();
   size_t i;
   for (i = 0; i < array_len; ++i)
@@ -179,19 +178,19 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
   *len_rtn = 0;
   cb = guestfs_first_private (g, &key);
   while (cb != NULL) {
-    if (strncmp (key, \"_perl_event_\", strlen (\"_perl_event_\")) == 0)
+    if (strncmp (key, "_perl_event_", strlen ("_perl_event_")) == 0)
       (*len_rtn)++;
     cb = guestfs_next_private (g, &key);
   }
 
   /* Copy them into the return array. */
   r = malloc (sizeof (SV *) * (*len_rtn));
-  if (r == NULL) croak (\"malloc: %%m\");
+  if (r == NULL) croak ("malloc: %%m");
 
   i = 0;
   cb = guestfs_first_private (g, &key);
   while (cb != NULL) {
-    if (strncmp (key, \"_perl_event_\", strlen (\"_perl_event_\")) == 0) {
+    if (strncmp (key, "_perl_event_", strlen ("_perl_event_")) == 0) {
       r[i] = cb;
       i++;
     }
@@ -232,7 +231,7 @@ _create (flags)
    CODE:
       RETVAL = guestfs_create_flags (flags);
       if (!RETVAL)
-        croak (\"could not create guestfs handle\");
+        croak ("could not create guestfs handle");
       guestfs_set_error_handler (RETVAL, NULL, NULL);
  OUTPUT:
       RETVAL
@@ -247,7 +246,7 @@ DESTROY (sv)
        * display an error.
        */
       HV *hv = (HV *) SvRV (sv);
-      SV **svp = hv_fetch (hv, \"_g\", 2, 0);
+      SV **svp = hv_fetch (hv, "_g", 2, 0);
       if (svp != NULL) {
         guestfs_h *g = INT2PTR (guestfs_h *, SvIV (*svp));
         _close_handle (g);
@@ -260,7 +259,7 @@ close (g)
       _close_handle (g);
       /* Avoid double-free in DESTROY method. */
       HV *hv = (HV *) SvRV (ST(0));
-      (void) hv_delete (hv, \"_g\", 2, G_DISCARD);
+      (void) hv_delete (hv, "_g", 2, G_DISCARD);
 
 SV *
 set_event_callback (g, cb, event_bitmask)
@@ -274,7 +273,7 @@ PREINIT:
       eh = guestfs_set_event_callback (g, _event_callback_wrapper,
                                        event_bitmask, 0, cb);
       if (eh == -1)
-        croak (\"%%s\", guestfs_last_error (g));
+        croak ("%%s", guestfs_last_error (g));
 
       /* Increase the refcount for this callback, since we are storing
        * it in the opaque C libguestfs handle.  We need to remember that
@@ -283,7 +282,7 @@ PREINIT:
        */
       SvREFCNT_inc (cb);
 
-      snprintf (key, sizeof key, \"_perl_event_%%d\", eh);
+      snprintf (key, sizeof key, "_perl_event_%%d", eh);
       guestfs_set_private (g, key, cb);
 
       RETVAL = newSViv (eh);
@@ -298,7 +297,7 @@ PREINIT:
       char key[64];
       SV *cb;
    CODE:
-      snprintf (key, sizeof key, \"_perl_event_%%d\", event_handle);
+      snprintf (key, sizeof key, "_perl_event_%%d", event_handle);
       cb = guestfs_get_private (g, key);
       if (cb) {
         SvREFCNT_dec (cb);
@@ -314,7 +313,7 @@ PREINIT:
    CODE:
       str = guestfs_event_to_string (event_bitmask);
       if (str == NULL)
-        croak (\"%%m\");
+        croak ("%%m");
       RETVAL = newSVpv (str, 0);
       free (str);
  OUTPUT:
@@ -331,7 +330,7 @@ PREINIT:
  OUTPUT:
       RETVAL
 
-";
+|};
 
   List.iter (
     fun { name; style = (ret, args, optargs as style);
@@ -676,8 +675,7 @@ and generate_perl_struct_code typ cols name style =
 and generate_perl_pm () =
   generate_header HashStyle LGPLv2plus;
 
-  pr "\
-=encoding utf8
+  pr {|=encoding utf8
 
 =pod
 
@@ -747,11 +745,10 @@ $VERSION = '1.0';
 require XSLoader;
 XSLoader::load ('Sys::Guestfs');
 
-";
+|};
 
   (* Methods. *)
-  pr "\
-=item $g = Sys::Guestfs->new ([environment => 0,] [close_on_exit => 0]);
+  pr {|=item $g = Sys::Guestfs->new ([environment => 0,] [close_on_exit => 0]);
 
 Create a new guestfs handle.
 
@@ -798,7 +795,7 @@ C<close> the program must not call any method (including C<close>)
 on the handle (but the implicit call to C<DESTROY> that happens
 when the final reference is cleaned up is OK).
 
-";
+|};
 
   List.iter (
     fun (name, bitmask) ->
@@ -822,8 +819,7 @@ when the final reference is cleaned up is OK).
   pr "our $EVENT_ALL = 0x%x;\n" all_events_bitmask;
   pr "\n";
 
-  pr "\
-=item $event_handle = $g->set_event_callback (\\&cb, $event_bitmask);
+  pr {|=item $event_handle = $g->set_event_callback (\&cb, $event_bitmask);
 
 Register C<cb> as a callback function for all of the events
 in C<$event_bitmask> (one or more C<$Sys::Guestfs::EVENT_*> flags
@@ -888,14 +884,14 @@ You can use the standard Perl module L<Errno(3)> to compare
 the numeric error returned from this call with symbolic
 errnos:
 
- $g->mkdir (\"/foo\");
+ $g->mkdir ("/foo");
  if ($g->last_errno() == Errno::EEXIST()) {
    # mkdir failed because the directory exists already.
  }
 
 =cut
 
-";
+|};
 
   (* Actions.  We only need to print documentation for these as
    * they are pulled in from the XS code automatically.
@@ -942,8 +938,7 @@ C<$g-E<gt>feature-available>.\n\n" opt
   pr "=cut\n\n";
 
   (* End of file. *)
-  pr "\
-1;
+  pr {|1;
 
 =back
 
@@ -960,15 +955,15 @@ class, use the ordinary Perl UNIVERSAL method C<can(METHOD)>
 (see L<perlobj(1)>).  For example:
 
  use Sys::Guestfs;
- if (defined (Sys::Guestfs->can (\"set_verbose\"))) {
-   print \"\\$g->set_verbose is available\\n\";
+ if (defined (Sys::Guestfs->can ("set_verbose"))) {
+   print "\$g->set_verbose is available\n";
  }
 
 To test if particular features are supported by the current
 build, use the L</feature_available> method like the example below.  Note
 that the appliance must be launched first.
 
- $g->feature_available ( [\"augeas\"] );
+ $g->feature_available ( ["augeas"] );
 
 For further discussion on this topic, refer to
 L<guestfs(3)/AVAILABILITY>.
@@ -1007,7 +1002,7 @@ L<guestfish(1)>,
 L<http://libguestfs.org>.
 
 =cut
-" copyright_years
+|} copyright_years
 
 and generate_perl_prototype name (ret, args, optargs) =
   (match ret with

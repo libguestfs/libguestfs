@@ -29,8 +29,7 @@ let daemon_functions = [
     optional = Some "hivex";
     deprecated_by = Replaced_by "hivex_value_string";
     shortdesc = "return the data field as a UTF-8 string";
-    longdesc = "\
-This calls C<guestfs_hivex_value_value> (which returns the
+    longdesc = {|This calls C<guestfs_hivex_value_value> (which returns the
 data field from a hivex value tuple).  It then assumes that
 the field is a UTF-16LE string and converts the result to
 UTF-8 (or if this is not possible, it returns an error).
@@ -38,6 +37,6 @@ UTF-8 (or if this is not possible, it returns an error).
 This is useful for reading strings out of the Windows registry.
 However it is not foolproof because the registry is not
 strongly-typed and fields can contain arbitrary or unexpected
-data." };
+data.|} };
 
 ]

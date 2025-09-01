@@ -35,42 +35,39 @@ let generate_header = generate_header ~inputs:["generator/php.ml"]
 let rec generate_php_h () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#ifndef PHP_GUESTFS_PHP_H
+  pr {|#ifndef PHP_GUESTFS_PHP_H
 #define PHP_GUESTFS_PHP_H 1
 
 #ifdef ZTS
-#include \"TSRM.h\"
+#include "TSRM.h"
 #endif
 
-#define PHP_GUESTFS_PHP_EXTNAME \"guestfs_php\"
-#define PHP_GUESTFS_PHP_VERSION \"1.0\"
+#define PHP_GUESTFS_PHP_EXTNAME "guestfs_php"
+#define PHP_GUESTFS_PHP_VERSION "1.0"
 
 PHP_MINIT_FUNCTION (guestfs_php);
 
-#define PHP_GUESTFS_HANDLE_RES_NAME \"guestfs_h\"
+#define PHP_GUESTFS_HANDLE_RES_NAME "guestfs_h"
 
 PHP_FUNCTION (guestfs_create);
 PHP_FUNCTION (guestfs_last_error);
-";
+|};
 
   List.iter (
     fun { name } -> pr "PHP_FUNCTION (guestfs_%s);\n" name
   ) (actions |> external_functions |> sort);
 
-  pr "\
-
+  pr {|
 extern zend_module_entry guestfs_php_module_entry;
 #define phpext_guestfs_php_ptr &guestfs_php_module_entry
 
 #endif /* PHP_GUESTFS_PHP_H */
-"
+|}
 
 and generate_php_c () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-/* NOTE: Be very careful with all macros in PHP header files.  The
+  pr {|/* NOTE: Be very careful with all macros in PHP header files.  The
  * morons who wrote them aren't good at making them safe for inclusion
  * in arbitrary places in C code, eg. not using 'do ... while(0)'
  * or parenthesizing any of the arguments.
@@ -93,8 +90,8 @@ and generate_php_c () =
 #include <php.h>
 #include <php_guestfs_php.h>
 
-#include \"guestfs.h\"
-#include \"guestfs-utils.h\" /* Only for POINTER_NOT_IMPLEMENTED */
+#include "guestfs.h"
+#include "guestfs-utils.h" /* Only for POINTER_NOT_IMPLEMENTED */
 
 static int res_guestfs_h;
 
@@ -105,27 +102,27 @@ static int res_guestfs_h;
 #endif
 
 #if ZEND_MODULE_API_NO >= 20151012
-# define GUESTFS_RETURN_STRING(x, duplicate) \\
+# define GUESTFS_RETURN_STRING(x, duplicate) \
     do { if (duplicate) { RETURN_STRING(x); } else { RETVAL_STRING(x); efree ((char *)x); return; } } while (0)
-# define guestfs_add_assoc_string(arg, key, str, dup) \\
+# define guestfs_add_assoc_string(arg, key, str, dup) \
     add_assoc_string(arg, key, str)
-# define guestfs_add_assoc_stringl(arg, key, str, len, dup) \\
+# define guestfs_add_assoc_stringl(arg, key, str, len, dup) \
     add_assoc_stringl(arg, key, str, len)
-# define guestfs_add_next_index_string(retval, val, x) \\
+# define guestfs_add_next_index_string(retval, val, x) \
     add_next_index_string (retval, val)
-# define GUESTFS_ZEND_FETCH_RESOURCE(rsrc, rsrc_type, passed_id, resource_type_name, resource_type) \\
+# define GUESTFS_ZEND_FETCH_RESOURCE(rsrc, rsrc_type, passed_id, resource_type_name, resource_type) \
     (rsrc) = (rsrc_type) zend_fetch_resource (Z_RES_P(passed_id), resource_type_name, resource_type)
 typedef size_t guestfs_string_length;
 #else
-# define GUESTFS_RETURN_STRING(x, duplicate) \\
+# define GUESTFS_RETURN_STRING(x, duplicate) \
     RETURN_STRING(x, duplicate)
-# define guestfs_add_assoc_string(arg, key, str, dup) \\
+# define guestfs_add_assoc_string(arg, key, str, dup) \
     add_assoc_string(arg, key, str, dup)
-# define guestfs_add_assoc_stringl(arg, key, str, len, dup) \\
+# define guestfs_add_assoc_stringl(arg, key, str, len, dup) \
     add_assoc_stringl(arg, key, str, len, dup)
-# define guestfs_add_next_index_string(retval, val, x) \\
+# define guestfs_add_next_index_string(retval, val, x) \
     add_next_index_string (retval, val, x)
-# define GUESTFS_ZEND_FETCH_RESOURCE(rsrc, rsrc_type, passed_id, resource_type_name, resource_type) \\
+# define GUESTFS_ZEND_FETCH_RESOURCE(rsrc, rsrc_type, passed_id, resource_type_name, resource_type) \
   ZEND_FETCH_RESOURCE(rsrc, rsrc_type, &(passed_id), -1, resource_type_name, resource_type)
 typedef int guestfs_string_length;
 #endif
@@ -138,7 +135,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_last_error, 0, 0, 1)
   ZEND_ARG_INFO(0, g)
 ZEND_END_ARG_INFO()
 
-";
+|};
   List.iter (
     fun { name = shortname; style = ret, args, optargs; } ->
       let len = List.length args in
@@ -159,7 +156,7 @@ ZEND_END_ARG_INFO()
       pr "ZEND_END_ARG_INFO()\n\n";
   ) (actions |> external_functions |> sort);
 
-  pr "
+  pr {|
 
 /* Convert array to list of strings.
  * http://marc.info/?l=pecl-dev&m=112205192100631&w=2
@@ -237,13 +234,13 @@ PHP_MINIT_FUNCTION (guestfs_php)
 static zend_function_entry guestfs_php_functions[] = {
   PHP_FE (guestfs_create, arginfo_create)
   PHP_FE (guestfs_last_error, arginfo_last_error)
-";
+|};
 
   List.iter (
     fun { name } -> pr "  PHP_FE (guestfs_%s, arginfo_%s)\n" name name
   ) (actions |> external_functions |> sort);
 
-  pr "  { NULL, NULL, NULL }
+  pr {|  { NULL, NULL, NULL }
 };
 
 zend_module_entry guestfs_php_module_entry = {
@@ -288,7 +285,7 @@ PHP_FUNCTION (guestfs_last_error)
   zval *z_g;
   guestfs_h *g;
 
-  if (zend_parse_parameters (ZEND_NUM_ARGS() TSRMLS_CC, \"r\",
+  if (zend_parse_parameters (ZEND_NUM_ARGS() TSRMLS_CC, "r",
                              &z_g) == FAILURE) {
     RETURN_FALSE;
   }
@@ -307,7 +304,7 @@ PHP_FUNCTION (guestfs_last_error)
   }
 }
 
-";
+|};
 
   (* Now generate the PHP bindings for each action. *)
   List.iter (

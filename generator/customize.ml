@@ -57,8 +57,7 @@ let ops = [
     op_discrim = "`AppendLine";
     op_exclude_v2v = false;
     op_shortdesc = "Append line(s) to the file";
-    op_pod_longdesc = "\
-Append a single line of text to the C<FILE>.  If the file does not already
+    op_pod_longdesc = {|Append a single line of text to the C<FILE>.  If the file does not already
 end with a newline, then one is added before the appended
 line.  Also a newline is added to the end of the C<LINE> string
 automatically.
@@ -84,7 +83,7 @@ To insert several lines, use the same option several times:
 To insert a blank line before the appended line, do:
 
  --append-line '/etc/hosts:'
- --append-line '/etc/hosts:10.0.0.1 foo'";
+ --append-line '/etc/hosts:10.0.0.1 foo'|};
   };
 
   { op_name = "chmod";
@@ -104,8 +103,7 @@ it with C<0> to get octal, ie. use C<0700> not C<700>.";
     op_discrim = "`Chown";
     op_exclude_v2v = false;
     op_shortdesc = "Change the owner user and group ID of a file or directory";
-    op_pod_longdesc = "\
-Change the owner user and group ID of a file or directory in the guest.
+    op_pod_longdesc = {|Change the owner user and group ID of a file or directory in the guest.
 Note:
 
 =over 4
@@ -125,7 +123,7 @@ For example:
 
  virt-customize --chown '0:0:/var/log/audit.log'
 
-See also: I<--upload>.";
+See also: I<--upload>.|};
   };
 
   { op_name = "commands-from-file";
@@ -133,8 +131,7 @@ See also: I<--upload>.";
     op_discrim = "`CommandsFromFile";
     op_exclude_v2v = false;
     op_shortdesc = "Read customize commands from file";
-    op_pod_longdesc = "\
-Read the customize commands from a file, one (and its arguments)
+    op_pod_longdesc = {|Read the customize commands from a file, one (and its arguments)
 each line.
 
 Each line contains a single customization command and its arguments,
@@ -146,15 +143,15 @@ for example:
 
 Empty lines are ignored, and lines starting with C<#> are comments
 and are ignored as well.  Furthermore, arguments can be spread across
-multiple lines, by adding a C<\\> (continuation character) at the of
+multiple lines, by adding a C<\> (continuation character) at the of
 a line, for example
 
- edit /some/file:\\
+ edit /some/file:\
    s/^OPT=.*/OPT=ok/
 
 The commands are handled in the same order as they are in the file,
 as if they were specified as I<--delete /some/file> on the command
-line.";
+line.|};
   };
 
   { op_name = "copy";
@@ -185,8 +182,7 @@ Wildcards cannot be used.";
     op_discrim = "`Delete";
     op_exclude_v2v = false;
     op_shortdesc = "Delete a file or directory";
-    op_pod_longdesc = "\
-Delete a file from the guest.  Or delete a directory (and all its
+    op_pod_longdesc = {|Delete a file from the guest.  Or delete a directory (and all its
 contents, recursively).
 
 You can use shell glob characters in the specified path.  Be careful
@@ -195,7 +191,7 @@ For example:
 
  virt-customize --delete '/var/log/*.log'.
 
-See also: I<--upload>, I<--scrub>.";
+See also: I<--upload>, I<--scrub>.|};
   };
 
   { op_name = "edit";
@@ -203,15 +199,14 @@ See also: I<--upload>, I<--scrub>.";
     op_discrim = "`Edit";
     op_exclude_v2v = false;
     op_shortdesc = "Edit file using Perl expression";
-    op_pod_longdesc = "\
-Edit C<FILE> using the Perl expression C<EXPR>.
+    op_pod_longdesc = {|Edit C<FILE> using the Perl expression C<EXPR>.
 
 Be careful to properly quote the expression to prevent it from
 being altered by the shell.
 
 Note that this option is only available when Perl 5 is installed.
 
-See L<virt-edit(1)/NON-INTERACTIVE EDITING>.";
+See L<virt-edit(1)/NON-INTERACTIVE EDITING>.|};
   };
 
   { op_name = "firstboot";
@@ -219,8 +214,7 @@ See L<virt-edit(1)/NON-INTERACTIVE EDITING>.";
     op_discrim = "`FirstbootScript";
     op_exclude_v2v = false;
     op_shortdesc = "Run script at first guest boot";
-    op_pod_longdesc = "\
-Install C<SCRIPT> inside the guest, so that when the guest first boots
+    op_pod_longdesc = {|Install C<SCRIPT> inside the guest, so that when the guest first boots
 up, the script runs (as root, late in the boot process).
 
 The script is automatically chmod +x after installation in the guest.
@@ -234,7 +228,7 @@ order that they appear on the command line.
 Please take a look at L<virt-builder(1)/FIRST BOOT SCRIPTS> for more
 information and caveats about the first boot scripts.
 
-See also I<--run>.";
+See also I<--run>.|};
   };
 
   { op_name = "firstboot-command";
@@ -242,8 +236,7 @@ See also I<--run>.";
     op_discrim = "`FirstbootCommand";
     op_exclude_v2v = false;
     op_shortdesc = "Run command at first guest boot";
-    op_pod_longdesc = "\
-Run command (and arguments) inside the guest when the guest first
+    op_pod_longdesc = {|Run command (and arguments) inside the guest when the guest first
 boots up (as root, late in the boot process).
 
 You can have multiple I<--firstboot> options.  They run in the same
@@ -252,7 +245,7 @@ order that they appear on the command line.
 Please take a look at L<virt-builder(1)/FIRST BOOT SCRIPTS> for more
 information and caveats about the first boot scripts.
 
-See also I<--run>.";
+See also I<--run>.|};
   };
 
   { op_name = "firstboot-install";
@@ -260,13 +253,12 @@ See also I<--run>.";
     op_discrim = "`FirstbootPackages";
     op_exclude_v2v = false;
     op_shortdesc = "Add package(s) to install at first boot";
-    op_pod_longdesc = "\
-Install the named packages (a comma-separated list).  These are
+    op_pod_longdesc = {|Install the named packages (a comma-separated list).  These are
 installed when the guest first boots using the guest’s package manager
 (eg. apt, yum, etc.) and the guest’s network connection.
 
 For an overview on the different ways to install packages, see
-L<virt-builder(1)/INSTALLING PACKAGES>.";
+L<virt-builder(1)/INSTALLING PACKAGES>.|};
   };
 
   { op_name = "hostname";
@@ -284,8 +276,7 @@ dotted hostname.domainname (FQDN) if you want.";
     op_discrim = "`InjectBalloonServer";
     op_exclude_v2v = true;
     op_shortdesc = "Inject the Balloon Server into a Windows guest";
-    op_pod_longdesc = "\
-Inject the Balloon Server (F<blnsvr.exe>) into a Windows guest.
+    op_pod_longdesc = {|Inject the Balloon Server (F<blnsvr.exe>) into a Windows guest.
 This operation also injects a firstboot script so that the Balloon
 Server is installed when the guest boots.
 
@@ -293,7 +284,7 @@ The parameter is the same as used by the I<--inject-virtio-win> operation.
 
 Note that to do a full conversion of a Windows guest from a
 foreign hypervisor like VMware (which involves many other operations)
-you should use the L<virt-v2v(1)> tool instead of this.";
+you should use the L<virt-v2v(1)> tool instead of this.|};
   };
 
   { op_name = "inject-qemu-ga";
@@ -301,8 +292,7 @@ you should use the L<virt-v2v(1)> tool instead of this.";
     op_discrim = "`InjectQemuGA";
     op_exclude_v2v = true;
     op_shortdesc = "Inject the QEMU Guest Agent into a Windows guest";
-    op_pod_longdesc = "\
-Inject the QEMU Guest Agent into a Windows guest.  The guest
+    op_pod_longdesc = {|Inject the QEMU Guest Agent into a Windows guest.  The guest
 agent communicates with qemu through a socket in order to
 provide enhanced features (see L<qemu-ga(8)>).  This operation
 also injects a firstboot script so that the Guest Agent is
@@ -312,7 +302,7 @@ The parameter is the same as used by the I<--inject-virtio-win> operation.
 
 Note that to do a full conversion of a Windows guest from a
 foreign hypervisor like VMware (which involves many other operations)
-you should use the L<virt-v2v(1)> tool instead of this.";
+you should use the L<virt-v2v(1)> tool instead of this.|};
   };
 
   { op_name = "inject-virtio-win";
@@ -320,8 +310,7 @@ you should use the L<virt-v2v(1)> tool instead of this.";
     op_discrim = "`InjectVirtioWin";
     op_exclude_v2v = true;
     op_shortdesc = "Inject virtio-win drivers into a Windows guest";
-    op_pod_longdesc = "\
-Inject virtio-win drivers into a Windows guest.  These drivers
+    op_pod_longdesc = {|Inject virtio-win drivers into a Windows guest.  These drivers
 add virtio accelerated drivers suitable when running on top of
 a hypervisor that supports virtio (such as qemu/KVM).  The
 operation also adjusts the Windows Registry so that the drivers
@@ -345,7 +334,7 @@ The directory containing the unpacked virtio-win drivers
 
 Note that to do a full conversion of a Windows guest from a
 foreign hypervisor like VMware (which involves many other operations)
-you should use the L<virt-v2v(1)> tool instead of this.";
+you should use the L<virt-v2v(1)> tool instead of this.|};
   };
 
   { op_name = "install";
@@ -353,15 +342,14 @@ you should use the L<virt-v2v(1)> tool instead of this.";
     op_discrim = "`InstallPackages";
     op_exclude_v2v = false;
     op_shortdesc = "Add package(s) to install";
-    op_pod_longdesc = "\
-Install the named packages (a comma-separated list).  These are
+    op_pod_longdesc = {|Install the named packages (a comma-separated list).  These are
 installed during the image build using the guest’s package manager
 (eg. apt, yum, etc.) and the host’s network connection.
 
 For an overview on the different ways to install packages, see
 L<virt-builder(1)/INSTALLING PACKAGES>.
 
-See also I<--update>, I<--uninstall>.";
+See also I<--update>, I<--uninstall>.|};
   };
 
   { op_name = "link";
@@ -402,12 +390,11 @@ Wildcards cannot be used.";
     op_discrim = "`Password";
     op_exclude_v2v = false;
     op_shortdesc = "Set user password";
-    op_pod_longdesc = "\
-Set the password for C<USER>.  (Note this option does I<not>
+    op_pod_longdesc = {|Set the password for C<USER>.  (Note this option does I<not>
 create the user account).
 
 See L<virt-builder(1)/USERS AND PASSWORDS> for the format of
-the C<SELECTOR> field, and also how to set up user accounts.";
+the C<SELECTOR> field, and also how to set up user accounts.|};
   };
 
   { op_name = "root-password";
@@ -415,14 +402,13 @@ the C<SELECTOR> field, and also how to set up user accounts.";
     op_discrim = "`RootPassword";
     op_exclude_v2v = false;
     op_shortdesc = "Set root password";
-    op_pod_longdesc = "\
-Set the root password.
+    op_pod_longdesc = {|Set the root password.
 
 See L<virt-builder(1)/USERS AND PASSWORDS> for the format of
 the C<SELECTOR> field, and also how to set up user accounts.
 
 Note: In virt-builder, if you I<don't> set I<--root-password>
-then the guest is given a I<random> root password.";
+then the guest is given a I<random> root password.|};
   };
 
   { op_name = "run";
@@ -430,8 +416,7 @@ then the guest is given a I<random> root password.";
     op_discrim = "`Script";
     op_exclude_v2v = false;
     op_shortdesc = "Run script in disk image";
-    op_pod_longdesc = "\
-Run the shell script (or any program) called C<SCRIPT> on the disk
+    op_pod_longdesc = {|Run the shell script (or any program) called C<SCRIPT> on the disk
 image.  The script runs virtualized inside a small appliance, chrooted
 into the guest filesystem.
 
@@ -446,7 +431,7 @@ connection (I<--attach>).  You can also upload data files (I<--upload>).
 You can have multiple I<--run> options.  They run
 in the same order that they appear on the command line.
 
-See also: I<--firstboot>, I<--attach>, I<--upload>.";
+See also: I<--firstboot>, I<--attach>, I<--upload>.|};
   };
 
   { op_name = "run-command";
@@ -454,8 +439,7 @@ See also: I<--firstboot>, I<--attach>, I<--upload>.";
     op_discrim = "`Command";
     op_exclude_v2v = false;
     op_shortdesc = "Run command in disk image";
-    op_pod_longdesc = "\
-Run the command and arguments on the disk image.  The command runs
+    op_pod_longdesc = {|Run the command and arguments on the disk image.  The command runs
 virtualized inside a small appliance, chrooted into the guest filesystem.
 
 If libguestfs supports it then a limited network connection is
@@ -467,7 +451,7 @@ connection (I<--attach>).  You can also upload data files (I<--upload>).
 You can have multiple I<--run-command> options.  They run
 in the same order that they appear on the command line.
 
-See also: I<--firstboot>, I<--attach>, I<--upload>.";
+See also: I<--firstboot>, I<--attach>, I<--upload>.|};
   };
 
   { op_name = "scrub";
@@ -475,8 +459,7 @@ See also: I<--firstboot>, I<--attach>, I<--upload>.";
     op_discrim = "`Scrub";
     op_exclude_v2v = false;
     op_shortdesc = "Scrub a file";
-    op_pod_longdesc = "\
-Scrub a file from the guest.  This is like I<--delete> except that:
+    op_pod_longdesc = {|Scrub a file from the guest.  This is like I<--delete> except that:
 
 =over 4
 
@@ -488,7 +471,7 @@ It scrubs the data so a guest could not recover it.
 
 It cannot delete directories, only regular files.
 
-=back";
+=back|};
   };
 
   { op_name = "sm-attach";
@@ -538,8 +521,7 @@ Unregister the guest using C<subscription-manager>.";
     op_discrim = "`SSHInject";
     op_exclude_v2v = false;
     op_shortdesc = "Inject a public key into the guest";
-    op_pod_longdesc = "\
-Inject an ssh key so the given C<USER> will be able to log in over
+    op_pod_longdesc = {|Inject an ssh key so the given C<USER> will be able to log in over
 ssh without supplying a password.  The C<USER> must exist already
 in the guest.
 
@@ -547,7 +529,7 @@ See L<virt-builder(1)/SSH KEYS> for the format of
 the C<SELECTOR> field.
 
 You can have multiple I<--ssh-inject> options, for different users
-and also for more keys for each user."
+and also for more keys for each user.|}
   };
 
   { op_name = "tar-in";
@@ -555,12 +537,11 @@ and also for more keys for each user."
     op_discrim = "`TarIn";
     op_exclude_v2v = false;
     op_shortdesc = "Copy local files or directories from a tarball into image";
-    op_pod_longdesc = "\
-Copy local files or directories from a local tar file
+    op_pod_longdesc = {|Copy local files or directories from a local tar file
 called C<TARFILE> into the disk image, placing them in the
 directory C<REMOTEDIR> (which must exist).  Note that
 the tar file must be uncompressed (F<.tar.gz> files will not work
-here)";
+here)|};
   };
 
   { op_name = "timezone";
@@ -606,13 +587,12 @@ This command recursively truncates all files under C<PATH> to zero-length.";
     op_discrim = "`UninstallPackages";
     op_exclude_v2v = false;
     op_shortdesc = "Uninstall package(s)";
-    op_pod_longdesc = "\
-Uninstall the named packages (a comma-separated list).  These are
+    op_pod_longdesc = {|Uninstall the named packages (a comma-separated list).  These are
 removed during the image build using the guest’s package manager
 (eg. apt, yum, etc.).  Dependent packages may also need to be
 uninstalled to satisfy the request.
 
-See also I<--install>, I<--update>.";
+See also I<--install>, I<--update>.|};
   };
 
   { op_name = "update";
@@ -620,12 +600,11 @@ See also I<--install>, I<--update>.";
     op_discrim = "`Update";
     op_exclude_v2v = false;
     op_shortdesc = "Update packages";
-    op_pod_longdesc = "\
-Do the equivalent of C<yum update>, C<apt-get upgrade>, or whatever
+    op_pod_longdesc = {|Do the equivalent of C<yum update>, C<apt-get upgrade>, or whatever
 command is required to update the packages already installed in the
 template to their latest versions.
 
-See also I<--install>, I<--uninstall>.";
+See also I<--install>, I<--uninstall>.|};
   };
 
   { op_name = "upload";
@@ -633,8 +612,7 @@ See also I<--install>, I<--uninstall>.";
     op_discrim = "`Upload";
     op_exclude_v2v = false;
     op_shortdesc = "Upload local file to destination";
-    op_pod_longdesc = "\
-Upload local file C<FILE> to destination C<DEST> in the disk image.
+    op_pod_longdesc = {|Upload local file C<FILE> to destination C<DEST> in the disk image.
 File owner and permissions from the original are preserved, so you
 should set them to what you want them to be in the disk image.
 
@@ -645,7 +623,7 @@ If C<DEST> is a directory name (which must already exist in the guest)
 then the file is uploaded into that directory, and it keeps the same
 name as on the local filesystem.
 
-See also: I<--mkdir>, I<--delete>, I<--scrub>.";
+See also: I<--mkdir>, I<--delete>, I<--scrub>.|};
   };
 
   { op_name = "write";
@@ -676,20 +654,18 @@ let flags = [
     flag_type = FlagBool false;
     flag_ml_var = "scrub_logfile";
     flag_shortdesc = "Scrub build log file";
-    flag_pod_longdesc = "\
-Scrub C<builder.log> (log file from build commands) from the image
+    flag_pod_longdesc = {|Scrub C<builder.log> (log file from build commands) from the image
 after building is complete.  If you don't want to reveal precisely how
 the image was built, use this option.
 
-See also: L</LOG FILE>.";
+See also: L</LOG FILE>.|};
   };
 
   { flag_name = "password-crypto";
     flag_type = FlagPasswordCrypto "md5|sha256|sha512";
     flag_ml_var = "password_crypto";
     flag_shortdesc = "Set password crypto";
-    flag_pod_longdesc = "\
-When the virt tools change or set a password in the guest, this
+    flag_pod_longdesc = {|When the virt tools change or set a password in the guest, this
 option sets the password encryption of that password to
 C<md5>, C<sha256> or C<sha512>.
 
@@ -707,15 +683,14 @@ Note this does not change the default password encryption used
 by the guest when you create new user accounts inside the guest.
 If you want to do that, then you should use the I<--edit> option
 to modify C</etc/sysconfig/authconfig> (Fedora, RHEL) or
-C</etc/pam.d/common-password> (Debian, Ubuntu).";
+C</etc/pam.d/common-password> (Debian, Ubuntu).|};
   };
 
   { flag_name = "no-selinux-relabel";
     flag_type = FlagBool false (* XXX - the default in virt-builder *);
     flag_ml_var = "no_selinux_relabel";
     flag_shortdesc = "Do not relabel files with correct SELinux labels";
-    flag_pod_longdesc = "\
-Do not attempt to correct the SELinux labels of files in the guest.
+    flag_pod_longdesc = {|Do not attempt to correct the SELinux labels of files in the guest.
 
 In such guests that support SELinux, customization automatically
 relabels files so that they have the correct SELinux label.  (The
@@ -724,7 +699,7 @@ customization will instead touch F</.autorelabel> on the image to
 schedule a relabel operation for the next time the image boots.)  This
 option disables the automatic relabeling.
 
-The option is a no-op for guests that do not support SELinux.";
+The option is a no-op for guests that do not support SELinux.|};
   };
 
   { flag_name = "selinux-relabel";
@@ -758,8 +733,7 @@ let rec generate_customize_cmdline_mli () =
   generate_ops_struct_decl ();
   pr "\n";
 
-  pr "\
-type argspec = Getopt.keys * Getopt.spec * Getopt.doc
+  pr {|type argspec = Getopt.keys * Getopt.spec * Getopt.doc
 val argspec : ?v2v:bool -> unit -> (argspec * string option * string) list * (unit -> ops)
 (** This returns a pair [(list, get_ops)].
 
@@ -770,13 +744,12 @@ val argspec : ?v2v:bool -> unit -> (argspec * string option * string) list * (un
     command line.
 
     If the parameter [~v2v] is true then this excludes parameters
-    that should be excluded from virt-v2v. *)"
+    that should be excluded from virt-v2v. *)|}
 
 and generate_customize_cmdline_ml () =
   generate_header OCamlStyle GPLv2plus;
 
-  pr "\
-(* Command line argument parsing, both for the virt-customize binary
+  pr {|(* Command line argument parsing, both for the virt-customize binary
  * and for the other tools that share the same code.
  *)
 
@@ -787,16 +760,15 @@ open Tools_utils
 open Common_gettext.Gettext
 open Getopt.OptionName
 
-";
+|};
   generate_ops_struct_decl ();
   pr "\n";
 
-  pr "\
-type argspec = Getopt.keys * Getopt.spec * Getopt.doc
+  pr {|type argspec = Getopt.keys * Getopt.spec * Getopt.doc
 
 let rec argspec ?(v2v = false) () =
   let ops = ref [] in
-";
+|};
   List.iter (
     function
     | { flag_type = FlagBool default; flag_ml_var = var } ->
@@ -806,45 +778,44 @@ let rec argspec ?(v2v = false) () =
     | { flag_type = FlagSMCredentials _; flag_ml_var = var } ->
       pr "  let %s = ref None in\n" var
   ) flags;
-  pr "\
-
+  pr {|
   let rec get_ops () = {
     ops = List.rev !ops;
     flags = get_flags ();
   }
   and get_flags () = {
-";
+|};
   List.iter (fun { flag_ml_var = var } -> pr "    %s = !%s;\n" var var) flags;
-  pr "  }
+  pr {|  }
   in
 
   let split_string_pair option_name arg =
     let i =
       try String.index arg ':'
       with Not_found ->
-        error (f_\"invalid format for '--%%s' parameter, see the man page\")
+        error (f_"invalid format for '--%%s' parameter, see the man page")
           option_name in
     let len = String.length arg in
     String.sub arg 0 i, String.sub arg (i+1) (len-(i+1))
   and split_string_triplet option_name arg =
-    match String.nsplit ~max:3 \":\" arg with
+    match String.nsplit ~max:3 ":" arg with
     | [a; b; c] -> a, b, c
     | _ ->
-        error (f_\"invalid format for '--%%s' parameter, see the man page\")
+        error (f_"invalid format for '--%%s' parameter, see the man page")
           option_name
   and split_string_list arg =
-    String.nsplit \",\" arg
+    String.nsplit "," arg
   in
   let split_links_list option_name arg =
-    match String.nsplit \":\" arg with
+    match String.nsplit ":" arg with
     | [] | [_] ->
-      error (f_\"invalid format for '--%%s' parameter, see the man page\")
+      error (f_"invalid format for '--%%s' parameter, see the man page")
         option_name
     | target :: lns -> target, lns
   in
 
   let rec argspec = [
-";
+|};
 
   List.iter (
     function
@@ -1059,7 +1030,7 @@ let rec argspec ?(v2v = false) () =
     | { op_type = SMPoolSelector _; } -> ()
   ) ops;
 
-pr "    ] in
+pr {|    ] in
     let lines = read_whole_file filename in
     let lines = String.lines_split lines in
     let lines = List.map String.triml lines in
@@ -1067,12 +1038,12 @@ pr "    ] in
       fun line ->
         String.length line > 0 && line.[0] <> '#'
     ) lines in
-    let cmds = List.map (fun line -> String.split \" \" line) lines in
+    let cmds = List.map (fun line -> String.split " " line) lines in
     (* Check for commands not allowed in files containing commands. *)
     List.iter (
       fun (cmd, _) ->
         if List.mem cmd forbidden_commands then
-          error (f_\"command '%%s' cannot be used in command files, see the man page\")
+          error (f_"command '%%s' cannot be used in command files, see the man page")
             cmd
     ) cmds;
     List.iter (
@@ -1086,10 +1057,10 @@ pr "    ] in
           | Getopt.Unit fn -> fn ()
           | Getopt.String (_, fn) -> fn arg
           | Getopt.Set varref -> varref := true
-          | _ -> error \"INTERNAL error: spec not handled for %%s\" cmd
+          | _ -> error "INTERNAL error: spec not handled for %%s" cmd
           )
         with Not_found ->
-          error (f_\"command '%%s' not valid, see the man page\")
+          error (f_"command '%%s' not valid, see the man page")
             cmd
     ) cmds
   in
@@ -1103,15 +1074,14 @@ pr "    ] in
     ) argspec in
 
   argspec, get_ops
-"
+|}
 
 and generate_ops_struct_decl () =
-  pr "\
-type ops = {
+  pr {|type ops = {
   ops : op list;
   flags : flags;
 }
-";
+|};
 
   (* Operations. *)
   pr "and op = [\n";
@@ -1250,12 +1220,11 @@ let generate_customize_options_pod ?(v2v = false) () =
 
   List.iter (
     fun (_, item, longdesc) ->
-      pr "\
-=item %s
+      pr {|=item %s
 
 %s
 
-" item longdesc
+|} item longdesc
   ) pod;
 
   pr "=back\n\n"

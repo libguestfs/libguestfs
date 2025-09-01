@@ -36,8 +36,7 @@ let generate_header = generate_header ~inputs:["generator/lua.ml"]
 let generate_lua_c () =
   generate_header CStyle LGPLv2plus;
 
-  pr "\
-#include <config.h>
+  pr {|#include <config.h>
 
 /* It is safe to call deprecated functions from this file. */
 #define GUESTFS_NO_WARN_DEPRECATED
@@ -67,12 +66,12 @@ let generate_lua_c () =
 #endif
 #endif
 
-#include \"ignore-value.h\"
+#include "ignore-value.h"
 
 #include <guestfs.h>
-#include \"guestfs-utils.h\"
+#include "guestfs-utils.h"
 
-#define GUESTFS_LUA_HANDLE \"guestfs handle\"
+#define GUESTFS_LUA_HANDLE "guestfs handle"
 
 /* This struct is managed on the Lua heap.  If the GC collects it,
  * the Lua '__gc' function is called which ends up calling
@@ -114,7 +113,7 @@ static uint64_t get_event (lua_State *L, int index);
 static uint64_t get_event_bitmask (lua_State *L, int index);
 static void push_event (lua_State *L, uint64_t event);
 
-";
+|};
 
   List.iter (
     function
@@ -125,20 +124,19 @@ static void push_event (lua_State *L, uint64_t event);
       pr "static void push_%s_list (lua_State *L, struct guestfs_%s_list *v);\n" typ typ
   ) (rstructs_used_by (actions |> external_functions));
 
-  pr "\
-
+  pr {|
 /* On the stack at 'index' should be a table.  Check if 'name' (string)
  * is a key in this table, and if so execute 'code'.  While 'code' is
  * executing, the top of stack (ie. index == -1) is the value of 'name'.
  */
-#define OPTARG_IF_SET(index, name, code) \\
-  do {                                   \\
-    lua_pushliteral (L, name);           \\
-    lua_gettable (L, index);             \\
-    if (!lua_isnil (L, -1)) {            \\
-      code                               \\
-    }                                    \\
-    lua_pop (L, 1);                      \\
+#define OPTARG_IF_SET(index, name, code) \
+  do {                                   \
+    lua_pushliteral (L, name);           \
+    lua_gettable (L, index);             \
+    if (!lua_isnil (L, -1)) {            \
+      code                               \
+    }                                    \
+    lua_pop (L, 1);                      \
   } while (0)
 
 /* Create a new connection. */
@@ -151,21 +149,21 @@ guestfs_int_lua_create (lua_State *L)
   char err[256];
 
   if (lua_gettop (L) == 1) {
-    OPTARG_IF_SET (1, \"environment\",
+    OPTARG_IF_SET (1, "environment",
         if (! lua_toboolean (L, -1))
             flags |= GUESTFS_CREATE_NO_ENVIRONMENT;
     );
-    OPTARG_IF_SET (1, \"close_on_exit\",
+    OPTARG_IF_SET (1, "close_on_exit",
         if (! lua_toboolean (L, -1))
             flags |= GUESTFS_CREATE_NO_CLOSE_ON_EXIT;
     );
   }
   else if (lua_gettop (L) > 1)
-    return luaL_error (L, \"Guestfs.create: too many arguments\");
+    return luaL_error (L, "Guestfs.create: too many arguments");
 
   g = guestfs_create_flags (flags);
   if (!g)
-    return luaL_error (L, \"Guestfs.create: cannot create handle: %%s\",
+    return luaL_error (L, "Guestfs.create: cannot create handle: %%s",
                        guestfs_int_strerror (errno, err, sizeof err));
 
   guestfs_set_error_handler (g, NULL, NULL);
@@ -235,15 +233,15 @@ error__tostring (lua_State *L)
   const char *msg;
   char err[256];
 
-  lua_pushliteral (L, \"code\");
+  lua_pushliteral (L, "code");
   lua_gettable (L, 1);
   code = luaL_checkint (L, -1);
-  lua_pushliteral (L, \"msg\");
+  lua_pushliteral (L, "msg");
   lua_gettable (L, 1);
   msg = luaL_checkstring (L, -1);
 
   if (code)
-    lua_pushfstring (L, \"%%s: %%s\", msg,
+    lua_pushfstring (L, "%%s: %%s", msg,
                      guestfs_int_strerror (code, err, sizeof err));
   else
     lua_pushstring (L, msg);
@@ -259,15 +257,15 @@ last_error (lua_State *L, guestfs_h *g)
    * and 'code' fields.
    */
   lua_newtable (L);
-  lua_pushliteral (L, \"msg\");
+  lua_pushliteral (L, "msg");
   lua_pushstring (L, guestfs_last_error (g));
   lua_settable (L, -3);
-  lua_pushliteral (L, \"code\");
+  lua_pushliteral (L, "code");
   lua_pushinteger (L, guestfs_last_errno (g));
   lua_settable (L, -3);
 
   lua_newtable (L);
-  lua_pushliteral (L, \"__tostring\");
+  lua_pushliteral (L, "__tostring");
   lua_pushcfunction (L, error__tostring);
   lua_settable (L, -3);
 
@@ -299,7 +297,7 @@ get_per_handle_table (lua_State *L, guestfs_h *g)
   }
 }
 
-/* Free the per-handle Lua table.  It doesn't literally \"free\"
+/* Free the per-handle Lua table.  It doesn't literally "free"
  * anything since the GC will do that.  It just removes the entry
  * from the global registry.
  */
@@ -324,8 +322,8 @@ guestfs_int_lua_set_event_callback (lua_State *L)
   struct event_state *es;
 
   if (g == NULL)
-    return luaL_error (L, \"Guestfs.%%s: handle is closed\",
-                       \"set_event_callback\");
+    return luaL_error (L, "Guestfs.%%s: handle is closed",
+                       "set_event_callback");
 
   event_bitmask = get_event_bitmask (L, 3);
 
@@ -340,7 +338,7 @@ guestfs_int_lua_set_event_callback (lua_State *L)
 
   es = malloc (sizeof *es);
   if (!es)
-    return luaL_error (L, \"failed to allocate event_state\");
+    return luaL_error (L, "failed to allocate event_state");
   es->next = u->es;
   es->L = L;
   es->u = u;
@@ -375,7 +373,7 @@ event_callback_wrapper (guestfs_h *g,
   lua_rawgeti (L, -1, es->ref);
 
   if (!lua_isfunction (L, -1)) {
-    fprintf (stderr, \"lua-guestfs: %%s: internal error: no closure found for g = %%p, eh = %%d\\n\",
+    fprintf (stderr, "lua-guestfs: %%s: internal error: no closure found for g = %%p, eh = %%d\n",
              __func__, g, eh);
     goto out;
   }
@@ -395,21 +393,21 @@ event_callback_wrapper (guestfs_h *g,
   case 0: /* call ok - do nothing */
     break;
   case LUA_ERRRUN:
-    fprintf (stderr, \"lua-guestfs: %%s: unexpected error in event handler: \",
+    fprintf (stderr, "lua-guestfs: %%s: unexpected error in event handler: ",
              __func__);
     print_any (L, -1, stderr);
     lua_pop (L, 1);
-    fprintf (stderr, \"\\n\");
+    fprintf (stderr, "\n");
     break;
   case LUA_ERRERR: /* can probably never happen */
-    fprintf (stderr, \"lua-guestfs: %%s: error calling error handler\\n\",
+    fprintf (stderr, "lua-guestfs: %%s: error calling error handler\n",
              __func__);
     break;
   case LUA_ERRMEM:
-    fprintf (stderr, \"lua-guestfs: %%s: memory allocation failed\\n\", __func__);
+    fprintf (stderr, "lua-guestfs: %%s: memory allocation failed\n", __func__);
     break;
   default:
-    fprintf (stderr, \"lua-guestfs: %%s: unknown error\\n\", __func__);
+    fprintf (stderr, "lua-guestfs: %%s: unknown error\n", __func__);
   }
 
   /* Pop the per-handle table. */
@@ -426,8 +424,8 @@ guestfs_int_lua_delete_event_callback (lua_State *L)
   int eh;
 
   if (g == NULL)
-    return luaL_error (L, \"Guestfs.%%s: handle is closed\",
-                       \"delete_event_callback\");
+    return luaL_error (L, "Guestfs.%%s: handle is closed",
+                       "delete_event_callback");
 
   eh = luaL_checkint (L, 2);
 
@@ -436,7 +434,7 @@ guestfs_int_lua_delete_event_callback (lua_State *L)
   return 0;
 }
 
-";
+|};
 
   (* Actions. *)
   List.iter (
@@ -632,8 +630,7 @@ guestfs_int_lua_delete_event_callback (lua_State *L)
       pr "\n"
   ) (actions |> external_functions |> sort);
 
-  pr "\
-static struct userdata *
+  pr {|static struct userdata *
 get_handle (lua_State *L, int index)
 {
   struct userdata *u;
@@ -653,7 +650,7 @@ get_string_list (lua_State *L, int index)
 
   strs = malloc ((len+1) * sizeof (char *));
   if (strs == NULL) {
-    luaL_error (L, \"get_string_list: malloc failed: %%s\",
+    luaL_error (L, "get_string_list: malloc failed: %%s",
                 guestfs_int_strerror (errno, err, sizeof err));
     /*NOTREACHED*/
     return NULL;
@@ -707,15 +704,15 @@ get_int64 (lua_State *L, int index)
   switch (lua_type (L, index)) {
   case LUA_TSTRING:
     s = luaL_checkstring (L, index);
-    if (sscanf (s, \"%%\" SCNi64, &r) != 1)
-      return luaL_error (L, \"int64 parameter expected\");
+    if (sscanf (s, "%%" SCNi64, &r) != 1)
+      return luaL_error (L, "int64 parameter expected");
     return r;
 
   case LUA_TNUMBER:
     return luaL_checkint (L, index);
 
   default:
-    return luaL_error (L, \"expecting 64 bit integer\");
+    return luaL_error (L, "expecting 64 bit integer");
   }
 }
 
@@ -724,7 +721,7 @@ push_int64 (lua_State *L, int64_t i64)
 {
   char s[64];
 
-  snprintf (s, sizeof s, \"%%\" PRIi64, i64);
+  snprintf (s, sizeof s, "%%" PRIi64, i64);
   lua_pushstring (L, s);
 }
 
@@ -746,14 +743,14 @@ push_int64_array (lua_State *L, const int64_t *array, size_t len)
 static void
 print_any (lua_State *L, int index, FILE *out)
 {
-  lua_getglobal(L, \"tostring\");
+  lua_getglobal(L, "tostring");
   lua_pushvalue (L, index >= 0 ? index : index-1);
   lua_call (L, 1, 1);
-  fprintf (out, \"%%s\", luaL_checkstring (L, -1));
+  fprintf (out, "%%s", luaL_checkstring (L, -1));
   lua_pop (L, 1);
 }
 
-";
+|};
 
   (* Code to handle events. *)
   pr "\
@@ -764,7 +761,7 @@ static const char *event_all[] = {
     fun (event, _) -> pr "  \"%s\",\n" event
   ) events;
 
-  pr "  NULL
+  pr {|  NULL
 };
 
 static uint64_t
@@ -797,7 +794,7 @@ get_event (lua_State *L, int index)
 static void
 push_event (lua_State *L, uint64_t event)
 {
-";
+|};
 
   List.iter (
     fun (event, i) ->
@@ -869,35 +866,33 @@ push_event (lua_State *L, uint64_t event)
       generate_push_struct_list typ
   ) (rstructs_used_by (actions |> external_functions));
 
-  pr "\
-/* Metamethods.
+  pr {|/* Metamethods.
  * See: http://article.gmane.org/gmane.comp.lang.lua.general/95065
  */
 static luaL_Reg metamethods[] = {
-  { \"__gc\", guestfs_int_lua_finalizer },
+  { "__gc", guestfs_int_lua_finalizer },
   { NULL, NULL }
 };
 
 /* Module functions. */
 static luaL_Reg functions[] = {
-  { \"create\", guestfs_int_lua_create },
+  { "create", guestfs_int_lua_create },
   { NULL, NULL }
 };
 
 /* Methods. */
 static luaL_Reg methods[] = {
-  { \"close\", guestfs_int_lua_close },
-  { \"set_event_callback\", guestfs_int_lua_set_event_callback },
-  { \"delete_event_callback\", guestfs_int_lua_delete_event_callback },
+  { "close", guestfs_int_lua_close },
+  { "set_event_callback", guestfs_int_lua_set_event_callback },
+  { "delete_event_callback", guestfs_int_lua_delete_event_callback },
 
-";
+|};
 
   List.iter (
     fun { name } -> pr "  { \"%s\", guestfs_int_lua_%s },\n" name name
   ) (actions |> external_functions |> sort);
 
-  pr "\
-
+  pr {|
   { NULL, NULL }
 };
 
@@ -910,7 +905,7 @@ make_version_string (char *version, size_t size)
   g = guestfs_create ();
   v = guestfs_version (g);
   snprintf (version, size,
-            \"libguestfs %%\" PRIi64 \".%%\" PRIi64 \".%%\" PRIi64 \"%%s\",
+            "libguestfs %%" PRIi64 ".%%" PRIi64 ".%%" PRIi64 "%%s",
             v->major, v->minor, v->release, v->extra);
   free (v);
   guestfs_close (g);
@@ -940,7 +935,7 @@ luaopen_guestfs (lua_State *L)
 #endif
 
   /* Set __index field of metatable to point to methods table. */
-  lua_setfield (L, -2, \"__index\");
+  lua_setfield (L, -2, "__index");
 
   /* Pop metatable, it is no longer needed. */
   lua_pop (L, 1);
@@ -954,28 +949,28 @@ luaopen_guestfs (lua_State *L)
 #endif
 
   /* Globals in the module namespace. */
-  lua_pushliteral (L, \"event_all\");
+  lua_pushliteral (L, "event_all");
   push_string_list (L, (char **) event_all);
   lua_settable (L, -3);
 
   /* Add _COPYRIGHT, etc. fields to the module namespace. */
-  lua_pushliteral (L, \"_COPYRIGHT\");
-  lua_pushliteral (L, \"Copyright (C) %s Red Hat Inc.\");
+  lua_pushliteral (L, "_COPYRIGHT");
+  lua_pushliteral (L, "Copyright (C) %s Red Hat Inc.");
   lua_settable (L, -3);
 
-  lua_pushliteral (L, \"_DESCRIPTION\");
-  lua_pushliteral (L, \"Lua binding to libguestfs\");
+  lua_pushliteral (L, "_DESCRIPTION");
+  lua_pushliteral (L, "Lua binding to libguestfs");
   lua_settable (L, -3);
 
-  lua_pushliteral (L, \"_VERSION\");
+  lua_pushliteral (L, "_VERSION");
   make_version_string (v, sizeof v);
   lua_pushlstring (L, v, strlen (v));
   lua_settable (L, -3);
 
   /* Return module table, so users choose their own name for the module:
-   * local G = require \"guestfs\"
+   * local G = require "guestfs"
    * g = G.create ()
    */
   return 1;
 }
-" copyright_years;
+|} copyright_years;

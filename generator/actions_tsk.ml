@@ -29,8 +29,7 @@ let non_daemon_functions = [
     optional = Some "libtsk";
     progress = true; cancellable = true;
     shortdesc = "walk through the filesystem content";
-    longdesc = "\
-Walk through the internal structures of a disk partition
+    longdesc = {|Walk through the internal structures of a disk partition
 (eg. F</dev/sda1>) in order to return a list of all the files
 and directories stored within.
 
@@ -169,7 +168,7 @@ Whiteout inode (BSD)
 
 Unknown file type
 
-=back" };
+=back|} };
 
   { defaults with
     name = "find_inode"; added = (1, 35, 6);
@@ -192,13 +191,12 @@ let daemon_functions = [
     optional = Some "sleuthkit";
     progress = true; cancellable = true;
     shortdesc = "download a file to the local machine given its inode";
-    longdesc = "\
-Download a file given its inode from the disk partition
+    longdesc = {|Download a file given its inode from the disk partition
 (eg. F</dev/sda1>) and save it as F<filename> on the local machine.
 
 It is not required to mount the disk to run this command.
 
-The command is capable of downloading deleted or inaccessible files." };
+The command is capable of downloading deleted or inaccessible files.|} };
 
   { defaults with
     name = "internal_filesystem_walk"; added = (1, 33, 39);
@@ -214,8 +212,7 @@ The command is capable of downloading deleted or inaccessible files." };
     optional = Some "sleuthkit";
     progress = true; cancellable = true;
     shortdesc = "download the given data units from the disk";
-    longdesc = "\
-Download the data units from F<start> address
+    longdesc = {|Download the data units from F<start> address
 to F<stop> from the disk partition (eg. F</dev/sda1>)
 and save them as F<filename> on the local machine.
 
@@ -229,7 +226,7 @@ while on ExtX ones they are referred as fragments.
 If the optional C<unallocated> flag is true (default is false),
 only the unallocated blocks will be extracted.
 This is useful to detect hidden data or to retrieve deleted files
-which data units have not been overwritten yet." };
+which data units have not been overwritten yet.|} };
 
   { defaults with
     name = "internal_find_inode"; added = (1, 35, 6);

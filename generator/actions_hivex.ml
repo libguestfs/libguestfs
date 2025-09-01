@@ -37,12 +37,11 @@ let daemon_functions = [
          ["hivex_node_values"; "0x1020"]]), [["hivex_close"]]
     ];
     shortdesc = "open a Windows Registry hive file";
-    longdesc = "\
-Open the Windows Registry hive file named F<filename>.
+    longdesc = {|Open the Windows Registry hive file named F<filename>.
 If there was any previous hivex handle associated with this
 guestfs session, then it is closed.
 
-This is a wrapper around the L<hivex(3)> call of the same name." };
+This is a wrapper around the L<hivex(3)> call of the same name.|} };
 
   { defaults with
     name = "hivex_close"; added = (1, 19, 35);
@@ -120,12 +119,11 @@ This is a wrapper around the L<hivex(3)> call of the same name." };
     style = RInt64 "valueh", [Int64 "nodeh"; String (PlainString, "key")], [];
     optional = Some "hivex";
     shortdesc = "return the named value";
-    longdesc = "\
-Return the value attached to C<nodeh> which has the
+    longdesc = {|Return the value attached to C<nodeh> which has the
 name C<key>, if it exists.  This can return C<0> meaning
 the key was not found.
 
-This is a wrapper around the L<hivex(3)> call of the same name." };
+This is a wrapper around the L<hivex(3)> call of the same name.|} };
 
   { defaults with
     name = "hivex_value_key"; added = (1, 19, 35);
@@ -152,20 +150,18 @@ This is a wrapper around the L<hivex(3)> call of the same name." };
     style = RBufferOut "databuf", [Int64 "valueh"], [];
     optional = Some "hivex";
     shortdesc = "return the data field from the (key, datatype, data) tuple";
-    longdesc = "\
-Return the data field of a (key, datatype, data) tuple.
+    longdesc = {|Return the data field of a (key, datatype, data) tuple.
 
 This is a wrapper around the L<hivex(3)> call of the same name.
 
-See also: C<guestfs_hivex_value_utf8>." };
+See also: C<guestfs_hivex_value_utf8>.|} };
 
   { defaults with
     name = "hivex_value_string"; added = (1, 37, 22);
     style = RString (RPlainString, "databuf"), [Int64 "valueh"], [];
     optional = Some "hivex";
     shortdesc = "return the data field as a UTF-8 string";
-    longdesc = "\
-This calls C<guestfs_hivex_value_value> (which returns the
+    longdesc = {|This calls C<guestfs_hivex_value_value> (which returns the
 data field from a hivex value tuple).  It then assumes that
 the field is a UTF-16LE string and converts the result to
 UTF-8 (or if this is not possible, it returns an error).
@@ -173,7 +169,7 @@ UTF-8 (or if this is not possible, it returns an error).
 This is useful for reading strings out of the Windows registry.
 However it is not foolproof because the registry is not
 strongly-typed and fields can contain arbitrary or unexpected
-data." };
+data.|} };
 
   { defaults with
     name = "hivex_commit"; added = (1, 19, 35);
@@ -191,15 +187,14 @@ data." };
          ["is_file"; "/hivex_commit2_copy"; "false"]]), [["hivex_close"]]
     ];
     shortdesc = "commit (write) changes back to the hive";
-    longdesc = "\
-Commit (write) changes to the hive.
+    longdesc = {|Commit (write) changes to the hive.
 
 If the optional F<filename> parameter is null, then the changes
 are written back to the same hive that was opened.  If this is
 not null then they are written to the alternate filename given
 and the original hive is left untouched.
 
-This is a wrapper around the L<hivex(3)> call of the same name." };
+This is a wrapper around the L<hivex(3)> call of the same name.|} };
 
   { defaults with
     name = "hivex_node_add_child"; added = (1, 19, 35);
