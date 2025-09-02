@@ -1,0 +1,18 @@
+# Run the job below on every push to master branch.
+on:
+  push:
+    branches:
+      - master
+
+# Runs basic configure, make and make check.
+jobs:
+  tests:
+    name: Run the tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          autoreconf -fiv
+          ./configure
+          make
+          make check
