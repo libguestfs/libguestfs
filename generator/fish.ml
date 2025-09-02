@@ -892,7 +892,7 @@ do_completion (const char *text, int start, int end)
 and generate_fish_actions_pod () =
   generate_header PODStyle GPLv2plus;
 
-  let rex = Str.regexp "C<guestfs_\\([^>]+\\)>" in
+  let rex = Str.regexp {|C<guestfs_\([^>]+\)>|} in
 
   List.iter (
     fun ({ name; style = _, args, optargs; longdesc } as f) ->

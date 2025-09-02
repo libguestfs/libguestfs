@@ -909,12 +909,12 @@ guestfs_session_close (GuestfsSession *session, GError **err)
   return TRUE;
 }|};
 
-  let urls = Str.regexp "L<\\(https?\\)://\\([^>]*\\)>" in
-  let bz = Str.regexp "RHBZ#\\([0-9]+\\)" in
-  let cve = Str.regexp "\\(\\s\\)\\(CVE-[0-9]+-[0-9]+\\)" in
-  let api_crossref = Str.regexp "C<guestfs_\\([-_0-9a-zA-Z]+\\)>" in
-  let nonapi_crossref = Str.regexp "C<\\([-_0-9a-zA-Z]+\\)>" in
-  let escaped = Str.regexp "E<\\([0-9a-zA-Z]+\\)>" in
+  let urls = Str.regexp {|L<\(https?\)://\([^>]*\)>|} in
+  let bz = Str.regexp {|RHBZ#\([0-9]+\)|} in
+  let cve = Str.regexp {|\(\s\)\(CVE-[0-9]+-[0-9]+\)|} in
+  let api_crossref = Str.regexp {|C<guestfs_\([-_0-9a-zA-Z]+\)>|} in
+  let nonapi_crossref = Str.regexp {|C<\([-_0-9a-zA-Z]+\)>|} in
+  let escaped = Str.regexp {|E<\([0-9a-zA-Z]+\)>|} in
   let literal = Str.regexp "\\(^\\|\n\\)[ \t]+\\([^\n]*\\)\\(\n\\|$\\)" in
 
   List.iter (
