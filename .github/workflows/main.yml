@@ -1,0 +1,162 @@
+# Run the jobs below on every push to master branch and pull request.
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+# Runs basic configure, make and make check.
+jobs:
+  ubuntu:
+    name: Ubuntu
+    runs-on: ubuntu-${{ matrix.release }}
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        release:
+          - 24.04
+          - latest
+
+    steps:
+      - name: Identify the system
+        run: |
+          cat /etc/os-release
+
+      - name: Enable source repositories
+        run: |
+          sudo sed -i 's/Types: deb$/Types: deb deb-src/g' \
+                   /etc/apt/sources.list.d/ubuntu.sources
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get -y build-dep libguestfs
+
+      - name: Install extra dependencies
+        run: |
+          # Git is needed to run git submodule command.
+          # json-c is missing from the Ubuntu package deps.
+          sudo apt-get -y install git libjson-c-dev
+
+      - name: Fix broken Ubuntu kernel permissions
+        run: |
+          # https://bugs.launchpad.net/ubuntu/+source/linux/+bug/759725
+          sudo chmod 0644 /boot/vmlinuz*
+
+      - name: Enable KVM
+        run: |
+          sudo chmod 0666 /dev/kvm
+
+      - name: Checkout sources
+        uses: actions/checkout@v5
+
+      - name: Checkout submodule
+        run: |
+          git submodule update --init
+
+      - name: Compile the code
+        run: |
+          autoreconf -fiv
+          ./configure --disable-gobject
+          make -j
+
+      - name: Run the quick test
+        run: |
+          make quickcheck
+
+      - name: Run the full tests
+        run: |
+          # grub-install: error: /usr/lib/grub/i386-pc/modinfo.sh
+          # doesn't exist. Please specify --target or --directory
+          export SKIP_TEST_GRUB_INSTALL_0=1
+          # Errors from hexdump, maybe not installed?
+          export SKIP_TEST_HEXDUMP_0=1
+          export SKIP_TEST_HEXDUMP_1=1
+          export SKIP_TEST_HEXDUMP_2=1
+          # error: luks_close: cryptsetup exited with status 5:
+          # Device lukstest is still in use
+          export SKIP_TEST_LUKS_SH=1
+          # error: passt exited with status 1
+          export SKIP_TEST_NETWORK_SH=1
+          # error: passt exited with status 1
+          export SKIP_TEST_RSYNC_SH=1
+          if ! make check; then
+              find -name test-suite.log -exec cat {} \;
+              exit 1
+          fi
+
+  fedora:
+    name: Fedora
+    runs-on: ubuntu-latest  # VM where the container runs
+    strategy:
+      fail-fast: false
+      matrix:
+        release:
+         - 42
+         - 43
+
+    container:
+      image: quay.io/fedora/fedora:${{ matrix.release }}
+      options: --security-opt seccomp=unconfined
+
+    steps:
+      - name: Identify the system
+        run: |
+          cat /etc/os-release
+
+      - name: Install build dependencies
+        run: |
+          dnf builddep -y libguestfs
+
+      - name: Install extra dependencies
+        run: |
+          # Git is needed to run git submodule command.
+          # The others are needed to run the tests.
+          dnf install -y git kernel sqlite perl-hivex rubygem-minitest
+
+      - name: Checkout sources
+        uses: actions/checkout@v5
+
+      - name: Create user
+        run: |
+          useradd -m -s /bin/bash -G wheel guestfs
+          tail /etc/passwd
+
+      - name: Make checkout directory editable by the sscg user
+        run: |
+          chown -R guestfs:wheel ${GITHUB_WORKSPACE}
+
+      - name: Checkout submodule
+        run: |
+          su -c 'git submodule update --init' guestfs
+
+      - name: Compile the code
+        run: |
+          su -c '
+            autoreconf -fiv &&
+            ./configure CFLAGS="-fPIC -g -O2" --disable-gobject &&
+            make -j
+          ' guestfs
+
+      - name: Run the quick test
+        run: |
+          su -c 'make quickcheck' guestfs
+
+      - name: Run the full tests
+        run: |
+          # error: passt exited with status 1
+          export SKIP_TEST_NETWORK_SH=1
+          # error: passt exited with status 1
+          export SKIP_TEST_RSYNC_SH=1
+          # error: internal_autosync: umount: /sysroot: umount: /sysroot:
+          # target is busy
+          export SKIP_RHBZ1011907_1165785_SH=1
+          # We have to set $HOME since su -p won't set it below.
+          export HOME=/home/guestfs
+          if ! su -p -c 'make check' guestfs; then
+              find -name test-suite.log -exec cat {} \;
+              exit 1
+          fi
