@@ -329,3 +329,34 @@ do_ntfscat_i (const mountable_t *mountable, int64_t inode)
 
   return 0;
 }
+
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_ntfs_chmod (const char *device, int mode, const char *path, int recursive)
+{
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  int r;
+  CLEANUP_FREE char *err = NULL;
+  char mode_str[16];
+
+  snprintf (mode_str, sizeof mode_str, "%o", mode);
+
+  ADD_ARG (argv, i, "ntfssecaudit");
+
+  if ((optargs_bitmask & GUESTFS_NTFS_CHMOD_RECURSIVE_BITMASK) && recursive)
+    ADD_ARG (argv, i, "-r");
+
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, mode_str);
+  ADD_ARG (argv, i, path);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandvf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR, argv);
+  if (r == -1) {
+    reply_with_error ("ntfssecaudit %s %s %s: %s", device, mode_str, path, err);
+    return -1;
+  }
+
+  return 0;
+}
