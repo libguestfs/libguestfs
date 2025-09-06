@@ -6617,6 +6617,29 @@ C<guestfs_ntfsclone_out>) to C<device>, overwriting
 any existing contents of this device." };
 
   { defaults with
+    name = "ntfs_chmod"; added = (1, 55, 13);
+    (* We don't use Pathname for `path` argument, since that implies
+       NEED_ROOT, and this command only operates on unmounted devices.
+    *)
+    style = RErr, [String (Device, "device"); Int "mode"; String (PlainString, "path")], [OBool "recursive"];
+    optional = Some "ntfs3g";
+    shortdesc = "change file permissions on NTFS filesystem";
+    longdesc = {|Change file permissions on an NTFS filesystem with
+a chmod-style permission mask, using L<ntfssecaudit(8)>. Only numeric modes
+are supported.
+
+I<Note>: When using this command from guestfish, C<mode>
+by default would be decimal, unless you prefix it with
+C<0> to get octal, ie. use C<0700> not C<700>.
+
+The C<device> parameter is the NTFS partition device (eg. C</dev/sda5>).
+This must be unmounted.
+The C<mode> parameter is the permission mode (eg. C<0744>).
+The C<path> parameter is the file or directory path within the filesystem.
+If the optional C<recursive> flag is set, directory permissions are set
+recursively.|} };
+
+  { defaults with
     name = "set_label"; added = (1, 17, 9);
     style = RErr, [String (Mountable, "mountable"); String (PlainString, "label")], [];
     tests = [

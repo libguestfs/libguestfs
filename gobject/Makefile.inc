@@ -97,6 +97,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-mktemp.h \
   include/guestfs-gobject/optargs-mount_9p.h \
   include/guestfs-gobject/optargs-mount_local.h \
+  include/guestfs-gobject/optargs-ntfs_chmod.h \
   include/guestfs-gobject/optargs-ntfsclone_out.h \
   include/guestfs-gobject/optargs-ntfsfix.h \
   include/guestfs-gobject/optargs-ntfsresize.h \
@@ -193,6 +194,7 @@ guestfs_gobject_sources= \
   src/optargs-mktemp.c \
   src/optargs-mount_9p.c \
   src/optargs-mount_local.c \
+  src/optargs-ntfs_chmod.c \
   src/optargs-ntfsclone_out.c \
   src/optargs-ntfsfix.c \
   src/optargs-ntfsresize.c \
