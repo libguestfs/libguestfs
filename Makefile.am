@@ -116,6 +116,7 @@ endif
 
 EXTRA_DIST = \
 	AUTHORS HACKING TODO \
+	.github/workflows/main.yml \
 	.gitignore \
 	.gitpublish \
 	.lvimrc \
