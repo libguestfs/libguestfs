@@ -269,6 +269,7 @@ gobject/src/optargs-mkswap.c
 gobject/src/optargs-mktemp.c
 gobject/src/optargs-mount_9p.c
 gobject/src/optargs-mount_local.c
+gobject/src/optargs-ntfs_chmod.c
 gobject/src/optargs-ntfsclone_out.c
 gobject/src/optargs-ntfsfix.c
 gobject/src/optargs-ntfsresize.c
