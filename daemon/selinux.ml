@@ -73,6 +73,12 @@ let setfiles ?(force = false) specfile paths =
      *)
     if setfiles_has_option 'C' then List.push_back args "-C";
 
+    (* Use the -A option if available to reduce the amount of memory
+     * used in filesystems with millions of files
+     * See: https://issues.redhat.com/browse/RHEL-111505
+     *)
+    if setfiles_has_option 'A' then List.push_back args "-A";
+
     (* If the appliance is being run with multiple vCPUs, running setfiles
      * in multithreading mode might speed up the process.  Option "-T" was
      * introduced in SELinux userspace v3.4, and we need to check whether it's
