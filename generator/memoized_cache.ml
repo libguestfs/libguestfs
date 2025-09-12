@@ -44,7 +44,7 @@ let create ?(version = 1) ?(batch_size = 100) name lookup_fn =
   let filename = sprintf "generator/.%s.data.version.%d" name version in
   let memo =
     try with_open_in filename input_value
-    with _ -> Hashtbl.create 13 in
+    with _ -> Hashtbl.create 16 in
   {
     memo; filename; lookup_fn; batch_size; unsaved_count = 0;
   }

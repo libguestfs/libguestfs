@@ -64,7 +64,7 @@ let rec generate_c_api_tests () =
   pr "  size_t i;\n";
   pr "  const char *no_tests[] = {\n";
 
-  let hash : (string, bool) Hashtbl.t = Hashtbl.create 13 in
+  let hash : (string, bool) Hashtbl.t = Hashtbl.create 16 in
   List.iter (
     fun { tests } ->
       let seqs = List.filter_map (

@@ -35,7 +35,7 @@ let setfiles_has_option =
     let _, _, err = commandr "setfiles" [opt] in
     String.find err err_msg = -1
   in
-  let h = Hashtbl.create 13 in
+  let h = Hashtbl.create 16 in
   fun flag ->
     try Hashtbl.find h flag
     with

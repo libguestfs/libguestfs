@@ -34,7 +34,7 @@ let optgroups_retired = [
 
 (* Create list of optional groups. *)
 let optgroups =
-  let h = Hashtbl.create 13 in
+  let h = Hashtbl.create 16 in
   List.iter (
     function
     | { optional = Some group } as fn ->

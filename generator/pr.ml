@@ -32,7 +32,7 @@ let lines = ref 0
 
 (* Name of each file generated. *)
 let files = ref []
-let fileshash = Hashtbl.create 13
+let fileshash = Hashtbl.create 16
 
 (* Print-to-current-output function, used everywhere.  It has
  * printf-like semantics.

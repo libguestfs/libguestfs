@@ -109,7 +109,7 @@ let rstructs_used_by functions =
     | RStructListOnly, RStructListOnly -> RStructListOnly
   in
 
-  let h = Hashtbl.create 13 in
+  let h = Hashtbl.create 16 in
 
   (* if elem->oldv exists, update entry using ||| operator,
    * else just add elem->newv to the hash
