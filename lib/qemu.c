@@ -708,6 +708,7 @@ make_uri (guestfs_h *g, const char *scheme, const char *user,
   CLEANUP_FREE char *query = NULL;
   CLEANUP_FREE char *pathslash = NULL;
   CLEANUP_FREE char *userauth = NULL;
+  CLEANUP_FREE char *escaped_uri = NULL;
 
   /* Need to add a leading '/' to URI paths since xmlSaveUri doesn't. */
   if (path != NULL && path[0] != '/') {
@@ -736,7 +737,14 @@ make_uri (guestfs_h *g, const char *scheme, const char *user,
     break;
   }
 
-  return (char *) xmlSaveUri (&uri);
+  escaped_uri = (char *) xmlSaveUri (&uri);
+  if (!escaped_uri)
+      return NULL;
+
+  char *unescaped_uri = xmlURIUnescapeString (escaped_uri, -1, NULL);
+  
+
+  return unescaped_uri;
 }
 
 /**
