@@ -60,7 +60,6 @@ struct qemu_data {
   uint64_t prev_size;           /* Size of qemu binary when cached. */
   uint64_t prev_mtime;          /* mtime of qemu binary when cached. */
 
-  char *qemu_help;              /* Output of qemu -help. */
   char *qemu_devices;           /* Output of qemu -device ? */
   char *query_kvm;              /* Output of QMP query-kvm. */
 
@@ -69,9 +68,6 @@ struct qemu_data {
 };
 
 static char *cache_filename (guestfs_h *g, const char *cachedir, const struct stat *, const char *suffix);
-static int test_qemu_help (guestfs_h *g, struct qemu_data *data);
-static int read_cache_qemu_help (guestfs_h *g, struct qemu_data *data, const char *filename);
-static int write_cache_qemu_help (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static int test_qemu_devices (guestfs_h *g, struct qemu_data *data);
 static int read_cache_qemu_devices (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qemu_devices (guestfs_h *g, const struct qemu_data *data, const char *filename);
@@ -106,8 +102,6 @@ static const struct qemu_fields {
   int (*write_cache) (guestfs_h *g, const struct qemu_data *data,
                       const char *filename);
 } qemu_fields[] = {
-  { "help",
-    test_qemu_help, read_cache_qemu_help, write_cache_qemu_help },
   { "devices",
     test_qemu_devices, read_cache_qemu_devices, write_cache_qemu_devices },
   { "query-kvm",
@@ -241,42 +235,6 @@ cache_filename (guestfs_h *g, const char *cachedir,
                         (uint64_t) statbuf->st_size,
                         (uint64_t) statbuf->st_mtime,
                         suffix);
-}
-
-static int
-test_qemu_help (guestfs_h *g, struct qemu_data *data)
-{
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
-  int r;
-
-  guestfs_int_cmd_add_arg (cmd, g->hv);
-  guestfs_int_cmd_add_arg (cmd, "-display");
-  guestfs_int_cmd_add_arg (cmd, "none");
-  guestfs_int_cmd_add_arg (cmd, "-help");
-  guestfs_int_cmd_set_stdout_callback (cmd, read_all, &data->qemu_help,
-                                       CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs_int_cmd_run (cmd);
-  if (r == -1)
-    return -1;
-  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs_int_external_command_failed (g, r, g->hv, NULL);
-    return -1;
-  }
-  return 0;
-}
-
-static int
-read_cache_qemu_help (guestfs_h *g, struct qemu_data *data,
-                      const char *filename)
-{
-  return generic_read_cache (g, filename, &data->qemu_help);
-}
-
-static int
-write_cache_qemu_help (guestfs_h *g, const struct qemu_data *data,
-                       const char *filename)
-{
-  return generic_write_cache (g, filename, data->qemu_help);
 }
 
 static int
@@ -858,7 +816,6 @@ void
 guestfs_int_free_qemu_data (struct qemu_data *data)
 {
   if (data) {
-    free (data->qemu_help);
     free (data->qemu_devices);
     free (data->query_kvm);
     free (data);
