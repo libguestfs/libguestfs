@@ -39,14 +39,6 @@ COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)
 static int version_from_x_y_or_x (guestfs_h *g, struct version *v, const char *str, const pcre2_code *re, bool allow_only_x);
 
 void
-guestfs_int_version_from_libvirt (struct version *v, int vernum)
-{
-  v->v_major = vernum / 1000000UL;
-  v->v_minor = vernum / 1000UL % 1000UL;
-  v->v_micro = vernum % 1000UL;
-}
-
-void
 guestfs_int_version_from_values (struct version *v, int maj, int min, int mic)
 {
   v->v_major = maj;

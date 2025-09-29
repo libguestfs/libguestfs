@@ -124,7 +124,6 @@ struct backend_libvirt_data {
   bool selinux_norelabel_disks;
   char name[DOMAIN_NAME_LEN];   /* random name */
   bool is_kvm;                  /* false = qemu, true = kvm (from capabilities)*/
-  struct version libvirt_version; /* libvirt version */
   struct secret *secrets;       /* list of secrets */
   size_t nr_secrets;
   char *uefi_code;		/* UEFI (firmware) code and variables. */
@@ -341,12 +340,8 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
 
   virGetVersion (&version_number, NULL, NULL);
-  guestfs_int_version_from_libvirt (&data->libvirt_version, version_number);
-  debug (g, "libvirt version = %lu (%d.%d.%d)",
-         version_number,
-         data->libvirt_version.v_major,
-         data->libvirt_version.v_minor,
-         data->libvirt_version.v_micro);
+  debug (g, "libvirt version = %lu", version_number);
+
   guestfs_int_launch_send_progress (g, 0);
 
   /* Create a random name for the guest. */
