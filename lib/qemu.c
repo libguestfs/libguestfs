@@ -820,31 +820,15 @@ guestfs_int_drive_source_qemu_param (guestfs_h *g,
 }
 
 /**
- * Test if discard is both supported by qemu AND possible with the
- * underlying file or device.  This returns C<1> if discard is
- * possible.  It returns C<0> if not possible and sets the error to
- * the reason why.
+ * Test if discard is possible with the underlying file or device.
+ * This returns C<1> if discard is possible.  It returns C<0> if not
+ * possible and sets the error to the reason why.
  *
  * This function is called when the user set C<discard == "enable">.
  */
 bool
-guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
-			      const struct version *qemu_version)
+guestfs_int_discard_possible (guestfs_h *g, struct drive *drv)
 {
-  /* qemu >= 1.5.  This was the first version that supported the
-   * discard option on -drive at all.
-   */
-  bool qemu15 = guestfs_int_version_ge (qemu_version, 1, 5, 0);
-  /* qemu >= 1.6.  This was the first version that supported unmap on
-   * qcow2 backing files.
-   */
-  bool qemu16 = guestfs_int_version_ge (qemu_version, 1, 6, 0);
-
-  if (!qemu15)
-    NOT_SUPPORTED (g, false,
-                   _("discard cannot be enabled on this drive: "
-                     "qemu < 1.5"));
-
   /* If it's an overlay, discard is not possible (on the underlying
    * file).  This has probably been caught earlier since we already
    * checked that the drive is !readonly.  Nevertheless ...
@@ -861,17 +845,11 @@ guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
                    _("discard cannot be enabled on this drive: "
                      "you have to specify the format of the file"));
   }
-  else if (STREQ (drv->src.format, "raw"))
+  else if (STREQ (drv->src.format, "raw") || STREQ (drv->src.format, "qcow2"))
     /* OK */ ;
-  else if (STREQ (drv->src.format, "qcow2")) {
-    if (!qemu16)
-      NOT_SUPPORTED (g, false,
-                     _("discard cannot be enabled on this drive: "
-                       "qemu < 1.6 cannot do discard on qcow2 files"));
-  }
   else {
-    /* It's possible in future other formats will support discard, but
-     * currently (qemu 1.7) none of them do.
+    /* It's possible other formats support discard, but we can enable
+     * them on a case-by-case basis.
      */
     NOT_SUPPORTED (g, false,
                    _("discard cannot be enabled on this drive: "

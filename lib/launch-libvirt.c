@@ -1651,16 +1651,11 @@ construct_libvirt_xml_disk_driver_qemu (guestfs_h *g,
      */
     break;
   case discard_enable:
-    if (!guestfs_int_discard_possible (g, drv, &data->qemu_version))
+    if (!guestfs_int_discard_possible (g, drv))
       return -1;
     /*FALLTHROUGH*/
   case discard_besteffort:
-    /* I believe from reading the code that this is always safe as
-     * long as qemu >= 1.5.
-     */
-    if (guestfs_int_version_ge (&data->qemu_version, 1, 5, 0))
-      discard_unmap = true;
-    break;
+    discard_unmap = true;
   }
 
   start_element ("driver") {
