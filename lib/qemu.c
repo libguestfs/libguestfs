@@ -60,7 +60,6 @@ struct qemu_data {
   uint64_t prev_size;           /* Size of qemu binary when cached. */
   uint64_t prev_mtime;          /* mtime of qemu binary when cached. */
 
-  char *qemu_devices;           /* Output of qemu -device ? */
   char *query_kvm;              /* Output of QMP query-kvm. */
 
   /* The following fields are derived from the fields above. */
@@ -68,16 +67,12 @@ struct qemu_data {
 };
 
 static char *cache_filename (guestfs_h *g, const char *cachedir, const struct stat *, const char *suffix);
-static int test_qemu_devices (guestfs_h *g, struct qemu_data *data);
-static int read_cache_qemu_devices (guestfs_h *g, struct qemu_data *data, const char *filename);
-static int write_cache_qemu_devices (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static int test_query_kvm (guestfs_h *g, struct qemu_data *data);
 static int read_cache_query_kvm (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_query_kvm (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static int read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static void parse_has_kvm (guestfs_h *g, const char *, bool *);
-static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 static int generic_read_cache (guestfs_h *g, const char *filename, char **strp);
 static int generic_write_cache (guestfs_h *g, const char *filename, const char *str);
 static int generic_qmp_test (guestfs_h *g, struct qemu_data *data, const char *qmp_command, char **outp);
@@ -102,8 +97,6 @@ static const struct qemu_fields {
   int (*write_cache) (guestfs_h *g, const struct qemu_data *data,
                       const char *filename);
 } qemu_fields[] = {
-  { "devices",
-    test_qemu_devices, read_cache_qemu_devices, write_cache_qemu_devices },
   { "query-kvm",
     test_query_kvm, read_cache_query_kvm, write_cache_query_kvm },
 };
@@ -235,51 +228,6 @@ cache_filename (guestfs_h *g, const char *cachedir,
                         (uint64_t) statbuf->st_size,
                         (uint64_t) statbuf->st_mtime,
                         suffix);
-}
-
-static int
-test_qemu_devices (guestfs_h *g, struct qemu_data *data)
-{
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
-  int r;
-
-  guestfs_int_cmd_add_arg (cmd, g->hv);
-  guestfs_int_cmd_add_arg (cmd, "-display");
-  guestfs_int_cmd_add_arg (cmd, "none");
-  guestfs_int_cmd_add_arg (cmd, "-machine");
-  guestfs_int_cmd_add_arg (cmd,
-#ifdef MACHINE_TYPE
-                           MACHINE_TYPE ","
-#endif
-                           "accel=kvm:hvf:tcg");
-  guestfs_int_cmd_add_arg (cmd, "-device");
-  guestfs_int_cmd_add_arg (cmd, "?");
-  guestfs_int_cmd_clear_capture_errors (cmd);
-  guestfs_int_cmd_set_stderr_to_stdout (cmd);
-  guestfs_int_cmd_set_stdout_callback (cmd, read_all, &data->qemu_devices,
-                                       CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs_int_cmd_run (cmd);
-  if (r == -1)
-    return -1;
-  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs_int_external_command_failed (g, r, g->hv, NULL);
-    return -1;
-  }
-  return 0;
-}
-
-static int
-read_cache_qemu_devices (guestfs_h *g, struct qemu_data *data,
-                         const char *filename)
-{
-  return generic_read_cache (g, filename, &data->qemu_devices);
-}
-
-static int
-write_cache_qemu_devices (guestfs_h *g, const struct qemu_data *data,
-                          const char *filename)
-{
-  return generic_write_cache (g, filename, data->qemu_devices);
 }
 
 static int
@@ -507,26 +455,6 @@ generic_qmp_test (guestfs_h *g, struct qemu_data *data,
   }
 
   return 0;
-}
-
-static void
-read_all (guestfs_h *g, void *retv, const char *buf, size_t len)
-{
-  char **ret = retv;
-
-  *ret = safe_strndup (g, buf, len);
-}
-
-/**
- * Test if device is supported by qemu (currently just greps the
- * C<qemu -device ?> output).
- */
-int
-guestfs_int_qemu_supports_device (guestfs_h *g,
-                                  const struct qemu_data *data,
-                                  const char *device_name)
-{
-  return strstr (data->qemu_devices, device_name) != NULL;
 }
 
 bool
@@ -816,7 +744,6 @@ void
 guestfs_int_free_qemu_data (struct qemu_data *data)
 {
   if (data) {
-    free (data->qemu_devices);
     free (data->query_kvm);
     free (data);
   }
