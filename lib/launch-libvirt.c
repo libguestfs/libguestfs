@@ -1381,15 +1381,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
       } end_element ();
     } end_element ();
 
-    /* Virtio-net NIC with SLIRP (= userspace) back-end, if networking is
-     * enabled. Starting with libvirt 3.8.0, we can specify the network address
-     * and prefix for SLIRP in the domain XML. Therefore, we can add the NIC
-     * via the standard <interface> element rather than <qemu:commandline>, and
-     * so libvirt can manage the PCI address of the virtio-net NIC like the PCI
-     * addresses of all other devices. Refer to RHBZ#2034160.
-     */
-    if (g->enable_network &&
-        guestfs_int_version_ge (&params->data->libvirt_version, 3, 8, 0)) {
+    if (g->enable_network) {
       start_element ("interface") {
         attribute ("type", "user");
         /* If libvirt is 9.0.0+ and "passt" is available, ask for passt rather
@@ -1818,31 +1810,6 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
       attribute ("name", "TMPDIR");
       attribute ("value", tmpdir);
     } end_element ();
-
-    /* Workaround because libvirt user networking cannot specify "net="
-     * parameter. Necessary only before libvirt 3.8.0; refer to RHBZ#2034160.
-     */
-    if (g->enable_network &&
-        !guestfs_int_version_ge (&params->data->libvirt_version, 3, 8, 0)) {
-      start_element ("qemu:arg") {
-        attribute ("value", "-netdev");
-      } end_element ();
-
-      start_element ("qemu:arg") {
-        attribute ("value",
-                   "user,id=usernet,net=" NETWORK_ADDRESS "/" NETWORK_PREFIX);
-      } end_element ();
-
-      start_element ("qemu:arg") {
-        attribute ("value", "-device");
-      } end_element ();
-
-      start_element ("qemu:arg") {
-        attribute ("value", (VIRTIO_DEVICE_NAME ("virtio-net")
-                             ",netdev=usernet"
-                             VIRTIO_NET_PCI_ADDR));
-      } end_element ();
-    }
 
     /* The qemu command line arguments requested by the caller. */
     for (hp = g->hv_params; hp; hp = hp->next) {
