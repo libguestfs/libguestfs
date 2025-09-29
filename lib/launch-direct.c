@@ -61,6 +61,13 @@ struct backend_direct_data {
   char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
 };
 
+/* Helper that sends all output from a command to debug. */
+static void
+debug_lines (guestfs_h *g, void *retv, const char *buf, size_t len)
+{
+  debug (g, "qemu: %s", buf);
+}
+
 static char *
 create_cow_overlay_direct (guestfs_h *g, void *datav, struct drive *drv)
 {
@@ -479,16 +486,21 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   debug (g, "begin testing qemu features");
 
-  /* Get qemu help text and version. */
-  if (data->qemu_data == NULL) {
-    struct version qemu_version;
+  /* If debugging, print the qemu version. */
+  if (g->verbose) {
+    CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
 
+    guestfs_int_cmd_add_arg (cmd, g->hv);
+    guestfs_int_cmd_add_arg (cmd, "-version");
+    guestfs_int_cmd_set_stdout_callback (cmd, debug_lines, NULL, 0);
+    guestfs_int_cmd_run (cmd);
+  }
+
+  /* Get qemu help text. */
+  if (data->qemu_data == NULL) {
     data->qemu_data = guestfs_int_test_qemu (g);
     if (data->qemu_data == NULL)
       goto cleanup0;
-    qemu_version = guestfs_int_qemu_version (g, data->qemu_data);
-    debug (g, "qemu version: %d.%d",
-           qemu_version.v_major, qemu_version.v_minor);
   }
 
   /* Work out if KVM is supported or if the user wants to force TCG. */
