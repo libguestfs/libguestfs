@@ -190,7 +190,7 @@ Optional if compiling from tarball.
 I<Required>.  ocaml-hivex is the OCaml binding for hivex, which is
 required when building the daemon.
 
-=item libvirt E<ge> 0.10.2
+=item libvirt E<ge> 9.0.0
 
 Optional.  Always use the latest possible version of libvirt.
 

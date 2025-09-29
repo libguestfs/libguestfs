@@ -1384,17 +1384,9 @@ construct_libvirt_xml_devices (guestfs_h *g,
     if (g->enable_network) {
       start_element ("interface") {
         attribute ("type", "user");
-        /* If libvirt is 9.0.0+ and "passt" is available, ask for passt rather
-         * than SLIRP (RHBZ#2184967).  Note that this causes some
-         * appliance-visible changes (although network connectivity is certainly
-         * functional); refer to RHBZ#2222766 about those.
-         */
-        if (guestfs_int_version_ge (&params->data->libvirt_version, 9, 0, 0) &&
-            guestfs_int_passt_runnable (g)) {
-          start_element ("backend") {
-            attribute ("type", "passt");
-          } end_element ();
-        }
+        start_element ("backend") {
+          attribute ("type", "passt");
+        } end_element ();
         start_element ("model") {
           attribute ("type", "virtio");
         } end_element ();
