@@ -1311,19 +1311,14 @@ construct_libvirt_xml_devices (guestfs_h *g,
     if (is_custom_hv (g, params->data))
       single_element ("emulator", g->hv);
 
-    /* Add a random number generator (backend for virtio-rng).  This
-     * requires Cole Robinson's patch to permit /dev/urandom to be
-     * used, which was added in libvirt 1.3.4.
-     */
-    if (guestfs_int_version_ge (&params->data->libvirt_version, 1, 3, 4)) {
-      start_element ("rng") {
-        attribute ("model", "virtio");
-        start_element ("backend") {
-          attribute ("model", "random");
-          string ("/dev/urandom");
-        } end_element ();
+    /* Add a random number generator (backend for virtio-rng). */
+    start_element ("rng") {
+      attribute ("model", "virtio");
+      start_element ("backend") {
+        attribute ("model", "random");
+        string ("/dev/urandom");
       } end_element ();
-    }
+    } end_element ();
 
     /* virtio-scsi controller. */
     start_element ("controller") {
