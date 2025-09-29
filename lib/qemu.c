@@ -62,12 +62,10 @@ struct qemu_data {
 
   char *qemu_help;              /* Output of qemu -help. */
   char *qemu_devices;           /* Output of qemu -device ? */
-  char *qmp_schema;             /* Output of QMP query-qmp-schema. */
   char *query_kvm;              /* Output of QMP query-kvm. */
 
   /* The following fields are derived from the fields above. */
   struct version qemu_version;  /* Parsed qemu version number. */
-  json_object *qmp_schema_tree; /* qmp_schema parsed into a JSON tree */
   bool has_kvm;                 /* If KVM is available. */
 };
 
@@ -78,16 +76,12 @@ static int write_cache_qemu_help (guestfs_h *g, const struct qemu_data *data, co
 static int test_qemu_devices (guestfs_h *g, struct qemu_data *data);
 static int read_cache_qemu_devices (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qemu_devices (guestfs_h *g, const struct qemu_data *data, const char *filename);
-static int test_qmp_schema (guestfs_h *g, struct qemu_data *data);
-static int read_cache_qmp_schema (guestfs_h *g, struct qemu_data *data, const char *filename);
-static int write_cache_qmp_schema (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static int test_query_kvm (guestfs_h *g, struct qemu_data *data);
 static int read_cache_query_kvm (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_query_kvm (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static int read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static void parse_qemu_version (guestfs_h *g, const char *, struct version *qemu_version);
-static void parse_json (guestfs_h *g, const char *, json_object **);
 static void parse_has_kvm (guestfs_h *g, const char *, bool *);
 static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 static int generic_read_cache (guestfs_h *g, const char *filename, char **strp);
@@ -118,8 +112,6 @@ static const struct qemu_fields {
     test_qemu_help, read_cache_qemu_help, write_cache_qemu_help },
   { "devices",
     test_qemu_devices, read_cache_qemu_devices, write_cache_qemu_devices },
-  { "qmp-schema",
-    test_qmp_schema, read_cache_qmp_schema, write_cache_qmp_schema },
   { "query-kvm",
     test_query_kvm, read_cache_query_kvm, write_cache_query_kvm },
 };
@@ -227,7 +219,6 @@ guestfs_int_test_qemu (guestfs_h *g)
  out:
   /* Derived fields. */
   parse_qemu_version (g, data->qemu_help, &data->qemu_version);
-  parse_json (g, data->qmp_schema, &data->qmp_schema_tree);
   parse_has_kvm (g, data->query_kvm, &data->has_kvm);
 
   return data;
@@ -337,26 +328,6 @@ write_cache_qemu_devices (guestfs_h *g, const struct qemu_data *data,
 }
 
 static int
-test_qmp_schema (guestfs_h *g, struct qemu_data *data)
-{
-  return generic_qmp_test (g, data, "query-qmp-schema", &data->qmp_schema);
-}
-
-static int
-read_cache_qmp_schema (guestfs_h *g, struct qemu_data *data,
-                       const char *filename)
-{
-  return generic_read_cache (g, filename, &data->qmp_schema);
-}
-
-static int
-write_cache_qmp_schema (guestfs_h *g, const struct qemu_data *data,
-                        const char *filename)
-{
-  return generic_write_cache (g, filename, data->qmp_schema);
-}
-
-static int
 test_query_kvm (guestfs_h *g, struct qemu_data *data)
 {
   return generic_qmp_test (g, data, "query-kvm", &data->query_kvm);
@@ -436,31 +407,6 @@ parse_qemu_version (guestfs_h *g, const char *qemu_help,
            __func__, g->hv);
     return;
   }
-}
-
-/**
- * Parse the json output from QMP.  But don't fail if parsing
- * is not possible.
- */
-static void
-parse_json (guestfs_h *g, const char *json, json_object **treep)
-{
-  json_tokener *tok;
-  enum json_tokener_error err;
-
-  if (!json)
-    return;
-
-  tok = json_tokener_new ();
-  json_tokener_set_flags (tok,
-                          JSON_TOKENER_STRICT | JSON_TOKENER_VALIDATE_UTF8);
-  *treep = json_tokener_parse_ex (tok, json, strlen (json));
-  err = json_tokener_get_error (tok);
-  if (err != json_tokener_success)
-    debug (g, "QMP parse error: %s (ignored)", json_tokener_error_desc (err));
-  json_tokener_free (tok);
-
-  /* Caller should do json_object_put (*treep) */
 }
 
 /**
@@ -976,9 +922,7 @@ guestfs_int_free_qemu_data (struct qemu_data *data)
   if (data) {
     free (data->qemu_help);
     free (data->qemu_devices);
-    free (data->qmp_schema);
     free (data->query_kvm);
-    json_object_put (data->qmp_schema_tree);
     free (data);
   }
 }
