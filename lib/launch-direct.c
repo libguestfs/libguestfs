@@ -685,22 +685,16 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   arg ("-kernel", kernel);
   arg ("-initrd", initrd);
 
-  /* Add a random number generator (backend for virtio-rng).  This
-   * isn't strictly necessary but means we won't need to hang around
-   * when needing entropy.
-   */
-  if (guestfs_int_qemu_supports_device (g, data->qemu_data,
-                                        VIRTIO_DEVICE_NAME ("virtio-rng"))) {
-    start_list ("-object") {
-      append_list ("rng-random");
-      append_list ("filename=/dev/urandom");
-      append_list ("id=rng0");
-    } end_list ();
-    start_list ("-device") {
-      append_list (VIRTIO_DEVICE_NAME ("virtio-rng"));
-      append_list ("rng=rng0");
-    } end_list ();
-  }
+  /* Add a good source of entropy, eg for cryptographic operations. */
+  start_list ("-object") {
+    append_list ("rng-random");
+    append_list ("filename=/dev/urandom");
+    append_list ("id=rng0");
+  } end_list ();
+  start_list ("-device") {
+    append_list (VIRTIO_DEVICE_NAME ("virtio-rng"));
+    append_list ("rng=rng0");
+  } end_list ();
 
   /* Create the virtio-scsi bus. */
   start_list ("-device") {
