@@ -33,6 +33,7 @@ function check_output ()
         echo "$0: guestfish command failed, see previous error messages"
         exit 1
     fi
+    cat "$DEBUG_QEMU_FILE"
 }
 
 function fail ()

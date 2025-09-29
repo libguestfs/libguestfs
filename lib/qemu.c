@@ -55,330 +55,11 @@ cleanup_json_object_put (void *ptr)
   json_object_put (* (json_object **) ptr);
 }
 
-struct qemu_data {
-  int generation;               /* MEMO_GENERATION read from qemu.stat */
-  uint64_t prev_size;           /* Size of qemu binary when cached. */
-  uint64_t prev_mtime;          /* mtime of qemu binary when cached. */
-
-  char *query_kvm;              /* Output of QMP query-kvm. */
-
-  /* The following fields are derived from the fields above. */
-  bool has_kvm;                 /* If KVM is available. */
-};
-
-static char *cache_filename (guestfs_h *g, const char *cachedir, const struct stat *, const char *suffix);
-static int test_query_kvm (guestfs_h *g, struct qemu_data *data);
-static int read_cache_query_kvm (guestfs_h *g, struct qemu_data *data, const char *filename);
-static int write_cache_query_kvm (guestfs_h *g, const struct qemu_data *data, const char *filename);
-static int read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data, const char *filename);
-static int write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data, const char *filename);
-static void parse_has_kvm (guestfs_h *g, const char *, bool *);
-static int generic_read_cache (guestfs_h *g, const char *filename, char **strp);
-static int generic_write_cache (guestfs_h *g, const char *filename, const char *str);
-static int generic_qmp_test (guestfs_h *g, struct qemu_data *data, const char *qmp_command, char **outp);
-
-/* This structure abstracts the data we are reading from qemu and how
- * we get it.
- */
-static const struct qemu_fields {
-  const char *name;
-
-  /* Function to perform the test on g->hv.  This must set the correct
-   * data->[field] to non-NULL, or else return an error.
-   */
-  int (*test) (guestfs_h *g, struct qemu_data *data);
-
-  /* Functions to read and write the cache file.
-   * read_cache returns -1 = error, 0 = no cache, 1 = cache data read.
-   * write_cache returns -1 = error, 0 = success.
-   */
-  int (*read_cache) (guestfs_h *g, struct qemu_data *data,
-                     const char *filename);
-  int (*write_cache) (guestfs_h *g, const struct qemu_data *data,
-                      const char *filename);
-} qemu_fields[] = {
-  { "query-kvm",
-    test_query_kvm, read_cache_query_kvm, write_cache_query_kvm },
-};
-#define NR_FIELDS (sizeof qemu_fields / sizeof qemu_fields[0])
-
-/* This is saved in the qemu-*.stat file, so if we decide to change the
- * test_qemu memoization format/data in future, we should increment
- * this to discard any memoized data cached by previous versions of
- * libguestfs.
- */
-#define MEMO_GENERATION 3
-
-/**
- * Test that the qemu binary (or wrapper) runs, and do C<qemu -help>
- * and other commands so we can find out the version of qemu and what
- * options this qemu supports.
- *
- * This caches the results in the cachedir so that as long as the qemu
- * binary does not change, calling this is effectively free.
- */
-struct qemu_data *
-guestfs_int_test_qemu (guestfs_h *g)
-{
-  struct stat statbuf;
-  struct qemu_data *data;
-  CLEANUP_FREE char *cachedir = NULL;
-  CLEANUP_FREE char *stat_filename = NULL;
-  int r;
-  size_t i;
-
-  if (stat (g->hv, &statbuf) == -1) {
-    perrorf (g, "stat: %s", g->hv);
-    return NULL;
-  }
-
-  cachedir = guestfs_int_lazy_make_supermin_appliance_dir (g);
-  if (cachedir == NULL)
-    return NULL;
-
-  /* Did we previously test the same version of qemu? */
-  debug (g, "checking for previously cached test results of %s, in %s",
-         g->hv, cachedir);
-
-  data = safe_calloc (g, 1, sizeof *data);
-
-  stat_filename = cache_filename (g, cachedir, &statbuf, "stat");
-  r = read_cache_qemu_stat (g, data, stat_filename);
-  if (r == -1)
-    goto error;
-  if (r == 0)
-    goto do_test;
-
-  if (data->generation != MEMO_GENERATION ||
-      data->prev_size != (uint64_t) statbuf.st_size ||
-      data->prev_mtime != (uint64_t) statbuf.st_mtime)
-    goto do_test;
-
-  debug (g, "loading previously cached test results");
-
-  for (i = 0; i < NR_FIELDS; ++i) {
-    CLEANUP_FREE char *filename =
-      cache_filename (g, cachedir, &statbuf, qemu_fields[i].name);
-    r = qemu_fields[i].read_cache (g, data, filename);
-    if (r == -1)
-      goto error;
-    if (r == 0) {
-      /* Cache gone, maybe deleted by the tmp cleaner, so we must run
-       * the full tests.  We will have a partially filled qemu_data
-       * structure.  The safest way to deal with that is to free
-       * it and start again.
-       */
-      guestfs_int_free_qemu_data (data);
-      data = safe_calloc (g, 1, sizeof *data);
-      goto do_test;
-    }
-  }
-
-  goto out;
-
- do_test:
-  for (i = 0; i < NR_FIELDS; ++i) {
-    if (qemu_fields[i].test (g, data) == -1)
-      goto error;
-  }
-
-  /* Now memoize the qemu output in the cache directory. */
-  debug (g, "saving test results");
-
-  for (i = 0; i < NR_FIELDS; ++i) {
-    CLEANUP_FREE char *filename =
-      cache_filename (g, cachedir, &statbuf, qemu_fields[i].name);
-    if (qemu_fields[i].write_cache (g, data, filename) == -1)
-      goto error;
-  }
-
-  /* Write the qemu.stat file last so that its presence indicates that
-   * the qemu.help and qemu.devices files ought to exist.
-   */
-  data->generation = MEMO_GENERATION;
-  data->prev_size = statbuf.st_size;
-  data->prev_mtime = statbuf.st_mtime;
-  if (write_cache_qemu_stat (g, data, stat_filename) == -1)
-    goto error;
-
- out:
-  /* Derived fields. */
-  parse_has_kvm (g, data->query_kvm, &data->has_kvm);
-
-  return data;
-
- error:
-  guestfs_int_free_qemu_data (data);
-  return NULL;
-}
-
-/**
- * Generate the filenames, for the stat file and the other cache
- * files.
- *
- * By including the size and mtime in the filename we also ensure that
- * the same user can use multiple versions of qemu without conflicts.
- */
-static char *
-cache_filename (guestfs_h *g, const char *cachedir,
-                const struct stat *statbuf, const char *suffix)
-{
-  return safe_asprintf (g, "%s/qemu-%" PRIu64 "-%" PRIu64 ".%s",
-                        cachedir,
-                        (uint64_t) statbuf->st_size,
-                        (uint64_t) statbuf->st_mtime,
-                        suffix);
-}
-
-static int
-test_query_kvm (guestfs_h *g, struct qemu_data *data)
-{
-  return generic_qmp_test (g, data, "query-kvm", &data->query_kvm);
-}
-
-static int
-read_cache_query_kvm (guestfs_h *g, struct qemu_data *data,
-                      const char *filename)
-{
-  return generic_read_cache (g, filename, &data->query_kvm);
-}
-
-static int
-write_cache_query_kvm (guestfs_h *g, const struct qemu_data *data,
-                       const char *filename)
-{
-  return generic_write_cache (g, filename, data->query_kvm);
-}
-
-static int
-read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data,
-                      const char *filename)
-{
-  CLEANUP_FCLOSE FILE *fp = fopen (filename, "r");
-  if (fp == NULL) {
-    if (errno == ENOENT)
-      return 0;                 /* no cache, run the test instead */
-    perrorf (g, "%s", filename);
-    return -1;
-  }
-
-  if (fscanf (fp, "%d %" SCNu64 " %" SCNu64,
-              &data->generation,
-              &data->prev_size,
-              &data->prev_mtime) != 3)
-    return 0;
-
-  return 1;
-}
-
-static int
-write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data,
-                       const char *filename)
-{
-  CLEANUP_FCLOSE FILE *fp = fopen (filename, "w");
-  if (fp == NULL) {
-    perrorf (g, "%s", filename);
-    return -1;
-  }
-  /* The path to qemu is stored for information only, it is not
-   * used when we parse the file.
-   */
-  if (fprintf (fp, "%d %" PRIu64 " %" PRIu64 " %s\n",
-               data->generation,
-               data->prev_size,
-               data->prev_mtime,
-               g->hv) == -1) {
-    perrorf (g, "%s: write", filename);
-    return -1;
-  }
-
-  return 0;
-}
-
-/**
- * Parse the json output from QMP query-kvm to find out if KVM is
- * enabled on this machine.  Don't fail if parsing is not possible,
- * assume KVM is available.
- *
- * The JSON output looks like:
- * {"return": {"enabled": true, "present": true}}
- */
-static void
-parse_has_kvm (guestfs_h *g, const char *json, bool *ret)
-{
-  CLEANUP_JSON_OBJECT_PUT json_object *tree = NULL;
-  json_tokener *tok;
-  enum json_tokener_error err;
-  json_object *return_node, *enabled_node;
-
-  *ret = true;                  /* Assume KVM is enabled. */
-
-  if (!json)
-    return;
-
-  tok = json_tokener_new ();
-  json_tokener_set_flags (tok,
-                          JSON_TOKENER_STRICT | JSON_TOKENER_VALIDATE_UTF8);
-  tree = json_tokener_parse_ex (tok, json, strlen (json));
-  err = json_tokener_get_error (tok);
-  if (err != json_tokener_success) {
-    debug (g, "QMP parse error: %s (ignored)", json_tokener_error_desc (err));
-    json_tokener_free (tok);
-    return;
-  }
-  json_tokener_free (tok);
-
-  return_node = json_object_object_get (tree, "return");
-  if (json_object_get_type (return_node) != json_type_object) {
-    debug (g, "QMP query-kvm: no \"return\" node (ignored)");
-    return;
-  }
-  enabled_node = json_object_object_get (return_node, "enabled");
-  *ret = json_object_get_boolean (enabled_node);
-}
-
-/**
- * Generic functions for reading and writing the cache files, used
- * where we are just reading and writing plain text strings.
- */
-static int
-generic_read_cache (guestfs_h *g, const char *filename, char **strp)
-{
-  if (access (filename, R_OK) == -1 && errno == ENOENT)
-    return 0;                   /* no cache, run the test instead */
-  if (guestfs_int_read_whole_file (g, filename, strp, NULL) == -1)
-    return -1;
-  return 1;
-}
-
-static int
-generic_write_cache (guestfs_h *g, const char *filename, const char *str)
-{
-  CLEANUP_CLOSE int fd = -1;
-  size_t len;
-
-  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
-  if (fd == -1) {
-    perrorf (g, "%s", filename);
-    return -1;
-  }
-
-  len = strlen (str);
-  if (full_write (fd, str, len) != len) {
-    perrorf (g, "%s: write", filename);
-    return -1;
-  }
-
-  return 0;
-}
-
 /**
  * Run a generic QMP test on the QEMU binary.
  */
 static int
-generic_qmp_test (guestfs_h *g, struct qemu_data *data,
-                  const char *qmp_command,
-                  char **outp)
+generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
 {
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r, fd;
@@ -427,14 +108,8 @@ generic_qmp_test (guestfs_h *g, struct qemu_data *data,
   len = getline (&line, &allocsize, fp); /* line 1 */
   if (len == -1 || strstr (line, "\"QMP\"") == NULL) {
   parse_failure:
-    debug (g, "did not understand QMP monitor output from %s (ignored)",
-           g->hv);
-    /* QMP tests are optional, don't fail if we cannot parse the
-     * output.  However we MUST return an empty string on non-error
-     * paths.
-     */
-    *outp = safe_strdup (g, "");
-    return 0;
+    debug (g, "did not understand QMP monitor output from %s", g->hv);
+    return -1;
   }
   len = getline (&line, &allocsize, fp); /* line 2 */
   if (len == -1 || strstr (line, "\"return\"") == NULL)
@@ -450,17 +125,65 @@ generic_qmp_test (guestfs_h *g, struct qemu_data *data,
   r = guestfs_int_cmd_pipe_wait (cmd);
   /* QMP tests are optional, don't fail if the tests fail. */
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    debug (g, "%s wait failed or unexpected exit status (ignored)", g->hv);
-    return 0;
+    debug (g, "%s wait failed or unexpected exit status", g->hv);
+    return -1;
   }
 
   return 0;
 }
 
-bool
-guestfs_int_platform_has_kvm (guestfs_h *g, const struct qemu_data *data)
+/**
+ * Parse the json output from QMP query-kvm to find out if KVM is
+ * enabled on this machine.
+ *
+ * The JSON output looks like:
+ * {"return": {"enabled": true, "present": true}}
+ */
+static int
+parse_has_kvm (guestfs_h *g, const char *json)
 {
-  return data->has_kvm;
+  CLEANUP_JSON_OBJECT_PUT json_object *tree = NULL;
+  json_tokener *tok;
+  enum json_tokener_error err;
+  json_object *return_node, *enabled_node;
+
+  tok = json_tokener_new ();
+  json_tokener_set_flags (tok,
+                          JSON_TOKENER_STRICT | JSON_TOKENER_VALIDATE_UTF8);
+  tree = json_tokener_parse_ex (tok, json, strlen (json));
+  err = json_tokener_get_error (tok);
+  if (err != json_tokener_success) {
+    error (g, "QMP parse error: %s", json_tokener_error_desc (err));
+    json_tokener_free (tok);
+    return -1;
+  }
+  json_tokener_free (tok);
+
+  return_node = json_object_object_get (tree, "return");
+  if (json_object_get_type (return_node) != json_type_object) {
+    error (g, "QMP query-kvm: no \"return\" node");
+    return -1;
+  }
+  enabled_node = json_object_object_get (return_node, "enabled");
+  return json_object_get_boolean (enabled_node);
+}
+
+/**
+ * Test if the platform supports KVM.
+ *
+ * Only qemu "knows" this fact reliably, so we run qemu, query it
+ * using the QMP "query-kvm" command, and parse the JSON output from
+ * that command.
+ */
+int
+guestfs_int_platform_has_kvm (guestfs_h *g)
+{
+  char *query_kvm;
+
+  if (generic_qmp_test (g, "query-kvm", &query_kvm) == -1)
+    return -1;
+
+  return parse_has_kvm (g, query_kvm);
 }
 
 /**
@@ -735,16 +458,4 @@ guestfs_int_discard_possible (guestfs_h *g, struct drive *drv)
   }
 
   return true;
-}
-
-/**
- * Free the C<struct qemu_data>.
- */
-void
-guestfs_int_free_qemu_data (struct qemu_data *data)
-{
-  if (data) {
-    free (data->query_kvm);
-    free (data);
-  }
 }
