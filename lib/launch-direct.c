@@ -633,8 +633,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   /* These are recommended settings, see RHBZ#1053847. */
   arg ("-rtc", "driftfix=slew");
 #if defined(__i386__) || defined(__x86_64__)
-  if (guestfs_int_version_ge (&data->qemu_version, 1, 3, 0))
-    arg ("-global", "kvm-pit.lost_tick_policy=discard");
+  arg ("-global", "kvm-pit.lost_tick_policy=discard");
 #endif
 
   /* UEFI (firmware) if required. */
