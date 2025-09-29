@@ -56,7 +56,6 @@ struct backend_direct_data {
   pid_t pid;                    /* Qemu PID. */
   pid_t recoverypid;            /* Recovery process PID. */
 
-  struct version qemu_version;  /* qemu version (0 if unable to parse). */
   struct qemu_data *qemu_data;  /* qemu -help output etc. */
 
   char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
@@ -482,12 +481,14 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   /* Get qemu help text and version. */
   if (data->qemu_data == NULL) {
+    struct version qemu_version;
+
     data->qemu_data = guestfs_int_test_qemu (g);
     if (data->qemu_data == NULL)
       goto cleanup0;
-    data->qemu_version = guestfs_int_qemu_version (g, data->qemu_data);
+    qemu_version = guestfs_int_qemu_version (g, data->qemu_data);
     debug (g, "qemu version: %d.%d",
-           data->qemu_version.v_major, data->qemu_version.v_minor);
+           qemu_version.v_major, qemu_version.v_minor);
   }
 
   /* Work out if KVM is supported or if the user wants to force TCG. */
