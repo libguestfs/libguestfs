@@ -496,7 +496,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     guestfs_int_cmd_run (cmd);
   }
 
-  /* Get qemu help text. */
+  /* Test qemu. */
   if (data->qemu_data == NULL) {
     data->qemu_data = guestfs_int_test_qemu (g);
     if (data->qemu_data == NULL)
