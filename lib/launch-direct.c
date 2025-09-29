@@ -579,19 +579,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    */
   arg ("-global", VIRTIO_DEVICE_NAME ("virtio-blk") ".scsi=off");
 
-  if (guestfs_int_qemu_supports (g, data->qemu_data, "-no-user-config"))
-    flag ("-no-user-config");
-
-  /* Newer versions of qemu (from around 2009/12) changed the
-   * behaviour of monitors so that an implicit '-monitor stdio' is
-   * assumed if we are in -nographic mode and there is no other
-   * -monitor option.  Only a single stdio device is allowed, so
-   * this broke the '-serial stdio' option.  There is a new flag
-   * called -nodefaults which gets rid of all this default crud, so
-   * let's use that to avoid this and any future surprises.
+  /* Disable qemu defaults and per-user configuration file so we get
+   * an unconfigured qemu.
    */
-  if (guestfs_int_qemu_supports (g, data->qemu_data, "-nodefaults"))
-    flag ("-nodefaults");
+  flag ("-no-user-config");
+  flag ("-nodefaults");
 
   /* This disables the host-side display (SDL, Gtk). */
   arg ("-display", "none");
@@ -646,8 +638,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   /* These are recommended settings, see RHBZ#1053847. */
   arg ("-rtc", "driftfix=slew");
-  if (guestfs_int_qemu_supports (g, data->qemu_data, "-no-hpet"))
-    flag ("-no-hpet");
 #if defined(__i386__) || defined(__x86_64__)
   if (guestfs_int_version_ge (&data->qemu_version, 1, 3, 0))
     arg ("-global", "kvm-pit.lost_tick_policy=discard");
