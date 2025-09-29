@@ -791,13 +791,10 @@ void guestfs_int_init_libvirt_backend (void) __attribute__((constructor));
 #endif
 
 /* qemu.c */
-struct qemu_data;
-extern struct qemu_data *guestfs_int_test_qemu (guestfs_h *g);
-extern bool guestfs_int_platform_has_kvm (guestfs_h *g, const struct qemu_data *data);
+extern int guestfs_int_platform_has_kvm (guestfs_h *g);
 extern char *guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
 extern bool guestfs_int_discard_possible (guestfs_h *g, struct drive *drv);
 extern char *guestfs_int_qemu_escape_param (guestfs_h *g, const char *param);
-extern void guestfs_int_free_qemu_data (struct qemu_data *);
 
 /* guid.c */
 extern int guestfs_int_validate_guid (const char *);

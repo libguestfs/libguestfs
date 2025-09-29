@@ -56,8 +56,6 @@ struct backend_direct_data {
   pid_t pid;                    /* Qemu PID. */
   pid_t recoverypid;            /* Recovery process PID. */
 
-  struct qemu_data *qemu_data;  /* qemu -help output etc. */
-
   char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
 };
 
@@ -461,7 +459,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   uint32_t size;
   CLEANUP_FREE void *buf = NULL;
   struct hv_param *hp;
-  bool has_kvm;
+  int has_kvm;
   int force_tcg;
   int force_kvm;
   const char *accel_val = "kvm:tcg";
@@ -496,15 +494,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     guestfs_int_cmd_run (cmd);
   }
 
-  /* Test qemu. */
-  if (data->qemu_data == NULL) {
-    data->qemu_data = guestfs_int_test_qemu (g);
-    if (data->qemu_data == NULL)
-      goto cleanup0;
-  }
-
   /* Work out if KVM is supported or if the user wants to force TCG. */
-  has_kvm = guestfs_int_platform_has_kvm (g, data->qemu_data);
+  if ((has_kvm = guestfs_int_platform_has_kvm (g)) == -1)
+    goto cleanup0;
   debug (g, "qemu KVM: %s", has_kvm ? "enabled" : "disabled");
 
   force_tcg = guestfs_int_get_backend_setting_bool (g, "force_tcg");
@@ -1042,8 +1034,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   data->pid = 0;
   data->recoverypid = 0;
   memset (&g->launch_t, 0, sizeof g->launch_t);
-  guestfs_int_free_qemu_data (data->qemu_data);
-  data->qemu_data = NULL;
 
  cleanup0:
   if (passt_pid != -1)
@@ -1099,9 +1089,6 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
     unlink (data->guestfsd_sock);
     data->guestfsd_sock[0] = '\0';
   }
-
-  guestfs_int_free_qemu_data (data->qemu_data);
-  data->qemu_data = NULL;
 
   return ret;
 }

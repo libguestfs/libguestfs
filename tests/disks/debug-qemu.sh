@@ -23,6 +23,18 @@ if [ -z "$DEBUG_QEMU_FILE" ]; then
     exit 1
 fi
 
+# The direct backend runs qemu ... -qmp stdio to query for KVM.  For
+# the test to pass we have to provide an answer here.
+if [ "x$5" = "x-qmp" ]; then
+    # Consume stdin first.
+    cat >/dev/null
+    # Write some fake output.
+    echo '"QMP"'
+    echo '"return"'
+    echo '{"return": {"enabled": true, "present": true}}'
+    exit 0
+fi
+
 echo "$@" > "$DEBUG_QEMU_FILE"
 
 # Real qemu would connect back to the daemon socket with a working
