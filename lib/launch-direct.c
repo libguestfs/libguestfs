@@ -748,11 +748,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   /* Enable user networking. */
   if (g->enable_network) {
-    /* If qemu is 7.2.0+ and "passt" is available, ask for passt rather
-     * than SLIRP.  RHBZ#2184967.
-     */
-    if (guestfs_int_version_ge (&data->qemu_version, 7, 2, 0) &&
-        guestfs_int_passt_runnable (g)) {
+    /* If passt is available, ask for passt rather than SLIRP (RHBZ#2184967) */
+    if (guestfs_int_passt_runnable (g)) {
       char passt_sock[UNIX_PATH_MAX];
 
       if (launch_passt (g, &passt_pid, &passt_sock) == -1)
