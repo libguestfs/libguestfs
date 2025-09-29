@@ -589,17 +589,6 @@ guestfs_int_qemu_version (guestfs_h *g, struct qemu_data *data)
 }
 
 /**
- * Test if option is supported by qemu command line (just by grepping
- * the help text).
- */
-int
-guestfs_int_qemu_supports (guestfs_h *g, const struct qemu_data *data,
-                           const char *option)
-{
-  return strstr (data->qemu_help, option) != NULL;
-}
-
-/**
  * Test if device is supported by qemu (currently just greps the
  * C<qemu -device ?> output).
  */
