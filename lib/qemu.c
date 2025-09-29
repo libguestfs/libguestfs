@@ -65,7 +65,6 @@ struct qemu_data {
   char *query_kvm;              /* Output of QMP query-kvm. */
 
   /* The following fields are derived from the fields above. */
-  struct version qemu_version;  /* Parsed qemu version number. */
   bool has_kvm;                 /* If KVM is available. */
 };
 
@@ -81,7 +80,6 @@ static int read_cache_query_kvm (guestfs_h *g, struct qemu_data *data, const cha
 static int write_cache_query_kvm (guestfs_h *g, const struct qemu_data *data, const char *filename);
 static int read_cache_qemu_stat (guestfs_h *g, struct qemu_data *data, const char *filename);
 static int write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data, const char *filename);
-static void parse_qemu_version (guestfs_h *g, const char *, struct version *qemu_version);
 static void parse_has_kvm (guestfs_h *g, const char *, bool *);
 static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 static int generic_read_cache (guestfs_h *g, const char *filename, char **strp);
@@ -218,7 +216,6 @@ guestfs_int_test_qemu (guestfs_h *g)
 
  out:
   /* Derived fields. */
-  parse_qemu_version (g, data->qemu_help, &data->qemu_version);
   parse_has_kvm (g, data->query_kvm, &data->has_kvm);
 
   return data;
@@ -393,23 +390,6 @@ write_cache_qemu_stat (guestfs_h *g, const struct qemu_data *data,
 }
 
 /**
- * Parse the first line of C<qemu_help> into the major and minor
- * version of qemu, but don't fail if parsing is not possible.
- */
-static void
-parse_qemu_version (guestfs_h *g, const char *qemu_help,
-                    struct version *qemu_version)
-{
-  version_init_null (qemu_version);
-
-  if (guestfs_int_version_from_x_y (g, qemu_version, qemu_help) < 1) {
-    debug (g, "%s: failed to parse qemu version string from the first line of the output of '%s -help'.  When reporting this bug please include the -help output.",
-           __func__, g->hv);
-    return;
-  }
-}
-
-/**
  * Parse the json output from QMP query-kvm to find out if KVM is
  * enabled on this machine.  Don't fail if parsing is not possible,
  * assume KVM is available.
@@ -577,15 +557,6 @@ read_all (guestfs_h *g, void *retv, const char *buf, size_t len)
   char **ret = retv;
 
   *ret = safe_strndup (g, buf, len);
-}
-
-/**
- * Return the parsed version of qemu.
- */
-struct version
-guestfs_int_qemu_version (guestfs_h *g, struct qemu_data *data)
-{
-  return data->qemu_version;
 }
 
 /**
