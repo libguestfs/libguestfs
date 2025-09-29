@@ -617,7 +617,6 @@ TESTS += \
 	regressions/rhbz602997.sh \
 	regressions/rhbz690819.sh \
 	regressions/rhbz789960.sh \
-	regressions/rhbz790721 \
 	regressions/rhbz811649.sh \
 	regressions/rhbz895904.sh \
 	regressions/rhbz914931 \
@@ -676,7 +675,6 @@ EXTRA_DIST += regressions/rhbz727178.sh
 
 check_PROGRAMS += \
 	regressions/rhbz501893 \
-	regressions/rhbz790721 \
 	regressions/rhbz914931 \
 	regressions/rhbz1055452 \
 	regressions/test-big-heap
@@ -692,20 +690,6 @@ regressions_rhbz501893_CFLAGS = \
 regressions_rhbz501893_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la
-
-regressions_rhbz790721_SOURCES = regressions/rhbz790721.c
-regressions_rhbz790721_CPPFLAGS = \
-	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
-	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
-	-I$(top_srcdir)/include
-regressions_rhbz790721_CFLAGS = \
-	-pthread \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
-regressions_rhbz790721_LDADD = \
-	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/lib/libguestfs.la \
-	$(top_builddir)/gnulib/lib/libgnu.la
 
 regressions_rhbz914931_SOURCES = regressions/rhbz914931.c
 regressions_rhbz914931_CPPFLAGS = \
