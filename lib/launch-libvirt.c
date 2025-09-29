@@ -125,7 +125,6 @@ struct backend_libvirt_data {
   char name[DOMAIN_NAME_LEN];   /* random name */
   bool is_kvm;                  /* false = qemu, true = kvm (from capabilities)*/
   struct version libvirt_version; /* libvirt version */
-  struct version qemu_version;  /* qemu version (from libvirt) */
   struct secret *secrets;       /* list of secrets */
   size_t nr_secrets;
   char *uefi_code;		/* UEFI (firmware) code and variables. */
@@ -387,18 +386,10 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   virConnSetErrorFunc (conn, NULL, ignore_errors);
 
   /* Get hypervisor (hopefully qemu) version. */
-  if (virConnectGetVersion (conn, &version_number) == 0) {
-    guestfs_int_version_from_libvirt (&data->qemu_version, version_number);
-    debug (g, "qemu version (reported by libvirt) = %lu (%d.%d.%d)",
-           version_number,
-           data->qemu_version.v_major,
-           data->qemu_version.v_minor,
-           data->qemu_version.v_micro);
-  }
-  else {
+  if (virConnectGetVersion (conn, &version_number) == 0)
+    debug (g, "qemu version (reported by libvirt) = %lu", version_number);
+  else
     libvirt_debug (g, "unable to read qemu version from libvirt");
-    version_init_null (&data->qemu_version);
-  }
 
   debug (g, "get libvirt capabilities");
 
