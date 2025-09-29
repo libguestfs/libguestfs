@@ -813,7 +813,6 @@ struct rusage;
 extern int guestfs_int_wait4 (guestfs_h *g, pid_t pid, int *status, struct rusage *rusage, const char *errmsg);
 
 /* version.c */
-extern void guestfs_int_version_from_libvirt (struct version *v, int vernum);
 extern void guestfs_int_version_from_values (struct version *v, int maj, int min, int mic);
 extern int guestfs_int_version_from_x_y (guestfs_h *g, struct version *v, const char *str);
 extern int guestfs_int_version_from_x_y_re (guestfs_h *g, struct version *v, const char *str, const pcre2_code *re);
