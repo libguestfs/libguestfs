@@ -305,6 +305,8 @@ create_cow_overlay_libvirt (guestfs_h *g, void *datav, struct drive *drv)
   return overlay;
 }
 
+static pthread_mutex_t connect_lock = PTHREAD_MUTEX_INITIALIZER;
+
 static int
 launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 {
@@ -330,6 +332,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   unsigned long version_number;
   int uefi_flags;
   CLEANUP_FREE char *domcapabilities_xml = NULL;
+  CLEANUP_FREE char *embed_uri = NULL;
 
   params.current_proc_is_root = geteuid () == 0;
 
@@ -347,27 +350,36 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   /* Create a random name for the guest. */
   memcpy (data->name, "guestfs-", 8);
   const size_t random_name_len =
-    DOMAIN_NAME_LEN - 8 /* "guestfs-" */ - 1 /* \0 */;
+    DOMAIN_NAME_LEN - 16 /* "guestfs-" */ - 1 /* \0 */;
   if (guestfs_int_random_string (&data->name[8], random_name_len) == -1) {
     perrorf (g, "guestfs_int_random_string");
     return -1;
   }
   debug (g, "guest random name = %s", data->name);
 
+  if (!params.current_proc_is_root)
+    embed_uri = safe_asprintf(g, "qemu:///embed?root=/tmp/libguestfs/embed-%d",
+                              getpid());
+  else
+    embed_uri = safe_asprintf(g, "qemu:///embed?root=/var/lib/libguestfs/embed-%d",
+                              getpid());
+
   debug (g, "connect to libvirt");
 
+  virEventRegisterDefaultImpl();
   /* Decode the URI string. */
   if (!libvirt_uri) {           /* "libvirt" */
-    if (!params.current_proc_is_root)
-      libvirt_uri = "qemu:///session";
-    else
-      libvirt_uri = "qemu:///system";
+    libvirt_uri = embed_uri;
   } else if (STREQ (libvirt_uri, "null")) { /* libvirt:null */
     libvirt_uri = NULL;
   } /* else nothing */
 
   /* Connect to libvirt, get capabilities. */
-  conn = guestfs_int_open_libvirt_connection (g, libvirt_uri, 0);
+  {
+   ACQUIRE_LOCK_FOR_CURRENT_SCOPE (&connect_lock);
+   conn = guestfs_int_open_libvirt_connection (g, libvirt_uri, 0);
+  }
+
   if (!conn) {
     libvirt_error (g, _("could not connect to libvirt (URI = %s)"),
                    libvirt_uri ? : "NULL");
@@ -603,7 +615,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   /* Launch the libvirt guest. */
   debug (g, "launch libvirt guest");
 
-  dom = virDomainCreateXML (conn, (char *) xml, VIR_DOMAIN_START_AUTODESTROY);
+  dom = virDomainCreateXML (conn, (char *) xml, 0);
   if (!dom) {
     libvirt_error (g, _(
                         "could not create appliance through libvirt. "
