@@ -1238,6 +1238,7 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
     /* This disables SELinux/sVirt confinement. */
     start_element ("seclabel") {
       attribute ("type", "none");
+      attribute ("model", "selinux");
     } end_element ();
   }
   else if (params->data->selinux_label) {
