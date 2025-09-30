@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.57.3\n"
+"Project-Id-Version: libguestfs 1.57.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2025-09-09 19:11+0100\n"
+"POT-Creation-Date: 2025-09-30 10:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3895,7 +3895,7 @@ msgstr ""
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: lib/launch-direct.c:150
+#: lib/launch-direct.c:154
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -3904,31 +3904,31 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:392
+#: lib/launch-direct.c:390
 #, c-format
 msgid "passt was killed with signal %d"
 msgstr ""
 
-#: lib/launch-direct.c:397
+#: lib/launch-direct.c:395
 #, c-format
 msgid "internal error: unexpected exit status from passt (%d)"
 msgstr ""
 
-#: lib/launch-direct.c:404
+#: lib/launch-direct.c:402
 #, c-format
 msgid "passt exited with status %d"
 msgstr ""
 
-#: lib/launch-direct.c:425
+#: lib/launch-direct.c:423
 #, c-format
 msgid "failed to parse passt PID from '%s'"
 msgstr ""
 
-#: lib/launch-direct.c:474
+#: lib/launch-direct.c:472
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:1037 lib/launch-libvirt.c:690
+#: lib/launch-direct.c:1016 lib/launch-libvirt.c:676
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -3937,56 +3937,56 @@ msgstr ""
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: lib/launch-libvirt.c:214
+#: lib/launch-libvirt.c:212
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:225
+#: lib/launch-libvirt.c:223
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:340
+#: lib/launch-libvirt.c:338
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:378
+#: lib/launch-libvirt.c:372
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: lib/launch-libvirt.c:407
+#: lib/launch-libvirt.c:393
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:428
+#: lib/launch-libvirt.c:414
 msgid "could not get libvirt domain capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:623
+#: lib/launch-libvirt.c:609
 msgid "could not create appliance through libvirt. Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:755
+#: lib/launch-libvirt.c:741
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:761 lib/launch-libvirt.c:863 lib/libvirt-domain.c:397
+#: lib/launch-libvirt.c:747 lib/launch-libvirt.c:849 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: lib/launch-libvirt.c:771 lib/launch-libvirt.c:871 lib/launch-libvirt.c:887
+#: lib/launch-libvirt.c:757 lib/launch-libvirt.c:857 lib/launch-libvirt.c:873
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:810
+#: lib/launch-libvirt.c:796
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -4001,47 +4001,47 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:857
+#: lib/launch-libvirt.c:843
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1503 lib/launch-libvirt.c:1756 lib/qemu.c:766
+#: lib/launch-libvirt.c:1468 lib/launch-libvirt.c:1716 lib/qemu.c:281
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1581
+#: lib/launch-libvirt.c:1546
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1971
+#: lib/launch-libvirt.c:1906
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1982
+#: lib/launch-libvirt.c:1917
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1986
+#: lib/launch-libvirt.c:1921
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:2004
+#: lib/launch-libvirt.c:1939
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:2017
+#: lib/launch-libvirt.c:1952
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2193
+#: lib/launch-libvirt.c:2128
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2214 lib/launch-libvirt.c:2247
+#: lib/launch-libvirt.c:2149 lib/launch-libvirt.c:2182
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
@@ -4257,35 +4257,25 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: lib/qemu.c:910
-msgid "discard cannot be enabled on this drive: qemu < 1.5"
-msgstr ""
-
-#: lib/qemu.c:919
+#: lib/qemu.c:418
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:926
+#: lib/qemu.c:425
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:934
-msgid ""
-"discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
-"qcow2 files"
-msgstr ""
-
-#: lib/qemu.c:942
+#: lib/qemu.c:435
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:962
+#: lib/qemu.c:455
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
@@ -4360,7 +4350,7 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: lib/version.c:166
+#: lib/version.c:158
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
