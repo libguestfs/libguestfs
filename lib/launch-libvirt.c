@@ -1262,7 +1262,7 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
       attribute ("type", "none");
     } end_element ();
   }
-  else if (params->data->selinux_label && params->data->selinux_imagelabel) {
+  else if (params->data->selinux_label) {
     /* Enable sVirt and pass a custom <seclabel/> inherited from the
      * original libvirt domain (when guestfs_add_domain was called).
      * https://bugzilla.redhat.com/show_bug.cgi?id=912499#c7
@@ -1272,7 +1272,6 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
       attribute ("model", "selinux");
       attribute ("relabel", "yes");
       single_element ("label", params->data->selinux_label);
-      single_element ("imagelabel", params->data->selinux_imagelabel);
     } end_element ();
   }
 
