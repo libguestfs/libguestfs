@@ -25,7 +25,6 @@
 #include <unistd.h>
 #include <limits.h>
 #include <fcntl.h>
-#include <grp.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -527,51 +526,30 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
   clear_socket_create_context (g);
 
-  /* libvirt, if running as root, will run the qemu process as
-   * qemu.qemu, which means it won't be able to access the socket.
-   * There are roughly three things that get in the way:
+
+  /* If we are running as root, libvirt via qemu:///system is likely running
+   * VMs as qemu.qemu, which means qemu may not be able to access the sockets
+   * we just created.
    *
-   * (1) Permissions of the socket.
+   * libvirt DAC and selinux relabeling will take care of most issues,
+   * but the whole directory hierarchy needs +x permissions for the qemu
+   * user (remember this if you have a funky $TMPDIR)
    *
-   * (2) Permissions of the parent directory(-ies).  Remember this if
-   *     $TMPDIR is located in your home directory.
-   *
-   * (3) SELinux/sVirt will prevent access.  libvirt ought to label
-   *     the socket.
-   *
-   * Note that the 'current_proc_is_root' flag here just means that we
-   * are root.  It's also possible for non-root user to try to use the
+   * It's also possible for non-root user to try to use the
    * system libvirtd by specifying a qemu:///system URI (RHBZ#913774)
    * but there's no sane way to test for that.
+   *
+   * These chmod calls are actually about socket access
    */
-  if (params.current_proc_is_root) {
-    /* Current process is root, so try to create sockets that are
-     * owned by root.qemu with mode 0660 and hence accessible to qemu.
-     */
-    struct group *grp;
 
-    if (chmod (data->guestfsd_path, 0660) == -1) {
-      perrorf (g, "chmod: %s", data->guestfsd_path);
-      goto cleanup;
-    }
+  if (chmod (data->guestfsd_path, 0660) == -1) {
+    perrorf (g, "chmod: %s", data->guestfsd_path);
+    goto cleanup;
+  }
 
-    if (chmod (data->console_path, 0660) == -1) {
-      perrorf (g, "chmod: %s", data->console_path);
-      goto cleanup;
-    }
-
-    grp = getgrnam ("qemu");
-    if (grp != NULL) {
-      if (chown (data->guestfsd_path, 0, grp->gr_gid) == -1) {
-        perrorf (g, "chown: %s", data->guestfsd_path);
-        goto cleanup;
-      }
-      if (chown (data->console_path, 0, grp->gr_gid) == -1) {
-        perrorf (g, "chown: %s", data->console_path);
-        goto cleanup;
-      }
-    } else
-      debug (g, "cannot find group 'qemu'");
+  if (chmod (data->console_path, 0660) == -1) {
+    perrorf (g, "chmod: %s", data->console_path);
+    goto cleanup;
   }
 
   /* Store any secrets in libvirtd, keeping a mapping from the secret
