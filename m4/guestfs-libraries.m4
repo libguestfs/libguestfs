@@ -155,7 +155,15 @@ AM_CONDITIONAL([HAVE_GNU_GETTEXT],
     [test "x$XGETTEXT" != "xno" && test "x$MSGCAT" != "xno" && test "x$MSGFMT" != "xno" && test "x$MSGMERGE" != "xno" && test "x$msgfmt_is_gnu" != "xno"])
 
 dnl Check for gettext.
-AM_GNU_GETTEXT([external])
+AC_CHECK_HEADERS([libintl.h])
+AC_SEARCH_LIBS([dgettext], [intl], [
+if test "$ac_cv_search_dgettext" != "none required"; then
+  LIBINTL="$ac_cv_search_dgettext"
+  LTLIBINTL="$ac_cv_search_dgettext"
+fi
+])
+AC_SUBST([LIBINTL])
+AC_SUBST([LTLIBINTL])
 
 dnl Default backend.
 AC_MSG_CHECKING([if the user specified a default backend])
