@@ -25,7 +25,7 @@ fi
 
 # The direct backend runs qemu ... -qmp stdio to query for KVM.  For
 # the test to pass we have to provide an answer here.
-if [ "x$5" = "x-qmp" ]; then
+if [ "x$7" = "x-qmp" ]; then
     # Consume stdin first.
     cat >/dev/null
     # Write some fake output.

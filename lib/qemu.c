@@ -80,6 +80,7 @@ generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
   guestfs_int_cmd_add_string_unquoted (cmd, "QEMU_AUDIO_DRV=none ");
   guestfs_int_cmd_add_string_quoted (cmd, g->hv);
   guestfs_int_cmd_add_string_unquoted (cmd, " -display none");
+  guestfs_int_cmd_add_string_unquoted (cmd, " -cpu max");
   guestfs_int_cmd_add_string_unquoted (cmd, " -machine ");
   guestfs_int_cmd_add_string_quoted (cmd,
 #ifdef MACHINE_TYPE
