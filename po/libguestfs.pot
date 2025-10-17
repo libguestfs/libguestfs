@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.57.4\n"
+"Project-Id-Version: libguestfs 1.57.5\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2025-09-30 10:05+0100\n"
+"POT-Creation-Date: 2025-10-17 10:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2621,7 +2621,7 @@ msgstr ""
 msgid "use ‘list-events’ to list event handlers\n"
 msgstr ""
 
-#: fish/fish.c:114 fuse/guestmount.c:103 fuse/guestunmount.c:57
+#: fish/fish.c:114 fuse/guestmount.c:103 fuse/guestunmount.c:58
 #: rescue/rescue.c:80
 #, c-format
 msgid "Try ‘%s --help’ for more information.\n"
@@ -2699,7 +2699,7 @@ msgstr ""
 msgid "libguestfs live support was removed in libguestfs 1.48"
 msgstr ""
 
-#: fish/fish.c:306 fuse/guestmount.c:263 fuse/guestunmount.c:131
+#: fish/fish.c:306 fuse/guestmount.c:263 fuse/guestunmount.c:132
 #: rescue/rescue.c:225 test-tool/test-tool.c:123
 #, c-format
 msgid "unknown long option: %s (%d)"
@@ -3335,7 +3335,7 @@ msgstr ""
 msgid "you must specify a mountpoint in the host filesystem"
 msgstr ""
 
-#: fuse/guestunmount.c:60
+#: fuse/guestunmount.c:61
 #, c-format
 msgid ""
 "%s: clean up a mounted filesystem\n"
@@ -3352,27 +3352,27 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 msgstr ""
 
-#: fuse/guestunmount.c:121
+#: fuse/guestunmount.c:122
 #, c-format
 msgid "cannot parse fd option ‘%s’"
 msgstr ""
 
-#: fuse/guestunmount.c:127
+#: fuse/guestunmount.c:128
 #, c-format
 msgid "cannot parse retries option or value is too large ‘%s’"
 msgstr ""
 
-#: fuse/guestunmount.c:158
+#: fuse/guestunmount.c:159
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem\n"
 msgstr ""
 
-#: fuse/guestunmount.c:208
+#: fuse/guestunmount.c:209
 #, c-format
 msgid "%s: failed to unmount %s: %s\n"
 msgstr ""
 
-#: fuse/guestunmount.c:219
+#: fuse/guestunmount.c:220
 #, c-format
 msgid "%s: %s is not mounted: %s\n"
 msgstr ""
@@ -3774,50 +3774,50 @@ msgid ""
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: lib/fuse.c:972
+#: lib/fuse.c:980
 msgid "filesystem is already mounted in another thread"
 msgstr ""
 
-#: lib/fuse.c:996
+#: lib/fuse.c:1004
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr ""
 
-#: lib/fuse.c:1013
+#: lib/fuse.c:1021
 #, c-format
 msgid "fuse_mount failed: %s, see error messages above"
 msgstr ""
 
-#: lib/fuse.c:1032
+#: lib/fuse.c:1040
 #, c-format
 msgid "fuse_new: %s"
 msgstr ""
 
-#: lib/fuse.c:1061
+#: lib/fuse.c:1069
 msgid "you must call guestfs_mount_local first"
 msgstr ""
 
-#: lib/fuse.c:1072
+#: lib/fuse.c:1080
 #, c-format
 msgid ""
 "you must call ‘guestfs_mount’ first to mount a filesystem on '/'.\n"
 "Note: ‘%s’ is still mounted.  Use ‘guestunmount %s’ to clean up."
 msgstr ""
 
-#: lib/fuse.c:1082
+#: lib/fuse.c:1090
 #, c-format
 msgid "fuse_loop: %s"
 msgstr ""
 
-#: lib/fuse.c:1133
+#: lib/fuse.c:1141
 msgid "no filesystem is mounted"
 msgstr ""
 
-#: lib/fuse.c:1252
+#: lib/fuse.c:1260
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: lib/fuse.c:1507
+#: lib/fuse.c:1515
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -3928,7 +3928,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:1016 lib/launch-libvirt.c:676
+#: lib/launch-direct.c:1005 lib/launch-libvirt.c:676
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -4005,7 +4005,7 @@ msgstr ""
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1468 lib/launch-libvirt.c:1716 lib/qemu.c:281
+#: lib/launch-libvirt.c:1468 lib/launch-libvirt.c:1716 lib/qemu.c:282
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
@@ -4257,25 +4257,25 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: lib/qemu.c:418
+#: lib/qemu.c:419
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:425
+#: lib/qemu.c:426
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:435
+#: lib/qemu.c:436
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:455
+#: lib/qemu.c:456
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
