@@ -75,6 +75,15 @@ free_handle (void *gvp)
   }
 }
 
+/* TypedData structure for guestfs handle. */
+const rb_data_type_t guestfs_h_data_type = {
+  .wrap_struct_name = "guestfs_h",
+  .function = {
+    .dfree = free_handle,
+  },
+  .flags = RUBY_TYPED_FREE_IMMEDIATELY
+};
+
 /* This is the ruby internal alloc function for the class.  We do nothing
  * here except allocate an object containing a NULL guestfs handle.
  * Note we cannot call guestfs_create here because we need the extra
@@ -89,7 +98,7 @@ guestfs_int_ruby_alloc_handle (VALUE klass)
   /* Wrap it, and make sure the close function is called when the
    * handle goes away.
    */
-  return Data_Wrap_Struct (c_guestfs, NULL, free_handle, g);
+  return TypedData_Wrap_Struct (c_guestfs, &guestfs_h_data_type, g);
 }
 
 static unsigned
@@ -166,7 +175,7 @@ guestfs_int_ruby_compat_create_handle (int argc, VALUE *argv, VALUE module)
   /* Don't print error messages to stderr by default. */
   guestfs_set_error_handler (g, NULL, NULL);
 
-  return Data_Wrap_Struct (c_guestfs, NULL, free_handle, g);
+  return TypedData_Wrap_Struct (c_guestfs, &guestfs_h_data_type, g);
 }
 
 /*
@@ -181,7 +190,7 @@ VALUE
 guestfs_int_ruby_close_handle (VALUE gv)
 {
   guestfs_h *g;
-  Data_Get_Struct (gv, guestfs_h, g);
+  TypedData_Get_Struct (gv, guestfs_h, &guestfs_h_data_type, g);
 
   /* Clear the data pointer first so there's no chance of a double
    * close if a close callback does something bad like calling exit.
@@ -209,7 +218,7 @@ guestfs_int_ruby_set_event_callback (VALUE gv, VALUE cbv, VALUE event_bitmaskv)
   VALUE *root;
   char key[64];
 
-  Data_Get_Struct (gv, guestfs_h, g);
+  TypedData_Get_Struct (gv, guestfs_h, &guestfs_h_data_type, g);
 
   event_bitmask = NUM2ULL (event_bitmaskv);
 
@@ -249,7 +258,7 @@ guestfs_int_ruby_delete_event_callback (VALUE gv, VALUE event_handlev)
   const int eh = NUM2INT (event_handlev);
   VALUE *root;
 
-  Data_Get_Struct (gv, guestfs_h, g);
+  TypedData_Get_Struct (gv, guestfs_h, &guestfs_h_data_type, g);
 
   snprintf (key, sizeof key, "_ruby_event_%d", eh);
 

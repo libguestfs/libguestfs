@@ -76,6 +76,8 @@ extern VALUE m_guestfs;			/* guestfs module */
 extern VALUE c_guestfs;			/* guestfs_h handle */
 extern VALUE e_Error;			/* used for all errors */
 
+extern const rb_data_type_t guestfs_h_data_type; /* TypedData structure */
+
 extern VALUE guestfs_int_ruby_alloc_handle (VALUE klass);
 extern VALUE guestfs_int_ruby_initialize_handle (int argc, VALUE *argv, VALUE m);
 extern VALUE guestfs_int_ruby_compat_create_handle (int argc, VALUE *argv, VALUE module);
@@ -224,7 +226,7 @@ and generate_ruby_c actions () =
       pr ")\n";
       pr "{\n";
       pr "  guestfs_h *g;\n";
-      pr "  Data_Get_Struct (gv, guestfs_h, g);\n";
+      pr "  TypedData_Get_Struct (gv, guestfs_h, &guestfs_h_data_type, g);\n";
       pr "  if (!g)\n";
       pr "    rb_raise (rb_eArgError, \"%%s: used handle after closing it\", \"%s\");\n"
         f.name;
