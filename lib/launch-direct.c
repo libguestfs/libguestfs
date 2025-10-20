@@ -56,11 +56,15 @@ struct backend_direct_data {
   pid_t pid;                    /* Qemu PID. */
   pid_t recoverypid;            /* Recovery process PID. */
 
-  struct version qemu_version;  /* qemu version (0 if unable to parse). */
-  struct qemu_data *qemu_data;  /* qemu -help output etc. */
-
   char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
 };
+
+/* Helper that sends all output from a command to debug. */
+static void
+debug_lines (guestfs_h *g, void *retv, const char *buf, size_t len)
+{
+  debug (g, "qemu: %s", buf);
+}
 
 static char *
 create_cow_overlay_direct (guestfs_h *g, void *datav, struct drive *drv)
@@ -221,21 +225,15 @@ add_drive_standard_params (guestfs_h *g, struct backend_direct_data *data,
     switch (drv->discard) {
     case discard_disable:
       /* Since the default is always discard=ignore, don't specify it
-       * on the command line.  This also avoids unnecessary breakage
-       * with qemu < 1.5 which didn't have the option at all.
+       * on the command line.
        */
       break;
     case discard_enable:
-      if (!guestfs_int_discard_possible (g, drv, &data->qemu_version))
+      if (!guestfs_int_discard_possible (g, drv))
         return -1;
       /*FALLTHROUGH*/
     case discard_besteffort:
-      /* I believe from reading the code that this is always safe as
-       * long as qemu >= 1.5.
-       */
-      if (guestfs_int_version_ge (&data->qemu_version, 1, 5, 0))
-        append_list ("discard=unmap");
-      break;
+      append_list ("discard=unmap");
     }
   }
   else {
@@ -461,7 +459,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   uint32_t size;
   CLEANUP_FREE void *buf = NULL;
   struct hv_param *hp;
-  bool has_kvm;
+  int has_kvm;
   int force_tcg;
   int force_kvm;
   const char *accel_val = "kvm:tcg";
@@ -486,18 +484,19 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   debug (g, "begin testing qemu features");
 
-  /* Get qemu help text and version. */
-  if (data->qemu_data == NULL) {
-    data->qemu_data = guestfs_int_test_qemu (g);
-    if (data->qemu_data == NULL)
-      goto cleanup0;
-    data->qemu_version = guestfs_int_qemu_version (g, data->qemu_data);
-    debug (g, "qemu version: %d.%d",
-           data->qemu_version.v_major, data->qemu_version.v_minor);
+  /* If debugging, print the qemu version. */
+  if (g->verbose) {
+    CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
+
+    guestfs_int_cmd_add_arg (cmd, g->hv);
+    guestfs_int_cmd_add_arg (cmd, "-version");
+    guestfs_int_cmd_set_stdout_callback (cmd, debug_lines, NULL, 0);
+    guestfs_int_cmd_run (cmd);
   }
 
   /* Work out if KVM is supported or if the user wants to force TCG. */
-  has_kvm = guestfs_int_platform_has_kvm (g, data->qemu_data);
+  if ((has_kvm = guestfs_int_platform_has_kvm (g)) == -1)
+    goto cleanup0;
   debug (g, "qemu KVM: %s", has_kvm ? "enabled" : "disabled");
 
   force_tcg = guestfs_int_get_backend_setting_bool (g, "force_tcg");
@@ -579,19 +578,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    */
   arg ("-global", VIRTIO_DEVICE_NAME ("virtio-blk") ".scsi=off");
 
-  if (guestfs_int_qemu_supports (g, data->qemu_data, "-no-user-config"))
-    flag ("-no-user-config");
-
-  /* Newer versions of qemu (from around 2009/12) changed the
-   * behaviour of monitors so that an implicit '-monitor stdio' is
-   * assumed if we are in -nographic mode and there is no other
-   * -monitor option.  Only a single stdio device is allowed, so
-   * this broke the '-serial stdio' option.  There is a new flag
-   * called -nodefaults which gets rid of all this default crud, so
-   * let's use that to avoid this and any future surprises.
+  /* Disable qemu defaults and per-user configuration file so we get
+   * an unconfigured qemu.
    */
-  if (guestfs_int_qemu_supports (g, data->qemu_data, "-nodefaults"))
-    flag ("-nodefaults");
+  flag ("-no-user-config");
+  flag ("-nodefaults");
 
   /* This disables the host-side display (SDL, Gtk). */
   arg ("-display", "none");
@@ -622,19 +613,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   } end_list ();
 
   cpu_model = guestfs_int_get_cpu_model (has_kvm && !force_tcg);
-  if (cpu_model) {
-#if defined(__x86_64__)
-    /* Temporary workaround for RHBZ#2082806 */
-    if (STREQ (cpu_model, "max")) {
-      start_list ("-cpu") {
-        append_list (cpu_model);
-        append_list ("la57=off");
-      } end_list ();
-    }
-    else
-#endif
-      arg ("-cpu", cpu_model);
-  }
+  if (cpu_model)
+    arg ("-cpu", cpu_model);
 
   if (g->smp > 1)
     arg_format ("-smp", "%d", g->smp);
@@ -646,11 +626,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   /* These are recommended settings, see RHBZ#1053847. */
   arg ("-rtc", "driftfix=slew");
-  if (guestfs_int_qemu_supports (g, data->qemu_data, "-no-hpet"))
-    flag ("-no-hpet");
 #if defined(__i386__) || defined(__x86_64__)
-  if (guestfs_int_version_ge (&data->qemu_version, 1, 3, 0))
-    arg ("-global", "kvm-pit.lost_tick_policy=discard");
+  arg ("-global", "kvm-pit.lost_tick_policy=discard");
 #endif
 
   /* UEFI (firmware) if required. */
@@ -689,22 +666,16 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   arg ("-kernel", kernel);
   arg ("-initrd", initrd);
 
-  /* Add a random number generator (backend for virtio-rng).  This
-   * isn't strictly necessary but means we won't need to hang around
-   * when needing entropy.
-   */
-  if (guestfs_int_qemu_supports_device (g, data->qemu_data,
-                                        VIRTIO_DEVICE_NAME ("virtio-rng"))) {
-    start_list ("-object") {
-      append_list ("rng-random");
-      append_list ("filename=/dev/urandom");
-      append_list ("id=rng0");
-    } end_list ();
-    start_list ("-device") {
-      append_list (VIRTIO_DEVICE_NAME ("virtio-rng"));
-      append_list ("rng=rng0");
-    } end_list ();
-  }
+  /* Add a good source of entropy, eg for cryptographic operations. */
+  start_list ("-object") {
+    append_list ("rng-random");
+    append_list ("filename=/dev/urandom");
+    append_list ("id=rng0");
+  } end_list ();
+  start_list ("-device") {
+    append_list (VIRTIO_DEVICE_NAME ("virtio-rng"));
+    append_list ("rng=rng0");
+  } end_list ();
 
   /* Create the virtio-scsi bus. */
   start_list ("-device") {
@@ -765,11 +736,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   /* Enable user networking. */
   if (g->enable_network) {
-    /* If qemu is 7.2.0+ and "passt" is available, ask for passt rather
-     * than SLIRP.  RHBZ#2184967.
-     */
-    if (guestfs_int_version_ge (&data->qemu_version, 7, 2, 0) &&
-        guestfs_int_passt_runnable (g)) {
+    /* If passt is available, ask for passt rather than SLIRP (RHBZ#2184967) */
+    if (guestfs_int_passt_runnable (g)) {
       char passt_sock[UNIX_PATH_MAX];
 
       if (launch_passt (g, &passt_pid, &passt_sock) == -1)
@@ -1055,8 +1023,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   data->pid = 0;
   data->recoverypid = 0;
   memset (&g->launch_t, 0, sizeof g->launch_t);
-  guestfs_int_free_qemu_data (data->qemu_data);
-  data->qemu_data = NULL;
 
  cleanup0:
   if (passt_pid != -1)
@@ -1112,9 +1078,6 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
     unlink (data->guestfsd_sock);
     data->guestfsd_sock[0] = '\0';
   }
-
-  guestfs_int_free_qemu_data (data->qemu_data);
-  data->qemu_data = NULL;
 
   return ret;
 }

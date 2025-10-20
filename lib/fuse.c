@@ -753,7 +753,11 @@ mount_local_fsync (const char *path, int isdatasync,
 
 static int
 mount_local_setxattr (const char *path, const char *name, const char *value,
-		      size_t size, int flags)
+		      size_t size, int flags
+#ifdef __APPLE__
+                      , uint32_t extra_apple_options_ignored
+#endif
+                      )
 {
   int r;
   DECL_G ();
@@ -777,7 +781,11 @@ mount_local_setxattr (const char *path, const char *name, const char *value,
  */
 static int
 mount_local_getxattr (const char *path, const char *name, char *value,
-                      size_t size)
+                      size_t size
+#ifdef __APPLE__
+                      , uint32_t extra_apple_options_ignored
+#endif
+                      )
 {
   const struct guestfs_xattr_list *xattrs;
   int free_attrs = 0;

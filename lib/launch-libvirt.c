@@ -124,8 +124,6 @@ struct backend_libvirt_data {
   bool selinux_norelabel_disks;
   char name[DOMAIN_NAME_LEN];   /* random name */
   bool is_kvm;                  /* false = qemu, true = kvm (from capabilities)*/
-  struct version libvirt_version; /* libvirt version */
-  struct version qemu_version;  /* qemu version (from libvirt) */
   struct secret *secrets;       /* list of secrets */
   size_t nr_secrets;
   char *uefi_code;		/* UEFI (firmware) code and variables. */
@@ -342,12 +340,8 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
 
   virGetVersion (&version_number, NULL, NULL);
-  guestfs_int_version_from_libvirt (&data->libvirt_version, version_number);
-  debug (g, "libvirt version = %lu (%d.%d.%d)",
-         version_number,
-         data->libvirt_version.v_major,
-         data->libvirt_version.v_minor,
-         data->libvirt_version.v_micro);
+  debug (g, "libvirt version = %lu", version_number);
+
   guestfs_int_launch_send_progress (g, 0);
 
   /* Create a random name for the guest. */
@@ -387,18 +381,10 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   virConnSetErrorFunc (conn, NULL, ignore_errors);
 
   /* Get hypervisor (hopefully qemu) version. */
-  if (virConnectGetVersion (conn, &version_number) == 0) {
-    guestfs_int_version_from_libvirt (&data->qemu_version, version_number);
-    debug (g, "qemu version (reported by libvirt) = %lu (%d.%d.%d)",
-           version_number,
-           data->qemu_version.v_major,
-           data->qemu_version.v_minor,
-           data->qemu_version.v_micro);
-  }
-  else {
+  if (virConnectGetVersion (conn, &version_number) == 0)
+    debug (g, "qemu version (reported by libvirt) = %lu", version_number);
+  else
     libvirt_debug (g, "unable to read qemu version from libvirt");
-    version_init_null (&data->qemu_version);
-  }
 
   debug (g, "get libvirt capabilities");
 
@@ -1320,19 +1306,14 @@ construct_libvirt_xml_devices (guestfs_h *g,
     if (is_custom_hv (g, params->data))
       single_element ("emulator", g->hv);
 
-    /* Add a random number generator (backend for virtio-rng).  This
-     * requires Cole Robinson's patch to permit /dev/urandom to be
-     * used, which was added in libvirt 1.3.4.
-     */
-    if (guestfs_int_version_ge (&params->data->libvirt_version, 1, 3, 4)) {
-      start_element ("rng") {
-        attribute ("model", "virtio");
-        start_element ("backend") {
-          attribute ("model", "random");
-          string ("/dev/urandom");
-        } end_element ();
+    /* Add a random number generator (backend for virtio-rng). */
+    start_element ("rng") {
+      attribute ("model", "virtio");
+      start_element ("backend") {
+        attribute ("model", "random");
+        string ("/dev/urandom");
       } end_element ();
-    }
+    } end_element ();
 
     /* virtio-scsi controller. */
     start_element ("controller") {
@@ -1395,28 +1376,12 @@ construct_libvirt_xml_devices (guestfs_h *g,
       } end_element ();
     } end_element ();
 
-    /* Virtio-net NIC with SLIRP (= userspace) back-end, if networking is
-     * enabled. Starting with libvirt 3.8.0, we can specify the network address
-     * and prefix for SLIRP in the domain XML. Therefore, we can add the NIC
-     * via the standard <interface> element rather than <qemu:commandline>, and
-     * so libvirt can manage the PCI address of the virtio-net NIC like the PCI
-     * addresses of all other devices. Refer to RHBZ#2034160.
-     */
-    if (g->enable_network &&
-        guestfs_int_version_ge (&params->data->libvirt_version, 3, 8, 0)) {
+    if (g->enable_network) {
       start_element ("interface") {
         attribute ("type", "user");
-        /* If libvirt is 9.0.0+ and "passt" is available, ask for passt rather
-         * than SLIRP (RHBZ#2184967).  Note that this causes some
-         * appliance-visible changes (although network connectivity is certainly
-         * functional); refer to RHBZ#2222766 about those.
-         */
-        if (guestfs_int_version_ge (&params->data->libvirt_version, 9, 0, 0) &&
-            guestfs_int_passt_runnable (g)) {
-          start_element ("backend") {
-            attribute ("type", "passt");
-          } end_element ();
-        }
+        start_element ("backend") {
+          attribute ("type", "passt");
+        } end_element ();
         start_element ("model") {
           attribute ("type", "virtio");
         } end_element ();
@@ -1651,16 +1616,11 @@ construct_libvirt_xml_disk_driver_qemu (guestfs_h *g,
      */
     break;
   case discard_enable:
-    if (!guestfs_int_discard_possible (g, drv, &data->qemu_version))
+    if (!guestfs_int_discard_possible (g, drv))
       return -1;
     /*FALLTHROUGH*/
   case discard_besteffort:
-    /* I believe from reading the code that this is always safe as
-     * long as qemu >= 1.5.
-     */
-    if (guestfs_int_version_ge (&data->qemu_version, 1, 5, 0))
-      discard_unmap = true;
-    break;
+    discard_unmap = true;
   }
 
   start_element ("driver") {
@@ -1837,31 +1797,6 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
       attribute ("name", "TMPDIR");
       attribute ("value", tmpdir);
     } end_element ();
-
-    /* Workaround because libvirt user networking cannot specify "net="
-     * parameter. Necessary only before libvirt 3.8.0; refer to RHBZ#2034160.
-     */
-    if (g->enable_network &&
-        !guestfs_int_version_ge (&params->data->libvirt_version, 3, 8, 0)) {
-      start_element ("qemu:arg") {
-        attribute ("value", "-netdev");
-      } end_element ();
-
-      start_element ("qemu:arg") {
-        attribute ("value",
-                   "user,id=usernet,net=" NETWORK_ADDRESS "/" NETWORK_PREFIX);
-      } end_element ();
-
-      start_element ("qemu:arg") {
-        attribute ("value", "-device");
-      } end_element ();
-
-      start_element ("qemu:arg") {
-        attribute ("value", (VIRTIO_DEVICE_NAME ("virtio-net")
-                             ",netdev=usernet"
-                             VIRTIO_NET_PCI_ADDR));
-      } end_element ();
-    }
 
     /* The qemu command line arguments requested by the caller. */
     for (hp = g->hv_params; hp; hp = hp->next) {
