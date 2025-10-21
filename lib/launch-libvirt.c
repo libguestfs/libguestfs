@@ -570,6 +570,13 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   params.is_custom = is_custom_hv (g, data);
   params.enable_svirt = !params.is_custom;
 
+  /* workaround a libvirt validation bug that rejects disabling selinux
+   * at domain level and also at disk level, as of libvirt 11.8.0
+   * https://gitlab.com/libvirt/libvirt/-/issues/826
+   * */
+  if (!params.enable_svirt)
+    data->selinux_norelabel_disks = true;
+
   xml = construct_libvirt_xml (g, &params);
   if (!xml)
     goto cleanup;
