@@ -867,12 +867,8 @@ parse_domcapabilities (guestfs_h *g, const char *domcapabilities_xml,
 static int
 is_custom_hv (guestfs_h *g, struct backend_libvirt_data *data)
 {
-  if (g->hv && STRNEQ (g->hv, data->default_qemu))
+  if (STRNEQ (g->hv, data->default_qemu))
     return 1;
-#ifdef QEMU
-  if (STRNEQ (data->default_qemu, QEMU))
-    return 1;
-#endif
   return 0;
 }
 
