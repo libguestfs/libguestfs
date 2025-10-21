@@ -154,6 +154,7 @@ struct libvirt_xml_params {
   size_t appliance_index;       /* index of appliance */
   bool enable_svirt;            /* false if we decided to disable sVirt */
   bool current_proc_is_root;    /* true = euid is root */
+  bool is_custom;               /* true if user sets non-default g->hv */
 };
 
 static int parse_capabilities (guestfs_h *g, const char *capabilities_xml, struct backend_libvirt_data *data);
@@ -566,7 +567,8 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   params.appliance_index = g->nr_drives;
   strcpy (params.appliance_dev, "/dev/sd");
   guestfs_int_drive_name (params.appliance_index, &params.appliance_dev[7]);
-  params.enable_svirt = ! is_custom_hv (g, data);
+  params.is_custom = is_custom_hv (g, data);
+  params.enable_svirt = !params.is_custom;
 
   xml = construct_libvirt_xml (g, &params);
   if (!xml)
@@ -867,9 +869,12 @@ parse_domcapabilities (guestfs_h *g, const char *domcapabilities_xml,
 static int
 is_custom_hv (guestfs_h *g, struct backend_libvirt_data *data)
 {
-  if (STRNEQ (g->hv, data->default_qemu))
-    return 1;
-  return 0;
+  if (STREQ (g->hv, data->default_qemu))
+    return 0;
+
+  debug (g, "user passed custom hv=%s, libvirt default=%s",
+         g->hv, data->default_qemu);
+  return 1;
 }
 
 #if HAVE_LIBSELINUX
@@ -1277,7 +1282,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
     /* Path to hypervisor.  Only write this if the user has changed the
      * default, otherwise allow libvirt to choose the best one.
      */
-    if (is_custom_hv (g, params->data))
+    if (params->is_custom)
       single_element ("emulator", g->hv);
 
     /* Add a random number generator (backend for virtio-rng). */
