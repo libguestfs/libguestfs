@@ -45,6 +45,9 @@ class Test820RHBZ912499(unittest.TestCase):
                                for _ in range(8))
         self.domname = "tmp-" + self.domname
 
+        # Pick any old static label
+        self.label = "system_u:system_r:svirt_t:s0:c392,c662"
+
         self.xml = """
 <domain type='qemu'>
   <name>%s</name>
@@ -57,12 +60,17 @@ class Test820RHBZ912499(unittest.TestCase):
   <devices>
     <disk type='file' device='disk'>
       <driver name='qemu' type='raw'/>
-      <source file='%s'/>
-      <target dev='hda' bus='ide'/>
+      <source file='%s'>
+        <seclabel model='selinux' relabel='yes'>
+          <label>%s</label>
+        </seclabel>
+      </source>
+      <readonly/>
+      <target dev='vda' bus='virtio'/>
     </disk>
   </devices>
 </domain>
-""" % (self.domname, self.filename)
+""" % (self.domname, self.filename, self.label)
 
     def test_rhbz912499(self):
         import libvirt
@@ -78,6 +86,7 @@ class Test820RHBZ912499(unittest.TestCase):
         print("before starting libguestfs")
         before = check_output(["ls", "-Z", self.filename])
         print("disk label = %s" % before)
+        self.assertTrue(self.label, str(before).split()[0])
 
         # Now see if we can open the domain with libguestfs without
         # disturbing the label.
