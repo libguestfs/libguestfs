@@ -869,11 +869,18 @@ parse_domcapabilities (guestfs_h *g, const char *domcapabilities_xml,
 static int
 is_custom_hv (guestfs_h *g, struct backend_libvirt_data *data)
 {
+  CLEANUP_FREE char *rawpath = NULL;
+
   if (STREQ (g->hv, data->default_qemu))
     return 0;
 
-  debug (g, "user passed custom hv=%s, libvirt default=%s",
-         g->hv, data->default_qemu);
+  /* ignore error here, let guest startup fail later */
+  rawpath = realpath(g->hv, NULL);
+  if (rawpath && STREQ (rawpath, data->default_qemu))
+    return 0;
+
+  debug (g, "user passed custom hv=%s (realpath=%s) libvirt default=%s",
+         g->hv, rawpath, data->default_qemu);
   return 1;
 }
 
