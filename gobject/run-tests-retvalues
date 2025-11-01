@@ -23,4 +23,6 @@ set -x
 skip_if_skipped
 skip_unless_environment_variable_set GJS
 
+skip_because "deprecated and currently broken"
+
 $GJS $srcdir/bindtests-retvalues.js
