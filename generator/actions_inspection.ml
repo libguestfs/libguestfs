@@ -524,6 +524,28 @@ You can use C<guestfs_hivex_open> to read or write to the hive.
 Please read L<guestfs(3)/INSPECTION> for more details.|} };
 
   { defaults with
+    name = "inspect_get_windows_group_policy"; added = (1, 57, 6);
+    style = RBool "hasgrouppolicy", [String (Mountable, "root")], [];
+    impl = OCaml "Inspect.inspect_get_windows_group_policy";
+    shortdesc = "return if Windows guest has group policy";
+    longdesc = {|This returns true if the Windows guest
+has group policy.  Group policy can interfere with device
+driver installation, preventing libguestfs features like
+driver injection from working.
+
+Note that the presence of group policy is only an indication that
+there may be a problem with driver installation.  As group policy
+is extremely complex and covers many different aspects of Windows
+configuration, and we make no attempt to parse it, presence of
+group policy should only raise a warning.
+
+This call assumes that the guest is Windows and that the
+Registry could be examined by inspection.  If this is not
+the case then an error is returned.
+
+Please read L<guestfs(3)/INSPECTION> for more details.|} };
+
+  { defaults with
     name = "inspect_get_build_id"; added = (1, 49, 8);
     style = RString (RPlainString, "buildid"), [String (Mountable, "root")], [];
     impl = OCaml "Inspect.inspect_get_build_id";

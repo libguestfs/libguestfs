@@ -523,6 +523,7 @@ let proc_nr = [
 518, "btrfs_scrub_full";
 519, "setfiles";
 520, "ntfs_chmod";
+521, "inspect_get_windows_group_policy";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list

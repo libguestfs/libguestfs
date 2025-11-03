@@ -450,6 +450,13 @@ and inspect_get_windows_current_control_set root =
   | None ->
      failwith "not a Windows guest, or CurrentControlSet could not be determined"
 
+and inspect_get_windows_group_policy root =
+  let root = search_for_root root in
+  match root.inspection_data.windows_group_policy with
+  | Some v -> v
+  | None ->
+     failwith "not a Windows guest, or software hive could not be parsed"
+
 and inspect_is_live root = false
 
 and inspect_is_netinst root = false

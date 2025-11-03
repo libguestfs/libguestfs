@@ -57,6 +57,7 @@ and inspection_data = {
   mutable windows_software_hive : string option;
   mutable windows_system_hive : string option;
   mutable windows_current_control_set : string option;
+  mutable windows_group_policy : bool option;
   mutable drive_mappings : drive_mapping list;
 }
 (** During inspection, this data is collected incrementally for each

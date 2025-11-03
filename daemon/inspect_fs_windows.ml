@@ -288,6 +288,54 @@ and check_windows_software_registry software_hive data =
          with
            Not_found -> ()
         );
+
+        (* If the Windows guest appears to be using group policy, since
+         * group policy might be used to restrict driver injection.
+         *
+         * XXX If group policy is present, it may be possible to
+         * remove the restriction on driver injection.  Microsoft has
+         * an article about this:
+         * https://support.microsoft.com/uk-ua/help/2773300/stop-0x0000007b-error-after-you-use-a-group-policy-setting-to-prevent
+         * Nikolay Ivanets pointed out that in addition to that you also
+         * have to delete:
+         * HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions
+         *)
+        let has_group_policy =
+          try
+            (* NB This is a subtly different path from CurrentVersion path
+             * we used above.
+             *)
+            let path = [ "Microsoft"; "Windows"; "CurrentVersion"; "Group Policy"; "History" ] in
+            let node = get_node h root path in
+            let children = Hivex.node_children h node in
+            let children = Array.to_list children in
+            let children =
+              List.map (fun child -> Hivex.node_name h child) children in
+            eprintf "check_windows_software_registry: \
+                     found HKLM\\SOFTWARE\\%s node with children: [%s]\n"
+              (String.concat "\\" path)
+              (String.concat ", " children);
+
+            (* Just assume any children looking like "{<GUID>}" mean that
+             * some GPOs were installed.
+             *
+             * In future we might want to look for nodes which match:
+             * History\{<GUID>}\<N> where <N> is a small integer (the order
+             * in which policy objects were applied.
+             *
+             * For an example registry containing GPOs, see RHBZ#1219651.
+             * See also: https://support.microsoft.com/en-us/kb/201453
+             *)
+            let is_gpo_guid name =
+              let len = String.length name in
+              len > 3 && name.[0] = '{' &&
+                Char.isxdigit name.[1] && name.[len-1] = '}'
+            in
+            List.exists is_gpo_guid children
+          with
+            Not_found -> false in
+        data.windows_group_policy <- Some has_group_policy;
+
       with
       | Not_found ->
          if verbose () then
