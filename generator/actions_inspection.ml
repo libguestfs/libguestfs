@@ -733,6 +733,13 @@ If unavailable this is returned as an empty string C<"">.
 A longer description of the application or package.
 If unavailable this is returned as an empty string C<"">.
 
+=item C<app2_class>
+
+Classification or primary use of this application.  Currently
+the only defined classification is C<"antivirus"> for Windows
+antivirus software.  If unknown this is returned as an empty
+string C<"">.
+
 =back
 
 Please read L<guestfs(3)/INSPECTION> for more details.|} };
