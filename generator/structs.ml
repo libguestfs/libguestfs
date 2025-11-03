@@ -278,7 +278,7 @@ let structs = [
     "app2_source_package", FString;
     "app2_summary", FString;
     "app2_description", FString;
-    "app2_spare1", FString;
+    "app2_class", FString;
     "app2_spare2", FString;
     "app2_spare3", FString;
     "app2_spare4", FString;

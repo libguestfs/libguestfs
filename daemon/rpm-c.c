@@ -168,7 +168,7 @@ guestfs_int_daemon_rpm_next_application (value unitv)
   TO_CAML_STRING (10, app2_source_package);
   TO_CAML_STRING (11, app2_summary);
   TO_CAML_STRING (12, app2_description);
-  TO_CAML_STRING (13, app2_spare1);
+  TO_CAML_STRING (13, app2_class);
   TO_CAML_STRING (14, app2_spare2);
   TO_CAML_STRING (15, app2_spare3);
   TO_CAML_STRING (16, app2_spare4);

@@ -40,6 +40,8 @@
 #define __bswap_32      OSSwapConstInt32
 #endif /* __APPLE__ */
 
+#include "ignore-value.h"
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
@@ -57,7 +59,7 @@ static struct guestfs_application2_list *list_applications_deb (guestfs_h *g, co
 static struct guestfs_application2_list *list_applications_pacman (guestfs_h *g, const char *root);
 static struct guestfs_application2_list *list_applications_apk (guestfs_h *g, const char *root);
 static struct guestfs_application2_list *list_applications_windows (guestfs_h *g, const char *root);
-static void add_application (guestfs_h *g, struct guestfs_application2_list *, const char *name, const char *display_name, int32_t epoch, const char *version, const char *release, const char *arch, const char *install_path, const char *publisher, const char *url, const char *source, const char *summary, const char *description);
+static void add_application (guestfs_h *g, struct guestfs_application2_list *, const char *name, const char *display_name, int32_t epoch, const char *version, const char *release, const char *arch, const char *install_path, const char *publisher, const char *url, const char *source, const char *summary, const char *description, const char *class_);
 static void sort_applications (struct guestfs_application2_list *);
 
 /* The deprecated guestfs_inspect_list_applications call, which is now
@@ -96,7 +98,7 @@ guestfs_impl_inspect_list_applications (guestfs_h *g, const char *root)
 
     /* The other strings that we don't copy must be freed. */
     free (r->val[i].app2_arch);
-    free (r->val[i].app2_spare1);
+    free (r->val[i].app2_class);
     free (r->val[i].app2_spare2);
     free (r->val[i].app2_spare3);
     free (r->val[i].app2_spare4);
@@ -301,7 +303,7 @@ list_applications_deb (guestfs_h *g, const char *root)
       if (installed_flag && name && version && (epoch >= 0))
         add_application (g, apps, name, "", epoch, version, release ? : "",
                          arch ? : "", "", "", url ? : "", source ? : "",
-                         summary ? : "", description ? : "");
+                         summary ? : "", description ? : "", "");
       free (name);
       free (version);
       free (release);
@@ -435,7 +437,7 @@ list_applications_pacman (guestfs_h *g, const char *root)
 
     if ((epoch >= 0) && (ver[0] != '\0') && (rel[0] != '\0'))
       add_application (g, apps, name, "", epoch, ver, rel, arch, "", "",
-                       url ? : "", "", "", desc ? : "");
+                       url ? : "", "", "", desc ? : "", "");
 
   after_add_application:
     key = NULL;
@@ -510,7 +512,7 @@ list_applications_apk (guestfs_h *g, const char *root)
       if (name && version && (epoch >= 0))
         add_application (g, apps, name, "", epoch, version, release ? : "",
                          arch ? : "", "", "", url ? : "", "", "",
-                         description ? : "");
+                         description ? : "", "");
       free (name);
       free (version);
       free (release);
@@ -580,6 +582,7 @@ list_applications_apk (guestfs_h *g, const char *root)
 }
 
 static void list_applications_windows_from_path (guestfs_h *g, struct guestfs_application2_list *apps, const char **path, size_t path_len);
+static const char *get_class_from_windows_app (guestfs_h *g, const char *name, const char *publisher);
 
 static struct guestfs_application2_list *
 list_applications_windows (guestfs_h *g, const char *root)
@@ -649,6 +652,7 @@ list_applications_windows_from_path (guestfs_h *g,
     int64_t value;
     CLEANUP_FREE char *name = NULL, *display_name = NULL, *version = NULL,
       *install_path = NULL, *publisher = NULL, *url = NULL, *comments = NULL;
+    const char *class_;
 
     /* Use the node name as a proxy for the package name in Linux.  The
      * display name is not language-independent, so it cannot be used.
@@ -677,6 +681,8 @@ list_applications_windows_from_path (guestfs_h *g,
         if (value)
           comments = guestfs_hivex_value_string (g, value);
 
+        class_ = get_class_from_windows_app (g, name, publisher);
+
         add_application (g, apps, name, display_name, 0,
                          version ? : "",
                          "", "",
@@ -684,10 +690,40 @@ list_applications_windows_from_path (guestfs_h *g,
                          publisher ? : "",
                          url ? : "",
                          "", "",
-                         comments ? : "");
+                         comments ? : "",
+                         class_);
       }
     }
   }
+}
+
+/* Use some heuristics to classify Windows applications.  Originally
+ * virt-v2v did this to detect and warn about Antivirus software, and
+ * currently that is the only "classification" we have here.
+ */
+COMPILE_REGEXP (av_virus,     "virus",            PCRE2_CASELESS);
+COMPILE_REGEXP (av_kaspersky, "kaspersky",        PCRE2_CASELESS);
+COMPILE_REGEXP (av_mcafee,    "mcafee",           PCRE2_CASELESS);
+COMPILE_REGEXP (av_norton,    "norton",           PCRE2_CASELESS);
+COMPILE_REGEXP (av_sophos,    "sophos",           PCRE2_CASELESS);
+COMPILE_REGEXP (av_trend,     "ApexOneNT",        PCRE2_CASELESS);
+COMPILE_REGEXP (av_avg_tech,  "avg technologies", PCRE2_CASELESS);
+
+static const char *
+get_class_from_windows_app (guestfs_h *g,
+                            const char *name, const char *publisher)
+{
+  if (name && (match (g, name,      av_virus) ||
+               match (g, name,      av_kaspersky) ||
+               match (g, name,      av_mcafee) ||
+               match (g, name,      av_norton) ||
+               match (g, name,      av_sophos) ||
+               match (g, name,      av_trend)))
+    return "antivirus";
+  else if (publisher && match (g, publisher, av_avg_tech))
+    return "antivirus";
+  else
+    return "";
 }
 
 static void
@@ -697,7 +733,7 @@ add_application (guestfs_h *g, struct guestfs_application2_list *apps,
                  const char *install_path,
                  const char *publisher, const char *url,
                  const char *source, const char *summary,
-                 const char *description)
+                 const char *description, const char *class_)
 {
   apps->len++;
   apps->val = safe_realloc (g, apps->val,
@@ -719,8 +755,8 @@ add_application (guestfs_h *g, struct guestfs_application2_list *apps,
   apps->val[apps->len-1].app2_source_package = safe_strdup (g, source);
   apps->val[apps->len-1].app2_summary = safe_strdup (g, summary);
   apps->val[apps->len-1].app2_description = safe_strdup (g, description);
+  apps->val[apps->len-1].app2_class = safe_strdup (g, class_);
   /* XXX Reserved for future use. */
-  apps->val[apps->len-1].app2_spare1 = safe_strdup (g, "");
   apps->val[apps->len-1].app2_spare2 = safe_strdup (g, "");
   apps->val[apps->len-1].app2_spare3 = safe_strdup (g, "");
   apps->val[apps->len-1].app2_spare4 = safe_strdup (g, "");
