@@ -54,6 +54,7 @@ and inspection_data = {
   mutable windows_software_hive : string option;
   mutable windows_system_hive : string option;
   mutable windows_current_control_set : string option;
+  mutable windows_group_policy : bool option;
   mutable drive_mappings : drive_mapping list;
 }
 and os_type =
@@ -188,6 +189,8 @@ and string_of_inspection_data data =
              data.windows_system_hive;
   Option.iter (fun v -> bpf "    windows_current_control_set: %s\n" v)
              data.windows_current_control_set;
+  Option.iter (fun v -> bpf "    windows_group_policy: %b\n" v)
+             data.windows_group_policy;
   if data.drive_mappings <> [] then (
     let v =
       List.map (fun (a, b) -> sprintf "(%s, %s)" a b) data.drive_mappings in
@@ -289,6 +292,7 @@ let null_inspection_data = {
   windows_software_hive = None;
   windows_system_hive = None;
   windows_current_control_set = None;
+  windows_group_policy = None;
   drive_mappings = [];
 }
 let null_inspection_data () = { null_inspection_data with os_type = None }
@@ -316,6 +320,8 @@ let merge_inspection_data child parent =
     merge child.windows_system_hive parent.windows_system_hive;
   parent.windows_current_control_set <-
     merge child.windows_current_control_set parent.windows_current_control_set;
+  parent.windows_group_policy <-
+    merge child.windows_group_policy parent.windows_group_policy;
 
   (* This is what the old C code did, but I doubt that it's correct. *)
   parent.drive_mappings <-  child.drive_mappings @ parent.drive_mappings
