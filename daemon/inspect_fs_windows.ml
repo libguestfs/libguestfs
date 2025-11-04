@@ -237,6 +237,11 @@ and check_windows_software_registry software_hive data =
         (* Convert to a list of (key, value) to make the following easier. *)
         let values = List.map (fun v -> Hivex.value_key h v, v) values in
 
+        eprintf "check_windows_software_registry: \
+                 found HKLM\\SOFTWARE\\%s with %d children\n"
+          (String.concat "\\" path)
+          (List.length values);
+
         (* Look for ProductName key. *)
         (try
            let v = List.assoc "ProductName" values in
