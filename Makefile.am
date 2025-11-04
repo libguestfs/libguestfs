@@ -123,7 +123,6 @@ EXTRA_DIST = \
 	.mailmap \
 	bugs-in-changelog.sh \
 	bindtests \
-	build-aux/config.rpath \
 	check-mli.sh \
 	common/.gitignore \
 	common/README \
