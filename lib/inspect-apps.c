@@ -582,7 +582,7 @@ list_applications_apk (guestfs_h *g, const char *root)
 }
 
 static void list_applications_windows_from_path (guestfs_h *g, struct guestfs_application2_list *apps, const char **path, size_t path_len);
-static const char *get_class_from_windows_app (guestfs_h *g, const char *name, const char *publisher);
+static const char *get_class_from_windows_app (guestfs_h *g, const char *name, const char *display_name, const char *publisher);
 
 static struct guestfs_application2_list *
 list_applications_windows (guestfs_h *g, const char *root)
@@ -681,7 +681,7 @@ list_applications_windows_from_path (guestfs_h *g,
         if (value)
           comments = guestfs_hivex_value_string (g, value);
 
-        class_ = get_class_from_windows_app (g, name, publisher);
+        class_ = get_class_from_windows_app (g, name, display_name, publisher);
 
         add_application (g, apps, name, display_name, 0,
                          version ? : "",
@@ -711,19 +711,29 @@ COMPILE_REGEXP (av_avg_tech,  "avg technologies", PCRE2_CASELESS);
 
 static const char *
 get_class_from_windows_app (guestfs_h *g,
-                            const char *name, const char *publisher)
+                            const char *name,
+                            const char *display_name,
+                            const char *publisher)
 {
-  if (name && (match (g, name,      av_virus) ||
-               match (g, name,      av_kaspersky) ||
-               match (g, name,      av_mcafee) ||
-               match (g, name,      av_norton) ||
-               match (g, name,      av_sophos) ||
-               match (g, name,      av_trend)))
-    return "antivirus";
-  else if (publisher && match (g, publisher, av_avg_tech))
-    return "antivirus";
-  else
-    return "";
+  const char *fields[] = { name, display_name, publisher };
+  size_t i;
+
+  for (i = 0; i < sizeof (fields) / sizeof (fields[0]); ++i) {
+    const char *field = fields[i];
+
+    if (field) {
+      if (match (g, field, av_virus) ||
+          match (g, field, av_kaspersky) ||
+          match (g, field, av_mcafee) ||
+          match (g, field, av_norton) ||
+          match (g, field, av_sophos) ||
+          match (g, field, av_trend) ||
+          match (g, field, av_avg_tech))
+        return "antivirus";
+    }
+  }
+
+  return "";
 }
 
 static void
