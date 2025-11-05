@@ -51,6 +51,7 @@ sub run_test {
 
     my $cwd = getcwd ();
     my $server;
+    my $socket;
     my $pidfile = "$cwd/nbd/nbd.pid";
     unlink "$pidfile";
     my @qemu_nbd = ("qemu-nbd", $disk, "-t", "--pid-file", $pidfile);
@@ -65,7 +66,7 @@ sub run_test {
     }
     else {
         # qemu-nbd insists the socket path is absolute.
-        my $socket = "$cwd/nbd/unix.sock";
+        $socket = "$cwd/nbd/unix.sock";
         unlink "$socket";
         push @qemu_nbd, "-k", "$socket";
         $server = "unix:$socket";
@@ -85,6 +86,13 @@ sub run_test {
         sleep 1
     }
     die "qemu-nbd did not start up\n" if ! -f $pidfile;
+
+    # libvirt does not set selinux label on passed in server sockets.
+    # Try relabelling here but don't require it to succeed, maybe
+    # selinux is disabled etc.
+    if ($socket) {
+        system ("chcon -vt svirt_image_t $socket");
+    }
 
     my $g = Sys::Guestfs->new ();
 
