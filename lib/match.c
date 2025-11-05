@@ -30,6 +30,16 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
+/* We don't expected these matching functions to return errors, except
+ * for PCRE2_ERROR_NOMATCH.  If it happens it's an internal error, but
+ * emit a debug message rather than crashing.
+ */
+static void
+unexpected_match_error (guestfs_h *g, const char *fn, int r)
+{
+  debug (g, "%s: unexpected error: %d", fn, r);
+}
+
 /* Match a regular expression which contains no captures.  Returns
  * true if it matches or false if it doesn't.
  */
@@ -44,6 +54,10 @@ guestfs_int_match (guestfs_h *g, const char *str, const pcre2_code *re)
                    0, 0, match_data, NULL);
   if (r == PCRE2_ERROR_NOMATCH)
     return 0;
+  if (r < 0) {
+    unexpected_match_error (g, __func__, r);
+    return 0;
+  }
 
   return 1;
 }
@@ -64,6 +78,10 @@ guestfs_int_match1 (guestfs_h *g, const char *str, const pcre2_code *re)
                    0, 0, match_data, NULL);
   if (r == PCRE2_ERROR_NOMATCH)
     return NULL;
+  if (r < 0) {
+    unexpected_match_error (g, __func__, r);
+    return 0;
+  }
 
   vec = pcre2_get_ovector_pointer (match_data);
 
@@ -84,6 +102,10 @@ guestfs_int_match2 (guestfs_h *g, const char *str, const pcre2_code *re,
                    0, 0, match_data, NULL);
   if (r == PCRE2_ERROR_NOMATCH)
     return 0;
+  if (r < 0) {
+    unexpected_match_error (g, __func__, r);
+    return 0;
+  }
 
   vec = pcre2_get_ovector_pointer (match_data);
 
@@ -110,6 +132,10 @@ guestfs_int_match3 (guestfs_h *g, const char *str, const pcre2_code *re,
                    0, 0, match_data, NULL);
   if (r == PCRE2_ERROR_NOMATCH)
     return 0;
+  if (r < 0) {
+    unexpected_match_error (g, __func__, r);
+    return 0;
+  }
 
   vec = pcre2_get_ovector_pointer (match_data);
 
@@ -138,6 +164,10 @@ guestfs_int_match4 (guestfs_h *g, const char *str, const pcre2_code *re,
                    0, 0, match_data, NULL);
   if (r == PCRE2_ERROR_NOMATCH)
     return 0;
+  if (r < 0) {
+    unexpected_match_error (g, __func__, r);
+    return 0;
+  }
 
   vec = pcre2_get_ovector_pointer (match_data);
 
@@ -169,6 +199,10 @@ guestfs_int_match6 (guestfs_h *g, const char *str, const pcre2_code *re,
                    0, 0, match_data, NULL);
   if (r == PCRE2_ERROR_NOMATCH)
     return 0;
+  if (r < 0) {
+    unexpected_match_error (g, __func__, r);
+    return 0;
+  }
 
   vec = pcre2_get_ovector_pointer (match_data);
 
