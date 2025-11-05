@@ -25,6 +25,11 @@ if ($ENV{SKIP_TEST_EXPAND_GPT_PL}) {
     exit 77;
 }
 
+if (system ("sgdisk --help >/dev/null 2>&1") != 0) {
+    print "$0: test skipped because sgdisk program not found\n";
+    exit 77
+}
+
 sub tests {
 	my $g = Sys::Guestfs->new ();
 
