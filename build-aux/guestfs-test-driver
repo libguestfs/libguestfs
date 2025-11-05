@@ -81,6 +81,11 @@ if test x"$missing_opts" != x; then
   usage_error "the following mandatory options are missing:$missing_opts"
 fi
 
+# Don't print absolute paths in test output
+# Without this, C program tests were printed like
+#   PASS: /path/to/libguestfs.git/tests/c-api/.libs/test-just-header
+test_name=$(echo "$test_name" | sed "s|$(pwd)/||")
+
 if test $# -eq 0; then
   usage_error "missing argument"
 fi
