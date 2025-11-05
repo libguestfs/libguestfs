@@ -26,4 +26,19 @@ set -x
 
 skip_if_skipped
 
-guestfish --network -a /dev/null run
+rm -f network.output
+
+guestfish --network -a /dev/null <<EOF > network.output
+run
+debug sh 'ip a'
+EOF
+
+# Check if output contains libguestfs hardcoded IP
+cat network.output
+if ! grep -qE '169\.254\.2\.15' network.output; then
+    echo "Network IP address not found in output!"
+    rm -f network.output
+    exit 1
+fi
+
+rm -f network.output
