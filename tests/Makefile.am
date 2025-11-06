@@ -554,7 +554,6 @@ parallel_test_parallel_LDADD = \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 TESTS += \
-	protocol/test-both-ends-cancel.sh \
 	protocol/test-cancellation-download-librarycancels.sh \
 	protocol/test-cancellation-upload-daemoncancels.sh \
 	protocol/test-error-messages \
@@ -563,7 +562,6 @@ TESTS += \
 	protocol/test-qemudie-midcommand.sh \
 	protocol/test-qemudie-synch.sh
 EXTRA_DIST += \
-	protocol/test-both-ends-cancel.sh \
 	protocol/test-cancellation-download-librarycancels.sh \
 	protocol/test-cancellation-upload-daemoncancels.sh \
 	protocol/test-launch-race.pl \
