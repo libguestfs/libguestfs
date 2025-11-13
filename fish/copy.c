@@ -50,11 +50,10 @@ run_copy_in (const char *cmd, size_t argc, char *argv[])
   if (remote == NULL)
     return -1;
 
-  const int nr_locals = argc-1;
+  const size_t nr_locals = argc-1;
 
   /* Upload each local one at a time using copy-in. */
-  int i;
-  for (i = 0; i < nr_locals; ++i) {
+  for (size_t i = 0; i < nr_locals; ++i) {
     int r = guestfs_copy_in (g, argv[i], remote);
     if (r == -1)
       return -1;
