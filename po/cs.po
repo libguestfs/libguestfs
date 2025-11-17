@@ -1,12 +1,12 @@
 # Zdenek <chmelarz@gmail.com>, 2017. #zanata
-# Pavel Borecki <pavel.borecki@gmail.com>, 2022, 2023.
+# Pavel Borecki <pavel.borecki@gmail.com>, 2022, 2023, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2025-04-26 11:26+0100\n"
-"PO-Revision-Date: 2023-04-06 20:20+0000\n"
+"PO-Revision-Date: 2025-11-17 21:58+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/cs/>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -715,11 +715,11 @@ msgstr "zkopírovat ze zdrojového do cílového zařízení"
 
 #: fish/cmds.c:622
 msgid "copy from source device to destination file"
-msgstr "zkopírovat ze zdrojového do cílového souboru"
+msgstr "zkopírovat ze zdrojového zařízení do cílového souboru"
 
 #: fish/cmds.c:623
 msgid "copy from source file to destination device"
-msgstr "zkopírovat ze zdrojového do cílového zařízení"
+msgstr "zkopírovat ze zdrojového souboru do cílového zařízení"
 
 #: fish/cmds.c:624
 msgid "copy from source file to destination file"
@@ -937,16 +937,12 @@ msgid "find a filesystem by label"
 msgstr "hledat souborový systém podle štítku"
 
 #: fish/cmds.c:693
-#, fuzzy
-#| msgid "find a filesystem by label"
 msgid "find a partition by label"
-msgstr "hledat souborový systém podle štítku"
+msgstr "hledat oddíl podle štítku"
 
 #: fish/cmds.c:694
-#, fuzzy
-#| msgid "disable swap on swap partition by UUID"
 msgid "find a partition by UUID"
-msgstr "vypnout swap na swap oddílu podle UUID"
+msgstr "hledat oddíl podle UUID"
 
 #: fish/cmds.c:695
 msgid "find a filesystem by UUID"
@@ -3433,7 +3429,7 @@ msgstr ""
 
 #: lib/conn-socket.c:224
 msgid "can_read_data: socket not connected"
-msgstr "can_read_data: socket not connected"
+msgstr "can_read_data: soket nepřipojen"
 
 #: lib/conn-socket.c:253
 msgid "write_data: socket not connected"
@@ -3921,10 +3917,9 @@ msgid ""
 msgstr ""
 
 #: lib/launch-direct.c:392
-#, fuzzy, c-format
-#| msgid "%s killed by signal %d (%s)"
+#, c-format
 msgid "passt was killed with signal %d"
-msgstr "%s vynuceně ukončeno signálem %d (%s)"
+msgstr "passt bylo vynuceně ukončeno signálem %d"
 
 #: lib/launch-direct.c:397
 #, c-format
@@ -3932,16 +3927,14 @@ msgid "internal error: unexpected exit status from passt (%d)"
 msgstr ""
 
 #: lib/launch-direct.c:404
-#, fuzzy, c-format
-#| msgid "%s exited with error status %d"
+#, c-format
 msgid "passt exited with status %d"
-msgstr "%s ukončeno s chybovým stavem %d"
+msgstr "passt skončilo se stavem %d"
 
 #: lib/launch-direct.c:425
-#, fuzzy, c-format
-#| msgid "failed to create PV: %s: %s"
+#, c-format
 msgid "failed to parse passt PID from '%s'"
-msgstr "nepodařilo se vytvořit fyzický svazek (PV): %s: %s"
+msgstr "nepodařilo se zpracovat PID passt z „%s“"
 
 #: lib/launch-direct.c:474
 msgid "you must call guestfs_add_drive before guestfs_launch"
@@ -4341,7 +4334,7 @@ msgstr "%s: %s: „%s“ není složka"
 #: lib/tmpdirs.c:195
 #, c-format
 msgid "%s: cannot create temporary directory"
-msgstr "%s:"
+msgstr "%s: nebylo možné vytvořit dočasnou složku"
 
 #: lib/tmpdirs.c:197
 #, c-format
