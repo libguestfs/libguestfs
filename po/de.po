@@ -10,10 +10,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2025-04-03 19:19+0100\n"
-"PO-Revision-Date: 2025-03-31 11:53+0000\n"
+"PO-Revision-Date: 2025-05-04 22:21+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/de/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.11.3\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -50,6 +50,11 @@ msgid ""
 "\n"
 "Original error: %s (%d)"
 msgstr ""
+"konnte keinen Schlüssel zum Öffnen der LUKS-verschlüsselten %s finden.\n"
+"\n"
+"Versuchen Sie es mit --key in der Befehlszeile.\n"
+"\n"
+"Ursprünglicher Fehler: %s (%d)"
 
 #: common/options/inspect.c:78
 #, c-format
