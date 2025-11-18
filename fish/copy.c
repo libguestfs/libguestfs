@@ -73,11 +73,10 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
 
   /* Local directory is always the last arg. */
   const char *local = argv[argc-1];
-  const int nr_remotes = argc-1;
+  const size_t nr_remotes = argc-1;
 
   /* Download each remote one at a time using copy-out. */
-  int i, r;
-  for (i = 0; i < nr_remotes; ++i) {
+  for (size_t i = 0; i < nr_remotes; ++i) {
     CLEANUP_FREE char *remote = NULL;
 
     /* Allow win:... prefix on remotes. */
@@ -85,7 +84,7 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
     if (remote == NULL)
       return -1;
 
-    r = guestfs_copy_out (g, remote, local);
+    size_t r = guestfs_copy_out (g, remote, local);
     if (r == -1)
       return -1;
   }
