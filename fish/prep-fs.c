@@ -44,7 +44,7 @@ prep_postlaunch_fs (const char *filename, prep_data *data, const char *device)
     prep_error (data, filename, _("failed to partition disk: %s"),
                 guestfs_last_error (g));
 
-  CLEANUP_FREE char *part;
+  CLEANUP_FREE char *part = NULL;
   if (asprintf (&part, "%s1", device) == -1)
     error (EXIT_FAILURE, errno, "asprintf");
 
