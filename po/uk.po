@@ -13,10 +13,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2025-11-04 16:19+0000\n"
-"PO-Revision-Date: 2025-03-05 06:38+0000\n"
+"PO-Revision-Date: 2025-11-18 21:58+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/uk/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -644,10 +644,8 @@ msgid "cancel a running scrub"
 msgstr "скасувати витирання, що виконується"
 
 #: fish/cmds.c:584
-#, fuzzy
-#| msgid "sync a btrfs filesystem"
 msgid "run a full scrub on a btrfs filesystem"
-msgstr "синхронізувати файлову систему btrfs"
+msgstr "виконати повне витирання на файловій системі btrfs"
 
 #: fish/cmds.c:585
 msgid "resume a previously canceled or interrupted scrub"
@@ -1391,7 +1389,7 @@ msgstr ""
 
 #: fish/cmds.c:798
 msgid "return if Windows guest has group policy"
-msgstr ""
+msgstr "повертає значення того, чи має гостьова система Windows групові правила"
 
 #: fish/cmds.c:799
 msgid "get the path of the Windows software hive"
@@ -1930,10 +1928,8 @@ msgid "probe NTFS volume"
 msgstr "зондувати том NTFS"
 
 #: fish/cmds.c:955
-#, fuzzy
-#| msgid "Change the permissions of a file"
 msgid "change file permissions on NTFS filesystem"
-msgstr "Змінити права доступу до файла"
+msgstr "змінити права доступу до файлів у файловій системі NTFS"
 
 #: fish/cmds.c:957
 msgid "restore NTFS from backup file"
@@ -2351,10 +2347,8 @@ msgid "set an environment variable"
 msgstr "встановити змінну середовища"
 
 #: fish/cmds.c:1090
-#, fuzzy
-#| msgid "relabel parts of the filesystem"
 msgid "low level relabel parts of the filesystem"
-msgstr "змінити мітки частин файлової системи"
+msgstr "змінити мітки на низькому рівні для частин файлової системи"
 
 #: fish/cmds.c:1092 fish/cmds.c:1093
 msgid "create partitions on a block device"
