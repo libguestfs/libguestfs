@@ -59,7 +59,7 @@ jobs:
       - name: Compile the code
         run: |
           autoreconf -fiv
-          ./configure --disable-gobject
+          ./configure --disable-gobject --enable-werror
           make -j
 
       - name: Run the quick test
@@ -136,7 +136,7 @@ jobs:
         run: |
           su -c '
             autoreconf -fiv &&
-            ./configure CFLAGS="-fPIC -g -O2" --disable-gobject &&
+            ./configure CFLAGS="-fPIC -g -O2" --disable-gobject --enable-werror &&
             make -j
           ' guestfs
 
