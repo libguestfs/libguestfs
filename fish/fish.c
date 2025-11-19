@@ -230,17 +230,13 @@ main (int argc, char *argv[])
   bool blocksize_consumed = true;
   int c;
   int option_index;
-  struct sigaction sa;
   int next_prepared_drive = 1;
   struct key_store *ks = NULL;
 
   initialize_readline ();
   init_event_handlers ();
 
-  memset (&sa, 0, sizeof sa);
-  sa.sa_handler = SIG_IGN;
-  sa.sa_flags = SA_RESTART;
-  sigaction (SIGPIPE, &sa, NULL);
+  sigaction (SIGPIPE, &(struct sigaction){ .sa_handler = SIG_IGN, .sa_flags = SA_RESTART }, NULL);
 
   /* guestfs_create is meant to be a lightweight operation, so
    * it's OK to do it early here.
@@ -429,11 +425,8 @@ main (int argc, char *argv[])
    * possibly be called below.
    */
   if (is_interactive) {
-    memset (&sa, 0, sizeof sa);
-    sa.sa_handler = user_cancel;
-    sa.sa_flags = SA_RESTART;
-    sigaction (SIGINT, &sa, NULL);
-    sigaction (SIGQUIT, &sa, NULL);
+    sigaction (SIGINT,  &(struct sigaction){ .sa_handler = user_cancel, .sa_flags = SA_RESTART }, NULL);
+    sigaction (SIGQUIT, &(struct sigaction){ .sa_handler = user_cancel, .sa_flags = SA_RESTART }, NULL);
 
     if (guestfs_set_pgroup (g, 1) == -1)
       exit (EXIT_FAILURE);
