@@ -41,9 +41,9 @@ run_man (const char *cmd, size_t argc, char *argv[])
   /* We have to restore SIGPIPE to the default action around the
    * external 'man' command to avoid the warning 'gzip: stdout: Broken pipe'.
    */
-  struct sigaction sa, old_sa;
-  memset (&sa, 0, sizeof sa);
-  sa.sa_handler = SIG_DFL;
+  struct sigaction sa = {
+   .sa_handler = SIG_DFL,
+  }, old_sa;
   sigaction (SIGPIPE, &sa, &old_sa);
 
   int r = system ("man 1 guestfish");
@@ -57,8 +57,8 @@ run_man (const char *cmd, size_t argc, char *argv[])
 
     fprintf (stderr, "%s\n",
              guestfs_int_exit_status_to_string (r, "man",
-						status_string,
-						sizeof status_string));
+                                               status_string,
+                                               sizeof status_string));
     return -1;
   }
 
