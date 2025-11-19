@@ -98,6 +98,10 @@ In the libvirt backend:
 
 =item *
 
+Fix compatibility with SeaBIOS 1.17 (thanks Gerd Hoffmann).
+
+=item *
+
 We made some changes to how errors from the libvirt call
 C<virDomainDestroyFlags> are handled when shutting down the appliance.
 If there is an error, the error message is now printed when debug is
