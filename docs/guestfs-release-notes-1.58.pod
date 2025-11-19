@@ -1,0 +1,253 @@
+=head1 NAME
+
+guestfs-release-notes - libguestfs Release Notes
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.58
+
+These are the release notes for libguestfs stable release 1.58.
+This describes the major changes since 1.56.
+
+Libguestfs 1.58.0 was released on B<XXX December 2025>.
+
+=head2 Inspection
+
+Fix inspection of SLES 15 guests that have an encrypted Btrfs
+filesystem, by correctly parsing F</etc/crypttab> (Cole Robinson).
+
+Windows named drives (like C<D:>) which point to completely blank
+disks are now ignored instead of causing an error (thanks Ming Xie,
+Ameen Barakat).
+
+Existing code in virt-v2v which recognized Windows Antivirus (AV)
+software is now part of inspection.  The new code recognizes a wider
+range of AV software.
+
+=head2 API
+
+C<guestfs_selinux_relabel> was deprecated, replaced by new
+C<guestfs_setfiles>.  This new API also uses the L<setfiles(8)> I<-A>
+option to reduce memory usage.
+
+New C<guestfs_ntfs_chmod> API which changes the permissions of Windows
+paths (Cole Robinson).
+
+In the list of structures returned by
+C<guestfs_inspect_get_applications2>, a new C<app2_class> field has
+been added.  This classifies the application by its primary usage, but
+currently only C<"antivirus"> can be returned here for Windows AV
+software.
+
+New C<guestfs_inspect_get_windows_group_policy> API which reports
+whether Group Policy Objects were found in the Windows guest.
+
+=begin comment
+
+=head2 Tools
+
+=end comment
+
+=head2 Language bindings
+
+Note that GObject / Javascript bindings will be removed in the next
+release of libguestfs.
+
+Ruby deprecation warnings were fixed (Cole Robinson).
+
+=head2 Documentation
+
+Fix links to ntfs-3g documentation (Cole Robinson).
+
+=head2 Build changes
+
+libvirt E<ge> 11.10.0 with passt support is now required.
+
+qemu E<ge> 7.2.0 is now required.
+
+Fix guestmount compilation on macOS (thanks Mohamed Akram).
+
+Basic github CI has been implemented.  Pull requests now do the
+equivalent of C<./configure && make && make check> on a few common
+platforms.
+
+Several obsolete tests were removed, and the test suite in general has
+been fixed and made more robust against missing dependencies and other
+common problems (Cole Robinson).
+
+In test output we no longer print absolute paths for the test names
+(Cole Robinson).
+
+C<AM_GNU_GETTEXT> usage was completely removed and replaced
+with a simple test for LIBINTL (Cole Robinson).
+
+F<build-aux/config.rpath> was removed since it was no longer actually
+used (Cole Robinson).
+
+=head2 Internals
+
+If the C<sit.ko> Linux kernel module is loaded, then a C<sit0> (a kind
+of IPv6 tunnel) network device is created in the appliance.  Ignore
+this as it would break appliance networking (thanks Srikanth Aithal,
+Stefano Brivio).
+
+In the direct backend we simplified probing of qemu features by
+assuming that qemu E<ge> 7.2.0.
+
+In the libvirt backend:
+
+=over 4
+
+=item *
+
+We made some changes to how errors from the libvirt call
+C<virDomainDestroyFlags> are handled when shutting down the appliance.
+If there is an error, the error message is now printed when debug is
+enabled (but it is still non-fatal).  Also we sleep between retries
+instead of busy looping.
+
+=item *
+
+The libvirt backend now adds a virtio-rng device to the appliance
+unconditionally so that we always have good entropy (for cryptographic
+operations).
+
+=item *
+
+When running as root, remove explicit socket relabelling and allow
+libvirt to relabel the sockets instead (Cole Robinson).
+
+=item *
+
+Enable sVirt for the appliance, which was sometimes accidentally
+disabled (Cole Robinson).
+
+=back
+
+During inspection of Linux/Unix guests, the contents of guest
+F</etc/fstab> and some mdadm files are written to debug output.  This
+can help with debugging inspection issues (thanks Ming Xie).
+
+When the appliance starts up, if debugging is enabled, then we log
+L<lsblk(8)> and L<blkid(8)> info to debugging output (thanks Ming
+Xie).
+
+In the generator C<StringList(Pathname)> was implemented for OCaml
+functions.
+
+Add more debugging in Windows Registry inspection functions to make it
+easier to track what's going on.
+
+OCaml C<{|...|}> string literals are now used in the code for things
+like literal Windows batch files that we inject into the guest,
+regular expressions, and POD documentation in the generator (thanks
+Nicolas Ojeda Bar).
+
+Internal calls to L<pcre2_match(3)> which return an unexpected error
+now emit a debug message, although the error is still ignored.
+
+=head2 Bugs fixed
+
+=begin comment
+
+./bugs-in-changelog.sh v1.56.0..
+
+=end comment
+
+=over 4
+
+=item L<https://issues.redhat.com/browse/RHEL-104352>
+
+Change permission of guestfs folder created
+
+=item L<https://issues.redhat.com/browse/RHEL-106490>
+
+Adding the commands "lsblk", "cat /etc/fstab" and "blkid" to the v2v
+debug log
+
+=item L<https://issues.redhat.com/browse/RHEL-108803>
+
+Parted fails to read a blank disk "virt-v2v: error: libguestfs error:
+inspect_os: parted: /dev/sdb: parted exited with status 1: Error:
+/dev/sdb: unrecognised disk label: Invalid argument" [rhel-9.7]
+
+=item L<https://issues.redhat.com/browse/RHEL-111165>
+
+[Testonly]virt-v2v of RHEL 8.10 VM fails because setfiles invoked
+oom-killer
+
+=item L<https://issues.redhat.com/browse/RHEL-111505>
+
+Lots of memory used in 'setfiles' utility / 'restorecon_sb' function
+
+=item L<https://issues.redhat.com/browse/RHEL-113397>
+
+[DEV Task]: The available subscriptions of guest sometimes can't be
+shown unless use --sm-remove and --sm-unregister options to remove all
+subscriptions from the guest
+
+=item L<https://issues.redhat.com/browse/RHEL-113398>
+
+[DEV Task]: Virt-v2v can't use --sm-remove and --sm-unregister options
+to remove the subscriptions from guest if consumer profile has been
+deleted from the guest.
+
+=item L<https://issues.redhat.com/browse/RHEL-114292>
+
+Use setfiles -A option when relabelling
+
+=item L<https://issues.redhat.com/browse/RHEL-121076>
+
+[libguestfs] [aarch64] libguestfs-test-tool failed with
+LIBGUESTFS_BACKEND=direct
+
+=item L<https://issues.redhat.com/browse/RHEL-125846>
+
+virt-inspector detect if AV/GPOs are present in a VM
+
+=item L<https://issues.redhat.com/browse/RHEL-93584>
+
+virt-v2v can't convert sles15sp6 guest with encrypted brtfs fliesystem
+
+=item L<https://github.com/libguestfs/libguestfs/issues/180>
+
+Fails to build with macFUSE
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-examples(1)>,
+L<guestfs-faq(1)>,
+L<guestfs-performance(1)>,
+L<guestfs-recipes(1)>,
+L<guestfs-testing(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org/>
+
+=head1 AUTHORS
+
+=begin comment
+
+git shortlog -s v1.56.0..
+
+=end comment
+
+=over 4
+
+=item Cole Robinson
+
+=item Ettore Atalan
+
+=item Pavel Borecki
+
+=item Richard W.M. Jones
+
+=item Susant Sahani
+
+=item Yuri Chornoivan
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2025 Red Hat Inc.

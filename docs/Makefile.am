@@ -25,6 +25,7 @@ EXTRA_DIST = \
 	guestfs-internals.pod \
 	guestfs-performance.pod \
 	guestfs-recipes.pod \
+	guestfs-release-notes-1.58.pod \
 	guestfs-release-notes-1.56.pod \
 	guestfs-release-notes-1.54.pod \
 	guestfs-release-notes-1.52.pod \
@@ -68,6 +69,7 @@ man_MANS = \
 	guestfs-internals.1 \
 	guestfs-performance.1 \
 	guestfs-recipes.1 \
+	guestfs-release-notes-1.58.1 \
 	guestfs-release-notes-1.56.1 \
 	guestfs-release-notes-1.54.1 \
 	guestfs-release-notes-1.52.1 \
@@ -105,6 +107,7 @@ noinst_DATA = \
 	$(top_builddir)/website/guestfs-internals.1.html \
 	$(top_builddir)/website/guestfs-performance.1.html \
 	$(top_builddir)/website/guestfs-recipes.1.html \
+	$(top_builddir)/website/guestfs-release-notes-1.58.1.html \
 	$(top_builddir)/website/guestfs-release-notes-1.56.1.html \
 	$(top_builddir)/website/guestfs-release-notes-1.54.1.html \
 	$(top_builddir)/website/guestfs-release-notes-1.52.1.html \
@@ -210,6 +213,17 @@ stamp-guestfs-recipes.pod: guestfs-recipes.pod
 	  --man guestfs-recipes.1 \
 	  --html $(top_builddir)/website/guestfs-recipes.1.html \
 	  --license examples \
+	  $<
+	touch $@
+
+guestfs-release-notes-1.58.1 guestfs-release-notes-1.58.txt $(top_builddir)/website/guestfs-release-notes-1.58.1.html: stamp-guestfs-release-notes-1.58.pod
+
+stamp-guestfs-release-notes-1.58.pod: guestfs-release-notes-1.58.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes-1.58.1 \
+	  --html $(top_builddir)/website/guestfs-release-notes-1.58.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 
