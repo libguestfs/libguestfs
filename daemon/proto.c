@@ -307,7 +307,6 @@ reply (xdrproc_t xdrp, char *ret)
   XDR xdr;
   CLEANUP_FREE char *buf = NULL;
   char lenbuf[4];
-  struct guestfs_message_header hdr;
   uint32_t len;
 
   buf = malloc (GUESTFS_MESSAGE_MAX);
@@ -315,13 +314,14 @@ reply (xdrproc_t xdrp, char *ret)
     error (EXIT_FAILURE, errno, "malloc");
   xdrmem_create (&xdr, buf, GUESTFS_MESSAGE_MAX, XDR_ENCODE);
 
-  memset (&hdr, 0, sizeof hdr);
-  hdr.prog = GUESTFS_PROGRAM;
-  hdr.vers = GUESTFS_PROTOCOL_VERSION;
-  hdr.direction = GUESTFS_DIRECTION_REPLY;
-  hdr.status = GUESTFS_STATUS_OK;
-  hdr.proc = proc_nr;
-  hdr.serial = serial;
+  struct guestfs_message_header hdr = {
+    .prog      = GUESTFS_PROGRAM,
+    .vers      = GUESTFS_PROTOCOL_VERSION,
+    .direction = GUESTFS_DIRECTION_REPLY,
+    .status    = GUESTFS_STATUS_OK,
+    .proc      = proc_nr,
+    .serial    = serial,
+  };
 
   if (!xdr_guestfs_message_header (&xdr, &hdr))
     error (EXIT_FAILURE, 0, "failed to encode reply header");
