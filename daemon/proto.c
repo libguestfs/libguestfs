@@ -469,7 +469,6 @@ static int send_chunk (const guestfs_chunk *);
 int
 send_file_write (const void *buf, size_t len)
 {
-  guestfs_chunk chunk;
   int cancel;
 
   if (len > GUESTFS_MAX_CHUNK_SIZE) {
@@ -480,15 +479,13 @@ send_file_write (const void *buf, size_t len)
 
   cancel = check_for_library_cancellation ();
 
-  if (cancel) {
-    chunk.cancel = 1;
-    chunk.data.data_len = 0;
-    chunk.data.data_val = NULL;
-  } else {
-    chunk.cancel = 0;
-    chunk.data.data_len = len;
-    chunk.data.data_val = (char *) buf;
-  }
+  const guestfs_chunk chunk = {
+    .cancel = cancel ? 1 : 0,
+    .data = {
+      .data_len = cancel ? 0 : len,
+      .data_val = cancel ? NULL : (char *)buf
+    }
+  };
 
   if (send_chunk (&chunk) == -1)
     return -1;
