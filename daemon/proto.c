@@ -540,11 +540,11 @@ check_for_library_cancellation (void)
 int
 send_file_end (int cancel)
 {
-  guestfs_chunk chunk;
+  const guestfs_chunk chunk = {
+    .cancel = cancel,
+    .data = { .data_len = 0, .data_val = NULL }
+  };
 
-  chunk.cancel = cancel;
-  chunk.data.data_len = 0;
-  chunk.data.data_val = NULL;
   return send_chunk (&chunk);
 }
 
