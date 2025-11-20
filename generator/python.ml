@@ -44,13 +44,6 @@ let rec generate_python_actions_h () =
 #include \"guestfs.h\"
 #include \"guestfs-stringlists-utils.h\"
 
-#define PY_SSIZE_T_CLEAN 1
-
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored \"-Wcast-align\"
-#include <Python.h>
-#pragma GCC diagnostic pop
-
 static inline guestfs_h *
 get_handle (PyObject *obj)
 {
@@ -119,6 +112,10 @@ and generate_python_structs () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
+/* This must be included first. */
+#define PY_SSIZE_T_CLEAN 1
+#include <Python.h>
+
 #include <config.h>
 
 #include <stdio.h>
@@ -255,6 +252,10 @@ and generate_python_actions actions () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
+/* This must be included first. */
+#define PY_SSIZE_T_CLEAN 1
+#include <Python.h>
+
 #include <config.h>
 
 /* It is safe to call deprecated functions from this file. */
@@ -527,6 +528,10 @@ and generate_python_module () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
+/* This must be included first. */
+#define PY_SSIZE_T_CLEAN 1
+#include <Python.h>
+
 #include <config.h>
 
 #include <stdio.h>
