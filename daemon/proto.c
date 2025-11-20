@@ -246,7 +246,6 @@ send_error (int errnum, char *msg)
   XDR xdr;
   CLEANUP_FREE char *buf = NULL;
   char lenbuf[4];
-  struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   unsigned len;
 
@@ -267,13 +266,14 @@ send_error (int errnum, char *msg)
     error (EXIT_FAILURE, errno, "malloc");
   xdrmem_create (&xdr, buf, GUESTFS_ERROR_LEN + 200, XDR_ENCODE);
 
-  memset (&hdr, 0, sizeof hdr);
-  hdr.prog = GUESTFS_PROGRAM;
-  hdr.vers = GUESTFS_PROTOCOL_VERSION;
-  hdr.direction = GUESTFS_DIRECTION_REPLY;
-  hdr.status = GUESTFS_STATUS_ERROR;
-  hdr.proc = proc_nr;
-  hdr.serial = serial;
+  struct guestfs_message_header hdr = {
+    .prog      = GUESTFS_PROGRAM,
+    .vers      = GUESTFS_PROTOCOL_VERSION,
+    .direction = GUESTFS_DIRECTION_REPLY,
+    .status    = GUESTFS_STATUS_ERROR,
+    .proc      = proc_nr,
+    .serial    = serial,
+  };
 
   if (!xdr_guestfs_message_header (&xdr, &hdr))
     error (EXIT_FAILURE, 0, "failed to encode error message header");
