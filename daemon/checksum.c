@@ -32,28 +32,28 @@
 static const char *
 program_of_csum (const char *csumtype)
 {
-  if (STRCASEEQ (csumtype, "crc"))
-    return "cksum";
-  else if (STRCASEEQ (csumtype, "md5"))
-    return "md5sum";
-  else if (STRCASEEQ (csumtype, "sha1"))
-    return "sha1sum";
-  else if (STRCASEEQ (csumtype, "sha224"))
-    return "sha224sum";
-  else if (STRCASEEQ (csumtype, "sha256"))
-    return "sha256sum";
-  else if (STRCASEEQ (csumtype, "sha384"))
-    return "sha384sum";
-  else if (STRCASEEQ (csumtype, "sha512"))
-    return "sha512sum";
-  else if (STRCASEEQ (csumtype, "gost"))
-    return "gostsum";
-  else if (STRCASEEQ (csumtype, "gost12"))
-    return "gost12sum";
-  else {
-    reply_with_error ("unknown checksum type, expecting crc|md5|sha1|sha224|sha256|sha384|sha512|gost|gost12");
-    return NULL;
-  }
+  static const struct {
+    const char *algorithm;   /* e.g. "sha256", "md5", "crc" */
+    const char *command;     /* e.g. "sha256sum", "md5sum", "cksum" */
+  } map[] = {
+    { "crc",     "cksum"     },
+    { "md5",     "md5sum"    },
+    { "sha1",    "sha1sum"   },
+    { "sha224",  "sha224sum" },
+    { "sha256",  "sha256sum" },
+    { "sha384",  "sha384sum" },
+    { "sha512",  "sha512sum" },
+    { "gost",    "gostsum"   },
+    { "gost12",  "gost12sum" },
+    { NULL, NULL }
+  };
+
+  for (size_t i = 0; map[i].algorithm; ++i)
+    if (STRCASEEQ (csumtype, map[i].algorithm))
+      return map[i].command;
+
+  reply_with_error ("unknown checksum type, expecting crc|md5|sha1|sha224|sha256|sha384|sha512|gost|gost12");
+  return NULL;
 }
 
 static char *
