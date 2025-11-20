@@ -674,24 +674,24 @@ static void async_safe_send_pulse (int sig);
 void
 pulse_mode_start (void)
 {
-  struct sigaction act;
-  struct itimerval it;
-
-  memset (&act, 0, sizeof act);
-  act.sa_handler = async_safe_send_pulse;
-  act.sa_flags = SA_RESTART;
-
-  if (sigaction (SIGALRM, &act, NULL) == -1) {
+  /* Install SIGALRM handler (restart system calls) */
+  if (sigaction (SIGALRM,
+                 &(struct sigaction){ .sa_handler = async_safe_send_pulse,
+                                      .sa_flags   = SA_RESTART },
+                 NULL) == -1) {
     perror ("pulse_mode_start: sigaction");
     return;
   }
 
-  it.it_value.tv_sec = NOTIFICATION_INITIAL_DELAY / 1000000;
-  it.it_value.tv_usec = NOTIFICATION_INITIAL_DELAY % 1000000;
-  it.it_interval.tv_sec = NOTIFICATION_PERIOD / 1000000;
-  it.it_interval.tv_usec = NOTIFICATION_PERIOD % 1000000;
-
-  if (setitimer (ITIMER_REAL, &it, NULL) == -1)
+  /* Start periodic timer */
+  if (setitimer (ITIMER_REAL,
+                 &(struct itimerval){
+                   .it_value    = { NOTIFICATION_INITIAL_DELAY / 1000000,
+                                    NOTIFICATION_INITIAL_DELAY % 1000000 },
+                   .it_interval = { NOTIFICATION_PERIOD / 1000000,
+                                    NOTIFICATION_PERIOD % 1000000 }
+                 },
+                 NULL) == -1)
     perror ("pulse_mode_start: setitimer");
 }
 
