@@ -707,22 +707,14 @@ void
 pulse_mode_cancel (void)
 {
   const int err = errno;        /* Function must preserve errno. */
-  struct itimerval it;
-  struct sigaction act;
 
   /* Setting it_value to zero cancels the itimer. */
-  it.it_value.tv_sec = 0;
-  it.it_value.tv_usec = 0;
-  it.it_interval.tv_sec = 0;
-  it.it_interval.tv_usec = 0;
+  if (setitimer (ITIMER_REAL,
+                 &(struct itimerval){ .it_value = { 0 } },
+                 NULL) == -1)
+    perror("pulse_mode_cancel: setitimer");
 
-  if (setitimer (ITIMER_REAL, &it, NULL) == -1)
-    perror ("pulse_mode_cancel: setitimer");
-
-  memset (&act, 0, sizeof act);
-  act.sa_handler = SIG_DFL;
-
-  if (sigaction (SIGALRM, &act, NULL) == -1)
+  if (sigaction (SIGALRM,  &(struct sigaction){ .sa_handler = SIG_DFL }, NULL))
     perror ("pulse_mode_cancel: sigaction");
 
   errno = err;
