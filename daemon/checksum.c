@@ -52,7 +52,21 @@ program_of_csum (const char *csumtype)
     if (STRCASEEQ (csumtype, map[i].algorithm))
       return map[i].command;
 
-  reply_with_error ("unknown checksum type, expecting crc|md5|sha1|sha224|sha256|sha384|sha512|gost|gost12");
+  /* Generate supported list automatically — never out of sync */
+  size_t n = sizeof map / sizeof map[0] - 1; /* exclude NULL sentinel */
+  CLEANUP_FREE const char **names = malloc ((n + 1) * sizeof (const char *));
+  if (names == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+  for (size_t i = 0; i < n; ++i)
+    names[i] = map[i].algorithm;
+  names[n] = NULL;
+
+  CLEANUP_FREE char *list =
+    guestfs_int_join_strings ("|", (char *const *) names);
+
+  reply_with_error ("unknown checksum type: %s, expecting %s", csumtype, list);
   return NULL;
 }
 
