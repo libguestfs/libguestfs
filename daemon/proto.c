@@ -501,7 +501,6 @@ static int
 check_for_library_cancellation (void)
 {
   fd_set rset;
-  struct timeval tv;
   int r;
   char buf[4];
   uint32_t flag;
@@ -509,9 +508,8 @@ check_for_library_cancellation (void)
 
   FD_ZERO (&rset);
   FD_SET (sock, &rset);
-  tv.tv_sec = 0;
-  tv.tv_usec = 0;
-  r = select (sock+1, &rset, NULL, NULL, &tv);
+
+  r = select (sock+1, &rset, NULL, NULL, &(struct timeval){ 0 });
   if (r == -1) {
     perror ("select");
     return 0;
