@@ -47,25 +47,30 @@
 static const char *
 check_parttype (const char *parttype)
 {
-  /* Check and translate parttype. */
-  if (STREQ (parttype, "aix") ||
-      STREQ (parttype, "amiga") ||
-      STREQ (parttype, "bsd") ||
-      STREQ (parttype, "dasd") ||
-      STREQ (parttype, "dvh") ||
-      STREQ (parttype, "gpt") ||
-      STREQ (parttype, "mac") ||
-      STREQ (parttype, "msdos") ||
-      STREQ (parttype, "pc98") ||
-      STREQ (parttype, "sun"))
-    return parttype;
-  else if (STREQ (parttype, "rdb"))
-    return "amiga";
-  else if (STREQ (parttype, "efi"))
-    return "gpt";
-  else if (STREQ (parttype, "mbr"))
-    return "msdos";
-  else
+    static const struct {
+        const char *input;      /* what the user is allowed to type */
+        const char *canonical;  /* what we return / what parted expects */
+    } map[] = {
+        { "aix",    "aix"    },
+        { "amiga",  "amiga"  }, { "rdb",  "amiga"  },
+        { "bsd",    "bsd"    },
+        { "dasd",   "dasd"   },
+        { "dvh",    "dvh"    },
+        { "gpt",    "gpt"    }, { "efi",  "gpt"    },
+        { "mac",    "mac"    },
+        { "msdos",  "msdos"  }, { "mbr",  "msdos"  },
+        { "pc98",   "pc98"   },
+        { "sun",    "sun"    },
+    };
+
+    if (parttype == NULL)
+        return NULL;
+
+    for (size_t i = 0; i < sizeof(map) / sizeof(map[0]); ++i) {
+        if (STREQ(parttype, map[i].input))
+            return map[i].canonical;
+    }
+
     return NULL;
 }
 
