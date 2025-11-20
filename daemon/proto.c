@@ -633,7 +633,6 @@ notify_progress_no_ratelimit (uint64_t position, uint64_t total,
   char buf[128];
   uint32_t i;
   size_t len;
-  guestfs_progress message;
 
   count_progress++;
   last_progress_t = *now_t;
@@ -647,17 +646,21 @@ notify_progress_no_ratelimit (uint64_t position, uint64_t total,
   if (xwrite (sock, buf, 4) == -1)
     error (EXIT_FAILURE, 0, "xwrite failed");
 
-  message.proc = proc_nr;
-  message.serial = serial;
-  message.position = position;
-  message.total = total;
-
+  /* Send progress message */
   xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
-  if (!xdr_guestfs_progress (&xdr, &message)) {
+
+  if (!xdr_guestfs_progress (&xdr,
+        &(guestfs_progress){
+          .proc     = proc_nr,
+          .serial   = serial,
+          .position = position,
+          .total    = total,
+        })) {
     fprintf (stderr, "guestfsd: xdr_guestfs_progress: failed to encode message\n");
     xdr_destroy (&xdr);
     return;
   }
+
   len = xdr_getpos (&xdr);
   xdr_destroy (&xdr);
 
