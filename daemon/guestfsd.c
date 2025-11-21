@@ -166,11 +166,7 @@ main (int argc, char *argv[])
 
 #ifndef WIN32
   /* Make sure SIGPIPE doesn't kill us. */
-  struct sigaction sa;
-  memset (&sa, 0, sizeof sa);
-  sa.sa_handler = SIG_IGN;
-  sa.sa_flags = 0;
-  if (sigaction (SIGPIPE, &sa, NULL) == -1)
+  if (sigaction (SIGPIPE, &(struct sigaction){ .sa_handler = SIG_IGN }, NULL) == -1)
     perror ("sigaction SIGPIPE"); /* but try to continue anyway ... */
 #endif
 
