@@ -957,8 +957,8 @@ do_btrfs_subvolume_show (const char *subvolume)
   while (key) {
     /* snapshot is special, see the output above */
     if (STREQLEN (key, "Snapshot(s)", sizeof ("Snapshot(s)") - 1)) {
-      char *ss = NULL;
-      int ss_len = 0;
+      CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (snapshots);
+      char *ss;
 
       if (add_string (&ret, key) == -1)
         return NULL;
@@ -966,27 +966,18 @@ do_btrfs_subvolume_show (const char *subvolume)
       p = analyze_line (p, &key, &value, ':');
 
       while (key && !value) {
-	ss = realloc (ss, ss_len + strlen (key) + 1);
-	if (!ss)
-	  return NULL;
-
-	if (ss_len != 0)
-	  ss[ss_len++] = ',';
-
-	memcpy (ss + ss_len, key, strlen (key));
-	ss_len += strlen (key);
-	ss[ss_len] = '\0';
-
+        if (add_string (&snapshots, key) == -1)
+          return NULL;
 	p = analyze_line (p, &key, &value, ':');
       }
 
-      if (ss) {
-        if (add_string_nodup (&ret, ss) == -1)
-          return NULL;
-      } else {
-        if (add_string (&ret, "") == -1)
-          return NULL;
-      }
+      if (end_stringsbuf (&snapshots) == -1)
+        return NULL;
+
+      /* Turn the snapshots into a comma-separated list. */
+      ss = guestfs_int_join_strings (",", snapshots.argv);
+      if (add_string_nodup (&ret, ss) == -1)
+        return NULL;
     } else {
       if (add_string (&ret, key) == -1)
         return NULL;
