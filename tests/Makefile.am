@@ -50,12 +50,14 @@ TESTS += \
 	btrfs/test-btrfs-misc.pl \
 	btrfs/test-btrfs-devices.sh \
 	btrfs/test-btrfs-subvolume-default.pl \
-	btrfs/test-btrfs-replace.sh
+	btrfs/test-btrfs-replace.sh \
+	btrfs/test-btrfs-subvolume-snapshot.sh
 EXTRA_DIST += \
 	btrfs/test-btrfs-misc.pl \
 	btrfs/test-btrfs-devices.sh \
 	btrfs/test-btrfs-subvolume-default.pl \
-	btrfs/test-btrfs-replace.sh
+	btrfs/test-btrfs-replace.sh \
+	btrfs/test-btrfs-subvolume-snapshot.sh
 
 CLEANFILES += \
 	c-api/test.log \
