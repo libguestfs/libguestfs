@@ -235,12 +235,14 @@ main (int argc, char *argv[])
     }
   }
   else {
-    struct sockaddr_un addr;
+    struct sockaddr_un addr = {
+     .sun_family = AF_UNIX,
+    };
 
     sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
     if (sock == -1)
       error (EXIT_FAILURE, errno, "socket");
-    addr.sun_family = AF_UNIX;
+
     if (strlen (channel) > UNIX_PATH_MAX-1)
       error (EXIT_FAILURE, 0, "%s: socket path is too long", channel);
     strcpy (addr.sun_path, channel);
