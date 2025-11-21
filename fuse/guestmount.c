@@ -197,7 +197,6 @@ main (int argc, char *argv[])
   bool blocksize_consumed = true;
   int c, r;
   int option_index;
-  struct sigaction sa;
   struct key_store *ks = NULL;
 
   int debug_calls = 0;
@@ -212,10 +211,7 @@ main (int argc, char *argv[])
   /* LC_ALL=C is required so we can parse error messages. */
   setenv ("LC_ALL", "C", 1);
 
-  memset (&sa, 0, sizeof sa);
-  sa.sa_handler = SIG_IGN;
-  sa.sa_flags = SA_RESTART;
-  sigaction (SIGPIPE, &sa, NULL);
+  sigaction (SIGPIPE, &(struct sigaction){ .sa_handler = SIG_IGN, .sa_flags = SA_RESTART }, NULL);
 
   g = guestfs_create ();
   if (g == NULL)
