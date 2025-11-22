@@ -58,30 +58,35 @@ xfsuuid (const char *device, const char *uuid)
 int
 do_set_uuid (const char *device, const char *uuid)
 {
-  int r;
-
   /* How we set the UUID depends on the filesystem type. */
   CLEANUP_FREE char *vfs_type = get_blkid_tag (device, "TYPE");
   if (vfs_type == NULL)
     return -1;
 
+  /* Fast path: ext2/3/4 family */
   if (fstype_is_extfs (vfs_type))
-    r = e2uuid (device, uuid);
+    return e2uuid (device, uuid);
 
-  else if (STREQ (vfs_type, "xfs"))
-    r = xfsuuid (device, uuid);
+  /* Table-driven dispatch — struct + array in one perfect declaration */
+  static const struct {
+    const char *fs_name;
+    int (*setter)(const char *device, const char *uuid);
+  } handlers[] = {
+    { "xfs",    xfsuuid        },
+    { "swap",   swap_set_uuid  },
+    { "btrfs",  btrfs_set_uuid },
+    { NULL,     NULL           }  /* sentinel */
+  };
 
-  else if (STREQ (vfs_type, "swap"))
-    r = swap_set_uuid (device, uuid);
+  /* Lookup and call */
+  for (size_t i = 0; handlers[i].fs_name; ++i) {
+    if (STREQ (vfs_type, handlers[i].fs_name))
+      return handlers[i].setter (device, uuid);
+  }
 
-  else if (STREQ (vfs_type, "btrfs"))
-    r = btrfs_set_uuid (device, uuid);
-
-  else
-    NOT_SUPPORTED (-1, "don't know how to set the UUID for '%s' filesystems",
-		   vfs_type);
-
-  return r;
+  NOT_SUPPORTED (-1,
+                 "don't know how to set the UUID for '%s' filesystems",
+                 vfs_type);
 }
 
 int
