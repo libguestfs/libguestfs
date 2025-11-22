@@ -30,34 +30,29 @@
 guestfs_int_utsname *
 do_utsname (void)
 {
-  struct utsname uts;
-  guestfs_int_utsname *ret;
+  struct utsname u;
 
-  if (uname (&uts) == -1) {
-    reply_with_perror ("utsname");
+  if (uname (&u) == -1) {
+    reply_with_perror ("uname");
     return NULL;
   }
 
-  ret = malloc (sizeof *ret);
-  if (ret == NULL) {
-    reply_with_perror ("malloc");
+  CLEANUP_FREE_UTSNAME guestfs_int_utsname *tmp = calloc (1, sizeof *tmp);
+  if (!tmp) {
+    reply_with_perror ("calloc");
     return NULL;
   }
 
-  ret->uts_sysname = strdup (uts.sysname);
-  ret->uts_release = strdup (uts.release);
-  ret->uts_version = strdup (uts.version);
-  ret->uts_machine = strdup (uts.machine);
-  if (!ret->uts_sysname || !ret->uts_release ||
-      !ret->uts_version || !ret->uts_machine) {
+  if (!(tmp->uts_sysname = strdup (u.sysname)) ||
+      !(tmp->uts_release = strdup (u.release)) ||
+      !(tmp->uts_version = strdup (u.version)) ||
+      !(tmp->uts_machine = strdup (u.machine))) {
     reply_with_perror ("strdup");
-    free (ret->uts_sysname);
-    free (ret->uts_release);
-    free (ret->uts_version);
-    free (ret->uts_machine);
-    free (ret);
     return NULL;
   }
+
+  guestfs_int_utsname *ret = tmp;
+  tmp = NULL;
 
   return ret;
 }
