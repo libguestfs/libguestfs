@@ -59,36 +59,36 @@ xfslabel (const char *device, const char *label)
 int
 do_set_label (const mountable_t *mountable, const char *label)
 {
-  int r;
-
   /* How we set the label depends on the filesystem type. */
   CLEANUP_FREE char *vfs_type = do_vfs_type (mountable);
   if (vfs_type == NULL)
     return -1;
 
-  if (STREQ (vfs_type, "btrfs"))
-    r = btrfs_set_label (mountable->device, label);
+  struct {
+    const char *fs;
+    int (*func)(const char *device, const char *label);
+  } const setters[] = {
+    { "btrfs", btrfs_set_label },
+    { "msdos", dosfslabel       },
+    { "vfat",  dosfslabel       },
+    { "fat",   dosfslabel       },
+    { "ntfs",  ntfs_set_label   },
+    { "xfs",   xfslabel         },
+    { "swap",  swap_set_label   },
+    { NULL,    NULL             }
+  };
 
-  else if (STREQ (vfs_type, "msdos") ||
-           STREQ (vfs_type, "fat") ||
-           STREQ (vfs_type, "vfat"))
-    r = dosfslabel (mountable->device, label);
+  /* Special case: ext2/ext3/ext4 */
+  if (fstype_is_extfs (vfs_type))
+    return do_set_e2label (mountable->device, label);
 
-  else if (fstype_is_extfs (vfs_type))
-    r = do_set_e2label (mountable->device, label);
+  for (size_t i = 0; setters[i].fs; ++i) {
+    if (STREQ (vfs_type, setters[i].fs))
+      return setters[i].func (mountable->device, label);
+  }
 
-  else if (STREQ (vfs_type, "ntfs"))
-    r = ntfs_set_label (mountable->device, label);
-
-  else if (STREQ (vfs_type, "xfs"))
-    r = xfslabel (mountable->device, label);
-
-  else if (STREQ (vfs_type, "swap"))
-    r = swap_set_label (mountable->device, label);
-
-  else
-    NOT_SUPPORTED (-1, "don't know how to set the label for '%s' filesystems",
-                   vfs_type);
-
-  return r;
+  /* Not supported */
+  NOT_SUPPORTED (-1,
+                 "don't know how to set the label for '%s' filesystems",
+                 vfs_type);
 }
