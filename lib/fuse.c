@@ -132,28 +132,25 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
     RETURN_ERRNO;
 
   for (i = 0; i < ents->len; ++i) {
-    struct stat stat;
-    memset (&stat, 0, sizeof stat);
+    struct stat st = (struct stat){
+      .st_ino  = ents->val[i].ino,
+      .st_mode =
+        ents->val[i].ftyp == 'b' ? S_IFBLK  :
+        ents->val[i].ftyp == 'c' ? S_IFCHR  :
+        ents->val[i].ftyp == 'd' ? S_IFDIR  :
+        ents->val[i].ftyp == 'f' ? S_IFIFO  :
+        ents->val[i].ftyp == 'l' ? S_IFLNK  :
+        ents->val[i].ftyp == 'r' ? S_IFREG  :
+        ents->val[i].ftyp == 's' ? S_IFSOCK :
+        /* 'u' and '?' mean "unknown" */
+        0
+    };
 
-    stat.st_ino = ents->val[i].ino;
-    switch (ents->val[i].ftyp) {
-    case 'b': stat.st_mode = S_IFBLK; break;
-    case 'c': stat.st_mode = S_IFCHR; break;
-    case 'd': stat.st_mode = S_IFDIR; break;
-    case 'f': stat.st_mode = S_IFIFO; break;
-    case 'l': stat.st_mode = S_IFLNK; break;
-    case 'r': stat.st_mode = S_IFREG; break;
-    case 's': stat.st_mode = S_IFSOCK; break;
-    case 'u':
-    case '?':
-    default:  stat.st_mode = 0;
-    }
-
-    /* Copied from the example, which also ignores 'offset'.  I'm
+    /* Copied from the example, which also ignores 'offset'. I'm
      * not quite sure how this is ever supposed to work on large
      * directories. XXX
      */
-    if (filler (buf, ents->val[i].name, &stat, 0))
+    if (filler (buf, ents->val[i].name, &st, 0))
       break;
   }
 
@@ -174,33 +171,32 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
     if (ss) {
       for (i = 0; i < ss->len; ++i) {
         if (ss->val[i].st_ino >= 0) {
-          struct stat statbuf;
-
-          memset (&statbuf, 0, sizeof statbuf);
-          statbuf.st_dev = ss->val[i].st_dev;
-          statbuf.st_ino = ss->val[i].st_ino;
-          statbuf.st_mode = ss->val[i].st_mode;
-          statbuf.st_nlink = ss->val[i].st_nlink;
-          statbuf.st_uid = ss->val[i].st_uid;
-          statbuf.st_gid = ss->val[i].st_gid;
-          statbuf.st_rdev = ss->val[i].st_rdev;
-          statbuf.st_size = ss->val[i].st_size;
-          statbuf.st_blksize = ss->val[i].st_blksize;
-          statbuf.st_blocks = ss->val[i].st_blocks;
-          statbuf.st_atime = ss->val[i].st_atime_sec;
+          struct stat st = (struct stat){
+            .st_dev      = ss->val[i].st_dev,
+            .st_ino      = ss->val[i].st_ino,
+            .st_mode     = ss->val[i].st_mode,
+            .st_nlink    = ss->val[i].st_nlink,
+            .st_uid      = ss->val[i].st_uid,
+            .st_gid      = ss->val[i].st_gid,
+            .st_rdev     = ss->val[i].st_rdev,
+            .st_size     = ss->val[i].st_size,
+            .st_blksize  = ss->val[i].st_blksize,
+            .st_blocks   = ss->val[i].st_blocks,
+            .st_atime    = ss->val[i].st_atime_sec,
 #ifdef HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC
-          statbuf.st_atim.tv_nsec = ss->val[i].st_atime_nsec;
+            .st_atim.tv_nsec = ss->val[i].st_atime_nsec,
 #endif
-          statbuf.st_mtime = ss->val[i].st_mtime_sec;
+            .st_mtime    = ss->val[i].st_mtime_sec,
 #ifdef HAVE_STRUCT_STAT_ST_MTIM_TV_NSEC
-          statbuf.st_mtim.tv_nsec = ss->val[i].st_mtime_nsec;
+            .st_mtim.tv_nsec = ss->val[i].st_mtime_nsec,
 #endif
-          statbuf.st_ctime = ss->val[i].st_ctime_sec;
+            .st_ctime    = ss->val[i].st_ctime_sec,
 #ifdef HAVE_STRUCT_STAT_ST_CTIM_TV_NSEC
-          statbuf.st_ctim.tv_nsec = ss->val[i].st_ctime_nsec;
+            .st_ctim.tv_nsec = ss->val[i].st_ctime_nsec,
 #endif
+          };
 
-          lsc_insert (g, path, names[i], now, &statbuf);
+          lsc_insert (g, path, names[i], now, &st);
         }
       }
     }
@@ -239,7 +235,7 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
           /* which is why we have to free links[i] here. */
           free (links[i]);
       }
-      free (links);             /* free the array, not the strings */
+      free (links); /* free the array, not the strings */
     }
 
     free (names);
