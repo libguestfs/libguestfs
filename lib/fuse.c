@@ -266,29 +266,30 @@ mount_local_getattr (const char *path, struct stat *statbuf)
   if (r == NULL)
     RETURN_ERRNO;
 
-  memset (statbuf, 0, sizeof *statbuf);
-  statbuf->st_dev = r->st_dev;
-  statbuf->st_ino = r->st_ino;
-  statbuf->st_mode = r->st_mode;
-  statbuf->st_nlink = r->st_nlink;
-  statbuf->st_uid = r->st_uid;
-  statbuf->st_gid = r->st_gid;
-  statbuf->st_rdev = r->st_rdev;
-  statbuf->st_size = r->st_size;
-  statbuf->st_blksize = r->st_blksize;
-  statbuf->st_blocks = r->st_blocks;
-  statbuf->st_atime = r->st_atime_sec;
+  *statbuf = (struct stat){
+    .st_dev      = r->st_dev,
+    .st_ino      = r->st_ino,
+    .st_mode     = r->st_mode,
+    .st_nlink    = r->st_nlink,
+    .st_uid      = r->st_uid,
+    .st_gid      = r->st_gid,
+    .st_rdev     = r->st_rdev,
+    .st_size     = r->st_size,
+    .st_blksize  = r->st_blksize,
+    .st_blocks   = r->st_blocks,
+    .st_atime    = r->st_atime_sec,
+    .st_mtime    = r->st_mtime_sec,
+    .st_ctime    = r->st_ctime_sec,
 #ifdef HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC
-  statbuf->st_atim.tv_nsec = r->st_atime_nsec;
+    .st_atim.tv_nsec = r->st_atime_nsec,
 #endif
-  statbuf->st_mtime = r->st_mtime_sec;
 #ifdef HAVE_STRUCT_STAT_ST_MTIM_TV_NSEC
-  statbuf->st_mtim.tv_nsec = r->st_mtime_nsec;
+    .st_mtim.tv_nsec = r->st_mtime_nsec,
 #endif
-  statbuf->st_ctime = r->st_ctime_sec;
 #ifdef HAVE_STRUCT_STAT_ST_CTIM_TV_NSEC
-  statbuf->st_ctim.tv_nsec = r->st_ctime_nsec;
+    .st_ctim.tv_nsec = r->st_ctime_nsec,
 #endif
+  };
 
   return 0;
 }
