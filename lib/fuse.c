@@ -104,10 +104,9 @@ copy_xattr_list (guestfs_h *g, const struct guestfs_xattr *first, size_t num)
   xattrs->val = safe_malloc (g, num * sizeof (struct guestfs_xattr));
 
   for (i = 0; i < num; ++i) {
-    xattrs->val[i].attrname = strdup (first[i].attrname);
+    xattrs->val[i].attrname    = safe_strdup (g, first[i].attrname);
     xattrs->val[i].attrval_len = first[i].attrval_len;
-    xattrs->val[i].attrval = safe_malloc (g, first[i].attrval_len);
-    memcpy (xattrs->val[i].attrval, first[i].attrval, first[i].attrval_len);
+    xattrs->val[i].attrval     = safe_memdup  (g, first[i].attrval, first[i].attrval_len);
   }
 
   return xattrs;
