@@ -41,45 +41,49 @@ stat_to_statns (guestfs_int_statns *ret, const struct stat *statbuf)
     }
   }
 
-  ret->st_dev = statbuf->st_dev;
-  ret->st_ino = statbuf->st_ino;
-  ret->st_mode = statbuf->st_mode;
-  ret->st_nlink = statbuf->st_nlink;
-  ret->st_uid = statbuf->st_uid;
-  ret->st_gid = statbuf->st_gid;
-  ret->st_rdev = statbuf->st_rdev;
-  ret->st_size = statbuf->st_size;
+  *ret = (guestfs_int_statns){
+    .st_dev     = statbuf->st_dev,
+    .st_ino     = statbuf->st_ino,
+    .st_mode    = statbuf->st_mode,
+    .st_nlink   = statbuf->st_nlink,
+    .st_uid     = statbuf->st_uid,
+    .st_gid     = statbuf->st_gid,
+    .st_rdev    = statbuf->st_rdev,
+    .st_size    = statbuf->st_size,
+
 #ifdef HAVE_STRUCT_STAT_ST_BLKSIZE
-  ret->st_blksize = statbuf->st_blksize;
+    .st_blksize = statbuf->st_blksize,
 #else
-  ret->st_blksize = -1;
-#endif
-#ifdef HAVE_STRUCT_STAT_ST_BLOCKS
-  ret->st_blocks = statbuf->st_blocks;
-#else
-  ret->st_blocks = -1;
-#endif
-  ret->st_atime_sec = statbuf->st_atime;
-#ifdef HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC
-  ret->st_atime_nsec = statbuf->st_atim.tv_nsec;
-#else
-  ret->st_atime_nsec = 0;
-#endif
-  ret->st_mtime_sec = statbuf->st_mtime;
-#ifdef HAVE_STRUCT_STAT_ST_MTIM_TV_NSEC
-  ret->st_mtime_nsec = statbuf->st_mtim.tv_nsec;
-#else
-  ret->st_mtime_nsec = 0;
-#endif
-  ret->st_ctime_sec = statbuf->st_ctime;
-#ifdef HAVE_STRUCT_STAT_ST_CTIM_TV_NSEC
-  ret->st_ctime_nsec = statbuf->st_ctim.tv_nsec;
-#else
-  ret->st_ctime_nsec = 0;
+    .st_blksize = -1,
 #endif
 
-  ret->st_spare1 = ret->st_spare2 = ret->st_spare3 =
-    ret->st_spare4 = ret->st_spare5 = ret->st_spare6 = 0;
+#ifdef HAVE_STRUCT_STAT_ST_BLOCKS
+    .st_blocks  = statbuf->st_blocks,
+#else
+    .st_blocks  = -1,
+#endif
+
+    .st_atime_sec  = statbuf->st_atime,
+#ifdef HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC
+    .st_atime_nsec = statbuf->st_atim.tv_nsec,
+#else
+    .st_atime_nsec = 0,
+#endif
+
+    .st_mtime_sec  = statbuf->st_mtime,
+#ifdef HAVE_STRUCT_STAT_ST_MTIM_TV_NSEC
+    .st_mtime_nsec = statbuf->st_mtim.tv_nsec,
+#else
+    .st_mtime_nsec = 0,
+#endif
+
+    .st_ctime_sec  = statbuf->st_ctime,
+#ifdef HAVE_STRUCT_STAT_ST_CTIM_TV_NSEC
+    .st_ctime_nsec = statbuf->st_ctim.tv_nsec,
+#else
+    .st_ctime_nsec = 0,
+#endif
+  };
 
   return ret;
 }
