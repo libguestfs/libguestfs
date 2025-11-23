@@ -708,17 +708,19 @@ mount_local_statfs (const char *path, struct statvfs *stbuf)
   if (r == NULL)
     RETURN_ERRNO;
 
-  stbuf->f_bsize = r->bsize;
-  stbuf->f_frsize = r->frsize;
-  stbuf->f_blocks = r->blocks;
-  stbuf->f_bfree = r->bfree;
-  stbuf->f_bavail = r->bavail;
-  stbuf->f_files = r->files;
-  stbuf->f_ffree = r->ffree;
-  stbuf->f_favail = r->favail;
-  stbuf->f_fsid = r->fsid;
-  stbuf->f_flag = r->flag;
-  stbuf->f_namemax = r->namemax;
+  *stbuf = (struct statvfs){
+    .f_bsize   = r->bsize,
+    .f_frsize  = r->frsize,
+    .f_blocks  = r->blocks,
+    .f_bfree   = r->bfree,
+    .f_bavail  = r->bavail,
+    .f_files   = r->files,
+    .f_ffree   = r->ffree,
+    .f_favail  = r->favail,
+    .f_fsid    = r->fsid,
+    .f_flag    = r->flag,
+    .f_namemax = r->namemax,
+  };
 
   return 0;
 }
