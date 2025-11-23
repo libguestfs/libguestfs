@@ -99,22 +99,22 @@ create_overlay (guestfs_h *g, struct drive *drv)
  * Create and free the C<struct drive>.
  */
 static struct drive *
-create_drive_file (guestfs_h *g,
-                   const struct drive_create_data *data)
+create_drive_file (guestfs_h *g, const struct drive_create_data *data)
 {
   struct drive *drv = safe_calloc (g, 1, sizeof *drv);
 
-  drv->src.protocol = drive_protocol_file;
-  drv->src.u.path = safe_strdup (g, data->exportname);
-  drv->src.format = data->format ? safe_strdup (g, data->format) : NULL;
-
-  drv->readonly = data->readonly;
-  drv->name = data->name ? safe_strdup (g, data->name) : NULL;
-  drv->disk_label = data->disk_label ? safe_strdup (g, data->disk_label) : NULL;
-  drv->cachemode = data->cachemode ? safe_strdup (g, data->cachemode) : NULL;
-  drv->discard = data->discard;
-  drv->copyonread = data->copyonread;
-  drv->blocksize = data->blocksize;
+  *drv = (struct drive){
+    .src.protocol              = drive_protocol_file,
+    .src.u.path                = safe_strdup (g, data->exportname),
+    .src.format                = data->format     ? safe_strdup (g, data->format)     : NULL,
+    .name                      = data->name       ? safe_strdup (g, data->name)       : NULL,
+    .disk_label                = data->disk_label ? safe_strdup (g, data->disk_label) : NULL,
+    .cachemode                 = data->cachemode  ? safe_strdup (g, data->cachemode)  : NULL,
+    .readonly                  = data->readonly,
+    .discard                   = data->discard,
+    .copyonread                = data->copyonread,
+    .blocksize                 = data->blocksize,
+  };
 
   if (data->readonly) {
     if (create_overlay (g, drv) == -1) {
