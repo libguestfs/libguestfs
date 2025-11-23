@@ -65,14 +65,14 @@ bind_mount (struct bind_state *bs)
 {
   int r;
 
-  memset (bs, 0, sizeof *bs);
-
-  bs->sysroot_dev = sysroot_path ("/dev");
-  bs->sysroot_dev_pts = sysroot_path ("/dev/pts");
-  bs->sysroot_proc = sysroot_path ("/proc");
-  bs->sysroot_selinux = sysroot_path ("/selinux");
-  bs->sysroot_sys = sysroot_path ("/sys");
-  bs->sysroot_sys_fs_selinux = sysroot_path ("/sys/fs/selinux");
+  *bs = (struct bind_state){
+    .sysroot_dev          = sysroot_path ("/dev"),
+    .sysroot_dev_pts      = sysroot_path ("/dev/pts"),
+    .sysroot_proc         = sysroot_path ("/proc"),
+    .sysroot_selinux      = sysroot_path ("/selinux"),
+    .sysroot_sys          = sysroot_path ("/sys"),
+    .sysroot_sys_fs_selinux = sysroot_path ("/sys/fs/selinux"),
+  };
 
   if (bs->sysroot_dev == NULL || bs->sysroot_dev_pts == NULL ||
       bs->sysroot_proc == NULL || bs->sysroot_selinux == NULL ||
