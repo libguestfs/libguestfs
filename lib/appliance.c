@@ -109,26 +109,33 @@ static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *a
  * provides a I<--lock> flag and atomic update of the F<appliance.d>
  * subdirectory.
  */
+
 int
 guestfs_int_build_appliance (guestfs_h *g,
-			     char **kernel_rtn,
-			     char **initrd_rtn,
-			     char **appliance_rtn)
+                             char **kernel_rtn,
+                             char **initrd_rtn,
+                             char **appliance_rtn)
 {
+  struct appliance_files appliance = {
+    .kernel   = NULL,
+    .initrd   = NULL,
+    .image    = NULL,
+  };
 
-  struct appliance_files appliance;
-
-  memset (&appliance, 0, sizeof appliance);
-
+  /* search_appliance fills the struct on success */
   if (search_appliance (g, &appliance) != 1)
     return -1;
 
   /* Don't assign these until we know we're going to succeed, to avoid
    * the caller double-freeing (RHBZ#983218).
    */
-  *kernel_rtn = appliance.kernel;
-  *initrd_rtn = appliance.initrd;
+  *kernel_rtn    = appliance.kernel;
+  *initrd_rtn    = appliance.initrd;
   *appliance_rtn = appliance.image;
+
+  /* Zero the struct so nothing gets freed twice if caller messes up */
+  appliance.kernel = appliance.initrd = appliance.image = NULL;
+
   return 0;
 }
 
