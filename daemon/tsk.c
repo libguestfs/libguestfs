@@ -211,6 +211,7 @@ send_dirent_info (TSK_FS_FILE *fsfile, const char *path)
   ret = xdr_guestfs_int_tsk_dirent (&xdr, &dirent);
   if (ret == 0) {
     perror ("xdr_guestfs_int_tsk_dirent");
+    xdr_destroy (&xdr);
     return -1;
   }
 
