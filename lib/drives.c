@@ -406,18 +406,22 @@ free_drive_struct (struct drive *drv)
 const char *
 guestfs_int_drive_protocol_to_string (enum drive_protocol protocol)
 {
-  switch (protocol) {
-  case drive_protocol_file: return "file";
-  case drive_protocol_ftp: return "ftp";
-  case drive_protocol_ftps: return "ftps";
-  case drive_protocol_http: return "http";
-  case drive_protocol_https: return "https";
-  case drive_protocol_iscsi: return "iscsi";
-  case drive_protocol_nbd: return "nbd";
-  case drive_protocol_rbd: return "rbd";
-  case drive_protocol_ssh: return "ssh";
-  }
-  abort ();
+  static const char *const names[] = {
+    [drive_protocol_file]   = "file",
+    [drive_protocol_ftp]    = "ftp",
+    [drive_protocol_ftps]   = "ftps",
+    [drive_protocol_http]   = "http",
+    [drive_protocol_https]  = "https",
+    [drive_protocol_iscsi]  = "iscsi",
+    [drive_protocol_nbd]    = "nbd",
+    [drive_protocol_rbd]    = "rbd",
+    [drive_protocol_ssh]    = "ssh",
+  };
+
+  if ((unsigned int)protocol < sizeof(names)/sizeof(names[0]))
+    return names[protocol];
+
+  abort();
 }
 
 /**
