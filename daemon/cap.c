@@ -39,6 +39,14 @@ static inline void cap_freep(void *p)
 
 #define CLEANUP_CAP_FREE __attribute__((cleanup(cap_freep))) cap_t
 
+static inline void cap_text_freep(void *p)
+{
+  if (*(char **)p)
+    cap_free(*(char **)p);
+}
+
+#define CLEANUP_CAP_TEXT __attribute__((cleanup(cap_text_freep))) char *
+
 int
 optgroup_linuxcaps_available (void)
 {
@@ -48,8 +56,9 @@ optgroup_linuxcaps_available (void)
 char *
 do_cap_get_file (const char *path)
 {
-  cap_t cap;
-  char *r, *ret;
+  CLEANUP_CAP_FREE cap = NULL;
+  CLEANUP_CAP_TEXT r = NULL;
+  char *ret;
 
   CHROOT_IN;
   cap = cap_get_file (path);
@@ -75,11 +84,8 @@ do_cap_get_file (const char *path)
   r = cap_to_text (cap, NULL);
   if (r == NULL) {
     reply_with_perror ("cap_to_text");
-    cap_free (cap);
-    return NULL;
+    return NULL;  /* cap will be automatically freed by cleanup */
   }
-
-  cap_free (cap);
 
   /* 'r' is not an ordinary pointer that can be freed with free(3)!
    * In the current implementation of libcap, if you try to do that it
@@ -89,10 +95,8 @@ do_cap_get_file (const char *path)
   ret = strdup (r);
   if (ret == NULL) {
     reply_with_perror ("strdup");
-    cap_free (r);
     return NULL;
   }
-  cap_free (r);
 
   return ret;                   /* caller frees */
 }
