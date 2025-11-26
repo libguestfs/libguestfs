@@ -104,9 +104,7 @@ guestfs_impl_disk_create (guestfs_h *g, const char *filename,
 static int
 disk_create_raw_block (guestfs_h *g, const char *filename)
 {
-  int fd;
-
-  fd = open (filename, O_WRONLY|O_NOCTTY|O_CLOEXEC, 0666);
+  int fd = open(filename, O_WRONLY|O_NOCTTY|O_CLOEXEC, 0666);
   if (fd == -1) {
     perrorf (g, _("cannot open block device: %s"), filename);
     return -1;
@@ -125,7 +123,10 @@ disk_create_raw_block (guestfs_h *g, const char *filename)
   }
 #endif
 
-  close (fd);
+  if (close (fd) == -1) {
+    perrorf (g, _("%s: close"), filename);
+    return -1;
+  }
 
   return 0;
 }
