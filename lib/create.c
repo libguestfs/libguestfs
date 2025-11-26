@@ -134,8 +134,8 @@ static int
 disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
                  const struct guestfs_disk_create_argv *optargs)
 {
+  CLEANUP_CLOSE int fd = -1;
   int allocated = 0;
-  int fd;
   struct stat statbuf;
 
   /* backingfile parameter not present checked above */
@@ -185,7 +185,6 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
   if (!allocated) {             /* Sparse file. */
     if (ftruncate (fd, size) == -1) {
       perrorf (g, _("%s: truncate"), filename);
-      close (fd);
       unlink (filename);
       return -1;
     }
@@ -198,7 +197,6 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
     if (err != 0) {
       errno = err;
       perrorf (g, _("%s: fallocate"), filename);
-      close (fd);
       unlink (filename);
       return -1;
     }
@@ -216,7 +214,6 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
       r = write (fd, buffer, n);
       if (r == -1) {
         perrorf (g, _("%s: write"), filename);
-        close (fd);
         unlink (filename);
         return -1;
       }
@@ -226,10 +223,12 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
   }
 
   if (close (fd) == -1) {
+    fd = -1;
     perrorf (g, _("%s: close"), filename);
     unlink (filename);
     return -1;
   }
+  fd = -1;
 
   return 0;
 }
