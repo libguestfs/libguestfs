@@ -98,7 +98,6 @@ main (int argc, char *argv[])
   int c, fd = -1;
   int option_index;
   const char *mountpoint;
-  struct sigaction sa;
   struct pollfd pollfd;
   char *error_str = NULL;
   size_t i;
@@ -165,11 +164,8 @@ main (int argc, char *argv[])
     ignore_value (chdir ("/"));
 
     /* Ignore keyboard signals. */
-    memset (&sa, 0, sizeof sa);
-    sa.sa_handler = SIG_IGN;
-    sa.sa_flags = SA_RESTART;
-    sigaction (SIGINT, &sa, NULL);
-    sigaction (SIGQUIT, &sa, NULL);
+    sigaction(SIGINT,  &(struct sigaction){ .sa_handler = SIG_IGN, .sa_flags = SA_RESTART }, NULL);
+    sigaction(SIGQUIT, &(struct sigaction){ .sa_handler = SIG_IGN, .sa_flags = SA_RESTART }, NULL);
 
     while (1) {
       pollfd.fd = fd;
