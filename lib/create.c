@@ -202,12 +202,10 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
     }
 #else
     /* Slow emulation of posix_fallocate on platforms which don't have it. */
-    char buffer[BUFSIZ];
+    char buffer[BUFSIZ] = {0};
     size_t remaining = size;
     size_t n;
     ssize_t r;
-
-    memset (buffer, 0, sizeof buffer);
 
     while (remaining > 0) {
       n = remaining > sizeof buffer ? sizeof buffer : remaining;
