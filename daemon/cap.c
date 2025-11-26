@@ -31,6 +31,14 @@
 
 #include <sys/capability.h>
 
+static inline void cap_freep(void *p)
+{
+  if (*(cap_t *)p)
+    cap_free(*(cap_t *)p);
+}
+
+#define CLEANUP_CAP_FREE __attribute__((cleanup(cap_freep))) cap_t
+
 int
 optgroup_linuxcaps_available (void)
 {
@@ -92,12 +100,12 @@ do_cap_get_file (const char *path)
 int
 do_cap_set_file (const char *path, const char *capstr)
 {
-  cap_t cap;
+  CLEANUP_CAP_FREE cap = NULL;
   int r;
 
   cap = cap_from_text (capstr);
   if (cap == NULL) {
-    reply_with_perror ("could not parse cap string: %s: cap_from_text", capstr);
+    reply_with_perror ("cap_from_text: %s", capstr);
     return -1;
   }
 
@@ -106,12 +114,9 @@ do_cap_set_file (const char *path, const char *capstr)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("%s", path);
-    cap_free (cap);
+    reply_with_perror ("cap_set_file: %s", path);
     return -1;
   }
-
-  cap_free (cap);
 
   return 0;
 }
