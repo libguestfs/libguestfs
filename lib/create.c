@@ -25,6 +25,7 @@
 #include <config.h>
 
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <inttypes.h>
@@ -135,7 +136,7 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
                  const struct guestfs_disk_create_argv *optargs)
 {
   CLEANUP_CLOSE int fd = -1;
-  int allocated = 0;
+  bool allocated = false;
   struct stat statbuf;
 
   /* backingfile parameter not present checked above */
@@ -147,9 +148,9 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
   if (optargs->bitmask & GUESTFS_DISK_CREATE_PREALLOCATION_BITMASK) {
     if (STREQ (optargs->preallocation, "off") ||
         STREQ (optargs->preallocation, "sparse"))
-      allocated = 0;
+      allocated = false;
     else if (STREQ (optargs->preallocation, "full"))
-      allocated = 1;
+      allocated = true;
     else {
       error (g, _("invalid value for preallocation parameter ‘%s’"),
              optargs->preallocation);
