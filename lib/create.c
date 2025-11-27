@@ -232,7 +232,7 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
 }
 
 /* http://graphics.stanford.edu/~seander/bithacks.html#DetermineIfPowerOf2 */
-static int
+static bool
 is_power_of_2 (unsigned v)
 {
   return v && ((v & (v - 1)) == 0);
