@@ -115,10 +115,9 @@ disk_create_raw_block (guestfs_h *g, const char *filename)
   /* Just discard blocks, if possible.  However don't try too hard. */
 #if defined(BLKGETSIZE64) && defined(BLKDISCARD)
   uint64_t size;
-  uint64_t range[2];
+  uint64_t range[2] = {0};
 
   if (ioctl (fd, BLKGETSIZE64, &size) == 0) {
-    range[0] = 0;
     range[1] = size;
     if (ioctl (fd, BLKDISCARD, range) == -1)
       debug (g, "disk_create: %s: BLKDISCARD failed on this device: %m",
