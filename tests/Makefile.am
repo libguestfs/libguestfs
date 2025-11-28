@@ -417,8 +417,8 @@ endif
 TESTS += gdisk/test-expand-gpt.pl
 EXTRA_DIST += gdisk/test-expand-gpt.pl
 
-TESTS += journal/test-journal.pl
-EXTRA_DIST += journal/test-journal.pl
+TESTS += journal/test-journal.py
+EXTRA_DIST += journal/test-journal.py
 
 # This binary must be statically linked.  It is used for testing
 # the "guestfs_command_out" function.
