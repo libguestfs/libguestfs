@@ -47,13 +47,13 @@ SLOW_TESTS += bigdirs/test-big-dirs.pl
 EXTRA_DIST += bigdirs/test-big-dirs.pl
 
 TESTS += \
-	btrfs/test-btrfs-misc.pl \
+	btrfs/test-btrfs-misc.py \
 	btrfs/test-btrfs-devices.sh \
 	btrfs/test-btrfs-subvolume-default.pl \
 	btrfs/test-btrfs-replace.sh \
 	btrfs/test-btrfs-subvolume-snapshot.sh
 EXTRA_DIST += \
-	btrfs/test-btrfs-misc.pl \
+	btrfs/test-btrfs-misc.py \
 	btrfs/test-btrfs-devices.sh \
 	btrfs/test-btrfs-subvolume-default.pl \
 	btrfs/test-btrfs-replace.sh \
