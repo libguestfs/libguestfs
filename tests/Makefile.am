@@ -49,13 +49,13 @@ EXTRA_DIST += bigdirs/test-big-dirs.pl
 TESTS += \
 	btrfs/test-btrfs-misc.py \
 	btrfs/test-btrfs-devices.sh \
-	btrfs/test-btrfs-subvolume-default.pl \
+	btrfs/test-btrfs-subvolume-default.py \
 	btrfs/test-btrfs-replace.sh \
 	btrfs/test-btrfs-subvolume-snapshot.sh
 EXTRA_DIST += \
 	btrfs/test-btrfs-misc.py \
 	btrfs/test-btrfs-devices.sh \
-	btrfs/test-btrfs-subvolume-default.pl \
+	btrfs/test-btrfs-subvolume-default.py \
 	btrfs/test-btrfs-replace.sh \
 	btrfs/test-btrfs-subvolume-snapshot.sh
 
