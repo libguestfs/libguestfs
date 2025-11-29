@@ -797,8 +797,8 @@ EXTRA_DIST += \
 	tsk/test-filesystem-walk.sh \
 	tsk/test-find-inode.sh
 
-TESTS += xfs/test-xfs-misc.pl
-EXTRA_DIST += xfs/test-xfs-misc.pl
+TESTS += xfs/test-xfs-misc.py
+EXTRA_DIST += xfs/test-xfs-misc.py
 
 # XXX Fix these tests.
 # if HAVE_LIBVIRT
