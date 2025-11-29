@@ -783,8 +783,8 @@ EXTRA_DIST += \
 
 CLEANFILES += syslinux/syslinux-guest.img syslinux/extlinux-guest.img
 
-TESTS += tmpdirs/test-tmpdirs.pl
-EXTRA_DIST += tmpdirs/test-tmpdirs.pl
+TESTS += tmpdirs/test-tmpdirs.py
+EXTRA_DIST += tmpdirs/test-tmpdirs.py
 
 TESTS += \
 	tsk/test-download-inode.sh \
