@@ -7,32 +7,33 @@
 # Hugo Jiménez Hernández <hjimenezhdez@gmail.com>, 2011
 # rjones <rjones@redhat.com>, 2011
 # Alex Puchades <alex94puchades@gmail.com>, 2015. #zanata
+# "Fco. Javier F. Serrador" <fserrador@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2025-11-04 16:19+0000\n"
-"PO-Revision-Date: 2015-03-16 07:04+0000\n"
-"Last-Translator: Alex Puchades <alex94puchades@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
-"language/es/)\n"
+"PO-Revision-Date: 2025-11-30 11:58+0000\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
+"Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
+"libguestfs/libguestfs-master/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: common/options/config.c:72
 #, c-format
 msgid "%s: line %d: error parsing configuration file: %s"
-msgstr ""
+msgstr "%s: línea %d: error al interpretar archivo de configuración: %s"
 
 #: common/options/decrypt.c:52
 #, c-format
 msgid "string size overflow"
-msgstr ""
+msgstr "tamaño de cadena desbordada"
 
 #: common/options/decrypt.c:170
 #, c-format
@@ -40,6 +41,8 @@ msgid ""
 "'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
 "libguestfs version"
 msgstr ""
+"'clevis_luks_unlock', necesario para descifrar %s, no está disponible en "
+"esta versión de libguestfs"
 
 #: common/options/decrypt.c:184
 #, c-format
@@ -50,6 +53,11 @@ msgid ""
 "\n"
 "Original error: %s (%d)"
 msgstr ""
+"no se pudo encontrar clave para abrir LUKS %s cifrado.\n"
+"\n"
+"Intente utilizar --key en la línea de comando.\n"
+"\n"
+"Error original: %s (%d)"
 
 #: common/options/inspect.c:78
 #, c-format
@@ -69,6 +77,22 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: ningún sistema operativo estuvo encontrado en este disco\n"
+"\n"
+"Si utilizando la opción guestfish ‘-i', retire esta opción y en su lugar\n"
+"utiliza las instrucciones ‘run’ seguidos por ‘list-filesystems'.\n"
+"Entonces puedes montar sistemas de archivos deseados a\n"
+"mano utilizando las instrucciones ‘mount’ o ‘mount-ro'.\n"
+"\n"
+"Si utiliza guestmount ‘-i', retire esta opción y escoja el sistema\n"
+"de archivos que desee ver manualmente añadiendo la opción\n"
+"'-m' . Emplee ‘virt-filesystems' para ver lo que sistema de archivos\n"
+"está disponible.\n"
+"\n"
+"Si utiliza otro de las herramientas virt, esta imagen de disco\n"
+"no funcionaría con estas herramientas.  Emplee las instrucciones\n"
+"guestfish equivalentes (consulte la página del manual de la\n"
+"herramienta virt).\n"
 
 #: common/options/inspect.c:99
 #, c-format
@@ -88,6 +112,22 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: los sistemas operativos multi-arranque no están mantenidos\n"
+"\n"
+"Si emplea la opción ‘guestfish -i’, retire esta opción y utilice en\n"
+"su lugar las instrucciones ‘run’ seguido por ‘list-filesystems'.\n"
+"Entonces puedes montar sistemas de archivos deseados a mano\n"
+"utilizando las instrucciones ‘mount’ o ‘mount-ro'.\n"
+"\n"
+"Si utiliza ‘guestmount -i’, retire esta opción y elija el sistema de\n"
+"archivo deseado para verlo manualmente añadiendo la opción\n"
+"‘-m'. Utilice ‘virt-filesystems' para ver qué sistema de archivos\n"
+"está disponible.\n"
+"\n"
+"Si utilizando otras herramientas de virt, los sistemas operativos\n"
+"de multi-arranque no funcionarían con estas herramientas.\n"
+"Utilice las instrucciones equivalentes de guestfish (consulte\n"
+"la página del manual de virt).\n"
 
 #: common/options/inspect.c:161
 #, c-format
@@ -114,47 +154,47 @@ msgstr "Ingrese la llave o la frase de acceso (\"%s\"): "
 #: common/options/keys.c:145
 #, c-format
 msgid "size_t overflow"
-msgstr ""
+msgstr "size_t desbordado"
 
 #: common/options/keys.c:192
 #, c-format
 msgid "could not read key from user"
-msgstr ""
+msgstr "no pudo leer tecla desde usuario"
 
 #: common/options/keys.c:231
 #, c-format
 msgid "selector '%s': missing ID"
-msgstr ""
+msgstr "selector '%s': falta ID"
 
 #: common/options/keys.c:238
 #, c-format
 msgid "selector '%s': missing TYPE"
-msgstr ""
+msgstr "selector '%s': ausencia de TIPO"
 
 #: common/options/keys.c:244
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
-msgstr ""
+msgstr "selector '%s': ausencia de KEY_STRING, o campos excesivos"
 
 #: common/options/keys.c:253
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
-msgstr ""
+msgstr "selector '%s': ausencia de FILENAME, o demasiados campos"
 
 #: common/options/keys.c:261
 #, c-format
 msgid "selector '%s': too many fields"
-msgstr ""
+msgstr "selector '%s': campos excesivos"
 
 #: common/options/keys.c:263
 #, c-format
 msgid "selector '%s': invalid TYPE"
-msgstr ""
+msgstr "selector '%s': TIPO no válido"
 
 #: common/options/options.c:283
 #, c-format
 msgid "%s: ‘%s’ could not be mounted.\n"
-msgstr ""
+msgstr "%s: ‘%s’ no pudo montarse.\n"
 
 #: common/options/options.c:287
 #, c-format
@@ -162,31 +202,35 @@ msgid ""
 "%s: Check mount(8) man page to ensure options ‘%s’\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
+"%s: Compruebe la página man de mount(8) para asegurar las opciones ‘%s'\n"
+"%s: se mantiene con el sistema de archivos que esté siendo montando.\n"
 
 #: common/options/options.c:291
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
-msgstr ""
+msgstr "%s: ¿significaba montar uno de estos sistemas de archivos?\n"
 
 #: common/options/options.c:304
 #, c-format
 msgid "cannot determine the subvolume for %s: %s (%d)"
-msgstr ""
+msgstr "no se puede determinar el sub‐volumen para %s: %s (%d)"
 
 #: common/options/uri.c:119
 #, c-format
 msgid "%s: --add: could not parse URI ‘%s’\n"
-msgstr ""
+msgstr "%s: --add: no pudo interpretar la URI ‘%s'\n"
 
 #: common/options/uri.c:130
 #, c-format
 msgid "%s: %s: scheme of URI is NULL or empty\n"
-msgstr ""
+msgstr "%s: %s: esquema de URI es NULL o vacío\n"
 
 #: common/options/uri.c:138
 #, c-format
 msgid "%s: %s: cannot have both a server name and a socket query parameter\n"
 msgstr ""
+"%s: %s: no se puede tener ambos un nombre de servidor y un parámetro de "
+"consulta del zócalo\n"
 
 #: common/parallel/domains.c:106 lib/libvirt-domain.c:106
 #, c-format
@@ -197,46 +241,49 @@ msgstr "no se pudo conectar con libvirt (código %d, dominio %d): %s"
 #, c-format
 msgid "could not get number of running domains (code %d, domain %d): %s"
 msgstr ""
+"no se pudo obtener número de dominios en ejecución (código %d, dominio %d): "
+"%s"
 
 #: common/parallel/domains.c:125
 #, c-format
 msgid "could not list running domains (code %d, domain %d): %s"
-msgstr ""
+msgstr "no se pudo enumerar dominios en ejecución (código %d, dominio %d): %s"
 
 #: common/parallel/domains.c:135
 #, c-format
 msgid "could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
+"no se pudo obtener número de dominios inactivos (código %d, dominio %d): %s"
 
 #: common/parallel/domains.c:146
 #, c-format
 msgid "could not list inactive domains (code %d, domain %d): %s"
-msgstr ""
+msgstr "no pudo alistar dominios no activos (código %d, dominio %d): %s"
 
 #: common/utils/utils.c:107
 #, c-format
 msgid "%s exited successfully"
-msgstr ""
+msgstr "%s ha salido correctamente"
 
 #: common/utils/utils.c:110
 #, c-format
 msgid "%s exited with error status %d"
-msgstr ""
+msgstr "%s ha salido con estado de error %d"
 
 #: common/utils/utils.c:114
 #, c-format
 msgid "%s killed by signal %d (%s)"
-msgstr ""
+msgstr "%s matado por señal %d (%s)"
 
 #: common/utils/utils.c:118
 #, c-format
 msgid "%s stopped by signal %d (%s)"
-msgstr ""
+msgstr "%s detenido por señal %d (%s)"
 
 #: common/utils/utils.c:122
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
-msgstr ""
+msgstr "%s salió por una razón desconocida (estado %d)"
 
 #: common/visit/visit.c:133
 #, c-format
@@ -252,11 +299,13 @@ msgstr "%s: error: no es posible analizar contador xattr para %s %s\n"
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
+"para utilizar letras de unidad de Windows, esto debe ser un invitado de "
+"Windows"
 
 #: common/windows/windows.c:150
 #, c-format
 msgid "drive '%c:' not found."
-msgstr ""
+msgstr "unidad '%c:' no encontrada."
 
 #: fish/alloc.c:42
 #, c-format
@@ -271,7 +320,7 @@ msgstr "Utilice el comando 'sparse file size' para generar una imagen sparse\n"
 #: fish/alloc.c:105
 #, c-format
 msgid "%s: invalid integer parameter (%s returned %u)\n"
-msgstr ""
+msgstr "%s: parámetro de entero no válido (%s devolvió %u)\n"
 
 #: fish/cmds.c:487
 msgid "Command"
@@ -283,15 +332,15 @@ msgstr "Descripción"
 
 #: fish/cmds.c:489
 msgid "delete the default POSIX ACL of a directory"
-msgstr ""
+msgstr "elimina el POSIX ACL predeterminado de un directorio"
 
 #: fish/cmds.c:490
 msgid "get the POSIX ACL attached to a file"
-msgstr ""
+msgstr "obtiene el POSIX ACL adjunto a un archivo"
 
 #: fish/cmds.c:491
 msgid "set the POSIX ACL attached to a file"
-msgstr ""
+msgstr "establece el POSIX ACL adjuntado a un archivo"
 
 #: fish/cmds.c:493 fish/cmds.c:496 fish/cmds.c:507 fish/cmds.c:510
 #: fish/cmds.c:513 fish/cmds.c:533 fish/cmds.c:538 fish/cmds.c:557
@@ -304,7 +353,7 @@ msgstr ""
 #: fish/cmds.c:1151 fish/cmds.c:1160 fish/cmds.c:1182
 #, c-format
 msgid "alias for '%s'"
-msgstr ""
+msgstr "alias para '%s'"
 
 #: fish/cmds.c:498
 msgid "add a CD-ROM disk image to examine"
@@ -330,7 +379,7 @@ msgstr ""
 
 #: fish/cmds.c:503
 msgid "add a temporary scratch drive"
-msgstr ""
+msgstr "añade una unidad retirada temporaria"
 
 #: fish/cmds.c:504
 msgid "add a drive specifying the QEMU block emulation to use"
@@ -372,7 +421,7 @@ msgstr "inserta nodo Augeas hermano"
 
 #: fish/cmds.c:522
 msgid "return the label from an Augeas path expression"
-msgstr ""
+msgstr "devuelve la etiqueta desde la expresión de ruta Augeas"
 
 #: fish/cmds.c:523
 msgid "load files into the tree"
@@ -404,11 +453,11 @@ msgstr "define la ruta Augeas al valor"
 
 #: fish/cmds.c:530
 msgid "set multiple Augeas nodes"
-msgstr ""
+msgstr "establece múltiples nodos Augeas"
 
 #: fish/cmds.c:531
 msgid "add/remove an Augeas lens transformation"
-msgstr ""
+msgstr "añadir/retirar una transformación de lente Augeas"
 
 #: fish/cmds.c:535 fish/cmds.c:679
 msgid "test availability of some parts of the API"
@@ -428,15 +477,15 @@ msgstr "descarga un archivo y lo codifica como base64"
 
 #: fish/cmds.c:542
 msgid "discard all blocks on a device"
-msgstr ""
+msgstr "descarta todos los bloques en un dispositivo"
 
 #: fish/cmds.c:543
 msgid "return true if discarded blocks are read as zeroes"
-msgstr ""
+msgstr "devuelve verdadero si los bloques descartados son leídos como ceros"
 
 #: fish/cmds.c:544
 msgid "print block device attributes"
-msgstr ""
+msgstr "declara atributos de dispositivo de bloque"
 
 #: fish/cmds.c:545
 msgid "flush device buffers"
@@ -472,7 +521,7 @@ msgstr "define el tamaño del bloque del dispositivo de bloques"
 
 #: fish/cmds.c:553
 msgid "set readahead"
-msgstr ""
+msgstr "establecer lectura por delante"
 
 #: fish/cmds.c:554
 msgid "set block device to read-only"
@@ -484,35 +533,35 @@ msgstr "configura el dispositivo de bloques con modo de lectura y de escritura"
 
 #: fish/cmds.c:559
 msgid "cancel a running or paused balance"
-msgstr ""
+msgstr "cancelar un balance en ejecución o pausado"
 
 #: fish/cmds.c:560
 msgid "pause a running balance"
-msgstr ""
+msgstr "pausa un equilibrio en ejecución"
 
 #: fish/cmds.c:561
 msgid "resume a paused balance"
-msgstr ""
+msgstr "continúa un equilibrio pausado"
 
 #: fish/cmds.c:562
 msgid "show the status of a running or paused balance"
-msgstr ""
+msgstr "muestra el estado de un equilibrio en ejecución o pausado"
 
 #: fish/cmds.c:563
 msgid "add devices to a btrfs filesystem"
-msgstr ""
+msgstr "añade dispositivos a un sistema de archivos btrfs"
 
 #: fish/cmds.c:564
 msgid "remove devices from a btrfs filesystem"
-msgstr ""
+msgstr "retira dispositivos desde un sistema de archivos btrfs"
 
 #: fish/cmds.c:565
 msgid "balance a btrfs filesystem"
-msgstr ""
+msgstr "equilibra un sistema de archivos btrfs"
 
 #: fish/cmds.c:566
 msgid "defragment a file or directory"
-msgstr ""
+msgstr "desfragmentar un archivo o directorio"
 
 #: fish/cmds.c:567
 msgid "resize a btrfs filesystem"
@@ -520,146 +569,148 @@ msgstr "redimensiona un sistema de archivos btrfs"
 
 #: fish/cmds.c:568
 msgid "list devices for btrfs filesystem"
-msgstr ""
+msgstr "enumera dispositivos para sistemas de archivos btrfs"
 
 #: fish/cmds.c:569
 msgid "sync a btrfs filesystem"
-msgstr ""
+msgstr "sincroniza un sistema de archivos btrfs"
 
 #: fish/cmds.c:570
 msgid "check a btrfs filesystem"
-msgstr ""
+msgstr "comprobar un sistema de archivos btrfs"
 
 #: fish/cmds.c:571
 msgid "create an image of a btrfs filesystem"
-msgstr ""
+msgstr "crea una imagen de un sistema de archivos btrfs"
 
 #: fish/cmds.c:572
 msgid "add a qgroup to a parent qgroup"
-msgstr ""
+msgstr "añade un qgroup a un qgroup antecesor"
 
 #: fish/cmds.c:573
 msgid "create a subvolume quota group"
-msgstr ""
+msgstr "Crear un grupo de cuota de subvolumen"
 
 #: fish/cmds.c:574
 msgid "destroy a subvolume quota group"
-msgstr ""
+msgstr "destruye un grupo de cuota de subvolumen"
 
 #: fish/cmds.c:575
 msgid "limit the size of a subvolume"
-msgstr ""
+msgstr "limita el tamaño de un subvolumen"
 
 #: fish/cmds.c:576
 msgid "remove a qgroup from its parent qgroup"
-msgstr ""
+msgstr "retira un qgroup desde su qgroup antecesor"
 
 #: fish/cmds.c:577
 msgid "show subvolume quota groups"
-msgstr ""
+msgstr "muestra grupos de cuota de subvolumen"
 
 #: fish/cmds.c:578
 msgid "enable or disable subvolume quota support"
-msgstr ""
+msgstr "habilita o inhabilita mantenimiento de cuota de subvolumen"
 
 #: fish/cmds.c:579
 msgid ""
 "trash all qgroup numbers and scan the metadata again with the current config"
 msgstr ""
+"basura de todos los números qgroup y analiza los metadatos frente a la "
+"configuración actual"
 
 #: fish/cmds.c:580
 msgid "replace a btrfs managed device with another device"
-msgstr ""
+msgstr "remplaza un dispositivo btrls gestionado con otro dispositivo"
 
 #: fish/cmds.c:581
 msgid "recover the chunk tree of btrfs filesystem"
-msgstr ""
+msgstr "recupera el fragmento del árbol del sistema de archivo btrfs"
 
 #: fish/cmds.c:582
 msgid "recover bad superblocks from good copies"
-msgstr ""
+msgstr "recupera superbloques incorrectos desde copias correctas"
 
 #: fish/cmds.c:583
 msgid "cancel a running scrub"
-msgstr ""
+msgstr "cancela un barrido en ejecución"
 
 #: fish/cmds.c:584
-#, fuzzy
-#| msgid "resize a btrfs filesystem"
 msgid "run a full scrub on a btrfs filesystem"
-msgstr "redimensiona un sistema de archivos btrfs"
+msgstr "ejecuta un barrido completo en un sistema de archivos btrfs"
 
 #: fish/cmds.c:585
 msgid "resume a previously canceled or interrupted scrub"
-msgstr ""
+msgstr "continúa un barrido cancelado previamente o interrumpido"
 
 #: fish/cmds.c:586
 msgid "read all data from all disks and verify checksums"
 msgstr ""
+"lee todos los datos desde todos los discos y verifica comprobante sumatorio"
 
 #: fish/cmds.c:587
 msgid "show status of running or finished scrub"
-msgstr ""
+msgstr "muestra estado de barrido en ejecución o finalizado"
 
 #: fish/cmds.c:588
 msgid "enable or disable the seeding feature of device"
-msgstr ""
+msgstr "habilita o inhabilite la característica de sembrado del dispositivo"
 
 #: fish/cmds.c:589
 msgid "create a btrfs subvolume"
-msgstr ""
+msgstr "crea un subvolumen de btrfs"
 
 #: fish/cmds.c:590
 msgid "delete a btrfs subvolume or snapshot"
-msgstr ""
+msgstr "eliminar un subvolumen btrfs o captura"
 
 #: fish/cmds.c:591
 msgid "get the default subvolume or snapshot of a filesystem"
 msgstr ""
+"obtiene el subvolumen o captura predeterminada de un sistema de archivos"
 
 #: fish/cmds.c:592
 msgid "list btrfs snapshots and subvolumes"
-msgstr ""
+msgstr "enumera capturas y subvolumen de btrfs"
 
 #: fish/cmds.c:593
 msgid "set default btrfs subvolume"
-msgstr ""
+msgstr "establece subvolumen de btrfs predeterminado"
 
 #: fish/cmds.c:594
 msgid "return detailed information of the subvolume"
-msgstr ""
+msgstr "devuelve información detallada del subvolumen"
 
 #: fish/cmds.c:595
 msgid "create a btrfs snapshot"
-msgstr ""
+msgstr "crea una captura de btrfs"
 
 #: fish/cmds.c:596
 msgid "enable extended inode refs"
-msgstr ""
+msgstr "habilita refs de nodo-i extendido"
 
 #: fish/cmds.c:597
 msgid "enable skinny metadata extent refs"
-msgstr ""
+msgstr "habilita ref extendida de metadatos flacos"
 
 #: fish/cmds.c:598
 msgid "enable or disable seeding of a btrfs device"
-msgstr ""
+msgstr "habilita o inhabilita sembrando de un dispositivo btrfs"
 
 #: fish/cmds.c:599
 msgid "return the C pointer to the guestfs_h handle"
-msgstr ""
+msgstr "devuelve el puntero C para el manipulador guestfs_h"
 
 #: fish/cmds.c:603
 msgid "return canonical device name"
-msgstr ""
+msgstr "devuelve nombre de dispositivo canónico"
 
 #: fish/cmds.c:604
 msgid "get the Linux capabilities attached to a file"
-msgstr ""
+msgstr "obtiene las capacidades de Linux adjuntadas a un archivo"
 
 #: fish/cmds.c:605
 msgid "set the Linux capabilities attached to a file"
-msgstr ""
+msgstr "establece las capacidades de Linux adjuntadas a un archivo"
 
 #: fish/cmds.c:606
 msgid "return true path on case-insensitive filesystem"
@@ -695,13 +746,11 @@ msgstr "modifica la pertenencia y membresía de un archivo "
 
 #: fish/cmds.c:613
 msgid "remove a single per-backend settings string"
-msgstr ""
+msgstr "retira una cadena de opciones por segundo plano único"
 
 #: fish/cmds.c:614
-#, fuzzy
-#| msgid "open a LUKS-encrypted block device"
 msgid "open an encrypted LUKS block device with Clevis and Tang"
-msgstr "abre un dispositivo de bloques cifrado con LUKS"
+msgstr "abre un dispositivo de bloque LUKS cifrado con Clevis y Tang"
 
 #: fish/cmds.c:615 fish/cmds.c:617
 msgid "run a command from the guest filesystem"
@@ -721,11 +770,11 @@ msgstr "fichero de salida comprimida"
 
 #: fish/cmds.c:620
 msgid "add hypervisor parameters"
-msgstr ""
+msgstr "añade parámetros de hipervisor"
 
 #: fish/cmds.c:621
 msgid "copy the attributes of a path (file/directory) to another"
-msgstr ""
+msgstr "copia los atributos de una ruta (archivo/directorio) a otro"
 
 #: fish/cmds.c:622
 msgid "copy from source device to destination device"
@@ -766,19 +815,15 @@ msgstr "copia un archivo o una carpeta de forma recursiva"
 
 #: fish/cmds.c:632
 msgid "pack directory into cpio file"
-msgstr ""
+msgstr "empaqueta directorio dentro de archivo cpio"
 
 #: fish/cmds.c:633
-#, fuzzy
-#| msgid "open a LUKS-encrypted block device"
 msgid "close an encrypted device"
-msgstr "abre un dispositivo de bloques cifrado con LUKS"
+msgstr "cierra un dispositivo cifrado"
 
 #: fish/cmds.c:634
-#, fuzzy
-#| msgid "open a LUKS-encrypted block device"
 msgid "open an encrypted block device"
-msgstr "abre un dispositivo de bloques cifrado con LUKS"
+msgstr "abre un dispositivo de bloque cifrado"
 
 #: fish/cmds.c:635
 msgid "copy from source to destination using dd"
@@ -798,17 +843,15 @@ msgstr "carga un archivo al dispositivo (solo para uso interno)"
 
 #: fish/cmds.c:639
 msgid "delete a previously registered event handler"
-msgstr ""
+msgstr "borra un manipulador de evento previamente registrado"
 
 #: fish/cmds.c:640
 msgid "convert device to index"
-msgstr ""
+msgstr "convierte dispositivo a índice"
 
 #: fish/cmds.c:641
-#, fuzzy
-#| msgid "convert partition name to device name"
 msgid "convert device index to name"
-msgstr "convierte el nombre de una partición a nombre de dispositivo"
+msgstr "convierte dispositivo índice a nombre"
 
 #: fish/cmds.c:642
 msgid "report file system disk space usage"
@@ -822,19 +865,19 @@ msgstr ""
 
 #: fish/cmds.c:647
 msgid "create a blank disk image"
-msgstr ""
+msgstr "crea una imagen de disco en blanco"
 
 #: fish/cmds.c:648
 msgid "detect the disk format of a disk image"
-msgstr ""
+msgstr "detecta el formato del disco de una imagen de disco"
 
 #: fish/cmds.c:649
 msgid "return whether disk has a backing file"
-msgstr ""
+msgstr "devuelve si el disco tiene un respaldo"
 
 #: fish/cmds.c:650
 msgid "return virtual size of a disk"
-msgstr ""
+msgstr "devuelve tamaño virtual de un disco"
 
 #: fish/cmds.c:651
 msgid "display an image"
@@ -850,11 +893,11 @@ msgstr "descarga un archivo en la máquina local"
 
 #: fish/cmds.c:657
 msgid "download the given data units from the disk"
-msgstr ""
+msgstr "descarga las unidades de datos dadas desde el disco"
 
 #: fish/cmds.c:658 fish/cmds.c:956
 msgid "download a file to the local machine given its inode"
-msgstr ""
+msgstr "descarga un archivo para la máquina local dado su nodo-i"
 
 #: fish/cmds.c:659
 msgid "download a file to the local machine with offset and size"
@@ -897,7 +940,7 @@ msgstr "verifica si dos archivos tienen el mismo contenido"
 
 #: fish/cmds.c:673
 msgid "register a handler for an event or events"
-msgstr ""
+msgstr "registra un manipulador para un evento o eventos"
 
 #: fish/cmds.c:674
 msgid "test if file or directory exists"
@@ -911,7 +954,7 @@ msgstr ""
 
 #: fish/cmds.c:676
 msgid "expand a f2fs filesystem"
-msgstr ""
+msgstr "expande un sistema de archivo f2fs"
 
 #: fish/cmds.c:677 fish/cmds.c:678
 msgid "preallocate a file in the guest filesystem"
@@ -931,11 +974,11 @@ msgstr "devuelve el tamaño del archivo en bytes"
 
 #: fish/cmds.c:685
 msgid "check if filesystem is available"
-msgstr ""
+msgstr "marca si está disponible el sistema de archivo"
 
 #: fish/cmds.c:686
 msgid "walk through the filesystem content"
-msgstr ""
+msgstr "explora a través del contenido del sistema de archivo"
 
 #: fish/cmds.c:687
 msgid "fill a file with octets"
@@ -943,7 +986,7 @@ msgstr "llena un archivo con octetos"
 
 #: fish/cmds.c:688
 msgid "fill a directory with empty files"
-msgstr ""
+msgstr "rellena un directorio con archivos vacíos"
 
 #: fish/cmds.c:689
 msgid "fill a file with a repeating pattern of bytes"
@@ -962,23 +1005,19 @@ msgstr ""
 
 #: fish/cmds.c:692
 msgid "search the entries associated to the given inode"
-msgstr ""
+msgstr "busca los apuntes asociados para el nodo-i dado"
 
 #: fish/cmds.c:693
 msgid "find a filesystem by label"
 msgstr "encuentra un sistema de archivos por su etiqueta"
 
 #: fish/cmds.c:694
-#, fuzzy
-#| msgid "find a filesystem by label"
 msgid "find a partition by label"
-msgstr "encuentra un sistema de archivos por su etiqueta"
+msgstr "encuentra una partición por etiqueta"
 
 #: fish/cmds.c:695
-#, fuzzy
-#| msgid "disable swap on swap partition by UUID"
 msgid "find a partition by UUID"
-msgstr "deshabilita swap en la partición swap por UUID"
+msgstr "encuentra una partición por UUID"
 
 #: fish/cmds.c:696
 msgid "find a filesystem by UUID"
@@ -990,7 +1029,7 @@ msgstr "ejecuta el verificador del sistema de archivos"
 
 #: fish/cmds.c:698
 msgid "trim free space in a filesystem"
-msgstr ""
+msgstr "recorta espacio libre en un sistema de archivos"
 
 #: fish/cmds.c:702
 msgid "get the additional kernel options"
@@ -998,7 +1037,7 @@ msgstr "obtiene las opciones de kernel adicionales"
 
 #: fish/cmds.c:703 fish/cmds.c:705
 msgid "get the backend"
-msgstr ""
+msgstr "obtiene el segundo plano"
 
 #: fish/cmds.c:704
 msgid "get autosync mode"
@@ -1006,15 +1045,15 @@ msgstr "obtiene modo autosync"
 
 #: fish/cmds.c:706
 msgid "get a single per-backend settings string"
-msgstr ""
+msgstr "obtiene una sola cadena de opciones por segundo plano"
 
 #: fish/cmds.c:707
 msgid "get per-backend settings"
-msgstr ""
+msgstr "obtiene opciones por segundo plano"
 
 #: fish/cmds.c:708
 msgid "get the appliance cache directory"
-msgstr ""
+msgstr "obtiene el directorio caché de instrumento"
 
 #: fish/cmds.c:709
 msgid "get direct appliance mode flag"
@@ -1022,11 +1061,11 @@ msgstr "obtiene marca directa de modo de dispositivo"
 
 #: fish/cmds.c:710
 msgid "get ext2 file attributes of a file"
-msgstr ""
+msgstr "obtiene atributos del archivo ext2 de un archivo"
 
 #: fish/cmds.c:711
 msgid "get ext2 file generation of a file"
-msgstr ""
+msgstr "obtiene generación de archivo ext2 de un archivo"
 
 #: fish/cmds.c:712
 msgid "get the ext2/3/4 filesystem label"
@@ -1038,31 +1077,31 @@ msgstr "obtiene el UUID del sistema de archivos ext2/3/4"
 
 #: fish/cmds.c:714
 msgid "get the hypervisor binary"
-msgstr ""
+msgstr "obtiene el hipervisor binario"
 
 #: fish/cmds.c:715
 msgid "get the handle identifier"
-msgstr ""
+msgstr "obtiene el identificador de manipulador"
 
 #: fish/cmds.c:716
 msgid "challenge of i'th requested credential"
-msgstr ""
+msgstr "reto de credencial iésima solicitada"
 
 #: fish/cmds.c:717
 msgid "default result of i'th requested credential"
-msgstr ""
+msgstr "resultado predeterminado de credencial iésima solicitada"
 
 #: fish/cmds.c:718
 msgid "prompt of i'th requested credential"
-msgstr ""
+msgstr "solicita la i-ésima credencial requerida"
 
 #: fish/cmds.c:719
 msgid "get list of credentials requested by libvirt"
-msgstr ""
+msgstr "obtiene listado de credenciales requeridas por libvirt"
 
 #: fish/cmds.c:720
 msgid "get memory allocated to the hypervisor"
-msgstr ""
+msgstr "obtiene memoria asignada al hipervisor"
 
 #: fish/cmds.c:721
 msgid "get enable network flag"
@@ -1078,15 +1117,15 @@ msgstr "obtiene la marca de grupo de procesos"
 
 #: fish/cmds.c:724
 msgid "get PID of hypervisor"
-msgstr ""
+msgstr "obtiene PID de hipervisor"
 
 #: fish/cmds.c:725
 msgid "get the program name"
-msgstr ""
+msgstr "obtiene el nombre del programa"
 
 #: fish/cmds.c:726
 msgid "get the hypervisor binary (usually qemu)"
-msgstr ""
+msgstr "obtiene el binario hipervisor (usualmente qemu)"
 
 #: fish/cmds.c:727
 msgid "get recovery process enabled flag"
@@ -1102,11 +1141,11 @@ msgstr "obtener número de CPUs virtuales en dispositivo"
 
 #: fish/cmds.c:730
 msgid "get the temporary directory for sockets and PID files"
-msgstr ""
+msgstr "obtiene el directorio temporal para zócalos y archivos PID"
 
 #: fish/cmds.c:731
 msgid "get the temporary directory"
-msgstr ""
+msgstr "obtiene el directorio temporal"
 
 #: fish/cmds.c:732
 msgid "get command trace enabled flag"
@@ -1162,71 +1201,71 @@ msgstr "editar con un editor hex"
 
 #: fish/cmds.c:747
 msgid "close the current hivex handle"
-msgstr ""
+msgstr "cierra el actual manipulador hivex"
 
 #: fish/cmds.c:748
 msgid "commit (write) changes back to the hive"
-msgstr ""
+msgstr "efectúa (escribe) cambios devueltos a la colmena"
 
 #: fish/cmds.c:749
 msgid "add a child node"
-msgstr ""
+msgstr "añade un nodo heredado"
 
 #: fish/cmds.c:750
 msgid "return list of nodes which are subkeys of node"
-msgstr ""
+msgstr "revuelve un listado de nodos el cual son sub-claves de nodo"
 
 #: fish/cmds.c:751
 msgid "delete a node (recursively)"
-msgstr ""
+msgstr "borra un nodo (recursivamente)"
 
 #: fish/cmds.c:752
 msgid "return the named child of node"
-msgstr ""
+msgstr "devuelve el heredero nombrado del nodo"
 
 #: fish/cmds.c:753
 msgid "return the named value"
-msgstr ""
+msgstr "devuelve el valor nombrado"
 
 #: fish/cmds.c:754
 msgid "return the name of the node"
-msgstr ""
+msgstr "devuelve el nombre del nodo"
 
 #: fish/cmds.c:755
 msgid "return the parent of node"
-msgstr ""
+msgstr "devuelve el antecesor del nodo"
 
 #: fish/cmds.c:756
 msgid "set or replace a single value in a node"
-msgstr ""
+msgstr "establece o remplaza un valor único interno a un nodo"
 
 #: fish/cmds.c:757
 msgid "return list of values attached to node"
-msgstr ""
+msgstr "devuelve un listado de valores adjuntados a nodo"
 
 #: fish/cmds.c:758
 msgid "open a Windows Registry hive file"
-msgstr ""
+msgstr "abre un archivo de colmena para Registro de Windows"
 
 #: fish/cmds.c:759
 msgid "return the root node of the hive"
-msgstr ""
+msgstr "devuelve el nodo raíz de la colmena"
 
 #: fish/cmds.c:760
 msgid "return the key field from the (key, datatype, data) tuple"
-msgstr ""
+msgstr "devuelve el campo de clave desde la tupla (clave, tipo-datos, datos)"
 
 #: fish/cmds.c:761 fish/cmds.c:763
 msgid "return the data field as a UTF-8 string"
-msgstr ""
+msgstr "devuelve el campo de datos como una cadena en UTF-8"
 
 #: fish/cmds.c:762
 msgid "return the data type from the (key, datatype, data) tuple"
-msgstr ""
+msgstr "devuelve el tipo de datos desde la tupla (clave, tipo-datos, datos)"
 
 #: fish/cmds.c:764
 msgid "return the data field from the (key, datatype, data) tuple"
-msgstr ""
+msgstr "devuelve el campo de datos desde la tupla (clave, tipo-datos, datos)"
 
 #: fish/cmds.c:771
 msgid "list the contents of a single file in an initrd"
@@ -1265,10 +1304,8 @@ msgid "get architecture of inspected operating system"
 msgstr "detecta la arquitectura de un sistema operativo inspeccionado"
 
 #: fish/cmds.c:780
-#, fuzzy
-#| msgid "get the filesystem UUID"
 msgid "get the system build ID"
-msgstr "obtiene el UUID del sistema de archivos"
+msgstr "obtiene el ID compilación del sistema"
 
 #: fish/cmds.c:781
 msgid "get distro of inspected operating system"
@@ -1294,7 +1331,7 @@ msgstr "obtiene el nombre de equipo del sistema operativo"
 
 #: fish/cmds.c:786
 msgid "get the icon corresponding to this operating system"
-msgstr "obtiene el ícono correspondiente a este sistema operativo"
+msgstr "obtiene el icono correspondiente a este sistema operativo"
 
 #: fish/cmds.c:787
 msgid "get major version of inspected operating system"
@@ -1311,6 +1348,7 @@ msgstr "obtiene los puntos de montaje de un sistema operativo inspeccionado"
 #: fish/cmds.c:790
 msgid "get a possible osinfo short ID corresponding to this operating system"
 msgstr ""
+"obtiene un posible ID osinfo breve correspondiente a este sistema operativo"
 
 #: fish/cmds.c:791
 msgid "get package format used by the operating system"
@@ -1347,15 +1385,15 @@ msgstr ""
 
 #: fish/cmds.c:798
 msgid "return if Windows guest has group policy"
-msgstr ""
+msgstr "devuelve si invitado de Windows tiene directiva de grupo"
 
 #: fish/cmds.c:799
 msgid "get the path of the Windows software hive"
-msgstr ""
+msgstr "obtiene la ruta de la colmena del software Windows"
 
 #: fish/cmds.c:800
 msgid "get the path of the Windows system hive"
-msgstr ""
+msgstr "obtiene la ruta de la colmena del sistema de Windows"
 
 #: fish/cmds.c:801
 msgid "get Windows systemroot of inspected operating system"
@@ -1386,7 +1424,7 @@ msgstr ""
 
 #: fish/cmds.c:808
 msgid "cause the daemon to exit (internal use only)"
-msgstr ""
+msgstr "causa el demonio salir (solo uso interno)"
 
 #: fish/cmds.c:809
 msgid "test if block device"
@@ -1414,7 +1452,7 @@ msgstr "comprobar que sea un archivo regular"
 
 #: fish/cmds.c:815
 msgid "test if mountable is a logical volume"
-msgstr ""
+msgstr "prueba si es montable un volumen lógico"
 
 #: fish/cmds.c:816
 msgid "test if socket"
@@ -1426,7 +1464,7 @@ msgstr "comprobar que sea un enlace simbólico"
 
 #: fish/cmds.c:818
 msgid "test if a device is a whole device"
-msgstr ""
+msgstr "prueba si un dispositivo es un dispositivo completo"
 
 #: fish/cmds.c:819
 msgid "test if a file contains all zero bytes"
@@ -1439,22 +1477,25 @@ msgstr "verifica que los bytes de un dispositivo sean todos cero"
 #: fish/cmds.c:821
 msgid "get ISO information from primary volume descriptor of ISO file"
 msgstr ""
+"obtiene información de ISO desde descriptor de volumen primario del archivo "
+"ISO"
 
 #: fish/cmds.c:822
 msgid "get ISO information from primary volume descriptor of device"
 msgstr ""
+"obtiene información ISO desde descriptor de dispositivo del volumen primario"
 
 #: fish/cmds.c:823
 msgid "close the systemd journal"
-msgstr ""
+msgstr "cierra el diario de systemd"
 
 #: fish/cmds.c:824
 msgid "read the current journal entry"
-msgstr ""
+msgstr "lee el actual apunte del diario"
 
 #: fish/cmds.c:825
 msgid "get the data threshold for reading journal entries"
-msgstr ""
+msgstr "obtiene el umbral de datos para apuntes de lectura del diario"
 
 #: fish/cmds.c:826
 msgid "get the timestamp of the current journal entry"
@@ -4594,6 +4635,12 @@ msgid ""
 "967509).  You can correct this by adjusting XDG_RUNTIME_DIR and possibly "
 "creating /run/user/%d with the right ownership."
 msgstr ""
+"%s: no puede crear directorio provisional.   Puede ser que $XDG_RUNTIME_DIR "
+"está señalando a un directorio el cual no podemos escribir, por ejemplo si "
+"utilizaste ‘su [usuario]’ para cambiar a este usuario de la cuenta "
+"(consulte https://bugzilla.redhat.com/967509).   Puedes corregir esto "
+"ajustando XDG_RUNTIME_DIR y posiblemente creando /run/usuario/%d con la "
+"propiedad correcta."
 
 #: lib/tmpdirs.c:271
 #, c-format

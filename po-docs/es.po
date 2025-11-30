@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2023-08-05 11:21+0000\n"
-"Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
+"PO-Revision-Date: 2025-11-30 11:59+0000\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
 "Language: es\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -502,8 +502,8 @@ msgid ""
 "The format of the disk image is auto-detected.  To override this and force a "
 "particular format use the I<--format=..> option."
 msgstr ""
-"Se autodetecta el formato de la imagen de disco.  Para anular esto y forzar "
-"un formato concreto use la opción I<--format=..>."
+"El formato de la imagen de disco es auto-detectada.  Para anular esto y "
+"forzar un formato concreto emplee la opción I<--format=..>."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:118 ../cat/virt-cat.pod:70
@@ -797,7 +797,7 @@ msgstr "B<-q>"
 #: ../resize/virt-resize.pod:532 ../sparsify/virt-sparsify.pod:264
 #: ../sysprep/virt-sysprep.pod:239
 msgid "B<--quiet>"
-msgstr ""
+msgstr "B<--quiet>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:183
@@ -841,7 +841,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:622 ../sparsify/virt-sparsify.pod:311
 #: ../sysprep/virt-sysprep.pod:258
 msgid "B<-v>"
-msgstr ""
+msgstr "B<-v>"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:197
@@ -857,7 +857,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:624 ../sparsify/virt-sparsify.pod:313
 #: ../sysprep/virt-sysprep.pod:260
 msgid "B<--verbose>"
-msgstr ""
+msgstr "B<--verbose>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:199 ../cat/virt-cat.pod:173
@@ -869,7 +869,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:144 ../rescue/virt-rescue.pod:275
 #: ../sparsify/virt-sparsify.pod:315 ../sysprep/virt-sysprep.pod:262
 msgid "Enable verbose messages for debugging."
-msgstr ""
+msgstr "Habilita mensajes verbosos para depuración."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:201
@@ -887,7 +887,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:628 ../sparsify/virt-sparsify.pod:317
 #: ../sysprep/virt-sysprep.pod:264 ../test-tool/libguestfs-test-tool.pod:59
 msgid "B<-V>"
-msgstr ""
+msgstr "B<-V>"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:203
@@ -907,7 +907,7 @@ msgstr ""
 #: ../tools/virt-list-filesystems:68 ../tools/virt-list-partitions:69
 #: ../tools/virt-tar:116 ../tools/virt-win-reg:109
 msgid "B<--version>"
-msgstr ""
+msgstr "B<--version>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:205
@@ -924,7 +924,7 @@ msgstr ""
 #: ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71
 #: ../tools/virt-tar:118 ../tools/virt-win-reg:111
 msgid "Display version number and exit."
-msgstr "Imprimir número de versión y salir."
+msgstr "Exhibe el número de la versión y sale."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:207
@@ -940,7 +940,7 @@ msgstr "Imprimir número de versión y salir."
 #: ../sparsify/virt-sparsify.pod:323 ../sysprep/virt-sysprep.pod:270
 #: ../tools/virt-tar:155
 msgid "B<-x>"
-msgstr ""
+msgstr "B<-x>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:209
@@ -954,7 +954,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:636 ../sparsify/virt-sparsify.pod:325
 #: ../sysprep/virt-sysprep.pod:272
 msgid "Enable tracing of libguestfs API calls."
-msgstr ""
+msgstr "Habilita trazado de invocaciones API de libguestfs."
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:213
@@ -1256,7 +1256,7 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:448 ../sysprep/virt-sysprep.pod:561
 #: ../test-tool/libguestfs-test-tool.pod:168
 msgid "EXIT STATUS"
-msgstr ""
+msgstr "ESTADO DE SALIDA"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:354
@@ -1478,7 +1478,7 @@ msgstr ""
 #. type: =item
 #: ../align/virt-alignment-scan.pod:366 ../lib/guestfs.pod:1985
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:368
@@ -1488,7 +1488,7 @@ msgstr ""
 #. type: =item
 #: ../align/virt-alignment-scan.pod:372 ../lib/guestfs.pod:1989
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:374
@@ -1500,7 +1500,7 @@ msgstr ""
 #. type: =item
 #: ../align/virt-alignment-scan.pod:379 ../lib/guestfs.pod:1993
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:381
@@ -1561,7 +1561,7 @@ msgstr ""
 #: ../tools/virt-list-partitions:263 ../tools/virt-tar:292
 #: ../tools/virt-win-reg:804
 msgid "SEE ALSO"
-msgstr "VEA TAMBIÉN"
+msgstr "CONSULTE TAMBIÉN"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:388
@@ -1619,7 +1619,7 @@ msgstr "AUTOR"
 #: ../tools/virt-list-filesystems:195 ../tools/virt-list-partitions:276
 #: ../tools/virt-tar:308 ../tools/virt-win-reg:821
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
-msgstr ""
+msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:399
@@ -1673,7 +1673,7 @@ msgstr ""
 #: ../tools/virt-list-partitions:278 ../tools/virt-tar:310
 #: ../tools/virt-win-reg:823
 msgid "COPYRIGHT"
-msgstr ""
+msgstr "DERECHO DE COPIA"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:401
@@ -1685,6 +1685,8 @@ msgstr ""
 msgid ""
 "libguestfs-make-fixed-appliance - Make a \"fixed appliance\" for libguestfs"
 msgstr ""
+"libguestfs-make-fixed-appliance - Realiza un \"fixed appliance\" para "
+"libguestfs"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:7
@@ -1693,14 +1695,18 @@ msgid ""
 " libguestfs-make-fixed-appliance [--options] OUTPUTDIR\n"
 "\n"
 msgstr ""
+" libguestfs-make-fixed-appliance [--options] DIRSALIENTE\n"
+"\n"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:9
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " libguestfs-make-fixed-appliance [--options] --xz\n"
 "\n"
 msgstr ""
+" libguestfs-make-fixed-appliance [--options] --xz\n"
+"\n"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:13
@@ -1708,6 +1714,8 @@ msgid ""
 "libguestfs-make-fixed-appliance lets you make a pre-built binary appliance "
 "for libguestfs."
 msgstr ""
+"libguestfs-make-fixed-appliance te permite crear una aplicación binaria pre-"
+"compilada para libguestfs."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:16
@@ -1719,7 +1727,7 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:18
 msgid "Some reasons why you I<might> want to use this include:"
-msgstr ""
+msgstr "Algunas razones por las que I<podría> querer usar esto incluyen:"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:24
@@ -1727,6 +1735,8 @@ msgid ""
 "You want to make a self-contained libguestfs appliance that can be copied to "
 "another machine or platform that doesn't support L<supermin(1)>."
 msgstr ""
+"Desea crear un dispositivo libguestfs autónomo que pueda copiarse a otra "
+"máquina o plataforma que no admita L<supermin(1)>."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:30
@@ -1735,6 +1745,9 @@ msgid ""
 "duplication and start-up overhead of having multiple cached copies of the "
 "appliance."
 msgstr ""
+"Tiene varios usuarios en la misma máquina y desea evitar la duplicación de "
+"almacenamiento y la sobrecarga de inicio que supone tener varias copias en "
+"caché del dispositivo."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:36
@@ -1742,6 +1755,8 @@ msgid ""
 "You want to have very predictable performance from libguestfs (see L<guestfs-"
 "performance(1)>)."
 msgstr ""
+"Desea tener un rendimiento muy predecible de libguestfs "
+"(consulte L<guestfs-performance(1)>)."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:41
@@ -1749,6 +1764,8 @@ msgid ""
 "For deeper understanding of why you might need this tool, read L<guestfs-"
 "internals(1)/FIXED APPLIANCE>."
 msgstr ""
+"Para comprender mejor por qué podría necesitar esta herramienta, lea L"
+"<guestfs-internals(1)/FIXED APPLIANCE>."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:44
@@ -1757,11 +1774,14 @@ msgid ""
 "L<http://libguestfs.org/download/binaries/appliance/>.  These appliances "
 "were made using this tool."
 msgstr ""
+"En lugar de ejecutar esta herramienta, puede descargar dispositivos "
+"reparados desde L<http://libguestfs.org/download/binaries/appliance/>. Estos "
+"dispositivos se crearon con esta herramienta."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:48
 msgid "There are two ways to use this tool."
-msgstr ""
+msgstr "Hay dos maneras de utilizar esta herramienta."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:54
@@ -1770,11 +1790,13 @@ msgstr "Indique un directorio de salida, por ejemplo:"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:56
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " libguestfs-make-fixed-appliance /usr/local/lib/guestfs/appliance\n"
 "\n"
 msgstr ""
+" libguestfs-make-fixed-appliance /usr/local/lib/guestfs/appliance\n"
+"\n"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:58
@@ -1783,7 +1805,7 @@ msgid ""
 "created in this directory:"
 msgstr ""
 "El directorio de salida ha sido creado si no existía. Se han creado cuatro "
-"archivos en este directorio: "
+"archivos en este directorio:"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:61
@@ -1795,6 +1817,11 @@ msgid ""
 " <OUTPUTDIR>/README.fixed\n"
 "\n"
 msgstr ""
+" <OUTPUTDIR>/kernel\n"
+" <OUTPUTDIR>/initrd\n"
+" <OUTPUTDIR>/root\n"
+" <OUTPUTDIR>/README.fixed\n"
+"\n"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:66
@@ -1802,6 +1829,8 @@ msgid ""
 "Note that C<I<OUTPUTDIR>/root> is a sparse file, so take care when copying "
 "it."
 msgstr ""
+"Tenga en cuenta que C<I<OUTPUTDIR>/root> es un archivo disperso, así que "
+"tenga cuidado al copiarlo."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:69
@@ -1810,6 +1839,9 @@ msgid ""
 "another machine) by setting the environment variable LIBGUESTFS_PATH to "
 "C<OUTPUTDIR>."
 msgstr ""
+"Luego puede ejecutar libguestfs "
+"(posiblemente después de copiar este directorio a otra máquina) configurando "
+"la variable de entorno LIBGUESTFS_PATH en C<OUTPUTDIR>."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:75
@@ -1817,6 +1849,8 @@ msgid ""
 "The alternative method is to use the I<--xz> option to create a compressed "
 "tarball:"
 msgstr ""
+"El método alternativo es utilizar la opción I<--xz> para crear un archivo "
+"tar comprimido:"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:78
@@ -1825,19 +1859,23 @@ msgid ""
 " libguestfs-make-fixed-appliance --xz\n"
 "\n"
 msgstr ""
+" libguestfs-make-fixed-appliance --xz\n"
+"\n"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:80
 msgid "This creates a tarball in the I<current> directory called:"
-msgstr ""
+msgstr "Esto crea un archivo tar en el directorio I<current> invocado como:"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:82
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " appliance-<VERSION>.tar.xz\n"
 "\n"
 msgstr ""
+" appliance-<VERSION>.tar.xz\n"
+"\n"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:84
@@ -1845,6 +1883,8 @@ msgid ""
 "(where C<VERSION> is the version of libguestfs).  The tarball contains the "
 "four files:"
 msgstr ""
+"(donde C<VERSIÓN> es la versión de libguestfs). El archivo tar contiene los "
+"cuatro archivos:"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:87
@@ -1856,28 +1896,35 @@ msgid ""
 " appliance/README.fixed\n"
 "\n"
 msgstr ""
+" appliance/kernel\n"
+" appliance/initrd\n"
+" appliance/root\n"
+" appliance/README.fixed\n"
+"\n"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:92
 msgid ""
 "Note that C<appliance/root> is a sparse file, so take care when copying it."
 msgstr ""
+"Tenga en cuenta que C<appliance/root> es un archivo disperso, así que tenga "
+"cuidado al copiarlo."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:103
 #: ../test-tool/libguestfs-test-tool.pod:40
 msgid "Display short usage information and exit."
-msgstr ""
+msgstr "Exhibe información breve de uso y sale."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:109
 msgid "Display the version number and exit."
-msgstr ""
+msgstr "Exhibe el número de versión y sale."
 
 #. type: =item
 #: ../appliance/libguestfs-make-fixed-appliance.pod:111
 msgid "B<--xz>"
-msgstr ""
+msgstr "B<--xz>"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:113
@@ -1886,6 +1933,9 @@ msgid ""
 "compressed tarball of the appliance in the current directory called "
 "F<appliance-I<VERSION>.tar.xz> where C<VERSION> is the version of libguestfs."
 msgstr ""
+"En lugar de crear el dispositivo en un directorio de salida, cree un archivo "
+"tar comprimido del dispositivo en el directorio actual llamado F<appliance-"
+"I<VERSION>.tar.xz> donde C<VERSION> es la versión de libguestfs."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:118
@@ -1893,11 +1943,13 @@ msgid ""
 "Using I<--xz> can take some time.  If working normally, the tool is "
 "completely silent when it is running."
 msgstr ""
+"Usar I<--xz> puede llevar algún tiempo. Si funciona con normalidad, la "
+"herramienta es completamente silenciosa."
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:123
 msgid "LICENSING"
-msgstr ""
+msgstr "LICENCIAMIENTO"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:125
@@ -1907,6 +1959,10 @@ msgid ""
 "compliance with the licenses of the software in the appliance (such as the "
 "GNU General Public License)."
 msgstr ""
+"El instrumento fijo es una distribución binaria completa de Linux. Si lo "
+"distribuye, podría necesitar distribuir los archivos fuente correspondientes "
+"para cumplir con las licencias del software del dispositivo "
+"(como la Licencia Pública General de GNU)."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:132
@@ -1914,6 +1970,8 @@ msgid ""
 "libguestfs-make-fixed-appliance returns I<0> if the appliance was built "
 "without errors."
 msgstr ""
+"libguestfs-make-fixed-appliance devuelve I<0> si el dispositivo se creó sin "
+"errores."
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:135
@@ -1933,6 +1991,8 @@ msgid ""
 "For the full list of environment variables which may affect libguestfs, "
 "please see the L<guestfs(3)> manual page."
 msgstr ""
+"Para obtener la lista completa de variables de entorno que pueden afectar a "
+"libguestfs, consulte la página del manual L<guestfs(3)>."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:142
@@ -1940,6 +2000,8 @@ msgid ""
 "L<guestfs(3)>, L<supermin(1)>, L<xz(1)>, L<http://libguestfs.org/>, L<http://"
 "qemu.org/>."
 msgstr ""
+"L<guestfs(3)>, L<supermin(1)>, L<xz(1)>, L<http://libguestfs.org/>, L<http://"
+"qemu.org/>."
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:148
@@ -1962,7 +2024,7 @@ msgstr ""
 #: ../ruby/examples/guestfs-ruby.pod:49 ../sysprep/virt-sysprep.pod:618
 #: ../test-tool/libguestfs-test-tool.pod:184
 msgid "AUTHORS"
-msgstr ""
+msgstr "AUTORES"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:150
@@ -1984,7 +2046,7 @@ msgstr ""
 #: ../ruby/examples/guestfs-ruby.pod:51
 #: ../test-tool/libguestfs-test-tool.pod:186
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
-msgstr ""
+msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:538
@@ -2027,7 +2089,7 @@ msgstr ""
 #: ../docs/guestfs-faq.pod:903 ../docs/guestfs-faq.pod:1090
 #: ../docs/guestfs-faq.pod:1095 ../lib/guestfs.pod:1428 ../lib/guestfs.pod:1433
 msgid "html"
-msgstr ""
+msgstr "html"
 
 #. type: verbatim
 #: ../builder/virt-builder-repository.pod:3 ../builder/virt-builder.pod:3
@@ -2275,7 +2337,7 @@ msgstr ""
 #: ../fish/guestfish.pod:254 ../fuse/guestmount.pod:243
 #: ../rescue/virt-rescue.pod:181
 msgid "B<-i>"
-msgstr ""
+msgstr "B<-i>"
 
 #. type: =item
 #: ../builder/virt-builder-repository.pod:122
@@ -2433,6 +2495,8 @@ msgstr ""
 msgid ""
 "This program returns 0 if successful, or non-zero if there was an error."
 msgstr ""
+"Este programa devuelve 0 si fue logrado o un valor distinto de cero si hubo "
+"un error."
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:203
@@ -3271,7 +3335,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:380 ../customize/virt-customize.pod:150
 #: ../dib/virt-dib.pod:274 ../rescue/virt-rescue.pod:191
 msgid "B<--memsize> MB"
-msgstr ""
+msgstr "B<--memsize> MB"
 
 #. type: textblock
 #: ../builder/virt-builder.pod:382 ../customize/virt-customize.pod:152
@@ -3301,7 +3365,7 @@ msgstr ""
 #: ../daemon/guestfsd.pod:77 ../dib/virt-dib.pod:295 ../fish/guestfish.pod:338
 #: ../rescue/virt-rescue.pod:225 ../sysprep/virt-sysprep.pod:245
 msgid "B<--network>"
-msgstr ""
+msgstr "B<--network>"
 
 #. type: =item
 #: ../builder/virt-builder.pod:392 ../customize/virt-customize.pod:162
@@ -3428,7 +3492,7 @@ msgstr ""
 #: ../docs/internal-documentation.pod:1501 ../rescue/virt-rescue.pod:436
 #: ../resize/virt-resize.pod:60
 msgid "4."
-msgstr ""
+msgstr "4."
 
 #. type: textblock
 #: ../builder/virt-builder.pod:432 ../customize/virt-customize.pod:202
@@ -3439,7 +3503,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:436 ../fish/guestfish.pod:355
 #: ../fuse/guestmount.pod:294
 msgid "B<--no-sync>"
-msgstr ""
+msgstr "B<--no-sync>"
 
 #. type: textblock
 #: ../builder/virt-builder.pod:438
@@ -3558,7 +3622,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:499 ../customize/virt-customize.pod:214
 #: ../dib/virt-dib.pod:430 ../rescue/virt-rescue.pod:257
 msgid "B<--smp> N"
-msgstr ""
+msgstr "B<--smp> N"
 
 #. type: textblock
 #: ../builder/virt-builder.pod:501 ../customize/virt-customize.pod:216
@@ -3877,7 +3941,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:662 ../fish/guestfish-actions.pod:421
 #: ../format/virt-format.pod:140 ../lib/guestfs-actions.pod:520
 msgid "This is the default."
-msgstr ""
+msgstr "Esto es lo predeterminado."
 
 #. type: =item
 #: ../builder/virt-builder.pod:664
@@ -4504,7 +4568,7 @@ msgstr ""
 #: ../lib/guestfs-actions.pod:6901 ../lib/guestfs.pod:795
 #: ../lib/guestfs.pod:2378 ../tools/virt-win-reg:769
 msgid "Notes:"
-msgstr ""
+msgstr "Notas:"
 
 #. type: textblock
 #: ../builder/virt-builder.pod:990
@@ -5835,7 +5899,7 @@ msgstr ""
 #. type: =head1
 #: ../builder/virt-builder.pod:1637 ../docs/guestfs-internals.pod:11
 msgid "ARCHITECTURE"
-msgstr ""
+msgstr "ARQUITECTURA"
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1639
@@ -6305,7 +6369,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:1908 ../builder/virt-index-validate.pod:90
 #: ../fuse/guestunmount.pod:162 ../golang/examples/guestfs-golang.pod:98
 msgid "Copyright (C) 2013 Red Hat Inc."
-msgstr ""
+msgstr "© 2012 Red Hat, Inc."
 
 #. type: textblock
 #: ../builder/virt-index-validate.pod:3
@@ -6539,7 +6603,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:97 ../sparsify/virt-sparsify.pod:195
 #: ../sysprep/virt-sysprep.pod:158
 msgid "B<--echo-keys>"
-msgstr ""
+msgstr "B<--echo-keys>"
 
 #. type: textblock
 #: ../cat/virt-cat.pod:97
@@ -6574,7 +6638,7 @@ msgstr ""
 #: ../get-kernel/virt-get-kernel.pod:100 ../inspector/virt-inspector.pod:119
 #: ../sparsify/virt-sparsify.pod:233 ../sysprep/virt-sysprep.pod:189
 msgid "__INCLUDE:key-option.pod__"
-msgstr ""
+msgstr "__INCLUDE:key-option.pod__"
 
 #. type: =item
 #: ../cat/virt-cat.pod:128 ../cat/virt-filesystems.pod:206
@@ -6585,7 +6649,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:121 ../sparsify/virt-sparsify.pod:235
 #: ../sysprep/virt-sysprep.pod:191
 msgid "B<--keys-from-stdin>"
-msgstr ""
+msgstr "B<--keys-from-stdin>"
 
 #. type: textblock
 #: ../cat/virt-cat.pod:130 ../cat/virt-filesystems.pod:208
@@ -6709,7 +6773,7 @@ msgstr ""
 #: ../edit/virt-edit.pod:225 ../inspector/virt-inspector.pod:171
 #: ../rescue/virt-rescue.pod:304
 msgid "or"
-msgstr ""
+msgstr "o"
 
 #. type: verbatim
 #: ../cat/virt-cat.pod:195
@@ -6754,7 +6818,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:211 ../cat/virt-tail.pod:195 ../edit/virt-edit.pod:297
 #: ../fish/guestfish.pod:892
 msgid "WINDOWS PATHS"
-msgstr ""
+msgstr "WINDOWS PATHS"
 
 #. type: textblock
 #: ../cat/virt-cat.pod:213
@@ -7169,7 +7233,7 @@ msgstr ""
 #: ../diff/virt-diff.pod:165 ../fish/guestfish.pod:153
 #: ../tools/virt-list-partitions:108
 msgid "B<-h>"
-msgstr ""
+msgstr "B<-h>"
 
 #. type: =item
 #: ../cat/virt-filesystems.pod:202 ../cat/virt-ls.pod:350 ../df/virt-df.pod:147
@@ -7187,7 +7251,7 @@ msgstr ""
 #: ../daemon/guestfsd.pod:66 ../tools/virt-list-filesystems:107
 #: ../tools/virt-list-partitions:118
 msgid "B<-l>"
-msgstr ""
+msgstr "B<-l>"
 
 #. type: =item
 #: ../cat/virt-filesystems.pod:213 ../cat/virt-ls.pod:402
@@ -7687,7 +7751,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-ls.pod:11 ../df/virt-df.pod:17 ../rescue/virt-rescue.pod:11
 msgid "Old style:"
-msgstr ""
+msgstr "Estilo anterior:"
 
 #. type: verbatim
 #: ../cat/virt-ls.pod:13
@@ -7751,6 +7815,7 @@ msgstr ""
 #: ../cat/virt-ls.pod:39 ../docs/guestfs-testing.pod:270
 msgid "List all setuid or setgid programs in a Linux virtual machine:"
 msgstr ""
+"Enumere todos los programas setuid o setgid en una máquina virtual Linux:"
 
 #. type: verbatim
 #: ../cat/virt-ls.pod:41
@@ -7764,6 +7829,8 @@ msgstr ""
 #: ../cat/virt-ls.pod:43 ../docs/guestfs-testing.pod:274
 msgid "List all public-writable directories in a Linux virtual machine:"
 msgstr ""
+"Enumere todos los directorios públicos escribibles en una máquina virtual "
+"Linux:"
 
 #. type: verbatim
 #: ../cat/virt-ls.pod:45
@@ -7776,7 +7843,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-ls.pod:47 ../docs/guestfs-testing.pod:278
 msgid "List all Unix domain sockets in a Linux virtual machine:"
-msgstr ""
+msgstr "Enumere todos los sockets de dominio Unix en una máquina virtual Linux:"
 
 #. type: verbatim
 #: ../cat/virt-ls.pod:49
@@ -7790,6 +7857,8 @@ msgstr ""
 #: ../cat/virt-ls.pod:51 ../docs/guestfs-testing.pod:282
 msgid "List all regular files with filenames ending in ‘.png’:"
 msgstr ""
+"Enumera todos los archivos normales con nombres de archivo finalizando en "
+"‘.png’:"
 
 #. type: verbatim
 #: ../cat/virt-ls.pod:53
@@ -7815,7 +7884,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-ls.pod:59 ../docs/guestfs-testing.pod:290
 msgid "Find everything modified in the last 7 days:"
-msgstr ""
+msgstr "Encuentra archivos regulares modificados en los últimos 7 días:"
 
 #. type: verbatim
 #: ../cat/virt-ls.pod:61
@@ -7828,7 +7897,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-ls.pod:63 ../docs/guestfs-testing.pod:294
 msgid "Find regular files modified in the last 24 hours:"
-msgstr ""
+msgstr "Encuentra archivos regulares modificados en las últimas 24 horas:"
 
 #. type: verbatim
 #: ../cat/virt-ls.pod:65
@@ -8043,7 +8112,7 @@ msgstr ""
 #. type: =head2
 #: ../cat/virt-ls.pod:169 ../fish/guestfish-actions.pod:8398
 msgid "path"
-msgstr ""
+msgstr "ruta"
 
 #. type: textblock
 #: ../cat/virt-ls.pod:171
@@ -8563,7 +8632,7 @@ msgstr ""
 #: ../lib/guestfs-availability.pod:25 ../lib/guestfs-structs.pod:1
 #: ../lib/guestfs-structs.pod:25
 msgid "comment"
-msgstr ""
+msgstr "comentar"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:3
@@ -8576,6 +8645,12 @@ msgid ""
 " ANY CHANGES YOU MAKE TO THIS FILE WILL BE LOST.\n"
 "\n"
 msgstr ""
+"archivo generado de libguestfs\n"
+" AVISO: ESTE ARCHIVO ESTÁ GENERADO DESDE LOS ARCHIVOS SIGUIENTES:\n"
+"                  generator/customize.ml\n"
+"                  y desde el código en el subdirectorio generador/\n"
+" SE PERDERÁ CUALQUIER CAMBIO HECHO A ESTE ARCHIVO\n"
+"\n"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:9
@@ -8601,6 +8676,12 @@ msgid ""
 " (at your option) any later version.\n"
 "\n"
 msgstr ""
+" Este programa es software libre; puede redistribuirlo y/o modificarlo\n"
+"bajo los términos de la Licencia Pública General GNU publicada por la\n"
+"Free Software Foundation; ya sea la versión 2 de la Licencia o "
+"(a su elección)\n"
+"cualquier versión posterior.\n"
+"\n"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:16
@@ -8615,6 +8696,11 @@ msgid ""
 " GNU General Public License for more details.\n"
 "\n"
 msgstr ""
+" Este programa se distribuye con la esperanza de que sea útil,\n"
+"pero SIN GARANTÍA ALGUNA; ni siquiera la garantía implícita de\n"
+"COMERCIABILIDAD o IDONEIDAD PARA UN PROPÓSITO PARTICULAR.\n"
+"Consulte la Licencia Pública General de GNU para obtener más detalles.\n"
+"\n"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:21
@@ -8628,11 +8714,16 @@ msgid ""
 " 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 "\n"
 msgstr ""
+" Debería haber recibido una copia de la Licencia Pública General de GNU\n"
+" junto con este programa; de no ser así, escriba a la Free Software "
+"Foundation, Inc.,\n"
+" 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, EE. UU.\n"
+"\n"
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:29
 msgid "B<--append-line> FILE:LINE"
-msgstr ""
+msgstr "B<--append-line> FILE:LINE"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:31
@@ -8642,12 +8733,17 @@ msgid ""
 "end with a newline, then one is added before the appended line.  Also a "
 "newline is added to the end of the C<LINE> string automatically."
 msgstr ""
+"Adjunta una sola línea de texto a C<FILE>. Si el archivo no termina con un "
+"salto de línea, se añade uno antes de la línea añadida. Además, se añade "
+"automáticamente un salto de línea al final de la cadena C<LINE>."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:36
 #: ../sysprep/sysprep-extra-options.pod:9
 msgid "For example (assuming ordinary shell quoting) this command:"
 msgstr ""
+"Por ejemplo (asumiendo entrecomillado de intérprete ordinario) esta "
+"instrucción:"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:38
@@ -8657,6 +8753,8 @@ msgid ""
 " --append-line '/etc/hosts:10.0.0.1 foo'\n"
 "\n"
 msgstr ""
+" --append-line '/etc/hosts:10.0.0.1 algo'\n"
+"\n"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:40
@@ -8665,6 +8763,8 @@ msgid ""
 "will add either C<10.0.0.1 foo⏎> or C<⏎10.0.0.1 foo⏎> to the file, the "
 "latter only if the existing file does not already end with a newline."
 msgstr ""
+"añadirá o bien C<10.0.0.1 foo⏎> o bien C<⏎10.0.0.1 foo⏎> al archivo, el más "
+"último solo si el archivo saliente no termina ya con una línea nueva."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:44
@@ -8675,12 +8775,16 @@ msgid ""
 "using Unix or Windows line endings.  It also works for empty or non-existent "
 "files."
 msgstr ""
+"C<⏎> representa un carácter de línea nueva, que se deduce al observar el "
+"contenido del archivo. Por lo tanto, esta instrucción funciona correctamente "
+"con archivos que usan finales de línea de Unix o Windows. También funciona "
+"con archivos vacíos o inexistentes."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:49
 #: ../sysprep/sysprep-extra-options.pod:22
 msgid "To insert several lines, use the same option several times:"
-msgstr ""
+msgstr "Para insertar varias lineas, utilice la misma opción varias veces:"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:51
@@ -8691,12 +8795,15 @@ msgid ""
 " --append-line '/etc/hosts:10.0.0.2 bar'\n"
 "\n"
 msgstr ""
+" --append-line '/etc/hosts:10.0.0.1 tal'\n"
+" --append-line '/etc/hosts:10.0.0.2 cual'\n"
+"\n"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:54
 #: ../sysprep/sysprep-extra-options.pod:27
 msgid "To insert a blank line before the appended line, do:"
-msgstr ""
+msgstr "Para insertar una línea en blanco antes de línea adjuntada, haga:"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:56
@@ -8707,17 +8814,20 @@ msgid ""
 " --append-line '/etc/hosts:10.0.0.1 foo'\n"
 "\n"
 msgstr ""
+" --append-line '/etc/hosts:'\n"
+" --append-line '/etc/hosts:10.0.0.1 tal cual'\n"
+"\n"
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:59
 msgid "B<--chmod> PERMISSIONS:FILE"
-msgstr ""
+msgstr "B<--chmod> PERMISSIONS:FILE"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:61
 #: ../sysprep/sysprep-extra-options.pod:35
 msgid "Change the permissions of C<FILE> to C<PERMISSIONS>."
-msgstr ""
+msgstr "Cambia los permisos de C<FILE> a C<PERMISSIONS>."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:63
@@ -8726,11 +8836,13 @@ msgid ""
 "I<Note>: C<PERMISSIONS> by default would be decimal, unless you prefix it "
 "with C<0> to get octal, ie. use C<0700> not C<700>."
 msgstr ""
+"I<Note>: C<PERMISIONS> por defecto serían decimales, a no ser que lo prefija "
+"con C<0> para obtener octal, p.e. utilice C<0700> no C<700>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:66
 msgid "B<--commands-from-file> FILENAME"
-msgstr ""
+msgstr "B<--commands-from-file> NOMBREARCHIVO"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:68
@@ -8738,6 +8850,8 @@ msgstr ""
 msgid ""
 "Read the customize commands from a file, one (and its arguments)  each line."
 msgstr ""
+"Lee las instrucciones personalizadas desde un archivo, una (y sus argumentos)"
+" cada línea."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:71
@@ -8746,6 +8860,8 @@ msgid ""
 "Each line contains a single customization command and its arguments, for "
 "example:"
 msgstr ""
+"Cada línea contiene una instrucción única de personalización y sus "
+"argumentos, por ejemplo:"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:74
@@ -8757,6 +8873,10 @@ msgid ""
 " password some-user:password:its-new-password\n"
 "\n"
 msgstr ""
+" delete /algún/archivo\n"
+" install algún-paquete\n"
+" password algún-usuario:contraseña:su-contraseña-nueva\n"
+"\n"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:78
@@ -8767,6 +8887,10 @@ msgid ""
 "lines, by adding a C<\\> (continuation character) at the of a line, for "
 "example"
 msgstr ""
+"Se ignoran las líneas vacías, y las líneas comenzando con C<#> son "
+"comentarios y se hacen caso omiso.  Además, los argumentos pueden estar "
+"repartidos a través de múltiples líneas, añadiendo un C<\\> "
+"(carácter de continuación) al final de una línea, por ejemplo"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:83
@@ -8777,6 +8901,9 @@ msgid ""
 "   s/^OPT=.*/OPT=ok/\n"
 "\n"
 msgstr ""
+" edit /algún/archivo:\\\n"
+"   s/^OPT=.*/OPT=ok/\n"
+"\n"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:86
@@ -8785,17 +8912,20 @@ msgid ""
 "The commands are handled in the same order as they are in the file, as if "
 "they were specified as I<--delete /some/file> on the command line."
 msgstr ""
+"Las instrucciones son manipuladas en el mismo orden que el que está en el "
+"archivo, por tanto si fueron especificados como I<--delete /algún/archivo> "
+"en la línea de instrucciones."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:90
 msgid "B<--copy> SOURCE:DEST"
-msgstr ""
+msgstr "B<--copy> ORIGEN:DESTINO"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:92
 #: ../sysprep/sysprep-extra-options.pod:68
 msgid "Copy files or directories recursively inside the guest."
-msgstr ""
+msgstr "Copia archivos o directorios recursivamente dentro del invitado."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:94
@@ -8806,12 +8936,12 @@ msgstr ""
 #: ../sysprep/sysprep-extra-options.pod:78
 #: ../sysprep/sysprep-extra-options.pod:200
 msgid "Wildcards cannot be used."
-msgstr ""
+msgstr "Los comodines no pueden ser utilizados."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:96
 msgid "B<--copy-in> LOCALPATH:REMOTEDIR"
-msgstr ""
+msgstr "B<--copy-in> RUTALOCAL:DIRREMOTO"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:98
@@ -8820,11 +8950,13 @@ msgid ""
 "Copy local files or directories recursively into the disk image, placing "
 "them in the directory C<REMOTEDIR> (which must exist)."
 msgstr ""
+"Copia archivos o directorios locales recursivamente en la imagen de disco, "
+"colocándolos en el directorio C<REMOTEDIR> (el cual debe existir)."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:103
 msgid "B<--delete> PATH"
-msgstr ""
+msgstr "B<--delete> RUTA"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:105
@@ -8833,6 +8965,8 @@ msgid ""
 "Delete a file from the guest.  Or delete a directory (and all its contents, "
 "recursively)."
 msgstr ""
+"Borra un archivo desde el invitado. O borra un directorio "
+"(y todos sus contenidos, recursivamente)."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:108
@@ -8842,6 +8976,9 @@ msgid ""
 "escape glob characters from the host shell, if that is required.  For "
 "example:"
 msgstr ""
+"Puede utilizar caracteres glob del intérprete en la ruta especificada. Sea "
+"cuidadoso para los caracteres glob de escape desde el intérprete del "
+"huésped, si eso es requerido.  Por ejemplo:"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:112
@@ -8851,23 +8988,25 @@ msgid ""
 " virt-customize --delete '/var/log/*.log'.\n"
 "\n"
 msgstr ""
+" virt-customize --delete '/var/log/*.log'.\n"
+"\n"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:114
 #: ../sysprep/sysprep-extra-options.pod:92
 msgid "See also: I<--upload>, I<--scrub>."
-msgstr ""
+msgstr "Consulte además: I<--upload>, I<--scrub>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:116
 msgid "B<--edit> FILE:EXPR"
-msgstr ""
+msgstr "B<--edit> ARCHIVO:EXPR"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:118
 #: ../sysprep/sysprep-extra-options.pod:97
 msgid "Edit C<FILE> using the Perl expression C<EXPR>."
-msgstr ""
+msgstr "Edita el C<ARCHIVO> utilizando la expresión Perl C<EXPR>."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:120 ../edit/virt-edit.pod:129
@@ -8876,23 +9015,25 @@ msgid ""
 "Be careful to properly quote the expression to prevent it from being altered "
 "by the shell."
 msgstr ""
+"Sea cuidadoso para entrecomillas apropiadamente la expresión para prevenirla "
+"desde ser alterada por el intérprete."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:123 ../edit/virt-edit.pod:132
 #: ../sysprep/sysprep-extra-options.pod:102
 msgid "Note that this option is only available when Perl 5 is installed."
-msgstr ""
+msgstr "Note que esta opción solo está disponible cunado esté instalado Perl 5."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:125
 #: ../sysprep/sysprep-extra-options.pod:104
 msgid "See L<virt-edit(1)/NON-INTERACTIVE EDITING>."
-msgstr ""
+msgstr "Consulte L<VIRT-EDIT(1)/NON-INTERACTIVE EDITING>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:127
 msgid "B<--firstboot> SCRIPT"
-msgstr ""
+msgstr "B<--firstboot> SCRIPT"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:129
@@ -8901,12 +9042,16 @@ msgid ""
 "Install C<SCRIPT> inside the guest, so that when the guest first boots up, "
 "the script runs (as root, late in the boot process)."
 msgstr ""
+"Instala C<SCRIPT> interno al invitado, tal que cuando el primer invitado se "
+"arranque, el script ejecute (como root, deja en el proceso de arranque)."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:132
 #: ../sysprep/sysprep-extra-options.pod:112
 msgid "The script is automatically chmod +x after installation in the guest."
 msgstr ""
+"El script automáticamente realiza chmod +x tras la instalación en el "
+"invitado."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:134
@@ -8915,6 +9060,8 @@ msgid ""
 "The alternative version I<--firstboot-command> is the same, but it "
 "conveniently wraps the command up in a single line script for you."
 msgstr ""
+"La versión alternativa I<--firstboot-command> es la misma, pero "
+"convenientemente cubre la instrucción en una solo línea de script por usted."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:137
@@ -8925,6 +9072,8 @@ msgid ""
 "You can have multiple I<--firstboot> options.  They run in the same order "
 "that they appear on the command line."
 msgstr ""
+"Puedes tener múltiples opciones I<--firstboot>. Ejecutan en el mismo orden "
+"que aparezcan en la línea de instrucción."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:140
@@ -8935,6 +9084,8 @@ msgid ""
 "Please take a look at L<virt-builder(1)/FIRST BOOT SCRIPTS> for more "
 "information and caveats about the first boot scripts."
 msgstr ""
+"Tome un vistazo a L<virt-builder(1)/FIRST BOOT SCRIPTS> para más información "
+"y advertencias sobre los guiones del primer arranque."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:143
@@ -8942,12 +9093,12 @@ msgstr ""
 #: ../sysprep/sysprep-extra-options.pod:123
 #: ../sysprep/sysprep-extra-options.pod:137
 msgid "See also I<--run>."
-msgstr ""
+msgstr "Además consulte I<--run>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:145
 msgid "B<--firstboot-command> 'CMD+ARGS'"
-msgstr ""
+msgstr "B<--firstboot-command> 'CMD+ARGS'"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:147
@@ -8956,11 +9107,13 @@ msgid ""
 "Run command (and arguments) inside the guest when the guest first boots up "
 "(as root, late in the boot process)."
 msgstr ""
+"Ejecute instrucción (y argumentos) dentro del invitado cuando el primer "
+"arranque del invitado (como root, tarde en el proceso de arranque)."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:158
 msgid "B<--firstboot-install> PKG,PKG.."
-msgstr ""
+msgstr "B<--firstboot-install> PKG,PKG.."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:160
@@ -8970,6 +9123,9 @@ msgid ""
 "when the guest first boots using the guest’s package manager (eg. apt, yum, "
 "etc.) and the guest’s network connection."
 msgstr ""
+"Instala los paquetes nombrados (un listado separado por comas).  Estos son "
+"instalados cuando el invitado arranca primero utilizando el gestor del "
+"paquete del invitados (p.ej. apt, yum, etc) y la conexión de red invitada."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:164
@@ -8980,11 +9136,13 @@ msgid ""
 "For an overview on the different ways to install packages, see L<virt-"
 "builder(1)/INSTALLING PACKAGES>."
 msgstr ""
+"Para una vista resumida en las maneras diferentes de instalar los paquetes, "
+"consulte L<virt-builder(1)/INSTALLING PACKAGES>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:167
 msgid "B<--hostname> HOSTNAME"
-msgstr ""
+msgstr "B<--hostname> NOMBRE-HOST"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:169
@@ -8993,11 +9151,13 @@ msgid ""
 "Set the hostname of the guest to C<HOSTNAME>.  You can use a dotted hostname."
 "domainname (FQDN) if you want."
 msgstr ""
+"Establece el nombre del host en el invitado a C<HOSTNAME>.  Puedes utilizar "
+"un punteado de nombre-host.nombre-dominio (FQDN) si lo deseas."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:172
 msgid "B<--install> PKG,PKG.."
-msgstr ""
+msgstr "B<--install> PKG,PKG.."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:174
@@ -9007,17 +9167,20 @@ msgid ""
 "during the image build using the guest’s package manager (eg. apt, yum, "
 "etc.) and the host’s network connection."
 msgstr ""
+"Instala los paquetes indicados (una lista separada por comas). Estos se "
+"instalan durante la compilación de la imagen mediante el gestor de paquetes "
+"del huésped (p. ej., apt, yum, etc.) y la conexión de red del host."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:181
 #: ../sysprep/sysprep-extra-options.pod:165
 msgid "See also I<--update>, I<--uninstall>."
-msgstr ""
+msgstr "Consulte además I<--update>, I<--uninstall>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:183
 msgid "B<--link> TARGET:LINK[:LINK..]"
-msgstr ""
+msgstr "B<--link> DESTINO:ENLACE[:ENLACE..]"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:185
@@ -9026,17 +9189,19 @@ msgid ""
 "Create symbolic link(s) in the guest, starting at C<LINK> and pointing at "
 "C<TARGET>."
 msgstr ""
+"Cree enlaces simbólicos en el invitado, comenzando en C<LINK> y apuntando a "
+"C<TARGET>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:188
 msgid "B<--mkdir> DIR"
-msgstr ""
+msgstr "B<--mkdir> DIR"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:190
 #: ../sysprep/sysprep-extra-options.pod:190
 msgid "Create a directory in the guest."
-msgstr ""
+msgstr "Crea un directorio en el invitado."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:192
@@ -9045,22 +9210,24 @@ msgid ""
 "This uses S<C<mkdir -p>> so any intermediate directories are created, and it "
 "also works if the directory already exists."
 msgstr ""
+"Esto utiliza S<C<mkdir -p>>, por lo que se crean todos los directorios "
+"intermedios y también funciona si el directorio ya existe."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:195
 msgid "B<--move> SOURCE:DEST"
-msgstr ""
+msgstr "B<--move> ORIGEN:DEST"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:197
 #: ../sysprep/sysprep-extra-options.pod:198
 msgid "Move files or directories inside the guest."
-msgstr ""
+msgstr "Mueve archivos o directorios dentro del invitado."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:201
 msgid "B<--no-logfile>"
-msgstr ""
+msgstr "B<--no-logfile>"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:203
@@ -9070,17 +9237,20 @@ msgid ""
 "building is complete.  If you don't want to reveal precisely how the image "
 "was built, use this option."
 msgstr ""
+"Borre C<builder.log> (archivo de registro de los comandos de compilación) de "
+"la imagen una vez finalizada la compilación. Si no desea revelar con "
+"precisión cómo se compiló la imagen, utilice esta opción."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:207
 #: ../sysprep/sysprep-extra-options.pod:209
 msgid "See also: L</LOG FILE>."
-msgstr ""
+msgstr "Consulte además: L</LOG FILE>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:209
 msgid "B<--password> USER:SELECTOR"
-msgstr ""
+msgstr "B<--password> USUARIO:SELECTOR"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:211
@@ -9089,6 +9259,8 @@ msgid ""
 "Set the password for C<USER>.  (Note this option does I<not> create the user "
 "account)."
 msgstr ""
+"Establece la contraseña para C<USUARIO>.  "
+"(Note esta opción I<no> crea la cuenta del usuario)."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:214
@@ -9099,11 +9271,13 @@ msgid ""
 "See L<virt-builder(1)/USERS AND PASSWORDS> for the format of the C<SELECTOR> "
 "field, and also how to set up user accounts."
 msgstr ""
+"Emplee L<virt-builder(1)/USERS AND PASSWORDS> para el formato del campo "
+"C<SELECTOR>, y además como configurar cuantas de usuario."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:217
 msgid "B<--password-crypto> md5|sha256|sha512"
-msgstr ""
+msgstr "B<--password-crypto> md5|sha256|sha512"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:219
@@ -9112,6 +9286,9 @@ msgid ""
 "When the virt tools change or set a password in the guest, this option sets "
 "the password encryption of that password to C<md5>, C<sha256> or C<sha512>."
 msgstr ""
+"Cuando cambia las herramientas virt o establezca una contraseña en el "
+"invitado, esta opción establece la contraseña cifrada de esa contraseña a "
+"C<md5>, C<sha256> o C<sha512>."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:223
@@ -9120,6 +9297,8 @@ msgid ""
 "C<sha256> and C<sha512> require glibc E<ge> 2.7 (check crypt(3) inside the "
 "guest)."
 msgstr ""
+"C<sha256> y C<sha512> requieren glibc E<ge> 2.7 (compruebe crypt(3) interno "
+"al invitado)."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:226
@@ -9128,6 +9307,8 @@ msgid ""
 "C<md5> will work with relatively old Linux guests (eg. RHEL 3), but is not "
 "secure against modern attacks."
 msgstr ""
+"C<md5> funcionará con invitados de Linux relativamente antiguos (p.e. RHEL 3)"
+", pero no es seguro frente a ataques modernos."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:229
@@ -9137,6 +9318,9 @@ msgid ""
 "have support for SHA-512, in which case it will use C<md5>.  You can "
 "override libguestfs by specifying this option."
 msgstr ""
+"El valor predeterminado es C<sha512>, a menos que libguestfs detecte un "
+"huésped antiguo que no fuera compatible con SHA-512; en ese caso, usará "
+"C<md5>. Puede anular libguestfs especificando esta opción."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:233
@@ -9147,17 +9331,21 @@ msgid ""
 "then you should use the I<--edit> option to modify C</etc/sysconfig/"
 "authconfig> (Fedora, RHEL) or C</etc/pam.d/common-password> (Debian, Ubuntu)."
 msgstr ""
+"Tenga en cuenta que esto no modifica el cifrado de contraseña predeterminado "
+"que utiliza el invitado al crear nuevas cuentas de usuario. Si desea "
+"hacerlo, utilice la opción I<--edit> para modificar C</etc/sysconfig/"
+"authconfig> (Fedora, RHEL) o C</etc/pam.d/common-password> (Debian, Ubuntu)."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:239
 msgid "B<--root-password> SELECTOR"
-msgstr ""
+msgstr "B<--root-password> SELECTOR"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:241
 #: ../sysprep/sysprep-extra-options.pod:260
 msgid "Set the root password."
-msgstr ""
+msgstr "Establece la contraseña de root."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:246
@@ -9166,11 +9354,13 @@ msgid ""
 "Note: In virt-builder, if you I<don't> set I<--root-password> then the guest "
 "is given a I<random> root password."
 msgstr ""
+"Nota: en el compilador virt-builder, si I<no> establece I<--root-password> "
+"entonces al invitado se le proporciona una contraseña raíz I<aleatoria>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:249
 msgid "B<--run> SCRIPT"
-msgstr ""
+msgstr "B<--run> GUION"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:251
@@ -9180,12 +9370,15 @@ msgid ""
 "The script runs virtualized inside a small appliance, chrooted into the "
 "guest filesystem."
 msgstr ""
+"Ejecute el script de shell (o cualquier programa) llamado C<SCRIPT> en la "
+"imagen de disco. El script se ejecuta virtualizado dentro de un pequeño "
+"dispositivo, conectado al sistema de archivos invitado."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:255
 #: ../sysprep/sysprep-extra-options.pod:275
 msgid "The script is automatically chmod +x."
-msgstr ""
+msgstr "Es guion es automáticamente chmod +x."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:257
@@ -9199,6 +9392,11 @@ msgid ""
 "the script without needing a network connection (I<--attach>).  You can also "
 "upload data files (I<--upload>)."
 msgstr ""
+"Si libguestfs lo admite, la conexión de red es limitada, pero solo permite "
+"conexiones de red salientes. También puede adjuntar discos de datos "
+"(p. ej., archivos ISO) para proporcionar datos (p. ej., paquetes de software)"
+" al script sin necesidad de una conexión de red (I<--attach>). También puede "
+"cargar archivos de datos (I<--upload>)."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:263
@@ -9207,6 +9405,8 @@ msgid ""
 "You can have multiple I<--run> options.  They run in the same order that "
 "they appear on the command line."
 msgstr ""
+"Puedes tener múltiples opciones I<--run>.  Ejecutan en el mismo orden que "
+"aparecen en la línea de instrucción."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:266
@@ -9214,12 +9414,12 @@ msgstr ""
 #: ../sysprep/sysprep-extra-options.pod:286
 #: ../sysprep/sysprep-extra-options.pod:303
 msgid "See also: I<--firstboot>, I<--attach>, I<--upload>."
-msgstr ""
+msgstr "Consulte además: I<--firstboot>, I<--attach>, I<--upload>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:268
 msgid "B<--run-command> 'CMD+ARGS'"
-msgstr ""
+msgstr "B<--run-command> 'CMD+ARGS'"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:270
@@ -9228,6 +9428,9 @@ msgid ""
 "Run the command and arguments on the disk image.  The command runs "
 "virtualized inside a small appliance, chrooted into the guest filesystem."
 msgstr ""
+"Ejecute la instrucción y los argumentos en la imagen de disco. La "
+"instrucción se ejecuta virtualizada dentro de un pequeño dispositivo, con "
+"chroot en el sistema de archivos invitado."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:279
@@ -9236,34 +9439,36 @@ msgid ""
 "You can have multiple I<--run-command> options.  They run in the same order "
 "that they appear on the command line."
 msgstr ""
+"Puedes tener múltiples opciones I<--run-command>. Ejecutan en el mismo orden "
+"que aparecen en la línea de instrucción."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:284
 msgid "B<--scrub> FILE"
-msgstr ""
+msgstr "B<--scrub> ARCHIVO"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:286
 #: ../sysprep/sysprep-extra-options.pod:330
 msgid "Scrub a file from the guest.  This is like I<--delete> except that:"
-msgstr ""
+msgstr "Recorta un archivo desde el invitado. Es como I<--delete>, excepto que:"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:292
 #: ../sysprep/sysprep-extra-options.pod:336
 msgid "It scrubs the data so a guest could not recover it."
-msgstr ""
+msgstr "Recorta los datos tal que un invitado no pueda recuperarlo."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:296
 #: ../sysprep/sysprep-extra-options.pod:340
 msgid "It cannot delete directories, only regular files."
-msgstr ""
+msgstr "No puede borrar directorios, solo archivos usuales."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:300
 msgid "B<--selinux-relabel>"
-msgstr ""
+msgstr "B<--selinux-relabel>"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:302
@@ -9361,7 +9566,7 @@ msgstr ""
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:339
 msgid "B<--ssh-inject> USER[:SELECTOR]"
-msgstr ""
+msgstr "B<--ssh-inject> USUARIO[:SELECTOR]"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:341
@@ -9370,6 +9575,9 @@ msgid ""
 "Inject an ssh key so the given C<USER> will be able to log in over ssh "
 "without supplying a password.  The C<USER> must exist already in the guest."
 msgstr ""
+"Inyectar una clave SSH para que el C<USUARIO> pueda iniciar sesión por SSH "
+"sin necesidad de proporcionar una contraseña. El C<USUARIO> debe existir "
+"previamente en el invitado."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:345
@@ -9377,6 +9585,8 @@ msgstr ""
 msgid ""
 "See L<virt-builder(1)/SSH KEYS> for the format of the C<SELECTOR> field."
 msgstr ""
+"Consulte L<virt-builder(1)/SSH KEYS> para conocer el formato del campo "
+"C<SELECTOR>."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:348
@@ -9385,11 +9595,13 @@ msgid ""
 "You can have multiple I<--ssh-inject> options, for different users and also "
 "for more keys for each user."
 msgstr ""
+"Puede tener múltiples opciones I<--ssh-inject> para diferentes usuarios y "
+"también para más claves por cada usuario."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:351
 msgid "B<--timezone> TIMEZONE"
-msgstr ""
+msgstr "B<--timezone> ZONA-HORARIA"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:353
@@ -9398,22 +9610,25 @@ msgid ""
 "Set the default timezone of the guest to C<TIMEZONE>.  Use a location string "
 "like C<Europe/London>"
 msgstr ""
+"Establezca la zona horaria predeterminada del huésped en C<TIMEZONE>. Emplee "
+"una cadena de lugar como C<Europe/London>"
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:356
 msgid "B<--touch> FILE"
-msgstr ""
+msgstr "B<--touch> ARCHIVO"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:358
 #: ../sysprep/sysprep-extra-options.pod:411
 msgid "This command performs a L<touch(1)>-like operation on C<FILE>."
 msgstr ""
+"Esta instrucción realiza una operación similar a L<touch(1)> en C<ARCHIVO>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:360
 msgid "B<--truncate> FILE"
-msgstr ""
+msgstr "B<--truncate> ARCHIVO"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:362
@@ -9422,11 +9637,13 @@ msgid ""
 "This command truncates C<FILE> to a zero-length file. The file must exist "
 "already."
 msgstr ""
+"Esta instrucción trunca C<ARCHIVO> a un archivo de longitud cero. El archivo "
+"ya debe existir."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:365
 msgid "B<--truncate-recursive> PATH"
-msgstr ""
+msgstr "B<--truncate-recursive> RUTA"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:367
@@ -9434,11 +9651,13 @@ msgstr ""
 msgid ""
 "This command recursively truncates all files under C<PATH> to zero-length."
 msgstr ""
+"Este comando trunca recursivamente todos los archivos bajo C<PATH> a "
+"longitud cero."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:369
 msgid "B<--uninstall> PKG,PKG.."
-msgstr ""
+msgstr "B<--uninstall> PKG,PKG.."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:371
@@ -9449,17 +9668,21 @@ msgid ""
 "etc.).  Dependent packages may also need to be uninstalled to satisfy the "
 "request."
 msgstr ""
+"Desinstale los paquetes indicados (una lista separada por comas). Estos se "
+"eliminan durante la compilación de la imagen mediante el gestor de paquetes "
+"del invitado (p. ej., apt, yum, etc.). Es posible que también sea necesario "
+"desinstalar los paquetes dependientes para satisfacer la solicitud."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:376
 #: ../sysprep/sysprep-extra-options.pod:432
 msgid "See also I<--install>, I<--update>."
-msgstr ""
+msgstr "Consulte además I<--install>, I<--update>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:378
 msgid "B<--update>"
-msgstr ""
+msgstr "B<--update>"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:380
@@ -9469,17 +9692,20 @@ msgid ""
 "is required to update the packages already installed in the template to "
 "their latest versions."
 msgstr ""
+"Realice el equivalente a C<yum update>, C<apt-get upgrade> o cualquier "
+"comando que sea necesario para actualizar los paquetes ya instalados en la "
+"plantilla a sus últimas versiones."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:384
 #: ../sysprep/sysprep-extra-options.pod:441
 msgid "See also I<--install>, I<--uninstall>."
-msgstr ""
+msgstr "Consulte además I<--install>, I<--uninstall>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:386
 msgid "B<--upload> FILE:DEST"
-msgstr ""
+msgstr "B<--upload> ARCHIVO:DEST"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:388
@@ -9489,6 +9715,9 @@ msgid ""
 "owner and permissions from the original are preserved, so you should set "
 "them to what you want them to be in the disk image."
 msgstr ""
+"Sube el archivo local C<FILE> al destino C<DEST> en la imagen de disco. El "
+"propietario y los permisos del archivo original se conservan, por lo que "
+"debes configurarlos como desees en la imagen de disco."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:392
@@ -9497,6 +9726,8 @@ msgid ""
 "C<DEST> could be the final filename.  This can be used to rename the file on "
 "upload."
 msgstr ""
+"C<DEST> podría ser el nombre final del archivo. Esto permite renombrarlo al "
+"subirlo."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:395
@@ -9506,38 +9737,41 @@ msgid ""
 "the file is uploaded into that directory, and it keeps the same name as on "
 "the local filesystem."
 msgstr ""
+"Si C<DEST> es un nombre de directorio (que ya debe existir en el invitado), "
+"entonces el archivo se carga en ese directorio y conserva el mismo nombre "
+"que en el sistema de archivos local."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:399
 #: ../sysprep/sysprep-extra-options.pod:457
 msgid "See also: I<--mkdir>, I<--delete>, I<--scrub>."
-msgstr ""
+msgstr "Consulte además: I<--mkdir>, I<--delete>, I<--scrub>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:401
 msgid "B<--write> FILE:CONTENT"
-msgstr ""
+msgstr "B<--write> FILE:CONTENT"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:403
 #: ../sysprep/sysprep-extra-options.pod:462
 msgid "Write C<CONTENT> to C<FILE>."
-msgstr ""
+msgstr "Escribe C<CONTENT> al C<FILE>."
 
 #. type: =item
 #: ../common/options/blocksize-option.pod:1 ../make-fs/virt-make-fs.pod:125
 msgid "B<--blocksize=512>"
-msgstr ""
+msgstr "B<--blocksize=512>"
 
 #. type: =item
 #: ../common/options/blocksize-option.pod:3 ../make-fs/virt-make-fs.pod:127
 msgid "B<--blocksize=4096>"
-msgstr ""
+msgstr "B<--blocksize=4096>"
 
 #. type: =item
 #: ../common/options/blocksize-option.pod:5
 msgid "B<--blocksize>"
-msgstr ""
+msgstr "B<--blocksize>"
 
 #. type: textblock
 #: ../common/options/blocksize-option.pod:7
@@ -9548,11 +9782,16 @@ msgid ""
 "value which is usually 512 bytes.  See also L<guestfs(3)/"
 "guestfs_add_drive_opts>."
 msgstr ""
+"Este parámetro establece el tamaño del sector de la imagen de disco. Afecta "
+"a todos los discos añadidos explícitamente después de este parámetro. Al "
+"usar I<--blocksize> sin argumentos, el tamaño del sector del disco se cambia "
+"al valor predeterminado, que suele ser de 512 bytes. Véase también L<guestfs"
+"(3)/guestfs_add_drive_opts>."
 
 #. type: =item
 #: ../common/options/key-option.pod:1
 msgid "B<--key> SELECTOR"
-msgstr ""
+msgstr "B<--key> SELECTOR"
 
 #. type: textblock
 #: ../common/options/key-option.pod:3
@@ -9570,7 +9809,7 @@ msgstr ""
 #. type: textblock
 #: ../common/options/key-option.pod:11
 msgid "Use the specified C<KEY_STRING> as passphrase."
-msgstr ""
+msgstr "Utilice el C<KEY_STRING> especificado como frase de contraseña."
 
 #. type: =item
 #: ../common/options/key-option.pod:13
@@ -9580,7 +9819,7 @@ msgstr ""
 #. type: textblock
 #: ../common/options/key-option.pod:15
 msgid "Read the passphrase from F<FILENAME>."
-msgstr ""
+msgstr "Lea la frase de contraseña de F<NOMBRE-ARCHIVO>."
 
 #. type: textblock
 #: ../customize/virt-customize.pod:3
@@ -9652,7 +9891,7 @@ msgstr ""
 #: ../get-kernel/virt-get-kernel.pod:40 ../inspector/virt-inspector.pod:71
 #: ../rescue/virt-rescue.pod:105 ../sysprep/virt-sysprep.pod:55
 msgid "B<-a> URI"
-msgstr ""
+msgstr "B<-a> URI"
 
 #. type: =item
 #: ../customize/virt-customize.pod:51 ../df/virt-df.pod:92
@@ -9661,7 +9900,7 @@ msgstr ""
 #: ../get-kernel/virt-get-kernel.pod:42 ../inspector/virt-inspector.pod:73
 #: ../rescue/virt-rescue.pod:107 ../sysprep/virt-sysprep.pod:57
 msgid "B<--add> URI"
-msgstr ""
+msgstr "B<--add> URI"
 
 #. type: textblock
 #: ../customize/virt-customize.pod:53 ../get-kernel/virt-get-kernel.pod:44
@@ -9682,8 +9921,9 @@ msgstr ""
 #: ../customize/virt-customize.pod:103 ../daemon/guestfsd.pod:75
 #: ../fish/guestfish.pod:353 ../fuse/guestmount.pod:292
 #: ../resize/virt-resize.pod:470 ../sysprep/virt-sysprep.pod:88
+#, fuzzy
 msgid "B<-n>"
-msgstr ""
+msgstr "B<-n>"
 
 #. type: =item
 #: ../customize/virt-customize.pod:105 ../resize/virt-resize.pod:472
@@ -9813,7 +10053,7 @@ msgstr ""
 #. type: textblock
 #: ../daemon/guestfsd.pod:3
 msgid "guestfsd - guestfs daemon"
-msgstr ""
+msgstr "guestfsd - demonio guestfs"
 
 #. type: verbatim
 #: ../daemon/guestfsd.pod:7
@@ -9822,6 +10062,8 @@ msgid ""
 " guestfsd [-r] [-v|--verbose]\n"
 "\n"
 msgstr ""
+" guestfsd [-r] [-v|--verbose]\n"
+"\n"
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:11
@@ -11788,7 +12030,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:35
 msgid "On Fedora, use L<dnf(8)> to install all the requirements:"
-msgstr ""
+msgstr "En Fedora, emplee L<dnf(8)> para instalar todos los requerimientos:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:37
@@ -12126,7 +12368,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:201
 msgid "Optional.  Used only for tests."
-msgstr ""
+msgstr "Opcional: Empleado solo para pruebas."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:203
@@ -12139,6 +12381,8 @@ msgid ""
 "Optional.  Used to parse libguestfs’s own config files, eg. F</etc/"
 "libguestfs-tools.conf>."
 msgstr ""
+"Opcional: Empleado para interpretar archivos de configuración propios de "
+"libguestfs, p.e. F</etc/libguestfs-tools.conf>."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:208
@@ -12151,6 +12395,8 @@ msgid ""
 "Optional.  Used by the L<libvirt backend|guestfs(3)/BACKEND> to securely "
 "confine the appliance (sVirt)."
 msgstr ""
+"Opcional:  Empleado para el L<libvirt backend|guestfs(3)/BACKEND> para "
+"confinar con seguridad las aplicaciones (sVirt)."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:213
@@ -12263,12 +12509,12 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:257
 msgid "Optional.  Perl module used to test L<virt-rescue(1)>."
-msgstr ""
+msgstr "Opcional.  Módulo Perl utilizado para probar L<virt-rescue(1)>."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:259
 msgid "FUSE"
-msgstr ""
+msgstr "FUSE"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:261
@@ -12276,6 +12522,9 @@ msgid ""
 "Optional.  L<fusermount(1)>, libfuse and kernel module are all needed if you "
 "want L<guestmount(1)> and/or L<mount-local|guestfs(3)/MOUNT LOCAL> support."
 msgstr ""
+"Opcional.  L<fusermount(1)>, libfuse y módulo de kernel son todos necesarios "
+"si desea L<guestmount(1)> y/o soporte de L<mount-local|guestfs(3)/MOUNT "
+"LOCAL>."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:265
@@ -12285,7 +12534,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:267
 msgid "Optional.  Used only for testing."
-msgstr ""
+msgstr "Opcional:  Empleado solo para pruebas."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:269
@@ -12300,7 +12549,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:273
 msgid "Optional.  qemu-nbd is used for testing."
-msgstr ""
+msgstr "Opcional. qemu-nbd es utilizado para pruebas."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:275
@@ -12387,7 +12636,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:308
 msgid "Optional.  Used to build and test the Perl bindings."
-msgstr ""
+msgstr "Opcional. Empleado para compilar y probar vínculos con Perl."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:310
@@ -12400,6 +12649,8 @@ msgid ""
 "Optional.  Used to build the Python bindings.  S<Python 2> support was "
 "removed in S<libguestfs 1.42.1>."
 msgstr ""
+"Opcional. Utilizado para compilar las vinculaciones de Python.  S<Python 2> "
+"admitidos fueron desinstalados en S<libguestfs 1.42.1>."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:315
@@ -12409,7 +12660,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:317
 msgid "Optional.  Used to run the Python testsuite."
-msgstr ""
+msgstr "Opcional. Empleado para ejecutar la suite de pruebas de Python."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:319
@@ -12434,7 +12685,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:327
 msgid "Optional.  Used to build the Ruby bindings."
-msgstr ""
+msgstr "Opcional.  Utilizado para compilar los vínculos de Ruby."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:329
@@ -12456,7 +12707,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:336
 msgid "Optional.  Used to build the Haskell bindings."
-msgstr ""
+msgstr "Opcional.  Utilizado para compilar vínculos de Haskell."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:338
@@ -12471,7 +12722,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:342
 msgid "Optional.  Used to build the PHP bindings."
-msgstr ""
+msgstr "Opcional.  Utilizado para compilar los vínculos de PHP."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:344
@@ -12491,7 +12742,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:350
 msgid "Optional.  Used to build and test the GObject bindings."
-msgstr ""
+msgstr "Opcional.  Empleado para compilar y probar los vínculos de GObject."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:352
@@ -12501,7 +12752,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:354
 msgid "Optional.  Used to build the Vala bindings."
-msgstr ""
+msgstr "Opcional.  Empleado para compilar los vínculos de Vala."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:356
@@ -12511,7 +12762,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:358
 msgid "Optional.  Used to build the LUA bindings."
-msgstr ""
+msgstr "Opcional. Empleado para compilar los vínculos de LUA."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:360
@@ -12529,6 +12780,8 @@ msgid ""
 "Optional.  Used to build the Erlang bindings.  Note that Erlang E<le> 22 "
 "will not work unless you use libguestfs E<le> 1.42."
 msgstr ""
+"Opcional. Empleado para compilar los vínculos de Erlang.  Note que Erlang "
+"E<le> 22 no funcionará a no ser que utilice libguestfs E<le> 1.42."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:367 ../docs/guestfs-release-notes-1.24.pod:147
@@ -12538,7 +12791,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:369
 msgid "Optional.  Used to build the Go bindings."
-msgstr ""
+msgstr "Opcional. Empleado para compilar los vínculos de Go."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:371
@@ -12951,7 +13204,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:539
 msgid "There are many C<./configure> options.  Use:"
-msgstr ""
+msgstr "Hay múltiples opciones de C<./configure>. Emplee:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:541
@@ -13051,12 +13304,12 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:582
 msgid "B<--disable-fuse>"
-msgstr ""
+msgstr "B<--disable-fuse>"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:584
 msgid "Disable FUSE support in the API and the L<guestmount(1)> tool."
-msgstr ""
+msgstr "Inhabilita soporte FUSE en el API y la herramienta L<guestmount(1)>."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:586
@@ -13596,7 +13849,7 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-faq.pod:59
 msgid "I<vs. vdfuse>"
-msgstr ""
+msgstr "I<vs. vdfuse>"
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:61
@@ -14020,7 +14273,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-faq.pod:261
 msgid "Use:"
-msgstr ""
+msgstr "Emplee:"
 
 #. type: verbatim
 #: ../docs/guestfs-faq.pod:263
@@ -14102,6 +14355,8 @@ msgid ""
 " sudo usermod -a -G kvm yourlogin\n"
 "\n"
 msgstr ""
+" sudo usermod -a -G kvm yourlogin\n"
+"\n"
 
 #. type: =item
 #: ../docs/guestfs-faq.pod:300
@@ -14209,7 +14464,7 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-faq.pod:358
 msgid "SuSE"
-msgstr ""
+msgstr "SuSE"
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:360
@@ -14344,6 +14599,8 @@ msgid ""
 "Use C<./localconfigure> instead of C<./configure>, but otherwise you compile "
 "libguestfs as usual."
 msgstr ""
+"Emplee C<./localconfigure> en vez de C<./configure>, pero en otro caso "
+"compile libguestfs como usual."
 
 #. type: =head2
 #: ../docs/guestfs-faq.pod:420
@@ -14372,10 +14629,13 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:435
+#, fuzzy
 msgid ""
 "For pre-compiled appliances, see also: L<http://libguestfs.org/download/"
 "binaries/appliance/>."
 msgstr ""
+"For pre-compiled appliances, consulte además: L<http://libguestfs.org/"
+"download/binaries/appliance/>."
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:438
@@ -14658,7 +14918,7 @@ msgstr ""
 #. type: =head1
 #: ../docs/guestfs-faq.pod:589
 msgid "SPEED, DISK SPACE USED BY LIBGUESTFS"
-msgstr ""
+msgstr "VELOCIDAD, ESPACIO DE DISCO UTILIZADO POR LIBGUESTFS"
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:591
@@ -14685,7 +14945,7 @@ msgstr ""
 #. type: =head2
 #: ../docs/guestfs-faq.pod:602
 msgid "Libguestfs uses too much disk space!"
-msgstr ""
+msgstr "¡Libguestfs utiliza demasiado espacio de disco!"
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:604
@@ -14964,6 +15224,9 @@ msgid ""
 "Use nbdkit with the proprietary VDDK plugin to live export the disk image as "
 "an NBD source.  This should allow you to read and write the VMDK file."
 msgstr ""
+"Emplee nbdkit con la propiedad del complemento VDDK para exportación viva de "
+"imagen de disco como un origen NBD.  Esto concedería leer y escribir el "
+"archivo VMDK."
 
 #. type: =head2
 #: ../docs/guestfs-faq.pod:737
@@ -16229,6 +16492,8 @@ msgstr ""
 msgid ""
 "Use a tool like L<virt-bmap|http://git.annexia.org/?p=virt-bmap.git> instead."
 msgstr ""
+"Emplee en su lugar una herramienta como L<virt-bmap|http://git.annexia.org/?p"
+"=virt-bmap.git>."
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:1392
@@ -16778,7 +17043,7 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-hacking.pod:240
 msgid "F<fuse>"
-msgstr ""
+msgstr "F<fuse>"
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:242
@@ -16977,6 +17242,10 @@ msgid ""
 "The reason is so that you can run multiple parallel tests of libguestfs "
 "without having one set of tests overwriting the appliance created by another."
 msgstr ""
+"Empleado para archivos temporales cuando ejecuten las pruebas "
+"(en vez de F</tmp> etc).  La razón es tal que puede ejecutar múltiples "
+"pruebas en paralelo de libguestfs sin tener un conjunto de pruebas "
+"sobrescribiendo la aplicación creada por otra."
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:324
@@ -17097,6 +17366,8 @@ msgstr ""
 msgid ""
 "Libguestfs uses the GNU autotools build system (autoconf, automake, libtool)."
 msgstr ""
+"Libguestfs utiliza el sistema de compilación de autotools GNU "
+"(autoconf, automake, libtool)."
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:375
@@ -17126,6 +17397,8 @@ msgstr ""
 #: ../docs/guestfs-hacking.pod:387
 msgid "There are many make targets.  Use this command to list them all:"
 msgstr ""
+"Hay muchos destinos de creación. Emplee esta instrucción para listarlos "
+"todos:"
 
 #. type: verbatim
 #: ../docs/guestfs-hacking.pod:389
@@ -17151,6 +17424,8 @@ msgid ""
 "Because large amounts of boilerplate code in libguestfs are generated, this "
 "makes it easy to extend the libguestfs API."
 msgstr ""
+"Debido a que se generan grandes cantidades de código repetitivo en "
+"libguestfs, es fácil ampliar la API de libguestfs."
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:398
@@ -17232,7 +17507,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:449
 msgid "After making these changes, use C<make> to compile."
-msgstr ""
+msgstr "Después de realizar estos cambios, utilice C<make> para compilar."
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:451
@@ -17290,6 +17565,8 @@ msgid ""
 "F</dev/sdb1> is an ext2 filesystem used for testing filesystem write "
 "operations."
 msgstr ""
+"F</dev/sdb1> es un sistema de archivo ext2 utilizado para probar operaciones "
+"de escritura en sistemas de archivos."
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:479
@@ -17300,6 +17577,8 @@ msgstr ""
 #: ../docs/guestfs-hacking.pod:481
 msgid "Used in a few tests where two block devices are needed."
 msgstr ""
+"Utilizado en unas pocas pruebas donde son necesarios dos dispositivos de "
+"bloque."
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:483
@@ -17318,6 +17597,10 @@ msgid ""
 "appliance and block devices are reused between tests.  So don't try testing "
 "L<guestfs(3)/guestfs_kill_subprocess> :-x"
 msgstr ""
+"Para ser capaz de ejecutar las pruebas en una cantidad de tiempo razonable, "
+"la aplicación libguestfs y los dispositivos de bloque son reutilizados entre "
+"las pruebas.  Por tanto no intente probar L<guestfs(3)/"
+"guestfs_kill_subprocess> :-x"
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:493
@@ -17407,7 +17690,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:529
 msgid "You can use guestfish to try out new commands."
-msgstr ""
+msgstr "Puedes utilizar guestfish para intentar instrucciones nuevas fuera."
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:531
@@ -17557,6 +17840,8 @@ msgid ""
 "If you use Emacs, add the following to one of your start-up files (e.g., ~/."
 "emacs), to help ensure that you get indentation right:"
 msgstr ""
+"Si utilizas Emacs, añade lo siguiente en una de sus archivos start-up "
+"(p.e., ~/.emacs), para ayudar asegurar que obtiene sangrado correcto:"
 
 #. type: verbatim
 #: ../docs/guestfs-hacking.pod:595
@@ -17591,6 +17876,18 @@ msgid ""
 "                           (libguestfs-c-mode))))\n"
 "\n"
 msgstr ""
+" ;;; Cuando edite fuentes de C en libguestfs, utilice este estilo.\n"
+" (defun libguestfs-c-mode ()\n"
+"   \"C mode with adjusted defaults for use with libguestfs.\"\n"
+"   (interactive)\n"
+"   (c-set-style \"K&R\")\n"
+"   (setq c-indent-level 2)\n"
+"   (setq c-basic-offset 2))\n"
+" (add-hook 'c-mode-hook\n"
+"           '(lambda () (if (string-match \"/libguestfs\\\\>\"\n"
+"                               (buffer-file-name))\n"
+"                           (libguestfs-c-mode))))\n"
+"\n"
 
 #. type: =head2
 #: ../docs/guestfs-hacking.pod:617
@@ -17614,7 +17911,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:624
 msgid "Useful targets are:"
-msgstr ""
+msgstr "Destinos útiles son:"
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:628
@@ -17963,12 +18260,16 @@ msgid ""
 "Writing the F<Makefile.am> and tests correctly to use valgrind and working "
 "with automake parallel tests is subtle."
 msgstr ""
+"Escribir el F<Makefile.am> y probar correctamente para utilizar valgrind y "
+"trabajar con pruebas paralelas de automake es sutil."
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:817
 msgid ""
 "If your tests are run via a shell script wrapper, then in the wrapper use:"
 msgstr ""
+"Si sus pruebas son ejecutadas por medio de una cobertura de script del "
+"intérprete, entonces en la cobertura utilice:"
 
 #. type: verbatim
 #: ../docs/guestfs-hacking.pod:820
@@ -17981,7 +18282,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:822
 msgid "and in the F<Makefile.am> use:"
-msgstr ""
+msgstr "y en el F<Makefile.am> utilice:"
 
 #. type: verbatim
 #: ../docs/guestfs-hacking.pod:824 ../docs/guestfs-hacking.pod:832
@@ -18195,6 +18496,10 @@ msgid ""
 "command, the list of objects and the C<-cclib> libraries in the correct "
 "order otherwise."
 msgstr ""
+"El único otro detalle especial que necesitamos se proporciona una "
+"instrucción de enlace personalizado. Esto es necesario porque, de lo "
+"contrario, automake no ensamblará el comando ocamlopt, el listado de objetos "
+"y las bibliotecas C<-cclib> en el orden correcto."
 
 #. type: verbatim
 #: ../docs/guestfs-hacking.pod:923
@@ -18211,6 +18516,8 @@ msgid ""
 "The actual rules, which you can examine in F<customize/Makefile.am>, are a "
 "little bit more complicated than this because they have to handle:"
 msgstr ""
+"Las reglas actuales, las cuales puede examinar en F<customize/Makefile.am>, "
+"son un bit pequeño más complicado que este porque tienen que manipular:"
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:933
@@ -18628,6 +18935,7 @@ msgstr ""
 #: ../docs/guestfs-internals.pod:57
 msgid "libguestfs uses a state machine to model the child process:"
 msgstr ""
+"libguestfs utiliza un estado de máquina para modelar el proceso heredado:"
 
 #. type: verbatim
 #: ../docs/guestfs-internals.pod:59
@@ -18932,6 +19240,9 @@ msgid ""
 "the qemu virtual machine is a simple RPC mechanism built on top of XDR (RFC "
 "1014, RFC 1832, RFC 4506)."
 msgstr ""
+"El protocolo utilizado para comunicarse entre la biblioteca y el demonio que "
+"se ejecuta dentro de la máquina virtual qemu es un mecanismo RPC simple "
+"construido sobre XDR (RFC 1014, RFC 1832, RFC 4506)."
 
 #. type: textblock
 #: ../docs/guestfs-internals.pod:212
@@ -19330,6 +19641,8 @@ msgstr ""
 msgid ""
 "Before making changes to how you use libguestfs, take baseline measurements."
 msgstr ""
+"Antes de realizar cambios en la forma de utilizar libguestfs, tome medidas "
+"de referencia."
 
 #. type: =head2
 #: ../docs/guestfs-performance.pod:22
@@ -19380,6 +19693,11 @@ msgid ""
 "command, it will create an appliance and cache it (usually under F</var/tmp/."
 "guestfs-*>).  Subsequent runs should reuse the cached appliance."
 msgstr ""
+"El comando guestfish anterior inicia el dispositivo libguestfs en un disco "
+"nulo y lo apaga inmediatamente. La primera vez que se ejecuta el comando, se "
+"crea un dispositivo y se almacena en caché "
+"(normalmente en F</var/tmp/.guestfs-*>). Las ejecuciones posteriores "
+"deberían reutilizar el dispositivo almacenado en caché."
 
 #. type: =head3
 #: ../docs/guestfs-performance.pod:46 ../docs/guestfs-performance.pod:82
@@ -19516,6 +19834,8 @@ msgid ""
 "If not using a fixed appliance, be aware that updating software on the host "
 "will cause a one time rebuild of the appliance."
 msgstr ""
+"Si no utiliza un instrumento fijo, tenga en cuenta que actualizar el "
+"software en el host provocará una recompilación única del instrumento."
 
 #. type: textblock
 #: ../docs/guestfs-performance.pod:124
@@ -19664,6 +19984,10 @@ msgid ""
 "allow one guest to interfere with the disks of another guest.  Only do it if "
 "you trust all the guests, or if you can group guests by trust."
 msgstr ""
+"Agregar varios invitados a un instrumento representa un problema de "
+"seguridad, ya que puede permitir que un invitado interfiera con los discos "
+"de otro. Solo hágalo si confía en todos los invitados o si puede agruparlos "
+"por confianza."
 
 #. type: textblock
 #: ../docs/guestfs-performance.pod:216
@@ -19681,6 +20005,10 @@ msgid ""
 "(because they were cloned), or have volume groups with the same name (but "
 "see C<guestfs_lvm_set_filter>)."
 msgstr ""
+"Usar libguestfs de esta manera es complicado. Los discos pueden tener "
+"interacciones inesperadas: por ejemplo, si dos invitados usan el mismo UUID "
+"para un sistema de archivos (porque fueron clonados) o tienen grupos de "
+"volúmenes con el mismo nombre (pero consulte C<guestfs_lvm_set_filter>)."
 
 #. type: textblock
 #: ../docs/guestfs-performance.pod:229
@@ -19707,6 +20035,8 @@ msgid ""
 "If you previously performed inspection on the guest, then it may be safe to "
 "cache and reuse the results from last time."
 msgstr ""
+"Si anteriormente realizó una inspección en el invitado, entonces puede ser "
+"seguro almacenar en caché y reutilizar los resultados de la última vez."
 
 #. type: textblock
 #: ../docs/guestfs-performance.pod:240
@@ -19853,6 +20183,12 @@ msgid ""
 " use Time::HiRes qw(time);\n"
 " \n"
 msgstr ""
+" use strict;\n"
+" use threads;\n"
+" use warnings;\n"
+" use Sys::Guestfs;\n"
+" use Time::HiRes qw(time);\n"
+" \n"
 
 #. type: verbatim
 #: ../docs/guestfs-performance.pod:339
@@ -19980,6 +20316,8 @@ msgid ""
 "Use F</proc/cpuinfo> to ensure that hardware virtualization is available.  "
 "Note that you may need to enable it in your BIOS."
 msgstr ""
+"Emplee F</proc/cpuinfo> para asegurar que la virtualización de hardware esté "
+"disponible. Tenga en cuenta que podría ser necesario habilitarla en la BIOS."
 
 #. type: textblock
 #: ../docs/guestfs-performance.pod:412
@@ -20002,6 +20340,9 @@ msgid ""
 "libguestfs.  It should be safe to set 0666 permissions on F</dev/kvm> and "
 "most distributions now do this."
 msgstr ""
+"Asegúrese que KVM esté habilitado y disponible para el usuario que ejecutará "
+"libguestfs. Debería ser seguro establecer permisos 0666 en F</dev/kvm>, y la "
+"mayoría de las distribuciones ya lo hacen."
 
 #. type: =head2
 #: ../docs/guestfs-performance.pod:423
@@ -20030,7 +20371,7 @@ msgstr ""
 #. type: =head2
 #: ../docs/guestfs-performance.pod:434
 msgid "Use libguestfs E<ge> 1.34 and qemu E<ge> 2.7"
-msgstr ""
+msgstr "Emplee libguestfs E<ge> 1.34 y qemu E<ge> 2.7"
 
 #. type: textblock
 #: ../docs/guestfs-performance.pod:436
@@ -20070,6 +20411,8 @@ msgstr ""
 #: ../docs/guestfs-performance.pod:455
 msgid "Use the L<ts(1)> command (from moreutils) to show detailed timings:"
 msgstr ""
+"Emplee la instrucción L<ts(1)> (desde moreutils) para mostrar "
+"temporizaciones detalladas:"
 
 #. type: verbatim
 #: ../docs/guestfs-performance.pod:458
@@ -20267,6 +20610,9 @@ msgid ""
 "You can attach to the appliance BIOS/kernel using gdb.  If you know what "
 "you're doing, this can be a useful way to diagnose boot regressions."
 msgstr ""
+"Puede adjuntar al instrumento la BIOS/kernel utilizando gdb. Si conoce que "
+"está haciendo, esto puede ser una manera correcta para diagnosticar "
+"regresiones de arranque."
 
 #. type: textblock
 #: ../docs/guestfs-performance.pod:546
@@ -21598,6 +21944,8 @@ msgid ""
 "See also: L<http://rwmj.wordpress.com/2013/04/04/new-in-libguestfs-use-"
 "syslinux-or-extlinux-to-make-bootable-guests/#content>"
 msgstr ""
+"Consulte además: L<http://rwmj.wordpress.com/2013/04/04/"
+"new-in-libguestfs-use-syslinux-or-extlinux-to-make-bootable-guests/#content>"
 
 #. type: =head1
 #: ../docs/guestfs-recipes.pod:567
@@ -50825,7 +51173,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:297 ../lib/guestfs-actions.pod:396
 msgid "See also: L<guestfs(3)/REMOTE STORAGE>."
-msgstr ""
+msgstr "Consulte además: L<guestfs(3)/REMOTE STORAGE>."
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:301 ../lib/guestfs-actions.pod:400
@@ -50889,7 +51237,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:328 ../lib/guestfs-actions.pod:427
 msgid "See also: L<guestfs(3)/ISCSI>."
-msgstr ""
+msgstr "Consulte además: L<guestfs(3)/ISCSI>."
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:330 ../lib/guestfs-actions.pod:429
@@ -50906,7 +51254,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:335 ../lib/guestfs-actions.pod:434
 msgid "See also: L<guestfs(3)/NETWORK BLOCK DEVICE>."
-msgstr ""
+msgstr "Consulte además: L<guestfs(3)/NETWORK BLOCK DEVICE>."
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:337 ../lib/guestfs-actions.pod:436
@@ -50924,7 +51272,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:344 ../lib/guestfs-actions.pod:443
 msgid "See also: L<guestfs(3)/CEPH>."
-msgstr ""
+msgstr "Consulte además: L<guestfs(3)/CEPH>."
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:346 ../lib/guestfs-actions.pod:445
@@ -50963,7 +51311,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:360 ../lib/guestfs-actions.pod:459
 msgid "See also: L<guestfs(3)/SSH>."
-msgstr ""
+msgstr "Consulte además: L<guestfs(3)/SSH>."
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:364 ../lib/guestfs-actions.pod:463
@@ -53908,7 +54256,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1732
 msgid "See also: L</sh-lines>"
-msgstr "Vea también: L</sh-lines>"
+msgstr "Consulte además: L</sh-lines>"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1737
@@ -54581,7 +54929,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:2081 ../lib/guestfs-actions.pod:3644
 msgid "See also: L<guestfs(3)/DISK IMAGE FORMATS>"
-msgstr ""
+msgstr "Consulte además: L<guestfs(3)/DISK IMAGE FORMATS>"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:2083
@@ -55344,7 +55692,7 @@ msgid ""
 "See also: L<file(1)>, L</vfs-type>, L</lstat>, L</is-file>, L</is-blockdev> "
 "(etc), L</is-zero>."
 msgstr ""
-"Vea también: L<file(1)>, L</vfs-type>, L</lstat>, L</is-file>, L</is-"
+"Consulte además: L<file(1)>, L</vfs-type>, L</lstat>, L</is-file>, L</is-"
 "blockdev> (etc), L</is-zero>."
 
 #. type: =head2
@@ -57429,7 +57777,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3432
 msgid "See also: L</getxattrs>, L</lgetxattr>, L<attr(5)>."
-msgstr ""
+msgstr "Consulte además: L</getxattrs>, L</lgetxattr>, L<attr(5)>."
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3434 ../fish/guestfish-actions.pod:3449
@@ -57471,7 +57819,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3447
 msgid "See also: L</lgetxattrs>, L<attr(5)>."
-msgstr ""
+msgstr "Consulte además: L</lgetxattrs>, L<attr(5)>."
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3452
@@ -58152,7 +58500,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3840
 msgid "See also: L</hivex-value-utf8>."
-msgstr ""
+msgstr "Consulte además: L</hivex-value-utf8>."
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3845
@@ -61114,7 +61462,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:5383
 msgid "See also: L</lgetxattrs>, L</getxattr>, L<attr(5)>."
-msgstr ""
+msgstr "Consulte además: L</lgetxattrs>, L</getxattr>, L<attr(5)>."
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:5388
@@ -62859,7 +63207,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:6239 ../lib/guestfs-actions.pod:9970
 msgid "See also: L<mkdtemp(3)>"
-msgstr "Vea también: L<mkdtemp(3)>"
+msgstr "Consulte además: L<mkdtemp(3)>"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:6241
@@ -63640,7 +63988,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:6674
 msgid "See also: L</mkdtemp>."
-msgstr ""
+msgstr "Consulte además: L</mkdtemp>."
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:6678
@@ -64041,7 +64389,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:6853
 msgid "See also: L</mountpoints>"
-msgstr "Vea también: L</mountpoints>"
+msgstr "Consulte además: L</mountpoints>"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:6855
@@ -64066,7 +64414,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:6862
 msgid "See also: L</rename>."
-msgstr ""
+msgstr "Consulte además: L</rename>."
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:6864
@@ -65912,7 +66260,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:7764
 msgid "See also: L</lremovexattr>, L<attr(5)>."
-msgstr "Vea también: L</lremovexattr>, L<attr(5)>."
+msgstr "Consulte además: L</lremovexattr>, L<attr(5)>."
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:7769
@@ -67658,7 +68006,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:8625
 msgid "See also: L</lsetxattr>, L<attr(5)>."
-msgstr "Vea también: L</lsetxattr>, L<attr(5)>."
+msgstr "Consulte además: L</lsetxattr>, L<attr(5)>."
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:8630
@@ -67715,7 +68063,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:8654
 msgid "See also: L</sfdisk-l>, L</sfdisk-N>, L</part-init>"
-msgstr "Vea también: L</sfdisk-l>, L</sfdisk-N>, L</part-init>"
+msgstr "Consulte además: L</sfdisk-l>, L</sfdisk-N>, L</part-init>"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:8657 ../fish/guestfish-actions.pod:8677
@@ -67750,7 +68098,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:8674
 msgid "See also: L</sfdisk>, the L<sfdisk(8)> manpage and L</part-disk>"
-msgstr ""
+msgstr "Consulte además: L</sfdisk>, el L<sfdisk(8)> manpage y L</part-disk>"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:8684
@@ -67782,7 +68130,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:8694
 msgid "See also: L</part-add>"
-msgstr "Vea también: L</part-add>"
+msgstr "Consulte además: L</part-add>"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:8703
@@ -67853,7 +68201,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:8732
 msgid "See also: L</part-list>"
-msgstr "Vea también: L</part-list>"
+msgstr "Consulte además: L</part-list>"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:8734
@@ -67928,7 +68276,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:8765
 msgid "See also: L</command-lines>"
-msgstr "Vea también: L</command-lines>"
+msgstr "Consulte además: L</command-lines>"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:8767
@@ -69345,7 +69693,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:9491 ../lib/guestfs-actions.pod:15315
 msgid "See also: L<guestfs(3)/LIBGUESTFS VERSION NUMBERS>."
-msgstr ""
+msgstr "Consulte además: L<guestfs(3)/LIBGUESTFS VERSION NUMBERS>."
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:9493
@@ -70332,7 +70680,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:9957
 msgid "See also: L</zero-device>, L</scrub-device>, L</is-zero-device>"
-msgstr "Vea también: L</zero-device>, L</scrub-device>, L</is-zero-device>"
+msgstr "Consulte además: L</zero-device>, L</scrub-device>, L</is-zero-device>"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:9960
@@ -81368,7 +81716,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:2804
 msgid "See also: C<guestfs_sh_lines>"
-msgstr "Vea también: C<guestfs_sh_lines>"
+msgstr "Consulte además: C<guestfs_sh_lines>"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:2815
@@ -83237,7 +83585,7 @@ msgid ""
 "See also: L<file(1)>, C<guestfs_vfs_type>, C<guestfs_lstat>, "
 "C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>."
 msgstr ""
-"Vea también: L<file(1)>, C<guestfs_vfs_type>, C<guestfs_lstat>, "
+"Consulte además: L<file(1)>, C<guestfs_vfs_type>, C<guestfs_lstat>, "
 "C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>."
 
 #. type: =head2
@@ -84488,7 +84836,8 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:5617
 msgid "See also: C<guestfs_getxattrs>, C<guestfs_lgetxattr>, L<attr(5)>."
-msgstr "Vea también: C<guestfs_getxattrs>, C<guestfs_lgetxattr>, L<attr(5)>."
+msgstr ""
+"Consulte además: C<guestfs_getxattrs>, C<guestfs_lgetxattr>, L<attr(5)>."
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:5619 ../lib/guestfs-actions.pod:6331
@@ -84536,7 +84885,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:5640
 msgid "See also: C<guestfs_lgetxattrs>, L<attr(5)>."
-msgstr "Vea también: C<guestfs_lgetxattrs>, L<attr(5)>."
+msgstr "Consulte además: C<guestfs_lgetxattrs>, L<attr(5)>."
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:5642 ../lib/guestfs-actions.pod:8256
@@ -85247,7 +85596,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:6329
 msgid "See also: C<guestfs_hivex_value_utf8>."
-msgstr ""
+msgstr "Consulte además: C<guestfs_hivex_value_utf8>."
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:6340
@@ -87381,7 +87730,8 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:8666
 msgid "See also: C<guestfs_lgetxattrs>, C<guestfs_getxattr>, L<attr(5)>."
-msgstr "Vea también: C<guestfs_lgetxattrs>, C<guestfs_getxattr>, L<attr(5)>."
+msgstr ""
+"Consulte además: C<guestfs_lgetxattrs>, C<guestfs_getxattr>, L<attr(5)>."
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:8677
@@ -89657,7 +90007,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:10791
 msgid "See also: C<guestfs_mkdtemp>."
-msgstr ""
+msgstr "Consulte además: C<guestfs_mkdtemp>."
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:10796 ../lib/guestfs-actions.pod:11498
@@ -90133,7 +90483,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:11142
 msgid "See also: C<guestfs_mountpoints>"
-msgstr "Vea también: C<guestfs_mountpoints>"
+msgstr "Consulte además: C<guestfs_mountpoints>"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11150
@@ -90154,7 +90504,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:11160
 msgid "See also: C<guestfs_rename>."
-msgstr ""
+msgstr "Consulte además: C<guestfs_rename>."
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:11166
@@ -91692,7 +92042,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:12617
 msgid "See also: C<guestfs_lremovexattr>, L<attr(5)>."
-msgstr ""
+msgstr "Consulte además: C<guestfs_lremovexattr>, L<attr(5)>."
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:12626
@@ -93002,7 +93352,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:13903
 msgid "See also: C<guestfs_lsetxattr>, L<attr(5)>."
-msgstr ""
+msgstr "Consulte además: C<guestfs_lsetxattr>, L<attr(5)>."
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:13912
@@ -93036,6 +93386,8 @@ msgstr ""
 msgid ""
 "See also: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>, C<guestfs_part_init>"
 msgstr ""
+"Consulte además: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>, "
+"C<guestfs_part_init>"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:13956
@@ -93068,6 +93420,8 @@ msgid ""
 "See also: C<guestfs_sfdisk>, the L<sfdisk(8)> manpage and "
 "C<guestfs_part_disk>"
 msgstr ""
+"Consulte además: C<guestfs_sfdisk>, el manpage L<sfdisk(8)> y "
+"C<guestfs_part_disk>"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:13983
@@ -93099,7 +93453,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:14007
 msgid "See also: C<guestfs_part_add>"
-msgstr ""
+msgstr "Consulte además: C<guestfs_part_add>"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:14013
@@ -93165,7 +93519,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:14065
 msgid "See also: C<guestfs_part_list>"
-msgstr ""
+msgstr "Consulte además: C<guestfs_part_list>"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:14072
@@ -93217,7 +93571,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs-actions.pod:14105
 msgid "See also: C<guestfs_command_lines>"
-msgstr ""
+msgstr "Consulte además: C<guestfs_command_lines>"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:14113
@@ -95381,7 +95735,7 @@ msgid ""
 "See also: C<guestfs_zero_device>, C<guestfs_scrub_device>, "
 "C<guestfs_is_zero_device>"
 msgstr ""
-"Vea también: C<guestfs_zero_device>, C<guestfs_scrub_device>, "
+"Consulte además: C<guestfs_zero_device>, C<guestfs_scrub_device>, "
 "C<guestfs_is_zero_device>"
 
 #. type: =head2
@@ -98473,8 +98827,8 @@ msgid ""
 "Use L</guestfs_copy_file_to_device>, L</guestfs_copy_device_to_file>, or L</"
 "guestfs_copy_device_to_device>."
 msgstr ""
-"Use L</guestfs_copy_file_to_device>,  </guestfs_copy_device_to_file> o </"
-"guestfs_copy_device_to_device>."
+"Use L</guestfs_copy_file_to_device>, L</guestfs_copy_device_to_file> o "
+"</guestfs_copy_device_to_device>."
 
 #. type: textblock
 #: ../lib/guestfs.pod:364
@@ -110804,6 +111158,9 @@ msgid ""
 "L<audit2allow(1)>.  For more information, see the \"Security Enhanced Linux "
 "User Guide\"."
 msgstr ""
+"Puede convertir los AVC en reglas de directiva sugeridas de SELinux mediante "
+"herramientas como L<audit2allow(1)>. Para más información, consulte la "
+"\"Guía del usuario de Linux con seguridad mejorada\"."
 
 #. type: textblock
 #: ../test-tool/libguestfs-test-tool.pod:159
@@ -110817,11 +111174,13 @@ msgid ""
 " setenforce Enforcing\n"
 "\n"
 msgstr ""
+" setenforce Reforzado\n"
+"\n"
 
 #. type: =head1
 #: ../test-tool/libguestfs-test-tool.pod:163
 msgid "SELF-DIAGNOSIS"
-msgstr ""
+msgstr "AUTO-DIAGNOSIS"
 
 #. type: textblock
 #: ../test-tool/libguestfs-test-tool.pod:165
@@ -110829,6 +111188,8 @@ msgid ""
 "Refer to L<guestfs(3)/APPLIANCE BOOT PROCESS> to understand the messages "
 "produced by libguestfs-test-tool and/or possible errors."
 msgstr ""
+"Consulte L<guestfs(3)/APPLIANCE BOOT PROCESS> para comprender los mensajes "
+"producidos por libguestfs-test-tool y/o posibles errores."
 
 #. type: textblock
 #: ../test-tool/libguestfs-test-tool.pod:170
@@ -110836,11 +111197,13 @@ msgid ""
 "libguestfs-test-tool returns I<0> if the tests completed without error, or "
 "I<1> if there was an error."
 msgstr ""
+"libguestfs-test-tool devuelve I<0> si las pruebas completadas sin error, o "
+"I<1> si hubo un error."
 
 #. type: textblock
 #: ../test-tool/libguestfs-test-tool.pod:180
 msgid "L<guestfs(3)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
-msgstr ""
+msgstr "L<guestfs(3)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
 
 #. type: textblock
 #: ../tools/virt-list-filesystems:29
