@@ -159,7 +159,7 @@ complete_dest_paths_generator (const char *text, int state)
        * in that directory, otherwise list everything in /
        */
       CLEANUP_FREE char *dir = NULL;
-      char *p;
+      const char *p;
       struct guestfs_dirent_list *dirents;
 
       p = strrchr (text, '/');
@@ -175,13 +175,14 @@ complete_dest_paths_generator (const char *text, int state)
 
           for (i = 0; i < dirents->len; ++i) {
             int err;
+            char *v;
 
             if (STRNEQ (dirents->val[i].name, ".") &&
                 STRNEQ (dirents->val[i].name, "..")) {
               if (STREQ (dir, "/"))
-                err = asprintf (&p, "/%s", dirents->val[i].name);
+                err = asprintf (&v, "/%s", dirents->val[i].name);
               else
-                err = asprintf (&p, "%s/%s", dir, dirents->val[i].name);
+                err = asprintf (&v, "%s/%s", dir, dirents->val[i].name);
               if (err >= 0) {
                 if (!xalloc_oversized (nr_words+1, sizeof (struct word))) {
                   struct word *w;
@@ -194,7 +195,7 @@ complete_dest_paths_generator (const char *text, int state)
                   }
                   else {
                     words = w;
-                    words[nr_words].name = p;
+                    words[nr_words].name = v;
                     if (dirents->val[i].ftyp == 'u'
                         || dirents->val[i].ftyp == 'l'
                         || dirents->val[i].ftyp == '?') {
