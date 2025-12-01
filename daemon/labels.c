@@ -25,7 +25,6 @@
 
 #include "daemon.h"
 #include "actions.h"
-#include "optgroups.h"
 
 static int
 dosfslabel (const char *device, const char *label)

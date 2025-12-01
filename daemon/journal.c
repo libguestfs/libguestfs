@@ -18,10 +18,6 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <inttypes.h>
-#include <string.h>
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
 #endif
@@ -31,7 +27,6 @@
 
 #include "guestfs_protocol.h"
 #include "daemon.h"
-#include "actions.h"
 #include "optgroups.h"
 
 #ifdef HAVE_SD_JOURNAL

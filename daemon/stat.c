@@ -28,7 +28,6 @@
 
 #include "guestfs_protocol.h"
 #include "daemon.h"
-#include "actions.h"
 
 static guestfs_int_statns *
 stat_to_statns (guestfs_int_statns *ret, const struct stat *statbuf)

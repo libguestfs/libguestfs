@@ -40,7 +40,6 @@
 #include <netinet/in.h>
 #include <sys/ioctl.h>
 #include <linux/fs.h>
-#include <errno.h>
 #include <error.h>
 #include <assert.h>
 

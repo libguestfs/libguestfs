@@ -18,13 +18,9 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
 #include <inttypes.h>
-#include <string.h>
 #include <unistd.h>
-#include <errno.h>
 
 #include <caml/alloc.h>
 #include <caml/fail.h>
@@ -38,7 +34,6 @@
 #include <rpm/rpmdb.h>
 #endif
 
-#include "daemon.h"
 #include "actions.h"
 
 /* Very lightweight OCaml bindings for librpm. */

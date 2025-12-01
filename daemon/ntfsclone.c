@@ -28,7 +28,6 @@
 
 #include "daemon.h"
 #include "actions.h"
-#include "optgroups.h"
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wanalyzer-null-argument"

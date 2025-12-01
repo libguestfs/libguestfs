@@ -18,13 +18,11 @@
 
 #include <config.h>
 
-#include <stdio.h>
 #include <limits.h>
 #include <unistd.h>
 
 #include "guestfs_protocol.h"
 #include "daemon.h"
-#include "actions.h"
 #include "optgroups.h"
 
 #if defined(HAVE_ACL)
