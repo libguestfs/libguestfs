@@ -734,8 +734,8 @@ regressions_test_big_heap_LDADD = \
 SLOW_TESTS += regressions/rhbz909624.sh
 EXTRA_DIST += regressions/rhbz909624.sh
 
-TESTS += relabel/test-relabel.pl
-EXTRA_DIST += relabel/test-relabel.pl
+TESTS += relabel/test-relabel.py
+EXTRA_DIST += relabel/test-relabel.py
 
 # Test relative paths to backing files.  Mainly this is a test that we
 # don't break this.
