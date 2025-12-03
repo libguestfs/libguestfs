@@ -334,8 +334,8 @@ EXTRA_DIST += \
 	discard/test-discard.pl \
 	discard/test-fstrim.pl
 
-TESTS += disk-labels/test-disk-labels.pl
-EXTRA_DIST += disk-labels/test-disk-labels.pl
+TESTS += disk-labels/test-disk-labels.py
+EXTRA_DIST += disk-labels/test-disk-labels.py
 
 TESTS += disks/test-qemu-drive.sh
 EXTRA_DIST += disks/test-qemu-drive.sh
