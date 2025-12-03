@@ -521,8 +521,8 @@ mount_local_test_parallel_mount_local_LDADD = \
 
 endif
 
-TESTS += nbd/test-nbd.pl
-EXTRA_DIST += nbd/test-nbd.pl
+TESTS += nbd/test-nbd.py
+EXTRA_DIST += nbd/test-nbd.py
 
 TESTS += network/test-network.sh
 EXTRA_DIST += network/test-network.sh
