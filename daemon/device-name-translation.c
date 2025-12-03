@@ -248,11 +248,16 @@ device_name_translation (const char *device)
   return NULL;
 }
 
+static char *reverse_btrfsvol (const char *device);
+
 char *
 reverse_device_name_translation (const char *device)
 {
   char *ret = NULL;
   size_t i;
+
+  if (STRPREFIX (device, "btrfsvol:"))
+    return reverse_btrfsvol (device);
 
   /* Look it up in the cache, and if found return the canonical name.
    * If not found return a copy of the original string.
@@ -284,6 +289,37 @@ reverse_device_name_translation (const char *device)
   /* If the device name is different, print the translation. */
   if (STRNEQ (device, ret))
     fprintf (stderr, "reverse device name translated: %s -> %s\n", device, ret);
+
+  return ret;
+}
+
+/* btrfsvol:/dev/sdX also needs reversing. */
+static char *
+reverse_btrfsvol (const char *device)
+{
+  const char prefix[] = "btrfsvol:";
+  const char *device_start, *device_end;
+  CLEANUP_FREE char *device_name = NULL;
+  CLEANUP_FREE char *reversed_device = NULL;
+  char *ret;
+
+  device_start = device + strlen (prefix);
+  device_end = strchr (device_start + strlen ("/dev/"), '/');
+  device_name = strndup (device_start, device_end - device_start);
+  if (device_name == NULL) {
+    reply_with_perror ("strndup");
+    return NULL;
+  }
+
+  reversed_device = reverse_device_name_translation (device_name);
+  if (reversed_device == NULL)
+    return NULL;
+
+  /* Construct the final btrfsvol: and return it, caller frees. */
+  if (asprintf (&ret, "%s%s%s", prefix, reversed_device, device_end) == -1) {
+    reply_with_perror ("asprintf");
+    return NULL;
+  }
 
   return ret;
 }
