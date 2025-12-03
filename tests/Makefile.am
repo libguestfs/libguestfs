@@ -445,10 +445,10 @@ EXTRA_DIST += \
 
 TESTS += \
 	lvm/test-lvm-filtering.sh \
-	lvm/test-lvm-mapping.pl
+	lvm/test-lvm-mapping.py
 EXTRA_DIST += \
 	lvm/test-lvm-filtering.sh \
-	lvm/test-lvm-mapping.pl
+	lvm/test-lvm-mapping.py
 
 TESTS += \
 	md/test-inspect-fstab.sh \
