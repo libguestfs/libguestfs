@@ -43,8 +43,8 @@ check-slow:
 check-valgrind:
 	$(MAKE) VG="@VG@" check
 
-SLOW_TESTS += bigdirs/test-big-dirs.pl
-EXTRA_DIST += bigdirs/test-big-dirs.pl
+SLOW_TESTS += bigdirs/test-big-dirs.py
+EXTRA_DIST += bigdirs/test-big-dirs.py
 
 TESTS += \
 	btrfs/test-btrfs-misc.py \
