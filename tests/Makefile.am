@@ -385,11 +385,11 @@ disks_test_add_disks_LDADD = \
 EXTRA_DIST += disks/debug-qemu.sh
 
 EXTRA_DIST += \
-	events/test-console-debug.pl \
+	events/test-console-debug.py \
 	events/libvirt-auth.xml
 
-TESTS += events/test-console-debug.pl
-EXTRA_DIST += events/test-console-debug.pl
+TESTS += events/test-console-debug.py
+EXTRA_DIST += events/test-console-debug.py
 
 if HAVE_LIBVIRT
 TESTS += events/test-libvirt-auth-callbacks
