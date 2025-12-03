@@ -327,12 +327,12 @@ EXTRA_DIST += create/test-disk-create.sh
 
 TESTS += \
 	discard/test-blkdiscard.py \
-	discard/test-discard.pl \
-	discard/test-fstrim.pl
+	discard/test-discard.py \
+	discard/test-fstrim.py
 EXTRA_DIST += \
 	discard/test-blkdiscard.py \
-	discard/test-discard.pl \
-	discard/test-fstrim.pl
+	discard/test-discard.py \
+	discard/test-fstrim.py
 
 TESTS += disk-labels/test-disk-labels.pl
 EXTRA_DIST += disk-labels/test-disk-labels.pl
