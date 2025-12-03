@@ -326,11 +326,11 @@ TESTS += create/test-disk-create.sh
 EXTRA_DIST += create/test-disk-create.sh
 
 TESTS += \
-	discard/test-blkdiscard.pl \
+	discard/test-blkdiscard.py \
 	discard/test-discard.pl \
 	discard/test-fstrim.pl
 EXTRA_DIST += \
-	discard/test-blkdiscard.pl \
+	discard/test-blkdiscard.py \
 	discard/test-discard.pl \
 	discard/test-fstrim.pl
 
