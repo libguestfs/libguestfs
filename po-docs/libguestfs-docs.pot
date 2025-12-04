@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.57.6\n"
+"Project-Id-Version: libguestfs 1.57.7\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2025-11-04 16:19+0000\n"
+"POT-Creation-Date: 2025-12-04 13:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,19 +34,19 @@ msgstr ""
 #: docs/guestfs-release-notes-1.44.pod:1 docs/guestfs-release-notes-1.46.pod:1
 #: docs/guestfs-release-notes-1.48.pod:1 docs/guestfs-release-notes-1.50.pod:1
 #: docs/guestfs-release-notes-1.52.pod:1 docs/guestfs-release-notes-1.54.pod:1
-#: docs/guestfs-release-notes-1.56.pod:1 docs/guestfs-release-notes-1.6.pod:1
-#: docs/guestfs-release-notes-1.8.pod:1 docs/guestfs-release-notes.pod:1
-#: docs/guestfs-security.pod:1 docs/guestfs-testing.pod:1
-#: erlang/examples/guestfs-erlang.pod:1 examples/guestfs-examples.pod:1
-#: fish/guestfish.pod:1 fish/libguestfs-tools.conf.pod:1
-#: fish/virt-copy-in.pod:1 fish/virt-copy-out.pod:1 fish/virt-tar-in.pod:1
-#: fish/virt-tar-out.pod:1 fuse/guestmount.pod:1 fuse/guestunmount.pod:1
-#: gobject/guestfs-gobject.pod:1 golang/examples/guestfs-golang.pod:1
-#: java/examples/guestfs-java.pod:1 lib/guestfs.pod:1
-#: lua/examples/guestfs-lua.pod:1 ocaml/examples/guestfs-ocaml.pod:1
-#: perl/examples/guestfs-perl.pod:1 python/examples/guestfs-python.pod:1
-#: rescue/virt-rescue.pod:1 ruby/examples/guestfs-ruby.pod:1
-#: test-tool/libguestfs-test-tool.pod:1
+#: docs/guestfs-release-notes-1.56.pod:1 docs/guestfs-release-notes-1.58.pod:1
+#: docs/guestfs-release-notes-1.6.pod:1 docs/guestfs-release-notes-1.8.pod:1
+#: docs/guestfs-release-notes.pod:1 docs/guestfs-security.pod:1
+#: docs/guestfs-testing.pod:1 erlang/examples/guestfs-erlang.pod:1
+#: examples/guestfs-examples.pod:1 fish/guestfish.pod:1
+#: fish/libguestfs-tools.conf.pod:1 fish/virt-copy-in.pod:1
+#: fish/virt-copy-out.pod:1 fish/virt-tar-in.pod:1 fish/virt-tar-out.pod:1
+#: fuse/guestmount.pod:1 fuse/guestunmount.pod:1 gobject/guestfs-gobject.pod:1
+#: golang/examples/guestfs-golang.pod:1 java/examples/guestfs-java.pod:1
+#: lib/guestfs.pod:1 lua/examples/guestfs-lua.pod:1
+#: ocaml/examples/guestfs-ocaml.pod:1 perl/examples/guestfs-perl.pod:1
+#: python/examples/guestfs-python.pod:1 rescue/virt-rescue.pod:1
+#: ruby/examples/guestfs-ruby.pod:1 test-tool/libguestfs-test-tool.pod:1
 msgid "NAME"
 msgstr ""
 
@@ -204,7 +204,12 @@ msgstr ""
 #: docs/guestfs-release-notes-1.44.pod:128
 #: docs/guestfs-release-notes-1.44.pod:132
 #: docs/guestfs-release-notes-1.44.pod:136
-#: docs/guestfs-release-notes-1.44.pod:140 docs/guestfs-release-notes.pod:9
+#: docs/guestfs-release-notes-1.44.pod:140
+#: docs/guestfs-release-notes-1.58.pod:99
+#: docs/guestfs-release-notes-1.58.pod:103
+#: docs/guestfs-release-notes-1.58.pod:111
+#: docs/guestfs-release-notes-1.58.pod:117
+#: docs/guestfs-release-notes-1.58.pod:122 docs/guestfs-release-notes.pod:9
 #: docs/guestfs-release-notes.pod:13 docs/guestfs-release-notes.pod:17
 #: docs/guestfs-release-notes.pod:21 docs/guestfs-release-notes.pod:25
 #: docs/guestfs-release-notes.pod:29 docs/guestfs-release-notes.pod:33
@@ -218,45 +223,45 @@ msgstr ""
 #: docs/guestfs-release-notes.pod:93 docs/guestfs-release-notes.pod:97
 #: docs/guestfs-release-notes.pod:101 docs/guestfs-release-notes.pod:105
 #: docs/guestfs-release-notes.pod:109 docs/guestfs-release-notes.pod:113
-#: docs/guestfs-security.pod:81 docs/guestfs-security.pod:85
-#: docs/guestfs-security.pod:89 docs/guestfs-security.pod:93
-#: docs/guestfs-security.pod:97 docs/guestfs-security.pod:101
-#: docs/guestfs-security.pod:311 docs/guestfs-security.pod:316
-#: docs/guestfs-testing.pod:62 docs/guestfs-testing.pod:69
-#: docs/guestfs-testing.pod:80 docs/guestfs-testing.pod:86
-#: docs/guestfs-testing.pod:194 docs/guestfs-testing.pod:198
-#: docs/guestfs-testing.pod:202 docs/internal-documentation.pod:46
-#: docs/internal-documentation.pod:51 docs/internal-documentation.pod:1426
-#: docs/internal-documentation.pod:1430 docs/internal-documentation.pod:1659
-#: docs/internal-documentation.pod:1663 docs/internal-documentation.pod:2512
-#: docs/internal-documentation.pod:2520 docs/internal-documentation.pod:2526
-#: docs/internal-documentation.pod:2533 docs/internal-documentation.pod:2791
-#: docs/internal-documentation.pod:2798 docs/internal-documentation.pod:2802
-#: docs/internal-documentation.pod:2831 docs/internal-documentation.pod:2838
-#: docs/internal-documentation.pod:2842 docs/internal-documentation.pod:2873
-#: docs/internal-documentation.pod:2878 docs/internal-documentation.pod:2885
-#: docs/internal-documentation.pod:3065 docs/internal-documentation.pod:3070
-#: docs/internal-documentation.pod:3186 docs/internal-documentation.pod:3190
-#: docs/internal-documentation.pod:3423 docs/internal-documentation.pod:3427
-#: docs/internal-documentation.pod:3431 docs/internal-documentation.pod:3436
-#: docs/internal-documentation.pod:4067 docs/internal-documentation.pod:4072
-#: fish/guestfish-actions.pod:760 fish/guestfish-actions.pod:766
-#: fish/guestfish-actions.pod:774 fish/guestfish-actions.pod:781
-#: fish/guestfish-actions.pod:788 fish/guestfish-actions.pod:2688
-#: fish/guestfish-actions.pod:2692 fish/guestfish-actions.pod:2696
-#: fish/guestfish-actions.pod:2700 fish/guestfish-actions.pod:2708
-#: fish/guestfish-actions.pod:2712 fish/guestfish-actions.pod:2716
-#: fish/guestfish-actions.pod:2726 fish/guestfish-actions.pod:2730
-#: fish/guestfish-actions.pod:2734 fish/guestfish-actions.pod:2996
-#: fish/guestfish-actions.pod:3000 fish/guestfish-actions.pod:3005
-#: fish/guestfish-actions.pod:3079 fish/guestfish-actions.pod:3083
-#: fish/guestfish-actions.pod:3088 fish/guestfish-actions.pod:3716
-#: fish/guestfish-actions.pod:3723 fish/guestfish-actions.pod:3730
-#: fish/guestfish-actions.pod:4499 fish/guestfish-actions.pod:4505
-#: fish/guestfish-actions.pod:4513 fish/guestfish-actions.pod:4520
-#: fish/guestfish-actions.pod:4527 fish/guestfish.pod:472
-#: fish/guestfish.pod:476 fish/guestfish.pod:480 fish/guestfish.pod:484
-#: fish/guestfish.pod:1320 fish/guestfish.pod:1326
+#: docs/guestfs-release-notes.pod:117 docs/guestfs-security.pod:81
+#: docs/guestfs-security.pod:85 docs/guestfs-security.pod:89
+#: docs/guestfs-security.pod:93 docs/guestfs-security.pod:97
+#: docs/guestfs-security.pod:101 docs/guestfs-security.pod:311
+#: docs/guestfs-security.pod:316 docs/guestfs-testing.pod:62
+#: docs/guestfs-testing.pod:69 docs/guestfs-testing.pod:80
+#: docs/guestfs-testing.pod:86 docs/guestfs-testing.pod:194
+#: docs/guestfs-testing.pod:198 docs/guestfs-testing.pod:202
+#: docs/internal-documentation.pod:46 docs/internal-documentation.pod:51
+#: docs/internal-documentation.pod:1426 docs/internal-documentation.pod:1430
+#: docs/internal-documentation.pod:1659 docs/internal-documentation.pod:1663
+#: docs/internal-documentation.pod:2512 docs/internal-documentation.pod:2520
+#: docs/internal-documentation.pod:2526 docs/internal-documentation.pod:2533
+#: docs/internal-documentation.pod:2791 docs/internal-documentation.pod:2798
+#: docs/internal-documentation.pod:2802 docs/internal-documentation.pod:2831
+#: docs/internal-documentation.pod:2838 docs/internal-documentation.pod:2842
+#: docs/internal-documentation.pod:2873 docs/internal-documentation.pod:2878
+#: docs/internal-documentation.pod:2885 docs/internal-documentation.pod:3065
+#: docs/internal-documentation.pod:3070 docs/internal-documentation.pod:3186
+#: docs/internal-documentation.pod:3190 docs/internal-documentation.pod:3423
+#: docs/internal-documentation.pod:3427 docs/internal-documentation.pod:3431
+#: docs/internal-documentation.pod:3436 docs/internal-documentation.pod:4067
+#: docs/internal-documentation.pod:4072 fish/guestfish-actions.pod:760
+#: fish/guestfish-actions.pod:766 fish/guestfish-actions.pod:774
+#: fish/guestfish-actions.pod:781 fish/guestfish-actions.pod:788
+#: fish/guestfish-actions.pod:2688 fish/guestfish-actions.pod:2692
+#: fish/guestfish-actions.pod:2696 fish/guestfish-actions.pod:2700
+#: fish/guestfish-actions.pod:2708 fish/guestfish-actions.pod:2712
+#: fish/guestfish-actions.pod:2716 fish/guestfish-actions.pod:2726
+#: fish/guestfish-actions.pod:2730 fish/guestfish-actions.pod:2734
+#: fish/guestfish-actions.pod:2996 fish/guestfish-actions.pod:3000
+#: fish/guestfish-actions.pod:3005 fish/guestfish-actions.pod:3079
+#: fish/guestfish-actions.pod:3083 fish/guestfish-actions.pod:3088
+#: fish/guestfish-actions.pod:3716 fish/guestfish-actions.pod:3723
+#: fish/guestfish-actions.pod:3730 fish/guestfish-actions.pod:4499
+#: fish/guestfish-actions.pod:4505 fish/guestfish-actions.pod:4513
+#: fish/guestfish-actions.pod:4520 fish/guestfish-actions.pod:4527
+#: fish/guestfish.pod:472 fish/guestfish.pod:476 fish/guestfish.pod:480
+#: fish/guestfish.pod:484 fish/guestfish.pod:1320 fish/guestfish.pod:1326
 #: fish/libguestfs-tools.conf.pod:22 fish/libguestfs-tools.conf.pod:26
 #: fish/libguestfs-tools.conf.pod:30 fish/libguestfs-tools.conf.pod:60
 #: fish/libguestfs-tools.conf.pod:65 fish/libguestfs-tools.conf.pod:69
@@ -569,8 +574,9 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:121
 #: docs/guestfs-release-notes-1.54.pod:128
 #: docs/guestfs-release-notes-1.56.pod:196
+#: docs/guestfs-release-notes-1.58.pod:220
 #: docs/guestfs-release-notes-1.6.pod:170
-#: docs/guestfs-release-notes-1.8.pod:145 docs/guestfs-release-notes.pod:149
+#: docs/guestfs-release-notes-1.8.pod:145 docs/guestfs-release-notes.pod:153
 #: docs/guestfs-security.pod:437 docs/guestfs-testing.pod:395
 #: erlang/examples/guestfs-erlang.pod:95 examples/guestfs-examples.pod:55
 #: fish/guestfish.pod:1599 fish/libguestfs-tools.conf.pod:88
@@ -604,7 +610,8 @@ msgstr ""
 #: docs/guestfs-release-notes-1.50.pod:193
 #: docs/guestfs-release-notes-1.52.pod:132
 #: docs/guestfs-release-notes-1.54.pod:139
-#: docs/guestfs-release-notes-1.56.pod:207 docs/guestfs-security.pod:445
+#: docs/guestfs-release-notes-1.56.pod:207
+#: docs/guestfs-release-notes-1.58.pod:231 docs/guestfs-security.pod:445
 #: docs/guestfs-testing.pod:402 erlang/examples/guestfs-erlang.pod:110
 #: examples/guestfs-examples.pod:69 fish/guestfish.pod:1636
 #: fish/libguestfs-tools.conf.pod:96 fish/virt-copy-in.pod:52
@@ -666,8 +673,9 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:172
 #: docs/guestfs-release-notes-1.54.pod:177
 #: docs/guestfs-release-notes-1.56.pod:241
+#: docs/guestfs-release-notes-1.58.pod:255
 #: docs/guestfs-release-notes-1.6.pod:185
-#: docs/guestfs-release-notes-1.8.pod:160 docs/guestfs-release-notes.pod:164
+#: docs/guestfs-release-notes-1.8.pod:160 docs/guestfs-release-notes.pod:168
 #: docs/guestfs-security.pod:449 docs/guestfs-testing.pod:406
 #: erlang/examples/guestfs-erlang.pod:114 examples/guestfs-examples.pod:73
 #: fish/guestfish.pod:1640 fish/libguestfs-tools.conf.pod:100
@@ -711,8 +719,9 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:174
 #: docs/guestfs-release-notes-1.54.pod:179
 #: docs/guestfs-release-notes-1.56.pod:243
+#: docs/guestfs-release-notes-1.58.pod:257
 #: docs/guestfs-release-notes-1.6.pod:187
-#: docs/guestfs-release-notes-1.8.pod:162 docs/guestfs-release-notes.pod:166
+#: docs/guestfs-release-notes-1.8.pod:162 docs/guestfs-release-notes.pod:170
 #: docs/guestfs-security.pod:451 fish/guestfish.pod:1642
 #: fuse/guestmount.pod:442 lib/guestfs.pod:3274 rescue/virt-rescue.pod:512
 #: test-tool/libguestfs-test-tool.pod:190
@@ -779,7 +788,13 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:120
 #: docs/guestfs-release-notes-1.56.pod:124
 #: docs/guestfs-release-notes-1.56.pod:209
-#: docs/guestfs-release-notes-1.56.pod:213 fish/guestfish-actions.pod:1
+#: docs/guestfs-release-notes-1.56.pod:213
+#: docs/guestfs-release-notes-1.58.pod:43
+#: docs/guestfs-release-notes-1.58.pod:47
+#: docs/guestfs-release-notes-1.58.pod:153
+#: docs/guestfs-release-notes-1.58.pod:157
+#: docs/guestfs-release-notes-1.58.pod:233
+#: docs/guestfs-release-notes-1.58.pod:237 fish/guestfish-actions.pod:1
 #: fish/guestfish-actions.pod:25 fish/guestfish-commands.pod:1
 #: fish/guestfish-commands.pod:25 fish/guestfish-prepopts.pod:1
 #: fish/guestfish-prepopts.pod:25 lib/guestfs-actions.pod:1
@@ -2301,7 +2316,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.4.pod:210
 #: docs/guestfs-release-notes-1.40.pod:400
 #: docs/guestfs-release-notes-1.6.pod:181
-#: docs/guestfs-release-notes-1.8.pod:156 docs/guestfs-release-notes.pod:160
+#: docs/guestfs-release-notes-1.8.pod:156 docs/guestfs-release-notes.pod:164
 #: rescue/virt-rescue.pod:506
 msgid "AUTHOR"
 msgstr ""
@@ -2677,7 +2692,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-building.pod:193
-msgid "libvirt E<ge> 9.0.0"
+msgid "libvirt E<ge> 11.10.0"
 msgstr ""
 
 #. type: textblock
@@ -4934,8 +4949,8 @@ msgstr ""
 #: docs/guestfs-faq.pod:493 docs/guestfs-faq.pod:720 docs/guestfs-faq.pod:926
 #: docs/guestfs-hacking.pod:383 docs/guestfs-performance.pod:165
 #: docs/guestfs-performance.pod:207 docs/guestfs-recipes.pod:457
-#: docs/guestfs-security.pod:177 docs/internal-documentation.pod:194
-#: docs/internal-documentation.pod:305 docs/internal-documentation.pod:1357
+#: docs/guestfs-security.pod:177 docs/internal-documentation.pod:195
+#: docs/internal-documentation.pod:306 docs/internal-documentation.pod:1357
 #: docs/internal-documentation.pod:1483 lib/guestfs.pod:1580
 #: lib/guestfs.pod:1920 rescue/virt-rescue.pod:410
 msgid "1."
@@ -4952,8 +4967,8 @@ msgstr ""
 #: docs/guestfs-faq.pod:498 docs/guestfs-faq.pod:730 docs/guestfs-faq.pod:930
 #: docs/guestfs-hacking.pod:409 docs/guestfs-performance.pod:171
 #: docs/guestfs-performance.pod:214 docs/guestfs-recipes.pod:463
-#: docs/guestfs-security.pod:181 docs/internal-documentation.pod:199
-#: docs/internal-documentation.pod:312 docs/internal-documentation.pod:1362
+#: docs/guestfs-security.pod:181 docs/internal-documentation.pod:200
+#: docs/internal-documentation.pod:313 docs/internal-documentation.pod:1362
 #: docs/internal-documentation.pod:1489 lib/guestfs.pod:1584
 #: lib/guestfs.pod:1924 rescue/virt-rescue.pod:418
 msgid "2."
@@ -4969,8 +4984,8 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-faq.pod:504 docs/guestfs-faq.pod:735 docs/guestfs-faq.pod:934
 #: docs/guestfs-hacking.pod:421 docs/guestfs-performance.pod:220
-#: docs/guestfs-recipes.pod:469 docs/internal-documentation.pod:204
-#: docs/internal-documentation.pod:322 docs/internal-documentation.pod:1367
+#: docs/guestfs-recipes.pod:469 docs/internal-documentation.pod:205
+#: docs/internal-documentation.pod:323 docs/internal-documentation.pod:1367
 #: docs/internal-documentation.pod:1497 lib/guestfs.pod:1588
 #: lib/guestfs.pod:1930 rescue/virt-rescue.pod:427
 msgid "3."
@@ -5818,8 +5833,8 @@ msgid "What was the precise error or output of these commands?"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-faq.pod:938 docs/internal-documentation.pod:208
-#: docs/internal-documentation.pod:332 docs/internal-documentation.pod:1507
+#: docs/guestfs-faq.pod:938 docs/internal-documentation.pod:209
+#: docs/internal-documentation.pod:333 docs/internal-documentation.pod:1507
 #: rescue/virt-rescue.pod:436
 msgid "4."
 msgstr ""
@@ -5841,7 +5856,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-faq.pod:946 docs/internal-documentation.pod:337
+#: docs/guestfs-faq.pod:946 docs/internal-documentation.pod:338
 #: docs/internal-documentation.pod:1517 rescue/virt-rescue.pod:444
 msgid "5."
 msgstr ""
@@ -12037,8 +12052,9 @@ msgstr ""
 #: docs/guestfs-release-notes-1.44.pod:3 docs/guestfs-release-notes-1.46.pod:3
 #: docs/guestfs-release-notes-1.48.pod:3 docs/guestfs-release-notes-1.50.pod:3
 #: docs/guestfs-release-notes-1.52.pod:3 docs/guestfs-release-notes-1.54.pod:3
-#: docs/guestfs-release-notes-1.56.pod:3 docs/guestfs-release-notes-1.6.pod:3
-#: docs/guestfs-release-notes-1.8.pod:3 docs/guestfs-release-notes.pod:3
+#: docs/guestfs-release-notes-1.56.pod:3 docs/guestfs-release-notes-1.58.pod:3
+#: docs/guestfs-release-notes-1.6.pod:3 docs/guestfs-release-notes-1.8.pod:3
+#: docs/guestfs-release-notes.pod:3
 msgid "guestfs-release-notes - libguestfs Release Notes"
 msgstr ""
 
@@ -12429,6 +12445,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:75
 #: docs/guestfs-release-notes-1.54.pod:76
 #: docs/guestfs-release-notes-1.56.pod:92
+#: docs/guestfs-release-notes-1.58.pod:85
 #: docs/guestfs-release-notes-1.6.pod:119
 #: docs/guestfs-release-notes-1.8.pod:101
 msgid "Internals"
@@ -12504,6 +12521,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:92
 #: docs/guestfs-release-notes-1.54.pod:91
 #: docs/guestfs-release-notes-1.56.pod:118
+#: docs/guestfs-release-notes-1.58.pod:151
 #: docs/guestfs-release-notes-1.6.pod:135
 #: docs/guestfs-release-notes-1.8.pod:136
 msgid "Bugs fixed"
@@ -12568,8 +12586,9 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:123
 #: docs/guestfs-release-notes-1.54.pod:130
 #: docs/guestfs-release-notes-1.56.pod:198
+#: docs/guestfs-release-notes-1.58.pod:222
 #: docs/guestfs-release-notes-1.6.pod:172
-#: docs/guestfs-release-notes-1.8.pod:147 docs/guestfs-release-notes.pod:151
+#: docs/guestfs-release-notes-1.8.pod:147 docs/guestfs-release-notes.pod:155
 msgid ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
 "L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
@@ -12602,8 +12621,9 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:160
 #: docs/guestfs-release-notes-1.54.pod:167
 #: docs/guestfs-release-notes-1.56.pod:231
+#: docs/guestfs-release-notes-1.58.pod:247
 #: docs/guestfs-release-notes-1.6.pod:183
-#: docs/guestfs-release-notes-1.8.pod:158 docs/guestfs-release-notes.pod:162
+#: docs/guestfs-release-notes-1.8.pod:158 docs/guestfs-release-notes.pod:166
 msgid "Richard W.M. Jones"
 msgstr ""
 
@@ -14023,6 +14043,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:34
 #: docs/guestfs-release-notes-1.54.pod:30
 #: docs/guestfs-release-notes-1.56.pod:30
+#: docs/guestfs-release-notes-1.58.pod:25
 msgid "API"
 msgstr ""
 
@@ -15683,6 +15704,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:48
 #: docs/guestfs-release-notes-1.54.pod:59
 #: docs/guestfs-release-notes-1.56.pod:48
+#: docs/guestfs-release-notes-1.58.pod:45
 msgid "Tools"
 msgstr ""
 
@@ -15776,6 +15798,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:12
 #: docs/guestfs-release-notes-1.54.pod:14
 #: docs/guestfs-release-notes-1.56.pod:52
+#: docs/guestfs-release-notes-1.58.pod:49
 msgid "Language bindings"
 msgstr ""
 
@@ -16506,6 +16529,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:30
 #: docs/guestfs-release-notes-1.54.pod:18
 #: docs/guestfs-release-notes-1.56.pod:12
+#: docs/guestfs-release-notes-1.58.pod:12
 msgid "Inspection"
 msgstr ""
 
@@ -16607,6 +16631,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:59
 #: docs/guestfs-release-notes-1.54.pod:63
 #: docs/guestfs-release-notes-1.56.pod:60
+#: docs/guestfs-release-notes-1.58.pod:60
 msgid "Build changes"
 msgstr ""
 
@@ -20966,9 +20991,10 @@ msgstr ""
 msgid "The correct kernel version is returned for Windows guests E<ge> 10."
 msgstr ""
 
-#. type: =head3
+#. type: =head2
 #: docs/guestfs-release-notes-1.32.pod:101
 #: docs/guestfs-release-notes-1.34.pod:192
+#: docs/guestfs-release-notes-1.58.pod:56
 msgid "Documentation"
 msgstr ""
 
@@ -27710,6 +27736,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:166
 #: docs/guestfs-release-notes-1.54.pod:171
 #: docs/guestfs-release-notes-1.56.pod:237
+#: docs/guestfs-release-notes-1.58.pod:251
 msgid "Yuri Chornoivan"
 msgstr ""
 
@@ -28800,6 +28827,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:209
 #: docs/guestfs-release-notes-1.56.pod:223
+#: docs/guestfs-release-notes-1.58.pod:243
 msgid "Ettore Atalan"
 msgstr ""
 
@@ -28842,6 +28870,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:229
 #: docs/guestfs-release-notes-1.52.pod:158
+#: docs/guestfs-release-notes-1.58.pod:245
 msgid "Pavel Borecki"
 msgstr ""
 
@@ -29777,6 +29806,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:217
+#: docs/guestfs-release-notes-1.58.pod:241
 msgid "Cole Robinson"
 msgstr ""
 
@@ -29808,6 +29838,394 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:235
 msgid "Thomas Wouters"
+msgstr ""
+
+#. type: =head1
+#: docs/guestfs-release-notes-1.58.pod:5
+msgid "RELEASE NOTES FOR LIBGUESTFS 1.58"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:7
+msgid ""
+"These are the release notes for libguestfs stable release 1.58.  This "
+"describes the major changes since 1.56."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:10
+msgid "Libguestfs 1.58.0 was released on B<XXX December 2025>."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:14
+msgid ""
+"Fix inspection of SLES 15 guests that have an encrypted Btrfs filesystem, by "
+"correctly parsing F</etc/crypttab> (Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:17
+msgid ""
+"Windows named drives (like C<D:>) which point to completely blank disks are "
+"now ignored instead of causing an error (thanks Ming Xie, Ameen Barakat)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:21
+msgid ""
+"Existing code in virt-v2v which recognized Windows Antivirus (AV)  software "
+"is now part of inspection.  The new code recognizes a wider range of AV "
+"software."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:27
+msgid ""
+"C<guestfs_selinux_relabel> was deprecated, replaced by new "
+"C<guestfs_setfiles>.  This new API also uses the L<setfiles(8)> I<-A> option "
+"to reduce memory usage."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:31
+msgid ""
+"New C<guestfs_ntfs_chmod> API which changes the permissions of Windows paths "
+"(Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:34
+msgid ""
+"In the list of structures returned by C<guestfs_inspect_get_applications2>, "
+"a new C<app2_class> field has been added.  This classifies the application "
+"by its primary usage, but currently only C<\"antivirus\"> can be returned "
+"here for Windows AV software."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:40
+msgid ""
+"New C<guestfs_inspect_get_windows_group_policy> API which reports whether "
+"Group Policy Objects were found in the Windows guest."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:51
+msgid ""
+"Note that GObject / Javascript bindings will be removed in the next release "
+"of libguestfs."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:54
+msgid "Ruby deprecation warnings were fixed (Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:58
+msgid "Fix links to ntfs-3g documentation (Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:62
+msgid "libvirt E<ge> 11.10.0 with passt support is now required."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:64
+msgid "qemu E<ge> 7.2.0 is now required."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:66
+msgid "Fix guestmount compilation on macOS (thanks Mohamed Akram)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:68
+msgid ""
+"Basic github CI has been implemented.  Pull requests now do the equivalent "
+"of C<./configure && make && make check> on a few common platforms."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:72
+msgid ""
+"Several obsolete tests were removed, and the test suite in general has been "
+"fixed and made more robust against missing dependencies and other common "
+"problems (Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:76
+msgid ""
+"In test output we no longer print absolute paths for the test names (Cole "
+"Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:79
+msgid ""
+"C<AM_GNU_GETTEXT> usage was completely removed and replaced with a simple "
+"test for LIBINTL (Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:82
+msgid ""
+"F<build-aux/config.rpath> was removed since it was no longer actually used "
+"(Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:87
+msgid ""
+"If the C<sit.ko> Linux kernel module is loaded, then a C<sit0> (a kind of "
+"IPv6 tunnel) network device is created in the appliance.  Ignore this as it "
+"would break appliance networking (thanks Srikanth Aithal, Stefano Brivio)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:92
+msgid ""
+"In the direct backend we simplified probing of qemu features by assuming "
+"that qemu E<ge> 7.2.0."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:95
+msgid "In the libvirt backend:"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:101
+msgid "Fix compatibility with SeaBIOS 1.17 (thanks Gerd Hoffmann)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:105
+msgid ""
+"We made some changes to how errors from the libvirt call "
+"C<virDomainDestroyFlags> are handled when shutting down the appliance.  If "
+"there is an error, the error message is now printed when debug is enabled "
+"(but it is still non-fatal).  Also we sleep between retries instead of busy "
+"looping."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:113
+msgid ""
+"The libvirt backend now adds a virtio-rng device to the appliance "
+"unconditionally so that we always have good entropy (for cryptographic "
+"operations)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:119
+msgid ""
+"When running as root, remove explicit socket relabelling and allow libvirt "
+"to relabel the sockets instead (Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:124
+msgid ""
+"Enable sVirt for the appliance, which was sometimes accidentally disabled "
+"(Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:129
+msgid ""
+"During inspection of Linux/Unix guests, the contents of guest F</etc/fstab> "
+"and some mdadm files are written to debug output.  This can help with "
+"debugging inspection issues (thanks Ming Xie)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:133
+msgid ""
+"When the appliance starts up, if debugging is enabled, then we log "
+"L<lsblk(8)> and L<blkid(8)> info to debugging output (thanks Ming Xie)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:137
+msgid ""
+"In the generator C<StringList(Pathname)> was implemented for OCaml "
+"functions."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:140
+msgid ""
+"Add more debugging in Windows Registry inspection functions to make it "
+"easier to track what's going on."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:143
+msgid ""
+"OCaml C<{|...|}> string literals are now used in the code for things like "
+"literal Windows batch files that we inject into the guest, regular "
+"expressions, and POD documentation in the generator (thanks Nicolas Ojeda "
+"Bar)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:148
+msgid ""
+"Internal calls to L<pcre2_match(3)> which return an unexpected error now "
+"emit a debug message, although the error is still ignored."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:155
+msgid "./bugs-in-changelog.sh v1.56.0.."
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:161
+msgid "L<https://issues.redhat.com/browse/RHEL-104352>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:163
+msgid "Change permission of guestfs folder created"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:165
+msgid "L<https://issues.redhat.com/browse/RHEL-106490>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:167
+msgid ""
+"Adding the commands \"lsblk\", \"cat /etc/fstab\" and \"blkid\" to the v2v "
+"debug log"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:170
+msgid "L<https://issues.redhat.com/browse/RHEL-108803>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:172
+msgid ""
+"Parted fails to read a blank disk \"virt-v2v: error: libguestfs error: "
+"inspect_os: parted: /dev/sdb: parted exited with status 1: Error: /dev/sdb: "
+"unrecognised disk label: Invalid argument\" [rhel-9.7]"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:176
+msgid "L<https://issues.redhat.com/browse/RHEL-111165>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:178
+msgid "[Testonly]virt-v2v of RHEL 8.10 VM fails because setfiles invoked oom-killer"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:181
+msgid "L<https://issues.redhat.com/browse/RHEL-111505>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:183
+msgid "Lots of memory used in 'setfiles' utility / 'restorecon_sb' function"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:185
+msgid "L<https://issues.redhat.com/browse/RHEL-113397>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:187
+msgid ""
+"[DEV Task]: The available subscriptions of guest sometimes can't be shown "
+"unless use --sm-remove and --sm-unregister options to remove all "
+"subscriptions from the guest"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:191
+msgid "L<https://issues.redhat.com/browse/RHEL-113398>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:193
+msgid ""
+"[DEV Task]: Virt-v2v can't use --sm-remove and --sm-unregister options to "
+"remove the subscriptions from guest if consumer profile has been deleted "
+"from the guest."
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:197
+msgid "L<https://issues.redhat.com/browse/RHEL-114292>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:199
+msgid "Use setfiles -A option when relabelling"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:201
+msgid "L<https://issues.redhat.com/browse/RHEL-121076>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:203
+msgid ""
+"[libguestfs] [aarch64] libguestfs-test-tool failed with "
+"LIBGUESTFS_BACKEND=direct"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:206
+msgid "L<https://issues.redhat.com/browse/RHEL-125846>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:208
+msgid "virt-inspector detect if AV/GPOs are present in a VM"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:210
+msgid "L<https://issues.redhat.com/browse/RHEL-93584>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:212
+msgid "virt-v2v can't convert sles15sp6 guest with encrypted brtfs fliesystem"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:214
+msgid "L<https://github.com/libguestfs/libguestfs/issues/180>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:216
+msgid "Fails to build with macFUSE"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:235
+msgid "git shortlog -s v1.56.0.."
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:249
+msgid "Susant Sahani"
 msgstr ""
 
 #. type: =head1
@@ -30594,146 +31012,151 @@ msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:11
-msgid "L<guestfs-release-notes-1.56(1)>"
+msgid "L<guestfs-release-notes-1.58(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:15
-msgid "L<guestfs-release-notes-1.54(1)>"
+msgid "L<guestfs-release-notes-1.56(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:19
-msgid "L<guestfs-release-notes-1.52(1)>"
+msgid "L<guestfs-release-notes-1.54(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:23
-msgid "L<guestfs-release-notes-1.50(1)>"
+msgid "L<guestfs-release-notes-1.52(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:27
-msgid "L<guestfs-release-notes-1.48(1)>"
+msgid "L<guestfs-release-notes-1.50(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:31
-msgid "L<guestfs-release-notes-1.46(1)>"
+msgid "L<guestfs-release-notes-1.48(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:35
-msgid "L<guestfs-release-notes-1.44(1)>"
+msgid "L<guestfs-release-notes-1.46(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:39
-msgid "L<guestfs-release-notes-1.42(1)>"
+msgid "L<guestfs-release-notes-1.44(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:43
-msgid "L<guestfs-release-notes-1.40(1)>"
+msgid "L<guestfs-release-notes-1.42(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:47
-msgid "L<guestfs-release-notes-1.38(1)>"
+msgid "L<guestfs-release-notes-1.40(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:51
-msgid "L<guestfs-release-notes-1.36(1)>"
+msgid "L<guestfs-release-notes-1.38(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:55
-msgid "L<guestfs-release-notes-1.34(1)>"
+msgid "L<guestfs-release-notes-1.36(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:59
-msgid "L<guestfs-release-notes-1.32(1)>"
+msgid "L<guestfs-release-notes-1.34(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:63
-msgid "L<guestfs-release-notes-1.30(1)>"
+msgid "L<guestfs-release-notes-1.32(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:67
-msgid "L<guestfs-release-notes-1.28(1)>"
+msgid "L<guestfs-release-notes-1.30(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:71
-msgid "L<guestfs-release-notes-1.26(1)>"
+msgid "L<guestfs-release-notes-1.28(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:75
-msgid "L<guestfs-release-notes-1.24(1)>"
+msgid "L<guestfs-release-notes-1.26(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:79
-msgid "L<guestfs-release-notes-1.22(1)>"
+msgid "L<guestfs-release-notes-1.24(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:83
-msgid "L<guestfs-release-notes-1.20(1)>"
+msgid "L<guestfs-release-notes-1.22(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:87
-msgid "L<guestfs-release-notes-1.18(1)>"
+msgid "L<guestfs-release-notes-1.20(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:91
-msgid "L<guestfs-release-notes-1.16(1)>"
+msgid "L<guestfs-release-notes-1.18(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:95
-msgid "L<guestfs-release-notes-1.14(1)>"
+msgid "L<guestfs-release-notes-1.16(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:99
-msgid "L<guestfs-release-notes-1.12(1)>"
+msgid "L<guestfs-release-notes-1.14(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:103
-msgid "L<guestfs-release-notes-1.10(1)>"
+msgid "L<guestfs-release-notes-1.12(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:107
-msgid "L<guestfs-release-notes-1.8(1)>"
+msgid "L<guestfs-release-notes-1.10(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:111
-msgid "L<guestfs-release-notes-1.6(1)>"
+msgid "L<guestfs-release-notes-1.8(1)>"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes.pod:115
+msgid "L<guestfs-release-notes-1.6(1)>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes.pod:119
 msgid "L<guestfs-release-notes-1.4(1)>"
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-release-notes.pod:119
+#: docs/guestfs-release-notes.pod:123
 msgid "RELEASE NOTES FOR HISTORICAL VERSIONS OF LIBGUESTFS"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes.pod:121
+#: docs/guestfs-release-notes.pod:125
 msgid ""
 "Before 2010 libguestfs did not have official release notes or a formalized "
 "version numbering system.  However these are links to historically "
@@ -30741,52 +31164,52 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes.pod:127
+#: docs/guestfs-release-notes.pod:131
 msgid "2009-11-10 (1.0.78)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes.pod:129
+#: docs/guestfs-release-notes.pod:133
 msgid "L<https://www.redhat.com/archives/libguestfs/2009-November/msg00095.html>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes.pod:131
+#: docs/guestfs-release-notes.pod:135
 msgid "2009-09-13 (1.0.67)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes.pod:133
+#: docs/guestfs-release-notes.pod:137
 msgid "L<https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes.pod:135
+#: docs/guestfs-release-notes.pod:139
 msgid "2009-07-23 (1.0.64)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes.pod:137
+#: docs/guestfs-release-notes.pod:141
 msgid "L<https://www.redhat.com/archives/libguestfs/2009-July/msg00059.html>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes.pod:139
+#: docs/guestfs-release-notes.pod:143
 msgid "2009-07-14 (1.0.59)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes.pod:141
+#: docs/guestfs-release-notes.pod:145
 msgid "L<https://www.redhat.com/archives/libguestfs/2009-July/msg00023.html>"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes.pod:143
+#: docs/guestfs-release-notes.pod:147
 msgid "2009-04-01 (the initial announcement)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes.pod:145
+#: docs/guestfs-release-notes.pod:149
 msgid "L<http://rwmj.wordpress.com/2009/04/01/libguestfs-access-and-modify-virtual-machine-disk-images/>"
 msgstr ""
 
@@ -32739,22 +33162,28 @@ msgstr ""
 #. type: verbatim
 #: docs/internal-documentation.pod:170
 #, no-wrap
+msgid " \n"
+msgstr ""
+
+#. type: verbatim
+#: docs/internal-documentation.pod:171
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_int_build_appliance (guestfs_h *g,\n"
-" \t\t\t     char **kernel_rtn,\n"
-" \t\t\t     char **initrd_rtn,\n"
-" \t\t\t     char **appliance_rtn)\n"
+"                              char **kernel_rtn,\n"
+"                              char **initrd_rtn,\n"
+"                              char **appliance_rtn)\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:176
+#: docs/internal-documentation.pod:177
 msgid "Locate or build the appliance."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:178
+#: docs/internal-documentation.pod:179
 msgid ""
 "This function locates or builds the appliance as necessary, handling the "
 "supermin appliance, caching of supermin-built appliances, or using either a "
@@ -32762,7 +33191,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:182
+#: docs/internal-documentation.pod:183
 msgid ""
 "The return value is C<0> = good, C<-1> = error.  Returned in "
 "C<appliance.kernel> will be the name of the kernel to use, "
@@ -32774,45 +33203,45 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:190
+#: docs/internal-documentation.pod:191
 msgid "The process is as follows:"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:196
+#: docs/internal-documentation.pod:197
 msgid ""
 "Look in C<path> which contains a supermin appliance skeleton.  If no element "
 "has this, skip straight to step 3."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:201
+#: docs/internal-documentation.pod:202
 msgid ""
 "Call C<supermin --build> to build the full appliance (if it needs to be "
 "rebuilt).  If this is successful, return the full appliance."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:206
+#: docs/internal-documentation.pod:207
 msgid "Check C<path>, looking for a fixed appliance.  If one is found, return it."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:210
+#: docs/internal-documentation.pod:211
 msgid ""
 "Check C<path>, looking for an old-style appliance.  If one is found, return "
 "it."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:215
+#: docs/internal-documentation.pod:216
 msgid ""
 "The supermin appliance cache directory lives in F<$TMPDIR/.guestfs-$UID/> "
 "and consists of up to four files:"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:218
+#: docs/internal-documentation.pod:219
 #, no-wrap
 msgid ""
 "  $TMPDIR/.guestfs-$UID/lock            - the supermin lock file\n"
@@ -32823,7 +33252,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:223
+#: docs/internal-documentation.pod:224
 msgid ""
 "Multiple instances of libguestfs with the same UID may be racing to create "
 "an appliance.  However (since supermin E<ge> 5) supermin provides a "
@@ -32831,12 +33260,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:228
+#: docs/internal-documentation.pod:229
 msgid "Function C<lib/appliance.c:locate_or_build_appliance>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:230
+#: docs/internal-documentation.pod:231
 #, no-wrap
 msgid ""
 " static int\n"
@@ -32847,7 +33276,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:235
+#: docs/internal-documentation.pod:236
 msgid ""
 "Check C<path>, looking for one of appliances: supermin appliance, fixed "
 "appliance or old-style appliance.  If one of the fixed appliances is found, "
@@ -32856,12 +33285,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:240 docs/internal-documentation.pod:254
+#: docs/internal-documentation.pod:241 docs/internal-documentation.pod:255
 msgid "Return values:"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:242
+#: docs/internal-documentation.pod:243
 #, no-wrap
 msgid ""
 "  1 = appliance is found, returns C<appliance>,\n"
@@ -32871,12 +33300,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:246
+#: docs/internal-documentation.pod:247
 msgid "Function C<lib/appliance.c:search_appliance>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:248
+#: docs/internal-documentation.pod:249
 #, no-wrap
 msgid ""
 " static int\n"
@@ -32885,14 +33314,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:251
+#: docs/internal-documentation.pod:252
 msgid ""
 "Search elements of C<g-E<gt>path>, returning the first C<appliance> element "
 "which matches the predicate function C<locate_or_build_appliance>."
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:256
+#: docs/internal-documentation.pod:257
 #, no-wrap
 msgid ""
 "  1 = a path element matched, returns C<appliance>,\n"
@@ -32902,12 +33331,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:260
+#: docs/internal-documentation.pod:261
 msgid "Function C<lib/appliance.c:build_supermin_appliance>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:262
+#: docs/internal-documentation.pod:263
 #, no-wrap
 msgid ""
 " static int\n"
@@ -32918,22 +33347,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:267
+#: docs/internal-documentation.pod:268
 msgid "Build supermin appliance from C<supermin_path> to F<$TMPDIR/.guestfs-$UID>."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:270
+#: docs/internal-documentation.pod:271
 msgid "Returns: C<0> = built or C<-1> = error (aborts launch)."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:272
+#: docs/internal-documentation.pod:273
 msgid "Function C<lib/appliance.c:run_supermin_build>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:274
+#: docs/internal-documentation.pod:275
 #, no-wrap
 msgid ""
 " static int\n"
@@ -32945,17 +33374,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:280
+#: docs/internal-documentation.pod:281
 msgid "Run C<supermin --build> and tell it to generate the appliance."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:282
+#: docs/internal-documentation.pod:283
 msgid "Function C<lib/appliance.c:dir_contains_file>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:284
+#: docs/internal-documentation.pod:285
 #, no-wrap
 msgid ""
 " static int\n"
@@ -32964,17 +33393,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:287
+#: docs/internal-documentation.pod:288
 msgid "Returns true iff C<file> is contained in C<dir>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:289
+#: docs/internal-documentation.pod:290
 msgid "Function C<lib/appliance.c:dir_contains_files>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:291
+#: docs/internal-documentation.pod:292
 #, no-wrap
 msgid ""
 " static int\n"
@@ -32983,34 +33412,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:294
+#: docs/internal-documentation.pod:295
 msgid "Returns true iff every listed file is contained in C<dir>."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:296
+#: docs/internal-documentation.pod:297
 msgid "File F<lib/command.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:298
+#: docs/internal-documentation.pod:299
 msgid ""
 "A wrapper for running external commands, loosely based on libvirt's "
 "C<virCommand> interface."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:301
+#: docs/internal-documentation.pod:302
 msgid "In outline to use this interface you must:"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:307
+#: docs/internal-documentation.pod:308
 msgid "Create a new command handle:"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:309
+#: docs/internal-documentation.pod:310
 #, no-wrap
 msgid ""
 " struct command *cmd;\n"
@@ -33019,12 +33448,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:314
+#: docs/internal-documentation.pod:315
 msgid "I<Either> add arguments:"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:316
+#: docs/internal-documentation.pod:317
 #, no-wrap
 msgid ""
 " guestfs_int_cmd_add_arg (cmd, \"qemu-img\");\n"
@@ -33034,12 +33463,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:320
+#: docs/internal-documentation.pod:321
 msgid "(B<NB:> You don't need to add a C<NULL> argument at the end.)"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:324
+#: docs/internal-documentation.pod:325
 msgid ""
 "I<Or> construct a command using a mix of quoted and unquoted strings.  (This "
 "is useful for L<system(3)>/C<popen(\"r\")>-style shell commands, with the "
@@ -33047,7 +33476,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:329
+#: docs/internal-documentation.pod:330
 #, no-wrap
 msgid ""
 " guestfs_int_cmd_add_string_unquoted (cmd, \"qemu-img info \");\n"
@@ -33056,14 +33485,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:334
+#: docs/internal-documentation.pod:335
 msgid ""
 "Set various flags, such as whether you want to capture errors in the regular "
 "libguestfs error log."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:339
+#: docs/internal-documentation.pod:340
 msgid ""
 "Run the command.  This is what does the L<fork(2)> call, optionally loops "
 "over the output, and then does a L<waitpid(3)> and returns the exit status "
@@ -33071,7 +33500,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:343
+#: docs/internal-documentation.pod:344
 #, no-wrap
 msgid ""
 " r = guestfs_int_cmd_run (cmd);\n"
@@ -33082,17 +33511,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:348 rescue/virt-rescue.pod:454
+#: docs/internal-documentation.pod:349 rescue/virt-rescue.pod:454
 msgid "6."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:350
+#: docs/internal-documentation.pod:351
 msgid "Close the handle:"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:352
+#: docs/internal-documentation.pod:353
 #, no-wrap
 msgid ""
 " guestfs_int_cmd_close (cmd);\n"
@@ -33100,17 +33529,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:354
+#: docs/internal-documentation.pod:355
 msgid "(or use C<CLEANUP_CMD_CLOSE>)."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:358
+#: docs/internal-documentation.pod:359
 msgid "Function C<lib/command.c:guestfs_int_new_command>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:360
+#: docs/internal-documentation.pod:361
 #, no-wrap
 msgid ""
 " struct command *\n"
@@ -33119,17 +33548,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:363
+#: docs/internal-documentation.pod:364
 msgid "Create a new command handle."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:365
+#: docs/internal-documentation.pod:366
 msgid "Function C<lib/command.c:guestfs_int_cmd_add_arg>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:367
+#: docs/internal-documentation.pod:368
 #, no-wrap
 msgid ""
 " void\n"
@@ -33138,17 +33567,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:370
+#: docs/internal-documentation.pod:371
 msgid "Add single arg (for C<execv>-style command execution)."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:372
+#: docs/internal-documentation.pod:373
 msgid "Function C<lib/command.c:guestfs_int_cmd_add_arg_format>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:374
+#: docs/internal-documentation.pod:375
 #, no-wrap
 msgid ""
 " void\n"
@@ -33157,19 +33586,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:377
+#: docs/internal-documentation.pod:378
 msgid ""
 "Add single arg (for C<execv>-style command execution)  using a "
 "L<printf(3)>-style format string."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:380
+#: docs/internal-documentation.pod:381
 msgid "Function C<lib/command.c:guestfs_int_cmd_add_string_unquoted>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:382
+#: docs/internal-documentation.pod:383
 #, no-wrap
 msgid ""
 " void\n"
@@ -33179,24 +33608,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:385 docs/internal-documentation.pod:395
+#: docs/internal-documentation.pod:386 docs/internal-documentation.pod:396
 msgid "Add a string (for L<system(3)>-style command execution)."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:387
+#: docs/internal-documentation.pod:388
 msgid ""
 "This variant adds the strings without quoting them, which is dangerous if "
 "the string contains untrusted content."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:390
+#: docs/internal-documentation.pod:391
 msgid "Function C<lib/command.c:guestfs_int_cmd_add_string_quoted>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:392
+#: docs/internal-documentation.pod:393
 #, no-wrap
 msgid ""
 " void\n"
@@ -33205,7 +33634,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:397
+#: docs/internal-documentation.pod:398
 msgid ""
 "The string is enclosed in double quotes, with any special characters within "
 "the string which need escaping done.  This is used to add a single argument "
@@ -33213,12 +33642,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:402
+#: docs/internal-documentation.pod:403
 msgid "Function C<lib/command.c:guestfs_int_cmd_set_stdout_callback>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:404
+#: docs/internal-documentation.pod:405
 #, no-wrap
 msgid ""
 " void\n"
@@ -33229,12 +33658,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:409
+#: docs/internal-documentation.pod:410
 msgid "Set a callback which will capture stdout."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:411
+#: docs/internal-documentation.pod:412
 msgid ""
 "If flags contains C<CMD_STDOUT_FLAG_LINE_BUFFER> (the default), then the "
 "callback is called line by line on the output.  If there is a trailing "
@@ -33243,7 +33672,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:416
+#: docs/internal-documentation.pod:417
 msgid ""
 "If flags contains C<CMD_STDOUT_FLAG_UNBUFFERED>, then buffers are passed to "
 "the callback as it is received from the command.  Note in this case the "
@@ -33252,7 +33681,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:421
+#: docs/internal-documentation.pod:422
 msgid ""
 "If flags contains C<CMD_STDOUT_FLAG_WHOLE_BUFFER>, then the callback is "
 "called exactly once, with the entire buffer.  Note in this case the buffer "
@@ -33261,12 +33690,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:426
+#: docs/internal-documentation.pod:427
 msgid "Function C<lib/command.c:guestfs_int_cmd_set_stderr_to_stdout>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:428
+#: docs/internal-documentation.pod:429
 #, no-wrap
 msgid ""
 " void\n"
@@ -33275,7 +33704,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:431
+#: docs/internal-documentation.pod:432
 msgid ""
 "Equivalent to adding C<2E<gt>&1> to the end of the command.  This is "
 "incompatible with the C<capture_errors> flag, because it doesn't make sense "
@@ -33283,12 +33712,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:435
+#: docs/internal-documentation.pod:436
 msgid "Function C<lib/command.c:guestfs_int_cmd_clear_capture_errors>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:437
+#: docs/internal-documentation.pod:438
 #, no-wrap
 msgid ""
 " void\n"
@@ -33297,7 +33726,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:440
+#: docs/internal-documentation.pod:441
 msgid ""
 "Clear the C<capture_errors> flag.  This means that any errors will go to "
 "stderr, instead of being captured in the event log, and that is usually "
@@ -33305,12 +33734,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:444
+#: docs/internal-documentation.pod:445
 msgid "Function C<lib/command.c:guestfs_int_cmd_set_child_callback>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:446
+#: docs/internal-documentation.pod:447
 #, no-wrap
 msgid ""
 " void\n"
@@ -33321,19 +33750,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:451
+#: docs/internal-documentation.pod:452
 msgid ""
 "Set a function to be executed in the child, right before the execution.  Can "
 "be used to setup the child, for example changing its current directory."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:455
+#: docs/internal-documentation.pod:456
 msgid "Function C<lib/command.c:guestfs_int_cmd_set_child_rlimit>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:457
+#: docs/internal-documentation.pod:458
 #, no-wrap
 msgid ""
 " void\n"
@@ -33343,19 +33772,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:460
+#: docs/internal-documentation.pod:461
 msgid ""
 "Set up child rlimits, in case the process we are running could consume lots "
 "of space or time."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:463
+#: docs/internal-documentation.pod:464
 msgid "Function C<lib/command.c:finish_command>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:465
+#: docs/internal-documentation.pod:466
 #, no-wrap
 msgid ""
 " static void\n"
@@ -33364,7 +33793,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:468
+#: docs/internal-documentation.pod:469
 msgid ""
 "Finish off the command by either C<NULL>-terminating the argv array or "
 "adding a terminating C<\\0> to the string, or die with an internal error if "
@@ -33372,12 +33801,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:472
+#: docs/internal-documentation.pod:473
 msgid "Function C<lib/command.c:loop>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:474
+#: docs/internal-documentation.pod:475
 #, no-wrap
 msgid ""
 " static int\n"
@@ -33386,19 +33815,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:477
+#: docs/internal-documentation.pod:478
 msgid ""
 "The loop which reads errors and output and directs it either to the log or "
 "to the stdout callback as appropriate."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:480
+#: docs/internal-documentation.pod:481
 msgid "Function C<lib/command.c:guestfs_int_cmd_run>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:482
+#: docs/internal-documentation.pod:483
 #, no-wrap
 msgid ""
 " int\n"
@@ -33407,27 +33836,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:485
+#: docs/internal-documentation.pod:486
 msgid "Fork, run the command, loop over the output, and waitpid."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:487
+#: docs/internal-documentation.pod:488
 msgid "Returns the exit status.  Test it using C<WIF*> macros."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:489
+#: docs/internal-documentation.pod:490
 msgid "On error: Calls C<error> and returns C<-1>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:491
+#: docs/internal-documentation.pod:492
 msgid "Function C<lib/command.c:guestfs_int_cmd_pipe_run>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:493
+#: docs/internal-documentation.pod:494
 #, no-wrap
 msgid ""
 " int\n"
@@ -33436,28 +33865,28 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:496
+#: docs/internal-documentation.pod:497
 msgid ""
 "Fork and run the command, but don't wait.  Roughly equivalent to S<C<popen "
 "(..., \"r\"|\"w\")>>."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:499
+#: docs/internal-documentation.pod:500
 msgid ""
 "Returns the file descriptor of the pipe, connected to stdout (C<\"r\">) or "
 "stdin (C<\"w\">) of the child process."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:502
+#: docs/internal-documentation.pod:503
 msgid ""
 "After reading/writing to this pipe, call C<guestfs_int_cmd_pipe_wait> to "
 "wait for the status of the child."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:505
+#: docs/internal-documentation.pod:506
 msgid ""
 "Errors from the subcommand cannot be captured to the error log using this "
 "interface.  Instead the caller should call "
@@ -33466,12 +33895,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:510
+#: docs/internal-documentation.pod:511
 msgid "Function C<lib/command.c:guestfs_int_cmd_pipe_wait>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:512
+#: docs/internal-documentation.pod:513
 #, no-wrap
 msgid ""
 " int\n"
@@ -33480,7 +33909,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:515
+#: docs/internal-documentation.pod:516
 msgid ""
 "Wait for a subprocess created by C<guestfs_int_cmd_pipe_run> to finish.  On "
 "error (eg. failed syscall) this returns C<-1> and sets the error.  If the "
@@ -33490,12 +33919,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:521
+#: docs/internal-documentation.pod:522
 msgid "Function C<lib/command.c:guestfs_int_cmd_get_pipe_errors>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:523
+#: docs/internal-documentation.pod:524
 #, no-wrap
 msgid ""
 " char *\n"
@@ -33504,19 +33933,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:526
+#: docs/internal-documentation.pod:527
 msgid ""
 "Read the error messages printed by the child.  The caller must free the "
 "returned buffer after use."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:529
+#: docs/internal-documentation.pod:530
 msgid "Function C<lib/command.c:guestfs_int_cmd_close>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:531
+#: docs/internal-documentation.pod:532
 #, no-wrap
 msgid ""
 " void\n"
@@ -33525,17 +33954,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:534
+#: docs/internal-documentation.pod:535
 msgid "Close the C<cmd> object and free all resources."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:536
+#: docs/internal-documentation.pod:537
 msgid "Function C<lib/command.c:process_line_buffer>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:538
+#: docs/internal-documentation.pod:539
 #, no-wrap
 msgid ""
 " static void\n"
@@ -33544,29 +33973,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:541
+#: docs/internal-documentation.pod:542
 msgid "Deal with buffering stdout for the callback."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:543
+#: docs/internal-documentation.pod:544
 msgid "File F<lib/conn-socket.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:545
+#: docs/internal-documentation.pod:546
 msgid ""
 "This file handles connections to the child process where this is done over "
 "regular POSIX sockets."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:548
+#: docs/internal-documentation.pod:549
 msgid "Function C<lib/conn-socket.c:handle_log_message>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:550
+#: docs/internal-documentation.pod:551
 #, no-wrap
 msgid ""
 " static int\n"
@@ -33576,7 +34005,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:554
+#: docs/internal-documentation.pod:555
 msgid ""
 "This is called if C<conn-E<gt>console_sock> becomes ready to read while we "
 "are doing one of the connection operations above.  It reads and deals with "
@@ -33584,48 +34013,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:558
+#: docs/internal-documentation.pod:559
 msgid "Returns:"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:562 docs/internal-documentation.pod:3919
+#: docs/internal-documentation.pod:563 docs/internal-documentation.pod:3919
 #: fuse/guestunmount.pod:131
 msgid "C<1>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:564
+#: docs/internal-documentation.pod:565
 msgid "log message(s) were handled successfully"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:566 docs/internal-documentation.pod:3923
+#: docs/internal-documentation.pod:567 docs/internal-documentation.pod:3923
 msgid "C<0>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:568
+#: docs/internal-documentation.pod:569
 msgid "connection to appliance closed"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:570 docs/internal-documentation.pod:3927
+#: docs/internal-documentation.pod:571 docs/internal-documentation.pod:3927
 msgid "C<-1>"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:572 docs/internal-documentation.pod:1562
+#: docs/internal-documentation.pod:573 docs/internal-documentation.pod:1562
 msgid "error"
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:576
+#: docs/internal-documentation.pod:577
 msgid "Function C<lib/conn-socket.c:guestfs_int_new_conn_socket_listening>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:578
+#: docs/internal-documentation.pod:579
 #, no-wrap
 msgid ""
 " struct connection *\n"
@@ -33636,19 +34065,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:583
+#: docs/internal-documentation.pod:584
 msgid "Create a new socket connection, listening."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:585
+#: docs/internal-documentation.pod:586
 msgid ""
 "Note that it's OK for C<console_sock> to be passed as C<-1>, meaning there's "
 "no console available for this appliance."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:588
+#: docs/internal-documentation.pod:589
 msgid ""
 "After calling this, C<daemon_accept_sock> is owned by the connection, and "
 "will be closed properly either in C<accept_connection> or "
@@ -33656,12 +34085,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:592
+#: docs/internal-documentation.pod:593
 msgid "Function C<lib/conn-socket.c:guestfs_int_new_conn_socket_connected>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:594
+#: docs/internal-documentation.pod:595
 #, no-wrap
 msgid ""
 " struct connection *\n"
@@ -33672,39 +34101,39 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:599
+#: docs/internal-documentation.pod:600
 msgid "Create a new socket connection, connected."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:601
+#: docs/internal-documentation.pod:602
 msgid ""
 "As above, but the caller passes us a connected C<daemon_sock> and promises "
 "not to call C<accept_connection>."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:604
+#: docs/internal-documentation.pod:605
 msgid "File F<lib/create.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:606
+#: docs/internal-documentation.pod:607
 msgid "APIs for creating empty disks."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:608
+#: docs/internal-documentation.pod:609
 msgid "Mostly this consists of wrappers around the L<qemu-img(1)> program."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:610
+#: docs/internal-documentation.pod:611
 msgid "Definition C<lib/create.c:VALID_FORMAT>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:612 docs/internal-documentation.pod:698
+#: docs/internal-documentation.pod:613 docs/internal-documentation.pod:698
 #, no-wrap
 msgid ""
 " #define VALID_FORMAT\n"
@@ -33712,31 +34141,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:614
+#: docs/internal-documentation.pod:615
 msgid ""
 "Check for valid backing format.  Allow any C<^[[:alnum]]+$> (in C locale), "
 "but limit the length to something reasonable."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:617
+#: docs/internal-documentation.pod:618
 msgid "File F<lib/drives.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:619
+#: docs/internal-documentation.pod:620
 msgid ""
 "Drives added are stored in an array in the handle.  Code here manages that "
 "array and the individual C<struct drive> data."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:622
+#: docs/internal-documentation.pod:623
 msgid "Function C<lib/drives.c:create_overlay>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:624
+#: docs/internal-documentation.pod:625
 #, no-wrap
 msgid ""
 " static int\n"
@@ -33745,7 +34174,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:627
+#: docs/internal-documentation.pod:628
 msgid ""
 "For readonly drives, create an overlay to protect the original drive "
 "content.  Note we never need to clean up these overlays since they are "
@@ -33753,17 +34182,16 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:632
+#: docs/internal-documentation.pod:633
 msgid "Function C<lib/drives.c:create_drive_file>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:634
+#: docs/internal-documentation.pod:635
 #, no-wrap
 msgid ""
 " static struct drive *\n"
-" create_drive_file (guestfs_h *g,\n"
-"                    const struct drive_create_data *data)\n"
+" create_drive_file (guestfs_h *g, const struct drive_create_data *data)\n"
 "\n"
 msgstr ""
 
