@@ -414,8 +414,8 @@ events_test_libvirt_auth_callbacks_LDADD = \
         $(top_builddir)/gnulib/lib/libgnu.la
 endif
 
-TESTS += gdisk/test-expand-gpt.pl
-EXTRA_DIST += gdisk/test-expand-gpt.pl
+TESTS += gdisk/test-expand-gpt.py
+EXTRA_DIST += gdisk/test-expand-gpt.py
 
 TESTS += journal/test-journal.py
 EXTRA_DIST += journal/test-journal.py
