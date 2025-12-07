@@ -49,7 +49,7 @@ static const char kernel_name[] = "vmlinuz." host_cpu;
 static const char initrd_name[] = "initramfs." host_cpu ".img";
 
 static int search_appliance (guestfs_h *g, struct appliance_files *appliance);
-static int dir_contains_file (guestfs_h *g, const char *dir, const char *file);
+static bool dir_contains_file (guestfs_h *g, const char *dir, const char *file);
 static int dir_contains_files (guestfs_h *g, const char *dir, ...);
 static bool contains_old_style_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
@@ -351,7 +351,7 @@ run_supermin_build (guestfs_h *g,
 /**
  * Returns true iff C<file> is contained in C<dir>.
  */
-static int
+static bool
 dir_contains_file (guestfs_h *g, const char *dir, const char *file)
 {
   CLEANUP_FREE char *path = NULL;
