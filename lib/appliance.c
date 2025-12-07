@@ -52,7 +52,7 @@ static int search_appliance (guestfs_h *g, struct appliance_files *appliance);
 static bool dir_contains_file (guestfs_h *g, const char *dir, const char *file);
 static bool dir_contains_files (guestfs_h *g, const char *dir, ...);
 static bool contains_old_style_appliance (guestfs_h *g, const char *path, void *data);
-static int contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
+static bool contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
 static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, struct appliance_files *appliance);
 static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *appliancedir, const char *supermin_path);
@@ -235,7 +235,7 @@ contains_old_style_appliance (guestfs_h *g, const char *path, void *data)
   return dir_contains_files (g, path, kernel_name, initrd_name, NULL);
 }
 
-static int
+static bool
 contains_fixed_appliance (guestfs_h *g, const char *path, void *data)
 {
   return dir_contains_files (g, path,
