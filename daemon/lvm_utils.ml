@@ -34,15 +34,26 @@ open Utils
  * resolved.
  *)
 let lv_canonical device =
-  let stat1 = stat device in
-  let lvs = Lvm.lvs () in
-  try
-    Some (
-      List.find (
-        fun lv ->
-          let stat2 = stat lv in
-          stat1.st_rdev = stat2.st_rdev
-      ) lvs
-    )
-  with
-  | Not_found -> None
+  let stat1 =
+    try Some (stat device)
+    with Unix_error _ -> None in
+  match stat1 with
+  | None -> None
+  | Some stat1 ->
+  (
+    let lvs = Lvm.lvs () in
+    try
+      Some (
+        List.find (
+          fun lv ->
+            let stat2 =
+              try Some (stat lv)
+              with Unix_error _ -> None in
+            match stat2 with
+            | Some stat2 -> stat1.st_rdev = stat2.st_rdev
+            | None -> false
+        ) lvs
+      )
+    with
+    | Not_found -> None
+  )
