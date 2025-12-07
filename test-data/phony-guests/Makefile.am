@@ -28,7 +28,7 @@ EXTRA_DIST = \
 	make-ubuntu-img.sh \
 	make-archlinux-img.sh \
 	archlinux-package \
-	make-coreos-img.sh \
+	make-coreos-img.py \
 	make-windows-img.sh \
 	windows-software \
 	windows-software.reg \
@@ -122,7 +122,7 @@ archlinux.img: make-archlinux-img.sh
 	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
 
 # Make a (dummy) CoreOS image.
-coreos.img: make-coreos-img.sh
+coreos.img: make-coreos-img.py
 	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Windows image.
