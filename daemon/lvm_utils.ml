@@ -36,11 +36,10 @@ open Utils
 let lv_canonical device =
   let stat1 =
     try Some (stat device)
-    with Unix_error _ -> None in
+    with Unix_error (ENOENT, _, _) -> None in
   match stat1 with
   | None -> None
   | Some stat1 ->
-  (
     let lvs = Lvm.lvs () in
     try
       Some (
@@ -56,4 +55,3 @@ let lv_canonical device =
       )
     with
     | Not_found -> None
-  )
