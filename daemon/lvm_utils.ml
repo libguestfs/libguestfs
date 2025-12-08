@@ -47,7 +47,7 @@ let lv_canonical device =
           fun lv ->
             let stat2 =
               try Some (stat lv)
-              with Unix_error _ -> None in
+              with Unix_error (ENOENT, _, _) -> None in
             match stat2 with
             | Some stat2 -> stat1.st_rdev = stat2.st_rdev
             | None -> false
