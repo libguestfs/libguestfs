@@ -25,7 +25,7 @@ EXTRA_DIST = \
 	fedora-journal.tar.xz \
 	fedora-db.sql.xz \
 	fedora.db \
-	make-ubuntu-img.sh \
+	make-ubuntu-img.py \
 	make-archlinux-img.sh \
 	archlinux-package \
 	make-coreos-img.sh \
@@ -114,7 +114,7 @@ debian.img: make-debian-img.sh
 	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Ubuntu image.
-ubuntu.img: make-ubuntu-img.sh
+ubuntu.img: make-ubuntu-img.py
 	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Arch Linux image.
