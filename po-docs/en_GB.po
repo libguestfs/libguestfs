@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2024-09-02 13:38+0000\n"
+"PO-Revision-Date: 2025-12-31 16:58+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-docs-master/en_GB/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7.1\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -525,7 +525,7 @@ msgstr "Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>."
 #: ../format/virt-format.pod:82 ../fuse/guestmount.pod:175
 #: ../inspector/virt-inspector.pod:77 ../rescue/virt-rescue.pod:115
 msgid "__INCLUDE:blocksize-option.pod__"
-msgstr ""
+msgstr "__INCLUDE:blocksize-option.pod__"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:126 ../cat/virt-cat.pod:78
@@ -693,7 +693,7 @@ msgstr ""
 #: ../fish/guestfish.pod:242 ../format/virt-format.pod:106
 #: ../rescue/virt-rescue.pod:170 ../sysprep/virt-sysprep.pod:178
 msgid "forces raw format (no auto-detection) for F<disk.img>."
-msgstr ""
+msgstr "forces raw format (no auto-detection) for F<disk.img>."
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:158
@@ -717,6 +717,8 @@ msgid ""
 "forces raw format (no auto-detection) for F<disk.img> and reverts to auto-"
 "detection for F<another.img>."
 msgstr ""
+"forces raw format (no auto-detection) for F<disk.img> and reverts to auto-"
+"detection for F<another.img>."
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:163 ../cat/virt-cat.pod:122
@@ -1796,6 +1798,8 @@ msgid ""
 "You want to make a self-contained libguestfs appliance that can be copied to "
 "another machine or platform that doesn't support L<supermin(1)>."
 msgstr ""
+"You want to make a self-contained libguestfs appliance that can be copied to "
+"another machine or platform that doesn't support L<supermin(1)>."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:30
