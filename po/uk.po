@@ -13,9 +13,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2025-11-04 16:19+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2025-12-04 13:04+0000\n"
 "PO-Revision-Date: 2025-11-18 21:58+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
@@ -1389,7 +1389,8 @@ msgstr ""
 
 #: fish/cmds.c:798
 msgid "return if Windows guest has group policy"
-msgstr "повертає значення того, чи має гостьова система Windows групові правила"
+msgstr ""
+"повертає значення того, чи має гостьова система Windows групові правила"
 
 #: fish/cmds.c:799
 msgid "get the path of the Windows software hive"
@@ -2704,7 +2705,7 @@ msgstr ""
 "скористайтеся командою «copy-in <локальний файл> [<локальний файл>...] "
 "<віддалений каталог>» для копіювання файлів на образ\n"
 
-#: fish/copy.c:71
+#: fish/copy.c:70
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
@@ -2872,57 +2873,57 @@ msgstr ""
 "\n"
 "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
-#: fish/fish.c:268
+#: fish/fish.c:264
 #, c-format
 msgid "--listen=PID: PID was not a number: %s"
 msgstr "--listen=PID: PID не є числом: %s"
 
-#: fish/fish.c:273
+#: fish/fish.c:269
 #, c-format
 msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
 msgstr "remote: для ідентифікатора віддаленого процесу має $GUESTFISH_PID"
 
-#: fish/fish.c:294 fuse/guestmount.c:250 lib/libvirt-domain.c:94
+#: fish/fish.c:290 fuse/guestmount.c:246 lib/libvirt-domain.c:94
 #: lib/libvirt-domain.c:137 lib/libvirt-domain.c:235
 #, c-format
 msgid "libguestfs live support was removed in libguestfs 1.48"
 msgstr ""
 "Підтримку портативної версії libguestfs було вилучено у libguestfs 1.48"
 
-#: fish/fish.c:306 fuse/guestmount.c:263 fuse/guestunmount.c:132
+#: fish/fish.c:302 fuse/guestmount.c:259 fuse/guestunmount.c:131
 #: rescue/rescue.c:225 test-tool/test-tool.c:123
 #, c-format
 msgid "unknown long option: %s (%d)"
 msgstr "невідомий довгий варіант параметра: %s (%d)"
 
-#: fish/fish.c:323
+#: fish/fish.c:319
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 "%s: попередження: параметр -D застарів, замість нього слід користуватися --"
 "no-dest-paths\n"
 
-#: fish/fish.c:330
+#: fish/fish.c:326
 #, c-format
 msgid "only one -f parameter can be given"
 msgstr "можна вказувати лише один параметр -f"
 
-#: fish/fish.c:516
+#: fish/fish.c:509
 #, c-format
 msgid "cannot use --listen and --remote options at the same time"
 msgstr "не можна одночасно використовувати параметри --listen і --remote"
 
-#: fish/fish.c:521
+#: fish/fish.c:514
 #, c-format
 msgid "extra parameters on the command line with --listen flag"
 msgstr "зайві параметри у командному рядку з прапорцем --listen"
 
-#: fish/fish.c:524
+#: fish/fish.c:517
 #, c-format
 msgid "cannot use --listen and --file options at the same time"
 msgstr "не можна одночасно використовувати параметри --listen і --file"
 
-#: fish/fish.c:701
+#: fish/fish.c:694
 #, c-format
 msgid ""
 "\n"
@@ -2943,51 +2944,51 @@ msgstr ""
 "      «quit», щоб вийти з оболонки\n"
 "\n"
 
-#: fish/fish.c:875 fish/fish.c:891
+#: fish/fish.c:868 fish/fish.c:884
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: аргументи команди не відокремлено пробілами\n"
 
-#: fish/fish.c:885
+#: fish/fish.c:878
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: не виявлено завершальних одинарних лапок\n"
 
-#: fish/fish.c:915
+#: fish/fish.c:908
 #, c-format
 msgid "%s: internal error parsing string at ‘%s’\n"
 msgstr "%s: внутрішня помилка під час обробки рядка, «%s»\n"
 
-#: fish/fish.c:932
+#: fish/fish.c:925
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: занадто багато аргументів\n"
 
-#: fish/fish.c:1008
+#: fish/fish.c:1001
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
 
-#: fish/fish.c:1017
+#: fish/fish.c:1010
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: не виявлено завершальних подвійних лапок\n"
 
-#: fish/fish.c:1082
+#: fish/fish.c:1075
 #, c-format
 msgid "empty command on command line"
 msgstr "порожня команда у командному рядку"
 
-#: fish/fish.c:1236
+#: fish/fish.c:1229
 msgid "display a list of commands or help on a command"
 msgstr "показати список команд або довідку щодо команди"
 
-#: fish/fish.c:1238
+#: fish/fish.c:1231
 msgid "quit guestfish"
 msgstr "вийти з guestfish"
 
-#: fish/fish.c:1249
+#: fish/fish.c:1242
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -3000,7 +3001,7 @@ msgstr ""
 "     help команда\n"
 "     help\n"
 
-#: fish/fish.c:1258
+#: fish/fish.c:1251
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -3009,23 +3010,23 @@ msgstr ""
 "quit — завершити роботу guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1263
+#: fish/fish.c:1256
 #, c-format
 msgid "%s: command not known: "
 msgstr "%s: невідома команда: "
 
-#: fish/fish.c:1265
+#: fish/fish.c:1258
 #, c-format
 msgid "use 'help --list' to list all commands\n"
 msgstr ""
 "скористайтеся командою «help --list», щоб переглянути список усіх команд\n"
 
-#: fish/fish.c:1267
+#: fish/fish.c:1260
 #, c-format
 msgid "use -h to list all commands\n"
 msgstr "скористатися -h, щоб переглянути список усіх команд\n"
 
-#: fish/fish.c:1287
+#: fish/fish.c:1280
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -3036,17 +3037,17 @@ msgstr ""
 "Отримати список команд:             guestfish -h\n"
 "Ознайомитися з документацією:       man guestfish\n"
 
-#: fish/fish.c:1298
+#: fish/fish.c:1291
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: помилка: %s\n"
 
-#: fish/fish.c:1425
+#: fish/fish.c:1418
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "У рядку «%s» не вистачає лапок\n"
 
-#: fish/fish.c:1757
+#: fish/fish.c:1750
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -3056,14 +3057,14 @@ msgstr ""
 "гостьову систему (використати параметр \"-i\" або виконати команду \"inspect-"
 "os\")\n"
 
-#: fish/fish.c:1763
+#: fish/fish.c:1756
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s: для використання літерних позначень дисків Windows ваша система має бути "
 "гостьовою системою Windows\n"
 
-#: fish/fish.c:1777
+#: fish/fish.c:1770
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -3073,7 +3074,7 @@ msgstr ""
 "команду\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1796
+#: fish/fish.c:1789
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3624,24 +3625,24 @@ msgstr ""
 "  -w|--rw              Змотувати для читання і запису\n"
 "  -x|--trace           Трасувати виклики програмного інтерфейсу guestfs\n"
 
-#: fuse/guestmount.c:258
+#: fuse/guestmount.c:254
 #, c-format
 msgid "unable to parse --fd option value: %s"
 msgstr "не вдалося обробити значення параметра --fd: %s"
 
-#: fuse/guestmount.c:330 rescue/rescue.c:348
+#: fuse/guestmount.c:326 rescue/rescue.c:348
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
 msgstr "%s: помилка: вам слід вказати один із параметрів, -a або -d.\n"
 
-#: fuse/guestmount.c:335
+#: fuse/guestmount.c:331
 #, c-format
 msgid "%s: error: you must specify either -i at least one -m option.\n"
 msgstr ""
 "%s: помилка: вам слід вказати або параметр -i, або принаймні один параметр "
 "-m.\n"
 
-#: fuse/guestmount.c:343
+#: fuse/guestmount.c:339
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
 msgstr "вам слід вказати точку монтування у основній файловій системі"
@@ -3676,29 +3677,29 @@ msgstr ""
 "  -v|--verbose         режим докладних повідомлень\n"
 "  -V|--version         вивести дані щодо версії і завершити роботу\n"
 
-#: fuse/guestunmount.c:122
+#: fuse/guestunmount.c:121
 #, c-format
 msgid "cannot parse fd option ‘%s’"
 msgstr "не вдалося обробити параметр дескриптора файла, «%s»"
 
-#: fuse/guestunmount.c:128
+#: fuse/guestunmount.c:127
 #, c-format
 msgid "cannot parse retries option or value is too large ‘%s’"
 msgstr ""
 "не вдалося обробити параметр повторних спроб або маємо надто велике "
 "значення, «%s»"
 
-#: fuse/guestunmount.c:159
+#: fuse/guestunmount.c:158
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem\n"
 msgstr "вам слід вказати точку монтування у основній файловій системі\n"
 
-#: fuse/guestunmount.c:209
+#: fuse/guestunmount.c:205
 #, c-format
 msgid "%s: failed to unmount %s: %s\n"
 msgstr "%s: не вдалося демонтувати %s: %s\n"
 
-#: fuse/guestunmount.c:220
+#: fuse/guestunmount.c:216
 #, c-format
 msgid "%s: %s is not mounted: %s\n"
 msgstr "%s: %s не змонтовано: %s\n"
@@ -3727,7 +3728,7 @@ msgstr "%s: пристрій не є файловою системою extfs"
 msgid "%s: cannot read UUID in superblock"
 msgstr "%s: не вдалося прочитати UUID у суперблоці"
 
-#: lib/appliance.c:219
+#: lib/appliance.c:226
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -3791,63 +3792,68 @@ msgid "error: argument is zero length or longer than maximum permitted"
 msgstr ""
 "помилка: аргумент має нульову довжину або є довшим за максимальне значення"
 
-#: lib/create.c:65
+#: lib/create.c:66
 msgid "if using a backing file, size must be passed as -1"
 msgstr ""
 "якщо використовується файл резервної копії, розмір має бути передано як -1"
 
-#: lib/create.c:73
+#: lib/create.c:74
 #, c-format
 msgid "invalid size: %<PRIi64>"
 msgstr "некоректний розмір: %<PRIi64>"
 
-#: lib/create.c:81
+#: lib/create.c:82
 msgid "backingfile cannot be used for raw format disks"
 msgstr "backingfile не можна використовувати для неформатованих дисків (raw)"
 
-#: lib/create.c:96
+#: lib/create.c:97
 #, c-format
 msgid "unsupported format ‘%s’"
 msgstr "непідтримуваний формат «%s»"
 
-#: lib/create.c:110
+#: lib/create.c:109
 #, c-format
 msgid "cannot open block device: %s"
 msgstr "не вдалося відкрити блоковий пристрій: %s"
 
-#: lib/create.c:144
+#: lib/create.c:127 lib/create.c:226
+#, c-format
+msgid "%s: close"
+msgstr "%s: закрити"
+
+#: lib/create.c:145
 msgid "backingformat parameter cannot be used with raw format"
 msgstr ""
 "параметр backingformat не можна використовувати, якщо використовується "
 "формат raw"
 
-#: lib/create.c:154 lib/create.c:301
+#: lib/create.c:155 lib/create.c:299
 #, c-format
 msgid "invalid value for preallocation parameter ‘%s’"
 msgstr "некоректне значення для параметра preallocation, «%s»"
 
-#: lib/create.c:160
+#: lib/create.c:161
 msgid "compat parameter cannot be used with raw format"
 msgstr ""
 "параметр compat не можна використовувати, якщо використовується формат raw"
 
-#: lib/create.c:164
+#: lib/create.c:165
 msgid "clustersize parameter cannot be used with raw format"
 msgstr ""
 "параметр clustersize не можна використовувати, якщо використовується формат "
 "raw"
 
-#: lib/create.c:171
+#: lib/create.c:172
 #, c-format
 msgid "refusing to overwrite char device ‘%s’"
 msgstr "відмова у перезаписі символьного пристрою «%s»"
 
-#: lib/create.c:181
+#: lib/create.c:182
 #, c-format
 msgid "cannot create raw file: %s"
 msgstr "не вдалося створити файл raw: %s"
 
-#: lib/create.c:187
+#: lib/create.c:188
 #, c-format
 msgid "%s: truncate"
 msgstr "%s: обрізати"
@@ -3857,27 +3863,22 @@ msgstr "%s: обрізати"
 msgid "%s: fallocate"
 msgstr "%s: fallocate"
 
-#: lib/create.c:218
+#: lib/create.c:215
 #, c-format
 msgid "%s: write"
 msgstr "%s: записати"
 
-#: lib/create.c:229
-#, c-format
-msgid "%s: close"
-msgstr "%s: закрити"
-
-#: lib/create.c:278
+#: lib/create.c:276
 #, c-format
 msgid "invalid value for backingformat parameter ‘%s’"
 msgstr "некоректне значення для параметра backingformat, «%s»"
 
-#: lib/create.c:309
+#: lib/create.c:307
 #, c-format
 msgid "invalid value for compat parameter ‘%s’"
 msgstr "некоректне значення для параметра compat, «%s»"
 
-#: lib/create.c:317
+#: lib/create.c:315
 #, c-format
 msgid "invalid value for clustersize parameter ‘%d’"
 msgstr "некоректне значення для параметра clustersize, «%d»"
@@ -3973,82 +3974,82 @@ msgstr "iscsi: рядок призначення не повинен почин�
 msgid "for device ‘/dev/null’, format must be ‘raw’"
 msgstr "для пристрою /dev/null слід вказувати формат raw"
 
-#: lib/drives.c:586
+#: lib/drives.c:590
 msgid "missing Unix domain socket path"
 msgstr "не вказано шляху до сокета домену Unix"
 
-#: lib/drives.c:598
+#: lib/drives.c:602
 #, c-format
 msgid "invalid port number ‘%s’"
 msgstr "некоректний номер порту, «%s»"
 
-#: lib/drives.c:605
+#: lib/drives.c:609
 #, c-format
 msgid "invalid hostname ‘%s’"
 msgstr "некоректна назва вузла, «%s»"
 
-#: lib/drives.c:616
+#: lib/drives.c:620
 #, c-format
 msgid "invalid hostname or server string ‘%s’"
 msgstr "некоректний рядок назви вузла або сервера, «%s»"
 
-#: lib/drives.c:697
+#: lib/drives.c:698
 msgid "discard parameter must be ‘disable’, ‘enable’ or ‘besteffort’"
 msgstr ""
 "значенням параметра discard має бути «disable», «enable» або «besteffort»"
 
-#: lib/drives.c:714
+#: lib/drives.c:715
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 "підтримку discard не можна вмикати для дисків, призначених лише для читання"
 
-#: lib/drives.c:720
+#: lib/drives.c:721
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "параметр %s є порожнім або містить заборонені до використання символи"
 
-#: lib/drives.c:726
+#: lib/drives.c:727
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 "параметр мітки є порожнім, занадто довгим або містить заборонені символи"
 
-#: lib/drives.c:732
+#: lib/drives.c:733
 msgid "cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"
 msgstr "параметром режиму кешування має бути «writeback» (типово) або «unsafe»"
 
-#: lib/drives.c:737
+#: lib/drives.c:738
 #, c-format
 msgid "%s parameter is invalid"
 msgstr "параметр %s є некоректним"
 
-#: lib/drives.c:744
+#: lib/drives.c:745
 msgid "you cannot specify a server with file-backed disks"
 msgstr "не можна вказувати сервер з резервними копіями дисків у файлах"
 
-#: lib/drives.c:749
+#: lib/drives.c:750
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 "не можна вказувати ім’я користувача для резервних копій дисків у файлах"
 
-#: lib/drives.c:753
+#: lib/drives.c:754
 msgid "you cannot specify a secret with file-backed disks"
 msgstr "не можна вказувати пароль з резервними копіями дисків у файлах"
 
-#: lib/drives.c:804
+#: lib/drives.c:805
 #, c-format
 msgid "unknown protocol ‘%s’"
 msgstr "невідомий протокол «%s»"
 
-#: lib/drives.c:821 lib/drives.c:907
+#: lib/drives.c:822 lib/drives.c:908
 msgid "hotplugging support was removed in libguestfs 1.48"
 msgstr "підтримку з'єднання «угарячу» було вилучено у libguestfs 1.48"
 
-#: lib/drives.c:978
+#: lib/drives.c:979
 #, c-format
 msgid "%s: device not found"
 msgstr "%s: пристрій не знайдено"
 
-#: lib/drives.c:988
+#: lib/drives.c:989
 msgid "drive index out of range"
 msgstr "індекс диска лежить поза допустимим діапазоном"
 
@@ -4137,32 +4138,32 @@ msgstr ""
 "Щоб переглянути повідомлення щодо помилок повністю, вам, можливо, слід "
 "увімкнути діагностику.\n"
 
-#: lib/fuse.c:980
+#: lib/fuse.c:978
 msgid "filesystem is already mounted in another thread"
 msgstr "файлову систему вже змонтовано у іншому потоці виконання команд"
 
-#: lib/fuse.c:1004
+#: lib/fuse.c:1002
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr "fuse_opt_add_arg: %s"
 
-#: lib/fuse.c:1021
+#: lib/fuse.c:1019
 #, c-format
 msgid "fuse_mount failed: %s, see error messages above"
 msgstr ""
 "помилка fuse_mount: %s, ознайомтеся із повідомленнями про помилки, "
 "наведеними вище"
 
-#: lib/fuse.c:1040
+#: lib/fuse.c:1038
 #, c-format
 msgid "fuse_new: %s"
 msgstr "fuse_new: %s"
 
-#: lib/fuse.c:1069
+#: lib/fuse.c:1067
 msgid "you must call guestfs_mount_local first"
 msgstr "вам слід спочатку викликати guestfs_mount_local"
 
-#: lib/fuse.c:1080
+#: lib/fuse.c:1078
 #, c-format
 msgid ""
 "you must call ‘guestfs_mount’ first to mount a filesystem on '/'.\n"
@@ -4173,20 +4174,20 @@ msgstr ""
 "Зауваження: «%s» все ще змонтовано. Скористайтеся командою «guestunmount %s» "
 "для чищення списку монтування."
 
-#: lib/fuse.c:1090
+#: lib/fuse.c:1088
 #, c-format
 msgid "fuse_loop: %s"
 msgstr "fuse_loop: %s"
 
-#: lib/fuse.c:1141
+#: lib/fuse.c:1139
 msgid "no filesystem is mounted"
 msgstr "не змонтовано жодної файлової системи"
 
-#: lib/fuse.c:1260
+#: lib/fuse.c:1258
 msgid "could not initialize dir cache hashtables"
 msgstr "не вдалося ініціалізувати таблиці хешів каталогів кешу"
 
-#: lib/fuse.c:1515
+#: lib/fuse.c:1513
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
