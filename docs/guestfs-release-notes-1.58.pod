@@ -7,7 +7,7 @@ guestfs-release-notes - libguestfs Release Notes
 These are the release notes for libguestfs stable release 1.58.
 This describes the major changes since 1.56.
 
-Libguestfs 1.58.0 was released on B<XXX December 2025>.
+Libguestfs 1.58.0 was released on B<5th January 2026>.
 
 =head2 Inspection
 
@@ -40,6 +40,23 @@ software.
 New C<guestfs_inspect_get_windows_group_policy> API which reports
 whether Group Policy Objects were found in the Windows guest.
 
+C<guestfs_btrfs_subvolume_show> would sometimes crash when parsing the
+snapshots of a Btrfs subvolume.  Furthermore, in any API that returned
+a device name associated with a Btrfs volume, the device name might
+not be translated correctly resulting in the wrong device name being
+returned.  (Both problems fixed by Arye Yurkovsky.)
+
+Fix a memory leak in C<guestfs_filesystem_walk> (Susant Sahani).
+
+In C<guestfs_disk_create>, when creating raw block devices, check for
+errors in the L<close(2)> system call, ensuring we don't miss any
+delayed I/O errors (Susant Sahani).
+
+In several LVM-related APIs, it was possible for an internal failure
+to happen for logical volumes which are incomplete (eg. missing a
+physical volume).  This was fixed by skipping these LVs (Arye
+Yurkovsky).
+
 =begin comment
 
 =head2 Tools
@@ -66,8 +83,8 @@ qemu E<ge> 7.2.0 is now required.
 Fix guestmount compilation on macOS (thanks Mohamed Akram).
 
 Basic github CI has been implemented.  Pull requests now do the
-equivalent of C<./configure && make && make check> on a few common
-platforms.
+equivalent of C<./configure --enable-werror && make && make check> on
+a few common platforms.
 
 Several obsolete tests were removed, and the test suite in general has
 been fixed and made more robust against missing dependencies and other
@@ -81,6 +98,9 @@ with a simple test for LIBINTL (Cole Robinson).
 
 F<build-aux/config.rpath> was removed since it was no longer actually
 used (Cole Robinson).
+
+Fix const-correctness issues caused by changes to the L<strchr(3)> and
+L<strrchr(3)> functions in C23.
 
 =head2 Internals
 
@@ -147,6 +167,14 @@ Nicolas Ojeda Bar).
 
 Internal calls to L<pcre2_match(3)> which return an unexpected error
 now emit a debug message, although the error is still ignored.
+
+Multiple code cleanups throughout (Susant Sahani).
+
+Fix order of inclusion of Python header file because of changes in
+recent Python 3.14.
+
+Some test scripts which were written in Perl before have been
+rewritten in Python (Susant Sahani).
 
 =head2 Bugs fixed
 
@@ -215,6 +243,10 @@ virt-v2v can't convert sles15sp6 guest with encrypted brtfs fliesystem
 
 Fails to build with macFUSE
 
+=item L<https://github.com/libguestfs/libguestfs/issues/234>
+
+make -j8 check failures with selinux enforcing
+
 =back
 
 =head1 SEE ALSO
@@ -238,9 +270,13 @@ git shortlog -s v1.56.0..
 
 =over 4
 
+=item Arye Yurkovsky
+
 =item Cole Robinson
 
 =item Ettore Atalan
+
+=item Fco. Javier F. Serrador
 
 =item Pavel Borecki
 
@@ -254,4 +290,4 @@ git shortlog -s v1.56.0..
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009-2025 Red Hat Inc.
+Copyright (C) 2009-2026 Red Hat Inc.
