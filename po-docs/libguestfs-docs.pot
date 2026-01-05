@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.57.7\n"
+"Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2025-12-04 13:04+0000\n"
+"POT-Creation-Date: 2026-01-05 16:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,11 +205,11 @@ msgstr ""
 #: docs/guestfs-release-notes-1.44.pod:132
 #: docs/guestfs-release-notes-1.44.pod:136
 #: docs/guestfs-release-notes-1.44.pod:140
-#: docs/guestfs-release-notes-1.58.pod:99
-#: docs/guestfs-release-notes-1.58.pod:103
-#: docs/guestfs-release-notes-1.58.pod:111
-#: docs/guestfs-release-notes-1.58.pod:117
-#: docs/guestfs-release-notes-1.58.pod:122 docs/guestfs-release-notes.pod:9
+#: docs/guestfs-release-notes-1.58.pod:119
+#: docs/guestfs-release-notes-1.58.pod:123
+#: docs/guestfs-release-notes-1.58.pod:131
+#: docs/guestfs-release-notes-1.58.pod:137
+#: docs/guestfs-release-notes-1.58.pod:142 docs/guestfs-release-notes.pod:9
 #: docs/guestfs-release-notes.pod:13 docs/guestfs-release-notes.pod:17
 #: docs/guestfs-release-notes.pod:21 docs/guestfs-release-notes.pod:25
 #: docs/guestfs-release-notes.pod:29 docs/guestfs-release-notes.pod:33
@@ -574,7 +574,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:121
 #: docs/guestfs-release-notes-1.54.pod:128
 #: docs/guestfs-release-notes-1.56.pod:196
-#: docs/guestfs-release-notes-1.58.pod:220
+#: docs/guestfs-release-notes-1.58.pod:252
 #: docs/guestfs-release-notes-1.6.pod:170
 #: docs/guestfs-release-notes-1.8.pod:145 docs/guestfs-release-notes.pod:153
 #: docs/guestfs-security.pod:437 docs/guestfs-testing.pod:395
@@ -611,7 +611,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:132
 #: docs/guestfs-release-notes-1.54.pod:139
 #: docs/guestfs-release-notes-1.56.pod:207
-#: docs/guestfs-release-notes-1.58.pod:231 docs/guestfs-security.pod:445
+#: docs/guestfs-release-notes-1.58.pod:263 docs/guestfs-security.pod:445
 #: docs/guestfs-testing.pod:402 erlang/examples/guestfs-erlang.pod:110
 #: examples/guestfs-examples.pod:69 fish/guestfish.pod:1636
 #: fish/libguestfs-tools.conf.pod:96 fish/virt-copy-in.pod:52
@@ -673,7 +673,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:172
 #: docs/guestfs-release-notes-1.54.pod:177
 #: docs/guestfs-release-notes-1.56.pod:241
-#: docs/guestfs-release-notes-1.58.pod:255
+#: docs/guestfs-release-notes-1.58.pod:291
 #: docs/guestfs-release-notes-1.6.pod:185
 #: docs/guestfs-release-notes-1.8.pod:160 docs/guestfs-release-notes.pod:168
 #: docs/guestfs-security.pod:449 docs/guestfs-testing.pod:406
@@ -719,7 +719,6 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:174
 #: docs/guestfs-release-notes-1.54.pod:179
 #: docs/guestfs-release-notes-1.56.pod:243
-#: docs/guestfs-release-notes-1.58.pod:257
 #: docs/guestfs-release-notes-1.6.pod:187
 #: docs/guestfs-release-notes-1.8.pod:162 docs/guestfs-release-notes.pod:170
 #: docs/guestfs-security.pod:451 fish/guestfish.pod:1642
@@ -789,12 +788,12 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:124
 #: docs/guestfs-release-notes-1.56.pod:209
 #: docs/guestfs-release-notes-1.56.pod:213
-#: docs/guestfs-release-notes-1.58.pod:43
-#: docs/guestfs-release-notes-1.58.pod:47
-#: docs/guestfs-release-notes-1.58.pod:153
-#: docs/guestfs-release-notes-1.58.pod:157
-#: docs/guestfs-release-notes-1.58.pod:233
-#: docs/guestfs-release-notes-1.58.pod:237 fish/guestfish-actions.pod:1
+#: docs/guestfs-release-notes-1.58.pod:60
+#: docs/guestfs-release-notes-1.58.pod:64
+#: docs/guestfs-release-notes-1.58.pod:181
+#: docs/guestfs-release-notes-1.58.pod:185
+#: docs/guestfs-release-notes-1.58.pod:265
+#: docs/guestfs-release-notes-1.58.pod:269 fish/guestfish-actions.pod:1
 #: fish/guestfish-actions.pod:25 fish/guestfish-commands.pod:1
 #: fish/guestfish-commands.pod:25 fish/guestfish-prepopts.pod:1
 #: fish/guestfish-prepopts.pod:25 lib/guestfs-actions.pod:1
@@ -12445,7 +12444,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:75
 #: docs/guestfs-release-notes-1.54.pod:76
 #: docs/guestfs-release-notes-1.56.pod:92
-#: docs/guestfs-release-notes-1.58.pod:85
+#: docs/guestfs-release-notes-1.58.pod:105
 #: docs/guestfs-release-notes-1.6.pod:119
 #: docs/guestfs-release-notes-1.8.pod:101
 msgid "Internals"
@@ -12521,7 +12520,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:92
 #: docs/guestfs-release-notes-1.54.pod:91
 #: docs/guestfs-release-notes-1.56.pod:118
-#: docs/guestfs-release-notes-1.58.pod:151
+#: docs/guestfs-release-notes-1.58.pod:179
 #: docs/guestfs-release-notes-1.6.pod:135
 #: docs/guestfs-release-notes-1.8.pod:136
 msgid "Bugs fixed"
@@ -12586,7 +12585,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:123
 #: docs/guestfs-release-notes-1.54.pod:130
 #: docs/guestfs-release-notes-1.56.pod:198
-#: docs/guestfs-release-notes-1.58.pod:222
+#: docs/guestfs-release-notes-1.58.pod:254
 #: docs/guestfs-release-notes-1.6.pod:172
 #: docs/guestfs-release-notes-1.8.pod:147 docs/guestfs-release-notes.pod:155
 msgid ""
@@ -12621,7 +12620,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:160
 #: docs/guestfs-release-notes-1.54.pod:167
 #: docs/guestfs-release-notes-1.56.pod:231
-#: docs/guestfs-release-notes-1.58.pod:247
+#: docs/guestfs-release-notes-1.58.pod:283
 #: docs/guestfs-release-notes-1.6.pod:183
 #: docs/guestfs-release-notes-1.8.pod:158 docs/guestfs-release-notes.pod:166
 msgid "Richard W.M. Jones"
@@ -15704,7 +15703,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:48
 #: docs/guestfs-release-notes-1.54.pod:59
 #: docs/guestfs-release-notes-1.56.pod:48
-#: docs/guestfs-release-notes-1.58.pod:45
+#: docs/guestfs-release-notes-1.58.pod:62
 msgid "Tools"
 msgstr ""
 
@@ -15798,7 +15797,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:12
 #: docs/guestfs-release-notes-1.54.pod:14
 #: docs/guestfs-release-notes-1.56.pod:52
-#: docs/guestfs-release-notes-1.58.pod:49
+#: docs/guestfs-release-notes-1.58.pod:66
 msgid "Language bindings"
 msgstr ""
 
@@ -16631,7 +16630,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:59
 #: docs/guestfs-release-notes-1.54.pod:63
 #: docs/guestfs-release-notes-1.56.pod:60
-#: docs/guestfs-release-notes-1.58.pod:60
+#: docs/guestfs-release-notes-1.58.pod:77
 msgid "Build changes"
 msgstr ""
 
@@ -20994,7 +20993,7 @@ msgstr ""
 #. type: =head2
 #: docs/guestfs-release-notes-1.32.pod:101
 #: docs/guestfs-release-notes-1.34.pod:192
-#: docs/guestfs-release-notes-1.58.pod:56
+#: docs/guestfs-release-notes-1.58.pod:73
 msgid "Documentation"
 msgstr ""
 
@@ -27736,7 +27735,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:166
 #: docs/guestfs-release-notes-1.54.pod:171
 #: docs/guestfs-release-notes-1.56.pod:237
-#: docs/guestfs-release-notes-1.58.pod:251
+#: docs/guestfs-release-notes-1.58.pod:287
 msgid "Yuri Chornoivan"
 msgstr ""
 
@@ -28827,7 +28826,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:209
 #: docs/guestfs-release-notes-1.56.pod:223
-#: docs/guestfs-release-notes-1.58.pod:243
+#: docs/guestfs-release-notes-1.58.pod:277
 msgid "Ettore Atalan"
 msgstr ""
 
@@ -28870,7 +28869,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:229
 #: docs/guestfs-release-notes-1.52.pod:158
-#: docs/guestfs-release-notes-1.58.pod:245
+#: docs/guestfs-release-notes-1.58.pod:281
 msgid "Pavel Borecki"
 msgstr ""
 
@@ -29806,7 +29805,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:217
-#: docs/guestfs-release-notes-1.58.pod:241
+#: docs/guestfs-release-notes-1.58.pod:275
 msgid "Cole Robinson"
 msgstr ""
 
@@ -29854,7 +29853,7 @@ msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.58.pod:10
-msgid "Libguestfs 1.58.0 was released on B<XXX December 2025>."
+msgid "Libguestfs 1.58.0 was released on B<5th January 2026>."
 msgstr ""
 
 #. type: textblock
@@ -29911,46 +29910,78 @@ msgid ""
 msgstr ""
 
 #. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:43
+msgid ""
+"C<guestfs_btrfs_subvolume_show> would sometimes crash when parsing the "
+"snapshots of a Btrfs subvolume.  Furthermore, in any API that returned a "
+"device name associated with a Btrfs volume, the device name might not be "
+"translated correctly resulting in the wrong device name being returned.  "
+"(Both problems fixed by Arye Yurkovsky.)"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:49
+msgid "Fix a memory leak in C<guestfs_filesystem_walk> (Susant Sahani)."
+msgstr ""
+
+#. type: textblock
 #: docs/guestfs-release-notes-1.58.pod:51
+msgid ""
+"In C<guestfs_disk_create>, when creating raw block devices, check for errors "
+"in the L<close(2)> system call, ensuring we don't miss any delayed I/O "
+"errors (Susant Sahani)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:55
+msgid ""
+"In several LVM-related APIs, it was possible for an internal failure to "
+"happen for logical volumes which are incomplete (eg. missing a physical "
+"volume).  This was fixed by skipping these LVs (Arye Yurkovsky)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:68
 msgid ""
 "Note that GObject / Javascript bindings will be removed in the next release "
 "of libguestfs."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:54
+#: docs/guestfs-release-notes-1.58.pod:71
 msgid "Ruby deprecation warnings were fixed (Cole Robinson)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:58
+#: docs/guestfs-release-notes-1.58.pod:75
 msgid "Fix links to ntfs-3g documentation (Cole Robinson)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:62
+#: docs/guestfs-release-notes-1.58.pod:79
 msgid "libvirt E<ge> 11.10.0 with passt support is now required."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:64
+#: docs/guestfs-release-notes-1.58.pod:81
 msgid "qemu E<ge> 7.2.0 is now required."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:66
+#: docs/guestfs-release-notes-1.58.pod:83
 msgid "Fix guestmount compilation on macOS (thanks Mohamed Akram)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:68
+#: docs/guestfs-release-notes-1.58.pod:85
 msgid ""
 "Basic github CI has been implemented.  Pull requests now do the equivalent "
-"of C<./configure && make && make check> on a few common platforms."
+"of C<./configure --enable-werror && make && make check> on a few common "
+"platforms."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:72
+#: docs/guestfs-release-notes-1.58.pod:89
 msgid ""
 "Several obsolete tests were removed, and the test suite in general has been "
 "fixed and made more robust against missing dependencies and other common "
@@ -29958,28 +29989,35 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:76
+#: docs/guestfs-release-notes-1.58.pod:93
 msgid ""
 "In test output we no longer print absolute paths for the test names (Cole "
 "Robinson)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:79
+#: docs/guestfs-release-notes-1.58.pod:96
 msgid ""
 "C<AM_GNU_GETTEXT> usage was completely removed and replaced with a simple "
 "test for LIBINTL (Cole Robinson)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:82
+#: docs/guestfs-release-notes-1.58.pod:99
 msgid ""
 "F<build-aux/config.rpath> was removed since it was no longer actually used "
 "(Cole Robinson)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:87
+#: docs/guestfs-release-notes-1.58.pod:102
+msgid ""
+"Fix const-correctness issues caused by changes to the L<strchr(3)> and "
+"L<strrchr(3)> functions in C23."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:107
 msgid ""
 "If the C<sit.ko> Linux kernel module is loaded, then a C<sit0> (a kind of "
 "IPv6 tunnel) network device is created in the appliance.  Ignore this as it "
@@ -29987,24 +30025,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:92
+#: docs/guestfs-release-notes-1.58.pod:112
 msgid ""
 "In the direct backend we simplified probing of qemu features by assuming "
 "that qemu E<ge> 7.2.0."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:95
+#: docs/guestfs-release-notes-1.58.pod:115
 msgid "In the libvirt backend:"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:101
+#: docs/guestfs-release-notes-1.58.pod:121
 msgid "Fix compatibility with SeaBIOS 1.17 (thanks Gerd Hoffmann)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:105
+#: docs/guestfs-release-notes-1.58.pod:125
 msgid ""
 "We made some changes to how errors from the libvirt call "
 "C<virDomainDestroyFlags> are handled when shutting down the appliance.  If "
@@ -30014,7 +30052,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:113
+#: docs/guestfs-release-notes-1.58.pod:133
 msgid ""
 "The libvirt backend now adds a virtio-rng device to the appliance "
 "unconditionally so that we always have good entropy (for cryptographic "
@@ -30022,21 +30060,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:119
+#: docs/guestfs-release-notes-1.58.pod:139
 msgid ""
 "When running as root, remove explicit socket relabelling and allow libvirt "
 "to relabel the sockets instead (Cole Robinson)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:124
+#: docs/guestfs-release-notes-1.58.pod:144
 msgid ""
 "Enable sVirt for the appliance, which was sometimes accidentally disabled "
 "(Cole Robinson)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:129
+#: docs/guestfs-release-notes-1.58.pod:149
 msgid ""
 "During inspection of Linux/Unix guests, the contents of guest F</etc/fstab> "
 "and some mdadm files are written to debug output.  This can help with "
@@ -30044,28 +30082,28 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:133
+#: docs/guestfs-release-notes-1.58.pod:153
 msgid ""
 "When the appliance starts up, if debugging is enabled, then we log "
 "L<lsblk(8)> and L<blkid(8)> info to debugging output (thanks Ming Xie)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:137
+#: docs/guestfs-release-notes-1.58.pod:157
 msgid ""
 "In the generator C<StringList(Pathname)> was implemented for OCaml "
 "functions."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:140
+#: docs/guestfs-release-notes-1.58.pod:160
 msgid ""
 "Add more debugging in Windows Registry inspection functions to make it "
 "easier to track what's going on."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:143
+#: docs/guestfs-release-notes-1.58.pod:163
 msgid ""
 "OCaml C<{|...|}> string literals are now used in the code for things like "
 "literal Windows batch files that we inject into the guest, regular "
@@ -30074,46 +30112,65 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:148
+#: docs/guestfs-release-notes-1.58.pod:168
 msgid ""
 "Internal calls to L<pcre2_match(3)> which return an unexpected error now "
 "emit a debug message, although the error is still ignored."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:155
+#: docs/guestfs-release-notes-1.58.pod:171
+msgid "Multiple code cleanups throughout (Susant Sahani)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:173
+msgid ""
+"Fix order of inclusion of Python header file because of changes in recent "
+"Python 3.14."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:176
+msgid ""
+"Some test scripts which were written in Perl before have been rewritten in "
+"Python (Susant Sahani)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:183
 msgid "./bugs-in-changelog.sh v1.56.0.."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:161
+#: docs/guestfs-release-notes-1.58.pod:189
 msgid "L<https://issues.redhat.com/browse/RHEL-104352>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:163
+#: docs/guestfs-release-notes-1.58.pod:191
 msgid "Change permission of guestfs folder created"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:165
+#: docs/guestfs-release-notes-1.58.pod:193
 msgid "L<https://issues.redhat.com/browse/RHEL-106490>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:167
+#: docs/guestfs-release-notes-1.58.pod:195
 msgid ""
 "Adding the commands \"lsblk\", \"cat /etc/fstab\" and \"blkid\" to the v2v "
 "debug log"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:170
+#: docs/guestfs-release-notes-1.58.pod:198
 msgid "L<https://issues.redhat.com/browse/RHEL-108803>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:172
+#: docs/guestfs-release-notes-1.58.pod:200
 msgid ""
 "Parted fails to read a blank disk \"virt-v2v: error: libguestfs error: "
 "inspect_os: parted: /dev/sdb: parted exited with status 1: Error: /dev/sdb: "
@@ -30121,32 +30178,32 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:176
+#: docs/guestfs-release-notes-1.58.pod:204
 msgid "L<https://issues.redhat.com/browse/RHEL-111165>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:178
+#: docs/guestfs-release-notes-1.58.pod:206
 msgid "[Testonly]virt-v2v of RHEL 8.10 VM fails because setfiles invoked oom-killer"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:181
+#: docs/guestfs-release-notes-1.58.pod:209
 msgid "L<https://issues.redhat.com/browse/RHEL-111505>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:183
+#: docs/guestfs-release-notes-1.58.pod:211
 msgid "Lots of memory used in 'setfiles' utility / 'restorecon_sb' function"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:185
+#: docs/guestfs-release-notes-1.58.pod:213
 msgid "L<https://issues.redhat.com/browse/RHEL-113397>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:187
+#: docs/guestfs-release-notes-1.58.pod:215
 msgid ""
 "[DEV Task]: The available subscriptions of guest sometimes can't be shown "
 "unless use --sm-remove and --sm-unregister options to remove all "
@@ -30154,12 +30211,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:191
+#: docs/guestfs-release-notes-1.58.pod:219
 msgid "L<https://issues.redhat.com/browse/RHEL-113398>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:193
+#: docs/guestfs-release-notes-1.58.pod:221
 msgid ""
 "[DEV Task]: Virt-v2v can't use --sm-remove and --sm-unregister options to "
 "remove the subscriptions from guest if consumer profile has been deleted "
@@ -30167,65 +30224,90 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:197
+#: docs/guestfs-release-notes-1.58.pod:225
 msgid "L<https://issues.redhat.com/browse/RHEL-114292>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:199
+#: docs/guestfs-release-notes-1.58.pod:227
 msgid "Use setfiles -A option when relabelling"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:201
+#: docs/guestfs-release-notes-1.58.pod:229
 msgid "L<https://issues.redhat.com/browse/RHEL-121076>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:203
+#: docs/guestfs-release-notes-1.58.pod:231
 msgid ""
 "[libguestfs] [aarch64] libguestfs-test-tool failed with "
 "LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:206
+#: docs/guestfs-release-notes-1.58.pod:234
 msgid "L<https://issues.redhat.com/browse/RHEL-125846>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:208
+#: docs/guestfs-release-notes-1.58.pod:236
 msgid "virt-inspector detect if AV/GPOs are present in a VM"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:210
+#: docs/guestfs-release-notes-1.58.pod:238
 msgid "L<https://issues.redhat.com/browse/RHEL-93584>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:212
+#: docs/guestfs-release-notes-1.58.pod:240
 msgid "virt-v2v can't convert sles15sp6 guest with encrypted brtfs fliesystem"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:214
+#: docs/guestfs-release-notes-1.58.pod:242
 msgid "L<https://github.com/libguestfs/libguestfs/issues/180>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:216
+#: docs/guestfs-release-notes-1.58.pod:244
 msgid "Fails to build with macFUSE"
 msgstr ""
 
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:246
+msgid "L<https://github.com/libguestfs/libguestfs/issues/234>"
+msgstr ""
+
 #. type: textblock
-#: docs/guestfs-release-notes-1.58.pod:235
+#: docs/guestfs-release-notes-1.58.pod:248
+msgid "make -j8 check failures with selinux enforcing"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:267
 msgid "git shortlog -s v1.56.0.."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.58.pod:249
+#: docs/guestfs-release-notes-1.58.pod:273
+msgid "Arye Yurkovsky"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:279
+msgid "Fco. Javier F. Serrador"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.58.pod:285
 msgid "Susant Sahani"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.58.pod:293
+msgid "Copyright (C) 2009-2026 Red Hat Inc."
 msgstr ""
 
 #. type: =head1
