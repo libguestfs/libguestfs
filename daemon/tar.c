@@ -134,7 +134,7 @@ write_cb (void *fd_ptr, const void *buf, size_t len)
 /* Has one FileIn parameter. */
 /* Takes optional arguments, consult optargs_bitmask. */
 int
-do_tar_in (const char *dir, const char *compress, int xattrs, int selinux, int acls)
+do_tar_in (const char *dir, const char *compress, int xattrs, int selinux, int acls, int keepdirlink)
 {
   const char *filter;
   int err, r;
@@ -179,6 +179,9 @@ do_tar_in (const char *dir, const char *compress, int xattrs, int selinux, int a
   if (!(optargs_bitmask & GUESTFS_TAR_IN_ACLS_BITMASK))
     acls = 0;
 
+  if (!(optargs_bitmask & GUESTFS_TAR_IN_KEEPDIRLINK_BITMASK))
+    keepdirlink = 0;
+
   fd = mkstemp (error_file);
   if (fd == -1) {
     err = errno;
@@ -203,7 +206,7 @@ do_tar_in (const char *dir, const char *compress, int xattrs, int selinux, int a
   }
   fprintf (fp, "tar -C ");
   sysroot_shell_quote (dir, fp);
-  fprintf (fp, "%s -xf - %s%s%s%s2> %s",
+  fprintf (fp, "%s -xf - %s%s%s%s%s2> %s",
            filter,
            chown_supported ? "" : "--no-same-owner ",
            /* --xattrs-include=* is a workaround for a bug
@@ -213,6 +216,7 @@ do_tar_in (const char *dir, const char *compress, int xattrs, int selinux, int a
            xattrs ? "--xattrs --xattrs-include='*' " : "",
            selinux ? "--selinux " : "",
            acls ? "--acls " : "",
+           keepdirlink ? "--keep-directory-symlink " : "",
            error_file);
   if (fclose (fp) == EOF)
     goto cmd_error;
@@ -272,7 +276,7 @@ int
 do_tgz_in (const char *dir)
 {
   optargs_bitmask = GUESTFS_TAR_IN_COMPRESS_BITMASK;
-  return do_tar_in (dir, "gzip", 0, 0, 0);
+  return do_tar_in (dir, "gzip", 0, 0, 0, 0);
 }
 
 /* Has one FileIn parameter. */
@@ -280,7 +284,7 @@ int
 do_txz_in (const char *dir)
 {
   optargs_bitmask = GUESTFS_TAR_IN_COMPRESS_BITMASK;
-  return do_tar_in (dir, "xz", 0, 0, 0);
+  return do_tar_in (dir, "xz", 0, 0, 0, 0);
 }
 
 /* Has one FileOut parameter. */
