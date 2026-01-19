@@ -67,6 +67,7 @@ generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
   CLEANUP_FREE char *line = NULL;
   size_t allocsize = 0;
   ssize_t len;
+  unsigned lineno;
 
   guestfs_int_cmd_add_string_unquoted (cmd, "echo ");
   /* QMP is modal.  You have to send the qmp_capabilities command first. */
@@ -106,19 +107,30 @@ generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
     perrorf (g, "fdopen");
     return -1;
   }
-  len = getline (&line, &allocsize, fp); /* line 1 */
+
+  lineno = 1;                   /* line 1 */
+  len = getline (&line, &allocsize, fp);
+  if (len >= 0) debug (g, "generic_qmp_test: %u: %s", lineno, line);
   if (len == -1 || strstr (line, "\"QMP\"") == NULL) {
   parse_failure:
     error (g, "did not understand QMP monitor output from %s", g->hv);
     return -1;
   }
-  len = getline (&line, &allocsize, fp); /* line 2 */
+
+  lineno++;                     /* line 2 */
+  len = getline (&line, &allocsize, fp);
+  if (len >= 0) debug (g, "generic_qmp_test: %u: %s", lineno, line);
   if (len == -1 || strstr (line, "\"return\"") == NULL)
     goto parse_failure;
-  len = getline (&line, &allocsize, fp); /* line 3 */
+
+  lineno++;                     /* line 3 */
+  len = getline (&line, &allocsize, fp);
+  if (len >= 0) debug (g, "generic_qmp_test: %u: %s", lineno, line);
   if (len == -1 || strstr (line, "\"return\"") == NULL)
     goto parse_failure;
+
   *outp = safe_strdup (g, line);
+
   /* The other lines we don't care about, so finish parsing here. */
   ignore_value (getline (&line, &allocsize, fp)); /* line 4 */
   ignore_value (getline (&line, &allocsize, fp)); /* line 5 */
