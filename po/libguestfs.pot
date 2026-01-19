@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.58.0\n"
+"Project-Id-Version: libguestfs 1.58.1\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-01-05 16:18+0000\n"
+"POT-Creation-Date: 2026-01-19 19:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4009,7 +4009,7 @@ msgstr ""
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1461 lib/launch-libvirt.c:1709 lib/qemu.c:282
+#: lib/launch-libvirt.c:1461 lib/launch-libvirt.c:1709 lib/qemu.c:295
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
@@ -4261,25 +4261,25 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: lib/qemu.c:419
+#: lib/qemu.c:432
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:426
+#: lib/qemu.c:439
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:436
+#: lib/qemu.c:449
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:456
+#: lib/qemu.c:469
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
