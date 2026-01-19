@@ -89,6 +89,7 @@ generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
 #endif
                                      "accel=kvm:hvf:tcg");
   guestfs_int_cmd_add_string_unquoted (cmd, " -qmp stdio");
+  guestfs_int_cmd_add_string_unquoted (cmd, " -S");
   guestfs_int_cmd_clear_capture_errors (cmd);
 
   fd = guestfs_int_cmd_pipe_run (cmd, "r");
