@@ -109,7 +109,7 @@ generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
   len = getline (&line, &allocsize, fp); /* line 1 */
   if (len == -1 || strstr (line, "\"QMP\"") == NULL) {
   parse_failure:
-    debug (g, "did not understand QMP monitor output from %s", g->hv);
+    error (g, "did not understand QMP monitor output from %s", g->hv);
     return -1;
   }
   len = getline (&line, &allocsize, fp); /* line 2 */
@@ -126,7 +126,7 @@ generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
   r = guestfs_int_cmd_pipe_wait (cmd);
   /* QMP tests are optional, don't fail if the tests fail. */
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    debug (g, "%s wait failed or unexpected exit status", g->hv);
+    error (g, "%s wait failed or unexpected exit status", g->hv);
     return -1;
   }
 
