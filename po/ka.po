@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the libguestfs package.
-# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022, 2023.
+# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022, 2023, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.49.1\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-01-05 16:18+0000\n"
-"PO-Revision-Date: 2023-11-26 21:01+0000\n"
+"PO-Revision-Date: 2026-01-19 02:58+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ka/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -1083,7 +1083,7 @@ msgstr ""
 
 #: fish/cmds.c:731
 msgid "get the temporary directory"
-msgstr ""
+msgstr "დროებითი საქაღალდის მიღება"
 
 #: fish/cmds.c:732
 msgid "get command trace enabled flag"
