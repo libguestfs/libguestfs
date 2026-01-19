@@ -84,9 +84,6 @@ guestfs_int_get_cpu_model (int kvm)
 #elif defined(__powerpc64__)
   /* See discussion in https://bugzilla.redhat.com/show_bug.cgi?id=1605071 */
   return NULL;
-#elif defined(__riscv)
-  /* qemu-system-riscv64 (7.0) doesn't yet support -cpu max */
-  return NULL;
 #elif defined(__loongarch64)
   /* qemu-system-loongarch64 doesn't yet support -cpu max */
   return NULL;
