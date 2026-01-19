@@ -1054,7 +1054,8 @@ let generate_daemon_optgroups_h () =
       pr "#define OPTGROUP_%s_NOT_AVAILABLE \\\n"
          (String.uppercase_ascii group);
       List.iter (
-        fun { name; style = ret, args, optargs } ->
+        function
+        | { name; style = ret, args, optargs; impl = C } ->
           let style = ret, args @ args_of_optargs optargs, [] in
           pr "  ";
           generate_prototype
@@ -1065,6 +1066,11 @@ let generate_daemon_optgroups_h () =
             ~semicolon:false
             name style;
           pr " { abort (); } \\\n"
+        | { impl = OCaml _ } ->
+           (* Don't need to generate anything for OCaml functions since
+            * the caml-stubs do_* function will still exist.
+            *)
+           ()
       ) fns;
       pr "  int optgroup_%s_available (void) { return 0; }\n" group;
       pr "\n"
