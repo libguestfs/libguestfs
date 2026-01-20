@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.57.7\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-01-05 16:18+0000\n"
+"POT-Creation-Date: 2026-01-19 19:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3121,15 +3121,15 @@ msgstr ""
 #: fish/run-3.c:2607 fish/run-3.c:2620 fish/run-3.c:2633 fish/run-3.c:2646
 #: fish/run-3.c:2659 fish/run-3.c:2672 fish/run-3.c:2948 fish/run-3.c:2989
 #: fish/run-3.c:3257 fish/run-3.c:3270 fish/run-3.c:3387 fish/run-3.c:3573
-#: fish/run-3.c:3586 fish/run-3.c:3599 fish/run-3.c:3682 fish/run-4.c:181
-#: fish/run-4.c:491 fish/run-4.c:1662 fish/run-4.c:2111 fish/run-4.c:2194
-#: fish/run-5.c:394 fish/run-5.c:469 fish/run-5.c:607 fish/run-5.c:620
-#: fish/run-5.c:732 fish/run-5.c:745 fish/run-5.c:1283 fish/run-5.c:1361
-#: fish/run-5.c:2334 fish/run-5.c:2426 fish/run-5.c:3003 fish/run-5.c:3016
-#: fish/run-5.c:3029 fish/run-5.c:3204 fish/run-5.c:3217 fish/run-5.c:3230
-#: fish/run-5.c:3243 fish/run-6.c:259 fish/run-6.c:367 fish/run-6.c:1777
-#: fish/run-6.c:1923 fish/run-6.c:1936 fish/run-6.c:2219 fish/run-6.c:2238
-#: fish/run-6.c:2251 fish/run-6.c:2264
+#: fish/run-3.c:3586 fish/run-3.c:3599 fish/run-3.c:3612 fish/run-3.c:3695
+#: fish/run-4.c:181 fish/run-4.c:491 fish/run-4.c:1662 fish/run-4.c:2111
+#: fish/run-4.c:2194 fish/run-5.c:394 fish/run-5.c:469 fish/run-5.c:607
+#: fish/run-5.c:620 fish/run-5.c:732 fish/run-5.c:745 fish/run-5.c:1283
+#: fish/run-5.c:1361 fish/run-5.c:2334 fish/run-5.c:2426 fish/run-5.c:3003
+#: fish/run-5.c:3016 fish/run-5.c:3029 fish/run-5.c:3204 fish/run-5.c:3217
+#: fish/run-5.c:3230 fish/run-5.c:3243 fish/run-6.c:259 fish/run-6.c:367
+#: fish/run-6.c:1777 fish/run-6.c:1923 fish/run-6.c:1936 fish/run-6.c:2219
+#: fish/run-6.c:2238 fish/run-6.c:2251 fish/run-6.c:2264
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr ""
@@ -3144,7 +3144,7 @@ msgstr ""
 #: fish/run-2.c:2322 fish/run-3.c:432 fish/run-3.c:494 fish/run-3.c:589
 #: fish/run-3.c:890 fish/run-3.c:997 fish/run-3.c:1402 fish/run-3.c:1645
 #: fish/run-3.c:1704 fish/run-3.c:2682 fish/run-3.c:2999 fish/run-3.c:3280
-#: fish/run-3.c:3609 fish/run-3.c:3845 fish/run-4.c:401 fish/run-4.c:506
+#: fish/run-3.c:3622 fish/run-3.c:3858 fish/run-4.c:401 fish/run-4.c:506
 #: fish/run-4.c:887 fish/run-4.c:1672 fish/run-4.c:2121 fish/run-4.c:2204
 #: fish/run-5.c:404 fish/run-5.c:630 fish/run-5.c:755 fish/run-5.c:809
 #: fish/run-5.c:1293 fish/run-5.c:1371 fish/run-5.c:1902 fish/run-5.c:3130
@@ -3164,7 +3164,7 @@ msgstr ""
 #: fish/run-2.c:2328 fish/run-3.c:438 fish/run-3.c:500 fish/run-3.c:595
 #: fish/run-3.c:896 fish/run-3.c:1003 fish/run-3.c:1408 fish/run-3.c:1651
 #: fish/run-3.c:1710 fish/run-3.c:2688 fish/run-3.c:3005 fish/run-3.c:3286
-#: fish/run-3.c:3615 fish/run-3.c:3851 fish/run-4.c:407 fish/run-4.c:512
+#: fish/run-3.c:3628 fish/run-3.c:3864 fish/run-4.c:407 fish/run-4.c:512
 #: fish/run-4.c:893 fish/run-4.c:1678 fish/run-4.c:2127 fish/run-4.c:2210
 #: fish/run-5.c:410 fish/run-5.c:636 fish/run-5.c:761 fish/run-5.c:815
 #: fish/run-5.c:1299 fish/run-5.c:1377 fish/run-5.c:1908 fish/run-5.c:3136
@@ -3199,10 +3199,10 @@ msgstr ""
 #: fish/run-3.c:2336 fish/run-3.c:2353 fish/run-3.c:2370 fish/run-3.c:2387
 #: fish/run-3.c:2410 fish/run-3.c:2726 fish/run-3.c:2772 fish/run-3.c:2815
 #: fish/run-3.c:2859 fish/run-3.c:2878 fish/run-3.c:2897 fish/run-3.c:2970
-#: fish/run-3.c:3041 fish/run-3.c:3077 fish/run-3.c:3119 fish/run-3.c:3699
-#: fish/run-3.c:3722 fish/run-3.c:3750 fish/run-3.c:3767 fish/run-3.c:3790
-#: fish/run-3.c:3818 fish/run-3.c:3835 fish/run-3.c:3920 fish/run-3.c:3933
-#: fish/run-3.c:3946 fish/run-3.c:3959 fish/run-3.c:4088 fish/run-4.c:139
+#: fish/run-3.c:3041 fish/run-3.c:3077 fish/run-3.c:3119 fish/run-3.c:3712
+#: fish/run-3.c:3735 fish/run-3.c:3763 fish/run-3.c:3780 fish/run-3.c:3803
+#: fish/run-3.c:3831 fish/run-3.c:3848 fish/run-3.c:3933 fish/run-3.c:3946
+#: fish/run-3.c:3959 fish/run-3.c:3972 fish/run-3.c:4101 fish/run-4.c:139
 #: fish/run-4.c:303 fish/run-4.c:444 fish/run-4.c:605 fish/run-4.c:648
 #: fish/run-4.c:697 fish/run-4.c:710 fish/run-4.c:751 fish/run-4.c:843
 #: fish/run-4.c:860 fish/run-4.c:877 fish/run-4.c:971 fish/run-4.c:1105
@@ -3241,8 +3241,8 @@ msgstr ""
 #: fish/run-3.c:2114 fish/run-3.c:2393 fish/run-3.c:2416 fish/run-3.c:2732
 #: fish/run-3.c:2778 fish/run-3.c:2821 fish/run-3.c:2865 fish/run-3.c:2884
 #: fish/run-3.c:2903 fish/run-3.c:2976 fish/run-3.c:3083 fish/run-3.c:3125
-#: fish/run-3.c:3705 fish/run-3.c:3728 fish/run-3.c:3773 fish/run-3.c:3796
-#: fish/run-3.c:4094 fish/run-4.c:145 fish/run-4.c:309 fish/run-4.c:654
+#: fish/run-3.c:3718 fish/run-3.c:3741 fish/run-3.c:3786 fish/run-3.c:3809
+#: fish/run-3.c:4107 fish/run-4.c:145 fish/run-4.c:309 fish/run-4.c:654
 #: fish/run-4.c:977 fish/run-4.c:1308 fish/run-4.c:1398 fish/run-4.c:1465
 #: fish/run-4.c:1509 fish/run-4.c:1554 fish/run-4.c:1573 fish/run-4.c:1592
 #: fish/run-4.c:1773 fish/run-4.c:1817 fish/run-4.c:1860 fish/run-4.c:1904
@@ -4008,7 +4008,7 @@ msgstr ""
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1461 lib/launch-libvirt.c:1709 lib/qemu.c:282
+#: lib/launch-libvirt.c:1461 lib/launch-libvirt.c:1709 lib/qemu.c:295
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
@@ -4260,25 +4260,25 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: lib/qemu.c:419
+#: lib/qemu.c:432
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:426
+#: lib/qemu.c:439
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:436
+#: lib/qemu.c:449
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:456
+#: lib/qemu.c:469
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
