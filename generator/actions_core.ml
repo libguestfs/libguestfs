@@ -7270,11 +7270,12 @@ call C<guestfs_max_disks>.|} };
          ["mount"; "/dev/sda1"; "/"];
          ["xfs_info"; "/"]], "ret->xfs_blocksize == 4096"), []
     ];
-    shortdesc = "get geometry of XFS filesystem";
+    shortdesc = "get information about the XFS filesystem";
     longdesc = {|C<pathordevice> is a mounted XFS filesystem or a device containing
-an XFS filesystem.  This command returns the geometry of the filesystem.
+an XFS filesystem.  This command returns miscellaneous
+metadata about the XFS filesystem.
 
-The returned struct contains geometry information.  Missing
+The returned struct contains miscellaneous metadata.  Missing
 fields are returned as C<-1> (for numeric fields) or empty
 string.|} };
 
