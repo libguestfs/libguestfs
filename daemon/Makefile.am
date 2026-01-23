@@ -63,7 +63,8 @@ generator_built = \
 	sfdisk.mli \
 	statvfs.mli \
 	structs.ml \
-	structs.mli
+	structs.mli \
+	xfs.mli
 
 CONFIGURE_GENERATED_ML = \
 	daemon_config.ml
@@ -312,7 +313,8 @@ SOURCES_MLI = \
 	statvfs.mli \
 	structs.mli \
 	sysroot.mli \
-	utils.mli
+	utils.mli \
+	xfs.mli
 
 SOURCES_ML = \
 	$(CONFIGURE_GENERATED_ML) \
@@ -347,6 +349,7 @@ SOURCES_ML = \
 	realpath.ml \
 	statvfs.ml \
 	selinux.ml \
+	xfs.ml \
 	inspect_types.ml \
 	inspect_utils.ml \
 	inspect_fs_unix_fstab.ml \
