@@ -9609,4 +9609,39 @@ The optional C<force> boolean controls whether the context
 is reset for customizable files, and also whether the
 user, role and range parts of the file context is changed.|} };
 
+  { defaults with
+    name = "xfs_info2"; added = (1, 59, 2);
+    style = RHashtable (RPlainString, RPlainString, "info"), [String (Dev_or_Path, "pathordevice")], [];
+    impl = OCaml "Xfs.xfs_info2";
+    optional = Some "xfs";
+    tests = [
+      InitEmpty, Always, TestResult (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
+         ["mount"; "/dev/sda1"; "/"];
+         ["xfs_info2"; "/"]],
+            "check_hash (ret, \"data.bsize\", \"4096\") == 0"), []
+    ];
+    shortdesc = "get information about the XFS filesystem";
+    longdesc = {|C<pathordevice> is a mounted XFS filesystem or
+a device containing an XFS filesystem.  This command returns
+miscellaneous metadata about the XFS filesystem.
+
+The output is a hash derived from the output of L<xfs_info(8)>,
+and generally looks like:
+
+ meta-data: /dev/sda1
+ meta-data.isize: 512
+ meta-data.agcount: 4
+ meta-data.agsize: 65528 blks
+ meta-data.sectsz: 512
+ meta-data.attr: 2
+ meta-data.projid32bit: 1
+ meta-data.crc: 1
+ [...]
+ data.bsize: 4096
+ data.blocks: 262112
+ [...]
+
+More information can be found by reading L<xfs_info(8)>.|} };
 ]
