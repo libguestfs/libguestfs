@@ -7366,11 +7366,7 @@ in the returned structure is defined by the API." };
          ["xfs_info"; "/"]], "ret->xfs_blocksize == 4096"), [];
     ];
     shortdesc = "expand an existing XFS filesystem";
-    longdesc = {|Grow the XFS filesystem mounted at C<path>.
-
-The returned struct contains geometry information.  Missing
-fields are returned as C<-1> (for numeric fields) or empty
-string.|} };
+    longdesc = {|Grow the XFS filesystem mounted at C<path>.|} };
 
   { defaults with
     name = "rsync"; added = (1, 19, 29);
