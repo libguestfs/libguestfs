@@ -7260,27 +7260,6 @@ To find out the maximum number of devices that could be added,
 call C<guestfs_max_disks>.|} };
 
   { defaults with
-    name = "xfs_info"; added = (1, 19, 21);
-    style = RStruct ("info", "xfsinfo"), [String (Dev_or_Path, "pathordevice")], [];
-    impl = OCaml "Xfs.xfs_info";
-    optional = Some "xfs";
-    tests = [
-      InitEmpty, Always, TestResult (
-        [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
-         ["mount"; "/dev/sda1"; "/"];
-         ["xfs_info"; "/"]], "ret->xfs_blocksize == 4096"), []
-    ];
-    shortdesc = "get information about the XFS filesystem";
-    longdesc = {|C<pathordevice> is a mounted XFS filesystem or a device containing
-an XFS filesystem.  This command returns miscellaneous
-metadata about the XFS filesystem.
-
-The returned struct contains miscellaneous metadata.  Missing
-fields are returned as C<-1> (for numeric fields) or empty
-string.|} };
-
-  { defaults with
     name = "pvchange_uuid"; added = (1, 19, 26);
     style = RErr, [String (Device, "device")], [];
     optional = Some "lvm2";
