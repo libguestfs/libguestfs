@@ -7262,6 +7262,7 @@ call C<guestfs_max_disks>.|} };
   { defaults with
     name = "xfs_info"; added = (1, 19, 21);
     style = RStruct ("info", "xfsinfo"), [String (Dev_or_Path, "pathordevice")], [];
+    impl = OCaml "Xfs.xfs_info";
     optional = Some "xfs";
     tests = [
       InitEmpty, Always, TestResult (
