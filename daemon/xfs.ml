@@ -17,6 +17,7 @@
  *)
 
 open Printf
+open Scanf
 
 open Std_utils
 
@@ -126,3 +127,47 @@ let xfs_info2 dev =
   ) groups;
 
   List.rev !values
+
+(* Deprecated xfs_info. *)
+let xfs_info dev =
+  let h = xfs_info2 dev in
+
+  let find field parsefn =
+    try List.assoc field h |> parsefn
+    with
+    | Not_found ->
+       failwithf "xfs_info: unexpected missing field: %s" field
+    | exn ->
+       failwithf "xfs_info: failure finding field: %s: %s"
+         field (Printexc.to_string exn)
+  in
+
+  let parse_blks s = sscanf s "%ld blks" Fun.id in
+  let parse_version s = sscanf s "version %ld" Fun.id in
+
+  { Structs.xfs_mntpoint = find "meta-data"      Fun.id;
+    xfs_inodesize    = find "meta-data.isize"    Int32.of_string;
+    xfs_agcount      = find "meta-data.agcount"  Int32.of_string;
+    xfs_agsize       = find "meta-data.agsize"   parse_blks;
+    xfs_sectsize     = find "meta-data.sectsz"   Int32.of_string;
+    xfs_attr         = find "meta-data.attr"     Int32.of_string;
+    xfs_blocksize    = find "data.bsize"         Int32.of_string;
+    xfs_datablocks   = find "data.blocks"        Int64.of_string;
+    xfs_imaxpct      = find "data.imaxpct"       Int32.of_string;
+    xfs_sunit        = find "data.sunit"         Int32.of_string;
+    xfs_swidth       = find "data.swidth"        parse_blks;
+    xfs_dirversion   = find "naming"             parse_version;
+    xfs_dirblocksize = find "naming.bsize"       Int32.of_string;
+    xfs_cimode       = find "naming.ascii-ci"    Int32.of_string;
+    xfs_logname      = find "log"                Fun.id;
+    xfs_logblocksize = find "log.bsize"          Int32.of_string;
+    xfs_logblocks    = find "log.blocks"         Int32.of_string;
+    xfs_logversion   = find "log.version"        Int32.of_string;
+    xfs_logsectsize  = find "log.sectsz"         Int32.of_string;
+    xfs_logsunit     = find "log.sunit"          parse_blks;
+    xfs_lazycount    = find "log.lazy-count"     Int32.of_string;
+    xfs_rtname       = find "realtime"           Fun.id;
+    xfs_rtextsize    = find "realtime.extsz"     Int32.of_string;
+    xfs_rtblocks     = find "realtime.blocks"    Int64.of_string;
+    xfs_rtextents    = find "realtime.rtextents" Int64.of_string;
+  }
