@@ -119,6 +119,7 @@ Makefile.in
 /daemon/stubs-?.c
 /daemon/stubs.h
 /daemon/types.ml
+/daemon/xfs.mli
 /depcomp
 /docs/guestfs-building.1
 /docs/guestfs-faq.1
