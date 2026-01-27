@@ -25,6 +25,7 @@ dnl Basically the same with a few minor tweaks.
 ifelse(UBUNTU,1,`define(`DEBIAN',1)')
 
 ifelse(REDHAT,1,
+  apfs-fuse
   clevis-luks
   cryptsetup
   cryptsetup-luks      dnl old name used before Fedora 17
