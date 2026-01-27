@@ -115,6 +115,7 @@ fi
 $UDEVD --daemon #--debug
 udevadm trigger
 udevadm settle --timeout=600
+#udevadm monitor -p &
 
 # Disk optimizations.
 # Increase the SCSI timeout so we can read remote images.
