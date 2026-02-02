@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-01-19 19:03+0000\n"
+"POT-Creation-Date: 2026-01-26 14:40+0000\n"
 "PO-Revision-Date: 2015-02-21 10:51+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/libguestfs/"
@@ -877,8 +877,8 @@ msgid "edit a file"
 msgstr "bewerk een bestand"
 
 #: fish/cmds.c:667 fish/cmds.c:668 fish/cmds.c:680 fish/cmds.c:681
-#: fish/cmds.c:740 fish/cmds.c:741 fish/cmds.c:1198 fish/cmds.c:1199
-#: fish/cmds.c:1204 fish/cmds.c:1205 fish/cmds.c:1207 fish/cmds.c:1208
+#: fish/cmds.c:740 fish/cmds.c:741 fish/cmds.c:1199 fish/cmds.c:1200
+#: fish/cmds.c:1205 fish/cmds.c:1206 fish/cmds.c:1208 fish/cmds.c:1209
 msgid "return lines matching a pattern"
 msgstr "geef regels terug die overeenkomen met een patroon"
 
@@ -2575,47 +2575,49 @@ msgstr "verander parameters van een XFS bestandssysteem"
 msgid "expand an existing XFS filesystem"
 msgstr "expandeer een bestaand XFS bestandssysteem"
 
-#: fish/cmds.c:1193
-msgid "get geometry of XFS filesystem"
+#: fish/cmds.c:1193 fish/cmds.c:1194
+#, fuzzy
+#| msgid "get geometry of XFS filesystem"
+msgid "get information about the XFS filesystem"
 msgstr "stel de geometrie van XFS bestandssysteem in"
 
-#: fish/cmds.c:1194
+#: fish/cmds.c:1195
 msgid "repair an XFS filesystem"
 msgstr "repareer een XFS bestandssysteem"
 
-#: fish/cmds.c:1195
+#: fish/cmds.c:1196
 msgid "destroy previously loaded yara rules"
 msgstr ""
 
-#: fish/cmds.c:1196
+#: fish/cmds.c:1197
 msgid "load yara rules within libguestfs"
 msgstr ""
 
-#: fish/cmds.c:1197
+#: fish/cmds.c:1198
 msgid "scan a file with the loaded yara rules"
 msgstr ""
 
-#: fish/cmds.c:1200
+#: fish/cmds.c:1201
 msgid "write zeroes to the device"
 msgstr "schrijf nullen naar het apparaat"
 
-#: fish/cmds.c:1201
+#: fish/cmds.c:1202
 msgid "write zeroes to an entire device"
 msgstr "schrijf nullen naar een heel apparaat"
 
-#: fish/cmds.c:1202
+#: fish/cmds.c:1203
 msgid "zero free space in a filesystem"
 msgstr "nul vrije ruimte in een bestandssysteem"
 
-#: fish/cmds.c:1203
+#: fish/cmds.c:1204
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr "nul ongebruikte inodes en schijf blokken op ext2/3 bestandssysteem"
 
-#: fish/cmds.c:1206
+#: fish/cmds.c:1207
 msgid "determine file type inside a compressed file"
 msgstr "bepaal bestand type in een gecomprimeerd bestand"
 
-#: fish/cmds.c:1209
+#: fish/cmds.c:1210
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "Gebruik -h <cmd> / help <cmd> om gedetailleerde hulp voor een commando te "
@@ -4228,7 +4230,7 @@ msgstr ""
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1461 lib/launch-libvirt.c:1709 lib/qemu.c:295
+#: lib/launch-libvirt.c:1461 lib/launch-libvirt.c:1709 lib/qemu.c:289
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
@@ -4502,25 +4504,25 @@ msgstr "bestand chunk ontleden mislukte"
 msgid "file receive cancelled by daemon"
 msgstr "bestand ontvangen geannuleerd door daemon"
 
-#: lib/qemu.c:432
+#: lib/qemu.c:426
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:439
+#: lib/qemu.c:433
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:449
+#: lib/qemu.c:443
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:469
+#: lib/qemu.c:463
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "

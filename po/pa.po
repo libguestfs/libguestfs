@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-01-19 19:03+0000\n"
+"POT-Creation-Date: 2026-01-26 14:40+0000\n"
 "PO-Revision-Date: 2015-02-21 10:52+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/projects/p/"
@@ -870,8 +870,8 @@ msgid "edit a file"
 msgstr "ਇੱਕ ਫਾਇਲ ਸੋਧੋ"
 
 #: fish/cmds.c:667 fish/cmds.c:668 fish/cmds.c:680 fish/cmds.c:681
-#: fish/cmds.c:740 fish/cmds.c:741 fish/cmds.c:1198 fish/cmds.c:1199
-#: fish/cmds.c:1204 fish/cmds.c:1205 fish/cmds.c:1207 fish/cmds.c:1208
+#: fish/cmds.c:740 fish/cmds.c:741 fish/cmds.c:1199 fish/cmds.c:1200
+#: fish/cmds.c:1205 fish/cmds.c:1206 fish/cmds.c:1208 fish/cmds.c:1209
 msgid "return lines matching a pattern"
 msgstr "ਨਮੂਨੇ ਨਾਲ ਮਿਲਦੀਆਂ ਲਾਈਨਾਂ ਭੇਜੋ"
 
@@ -2555,47 +2555,49 @@ msgstr ""
 msgid "expand an existing XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1193
-msgid "get geometry of XFS filesystem"
-msgstr ""
+#: fish/cmds.c:1193 fish/cmds.c:1194
+#, fuzzy
+#| msgid "resize an NTFS filesystem"
+msgid "get information about the XFS filesystem"
+msgstr "ਇੱਕ NTFS ਫਾਇਲ-ਸਿਸਟਮ ਨੂੰ ਮੁੜ-ਅਕਾਰ ਦਿਓ"
 
-#: fish/cmds.c:1194
+#: fish/cmds.c:1195
 msgid "repair an XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1195
+#: fish/cmds.c:1196
 msgid "destroy previously loaded yara rules"
 msgstr ""
 
-#: fish/cmds.c:1196
+#: fish/cmds.c:1197
 msgid "load yara rules within libguestfs"
 msgstr ""
 
-#: fish/cmds.c:1197
+#: fish/cmds.c:1198
 msgid "scan a file with the loaded yara rules"
 msgstr ""
 
-#: fish/cmds.c:1200
+#: fish/cmds.c:1201
 msgid "write zeroes to the device"
 msgstr "ਜੰਤਰ ਤੇ ਜ਼ੀਰੋ ਲਿਖੋ"
 
-#: fish/cmds.c:1201
+#: fish/cmds.c:1202
 msgid "write zeroes to an entire device"
 msgstr "ਪੂਰੇ ਜੰਤਰ ਵਿੱਚ ਸਿਫਰਾਂ ਲਿਖੋ"
 
-#: fish/cmds.c:1202
+#: fish/cmds.c:1203
 msgid "zero free space in a filesystem"
 msgstr ""
 
-#: fish/cmds.c:1203
+#: fish/cmds.c:1204
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr "ext2/3 ਫਾਇਲ-ਸਿਸਟਮ ਉੱਪਰ ਜ਼ੀਰੋ ਨਾ-ਵਰਤੇ inodes ਅਤੇ ਡਿਸਕ ਬਲਾਕ"
 
-#: fish/cmds.c:1206
+#: fish/cmds.c:1207
 msgid "determine file type inside a compressed file"
 msgstr "ਸੰਕੁਚਿਤ ਫਾਇਲ ਅੰਦਰ ਫਾਇਲ ਕਿਸਮ ਪਤਾ ਕਰੋ"
 
-#: fish/cmds.c:1209
+#: fish/cmds.c:1210
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr "ਇੱਕ ਕਮਾਂਡ ਲਈ ਵਿਸਥਾਰ ਜਾਣਕਾਰੀ ਵੇਖਣ ਲਈ -h <cmd> / help <cmd> ਵਰਤੋ।"
 
@@ -4187,7 +4189,7 @@ msgstr ""
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1461 lib/launch-libvirt.c:1709 lib/qemu.c:295
+#: lib/launch-libvirt.c:1461 lib/launch-libvirt.c:1709 lib/qemu.c:289
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
@@ -4454,25 +4456,25 @@ msgstr "ਫਾਇਲ ਚੰਕ ਪਾਰਸ ਕਰਨ ਵਿੱਚ ਫੇਲ ਹ
 msgid "file receive cancelled by daemon"
 msgstr "ਫਾਇਲ ਸਵੀਕਾਰ ਕਰਨਾ ਡੈਮਨ ਦੁਆਰਾ ਰੱਦ ਕੀਤਾ ਗਿਆ ਹੈ"
 
-#: lib/qemu.c:432
+#: lib/qemu.c:426
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:439
+#: lib/qemu.c:433
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:449
+#: lib/qemu.c:443
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:469
+#: lib/qemu.c:463
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
