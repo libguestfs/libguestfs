@@ -29,7 +29,6 @@ guestsdir = os.environ['guestsdir']
 
 
 @skipUnlessConfiguredWithLibvirt()
-@skipUnlessLibvirtHasCPointer()
 class Test910Libvirt(unittest.TestCase):
     def test_libvirt(self):
         import libvirt

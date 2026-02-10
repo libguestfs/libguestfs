@@ -48,23 +48,6 @@ def skipUnlessConfiguredWithLibvirt():
     return lambda func: func
 
 
-def skipUnlessLibvirtHasCPointer():
-    """
-    Skip the current class/method if:
-      (a) libvirt cannot be imported (e.g. not installed)
-      (b) connection objects don't have the c_pointer() method (too old)
-    """
-    try:
-        import libvirt
-    except ImportError:
-        return unittest.skip("could not import libvirt")
-    # Check we're using the version of libvirt-python that has
-    # c_pointer() methods.
-    if "c_pointer" not in dir(libvirt.open(None)):
-        return unittest.skip("libvirt-python doesn't support c_pointer()")
-    return lambda func: func
-
-
 def skipUnlessGuestfsBackendIs(wanted):
     """
     Skip the current class/method if the default backend of libguestfs
