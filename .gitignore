@@ -209,12 +209,6 @@ Makefile.in
 /generator/stamp-generator
 /.gitattributes
 /.git-module-status
-/gobject/bindtests.js
-/gobject/Guestfs-1.0.gir
-/gobject/Guestfs-1.0.typelib
-/gobject/guestfs-gobject.3
-/gobject/libguestfs-gobject-1.0.vapi
-/gobject/stamp-guestfs-gobject.pod
 /golang/bindtests/bindtests.go
 /golang/examples/guestfs-golang.3
 /golang/examples/stamp-guestfs-golang.pod

@@ -88,9 +88,6 @@ endif
 if HAVE_LUA
 SUBDIRS += lua lua/examples
 endif
-if HAVE_GOBJECT
-SUBDIRS += gobject
-endif
 if HAVE_GOLANG
 SUBDIRS += golang golang/examples
 endif
@@ -214,7 +211,7 @@ dist-hook: docs/C_SOURCE_FILES po/POTFILES
 docs/C_SOURCE_FILES: configure.ac
 	rm -f $@ $@-t
 	find $(DIST_SUBDIRS) -name '*.[ch]' | \
-	grep -v -E '^(builder/index-parse\.|builder/index-scan\.|examples/|gobject/|java/com_redhat_et_libguestfs|perl/|php/extension/config\.h|ruby/ext/guestfs/extconf\.h|tests/|test-data/)' | \
+	grep -v -E '^(builder/index-parse\.|builder/index-scan\.|examples/|java/com_redhat_et_libguestfs|perl/|php/extension/config\.h|ruby/ext/guestfs/extconf\.h|tests/|test-data/)' | \
 	grep -v -E '/(guestfs|rc)_protocol\.' | \
 	grep -v -E '.*/errnostring\.' | \
 	grep -v -E '.*-gperf\.' | \

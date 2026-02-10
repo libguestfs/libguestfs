@@ -307,10 +307,6 @@ Optional.  Used to build the PHP bindings.
 
 =item gobject-introspection
 
-=item gjs
-
-Optional.  Used to build and test the GObject bindings.
-
 =item vala
 
 Optional.  Used to build the Vala bindings.
@@ -501,8 +497,6 @@ ones.
 See L</USING A PREBUILT BINARY APPLIANCE> below.
 
 =item B<--disable-erlang>
-
-=item B<--disable-gobject>
 
 =item B<--disable-golang>
 

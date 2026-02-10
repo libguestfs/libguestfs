@@ -639,66 +639,6 @@ main = do
 
   pr "  putStrLn \"EOF\"\n"
 
-and generate_gobject_js_bindtests () =
-  generate_header CPlusPlusStyle GPLv2plus;
-
-  pr {|const Guestfs = imports.gi.Guestfs;
-
-var g = new Guestfs.Session();
-var o;
-
-|};
-
-    let mkoptargs = function
-    | Some optargs ->
-      "o = new Guestfs.InternalTest({" ^
-      (
-        String.concat ", " (
-          List.map (
-            function
-            | CallOBool (n, v)    -> n ^ ": " ^ (if v then "true" else "false")
-            | CallOInt (n, v)     -> n ^ ": " ^ (string_of_int v)
-            | CallOInt64 (n, v)   -> n ^ ": " ^ Int64.to_string v
-            | CallOString (n, v)  -> n ^ ": \"" ^ v ^ "\""
-            | CallOStringList (n, xs) -> "" (* not implemented XXX *)
-(*
-            | CallOStringList (n, xs) ->
-              n ^ ": " ^
-                "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
-*)
-          ) optargs
-        )
-      ) ^
-      "});"
-    | None ->
-      "o = null;"
-    in
-
-    let mkargs args =
-      String.concat ", " (
-        (List.map (
-          function
-          | CallString s -> "\"" ^ s ^ "\""
-          | CallOptString None -> "null"
-          | CallOptString (Some s) -> "\"" ^ s ^ "\""
-          | CallStringList xs ->
-              "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
-          | CallInt i -> string_of_int i
-          | CallInt64 i -> Int64.to_string i
-          | CallBool true -> "true"
-          | CallBool false -> "false"
-          | CallBuffer s -> "\"" ^ c_quote s ^ "\""
-        ) args)
-        @ ["o"; "null"]
-      )
-    in
-    generate_lang_bindtests (
-      fun f args optargs ->
-        pr "%s\ng.%s(%s);\n" (mkoptargs optargs) f (mkargs args)
-    );
-
-    pr "\nprint(\"EOF\");\n"
-
 and generate_erlang_bindtests () =
   pr "#!/usr/bin/env escript\n";
   pr "%%! -smp enable -sname create_disk debug verbose\n";

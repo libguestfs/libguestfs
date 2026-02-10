@@ -107,10 +107,8 @@ prepend PATH "$b/tools"
 export PATH
 
 # Set LD_LIBRARY_PATH and DYLD_LIBRARY_PATH to contain library.
-prepend LD_LIBRARY_PATH "$b/gobject/.libs"
 prepend LD_LIBRARY_PATH "$b/java/.libs"
 prepend LD_LIBRARY_PATH "$b/lib/.libs"
-prepend DYLD_LIBRARY_PATH "$b/gobject/.libs"
 prepend DYLD_LIBRARY_PATH "$b/java/.libs"
 prepend DYLD_LIBRARY_PATH "$b/lib/.libs"
 export LD_LIBRARY_PATH
@@ -208,10 +206,6 @@ else
 fi
 export RUSTFLAGS
 
-# For GObject, Javascript and friends.
-export GJS="@GJS@"
-prepend GI_TYPELIB_PATH "$b/gobject"
-export GI_TYPELIB_PATH
 # Be friendly to valgrind (https://live.gnome.org/Valgrind)
 export G_SLICE=always-malloc
 export G_DEBUG=gc-friendly
