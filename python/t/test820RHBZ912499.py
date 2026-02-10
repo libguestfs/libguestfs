@@ -32,7 +32,6 @@ from .tests_helper import *
 @skipIfEnvironmentVariableSet("SKIP_TEST820RHBZ912499_PY")
 @skipUnlessArchMatches("(i.86|x86_64)")
 @skipUnlessGuestfsBackendIs('libvirt')
-@skipUnlessLibvirtHasCPointer()
 class Test820RHBZ912499(unittest.TestCase):
     def setUp(self):
         # Create a test disk.
