@@ -324,8 +324,6 @@ The L<http://libguestfs.org> website files.
 
 =item F<erlang>
 
-=item F<gobject>
-
 =item F<golang>
 
 =item F<haskell>

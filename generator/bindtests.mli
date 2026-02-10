@@ -19,7 +19,6 @@
 val generate_bindtests : unit -> unit
 val generate_erlang_bindtests : unit -> unit
 val generate_golang_bindtests : unit -> unit
-val generate_gobject_js_bindtests : unit -> unit
 val generate_haskell_bindtests : unit -> unit
 val generate_java_bindtests : unit -> unit
 val generate_lua_bindtests : unit -> unit

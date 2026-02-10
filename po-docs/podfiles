@@ -58,7 +58,6 @@ fish/virt-tar-in.pod
 fish/virt-tar-out.pod
 fuse/guestmount.pod
 fuse/guestunmount.pod
-gobject/guestfs-gobject.pod
 golang/examples/guestfs-golang.pod
 java/examples/guestfs-java.pod
 lib/guestfs-actions.pod

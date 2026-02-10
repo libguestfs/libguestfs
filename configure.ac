@@ -156,10 +156,16 @@ HEADING([Checking for Lua])
 m4_include([m4/guestfs-lua.m4])
 HEADING([Checking for Go])
 m4_include([m4/guestfs-golang.m4])
-HEADING([Checking for GObject Introspection])
-m4_include([m4/guestfs-gobject.m4])
 HEADING([Checking for Rust])
 m4_include([m4/guestfs-rust.m4])
+HEADING([Checking for GObject Introspection])
+dnl GObject introspection is needed for Vala bindings.
+m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [
+    GOBJECT_INTROSPECTION_CHECK([1.30.0])
+],[
+    AM_CONDITIONAL([HAVE_INTROSPECTION], [false])
+])
+
 HEADING([Checking for Vala])
 VAPIGEN_CHECK
 
@@ -239,8 +245,6 @@ AC_CONFIG_FILES([Makefile
                  fuse/Makefile
                  generator/Makefile
                  gnulib/lib/Makefile
-                 gobject/libguestfs-gobject-1.0.pc
-                 gobject/Makefile
                  golang/Makefile
                  golang/examples/Makefile
                  haskell/Makefile
@@ -334,8 +338,6 @@ feature "PHP bindings"          test "x$HAVE_PHP_TRUE" = "x"
 feature "Erlang bindings"       test "x$HAVE_ERLANG_TRUE" = "x"
 feature "Lua bindings"          test "x$HAVE_LUA_TRUE" = "x"
 feature "Go bindings"           test "x$HAVE_GOLANG_TRUE" = "x"
-feature "gobject bindings"      test "x$HAVE_GOBJECT_TRUE" = "x"
-feature "gobject introspection" test "x$HAVE_INTROSPECTION_TRUE" = "x"
 feature "Vala bindings"         test "x$ENABLE_VAPIGEN_TRUE" = "x"
 feature "bash completion"       test "x$HAVE_BASH_COMPLETION_TRUE" = "x"
 feature "Rust bindings"         test "x$HAVE_RUST_TRUE" = "x"

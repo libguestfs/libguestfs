@@ -73,8 +73,6 @@ sources = \
 	fish.mli \
 	fish_commands.ml \
 	fish_commands.mli \
-	GObject.ml \
-	GObject.mli \
 	golang.ml \
 	golang.mli \
 	haskell.ml \
@@ -164,7 +162,6 @@ objects = \
 	php.cmo \
 	erlang.cmo \
 	lua.cmo \
-	GObject.cmo \
 	golang.cmo \
 	rust.cmo \
 	bindtests.cmo \
@@ -209,9 +206,6 @@ stamp-generator: generator
 	mkdir -p $(top_srcdir)/ruby/ext/guestfs
 	mkdir -p $(top_srcdir)/java/com/redhat/et/libguestfs
 	mkdir -p $(top_srcdir)/csharp
-	mkdir -p $(top_srcdir)/gobject/src
-	mkdir -p $(top_srcdir)/gobject/include
-	mkdir -p $(top_srcdir)/gobject/include/guestfs-gobject
 	cd $(top_srcdir) && $(abs_builddir)/generator
 	touch $@
 

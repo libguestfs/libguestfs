@@ -302,49 +302,6 @@ Run it from the top source directory using the command
   output_to "golang/bindtests/bindtests.go"
             Bindtests.generate_golang_bindtests;
 
-  output_to "gobject/bindtests.js"
-            Bindtests.generate_gobject_js_bindtests;
-  output_to "gobject/Makefile.inc"
-            GObject.generate_gobject_makefile;
-  output_to "gobject/include/guestfs-gobject.h"
-            GObject.generate_gobject_header;
-  List.iter (
-    fun { s_name = typ; s_cols = cols } ->
-      let short = sprintf "struct-%s" typ in
-      let filename =
-        sprintf "gobject/include/guestfs-gobject/%s.h" short in
-      output_to filename
-                (GObject.generate_gobject_struct_header short typ cols);
-      let filename = sprintf "gobject/src/%s.c" short in
-      output_to filename
-                (GObject.generate_gobject_struct_source short typ)
-  ) external_structs;
-  delete_except_generated "gobject/include/guestfs-gobject/struct-*.h";
-  delete_except_generated "gobject/src/struct-*.c";
-  List.iter (
-    function
-    | ({ name; style = (_, _, (_::_ as optargs)) } as f) ->
-      let short = sprintf "optargs-%s" name in
-      let filename =
-        sprintf "gobject/include/guestfs-gobject/%s.h" short in
-      output_to filename
-                (GObject.generate_gobject_optargs_header short name f);
-      let filename = sprintf "gobject/src/%s.c" short in
-      output_to filename
-                (GObject.generate_gobject_optargs_source short name optargs f)
-    | { style = _, _, [] } -> ()
-  ) (actions |> external_functions |> sort);
-  delete_except_generated "gobject/include/guestfs-gobject/optargs-*.h";
-  delete_except_generated "gobject/src/optargs-*.c";
-  output_to "gobject/include/guestfs-gobject/tristate.h"
-            GObject.generate_gobject_tristate_header;
-  output_to "gobject/src/tristate.c"
-            GObject.generate_gobject_tristate_source;
-  output_to "gobject/include/guestfs-gobject/session.h"
-            GObject.generate_gobject_session_header;
-  output_to "gobject/src/session.c"
-            GObject.generate_gobject_session_source;
-
   (* mlcustomize may not be shipped in this source. *)
   if is_regular_file "common/mlcustomize/Makefile.am" then (
     output_to "common/mlcustomize/customize_cmdline.mli"
