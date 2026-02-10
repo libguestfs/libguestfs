@@ -30,6 +30,7 @@
 #include <linux/fs.h>
 #endif
 
+#include "cleanups.h"
 #include "daemon.h"
 #include "actions.h"
 #include "optgroups.h"
@@ -63,7 +64,7 @@ do_blkdiscard (const char *device)
    */
   uint64_t range[2];
   int64_t size;
-  int fd;
+  CLEANUP_CLOSE int fd = -1;
 
   size = do_blockdev_getsize64 (device);
   if (size == -1)
@@ -80,11 +81,9 @@ do_blkdiscard (const char *device)
 
   if (ioctl (fd, BLKDISCARD, range) == -1) {
     reply_with_perror ("ioctl: %s: BLKDISCARD", device);
-    close (fd);
     return -1;
   }
 
-  close (fd);
   return 0;
 }
 
@@ -103,7 +102,7 @@ optgroup_blkdiscardzeroes_available (void)
 int
 do_blkdiscardzeroes (const char *device)
 {
-  int fd;
+  CLEANUP_CLOSE int fd = -1;
   unsigned int arg;
 
   fd = open (device, O_RDONLY|O_CLOEXEC);
@@ -114,11 +113,8 @@ do_blkdiscardzeroes (const char *device)
 
   if (ioctl (fd, BLKDISCARDZEROES, &arg) == -1) {
     reply_with_perror ("ioctl: %s: BLKDISCARDZEROES", device);
-    close (fd);
     return -1;
   }
-
-  close (fd);
 
   return arg != 0;
 }
