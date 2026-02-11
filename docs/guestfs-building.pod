@@ -303,14 +303,6 @@ Optional.  Used to build the Haskell bindings.
 
 Optional.  Used to build the PHP bindings.
 
-=item glib2
-
-=item gobject-introspection
-
-=item vala
-
-Optional.  Used to build the Vala bindings.
-
 =item LUA
 
 Optional.  Used to build the LUA bindings.
