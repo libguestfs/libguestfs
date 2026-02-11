@@ -181,7 +181,11 @@ send_dirent_info (TSK_FS_FILE *fsfile, const char *path)
   XDR xdr;
   int ret = 0;
   size_t len = 0;
+  struct guestfs_int_tsk_dirent dirent;
   CLEANUP_FREE char *buf = NULL, *fname = NULL;
+
+  /* Set dirent fields */
+  memset (&dirent, 0, sizeof dirent);
 
   /* Build the full relative path of the entry */
   ret = asprintf (&fname, "%s%s", path, fsfile->name->name);
@@ -190,7 +194,14 @@ send_dirent_info (TSK_FS_FILE *fsfile, const char *path)
     return -1;
   }
 
-  /* Allocate XDR buffer */
+  dirent.tsk_inode = fsfile->name->meta_addr;
+  dirent.tsk_type = file_type (fsfile);
+  dirent.tsk_name = fname;
+  dirent.tsk_flags = file_flags (fsfile);
+
+  file_metadata (fsfile->meta, &dirent);
+
+  /* Serialize tsk_dirent struct. */
   buf = malloc (GUESTFS_MAX_CHUNK_SIZE);
   if (buf == NULL) {
     perror ("malloc");
@@ -198,15 +209,6 @@ send_dirent_info (TSK_FS_FILE *fsfile, const char *path)
   }
 
   xdrmem_create (&xdr, buf, GUESTFS_MAX_CHUNK_SIZE, XDR_ENCODE);
-
-  const struct guestfs_int_tsk_dirent dirent = {
-    .tsk_inode = fsfile->name->meta_addr,
-    .tsk_type  = file_type (fsfile),
-    .tsk_name  = fname,
-    .tsk_flags = file_flags (fsfile),
-  };
-
-  file_metadata (fsfile->meta, &dirent);
 
   ret = xdr_guestfs_int_tsk_dirent (&xdr, &dirent);
   if (ret == 0) {
@@ -216,9 +218,10 @@ send_dirent_info (TSK_FS_FILE *fsfile, const char *path)
   }
 
   len = xdr_getpos (&xdr);
+
   xdr_destroy (&xdr);
 
-  /* Send serialized tsk_dirent out. */
+  /* Send serialised tsk_dirent out. */
   return send_file_write (buf, len);
 }
 
