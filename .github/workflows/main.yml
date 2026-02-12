@@ -119,33 +119,30 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v5
 
-      - name: Create user
-        run: |
-          useradd -m -s /bin/bash -G wheel guestfs
-          tail /etc/passwd
-
-      - name: Make checkout directory editable by the sscg user
-        run: |
-          chown -R guestfs:wheel ${GITHUB_WORKSPACE}
-
       - name: Checkout submodule
         run: |
-          su -c 'git submodule update --init' guestfs
+          git config --global --add safe.directory $PWD
+          git submodule update --init
 
       - name: Compile the code
         run: |
-          su -c '
             autoreconf -fiv &&
             ./configure CFLAGS="-fPIC -g -O2" --enable-werror &&
             make -j
-          ' guestfs
 
       - name: Run the quick test
         run: |
-          su -c 'make quickcheck' guestfs
+          make quickcheck
+
+      - name: Sanity check libvirt connection
+        run: |
+          virtqemud --daemon
+          virsh uri
 
       - name: Run the full tests
         run: |
+          # https://github.com/libguestfs/libguestfs/issues/307
+          export SKIP_TEST_GUESTUNMOUNT_FD=1
           # error: passt exited with status 1
           export SKIP_TEST_NETWORK_SH=1
           # error: passt exited with status 1
@@ -153,9 +150,7 @@ jobs:
           # error: internal_autosync: umount: /sysroot: umount: /sysroot:
           # target is busy
           export SKIP_RHBZ1011907_1165785_SH=1
-          # We have to set $HOME since su -p won't set it below.
-          export HOME=/home/guestfs
-          if ! su -p -c 'make check' guestfs; then
+          if ! make check; then
               find -name test-suite.log -exec cat {} \;
               exit 1
           fi
