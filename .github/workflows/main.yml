@@ -38,7 +38,8 @@ jobs:
         run: |
           # Git is needed to run git submodule command.
           # json-c is missing from the Ubuntu package deps.
-          sudo apt-get -y install git libjson-c-dev
+          # python libvirt module used unconditionally in a python test
+          sudo apt-get -y install git libjson-c-dev python3-libvirt
 
       - name: Fix broken Ubuntu kernel permissions
         run: |
@@ -59,7 +60,9 @@ jobs:
       - name: Compile the code
         run: |
           autoreconf -fiv
-          ./configure --enable-werror
+          # --disable-ruby needed for
+          # https://github.com/libguestfs/libguestfs/issues/309
+          ./configure --enable-werror --disable-ruby
           make -j
 
       - name: Run the quick test
@@ -99,7 +102,7 @@ jobs:
 
     container:
       image: quay.io/fedora/fedora:${{ matrix.release }}
-      options: --security-opt seccomp=unconfined
+      options: --privileged
 
     steps:
       - name: Identify the system
@@ -141,15 +144,18 @@ jobs:
 
       - name: Run the full tests
         run: |
+          # guestunmount exit(3) doesn't trigger for root user
           # https://github.com/libguestfs/libguestfs/issues/307
           export SKIP_TEST_GUESTUNMOUNT_FD=1
-          # error: passt exited with status 1
-          export SKIP_TEST_NETWORK_SH=1
-          # error: passt exited with status 1
+
+          # test-fuse-unmount-race.sh is flakey:
+          # ./test-fuse-umount-race.sh: wait for guestmount to exit failed after 10 seconds
+          export SKIP_TEST_FUSE_UMOUNT_RACE_SH=1
+
+          # test-rsync.sh is busted for root user
+          # rsync_out: '/dir2/' to 'rsync://root@169.254.2.2:65257/dest/': rsync: [generator] failed to set times on "." (in dest): Operation not permitted (1)
           export SKIP_TEST_RSYNC_SH=1
-          # error: internal_autosync: umount: /sysroot: umount: /sysroot:
-          # target is busy
-          export SKIP_RHBZ1011907_1165785_SH=1
+
           if ! make check; then
               find -name test-suite.log -exec cat {} \;
               exit 1
