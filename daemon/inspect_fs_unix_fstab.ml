@@ -27,6 +27,8 @@ open Inspect_utils
 
 let re_cciss = PCRE.compile "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$"
 let re_diskbyid = PCRE.compile "^/dev/disk/by-id/.*-part(\\d+)$"
+let re_diskbyid_generic = PCRE.compile "^/dev/disk/by-id/"
+let re_diskbypath = PCRE.compile "^/dev/disk/by-path/"
 let re_dmuuid = PCRE.compile "^/dev/disk/by-id/dm-uuid-LVM-([0-9a-zA-Z]{32})([0-9a-zA-Z]{32})$"
 let re_freebsd_gpt = PCRE.compile "^/dev/(ada{0,1}|vtbd)(\\d+)p(\\d+)$"
 let re_freebsd_mbr = PCRE.compile "^/dev/(ada{0,1}|vtbd)(\\d+)s(\\d+)([a-z])$"
@@ -431,6 +433,28 @@ and resolve_fstab_device spec md_map os_type aug =
       Failure _ | Not_found -> default
   )
 
+  (* Handle /dev/disk/by-path/ entries by resolving the symlink and
+   * converting to stable identifiers (UUID=, LABEL=, etc.).
+   * These paths change between hypervisors (VMware -> KVM) making them
+   * unsuitable for converted guests. We resolve to the actual device and
+   * then convert to stable identifiers for maximum compatibility.
+   * See: RHBZ#1608131, MTV-3672
+   *)
+  else if PCRE.matches re_diskbypath spec then (
+    debug_matching "diskbypath";
+    resolve_disk_symlink spec default
+  )
+
+  (* Handle /dev/disk/by-id/ entries (general case) by resolving symlink
+   * and converting to stable identifiers.
+   * This is a fallback for by-id entries not matched by specific patterns
+   * above (like dm-uuid-LVM or the old -partN pattern).
+   *)
+  else if PCRE.matches re_diskbyid_generic spec then (
+    debug_matching "diskbyid_generic";
+    resolve_disk_symlink spec default
+  )
+
   else if PCRE.matches re_freebsd_gpt spec then (
     debug_matching "FreeBSD GPT";
     (* group 1 (type) is not used *)
@@ -650,6 +674,137 @@ and resolve_cciss disk part default =
   (* We don't try to guess mappings for cciss devices. *)
   default
 
+(* Helper function to get a blkid tag for a device.
+ * Returns Some value if the tag exists, None if not found.
+ *)
+and get_blkid_tag device tag =
+  try
+    let r, out, err =
+      commandr "blkid"
+               [(* Adding -c option kills all caching, even on RHEL 5. *)
+                 "-c"; "/dev/null";
+                 "-o"; "value"; "-s"; tag; device] in
+    match r with
+    | 0 -> Some (String.chomp out) (* success *)
+    | 2 -> None                    (* means tag not found *)
+    | _ -> failwithf "blkid: %s: %s: %s" device tag err
+  with
+  | exn ->
+    if verbose () then
+      eprintf "get_blkid_tag: exception for %s %s: %s\n%!"
+        device tag (Printexc.to_string exn);
+    None
+
+(* Convert a device path to a stable identifier (UUID=, PARTUUID=, LABEL=, or PARTLABEL=).
+ * This function tries to find the most stable identifier for a device by querying
+ * blkid. The preference order matches the Python implementation:
+ * 1. UUID= (filesystem UUID, most stable)
+ * 2. PARTUUID= (partition UUID, stable across renames)
+ * 3. LABEL= (filesystem label, stable if set)
+ * 4. PARTLABEL= (partition label, stable if set)
+ *
+ * Returns a mountable with the stable identifier if found, otherwise returns the default.
+ *)
+and device_to_stable_identifier device default =
+  try
+    (* Try UUID first - most stable and preferred *)
+    match get_blkid_tag device "UUID" with
+    | Some uuid ->
+      if verbose () then
+        eprintf "device_to_stable_identifier: %s -> UUID=%s\n%!" device uuid;
+      Mountable.of_device (sprintf "UUID=%s" uuid)
+    | None ->
+      (* Try PARTUUID - partition UUID *)
+      match get_blkid_tag device "PARTUUID" with
+      | Some partuuid ->
+        if verbose () then
+          eprintf "device_to_stable_identifier: %s -> PARTUUID=%s\n%!" device partuuid;
+        Mountable.of_device (sprintf "PARTUUID=%s" partuuid)
+      | None ->
+        (* Try LABEL - filesystem label *)
+        match get_blkid_tag device "LABEL" with
+        | Some label ->
+          if verbose () then
+            eprintf "device_to_stable_identifier: %s -> LABEL=%s\n%!" device label;
+          Mountable.of_device (sprintf "LABEL=%s" label)
+        | None ->
+          (* Try PARTLABEL - partition label *)
+          match get_blkid_tag device "PARTLABEL" with
+          | Some partlabel ->
+            if verbose () then
+              eprintf "device_to_stable_identifier: %s -> PARTLABEL=%s\n%!"
+                device partlabel;
+            Mountable.of_device (sprintf "PARTLABEL=%s" partlabel)
+          | None ->
+            if verbose () then
+              eprintf "device_to_stable_identifier: %s has no stable identifier\n%!" device;
+            default
+  with
+  | Failure msg ->
+    if verbose () then
+      eprintf "device_to_stable_identifier: failed for %s: %s\n%!" device msg;
+    default
+  | exn ->
+    if verbose () then
+      eprintf "device_to_stable_identifier: exception for %s: %s\n%!"
+        device (Printexc.to_string exn);
+    default
+
+(* Resolve /dev/disk/by-path/ and /dev/disk/by-id/ symlinks by:
+ * 1. Using realpath to find the actual device (/dev/sda, /dev/sda1, etc.)
+ * 2. Converting the actual device to a stable identifier (UUID=, LABEL=, etc.)
+ *
+ * These symlinks are problematic during V2V conversion because:
+ * - by-path: Hardware topology changes (VMware SCSI -> KVM virtio)
+ * - by-id: SCSI IDs change between hypervisors
+ *
+ * By converting to stable identifiers (UUID/LABEL), we ensure the guest
+ * can boot after conversion regardless of hardware changes.
+ *
+ * This approach is superior to just resolving to /dev/sdX because:
+ * - /dev/sdX names can change with disk hotplug or reordering
+ * - UUID/LABEL are truly stable across any hardware configuration
+ * - This matches the behavior of modern installers and best practices
+ *)
+and resolve_disk_symlink spec default =
+  try
+    (* Construct the sysroot path for the symlink *)
+    let sysroot_path = Sysroot.sysroot_path spec in
+
+    (* Check if the symlink exists in the guest *)
+    if not (Sys.file_exists sysroot_path) then (
+      if verbose () then
+        eprintf "resolve_disk_symlink: %s does not exist in guest\n%!" spec;
+      default
+    ) else (
+      (* Resolve the symlink using realpath *)
+      let resolved_dev = Unix_utils.Realpath.realpath sysroot_path in
+
+      if verbose () then
+        eprintf "resolve_disk_symlink: %s -> %s\n%!" spec resolved_dev;
+
+      (* Verify the resolved path looks like a device *)
+      if not (String.starts_with "/dev/" resolved_dev) then (
+        if verbose () then
+          eprintf "resolve_disk_symlink: %s does not point to /dev/\n%!"
+            resolved_dev;
+        default
+      ) else (
+        (* Convert the resolved device to a stable identifier *)
+        device_to_stable_identifier resolved_dev default
+      )
+    )
+  with
+  | Failure msg ->
+    if verbose () then
+      eprintf "resolve_disk_symlink: failed to resolve %s: %s\n%!" spec msg;
+    default
+  | exn ->
+    if verbose () then
+      eprintf "resolve_disk_symlink: exception resolving %s: %s\n%!"
+        spec (Printexc.to_string exn);
+    default
+
 (* For /dev/disk/by-id there is a limit to what we can do because
  * original SCSI ID information has likely been lost.  This
  * heuristic will only work for guests that have a single block
@@ -660,6 +815,10 @@ and resolve_cciss disk part default =
  *
  * XXX Use hints from virt-p2v if available.
  * See also: https://bugzilla.redhat.com/show_bug.cgi?id=836573#c3
+ *
+ * NOTE: This function is now deprecated in favor of resolve_disk_symlink
+ * which works for multi-disk configurations and converts to stable identifiers.
+ * This is kept for backwards compatibility with the old -partN pattern matching code.
  *)
 and resolve_diskbyid part default =
   let nr_devices = Devsparts.nr_devices () in
