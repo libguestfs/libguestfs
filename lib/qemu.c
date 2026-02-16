@@ -68,6 +68,8 @@ generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
   size_t allocsize = 0;
   ssize_t len;
   unsigned lineno;
+  const char *errmsg;
+  CLEANUP_FREE char *errors = NULL;
 
   guestfs_int_cmd_add_string_unquoted (cmd, "echo ");
   /* QMP is modal.  You have to send the qmp_capabilities command first. */
@@ -108,8 +110,8 @@ generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
   if (len >= 0) debug (g, "generic_qmp_test: %u: %s", lineno, line);
   if (len == -1 || strstr (line, "\"QMP\"") == NULL) {
   parse_failure:
-    error (g, "did not understand QMP monitor output from %s", g->hv);
-    return -1;
+    errmsg = "did not understand QMP monitor output";
+    goto err;
   }
 
   lineno++;                     /* line 2 */
@@ -133,11 +135,16 @@ generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
   r = guestfs_int_cmd_pipe_wait (cmd);
   /* QMP tests are optional, don't fail if the tests fail. */
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    error (g, "%s wait failed or unexpected exit status", g->hv);
-    return -1;
+    errmsg = "wait failed or unexpected exit status";
+    goto err;
   }
 
   return 0;
+
+ err:
+  errors = guestfs_int_cmd_get_pipe_errors (cmd);
+  error (g, "%s: %s\nError output of qemu: %s", g->hv, errmsg, errors);
+  return -1;
 }
 
 /**
