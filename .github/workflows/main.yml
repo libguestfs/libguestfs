@@ -3,9 +3,11 @@ on:
   push:
     branches:
       - master
+      - 'ci/**'  # Allow automatic CI testing on ci/* branches
   pull_request:
     branches:
       - master
+  workflow_dispatch:  # Allow manual triggering on any branch
 
 # Runs basic configure, make and make check.
 jobs:
