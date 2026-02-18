@@ -99,7 +99,6 @@ jnilib_LTLIBRARIES = libguestfs_jni.la
 jnilibdir = $(JNI_INSTALL_DIR)
 
 libguestfs_jni_la_SOURCES = \
-	com_redhat_et_libguestfs_GuestFS.h \
 	actions-0.c \
 	actions-1.c \
 	actions-2.c \
