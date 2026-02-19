@@ -29,7 +29,7 @@ EXTRA_DIST = \
 	make-archlinux-img.sh \
 	archlinux-package \
 	make-coreos-img.sh \
-	make-windows-img.sh \
+	make-windows-img.py \
 	windows-software \
 	windows-software.reg \
 	windows-system \
@@ -126,10 +126,10 @@ coreos.img: make-coreos-img.sh
 	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Windows image.
-windows.img: make-windows-img.sh \
-		windows-software \
-		windows-system
-	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
+windows.img: make-windows-img.py \
+        windows-software \
+        windows-system
+	$(top_builddir)/run --test ./make-windows-img.py $(srcdir)
 
 guests-all-good.xml: make-guests-all-good.pl $(disk_images)
 	rm -f $@ $@-t
