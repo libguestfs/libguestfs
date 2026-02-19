@@ -21,7 +21,7 @@ EXTRA_DIST = \
 	make-debian-img.sh \
 	debian-packages \
 	debian-syslog \
-	make-fedora-img.pl \
+	make-fedora-img.py \
 	fedora-journal.tar.xz \
 	fedora-db.sql.xz \
 	fedora.db \
@@ -75,39 +75,39 @@ blank-%.img:
 	mv $@-t $@
 
 # Make a (dummy) Fedora image.
-fedora.img: make-fedora-img.pl \
+fedora.img: make-fedora-img.py \
 		fedora-journal.tar.xz \
 		fedora.db
-	SRCDIR=$(srcdir) LAYOUT=partitions $(top_builddir)/run --test ./$<
+	$(top_builddir)/run ./$< partitions $(srcdir)
 
 # Make a (dummy) Fedora image using md devices
 fedora-md1.img fedora-md2.img: stamp-fedora-md.img
 
-stamp-fedora-md.img: make-fedora-img.pl \
+stamp-fedora-md.img: make-fedora-img.py \
 		fedora-journal.tar.xz \
 		fedora.db
 	rm -f $@
-	SRCDIR=$(srcdir) LAYOUT=partitions-md $(top_builddir)/run --test ./$<
+	$(top_builddir)/run ./$< partitions-md $(srcdir)
 	touch $@
 
 # Make a (dummy) Fedora image using a single btrfs with two subvolumes
 # for root and home.
-fedora-btrfs.img: make-fedora-img.pl \
+fedora-btrfs.img: make-fedora-img.py \
 		fedora-journal.tar.xz \
 		fedora.db
-	SRCDIR=$(srcdir) LAYOUT=btrfs $(top_builddir)/run --test ./$<
+	$(top_builddir)/run ./$< btrfs $(srcdir)
 
 # Make a (dummy) Fedora image with LUKS-on-LVM.
-fedora-luks-on-lvm.img: make-fedora-img.pl \
+fedora-luks-on-lvm.img: make-fedora-img.py \
 		fedora-journal.tar.xz \
 		fedora.db
-	SRCDIR=$(srcdir) LAYOUT=luks-on-lvm $(top_builddir)/run --test ./$<
+	$(top_builddir)/run ./$< luks-on-lvm $(srcdir)
 
 # Make a (dummy) Fedora image with LVM-on-LUKS.
-fedora-lvm-on-luks.img: make-fedora-img.pl \
+fedora-lvm-on-luks.img: make-fedora-img.py \
 		fedora-journal.tar.xz \
 		fedora.db
-	SRCDIR=$(srcdir) LAYOUT=lvm-on-luks $(top_builddir)/run --test ./$<
+	$(top_builddir)/run ./$< lvm-on-luks $(srcdir)
 
 # Make a (dummy) Debian image.
 debian.img: make-debian-img.sh
