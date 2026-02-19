@@ -15,13 +15,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
-# Test NBD support by attaching a guest via qemu-nbd and running inspection.
+# Test NBD support by attaching a guest via nbdkit and running inspection.
+#
+# Historically this test used qemu-nbd over TCP.  Nowadays nbdkit plus Unix
+# domain sockets is available, so we use that instead.
 
 import os
 import sys
 import shutil
 import time
-import random
 import atexit
 import subprocess
 
@@ -29,12 +31,12 @@ import guestfs
 
 prog = os.path.basename(sys.argv[0])
 
-# Track the qemu-nbd process so we can clean it up on exit.
+# Track the nbdkit process so we can clean it up on exit.
 server_proc = None
 
 
 def _cleanup_server() -> None:
-    """Ensure any qemu-nbd process is terminated when the test exits."""
+    """Ensure any nbdkit process is terminated when the test exits."""
     global server_proc
     if server_proc is not None:
         try:
@@ -52,22 +54,23 @@ def _cleanup_server() -> None:
 
 atexit.register(_cleanup_server)
 
-# Allow skipping the test via environment variable (mirrors SKIP_TEST_NBD_PL).
+# Allow skipping the test via environment variable
+# (mirrors SKIP_TEST_NBD_PL / SKIP_TEST_NBD_PY style).
 if os.environ.get("SKIP_TEST_NBD_PY"):
     sys.exit(77)
 
-# Check that qemu-nbd is available and callable.
+# Check that nbdkit is available and callable.
 try:
     result = subprocess.run(
-        ["qemu-nbd", "--help"],
+        ["nbdkit", "--version"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
     if result.returncode != 0:
-        print(f"{prog}: test skipped because qemu-nbd program not found")
+        print(f"{prog}: test skipped because nbdkit program not found")
         sys.exit(77)
 except FileNotFoundError:
-    print(f"{prog}: test skipped because qemu-nbd program not found")
+    print(f"{prog}: test skipped because nbdkit program not found")
     sys.exit(77)
 
 # Make a local copy of the disk so we can safely open it for writes.
@@ -80,102 +83,86 @@ local_disk = "fedora-nbd.img"
 shutil.copyfile(disk, local_disk)
 disk = local_disk
 
-# Check if qemu-nbd supports the --format option (like the Perl grep).
-has_format_opt = False
-try:
-    help_out = subprocess.run(
-        ["qemu-nbd", "--help"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.DEVNULL,
-        text=True,
-    )
-    if help_out.returncode == 0 and "--format" in help_out.stdout:
-        has_format_opt = True
-except Exception:
-    # If this check fails for some reason, just assume no --format option.
-    has_format_opt = False
 
+def run_test(readonly: bool) -> None:
+    """Run a single NBD test using nbdkit over a Unix domain socket.
 
-def run_test(readonly: bool, tcp: bool) -> None:
-    """Run a single NBD test.
-
-    :param readonly: If True, attach the NBD drive read-only.
-    :param tcp: If True, connect using TCP; otherwise use Unix domain socket.
+    :param readonly: If True, start nbdkit read-only.
     """
     global server_proc
 
     cwd = os.getcwd()
-    pidfile = os.path.join(cwd, "nbd", "nbd.pid")
+    nbd_dir = os.path.join(cwd, "nbd")
+    pidfile = os.path.join(nbd_dir, "nbdkit.pid")
+    socket_path = os.path.join(nbd_dir, "nbdkit.sock")
 
     # Ensure the nbd/ directory exists so we can create pidfile and socket.
-    os.makedirs(os.path.dirname(pidfile), exist_ok=True)
+    os.makedirs(nbd_dir, exist_ok=True)
 
-    # Base qemu-nbd command.
-    qemu_nbd_cmd = [
-        "qemu-nbd",
-        disk,
-        "-t",  # persistent, multiple connections allowed
-        "--pid-file",
+    # Clean up any stale artifacts.
+    for path in (pidfile, socket_path):
+        try:
+            os.unlink(path)
+        except FileNotFoundError:
+            pass
+
+    # Base nbdkit command:
+    #
+    #   -U <unix-socket>    listen on a Unix domain socket at this path
+    #   -f                  stay in the foreground (so Popen tracks the process)
+    #   -P <pidfile>        write a pidfile when ready to serve
+    #
+    # We use the file plugin to serve the local disk copy.
+    nbdkit_cmd = [
+        "nbdkit",
+        "-U",
+        socket_path,
+        "-f",
+        "-P",
         pidfile,
     ]
 
-    # Add '--format raw' if supported.
-    if has_format_opt:
-        qemu_nbd_cmd.extend(["--format", "raw"])
+    # For the read-only variant, add -r (read-only export).
+    if readonly:
+        nbdkit_cmd.append("-r")
 
-    socket_path = None
+    # Plugin and its arguments.
+    # This is "file DISK" – no extra options needed.
+    nbdkit_cmd.extend(["file", disk])
 
-    if tcp:
-        # Choose a random port number.  The original Perl test doesn't
-        # check if it is already in use, so we don't either.
-        port = random.randint(60000, 64999)
-        qemu_nbd_cmd.extend(["-p", str(port)])
-        server = f"localhost:{port}"
-    else:
-        # Unix domain socket: qemu-nbd insists on an absolute path.
-        socket_path = os.path.join(cwd, "nbd", "unix.sock")
-        try:
-            os.unlink(socket_path)
-        except FileNotFoundError:
-            pass
-        qemu_nbd_cmd.extend(["-k", socket_path])
-        server = f"unix:{socket_path}"
-
-    print("Starting", " ".join(qemu_nbd_cmd), "...")
-    # Start qemu-nbd in the background.
-    server_proc = subprocess.Popen(qemu_nbd_cmd)
+    print("Starting", " ".join(nbdkit_cmd), "...")
+    server_proc = subprocess.Popen(nbdkit_cmd)
 
     # Wait for the pid file to appear, up to ~60 seconds (1s intervals).
     for _ in range(60):
         if os.path.isfile(pidfile):
             break
-        # If qemu-nbd exited early, bail out immediately.
+        # If nbdkit exited early, bail out immediately.
         if server_proc.poll() is not None:
             _cleanup_server()
-            raise RuntimeError("qemu-nbd exited unexpectedly while starting")
+            raise RuntimeError("nbdkit exited unexpectedly while starting")
         time.sleep(1)
     else:
         _cleanup_server()
-        raise RuntimeError("qemu-nbd did not start up")
+        raise RuntimeError("nbdkit did not start up")
 
-    # If using a Unix domain socket, try relabeling for SELinux.
-    # Failure is not fatal (maybe SELinux is disabled).
-    if socket_path is not None:
-        try:
-            subprocess.run(
-                ["chcon", "-vt", "svirt_image_t", socket_path],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
-        except FileNotFoundError:
-            # chcon not available, ignore.
-            pass
+    # Try relabeling the socket for SELinux. Failure is not fatal.
+    try:
+        subprocess.run(
+            ["chcon", "-vt", "svirt_image_t", socket_path],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except FileNotFoundError:
+        # chcon not available, ignore.
+        pass
 
+    # Now connect via libguestfs using protocol=nbd and unix: socket.
     g = guestfs.GuestFS()
 
+    server = f"unix:{socket_path}"
+
     try:
-        # Add an NBD drive via protocol=nbd.
-        # ``server`` expects a list; we pass the full "localhost:port" or "unix:/path".
         g.add_drive(
             "",
             readonly=bool(readonly),
@@ -184,7 +171,7 @@ def run_test(readonly: bool, tcp: bool) -> None:
             server=[server],
         )
 
-        # This fails if qemu can't connect to the NBD server.
+        # This fails if libguestfs/qemu can't connect to the NBD server.
         g.launch()
 
         # Inspection is a fairly thorough test of the guest.
@@ -201,22 +188,22 @@ def run_test(readonly: bool, tcp: bool) -> None:
         except Exception:
             pass
 
-        # Terminate qemu-nbd and wait for it.
+        # Terminate nbdkit and wait for it.
         _cleanup_server()
-        try:
-            os.unlink(pidfile)
-        except FileNotFoundError:
-            pass
+
+        # Clean up socket and pidfile if they still exist.
+        for path in (pidfile, socket_path):
+            try:
+                os.unlink(path)
+            except FileNotFoundError:
+                pass
 
 
 def main() -> int:
     # Since read-only and read-write paths are quite different,
-    # test both via TCP.
+    # test both using the Unix socket transport.
     for readonly in (True, False):
-        run_test(readonly, tcp=True)
-
-    # Test Unix domain socket codepath (read-write).
-    run_test(readonly=False, tcp=False)
+        run_test(readonly)
 
     # Cleanup the copied disk image.
     try:
