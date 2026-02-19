@@ -42,6 +42,8 @@ SUBDIRS = $(linguas_translated)
 
 libguestfs-docs.pot:
 	cd $(top_srcdir) && $(PO4A_UPDATEPO) \
+	  --no-deprecation \
+	  -o no-warn-simple \
 	  -f pod \
 	  -M utf-8 \
 	  --package-name $(PACKAGE_NAME) \

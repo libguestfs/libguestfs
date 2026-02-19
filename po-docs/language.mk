@@ -188,6 +188,8 @@ virt-p2v.1: virt-p2v.pod virt-p2v-kernel-config.pod
 %.pod: $(srcdir)/../$(LINGUA).po
 	rm -f $@ $@-t
 	$(guestfs_am_v_po4a_translate)$(PO4A_TRANSLATE) \
+	  --no-deprecation \
+	  -o no-warn-simple \
 	  -f pod \
 	  -M utf-8 -L utf-8 \
 	  -k 0 \
