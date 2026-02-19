@@ -52,7 +52,10 @@ program_of_csum (const char *csumtype)
     if (STRCASEEQ (csumtype, map[i].algorithm))
       return map[i].command;
 
-  reply_with_error ("unknown checksum type, expecting crc|md5|sha1|sha224|sha256|sha384|sha512|gost|gost12");
+  /* Generate supported list automatically — never out of sync */
+  CLEANUP_FREE char *list = guestfs_int_join_strings("|", (char * const *)&map[0].algorithm);
+
+  reply_with_error("unknown checksum type: %s, expecting %s", csumtype, list);
   return NULL;
 }
 
