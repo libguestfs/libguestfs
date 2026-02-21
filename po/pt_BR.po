@@ -11,8 +11,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-02-11 12:07+0000\n"
 "PO-Revision-Date: 2026-02-21 10:58+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -230,27 +229,33 @@ msgstr ""
 #: common/parallel/domains.c:106 lib/libvirt-domain.c:106
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr ""
+msgstr "não foi possível conectar ao libvirt (código %d, domínio %d): %s"
 
 #: common/parallel/domains.c:114
 #, c-format
 msgid "could not get number of running domains (code %d, domain %d): %s"
 msgstr ""
+"não foi possível obter o número de domínios em execução (código %d, domínio "
+"%d): %s"
 
 #: common/parallel/domains.c:125
 #, c-format
 msgid "could not list running domains (code %d, domain %d): %s"
 msgstr ""
+"não foi possível listar os domínios em execução (código %d, domínio %d): %s"
 
 #: common/parallel/domains.c:135
 #, c-format
 msgid "could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
+"não foi possível obter o número de domínios inativos (código %d, domínio %d)"
+": %s"
 
 #: common/parallel/domains.c:146
 #, c-format
 msgid "could not list inactive domains (code %d, domain %d): %s"
 msgstr ""
+"não foi possível listar os domínios inativos (código %d, domínio %d): %s"
 
 #: common/utils/utils.c:107
 #, c-format
@@ -280,57 +285,61 @@ msgstr "%s saiu por um motivo desconhecido (status %d)"
 #: common/visit/visit.c:133
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
-msgstr ""
+msgstr "%s: erro ao obter atributos estendidos para %s %s\n"
 
 #: common/visit/visit.c:147
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
+"%s: erro: não foi possível analisar a contagem de atributos estendidos para "
+"%s %s\n"
 
 #: common/windows/windows.c:139
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
+"para usar letras de unidade do Windows, este sistema deve ser um sistema "
+"operacional convidado do Windows"
 
 #: common/windows/windows.c:150
 #, c-format
 msgid "drive '%c:' not found."
-msgstr ""
+msgstr "unidade '%c:' não encontrada."
 
 #: fish/alloc.c:42
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
-msgstr ""
+msgstr "use 'alloc file size' para criar uma imagem\n"
 
 #: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr ""
+msgstr "use 'sparse file size' para criar uma imagem esparsa\n"
 
 #: fish/alloc.c:105
 #, c-format
 msgid "%s: invalid integer parameter (%s returned %u)\n"
-msgstr ""
+msgstr "%s: parâmetro inteiro inválido (%s retornou %u)\n"
 
 #: fish/cmds.c:487
 msgid "Command"
-msgstr ""
+msgstr "Comando"
 
 #: fish/cmds.c:487
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: fish/cmds.c:489
 msgid "delete the default POSIX ACL of a directory"
-msgstr ""
+msgstr "exclui a ACL POSIX padrão de um diretório"
 
 #: fish/cmds.c:490
 msgid "get the POSIX ACL attached to a file"
-msgstr ""
+msgstr "obtém a ACL POSIX associada a um arquivo"
 
 #: fish/cmds.c:491
 msgid "set the POSIX ACL attached to a file"
-msgstr ""
+msgstr "define a ACL POSIX associada a um arquivo"
 
 #: fish/cmds.c:493 fish/cmds.c:496 fish/cmds.c:507 fish/cmds.c:510
 #: fish/cmds.c:513 fish/cmds.c:533 fish/cmds.c:538 fish/cmds.c:557
@@ -343,199 +352,201 @@ msgstr ""
 #: fish/cmds.c:1151 fish/cmds.c:1160 fish/cmds.c:1182
 #, c-format
 msgid "alias for '%s'"
-msgstr ""
+msgstr "alias para '%s'"
 
 #: fish/cmds.c:498
 msgid "add a CD-ROM disk image to examine"
-msgstr ""
+msgstr "adiciona uma imagem de disco de CD-ROM para examinar"
 
 #: fish/cmds.c:499
 msgid "add the disk(s) from a named libvirt domain"
-msgstr ""
+msgstr "adiciona os discos de um domínio libvirt nomeado"
 
 #: fish/cmds.c:500
 msgid "add an image to examine or modify"
-msgstr ""
+msgstr "adiciona uma imagem para examinar ou modificar"
 
 #: fish/cmds.c:501
 msgid "add a drive in snapshot mode (read-only)"
-msgstr ""
+msgstr "adiciona uma unidade no modo de instantâneo (somente leitura)"
 
 #: fish/cmds.c:502
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
+"adiciona uma unidade somente leitura, especificando a emulação de bloco QEMU "
+"para usar"
 
 #: fish/cmds.c:503
 msgid "add a temporary scratch drive"
-msgstr ""
+msgstr "adiciona uma unidade de trabalho temporária"
 
 #: fish/cmds.c:504
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr ""
+msgstr "adiciona uma unidade especificando a emulação de bloco QEMU para usar"
 
 #: fish/cmds.c:505
 msgid "allocate and add a disk file"
-msgstr ""
+msgstr "aloca e adiciona um arquivo de disco"
 
 #: fish/cmds.c:515
 msgid "clear Augeas path"
-msgstr ""
+msgstr "limpa um caminho de Augeas"
 
 #: fish/cmds.c:516
 msgid "close the current Augeas handle"
-msgstr ""
+msgstr "fecha o identificador Augeas atual"
 
 #: fish/cmds.c:517
 msgid "define an Augeas node"
-msgstr ""
+msgstr "define um nó Augeas"
 
 #: fish/cmds.c:518
 msgid "define an Augeas variable"
-msgstr ""
+msgstr "define uma variável Augias"
 
 #: fish/cmds.c:519
 msgid "look up the value of an Augeas path"
-msgstr ""
+msgstr "pesquisa o valor de um caminho de Augeas"
 
 #: fish/cmds.c:520
 msgid "create a new Augeas handle"
-msgstr ""
+msgstr "cria um novo identificador Augeas"
 
 #: fish/cmds.c:521
 msgid "insert a sibling Augeas node"
-msgstr ""
+msgstr "insere um nó Augeas irmão"
 
 #: fish/cmds.c:522
 msgid "return the label from an Augeas path expression"
-msgstr ""
+msgstr "retorna o rótulo de uma expressão de caminho de Augeas"
 
 #: fish/cmds.c:523
 msgid "load files into the tree"
-msgstr ""
+msgstr "carrega arquivos na árvore"
 
 #: fish/cmds.c:524
 msgid "list Augeas nodes under augpath"
-msgstr ""
+msgstr "lista nós Augeas sob augpath"
 
 #: fish/cmds.c:525
 msgid "return Augeas nodes which match augpath"
-msgstr ""
+msgstr "retorna os nós Augeas que correspondem a augpath"
 
 #: fish/cmds.c:526
 msgid "move Augeas node"
-msgstr ""
+msgstr "move nós Augeas"
 
 #: fish/cmds.c:527
 msgid "remove an Augeas path"
-msgstr ""
+msgstr "remove um caminho de Augeas"
 
 #: fish/cmds.c:528
 msgid "write all pending Augeas changes to disk"
-msgstr ""
+msgstr "escreve todas as alterações pendentes de Augeas para o disco"
 
 #: fish/cmds.c:529
 msgid "set Augeas path to value"
-msgstr ""
+msgstr "define o caminho de Augeas para valor"
 
 #: fish/cmds.c:530
 msgid "set multiple Augeas nodes"
-msgstr ""
+msgstr "define vários nós Augeas"
 
 #: fish/cmds.c:531
 msgid "add/remove an Augeas lens transformation"
-msgstr ""
+msgstr "adiciona/remove uma transformação de lente Augeas"
 
 #: fish/cmds.c:535 fish/cmds.c:679
 msgid "test availability of some parts of the API"
-msgstr ""
+msgstr "testa disponibilidade de algumas partes da API"
 
 #: fish/cmds.c:536
 msgid "return a list of all optional groups"
-msgstr ""
+msgstr "retorna uma lista de todos os grupos opcionais"
 
 #: fish/cmds.c:540
 msgid "upload base64-encoded data to file"
-msgstr ""
+msgstr "envia dados codificados em base64 para um arquivo"
 
 #: fish/cmds.c:541
 msgid "download file and encode as base64"
-msgstr ""
+msgstr "baixa arquivo e o codifica como base64"
 
 #: fish/cmds.c:542
 msgid "discard all blocks on a device"
-msgstr ""
+msgstr "descarta todos os blocos em um dispositivo"
 
 #: fish/cmds.c:543
 msgid "return true if discarded blocks are read as zeroes"
-msgstr ""
+msgstr "retorna verdadeiro se os blocos descartados são lidos como zeros"
 
 #: fish/cmds.c:544
 msgid "print block device attributes"
-msgstr ""
+msgstr "exibe atributos de dispositivo de bloco"
 
 #: fish/cmds.c:545
 msgid "flush device buffers"
-msgstr ""
+msgstr "despeja buffers de dispositivo"
 
 #: fish/cmds.c:546
 msgid "get blocksize of block device"
-msgstr ""
+msgstr "obtém tamanho de blocos do dispositivo de bloco"
 
 #: fish/cmds.c:547
 msgid "is block device set to read-only"
-msgstr ""
+msgstr "se o dispositivo de bloco está definido como somente leitura"
 
 #: fish/cmds.c:548
 msgid "get total size of device in bytes"
-msgstr ""
+msgstr "obtém tamanho total de dispositivo em bytes"
 
 #: fish/cmds.c:549
 msgid "get sectorsize of block device"
-msgstr ""
+msgstr "obtém tamanho de setores do dispositivo de bloco"
 
 #: fish/cmds.c:550
 msgid "get total size of device in 512-byte sectors"
-msgstr ""
+msgstr "obtém tamanho total do dispositivo em setores de 512 bytes"
 
 #: fish/cmds.c:551
 msgid "reread partition table"
-msgstr "tabela de partição"
+msgstr "lê novamente a tabela de partição"
 
 #: fish/cmds.c:552
 msgid "set blocksize of block device"
-msgstr ""
+msgstr "define o tamanho de blocos do dispositivo de bloco"
 
 #: fish/cmds.c:553
 msgid "set readahead"
-msgstr ""
+msgstr "define readahead"
 
 #: fish/cmds.c:554
 msgid "set block device to read-only"
-msgstr ""
+msgstr "define o dispositivo de bloco para somente leitura"
 
 #: fish/cmds.c:555
 msgid "set block device to read-write"
-msgstr ""
+msgstr "define o dispositivo de bloco para leitura e escrita"
 
 #: fish/cmds.c:559
 msgid "cancel a running or paused balance"
-msgstr ""
+msgstr "cancela um balanceamento (balance) em andamento ou pausado"
 
 #: fish/cmds.c:560
 msgid "pause a running balance"
-msgstr ""
+msgstr "pausa um balanceamento (balance) em execução"
 
 #: fish/cmds.c:561
 msgid "resume a paused balance"
-msgstr ""
+msgstr "retoma um balanceamento (balance) pausado"
 
 #: fish/cmds.c:562
 msgid "show the status of a running or paused balance"
-msgstr ""
+msgstr "mostra o status de um balanceamento em execução ou pausado"
 
 #: fish/cmds.c:563
 msgid "add devices to a btrfs filesystem"
-msgstr ""
+msgstr "adiciona dispositivos a um sistema de arquivos btrfs"
 
 #: fish/cmds.c:564
 msgid "remove devices from a btrfs filesystem"
@@ -772,7 +783,7 @@ msgstr ""
 
 #: fish/cmds.c:626
 msgid "copy local files or directories into an image"
-msgstr "Copia arquivos ou diretórios locais para uma imagem"
+msgstr "copia arquivos ou diretórios locais para uma imagem"
 
 #: fish/cmds.c:627
 msgid "copy remote files or directories out of an image"
