@@ -7,11 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.57.7\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-02-11 12:07+0000\n"
-"PO-Revision-Date: 2026-02-19 20:55+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"PO-Revision-Date: 2026-02-21 10:58+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -498,7 +499,7 @@ msgstr ""
 
 #: fish/cmds.c:551
 msgid "reread partition table"
-msgstr ""
+msgstr "tabela de partição"
 
 #: fish/cmds.c:552
 msgid "set blocksize of block device"
@@ -771,7 +772,7 @@ msgstr ""
 
 #: fish/cmds.c:626
 msgid "copy local files or directories into an image"
-msgstr ""
+msgstr "Copia arquivos ou diretórios locais para uma imagem"
 
 #: fish/cmds.c:627
 msgid "copy remote files or directories out of an image"
