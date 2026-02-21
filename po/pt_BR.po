@@ -2,30 +2,34 @@
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the libguestfs package.
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.57.7\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-01-26 14:40+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-02-11 12:07+0000\n"
+"PO-Revision-Date: 2026-02-21 10:58+0000\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
+"projects/libguestfs/libguestfs-master/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.16\n"
 
 #: common/options/config.c:72
 #, c-format
 msgid "%s: line %d: error parsing configuration file: %s"
-msgstr ""
+msgstr "%s: linha %d: erro ao analisar o arquivo de configuração: %s"
 
 #: common/options/decrypt.c:52
 #, c-format
 msgid "string size overflow"
-msgstr ""
+msgstr "estouro de tamanho da string"
 
 #: common/options/decrypt.c:170
 #, c-format
@@ -33,6 +37,8 @@ msgid ""
 "'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
 "libguestfs version"
 msgstr ""
+"'clevis_luks_unlock', necessário para descriptografar %s, está indisponível "
+"nesta versão do libguestfs"
 
 #: common/options/decrypt.c:184
 #, c-format
@@ -43,6 +49,11 @@ msgid ""
 "\n"
 "Original error: %s (%d)"
 msgstr ""
+"não foi possível encontrar chave para abrir %s criptografado com LUKS.\n"
+"\n"
+"Tente usar --key na linha de comando.\n"
+"\n"
+"Erro original: %s (%d)"
 
 #: common/options/inspect.c:78
 #, c-format
@@ -62,6 +73,22 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: nenhum sistema operacional foi encontrado neste disco\n"
+"\n"
+"Se estiver usando a opção '-i' do guestfish, remova-a e use os\n"
+"comandos 'run' seguido de 'list-filesystems'.\n"
+"Você poderá então montar os sistemas de arquivos desejados\n"
+"manualmente usando o comando 'mount' ou 'mount-ro'.\n"
+"\n"
+"Se estiver usando a opção '-i' do guestmount, remova-a e escolha\n"
+"os sistemas de arquivos que deseja visualizar adicionando\n"
+"manualmente a(s) opção(ões) '-m'. Use 'virt-filesystems'\n"
+"para ver quais sistemas de arquivos estão disponíveis.\n"
+"\n"
+"Se estiver usando outras ferramentas de virtualização,\n"
+"esta imagem de disco não funcionará com elas. Use os comandos\n"
+"equivalentes do guestfish (consulte a página man da ferramenta\n"
+"de virtualização).\n"
 
 #: common/options/inspect.c:99
 #, c-format
@@ -81,71 +108,87 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: sem suporte a sistemas operacionais com multi-inicialização\n"
+"\n"
+"Se estiver usando a opção '-i' do guestfish, remova-a e use os\n"
+"comandos 'run' seguido de 'list-filesystems'. Você poderá então\n"
+"montar os sistemas de arquivos desejados manualmente usando\n"
+"o comando 'mount' ou 'mount-ro'.\n"
+"\n"
+"Se estiver usando a opção '-i' do guestmount, remova-a e escolha\n"
+"os sistemas de arquivos que deseja visualizar adicionando\n"
+"manualmente a(s) opção(ões) '-m'. Use 'virt-filesystems'\n"
+"para ver quais sistemas de arquivos estão disponíveis.\n"
+"\n"
+"Se estiver usando outras ferramentas de virtualização,\n"
+"sistemas operacionais com inicialização múltipla não funcionarão\n"
+"com essas ferramentas. Use os comandos equivalentes do guestfish\n"
+"(consulte a página do manual da ferramenta de virtualização).\n"
 
 #: common/options/inspect.c:161
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr ""
+msgstr "%s: alguns sistemas de arquivos não puderam ser montados (ignorado)\n"
 
 #: common/options/inspect.c:178
 #, c-format
 msgid "Operating system: %s\n"
-msgstr ""
+msgstr "Sistema operacional: %s\n"
 
 #: common/options/inspect.c:196
 #, c-format
 msgid "%s mounted on %s\n"
-msgstr ""
+msgstr "%s montado em %s\n"
 
 #: common/options/keys.c:63
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
-msgstr ""
+msgstr "Insira a chave ou senha (\"%s\"): "
 
 #: common/options/keys.c:145
 #, c-format
 msgid "size_t overflow"
-msgstr ""
+msgstr "estouro de size_t"
 
 #: common/options/keys.c:192
 #, c-format
 msgid "could not read key from user"
-msgstr ""
+msgstr "não foi possível ler a chave do usuário"
 
 #: common/options/keys.c:231
 #, c-format
 msgid "selector '%s': missing ID"
-msgstr ""
+msgstr "seletor '%s': ID em falta"
 
 #: common/options/keys.c:238
 #, c-format
 msgid "selector '%s': missing TYPE"
-msgstr ""
+msgstr "seletor '%s': TYPE em falta"
 
 #: common/options/keys.c:244
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
-msgstr ""
+msgstr "seletor '%s': KEY_STRING em falta ou muitos campos"
 
 #: common/options/keys.c:253
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
-msgstr ""
+msgstr "seletor '%s': FILENAME em falta ou muitos campos"
 
 #: common/options/keys.c:261
 #, c-format
 msgid "selector '%s': too many fields"
-msgstr ""
+msgstr "seletor '%s': muitos campos"
 
 #: common/options/keys.c:263
 #, c-format
 msgid "selector '%s': invalid TYPE"
-msgstr ""
+msgstr "seletor '%s': TYPE inválido"
 
 #: common/options/options.c:283
 #, c-format
 msgid "%s: ‘%s’ could not be mounted.\n"
-msgstr ""
+msgstr "%s: ‘%s’ não pôde ser montado.\n"
 
 #: common/options/options.c:287
 #, c-format
@@ -153,136 +196,150 @@ msgid ""
 "%s: Check mount(8) man page to ensure options ‘%s’\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
+"%s: Consulte a página man mount(8) para garantir que as opções ‘%s’\n"
+"%s: seja compatíveis com o sistema de arquivos que está sendo montado.\n"
 
 #: common/options/options.c:291
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
-msgstr ""
+msgstr "%s: Você pretendia montar um desses sistemas de arquivos?\n"
 
 #: common/options/options.c:304
 #, c-format
 msgid "cannot determine the subvolume for %s: %s (%d)"
-msgstr ""
+msgstr "não foi possível determinar o subvolume de %s: %s (%d)"
 
 #: common/options/uri.c:119
 #, c-format
 msgid "%s: --add: could not parse URI ‘%s’\n"
-msgstr ""
+msgstr "%s: --add: não foi possível analisar a URI ‘%s’\n"
 
 #: common/options/uri.c:130
 #, c-format
 msgid "%s: %s: scheme of URI is NULL or empty\n"
-msgstr ""
+msgstr "%s: %s: esquema de URI é NULL ou vazia\n"
 
 #: common/options/uri.c:138
 #, c-format
 msgid "%s: %s: cannot have both a server name and a socket query parameter\n"
 msgstr ""
+"%s: %s: não é possível ter simultaneamente um nome de servidor e um "
+"parâmetro de consulta de socket\n"
 
 #: common/parallel/domains.c:106 lib/libvirt-domain.c:106
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr ""
+msgstr "não foi possível conectar ao libvirt (código %d, domínio %d): %s"
 
 #: common/parallel/domains.c:114
 #, c-format
 msgid "could not get number of running domains (code %d, domain %d): %s"
 msgstr ""
+"não foi possível obter o número de domínios em execução (código %d, domínio "
+"%d): %s"
 
 #: common/parallel/domains.c:125
 #, c-format
 msgid "could not list running domains (code %d, domain %d): %s"
 msgstr ""
+"não foi possível listar os domínios em execução (código %d, domínio %d): %s"
 
 #: common/parallel/domains.c:135
 #, c-format
 msgid "could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
+"não foi possível obter o número de domínios inativos (código %d, domínio %d)"
+": %s"
 
 #: common/parallel/domains.c:146
 #, c-format
 msgid "could not list inactive domains (code %d, domain %d): %s"
 msgstr ""
+"não foi possível listar os domínios inativos (código %d, domínio %d): %s"
 
 #: common/utils/utils.c:107
 #, c-format
 msgid "%s exited successfully"
-msgstr ""
+msgstr "%s saiu com sucesso"
 
 #: common/utils/utils.c:110
 #, c-format
 msgid "%s exited with error status %d"
-msgstr ""
+msgstr "%s saiu com status de erro %d"
 
 #: common/utils/utils.c:114
 #, c-format
 msgid "%s killed by signal %d (%s)"
-msgstr ""
+msgstr "%s morto pelo sinal %d (%s)"
 
 #: common/utils/utils.c:118
 #, c-format
 msgid "%s stopped by signal %d (%s)"
-msgstr ""
+msgstr "%s parado pelo sinal %d (%s)"
 
 #: common/utils/utils.c:122
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
-msgstr ""
+msgstr "%s saiu por um motivo desconhecido (status %d)"
 
 #: common/visit/visit.c:133
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
-msgstr ""
+msgstr "%s: erro ao obter atributos estendidos para %s %s\n"
 
 #: common/visit/visit.c:147
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
+"%s: erro: não foi possível analisar a contagem de atributos estendidos para "
+"%s %s\n"
 
 #: common/windows/windows.c:139
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
+"para usar letras de unidade do Windows, este sistema deve ser um sistema "
+"operacional convidado do Windows"
 
 #: common/windows/windows.c:150
 #, c-format
 msgid "drive '%c:' not found."
-msgstr ""
+msgstr "unidade '%c:' não encontrada."
 
 #: fish/alloc.c:42
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
-msgstr ""
+msgstr "use 'alloc file size' para criar uma imagem\n"
 
 #: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr ""
+msgstr "use 'sparse file size' para criar uma imagem esparsa\n"
 
 #: fish/alloc.c:105
 #, c-format
 msgid "%s: invalid integer parameter (%s returned %u)\n"
-msgstr ""
+msgstr "%s: parâmetro inteiro inválido (%s retornou %u)\n"
 
 #: fish/cmds.c:487
 msgid "Command"
-msgstr ""
+msgstr "Comando"
 
 #: fish/cmds.c:487
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: fish/cmds.c:489
 msgid "delete the default POSIX ACL of a directory"
-msgstr ""
+msgstr "exclui a ACL POSIX padrão de um diretório"
 
 #: fish/cmds.c:490
 msgid "get the POSIX ACL attached to a file"
-msgstr ""
+msgstr "obtém a ACL POSIX associada a um arquivo"
 
 #: fish/cmds.c:491
 msgid "set the POSIX ACL attached to a file"
-msgstr ""
+msgstr "define a ACL POSIX associada a um arquivo"
 
 #: fish/cmds.c:493 fish/cmds.c:496 fish/cmds.c:507 fish/cmds.c:510
 #: fish/cmds.c:513 fish/cmds.c:533 fish/cmds.c:538 fish/cmds.c:557
@@ -295,199 +352,201 @@ msgstr ""
 #: fish/cmds.c:1151 fish/cmds.c:1160 fish/cmds.c:1182
 #, c-format
 msgid "alias for '%s'"
-msgstr ""
+msgstr "alias para '%s'"
 
 #: fish/cmds.c:498
 msgid "add a CD-ROM disk image to examine"
-msgstr ""
+msgstr "adiciona uma imagem de disco de CD-ROM para examinar"
 
 #: fish/cmds.c:499
 msgid "add the disk(s) from a named libvirt domain"
-msgstr ""
+msgstr "adiciona os discos de um domínio libvirt nomeado"
 
 #: fish/cmds.c:500
 msgid "add an image to examine or modify"
-msgstr ""
+msgstr "adiciona uma imagem para examinar ou modificar"
 
 #: fish/cmds.c:501
 msgid "add a drive in snapshot mode (read-only)"
-msgstr ""
+msgstr "adiciona uma unidade no modo de instantâneo (somente leitura)"
 
 #: fish/cmds.c:502
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
+"adiciona uma unidade somente leitura, especificando a emulação de bloco QEMU "
+"para usar"
 
 #: fish/cmds.c:503
 msgid "add a temporary scratch drive"
-msgstr ""
+msgstr "adiciona uma unidade de trabalho temporária"
 
 #: fish/cmds.c:504
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr ""
+msgstr "adiciona uma unidade especificando a emulação de bloco QEMU para usar"
 
 #: fish/cmds.c:505
 msgid "allocate and add a disk file"
-msgstr ""
+msgstr "aloca e adiciona um arquivo de disco"
 
 #: fish/cmds.c:515
 msgid "clear Augeas path"
-msgstr ""
+msgstr "limpa um caminho de Augeas"
 
 #: fish/cmds.c:516
 msgid "close the current Augeas handle"
-msgstr ""
+msgstr "fecha o identificador Augeas atual"
 
 #: fish/cmds.c:517
 msgid "define an Augeas node"
-msgstr ""
+msgstr "define um nó Augeas"
 
 #: fish/cmds.c:518
 msgid "define an Augeas variable"
-msgstr ""
+msgstr "define uma variável Augias"
 
 #: fish/cmds.c:519
 msgid "look up the value of an Augeas path"
-msgstr ""
+msgstr "pesquisa o valor de um caminho de Augeas"
 
 #: fish/cmds.c:520
 msgid "create a new Augeas handle"
-msgstr ""
+msgstr "cria um novo identificador Augeas"
 
 #: fish/cmds.c:521
 msgid "insert a sibling Augeas node"
-msgstr ""
+msgstr "insere um nó Augeas irmão"
 
 #: fish/cmds.c:522
 msgid "return the label from an Augeas path expression"
-msgstr ""
+msgstr "retorna o rótulo de uma expressão de caminho de Augeas"
 
 #: fish/cmds.c:523
 msgid "load files into the tree"
-msgstr ""
+msgstr "carrega arquivos na árvore"
 
 #: fish/cmds.c:524
 msgid "list Augeas nodes under augpath"
-msgstr ""
+msgstr "lista nós Augeas sob augpath"
 
 #: fish/cmds.c:525
 msgid "return Augeas nodes which match augpath"
-msgstr ""
+msgstr "retorna os nós Augeas que correspondem a augpath"
 
 #: fish/cmds.c:526
 msgid "move Augeas node"
-msgstr ""
+msgstr "move nós Augeas"
 
 #: fish/cmds.c:527
 msgid "remove an Augeas path"
-msgstr ""
+msgstr "remove um caminho de Augeas"
 
 #: fish/cmds.c:528
 msgid "write all pending Augeas changes to disk"
-msgstr ""
+msgstr "escreve todas as alterações pendentes de Augeas para o disco"
 
 #: fish/cmds.c:529
 msgid "set Augeas path to value"
-msgstr ""
+msgstr "define o caminho de Augeas para valor"
 
 #: fish/cmds.c:530
 msgid "set multiple Augeas nodes"
-msgstr ""
+msgstr "define vários nós Augeas"
 
 #: fish/cmds.c:531
 msgid "add/remove an Augeas lens transformation"
-msgstr ""
+msgstr "adiciona/remove uma transformação de lente Augeas"
 
 #: fish/cmds.c:535 fish/cmds.c:679
 msgid "test availability of some parts of the API"
-msgstr ""
+msgstr "testa disponibilidade de algumas partes da API"
 
 #: fish/cmds.c:536
 msgid "return a list of all optional groups"
-msgstr ""
+msgstr "retorna uma lista de todos os grupos opcionais"
 
 #: fish/cmds.c:540
 msgid "upload base64-encoded data to file"
-msgstr ""
+msgstr "envia dados codificados em base64 para um arquivo"
 
 #: fish/cmds.c:541
 msgid "download file and encode as base64"
-msgstr ""
+msgstr "baixa arquivo e o codifica como base64"
 
 #: fish/cmds.c:542
 msgid "discard all blocks on a device"
-msgstr ""
+msgstr "descarta todos os blocos em um dispositivo"
 
 #: fish/cmds.c:543
 msgid "return true if discarded blocks are read as zeroes"
-msgstr ""
+msgstr "retorna verdadeiro se os blocos descartados são lidos como zeros"
 
 #: fish/cmds.c:544
 msgid "print block device attributes"
-msgstr ""
+msgstr "exibe atributos de dispositivo de bloco"
 
 #: fish/cmds.c:545
 msgid "flush device buffers"
-msgstr ""
+msgstr "despeja buffers de dispositivo"
 
 #: fish/cmds.c:546
 msgid "get blocksize of block device"
-msgstr ""
+msgstr "obtém tamanho de blocos do dispositivo de bloco"
 
 #: fish/cmds.c:547
 msgid "is block device set to read-only"
-msgstr ""
+msgstr "se o dispositivo de bloco está definido como somente leitura"
 
 #: fish/cmds.c:548
 msgid "get total size of device in bytes"
-msgstr ""
+msgstr "obtém tamanho total de dispositivo em bytes"
 
 #: fish/cmds.c:549
 msgid "get sectorsize of block device"
-msgstr ""
+msgstr "obtém tamanho de setores do dispositivo de bloco"
 
 #: fish/cmds.c:550
 msgid "get total size of device in 512-byte sectors"
-msgstr ""
+msgstr "obtém tamanho total do dispositivo em setores de 512 bytes"
 
 #: fish/cmds.c:551
 msgid "reread partition table"
-msgstr ""
+msgstr "lê novamente a tabela de partição"
 
 #: fish/cmds.c:552
 msgid "set blocksize of block device"
-msgstr ""
+msgstr "define o tamanho de blocos do dispositivo de bloco"
 
 #: fish/cmds.c:553
 msgid "set readahead"
-msgstr ""
+msgstr "define readahead"
 
 #: fish/cmds.c:554
 msgid "set block device to read-only"
-msgstr ""
+msgstr "define o dispositivo de bloco para somente leitura"
 
 #: fish/cmds.c:555
 msgid "set block device to read-write"
-msgstr ""
+msgstr "define o dispositivo de bloco para leitura e escrita"
 
 #: fish/cmds.c:559
 msgid "cancel a running or paused balance"
-msgstr ""
+msgstr "cancela um balanceamento (balance) em andamento ou pausado"
 
 #: fish/cmds.c:560
 msgid "pause a running balance"
-msgstr ""
+msgstr "pausa um balanceamento (balance) em execução"
 
 #: fish/cmds.c:561
 msgid "resume a paused balance"
-msgstr ""
+msgstr "retoma um balanceamento (balance) pausado"
 
 #: fish/cmds.c:562
 msgid "show the status of a running or paused balance"
-msgstr ""
+msgstr "mostra o status de um balanceamento em execução ou pausado"
 
 #: fish/cmds.c:563
 msgid "add devices to a btrfs filesystem"
-msgstr ""
+msgstr "adiciona dispositivos a um sistema de arquivos btrfs"
 
 #: fish/cmds.c:564
 msgid "remove devices from a btrfs filesystem"
@@ -724,7 +783,7 @@ msgstr ""
 
 #: fish/cmds.c:626
 msgid "copy local files or directories into an image"
-msgstr ""
+msgstr "copia arquivos ou diretórios locais para uma imagem"
 
 #: fish/cmds.c:627
 msgid "copy remote files or directories out of an image"
@@ -3257,7 +3316,7 @@ msgstr ""
 #: fish/run-6.c:2079 fish/run-6.c:2166
 #, c-format
 msgid "%s: %s: integer out of range\n"
-msgstr ""
+msgstr "%s: %s: inteiro fora do limite\n"
 
 #: fish/setenv.c:40
 #, c-format
@@ -4331,7 +4390,7 @@ msgstr ""
 #: lib/tmpdirs.c:275
 #, c-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: lib/tmpdirs.c:323
 #, c-format

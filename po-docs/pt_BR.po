@@ -5,8 +5,9 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2025-03-03 21:05+0000\n"
-"Last-Translator: Krascovict Petrov <krascovict@yandex.ru>\n"
+"PO-Revision-Date: 2026-02-19 20:55+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-docs-master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -8471,6 +8472,12 @@ msgid ""
 " ANY CHANGES YOU MAKE TO THIS FILE WILL BE LOST.\n"
 "\n"
 msgstr ""
+"Arquivo gerado pelo libguestfs\n"
+" AVISO: ESTE ARQUIVO FOI GERADO A PARTIR DOS SEGUINTES ARQUIVOS:\n"
+"          generator/customize.ml\n"
+"          e do código no subdiretório generator/.\n"
+" QUALQUER ALTERAÇÃO FEITA NESTE ARQUIVO SERÁ PERDIDA.\n"
+"\n"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:9
@@ -8496,6 +8503,11 @@ msgid ""
 " (at your option) any later version.\n"
 "\n"
 msgstr ""
+" Este programa é um software livre; você pode redistribuí-lo e/ou\n"
+" modificá-lo sob os termos da Licença Pública Geral GNU, conforme\n"
+" publicado pela Free Software Foundation, seja a versão 2 da Licença\n"
+" ou (a seu critério) qualquer versão posterior.\n"
+"\n"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:16
@@ -8510,6 +8522,11 @@ msgid ""
 " GNU General Public License for more details.\n"
 "\n"
 msgstr ""
+" Este programa é distribuído na esperança de que seja útil,\n"
+" mas SEM QUALQUER GARANTIA; sem a garantia implícita de\n"
+" COMERCIALIZAÇÃO OU ADEQUAÇÃO A UM DETERMINADO PROPÓSITO.\n"
+" Veja a Licença Pública Geral GNU para obter mais detalhes.\n"
+"\n"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:21
@@ -8523,11 +8540,16 @@ msgid ""
 " 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 "\n"
 msgstr ""
+" Você deve ter recebido uma cópia da Licença Pública Geral GNU\n"
+" junto com este programa. Se não, escreva para a Free Software\n"
+" Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
+"USA.\n"
+"\n"
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:29
 msgid "B<--append-line> FILE:LINE"
-msgstr ""
+msgstr "B<--append-line> ARQUIVO:LINHA"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:31
@@ -8537,12 +8559,16 @@ msgid ""
 "end with a newline, then one is added before the appended line.  Also a "
 "newline is added to the end of the C<LINE> string automatically."
 msgstr ""
+"Acrescenta uma única linha de texto ao C<ARQUIVO>. Se o arquivo não terminar "
+"com uma nova linha, uma será adicionada antes da linha acrescentada. Uma "
+"nova linha também será adicionada automaticamente ao final da string C<LINHA>"
+"."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:36
 #: ../sysprep/sysprep-extra-options.pod:9
 msgid "For example (assuming ordinary shell quoting) this command:"
-msgstr ""
+msgstr "Por exemplo (presumindo aspas comuns no shell) este comando:"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:38
@@ -8552,6 +8578,8 @@ msgid ""
 " --append-line '/etc/hosts:10.0.0.1 foo'\n"
 "\n"
 msgstr ""
+" --append-line '/etc/hosts:10.0.0.1 foo'\n"
+"\n"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:40
@@ -30660,7 +30688,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes-1.32.pod:101
 #: ../docs/guestfs-release-notes-1.34.pod:192
 msgid "Documentation"
-msgstr ""
+msgstr "Documentação"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.32.pod:103
