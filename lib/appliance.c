@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <unistd.h>
@@ -48,10 +49,10 @@ static const char kernel_name[] = "vmlinuz." host_cpu;
 static const char initrd_name[] = "initramfs." host_cpu ".img";
 
 static int search_appliance (guestfs_h *g, struct appliance_files *appliance);
-static int dir_contains_file (guestfs_h *g, const char *dir, const char *file);
-static int dir_contains_files (guestfs_h *g, const char *dir, ...);
-static int contains_old_style_appliance (guestfs_h *g, const char *path, void *data);
-static int contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
+static bool dir_contains_file (guestfs_h *g, const char *dir, const char *file);
+static bool dir_contains_files (guestfs_h *g, const char *dir, ...);
+static bool contains_old_style_appliance (guestfs_h *g, const char *path, void *data);
+static bool contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
 static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, struct appliance_files *appliance);
 static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *appliancedir, const char *supermin_path);
@@ -228,13 +229,13 @@ search_appliance (guestfs_h *g, struct appliance_files *appliance)
   return 0;
 }
 
-static int
+static bool
 contains_old_style_appliance (guestfs_h *g, const char *path, void *data)
 {
   return dir_contains_files (g, path, kernel_name, initrd_name, NULL);
 }
 
-static int
+static bool
 contains_fixed_appliance (guestfs_h *g, const char *path, void *data)
 {
   return dir_contains_files (g, path,
@@ -350,7 +351,7 @@ run_supermin_build (guestfs_h *g,
 /**
  * Returns true iff C<file> is contained in C<dir>.
  */
-static int
+static bool
 dir_contains_file (guestfs_h *g, const char *dir, const char *file)
 {
   CLEANUP_FREE char *path = NULL;
@@ -362,7 +363,7 @@ dir_contains_file (guestfs_h *g, const char *dir, const char *file)
 /**
  * Returns true iff every listed file is contained in C<dir>.
  */
-static int
+static bool
 dir_contains_files (guestfs_h *g, const char *dir, ...)
 {
   va_list args;
