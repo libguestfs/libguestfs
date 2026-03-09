@@ -112,8 +112,10 @@ test_blkid_p_i_opt (void)
   }
 
   r = commandr (NULL, &err2, "blkid", "-i", NULL);
-  if (r == -1)
-    goto command_failed;
+  if (r == -1) {
+    reply_with_error ("could not run 'blkid' command: %s", err2);
+    return -1;
+  }
 
   if (strstr (err2, "invalid option --")) {
     return 0;

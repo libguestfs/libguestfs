@@ -164,6 +164,7 @@ debug_fds (const char *subcmd, size_t argc, char *const *const argv)
   if (!dir) {
     reply_with_perror ("opendir: /proc/self/fd");
     fclose (fp);
+    free (out);
     return NULL;
   }
 
