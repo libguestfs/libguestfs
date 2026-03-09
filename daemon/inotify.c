@@ -331,6 +331,7 @@ do_inotify_files (void)
   pp = popen (cmd, "w");
   if (pp == NULL) {
     reply_with_perror ("sort");
+    close (fd);
     unlink (tempfile);
     return NULL;
   }
@@ -339,6 +340,7 @@ do_inotify_files (void)
     events = do_inotify_read ();
     if (events == NULL) {
       pclose (pp);
+      close (fd);
       unlink (tempfile);
       return NULL;
     }
