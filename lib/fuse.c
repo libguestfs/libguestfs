@@ -1385,6 +1385,7 @@ xac_insert (guestfs_h *g,
   entry = malloc (sizeof *entry);
   if (entry == NULL) {
     perrorf (g, "malloc");
+    guestfs_free_xattr_list (xattrs);
     return -1;
   }
 
@@ -1393,6 +1394,7 @@ xac_insert (guestfs_h *g,
   if (entry->c.pathname == NULL) {
     perrorf (g, "malloc");
     free (entry);
+    guestfs_free_xattr_list (xattrs);
     return -1;
   }
   if (STREQ (path, "/"))
@@ -1418,6 +1420,7 @@ rlc_insert (guestfs_h *g,
   entry = malloc (sizeof *entry);
   if (entry == NULL) {
     perrorf (g, "malloc");
+    free (link);
     return -1;
   }
 
@@ -1426,6 +1429,7 @@ rlc_insert (guestfs_h *g,
   if (entry->c.pathname == NULL) {
     perrorf (g, "malloc");
     free (entry);
+    free (link);
     return -1;
   }
   if (STREQ (path, "/"))
