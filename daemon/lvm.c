@@ -771,6 +771,7 @@ do_vgmeta (const char *vg, size_t *size_r)
   r = command (NULL, &err, "lvm", "vgcfgbackup", "-f", tmp, vg, NULL);
   if (r == -1) {
     reply_with_error ("vgcfgbackup: %s", err);
+    unlink (tmp);
     return NULL;
   }
 
@@ -778,6 +779,7 @@ do_vgmeta (const char *vg, size_t *size_r)
   fd = open (tmp, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     reply_with_error ("%s", tmp);
+    unlink (tmp);
     return NULL;
   }
 
@@ -796,6 +798,7 @@ do_vgmeta (const char *vg, size_t *size_r)
         reply_with_error ("metadata is too large for message buffer");
         free (buf);
         close (fd);
+        unlink (tmp);
         return NULL;
       }
       buf2 = realloc (buf, alloc);
@@ -803,6 +806,7 @@ do_vgmeta (const char *vg, size_t *size_r)
         reply_with_perror ("realloc");
         free (buf);
         close (fd);
+        unlink (tmp);
         return NULL;
       }
       buf = buf2;
@@ -813,6 +817,7 @@ do_vgmeta (const char *vg, size_t *size_r)
       reply_with_perror ("read: %s", tmp);
       free (buf);
       close (fd);
+      unlink (tmp);
       return NULL;
     }
     if (rs == 0)
@@ -824,6 +829,7 @@ do_vgmeta (const char *vg, size_t *size_r)
   if (close (fd) == -1) {
     reply_with_perror ("close: %s", tmp);
     free (buf);
+    unlink (tmp);
     return NULL;
   }
 
