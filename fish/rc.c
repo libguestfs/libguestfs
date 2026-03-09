@@ -277,6 +277,11 @@ rc_listen (void)
       receive_stdout (s);
 
       fp = fdopen (s, "r+");
+      if (fp == NULL) {
+        perror ("fdopen");
+        close (s);
+        abort ();
+      }
       xdrstdio_create (&xdr, fp, XDR_DECODE);
 
       if (!xdr_guestfish_hello (&xdr, &hello)) {
@@ -393,6 +398,11 @@ rc_remote (int pid, const char *cmd, size_t argc, char *argv[],
 
   /* Send the greeting. */
   fp = fdopen (sock, "r+");
+  if (fp == NULL) {
+    perror ("fdopen");
+    close (sock);
+    return -1;
+  }
   xdrstdio_create (&xdr, fp, XDR_ENCODE);
 
   if (!xdr_guestfish_hello (&xdr, &hello)) {
