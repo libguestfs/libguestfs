@@ -820,6 +820,7 @@ guestfs_impl_add_drive_opts (guestfs_h *g,
 
   /* ... else the old hotplugging case */
   error (g, _("hotplugging support was removed in libguestfs 1.48"));
+  free_drive_struct (drv);
   return -1;
 }
 
