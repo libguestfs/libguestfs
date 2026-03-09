@@ -342,7 +342,7 @@ do_aug_match (const char *path)
   vp = realloc (matches, sizeof (char *) * (r+1));
   if (vp == NULL) {
     reply_with_perror ("realloc");
-    free (vp);
+    free_stringslen (matches, r);
     return NULL;
   }
   matches = vp;
