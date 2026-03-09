@@ -501,7 +501,10 @@ do_zfile (const char *method, const char *path)
   if (len > 0 && line[len-1] == '\n')
     line[len-1] = '\0';
 
-  return strdup (line);
+  char *ret = strdup (line);
+  if (ret == NULL)
+    reply_with_perror ("strdup");
+  return ret;
 }
 
 int64_t
