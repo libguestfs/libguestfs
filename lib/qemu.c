@@ -193,7 +193,7 @@ parse_has_kvm (guestfs_h *g, const char *json)
 int
 guestfs_int_platform_has_kvm (guestfs_h *g)
 {
-  char *query_kvm;
+  CLEANUP_FREE char *query_kvm = NULL;
 
   if (generic_qmp_test (g, "query-kvm", &query_kvm) == -1)
     return -1;
