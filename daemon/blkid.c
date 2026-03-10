@@ -102,7 +102,6 @@ test_blkid_p_i_opt (void)
   r = commandr (NULL, &err, "blkid", "-p", "/dev/null", NULL);
   if (r == -1) {
     /* This means we couldn't run the blkid command at all. */
-  command_failed:
     reply_with_error ("could not run 'blkid' command: %s", err);
     return -1;
   }
