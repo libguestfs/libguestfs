@@ -213,6 +213,12 @@ Java_com_redhat_et_libguestfs_GuestFS__1set_1event_1callback
 
   /* Register jcallback as a global reference so the GC won't free it. */
   data->callback = (*env)->NewGlobalRef (env, jcallback);
+  if (data->callback == NULL) {
+    guestfs_delete_event_callback (g, r);
+    free (data);
+    throw_out_of_memory (env, "NewGlobalRef");
+    return -1;
+  }
 
   /* Store 'data' in the handle, so we can free it at some point. */
   snprintf (key, sizeof key, "_java_event_%d", r);
