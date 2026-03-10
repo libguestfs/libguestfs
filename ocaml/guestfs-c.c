@@ -193,7 +193,13 @@ guestfs_int_ocaml_strings_val (guestfs_h *g, value sv)
   if (r == NULL) caml_raise_out_of_memory ();
   for (i = 0; i < Wosize_val (sv); ++i) {
     r[i] = strdup (String_val (Field (sv, i)));
-    if (r[i] == NULL) caml_raise_out_of_memory ();
+    if (r[i] == NULL) {
+      size_t j;
+      for (j = 0; j < i; ++j)
+        free (r[j]);
+      free (r);
+      caml_raise_out_of_memory ();
+    }
   }
   r[i] = NULL;
 
