@@ -10,8 +10,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-01-26 14:40+0000\n"
 "PO-Revision-Date: 2026-02-10 09:58+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ka/>\n"
 "Language: ka\n"
@@ -584,10 +583,8 @@ msgid "cancel a running scrub"
 msgstr ""
 
 #: fish/cmds.c:584
-#, fuzzy
-#| msgid "sync a btrfs filesystem"
 msgid "run a full scrub on a btrfs filesystem"
-msgstr "btrfs ფაილური სისტემის სინქრონიზაცია"
+msgstr "სრული გაწმენდის გაშვება btrfs ფაილურ სისტემაზე"
 
 #: fish/cmds.c:585
 msgid "resume a previously canceled or interrupted scrub"
@@ -948,16 +945,12 @@ msgid "find a filesystem by label"
 msgstr ""
 
 #: fish/cmds.c:694
-#, fuzzy
-#| msgid "reread partition table"
 msgid "find a partition by label"
-msgstr "დანაყოფების ცხრილის თავიდან წაკითხვა"
+msgstr "დანაყოფის პოვნა ჭდით"
 
 #: fish/cmds.c:695
-#, fuzzy
-#| msgid "delete a partition"
 msgid "find a partition by UUID"
-msgstr "დანაყოფის წაშლა"
+msgstr "დანაყოფის პოვნა UUID-ით"
 
 #: fish/cmds.c:696
 msgid "find a filesystem by UUID"
@@ -1109,7 +1102,7 @@ msgstr ""
 
 #: fish/cmds.c:737 fish/cmds.c:849
 msgid "list extended attributes of a file or directory"
-msgstr "დამატებითი ატრიბუტების გამოყენება ფაილებზე და საქაღალდეებზე"
+msgstr "დამატებითი ატრიბუტების სია ფაილზე, ან საქაღალდეზე"
 
 #: fish/cmds.c:738
 msgid "expand wildcards in command"
@@ -1357,7 +1350,7 @@ msgstr ""
 
 #: fish/cmds.c:809
 msgid "test if block device"
-msgstr ""
+msgstr "შემოწმება, არის, თუ არა მოწყობილობა ბლოკური"
 
 #: fish/cmds.c:810
 msgid "test if character device"
