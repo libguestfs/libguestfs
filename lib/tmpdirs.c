@@ -71,12 +71,14 @@ set_abs_path (guestfs_h *g, const char *ctxstr,
   if (stat (ret, &statbuf) == -1) {
     perrorf (g, "%s: %s: %s: stat",
              _("setting temporary directory"), ctxstr, tmpdir);
+    free (ret);
     return -1;
   }
 
   if (!S_ISDIR (statbuf.st_mode)) {
     error (g, _("%s: %s: ‘%s’ is not a directory"),
            _("setting temporary directory"), ctxstr, tmpdir);
+    free (ret);
     return -1;
   }
 
