@@ -27,6 +27,9 @@ open Inspect_utils
 
 let re_cciss = PCRE.compile "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$"
 let re_diskbyid = PCRE.compile "^/dev/disk/by-id/.*-part(\\d+)$"
+let re_diskbyid_generic = PCRE.compile "^/dev/disk/by-id/"
+let re_diskbypath = PCRE.compile "^/dev/disk/by-path/.*-part(\\d+)$"
+let re_diskbypath_generic = PCRE.compile "^/dev/disk/by-path/"
 let re_dmuuid = PCRE.compile "^/dev/disk/by-id/dm-uuid-LVM-([0-9a-zA-Z]{32})([0-9a-zA-Z]{32})$"
 let re_freebsd_gpt = PCRE.compile "^/dev/(ada{0,1}|vtbd)(\\d+)p(\\d+)$"
 let re_freebsd_mbr = PCRE.compile "^/dev/(ada{0,1}|vtbd)(\\d+)s(\\d+)([a-z])$"
@@ -398,6 +401,36 @@ and resolve_fstab_device spec md_map os_type aug =
     resolve_diskbyid part default
   )
 
+  (* Handle /dev/disk/by-path/ entries with partition numbers.
+   * These paths change between hypervisors (VMware -> KVM) making them
+   * unsuitable for converted guests. We map to the actual device based on
+   * partition number and convert to stable identifiers.
+   * See: RHBZ#1608131, MTV-3672
+   *)
+  else if PCRE.matches re_diskbypath spec then (
+    debug_matching "diskbypath";
+    let part = int_of_string (PCRE.sub 1) in
+    resolve_diskbypath part default
+  )
+
+  (* Handle /dev/disk/by-path/ entries without partition numbers (whole disks).
+   * Try to find matching by-path entry in appliance.
+   *)
+  else if PCRE.matches re_diskbypath_generic spec then (
+    debug_matching "diskbypath_generic";
+    resolve_diskbypath_generic spec default
+  )
+
+  (* Handle /dev/disk/by-id/ entries (general case) by trying to find
+   * matching entry in appliance.
+   * This is a fallback for by-id entries not matched by specific patterns
+   * above (like dm-uuid-LVM or the old -partN pattern).
+   *)
+  else if PCRE.matches re_diskbyid_generic spec then (
+    debug_matching "diskbyid_generic";
+    resolve_diskbyid_generic spec default
+  )
+
   (* Ubuntu 22+ uses /dev/disk/by-uuid/ followed by a UUID. *)
   else if String.starts_with "/dev/disk/by-uuid/" spec then (
     debug_matching "diskbyuuid";
@@ -673,6 +706,180 @@ and resolve_diskbyid part default =
     if is_partition dev then Mountable.of_device dev
     else default
   )
+
+(* For /dev/disk/by-path/ entries with partition numbers, we need to map them
+ * to the actual partition in the appliance. The PCI addresses will differ
+ * between the original guest and the appliance, but partition numbers are
+ * preserved. This heuristic works best with single-disk guests.
+ *)
+and resolve_diskbypath part default =
+  let nr_devices = Devsparts.nr_devices () in
+
+  (* If #devices isn't 1, give up trying to translate this fstab entry. *)
+  if nr_devices <> 1 then (
+    if verbose () then
+      eprintf "resolve_diskbypath: cannot resolve (multiple devices: %d)\n%!" nr_devices;
+    default
+  )
+  else (
+    (* Make the partition name and check it exists. *)
+    let dev = sprintf "/dev/sda%d" part in
+    if verbose () then
+      eprintf "resolve_diskbypath: mapping part%d -> %s\n%!" part dev;
+    if is_partition dev then
+      device_to_stable_identifier dev (Mountable.of_device dev)
+    else
+      default
+  )
+
+(* Handle generic /dev/disk/by-path/ entries (whole disks) by looking for
+ * matching by-path entries in the appliance's /dev/disk/by-path/
+ *)
+and resolve_diskbypath_generic spec default =
+  try
+    (* Try to read the by-path directory in the appliance *)
+    let bypath_dir = "/dev/disk/by-path" in
+    let entries = Sys.readdir bypath_dir |> Array.to_list in
+
+    (* Try to find a matching entry based on the target device.
+     * For single-disk systems, we can assume pci-*-part* entries map to sda* *)
+    let nr_devices = Devsparts.nr_devices () in
+    if nr_devices = 1 then (
+      (* For single disk, try to find any by-path entry and follow it *)
+      match entries with
+      | [] -> default
+      | first :: _ ->
+        let fullpath = Filename.concat bypath_dir first in
+        let target = Unix.readlink fullpath in
+        (* Resolve relative path like ../../sda *)
+        let resolved =
+          if String.starts_with "/" target then target
+          else sprintf "/dev/%s" (Filename.basename target) in
+        if verbose () then
+          eprintf "resolve_diskbypath_generic: %s -> %s -> %s\n%!"
+            spec fullpath resolved;
+        device_to_stable_identifier resolved (Mountable.of_device resolved)
+    ) else (
+      if verbose () then
+        eprintf "resolve_diskbypath_generic: cannot resolve (multiple devices)\n%!";
+      default
+    )
+  with
+  | exn ->
+    if verbose () then
+      eprintf "resolve_diskbypath_generic: exception: %s\n%!"
+        (Printexc.to_string exn);
+    default
+
+(* Handle generic /dev/disk/by-id/ entries similarly to by-path *)
+and resolve_diskbyid_generic spec default =
+  try
+    let byid_dir = "/dev/disk/by-id" in
+    let entries = Sys.readdir byid_dir |> Array.to_list in
+
+    let nr_devices = Devsparts.nr_devices () in
+    if nr_devices = 1 then (
+      (* For single disk, try to find first non-dm entry *)
+      let non_dm_entries = List.filter (fun e -> not (String.starts_with "dm-" e)) entries in
+      match non_dm_entries with
+      | [] -> default
+      | first :: _ ->
+        let fullpath = Filename.concat byid_dir first in
+        let target = Unix.readlink fullpath in
+        let resolved =
+          if String.starts_with "/" target then target
+          else sprintf "/dev/%s" (Filename.basename target) in
+        if verbose () then
+          eprintf "resolve_diskbyid_generic: %s -> %s -> %s\n%!"
+            spec fullpath resolved;
+        device_to_stable_identifier resolved (Mountable.of_device resolved)
+    ) else (
+      if verbose () then
+        eprintf "resolve_diskbyid_generic: cannot resolve (multiple devices)\n%!";
+      default
+    )
+  with
+  | exn ->
+    if verbose () then
+      eprintf "resolve_diskbyid_generic: exception: %s\n%!"
+        (Printexc.to_string exn);
+    default
+
+(* Helper function to get a blkid tag for a device.
+ * Returns Some value if the tag exists, None if not found.
+ *)
+and get_blkid_tag device tag =
+  try
+    let r, out, err =
+      commandr "blkid"
+               [(* Adding -c option kills all caching, even on RHEL 5. *)
+                 "-c"; "/dev/null";
+                 "-o"; "value"; "-s"; tag; device] in
+    match r with
+    | 0 -> Some (String.chomp out) (* success *)
+    | 2 -> None                    (* means tag not found *)
+    | _ -> failwithf "blkid: %s: %s: %s" device tag err
+  with
+  | exn ->
+    if verbose () then
+      eprintf "get_blkid_tag: exception for %s %s: %s\n%!"
+        device tag (Printexc.to_string exn);
+    None
+
+(* Convert a device path to a stable identifier (UUID=, PARTUUID=, LABEL=, or PARTLABEL=).
+ * This function tries to find the most stable identifier for a device by querying
+ * blkid. The preference order is:
+ * 1. UUID= (filesystem UUID, most stable)
+ * 2. PARTUUID= (partition UUID, stable across renames)
+ * 3. LABEL= (filesystem label, stable if set)
+ * 4. PARTLABEL= (partition label, stable if set)
+ *
+ * Returns a mountable with the stable identifier if found, otherwise returns the default.
+ *)
+and device_to_stable_identifier device default =
+  try
+    (* Try UUID first - most stable and preferred *)
+    match get_blkid_tag device "UUID" with
+    | Some uuid ->
+      if verbose () then
+        eprintf "device_to_stable_identifier: %s -> UUID=%s\n%!" device uuid;
+      Mountable.of_device (sprintf "UUID=%s" uuid)
+    | None ->
+      (* Try PARTUUID - partition UUID *)
+      match get_blkid_tag device "PARTUUID" with
+      | Some partuuid ->
+        if verbose () then
+          eprintf "device_to_stable_identifier: %s -> PARTUUID=%s\n%!" device partuuid;
+        Mountable.of_device (sprintf "PARTUUID=%s" partuuid)
+      | None ->
+        (* Try LABEL - filesystem label *)
+        match get_blkid_tag device "LABEL" with
+        | Some label ->
+          if verbose () then
+            eprintf "device_to_stable_identifier: %s -> LABEL=%s\n%!" device label;
+          Mountable.of_device (sprintf "LABEL=%s" label)
+        | None ->
+          (* Try PARTLABEL - partition label *)
+          match get_blkid_tag device "PARTLABEL" with
+          | Some partlabel ->
+            if verbose () then
+              eprintf "device_to_stable_identifier: %s -> PARTLABEL=%s\n%!"
+                device partlabel;
+            Mountable.of_device (sprintf "PARTLABEL=%s" partlabel)
+          | None ->
+            if verbose () then
+              eprintf "device_to_stable_identifier: %s has no stable identifier\n%!" device;
+            default
+  with
+  | Failure msg ->
+    if verbose () then
+      eprintf "device_to_stable_identifier: failed for %s: %s\n%!" device msg;
+    default
+  | exn ->
+    if verbose () then
+      eprintf "device_to_stable_identifier: exception for %s: %s\n%!"
+        device (Printexc.to_string exn);
+    default
 
 (* Remove duplicate root mountpoints if they are identical.  If
  * there are multiple non-identical roots we pick the first and
