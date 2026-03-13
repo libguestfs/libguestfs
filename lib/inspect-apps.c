@@ -396,6 +396,7 @@ list_applications_pacman (guestfs_h *g, const char *root)
       }
 
       if (key != NULL) {
+        free (*key);
         *key = safe_strdup (g, line);
         key = NULL;
         continue;
