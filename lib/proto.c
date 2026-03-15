@@ -226,7 +226,11 @@ check_daemon_socket (guestfs_h *g)
       return n;
 
     xdrmem_create (&xdr, mbuf, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
-    xdr_guestfs_progress (&xdr, &message);
+    if (!xdr_guestfs_progress (&xdr, &message)) {
+      debug (g, "failed to decode progress message");
+      xdr_destroy (&xdr);
+      goto again;
+    }
     xdr_destroy (&xdr);
 
     guestfs_int_progress_message_callback (g, &message);
@@ -629,7 +633,13 @@ guestfs_int_recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
     XDR xdr;
 
     xdrmem_create (&xdr, *buf_rtn, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
-    xdr_guestfs_progress (&xdr, &message);
+    if (!xdr_guestfs_progress (&xdr, &message)) {
+      debug (g, "failed to decode progress message");
+      xdr_destroy (&xdr);
+      free (*buf_rtn);
+      *buf_rtn = NULL;
+      goto again;
+    }
     xdr_destroy (&xdr);
 
     guestfs_int_progress_message_callback (g, &message);
