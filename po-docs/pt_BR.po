@@ -5,9 +5,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2026-02-26 12:58+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-03-02 09:58+0000\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-docs-master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -1368,7 +1367,7 @@ msgstr ""
 #: ../tools/virt-win-reg:773 ../tools/virt-win-reg:779
 #: ../tools/virt-win-reg:785
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:360
@@ -8588,6 +8587,9 @@ msgid ""
 "will add either C<10.0.0.1 foo⏎> or C<⏎10.0.0.1 foo⏎> to the file, the "
 "latter only if the existing file does not already end with a newline."
 msgstr ""
+"vai adicionar C<10.0.0.1 foo⏎> ou C<⏎10.0.0.1 foo⏎> para o arquivo, sendo "
+"que o último somente se o arquivo existente não já terminar com uma nova "
+"linha."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:44
@@ -8598,12 +8600,16 @@ msgid ""
 "using Unix or Windows line endings.  It also works for empty or non-existent "
 "files."
 msgstr ""
+"C<⏎> representa um caractere de nova linha, que é inferido observando o "
+"conteúdo existente do arquivo; portanto, este comando funciona corretamente "
+"para arquivos que usam finais de linha Unix ou Windows. Ele também funciona "
+"para arquivos vazios ou inexistentes."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:49
 #: ../sysprep/sysprep-extra-options.pod:22
 msgid "To insert several lines, use the same option several times:"
-msgstr ""
+msgstr "Para inserir várias linhas, use a mesma opção várias vezes:"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:51
@@ -8614,12 +8620,15 @@ msgid ""
 " --append-line '/etc/hosts:10.0.0.2 bar'\n"
 "\n"
 msgstr ""
+" --append-line '/etc/hosts:10.0.0.1 foo'\n"
+" --append-line '/etc/hosts:10.0.0.2 bar'\n"
+"\n"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:54
 #: ../sysprep/sysprep-extra-options.pod:27
 msgid "To insert a blank line before the appended line, do:"
-msgstr ""
+msgstr "Para inserir uma linha em branco antes da linha anexada, faça:"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:56
@@ -8630,17 +8639,20 @@ msgid ""
 " --append-line '/etc/hosts:10.0.0.1 foo'\n"
 "\n"
 msgstr ""
+" --append-line '/etc/hosts:'\n"
+" --append-line '/etc/hosts:10.0.0.1 foo'\n"
+"\n"
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:59
 msgid "B<--chmod> PERMISSIONS:FILE"
-msgstr ""
+msgstr "B<--chmod> PERMISSÕES:ARQUIVO"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:61
 #: ../sysprep/sysprep-extra-options.pod:35
 msgid "Change the permissions of C<FILE> to C<PERMISSIONS>."
-msgstr ""
+msgstr "Altera as permissões de C<ARQUIVO> para C<PERMISSÕES>."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:63
@@ -8649,6 +8661,8 @@ msgid ""
 "I<Note>: C<PERMISSIONS> by default would be decimal, unless you prefix it "
 "with C<0> to get octal, ie. use C<0700> not C<700>."
 msgstr ""
+"I<Note>: C<PERMISSÕES> por padrão seriam um decimal, a menos que você o "
+"prefixe com C<0> para obter um octal (isto é usar C<0700>, não C<700>)."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:66
@@ -49927,7 +49941,7 @@ msgid ""
 msgstr ""
 "Arquivo gerado pelo libguestfs\n"
 " AVISO: ESTE ARQUIVO FOI GERADO A PARTIR DOS SEGUINTES ARQUIVOS:\n"
-"          generator/customize.ml\n"
+"          generator/fish.ml\n"
 "          e do código no subdiretório generator/.\n"
 " QUALQUER ALTERAÇÃO FEITA NESTE ARQUIVO SERÁ PERDIDA.\n"
 "\n"
