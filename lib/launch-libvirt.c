@@ -1269,6 +1269,19 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
     } end_element ();
   }
 
+  /* if we are root, that means we connected to qemu:///system, and libvirt
+   * is likely running VMs as qemu.qemu. instead tell it to relabel
+   * everything as root.root, which is closer to what we want
+   */
+  if (params->current_proc_is_root) {
+    start_element ("seclabel") {
+      attribute ("type", "static");
+      attribute ("model", "dac");
+      attribute ("relabel", "yes");
+      single_element ("label", "+0:+0");
+    } end_element ();
+  }
+
   return 0;
 }
 
