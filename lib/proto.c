@@ -219,17 +219,19 @@ check_daemon_socket (guestfs_h *g)
   /* Read and process progress messages that happen during FileIn. */
   if (flag == GUESTFS_PROGRESS_FLAG) {
     char mbuf[PROGRESS_MESSAGE_SIZE];
-    guestfs_progress message;
+    guestfs_progress message = { 0 };
 
     n = g->conn->ops->read_data (g, g->conn, mbuf, PROGRESS_MESSAGE_SIZE);
     if (n <= 0) /* 0 or -1 */
       return n;
 
     xdrmem_create (&xdr, mbuf, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
-    xdr_guestfs_progress (&xdr, &message);
+    if (!xdr_guestfs_progress (&xdr, &message))
+      message.proc = 0;
     xdr_destroy (&xdr);
 
-    guestfs_int_progress_message_callback (g, &message);
+    if (message.proc)
+      guestfs_int_progress_message_callback (g, &message);
 
     goto again;
   }
@@ -625,14 +627,16 @@ guestfs_int_recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
     return -1;
 
   if (*size_rtn == GUESTFS_PROGRESS_FLAG) {
-    guestfs_progress message;
+    guestfs_progress message = { 0 };
     XDR xdr;
 
     xdrmem_create (&xdr, *buf_rtn, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
-    xdr_guestfs_progress (&xdr, &message);
+    if (!xdr_guestfs_progress (&xdr, &message))
+      message.proc = 0;
     xdr_destroy (&xdr);
 
-    guestfs_int_progress_message_callback (g, &message);
+    if (message.proc)
+      guestfs_int_progress_message_callback (g, &message);
 
     free (*buf_rtn);
     *buf_rtn = NULL;
