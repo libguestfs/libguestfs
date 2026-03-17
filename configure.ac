@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009-2025 Red Hat Inc.
+# Copyright (C) 2009-2026 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,8 +20,8 @@
 # freeform string.
 m4_define([libguestfs_major],   [1])
 m4_define([libguestfs_minor],   [59])
-m4_define([libguestfs_release], [3])
-m4_define([release_date],       [2026-02-11])
+m4_define([libguestfs_release], [4])
+m4_define([release_date],       [2026-03-17])
 
 AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
 AC_SUBST([RELEASE_DATE],release_date)
