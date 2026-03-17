@@ -154,7 +154,6 @@ struct libvirt_xml_params {
   size_t appliance_index;       /* index of appliance */
   bool enable_svirt;            /* false if we decided to disable sVirt */
   bool current_proc_is_root;    /* true = euid is root */
-  bool is_custom;               /* true if user sets non-default g->hv */
 };
 
 static int parse_capabilities (guestfs_h *g, const char *capabilities_xml, struct backend_libvirt_data *data);
@@ -167,7 +166,6 @@ static void debug_appliance_permissions (guestfs_h *g);
 static void debug_socket_permissions (guestfs_h *g);
 static void libvirt_error (guestfs_h *g, const char *fs, ...) __attribute__((format (printf,2,3)));
 static void libvirt_debug (guestfs_h *g, const char *fs, ...) __attribute__((format (printf,2,3)));
-static int is_custom_hv (guestfs_h *g, struct backend_libvirt_data *data);
 static int is_blk (const char *path);
 static void ignore_errors (void *ignore, virErrorPtr ignore2);
 static void set_socket_create_context (guestfs_h *g);
@@ -574,8 +572,12 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   params.appliance_index = g->nr_drives;
   strcpy (params.appliance_dev, "/dev/sd");
   guestfs_int_drive_name (params.appliance_index, &params.appliance_dev[7]);
-  params.is_custom = is_custom_hv (g, data);
-  params.enable_svirt = !params.is_custom;
+
+  /* Disable sVirt if the user set a custom hypervisor because SELinux
+   * rules probably refer to a specific qemu binary (or label) which a
+   * custom hypervisor probably doesn't have.
+   */
+  params.enable_svirt = g->hv == NULL;
 
   /* workaround a libvirt validation bug that rejects disabling selinux
    * at domain level and also at disk level, as of libvirt 11.8.0
@@ -878,24 +880,6 @@ parse_domcapabilities (guestfs_h *g, const char *domcapabilities_xml,
   }
 
   return 0;
-}
-
-static int
-is_custom_hv (guestfs_h *g, struct backend_libvirt_data *data)
-{
-  CLEANUP_FREE char *rawpath = NULL;
-
-  if (STREQ (g->hv, data->default_qemu))
-    return 0;
-
-  /* ignore error here, let guest startup fail later */
-  rawpath = realpath(g->hv, NULL);
-  if (rawpath && STREQ (rawpath, data->default_qemu))
-    return 0;
-
-  debug (g, "user passed custom hv=%s (realpath=%s) libvirt default=%s",
-         g->hv, rawpath, data->default_qemu);
-  return 1;
 }
 
 #if HAVE_LIBSELINUX
@@ -1303,7 +1287,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
     /* Path to hypervisor.  Only write this if the user has changed the
      * default, otherwise allow libvirt to choose the best one.
      */
-    if (params->is_custom)
+    if (g->hv)
       single_element ("emulator", g->hv);
 
     /* Add a random number generator (backend for virtio-rng). */
