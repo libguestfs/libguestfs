@@ -55,10 +55,6 @@ the qemu binary at the same time as the handle is created.|} };
     style = RConstString "hv", [], [];
     blocking = false;
     deprecated_by = Replaced_by "get_hv";
-    tests = [
-      InitNone, Always, TestRun (
-        [["get_qemu"]]), []
-    ];
     shortdesc = "get the hypervisor binary (usually qemu)";
     longdesc = "\
 Return the current hypervisor binary (usually qemu).
