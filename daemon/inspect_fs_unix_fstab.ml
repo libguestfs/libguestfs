@@ -399,6 +399,12 @@ and resolve_fstab_device spec md_map os_type aug =
     resolve_diskbyid part default
   )
 
+  else if PCRE.matches re_diskbypath spec then (
+    debug_matching "diskbypath";
+    let part = int_of_string (PCRE.sub 1) in
+    resolve_diskbypath part default
+  )
+
   (* Ubuntu 22+ uses /dev/disk/by-uuid/ followed by a UUID. *)
   else if String.starts_with "/dev/disk/by-uuid/" spec then (
     debug_matching "diskbyuuid";
