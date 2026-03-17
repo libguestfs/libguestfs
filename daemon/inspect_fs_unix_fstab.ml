@@ -27,6 +27,7 @@ open Inspect_utils
 
 let re_cciss = PCRE.compile "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$"
 let re_diskbyid = PCRE.compile "^/dev/disk/by-id/.*-part(\\d+)$"
+let re_diskbypath = PCRE.compile "^/dev/disk/by-path/.*-part(\\d+)$"
 let re_dmuuid = PCRE.compile "^/dev/disk/by-id/dm-uuid-LVM-([0-9a-zA-Z]{32})([0-9a-zA-Z]{32})$"
 let re_freebsd_gpt = PCRE.compile "^/dev/(ada{0,1}|vtbd)(\\d+)p(\\d+)$"
 let re_freebsd_mbr = PCRE.compile "^/dev/(ada{0,1}|vtbd)(\\d+)s(\\d+)([a-z])$"
@@ -662,6 +663,19 @@ and resolve_cciss disk part default =
  * See also: https://bugzilla.redhat.com/show_bug.cgi?id=836573#c3
  *)
 and resolve_diskbyid part default =
+  let nr_devices = Devsparts.nr_devices () in
+
+  (* If #devices isn't 1, give up trying to translate this fstab entry. *)
+  if nr_devices <> 1 then
+    default
+  else (
+    (* Make the partition name and check it exists. *)
+    let dev = sprintf "/dev/sda%d" part in
+    if is_partition dev then Mountable.of_device dev
+    else default
+  )
+
+and resolve_diskbypath part default =
   let nr_devices = Devsparts.nr_devices () in
 
   (* If #devices isn't 1, give up trying to translate this fstab entry. *)
