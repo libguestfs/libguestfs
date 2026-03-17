@@ -305,6 +305,13 @@ create_cow_overlay_libvirt (guestfs_h *g, void *datav, struct drive *drv)
   return overlay;
 }
 
+static const char *
+get_default_hv_libvirt (guestfs_h *g, void *datav)
+{
+  struct backend_libvirt_data *data = datav;
+  return data->default_qemu;
+}
+
 static int
 launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 {
@@ -2211,6 +2218,7 @@ max_disks_libvirt (guestfs_h *g, void *datav)
 static struct backend_ops backend_libvirt_ops = {
   .data_size = sizeof (struct backend_libvirt_data),
   .create_cow_overlay = create_cow_overlay_libvirt,
+  .get_default_hv = get_default_hv_libvirt,
   .launch = launch_libvirt,
   .shutdown = shutdown_libvirt,
   .max_disks = max_disks_libvirt,

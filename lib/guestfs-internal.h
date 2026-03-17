@@ -331,6 +331,11 @@ struct backend_ops {
    */
   char *(*create_cow_overlay) (guestfs_h *g, void *data, struct drive *drv);
 
+  /* Get the default hypervisor (qemu), if the user does not override
+   * this by calling guestfs_set_hv or setting LIBGUESTFS_HV.
+   */
+  const char *(*get_default_hv) (guestfs_h *g, void *data);
+
   /* Launch and shut down. */
   int (*launch) (guestfs_h *g, void *data, const char *arg);
   int (*shutdown) (guestfs_h *g, void *data, int check_for_errors);

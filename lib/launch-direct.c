@@ -441,6 +441,23 @@ free_pid_path:
   return rc;
 }
 
+/* Pick a default, arch-specific qemu. */
+static const char *
+get_default_hv_direct (guestfs_h *g, void *datav)
+{
+  if (host_cpu[0] == 'i' && strchr ("3456", host_cpu[1]) &&
+      host_cpu[2] == '8' && host_cpu[3] == '6' && host_cpu[4] == '\0')
+    return "qemu-system-i386";
+  else if (STRPREFIX (host_cpu, "arm"))
+    return "qemu-system-arm";
+  else if (STREQ (host_cpu, "powerpc64") ||
+           STREQ (host_cpu, "powerpc64le") ||
+           STREQ (host_cpu, "ppc64le"))
+    return "qemu-system-ppc64";
+  else
+    return "qemu-system-" host_cpu;
+}
+
 static int
 launch_direct (guestfs_h *g, void *datav, const char *arg)
 {
@@ -1105,6 +1122,7 @@ max_disks_direct (guestfs_h *g, void *datav)
 static struct backend_ops backend_direct_ops = {
   .data_size = sizeof (struct backend_direct_data),
   .create_cow_overlay = create_cow_overlay_direct,
+  .get_default_hv = get_default_hv_direct,
   .launch = launch_direct,
   .shutdown = shutdown_direct,
   .get_pid = get_pid_direct,
