@@ -191,3 +191,19 @@ if test "x$INSTALL_OCAMLLIB" = "x"; then
 	INSTALL_OCAMLLIB=$OCAMLLIB
 fi
 AC_SUBST([INSTALL_OCAMLLIB])
+
+dnl Check if OCaml has caml_unix_error (added 2022, OCaml 5.0).
+AC_MSG_CHECKING([for caml_unix_error])
+cat >conftest.c <<'EOF'
+#include <caml/mlvalues.h>
+#include <caml/unixsupport.h>
+int main () { char *p = (void *) caml_unix_error; return 0; }
+EOF
+AS_IF([$OCAMLC conftest.c >&AS_MESSAGE_LOG_FD 2>&1],[
+    AC_MSG_RESULT([yes])
+    AC_DEFINE([HAVE_CAML_UNIX_ERROR],[1],
+              [caml_unix_error found at compile time.])
+],[
+    AC_MSG_RESULT([no])
+])
+rm -f conftest.c conftest.o

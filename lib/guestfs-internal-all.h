@@ -164,4 +164,9 @@ extern int accept4 (int sockfd, struct sockaddr *__restrict__ addr,
 extern int pipe2 (int pipefd[2], int flags);
 #endif
 
+#ifndef HAVE_CAML_UNIX_ERROR
+/* For backwards compatibility with OCaml < 5.0 */
+#define caml_unix_error unix_error
+#endif
+
 #endif /* GUESTFS_INTERNAL_ALL_H_ */
