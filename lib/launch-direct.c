@@ -53,6 +53,7 @@
 
 /* Per-handle data. */
 struct backend_direct_data {
+  const char *qemu;             /* Qemu binary name. */
   pid_t pid;                    /* Qemu PID. */
   pid_t recoverypid;            /* Recovery process PID. */
 
@@ -499,20 +500,23 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   guestfs_int_launch_send_progress (g, 3);
 
+  data->qemu = g->hv ? : get_default_hv_direct (g, data);
+  debug (g, "chosen qemu: %s", data->qemu);
+
   debug (g, "begin testing qemu features");
 
   /* If debugging, print the qemu version. */
   if (g->verbose) {
     CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
 
-    guestfs_int_cmd_add_arg (cmd, g->hv);
+    guestfs_int_cmd_add_arg (cmd, data->qemu);
     guestfs_int_cmd_add_arg (cmd, "-version");
     guestfs_int_cmd_set_stdout_callback (cmd, debug_lines, NULL, 0);
     guestfs_int_cmd_run (cmd);
   }
 
   /* Work out if KVM is supported or if the user wants to force TCG. */
-  if ((has_kvm = guestfs_int_platform_has_kvm (g)) == -1)
+  if ((has_kvm = guestfs_int_platform_has_kvm (g, data->qemu)) == -1)
     goto cleanup0;
   debug (g, "qemu KVM: %s", has_kvm ? "enabled" : "disabled");
 
@@ -588,7 +592,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     perrorf (g, "qemuopts");
     goto cleanup0;
   }
-  if (qemuopts_set_binary (qopts, g->hv) == -1) goto qemuopts_error;
+  if (qemuopts_set_binary (qopts, data->qemu) == -1) goto qemuopts_error;
 
   /* CVE-2011-4127 mitigation: Disable SCSI ioctls on virtio-blk
    * devices.
@@ -874,8 +878,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     if (g->pgroup)
       setpgid (0, 0);
 
-    execve (g->hv, argv, env);        /* Run qemu. */
-    perror (g->hv);
+    execvpe (data->qemu, argv, env);        /* Run qemu. */
+    perror (data->qemu);
     _exit (EXIT_FAILURE);
   }
 
@@ -1078,7 +1082,7 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
     if (guestfs_int_wait4 (g, data->pid, &status, &rusage, "qemu") == -1)
       ret = -1;
     else if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
-      guestfs_int_external_command_failed (g, status, g->hv, NULL);
+      guestfs_int_external_command_failed (g, status, data->qemu, NULL);
       ret = -1;
     }
     else

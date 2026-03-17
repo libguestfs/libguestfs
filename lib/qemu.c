@@ -59,7 +59,8 @@ cleanup_json_object_put (void *ptr)
  * Run a generic QMP test on the QEMU binary.
  */
 static int
-generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
+generic_qmp_test (guestfs_h *g,
+                  const char *qemu, const char *qmp_command, char **outp)
 {
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r, fd;
@@ -81,7 +82,7 @@ generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
   guestfs_int_cmd_add_string_unquoted (cmd, "'{ \"execute\": \"quit\" }' ");
   guestfs_int_cmd_add_string_unquoted (cmd, " | ");
   guestfs_int_cmd_add_string_unquoted (cmd, "QEMU_AUDIO_DRV=none ");
-  guestfs_int_cmd_add_string_quoted (cmd, g->hv);
+  guestfs_int_cmd_add_string_quoted (cmd, qemu);
   guestfs_int_cmd_add_string_unquoted (cmd, " -display none");
   guestfs_int_cmd_add_string_unquoted (cmd, " -machine none,accel=kvm:hvf:tcg");
   guestfs_int_cmd_add_string_unquoted (cmd, " -qmp stdio");
@@ -143,7 +144,7 @@ generic_qmp_test (guestfs_h *g, const char *qmp_command, char **outp)
 
  err:
   errors = guestfs_int_cmd_get_pipe_errors (cmd);
-  error (g, "%s: %s\nError output of qemu: %s", g->hv, errmsg, errors);
+  error (g, "%s: %s\nError output of qemu: %s", qemu, errmsg, errors);
   return -1;
 }
 
@@ -191,11 +192,11 @@ parse_has_kvm (guestfs_h *g, const char *json)
  * that command.
  */
 int
-guestfs_int_platform_has_kvm (guestfs_h *g)
+guestfs_int_platform_has_kvm (guestfs_h *g, const char *qemu)
 {
   CLEANUP_FREE char *query_kvm = NULL;
 
-  if (generic_qmp_test (g, "query-kvm", &query_kvm) == -1)
+  if (generic_qmp_test (g, qemu, "query-kvm", &query_kvm) == -1)
     return -1;
 
   return parse_has_kvm (g, query_kvm);
