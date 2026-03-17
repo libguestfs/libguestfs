@@ -575,7 +575,21 @@ guestfs_impl_set_hv (guestfs_h *g, const char *hv)
 char *
 guestfs_impl_get_hv (guestfs_h *g)
 {
-  return safe_strdup (g, g->hv);
+  if (g->hv)
+    return safe_strdup (g, g->hv);
+  else {
+    /* Try to return the default hypervisor. */
+    const char *default_hv;
+
+    if (g->backend_ops && g->backend_data &&
+        (default_hv = g->backend_ops->get_default_hv (g, g->backend_data))
+        != NULL)
+      return safe_strdup (g, default_hv);
+    else {
+      error (g, _("cannot get default hypervisor"));
+      return NULL;
+    }
+  }
 }
 
 int

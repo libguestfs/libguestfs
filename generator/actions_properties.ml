@@ -59,8 +59,12 @@ the qemu binary at the same time as the handle is created.|} };
     longdesc = "\
 Return the current hypervisor binary.
 
-This is always non-NULL.  If it wasn't set already, then this will
-return the default qemu binary name." };
+If it wasn't set already, then this will return the default
+qemu binary name.
+
+For some backends this may return an error if called before
+launch since it may not be possible to get the default hypervisor
+before the appliance is launched." };
 
   { defaults with
     name = "set_path"; added = (0, 0, 3);
