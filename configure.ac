@@ -127,10 +127,6 @@ dnl The appliance and any dependencies.
 HEADING([Checking the appliance and its dependencies])
 m4_include([m4/guestfs-appliance.m4])
 
-dnl Check for QEMU.
-HEADING([Checking for QEMU])
-m4_include([m4/guestfs-qemu.m4])
-
 dnl Miscellaneous libraries used by other programs.
 HEADING([Checking for other libraries])
 m4_include([m4/guestfs-misc-libraries.m4])
@@ -312,7 +308,6 @@ feature ()
 
 feature "Daemon"                test "x$enable_daemon" = "xyes"
 feature "Appliance"             test "x$ENABLE_APPLIANCE" = "xyes"
-print   "QEMU"                  "$QEMU"
 feature "guestfish"             true  ;# always enabled
 feature "FUSE filesystem"       test "x$enable_fuse" = "xyes"
 print   "Default backend"       "$DEFAULT_BACKEND"

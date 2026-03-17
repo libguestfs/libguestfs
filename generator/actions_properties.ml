@@ -33,9 +33,6 @@ let non_daemon_functions = [
 depends on the backend, but is usually the location of the
 qemu/KVM hypervisor.
 
-The default is chosen when the library was compiled by the
-configure script.
-
 You can also override this by setting the C<LIBGUESTFS_HV>
 environment variable.
 
