@@ -34,9 +34,6 @@ let non_daemon_functions = [
     shortdesc = "set the hypervisor binary (usually qemu)";
     longdesc = {|Set the hypervisor binary (usually qemu) that we will use.
 
-The default is chosen when the library was compiled by the
-configure script.
-
 You can also override this by setting the C<LIBGUESTFS_HV>
 environment variable.
 
