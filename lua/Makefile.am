@@ -21,11 +21,25 @@ lualibdir = $(libdir)/lua/$(LUA_VERSION)
 
 generator_built = \
 	bindtests.lua \
-	lua-guestfs.c
+	lua-guestfs.c \
+	$(NULL)
 
 EXTRA_DIST = \
 	$(generator_built) \
-	run-bindtests
+	run-bindtests \
+	tests/010-load.lua \
+	tests/015-globals.lua \
+	tests/020-create.lua \
+	tests/025-create-flags.lua \
+	tests/027-create-multiple.lua \
+	tests/030-config.lua \
+	tests/050-lvcreate.lua \
+	tests/060-readdir.lua \
+	tests/070-optargs.lua \
+	tests/400-events.lua \
+	tests/400-progress.lua \
+	tests/900-errors.lua \
+	$(NULL)
 
 CLEANFILES += \
 	guestfs.so
@@ -84,20 +98,6 @@ TESTS += \
 	tests/060-readdir.lua \
 	tests/400-progress.lua
 endif
-
-EXTRA_DIST += \
-	tests/010-load.lua \
-	tests/015-globals.lua \
-	tests/020-create.lua \
-	tests/025-create-flags.lua \
-	tests/027-create-multiple.lua \
-	tests/030-config.lua \
-	tests/050-lvcreate.lua \
-	tests/060-readdir.lua \
-	tests/070-optargs.lua \
-	tests/400-events.lua \
-	tests/400-progress.lua \
-	tests/900-errors.lua
 
 # Run the tests under valgrind.
 # This doesn't work.  Because Lua dlcloses the library on exit, the
