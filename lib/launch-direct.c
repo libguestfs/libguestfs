@@ -446,6 +446,11 @@ free_pid_path:
 static const char *
 get_default_hv_direct (guestfs_h *g, void *datav)
 {
+  /* RHEL puts qemu in a strange place. */
+  static const char rhel_qemu[] = "/usr/libexec/qemu-kvm";
+  if (access (rhel_qemu, X_OK) == 0)
+    return rhel_qemu;
+
   if (host_cpu[0] == 'i' && strchr ("3456", host_cpu[1]) &&
       host_cpu[2] == '8' && host_cpu[3] == '6' && host_cpu[4] == '\0')
     return "qemu-system-i386";
