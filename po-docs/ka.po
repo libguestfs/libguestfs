@@ -8,14 +8,17 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-01-05 16:18+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-02-03 23:58+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
+"Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
+"libguestfs/libguestfs-docs-master/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:1 daemon/guestfsd.pod:1
@@ -68,7 +71,7 @@ msgstr ""
 #: rescue/virt-rescue.pod:5 ruby/examples/guestfs-ruby.pod:5
 #: test-tool/libguestfs-test-tool.pod:5
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "მოკლე აღწერა"
 
 #. type: verbatim
 #: appliance/libguestfs-make-fixed-appliance.pod:7
@@ -801,7 +804,7 @@ msgstr ""
 #: lib/guestfs-availability.pod:25 lib/guestfs-structs.pod:1
 #: lib/guestfs-structs.pod:25
 msgid "comment"
-msgstr ""
+msgstr "კომენტარი"
 
 #. type: verbatim
 #: common/mlcustomize/customize-options.pod:3
