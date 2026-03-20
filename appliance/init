@@ -102,6 +102,9 @@ echo "${machine_id// /}" > /etc/machine-id
 # Set up tmpfiles (must run after kmod.conf is created above).
 systemd-tmpfiles --prefix=/dev --prefix=/run --prefix=/var/run --create --boot
 
+# https://fedoraproject.org/wiki/Changes/IncreaseVmMaxMapCount
+echo 1048576 > /proc/sys/vm/max_map_count
+
 # Find udevd and run it directly.
 for f in /lib/systemd/systemd-udevd /usr/lib/systemd/systemd-udevd \
     /sbin/udevd /lib/udev/udevd \
