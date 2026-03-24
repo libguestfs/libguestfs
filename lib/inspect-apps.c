@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdbool.h>
 #include <string.h>
 
 #ifdef HAVE_ENDIAN_H
@@ -588,6 +589,7 @@ static struct guestfs_application2_list *
 list_applications_windows (guestfs_h *g, const char *root)
 {
   struct guestfs_application2_list *ret = NULL;
+  int64_t node;
   CLEANUP_FREE char *software_hive =
     guestfs_inspect_get_windows_software_hive (g, root);
   if (!software_hive)
@@ -618,7 +620,50 @@ list_applications_windows (guestfs_h *g, const char *root)
   list_applications_windows_from_path (g, ret, hivepath2,
                                        sizeof hivepath2 / sizeof hivepath2[0]);
 
+  /* The accepted way to list applications from the registry is to look
+   * through the Uninstall keys in the registry
+   * (https://superuser.com/questions/720584/list-all-installed-software-without-booting-into-the-os).
+   * However Windows Defender (and potentially other applications in the
+   * future) don't put anything into this key, so they cannot be
+   * detected this way.  Use a heuristic to see if certain known
+   * applications are installed that otherwise would not be listed.
+   */
+  node = guestfs_hivex_root (g);
+  if (node > 0)
+    node = guestfs_hivex_node_get_child (g, node, "Microsoft");
+
+  if (node > 0)
+    node = guestfs_hivex_node_get_child (g, node, "Windows Defender");
+
+  if (node > 0) {
+    bool disabled = false;
+    int64_t value = guestfs_hivex_node_get_value (g, node, "DisableAntiVirus");
+
+    if (value > 0) {
+      size_t vlen;
+      CLEANUP_FREE char *vbuf = guestfs_hivex_value_value (g, value, &vlen);
+
+      if (vbuf && vlen >= 4) {
+        int32_t dword;
+
+        memcpy (&dword, vbuf, 4);
+        dword = le32toh (dword);
+        if (dword == 1)
+          disabled = true;
+      }
+    }
+
+    if (!disabled)
+      add_application (g, ret,
+                       "WinDefend",
+                       "Microsoft Defender Antivirus",
+                       0, "", "", "", "",
+                       "Microsoft Corporation",
+                       "", "", "", "", "antivirus");
+  }
+
   guestfs_hivex_close (g);
+
   return ret;
 }
 
