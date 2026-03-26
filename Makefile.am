@@ -123,6 +123,7 @@ EXTRA_DIST = \
 	check-mli.sh \
 	common/.gitignore \
 	common/README \
+	common/update-submodule.sh \
 	contrib/autobuild/autobuild.sh \
 	contrib/intro/libguestfs-intro.html \
 	contrib/intro/overview.png \
