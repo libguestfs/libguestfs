@@ -52,7 +52,7 @@ AC_SUBST([WERROR_CFLAGS])
 # Kill -fstrict-overflow which is a license for the C compiler to make
 # dubious and often unsafe optimizations, in a time-wasting attempt to
 # deal with CPU architectures that do not exist.
-CFLAGS="$CFLAGS -fno-strict-overflow -Wno-strict-overflow"
+CFLAGS="-fno-strict-overflow -Wno-strict-overflow $CFLAGS"
 
 dnl Work out how to specify the linker script to the linker.
 AS_CASE([$host_os],
