@@ -397,6 +397,5 @@ guestfs_int_py_fromstringsize (const char *str, size_t size)
 char *
 guestfs_int_py_asstring (PyObject *obj)
 {
-  PyObject *bytes = PyUnicode_AsUTF8String (obj);
-  return PyBytes_AS_STRING (bytes);
+  return (char *) PyUnicode_AsUTF8 (obj);
 }
