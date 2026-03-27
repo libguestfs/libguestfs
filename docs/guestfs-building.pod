@@ -354,7 +354,7 @@ git.
  cd libguestfs
  git submodule update --init
  autoreconf -i
- ./configure CFLAGS=-fPIC
+ ./configure
  make
 
 =head1 BUILDING FROM TARBALLS
