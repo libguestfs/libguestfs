@@ -28,7 +28,7 @@ skip_if_skipped
 
 rm -f network.output
 
-guestfish --network -a /dev/null <<EOF > network.output
+guestfish --network -v -x -a /dev/null <<EOF > network.output
 run
 debug sh 'ip a'
 EOF
