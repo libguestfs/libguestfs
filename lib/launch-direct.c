@@ -597,6 +597,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    */
   arg ("-global", VIRTIO_DEVICE_NAME ("virtio-blk") ".scsi=off");
 
+  /* Ensure qemu is cleaned up automatically. */
+  arg ("-run-with", "exit-with-parent=on");
+
   /* Disable qemu defaults and per-user configuration file so we get
    * an unconfigured qemu.
    */
