@@ -6,7 +6,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
 "PO-Revision-Date: 2026-02-19 20:55+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-docs-master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -30687,7 +30688,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes-1.32.pod:101
 #: ../docs/guestfs-release-notes-1.34.pod:192
 msgid "Documentation"
-msgstr ""
+msgstr "Documentação"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.32.pod:103
