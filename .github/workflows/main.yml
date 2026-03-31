@@ -158,6 +158,10 @@ jobs:
           # rsync_out: '/dir2/' to 'rsync://root@169.254.2.2:65257/dest/': rsync: [generator] failed to set times on "." (in dest): Operation not permitted (1)
           export SKIP_TEST_RSYNC_SH=1
 
+          # This broke randomly for CI in late march 2026
+          # https://github.com/libguestfs/libguestfs/issues/336
+          export SKIP_TEST_NETWORK_SH=1
+
           if ! make check; then
               find -name test-suite.log -exec cat {} \;
               exit 1
