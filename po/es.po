@@ -12,9 +12,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-02-11 12:07+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-03-17 19:07+0000\n"
 "PO-Revision-Date: 2026-03-16 11:58+0000\n"
 "Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
@@ -134,8 +134,8 @@ msgstr ""
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
-"%s: algunos sistemas de archivos no han podido ser montados (se descartaron)"
-"\n"
+"%s: algunos sistemas de archivos no han podido ser montados (se "
+"descartaron)\n"
 
 #: common/options/inspect.c:178
 #, c-format
@@ -152,42 +152,42 @@ msgstr "%s montado en %s\n"
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr "Ingrese la llave o la frase de acceso (\"%s\"): "
 
-#: common/options/keys.c:145
+#: common/options/keys.c:146
 #, c-format
 msgid "size_t overflow"
 msgstr "size_t desbordado"
 
-#: common/options/keys.c:192
+#: common/options/keys.c:193
 #, c-format
 msgid "could not read key from user"
 msgstr "no se pudo leer tecla desde usuario"
 
-#: common/options/keys.c:231
+#: common/options/keys.c:232
 #, c-format
 msgid "selector '%s': missing ID"
 msgstr "selector '%s': falta ID"
 
-#: common/options/keys.c:238
+#: common/options/keys.c:239
 #, c-format
 msgid "selector '%s': missing TYPE"
 msgstr "selector '%s': falta TIPO"
 
-#: common/options/keys.c:244
+#: common/options/keys.c:245
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
 msgstr "selector '%s': falta de KEY_STRING, o demasiados campos"
 
-#: common/options/keys.c:253
+#: common/options/keys.c:254
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
 msgstr "selector '%s': ausencia de FILENAME, o demasiados campos"
 
-#: common/options/keys.c:261
+#: common/options/keys.c:262
 #, c-format
 msgid "selector '%s': too many fields"
 msgstr "selector '%s': demasiados campos"
 
-#: common/options/keys.c:263
+#: common/options/keys.c:264
 #, c-format
 msgid "selector '%s': invalid TYPE"
 msgstr "selector '%s': TIPO no válido"
@@ -1546,7 +1546,8 @@ msgstr "devuelve el nombre de un grupo de disco dinámico de Windows"
 
 #: fish/cmds.c:838
 msgid "return the volumes in a Windows dynamic disk group"
-msgstr "devuelve los volúmenes internos a un grupo de disco dinámico de Windows"
+msgstr ""
+"devuelve los volúmenes internos a un grupo de disco dinámico de Windows"
 
 #: fish/cmds.c:839
 msgid "remove all Windows dynamic disk volumes"
@@ -1558,7 +1559,8 @@ msgstr "analiza discos dinámicos de Windows"
 
 #: fish/cmds.c:842
 msgid "return the hint field of a Windows dynamic disk volume"
-msgstr "devuelve el campo de consejo de un volumen de disco dinámico de Windows"
+msgstr ""
+"devuelve el campo de consejo de un volumen de disco dinámico de Windows"
 
 #: fish/cmds.c:843
 msgid "return the partitions in a Windows dynamic disk volume"
@@ -2684,7 +2686,8 @@ msgstr "determina el tipo de archivo internos a un archivo comprimido"
 
 #: fish/cmds.c:1210
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr "Utilice -h <cmd> / help <cmd> para ver ayuda detallada para un comando."
+msgstr ""
+"Utilice -h <cmd> / help <cmd> para ver ayuda detallada para un comando."
 
 #: fish/copy.c:42
 #, c-format
@@ -3101,8 +3104,8 @@ msgid ""
 "mount them to examine or modify the contents using ‘mount-ro’ or\n"
 "‘mount’.\n"
 msgstr ""
-"Encuentra que sistema de archivos está disponible utilizando ‘list-filesystem"
-"’ y\n"
+"Encuentra que sistema de archivos está disponible utilizando ‘list-"
+"filesystem’ y\n"
 "entonces móntelos para examinar o modificar el contenido utilizando las "
 "órdenes\n"
 "‘mount-ro’ o ‘mount’.\n"
@@ -3302,12 +3305,12 @@ msgstr "guestfish: error al crear imagen de disco preparada ‘%s’ en ‘%s’
 msgid "‘%s’ is not a directory or has insecure owner or permissions"
 msgstr "‘%s’ no es un directorio o tiene propietario o permisos inseguros"
 
-#: fish/rc.c:283
+#: fish/rc.c:288
 #, c-format
 msgid "guestfish: protocol error: could not read ‘hello’ message\n"
 msgstr "guestfish: error del protocolo: no se pudo leer el mensaje ‘hello’\n"
 
-#: fish/rc.c:288
+#: fish/rc.c:293
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version ‘%s’ does not "
@@ -3317,19 +3320,19 @@ msgstr ""
 "servidor no coincide con la versión del cliente ‘%s’:  Las dos versiones "
 "deben coincidir exactamente.\n"
 
-#: fish/rc.c:373 fish/rc.c:387
+#: fish/rc.c:378 fish/rc.c:392
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remoto: parece ser que el servidor no se está ejecutando\n"
 
-#: fish/rc.c:399 fish/rc.c:413
+#: fish/rc.c:409 fish/rc.c:423
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: error de protocolo: no es posible enviar salutación inicial hacia "
 "el servidor\n"
 
-#: fish/rc.c:424
+#: fish/rc.c:434
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
@@ -3618,7 +3621,8 @@ msgstr "%s: error: debe especificar o bien -l en al menos una opción -m.\n"
 #: fuse/guestmount.c:339
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
-msgstr "debe especificar un punto de montaje en el sistema de archivo hospedado"
+msgstr ""
+"debe especificar un punto de montaje en el sistema de archivo hospedado"
 
 #: fuse/guestunmount.c:61
 #, c-format
@@ -3658,8 +3662,8 @@ msgstr "no se puede interpretar la opción ‘%s’ del fd"
 #, c-format
 msgid "cannot parse retries option or value is too large ‘%s’"
 msgstr ""
-"no se puede interpretar la opción de reintentos o valor que es muy grande ‘%s"
-"’"
+"no se puede interpretar la opción de reintentos o valor que es muy grande "
+"‘%s’"
 
 #: fuse/guestunmount.c:158
 #, c-format
@@ -3979,8 +3983,8 @@ msgstr ""
 #: lib/drives.c:733
 msgid "cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"
 msgstr ""
-"el parámetro `cachemode` debe estar en ‘writeback’ (predeterminado) o ‘unsafe"
-"’"
+"el parámetro `cachemode` debe estar en ‘writeback’ (predeterminado) o "
+"‘unsafe’"
 
 #: lib/drives.c:738
 #, c-format
@@ -4008,17 +4012,17 @@ msgstr ""
 msgid "unknown protocol ‘%s’"
 msgstr "protocolo ‘%s’ desconocido"
 
-#: lib/drives.c:822 lib/drives.c:908
+#: lib/drives.c:822 lib/drives.c:909
 msgid "hotplugging support was removed in libguestfs 1.48"
 msgstr ""
 "el mantenimiento de enchufado en caliente fue retirado en libguestfs 1.48"
 
-#: lib/drives.c:979
+#: lib/drives.c:980
 #, c-format
 msgid "%s: device not found"
 msgstr "%s: dispositivo no encontrado"
 
-#: lib/drives.c:989
+#: lib/drives.c:990
 msgid "drive index out of range"
 msgstr "índice de unidad fuera del intervalo"
 
@@ -4133,8 +4137,8 @@ msgid ""
 "you must call ‘guestfs_mount’ first to mount a filesystem on '/'.\n"
 "Note: ‘%s’ is still mounted.  Use ‘guestunmount %s’ to clean up."
 msgstr ""
-"debe invocar 'guestfs_mount' primero para montar un sistema de archivo en '/"
-"'.\n"
+"debe invocar 'guestfs_mount' primero para montar un sistema de archivo en "
+"'/'.\n"
 "Nota: ‘%s’ aún está montado.  Utilice ‘guestunmount %s’ para purgado."
 
 #: lib/fuse.c:1088
@@ -4150,7 +4154,7 @@ msgstr "ningún sistema de archivo está montado"
 msgid "could not initialize dir cache hashtables"
 msgstr "no pudo inicializar dir caché de tabla hash"
 
-#: lib/fuse.c:1513
+#: lib/fuse.c:1517
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -4158,45 +4162,43 @@ msgstr ""
 "FUSE no está mantenido en esta compilación de libguestfs porque libfuse no "
 "fue encontrado cuando libguestfs fue compilado"
 
-#: lib/handle.c:144
+#: lib/handle.c:133
 msgid ""
 "libguestfs was built with an invalid default backend, using ‘direct’ instead"
 msgstr ""
 "libguestfs fue compilado con un backend por defecto inválido, en su lugar "
 "utilice ‘direct’"
 
-#: lib/handle.c:146
+#: lib/handle.c:135
 msgid "‘direct’ backend does not work"
 msgstr "el segundo plano ‘direct’ no funciona"
 
-#: lib/handle.c:204 lib/handle.c:214
+#: lib/handle.c:193 lib/handle.c:203
 #, c-format
 msgid "%s=%s: non-boolean value"
 msgstr "%s=%s: valor no-booleano"
 
-#: lib/handle.c:256
+#: lib/handle.c:245
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr "valor no numérico para LIBGUESTFS_MEMSIZE"
 
-#: lib/handle.c:337
+#: lib/handle.c:326
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: invocado dos veces en la misma manipulación\n"
 
-#: lib/handle.c:548
-msgid ""
-"configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
-"an error"
-msgstr ""
-"--with-qemu configurado tal que invoca guestfs_set_qemu con qemu == NULL es "
-"un error"
+#: lib/handle.c:568
+#, fuzzy
+#| msgid "get PID of hypervisor"
+msgid "cannot get default hypervisor"
+msgstr "obtiene PID de hipervisor"
 
-#: lib/handle.c:601
+#: lib/handle.c:594
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr "valor muy pequeño para tamaño de memoria (debe ser de al menos %d)"
 
-#: lib/handle.c:718
+#: lib/handle.c:711
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
@@ -4204,7 +4206,7 @@ msgstr ""
 "el identificador debe contener solo caracteres alfanuméricos, guion bajo o "
 "digno de resta"
 
-#: lib/handle.c:824
+#: lib/handle.c:817
 msgid "setting not found"
 msgstr "ajuste no encontrado"
 
@@ -4239,7 +4241,7 @@ msgstr "informe qemu-img: error del intérprete JSON: %s"
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "el tamaño de %s es irracionalmente grande (%<PRIi64> bytes)"
 
-#: lib/launch-direct.c:154
+#: lib/launch-direct.c:155
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -4252,31 +4254,31 @@ msgstr ""
 "lentamente. Es recomendable que ejecuta 'chmod 0666 /dev/kdm' o añada el "
 "usuario actual para el gripo KVM (quizá necesita salir y entrar de nuevo)."
 
-#: lib/launch-direct.c:390
+#: lib/launch-direct.c:391
 #, c-format
 msgid "passt was killed with signal %d"
 msgstr "passt fue matado con firma %d"
 
-#: lib/launch-direct.c:395
+#: lib/launch-direct.c:396
 #, c-format
 msgid "internal error: unexpected exit status from passt (%d)"
 msgstr "error interno: estado de salida inesperada desde passt (%d)"
 
-#: lib/launch-direct.c:402
+#: lib/launch-direct.c:403
 #, c-format
 msgid "passt exited with status %d"
 msgstr "passt terminado con estado %d"
 
-#: lib/launch-direct.c:423
+#: lib/launch-direct.c:424
 #, c-format
 msgid "failed to parse passt PID from '%s'"
 msgstr "fallo al interpretar PID de passt desde ‘%s’"
 
-#: lib/launch-direct.c:472
+#: lib/launch-direct.c:490
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "debe invocar guestfs_add_drive antes de guestfs_launch"
 
-#: lib/launch-direct.c:1005 lib/launch-libvirt.c:663
+#: lib/launch-direct.c:1026 lib/launch-libvirt.c:672
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu lanzado y demonio contactado, pero estado != READY"
 
@@ -4287,7 +4289,7 @@ msgstr ""
 "%s:%d: error de construcción en XML de libvirtfs cerca de invocación para "
 "\"%s\""
 
-#: lib/launch-libvirt.c:212
+#: lib/launch-libvirt.c:210
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -4296,10 +4298,10 @@ msgstr ""
 "no se pudo auto-detectar el formato.\n"
 "Si es conocido el formato, pase el formato a libguestfs, p.e., utilizando "
 "el\n"
-"la opción de ‘--format', o por medio del argumento ‘format’ opcional para ‘"
-"add-drive’."
+"la opción de ‘--format', o por medio del argumento ‘format’ opcional para "
+"‘add-drive’."
 
-#: lib/launch-libvirt.c:223
+#: lib/launch-libvirt.c:221
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -4310,44 +4312,45 @@ msgstr ""
 "la\n"
 "opción ‘--format’ o, a través del argumento ‘format’ opcional a ‘add-drive’."
 
-#: lib/launch-libvirt.c:338
+#: lib/launch-libvirt.c:343
 msgid "direct mode flag is not supported yet for libvirt backend"
-msgstr "indicador de modo directo aún no está mantenido para backend de libvirt"
+msgstr ""
+"indicador de modo directo aún no está mantenido para backend de libvirt"
 
-#: lib/launch-libvirt.c:372
+#: lib/launch-libvirt.c:377
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "no pudo conectar a libvirt (URI = %s)"
 
-#: lib/launch-libvirt.c:393
+#: lib/launch-libvirt.c:398
 msgid "could not get libvirt capabilities"
 msgstr "no se pudo obtener capacidades de libvirt"
 
-#: lib/launch-libvirt.c:414
+#: lib/launch-libvirt.c:419
 msgid "could not get libvirt domain capabilities"
 msgstr "no se pudo obtener capacidades del dominio de libvirt"
 
-#: lib/launch-libvirt.c:596
+#: lib/launch-libvirt.c:605
 msgid "could not create appliance through libvirt. Original error from libvirt"
 msgstr ""
 "no se pudo crear instrumento a través de libvirt. Error original desde "
 "libvirt"
 
-#: lib/launch-libvirt.c:728
+#: lib/launch-libvirt.c:737
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr "incapaz de interpretar capacidades XML devueltas por libvirt"
 
-#: lib/launch-libvirt.c:734 lib/launch-libvirt.c:836 lib/libvirt-domain.c:397
+#: lib/launch-libvirt.c:743 lib/launch-libvirt.c:845 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
 msgid "unable to create new XPath context"
 msgstr "no es capaz de crear contexto nuevo de XPath"
 
-#: lib/launch-libvirt.c:744 lib/launch-libvirt.c:844 lib/launch-libvirt.c:860
+#: lib/launch-libvirt.c:753 lib/launch-libvirt.c:853 lib/launch-libvirt.c:869
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "no es capaz de evaluar expresión de XPath: %s"
 
-#: lib/launch-libvirt.c:783
+#: lib/launch-libvirt.c:792
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -4372,18 +4375,18 @@ msgstr ""
 "  export LIBGUESTFS_BACKEND=direct\n"
 "Para más ayuda, lea la página man de guestfs(3) y el FAQ de libguestfs."
 
-#: lib/launch-libvirt.c:830
+#: lib/launch-libvirt.c:839
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 "no es capaz de interpretar capacidades de dominio en XML devueltas por "
 "libvirt"
 
-#: lib/launch-libvirt.c:1461 lib/launch-libvirt.c:1709 lib/qemu.c:289
+#: lib/launch-libvirt.c:1452 lib/launch-libvirt.c:1700 lib/qemu.c:297
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr "rutareal: no pudo convertir ‘%s’ para ruta absoluta"
 
-#: lib/launch-libvirt.c:1539
+#: lib/launch-libvirt.c:1530
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -4391,32 +4394,32 @@ msgstr ""
 "libvirt no mantiene los protocolos de unidad curl de qemu (ftp, http, etc.); "
 "intente ajustar LIBGUESTFS_BACKEND=direct"
 
-#: lib/launch-libvirt.c:1899
+#: lib/launch-libvirt.c:1890
 msgid "could not define libvirt secret"
 msgstr "no pudo definir secreto de libvirt"
 
-#: lib/launch-libvirt.c:1910
+#: lib/launch-libvirt.c:1901
 msgid "rbd protocol secret must be base64 encoded"
 msgstr "el protocolo rbd secreto debe estar codificado en base64"
 
-#: lib/launch-libvirt.c:1914
+#: lib/launch-libvirt.c:1905
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr "base64_decode_alloc: %m"
 
-#: lib/launch-libvirt.c:1932
+#: lib/launch-libvirt.c:1923
 msgid "could not set libvirt secret value"
 msgstr "no pudo establecer valor secreto de libvirt"
 
-#: lib/launch-libvirt.c:1945
+#: lib/launch-libvirt.c:1936
 msgid "could not get UUID from libvirt secret"
 msgstr "no pudo obtener UUID desde libvirt secreto"
 
-#: lib/launch-libvirt.c:2121
+#: lib/launch-libvirt.c:2112
 msgid "could not destroy libvirt domain"
 msgstr "no pudo destruir el dominio de libvirt"
 
-#: lib/launch-libvirt.c:2142 lib/launch-libvirt.c:2175
+#: lib/launch-libvirt.c:2133 lib/launch-libvirt.c:2166
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: error interno al formar el mensaje de error"
@@ -4470,8 +4473,8 @@ msgid ""
 "(see also: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"
 msgstr ""
 "libvirt necesita autenticación para conectar al URI de libvirt %s\n"
-"(consulte también: http://libvirt.org/auth.html http://libvirt.org/uri.html)"
-"\n"
+"(consulte también: http://libvirt.org/auth.html http://libvirt.org/"
+"uri.html)\n"
 
 #: lib/libvirt-auth.c:242
 #, c-format
@@ -4518,8 +4521,8 @@ msgid ""
 msgstr ""
 "error: el dominio es una máquina virtual viva.\n"
 "Escribir sobre los discos de una máquina virtual viva puede corromperlos.\n"
-"Utilice acceso de sólo lectura.  En muchas herramientas de libguest "
-"utilice --ro."
+"Utilice acceso de sólo lectura.  En muchas herramientas de libguest utilice "
+"--ro."
 
 #: lib/libvirt-domain.c:339
 #, c-format
@@ -4600,7 +4603,7 @@ msgstr ""
 "la API de add-domain no está disponible desde esta versión de libguestfs fue "
 "compilada sin libvirt"
 
-#: lib/proto.c:238
+#: lib/proto.c:240
 #, c-format
 msgid ""
 "check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
@@ -4609,59 +4612,59 @@ msgstr ""
 "check_daemon_socket:: lee 0x%x desde dominio, esperaba 0x%x.  Sincronización "
 "de protocolo perdida (mal!)\n"
 
-#: lib/proto.c:284
+#: lib/proto.c:286
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header incorrecto"
 
-#: lib/proto.c:293
+#: lib/proto.c:295
 msgid "dispatch failed to marshal args"
 msgstr "consigna incorrecta al formar argumentos"
 
-#: lib/proto.c:387 lib/proto.c:891
+#: lib/proto.c:389 lib/proto.c:895
 msgid "operation cancelled by user"
 msgstr "operación cancelada por el usuario"
 
-#: lib/proto.c:462
+#: lib/proto.c:464
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk incorrecta (buf = %p, buflen = %zu)"
 
-#: lib/proto.c:560
+#: lib/proto.c:562
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "se ha recibido una firma mágica desde guestfsd, pero en estado %d"
 
-#: lib/proto.c:579
+#: lib/proto.c:581
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "la longitud del mensaje (%u) > tamaño máximo posible (%d)"
 
-#: lib/proto.c:847
+#: lib/proto.c:851
 msgid "write to daemon socket"
 msgstr "escribe en el socket del demonio"
 
-#: lib/proto.c:876
+#: lib/proto.c:880
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: se ha recibido un indicador no esperado mientras se leían "
 "porciones del archivo"
 
-#: lib/proto.c:884
+#: lib/proto.c:888
 msgid "failed to parse file chunk"
 msgstr "incorrecto al interpretar porción del archivo"
 
-#: lib/proto.c:893
+#: lib/proto.c:897
 msgid "file receive cancelled by daemon"
 msgstr "recepción de archivo cancelada por el demonio"
 
-#: lib/qemu.c:426
+#: lib/qemu.c:434
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 "descarte no puede ser habilitado en la unidad: la unidad tiene un sobrecarga "
 "de solo-lectura"
 
-#: lib/qemu.c:433
+#: lib/qemu.c:441
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
@@ -4669,7 +4672,7 @@ msgstr ""
 "descartado no puede estar habilitado en esta unidad: tiene que especificar "
 "el formato del archivo"
 
-#: lib/qemu.c:443
+#: lib/qemu.c:451
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
@@ -4678,7 +4681,7 @@ msgstr ""
 "descarte no puede ser habilitado en esta unidad: qemu no mantiene descarte "
 "para archivos con formato ‘%s’"
 
-#: lib/qemu.c:463
+#: lib/qemu.c:471
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
@@ -4700,22 +4703,22 @@ msgstr "la clase de conexión no admite obtención del zócalo de consola"
 msgid "converting path to absolute path: %s: %s: realpath"
 msgstr "convirtiendo ruta para ruta absoluta: %s: %s: ruta real"
 
-#: lib/tmpdirs.c:73 lib/tmpdirs.c:79
+#: lib/tmpdirs.c:73 lib/tmpdirs.c:80
 #, c-format
 msgid "setting temporary directory"
 msgstr "estableciendo directorio temporal"
 
-#: lib/tmpdirs.c:78
+#: lib/tmpdirs.c:79
 #, c-format
 msgid "%s: %s: ‘%s’ is not a directory"
 msgstr "%s: %s: ‘%s’ no es un directorio"
 
-#: lib/tmpdirs.c:195
+#: lib/tmpdirs.c:197
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: no se puede crear directorio temporal"
 
-#: lib/tmpdirs.c:197
+#: lib/tmpdirs.c:199
 #, c-format
 msgid ""
 "%s: cannot create temporary directory.  It may be that $XDG_RUNTIME_DIR is "
@@ -4731,32 +4734,32 @@ msgstr ""
 "XDG_RUNTIME_DIR y posiblemente creando /run/usuario/%d con la propiedad "
 "correcta."
 
-#: lib/tmpdirs.c:271
+#: lib/tmpdirs.c:273
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr "ruta de zócalo muy larga: %s/%s"
 
-#: lib/tmpdirs.c:275
+#: lib/tmpdirs.c:277
 #, c-format
 msgid "%s"
 msgstr "%s"
 
-#: lib/tmpdirs.c:323
+#: lib/tmpdirs.c:325
 #, c-format
 msgid "stat: %s"
 msgstr "estado: %s"
 
-#: lib/tmpdirs.c:328
+#: lib/tmpdirs.c:330
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr "seguridad: instrumento cacheado %s no es propietario por UID %ju"
 
-#: lib/tmpdirs.c:334
+#: lib/tmpdirs.c:336
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "seguridad: el instrumento cacheado %s no es un directorio (modo %o)"
 
-#: lib/tmpdirs.c:340
+#: lib/tmpdirs.c:342
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
@@ -4896,8 +4899,8 @@ msgstr ""
 "  -a|--add imagen       Agrega una imagen\n"
 "  --append opcs-kernel  Adjunta opciones del kernel\n"
 "  --blocksize[=512|4096]\n"
-"                       Establece tamaño de sector del disco para la opción -"
-"a\n"
+"                       Establece tamaño de sector del disco para la opción "
+"-a\n"
 "  -c|--connect uri     Especifica URI de libvirt para la opción -d\n"
 "  -d|--domain guest    Agrega discos desde invitado de libvirt\n"
 "  -e ^x|none           Establece o inhabilita la tecla escape (p.d. ^])\n"
@@ -5100,6 +5103,13 @@ msgstr "el binario ‘%s’ no existe o no es ejecutable"
 #, c-format
 msgid "path does not look like a qemu source directory: %s"
 msgstr "la ruta no parece un directorio origen de qemu: %s"
+
+#~ msgid ""
+#~ "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL "
+#~ "is an error"
+#~ msgstr ""
+#~ "--with-qemu configurado tal que invoca guestfs_set_qemu con qemu == NULL "
+#~ "es un error"
 
 #~ msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 #~ msgstr ""

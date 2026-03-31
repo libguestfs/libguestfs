@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-02-11 12:07+0000\n"
+"POT-Creation-Date: 2026-03-17 19:07+0000\n"
 "PO-Revision-Date: 2015-02-21 10:52+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/libguestfs/"
@@ -107,42 +107,42 @@ msgstr ""
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr ""
 
-#: common/options/keys.c:145
+#: common/options/keys.c:146
 #, c-format
 msgid "size_t overflow"
 msgstr ""
 
-#: common/options/keys.c:192
+#: common/options/keys.c:193
 #, c-format
 msgid "could not read key from user"
 msgstr ""
 
-#: common/options/keys.c:231
+#: common/options/keys.c:232
 #, c-format
 msgid "selector '%s': missing ID"
 msgstr ""
 
-#: common/options/keys.c:238
+#: common/options/keys.c:239
 #, c-format
 msgid "selector '%s': missing TYPE"
 msgstr ""
 
-#: common/options/keys.c:244
+#: common/options/keys.c:245
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:253
+#: common/options/keys.c:254
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:261
+#: common/options/keys.c:262
 #, c-format
 msgid "selector '%s': too many fields"
 msgstr ""
 
-#: common/options/keys.c:263
+#: common/options/keys.c:264
 #, c-format
 msgid "selector '%s': invalid TYPE"
 msgstr ""
@@ -3067,29 +3067,29 @@ msgstr ""
 msgid "‘%s’ is not a directory or has insecure owner or permissions"
 msgstr ""
 
-#: fish/rc.c:283
+#: fish/rc.c:288
 #, c-format
 msgid "guestfish: protocol error: could not read ‘hello’ message\n"
 msgstr ""
 
-#: fish/rc.c:288
+#: fish/rc.c:293
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version ‘%s’ does not "
 "match client version ‘%s’.  The two versions must match exactly.\n"
 msgstr ""
 
-#: fish/rc.c:373 fish/rc.c:387
+#: fish/rc.c:378 fish/rc.c:392
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr ""
 
-#: fish/rc.c:399 fish/rc.c:413
+#: fish/rc.c:409 fish/rc.c:423
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 
-#: fish/rc.c:424
+#: fish/rc.c:434
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
@@ -3704,16 +3704,16 @@ msgstr ""
 msgid "unknown protocol ‘%s’"
 msgstr ""
 
-#: lib/drives.c:822 lib/drives.c:908
+#: lib/drives.c:822 lib/drives.c:909
 msgid "hotplugging support was removed in libguestfs 1.48"
 msgstr ""
 
-#: lib/drives.c:979
+#: lib/drives.c:980
 #, c-format
 msgid "%s: device not found"
 msgstr ""
 
-#: lib/drives.c:989
+#: lib/drives.c:990
 msgid "drive index out of range"
 msgstr ""
 
@@ -3825,53 +3825,51 @@ msgstr ""
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: lib/fuse.c:1513
+#: lib/fuse.c:1517
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
 msgstr ""
 
-#: lib/handle.c:144
+#: lib/handle.c:133
 msgid ""
 "libguestfs was built with an invalid default backend, using ‘direct’ instead"
 msgstr ""
 
-#: lib/handle.c:146
+#: lib/handle.c:135
 msgid "‘direct’ backend does not work"
 msgstr ""
 
-#: lib/handle.c:204 lib/handle.c:214
+#: lib/handle.c:193 lib/handle.c:203
 #, c-format
 msgid "%s=%s: non-boolean value"
 msgstr ""
 
-#: lib/handle.c:256
+#: lib/handle.c:245
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
-#: lib/handle.c:337
+#: lib/handle.c:326
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr ""
 
-#: lib/handle.c:548
-msgid ""
-"configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
-"an error"
+#: lib/handle.c:568
+msgid "cannot get default hypervisor"
 msgstr ""
 
-#: lib/handle.c:601
+#: lib/handle.c:594
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: lib/handle.c:718
+#: lib/handle.c:711
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: lib/handle.c:824
+#: lib/handle.c:817
 msgid "setting not found"
 msgstr ""
 
@@ -3903,7 +3901,7 @@ msgstr ""
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: lib/launch-direct.c:154
+#: lib/launch-direct.c:155
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -3912,31 +3910,31 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:390
+#: lib/launch-direct.c:391
 #, c-format
 msgid "passt was killed with signal %d"
 msgstr ""
 
-#: lib/launch-direct.c:395
+#: lib/launch-direct.c:396
 #, c-format
 msgid "internal error: unexpected exit status from passt (%d)"
 msgstr ""
 
-#: lib/launch-direct.c:402
+#: lib/launch-direct.c:403
 #, c-format
 msgid "passt exited with status %d"
 msgstr ""
 
-#: lib/launch-direct.c:423
+#: lib/launch-direct.c:424
 #, c-format
 msgid "failed to parse passt PID from '%s'"
 msgstr ""
 
-#: lib/launch-direct.c:472
+#: lib/launch-direct.c:490
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:1005 lib/launch-libvirt.c:663
+#: lib/launch-direct.c:1026 lib/launch-libvirt.c:672
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -3945,56 +3943,56 @@ msgstr ""
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: lib/launch-libvirt.c:212
+#: lib/launch-libvirt.c:210
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:223
+#: lib/launch-libvirt.c:221
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
 
-#: lib/launch-libvirt.c:338
+#: lib/launch-libvirt.c:343
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:372
+#: lib/launch-libvirt.c:377
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: lib/launch-libvirt.c:393
+#: lib/launch-libvirt.c:398
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:414
+#: lib/launch-libvirt.c:419
 msgid "could not get libvirt domain capabilities"
 msgstr ""
 
-#: lib/launch-libvirt.c:596
+#: lib/launch-libvirt.c:605
 msgid "could not create appliance through libvirt. Original error from libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:728
+#: lib/launch-libvirt.c:737
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:734 lib/launch-libvirt.c:836 lib/libvirt-domain.c:397
+#: lib/launch-libvirt.c:743 lib/launch-libvirt.c:845 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: lib/launch-libvirt.c:744 lib/launch-libvirt.c:844 lib/launch-libvirt.c:860
+#: lib/launch-libvirt.c:753 lib/launch-libvirt.c:853 lib/launch-libvirt.c:869
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: lib/launch-libvirt.c:783
+#: lib/launch-libvirt.c:792
 #, c-format
 msgid ""
 "libvirt hypervisor doesn’t support qemu or KVM,\n"
@@ -4009,47 +4007,47 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: lib/launch-libvirt.c:830
+#: lib/launch-libvirt.c:839
 msgid "unable to parse domain capabilities XML returned by libvirt"
 msgstr ""
 
-#: lib/launch-libvirt.c:1461 lib/launch-libvirt.c:1709 lib/qemu.c:289
+#: lib/launch-libvirt.c:1452 lib/launch-libvirt.c:1700 lib/qemu.c:297
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1539
+#: lib/launch-libvirt.c:1530
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1899
+#: lib/launch-libvirt.c:1890
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1910
+#: lib/launch-libvirt.c:1901
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1914
+#: lib/launch-libvirt.c:1905
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1932
+#: lib/launch-libvirt.c:1923
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:1945
+#: lib/launch-libvirt.c:1936
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2121
+#: lib/launch-libvirt.c:2112
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2142 lib/launch-libvirt.c:2175
+#: lib/launch-libvirt.c:2133 lib/launch-libvirt.c:2166
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
@@ -4215,75 +4213,75 @@ msgid ""
 "without libvirt"
 msgstr ""
 
-#: lib/proto.c:238
+#: lib/proto.c:240
 #, c-format
 msgid ""
 "check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
 "synchronization (bad!)\n"
 msgstr ""
 
-#: lib/proto.c:284
+#: lib/proto.c:286
 msgid "xdr_guestfs_message_header failed"
 msgstr ""
 
-#: lib/proto.c:293
+#: lib/proto.c:295
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: lib/proto.c:387 lib/proto.c:891
+#: lib/proto.c:389 lib/proto.c:895
 msgid "operation cancelled by user"
 msgstr ""
 
-#: lib/proto.c:462
+#: lib/proto.c:464
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: lib/proto.c:560
+#: lib/proto.c:562
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 
-#: lib/proto.c:579
+#: lib/proto.c:581
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr ""
 
-#: lib/proto.c:847
+#: lib/proto.c:851
 msgid "write to daemon socket"
 msgstr ""
 
-#: lib/proto.c:876
+#: lib/proto.c:880
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 
-#: lib/proto.c:884
+#: lib/proto.c:888
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: lib/proto.c:893
+#: lib/proto.c:897
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: lib/qemu.c:426
+#: lib/qemu.c:434
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:433
+#: lib/qemu.c:441
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:443
+#: lib/qemu.c:451
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:463
+#: lib/qemu.c:471
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
@@ -4303,22 +4301,22 @@ msgstr ""
 msgid "converting path to absolute path: %s: %s: realpath"
 msgstr ""
 
-#: lib/tmpdirs.c:73 lib/tmpdirs.c:79
+#: lib/tmpdirs.c:73 lib/tmpdirs.c:80
 #, c-format
 msgid "setting temporary directory"
 msgstr ""
 
-#: lib/tmpdirs.c:78
+#: lib/tmpdirs.c:79
 #, c-format
 msgid "%s: %s: ‘%s’ is not a directory"
 msgstr ""
 
-#: lib/tmpdirs.c:195
+#: lib/tmpdirs.c:197
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr ""
 
-#: lib/tmpdirs.c:197
+#: lib/tmpdirs.c:199
 #, c-format
 msgid ""
 "%s: cannot create temporary directory.  It may be that $XDG_RUNTIME_DIR is "
@@ -4328,32 +4326,32 @@ msgid ""
 "creating /run/user/%d with the right ownership."
 msgstr ""
 
-#: lib/tmpdirs.c:271
+#: lib/tmpdirs.c:273
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
 
-#: lib/tmpdirs.c:275
+#: lib/tmpdirs.c:277
 #, c-format
 msgid "%s"
 msgstr ""
 
-#: lib/tmpdirs.c:323
+#: lib/tmpdirs.c:325
 #, c-format
 msgid "stat: %s"
 msgstr ""
 
-#: lib/tmpdirs.c:328
+#: lib/tmpdirs.c:330
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr ""
 
-#: lib/tmpdirs.c:334
+#: lib/tmpdirs.c:336
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: lib/tmpdirs.c:340
+#: lib/tmpdirs.c:342
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
