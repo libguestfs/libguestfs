@@ -646,14 +646,14 @@ guestfs_impl_get_trace (guestfs_h *g)
 int
 guestfs_impl_set_direct (guestfs_h *g, int d)
 {
-  g->direct_mode = !!d;
-  return 0;
+  error (g, _("direct mode is not supported in this build of libguestfs"));
+  return -1;
 }
 
 int
 guestfs_impl_get_direct (guestfs_h *g)
 {
-  return g->direct_mode;
+  return 0;
 }
 
 int

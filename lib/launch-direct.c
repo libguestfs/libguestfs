@@ -573,11 +573,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     goto cleanup0;
   }
 
-  if (!g->direct_mode) {
-    if (socketpair (AF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC, 0, sv) == -1) {
-      perrorf (g, "socketpair");
-      goto cleanup0;
-    }
+  if (socketpair (AF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC, 0, sv) == -1) {
+    perrorf (g, "socketpair");
+    goto cleanup0;
   }
 
   debug (g, "finished testing qemu features");
@@ -817,53 +815,49 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   r = fork ();
   if (r == -1) {
     perrorf (g, "fork");
-    if (!g->direct_mode) {
-      close (sv[0]);
-      close (sv[1]);
-    }
+    close (sv[0]);
+    close (sv[1]);
     goto cleanup0;
   }
 
   if (r == 0) {			/* Child (qemu). */
-    if (!g->direct_mode) {
-      /* Set up stdin, stdout, stderr. */
-      close (0);
-      close (1);
-      close (sv[0]);
+    /* Set up stdin, stdout, stderr. */
+    close (0);
+    close (1);
+    close (sv[0]);
 
-      /* We set the FD_CLOEXEC flag on the socket above, but now (in
-       * the child) it's safe to unset this flag so qemu can use the
-       * socket.
-       */
-      set_cloexec_flag (sv[1], 0);
+    /* We set the FD_CLOEXEC flag on the socket above, but now (in
+     * the child) it's safe to unset this flag so qemu can use the
+     * socket.
+     */
+    set_cloexec_flag (sv[1], 0);
 
-      /* Stdin. */
-      if (dup (sv[1]) == -1) {
-      dup_failed:
-        perror ("dup failed");
-        _exit (EXIT_FAILURE);
-      }
-      /* Stdout. */
-      if (dup (sv[1]) == -1)
-        goto dup_failed;
-
-      /* Particularly since qemu 0.15, qemu spews all sorts of debug
-       * information on stderr.  It is useful to both capture this and
-       * not confuse casual users, so send stderr to the pipe as well.
-       */
-      close (2);
-      if (dup (sv[1]) == -1)
-        goto dup_failed;
-
-      close (sv[1]);
-
-      /* Close any other file descriptors that we don't want to pass
-       * to qemu.  This prevents file descriptors which didn't have
-       * O_CLOEXEC set properly from leaking into the subprocess.  See
-       * RHBZ#1123007.
-       */
-      close_file_descriptors (fd > 2);
+    /* Stdin. */
+    if (dup (sv[1]) == -1) {
+    dup_failed:
+      perror ("dup failed");
+      _exit (EXIT_FAILURE);
     }
+    /* Stdout. */
+    if (dup (sv[1]) == -1)
+      goto dup_failed;
+
+    /* Particularly since qemu 0.15, qemu spews all sorts of debug
+     * information on stderr.  It is useful to both capture this and
+     * not confuse casual users, so send stderr to the pipe as well.
+     */
+    close (2);
+    if (dup (sv[1]) == -1)
+      goto dup_failed;
+
+    close (sv[1]);
+
+    /* Close any other file descriptors that we don't want to pass
+     * to qemu.  This prevents file descriptors which didn't have
+     * O_CLOEXEC set properly from leaking into the subprocess.  See
+     * RHBZ#1123007.
+     */
+    close_file_descriptors (fd > 2);
 
     /* Unblock the SIGTERM signal since we will need to send that to
      * the subprocess (RHBZ#1460338).
@@ -958,13 +952,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     data->recoverypid = r;
   }
 
-  if (!g->direct_mode) {
-    /* Close the other end of the socketpair. */
-    close (sv[1]);
+  /* Close the other end of the socketpair. */
+  close (sv[1]);
 
-    console_sock = sv[0];       /* stdin of child */
-    sv[0] = -1;
-  }
+  console_sock = sv[0];       /* stdin of child */
+  sv[0] = -1;
 
   g->state = LAUNCHING;
 
@@ -1035,7 +1027,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   return 0;
 
  cleanup1:
-  if (!g->direct_mode && sv[0] >= 0)
+  if (sv[0] >= 0)
     close (sv[0]);
   if (data->pid > 0) kill (data->pid, 9);
   if (data->recoverypid > 0) kill (data->recoverypid, 9);
