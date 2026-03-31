@@ -11,9 +11,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2026-03-09 14:58+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-03-16 11:58+0000\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
 "Language: es\n"
@@ -6664,32 +6663,37 @@ msgid ""
 "Read key or passphrase parameters from stdin.  The default is to try to read "
 "passphrases from the user by opening F</dev/tty>."
 msgstr ""
+"Lee los parámetros de clave o frase secreta desde entrada estándar.  Lo "
+"predeterminado es intentar leer las frases secretas desde el usuario "
+"abriendo F</dev/tty>."
 
 #. type: =item
 #: ../cat/virt-cat.pod:133 ../cat/virt-ls.pod:364 ../cat/virt-tail.pod:135
 #: ../edit/virt-edit.pod:165 ../fish/guestfish.pod:302
 #: ../rescue/virt-rescue.pod:198
 msgid "B<-m> dev[:mountpoint[:options[:fstype]]]"
-msgstr ""
+msgstr "B<-m> dev[:punto-montaje[:opciones[:tipo-fs]]]"
 
 #. type: =item
 #: ../cat/virt-cat.pod:135 ../cat/virt-ls.pod:366 ../cat/virt-tail.pod:137
 #: ../edit/virt-edit.pod:167 ../fish/guestfish.pod:304
 #: ../fuse/guestmount.pod:265 ../rescue/virt-rescue.pod:200
 msgid "B<--mount> dev[:mountpoint[:options[:fstype]]]"
-msgstr ""
+msgstr "B<--mount> dev[:punto-montaje[:opciones[:tipo-fs]]]"
 
 #. type: textblock
 #: ../cat/virt-cat.pod:137 ../cat/virt-ls.pod:368 ../cat/virt-tail.pod:139
 #: ../edit/virt-edit.pod:169 ../fish/guestfish.pod:306
 msgid "Mount the named partition or logical volume on the given mountpoint."
 msgstr ""
+"Monta la partición nombrada o el volumen lógico sobre el punto de montaje "
+"dado."
 
 #. type: textblock
 #: ../cat/virt-cat.pod:139 ../cat/virt-ls.pod:370 ../cat/virt-tail.pod:141
 #: ../edit/virt-edit.pod:171 ../fish/guestfish.pod:308
 msgid "If the mountpoint is omitted, it defaults to F</>."
-msgstr ""
+msgstr "Si es omitido el punto de montaje, por defecto es F</>."
 
 #. type: textblock
 #: ../cat/virt-cat.pod:141 ../cat/virt-ls.pod:372 ../cat/virt-tail.pod:143
@@ -6709,6 +6713,11 @@ msgid ""
 "available (see L</list-partitions>, L</list-filesystems> and L</lvs> "
 "commands), or you can use the L<virt-filesystems(1)> program."
 msgstr ""
+"Si no conoce que sistema de archivo contiene la imagen del disco, puede o "
+"bien ejecutar `guestfish` sin esta opción, después enumere las particiones, "
+"sistema de archivos y LVM disponible (consulte los comandos L</list-"
+"partitions>, L</list-filesystems> y L</lvs>), o bien puede utilizar el "
+"programa L<virt-filesystems(1)>."
 
 #. type: textblock
 #: ../cat/virt-cat.pod:152 ../cat/virt-ls.pod:383 ../cat/virt-tail.pod:154
@@ -6722,6 +6731,13 @@ msgid ""
 "default choice.  Probably the only time you would use this is to enable ACLs "
 "and/or extended attributes if the filesystem can support them:"
 msgstr ""
+"La tercera parte (y raramente utilizada) del parámetro de montaje es el "
+"listado de opciones de montaje utilizada para montar el sistema de archivos "
+"subyacente.  Si esto no se da, entonces las opciones de montaje son la "
+"cadena vacía o C<ro> (este último si se utiliza el indicador I<--ro>).  Al "
+"especificar las opciones de montaje, anula esta opción predeterminada.  "
+"Probablemente la única ocasión en la que usarías esto es para habilitar ACL "
+"y/o atributos extendidos si el sistema de archivos puede admitirlos:"
 
 #. type: verbatim
 #: ../cat/virt-cat.pod:160 ../cat/virt-ls.pod:391 ../cat/virt-tail.pod:162
@@ -6732,6 +6748,8 @@ msgid ""
 " -m /dev/sda1:/:acl,user_xattr\n"
 "\n"
 msgstr ""
+" -m /dev/sda1:/:acl,user_xattr\n"
+"\n"
 
 #. type: textblock
 #: ../cat/virt-cat.pod:162 ../cat/virt-ls.pod:393 ../cat/virt-tail.pod:164
@@ -6754,7 +6772,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:187 ../cat/virt-ls.pod:477 ../edit/virt-edit.pod:219
 #: ../inspector/virt-inspector.pod:165 ../rescue/virt-rescue.pod:298
 msgid "OLD-STYLE COMMAND LINE ARGUMENTS"
-msgstr ""
+msgstr "ARGUMENTOS DE LÍNEA DE COMANDO DE ESTILO ANTIGUO"
 
 #. type: textblock
 #: ../cat/virt-cat.pod:189
@@ -10077,7 +10095,7 @@ msgstr ""
 #. type: =head2
 #: ../daemon/guestfsd.pod:15
 msgid "LIBGUESTFS APPLIANCE"
-msgstr ""
+msgstr "INSTRUMENTO LIBGUESTFS"
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:17
@@ -10106,7 +10124,7 @@ msgstr ""
 #. type: =head2
 #: ../daemon/guestfsd.pod:29
 msgid "LIBGUESTFS LIVE"
-msgstr ""
+msgstr "LIBGUESTFS EN VIVO"
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:31
@@ -10134,22 +10152,22 @@ msgstr ""
 #. type: =item
 #: ../daemon/guestfsd.pod:47
 msgid "B<-?>"
-msgstr ""
+msgstr "B<-?>"
 
 #. type: =item
 #: ../daemon/guestfsd.pod:53
 msgid "B<-c> CHANNEL"
-msgstr ""
+msgstr "B<-c> CANAL"
 
 #. type: =item
 #: ../daemon/guestfsd.pod:55
 msgid "B<--channel> CHANNEL"
-msgstr ""
+msgstr "B<--channel> CANAL"
 
 #. type: =item
 #: ../daemon/guestfsd.pod:57
 msgid "B<--channel> fd:N"
-msgstr ""
+msgstr "B<--channel> fd:N"
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:59
@@ -10168,7 +10186,7 @@ msgstr ""
 #. type: =item
 #: ../daemon/guestfsd.pod:68 ../fish/guestfish.pod:292
 msgid "B<--listen>"
-msgstr ""
+msgstr "B<--listen>"
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:70
@@ -10187,7 +10205,7 @@ msgstr ""
 #: ../daemon/guestfsd.pod:81 ../fish/guestfish.pod:397
 #: ../fuse/guestmount.pod:356 ../rescue/virt-rescue.pod:229
 msgid "B<-r>"
-msgstr ""
+msgstr "B<-r>"
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:83
@@ -10212,12 +10230,12 @@ msgstr ""
 #: ../daemon/guestfsd.pod:104 ../fish/guestfish.pod:1561
 #: ../fuse/guestmount.pod:406 ../rescue/virt-rescue.pod:477
 msgid "FILES"
-msgstr ""
+msgstr "ARCHIVOS"
 
 #. type: =item
 #: ../daemon/guestfsd.pod:108
 msgid "F</dev/virtio-ports/org.libguestfs.channel.0>"
-msgstr ""
+msgstr "F</dev/virtio-ports/org.libguestfs.channel.0>"
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:110
@@ -10227,7 +10245,7 @@ msgstr ""
 #. type: =item
 #: ../daemon/guestfsd.pod:112
 msgid "F</proc/cmdline>"
-msgstr ""
+msgstr "F</proc/cmdline>"
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:114
@@ -10239,7 +10257,7 @@ msgstr ""
 #. type: =item
 #: ../daemon/guestfsd.pod:119
 msgid "B<guestfs_verbose=1>"
-msgstr ""
+msgstr "B<guestfs_verbose=1>"
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:121
@@ -10253,7 +10271,7 @@ msgstr ""
 #. type: =item
 #: ../daemon/guestfsd.pod:127
 msgid "B<guestfs_channel=PATH>"
-msgstr ""
+msgstr "B<guestfs_channel=RUTA>"
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:129
@@ -10267,7 +10285,7 @@ msgstr ""
 #. type: =item
 #: ../daemon/guestfsd.pod:134
 msgid "B<guestfs_network=1>"
-msgstr ""
+msgstr "B<guestfs_network=1>"
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:136
@@ -10278,7 +10296,7 @@ msgstr ""
 #. type: textblock
 #: ../daemon/guestfsd.pod:145
 msgid "L<guestfs(3)>, L<http://libguestfs.org/>."
-msgstr ""
+msgstr "L<guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: ../df/virt-df.pod:3
@@ -10426,12 +10444,12 @@ msgstr ""
 #. type: =item
 #: ../df/virt-df.pod:79 ../rescue/virt-rescue.pod:94
 msgid "B<-a> FILE"
-msgstr ""
+msgstr "B<-a> ARCHIVO"
 
 #. type: =item
 #: ../df/virt-df.pod:81 ../rescue/virt-rescue.pod:96
 msgid "B<--add> FILE"
-msgstr ""
+msgstr "B<--add> ARCHIVO"
 
 #. type: textblock
 #: ../df/virt-df.pod:83 ../rescue/virt-rescue.pod:98
@@ -11996,12 +12014,12 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:9
 msgid "The main steps are:"
-msgstr "Las opciones principales son:"
+msgstr "Los pasos principales son:"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:15
 msgid "Install the requirements."
-msgstr ""
+msgstr "Instalar los requisitos."
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:19
@@ -12011,17 +12029,17 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:23
 msgid "Run the tests."
-msgstr "Ejecuta el webssh."
+msgstr "Ejecuta las pruebas."
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:27
 msgid "Run the tools from the source directory, or install."
-msgstr ""
+msgstr "Ejecuta las herramientas desde el directorio origen, o instalar."
 
 #. type: =head1
 #: ../docs/guestfs-building.pod:31
 msgid "REQUIREMENTS"
-msgstr ""
+msgstr "REQUISITOS"
 
 #. type: =head2
 #: ../docs/guestfs-building.pod:33
@@ -12041,11 +12059,14 @@ msgid ""
 " dnf install autoconf automake libtool gettext-devel\n"
 "\n"
 msgstr ""
+" dnf builddep libguestfs\n"
+" dnf install autoconf automake libtool gettext-devel\n"
+"\n"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:40
 msgid "On systems still using L<yum(8)>, do:"
-msgstr ""
+msgstr "En sistemas que aún utilicen L<yum(8)>, haz:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:42
@@ -12055,6 +12076,9 @@ msgid ""
 " yum install autoconf automake libtool gettext-devel\n"
 "\n"
 msgstr ""
+" yum-builddep libguestfs\n"
+" yum install autoconf automake libtool gettext-devel\n"
+"\n"
 
 #. type: =head2
 #: ../docs/guestfs-building.pod:45
@@ -12074,6 +12098,9 @@ msgid ""
 " apt-get install autoconf automake libtool-bin gettext\n"
 "\n"
 msgstr ""
+" apt-get build-dep libguestfs\n"
+" apt-get install autoconf automake libtool-bin gettext\n"
+"\n"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:52
@@ -12091,7 +12118,7 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:61
 msgid "F<appliance/packagelist.in>"
-msgstr ""
+msgstr "F<appliance/packagelist.in>"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:63
@@ -12116,6 +12143,8 @@ msgid ""
 " make -C appliance clean-supermin-appliance\n"
 "\n"
 msgstr ""
+" make -C appliance clean-supermin-appliance\n"
+"\n"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:73
@@ -12141,7 +12170,7 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:81
 msgid "kernel E<ge> 2.6.34"
-msgstr ""
+msgstr "kernel E<ge> 2.6.34"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:83
@@ -12149,11 +12178,13 @@ msgid ""
 "I<Required>.  The following features must be enabled: C<virtio-pci>, "
 "C<virtio-serial>, C<virtio-block>, C<virtio-net>."
 msgstr ""
+"I<Required>.  Las siguientes características deben estar habilitadas: "
+"C<virtio-pci>, C<virtio-serial>, C<virtio-block>, C<virtio-net>."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:86
 msgid "supermin E<ge> 5.1.18"
-msgstr ""
+msgstr "supermin E<ge> 5.1.18"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:88
@@ -12161,6 +12192,8 @@ msgid ""
 "I<Required>.  For alternatives, see L</USING A PREBUILT BINARY APPLIANCE> "
 "below."
 msgstr ""
+"I<Required>.  Para alternativas, consulte L</USING A PREBUILT BINARY "
+"APPLIANCE> a continuación."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:91
@@ -12177,7 +12210,7 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:96
 msgid "XDR (tirpc, glibc or other)"
-msgstr ""
+msgstr "XDR (tirpc, glibc u otro)"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:98
@@ -75076,7 +75109,7 @@ msgstr ""
 #. type: =item
 #: ../fish/guestfish.pod:1526 ../lib/guestfs.pod:1363 ../lib/guestfs.pod:3407
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #. type: textblock
 #: ../fish/guestfish.pod:1528
