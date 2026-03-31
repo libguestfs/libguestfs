@@ -9,7 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-01-05 16:18+0000\n"
 "PO-Revision-Date: 2026-03-31 11:58+0000\n"
-"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ka/>\n"
 "Language: ka\n"
@@ -50,7 +51,7 @@ msgstr ""
 #: python/examples/guestfs-python.pod:1 rescue/virt-rescue.pod:1
 #: ruby/examples/guestfs-ruby.pod:1 test-tool/libguestfs-test-tool.pod:1
 msgid "NAME"
-msgstr ""
+msgstr "სახელი"
 
 #. type: textblock
 #: appliance/libguestfs-make-fixed-appliance.pod:3

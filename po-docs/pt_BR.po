@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2026-02-19 20:55+0000\n"
+"PO-Revision-Date: 2026-02-26 12:58+0000\n"
 "Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
 "memory@weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 5.16.1\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -49925,6 +49925,12 @@ msgid ""
 " ANY CHANGES YOU MAKE TO THIS FILE WILL BE LOST.\n"
 "\n"
 msgstr ""
+"Arquivo gerado pelo libguestfs\n"
+" AVISO: ESTE ARQUIVO FOI GERADO A PARTIR DOS SEGUINTES ARQUIVOS:\n"
+"          generator/customize.ml\n"
+"          e do código no subdiretório generator/.\n"
+" QUALQUER ALTERAÇÃO FEITA NESTE ARQUIVO SERÁ PERDIDA.\n"
+"\n"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:27
