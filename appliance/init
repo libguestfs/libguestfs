@@ -141,7 +141,7 @@ if test "$guestfs_network" = 1; then
     fi
     if dhclient --version >/dev/null 2>&1; then
         dhclient $iface
-    elif dhcpcd $iface; then
+    elif dhcpcd --debug $iface; then
         # https://github.com/NetworkConfiguration/dhcpcd/issues/258
         for i in `seq 0 10`; do
             if grep nameserver /etc/resolv.conf; then break; fi
