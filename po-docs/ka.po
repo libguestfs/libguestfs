@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-01-05 16:18+0000\n"
-"PO-Revision-Date: 2026-02-03 23:58+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-03-31 11:58+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ka/>\n"
 "Language: ka\n"
@@ -18,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:1 daemon/guestfsd.pod:1
@@ -1379,7 +1378,7 @@ msgstr ""
 #. type: =item
 #: common/mlcustomize/customize-options.pod:239
 msgid "DIR"
-msgstr ""
+msgstr "საქ"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:241
@@ -67733,7 +67732,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish.pod:1500 lib/guestfs.pod:1332 lib/guestfs.pod:3155
 msgid "PATH"
-msgstr ""
+msgstr "ბილიკი"
 
 #. type: textblock
 #: fish/guestfish.pod:1502
