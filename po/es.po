@@ -8,14 +8,15 @@
 # rjones <rjones@redhat.com>, 2011
 # Alex Puchades <alex94puchades@gmail.com>, 2015. #zanata
 # "Fco. Javier F. Serrador" <fserrador@gmail.com>, 2025, 2026.
+# Apertium APy <noreply-mt-apertium-apy@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-02-11 12:07+0000\n"
-"PO-Revision-Date: 2026-03-09 14:58+0000\n"
-"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
+"PO-Revision-Date: 2026-03-16 11:58+0000\n"
+"Last-Translator: Apertium APy <noreply-mt-apertium-apy@weblate.org>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/es/>\n"
 "Language: es\n"
@@ -4980,6 +4981,18 @@ msgid ""
 "  --version\n"
 "  -V             Display libguestfs version and exit\n"
 msgstr ""
+"libguestfs-Prueba-herramienta: Copyright de herramienta\n"
+"de prueba interactivo (C) 2009-2025 Sombrero Rojo Uso\n"
+"de Inc.:\n"
+"  libguestfs-prueba-herramienta [--opciones]\n"
+"Opciones:\n"
+"  --uso         de Exposición de la ayuda\n"
+"  --qemudir dir  Especifica QEMU directorio de fuente\n"
+"  --qemu qemu    Especifica QEMU binario\n"
+"  --timeout n\n"
+"  -t n           Pone lanzador timeout (default: %d segundos)\n"
+"  --versión\n"
+"  -V             Exposición libguestfs versión y salida\n"
 
 #: test-tool/test-tool.c:129
 #, c-format
