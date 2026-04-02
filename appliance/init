@@ -29,6 +29,7 @@ cmdline=$(</proc/cmdline)
 
 if [[ $cmdline == *guestfs_verbose=1* ]]; then
     guestfs_verbose=1
+    PS4="/init: "
     set -x
 fi
 if [[ $cmdline == *guestfs_network=1* ]]; then
