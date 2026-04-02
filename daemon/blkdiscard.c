@@ -84,7 +84,11 @@ do_blkdiscard (const char *device)
     return -1;
   }
 
-  close (fd);
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", device);
+    return -1;
+  }
+
   return 0;
 }
 
@@ -118,7 +122,10 @@ do_blkdiscardzeroes (const char *device)
     return -1;
   }
 
-  close (fd);
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", device);
+    return -1;
+  }
 
   return arg != 0;
 }
