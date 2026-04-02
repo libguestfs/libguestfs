@@ -78,7 +78,8 @@ check_PROGRAMS += \
 	c-api/test-environment \
 	c-api/test-pwd \
 	c-api/test-event-string \
-	c-api/test-threads
+	c-api/test-threads \
+	c-api/test-osinfo
 if HAVE_LIBDL
 check_PROGRAMS += \
 	c-api/test-dlopen
@@ -97,7 +98,8 @@ TESTS += \
 	c-api/test-debug-to-file \
 	c-api/test-environment \
 	c-api/test-event-string \
-	c-api/test-threads
+	c-api/test-threads \
+	c-api/test-osinfo
 if HAVE_LIBDL
 TESTS += \
 	c-api/test-dlopen
@@ -283,6 +285,14 @@ c_api_test_threads_LDADD = \
 	$(LTLIBTHREAD) \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
+
+c_api_test_osinfo_SOURCES = c-api/test-osinfo.c
+c_api_test_osinfo_CPPFLAGS = \
+	-I$(top_srcdir)/include
+c_api_test_osinfo_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+c_api_test_osinfo_LDADD = \
+	$(top_builddir)/lib/libguestfs.la
 
 if HAVE_LIBVIRT
 c_api_test_add_libvirt_dom_SOURCES = c-api/test-add-libvirt-dom.c
