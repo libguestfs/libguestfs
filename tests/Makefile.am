@@ -471,8 +471,10 @@ EXTRA_DIST += \
 
 TESTS += \
 	mountable/test-internal-parse-mountable \
+	mountable/test-bypath-uuid-resolution.sh \
 	mountable/test-mountable-inspect.sh
 EXTRA_DIST += \
+	mountable/test-bypath-uuid-resolution.sh \
 	mountable/test-mountable-inspect.sh
 check_PROGRAMS += \
 	mountable/test-internal-parse-mountable
