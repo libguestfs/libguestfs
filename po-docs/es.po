@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2026-03-16 11:58+0000\n"
+"PO-Revision-Date: 2026-04-03 17:58+0000\n"
 "Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
@@ -1700,7 +1700,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:9
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " libguestfs-make-fixed-appliance [--options] --xz\n"
 "\n"
@@ -1790,7 +1790,7 @@ msgstr "Indique un directorio de salida, por ejemplo:"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:56
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " libguestfs-make-fixed-appliance /usr/local/lib/guestfs/appliance\n"
 "\n"
@@ -1869,12 +1869,12 @@ msgstr "Esto crea un archivo tar en el directorio I<current> invocado como:"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:82
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " appliance-<VERSION>.tar.xz\n"
 "\n"
 msgstr ""
-" appliance-<VERSION>.tar.xz\n"
+" dispositivo-<VERSION>.tar.xz\n"
 "\n"
 
 #. type: textblock
