@@ -18,7 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	make-debian-img.sh \
+	make-debian-img.py \
 	debian-packages \
 	debian-syslog \
 	make-fedora-img.pl \
@@ -110,7 +110,7 @@ fedora-lvm-on-luks.img: make-fedora-img.pl \
 	SRCDIR=$(srcdir) LAYOUT=lvm-on-luks $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Debian image.
-debian.img: make-debian-img.sh
+debian.img: make-debian-img.py
 	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Ubuntu image.
