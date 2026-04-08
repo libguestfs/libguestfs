@@ -69,6 +69,13 @@ val has_bogus_mbr : string -> bool
     formatting non-removable, non-partitioned block devices. Refer to
     RHBZ#1931821. *)
 
+val is_sun_disk : string -> bool
+(** Check whether the device has a Sun disk label by reading the magic number
+    at offset 508. The Sun disk label magic is 0xDABE (big-endian).
+
+    Sun disk labels are not handled well by parted due to geometry validation
+    issues, so this function helps detect them for special handling. *)
+
 val proc_unmangle_path : string -> string
 (** Reverse kernel path escaping done in fs/seq_file.c:mangle_path.
     This is inconsistently used for /proc fields. *)

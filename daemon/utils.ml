@@ -233,6 +233,23 @@ let has_bogus_mbr device =
     )
   with _ -> false
 
+let is_sun_disk device =
+  try
+    with_openfile device [O_RDONLY; O_CLOEXEC] 0 (fun fd ->
+      let sec0size = 0x200
+      and magic_ofs = 0x1FC in (* offset 508, magic is at bytes 508-509 *)
+      let sec0 = Bytes.create sec0size in
+      let sec0read = read fd sec0 0 sec0size in
+
+      (* sector read completely *)
+      sec0read = sec0size &&
+
+      (* Sun disk label magic number 0xDABE at offset 508 (big-endian) *)
+      Bytes.get_uint8 sec0 magic_ofs = 0xDA &&
+      Bytes.get_uint8 sec0 (magic_ofs + 1) = 0xBE
+    )
+  with _ -> false
+
 let proc_unmangle_path path =
   let n = String.length path in
   let b = Buffer.create n in

@@ -24,6 +24,15 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <ctype.h>
+#include <inttypes.h>
+
+#include <json.h>
+
+#include <caml/alloc.h>
+#include <caml/fail.h>
+#include <caml/memory.h>
+#include <caml/mlvalues.h>
 
 #include "daemon.h"
 #include "actions.h"
@@ -164,4 +173,169 @@ char *
 do_sfdisk_disk_geometry (const char *device)
 {
   return sfdisk_flag (device, "-G");
+}
+
+/* Get partition table for sun disks using sfdisk --json.
+ * Returns a formatted string compatible with parted's machine-readable output.
+ * Format: "device_line\npartition_line1\npartition_line2\n..."
+ * where device_line is: "/dev/sda:SIZEB:TYPE:SECTORSIZE:SECTORSIZE:LABEL:;"
+ * and partition_line is: "NUM:STARTB:ENDB:SIZEB:::"
+ */
+char *
+do_sfdisk_sun_partition_table (const char *device)
+{
+  CLEANUP_FREE char *out = NULL, *err = NULL;
+  char *result = NULL;  /* caller frees */
+  int r;
+  json_object *root = NULL, *pt = NULL, *partitions = NULL;
+  json_object *tmp = NULL;
+  const char *label = NULL;
+  int64_t sectorsize = 512;
+  int64_t device_size = 0;
+  struct stat statbuf;
+  size_t result_size = 0, result_alloc = 4096;
+
+  /* Get device size using stat */
+  if (stat (device, &statbuf) == 0 && S_ISREG (statbuf.st_mode))
+    device_size = statbuf.st_size;
+
+  /* Run sfdisk --json */
+  r = command (&out, &err, "sfdisk", "--json", device, NULL);
+  if (r == -1) {
+    reply_with_error ("sfdisk --json %s: %s", device, err);
+    return NULL;
+  }
+
+  /* Parse JSON output */
+  root = json_tokener_parse (out);
+  if (root == NULL) {
+    reply_with_error ("sfdisk --json: failed to parse JSON output");
+    return NULL;
+  }
+
+  /* Get partitiontable object */
+  if (!json_object_object_get_ex (root, "partitiontable", &pt)) {
+    reply_with_error ("sfdisk --json: missing 'partitiontable' in output");
+    json_object_put (root);
+    return NULL;
+  }
+
+  /* Get label type */
+  if (json_object_object_get_ex (pt, "label", &tmp))
+    label = json_object_get_string (tmp);
+  if (label == NULL)
+    label = "unknown";
+
+  /* Get sector size */
+  if (json_object_object_get_ex (pt, "sectorsize", &tmp))
+    sectorsize = json_object_get_int64 (tmp);
+
+  /* Allocate result buffer */
+  result = malloc (result_alloc);
+  if (result == NULL) {
+    reply_with_perror ("malloc");
+    json_object_put (root);
+    return NULL;
+  }
+
+  /* Format device line: /dev/sda:104857600B:file:512:512:sun:; */
+  r = snprintf (result, result_alloc, "%s:%"PRId64"B:file:%"PRId64":%"PRId64":%s:;",
+                device, device_size, sectorsize, sectorsize, label);
+  if (r < 0 || (size_t) r >= result_alloc) {
+    reply_with_error ("snprintf: device line too long");
+    free (result);
+    json_object_put (root);
+    return NULL;
+  }
+  result_size = r;
+
+  /* Get partitions array */
+  if (!json_object_object_get_ex (pt, "partitions", &partitions)) {
+    /* No partitions is OK, just return device line */
+    json_object_put (root);
+    return result;
+  }
+
+  /* Process each partition */
+  size_t n_partitions = json_object_array_length (partitions);
+  for (size_t i = 0; i < n_partitions; i++) {
+    json_object *part = json_object_array_get_idx (partitions, i);
+    const char *node = NULL;
+    int64_t start = 0, size = 0;
+    int partnum = 0;
+
+    /* Get partition node name to extract number */
+    if (json_object_object_get_ex (part, "node", &tmp))
+      node = json_object_get_string (tmp);
+
+    /* Extract partition number from node name (e.g., "sun.img1" -> 1) */
+    if (node) {
+      const char *p = node + strlen (node);
+      while (p > node && isdigit (*(p-1)))
+        p--;
+      if (*p)
+        partnum = atoi (p);
+    }
+
+    /* Get start sector */
+    if (json_object_object_get_ex (part, "start", &tmp))
+      start = json_object_get_int64 (tmp);
+
+    /* Get size in sectors */
+    if (json_object_object_get_ex (part, "size", &tmp))
+      size = json_object_get_int64 (tmp);
+
+    /* Convert sectors to bytes */
+    int64_t start_bytes = start * sectorsize;
+    int64_t size_bytes = size * sectorsize;
+    int64_t end_bytes = start_bytes + size_bytes - 1;
+
+    /* Ensure we have enough space in buffer */
+    if (result_size + 200 > result_alloc) {
+      result_alloc *= 2;
+      char *new_result = realloc (result, result_alloc);
+      if (new_result == NULL) {
+        reply_with_perror ("realloc");
+        free (result);
+        json_object_put (root);
+        return NULL;
+      }
+      result = new_result;
+    }
+
+    /* Format partition line: 1:0B:65802239B:65802240B::: */
+    r = snprintf (result + result_size, result_alloc - result_size,
+                  "\n%d:%"PRId64"B:%"PRId64"B:%"PRId64"B:::",
+                  partnum, start_bytes, end_bytes, size_bytes);
+    if (r < 0 || result_size + (size_t) r >= result_alloc) {
+      reply_with_error ("snprintf: partition line too long");
+      free (result);
+      json_object_put (root);
+      return NULL;
+    }
+    result_size += r;
+  }
+
+  json_object_put (root);
+  return result;
+}
+
+/* OCaml binding for sun_partition_table.
+ * Called from Sfdisk.sun_partition_table in OCaml code.
+ */
+value
+guestfs_int_daemon_sfdisk_sun_partition_table (value devicev)
+{
+  CAMLparam1 (devicev);
+  CAMLlocal1 (rv);
+  const char *device = String_val (devicev);
+  char *result;
+
+  result = do_sfdisk_sun_partition_table (device);
+  if (result == NULL)
+    caml_failwith ("sfdisk_sun_partition_table failed");
+
+  rv = caml_copy_string (result);
+  free (result);
+  CAMLreturn (rv);
 }

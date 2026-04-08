@@ -25,43 +25,64 @@ open Utils
 
 include Structs
 
+(* External C function to get partition table for sun disks using sfdisk --json.
+ * Returns formatted output matching parted's machine-readable format.
+ *)
+external sfdisk_sun_partition_table : string -> string =
+  "guestfs_int_daemon_sfdisk_sun_partition_table"
+
 (* This is almost equivalent to print_partition_table in the C code. The
  * difference is that here we enforce the "BYT;" header internally.
  *)
 let print_partition_table_machine_readable device =
-  udev_settle ();
-
-  let args = ref [] in
-  List.push_back args "-m";
-  List.push_back args "-s";
-  List.push_back args "--";
-  List.push_back args device;
-  List.push_back args "unit";
-  List.push_back args "b";
-  List.push_back args "print";
-
-  let out =
-    try command "parted" !args
-    with
-      (* Translate "unrecognised disk label" into an errno code. *)
-      Failure str when String.find str "unrecognised disk label" >= 0 ->
-        raise (Unix.Unix_error (Unix.EINVAL, "parted", device ^ ": " ^ str)) in
-
-  udev_settle ();
-
-  (* Split the output into lines. *)
-  let out = String.trim out in
-  let lines = String.nsplit "\n" out in
-
-  (* lines[0] is "BYT;", lines[1] is the device line,
-   * lines[2..] are the partitions themselves.
+  (* Check if this is a sun disk - parted doesn't handle these well.
+   * Sun disk labels have a magic number 0xDABE at offset 508.
    *)
-  match lines with
-  | "BYT;" :: device_line :: lines -> device_line, lines
-  | [] | [_] ->
-     failwith "too few rows of output from 'parted print' command"
-  | _ ->
-     failwith "did not see 'BYT;' magic value in 'parted print' command"
+  if Utils.is_sun_disk device then (
+    (* Use sfdisk for sun disks since parted has geometry issues with them.
+     * The C function returns formatted output matching parted's format.
+     *)
+    let formatted_output = sfdisk_sun_partition_table device in
+    let lines = String.nsplit "\n" (String.trim formatted_output) in
+    match lines with
+    | device_line :: partition_lines -> device_line, partition_lines
+    | _ -> failwith "sfdisk_sun_partition_table: unexpected output format"
+  )
+  else (
+    udev_settle ();
+
+    let args = ref [] in
+    List.push_back args "-m";
+    List.push_back args "-s";
+    List.push_back args "--";
+    List.push_back args device;
+    List.push_back args "unit";
+    List.push_back args "b";
+    List.push_back args "print";
+
+    let out =
+      try command "parted" !args
+      with
+        (* Translate "unrecognised disk label" into an errno code. *)
+        Failure str when String.find str "unrecognised disk label" >= 0 ->
+          raise (Unix.Unix_error (Unix.EINVAL, "parted", device ^ ": " ^ str)) in
+
+    udev_settle ();
+
+    (* Split the output into lines. *)
+    let out = String.trim out in
+    let lines = String.nsplit "\n" out in
+
+    (* lines[0] is "BYT;", lines[1] is the device line,
+     * lines[2..] are the partitions themselves.
+     *)
+    match lines with
+    | "BYT;" :: device_line :: lines -> device_line, lines
+    | [] | [_] ->
+       failwith "too few rows of output from 'parted print' command"
+    | _ ->
+       failwith "did not see 'BYT;' magic value in 'parted print' command"
+  )
 
 let part_list device =
   let _, lines = print_partition_table_machine_readable device in
