@@ -172,6 +172,10 @@ let xfs_info dev =
     xfs_rtextents    = find "realtime.rtextents" Int64.of_string;
   }
 
+let maxmem_re =
+  PCRE.compile ~anchored:false ~dotall:true
+    {|Required memory for repair is greater tha. the maximum specified.*at least (\d+)\.|}
+
 let xfs_repair
       ?(forcelogzero = false)
       ?(nomodify = false)
@@ -229,5 +233,18 @@ let xfs_repair
   );
 
   (* Run the xfs_repair command, returning the status directly. *)
-  let r, _, _ = commandr "xfs_repair" !args in
+  let r, _, err = commandr "xfs_repair" !args in
+
+  (* If the error indicates that -m was too small, turn that into
+   * an error exception (RHEL-165677).
+   *)
+  if PCRE.matches maxmem_re err then (
+    let old_maxmem =
+      Option.map Int64.to_string maxmem |>
+      Option.value ~default:"(not set)" in
+    let new_maxmem = PCRE.sub 1 in
+    let msg = sprintf "maxmem parameter (-m option) was too small: raise it from %s to at least %s" old_maxmem new_maxmem in
+    invalid_arg msg
+  );
+
   r
