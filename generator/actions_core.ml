@@ -7487,6 +7487,7 @@ the lazy-counters setting (ie. C<lazycounter> parameter has no effect).|} };
 
   { defaults with
     name = "xfs_repair"; added = (1, 19, 36);
+    impl = OCaml "Xfs.xfs_repair";
     style = RInt "status", [String (Dev_or_Path, "device")], [OBool "forcelogzero"; OBool "nomodify"; OBool "noprefetch"; OBool "forcegeometry"; OInt64 "maxmem"; OInt64 "ihashsize"; OInt64 "bhashsize"; OInt64 "agstride"; OString "logdev"; OString "rtdev"];
     optional = Some "xfs";
     tests = [

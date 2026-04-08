@@ -171,3 +171,63 @@ let xfs_info dev =
     xfs_rtblocks     = find "realtime.blocks"    Int64.of_string;
     xfs_rtextents    = find "realtime.rtextents" Int64.of_string;
   }
+
+let xfs_repair
+      ?(forcelogzero = false)
+      ?(nomodify = false)
+      ?(noprefetch = false)
+      ?(forcegeometry = false)
+      ?maxmem ?ihashsize ?bhashsize ?agstride ?logdev ?rtdev device =
+  let args = ref [] in
+  if forcelogzero then List.push_back args "-L";
+  if nomodify then List.push_back args "-n";
+  if noprefetch then List.push_back args "-P";
+  if forcegeometry then List.push_back_list args [ "-o"; "force_geometry" ];
+  (match maxmem with
+   | None -> ()
+   | Some m when m < 0_L -> invalid_arg "maxmem must be >= 0"
+   | Some m ->
+      List.push_back_list args [ "-m"; Int64.to_string m ]
+  );
+  (match ihashsize with
+   | None -> ()
+   | Some i when i < 0_L -> invalid_arg "ihashsize must be >= 0"
+   | Some i ->
+      List.push_back_list args [ "-o"; sprintf "ihash=%Ld" i ]
+  );
+  (match bhashsize with
+   | None -> ()
+   | Some i when i < 0_L -> invalid_arg "bhashsize must be >= 0"
+   | Some i ->
+      List.push_back_list args [ "-o"; sprintf "bhash=%Ld" i ]
+  );
+  (match agstride with
+   | None -> ()
+   | Some i when i < 0_L -> invalid_arg "agstride must be >= 0"
+   | Some i ->
+      List.push_back_list args [ "-o"; sprintf "ag_stride=%Ld" i ]
+  );
+  (match logdev with
+   | None -> ()
+   | Some d -> List.push_back_list args [ "-l"; d ]
+  );
+  (match rtdev with
+   | None -> ()
+   | Some d -> List.push_back_list args [ "-r"; d ]
+  );
+
+  if is_device_parameter device then (
+    List.push_back args device
+  )
+  else (
+    (* It's a filesystem image stored in the mounted filesystem.
+     * This slightly dubious usage has been present since the
+     * API was first added to libguestfs back in 2012 (commit 7036a3bccf).
+     *)
+    List.push_back args "-f";
+    List.push_back args (Sysroot.sysroot_path device)
+  );
+
+  (* Run the xfs_repair command, returning the status directly. *)
+  let r, _, _ = commandr "xfs_repair" !args in
+  r
