@@ -801,8 +801,10 @@ let generate_daemon_caml_stubs () =
           (match optarg with
            | OBool _ ->
               pr "Val_bool (%s)" n;
-           | OInt _ -> assert false
-           | OInt64 _ -> assert false
+           | OInt _ ->
+              pr "Val_int (%s)" n;
+           | OInt64 _ ->
+              pr "caml_copy_int64 (%s)" n
            | OString _ ->
               pr "caml_copy_string (%s)" n
            | OStringList _ -> assert false
