@@ -71,6 +71,7 @@ check_PROGRAMS += \
 	c-api/test-config \
 	c-api/test-add-drive-opts \
 	c-api/test-last-errno \
+	c-api/test-last-errno-einval \
 	c-api/test-backend-settings \
 	c-api/test-private-data \
 	c-api/test-user-cancel \
@@ -91,6 +92,7 @@ TESTS += \
 	c-api/test-config \
 	c-api/test-add-drive-opts \
 	c-api/test-last-errno \
+	c-api/test-last-errno-einval \
 	c-api/test-backend-settings \
 	c-api/test-private-data \
 	c-api/test-user-cancel \
@@ -201,6 +203,13 @@ c_api_test_last_errno_CPPFLAGS = -I$(top_srcdir)/include
 c_api_test_last_errno_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 c_api_test_last_errno_LDADD = \
+	$(top_builddir)/lib/libguestfs.la
+
+c_api_test_last_errno_einval_SOURCES = c-api/test-last-errno-einval.c
+c_api_test_last_errno_einval_CPPFLAGS = -I$(top_srcdir)/include
+c_api_test_last_errno_einval_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+c_api_test_last_errno_einval_LDADD = \
 	$(top_builddir)/lib/libguestfs.la
 
 c_api_test_backend_settings_SOURCES = c-api/test-backend-settings.c
