@@ -28,7 +28,10 @@ include Structs
 (* This is almost equivalent to print_partition_table in the C code. The
  * difference is that here we enforce the "BYT;" header internally.
  *)
-let print_partition_table_machine_readable device =
+let print_partition_table_machine_readable fnname device =
+  eprintf "print_partition_table_machine_readable (called from %s): %s\n%!"
+    fnname device;
+
   udev_settle ();
 
   let args = ref [] in
@@ -64,7 +67,8 @@ let print_partition_table_machine_readable device =
      failwith "did not see 'BYT;' magic value in 'parted print' command"
 
 let part_list device =
-  let _, lines = print_partition_table_machine_readable device in
+  let _, lines =
+    print_partition_table_machine_readable "part_list" device in
 
   List.map (
     fun line ->
@@ -78,7 +82,8 @@ let part_list device =
   ) lines
 
 let part_get_parttype device =
-  let device_line, _ = print_partition_table_machine_readable device in
+  let device_line, _ =
+    print_partition_table_machine_readable "part_get_parttype" device in
 
   (* device_line is something like:
    * "/dev/sda:1953525168s:scsi:512:512:msdos:ATA Hitachi HDT72101;"
