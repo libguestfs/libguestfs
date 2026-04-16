@@ -115,43 +115,34 @@ and is_not_partitioned_device device =
  * Windows Snapshot Partition as well as MBR extended partitions.
  *)
 and is_partition_can_hold_filesystem partition =
-  let device = Devsparts.part_to_dev partition in
-  let partnum = Devsparts.part_to_partnum partition in
-  let parttype = Parted.part_get_parttype device in
+  let device = Devsparts.part_to_dev partition
+  and partnum = Devsparts.part_to_partnum partition in
 
-  let is_gpt = parttype = "gpt" in
-  let is_mbr = parttype = "msdos" in
-  let is_gpt_or_mbr = is_gpt || is_mbr in
+  match Parted.part_get_parttype device with
+  | "msdos" ->
+     if Parted.part_get_mbr_part_type device partnum = "extended" then
+       false
+     else if partnum = 1 && Utils.has_bogus_mbr device then
+       true
+     else
+       true
 
-  if is_gpt_or_mbr then (
-    if is_mbr_extended parttype device partnum then
-      false
-    else if is_mbr_bogus parttype device partnum then
-      true
-    else if is_mbr then
-      true
-    else (
-      let gpt_type = Sfdisk.part_get_gpt_type device partnum in
-      match gpt_type with
+  | "gpt" ->
+     let gpt_type = Sfdisk.part_get_gpt_type device partnum in
+     (match gpt_type with
       (* Windows Logical Disk Manager metadata partition. *)
       | "5808C8AA-7E8F-42E0-85D2-E1E90434CFB3"
-      (* Windows Logical Disk Manager data partition. *)
-      | "AF9B60A0-1431-4F62-BC68-3311714A69AD"
-      (* Microsoft Reserved Partition. *)
-      | "E3C9E316-0B5C-4DB8-817D-F92DF00215AE"
-      (* Windows Snapshot Partition. *)
-      | "CADDEBF1-4400-4DE8-B103-12117DCF3CCF" -> false
+        (* Windows Logical Disk Manager data partition. *)
+        | "AF9B60A0-1431-4F62-BC68-3311714A69AD"
+        (* Microsoft Reserved Partition. *)
+        | "E3C9E316-0B5C-4DB8-817D-F92DF00215AE"
+        (* Windows Snapshot Partition. *)
+        | "CADDEBF1-4400-4DE8-B103-12117DCF3CCF" -> false
       | _ -> true
-    )
-  )
-  else true
+     )
 
-and is_mbr_extended parttype device partnum =
-  parttype = "msdos" &&
-    Parted.part_get_mbr_part_type device partnum = "extended"
-
-and is_mbr_bogus parttype device partnum =
-  parttype = "msdos" && partnum = 1 && Utils.has_bogus_mbr device
+  | _ -> (* unknown or other *)
+     true
 
 (* Use vfs-type to check for a filesystem of some sort of [device].
  * Appends (device, vfs_type) to the ret parameter (there may be
