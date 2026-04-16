@@ -118,30 +118,42 @@ and is_partition_can_hold_filesystem partition =
   let device = Devsparts.part_to_dev partition
   and partnum = Devsparts.part_to_partnum partition in
 
-  match Parted.part_get_parttype device with
-  | "msdos" ->
-     if Parted.part_get_mbr_part_type device partnum = "extended" then
-       false
-     else if partnum = 1 && Utils.has_bogus_mbr device then
-       true
-     else
-       true
+  try
+    match Parted.part_get_parttype device with
+    | "msdos" ->
+       if Parted.part_get_mbr_part_type device partnum = "extended" then
+         false
+       else if partnum = 1 && Utils.has_bogus_mbr device then
+         true
+       else
+         true
 
-  | "gpt" ->
-     let gpt_type = Sfdisk.part_get_gpt_type device partnum in
-     (match gpt_type with
-      (* Windows Logical Disk Manager metadata partition. *)
-      | "5808C8AA-7E8F-42E0-85D2-E1E90434CFB3"
+    | "gpt" ->
+       let gpt_type = Sfdisk.part_get_gpt_type device partnum in
+       (match gpt_type with
+        (* Windows Logical Disk Manager metadata partition. *)
+        | "5808C8AA-7E8F-42E0-85D2-E1E90434CFB3"
         (* Windows Logical Disk Manager data partition. *)
         | "AF9B60A0-1431-4F62-BC68-3311714A69AD"
         (* Microsoft Reserved Partition. *)
         | "E3C9E316-0B5C-4DB8-817D-F92DF00215AE"
         (* Windows Snapshot Partition. *)
         | "CADDEBF1-4400-4DE8-B103-12117DCF3CCF" -> false
-      | _ -> true
-     )
+        | _ -> true
+       )
 
-  | _ -> (* unknown or other *)
+    | _ -> (* unknown or other *)
+       true
+
+  with
+  | Failure msg when String.find msg "CHS geometry" >= 0 ->
+     (* Parted has poor handling of "sun" partition types, always
+      * issuing a warning because the CHS doesn't match the physical
+      * geometry.  Ignore this as we don't care about it in this
+      * function (RHEL-165220).
+      *)
+     eprintf "is_partition_can_hold_filesystem: \
+              ignoring warning from parted: %s\n%!" msg;
      true
 
 (* Use vfs-type to check for a filesystem of some sort of [device].
