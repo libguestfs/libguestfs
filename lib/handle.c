@@ -560,14 +560,21 @@ guestfs_impl_get_hv (guestfs_h *g)
     /* Try to return the default hypervisor. */
     const char *default_hv;
 
-    if (g->backend_ops && g->backend_data &&
-        (default_hv = g->backend_ops->get_default_hv (g, g->backend_data))
-        != NULL)
-      return safe_strdup (g, default_hv);
-    else {
-      error (g, _("cannot get default hypervisor"));
+    if (!g->backend_ops || !g->backend_data) {
+      error (g, _("get_hv: cannot get default hypervisor "
+                  "before ‘launch’ is called"));
       return NULL;
     }
+
+    default_hv = g->backend_ops->get_default_hv (g, g->backend_data);
+    if (!default_hv) {
+      error (g, _("get_hv: cannot get default hypervisor: "
+                  "the ‘%s’ backend returned no value"),
+             g->backend);
+      return NULL;
+    }
+
+    return safe_strdup (g, default_hv);
   }
 }
 
