@@ -231,9 +231,6 @@ main (int argc, char *argv[])
   p = guestfs_get_cachedir (g);
   printf ("guestfs_get_cachedir: %s\n", p ? : "(null)");
   free (p);
-  p = guestfs_get_hv (g);
-  printf ("guestfs_get_hv: %s\n", p);
-  free (p);
   printf ("guestfs_get_memsize: %d\n", guestfs_get_memsize (g));
   printf ("guestfs_get_network: %d\n", guestfs_get_network (g));
   printf ("guestfs_get_path: %s\n", guestfs_get_path (g) ? : "(null)");
@@ -265,6 +262,11 @@ main (int argc, char *argv[])
 
   printf ("Guest launched OK.\n");
   fflush (stdout);
+
+  /* More debugging, after launch. */
+  p = guestfs_get_hv (g);
+  printf ("guestfs_get_hv: %s\n", p);
+  free (p);
 
   /* Create the filesystem and mount everything. */
   if (guestfs_part_disk (g, "/dev/sda", "mbr") == -1)
