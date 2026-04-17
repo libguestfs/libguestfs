@@ -244,6 +244,21 @@
    fun:dlopen@@*
 }
 
+# New in glibc 2.44.
+{
+   glibc_leak_5
+   Memcheck:Leak
+   ...
+   fun:_dl_resize_dtv
+}
+
+{
+   glibc_leak_6
+   Memcheck:Leak
+   ...
+   fun:_dl_tlsdesc_dynamic_xsave
+}
+
 # libvirt calls gnutls_global_init but doesn't call the
 # corresponding gnutls_global_deinit function because of
 # thread-safety issues (in GnuTLS).
