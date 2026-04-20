@@ -11,8 +11,9 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2026-04-09 15:28+0000\n"
-"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
+"PO-Revision-Date: 2026-04-10 15:58+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
 "Language: es\n"
@@ -12216,7 +12217,7 @@ msgstr ""
 #: ../docs/guestfs-building.pod:169 ../docs/guestfs-building.pod:173
 #: ../docs/guestfs-building.pod:177
 msgid "I<Required>."
-msgstr ""
+msgstr "I<Requerido>."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:77
