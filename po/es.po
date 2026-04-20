@@ -9,14 +9,16 @@
 # Alex Puchades <alex94puchades@gmail.com>, 2015. #zanata
 # "Fco. Javier F. Serrador" <fserrador@gmail.com>, 2025, 2026.
 # Apertium APy <noreply-mt-apertium-apy@weblate.org>, 2026.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-03-24 12:36+0000\n"
-"PO-Revision-Date: 2026-04-10 15:58+0000\n"
-"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
+"PO-Revision-Date: 2026-04-10 15:59+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/es/>\n"
 "Language: es\n"
@@ -169,7 +171,7 @@ msgstr "selector '%s': falta ID"
 #: common/options/keys.c:239
 #, c-format
 msgid "selector '%s': missing TYPE"
-msgstr "selector '%s': falta TIPO"
+msgstr "Selector '%s': TIPO desaparecido"
 
 #: common/options/keys.c:245
 #, c-format
@@ -184,7 +186,7 @@ msgstr "selector '%s': ausencia de FILENAME, o campos excesivos"
 #: common/options/keys.c:262
 #, c-format
 msgid "selector '%s': too many fields"
-msgstr "selector '%s': demasiados campos"
+msgstr "selector '%s': campos excesivos"
 
 #: common/options/keys.c:264
 #, c-format
