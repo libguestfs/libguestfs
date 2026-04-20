@@ -12,10 +12,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-03-24 12:36+0000\n"
-"PO-Revision-Date: 2026-04-03 17:58+0000\n"
+"PO-Revision-Date: 2026-04-09 15:33+0000\n"
 "Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/es/>\n"
@@ -1085,11 +1085,11 @@ msgstr "obtiene el identificador de manipulador"
 
 #: fish/cmds.c:716
 msgid "challenge of i'th requested credential"
-msgstr "reto de credencial iésima solicitada"
+msgstr "reto de credencial i-ésima solicitada"
 
 #: fish/cmds.c:717
 msgid "default result of i'th requested credential"
-msgstr "resultado predeterminado de credencial iésima solicitada"
+msgstr "resultado predeterminado de credencial i-ésima solicitada"
 
 #: fish/cmds.c:718
 msgid "prompt of i'th requested credential"
