@@ -12,10 +12,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-03-17 19:07+0000\n"
-"PO-Revision-Date: 2026-03-16 11:58+0000\n"
+"PO-Revision-Date: 2026-04-03 17:58+0000\n"
 "Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/es/>\n"
@@ -120,15 +120,14 @@ msgstr ""
 "Entonces puedes montar sistemas de archivos deseados a mano\n"
 "utilizando las instrucciones ‘mount’ o ‘mount-ro'.\n"
 "\n"
-"Si utiliza ‘guestmount -i’, retire esta opción y elija el sistema de\n"
+"Si utiliza guestmount ‘-i’, retire esta opción y elija el sistema de\n"
 "archivo deseado para verlo manualmente añadiendo la opción\n"
-"‘-m'. Utilice ‘virt-filesystems' para ver qué sistema de archivos\n"
+"‘-m’. Utilice ‘virt-filesystems' para ver qué sistema de archivos\n"
 "está disponible.\n"
 "\n"
-"Si utilizando otras herramientas de virt, los sistemas operativos\n"
-"de multi-arranque no funcionarían con estas herramientas.\n"
-"Utilice las instrucciones equivalentes de guestfish (consulte\n"
-"la página del manual de virt).\n"
+"Si utilizando otras herramientas de virt, los S.O. de multi-arranque\n"
+"no funcionarían con estas herramientas. Utilice las instrucciones\n"
+"equivalentes de guestfish (consulte la página del manual de virt).\n"
 
 #: common/options/inspect.c:161
 #, c-format
@@ -4188,10 +4187,8 @@ msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: invocado dos veces en la misma manipulación\n"
 
 #: lib/handle.c:568
-#, fuzzy
-#| msgid "get PID of hypervisor"
 msgid "cannot get default hypervisor"
-msgstr "obtiene PID de hipervisor"
+msgstr "no se puede obtener hipervisor por defecto"
 
 #: lib/handle.c:594
 #, c-format

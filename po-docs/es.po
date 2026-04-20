@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2026-03-16 11:58+0000\n"
+"PO-Revision-Date: 2026-04-09 15:28+0000\n"
 "Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
@@ -1700,7 +1700,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:9
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " libguestfs-make-fixed-appliance [--options] --xz\n"
 "\n"
@@ -1790,7 +1790,7 @@ msgstr "Indique un directorio de salida, por ejemplo:"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:56
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " libguestfs-make-fixed-appliance /usr/local/lib/guestfs/appliance\n"
 "\n"
@@ -1869,12 +1869,12 @@ msgstr "Esto crea un archivo tar en el directorio I<current> invocado como:"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:82
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 " appliance-<VERSION>.tar.xz\n"
 "\n"
 msgstr ""
-" appliance-<VERSION>.tar.xz\n"
+" dispositivo-<VERSION>.tar.xz\n"
 "\n"
 
 #. type: textblock
@@ -6756,6 +6756,8 @@ msgstr ""
 #: ../edit/virt-edit.pod:194 ../fish/guestfish.pod:331
 msgid "Using this flag is equivalent to using the C<mount-options> command."
 msgstr ""
+"Utilizando este indicador es equivalente a utilizar la orden C<mount-options>"
+"."
 
 #. type: textblock
 #: ../cat/virt-cat.pod:164 ../cat/virt-ls.pod:395 ../cat/virt-tail.pod:166
@@ -6767,6 +6769,11 @@ msgid ""
 "drivers are valid for a filesystem (eg: C<ext2> and C<ext3>), or if "
 "libguestfs misidentifies a filesystem."
 msgstr ""
+"La cuarta parte del parámetro es la unidad del sistema de archivo a "
+"utilizar, tal como C<ext3> o C<ntfs>. Esto es raramente necesitado, pero "
+"puede ser útil si las unidades son válidas para un sistema de archivos "
+"(p.ej., C<ext2> y C<ext3>), o si libguestfs no identifica bien un sistema de "
+"archivos."
 
 #. type: =head1
 #: ../cat/virt-cat.pod:187 ../cat/virt-ls.pod:477 ../edit/virt-edit.pod:219
@@ -6809,12 +6816,15 @@ msgid ""
 "whereas in this version you should use I<-a> or I<-d> respectively to avoid "
 "the confusing case where a disk image might have the same name as a guest."
 msgstr ""
+"en todo caso en esta versión utilizaría I<-a> o I<-d> respectivamente para "
+"evitar el caso de confusión donde una imagen de disco tal vez tenga el mismo "
+"nombre que un invitado."
 
 #. type: textblock
 #: ../cat/virt-cat.pod:201 ../cat/virt-ls.pod:491 ../edit/virt-edit.pod:233
 #: ../inspector/virt-inspector.pod:179 ../rescue/virt-rescue.pod:312
 msgid "For compatibility the old style is still supported."
-msgstr ""
+msgstr "Para compatibilidad el estilo anterior aún está mantenido."
 
 #. type: =head1
 #: ../cat/virt-cat.pod:203 ../cat/virt-tail.pod:189
@@ -10091,6 +10101,10 @@ msgid ""
 "program explicitly.  This man page discusses what C<guestfsd> does in both "
 "the libguestfs appliance and when using libguestfs live."
 msgstr ""
+"C<guestfsd> es el demonio de libguestfs.  Los usuarios normales nunca "
+"necesitan ejecutar este programa explícitamente.  Esta página de man discute "
+"qué C<guestfsd> hace en ambos aplicaciones libguestfs y cuando utilizan "
+"libguestfs live."
 
 #. type: =head2
 #: ../daemon/guestfsd.pod:15
@@ -10103,6 +10117,8 @@ msgid ""
 "For the architecture of the libguestfs appliance, see L<guestfs(3)/"
 "ARCHITECTURE>."
 msgstr ""
+"Para la arquitectura de la aplicación libguestfs, consulte L<guestfs(3)/"
+"ARCHITECTURE>."
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:20
@@ -10113,6 +10129,12 @@ msgid ""
 "COMMUNICATION PROTOCOL>) and processes requests one at a time from the "
 "library until the appliance is destroyed."
 msgstr ""
+"Después de las aplicaciones de arranque, el script F</init> en la aplicación "
+"inicia C<guestfsd> sin ningún argumento.  C<guestfsd> abre el puerto de "
+"virtio-serial en una ruta conocida (consulte L</FILES>).   Inicia el "
+"protocolo (consulte L<guestfs(3)/COMMUNICATION PROTOCOL>) y los procesos "
+"solicitan uno a la vez desde la biblioteca hasta que la aplicación está "
+"destruida."
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:26
@@ -10120,6 +10142,8 @@ msgid ""
 "Filesystems are mounted under F</sysroot> and all filesystem operations "
 "happen relative to this directory."
 msgstr ""
+"Los sistemas de archivos están montados bajo F</sysroot> y todas las "
+"operaciones del sistema de archivos suceden relativas a este directorio."
 
 #. type: =head2
 #: ../daemon/guestfsd.pod:29
@@ -10132,6 +10156,8 @@ msgid ""
 "In the libguestfs live case, C<guestfsd -r> is started from the rc-scripts, "
 "systemd, etc."
 msgstr ""
+"En el caso de libguestfs live, C<guestfsd -r> es iniciado desde rc-scripts, "
+"systemd, etc."
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:34
@@ -10139,6 +10165,8 @@ msgid ""
 "The C<-r> option causes the daemon to operate on the root filesystem instead "
 "of F</sysroot>."
 msgstr ""
+"La opción C<-r> causa que el daemon opere en el sistema de archivos raíz en "
+"vez de F</sysroot>."
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:37
@@ -10148,6 +10176,10 @@ msgid ""
 "disconnects.  If libguestfs live were changed to use a different transport "
 "such as TCP/IP then this limitation could be removed."
 msgstr ""
+"Actualmente (debido a limitaciones en virtio-serial) solo un cliente pude "
+"conectar a la vez, y C<guestfsd> debe ser reiniciado tras cada cliente se "
+"desconecta.  Si libguest live fue modificado para utilizar un transporte "
+"diferente tal como TCO/IP entonces esta limitación pudo ser retirada."
 
 #. type: =item
 #: ../daemon/guestfsd.pod:47
@@ -10176,12 +10208,17 @@ msgid ""
 "guestfsd will communicate with the library.  If this parameter is not given, "
 "then an internal default port is used."
 msgstr ""
+"Pase el nombre del canal virtio-serial, puerto serie, etc.  sobre cual "
+"guestfsd comunicará con la biblioteca.  Si no se da este parámetro, entonces "
+"es utilizado un puerto por defecto interno."
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:63
 msgid ""
 "The C<fd:N> form causes guestfsd to use the file descriptor C<N> directly."
 msgstr ""
+"El formulario C<fd:N> causa que guestfsd utilice directamente el descriptor "
+"C<N> de archivo."
 
 #. type: =item
 #: ../daemon/guestfsd.pod:68 ../fish/guestfish.pod:292
@@ -10195,11 +10232,14 @@ msgid ""
 "exists, create the channel as a Unix domain socket, listen on it, and accept "
 "a single connection.  This is mainly used for testing the daemon."
 msgstr ""
+"En lugar de abrir C<guestfs_channel> y por tanto esperando que ya exista, "
+"crear el canal como zócalo del dominio Unix, lo escucha encima, y aceptar "
+"una sola conexión.  Esto es principalmente utilizado para probar el demonio."
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:79
 msgid "Enable network features in the daemon."
-msgstr ""
+msgstr "Habilita características de red en el demonio."
 
 #. type: =item
 #: ../daemon/guestfsd.pod:81 ../fish/guestfish.pod:397
@@ -10213,11 +10253,14 @@ msgid ""
 "Set the root filesystem to be F</> (instead of the default which is F</"
 "sysroot>).  Also do not unmount filesystems when the daemon exits."
 msgstr ""
+"Pone la raíz del sistema de archivo que sea F</> (en vez del predeterminado "
+"el cual es F</sysroot>).  También no desmonta el sistema de archivos cuando "
+"el demonio salga."
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:86
 msgid "This option is used to enable libguestfs live."
-msgstr ""
+msgstr "Esta opción se utiliza para habilitar libguestfs live (en vivo)."
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:94
@@ -10225,6 +10268,8 @@ msgid ""
 "The verbose flag is also set if the Linux command line contains the "
 "substring C<guestfs_verbose=1>."
 msgstr ""
+"El indicador verborreo también es establecido si la línea de comando de "
+"Linux contiene la subcadena C<guestfs_verbose=1>."
 
 #. type: =head1
 #: ../daemon/guestfsd.pod:104 ../fish/guestfish.pod:1561
@@ -10240,7 +10285,7 @@ msgstr "F</dev/virtio-ports/org.libguestfs.channel.0>"
 #. type: textblock
 #: ../daemon/guestfsd.pod:110
 msgid "The virtio serial port which C<guestfsd> connects to."
-msgstr ""
+msgstr "El puerto serie de virtio el cual se contacta C<guestfsd>."
 
 #. type: =item
 #: ../daemon/guestfsd.pod:112
@@ -10253,6 +10298,8 @@ msgid ""
 "The Linux command line is parsed to discover C<guestfs_*> flags.  The "
 "following flags are understood:"
 msgstr ""
+"La línea de orden del Linux es interpretada para descubrir indicadores de "
+"C<guestfs_*>.  Los indicadores siguientes son comprendidos:"
 
 #. type: =item
 #: ../daemon/guestfsd.pod:119
@@ -10267,6 +10314,11 @@ msgid ""
 "on the command line).  Unrelated to the daemon, it also causes the appliance "
 "init script to print out a lot more debugging information."
 msgstr ""
+"Habilita mensajes verborreos.  Este indicador se pasa por la biblioteca "
+"libguestfs al instrumento para hacer que el demonio sea más verborreo (actúa "
+"como el indicador I<-v> en la línea de comando).  No relacionado al demonio, "
+"también causa que el script init de la aplicación declare fuera de un lote "
+"más informado de depuración."
 
 #. type: =item
 #: ../daemon/guestfsd.pod:127
@@ -10281,6 +10333,10 @@ msgid ""
 "used by the User-Mode Linux backend to use a regular emulated serial port "
 "instead of virtio-serial."
 msgstr ""
+"Pone la ruta al canal virtio-serial a algo distinto que el predeterminado "
+"(el cual es F</dev/virtio-ports/org.libguestfs.channel.0>).  Esto es "
+"utilizado por el backend del Modo-Usuario de Linux para utilizar un puerto "
+"usual de serie emulado en vez de virtio-serial."
 
 #. type: =item
 #: ../daemon/guestfsd.pod:134
@@ -22901,7 +22957,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes-1.8.pod:158
 #: ../docs/guestfs-release-notes-historical.pod:48
 msgid "Richard W.M. Jones"
-msgstr ""
+msgstr "Richard W.M. Jones"
 
 #. type: =head1
 #: ../docs/guestfs-release-notes-1.12.pod:5
