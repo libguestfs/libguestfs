@@ -11,9 +11,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2026-04-10 15:58+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-04-20 11:58+0000\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
 "Language: es\n"
@@ -21,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 5.17\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -1728,7 +1727,7 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:18
 msgid "Some reasons why you I<might> want to use this include:"
-msgstr "Algunas razones por las que I<podría> querer usar esto incluyen:"
+msgstr "Algunas razones por las que I<quería> usar esto incluyen:"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:24
@@ -8944,7 +8943,7 @@ msgid ""
 msgstr ""
 "Las instrucciones son manipuladas en el mismo orden que el que está en el "
 "archivo, por tanto si fueron especificados como I<--delete /algún/archivo> "
-"en la línea de instrucciones."
+"en la línea de instrucción."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:90
@@ -9058,7 +9057,7 @@ msgstr "Note que esta opción solo está disponible cunado esté instalado Perl 
 #: ../common/mlcustomize/customize-options.pod:125
 #: ../sysprep/sysprep-extra-options.pod:104
 msgid "See L<virt-edit(1)/NON-INTERACTIVE EDITING>."
-msgstr "Consulte L<VIRT-EDIT(1)/NON-INTERACTIVE EDITING>."
+msgstr "Consulte L<virt-edit(1)/NON-INTERACTIVE EDITING>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:127
@@ -9384,8 +9383,8 @@ msgid ""
 "Note: In virt-builder, if you I<don't> set I<--root-password> then the guest "
 "is given a I<random> root password."
 msgstr ""
-"Nota: en el compilador virt-builder, si I<no> establece I<--root-password> "
-"entonces al invitado se le proporciona una contraseña raíz I<aleatoria>."
+"Nota: en el constructor virt-builder, si I<no> establece I<--root-password> "
+"entonces al invitado se le proporciona una contraseña root I<aleatoria>."
 
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:249
@@ -9849,7 +9848,7 @@ msgstr ""
 #. type: textblock
 #: ../common/options/key-option.pod:15
 msgid "Read the passphrase from F<FILENAME>."
-msgstr "Lea la frase de contraseña de F<NOMBRE-ARCHIVO>."
+msgstr "Lea la frase‐contraseña desde F<FILENAME>."
 
 #. type: textblock
 #: ../customize/virt-customize.pod:3
@@ -9951,7 +9950,6 @@ msgstr ""
 #: ../customize/virt-customize.pod:103 ../daemon/guestfsd.pod:75
 #: ../fish/guestfish.pod:353 ../fuse/guestmount.pod:292
 #: ../resize/virt-resize.pod:470 ../sysprep/virt-sysprep.pod:88
-#, fuzzy
 msgid "B<-n>"
 msgstr "B<-n>"
 
@@ -10349,6 +10347,8 @@ msgstr "B<guestfs_network=1>"
 msgid ""
 "This is set if the appliance network is enabled (see C<guestfs_set_network>)."
 msgstr ""
+"Esto está establecido si la red de instrumento está habilitada (consulte "
+"C<guestfs_set_network>)."
 
 #. type: textblock
 #: ../daemon/guestfsd.pod:145
@@ -10515,6 +10515,9 @@ msgid ""
 "virtual machine has multiple block devices, you must supply all of them with "
 "separate I<-a> options."
 msgstr ""
+"Añade C<ARCHIVO> el cual sería una imagen de disco desde una máquina "
+"virtual.  Si la máquina virtual tiene múltiples dispositivos de bloque, debe "
+"proporcionar todo de ellos con opciones I<-a> separadas."
 
 #. type: verbatim
 #: ../df/virt-df.pod:132
@@ -12061,12 +12064,13 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:3
 msgid "guestfs-building - How to build libguestfs from source"
-msgstr ""
+msgstr "guestfs-building - Como construir libguestfs desde la fuente"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:7
 msgid "This manual page describes how to build libguestfs from source."
 msgstr ""
+"Esta página del manual describe como construir libguestfs desde la fuente."
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:9
@@ -12081,7 +12085,7 @@ msgstr "Instalar los requisitos."
 #. type: textblock
 #: ../docs/guestfs-building.pod:19
 msgid "Build, either from the git repository or from a tarball."
-msgstr ""
+msgstr "Construye, ya sea desde el rerpo de git o desde una pelota de tar."
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:23
@@ -12102,6 +12106,7 @@ msgstr "REQUISITOS"
 #: ../docs/guestfs-building.pod:33
 msgid "Short cut for Fedora or Red Hat Enterprise Linux (RHEL) users"
 msgstr ""
+"Acceso directo para usuarios de Fedora o Red Hat Enterprise Linux (RHEL)"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:35
@@ -12140,12 +12145,12 @@ msgstr ""
 #. type: =head2
 #: ../docs/guestfs-building.pod:45
 msgid "Short cut for Debian or Ubuntu users"
-msgstr ""
+msgstr "Acceso directo para usuarios de Debian o Ubuntu"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:47
 msgid "Use APT to install all the requirements:"
-msgstr ""
+msgstr "Utilice APT para instalar todos los requisitos:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:49
@@ -12166,11 +12171,14 @@ msgid ""
 "L<http://packages.debian.org/source/libguestfs>, at the list of C<build-"
 "depends> and C<build-depends-indep>, and install everything listed there."
 msgstr ""
+"Si ese comando no funciona, eche un vistazo al paquete fuente de Debian "
+"L<http://packages.debian.org/source/libguestfs>, a la lista de C<build-"
+"depends> y C<build-depends-indep>, e instale todo lo que aparece allí."
 
 #. type: =head2
 #: ../docs/guestfs-building.pod:57
 msgid "Full list of requirements"
-msgstr ""
+msgstr "Lista completa de requisitos"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:61
@@ -12183,6 +12191,8 @@ msgid ""
 "Install as many package names found in this file as possible.  (It is not "
 "strictly required to install all of them)."
 msgstr ""
+"Instala tantos paquetes como puedas de los que aparecen en este archivo. (No "
+"es estrictamente necesario instalarlos todos)."
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:66
@@ -12192,6 +12202,10 @@ msgid ""
 "clean>>.  You have to do this command to clean the old supermin appliance "
 "and force a new one to be prepared:"
 msgstr ""
+"I<Note>: Si compila libguestfs y luego instala los paquetes del dispositivo, "
+"la compilación no los detectará automáticamente, incluso si ejecuta S<C<make "
+"clean>>. Debe ejecutar este comando para vaciar el antiguo dispositivo "
+"supermin y forzar la preparación de uno nuevo:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:71
@@ -12217,7 +12231,7 @@ msgstr ""
 #: ../docs/guestfs-building.pod:169 ../docs/guestfs-building.pod:173
 #: ../docs/guestfs-building.pod:177
 msgid "I<Required>."
-msgstr "I<Requerido>."
+msgstr "I<Required>."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:77
@@ -12275,6 +12289,8 @@ msgid ""
 "I<Required>.  We use the XDR implementation from C<E<lt>rpc/xdr.hE<gt>>, "
 "which may come from glibc, tirpc or another library."
 msgstr ""
+"I<Required>.  Utilizamos la implementación XDR de C<E<lt>rpc/xdr.hE<gt>>, "
+"que puede provenir de glibc, tirpc u otra biblioteca."
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:102
@@ -12282,11 +12298,13 @@ msgid ""
 "The C<rpcgen> tool is optional, except if you want to compile from git and/"
 "or patch libguestfs with new APIs."
 msgstr ""
+"La herramienta C<rpcgen> es opcional, excepto si desea compilar desde git y/"
+"o parchear libguestfs con nuevas API."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:105
 msgid "Gcc or Clang"
-msgstr ""
+msgstr "Gcc o Clang"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:107
@@ -12294,11 +12312,13 @@ msgid ""
 "I<Required>.  We use C<__attribute__((cleanup))> which is a GCC extension "
 "also supported by Clang."
 msgstr ""
+"I<Required>. Usamos C<__attribute__((cleanup))> lo cual es una extensión de "
+"GCC también compatible con Clang."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:110
 msgid "Perl"
-msgstr ""
+msgstr "Perl"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:112
@@ -12307,21 +12327,25 @@ msgid ""
 "not needed at runtime except if you need to run a small number of virt tools "
 "which are still written in Perl."
 msgstr ""
+"I<Required>.  Diversos pasos de compilación y pruebas están escritos en "
+"Perl. Perl no es necesario en tiempo de ejecución, salvo que se requiera "
+"ejecutar un pequeño número de herramientas de virtualización, que también "
+"están escritas en Perl."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:116
 msgid "Perl C<Pod::Man>"
-msgstr ""
+msgstr "Perl C<Pod::Man>"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:118
 msgid "Perl C<Pod::Simple>"
-msgstr ""
+msgstr "Perl C<Pod::Simple>"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:120
 msgid "I<Required>.  Part of Perl core."
-msgstr ""
+msgstr "I<Required>.  Parte del core de Perl."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:122
@@ -12331,37 +12355,37 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:124
 msgid "OCaml findlib"
-msgstr ""
+msgstr "OCaml findlib"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:128
 msgid "autoconf"
-msgstr ""
+msgstr "autoconf"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:130
 msgid "automake"
-msgstr ""
+msgstr "automake"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:132
 msgid "gettext"
-msgstr ""
+msgstr "gettext"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:134 ../docs/guestfs-building.pod:181
 msgid "I<Required> if compiling from git.  Optional if compiling from tarball."
-msgstr ""
+msgstr "I<Required> si compila desde git.  Opcional si compila desde tarball."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:137
 msgid "cpio"
-msgstr ""
+msgstr "cpio"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:141
 msgid "gperf"
-msgstr ""
+msgstr "gperf"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:145
@@ -12386,23 +12410,23 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:159
 msgid "libxml2"
-msgstr ""
+msgstr "libxml2"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:163
 msgid "ncurses"
-msgstr ""
+msgstr "ncurses"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:167
 msgid "augeas E<ge> 1.2.0"
-msgstr ""
+msgstr "augeas E<ge> 1.2.0"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:171 ../docs/guestfs-release-notes-1.24.pod:143
 #: ../docs/guestfs-release-notes-1.26.pod:193
 msgid "xz"
-msgstr ""
+msgstr "xz"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:175
@@ -12412,17 +12436,17 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:179
 msgid "po4a"
-msgstr ""
+msgstr "po4a"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:184
 msgid "hivex E<ge> 1.2.7"
-msgstr ""
+msgstr "hivex E<ge> 1.2.7"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:186
 msgid "ocaml-hivex"
-msgstr ""
+msgstr "ocaml-hivex"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:188
@@ -12430,6 +12454,8 @@ msgid ""
 "I<Required>.  ocaml-hivex is the OCaml binding for hivex, which is required "
 "when building the daemon."
 msgstr ""
+"I<Required>.  ocaml-hivex son los vínculos de OCaml para hivex, el cual está "
+"requerido cunado construya el daemon."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:191
@@ -12449,12 +12475,12 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:197
 msgid "Optional.  Always use the latest possible version of libvirt."
-msgstr ""
+msgstr "Opcional.  Siempre utiliza la última versión posible de libvirt."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:199
 msgid "xmllint"
-msgstr ""
+msgstr "xmllint"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:201
@@ -12464,7 +12490,7 @@ msgstr "Opcional: Empleado solo para pruebas."
 #. type: =item
 #: ../docs/guestfs-building.pod:203
 msgid "libconfig"
-msgstr ""
+msgstr "libconfig"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:205
@@ -12478,7 +12504,7 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:208
 msgid "libselinux"
-msgstr ""
+msgstr "libselinux"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:210
@@ -12514,88 +12540,91 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:222
 msgid "readline"
-msgstr ""
+msgstr "readline"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:224
 msgid "Optional.  For nicer command line editing in L<guestfish(1)>."
-msgstr ""
+msgstr "Opcional.  Para línea de comando nicer editando en L<guestfish(1)>."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:226
 msgid "acl"
-msgstr ""
+msgstr "acl"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:228
 msgid "Optional.  Library and programs for handling POSIX ACLs."
-msgstr ""
+msgstr "Opcional:  Biblioteca y programas para manipular las ACL de POSIX."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:230
 msgid "libcap"
-msgstr ""
+msgstr "libcap"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:232
 msgid "Optional.  Library and programs for handling Linux capabilities."
 msgstr ""
+"Opcional:  biblioteca y programas para manipulación de capacidades de Linux."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:234
 msgid "libldm"
-msgstr ""
+msgstr "libldm"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:236
 msgid ""
 "Optional.  Library and L<ldmtool(1)> for handling Windows Dynamic Disks."
 msgstr ""
+"Opcional:  Biblioteca y L<ldmtool(1)> para manipular Discos Dinámicos de "
+"Windows."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:239 ../docs/guestfs-release-notes-1.24.pod:131
 msgid "sd-journal"
-msgstr ""
+msgstr "sd-journal"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:241
 msgid "Optional.  Library for accessing systemd journals."
-msgstr ""
+msgstr "Opcional.  Biblioteca para acceder a los diarios de systemd."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:243
 msgid "gdisk"
-msgstr ""
+msgstr "gdisk"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:245
 msgid "Optional.  GPT disk support."
-msgstr ""
+msgstr "Opcional.  Mantenimiento de disco GPT."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:247
 msgid "netpbm"
-msgstr ""
+msgstr "netpbm"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:249
 msgid "Optional.  Render icons from guests."
-msgstr ""
+msgstr "Opcional.  Representa iconos desde invitados."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:251
 msgid "icoutils"
-msgstr ""
+msgstr "icoutils"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:253
 msgid "Optional.  Render icons from Windows guests."
-msgstr ""
+msgstr "Opcional.  Representa iconos desde invitados de Windows."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:255
 msgid "Perl C<Expect>"
-msgstr ""
+msgstr "Perl C<Expect>"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:257
@@ -12620,7 +12649,7 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:265
 msgid "static glibc"
-msgstr ""
+msgstr "static glibc"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:267
@@ -12630,7 +12659,7 @@ msgstr "Opcional:  Empleado solo para pruebas."
 #. type: =item
 #: ../docs/guestfs-building.pod:269
 msgid "qemu-nbd"
-msgstr ""
+msgstr "qemu-nbd"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:271
@@ -12655,7 +12684,7 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:279 ../docs/guestfs-release-notes-1.24.pod:139
 msgid "curl"
-msgstr ""
+msgstr "curl"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:281
@@ -12717,12 +12746,12 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:304
 msgid "Perl C<Module::Build> E<ge> 0.19"
-msgstr ""
+msgstr "Perl C<Module::Build> E<ge> 0.19"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:306
 msgid "Perl C<Test::More>"
-msgstr ""
+msgstr "Perl C<Test::More>"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:308
@@ -12746,7 +12775,7 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:315
 msgid "Python C<unittest>"
-msgstr ""
+msgstr "Python C<unittest>"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:317
@@ -12756,22 +12785,22 @@ msgstr "Opcional. Empleado para ejecutar la suite de pruebas de Python."
 #. type: =item
 #: ../docs/guestfs-building.pod:319
 msgid "Ruby"
-msgstr ""
+msgstr "Ruby"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:321
 msgid "rake"
-msgstr ""
+msgstr "rake"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:323
 msgid "rubygem-minitest"
-msgstr ""
+msgstr "rubygem-minitest"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:325
 msgid "rubygem-rdoc"
-msgstr ""
+msgstr "rubygem-rdoc"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:327
@@ -12781,7 +12810,7 @@ msgstr "Opcional.  Utilizado para compilar los vínculos de Ruby."
 #. type: =item
 #: ../docs/guestfs-building.pod:329
 msgid "Java E<ge> 1.6"
-msgstr ""
+msgstr "Java E<ge> 1.6"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:331
@@ -12789,11 +12818,13 @@ msgid ""
 "Optional.  Java, JNI and jpackage-utils are needed for building Java "
 "bindings."
 msgstr ""
+"Opcional.  Java, JNI y jpackage-utils son necesarios para construir vínculos "
+"de Java."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:334
 msgid "GHC"
-msgstr ""
+msgstr "GHC"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:336
@@ -12803,12 +12834,12 @@ msgstr "Opcional.  Utilizado para compilar vínculos de Haskell."
 #. type: =item
 #: ../docs/guestfs-building.pod:338
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:340
 msgid "phpize"
-msgstr ""
+msgstr "phpize"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:342
@@ -12848,7 +12879,7 @@ msgstr "Opcional.  Empleado para compilar los vínculos de Vala."
 #. type: =item
 #: ../docs/guestfs-building.pod:356
 msgid "LUA"
-msgstr ""
+msgstr "LUA"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:358
@@ -12858,12 +12889,12 @@ msgstr "Opcional. Empleado para compilar los vínculos de LUA."
 #. type: =item
 #: ../docs/guestfs-building.pod:360
 msgid "Erlang E<ge> 23"
-msgstr ""
+msgstr "Erlang E<ge> 23"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:362
 msgid "ei"
-msgstr ""
+msgstr "ei"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:364
@@ -12877,7 +12908,7 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:367 ../docs/guestfs-release-notes-1.24.pod:147
 msgid "golang E<ge> 1.1.1"
-msgstr ""
+msgstr "golang E<ge> 1.1.1"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:369
@@ -12887,12 +12918,12 @@ msgstr "Opcional. Empleado para compilar los vínculos de Go."
 #. type: =item
 #: ../docs/guestfs-building.pod:371
 msgid "valgrind"
-msgstr ""
+msgstr "valgrind"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:373
 msgid "Optional.  For testing memory problems."
-msgstr ""
+msgstr "Opcional.  Para pruebas de problemas de memoria."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:375
@@ -12902,17 +12933,18 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-building.pod:377 ../docs/guestfs-building.pod:393
 msgid "Optional."
-msgstr ""
+msgstr "Opcional."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:379
 msgid "libvirt-python"
-msgstr ""
+msgstr "libvirt-python"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:381
 msgid "Optional.  For testing Python libvirt/libguestfs interactions."
 msgstr ""
+"Opcional.  Para pruebas de interacciones de libvirt/libguestfs de Python."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:383
@@ -12937,27 +12969,27 @@ msgstr ""
 #. type: =item
 #: ../docs/guestfs-building.pod:391
 msgid "Perl C<libintl>"
-msgstr ""
+msgstr "Perl C<libintl>"
 
 #. type: =item
 #: ../docs/guestfs-building.pod:395
 msgid "bash-completion"
-msgstr ""
+msgstr "bash-completion"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:397
 msgid "Optional.  For tab-completion of commands in bash."
-msgstr ""
+msgstr "Opcional.  Para completado con tabular de los comandos en bash."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:399
 msgid "libtsk"
-msgstr ""
+msgstr "libtsk"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:401
 msgid "Optional.  Library for filesystem forensics analysis."
-msgstr ""
+msgstr "Opcional.  Biblioteca para análisis forense en sistemas de archivos."
 
 #. type: =item
 #: ../docs/guestfs-building.pod:403
@@ -12968,11 +13000,12 @@ msgstr ""
 #: ../docs/guestfs-building.pod:405
 msgid "Optional.  Tool for categorizing files based on their content."
 msgstr ""
+"Opcional.  Herramienta para categorizar archivos basado en su contenido."
 
 #. type: =head1
 #: ../docs/guestfs-building.pod:409
 msgid "BUILDING FROM GIT"
-msgstr ""
+msgstr "CONSTRUIR DESDE GIT"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:411
@@ -12980,6 +13013,8 @@ msgid ""
 "You will need to install additional dependencies C<autoconf>, C<automake>, "
 "C<gettext>, OCaml findlib and po4a when building from git."
 msgstr ""
+"Necesitará instalar dependencias adicionales de C<autoconf>, C<automake>, "
+"C<gettext>, findlib de OCaml y po4a cuando construya desde git."
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:415
@@ -12996,7 +13031,7 @@ msgstr ""
 #. type: =head1
 #: ../docs/guestfs-building.pod:421
 msgid "BUILDING FROM TARBALLS"
-msgstr ""
+msgstr "CONSTRUCCIÓN DESDE TARBALLS"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:423
@@ -13006,11 +13041,16 @@ msgid ""
 "L<https://pgp.mit.edu/pks/lookup?op=vindex&search=0x91738F73E1B768A0>.  The "
 "fingerprint is C<F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0>."
 msgstr ""
+"Los tarballs (pelotas de tar) son descargadas desde L<http://"
+"download.libguestfs.org/>. Los tarballs estables están firmados con la llave "
+"GnuPG para C<rich@annexia.org>, consulte L<https://pgp.mit.edu/pks/"
+"lookup?op=vindex&search=0x91738F73E1B768A0>.  La huella dactilar es C<F777 "
+"4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0>."
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:429
 msgid "Download and unpack the tarball."
-msgstr ""
+msgstr "Descarga y desempaqueta el tarball."
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:431
@@ -13021,11 +13061,15 @@ msgid ""
 " make\n"
 "\n"
 msgstr ""
+" cd libguestfs-1.xx.yy\n"
+" ./configure\n"
+" make\n"
+"\n"
 
 #. type: =head1
 #: ../docs/guestfs-building.pod:435
 msgid "RUNNING THE TESTS"
-msgstr ""
+msgstr "EJECUTAR LOS TEST"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:437
@@ -13033,11 +13077,16 @@ msgid ""
 "B<DO NOT run the tests as root!> Libguestfs can be built and tested as non-"
 "root.  Running the tests as root could even be dangerous, don't do it."
 msgstr ""
+"B<¡NO EJECUTE los test como root!> Libguestfs puede ser construido y probado "
+"como distinto de root.  Ejecutar las pruebas como root pudo incluso ser "
+"peligroso, no lo haga."
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:441
 msgid "To sanity check that the build worked, do:"
 msgstr ""
+"Para comprobar que la construcción se realizó correctamente, haga lo "
+"siguiente:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:443
@@ -13046,11 +13095,13 @@ msgid ""
 " make quickcheck\n"
 "\n"
 msgstr ""
+" make quickcheck\n"
+"\n"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:445
 msgid "To run the basic tests, do:"
-msgstr ""
+msgstr "Para ejecutar las pruebas básicas, haga:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:447
@@ -13059,6 +13110,8 @@ msgid ""
 " make check\n"
 "\n"
 msgstr ""
+" make check\n"
+"\n"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:449
@@ -13066,11 +13119,13 @@ msgid ""
 "There are many more tests you can run.  See L<guestfs-hacking(1)> for "
 "details."
 msgstr ""
+"Hay muchas más pruebas que puede ejecutar.  Consulte L<guestfs-hacking(1)> "
+"para detalles."
 
 #. type: =head1
 #: ../docs/guestfs-building.pod:452
 msgid "INSTALLING"
-msgstr ""
+msgstr "INSTALACIÓN"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:454
@@ -13079,11 +13134,15 @@ msgid ""
 "libguestfs installed, and this causes constant headaches for users.  See the "
 "next section for how to use the F<./run> script instead."
 msgstr ""
+"B<¡NO utilice C<make install>!> Acabarás con versiones conflictivas de "
+"libguestfs instaladas, lo que provoca constantes problemas a los usuarios.  "
+"Consulta la siguiente sección para saber como usar el script F<./run> en su "
+"lugar."
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:458
 msgid "Distro packagers can use:"
-msgstr ""
+msgstr "Los empaquetadores de distribuciones pueden usar:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:460
@@ -13092,11 +13151,13 @@ msgid ""
 " make INSTALLDIRS=vendor DESTDIR=[temp-build-dir] install\n"
 "\n"
 msgstr ""
+" make INSTALLDIRS=vendor DESTDIR=[temp-build-dir] install\n"
+"\n"
 
 #. type: =head1
 #: ../docs/guestfs-building.pod:462
 msgid "THE ./run SCRIPT"
-msgstr ""
+msgstr "EL SCRIPT ./run"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:464
@@ -13105,6 +13166,9 @@ msgid ""
 "needing to install them by using the F<./run> script in the top directory.  "
 "This script works by setting several environment variables."
 msgstr ""
+"Puede ejecutar L<guestfish(1)>, L<guestmount(1)> y las herramientas virt sin "
+"necesidad de instalarlas utilizando el script F<./run> en la cima del "
+"directorio.  Este script funciona estableciendo varias variables del entorno."
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:471
@@ -13113,6 +13177,8 @@ msgid ""
 " ./run guestfish [usual guestfish args ...]\n"
 "\n"
 msgstr ""
+" ./run guestfish [usual guestfish args ...]\n"
+"\n"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:473
@@ -13121,6 +13187,8 @@ msgid ""
 " ./run virt-inspector [usual virt-inspector args ...]\n"
 "\n"
 msgstr ""
+" ./run virt-inspector [usual virt-inspector args ...]\n"
+"\n"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:475
@@ -13129,6 +13197,10 @@ msgid ""
 "above examples run guestfish and virt-inspector from the build directory "
 "(not the globally installed guestfish if there is one)."
 msgstr ""
+"El script F<./run> agrega cada binario de libguestfs a C<$PATH>, por lo que "
+"los ejemplos anteriores ejecutan guestfish y virt-inspector desde el "
+"directorio de compilación (no desde el guestfish instalado globalmente si "
+"existe)."
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:479
@@ -13136,6 +13208,9 @@ msgid ""
 "You can use the script from any directory.  If you wanted to run your own "
 "libguestfs-using program, then the following command will also work:"
 msgstr ""
+"Puede utilizar el script desde cualquier directorio.  Si deseaba ejecutar su "
+"propio programa libguestfs-using, entonces el comando siguiente además "
+"funcionará:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:483
@@ -13144,11 +13219,13 @@ msgid ""
 " /path/to/libguestfs/run ./my_program [...]\n"
 "\n"
 msgstr ""
+" /ruta/a/libguestfs/run ./mi_programa [...]\n"
+"\n"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:485
 msgid "You can also run the C programs under valgrind like this:"
-msgstr ""
+msgstr "Además puede ejecutar los programas de C bajo valgrind como este:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:487
@@ -13157,11 +13234,13 @@ msgid ""
 " ./run valgrind [valgrind opts...] virt-cat [virt-cat opts...]\n"
 "\n"
 msgstr ""
+" ./run valgrind [valgrind opcs...] virt-cat [virt-cat opcs...]\n"
+"\n"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:489
 msgid "or under gdb:"
-msgstr ""
+msgstr "o bajo gdb:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:491
@@ -13170,6 +13249,8 @@ msgid ""
 " ./run gdb --args virt-cat [virt-cat opts...]\n"
 "\n"
 msgstr ""
+" ./run gdb --args virt-cat [virt-cat opcs...]\n"
+"\n"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:493
@@ -13177,6 +13258,8 @@ msgid ""
 "This also works with sudo (eg. if you need root access for libvirt or to "
 "access a block device):"
 msgstr ""
+"Además esto funciona con sudo (p.ej., si necesita acceso root para libvirt o "
+"para acceder un dispositivo de bloque):"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:496
@@ -13185,11 +13268,13 @@ msgid ""
 " sudo ./run virt-cat -d LinuxGuest /etc/passwd\n"
 "\n"
 msgstr ""
+" sudo ./run virt-cat -d LinuxGuest /etc/passwd\n"
+"\n"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:498
 msgid "To set environment variables, you can either do:"
-msgstr ""
+msgstr "Para establecer variables del entorno, puede o bien hacer:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:500
@@ -13198,6 +13283,8 @@ msgid ""
 " LIBGUESTFS_HV=/my/qemu ./run guestfish\n"
 "\n"
 msgstr ""
+" LIBGUESTFS_HV=/mi/qemu ./run guestfish\n"
+"\n"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:502 ../docs/guestfs-hacking.pod:512
@@ -13206,7 +13293,7 @@ msgstr ""
 #: ../docs/guestfs-testing.pod:322 ../fish/guestfish.pod:1059
 #: ../lua/examples/guestfs-lua.pod:64
 msgid "or:"
-msgstr ""
+msgstr "o:"
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:504
@@ -13215,6 +13302,8 @@ msgid ""
 " ./run env LIBGUESTFS_HV=/my/qemu guestfish\n"
 "\n"
 msgstr ""
+" ./run env LIBGUESTFS_HV=/mi/qemu guestfish\n"
+"\n"
 
 #. type: =head1
 #: ../docs/guestfs-building.pod:506
@@ -14720,12 +14809,11 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:435
-#, fuzzy
 msgid ""
 "For pre-compiled appliances, see also: L<http://libguestfs.org/download/"
 "binaries/appliance/>."
 msgstr ""
-"For pre-compiled appliances, consulte además: L<http://libguestfs.org/"
+"Para dispositivos pre‐compilados, consulte además: L<http://libguestfs.org/"
 "download/binaries/appliance/>."
 
 #. type: textblock
@@ -22463,7 +22551,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes-1.6.pod:11
 #: ../docs/guestfs-release-notes-1.8.pod:11
 msgid "New features"
-msgstr ""
+msgstr "Características nuevas"
 
 #. type: verbatim
 #: ../docs/guestfs-release-notes-1.10.pod:13
@@ -26890,7 +26978,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes-1.40.pod:154
 #: ../docs/guestfs-release-notes-1.42.pod:146
 msgid "Build changes"
-msgstr ""
+msgstr "Cambios de construcción"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.24.pod:118
@@ -36947,12 +37035,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:274
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1598715>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1598715>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:276
@@ -36962,12 +37046,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:278
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1598350>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1598350>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:280
@@ -36976,12 +37056,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:282
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1596851>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1596851>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:284
@@ -36990,12 +37066,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:286
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1596810>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1596810>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:288
@@ -37016,12 +37088,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:294
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1592061>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1592061>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:296
@@ -37032,12 +37100,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:298
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1591789>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1591789>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:300
@@ -37046,12 +37110,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:302
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1590220>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1590220>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:304
@@ -37090,12 +37150,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:318
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1580309>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1580309>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:320
@@ -37117,12 +37173,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:326
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1579047>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1579047>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:328
@@ -37132,12 +37184,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:330
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1575640>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1575640>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:332
@@ -37169,12 +37217,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:342
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1564983>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1564983>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:344
@@ -37195,12 +37239,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:350
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1559027>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1559027>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:352
@@ -37209,12 +37249,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:354
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1557273>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1557273>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:356
@@ -37622,12 +37658,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:206
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1746699>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1746699>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:208
@@ -37638,12 +37670,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:210
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1733168>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1733168>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:212
@@ -37652,12 +37680,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:214
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1723305>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1723305>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:216
@@ -37680,12 +37704,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:222
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1703463>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1703463>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:224
@@ -37706,12 +37726,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:230
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1691659>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1691659>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:232
@@ -37722,12 +37738,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:234
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1690574>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1690574>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:236
@@ -37738,12 +37750,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:238
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1680361>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1680361>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:240
@@ -37766,12 +37774,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:246
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1626503>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1626503>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:248
@@ -37780,12 +37784,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:250
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1612653>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1612653>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:252
@@ -37796,12 +37796,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:254
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1605242>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1605242>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:256
@@ -37810,12 +37806,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:258
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1584678>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1584678>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:260
@@ -37826,12 +37818,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:262
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1518539>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1518539>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:264
@@ -37840,12 +37828,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:266
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid "L<https://bugzilla.redhat.com/1351000>"
-msgstr ""
-"Para más detalle vea L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
+msgstr "L<https://bugzilla.redhat.com/1351000>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:268
@@ -40385,12 +40369,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../docs/internal-documentation.pod:75
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_part_to_partnum (guestfs_h *g,\n"
-#| "                          const char *partition);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " char *\n"
 " guestfs_int_appliance_command_line (guestfs_h *g,\n"
@@ -40398,9 +40377,10 @@ msgid ""
 " \t\t\t\t    int flags)\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_part_to_partnum (guestfs_h *g,\n"
-"                          const char *partition);\n"
+" char *\n"
+" guestfs_int_appliance_command_line (guestfs_h *g,\n"
+"                                     const char *appliance,\n"
+" \t\t\t\t    int flags)\n"
 "\n"
 
 #. type: textblock
@@ -40468,14 +40448,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../docs/internal-documentation.pod:112
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_copy_file_to_file (guestfs_h *g,\n"
-#| "                            const char *src,\n"
-#| "                            const char *dest,\n"
-#| "                            ...);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_int_get_uefi (guestfs_h *g, char *const *firmwares,\n"
@@ -40484,10 +40457,9 @@ msgid ""
 "\n"
 msgstr ""
 " int\n"
-" guestfs_copy_file_to_file (guestfs_h *g,\n"
-"                            const char *src,\n"
-"                            const char *dest,\n"
-"                            ...);\n"
+" guestfs_int_get_uefi (guestfs_h *g, char *const *firmwares,\n"
+"                       const char **firmware, char **code, char **vars,\n"
+"                       int *flags)\n"
 "\n"
 
 #. type: textblock
@@ -50304,7 +50276,7 @@ msgid ""
 " {ok, G} = guestfs:create(\"/path/to/erl-guestfs\").\n"
 "\n"
 msgstr ""
-" {ok, G} = guestfs:create(\"/path/to/erl-guestfs\").\n"
+" {ok, G} = guestfs:create(\"/ruta/a/erl-guestfs\").\n"
 "\n"
 
 #. type: textblock
@@ -51407,7 +51379,7 @@ msgstr "Consulte además: L<guestfs(3)/SSH>."
 #. type: =item
 #: ../fish/guestfish-actions.pod:364 ../lib/guestfs-actions.pod:463
 msgid "C<server>"
-msgstr ""
+msgstr "El C<servidor>"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:366 ../lib/guestfs-actions.pod:465
@@ -74050,7 +74022,8 @@ msgstr ""
 " GUESTFISH_PID=\n"
 " eval $(\"${guestfish[@]}\")\n"
 " if [ -z \"$GUESTFISH_PID\" ]; then\n"
-"     echo \"error: guestfish didn't start up, see error messages above\"\n"
+"     echo \"error: guestfish no arrancado, consulte mensajes de error "
+"arriba\"\n"
 "     exit 1\n"
 " fi\n"
 " \n"
@@ -76286,7 +76259,7 @@ msgstr ""
 #: ../fuse/guestmount.pod:70 ../rescue/virt-rescue.pod:66
 #: ../resize/virt-resize.pod:695
 msgid "NOTES"
-msgstr ""
+msgstr "NOTAS"
 
 #. type: =head2
 #: ../fuse/guestmount.pod:72
@@ -88584,36 +88557,27 @@ msgstr ""
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:9339
-#, fuzzy
-#| msgid "guestfs_set_smp"
 msgid "guestfs_luks_uuid"
-msgstr "guestfs_set_smp"
+msgstr "guestfs_luks_uuid"
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:9341
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_set_path (guestfs_h *g,\n"
-#| "                   const char *searchpath);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " char *\n"
 " guestfs_luks_uuid (guestfs_h *g,\n"
 "                    const char *device);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_set_path (guestfs_h *g,\n"
-"                   const char *searchpath);\n"
+" char *\n"
+" guestfs_luks_uuid (guestfs_h *g,\n"
+"                    const char *device);\n"
 "\n"
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:9353
-#, fuzzy
-#| msgid "(Added in 1.13.15)"
 msgid "(Added in 1.41.9)"
-msgstr "(Agregado en 1.13.15)"
+msgstr "(Agregado en 1.41.9)"
 
 #. type: =head2
 #: ../lib/guestfs-actions.pod:9355
@@ -98918,8 +98882,8 @@ msgid ""
 "Use L</guestfs_copy_file_to_device>, L</guestfs_copy_device_to_file>, or L</"
 "guestfs_copy_device_to_device>."
 msgstr ""
-"Use L</guestfs_copy_file_to_device>, L</guestfs_copy_device_to_file> o "
-"</guestfs_copy_device_to_device>."
+"Use L</guestfs_copy_file_to_device>, L</guestfs_copy_device_to_file> o L</"
+"guestfs_copy_device_to_device>."
 
 #. type: textblock
 #: ../lib/guestfs.pod:364
@@ -98974,7 +98938,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs.pod:382
 msgid "Use L</guestfs_upload>.  See L</UPLOADING> above."
-msgstr "Use L</guestfs_upload>.  Vea L</SUBIENDO> arriba."
+msgstr "Emplee L</guestfs_upload>.  Consulte L</SUBIENDO> arriba."
 
 #. type: =item
 #: ../lib/guestfs.pod:384
@@ -98984,7 +98948,7 @@ msgstr ""
 #. type: textblock
 #: ../lib/guestfs.pod:386
 msgid "Use L</guestfs_download>.  See L</DOWNLOADING> above."
-msgstr "Use L</guestfs_download>.  VEA L</DESCARGANDO> arriba."
+msgstr "Emplee L</guestfs_download>.  Consulte L</DESCARGANDO> arriba."
 
 #. type: =head2
 #: ../lib/guestfs.pod:390
