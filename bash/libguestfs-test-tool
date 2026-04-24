@@ -40,12 +40,6 @@ _guestfs_options_only ()
     esac
 }
 
-_virt_win_reg ()
-{
-    _guestfs_options_only "virt-win-reg"
-} &&
-complete -o default -F _virt_win_reg virt-win-reg
-
 _libguestfs-test-tool ()
 {
     _guestfs_options_only "libguestfs-test-tool"
