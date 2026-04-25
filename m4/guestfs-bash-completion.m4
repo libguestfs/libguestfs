@@ -16,14 +16,31 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 dnl Bash completion.
-PKG_CHECK_MODULES([BASH_COMPLETION], [bash-completion >= 2.0], [
-    bash_completion=yes
-    AC_MSG_CHECKING([for bash-completions directory])
-    BASH_COMPLETIONS_DIR="`pkg-config --variable=completionsdir bash-completion`"
-    AC_MSG_RESULT([$BASH_COMPLETIONS_DIR])
-    AC_SUBST([BASH_COMPLETIONS_DIR])
-],[
-    bash_completion=no
-    AC_MSG_WARN([bash-completion not installed])
+AC_ARG_WITH([bash-completion],
+  [AS_HELP_STRING([--with-bash-completion],[Enable bash completions @<:@default=auto@:>@])],
+  [with_bash_completion="$withval"],
+  [with_bash_completion=auto])
+
+AS_IF([test "x$with_bash_completion" = "xauto"], [
+       PKG_CHECK_MODULES([BASH_COMPLETION], [bash-completion >= 2.0],
+       [], [
+         AC_MSG_WARN([bash-completion not installed])
+       BASH_COMPLETION=no
+])],[BASH_COMPLETION=$with_bash_completion])
+AM_CONDITIONAL([HAVE_BASH_COMPLETION],[test "x$BASH_COMPLETION" != "xno"])
+
+AC_ARG_WITH([bash-completion-dir],
+  [AS_HELP_STRING([--with-bash-completion-dir],[Directory to install bash completions @<:@default=auto@:>@])],
+  [with_bash_completion_dir="$withval"],
+  [with_bash_completion_dir=auto])
+
+AS_IF([test "x$BASH_COMPLETION" != "xno"], [
+  AC_MSG_CHECKING([for bash-completions directory])
+  AS_IF([test "x$with_bash_completion_dir" = "xauto" || test "x$with_bash_completion_dir" = "xyes"], [
+    PKG_CHECK_VAR([BASH_COMPLETIONS_DIR], [bash-completion], [completionsdir], [], [
+      BASH_COMPLETIONS_DIR="${datadir}/bash-completion/completions"])
+  ],
+  [BASH_COMPLETIONS_DIR=$with_bash_completion_dir])
+  AC_MSG_RESULT([$BASH_COMPLETIONS_DIR])
+  AC_SUBST([BASH_COMPLETIONS_DIR])
 ])
-AM_CONDITIONAL([HAVE_BASH_COMPLETION],[test "x$bash_completion" = "xyes"])

@@ -324,6 +324,8 @@ feature "Erlang bindings"       test "x$HAVE_ERLANG_TRUE" = "x"
 feature "Lua bindings"          test "x$HAVE_LUA_TRUE" = "x"
 feature "Go bindings"           test "x$HAVE_GOLANG_TRUE" = "x"
 feature "bash completion"       test "x$HAVE_BASH_COMPLETION_TRUE" = "x"
+AS_IF([test "x$HAVE_BASH_COMPLETION_TRUE" = "x"],
+[print   "Bash completions dir"  "$BASH_COMPLETIONS_DIR"])
 feature "Rust bindings"         test "x$HAVE_RUST_TRUE" = "x"
 
 echo
