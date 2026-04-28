@@ -39,8 +39,7 @@ read_error_file (char *error_file)
   size_t len;
   char *str;
 
-  str = read_whole_file (error_file, &len);
-  if (str == NULL) {
+  if (read_whole_file (error_file, &str, &len) == -1) {
     str = strdup ("(no error)");
     if (str == NULL)
       error (EXIT_FAILURE, errno, "strdup"); /* XXX */
