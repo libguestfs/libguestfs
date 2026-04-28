@@ -5537,6 +5537,7 @@ group scan.|} };
   { defaults with
     name = "luks_format"; added = (1, 5, 2);
     style = RErr, [String (Device, "device"); String (Key, "key"); Int "keyslot"], [];
+    impl = OCaml "Luks.luks_format";
     optional = Some "luks";
     shortdesc = "format a block device as a LUKS encrypted device";
     longdesc = "\
@@ -5548,6 +5549,7 @@ supports 8 key slots, numbered 0-7)." };
   { defaults with
     name = "luks_format_cipher"; added = (1, 5, 2);
     style = RErr, [String (Device, "device"); String (Key, "key"); Int "keyslot"; String (PlainString, "cipher")], [];
+    impl = OCaml "Luks.luks_format_cipher";
     optional = Some "luks";
     shortdesc = "format a block device as a LUKS encrypted device";
     longdesc = "\
@@ -5557,6 +5559,7 @@ it also allows you to set the C<cipher> used." };
   { defaults with
     name = "luks_add_key"; added = (1, 5, 2);
     style = RErr, [String (Device, "device"); String (Key, "key"); String (Key, "newkey"); Int "keyslot"], [];
+    impl = OCaml "Luks.luks_add_key";
     optional = Some "luks";
     shortdesc = "add a key on a LUKS encrypted device";
     longdesc = {|This command adds a new key on LUKS device C<device>.
@@ -5571,6 +5574,7 @@ first to remove that key.|} };
   { defaults with
     name = "luks_kill_slot"; added = (1, 5, 2);
     style = RErr, [String (Device, "device"); String (Key, "key"); Int "keyslot"], [];
+    impl = OCaml "Luks.luks_kill_slot";
     optional = Some "luks";
     shortdesc = "remove a key from a LUKS encrypted device";
     longdesc = "\
