@@ -129,6 +129,9 @@ val write_key_to_tmp_file : string -> string
 (** Write a Key parameter to a temporary file.  Returns the name of
     the temporary file.
 
+    This handles the special "base64:..." or "text:..." prefixes
+    introduced in libguestfs 1.60.
+
     The caller must call {!Unix.unlink} on the file. *)
 
 (**/**)

@@ -190,6 +190,12 @@ and stringt =
       Currently the only difference from 'PlainString' is the way
       that guestfish requests these parameters from the user.
 
+      In libguestfs >= 1.60, these strings can be prefixed with
+      'base64:...' to pass in a base64 encoded string (supporting
+      arbitrary 8 bit binary).  'text:...' can be used for plain
+      passphrases, or (for backwards compat) the passphrase can be
+      unprefixed.
+
       Eventually we should treat this as sensitive and mlock it
       into physical RAM.  This is highly complex because of all
       the places that XDR-encoded strings can end up. *)
