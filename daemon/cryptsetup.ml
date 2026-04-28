@@ -49,15 +49,20 @@ let cryptsetup_open ?(readonly = false) ?crypttype ?cipher device key mapname =
   output_string chan key;
   close_out chan;
 
-  let args = ref [] in
-  List.push_back_list args ["-d"; keyfile];
-  if readonly then List.push_back args "--readonly";
-  List.push_back_list args ["open"; device; mapname; "--type"; crypttype];
-  Option.iter (fun s -> List.push_back_list args ["--cipher"; s]) cipher;
-
-  (* Make sure we always remove the temporary file. *)
-  Fun.protect (fun () -> ignore (command "cryptsetup" !args))
-    ~finally:(fun () -> unlink keyfile);
+  Fun.protect ~finally:(fun () -> unlink keyfile) (
+    fun () ->
+      let args = ref [] in
+      List.push_back args "-d";
+      List.push_back args keyfile;
+      if readonly then List.push_back args "--readonly";
+      List.push_back args "open";
+      List.push_back args device;
+      List.push_back args mapname;
+      List.push_back args "--type";
+      List.push_back args crypttype;
+      Option.iter (fun s -> List.push_back_list args ["--cipher"; s]) cipher;
+      ignore (command "cryptsetup" !args)
+  );
 
   udev_settle ()
 
