@@ -23,12 +23,6 @@ open Std_utils
 
 open Utils
 
-let write_key_to_tmp_file key =
-  let filename, chan = Filename.open_temp_file "luks" ".out" in
-  output_string chan key;
-  close_out chan;
-  filename
-
 let rec luks_format device key keyslot =
   _luks_format device key keyslot
 

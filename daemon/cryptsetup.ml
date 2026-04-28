@@ -45,9 +45,7 @@ let cryptsetup_open ?(readonly = false) ?crypttype ?cipher device key mapname =
           failwithf "%s: unknown encrypted device type" t in
 
   (* Write the key to a temporary file. *)
-  let keyfile, chan = Filename.open_temp_file "crypt" ".key" in
-  output_string chan key;
-  close_out chan;
+  let keyfile = write_key_to_tmp_file key in
 
   Fun.protect ~finally:(fun () -> unlink keyfile) (
     fun () ->

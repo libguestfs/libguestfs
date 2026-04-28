@@ -295,3 +295,9 @@ let parse_key_value_strings ?unquote lines =
 let hex_of_string s =
   let bytes = String.map_chars (fun c -> sprintf "%02x" (Char.code c)) s in
   String.concat " " bytes
+
+let write_key_to_tmp_file key =
+  let filename, chan = Filename.open_temp_file "key" ".out" in
+  output_string chan key;
+  close_out chan;
+  filename
