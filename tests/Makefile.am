@@ -450,7 +450,8 @@ EXTRA_DIST += \
 	luks/test-luks-list.sh \
 	luks/test-key-option.sh \
 	luks/test-key-option-inspect-luks-on-lvm.sh \
-	luks/test-key-option-inspect-lvm-on-luks.sh
+	luks/test-key-option-inspect-lvm-on-luks.sh \
+	luks/fedora-lv3.key
 
 TESTS += \
 	lvm/test-lvm-filtering.sh \

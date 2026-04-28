@@ -234,7 +234,10 @@ EOF
     $g->luks_format ('/dev/Volume-Group/Root',              'FEDORA-Root', 0);
     $g->luks_format ('/dev/Volume-Group/Logical-Volume-1',  'FEDORA-LV1',  0);
     $g->luks_format ('/dev/Volume-Group/Logical-Volume-2',  'FEDORA-LV2',  0);
-    $g->luks_format ('/dev/Volume-Group/Logical-Volume-3',  'FEDORA-LV3',  0);
+    # This is a little different, because we use a binary passphrase.
+    # The base64 string is "FEDORA\0LV3" (containing ASCII NUL).
+    my $base64_key3 = 'base64:RkVET1JBAExWMw==';
+    $g->luks_format ('/dev/Volume-Group/Logical-Volume-3',   $base64_key3, 0);
 
     # Open the LUKS devices. This creates nodes like /dev/mapper/*-luks.
     $g->cryptsetup_open ('/dev/Volume-Group/Root',
@@ -244,7 +247,7 @@ EOF
     $g->cryptsetup_open ('/dev/Volume-Group/Logical-Volume-2',
                          'FEDORA-LV2',  'LV2-luks');
     $g->cryptsetup_open ('/dev/Volume-Group/Logical-Volume-3',
-                         'FEDORA-LV3',  'LV3-luks');
+                         $base64_key3,  'LV3-luks');
 
     # Phony root filesystem.
     $g->mkfs ('ext2', '/dev/mapper/Root-luks', blocksize => 4096, label => 'ROOT');

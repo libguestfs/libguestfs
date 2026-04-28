@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2019-2025 Red Hat Inc.
+# Copyright (C) 2019-2026 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ guestfish=(guestfish --listen --ro --inspector
 keys_by_lvname=(--key /dev/Volume-Group/Root:key:FEDORA-Root
                 --key /dev/Volume-Group/Logical-Volume-1:key:FEDORA-LV1
                 --key /dev/Volume-Group/Logical-Volume-2:key:FEDORA-LV2
-                --key /dev/Volume-Group/Logical-Volume-3:key:FEDORA-LV3)
+                --key /dev/Volume-Group/Logical-Volume-3:file:luks/fedora-lv3.key)
 
 # The variable assignment below will fail, and abort the script, if guestfish
 # refuses to start up.
@@ -96,7 +96,7 @@ GUESTFISH_PID=
 keys_by_uuid=(--key "$uuid_root":key:FEDORA-Root
               --key "$uuid_lv1":key:FEDORA-LV1
               --key "$uuid_lv2":key:FEDORA-LV2
-              --key "$uuid_lv3":key:FEDORA-LV3)
+              --key "$uuid_lv3":file:luks/fedora-lv3.key)
 fish_ref=$("${guestfish[@]}" "${keys_by_uuid[@]}")
 eval "$fish_ref"
 
@@ -113,7 +113,7 @@ keys_by_mapper_lvname=(
   --key /dev/mapper/Volume--Group-Root:key:FEDORA-Root
   --key /dev/mapper/Volume--Group-Logical--Volume--1:key:FEDORA-LV1
   --key /dev/mapper/Volume--Group-Logical--Volume--2:key:FEDORA-LV2
-  --key /dev/mapper/Volume--Group-Logical--Volume--3:key:FEDORA-LV3
+  --key /dev/mapper/Volume--Group-Logical--Volume--3:file:luks/fedora-lv3.key
 )
 fish_ref=$("${guestfish[@]}" "${keys_by_mapper_lvname[@]}")
 eval "$fish_ref"
@@ -130,7 +130,7 @@ keys_by_mapper_lvname=(
   --key all:key:FEDORA-Root
   --key all:key:FEDORA-LV1
   --key all:key:FEDORA-LV2
-  --key all:key:FEDORA-LV3
+  --key all:file:luks/fedora-lv3.key
 )
 fish_ref=$("${guestfish[@]}" "${keys_by_mapper_lvname[@]}")
 eval "$fish_ref"
