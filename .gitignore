@@ -95,6 +95,7 @@ Makefile.in
 /daemon/ldm.mli
 /daemon/link.mli
 /daemon/listfs.mli
+/daemon/luks.mli
 /daemon/lvm.mli
 /daemon/lvm_dm.mli
 /daemon/lvm_full.mli

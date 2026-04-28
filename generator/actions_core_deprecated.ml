@@ -843,7 +843,7 @@ physical volumes, volume groups and logical volumes." };
   { defaults with
     name = "luks_open"; added = (1, 5, 1);
     style = RErr, [String (Device, "device"); String (Key, "key"); String (PlainString, "mapname")], [];
-    impl = OCaml "Cryptsetup.luks_open";
+    impl = OCaml "Luks.luks_open";
     optional = Some "luks";
     deprecated_by = Replaced_by "cryptsetup_open";
     shortdesc = "open a LUKS-encrypted block device";
@@ -869,7 +869,7 @@ devices.|} };
   { defaults with
     name = "luks_open_ro"; added = (1, 5, 1);
     style = RErr, [String (Device, "device"); String (Key, "key"); String (PlainString, "mapname")], [];
-    impl = OCaml "Cryptsetup.luks_open_ro";
+    impl = OCaml "Luks.luks_open_ro";
     optional = Some "luks";
     deprecated_by = Replaced_by "cryptsetup_open";
     shortdesc = "open a LUKS-encrypted block device read-only";
@@ -880,7 +880,7 @@ mapping is created." };
   { defaults with
     name = "luks_close"; added = (1, 5, 1);
     style = RErr, [String (Device, "device")], [];
-    impl = OCaml "Cryptsetup.luks_close";
+    impl = OCaml "Luks.luks_close";
     optional = Some "luks";
     deprecated_by = Replaced_by "cryptsetup_close";
     shortdesc = "close a LUKS device";

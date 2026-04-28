@@ -49,6 +49,7 @@ generator_built = \
 	ldm.mli \
 	link.mli \
 	listfs.mli \
+	luks.mli \
 	lvm.mli \
 	lvm_dm.mli \
 	lvm_full.mli \
@@ -296,6 +297,7 @@ SOURCES_MLI = \
 	ldm.mli \
 	link.mli \
 	listfs.mli \
+	luks.mli \
 	lvm.mli \
 	lvm_dm.mli \
 	lvm_full.mli \
@@ -327,6 +329,7 @@ SOURCES_ML = \
 	blkid.ml \
 	btrfs.ml \
 	cryptsetup.ml \
+	luks.ml \
 	devsparts.ml \
 	file_helper.ml \
 	file.ml \
