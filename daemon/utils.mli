@@ -125,5 +125,11 @@ val hex_of_string : string -> string
 (** Return a string as a list of hex bytes.
     Use this for debugging msgs only. *)
 
+val write_key_to_tmp_file : string -> string
+(** Write a Key parameter to a temporary file.  Returns the name of
+    the temporary file.
+
+    The caller must call {!Unix.unlink} on the file. *)
+
 (**/**)
 val get_verbose_flag : unit -> bool
