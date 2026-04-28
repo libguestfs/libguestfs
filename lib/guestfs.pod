@@ -1218,6 +1218,29 @@ representation.  Also consider how it might work in guestfish.
 Certain libguestfs calls take a parameter that contains sensitive key
 material, passed in as a C string.
 
+In libguestfs E<ge> 1.60 you can pass in 8 bit binary key data
+(allowing C<'\n'> or C<'\0'>) by prefixing the string with:
+
+=over 4
+
+=item C<base64:...>
+
+Pass in base64-encoded key data.  This supports 8 bit binary key
+data.
+
+=item C<text:...>
+
+Pass in regular text passphrase.  This does not support 8 bit binary
+key data.
+
+=item Unprefixed
+
+For backwards compatibility with libguestfs E<le> 1.58, a text
+passphrase can be passed in unprefixed.  However this does not support
+8 bit binary key data.
+
+=back
+
 In the future we would hope to change the libguestfs implementation so
 that keys are L<mlock(2)>-ed into physical RAM, and thus can never end
 up in swap.  However this is I<not> done at the moment, because of the

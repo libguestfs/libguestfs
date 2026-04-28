@@ -296,8 +296,29 @@ let hex_of_string s =
   let bytes = String.map_chars (fun c -> sprintf "%02x" (Char.code c)) s in
   String.concat " " bytes
 
-let write_key_to_tmp_file key =
+let rec write_key_to_tmp_file key =
+  (* If the key starts with a prefix then it may need decoding. *)
+  let len = String.length key in
+  if String.starts_with "base64:" key then
+    _decode_base64_key (String.sub key 7 (len-7))
+  else if String.starts_with "text:" key then
+    _write_key (String.sub key 5 (len-5))
+  else
+    _write_key key
+
+and _write_key key =
   let filename, chan = Filename.open_temp_file "key" ".out" in
   output_string chan key;
   close_out chan;
   filename
+
+and _decode_base64_key b64 =
+  let b64file, chan = Filename.open_temp_file "key" ".b64" in
+  output_string chan b64;
+  close_out chan;
+  let keyfile = Filename.temp_file "key" ".out" in
+  let cmd = sprintf "base64 -d < %s > %s" (quote b64file) (quote keyfile) in
+  if Sys.command cmd <> 0 then
+    failwithf "could not decode base64-encoded key";
+  unlink b64file;
+  keyfile
