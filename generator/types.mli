@@ -185,12 +185,14 @@ and stringt =
       stdin or write to stdout. *)
 
   | Key
-  (** Key material / passphrase.  Eventually we should treat this
-      as sensitive and mlock it into physical RAM.  However this
-      is highly complex because of all the places that XDR-encoded
-      strings can end up.  So currently the only difference from
-      'PlainString' is the way that guestfish requests these
-      parameters from the user. *)
+  (** Key material / passphrase.
+
+      Currently the only difference from 'PlainString' is the way
+      that guestfish requests these parameters from the user.
+
+      Eventually we should treat this as sensitive and mlock it
+      into physical RAM.  This is highly complex because of all
+      the places that XDR-encoded strings can end up. *)
 
   | GUID
   (** A GUID string.
