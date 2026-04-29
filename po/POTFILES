@@ -25,6 +25,7 @@ common/utils/libxml2-cleanups.c
 common/utils/pcre2-cleanups.c
 common/utils/stringlists-utils.c
 common/utils/utils.c
+common/utils/whole-file.c
 common/visit/visit.c
 common/windows/windows.c
 daemon/9p.c
