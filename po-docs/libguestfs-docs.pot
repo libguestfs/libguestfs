@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.59.7\n"
+"Project-Id-Version: libguestfs 1.59.8\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2026-04-29 09:58+0100\n"
+"POT-Creation-Date: 2026-05-05 18:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,12 +128,12 @@ msgstr ""
 #: appliance/libguestfs-make-fixed-appliance.pod:73
 #: common/mlcustomize/customize-options.pod:73
 #: common/mlcustomize/customize-options.pod:78
-#: common/mlcustomize/customize-options.pod:381
-#: common/mlcustomize/customize-options.pod:385
+#: common/mlcustomize/customize-options.pod:375
+#: common/mlcustomize/customize-options.pod:379
 #: common/mlcustomize/v2v-customize-options.pod:73
 #: common/mlcustomize/v2v-customize-options.pod:78
-#: common/mlcustomize/v2v-customize-options.pod:327
-#: common/mlcustomize/v2v-customize-options.pod:331
+#: common/mlcustomize/v2v-customize-options.pod:321
+#: common/mlcustomize/v2v-customize-options.pod:325
 #: docs/guestfs-building.pod:13 docs/guestfs-building.pod:17
 #: docs/guestfs-building.pod:21 docs/guestfs-building.pod:25
 #: docs/guestfs-building.pod:697 docs/guestfs-building.pod:702
@@ -156,12 +156,12 @@ msgstr ""
 #: docs/guestfs-hacking.pod:995 docs/guestfs-performance.pod:111
 #: docs/guestfs-performance.pod:117 docs/guestfs-performance.pod:122
 #: docs/guestfs-performance.pod:249 docs/guestfs-performance.pod:254
-#: docs/guestfs-performance.pod:259 docs/guestfs-recipes.pod:280
-#: docs/guestfs-recipes.pod:284 docs/guestfs-recipes.pod:288
-#: docs/guestfs-recipes.pod:314 docs/guestfs-recipes.pod:319
-#: docs/guestfs-recipes.pod:426 docs/guestfs-recipes.pod:430
-#: docs/guestfs-recipes.pod:434 docs/guestfs-recipes.pod:438
-#: docs/guestfs-recipes.pod:442 docs/guestfs-release-notes-1.20.pod:20
+#: docs/guestfs-performance.pod:259 docs/guestfs-recipes.pod:278
+#: docs/guestfs-recipes.pod:282 docs/guestfs-recipes.pod:286
+#: docs/guestfs-recipes.pod:312 docs/guestfs-recipes.pod:317
+#: docs/guestfs-recipes.pod:424 docs/guestfs-recipes.pod:428
+#: docs/guestfs-recipes.pod:432 docs/guestfs-recipes.pod:436
+#: docs/guestfs-recipes.pod:440 docs/guestfs-release-notes-1.20.pod:20
 #: docs/guestfs-release-notes-1.20.pod:24
 #: docs/guestfs-release-notes-1.20.pod:28
 #: docs/guestfs-release-notes-1.20.pod:90
@@ -240,10 +240,10 @@ msgstr ""
 #: docs/internal-documentation.pod:2884 docs/internal-documentation.pod:2889
 #: docs/internal-documentation.pod:2896 docs/internal-documentation.pod:3076
 #: docs/internal-documentation.pod:3081 docs/internal-documentation.pod:3197
-#: docs/internal-documentation.pod:3201 docs/internal-documentation.pod:3434
-#: docs/internal-documentation.pod:3438 docs/internal-documentation.pod:3442
-#: docs/internal-documentation.pod:3447 docs/internal-documentation.pod:4068
-#: docs/internal-documentation.pod:4073 fish/guestfish-actions.pod:760
+#: docs/internal-documentation.pod:3201 docs/internal-documentation.pod:3459
+#: docs/internal-documentation.pod:3463 docs/internal-documentation.pod:3467
+#: docs/internal-documentation.pod:3472 docs/internal-documentation.pod:4093
+#: docs/internal-documentation.pod:4098 fish/guestfish-actions.pod:760
 #: fish/guestfish-actions.pod:766 fish/guestfish-actions.pod:774
 #: fish/guestfish-actions.pod:781 fish/guestfish-actions.pod:788
 #: fish/guestfish-actions.pod:2688 fish/guestfish-actions.pod:2692
@@ -546,7 +546,7 @@ msgstr ""
 #: appliance/libguestfs-make-fixed-appliance.pod:140 daemon/guestfsd.pod:143
 #: docs/guestfs-building.pod:718 docs/guestfs-faq.pod:1410
 #: docs/guestfs-hacking.pod:1015 docs/guestfs-internals.pod:400
-#: docs/guestfs-performance.pod:500 docs/guestfs-recipes.pod:719
+#: docs/guestfs-performance.pod:500 docs/guestfs-recipes.pod:717
 #: docs/guestfs-release-notes-1.10.pod:145
 #: docs/guestfs-release-notes-1.12.pod:136
 #: docs/guestfs-release-notes-1.14.pod:172
@@ -599,7 +599,7 @@ msgstr ""
 #: appliance/libguestfs-make-fixed-appliance.pod:148
 #: docs/guestfs-building.pod:731 docs/guestfs-faq.pod:1416
 #: docs/guestfs-hacking.pod:1028 docs/guestfs-internals.pod:409
-#: docs/guestfs-performance.pod:513 docs/guestfs-recipes.pod:734
+#: docs/guestfs-performance.pod:513 docs/guestfs-recipes.pod:732
 #: docs/guestfs-release-notes-1.42.pod:283
 #: docs/guestfs-release-notes-1.44.pod:100
 #: docs/guestfs-release-notes-1.46.pod:218
@@ -626,7 +626,7 @@ msgstr ""
 #: appliance/libguestfs-make-fixed-appliance.pod:150
 #: docs/guestfs-building.pod:733 docs/guestfs-faq.pod:1418
 #: docs/guestfs-hacking.pod:1030 docs/guestfs-internals.pod:411
-#: docs/guestfs-performance.pod:515 docs/guestfs-recipes.pod:736
+#: docs/guestfs-performance.pod:515 docs/guestfs-recipes.pod:734
 #: docs/guestfs-security.pod:447 docs/guestfs-testing.pod:404
 #: erlang/examples/guestfs-erlang.pod:112 examples/guestfs-examples.pod:71
 #: fish/guestfish.pod:1638 fish/libguestfs-tools.conf.pod:98
@@ -644,7 +644,7 @@ msgstr ""
 #: appliance/libguestfs-make-fixed-appliance.pod:152 daemon/guestfsd.pod:152
 #: docs/guestfs-building.pod:735 docs/guestfs-faq.pod:1420
 #: docs/guestfs-hacking.pod:1032 docs/guestfs-internals.pod:413
-#: docs/guestfs-performance.pod:517 docs/guestfs-recipes.pod:738
+#: docs/guestfs-performance.pod:517 docs/guestfs-recipes.pod:736
 #: docs/guestfs-release-notes-1.10.pod:160
 #: docs/guestfs-release-notes-1.12.pod:151
 #: docs/guestfs-release-notes-1.14.pod:187
@@ -689,7 +689,7 @@ msgstr ""
 #. type: textblock
 #: appliance/libguestfs-make-fixed-appliance.pod:154 daemon/guestfsd.pod:154
 #: docs/guestfs-building.pod:737 docs/guestfs-hacking.pod:1034
-#: docs/guestfs-internals.pod:415 docs/guestfs-recipes.pod:740
+#: docs/guestfs-internals.pod:415 docs/guestfs-recipes.pod:738
 #: docs/guestfs-release-notes-1.10.pod:162
 #: docs/guestfs-release-notes-1.12.pod:153
 #: docs/guestfs-release-notes-1.14.pod:189
@@ -999,7 +999,7 @@ msgstr ""
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:84
 #: common/mlcustomize/v2v-customize-options.pod:84
-#: docs/guestfs-building.pod:408 docs/guestfs-recipes.pod:508
+#: docs/guestfs-building.pod:408 docs/guestfs-recipes.pod:506
 #: docs/internal-documentation.pod:3051 fish/guestfish.pod:238
 #: fish/guestfish.pod:699 rescue/virt-rescue.pod:166
 msgid "For example:"
@@ -1094,10 +1094,10 @@ msgstr ""
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:118
 #: common/mlcustomize/customize-options.pod:125
-#: common/mlcustomize/customize-options.pod:277
+#: common/mlcustomize/customize-options.pod:271
 #: common/mlcustomize/v2v-customize-options.pod:118
 #: common/mlcustomize/v2v-customize-options.pod:125
-#: common/mlcustomize/v2v-customize-options.pod:223
+#: common/mlcustomize/v2v-customize-options.pod:217
 #: lib/guestfs-actions.pod:3383 lib/guestfs-actions.pod:3404
 msgid "Wildcards cannot be used."
 msgstr ""
@@ -1216,9 +1216,9 @@ msgstr ""
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:161
-#: common/mlcustomize/customize-options.pod:174
+#: common/mlcustomize/customize-options.pod:171
 #: common/mlcustomize/v2v-customize-options.pod:161
-#: common/mlcustomize/v2v-customize-options.pod:174
+#: common/mlcustomize/v2v-customize-options.pod:171
 msgid ""
 "You can have multiple I<--firstboot> options.  They run in the same order "
 "that they appear on the command line."
@@ -1226,45 +1226,35 @@ msgstr ""
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:164
-#: common/mlcustomize/customize-options.pod:177
+#: common/mlcustomize/customize-options.pod:174
 #: common/mlcustomize/v2v-customize-options.pod:164
-#: common/mlcustomize/v2v-customize-options.pod:177
-msgid ""
-"Please take a look at L<virt-builder(1)/FIRST BOOT SCRIPTS> for more "
-"information and caveats about the first boot scripts."
-msgstr ""
-
-#. type: textblock
-#: common/mlcustomize/customize-options.pod:167
-#: common/mlcustomize/customize-options.pod:180
-#: common/mlcustomize/v2v-customize-options.pod:167
-#: common/mlcustomize/v2v-customize-options.pod:180
-msgid "See also I<--run>."
+#: common/mlcustomize/v2v-customize-options.pod:174
+msgid "See also: L<virt-customize(1)/FIRSTBOOT>, I<--run>."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:169
-#: common/mlcustomize/v2v-customize-options.pod:169
+#: common/mlcustomize/customize-options.pod:166
+#: common/mlcustomize/v2v-customize-options.pod:166
 msgid "B<--firstboot-command> 'CMD+ARGS'"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:171
-#: common/mlcustomize/v2v-customize-options.pod:171
+#: common/mlcustomize/customize-options.pod:168
+#: common/mlcustomize/v2v-customize-options.pod:168
 msgid ""
 "Run command (and arguments) inside the guest when the guest first boots up "
 "(as root, late in the boot process)."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:182
-#: common/mlcustomize/v2v-customize-options.pod:182
+#: common/mlcustomize/customize-options.pod:176
+#: common/mlcustomize/v2v-customize-options.pod:176
 msgid "B<--firstboot-install> PKG,PKG.."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:184
-#: common/mlcustomize/v2v-customize-options.pod:184
+#: common/mlcustomize/customize-options.pod:178
+#: common/mlcustomize/v2v-customize-options.pod:178
 msgid ""
 "Install the named packages (a comma-separated list).  These are installed "
 "when the guest first boots using the guest’s package manager (eg. apt, yum, "
@@ -1272,36 +1262,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:188
-#: common/mlcustomize/customize-options.pod:256
-#: common/mlcustomize/v2v-customize-options.pod:188
-#: common/mlcustomize/v2v-customize-options.pod:202
+#: common/mlcustomize/customize-options.pod:182
+#: common/mlcustomize/customize-options.pod:250
+#: common/mlcustomize/v2v-customize-options.pod:182
+#: common/mlcustomize/v2v-customize-options.pod:196
 msgid ""
 "For an overview on the different ways to install packages, see "
 "L<virt-builder(1)/INSTALLING PACKAGES>."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:191
-#: common/mlcustomize/v2v-customize-options.pod:191
+#: common/mlcustomize/customize-options.pod:185
+#: common/mlcustomize/v2v-customize-options.pod:185
 msgid "B<--hostname> HOSTNAME"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:193
-#: common/mlcustomize/v2v-customize-options.pod:193
+#: common/mlcustomize/customize-options.pod:187
+#: common/mlcustomize/v2v-customize-options.pod:187
 msgid ""
 "Set the hostname of the guest to C<HOSTNAME>.  You can use a dotted "
 "hostname.domainname (FQDN) if you want."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:196
+#: common/mlcustomize/customize-options.pod:190
 msgid "B<--inject-blnsvr> METHOD"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:198
+#: common/mlcustomize/customize-options.pod:192
 msgid ""
 "Inject the Balloon Server (F<blnsvr.exe>) into a Windows guest.  This "
 "operation also injects a firstboot script so that the Balloon Server is "
@@ -1309,15 +1299,15 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:202
-#: common/mlcustomize/customize-options.pod:216
+#: common/mlcustomize/customize-options.pod:196
+#: common/mlcustomize/customize-options.pod:210
 msgid "The parameter is the same as used by the I<--inject-virtio-win> operation."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:204
-#: common/mlcustomize/customize-options.pod:218
-#: common/mlcustomize/customize-options.pod:246
+#: common/mlcustomize/customize-options.pod:198
+#: common/mlcustomize/customize-options.pod:212
+#: common/mlcustomize/customize-options.pod:240
 msgid ""
 "Note that to do a full conversion of a Windows guest from a foreign "
 "hypervisor like VMware (which involves many other operations)  you should "
@@ -1325,12 +1315,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:208
+#: common/mlcustomize/customize-options.pod:202
 msgid "B<--inject-qemu-ga> METHOD"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:210
+#: common/mlcustomize/customize-options.pod:204
 msgid ""
 "Inject the QEMU Guest Agent into a Windows guest.  The guest agent "
 "communicates with qemu through a socket in order to provide enhanced "
@@ -1339,12 +1329,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:222
+#: common/mlcustomize/customize-options.pod:216
 msgid "B<--inject-virtio-win> METHOD"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:224
+#: common/mlcustomize/customize-options.pod:218
 msgid ""
 "Inject virtio-win drivers into a Windows guest.  These drivers add virtio "
 "accelerated drivers suitable when running on top of a hypervisor that "
@@ -1353,43 +1343,43 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:230
+#: common/mlcustomize/customize-options.pod:224
 msgid "The parameter can be one of:"
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:234
+#: common/mlcustomize/customize-options.pod:228
 msgid "ISO"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:236
+#: common/mlcustomize/customize-options.pod:230
 msgid ""
 "The path to the ISO image containing the virtio-win drivers "
 "(eg. F</usr/share/virtio-win/virtio-win.iso>)."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:239
+#: common/mlcustomize/customize-options.pod:233
 msgid "DIR"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:241
+#: common/mlcustomize/customize-options.pod:235
 msgid ""
 "The directory containing the unpacked virtio-win drivers "
 "(eg. F</usr/share/virtio-win>)."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:250
-#: common/mlcustomize/v2v-customize-options.pod:196
+#: common/mlcustomize/customize-options.pod:244
+#: common/mlcustomize/v2v-customize-options.pod:190
 msgid "B<--install> PKG,PKG.."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:252
-#: common/mlcustomize/v2v-customize-options.pod:198
+#: common/mlcustomize/customize-options.pod:246
+#: common/mlcustomize/v2v-customize-options.pod:192
 msgid ""
 "Install the named packages (a comma-separated list).  These are installed "
 "during the image build using the guest’s package manager (eg. apt, yum, "
@@ -1397,66 +1387,66 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:259
-#: common/mlcustomize/v2v-customize-options.pod:205
+#: common/mlcustomize/customize-options.pod:253
+#: common/mlcustomize/v2v-customize-options.pod:199
 msgid "See also I<--update>, I<--uninstall>."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:261
-#: common/mlcustomize/v2v-customize-options.pod:207
+#: common/mlcustomize/customize-options.pod:255
+#: common/mlcustomize/v2v-customize-options.pod:201
 msgid "B<--link> TARGET:LINK[:LINK..]"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:263
-#: common/mlcustomize/v2v-customize-options.pod:209
+#: common/mlcustomize/customize-options.pod:257
+#: common/mlcustomize/v2v-customize-options.pod:203
 msgid ""
 "Create symbolic link(s) in the guest, starting at C<LINK> and pointing at "
 "C<TARGET>."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:266
-#: common/mlcustomize/v2v-customize-options.pod:212
+#: common/mlcustomize/customize-options.pod:260
+#: common/mlcustomize/v2v-customize-options.pod:206
 msgid "B<--mkdir> DIR"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:268
-#: common/mlcustomize/v2v-customize-options.pod:214
+#: common/mlcustomize/customize-options.pod:262
+#: common/mlcustomize/v2v-customize-options.pod:208
 msgid "Create a directory in the guest."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:270
-#: common/mlcustomize/v2v-customize-options.pod:216
+#: common/mlcustomize/customize-options.pod:264
+#: common/mlcustomize/v2v-customize-options.pod:210
 msgid ""
 "This uses S<C<mkdir -p>> so any intermediate directories are created, and it "
 "also works if the directory already exists."
 msgstr ""
 
 #. type: =item
+#: common/mlcustomize/customize-options.pod:267
+#: common/mlcustomize/v2v-customize-options.pod:213
+msgid "B<--move> SOURCE:DEST"
+msgstr ""
+
+#. type: textblock
+#: common/mlcustomize/customize-options.pod:269
+#: common/mlcustomize/v2v-customize-options.pod:215
+msgid "Move files or directories inside the guest."
+msgstr ""
+
+#. type: =item
 #: common/mlcustomize/customize-options.pod:273
 #: common/mlcustomize/v2v-customize-options.pod:219
-msgid "B<--move> SOURCE:DEST"
+msgid "B<--no-logfile>"
 msgstr ""
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:275
 #: common/mlcustomize/v2v-customize-options.pod:221
-msgid "Move files or directories inside the guest."
-msgstr ""
-
-#. type: =item
-#: common/mlcustomize/customize-options.pod:279
-#: common/mlcustomize/v2v-customize-options.pod:225
-msgid "B<--no-logfile>"
-msgstr ""
-
-#. type: textblock
-#: common/mlcustomize/customize-options.pod:281
-#: common/mlcustomize/v2v-customize-options.pod:227
 msgid ""
 "Scrub C<builder.log> (log file from build commands) from the image after "
 "building is complete.  If you don't want to reveal precisely how the image "
@@ -1464,26 +1454,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:285
-#: common/mlcustomize/v2v-customize-options.pod:231
+#: common/mlcustomize/customize-options.pod:279
+#: common/mlcustomize/v2v-customize-options.pod:225
 msgid "See also: L</LOG FILE>."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:287
-#: common/mlcustomize/v2v-customize-options.pod:233
+#: common/mlcustomize/customize-options.pod:281
+#: common/mlcustomize/v2v-customize-options.pod:227
 msgid "B<--no-selinux-relabel>"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:289
-#: common/mlcustomize/v2v-customize-options.pod:235
+#: common/mlcustomize/customize-options.pod:283
+#: common/mlcustomize/v2v-customize-options.pod:229
 msgid "Do not attempt to correct the SELinux labels of files in the guest."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:291
-#: common/mlcustomize/v2v-customize-options.pod:237
+#: common/mlcustomize/customize-options.pod:285
+#: common/mlcustomize/v2v-customize-options.pod:231
 msgid ""
 "In such guests that support SELinux, customization automatically relabels "
 "files so that they have the correct SELinux label.  (The relabeling is "
@@ -1494,68 +1484,68 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:298
-#: common/mlcustomize/v2v-customize-options.pod:244
+#: common/mlcustomize/customize-options.pod:292
+#: common/mlcustomize/v2v-customize-options.pod:238
 msgid "The option is a no-op for guests that do not support SELinux."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:300
-#: common/mlcustomize/v2v-customize-options.pod:246
+#: common/mlcustomize/customize-options.pod:294
+#: common/mlcustomize/v2v-customize-options.pod:240
 msgid "B<--password> USER:SELECTOR"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:302
-#: common/mlcustomize/v2v-customize-options.pod:248
+#: common/mlcustomize/customize-options.pod:296
+#: common/mlcustomize/v2v-customize-options.pod:242
 msgid ""
 "Set the password for C<USER>.  (Note this option does I<not> create the user "
 "account)."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:305
-#: common/mlcustomize/customize-options.pod:334
-#: common/mlcustomize/v2v-customize-options.pod:251
-#: common/mlcustomize/v2v-customize-options.pod:280
+#: common/mlcustomize/customize-options.pod:299
+#: common/mlcustomize/customize-options.pod:328
+#: common/mlcustomize/v2v-customize-options.pod:245
+#: common/mlcustomize/v2v-customize-options.pod:274
 msgid ""
 "See L<virt-builder(1)/USERS AND PASSWORDS> for the format of the C<SELECTOR> "
 "field, and also how to set up user accounts."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:308
-#: common/mlcustomize/v2v-customize-options.pod:254
+#: common/mlcustomize/customize-options.pod:302
+#: common/mlcustomize/v2v-customize-options.pod:248
 msgid "B<--password-crypto> md5|sha256|sha512"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:310
-#: common/mlcustomize/v2v-customize-options.pod:256
+#: common/mlcustomize/customize-options.pod:304
+#: common/mlcustomize/v2v-customize-options.pod:250
 msgid ""
 "When the virt tools change or set a password in the guest, this option sets "
 "the password encryption of that password to C<md5>, C<sha256> or C<sha512>."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:314
-#: common/mlcustomize/v2v-customize-options.pod:260
+#: common/mlcustomize/customize-options.pod:308
+#: common/mlcustomize/v2v-customize-options.pod:254
 msgid ""
 "C<sha256> and C<sha512> require glibc E<ge> 2.7 (check crypt(3) inside the "
 "guest)."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:317
-#: common/mlcustomize/v2v-customize-options.pod:263
+#: common/mlcustomize/customize-options.pod:311
+#: common/mlcustomize/v2v-customize-options.pod:257
 msgid ""
 "C<md5> will work with relatively old Linux guests (eg. RHEL 3), but is not "
 "secure against modern attacks."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:320
-#: common/mlcustomize/v2v-customize-options.pod:266
+#: common/mlcustomize/customize-options.pod:314
+#: common/mlcustomize/v2v-customize-options.pod:260
 msgid ""
 "The default is C<sha512> unless libguestfs detects an old guest that didn't "
 "have support for SHA-512, in which case it will use C<md5>.  You can "
@@ -1563,8 +1553,8 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:324
-#: common/mlcustomize/v2v-customize-options.pod:270
+#: common/mlcustomize/customize-options.pod:318
+#: common/mlcustomize/v2v-customize-options.pod:264
 msgid ""
 "Note this does not change the default password encryption used by the guest "
 "when you create new user accounts inside the guest.  If you want to do that, "
@@ -1574,34 +1564,34 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:330
-#: common/mlcustomize/v2v-customize-options.pod:276
+#: common/mlcustomize/customize-options.pod:324
+#: common/mlcustomize/v2v-customize-options.pod:270
 msgid "B<--root-password> SELECTOR"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:332
-#: common/mlcustomize/v2v-customize-options.pod:278
+#: common/mlcustomize/customize-options.pod:326
+#: common/mlcustomize/v2v-customize-options.pod:272
 msgid "Set the root password."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:337
-#: common/mlcustomize/v2v-customize-options.pod:283
+#: common/mlcustomize/customize-options.pod:331
+#: common/mlcustomize/v2v-customize-options.pod:277
 msgid ""
 "Note: In virt-builder, if you I<don't> set I<--root-password> then the guest "
 "is given a I<random> root password."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:340
-#: common/mlcustomize/v2v-customize-options.pod:286
+#: common/mlcustomize/customize-options.pod:334
+#: common/mlcustomize/v2v-customize-options.pod:280
 msgid "B<--run> SCRIPT"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:342
-#: common/mlcustomize/v2v-customize-options.pod:288
+#: common/mlcustomize/customize-options.pod:336
+#: common/mlcustomize/v2v-customize-options.pod:282
 msgid ""
 "Run the shell script (or any program) called C<SCRIPT> on the disk image.  "
 "The script runs virtualized inside a small appliance, chrooted into the "
@@ -1609,16 +1599,16 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:346
-#: common/mlcustomize/v2v-customize-options.pod:292
+#: common/mlcustomize/customize-options.pod:340
+#: common/mlcustomize/v2v-customize-options.pod:286
 msgid "The script is automatically chmod +x."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:348
-#: common/mlcustomize/customize-options.pod:364
-#: common/mlcustomize/v2v-customize-options.pod:294
-#: common/mlcustomize/v2v-customize-options.pod:310
+#: common/mlcustomize/customize-options.pod:342
+#: common/mlcustomize/customize-options.pod:358
+#: common/mlcustomize/v2v-customize-options.pod:288
+#: common/mlcustomize/v2v-customize-options.pod:304
 msgid ""
 "If libguestfs supports it then a limited network connection is available but "
 "it only allows outgoing network connections.  You can also attach data disks "
@@ -1628,116 +1618,116 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:354
-#: common/mlcustomize/v2v-customize-options.pod:300
+#: common/mlcustomize/customize-options.pod:348
+#: common/mlcustomize/v2v-customize-options.pod:294
 msgid ""
 "You can have multiple I<--run> options.  They run in the same order that "
 "they appear on the command line."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:357
-#: common/mlcustomize/customize-options.pod:373
-#: common/mlcustomize/v2v-customize-options.pod:303
-#: common/mlcustomize/v2v-customize-options.pod:319
+#: common/mlcustomize/customize-options.pod:351
+#: common/mlcustomize/customize-options.pod:367
+#: common/mlcustomize/v2v-customize-options.pod:297
+#: common/mlcustomize/v2v-customize-options.pod:313
 msgid "See also: I<--firstboot>, I<--attach>, I<--upload>."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:359
-#: common/mlcustomize/v2v-customize-options.pod:305
+#: common/mlcustomize/customize-options.pod:353
+#: common/mlcustomize/v2v-customize-options.pod:299
 msgid "B<--run-command> 'CMD+ARGS'"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:361
-#: common/mlcustomize/v2v-customize-options.pod:307
+#: common/mlcustomize/customize-options.pod:355
+#: common/mlcustomize/v2v-customize-options.pod:301
 msgid ""
 "Run the command and arguments on the disk image.  The command runs "
 "virtualized inside a small appliance, chrooted into the guest filesystem."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:370
-#: common/mlcustomize/v2v-customize-options.pod:316
+#: common/mlcustomize/customize-options.pod:364
+#: common/mlcustomize/v2v-customize-options.pod:310
 msgid ""
 "You can have multiple I<--run-command> options.  They run in the same order "
 "that they appear on the command line."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:375
-#: common/mlcustomize/v2v-customize-options.pod:321
+#: common/mlcustomize/customize-options.pod:369
+#: common/mlcustomize/v2v-customize-options.pod:315
 msgid "B<--scrub> FILE"
+msgstr ""
+
+#. type: textblock
+#: common/mlcustomize/customize-options.pod:371
+#: common/mlcustomize/v2v-customize-options.pod:317
+msgid "Scrub a file from the guest.  This is like I<--delete> except that:"
 msgstr ""
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:377
 #: common/mlcustomize/v2v-customize-options.pod:323
-msgid "Scrub a file from the guest.  This is like I<--delete> except that:"
+msgid "It scrubs the data so a guest could not recover it."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:383
-#: common/mlcustomize/v2v-customize-options.pod:329
-msgid "It scrubs the data so a guest could not recover it."
+#: common/mlcustomize/customize-options.pod:381
+#: common/mlcustomize/v2v-customize-options.pod:327
+msgid "It cannot delete directories, only regular files."
+msgstr ""
+
+#. type: =item
+#: common/mlcustomize/customize-options.pod:385
+#: common/mlcustomize/v2v-customize-options.pod:331
+msgid "B<--selinux-relabel>"
 msgstr ""
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:387
 #: common/mlcustomize/v2v-customize-options.pod:333
-msgid "It cannot delete directories, only regular files."
-msgstr ""
-
-#. type: =item
-#: common/mlcustomize/customize-options.pod:391
-#: common/mlcustomize/v2v-customize-options.pod:337
-msgid "B<--selinux-relabel>"
-msgstr ""
-
-#. type: textblock
-#: common/mlcustomize/customize-options.pod:393
-#: common/mlcustomize/v2v-customize-options.pod:339
 msgid "This is a compatibility option that does nothing."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:395
-#: common/mlcustomize/v2v-customize-options.pod:341
+#: common/mlcustomize/customize-options.pod:389
+#: common/mlcustomize/v2v-customize-options.pod:335
 msgid "B<--ssh-inject> USER[:SELECTOR]"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:397
-#: common/mlcustomize/v2v-customize-options.pod:343
+#: common/mlcustomize/customize-options.pod:391
+#: common/mlcustomize/v2v-customize-options.pod:337
 msgid ""
 "Inject an ssh key so the given C<USER> will be able to log in over ssh "
 "without supplying a password.  The C<USER> must exist already in the guest."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:401
-#: common/mlcustomize/v2v-customize-options.pod:347
+#: common/mlcustomize/customize-options.pod:395
+#: common/mlcustomize/v2v-customize-options.pod:341
 msgid "See L<virt-builder(1)/SSH KEYS> for the format of the C<SELECTOR> field."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:404
-#: common/mlcustomize/v2v-customize-options.pod:350
+#: common/mlcustomize/customize-options.pod:398
+#: common/mlcustomize/v2v-customize-options.pod:344
 msgid ""
 "You can have multiple I<--ssh-inject> options, for different users and also "
 "for more keys for each user."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:407
-#: common/mlcustomize/v2v-customize-options.pod:353
+#: common/mlcustomize/customize-options.pod:401
+#: common/mlcustomize/v2v-customize-options.pod:347
 msgid "B<--tar-in> TARFILE:REMOTEDIR"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:409
-#: common/mlcustomize/v2v-customize-options.pod:355
+#: common/mlcustomize/customize-options.pod:403
+#: common/mlcustomize/v2v-customize-options.pod:349
 msgid ""
 "Copy local files or directories from a local tar file called C<TARFILE> into "
 "the disk image, placing them in the directory C<REMOTEDIR> (which must "
@@ -1746,66 +1736,66 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:415
-#: common/mlcustomize/v2v-customize-options.pod:361
+#: common/mlcustomize/customize-options.pod:409
+#: common/mlcustomize/v2v-customize-options.pod:355
 msgid "B<--timezone> TIMEZONE"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:417
-#: common/mlcustomize/v2v-customize-options.pod:363
+#: common/mlcustomize/customize-options.pod:411
+#: common/mlcustomize/v2v-customize-options.pod:357
 msgid ""
 "Set the default timezone of the guest to C<TIMEZONE>.  Use a location string "
 "like C<Europe/London>"
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:420
-#: common/mlcustomize/v2v-customize-options.pod:366
+#: common/mlcustomize/customize-options.pod:414
+#: common/mlcustomize/v2v-customize-options.pod:360
 msgid "B<--touch> FILE"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:422
-#: common/mlcustomize/v2v-customize-options.pod:368
+#: common/mlcustomize/customize-options.pod:416
+#: common/mlcustomize/v2v-customize-options.pod:362
 msgid "This command performs a L<touch(1)>-like operation on C<FILE>."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:424
-#: common/mlcustomize/v2v-customize-options.pod:370
+#: common/mlcustomize/customize-options.pod:418
+#: common/mlcustomize/v2v-customize-options.pod:364
 msgid "B<--truncate> FILE"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:426
-#: common/mlcustomize/v2v-customize-options.pod:372
+#: common/mlcustomize/customize-options.pod:420
+#: common/mlcustomize/v2v-customize-options.pod:366
 msgid ""
 "This command truncates C<FILE> to a zero-length file. The file must exist "
 "already."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:429
-#: common/mlcustomize/v2v-customize-options.pod:375
+#: common/mlcustomize/customize-options.pod:423
+#: common/mlcustomize/v2v-customize-options.pod:369
 msgid "B<--truncate-recursive> PATH"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:431
-#: common/mlcustomize/v2v-customize-options.pod:377
+#: common/mlcustomize/customize-options.pod:425
+#: common/mlcustomize/v2v-customize-options.pod:371
 msgid "This command recursively truncates all files under C<PATH> to zero-length."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:433
-#: common/mlcustomize/v2v-customize-options.pod:379
+#: common/mlcustomize/customize-options.pod:427
+#: common/mlcustomize/v2v-customize-options.pod:373
 msgid "B<--uninstall> PKG,PKG.."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:435
-#: common/mlcustomize/v2v-customize-options.pod:381
+#: common/mlcustomize/customize-options.pod:429
+#: common/mlcustomize/v2v-customize-options.pod:375
 msgid ""
 "Uninstall the named packages (a comma-separated list).  These are removed "
 "during the image build using the guest’s package manager (eg. apt, yum, "
@@ -1814,20 +1804,20 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:440
-#: common/mlcustomize/v2v-customize-options.pod:386
+#: common/mlcustomize/customize-options.pod:434
+#: common/mlcustomize/v2v-customize-options.pod:380
 msgid "See also I<--install>, I<--update>."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:442
-#: common/mlcustomize/v2v-customize-options.pod:388
+#: common/mlcustomize/customize-options.pod:436
+#: common/mlcustomize/v2v-customize-options.pod:382
 msgid "B<--update>"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:444
-#: common/mlcustomize/v2v-customize-options.pod:390
+#: common/mlcustomize/customize-options.pod:438
+#: common/mlcustomize/v2v-customize-options.pod:384
 msgid ""
 "Do the equivalent of C<yum update>, C<apt-get upgrade>, or whatever command "
 "is required to update the packages already installed in the template to "
@@ -1835,20 +1825,20 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:448
-#: common/mlcustomize/v2v-customize-options.pod:394
+#: common/mlcustomize/customize-options.pod:442
+#: common/mlcustomize/v2v-customize-options.pod:388
 msgid "See also I<--install>, I<--uninstall>."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:450
-#: common/mlcustomize/v2v-customize-options.pod:396
+#: common/mlcustomize/customize-options.pod:444
+#: common/mlcustomize/v2v-customize-options.pod:390
 msgid "B<--upload> FILE:DEST"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:452
-#: common/mlcustomize/v2v-customize-options.pod:398
+#: common/mlcustomize/customize-options.pod:446
+#: common/mlcustomize/v2v-customize-options.pod:392
 msgid ""
 "Upload local file C<FILE> to destination C<DEST> in the disk image.  File "
 "owner and permissions from the original are preserved, so you should set "
@@ -1856,16 +1846,16 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:456
-#: common/mlcustomize/v2v-customize-options.pod:402
+#: common/mlcustomize/customize-options.pod:450
+#: common/mlcustomize/v2v-customize-options.pod:396
 msgid ""
 "C<DEST> could be the final filename.  This can be used to rename the file on "
 "upload."
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:459
-#: common/mlcustomize/v2v-customize-options.pod:405
+#: common/mlcustomize/customize-options.pod:453
+#: common/mlcustomize/v2v-customize-options.pod:399
 msgid ""
 "If C<DEST> is a directory name (which must already exist in the guest)  then "
 "the file is uploaded into that directory, and it keeps the same name as on "
@@ -1873,20 +1863,20 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:463
-#: common/mlcustomize/v2v-customize-options.pod:409
+#: common/mlcustomize/customize-options.pod:457
+#: common/mlcustomize/v2v-customize-options.pod:403
 msgid "See also: I<--mkdir>, I<--delete>, I<--scrub>."
 msgstr ""
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:465
-#: common/mlcustomize/v2v-customize-options.pod:411
+#: common/mlcustomize/customize-options.pod:459
+#: common/mlcustomize/v2v-customize-options.pod:405
 msgid "B<--write> FILE:CONTENT"
 msgstr ""
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:467
-#: common/mlcustomize/v2v-customize-options.pod:413
+#: common/mlcustomize/customize-options.pod:461
+#: common/mlcustomize/v2v-customize-options.pod:407
 msgid "Write C<CONTENT> to C<FILE>."
 msgstr ""
 
@@ -4908,7 +4898,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-faq.pod:493 docs/guestfs-faq.pod:720 docs/guestfs-faq.pod:926
 #: docs/guestfs-hacking.pod:381 docs/guestfs-performance.pod:165
-#: docs/guestfs-performance.pod:207 docs/guestfs-recipes.pod:457
+#: docs/guestfs-performance.pod:207 docs/guestfs-recipes.pod:455
 #: docs/guestfs-security.pod:177 docs/internal-documentation.pod:195
 #: docs/internal-documentation.pod:306 docs/internal-documentation.pod:1362
 #: docs/internal-documentation.pod:1488 lib/guestfs.pod:1603
@@ -4926,7 +4916,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-faq.pod:498 docs/guestfs-faq.pod:730 docs/guestfs-faq.pod:930
 #: docs/guestfs-hacking.pod:407 docs/guestfs-performance.pod:171
-#: docs/guestfs-performance.pod:214 docs/guestfs-recipes.pod:463
+#: docs/guestfs-performance.pod:214 docs/guestfs-recipes.pod:461
 #: docs/guestfs-security.pod:181 docs/internal-documentation.pod:200
 #: docs/internal-documentation.pod:313 docs/internal-documentation.pod:1367
 #: docs/internal-documentation.pod:1494 lib/guestfs.pod:1607
@@ -4944,7 +4934,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-faq.pod:504 docs/guestfs-faq.pod:735 docs/guestfs-faq.pod:934
 #: docs/guestfs-hacking.pod:419 docs/guestfs-performance.pod:220
-#: docs/guestfs-recipes.pod:469 docs/internal-documentation.pod:205
+#: docs/guestfs-recipes.pod:467 docs/internal-documentation.pod:205
 #: docs/internal-documentation.pod:323 docs/internal-documentation.pod:1372
 #: docs/internal-documentation.pod:1502 lib/guestfs.pod:1611
 #: lib/guestfs.pod:1953 rescue/virt-rescue.pod:427
@@ -10619,23 +10609,18 @@ msgid ""
 "L<virt-sysprep(1)>, L<virt-sparsify(1)> and L<virt-resize(1)>."
 msgstr ""
 
-#. type: textblock
-#: docs/guestfs-recipes.pod:71
-msgid "For more details, see: L<virt-sysprep(1)/COPYING AND CLONING>."
-msgstr ""
-
 #. type: =head1
-#: docs/guestfs-recipes.pod:73
+#: docs/guestfs-recipes.pod:71
 msgid "Convert a CD-ROM / DVD / ISO to a tarball"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:75
+#: docs/guestfs-recipes.pod:73
 msgid "This converts input F<cd.iso> to output F<cd.tar.gz>:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:77
+#: docs/guestfs-recipes.pod:75
 #, no-wrap
 msgid ""
 " guestfish --ro -a cd.iso -m /dev/sda tgz-out / cd.tar.gz\n"
@@ -10643,12 +10628,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:79
+#: docs/guestfs-recipes.pod:77
 msgid "To export just a subdirectory, eg. F</files>, do:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:81
+#: docs/guestfs-recipes.pod:79
 #, no-wrap
 msgid ""
 " guestfish --ro -a cd.iso -m /dev/sda tgz-out /files cd.tar.gz\n"
@@ -10656,19 +10641,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:83
+#: docs/guestfs-recipes.pod:81
 msgid "Convert from one format/filesystem to another"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:85
+#: docs/guestfs-recipes.pod:83
 msgid ""
 "If you have a data disk in one format / filesystem / partition / volume "
 "manager, you can convert it another using this technique."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:88
+#: docs/guestfs-recipes.pod:86
 msgid ""
 "In this example, we start with a data disk that has a single partition "
 "containing a filesystem, and we want to create another disk that contains "
@@ -10677,12 +10662,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:93
+#: docs/guestfs-recipes.pod:91
 msgid "First create the formatted-but-empty target disk:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:95
+#: docs/guestfs-recipes.pod:93
 #, no-wrap
 msgid ""
 " truncate -s 10G target.img\n"
@@ -10691,14 +10676,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:98
+#: docs/guestfs-recipes.pod:96
 msgid ""
 "Now, pipe two guestfish instances together to transfer the old data to the "
 "new disk:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:101
+#: docs/guestfs-recipes.pod:99
 #, no-wrap
 msgid ""
 " guestfish --ro -a source.img -m /dev/sda1  -- tar-out / - | \\\n"
@@ -10707,12 +10692,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:104
+#: docs/guestfs-recipes.pod:102
 msgid "To browse the final disk image, do:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:106
+#: docs/guestfs-recipes.pod:104
 #, no-wrap
 msgid ""
 " guestfish --ro -a target.img -m /dev/VG/LV\n"
@@ -10721,36 +10706,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:109
+#: docs/guestfs-recipes.pod:107
 msgid ""
 "This technique is quite powerful, allowing you for example to split up "
 "source directories over the target filesystems."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:112
+#: docs/guestfs-recipes.pod:110
 msgid ""
 "Note this won’t work (at least, not directly) for bootable virtual machine "
 "disks because it doesn't copy over the boot loader."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:115
+#: docs/guestfs-recipes.pod:113
 msgid "Convert Windows DVD to bootable USB key"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:117
+#: docs/guestfs-recipes.pod:115
 msgid "L<http://rwmj.wordpress.com/2013/05/09/tip-convert-a-windows-dvd-iso-to-a-bootable-usb-key-using-guestfish/#content>"
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:119
+#: docs/guestfs-recipes.pod:117
 msgid "Convert Xen-style partitionless image to partitioned disk image"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:121
+#: docs/guestfs-recipes.pod:119
 msgid ""
 "Xen disk images are often partitionless, meaning that the filesystem starts "
 "directly at the beginning of the disk with no partition table.  You can in "
@@ -10760,7 +10745,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:128
+#: docs/guestfs-recipes.pod:126
 #, no-wrap
 msgid ""
 " guestfish\n"
@@ -10779,7 +10764,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:141
+#: docs/guestfs-recipes.pod:139
 msgid ""
 "Such a disk image won’t be directly bootable.  You may need to boot it with "
 "an external kernel and initramfs (see below).  Or you can use the guestfish "
@@ -10787,51 +10772,51 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:146
+#: docs/guestfs-recipes.pod:144
 msgid "Create empty disk images"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:148
+#: docs/guestfs-recipes.pod:146
 msgid "The L<virt-format(1)> tool can do this directly."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:150
+#: docs/guestfs-recipes.pod:148
 msgid ""
 "Use L<virt-make-fs(1)> to create a disk image with content.  This can also "
 "create some standard disk images such as virtual floppy devices (VFDs)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:154
+#: docs/guestfs-recipes.pod:152
 msgid ""
 "You can also use the L<guestfish(1)> I<-N> option to create empty disk "
 "images.  The useful guide below explains the options available."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:157
+#: docs/guestfs-recipes.pod:155
 msgid "L<https://rwmj.wordpress.com/2010/09/08/new-guestfish-n-options-in-1-5-9/#content>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:159
+#: docs/guestfs-recipes.pod:157
 msgid "L<virt-builder(1)> can create minimal guests."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:161
+#: docs/guestfs-recipes.pod:159
 msgid "Delete a file (or other simple file operations)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:163
+#: docs/guestfs-recipes.pod:161
 msgid "Use guestfish.  To delete a file:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:165
+#: docs/guestfs-recipes.pod:163
 #, no-wrap
 msgid ""
 " guestfish -a disk.img -i rm /file/to/delete\n"
@@ -10839,12 +10824,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:167
+#: docs/guestfs-recipes.pod:165
 msgid "To touch a file (bring it up to date or create it):"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:169
+#: docs/guestfs-recipes.pod:167
 #, no-wrap
 msgid ""
 " guestfish -a disk.img -i touch /file/to/touch\n"
@@ -10852,14 +10837,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:171
+#: docs/guestfs-recipes.pod:169
 msgid ""
 "To stat a file.  Since this is a read-only operation, we can make it safer "
 "by adding the I<--ro> flag."
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:174
+#: docs/guestfs-recipes.pod:172
 #, no-wrap
 msgid ""
 " guestfish --ro -a disk.img -i stat /file/to/stat\n"
@@ -10867,19 +10852,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:176
+#: docs/guestfs-recipes.pod:174
 msgid ""
 "There are dozens of these commands.  See L<guestfish(1)> or the output of "
 "C<guestfish -h>"
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:179
+#: docs/guestfs-recipes.pod:177
 msgid "Diff two guests; compare a snapshot to the current version"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:181
+#: docs/guestfs-recipes.pod:179
 msgid ""
 "Since libguestfs E<ge> 1.26, use L<virt-diff(1)> to look for differences "
 "between two guests (for example if they were originally cloned from the same "
@@ -10888,19 +10873,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:186
+#: docs/guestfs-recipes.pod:184
 msgid "Disable a systemd service"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:188
+#: docs/guestfs-recipes.pod:186
 msgid ""
 "The following is the equivalent of C<systemctl mask ...>. To disable the "
 "C<cloud-init> service so it doesn't start at next boot:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:191
+#: docs/guestfs-recipes.pod:189
 #, no-wrap
 msgid ""
 " guestfish -a disk.img -i \\\n"
@@ -10909,12 +10894,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:194
+#: docs/guestfs-recipes.pod:192
 msgid "To disable tmp-on-tmpfs:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:196
+#: docs/guestfs-recipes.pod:194
 #, no-wrap
 msgid ""
 " guestfish -a disk.img -i \\\n"
@@ -10923,7 +10908,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:199
+#: docs/guestfs-recipes.pod:197
 msgid ""
 "One problem with the commands above is there is no feedback if you get the "
 "name of the service you are trying to mask wrong.  But you can use "
@@ -10931,7 +10916,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:203
+#: docs/guestfs-recipes.pod:201
 #, no-wrap
 msgid ""
 " virt-ls -a /tmp/fedora-19.img -R /lib/systemd/system\n"
@@ -10939,12 +10924,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:205
+#: docs/guestfs-recipes.pod:203
 msgid "Drive letters over FUSE"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:207
+#: docs/guestfs-recipes.pod:205
 msgid ""
 "You have a Windows guest, and you want to expose the drive letters as FUSE "
 "mountpoints (F</C/...>, F</D/...> etc).  Instead of L<guestmount(1)>, use "
@@ -10952,7 +10937,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:211
+#: docs/guestfs-recipes.pod:209
 #, no-wrap
 msgid ""
 " #!/usr/bin/perl -w\n"
@@ -10982,12 +10967,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:235
+#: docs/guestfs-recipes.pod:233
 msgid "You can use the script like this:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:237
+#: docs/guestfs-recipes.pod:235
 #, no-wrap
 msgid ""
 " $ mkdir /tmp/mnt\n"
@@ -10997,12 +10982,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:241
+#: docs/guestfs-recipes.pod:239
 msgid "In another window:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:243
+#: docs/guestfs-recipes.pod:241
 #, no-wrap
 msgid ""
 " $ cd /tmp/mnt\n"
@@ -11021,12 +11006,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:256
+#: docs/guestfs-recipes.pod:254
 msgid "Dump raw filesystem content from inside a disk image or VM"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:258
+#: docs/guestfs-recipes.pod:256
 msgid ""
 "You can use the L<guestfish(1)> C<download> command to extract the raw "
 "filesystem content from any filesystem in a disk image or a VM (even one "
@@ -11034,7 +11019,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:262
+#: docs/guestfs-recipes.pod:260
 #, no-wrap
 msgid ""
 " guestfish --ro -a disk.img run : download /dev/sda1 sda1.img\n"
@@ -11042,7 +11027,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:264
+#: docs/guestfs-recipes.pod:262
 #, no-wrap
 msgid ""
 " guestfish --ro -d Guest run : download /dev/vg_guest/lv_root lv.img\n"
@@ -11050,12 +11035,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:266
+#: docs/guestfs-recipes.pod:264
 msgid "To download to stdout, replace the filename with a C<-> character:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:268
+#: docs/guestfs-recipes.pod:266
 #, no-wrap
 msgid ""
 " guestfish --ro -a disk.img run : download /dev/sda1 - | gzip > sda1.gz\n"
@@ -11063,47 +11048,47 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:270
+#: docs/guestfs-recipes.pod:268
 msgid "To list the filesystems in a disk image, use L<virt-filesystems(1)>."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:272
+#: docs/guestfs-recipes.pod:270
 msgid "See also L</Uploading raw filesystem content>."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:274
+#: docs/guestfs-recipes.pod:272
 msgid "Edit grub configuration in a VM"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:276
+#: docs/guestfs-recipes.pod:274
 msgid "You can use this to:"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:282
+#: docs/guestfs-recipes.pod:280
 msgid "Fix a virtual machine that does not boot."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:286
+#: docs/guestfs-recipes.pod:284
 msgid "Change which kernel is used to boot the VM."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:290
+#: docs/guestfs-recipes.pod:288
 msgid "Change kernel command line options."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:294
+#: docs/guestfs-recipes.pod:292
 msgid "Use L<virt-edit(1)> to edit the grub configuration:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:296
+#: docs/guestfs-recipes.pod:294
 #, no-wrap
 msgid ""
 " virt-edit -d BrokenGuest /boot/grub2/grub.cfg\n"
@@ -11111,14 +11096,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:298
+#: docs/guestfs-recipes.pod:296
 msgid ""
 "or for general tinkering inside an unbootable VM use L<virt-rescue(1)> like "
 "this:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:301
+#: docs/guestfs-recipes.pod:299
 #, no-wrap
 msgid ""
 " virt-rescue -d BrokenGuest\n"
@@ -11126,17 +11111,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:303
+#: docs/guestfs-recipes.pod:301
 msgid "Export any directory from a VM"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:305
+#: docs/guestfs-recipes.pod:303
 msgid "To export F</home> from a VM into a local directory use L<virt-copy-out(1)>:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:308 docs/guestfs-testing.pod:177
+#: docs/guestfs-recipes.pod:306 docs/guestfs-testing.pod:177
 #, no-wrap
 msgid ""
 " virt-copy-out -d Guest /home .\n"
@@ -11144,8 +11129,8 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:310 docs/internal-documentation.pod:1358
-#: docs/internal-documentation.pod:3072 docs/internal-documentation.pod:3430
+#: docs/guestfs-recipes.pod:308 docs/internal-documentation.pod:1358
+#: docs/internal-documentation.pod:3072 docs/internal-documentation.pod:3455
 #: fish/guestfish-actions.pod:3075 fish/guestfish-actions.pod:3716
 #: fish/guestfish-actions.pod:4499 lib/guestfs-actions.pod:5119
 #: lib/guestfs-actions.pod:6145 lib/guestfs-actions.pod:7232
@@ -11154,19 +11139,19 @@ msgid "Notes:"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:316
+#: docs/guestfs-recipes.pod:314
 msgid ""
 "The final dot of the command is not a printing error.  It means we want to "
 "copy out to the current directory."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:321
+#: docs/guestfs-recipes.pod:319
 msgid "This creates a directory called C<home> under the current directory."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:325
+#: docs/guestfs-recipes.pod:323
 msgid ""
 "If the guest is a Windows guest then you can use drive letters and "
 "backslashes, but you must prefix the path with C<win:> and quote it to "
@@ -11174,7 +11159,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:329
+#: docs/guestfs-recipes.pod:327
 #, no-wrap
 msgid ""
 " virt-copy-out -d WinGuest 'win:c:\\windows\\system32\\config' .\n"
@@ -11182,12 +11167,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:331
+#: docs/guestfs-recipes.pod:329
 msgid "To get the output as a compressed tarball, do:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:333
+#: docs/guestfs-recipes.pod:331
 #, no-wrap
 msgid ""
 " virt-tar-out -d Guest /home - | gzip --best > home.tar.gz\n"
@@ -11195,7 +11180,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:335
+#: docs/guestfs-recipes.pod:333
 msgid ""
 "Although it sounds tempting, this is usually not a reliable way to get a "
 "backup from a running guest.  See the entry in the FAQ: "
@@ -11203,12 +11188,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:339
+#: docs/guestfs-recipes.pod:337
 msgid "Export external kernel and initramfs (initrd)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:341
+#: docs/guestfs-recipes.pod:339
 msgid ""
 "If a Linux guest doesn't have a boot loader or it is broken, then you can "
 "usually boot it using an external kernel and initramfs.  In this "
@@ -11217,7 +11202,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:347
+#: docs/guestfs-recipes.pod:345
 msgid ""
 "However you may wonder how to get the right kernel corresponding to the disk "
 "image you have.  Since libguestfs E<ge> 1.24 L<virt-builder(1)> can get the "
@@ -11225,7 +11210,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:352
+#: docs/guestfs-recipes.pod:350
 #, no-wrap
 msgid ""
 " mkdir outputdir\n"
@@ -11235,19 +11220,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:356
+#: docs/guestfs-recipes.pod:354
 msgid "Find out which user is using the most space"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:358
+#: docs/guestfs-recipes.pod:356
 msgid ""
 "This simple script examines a Linux guest to find out which user is using "
 "the most space in their home directory:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:361
+#: docs/guestfs-recipes.pod:359
 #, no-wrap
 msgid ""
 " #!/bin/sh -\n"
@@ -11255,7 +11240,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:363 fish/guestfish.pod:1019
+#: docs/guestfs-recipes.pod:361 fish/guestfish.pod:1019
 #, no-wrap
 msgid ""
 " set -e\n"
@@ -11263,7 +11248,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:365
+#: docs/guestfs-recipes.pod:363
 #, no-wrap
 msgid ""
 " vm=\"$1\"\n"
@@ -11272,7 +11257,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:368
+#: docs/guestfs-recipes.pod:366
 #, no-wrap
 msgid ""
 " eval $(guestfish --ro -d \"$vm\" -i --listen)\n"
@@ -11280,7 +11265,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:370
+#: docs/guestfs-recipes.pod:368
 #, no-wrap
 msgid ""
 " for d in $(guestfish --remote ls \"$dir\"); do\n"
@@ -11292,7 +11277,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:376 fish/guestfish.pod:973
+#: docs/guestfs-recipes.pod:374 fish/guestfish.pod:973
 #, no-wrap
 msgid ""
 " guestfish --remote exit\n"
@@ -11300,41 +11285,41 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:378
+#: docs/guestfs-recipes.pod:376
 msgid "Get DHCP address from a VM"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:380
+#: docs/guestfs-recipes.pod:378
 msgid ""
 "The link below explains the many different possible techniques for getting "
 "the last assigned DHCP address of a virtual machine."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:383
+#: docs/guestfs-recipes.pod:381
 msgid "L<https://rwmj.wordpress.com/2011/03/31/tip-code-for-getting-dhcp-address-from-a-virtual-machine-disk-image/#content>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:385
+#: docs/guestfs-recipes.pod:383
 msgid ""
 "In the libguestfs source examples directory you will find the latest version "
 "of the F<virt-dhcp-address.c> program."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:388
+#: docs/guestfs-recipes.pod:386
 msgid "Get the operating system product name string"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:390
+#: docs/guestfs-recipes.pod:388
 msgid "Save the following script into a file called F<product-name.sh>:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:392
+#: docs/guestfs-recipes.pod:390
 #, no-wrap
 msgid ""
 " #!/bin/sh -\n"
@@ -11347,12 +11332,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:399
+#: docs/guestfs-recipes.pod:397
 msgid "Make the script executable and run it on a named guest:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:401
+#: docs/guestfs-recipes.pod:399
 #, no-wrap
 msgid ""
 " $ product-name.sh fedora-40.img\n"
@@ -11361,14 +11346,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:404
+#: docs/guestfs-recipes.pod:402
 msgid ""
 "You can also use an XPath query on the L<virt-inspector(1)> XML using the "
 "C<xpath> command line tool or from your favourite programming language:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:408
+#: docs/guestfs-recipes.pod:406
 #, no-wrap
 msgid ""
 " $ virt-inspector -a fedora-40.img > xml\n"
@@ -11380,78 +11365,78 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:414
+#: docs/guestfs-recipes.pod:412
 msgid "Get the default boot kernel for a Linux VM"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:416
+#: docs/guestfs-recipes.pod:414
 msgid ""
 "The link below contains a program to print the default boot kernel for a "
 "Linux VM."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:419
+#: docs/guestfs-recipes.pod:417
 msgid "L<https://rwmj.wordpress.com/2010/10/30/tip-use-augeas-to-get-the-default-boot-kernel-for-a-vm/#content>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:421
+#: docs/guestfs-recipes.pod:419
 msgid ""
 "It uses Augeas, and the technique is generally applicable for many different "
 "tasks, such as:"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:428
+#: docs/guestfs-recipes.pod:426
 msgid "listing the user accounts in the guest"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:432
+#: docs/guestfs-recipes.pod:430
 msgid "what repositories is it configured to use"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:436
+#: docs/guestfs-recipes.pod:434
 msgid "what NTP servers does it connect to"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:440
+#: docs/guestfs-recipes.pod:438
 msgid "what were the boot messages last time it booted"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:444
+#: docs/guestfs-recipes.pod:442
 msgid "listing who was logged in recently"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:448
+#: docs/guestfs-recipes.pod:446
 msgid "L<http://augeas.net/>"
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:450
+#: docs/guestfs-recipes.pod:448
 msgid "Hanging guests"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:452
+#: docs/guestfs-recipes.pod:450
 msgid ""
 "There are various ways to use libguestfs to find out why a guest is hanging "
 "or unresponsive:"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:459
+#: docs/guestfs-recipes.pod:457
 msgid "Read the log files using virt-cat:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:461
+#: docs/guestfs-recipes.pod:459
 #, no-wrap
 msgid ""
 " virt-cat Guest /var/log/messages | less\n"
@@ -11459,42 +11444,42 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:465
+#: docs/guestfs-recipes.pod:463
 msgid "Read the Windows Event Log (Windows Vista or later only):"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:467 docs/guestfs-recipes.pod:644
+#: docs/guestfs-recipes.pod:465 docs/guestfs-recipes.pod:642
 msgid "L<https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-guestfish/#content>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:471
+#: docs/guestfs-recipes.pod:469
 msgid "Find out which files were last updated in a guest:"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:473
+#: docs/guestfs-recipes.pod:471
 msgid "L<https://rwmj.wordpress.com/2012/02/27/using-libguestfs-to-find-out-why-a-windows-guest-was-hanging/#content>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:475
+#: docs/guestfs-recipes.pod:473
 msgid "This might give you a clue as to what program is running."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:479
+#: docs/guestfs-recipes.pod:477
 msgid "Hex-dumping sectors from the guest"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:481
+#: docs/guestfs-recipes.pod:479
 msgid "Hex-dump the boot partition (Master Boot Record / first sector):"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:483
+#: docs/guestfs-recipes.pod:481
 #, no-wrap
 msgid ""
 " guestfish --ro -a disk.img run : pread-device /dev/sda 0x200 0 |\n"
@@ -11503,19 +11488,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:486
+#: docs/guestfs-recipes.pod:484
 msgid "(C<0x200> = 512 bytes which is the size of traditional PC sectors)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:488
+#: docs/guestfs-recipes.pod:486
 msgid ""
 "To hexdump the N'th partition, substitute a number for C<N> in the following "
 "command:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:491
+#: docs/guestfs-recipes.pod:489
 #, no-wrap
 msgid ""
 " guestfish --ro -a disk.img \\\n"
@@ -11525,17 +11510,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:495
+#: docs/guestfs-recipes.pod:493
 msgid "Hex-editing sectors in the guest"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:497
+#: docs/guestfs-recipes.pod:495
 msgid "Hex-edit the boot partition (Master Boot Record / first sector):"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:499
+#: docs/guestfs-recipes.pod:497
 #, no-wrap
 msgid ""
 " guestfish --rw -a disk.img run : hexedit /dev/sda 0x200\n"
@@ -11543,12 +11528,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:501
+#: docs/guestfs-recipes.pod:499
 msgid "Install packages (RPMs, Debian packages) in a guest"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:503
+#: docs/guestfs-recipes.pod:501
 msgid ""
 "Since libguestfs 1.26, L<virt-builder(1)>, L<virt-customize(1)> and "
 "L<virt-sysprep(1)> have an I<--install> option for installing packages in "
@@ -11557,7 +11542,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:510
+#: docs/guestfs-recipes.pod:508
 #, no-wrap
 msgid ""
 " virt-builder fedora-20 --install emacs\n"
@@ -11565,12 +11550,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:512
+#: docs/guestfs-recipes.pod:510
 msgid "Install packages from an alternate repository"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:514
+#: docs/guestfs-recipes.pod:512
 msgid ""
 "Since libguestfs 1.26, you can use L<virt-builder(1)>, L<virt-customize(1)> "
 "or L<virt-sysprep(1)> I<--edit> option to edit repository metadata before "
@@ -11578,14 +11563,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:518
+#: docs/guestfs-recipes.pod:516
 msgid ""
 "For example this would install packages from the updates-testing repository "
 "in Fedora:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:521
+#: docs/guestfs-recipes.pod:519
 #, no-wrap
 msgid ""
 " virt-builder fedora-20 \\\n"
@@ -11596,12 +11581,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:526
+#: docs/guestfs-recipes.pod:524
 msgid "Install SYSLINUX bootloader in a guest"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:528
+#: docs/guestfs-recipes.pod:526
 msgid ""
 "SYSLINUX is a small, easy to configure bootloader for Linux and Windows "
 "guests.  If your guest is not bootable, you can install the SYSLINUX "
@@ -11610,7 +11595,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:534
+#: docs/guestfs-recipes.pod:532
 msgid ""
 "This guide assumes a Linux guest where F</dev/sda1> is F</boot>, "
 "F</boot/vmlinuz> is the guest kernel, and F</dev/sda3> is the root "
@@ -11619,7 +11604,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:539
+#: docs/guestfs-recipes.pod:537
 msgid ""
 "Create a F<syslinux.cfg> configuration file.  You should check the SYSLINUX "
 "documentation at L<http://www.syslinux.org> but it may look something like "
@@ -11627,7 +11612,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:543
+#: docs/guestfs-recipes.pod:541
 #, no-wrap
 msgid ""
 " DEFAULT linux\n"
@@ -11640,14 +11625,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:550
+#: docs/guestfs-recipes.pod:548
 msgid ""
 "Locate the syslinux master boot record (a file called something like "
 "F</usr/share/syslinux/mbr.bin>)."
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:553
+#: docs/guestfs-recipes.pod:551
 #, no-wrap
 msgid ""
 " guestfish -a disk.img -i\n"
@@ -11664,24 +11649,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:564
+#: docs/guestfs-recipes.pod:562
 msgid ""
 "See also: "
 "L<http://rwmj.wordpress.com/2013/04/04/new-in-libguestfs-use-syslinux-or-extlinux-to-make-bootable-guests/#content>"
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:567
+#: docs/guestfs-recipes.pod:565
 msgid "List applications installed in a VM"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:569
+#: docs/guestfs-recipes.pod:567
 msgid "Save the following to a file F<list-apps.sh>:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:571
+#: docs/guestfs-recipes.pod:569
 #, no-wrap
 msgid ""
 " #!/bin/sh -\n"
@@ -11694,14 +11679,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:578
+#: docs/guestfs-recipes.pod:576
 msgid ""
 "Make the file executable and then you can run it on any named virtual "
 "machine:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:581
+#: docs/guestfs-recipes.pod:579
 #, no-wrap
 msgid ""
 " # list-apps.sh WinGuest\n"
@@ -11737,7 +11722,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:611
+#: docs/guestfs-recipes.pod:609
 msgid ""
 "If you want to run the script on disk images (instead of libvirt virtual "
 "machines), change C<-d \"$1\"> to C<-a \"$1\">.  See also "
@@ -11745,22 +11730,22 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:615
+#: docs/guestfs-recipes.pod:613
 msgid "List files and directories in a VM"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:617
+#: docs/guestfs-recipes.pod:615
 msgid "Use L<virt-ls(1)>."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:619
+#: docs/guestfs-recipes.pod:617
 msgid "List services in a Windows VM"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:621
+#: docs/guestfs-recipes.pod:619
 msgid ""
 "The link below contains a script that can be used to list out the services "
 "from a Windows VM, and whether those services run at boot time or are loaded "
@@ -11768,44 +11753,44 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:625
+#: docs/guestfs-recipes.pod:623
 msgid "L<https://rwmj.wordpress.com/2010/12/10/tip-list-services-in-a-windows-guest/#content>"
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:627
+#: docs/guestfs-recipes.pod:625
 msgid "Make a disk image sparse"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:629
+#: docs/guestfs-recipes.pod:627
 msgid "Use L<virt-sparsify(1)>."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:631
+#: docs/guestfs-recipes.pod:629
 msgid "Monitor disk usage over time"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:633
+#: docs/guestfs-recipes.pod:631
 msgid ""
 "You can use L<virt-df(1)> to monitor disk usage of your guests over time.  "
 "The link below contains a guide."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:636
+#: docs/guestfs-recipes.pod:634
 msgid "L<http://web.archive.org/web/20130214073726/http://virt-tools.org/learning/advanced-virt-df/>"
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:638
+#: docs/guestfs-recipes.pod:636
 msgid "Reading the Windows Event Log from Windows Vista (or later)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:640
+#: docs/guestfs-recipes.pod:638
 msgid ""
 "L<guestfish(1)> plus the tools described in the link below can be used to "
 "read out the Windows Event Log from any virtual machine running Windows "
@@ -11813,19 +11798,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:646
+#: docs/guestfs-recipes.pod:644
 msgid "Remove root password (Linux)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:648
+#: docs/guestfs-recipes.pod:646
 msgid ""
 "Using the L<virt-edit(1)> I<-e> option you can do simple replacements on "
 "files.  One use is to remove the root password from a Linux guest:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:651
+#: docs/guestfs-recipes.pod:649
 #, no-wrap
 msgid ""
 " virt-edit -d domname /etc/passwd -e 's/^root:.*?:/root::/'\n"
@@ -11833,7 +11818,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:653
+#: docs/guestfs-recipes.pod:651
 #, no-wrap
 msgid ""
 " virt-edit -a disk.img /etc/passwd -e 's/^root:.*?:/root::/'\n"
@@ -11841,12 +11826,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:655
+#: docs/guestfs-recipes.pod:653
 msgid "Remove Administrator password (Windows)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:657
+#: docs/guestfs-recipes.pod:655
 msgid ""
 "The link below contains one technique for removing the Administrator "
 "password from a Windows VM, or to be more precise, it gives you a command "
@@ -11854,17 +11839,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:662
+#: docs/guestfs-recipes.pod:660
 msgid "L<https://mdbooth.wordpress.com/2010/10/18/resetting-a-windows-guests-administrator-password-with-guestfish/>"
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:664
+#: docs/guestfs-recipes.pod:662
 msgid "Sysprepping a virtual machine (Windows)"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:666
+#: docs/guestfs-recipes.pod:664
 msgid ""
 "It is possible to do a \"sysprep\" using libguestfs alone, although not "
 "straightforward.  Currently there is code in the Aeolus Oz project which "
@@ -11873,19 +11858,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:671
+#: docs/guestfs-recipes.pod:669
 msgid ""
 "L<https://github.com/clalancette/oz> "
 "L<https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html>"
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:674
+#: docs/guestfs-recipes.pod:672
 msgid "Unpack a live CD"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:676
+#: docs/guestfs-recipes.pod:674
 msgid ""
 "Linux live CDs often contain multiple layers of disk images wrapped like a "
 "Russian doll.  You can use L<guestfish(1)> to look inside these multiple "
@@ -11893,41 +11878,41 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:680
+#: docs/guestfs-recipes.pod:678
 msgid "L<https://rwmj.wordpress.com/2009/07/15/unpack-the-russian-doll-of-a-f11-live-cd/#content>"
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:682
+#: docs/guestfs-recipes.pod:680
 msgid "Uploading and downloading files"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:684
+#: docs/guestfs-recipes.pod:682
 msgid ""
 "The link below contains general tips on uploading (copying in)  and "
 "downloading (copying out) files from VMs."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:687
+#: docs/guestfs-recipes.pod:685
 msgid "L<https://rwmj.wordpress.com/2010/12/02/tip-uploading-and-downloading/#content>"
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:689
+#: docs/guestfs-recipes.pod:687
 msgid "Uploading raw filesystem content"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:691
+#: docs/guestfs-recipes.pod:689
 msgid ""
 "You can use L<guestfish(1)> to upload whole filesystems into a VM, even into "
 "a filesystem which is encrypted or buried inside an LV or RAID device:"
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:695
+#: docs/guestfs-recipes.pod:693
 #, no-wrap
 msgid ""
 " guestfish --rw -a disk.img run : upload sda1.img /dev/sda1\n"
@@ -11935,7 +11920,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:697
+#: docs/guestfs-recipes.pod:695
 #, no-wrap
 msgid ""
 " guestfish --rw -d Guest run : upload lv.img /dev/vg_guest/lv_root\n"
@@ -11943,7 +11928,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:699
+#: docs/guestfs-recipes.pod:697
 msgid ""
 "One common problem is that the filesystem isn't the right size for the "
 "target.  If it is too large, there’s not much you can do with libguestfs - "
@@ -11953,7 +11938,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: docs/guestfs-recipes.pod:705
+#: docs/guestfs-recipes.pod:703
 #, no-wrap
 msgid ""
 " guestfish --rw -d Guest run : \\\n"
@@ -11963,29 +11948,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:709
+#: docs/guestfs-recipes.pod:707
 msgid "(or use C<ntfsresize> if the filesystem is NTFS)."
 msgstr ""
 
 #. type: =head1
-#: docs/guestfs-recipes.pod:711
+#: docs/guestfs-recipes.pod:709
 msgid "Use libguestfs tools on VMware ESX guests"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:713
+#: docs/guestfs-recipes.pod:711
 msgid ""
 "The link below explains how to use libguestfs, L<guestfish(1)> and the virt "
 "tools on any VMware ESX guests, by first sharing the VMware VMFS over sshfs."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:717
+#: docs/guestfs-recipes.pod:715
 msgid "L<https://rwmj.wordpress.com/2011/05/10/tip-use-libguestfs-on-vmware-esx-guests/#content>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-recipes.pod:721
+#: docs/guestfs-recipes.pod:719
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<guestfs-examples(3)>, "
 "L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>, "
@@ -34055,7 +34040,7 @@ msgid "Returns:"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:563 docs/internal-documentation.pod:3920
+#: docs/internal-documentation.pod:563 docs/internal-documentation.pod:3945
 #: fuse/guestunmount.pod:131
 msgid "C<1>"
 msgstr ""
@@ -34066,7 +34051,7 @@ msgid "log message(s) were handled successfully"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:567 docs/internal-documentation.pod:3924
+#: docs/internal-documentation.pod:567 docs/internal-documentation.pod:3949
 msgid "C<0>"
 msgstr ""
 
@@ -34076,7 +34061,7 @@ msgid "connection to appliance closed"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:571 docs/internal-documentation.pod:3928
+#: docs/internal-documentation.pod:571 docs/internal-documentation.pod:3953
 msgid "C<-1>"
 msgstr ""
 
@@ -37669,12 +37654,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:2150
+#: docs/internal-documentation.pod:2150 docs/internal-documentation.pod:3376
 msgid "Read the whole file C<filename> into a memory buffer."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:2152
+#: docs/internal-documentation.pod:2152 docs/internal-documentation.pod:3378
 msgid ""
 "The memory buffer is initialized and returned in C<data_r>.  The size of the "
 "file in bytes is returned in C<size_r>.  The return buffer must be freed by "
@@ -37687,14 +37672,14 @@ msgid "On error this sets the error in the handle and returns C<-1>."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:2158
+#: docs/internal-documentation.pod:2158 docs/internal-documentation.pod:3386
 msgid ""
 "For the convenience of callers, the returned buffer is NUL-terminated (the "
 "NUL is not included in the size)."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:2161
+#: docs/internal-documentation.pod:2161 docs/internal-documentation.pod:3389
 msgid ""
 "The file must be a B<regular>, B<local>, B<trusted> file.  In particular, do "
 "not use this function to read files that might be under control of an "
@@ -39549,7 +39534,7 @@ msgid "C<str == \"\">"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3023 docs/internal-documentation.pod:3714
+#: docs/internal-documentation.pod:3023 docs/internal-documentation.pod:3739
 msgid "returns C<[]>"
 msgstr ""
 
@@ -40287,37 +40272,64 @@ msgid ""
 "used, use the return value."
 msgstr ""
 
-#. type: =head2
+#. type: =head3
 #: docs/internal-documentation.pod:3369
+msgid "File F<common/utils/whole-file.c>"
+msgstr ""
+
+#. type: =head4
+#: docs/internal-documentation.pod:3371
+msgid "Function C<common/utils/whole-file.c:read_whole_file>"
+msgstr ""
+
+#. type: verbatim
+#: docs/internal-documentation.pod:3373
+#, no-wrap
+msgid ""
+" int\n"
+" read_whole_file (const char *filename, char **data_r, size_t *size_r)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: docs/internal-documentation.pod:3382
+msgid ""
+"On error this prints an error on C<stderr> and returns -1.  Unlike the "
+"similar C<guestfs_int_read_whole_file> this does not use the libguestfs "
+"handle or call C<error()>."
+msgstr ""
+
+#. type: =head2
+#: docs/internal-documentation.pod:3394
 msgid "Subdirectory F<common/visit>"
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3371
+#: docs/internal-documentation.pod:3396
 msgid "File F<common/visit/visit.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3373
+#: docs/internal-documentation.pod:3398
 msgid ""
 "This file contains a recursive function for visiting all files and "
 "directories in a guestfs filesystem."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3376
+#: docs/internal-documentation.pod:3401
 msgid ""
 "Adapted from "
 "L<https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-setuid-files/>"
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3379
+#: docs/internal-documentation.pod:3404
 msgid "Function C<common/visit/visit.c:visit>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3381
+#: docs/internal-documentation.pod:3406
 #, no-wrap
 msgid ""
 " int\n"
@@ -40326,19 +40338,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3384
+#: docs/internal-documentation.pod:3409
 msgid "Visit every file and directory in a guestfs filesystem, starting at C<dir>."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3387
+#: docs/internal-documentation.pod:3412
 msgid ""
 "C<dir> may be C<\"/\"> to visit the entire filesystem, or may be some "
 "subdirectory.  Symbolic links are not followed."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3390
+#: docs/internal-documentation.pod:3415
 msgid ""
 "The visitor function C<f> is called once for every directory and every "
 "file.  The parameters passed to C<f> include the current directory name, the "
@@ -40349,14 +40361,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3398
+#: docs/internal-documentation.pod:3423
 msgid ""
 "Also passed to this function is an C<opaque> pointer which is passed through "
 "to the visitor function."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3401
+#: docs/internal-documentation.pod:3426
 msgid ""
 "Returns C<0> if everything went OK, or C<-1> if there was an error.  Error "
 "handling is not particularly well defined.  It will either set an error in "
@@ -40365,27 +40377,27 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: docs/internal-documentation.pod:3406
+#: docs/internal-documentation.pod:3431
 msgid "Subdirectory F<common/windows>"
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3408
+#: docs/internal-documentation.pod:3433
 msgid "File F<common/windows/windows.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3410
+#: docs/internal-documentation.pod:3435
 msgid "This file implements C<win:> Windows file path support in L<guestfish(1)>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3413
+#: docs/internal-documentation.pod:3438
 msgid "Function C<common/windows/windows.c:is_windows>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3415
+#: docs/internal-documentation.pod:3440
 #, no-wrap
 msgid ""
 " int\n"
@@ -40394,22 +40406,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3418
+#: docs/internal-documentation.pod:3443
 msgid "Checks whether C<root> is a Windows installation."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3420
+#: docs/internal-documentation.pod:3445
 msgid "This relies on an already being done introspection."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3422
+#: docs/internal-documentation.pod:3447
 msgid "Function C<common/windows/windows.c:windows_path>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3424
+#: docs/internal-documentation.pod:3449
 #, no-wrap
 msgid ""
 " char *\n"
@@ -40419,58 +40431,58 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3427
+#: docs/internal-documentation.pod:3452
 msgid ""
 "Resolves C<path> as possible Windows path according to C<root>, giving a new "
 "path that can be used in libguestfs API calls."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3436
+#: docs/internal-documentation.pod:3461
 msgid "C<root> must be a Windows installation"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3440
+#: docs/internal-documentation.pod:3465
 msgid "relies on an already being done introspection"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3444
+#: docs/internal-documentation.pod:3469
 msgid ""
 "will unmount all the existing mount points and mount the Windows root "
 "(according to C<readonly>)"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3449
+#: docs/internal-documentation.pod:3474
 msgid "calls L<exit(3)> on memory allocation failures"
 msgstr ""
 
 #. type: =head2
-#: docs/internal-documentation.pod:3453
+#: docs/internal-documentation.pod:3478
 msgid "Subdirectory F<daemon>"
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3455
+#: docs/internal-documentation.pod:3480
 msgid "File F<daemon/command.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3457
+#: docs/internal-documentation.pod:3482
 msgid ""
 "This file contains a number of useful functions for running external "
 "commands and capturing their output."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3460
+#: docs/internal-documentation.pod:3485
 msgid "Function C<daemon/command.c:commandf>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3462
+#: docs/internal-documentation.pod:3487
 #, no-wrap
 msgid ""
 " int\n"
@@ -40480,36 +40492,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3466
+#: docs/internal-documentation.pod:3491
 msgid "Run a command.  Optionally capture stdout and stderr as strings."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3468
+#: docs/internal-documentation.pod:3493
 msgid ""
 "Returns C<0> if the command ran successfully, or C<-1> if there was any "
 "error."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3471
+#: docs/internal-documentation.pod:3496
 msgid "For a description of the C<flags> see C<commandrvf>."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3473
+#: docs/internal-documentation.pod:3498
 msgid ""
 "There is also a macro C<command(out,err,name,...)> which calls C<commandf> "
 "with C<flags=0>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3476
+#: docs/internal-documentation.pod:3501
 msgid "Function C<daemon/command.c:commandrf>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3478
+#: docs/internal-documentation.pod:3503
 #, no-wrap
 msgid ""
 " int\n"
@@ -40519,31 +40531,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3482
+#: docs/internal-documentation.pod:3507
 msgid ""
 "Same as C<command>, but we allow the status code from the subcommand to be "
 "non-zero, and return that status code."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3485
+#: docs/internal-documentation.pod:3510
 msgid "We still return C<-1> if there was some other error."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3487
+#: docs/internal-documentation.pod:3512
 msgid ""
 "There is also a macro C<commandr(out,err,name,...)> which calls C<commandrf> "
 "with C<flags=0>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3490
+#: docs/internal-documentation.pod:3515
 msgid "Function C<daemon/command.c:commandvf>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3492
+#: docs/internal-documentation.pod:3517
 #, no-wrap
 msgid ""
 " int\n"
@@ -40553,24 +40565,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3496
+#: docs/internal-documentation.pod:3521
 msgid "Same as C<command>, but passing in an argv array."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3498
+#: docs/internal-documentation.pod:3523
 msgid ""
 "There is also a macro C<commandv(out,err,argv)> which calls C<commandvf> "
 "with C<flags=0>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3501
+#: docs/internal-documentation.pod:3526
 msgid "Function C<daemon/command.c:commandrvf>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3503
+#: docs/internal-documentation.pod:3528
 #, no-wrap
 msgid ""
 " int\n"
@@ -40580,7 +40592,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3507
+#: docs/internal-documentation.pod:3532
 msgid ""
 "This is a more sane version of L<system(3)> for running external commands.  "
 "It uses fork/execvp, so we don't need to worry about quoting of parameters, "
@@ -40588,14 +40600,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3512
+#: docs/internal-documentation.pod:3537
 msgid ""
 "If C<stdoutput> is not C<NULL>, then C<*stdoutput> will return the stdout of "
 "the command as a string."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3515
+#: docs/internal-documentation.pod:3540
 msgid ""
 "If C<stderror> is not C<NULL>, then C<*stderror> will return the stderr of "
 "the command.  If there is a final \\n character, it is removed so you can "
@@ -40603,17 +40615,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3520
+#: docs/internal-documentation.pod:3545
 msgid "Flags are:"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3524
+#: docs/internal-documentation.pod:3549
 msgid "C<COMMAND_FLAG_FOLD_STDOUT_ON_STDERR>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3526
+#: docs/internal-documentation.pod:3551
 msgid ""
 "For broken external commands that send error messages to stdout (hello, "
 "parted) but that don't have any useful stdout information, use this flag to "
@@ -40623,12 +40635,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3532
+#: docs/internal-documentation.pod:3557
 msgid "C<COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3534
+#: docs/internal-documentation.pod:3559
 msgid ""
 "For running external commands on chrooted files correctly (see "
 "L<https://bugzilla.redhat.com/579608>) specifying this flag causes another "
@@ -40639,24 +40651,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3544
+#: docs/internal-documentation.pod:3569
 msgid ""
 "There is also a macro C<commandrv(out,err,argv)> which calls C<commandrvf> "
 "with C<flags=0>."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3547
+#: docs/internal-documentation.pod:3572
 msgid "File F<daemon/device-name-translation.c>"
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3549
+#: docs/internal-documentation.pod:3574
 msgid "Function C<daemon/device-name-translation.c:device_name_translation_init>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3551
+#: docs/internal-documentation.pod:3576
 #, no-wrap
 msgid ""
 " void\n"
@@ -40665,12 +40677,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3554
+#: docs/internal-documentation.pod:3579
 msgid "Cache daemon disk mapping."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3556
+#: docs/internal-documentation.pod:3581
 msgid ""
 "When the daemon starts up, populate a cache with the contents of "
 "/dev/disk/by-path.  It's easiest to use C<ls -lv> here since the names are "
@@ -40678,12 +40690,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3560
+#: docs/internal-documentation.pod:3585
 msgid "Function C<daemon/device-name-translation.c:device_name_translation>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3562
+#: docs/internal-documentation.pod:3587
 #, no-wrap
 msgid ""
 " char *\n"
@@ -40692,12 +40704,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3565
+#: docs/internal-documentation.pod:3590
 msgid "Perform device name translation."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3567
+#: docs/internal-documentation.pod:3592
 msgid ""
 "Libguestfs defines a few standard formats for device names.  (see also "
 "L<guestfs(3)/BLOCK DEVICE NAMING> and "
@@ -40705,22 +40717,22 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3573
+#: docs/internal-documentation.pod:3598
 msgid "F</dev/sdX[N]>"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3575
+#: docs/internal-documentation.pod:3600
 msgid "F</dev/hdX[N]>"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3577
+#: docs/internal-documentation.pod:3602
 msgid "F</dev/vdX[N]>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3579
+#: docs/internal-documentation.pod:3604
 msgid ""
 "These mean the Nth partition on the Xth device.  Because Linux no longer "
 "enumerates devices in the order they are passed to qemu, we must translate "
@@ -40728,67 +40740,67 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3584
+#: docs/internal-documentation.pod:3609
 msgid "F</dev/mdX>"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3586
+#: docs/internal-documentation.pod:3611
 msgid "F</dev/VG/LV>"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3588
+#: docs/internal-documentation.pod:3613
 msgid "F</dev/mapper/...>"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3590 fish/guestfish-actions.pod:1473
+#: docs/internal-documentation.pod:3615 fish/guestfish-actions.pod:1473
 #: lib/guestfs-actions.pod:2489
 msgid "F</dev/dm-N>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3592
+#: docs/internal-documentation.pod:3617
 msgid "These are not translated here."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3596
+#: docs/internal-documentation.pod:3621
 msgid "It returns a newly allocated string which the caller must free."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3598
+#: docs/internal-documentation.pod:3623
 msgid "It returns C<NULL> on error.  B<Note> it does I<not> call C<reply_with_*>."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3601
+#: docs/internal-documentation.pod:3626
 msgid ""
 "We have to open the device and test for C<ENXIO>, because the device nodes "
 "may exist in the appliance."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3604
+#: docs/internal-documentation.pod:3629
 msgid "File F<daemon/guestfsd.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3606
+#: docs/internal-documentation.pod:3631
 msgid ""
 "This is the guestfs daemon which runs inside the guestfs appliance.  This "
 "file handles start up and connecting back to the library."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3609
+#: docs/internal-documentation.pod:3634
 msgid "Function C<daemon/guestfsd.c:shell_quote>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3611
+#: docs/internal-documentation.pod:3636
 #, no-wrap
 msgid ""
 " void\n"
@@ -40797,17 +40809,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3614
+#: docs/internal-documentation.pod:3639
 msgid "Write C<str> to the file C<fp>, ensuring it is shell quoted."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3616
+#: docs/internal-documentation.pod:3641
 msgid "Function C<daemon/guestfsd.c:sysroot_shell_quote>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3618
+#: docs/internal-documentation.pod:3643
 #, no-wrap
 msgid ""
 " void\n"
@@ -40816,56 +40828,56 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3621
+#: docs/internal-documentation.pod:3646
 msgid ""
 "Write C<sysroot> + C<path> to the file C<fp>, ensuring it is shell quoted.  "
 "The path must be an absolute path."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3624
+#: docs/internal-documentation.pod:3649
 msgid "File F<daemon/internal.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3626
+#: docs/internal-documentation.pod:3651
 msgid "Internal functions that are not part of the public API."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3628
+#: docs/internal-documentation.pod:3653
 msgid "File F<daemon/utils-c.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3630
+#: docs/internal-documentation.pod:3655
 msgid "Bindings for utility functions."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3632
+#: docs/internal-documentation.pod:3657
 msgid ""
 "Note that functions called from OCaml code B<must never> call any of the "
 "C<reply*> functions."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3635
+#: docs/internal-documentation.pod:3660
 msgid "File F<daemon/utils.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3637
+#: docs/internal-documentation.pod:3662
 msgid "Miscellaneous utility functions used by the daemon."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3639
+#: docs/internal-documentation.pod:3664
 msgid "Function C<daemon/utils.c:is_root_device_stat>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3641
+#: docs/internal-documentation.pod:3666
 #, no-wrap
 msgid ""
 " static int\n"
@@ -40874,19 +40886,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3644
+#: docs/internal-documentation.pod:3669
 msgid ""
 "Return true iff device is the root device (and therefore should be ignored "
 "from the point of view of user calls)."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3647
+#: docs/internal-documentation.pod:3672
 msgid "Function C<daemon/utils.c:is_device_parameter>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3649
+#: docs/internal-documentation.pod:3674
 #, no-wrap
 msgid ""
 " int\n"
@@ -40895,26 +40907,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3652
+#: docs/internal-documentation.pod:3677
 msgid ""
 "Parameters marked as C<Device>, C<Dev_or_Path>, etc can be passed a block "
 "device name.  This function tests if the parameter is a block device name."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3656
+#: docs/internal-documentation.pod:3681
 msgid ""
 "It can also be used in daemon code to test if the string passed as a "
 "C<Dev_or_Path> parameter is a device or path."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3659
+#: docs/internal-documentation.pod:3684
 msgid "Function C<daemon/utils.c:sysroot_path>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3661
+#: docs/internal-documentation.pod:3686
 #, no-wrap
 msgid ""
 " char *\n"
@@ -40923,12 +40935,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3664
+#: docs/internal-documentation.pod:3689
 msgid "Turn C<\"/path\"> into C<\"/sysroot/path\">."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3666 docs/internal-documentation.pod:3680
+#: docs/internal-documentation.pod:3691 docs/internal-documentation.pod:3705
 msgid ""
 "Returns C<NULL> on failure.  The caller I<must> check for this and call "
 "S<C<reply_with_perror (\"malloc\")>>.  The caller must also free the "
@@ -40936,17 +40948,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3670 docs/internal-documentation.pod:3684
+#: docs/internal-documentation.pod:3695 docs/internal-documentation.pod:3709
 msgid "See also the custom C<%R> printf formatter which does shell quoting too."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3672
+#: docs/internal-documentation.pod:3697
 msgid "Function C<daemon/utils.c:sysroot_realpath>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3674
+#: docs/internal-documentation.pod:3699
 #, no-wrap
 msgid ""
 " char *\n"
@@ -40955,17 +40967,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3677
+#: docs/internal-documentation.pod:3702
 msgid "Resolve path within sysroot, calling C<sysroot_path> on the resolved path."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3686
+#: docs/internal-documentation.pod:3711
 msgid "Function C<daemon/utils.c:is_power_of_2>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3688
+#: docs/internal-documentation.pod:3713
 #, no-wrap
 msgid ""
 " int\n"
@@ -40974,24 +40986,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3691
+#: docs/internal-documentation.pod:3716
 msgid "Returns true if C<v> is a power of 2."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3693
+#: docs/internal-documentation.pod:3718
 msgid ""
 "Uses the algorithm described at "
 "L<http://graphics.stanford.edu/~seander/bithacks.html#DetermineIfPowerOf2>"
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3696
+#: docs/internal-documentation.pod:3721
 msgid "Function C<daemon/utils.c:split_lines_sb>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3698
+#: docs/internal-documentation.pod:3723
 #, no-wrap
 msgid ""
 " struct stringsbuf\n"
@@ -41000,66 +41012,66 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3701
+#: docs/internal-documentation.pod:3726
 msgid ""
 "Split an output string into a NULL-terminated list of lines, wrapped into a "
 "stringsbuf."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3704
+#: docs/internal-documentation.pod:3729
 msgid ""
 "Typically this is used where we have run an external command which has "
 "printed out a list of things, and we want to return an actual list."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3708
+#: docs/internal-documentation.pod:3733
 msgid "The corner cases here are quite tricky.  Note in particular:"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3712
+#: docs/internal-documentation.pod:3737
 msgid "C<\"\">"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3716
+#: docs/internal-documentation.pod:3741
 msgid "C<\"\\n\">"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3718
+#: docs/internal-documentation.pod:3743
 msgid "returns C<[\"\"]>"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3720
+#: docs/internal-documentation.pod:3745
 msgid "C<\"a\\nb\">"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3722 docs/internal-documentation.pod:3726
+#: docs/internal-documentation.pod:3747 docs/internal-documentation.pod:3751
 msgid "returns C<[\"a\"; \"b\"]>"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3724
+#: docs/internal-documentation.pod:3749
 msgid "C<\"a\\nb\\n\">"
 msgstr ""
 
 #. type: =item
-#: docs/internal-documentation.pod:3728
+#: docs/internal-documentation.pod:3753
 msgid "C<\"a\\nb\\n\\n\">"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3730
+#: docs/internal-documentation.pod:3755
 msgid "returns C<[\"a\"; \"b\"; \"\"]>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3734
+#: docs/internal-documentation.pod:3759
 msgid ""
 "The original string is written over and destroyed by this function (which is "
 "usually OK because it's the 'out' string from C<command*()>).  You can free "
@@ -41067,17 +41079,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3739
+#: docs/internal-documentation.pod:3764
 msgid "C<argv> in the C<struct stringsbuf> will be C<NULL> in case of errors."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3741
+#: docs/internal-documentation.pod:3766
 msgid "Function C<daemon/utils.c:filter_list>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3743
+#: docs/internal-documentation.pod:3768
 #, no-wrap
 msgid ""
 " char **\n"
@@ -41086,24 +41098,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3746
+#: docs/internal-documentation.pod:3771
 msgid ""
 "Filter a list of strings.  Returns a newly allocated list of only the "
 "strings where C<p (str) == true>."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3749
+#: docs/internal-documentation.pod:3774
 msgid "B<Note> it does not copy the strings, be careful not to double-free them."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3752
+#: docs/internal-documentation.pod:3777
 msgid "Function C<daemon/utils.c:trim>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3754
+#: docs/internal-documentation.pod:3779
 #, no-wrap
 msgid ""
 " void\n"
@@ -41112,17 +41124,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3757
+#: docs/internal-documentation.pod:3782
 msgid "Skip leading and trailing whitespace, updating the original string in-place."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3760
+#: docs/internal-documentation.pod:3785
 msgid "Function C<daemon/utils.c:parse_btrfsvol>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3762
+#: docs/internal-documentation.pod:3787
 #, no-wrap
 msgid ""
 " int\n"
@@ -41131,19 +41143,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3765
+#: docs/internal-documentation.pod:3790
 msgid ""
 "Parse the mountable descriptor for a btrfs subvolume.  Don't call this "
 "directly; it is only used from the stubs."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3768
+#: docs/internal-documentation.pod:3793
 msgid "A btrfs subvolume is given as:"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3770
+#: docs/internal-documentation.pod:3795
 #, no-wrap
 msgid ""
 " btrfsvol:/dev/sda3/root\n"
@@ -41151,7 +41163,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3772
+#: docs/internal-documentation.pod:3797
 msgid ""
 "where F</dev/sda3> is a block device containing a btrfs filesystem, and root "
 "is the name of a subvolume on it. This function is passed the string "
@@ -41159,19 +41171,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3776
+#: docs/internal-documentation.pod:3801
 msgid ""
 "On success, C<mountable-E<gt>device> and C<mountable-E<gt>volume> must be "
 "freed by the caller."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3779
+#: docs/internal-documentation.pod:3804
 msgid "Function C<daemon/utils.c:mountable_to_string>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3781
+#: docs/internal-documentation.pod:3806
 #, no-wrap
 msgid ""
 " char *\n"
@@ -41180,24 +41192,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3784
+#: docs/internal-documentation.pod:3809
 msgid "Convert a C<mountable_t> back to its string representation"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3786
+#: docs/internal-documentation.pod:3811
 msgid ""
 "This function can be used in an error path, so must not call "
 "C<reply_with_error>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3789
+#: docs/internal-documentation.pod:3814
 msgid "Function C<daemon/utils.c:prog_exists>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3791
+#: docs/internal-documentation.pod:3816
 #, no-wrap
 msgid ""
 " int\n"
@@ -41206,17 +41218,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3794
+#: docs/internal-documentation.pod:3819
 msgid "Check program exists and is executable on C<$PATH>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3796
+#: docs/internal-documentation.pod:3821
 msgid "Function C<daemon/utils.c:random_name>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3798
+#: docs/internal-documentation.pod:3823
 #, no-wrap
 msgid ""
 " int\n"
@@ -41225,7 +41237,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3801
+#: docs/internal-documentation.pod:3826
 msgid ""
 "Pass a template such as C<\"/sysroot/XXXXXXXX.XXX\">.  This updates the "
 "template to contain a randomly named file.  Any C<'X'> characters after the "
@@ -41233,7 +41245,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3806
+#: docs/internal-documentation.pod:3831
 msgid ""
 "Notes: You should probably use an 8.3 path, so it's compatible with all "
 "filesystems including basic FAT.  Also this only substitutes lowercase ASCII "
@@ -41242,24 +41254,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3811
+#: docs/internal-documentation.pod:3836
 msgid ""
 "This doesn't create a file or check whether or not the file exists (it would "
 "be extremely unlikely to exist as long as the RNG is working)."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3815
+#: docs/internal-documentation.pod:3840
 msgid "If there is an error, C<-1> is returned."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3817
+#: docs/internal-documentation.pod:3842
 msgid "Function C<daemon/utils.c:udev_settle_file>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3819
+#: docs/internal-documentation.pod:3844
 #, no-wrap
 msgid ""
 " void\n"
@@ -41268,7 +41280,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3822
+#: docs/internal-documentation.pod:3847
 msgid ""
 "LVM and other commands aren't synchronous, especially when udev is "
 "involved.  eg. You can create or remove some device, but the C</dev> device "
@@ -41277,19 +41289,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3827
+#: docs/internal-documentation.pod:3852
 msgid ""
 "Use C<udevadm settle> after certain commands, but don't be too fussed if it "
 "fails."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3830
+#: docs/internal-documentation.pod:3855
 msgid "Function C<daemon/utils.c:make_exclude_from_file>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3832
+#: docs/internal-documentation.pod:3857
 #, no-wrap
 msgid ""
 " char *\n"
@@ -41298,31 +41310,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3835
+#: docs/internal-documentation.pod:3860
 msgid ""
 "Turn list C<excludes> into a temporary file, and return a string containing "
 "the temporary file name.  Caller must unlink the file and free the string."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3839
+#: docs/internal-documentation.pod:3864
 msgid ""
 "C<function> is the function that invoked this helper, and it is used mainly "
 "for errors/debugging."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3842
+#: docs/internal-documentation.pod:3867
 msgid "File F<daemon/xattr.c>"
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3844
+#: docs/internal-documentation.pod:3869
 msgid "Function C<daemon/xattr.c:split_attr_names>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3846
+#: docs/internal-documentation.pod:3871
 #, no-wrap
 msgid ""
 " static char **\n"
@@ -41331,7 +41343,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3849
+#: docs/internal-documentation.pod:3874
 msgid ""
 "L<listxattr(2)> returns the string C<\"foo\\0bar\\0baz\"> of length C<len>.  "
 "(The last string in the list is \\0-terminated but the \\0 is not included "
@@ -41339,39 +41351,39 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3853
+#: docs/internal-documentation.pod:3878
 msgid "This function splits it into a regular list of strings."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3855
+#: docs/internal-documentation.pod:3880
 msgid ""
 "B<Note> that the returned list contains pointers to the original strings in "
 "C<buf> so be careful that you do not double-free them."
 msgstr ""
 
 #. type: =head2
-#: docs/internal-documentation.pod:3858
+#: docs/internal-documentation.pod:3883
 msgid "Subdirectory F<fish>"
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3860
+#: docs/internal-documentation.pod:3885
 msgid "File F<fish/alloc.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3862
+#: docs/internal-documentation.pod:3887
 msgid "This file implements the guestfish C<alloc> and C<sparse> commands."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3864
+#: docs/internal-documentation.pod:3889
 msgid "Function C<fish/alloc.c:alloc_disk>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3866
+#: docs/internal-documentation.pod:3891
 #, no-wrap
 msgid ""
 " int\n"
@@ -41381,95 +41393,95 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3869
+#: docs/internal-documentation.pod:3894
 msgid ""
 "This is the underlying allocation function.  It's called from a few other "
 "places in guestfish."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3872
+#: docs/internal-documentation.pod:3897
 msgid "File F<fish/copy.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3874
+#: docs/internal-documentation.pod:3899
 msgid "This file implements the guestfish commands C<copy-in> and C<copy-out>."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3877
+#: docs/internal-documentation.pod:3902
 msgid "File F<fish/destpaths.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3879
+#: docs/internal-documentation.pod:3904
 msgid "The file handles tab-completion of filesystem paths in guestfish."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3881
+#: docs/internal-documentation.pod:3906
 msgid "File F<fish/display.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3883
+#: docs/internal-documentation.pod:3908
 msgid ""
 "The file implements the guestfish C<display> command, for displaying "
 "graphical files (icons, images) in disk images."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3886
+#: docs/internal-documentation.pod:3911
 msgid "File F<fish/echo.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3888
+#: docs/internal-documentation.pod:3913
 msgid "The file implements the guestfish C<echo> command."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3890
+#: docs/internal-documentation.pod:3915
 msgid "File F<fish/edit.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3892
+#: docs/internal-documentation.pod:3917
 msgid "guestfish C<edit> command, suggested by Ján Ondrej."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3894
+#: docs/internal-documentation.pod:3919
 msgid "File F<fish/events.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3896
+#: docs/internal-documentation.pod:3921
 msgid ""
 "This file implements the guestfish event-related commands, C<event>, "
 "C<delete-event> and C<list-events>."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:3899
+#: docs/internal-documentation.pod:3924
 msgid "File F<fish/fish.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3901
+#: docs/internal-documentation.pod:3926
 msgid ""
 "guestfish, the guest filesystem shell.  This file contains the main loop and "
 "utilities."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3904
+#: docs/internal-documentation.pod:3929
 msgid "Function C<fish/fish.c:parse_command_line>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3906
+#: docs/internal-documentation.pod:3931
 #, no-wrap
 msgid ""
 " static struct parsed_command\n"
@@ -41478,46 +41490,46 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3909
+#: docs/internal-documentation.pod:3934
 msgid ""
 "Parse a command string, splitting at whitespace, handling C<'!'>, C<'#'> "
 "etc.  This destructively updates C<buf>."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3912
+#: docs/internal-documentation.pod:3937
 msgid ""
 "C<exit_on_error_rtn> is used to pass in the global C<exit_on_error> setting "
 "and to return the local setting (eg. if the command begins with C<'-'>)."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3916
+#: docs/internal-documentation.pod:3941
 msgid "Returns in C<parsed_command.status>:"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3922
+#: docs/internal-documentation.pod:3947
 msgid "got a guestfish command (returned in C<cmd_rtn>/C<argv_rtn>/C<pipe_rtn>)"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3926
+#: docs/internal-documentation.pod:3951
 msgid "no guestfish command, but otherwise OK"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3930
+#: docs/internal-documentation.pod:3955
 msgid "an error"
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3934
+#: docs/internal-documentation.pod:3959
 msgid "Function C<fish/fish.c:parse_quoted_string>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3936
+#: docs/internal-documentation.pod:3961
 #, no-wrap
 msgid ""
 " static ssize_t\n"
@@ -41526,7 +41538,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3939
+#: docs/internal-documentation.pod:3964
 msgid ""
 "Parse double-quoted strings, replacing backslash escape sequences with the "
 "true character.  Since the string is returned in place, the escapes must "
@@ -41534,12 +41546,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3943
+#: docs/internal-documentation.pod:3968
 msgid "Function C<fish/fish.c:execute_and_inline>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3945
+#: docs/internal-documentation.pod:3970
 #, no-wrap
 msgid ""
 " static int\n"
@@ -41548,17 +41560,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3948
+#: docs/internal-documentation.pod:3973
 msgid "Used to handle C<E<lt>!> (execute command and inline result)."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3950
+#: docs/internal-documentation.pod:3975
 msgid "Function C<fish/fish.c:issue_command>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3952
+#: docs/internal-documentation.pod:3977
 #, no-wrap
 msgid ""
 " int\n"
@@ -41568,12 +41580,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3956
+#: docs/internal-documentation.pod:3981
 msgid "Run a command."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3958
+#: docs/internal-documentation.pod:3983
 msgid ""
 "C<rc_exit_on_error_flag> is the C<exit_on_error> flag that we pass to the "
 "remote server (when issuing I<--remote> commands).  It does not cause "
@@ -41581,12 +41593,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3962
+#: docs/internal-documentation.pod:3987
 msgid "Function C<fish/fish.c:extended_help_message>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3964
+#: docs/internal-documentation.pod:3989
 #, no-wrap
 msgid ""
 " void\n"
@@ -41595,14 +41607,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3967
+#: docs/internal-documentation.pod:3992
 msgid ""
 "Print an extended help message when the user types in an unknown command for "
 "the first command issued.  A common case is the user doing:"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3971
+#: docs/internal-documentation.pod:3996
 #, no-wrap
 msgid ""
 "  guestfish disk.img\n"
@@ -41610,19 +41622,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3973
+#: docs/internal-documentation.pod:3998
 msgid ""
 "expecting guestfish to open F<disk.img> (in fact, this tried to run a "
 "non-existent command C<disk.img>)."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3976
+#: docs/internal-documentation.pod:4001
 msgid "Function C<fish/fish.c:error_cb>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3978
+#: docs/internal-documentation.pod:4003
 #, no-wrap
 msgid ""
 " static void\n"
@@ -41631,17 +41643,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3981
+#: docs/internal-documentation.pod:4006
 msgid "Error callback.  This replaces the standard libguestfs error handler."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3983
+#: docs/internal-documentation.pod:4008
 msgid "Function C<fish/fish.c:free_n_strings>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3985
+#: docs/internal-documentation.pod:4010
 #, no-wrap
 msgid ""
 " static void\n"
@@ -41650,17 +41662,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3988
+#: docs/internal-documentation.pod:4013
 msgid "Free strings from a non-NULL terminated C<char**>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3990
+#: docs/internal-documentation.pod:4015
 msgid "Function C<fish/fish.c:decode_ps1>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3992
+#: docs/internal-documentation.pod:4017
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -41669,17 +41681,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:3995
+#: docs/internal-documentation.pod:4020
 msgid "Decode C<str> into the final printable prompt string."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:3997
+#: docs/internal-documentation.pod:4022
 msgid "Function C<fish/fish.c:win_prefix>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:3999
+#: docs/internal-documentation.pod:4024
 #, no-wrap
 msgid ""
 " char *\n"
@@ -41688,26 +41700,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4002
+#: docs/internal-documentation.pod:4027
 msgid ""
 "Resolve the special C<win:...> form for Windows-specific paths.  The "
 "generated code calls this for all device or path arguments."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4005
+#: docs/internal-documentation.pod:4030
 msgid ""
 "The function returns a newly allocated string, and the caller must free this "
 "string; else display an error and return C<NULL>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4008
+#: docs/internal-documentation.pod:4033
 msgid "Function C<fish/fish.c:file_in>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4010
+#: docs/internal-documentation.pod:4035
 #, no-wrap
 msgid ""
 " char *\n"
@@ -41716,24 +41728,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4013
+#: docs/internal-documentation.pod:4038
 msgid "Resolve the special C<FileIn> paths (C<-> or C<-<<END> or filename)."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4015
+#: docs/internal-documentation.pod:4040
 msgid ""
 "The caller (F<fish/cmds.c>) will call C<free_file_in> after the command has "
 "run which should clean up resources."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4018
+#: docs/internal-documentation.pod:4043
 msgid "Function C<fish/fish.c:file_out>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4020
+#: docs/internal-documentation.pod:4045
 #, no-wrap
 msgid ""
 " char *\n"
@@ -41742,24 +41754,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4023
+#: docs/internal-documentation.pod:4048
 msgid "Resolve the special C<FileOut> paths (C<-> or filename)."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4025
+#: docs/internal-documentation.pod:4050
 msgid ""
 "The caller (F<fish/cmds.c>) will call S<C<free (str)>> after the command has "
 "run."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4028
+#: docs/internal-documentation.pod:4053
 msgid "Function C<fish/fish.c:progress_callback>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4030
+#: docs/internal-documentation.pod:4055
 #, no-wrap
 msgid ""
 " void\n"
@@ -41771,27 +41783,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4036
+#: docs/internal-documentation.pod:4061
 msgid "Callback which displays a progress bar."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4038
+#: docs/internal-documentation.pod:4063
 msgid "File F<fish/glob.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4040
+#: docs/internal-documentation.pod:4065
 msgid "This file implements the guestfish C<glob> command."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4042
+#: docs/internal-documentation.pod:4067
 msgid "Function C<fish/glob.c:expand_devicename>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4044
+#: docs/internal-documentation.pod:4069
 #, no-wrap
 msgid ""
 " static char **\n"
@@ -41800,21 +41812,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4047
+#: docs/internal-documentation.pod:4072
 msgid ""
 "Glob-expand device patterns, such as C</dev/sd*> "
 "(L<https://bugzilla.redhat.com/635971>)."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4050
+#: docs/internal-documentation.pod:4075
 msgid ""
 "There is no C<guestfs_glob_expand_device> function because the equivalent "
 "can be implemented using functions like C<guestfs_list_devices>."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4054
+#: docs/internal-documentation.pod:4079
 msgid ""
 "It's not immediately clear what it means to expand a pattern like "
 "C</dev/sd*>.  Should that include device name translation? Should the result "
@@ -41822,43 +41834,43 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4058
+#: docs/internal-documentation.pod:4083
 msgid ""
 "Should C<\"/dev/\"> + C<\"*\"> return every possible device and filesystem? "
 "How about VGs? LVs?"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4061
+#: docs/internal-documentation.pod:4086
 msgid ""
 "To solve this what we do is build up a list of every device, partition, "
 "etc., then glob against that list."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4064
+#: docs/internal-documentation.pod:4089
 msgid "Notes for future work (XXX):"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4070
+#: docs/internal-documentation.pod:4095
 msgid ""
 "This doesn't handle device name translation.  It wouldn't be too hard to "
 "add."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4075
+#: docs/internal-documentation.pod:4100
 msgid "Could have an API function for returning all device-like things."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4079
+#: docs/internal-documentation.pod:4104
 msgid "Function C<fish/glob.c:add_strings_matching>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4081
+#: docs/internal-documentation.pod:4106
 #, no-wrap
 msgid ""
 " static int\n"
@@ -41868,7 +41880,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4085
+#: docs/internal-documentation.pod:4110
 msgid ""
 "Using POSIX L<fnmatch(3)>, find strings in the list C<pp> which match "
 "pattern C<glob>.  Add strings which match to the C<ret> array.  C<*size_r> "
@@ -41876,12 +41888,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4090
+#: docs/internal-documentation.pod:4115
 msgid "Function C<fish/glob.c:single_element_list>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4092
+#: docs/internal-documentation.pod:4117
 #, no-wrap
 msgid ""
 " static char **\n"
@@ -41890,27 +41902,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4095
+#: docs/internal-documentation.pod:4120
 msgid "Return a single element list containing C<element>."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4097
+#: docs/internal-documentation.pod:4122
 msgid "File F<fish/help.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4099
+#: docs/internal-documentation.pod:4124
 msgid "The file implements the guestfish C<help> command."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4101
+#: docs/internal-documentation.pod:4126
 msgid "Function C<fish/help.c:display_help>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4103
+#: docs/internal-documentation.pod:4128
 #, no-wrap
 msgid ""
 " int\n"
@@ -41919,12 +41931,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4106
+#: docs/internal-documentation.pod:4131
 msgid "The C<help> command."
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4108
+#: docs/internal-documentation.pod:4133
 msgid ""
 "This used to just list all commands, but that's not very useful.  Instead "
 "display some useful context-sensitive help.  This could be improved if we "
@@ -41933,27 +41945,27 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4113
+#: docs/internal-documentation.pod:4138
 msgid "File F<fish/hexedit.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4115
+#: docs/internal-documentation.pod:4140
 msgid "This file implements the guestfish C<hexedit> command."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4117
+#: docs/internal-documentation.pod:4142
 msgid "File F<fish/lcd.c>"
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4119
+#: docs/internal-documentation.pod:4144
 msgid "Function C<fish/lcd.c:run_lcd>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4121
+#: docs/internal-documentation.pod:4146
 #, no-wrap
 msgid ""
 " int\n"
@@ -41962,22 +41974,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4124
+#: docs/internal-documentation.pod:4149
 msgid "guestfish C<lcd> command (similar to the C<lcd> command in BSD ftp)."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4126
+#: docs/internal-documentation.pod:4151
 msgid "File F<fish/man.c>"
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4128
+#: docs/internal-documentation.pod:4153
 msgid "Function C<fish/man.c:run_man>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4130
+#: docs/internal-documentation.pod:4155
 #, no-wrap
 msgid ""
 " int\n"
@@ -41986,49 +41998,49 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4133
+#: docs/internal-documentation.pod:4158
 msgid "guestfish C<man> command"
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4135
+#: docs/internal-documentation.pod:4160
 msgid "File F<fish/more.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4137
+#: docs/internal-documentation.pod:4162
 msgid "This file implements the guestfish C<more> command."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4139
+#: docs/internal-documentation.pod:4164
 msgid "File F<fish/prep.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4141
+#: docs/internal-documentation.pod:4166
 msgid ""
 "This file implements the guestfish I<-N> option for creating pre-prepared "
 "disk layouts."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4144
+#: docs/internal-documentation.pod:4169
 msgid "File F<fish/rc.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4146
+#: docs/internal-documentation.pod:4171
 msgid "This file implements guestfish remote (command) support."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4148
+#: docs/internal-documentation.pod:4173
 msgid "Function C<fish/rc.c:rc_listen>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4150
+#: docs/internal-documentation.pod:4175
 #, no-wrap
 msgid ""
 " void\n"
@@ -42037,17 +42049,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4153
+#: docs/internal-documentation.pod:4178
 msgid "The remote control server (ie. C<guestfish --listen>)."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4155
+#: docs/internal-documentation.pod:4180
 msgid "Function C<fish/rc.c:rc_remote>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4157
+#: docs/internal-documentation.pod:4182
 #, no-wrap
 msgid ""
 " int\n"
@@ -42057,59 +42069,59 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4161
+#: docs/internal-documentation.pod:4186
 msgid "The remote control client (ie. C<guestfish --remote>)."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4163
+#: docs/internal-documentation.pod:4188
 msgid "File F<fish/reopen.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4165
+#: docs/internal-documentation.pod:4190
 msgid "This file implements the guestfish C<reopen> command."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4167
+#: docs/internal-documentation.pod:4192
 msgid "File F<fish/setenv.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4169
+#: docs/internal-documentation.pod:4194
 msgid "This file implements the guestfish C<setenv> and C<unsetenv> commands."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4172
+#: docs/internal-documentation.pod:4197
 msgid "File F<fish/supported.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4174
+#: docs/internal-documentation.pod:4199
 msgid "This file implements the guestfish C<supported> command."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4176
+#: docs/internal-documentation.pod:4201
 msgid "File F<fish/tilde.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4178
+#: docs/internal-documentation.pod:4203
 msgid ""
 "This file implements tilde (C<~>) expansion of home directories in "
 "L<guestfish(1)>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4181
+#: docs/internal-documentation.pod:4206
 msgid "Function C<fish/tilde.c:try_tilde_expansion>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4183
+#: docs/internal-documentation.pod:4208
 #, no-wrap
 msgid ""
 " char *\n"
@@ -42118,19 +42130,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4186
+#: docs/internal-documentation.pod:4211
 msgid ""
 "This is called from the script loop if we find a candidate for C<~username> "
 "(tilde-expansion)."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4189
+#: docs/internal-documentation.pod:4214
 msgid "Function C<fish/tilde.c:expand_home>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4191
+#: docs/internal-documentation.pod:4216
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -42139,17 +42151,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4194
+#: docs/internal-documentation.pod:4219
 msgid "Return C<$HOME> + append string."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4196
+#: docs/internal-documentation.pod:4221
 msgid "Function C<fish/tilde.c:find_home_for_username>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4198
+#: docs/internal-documentation.pod:4223
 #, no-wrap
 msgid ""
 " static const char *\n"
@@ -42158,34 +42170,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4201
+#: docs/internal-documentation.pod:4226
 msgid ""
 "Lookup C<username> (of length C<ulen>), return home directory if found, or "
 "C<NULL> if not found."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4204
+#: docs/internal-documentation.pod:4229
 msgid "File F<fish/time.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4206
+#: docs/internal-documentation.pod:4231
 msgid "This file implements the guestfish C<time> command."
 msgstr ""
 
 #. type: =head2
-#: docs/internal-documentation.pod:4208
+#: docs/internal-documentation.pod:4233
 msgid "Subdirectory F<python>"
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4210
+#: docs/internal-documentation.pod:4235
 msgid "File F<python/handle.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4212
+#: docs/internal-documentation.pod:4237
 msgid ""
 "This file contains a small number of functions that are written by hand.  "
 "The majority of the bindings are generated (see F<python/actions-*.c>)."
