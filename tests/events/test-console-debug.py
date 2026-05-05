@@ -52,8 +52,11 @@ g.debug("print", [magic])
 g.close()
 
 # Ensure the magic string appeared in the log messages.
-if magic not in log_messages:
-    print("log_messages does not contain magic string '{}'".format(magic))
+if magic in log_messages:
+    print("PASS: log_messages contains magic string")
+else:
+    print("FAIL: log_messages does not contain magic string")
+    print("magic string: '{}'".format(magic))
     print("callback was invoked {} times".format(callback_invoked))
     print("log messages were:")
     print("-" * 40)
