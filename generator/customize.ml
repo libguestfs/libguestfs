@@ -224,10 +224,7 @@ conveniently wraps the command up in a single line script for you.
 You can have multiple I<--firstboot> options.  They run in the same
 order that they appear on the command line.
 
-Please take a look at L<virt-builder(1)/FIRST BOOT SCRIPTS> for more
-information and caveats about the first boot scripts.
-
-See also I<--run>.|};
+See also: L<virt-customize(1)/FIRSTBOOT>, I<--run>.|};
   };
 
   { op_name = "firstboot-command";
@@ -241,10 +238,7 @@ boots up (as root, late in the boot process).
 You can have multiple I<--firstboot> options.  They run in the same
 order that they appear on the command line.
 
-Please take a look at L<virt-builder(1)/FIRST BOOT SCRIPTS> for more
-information and caveats about the first boot scripts.
-
-See also I<--run>.|};
+See also: L<virt-customize(1)/FIRSTBOOT>, I<--run>.|};
   };
 
   { op_name = "firstboot-install";
