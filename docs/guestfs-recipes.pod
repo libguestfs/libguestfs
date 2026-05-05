@@ -68,8 +68,6 @@ Use a combination of tools like L<cp(1)>, L<dd(1)>, and
 virt tools like L<virt-sysprep(1)>, L<virt-sparsify(1)>
 and L<virt-resize(1)>.
 
-For more details, see: L<virt-sysprep(1)/COPYING AND CLONING>.
-
 =head1 Convert a CD-ROM / DVD / ISO to a tarball
 
 This converts input F<cd.iso> to output F<cd.tar.gz>:
