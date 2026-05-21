@@ -172,6 +172,9 @@ let xfs_info dev =
     xfs_rtextents    = find "realtime.rtextents" Int64.of_string;
   }
 
+let bad_agbno_in_agfl_re =
+  PCRE.compile ~anchored:false {|bad agbno \d+ in agfl, agno \d+|}
+
 let xfs_repair
       ?(forcelogzero = false)
       ?(nomodify = false)
@@ -229,5 +232,20 @@ let xfs_repair
   );
 
   (* Run the xfs_repair command, returning the status directly. *)
-  let r, _, _ = commandr "xfs_repair" !args in
+  let r, _, err = commandr "xfs_repair" !args in
+
+  (* RHEL 7 XFS had a bug in on-disk AGFL (free list) structs.  This
+   * was fixed later (linux kernel commit 96f859d).  But the RHEL 7
+   * kernel was patched to detect this case and do a fix up.  Later
+   * xfs_repair (eg RHEL 10) flags the RHEL 7 structs as an error,
+   * incorrectly.  Detect this case and ignore the error. (RHEL-178287)
+   *)
+  let r =
+    if r = 1 && PCRE.matches bad_agbno_in_agfl_re err then (
+      eprintf "xfs_repair: \
+               ignoring RHEL 7 AGFL inconsistency (RHEL-178287)\n%!";
+      0
+    )
+    else r in
+
   r
