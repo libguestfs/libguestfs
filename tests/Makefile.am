@@ -140,8 +140,9 @@ c_api_tests_LDADD = \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
-# This binary must be statically linked.  It is used for testing
-# the "guestfs_command" and "guestfs_command_lines" functions.
+# This binary must be statically linked.  It is used for testing the
+# "guestfs_command" and "guestfs_command_lines" functions, as well as
+# tests in the tests/command/ directory.
 
 c_api_test_command_SOURCES = c-api/test-command.c
 c_api_test_command_LDFLAGS = -all-static
@@ -330,6 +331,9 @@ charsets_test_charset_fidelity_LDADD = \
 	$(LIBVIRT_LIBS) \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
+
+TESTS += command/test-immutable-resolv-conf.sh
+EXTRA_DIST += command/test-immutable-resolv-conf.sh
 
 TESTS += create/test-disk-create.sh
 EXTRA_DIST += create/test-disk-create.sh

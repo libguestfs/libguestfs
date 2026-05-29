@@ -17,7 +17,8 @@
  */
 
 /* This program, which must be statically linked, is used to test the
- * guestfs_command and guestfs_command_lines functions.
+ * guestfs_command and guestfs_command_lines functions, as well as
+ * tests in the tests/command/ directory.
  */
 
 #include <config.h>
