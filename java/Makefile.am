@@ -50,6 +50,7 @@ java_tests = \
 	t/GuestFS070OptArgs.java \
 	t/GuestFS100Launch.java \
 	t/GuestFS410CloseEvent.java \
+	t/GuestFS415EventCallback.java \
 	t/GuestFS420LogMessages.java \
 	t/GuestFS430ProgressMessages.java \
 	t/GuestFS800RHBZ1073906.java
