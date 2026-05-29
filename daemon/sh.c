@@ -48,8 +48,8 @@ struct bind_state {
 
 struct resolver_state {
   bool mounted;
+  bool sysroot_etc_resolv_conf_exists;
   char *sysroot_etc_resolv_conf;
-  char *sysroot_etc_resolv_conf_old;
 };
 
 /* While running the command, bind-mount /dev, /proc, /sys
@@ -150,10 +150,12 @@ free_bind_state (struct bind_state *bs)
 static int
 set_up_etc_resolv_conf (struct resolver_state *rs)
 {
+  const char *src_etc_resolv = "/etc/resolv.conf";
   struct stat statbuf;
-  CLEANUP_FREE char *buf = NULL;
+  int r, fd;
 
-  rs->sysroot_etc_resolv_conf_old = NULL;
+ /* assume that /sysroot/etc/resolv.conf file exists */
+  rs->sysroot_etc_resolv_conf_exists = true;
 
   rs->sysroot_etc_resolv_conf = sysroot_path ("/etc/resolv.conf");
 
@@ -161,50 +163,51 @@ set_up_etc_resolv_conf (struct resolver_state *rs)
     reply_with_perror ("malloc");
     goto error;
   }
-
-  /* If /etc/resolv.conf exists, rename it to the backup file.  Note
-   * that on Ubuntu it's a dangling symlink.
+  /* If /sysroot/etc/resolv.conf does not exist, create one for mount
+   * bind to succeed. lstat() call handles dangling links
    */
-  if (lstat (rs->sysroot_etc_resolv_conf, &statbuf) == 0) {
-    /* Make a random name for the backup file. */
-    if (asprintf (&buf, "%s/etc/XXXXXXXX", sysroot) == -1) {
-      reply_with_perror ("asprintf");
-      goto error;
+  if (lstat (rs->sysroot_etc_resolv_conf, &statbuf) == -1) {
+    if (errno != ENOENT) {
+      reply_with_perror ("lstat: %s", rs->sysroot_etc_resolv_conf);
+      return -1;
     }
-    if (random_name (buf) == -1) {
-      reply_with_perror ("random_name");
-      goto error;
+    /* create empty file */
+    fd = open (rs->sysroot_etc_resolv_conf,
+                O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0644);
+    if (fd == -1) {
+      reply_with_perror ("open: %s", rs->sysroot_etc_resolv_conf);
+      return -1;
     }
-    rs->sysroot_etc_resolv_conf_old = strdup (buf);
-    if (!rs->sysroot_etc_resolv_conf_old) {
-      reply_with_perror ("strdup");
-      goto error;
+    if (close(fd) == -1) {
+      reply_with_perror ("close: %s", rs->sysroot_etc_resolv_conf);
+      return -1;
     }
-
-    if (verbose)
-      fprintf (stderr, "renaming %s to %s\n", rs->sysroot_etc_resolv_conf,
-               rs->sysroot_etc_resolv_conf_old);
-
-    if (rename (rs->sysroot_etc_resolv_conf,
-                rs->sysroot_etc_resolv_conf_old) == -1) {
-      reply_with_perror ("rename: %s to %s", rs->sysroot_etc_resolv_conf,
-                         rs->sysroot_etc_resolv_conf_old);
-      goto error;
-    }
+    /* /sysroot/etc/resolv.conf file did not exist, we created it.
+     * We remove it using this marker flag after umount.
+     */
+    rs->sysroot_etc_resolv_conf_exists = false;
   }
-
-  /* Now that the guest's <sysroot>/etc/resolv.conf is out the way, we
-   * can create our own copy of the appliance /etc/resolv.conf.
-   */
-  ignore_value (command (NULL, NULL, "cp", "/etc/resolv.conf",
-                         rs->sysroot_etc_resolv_conf, NULL));
-
+  if (verbose)
+    fprintf (stderr, "mount %s to %s\n", src_etc_resolv,
+                        rs->sysroot_etc_resolv_conf);
+  r = command (NULL, NULL, "mount", "--bind", "-o ro", src_etc_resolv,
+                         rs->sysroot_etc_resolv_conf, NULL);
+  if (r == -1) {
+    reply_with_perror ("mount: %s to %s failed\n",
+                    src_etc_resolv, rs->sysroot_etc_resolv_conf);
+    goto error;
+  }
+  if (verbose)
+    fprintf (stderr, "mount %s to %s done\n", src_etc_resolv,
+                        rs->sysroot_etc_resolv_conf);
   rs->mounted = true;
   return 0;
 
  error:
+  if (rs->sysroot_etc_resolv_conf_exists == false) {
+    unlink (rs->sysroot_etc_resolv_conf);
+  }
   free (rs->sysroot_etc_resolv_conf);
-  free (rs->sysroot_etc_resolv_conf_old);
   return -1;
 }
 
@@ -212,20 +215,16 @@ static void
 free_resolver_state (struct resolver_state *rs)
 {
   if (rs->mounted) {
-    unlink (rs->sysroot_etc_resolv_conf);
-
-    if (rs->sysroot_etc_resolv_conf_old) {
-      if (verbose)
-        fprintf (stderr, "renaming %s to %s\n", rs->sysroot_etc_resolv_conf_old,
-                 rs->sysroot_etc_resolv_conf);
-
-      if (rename (rs->sysroot_etc_resolv_conf_old,
-                  rs->sysroot_etc_resolv_conf) == -1)
-        perror ("error: could not restore /etc/resolv.conf");
-
-      free (rs->sysroot_etc_resolv_conf_old);
+    if (verbose)
+      fprintf (stderr, "umount %s\n", rs->sysroot_etc_resolv_conf);
+    umount_ignore_fail (rs->sysroot_etc_resolv_conf);
+    if (rs->sysroot_etc_resolv_conf_exists == false) {
+      /* do not want to leave the file which we created */
+      if (unlink (rs->sysroot_etc_resolv_conf) == -1) {
+        fprintf (stderr, "unlink: %s: %s (ignored)\n",
+                    rs->sysroot_etc_resolv_conf, strerror (errno));
+      }
     }
-
     free (rs->sysroot_etc_resolv_conf);
     rs->mounted = false;
   }
