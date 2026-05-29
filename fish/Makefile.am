@@ -85,6 +85,7 @@ guestfish_SOURCES = \
 	lcd.c \
 	man.c \
 	more.c \
+	not.c \
 	prep.c \
 	prep-disk.c \
 	prep-part.c \
@@ -280,7 +281,8 @@ TESTS = \
 	test-escapes.sh \
 	test-events.sh \
 	test-invalid-params.sh \
-	test-tilde.sh
+	test-tilde.sh \
+	test-not.sh
 
 if HAVE_LIBVIRT
 TESTS += \
@@ -331,6 +333,7 @@ EXTRA_DIST += \
 	test-inspect.sh \
 	test-invalid-params.sh \
 	test-mount-local.sh \
+	test-not.sh \
 	test-prep.sh \
 	test-read-file.sh \
 	test-remote.sh \

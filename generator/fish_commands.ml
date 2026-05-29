@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2025 Red Hat Inc.
+ * Copyright (C) 2009-2026 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -247,6 +247,19 @@ This is used to view a file.
 
 The default viewer is C<$PAGER>.  However if you use the alternate
 command C<less> you will get the C<less> command specifically.|} };
+
+  { defaults with
+    name = "not";
+    shortdesc = "negate a command";
+    longdesc = {| not command [args...]
+
+This runs an existing guestfish command and negates the
+exit code, so if the command fails, then C<not command> succeeds.
+
+Note this doesn't reverse the sense of commands which return
+booleans.  (eg. C<not exists /foo> doesn't do what you think).
+
+For example C<not cat /foo> will check that the file does not exist.|} };
 
   { defaults with
     name = "reopen";
