@@ -157,8 +157,14 @@ java_callback (guestfs_h *g,
 
   /* Convert the buffer and array to Java objects. */
   jbuf = (*env)->NewStringUTF (env, buf); // XXX size
+  if (jbuf == NULL)
+    return;
 
   jarray = (*env)->NewLongArray (env, array_len);
+  if (jarray == NULL) {
+    (*env)->DeleteLocalRef (env, jbuf);
+    return;
+  }
   for (i = 0; i < array_len; ++i) {
     jl = array[i];
     (*env)->SetLongArrayRegion (env, jarray, i, 1, &jl);
@@ -175,6 +181,9 @@ java_callback (guestfs_h *g,
     (*env)->ExceptionDescribe (env);
     (*env)->ExceptionClear (env);
   }
+
+  (*env)->DeleteLocalRef (env, jbuf);
+  (*env)->DeleteLocalRef (env, jarray);
 }
 
 JNIEXPORT jint JNICALL
