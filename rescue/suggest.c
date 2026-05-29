@@ -38,7 +38,9 @@ compare_keys_len (const void *p1, const void *p2)
 {
   const char *key1 = * (char * const *) p1;
   const char *key2 = * (char * const *) p2;
-  return strlen (key1) - strlen (key2);
+  size_t len1 = strlen (key1);
+  size_t len2 = strlen (key2);
+  return (len1 > len2) - (len1 < len2);
 }
 
 /* virt-rescue --suggest flag does a kind of inspection on the
