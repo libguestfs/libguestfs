@@ -25,10 +25,10 @@ set -x
 skip_if_skipped
 skip_unless_feature_available luks
 
-rm -f test-luks.img
+rm -f luks/test-luks.img
 
 guestfish --keys-from-stdin <<EOF
-sparse test-luks.img 1G
+sparse luks/test-luks.img 1G
 run
 part-disk /dev/sda mbr
 
@@ -90,4 +90,4 @@ luks-close /dev/mapper/lukstest
 
 EOF
 
-rm test-luks.img
+rm luks/test-luks.img
