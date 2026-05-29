@@ -33,9 +33,6 @@ f=command/immutable.img
 rm -f $f
 cp $top_builddir/test-data/phony-guests/fedora.img $f
 
-out=command/ls.out
-rm -f $out
-
 guestfish -vx --network -a $f -i <<EOF
 # Upload the static binary.
 upload $b /bin/test-command
@@ -48,8 +45,8 @@ rm-f /etc/resolv.conf
 command "/bin/test-command 1"
 
 # /etc/resolv.conf must still not exist.
-# XXX This is tested below.
-ls /etc | cat > $out
+ls /etc
+not cat /etc/resolv.conf
 
 # Touch /etc/resolv.conf and run the command again.
 touch /etc/resolv.conf
@@ -66,9 +63,4 @@ command "/bin/test-command 1"
 
 EOF
 
-if grep resolv.conf $out; then
-    echo "FAIL: /etc/resolv.conf was created by accident"
-    exit 1
-fi
-
-rm $f $out
+rm $f
