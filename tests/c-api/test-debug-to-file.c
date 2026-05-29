@@ -51,7 +51,7 @@ int
 main (int argc, char *argv[])
 {
   guestfs_h *g;
-  const char *filename = "test.log";
+  const char *filename = "c-api/test.log";
   FILE *debugfp;
 
   debugfp = fopen (filename, "w");

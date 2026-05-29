@@ -396,6 +396,7 @@ Makefile.in
 /rust/target
 /run
 /stamp-h1
+/tests/c-api/testdownload.tmp
 /tests/c-api/test-add-drive-opts
 /tests/c-api/test-add-libvirt-dom
 /tests/c-api/test-backend-settings
@@ -432,7 +433,6 @@ Makefile.in
 /tests/regressions/rhbz914931
 /tests/regressions/rhbz1055452
 /tests/regressions/test-big-heap
-/tests/testdownload.tmp
 /test-data/test.iso
 /test-data/blank-disks/blank-disk-*
 /test-data/fake-virtio-win/fake-virtio-win.iso

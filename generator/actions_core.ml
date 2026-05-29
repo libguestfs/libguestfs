@@ -2539,8 +2539,8 @@ See also C<guestfs_download>.|} };
         (* Pick a file from cwd which isn't likely to change. *)
         [["mkdir"; "/download"];
          ["upload"; "$srcdir/../COPYING.LIB"; "/download/COPYING.LIB"];
-         ["download"; "/download/COPYING.LIB"; "testdownload.tmp"];
-         ["upload"; "testdownload.tmp"; "/download/upload"];
+         ["download"; "/download/COPYING.LIB"; "c-api/testdownload.tmp"];
+         ["upload"; "c-api/testdownload.tmp"; "/download/upload"];
          ["checksum"; "md5"; "/download/upload"]],
         Digest.to_hex (Digest.file "COPYING.LIB")), []
     ];
@@ -5804,8 +5804,8 @@ See also C<guestfs_upload>, C<guestfs_pwrite>.|} };
            (* Pick a file from cwd which isn't likely to change. *)
            [["mkdir"; "/download_offset"];
             ["upload"; "$srcdir/../COPYING.LIB"; "/download_offset/COPYING.LIB"];
-            ["download_offset"; "/download_offset/COPYING.LIB"; "testdownload.tmp"; offset; size];
-            ["upload_offset"; "testdownload.tmp"; "/download_offset/COPYING.LIB"; offset];
+            ["download_offset"; "/download_offset/COPYING.LIB"; "c-api/testdownload.tmp"; offset; size];
+            ["upload_offset"; "c-api/testdownload.tmp"; "/download_offset/COPYING.LIB"; offset];
             ["checksum"; "md5"; "/download_offset/COPYING.LIB"]], md5), []
        ]);
     shortdesc = "download a file to the local machine with offset and size";
