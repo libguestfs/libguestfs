@@ -55,7 +55,6 @@
 struct backend_direct_data {
   const char *qemu;             /* Qemu binary name. */
   pid_t pid;                    /* Qemu PID. */
-  pid_t recoverypid;            /* Recovery process PID. */
 
   char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
 };
@@ -573,11 +572,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     goto cleanup0;
   }
 
-  if (!g->direct_mode) {
-    if (socketpair (AF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC, 0, sv) == -1) {
-      perrorf (g, "socketpair");
-      goto cleanup0;
-    }
+  if (socketpair (AF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC, 0, sv) == -1) {
+    perrorf (g, "socketpair");
+    goto cleanup0;
   }
 
   debug (g, "finished testing qemu features");
@@ -598,6 +595,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    * devices.
    */
   arg ("-global", VIRTIO_DEVICE_NAME ("virtio-blk") ".scsi=off");
+
+  /* Ensure qemu is cleaned up automatically. */
+  arg ("-run-with", "exit-with-parent=on");
 
   /* Disable qemu defaults and per-user configuration file so we get
    * an unconfigured qemu.
@@ -817,53 +817,49 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   r = fork ();
   if (r == -1) {
     perrorf (g, "fork");
-    if (!g->direct_mode) {
-      close (sv[0]);
-      close (sv[1]);
-    }
+    close (sv[0]);
+    close (sv[1]);
     goto cleanup0;
   }
 
   if (r == 0) {			/* Child (qemu). */
-    if (!g->direct_mode) {
-      /* Set up stdin, stdout, stderr. */
-      close (0);
-      close (1);
-      close (sv[0]);
+    /* Set up stdin, stdout, stderr. */
+    close (0);
+    close (1);
+    close (sv[0]);
 
-      /* We set the FD_CLOEXEC flag on the socket above, but now (in
-       * the child) it's safe to unset this flag so qemu can use the
-       * socket.
-       */
-      set_cloexec_flag (sv[1], 0);
+    /* We set the FD_CLOEXEC flag on the socket above, but now (in
+     * the child) it's safe to unset this flag so qemu can use the
+     * socket.
+     */
+    set_cloexec_flag (sv[1], 0);
 
-      /* Stdin. */
-      if (dup (sv[1]) == -1) {
-      dup_failed:
-        perror ("dup failed");
-        _exit (EXIT_FAILURE);
-      }
-      /* Stdout. */
-      if (dup (sv[1]) == -1)
-        goto dup_failed;
-
-      /* Particularly since qemu 0.15, qemu spews all sorts of debug
-       * information on stderr.  It is useful to both capture this and
-       * not confuse casual users, so send stderr to the pipe as well.
-       */
-      close (2);
-      if (dup (sv[1]) == -1)
-        goto dup_failed;
-
-      close (sv[1]);
-
-      /* Close any other file descriptors that we don't want to pass
-       * to qemu.  This prevents file descriptors which didn't have
-       * O_CLOEXEC set properly from leaking into the subprocess.  See
-       * RHBZ#1123007.
-       */
-      close_file_descriptors (fd > 2);
+    /* Stdin. */
+    if (dup (sv[1]) == -1) {
+    dup_failed:
+      perror ("dup failed");
+      _exit (EXIT_FAILURE);
     }
+    /* Stdout. */
+    if (dup (sv[1]) == -1)
+      goto dup_failed;
+
+    /* Particularly since qemu 0.15, qemu spews all sorts of debug
+     * information on stderr.  It is useful to both capture this and
+     * not confuse casual users, so send stderr to the pipe as well.
+     */
+    close (2);
+    if (dup (sv[1]) == -1)
+      goto dup_failed;
+
+    close (sv[1]);
+
+    /* Close any other file descriptors that we don't want to pass
+     * to qemu.  This prevents file descriptors which didn't have
+     * O_CLOEXEC set properly from leaking into the subprocess.  See
+     * RHBZ#1123007.
+     */
+    close_file_descriptors (fd > 2);
 
     /* Unblock the SIGTERM signal since we will need to send that to
      * the subprocess (RHBZ#1460338).
@@ -889,82 +885,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   qemuopts_free (qopts);
   qopts = NULL;
 
-  /* Fork the recovery process off which will kill qemu if the parent
-   * process fails to do so (eg. if the parent segfaults).
-   */
-  data->recoverypid = -1;
-  if (g->recovery_proc) {
-    r = fork ();
-    if (r == 0) {
-      size_t i;
-      struct sigaction sa;
-      pid_t qemu_pid = data->pid;
-      pid_t parent_pid = getppid ();
+  /* Close the other end of the socketpair. */
+  close (sv[1]);
 
-      /* Remove all signal handlers.  See the justification here:
-       * https://www.redhat.com/archives/libvir-list/2008-August/msg00303.html
-       * We don't mask signal handlers yet, so this isn't completely
-       * race-free, but better than not doing it at all.
-       */
-      memset (&sa, 0, sizeof sa);
-      sa.sa_handler = SIG_DFL;
-      sa.sa_flags = 0;
-      sigemptyset (&sa.sa_mask);
-      for (i = 1; i < NSIG; ++i)
-        sigaction (i, &sa, NULL);
-
-      /* Close all other file descriptors.  This ensures that we don't
-       * hold open (eg) pipes from the parent process.
-       */
-      close_file_descriptors (1);
-
-      /* Unblock the SIGTERM signal since we will need to respond to
-       * SIGTERM from the parent (RHBZ#1460338).
-       */
-      guestfs_int_unblock_sigterm ();
-
-      /* It would be nice to be able to put this in the same process
-       * group as qemu (ie. setpgid (0, qemu_pid)).  However this is
-       * not possible because we don't have any guarantee here that
-       * the qemu process has started yet.
-       */
-      if (g->pgroup)
-        setpgid (0, 0);
-
-      /* Writing to argv is hideously complicated and error prone.  See:
-       * http://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/backend/utils/misc/ps_status.c;hb=HEAD
-       */
-
-      /* Loop around waiting for one or both of the other processes to
-       * disappear.  It's fair to say this is very hairy.  The PIDs that
-       * we are looking at might be reused by another process.  We are
-       * effectively polling.  Is the cure worse than the disease?
-       */
-      for (;;) {
-        if (kill (qemu_pid, 0) == -1) /* qemu's gone away, we aren't needed */
-          _exit (EXIT_SUCCESS);
-        if (kill (parent_pid, 0) == -1) {
-          /* Parent's gone away, qemu still around, so kill qemu. */
-          kill (qemu_pid, 9);
-          _exit (EXIT_SUCCESS);
-        }
-        sleep (2);
-      }
-    }
-
-    /* Don't worry, if the fork failed, this will be -1.  The recovery
-     * process isn't essential.
-     */
-    data->recoverypid = r;
-  }
-
-  if (!g->direct_mode) {
-    /* Close the other end of the socketpair. */
-    close (sv[1]);
-
-    console_sock = sv[0];       /* stdin of child */
-    sv[0] = -1;
-  }
+  console_sock = sv[0];       /* stdin of child */
+  sv[0] = -1;
 
   g->state = LAUNCHING;
 
@@ -1035,14 +960,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   return 0;
 
  cleanup1:
-  if (!g->direct_mode && sv[0] >= 0)
+  if (sv[0] >= 0)
     close (sv[0]);
   if (data->pid > 0) kill (data->pid, 9);
-  if (data->recoverypid > 0) kill (data->recoverypid, 9);
   if (data->pid > 0) guestfs_int_waitpid_noerror (data->pid);
-  if (data->recoverypid > 0) guestfs_int_waitpid_noerror (data->recoverypid);
   data->pid = 0;
-  data->recoverypid = 0;
   memset (&g->launch_t, 0, sizeof g->launch_t);
 
  cleanup0:
@@ -1070,15 +992,12 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
   int status;
   struct rusage rusage;
 
-  /* Signal qemu to shutdown cleanly, and kill the recovery process. */
   if (data->pid > 0) {
+    /* Signal qemu to shutdown cleanly. */
     debug (g, "sending SIGTERM to process %d", data->pid);
     kill (data->pid, SIGTERM);
-  }
-  if (data->recoverypid > 0) kill (data->recoverypid, 9);
 
-  /* Wait for subprocess(es) to exit. */
-  if (g->recovery_proc /* RHBZ#998482 */ && data->pid > 0) {
+    /* Wait for subprocess(es) to exit. */
     if (guestfs_int_wait4 (g, data->pid, &status, &rusage, "qemu") == -1)
       ret = -1;
     else if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
@@ -1091,9 +1010,8 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
        */
       debug (g, "qemu maxrss %ldK", rusage.ru_maxrss);
   }
-  if (data->recoverypid > 0) guestfs_int_waitpid_noerror (data->recoverypid);
 
-  data->pid = data->recoverypid = 0;
+  data->pid = 0;
 
   if (data->guestfsd_sock[0] != '\0') {
     unlink (data->guestfsd_sock);

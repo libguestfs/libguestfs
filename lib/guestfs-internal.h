@@ -420,7 +420,6 @@ struct guestfs_h {
   bool verbose;                 /* Debugging. */
   bool trace;                   /* Trace calls. */
   bool autosync;                /* Autosync. */
-  bool direct_mode;             /* Direct mode. */
   bool recovery_proc;           /* Create a recovery process. */
   bool enable_network;          /* Enable the network. */
   bool selinux;                 /* selinux enabled? */
