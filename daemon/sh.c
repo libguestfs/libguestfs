@@ -190,7 +190,7 @@ set_up_etc_resolv_conf (struct resolver_state *rs)
   if (verbose)
     fprintf (stderr, "mount %s to %s\n", src_etc_resolv,
                         rs->sysroot_etc_resolv_conf);
-  r = command (NULL, NULL, "mount", "--bind", "-o ro", src_etc_resolv,
+  r = command (NULL, NULL, "mount", "--bind", "-o", "ro", src_etc_resolv,
                          rs->sysroot_etc_resolv_conf, NULL);
   if (r == -1) {
     reply_with_perror ("mount: %s to %s failed\n",
