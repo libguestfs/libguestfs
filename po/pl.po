@@ -5,9 +5,9 @@
 # Translators:
 # Mateusz Marzantowicz <mmarzantowicz@osdf.com.pl>, 2013
 # Mateusz Marzantowicz <mmarzantowicz@osdf.com.pl>, 2012
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2013, 2020, 2021, 2022.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2013, 2020, 2021, 2022, 2026.
 # rjones <rjones@redhat.com>, 2011
-# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021, 2022.
+# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021, 2022, 2026.
 # Michał Smyk <fedora@smyk.it>, 2020.
 # Marcin Stanclik <mstanclik@yahoo.com>, 2021.
 msgid ""
@@ -17,7 +17,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
 "PO-Revision-Date: 2026-06-03 22:29+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/pl/>\n"
 "Language: pl\n"
@@ -253,8 +253,7 @@ msgstr "%s: błąd: nie można przetworzyć licznika xattr dla %s %s\n"
 #: common/windows/windows.c:139
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
-msgstr ""
-"musi być gościem systemu Windows, aby użyć liter dysków systemu Windows"
+msgstr "musi być gościem systemu Windows, aby użyć liter dysków systemu Windows"
 
 #: common/windows/windows.c:150
 #, c-format
