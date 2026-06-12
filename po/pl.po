@@ -14,9 +14,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-04-14 10:25+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-04-29 11:13+0100\n"
 "PO-Revision-Date: 2026-06-03 22:29+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/"
@@ -109,47 +109,47 @@ msgstr "System operacyjny: %s\n"
 msgid "%s mounted on %s\n"
 msgstr "%s zamontowano w %s\n"
 
-#: common/options/keys.c:63
+#: common/options/keys.c:69
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr "Proszę podać klucz lub hasło („%s”): "
 
-#: common/options/keys.c:146
+#: common/options/keys.c:189
 #, c-format
 msgid "size_t overflow"
 msgstr ""
 
-#: common/options/keys.c:193
+#: common/options/keys.c:235
 #, c-format
 msgid "could not read key from user"
 msgstr "nie można odczytać klucza od użytkownika"
 
-#: common/options/keys.c:232
+#: common/options/keys.c:274
 #, c-format
 msgid "selector '%s': missing ID"
 msgstr ""
 
-#: common/options/keys.c:239
+#: common/options/keys.c:281
 #, c-format
 msgid "selector '%s': missing TYPE"
 msgstr ""
 
-#: common/options/keys.c:245
+#: common/options/keys.c:287
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:254
+#: common/options/keys.c:296
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:262
+#: common/options/keys.c:304
 #, c-format
 msgid "selector '%s': too many fields"
 msgstr ""
 
-#: common/options/keys.c:264
+#: common/options/keys.c:306
 #, c-format
 msgid "selector '%s': invalid TYPE"
 msgstr ""
@@ -254,7 +254,8 @@ msgstr "%s: błąd: nie można przetworzyć licznika xattr dla %s %s\n"
 #: common/windows/windows.c:139
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
-msgstr "musi być gościem systemu Windows, aby użyć liter dysków systemu Windows"
+msgstr ""
+"musi być gościem systemu Windows, aby użyć liter dysków systemu Windows"
 
 #: common/windows/windows.c:150
 #, c-format
@@ -1312,7 +1313,8 @@ msgstr "uzyskuje wariant produktu badanego systemu operacyjnego"
 
 #: fish/cmds.c:795
 msgid "return list of operating systems found by last inspection"
-msgstr "zwraca listę systemów operacyjnych odnalezionych przez ostatnie badanie"
+msgstr ""
+"zwraca listę systemów operacyjnych odnalezionych przez ostatnie badanie"
 
 #: fish/cmds.c:796
 msgid "get type of inspected operating system"
@@ -1545,7 +1547,8 @@ msgstr "wyświetla listę plików w katalogu (długi format)"
 
 #: fish/cmds.c:861
 msgid "list the files in a directory (long format with SELinux contexts)"
-msgstr "wyświetla listę plików w katalogu (długi format z kontekstem SELinuksa)"
+msgstr ""
+"wyświetla listę plików w katalogu (długi format z kontekstem SELinuksa)"
 
 #: fish/cmds.c:862 fish/cmds.c:863
 msgid "create a hard link"
@@ -2092,7 +2095,8 @@ msgstr "zmienia rozmiar systemu plików ext2, ext3 lub ext4 na minimalny"
 
 #: fish/cmds.c:1035
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
-msgstr "zmienia rozmiar systemu plików ext2, ext3 lub ext4 (za pomocą rozmiaru)"
+msgstr ""
+"zmienia rozmiar systemu plików ext2, ext3 lub ext4 (za pomocą rozmiaru)"
 
 #: fish/cmds.c:1036
 msgid "remove a file"
@@ -2616,8 +2620,8 @@ msgstr "ustala typ pliku wewnątrz skompresowanego pliku"
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "Należy użyć -h <polecenie>/help <polecenie>, aby wyświetlić szczegółową "
-"pomoc polecenia. Użyj -h <cmd>/help <cmd>, aby wyświetlić szczegółową pomoc o"
-" poleceniu."
+"pomoc polecenia. Użyj -h <cmd>/help <cmd>, aby wyświetlić szczegółową pomoc "
+"o poleceniu."
 
 #: fish/copy.c:42
 #, c-format
@@ -3951,8 +3955,8 @@ msgstr "<skrócone, pierwotny rozmiar %zu bajtów>"
 #: lib/errors.c:485
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
-"guestfs_launch się nie powiodło, proszę zobaczyć wcześniejsze komunikaty o "
-"błędach"
+"guestfs_launch się nie powiodło, proszę zobaczyć wcześniejsze komunikaty "
+"o błędach"
 
 #: lib/errors.c:488
 msgid ""
@@ -4077,22 +4081,28 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: wywołano dwa razy w tym samym programie obsługującym\n"
 
-#: lib/handle.c:568
-msgid "cannot get default hypervisor"
+#: lib/handle.c:564
+msgid "get_hv: cannot get default hypervisor before ‘launch’ is called"
 msgstr ""
 
-#: lib/handle.c:594
+#: lib/handle.c:571
+#, c-format
+msgid ""
+"get_hv: cannot get default hypervisor: the ‘%s’ backend returned no value"
+msgstr ""
+
+#: lib/handle.c:601
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: lib/handle.c:711
+#: lib/handle.c:718
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: lib/handle.c:817
+#: lib/handle.c:824
 msgid "setting not found"
 msgstr ""
 
@@ -4429,7 +4439,8 @@ msgstr "błąd podczas odczytywania informacji XML biblioteki libvirt: %s"
 
 #: lib/libvirt-domain.c:811
 msgid "unable to parse XML information returned by libvirt"
-msgstr "nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
+msgstr ""
+"nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
 
 #: lib/libvirt-domain.c:832
 #, c-format
@@ -4935,19 +4946,19 @@ msgid ""
 "Check earlier messages, and the output of the ‘printenv’ command."
 msgstr ""
 
-#: test-tool/test-tool.c:317
+#: test-tool/test-tool.c:319
 #, c-format
 msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used."
 msgstr ""
 
-#: test-tool/test-tool.c:323
+#: test-tool/test-tool.c:325
 #, c-format
 msgid "binary ‘%s’ does not exist or is not executable"
 msgstr ""
 
-#: test-tool/test-tool.c:335
+#: test-tool/test-tool.c:337
 #, c-format
 msgid "path does not look like a qemu source directory: %s"
 msgstr ""

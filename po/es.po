@@ -14,9 +14,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-04-14 10:25+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-04-29 11:13+0100\n"
 "PO-Revision-Date: 2026-06-04 00:37+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
@@ -135,8 +135,8 @@ msgstr ""
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
-"%s: algunos sistemas de archivos no han podido ser montados (se descartaron)"
-"\n"
+"%s: algunos sistemas de archivos no han podido ser montados (se "
+"descartaron)\n"
 
 #: common/options/inspect.c:178
 #, c-format
@@ -148,47 +148,47 @@ msgstr "Sistema operativo: %s\n"
 msgid "%s mounted on %s\n"
 msgstr "%s montado en %s\n"
 
-#: common/options/keys.c:63
+#: common/options/keys.c:69
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr "Ingrese la llave o la frase de acceso (\"%s\"): "
 
-#: common/options/keys.c:146
+#: common/options/keys.c:189
 #, c-format
 msgid "size_t overflow"
 msgstr "size_t desbordado"
 
-#: common/options/keys.c:193
+#: common/options/keys.c:235
 #, c-format
 msgid "could not read key from user"
 msgstr "no se pudo leer tecla desde usuario"
 
-#: common/options/keys.c:232
+#: common/options/keys.c:274
 #, c-format
 msgid "selector '%s': missing ID"
 msgstr "selector '%s': falta ID"
 
-#: common/options/keys.c:239
+#: common/options/keys.c:281
 #, c-format
 msgid "selector '%s': missing TYPE"
 msgstr "Selector '%s': TIPO desaparecido"
 
-#: common/options/keys.c:245
+#: common/options/keys.c:287
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
 msgstr "selector '%s': KEY_STRING ausente, o demasiados campos"
 
-#: common/options/keys.c:254
+#: common/options/keys.c:296
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
 msgstr "selector '%s': ausencia de FILENAME, o campos excesivos"
 
-#: common/options/keys.c:262
+#: common/options/keys.c:304
 #, c-format
 msgid "selector '%s': too many fields"
 msgstr "selector '%s': campos excesivos"
 
-#: common/options/keys.c:264
+#: common/options/keys.c:306
 #, c-format
 msgid "selector '%s': invalid TYPE"
 msgstr "selector '%s': TYPE no válido"
@@ -804,7 +804,8 @@ msgstr "copia archivos o carpetas remotas fuera de una imagen"
 
 #: fish/cmds.c:628
 msgid "copy size bytes from source to destination using dd"
-msgstr "copia en tamaño de bytes desde la fuente hacia el destino utilizando dd"
+msgstr ""
+"copia en tamaño de bytes desde la fuente hacia el destino utilizando dd"
 
 #: fish/cmds.c:629
 msgid "copy a file"
@@ -991,7 +992,8 @@ msgstr "completa un directorio con archivos vacíos"
 
 #: fish/cmds.c:689
 msgid "fill a file with a repeating pattern of bytes"
-msgstr "completa un archivo con el mismo patrón de bytes repetido continuamente"
+msgstr ""
+"completa un archivo con el mismo patrón de bytes repetido continuamente"
 
 #: fish/cmds.c:690
 msgid "find all files and directories"
@@ -1415,7 +1417,8 @@ msgstr ""
 
 #: fish/cmds.c:805 fish/cmds.c:806
 msgid "get list of applications installed in the operating system"
-msgstr "obtiene la lista de las aplicaciones instaladas en el sistema operativo"
+msgstr ""
+"obtiene la lista de las aplicaciones instaladas en el sistema operativo"
 
 #: fish/cmds.c:807
 msgid "inspect disk and return list of operating systems found"
@@ -1544,7 +1547,8 @@ msgstr "devuelve el nombre de un grupo de disco dinámico de Windows"
 
 #: fish/cmds.c:838
 msgid "return the volumes in a Windows dynamic disk group"
-msgstr "devuelve los volúmenes internos a un grupo de disco dinámico de Windows"
+msgstr ""
+"devuelve los volúmenes internos a un grupo de disco dinámico de Windows"
 
 #: fish/cmds.c:839
 msgid "remove all Windows dynamic disk volumes"
@@ -1556,7 +1560,8 @@ msgstr "analiza discos dinámicos de Windows"
 
 #: fish/cmds.c:842
 msgid "return the hint field of a Windows dynamic disk volume"
-msgstr "devuelve el campo de consejo de un volumen de disco dinámico de Windows"
+msgstr ""
+"devuelve el campo de consejo de un volumen de disco dinámico de Windows"
 
 #: fish/cmds.c:843
 msgid "return the partitions in a Windows dynamic disk volume"
@@ -2682,7 +2687,8 @@ msgstr "determina el tipo de archivo internos a un archivo comprimido"
 
 #: fish/cmds.c:1210
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr "Utilice -h <cmd> / help <cmd> para ver ayuda detallada para un comando."
+msgstr ""
+"Utilice -h <cmd> / help <cmd> para ver ayuda detallada para un comando."
 
 #: fish/copy.c:42
 #, c-format
@@ -3099,8 +3105,8 @@ msgid ""
 "mount them to examine or modify the contents using ‘mount-ro’ or\n"
 "‘mount’.\n"
 msgstr ""
-"Encuentra que sistema de archivos está disponible utilizando ‘list-filesystem"
-"’ y\n"
+"Encuentra que sistema de archivos está disponible utilizando ‘list-"
+"filesystem’ y\n"
 "entonces móntelos para examinar o modificar el contenido utilizando las "
 "órdenes\n"
 "‘mount-ro’ o ‘mount’.\n"
@@ -3616,7 +3622,8 @@ msgstr "%s: error: debe especificar o bien -l en al menos una opción -m.\n"
 #: fuse/guestmount.c:339
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
-msgstr "debe especificar un punto de montaje en el sistema de archivo hospedado"
+msgstr ""
+"debe especificar un punto de montaje en el sistema de archivo hospedado"
 
 #: fuse/guestunmount.c:61
 #, c-format
@@ -3656,8 +3663,8 @@ msgstr "no se puede interpretar la opción ‘%s’ del fd"
 #, c-format
 msgid "cannot parse retries option or value is too large ‘%s’"
 msgstr ""
-"no se puede interpretar la opción de reintentos o valor que es muy grande ‘%s"
-"’"
+"no se puede interpretar la opción de reintentos o valor que es muy grande "
+"‘%s’"
 
 #: fuse/guestunmount.c:158
 #, c-format
@@ -3977,8 +3984,8 @@ msgstr ""
 #: lib/drives.c:733
 msgid "cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"
 msgstr ""
-"el parámetro `cachemode` debe estar en ‘writeback’ (predeterminado) o ‘unsafe"
-"’"
+"el parámetro `cachemode` debe estar en ‘writeback’ (predeterminado) o "
+"‘unsafe’"
 
 #: lib/drives.c:738
 #, c-format
@@ -4131,8 +4138,8 @@ msgid ""
 "you must call ‘guestfs_mount’ first to mount a filesystem on '/'.\n"
 "Note: ‘%s’ is still mounted.  Use ‘guestunmount %s’ to clean up."
 msgstr ""
-"debe invocar 'guestfs_mount' primero para montar un sistema de archivo en '/"
-"'.\n"
+"debe invocar 'guestfs_mount' primero para montar un sistema de archivo en "
+"'/'.\n"
 "Nota: ‘%s’ aún está montado.  Utilice ‘guestunmount %s’ para purgado."
 
 #: lib/fuse.c:1088
@@ -4181,16 +4188,24 @@ msgstr "valor no numérico para LIBGUESTFS_MEMSIZE"
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: invocado dos veces en la misma manipulación\n"
 
-#: lib/handle.c:568
-msgid "cannot get default hypervisor"
+#: lib/handle.c:564
+#, fuzzy
+#| msgid "cannot get default hypervisor"
+msgid "get_hv: cannot get default hypervisor before ‘launch’ is called"
 msgstr "no se puede obtener hipervisor por defecto"
 
-#: lib/handle.c:594
+#: lib/handle.c:571
+#, c-format
+msgid ""
+"get_hv: cannot get default hypervisor: the ‘%s’ backend returned no value"
+msgstr ""
+
+#: lib/handle.c:601
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr "valor muy pequeño para tamaño de memoria (debe ser de al menos %d)"
 
-#: lib/handle.c:711
+#: lib/handle.c:718
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
@@ -4198,7 +4213,7 @@ msgstr ""
 "el identificador debe contener solo caracteres alfanuméricos, guion bajo o "
 "digno de resta"
 
-#: lib/handle.c:817
+#: lib/handle.c:824
 msgid "setting not found"
 msgstr "ajuste no encontrado"
 
@@ -4290,8 +4305,8 @@ msgstr ""
 "no se pudo auto-detectar el formato.\n"
 "Si es conocido el formato, pase el formato a libguestfs, p.e., utilizando "
 "el\n"
-"la opción de ‘--format', o por medio del argumento ‘format’ opcional para ‘"
-"add-drive’."
+"la opción de ‘--format', o por medio del argumento ‘format’ opcional para "
+"‘add-drive’."
 
 #: lib/launch-libvirt.c:221
 msgid ""
@@ -4306,7 +4321,8 @@ msgstr ""
 
 #: lib/launch-libvirt.c:343
 msgid "direct mode flag is not supported yet for libvirt backend"
-msgstr "indicador de modo directo aún no está mantenido para backend de libvirt"
+msgstr ""
+"indicador de modo directo aún no está mantenido para backend de libvirt"
 
 #: lib/launch-libvirt.c:377
 #, c-format
@@ -4464,8 +4480,8 @@ msgid ""
 "(see also: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"
 msgstr ""
 "libvirt necesita autenticación para conectar al URI de libvirt %s\n"
-"(consulte también: http://libvirt.org/auth.html http://libvirt.org/uri.html)"
-"\n"
+"(consulte también: http://libvirt.org/auth.html http://libvirt.org/"
+"uri.html)\n"
 
 #: lib/libvirt-auth.c:242
 #, c-format
@@ -4512,8 +4528,8 @@ msgid ""
 msgstr ""
 "error: el dominio es una máquina virtual viva.\n"
 "Escribir sobre los discos de una máquina virtual viva puede corromperlos.\n"
-"Utilice acceso de sólo lectura.  En muchas herramientas de libguest "
-"utilice --ro."
+"Utilice acceso de sólo lectura.  En muchas herramientas de libguest utilice "
+"--ro."
 
 #: lib/libvirt-domain.c:339
 #, c-format
@@ -4890,8 +4906,8 @@ msgstr ""
 "  -a|--add imagen       Agrega una imagen\n"
 "  --append opcs-kernel  Adjunta opciones del kernel\n"
 "  --blocksize[=512|4096]\n"
-"                       Establece tamaño de sector del disco para la opción -"
-"a\n"
+"                       Establece tamaño de sector del disco para la opción "
+"-a\n"
 "  -c|--connect uri     Especifica URI de libvirt para la opción -d\n"
 "  -d|--domain guest    Agrega discos desde invitado de libvirt\n"
 "  -e ^x|none           Establece o inhabilita la tecla escape (p.d. ^])\n"
@@ -5076,7 +5092,7 @@ msgstr ""
 "variables del entorno de interpretación incorrecta.\n"
 "Compruebe mensajes con más pronto, y la salida del comando ‘printenv’."
 
-#: test-tool/test-tool.c:317
+#: test-tool/test-tool.c:319
 #, c-format
 msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -5085,12 +5101,12 @@ msgstr ""
 "establece variable de entorno LIBGUESTFS_HV/LIBGUESTFS_QEMU , tal que\n"
 "las opciones --qemu/--qemudir no puede ser utilizada."
 
-#: test-tool/test-tool.c:323
+#: test-tool/test-tool.c:325
 #, c-format
 msgid "binary ‘%s’ does not exist or is not executable"
 msgstr "el binario ‘%s’ no existe o no es ejecutable"
 
-#: test-tool/test-tool.c:335
+#: test-tool/test-tool.c:337
 #, c-format
 msgid "path does not look like a qemu source directory: %s"
 msgstr "la ruta no parece un directorio origen de qemu: %s"
