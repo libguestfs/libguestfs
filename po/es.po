@@ -13,10 +13,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
-"PO-Revision-Date: 2026-04-20 11:58+0000\n"
+"PO-Revision-Date: 2026-06-04 00:37+0000\n"
 "Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/es/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -134,8 +134,8 @@ msgstr ""
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
-"%s: algunos sistemas de archivos no han podido ser montados (se "
-"descartaron)\n"
+"%s: algunos sistemas de archivos no han podido ser montados (se descartaron)"
+"\n"
 
 #: common/options/inspect.c:178
 #, c-format
@@ -1546,8 +1546,7 @@ msgstr "devuelve el nombre de un grupo de disco dinámico de Windows"
 
 #: fish/cmds.c:838
 msgid "return the volumes in a Windows dynamic disk group"
-msgstr ""
-"devuelve los volúmenes internos a un grupo de disco dinámico de Windows"
+msgstr "devuelve los volúmenes internos a un grupo de disco dinámico de Windows"
 
 #: fish/cmds.c:839
 msgid "remove all Windows dynamic disk volumes"
@@ -1559,8 +1558,7 @@ msgstr "analiza discos dinámicos de Windows"
 
 #: fish/cmds.c:842
 msgid "return the hint field of a Windows dynamic disk volume"
-msgstr ""
-"devuelve el campo de consejo de un volumen de disco dinámico de Windows"
+msgstr "devuelve el campo de consejo de un volumen de disco dinámico de Windows"
 
 #: fish/cmds.c:843
 msgid "return the partitions in a Windows dynamic disk volume"
@@ -2686,8 +2684,7 @@ msgstr "determina el tipo de archivo internos a un archivo comprimido"
 
 #: fish/cmds.c:1210
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr ""
-"Utilice -h <cmd> / help <cmd> para ver ayuda detallada para un comando."
+msgstr "Utilice -h <cmd> / help <cmd> para ver ayuda detallada para un comando."
 
 #: fish/copy.c:42
 #, c-format
@@ -3104,8 +3101,8 @@ msgid ""
 "mount them to examine or modify the contents using ‘mount-ro’ or\n"
 "‘mount’.\n"
 msgstr ""
-"Encuentra que sistema de archivos está disponible utilizando ‘list-"
-"filesystem’ y\n"
+"Encuentra que sistema de archivos está disponible utilizando ‘list-filesystem"
+"’ y\n"
 "entonces móntelos para examinar o modificar el contenido utilizando las "
 "órdenes\n"
 "‘mount-ro’ o ‘mount’.\n"
@@ -3621,8 +3618,7 @@ msgstr "%s: error: debe especificar o bien -l en al menos una opción -m.\n"
 #: fuse/guestmount.c:339
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
-msgstr ""
-"debe especificar un punto de montaje en el sistema de archivo hospedado"
+msgstr "debe especificar un punto de montaje en el sistema de archivo hospedado"
 
 #: fuse/guestunmount.c:61
 #, c-format
@@ -3662,8 +3658,8 @@ msgstr "no se puede interpretar la opción ‘%s’ del fd"
 #, c-format
 msgid "cannot parse retries option or value is too large ‘%s’"
 msgstr ""
-"no se puede interpretar la opción de reintentos o valor que es muy grande "
-"‘%s’"
+"no se puede interpretar la opción de reintentos o valor que es muy grande ‘%s"
+"’"
 
 #: fuse/guestunmount.c:158
 #, c-format
@@ -3983,8 +3979,8 @@ msgstr ""
 #: lib/drives.c:733
 msgid "cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"
 msgstr ""
-"el parámetro `cachemode` debe estar en ‘writeback’ (predeterminado) o "
-"‘unsafe’"
+"el parámetro `cachemode` debe estar en ‘writeback’ (predeterminado) o ‘unsafe"
+"’"
 
 #: lib/drives.c:738
 #, c-format
@@ -4137,8 +4133,8 @@ msgid ""
 "you must call ‘guestfs_mount’ first to mount a filesystem on '/'.\n"
 "Note: ‘%s’ is still mounted.  Use ‘guestunmount %s’ to clean up."
 msgstr ""
-"debe invocar 'guestfs_mount' primero para montar un sistema de archivo en "
-"'/'.\n"
+"debe invocar 'guestfs_mount' primero para montar un sistema de archivo en '/"
+"'.\n"
 "Nota: ‘%s’ aún está montado.  Utilice ‘guestunmount %s’ para purgado."
 
 #: lib/fuse.c:1088
@@ -4296,8 +4292,8 @@ msgstr ""
 "no se pudo auto-detectar el formato.\n"
 "Si es conocido el formato, pase el formato a libguestfs, p.e., utilizando "
 "el\n"
-"la opción de ‘--format', o por medio del argumento ‘format’ opcional para "
-"‘add-drive’."
+"la opción de ‘--format', o por medio del argumento ‘format’ opcional para ‘"
+"add-drive’."
 
 #: lib/launch-libvirt.c:221
 msgid ""
@@ -4312,8 +4308,7 @@ msgstr ""
 
 #: lib/launch-libvirt.c:343
 msgid "direct mode flag is not supported yet for libvirt backend"
-msgstr ""
-"indicador de modo directo aún no está mantenido para backend de libvirt"
+msgstr "indicador de modo directo aún no está mantenido para backend de libvirt"
 
 #: lib/launch-libvirt.c:377
 #, c-format
@@ -4471,8 +4466,8 @@ msgid ""
 "(see also: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"
 msgstr ""
 "libvirt necesita autenticación para conectar al URI de libvirt %s\n"
-"(consulte también: http://libvirt.org/auth.html http://libvirt.org/"
-"uri.html)\n"
+"(consulte también: http://libvirt.org/auth.html http://libvirt.org/uri.html)"
+"\n"
 
 #: lib/libvirt-auth.c:242
 #, c-format
@@ -4519,8 +4514,8 @@ msgid ""
 msgstr ""
 "error: el dominio es una máquina virtual viva.\n"
 "Escribir sobre los discos de una máquina virtual viva puede corromperlos.\n"
-"Utilice acceso de sólo lectura.  En muchas herramientas de libguest utilice "
-"--ro."
+"Utilice acceso de sólo lectura.  En muchas herramientas de libguest "
+"utilice --ro."
 
 #: lib/libvirt-domain.c:339
 #, c-format
@@ -4897,8 +4892,8 @@ msgstr ""
 "  -a|--add imagen       Agrega una imagen\n"
 "  --append opcs-kernel  Adjunta opciones del kernel\n"
 "  --blocksize[=512|4096]\n"
-"                       Establece tamaño de sector del disco para la opción "
-"-a\n"
+"                       Establece tamaño de sector del disco para la opción -"
+"a\n"
 "  -c|--connect uri     Especifica URI de libvirt para la opción -d\n"
 "  -d|--domain guest    Agrega discos desde invitado de libvirt\n"
 "  -e ^x|none           Establece o inhabilita la tecla escape (p.d. ^])\n"
