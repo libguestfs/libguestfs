@@ -7,7 +7,7 @@
 # Αικατερίνη Χ. Καταπόδη <spanish.katerina@gmail.com>, 2013
 # Kévin Raymond <shaiton@fedoraproject.org>, 2012
 # Αικατερίνη Χ. Καταπόδη <spanish.katerina@gmail.com>, 2013
-# grimst <grimaitres@gmail.com>, 2023.
+# grimst <grimaitres@gmail.com>, 2023, 2026.
 # Léane GRASSER <leane.grasser@proton.me>, 2024, 2026.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2026.
 msgid ""
@@ -17,7 +17,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
 "PO-Revision-Date: 2026-06-03 21:22+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Last-Translator: grimst <grimaitres@gmail.com>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/fr/>\n"
 "Language: fr\n"
