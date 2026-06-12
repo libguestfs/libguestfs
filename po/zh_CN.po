@@ -5,7 +5,7 @@
 # Translators:
 # Christopher Meng <cickumqt@gmail.com>, 2012
 # Tian Shixiong <tiansworld@gmail.com>, 2023.
-# zhanchun li <lzc777@126.com>, 2024.
+# zhanchun li <lzc777@126.com>, 2024, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
@@ -13,7 +13,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
 "PO-Revision-Date: 2026-06-03 23:10+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: zhanchun li <lzc777@126.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-master/zh_CN/>\n"
 "Language: zh_CN\n"
