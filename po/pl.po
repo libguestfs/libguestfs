@@ -13,11 +13,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
-"PO-Revision-Date: 2022-07-31 11:55+0000\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"PO-Revision-Date: 2026-06-03 22:29+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/pl/>\n"
 "Language: pl\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.13\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -1312,8 +1312,7 @@ msgstr "uzyskuje wariant produktu badanego systemu operacyjnego"
 
 #: fish/cmds.c:795
 msgid "return list of operating systems found by last inspection"
-msgstr ""
-"zwraca listę systemów operacyjnych odnalezionych przez ostatnie badanie"
+msgstr "zwraca listę systemów operacyjnych odnalezionych przez ostatnie badanie"
 
 #: fish/cmds.c:796
 msgid "get type of inspected operating system"
@@ -1546,8 +1545,7 @@ msgstr "wyświetla listę plików w katalogu (długi format)"
 
 #: fish/cmds.c:861
 msgid "list the files in a directory (long format with SELinux contexts)"
-msgstr ""
-"wyświetla listę plików w katalogu (długi format z kontekstem SELinuksa)"
+msgstr "wyświetla listę plików w katalogu (długi format z kontekstem SELinuksa)"
 
 #: fish/cmds.c:862 fish/cmds.c:863
 msgid "create a hard link"
@@ -2094,8 +2092,7 @@ msgstr "zmienia rozmiar systemu plików ext2, ext3 lub ext4 na minimalny"
 
 #: fish/cmds.c:1035
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
-msgstr ""
-"zmienia rozmiar systemu plików ext2, ext3 lub ext4 (za pomocą rozmiaru)"
+msgstr "zmienia rozmiar systemu plików ext2, ext3 lub ext4 (za pomocą rozmiaru)"
 
 #: fish/cmds.c:1036
 msgid "remove a file"
@@ -2619,8 +2616,8 @@ msgstr "ustala typ pliku wewnątrz skompresowanego pliku"
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "Należy użyć -h <polecenie>/help <polecenie>, aby wyświetlić szczegółową "
-"pomoc polecenia. Użyj -h <cmd>/help <cmd>, aby wyświetlić szczegółową pomoc "
-"o poleceniu."
+"pomoc polecenia. Użyj -h <cmd>/help <cmd>, aby wyświetlić szczegółową pomoc o"
+" poleceniu."
 
 #: fish/copy.c:42
 #, c-format
@@ -3954,8 +3951,8 @@ msgstr "<skrócone, pierwotny rozmiar %zu bajtów>"
 #: lib/errors.c:485
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
-"guestfs_launch się nie powiodło, proszę zobaczyć wcześniejsze komunikaty "
-"o błędach"
+"guestfs_launch się nie powiodło, proszę zobaczyć wcześniejsze komunikaty o "
+"błędach"
 
 #: lib/errors.c:488
 msgid ""
@@ -4432,8 +4429,7 @@ msgstr "błąd podczas odczytywania informacji XML biblioteki libvirt: %s"
 
 #: lib/libvirt-domain.c:811
 msgid "unable to parse XML information returned by libvirt"
-msgstr ""
-"nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
+msgstr "nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
 
 #: lib/libvirt-domain.c:832
 #, c-format

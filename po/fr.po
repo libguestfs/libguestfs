@@ -12,11 +12,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
-"PO-Revision-Date: 2024-11-06 12:16+0000\n"
-"Last-Translator: Léane GRASSER <leane.grasser@proton.me>\n"
+"PO-Revision-Date: 2026-06-03 21:22+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/fr/>\n"
 "Language: fr\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -94,8 +94,7 @@ msgstr ""
 #: common/options/inspect.c:161
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr ""
-"%s : certains systèmes de fichiers n'ont pas pu être montés (ignorés)\n"
+msgstr "%s : certains systèmes de fichiers n'ont pas pu être montés (ignorés)\n"
 
 #: common/options/inspect.c:178
 #, c-format
@@ -1542,8 +1541,7 @@ msgstr "afficher des périphériques en mode bloc"
 
 #: fish/cmds.c:852
 msgid "mapping of disk labels to devices"
-msgstr ""
-"mise en correspondance des étiquettes de disques vers les périphériques"
+msgstr "mise en correspondance des étiquettes de disques vers les périphériques"
 
 #: fish/cmds.c:853
 msgid "list device mapper devices"
@@ -2914,8 +2912,7 @@ msgstr ""
 #: fish/fish.c:868 fish/fish.c:884
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
-msgstr ""
-"%s : les arguments de la commande ne sont pas séparés par des espaces\n"
+msgstr "%s : les arguments de la commande ne sont pas séparés par des espaces\n"
 
 #: fish/fish.c:878
 #, c-format
@@ -4924,8 +4921,8 @@ msgid ""
 "\n"
 msgstr ""
 "Ce disque contient au moins un système d'exploitation. Vous pouvez utiliser\n"
-"ces commandes « mount » dans virt-rescue (lors de l'invite de commande "
-"><rescue>)\n"
+"ces commandes « mount » dans virt-rescue (lors de l'invite de commande >"
+"<rescue>)\n"
 "afin de monter les systèmes de fichiers.\n"
 "\n"
 

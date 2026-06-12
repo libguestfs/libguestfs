@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2021-11-18 23:16+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2026-06-03 21:21+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/de/>\n"
 "Language: de\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:1
@@ -79010,7 +79010,8 @@ msgstr ""
 " int\n"
 " guestfs_add_drive_opts_argv (guestfs_h *g,\n"
 "                              const char *filename,\n"
-"                              const struct guestfs_add_drive_opts_argv *optargs);\n"
+"                              const struct guestfs_add_drive_opts_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -79174,7 +79175,8 @@ msgstr ""
 " int\n"
 " guestfs_add_drive_scratch_argv (guestfs_h *g,\n"
 "                                 int64_t size,\n"
-"                                 const struct guestfs_add_drive_scratch_argv *optargs);\n"
+"                                 const struct guestfs_add_drive_scratch_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -79934,8 +79936,8 @@ msgid ""
 "See also C<guestfs_available>, C<guestfs_feature_available> and L<guestfs(3)/"
 "AVAILABILITY>."
 msgstr ""
-"Siehe auch C<guestfs_available>, C<guestfs_feature_available> und "
-"L<guestfs(3)/AVAILABILITY>."
+"Siehe auch C<guestfs_available>, C<guestfs_feature_available> und L<guestfs"
+"(3)/AVAILABILITY>."
 
 #. type: textblock
 #: ../lib/guestfs-actions.pod:1255
@@ -80700,7 +80702,8 @@ msgstr ""
 " int\n"
 " guestfs_btrfs_filesystem_resize_argv (guestfs_h *g,\n"
 "                                       const char *mountpoint,\n"
-"                                       const struct guestfs_btrfs_filesystem_resize_argv *optargs);\n"
+"                                       const struct "
+"guestfs_btrfs_filesystem_resize_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -82088,7 +82091,8 @@ msgstr ""
 "                                   const char *ctype,\n"
 "                                   const char *device,\n"
 "                                   const char *zdevice,\n"
-"                                   const struct guestfs_compress_device_out_argv *optargs);\n"
+"                                   const struct "
+"guestfs_compress_device_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -82183,7 +82187,8 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs);\n"
+"                            const struct guestfs_compress_out_argv *optargs)"
+";\n"
 "\n"
 
 #. type: textblock
