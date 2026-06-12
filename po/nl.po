@@ -6,6 +6,7 @@
 # Geert Warrink <geert.warrink@onsnet.nu>, 2011-2012
 # Richard E. van der Luit <nippur@fedoraproject.org>, 2011, 2012
 # rjones <rjones@redhat.com>, 2011
+# Rafael Fontenelle <rafaelff@gnome.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
@@ -13,7 +14,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
 "PO-Revision-Date: 2026-06-03 23:59+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Dutch <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/nl/>\n"
 "Language: nl\n"
