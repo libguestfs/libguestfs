@@ -1,12 +1,12 @@
 # Zdenek <chmelarz@gmail.com>, 2017. #zanata
-# Pavel Borecki <pavel.borecki@gmail.com>, 2022, 2023, 2025.
+# Pavel Borecki <pavel.borecki@gmail.com>, 2022, 2023, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
-"PO-Revision-Date: 2025-11-17 21:58+0000\n"
+"PO-Revision-Date: 2026-06-03 20:53+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/cs/>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -899,8 +899,7 @@ msgstr "zjistit typ souboru"
 
 #: fish/cmds.c:683
 msgid "detect the architecture of a binary file"
-msgstr ""
-"zjistit pro jakou architekturu procesoru byl binární soubor zkompilován"
+msgstr "zjistit pro jakou architekturu procesoru byl binární soubor zkompilován"
 
 #: fish/cmds.c:684
 msgid "return the size of the file in bytes"
