@@ -7,6 +7,7 @@
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2011
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2011
 # Ettore Atalan <atalanttore@googlemail.com>, 2021, 2025, 2026.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
@@ -14,7 +15,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
 "PO-Revision-Date: 2026-06-03 23:19+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/de/>\n"
 "Language: de\n"

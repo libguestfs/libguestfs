@@ -11,7 +11,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
 "PO-Revision-Date: 2026-06-03 23:33+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -248,8 +248,8 @@ msgstr ""
 #, c-format
 msgid "could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
-"não foi possível obter o número de domínios inativos (código %d, domínio "
-"%d): %s"
+"não foi possível obter o número de domínios inativos (código %d, domínio %d)"
+": %s"
 
 #: common/parallel/domains.c:146
 #, c-format
