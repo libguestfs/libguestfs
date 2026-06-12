@@ -14,11 +14,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-29 11:13+0100\n"
-"PO-Revision-Date: 2026-06-04 00:37+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"PO-Revision-Date: 2026-06-12 13:10+0000\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/es/>\n"
 "Language: es\n"
@@ -3279,7 +3279,7 @@ msgstr ""
 "Imágenes de disco preparadas son escritas al archivo \"test21.img\" en\n"
 "el directorio local.  (\"test2.img\" etc si -N opción es dada múltiples "
 "veces).\n"
-"Puede sobrescribir el nombre proporcionando un nombre de archivo\n"
+"Puede anular el nombre proporcionando un nombre de archivo\n"
 "antes del tecleo, p.ej:\n"
 "\n"
 "  guestfish -N enblanco.img=fs\n"
@@ -4189,16 +4189,18 @@ msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: invocado dos veces en la misma manipulación\n"
 
 #: lib/handle.c:564
-#, fuzzy
-#| msgid "cannot get default hypervisor"
 msgid "get_hv: cannot get default hypervisor before ‘launch’ is called"
-msgstr "no se puede obtener hipervisor por defecto"
+msgstr ""
+"get_hv: no se puede obtener hipervisor por defecto anterior al ‘lanzamiento’ "
+"sea invocado"
 
 #: lib/handle.c:571
 #, c-format
 msgid ""
 "get_hv: cannot get default hypervisor: the ‘%s’ backend returned no value"
 msgstr ""
+"get_hv: no se puede obtener hipervisor por defecto: el backend ‘%s’ no "
+"devolvió ningún valor"
 
 #: lib/handle.c:601
 #, c-format
