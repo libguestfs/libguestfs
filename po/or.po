@@ -4,6 +4,7 @@
 #
 # Translators:
 # rjones <rjones@redhat.com>, 2011
+# Rafael Fontenelle <rafaelff@gnome.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
@@ -11,7 +12,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
 "PO-Revision-Date: 2026-06-03 22:28+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Odia <https://translate.fedoraproject.org/projects/libguestfs/"
 "libguestfs-master/or/>\n"
 "Language: or\n"
@@ -261,7 +262,8 @@ msgstr "ଗୋଟିଏ ପ୍ରତିଛବି ନିର୍ମାଣ କରି
 #: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr "ଗୋଟିଏ ସ୍ପାର୍ଶ ପ୍ରତିଛବି ନିର୍ମାଣ କରିବା ପାଇଁ 'sparse file size' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
+msgstr ""
+"ଗୋଟିଏ ସ୍ପାର୍ଶ ପ୍ରତିଛବି ନିର୍ମାଣ କରିବା ପାଇଁ 'sparse file size' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
 #: fish/alloc.c:105
 #, c-format
