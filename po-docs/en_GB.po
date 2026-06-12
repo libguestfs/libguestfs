@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
-"PO-Revision-Date: 2026-06-04 00:56+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-06-11 08:02+0000\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-docs-master/en_GB/>\n"
 "Language: en_GB\n"
@@ -3391,7 +3391,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:380 ../customize/virt-customize.pod:150
 #: ../dib/virt-dib.pod:274 ../rescue/virt-rescue.pod:191
 msgid "B<--memsize> MB"
-msgstr ""
+msgstr "B<--memsize> MB"
 
 #. type: textblock
 #: ../builder/virt-builder.pod:382 ../customize/virt-customize.pod:152
@@ -12982,10 +12982,8 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-building.pod:310
-#, fuzzy
-#| msgid "febootstrap E<ge> 3.20 is required."
 msgid "Python E<ge> 3.4"
-msgstr "febootstrap E<ge> 3.20 is required."
+msgstr "Python E<ge> 3.4"
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:312
@@ -13527,20 +13525,12 @@ msgstr ""
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:530
-#, fuzzy, no-wrap
-#| msgid ""
-#| " # Use an alternate python binary.\n"
-#| " export PYTHON=python3\n"
-#| " # Skip this test, it is broken.\n"
-#| " export SKIP_TEST_BTRFS_FSCK=1\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " # Skip this test, it is broken.\n"
 " export SKIP_TEST_BTRFS_FSCK=1\n"
 "\n"
 msgstr ""
-" # Use an alternate python binary.\n"
-" export PYTHON=python3\n"
 " # Skip this test, it is broken.\n"
 " export SKIP_TEST_BTRFS_FSCK=1\n"
 "\n"
@@ -39824,14 +39814,8 @@ msgstr "L<https://bugzilla.redhat.com/916780>"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.40.pod:364
-#, fuzzy
-#| msgid ""
-#| " virt-inspector [--options] -d domname\n"
-#| "\n"
 msgid "virt-inspector --help differs from manpage"
-msgstr ""
-" virt-inspector [--options] -d domname\n"
-"\n"
+msgstr "virt-inspector --help differs from manpage"
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.40.pod:366
@@ -40221,10 +40205,8 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:196
-#, fuzzy
-#| msgid "./bugs-in-changelog.sh 1.20.0.."
 msgid "https_proxy= ./bugs-in-changelog.sh v1.40.0.."
-msgstr "./bugs-in-changelog.sh 1.20.0.."
+msgstr "https_proxy= ./bugs-in-changelog.sh v1.40.0.."
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:202
@@ -43477,20 +43459,14 @@ msgstr ""
 
 #. type: verbatim
 #: ../docs/internal-documentation.pod:67
-#, fuzzy, no-wrap
-#| msgid ""
-#| " char *\n"
-#| " guestfs_lvuuid (guestfs_h *g,\n"
-#| "                 const char *device);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " static char *\n"
 " get_root_uuid (guestfs_h *g, const char *appliance)\n"
 "\n"
 msgstr ""
-" char *\n"
-" guestfs_lvuuid (guestfs_h *g,\n"
-"                 const char *device);\n"
+" static char *\n"
+" get_root_uuid (guestfs_h *g, const char *appliance)\n"
 "\n"
 
 #. type: textblock
@@ -43507,12 +43483,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../docs/internal-documentation.pod:75
-#, fuzzy, no-wrap
-#| msgid ""
-#| " char *\n"
-#| " guestfs_inspect_get_package_format (guestfs_h *g,\n"
-#| "                                     const char *root);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " char *\n"
 " guestfs_int_appliance_command_line (guestfs_h *g,\n"
@@ -43521,8 +43492,9 @@ msgid ""
 "\n"
 msgstr ""
 " char *\n"
-" guestfs_inspect_get_package_format (guestfs_h *g,\n"
-"                                     const char *root);\n"
+" guestfs_int_appliance_command_line (guestfs_h *g,\n"
+"                                     const char *appliance,\n"
+" \t\t\t\t    int flags)\n"
 "\n"
 
 #. type: textblock
@@ -50283,20 +50255,15 @@ msgstr ""
 
 #. type: verbatim
 #: ../docs/internal-documentation.pod:3105
-#, fuzzy, no-wrap
-#| msgid ""
-#| " char **\n"
-#| " guestfs_strings (guestfs_h *g,\n"
-#| "                  const char *path);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " char *\n"
 " guestfs_int_replace_string (const char *str, const char *s1, const char *s2)\n"
 "\n"
 msgstr ""
-" char **\n"
-" guestfs_strings (guestfs_h *g,\n"
-"                  const char *path);\n"
+" char *\n"
+" guestfs_int_replace_string (const char *str, const char *s1, const char *s2)"
+"\n"
 "\n"
 
 #. type: textblock
@@ -51345,10 +51312,8 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/internal-documentation.pod:3601
-#, fuzzy
-#| msgid "Create empty disk images"
 msgid "Cache daemon disk mapping."
-msgstr "Create empty disk images"
+msgstr "Cache daemon disk mapping."
 
 #. type: textblock
 #: ../docs/internal-documentation.pod:3603
@@ -51750,20 +51715,14 @@ msgstr ""
 
 #. type: verbatim
 #: ../docs/internal-documentation.pod:3786
-#, fuzzy, no-wrap
-#| msgid ""
-#| " char **\n"
-#| " guestfs_strings (guestfs_h *g,\n"
-#| "                  const char *path);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " char **\n"
 " filter_list (bool (*p) (const char *str), char **strs)\n"
 "\n"
 msgstr ""
 " char **\n"
-" guestfs_strings (guestfs_h *g,\n"
-"                  const char *path);\n"
+" filter_list (bool (*p) (const char *str), char **strs)\n"
 "\n"
 
 #. type: textblock
@@ -55072,18 +55031,12 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:486 ../lib/guestfs-actions.pod:585
-#, fuzzy
-#| msgid ""
-#| "Only a subset of the backends support hotplugging (currently only the "
-#| "libvirt backend has support).  It also requires that you use libvirt "
-#| "E<ge> 0.10.3 and qemu E<ge> 1.2."
 msgid ""
 "Only a subset of the backends support this parameter (currently only the "
 "libvirt and direct backends do)."
 msgstr ""
-"Only a subset of the backends support hotplugging (currently only the "
-"libvirt backend has support).  It also requires that you use libvirt E<ge> "
-"0.10.3 and qemu E<ge> 1.2."
+"Only a subset of the backends support this parameter (currently only the "
+"libvirt and direct backends do)."
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:493
@@ -66764,16 +66717,12 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:5558 ../lib/guestfs-actions.pod:8946
-#, fuzzy
-#| msgid ""
-#| "This command creates a hard link using the C<ln -f> command.  The I<-f> "
-#| "option removes the link (C<linkname>) if it exists already."
 msgid ""
 "This command creates a hard link, removing the link C<linkname> if it exists "
 "already."
 msgstr ""
-"This command creates a hard link using the C<ln -f> command.  The I<-f> "
-"option removes the link (C<linkname>) if it exists already."
+"This command creates a hard link, removing the link C<linkname> if it exists "
+"already."
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:5561
@@ -87044,11 +86993,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../lib/guestfs-actions.pod:664
-#, fuzzy, no-wrap
-#| msgid ""
-#| " GUESTFS_ADD_DRIVE_SCRATCH_NAME, const char *name,\n"
-#| " GUESTFS_ADD_DRIVE_SCRATCH_LABEL, const char *label,\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " GUESTFS_ADD_DRIVE_SCRATCH_NAME, const char *name,\n"
 " GUESTFS_ADD_DRIVE_SCRATCH_LABEL, const char *label,\n"
@@ -87057,6 +87002,7 @@ msgid ""
 msgstr ""
 " GUESTFS_ADD_DRIVE_SCRATCH_NAME, const char *name,\n"
 " GUESTFS_ADD_DRIVE_SCRATCH_LABEL, const char *label,\n"
+" GUESTFS_ADD_DRIVE_SCRATCH_BLOCKSIZE, int blocksize,\n"
 "\n"
 
 #. type: textblock
@@ -122893,10 +122839,8 @@ msgstr "B<kerberos-data>"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:169
-#, fuzzy
-#| msgid "Remove the SSH host keys in the guest."
 msgid "Remove the Kerberos host keytab file in the guest."
-msgstr "Remove the SSH host keys in the guest."
+msgstr "Remove the Kerberos host keytab file in the guest."
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:171
