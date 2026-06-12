@@ -2,6 +2,7 @@
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the libguestfs package.
 # Nathan <nathan95@live.it>, 2026.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
@@ -9,7 +10,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-14 10:25+0100\n"
 "PO-Revision-Date: 2026-06-03 22:46+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Italian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/it/>\n"
 "Language: it\n"
