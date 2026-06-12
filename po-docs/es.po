@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2020-07-06 15:46+0100\n"
 "PO-Revision-Date: 2026-06-03 22:07+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
 "Language: es\n"
@@ -1755,8 +1755,8 @@ msgid ""
 "You want to have very predictable performance from libguestfs (see L<guestfs-"
 "performance(1)>)."
 msgstr ""
-"Desea tener un rendimiento muy predecible de libguestfs "
-"(consulte L<guestfs-performance(1)>)."
+"Desea tener un rendimiento muy predecible de libguestfs (consulte L<guestfs-"
+"performance(1)>)."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:41
@@ -1764,8 +1764,8 @@ msgid ""
 "For deeper understanding of why you might need this tool, read L<guestfs-"
 "internals(1)/FIXED APPLIANCE>."
 msgstr ""
-"Para comprender mejor por qué podría necesitar esta herramienta, lea L"
-"<guestfs-internals(1)/FIXED APPLIANCE>."
+"Para comprender mejor por qué podría necesitar esta herramienta, lea "
+"L<guestfs-internals(1)/FIXED APPLIANCE>."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:44
@@ -1839,9 +1839,9 @@ msgid ""
 "another machine) by setting the environment variable LIBGUESTFS_PATH to "
 "C<OUTPUTDIR>."
 msgstr ""
-"Luego puede ejecutar libguestfs "
-"(posiblemente después de copiar este directorio a otra máquina) configurando "
-"la variable de entorno LIBGUESTFS_PATH en C<OUTPUTDIR>."
+"Luego puede ejecutar libguestfs (posiblemente después de copiar este "
+"directorio a otra máquina) configurando la variable de entorno "
+"LIBGUESTFS_PATH en C<OUTPUTDIR>."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:75
@@ -1961,8 +1961,8 @@ msgid ""
 msgstr ""
 "El instrumento fijo es una distribución binaria completa de Linux. Si lo "
 "distribuye, podría necesitar distribuir los archivos fuente correspondientes "
-"para cumplir con las licencias del software del dispositivo "
-"(como la Licencia Pública General de GNU)."
+"para cumplir con las licencias del software del dispositivo (como la "
+"Licencia Pública General de GNU)."
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:132
@@ -8660,8 +8660,9 @@ msgstr ""
 #: ../lib/guestfs-actions.pod:25 ../lib/guestfs-availability.pod:1
 #: ../lib/guestfs-availability.pod:25 ../lib/guestfs-structs.pod:1
 #: ../lib/guestfs-structs.pod:25
+#, fuzzy
 msgid "comment"
-msgstr "comentar"
+msgstr "efectuar"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:3
@@ -8707,8 +8708,8 @@ msgid ""
 msgstr ""
 " Este programa es software libre; puede redistribuirlo y/o modificarlo\n"
 "bajo los términos de la Licencia Pública General GNU publicada por la\n"
-"Free Software Foundation; ya sea la versión 2 de la Licencia o "
-"(a su elección)\n"
+"Free Software Foundation; ya sea la versión 2 de la Licencia o (a su "
+"elección)\n"
 "cualquier versión posterior.\n"
 "\n"
 
@@ -8752,7 +8753,7 @@ msgstr ""
 #. type: =item
 #: ../common/mlcustomize/customize-options.pod:29
 msgid "B<--append-line> FILE:LINE"
-msgstr "B<--append-line> FILE:LINE"
+msgstr "B<--append-line> ARCHIVO:LÍNEA"
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:31
@@ -8879,8 +8880,8 @@ msgstr "B<--commands-from-file> NOMBREARCHIVO"
 msgid ""
 "Read the customize commands from a file, one (and its arguments)  each line."
 msgstr ""
-"Lee las instrucciones personalizadas desde un archivo, una (y sus argumentos)"
-" cada línea."
+"Lee las instrucciones personalizadas desde un archivo, una (y sus "
+"argumentos) cada línea."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:71
@@ -8918,8 +8919,8 @@ msgid ""
 msgstr ""
 "Se ignoran las líneas vacías, y las líneas comenzando con C<#> son "
 "comentarios y se hacen caso omiso.  Además, los argumentos pueden estar "
-"repartidos a través de múltiples líneas, añadiendo un C<\\> "
-"(carácter de continuación) al final de una línea, por ejemplo"
+"repartidos a través de múltiples líneas, añadiendo un C<\\> (carácter de "
+"continuación) al final de una línea, por ejemplo"
 
 #. type: verbatim
 #: ../common/mlcustomize/customize-options.pod:83
@@ -8994,8 +8995,8 @@ msgid ""
 "Delete a file from the guest.  Or delete a directory (and all its contents, "
 "recursively)."
 msgstr ""
-"Borra un archivo desde el invitado. O borra un directorio "
-"(y todos sus contenidos, recursivamente)."
+"Borra un archivo desde el invitado. O borra un directorio (y todos sus "
+"contenidos, recursivamente)."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:108
@@ -9288,8 +9289,8 @@ msgid ""
 "Set the password for C<USER>.  (Note this option does I<not> create the user "
 "account)."
 msgstr ""
-"Establece la contraseña para C<USUARIO>.  "
-"(Note esta opción I<no> crea la cuenta del usuario)."
+"Establece la contraseña para C<USUARIO>.  (Note esta opción I<no> crea la "
+"cuenta del usuario)."
 
 #. type: textblock
 #: ../common/mlcustomize/customize-options.pod:214
@@ -9422,9 +9423,9 @@ msgid ""
 "upload data files (I<--upload>)."
 msgstr ""
 "Si libguestfs lo admite, la conexión de red es limitada, pero solo permite "
-"conexiones de red salientes. También puede adjuntar discos de datos "
-"(p. ej., archivos ISO) para proporcionar datos (p. ej., paquetes de software)"
-" al script sin necesidad de una conexión de red (I<--attach>). También puede "
+"conexiones de red salientes. También puede adjuntar discos de datos (p. ej., "
+"archivos ISO) para proporcionar datos (p. ej., paquetes de software) al "
+"script sin necesidad de una conexión de red (I<--attach>). También puede "
 "cargar archivos de datos (I<--upload>)."
 
 #. type: textblock
@@ -16671,8 +16672,8 @@ msgstr ""
 msgid ""
 "Use a tool like L<virt-bmap|http://git.annexia.org/?p=virt-bmap.git> instead."
 msgstr ""
-"Emplee en su lugar una herramienta como L<virt-bmap|http://git.annexia.org/?p"
-"=virt-bmap.git>."
+"Emplee en su lugar una herramienta como L<virt-bmap|http://git.annexia.org/"
+"?p=virt-bmap.git>."
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:1392
@@ -17421,10 +17422,10 @@ msgid ""
 "The reason is so that you can run multiple parallel tests of libguestfs "
 "without having one set of tests overwriting the appliance created by another."
 msgstr ""
-"Empleado para archivos temporales cuando ejecuten las pruebas "
-"(en vez de F</tmp> etc).  La razón es tal que puede ejecutar múltiples "
-"pruebas en paralelo de libguestfs sin tener un conjunto de pruebas "
-"sobrescribiendo la aplicación creada por otra."
+"Empleado para archivos temporales cuando ejecuten las pruebas (en vez de F</"
+"tmp> etc).  La razón es tal que puede ejecutar múltiples pruebas en paralelo "
+"de libguestfs sin tener un conjunto de pruebas sobrescribiendo la aplicación "
+"creada por otra."
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:324
@@ -17545,8 +17546,8 @@ msgstr ""
 msgid ""
 "Libguestfs uses the GNU autotools build system (autoconf, automake, libtool)."
 msgstr ""
-"Libguestfs utiliza el sistema de compilación de autotools GNU "
-"(autoconf, automake, libtool)."
+"Libguestfs utiliza el sistema de compilación de autotools GNU (autoconf, "
+"automake, libtool)."
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:375
@@ -18019,8 +18020,8 @@ msgid ""
 "If you use Emacs, add the following to one of your start-up files (e.g., ~/."
 "emacs), to help ensure that you get indentation right:"
 msgstr ""
-"Si utilizas Emacs, añade lo siguiente en una de sus archivos start-up "
-"(p.e., ~/.emacs), para ayudar asegurar que obtiene sangrado correcto:"
+"Si utilizas Emacs, añade lo siguiente en una de sus archivos start-up (p.e., "
+"~/.emacs), para ayudar asegurar que obtiene sangrado correcto:"
 
 #. type: verbatim
 #: ../docs/guestfs-hacking.pod:595
@@ -19874,9 +19875,9 @@ msgid ""
 msgstr ""
 "El comando guestfish anterior inicia el dispositivo libguestfs en un disco "
 "nulo y lo apaga inmediatamente. La primera vez que se ejecuta el comando, se "
-"crea un dispositivo y se almacena en caché "
-"(normalmente en F</var/tmp/.guestfs-*>). Las ejecuciones posteriores "
-"deberían reutilizar el dispositivo almacenado en caché."
+"crea un dispositivo y se almacena en caché (normalmente en F</var/tmp/"
+".guestfs-*>). Las ejecuciones posteriores deberían reutilizar el dispositivo "
+"almacenado en caché."
 
 #. type: =head3
 #: ../docs/guestfs-performance.pod:46 ../docs/guestfs-performance.pod:82
@@ -22123,8 +22124,8 @@ msgid ""
 "See also: L<http://rwmj.wordpress.com/2013/04/04/new-in-libguestfs-use-"
 "syslinux-or-extlinux-to-make-bootable-guests/#content>"
 msgstr ""
-"Consulte además: L<http://rwmj.wordpress.com/2013/04/04/"
-"new-in-libguestfs-use-syslinux-or-extlinux-to-make-bootable-guests/#content>"
+"Consulte además: L<http://rwmj.wordpress.com/2013/04/04/new-in-libguestfs-"
+"use-syslinux-or-extlinux-to-make-bootable-guests/#content>"
 
 #. type: =head1
 #: ../docs/guestfs-recipes.pod:567
@@ -22832,7 +22833,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes-1.6.pod:96
 #: ../docs/guestfs-release-notes-1.8.pod:77
 msgid "Security"
-msgstr ""
+msgstr "Seguridad"
 
 #. type: verbatim
 #: ../docs/guestfs-release-notes-1.10.pod:98
@@ -22899,7 +22900,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes-1.6.pod:119
 #: ../docs/guestfs-release-notes-1.8.pod:101
 msgid "Internals"
-msgstr ""
+msgstr "Internas"
 
 #. type: verbatim
 #: ../docs/guestfs-release-notes-1.10.pod:109
@@ -22967,7 +22968,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes-1.6.pod:135
 #: ../docs/guestfs-release-notes-1.8.pod:136
 msgid "Bugs fixed"
-msgstr ""
+msgstr "Fallos corregidos"
 
 #. type: verbatim
 #: ../docs/guestfs-release-notes-1.10.pod:125
@@ -37644,7 +37645,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:196
 msgid "https_proxy= ./bugs-in-changelog.sh v1.40.0.."
-msgstr ""
+msgstr "https_proxy= ./bugs-in-changelog.sh v1.40.0.."
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:202
@@ -37667,6 +37668,8 @@ msgid ""
 "Can't import guest from export domain to data domain on rhv4.3 due to error "
 "\"Invalid parameter: 'DiskType=1'\""
 msgstr ""
+"No puede importar invitado desde dominio de exportación a dominio de datos "
+"en rhv4.3 debido a un error en \"Parámetro no válido: 'DiskTipe=1'\""
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:210
@@ -37676,7 +37679,7 @@ msgstr "L<https://bugzilla.redhat.com/1733168>"
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:212
 msgid "virt-v2v: Use scp -T in -i vmx -it ssh mode"
-msgstr ""
+msgstr "virt-v2v: Utilice scp -T en modo -i vmx -it ssh"
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:214
@@ -37735,6 +37738,8 @@ msgid ""
 "virt-v2v should show a message when qemu-guest-agent is installed in guest "
 "successfully during conversion"
 msgstr ""
+"virt-v2v mostraría un mensaje cuando qemu-guest-agent esté instalado "
+"correctamente en el invitado durante la conversión"
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:234
@@ -37747,6 +37752,8 @@ msgid ""
 "virt-v2v fails to import a guest while cannot find `file_architecture` for a "
 "file"
 msgstr ""
+"virt-v2v falla al importar un invitado mientras no se puede encontrar "
+"`file_architecture` para un archivo"
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:238
@@ -37759,6 +37766,8 @@ msgid ""
 "[v2v][RHV][Scale] v2v Migration to RHV failed on timed out waiting for "
 "transfer to finalize"
 msgstr ""
+"[v2v][RHV][Scale] Migración v2v a RHV incorrecta en el tiempo de espera para "
+"que la transferencia finalice"
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:242
@@ -37781,6 +37790,8 @@ msgstr "L<https://bugzilla.redhat.com/1626503>"
 #: ../docs/guestfs-release-notes-1.42.pod:248
 msgid "Unable to maintain static IP address configuration post VM migration"
 msgstr ""
+"No es posible mantener configuración de dirección IP estática posterior a la "
+"migración de la MV"
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:250
@@ -37793,6 +37804,8 @@ msgid ""
 "Guest has no disk after rhv-upload converting if target data domain has "
 "similar name with other data domain on rhv4.2"
 msgstr ""
+"Invitado no tiene disco tras que se convierta rhv-upload si el destino del "
+"dominio de los datos tiene nombre similar con otro dominio de datos en rhv4.2"
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:254
@@ -37802,7 +37815,7 @@ msgstr "L<https://bugzilla.redhat.com/1605242>"
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:256
 msgid "Update nbdkit info for vddk in v2v man page"
-msgstr ""
+msgstr "Actualiza informe de nbdkit para vddk en la página de man v2v"
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:258
@@ -37815,6 +37828,8 @@ msgid ""
 "On W2K12r2 rhev-apt does not run non-interactively, causing race when "
 "starting rhev-apt service from the command line"
 msgstr ""
+"En W2K12r2 rhev-qpt no ejecuta en modo no interactivo, causando carreras "
+"cuando inicia el servicio rhev-apt desde la línea de comando"
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:262
@@ -37824,7 +37839,7 @@ msgstr "L<https://bugzilla.redhat.com/1518539>"
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:264
 msgid "Macvtap network will be lost during v2v conversion"
-msgstr ""
+msgstr "La red macvtab será desconectada durante la conversión v2v"
 
 #. type: =item
 #: ../docs/guestfs-release-notes-1.42.pod:266
@@ -37851,7 +37866,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:289
 msgid "Tomáš Golembiovský"
-msgstr ""
+msgstr "Tomáš Golembiovský"
 
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:291
@@ -37886,7 +37901,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-release-notes-1.42.pod:305
 msgid "Pino Toscano"
-msgstr ""
+msgstr "Pino Toscano"
 
 #. type: =head1
 #: ../docs/guestfs-release-notes-1.6.pod:5
