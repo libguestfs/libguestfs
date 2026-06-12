@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-04-14 10:25+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-04-29 11:13+0100\n"
 "PO-Revision-Date: 2026-06-03 22:28+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Odia <https://translate.fedoraproject.org/projects/libguestfs/"
@@ -102,47 +102,47 @@ msgstr ""
 msgid "%s mounted on %s\n"
 msgstr ""
 
-#: common/options/keys.c:63
+#: common/options/keys.c:69
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr ""
 
-#: common/options/keys.c:146
+#: common/options/keys.c:189
 #, c-format
 msgid "size_t overflow"
 msgstr ""
 
-#: common/options/keys.c:193
+#: common/options/keys.c:235
 #, c-format
 msgid "could not read key from user"
 msgstr ""
 
-#: common/options/keys.c:232
+#: common/options/keys.c:274
 #, c-format
 msgid "selector '%s': missing ID"
 msgstr ""
 
-#: common/options/keys.c:239
+#: common/options/keys.c:281
 #, c-format
 msgid "selector '%s': missing TYPE"
 msgstr ""
 
-#: common/options/keys.c:245
+#: common/options/keys.c:287
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:254
+#: common/options/keys.c:296
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:262
+#: common/options/keys.c:304
 #, c-format
 msgid "selector '%s': too many fields"
 msgstr ""
 
-#: common/options/keys.c:264
+#: common/options/keys.c:306
 #, c-format
 msgid "selector '%s': invalid TYPE"
 msgstr ""
@@ -262,8 +262,7 @@ msgstr "ଗୋଟିଏ ପ୍ରତିଛବି ନିର୍ମାଣ କରି
 #: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr ""
-"ଗୋଟିଏ ସ୍ପାର୍ଶ ପ୍ରତିଛବି ନିର୍ମାଣ କରିବା ପାଇଁ 'sparse file size' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
+msgstr "ଗୋଟିଏ ସ୍ପାର୍ଶ ପ୍ରତିଛବି ନିର୍ମାଣ କରିବା ପାଇଁ 'sparse file size' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
 #: fish/alloc.c:105
 #, c-format
@@ -934,8 +933,7 @@ msgstr "ସମସ୍ତ ଫାଇଲ ଏବଂ ଡିରେକ୍ଟୋରୀଗ
 
 #: fish/cmds.c:691
 msgid "find all files and directories, returning NUL-separated list"
-msgstr ""
-"ସମସ୍ତ ଫାଇଲ ଏବଂ ଡିରେକ୍ଟୋରୀଗୁଡ଼ିକୁ ଖୋଜନ୍ତୁ, NUL-ଦ୍ୱାରା ପୃଥକ ତାଲିକାକୁ ଫେରାଉଛି"
+msgstr "ସମସ୍ତ ଫାଇଲ ଏବଂ ଡିରେକ୍ଟୋରୀଗୁଡ଼ିକୁ ଖୋଜନ୍ତୁ, NUL-ଦ୍ୱାରା ପୃଥକ ତାଲିକାକୁ ଫେରାଉଛି"
 
 #: fish/cmds.c:692
 msgid "search the entries associated to the given inode"
@@ -2803,8 +2801,7 @@ msgstr ""
 
 #: fish/fish.c:1229
 msgid "display a list of commands or help on a command"
-msgstr ""
-"ନିର୍ଦ୍ଦେଶମାନଙ୍କର ଗୋଟିଏ ତାଲିକା ଦର୍ଶାନ୍ତୁ ଅଥବା ଗୋଟିଏ ନିର୍ଦ୍ଦେଶରେ ସହାୟତା ଦେଖାନ୍ତୁ"
+msgstr "ନିର୍ଦ୍ଦେଶମାନଙ୍କର ଗୋଟିଏ ତାଲିକା ଦର୍ଶାନ୍ତୁ ଅଥବା ଗୋଟିଏ ନିର୍ଦ୍ଦେଶରେ ସହାୟତା ଦେଖାନ୍ତୁ"
 
 #: fish/fish.c:1231
 msgid "quit guestfish"
@@ -2954,8 +2951,7 @@ msgstr ""
 #: fish/lcd.c:36
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
-msgstr ""
-"ସ୍ଥାନୀୟ ଡିରେକ୍ଟୋରୀକୁ ପରିବର୍ତ୍ତନ କରିବା ପାଇଁ 'lcd directory' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
+msgstr "ସ୍ଥାନୀୟ ଡିରେକ୍ଟୋରୀକୁ ପରିବର୍ତ୍ତନ କରିବା ପାଇଁ 'lcd directory' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
 #: fish/man.c:37
 #, c-format
@@ -3106,8 +3102,7 @@ msgstr "guestfish: remote: ସର୍ଭର ଚାଲୁନଥିବା ପରି
 #: fish/rc.c:409 fish/rc.c:423
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr ""
-"guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: ସର୍ଭରକୁ ପ୍ରାରମ୍ଭିକ ଆମନ୍ତ୍ରଣ ପଠାଇପାରିଲା ନାହିଁ\n"
+msgstr "guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: ସର୍ଭରକୁ ପ୍ରାରମ୍ଭିକ ଆମନ୍ତ୍ରଣ ପଠାଇପାରିଲା ନାହିଁ\n"
 
 #: fish/rc.c:434
 #, c-format
@@ -3876,22 +3871,28 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: ସମାନ ନିୟନ୍ତ୍ରଣରେ ଦୁଇଥର ଡ଼ାକିଥିଲା\n"
 
-#: lib/handle.c:568
-msgid "cannot get default hypervisor"
+#: lib/handle.c:564
+msgid "get_hv: cannot get default hypervisor before ‘launch’ is called"
 msgstr ""
 
-#: lib/handle.c:594
+#: lib/handle.c:571
+#, c-format
+msgid ""
+"get_hv: cannot get default hypervisor: the ‘%s’ backend returned no value"
+msgstr ""
+
+#: lib/handle.c:601
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: lib/handle.c:711
+#: lib/handle.c:718
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: lib/handle.c:817
+#: lib/handle.c:824
 msgid "setting not found"
 msgstr ""
 
@@ -3954,13 +3955,11 @@ msgstr ""
 
 #: lib/launch-direct.c:490
 msgid "you must call guestfs_add_drive before guestfs_launch"
-msgstr ""
-"ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
+msgstr "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
 
 #: lib/launch-direct.c:1026 lib/launch-libvirt.c:672
 msgid "qemu launched and contacted daemon, but state != READY"
-msgstr ""
-"qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
+msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
 #: lib/launch-libvirt.c:61
 #, c-format
@@ -4277,8 +4276,7 @@ msgstr "ଡେମନ ସକେଟରେ ଲେଖନ୍ତୁ"
 
 #: lib/proto.c:880
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr ""
-"receive_file_data: ଫାଇଲ ମାଳାକୁ ପଢ଼ିବା ସମୟରେ ଅପ୍ରତ୍ୟାଶିତ ଫ୍ଲାଗ ଗ୍ରହଣ ହୋଇଛି"
+msgstr "receive_file_data: ଫାଇଲ ମାଳାକୁ ପଢ଼ିବା ସମୟରେ ଅପ୍ରତ୍ୟାଶିତ ଫ୍ଲାଗ ଗ୍ରହଣ ହୋଇଛି"
 
 #: lib/proto.c:888
 msgid "failed to parse file chunk"
@@ -4629,19 +4627,19 @@ msgid ""
 "Check earlier messages, and the output of the ‘printenv’ command."
 msgstr ""
 
-#: test-tool/test-tool.c:317
+#: test-tool/test-tool.c:319
 #, c-format
 msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used."
 msgstr ""
 
-#: test-tool/test-tool.c:323
+#: test-tool/test-tool.c:325
 #, c-format
 msgid "binary ‘%s’ does not exist or is not executable"
 msgstr ""
 
-#: test-tool/test-tool.c:335
+#: test-tool/test-tool.c:337
 #, c-format
 msgid "path does not look like a qemu source directory: %s"
 msgstr ""
