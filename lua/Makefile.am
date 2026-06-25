@@ -67,8 +67,6 @@ libluaguestfs_la_CFLAGS = \
 libluaguestfs_la_LIBADD = \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
-	$(LIBXML2_LIBS) \
-	$(LIBVIRT_LIBS) \
 	../gnulib/lib/libgnu.la
 
 libluaguestfs_la_LDFLAGS = -avoid-version -shared
