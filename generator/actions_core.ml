@@ -1433,7 +1433,7 @@ directory called C<localdir> (which must exist).
 
 To download to the current directory, use C<.> as in:
 
- C<guestfs_copy_out> /home .
+C<guestfs_copy_out> /home .
 
 Wildcards cannot be used.|} };
 
