@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.57.7\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-04-29 11:13+0100\n"
-"PO-Revision-Date: 2026-06-03 23:33+0000\n"
+"PO-Revision-Date: 2026-06-30 03:22+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-master/pt_BR/>\n"
@@ -1021,47 +1021,47 @@ msgstr "executa o verificador do sistema de arquivos"
 
 #: fish/cmds.c:698
 msgid "trim free space in a filesystem"
-msgstr ""
+msgstr "recorta espaço livre em um sistema de arquivos"
 
 #: fish/cmds.c:702
 msgid "get the additional kernel options"
-msgstr ""
+msgstr "obtém as opções adicionais de kernel"
 
 #: fish/cmds.c:703 fish/cmds.c:705
 msgid "get the backend"
-msgstr ""
+msgstr "obtém o backend"
 
 #: fish/cmds.c:704
 msgid "get autosync mode"
-msgstr ""
+msgstr "obtém o modo autosync"
 
 #: fish/cmds.c:706
 msgid "get a single per-backend settings string"
-msgstr ""
+msgstr "obtém uma única string de configurações por backend"
 
 #: fish/cmds.c:707
 msgid "get per-backend settings"
-msgstr ""
+msgstr "obtém configurações por backend"
 
 #: fish/cmds.c:708
 msgid "get the appliance cache directory"
-msgstr ""
+msgstr "obtém o diretório de cache do appliance"
 
 #: fish/cmds.c:709
 msgid "get direct appliance mode flag"
-msgstr ""
+msgstr "obtém o sinalizador do modo de appliance direto"
 
 #: fish/cmds.c:710
 msgid "get ext2 file attributes of a file"
-msgstr ""
+msgstr "obtém os atributos de arquivo ext2 de um arquivo"
 
 #: fish/cmds.c:711
 msgid "get ext2 file generation of a file"
-msgstr ""
+msgstr "obtém a geração de arquivo ext2 de um arquivo"
 
 #: fish/cmds.c:712
 msgid "get the ext2/3/4 filesystem label"
-msgstr ""
+msgstr "obtém o rótulo de um sistema de arquivos ext2/3/4"
 
 #: fish/cmds.c:713
 msgid "get the ext2/3/4 filesystem UUID"
