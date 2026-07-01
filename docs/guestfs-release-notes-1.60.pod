@@ -57,7 +57,7 @@ deprecated in libguestfs 1.56 (Cole Robinson).
 =head2 Documentation
 
 All information related to firstboot scripts was moved to and
-consolidated in L<virt-customize(1)/FIRSTBOOT>.
+consolidated in L<virt-customize(1)/FIRSTBOOT> (Srihari Parimi).
 
 Fix documentation of C<guestfs_copy_out> API.
 
