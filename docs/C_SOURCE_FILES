@@ -209,6 +209,7 @@ fish/hexedit.c
 fish/lcd.c
 fish/man.c
 fish/more.c
+fish/not.c
 fish/prep-boot.c
 fish/prep-disk.c
 fish/prep-fs.c
