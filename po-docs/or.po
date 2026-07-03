@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2026-05-05 18:04+0100\n"
+"POT-Creation-Date: 2026-07-03 09:01+0100\n"
 "PO-Revision-Date: 2026-06-03 23:17+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Odia <https://translate.fedoraproject.org/projects/libguestfs/"
@@ -37,13 +37,13 @@ msgstr ""
 #: docs/guestfs-release-notes-1.48.pod:1 docs/guestfs-release-notes-1.50.pod:1
 #: docs/guestfs-release-notes-1.52.pod:1 docs/guestfs-release-notes-1.54.pod:1
 #: docs/guestfs-release-notes-1.56.pod:1 docs/guestfs-release-notes-1.58.pod:1
-#: docs/guestfs-release-notes-1.6.pod:1 docs/guestfs-release-notes-1.8.pod:1
-#: docs/guestfs-release-notes.pod:1 docs/guestfs-security.pod:1
-#: docs/guestfs-testing.pod:1 erlang/examples/guestfs-erlang.pod:1
-#: examples/guestfs-examples.pod:1 fish/guestfish.pod:1
-#: fish/libguestfs-tools.conf.pod:1 fish/virt-copy-in.pod:1
-#: fish/virt-copy-out.pod:1 fish/virt-tar-in.pod:1 fish/virt-tar-out.pod:1
-#: fuse/guestmount.pod:1 fuse/guestunmount.pod:1
+#: docs/guestfs-release-notes-1.6.pod:1 docs/guestfs-release-notes-1.60.pod:1
+#: docs/guestfs-release-notes-1.8.pod:1 docs/guestfs-release-notes.pod:1
+#: docs/guestfs-security.pod:1 docs/guestfs-testing.pod:1
+#: erlang/examples/guestfs-erlang.pod:1 examples/guestfs-examples.pod:1
+#: fish/guestfish.pod:1 fish/libguestfs-tools.conf.pod:1
+#: fish/virt-copy-in.pod:1 fish/virt-copy-out.pod:1 fish/virt-tar-in.pod:1
+#: fish/virt-tar-out.pod:1 fuse/guestmount.pod:1 fuse/guestunmount.pod:1
 #: golang/examples/guestfs-golang.pod:1 java/examples/guestfs-java.pod:1
 #: lib/guestfs.pod:1 lua/examples/guestfs-lua.pod:1
 #: ocaml/examples/guestfs-ocaml.pod:1 perl/examples/guestfs-perl.pod:1
@@ -577,6 +577,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:196
 #: docs/guestfs-release-notes-1.58.pod:252
 #: docs/guestfs-release-notes-1.6.pod:170
+#: docs/guestfs-release-notes-1.60.pod:131
 #: docs/guestfs-release-notes-1.8.pod:145 docs/guestfs-release-notes.pod:153
 #: docs/guestfs-security.pod:437 docs/guestfs-testing.pod:395
 #: erlang/examples/guestfs-erlang.pod:95 examples/guestfs-examples.pod:55
@@ -611,7 +612,8 @@ msgstr ""
 #: docs/guestfs-release-notes-1.52.pod:132
 #: docs/guestfs-release-notes-1.54.pod:139
 #: docs/guestfs-release-notes-1.56.pod:207
-#: docs/guestfs-release-notes-1.58.pod:263 docs/guestfs-security.pod:445
+#: docs/guestfs-release-notes-1.58.pod:263
+#: docs/guestfs-release-notes-1.60.pod:142 docs/guestfs-security.pod:445
 #: docs/guestfs-testing.pod:402 erlang/examples/guestfs-erlang.pod:110
 #: examples/guestfs-examples.pod:69 fish/guestfish.pod:1636
 #: fish/libguestfs-tools.conf.pod:96 fish/virt-copy-in.pod:52
@@ -675,6 +677,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:241
 #: docs/guestfs-release-notes-1.58.pod:291
 #: docs/guestfs-release-notes-1.6.pod:185
+#: docs/guestfs-release-notes-1.60.pod:155
 #: docs/guestfs-release-notes-1.8.pod:160 docs/guestfs-release-notes.pod:168
 #: docs/guestfs-security.pod:449 docs/guestfs-testing.pod:406
 #: erlang/examples/guestfs-erlang.pod:114 examples/guestfs-examples.pod:73
@@ -792,7 +795,11 @@ msgstr ""
 #: docs/guestfs-release-notes-1.58.pod:181
 #: docs/guestfs-release-notes-1.58.pod:185
 #: docs/guestfs-release-notes-1.58.pod:265
-#: docs/guestfs-release-notes-1.58.pod:269 fish/guestfish-actions.pod:1
+#: docs/guestfs-release-notes-1.58.pod:269
+#: docs/guestfs-release-notes-1.60.pod:119
+#: docs/guestfs-release-notes-1.60.pod:123
+#: docs/guestfs-release-notes-1.60.pod:144
+#: docs/guestfs-release-notes-1.60.pod:148 fish/guestfish-actions.pod:1
 #: fish/guestfish-actions.pod:25 fish/guestfish-commands.pod:1
 #: fish/guestfish-commands.pod:25 fish/guestfish-prepopts.pod:1
 #: fish/guestfish-prepopts.pod:25 lib/guestfs-actions.pod:1
@@ -12038,8 +12045,8 @@ msgstr ""
 #: docs/guestfs-release-notes-1.48.pod:3 docs/guestfs-release-notes-1.50.pod:3
 #: docs/guestfs-release-notes-1.52.pod:3 docs/guestfs-release-notes-1.54.pod:3
 #: docs/guestfs-release-notes-1.56.pod:3 docs/guestfs-release-notes-1.58.pod:3
-#: docs/guestfs-release-notes-1.6.pod:3 docs/guestfs-release-notes-1.8.pod:3
-#: docs/guestfs-release-notes.pod:3
+#: docs/guestfs-release-notes-1.6.pod:3 docs/guestfs-release-notes-1.60.pod:3
+#: docs/guestfs-release-notes-1.8.pod:3 docs/guestfs-release-notes.pod:3
 msgid "guestfs-release-notes - libguestfs Release Notes"
 msgstr ""
 
@@ -12432,6 +12439,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:92
 #: docs/guestfs-release-notes-1.58.pod:105
 #: docs/guestfs-release-notes-1.6.pod:119
+#: docs/guestfs-release-notes-1.60.pod:89
 #: docs/guestfs-release-notes-1.8.pod:101
 msgid "Internals"
 msgstr ""
@@ -12508,6 +12516,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:118
 #: docs/guestfs-release-notes-1.58.pod:179
 #: docs/guestfs-release-notes-1.6.pod:135
+#: docs/guestfs-release-notes-1.60.pod:117
 #: docs/guestfs-release-notes-1.8.pod:136
 msgid "Bugs fixed"
 msgstr ""
@@ -12566,6 +12575,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:198
 #: docs/guestfs-release-notes-1.58.pod:254
 #: docs/guestfs-release-notes-1.6.pod:172
+#: docs/guestfs-release-notes-1.60.pod:133
 #: docs/guestfs-release-notes-1.8.pod:147 docs/guestfs-release-notes.pod:155
 msgid ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
@@ -13996,6 +14006,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:30
 #: docs/guestfs-release-notes-1.56.pod:30
 #: docs/guestfs-release-notes-1.58.pod:25
+#: docs/guestfs-release-notes-1.60.pod:23
 msgid "API"
 msgstr ""
 
@@ -15641,6 +15652,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:59
 #: docs/guestfs-release-notes-1.56.pod:48
 #: docs/guestfs-release-notes-1.58.pod:62
+#: docs/guestfs-release-notes-1.60.pod:47
 msgid "Tools"
 msgstr ""
 
@@ -15734,6 +15746,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:14
 #: docs/guestfs-release-notes-1.56.pod:52
 #: docs/guestfs-release-notes-1.58.pod:66
+#: docs/guestfs-release-notes-1.60.pod:52
 msgid "Language bindings"
 msgstr ""
 
@@ -16466,6 +16479,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:18
 #: docs/guestfs-release-notes-1.56.pod:12
 #: docs/guestfs-release-notes-1.58.pod:12
+#: docs/guestfs-release-notes-1.60.pod:12
 msgid "Inspection"
 msgstr ""
 
@@ -16569,6 +16583,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:63
 #: docs/guestfs-release-notes-1.56.pod:60
 #: docs/guestfs-release-notes-1.58.pod:77
+#: docs/guestfs-release-notes-1.60.pod:64
 msgid "Build changes"
 msgstr ""
 
@@ -20941,6 +20956,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.32.pod:101
 #: docs/guestfs-release-notes-1.34.pod:192
 #: docs/guestfs-release-notes-1.58.pod:73
+#: docs/guestfs-release-notes-1.60.pod:57
 msgid "Documentation"
 msgstr ""
 
@@ -30242,6 +30258,7 @@ msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.58.pod:293
+#: docs/guestfs-release-notes-1.60.pod:157
 msgid "Copyright (C) 2009-2026 Red Hat Inc."
 msgstr ""
 
@@ -30621,6 +30638,230 @@ msgid ""
 " - 571714 Running virt-df on disk image relabels it, so qemu can no longer write to it.\n"
 " - 502533 Updated Polish translation of libguestfs\n"
 "\n"
+msgstr ""
+
+#. type: =head1
+#: docs/guestfs-release-notes-1.60.pod:5
+msgid "RELEASE NOTES FOR LIBGUESTFS 1.60"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:7
+msgid ""
+"These are the release notes for libguestfs stable release 1.60.  This "
+"describes the major changes since 1.58."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:10
+msgid "Libguestfs 1.60.0 was released on B<XXX July 2026>."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:14
+msgid ""
+"Add support for Kylin, NeoKylin and Anolis Linux distributions (grass lu)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:17
+msgid ""
+"Guests using Veritas partition tables (reusing the Sun partition type)  can "
+"now be inspected."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:20
+msgid ""
+"Windows Defender (antivirus) is now detected if present in Windows guests "
+"(Susant Sahani)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:25
+msgid ""
+"New C<guestfs_xfs_info2> API.  This is similar to the existing "
+"C<guestfs_xfs_info> API but returns a flexible hashtable allowing more "
+"fields to be added to the output in future."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:29
+msgid "C<guestfs_get_hv> now returns the default hypervisor."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:31
+msgid ""
+"C<guestfs_tar_in> adds a new option C<keepdirlink> which controls the tar "
+"I<--keep-directory-symlink> flag (Anders Roxell)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:34
+msgid ""
+"C<guestfs_xfs_repair> C<maxmem> option now produces better error messages if "
+"maxmem is too small."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:37
+msgid ""
+"All functions that take LUKS key parameters may now use either C<text:...> "
+"or C<base64:...> prefixes, allowing binary keys to be encoded as base64 and "
+"passed to these APIs.  L<guestfish(1)> and other tools taking a key file now "
+"allow a binary file to be used."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:42
+msgid ""
+"C<guestfs_command*> and C<guestfs_sh*> now use a bind mount to override C</"
+"etc/resolv.conf> inside the guest, allowing these commands to work even when "
+"this file is marked as immutable, a common change that system administrators "
+"make (Srihari Parimi)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:49
+msgid ""
+"New L<guestfish(1)> C<not> subcommand, which negates the status of a command."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:54
+msgid ""
+"GObject and Vala bindings were removed.  They were previously deprecated in "
+"libguestfs 1.56 (Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:59
+msgid ""
+"All information related to firstboot scripts was moved to and consolidated "
+"in L<virt-customize(1)/FIRSTBOOT> (Srihari Parimi)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:62
+msgid "Fix documentation of C<guestfs_copy_out> API."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:66
+msgid "Fix Weblate (i18n) web hooks (Rafael Fontenelle)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:68
+msgid "Fix build when libselinux is not available (David Runge)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:70
+msgid "Github CI is now used more comprehensively (Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:72
+msgid ""
+"Fix C<make dist> command when certain language bindings are disabled (Cole "
+"Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:75
+msgid "C<./configure --with-qemu> was removed."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:77
+msgid ""
+"C<CFLAGS> is now prepended to the default, allowing default flags to be "
+"overridden.  In addition I<-fPIC> is added to the default flags (Cole "
+"Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:81
+msgid ""
+"Some bash completion scripts that were no longer used by libguestfs (they "
+"moved to guestfs-tools) were removed.  Also new C<./configure --with-bash-"
+"completion> and C<./configure --with-bash-completion-dir> options were added "
+"(Christopher Byrne)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:86
+msgid ""
+"No longer over-link Lua bindings with libxml2 and libvirt (David Runge)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:91
+msgid ""
+"Simplify qemu property testing.  Most of the code was eliminated completely, "
+"and also we no longer start up an empty guest when detecting if KVM is "
+"available (thanks Daniel Berrange).  Also we now print stderr if qemu fails "
+"to start during detection (Hilko Bengen)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:96
+msgid "Use I<-cpu max> on RISC-V (thanks Apache553)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:98
+msgid "Very minimal support for Apple Filesystem (APFS) was added on Fedora."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:100
+msgid ""
+"Many memory and file descriptor leaks found by Claude Code were fixed "
+"(shivanayak)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:103
+msgid ""
+"In the libguestfs appliance, increase the number of pre-process memory "
+"maps.  This may allow xfs_repair to work on larger filesystems (Eric "
+"Sandeen)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:107
+msgid ""
+"Fix DHCP on fast machines by making it wait for an address when networking "
+"is enabled.  In addition use C<dhcpcd --debug> which makes it easier to see "
+"if DHCP requests are working (Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:111
+msgid "Improvements to debug output (Surya Gupta, Srihari Parimi)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:113
+msgid "Fix Fedora bin/sbin symlinking to be less noisy (Cole Robinson)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:115
+msgid "Rewrite xfs_repair and luks_* implementations in the daemon in OCaml."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:121
+msgid "./bugs-in-changelog.sh v1.58.0.."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:146
+msgid "git shortlog -s v1.58.0.."
 msgstr ""
 
 #. type: =head1
@@ -63495,12 +63736,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:36 fish/guestfish-commands.pod:269
+#: fish/guestfish-commands.pod:36 fish/guestfish-commands.pod:281
 msgid "For more advanced image creation, see L</disk-create>."
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:38 fish/guestfish-commands.pod:271
+#: fish/guestfish-commands.pod:38 fish/guestfish-commands.pod:283
 msgid "Size can be specified using standard suffixes, eg. C<1M>."
 msgstr ""
 
@@ -63996,11 +64237,43 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-commands.pod:237
-msgid "reopen"
+msgid "not"
 msgstr ""
 
 #. type: verbatim
 #: fish/guestfish-commands.pod:239
+#, no-wrap
+msgid ""
+" not command [args...]\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: fish/guestfish-commands.pod:241
+msgid ""
+"This runs an existing guestfish command and negates the exit code, so if the "
+"command fails, then C<not command> succeeds."
+msgstr ""
+
+#. type: textblock
+#: fish/guestfish-commands.pod:244
+msgid ""
+"Note this doesn't reverse the sense of commands which return booleans.  (eg. "
+"C<not exists /foo> doesn't do what you think)."
+msgstr ""
+
+#. type: textblock
+#: fish/guestfish-commands.pod:247
+msgid "For example C<not cat /foo> will check that the file does not exist."
+msgstr ""
+
+#. type: =head2
+#: fish/guestfish-commands.pod:249
+msgid "reopen"
+msgstr ""
+
+#. type: verbatim
+#: fish/guestfish-commands.pod:251
 #, no-wrap
 msgid ""
 "  reopen\n"
@@ -64008,7 +64281,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:241
+#: fish/guestfish-commands.pod:253
 msgid ""
 "Close and reopen the libguestfs handle.  It is not necessary to use this "
 "normally, because the handle is closed properly when guestfish exits.  "
@@ -64016,12 +64289,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: fish/guestfish-commands.pod:245
+#: fish/guestfish-commands.pod:257
 msgid "setenv"
 msgstr ""
 
 #. type: verbatim
-#: fish/guestfish-commands.pod:247
+#: fish/guestfish-commands.pod:259
 #, no-wrap
 msgid ""
 "  setenv VAR value\n"
@@ -64029,18 +64302,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:249
+#: fish/guestfish-commands.pod:261
 msgid "Set the environment variable C<VAR> to the string C<value>."
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:251
+#: fish/guestfish-commands.pod:263
 msgid ""
 "To print the value of an environment variable use a shell command such as:"
 msgstr ""
 
 #. type: verbatim
-#: fish/guestfish-commands.pod:254
+#: fish/guestfish-commands.pod:266
 #, no-wrap
 msgid ""
 " !echo $VAR\n"
@@ -64048,12 +64321,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: fish/guestfish-commands.pod:256
+#: fish/guestfish-commands.pod:268
 msgid "sparse"
 msgstr ""
 
 #. type: verbatim
-#: fish/guestfish-commands.pod:258
+#: fish/guestfish-commands.pod:270
 #, no-wrap
 msgid ""
 " sparse filename size\n"
@@ -64061,14 +64334,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:260
+#: fish/guestfish-commands.pod:272
 msgid ""
 "This creates an empty sparse file of the given size, and then adds so it can "
 "be further examined."
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:263
+#: fish/guestfish-commands.pod:275
 msgid ""
 "In all respects it works the same as the L</alloc> command, except that the "
 "image file is allocated sparsely, which means that disk blocks are not "
@@ -64078,17 +64351,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:273
+#: fish/guestfish-commands.pod:285
 msgid "See also the guestfish L</scratch> command."
 msgstr ""
 
 #. type: =head2
-#: fish/guestfish-commands.pod:275
+#: fish/guestfish-commands.pod:287
 msgid "supported"
 msgstr ""
 
 #. type: verbatim
-#: fish/guestfish-commands.pod:277
+#: fish/guestfish-commands.pod:289
 #, no-wrap
 msgid ""
 " supported\n"
@@ -64096,24 +64369,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:279
+#: fish/guestfish-commands.pod:291
 msgid ""
 "This command returns a list of the optional groups known to the daemon, and "
 "indicates which ones are supported by this build of the libguestfs appliance."
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:283
+#: fish/guestfish-commands.pod:295
 msgid "See also L<guestfs(3)/AVAILABILITY>."
 msgstr ""
 
 #. type: =head2
-#: fish/guestfish-commands.pod:285
+#: fish/guestfish-commands.pod:297
 msgid "time"
 msgstr ""
 
 #. type: verbatim
-#: fish/guestfish-commands.pod:287
+#: fish/guestfish-commands.pod:299
 #, no-wrap
 msgid ""
 " time command args...\n"
@@ -64121,19 +64394,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:289
+#: fish/guestfish-commands.pod:301
 msgid ""
 "Run the command as usual, but print the elapsed time afterwards.  This can "
 "be useful for benchmarking operations."
 msgstr ""
 
 #. type: =head2
-#: fish/guestfish-commands.pod:292
+#: fish/guestfish-commands.pod:304
 msgid "unsetenv"
 msgstr ""
 
 #. type: verbatim
-#: fish/guestfish-commands.pod:294
+#: fish/guestfish-commands.pod:306
 #, no-wrap
 msgid ""
 "  unsetenv VAR\n"
@@ -64141,7 +64414,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: fish/guestfish-commands.pod:296
+#: fish/guestfish-commands.pod:308
 msgid "Remove C<VAR> from the environment."
 msgstr ""
 
@@ -73938,12 +74211,9 @@ msgstr ""
 msgid "To download to the current directory, use C<.> as in:"
 msgstr ""
 
-#. type: verbatim
+#. type: textblock
 #: lib/guestfs-actions.pod:3402
-#, no-wrap
-msgid ""
-" C<guestfs_copy_out> /home .\n"
-"\n"
+msgid "C<guestfs_copy_out> /home ."
 msgstr ""
 
 #. type: =head2
