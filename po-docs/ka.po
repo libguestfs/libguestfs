@@ -2,13 +2,15 @@
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the libguestfs package.
 # Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2026.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-03 09:01+0100\n"
-"PO-Revision-Date: 2026-07-04 12:30+0000\n"
-"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"PO-Revision-Date: 2026-07-05 05:27+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ka/>\n"
 "Language: ka\n"
@@ -726,7 +728,7 @@ msgstr "საავტორო უფლებები"
 #: fuse/guestmount.pod:442 lib/guestfs.pod:3297 rescue/virt-rescue.pod:512
 #: test-tool/libguestfs-test-tool.pod:190
 msgid "Copyright (C) 2009-2025 Red Hat Inc."
-msgstr ""
+msgstr "(c) 2006-2020 Red Hat Inc., ყველა უფლება დაცულია."
 
 #. type: =end
 #: common/mlcustomize/customize-options.pod:1
@@ -12362,7 +12364,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.42.pod:128
 #: docs/guestfs-release-notes-1.6.pod:96 docs/guestfs-release-notes-1.8.pod:77
 msgid "Security"
-msgstr ""
+msgstr "უსაფრთხოება"
 
 #. type: verbatim
 #: docs/guestfs-release-notes-1.10.pod:98
