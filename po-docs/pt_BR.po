@@ -1,13 +1,14 @@
 # Marco Aurélio Krause <ouesten@me.com>, 2015. #zanata
 # Rodrigo de Araujo Sousa Fonseca <rodrigodearaujo@fedoraproject.org>, 2017. #zanata
 # Rafael Fontenelle <rafaelff@gnome.org>, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-03 09:01+0100\n"
-"PO-Revision-Date: 2026-07-04 12:29+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"PO-Revision-Date: 2026-07-04 12:30+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-docs-master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -1413,7 +1414,7 @@ msgstr ""
 #. type: =item
 #: common/mlcustomize/customize-options.pod:233
 msgid "DIR"
-msgstr ""
+msgstr "DIR"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:235
