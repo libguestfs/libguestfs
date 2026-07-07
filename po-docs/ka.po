@@ -9,8 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-03 09:01+0100\n"
 "PO-Revision-Date: 2026-07-07 09:18+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ka/>\n"
 "Language: ka\n"
@@ -8437,7 +8436,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-hacking.pod:737
 msgid "check"
-msgstr "ჩართვა"
+msgstr "check"
 
 #. type: textblock
 #: docs/guestfs-hacking.pod:741
@@ -30767,7 +30766,7 @@ msgstr "Susant Sahani"
 #: docs/guestfs-release-notes-1.58.pod:293
 #: docs/guestfs-release-notes-1.60.pod:157
 msgid "Copyright (C) 2009-2026 Red Hat Inc."
-msgstr ""
+msgstr "(C) 2009-2026 Red Hat Inc. ყველა უფლება დაცულია."
 
 #. type: =head1
 #: docs/guestfs-release-notes-1.6.pod:5
@@ -33605,7 +33604,7 @@ msgstr ""
 #: fish/virt-copy-out.pod:53 fish/virt-tar-in.pod:56 fish/virt-tar-out.pod:55
 #: java/examples/guestfs-java.pod:180 perl/examples/guestfs-perl.pod:59
 msgid "Copyright (C) 2011-2025 Red Hat Inc."
-msgstr ""
+msgstr "(C) 2011-2025 Red Hat Inc. ყველა უფლება დაცულია."
 
 #. type: =head2
 #: docs/internal-documentation.pod:1
@@ -34755,7 +34754,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:530
 msgid "Function C<lib/command.c:guestfs_int_cmd_close>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_close>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:532
@@ -34864,7 +34863,7 @@ msgstr "შეცდომა"
 #. type: =head4
 #: docs/internal-documentation.pod:577
 msgid "Function C<lib/conn-socket.c:guestfs_int_new_conn_socket_listening>"
-msgstr ""
+msgstr "ფუნქცია C<lib/conn-socket.c:guestfs_int_new_conn_socket_listening>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:579
@@ -43459,7 +43458,7 @@ msgstr ""
 #: examples/guestfs-examples.pod:75 ocaml/examples/guestfs-ocaml.pod:101
 #: python/examples/guestfs-python.pod:83 ruby/examples/guestfs-ruby.pod:54
 msgid "Copyright (C) 2010-2025 Red Hat Inc."
-msgstr ""
+msgstr "(C) 2010-2025 Red Hat Inc. ყველა უფლება დაცულია."
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:3 fish/guestfish-commands.pod:3
@@ -44004,7 +44003,7 @@ msgstr ""
 #: lib/guestfs-actions.pod:339 lib/guestfs-actions.pod:10665
 #: lib/guestfs-actions.pod:13220 lib/guestfs-actions.pod:14960
 msgid "The optional arguments are:"
-msgstr "არასავალდებულო არგუმენტები"
+msgstr "არასავალდებულო არგუმენტებია:"
 
 #. type: =item
 #: fish/guestfish-actions.pod:244 lib/guestfs-actions.pod:343
@@ -47639,7 +47638,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:1958
 msgid "cp"
-msgstr "ჭქ"
+msgstr "cp"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:1960
@@ -48224,7 +48223,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:2249
 msgid "download"
-msgstr "ჩამოტვირთვა"
+msgstr "download"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:2251
@@ -51404,7 +51403,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:3752
 msgid "head"
-msgstr "თავი"
+msgstr "head"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:3754
@@ -59292,6 +59291,8 @@ msgid ""
 " part-to-partnum partition\n"
 "\n"
 msgstr ""
+" part-to-partnum partition\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7694 lib/guestfs-actions.pod:12520
@@ -59842,7 +59843,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:7987
 msgid "remount"
-msgstr "თავიდან მიმაგრება"
+msgstr "remount"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:7989
@@ -59907,7 +59908,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:8026
 msgid "rename"
-msgstr "სახელის შეცვლა"
+msgstr "rename"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:8028
@@ -61037,7 +61038,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:8578
 msgid "set-libvirt-requested-credential"
-msgstr ""
+msgstr "set-libvirt-requested-credential"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:8580
@@ -61057,7 +61058,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:8587
 msgid "set-libvirt-supported-credentials"
-msgstr ""
+msgstr "set-libvirt-supported-credentials"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:8589
@@ -62190,7 +62191,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish-actions.pod:9148 lib/guestfs-actions.pod:14757
 msgid "s"
-msgstr "წმ"
+msgstr "s"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:9150
@@ -62202,7 +62203,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish-actions.pod:9153 lib/guestfs-actions.pod:14762
 msgid "S"
-msgstr "შაბ"
+msgstr "S"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:9155 lib/guestfs-actions.pod:14764
@@ -62790,7 +62791,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:9465
 msgid "truncate"
-msgstr "მოკვეთა"
+msgstr "truncate"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:9467
@@ -63112,7 +63113,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish-actions.pod:9635
 msgid "umount"
-msgstr "მოხსნა"
+msgstr "umount"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:9637
@@ -65377,6 +65378,8 @@ msgid ""
 " supported\n"
 "\n"
 msgstr ""
+" supported\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-commands.pod:291
@@ -66136,7 +66139,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:184 fuse/guestmount.pod:175 rescue/virt-rescue.pod:115
 msgid "__INCLUDE:blocksize-option.pod__"
-msgstr ""
+msgstr "__INCLUDE:blocksize-option.pod__"
 
 #. type: =item
 #: fish/guestfish.pod:186 fuse/guestmount.pod:177 rescue/virt-rescue.pod:117
@@ -66861,7 +66864,7 @@ msgstr ""
 #. type: =head1
 #: fish/guestfish.pod:527
 msgid "QUOTING"
-msgstr ""
+msgstr "ციტირება"
 
 #. type: textblock
 #: fish/guestfish.pod:529
@@ -67092,7 +67095,7 @@ msgstr ""
 #. type: =head1
 #: fish/guestfish.pod:620
 msgid "NUMBERS"
-msgstr ""
+msgstr "რიცხვები"
 
 #. type: textblock
 #: fish/guestfish.pod:622
@@ -67421,7 +67424,7 @@ msgstr ""
 #. type: =head1
 #: fish/guestfish.pod:756
 msgid "COMMENTS"
-msgstr ""
+msgstr "კომენტარები"
 
 #. type: textblock
 #: fish/guestfish.pod:758
@@ -67544,7 +67547,7 @@ msgstr ""
 #. type: =head1
 #: fish/guestfish.pod:810
 msgid "PIPES"
-msgstr ""
+msgstr "კომუნიკაციის არხები"
 
 #. type: textblock
 #: fish/guestfish.pod:812
@@ -68302,7 +68305,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish.pod:1121
 msgid "__INCLUDE:guestfish-prepopts.pod__"
-msgstr ""
+msgstr "__INCLUDE:guestfish-prepopts.pod__"
 
 #. type: =head1
 #: fish/guestfish.pod:1123
@@ -68602,7 +68605,7 @@ msgstr ""
 #. type: =head1
 #: fish/guestfish.pod:1248
 msgid "PROMPT"
-msgstr ""
+msgstr "მოთხოვნა"
 
 #. type: textblock
 #: fish/guestfish.pod:1250
@@ -68840,7 +68843,7 @@ msgstr "გასვლა"
 #. type: =head2
 #: fish/guestfish.pod:1363
 msgid "quit"
-msgstr ""
+msgstr "quit"
 
 #. type: textblock
 #: fish/guestfish.pod:1365
@@ -68855,7 +68858,7 @@ msgstr "__INCLUDE:guestfish-commands.pod__"
 #. type: =head1
 #: fish/guestfish.pod:1369
 msgid "COMMANDS"
-msgstr ""
+msgstr "ბრძანებები"
 
 #. type: textblock
 #: fish/guestfish.pod:1371
@@ -68884,7 +68887,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish.pod:1387
 msgid "GUESTFISH_DISPLAY_IMAGE"
-msgstr ""
+msgstr "GUESTFISH_DISPLAY_IMAGE"
 
 #. type: textblock
 #: fish/guestfish.pod:1389
@@ -69342,7 +69345,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish.pod:1587
 msgid "test1.img"
-msgstr ""
+msgstr "test1.img"
 
 #. type: =item
 #: fish/guestfish.pod:1589
@@ -70776,7 +70779,7 @@ msgstr ""
 #. type: textblock
 #: fuse/guestunmount.pod:162 golang/examples/guestfs-golang.pod:97
 msgid "Copyright (C) 2013 Red Hat Inc."
-msgstr ""
+msgstr "(C) 2013 Red Hat Inc. ყველა უფლება დაცულია."
 
 #. type: textblock
 #: golang/examples/guestfs-golang.pod:3
@@ -95894,7 +95897,7 @@ msgstr ""
 #. type: =head2
 #: lib/guestfs.pod:87
 msgid "HANDLES"
-msgstr ""
+msgstr "დამმუშავებლები"
 
 #. type: textblock
 #: lib/guestfs.pod:89
@@ -97594,6 +97597,8 @@ msgid ""
 "L<https://github.com/tuxera/ntfs-3g/wiki/Junctions-Points,-Symbolic-Links-"
 "and-Reparse-Points>"
 msgstr ""
+"L<https://github.com/tuxera/ntfs-3g/wiki/Junctions-Points,-Symbolic-Links-"
+"and-Reparse-Points>"
 
 #. type: textblock
 #: lib/guestfs.pod:989
@@ -97629,7 +97634,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs.pod:1006
 msgid "L<https://github.com/tuxera/ntfs-3g/wiki/Using-Extended-Attributes>"
-msgstr ""
+msgstr "L<https://github.com/tuxera/ntfs-3g/wiki/Using-Extended-Attributes>"
 
 #. type: =head3
 #: lib/guestfs.pod:1008
@@ -99094,7 +99099,7 @@ msgstr ""
 #. type: =item
 #: lib/guestfs.pod:1766
 msgid "C<GUESTFS_CREATE_NO_ENVIRONMENT>"
-msgstr ""
+msgstr "C<GUESTFS_CREATE_NO_ENVIRONMENT>"
 
 #. type: textblock
 #: lib/guestfs.pod:1768
@@ -99121,7 +99126,7 @@ msgstr ""
 #. type: =item
 #: lib/guestfs.pod:1778
 msgid "C<GUESTFS_CREATE_NO_CLOSE_ON_EXIT>"
-msgstr ""
+msgstr "C<GUESTFS_CREATE_NO_CLOSE_ON_EXIT>"
 
 #. type: textblock
 #: lib/guestfs.pod:1780
@@ -99667,7 +99672,7 @@ msgstr ""
 #. type: =head2
 #: lib/guestfs.pod:2026
 msgid "guestfs_set_out_of_memory_handler"
-msgstr ""
+msgstr "guestfs_set_out_of_memory_handler"
 
 #. type: verbatim
 #: lib/guestfs.pod:2028
@@ -100479,7 +100484,7 @@ msgstr ""
 #. type: =head3
 #: lib/guestfs.pod:2460
 msgid "guestfs_set_event_callback"
-msgstr ""
+msgstr "guestfs_set_event_callback"
 
 #. type: verbatim
 #: lib/guestfs.pod:2462
@@ -101403,7 +101408,7 @@ msgstr ""
 #. type: =head1
 #: lib/guestfs.pod:2928
 msgid "LIMITS"
-msgstr ""
+msgstr "ლიმიტები"
 
 #. type: =head2
 #: lib/guestfs.pod:2930
@@ -102148,7 +102153,7 @@ msgstr ""
 #. type: textblock
 #: lua/examples/guestfs-lua.pod:157
 msgid "Copyright (C) 2012 Red Hat Inc."
-msgstr ""
+msgstr "(C) 2012 Red Hat Inc. ყველა უფლება დაცულია."
 
 #. type: textblock
 #: ocaml/examples/guestfs-ocaml.pod:3
@@ -102227,7 +102232,7 @@ msgstr ""
 #. type: textblock
 #: ocaml/examples/guestfs-ocaml.pod:38
 msgid "becomes:"
-msgstr ""
+msgstr "გახდება:"
 
 #. type: verbatim
 #: ocaml/examples/guestfs-ocaml.pod:40
@@ -102887,7 +102892,7 @@ msgstr ""
 #. type: textblock
 #: rescue/virt-rescue.pod:281
 msgid "Display version number and exit."
-msgstr "ვერსიის ჩვენება და გასვლა"
+msgstr "ვერსიის ჩვენება და გასვლა."
 
 #. type: textblock
 #: rescue/virt-rescue.pod:294
