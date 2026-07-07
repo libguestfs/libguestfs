@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-03 09:01+0100\n"
-"PO-Revision-Date: 2026-07-06 06:19+0000\n"
-"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"PO-Revision-Date: 2026-07-07 09:18+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ka/>\n"
 "Language: ka\n"
@@ -44003,7 +44004,7 @@ msgstr ""
 #: lib/guestfs-actions.pod:339 lib/guestfs-actions.pod:10665
 #: lib/guestfs-actions.pod:13220 lib/guestfs-actions.pod:14960
 msgid "The optional arguments are:"
-msgstr ""
+msgstr "არასავალდებულო არგუმენტები"
 
 #. type: =item
 #: fish/guestfish-actions.pod:244 lib/guestfs-actions.pod:343
@@ -49535,7 +49536,7 @@ msgstr "'r'"
 #: fish/guestfish-actions.pod:2900 fish/guestfish-actions.pod:7931
 #: lib/guestfs-actions.pod:4842 lib/guestfs-actions.pod:12882
 msgid "Regular file"
-msgstr ""
+msgstr "ჩვეულებრივი ფაილი"
 
 #. type: =item
 #: fish/guestfish-actions.pod:2902 fish/guestfish-actions.pod:3281
@@ -96713,7 +96714,7 @@ msgstr ""
 #. type: =head2
 #: lib/guestfs.pod:491
 msgid "CONFIGURATION FILES"
-msgstr ""
+msgstr "კონფიგურაციის ფაილები"
 
 #. type: textblock
 #: lib/guestfs.pod:493
@@ -102886,7 +102887,7 @@ msgstr ""
 #. type: textblock
 #: rescue/virt-rescue.pod:281
 msgid "Display version number and exit."
-msgstr ""
+msgstr "ვერსიის ჩვენება და გასვლა"
 
 #. type: textblock
 #: rescue/virt-rescue.pod:294
