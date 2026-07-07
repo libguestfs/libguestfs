@@ -7,13 +7,14 @@
 # Luis Bazán <lbazan@fedoraproject.org>, 2011
 # Javier Blanco <javi.deb@gmail.com>, 2018. #zanata
 # Weblate <noreply-mt-weblate@weblate.org>, 2026.
+# "Fco. Javier F. Serrador" <fserrador@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-03 09:01+0100\n"
-"PO-Revision-Date: 2026-07-07 09:17+0000\n"
-"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"PO-Revision-Date: 2026-07-07 09:18+0000\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
 "Language: es\n"
@@ -61,7 +62,7 @@ msgstr "NOMBRE"
 msgid ""
 "libguestfs-make-fixed-appliance - Make a \"fixed appliance\" for libguestfs"
 msgstr ""
-"libguestfs-make-fixed-appliance - Realiza un \"fixed appliance\" para "
+"libguestfs-make-fixed-appliance: Realiza un \"fixed appliance\" para "
 "libguestfs"
 
 #. type: =head1
@@ -85,7 +86,7 @@ msgid ""
 " libguestfs-make-fixed-appliance [--options] OUTPUTDIR\n"
 "\n"
 msgstr ""
-" libguestfs-make-fixed-appliance [--options] DIRSALIENTE\n"
+" libguestfs-make-fixed-appliance [--options] DIR‐SALIENTE\n"
 "\n"
 
 #. type: verbatim
@@ -122,7 +123,7 @@ msgid ""
 "libguestfs-make-fixed-appliance lets you make a pre-built binary appliance "
 "for libguestfs."
 msgstr ""
-"libguestfs-make-fixed-appliance te permite crear una aplicación binaria pre-"
+"libguestfs-make-fixed-appliance te permite crear una aplicación binaria pre‐"
 "compilada para libguestfs."
 
 #. type: textblock
@@ -350,8 +351,8 @@ msgid ""
 "For deeper understanding of why you might need this tool, read L<guestfs-"
 "internals(1)/FIXED APPLIANCE>."
 msgstr ""
-"Para comprender mejor por qué podría necesitar esta herramienta, lea "
-"L<guestfs-internals(1)/FIXED APPLIANCE>."
+"Para comprender más profundo por qué podría necesitar esta herramienta, "
+"consulte L<guestfs-internals(1)/FIXED APPLIANCE>."
 
 #. type: textblock
 #: appliance/libguestfs-make-fixed-appliance.pod:44
@@ -360,7 +361,7 @@ msgid ""
 "L<http://libguestfs.org/download/binaries/appliance/>.  These appliances "
 "were made using this tool."
 msgstr ""
-"En lugar de ejecutar esta herramienta, puede descargar dispositivos "
+"En lugar de ejecutar esta herramienta, puede descargar instrumentos "
 "reparados desde L<http://libguestfs.org/download/binaries/appliance/>. Estos "
 "dispositivos se crearon con esta herramienta."
 
@@ -460,7 +461,7 @@ msgid ""
 " appliance-<VERSION>.tar.xz\n"
 "\n"
 msgstr ""
-" dispositivo-<VERSION>.tar.xz\n"
+" instrumento-<VERSIÓN>.tar.xz\n"
 "\n"
 
 #. type: textblock
@@ -549,8 +550,8 @@ msgid ""
 "compressed tarball of the appliance in the current directory called "
 "F<appliance-I<VERSION>.tar.xz> where C<VERSION> is the version of libguestfs."
 msgstr ""
-"En lugar de crear el dispositivo en un directorio de salida, cree un archivo "
-"tar comprimido del dispositivo en el directorio actual llamado F<appliance-"
+"En lugar de crear el instrumento en un directorio de salida, cree un archivo "
+"tar comprimido del instrumento en el directorio actual llamado F<appliance-"
 "I<VERSION>.tar.xz> donde C<VERSION> es la versión de libguestfs."
 
 #. type: textblock
@@ -1810,9 +1811,9 @@ msgid ""
 "The script runs virtualized inside a small appliance, chrooted into the "
 "guest filesystem."
 msgstr ""
-"Ejecute el script de shell (o cualquier programa) llamado C<SCRIPT> en la "
+"Ejecute el script de consola (o cualquier programa) llamado C<SCRIPT> en la "
 "imagen de disco. El guion se ejecuta virtualizado dentro de un pequeño "
-"dispositivo, conectado al sistema de archivos invitado."
+"instrumento, conectado al sistema de archivos invitado."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:340
@@ -1870,7 +1871,7 @@ msgid ""
 "virtualized inside a small appliance, chrooted into the guest filesystem."
 msgstr ""
 "Ejecute la instrucción y los argumentos en la imagen de disco.  La "
-"instrucción se ejecuta virtualizada dentro de un pequeño dispositivo, con "
+"instrucción se ejecuta virtualizada dentro de un pequeño instrumento, con "
 "chroot en el sistema de archivos invitado."
 
 #. type: textblock
@@ -2273,7 +2274,7 @@ msgid ""
 "networking will be automatically enabled for the libguestfs appliance."
 msgstr ""
 "Nota que si cualquier opción está presente en la línea de instrucción, el "
-"usuario QEMU de red será habilitado automáticamente para la aplicación de "
+"usuario QEMU de red será habilitado automáticamente para el instrumento de "
 "libguestfs."
 
 #. type: =item
@@ -2322,7 +2323,7 @@ msgid ""
 msgstr ""
 "C<guestfsd> es el demonio de libguestfs.  Los usuarios normales nunca "
 "necesitan ejecutar este programa explícitamente.  Esta página de man discute "
-"qué C<guestfsd> hace en ambos aplicaciones libguestfs y cuando utilizan "
+"qué C<guestfsd> hace en ambos instrumentos libguestfs y cuando utilizan "
 "libguestfs live."
 
 #. type: =head2
@@ -2336,7 +2337,7 @@ msgid ""
 "For the architecture of the libguestfs appliance, see L<guestfs(3)/"
 "ARCHITECTURE>."
 msgstr ""
-"Para la arquitectura de la aplicación libguestfs, consulte L<guestfs(3)/"
+"Para la arquitectura del instrumento libguestfs, consulte L<guestfs(3)/"
 "ARCHITECTURE>."
 
 #. type: textblock
@@ -2348,7 +2349,7 @@ msgid ""
 "COMMUNICATION PROTOCOL>) and processes requests one at a time from the "
 "library until the appliance is destroyed."
 msgstr ""
-"Después de las aplicaciones de arranque, el script F</init> en la aplicación "
+"Tras los instrumentos de arranque, el script F</init> en el instrumento "
 "inicia C<guestfsd> sin ningún argumento.  C<guestfsd> abre el puerto de "
 "virtio-serial en una ruta conocida (consulte L</FILES>).   Inicia el "
 "protocolo (consulte L<guestfs(3)/COMMUNICATION PROTOCOL>) y los procesos "
@@ -2581,8 +2582,8 @@ msgstr ""
 "Habilita mensajes verborreos.  Este indicador se pasa por la biblioteca "
 "libguestfs al instrumento para hacer que el demonio sea más verborreo (actúa "
 "como el indicador I<-v> en la línea de comando).  No relacionado al demonio, "
-"también causa que el guion init de la aplicación declare fuera de un lote "
-"más informado de depuración."
+"también causa que el guion init del instrumento declare fuera de un lote más "
+"informado de depuración."
 
 #. type: =item
 #: daemon/guestfsd.pod:127
@@ -2790,9 +2791,9 @@ msgid ""
 "clean>>.  You have to do this command to clean the old supermin appliance "
 "and force a new one to be prepared:"
 msgstr ""
-"I<Note>: Si compila libguestfs y luego instala los paquetes del dispositivo, "
+"I<Note>: Si compila libguestfs y luego instala los paquetes del instrumento, "
 "la compilación no los detectará automáticamente, incluso si ejecuta S<C<make "
-"clean>>. Debe ejecutar este comando para vaciar el antiguo dispositivo "
+"clean>>. Debe ejecutar este comando para vaciar el antiguo instrumento "
 "supermin y forzar la preparación de uno nuevo:"
 
 #. type: verbatim
@@ -3110,7 +3111,7 @@ msgid ""
 "confine the appliance (sVirt)."
 msgstr ""
 "Opcional:  Empleado para el L<libvirt backend|guestfs(3)/BACKEND> para "
-"confinar con seguridad las aplicaciones (sVirt)."
+"confinar con seguridad del instrumento (sVirt)."
 
 #. type: =item
 #: docs/guestfs-building.pod:211
@@ -3862,12 +3863,12 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-building.pod:487
 msgid "B<--disable-appliance --disable-daemon>"
-msgstr ""
+msgstr "B<--disable-appliance --disable-daemon>"
 
 #. type: textblock
 #: docs/guestfs-building.pod:489
 msgid "See L</USING A PREBUILT BINARY APPLIANCE> below."
-msgstr ""
+msgstr "Consulte L</USING A PREBUILT BINARY APPLIANCE> a continuación."
 
 #. type: =item
 #: docs/guestfs-building.pod:491
@@ -3968,6 +3969,10 @@ msgid ""
 "appliance).  However if packagers are building \"libguestfs live\" then they "
 "should use this option."
 msgstr ""
+"Normalmente L<guestfsd(8)> no es instalado por C<make install>, desde "
+"entonces que no sería útil (en cambio está \"instalado\" dentro del "
+"instrumento supermin).  Aún así si empaquetadores están creando \"libguestfs "
+"live\" entonces utilizaría esta opción."
 
 #. type: =item
 #: docs/guestfs-building.pod:533
@@ -4023,6 +4028,9 @@ msgid ""
 "package names for the appliance correctly (see for example F<appliance/"
 "packagelist.in>).  It normally does this automatically."
 msgstr ""
+"Libguestfs necesidades saber cual distro de Linux está en uso tal que pueda "
+"elegir nombres de paquete para el instrumento correctamente (consulte p.ej. "
+"F<appliance/packagelist.in>).  Normalmente hace esto automáticamente."
 
 #. type: textblock
 #: docs/guestfs-building.pod:559
@@ -4112,6 +4120,13 @@ msgid ""
 "this can be found in the Fedora C<libguestfs.spec> file (see L</BUILDING A "
 "PACKAGE FOR FEDORA> below for resources)."
 msgstr ""
+"El uso más común para este es para construir el instrumento que utiliza un "
+"alternar repositorio (en vez de utilizar la configuración del instalado yum/"
+"dnf/apto/etc para encontrar y paquetes para descarga).   Necesitarías "
+"utilizar esto si deseas compilar libguestfs sin tener una conexión de red.  "
+"Ejemplos de utilizar esto puede ser encontrado en el archivo Fedora "
+"C<libguestfs.spec> (consulte L</BUILDING A PACKAGE FOR FEDORA> abajo para "
+"recursos)."
 
 #. type: =item
 #: docs/guestfs-building.pod:604
@@ -4124,6 +4139,8 @@ msgid ""
 "Pass additional options to L<supermin(1)>.  See F<appliance/make.sh.in> to "
 "understand precisely what this does."
 msgstr ""
+"Pase opciones adicionales a L<supermin(1)>.  Consulte F<appliance/"
+"make.sh.in> para entender precisamente qué hace esto."
 
 #. type: =item
 #: docs/guestfs-building.pod:609
@@ -4170,6 +4187,9 @@ msgid ""
 "reasons.  This varies between versions of qemu, and Linux distributions "
 "which add their own patches."
 msgstr ""
+"Versiones diferentes de qemu tienen problemas al arrancar el instrumento por "
+"diferentes razones.  Esto varía entre versiones de qemu, y distribuciones de "
+"Linux la cual añade sus propios parches."
 
 #. type: textblock
 #: docs/guestfs-building.pod:634
@@ -4232,7 +4252,7 @@ msgstr ""
 #. type: =head1
 #: docs/guestfs-building.pod:658
 msgid "USING A PREBUILT BINARY APPLIANCE"
-msgstr ""
+msgstr "UTILIZAR UN INSTRUMENTO BINARIO PRECOMPILADO"
 
 #. type: textblock
 #: docs/guestfs-building.pod:660
@@ -4240,6 +4260,8 @@ msgid ""
 "To understand what the libguestfs appliance means, see L<guestfs-"
 "internals(1)>."
 msgstr ""
+"Para comprender que significa el instrumento de libguestfs, consulte "
+"L<guestfs-internals(1)>."
 
 #. type: textblock
 #: docs/guestfs-building.pod:663
@@ -4249,6 +4271,11 @@ msgid ""
 "libguestfs appliance, then you can use one of the prebuilt binary appliances "
 "that we supply: L<http://libguestfs.org/download/binaries/appliance>"
 msgstr ""
+"Si está utilizando algo distinto de Linux, o una distro de Linux que no "
+"tiene mantenimiento con L<supermin(1)>, o simplemente si no desea crear su "
+"propio instrumento libguest, entonces puedes utilizar uno del binario "
+"precompilado de instrumentos que proporcionamos: L<http://libguestfs.org/"
+"download/binaries/appliance>"
 
 #. type: textblock
 #: docs/guestfs-building.pod:669
@@ -4263,6 +4290,9 @@ msgid ""
 " make\n"
 "\n"
 msgstr ""
+" ./configure --disable-appliance --disable-daemon\n"
+" make\n"
+"\n"
 
 #. type: textblock
 #: docs/guestfs-building.pod:674
@@ -4270,6 +4300,8 @@ msgid ""
 "Set C<$LIBGUESTFS_PATH> to the path where you unpacked the appliance "
 "tarball, eg:"
 msgstr ""
+"Establece C<$LIBGUESTFS_PATH> a la ruta donde su instrumento desempaquetado "
+"de tarball, p.ej:"
 
 #. type: verbatim
 #: docs/guestfs-building.pod:677 docs/guestfs-faq.pod:566
@@ -4279,6 +4311,8 @@ msgid ""
 " export LIBGUESTFS_PATH=/usr/local/lib/guestfs/appliance\n"
 "\n"
 msgstr ""
+" export LIBGUESTFS_PATH=/usr/local/lib/guestfs/appliance\n"
+"\n"
 
 #. type: textblock
 #: docs/guestfs-building.pod:679
@@ -4359,6 +4393,10 @@ msgid ""
 "L<guestfs-testing(1)>, L<libguestfs-test-tool(1)>, L<libguestfs-make-fixed-"
 "appliance(1)>, L<http://libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-hacking(1)>, L<guestfs-"
+"internals(1)>, L<guestfs-performance(1)>, L<guestfs-release-notes(1)>, "
+"L<guestfs-testing(1)>, L<libguestfs-test-tool(1)>, L<libguestfs-make-fixed-"
+"appliance(1)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: docs/guestfs-faq.pod:3
@@ -4701,6 +4739,8 @@ msgid ""
 "libguestfs: error: cannot find any suitable libguestfs supermin, fixed or "
 "old-style appliance on LIBGUESTFS_PATH"
 msgstr ""
+"libguestfs: error: no se puede encontrar cualquier supermin libguestfs "
+"apropiado, instrumento reparado o estilo antiguo en LIBGUESTFS_PATH"
 
 #. type: =head2
 #: docs/guestfs-faq.pod:159
@@ -4731,6 +4771,8 @@ msgid ""
 " sudo update-guestfs-appliance\n"
 "\n"
 msgstr ""
+" sudo update-guestfs-appliance\n"
+"\n"
 
 #. type: =head2
 #: docs/guestfs-faq.pod:170
@@ -4746,6 +4788,7 @@ msgstr ""
 
 #. type: textblock
 #: docs/guestfs-faq.pod:175
+#, fuzzy
 msgid ""
 "This is caused by libvirt, and so only happens when using the libvirt "
 "backend.  When run as root, libvirt decides to run the qemu appliance as "
@@ -4753,6 +4796,12 @@ msgid ""
 "disk images, especially if those disk images are owned by root, or are "
 "present in directories which require root access."
 msgstr ""
+"Esto está causado por libvirt, y tan sólo pasa cuándo utilizando el libvirt "
+"backend.  Cuándo corrido tan raíz, libvirt decide correr el qemu "
+"electrodoméstico como usuario C<qemu.qemu>.  Desafortunadamente esto "
+"normalmente significa que qemu no puede abrir imágenes de disco, "
+"especialmente si aquellas imágenes de disco están poseídas por raíz, o es "
+"presente en directorios qué requerir acceso de raíz."
 
 #. type: textblock
 #: docs/guestfs-faq.pod:181
@@ -4816,6 +4865,8 @@ msgstr ""
 msgid ""
 "This error happens during the supermin boot phase of starting the appliance:"
 msgstr ""
+"Este error sucede durante la fase de arranque del supermin de inicio del "
+"instrumento:"
 
 #. type: verbatim
 #: docs/guestfs-faq.pod:219
@@ -4839,6 +4890,13 @@ msgid ""
 "the host then they are missed out, but if these files are needed in order to "
 "(eg) run F</bin/bash> then you'll see the above error."
 msgstr ""
+"Esto es un fallo complicado relacionado a instrumentos L<supermin(1)>.  El "
+"instrumento está construido por copiar a archivos les gusta F</bin/bash> y "
+"muchas bibliotecas desde el host.  El archivo C<hostfiles> listas los "
+"archivos que tendría que ser copiado del host al instrumento.  Si algunas "
+"archivos no existen en el host entonces están ausentes fuera, pero si estos "
+"archivos son necesarios para (p.ej.) ejecuta F</bin/bash> entonces verás "
+"encima el error."
 
 #. type: textblock
 #: docs/guestfs-faq.pod:233
