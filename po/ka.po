@@ -4,14 +4,15 @@
 # Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022, 2023, 2026.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.49.1\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-05-29 12:57+0100\n"
-"PO-Revision-Date: 2026-06-03 23:01+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"PO-Revision-Date: 2026-07-08 15:17+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ka/>\n"
 "Language: ka\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.1\n"
+"X-Generator: Weblate 2026.7.1.dev0\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -1651,7 +1652,7 @@ msgstr ""
 
 #: fish/cmds.c:918
 msgid "open the manual"
-msgstr ""
+msgstr "დოკუმენტაციის გახსნა"
 
 #: fish/cmds.c:922
 msgid "maximum number of disks that may be added"
@@ -1675,7 +1676,7 @@ msgstr ""
 
 #: fish/cmds.c:930
 msgid "create a directory"
-msgstr ""
+msgstr "საქაღალდის შექმნა"
 
 #: fish/cmds.c:931
 msgid "create a directory with a particular mode"
@@ -1687,7 +1688,7 @@ msgstr ""
 
 #: fish/cmds.c:933
 msgid "create a temporary directory"
-msgstr ""
+msgstr "დროებითი საქაღალდის შექმნის შეცდომა"
 
 #: fish/cmds.c:934
 msgid "create an ext2/ext3/ext4 filesystem on device"
@@ -2539,7 +2540,7 @@ msgstr ""
 
 #: fish/cmds.c:1212
 msgid "create a file"
-msgstr ""
+msgstr "ფაილის შექმნა"
 
 #: fish/cmds.c:1213
 msgid "change parameters of an XFS filesystem"
@@ -3734,7 +3735,7 @@ msgstr ""
 #: lib/errors.c:426
 #, c-format
 msgid "libguestfs: error: %s\n"
-msgstr ""
+msgstr "libguestfs-ის შეცდომა: %s\n"
 
 #: lib/errors.c:454
 #, c-format
