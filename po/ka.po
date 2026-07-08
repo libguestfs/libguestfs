@@ -12,7 +12,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-05-29 12:57+0100\n"
 "PO-Revision-Date: 2026-07-08 15:17+0000\n"
-"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ka/>\n"
 "Language: ka\n"
@@ -1688,7 +1688,7 @@ msgstr ""
 
 #: fish/cmds.c:933
 msgid "create a temporary directory"
-msgstr "დროებითი საქაღალდის შექმნის შეცდომა"
+msgstr "დროებითი საქაღალდის შექმნა"
 
 #: fish/cmds.c:934
 msgid "create an ext2/ext3/ext4 filesystem on device"
@@ -2610,7 +2610,7 @@ msgstr ""
 #: fish/display.c:48
 #, c-format
 msgid "display filename\n"
-msgstr ""
+msgstr "ფაილის სახელის ჩვენება\n"
 
 #: fish/edit.c:43
 #, c-format
@@ -2805,7 +2805,7 @@ msgstr ""
 
 #: fish/fish.c:1231
 msgid "quit guestfish"
-msgstr ""
+msgstr "გასვლა guestfish-დან"
 
 #: fish/fish.c:1242
 #, c-format
@@ -3046,7 +3046,7 @@ msgstr ""
 #: fish/prep.c:56
 #, c-format
 msgid "  Optional parameters:\n"
-msgstr ""
+msgstr "  არასავალდებულო პარამეტრები\n"
 
 #: fish/prep.c:63
 #, c-format
@@ -3542,7 +3542,7 @@ msgstr ""
 #: lib/create.c:188
 #, c-format
 msgid "%s: truncate"
-msgstr ""
+msgstr "%s: წაკვეთა"
 
 #: lib/create.c:200
 #, c-format
