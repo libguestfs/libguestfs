@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-03 09:01+0100\n"
-"PO-Revision-Date: 2026-07-07 09:18+0000\n"
+"PO-Revision-Date: 2026-07-08 15:17+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ka/>\n"
@@ -41927,7 +41927,7 @@ msgstr "C<\"\\n\">"
 #. type: textblock
 #: docs/internal-documentation.pod:3743
 msgid "returns C<[\"\"]>"
-msgstr ""
+msgstr "აბრუნებს C<[\"\"]>"
 
 #. type: =item
 #: docs/internal-documentation.pod:3745
