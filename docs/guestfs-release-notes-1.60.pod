@@ -7,7 +7,7 @@ guestfs-release-notes - libguestfs Release Notes
 These are the release notes for libguestfs stable release 1.60.
 This describes the major changes since 1.58.
 
-Libguestfs 1.60.0 was released on B<XXX July 2026>.
+Libguestfs 1.60.0 was released on B<9 July 2026>.
 
 =head2 Inspection
 
@@ -124,7 +124,61 @@ Rewrite xfs_repair and luks_* implementations in the daemon in OCaml.
 
 =over 4
 
+=item L<https://issues.redhat.com/browse/RHEL-129145>
 
+RFE: Detect Windows Defender antivirus when enabled in default Windows 11 installs
+
+=item L<https://issues.redhat.com/browse/RHEL-143673>
+
+Add new xfs_info2 API to expose XFS version information
+
+=item L<https://issues.redhat.com/browse/RHEL-165220>
+
+virt-v2v with sun partition table and Veritas storage failed with: parted exited with status 1: Warning: The disk CHS geometry reported by the operating system does not match the geometry stored on the disk label
+
+=item L<https://issues.redhat.com/browse/RHEL-165677>
+
+Stop using xfs_repair -m because memory required scales with filesystem size and has sharp edges
+
+=item L<https://issues.redhat.com/browse/RHEL-170864>
+
+virt-v2v failing with binary LUKS keys [virt-v2v]
+
+=item L<https://issues.redhat.com/browse/RHEL-171895>
+
+virt-v2v failing with binary LUKS keys [libguestfs]
+
+=item L<https://issues.redhat.com/browse/RHEL-171896>
+
+virt-v2v failing with binary LUKS keys [guestfs-tools]
+
+=item L<https://issues.redhat.com/browse/RHEL-178287>
+
+virt-v2v fails during migration of RHEL 7 VMs due to XFS filesystem errors, potentially related to RHEL 10.1 xfs_repair running against a RHEL 7 XFS filesystem.
+
+=item L<https://issues.redhat.com/browse/RHEL-178556>
+
+Use bind mount to overwrite /sysroot/etc/resolv.conf during "sh" operations
+
+=item L<https://github.com/libguestfs/libguestfs/issues/290>
+
+1.58.0: undefined reference to optgroup_selinuxrelabel_available
+
+=item L<https://github.com/libguestfs/libguestfs/issues/292>
+
+guestfs_int_get_cpu_model: use -cpu max for riscv
+
+=item L<https://github.com/libguestfs/libguestfs/issues/312>
+
+switch to po4a
+
+=item L<https://github.com/libguestfs/libguestfs/issues/336>
+
+flaky test network/test-network.sh
+
+=item L<https://github.com/libguestfs/libguestfs/issues/359>
+
+1.58.1: The Lua bindings link against libxml2 but don't seem to use it
 
 =back
 
@@ -149,6 +203,63 @@ git shortlog -s v1.58.0..
 
 =over 4
 
+=item Adolfo Jayme Barrientos
+
+=item Anders Roxell
+
+=item Andi Chandler
+
+=item Arif Budiman
+
+=item Christopher Byrne
+
+=item Cole Robinson
+
+=item Emilio Herrera
+
+=item Ettore Atalan
+
+=item Fco. Javier F. Serrador
+
+=item grimst
+
+=item Hela Basa
+
+=item Hilko Bengen
+
+=item Jan Kuparinen
+
+=item Krascovict Petrov
+
+=item Léane GRASSER
+
+=item Nathan95
+
+=item Pavel Borecki
+
+=item Piotr Drąg
+
+=item Rafael Fontenelle
+
+=item Richard W.M. Jones
+
+=item Ricky Tigg
+
+=item shivanayak
+
+=item Srihari Parimi
+
+=item Surya Gupta
+
+=item Susant Sahani
+
+=item Temuri Doghonadze
+
+=item Tian Shixiong
+
+=item Yuri Chornoivan
+
+=item zhanchun li
 
 =back
 
