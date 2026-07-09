@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-05-29 12:57+0100\n"
+"POT-Creation-Date: 2026-07-03 09:02+0100\n"
 "PO-Revision-Date: 2026-06-03 20:54+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/"
@@ -2964,6 +2964,11 @@ msgstr ""
 #, c-format
 msgid "use '%s filename' to page a file\n"
 msgstr "použít „soubor %s“ pro odkládání stránek paměti\n"
+
+#: fish/not.c:41
+#, c-format
+msgid "use 'not command [args...]'\n"
+msgstr ""
 
 #: fish/prep-boot.c:37 fish/prep-boot.c:87 fish/prep-disk.c:35
 #: fish/prep-fs.c:37 fish/prep-lv.c:68 fish/prep-lv.c:109 fish/prep-part.c:35

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2026-07-03 09:01+0100\n"
+"POT-Creation-Date: 2026-07-09 08:20+0100\n"
 "PO-Revision-Date: 2026-06-03 21:02+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Punjabi <https://translate.fedoraproject.org/projects/"
@@ -577,7 +577,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:196
 #: docs/guestfs-release-notes-1.58.pod:252
 #: docs/guestfs-release-notes-1.6.pod:170
-#: docs/guestfs-release-notes-1.60.pod:131
+#: docs/guestfs-release-notes-1.60.pod:185
 #: docs/guestfs-release-notes-1.8.pod:145 docs/guestfs-release-notes.pod:153
 #: docs/guestfs-security.pod:437 docs/guestfs-testing.pod:395
 #: erlang/examples/guestfs-erlang.pod:95 examples/guestfs-examples.pod:55
@@ -613,7 +613,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:139
 #: docs/guestfs-release-notes-1.56.pod:207
 #: docs/guestfs-release-notes-1.58.pod:263
-#: docs/guestfs-release-notes-1.60.pod:142 docs/guestfs-security.pod:445
+#: docs/guestfs-release-notes-1.60.pod:196 docs/guestfs-security.pod:445
 #: docs/guestfs-testing.pod:402 erlang/examples/guestfs-erlang.pod:110
 #: examples/guestfs-examples.pod:69 fish/guestfish.pod:1636
 #: fish/libguestfs-tools.conf.pod:96 fish/virt-copy-in.pod:52
@@ -677,7 +677,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:241
 #: docs/guestfs-release-notes-1.58.pod:291
 #: docs/guestfs-release-notes-1.6.pod:185
-#: docs/guestfs-release-notes-1.60.pod:155
+#: docs/guestfs-release-notes-1.60.pod:266
 #: docs/guestfs-release-notes-1.8.pod:160 docs/guestfs-release-notes.pod:168
 #: docs/guestfs-security.pod:449 docs/guestfs-testing.pod:406
 #: erlang/examples/guestfs-erlang.pod:114 examples/guestfs-examples.pod:73
@@ -798,8 +798,8 @@ msgstr ""
 #: docs/guestfs-release-notes-1.58.pod:269
 #: docs/guestfs-release-notes-1.60.pod:119
 #: docs/guestfs-release-notes-1.60.pod:123
-#: docs/guestfs-release-notes-1.60.pod:144
-#: docs/guestfs-release-notes-1.60.pod:148 fish/guestfish-actions.pod:1
+#: docs/guestfs-release-notes-1.60.pod:198
+#: docs/guestfs-release-notes-1.60.pod:202 fish/guestfish-actions.pod:1
 #: fish/guestfish-actions.pod:25 fish/guestfish-commands.pod:1
 #: fish/guestfish-commands.pod:25 fish/guestfish-prepopts.pod:1
 #: fish/guestfish-prepopts.pod:25 lib/guestfs-actions.pod:1
@@ -12575,7 +12575,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:198
 #: docs/guestfs-release-notes-1.58.pod:254
 #: docs/guestfs-release-notes-1.6.pod:172
-#: docs/guestfs-release-notes-1.60.pod:133
+#: docs/guestfs-release-notes-1.60.pod:187
 #: docs/guestfs-release-notes-1.8.pod:147 docs/guestfs-release-notes.pod:155
 msgid ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
@@ -12611,6 +12611,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:231
 #: docs/guestfs-release-notes-1.58.pod:283
 #: docs/guestfs-release-notes-1.6.pod:183
+#: docs/guestfs-release-notes-1.60.pod:244
 #: docs/guestfs-release-notes-1.8.pod:158 docs/guestfs-release-notes.pod:166
 msgid "Richard W.M. Jones"
 msgstr ""
@@ -27665,6 +27666,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.44.pod:118
 #: docs/guestfs-release-notes-1.46.pod:234
+#: docs/guestfs-release-notes-1.60.pod:228
 msgid "Hilko Bengen"
 msgstr ""
 
@@ -27685,6 +27687,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:171
 #: docs/guestfs-release-notes-1.56.pod:237
 #: docs/guestfs-release-notes-1.58.pod:287
+#: docs/guestfs-release-notes-1.60.pod:260
 msgid "Yuri Chornoivan"
 msgstr ""
 
@@ -28757,6 +28760,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:203
+#: docs/guestfs-release-notes-1.60.pod:206
 msgid "Adolfo Jayme Barrientos"
 msgstr ""
 
@@ -28769,6 +28773,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:207
 #: docs/guestfs-release-notes-1.52.pod:146
+#: docs/guestfs-release-notes-1.60.pod:218
 msgid "Emilio Herrera"
 msgstr ""
 
@@ -28776,6 +28781,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.50.pod:209
 #: docs/guestfs-release-notes-1.56.pod:223
 #: docs/guestfs-release-notes-1.58.pod:277
+#: docs/guestfs-release-notes-1.60.pod:220
 msgid "Ettore Atalan"
 msgstr ""
 
@@ -28786,12 +28792,14 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:213
+#: docs/guestfs-release-notes-1.60.pod:226
 msgid "Hela Basa"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:215
 #: docs/guestfs-release-notes-1.52.pod:152
+#: docs/guestfs-release-notes-1.60.pod:230
 msgid "Jan Kuparinen"
 msgstr ""
 
@@ -28819,23 +28827,27 @@ msgstr ""
 #: docs/guestfs-release-notes-1.50.pod:229
 #: docs/guestfs-release-notes-1.52.pod:158
 #: docs/guestfs-release-notes-1.58.pod:281
+#: docs/guestfs-release-notes-1.60.pod:238
 msgid "Pavel Borecki"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:231
+#: docs/guestfs-release-notes-1.60.pod:240
 msgid "Piotr Drąg"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:235
 #: docs/guestfs-release-notes-1.56.pod:233
+#: docs/guestfs-release-notes-1.60.pod:246
 msgid "Ricky Tigg"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:237
 #: docs/guestfs-release-notes-1.52.pod:162
+#: docs/guestfs-release-notes-1.60.pod:256
 msgid "Temuri Doghonadze"
 msgstr ""
 
@@ -29061,6 +29073,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.52.pod:148
+#: docs/guestfs-release-notes-1.60.pod:224
 msgid "grimst"
 msgstr ""
 
@@ -29077,6 +29090,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.52.pod:164
+#: docs/guestfs-release-notes-1.60.pod:258
 msgid "Tian Shixiong"
 msgstr ""
 
@@ -29311,6 +29325,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.54.pod:151
+#: docs/guestfs-release-notes-1.60.pod:210
 msgid "Andi Chandler"
 msgstr ""
 
@@ -29351,6 +29366,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.54.pod:173
+#: docs/guestfs-release-notes-1.60.pod:262
 msgid "zhanchun li"
 msgstr ""
 
@@ -29757,6 +29773,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:217
 #: docs/guestfs-release-notes-1.58.pod:275
+#: docs/guestfs-release-notes-1.60.pod:216
 msgid "Cole Robinson"
 msgstr ""
 
@@ -29777,11 +29794,13 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:227
+#: docs/guestfs-release-notes-1.60.pod:232
 msgid "Krascovict Petrov"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:229
+#: docs/guestfs-release-notes-1.60.pod:234
 msgid "Léane GRASSER"
 msgstr ""
 
@@ -30248,17 +30267,19 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.58.pod:279
+#: docs/guestfs-release-notes-1.60.pod:222
 msgid "Fco. Javier F. Serrador"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.58.pod:285
+#: docs/guestfs-release-notes-1.60.pod:254
 msgid "Susant Sahani"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.58.pod:293
-#: docs/guestfs-release-notes-1.60.pod:157
+#: docs/guestfs-release-notes-1.60.pod:268
 msgid "Copyright (C) 2009-2026 Red Hat Inc."
 msgstr ""
 
@@ -30654,7 +30675,7 @@ msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:10
-msgid "Libguestfs 1.60.0 was released on B<XXX July 2026>."
+msgid "Libguestfs 1.60.0 was released on B<9 July 2026>."
 msgstr ""
 
 #. type: textblock
@@ -30859,9 +30880,200 @@ msgstr ""
 msgid "./bugs-in-changelog.sh v1.58.0.."
 msgstr ""
 
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:127
+msgid "L<https://issues.redhat.com/browse/RHEL-129145>"
+msgstr ""
+
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:146
+#: docs/guestfs-release-notes-1.60.pod:129
+msgid ""
+"RFE: Detect Windows Defender antivirus when enabled in default Windows 11 "
+"installs"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:131
+msgid "L<https://issues.redhat.com/browse/RHEL-143673>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:133
+msgid "Add new xfs_info2 API to expose XFS version information"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:135
+msgid "L<https://issues.redhat.com/browse/RHEL-165220>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:137
+msgid ""
+"virt-v2v with sun partition table and Veritas storage failed with: parted "
+"exited with status 1: Warning: The disk CHS geometry reported by the "
+"operating system does not match the geometry stored on the disk label"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:139
+msgid "L<https://issues.redhat.com/browse/RHEL-165677>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:141
+msgid ""
+"Stop using xfs_repair -m because memory required scales with filesystem size "
+"and has sharp edges"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:143
+msgid "L<https://issues.redhat.com/browse/RHEL-170864>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:145
+msgid "virt-v2v failing with binary LUKS keys [virt-v2v]"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:147
+msgid "L<https://issues.redhat.com/browse/RHEL-171895>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:149
+msgid "virt-v2v failing with binary LUKS keys [libguestfs]"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:151
+msgid "L<https://issues.redhat.com/browse/RHEL-171896>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:153
+msgid "virt-v2v failing with binary LUKS keys [guestfs-tools]"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:155
+msgid "L<https://issues.redhat.com/browse/RHEL-178287>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:157
+msgid ""
+"virt-v2v fails during migration of RHEL 7 VMs due to XFS filesystem errors, "
+"potentially related to RHEL 10.1 xfs_repair running against a RHEL 7 XFS "
+"filesystem."
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:159
+msgid "L<https://issues.redhat.com/browse/RHEL-178556>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:161
+msgid ""
+"Use bind mount to overwrite /sysroot/etc/resolv.conf during \"sh\" operations"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:163
+msgid "L<https://github.com/libguestfs/libguestfs/issues/290>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:165
+msgid "1.58.0: undefined reference to optgroup_selinuxrelabel_available"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:167
+msgid "L<https://github.com/libguestfs/libguestfs/issues/292>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:169
+msgid "guestfs_int_get_cpu_model: use -cpu max for riscv"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:171
+msgid "L<https://github.com/libguestfs/libguestfs/issues/312>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:173
+msgid "switch to po4a"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:175
+msgid "L<https://github.com/libguestfs/libguestfs/issues/336>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:177
+msgid "flaky test network/test-network.sh"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:179
+msgid "L<https://github.com/libguestfs/libguestfs/issues/359>"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:181
+msgid "1.58.1: The Lua bindings link against libxml2 but don't seem to use it"
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:200
 msgid "git shortlog -s v1.58.0.."
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:208
+msgid "Anders Roxell"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:212
+msgid "Arif Budiman"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:214
+msgid "Christopher Byrne"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:236
+msgid "Nathan95"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:242
+msgid "Rafael Fontenelle"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:248
+msgid "shivanayak"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:250
+msgid "Srihari Parimi"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:252
+msgid "Surya Gupta"
 msgstr ""
 
 #. type: =head1
@@ -42229,33 +42441,43 @@ msgstr ""
 
 #. type: =head3
 #: docs/internal-documentation.pod:4164
-msgid "File F<fish/prep.c>"
+msgid "File F<fish/not.c>"
 msgstr ""
 
 #. type: textblock
 #: docs/internal-documentation.pod:4166
+msgid "This file implements the guestfish C<not> command."
+msgstr ""
+
+#. type: =head3
+#: docs/internal-documentation.pod:4168
+msgid "File F<fish/prep.c>"
+msgstr ""
+
+#. type: textblock
+#: docs/internal-documentation.pod:4170
 msgid ""
 "This file implements the guestfish I<-N> option for creating pre-prepared "
 "disk layouts."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4169
+#: docs/internal-documentation.pod:4173
 msgid "File F<fish/rc.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4171
+#: docs/internal-documentation.pod:4175
 msgid "This file implements guestfish remote (command) support."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4173
+#: docs/internal-documentation.pod:4177
 msgid "Function C<fish/rc.c:rc_listen>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4175
+#: docs/internal-documentation.pod:4179
 #, no-wrap
 msgid ""
 " void\n"
@@ -42264,17 +42486,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4178
+#: docs/internal-documentation.pod:4182
 msgid "The remote control server (ie. C<guestfish --listen>)."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4180
+#: docs/internal-documentation.pod:4184
 msgid "Function C<fish/rc.c:rc_remote>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4182
+#: docs/internal-documentation.pod:4186
 #, no-wrap
 msgid ""
 " int\n"
@@ -42284,59 +42506,59 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4186
+#: docs/internal-documentation.pod:4190
 msgid "The remote control client (ie. C<guestfish --remote>)."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4188
+#: docs/internal-documentation.pod:4192
 msgid "File F<fish/reopen.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4190
+#: docs/internal-documentation.pod:4194
 msgid "This file implements the guestfish C<reopen> command."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4192
+#: docs/internal-documentation.pod:4196
 msgid "File F<fish/setenv.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4194
+#: docs/internal-documentation.pod:4198
 msgid "This file implements the guestfish C<setenv> and C<unsetenv> commands."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4197
+#: docs/internal-documentation.pod:4201
 msgid "File F<fish/supported.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4199
+#: docs/internal-documentation.pod:4203
 msgid "This file implements the guestfish C<supported> command."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4201
+#: docs/internal-documentation.pod:4205
 msgid "File F<fish/tilde.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4203
+#: docs/internal-documentation.pod:4207
 msgid ""
 "This file implements tilde (C<~>) expansion of home directories in "
 "L<guestfish(1)>."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4206
+#: docs/internal-documentation.pod:4210
 msgid "Function C<fish/tilde.c:try_tilde_expansion>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4208
+#: docs/internal-documentation.pod:4212
 #, no-wrap
 msgid ""
 " char *\n"
@@ -42345,19 +42567,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4211
+#: docs/internal-documentation.pod:4215
 msgid ""
 "This is called from the script loop if we find a candidate for C<~username> "
 "(tilde-expansion)."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4214
+#: docs/internal-documentation.pod:4218
 msgid "Function C<fish/tilde.c:expand_home>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4216
+#: docs/internal-documentation.pod:4220
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -42366,17 +42588,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4219
+#: docs/internal-documentation.pod:4223
 msgid "Return C<$HOME> + append string."
 msgstr ""
 
 #. type: =head4
-#: docs/internal-documentation.pod:4221
+#: docs/internal-documentation.pod:4225
 msgid "Function C<fish/tilde.c:find_home_for_username>"
 msgstr ""
 
 #. type: verbatim
-#: docs/internal-documentation.pod:4223
+#: docs/internal-documentation.pod:4227
 #, no-wrap
 msgid ""
 " static const char *\n"
@@ -42385,34 +42607,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4226
+#: docs/internal-documentation.pod:4230
 msgid ""
 "Lookup C<username> (of length C<ulen>), return home directory if found, or "
 "C<NULL> if not found."
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4229
+#: docs/internal-documentation.pod:4233
 msgid "File F<fish/time.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4231
+#: docs/internal-documentation.pod:4235
 msgid "This file implements the guestfish C<time> command."
 msgstr ""
 
 #. type: =head2
-#: docs/internal-documentation.pod:4233
+#: docs/internal-documentation.pod:4237
 msgid "Subdirectory F<python>"
 msgstr ""
 
 #. type: =head3
-#: docs/internal-documentation.pod:4235
+#: docs/internal-documentation.pod:4239
 msgid "File F<python/handle.c>"
 msgstr ""
 
 #. type: textblock
-#: docs/internal-documentation.pod:4237
+#: docs/internal-documentation.pod:4241
 msgid ""
 "This file contains a small number of functions that are written by hand.  "
 "The majority of the bindings are generated (see F<python/actions-*.c>)."
