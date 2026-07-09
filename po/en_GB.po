@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-05-29 12:57+0100\n"
+"POT-Creation-Date: 2026-07-03 09:02+0100\n"
 "PO-Revision-Date: 2026-06-11 08:02+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://translate.fedoraproject.org/"
@@ -3037,6 +3037,11 @@ msgstr ""
 #: fish/more.c:46
 #, c-format
 msgid "use '%s filename' to page a file\n"
+msgstr ""
+
+#: fish/not.c:41
+#, c-format
+msgid "use 'not command [args...]'\n"
 msgstr ""
 
 #: fish/prep-boot.c:37 fish/prep-boot.c:87 fish/prep-disk.c:35
