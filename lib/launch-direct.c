@@ -58,6 +58,11 @@ struct backend_direct_data {
   pid_t recoverypid;            /* Recovery process PID. */
 
   char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
+
+  char *passt_log_path;         /* Path to passt's log file, if the
+                                  * "passt_log" backend setting was
+                                  * used (see launch_passt).  NULL if
+                                  * not applicable. */
 };
 
 /* Helper that sends all output from a command to debug. */
@@ -336,18 +341,24 @@ add_drives (guestfs_h *g, struct backend_direct_data *data,
 /**
  * Launch passt such that it daemonizes.
  *
- * On error, C<-1> is returned; C<passt_pid> and C<sockpath> are not modified.
+ * On error, C<-1> is returned; C<passt_pid>, C<sockpath> and
+ * C<log_path_out> are not modified.
  *
  * On success, C<0> is returned.  C<passt_pid> contains the PID of the passt
  * background process.  C<sockpath> contains the pathname of the unix domain
- * socket where passt will accept a single connection.
+ * socket where passt will accept a single connection.  If the C<passt_log>
+ * backend setting was used, C<*log_path_out> is set to a newly allocated
+ * string containing the path to passt's log file (which the caller now
+ * owns and must free); otherwise it is set to C<NULL>.
  */
 static int
-launch_passt (guestfs_h *g, long *passt_pid, char (*sockpath)[UNIX_PATH_MAX])
+launch_passt (guestfs_h *g, long *passt_pid, char (*sockpath)[UNIX_PATH_MAX],
+             char **log_path_out)
 {
   int rc;
   char sockpath_local[sizeof *sockpath];
   char *pid_path;
+  char *log_path = NULL;
   struct command *cmd;
   int passt_status;
   int passt_exit;
@@ -363,9 +374,16 @@ launch_passt (guestfs_h *g, long *passt_pid, char (*sockpath)[UNIX_PATH_MAX])
   if (pid_path == NULL)
     return rc;
 
+  /* See guestfs.pod / passt_log */
+  if (guestfs_int_get_backend_setting_bool (g, "passt_log") > 0) {
+    log_path = guestfs_int_make_temp_path (g, "passt", "log");
+    if (log_path == NULL)
+      goto free_pid_path;
+  }
+
   cmd = guestfs_int_new_command (g);
   if (cmd == NULL)
-    goto free_pid_path;
+    goto free_log_path;
 
   guestfs_int_cmd_add_arg (cmd, "passt");
   guestfs_int_cmd_add_arg (cmd, "--one-off");
@@ -381,6 +399,15 @@ launch_passt (guestfs_h *g, long *passt_pid, char (*sockpath)[UNIX_PATH_MAX])
   guestfs_int_cmd_add_arg (cmd, NETWORK_GW_MAC);
   guestfs_int_cmd_add_arg (cmd, "--gateway");
   guestfs_int_cmd_add_arg (cmd, NETWORK_GW_IP);
+  if (g->trace)
+    guestfs_int_cmd_add_arg (cmd, "--trace");
+  else if (g->verbose)
+    guestfs_int_cmd_add_arg (cmd, "-d");
+  if (log_path != NULL) {
+    guestfs_int_cmd_add_arg (cmd, "--log-file");
+    guestfs_int_cmd_add_arg (cmd, log_path);
+    debug (g, "passt log file: %s", log_path);
+  }
 
   passt_status = guestfs_int_cmd_run (cmd);
   if (passt_status == -1)
@@ -428,6 +455,8 @@ launch_passt (guestfs_h *g, long *passt_pid, char (*sockpath)[UNIX_PATH_MAX])
   /* We're done. */
   *passt_pid = passt_pid_local;
   ignore_value (strcpy (*sockpath, sockpath_local));
+  *log_path_out = log_path;
+  log_path = NULL;
   rc = 0;
 
 free_pid_str:
@@ -435,6 +464,9 @@ free_pid_str:
 
 close_cmd:
   guestfs_int_cmd_close (cmd);
+
+free_log_path:
+  free (log_path);
 
 free_pid_path:
   free (pid_path);
@@ -761,7 +793,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     if (guestfs_int_passt_runnable (g)) {
       char passt_sock[UNIX_PATH_MAX];
 
-      if (launch_passt (g, &passt_pid, &passt_sock) == -1)
+      if (launch_passt (g, &passt_pid, &passt_sock,
+                       &data->passt_log_path) == -1)
         goto cleanup0;
 
       start_list ("-netdev") {
@@ -1048,6 +1081,15 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
  cleanup0:
   if (passt_pid != -1)
     kill (passt_pid, SIGTERM);
+  if (data->passt_log_path != NULL) {
+    CLEANUP_FREE char *log_content = NULL;
+
+    if (guestfs_int_read_whole_file (g, data->passt_log_path,
+                                     &log_content, NULL) == 0)
+      debug (g, "passt log (%s):\n%s", data->passt_log_path, log_content);
+    free (data->passt_log_path);
+    data->passt_log_path = NULL;
+  }
   if (qopts != NULL)
     qemuopts_free (qopts);
   if (daemon_accept_sock >= 0)
@@ -1098,6 +1140,21 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
   if (data->guestfsd_sock[0] != '\0') {
     unlink (data->guestfsd_sock);
     data->guestfsd_sock[0] = '\0';
+  }
+
+  /* If we asked passt to keep a log file (see "passt_log" backend
+   * setting), dump its contents to the debug channel now, before the
+   * temporary directory containing it is removed.  By this point qemu
+   * (and therefore, via the "--one-off" socket, passt) has exited.
+   */
+  if (data->passt_log_path != NULL) {
+    CLEANUP_FREE char *log_content = NULL;
+
+    if (guestfs_int_read_whole_file (g, data->passt_log_path,
+                                     &log_content, NULL) == 0)
+      debug (g, "passt log (%s):\n%s", data->passt_log_path, log_content);
+    free (data->passt_log_path);
+    data->passt_log_path = NULL;
   }
 
   return ret;
