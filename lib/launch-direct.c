@@ -334,6 +334,47 @@ add_drives (guestfs_h *g, struct backend_direct_data *data,
 }
 
 /**
+ * Ensure the child has a valid stdin before exec.
+ *
+ * passt's C<epoll_create1()> call is the first file descriptor it
+ * allocates.  If we exec it with stdin (fd 0) closed, that epoll
+ * instance can land on fd 0; passt's own daemonizing code later does
+ * C<dup2(/dev/null, 0)> to redirect standard streams, which silently
+ * clobbers the epoll fd (since it's numerically the same, fd 0), and
+ * every subsequent C<epoll_wait()> then fails with C<EINVAL> because
+ * fd 0 is C</dev/null>, not an epoll instance any more.  Guarantee fd
+ * 0 is already taken by something harmless before exec, so passt's
+ * own fd allocations never have a chance to collide with 0/1/2.
+ */
+static int
+ensure_stdin_open (guestfs_h *g, void *data)
+{
+  int fd;
+
+  if (fcntl (STDIN_FILENO, F_GETFD) != -1 || errno != EBADF)
+    return 0;                  /* stdin is already open, nothing to do */
+
+  fd = open ("/dev/null", O_RDONLY);
+  if (fd == -1) {
+    perror ("open: /dev/null");
+    return -1;
+  }
+  if (fd != STDIN_FILENO) {
+    /* Shouldn't happen since we just established fd 0 was free, but
+     * handle it safely anyway.
+     */
+    if (dup2 (fd, STDIN_FILENO) == -1) {
+      perror ("dup2");
+      close (fd);
+      return -1;
+    }
+    close (fd);
+  }
+
+  return 0;
+}
+
+/**
  * Launch passt such that it daemonizes.
  *
  * On error, C<-1> is returned; C<passt_pid> and C<sockpath> are not modified.
@@ -366,6 +407,8 @@ launch_passt (guestfs_h *g, long *passt_pid, char (*sockpath)[UNIX_PATH_MAX])
   cmd = guestfs_int_new_command (g);
   if (cmd == NULL)
     goto free_pid_path;
+
+  guestfs_int_cmd_set_child_callback (cmd, ensure_stdin_open, NULL);
 
   guestfs_int_cmd_add_arg (cmd, "passt");
   guestfs_int_cmd_add_arg (cmd, "--one-off");
