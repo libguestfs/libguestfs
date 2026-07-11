@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-09 08:20+0100\n"
-"PO-Revision-Date: 2026-07-11 03:17+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-07-11 03:18+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ka/>\n"
 "Language: ka\n"
@@ -609,6 +608,8 @@ msgid ""
 "L<guestfs(3)>, L<supermin(1)>, L<xz(1)>, L<http://libguestfs.org/>, L<http://"
 "qemu.org/>."
 msgstr ""
+"L<guestfs(3)>, L<supermin(1)>, L<xz(1)>, L<http://libguestfs.org/>, L<http://"
+"qemu.org/>."
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:148
@@ -1866,7 +1867,7 @@ msgstr ""
 #: common/mlcustomize/customize-options.pod:442
 #: common/mlcustomize/v2v-customize-options.pod:388
 msgid "See also I<--install>, I<--uninstall>."
-msgstr ""
+msgstr "ასევე იხილეთ I<--install>, I<--uninstall>."
 
 #. type: =item
 #: common/mlcustomize/customize-options.pod:444
@@ -5672,6 +5673,8 @@ msgid ""
 " guestfs_mount_options (g, \"utf8\", \"/dev/sda1\", \"/\");\n"
 "\n"
 msgstr ""
+" guestfs_mount_options (g, \"utf8\", \"/dev/sda1\", \"/\");\n"
+"\n"
 
 #. type: textblock
 #: docs/guestfs-faq.pod:805
@@ -6874,7 +6877,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-faq.pod:1412
 msgid "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
-msgstr ""
+msgstr "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: docs/guestfs-faq.pod:1422 docs/guestfs-performance.pod:519
@@ -19390,7 +19393,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.36.pod:13
 #: docs/guestfs-release-notes-1.38.pod:13
 msgid "New tools"
-msgstr ""
+msgstr "ახალი ხელსაწყოები"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.30.pod:15
@@ -23224,7 +23227,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-release-notes-1.34.pod:467
 msgid "https_proxy= ./bugs-in-changelog.sh 1.32.0.."
-msgstr ""
+msgstr "https_proxy= ./bugs-in-changelog.sh 1.32.0.."
 
 #. type: =item
 #: docs/guestfs-release-notes-1.34.pod:473
@@ -31388,10 +31391,8 @@ msgstr "./bugs-in-changelog.sh v1.58.0.."
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:127
-#, fuzzy
-#| msgid "L<https://issues.redhat.com/browse/RHEL-62935>"
 msgid "L<https://issues.redhat.com/browse/RHEL-129145>"
-msgstr "L<https://issues.redhat.com/browse/RHEL-62935>"
+msgstr "L<https://issues.redhat.com/browse/RHEL-129145>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:129
@@ -31402,10 +31403,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:131
-#, fuzzy
-#| msgid "L<https://issues.redhat.com/browse/RHEL-104352>"
 msgid "L<https://issues.redhat.com/browse/RHEL-143673>"
-msgstr "L<https://issues.redhat.com/browse/RHEL-104352>"
+msgstr "L<https://issues.redhat.com/browse/RHEL-143673>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:133
@@ -31414,10 +31413,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:135
-#, fuzzy
-#| msgid "L<https://issues.redhat.com/browse/RHEL-104352>"
 msgid "L<https://issues.redhat.com/browse/RHEL-165220>"
-msgstr "L<https://issues.redhat.com/browse/RHEL-104352>"
+msgstr "L<https://issues.redhat.com/browse/RHEL-165220>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:137
@@ -31429,10 +31426,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:139
-#, fuzzy
-#| msgid "L<https://issues.redhat.com/browse/RHEL-46596>"
 msgid "L<https://issues.redhat.com/browse/RHEL-165677>"
-msgstr "L<https://issues.redhat.com/browse/RHEL-46596>"
+msgstr "L<https://issues.redhat.com/browse/RHEL-165677>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:141
@@ -31443,10 +31438,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:143
-#, fuzzy
-#| msgid "L<https://issues.redhat.com/browse/RHEL-106490>"
 msgid "L<https://issues.redhat.com/browse/RHEL-170864>"
-msgstr "L<https://issues.redhat.com/browse/RHEL-106490>"
+msgstr "L<https://issues.redhat.com/browse/RHEL-170864>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:145
@@ -31455,10 +31448,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:147
-#, fuzzy
-#| msgid "L<https://issues.redhat.com/browse/RHEL-111165>"
 msgid "L<https://issues.redhat.com/browse/RHEL-171895>"
-msgstr "L<https://issues.redhat.com/browse/RHEL-111165>"
+msgstr "L<https://issues.redhat.com/browse/RHEL-171895>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:149
@@ -31467,10 +31458,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:151
-#, fuzzy
-#| msgid "L<https://issues.redhat.com/browse/RHEL-111165>"
 msgid "L<https://issues.redhat.com/browse/RHEL-171896>"
-msgstr "L<https://issues.redhat.com/browse/RHEL-111165>"
+msgstr "L<https://issues.redhat.com/browse/RHEL-171896>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:153
@@ -31479,10 +31468,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:155
-#, fuzzy
-#| msgid "L<https://issues.redhat.com/browse/RHEL-108803>"
 msgid "L<https://issues.redhat.com/browse/RHEL-178287>"
-msgstr "L<https://issues.redhat.com/browse/RHEL-108803>"
+msgstr "L<https://issues.redhat.com/browse/RHEL-178287>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:157
@@ -31494,10 +31481,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:159
-#, fuzzy
-#| msgid "L<https://issues.redhat.com/browse/RHEL-111505>"
 msgid "L<https://issues.redhat.com/browse/RHEL-178556>"
-msgstr "L<https://issues.redhat.com/browse/RHEL-111505>"
+msgstr "L<https://issues.redhat.com/browse/RHEL-178556>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:161
@@ -31507,10 +31492,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:163
-#, fuzzy
-#| msgid "L<https://github.com/libguestfs/libguestfs/issues/234>"
 msgid "L<https://github.com/libguestfs/libguestfs/issues/290>"
-msgstr "L<https://github.com/libguestfs/libguestfs/issues/234>"
+msgstr "L<https://github.com/libguestfs/libguestfs/issues/290>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:165
@@ -31519,10 +31502,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:167
-#, fuzzy
-#| msgid "L<https://github.com/libguestfs/libguestfs/issues/234>"
 msgid "L<https://github.com/libguestfs/libguestfs/issues/292>"
-msgstr "L<https://github.com/libguestfs/libguestfs/issues/234>"
+msgstr "L<https://github.com/libguestfs/libguestfs/issues/292>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:169
@@ -31531,10 +31512,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:171
-#, fuzzy
-#| msgid "L<https://github.com/libguestfs/libguestfs/issues/162>"
 msgid "L<https://github.com/libguestfs/libguestfs/issues/312>"
-msgstr "L<https://github.com/libguestfs/libguestfs/issues/162>"
+msgstr "L<https://github.com/libguestfs/libguestfs/issues/312>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:173
@@ -31543,10 +31522,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:175
-#, fuzzy
-#| msgid "L<https://github.com/libguestfs/libguestfs/issues/136>"
 msgid "L<https://github.com/libguestfs/libguestfs/issues/336>"
-msgstr "L<https://github.com/libguestfs/libguestfs/issues/136>"
+msgstr "L<https://github.com/libguestfs/libguestfs/issues/336>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:177
@@ -31555,10 +31532,8 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:179
-#, fuzzy
-#| msgid "L<https://github.com/libguestfs/libguestfs/issues/136>"
 msgid "L<https://github.com/libguestfs/libguestfs/issues/359>"
-msgstr "L<https://github.com/libguestfs/libguestfs/issues/136>"
+msgstr "L<https://github.com/libguestfs/libguestfs/issues/359>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:181
@@ -33636,6 +33611,8 @@ msgid ""
 " virt-rescue -a /path/to/disk.img\n"
 "\n"
 msgstr ""
+" virt-rescue -a /path/to/disk.img\n"
+"\n"
 
 #. type: verbatim
 #: docs/guestfs-testing.pod:324
@@ -33644,6 +33621,8 @@ msgid ""
 " virt-rescue -d Guest\n"
 "\n"
 msgstr ""
+" virt-rescue -d Guest\n"
+"\n"
 
 #. type: textblock
 #: docs/guestfs-testing.pod:326
@@ -34591,7 +34570,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:359
 msgid "Function C<lib/command.c:guestfs_int_new_command>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_new_command>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:361
@@ -34610,7 +34589,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:366
 msgid "Function C<lib/command.c:guestfs_int_cmd_add_arg>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_add_arg>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:368
@@ -34629,7 +34608,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:373
 msgid "Function C<lib/command.c:guestfs_int_cmd_add_arg_format>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_add_arg_format>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:375
@@ -34650,7 +34629,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:381
 msgid "Function C<lib/command.c:guestfs_int_cmd_add_string_unquoted>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_add_string_unquoted>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:383
@@ -34676,7 +34655,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:391
 msgid "Function C<lib/command.c:guestfs_int_cmd_add_string_quoted>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_add_string_quoted>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:393
@@ -34698,7 +34677,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:403
 msgid "Function C<lib/command.c:guestfs_int_cmd_set_stdout_callback>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_set_stdout_callback>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:405
@@ -34746,7 +34725,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:427
 msgid "Function C<lib/command.c:guestfs_int_cmd_set_stderr_to_stdout>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_set_stderr_to_stdout>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:429
@@ -34768,7 +34747,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:436
 msgid "Function C<lib/command.c:guestfs_int_cmd_clear_capture_errors>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_clear_capture_errors>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:438
@@ -34790,7 +34769,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:445
 msgid "Function C<lib/command.c:guestfs_int_cmd_set_child_callback>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_set_child_callback>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:447
@@ -34813,7 +34792,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:456
 msgid "Function C<lib/command.c:guestfs_int_cmd_set_child_rlimit>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_set_child_rlimit>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:458
@@ -34877,7 +34856,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:481
 msgid "Function C<lib/command.c:guestfs_int_cmd_run>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_run>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:483
@@ -34906,7 +34885,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:492
 msgid "Function C<lib/command.c:guestfs_int_cmd_pipe_run>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_pipe_run>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:494
@@ -34950,7 +34929,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:511
 msgid "Function C<lib/command.c:guestfs_int_cmd_pipe_wait>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_pipe_wait>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:513
@@ -34974,7 +34953,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:522
 msgid "Function C<lib/command.c:guestfs_int_cmd_get_pipe_errors>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:guestfs_int_cmd_get_pipe_errors>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:524
@@ -35139,7 +35118,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:593
 msgid "Function C<lib/conn-socket.c:guestfs_int_new_conn_socket_connected>"
-msgstr ""
+msgstr "ფუნქცია C<lib/conn-socket.c:guestfs_int_new_conn_socket_connected>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:595
@@ -35384,6 +35363,9 @@ msgid ""
 " guestfs_int_free_drives (guestfs_h *g)\n"
 "\n"
 msgstr ""
+" void\n"
+" guestfs_int_free_drives (guestfs_h *g)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:694
@@ -35514,6 +35496,9 @@ msgid ""
 " guestfs_impl_debug_drives (guestfs_h *g)\n"
 "\n"
 msgstr ""
+" char **\n"
+" guestfs_impl_debug_drives (guestfs_h *g)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:744
@@ -35582,7 +35567,7 @@ msgstr ""
 #. type: textblock
 #: docs/internal-documentation.pod:772
 msgid "Print a warning."
-msgstr ""
+msgstr "გაფრთხილების გამოტანა."
 
 #. type: textblock
 #: docs/internal-documentation.pod:774
@@ -35644,7 +35629,7 @@ msgstr ""
 #. type: textblock
 #: docs/internal-documentation.pod:798
 msgid "Print a trace message."
-msgstr ""
+msgstr "დევნების შეტყობინებების გამოტანა."
 
 #. type: textblock
 #: docs/internal-documentation.pod:800
@@ -35767,6 +35752,9 @@ msgid ""
 " guestfs_int_launch_timeout (guestfs_h *g)\n"
 "\n"
 msgstr ""
+" void\n"
+" guestfs_int_launch_timeout (guestfs_h *g)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:851
@@ -36562,6 +36550,9 @@ msgid ""
 " guestfs_int_get_backend_setting_bool (guestfs_h *g, const char *name)\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_int_get_backend_setting_bool (guestfs_h *g, const char *name)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:1223
@@ -37955,6 +37946,9 @@ msgid ""
 " guestfs_impl_get_tmpdir (guestfs_h *g)\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_impl_get_tmpdir (guestfs_h *g)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:1841
@@ -37979,6 +37973,9 @@ msgid ""
 " guestfs_impl_get_cachedir (guestfs_h *g)\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_impl_get_cachedir (guestfs_h *g)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:1851
@@ -38004,6 +38001,9 @@ msgid ""
 " guestfs_impl_get_sockdir (guestfs_h *g)\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_impl_get_sockdir (guestfs_h *g)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:1860
@@ -38028,6 +38028,9 @@ msgid ""
 " guestfs_int_lazy_make_tmpdir (guestfs_h *g)\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_int_lazy_make_tmpdir (guestfs_h *g)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:1870
@@ -38210,6 +38213,9 @@ msgid ""
 " guestfs_int_getumask (guestfs_h *g)\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_int_getumask (guestfs_h *g)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:1947
@@ -42174,7 +42180,7 @@ msgstr "C<\"a\\nb\">"
 #. type: textblock
 #: docs/internal-documentation.pod:3747 docs/internal-documentation.pod:3751
 msgid "returns C<[\"a\"; \"b\"]>"
-msgstr ""
+msgstr "აბრუნებს C<[\"a\"; \"b\"]>"
 
 #. type: =item
 #: docs/internal-documentation.pod:3749
@@ -42189,7 +42195,7 @@ msgstr "C<\"a\\nb\\n\\n\">"
 #. type: textblock
 #: docs/internal-documentation.pod:3755
 msgid "returns C<[\"a\"; \"b\"; \"\"]>"
-msgstr ""
+msgstr "აბრუნებს C<[\"a\"; \"b\"; \"\"]>"
 
 #. type: textblock
 #: docs/internal-documentation.pod:3759
@@ -42710,7 +42716,7 @@ msgstr ""
 #. type: textblock
 #: docs/internal-documentation.pod:3981
 msgid "Run a command."
-msgstr ""
+msgstr "ბრძანების გაშვება."
 
 #. type: textblock
 #: docs/internal-documentation.pod:3983
@@ -43564,6 +43570,10 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "www.erlang.org/>.  L<http://libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-golang(3)>, L<guestfs-java"
+"(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"www.erlang.org/>.  L<http://libguestfs.org/>."
 
 #. type: textblock
 #: examples/guestfs-examples.pod:3
@@ -43694,6 +43704,10 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"libguestfs.org/>."
 
 #. type: textblock
 #: examples/guestfs-examples.pod:75 ocaml/examples/guestfs-ocaml.pod:101
@@ -43726,6 +43740,8 @@ msgid ""
 " acl-delete-def-file dir\n"
 "\n"
 msgstr ""
+" acl-delete-def-file dir\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:31 lib/guestfs-actions.pod:33
@@ -45926,6 +45942,8 @@ msgid ""
 " btrfs-balance-cancel path\n"
 "\n"
 msgstr ""
+" btrfs-balance-cancel path\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1012 lib/guestfs-actions.pod:1528
@@ -45971,6 +45989,8 @@ msgid ""
 " btrfs-balance-pause path\n"
 "\n"
 msgstr ""
+" btrfs-balance-pause path\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1021 lib/guestfs-actions.pod:1543
@@ -45989,6 +46009,8 @@ msgid ""
 " btrfs-balance-resume path\n"
 "\n"
 msgstr ""
+" btrfs-balance-resume path\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1030 lib/guestfs-actions.pod:1558
@@ -46007,6 +46029,8 @@ msgid ""
 " btrfs-balance-status path\n"
 "\n"
 msgstr ""
+" btrfs-balance-status path\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1039 lib/guestfs-actions.pod:1573
@@ -46070,6 +46094,8 @@ msgid ""
 " btrfs-filesystem-balance fs\n"
 "\n"
 msgstr ""
+" btrfs-filesystem-balance fs\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1070 lib/guestfs-actions.pod:1624
@@ -46134,7 +46160,7 @@ msgstr ""
 #: lib/guestfs-actions.pod:10091 lib/guestfs-actions.pod:11863
 #: lib/guestfs-actions.pod:15362
 msgid "The optional parameters are:"
-msgstr "არასავალდებულო არგუმენტებია:"
+msgstr "არასავალდებულო პარამეტრებია:"
 
 #. type: =item
 #: fish/guestfish-actions.pod:1101 fish/guestfish-actions.pod:7272
@@ -46166,6 +46192,8 @@ msgid ""
 " btrfs-filesystem-show device\n"
 "\n"
 msgstr ""
+" btrfs-filesystem-show device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1119 lib/guestfs-actions.pod:1748
@@ -46192,6 +46220,8 @@ msgid ""
 " btrfs-filesystem-sync fs\n"
 "\n"
 msgstr ""
+" btrfs-filesystem-sync fs\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1131 lib/guestfs-actions.pod:1768
@@ -46349,6 +46379,8 @@ msgid ""
 " btrfs-qgroup-show path\n"
 "\n"
 msgstr ""
+" btrfs-qgroup-show path\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1217 lib/guestfs-actions.pod:1969
@@ -46389,6 +46421,8 @@ msgid ""
 " btrfs-quota-rescan fs\n"
 "\n"
 msgstr ""
+" btrfs-quota-rescan fs\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1236 lib/guestfs-actions.pod:2003
@@ -46437,6 +46471,8 @@ msgid ""
 " btrfs-rescue-chunk-recover device\n"
 "\n"
 msgstr ""
+" btrfs-rescue-chunk-recover device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1260 lib/guestfs-actions.pod:2041
@@ -46457,6 +46493,8 @@ msgid ""
 " btrfs-rescue-super-recover device\n"
 "\n"
 msgstr ""
+" btrfs-rescue-super-recover device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1269 lib/guestfs-actions.pod:2056
@@ -46475,6 +46513,8 @@ msgid ""
 " btrfs-scrub-cancel path\n"
 "\n"
 msgstr ""
+" btrfs-scrub-cancel path\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1278 lib/guestfs-actions.pod:2071
@@ -46513,6 +46553,8 @@ msgid ""
 " btrfs-scrub-resume path\n"
 "\n"
 msgstr ""
+" btrfs-scrub-resume path\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1299 lib/guestfs-actions.pod:2132
@@ -46532,6 +46574,8 @@ msgid ""
 " btrfs-scrub-start path\n"
 "\n"
 msgstr ""
+" btrfs-scrub-start path\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1308 lib/guestfs-actions.pod:2147
@@ -46553,6 +46597,8 @@ msgid ""
 " btrfs-scrub-status path\n"
 "\n"
 msgstr ""
+" btrfs-scrub-status path\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1319 lib/guestfs-actions.pod:2164
@@ -46636,6 +46682,8 @@ msgid ""
 " btrfs-subvolume-get-default fs\n"
 "\n"
 msgstr ""
+" btrfs-subvolume-get-default fs\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1363 lib/guestfs-actions.pod:2274
@@ -46656,6 +46704,8 @@ msgid ""
 " btrfs-subvolume-list fs\n"
 "\n"
 msgstr ""
+" btrfs-subvolume-list fs\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1372 lib/guestfs-actions.pod:2289
@@ -46676,6 +46726,8 @@ msgid ""
 " btrfs-subvolume-set-default id fs\n"
 "\n"
 msgstr ""
+" btrfs-subvolume-set-default id fs\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1382
@@ -46700,7 +46752,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:1393 lib/guestfs-actions.pod:2325
 msgid "Return detailed information of the subvolume."
-msgstr ""
+msgstr "Return detailed information of the subvolume."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:1398
@@ -46743,6 +46795,8 @@ msgid ""
 " btrfstune-enable-extended-inode-refs device\n"
 "\n"
 msgstr ""
+" btrfstune-enable-extended-inode-refs device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1421 lib/guestfs-actions.pod:2413
@@ -46761,6 +46815,8 @@ msgid ""
 " btrfstune-enable-skinny-metadata-extent-refs device\n"
 "\n"
 msgstr ""
+" btrfstune-enable-skinny-metadata-extent-refs device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1430 lib/guestfs-actions.pod:2428
@@ -46822,6 +46878,8 @@ msgid ""
 " canonical-device-name device\n"
 "\n"
 msgstr ""
+" canonical-device-name device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1457 lib/guestfs-actions.pod:2473
@@ -46929,6 +46987,8 @@ msgid ""
 " case-sensitive-path path\n"
 "\n"
 msgstr ""
+" case-sensitive-path path\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1508 lib/guestfs-actions.pod:2545
@@ -46977,7 +47037,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish-actions.pod:1536
 msgid "L</case-sensitive-path> (\"/windows/system32/netkvm.sys\")"
-msgstr ""
+msgstr "L</case-sensitive-path> (\"/windows/system32/netkvm.sys\")"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1538 lib/guestfs-actions.pod:2575
@@ -46987,7 +47047,7 @@ msgstr "\"Windows/System32/netkvm.sys\""
 #. type: =item
 #: fish/guestfish-actions.pod:1540
 msgid "L</case-sensitive-path> (\"/windows/system32/NoSuchFile\")"
-msgstr ""
+msgstr "L</case-sensitive-path> (\"/windows/system32/NoSuchFile\")"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1542 lib/guestfs-actions.pod:2579
@@ -46997,7 +47057,7 @@ msgstr "\"Windows/System32/NoSuchFile\""
 #. type: =item
 #: fish/guestfish-actions.pod:1544
 msgid "L</case-sensitive-path> (\"/windows/system33/netkvm.sys\")"
-msgstr ""
+msgstr "L</case-sensitive-path> (\"/windows/system33/netkvm.sys\")"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1546 lib/guestfs-actions.pod:2583
@@ -47306,6 +47366,8 @@ msgid ""
 " clear-backend-setting name\n"
 "\n"
 msgstr ""
+" clear-backend-setting name\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1679 lib/guestfs-actions.pod:2767
@@ -49916,6 +49978,8 @@ msgid ""
 " find directory\n"
 "\n"
 msgstr ""
+" find directory\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:2958 lib/guestfs-actions.pod:4946
@@ -50361,6 +50425,8 @@ msgid ""
 " get-backend-setting name\n"
 "\n"
 msgstr ""
+" get-backend-setting name\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3172 lib/guestfs-actions.pod:5282
@@ -50693,6 +50759,8 @@ msgid ""
 " get-e2generation file\n"
 "\n"
 msgstr ""
+" get-e2generation file\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3329 lib/guestfs-actions.pod:5471
@@ -50867,6 +50935,8 @@ msgid ""
 " get-libvirt-requested-credential-defresult index\n"
 "\n"
 msgstr ""
+" get-libvirt-requested-credential-defresult index\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3400 lib/guestfs-actions.pod:5581
@@ -51508,7 +51578,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:3662 lib/guestfs-actions.pod:6051
 msgid "The optional flags are:"
-msgstr ""
+msgstr "არასავალდებულო ალმებია:"
 
 #. type: =item
 #: fish/guestfish-actions.pod:3666 lib/guestfs-actions.pod:6055
@@ -51825,6 +51895,8 @@ msgid ""
 " hivex-node-children nodeh\n"
 "\n"
 msgstr ""
+" hivex-node-children nodeh\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3829 lib/guestfs-actions.pod:6306
@@ -51843,6 +51915,8 @@ msgid ""
 " hivex-node-delete-child nodeh\n"
 "\n"
 msgstr ""
+" hivex-node-delete-child nodeh\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3840 lib/guestfs-actions.pod:6325
@@ -52016,6 +52090,8 @@ msgid ""
 " hivex-value-key valueh\n"
 "\n"
 msgstr ""
+" hivex-value-key valueh\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3947 lib/guestfs-actions.pod:6525
@@ -55325,7 +55401,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:5616
 msgid "See also: L</lgetxattrs>, L</getxattr>, L<attr(5)>."
-msgstr ""
+msgstr "ასევე იხილეთ: L</lgetxattrs>, L</getxattr>, L<attr(5)>."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:5621
@@ -56244,6 +56320,8 @@ msgid ""
 " lvm-canonical-lv-name lvname\n"
 "\n"
 msgstr ""
+" lvm-canonical-lv-name lvname\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:6104 lib/guestfs-actions.pod:9790
@@ -56677,7 +56755,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:6311 lib/guestfs-actions.pod:10101
 msgid "As examples:"
-msgstr ""
+msgstr "როგორც მაგალითები:"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:6313 lib/guestfs-actions.pod:10103
@@ -57693,7 +57771,7 @@ msgstr ""
 #: fish/guestfish-actions.pod:9390 lib/guestfs-actions.pod:10986
 #: lib/guestfs-actions.pod:15092 lib/guestfs-actions.pod:15188
 msgid "The other optional arguments are:"
-msgstr "არასავალდებულო არგუმენტებია:"
+msgstr "სხვა არასავალდებულო არგუმენტებია:"
 
 #. type: =item
 #: fish/guestfish-actions.pod:6843 fish/guestfish-actions.pod:9394
@@ -59354,6 +59432,8 @@ msgid ""
 " part-set-disk-guid-random device\n"
 "\n"
 msgstr ""
+" part-set-disk-guid-random device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7620 lib/guestfs-actions.pod:12393
@@ -59500,6 +59580,8 @@ msgid ""
 " part-to-dev partition\n"
 "\n"
 msgstr ""
+" part-to-dev partition\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7681 lib/guestfs-actions.pod:12500
@@ -59641,6 +59723,8 @@ msgid ""
 " pvchange-uuid device\n"
 "\n"
 msgstr ""
+" pvchange-uuid device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7745 lib/guestfs-actions.pod:12604
@@ -59679,6 +59763,8 @@ msgid ""
 " pvcreate device\n"
 "\n"
 msgstr ""
+" pvcreate device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7763 lib/guestfs-actions.pod:12633
@@ -59727,6 +59813,8 @@ msgid ""
 " pvresize device\n"
 "\n"
 msgstr ""
+" pvresize device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7788 lib/guestfs-actions.pod:12670
@@ -60179,6 +60267,8 @@ msgid ""
 " resize2fs device\n"
 "\n"
 msgstr ""
+" resize2fs device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8038 lib/guestfs-actions.pod:13079
@@ -60580,6 +60670,8 @@ msgid ""
 " scrub-freespace dir\n"
 "\n"
 msgstr ""
+" scrub-freespace dir\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8233
@@ -60746,6 +60838,8 @@ msgid ""
 " set-autosync true|false\n"
 "\n"
 msgstr ""
+" set-autosync true|false\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8315 lib/guestfs-actions.pod:13580
@@ -61288,6 +61382,8 @@ msgid ""
 " set-libvirt-requested-credential index cred\n"
 "\n"
 msgstr ""
+" set-libvirt-requested-credential index cred\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8582 lib/guestfs-actions.pod:13953
@@ -61308,6 +61404,8 @@ msgid ""
 " set-libvirt-supported-credentials 'creds ...'\n"
 "\n"
 msgstr ""
+" set-libvirt-supported-credentials 'creds ...'\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8591 lib/guestfs-actions.pod:13968
@@ -61848,6 +61946,8 @@ msgid ""
 " set-verbose true|false\n"
 "\n"
 msgstr ""
+" set-verbose true|false\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8846 lib/guestfs-actions.pod:14284
@@ -62084,6 +62184,8 @@ msgid ""
 " sfdisk-disk-geometry device\n"
 "\n"
 msgstr ""
+" sfdisk-disk-geometry device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8991
@@ -62112,6 +62214,8 @@ msgid ""
 " sfdisk-kernel-geometry device\n"
 "\n"
 msgstr ""
+" sfdisk-kernel-geometry device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:9003 lib/guestfs-actions.pod:14534
@@ -63708,6 +63812,8 @@ msgid ""
 " vfs-label mountable\n"
 "\n"
 msgstr ""
+" vfs-label mountable\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:9805 lib/guestfs-actions.pod:15855
@@ -64720,6 +64826,8 @@ msgid ""
 " zero device\n"
 "\n"
 msgstr ""
+" zero device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:10285 lib/guestfs-actions.pod:16718
@@ -64760,6 +64868,8 @@ msgid ""
 " zero-device device\n"
 "\n"
 msgstr ""
+" zero-device device\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:10302
@@ -65116,6 +65226,8 @@ msgid ""
 " display filename\n"
 "\n"
 msgstr ""
+" display filename\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-commands.pod:91
@@ -65387,6 +65499,8 @@ msgid ""
 " lcd directory\n"
 "\n"
 msgstr ""
+" lcd directory\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-commands.pod:204
@@ -66257,6 +66371,8 @@ msgid ""
 " guestfish -N fs\n"
 "\n"
 msgstr ""
+" guestfish -N fs\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish.pod:128
@@ -66274,7 +66390,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish.pod:132
 msgid "Remote drives"
-msgstr ""
+msgstr "დაშორებული დისკები"
 
 #. type: textblock
 #: fish/guestfish.pod:134
@@ -66325,7 +66441,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish.pod:161
 msgid "B<--cmd-help> CMD"
-msgstr ""
+msgstr "B<--cmd-help> CMD"
 
 #. type: textblock
 #: fish/guestfish.pod:163
@@ -66507,6 +66623,8 @@ msgid ""
 " guestfish --format=raw -a disk.img\n"
 "\n"
 msgstr ""
+" guestfish --format=raw -a disk.img\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish.pod:242 rescue/virt-rescue.pod:170
@@ -66566,6 +66684,8 @@ msgid ""
 " guestfish -d myguest -i\n"
 "\n"
 msgstr ""
+" guestfish -d myguest -i\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish.pod:266
@@ -68574,6 +68694,8 @@ msgid ""
 " guestfish -a ssh://root@example.com/disk.img\n"
 "\n"
 msgstr ""
+" guestfish -a ssh://root@example.com/disk.img\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish.pod:1134
@@ -68753,7 +68875,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish.pod:1203
 msgid "B<-a ssh://[user@]example.com[:port]/disk.img>"
-msgstr ""
+msgstr "B<-a ssh://[user@]example.com[:port]/disk.img>"
 
 #. type: textblock
 #: fish/guestfish.pod:1205
@@ -69842,6 +69964,8 @@ msgid ""
 " virt-copy-in -d MyGuest skel /home\n"
 "\n"
 msgstr ""
+" virt-copy-in -d MyGuest skel /home\n"
+"\n"
 
 #. type: =head1
 #: fish/virt-copy-in.pod:31 fish/virt-copy-out.pod:26 fish/virt-tar-in.pod:28
@@ -70062,6 +70186,8 @@ msgid ""
 " virt-tar-out -d MyGuest /home - | gzip --best > homes.tar.gz\n"
 "\n"
 msgstr ""
+" virt-tar-out -d MyGuest /home - | gzip --best > homes.tar.gz\n"
+"\n"
 
 #. type: textblock
 #: fish/virt-tar-out.pod:30
@@ -70772,6 +70898,8 @@ msgid ""
 " guestunmount mountpoint\n"
 "\n"
 msgstr ""
+" guestunmount mountpoint\n"
+"\n"
 
 #. type: verbatim
 #: fuse/guestunmount.pod:9
@@ -71139,6 +71267,10 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "www.golang.org/>, L<http://libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-java"
+"(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"www.golang.org/>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: java/examples/guestfs-java.pod:3
@@ -71293,7 +71425,7 @@ msgstr ""
 #. type: textblock
 #: java/examples/guestfs-java.pod:81
 msgid "or with optional arguments:"
-msgstr ""
+msgstr "ან არასავალდებულო არგუმენტებით:"
 
 #. type: verbatim
 #: java/examples/guestfs-java.pod:83
@@ -71442,6 +71574,10 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>, L<http://caml.inria.fr/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-golang"
+"(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"libguestfs.org/>, L<http://caml.inria.fr/>."
 
 #. type: verbatim
 #: lib/guestfs-actions.pod:3 lib/guestfs-availability.pod:3
@@ -73123,7 +73259,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:1200
 msgid "See also C<guestfs_filesystem_available>."
-msgstr ""
+msgstr "ასევე იხილეთ C<guestfs_filesystem_available>."
 
 #. type: textblock
 #: lib/guestfs-actions.pod:1204 lib/guestfs-actions.pod:3696
@@ -78714,7 +78850,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:5479
 msgid "See C<guestfs_set_e2generation>."
-msgstr ""
+msgstr "იხილეთ C<guestfs_set_e2generation>."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:5485
@@ -79384,7 +79520,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:5908
 msgid "See also: C<guestfs_getxattrs>, C<guestfs_lgetxattr>, L<attr(5)>."
-msgstr ""
+msgstr "ასევე იხილეთ: C<guestfs_getxattrs>, C<guestfs_lgetxattr>, L<attr(5)>."
 
 #. type: textblock
 #: lib/guestfs-actions.pod:5910 lib/guestfs-actions.pod:6622
@@ -79436,7 +79572,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:5931
 msgid "See also: C<guestfs_lgetxattrs>, L<attr(5)>."
-msgstr ""
+msgstr "ასევე იხილეთ: C<guestfs_lgetxattrs>, L<attr(5)>."
 
 #. type: textblock
 #: lib/guestfs-actions.pod:5933 lib/guestfs-actions.pod:8621
@@ -82362,7 +82498,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:8640
 msgid "See also C<guestfs_journal_set_data_threshold>."
-msgstr ""
+msgstr "ასევე იხილეთ C<guestfs_journal_set_data_threshold>."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:8649
@@ -82467,7 +82603,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:8717
 msgid "See also C<guestfs_journal_get_data_threshold>."
-msgstr ""
+msgstr "ასევე იხილეთ C<guestfs_journal_get_data_threshold>."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:8726
@@ -87540,7 +87676,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:12526
 msgid "See also C<guestfs_part_to_dev>."
-msgstr ""
+msgstr "ასევე იხილეთ C<guestfs_part_to_dev>."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:12532
@@ -89193,7 +89329,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:13775
 msgid "See C<guestfs_get_e2generation>."
-msgstr ""
+msgstr "იხილეთ C<guestfs_get_e2generation>."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:13781
@@ -95890,7 +96026,7 @@ msgstr "L<guestfs-faq(1)>"
 #. type: textblock
 #: lib/guestfs.pod:41
 msgid "Frequently Asked Questions (FAQ)."
-msgstr ""
+msgstr "ხშირად დასმული კითხვები (ხდკ)."
 
 #. type: =item
 #: lib/guestfs.pod:43
@@ -97047,7 +97183,7 @@ msgstr ""
 #. type: =head2
 #: lib/guestfs.pod:622
 msgid "MOUNT LOCAL"
-msgstr ""
+msgstr "ლოკალური მიმაგრება"
 
 #. type: textblock
 #: lib/guestfs.pod:624
@@ -98071,7 +98207,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs.pod:1191
 msgid "See L<guestfish(1)>."
-msgstr ""
+msgstr "იხილეთ L<guestfish(1)>."
 
 #. type: =head2
 #: lib/guestfs.pod:1195
@@ -98462,6 +98598,8 @@ msgid ""
 " LIBGUESTFS_HV=/tmp/qemu.wrapper guestfish\n"
 "\n"
 msgstr ""
+" LIBGUESTFS_HV=/tmp/qemu.wrapper guestfish\n"
+"\n"
 
 #. type: textblock
 #: lib/guestfs.pod:1394
@@ -98676,6 +98814,8 @@ msgid ""
 " export LIBGUESTFS_BACKEND_SETTINGS=force_tcg\n"
 "\n"
 msgstr ""
+" export LIBGUESTFS_BACKEND_SETTINGS=force_tcg\n"
+"\n"
 
 #. type: textblock
 #: lib/guestfs.pod:1501
@@ -98696,6 +98836,8 @@ msgid ""
 " export LIBGUESTFS_BACKEND_SETTINGS=force_kvm\n"
 "\n"
 msgstr ""
+" export LIBGUESTFS_BACKEND_SETTINGS=force_kvm\n"
+"\n"
 
 #. type: textblock
 #: lib/guestfs.pod:1510
@@ -99242,7 +99384,7 @@ msgstr ""
 #. type: =head3
 #: lib/guestfs.pod:1788
 msgid "USING C<GUESTFS_CREATE_NO_ENVIRONMENT>"
-msgstr ""
+msgstr "USING C<GUESTFS_CREATE_NO_ENVIRONMENT>"
 
 #. type: textblock
 #: lib/guestfs.pod:1790
@@ -100065,6 +100207,8 @@ msgid ""
 " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
 "\n"
 msgstr ""
+" int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+"\n"
 
 #. type: textblock
 #: lib/guestfs.pod:2165
@@ -100095,6 +100239,10 @@ msgid ""
 "                         -1);\n"
 "\n"
 msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"qcow2\",\n"
+"                         -1);\n"
+"\n"
 
 #. type: textblock
 #: lib/guestfs.pod:2176
@@ -100111,6 +100259,11 @@ msgid ""
 "                         -1);\n"
 "\n"
 msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"qcow2\",\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,\n"
+"                         -1);\n"
+"\n"
 
 #. type: textblock
 #: lib/guestfs.pod:2183
@@ -100140,6 +100293,9 @@ msgid ""
 "                                va_list args);\n"
 "\n"
 msgstr ""
+" int guestfs_add_drive_opts_va (guestfs_h *g, const char *filename,\n"
+"                                va_list args);\n"
+"\n"
 
 #. type: =head2
 #: lib/guestfs.pod:2195
@@ -101190,6 +101346,8 @@ msgid ""
 " void guestfs_set_private (guestfs_h *g, const char *key, void *data);\n"
 "\n"
 msgstr ""
+" void guestfs_set_private (guestfs_h *g, const char *key, void *data);\n"
+"\n"
 
 #. type: textblock
 #: lib/guestfs.pod:2745
@@ -101917,6 +102075,9 @@ msgid ""
 "java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
 "L<guestfs-python(3)>, L<guestfs-ruby(3)>."
 msgstr ""
+"ენაზე მიბმები: L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-ruby(3)>."
 
 #. type: textblock
 #: lib/guestfs.pod:3229
@@ -101931,6 +102092,15 @@ msgid ""
 "L<virt-tail(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, "
 "L<virt-v2v(1)>, L<virt-win-reg(1)>."
 msgstr ""
+"ხელსაწყოები: L<guestfish(1)>, L<guestmount(1)>, L<virt-alignment-scan(1)>, "
+"L<virt-builder(1)>, L<virt-builder-repository(1)>, L<virt-cat(1)>, L<virt-"
+"copy-in(1)>, L<virt-copy-out(1)>, L<virt-customize(1)>, L<virt-df(1)>, "
+"L<virt-diff(1)>, L<virt-edit(1)>, L<virt-filesystems(1)>, L<virt-format(1)>, "
+"L<virt-inspector(1)>, L<virt-list-filesystems(1)>, L<virt-list-partitions(1)>"
+", L<virt-log(1)>, L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-p2v(1)>, L<virt-"
+"rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, L<virt-sysprep(1)>, "
+"L<virt-tail(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, "
+"L<virt-v2v(1)>, L<virt-win-reg(1)>."
 
 #. type: textblock
 #: lib/guestfs.pod:3262
@@ -102247,6 +102417,10 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "www.lua.org/>, L<http://libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-golang"
+"(3)>, L<guestfs-java(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://www.lua.org/>"
+", L<http://libguestfs.org/>."
 
 #. type: textblock
 #: lua/examples/guestfs-lua.pod:157
@@ -102326,6 +102500,8 @@ msgid ""
 " int guestfs_set_verbose (guestfs_h *g, int flag);\n"
 "\n"
 msgstr ""
+" int guestfs_set_verbose (guestfs_h *g, int flag);\n"
+"\n"
 
 #. type: textblock
 #: ocaml/examples/guestfs-ocaml.pod:38
@@ -102396,6 +102572,10 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>, L<http://caml.inria.fr/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-golang"
+"(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"libguestfs.org/>, L<http://caml.inria.fr/>."
 
 #. type: textblock
 #: perl/examples/guestfs-perl.pod:3
@@ -102448,6 +102628,10 @@ msgid ""
 "L<guestfs-ocaml(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-"
 "ruby(3)>, L<http://libguestfs.org/>."
 msgstr ""
+"L<Sys::Guestfs(3)>, L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang"
+"(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-"
+"ocaml(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, "
+"L<http://libguestfs.org/>."
 
 #. type: textblock
 #: python/examples/guestfs-python.pod:3
@@ -102571,6 +102755,10 @@ msgid ""
 "L<guestfs-perl(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-golang"
+"(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-"
+"perl(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"libguestfs.org/>."
 
 #. type: textblock
 #: rescue/virt-rescue.pod:3
@@ -103014,6 +103202,8 @@ msgid ""
 " virt-rescue disk.img [disk.img ...]\n"
 "\n"
 msgstr ""
+" virt-rescue disk.img [disk.img ...]\n"
+"\n"
 
 #. type: textblock
 #: rescue/virt-rescue.pod:304
@@ -103027,6 +103217,8 @@ msgid ""
 " virt-rescue guestname\n"
 "\n"
 msgstr ""
+" virt-rescue guestname\n"
+"\n"
 
 #. type: textblock
 #: rescue/virt-rescue.pod:308
@@ -103408,6 +103600,10 @@ msgid ""
 "L<guestfs-perl(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<http://"
 "libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-golang"
+"(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-"
+"perl(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<http://"
+"libguestfs.org/>."
 
 #. type: textblock
 #: test-tool/libguestfs-test-tool.pod:3
