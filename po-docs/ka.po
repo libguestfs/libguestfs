@@ -9,7 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-09 08:20+0100\n"
 "PO-Revision-Date: 2026-07-11 03:18+0000\n"
-"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ka/>\n"
 "Language: ka\n"
@@ -67973,7 +67974,7 @@ msgstr ""
 #. type: =head1
 #: fish/guestfish.pod:837
 msgid "HOME DIRECTORIES"
-msgstr ""
+msgstr "პროფილის საქაღალდეები"
 
 #. type: textblock
 #: fish/guestfish.pod:839
