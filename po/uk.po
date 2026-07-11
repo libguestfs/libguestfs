@@ -14,11 +14,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-03 09:02+0100\n"
-"PO-Revision-Date: 2026-06-03 23:10+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"PO-Revision-Date: 2026-07-11 03:17+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/uk/>\n"
 "Language: uk\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.6.1\n"
+"X-Generator: Weblate 2026.7.1.dev0\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -1923,7 +1923,7 @@ msgstr "пересунути файл"
 
 #: fish/cmds.c:974
 msgid "negate a command"
-msgstr ""
+msgstr "обернути призначення команди"
 
 #: fish/cmds.c:975
 msgid "return number of whole block devices (disks) added"
@@ -2656,10 +2656,8 @@ msgid "expand an existing XFS filesystem"
 msgstr "розширити вже створену файлову систему XFS"
 
 #: fish/cmds.c:1215 fish/cmds.c:1216
-#, fuzzy
-#| msgid "get geometry of XFS filesystem"
 msgid "get information about the XFS filesystem"
-msgstr "отримати дані щодо геометрії файлової системи XFS"
+msgstr "встановити відомості щодо файлової системи XFS"
 
 #: fish/cmds.c:1217
 msgid "repair an XFS filesystem"
@@ -3193,10 +3191,9 @@ msgstr ""
 "перегляду на сторінки\n"
 
 #: fish/not.c:41
-#, fuzzy, c-format
-#| msgid "use 'glob command [args...]'\n"
+#, c-format
 msgid "use 'not command [args...]'\n"
-msgstr "скористайтеся «glob команда [аргументи...]»\n"
+msgstr "скористайтеся «not команда [аргументи...]»\n"
 
 #: fish/prep-boot.c:37 fish/prep-boot.c:87 fish/prep-disk.c:35
 #: fish/prep-fs.c:37 fish/prep-lv.c:68 fish/prep-lv.c:109 fish/prep-part.c:35
@@ -4234,16 +4231,17 @@ msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
 
 #: lib/handle.c:564
-#, fuzzy
-#| msgid "cannot get libvirt hypervisor capabilities: %s"
 msgid "get_hv: cannot get default hypervisor before ‘launch’ is called"
-msgstr "не вдалося отримати список можливостей гіпервізора libvirt: %s"
+msgstr ""
+"get_hv: не можна отримати значення типового гіпервізора до виклику «launch»"
 
 #: lib/handle.c:571
 #, c-format
 msgid ""
 "get_hv: cannot get default hypervisor: the ‘%s’ backend returned no value"
 msgstr ""
+"get_hv: не вдалося отримати значення типового гіпервізора: модуль обробки «%s"
+"» не повернув жодного значення"
 
 #: lib/handle.c:601
 #, c-format
