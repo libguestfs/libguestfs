@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-09 08:20+0100\n"
-"PO-Revision-Date: 2026-07-08 15:17+0000\n"
-"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"PO-Revision-Date: 2026-07-11 03:17+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ka/>\n"
 "Language: ka\n"
@@ -46133,7 +46134,7 @@ msgstr ""
 #: lib/guestfs-actions.pod:10091 lib/guestfs-actions.pod:11863
 #: lib/guestfs-actions.pod:15362
 msgid "The optional parameters are:"
-msgstr ""
+msgstr "არასავალდებულო არგუმენტებია:"
 
 #. type: =item
 #: fish/guestfish-actions.pod:1101 fish/guestfish-actions.pod:7272
@@ -57692,7 +57693,7 @@ msgstr ""
 #: fish/guestfish-actions.pod:9390 lib/guestfs-actions.pod:10986
 #: lib/guestfs-actions.pod:15092 lib/guestfs-actions.pod:15188
 msgid "The other optional arguments are:"
-msgstr ""
+msgstr "არასავალდებულო არგუმენტებია:"
 
 #. type: =item
 #: fish/guestfish-actions.pod:6843 fish/guestfish-actions.pod:9394
