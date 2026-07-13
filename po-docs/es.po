@@ -9,13 +9,14 @@
 # Weblate <noreply-mt-weblate@weblate.org>, 2026.
 # "Fco. Javier F. Serrador" <fserrador@gmail.com>, 2026.
 # GitHub webhook <noreply-webhook-github@weblate.org>, 2026.
+# Emilio Herrera <ehespinosa57@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-09 08:20+0100\n"
 "PO-Revision-Date: 2026-07-13 11:58+0000\n"
-"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
+"Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
 "Language: es\n"
@@ -99268,8 +99269,8 @@ msgid ""
 msgstr ""
 "Si tiene imágenes en disco invitado en formato raw en las que no "
 "confíe,debería usar esta opción para especificar el formato del disco. Esto "
-"evita un posible probable de seguridad con invitados maliciosos "
-"(CVE-2010-3851)."
+"evita un posible probable de seguridad con invitados maliciosos (CVE-2010-"
+"3851)."
 
 #. type: textblock
 #: rescue/virt-rescue.pod:189
