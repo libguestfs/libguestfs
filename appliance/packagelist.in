@@ -118,7 +118,6 @@ ifelse(ARCHLINUX,1,
   nilfs-utils
   ntfs-3g
   ntfsprogs
-  reiserfsprogs
   systemd
   vim
   xz
