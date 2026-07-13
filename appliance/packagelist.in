@@ -110,6 +110,7 @@ ifelse(ARCHLINUX,1,
   grub
   iproute2
   iputils
+  libldm
   linux
   lrzip
   dnl syslinux has mtools as optional dependency, but in reality it's
