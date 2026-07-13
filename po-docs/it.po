@@ -1,15 +1,14 @@
 # SOME DESCRIPTIVE TITLE
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the libguestfs package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# Nathan <nathan95@live.it>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-09 08:20+0100\n"
 "PO-Revision-Date: 2026-07-13 16:00+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Nathan <nathan95@live.it>\n"
 "Language-Team: Italian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/it/>\n"
 "Language: it\n"
@@ -890,7 +889,8 @@ msgid ""
 "\n"
 msgstr ""
 " Dovresti aver ricevuto una copia della GNU General Public License insieme\n"
-"a questo programma; in caso contrario, scrivi alla Free Software Foundation, Inc.,\n"
+"a questo programma; in caso contrario, scrivi alla Free Software Foundation, "
+"Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA\n"
 "\n"
 
@@ -910,8 +910,8 @@ msgid ""
 msgstr ""
 "Aggiungi una singola riga di testo al file C<FILE>. Se il file non termina "
 "già con una nuova riga, verrà aggiunta prima della riga aggiunta. Inoltre, "
-"una nuova riga verrà automaticamente aggiunta alla fine della stringa "
-"C<LINE>."
+"una nuova riga verrà automaticamente aggiunta alla fine della stringa C<LINE>"
+"."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:36
@@ -1438,9 +1438,9 @@ msgid ""
 "script so that the Guest Agent is installed when the guest boots."
 msgstr ""
 "Inietta il QEMU Guest Agent in un guest Windows. L'agente guest comunica con "
-"qemu tramite un socket per fornire funzionalità avanzate (vedi L<qemu-"
-"ga(8)>). Questa operazione inietta anche uno script di primo avvio affinché "
-"il Guest Agent venga installato quando il guest si avvia."
+"qemu tramite un socket per fornire funzionalità avanzate (vedi L<qemu-ga(8)>)"
+". Questa operazione inietta anche uno script di primo avvio affinché il "
+"Guest Agent venga installato quando il guest si avvia."
 
 #. type: =item
 #: common/mlcustomize/customize-options.pod:216
@@ -1891,8 +1891,7 @@ msgstr ""
 #: common/mlcustomize/v2v-customize-options.pod:341
 msgid ""
 "See L<virt-builder(1)/SSH KEYS> for the format of the C<SELECTOR> field."
-msgstr ""
-"Consulta L<virt-builder(1)/SSH KEYS> per il formato del campo SELECTOR."
+msgstr "Consulta L<virt-builder(1)/SSH KEYS> per il formato del campo SELECTOR."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:398
