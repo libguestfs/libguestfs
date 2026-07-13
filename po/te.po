@@ -8,11 +8,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-03 09:02+0100\n"
-"PO-Revision-Date: 2026-06-03 23:41+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"PO-Revision-Date: 2026-07-13 11:07+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Telugu <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/te/>\n"
 "Language: te\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.1\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -933,7 +933,8 @@ msgstr "అన్ని ఫైళ్ళను మరియు డైరెక్
 
 #: fish/cmds.c:712
 msgid "find all files and directories, returning NUL-separated list"
-msgstr "NUL-వేరుచేసిన జాబితాను యిచ్చు, అన్ని ఫైళ్ళను మరియు డైరెక్టరీలను కనుగొనుము"
+msgstr ""
+"NUL-వేరుచేసిన జాబితాను యిచ్చు, అన్ని ఫైళ్ళను మరియు డైరెక్టరీలను కనుగొనుము"
 
 #: fish/cmds.c:713
 msgid "search the entries associated to the given inode"
@@ -2595,7 +2596,8 @@ msgstr "కుదించిన ఫైలునందలి ఫైలు రక
 
 #: fish/cmds.c:1232
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr "ఆదేశము కొరకు విశదీకృత సహాయమును చూపుటకు -h <cmd> / help <cmd> వుపయోగించుము"
+msgstr ""
+"ఆదేశము కొరకు విశదీకృత సహాయమును చూపుటకు -h <cmd> / help <cmd> వుపయోగించుము"
 
 #: fish/copy.c:42
 #, c-format
@@ -3116,7 +3118,8 @@ msgstr "guestfish: protocol error: సేవికకు ప్రాధమి�
 #: fish/rc.c:434
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr "guestfish: protocol error: సేవిక నుండి ప్రత్యుత్తరమును డీకోడ్ చేయలేక పోయింది\n"
+msgstr ""
+"guestfish: protocol error: సేవిక నుండి ప్రత్యుత్తరమును డీకోడ్ చేయలేక పోయింది\n"
 
 #: fish/reopen.c:43
 #, c-format
@@ -4283,7 +4286,8 @@ msgstr "డెమోన్ సాకెట్‌కు వ్రాయుము"
 
 #: lib/proto.c:880
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr "receive_file_data: ఫైలు ముక్కలను చదువునప్పుడు అనుకోని ఫ్లాగ్ స్వీకరించబడింది"
+msgstr ""
+"receive_file_data: ఫైలు ముక్కలను చదువునప్పుడు అనుకోని ఫ్లాగ్ స్వీకరించబడింది"
 
 #: lib/proto.c:888
 msgid "failed to parse file chunk"
