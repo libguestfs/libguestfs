@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-09 08:20+0100\n"
-"PO-Revision-Date: 2026-07-13 11:57+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-07-13 11:58+0000\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
 "Language: es\n"
@@ -930,7 +930,8 @@ msgid ""
 msgstr ""
 " Este programa es software libre; puede redistribuirlo y/o modificarlo\n"
 "bajo los términos de la Licencia Pública General GNU publicada por la\n"
-"Free Software Foundation; ya sea la versión 2 de la Licencia o (a su elección)\n"
+"Free Software Foundation; ya sea la versión 2 de la Licencia o (a su "
+"elección)\n"
 "cualquier versión posterior.\n"
 "\n"
 
@@ -968,7 +969,8 @@ msgid ""
 "\n"
 msgstr ""
 " Debería haber recibido una copia de la Licencia Pública General de GNU\n"
-" junto con este programa; de no ser así, escriba a la Free Software Foundation, Inc.,\n"
+" junto con este programa; de no ser así, escriba a la Free Software "
+"Foundation, Inc.,\n"
 " 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, EE. UU.\n"
 "\n"
 
@@ -1340,8 +1342,7 @@ msgstr ""
 #: common/mlcustomize/customize-options.pod:147
 #: common/mlcustomize/v2v-customize-options.pod:147
 msgid "Note that this option is only available when Perl 5 is installed."
-msgstr ""
-"Note que esta opción solo está disponible cunado esté instalado Perl 5."
+msgstr "Note que esta opción solo está disponible cunado esté instalado Perl 5."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:149
@@ -1746,8 +1747,8 @@ msgid ""
 "C<md5> will work with relatively old Linux guests (eg. RHEL 3), but is not "
 "secure against modern attacks."
 msgstr ""
-"C<md5> funcionará con invitados de Linux relativamente antiguos (p.e. RHEL "
-"3), pero no es seguro frente a ataques modernos."
+"C<md5> funcionará con invitados de Linux relativamente antiguos (p.e. RHEL 3)"
+", pero no es seguro frente a ataques modernos."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:314
@@ -1894,8 +1895,7 @@ msgstr "B<--scrub> ARCHIVO"
 #: common/mlcustomize/customize-options.pod:371
 #: common/mlcustomize/v2v-customize-options.pod:317
 msgid "Scrub a file from the guest.  This is like I<--delete> except that:"
-msgstr ""
-"Recorta un archivo desde el invitado. Es como I<--delete>, excepto que:"
+msgstr "Recorta un archivo desde el invitado. Es como I<--delete>, excepto que:"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:377
@@ -2176,8 +2176,8 @@ msgstr ""
 "Este parámetro establece el tamaño del sector de la imagen de disco. Afecta "
 "a todos los discos añadidos explícitamente después de este parámetro. Al "
 "usar I<--blocksize> sin argumentos, el tamaño del sector del disco se cambia "
-"al valor predeterminado, que suele ser de 512 bytes. Véase también "
-"L<guestfs(3)/guestfs_add_drive_opts>."
+"al valor predeterminado, que suele ser de 512 bytes. Véase también L<guestfs"
+"(3)/guestfs_add_drive_opts>."
 
 #. type: =item
 #: common/options/key-option.pod:1
@@ -3504,9 +3504,9 @@ msgid ""
 msgstr ""
 "Los tarballs (pelotas de tar) son descargadas desde L<http://"
 "download.libguestfs.org/>. Los tarballs estables están firmados con la llave "
-"GnuPG para C<rich@annexia.org>, consulte L<https://pgp.mit.edu/pks/lookup?"
-"op=vindex&search=0x91738F73E1B768A0>.  La huella dactilar es C<F777 4FB1 "
-"AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0>."
+"GnuPG para C<rich@annexia.org>, consulte L<https://pgp.mit.edu/pks/"
+"lookup?op=vindex&search=0x91738F73E1B768A0>.  La huella dactilar es C<F777 "
+"4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0>."
 
 #. type: textblock
 #: docs/guestfs-building.pod:368
@@ -7170,13 +7170,16 @@ msgid ""
 "\n"
 msgstr ""
 "            ┌─────────────────────────────────────┐\n"
-"            │           monitoriza programa utilizando libguestfs             │\n"
+"            │           monitoriza programa utilizando libguestfs"
+"             │\n"
 "            └─────────────────────────────────────┘\n"
 "                             ↓\n"
 " ┌───────────┐    ┌──────────────────────┐\n"
-" │             live VM      │    │             libguestfs appliance           │\n"
+" │             live VM      │    │             libguestfs appliance"
+"           │\n"
 " ├───────────┤    ├──────────────────────┤\n"
-" │           kernel (1)   │   │               appliance kernel (2)           │\n"
+" │           kernel (1)   │   │               appliance kernel (2)           "
+"│\n"
 " └───────────┘    └──────────────────────┘\n"
 "      ↓                      ↓ (r/o conexión)\n"
 "      ┌──────────────────────┐\n"
@@ -7256,8 +7259,8 @@ msgstr ""
 msgid ""
 "Use a tool like L<virt-bmap|http://git.annexia.org/?p=virt-bmap.git> instead."
 msgstr ""
-"Emplee en su lugar una herramienta como L<virt-bmap|http://git.annexia.org/?"
-"p=virt-bmap.git>."
+"Emplee en su lugar una herramienta como L<virt-bmap|http://git.annexia.org/"
+"?p=virt-bmap.git>."
 
 #. type: textblock
 #: docs/guestfs-faq.pod:1398
@@ -10306,9 +10309,9 @@ msgid ""
 msgstr ""
 "El comando guestfish anterior inicia el dispositivo libguestfs en un disco "
 "nulo y lo apaga inmediatamente. La primera vez que se ejecuta el comando, se "
-"crea un dispositivo y se almacena en caché (normalmente en F</var/"
-"tmp/.guestfs-*>). Las ejecuciones posteriores deberían reutilizar el "
-"dispositivo almacenado en caché."
+"crea un dispositivo y se almacena en caché (normalmente en F</var/tmp/"
+".guestfs-*>). Las ejecuciones posteriores deberían reutilizar el dispositivo "
+"almacenado en caché."
 
 #. type: =head3
 #: docs/guestfs-performance.pod:46 docs/guestfs-performance.pod:82
@@ -10820,7 +10823,8 @@ msgid ""
 "     # You could add some work for libguestfs to do here.\n"
 "     \n"
 msgstr ""
-"     # Podrías añadir aquí alguna tarea para que la biblioteca libguestfs la realice.\n"
+"     # Podrías añadir aquí alguna tarea para que la biblioteca libguestfs la "
+"realice.\n"
 "     \n"
 
 #. type: verbatim
@@ -13353,7 +13357,8 @@ msgid ""
 "     API or by hitting ^C in guestfish.\n"
 "\n"
 msgstr ""
-"   - Las cargas y descargas de archivos de larga duración se pueden cancelar a través de\n"
+"   - Las cargas y descargas de archivos de larga duración se pueden cancelar "
+"a través de\n"
 "     API o golpeando ^C en guestfish.\n"
 "\n"
 
@@ -13373,7 +13378,8 @@ msgid ""
 "   - In guestfish, tab completion now works on /dev/mapper devices.\n"
 "\n"
 msgstr ""
-"   - En guestfish, el completado del tabulador ahora funciona en dispositivos /dev/mapper.\n"
+"   - En guestfish, el completado del tabulador ahora funciona en "
+"dispositivos /dev/mapper.\n"
 "\n"
 
 #. type: =head3
@@ -13560,7 +13566,8 @@ msgid ""
 "   - 9pfs (Plan 9 filesystems exported from the host) are now supported.\n"
 "\n"
 msgstr ""
-"   - 9pfs Ahora se admiten los sistemas de archivos Plan 9 exportados desde el host.\n"
+"   - 9pfs Ahora se admiten los sistemas de archivos Plan 9 exportados desde "
+"el host.\n"
 "\n"
 
 #. type: verbatim
@@ -13905,7 +13912,8 @@ msgid ""
 "     libguestfs function is called.\n"
 "\n"
 msgstr ""
-"   - GUESTFS_EVENT_ENTER es un nuevo tipo de evento generado cada vez que una\n"
+"   - GUESTFS_EVENT_ENTER es un nuevo tipo de evento generado cada vez que "
+"una\n"
 "     función libguestfs sea invocada.\n"
 "\n"
 
@@ -13980,7 +13988,8 @@ msgid ""
 "   - Fix handling of guests with > 26 disks (thanks Matthew Booth)\n"
 "\n"
 msgstr ""
-"   - Arreglar el manejo de los invitados con > 26 discos (gracias a Matthew Booth)\n"
+"   - Arreglar el manejo de los invitados con > 26 discos (gracias a Matthew "
+"Booth)\n"
 "\n"
 
 #. type: verbatim
@@ -13990,7 +13999,8 @@ msgid ""
 "   - Add support for guests with HP Smart Array disks (thanks Matthew Booth)\n"
 "\n"
 msgstr ""
-"   - Agregar compatibilidad para invitados con discos HP Smart Array (gracias a Matthew Booth)\n"
+"   - Agregar compatibilidad para invitados con discos HP Smart Array "
+"(gracias a Matthew Booth)\n"
 "\n"
 
 #. type: =head3
@@ -14007,7 +14017,8 @@ msgid ""
 "\n"
 msgstr ""
 "   - FEBOOTSTRAP_KERNEL, FEBOOTSTRAP_MODULES variables de entorno puede\n"
-"     ser especificadas en orden para elegir cual kernel a utilizar para el instrumento.\n"
+"     ser especificadas en orden para elegir cual kernel a utilizar para el "
+"instrumento.\n"
 "\n"
 
 #. type: =head3
@@ -23850,8 +23861,8 @@ msgid ""
 "left on device (28)\" is printed when specified \"-v -x\""
 msgstr ""
 "v2v cmd no puede salir y el \"block I/O error in device 'instrumento': no "
-"queda espacio en el dispositivo (28)\" está escrito cuando especifique \"-v "
-"-x\""
+"queda espacio en el dispositivo (28)\" está escrito cuando especifique \"-v -"
+"x\""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.34.pod:601
@@ -31466,7 +31477,8 @@ msgid ""
 " - $TMPDIR can be used to override almost all temporary directory usage.\n"
 "\n"
 msgstr ""
-" - $TMPDIR puede ser utilizado para anular casi todo el uso de directorios temporales.\n"
+" - $TMPDIR puede ser utilizado para anular casi todo el uso de directorios "
+"temporales.\n"
 "\n"
 
 #. type: verbatim
@@ -33912,8 +33924,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-testing.pod:278
 msgid "List all Unix domain sockets in a Linux virtual machine:"
-msgstr ""
-"Enumere todos los sockets de dominio Unix en una máquina virtual Linux:"
+msgstr "Enumere todos los sockets de dominio Unix en una máquina virtual Linux:"
 
 #. type: verbatim
 #: docs/guestfs-testing.pod:280
@@ -66793,8 +66804,8 @@ msgstr ""
 #: fish/guestfish.pod:323
 msgid "Using this flag is equivalent to using the C<mount-options> command."
 msgstr ""
-"Utilizando este indicador es equivalente a utilizar la orden C<mount-"
-"options>."
+"Utilizando este indicador es equivalente a utilizar la orden C<mount-options>"
+"."
 
 #. type: textblock
 #: fish/guestfish.pod:325 fuse/guestmount.pod:275 rescue/virt-rescue.pod:220
@@ -68373,7 +68384,8 @@ msgstr ""
 " GUESTFISH_PID=\n"
 " eval $(\"${guestfish[@]}\")\n"
 " if [ -z \"$GUESTFISH_PID\" ]; then\n"
-"     echo \"error: guestfish no arrancado, consulte mensajes de error arriba\"\n"
+"     echo \"error: guestfish no arrancado, consulte mensajes de error "
+"arriba\"\n"
 "     exit 1\n"
 " fi\n"
 " \n"
@@ -70467,8 +70479,7 @@ msgstr ""
 #. type: textblock
 #: fuse/guestmount.pod:173 rescue/virt-rescue.pod:109
 msgid "Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>."
-msgstr ""
-"Añade un disco remoto.  Consulte L<guestfish(1)/ADDING REMOTE STORAGE>."
+msgstr "Añade un disco remoto.  Consulte L<guestfish(1)/ADDING REMOTE STORAGE>."
 
 #. type: =item
 #: fuse/guestmount.pod:195
