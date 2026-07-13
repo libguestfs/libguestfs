@@ -12,7 +12,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-03 09:02+0100\n"
 "PO-Revision-Date: 2026-07-13 10:42+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Malayalam <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ml/>\n"
 "Language: ml\n"
@@ -262,7 +262,8 @@ msgstr "ഒരു ചിത്രം ഉണ്ടാക്കുന്നതി�
 #: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr "ഒരു സ്പാര്‍സ് ചിത്രം ഉണ്ടാക്കുന്നതിനായി 'sparse file size' ഉപയോഗിക്കുക\n"
+msgstr ""
+"ഒരു സ്പാര്‍സ് ചിത്രം ഉണ്ടാക്കുന്നതിനായി 'sparse file size' ഉപയോഗിക്കുക\n"
 
 #: fish/alloc.c:105
 #, c-format
