@@ -4,6 +4,7 @@
 # Jan Kuparinen <copper_fin@hotmail.com>, 2020, 2021, 2022, 2023, 2026.
 # Ricky Tigg <ricky.tigg@gmail.com>, 2021, 2024, 2025, 2026.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2026.
+# GitHub webhook <noreply-webhook-github@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.43.2\n"
@@ -11,7 +12,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-03 09:02+0100\n"
 "PO-Revision-Date: 2026-07-13 13:20+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/fi/>\n"
 "Language: fi\n"
