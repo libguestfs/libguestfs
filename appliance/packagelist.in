@@ -119,6 +119,7 @@ ifelse(ARCHLINUX,1,
   nilfs-utils
   ntfs-3g
   ntfsprogs
+  openssh
   systemd
   systemd-sysvcompat
   vim
