@@ -120,6 +120,7 @@ ifelse(ARCHLINUX,1,
   ntfs-3g
   ntfsprogs
   systemd
+  systemd-sysvcompat
   vim
   xz
   zstd
