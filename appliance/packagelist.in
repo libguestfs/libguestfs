@@ -117,7 +117,7 @@ ifelse(ARCHLINUX,1,
   mtools
   nilfs-utils
   ntfs-3g
-  ntfs-3g-system-compression
+  ntfsprogs
   reiserfsprogs
   systemd
   vim
