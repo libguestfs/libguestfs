@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the libguestfs package.
 # Jan Kuparinen <copper_fin@hotmail.com>, 2026.
 # Ricky Tigg <ricky.tigg@gmail.com>, 2026.
+# GitHub webhook <noreply-webhook-github@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.43.1\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-09 08:20+0100\n"
 "PO-Revision-Date: 2026-07-13 13:48+0000\n"
-"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
+"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/fi/>\n"
 "Language: fi\n"
