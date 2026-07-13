@@ -8,13 +8,14 @@
 # Javier Blanco <javi.deb@gmail.com>, 2018. #zanata
 # Weblate <noreply-mt-weblate@weblate.org>, 2026.
 # "Fco. Javier F. Serrador" <fserrador@gmail.com>, 2026.
+# GitHub webhook <noreply-webhook-github@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-09 08:20+0100\n"
 "PO-Revision-Date: 2026-07-13 11:58+0000\n"
-"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
+"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/es/>\n"
 "Language: es\n"

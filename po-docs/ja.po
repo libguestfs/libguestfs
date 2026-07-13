@@ -9,13 +9,14 @@
 # carrotsoft <www.carrotsoft@gmail.com>, 2011
 # carrotsoft <www.carrotsoft@gmail.com>, 2011
 # Richard Jones <rjones@redhat.com>, 2017. #zanata
+# GitHub webhook <noreply-webhook-github@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-09 08:20+0100\n"
 "PO-Revision-Date: 2026-07-13 12:28+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
 "Language-Team: Japanese <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ja/>\n"
 "Language: ja\n"
