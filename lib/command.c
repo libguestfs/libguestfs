@@ -526,6 +526,26 @@ run_command (struct command *cmd)
   return -1;
 }
 
+/* Ensure fds 0, 1 and 2 are open on something and FD_CLOEXEC is not
+ * set.  If we find a file descriptor in this state then reopen it
+ * on /dev/null.
+ * https://github.com/libguestfs/libguestfs/issues/360
+ */
+static void
+check_stdio_is_open (void)
+{
+  int fd, fl, r;
+
+  for (fd = 0; fd <= 2; ++fd) {
+    fl = fcntl (fd, F_GETFD);
+    if (fl == -1 || (fl & FD_CLOEXEC)) {
+      close (fd);
+      r = open ("/dev/null", O_RDWR);
+      assert (r == fd);
+    }
+  }
+}
+
 static void
 run_child (struct command *cmd, char **env)
 {
@@ -559,6 +579,8 @@ run_child (struct command *cmd, char **env)
     max_fd = 65536;        /* bound the amount of work we do here */
   for (fd = 3; fd < max_fd; ++fd)
     close (fd);
+
+  check_stdio_is_open ();
 
   /* Set the umask for all subcommands to something sensible (RHBZ#610880). */
   umask (022);
