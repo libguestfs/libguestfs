@@ -17,8 +17,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-03 09:02+0100\n"
-"PO-Revision-Date: 2026-07-13 10:17+0000\n"
-"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
+"PO-Revision-Date: 2026-07-13 10:18+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/es/>\n"
 "Language: es\n"
@@ -804,8 +804,7 @@ msgstr "copia archivos o carpetas remotas fuera de una imagen"
 
 #: fish/cmds.c:649
 msgid "copy size bytes from source to destination using dd"
-msgstr ""
-"copia en tamaño de bytes desde la fuente hacia el destino utilizando dd"
+msgstr "copia en tamaño de bytes desde la fuente hacia el destino utilizando dd"
 
 #: fish/cmds.c:650
 msgid "copy a file"
@@ -992,8 +991,7 @@ msgstr "completa un directorio con archivos vacíos"
 
 #: fish/cmds.c:710
 msgid "fill a file with a repeating pattern of bytes"
-msgstr ""
-"completa un archivo con el mismo patrón de bytes repetido continuamente"
+msgstr "completa un archivo con el mismo patrón de bytes repetido continuamente"
 
 #: fish/cmds.c:711
 msgid "find all files and directories"
@@ -1417,8 +1415,7 @@ msgstr ""
 
 #: fish/cmds.c:826 fish/cmds.c:827
 msgid "get list of applications installed in the operating system"
-msgstr ""
-"obtiene la lista de las aplicaciones instaladas en el sistema operativo"
+msgstr "obtiene la lista de las aplicaciones instaladas en el sistema operativo"
 
 #: fish/cmds.c:828
 msgid "inspect disk and return list of operating systems found"

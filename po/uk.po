@@ -17,8 +17,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-03 09:02+0100\n"
-"PO-Revision-Date: 2026-07-11 03:17+0000\n"
-"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"PO-Revision-Date: 2026-07-13 11:14+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/uk/>\n"
 "Language: uk\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.7.1.dev0\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -249,8 +249,7 @@ msgstr "не вдалося встановити з’єднання з libvirt 
 #: common/parallel/domains.c:114
 #, c-format
 msgid "could not get number of running domains (code %d, domain %d): %s"
-msgstr ""
-"не вдалося визначити кількість запущених доменів (код %d, домен %d): %s"
+msgstr "не вдалося визначити кількість запущених доменів (код %d, домен %d): %s"
 
 #: common/parallel/domains.c:125
 #, c-format
@@ -261,8 +260,8 @@ msgstr "не вдалося побудувати список запущених
 #, c-format
 msgid "could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
-"не вдалося отримати дані щодо кількості неактивних доменів (код %d, домен "
-"%d): %s"
+"не вдалося отримати дані щодо кількості неактивних доменів (код %d, домен %d)"
+": %s"
 
 #: common/parallel/domains.c:146
 #, c-format
@@ -518,8 +517,7 @@ msgstr "отримати розмір сектора блокового прис
 
 #: fish/cmds.c:571
 msgid "get total size of device in 512-byte sectors"
-msgstr ""
-"отримати загальний об’єм зберігання на пристрої у 512-байтових секторах"
+msgstr "отримати загальний об’єм зберігання на пристрої у 512-байтових секторах"
 
 #: fish/cmds.c:572
 msgid "reread partition table"
@@ -1096,8 +1094,7 @@ msgstr "запит щодо i-их запитаних реєстраційних
 
 #: fish/cmds.c:740
 msgid "get list of credentials requested by libvirt"
-msgstr ""
-"отримати список реєстраційних даних, запит щодо яких надсилався libvirt"
+msgstr "отримати список реєстраційних даних, запит щодо яких надсилався libvirt"
 
 #: fish/cmds.c:741
 msgid "get memory allocated to the hypervisor"
@@ -1370,8 +1367,7 @@ msgstr "отримати значення назви продукту опера
 
 #: fish/cmds.c:815
 msgid "get product variant of inspected operating system"
-msgstr ""
-"отримати значення варіанта продукту операційної системи, яка вивчається"
+msgstr "отримати значення варіанта продукту операційної системи, яка вивчається"
 
 #: fish/cmds.c:816
 msgid "return list of operating systems found by last inspection"
@@ -1434,8 +1430,7 @@ msgstr "вивчити диск і повернути список знайде�
 
 #: fish/cmds.c:829
 msgid "cause the daemon to exit (internal use only)"
-msgstr ""
-"спричинити вихід із фонової служби (лише для внутрішнього використання)"
+msgstr "спричинити вихід із фонової служби (лише для внутрішнього використання)"
 
 #: fish/cmds.c:830
 msgid "test if block device"
@@ -2689,8 +2684,7 @@ msgstr "у файловій системі немає вільного місц�
 
 #: fish/cmds.c:1226
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
-msgstr ""
-"занулити невикористані inode і дискові блоки на файловій системі ext2/3"
+msgstr "занулити невикористані inode і дискові блоки на файловій системі ext2/3"
 
 #: fish/cmds.c:1229
 msgid "determine file type inside a compressed file"
@@ -2756,8 +2750,8 @@ msgstr "delete-event: %s: такого обробника подій не вия
 #, c-format
 msgid "use ‘list-events’ to list event handlers\n"
 msgstr ""
-"щоб переглянути список обробників подій, скористайтеся командою «list-"
-"events»\n"
+"щоб переглянути список обробників подій, скористайтеся командою «list-events"
+"»\n"
 
 #: fish/fish.c:114 fuse/guestmount.c:103 fuse/guestunmount.c:58
 #: rescue/rescue.c:80
@@ -2972,8 +2966,7 @@ msgstr "%s: занадто багато аргументів\n"
 #: fish/fish.c:1001
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
-msgstr ""
-"%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
+msgstr "%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
 
 #: fish/fish.c:1010
 #, c-format
@@ -3124,8 +3117,8 @@ msgid ""
 msgstr ""
 "Визначте перелік доступних файлових систем за допомогою «list-filesystems», "
 "потім\n"
-"змонтуйте їх для вивчення або внесення змін до вмісту за допомогою «mount-"
-"ro» або\n"
+"змонтуйте їх для вивчення або внесення змін до вмісту за допомогою «mount-ro"
+"» або\n"
 "«mount».\n"
 
 #: fish/help.c:62
@@ -3365,8 +3358,7 @@ msgstr ""
 #: fish/rc.c:434
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr ""
-"guestfish: помилка протоколу: не вдалося декодувати відповідь сервера\n"
+msgstr "guestfish: помилка протоколу: не вдалося декодувати відповідь сервера\n"
 
 #: fish/reopen.c:43
 #, c-format
@@ -3649,8 +3641,8 @@ msgstr "%s: помилка: вам слід вказати один із пар�
 #, c-format
 msgid "%s: error: you must specify either -i at least one -m option.\n"
 msgstr ""
-"%s: помилка: вам слід вказати або параметр -i, або принаймні один параметр "
-"-m.\n"
+"%s: помилка: вам слід вказати або параметр -i, або принаймні один параметр -"
+"m.\n"
 
 #: fuse/guestmount.c:339
 #, c-format
@@ -4038,8 +4030,7 @@ msgstr "не можна вказувати сервер з резервними 
 
 #: lib/drives.c:750
 msgid "you cannot specify a username with file-backed disks"
-msgstr ""
-"не можна вказувати ім’я користувача для резервних копій дисків у файлах"
+msgstr "не можна вказувати ім’я користувача для резервних копій дисків у файлах"
 
 #: lib/drives.c:754
 msgid "you cannot specify a secret with file-backed disks"
@@ -4262,8 +4253,7 @@ msgstr "параметра не знайдено"
 
 #: lib/info.c:81
 msgid "qemu-img info: JSON output did not contain ‘format’ key"
-msgstr ""
-"Інформація від qemu-img: дані, виведені JSON, не містять ключа «format»"
+msgstr "Інформація від qemu-img: дані, виведені JSON, не містять ключа «format»"
 
 #: lib/info.c:104
 msgid "qemu-img info: JSON output did not contain ‘virtual-size’ key"
@@ -4392,8 +4382,7 @@ msgstr ""
 
 #: lib/launch-libvirt.c:737
 msgid "unable to parse capabilities XML returned by libvirt"
-msgstr ""
-"не вдалося обробити запис можливостей у форматі XML, повернутий libvirt"
+msgstr "не вдалося обробити запис можливостей у форматі XML, повернутий libvirt"
 
 #: lib/launch-libvirt.c:743 lib/launch-libvirt.c:845 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
@@ -4458,8 +4447,7 @@ msgstr "не вдалося визначити реєстраційні дані
 
 #: lib/launch-libvirt.c:1901
 msgid "rbd protocol secret must be base64 encoded"
-msgstr ""
-"реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
+msgstr "реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
 
 #: lib/launch-libvirt.c:1905
 #, c-format
@@ -4726,8 +4714,7 @@ msgstr ""
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
-msgstr ""
-"не можна вмикати discard для цього диска: вам слід вказати формат файла"
+msgstr "не можна вмикати discard для цього диска: вам слід вказати формат файла"
 
 #: lib/qemu.c:451
 #, c-format
@@ -5140,8 +5127,8 @@ msgid ""
 "Check earlier messages, and the output of the ‘printenv’ command."
 msgstr ""
 "не вдалося обробити змінні середовища.\n"
-"Ознайомтеся з попередніми повідомленнями та даними, виведеними командою "
-"«printenv»."
+"Ознайомтеся з попередніми повідомленнями та даними, виведеними командою «"
+"printenv»."
 
 #: test-tool/test-tool.c:319
 #, c-format
