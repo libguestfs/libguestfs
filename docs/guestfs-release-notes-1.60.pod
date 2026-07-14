@@ -86,6 +86,8 @@ options were added (Christopher Byrne).
 No longer over-link Lua bindings with libxml2 and libvirt (David
 Runge).
 
+Improve appliance support for Arch (David Runge).
+
 =head2 Internals
 
 Simplify qemu property testing.  Most of the code was eliminated
@@ -113,6 +115,8 @@ Improvements to debug output (Surya Gupta, Srihari Parimi).
 Fix Fedora bin/sbin symlinking to be less noisy (Cole Robinson).
 
 Rewrite xfs_repair and luks_* implementations in the daemon in OCaml.
+
+Ensure fds 0, 1 and 2 are open when running subcommands.
 
 =head2 Bugs fixed
 
@@ -214,6 +218,8 @@ git shortlog -s v1.58.0..
 =item Christopher Byrne
 
 =item Cole Robinson
+
+=item David Runge
 
 =item Emilio Herrera
 
