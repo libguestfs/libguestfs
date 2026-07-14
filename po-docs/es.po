@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2026-07-09 08:20+0100\n"
+"POT-Creation-Date: 2026-07-14 14:59+0100\n"
 "PO-Revision-Date: 2026-07-13 11:58+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
@@ -649,7 +649,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:196
 #: docs/guestfs-release-notes-1.58.pod:252
 #: docs/guestfs-release-notes-1.6.pod:170
-#: docs/guestfs-release-notes-1.60.pod:185
+#: docs/guestfs-release-notes-1.60.pod:189
 #: docs/guestfs-release-notes-1.8.pod:145 docs/guestfs-release-notes.pod:153
 #: docs/guestfs-security.pod:437 docs/guestfs-testing.pod:395
 #: erlang/examples/guestfs-erlang.pod:95 examples/guestfs-examples.pod:55
@@ -687,7 +687,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:139
 #: docs/guestfs-release-notes-1.56.pod:207
 #: docs/guestfs-release-notes-1.58.pod:263
-#: docs/guestfs-release-notes-1.60.pod:196 docs/guestfs-security.pod:445
+#: docs/guestfs-release-notes-1.60.pod:200 docs/guestfs-security.pod:445
 #: docs/guestfs-testing.pod:402 erlang/examples/guestfs-erlang.pod:110
 #: examples/guestfs-examples.pod:69 fish/guestfish.pod:1636
 #: fish/libguestfs-tools.conf.pod:96 fish/virt-copy-in.pod:52
@@ -751,7 +751,7 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: docs/guestfs-release-notes-1.56.pod:241
 #: docs/guestfs-release-notes-1.58.pod:291
 #: docs/guestfs-release-notes-1.6.pod:185
-#: docs/guestfs-release-notes-1.60.pod:266
+#: docs/guestfs-release-notes-1.60.pod:272
 #: docs/guestfs-release-notes-1.8.pod:160 docs/guestfs-release-notes.pod:168
 #: docs/guestfs-security.pod:449 docs/guestfs-testing.pod:406
 #: erlang/examples/guestfs-erlang.pod:114 examples/guestfs-examples.pod:73
@@ -872,10 +872,10 @@ msgstr "© 2009-2020 Red Hat™."
 #: docs/guestfs-release-notes-1.58.pod:185
 #: docs/guestfs-release-notes-1.58.pod:265
 #: docs/guestfs-release-notes-1.58.pod:269
-#: docs/guestfs-release-notes-1.60.pod:119
 #: docs/guestfs-release-notes-1.60.pod:123
-#: docs/guestfs-release-notes-1.60.pod:198
-#: docs/guestfs-release-notes-1.60.pod:202 fish/guestfish-actions.pod:1
+#: docs/guestfs-release-notes-1.60.pod:127
+#: docs/guestfs-release-notes-1.60.pod:202
+#: docs/guestfs-release-notes-1.60.pod:206 fish/guestfish-actions.pod:1
 #: fish/guestfish-actions.pod:25 fish/guestfish-commands.pod:1
 #: fish/guestfish-commands.pod:25 fish/guestfish-prepopts.pod:1
 #: fish/guestfish-prepopts.pod:25 lib/guestfs-actions.pod:1
@@ -933,8 +933,7 @@ msgid ""
 msgstr ""
 " Este programa es software libre; puede redistribuirlo y/o modificarlo\n"
 "bajo los términos de la Licencia Pública General GNU publicada por la\n"
-"Free Software Foundation; ya sea la versión 2 de la Licencia o (a su "
-"elección)\n"
+"Free Software Foundation; ya sea la versión 2 de la Licencia o (a su elección)\n"
 "cualquier versión posterior.\n"
 "\n"
 
@@ -972,8 +971,7 @@ msgid ""
 "\n"
 msgstr ""
 " Debería haber recibido una copia de la Licencia Pública General de GNU\n"
-" junto con este programa; de no ser así, escriba a la Free Software "
-"Foundation, Inc.,\n"
+" junto con este programa; de no ser así, escriba a la Free Software Foundation, Inc.,\n"
 " 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, EE. UU.\n"
 "\n"
 
@@ -1345,7 +1343,8 @@ msgstr ""
 #: common/mlcustomize/customize-options.pod:147
 #: common/mlcustomize/v2v-customize-options.pod:147
 msgid "Note that this option is only available when Perl 5 is installed."
-msgstr "Note que esta opción solo está disponible cunado esté instalado Perl 5."
+msgstr ""
+"Note que esta opción solo está disponible cunado esté instalado Perl 5."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:149
@@ -1750,8 +1749,8 @@ msgid ""
 "C<md5> will work with relatively old Linux guests (eg. RHEL 3), but is not "
 "secure against modern attacks."
 msgstr ""
-"C<md5> funcionará con invitados de Linux relativamente antiguos (p.e. RHEL 3)"
-", pero no es seguro frente a ataques modernos."
+"C<md5> funcionará con invitados de Linux relativamente antiguos (p.e. RHEL "
+"3), pero no es seguro frente a ataques modernos."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:314
@@ -1898,7 +1897,8 @@ msgstr "B<--scrub> ARCHIVO"
 #: common/mlcustomize/customize-options.pod:371
 #: common/mlcustomize/v2v-customize-options.pod:317
 msgid "Scrub a file from the guest.  This is like I<--delete> except that:"
-msgstr "Recorta un archivo desde el invitado. Es como I<--delete>, excepto que:"
+msgstr ""
+"Recorta un archivo desde el invitado. Es como I<--delete>, excepto que:"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:377
@@ -2179,8 +2179,8 @@ msgstr ""
 "Este parámetro establece el tamaño del sector de la imagen de disco. Afecta "
 "a todos los discos añadidos explícitamente después de este parámetro. Al "
 "usar I<--blocksize> sin argumentos, el tamaño del sector del disco se cambia "
-"al valor predeterminado, que suele ser de 512 bytes. Véase también L<guestfs"
-"(3)/guestfs_add_drive_opts>."
+"al valor predeterminado, que suele ser de 512 bytes. Véase también "
+"L<guestfs(3)/guestfs_add_drive_opts>."
 
 #. type: =item
 #: common/options/key-option.pod:1
@@ -3507,9 +3507,9 @@ msgid ""
 msgstr ""
 "Los tarballs (pelotas de tar) son descargadas desde L<http://"
 "download.libguestfs.org/>. Los tarballs estables están firmados con la llave "
-"GnuPG para C<rich@annexia.org>, consulte L<https://pgp.mit.edu/pks/"
-"lookup?op=vindex&search=0x91738F73E1B768A0>.  La huella dactilar es C<F777 "
-"4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0>."
+"GnuPG para C<rich@annexia.org>, consulte L<https://pgp.mit.edu/pks/lookup?"
+"op=vindex&search=0x91738F73E1B768A0>.  La huella dactilar es C<F777 4FB1 "
+"AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0>."
 
 #. type: textblock
 #: docs/guestfs-building.pod:368
@@ -7173,16 +7173,13 @@ msgid ""
 "\n"
 msgstr ""
 "            ┌─────────────────────────────────────┐\n"
-"            │           monitoriza programa utilizando libguestfs"
-"             │\n"
+"            │           monitoriza programa utilizando libguestfs             │\n"
 "            └─────────────────────────────────────┘\n"
 "                             ↓\n"
 " ┌───────────┐    ┌──────────────────────┐\n"
-" │             live VM      │    │             libguestfs appliance"
-"           │\n"
+" │             live VM      │    │             libguestfs appliance           │\n"
 " ├───────────┤    ├──────────────────────┤\n"
-" │           kernel (1)   │   │               appliance kernel (2)           "
-"│\n"
+" │           kernel (1)   │   │               appliance kernel (2)           │\n"
 " └───────────┘    └──────────────────────┘\n"
 "      ↓                      ↓ (r/o conexión)\n"
 "      ┌──────────────────────┐\n"
@@ -7262,8 +7259,8 @@ msgstr ""
 msgid ""
 "Use a tool like L<virt-bmap|http://git.annexia.org/?p=virt-bmap.git> instead."
 msgstr ""
-"Emplee en su lugar una herramienta como L<virt-bmap|http://git.annexia.org/"
-"?p=virt-bmap.git>."
+"Emplee en su lugar una herramienta como L<virt-bmap|http://git.annexia.org/?"
+"p=virt-bmap.git>."
 
 #. type: textblock
 #: docs/guestfs-faq.pod:1398
@@ -10312,9 +10309,9 @@ msgid ""
 msgstr ""
 "El comando guestfish anterior inicia el dispositivo libguestfs en un disco "
 "nulo y lo apaga inmediatamente. La primera vez que se ejecuta el comando, se "
-"crea un dispositivo y se almacena en caché (normalmente en F</var/tmp/"
-".guestfs-*>). Las ejecuciones posteriores deberían reutilizar el dispositivo "
-"almacenado en caché."
+"crea un dispositivo y se almacena en caché (normalmente en F</var/"
+"tmp/.guestfs-*>). Las ejecuciones posteriores deberían reutilizar el "
+"dispositivo almacenado en caché."
 
 #. type: =head3
 #: docs/guestfs-performance.pod:46 docs/guestfs-performance.pod:82
@@ -10826,8 +10823,7 @@ msgid ""
 "     # You could add some work for libguestfs to do here.\n"
 "     \n"
 msgstr ""
-"     # Podrías añadir aquí alguna tarea para que la biblioteca libguestfs la "
-"realice.\n"
+"     # Podrías añadir aquí alguna tarea para que la biblioteca libguestfs la realice.\n"
 "     \n"
 
 #. type: verbatim
@@ -13138,7 +13134,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:92
 #: docs/guestfs-release-notes-1.58.pod:105
 #: docs/guestfs-release-notes-1.6.pod:119
-#: docs/guestfs-release-notes-1.60.pod:89
+#: docs/guestfs-release-notes-1.60.pod:91
 #: docs/guestfs-release-notes-1.8.pod:101
 msgid "Internals"
 msgstr "Internas"
@@ -13215,7 +13211,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:118
 #: docs/guestfs-release-notes-1.58.pod:179
 #: docs/guestfs-release-notes-1.6.pod:135
-#: docs/guestfs-release-notes-1.60.pod:117
+#: docs/guestfs-release-notes-1.60.pod:121
 #: docs/guestfs-release-notes-1.8.pod:136
 msgid "Bugs fixed"
 msgstr "Fallos corregidos"
@@ -13274,7 +13270,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:198
 #: docs/guestfs-release-notes-1.58.pod:254
 #: docs/guestfs-release-notes-1.6.pod:172
-#: docs/guestfs-release-notes-1.60.pod:187
+#: docs/guestfs-release-notes-1.60.pod:191
 #: docs/guestfs-release-notes-1.8.pod:147 docs/guestfs-release-notes.pod:155
 msgid ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
@@ -13310,7 +13306,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:231
 #: docs/guestfs-release-notes-1.58.pod:283
 #: docs/guestfs-release-notes-1.6.pod:183
-#: docs/guestfs-release-notes-1.60.pod:244
+#: docs/guestfs-release-notes-1.60.pod:250
 #: docs/guestfs-release-notes-1.8.pod:158 docs/guestfs-release-notes.pod:166
 msgid "Richard W.M. Jones"
 msgstr "Richard W.M. Jones"
@@ -13360,8 +13356,7 @@ msgid ""
 "     API or by hitting ^C in guestfish.\n"
 "\n"
 msgstr ""
-"   - Las cargas y descargas de archivos de larga duración se pueden cancelar "
-"a través de\n"
+"   - Las cargas y descargas de archivos de larga duración se pueden cancelar a través de\n"
 "     API o golpeando ^C en guestfish.\n"
 "\n"
 
@@ -13381,8 +13376,7 @@ msgid ""
 "   - In guestfish, tab completion now works on /dev/mapper devices.\n"
 "\n"
 msgstr ""
-"   - En guestfish, el completado del tabulador ahora funciona en "
-"dispositivos /dev/mapper.\n"
+"   - En guestfish, el completado del tabulador ahora funciona en dispositivos /dev/mapper.\n"
 "\n"
 
 #. type: =head3
@@ -13569,8 +13563,7 @@ msgid ""
 "   - 9pfs (Plan 9 filesystems exported from the host) are now supported.\n"
 "\n"
 msgstr ""
-"   - 9pfs Ahora se admiten los sistemas de archivos Plan 9 exportados desde "
-"el host.\n"
+"   - 9pfs Ahora se admiten los sistemas de archivos Plan 9 exportados desde el host.\n"
 "\n"
 
 #. type: verbatim
@@ -13915,8 +13908,7 @@ msgid ""
 "     libguestfs function is called.\n"
 "\n"
 msgstr ""
-"   - GUESTFS_EVENT_ENTER es un nuevo tipo de evento generado cada vez que "
-"una\n"
+"   - GUESTFS_EVENT_ENTER es un nuevo tipo de evento generado cada vez que una\n"
 "     función libguestfs sea invocada.\n"
 "\n"
 
@@ -13991,8 +13983,7 @@ msgid ""
 "   - Fix handling of guests with > 26 disks (thanks Matthew Booth)\n"
 "\n"
 msgstr ""
-"   - Arreglar el manejo de los invitados con > 26 discos (gracias a Matthew "
-"Booth)\n"
+"   - Arreglar el manejo de los invitados con > 26 discos (gracias a Matthew Booth)\n"
 "\n"
 
 #. type: verbatim
@@ -14002,8 +13993,7 @@ msgid ""
 "   - Add support for guests with HP Smart Array disks (thanks Matthew Booth)\n"
 "\n"
 msgstr ""
-"   - Agregar compatibilidad para invitados con discos HP Smart Array "
-"(gracias a Matthew Booth)\n"
+"   - Agregar compatibilidad para invitados con discos HP Smart Array (gracias a Matthew Booth)\n"
 "\n"
 
 #. type: =head3
@@ -14020,8 +14010,7 @@ msgid ""
 "\n"
 msgstr ""
 "   - FEBOOTSTRAP_KERNEL, FEBOOTSTRAP_MODULES variables de entorno puede\n"
-"     ser especificadas en orden para elegir cual kernel a utilizar para el "
-"instrumento.\n"
+"     ser especificadas en orden para elegir cual kernel a utilizar para el instrumento.\n"
 "\n"
 
 #. type: =head3
@@ -23864,8 +23853,8 @@ msgid ""
 "left on device (28)\" is printed when specified \"-v -x\""
 msgstr ""
 "v2v cmd no puede salir y el \"block I/O error in device 'instrumento': no "
-"queda espacio en el dispositivo (28)\" está escrito cuando especifique \"-v -"
-"x\""
+"queda espacio en el dispositivo (28)\" está escrito cuando especifique \"-v "
+"-x\""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.34.pod:601
@@ -28504,7 +28493,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.44.pod:118
 #: docs/guestfs-release-notes-1.46.pod:234
-#: docs/guestfs-release-notes-1.60.pod:228
+#: docs/guestfs-release-notes-1.60.pod:234
 msgid "Hilko Bengen"
 msgstr ""
 
@@ -28525,7 +28514,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:171
 #: docs/guestfs-release-notes-1.56.pod:237
 #: docs/guestfs-release-notes-1.58.pod:287
-#: docs/guestfs-release-notes-1.60.pod:260
+#: docs/guestfs-release-notes-1.60.pod:266
 msgid "Yuri Chornoivan"
 msgstr ""
 
@@ -29664,7 +29653,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:203
-#: docs/guestfs-release-notes-1.60.pod:206
+#: docs/guestfs-release-notes-1.60.pod:210
 msgid "Adolfo Jayme Barrientos"
 msgstr ""
 
@@ -29677,7 +29666,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:207
 #: docs/guestfs-release-notes-1.52.pod:146
-#: docs/guestfs-release-notes-1.60.pod:218
+#: docs/guestfs-release-notes-1.60.pod:224
 msgid "Emilio Herrera"
 msgstr ""
 
@@ -29685,7 +29674,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.50.pod:209
 #: docs/guestfs-release-notes-1.56.pod:223
 #: docs/guestfs-release-notes-1.58.pod:277
-#: docs/guestfs-release-notes-1.60.pod:220
+#: docs/guestfs-release-notes-1.60.pod:226
 msgid "Ettore Atalan"
 msgstr ""
 
@@ -29696,14 +29685,14 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:213
-#: docs/guestfs-release-notes-1.60.pod:226
+#: docs/guestfs-release-notes-1.60.pod:232
 msgid "Hela Basa"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:215
 #: docs/guestfs-release-notes-1.52.pod:152
-#: docs/guestfs-release-notes-1.60.pod:230
+#: docs/guestfs-release-notes-1.60.pod:236
 msgid "Jan Kuparinen"
 msgstr ""
 
@@ -29731,27 +29720,27 @@ msgstr ""
 #: docs/guestfs-release-notes-1.50.pod:229
 #: docs/guestfs-release-notes-1.52.pod:158
 #: docs/guestfs-release-notes-1.58.pod:281
-#: docs/guestfs-release-notes-1.60.pod:238
+#: docs/guestfs-release-notes-1.60.pod:244
 msgid "Pavel Borecki"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:231
-#: docs/guestfs-release-notes-1.60.pod:240
+#: docs/guestfs-release-notes-1.60.pod:246
 msgid "Piotr Drąg"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:235
 #: docs/guestfs-release-notes-1.56.pod:233
-#: docs/guestfs-release-notes-1.60.pod:246
+#: docs/guestfs-release-notes-1.60.pod:252
 msgid "Ricky Tigg"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:237
 #: docs/guestfs-release-notes-1.52.pod:162
-#: docs/guestfs-release-notes-1.60.pod:256
+#: docs/guestfs-release-notes-1.60.pod:262
 msgid "Temuri Doghonadze"
 msgstr ""
 
@@ -29987,7 +29976,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.52.pod:148
-#: docs/guestfs-release-notes-1.60.pod:224
+#: docs/guestfs-release-notes-1.60.pod:230
 msgid "grimst"
 msgstr ""
 
@@ -30004,7 +29993,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.52.pod:164
-#: docs/guestfs-release-notes-1.60.pod:258
+#: docs/guestfs-release-notes-1.60.pod:264
 msgid "Tian Shixiong"
 msgstr ""
 
@@ -30247,7 +30236,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.54.pod:151
-#: docs/guestfs-release-notes-1.60.pod:210
+#: docs/guestfs-release-notes-1.60.pod:214
 msgid "Andi Chandler"
 msgstr ""
 
@@ -30288,7 +30277,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.54.pod:173
-#: docs/guestfs-release-notes-1.60.pod:262
+#: docs/guestfs-release-notes-1.60.pod:268
 msgid "zhanchun li"
 msgstr ""
 
@@ -30715,7 +30704,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:217
 #: docs/guestfs-release-notes-1.58.pod:275
-#: docs/guestfs-release-notes-1.60.pod:216
+#: docs/guestfs-release-notes-1.60.pod:220
 msgid "Cole Robinson"
 msgstr ""
 
@@ -30736,13 +30725,13 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:227
-#: docs/guestfs-release-notes-1.60.pod:232
+#: docs/guestfs-release-notes-1.60.pod:238
 msgid "Krascovict Petrov"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:229
-#: docs/guestfs-release-notes-1.60.pod:234
+#: docs/guestfs-release-notes-1.60.pod:240
 msgid "Léane GRASSER"
 msgstr ""
 
@@ -31233,19 +31222,19 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.58.pod:279
-#: docs/guestfs-release-notes-1.60.pod:222
+#: docs/guestfs-release-notes-1.60.pod:228
 msgid "Fco. Javier F. Serrador"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.58.pod:285
-#: docs/guestfs-release-notes-1.60.pod:254
+#: docs/guestfs-release-notes-1.60.pod:260
 msgid "Susant Sahani"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.58.pod:293
-#: docs/guestfs-release-notes-1.60.pod:268
+#: docs/guestfs-release-notes-1.60.pod:274
 #, fuzzy
 #| msgid "Copyright (C) 2009-2020 Red Hat Inc."
 msgid "Copyright (C) 2009-2026 Red Hat Inc."
@@ -31480,8 +31469,7 @@ msgid ""
 " - $TMPDIR can be used to override almost all temporary directory usage.\n"
 "\n"
 msgstr ""
-" - $TMPDIR puede ser utilizado para anular casi todo el uso de directorios "
-"temporales.\n"
+" - $TMPDIR puede ser utilizado para anular casi todo el uso de directorios temporales.\n"
 "\n"
 
 #. type: verbatim
@@ -31790,7 +31778,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:91
+#: docs/guestfs-release-notes-1.60.pod:89
+msgid "Improve appliance support for Arch (David Runge)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:93
 msgid ""
 "Simplify qemu property testing.  Most of the code was eliminated completely, "
 "and also we no longer start up an empty guest when detecting if KVM is "
@@ -31799,24 +31792,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:96
+#: docs/guestfs-release-notes-1.60.pod:98
 msgid "Use I<-cpu max> on RISC-V (thanks Apache553)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:98
+#: docs/guestfs-release-notes-1.60.pod:100
 msgid "Very minimal support for Apple Filesystem (APFS) was added on Fedora."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:100
+#: docs/guestfs-release-notes-1.60.pod:102
 msgid ""
 "Many memory and file descriptor leaks found by Claude Code were fixed "
 "(shivanayak)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:103
+#: docs/guestfs-release-notes-1.60.pod:105
 msgid ""
 "In the libguestfs appliance, increase the number of pre-process memory "
 "maps.  This may allow xfs_repair to work on larger filesystems (Eric "
@@ -31824,7 +31817,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:107
+#: docs/guestfs-release-notes-1.60.pod:109
 msgid ""
 "Fix DHCP on fast machines by making it wait for an address when networking "
 "is enabled.  In addition use C<dhcpcd --debug> which makes it easier to see "
@@ -31832,62 +31825,67 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:111
+#: docs/guestfs-release-notes-1.60.pod:113
 msgid "Improvements to debug output (Surya Gupta, Srihari Parimi)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:113
+#: docs/guestfs-release-notes-1.60.pod:115
 msgid "Fix Fedora bin/sbin symlinking to be less noisy (Cole Robinson)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:115
+#: docs/guestfs-release-notes-1.60.pod:117
 msgid "Rewrite xfs_repair and luks_* implementations in the daemon in OCaml."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:121
+#: docs/guestfs-release-notes-1.60.pod:119
+msgid "Ensure fds 0, 1 and 2 are open when running subcommands."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:125
 #, fuzzy
 #| msgid "https_proxy= ./bugs-in-changelog.sh v1.40.0.."
 msgid "./bugs-in-changelog.sh v1.58.0.."
 msgstr "https_proxy= ./bugs-in-changelog.sh v1.40.0.."
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:127
+#: docs/guestfs-release-notes-1.60.pod:131
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/1598350>"
 msgid "L<https://issues.redhat.com/browse/RHEL-129145>"
 msgstr "L<https://bugzilla.redhat.com/1598350>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:129
+#: docs/guestfs-release-notes-1.60.pod:133
 msgid ""
 "RFE: Detect Windows Defender antivirus when enabled in default Windows 11 "
 "installs"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:131
+#: docs/guestfs-release-notes-1.60.pod:135
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/1703463>"
 msgid "L<https://issues.redhat.com/browse/RHEL-143673>"
 msgstr "L<https://bugzilla.redhat.com/1703463>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:133
+#: docs/guestfs-release-notes-1.60.pod:137
 msgid "Add new xfs_info2 API to expose XFS version information"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:135
+#: docs/guestfs-release-notes-1.60.pod:139
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/1703463>"
 msgid "L<https://issues.redhat.com/browse/RHEL-165220>"
 msgstr "L<https://bugzilla.redhat.com/1703463>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:137
+#: docs/guestfs-release-notes-1.60.pod:141
 msgid ""
 "virt-v2v with sun partition table and Veritas storage failed with: parted "
 "exited with status 1: Warning: The disk CHS geometry reported by the "
@@ -31895,64 +31893,64 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:139
+#: docs/guestfs-release-notes-1.60.pod:143
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/1596851>"
 msgid "L<https://issues.redhat.com/browse/RHEL-165677>"
 msgstr "L<https://bugzilla.redhat.com/1596851>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:141
+#: docs/guestfs-release-notes-1.60.pod:145
 msgid ""
 "Stop using xfs_repair -m because memory required scales with filesystem size "
 "and has sharp edges"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:143
+#: docs/guestfs-release-notes-1.60.pod:147
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/1575640>"
 msgid "L<https://issues.redhat.com/browse/RHEL-170864>"
 msgstr "L<https://bugzilla.redhat.com/1575640>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:145
-msgid "virt-v2v failing with binary LUKS keys [virt-v2v]"
-msgstr ""
-
-#. type: =item
-#: docs/guestfs-release-notes-1.60.pod:147
-#, fuzzy
-#| msgid "L<https://bugzilla.redhat.com/1691659>"
-msgid "L<https://issues.redhat.com/browse/RHEL-171895>"
-msgstr "L<https://bugzilla.redhat.com/1691659>"
-
-#. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:149
-msgid "virt-v2v failing with binary LUKS keys [libguestfs]"
+msgid "virt-v2v failing with binary LUKS keys [virt-v2v]"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:151
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/1691659>"
-msgid "L<https://issues.redhat.com/browse/RHEL-171896>"
+msgid "L<https://issues.redhat.com/browse/RHEL-171895>"
 msgstr "L<https://bugzilla.redhat.com/1691659>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:153
-msgid "virt-v2v failing with binary LUKS keys [guestfs-tools]"
+msgid "virt-v2v failing with binary LUKS keys [libguestfs]"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:155
+#, fuzzy
+#| msgid "L<https://bugzilla.redhat.com/1691659>"
+msgid "L<https://issues.redhat.com/browse/RHEL-171896>"
+msgstr "L<https://bugzilla.redhat.com/1691659>"
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:157
+msgid "virt-v2v failing with binary LUKS keys [guestfs-tools]"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:159
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/1580309>"
 msgid "L<https://issues.redhat.com/browse/RHEL-178287>"
 msgstr "L<https://bugzilla.redhat.com/1580309>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:157
+#: docs/guestfs-release-notes-1.60.pod:161
 msgid ""
 "virt-v2v fails during migration of RHEL 7 VMs due to XFS filesystem errors, "
 "potentially related to RHEL 10.1 xfs_repair running against a RHEL 7 XFS "
@@ -31960,110 +31958,115 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:159
+#: docs/guestfs-release-notes-1.60.pod:163
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/1598715>"
 msgid "L<https://issues.redhat.com/browse/RHEL-178556>"
 msgstr "L<https://bugzilla.redhat.com/1598715>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:161
+#: docs/guestfs-release-notes-1.60.pod:165
 msgid ""
 "Use bind mount to overwrite /sysroot/etc/resolv.conf during \"sh\" operations"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:163
+#: docs/guestfs-release-notes-1.60.pod:167
 msgid "L<https://github.com/libguestfs/libguestfs/issues/290>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:165
+#: docs/guestfs-release-notes-1.60.pod:169
 msgid "1.58.0: undefined reference to optgroup_selinuxrelabel_available"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:167
+#: docs/guestfs-release-notes-1.60.pod:171
 msgid "L<https://github.com/libguestfs/libguestfs/issues/292>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:169
+#: docs/guestfs-release-notes-1.60.pod:173
 msgid "guestfs_int_get_cpu_model: use -cpu max for riscv"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:171
+#: docs/guestfs-release-notes-1.60.pod:175
 msgid "L<https://github.com/libguestfs/libguestfs/issues/312>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:173
+#: docs/guestfs-release-notes-1.60.pod:177
 msgid "switch to po4a"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:175
+#: docs/guestfs-release-notes-1.60.pod:179
 msgid "L<https://github.com/libguestfs/libguestfs/issues/336>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:177
+#: docs/guestfs-release-notes-1.60.pod:181
 msgid "flaky test network/test-network.sh"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:179
+#: docs/guestfs-release-notes-1.60.pod:183
 msgid "L<https://github.com/libguestfs/libguestfs/issues/359>"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:181
+#: docs/guestfs-release-notes-1.60.pod:185
 msgid "1.58.1: The Lua bindings link against libxml2 but don't seem to use it"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:200
+#: docs/guestfs-release-notes-1.60.pod:204
 msgid "git shortlog -s v1.58.0.."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:208
+#: docs/guestfs-release-notes-1.60.pod:212
 msgid "Anders Roxell"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:212
+#: docs/guestfs-release-notes-1.60.pod:216
 msgid "Arif Budiman"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:214
+#: docs/guestfs-release-notes-1.60.pod:218
 msgid "Christopher Byrne"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:236
-msgid "Nathan95"
+#: docs/guestfs-release-notes-1.60.pod:222
+msgid "David Runge"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:242
-msgid "Rafael Fontenelle"
+msgid "Nathan95"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:248
+msgid "Rafael Fontenelle"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:254
 msgid "shivanayak"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:250
+#: docs/guestfs-release-notes-1.60.pod:256
 msgid "Srihari Parimi"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:252
+#: docs/guestfs-release-notes-1.60.pod:258
 msgid "Surya Gupta"
 msgstr ""
 
@@ -33927,7 +33930,8 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-testing.pod:278
 msgid "List all Unix domain sockets in a Linux virtual machine:"
-msgstr "Enumere todos los sockets de dominio Unix en una máquina virtual Linux:"
+msgstr ""
+"Enumere todos los sockets de dominio Unix en una máquina virtual Linux:"
 
 #. type: verbatim
 #: docs/guestfs-testing.pod:280
@@ -66807,8 +66811,8 @@ msgstr ""
 #: fish/guestfish.pod:323
 msgid "Using this flag is equivalent to using the C<mount-options> command."
 msgstr ""
-"Utilizando este indicador es equivalente a utilizar la orden C<mount-options>"
-"."
+"Utilizando este indicador es equivalente a utilizar la orden C<mount-"
+"options>."
 
 #. type: textblock
 #: fish/guestfish.pod:325 fuse/guestmount.pod:275 rescue/virt-rescue.pod:220
@@ -68387,8 +68391,7 @@ msgstr ""
 " GUESTFISH_PID=\n"
 " eval $(\"${guestfish[@]}\")\n"
 " if [ -z \"$GUESTFISH_PID\" ]; then\n"
-"     echo \"error: guestfish no arrancado, consulte mensajes de error "
-"arriba\"\n"
+"     echo \"error: guestfish no arrancado, consulte mensajes de error arriba\"\n"
 "     exit 1\n"
 " fi\n"
 " \n"
@@ -70482,7 +70485,8 @@ msgstr ""
 #. type: textblock
 #: fuse/guestmount.pod:173 rescue/virt-rescue.pod:109
 msgid "Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>."
-msgstr "Añade un disco remoto.  Consulte L<guestfish(1)/ADDING REMOTE STORAGE>."
+msgstr ""
+"Añade un disco remoto.  Consulte L<guestfish(1)/ADDING REMOTE STORAGE>."
 
 #. type: =item
 #: fuse/guestmount.pod:195
@@ -74158,8 +74162,7 @@ msgstr ""
 " guestfs_copy_file_to_file_argv (guestfs_h *g,\n"
 "                                 const char *src,\n"
 "                                 const char *dest,\n"
-"                                 const struct guestfs_copy_file_to_file_argv "
-"*optargs);\n"
+"                                 const struct guestfs_copy_file_to_file_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -75200,8 +75203,7 @@ msgstr ""
 "                                   const char *ctype,\n"
 "                                   const char *device,\n"
 "                                   const char *zdevice,\n"
-"                                   const struct "
-"guestfs_compress_device_out_argv *optargs);\n"
+"                                   const struct guestfs_compress_device_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -75296,8 +75298,7 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs)"
-";\n"
+"                            const struct guestfs_compress_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -75449,10 +75450,10 @@ msgid ""
 "C<guestfs_copy_file_to_file> let you copy from a source (device|file) to a "
 "destination (device|file)."
 msgstr ""
-"Las llamadas C<guestfs_copy_device_to_device>, C<guestfs_copy_device_to_file>"
-", C<guestfs_copy_file_to_device>, y C<guestfs_copy_file_to_file> le permiten "
-"copiar desde un origen (dispositivo | archivo) hacia un destino (dispositivo "
-"| archivo)."
+"Las llamadas C<guestfs_copy_device_to_device>, "
+"C<guestfs_copy_device_to_file>, C<guestfs_copy_file_to_device>, y "
+"C<guestfs_copy_file_to_file> le permiten copiar desde un origen (dispositivo "
+"| archivo) hacia un destino (dispositivo | archivo)."
 
 #. type: textblock
 #: lib/guestfs-actions.pod:3176 lib/guestfs-actions.pod:3231
@@ -75509,8 +75510,7 @@ msgstr ""
 " guestfs_copy_device_to_device_argv (guestfs_h *g,\n"
 "                                     const char *src,\n"
 "                                     const char *dest,\n"
-"                                     const struct "
-"guestfs_copy_device_to_device_argv *optargs);\n"
+"                                     const struct guestfs_copy_device_to_device_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -75608,8 +75608,7 @@ msgstr ""
 " guestfs_copy_device_to_file_argv (guestfs_h *g,\n"
 "                                   const char *src,\n"
 "                                   const char *dest,\n"
-"                                   const struct "
-"guestfs_copy_device_to_file_argv *optargs);\n"
+"                                   const struct guestfs_copy_device_to_file_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -75700,8 +75699,7 @@ msgstr ""
 " guestfs_copy_file_to_device_argv (guestfs_h *g,\n"
 "                                   const char *src,\n"
 "                                   const char *dest,\n"
-"                                   const struct "
-"guestfs_copy_file_to_device_argv *optargs);\n"
+"                                   const struct guestfs_copy_file_to_device_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -75800,8 +75798,7 @@ msgstr ""
 " guestfs_copy_file_to_file_argv (guestfs_h *g,\n"
 "                                 const char *src,\n"
 "                                 const char *dest,\n"
-"                                 const struct guestfs_copy_file_to_file_argv "
-"*optargs);\n"
+"                                 const struct guestfs_copy_file_to_file_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -76229,8 +76226,7 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs)"
-";\n"
+"                            const struct guestfs_compress_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -84417,8 +84413,7 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs)"
-";\n"
+"                            const struct guestfs_compress_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -87296,8 +87291,7 @@ msgstr ""
 " guestfs_copy_file_to_file_argv (guestfs_h *g,\n"
 "                                 const char *src,\n"
 "                                 const char *dest,\n"
-"                                 const struct guestfs_copy_file_to_file_argv "
-"*optargs);\n"
+"                                 const struct guestfs_copy_file_to_file_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -99270,8 +99264,8 @@ msgid ""
 msgstr ""
 "Si tiene imágenes en disco invitado en formato raw en las que no "
 "confíe,debería usar esta opción para especificar el formato del disco. Esto "
-"evita un posible probable de seguridad con invitados maliciosos (CVE-2010-"
-"3851)."
+"evita un posible probable de seguridad con invitados maliciosos "
+"(CVE-2010-3851)."
 
 #. type: textblock
 #: rescue/virt-rescue.pod:189

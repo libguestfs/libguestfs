@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.49.1\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-07-03 09:02+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-07-13 14:09+0100\n"
 "PO-Revision-Date: 2026-07-13 13:49+0000\n"
 "Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
@@ -196,7 +196,8 @@ msgstr "libvirt-თან მიერთების შეცდომა (კ
 #: common/parallel/domains.c:114
 #, c-format
 msgid "could not get number of running domains (code %d, domain %d): %s"
-msgstr "გაშვებული დომენების რაოდენობის მიღების შეცდომა (კოდი %d, დომენი %d): %s"
+msgstr ""
+"გაშვებული დომენების რაოდენობის მიღების შეცდომა (კოდი %d, დომენი %d): %s"
 
 #: common/parallel/domains.c:125
 #, c-format

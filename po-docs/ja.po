@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2026-07-09 08:20+0100\n"
+"POT-Creation-Date: 2026-07-14 14:59+0100\n"
 "PO-Revision-Date: 2026-07-13 12:28+0000\n"
 "Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
 "Language-Team: Japanese <https://translate.fedoraproject.org/projects/"
@@ -64,8 +64,8 @@ msgstr "名前"
 msgid ""
 "libguestfs-make-fixed-appliance - Make a \"fixed appliance\" for libguestfs"
 msgstr ""
-"libguestfs-make-fixed-appliance - libguestfs 向け \"fixed appliance\" (固定"
-"アプライアンス) を作成します"
+"libguestfs-make-fixed-appliance - libguestfs 向け \"fixed appliance\" (固定ア"
+"プライアンス) を作成します"
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:5 daemon/guestfsd.pod:5
@@ -379,8 +379,8 @@ msgid ""
 "The output directory is created if it does not exist.  Four files are "
 "created in this directory:"
 msgstr ""
-"出力ディレクトリーが存在しなければ、作成されます。4 つのファイルがこの"
-"ディレクトリーに作成されます:"
+"出力ディレクトリーが存在しなければ、作成されます。4 つのファイルがこのディレ"
+"クトリーに作成されます:"
 
 #. type: verbatim
 #: appliance/libguestfs-make-fixed-appliance.pod:61
@@ -437,7 +437,8 @@ msgstr ""
 #. type: textblock
 #: appliance/libguestfs-make-fixed-appliance.pod:80
 msgid "This creates a tarball in the I<current> directory called:"
-msgstr "これは呼び出した I<カレント> ディレクトリーに tar ファイルを作成します:"
+msgstr ""
+"これは呼び出した I<カレント> ディレクトリーに tar ファイルを作成します:"
 
 #. type: verbatim
 #: appliance/libguestfs-make-fixed-appliance.pod:82
@@ -622,7 +623,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:196
 #: docs/guestfs-release-notes-1.58.pod:252
 #: docs/guestfs-release-notes-1.6.pod:170
-#: docs/guestfs-release-notes-1.60.pod:185
+#: docs/guestfs-release-notes-1.60.pod:189
 #: docs/guestfs-release-notes-1.8.pod:145 docs/guestfs-release-notes.pod:153
 #: docs/guestfs-security.pod:437 docs/guestfs-testing.pod:395
 #: erlang/examples/guestfs-erlang.pod:95 examples/guestfs-examples.pod:55
@@ -658,7 +659,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:139
 #: docs/guestfs-release-notes-1.56.pod:207
 #: docs/guestfs-release-notes-1.58.pod:263
-#: docs/guestfs-release-notes-1.60.pod:196 docs/guestfs-security.pod:445
+#: docs/guestfs-release-notes-1.60.pod:200 docs/guestfs-security.pod:445
 #: docs/guestfs-testing.pod:402 erlang/examples/guestfs-erlang.pod:110
 #: examples/guestfs-examples.pod:69 fish/guestfish.pod:1636
 #: fish/libguestfs-tools.conf.pod:96 fish/virt-copy-in.pod:52
@@ -722,7 +723,7 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: docs/guestfs-release-notes-1.56.pod:241
 #: docs/guestfs-release-notes-1.58.pod:291
 #: docs/guestfs-release-notes-1.6.pod:185
-#: docs/guestfs-release-notes-1.60.pod:266
+#: docs/guestfs-release-notes-1.60.pod:272
 #: docs/guestfs-release-notes-1.8.pod:160 docs/guestfs-release-notes.pod:168
 #: docs/guestfs-security.pod:449 docs/guestfs-testing.pod:406
 #: erlang/examples/guestfs-erlang.pod:114 examples/guestfs-examples.pod:73
@@ -843,10 +844,10 @@ msgstr "Copyright (C) 2010-2012 Red Hat Inc."
 #: docs/guestfs-release-notes-1.58.pod:185
 #: docs/guestfs-release-notes-1.58.pod:265
 #: docs/guestfs-release-notes-1.58.pod:269
-#: docs/guestfs-release-notes-1.60.pod:119
 #: docs/guestfs-release-notes-1.60.pod:123
-#: docs/guestfs-release-notes-1.60.pod:198
-#: docs/guestfs-release-notes-1.60.pod:202 fish/guestfish-actions.pod:1
+#: docs/guestfs-release-notes-1.60.pod:127
+#: docs/guestfs-release-notes-1.60.pod:202
+#: docs/guestfs-release-notes-1.60.pod:206 fish/guestfish-actions.pod:1
 #: fish/guestfish-actions.pod:25 fish/guestfish-commands.pod:1
 #: fish/guestfish-commands.pod:25 fish/guestfish-prepopts.pod:1
 #: fish/guestfish-prepopts.pod:25 lib/guestfs-actions.pod:1
@@ -4265,8 +4266,8 @@ msgid ""
 "L<https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
 msgstr ""
-"L<https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools>"
+"L<https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools>"
 
 #. type: textblock
 #: docs/guestfs-faq.pod:125
@@ -5338,7 +5339,8 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-faq.pod:617
 msgid "It is safe to delete this directory when you are not using libguestfs."
-msgstr "libguestfs を使用していないとき、このディレクトリーを安全に削除できます。"
+msgstr ""
+"libguestfs を使用していないとき、このディレクトリーを安全に削除できます。"
 
 #. type: =head2
 #: docs/guestfs-faq.pod:619
@@ -7338,7 +7340,8 @@ msgstr ""
 #: docs/guestfs-hacking.pod:189
 msgid ""
 "The daemon that runs inside the libguestfs appliance and carries out actions."
-msgstr "libguestfs アプライアンスの中で実行され、アクションを実行しているデーモン。"
+msgstr ""
+"libguestfs アプライアンスの中で実行され、アクションを実行しているデーモン。"
 
 #. type: =item
 #: docs/guestfs-hacking.pod:192
@@ -7413,8 +7416,8 @@ msgid ""
 "L<virt-tar-out(1)>."
 msgstr ""
 "L<guestfish(1)> コマンドラインシェル、および L<virt-copy-in(1)>, L<virt-copy-"
-"out(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)> のようなさまざまな"
-"シェルスクリプト。"
+"out(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)> のようなさまざまなシェルスクリ"
+"プト。"
 
 #. type: =item
 #: docs/guestfs-hacking.pod:222
@@ -7436,8 +7439,8 @@ msgstr ""
 msgid ""
 "L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs."
 msgstr ""
-"L<guestmount(1)>, libguestfs の上に組み立てられた FUSE (ユーザー空間"
-"ファイルシステム)。"
+"L<guestmount(1)>, libguestfs の上に組み立てられた FUSE (ユーザー空間ファイル"
+"システム)。"
 
 #. type: =item
 #: docs/guestfs-hacking.pod:230
@@ -7631,8 +7634,8 @@ msgstr ""
 msgid ""
 "Command line tools written in Perl (L<virt-win-reg(1)> and many others)."
 msgstr ""
-"Perl で書かれたコマンドラインツール (L<virt-win-reg(1)> および他の多くのもの)"
-"。"
+"Perl で書かれたコマンドラインツール (L<virt-win-reg(1)> および他の多くのも"
+"の)。"
 
 #. type: =item
 #: docs/guestfs-hacking.pod:309
@@ -7872,7 +7875,8 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-hacking.pod:428
 msgid "After making these changes, use C<make> to compile."
-msgstr "これらの変更をした後、コンパイルするために C<make> を使用してください。"
+msgstr ""
+"これらの変更をした後、コンパイルするために C<make> を使用してください。"
 
 #. type: textblock
 #: docs/guestfs-hacking.pod:430
@@ -7939,7 +7943,8 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-hacking.pod:460
 msgid "Used in a few tests where two block devices are needed."
-msgstr "2 つのブロックデバイスが必要となるいくつかのテストにおいて使用されます。"
+msgstr ""
+"2 つのブロックデバイスが必要となるいくつかのテストにおいて使用されます。"
 
 #. type: =item
 #: docs/guestfs-hacking.pod:462
@@ -8991,8 +8996,8 @@ msgid ""
 "Create new stable and development directories under L<http://libguestfs.org/"
 "download>."
 msgstr ""
-"L<http://libguestfs.org/download> の下に新しい安定版および開発版の"
-"ディレクトリーを作成します。"
+"L<http://libguestfs.org/download> の下に新しい安定版および開発版のディレクト"
+"リーを作成します。"
 
 #. type: textblock
 #: docs/guestfs-hacking.pod:970
@@ -9111,8 +9116,8 @@ msgid ""
 "process of the main program."
 msgstr ""
 "内部的に、libguestfs は L<qemu(1)> を使用してアプライアンス（特別な形式の小さ"
-"な仮想マシン）を実行することにより実装されます。QEMU はメインプログラムの子"
-"プロセスとして実行します。"
+"な仮想マシン）を実行することにより実装されます。QEMU はメインプログラムの子プ"
+"ロセスとして実行します。"
 
 #. type: verbatim
 #: docs/guestfs-internals.pod:17
@@ -9642,7 +9647,8 @@ msgstr ""
 msgid ""
 "The C<guestfs_message_error> structure contains the error message as a "
 "string."
-msgstr "C<guestfs_message_error> の構造は、文字列としてエラーメッセージを含みます。"
+msgstr ""
+"C<guestfs_message_error> の構造は、文字列としてエラーメッセージを含みます。"
 
 #. type: =head3
 #: docs/guestfs-internals.pod:276
@@ -10186,7 +10192,8 @@ msgstr ""
 msgid ""
 "(For detailed information on this subject, see: L<libguestfs-make-fixed-"
 "appliance(1)>)."
-msgstr "(この話題の詳細は L<libguestfs-make-fixed-appliance(1)> を参照してください)。"
+msgstr ""
+"(この話題の詳細は L<libguestfs-make-fixed-appliance(1)> を参照してください)。"
 
 #. type: =head2
 #: docs/guestfs-performance.pod:156
@@ -10895,8 +10902,8 @@ msgid ""
 "be substantially different for each version of Windows."
 msgstr ""
 "以下のリンクは、Windows XP 仮想マシンのユーザーの背景画像を変更するために "
-"L<guestfish(1)> を使用する方法について説明しています。残念ながら、この"
-"テクニックは Windows のバージョンによりわずかに異なります。"
+"L<guestfish(1)> を使用する方法について説明しています。残念ながら、このテク"
+"ニックは Windows のバージョンによりわずかに異なります。"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:40
@@ -10987,8 +10994,9 @@ msgid ""
 "Use a combination of tools like L<cp(1)>, L<dd(1)>, and virt tools like "
 "L<virt-sysprep(1)>, L<virt-sparsify(1)> and L<virt-resize(1)>."
 msgstr ""
-"L<cp(1)>, L<dd(1)>, and virt tools like L<virt-sysprep(1)>, L<virt-sparsify"
-"(1)> および L<virt-resize(1)> のようなツールの組み合わせを使用します。"
+"L<cp(1)>, L<dd(1)>, and virt tools like L<virt-sysprep(1)>, L<virt-"
+"sparsify(1)> および L<virt-resize(1)> のようなツールの組み合わせを使用しま"
+"す。"
 
 #. type: =head1
 #: docs/guestfs-recipes.pod:71
@@ -11185,8 +11193,8 @@ msgid ""
 "images.  The useful guide below explains the options available."
 msgstr ""
 "空のディスクイメージを作成するには L<guestfish(1)> の I<-N> オプションを使用"
-"することもできます。以下の有用なガイドが利用可能なオプションを説明しています"
-"。"
+"することもできます。以下の有用なガイドが利用可能なオプションを説明していま"
+"す。"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:155
@@ -11412,8 +11420,8 @@ msgstr ""
 #: docs/guestfs-recipes.pod:254
 msgid "Dump raw filesystem content from inside a disk image or VM"
 msgstr ""
-"ディスクイメージまたは仮想マシンの中にあるファイルシステムの内容をそのまま"
-"ダンプします"
+"ディスクイメージまたは仮想マシンの中にあるファイルシステムの内容をそのままダ"
+"ンプします"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:256
@@ -11462,8 +11470,8 @@ msgstr ""
 #: docs/guestfs-recipes.pod:268
 msgid "To list the filesystems in a disk image, use L<virt-filesystems(1)>."
 msgstr ""
-"ディスクイメージにあるファイルシステムを一覧表示するには L<virt-filesystems"
-"(1)> を使用します。"
+"ディスクイメージにあるファイルシステムを一覧表示するには L<virt-"
+"filesystems(1)> を使用します。"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:270
@@ -11566,13 +11574,14 @@ msgid ""
 "The final dot of the command is not a printing error.  It means we want to "
 "copy out to the current directory."
 msgstr ""
-"コマンドの最後のドットは表示エラーではありません。現在のディレクトリーに"
-"コピーしたいことを意味します。"
+"コマンドの最後のドットは表示エラーではありません。現在のディレクトリーにコ"
+"ピーしたいことを意味します。"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:319
 msgid "This creates a directory called C<home> under the current directory."
-msgstr "これは現在のディレクトリーに C<home> というディレクトリーを作成します。"
+msgstr ""
+"これは現在のディレクトリーに C<home> というディレクトリーを作成します。"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:323
@@ -11840,8 +11849,7 @@ msgstr ""
 " # xpath '//product_name' < xml\n"
 " Found 1 nodes:\n"
 " -- NODE --\n"
-" <product_name>Red Hat Enterprise Linux Server release 6.0 (Santiago)</"
-"product_name>\n"
+" <product_name>Red Hat Enterprise Linux Server release 6.0 (Santiago)</product_name>\n"
 "\n"
 
 #. type: =head1
@@ -11855,8 +11863,8 @@ msgid ""
 "The link below contains a program to print the default boot kernel for a "
 "Linux VM."
 msgstr ""
-"以下のリンクに Linux 仮想マシンのデフォルトの起動カーネルを表示するための"
-"プログラムがあります。"
+"以下のリンクに Linux 仮想マシンのデフォルトの起動カーネルを表示するためのプロ"
+"グラムがあります。"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:417
@@ -12197,7 +12205,8 @@ msgstr ""
 msgid ""
 "Make the file executable and then you can run it on any named virtual "
 "machine:"
-msgstr "ファイルを実行可能にして、あらゆる名前付き仮想マシンにおいて実行できます:"
+msgstr ""
+"ファイルを実行可能にして、あらゆる名前付き仮想マシンにおいて実行できます:"
 
 #. type: verbatim
 #: docs/guestfs-recipes.pod:579
@@ -12299,8 +12308,8 @@ msgid ""
 "on demand."
 msgstr ""
 "以下のリンクは、Windows 仮想マシンからサービスを、およびそれらのサービスが起"
-"動時に実行されるか必要に応じて読み込まれるかを一覧化するために使用できる"
-"スクリプトがあります。"
+"動時に実行されるか必要に応じて読み込まれるかを一覧化するために使用できるスク"
+"リプトがあります。"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:623
@@ -12345,7 +12354,8 @@ msgstr ""
 #. type: =head1
 #: docs/guestfs-recipes.pod:636
 msgid "Reading the Windows Event Log from Windows Vista (or later)"
-msgstr "Windows Vista （またそれ以降）から Windows のイベントログを読み出します"
+msgstr ""
+"Windows Vista （またそれ以降）から Windows のイベントログを読み出します"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:638
@@ -12403,9 +12413,9 @@ msgid ""
 "password from a Windows VM, or to be more precise, it gives you a command "
 "prompt the next time you log in which you can use to bypass any security:"
 msgstr ""
-"以下のリンクは、Windows 仮想マシンから管理者パスワードを削除するための"
-"テクニックを含みます。または、より精細にするために、セキュリティを迂回するた"
-"めに使用でき、次回ログイン時にコマンドプロンプトを出します:"
+"以下のリンクは、Windows 仮想マシンから管理者パスワードを削除するためのテク"
+"ニックを含みます。または、より精細にするために、セキュリティを迂回するために"
+"使用でき、次回ログイン時にコマンドプロンプトを出します:"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:660
@@ -12475,8 +12485,8 @@ msgid ""
 "The link below contains general tips on uploading (copying in)  and "
 "downloading (copying out) files from VMs."
 msgstr ""
-"以下のリンクは、仮想マシンにファイルをアップロード、および仮想マシンから"
-"ファイルをダウンロードすることに関する、一般的なヒントがあります。"
+"以下のリンクは、仮想マシンにファイルをアップロード、および仮想マシンからファ"
+"イルをダウンロードすることに関する、一般的なヒントがあります。"
 
 #. type: textblock
 #: docs/guestfs-recipes.pod:685
@@ -12586,8 +12596,8 @@ msgid ""
 "ruby(3)>, L<http://libguestfs.org/>."
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.10.pod:3 docs/guestfs-release-notes-1.12.pod:3
@@ -12999,7 +13009,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:92
 #: docs/guestfs-release-notes-1.58.pod:105
 #: docs/guestfs-release-notes-1.6.pod:119
-#: docs/guestfs-release-notes-1.60.pod:89
+#: docs/guestfs-release-notes-1.60.pod:91
 #: docs/guestfs-release-notes-1.8.pod:101
 msgid "Internals"
 msgstr "内部"
@@ -13076,7 +13086,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:118
 #: docs/guestfs-release-notes-1.58.pod:179
 #: docs/guestfs-release-notes-1.6.pod:135
-#: docs/guestfs-release-notes-1.60.pod:117
+#: docs/guestfs-release-notes-1.60.pod:121
 #: docs/guestfs-release-notes-1.8.pod:136
 msgid "Bugs fixed"
 msgstr "バグ修正"
@@ -13135,7 +13145,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:198
 #: docs/guestfs-release-notes-1.58.pod:254
 #: docs/guestfs-release-notes-1.6.pod:172
-#: docs/guestfs-release-notes-1.60.pod:187
+#: docs/guestfs-release-notes-1.60.pod:191
 #: docs/guestfs-release-notes-1.8.pod:147 docs/guestfs-release-notes.pod:155
 msgid ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
@@ -13143,8 +13153,8 @@ msgid ""
 "L<guestfish(1)>, L<http://libguestfs.org/>"
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.10.pod:158
@@ -13174,7 +13184,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:231
 #: docs/guestfs-release-notes-1.58.pod:283
 #: docs/guestfs-release-notes-1.6.pod:183
-#: docs/guestfs-release-notes-1.60.pod:244
+#: docs/guestfs-release-notes-1.60.pod:250
 #: docs/guestfs-release-notes-1.8.pod:158 docs/guestfs-release-notes.pod:166
 msgid "Richard W.M. Jones"
 msgstr "Richard W.M. Jones"
@@ -16478,7 +16488,8 @@ msgstr "libxml2 が libguestfs をビルドするために必要です。"
 #. type: textblock
 #: docs/guestfs-release-notes-1.22.pod:165
 msgid "The hivexregedit program (from hivex) is required to build from git."
-msgstr "(hivex の) hivexregedit プログラムが git からビルドするために必要です。"
+msgstr ""
+"(hivex の) hivexregedit プログラムが git からビルドするために必要です。"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.22.pod:167
@@ -28393,7 +28404,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.44.pod:118
 #: docs/guestfs-release-notes-1.46.pod:234
-#: docs/guestfs-release-notes-1.60.pod:228
+#: docs/guestfs-release-notes-1.60.pod:234
 msgid "Hilko Bengen"
 msgstr ""
 
@@ -28414,7 +28425,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:171
 #: docs/guestfs-release-notes-1.56.pod:237
 #: docs/guestfs-release-notes-1.58.pod:287
-#: docs/guestfs-release-notes-1.60.pod:260
+#: docs/guestfs-release-notes-1.60.pod:266
 msgid "Yuri Chornoivan"
 msgstr ""
 
@@ -29551,7 +29562,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:203
-#: docs/guestfs-release-notes-1.60.pod:206
+#: docs/guestfs-release-notes-1.60.pod:210
 msgid "Adolfo Jayme Barrientos"
 msgstr ""
 
@@ -29564,7 +29575,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:207
 #: docs/guestfs-release-notes-1.52.pod:146
-#: docs/guestfs-release-notes-1.60.pod:218
+#: docs/guestfs-release-notes-1.60.pod:224
 msgid "Emilio Herrera"
 msgstr ""
 
@@ -29572,7 +29583,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.50.pod:209
 #: docs/guestfs-release-notes-1.56.pod:223
 #: docs/guestfs-release-notes-1.58.pod:277
-#: docs/guestfs-release-notes-1.60.pod:220
+#: docs/guestfs-release-notes-1.60.pod:226
 msgid "Ettore Atalan"
 msgstr ""
 
@@ -29583,14 +29594,14 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:213
-#: docs/guestfs-release-notes-1.60.pod:226
+#: docs/guestfs-release-notes-1.60.pod:232
 msgid "Hela Basa"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:215
 #: docs/guestfs-release-notes-1.52.pod:152
-#: docs/guestfs-release-notes-1.60.pod:230
+#: docs/guestfs-release-notes-1.60.pod:236
 msgid "Jan Kuparinen"
 msgstr ""
 
@@ -29618,27 +29629,27 @@ msgstr ""
 #: docs/guestfs-release-notes-1.50.pod:229
 #: docs/guestfs-release-notes-1.52.pod:158
 #: docs/guestfs-release-notes-1.58.pod:281
-#: docs/guestfs-release-notes-1.60.pod:238
+#: docs/guestfs-release-notes-1.60.pod:244
 msgid "Pavel Borecki"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:231
-#: docs/guestfs-release-notes-1.60.pod:240
+#: docs/guestfs-release-notes-1.60.pod:246
 msgid "Piotr Drąg"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:235
 #: docs/guestfs-release-notes-1.56.pod:233
-#: docs/guestfs-release-notes-1.60.pod:246
+#: docs/guestfs-release-notes-1.60.pod:252
 msgid "Ricky Tigg"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:237
 #: docs/guestfs-release-notes-1.52.pod:162
-#: docs/guestfs-release-notes-1.60.pod:256
+#: docs/guestfs-release-notes-1.60.pod:262
 msgid "Temuri Doghonadze"
 msgstr ""
 
@@ -29876,7 +29887,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.52.pod:148
-#: docs/guestfs-release-notes-1.60.pod:224
+#: docs/guestfs-release-notes-1.60.pod:230
 msgid "grimst"
 msgstr ""
 
@@ -29893,7 +29904,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.52.pod:164
-#: docs/guestfs-release-notes-1.60.pod:258
+#: docs/guestfs-release-notes-1.60.pod:264
 msgid "Tian Shixiong"
 msgstr ""
 
@@ -30143,7 +30154,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.54.pod:151
-#: docs/guestfs-release-notes-1.60.pod:210
+#: docs/guestfs-release-notes-1.60.pod:214
 msgid "Andi Chandler"
 msgstr ""
 
@@ -30184,7 +30195,7 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.54.pod:173
-#: docs/guestfs-release-notes-1.60.pod:262
+#: docs/guestfs-release-notes-1.60.pod:268
 msgid "zhanchun li"
 msgstr ""
 
@@ -30629,7 +30640,7 @@ msgstr ""
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:217
 #: docs/guestfs-release-notes-1.58.pod:275
-#: docs/guestfs-release-notes-1.60.pod:216
+#: docs/guestfs-release-notes-1.60.pod:220
 msgid "Cole Robinson"
 msgstr ""
 
@@ -30650,13 +30661,13 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:227
-#: docs/guestfs-release-notes-1.60.pod:232
+#: docs/guestfs-release-notes-1.60.pod:238
 msgid "Krascovict Petrov"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:229
-#: docs/guestfs-release-notes-1.60.pod:234
+#: docs/guestfs-release-notes-1.60.pod:240
 msgid "Léane GRASSER"
 msgstr ""
 
@@ -31150,19 +31161,19 @@ msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.58.pod:279
-#: docs/guestfs-release-notes-1.60.pod:222
+#: docs/guestfs-release-notes-1.60.pod:228
 msgid "Fco. Javier F. Serrador"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.58.pod:285
-#: docs/guestfs-release-notes-1.60.pod:254
+#: docs/guestfs-release-notes-1.60.pod:260
 msgid "Susant Sahani"
 msgstr ""
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.58.pod:293
-#: docs/guestfs-release-notes-1.60.pod:268
+#: docs/guestfs-release-notes-1.60.pod:274
 #, fuzzy
 #| msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgid "Copyright (C) 2009-2026 Red Hat Inc."
@@ -31710,7 +31721,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:91
+#: docs/guestfs-release-notes-1.60.pod:89
+msgid "Improve appliance support for Arch (David Runge)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:93
 msgid ""
 "Simplify qemu property testing.  Most of the code was eliminated completely, "
 "and also we no longer start up an empty guest when detecting if KVM is "
@@ -31719,24 +31735,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:96
+#: docs/guestfs-release-notes-1.60.pod:98
 msgid "Use I<-cpu max> on RISC-V (thanks Apache553)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:98
+#: docs/guestfs-release-notes-1.60.pod:100
 msgid "Very minimal support for Apple Filesystem (APFS) was added on Fedora."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:100
+#: docs/guestfs-release-notes-1.60.pod:102
 msgid ""
 "Many memory and file descriptor leaks found by Claude Code were fixed "
 "(shivanayak)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:103
+#: docs/guestfs-release-notes-1.60.pod:105
 msgid ""
 "In the libguestfs appliance, increase the number of pre-process memory "
 "maps.  This may allow xfs_repair to work on larger filesystems (Eric "
@@ -31744,7 +31760,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:107
+#: docs/guestfs-release-notes-1.60.pod:109
 msgid ""
 "Fix DHCP on fast machines by making it wait for an address when networking "
 "is enabled.  In addition use C<dhcpcd --debug> which makes it easier to see "
@@ -31752,62 +31768,67 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:111
+#: docs/guestfs-release-notes-1.60.pod:113
 msgid "Improvements to debug output (Surya Gupta, Srihari Parimi)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:113
+#: docs/guestfs-release-notes-1.60.pod:115
 msgid "Fix Fedora bin/sbin symlinking to be less noisy (Cole Robinson)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:115
+#: docs/guestfs-release-notes-1.60.pod:117
 msgid "Rewrite xfs_repair and luks_* implementations in the daemon in OCaml."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:121
+#: docs/guestfs-release-notes-1.60.pod:119
+msgid "Ensure fds 0, 1 and 2 are open when running subcommands."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:125
 #, fuzzy
 #| msgid "./bugs-in-changelog.sh 1.20.0.."
 msgid "./bugs-in-changelog.sh v1.58.0.."
 msgstr "./bugs-in-changelog.sh 1.20.0.."
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:127
+#: docs/guestfs-release-notes-1.60.pod:131
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/860235>"
 msgid "L<https://issues.redhat.com/browse/RHEL-129145>"
 msgstr "L<https://bugzilla.redhat.com/860235>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:129
+#: docs/guestfs-release-notes-1.60.pod:133
 msgid ""
 "RFE: Detect Windows Defender antivirus when enabled in default Windows 11 "
 "installs"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:131
+#: docs/guestfs-release-notes-1.60.pod:135
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/1002032>"
 msgid "L<https://issues.redhat.com/browse/RHEL-143673>"
 msgstr "L<https://bugzilla.redhat.com/1002032>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:133
+#: docs/guestfs-release-notes-1.60.pod:137
 msgid "Add new xfs_info2 API to expose XFS version information"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:135
+#: docs/guestfs-release-notes-1.60.pod:139
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/1002032>"
 msgid "L<https://issues.redhat.com/browse/RHEL-165220>"
 msgstr "L<https://bugzilla.redhat.com/1002032>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:137
+#: docs/guestfs-release-notes-1.60.pod:141
 msgid ""
 "virt-v2v with sun partition table and Veritas storage failed with: parted "
 "exited with status 1: Warning: The disk CHS geometry reported by the "
@@ -31815,60 +31836,60 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:139
+#: docs/guestfs-release-notes-1.60.pod:143
 #, fuzzy
 msgid "L<https://issues.redhat.com/browse/RHEL-165677>"
 msgstr "L<https://bugzilla.redhat.com/914931>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:141
+#: docs/guestfs-release-notes-1.60.pod:145
 msgid ""
 "Stop using xfs_repair -m because memory required scales with filesystem size "
 "and has sharp edges"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:143
+#: docs/guestfs-release-notes-1.60.pod:147
 #, fuzzy
 #| msgid "L<https://bugzilla.redhat.com/912499>"
 msgid "L<https://issues.redhat.com/browse/RHEL-170864>"
 msgstr "L<https://bugzilla.redhat.com/912499>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:145
-msgid "virt-v2v failing with binary LUKS keys [virt-v2v]"
-msgstr ""
-
-#. type: =item
-#: docs/guestfs-release-notes-1.60.pod:147
-#, fuzzy
-msgid "L<https://issues.redhat.com/browse/RHEL-171895>"
-msgstr "L<https://bugzilla.redhat.com/913145>"
-
-#. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:149
-msgid "virt-v2v failing with binary LUKS keys [libguestfs]"
+msgid "virt-v2v failing with binary LUKS keys [virt-v2v]"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:151
 #, fuzzy
-msgid "L<https://issues.redhat.com/browse/RHEL-171896>"
+msgid "L<https://issues.redhat.com/browse/RHEL-171895>"
 msgstr "L<https://bugzilla.redhat.com/913145>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:153
-msgid "virt-v2v failing with binary LUKS keys [guestfs-tools]"
+msgid "virt-v2v failing with binary LUKS keys [libguestfs]"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:155
 #, fuzzy
+msgid "L<https://issues.redhat.com/browse/RHEL-171896>"
+msgstr "L<https://bugzilla.redhat.com/913145>"
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:157
+msgid "virt-v2v failing with binary LUKS keys [guestfs-tools]"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:159
+#, fuzzy
 msgid "L<https://issues.redhat.com/browse/RHEL-178287>"
 msgstr "L<https://bugzilla.redhat.com/847880>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:157
+#: docs/guestfs-release-notes-1.60.pod:161
 msgid ""
 "virt-v2v fails during migration of RHEL 7 VMs due to XFS filesystem errors, "
 "potentially related to RHEL 10.1 xfs_repair running against a RHEL 7 XFS "
@@ -31876,119 +31897,124 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:159
+#: docs/guestfs-release-notes-1.60.pod:163
 #, fuzzy
 msgid "L<https://issues.redhat.com/browse/RHEL-178556>"
 msgstr "L<https://bugzilla.redhat.com/1001875>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:161
+#: docs/guestfs-release-notes-1.60.pod:165
 msgid ""
 "Use bind mount to overwrite /sysroot/etc/resolv.conf during \"sh\" operations"
-msgstr ""
-
-#. type: =item
-#: docs/guestfs-release-notes-1.60.pod:163
-#, fuzzy
-#| msgid "L<https://lists.libguestfs.org>"
-msgid "L<https://github.com/libguestfs/libguestfs/issues/290>"
-msgstr "L<https://lists.libguestfs.org>"
-
-#. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:165
-msgid "1.58.0: undefined reference to optgroup_selinuxrelabel_available"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:167
 #, fuzzy
 #| msgid "L<https://lists.libguestfs.org>"
-msgid "L<https://github.com/libguestfs/libguestfs/issues/292>"
+msgid "L<https://github.com/libguestfs/libguestfs/issues/290>"
 msgstr "L<https://lists.libguestfs.org>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:169
-msgid "guestfs_int_get_cpu_model: use -cpu max for riscv"
+msgid "1.58.0: undefined reference to optgroup_selinuxrelabel_available"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:171
 #, fuzzy
 #| msgid "L<https://lists.libguestfs.org>"
-msgid "L<https://github.com/libguestfs/libguestfs/issues/312>"
+msgid "L<https://github.com/libguestfs/libguestfs/issues/292>"
 msgstr "L<https://lists.libguestfs.org>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:173
-msgid "switch to po4a"
+msgid "guestfs_int_get_cpu_model: use -cpu max for riscv"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:175
 #, fuzzy
 #| msgid "L<https://lists.libguestfs.org>"
-msgid "L<https://github.com/libguestfs/libguestfs/issues/336>"
+msgid "L<https://github.com/libguestfs/libguestfs/issues/312>"
 msgstr "L<https://lists.libguestfs.org>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:177
-msgid "flaky test network/test-network.sh"
+msgid "switch to po4a"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:179
 #, fuzzy
 #| msgid "L<https://lists.libguestfs.org>"
-msgid "L<https://github.com/libguestfs/libguestfs/issues/359>"
+msgid "L<https://github.com/libguestfs/libguestfs/issues/336>"
 msgstr "L<https://lists.libguestfs.org>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.60.pod:181
+msgid "flaky test network/test-network.sh"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:183
+#, fuzzy
+#| msgid "L<https://lists.libguestfs.org>"
+msgid "L<https://github.com/libguestfs/libguestfs/issues/359>"
+msgstr "L<https://lists.libguestfs.org>"
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:185
 msgid "1.58.1: The Lua bindings link against libxml2 but don't seem to use it"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:200
+#: docs/guestfs-release-notes-1.60.pod:204
 msgid "git shortlog -s v1.58.0.."
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:208
+#: docs/guestfs-release-notes-1.60.pod:212
 msgid "Anders Roxell"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:212
+#: docs/guestfs-release-notes-1.60.pod:216
 msgid "Arif Budiman"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:214
+#: docs/guestfs-release-notes-1.60.pod:218
 msgid "Christopher Byrne"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:236
-msgid "Nathan95"
+#: docs/guestfs-release-notes-1.60.pod:222
+msgid "David Runge"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:242
-msgid "Rafael Fontenelle"
+msgid "Nathan95"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:248
+msgid "Rafael Fontenelle"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:254
 msgid "shivanayak"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:250
+#: docs/guestfs-release-notes-1.60.pod:256
 msgid "Srihari Parimi"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:252
+#: docs/guestfs-release-notes-1.60.pod:258
 msgid "Surya Gupta"
 msgstr ""
 
@@ -32571,7 +32597,8 @@ msgstr "2009-09-13 (1.0.67)"
 #. type: textblock
 #: docs/guestfs-release-notes.pod:137
 msgid "L<https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html>"
-msgstr "L<https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html>"
+msgstr ""
+"L<https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html>"
 
 #. type: =item
 #: docs/guestfs-release-notes.pod:139
@@ -32780,11 +32807,11 @@ msgid ""
 "from a disk image and executes it locally, and no amount of protocol "
 "security will save you from the consequences."
 msgstr ""
-"プロトコルは、定義されたメッセージ上限容量を持つ RFC 4506 (XDR) に基づき、"
-"セキュアであるように設計されています。しかしながら、libguestfs を使用する"
-"プログラムは気をつけなければいけません - たとえば、ディスクイメージから"
-"バイナリーをダウンロードして、ローカルに実行するプログラムを書くことができま"
-"す。また、多くのプロトコルセキュリティは結果からあなたを保護しません。"
+"プロトコルは、定義されたメッセージ上限容量を持つ RFC 4506 (XDR) に基づき、セ"
+"キュアであるように設計されています。しかしながら、libguestfs を使用するプログ"
+"ラムは気をつけなければいけません - たとえば、ディスクイメージからバイナリーを"
+"ダウンロードして、ローカルに実行するプログラムを書くことができます。また、多"
+"くのプロトコルセキュリティは結果からあなたを保護しません。"
 
 #. type: =head2
 #: docs/guestfs-security.pod:115
@@ -33886,7 +33913,8 @@ msgstr "すべての仮想マシンにおいて virt-ls の監査機能を試し
 #. type: textblock
 #: docs/guestfs-testing.pod:270
 msgid "List all setuid or setgid programs in a Linux virtual machine:"
-msgstr "Linux 仮想マシンにある setuid または setgid プログラムを一覧表示します:"
+msgstr ""
+"Linux 仮想マシンにある setuid または setgid プログラムを一覧表示します:"
 
 #. type: verbatim
 #: docs/guestfs-testing.pod:272
@@ -34033,7 +34061,8 @@ msgstr "他のパーティションスキーマを試してください。例: I
 #. type: textblock
 #: docs/guestfs-testing.pod:313
 msgid "Try other filesystem formats, eg. I<--type=ntfs>, I<--type=ext2>."
-msgstr "他のファイルシステム形式を試してください。例: I<--type=ntfs>, I<--type=ext2>"
+msgstr ""
+"他のファイルシステム形式を試してください。例: I<--type=ntfs>, I<--type=ext2>"
 
 #. type: =head2
 #: docs/guestfs-testing.pod:315
@@ -34119,7 +34148,8 @@ msgstr "B<*> 仮想マシンのディスクをスパースにします。"
 #. type: textblock
 #: docs/guestfs-testing.pod:343
 msgid "Using L<virt-sparsify(1)>, make a disk image more sparse:"
-msgstr "L<virt-sparsify(1)> を使用して、ディスクイメージをよりスパースにします:"
+msgstr ""
+"L<virt-sparsify(1)> を使用して、ディスクイメージをよりスパースにします:"
 
 #. type: verbatim
 #: docs/guestfs-testing.pod:345
@@ -34229,8 +34259,8 @@ msgid ""
 "Use L<virt-win-reg(1)> to dump out the Windows Registry from any Windows "
 "guests that you have."
 msgstr ""
-"Windows 仮想マシンから Windows レジストリをダンプ出力するには L<virt-win-reg"
-"(1)> を使用します。"
+"Windows 仮想マシンから Windows レジストリをダンプ出力するには L<virt-win-"
+"reg(1)> を使用します。"
 
 #. type: verbatim
 #: docs/guestfs-testing.pod:381
@@ -34276,8 +34306,7 @@ msgid ""
 "   less\n"
 "\n"
 msgstr ""
-" virt-win-reg --unsafe-printable-strings WindowsGuest 'HKEY_USERS\\username' "
-"|\n"
+" virt-win-reg --unsafe-printable-strings WindowsGuest 'HKEY_USERS\\username' |\n"
 "   less\n"
 "\n"
 
@@ -44015,13 +44044,14 @@ msgid ""
 "C<Msg> is the error message (string) and C<Errno> is the Unix error "
 "(integer)."
 msgstr ""
-"C<Msg> はエラーメッセージ（文字列）です。C<Errno> は Unix エラー（整数）です"
-"。"
+"C<Msg> はエラーメッセージ（文字列）です。C<Errno> は Unix エラー（整数）で"
+"す。"
 
 #. type: textblock
 #: erlang/examples/guestfs-erlang.pod:68
 msgid "C<Errno> can be zero.  See L<guestfs(3)/guestfs_last_errno>."
-msgstr "C<Errno> は 0 の可能性があります。 L<guestfs(3)/guestfs_last_errno> 参照。"
+msgstr ""
+"C<Errno> は 0 の可能性があります。 L<guestfs(3)/guestfs_last_errno> 参照。"
 
 #. type: =item
 #: erlang/examples/guestfs-erlang.pod:70
@@ -44104,8 +44134,8 @@ msgid ""
 "www.erlang.org/>.  L<http://libguestfs.org/>."
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
 #: examples/guestfs-examples.pod:3
@@ -44290,8 +44320,8 @@ msgid ""
 "This function deletes the default POSIX Access Control List (ACL)  attached "
 "to directory C<dir>."
 msgstr ""
-"この関数はディレクトリー C<dir> に設定されている標準の POSIX アクセス制御"
-"リスト (ACL: Access Control List) を削除します。"
+"この関数はディレクトリー C<dir> に設定されている標準の POSIX アクセス制御リス"
+"ト (ACL: Access Control List) を削除します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:34 fish/guestfish-actions.pod:60
@@ -44745,8 +44775,8 @@ msgstr "他のオプション引数は直接 L</add-drive-opts> に渡されま�
 msgid ""
 "This command has one or more optional arguments.  See L</OPTIONAL ARGUMENTS>."
 msgstr ""
-"このコマンドは 1 つまたはそれ以上のオプション引数を持つ必要があります。 L</"
-"オプション引数> を参照してください。"
+"このコマンドは 1 つまたはそれ以上のオプション引数を持つ必要があります。 L</オ"
+"プション引数> を参照してください。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:213
@@ -45501,8 +45531,8 @@ msgid ""
 "On success this returns the number of nodes in C<expr>, or C<0> if C<expr> "
 "evaluates to something which is not a nodeset."
 msgstr ""
-"成功した場合、C<expr> にあるノード数が返されます。または、C<expr> が"
-"ノードセット以外のものであると評価された場合、C<0> が返されます。"
+"成功した場合、C<expr> にあるノード数が返されます。または、C<expr> がノード"
+"セット以外のものであると評価された場合、C<0> が返されます。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:564
@@ -46415,8 +46445,8 @@ msgid ""
 "This returns the size of sectors on a block device.  Usually 512, but can be "
 "larger for modern devices."
 msgstr ""
-"これはブロックデバイスのセクター容量を返します。通常は 512 ですが、最近の"
-"デバイスはより大きいかもしれません。"
+"これはブロックデバイスのセクター容量を返します。通常は 512 ですが、最近のデバ"
+"イスはより大きいかもしれません。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:940
@@ -46715,9 +46745,8 @@ msgid ""
 "Add the list of device(s) in C<devices> to the btrfs filesystem mounted at "
 "C<fs>.  If C<devices> is an empty list, this does nothing."
 msgstr ""
-"C<devices> にあるデバイスの一覧を C<fs> にマウントされた btrfs "
-"ファイルシステムに追加します。もし C<devices> が空の一覧ならば、何もしません"
-"。"
+"C<devices> にあるデバイスの一覧を C<fs> にマウントされた btrfs ファイルシステ"
+"ムに追加します。もし C<devices> が空の一覧ならば、何もしません。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:1054
@@ -46740,9 +46769,8 @@ msgid ""
 "Remove the C<devices> from the btrfs filesystem mounted at C<fs>.  If "
 "C<devices> is an empty list, this does nothing."
 msgstr ""
-"C<devices> にあるデバイスの一覧を C<fs> にマウントされた btrfs "
-"ファイルシステムから削除します。もし C<devices> が空の一覧ならば、何もしませ"
-"ん。"
+"C<devices> にあるデバイスの一覧を C<fs> にマウントされた btrfs ファイルシステ"
+"ムから削除します。もし C<devices> が空の一覧ならば、何もしません。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:1064
@@ -46920,8 +46948,8 @@ msgid ""
 "Used to check a btrfs filesystem, C<device> is the device file where the "
 "filesystem is stored."
 msgstr ""
-"btrfs ファイルシステムをチェックするために使用されると、C<device> は"
-"ファイルシステムが保存されているデバイスファイルです。"
+"btrfs ファイルシステムをチェックするために使用されると、C<device> はファイル"
+"システムが保存されているデバイスファイルです。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1145
@@ -47332,8 +47360,8 @@ msgid ""
 "Enable or disable the seeding feature of a device that contains a btrfs "
 "filesystem."
 msgstr ""
-"btrfs ファイルシステムを含むデバイスの seeding 機能を有効化または無効化します"
-"。"
+"btrfs ファイルシステムを含むデバイスの seeding 機能を有効化または無効化しま"
+"す。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:1334
@@ -47859,8 +47887,8 @@ msgstr ""
 msgid ""
 "This call computes the MD5, SHAx or CRC checksum of the file named C<path>."
 msgstr ""
-"この呼び出しは C<path> という名前のファイルの MD5, SHAx または CRC "
-"チェックサムを計算します。"
+"この呼び出しは C<path> という名前のファイルの MD5, SHAx または CRC チェックサ"
+"ムを計算します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1577 lib/guestfs-actions.pod:2629
@@ -47982,12 +48010,14 @@ msgstr "チェックサムは表示可能な文字列として返されます。
 #. type: textblock
 #: fish/guestfish-actions.pod:1622
 msgid "To get the checksum for a device, use L</checksum-device>."
-msgstr "デバイスのチェックサムを取得するには L</checksum-device> を使用します。"
+msgstr ""
+"デバイスのチェックサムを取得するには L</checksum-device> を使用します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1624
 msgid "To get the checksums for many files, use L</checksums-out>."
-msgstr "多くのファイルのチェックサムを取得するには L</checksums-out> を使用します。"
+msgstr ""
+"多くのファイルのチェックサムを取得するには L</checksums-out> を使用します。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:1626
@@ -48651,7 +48681,8 @@ msgstr ""
 #: fish/guestfish-actions.pod:1913 fish/guestfish-actions.pod:1922
 #: fish/guestfish-actions.pod:1931
 msgid "See L</copy-device-to-device> for a general overview of this call."
-msgstr "この呼び出しの一般的な概要は L</copy-device-to-device> を参照してください。"
+msgstr ""
+"この呼び出しの一般的な概要は L</copy-device-to-device> を参照してください。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:1918
@@ -49032,8 +49063,8 @@ msgid ""
 "This function takes a device name (eg. \"/dev/sdb\") and returns the index "
 "of the device in the list of devices."
 msgstr ""
-"この関数はデバイス名 (例: \"/dev/sdb\") を取得し、デバイスの一覧にある"
-"デバイスのインデックスを返します。"
+"この関数はデバイス名 (例: \"/dev/sdb\") を取得し、デバイスの一覧にあるデバイ"
+"スのインデックスを返します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:2111
@@ -49075,8 +49106,8 @@ msgid ""
 "This function takes a device index and returns the device name.  For example "
 "index C<0> will return the string C</dev/sda>."
 msgstr ""
-"この関数はデバイス名 (例: \"/dev/sdb\") を取得し、デバイスの一覧にある"
-"デバイスのインデックスを返します。"
+"この関数はデバイス名 (例: \"/dev/sdb\") を取得し、デバイスの一覧にあるデバイ"
+"スのインデックスを返します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:2124 lib/guestfs-actions.pod:3726
@@ -49112,7 +49143,8 @@ msgstr ""
 #, fuzzy
 #| msgid "This command runs the C<df> command to report disk space used."
 msgid "This command runs the L<df(1)> command to report disk space used."
-msgstr "このコマンドはディスク使用状況を報告するために C<df> コマンドを実行します。"
+msgstr ""
+"このコマンドはディスク使用状況を報告するために C<df> コマンドを実行します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:2135 fish/guestfish-actions.pod:2146
@@ -49143,8 +49175,8 @@ msgid ""
 "This command runs the C<df -h> command to report disk space used in human-"
 "readable format."
 msgstr ""
-"このコマンドはディスク使用状況を読みやすい形式で報告するために C<df -h> "
-"コマンドを実行します。"
+"このコマンドはディスク使用状況を読みやすい形式で報告するために C<df -h> コマ"
+"ンドを実行します。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:2150
@@ -50099,8 +50131,8 @@ msgid ""
 "This call uses the standard L<file(1)> command to determine the type or "
 "contents of the file."
 msgstr ""
-"この呼び出しは、ファイルの形式または内容を決定するために、標準的な L<file"
-"(1)> コマンドを使用します。"
+"この呼び出しは、ファイルの形式または内容を決定するために、標準的な "
+"L<file(1)> コマンドを使用します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:2595 lib/guestfs-actions.pod:4511
@@ -51448,8 +51480,8 @@ msgstr ""
 #: fish/guestfish-actions.pod:3198 lib/guestfs-actions.pod:5321
 msgid "Get the directory used by the handle to store the appliance cache."
 msgstr ""
-"アプライアンスのキャッシュを保存するために、ハンドルにより使用される"
-"ディレクトリーを取得します。"
+"アプライアンスのキャッシュを保存するために、ハンドルにより使用されるディレク"
+"トリーを取得します。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:3200
@@ -51600,7 +51632,8 @@ msgstr "'I'"
 #. type: textblock
 #: fish/guestfish-actions.pod:3270 lib/guestfs-actions.pod:5405
 msgid "(Directories only.)  The directory is using hashed trees."
-msgstr "(ディレクトリーのみ。)  ディレクトリーはハッシュツリーを使用しています。"
+msgstr ""
+"(ディレクトリーのみ。)  ディレクトリーはハッシュツリーを使用しています。"
 
 #. type: =item
 #: fish/guestfish-actions.pod:3272 lib/guestfs-actions.pod:5407
@@ -52004,7 +52037,8 @@ msgstr ""
 #: lib/guestfs-actions.pod:14019 lib/guestfs-actions.pod:14175
 msgid ""
 "For more information on the architecture of libguestfs, see L<guestfs(3)>."
-msgstr "libguestfs のアーキテクチャーの詳細は L<guestfs(3)> を参照してください。"
+msgstr ""
+"libguestfs のアーキテクチャーの詳細は L<guestfs(3)> を参照してください。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:3443
@@ -52246,8 +52280,8 @@ msgstr ""
 msgid ""
 "Get the directory used by the handle to store temporary socket and PID files."
 msgstr ""
-"アプライアンスのキャッシュを保存するために、ハンドルにより使用される"
-"ディレクトリーを取得します。"
+"アプライアンスのキャッシュを保存するために、ハンドルにより使用されるディレク"
+"トリーを取得します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3533
@@ -52544,8 +52578,7 @@ msgid ""
 " grep regex path [extended:true|false] [fixed:true|false] [insensitive:true|false] [compressed:true|false]\n"
 "\n"
 msgstr ""
-" grep regex path [extended:true|false] [fixed:true|false] "
-"[insensitive:true|false] [compressed:true|false]\n"
+" grep regex path [extended:true|false] [fixed:true|false] [insensitive:true|false] [compressed:true|false]\n"
 "\n"
 
 #. type: textblock
@@ -53291,9 +53324,9 @@ msgid ""
 "initrd.  We I<only> support the newer initramfs format (compressed cpio "
 "files)."
 msgstr ""
-"古い Linux カーネル (2.4 およびそれ以前) は initrd として圧縮 ext2 "
-"ファイルシステムを使用していました。新しい initramfs 形式 (圧縮 cpio "
-"ファイル) I<のみ> をサポートします。"
+"古い Linux カーネル (2.4 およびそれ以前) は initrd として圧縮 ext2 ファイルシ"
+"ステムを使用していました。新しい initramfs 形式 (圧縮 cpio ファイル) I<のみ> "
+"をサポートします。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:4052
@@ -53502,7 +53535,8 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:4154
 msgid "Remove a previously defined inotify watch.  See L</inotify-add-watch>."
-msgstr "前に定義された inotify ウォッチを削除します。 L</inotify-add-watch> 参照。"
+msgstr ""
+"前に定義された inotify ウォッチを削除します。 L</inotify-add-watch> 参照。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:4160
@@ -53620,7 +53654,8 @@ msgstr ""
 #: fish/guestfish-actions.pod:4194 lib/guestfs-actions.pod:6878
 msgid ""
 "This returns the distro (distribution) of the inspected operating system."
-msgstr "これは検査したオペレーティングシステムのディストリビューションを返します。"
+msgstr ""
+"これは検査したオペレーティングシステムのディストリビューションを返します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:4197 lib/guestfs-actions.pod:6881
@@ -56112,7 +56147,8 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:5438
 msgid "Do not call this.  See: L</shutdown> instead."
-msgstr "これを呼び出さないでください。代わりに L</shutdown> を参照してください。"
+msgstr ""
+"これを呼び出さないでください。代わりに L</shutdown> を参照してください。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:5440
@@ -56884,7 +56920,8 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:5805 lib/guestfs-actions.pod:9330
 msgid "This command creates a symbolic link using the C<ln -s> command."
-msgstr "このコマンドは C<ln -s> コマンドを使用してシンボリックリンクを作成します。"
+msgstr ""
+"このコマンドは C<ln -s> コマンドを使用してシンボリックリンクを作成します。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:5807
@@ -57864,8 +57901,7 @@ msgid ""
 " md-create name 'devices ...' [missingbitmap:N] [nrdevices:N] [spare:N] [chunk:N] [level:..]\n"
 "\n"
 msgstr ""
-" md-create name 'devices ...' [missingbitmap:N] [nrdevices:N] [spare:N] "
-"[chunk:N] [level:..]\n"
+" md-create name 'devices ...' [missingbitmap:N] [nrdevices:N] [spare:N] [chunk:N] [level:..]\n"
 "\n"
 
 #. type: textblock
@@ -57998,8 +58034,8 @@ msgid ""
 msgstr ""
 "RAID レベルです。次のどれかです: I<linear>, I<raid0>, I<0>, I<stripe>, "
 "I<raid1>, I<1>, I<mirror>, I<raid4>, I<4>, I<raid5>, I<5>, I<raid6>, I<6>, "
-"I<raid10>, I<10>。これらのいくつかは同じものを意味しています。将来さらなる"
-"レベルが追加される可能性があります。"
+"I<raid10>, I<10>。これらのいくつかは同じものを意味しています。将来さらなるレ"
+"ベルが追加される可能性があります。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:6351 lib/guestfs-actions.pod:10141
@@ -58360,17 +58396,7 @@ msgid ""
 " mke2fs device [blockscount:N] [blocksize:N] [fragsize:N] [blockspergroup:N] [numberofgroups:N] [bytesperinode:N] [inodesize:N] [journalsize:N] [numberofinodes:N] [stridesize:N] [stripewidth:N] [maxonlineresize:N] [reservedblockspercentage:N] [mmpupdateinterval:N] [journaldevice:..] [label:..] [lastmounteddir:..] [creatoros:..] [fstype:..] [usagetype:..] [uuid:..] [forcecreate:true|false] [writesbandgrouponly:true|false] [lazyitableinit:true|false] [lazyjournalinit:true|false] [testfs:true|false] [discard:true|false] [quotatype:true|false] [extent:true|false] [filetype:true|false] [flexbg:true|false] [hasjournal:true|false] [journaldev:true|false] [largefile:true|false] [quota:true|false] [resizeinode:true|false] [sparsesuper:true|false] [uninitbg:true|false]\n"
 "\n"
 msgstr ""
-" mke2fs device [blockscount:N] [blocksize:N] [fragsize:N] [blockspergroup:N] "
-"[numberofgroups:N] [bytesperinode:N] [inodesize:N] [journalsize:N] "
-"[numberofinodes:N] [stridesize:N] [stripewidth:N] [maxonlineresize:N] "
-"[reservedblockspercentage:N] [mmpupdateinterval:N] [journaldevice:..] "
-"[label:..] [lastmounteddir:..] [creatoros:..] [fstype:..] [usagetype:..] "
-"[uuid:..] [forcecreate:true|false] [writesbandgrouponly:true|false] "
-"[lazyitableinit:true|false] [lazyjournalinit:true|false] [testfs:true|false] "
-"[discard:true|false] [quotatype:true|false] [extent:true|false] "
-"[filetype:true|false] [flexbg:true|false] [hasjournal:true|false] "
-"[journaldev:true|false] [largefile:true|false] [quota:true|false] "
-"[resizeinode:true|false] [sparsesuper:true|false] [uninitbg:true|false]\n"
+" mke2fs device [blockscount:N] [blocksize:N] [fragsize:N] [blockspergroup:N] [numberofgroups:N] [bytesperinode:N] [inodesize:N] [journalsize:N] [numberofinodes:N] [stridesize:N] [stripewidth:N] [maxonlineresize:N] [reservedblockspercentage:N] [mmpupdateinterval:N] [journaldevice:..] [label:..] [lastmounteddir:..] [creatoros:..] [fstype:..] [usagetype:..] [uuid:..] [forcecreate:true|false] [writesbandgrouponly:true|false] [lazyitableinit:true|false] [lazyjournalinit:true|false] [testfs:true|false] [discard:true|false] [quotatype:true|false] [extent:true|false] [filetype:true|false] [flexbg:true|false] [hasjournal:true|false] [journaldev:true|false] [largefile:true|false] [quota:true|false] [resizeinode:true|false] [sparsesuper:true|false] [uninitbg:true|false]\n"
 "\n"
 
 #. type: textblock
@@ -58458,8 +58484,8 @@ msgid ""
 "This creates an ext2/3/4 filesystem on C<device> with an external journal on "
 "the journal labeled C<label>."
 msgstr ""
-"これは外部ジャーナルをジャーナルラベル C<label> に持つ ext2/3/4 "
-"ファイルシステムを C<device> に作成します。"
+"これは外部ジャーナルをジャーナルラベル C<label> に持つ ext2/3/4 ファイルシス"
+"テムを C<device> に作成します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:6546
@@ -58487,8 +58513,8 @@ msgid ""
 "This creates an ext2/3/4 filesystem on C<device> with an external journal on "
 "the journal with UUID C<uuid>."
 msgstr ""
-"これは外部ジャーナルを UUID C<uuid> のジャーナルに持つ ext2/3/4 "
-"ファイルシステムを C<device> に作成します。"
+"これは外部ジャーナルを UUID C<uuid> のジャーナルに持つ ext2/3/4 ファイルシス"
+"テムを C<device> に作成します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:6562
@@ -58524,7 +58550,8 @@ msgstr ""
 msgid ""
 "This creates an ext2 external journal on C<device>.  It is equivalent to the "
 "command:"
-msgstr "これは C<device> に ext2 外部ジャーナルを作成します。次のコマンドと同じです:"
+msgstr ""
+"これは C<device> に ext2 外部ジャーナルを作成します。次のコマンドと同じです:"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:6581 lib/guestfs-actions.pod:10555
@@ -58554,7 +58581,8 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:6594 lib/guestfs-actions.pod:10576
 msgid "This creates an ext2 external journal on C<device> with label C<label>."
-msgstr "これはラベル C<label> を持つ C<device> に ext2 外部ジャーナルを作成します。"
+msgstr ""
+"これはラベル C<label> を持つ C<device> に ext2 外部ジャーナルを作成します。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:6603
@@ -58644,9 +58672,9 @@ msgid ""
 "type, but typically they are C<1024>, C<2048> or C<4096> for Linux ext2/3 "
 "filesystems."
 msgstr ""
-"ファイルシステムのブロック容量です。サポートされるブロック容量は、"
-"ファイルシステムの形式に依存します。一般的に Linux ext2/3 ファイルシステムに"
-"は C<1024>, C<2048> または C<4096> です。"
+"ファイルシステムのブロック容量です。サポートされるブロック容量は、ファイルシ"
+"ステムの形式に依存します。一般的に Linux ext2/3 ファイルシステムには "
+"C<1024>, C<2048> または C<4096> です。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:6654 fish/guestfish-actions.pod:6693
@@ -58754,8 +58782,7 @@ msgid ""
 " mkfs-btrfs 'devices ...' [allocstart:N] [bytecount:N] [datatype:..] [leafsize:N] [label:..] [metadata:..] [nodesize:N] [sectorsize:N]\n"
 "\n"
 msgstr ""
-" mkfs-btrfs 'devices ...' [allocstart:N] [bytecount:N] [datatype:..] "
-"[leafsize:N] [label:..] [metadata:..] [nodesize:N] [sectorsize:N]\n"
+" mkfs-btrfs 'devices ...' [allocstart:N] [bytecount:N] [datatype:..] [leafsize:N] [label:..] [metadata:..] [nodesize:N] [sectorsize:N]\n"
 "\n"
 
 #. type: textblock
@@ -58773,8 +58800,8 @@ msgid ""
 "Since btrfs filesystems can span multiple devices, this takes a non-empty "
 "list of devices."
 msgstr ""
-"btrfs ファイルシステムは複数のデバイスを結合できるので、これは非空白の"
-"デバイス一覧をとります。"
+"btrfs ファイルシステムは複数のデバイスを結合できるので、これは非空白のデバイ"
+"ス一覧をとります。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:6713
@@ -59318,8 +59345,7 @@ msgid ""
 " mount-local localmountpoint [readonly:true|false] [options:..] [cachetimeout:N] [debugcalls:true|false]\n"
 "\n"
 msgstr ""
-" mount-local localmountpoint [readonly:true|false] [options:..] "
-"[cachetimeout:N] [debugcalls:true|false]\n"
+" mount-local localmountpoint [readonly:true|false] [options:..] [cachetimeout:N] [debugcalls:true|false]\n"
 "\n"
 
 #. type: textblock
@@ -59673,7 +59699,8 @@ msgstr ""
 msgid ""
 "To find out the maximum number of devices that could be added, call L</max-"
 "disks>."
-msgstr "追加できるデバイスの最大数を確認するには L</max-disks> を呼び出しください。"
+msgstr ""
+"追加できるデバイスの最大数を確認するには L</max-disks> を呼び出しください。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7143
@@ -59829,9 +59856,7 @@ msgid ""
 " ntfsclone-out device (backupfile|-) [metadataonly:true|false] [rescue:true|false] [ignorefscheck:true|false] [preservetimestamps:true|false] [force:true|false]\n"
 "\n"
 msgstr ""
-" ntfsclone-out device (backupfile|-) [metadataonly:true|false] "
-"[rescue:true|false] [ignorefscheck:true|false] "
-"[preservetimestamps:true|false] [force:true|false]\n"
+" ntfsclone-out device (backupfile|-) [metadataonly:true|false] [rescue:true|false] [ignorefscheck:true|false] [preservetimestamps:true|false] [force:true|false]\n"
 "\n"
 
 #. type: textblock
@@ -59863,7 +59888,8 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:7230
 msgid "Use L</ntfsclone-in> to restore the file back to a libguestfs device."
-msgstr "ファイルを libguestfs デバイスに復元するには L</ntfsclone-in> を使用します。"
+msgstr ""
+"ファイルを libguestfs デバイスに復元するには L</ntfsclone-in> を使用します。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7240
@@ -59887,9 +59913,9 @@ msgid ""
 "journal file, and schedules an NTFS consistency check for the first boot "
 "into Windows."
 msgstr ""
-"このコマンドは、いくつかの基本的な NTFS の不整合を修復し、 NTFS "
-"ジャーナルファイルをリセットし、次回 Windows 起動時に NTFS 完全性チェックを"
-"スケジュール化します。"
+"このコマンドは、いくつかの基本的な NTFS の不整合を修復し、 NTFS ジャーナル"
+"ファイルをリセットし、次回 Windows 起動時に NTFS 完全性チェックをスケジュール"
+"化します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7248 lib/guestfs-actions.pod:11797
@@ -59897,8 +59923,8 @@ msgid ""
 "This is I<not> an equivalent of Windows C<chkdsk>.  It does I<not> scan the "
 "filesystem for inconsistencies."
 msgstr ""
-"これは Windows の C<chkdsk> と同等では I<ありません> 。不整合に対して"
-"ファイルシステムをスキャン I<しません> 。"
+"これは Windows の C<chkdsk> と同等では I<ありません> 。不整合に対してファイル"
+"システムをスキャン I<しません> 。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7251 lib/guestfs-actions.pod:11800
@@ -59944,8 +59970,8 @@ msgid ""
 "The new size (in bytes) of the filesystem.  If omitted, the filesystem is "
 "resized to fit the container (eg. partition)."
 msgstr ""
-"ファイルシステムの新しい容量 (バイト単位)。省略されると、ファイルシステムは"
-"コンテナー (例: パーティション) に合うよう容量を変更されます。"
+"ファイルシステムの新しい容量 (バイト単位)。省略されると、ファイルシステムはコ"
+"ンテナー (例: パーティション) に合うよう容量を変更されます。"
 
 #. type: =item
 #: fish/guestfish-actions.pod:7277 fish/guestfish-actions.pod:9496
@@ -60142,7 +60168,8 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:7367 lib/guestfs-actions.pod:12016
 msgid "This command deletes the partition numbered C<partnum> on C<device>."
-msgstr "このコマンドは C<device> にある C<partnum> 番のパーティションを削除します。"
+msgstr ""
+"このコマンドは C<device> にある C<partnum> 番のパーティションを削除します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7369 lib/guestfs-actions.pod:12018
@@ -61802,8 +61829,8 @@ msgid ""
 "directory, or L</rm-rf> to remove directories recursively."
 msgstr ""
 "この呼び出しはディレクトリーを削除できません。空のディレクトリーを削除するに"
-"は L</rmdir> を、ディレクトリーを再帰的に削除するには L</rm-rf> を使用します"
-"。"
+"は L</rmdir> を、ディレクトリーを再帰的に削除するには L</rm-rf> を使用しま"
+"す。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:8086
@@ -62299,8 +62326,8 @@ msgid ""
 "This is enabled by default (since libguestfs 1.5.24, previously it was "
 "disabled by default)."
 msgstr ""
-"デフォルトで有効です（libguestfs 1.5.24 以降、以前は デフォルトで無効でした）"
-"。"
+"デフォルトで有効です（libguestfs 1.5.24 以降、以前は デフォルトで無効でし"
+"た）。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:8323
@@ -62916,7 +62943,8 @@ msgstr "C<external>"
 #. type: textblock
 #: fish/guestfish-actions.pod:8620 lib/guestfs-actions.pod:13997
 msgid "See libvirt documentation for the meaning of these credential types."
-msgstr "これらのクレデンシャル種別の意味は libvirt ドキュメントを参照してください。"
+msgstr ""
+"これらのクレデンシャル種別の意味は libvirt ドキュメントを参照してください。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:8624
@@ -63060,7 +63088,8 @@ msgstr ""
 msgid ""
 "If C<pgroup> is true, child processes are placed into their own process "
 "group."
-msgstr "C<pgroup> が真ならば、子プロセスは自身のプロセスグループの中に置かれます。"
+msgstr ""
+"C<pgroup> が真ならば、子プロセスは自身のプロセスグループの中に置かれます。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8678 lib/guestfs-actions.pod:14071
@@ -63457,7 +63486,8 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:8862 lib/guestfs-actions.pod:14313
 msgid "See the documentation about SELINUX in L<guestfs(3)>."
-msgstr "L<guestfs(3)> における SELinux に関するドキュメントを参照してください。"
+msgstr ""
+"L<guestfs(3)> における SELinux に関するドキュメントを参照してください。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:8874
@@ -63617,7 +63647,8 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:8958
 msgid "See also: L</sfdisk>, the L<sfdisk(8)> manpage and L</part-disk>"
-msgstr "関連項目: L</sfdisk>, L<sfdisk(8)> マニュアルページおよび L</part-disk>"
+msgstr ""
+"関連項目: L</sfdisk>, L<sfdisk(8)> マニュアルページおよび L</part-disk>"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:8968
@@ -63878,9 +63909,9 @@ msgid ""
 "error, which should I<not> be ignored (it may indicate that the disk image "
 "could not be written out properly)."
 msgstr ""
-"サブプロセスがエラーで終了すると、この関数はエラーを返します。これは（"
-"ディスクイメージが正しく書き出されていないことを意味する可能性があるので）無"
-"視すべき I<ではありません> 。"
+"サブプロセスがエラーで終了すると、この関数はエラーを返します。これは（ディス"
+"クイメージが正しく書き出されていないことを意味する可能性があるので）無視すべ"
+"き I<ではありません> 。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:9075 lib/guestfs-actions.pod:14639
@@ -64078,8 +64109,8 @@ msgstr "b"
 #: fish/guestfish-actions.pod:9159 lib/guestfs-actions.pod:14768
 msgid "16-bit big endian strings such as those encoded in UTF-16BE or UCS-2BE."
 msgstr ""
-"UTF-16BE や UCS-2BE でエンコードされたもののように 16 ビットの"
-"ビッグエンディアン文字列。"
+"UTF-16BE や UCS-2BE でエンコードされたもののように 16 ビットのビッグエンディ"
+"アン文字列。"
 
 #. type: =item
 #: fish/guestfish-actions.pod:9162 lib/guestfs-actions.pod:14771
@@ -64160,7 +64191,8 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:9198 lib/guestfs-actions.pod:14821
 msgid "This command disables the libguestfs appliance swap on file."
-msgstr "このコマンドは libguestfs アプライアンスの swap on ファイルを無効にします。"
+msgstr ""
+"このコマンドは libguestfs アプライアンスの swap on ファイルを無効にします。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:9200
@@ -64183,8 +64215,8 @@ msgid ""
 "This command disables the libguestfs appliance swap on labeled swap "
 "partition."
 msgstr ""
-"このコマンドは libguestfs アプライアンスの swap on ラベル付き swap "
-"パーティションを無効にします。"
+"このコマンドは libguestfs アプライアンスの swap on ラベル付き swap パーティ"
+"ションを無効にします。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:9207
@@ -64207,8 +64239,8 @@ msgid ""
 "This command disables the libguestfs appliance swap partition with the given "
 "UUID."
 msgstr ""
-"このコマンドは libguestfs アプライアンスの指定された UUID を持つ swap "
-"パーティションを無効にします。"
+"このコマンドは libguestfs アプライアンスの指定された UUID を持つ swap パー"
+"ティションを無効にします。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:9217
@@ -64476,8 +64508,7 @@ msgid ""
 " tar-in (tarfile|-) directory [compress:..] [xattrs:true|false] [selinux:true|false] [acls:true|false] [keepdirlink:true|false]\n"
 "\n"
 msgstr ""
-" grep regex path [extended:true|false] [fixed:true|false] "
-"[insensitive:true|false] [compressed:true|false]\n"
+" grep regex path [extended:true|false] [fixed:true|false] [insensitive:true|false] [compressed:true|false]\n"
 "\n"
 
 #. type: textblock
@@ -64758,10 +64789,7 @@ msgid ""
 " tune2fs device [force:true|false] [maxmountcount:N] [mountcount:N] [errorbehavior:..] [group:N] [intervalbetweenchecks:N] [reservedblockspercentage:N] [lastmounteddirectory:..] [reservedblockscount:N] [user:N]\n"
 "\n"
 msgstr ""
-" tune2fs device [force:true|false] [maxmountcount:N] [mountcount:N] "
-"[errorbehavior:..] [group:N] [intervalbetweenchecks:N] "
-"[reservedblockspercentage:N] [lastmounteddirectory:..] "
-"[reservedblockscount:N] [user:N]\n"
+" tune2fs device [force:true|false] [maxmountcount:N] [mountcount:N] [errorbehavior:..] [group:N] [intervalbetweenchecks:N] [reservedblockspercentage:N] [lastmounteddirectory:..] [reservedblockscount:N] [user:N]\n"
 "\n"
 
 #. type: textblock
@@ -64781,8 +64809,8 @@ msgid ""
 "Force tune2fs to complete the operation even in the face of errors.  This is "
 "the same as the L<tune2fs(8)> C<-f> option."
 msgstr ""
-"最後にマウントされたディレクトリーを設定します。これは tune2fs C<-M> "
-"オプションと同じです。"
+"最後にマウントされたディレクトリーを設定します。これは tune2fs C<-M> オプショ"
+"ンと同じです。"
 
 #. type: =item
 #: fish/guestfish-actions.pod:9501 lib/guestfs-actions.pod:15371
@@ -64812,8 +64840,8 @@ msgid ""
 "Set the number of times the filesystem has been mounted.  This is the same "
 "as the L<tune2fs(8)> C<-C> option."
 msgstr ""
-"最後にマウントされたディレクトリーを設定します。これは tune2fs C<-M> "
-"オプションと同じです。"
+"最後にマウントされたディレクトリーを設定します。これは tune2fs C<-M> オプショ"
+"ンと同じです。"
 
 #. type: =item
 #: fish/guestfish-actions.pod:9512 lib/guestfs-actions.pod:15382
@@ -64883,8 +64911,8 @@ msgid ""
 "Set the percentage of the filesystem which may only be allocated by "
 "privileged processes.  This is the same as the L<tune2fs(8)> C<-m> option."
 msgstr ""
-"最後にマウントされたディレクトリーを設定します。これは tune2fs C<-M> "
-"オプションと同じです。"
+"最後にマウントされたディレクトリーを設定します。これは tune2fs C<-M> オプショ"
+"ンと同じです。"
 
 #. type: =item
 #: fish/guestfish-actions.pod:9541 lib/guestfs-actions.pod:15411
@@ -64901,8 +64929,8 @@ msgid ""
 "Set the last mounted directory.  This is the same as the L<tune2fs(8)> C<-M> "
 "option."
 msgstr ""
-"最後にマウントされたディレクトリーを設定します。これは tune2fs C<-M> "
-"オプションと同じです。"
+"最後にマウントされたディレクトリーを設定します。これは tune2fs C<-M> オプショ"
+"ンと同じです。"
 
 #. type: =item
 #: fish/guestfish-actions.pod:9546 lib/guestfs-actions.pod:15416
@@ -64914,8 +64942,8 @@ msgid ""
 "C<reservedblockscount> Set the number of reserved filesystem blocks.  This "
 "is the same as the L<tune2fs(8)> C<-r> option."
 msgstr ""
-"最後にマウントされたディレクトリーを設定します。これは tune2fs C<-M> "
-"オプションと同じです。"
+"最後にマウントされたディレクトリーを設定します。これは tune2fs C<-M> オプショ"
+"ンと同じです。"
 
 #. type: =item
 #: fish/guestfish-actions.pod:9550 lib/guestfs-actions.pod:15420
@@ -65450,7 +65478,8 @@ msgstr "ファイルシステムにラベルが付いていないと、空の文
 #. type: textblock
 #: fish/guestfish-actions.pod:9809
 msgid "To find a filesystem from the label, use L</findfs-label>."
-msgstr "ラベルからファイルシステムを検索するには L</findfs-label> を使用します。"
+msgstr ""
+"ラベルからファイルシステムを検索するには L</findfs-label> を使用します。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:9811
@@ -65572,7 +65601,8 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:9854 lib/guestfs-actions.pod:15930
 msgid "This command is the same as running C<vgchange -a y|n volgroups...>"
-msgstr "このコマンドは C<vgchange -a y|n volgroups...> を実行するときと同じです。"
+msgstr ""
+"このコマンドは C<vgchange -a y|n volgroups...> を実行するときと同じです。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:9856 lib/guestfs-actions.pod:15932
@@ -65820,8 +65850,8 @@ msgstr ""
 #: fish/guestfish-actions.pod:9955 lib/guestfs-actions.pod:16093
 msgid "Rename a volume group C<volgroup> with the new name C<newvolgroup>."
 msgstr ""
-"ボリュームグループ C<volgroup> の名前を新しい名前 C<newvolgroup> に変更します"
-"。"
+"ボリュームグループ C<volgroup> の名前を新しい名前 C<newvolgroup> に変更しま"
+"す。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:9957
@@ -65997,8 +66027,8 @@ msgstr ""
 msgid ""
 "This command counts the words in a file, using the C<wc -w> external command."
 msgstr ""
-"このコマンドは C<wc -w> 外部コマンドを使用して、ファイルにある単語を数えます"
-"。"
+"このコマンドは C<wc -w> 外部コマンドを使用して、ファイルにある単語を数えま"
+"す。"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:10023
@@ -66028,8 +66058,8 @@ msgid ""
 "This does not erase the filesystem itself nor any other data from the "
 "C<device>."
 msgstr ""
-"これは、ファイルシステム自身を削除しません、また C<device> から他のどんな"
-"データも削除しません。"
+"これは、ファイルシステム自身を削除しません、また C<device> から他のどんなデー"
+"タも削除しません。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:10033
@@ -66155,9 +66185,7 @@ msgid ""
 " xfs-admin device [extunwritten:true|false] [imgfile:true|false] [v2log:true|false] [projid32bit:true|false] [lazycounter:true|false] [label:..] [uuid:..]\n"
 "\n"
 msgstr ""
-" xfs-admin device [extunwritten:true|false] [imgfile:true|false] "
-"[v2log:true|false] [projid32bit:true|false] [lazycounter:true|false] "
-"[label:..] [uuid:..]\n"
+" xfs-admin device [extunwritten:true|false] [imgfile:true|false] [v2log:true|false] [projid32bit:true|false] [lazycounter:true|false] [label:..] [uuid:..]\n"
 "\n"
 
 #. type: textblock
@@ -66206,8 +66234,7 @@ msgid ""
 " xfs-growfs path [datasec:true|false] [logsec:true|false] [rtsec:true|false] [datasize:N] [logsize:N] [rtsize:N] [rtextsize:N] [maxpct:N]\n"
 "\n"
 msgstr ""
-" xfs-growfs path [datasec:true|false] [logsec:true|false] [rtsec:true|false] "
-"[datasize:N] [logsize:N] [rtsize:N] [rtextsize:N] [maxpct:N]\n"
+" xfs-growfs path [datasec:true|false] [logsec:true|false] [rtsec:true|false] [datasize:N] [logsize:N] [rtsize:N] [rtextsize:N] [maxpct:N]\n"
 "\n"
 
 #. type: textblock
@@ -66242,9 +66269,9 @@ msgid ""
 "filesystem.  This command returns miscellaneous metadata about the XFS "
 "filesystem."
 msgstr ""
-"C<pathordevice> は、マウントされた XFS ファイルシステム、または XFS "
-"ファイルシステムを含むデバイスです。このコマンドはファイルシステムの"
-"ジオメトリーを返します。"
+"C<pathordevice> は、マウントされた XFS ファイルシステム、または XFS ファイル"
+"システムを含むデバイスです。このコマンドはファイルシステムのジオメトリーを返"
+"します。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:10123 lib/guestfs-actions.pod:16457
@@ -66329,9 +66356,7 @@ msgid ""
 " xfs-repair device [forcelogzero:true|false] [nomodify:true|false] [noprefetch:true|false] [forcegeometry:true|false] [maxmem:N] [ihashsize:N] [bhashsize:N] [agstride:N] [logdev:..] [rtdev:..]\n"
 "\n"
 msgstr ""
-" xfs-repair device [forcelogzero:true|false] [nomodify:true|false] "
-"[noprefetch:true|false] [forcegeometry:true|false] [maxmem:N] [ihashsize:N] "
-"[bhashsize:N] [agstride:N] [logdev:..] [rtdev:..]\n"
+" xfs-repair device [forcelogzero:true|false] [nomodify:true|false] [noprefetch:true|false] [forcegeometry:true|false] [maxmem:N] [ihashsize:N] [bhashsize:N] [agstride:N] [logdev:..] [rtdev:..]\n"
 "\n"
 
 #. type: textblock
@@ -66562,9 +66587,9 @@ msgid ""
 "prevents the underlying device from becoming non-sparse or growing "
 "unnecessarily."
 msgstr ""
-"ブロックデバイスがすでに 0 ならば、このコマンドは 0 を書き込みません。これは"
-"、下にあるブロックデバイスが不必要に非スパース化されたり大きくなったりするこ"
-"とを避けるためです。"
+"ブロックデバイスがすでに 0 ならば、このコマンドは 0 を書き込みません。これ"
+"は、下にあるブロックデバイスが不必要に非スパース化されたり大きくなったりする"
+"ことを避けるためです。"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:10295
@@ -66847,9 +66872,9 @@ msgid ""
 "To create a sparse file, use L</sparse> instead.  To create a prepared disk "
 "image, see L</PREPARED DISK IMAGES>."
 msgstr ""
-"スパースなファイルを作成するには、代わりに L</sparse> を使用します。非"
-"スパースなディスクイメージを作成するには、 L</準備済みディスクイメージ> を参"
-"照してください。"
+"スパースなファイルを作成するには、代わりに L</sparse> を使用します。非スパー"
+"スなディスクイメージを作成するには、 L</準備済みディスクイメージ> を参照して"
+"ください。"
 
 #. type: =head2
 #: fish/guestfish-commands.pod:43
@@ -68319,8 +68344,8 @@ msgid ""
 "the I<--format=...> flag was given."
 msgstr ""
 "このフラグを使用することは C<add> コマンドを使用することとほぼ同じです。 I<--"
-"ro> フラグが指定された場合、C<readonly:true> と同じです。 I<--format=...> "
-"フラグが指定された場合、C<format:...> と同じです。"
+"ro> フラグが指定された場合、C<readonly:true> と同じです。 I<--format=...> フ"
+"ラグが指定された場合、C<format:...> と同じです。"
 
 #. type: =item
 #: fish/guestfish.pod:178 fuse/guestmount.pod:169 rescue/virt-rescue.pod:105
@@ -68517,8 +68542,8 @@ msgid ""
 "with malicious guests (CVE-2010-3851).  See also L</add>."
 msgstr ""
 "仮想マシンのディスクイメージが信頼できない raw 形式である場合、 ディスク形式"
-"を指定するためにこのオプションを使用すべきです。 これにより、悪意のある仮想"
-"マシンにより起こり得る セキュリティ問題を回避できます (CVE-2010-3851)。 L</"
+"を指定するためにこのオプションを使用すべきです。 これにより、悪意のある仮想マ"
+"シンにより起こり得る セキュリティ問題を回避できます (CVE-2010-3851)。 L</"
 "add> 参照。"
 
 #. type: =item
@@ -68625,8 +68650,8 @@ msgid ""
 "then using other commands to mount the filesystems that were found."
 msgstr ""
 "このフラグを使用することは、 C<inspect-os> コマンドを使用することとほぼ同じで"
-"す。 検出されたファイルシステムをマウントするために 他のコマンドを使用します"
-"。"
+"す。 検出されたファイルシステムをマウントするために 他のコマンドを使用しま"
+"す。"
 
 #. type: textblock
 #: fish/guestfish.pod:285 fuse/guestmount.pod:251
@@ -68703,8 +68728,8 @@ msgid ""
 "and/or extended attributes if the filesystem can support them:"
 msgstr ""
 "マウントパラメーターの三番目の (ほとんど使用されない) 項目は、 バックエンドの"
-"ファイルシステムをマウントするために使用される マウントオプションの一覧です"
-"。 これが指定されていない場合、 マウントオプションは空文字列または C<ro> "
+"ファイルシステムをマウントするために使用される マウントオプションの一覧で"
+"す。 これが指定されていない場合、 マウントオプションは空文字列または C<ro> "
 "(I<--ro> フラグが使用されている場合) になります。"
 
 #. type: verbatim
@@ -68777,8 +68802,8 @@ msgid ""
 "Disable autosync.  This is enabled by default.  See the discussion of "
 "autosync in the L<guestfs(3)> manpage."
 msgstr ""
-"自動同期を無効化します。 これは標準で有効化されています。 L<guestfs(3)> "
-"マニュアルページの自動同期に関する記載を 参照してください。"
+"自動同期を無効化します。 これは標準で有効化されています。 L<guestfs(3)> マ"
+"ニュアルページの自動同期に関する記載を 参照してください。"
 
 #. type: =item
 #: fish/guestfish.pod:352
@@ -68805,14 +68830,15 @@ msgid ""
 "If writes fail to pipe commands (see L</PIPES> below), then the command "
 "returns an error."
 msgstr ""
-"コマンドのパイプ (以下の L</パイプ> 参照) への書き込みに失敗した場合、 この"
-"コマンドがエラーを返します。"
+"コマンドのパイプ (以下の L</パイプ> 参照) への書き込みに失敗した場合、 このコ"
+"マンドがエラーを返します。"
 
 #. type: textblock
 #: fish/guestfish.pod:364
 msgid ""
 "The default (also for historical reasons) is to ignore such errors so that:"
-msgstr "標準状態では、(歴史的な理由から) そのようなエラーは次のために無視されます。"
+msgstr ""
+"標準状態では、(歴史的な理由から) そのようなエラーは次のために無視されます。"
 
 #. type: verbatim
 #: fish/guestfish.pod:367
@@ -68838,8 +68864,8 @@ msgstr "B<--progress-bars>"
 #: fish/guestfish.pod:373
 msgid "Enable progress bars, even when guestfish is used non-interactively."
 msgstr ""
-"guestfish が非対話式モードを使用している場合でも、 進行状況バーを有効にします"
-"。"
+"guestfish が非対話式モードを使用している場合でも、 進行状況バーを有効にしま"
+"す。"
 
 #. type: textblock
 #: fish/guestfish.pod:375
@@ -68890,8 +68916,8 @@ msgid ""
 "This changes the I<-a>, I<-d> and I<-m> options so that disks are added and "
 "mounts are done read-only."
 msgstr ""
-"ディスクが追加され、読み込み専用でマウントされるよう、 I<-a>, I<-d>, I<-m> "
-"オプションを変更します。"
+"ディスクが追加され、読み込み専用でマウントされるよう、 I<-a>, I<-d>, I<-m> オ"
+"プションを変更します。"
 
 #. type: textblock
 #: fish/guestfish.pod:396 rescue/virt-rescue.pod:235
@@ -68901,8 +68927,8 @@ msgid ""
 "access to the disk."
 msgstr ""
 "ディスクイメージまたは仮想マシンが使用中の場合、 必ずこのオプションを使用する"
-"必要があります。 また、ディスクへの書き込みアクセスが不要な場合、 この"
-"オプションが一般的に推奨されます。"
+"必要があります。 また、ディスクへの書き込みアクセスが不要な場合、 このオプ"
+"ションが一般的に推奨されます。"
 
 #. type: textblock
 #: fish/guestfish.pod:400
@@ -68957,8 +68983,8 @@ msgid ""
 "This changes the I<-a>, I<-d> and I<-m> options so that disks are added and "
 "mounts are done read-write."
 msgstr ""
-"ディスクが追加され、読み書き可能でマウントされるよう、 I<-a>, I<-d>, I<-m> "
-"オプションを変更します。"
+"ディスクが追加され、読み書き可能でマウントされるよう、 I<-a>, I<-d>, I<-m> オ"
+"プションを変更します。"
 
 #. type: textblock
 #: fish/guestfish.pod:430
@@ -69305,7 +69331,8 @@ msgstr "C<\\ooo>"
 msgid ""
 "A character with octal value I<ooo>.  There must be precisely 3 octal digits "
 "(unlike C)."
-msgstr "8 進値 I<ooo> を持つ文字。（C とは異なり）ちょうど 3 桁である必要があります。"
+msgstr ""
+"8 進値 I<ooo> を持つ文字。（C とは異なり）ちょうど 3 桁である必要があります。"
 
 #. type: =item
 #: fish/guestfish.pod:591
@@ -69402,9 +69429,9 @@ msgid ""
 "When the command takes a parameter measured in bytes, you can use one of the "
 "following suffixes to specify kilobytes, megabytes and larger sizes:"
 msgstr ""
-"コマンドがバイト単位で計算されるパラメーターをとるとき、キロバイト、"
-"メガバイト、それより大きい容量を指定するために、以下の接尾辞のどれかをとるこ"
-"とができます:"
+"コマンドがバイト単位で計算されるパラメーターをとるとき、キロバイト、メガバイ"
+"ト、それより大きい容量を指定するために、以下の接尾辞のどれかをとることができ"
+"ます:"
 
 #. type: =item
 #: fish/guestfish.pod:633
@@ -71512,7 +71539,8 @@ msgstr "LIBGUESTFS_TRACE"
 #. type: textblock
 #: fish/guestfish.pod:1493
 msgid "Set C<LIBGUESTFS_TRACE=1> to enable command traces."
-msgstr "コマンドトレースを有効にするには C<LIBGUESTFS_TRACE=1> を設定してください。"
+msgstr ""
+"コマンドトレースを有効にするには C<LIBGUESTFS_TRACE=1> を設定してください。"
 
 #. type: =item
 #: fish/guestfish.pod:1495
@@ -71644,8 +71672,8 @@ msgid ""
 "If compiled with GNU readline support, then the command history is saved in "
 "this file."
 msgstr ""
-"GNU readline のサポート付きでコンパイルされていると、コマンドの履歴がこの"
-"ファイルに保存されます。"
+"GNU readline のサポート付きでコンパイルされていると、コマンドの履歴がこのファ"
+"イルに保存されます。"
 
 #. type: =item
 #: fish/guestfish.pod:1557
@@ -71907,8 +71935,8 @@ msgstr ""
 msgid ""
 "virt-copy-in - Copy files and directories into a virtual machine disk image."
 msgstr ""
-"virt-copy-in - ファイルおよびディレクトリを仮想マシンのディスクイメージに"
-"コピーします。"
+"virt-copy-in - ファイルおよびディレクトリを仮想マシンのディスクイメージにコ"
+"ピーします。"
 
 #. type: verbatim
 #: fish/virt-copy-in.pod:7
@@ -72008,8 +72036,8 @@ msgid ""
 "virt-copy-out - Copy files and directories out of a virtual machine disk "
 "image."
 msgstr ""
-"virt-copy-out - ファイルとディレクトリの仮想マシンのディスクイメージ外への"
-"コピー"
+"virt-copy-out - ファイルとディレクトリの仮想マシンのディスクイメージ外へのコ"
+"ピー"
 
 #. type: verbatim
 #: fish/virt-copy-out.pod:7
@@ -72643,8 +72671,8 @@ msgstr "ブロックデバイスまたは仮想マシンイメージを追加し
 #: fuse/guestmount.pod:173 rescue/virt-rescue.pod:109
 msgid "Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>."
 msgstr ""
-"リモートディスクを追加します。 L<guestfish(1)/リモートストレージの追加> 参照"
-"。"
+"リモートディスクを追加します。 L<guestfish(1)/リモートストレージの追加> 参"
+"照。"
 
 #. type: =item
 #: fuse/guestmount.pod:195
@@ -72692,8 +72720,8 @@ msgid ""
 "guestfs_add_drive_opts>."
 msgstr ""
 "仮想マシンのディスクイメージが信頼できない raw 形式である場合、 ディスク形式"
-"を指定するためにこのオプションを使用すべきです。 これにより、悪意のある仮想"
-"マシンにより起こり得る セキュリティ問題を回避できます (CVE-2010-3851)。 L</"
+"を指定するためにこのオプションを使用すべきです。 これにより、悪意のある仮想マ"
+"シンにより起こり得る セキュリティ問題を回避できます (CVE-2010-3851)。 L</"
 "guestfs(3)/guestfs_add_drive_opts> 参照。"
 
 #. type: =item
@@ -73314,8 +73342,8 @@ msgid ""
 "www.golang.org/>, L<http://libguestfs.org/>."
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
 #: java/examples/guestfs-java.pod:3
@@ -73625,8 +73653,8 @@ msgid ""
 "libguestfs.org/>, L<http://caml.inria.fr/>."
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: verbatim
 #: lib/guestfs-actions.pod:3 lib/guestfs-availability.pod:3
@@ -74084,7 +74112,8 @@ msgstr ""
 msgid ""
 "The other optional parameters are passed directly through to "
 "C<guestfs_add_drive_opts>."
-msgstr "他のオプションパラメーターは C<guestfs_add_drive_opts> にそのまま渡されます。"
+msgstr ""
+"他のオプションパラメーターは C<guestfs_add_drive_opts> にそのまま渡されます。"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:255 lib/guestfs-actions.pod:749
@@ -74383,8 +74412,7 @@ msgstr ""
 " int\n"
 " guestfs_add_drive_opts_argv (guestfs_h *g,\n"
 "                              const char *filename,\n"
-"                              const struct guestfs_add_drive_opts_argv "
-"*optargs);\n"
+"                              const struct guestfs_add_drive_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -74503,7 +74531,8 @@ msgstr ""
 msgid ""
 "The optional arguments C<name>, C<label> and C<blocksize> are passed through "
 "to C<guestfs_add_drive_opts>."
-msgstr "他のオプションパラメーターは C<guestfs_add_drive_opts> にそのまま渡されます。"
+msgstr ""
+"他のオプションパラメーターは C<guestfs_add_drive_opts> にそのまま渡されます。"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:651 lib/guestfs-actions.pod:14257
@@ -76029,7 +76058,8 @@ msgstr ""
 #, fuzzy
 msgid ""
 "This is the \"va_list variant\" of L</guestfs_btrfs_filesystem_defragment>."
-msgstr "これは L</guestfs_btrfs_filesystem_resize> の \"va_list variant\" です。"
+msgstr ""
+"これは L</guestfs_btrfs_filesystem_resize> の \"va_list variant\" です。"
 
 #. type: =head2
 #: lib/guestfs-actions.pod:1669
@@ -76050,8 +76080,7 @@ msgstr ""
 " int\n"
 " guestfs_btrfs_filesystem_resize_argv (guestfs_h *g,\n"
 "                                       const char *mountpoint,\n"
-"                                       const struct "
-"guestfs_btrfs_filesystem_resize_argv *optargs);\n"
+"                                       const struct guestfs_btrfs_filesystem_resize_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -76121,7 +76150,8 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:1727
 msgid "This is the \"va_list variant\" of L</guestfs_btrfs_filesystem_resize>."
-msgstr "これは L</guestfs_btrfs_filesystem_resize> の \"va_list variant\" です。"
+msgstr ""
+"これは L</guestfs_btrfs_filesystem_resize> の \"va_list variant\" です。"
 
 #. type: =head2
 #: lib/guestfs-actions.pod:1731
@@ -76141,8 +76171,7 @@ msgstr ""
 " int\n"
 " guestfs_btrfs_filesystem_resize_argv (guestfs_h *g,\n"
 "                                       const char *mountpoint,\n"
-"                                       const struct "
-"guestfs_btrfs_filesystem_resize_argv *optargs);\n"
+"                                       const struct guestfs_btrfs_filesystem_resize_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -76966,8 +76995,7 @@ msgstr ""
 " int\n"
 " guestfs_btrfs_filesystem_resize_argv (guestfs_h *g,\n"
 "                                       const char *mountpoint,\n"
-"                                       const struct "
-"guestfs_btrfs_filesystem_resize_argv *optargs);\n"
+"                                       const struct guestfs_btrfs_filesystem_resize_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -77213,8 +77241,7 @@ msgstr ""
 " guestfs_copy_device_to_device_argv (guestfs_h *g,\n"
 "                                     const char *src,\n"
 "                                     const char *dest,\n"
-"                                     const struct "
-"guestfs_copy_device_to_device_argv *optargs);\n"
+"                                     const struct guestfs_copy_device_to_device_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -77504,8 +77531,8 @@ msgstr ""
 #: lib/guestfs-actions.pod:2674
 msgid "To get the checksum for a device, use C<guestfs_checksum_device>."
 msgstr ""
-"デバイスのチェックサムを取得するには C<guestfs_checksum_device> を使用します"
-"。"
+"デバイスのチェックサムを取得するには C<guestfs_checksum_device> を使用しま"
+"す。"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:2676
@@ -77969,8 +77996,7 @@ msgstr ""
 "                                   const char *ctype,\n"
 "                                   const char *device,\n"
 "                                   const char *zdevice,\n"
-"                                   const struct "
-"guestfs_compress_device_out_argv *optargs);\n"
+"                                   const struct guestfs_compress_device_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -78065,8 +78091,7 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs)"
-";\n"
+"                            const struct guestfs_compress_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -78220,8 +78245,8 @@ msgid ""
 msgstr ""
 "4 つの呼び出し C<guestfs_copy_device_to_device>, "
 "C<guestfs_copy_device_to_file>, C<guestfs_copy_file_to_device>, および "
-"C<guestfs_copy_file_to_file> は、ソース (デバイス|ファイル) から宛先 "
-"(デバイス|ファイル) にコピーできます。"
+"C<guestfs_copy_file_to_file> は、ソース (デバイス|ファイル) から宛先 (デバイ"
+"ス|ファイル) にコピーできます。"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:3176 lib/guestfs-actions.pod:3231
@@ -78278,8 +78303,7 @@ msgstr ""
 " guestfs_copy_device_to_device_argv (guestfs_h *g,\n"
 "                                     const char *src,\n"
 "                                     const char *dest,\n"
-"                                     const struct "
-"guestfs_copy_device_to_device_argv *optargs);\n"
+"                                     const struct guestfs_copy_device_to_device_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -78379,8 +78403,7 @@ msgstr ""
 " guestfs_copy_device_to_file_argv (guestfs_h *g,\n"
 "                                   const char *src,\n"
 "                                   const char *dest,\n"
-"                                   const struct "
-"guestfs_copy_device_to_file_argv *optargs);\n"
+"                                   const struct guestfs_copy_device_to_file_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -78471,8 +78494,7 @@ msgstr ""
 " guestfs_copy_file_to_device_argv (guestfs_h *g,\n"
 "                                   const char *src,\n"
 "                                   const char *dest,\n"
-"                                   const struct "
-"guestfs_copy_file_to_device_argv *optargs);\n"
+"                                   const struct guestfs_copy_file_to_device_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -78571,8 +78593,7 @@ msgstr ""
 " guestfs_copy_file_to_file_argv (guestfs_h *g,\n"
 "                                 const char *src,\n"
 "                                 const char *dest,\n"
-"                                 const struct guestfs_copy_file_to_file_argv "
-"*optargs);\n"
+"                                 const struct guestfs_copy_file_to_file_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -79033,8 +79054,7 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs)"
-";\n"
+"                            const struct guestfs_compress_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -80179,9 +80199,10 @@ msgid ""
 "C<guestfs_is_dir>, C<guestfs_is_file> etc.  To get the size of block "
 "devices, use C<guestfs_blockdev_getsize64>."
 msgstr ""
-"ファイルに関する他の統計情報を取得するには、C<guestfs_stat>, C<guestfs_lstat>"
-", C<guestfs_is_dir>, C<guestfs_is_file> などを使用します。ブロックデバイスの"
-"容量を取得するには、C<guestfs_blockdev_getsize64> を使用します。"
+"ファイルに関する他の統計情報を取得するには、C<guestfs_stat>, "
+"C<guestfs_lstat>, C<guestfs_is_dir>, C<guestfs_is_file> などを使用します。ブ"
+"ロックデバイスの容量を取得するには、C<guestfs_blockdev_getsize64> を使用しま"
+"す。"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:4687
@@ -80210,7 +80231,8 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:4699
 msgid "You must call C<guestfs_launch> before using this command."
-msgstr "このコマンドを使用する前に C<guestfs_launch> を呼び出す必要があります。"
+msgstr ""
+"このコマンドを使用する前に C<guestfs_launch> を呼び出す必要があります。"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:4708
@@ -80535,7 +80557,8 @@ msgstr ""
 #| msgid "To find the UUID of a filesystem, use C<guestfs_vfs_uuid>."
 msgid ""
 "To find the UUID of a partition, use C<guestfs_blkid> (C<PART_ENTRY_UUID>)."
-msgstr "ファイルシステムの UUID を見つけるには C<guestfs_vfs_uuid> を使用します。"
+msgstr ""
+"ファイルシステムの UUID を見つけるには C<guestfs_vfs_uuid> を使用します。"
 
 #. type: =head2
 #: lib/guestfs-actions.pod:5089
@@ -80559,7 +80582,8 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:5099
 msgid "To find the UUID of a filesystem, use C<guestfs_vfs_uuid>."
-msgstr "ファイルシステムの UUID を見つけるには C<guestfs_vfs_uuid> を使用します。"
+msgstr ""
+"ファイルシステムの UUID を見つけるには C<guestfs_vfs_uuid> を使用します。"
 
 #. type: =head2
 #: lib/guestfs-actions.pod:5106
@@ -83035,8 +83059,7 @@ msgstr ""
 " guestfs_inspect_get_icon_argv (guestfs_h *g,\n"
 "                                const char *root,\n"
 "                                size_t *size_r,\n"
-"                                const struct guestfs_inspect_get_icon_argv "
-"*optargs);\n"
+"                                const struct guestfs_inspect_get_icon_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -84648,8 +84671,8 @@ msgstr ""
 #: lib/guestfs-actions.pod:8761
 msgid "Do not call this.  See: C<guestfs_shutdown> instead."
 msgstr ""
-"これを呼び出してはいけません。代わりに C<guestfs_shutdown> を参照してください"
-"。"
+"これを呼び出してはいけません。代わりに C<guestfs_shutdown> を参照してくださ"
+"い。"
 
 #. type: =head2
 #: lib/guestfs-actions.pod:8767
@@ -85399,8 +85422,8 @@ msgid ""
 "This is the same as C<guestfs_removexattr>, but if C<path> is a symbolic "
 "link, then it removes an extended attribute of the link itself."
 msgstr ""
-"これは C<guestfs_removexattr> と同じです。ただし、C<path> が"
-"シンボリックリンクならば、リンク自身の拡張属性を削除します。"
+"これは C<guestfs_removexattr> と同じです。ただし、C<path> がシンボリックリン"
+"クならば、リンク自身の拡張属性を削除します。"
 
 #. type: =head2
 #: lib/guestfs-actions.pod:9368
@@ -85517,8 +85540,8 @@ msgid ""
 "This function returns a C<struct guestfs_stat *>, or NULL if there was an "
 "error.  I<The caller must call C<guestfs_free_stat> after use>."
 msgstr ""
-"この関数は C<struct guestfs_stat *> を返します。エラーがあれば NULL です。 "
-"I<呼び出し元は使用後に C<guestfs_free_stat> を呼び出す必要があります>。"
+"この関数は C<struct guestfs_stat *> を返します。エラーがあれば NULL です。 I<"
+"呼び出し元は使用後に C<guestfs_free_stat> を呼び出す必要があります>。"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:9448 lib/guestfs-actions.pod:14684
@@ -86000,7 +86023,8 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:9798
 msgid "See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>."
-msgstr "C<guestfs_is_lv>, C<guestfs_canonical_device_name> も参照してください。"
+msgstr ""
+"C<guestfs_is_lv>, C<guestfs_canonical_device_name> も参照してください。"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:9803
@@ -87300,9 +87324,9 @@ msgid ""
 "that can be used to create extra mountpoints before mounting the first "
 "filesystem."
 msgstr ""
-"C<guestfs_mkmountpoint> および C<guestfs_rmmountpoint> は、最初の"
-"ファイルシステムをマウントする前に追加のマウントポイントを作成するために使用"
-"できる、特別な呼び出しです。"
+"C<guestfs_mkmountpoint> および C<guestfs_rmmountpoint> は、最初のファイルシス"
+"テムをマウントする前に追加のマウントポイントを作成するために使用できる、特別"
+"な呼び出しです。"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:10860
@@ -88538,8 +88562,7 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs)"
-";\n"
+"                            const struct guestfs_compress_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -88699,8 +88722,7 @@ msgstr ""
 " guestfs_ntfsclone_out_argv (guestfs_h *g,\n"
 "                             const char *device,\n"
 "                             const char *backupfile,\n"
-"                             const struct guestfs_ntfsclone_out_argv "
-"*optargs);\n"
+"                             const struct guestfs_ntfsclone_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -88912,8 +88934,7 @@ msgstr ""
 " int\n"
 " guestfs_ntfsresize_opts_argv (guestfs_h *g,\n"
 "                               const char *device,\n"
-"                               const struct guestfs_ntfsresize_opts_argv "
-"*optargs);\n"
+"                               const struct guestfs_ntfsresize_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -91985,7 +92006,8 @@ msgstr ""
 #: lib/guestfs-actions.pod:14445
 msgid ""
 "See also: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>, C<guestfs_part_init>"
-msgstr "関連項目: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>, C<guestfs_part_init>"
+msgstr ""
+"関連項目: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>, C<guestfs_part_init>"
 
 #. type: =head2
 #: lib/guestfs-actions.pod:14452
@@ -93040,8 +93062,7 @@ msgstr ""
 " guestfs_tar_out_opts_argv (guestfs_h *g,\n"
 "                            const char *directory,\n"
 "                            const char *tarfile,\n"
-"                            const struct guestfs_tar_out_opts_argv *optargs)"
-";\n"
+"                            const struct guestfs_tar_out_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -93581,8 +93602,7 @@ msgid ""
 msgstr ""
 " int\n"
 " guestfs_umount_local_argv (guestfs_h *g,\n"
-"                            const struct guestfs_umount_local_argv *optargs)"
-";\n"
+"                            const struct guestfs_umount_local_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -93803,8 +93823,8 @@ msgstr ""
 #: lib/guestfs-actions.pod:15859
 msgid "To find a filesystem from the label, use C<guestfs_findfs_label>."
 msgstr ""
-"ラベルからファイルシステムを検索するには C<guestfs_findfs_label> を使用します"
-"。"
+"ラベルからファイルシステムを検索するには C<guestfs_findfs_label> を使用しま"
+"す。"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:15864 lib/guestfs-actions.pod:15918
@@ -93872,7 +93892,8 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:15913
 msgid "To find a filesystem from the UUID, use C<guestfs_findfs_uuid>."
-msgstr "UUID からファイルシステムを検索するには C<guestfs_findfs_uuid> を使用します。"
+msgstr ""
+"UUID からファイルシステムを検索するには C<guestfs_findfs_uuid> を使用します。"
 
 #. type: =head2
 #: lib/guestfs-actions.pod:15920
@@ -94305,7 +94326,8 @@ msgstr ""
 #: lib/guestfs-actions.pod:16249
 msgid ""
 "Compare with C<guestfs_zero> which zeroes the first few blocks of a device."
-msgstr "デバイスの先頭数ブロックにゼロを書き込む C<guestfs_zero> と比較します。"
+msgstr ""
+"デバイスの先頭数ブロックにゼロを書き込む C<guestfs_zero> と比較します。"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:16254
@@ -95764,8 +95786,7 @@ msgid ""
 msgstr ""
 " struct guestfs_lvm_pv {\n"
 "   char *pv_name;\n"
-"   /* 以下の項目は NULL 終了していないので、表示するときに注意してください: "
-"*/\n"
+"   /* 以下の項目は NULL 終了していないので、表示するときに注意してください: */\n"
 "   char pv_uuid[32];\n"
 "   char *pv_fmt;\n"
 "   uint64_t pv_size;\n"
@@ -95855,8 +95876,7 @@ msgid ""
 msgstr ""
 " struct guestfs_lvm_vg {\n"
 "   char *vg_name;\n"
-"   /* 以下の項目は NULL 終了していないので、表示するときに注意してください: "
-"*/\n"
+"   /* 以下の項目は NULL 終了していないので、表示するときに注意してください: */\n"
 "   char vg_uuid[32];\n"
 "   char *vg_fmt;\n"
 "   char *vg_attr;\n"
@@ -95950,8 +95970,7 @@ msgid ""
 msgstr ""
 " struct guestfs_lvm_lv {\n"
 "   char *lv_name;\n"
-"   /* 以下の項目は NULL 終了していないので、表示するときに注意してください: "
-"*/\n"
+"   /* 以下の項目は NULL 終了していないので、表示するときに注意してください: */\n"
 "   char lv_uuid[32];\n"
 "   char *lv_attr;\n"
 "   int64_t lv_major;\n"
@@ -97741,9 +97760,9 @@ msgid ""
 "to group API calls together, where that may not be obvious from reading "
 "about the individual calls in the main section of this manual."
 msgstr ""
-"このセクションは libguestfs API の簡単な概要を示します。  一緒に呼ばれる"
-"グループ API を試みます。これは、このマニュアルのメインセクションにおいて個々"
-"の呼び出しに関して読む必要が無くなります。"
+"このセクションは libguestfs API の簡単な概要を示します。  一緒に呼ばれるグ"
+"ループ API を試みます。これは、このマニュアルのメインセクションにおいて個々の"
+"呼び出しに関して読む必要が無くなります。"
 
 #. type: =head2
 #: lib/guestfs.pod:87
@@ -97930,10 +97949,10 @@ msgid ""
 "through L<posix_fallocate(3)>.  Libguestfs lets you do useful things to all "
 "of these."
 msgstr ""
-"イメージファイル名 (上の例では C<\"guest.img\">) は、仮想マシンの"
-"ディスクイメージ、物理ハードディスクの L<dd(1)> コピー、実際の"
-"ブロックデバイス、単に L<posix_fallocate(3)> から作成した 0 の空ファイルがあ"
-"りえます。libguestfs はこれらすべてに役に立つことをさせます。"
+"イメージファイル名 (上の例では C<\"guest.img\">) は、仮想マシンのディスクイ"
+"メージ、物理ハードディスクの L<dd(1)> コピー、実際のブロックデバイス、単に "
+"L<posix_fallocate(3)> から作成した 0 の空ファイルがありえます。libguestfs は"
+"これらすべてに役に立つことをさせます。"
 
 #. type: textblock
 #: lib/guestfs.pod:157
@@ -97943,8 +97962,8 @@ msgid ""
 "specifying that the format is raw, do:"
 msgstr ""
 "近代的なコードにおいてドライブを追加するために使用する呼び出しは L</"
-"guestfs_add_drive_opts> です。書き込み許可、raw 形式指定にて、"
-"ディスクイメージを追加するには、次を実行します:"
+"guestfs_add_drive_opts> です。書き込み許可、raw 形式指定にて、ディスクイメー"
+"ジを追加するには、次を実行します:"
 
 #. type: verbatim
 #: lib/guestfs.pod:161
@@ -97996,9 +98015,9 @@ msgid ""
 "by a virtual machine.  Adding it read-write will almost certainly cause disk "
 "corruption, but adding it read-only is safe."
 msgstr ""
-"ディスクイメージが使用中ならば、たとえば仮想マシンにより使用されているならば"
-"、特に注意してください。読み書き可能で追加することにより、ほぼ確実にディスク"
-"破損を引き起こします。一方、読み込み専用で追加することは安全です。"
+"ディスクイメージが使用中ならば、たとえば仮想マシンにより使用されているなら"
+"ば、特に注意してください。読み書き可能で追加することにより、ほぼ確実にディス"
+"ク破損を引き起こします。一方、読み込み専用で追加することは安全です。"
 
 #. type: textblock
 #: lib/guestfs.pod:180
@@ -98097,11 +98116,11 @@ msgid ""
 "in detail below in this man page, and we don't even pretend to cover them "
 "all in this overview."
 msgstr ""
-"libguestfs API の大半は、マウントされたファイルシステムにあるファイル、"
-"ディレクトリー、シンボリックリンクなどを参照および変更するためのかなり低"
-"レベルな関数呼び出しから構成されます。このマニュアルページにおいて以下に詳細"
-"に一覧化されている、そのような呼び出しは 100 以上あります。この概要においてす"
-"べてを取り扱うことは考えていません。"
+"libguestfs API の大半は、マウントされたファイルシステムにあるファイル、ディレ"
+"クトリー、シンボリックリンクなどを参照および変更するためのかなり低レベルな関"
+"数呼び出しから構成されます。このマニュアルページにおいて以下に詳細に一覧化さ"
+"れている、そのような呼び出しは 100 以上あります。この概要においてすべてを取り"
+"扱うことは考えていません。"
 
 #. type: textblock
 #: lib/guestfs.pod:232
@@ -98138,9 +98157,9 @@ msgid ""
 "content of that file (with some conditions: see also L</DOWNLOADING> below), "
 "or C<NULL> if there was an error."
 msgstr ""
-"これは、ファイルの完全な内容を含む（いくつかの条件とともに: 以下の L</"
-"ダウンロード> 参照）新しく割り当てられたバッファーとして C<data> を返します。"
-"もしくは、エラーがあれば C<NULL> を返します。"
+"これは、ファイルの完全な内容を含む（いくつかの条件とともに: 以下の L</ダウン"
+"ロード> 参照）新しく割り当てられたバッファーとして C<data> を返します。もしく"
+"は、エラーがあれば C<NULL> を返します。"
 
 #. type: textblock
 #: lib/guestfs.pod:244
@@ -98148,8 +98167,8 @@ msgid ""
 "As another example, to create a top-level directory on that filesystem "
 "called C<\"var\"> you would do:"
 msgstr ""
-"もう 1 つの例として、ファイルシステムに C<\"var\"> という名前の最上位"
-"ディレクトリーを作成するには、次のようにします:"
+"もう 1 つの例として、ファイルシステムに C<\"var\"> という名前の最上位ディレク"
+"トリーを作成するには、次のようにします:"
 
 #. type: verbatim
 #: lib/guestfs.pod:247
@@ -98199,8 +98218,8 @@ msgstr ""
 "libguestfs は多くの状況においてエラーを返します。たとえば、ファイルシステムが"
 "書き込みできない場合です。または、要求したファイルやディレクトリーが存在しな"
 "い場合です。 C API (ここにドキュメント化されています) を使用しているならば、"
-"各呼び出しの後でそれらのエラー条件を確認する必要があります。（他の言語"
-"バインドは、これらのエラーを例外の中に含めてください。）"
+"各呼び出しの後でそれらのエラー条件を確認する必要があります。（他の言語バイン"
+"ドは、これらのエラーを例外の中に含めてください。）"
 
 #. type: textblock
 #: lib/guestfs.pod:263
@@ -98262,7 +98281,8 @@ msgstr ""
 #: lib/guestfs.pod:284
 msgid ""
 "Obviously this effectively wipes anything that was on that disk image before."
-msgstr "以前ディスクイメージにあったものを明示的にすべて効果的に完全消去します。"
+msgstr ""
+"以前ディスクイメージにあったものを明示的にすべて効果的に完全消去します。"
 
 #. type: =head2
 #: lib/guestfs.pod:287
@@ -98278,8 +98298,8 @@ msgid ""
 "groups and logical volumes."
 msgstr ""
 "libguestfs は L</guestfs_lvcreate> および L</guestfs_vgremove> のような、大部"
-"分の LVM2 API にアクセスできます。物理ボリューム、ボリュームグループ、論理"
-"ボリュームの概念になじみがなければ、役に立たないかもしれません。"
+"分の LVM2 API にアクセスできます。物理ボリューム、ボリュームグループ、論理ボ"
+"リュームの概念になじみがなければ、役に立たないかもしれません。"
 
 #. type: textblock
 #: lib/guestfs.pod:294
@@ -98341,9 +98361,9 @@ msgid ""
 msgstr ""
 "固定的な内容を持つ小さなファイルを書き込むには、L</guestfs_write> を使用しま"
 "す。すべて 0 のファイルを作成するには、L</guestfs_truncate_size> (スパース) "
-"または L</guestfs_fallocate64> (すべてのブロックを割り当て済み) を使用します"
-"。テストファイルを作成するためのさまざまな他の関数があります。たとえば、 L</"
-"guestfs_fill> や L</guestfs_fill_pattern> があります。"
+"または L</guestfs_fallocate64> (すべてのブロックを割り当て済み) を使用しま"
+"す。テストファイルを作成するためのさまざまな他の関数があります。たとえば、 "
+"L</guestfs_fill> や L</guestfs_fill_pattern> があります。"
 
 #. type: textblock
 #: lib/guestfs.pod:320
@@ -98400,8 +98420,8 @@ msgid ""
 "Use L</guestfs_cp> to copy a single file, or L</guestfs_cp_a> to copy "
 "directories recursively."
 msgstr ""
-"単一のファイルをコピーするには L</guestfs_cp> を使用します、または"
-"ディレクトリーを再帰的にコピーするには L</guestfs_cp_a> を使用します。"
+"単一のファイルをコピーするには L</guestfs_cp> を使用します、またはディレクト"
+"リーを再帰的にコピーするには L</guestfs_cp_a> を使用します。"
 
 #. type: textblock
 #: lib/guestfs.pod:349
@@ -98561,8 +98581,8 @@ msgid ""
 "L</guestfs_ll> is just designed for humans to read (mainly when using the "
 "L<guestfish(1)>-equivalent command C<ll>)."
 msgstr ""
-"L</guestfs_ll> は人間が読みやすいよう設計されています（おもに L<guestfish"
-"(1)> の同等なコマンド C<ll> を使用するとき）。"
+"L</guestfs_ll> は人間が読みやすいよう設計されています（おもに "
+"L<guestfish(1)> の同等なコマンド C<ll> を使用するとき）。"
 
 #. type: textblock
 #: lib/guestfs.pod:413
@@ -98618,7 +98638,8 @@ msgstr "これには多くの制限があります:"
 msgid ""
 "The kernel version that the command runs under will be different from what "
 "it expects."
-msgstr "コマンドを実行するカーネルのバージョンは、期待するものにより異なります。"
+msgstr ""
+"コマンドを実行するカーネルのバージョンは、期待するものにより異なります。"
 
 #. type: textblock
 #: lib/guestfs.pod:440
@@ -98638,8 +98659,8 @@ msgid ""
 "The network may not be available unless you enable it (see L</"
 "guestfs_set_network>)."
 msgstr ""
-"ネットワークは有効にしなければ利用できません（L</guestfs_set_network> 参照）"
-"。"
+"ネットワークは有効にしなければ利用できません（L</guestfs_set_network> 参"
+"照）。"
 
 #. type: textblock
 #: lib/guestfs.pod:454
@@ -98901,8 +98922,8 @@ msgid ""
 "Then open these devices by calling L</guestfs_cryptsetup_open>.  Obviously "
 "you will require the passphrase!"
 msgstr ""
-"そして L</guestfs_luks_open> を呼び出すことにより、これらのデバイスを開きます"
-"。明示的にパスフレーズが必要です。"
+"そして L</guestfs_luks_open> を呼び出すことにより、これらのデバイスを開きま"
+"す。明示的にパスフレーズが必要です。"
 
 #. type: textblock
 #: lib/guestfs.pod:594
@@ -99682,8 +99703,8 @@ msgid ""
 "Instead it usually hibernates the guest.  This is known as \"fast startup\"."
 msgstr ""
 "Windows 8 では、シャットダウンボタンを押しても仮想マシンがシャットダウンしま"
-"せん。代わりに、仮想マシンが休止状態になります。これは \"高速"
-"スタートアップ\" として知られています。"
+"せん。代わりに、仮想マシンが休止状態になります。これは \"高速スタートアップ"
+"\" として知られています。"
 
 #. type: textblock
 #: lib/guestfs.pod:1026
@@ -100357,8 +100378,8 @@ msgid ""
 "around qemu."
 msgstr ""
 "自身の QEMU をコンパイルしたい、非標準の場所から QEMU を実行したい、または追"
-"加の引数を QEMU に渡したいならば、QEMU のシェルスクリプト・ラッパーを書けます"
-"。"
+"加の引数を QEMU に渡したいならば、QEMU のシェルスクリプト・ラッパーを書けま"
+"す。"
 
 #. type: textblock
 #: lib/guestfs.pod:1376
@@ -101364,8 +101385,8 @@ msgid ""
 "API functions can return errors.  For example, almost all functions that "
 "return C<int> will return C<-1> to indicate an error."
 msgstr ""
-"API 関数はエラーを返します。たとえば、ほとんどすべての C<int> を返す関数は"
-"エラーを意味するために C<-1> を返します。"
+"API 関数はエラーを返します。たとえば、ほとんどすべての C<int> を返す関数はエ"
+"ラーを意味するために C<-1> を返します。"
 
 #. type: textblock
 #: lib/guestfs.pod:1854
@@ -101600,9 +101621,8 @@ msgid ""
 "the case where the error did not come from a failed system call, but for "
 "some other reason."
 msgstr ""
-"エラーがありましたが、エラー番号に意味がありませんでした。エラーが"
-"システムコールの失敗により発生しましたが、何か他の理由による場合に対応します"
-"。"
+"エラーがありましたが、エラー番号に意味がありませんでした。エラーがシステム"
+"コールの失敗により発生しましたが、何か他の理由による場合に対応します。"
 
 #. type: textblock
 #: lib/guestfs.pod:1955
@@ -101783,8 +101803,8 @@ msgid ""
 "The callback C<cb> will be called if there is an out of memory situation.  "
 "I<Note this callback must not return>."
 msgstr ""
-"メモリー不足になると、コールバック C<cb> が呼び出されます。 I<この"
-"コールバックは戻ってこない可能性があることに注意してください>。"
+"メモリー不足になると、コールバック C<cb> が呼び出されます。 I<このコールバッ"
+"クは戻ってこない可能性があることに注意してください>。"
 
 #. type: textblock
 #: lib/guestfs.pod:2035
@@ -103583,7 +103603,8 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs.pod:2883
 msgid "Thus \"1.3.5\" is the 5th update to the development branch \"1.3\"."
-msgstr "このように \"1.3.5\" は開発ブランチ \"1.3\" の 5 番目のアップデートです。"
+msgstr ""
+"このように \"1.3.5\" は開発ブランチ \"1.3\" の 5 番目のアップデートです。"
 
 #. type: textblock
 #: lib/guestfs.pod:2885
@@ -103613,8 +103634,8 @@ msgid ""
 "Bug fixes which are not controversial, fix obvious problems, and have been "
 "well tested are backported."
 msgstr ""
-"議論の余地がなく、明らかな問題を修正する、十分にテストされたバグ修正は"
-"バックポートされます。"
+"議論の余地がなく、明らかな問題を修正する、十分にテストされたバグ修正はバック"
+"ポートされます。"
 
 #. type: textblock
 #: lib/guestfs.pod:2908
@@ -104082,8 +104103,8 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-ruby(3)>."
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
 #: lib/guestfs.pod:3229
@@ -104426,8 +104447,8 @@ msgid ""
 "www.lua.org/>, L<http://libguestfs.org/>."
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
 #: lua/examples/guestfs-lua.pod:157
@@ -104601,8 +104622,8 @@ msgid ""
 "libguestfs.org/>, L<http://caml.inria.fr/>."
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
 #: perl/examples/guestfs-perl.pod:3
@@ -104663,8 +104684,8 @@ msgid ""
 "ruby(3)>, L<http://libguestfs.org/>."
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
 #: python/examples/guestfs-python.pod:3
@@ -104790,8 +104811,8 @@ msgid ""
 "libguestfs.org/>."
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
 #: rescue/virt-rescue.pod:3
@@ -105030,8 +105051,8 @@ msgid ""
 "If using libvirt, connect to the given I<URI>.  If omitted, then we connect "
 "to the default libvirt hypervisor."
 msgstr ""
-"libvirt を使用していると、指定された I<URI> に接続します。  省略すると、"
-"デフォルトの libvirt ハイパーバイザーに接続します。"
+"libvirt を使用していると、指定された I<URI> に接続します。  省略すると、デ"
+"フォルトの libvirt ハイパーバイザーに接続します。"
 
 #. type: textblock
 #: rescue/virt-rescue.pod:124
@@ -105136,8 +105157,8 @@ msgid ""
 "with malicious guests (CVE-2010-3851)."
 msgstr ""
 "仮想マシンのディスクイメージが信頼できない raw 形式である場合、 ディスク形式"
-"を指定するためにこのオプションを使用すべきです。 これにより、悪意のある仮想"
-"マシンにより起こり得る セキュリティ問題を回避できます (CVE-2010-3851)。"
+"を指定するためにこのオプションを使用すべきです。 これにより、悪意のある仮想マ"
+"シンにより起こり得る セキュリティ問題を回避できます (CVE-2010-3851)。"
 
 #. type: textblock
 #: rescue/virt-rescue.pod:189
@@ -105193,10 +105214,10 @@ msgid ""
 "I<--scratch=N> adds C<N> scratch disks.  The scratch disk(s) are deleted "
 "automatically when virt-rescue exits."
 msgstr ""
-"I<--scratch> オプションにより、大きなスクラッチディスクをレスキュー・"
-"アプライアンスに追加できます。I<--scratch=N> により、C<N> 個の"
-"スクラッチディスクを追加できます。virt-rescue が終了するとき、"
-"スクラッチディスクは自動的に削除されます。"
+"I<--scratch> オプションにより、大きなスクラッチディスクをレスキュー・アプライ"
+"アンスに追加できます。I<--scratch=N> により、C<N> 個のスクラッチディスクを追"
+"加できます。virt-rescue が終了するとき、スクラッチディスクは自動的に削除され"
+"ます。"
 
 #. type: textblock
 #: rescue/virt-rescue.pod:249
@@ -105687,8 +105708,8 @@ msgid ""
 "libguestfs.org/>."
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
 #: test-tool/libguestfs-test-tool.pod:3

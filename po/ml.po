@@ -9,9 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-07-03 09:02+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-07-13 14:09+0100\n"
 "PO-Revision-Date: 2026-07-13 10:42+0000\n"
 "Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
 "Language-Team: Malayalam <https://translate.fedoraproject.org/projects/"
@@ -263,8 +263,7 @@ msgstr "ഒരു ചിത്രം ഉണ്ടാക്കുന്നതി�
 #: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr ""
-"ഒരു സ്പാര്‍സ് ചിത്രം ഉണ്ടാക്കുന്നതിനായി 'sparse file size' ഉപയോഗിക്കുക\n"
+msgstr "ഒരു സ്പാര്‍സ് ചിത്രം ഉണ്ടാക്കുന്നതിനായി 'sparse file size' ഉപയോഗിക്കുക\n"
 
 #: fish/alloc.c:105
 #, c-format
@@ -847,8 +846,7 @@ msgstr ""
 
 #: fish/cmds.c:681
 msgid "drop kernel page cache, dentries and inodes"
-msgstr ""
-"കേര്‍ണല്‍ താളിന്റെ കാഷ്, ഡിഎന്‍ട്രികള്‍ ഐനോഡുകള്‍ എന്നിവ വേണ്ടെന്നു് വയ്ക്കുക"
+msgstr "കേര്‍ണല്‍ താളിന്റെ കാഷ്, ഡിഎന്‍ട്രികള്‍ ഐനോഡുകള്‍ എന്നിവ വേണ്ടെന്നു് വയ്ക്കുക"
 
 #: fish/cmds.c:682
 msgid "estimate file space usage"
@@ -938,8 +936,7 @@ msgstr "എല്ലാ ഫയലുകളും ഡയറക്ടറികള�
 
 #: fish/cmds.c:712
 msgid "find all files and directories, returning NUL-separated list"
-msgstr ""
-"എല്ലാ ഫയലുകളും ഡറക്ടറികളും കണ്ടുപിടിക്കുക, NUL-വേര്‍തിരിച്ച പട്ടിക തിരികെ ലഭ്യമാക്കുക"
+msgstr "എല്ലാ ഫയലുകളും ഡറക്ടറികളും കണ്ടുപിടിക്കുക, NUL-വേര്‍തിരിച്ച പട്ടിക തിരികെ ലഭ്യമാക്കുക"
 
 #: fish/cmds.c:713
 msgid "search the entries associated to the given inode"
@@ -959,8 +956,7 @@ msgstr "ഒരു പാര്‍ട്ടീഷന്‍ ബൂട്ടബി�
 #, fuzzy
 #| msgid "disable swap on swap partition by UUID"
 msgid "find a partition by UUID"
-msgstr ""
-"UUID ഉപയോഗിച്ചു് സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന രഹിതമാക്കുക"
+msgstr "UUID ഉപയോഗിച്ചു് സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:717
 msgid "find a filesystem by UUID"
@@ -1072,8 +1068,7 @@ msgstr ""
 
 #: fish/cmds.c:748
 msgid "get recovery process enabled flag"
-msgstr ""
-"വീണ്ടെടുക്കുന്ന പ്രക്രിയ പ്രവര്‍ത്തന സജ്ജമാക്കുന്നതിനുള്ള ഫ്ലാഗ് ലഭ്യമാക്കുക"
+msgstr "വീണ്ടെടുക്കുന്ന പ്രക്രിയ പ്രവര്‍ത്തന സജ്ജമാക്കുന്നതിനുള്ള ഫ്ലാഗ് ലഭ്യമാക്കുക"
 
 #: fish/cmds.c:749
 msgid "get SELinux enabled flag"
@@ -1555,8 +1550,7 @@ msgstr "ഒരു സിംബോളിക് ലിങ്ക് നിര്‍
 
 #: fish/cmds.c:887 fish/cmds.c:1052
 msgid "remove extended attribute of a file or directory"
-msgstr ""
-"ഒരു ഫയല്‍ അല്ലെങ്കില്‍ ഡയറക്ടറിയ്ക്കുള്ള എക്സ്റ്റെന്‍ഡഡ് വിശേഷത നീക്കം ചെയ്യുക"
+msgstr "ഒരു ഫയല്‍ അല്ലെങ്കില്‍ ഡയറക്ടറിയ്ക്കുള്ള എക്സ്റ്റെന്‍ഡഡ് വിശേഷത നീക്കം ചെയ്യുക"
 
 #: fish/cmds.c:888
 msgid "list the files in a directory"
@@ -2164,8 +2158,7 @@ msgstr ""
 
 #: fish/cmds.c:1086
 msgid "enable or disable direct appliance mode"
-msgstr ""
-"നേരിട്ടുള്ള അപ്ലയന്‍സ് മോഡ് പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
+msgstr "നേരിട്ടുള്ള അപ്ലയന്‍സ് മോഡ് പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:1087
 msgid "set ext2 file attributes of a file"
@@ -2229,8 +2222,7 @@ msgstr ""
 
 #: fish/cmds.c:1102
 msgid "enable or disable the recovery process"
-msgstr ""
-"വീണ്ടെടുക്കുന്ന പ്രക്രിയ പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
+msgstr "വീണ്ടെടുക്കുന്ന പ്രക്രിയ പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:1103
 msgid "set SELinux enabled or disabled at appliance boot"
@@ -2247,8 +2239,7 @@ msgstr ""
 
 #: fish/cmds.c:1106
 msgid "enable or disable command traces"
-msgstr ""
-"കമാന്‍ഡ് ട്രെയിസുകള്‍ പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
+msgstr "കമാന്‍ഡ് ട്രെയിസുകള്‍ പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:1107
 msgid "set the filesystem UUID"
@@ -2324,8 +2315,7 @@ msgstr "ഫയല്‍ സിസ്റ്റത്തിന്റെ സ്ഥ�
 
 #: fish/cmds.c:1132 fish/cmds.c:1133
 msgid "print the printable strings in a file"
-msgstr ""
-"പ്രിന്റ് ചെയ്യുവാന്‍ സാധിക്കുന്ന സ്ട്രിങുകള്‍ ഒരു ഫയലിലേക്ക് പ്രിന്റ് ചെയ്യുക"
+msgstr "പ്രിന്റ് ചെയ്യുവാന്‍ സാധിക്കുന്ന സ്ട്രിങുകള്‍ ഒരു ഫയലിലേക്ക് പ്രിന്റ് ചെയ്യുക"
 
 #: fish/cmds.c:1134
 msgid "list supported groups of commands"
@@ -2345,8 +2335,7 @@ msgstr "ലേബല്‍ ചെയ്ത സ്വാപ്പ് പാര്
 
 #: fish/cmds.c:1138
 msgid "disable swap on swap partition by UUID"
-msgstr ""
-"UUID ഉപയോഗിച്ചു് സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന രഹിതമാക്കുക"
+msgstr "UUID ഉപയോഗിച്ചു് സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:1139
 msgid "enable swap on device"
@@ -2362,8 +2351,7 @@ msgstr "ലേബല്‍ ചെയ്ത സ്വാപ്പ് പാര്
 
 #: fish/cmds.c:1142
 msgid "enable swap on swap partition by UUID"
-msgstr ""
-"UUID ഉപയോഗിച്ചു് സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന സജ്ജമാക്കുക"
+msgstr "UUID ഉപയോഗിച്ചു് സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന സജ്ജമാക്കുക"
 
 #: fish/cmds.c:1143
 msgid "sync disks, writes are flushed through to the disk image"
@@ -2403,8 +2391,7 @@ msgstr ""
 
 #: fish/cmds.c:1155
 msgid "update file timestamps or create a new file"
-msgstr ""
-"ഫയല്‍ ടൈംസ്റ്റാംപുകള്‍ പരിഷ്കരിക്കുക അല്ലെങ്കില്‍ ഒരു പുതിയ ഫയല്‍ നിര്‍മ്മിക്കുക"
+msgstr "ഫയല്‍ ടൈംസ്റ്റാംപുകള്‍ പരിഷ്കരിക്കുക അല്ലെങ്കില്‍ ഒരു പുതിയ ഫയല്‍ നിര്‍മ്മിക്കുക"
 
 #: fish/cmds.c:1159
 msgid "truncate a file to zero size"
@@ -2612,8 +2599,7 @@ msgstr "ഒരു കംപ്രസ്സ്ഡ് ഫയലിലുള്ള 
 
 #: fish/cmds.c:1232
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr ""
-"ഒരു കമാന്‍ഡിന്റെ വിശദവിവരങ്ങള്‍ക്കായി -h <cmd> / help <cmd> ഉപയോഗിക്കുക."
+msgstr "ഒരു കമാന്‍ഡിന്റെ വിശദവിവരങ്ങള്‍ക്കായി -h <cmd> / help <cmd> ഉപയോഗിക്കുക."
 
 #: fish/copy.c:42
 #, c-format
@@ -2788,8 +2774,7 @@ msgstr ""
 #: fish/fish.c:868 fish/fish.c:884
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
-msgstr ""
-"%s: കമാന്‍ഡ് ആര്‍ഗ്യുമെന്റുകള്‍ വൈറ്റ്സ്പെയിസ് ഉപയോഗിച്ചു് വേര്‍തിരിച്ചിട്ടില്ല\n"
+msgstr "%s: കമാന്‍ഡ് ആര്‍ഗ്യുമെന്റുകള്‍ വൈറ്റ്സ്പെയിസ് ഉപയോഗിച്ചു് വേര്‍തിരിച്ചിട്ടില്ല\n"
 
 #: fish/fish.c:878
 #, c-format
@@ -3136,8 +3121,7 @@ msgstr ""
 #: fish/rc.c:434
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr ""
-"guestfish: protocol error:സര്‍വറില്‍ നിന്നുള്ള മറുപടി ഡീക്കോഡ് ചെയ്യുവാന്‍ സാധ്യമല്ല\n"
+msgstr "guestfish: protocol error:സര്‍വറില്‍ നിന്നുള്ള മറുപടി ഡീക്കോഡ് ചെയ്യുവാന്‍ സാധ്യമല്ല\n"
 
 #: fish/reopen.c:43
 #, c-format
@@ -4306,8 +4290,7 @@ msgstr "ഡെമണ്‍ സോക്കറ്റിലേക്ക് സൂ�
 
 #: lib/proto.c:880
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr ""
-"receive_file_data: ഫയല്‍ ലഭ്യമാക്കുമ്പോള്‍ അപ്രതീക്ഷിതമായ ഫ്ലാഗ് ലഭിച്ചിരിക്കുന്നു"
+msgstr "receive_file_data: ഫയല്‍ ലഭ്യമാക്കുമ്പോള്‍ അപ്രതീക്ഷിതമായ ഫ്ലാഗ് ലഭിച്ചിരിക്കുന്നു"
 
 #: lib/proto.c:888
 msgid "failed to parse file chunk"
