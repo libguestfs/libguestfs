@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2026-07-09 08:20+0100\n"
+"POT-Creation-Date: 2026-07-14 14:59+0100\n"
 "PO-Revision-Date: 2026-07-13 14:19+0000\n"
 "Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
 "memory@weblate.org>\n"
@@ -588,7 +588,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:196
 #: docs/guestfs-release-notes-1.58.pod:252
 #: docs/guestfs-release-notes-1.6.pod:170
-#: docs/guestfs-release-notes-1.60.pod:185
+#: docs/guestfs-release-notes-1.60.pod:189
 #: docs/guestfs-release-notes-1.8.pod:145 docs/guestfs-release-notes.pod:153
 #: docs/guestfs-security.pod:437 docs/guestfs-testing.pod:395
 #: erlang/examples/guestfs-erlang.pod:95 examples/guestfs-examples.pod:55
@@ -626,7 +626,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.54.pod:139
 #: docs/guestfs-release-notes-1.56.pod:207
 #: docs/guestfs-release-notes-1.58.pod:263
-#: docs/guestfs-release-notes-1.60.pod:196 docs/guestfs-security.pod:445
+#: docs/guestfs-release-notes-1.60.pod:200 docs/guestfs-security.pod:445
 #: docs/guestfs-testing.pod:402 erlang/examples/guestfs-erlang.pod:110
 #: examples/guestfs-examples.pod:69 fish/guestfish.pod:1636
 #: fish/libguestfs-tools.conf.pod:96 fish/virt-copy-in.pod:52
@@ -690,7 +690,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:241
 #: docs/guestfs-release-notes-1.58.pod:291
 #: docs/guestfs-release-notes-1.6.pod:185
-#: docs/guestfs-release-notes-1.60.pod:266
+#: docs/guestfs-release-notes-1.60.pod:272
 #: docs/guestfs-release-notes-1.8.pod:160 docs/guestfs-release-notes.pod:168
 #: docs/guestfs-security.pod:449 docs/guestfs-testing.pod:406
 #: erlang/examples/guestfs-erlang.pod:114 examples/guestfs-examples.pod:73
@@ -809,10 +809,10 @@ msgstr "(c) 2009-2025 Red Hat Inc., ყველა უფლება დაც
 #: docs/guestfs-release-notes-1.58.pod:185
 #: docs/guestfs-release-notes-1.58.pod:265
 #: docs/guestfs-release-notes-1.58.pod:269
-#: docs/guestfs-release-notes-1.60.pod:119
 #: docs/guestfs-release-notes-1.60.pod:123
-#: docs/guestfs-release-notes-1.60.pod:198
-#: docs/guestfs-release-notes-1.60.pod:202 fish/guestfish-actions.pod:1
+#: docs/guestfs-release-notes-1.60.pod:127
+#: docs/guestfs-release-notes-1.60.pod:202
+#: docs/guestfs-release-notes-1.60.pod:206 fish/guestfish-actions.pod:1
 #: fish/guestfish-actions.pod:25 fish/guestfish-commands.pod:1
 #: fish/guestfish-commands.pod:25 fish/guestfish-prepopts.pod:1
 #: fish/guestfish-prepopts.pod:25 lib/guestfs-actions.pod:1
@@ -4230,8 +4230,8 @@ msgid ""
 "L<https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
 msgstr ""
-"L<https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools>"
+"L<https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools>"
 
 #. type: textblock
 #: docs/guestfs-faq.pod:125
@@ -10543,8 +10543,7 @@ msgid ""
 msgstr ""
 " $ guestfish -a /dev/null run -v |& ts -i '%.s'\n"
 " 0.000022 libguestfs: launch: program=guestfish\n"
-" 0.000134 libguestfs: launch: "
-"version=1.29.31fedora=23,release=2.fc23,libvirt\n"
+" 0.000134 libguestfs: launch: version=1.29.31fedora=23,release=2.fc23,libvirt\n"
 " 0.000044 libguestfs: launch: backend registered: unix\n"
 " 0.000035 libguestfs: launch: backend registered: uml\n"
 " 0.000035 libguestfs: launch: backend registered: libvirt\n"
@@ -12438,10 +12437,10 @@ msgid ""
 "L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-python(3)>, L<guestfs-"
 "ruby(3)>, L<http://libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfish(1)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>"
-", L<guestfs-golang(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-"
-"ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-python(3)>, L<guestfs-ruby(3)>, "
-"L<http://libguestfs.org/>."
+"L<guestfs(3)>, L<guestfish(1)>, L<guestfs-examples(3)>, L<guestfs-"
+"erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, "
+"L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-python(3)>, L<guestfs-"
+"ruby(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.10.pod:3 docs/guestfs-release-notes-1.12.pod:3
@@ -12853,7 +12852,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:92
 #: docs/guestfs-release-notes-1.58.pod:105
 #: docs/guestfs-release-notes-1.6.pod:119
-#: docs/guestfs-release-notes-1.60.pod:89
+#: docs/guestfs-release-notes-1.60.pod:91
 #: docs/guestfs-release-notes-1.8.pod:101
 msgid "Internals"
 msgstr "შიდები"
@@ -12930,7 +12929,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:118
 #: docs/guestfs-release-notes-1.58.pod:179
 #: docs/guestfs-release-notes-1.6.pod:135
-#: docs/guestfs-release-notes-1.60.pod:117
+#: docs/guestfs-release-notes-1.60.pod:121
 #: docs/guestfs-release-notes-1.8.pod:136
 msgid "Bugs fixed"
 msgstr ""
@@ -12989,7 +12988,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:198
 #: docs/guestfs-release-notes-1.58.pod:254
 #: docs/guestfs-release-notes-1.6.pod:172
-#: docs/guestfs-release-notes-1.60.pod:187
+#: docs/guestfs-release-notes-1.60.pod:191
 #: docs/guestfs-release-notes-1.8.pod:147 docs/guestfs-release-notes.pod:155
 msgid ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
@@ -12997,8 +12996,8 @@ msgid ""
 "L<guestfish(1)>, L<http://libguestfs.org/>"
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
-", L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
+"L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.10.pod:158
@@ -13028,7 +13027,7 @@ msgstr ""
 #: docs/guestfs-release-notes-1.56.pod:231
 #: docs/guestfs-release-notes-1.58.pod:283
 #: docs/guestfs-release-notes-1.6.pod:183
-#: docs/guestfs-release-notes-1.60.pod:244
+#: docs/guestfs-release-notes-1.60.pod:250
 #: docs/guestfs-release-notes-1.8.pod:158 docs/guestfs-release-notes.pod:166
 msgid "Richard W.M. Jones"
 msgstr "Richard W.M. Jones"
@@ -28177,7 +28176,7 @@ msgstr "Geoff Toole"
 #. type: =item
 #: docs/guestfs-release-notes-1.44.pod:118
 #: docs/guestfs-release-notes-1.46.pod:234
-#: docs/guestfs-release-notes-1.60.pod:228
+#: docs/guestfs-release-notes-1.60.pod:234
 msgid "Hilko Bengen"
 msgstr "Hilko Bengen"
 
@@ -28198,7 +28197,7 @@ msgstr "Thierry Vignaud"
 #: docs/guestfs-release-notes-1.54.pod:171
 #: docs/guestfs-release-notes-1.56.pod:237
 #: docs/guestfs-release-notes-1.58.pod:287
-#: docs/guestfs-release-notes-1.60.pod:260
+#: docs/guestfs-release-notes-1.60.pod:266
 msgid "Yuri Chornoivan"
 msgstr "იური ჩორნოივანი"
 
@@ -29271,7 +29270,7 @@ msgstr "git shortlog -s v1.48.0.."
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:203
-#: docs/guestfs-release-notes-1.60.pod:206
+#: docs/guestfs-release-notes-1.60.pod:210
 msgid "Adolfo Jayme Barrientos"
 msgstr "Adolfo Jayme Barrientos"
 
@@ -29284,7 +29283,7 @@ msgstr "ანდრეი დრობიშევი"
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:207
 #: docs/guestfs-release-notes-1.52.pod:146
-#: docs/guestfs-release-notes-1.60.pod:218
+#: docs/guestfs-release-notes-1.60.pod:224
 msgid "Emilio Herrera"
 msgstr "ემილიო ჰერერა"
 
@@ -29292,7 +29291,7 @@ msgstr "ემილიო ჰერერა"
 #: docs/guestfs-release-notes-1.50.pod:209
 #: docs/guestfs-release-notes-1.56.pod:223
 #: docs/guestfs-release-notes-1.58.pod:277
-#: docs/guestfs-release-notes-1.60.pod:220
+#: docs/guestfs-release-notes-1.60.pod:226
 msgid "Ettore Atalan"
 msgstr "ეტორე ატალანი"
 
@@ -29303,14 +29302,14 @@ msgstr "Geoff Amey"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:213
-#: docs/guestfs-release-notes-1.60.pod:226
+#: docs/guestfs-release-notes-1.60.pod:232
 msgid "Hela Basa"
 msgstr "Hela Basa"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:215
 #: docs/guestfs-release-notes-1.52.pod:152
-#: docs/guestfs-release-notes-1.60.pod:230
+#: docs/guestfs-release-notes-1.60.pod:236
 msgid "Jan Kuparinen"
 msgstr "იან კუპარინენი"
 
@@ -29338,27 +29337,27 @@ msgstr "Nikolay Shirokovskiy"
 #: docs/guestfs-release-notes-1.50.pod:229
 #: docs/guestfs-release-notes-1.52.pod:158
 #: docs/guestfs-release-notes-1.58.pod:281
-#: docs/guestfs-release-notes-1.60.pod:238
+#: docs/guestfs-release-notes-1.60.pod:244
 msgid "Pavel Borecki"
 msgstr "Pavel Borecki"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:231
-#: docs/guestfs-release-notes-1.60.pod:240
+#: docs/guestfs-release-notes-1.60.pod:246
 msgid "Piotr Drąg"
 msgstr "პიოტრ დრაგი"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:235
 #: docs/guestfs-release-notes-1.56.pod:233
-#: docs/guestfs-release-notes-1.60.pod:246
+#: docs/guestfs-release-notes-1.60.pod:252
 msgid "Ricky Tigg"
 msgstr "რიკი ტიგი"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.50.pod:237
 #: docs/guestfs-release-notes-1.52.pod:162
-#: docs/guestfs-release-notes-1.60.pod:256
+#: docs/guestfs-release-notes-1.60.pod:262
 msgid "Temuri Doghonadze"
 msgstr "თემური დოღონაძე"
 
@@ -29584,7 +29583,7 @@ msgstr "cunshunxia"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.52.pod:148
-#: docs/guestfs-release-notes-1.60.pod:224
+#: docs/guestfs-release-notes-1.60.pod:230
 msgid "grimst"
 msgstr "grimst"
 
@@ -29601,7 +29600,7 @@ msgstr "Jürgen Hötzel"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.52.pod:164
-#: docs/guestfs-release-notes-1.60.pod:258
+#: docs/guestfs-release-notes-1.60.pod:264
 msgid "Tian Shixiong"
 msgstr "Tian Shixiong"
 
@@ -29836,7 +29835,7 @@ msgstr "ალექსეი შაბალინი"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.54.pod:151
-#: docs/guestfs-release-notes-1.60.pod:210
+#: docs/guestfs-release-notes-1.60.pod:214
 msgid "Andi Chandler"
 msgstr "ანდი შანდლერი"
 
@@ -29877,7 +29876,7 @@ msgstr "Wang Guoquan"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.54.pod:173
-#: docs/guestfs-release-notes-1.60.pod:262
+#: docs/guestfs-release-notes-1.60.pod:268
 msgid "zhanchun li"
 msgstr "zhanchun li"
 
@@ -30284,7 +30283,7 @@ msgstr "git shortlog -s v1.54.0.."
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:217
 #: docs/guestfs-release-notes-1.58.pod:275
-#: docs/guestfs-release-notes-1.60.pod:216
+#: docs/guestfs-release-notes-1.60.pod:220
 msgid "Cole Robinson"
 msgstr "კოლე რობინსონი"
 
@@ -30305,13 +30304,13 @@ msgstr "Jacob Reger"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:227
-#: docs/guestfs-release-notes-1.60.pod:232
+#: docs/guestfs-release-notes-1.60.pod:238
 msgid "Krascovict Petrov"
 msgstr "Krascovict Petrov"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.56.pod:229
-#: docs/guestfs-release-notes-1.60.pod:234
+#: docs/guestfs-release-notes-1.60.pod:240
 msgid "Léane GRASSER"
 msgstr "Léane GRASSER"
 
@@ -30778,19 +30777,19 @@ msgstr "Arye Yurkovsky"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.58.pod:279
-#: docs/guestfs-release-notes-1.60.pod:222
+#: docs/guestfs-release-notes-1.60.pod:228
 msgid "Fco. Javier F. Serrador"
 msgstr "Fco. Javier F. Serrador"
 
 #. type: =item
 #: docs/guestfs-release-notes-1.58.pod:285
-#: docs/guestfs-release-notes-1.60.pod:254
+#: docs/guestfs-release-notes-1.60.pod:260
 msgid "Susant Sahani"
 msgstr "Susant Sahani"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.58.pod:293
-#: docs/guestfs-release-notes-1.60.pod:268
+#: docs/guestfs-release-notes-1.60.pod:274
 msgid "Copyright (C) 2009-2026 Red Hat Inc."
 msgstr "(C) 2009-2026 Red Hat Inc. ყველა უფლება დაცულია."
 
@@ -31330,7 +31329,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:91
+#: docs/guestfs-release-notes-1.60.pod:89
+msgid "Improve appliance support for Arch (David Runge)."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:93
 msgid ""
 "Simplify qemu property testing.  Most of the code was eliminated completely, "
 "and also we no longer start up an empty guest when detecting if KVM is "
@@ -31339,24 +31343,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:96
+#: docs/guestfs-release-notes-1.60.pod:98
 msgid "Use I<-cpu max> on RISC-V (thanks Apache553)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:98
+#: docs/guestfs-release-notes-1.60.pod:100
 msgid "Very minimal support for Apple Filesystem (APFS) was added on Fedora."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:100
+#: docs/guestfs-release-notes-1.60.pod:102
 msgid ""
 "Many memory and file descriptor leaks found by Claude Code were fixed "
 "(shivanayak)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:103
+#: docs/guestfs-release-notes-1.60.pod:105
 msgid ""
 "In the libguestfs appliance, increase the number of pre-process memory "
 "maps.  This may allow xfs_repair to work on larger filesystems (Eric "
@@ -31364,7 +31368,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:107
+#: docs/guestfs-release-notes-1.60.pod:109
 msgid ""
 "Fix DHCP on fast machines by making it wait for an address when networking "
 "is enabled.  In addition use C<dhcpcd --debug> which makes it easier to see "
@@ -31372,54 +31376,59 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:111
+#: docs/guestfs-release-notes-1.60.pod:113
 msgid "Improvements to debug output (Surya Gupta, Srihari Parimi)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:113
+#: docs/guestfs-release-notes-1.60.pod:115
 msgid "Fix Fedora bin/sbin symlinking to be less noisy (Cole Robinson)."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:115
+#: docs/guestfs-release-notes-1.60.pod:117
 msgid "Rewrite xfs_repair and luks_* implementations in the daemon in OCaml."
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:121
+#: docs/guestfs-release-notes-1.60.pod:119
+msgid "Ensure fds 0, 1 and 2 are open when running subcommands."
+msgstr ""
+
+#. type: textblock
+#: docs/guestfs-release-notes-1.60.pod:125
 msgid "./bugs-in-changelog.sh v1.58.0.."
 msgstr "./bugs-in-changelog.sh v1.58.0.."
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:127
+#: docs/guestfs-release-notes-1.60.pod:131
 msgid "L<https://issues.redhat.com/browse/RHEL-129145>"
 msgstr "L<https://issues.redhat.com/browse/RHEL-129145>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:129
+#: docs/guestfs-release-notes-1.60.pod:133
 msgid ""
 "RFE: Detect Windows Defender antivirus when enabled in default Windows 11 "
 "installs"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:131
+#: docs/guestfs-release-notes-1.60.pod:135
 msgid "L<https://issues.redhat.com/browse/RHEL-143673>"
 msgstr "L<https://issues.redhat.com/browse/RHEL-143673>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:133
+#: docs/guestfs-release-notes-1.60.pod:137
 msgid "Add new xfs_info2 API to expose XFS version information"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:135
+#: docs/guestfs-release-notes-1.60.pod:139
 msgid "L<https://issues.redhat.com/browse/RHEL-165220>"
 msgstr "L<https://issues.redhat.com/browse/RHEL-165220>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:137
+#: docs/guestfs-release-notes-1.60.pod:141
 msgid ""
 "virt-v2v with sun partition table and Veritas storage failed with: parted "
 "exited with status 1: Warning: The disk CHS geometry reported by the "
@@ -31427,54 +31436,54 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:139
+#: docs/guestfs-release-notes-1.60.pod:143
 msgid "L<https://issues.redhat.com/browse/RHEL-165677>"
 msgstr "L<https://issues.redhat.com/browse/RHEL-165677>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:141
+#: docs/guestfs-release-notes-1.60.pod:145
 msgid ""
 "Stop using xfs_repair -m because memory required scales with filesystem size "
 "and has sharp edges"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:143
+#: docs/guestfs-release-notes-1.60.pod:147
 msgid "L<https://issues.redhat.com/browse/RHEL-170864>"
 msgstr "L<https://issues.redhat.com/browse/RHEL-170864>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:145
+#: docs/guestfs-release-notes-1.60.pod:149
 msgid "virt-v2v failing with binary LUKS keys [virt-v2v]"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:147
+#: docs/guestfs-release-notes-1.60.pod:151
 msgid "L<https://issues.redhat.com/browse/RHEL-171895>"
 msgstr "L<https://issues.redhat.com/browse/RHEL-171895>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:149
+#: docs/guestfs-release-notes-1.60.pod:153
 msgid "virt-v2v failing with binary LUKS keys [libguestfs]"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:151
+#: docs/guestfs-release-notes-1.60.pod:155
 msgid "L<https://issues.redhat.com/browse/RHEL-171896>"
 msgstr "L<https://issues.redhat.com/browse/RHEL-171896>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:153
+#: docs/guestfs-release-notes-1.60.pod:157
 msgid "virt-v2v failing with binary LUKS keys [guestfs-tools]"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:155
+#: docs/guestfs-release-notes-1.60.pod:159
 msgid "L<https://issues.redhat.com/browse/RHEL-178287>"
 msgstr "L<https://issues.redhat.com/browse/RHEL-178287>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:157
+#: docs/guestfs-release-notes-1.60.pod:161
 msgid ""
 "virt-v2v fails during migration of RHEL 7 VMs due to XFS filesystem errors, "
 "potentially related to RHEL 10.1 xfs_repair running against a RHEL 7 XFS "
@@ -31482,108 +31491,113 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:159
+#: docs/guestfs-release-notes-1.60.pod:163
 msgid "L<https://issues.redhat.com/browse/RHEL-178556>"
 msgstr "L<https://issues.redhat.com/browse/RHEL-178556>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:161
+#: docs/guestfs-release-notes-1.60.pod:165
 msgid ""
 "Use bind mount to overwrite /sysroot/etc/resolv.conf during \"sh\" operations"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:163
+#: docs/guestfs-release-notes-1.60.pod:167
 msgid "L<https://github.com/libguestfs/libguestfs/issues/290>"
 msgstr "L<https://github.com/libguestfs/libguestfs/issues/290>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:165
+#: docs/guestfs-release-notes-1.60.pod:169
 msgid "1.58.0: undefined reference to optgroup_selinuxrelabel_available"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:167
+#: docs/guestfs-release-notes-1.60.pod:171
 msgid "L<https://github.com/libguestfs/libguestfs/issues/292>"
 msgstr "L<https://github.com/libguestfs/libguestfs/issues/292>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:169
+#: docs/guestfs-release-notes-1.60.pod:173
 msgid "guestfs_int_get_cpu_model: use -cpu max for riscv"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:171
+#: docs/guestfs-release-notes-1.60.pod:175
 msgid "L<https://github.com/libguestfs/libguestfs/issues/312>"
 msgstr "L<https://github.com/libguestfs/libguestfs/issues/312>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:173
+#: docs/guestfs-release-notes-1.60.pod:177
 msgid "switch to po4a"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:175
+#: docs/guestfs-release-notes-1.60.pod:179
 msgid "L<https://github.com/libguestfs/libguestfs/issues/336>"
 msgstr "L<https://github.com/libguestfs/libguestfs/issues/336>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:177
+#: docs/guestfs-release-notes-1.60.pod:181
 msgid "flaky test network/test-network.sh"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:179
+#: docs/guestfs-release-notes-1.60.pod:183
 msgid "L<https://github.com/libguestfs/libguestfs/issues/359>"
 msgstr "L<https://github.com/libguestfs/libguestfs/issues/359>"
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:181
+#: docs/guestfs-release-notes-1.60.pod:185
 msgid "1.58.1: The Lua bindings link against libxml2 but don't seem to use it"
 msgstr ""
 
 #. type: textblock
-#: docs/guestfs-release-notes-1.60.pod:200
+#: docs/guestfs-release-notes-1.60.pod:204
 msgid "git shortlog -s v1.58.0.."
 msgstr "git shortlog -s v1.58.0.."
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:208
+#: docs/guestfs-release-notes-1.60.pod:212
 msgid "Anders Roxell"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:212
+#: docs/guestfs-release-notes-1.60.pod:216
 msgid "Arif Budiman"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:214
+#: docs/guestfs-release-notes-1.60.pod:218
 msgid "Christopher Byrne"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:236
-msgid "Nathan95"
+#: docs/guestfs-release-notes-1.60.pod:222
+msgid "David Runge"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:242
-msgid "Rafael Fontenelle"
+msgid "Nathan95"
 msgstr ""
 
 #. type: =item
 #: docs/guestfs-release-notes-1.60.pod:248
+msgid "Rafael Fontenelle"
+msgstr ""
+
+#. type: =item
+#: docs/guestfs-release-notes-1.60.pod:254
 msgid "shivanayak"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:250
+#: docs/guestfs-release-notes-1.60.pod:256
 msgid "Srihari Parimi"
 msgstr ""
 
 #. type: =item
-#: docs/guestfs-release-notes-1.60.pod:252
+#: docs/guestfs-release-notes-1.60.pod:258
 msgid "Surya Gupta"
 msgstr ""
 
@@ -32148,7 +32162,8 @@ msgstr "2009-09-13 (1.0.67)"
 #. type: textblock
 #: docs/guestfs-release-notes.pod:137
 msgid "L<https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html>"
-msgstr "L<https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html>"
+msgstr ""
+"L<https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html>"
 
 #. type: =item
 #: docs/guestfs-release-notes.pod:139
@@ -36896,8 +36911,7 @@ msgid ""
 "\n"
 msgstr ""
 " int64_t\n"
-" guestfs_int_timeval_diff (const struct timeval *x, const struct timeval *y)"
-"\n"
+" guestfs_int_timeval_diff (const struct timeval *x, const struct timeval *y)\n"
 "\n"
 
 #. type: textblock
@@ -37000,8 +37014,7 @@ msgid ""
 "\n"
 msgstr ""
 " void\n"
-" guestfs_int_register_backend (const char *name, const struct backend_ops "
-"*ops)\n"
+" guestfs_int_register_backend (const char *name, const struct backend_ops *ops)\n"
 "\n"
 
 #. type: textblock
@@ -38548,8 +38561,7 @@ msgid ""
 "\n"
 msgstr ""
 " int\n"
-" guestfs_int_version_from_x_y (guestfs_h *g, struct version *v, const char "
-"*str)\n"
+" guestfs_int_version_from_x_y (guestfs_h *g, struct version *v, const char *str)\n"
 "\n"
 
 #. type: textblock
@@ -38671,8 +38683,7 @@ msgid ""
 "\n"
 msgstr ""
 " int\n"
-" guestfs_int_waitpid (guestfs_h *g, pid_t pid, int *status, const char "
-"*errmsg)\n"
+" guestfs_int_waitpid (guestfs_h *g, pid_t pid, int *status, const char *errmsg)\n"
 "\n"
 
 #. type: textblock
@@ -42180,9 +42191,7 @@ msgstr "აბრუნებს C<[\"\"]>"
 #. type: =item
 #: docs/internal-documentation.pod:3745
 msgid "C<\"a\\nb\">"
-msgstr ""
-"C<\"a\\n"
-"b\">"
+msgstr "C<\"a\\nb\">"
 
 #. type: textblock
 #: docs/internal-documentation.pod:3747 docs/internal-documentation.pod:3751
@@ -42192,16 +42201,12 @@ msgstr "აბრუნებს C<[\"a\"; \"b\"]>"
 #. type: =item
 #: docs/internal-documentation.pod:3749
 msgid "C<\"a\\nb\\n\">"
-msgstr ""
-"C<\"a\\n"
-"b\\n\">"
+msgstr "C<\"a\\nb\\n\">"
 
 #. type: =item
 #: docs/internal-documentation.pod:3753
 msgid "C<\"a\\nb\\n\\n\">"
-msgstr ""
-"C<\"a\\n"
-"b\\n\\n\">"
+msgstr "C<\"a\\nb\\n\\n\">"
 
 #. type: textblock
 #: docs/internal-documentation.pod:3755
@@ -43581,9 +43586,9 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "www.erlang.org/>.  L<http://libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-golang(3)>, L<guestfs-java"
-"(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
-"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-golang(3)>, L<guestfs-"
+"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
+"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "www.erlang.org/>.  L<http://libguestfs.org/>."
 
 #. type: textblock
@@ -43715,9 +43720,9 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
-", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
-"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
+"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
+"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -69751,15 +69756,15 @@ msgid ""
 "L<supermin(1)>."
 msgstr ""
 "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, L<virt-"
-"builder(1)>, L<virt-builder-repository(1)>, L<virt-cat(1)>, L<virt-copy-in"
-"(1)>, L<virt-copy-out(1)>, L<virt-customize(1)>, L<virt-df(1)>, L<virt-diff"
-"(1)>, L<virt-edit(1)>, L<virt-filesystems(1)>, L<virt-inspector(1)>, L<virt-"
-"list-filesystems(1)>, L<virt-list-partitions(1)>, L<virt-log(1)>, L<virt-ls"
-"(1)>, L<virt-make-fs(1)>, L<virt-p2v(1)>, L<virt-rescue(1)>, L<virt-resize"
-"(1)>, L<virt-sparsify(1)>, L<virt-sysprep(1)>, L<virt-tail(1)>, L<virt-tar"
-"(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<virt-v2v(1)>, L<virt-win-reg"
-"(1)>, L<libguestfs-tools.conf(5)>, L<display(1)>, L<hexedit(1)>, L<supermin"
-"(1)>."
+"builder(1)>, L<virt-builder-repository(1)>, L<virt-cat(1)>, L<virt-copy-"
+"in(1)>, L<virt-copy-out(1)>, L<virt-customize(1)>, L<virt-df(1)>, L<virt-"
+"diff(1)>, L<virt-edit(1)>, L<virt-filesystems(1)>, L<virt-inspector(1)>, "
+"L<virt-list-filesystems(1)>, L<virt-list-partitions(1)>, L<virt-log(1)>, "
+"L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-p2v(1)>, L<virt-rescue(1)>, L<virt-"
+"resize(1)>, L<virt-sparsify(1)>, L<virt-sysprep(1)>, L<virt-tail(1)>, L<virt-"
+"tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<virt-v2v(1)>, L<virt-win-"
+"reg(1)>, L<libguestfs-tools.conf(5)>, L<display(1)>, L<hexedit(1)>, "
+"L<supermin(1)>."
 
 #. type: textblock
 #: fish/libguestfs-tools.conf.pod:3
@@ -71278,9 +71283,9 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "www.golang.org/>, L<http://libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-java"
-"(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
-"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-"
+"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
+"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "www.golang.org/>, L<http://libguestfs.org/>."
 
 #. type: textblock
@@ -71585,9 +71590,9 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>, L<http://caml.inria.fr/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-golang"
-"(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
-"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-"
+"golang(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
+"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>, L<http://caml.inria.fr/>."
 
 #. type: verbatim
@@ -72343,8 +72348,7 @@ msgstr ""
 " int\n"
 " guestfs_add_drive_opts_argv (guestfs_h *g,\n"
 "                              const char *filename,\n"
-"                              const struct guestfs_add_drive_opts_argv "
-"*optargs);\n"
+"                              const struct guestfs_add_drive_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -72517,8 +72521,7 @@ msgstr ""
 " int\n"
 " guestfs_add_drive_scratch_argv (guestfs_h *g,\n"
 "                                 int64_t size,\n"
-"                                 const struct guestfs_add_drive_scratch_argv "
-"*optargs);\n"
+"                                 const struct guestfs_add_drive_scratch_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -72662,8 +72665,7 @@ msgstr ""
 " int\n"
 " guestfs_add_libvirt_dom_argv (guestfs_h *g,\n"
 "                               void * /* really virDomainPtr */ dom,\n"
-"                               const struct guestfs_add_libvirt_dom_argv "
-"*optargs);\n"
+"                               const struct guestfs_add_libvirt_dom_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -73214,8 +73216,7 @@ msgstr ""
 " guestfs_aug_transform_argv (guestfs_h *g,\n"
 "                             const char *lens,\n"
 "                             const char *file,\n"
-"                             const struct guestfs_aug_transform_argv "
-"*optargs);\n"
+"                             const struct guestfs_aug_transform_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -74024,8 +74025,7 @@ msgstr ""
 " int\n"
 " guestfs_btrfs_filesystem_defragment_argv (guestfs_h *g,\n"
 "                                           const char *path,\n"
-"                                           const struct "
-"guestfs_btrfs_filesystem_defragment_argv *optargs);\n"
+"                                           const struct guestfs_btrfs_filesystem_defragment_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -74112,8 +74112,7 @@ msgstr ""
 " int\n"
 " guestfs_btrfs_filesystem_resize_argv (guestfs_h *g,\n"
 "                                       const char *mountpoint,\n"
-"                                       const struct "
-"guestfs_btrfs_filesystem_resize_argv *optargs);\n"
+"                                       const struct guestfs_btrfs_filesystem_resize_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -74699,8 +74698,7 @@ msgstr ""
 " int\n"
 " guestfs_btrfs_scrub_full_argv (guestfs_h *g,\n"
 "                                const char *path,\n"
-"                                const struct guestfs_btrfs_scrub_full_argv "
-"*optargs);\n"
+"                                const struct guestfs_btrfs_scrub_full_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -74894,8 +74892,7 @@ msgstr ""
 " int\n"
 " guestfs_btrfs_subvolume_create_opts_argv (guestfs_h *g,\n"
 "                                           const char *dest,\n"
-"                                           const struct "
-"guestfs_btrfs_subvolume_create_opts_argv *optargs);\n"
+"                                           const struct guestfs_btrfs_subvolume_create_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -75126,8 +75123,7 @@ msgstr ""
 " guestfs_btrfs_subvolume_snapshot_opts_argv (guestfs_h *g,\n"
 "                                             const char *source,\n"
 "                                             const char *dest,\n"
-"                                             const struct "
-"guestfs_btrfs_subvolume_snapshot_opts_argv *optargs);\n"
+"                                             const struct guestfs_btrfs_subvolume_snapshot_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -75865,8 +75861,7 @@ msgstr ""
 "                                   const char *ctype,\n"
 "                                   const char *device,\n"
 "                                   const char *zdevice,\n"
-"                                   const struct "
-"guestfs_compress_device_out_argv *optargs);\n"
+"                                   const struct guestfs_compress_device_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -75959,8 +75954,7 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs)"
-";\n"
+"                            const struct guestfs_compress_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -76084,8 +76078,7 @@ msgstr ""
 " guestfs_copy_attributes_argv (guestfs_h *g,\n"
 "                               const char *src,\n"
 "                               const char *dest,\n"
-"                               const struct guestfs_copy_attributes_argv "
-"*optargs);\n"
+"                               const struct guestfs_copy_attributes_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -76192,8 +76185,7 @@ msgstr ""
 " guestfs_copy_device_to_device_argv (guestfs_h *g,\n"
 "                                     const char *src,\n"
 "                                     const char *dest,\n"
-"                                     const struct "
-"guestfs_copy_device_to_device_argv *optargs);\n"
+"                                     const struct guestfs_copy_device_to_device_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -76291,8 +76283,7 @@ msgstr ""
 " guestfs_copy_device_to_file_argv (guestfs_h *g,\n"
 "                                   const char *src,\n"
 "                                   const char *dest,\n"
-"                                   const struct "
-"guestfs_copy_device_to_file_argv *optargs);\n"
+"                                   const struct guestfs_copy_device_to_file_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -76383,8 +76374,7 @@ msgstr ""
 " guestfs_copy_file_to_device_argv (guestfs_h *g,\n"
 "                                   const char *src,\n"
 "                                   const char *dest,\n"
-"                                   const struct "
-"guestfs_copy_file_to_device_argv *optargs);\n"
+"                                   const struct guestfs_copy_file_to_device_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -76483,8 +76473,7 @@ msgstr ""
 " guestfs_copy_file_to_file_argv (guestfs_h *g,\n"
 "                                 const char *src,\n"
 "                                 const char *dest,\n"
-"                                 const struct guestfs_copy_file_to_file_argv "
-"*optargs);\n"
+"                                 const struct guestfs_copy_file_to_file_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -76920,8 +76909,7 @@ msgstr ""
 "                               const char *device,\n"
 "                               const char *key,\n"
 "                               const char *mapname,\n"
-"                               const struct guestfs_cryptsetup_open_argv "
-"*optargs);\n"
+"                               const struct guestfs_cryptsetup_open_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -77405,8 +77393,7 @@ msgstr ""
 "                               int64_t start,\n"
 "                               int64_t stop,\n"
 "                               const char *filename,\n"
-"                               const struct guestfs_download_blocks_argv "
-"*optargs);\n"
+"                               const struct guestfs_download_blocks_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -79733,8 +79720,7 @@ msgstr ""
 " char **\n"
 " guestfs_glob_expand_opts_argv (guestfs_h *g,\n"
 "                                const char *pattern,\n"
-"                                const struct guestfs_glob_expand_opts_argv "
-"*optargs);\n"
+"                                const struct guestfs_glob_expand_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -80955,8 +80941,7 @@ msgstr ""
 " guestfs_inspect_get_icon_argv (guestfs_h *g,\n"
 "                                const char *root,\n"
 "                                size_t *size_r,\n"
-"                                const struct guestfs_inspect_get_icon_argv "
-"*optargs);\n"
+"                                const struct guestfs_inspect_get_icon_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -81648,8 +81633,7 @@ msgstr ""
 " int\n"
 " guestfs_is_blockdev_opts_argv (guestfs_h *g,\n"
 "                                const char *path,\n"
-"                                const struct guestfs_is_blockdev_opts_argv "
-"*optargs);\n"
+"                                const struct guestfs_is_blockdev_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -81781,8 +81765,7 @@ msgstr ""
 " int\n"
 " guestfs_is_chardev_opts_argv (guestfs_h *g,\n"
 "                               const char *path,\n"
-"                               const struct guestfs_is_chardev_opts_argv "
-"*optargs);\n"
+"                               const struct guestfs_is_chardev_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -82015,8 +81998,7 @@ msgstr ""
 " int\n"
 " guestfs_is_fifo_opts_argv (guestfs_h *g,\n"
 "                            const char *path,\n"
-"                            const struct guestfs_is_fifo_opts_argv *optargs)"
-";\n"
+"                            const struct guestfs_is_fifo_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -82124,8 +82106,7 @@ msgstr ""
 " int\n"
 " guestfs_is_file_opts_argv (guestfs_h *g,\n"
 "                            const char *path,\n"
-"                            const struct guestfs_is_file_opts_argv *optargs)"
-";\n"
+"                            const struct guestfs_is_file_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -82300,8 +82281,7 @@ msgstr ""
 " int\n"
 " guestfs_is_socket_opts_argv (guestfs_h *g,\n"
 "                              const char *path,\n"
-"                              const struct guestfs_is_socket_opts_argv "
-"*optargs);\n"
+"                              const struct guestfs_is_socket_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -86705,8 +86685,7 @@ msgstr ""
 " guestfs_ntfsclone_out_argv (guestfs_h *g,\n"
 "                             const char *device,\n"
 "                             const char *backupfile,\n"
-"                             const struct guestfs_ntfsclone_out_argv "
-"*optargs);\n"
+"                             const struct guestfs_ntfsclone_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -86918,8 +86897,7 @@ msgstr ""
 " int\n"
 " guestfs_ntfsresize_opts_argv (guestfs_h *g,\n"
 "                               const char *device,\n"
-"                               const struct guestfs_ntfsresize_opts_argv "
-"*optargs);\n"
+"                               const struct guestfs_ntfsresize_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -89061,8 +89039,7 @@ msgstr ""
 " guestfs_selinux_relabel_argv (guestfs_h *g,\n"
 "                               const char *specfile,\n"
 "                               const char *path,\n"
-"                               const struct guestfs_selinux_relabel_argv "
-"*optargs);\n"
+"                               const struct guestfs_selinux_relabel_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -91126,8 +91103,7 @@ msgstr ""
 " guestfs_tar_out_opts_argv (guestfs_h *g,\n"
 "                            const char *directory,\n"
 "                            const char *tarfile,\n"
-"                            const struct guestfs_tar_out_opts_argv *optargs)"
-";\n"
+"                            const struct guestfs_tar_out_opts_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -91660,8 +91636,7 @@ msgid ""
 msgstr ""
 " int\n"
 " guestfs_umount_local_argv (guestfs_h *g,\n"
-"                            const struct guestfs_umount_local_argv *optargs)"
-";\n"
+"                            const struct guestfs_umount_local_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -93724,10 +93699,8 @@ msgid ""
 " int guestfs_compare_int_bool_list (const struct guestfs_int_bool_list *, const struct guestfs_int_bool_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_int_bool (const struct guestfs_int_bool *, const struct "
-"guestfs_int_bool *);\n"
-" int guestfs_compare_int_bool_list (const struct guestfs_int_bool_list *, "
-"const struct guestfs_int_bool_list *);\n"
+" int guestfs_compare_int_bool (const struct guestfs_int_bool *, const struct guestfs_int_bool *);\n"
+" int guestfs_compare_int_bool_list (const struct guestfs_int_bool_list *, const struct guestfs_int_bool_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -93738,10 +93711,8 @@ msgid ""
 " struct guestfs_int_bool_list *guestfs_copy_int_bool_list (const struct guestfs_int_bool_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_int_bool *guestfs_copy_int_bool (const struct "
-"guestfs_int_bool *);\n"
-" struct guestfs_int_bool_list *guestfs_copy_int_bool_list (const struct "
-"guestfs_int_bool_list *);\n"
+" struct guestfs_int_bool *guestfs_copy_int_bool (const struct guestfs_int_bool *);\n"
+" struct guestfs_int_bool_list *guestfs_copy_int_bool_list (const struct guestfs_int_bool_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -93827,10 +93798,8 @@ msgid ""
 " int guestfs_compare_lvm_pv_list (const struct guestfs_lvm_pv_list *, const struct guestfs_lvm_pv_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_lvm_pv (const struct guestfs_lvm_pv *, const struct "
-"guestfs_lvm_pv *);\n"
-" int guestfs_compare_lvm_pv_list (const struct guestfs_lvm_pv_list *, const "
-"struct guestfs_lvm_pv_list *);\n"
+" int guestfs_compare_lvm_pv (const struct guestfs_lvm_pv *, const struct guestfs_lvm_pv *);\n"
+" int guestfs_compare_lvm_pv_list (const struct guestfs_lvm_pv_list *, const struct guestfs_lvm_pv_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -93841,10 +93810,8 @@ msgid ""
 " struct guestfs_lvm_pv_list *guestfs_copy_lvm_pv_list (const struct guestfs_lvm_pv_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_lvm_pv *guestfs_copy_lvm_pv (const struct guestfs_lvm_pv *)"
-";\n"
-" struct guestfs_lvm_pv_list *guestfs_copy_lvm_pv_list (const struct "
-"guestfs_lvm_pv_list *);\n"
+" struct guestfs_lvm_pv *guestfs_copy_lvm_pv (const struct guestfs_lvm_pv *);\n"
+" struct guestfs_lvm_pv_list *guestfs_copy_lvm_pv_list (const struct guestfs_lvm_pv_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -93940,10 +93907,8 @@ msgid ""
 " int guestfs_compare_lvm_vg_list (const struct guestfs_lvm_vg_list *, const struct guestfs_lvm_vg_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_lvm_vg (const struct guestfs_lvm_vg *, const struct "
-"guestfs_lvm_vg *);\n"
-" int guestfs_compare_lvm_vg_list (const struct guestfs_lvm_vg_list *, const "
-"struct guestfs_lvm_vg_list *);\n"
+" int guestfs_compare_lvm_vg (const struct guestfs_lvm_vg *, const struct guestfs_lvm_vg *);\n"
+" int guestfs_compare_lvm_vg_list (const struct guestfs_lvm_vg_list *, const struct guestfs_lvm_vg_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -93954,10 +93919,8 @@ msgid ""
 " struct guestfs_lvm_vg_list *guestfs_copy_lvm_vg_list (const struct guestfs_lvm_vg_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_lvm_vg *guestfs_copy_lvm_vg (const struct guestfs_lvm_vg *)"
-";\n"
-" struct guestfs_lvm_vg_list *guestfs_copy_lvm_vg_list (const struct "
-"guestfs_lvm_vg_list *);\n"
+" struct guestfs_lvm_vg *guestfs_copy_lvm_vg (const struct guestfs_lvm_vg *);\n"
+" struct guestfs_lvm_vg_list *guestfs_copy_lvm_vg_list (const struct guestfs_lvm_vg_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94051,10 +94014,8 @@ msgid ""
 " int guestfs_compare_lvm_lv_list (const struct guestfs_lvm_lv_list *, const struct guestfs_lvm_lv_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_lvm_lv (const struct guestfs_lvm_lv *, const struct "
-"guestfs_lvm_lv *);\n"
-" int guestfs_compare_lvm_lv_list (const struct guestfs_lvm_lv_list *, const "
-"struct guestfs_lvm_lv_list *);\n"
+" int guestfs_compare_lvm_lv (const struct guestfs_lvm_lv *, const struct guestfs_lvm_lv *);\n"
+" int guestfs_compare_lvm_lv_list (const struct guestfs_lvm_lv_list *, const struct guestfs_lvm_lv_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94065,10 +94026,8 @@ msgid ""
 " struct guestfs_lvm_lv_list *guestfs_copy_lvm_lv_list (const struct guestfs_lvm_lv_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_lvm_lv *guestfs_copy_lvm_lv (const struct guestfs_lvm_lv *)"
-";\n"
-" struct guestfs_lvm_lv_list *guestfs_copy_lvm_lv_list (const struct "
-"guestfs_lvm_lv_list *);\n"
+" struct guestfs_lvm_lv *guestfs_copy_lvm_lv (const struct guestfs_lvm_lv *);\n"
+" struct guestfs_lvm_lv_list *guestfs_copy_lvm_lv_list (const struct guestfs_lvm_lv_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94145,10 +94104,8 @@ msgid ""
 " int guestfs_compare_stat_list (const struct guestfs_stat_list *, const struct guestfs_stat_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_stat (const struct guestfs_stat *, const struct "
-"guestfs_stat *);\n"
-" int guestfs_compare_stat_list (const struct guestfs_stat_list *, const "
-"struct guestfs_stat_list *);\n"
+" int guestfs_compare_stat (const struct guestfs_stat *, const struct guestfs_stat *);\n"
+" int guestfs_compare_stat_list (const struct guestfs_stat_list *, const struct guestfs_stat_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94160,8 +94117,7 @@ msgid ""
 " \n"
 msgstr ""
 " struct guestfs_stat *guestfs_copy_stat (const struct guestfs_stat *);\n"
-" struct guestfs_stat_list *guestfs_copy_stat_list (const struct "
-"guestfs_stat_list *);\n"
+" struct guestfs_stat_list *guestfs_copy_stat_list (const struct guestfs_stat_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94256,10 +94212,8 @@ msgid ""
 " int guestfs_compare_statns_list (const struct guestfs_statns_list *, const struct guestfs_statns_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_statns (const struct guestfs_statns *, const struct "
-"guestfs_statns *);\n"
-" int guestfs_compare_statns_list (const struct guestfs_statns_list *, const "
-"struct guestfs_statns_list *);\n"
+" int guestfs_compare_statns (const struct guestfs_statns *, const struct guestfs_statns *);\n"
+" int guestfs_compare_statns_list (const struct guestfs_statns_list *, const struct guestfs_statns_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94270,10 +94224,8 @@ msgid ""
 " struct guestfs_statns_list *guestfs_copy_statns_list (const struct guestfs_statns_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_statns *guestfs_copy_statns (const struct guestfs_statns *)"
-";\n"
-" struct guestfs_statns_list *guestfs_copy_statns_list (const struct "
-"guestfs_statns_list *);\n"
+" struct guestfs_statns *guestfs_copy_statns (const struct guestfs_statns *);\n"
+" struct guestfs_statns_list *guestfs_copy_statns_list (const struct guestfs_statns_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94346,10 +94298,8 @@ msgid ""
 " int guestfs_compare_statvfs_list (const struct guestfs_statvfs_list *, const struct guestfs_statvfs_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_statvfs (const struct guestfs_statvfs *, const struct "
-"guestfs_statvfs *);\n"
-" int guestfs_compare_statvfs_list (const struct guestfs_statvfs_list *, "
-"const struct guestfs_statvfs_list *);\n"
+" int guestfs_compare_statvfs (const struct guestfs_statvfs *, const struct guestfs_statvfs *);\n"
+" int guestfs_compare_statvfs_list (const struct guestfs_statvfs_list *, const struct guestfs_statvfs_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94360,10 +94310,8 @@ msgid ""
 " struct guestfs_statvfs_list *guestfs_copy_statvfs_list (const struct guestfs_statvfs_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_statvfs *guestfs_copy_statvfs (const struct guestfs_statvfs "
-"*);\n"
-" struct guestfs_statvfs_list *guestfs_copy_statvfs_list (const struct "
-"guestfs_statvfs_list *);\n"
+" struct guestfs_statvfs *guestfs_copy_statvfs (const struct guestfs_statvfs *);\n"
+" struct guestfs_statvfs_list *guestfs_copy_statvfs_list (const struct guestfs_statvfs_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94425,10 +94373,8 @@ msgid ""
 " int guestfs_compare_dirent_list (const struct guestfs_dirent_list *, const struct guestfs_dirent_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_dirent (const struct guestfs_dirent *, const struct "
-"guestfs_dirent *);\n"
-" int guestfs_compare_dirent_list (const struct guestfs_dirent_list *, const "
-"struct guestfs_dirent_list *);\n"
+" int guestfs_compare_dirent (const struct guestfs_dirent *, const struct guestfs_dirent *);\n"
+" int guestfs_compare_dirent_list (const struct guestfs_dirent_list *, const struct guestfs_dirent_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94439,10 +94385,8 @@ msgid ""
 " struct guestfs_dirent_list *guestfs_copy_dirent_list (const struct guestfs_dirent_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_dirent *guestfs_copy_dirent (const struct guestfs_dirent *)"
-";\n"
-" struct guestfs_dirent_list *guestfs_copy_dirent_list (const struct "
-"guestfs_dirent_list *);\n"
+" struct guestfs_dirent *guestfs_copy_dirent (const struct guestfs_dirent *);\n"
+" struct guestfs_dirent_list *guestfs_copy_dirent_list (const struct guestfs_dirent_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94501,10 +94445,8 @@ msgid ""
 " int guestfs_compare_version_list (const struct guestfs_version_list *, const struct guestfs_version_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_version (const struct guestfs_version *, const struct "
-"guestfs_version *);\n"
-" int guestfs_compare_version_list (const struct guestfs_version_list *, "
-"const struct guestfs_version_list *);\n"
+" int guestfs_compare_version (const struct guestfs_version *, const struct guestfs_version *);\n"
+" int guestfs_compare_version_list (const struct guestfs_version_list *, const struct guestfs_version_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94515,10 +94457,8 @@ msgid ""
 " struct guestfs_version_list *guestfs_copy_version_list (const struct guestfs_version_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_version *guestfs_copy_version (const struct guestfs_version "
-"*);\n"
-" struct guestfs_version_list *guestfs_copy_version_list (const struct "
-"guestfs_version_list *);\n"
+" struct guestfs_version *guestfs_copy_version (const struct guestfs_version *);\n"
+" struct guestfs_version_list *guestfs_copy_version_list (const struct guestfs_version_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94582,10 +94522,8 @@ msgid ""
 " int guestfs_compare_xattr_list (const struct guestfs_xattr_list *, const struct guestfs_xattr_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_xattr (const struct guestfs_xattr *, const struct "
-"guestfs_xattr *);\n"
-" int guestfs_compare_xattr_list (const struct guestfs_xattr_list *, const "
-"struct guestfs_xattr_list *);\n"
+" int guestfs_compare_xattr (const struct guestfs_xattr *, const struct guestfs_xattr *);\n"
+" int guestfs_compare_xattr_list (const struct guestfs_xattr_list *, const struct guestfs_xattr_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94597,8 +94535,7 @@ msgid ""
 " \n"
 msgstr ""
 " struct guestfs_xattr *guestfs_copy_xattr (const struct guestfs_xattr *);\n"
-" struct guestfs_xattr_list *guestfs_copy_xattr_list (const struct "
-"guestfs_xattr_list *);\n"
+" struct guestfs_xattr_list *guestfs_copy_xattr_list (const struct guestfs_xattr_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94662,10 +94599,8 @@ msgid ""
 " int guestfs_compare_inotify_event_list (const struct guestfs_inotify_event_list *, const struct guestfs_inotify_event_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_inotify_event (const struct guestfs_inotify_event *, "
-"const struct guestfs_inotify_event *);\n"
-" int guestfs_compare_inotify_event_list (const struct "
-"guestfs_inotify_event_list *, const struct guestfs_inotify_event_list *);\n"
+" int guestfs_compare_inotify_event (const struct guestfs_inotify_event *, const struct guestfs_inotify_event *);\n"
+" int guestfs_compare_inotify_event_list (const struct guestfs_inotify_event_list *, const struct guestfs_inotify_event_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94676,10 +94611,8 @@ msgid ""
 " struct guestfs_inotify_event_list *guestfs_copy_inotify_event_list (const struct guestfs_inotify_event_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_inotify_event *guestfs_copy_inotify_event (const struct "
-"guestfs_inotify_event *);\n"
-" struct guestfs_inotify_event_list *guestfs_copy_inotify_event_list (const "
-"struct guestfs_inotify_event_list *);\n"
+" struct guestfs_inotify_event *guestfs_copy_inotify_event (const struct guestfs_inotify_event *);\n"
+" struct guestfs_inotify_event_list *guestfs_copy_inotify_event_list (const struct guestfs_inotify_event_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94691,8 +94624,7 @@ msgid ""
 "\n"
 msgstr ""
 " void guestfs_free_inotify_event (struct guestfs_inotify_event *);\n"
-" void guestfs_free_inotify_event_list (struct guestfs_inotify_event_list *)"
-";\n"
+" void guestfs_free_inotify_event_list (struct guestfs_inotify_event_list *);\n"
 "\n"
 
 #. type: =head2
@@ -94744,10 +94676,8 @@ msgid ""
 " int guestfs_compare_partition_list (const struct guestfs_partition_list *, const struct guestfs_partition_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_partition (const struct guestfs_partition *, const "
-"struct guestfs_partition *);\n"
-" int guestfs_compare_partition_list (const struct guestfs_partition_list *, "
-"const struct guestfs_partition_list *);\n"
+" int guestfs_compare_partition (const struct guestfs_partition *, const struct guestfs_partition *);\n"
+" int guestfs_compare_partition_list (const struct guestfs_partition_list *, const struct guestfs_partition_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94758,10 +94688,8 @@ msgid ""
 " struct guestfs_partition_list *guestfs_copy_partition_list (const struct guestfs_partition_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_partition *guestfs_copy_partition (const struct "
-"guestfs_partition *);\n"
-" struct guestfs_partition_list *guestfs_copy_partition_list (const struct "
-"guestfs_partition_list *);\n"
+" struct guestfs_partition *guestfs_copy_partition (const struct guestfs_partition *);\n"
+" struct guestfs_partition_list *guestfs_copy_partition_list (const struct guestfs_partition_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94841,10 +94769,8 @@ msgid ""
 " int guestfs_compare_application_list (const struct guestfs_application_list *, const struct guestfs_application_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_application (const struct guestfs_application *, const "
-"struct guestfs_application *);\n"
-" int guestfs_compare_application_list (const struct guestfs_application_list "
-"*, const struct guestfs_application_list *);\n"
+" int guestfs_compare_application (const struct guestfs_application *, const struct guestfs_application *);\n"
+" int guestfs_compare_application_list (const struct guestfs_application_list *, const struct guestfs_application_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94855,10 +94781,8 @@ msgid ""
 " struct guestfs_application_list *guestfs_copy_application_list (const struct guestfs_application_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_application *guestfs_copy_application (const struct "
-"guestfs_application *);\n"
-" struct guestfs_application_list *guestfs_copy_application_list (const "
-"struct guestfs_application_list *);\n"
+" struct guestfs_application *guestfs_copy_application (const struct guestfs_application *);\n"
+" struct guestfs_application_list *guestfs_copy_application_list (const struct guestfs_application_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94948,10 +94872,8 @@ msgid ""
 " int guestfs_compare_application2_list (const struct guestfs_application2_list *, const struct guestfs_application2_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_application2 (const struct guestfs_application2 *, "
-"const struct guestfs_application2 *);\n"
-" int guestfs_compare_application2_list (const struct "
-"guestfs_application2_list *, const struct guestfs_application2_list *);\n"
+" int guestfs_compare_application2 (const struct guestfs_application2 *, const struct guestfs_application2 *);\n"
+" int guestfs_compare_application2_list (const struct guestfs_application2_list *, const struct guestfs_application2_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -94962,10 +94884,8 @@ msgid ""
 " struct guestfs_application2_list *guestfs_copy_application2_list (const struct guestfs_application2_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_application2 *guestfs_copy_application2 (const struct "
-"guestfs_application2 *);\n"
-" struct guestfs_application2_list *guestfs_copy_application2_list (const "
-"struct guestfs_application2_list *);\n"
+" struct guestfs_application2 *guestfs_copy_application2 (const struct guestfs_application2 *);\n"
+" struct guestfs_application2_list *guestfs_copy_application2_list (const struct guestfs_application2_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95050,10 +94970,8 @@ msgid ""
 " int guestfs_compare_isoinfo_list (const struct guestfs_isoinfo_list *, const struct guestfs_isoinfo_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_isoinfo (const struct guestfs_isoinfo *, const struct "
-"guestfs_isoinfo *);\n"
-" int guestfs_compare_isoinfo_list (const struct guestfs_isoinfo_list *, "
-"const struct guestfs_isoinfo_list *);\n"
+" int guestfs_compare_isoinfo (const struct guestfs_isoinfo *, const struct guestfs_isoinfo *);\n"
+" int guestfs_compare_isoinfo_list (const struct guestfs_isoinfo_list *, const struct guestfs_isoinfo_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95064,10 +94982,8 @@ msgid ""
 " struct guestfs_isoinfo_list *guestfs_copy_isoinfo_list (const struct guestfs_isoinfo_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_isoinfo *guestfs_copy_isoinfo (const struct guestfs_isoinfo "
-"*);\n"
-" struct guestfs_isoinfo_list *guestfs_copy_isoinfo_list (const struct "
-"guestfs_isoinfo_list *);\n"
+" struct guestfs_isoinfo *guestfs_copy_isoinfo (const struct guestfs_isoinfo *);\n"
+" struct guestfs_isoinfo_list *guestfs_copy_isoinfo_list (const struct guestfs_isoinfo_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95129,10 +95045,8 @@ msgid ""
 " int guestfs_compare_mdstat_list (const struct guestfs_mdstat_list *, const struct guestfs_mdstat_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_mdstat (const struct guestfs_mdstat *, const struct "
-"guestfs_mdstat *);\n"
-" int guestfs_compare_mdstat_list (const struct guestfs_mdstat_list *, const "
-"struct guestfs_mdstat_list *);\n"
+" int guestfs_compare_mdstat (const struct guestfs_mdstat *, const struct guestfs_mdstat *);\n"
+" int guestfs_compare_mdstat_list (const struct guestfs_mdstat_list *, const struct guestfs_mdstat_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95143,10 +95057,8 @@ msgid ""
 " struct guestfs_mdstat_list *guestfs_copy_mdstat_list (const struct guestfs_mdstat_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_mdstat *guestfs_copy_mdstat (const struct guestfs_mdstat *)"
-";\n"
-" struct guestfs_mdstat_list *guestfs_copy_mdstat_list (const struct "
-"guestfs_mdstat_list *);\n"
+" struct guestfs_mdstat *guestfs_copy_mdstat (const struct guestfs_mdstat *);\n"
+" struct guestfs_mdstat_list *guestfs_copy_mdstat_list (const struct guestfs_mdstat_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95208,10 +95120,8 @@ msgid ""
 " int guestfs_compare_btrfssubvolume_list (const struct guestfs_btrfssubvolume_list *, const struct guestfs_btrfssubvolume_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_btrfssubvolume (const struct guestfs_btrfssubvolume *, "
-"const struct guestfs_btrfssubvolume *);\n"
-" int guestfs_compare_btrfssubvolume_list (const struct "
-"guestfs_btrfssubvolume_list *, const struct guestfs_btrfssubvolume_list *);\n"
+" int guestfs_compare_btrfssubvolume (const struct guestfs_btrfssubvolume *, const struct guestfs_btrfssubvolume *);\n"
+" int guestfs_compare_btrfssubvolume_list (const struct guestfs_btrfssubvolume_list *, const struct guestfs_btrfssubvolume_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95222,10 +95132,8 @@ msgid ""
 " struct guestfs_btrfssubvolume_list *guestfs_copy_btrfssubvolume_list (const struct guestfs_btrfssubvolume_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_btrfssubvolume *guestfs_copy_btrfssubvolume (const struct "
-"guestfs_btrfssubvolume *);\n"
-" struct guestfs_btrfssubvolume_list *guestfs_copy_btrfssubvolume_list (const "
-"struct guestfs_btrfssubvolume_list *);\n"
+" struct guestfs_btrfssubvolume *guestfs_copy_btrfssubvolume (const struct guestfs_btrfssubvolume *);\n"
+" struct guestfs_btrfssubvolume_list *guestfs_copy_btrfssubvolume_list (const struct guestfs_btrfssubvolume_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95237,8 +95145,7 @@ msgid ""
 "\n"
 msgstr ""
 " void guestfs_free_btrfssubvolume (struct guestfs_btrfssubvolume *);\n"
-" void guestfs_free_btrfssubvolume_list (struct guestfs_btrfssubvolume_list *)"
-";\n"
+" void guestfs_free_btrfssubvolume_list (struct guestfs_btrfssubvolume_list *);\n"
 "\n"
 
 #. type: =head2
@@ -95288,10 +95195,8 @@ msgid ""
 " int guestfs_compare_btrfsqgroup_list (const struct guestfs_btrfsqgroup_list *, const struct guestfs_btrfsqgroup_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_btrfsqgroup (const struct guestfs_btrfsqgroup *, const "
-"struct guestfs_btrfsqgroup *);\n"
-" int guestfs_compare_btrfsqgroup_list (const struct guestfs_btrfsqgroup_list "
-"*, const struct guestfs_btrfsqgroup_list *);\n"
+" int guestfs_compare_btrfsqgroup (const struct guestfs_btrfsqgroup *, const struct guestfs_btrfsqgroup *);\n"
+" int guestfs_compare_btrfsqgroup_list (const struct guestfs_btrfsqgroup_list *, const struct guestfs_btrfsqgroup_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95302,10 +95207,8 @@ msgid ""
 " struct guestfs_btrfsqgroup_list *guestfs_copy_btrfsqgroup_list (const struct guestfs_btrfsqgroup_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_btrfsqgroup *guestfs_copy_btrfsqgroup (const struct "
-"guestfs_btrfsqgroup *);\n"
-" struct guestfs_btrfsqgroup_list *guestfs_copy_btrfsqgroup_list (const "
-"struct guestfs_btrfsqgroup_list *);\n"
+" struct guestfs_btrfsqgroup *guestfs_copy_btrfsqgroup (const struct guestfs_btrfsqgroup *);\n"
+" struct guestfs_btrfsqgroup_list *guestfs_copy_btrfsqgroup_list (const struct guestfs_btrfsqgroup_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95371,10 +95274,8 @@ msgid ""
 " int guestfs_compare_btrfsbalance_list (const struct guestfs_btrfsbalance_list *, const struct guestfs_btrfsbalance_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_btrfsbalance (const struct guestfs_btrfsbalance *, "
-"const struct guestfs_btrfsbalance *);\n"
-" int guestfs_compare_btrfsbalance_list (const struct "
-"guestfs_btrfsbalance_list *, const struct guestfs_btrfsbalance_list *);\n"
+" int guestfs_compare_btrfsbalance (const struct guestfs_btrfsbalance *, const struct guestfs_btrfsbalance *);\n"
+" int guestfs_compare_btrfsbalance_list (const struct guestfs_btrfsbalance_list *, const struct guestfs_btrfsbalance_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95385,10 +95286,8 @@ msgid ""
 " struct guestfs_btrfsbalance_list *guestfs_copy_btrfsbalance_list (const struct guestfs_btrfsbalance_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_btrfsbalance *guestfs_copy_btrfsbalance (const struct "
-"guestfs_btrfsbalance *);\n"
-" struct guestfs_btrfsbalance_list *guestfs_copy_btrfsbalance_list (const "
-"struct guestfs_btrfsbalance_list *);\n"
+" struct guestfs_btrfsbalance *guestfs_copy_btrfsbalance (const struct guestfs_btrfsbalance *);\n"
+" struct guestfs_btrfsbalance_list *guestfs_copy_btrfsbalance_list (const struct guestfs_btrfsbalance_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95474,10 +95373,8 @@ msgid ""
 " int guestfs_compare_btrfsscrub_list (const struct guestfs_btrfsscrub_list *, const struct guestfs_btrfsscrub_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_btrfsscrub (const struct guestfs_btrfsscrub *, const "
-"struct guestfs_btrfsscrub *);\n"
-" int guestfs_compare_btrfsscrub_list (const struct guestfs_btrfsscrub_list "
-"*, const struct guestfs_btrfsscrub_list *);\n"
+" int guestfs_compare_btrfsscrub (const struct guestfs_btrfsscrub *, const struct guestfs_btrfsscrub *);\n"
+" int guestfs_compare_btrfsscrub_list (const struct guestfs_btrfsscrub_list *, const struct guestfs_btrfsscrub_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95488,10 +95385,8 @@ msgid ""
 " struct guestfs_btrfsscrub_list *guestfs_copy_btrfsscrub_list (const struct guestfs_btrfsscrub_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_btrfsscrub *guestfs_copy_btrfsscrub (const struct "
-"guestfs_btrfsscrub *);\n"
-" struct guestfs_btrfsscrub_list *guestfs_copy_btrfsscrub_list (const struct "
-"guestfs_btrfsscrub_list *);\n"
+" struct guestfs_btrfsscrub *guestfs_copy_btrfsscrub (const struct guestfs_btrfsscrub *);\n"
+" struct guestfs_btrfsscrub_list *guestfs_copy_btrfsscrub_list (const struct guestfs_btrfsscrub_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95597,10 +95492,8 @@ msgid ""
 " int guestfs_compare_xfsinfo_list (const struct guestfs_xfsinfo_list *, const struct guestfs_xfsinfo_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_xfsinfo (const struct guestfs_xfsinfo *, const struct "
-"guestfs_xfsinfo *);\n"
-" int guestfs_compare_xfsinfo_list (const struct guestfs_xfsinfo_list *, "
-"const struct guestfs_xfsinfo_list *);\n"
+" int guestfs_compare_xfsinfo (const struct guestfs_xfsinfo *, const struct guestfs_xfsinfo *);\n"
+" int guestfs_compare_xfsinfo_list (const struct guestfs_xfsinfo_list *, const struct guestfs_xfsinfo_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95611,10 +95504,8 @@ msgid ""
 " struct guestfs_xfsinfo_list *guestfs_copy_xfsinfo_list (const struct guestfs_xfsinfo_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_xfsinfo *guestfs_copy_xfsinfo (const struct guestfs_xfsinfo "
-"*);\n"
-" struct guestfs_xfsinfo_list *guestfs_copy_xfsinfo_list (const struct "
-"guestfs_xfsinfo_list *);\n"
+" struct guestfs_xfsinfo *guestfs_copy_xfsinfo (const struct guestfs_xfsinfo *);\n"
+" struct guestfs_xfsinfo_list *guestfs_copy_xfsinfo_list (const struct guestfs_xfsinfo_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95673,10 +95564,8 @@ msgid ""
 " int guestfs_compare_utsname_list (const struct guestfs_utsname_list *, const struct guestfs_utsname_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_utsname (const struct guestfs_utsname *, const struct "
-"guestfs_utsname *);\n"
-" int guestfs_compare_utsname_list (const struct guestfs_utsname_list *, "
-"const struct guestfs_utsname_list *);\n"
+" int guestfs_compare_utsname (const struct guestfs_utsname *, const struct guestfs_utsname *);\n"
+" int guestfs_compare_utsname_list (const struct guestfs_utsname_list *, const struct guestfs_utsname_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95687,10 +95576,8 @@ msgid ""
 " struct guestfs_utsname_list *guestfs_copy_utsname_list (const struct guestfs_utsname_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_utsname *guestfs_copy_utsname (const struct guestfs_utsname "
-"*);\n"
-" struct guestfs_utsname_list *guestfs_copy_utsname_list (const struct "
-"guestfs_utsname_list *);\n"
+" struct guestfs_utsname *guestfs_copy_utsname (const struct guestfs_utsname *);\n"
+" struct guestfs_utsname_list *guestfs_copy_utsname_list (const struct guestfs_utsname_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95748,10 +95635,8 @@ msgid ""
 " int guestfs_compare_hivex_node_list (const struct guestfs_hivex_node_list *, const struct guestfs_hivex_node_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_hivex_node (const struct guestfs_hivex_node *, const "
-"struct guestfs_hivex_node *);\n"
-" int guestfs_compare_hivex_node_list (const struct guestfs_hivex_node_list "
-"*, const struct guestfs_hivex_node_list *);\n"
+" int guestfs_compare_hivex_node (const struct guestfs_hivex_node *, const struct guestfs_hivex_node *);\n"
+" int guestfs_compare_hivex_node_list (const struct guestfs_hivex_node_list *, const struct guestfs_hivex_node_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95762,10 +95647,8 @@ msgid ""
 " struct guestfs_hivex_node_list *guestfs_copy_hivex_node_list (const struct guestfs_hivex_node_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_hivex_node *guestfs_copy_hivex_node (const struct "
-"guestfs_hivex_node *);\n"
-" struct guestfs_hivex_node_list *guestfs_copy_hivex_node_list (const struct "
-"guestfs_hivex_node_list *);\n"
+" struct guestfs_hivex_node *guestfs_copy_hivex_node (const struct guestfs_hivex_node *);\n"
+" struct guestfs_hivex_node_list *guestfs_copy_hivex_node_list (const struct guestfs_hivex_node_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95823,10 +95706,8 @@ msgid ""
 " int guestfs_compare_hivex_value_list (const struct guestfs_hivex_value_list *, const struct guestfs_hivex_value_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_hivex_value (const struct guestfs_hivex_value *, const "
-"struct guestfs_hivex_value *);\n"
-" int guestfs_compare_hivex_value_list (const struct guestfs_hivex_value_list "
-"*, const struct guestfs_hivex_value_list *);\n"
+" int guestfs_compare_hivex_value (const struct guestfs_hivex_value *, const struct guestfs_hivex_value *);\n"
+" int guestfs_compare_hivex_value_list (const struct guestfs_hivex_value_list *, const struct guestfs_hivex_value_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95837,10 +95718,8 @@ msgid ""
 " struct guestfs_hivex_value_list *guestfs_copy_hivex_value_list (const struct guestfs_hivex_value_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_hivex_value *guestfs_copy_hivex_value (const struct "
-"guestfs_hivex_value *);\n"
-" struct guestfs_hivex_value_list *guestfs_copy_hivex_value_list (const "
-"struct guestfs_hivex_value_list *);\n"
+" struct guestfs_hivex_value *guestfs_copy_hivex_value (const struct guestfs_hivex_value *);\n"
+" struct guestfs_hivex_value_list *guestfs_copy_hivex_value_list (const struct guestfs_hivex_value_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95902,11 +95781,8 @@ msgid ""
 " int guestfs_compare_internal_mountable_list (const struct guestfs_internal_mountable_list *, const struct guestfs_internal_mountable_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_internal_mountable (const struct "
-"guestfs_internal_mountable *, const struct guestfs_internal_mountable *);\n"
-" int guestfs_compare_internal_mountable_list (const struct "
-"guestfs_internal_mountable_list *, const struct "
-"guestfs_internal_mountable_list *);\n"
+" int guestfs_compare_internal_mountable (const struct guestfs_internal_mountable *, const struct guestfs_internal_mountable *);\n"
+" int guestfs_compare_internal_mountable_list (const struct guestfs_internal_mountable_list *, const struct guestfs_internal_mountable_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95917,11 +95793,8 @@ msgid ""
 " struct guestfs_internal_mountable_list *guestfs_copy_internal_mountable_list (const struct guestfs_internal_mountable_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_internal_mountable *guestfs_copy_internal_mountable (const "
-"struct guestfs_internal_mountable *);\n"
-" struct guestfs_internal_mountable_list "
-"*guestfs_copy_internal_mountable_list (const struct "
-"guestfs_internal_mountable_list *);\n"
+" struct guestfs_internal_mountable *guestfs_copy_internal_mountable (const struct guestfs_internal_mountable *);\n"
+" struct guestfs_internal_mountable_list *guestfs_copy_internal_mountable_list (const struct guestfs_internal_mountable_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -95932,10 +95805,8 @@ msgid ""
 " void guestfs_free_internal_mountable_list (struct guestfs_internal_mountable_list *);\n"
 "\n"
 msgstr ""
-" void guestfs_free_internal_mountable (struct guestfs_internal_mountable *)"
-";\n"
-" void guestfs_free_internal_mountable_list (struct "
-"guestfs_internal_mountable_list *);\n"
+" void guestfs_free_internal_mountable (struct guestfs_internal_mountable *);\n"
+" void guestfs_free_internal_mountable_list (struct guestfs_internal_mountable_list *);\n"
 "\n"
 
 #. type: =head2
@@ -96011,10 +95882,8 @@ msgid ""
 " int guestfs_compare_tsk_dirent_list (const struct guestfs_tsk_dirent_list *, const struct guestfs_tsk_dirent_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_tsk_dirent (const struct guestfs_tsk_dirent *, const "
-"struct guestfs_tsk_dirent *);\n"
-" int guestfs_compare_tsk_dirent_list (const struct guestfs_tsk_dirent_list "
-"*, const struct guestfs_tsk_dirent_list *);\n"
+" int guestfs_compare_tsk_dirent (const struct guestfs_tsk_dirent *, const struct guestfs_tsk_dirent *);\n"
+" int guestfs_compare_tsk_dirent_list (const struct guestfs_tsk_dirent_list *, const struct guestfs_tsk_dirent_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -96025,10 +95894,8 @@ msgid ""
 " struct guestfs_tsk_dirent_list *guestfs_copy_tsk_dirent_list (const struct guestfs_tsk_dirent_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_tsk_dirent *guestfs_copy_tsk_dirent (const struct "
-"guestfs_tsk_dirent *);\n"
-" struct guestfs_tsk_dirent_list *guestfs_copy_tsk_dirent_list (const struct "
-"guestfs_tsk_dirent_list *);\n"
+" struct guestfs_tsk_dirent *guestfs_copy_tsk_dirent (const struct guestfs_tsk_dirent *);\n"
+" struct guestfs_tsk_dirent_list *guestfs_copy_tsk_dirent_list (const struct guestfs_tsk_dirent_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -96088,10 +95955,8 @@ msgid ""
 " int guestfs_compare_yara_detection_list (const struct guestfs_yara_detection_list *, const struct guestfs_yara_detection_list *);\n"
 " \n"
 msgstr ""
-" int guestfs_compare_yara_detection (const struct guestfs_yara_detection *, "
-"const struct guestfs_yara_detection *);\n"
-" int guestfs_compare_yara_detection_list (const struct "
-"guestfs_yara_detection_list *, const struct guestfs_yara_detection_list *);\n"
+" int guestfs_compare_yara_detection (const struct guestfs_yara_detection *, const struct guestfs_yara_detection *);\n"
+" int guestfs_compare_yara_detection_list (const struct guestfs_yara_detection_list *, const struct guestfs_yara_detection_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -96102,10 +95967,8 @@ msgid ""
 " struct guestfs_yara_detection_list *guestfs_copy_yara_detection_list (const struct guestfs_yara_detection_list *);\n"
 " \n"
 msgstr ""
-" struct guestfs_yara_detection *guestfs_copy_yara_detection (const struct "
-"guestfs_yara_detection *);\n"
-" struct guestfs_yara_detection_list *guestfs_copy_yara_detection_list (const "
-"struct guestfs_yara_detection_list *);\n"
+" struct guestfs_yara_detection *guestfs_copy_yara_detection (const struct guestfs_yara_detection *);\n"
+" struct guestfs_yara_detection_list *guestfs_copy_yara_detection_list (const struct guestfs_yara_detection_list *);\n"
 " \n"
 
 #. type: verbatim
@@ -96117,8 +95980,7 @@ msgid ""
 "\n"
 msgstr ""
 " void guestfs_free_yara_detection (struct guestfs_yara_detection *);\n"
-" void guestfs_free_yara_detection_list (struct guestfs_yara_detection_list *)"
-";\n"
+" void guestfs_free_yara_detection_list (struct guestfs_yara_detection_list *);\n"
 "\n"
 
 #. type: textblock
@@ -102229,9 +102091,9 @@ msgid ""
 "java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
 "L<guestfs-python(3)>, L<guestfs-ruby(3)>."
 msgstr ""
-"ენაზე მიბმები: L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
-", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
-"python(3)>, L<guestfs-ruby(3)>."
+"ენაზე მიბმები: L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
+"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
+"L<guestfs-python(3)>, L<guestfs-ruby(3)>."
 
 #. type: textblock
 #: lib/guestfs.pod:3229
@@ -102250,11 +102112,11 @@ msgstr ""
 "L<virt-builder(1)>, L<virt-builder-repository(1)>, L<virt-cat(1)>, L<virt-"
 "copy-in(1)>, L<virt-copy-out(1)>, L<virt-customize(1)>, L<virt-df(1)>, "
 "L<virt-diff(1)>, L<virt-edit(1)>, L<virt-filesystems(1)>, L<virt-format(1)>, "
-"L<virt-inspector(1)>, L<virt-list-filesystems(1)>, L<virt-list-partitions(1)>"
-", L<virt-log(1)>, L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-p2v(1)>, L<virt-"
-"rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, L<virt-sysprep(1)>, "
-"L<virt-tail(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, "
-"L<virt-v2v(1)>, L<virt-win-reg(1)>."
+"L<virt-inspector(1)>, L<virt-list-filesystems(1)>, L<virt-list-"
+"partitions(1)>, L<virt-log(1)>, L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-"
+"p2v(1)>, L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, L<virt-"
+"sysprep(1)>, L<virt-tail(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-"
+"out(1)>, L<virt-v2v(1)>, L<virt-win-reg(1)>."
 
 #. type: textblock
 #: lib/guestfs.pod:3262
@@ -102571,10 +102433,10 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "www.lua.org/>, L<http://libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-golang"
-"(3)>, L<guestfs-java(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
-"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://www.lua.org/>"
-", L<http://libguestfs.org/>."
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-"
+"golang(3)>, L<guestfs-java(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
+"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"www.lua.org/>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: lua/examples/guestfs-lua.pod:157
@@ -102726,9 +102588,9 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>, L<http://caml.inria.fr/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-golang"
-"(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-perl(3)>, L<guestfs-"
-"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-"
+"golang(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-perl(3)>, "
+"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>, L<http://caml.inria.fr/>."
 
 #. type: textblock
@@ -102782,10 +102644,10 @@ msgid ""
 "L<guestfs-ocaml(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-"
 "ruby(3)>, L<http://libguestfs.org/>."
 msgstr ""
-"L<Sys::Guestfs(3)>, L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang"
-"(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-"
-"ocaml(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, "
-"L<http://libguestfs.org/>."
+"L<Sys::Guestfs(3)>, L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-"
+"erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, "
+"L<guestfs-ocaml(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-"
+"ruby(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: python/examples/guestfs-python.pod:3
@@ -102909,9 +102771,9 @@ msgid ""
 "L<guestfs-perl(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-golang"
-"(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-"
-"perl(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-"
+"golang(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, "
+"L<guestfs-perl(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -103754,9 +103616,9 @@ msgid ""
 "L<guestfs-perl(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<http://"
 "libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-golang"
-"(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-"
-"perl(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<http://"
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-"
+"golang(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, "
+"L<guestfs-perl(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock

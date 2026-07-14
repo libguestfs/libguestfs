@@ -10,9 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-07-03 09:02+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-07-13 14:09+0100\n"
 "PO-Revision-Date: 2026-07-13 10:28+0000\n"
 "Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
 "Language-Team: Gujarati <https://translate.fedoraproject.org/projects/"
@@ -657,8 +657,7 @@ msgstr ""
 
 #: fish/cmds.c:627
 msgid "return true path on case-insensitive filesystem"
-msgstr ""
-"નાનામોટા અક્ષરો પ્રત્યે સંવેદનશીલ ન હોય તેવી ફાઇલ સિસ્ટમ પર સાચા પાથને પાછુ લાવો"
+msgstr "નાનામોટા અક્ષરો પ્રત્યે સંવેદનશીલ ન હોય તેવી ફાઇલ સિસ્ટમ પર સાચા પાથને પાછુ લાવો"
 
 #: fish/cmds.c:628
 msgid "list the contents of a file"
@@ -938,8 +937,7 @@ msgstr "બધી ફાઇલો અને ડિરેક્ટરીઓને
 
 #: fish/cmds.c:712
 msgid "find all files and directories, returning NUL-separated list"
-msgstr ""
-"બધી ફાઇલો અને ડિરેક્ટરીઓને શોધો, NUL-અગલ થયેલ યાદીને પાછી મેળવી રહ્યા છે"
+msgstr "બધી ફાઇલો અને ડિરેક્ટરીઓને શોધો, NUL-અગલ થયેલ યાદીને પાછી મેળવી રહ્યા છે"
 
 #: fish/cmds.c:713
 msgid "search the entries associated to the given inode"
@@ -4298,8 +4296,7 @@ msgstr "ડિમન સોકેટમાં લખો"
 
 #: lib/proto.c:880
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr ""
-"receive_file_data: મળેલ અનિચ્છનીય ફ્લેગ જ્યારે ફાઇલ ટૂકડાઓને વાંચી રહ્યા હોય"
+msgstr "receive_file_data: મળેલ અનિચ્છનીય ફ્લેગ જ્યારે ફાઇલ ટૂકડાઓને વાંચી રહ્યા હોય"
 
 #: lib/proto.c:888
 msgid "failed to parse file chunk"

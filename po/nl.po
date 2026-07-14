@@ -11,9 +11,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-07-03 09:02+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-07-13 14:09+0100\n"
 "PO-Revision-Date: 2026-07-13 10:49+0000\n"
 "Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
 "Language-Team: Dutch <https://translate.fedoraproject.org/projects/"
@@ -166,7 +166,8 @@ msgstr ""
 #: common/options/options.c:291
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
-msgstr "%s: Bedoelde je het om een van deze bestandssystemen aan te koppelen?\n"
+msgstr ""
+"%s: Bedoelde je het om een van deze bestandssystemen aan te koppelen?\n"
 
 #: common/options/options.c:304
 #, c-format
@@ -4169,7 +4170,8 @@ msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
 #: lib/launch-direct.c:1026 lib/launch-libvirt.c:672
 msgid "qemu launched and contacted daemon, but state != READY"
-msgstr "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
+msgstr ""
+"qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
 #: lib/launch-libvirt.c:61
 #, c-format

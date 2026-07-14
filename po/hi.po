@@ -10,9 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-07-03 09:02+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-07-13 14:09+0100\n"
 "PO-Revision-Date: 2026-07-13 10:31+0000\n"
 "Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
 "Language-Team: Hindi <https://translate.fedoraproject.org/projects/"
@@ -322,8 +322,7 @@ msgstr "स्नैप शॉट मोड में ड्राइव जो�
 
 #: fish/cmds.c:523
 msgid "add a drive read-only specifying the QEMU block emulation to use"
-msgstr ""
-"केवल पठनीय ड्राइव जोड़ें जो QEMU खंड को एमुलेशन को उपयोग के लिए रोकता है"
+msgstr "केवल पठनीय ड्राइव जोड़ें जो QEMU खंड को एमुलेशन को उपयोग के लिए रोकता है"
 
 #: fish/cmds.c:524
 msgid "add a temporary scratch drive"
@@ -2598,8 +2597,7 @@ msgstr "संकुचित फाइल अंदर फाइल प्र�
 
 #: fish/cmds.c:1232
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr ""
-"-h <cmd> / help <cmd> का उपयोग कमांड के लिए विस्तृत मदद दिखाने के लिए करें."
+msgstr "-h <cmd> / help <cmd> का उपयोग कमांड के लिए विस्तृत मदद दिखाने के लिए करें."
 
 #: fish/copy.c:42
 #, c-format
