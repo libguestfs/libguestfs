@@ -1,15 +1,14 @@
 # SOME DESCRIPTIVE TITLE
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the libguestfs package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# Andrei Stepanov <adem4ik@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-14 14:59+0100\n"
-"PO-Revision-Date: 2026-07-13 15:30+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-07-16 21:18+0000\n"
+"Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ru/>\n"
 "Language: ru\n"
@@ -1375,7 +1374,7 @@ msgstr ""
 #. type: =item
 #: common/mlcustomize/customize-options.pod:233
 msgid "DIR"
-msgstr ""
+msgstr "КАТАЛОГ"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:235
@@ -43297,8 +43296,9 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:124
+#, fuzzy
 msgid "domain"
-msgstr ""
+msgstr "домен"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:126
@@ -45408,8 +45408,9 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:1087
+#, fuzzy
 msgid "btrfs-filesystem-resize"
-msgstr ""
+msgstr "btrfs-filesystem-resize"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:1089
@@ -48422,8 +48423,9 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:2588
+#, fuzzy
 msgid "file"
-msgstr ""
+msgstr "файл"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:2590
@@ -56786,8 +56788,9 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:6860
+#, fuzzy
 msgid "mkswap"
-msgstr ""
+msgstr "mkswap"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:6862
@@ -57583,8 +57586,9 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7259
+#, fuzzy
 msgid "ntfsresize"
-msgstr ""
+msgstr "ntfsresize"
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7261
@@ -58761,8 +58765,9 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7784
+#, fuzzy
 msgid "pvresize"
-msgstr ""
+msgstr "pvresize"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:7786
@@ -59209,8 +59214,9 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:8034
+#, fuzzy
 msgid "resize2fs"
-msgstr ""
+msgstr "resize2fs"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:8036
@@ -68255,7 +68261,7 @@ msgstr ""
 #. type: =item
 #: fish/guestfish.pod:1500 lib/guestfs.pod:1355 lib/guestfs.pod:3178
 msgid "PATH"
-msgstr ""
+msgstr "ПУТЬ"
 
 #. type: textblock
 #: fish/guestfish.pod:1502

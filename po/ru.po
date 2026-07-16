@@ -5,14 +5,15 @@
 # Translators:
 # Stanislav Hanzhin <hanzhin.stas@gmail.com>, 2012
 # Rafael Fontenelle <rafaelff@gnome.org>, 2026.
+# Andrei Stepanov <adem4ik@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-13 14:09+0100\n"
-"PO-Revision-Date: 2026-07-13 11:01+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"PO-Revision-Date: 2026-07-16 21:18+0000\n"
+"Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ru/>\n"
 "Language: ru\n"
@@ -26,12 +27,12 @@ msgstr ""
 #: common/options/config.c:72
 #, c-format
 msgid "%s: line %d: error parsing configuration file: %s"
-msgstr ""
+msgstr "%s: строка %d: ошибка разбора файла конфигурации: %s"
 
 #: common/options/decrypt.c:52
 #, c-format
 msgid "string size overflow"
-msgstr ""
+msgstr "переполнение размера строки"
 
 #: common/options/decrypt.c:170
 #, c-format
@@ -39,6 +40,8 @@ msgid ""
 "'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
 "libguestfs version"
 msgstr ""
+"«clevis_luks_unlock», необходимый для расшифровки %s, недоступен в этой "
+"версии libguestfs"
 
 #: common/options/decrypt.c:184
 #, c-format
@@ -49,6 +52,11 @@ msgid ""
 "\n"
 "Original error: %s (%d)"
 msgstr ""
+"не удалось найти ключ для открытия зашифрованного LUKS %s.\n"
+"\n"
+"Попробуйте использовать --key в командной строке.\n"
+"\n"
+"Исходная ошибка: %s (%d)"
 
 #: common/options/inspect.c:78
 #, c-format
@@ -68,6 +76,21 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: на этом диске не найдена операционная система\n"
+"\n"
+"При использовании guestfish с параметром «-i» удалите этот параметр\n"
+"и вместо этого используйте команды «run», а затем «list-filesystems».\n"
+"Затем вы можете вручную смонтировать нужные файловые системы\n"
+"с помощью команд «mount» или «mount-ro».\n"
+"\n"
+"При использовании guestmount с параметром «-i» удалите этот параметр и "
+"выберите\n"
+"файловые системы, которые вы хотите видеть, вручную добавив параметры «-m».\n"
+"Используйте «virt-filesystems» для просмотра доступных файловых систем.\n"
+"\n"
+"При использовании других инструментов virt этот образ диска не будет\n"
+"работать с этими инструментами. Используйте эквивалентные команды\n"
+"guestfish (см. справочную страницу инструмента virt).\n"
 
 #: common/options/inspect.c:99
 #, c-format
@@ -87,71 +110,86 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: мультизагрузочные операционные системы не поддерживаются\n"
+"\n"
+"При использовании guestfish с параметром «-i» удалите этот параметр\n"
+"и вместо него используйте команды «run», а затем «list-filesystems».\n"
+"Затем вы можете вручную смонтировать нужные файловые\n"
+"системы с помощью команд «mount» или «mount-ro».\n"
+"\n"
+"При использовании guestmount с параметром «-i» удалите этот параметр и "
+"выберите\n"
+"файловые системы, которые вы хотите видеть, вручную добавив параметры «-m».\n"
+"Используйте «virt-filesystems» для просмотра доступных файловых систем.\n"
+"\n"
+"При использовании других инструментов virt мультизагрузочные операционные\n"
+"системы не будут работать с этими инструментами. Используйте эквивалентные\n"
+"команды guestfish (см. справочную страницу инструмента virt).\n"
 
 #: common/options/inspect.c:161
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr ""
+msgstr "%s: некоторые файловые системы не удалось смонтировать (игнорируется)\n"
 
 #: common/options/inspect.c:178
 #, c-format
 msgid "Operating system: %s\n"
-msgstr ""
+msgstr "Операционная система: %s\n"
 
 #: common/options/inspect.c:196
 #, c-format
 msgid "%s mounted on %s\n"
-msgstr ""
+msgstr "%s смонтировано в %s\n"
 
 #: common/options/keys.c:69
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
-msgstr ""
+msgstr "Введите ключ или парольную фразу («%s»): "
 
 #: common/options/keys.c:189
 #, c-format
 msgid "size_t overflow"
-msgstr ""
+msgstr "переполнение size_t"
 
 #: common/options/keys.c:235
 #, c-format
 msgid "could not read key from user"
-msgstr ""
+msgstr "не удалось прочитать ключ от пользователя"
 
 #: common/options/keys.c:274
 #, c-format
 msgid "selector '%s': missing ID"
-msgstr ""
+msgstr "селектор «%s»: отсутствует идентификатор"
 
 #: common/options/keys.c:281
 #, c-format
 msgid "selector '%s': missing TYPE"
-msgstr ""
+msgstr "селектор «%s»: отсутствует ТИП"
 
 #: common/options/keys.c:287
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
-msgstr ""
+msgstr "селектор «%s»: отсутствует КЛЮЧ_СТРОКА или слишком много полей"
 
 #: common/options/keys.c:296
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
-msgstr ""
+msgstr "селектор «%s»: отсутствует ИМЯ_ФАЙЛА или слишком много полей"
 
 #: common/options/keys.c:304
 #, c-format
 msgid "selector '%s': too many fields"
-msgstr ""
+msgstr "селектор «%s»: слишком много полей"
 
 #: common/options/keys.c:306
 #, c-format
 msgid "selector '%s': invalid TYPE"
-msgstr ""
+msgstr "селектор '%s': недопустимый ТИП"
 
 #: common/options/options.c:283
 #, c-format
 msgid "%s: ‘%s’ could not be mounted.\n"
-msgstr ""
+msgstr "%s: «%s» не удалось смонтировать.\n"
 
 #: common/options/options.c:287
 #, c-format
@@ -159,101 +197,110 @@ msgid ""
 "%s: Check mount(8) man page to ensure options ‘%s’\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
+"%s: Проверьте справочную страницу mount(8), чтобы убедиться, что параметры "
+"«%s»\n"
+"%s: поддерживаются монтируемой файловой системой.\n"
 
 #: common/options/options.c:291
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
-msgstr ""
+msgstr "%s: Возможно, вы хотели смонтировать одну из этих файловых систем?\n"
 
 #: common/options/options.c:304
 #, c-format
 msgid "cannot determine the subvolume for %s: %s (%d)"
-msgstr ""
+msgstr "не удаётся определить подтом для %s: %s (%d)"
 
 #: common/options/uri.c:119
 #, c-format
 msgid "%s: --add: could not parse URI ‘%s’\n"
-msgstr ""
+msgstr "%s: --add: не удалось разобрать URI «%s»\n"
 
 #: common/options/uri.c:130
 #, c-format
 msgid "%s: %s: scheme of URI is NULL or empty\n"
-msgstr ""
+msgstr "%s: %s: схема URI-адреса равна NULL или пуста\n"
 
 #: common/options/uri.c:138
 #, c-format
 msgid "%s: %s: cannot have both a server name and a socket query parameter\n"
 msgstr ""
+"%s: %s: не могут быть одновременно указаны имя сервера и параметр запроса "
+"сокета\n"
 
 #: common/parallel/domains.c:106 lib/libvirt-domain.c:106
-#, c-format
+#, c-format, fuzzy
 msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr ""
+msgstr "не удалось подключиться к libvirt (код %d, домен %d): %s"
 
 #: common/parallel/domains.c:114
-#, c-format
+#, c-format, fuzzy
 msgid "could not get number of running domains (code %d, domain %d): %s"
 msgstr ""
+"не удалось получить количество работающих доменов (код %d, домен %d): %s"
 
 #: common/parallel/domains.c:125
-#, c-format
+#, c-format, fuzzy
 msgid "could not list running domains (code %d, domain %d): %s"
-msgstr ""
+msgstr "не удалось вывести список работающих доменов (код %d, домен %d): %s"
 
 #: common/parallel/domains.c:135
-#, c-format
+#, c-format, fuzzy
 msgid "could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
+"не удалось получить количество неактивных доменов (код %d, домен %d): %s"
 
 #: common/parallel/domains.c:146
-#, c-format
+#, c-format, fuzzy
 msgid "could not list inactive domains (code %d, domain %d): %s"
-msgstr ""
+msgstr "не удалось вывести список неактивных доменов (код %d, домен %d): %s"
 
 #: common/utils/utils.c:107
 #, c-format
 msgid "%s exited successfully"
-msgstr ""
+msgstr "%s успешно завершился"
 
 #: common/utils/utils.c:110
 #, c-format
 msgid "%s exited with error status %d"
-msgstr ""
+msgstr "%s завершился с кодом ошибки %d"
 
 #: common/utils/utils.c:114
 #, c-format
 msgid "%s killed by signal %d (%s)"
-msgstr ""
+msgstr "%s убит сигналом %d (%s)"
 
 #: common/utils/utils.c:118
 #, c-format
 msgid "%s stopped by signal %d (%s)"
-msgstr ""
+msgstr "%s остановлен сигналом %d (%s)"
 
 #: common/utils/utils.c:122
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
-msgstr ""
+msgstr "%s завершился по неизвестной причине (состояние %d)"
 
 #: common/visit/visit.c:133
-#, c-format
+#, c-format, fuzzy
 msgid "%s: error getting extended attrs for %s %s\n"
-msgstr ""
+msgstr "%s: ошибка получения расширенных атрибутов для %s %s\n"
 
 #: common/visit/visit.c:147
-#, c-format
+#, c-format, fuzzy
 msgid "%s: error: cannot parse xattr count for %s %s\n"
-msgstr ""
+msgstr "%s: ошибка: не удаётся разобрать количество xattr для %s %s\n"
 
 #: common/windows/windows.c:139
-#, c-format
+#, c-format, fuzzy
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
+"для использования букв дисков Windows это должна быть гостевая система "
+"Windows"
 
 #: common/windows/windows.c:150
-#, c-format
+#, c-format, fuzzy
 msgid "drive '%c:' not found."
-msgstr ""
+msgstr "диск '%c:' не найден."
 
 #: fish/alloc.c:42
 #, c-format
@@ -2636,9 +2683,9 @@ msgstr ""
 
 #: fish/fish.c:114 fuse/guestmount.c:103 fuse/guestunmount.c:58
 #: rescue/rescue.c:80
-#, c-format
+#, c-format, fuzzy
 msgid "Try ‘%s --help’ for more information.\n"
-msgstr ""
+msgstr "Попробуйте «%s --help» для получения дополнительной информации.\n"
 
 #: fish/fish.c:117
 #, c-format
@@ -2714,9 +2761,9 @@ msgstr ""
 
 #: fish/fish.c:302 fuse/guestmount.c:259 fuse/guestunmount.c:131
 #: rescue/rescue.c:225 test-tool/test-tool.c:123
-#, c-format
+#, c-format, fuzzy
 msgid "unknown long option: %s (%d)"
-msgstr ""
+msgstr "неизвестный длинный параметр: %s (%d)"
 
 #: fish/fish.c:319
 #, c-format
@@ -3272,7 +3319,7 @@ msgstr ""
 #: fish/run-6.c:2079 fish/run-6.c:2166
 #, c-format
 msgid "%s: %s: integer out of range\n"
-msgstr ""
+msgstr "%s: %s: целое число вне допустимого диапазона\n"
 
 #: fish/setenv.c:40
 #, c-format
@@ -3339,9 +3386,9 @@ msgid "unable to parse --fd option value: %s"
 msgstr ""
 
 #: fuse/guestmount.c:326 rescue/rescue.c:348
-#, c-format
+#, c-format, fuzzy
 msgid "%s: error: you must specify at least one -a or -d option.\n"
-msgstr ""
+msgstr "%s: ошибка: вы должны указать хотя бы один параметр -a или -d.\n"
 
 #: fuse/guestmount.c:331
 #, c-format
@@ -4000,8 +4047,9 @@ msgstr ""
 
 #: lib/launch-libvirt.c:743 lib/launch-libvirt.c:845 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
+#, fuzzy
 msgid "unable to create new XPath context"
-msgstr ""
+msgstr "не удалось создать новый XPath-контекст"
 
 #: lib/launch-libvirt.c:753 lib/launch-libvirt.c:853 lib/launch-libvirt.c:869
 #, c-format
@@ -4163,8 +4211,9 @@ msgid ""
 msgstr ""
 
 #: lib/libvirt-domain.c:415 lib/libvirt-domain.c:488
+#, fuzzy
 msgid "unable to evaluate XPath expression"
-msgstr ""
+msgstr "не удалось вычислить XPath-выражение"
 
 #: lib/libvirt-domain.c:434
 msgid "expected <seclabel/> to be an XML element"
@@ -4350,7 +4399,7 @@ msgstr ""
 #: lib/tmpdirs.c:277
 #, c-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: lib/tmpdirs.c:325
 #, c-format
