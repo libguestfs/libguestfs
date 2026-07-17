@@ -169,18 +169,18 @@ set_up_etc_resolv_conf (struct resolver_state *rs)
   if (lstat (rs->sysroot_etc_resolv_conf, &statbuf) == -1) {
     if (errno != ENOENT) {
       reply_with_perror ("lstat: %s", rs->sysroot_etc_resolv_conf);
-      return -1;
+      goto error;
     }
     /* create empty file */
     fd = open (rs->sysroot_etc_resolv_conf,
                 O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0644);
     if (fd == -1) {
       reply_with_perror ("open: %s", rs->sysroot_etc_resolv_conf);
-      return -1;
+      goto error;
     }
-    if (close(fd) == -1) {
+    if (close (fd) == -1) {
       reply_with_perror ("close: %s", rs->sysroot_etc_resolv_conf);
-      return -1;
+      goto error;
     }
     /* /sysroot/etc/resolv.conf file did not exist, we created it.
      * We remove it using this marker flag after umount.
