@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-14 14:59+0100\n"
-"PO-Revision-Date: 2026-07-16 21:18+0000\n"
+"PO-Revision-Date: 2026-07-21 04:18+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ru/>\n"
@@ -43296,7 +43296,6 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:124
-#, fuzzy
 msgid "domain"
 msgstr "домен"
 
@@ -45408,7 +45407,6 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:1087
-#, fuzzy
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
@@ -48423,7 +48421,6 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:2588
-#, fuzzy
 msgid "file"
 msgstr "файл"
 
@@ -56788,7 +56785,6 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:6860
-#, fuzzy
 msgid "mkswap"
 msgstr "mkswap"
 
@@ -57586,7 +57582,6 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7259
-#, fuzzy
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
@@ -58765,7 +58760,6 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7784
-#, fuzzy
 msgid "pvresize"
 msgstr "pvresize"
 
@@ -59214,7 +59208,6 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:8034
-#, fuzzy
 msgid "resize2fs"
 msgstr "resize2fs"
 

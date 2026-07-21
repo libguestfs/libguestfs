@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-13 14:09+0100\n"
-"PO-Revision-Date: 2026-07-16 21:18+0000\n"
+"PO-Revision-Date: 2026-07-21 04:18+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ru/>\n"
@@ -229,29 +229,29 @@ msgstr ""
 "сокета\n"
 
 #: common/parallel/domains.c:106 lib/libvirt-domain.c:106
-#, c-format, fuzzy
+#, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr "не удалось подключиться к libvirt (код %d, домен %d): %s"
 
 #: common/parallel/domains.c:114
-#, c-format, fuzzy
+#, c-format
 msgid "could not get number of running domains (code %d, domain %d): %s"
 msgstr ""
 "не удалось получить количество работающих доменов (код %d, домен %d): %s"
 
 #: common/parallel/domains.c:125
-#, c-format, fuzzy
+#, c-format
 msgid "could not list running domains (code %d, domain %d): %s"
 msgstr "не удалось вывести список работающих доменов (код %d, домен %d): %s"
 
 #: common/parallel/domains.c:135
-#, c-format, fuzzy
+#, c-format
 msgid "could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
 "не удалось получить количество неактивных доменов (код %d, домен %d): %s"
 
 #: common/parallel/domains.c:146
-#, c-format, fuzzy
+#, c-format
 msgid "could not list inactive domains (code %d, domain %d): %s"
 msgstr "не удалось вывести список неактивных доменов (код %d, домен %d): %s"
 
@@ -281,41 +281,41 @@ msgid "%s exited for an unknown reason (status %d)"
 msgstr "%s завершился по неизвестной причине (состояние %d)"
 
 #: common/visit/visit.c:133
-#, c-format, fuzzy
+#, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr "%s: ошибка получения расширенных атрибутов для %s %s\n"
 
 #: common/visit/visit.c:147
-#, c-format, fuzzy
+#, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr "%s: ошибка: не удаётся разобрать количество xattr для %s %s\n"
 
 #: common/windows/windows.c:139
-#, c-format, fuzzy
+#, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
 "для использования букв дисков Windows это должна быть гостевая система "
 "Windows"
 
 #: common/windows/windows.c:150
-#, c-format, fuzzy
+#, c-format
 msgid "drive '%c:' not found."
-msgstr "диск '%c:' не найден."
+msgstr "диск «%c:» не найден."
 
 #: fish/alloc.c:42
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
-msgstr ""
+msgstr "используйте «alloc файл размер» для создания образа\n"
 
 #: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr ""
+msgstr "используйте «sparse файл размер» для создания разрежённого образа\n"
 
 #: fish/alloc.c:105
 #, c-format
 msgid "%s: invalid integer parameter (%s returned %u)\n"
-msgstr ""
+msgstr "%s: недопустимое целое значение параметра (%s вернул %u)\n"
 
 #: fish/cmds.c:508
 msgid "Command"
@@ -327,15 +327,15 @@ msgstr "Описание"
 
 #: fish/cmds.c:510
 msgid "delete the default POSIX ACL of a directory"
-msgstr ""
+msgstr "удалить POSIX ACL по умолчанию для каталога"
 
 #: fish/cmds.c:511
 msgid "get the POSIX ACL attached to a file"
-msgstr ""
+msgstr "получить POSIX ACL, прикреплённый к файлу"
 
 #: fish/cmds.c:512
 msgid "set the POSIX ACL attached to a file"
-msgstr ""
+msgstr "установить POSIX ACL для файла"
 
 #: fish/cmds.c:514 fish/cmds.c:517 fish/cmds.c:528 fish/cmds.c:531
 #: fish/cmds.c:534 fish/cmds.c:554 fish/cmds.c:559 fish/cmds.c:578
@@ -348,2347 +348,2369 @@ msgstr ""
 #: fish/cmds.c:1173 fish/cmds.c:1182 fish/cmds.c:1204
 #, c-format
 msgid "alias for '%s'"
-msgstr ""
+msgstr "псевдоним для «%s»"
 
 #: fish/cmds.c:519
 msgid "add a CD-ROM disk image to examine"
-msgstr ""
+msgstr "добавить образ CD-ROM для исследования"
 
 #: fish/cmds.c:520
 msgid "add the disk(s) from a named libvirt domain"
-msgstr ""
+msgstr "добавить диски из указанного домена libvirt"
 
 #: fish/cmds.c:521
 msgid "add an image to examine or modify"
-msgstr ""
+msgstr "добавить образ для исследования или изменения"
 
 #: fish/cmds.c:522
 msgid "add a drive in snapshot mode (read-only)"
-msgstr ""
+msgstr "добавить диск в режиме снимка (только чтение)"
 
 #: fish/cmds.c:523
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
+"добавить диск только для чтения с указанием эмуляции блочных устройств QEMU"
 
 #: fish/cmds.c:524
 msgid "add a temporary scratch drive"
-msgstr ""
+msgstr "добавить временный черновой диск"
 
 #: fish/cmds.c:525
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr ""
+msgstr "добавить диск с указанием эмуляции блочных устройств QEMU"
 
 #: fish/cmds.c:526
 msgid "allocate and add a disk file"
-msgstr ""
+msgstr "выделить и добавить файл диска"
 
 #: fish/cmds.c:536
 msgid "clear Augeas path"
-msgstr ""
+msgstr "очистить путь Augeas"
 
 #: fish/cmds.c:537
 msgid "close the current Augeas handle"
-msgstr ""
+msgstr "закрыть текущий дескриптор Augeas"
 
 #: fish/cmds.c:538
 msgid "define an Augeas node"
-msgstr ""
+msgstr "определить узел Augeas"
 
 #: fish/cmds.c:539
 msgid "define an Augeas variable"
-msgstr ""
+msgstr "определить переменную Augeas"
 
 #: fish/cmds.c:540
 msgid "look up the value of an Augeas path"
-msgstr ""
+msgstr "найти значение пути Augeas"
 
 #: fish/cmds.c:541
 msgid "create a new Augeas handle"
-msgstr ""
+msgstr "создать новый дескриптор Augeas"
 
 #: fish/cmds.c:542
 msgid "insert a sibling Augeas node"
-msgstr ""
+msgstr "вставить родственный узел Augeas"
 
 #: fish/cmds.c:543
 msgid "return the label from an Augeas path expression"
-msgstr ""
+msgstr "вернуть метку из выражения пути Augeas"
 
 #: fish/cmds.c:544
 msgid "load files into the tree"
-msgstr ""
+msgstr "загрузить файлы в дерево"
 
 #: fish/cmds.c:545
 msgid "list Augeas nodes under augpath"
-msgstr ""
+msgstr "вывести список узлов Augeas по пути augpath"
 
 #: fish/cmds.c:546
 msgid "return Augeas nodes which match augpath"
-msgstr ""
+msgstr "вернуть узлы Augeas, соответствующие augpath"
 
 #: fish/cmds.c:547
 msgid "move Augeas node"
-msgstr ""
+msgstr "переместить узел Augeas"
 
 #: fish/cmds.c:548
 msgid "remove an Augeas path"
-msgstr ""
+msgstr "удалить путь Augeas"
 
 #: fish/cmds.c:549
 msgid "write all pending Augeas changes to disk"
-msgstr ""
+msgstr "записать все ожидающие изменения Augeas на диск"
 
 #: fish/cmds.c:550
 msgid "set Augeas path to value"
-msgstr ""
+msgstr "установить путь Augeas в значение"
 
 #: fish/cmds.c:551
 msgid "set multiple Augeas nodes"
-msgstr ""
+msgstr "установить несколько узлов Augeas"
 
 #: fish/cmds.c:552
 msgid "add/remove an Augeas lens transformation"
-msgstr ""
+msgstr "добавить/удалить преобразование линз Augeas"
 
 #: fish/cmds.c:556 fish/cmds.c:700
 msgid "test availability of some parts of the API"
-msgstr ""
+msgstr "проверить доступность некоторых частей API"
 
 #: fish/cmds.c:557
 msgid "return a list of all optional groups"
-msgstr ""
+msgstr "вернуть список всех необязательных групп"
 
 #: fish/cmds.c:561
 msgid "upload base64-encoded data to file"
-msgstr ""
+msgstr "загрузить данные в кодировке base64 в файл"
 
 #: fish/cmds.c:562
 msgid "download file and encode as base64"
-msgstr ""
+msgstr "загрузить файл и закодировать в base64"
 
 #: fish/cmds.c:563
 msgid "discard all blocks on a device"
-msgstr ""
+msgstr "отбросить все блоки на устройстве"
 
 #: fish/cmds.c:564
 msgid "return true if discarded blocks are read as zeroes"
-msgstr ""
+msgstr "вернуть true, если отброшенные блоки читаются как нули"
 
 #: fish/cmds.c:565
 msgid "print block device attributes"
-msgstr ""
+msgstr "вывести атрибуты блочного устройства"
 
 #: fish/cmds.c:566
 msgid "flush device buffers"
-msgstr ""
+msgstr "сбросить буферы устройства"
 
 #: fish/cmds.c:567
 msgid "get blocksize of block device"
-msgstr ""
+msgstr "получить размер блока блочного устройства"
 
 #: fish/cmds.c:568
 msgid "is block device set to read-only"
-msgstr ""
+msgstr "установлен ли блочное устройство только для чтения"
 
 #: fish/cmds.c:569
 msgid "get total size of device in bytes"
-msgstr ""
+msgstr "получить общий размер устройства в байтах"
 
 #: fish/cmds.c:570
 msgid "get sectorsize of block device"
-msgstr ""
+msgstr "получить размер сектора блочного устройства"
 
 #: fish/cmds.c:571
 msgid "get total size of device in 512-byte sectors"
-msgstr ""
+msgstr "получить общий размер устройства в 512-байтовых секторах"
 
 #: fish/cmds.c:572
 msgid "reread partition table"
-msgstr ""
+msgstr "перечитать таблицу разделов"
 
 #: fish/cmds.c:573
 msgid "set blocksize of block device"
-msgstr ""
+msgstr "установить размер блока блочного устройства"
 
 #: fish/cmds.c:574
 msgid "set readahead"
-msgstr ""
+msgstr "установить упреждающее чтение"
 
 #: fish/cmds.c:575
 msgid "set block device to read-only"
-msgstr ""
+msgstr "установить блочное устройство только для чтения"
 
 #: fish/cmds.c:576
 msgid "set block device to read-write"
-msgstr ""
+msgstr "установить блочное устройство для чтения и записи"
 
 #: fish/cmds.c:580
 msgid "cancel a running or paused balance"
-msgstr ""
+msgstr "отменить выполняющуюся или приостановленную балансировку"
 
 #: fish/cmds.c:581
 msgid "pause a running balance"
-msgstr ""
+msgstr "приостановить выполняющуюся балансировку"
 
 #: fish/cmds.c:582
 msgid "resume a paused balance"
-msgstr ""
+msgstr "возобновить приостановленную балансировку"
 
 #: fish/cmds.c:583
 msgid "show the status of a running or paused balance"
-msgstr ""
+msgstr "показать состояние выполняющейся или приостановленной балансировки"
 
 #: fish/cmds.c:584
 msgid "add devices to a btrfs filesystem"
-msgstr ""
+msgstr "добавить устройства в файловую систему btrfs"
 
 #: fish/cmds.c:585
 msgid "remove devices from a btrfs filesystem"
-msgstr ""
+msgstr "удалить устройства из файловой системы btrfs"
 
 #: fish/cmds.c:586
 msgid "balance a btrfs filesystem"
-msgstr ""
+msgstr "выполнить балансировку файловой системы btrfs"
 
 #: fish/cmds.c:587
 msgid "defragment a file or directory"
-msgstr ""
+msgstr "дефрагментировать файл или каталог"
 
 #: fish/cmds.c:588
 msgid "resize a btrfs filesystem"
-msgstr ""
+msgstr "изменить размер файловой системы btrfs"
 
 #: fish/cmds.c:589
 msgid "list devices for btrfs filesystem"
-msgstr ""
+msgstr "вывести список устройств для файловой системы btrfs"
 
 #: fish/cmds.c:590
 msgid "sync a btrfs filesystem"
-msgstr ""
+msgstr "синхронизировать файловую систему btrfs"
 
 #: fish/cmds.c:591
 msgid "check a btrfs filesystem"
-msgstr ""
+msgstr "проверить файловую систему btrfs"
 
 #: fish/cmds.c:592
 msgid "create an image of a btrfs filesystem"
-msgstr ""
+msgstr "создать образ файловой системы btrfs"
 
 #: fish/cmds.c:593
 msgid "add a qgroup to a parent qgroup"
-msgstr ""
+msgstr "добавить qgroup в родительскую qgroup"
 
 #: fish/cmds.c:594
 msgid "create a subvolume quota group"
-msgstr ""
+msgstr "создать группу квот подтомов"
 
 #: fish/cmds.c:595
 msgid "destroy a subvolume quota group"
-msgstr ""
+msgstr "удалить группу квот подтомов"
 
 #: fish/cmds.c:596
 msgid "limit the size of a subvolume"
-msgstr ""
+msgstr "ограничить размер подтома"
 
 #: fish/cmds.c:597
 msgid "remove a qgroup from its parent qgroup"
-msgstr ""
+msgstr "удалить qgroup из родительской qgroup"
 
 #: fish/cmds.c:598
 msgid "show subvolume quota groups"
-msgstr ""
+msgstr "показать группы квот подтомов"
 
 #: fish/cmds.c:599
 msgid "enable or disable subvolume quota support"
-msgstr ""
+msgstr "включить или отключить поддержку квот подтомов"
 
 #: fish/cmds.c:600
 msgid ""
 "trash all qgroup numbers and scan the metadata again with the current config"
 msgstr ""
+"удалить все номера qgroup и повторно просканировать метаданные с текущей "
+"конфигурацией"
 
 #: fish/cmds.c:601
 msgid "replace a btrfs managed device with another device"
-msgstr ""
+msgstr "заменить устройство btrfs другим устройством"
 
 #: fish/cmds.c:602
 msgid "recover the chunk tree of btrfs filesystem"
-msgstr ""
+msgstr "восстановить дерево фрагментов файловой системы btrfs"
 
 #: fish/cmds.c:603
 msgid "recover bad superblocks from good copies"
-msgstr ""
+msgstr "восстановить повреждённые суперблоки из хороших копий"
 
 #: fish/cmds.c:604
 msgid "cancel a running scrub"
-msgstr ""
+msgstr "отменить выполняющуюся проверку"
 
 #: fish/cmds.c:605
 msgid "run a full scrub on a btrfs filesystem"
-msgstr ""
+msgstr "выполнить полную проверку файловой системы btrfs"
 
 #: fish/cmds.c:606
 msgid "resume a previously canceled or interrupted scrub"
-msgstr ""
+msgstr "возобновить ранее отменённую или прерванную проверку"
 
 #: fish/cmds.c:607
 msgid "read all data from all disks and verify checksums"
-msgstr ""
+msgstr "прочитать все данные со всех дисков и проверить контрольные суммы"
 
 #: fish/cmds.c:608
 msgid "show status of running or finished scrub"
-msgstr ""
+msgstr "показать состояние выполняющейся или завершённой проверки"
 
 #: fish/cmds.c:609
 msgid "enable or disable the seeding feature of device"
-msgstr ""
+msgstr "включить или отключить функцию начального заполнения устройства"
 
 #: fish/cmds.c:610
 msgid "create a btrfs subvolume"
-msgstr ""
+msgstr "создать подтом btrfs"
 
 #: fish/cmds.c:611
 msgid "delete a btrfs subvolume or snapshot"
-msgstr ""
+msgstr "удалить подтом или снимок btrfs"
 
 #: fish/cmds.c:612
 msgid "get the default subvolume or snapshot of a filesystem"
-msgstr ""
+msgstr "получить подтом или снимок по умолчанию файловой системы"
 
 #: fish/cmds.c:613
 msgid "list btrfs snapshots and subvolumes"
-msgstr ""
+msgstr "вывести список снимков и подтомов btrfs"
 
 #: fish/cmds.c:614
 msgid "set default btrfs subvolume"
-msgstr ""
+msgstr "установить подтом btrfs по умолчанию"
 
 #: fish/cmds.c:615
 msgid "return detailed information of the subvolume"
-msgstr ""
+msgstr "вернуть подробную информацию о подтоме"
 
 #: fish/cmds.c:616
 msgid "create a btrfs snapshot"
-msgstr ""
+msgstr "создать снимок btrfs"
 
 #: fish/cmds.c:617
 msgid "enable extended inode refs"
-msgstr ""
+msgstr "включить расширенные ссылки на иноды"
 
 #: fish/cmds.c:618
 msgid "enable skinny metadata extent refs"
-msgstr ""
+msgstr "включить тонкие ссылки на области метаданных"
 
 #: fish/cmds.c:619
 msgid "enable or disable seeding of a btrfs device"
-msgstr ""
+msgstr "включить или отключить начальное заполнение устройства btrfs"
 
 #: fish/cmds.c:620
 msgid "return the C pointer to the guestfs_h handle"
-msgstr ""
+msgstr "вернуть указатель C на дескриптор guestfs_h"
 
 #: fish/cmds.c:624
 msgid "return canonical device name"
-msgstr ""
+msgstr "вернуть каноническое имя устройства"
 
 #: fish/cmds.c:625
 msgid "get the Linux capabilities attached to a file"
-msgstr ""
+msgstr "получить возможности Linux, прикреплённые к файлу"
 
 #: fish/cmds.c:626
 msgid "set the Linux capabilities attached to a file"
-msgstr ""
+msgstr "установить возможности Linux для файла"
 
 #: fish/cmds.c:627
 msgid "return true path on case-insensitive filesystem"
-msgstr ""
+msgstr "вернуть истинный путь в файловой системе без учёта регистра"
 
 #: fish/cmds.c:628
 msgid "list the contents of a file"
-msgstr ""
+msgstr "вывести содержимое файла"
 
 #: fish/cmds.c:629
 msgid "compute MD5, SHAx or CRC checksum of file"
-msgstr ""
+msgstr "вычислить контрольную сумму MD5, SHAx или CRC файла"
 
 #: fish/cmds.c:630
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
-msgstr ""
+msgstr "вычислить контрольную сумму MD5, SHAx или CRC содержимого устройства"
 
 #: fish/cmds.c:631
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
-msgstr ""
+msgstr "вычислить контрольную сумму MD5, SHAx или CRC файлов в каталоге"
 
 #: fish/cmds.c:632
 msgid "change file mode"
-msgstr ""
+msgstr "изменить режим файла"
 
 #: fish/cmds.c:633 fish/cmds.c:855
 msgid "change file owner and group"
-msgstr ""
+msgstr "изменить владельца и группу файла"
 
 #: fish/cmds.c:634
 msgid "remove a single per-backend settings string"
-msgstr ""
+msgstr "удалить одну строку настроек внутреннего механизма"
 
 #: fish/cmds.c:635
 msgid "open an encrypted LUKS block device with Clevis and Tang"
-msgstr ""
+msgstr "открыть зашифрованное блочное устройство LUKS с помощью Clevis и Tang"
 
 #: fish/cmds.c:636 fish/cmds.c:638
 msgid "run a command from the guest filesystem"
-msgstr ""
+msgstr "выполнить команду из файловой системы гостя"
 
 #: fish/cmds.c:637
 msgid "run a command, returning lines"
-msgstr ""
+msgstr "выполнить команду, возвращая строки"
 
 #: fish/cmds.c:639
 msgid "output compressed device"
-msgstr ""
+msgstr "вывод сжатого устройства"
 
 #: fish/cmds.c:640
 msgid "output compressed file"
-msgstr ""
+msgstr "вывод сжатого файла"
 
 #: fish/cmds.c:641
 msgid "add hypervisor parameters"
-msgstr ""
+msgstr "добавить параметры гипервизора"
 
 #: fish/cmds.c:642
 msgid "copy the attributes of a path (file/directory) to another"
-msgstr ""
+msgstr "скопировать атрибуты пути (файла/каталога) в другой"
 
 #: fish/cmds.c:643
 msgid "copy from source device to destination device"
-msgstr ""
+msgstr "копировать с исходного устройства на целевое устройство"
 
 #: fish/cmds.c:644
 msgid "copy from source device to destination file"
-msgstr ""
+msgstr "копировать с исходного устройства в целевой файл"
 
 #: fish/cmds.c:645
 msgid "copy from source file to destination device"
-msgstr ""
+msgstr "копировать из исходного файла на целевое устройство"
 
 #: fish/cmds.c:646
 msgid "copy from source file to destination file"
-msgstr ""
+msgstr "копировать из исходного файла в целевой файл"
 
 #: fish/cmds.c:647
 msgid "copy local files or directories into an image"
-msgstr ""
+msgstr "копировать локальные файлы или каталоги в образ"
 
 #: fish/cmds.c:648
 msgid "copy remote files or directories out of an image"
-msgstr ""
+msgstr "копировать удалённые файлы или каталоги из образа"
 
 #: fish/cmds.c:649
 msgid "copy size bytes from source to destination using dd"
-msgstr ""
+msgstr "скопировать размер байт из источника в назначение с помощью dd"
 
 #: fish/cmds.c:650
 msgid "copy a file"
-msgstr ""
+msgstr "копировать файл"
 
 #: fish/cmds.c:651 fish/cmds.c:652
 msgid "copy a file or directory recursively"
-msgstr ""
+msgstr "рекурсивно копировать файл или каталог"
 
 #: fish/cmds.c:653
 msgid "pack directory into cpio file"
-msgstr ""
+msgstr "упаковать каталог в cpio-файл"
 
 #: fish/cmds.c:654
 msgid "close an encrypted device"
-msgstr ""
+msgstr "закрыть зашифрованное устройство"
 
 #: fish/cmds.c:655
 msgid "open an encrypted block device"
-msgstr ""
+msgstr "открыть зашифрованное блочное устройство"
 
 #: fish/cmds.c:656
 msgid "copy from source to destination using dd"
-msgstr ""
+msgstr "копировать из источника в назначение с помощью dd"
 
 #: fish/cmds.c:657
 msgid "debugging and internals"
-msgstr ""
+msgstr "отладка и внутренние механизмы"
 
 #: fish/cmds.c:658
 msgid "debug the drives (internal use only)"
-msgstr ""
+msgstr "отладка дисков (только для внутреннего использования)"
 
 #: fish/cmds.c:659
 msgid "upload a file to the appliance (internal use only)"
-msgstr ""
+msgstr "загрузить файл в устройство (только для внутреннего использования)"
 
 #: fish/cmds.c:660
 msgid "delete a previously registered event handler"
-msgstr ""
+msgstr "удалить ранее зарегистрированный обработчик событий"
 
 #: fish/cmds.c:661
 msgid "convert device to index"
-msgstr ""
+msgstr "преобразовать устройство в индекс"
 
 #: fish/cmds.c:662
 msgid "convert device index to name"
-msgstr ""
+msgstr "преобразовать индекс устройства в имя"
 
 #: fish/cmds.c:663
 msgid "report file system disk space usage"
-msgstr ""
+msgstr "сообщить об использовании дискового пространства файловой системы"
 
 #: fish/cmds.c:664
 msgid "report file system disk space usage (human readable)"
-msgstr ""
+msgstr "сообщить об использовании дискового пространства (в удобочитаемом виде)"
 
 #: fish/cmds.c:668
 msgid "create a blank disk image"
-msgstr ""
+msgstr "создать пустой образ диска"
 
 #: fish/cmds.c:669
 msgid "detect the disk format of a disk image"
-msgstr ""
+msgstr "определить формат диска образа"
 
 #: fish/cmds.c:670
 msgid "return whether disk has a backing file"
-msgstr ""
+msgstr "вернуть, имеет ли диск базовый файл"
 
 #: fish/cmds.c:671
 msgid "return virtual size of a disk"
-msgstr ""
+msgstr "вернуть виртуальный размер диска"
 
 #: fish/cmds.c:672
 msgid "display an image"
-msgstr ""
+msgstr "отобразить изображение"
 
 #: fish/cmds.c:673
 msgid "return kernel messages"
-msgstr ""
+msgstr "вернуть сообщения ядра"
 
 #: fish/cmds.c:677
 msgid "download a file to the local machine"
-msgstr ""
+msgstr "загрузить файл на локальную машину"
 
 #: fish/cmds.c:678
 msgid "download the given data units from the disk"
-msgstr ""
+msgstr "загрузить указанные единицы данных с диска"
 
 #: fish/cmds.c:679 fish/cmds.c:978
 msgid "download a file to the local machine given its inode"
-msgstr ""
+msgstr "загрузить файл на локальную машину по его иноду"
 
 #: fish/cmds.c:680
 msgid "download a file to the local machine with offset and size"
-msgstr ""
+msgstr "загрузить файл на локальную машину со смещением и размером"
 
 #: fish/cmds.c:681
 msgid "drop kernel page cache, dentries and inodes"
-msgstr ""
+msgstr "сбросить кэш страниц ядра, записи каталогов и иноды"
 
 #: fish/cmds.c:682
 msgid "estimate file space usage"
-msgstr ""
+msgstr "оценить использование пространства файлом"
 
 #: fish/cmds.c:683 fish/cmds.c:684
 msgid "check an ext2/ext3 filesystem"
-msgstr ""
+msgstr "проверить файловую систему ext2/ext3"
 
 #: fish/cmds.c:685
 msgid "display a line of text"
-msgstr ""
+msgstr "отобразить строку текста"
 
 #: fish/cmds.c:686
 msgid "echo arguments back to the client"
-msgstr ""
+msgstr "вернуть аргументы обратно клиенту"
 
 #: fish/cmds.c:687
 msgid "edit a file"
-msgstr ""
+msgstr "редактировать файл"
 
 #: fish/cmds.c:688 fish/cmds.c:689 fish/cmds.c:701 fish/cmds.c:702
 #: fish/cmds.c:761 fish/cmds.c:762 fish/cmds.c:1221 fish/cmds.c:1222
 #: fish/cmds.c:1227 fish/cmds.c:1228 fish/cmds.c:1230 fish/cmds.c:1231
 msgid "return lines matching a pattern"
-msgstr ""
+msgstr "вернуть строки, соответствующие шаблону"
 
 #: fish/cmds.c:693
 msgid "test if two files have equal contents"
-msgstr ""
+msgstr "проверить, совпадает ли содержимое двух файлов"
 
 #: fish/cmds.c:694
 msgid "register a handler for an event or events"
-msgstr ""
+msgstr "зарегистрировать обработчик для события или событий"
 
 #: fish/cmds.c:695
 msgid "test if file or directory exists"
-msgstr ""
+msgstr "проверить, существует ли файл или каталог"
 
 #: fish/cmds.c:696
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
-msgstr ""
+msgstr "установить загрузчик SYSLINUX на файловую систему ext2/3/4 или btrfs"
 
 #: fish/cmds.c:697
 msgid "expand a f2fs filesystem"
-msgstr ""
+msgstr "расширить файловую систему f2fs"
 
 #: fish/cmds.c:698 fish/cmds.c:699
 msgid "preallocate a file in the guest filesystem"
-msgstr ""
+msgstr "предварительно выделить файл в файловой системе гостя"
 
 #: fish/cmds.c:703
 msgid "determine file type"
-msgstr ""
+msgstr "определить тип файла"
 
 #: fish/cmds.c:704
 msgid "detect the architecture of a binary file"
-msgstr ""
+msgstr "определить архитектуру двоичного файла"
 
 #: fish/cmds.c:705
 msgid "return the size of the file in bytes"
-msgstr ""
+msgstr "вернуть размер файла в байтах"
 
 #: fish/cmds.c:706
 msgid "check if filesystem is available"
-msgstr ""
+msgstr "проверить доступность файловой системы"
 
 #: fish/cmds.c:707
 msgid "walk through the filesystem content"
-msgstr ""
+msgstr "обойти содержимое файловой системы"
 
 #: fish/cmds.c:708
 msgid "fill a file with octets"
-msgstr ""
+msgstr "заполнить файл октетами"
 
 #: fish/cmds.c:709
 msgid "fill a directory with empty files"
-msgstr ""
+msgstr "заполнить каталог пустыми файлами"
 
 #: fish/cmds.c:710
 msgid "fill a file with a repeating pattern of bytes"
-msgstr ""
+msgstr "заполнить файл повторяющимся шаблоном байтов"
 
 #: fish/cmds.c:711
 msgid "find all files and directories"
-msgstr ""
+msgstr "найти все файлы и каталоги"
 
 #: fish/cmds.c:712
 msgid "find all files and directories, returning NUL-separated list"
-msgstr ""
+msgstr "найти все файлы и каталоги, возвращая список, разделённый NUL"
 
 #: fish/cmds.c:713
 msgid "search the entries associated to the given inode"
-msgstr ""
+msgstr "поиск записей, связанных с указанным инодом"
 
 #: fish/cmds.c:714
 msgid "find a filesystem by label"
-msgstr ""
+msgstr "найти файловую систему по метке"
 
 #: fish/cmds.c:715
 msgid "find a partition by label"
-msgstr ""
+msgstr "найти раздел по метке"
 
 #: fish/cmds.c:716
 msgid "find a partition by UUID"
-msgstr ""
+msgstr "найти раздел по UUID"
 
 #: fish/cmds.c:717
 msgid "find a filesystem by UUID"
-msgstr ""
+msgstr "найти файловую систему по UUID"
 
 #: fish/cmds.c:718
 msgid "run the filesystem checker"
-msgstr ""
+msgstr "запустить проверку файловой системы"
 
 #: fish/cmds.c:719
 msgid "trim free space in a filesystem"
-msgstr ""
+msgstr "обрезка свободного пространства в файловой системе"
 
 #: fish/cmds.c:723
 msgid "get the additional kernel options"
-msgstr ""
+msgstr "получить дополнительные параметры ядра"
 
 #: fish/cmds.c:724 fish/cmds.c:726
 msgid "get the backend"
-msgstr ""
+msgstr "получить внутренний механизм"
 
 #: fish/cmds.c:725
 msgid "get autosync mode"
-msgstr ""
+msgstr "получить режим автосинхронизации"
 
 #: fish/cmds.c:727
 msgid "get a single per-backend settings string"
-msgstr ""
+msgstr "получить одну строку настроек внутреннего механизма"
 
 #: fish/cmds.c:728
 msgid "get per-backend settings"
-msgstr ""
+msgstr "получить настройки внутреннего механизма"
 
 #: fish/cmds.c:729
 msgid "get the appliance cache directory"
-msgstr ""
+msgstr "получить каталог кэша устройства"
 
 #: fish/cmds.c:730
 msgid "get direct appliance mode flag"
-msgstr ""
+msgstr "получить флаг прямого режима устройства"
 
 #: fish/cmds.c:731
 msgid "get ext2 file attributes of a file"
-msgstr ""
+msgstr "получить атрибуты ext2 файла"
 
 #: fish/cmds.c:732
 msgid "get ext2 file generation of a file"
-msgstr ""
+msgstr "получить поколение ext2 файла"
 
 #: fish/cmds.c:733
 msgid "get the ext2/3/4 filesystem label"
-msgstr ""
+msgstr "получить метку файловой системы ext2/3/4"
 
 #: fish/cmds.c:734
 msgid "get the ext2/3/4 filesystem UUID"
-msgstr ""
+msgstr "получить UUID файловой системы ext2/3/4"
 
 #: fish/cmds.c:735
 msgid "get the hypervisor binary"
-msgstr ""
+msgstr "получить двоичный файл гипервизора"
 
 #: fish/cmds.c:736
 msgid "get the handle identifier"
-msgstr ""
+msgstr "получить идентификатор дескриптора"
 
 #: fish/cmds.c:737
 msgid "challenge of i'th requested credential"
-msgstr ""
+msgstr "запрос i-го запрошенного учётного данных"
 
 #: fish/cmds.c:738
 msgid "default result of i'th requested credential"
-msgstr ""
+msgstr "результат по умолчанию i-го запрошенного учётного данных"
 
 #: fish/cmds.c:739
 msgid "prompt of i'th requested credential"
-msgstr ""
+msgstr "приглашение i-го запрошенного учётного данных"
 
 #: fish/cmds.c:740
 msgid "get list of credentials requested by libvirt"
-msgstr ""
+msgstr "получить список учётных данных, запрошенных libvirt"
 
 #: fish/cmds.c:741
 msgid "get memory allocated to the hypervisor"
-msgstr ""
+msgstr "получить память, выделенную гипервизору"
 
 #: fish/cmds.c:742
 msgid "get enable network flag"
-msgstr ""
+msgstr "получить флаг включения сети"
 
 #: fish/cmds.c:743
 msgid "get the search path"
-msgstr ""
+msgstr "получить путь поиска"
 
 #: fish/cmds.c:744
 msgid "get process group flag"
-msgstr ""
+msgstr "получить флаг группы процессов"
 
 #: fish/cmds.c:745
 msgid "get PID of hypervisor"
-msgstr ""
+msgstr "получить PID гипервизора"
 
 #: fish/cmds.c:746
 msgid "get the program name"
-msgstr ""
+msgstr "получить имя программы"
 
 #: fish/cmds.c:747
 msgid "get the hypervisor binary (usually qemu)"
-msgstr ""
+msgstr "получить двоичный файл гипервизора (обычно qemu)"
 
 #: fish/cmds.c:748
 msgid "get recovery process enabled flag"
-msgstr ""
+msgstr "получить флаг включения процесса восстановления"
 
 #: fish/cmds.c:749
 msgid "get SELinux enabled flag"
-msgstr ""
+msgstr "получить флаг включения SELinux"
 
 #: fish/cmds.c:750
 msgid "get number of virtual CPUs in appliance"
-msgstr ""
+msgstr "получить количество виртуальных процессоров в устройстве"
 
 #: fish/cmds.c:751
 msgid "get the temporary directory for sockets and PID files"
-msgstr ""
+msgstr "получить временный каталог для сокетов и PID-файлов"
 
 #: fish/cmds.c:752
 msgid "get the temporary directory"
-msgstr ""
+msgstr "получить временный каталог"
 
 #: fish/cmds.c:753
 msgid "get command trace enabled flag"
-msgstr ""
+msgstr "получить флаг включения трассировки команд"
 
 #: fish/cmds.c:754
 msgid "get the current umask"
-msgstr ""
+msgstr "получить текущую маску режима создания файлов"
 
 #: fish/cmds.c:755
 msgid "get verbose mode"
-msgstr ""
+msgstr "получить подробный режим"
 
 #: fish/cmds.c:756
 msgid "get SELinux security context"
-msgstr ""
+msgstr "получить контекст безопасности SELinux"
 
 #: fish/cmds.c:757 fish/cmds.c:869
 msgid "get a single extended attribute"
-msgstr ""
+msgstr "получить один расширенный атрибут"
 
 #: fish/cmds.c:758 fish/cmds.c:870
 msgid "list extended attributes of a file or directory"
-msgstr ""
+msgstr "вывести список расширенных атрибутов файла или каталога"
 
 #: fish/cmds.c:759
 msgid "expand wildcards in command"
-msgstr ""
+msgstr "развернуть шаблоны в команде"
 
 #: fish/cmds.c:760
 msgid "expand a wildcard path"
-msgstr ""
+msgstr "развернуть путь с шаблонами"
 
 #: fish/cmds.c:763
 msgid "install GRUB 1"
-msgstr ""
+msgstr "установить GRUB 1"
 
 #: fish/cmds.c:764
 msgid "return first 10 lines of a file"
-msgstr ""
+msgstr "вернуть первые 10 строк файла"
 
 #: fish/cmds.c:765
 msgid "return first N lines of a file"
-msgstr ""
+msgstr "вернуть первые N строк файла"
 
 #: fish/cmds.c:766
 msgid "dump a file in hexadecimal"
-msgstr ""
+msgstr "вывести дамп файла в шестнадцатеричном виде"
 
 #: fish/cmds.c:767
 msgid "edit with a hex editor"
-msgstr ""
+msgstr "редактировать с помощью шестнадцатеричного редактора"
 
 #: fish/cmds.c:768
 msgid "close the current hivex handle"
-msgstr ""
+msgstr "закрыть текущий дескриптор hivex"
 
 #: fish/cmds.c:769
 msgid "commit (write) changes back to the hive"
-msgstr ""
+msgstr "зафиксировать (записать) изменения обратно в hive"
 
 #: fish/cmds.c:770
 msgid "add a child node"
-msgstr ""
+msgstr "добавить дочерний узел"
 
 #: fish/cmds.c:771
 msgid "return list of nodes which are subkeys of node"
-msgstr ""
+msgstr "вернуть список узлов, являющихся подключами узла"
 
 #: fish/cmds.c:772
 msgid "delete a node (recursively)"
-msgstr ""
+msgstr "удалить узел (рекурсивно)"
 
 #: fish/cmds.c:773
 msgid "return the named child of node"
-msgstr ""
+msgstr "вернуть именованный дочерний узел"
 
 #: fish/cmds.c:774
 msgid "return the named value"
-msgstr ""
+msgstr "вернуть именованное значение"
 
 #: fish/cmds.c:775
 msgid "return the name of the node"
-msgstr ""
+msgstr "вернуть имя узла"
 
 #: fish/cmds.c:776
 msgid "return the parent of node"
-msgstr ""
+msgstr "вернуть родительский узел"
 
 #: fish/cmds.c:777
 msgid "set or replace a single value in a node"
-msgstr ""
+msgstr "установить или заменить одно значение в узле"
 
 #: fish/cmds.c:778
 msgid "return list of values attached to node"
-msgstr ""
+msgstr "вернуть список значений, прикреплённых к узлу"
 
 #: fish/cmds.c:779
 msgid "open a Windows Registry hive file"
-msgstr ""
+msgstr "открыть файл куста реестра Windows"
 
 #: fish/cmds.c:780
 msgid "return the root node of the hive"
-msgstr ""
+msgstr "вернуть корневой узел куста"
 
 #: fish/cmds.c:781
 msgid "return the key field from the (key, datatype, data) tuple"
-msgstr ""
+msgstr "вернуть поле ключа из кортежа (ключ, тип_данных, данные)"
 
 #: fish/cmds.c:782 fish/cmds.c:784
 msgid "return the data field as a UTF-8 string"
-msgstr ""
+msgstr "вернуть поле данных в виде строки UTF-8"
 
 #: fish/cmds.c:783
 msgid "return the data type from the (key, datatype, data) tuple"
-msgstr ""
+msgstr "вернуть тип данных из кортежа (ключ, тип_данных, данные)"
 
 #: fish/cmds.c:785
 msgid "return the data field from the (key, datatype, data) tuple"
-msgstr ""
+msgstr "вернуть поле данных из кортежа (ключ, тип_данных, данные)"
 
 #: fish/cmds.c:792
 msgid "list the contents of a single file in an initrd"
-msgstr ""
+msgstr "вывести содержимое одного файла в initrd"
 
 #: fish/cmds.c:793
 msgid "list files in an initrd"
-msgstr ""
+msgstr "вывести список файлов в initrd"
 
 #: fish/cmds.c:794
 msgid "add an inotify watch"
-msgstr ""
+msgstr "добавить наблюдение inotify"
 
 #: fish/cmds.c:795
 msgid "close the inotify handle"
-msgstr ""
+msgstr "закрыть дескриптор inotify"
 
 #: fish/cmds.c:796
 msgid "return list of watched files that had events"
-msgstr ""
+msgstr "вернуть список отслеживаемых файлов, в которых были события"
 
 #: fish/cmds.c:797
 msgid "create an inotify handle"
-msgstr ""
+msgstr "создать дескриптор inotify"
 
 #: fish/cmds.c:798
 msgid "return list of inotify events"
-msgstr ""
+msgstr "вернуть список событий inotify"
 
 #: fish/cmds.c:799
 msgid "remove an inotify watch"
-msgstr ""
+msgstr "удалить наблюдение inotify"
 
 #: fish/cmds.c:800
 msgid "get architecture of inspected operating system"
-msgstr ""
+msgstr "получить архитектуру проверенной операционной системы"
 
 #: fish/cmds.c:801
 msgid "get the system build ID"
-msgstr ""
+msgstr "получить идентификатор сборки системы"
 
 #: fish/cmds.c:802
 msgid "get distro of inspected operating system"
-msgstr ""
+msgstr "получить дистрибутив проверенной операционной системы"
 
 #: fish/cmds.c:803
 msgid "get drive letter mappings"
-msgstr ""
+msgstr "получить сопоставления букв дисков"
 
 #: fish/cmds.c:804
 msgid "get filesystems associated with inspected operating system"
-msgstr ""
+msgstr "получить файловые системы, связанные с проверенной ОС"
 
 #: fish/cmds.c:805
 msgid "get format of inspected operating system"
-msgstr ""
+msgstr "получить формат проверенной операционной системы"
 
 #: fish/cmds.c:806
 msgid "get hostname of the operating system"
-msgstr ""
+msgstr "получить имя хоста операционной системы"
 
 #: fish/cmds.c:807
 msgid "get the icon corresponding to this operating system"
-msgstr ""
+msgstr "получить значок, соответствующий этой операционной системе"
 
 #: fish/cmds.c:808
 msgid "get major version of inspected operating system"
-msgstr ""
+msgstr "получить основную версию проверенной операционной системы"
 
 #: fish/cmds.c:809
 msgid "get minor version of inspected operating system"
-msgstr ""
+msgstr "получить дополнительную версию проверенной операционной системы"
 
 #: fish/cmds.c:810
 msgid "get mountpoints of inspected operating system"
-msgstr ""
+msgstr "получить точки монтирования проверенной операционной системы"
 
 #: fish/cmds.c:811
 msgid "get a possible osinfo short ID corresponding to this operating system"
-msgstr ""
+msgstr "получить возможный короткий идентификатор osinfo для этой ОС"
 
 #: fish/cmds.c:812
 msgid "get package format used by the operating system"
-msgstr ""
+msgstr "получить формат пакетов, используемый операционной системой"
 
 #: fish/cmds.c:813
 msgid "get package management tool used by the operating system"
-msgstr ""
+msgstr "получить инструмент управления пакетами, используемый ОС"
 
 #: fish/cmds.c:814
 msgid "get product name of inspected operating system"
-msgstr ""
+msgstr "получить название продукта проверенной операционной системы"
 
 #: fish/cmds.c:815
 msgid "get product variant of inspected operating system"
-msgstr ""
+msgstr "получить вариант продукта проверенной операционной системы"
 
 #: fish/cmds.c:816
 msgid "return list of operating systems found by last inspection"
-msgstr ""
+msgstr "вернуть список операционных систем, найденных при последней проверке"
 
 #: fish/cmds.c:817
 msgid "get type of inspected operating system"
-msgstr ""
+msgstr "получить тип проверенной операционной системы"
 
 #: fish/cmds.c:818
 msgid "get Windows CurrentControlSet of inspected operating system"
-msgstr ""
+msgstr "получить Windows CurrentControlSet проверенной ОС"
 
 #: fish/cmds.c:819
 msgid "return if Windows guest has group policy"
-msgstr ""
+msgstr "вернуть, есть ли у гостя Windows групповая политика"
 
 #: fish/cmds.c:820
 msgid "get the path of the Windows software hive"
-msgstr ""
+msgstr "получить путь к кусту программного обеспечения Windows"
 
 #: fish/cmds.c:821
 msgid "get the path of the Windows system hive"
-msgstr ""
+msgstr "получить путь к системному кусту Windows"
 
 #: fish/cmds.c:822
 msgid "get Windows systemroot of inspected operating system"
-msgstr ""
+msgstr "получить Windows systemroot проверенной операционной системы"
 
 #: fish/cmds.c:823
 msgid "get live flag for install disk"
-msgstr ""
+msgstr "получить флаг live для установочного диска"
 
 #: fish/cmds.c:824
 msgid "get multipart flag for install disk"
-msgstr ""
+msgstr "получить флаг многодисковости для установочного диска"
 
 #: fish/cmds.c:825
 msgid "get netinst (network installer) flag for install disk"
-msgstr ""
+msgstr "получить флаг сетевой установки для установочного диска"
 
 #: fish/cmds.c:826 fish/cmds.c:827
 msgid "get list of applications installed in the operating system"
-msgstr ""
+msgstr "получить список приложений, установленных в операционной системе"
 
 #: fish/cmds.c:828
 msgid "inspect disk and return list of operating systems found"
-msgstr ""
+msgstr "проверить диск и вернуть список найденных ОС"
 
 #: fish/cmds.c:829
 msgid "cause the daemon to exit (internal use only)"
-msgstr ""
+msgstr "вызвать завершение демона (только для внутреннего использования)"
 
 #: fish/cmds.c:830
 msgid "test if block device"
-msgstr ""
+msgstr "проверить, является ли блочным устройством"
 
 #: fish/cmds.c:831
 msgid "test if character device"
-msgstr ""
+msgstr "проверить, является ли символьным устройством"
 
 #: fish/cmds.c:832
 msgid "is in configuration state"
-msgstr ""
+msgstr "находится ли в состоянии конфигурации"
 
 #: fish/cmds.c:833
 msgid "test if a directory"
-msgstr ""
+msgstr "проверить, является ли каталогом"
 
 #: fish/cmds.c:834
 msgid "test if FIFO (named pipe)"
-msgstr ""
+msgstr "проверить, является ли FIFO (именованным каналом)"
 
 #: fish/cmds.c:835
 msgid "test if a regular file"
-msgstr ""
+msgstr "проверить, является ли обычным файлом"
 
 #: fish/cmds.c:836
 msgid "test if mountable is a logical volume"
-msgstr ""
+msgstr "проверить, является ли монтируемый объект логическим томом"
 
 #: fish/cmds.c:837
 msgid "test if socket"
-msgstr ""
+msgstr "проверить, является ли сокетом"
 
 #: fish/cmds.c:838
 msgid "test if symbolic link"
-msgstr ""
+msgstr "проверить, является ли символической ссылкой"
 
 #: fish/cmds.c:839
 msgid "test if a device is a whole device"
-msgstr ""
+msgstr "проверить, является ли устройство целым устройством"
 
 #: fish/cmds.c:840
 msgid "test if a file contains all zero bytes"
-msgstr ""
+msgstr "проверить, содержит ли файл только нулевые байты"
 
 #: fish/cmds.c:841
 msgid "test if a device contains all zero bytes"
-msgstr ""
+msgstr "проверить, содержит ли устройство только нулевые байты"
 
 #: fish/cmds.c:842
 msgid "get ISO information from primary volume descriptor of ISO file"
-msgstr ""
+msgstr "получить информацию ISO из основного дескриптора тома ISO-файла"
 
 #: fish/cmds.c:843
 msgid "get ISO information from primary volume descriptor of device"
-msgstr ""
+msgstr "получить информацию ISO из основного дескриптора тома устройства"
 
 #: fish/cmds.c:844
 msgid "close the systemd journal"
-msgstr ""
+msgstr "закрыть журнал systemd"
 
 #: fish/cmds.c:845
 msgid "read the current journal entry"
-msgstr ""
+msgstr "прочитать текущую запись журнала"
 
 #: fish/cmds.c:846
 msgid "get the data threshold for reading journal entries"
-msgstr ""
+msgstr "получить порог данных для чтения записей журнала"
 
 #: fish/cmds.c:847
 msgid "get the timestamp of the current journal entry"
-msgstr ""
+msgstr "получить временную метку текущей записи журнала"
 
 #: fish/cmds.c:848
 msgid "move to the next journal entry"
-msgstr ""
+msgstr "перейти к следующей записи журнала"
 
 #: fish/cmds.c:849
 msgid "open the systemd journal"
-msgstr ""
+msgstr "открыть журнал systemd"
 
 #: fish/cmds.c:850
 msgid "set the data threshold for reading journal entries"
-msgstr ""
+msgstr "установить порог данных для чтения записей журнала"
 
 #: fish/cmds.c:851
 msgid "skip forwards or backwards in the journal"
-msgstr ""
+msgstr "перемещаться вперёд или назад по журналу"
 
 #: fish/cmds.c:852
 msgid "kill the hypervisor"
-msgstr ""
+msgstr "завершить гипервизор"
 
 #: fish/cmds.c:853
 msgid "launch the backend"
-msgstr ""
+msgstr "запустить внутренний механизм"
 
 #: fish/cmds.c:854
 msgid "change working directory"
-msgstr ""
+msgstr "изменить рабочий каталог"
 
 #: fish/cmds.c:856
 msgid "scan and create Windows dynamic disk volumes"
-msgstr ""
+msgstr "сканировать и создавать тома динамических дисков Windows"
 
 #: fish/cmds.c:857
 msgid "return the disks in a Windows dynamic disk group"
-msgstr ""
+msgstr "вернуть диски в группе динамических дисков Windows"
 
 #: fish/cmds.c:858
 msgid "return the name of a Windows dynamic disk group"
-msgstr ""
+msgstr "вернуть имя группы динамических дисков Windows"
 
 #: fish/cmds.c:859
 msgid "return the volumes in a Windows dynamic disk group"
-msgstr ""
+msgstr "вернуть тома в группе динамических дисков Windows"
 
 #: fish/cmds.c:860
 msgid "remove all Windows dynamic disk volumes"
-msgstr ""
+msgstr "удалить все тома динамических дисков Windows"
 
 #: fish/cmds.c:861 fish/cmds.c:862
 msgid "scan for Windows dynamic disks"
-msgstr ""
+msgstr "сканировать динамические диски Windows"
 
 #: fish/cmds.c:863
 msgid "return the hint field of a Windows dynamic disk volume"
-msgstr ""
+msgstr "вернуть поле подсказки тома динамического диска Windows"
 
 #: fish/cmds.c:864
 msgid "return the partitions in a Windows dynamic disk volume"
-msgstr ""
+msgstr "вернуть разделы в томе динамического диска Windows"
 
 #: fish/cmds.c:865
 msgid "return the type of a Windows dynamic disk volume"
-msgstr ""
+msgstr "вернуть тип тома динамического диска Windows"
 
 #: fish/cmds.c:871
 msgid "list 9p filesystems"
-msgstr ""
+msgstr "вывести список файловых систем 9p"
 
 #: fish/cmds.c:872
 msgid "list the block devices"
-msgstr ""
+msgstr "вывести список блочных устройств"
 
 #: fish/cmds.c:873
 msgid "mapping of disk labels to devices"
-msgstr ""
+msgstr "сопоставление меток дисков с устройствами"
 
 #: fish/cmds.c:874
 msgid "list device mapper devices"
-msgstr ""
+msgstr "вывести список устройств device mapper"
 
 #: fish/cmds.c:875
 msgid "list event handlers"
-msgstr ""
+msgstr "вывести список обработчиков событий"
 
 #: fish/cmds.c:876
 msgid "list filesystems"
-msgstr ""
+msgstr "вывести список файловых систем"
 
 #: fish/cmds.c:877
 msgid "list all Windows dynamic disk partitions"
-msgstr ""
+msgstr "вывести список всех разделов динамических дисков Windows"
 
 #: fish/cmds.c:878
 msgid "list all Windows dynamic disk volumes"
-msgstr ""
+msgstr "вывести список всех томов динамических дисков Windows"
 
 #: fish/cmds.c:879
 msgid "list Linux md (RAID) devices"
-msgstr ""
+msgstr "вывести список устройств Linux md (RAID)"
 
 #: fish/cmds.c:880
 msgid "list the partitions"
-msgstr ""
+msgstr "вывести список разделов"
 
 #: fish/cmds.c:881
 msgid "list the files in a directory (long format)"
-msgstr ""
+msgstr "вывести список файлов в каталоге (в подробном формате)"
 
 #: fish/cmds.c:882
 msgid "list the files in a directory (long format with SELinux contexts)"
 msgstr ""
+"вывести список файлов в каталоге (в подробном формате с контекстами SELinux)"
 
 #: fish/cmds.c:883 fish/cmds.c:884
 msgid "create a hard link"
-msgstr ""
+msgstr "создать жёсткую ссылку"
 
 #: fish/cmds.c:885 fish/cmds.c:886
 msgid "create a symbolic link"
-msgstr ""
+msgstr "создать символическую ссылку"
 
 #: fish/cmds.c:887 fish/cmds.c:1052
 msgid "remove extended attribute of a file or directory"
-msgstr ""
+msgstr "удалить расширенный атрибут файла или каталога"
 
 #: fish/cmds.c:888
 msgid "list the files in a directory"
-msgstr ""
+msgstr "вывести список файлов в каталоге"
 
 #: fish/cmds.c:889
 msgid "get list of files in a directory"
-msgstr ""
+msgstr "получить список файлов в каталоге"
 
 #: fish/cmds.c:890 fish/cmds.c:1113
 msgid "set extended attribute of a file or directory"
-msgstr ""
+msgstr "установить расширенный атрибут файла или каталога"
 
 #: fish/cmds.c:891 fish/cmds.c:893
 msgid "get file information for a symbolic link"
-msgstr ""
+msgstr "получить информацию о файле для символической ссылки"
 
 #: fish/cmds.c:892 fish/cmds.c:894
 msgid "lstat on multiple files"
-msgstr ""
+msgstr "выполнить lstat для нескольких файлов"
 
 #: fish/cmds.c:895
 msgid "add a key on a LUKS encrypted device"
-msgstr ""
+msgstr "добавить ключ на зашифрованное устройство LUKS"
 
 #: fish/cmds.c:896
 msgid "close a LUKS device"
-msgstr ""
+msgstr "закрыть устройство LUKS"
 
 #: fish/cmds.c:897 fish/cmds.c:898
 msgid "format a block device as a LUKS encrypted device"
-msgstr ""
+msgstr "отформатировать блочное устройство как зашифрованное устройство LUKS"
 
 #: fish/cmds.c:899
 msgid "remove a key from a LUKS encrypted device"
-msgstr ""
+msgstr "удалить ключ с зашифрованного устройства LUKS"
 
 #: fish/cmds.c:900
 msgid "open a LUKS-encrypted block device"
-msgstr ""
+msgstr "открыть зашифрованное блочное устройство LUKS"
 
 #: fish/cmds.c:901
 msgid "open a LUKS-encrypted block device read-only"
-msgstr ""
+msgstr "открыть зашифрованное блочное устройство LUKS только для чтения"
 
 #: fish/cmds.c:902
 msgid "get the UUID of a LUKS device"
-msgstr ""
+msgstr "получить UUID устройства LUKS"
 
 #: fish/cmds.c:903
 msgid "create an LVM logical volume"
-msgstr ""
+msgstr "создать логический том LVM"
 
 #: fish/cmds.c:904
 msgid "create an LVM logical volume in % remaining free space"
-msgstr ""
+msgstr "создать логический том LVM в % оставшегося свободного пространства"
 
 #: fish/cmds.c:905
 msgid "get canonical name of an LV"
-msgstr ""
+msgstr "получить каноническое имя логического тома"
 
 #: fish/cmds.c:906
 msgid "clear LVM device filter"
-msgstr ""
+msgstr "очистить фильтр устройств LVM"
 
 #: fish/cmds.c:907
 msgid "remove all LVM LVs, VGs and PVs"
-msgstr ""
+msgstr "удалить все логические тома, группы томов и физические тома LVM"
 
 #: fish/cmds.c:908
 msgid "scan for LVM physical volumes, volume groups and logical volumes"
-msgstr ""
+msgstr "сканировать физические тома, группы томов и логические тома LVM"
 
 #: fish/cmds.c:909
 msgid "set LVM device filter"
-msgstr ""
+msgstr "установить фильтр устройств LVM"
 
 #: fish/cmds.c:910
 msgid "remove an LVM logical volume"
-msgstr ""
+msgstr "удалить логический том LVM"
 
 #: fish/cmds.c:911
 msgid "rename an LVM logical volume"
-msgstr ""
+msgstr "переименовать логический том LVM"
 
 #: fish/cmds.c:912
 msgid "resize an LVM logical volume"
-msgstr ""
+msgstr "изменить размер логического тома LVM"
 
 #: fish/cmds.c:913
 msgid "expand an LV to fill free space"
-msgstr ""
+msgstr "расширить логический том для заполнения свободного пространства"
 
 #: fish/cmds.c:914 fish/cmds.c:915
 msgid "list the LVM logical volumes (LVs)"
-msgstr ""
+msgstr "вывести список логических томов LVM"
 
 #: fish/cmds.c:916
 msgid "get the UUID of a logical volume"
-msgstr ""
+msgstr "получить UUID логического тома"
 
 #: fish/cmds.c:917
 msgid "lgetxattr on multiple files"
-msgstr ""
+msgstr "выполнить lgetxattr для нескольких файлов"
 
 #: fish/cmds.c:918
 msgid "open the manual"
-msgstr ""
+msgstr "открыть руководство"
 
 #: fish/cmds.c:922
 msgid "maximum number of disks that may be added"
-msgstr ""
+msgstr "максимальное количество дисков, которые могут быть добавлены"
 
 #: fish/cmds.c:923
 msgid "create a Linux md (RAID) device"
-msgstr ""
+msgstr "создать устройство Linux md (RAID)"
 
 #: fish/cmds.c:924
 msgid "obtain metadata for an MD device"
-msgstr ""
+msgstr "получить метаданные для устройства MD"
 
 #: fish/cmds.c:925
 msgid "get underlying devices from an MD device"
-msgstr ""
+msgstr "получить базовые устройства из устройства MD"
 
 #: fish/cmds.c:926
 msgid "stop a Linux md (RAID) device"
-msgstr ""
+msgstr "остановить устройство Linux md (RAID)"
 
 #: fish/cmds.c:930
 msgid "create a directory"
-msgstr ""
+msgstr "создать каталог"
 
 #: fish/cmds.c:931
 msgid "create a directory with a particular mode"
-msgstr ""
+msgstr "создать каталог с определённым режимом"
 
 #: fish/cmds.c:932
 msgid "create a directory and parents"
-msgstr ""
+msgstr "создать каталог и родительские каталоги"
 
 #: fish/cmds.c:933
 msgid "create a temporary directory"
-msgstr ""
+msgstr "создать временный каталог"
 
 #: fish/cmds.c:934
 msgid "create an ext2/ext3/ext4 filesystem on device"
-msgstr ""
+msgstr "создать файловую систему ext2/ext3/ext4 на устройстве"
 
 #: fish/cmds.c:935 fish/cmds.c:936 fish/cmds.c:937
 msgid "make ext2/3/4 filesystem with external journal"
-msgstr ""
+msgstr "создать файловую систему ext2/3/4 с внешним журналом"
 
 #: fish/cmds.c:938
 msgid "make ext2/3/4 external journal"
-msgstr ""
+msgstr "создать внешний журнал ext2/3/4"
 
 #: fish/cmds.c:939
 msgid "make ext2/3/4 external journal with label"
-msgstr ""
+msgstr "создать внешний журнал ext2/3/4 с меткой"
 
 #: fish/cmds.c:940
 msgid "make ext2/3/4 external journal with UUID"
-msgstr ""
+msgstr "создать внешний журнал ext2/3/4 с UUID"
 
 #: fish/cmds.c:941
 msgid "make FIFO (named pipe)"
-msgstr ""
+msgstr "создать FIFO (именованный канал)"
 
 #: fish/cmds.c:942
 msgid "make a filesystem"
-msgstr ""
+msgstr "создать файловую систему"
 
 #: fish/cmds.c:943
 msgid "make a filesystem with block size"
-msgstr ""
+msgstr "создать файловую систему с размером блока"
 
 #: fish/cmds.c:944
 msgid "create a btrfs filesystem"
-msgstr ""
+msgstr "создать файловую систему btrfs"
 
 #: fish/cmds.c:945
 msgid "make lost+found directory on an ext2/3/4 filesystem"
-msgstr ""
+msgstr "создать каталог lost+found на файловой системе ext2/3/4"
 
 #: fish/cmds.c:946
 msgid "create a mountpoint"
-msgstr ""
+msgstr "создать точку монтирования"
 
 #: fish/cmds.c:947
 msgid "make block, character or FIFO devices"
-msgstr ""
+msgstr "создать блочные, символьные или FIFO-устройства"
 
 #: fish/cmds.c:948
 msgid "make block device node"
-msgstr ""
+msgstr "создать узел блочного устройства"
 
 #: fish/cmds.c:949
 msgid "make char device node"
-msgstr ""
+msgstr "создать узел символьного устройства"
 
 #: fish/cmds.c:950
 msgid "create a squashfs filesystem"
-msgstr ""
+msgstr "создать файловую систему squashfs"
 
 #: fish/cmds.c:951
 msgid "create a swap partition"
-msgstr ""
+msgstr "создать раздел подкачки"
 
 #: fish/cmds.c:952
 msgid "create a swap partition with a label"
-msgstr ""
+msgstr "создать раздел подкачки с меткой"
 
 #: fish/cmds.c:953
 msgid "create a swap partition with an explicit UUID"
-msgstr ""
+msgstr "создать раздел подкачки с явным UUID"
 
 #: fish/cmds.c:954
 msgid "create a swap file"
-msgstr ""
+msgstr "создать файл подкачки"
 
 #: fish/cmds.c:955
 msgid "create a temporary file"
-msgstr ""
+msgstr "создать временный файл"
 
 #: fish/cmds.c:956
 msgid "load a kernel module"
-msgstr ""
+msgstr "загрузить модуль ядра"
 
 #: fish/cmds.c:957
 msgid "view a file"
-msgstr ""
+msgstr "просмотреть файл"
 
 #: fish/cmds.c:958
 msgid "mount a guest disk at a position in the filesystem"
-msgstr ""
+msgstr "смонтировать диск гостя в позицию в файловой системе"
 
 #: fish/cmds.c:959
 msgid "mount 9p filesystem"
-msgstr ""
+msgstr "смонтировать файловую систему 9p"
 
 #: fish/cmds.c:960
 msgid "mount on the local filesystem"
-msgstr ""
+msgstr "смонтировать на локальную файловую систему"
 
 #: fish/cmds.c:961
 msgid "run main loop of mount on the local filesystem"
-msgstr ""
+msgstr "запустить основной цикл монтирования на локальной файловой системе"
 
 #: fish/cmds.c:962
 msgid "mount a file using the loop device"
-msgstr ""
+msgstr "смонтировать файл с использованием loop-устройства"
 
 #: fish/cmds.c:963
 msgid "mount a guest disk with mount options"
-msgstr ""
+msgstr "смонтировать диск гостя с параметрами монтирования"
 
 #: fish/cmds.c:964
 msgid "mount a guest disk, read-only"
-msgstr ""
+msgstr "смонтировать диск гостя только для чтения"
 
 #: fish/cmds.c:965
 msgid "mount a guest disk with mount options and vfstype"
-msgstr ""
+msgstr "смонтировать диск гостя с параметрами монтирования и типом ФС"
 
 #: fish/cmds.c:966
 msgid "extract the device part of a mountable"
-msgstr ""
+msgstr "извлечь часть устройства из монтируемого объекта"
 
 #: fish/cmds.c:967
 msgid "extract the subvolume part of a mountable"
-msgstr ""
+msgstr "извлечь часть подтома из монтируемого объекта"
 
 #: fish/cmds.c:968
 msgid "show mountpoints"
-msgstr ""
+msgstr "показать точки монтирования"
 
 #: fish/cmds.c:969
 msgid "show mounted filesystems"
-msgstr ""
+msgstr "показать смонтированные файловые системы"
 
 #: fish/cmds.c:970
 msgid "move a file"
-msgstr ""
+msgstr "переместить файл"
 
 #: fish/cmds.c:974
 msgid "negate a command"
-msgstr ""
+msgstr "отрицать команду"
 
 #: fish/cmds.c:975
 msgid "return number of whole block devices (disks) added"
-msgstr ""
+msgstr "вернуть количество добавленных целых блочных устройств (дисков)"
 
 #: fish/cmds.c:976
 msgid "probe NTFS volume"
-msgstr ""
+msgstr "проверить том NTFS"
 
 #: fish/cmds.c:977
 msgid "change file permissions on NTFS filesystem"
-msgstr ""
+msgstr "изменить права доступа к файлам на файловой системе NTFS"
 
 #: fish/cmds.c:979
 msgid "restore NTFS from backup file"
-msgstr ""
+msgstr "восстановить NTFS из резервного файла"
 
 #: fish/cmds.c:980
 msgid "save NTFS to backup file"
-msgstr ""
+msgstr "сохранить NTFS в резервный файл"
 
 #: fish/cmds.c:981
 msgid "fix common errors and force Windows to check NTFS"
-msgstr ""
+msgstr "исправить распространённые ошибки и заставить Windows проверить NTFS"
 
 #: fish/cmds.c:982
 msgid "resize an NTFS filesystem"
-msgstr ""
+msgstr "изменить размер файловой системы NTFS"
 
 #: fish/cmds.c:983
 msgid "resize an NTFS filesystem (with size)"
-msgstr ""
+msgstr "изменить размер файловой системы NTFS (с указанием размера)"
 
 #: fish/cmds.c:984 fish/cmds.c:985
 msgid "parse the environment and set handle flags accordingly"
-msgstr ""
+msgstr "разобрать окружение и установить флаги дескриптора соответственно"
 
 #: fish/cmds.c:986
 msgid "add a partition to the device"
-msgstr ""
+msgstr "добавить раздел на устройство"
 
 #: fish/cmds.c:987
 msgid "delete a partition"
-msgstr ""
+msgstr "удалить раздел"
 
 #: fish/cmds.c:988
 msgid "partition whole disk with a single primary partition"
-msgstr ""
+msgstr "разбить весь диск на один первичный раздел"
 
 #: fish/cmds.c:989
 msgid "move backup GPT header to the end of the disk"
-msgstr ""
+msgstr "переместить резервный заголовок GPT в конец диска"
 
 #: fish/cmds.c:990
 msgid "return true if a partition is bootable"
-msgstr ""
+msgstr "вернуть true, если раздел загрузочный"
 
 #: fish/cmds.c:991
 msgid "get the GUID of a GPT-partitioned disk"
-msgstr ""
+msgstr "получить GUID диска с разметкой GPT"
 
 #: fish/cmds.c:992
 msgid "get the attribute flags of a GPT partition"
-msgstr ""
+msgstr "получить флаги атрибутов раздела GPT"
 
 #: fish/cmds.c:993
 msgid "get the GUID of a GPT partition"
-msgstr ""
+msgstr "получить GUID раздела GPT"
 
 #: fish/cmds.c:994
 msgid "get the type GUID of a GPT partition"
-msgstr ""
+msgstr "получить GUID типа раздела GPT"
 
 #: fish/cmds.c:995
 msgid "get the MBR type byte (ID byte) from a partition"
-msgstr ""
+msgstr "получить байт типа MBR (байт ИД) из раздела"
 
 #: fish/cmds.c:996
 msgid "get the MBR partition type"
-msgstr ""
+msgstr "получить тип раздела MBR"
 
 #: fish/cmds.c:997
 msgid "get partition name"
-msgstr ""
+msgstr "получить имя раздела"
 
 #: fish/cmds.c:998
 msgid "get the partition table type"
-msgstr ""
+msgstr "получить тип таблицы разделов"
 
 #: fish/cmds.c:999
 msgid "create an empty partition table"
-msgstr ""
+msgstr "создать пустую таблицу разделов"
 
 #: fish/cmds.c:1000
 msgid "list partitions on a device"
-msgstr ""
+msgstr "вывести список разделов на устройстве"
 
 #: fish/cmds.c:1001
 msgid "resize a partition"
-msgstr ""
+msgstr "изменить размер раздела"
 
 #: fish/cmds.c:1002
 msgid "make a partition bootable"
-msgstr ""
+msgstr "сделать раздел загрузочным"
 
 #: fish/cmds.c:1003
 msgid "set the GUID of a GPT-partitioned disk"
-msgstr ""
+msgstr "установить GUID диска с разметкой GPT"
 
 #: fish/cmds.c:1004
 msgid "set the GUID of a GPT-partitioned disk to random value"
-msgstr ""
+msgstr "установить GUID диска с разметкой GPT в случайное значение"
 
 #: fish/cmds.c:1005
 msgid "set the attribute flags of a GPT partition"
-msgstr ""
+msgstr "установить флаги атрибутов раздела GPT"
 
 #: fish/cmds.c:1006
 msgid "set the GUID of a GPT partition"
-msgstr ""
+msgstr "установить GUID раздела GPT"
 
 #: fish/cmds.c:1007
 msgid "set the type GUID of a GPT partition"
-msgstr ""
+msgstr "установить GUID типа раздела GPT"
 
 #: fish/cmds.c:1008
 msgid "set the MBR type byte (ID byte) of a partition"
-msgstr ""
+msgstr "установить байт типа MBR (байт ИД) раздела"
 
 #: fish/cmds.c:1009
 msgid "set partition name"
-msgstr ""
+msgstr "установить имя раздела"
 
 #: fish/cmds.c:1010
 msgid "convert partition name to device name"
-msgstr ""
+msgstr "преобразовать имя раздела в имя устройства"
 
 #: fish/cmds.c:1011
 msgid "convert partition name to partition number"
-msgstr ""
+msgstr "преобразовать имя раздела в номер раздела"
 
 #: fish/cmds.c:1021
 msgid "ping the guest daemon"
-msgstr ""
+msgstr "проверить связь с демоном гостя"
 
 #: fish/cmds.c:1022
 msgid "read part of a file"
-msgstr ""
+msgstr "прочитать часть файла"
 
 #: fish/cmds.c:1023
 msgid "read part of a device"
-msgstr ""
+msgstr "прочитать часть устройства"
 
 #: fish/cmds.c:1027
 msgid "generate a new random UUID for a physical volume"
-msgstr ""
+msgstr "сгенерировать новый случайный UUID для физического тома"
 
 #: fish/cmds.c:1028
 msgid "generate new random UUIDs for all physical volumes"
-msgstr ""
+msgstr "сгенерировать новые случайные UUID для всех физических томов"
 
 #: fish/cmds.c:1029
 msgid "create an LVM physical volume"
-msgstr ""
+msgstr "создать физический том LVM"
 
 #: fish/cmds.c:1030
 msgid "remove an LVM physical volume"
-msgstr ""
+msgstr "удалить физический том LVM"
 
 #: fish/cmds.c:1031
 msgid "resize an LVM physical volume"
-msgstr ""
+msgstr "изменить размер физического тома LVM"
 
 #: fish/cmds.c:1032
 msgid "resize an LVM physical volume (with size)"
-msgstr ""
+msgstr "изменить размер физического тома LVM (с указанием размера)"
 
 #: fish/cmds.c:1033 fish/cmds.c:1034
 msgid "list the LVM physical volumes (PVs)"
-msgstr ""
+msgstr "вывести список физических томов LVM"
 
 #: fish/cmds.c:1035
 msgid "get the UUID of a physical volume"
-msgstr ""
+msgstr "получить UUID физического тома"
 
 #: fish/cmds.c:1036
 msgid "write to part of a file"
-msgstr ""
+msgstr "записать в часть файла"
 
 #: fish/cmds.c:1037
 msgid "write to part of a device"
-msgstr ""
+msgstr "записать в часть устройства"
 
 #: fish/cmds.c:1041
 msgid "read a file"
-msgstr ""
+msgstr "прочитать файл"
 
 #: fish/cmds.c:1042
 msgid "read file as lines"
-msgstr ""
+msgstr "прочитать файл по строкам"
 
 #: fish/cmds.c:1043
 msgid "read directories entries"
-msgstr ""
+msgstr "прочитать записи каталогов"
 
 #: fish/cmds.c:1044
 msgid "read the target of a symbolic link"
-msgstr ""
+msgstr "прочитать цель символической ссылки"
 
 #: fish/cmds.c:1045
 msgid "readlink on multiple files"
-msgstr ""
+msgstr "выполнить readlink для нескольких файлов"
 
 #: fish/cmds.c:1046
 msgid "canonicalized absolute pathname"
-msgstr ""
+msgstr "канонизированное абсолютное имя пути"
 
 #: fish/cmds.c:1050
 msgid "remount a filesystem with different options"
-msgstr ""
+msgstr "перемонтировать файловую систему с другими параметрами"
 
 #: fish/cmds.c:1051
 msgid "remove a disk image"
-msgstr ""
+msgstr "удалить образ диска"
 
 #: fish/cmds.c:1053
 msgid "rename a file on the same filesystem"
-msgstr ""
+msgstr "переименовать файл в той же файловой системе"
 
 #: fish/cmds.c:1054
 msgid "close and reopen libguestfs handle"
-msgstr ""
+msgstr "закрыть и повторно открыть дескриптор libguestfs"
 
 #: fish/cmds.c:1055
 msgid "resize an ext2, ext3 or ext4 filesystem"
-msgstr ""
+msgstr "изменить размер файловой системы ext2, ext3 или ext4"
 
 #: fish/cmds.c:1056
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
-msgstr ""
+msgstr "изменить размер файловой системы ext2, ext3 или ext4 до минимального"
 
 #: fish/cmds.c:1057
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr ""
+"изменить размер файловой системы ext2, ext3 или ext4 (с указанием размера)"
 
 #: fish/cmds.c:1058
 msgid "remove a file"
-msgstr ""
+msgstr "удалить файл"
 
 #: fish/cmds.c:1059
 msgid "remove a file ignoring errors"
-msgstr ""
+msgstr "удалить файл, игнорируя ошибки"
 
 #: fish/cmds.c:1060
 msgid "remove a file or directory recursively"
-msgstr ""
+msgstr "рекурсивно удалить файл или каталог"
 
 #: fish/cmds.c:1061
 msgid "remove a directory"
-msgstr ""
+msgstr "удалить каталог"
 
 #: fish/cmds.c:1062
 msgid "remove a mountpoint"
-msgstr ""
+msgstr "удалить точку монтирования"
 
 #: fish/cmds.c:1063
 msgid "synchronize the contents of two directories"
-msgstr ""
+msgstr "синхронизировать содержимое двух каталогов"
 
 #: fish/cmds.c:1064
 msgid "synchronize host or remote filesystem with filesystem"
-msgstr ""
+msgstr "синхронизировать хост или удалённую ФС с файловой системой"
 
 #: fish/cmds.c:1065
 msgid "synchronize filesystem with host or remote filesystem"
-msgstr ""
+msgstr "синхронизировать файловую систему с хостом или удалённой ФС"
 
 #: fish/cmds.c:1072
 msgid "scrub (securely wipe) a device"
-msgstr ""
+msgstr "затереть (безопасно стереть) устройство"
 
 #: fish/cmds.c:1073
 msgid "scrub (securely wipe) a file"
-msgstr ""
+msgstr "затереть (безопасно стереть) файл"
 
 #: fish/cmds.c:1074
 msgid "scrub (securely wipe) free space"
-msgstr ""
+msgstr "затереть (безопасно стереть) свободное пространство"
 
 #: fish/cmds.c:1078
 msgid "relabel parts of the filesystem"
-msgstr ""
+msgstr "изменить метки частей файловой системы"
 
 #: fish/cmds.c:1079
 msgid "add options to kernel command line"
-msgstr ""
+msgstr "добавить параметры в командную строку ядра"
 
 #: fish/cmds.c:1080 fish/cmds.c:1082
 msgid "set the backend"
-msgstr ""
+msgstr "установить внутренний механизм"
 
 #: fish/cmds.c:1081
 msgid "set autosync mode"
-msgstr ""
+msgstr "установить режим автосинхронизации"
 
 #: fish/cmds.c:1083
 msgid "set a single per-backend settings string"
-msgstr ""
+msgstr "установить одну строку настроек внутреннего механизма"
 
 #: fish/cmds.c:1084
 msgid "replace per-backend settings strings"
-msgstr ""
+msgstr "заменить строки настроек внутреннего механизма"
 
 #: fish/cmds.c:1085
 msgid "set the appliance cache directory"
-msgstr ""
+msgstr "установить каталог кэша устройства"
 
 #: fish/cmds.c:1086
 msgid "enable or disable direct appliance mode"
-msgstr ""
+msgstr "включить или отключить прямой режим устройства"
 
 #: fish/cmds.c:1087
 msgid "set ext2 file attributes of a file"
-msgstr ""
+msgstr "установить атрибуты ext2 файла"
 
 #: fish/cmds.c:1088
 msgid "set ext2 file generation of a file"
-msgstr ""
+msgstr "установить поколение ext2 файла"
 
 #: fish/cmds.c:1089
 msgid "set the ext2/3/4 filesystem label"
-msgstr ""
+msgstr "установить метку файловой системы ext2/3/4"
 
 #: fish/cmds.c:1090
 msgid "set the ext2/3/4 filesystem UUID"
-msgstr ""
+msgstr "установить UUID файловой системы ext2/3/4"
 
 #: fish/cmds.c:1091
 msgid "set the hypervisor binary"
-msgstr ""
+msgstr "установить двоичный файл гипервизора"
 
 #: fish/cmds.c:1092
 msgid "set the handle identifier"
-msgstr ""
+msgstr "установить идентификатор дескриптора"
 
 #: fish/cmds.c:1093
 msgid "set filesystem label"
-msgstr ""
+msgstr "установить метку файловой системы"
 
 #: fish/cmds.c:1094
 msgid "pass requested credential back to libvirt"
-msgstr ""
+msgstr "передать запрошенные учётные данные обратно в libvirt"
 
 #: fish/cmds.c:1095
 msgid "set libvirt credentials supported by calling program"
-msgstr ""
+msgstr "установить учётные данные libvirt, поддерживаемые вызывающей программой"
 
 #: fish/cmds.c:1096
 msgid "set memory allocated to the hypervisor"
-msgstr ""
+msgstr "установить память, выделенную гипервизору"
 
 #: fish/cmds.c:1097
 msgid "set enable network flag"
-msgstr ""
+msgstr "установить флаг включения сети"
 
 #: fish/cmds.c:1098
 msgid "set the search path"
-msgstr ""
+msgstr "установить путь поиска"
 
 #: fish/cmds.c:1099
 msgid "set process group flag"
-msgstr ""
+msgstr "установить флаг группы процессов"
 
 #: fish/cmds.c:1100
 msgid "set the program name"
-msgstr ""
+msgstr "установить имя программы"
 
 #: fish/cmds.c:1101
 msgid "set the hypervisor binary (usually qemu)"
-msgstr ""
+msgstr "установить двоичный файл гипервизора (обычно qemu)"
 
 #: fish/cmds.c:1102
 msgid "enable or disable the recovery process"
-msgstr ""
+msgstr "включить или отключить процесс восстановления"
 
 #: fish/cmds.c:1103
 msgid "set SELinux enabled or disabled at appliance boot"
-msgstr ""
+msgstr "установить SELinux включённым или отключённым при загрузке устройства"
 
 #: fish/cmds.c:1104
 msgid "set number of virtual CPUs in appliance"
-msgstr ""
+msgstr "установить количество виртуальных процессоров в устройстве"
 
 #: fish/cmds.c:1105
 msgid "set the temporary directory"
-msgstr ""
+msgstr "установить временный каталог"
 
 #: fish/cmds.c:1106
 msgid "enable or disable command traces"
-msgstr ""
+msgstr "включить или отключить трассировку команд"
 
 #: fish/cmds.c:1107
 msgid "set the filesystem UUID"
-msgstr ""
+msgstr "установить UUID файловой системы"
 
 #: fish/cmds.c:1108
 msgid "set a random UUID for the filesystem"
-msgstr ""
+msgstr "установить случайный UUID для файловой системы"
 
 #: fish/cmds.c:1109
 msgid "set verbose mode"
-msgstr ""
+msgstr "установить подробный режим"
 
 #: fish/cmds.c:1110
 msgid "set SELinux security context"
-msgstr ""
+msgstr "установить контекст безопасности SELinux"
 
 #: fish/cmds.c:1111
 msgid "set an environment variable"
-msgstr ""
+msgstr "установить переменную окружения"
 
 #: fish/cmds.c:1112
 msgid "low level relabel parts of the filesystem"
-msgstr ""
+msgstr "изменить метки частей файловой системы на низком уровне"
 
 #: fish/cmds.c:1114 fish/cmds.c:1115
 msgid "create partitions on a block device"
-msgstr ""
+msgstr "создать разделы на блочном устройстве"
 
 #: fish/cmds.c:1116
 msgid "modify a single partition on a block device"
-msgstr ""
+msgstr "изменить один раздел на блочном устройстве"
 
 #: fish/cmds.c:1117
 msgid "display the disk geometry from the partition table"
-msgstr ""
+msgstr "отобразить геометрию диска из таблицы разделов"
 
 #: fish/cmds.c:1118
 msgid "display the kernel geometry"
-msgstr ""
+msgstr "отобразить геометрию ядра"
 
 #: fish/cmds.c:1119
 msgid "display the partition table"
-msgstr ""
+msgstr "отобразить таблицу разделов"
 
 #: fish/cmds.c:1120 fish/cmds.c:1122
 msgid "run a command via the shell"
-msgstr ""
+msgstr "выполнить команду через оболочку"
 
 #: fish/cmds.c:1121
 msgid "run a command via the shell returning lines"
-msgstr ""
+msgstr "выполнить команду через оболочку, возвращая строки"
 
 #: fish/cmds.c:1123
 msgid "shutdown the hypervisor"
-msgstr ""
+msgstr "завершить работу гипервизора"
 
 #: fish/cmds.c:1124
 msgid "sleep for some seconds"
-msgstr ""
+msgstr "заснуть на несколько секунд"
 
 #: fish/cmds.c:1128
 msgid "create a sparse disk image and add"
-msgstr ""
+msgstr "создать разрежённый образ диска и добавить"
 
 #: fish/cmds.c:1129 fish/cmds.c:1130
 msgid "get file information"
-msgstr ""
+msgstr "получить информацию о файле"
 
 #: fish/cmds.c:1131
 msgid "get file system statistics"
-msgstr ""
+msgstr "получить статистику файловой системы"
 
 #: fish/cmds.c:1132 fish/cmds.c:1133
 msgid "print the printable strings in a file"
-msgstr ""
+msgstr "вывести печатаемые строки в файле"
 
 #: fish/cmds.c:1134
 msgid "list supported groups of commands"
-msgstr ""
+msgstr "вывести список поддерживаемых групп команд"
 
 #: fish/cmds.c:1135
 msgid "disable swap on device"
-msgstr ""
+msgstr "отключить подкачку на устройстве"
 
 #: fish/cmds.c:1136
 msgid "disable swap on file"
-msgstr ""
+msgstr "отключить подкачку на файле"
 
 #: fish/cmds.c:1137
 msgid "disable swap on labeled swap partition"
-msgstr ""
+msgstr "отключить подкачку на размеченном разделе подкачки"
 
 #: fish/cmds.c:1138
 msgid "disable swap on swap partition by UUID"
-msgstr ""
+msgstr "отключить подкачку на разделе подкачки по UUID"
 
 #: fish/cmds.c:1139
 msgid "enable swap on device"
-msgstr ""
+msgstr "включить подкачку на устройстве"
 
 #: fish/cmds.c:1140
 msgid "enable swap on file"
-msgstr ""
+msgstr "включить подкачку на файле"
 
 #: fish/cmds.c:1141
 msgid "enable swap on labeled swap partition"
-msgstr ""
+msgstr "включить подкачку на размеченном разделе подкачки"
 
 #: fish/cmds.c:1142
 msgid "enable swap on swap partition by UUID"
-msgstr ""
+msgstr "включить подкачку на разделе подкачки по UUID"
 
 #: fish/cmds.c:1143
 msgid "sync disks, writes are flushed through to the disk image"
-msgstr ""
+msgstr "синхронизировать диски, запись сбрасывается в образ диска"
 
 #: fish/cmds.c:1144
 msgid "install the SYSLINUX bootloader"
-msgstr ""
+msgstr "установить загрузчик SYSLINUX"
 
 #: fish/cmds.c:1145
 msgid "return last 10 lines of a file"
-msgstr ""
+msgstr "вернуть последние 10 строк файла"
 
 #: fish/cmds.c:1146
 msgid "return last N lines of a file"
-msgstr ""
+msgstr "вернуть последние N строк файла"
 
 #: fish/cmds.c:1147
 msgid "unpack tarfile to directory"
-msgstr ""
+msgstr "распаковать tar-файл в каталог"
 
 #: fish/cmds.c:1148
 msgid "pack directory into tarfile"
-msgstr ""
+msgstr "упаковать каталог в tar-файл"
 
 #: fish/cmds.c:1149 fish/cmds.c:1163
 msgid "unpack compressed tarball to directory"
-msgstr ""
+msgstr "распаковать сжатый tar-архив в каталог"
 
 #: fish/cmds.c:1150 fish/cmds.c:1164
 msgid "pack directory into compressed tarball"
-msgstr ""
+msgstr "упаковать каталог в сжатый tar-архив"
 
 #: fish/cmds.c:1151
 msgid "print elapsed time taken to run a command"
-msgstr ""
+msgstr "вывести затраченное время на выполнение команды"
 
 #: fish/cmds.c:1155
 msgid "update file timestamps or create a new file"
-msgstr ""
+msgstr "обновить временные метки файла или создать новый файл"
 
 #: fish/cmds.c:1159
 msgid "truncate a file to zero size"
-msgstr ""
+msgstr "обрезать файл до нулевого размера"
 
 #: fish/cmds.c:1160
 msgid "truncate a file to a particular size"
-msgstr ""
+msgstr "обрезать файл до определённого размера"
 
 #: fish/cmds.c:1161
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
-msgstr ""
+msgstr "настроить параметры файловой системы ext2/ext3/ext4"
 
 #: fish/cmds.c:1162
 msgid "get ext2/ext3/ext4 superblock details"
-msgstr ""
+msgstr "получить сведения о суперблоке ext2/ext3/ext4"
 
 #: fish/cmds.c:1165
 msgid "set file mode creation mask (umask)"
-msgstr ""
+msgstr "установить маску режима создания файлов (umask)"
 
 #: fish/cmds.c:1166
 msgid "unmount a filesystem"
-msgstr ""
+msgstr "размонтировать файловую систему"
 
 #: fish/cmds.c:1167
 msgid "unmount all filesystems"
-msgstr ""
+msgstr "размонтировать все файловые системы"
 
 #: fish/cmds.c:1168
 msgid "unmount a locally mounted filesystem"
-msgstr ""
+msgstr "размонтировать локально смонтированную файловую систему"
 
 #: fish/cmds.c:1175
 msgid "unset an environment variable"
-msgstr ""
+msgstr "удалить переменную окружения"
 
 #: fish/cmds.c:1176
 msgid "upload a file from the local machine"
-msgstr ""
+msgstr "загрузить файл с локальной машины"
 
 #: fish/cmds.c:1177
 msgid "upload a file from the local machine with offset"
-msgstr ""
+msgstr "загрузить файл с локальной машины со смещением"
 
 #: fish/cmds.c:1178
 msgid "cancel the current upload or download operation"
-msgstr ""
+msgstr "отменить текущую операцию загрузки или выгрузки"
 
 #: fish/cmds.c:1179
 msgid "set timestamp of a file with nanosecond precision"
-msgstr ""
+msgstr "установить временную метку файла с наносекундной точностью"
 
 #: fish/cmds.c:1180
 msgid "appliance kernel version"
-msgstr ""
+msgstr "версия ядра устройства"
 
 #: fish/cmds.c:1184
 msgid "get the library version number"
-msgstr ""
+msgstr "получить номер версии библиотеки"
 
 #: fish/cmds.c:1185
 msgid "get the filesystem label"
-msgstr ""
+msgstr "получить метку файловой системы"
 
 #: fish/cmds.c:1186
 msgid "get minimum filesystem size"
-msgstr ""
+msgstr "получить минимальный размер файловой системы"
 
 #: fish/cmds.c:1187
 msgid "get the Linux VFS type corresponding to a mounted device"
-msgstr ""
+msgstr "получить тип VFS Linux, соответствующий смонтированному устройству"
 
 #: fish/cmds.c:1188
 msgid "get the filesystem UUID"
-msgstr ""
+msgstr "получить UUID файловой системы"
 
 #: fish/cmds.c:1189
 msgid "activate or deactivate some volume groups"
-msgstr ""
+msgstr "активировать или деактивировать некоторые группы томов"
 
 #: fish/cmds.c:1190
 msgid "activate or deactivate all volume groups"
-msgstr ""
+msgstr "активировать или деактивировать все группы томов"
 
 #: fish/cmds.c:1191
 msgid "generate a new random UUID for a volume group"
-msgstr ""
+msgstr "сгенерировать новый случайный UUID для группы томов"
 
 #: fish/cmds.c:1192
 msgid "generate new random UUIDs for all volume groups"
-msgstr ""
+msgstr "сгенерировать новые случайные UUID для всех групп томов"
 
 #: fish/cmds.c:1193
 msgid "create an LVM volume group"
-msgstr ""
+msgstr "создать группу томов LVM"
 
 #: fish/cmds.c:1194
 msgid "get the LV UUIDs of all LVs in the volume group"
-msgstr ""
+msgstr "получить UUID логических томов всех ЛТ в группе томов"
 
 #: fish/cmds.c:1195
 msgid "get volume group metadata"
-msgstr ""
+msgstr "получить метаданные группы томов"
 
 #: fish/cmds.c:1196
 msgid "get the PV UUIDs containing the volume group"
-msgstr ""
+msgstr "получить UUID физических томов, содержащих группу томов"
 
 #: fish/cmds.c:1197
 msgid "remove an LVM volume group"
-msgstr ""
+msgstr "удалить группу томов LVM"
 
 #: fish/cmds.c:1198
 msgid "rename an LVM volume group"
-msgstr ""
+msgstr "переименовать группу томов LVM"
 
 #: fish/cmds.c:1199 fish/cmds.c:1200
 msgid "list the LVM volume groups (VGs)"
-msgstr ""
+msgstr "вывести список групп томов LVM"
 
 #: fish/cmds.c:1201
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
+"повторно сканировать физические тома, группы томов и логические тома LVM"
 
 #: fish/cmds.c:1202
 msgid "get the UUID of a volume group"
-msgstr ""
+msgstr "получить UUID группы томов"
 
 #: fish/cmds.c:1206
 msgid "count characters in a file"
-msgstr ""
+msgstr "подсчитать символы в файле"
 
 #: fish/cmds.c:1207
 msgid "count lines in a file"
-msgstr ""
+msgstr "подсчитать строки в файле"
 
 #: fish/cmds.c:1208
 msgid "count words in a file"
-msgstr ""
+msgstr "подсчитать слова в файле"
 
 #: fish/cmds.c:1209
 msgid "wipe a filesystem signature from a device"
-msgstr ""
+msgstr "стереть сигнатуру файловой системы с устройства"
 
 #: fish/cmds.c:1210
 msgid "create a new file"
-msgstr ""
+msgstr "создать новый файл"
 
 #: fish/cmds.c:1211
 msgid "append content to end of file"
-msgstr ""
+msgstr "добавить содержимое в конец файла"
 
 #: fish/cmds.c:1212
 msgid "create a file"
-msgstr ""
+msgstr "создать файл"
 
 #: fish/cmds.c:1213
 msgid "change parameters of an XFS filesystem"
-msgstr ""
+msgstr "изменить параметры файловой системы XFS"
 
 #: fish/cmds.c:1214
 msgid "expand an existing XFS filesystem"
-msgstr ""
+msgstr "расширить существующую файловую систему XFS"
 
 #: fish/cmds.c:1215 fish/cmds.c:1216
 msgid "get information about the XFS filesystem"
-msgstr ""
+msgstr "получить информацию о файловой системе XFS"
 
 #: fish/cmds.c:1217
 msgid "repair an XFS filesystem"
-msgstr ""
+msgstr "восстановить файловую систему XFS"
 
 #: fish/cmds.c:1218
+#, fuzzy
 msgid "destroy previously loaded yara rules"
-msgstr ""
+msgstr "уничтожить ранее загруженные правила yara"
 
 #: fish/cmds.c:1219
+#, fuzzy
 msgid "load yara rules within libguestfs"
-msgstr ""
+msgstr "загрузить правила yara в libguestfs"
 
 #: fish/cmds.c:1220
+#, fuzzy
 msgid "scan a file with the loaded yara rules"
-msgstr ""
+msgstr "просканировать файл с загруженными правилами yara"
 
 #: fish/cmds.c:1223
+#, fuzzy
 msgid "write zeroes to the device"
-msgstr ""
+msgstr "записать нули на устройство"
 
 #: fish/cmds.c:1224
+#, fuzzy
 msgid "write zeroes to an entire device"
-msgstr ""
+msgstr "записать нули на всё устройство"
 
 #: fish/cmds.c:1225
+#, fuzzy
 msgid "zero free space in a filesystem"
-msgstr ""
+msgstr "обнулить свободное пространство в файловой системе"
 
 #: fish/cmds.c:1226
+#, fuzzy
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
-msgstr ""
+msgstr "обнулить неиспользуемые иноды и блоки диска на файловой системе ext2/3"
 
 #: fish/cmds.c:1229
+#, fuzzy
 msgid "determine file type inside a compressed file"
-msgstr ""
+msgstr "определить тип файла внутри сжатого файла"
 
 #: fish/cmds.c:1232
+#, fuzzy
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
+"Используйте -h <команда> / help <команда> для получения подробной справки."
 
 #: fish/copy.c:42
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
+"используйте «copy-in <локальный> [<локальный>...] <удалённый_каталог>» для "
+"копирования файлов в образ\n"
 
 #: fish/copy.c:70
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
+"используйте «copy-out <удалённый> [<удалённый>...] <локальный_каталог>» для "
+"копирования файлов из образа\n"
 
 #: fish/display.c:48
-#, c-format
+#, c-format, fuzzy
 msgid "display filename\n"
-msgstr ""
+msgstr "отобразить имя_файла\n"
 
 #: fish/edit.c:43
-#, c-format
+#, c-format, fuzzy
 msgid "use '%s filename' to edit a file\n"
-msgstr ""
+msgstr "используйте «%s имя_файла» для редактирования файла\n"
 
 #: fish/event-names.c:69
-#, c-format
+#, c-format, fuzzy
 msgid "unknown event name: %s\n"
-msgstr ""
+msgstr "неизвестное имя события: %s\n"
 
 #: fish/events.c:179
-#, c-format
+#, c-format, fuzzy
 msgid "use 'event <name> <eventset> <script>' to register an event handler\n"
 msgstr ""
+"используйте «event <имя> <набор_событий> <скрипт>» для регистрации "
+"обработчика событий\n"
 
 #: fish/events.c:238
-#, c-format
+#, c-format, fuzzy
 msgid "use 'delete-event <name>' to delete an event handler\n"
-msgstr ""
+msgstr "используйте «delete-event <имя>» для удаления обработчика событий\n"
 
 #: fish/events.c:247
-#, c-format
+#, c-format, fuzzy
 msgid "delete-event: %s: no such event handler\n"
-msgstr ""
+msgstr "delete-event: %s: нет такого обработчика событий\n"
 
 #: fish/events.c:297
-#, c-format
+#, c-format, fuzzy
 msgid "use ‘list-events’ to list event handlers\n"
-msgstr ""
+msgstr "используйте «list-events» для вывода списка обработчиков событий\n"
 
 #: fish/fish.c:114 fuse/guestmount.c:103 fuse/guestunmount.c:58
 #: rescue/rescue.c:80
-#, c-format, fuzzy
+#, c-format
 msgid "Try ‘%s --help’ for more information.\n"
-msgstr "Попробуйте «%s --help» для получения дополнительной информации.\n"
+msgstr "Попробуйте «%s --help» для подробностей.\n"
 
 #: fish/fish.c:117
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -2742,56 +2764,111 @@ msgid ""
 "\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: оболочка файловой системы гостя\n"
+"%s позволяет редактировать файловые системы виртуальных машин\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
+"Использование:\n"
+"  %s [--параметры] команда [: команда : команда ...]\n"
+"Параметры:\n"
+"  -h|--cmd-help        Вывести список доступных команд\n"
+"  -h|--cmd-help команда Показать подробную справку по «команде»\n"
+"  -a|--add образ       Добавить образ\n"
+"  --blocksize[=512|4096]\n"
+"                       Установить размер сектора диска для параметра -a\n"
+"  -c|--connect uri     Указать URI libvirt для параметра -d\n"
+"  --csh                Сделать --listen совместимым с csh\n"
+"  -d|--domain гость    Добавить диски из гостя libvirt\n"
+"  --echo-keys          Не отключать эхо для парольных фраз\n"
+"  -f|--file файл       Читать команды из файла\n"
+"  --format[=raw|..]    Принудительно задать формат диска для параметра -a\n"
+"  --help               Показать краткую справку\n"
+"  -i|--inspector       Автоматически монтировать файловые системы\n"
+"  --key селектор       Указать ключ LUKS\n"
+"  --keys-from-stdin    Читать парольные фразы из stdin\n"
+"  --listen             Слушать удалённые команды\n"
+"  -m|--mount устройство[:точка_монт[:параметры[:тип_фс]]]\n"
+"                       Смонтировать устройство в точку_монт (если опущено, /)"
+"\n"
+"  --network            Включить сеть\n"
+"  -N|--new [имя_файла=]тип\n"
+"                       Создать подготовленный диск (test<N>.img или "
+"имя_файла)\n"
+"  -n|--no-sync         Не выполнять автосинхронизацию\n"
+"  --no-dest-paths      Не дополнять пути из файловой системы гостя по Tab\n"
+"  --pipe-error         Команды в конвейере могут обнаруживать ошибки записи\n"
+"  --progress-bars      Включить индикаторы прогресса даже в неинтерактивном "
+"режиме\n"
+"  --no-progress-bars   Отключить индикаторы прогресса\n"
+"  --remote[=pid]       Отправить команды в удалённый %s\n"
+"  -r|--ro              Монтировать только для чтения\n"
+"  --selinux            Только для обратной совместимости, ничего не делает\n"
+"  -v|--verbose         Подробные сообщения\n"
+"  -V|--version         Показать версию и выйти\n"
+"  -w|--rw              Монтировать для чтения и записи\n"
+"  -x                   Выводить каждую команду перед выполнением\n"
+"\n"
+"Для исследования образа диска, ISO, жёсткого диска, файловой системы и "
+"т.д.:\n"
+"  %s [--ro|--rw] -i -a /путь/к/диску.img\n"
+"или\n"
+"  %s [--ro|--rw] -i -d имя-домена-libvirt\n"
+"\n"
+"Рекомендуется использовать «--ro» во избежание записи в образ диска.\n"
+"\n"
+"Если параметр «-i» не работает, запустите снова без «-i» и используйте\n"
+"команды «run» + «list-filesystems» + «mount».\n"
+"\n"
+"Для получения дополнительной информации см. справочную страницу %s(1).\n"
 
 #: fish/fish.c:264
-#, c-format
+#, c-format, fuzzy
 msgid "--listen=PID: PID was not a number: %s"
-msgstr ""
+msgstr "--listen=PID: PID не является числом: %s"
 
 #: fish/fish.c:269
-#, c-format
+#, c-format, fuzzy
 msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
-msgstr ""
+msgstr "remote: $GUESTFISH_PID должен быть установлен в PID удалённого процесса"
 
 #: fish/fish.c:290 fuse/guestmount.c:246 lib/libvirt-domain.c:94
 #: lib/libvirt-domain.c:137 lib/libvirt-domain.c:235
-#, c-format
+#, c-format, fuzzy
 msgid "libguestfs live support was removed in libguestfs 1.48"
-msgstr ""
+msgstr "поддержка live в libguestfs была удалена в libguestfs 1.48"
 
 #: fish/fish.c:302 fuse/guestmount.c:259 fuse/guestunmount.c:131
 #: rescue/rescue.c:225 test-tool/test-tool.c:123
-#, c-format, fuzzy
+#, c-format
 msgid "unknown long option: %s (%d)"
 msgstr "неизвестный длинный параметр: %s (%d)"
 
 #: fish/fish.c:319
-#, c-format
+#, c-format, fuzzy
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
-msgstr ""
+msgstr "%s: предупреждение: параметр -D устарел, используйте --no-dest-paths\n"
 
 #: fish/fish.c:326
-#, c-format
+#, c-format, fuzzy
 msgid "only one -f parameter can be given"
-msgstr ""
+msgstr "можно указать только один параметр -f"
 
 #: fish/fish.c:509
-#, c-format
+#, c-format, fuzzy
 msgid "cannot use --listen and --remote options at the same time"
-msgstr ""
+msgstr "нельзя использовать параметры --listen и --remote одновременно"
 
 #: fish/fish.c:514
-#, c-format
+#, c-format, fuzzy
 msgid "extra parameters on the command line with --listen flag"
-msgstr ""
+msgstr "лишние параметры в командной строке с флагом --listen"
 
 #: fish/fish.c:517
-#, c-format
+#, c-format, fuzzy
 msgid "cannot use --listen and --file options at the same time"
-msgstr ""
+msgstr "нельзя использовать параметры --listen и --file одновременно"
 
 #: fish/fish.c:694
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "\n"
 "Welcome to guestfish, the guest filesystem shell for\n"
@@ -2802,301 +2879,355 @@ msgid ""
 "      ‘quit’ to quit the shell\n"
 "\n"
 msgstr ""
+"\n"
+"Добро пожаловать в guestfish — оболочку файловой системы гостя для\n"
+"редактирования файловых систем виртуальных машин и образов дисков.\n"
+"\n"
+"Введите: «help» для справки по командам\n"
+"         «man» для чтения руководства\n"
+"         «quit» для выхода из оболочки\n"
+"\n"
 
 #: fish/fish.c:868 fish/fish.c:884
-#, c-format
+#, c-format, fuzzy
 msgid "%s: command arguments not separated by whitespace\n"
-msgstr ""
+msgstr "%s: аргументы команды не разделены пробелами\n"
 
 #: fish/fish.c:878
-#, c-format
+#, c-format, fuzzy
 msgid "%s: unterminated single quote\n"
-msgstr ""
+msgstr "%s: незакрытая одинарная кавычка\n"
 
 #: fish/fish.c:908
-#, c-format
+#, c-format, fuzzy
 msgid "%s: internal error parsing string at ‘%s’\n"
-msgstr ""
+msgstr "%s: внутренняя ошибка при разборе строки «%s»\n"
 
 #: fish/fish.c:925
-#, c-format
+#, c-format, fuzzy
 msgid "%s: too many arguments\n"
-msgstr ""
+msgstr "%s: слишком много аргументов\n"
 
 #: fish/fish.c:1001
-#, c-format
+#, c-format, fuzzy
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
+"%s: недопустимая escape-последовательность в строке (начиная со смещения %d)"
+"\n"
 
 #: fish/fish.c:1010
-#, c-format
+#, c-format, fuzzy
 msgid "%s: unterminated double quote\n"
-msgstr ""
+msgstr "%s: незакрытая двойная кавычка\n"
 
 #: fish/fish.c:1075
-#, c-format
+#, c-format, fuzzy
 msgid "empty command on command line"
-msgstr ""
+msgstr "пустая команда в командной строке"
 
 #: fish/fish.c:1229
+#, fuzzy
 msgid "display a list of commands or help on a command"
-msgstr ""
+msgstr "отобразить список команд или справку по команде"
 
 #: fish/fish.c:1231
+#, fuzzy
 msgid "quit guestfish"
-msgstr ""
+msgstr "выйти из guestfish"
 
 #: fish/fish.c:1242
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "help - display a list of commands or help on a command\n"
 "     help --list\n"
 "     help cmd\n"
 "     help\n"
 msgstr ""
+"help — отобразить список команд или справку по команде\n"
+"     help --list\n"
+"     help команда\n"
+"     help\n"
 
 #: fish/fish.c:1251
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
+"quit — выход из guestfish\n"
+"     quit\n"
 
 #: fish/fish.c:1256
-#, c-format
+#, c-format, fuzzy
 msgid "%s: command not known: "
-msgstr ""
+msgstr "%s: команда неизвестна: "
 
 #: fish/fish.c:1258
-#, c-format
+#, c-format, fuzzy
 msgid "use 'help --list' to list all commands\n"
-msgstr ""
+msgstr "используйте «help --list» для вывода списка всех команд\n"
 
 #: fish/fish.c:1260
-#, c-format
+#, c-format, fuzzy
 msgid "use -h to list all commands\n"
-msgstr ""
+msgstr "используйте -h для вывода списка всех команд\n"
 
 #: fish/fish.c:1280
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
 "For a list of commands:             guestfish -h\n"
 "For complete documentation:         man guestfish\n"
 msgstr ""
+"Возможно, вы хотели открыть образ диска? guestfish -a диск.img\n"
+"Для списка команд:             guestfish -h\n"
+"Для полной документации:         man guestfish\n"
 
 #: fish/fish.c:1291
-#, c-format
+#, c-format, fuzzy
 msgid "%s:%d: libguestfs: error: %s\n"
-msgstr ""
+msgstr "%s:%d: libguestfs: ошибка: %s\n"
 
 #: fish/fish.c:1418
-#, c-format
+#, c-format, fuzzy
 msgid "Runaway quote in string \"%s\"\n"
-msgstr ""
+msgstr "Незакрытая кавычка в строке \"%s\"\n"
 
 #: fish/fish.c:1750
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
+"%s: для использования букв дисков Windows необходимо проверить гостя "
+"(параметр \"-i\" или выполнить команду \"inspect-os\")\n"
 
 #: fish/fish.c:1756
-#, c-format
+#, c-format, fuzzy
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
+"%s: для использования букв дисков Windows это должен быть гость Windows\n"
 
 #: fish/fish.c:1770
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
+"%s: диск '%c:' не найден. Для вывода списка доступных дисков выполните:\n"
+"  inspect-get-drive-mappings %s\n"
 
 #: fish/fish.c:1789
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
 "  umount-all\n"
 "  mount %s /\n"
 msgstr ""
+"%s: для доступа к '%c:' сначала смонтируйте %s. Один из способов:\n"
+"  umount-all\n"
+"  mount %s /\n"
 
 #: fish/glob.c:74
-#, c-format
+#, c-format, fuzzy
 msgid "use 'glob command [args...]'\n"
-msgstr ""
+msgstr "используйте «glob команда [аргументы...]»\n"
 
 #: fish/glob.c:142
-#, c-format
+#, c-format, fuzzy
 msgid "glob: guestfs_glob_expand call failed: %s\n"
-msgstr ""
+msgstr "glob: вызов guestfs_glob_expand не удался: %s\n"
 
 #: fish/help.c:47
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "Add disk images to examine using the ‘-a’ or ‘-d’ options, or the ‘add’\n"
 "command.\n"
 "Or create a new disk image using ‘-N’, or the ‘alloc’ or ‘sparse’ commands.\n"
 "Once you have done this, use the ‘run’ command.\n"
 msgstr ""
+"Добавьте образы дисков для исследования с помощью параметров «-a» или «-d»,\n"
+"или команды «add».\n"
+"Или создайте новый образ диска с помощью «-N» или команд «alloc» или «sparse"
+"».\n"
+"После этого используйте команду «run».\n"
 
 #: fish/help.c:54
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "Find out what filesystems are available using ‘list-filesystems’ and then\n"
 "mount them to examine or modify the contents using ‘mount-ro’ or\n"
 "‘mount’.\n"
 msgstr ""
+"Узнайте, какие файловые системы доступны, с помощью «list-filesystems»,\n"
+"а затем смонтируйте их для исследования или изменения содержимого с\n"
+"помощью «mount-ro» или «mount».\n"
 
 #: fish/help.c:62
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "For more information about a command, use ‘help cmd’.\n"
 "\n"
 "To read the manual, type ‘man’.\n"
 msgstr ""
+"Для получения дополнительной информации о команде используйте «help команда"
+"».\n"
+"\n"
+"Для чтения руководства введите «man».\n"
 
 #: fish/help.c:81
-#, c-format
+#, c-format, fuzzy
 msgid "use 'help', 'help <cmd>' or 'help -l|--list' to list all commands\n"
 msgstr ""
+"используйте «help», «help <команда>» или «help -l|--list» для вывода списка "
+"всех команд\n"
 
 #: fish/hexedit.c:46
-#, c-format
+#, c-format, fuzzy
 msgid "hexedit (device|filename) [max | start max]\n"
-msgstr ""
+msgstr "hexedit (устройство|имя_файла) [макс | начало макс]\n"
 
 #: fish/hexedit.c:57
-#, c-format
+#, c-format, fuzzy
 msgid "hexedit: %s is a zero length file or device\n"
-msgstr ""
+msgstr "hexedit: %s является файлом или устройством нулевой длины\n"
 
 #: fish/hexedit.c:68
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "hexedit: %s is larger than %s. You must supply a limit using\n"
 "  'hexedit %s <max>' (eg. 'hexedit %s 1M') or a range using\n"
 "  'hexedit %s <start> <max>'.\n"
 msgstr ""
+"hexedit: %s больше, чем %s. Вы должны указать ограничение с помощью\n"
+"  «hexedit %s <макс>» (например, «hexedit %s 1M») или диапазон с помощью\n"
+"  «hexedit %s <начало> <макс>».\n"
 
 #: fish/hexedit.c:97
-#, c-format
+#, c-format, fuzzy
 msgid "hexedit: invalid range\n"
-msgstr ""
+msgstr "hexedit: недопустимый диапазон\n"
 
 #: fish/lcd.c:36
-#, c-format
+#, c-format, fuzzy
 msgid "use 'lcd directory' to change local directory\n"
-msgstr ""
+msgstr "используйте «lcd каталог» для изменения локального каталога\n"
 
 #: fish/man.c:37
-#, c-format
+#, c-format, fuzzy
 msgid "use ‘man’ without parameters to open the manual\n"
-msgstr ""
+msgstr "используйте «man» без параметров для открытия руководства\n"
 
 #: fish/more.c:46
-#, c-format
+#, c-format, fuzzy
 msgid "use '%s filename' to page a file\n"
-msgstr ""
+msgstr "используйте «%s имя_файла» для постраничного просмотра файла\n"
 
 #: fish/not.c:41
-#, c-format
+#, c-format, fuzzy
 msgid "use 'not command [args...]'\n"
-msgstr ""
+msgstr "используйте «not команда [аргументы...]»\n"
 
 #: fish/prep-boot.c:37 fish/prep-boot.c:87 fish/prep-disk.c:35
 #: fish/prep-fs.c:37 fish/prep-lv.c:68 fish/prep-lv.c:109 fish/prep-part.c:35
+#, fuzzy
 msgid "failed to allocate disk"
-msgstr ""
+msgstr "не удалось выделить диск"
 
 #: fish/prep-boot.c:45 fish/prep-boot.c:95
+#, fuzzy
 msgid "could not parse boot size"
-msgstr ""
+msgstr "не удалось разобрать размер загрузочного раздела"
 
 #: fish/prep-boot.c:49 fish/prep-boot.c:99
-#, c-format
+#, c-format, fuzzy
 msgid "failed to get sector size of disk: %s"
-msgstr ""
+msgstr "не удалось получить размер сектора диска: %s"
 
 #: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44 fish/prep-lv.c:75
 #: fish/prep-lv.c:116 fish/prep-part.c:42
-#, c-format
+#, c-format, fuzzy
 msgid "failed to partition disk: %s"
-msgstr ""
+msgstr "не удалось разбить диск на разделы: %s"
 
 #: fish/prep-boot.c:58 fish/prep-boot.c:108
-#, c-format
+#, c-format, fuzzy
 msgid "failed to add boot partition: %s"
-msgstr ""
+msgstr "не удалось добавить загрузочный раздел: %s"
 
 #: fish/prep-boot.c:62 fish/prep-boot.c:112
-#, c-format
+#, c-format, fuzzy
 msgid "failed to add root partition: %s"
-msgstr ""
+msgstr "не удалось добавить корневой раздел: %s"
 
 #: fish/prep-boot.c:69 fish/prep-boot.c:124
-#, c-format
+#, c-format, fuzzy
 msgid "failed to create boot filesystem: %s"
-msgstr ""
+msgstr "не удалось создать загрузочную файловую систему: %s"
 
 #: fish/prep-boot.c:76 fish/prep-boot.c:145
-#, c-format
+#, c-format, fuzzy
 msgid "failed to create root filesystem: %s"
-msgstr ""
+msgstr "не удалось создать корневую файловую систему: %s"
 
 #: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65 fish/prep-lv.c:81
 #: fish/prep-lv.c:106 fish/prep-lv.c:122
+#, fuzzy
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
-msgstr ""
+msgstr "неправильный формат имени ЛТ, используйте '/dev/ГТ/ЛТ'"
 
 #: fish/prep-boot.c:131 fish/prep-lv.c:88 fish/prep-lv.c:129
-#, c-format
+#, c-format, fuzzy
 msgid "failed to create PV: %s: %s"
-msgstr ""
+msgstr "не удалось создать ФТ: %s: %s"
 
 #: fish/prep-boot.c:136 fish/prep-lv.c:93 fish/prep-lv.c:134
-#, c-format
+#, c-format, fuzzy
 msgid "failed to create VG: %s: %s"
-msgstr ""
+msgstr "не удалось создать ГТ: %s: %s"
 
 #: fish/prep-boot.c:141 fish/prep-lv.c:98 fish/prep-lv.c:139
-#, c-format
+#, c-format, fuzzy
 msgid "failed to create LV: /dev/%s/%s: %s"
-msgstr ""
+msgstr "не удалось создать ЛТ: /dev/%s/%s: %s"
 
 #: fish/prep-fs.c:52 fish/prep-lv.c:144
-#, c-format
+#, c-format, fuzzy
 msgid "failed to create filesystem (%s): %s"
-msgstr ""
+msgstr "не удалось создать файловую систему (%s): %s"
 
 #: fish/prep.c:45
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "List of available prepared disk images:\n"
 "\n"
 msgstr ""
+"Список доступных подготовленных образов дисков:\n"
+"\n"
 
 #: fish/prep.c:48
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "guestfish -N %-8s - %s\n"
 "\n"
 "%s\n"
 msgstr ""
+"guestfish -N %-8s - %s\n"
+"\n"
+"%s\n"
 
 #: fish/prep.c:56
-#, c-format
+#, c-format, fuzzy
 msgid "  Optional parameters:\n"
-msgstr ""
+msgstr "  Необязательные параметры:\n"
 
 #: fish/prep.c:63
-#, c-format
+#, c-format, fuzzy
 msgid "<%s> %s (default: %s)\n"
-msgstr ""
+msgstr "<%s> %s (по умолчанию: %s)\n"
 
 #: fish/prep.c:73
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "Prepared disk images are written to file \"test1.img\" in the local\n"
 "directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
@@ -3106,60 +3237,75 @@ msgid ""
 "\n"
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
+"Подготовленные образы дисков записываются в файл \"test1.img\" в локальном\n"
+"каталоге. (\"test2.img\" и т.д., если параметр -N указан несколько раз).\n"
+"Вы можете переопределить имя, указав имя файла перед типом, например:\n"
+"\n"
+"  guestfish -N blank.img=fs\n"
+"\n"
+"Для получения дополнительной информации см. руководство guestfish(1).\n"
 
 #: fish/prep.c:109
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "-N parameter ‘%s’: no such prepared disk image known.\n"
 "Use 'guestfish -N help' to list possible values for the -N parameter."
 msgstr ""
+"Параметр -N «%s»: неизвестный подготовленный образ диска.\n"
+"Используйте «guestfish -N help» для вывода возможных значений параметра -N."
 
 #: fish/prep.c:162
-#, c-format
+#, c-format, fuzzy
 msgid "guestfish: error creating prepared disk image ‘%s’ on ‘%s’: "
-msgstr ""
+msgstr "guestfish: ошибка создания подготовленного образа диска «%s» на «%s»: "
 
 #: fish/rc.c:71
-#, c-format
+#, c-format, fuzzy
 msgid "‘%s’ is not a directory or has insecure owner or permissions"
 msgstr ""
+"«%s» не является каталогом или имеет небезопасного владельца или права "
+"доступа"
 
 #: fish/rc.c:288
-#, c-format
+#, c-format, fuzzy
 msgid "guestfish: protocol error: could not read ‘hello’ message\n"
-msgstr ""
+msgstr "guestfish: ошибка протокола: не удалось прочитать сообщение «hello»\n"
 
 #: fish/rc.c:293
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "guestfish: protocol error: version mismatch, server version ‘%s’ does not "
 "match client version ‘%s’.  The two versions must match exactly.\n"
 msgstr ""
+"guestfish: ошибка протокола: несоответствие версий, версия сервера «%s» не "
+"совпадает с версией клиента «%s». Версии должны точно совпадать.\n"
 
 #: fish/rc.c:378 fish/rc.c:392
-#, c-format
+#, c-format, fuzzy
 msgid "guestfish: remote: looks like the server is not running\n"
-msgstr ""
+msgstr "guestfish: remote: похоже, сервер не запущен\n"
 
 #: fish/rc.c:409 fish/rc.c:423
-#, c-format
+#, c-format, fuzzy
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
+"guestfish: ошибка протокола: не удалось отправить начальное приветствие "
+"серверу\n"
 
 #: fish/rc.c:434
-#, c-format
+#, c-format, fuzzy
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr ""
+msgstr "guestfish: ошибка протокола: не удалось декодировать ответ от сервера\n"
 
 #: fish/reopen.c:43
-#, c-format
+#, c-format, fuzzy
 msgid "‘reopen’ command takes no parameters\n"
-msgstr ""
+msgstr "команда «reopen» не принимает параметров\n"
 
 #: fish/reopen.c:56
-#, c-format
+#, c-format, fuzzy
 msgid "reopen: guestfs_create: failed to create handle\n"
-msgstr ""
+msgstr "reopen: guestfs_create: не удалось создать дескриптор\n"
 
 #: fish/run-0.c:143 fish/run-0.c:161 fish/run-0.c:174 fish/run-0.c:202
 #: fish/run-0.c:350 fish/run-0.c:803 fish/run-0.c:816 fish/run-0.c:829
@@ -3386,7 +3532,7 @@ msgid "unable to parse --fd option value: %s"
 msgstr ""
 
 #: fuse/guestmount.c:326 rescue/rescue.c:348
-#, c-format, fuzzy
+#, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
 msgstr "%s: ошибка: вы должны указать хотя бы один параметр -a или -d.\n"
 
@@ -4047,7 +4193,6 @@ msgstr ""
 
 #: lib/launch-libvirt.c:743 lib/launch-libvirt.c:845 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
-#, fuzzy
 msgid "unable to create new XPath context"
 msgstr "не удалось создать новый XPath-контекст"
 
@@ -4211,7 +4356,6 @@ msgid ""
 msgstr ""
 
 #: lib/libvirt-domain.c:415 lib/libvirt-domain.c:488
-#, fuzzy
 msgid "unable to evaluate XPath expression"
 msgstr "не удалось вычислить XPath-выражение"
 
