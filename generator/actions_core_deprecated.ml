@@ -565,7 +565,7 @@ attaches it as a device.|} };
     name = "setcon"; added = (1, 0, 67);
     style = RErr, [String (PlainString, "context")], [];
     optional = Some "selinux";
-    deprecated_by = Replaced_by "selinux_relabel";
+    deprecated_by = Replaced_by "setfiles";
     shortdesc = "set SELinux security context";
     longdesc = "\
 This sets the SELinux security context of the daemon
@@ -577,7 +577,7 @@ See the documentation about SELINUX in L<guestfs(3)>." };
     name = "getcon"; added = (1, 0, 67);
     style = RString (RPlainString, "context"), [], [];
     optional = Some "selinux";
-    deprecated_by = Replaced_by "selinux_relabel";
+    deprecated_by = Replaced_by "setfiles";
     shortdesc = "get SELinux security context";
     longdesc = "\
 This gets the SELinux security context of the daemon.
