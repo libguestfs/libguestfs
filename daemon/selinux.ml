@@ -44,12 +44,12 @@ let setfiles_has_option =
        Hashtbl.add h flag r;
        r
 
-let setfiles ?(force = false) specfile paths =
+let setfiles ?(force = false) ?(excludes = []) specfile paths =
   if paths = [] then ()
   else (
     (* Prefix /sysroot on all paths. *)
     let ignored_paths =
-      [ "/dev"; "/proc"; "/selinux"; "/sys" ] |>
+      [ "/dev"; "/proc"; "/selinux"; "/sys" ] @ excludes |>
       List.map sysroot_path in
     let specfile = sysroot_path specfile in
     let paths = List.map sysroot_path paths in

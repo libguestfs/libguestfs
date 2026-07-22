@@ -9571,7 +9571,7 @@ Use C<guestfs_list_dm_devices> to list all device mapper devices.|} };
 
   { defaults with
     name = "setfiles"; added = (1, 57, 1);
-    style = RErr, [String (PlainString, "specfile"); StringList (Pathname, "paths")], [OBool "force"];
+    style = RErr, [String (PlainString, "specfile"); StringList (Pathname, "paths")], [OBool "force"; OStringList "excludes"];
     impl = OCaml "Selinux.setfiles";
     optional = Some "selinuxrelabel";
     test_excuse = "tests are in the tests/relabel directory";
@@ -9592,7 +9592,10 @@ If the list is empty, setfiles is not called.
 
 The optional C<force> boolean controls whether the context
 is reset for customizable files, and also whether the
-user, role and range parts of the file context is changed.|} };
+user, role and range parts of the file context is changed.
+
+The optional C<excludes> list allows you to exclude parts of the
+directory tree by appending the C<setfiles> I<-e> option.|} };
 
   { defaults with
     name = "xfs_info2"; added = (1, 59, 2);
