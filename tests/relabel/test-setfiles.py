@@ -62,6 +62,8 @@ g.mount_options("user_xattr", "/dev/sda1", "/")
 g.mkdir("/bin")
 g.touch("/bin/ls")
 g.mkdir("/etc")
+g.mkdir("/lib")
+g.touch("/lib/libc.so")
 g.mkdir("/tmp")
 g.touch("/tmp/test")
 g.mkdir("/var")
@@ -75,13 +77,14 @@ g.write("/etc/file_contexts", """/.* system_u:object_r:default_t:s0
 /bin/.* system_u:object_r:bin_t:s0
 /etc/.* system_u:object_r:etc_t:s0
 /etc/file_contexts <<none>>
+/lib/.* system_u:object_r:lib_t:s0
 /tmp/.* <<none>>
 /var/.* system_u:object_r:var_t:s0
 /var/log/.* system_u:object_r:var_log_t:s0
 """)
 
 # Do the relabel.
-g.setfiles("/etc/file_contexts", "/", force=True)
+g.setfiles("/etc/file_contexts", "/", force=True, excludes=["/lib", "/lib64"])
 
 # Check the labels were set correctly.
 errors = 0
@@ -122,6 +125,8 @@ check_label("/bin", "system_u:object_r:default_t:s0")
 check_label("/bin/ls", "system_u:object_r:bin_t:s0")
 check_label("/etc", "system_u:object_r:default_t:s0")
 check_label_none("/etc/file_contexts")
+check_label_none("/lib") # because /lib in excludes
+check_label_none("/lib/libc.so") # because /lib in excludes
 check_label("/tmp", "system_u:object_r:default_t:s0")
 check_label_none("/tmp/test")
 check_label("/var", "system_u:object_r:default_t:s0")
