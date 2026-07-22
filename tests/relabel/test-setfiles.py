@@ -37,6 +37,8 @@ if not os.path.isfile("/etc/selinux/config") or not os.access("/usr/sbin/load_po
 
 # Create a filesystem.
 g = guestfs.GuestFS(python_return_dict=True)
+g.set_verbose(True)
+g.set_trace(True)
 g.add_drive_scratch(256 * 1024 * 1024)
 g.launch()
 
