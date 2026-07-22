@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (C) 2025 Red Hat Inc.
+# Copyright (C) 2025-2026 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test the deprecated selinux_relabel function.
+# Test the setfiles function.
 
 import os
 import sys
@@ -25,7 +25,7 @@ prog = os.path.basename(sys.argv[0])
 # Because we parse error message strings below.
 os.environ["LANG"] = "C"
 
-if os.environ.get("SKIP_TEST_RELABEL_PY"):
+if os.environ.get("SKIP_TEST_SETFILES_PY"):
     print(f"{prog}: test skipped because environment variable is set.")
     sys.exit(77)
 
@@ -79,7 +79,7 @@ g.write("/etc/file_contexts", """/.* system_u:object_r:default_t:s0
 """)
 
 # Do the relabel.
-g.selinux_relabel("/etc/file_contexts", "/", force=True)
+g.setfiles("/etc/file_contexts", "/", force=True)
 
 # Check the labels were set correctly.
 errors = 0
