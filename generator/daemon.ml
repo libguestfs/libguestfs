@@ -807,7 +807,8 @@ let generate_daemon_caml_stubs () =
               pr "caml_copy_int64 (%s)" n
            | OString _ ->
               pr "caml_copy_string (%s)" n
-           | OStringList _ -> assert false
+           | OStringList _ ->
+              pr "guestfs_int_daemon_copy_string_list (%s)" n
           );
           pr ";\n";
           pr "    args[%d] = caml_alloc (1, 0);\n" !i;

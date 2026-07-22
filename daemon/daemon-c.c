@@ -116,7 +116,7 @@ guestfs_int_daemon_copy_mountable (const mountable_t *mountable)
   CAMLreturn (r);
 }
 
-/* Implement StringList(...) parameter. */
+/* Implement StringList and OStringList parameters. */
 value
 guestfs_int_daemon_copy_string_list (char * const *strs)
 {
