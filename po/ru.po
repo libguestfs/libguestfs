@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-13 14:09+0100\n"
-"PO-Revision-Date: 2026-07-21 04:18+0000\n"
+"PO-Revision-Date: 2026-07-22 05:18+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ru/>\n"
@@ -305,12 +305,12 @@ msgstr "диск «%c:» не найден."
 #: fish/alloc.c:42
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
-msgstr "используйте «alloc файл размер» для создания образа\n"
+msgstr "используйте «alloc file size» для создания образа\n"
 
 #: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr "используйте «sparse файл размер» для создания разрежённого образа\n"
+msgstr "используйте «sparse file size» для создания разрежённого образа\n"
 
 #: fish/alloc.c:105
 #, c-format
@@ -2604,53 +2604,44 @@ msgid "repair an XFS filesystem"
 msgstr "восстановить файловую систему XFS"
 
 #: fish/cmds.c:1218
-#, fuzzy
 msgid "destroy previously loaded yara rules"
 msgstr "уничтожить ранее загруженные правила yara"
 
 #: fish/cmds.c:1219
-#, fuzzy
 msgid "load yara rules within libguestfs"
 msgstr "загрузить правила yara в libguestfs"
 
 #: fish/cmds.c:1220
-#, fuzzy
 msgid "scan a file with the loaded yara rules"
 msgstr "просканировать файл с загруженными правилами yara"
 
 #: fish/cmds.c:1223
-#, fuzzy
 msgid "write zeroes to the device"
 msgstr "записать нули на устройство"
 
 #: fish/cmds.c:1224
-#, fuzzy
 msgid "write zeroes to an entire device"
 msgstr "записать нули на всё устройство"
 
 #: fish/cmds.c:1225
-#, fuzzy
 msgid "zero free space in a filesystem"
 msgstr "обнулить свободное пространство в файловой системе"
 
 #: fish/cmds.c:1226
-#, fuzzy
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr "обнулить неиспользуемые иноды и блоки диска на файловой системе ext2/3"
 
 #: fish/cmds.c:1229
-#, fuzzy
 msgid "determine file type inside a compressed file"
 msgstr "определить тип файла внутри сжатого файла"
 
 #: fish/cmds.c:1232
-#, fuzzy
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "Используйте -h <команда> / help <команда> для получения подробной справки."
 
 #: fish/copy.c:42
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
@@ -2658,7 +2649,7 @@ msgstr ""
 "копирования файлов в образ\n"
 
 #: fish/copy.c:70
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
@@ -2667,39 +2658,39 @@ msgstr ""
 "копирования файлов из образа\n"
 
 #: fish/display.c:48
-#, c-format, fuzzy
+#, c-format
 msgid "display filename\n"
 msgstr "отобразить имя_файла\n"
 
 #: fish/edit.c:43
-#, c-format, fuzzy
+#, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "используйте «%s имя_файла» для редактирования файла\n"
 
 #: fish/event-names.c:69
-#, c-format, fuzzy
+#, c-format
 msgid "unknown event name: %s\n"
 msgstr "неизвестное имя события: %s\n"
 
 #: fish/events.c:179
-#, c-format, fuzzy
+#, c-format
 msgid "use 'event <name> <eventset> <script>' to register an event handler\n"
 msgstr ""
 "используйте «event <имя> <набор_событий> <скрипт>» для регистрации "
 "обработчика событий\n"
 
 #: fish/events.c:238
-#, c-format, fuzzy
+#, c-format
 msgid "use 'delete-event <name>' to delete an event handler\n"
 msgstr "используйте «delete-event <имя>» для удаления обработчика событий\n"
 
 #: fish/events.c:247
-#, c-format, fuzzy
+#, c-format
 msgid "delete-event: %s: no such event handler\n"
 msgstr "delete-event: %s: нет такого обработчика событий\n"
 
 #: fish/events.c:297
-#, c-format, fuzzy
+#, c-format
 msgid "use ‘list-events’ to list event handlers\n"
 msgstr "используйте «list-events» для вывода списка обработчиков событий\n"
 
@@ -2710,7 +2701,7 @@ msgid "Try ‘%s --help’ for more information.\n"
 msgstr "Попробуйте «%s --help» для подробностей.\n"
 
 #: fish/fish.c:117
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -2821,18 +2812,18 @@ msgstr ""
 "Для получения дополнительной информации см. справочную страницу %s(1).\n"
 
 #: fish/fish.c:264
-#, c-format, fuzzy
+#, c-format
 msgid "--listen=PID: PID was not a number: %s"
 msgstr "--listen=PID: PID не является числом: %s"
 
 #: fish/fish.c:269
-#, c-format, fuzzy
+#, c-format
 msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
 msgstr "remote: $GUESTFISH_PID должен быть установлен в PID удалённого процесса"
 
 #: fish/fish.c:290 fuse/guestmount.c:246 lib/libvirt-domain.c:94
 #: lib/libvirt-domain.c:137 lib/libvirt-domain.c:235
-#, c-format, fuzzy
+#, c-format
 msgid "libguestfs live support was removed in libguestfs 1.48"
 msgstr "поддержка live в libguestfs была удалена в libguestfs 1.48"
 
@@ -2843,32 +2834,32 @@ msgid "unknown long option: %s (%d)"
 msgstr "неизвестный длинный параметр: %s (%d)"
 
 #: fish/fish.c:319
-#, c-format, fuzzy
+#, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr "%s: предупреждение: параметр -D устарел, используйте --no-dest-paths\n"
 
 #: fish/fish.c:326
-#, c-format, fuzzy
+#, c-format
 msgid "only one -f parameter can be given"
 msgstr "можно указать только один параметр -f"
 
 #: fish/fish.c:509
-#, c-format, fuzzy
+#, c-format
 msgid "cannot use --listen and --remote options at the same time"
 msgstr "нельзя использовать параметры --listen и --remote одновременно"
 
 #: fish/fish.c:514
-#, c-format, fuzzy
+#, c-format
 msgid "extra parameters on the command line with --listen flag"
 msgstr "лишние параметры в командной строке с флагом --listen"
 
 #: fish/fish.c:517
-#, c-format, fuzzy
+#, c-format
 msgid "cannot use --listen and --file options at the same time"
 msgstr "нельзя использовать параметры --listen и --file одновременно"
 
 #: fish/fish.c:694
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "\n"
 "Welcome to guestfish, the guest filesystem shell for\n"
@@ -2889,54 +2880,52 @@ msgstr ""
 "\n"
 
 #: fish/fish.c:868 fish/fish.c:884
-#, c-format, fuzzy
+#, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: аргументы команды не разделены пробелами\n"
 
 #: fish/fish.c:878
-#, c-format, fuzzy
+#, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: незакрытая одинарная кавычка\n"
 
 #: fish/fish.c:908
-#, c-format, fuzzy
+#, c-format
 msgid "%s: internal error parsing string at ‘%s’\n"
 msgstr "%s: внутренняя ошибка при разборе строки «%s»\n"
 
 #: fish/fish.c:925
-#, c-format, fuzzy
+#, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: слишком много аргументов\n"
 
 #: fish/fish.c:1001
-#, c-format, fuzzy
+#, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: недопустимая escape-последовательность в строке (начиная со смещения %d)"
 "\n"
 
 #: fish/fish.c:1010
-#, c-format, fuzzy
+#, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: незакрытая двойная кавычка\n"
 
 #: fish/fish.c:1075
-#, c-format, fuzzy
+#, c-format
 msgid "empty command on command line"
 msgstr "пустая команда в командной строке"
 
 #: fish/fish.c:1229
-#, fuzzy
 msgid "display a list of commands or help on a command"
 msgstr "отобразить список команд или справку по команде"
 
 #: fish/fish.c:1231
-#, fuzzy
 msgid "quit guestfish"
 msgstr "выйти из guestfish"
 
 #: fish/fish.c:1242
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
 "     help --list\n"
@@ -2949,7 +2938,7 @@ msgstr ""
 "     help\n"
 
 #: fish/fish.c:1251
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
@@ -2958,22 +2947,22 @@ msgstr ""
 "     quit\n"
 
 #: fish/fish.c:1256
-#, c-format, fuzzy
+#, c-format
 msgid "%s: command not known: "
 msgstr "%s: команда неизвестна: "
 
 #: fish/fish.c:1258
-#, c-format, fuzzy
+#, c-format
 msgid "use 'help --list' to list all commands\n"
 msgstr "используйте «help --list» для вывода списка всех команд\n"
 
 #: fish/fish.c:1260
-#, c-format, fuzzy
+#, c-format
 msgid "use -h to list all commands\n"
 msgstr "используйте -h для вывода списка всех команд\n"
 
 #: fish/fish.c:1280
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
 "For a list of commands:             guestfish -h\n"
@@ -2984,62 +2973,62 @@ msgstr ""
 "Для полной документации:         man guestfish\n"
 
 #: fish/fish.c:1291
-#, c-format, fuzzy
+#, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: ошибка: %s\n"
 
 #: fish/fish.c:1418
-#, c-format, fuzzy
+#, c-format
 msgid "Runaway quote in string \"%s\"\n"
-msgstr "Незакрытая кавычка в строке \"%s\"\n"
+msgstr "Незакрытая кавычка в строке «%s»\n"
 
 #: fish/fish.c:1750
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 "%s: для использования букв дисков Windows необходимо проверить гостя "
-"(параметр \"-i\" или выполнить команду \"inspect-os\")\n"
+"(параметр «-i» или выполнить команду «inspect-os»)\n"
 
 #: fish/fish.c:1756
-#, c-format, fuzzy
+#, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s: для использования букв дисков Windows это должен быть гость Windows\n"
 
 #: fish/fish.c:1770
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
-"%s: диск '%c:' не найден. Для вывода списка доступных дисков выполните:\n"
+"%s: диск «%c:» не найден. Для вывода списка доступных дисков выполните:\n"
 "  inspect-get-drive-mappings %s\n"
 
 #: fish/fish.c:1789
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
 "  umount-all\n"
 "  mount %s /\n"
 msgstr ""
-"%s: для доступа к '%c:' сначала смонтируйте %s. Один из способов:\n"
+"%s: для доступа к «%c:» сначала смонтируйте %s. Один из способов:\n"
 "  umount-all\n"
 "  mount %s /\n"
 
 #: fish/glob.c:74
-#, c-format, fuzzy
+#, c-format
 msgid "use 'glob command [args...]'\n"
 msgstr "используйте «glob команда [аргументы...]»\n"
 
 #: fish/glob.c:142
-#, c-format, fuzzy
+#, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
 msgstr "glob: вызов guestfs_glob_expand не удался: %s\n"
 
 #: fish/help.c:47
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Add disk images to examine using the ‘-a’ or ‘-d’ options, or the ‘add’\n"
 "command.\n"
@@ -3053,7 +3042,7 @@ msgstr ""
 "После этого используйте команду «run».\n"
 
 #: fish/help.c:54
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Find out what filesystems are available using ‘list-filesystems’ and then\n"
 "mount them to examine or modify the contents using ‘mount-ro’ or\n"
@@ -3064,7 +3053,7 @@ msgstr ""
 "помощью «mount-ro» или «mount».\n"
 
 #: fish/help.c:62
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "For more information about a command, use ‘help cmd’.\n"
 "\n"
@@ -3076,24 +3065,24 @@ msgstr ""
 "Для чтения руководства введите «man».\n"
 
 #: fish/help.c:81
-#, c-format, fuzzy
+#, c-format
 msgid "use 'help', 'help <cmd>' or 'help -l|--list' to list all commands\n"
 msgstr ""
 "используйте «help», «help <команда>» или «help -l|--list» для вывода списка "
 "всех команд\n"
 
 #: fish/hexedit.c:46
-#, c-format, fuzzy
+#, c-format
 msgid "hexedit (device|filename) [max | start max]\n"
 msgstr "hexedit (устройство|имя_файла) [макс | начало макс]\n"
 
 #: fish/hexedit.c:57
-#, c-format, fuzzy
+#, c-format
 msgid "hexedit: %s is a zero length file or device\n"
 msgstr "hexedit: %s является файлом или устройством нулевой длины\n"
 
 #: fish/hexedit.c:68
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "hexedit: %s is larger than %s. You must supply a limit using\n"
 "  'hexedit %s <max>' (eg. 'hexedit %s 1M') or a range using\n"
@@ -3104,100 +3093,97 @@ msgstr ""
 "  «hexedit %s <начало> <макс>».\n"
 
 #: fish/hexedit.c:97
-#, c-format, fuzzy
+#, c-format
 msgid "hexedit: invalid range\n"
 msgstr "hexedit: недопустимый диапазон\n"
 
 #: fish/lcd.c:36
-#, c-format, fuzzy
+#, c-format
 msgid "use 'lcd directory' to change local directory\n"
 msgstr "используйте «lcd каталог» для изменения локального каталога\n"
 
 #: fish/man.c:37
-#, c-format, fuzzy
+#, c-format
 msgid "use ‘man’ without parameters to open the manual\n"
 msgstr "используйте «man» без параметров для открытия руководства\n"
 
 #: fish/more.c:46
-#, c-format, fuzzy
+#, c-format
 msgid "use '%s filename' to page a file\n"
 msgstr "используйте «%s имя_файла» для постраничного просмотра файла\n"
 
 #: fish/not.c:41
-#, c-format, fuzzy
+#, c-format
 msgid "use 'not command [args...]'\n"
 msgstr "используйте «not команда [аргументы...]»\n"
 
 #: fish/prep-boot.c:37 fish/prep-boot.c:87 fish/prep-disk.c:35
 #: fish/prep-fs.c:37 fish/prep-lv.c:68 fish/prep-lv.c:109 fish/prep-part.c:35
-#, fuzzy
 msgid "failed to allocate disk"
 msgstr "не удалось выделить диск"
 
 #: fish/prep-boot.c:45 fish/prep-boot.c:95
-#, fuzzy
 msgid "could not parse boot size"
 msgstr "не удалось разобрать размер загрузочного раздела"
 
 #: fish/prep-boot.c:49 fish/prep-boot.c:99
-#, c-format, fuzzy
+#, c-format
 msgid "failed to get sector size of disk: %s"
 msgstr "не удалось получить размер сектора диска: %s"
 
 #: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44 fish/prep-lv.c:75
 #: fish/prep-lv.c:116 fish/prep-part.c:42
-#, c-format, fuzzy
+#, c-format
 msgid "failed to partition disk: %s"
 msgstr "не удалось разбить диск на разделы: %s"
 
 #: fish/prep-boot.c:58 fish/prep-boot.c:108
-#, c-format, fuzzy
+#, c-format
 msgid "failed to add boot partition: %s"
 msgstr "не удалось добавить загрузочный раздел: %s"
 
 #: fish/prep-boot.c:62 fish/prep-boot.c:112
-#, c-format, fuzzy
+#, c-format
 msgid "failed to add root partition: %s"
 msgstr "не удалось добавить корневой раздел: %s"
 
 #: fish/prep-boot.c:69 fish/prep-boot.c:124
-#, c-format, fuzzy
+#, c-format
 msgid "failed to create boot filesystem: %s"
 msgstr "не удалось создать загрузочную файловую систему: %s"
 
 #: fish/prep-boot.c:76 fish/prep-boot.c:145
-#, c-format, fuzzy
+#, c-format
 msgid "failed to create root filesystem: %s"
 msgstr "не удалось создать корневую файловую систему: %s"
 
 #: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65 fish/prep-lv.c:81
 #: fish/prep-lv.c:106 fish/prep-lv.c:122
-#, fuzzy
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
-msgstr "неправильный формат имени ЛТ, используйте '/dev/ГТ/ЛТ'"
+msgstr "неправильный формат имени ЛТ, используйте «/dev/ГТ/ЛТ»"
 
 #: fish/prep-boot.c:131 fish/prep-lv.c:88 fish/prep-lv.c:129
-#, c-format, fuzzy
+#, c-format
 msgid "failed to create PV: %s: %s"
 msgstr "не удалось создать ФТ: %s: %s"
 
 #: fish/prep-boot.c:136 fish/prep-lv.c:93 fish/prep-lv.c:134
-#, c-format, fuzzy
+#, c-format
 msgid "failed to create VG: %s: %s"
 msgstr "не удалось создать ГТ: %s: %s"
 
 #: fish/prep-boot.c:141 fish/prep-lv.c:98 fish/prep-lv.c:139
-#, c-format, fuzzy
+#, c-format
 msgid "failed to create LV: /dev/%s/%s: %s"
 msgstr "не удалось создать ЛТ: /dev/%s/%s: %s"
 
 #: fish/prep-fs.c:52 fish/prep-lv.c:144
-#, c-format, fuzzy
+#, c-format
 msgid "failed to create filesystem (%s): %s"
 msgstr "не удалось создать файловую систему (%s): %s"
 
 #: fish/prep.c:45
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "List of available prepared disk images:\n"
 "\n"
@@ -3206,7 +3192,7 @@ msgstr ""
 "\n"
 
 #: fish/prep.c:48
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "guestfish -N %-8s - %s\n"
 "\n"
@@ -3217,17 +3203,17 @@ msgstr ""
 "%s\n"
 
 #: fish/prep.c:56
-#, c-format, fuzzy
+#, c-format
 msgid "  Optional parameters:\n"
 msgstr "  Необязательные параметры:\n"
 
 #: fish/prep.c:63
-#, c-format, fuzzy
+#, c-format
 msgid "<%s> %s (default: %s)\n"
 msgstr "<%s> %s (по умолчанию: %s)\n"
 
 #: fish/prep.c:73
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Prepared disk images are written to file \"test1.img\" in the local\n"
 "directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
@@ -3237,8 +3223,8 @@ msgid ""
 "\n"
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
-"Подготовленные образы дисков записываются в файл \"test1.img\" в локальном\n"
-"каталоге. (\"test2.img\" и т.д., если параметр -N указан несколько раз).\n"
+"Подготовленные образы дисков записываются в файл «test1.img» в локальном\n"
+"каталоге. («test2.img» и т.д., если параметр -N указан несколько раз).\n"
 "Вы можете переопределить имя, указав имя файла перед типом, например:\n"
 "\n"
 "  guestfish -N blank.img=fs\n"
@@ -3246,7 +3232,7 @@ msgstr ""
 "Для получения дополнительной информации см. руководство guestfish(1).\n"
 
 #: fish/prep.c:109
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "-N parameter ‘%s’: no such prepared disk image known.\n"
 "Use 'guestfish -N help' to list possible values for the -N parameter."
@@ -3255,24 +3241,24 @@ msgstr ""
 "Используйте «guestfish -N help» для вывода возможных значений параметра -N."
 
 #: fish/prep.c:162
-#, c-format, fuzzy
+#, c-format
 msgid "guestfish: error creating prepared disk image ‘%s’ on ‘%s’: "
 msgstr "guestfish: ошибка создания подготовленного образа диска «%s» на «%s»: "
 
 #: fish/rc.c:71
-#, c-format, fuzzy
+#, c-format
 msgid "‘%s’ is not a directory or has insecure owner or permissions"
 msgstr ""
 "«%s» не является каталогом или имеет небезопасного владельца или права "
 "доступа"
 
 #: fish/rc.c:288
-#, c-format, fuzzy
+#, c-format
 msgid "guestfish: protocol error: could not read ‘hello’ message\n"
 msgstr "guestfish: ошибка протокола: не удалось прочитать сообщение «hello»\n"
 
 #: fish/rc.c:293
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version ‘%s’ does not "
 "match client version ‘%s’.  The two versions must match exactly.\n"
@@ -3281,29 +3267,29 @@ msgstr ""
 "совпадает с версией клиента «%s». Версии должны точно совпадать.\n"
 
 #: fish/rc.c:378 fish/rc.c:392
-#, c-format, fuzzy
+#, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remote: похоже, сервер не запущен\n"
 
 #: fish/rc.c:409 fish/rc.c:423
-#, c-format, fuzzy
+#, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: ошибка протокола: не удалось отправить начальное приветствие "
 "серверу\n"
 
 #: fish/rc.c:434
-#, c-format, fuzzy
+#, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: ошибка протокола: не удалось декодировать ответ от сервера\n"
 
 #: fish/reopen.c:43
-#, c-format, fuzzy
+#, c-format
 msgid "‘reopen’ command takes no parameters\n"
 msgstr "команда «reopen» не принимает параметров\n"
 
 #: fish/reopen.c:56
-#, c-format, fuzzy
+#, c-format
 msgid "reopen: guestfs_create: failed to create handle\n"
 msgstr "reopen: guestfs_create: не удалось создать дескриптор\n"
 
@@ -3341,6 +3327,7 @@ msgstr "reopen: guestfs_create: не удалось создать дескри�
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr ""
+"%s: «%s»: недопустимое логическое значение, используйте «true» или «false»\n"
 
 #: fish/run-0.c:212 fish/run-0.c:360 fish/run-0.c:547 fish/run-0.c:620
 #: fish/run-0.c:839 fish/run-0.c:1853 fish/run-0.c:1973 fish/run-0.c:2102
@@ -3360,7 +3347,7 @@ msgstr ""
 #: fish/run-6.c:1787 fish/run-6.c:1946 fish/run-6.c:2274
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
-msgstr ""
+msgstr "%s: неизвестный необязательный аргумент «%s»\n"
 
 #: fish/run-0.c:218 fish/run-0.c:366 fish/run-0.c:553 fish/run-0.c:626
 #: fish/run-0.c:845 fish/run-0.c:1859 fish/run-0.c:1979 fish/run-0.c:2108
@@ -3380,7 +3367,7 @@ msgstr ""
 #: fish/run-6.c:1793 fish/run-6.c:1952 fish/run-6.c:2280
 #, c-format
 msgid "%s: optional argument \"%s\" given more than once\n"
-msgstr ""
+msgstr "%s: необязательный аргумент «%s» указан более одного раза\n"
 
 #: fish/run-0.c:531 fish/run-0.c:604 fish/run-0.c:714 fish/run-0.c:967
 #: fish/run-0.c:1106 fish/run-0.c:1146 fish/run-0.c:1160 fish/run-0.c:1198
@@ -3434,7 +3421,7 @@ msgstr ""
 #: fish/run-6.c:1991 fish/run-6.c:2073 fish/run-6.c:2160
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
-msgstr ""
+msgstr "%s: %s: недопустимое целое значение параметра (%s вернул %u)\n"
 
 #: fish/run-0.c:537 fish/run-0.c:610 fish/run-0.c:720 fish/run-0.c:973
 #: fish/run-0.c:1787 fish/run-0.c:1820 fish/run-0.c:1843 fish/run-0.c:2076
@@ -3471,24 +3458,25 @@ msgstr "%s: %s: целое число вне допустимого диапаз
 #, c-format
 msgid "use '%s VAR value' to set an environment variable\n"
 msgstr ""
+"используйте «%s ПЕРЕМЕННАЯ значение» для установки переменной окружения\n"
 
 #: fish/setenv.c:62
 #, c-format
 msgid "use '%s VAR' to unset an environment variable\n"
-msgstr ""
+msgstr "используйте «%s ПЕРЕМЕННАЯ» для удаления переменной окружения\n"
 
 #: fish/supported.c:58
 msgid "yes"
-msgstr ""
+msgstr "да"
 
 #: fish/supported.c:58
 msgid "no"
-msgstr ""
+msgstr "нет"
 
 #: fish/time.c:41
 #, c-format
 msgid "use 'time command [args...]'\n"
-msgstr ""
+msgstr "используйте «time команда [аргументы...]»\n"
 
 #: fuse/guestmount.c:106
 #, c-format
@@ -3525,11 +3513,44 @@ msgid ""
 "  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
+"%s: модуль FUSE для libguestfs\n"
+"%s позволяет монтировать файловую систему виртуальной машины\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
+"Использование:\n"
+"  %s [--параметры] точка_монтирования\n"
+"Параметры:\n"
+"  -a|--add образ       Добавить образ\n"
+"  --blocksize[=512|4096]\n"
+"                       Установить размер сектора диска для параметра -a\n"
+"  -c|--connect uri     Указать URI libvirt для параметра -d\n"
+"  --dir-cache-timeout  Установить таймаут кэша readdir (по умолчанию 5 сек)\n"
+"  -d|--domain гость    Добавить диски из гостя libvirt\n"
+"  --echo-keys          Не отключать эхо для парольных фраз\n"
+"  --fd=FD              Записывать в канал FD, когда точка монтирования "
+"готова\n"
+"  --format[=raw|..]    Принудительно задать формат диска для параметра -a\n"
+"  --fuse-help          Показать дополнительные параметры FUSE\n"
+"  -i|--inspector       Автоматически монтировать файловые системы\n"
+"  --help               Показать сообщение справки и выйти\n"
+"  --key селектор       Указать ключ LUKS\n"
+"  --keys-from-stdin    Читать парольные фразы из stdin\n"
+"  -m|--mount устройство[:точка[:параметры[:тип_фс]]]\n"
+"                       Смонтировать устройство в точку (если опущено, /)\n"
+"  --no-fork            Не демонизироваться\n"
+"  -n|--no-sync         Не выполнять автосинхронизацию\n"
+"  -o|--option параметр Передать дополнительный параметр в FUSE\n"
+"  --pid-file имя_файла Записать PID в имя_файла\n"
+"  -r|--ro              Монтировать только для чтения\n"
+"  --selinux            Только для обратной совместимости, ничего не делает\n"
+"  -v|--verbose         Подробные сообщения\n"
+"  -V|--version         Показать версию и выйти\n"
+"  -w|--rw              Монтировать для чтения и записи\n"
+"  -x|--trace           Трассировать вызовы guestfs API\n"
 
 #: fuse/guestmount.c:254
 #, c-format
 msgid "unable to parse --fd option value: %s"
-msgstr ""
+msgstr "не удалось разобрать значение параметра --fd: %s"
 
 #: fuse/guestmount.c:326 rescue/rescue.c:348
 #, c-format
@@ -3539,12 +3560,12 @@ msgstr "%s: ошибка: вы должны указать хотя бы оди�
 #: fuse/guestmount.c:331
 #, c-format
 msgid "%s: error: you must specify either -i at least one -m option.\n"
-msgstr ""
+msgstr "%s: ошибка: вы должны указать -i или хотя бы один параметр -m.\n"
 
 #: fuse/guestmount.c:339
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
-msgstr ""
+msgstr "вы должны указать точку монтирования в файловой системе хоста"
 
 #: fuse/guestunmount.c:61
 #, c-format
@@ -3562,55 +3583,67 @@ msgid ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 msgstr ""
+"%s: очистка смонтированной файловой системы\n"
+"Copyright (C) 2013 Red Hat Inc.\n"
+"Использование:\n"
+"  %s [--fd=FD] точка_монтирования\n"
+"Параметры:\n"
+"  --fd=FD              Дескриптор канала для мониторинга\n"
+"  --help               Показать сообщение справки и выйти\n"
+"  -q|--quiet           Не выводить ошибки fusermount\n"
+"  --no-retry           Не повторять fusermount\n"
+"  --retry=N            Повторить fusermount N раз (по умолчанию: 5)\n"
+"  -v|--verbose         Подробные сообщения\n"
+"  -V|--version         Показать версию и выйти\n"
 
 #: fuse/guestunmount.c:121
 #, c-format
 msgid "cannot parse fd option ‘%s’"
-msgstr ""
+msgstr "не удаётся разобрать параметр fd «%s»"
 
 #: fuse/guestunmount.c:127
 #, c-format
 msgid "cannot parse retries option or value is too large ‘%s’"
-msgstr ""
+msgstr "не удаётся разобрать параметр retries или значение слишком велико «%s»"
 
 #: fuse/guestunmount.c:158
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem\n"
-msgstr ""
+msgstr "вы должны указать точку монтирования в файловой системе хоста\n"
 
 #: fuse/guestunmount.c:205
 #, c-format
 msgid "%s: failed to unmount %s: %s\n"
-msgstr ""
+msgstr "%s: не удалось размонтировать %s: %s\n"
 
 #: fuse/guestunmount.c:216
 #, c-format
 msgid "%s: %s is not mounted: %s\n"
-msgstr ""
+msgstr "%s: %s не смонтирован: %s\n"
 
 #: gnulib/lib/error.c:146
 msgid "Unknown system error"
-msgstr ""
+msgstr "Неизвестная системная ошибка"
 
 #: lib/appliance-kcmdline.c:74
 #, c-format
 msgid "open: %s"
-msgstr ""
+msgstr "open: %s"
 
 #: lib/appliance-kcmdline.c:83
 #, c-format
 msgid "%s: cannot read extfs magic in superblock"
-msgstr ""
+msgstr "%s: не удаётся прочитать магическое число extfs в суперблоке"
 
 #: lib/appliance-kcmdline.c:90
 #, c-format
 msgid "%s: appliance is not an extfs filesystem"
-msgstr ""
+msgstr "%s: устройство не является файловой системой extfs"
 
 #: lib/appliance-kcmdline.c:96
 #, c-format
 msgid "%s: cannot read UUID in superblock"
-msgstr ""
+msgstr "%s: не удаётся прочитать UUID в суперблоке"
 
 #: lib/appliance.c:226
 #, c-format
@@ -3618,358 +3651,370 @@ msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
+"не удаётся найти подходящее устройство libguestfs supermin, фиксированное "
+"или старого стиля в LIBGUESTFS_PATH (путь поиска: %s)"
 
 #: lib/available.c:72 lib/available.c:96
 #, c-format
 msgid "%s: unknown group"
-msgstr ""
+msgstr "%s: неизвестная группа"
 
 #: lib/available.c:75
 #, c-format
 msgid "%s: group not available"
-msgstr ""
+msgstr "%s: группа недоступна"
 
 #: lib/conn-socket.c:70
 msgid "accept_connection called twice"
-msgstr ""
+msgstr "accept_connection вызван дважды"
 
 #: lib/conn-socket.c:149
 msgid "read_data: socket not connected"
-msgstr ""
+msgstr "read_data: сокет не подключён"
 
 #: lib/conn-socket.c:224
 msgid "can_read_data: socket not connected"
-msgstr ""
+msgstr "can_read_data: сокет не подключён"
 
 #: lib/conn-socket.c:253
 msgid "write_data: socket not connected"
-msgstr ""
+msgstr "write_data: сокет не подключён"
 
 #: lib/conn-socket.c:363
 msgid "error reading console messages from the appliance"
-msgstr ""
+msgstr "ошибка чтения консольных сообщений от устройства"
 
 #: lib/conn-socket.c:406
 msgid "console socket not connected"
-msgstr ""
+msgstr "консольный сокет не подключён"
 
 #: lib/copy-in-out.c:51
 #, c-format
 msgid "source ‘%s’ does not exist (or cannot be read)"
-msgstr ""
+msgstr "источник «%s» не существует (или не может быть прочитан)"
 
 #: lib/copy-in-out.c:60 lib/copy-in-out.c:142
 #, c-format
 msgid "target ‘%s’ is not a directory"
-msgstr ""
+msgstr "цель «%s» не является каталогом"
 
 #: lib/copy-in-out.c:179
 #, c-format
 msgid "‘%s’ is not a file or directory"
-msgstr ""
+msgstr "«%s» не является файлом или каталогом"
 
 #: lib/copy-in-out.c:245
 msgid "error: argument is zero length or longer than maximum permitted"
 msgstr ""
+"ошибка: аргумент имеет нулевую длину или превышает максимально допустимую"
 
 #: lib/create.c:66
 msgid "if using a backing file, size must be passed as -1"
-msgstr ""
+msgstr "при использовании базового файла размер должен быть передан как -1"
 
 #: lib/create.c:74
 #, c-format
 msgid "invalid size: %<PRIi64>"
-msgstr ""
+msgstr "недопустимый размер: %<PRIi64>"
 
 #: lib/create.c:82
 msgid "backingfile cannot be used for raw format disks"
-msgstr ""
+msgstr "базовый файл не может использоваться для дисков в формате raw"
 
 #: lib/create.c:97
 #, c-format
 msgid "unsupported format ‘%s’"
-msgstr ""
+msgstr "неподдерживаемый формат «%s»"
 
 #: lib/create.c:109
 #, c-format
 msgid "cannot open block device: %s"
-msgstr ""
+msgstr "не удаётся открыть блочное устройство: %s"
 
 #: lib/create.c:127 lib/create.c:226
 #, c-format
 msgid "%s: close"
-msgstr ""
+msgstr "%s: close"
 
 #: lib/create.c:145
 msgid "backingformat parameter cannot be used with raw format"
-msgstr ""
+msgstr "параметр backingformat не может использоваться с форматом raw"
 
 #: lib/create.c:155 lib/create.c:299
 #, c-format
 msgid "invalid value for preallocation parameter ‘%s’"
-msgstr ""
+msgstr "недопустимое значение для параметра preallocation «%s»"
 
 #: lib/create.c:161
 msgid "compat parameter cannot be used with raw format"
-msgstr ""
+msgstr "параметр compat не может использоваться с форматом raw"
 
 #: lib/create.c:165
 msgid "clustersize parameter cannot be used with raw format"
-msgstr ""
+msgstr "параметр clustersize не может использоваться с форматом raw"
 
 #: lib/create.c:172
 #, c-format
 msgid "refusing to overwrite char device ‘%s’"
-msgstr ""
+msgstr "отказ от перезаписи символьного устройства «%s»"
 
 #: lib/create.c:182
 #, c-format
 msgid "cannot create raw file: %s"
-msgstr ""
+msgstr "не удаётся создать файл raw: %s"
 
 #: lib/create.c:188
 #, c-format
 msgid "%s: truncate"
-msgstr ""
+msgstr "%s: truncate"
 
 #: lib/create.c:200
 #, c-format
 msgid "%s: fallocate"
-msgstr ""
+msgstr "%s: fallocate"
 
 #: lib/create.c:215
 #, c-format
 msgid "%s: write"
-msgstr ""
+msgstr "%s: write"
 
 #: lib/create.c:276
 #, c-format
 msgid "invalid value for backingformat parameter ‘%s’"
-msgstr ""
+msgstr "недопустимое значение для параметра backingformat «%s»"
 
 #: lib/create.c:307
 #, c-format
 msgid "invalid value for compat parameter ‘%s’"
-msgstr ""
+msgstr "недопустимое значение для параметра compat «%s»"
 
 #: lib/create.c:315
 #, c-format
 msgid "invalid value for clustersize parameter ‘%d’"
-msgstr ""
+msgstr "недопустимое значение для параметра clustersize «%d»"
 
 #: lib/drives.c:83
 msgid "this backend does not support adding read-only drives"
 msgstr ""
+"этот внутренний механизм не поддерживает добавление дисков только для чтения"
 
 #: lib/drives.c:174
 msgid "curl: you must specify exactly one server"
-msgstr ""
+msgstr "curl: вы должны указать ровно один сервер"
 
 #: lib/drives.c:180
 msgid "curl: only tcp transport is supported"
-msgstr ""
+msgstr "curl: поддерживается только транспорт tcp"
 
 #: lib/drives.c:185
 msgid "curl: pathname should not be an empty string"
-msgstr ""
+msgstr "curl: имя пути не должно быть пустой строкой"
 
 #: lib/drives.c:190
 msgid "curl: pathname must begin with a '/'"
-msgstr ""
+msgstr "curl: имя пути должно начинаться с '/'"
 
 #: lib/drives.c:214
 msgid "nbd: you cannot specify a username with this protocol"
-msgstr ""
+msgstr "nbd: вы не можете указать имя пользователя с этим протоколом"
 
 #: lib/drives.c:218
 msgid "nbd: you cannot specify a secret with this protocol"
-msgstr ""
+msgstr "nbd: вы не можете указать секрет с этим протоколом"
 
 #: lib/drives.c:223
 msgid "nbd: you must specify exactly one server"
-msgstr ""
+msgstr "nbd: вы должны указать ровно один сервер"
 
 #: lib/drives.c:242
 msgid "rbd: only tcp transport is supported"
-msgstr ""
+msgstr "rbd: поддерживается только транспорт tcp"
 
 #: lib/drives.c:246
 msgid "rbd: port number must be specified"
-msgstr ""
+msgstr "rbd: номер порта должен быть указан"
 
 #: lib/drives.c:252
 msgid "rbd: image name parameter should not be an empty string"
-msgstr ""
+msgstr "rbd: параметр имени образа не должен быть пустой строкой"
 
 #: lib/drives.c:257
 msgid "rbd: image name must not begin with a '/'"
-msgstr ""
+msgstr "rbd: имя образа не должно начинаться с '/'"
 
 #: lib/drives.c:269
 msgid "ssh: you must specify exactly one server"
-msgstr ""
+msgstr "ssh: вы должны указать ровно один сервер"
 
 #: lib/drives.c:275
 msgid "ssh: only tcp transport is supported"
-msgstr ""
+msgstr "ssh: поддерживается только транспорт tcp"
 
 #: lib/drives.c:280
 msgid "ssh: pathname should not be an empty string"
-msgstr ""
+msgstr "ssh: имя пути не должно быть пустой строкой"
 
 #: lib/drives.c:285
 msgid "ssh: pathname must begin with a '/'"
-msgstr ""
+msgstr "ssh: имя пути должно начинаться с «/»"
 
 #: lib/drives.c:290
 msgid "ssh: username should not be an empty string"
-msgstr ""
+msgstr "ssh: имя пользователя не должно быть пустой строкой"
 
 #: lib/drives.c:302
 msgid "iscsi: you must specify exactly one server"
-msgstr ""
+msgstr "iscsi: вы должны указать ровно один сервер"
 
 #: lib/drives.c:308
 msgid "iscsi: only tcp transport is supported"
-msgstr ""
+msgstr "iscsi: поддерживается только транспорт tcp"
 
 #: lib/drives.c:313
 msgid "iscsi: target name should not be an empty string"
-msgstr ""
+msgstr "iscsi: имя цели не должно быть пустой строкой"
 
 #: lib/drives.c:318
 msgid "iscsi: target string must not begin with a '/'"
-msgstr ""
+msgstr "iscsi: строка цели не должна начинаться с «/»"
 
 #: lib/drives.c:345
 msgid "for device ‘/dev/null’, format must be ‘raw’"
-msgstr ""
+msgstr "для устройства «/dev/null» формат должен быть «raw»"
 
 #: lib/drives.c:590
 msgid "missing Unix domain socket path"
-msgstr ""
+msgstr "отсутствует путь к сокету домена Unix"
 
 #: lib/drives.c:602
 #, c-format
 msgid "invalid port number ‘%s’"
-msgstr ""
+msgstr "недопустимый номер порта «%s»"
 
 #: lib/drives.c:609
 #, c-format
 msgid "invalid hostname ‘%s’"
-msgstr ""
+msgstr "недопустимое имя хоста «%s»"
 
 #: lib/drives.c:620
 #, c-format
 msgid "invalid hostname or server string ‘%s’"
-msgstr ""
+msgstr "недопустимое имя хоста или строка сервера «%s»"
 
 #: lib/drives.c:698
 msgid "discard parameter must be ‘disable’, ‘enable’ or ‘besteffort’"
-msgstr ""
+msgstr "параметр discard должен быть «disable», «enable» или «besteffort»"
 
 #: lib/drives.c:715
 msgid "discard support cannot be enabled on read-only drives"
-msgstr ""
+msgstr "поддержка discard не может быть включена на дисках только для чтения"
 
 #: lib/drives.c:721
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
-msgstr ""
+msgstr "параметр %s пуст или содержит недопустимые символы"
 
 #: lib/drives.c:727
 msgid "label parameter is empty, too long, or contains disallowed characters"
-msgstr ""
+msgstr "параметр label пуст, слишком длинный или содержит недопустимые символы"
 
 #: lib/drives.c:733
 msgid "cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"
-msgstr ""
+msgstr "параметр cachemode должен быть «writeback» (по умолчанию) или «unsafe»"
 
 #: lib/drives.c:738
 #, c-format
 msgid "%s parameter is invalid"
-msgstr ""
+msgstr "параметр %s недопустим"
 
 #: lib/drives.c:745
 msgid "you cannot specify a server with file-backed disks"
-msgstr ""
+msgstr "вы не можете указать сервер для дисков на основе файлов"
 
 #: lib/drives.c:750
 msgid "you cannot specify a username with file-backed disks"
-msgstr ""
+msgstr "вы не можете указать имя пользователя для дисков на основе файлов"
 
 #: lib/drives.c:754
 msgid "you cannot specify a secret with file-backed disks"
-msgstr ""
+msgstr "вы не можете указать секрет для дисков на основе файлов"
 
 #: lib/drives.c:805
 #, c-format
 msgid "unknown protocol ‘%s’"
-msgstr ""
+msgstr "неизвестный протокол «%s»"
 
 #: lib/drives.c:822 lib/drives.c:909
 msgid "hotplugging support was removed in libguestfs 1.48"
-msgstr ""
+msgstr "поддержка горячего подключения была удалена в libguestfs 1.48"
 
 #: lib/drives.c:980
 #, c-format
 msgid "%s: device not found"
-msgstr ""
+msgstr "%s: устройство не найдено"
 
 #: lib/drives.c:990
 msgid "drive index out of range"
-msgstr ""
+msgstr "индекс диска вне допустимого диапазона"
 
 #: lib/errors.c:426
 #, c-format
 msgid "libguestfs: error: %s\n"
-msgstr ""
+msgstr "libguestfs: ошибка: %s\n"
 
 #: lib/errors.c:454
 #, c-format
 msgid "<truncated, original size %zu bytes>"
-msgstr ""
+msgstr "<обрезано, исходный размер %zu байт>"
 
 #: lib/errors.c:485
 msgid "guestfs_launch failed, see earlier error messages"
-msgstr ""
+msgstr "guestfs_launch не удался, см. предыдущие сообщения об ошибках"
 
 #: lib/errors.c:488
 msgid ""
 "guestfs_launch failed.\n"
 "This usually means the libguestfs appliance failed to start or crashed.\n"
 msgstr ""
+"guestfs_launch не удался.\n"
+"Обычно это означает, что устройство libguestfs не запустилось или аварийно "
+"завершило работу.\n"
 
 #: lib/errors.c:501
 msgid ""
 "appliance closed the connection unexpectedly, see earlier error messages"
 msgstr ""
+"устройство неожиданно закрыло соединение, см. предыдущие сообщения об ошибках"
 
 #: lib/errors.c:505
 msgid ""
 "appliance closed the connection unexpectedly.\n"
 "This usually means the libguestfs appliance crashed.\n"
 msgstr ""
+"устройство неожиданно закрыло соединение.\n"
+"Обычно это означает, что устройство libguestfs аварийно завершило работу.\n"
 
 #: lib/errors.c:518
 msgid "appliance launch timed out, see earlier error messages"
-msgstr ""
+msgstr "истекло время запуска устройства, см. предыдущие сообщения об ошибках"
 
 #: lib/errors.c:521
 msgid ""
 "appliance launch timed out.\n"
 "This usually means the kernel or appliance hung during launch.\n"
 msgstr ""
+"истекло время запуска устройства.\n"
+"Обычно это означает, что ядро или устройство зависли во время запуска.\n"
 
 #: lib/errors.c:551
 #, c-format
 msgid "%s, see debug messages above"
-msgstr ""
+msgstr "%s, см. отладочные сообщения выше"
 
 #: lib/errors.c:553
 #, c-format
 msgid "%s: %s: %s, see debug messages above"
-msgstr ""
+msgstr "%s: %s: %s, см. отладочные сообщения выше"
 
 #: lib/errors.c:558
 #, c-format
@@ -3977,6 +4022,9 @@ msgid ""
 "%s.\n"
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
+"%s.\n"
+"Для просмотра полных сообщений об ошибках может потребоваться включить "
+"отладку.\n"
 
 #: lib/errors.c:563
 #, c-format
@@ -3984,29 +4032,32 @@ msgid ""
 "%s: %s: %s.\n"
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
+"%s: %s: %s.\n"
+"Для просмотра полных сообщений об ошибках может потребоваться включить "
+"отладку.\n"
 
 #: lib/fuse.c:978
 msgid "filesystem is already mounted in another thread"
-msgstr ""
+msgstr "файловая система уже смонтирована в другом потоке"
 
 #: lib/fuse.c:1002
 #, c-format
 msgid "fuse_opt_add_arg: %s"
-msgstr ""
+msgstr "fuse_opt_add_arg: %s"
 
 #: lib/fuse.c:1019
 #, c-format
 msgid "fuse_mount failed: %s, see error messages above"
-msgstr ""
+msgstr "fuse_mount не удался: %s, см. сообщения об ошибках выше"
 
 #: lib/fuse.c:1038
 #, c-format
 msgid "fuse_new: %s"
-msgstr ""
+msgstr "fuse_new: %s"
 
 #: lib/fuse.c:1067
 msgid "you must call guestfs_mount_local first"
-msgstr ""
+msgstr "вы должны сначала вызвать guestfs_mount_local"
 
 #: lib/fuse.c:1078
 #, c-format
@@ -4014,101 +4065,113 @@ msgid ""
 "you must call ‘guestfs_mount’ first to mount a filesystem on '/'.\n"
 "Note: ‘%s’ is still mounted.  Use ‘guestunmount %s’ to clean up."
 msgstr ""
+"вы должны сначала вызвать «guestfs_mount» для монтирования файловой системы "
+"на «/».\n"
+"Примечание: «%s» всё ещё смонтирован. Используйте «guestunmount %s» для "
+"очистки."
 
 #: lib/fuse.c:1088
 #, c-format
 msgid "fuse_loop: %s"
-msgstr ""
+msgstr "fuse_loop: %s"
 
 #: lib/fuse.c:1139
 msgid "no filesystem is mounted"
-msgstr ""
+msgstr "файловая система не смонтирована"
 
 #: lib/fuse.c:1258
 msgid "could not initialize dir cache hashtables"
-msgstr ""
+msgstr "не удалось инициализировать хеш-таблицы кэша каталогов"
 
 #: lib/fuse.c:1517
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
 msgstr ""
+"FUSE не поддерживается в этой сборке libguestfs, поскольку libfuse не был "
+"найден при компиляции libguestfs"
 
 #: lib/handle.c:133
 msgid ""
 "libguestfs was built with an invalid default backend, using ‘direct’ instead"
 msgstr ""
+"libguestfs был собран с недопустимым внутренним механизмом по умолчанию, "
+"используется «direct»"
 
 #: lib/handle.c:135
 msgid "‘direct’ backend does not work"
-msgstr ""
+msgstr "внутренний механизм «direct» не работает"
 
 #: lib/handle.c:193 lib/handle.c:203
 #, c-format
 msgid "%s=%s: non-boolean value"
-msgstr ""
+msgstr "%s=%s: нелогическое значение"
 
 #: lib/handle.c:245
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
-msgstr ""
+msgstr "нечисловое значение для LIBGUESTFS_MEMSIZE"
 
 #: lib/handle.c:326
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
-msgstr ""
+msgstr "guestfs_close: вызван дважды для одного и того же дескриптора\n"
 
 #: lib/handle.c:564
 msgid "get_hv: cannot get default hypervisor before ‘launch’ is called"
-msgstr ""
+msgstr "get_hv: невозможно получить гипервизор по умолчанию до вызова «launch»"
 
 #: lib/handle.c:571
 #, c-format
 msgid ""
 "get_hv: cannot get default hypervisor: the ‘%s’ backend returned no value"
 msgstr ""
+"get_hv: невозможно получить гипервизор по умолчанию: внутренний механизм «%s"
+"» не вернул значения"
 
 #: lib/handle.c:601
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
-msgstr ""
+msgstr "слишком малое значение для memsize (должно быть не менее %d)"
 
 #: lib/handle.c:718
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
+"идентификатор должен содержать только буквенно-цифровые символы, "
+"подчёркивание или знак минус"
 
 #: lib/handle.c:824
 msgid "setting not found"
-msgstr ""
+msgstr "настройка не найдена"
 
 #: lib/info.c:81
 msgid "qemu-img info: JSON output did not contain ‘format’ key"
-msgstr ""
+msgstr "qemu-img info: вывод JSON не содержит ключа «format»"
 
 #: lib/info.c:104
 msgid "qemu-img info: JSON output did not contain ‘virtual-size’ key"
-msgstr ""
+msgstr "qemu-img info: вывод JSON не содержит ключа «virtual-size»"
 
 #: lib/info.c:126
 msgid "qemu-img info: JSON output was not an object"
-msgstr ""
+msgstr "qemu-img info: вывод JSON не является объектом"
 
 #: lib/info.c:172
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
-msgstr ""
+msgstr "команда qemu-img info не выдала вывода, но не вернула код ошибки"
 
 #: lib/info.c:207
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
-msgstr ""
+msgstr "qemu-img info: ошибка разбора JSON: %s"
 
 #: lib/inspect-icon.c:730
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
-msgstr ""
+msgstr "размер %s необоснованно велик (%<PRIi64> байт)"
 
 #: lib/launch-direct.c:155
 #, c-format
@@ -4118,39 +4181,44 @@ msgid ""
 "that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
 "might need to log out and log in again)."
 msgstr ""
+"текущий пользователь не является членом группы KVM (идентификатор группы %d)"
+". Этот пользователь не может получить доступ к /dev/kvm, поэтому libguestfs "
+"может работать очень медленно. Рекомендуется выполнить «chmod 0666 /dev/kvm» "
+"или добавить текущего пользователя в группу KVM (возможно, потребуется выйти "
+"из системы и войти снова)."
 
 #: lib/launch-direct.c:391
 #, c-format
 msgid "passt was killed with signal %d"
-msgstr ""
+msgstr "passt был завершён сигналом %d"
 
 #: lib/launch-direct.c:396
 #, c-format
 msgid "internal error: unexpected exit status from passt (%d)"
-msgstr ""
+msgstr "внутренняя ошибка: неожиданный код завершения passt (%d)"
 
 #: lib/launch-direct.c:403
 #, c-format
 msgid "passt exited with status %d"
-msgstr ""
+msgstr "passt завершился с кодом %d"
 
 #: lib/launch-direct.c:424
 #, c-format
 msgid "failed to parse passt PID from '%s'"
-msgstr ""
+msgstr "не удалось разобрать PID passt из «%s»"
 
 #: lib/launch-direct.c:490
 msgid "you must call guestfs_add_drive before guestfs_launch"
-msgstr ""
+msgstr "вы должны вызвать guestfs_add_drive перед guestfs_launch"
 
 #: lib/launch-direct.c:1026 lib/launch-libvirt.c:672
 msgid "qemu launched and contacted daemon, but state != READY"
-msgstr ""
+msgstr "qemu запущен и связался с демоном, но состояние != READY"
 
 #: lib/launch-libvirt.c:61
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
-msgstr ""
+msgstr "%s:%d: ошибка построения XML libvirt около вызова «%s»"
 
 #: lib/launch-libvirt.c:210
 msgid ""
@@ -4158,6 +4226,10 @@ msgid ""
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
+"не удалось автоматически определить формат.\n"
+"Если формат известен, передайте его в libguestfs, например, с помощью\n"
+"параметра «--format» или через необязательный аргумент «format» для «add-"
+"drive»."
 
 #: lib/launch-libvirt.c:221
 msgid ""
@@ -4165,31 +4237,37 @@ msgid ""
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
 msgstr ""
+"не удалось автоматически определить формат при использовании не-файлового "
+"протокола.\n"
+"Если формат известен, передайте его в libguestfs, например, с помощью\n"
+"параметра «--format» или через необязательный аргумент «format» для «add-"
+"drive»."
 
 #: lib/launch-libvirt.c:343
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
+"флаг прямого режима ещё не поддерживается для внутреннего механизма libvirt"
 
 #: lib/launch-libvirt.c:377
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
-msgstr ""
+msgstr "не удалось подключиться к libvirt (URI = %s)"
 
 #: lib/launch-libvirt.c:398
 msgid "could not get libvirt capabilities"
-msgstr ""
+msgstr "не удалось получить возможности libvirt"
 
 #: lib/launch-libvirt.c:419
 msgid "could not get libvirt domain capabilities"
-msgstr ""
+msgstr "не удалось получить возможности домена libvirt"
 
 #: lib/launch-libvirt.c:605
 msgid "could not create appliance through libvirt. Original error from libvirt"
-msgstr ""
+msgstr "не удалось создать устройство через libvirt. Исходная ошибка libvirt"
 
 #: lib/launch-libvirt.c:737
 msgid "unable to parse capabilities XML returned by libvirt"
-msgstr ""
+msgstr "не удалось разобрать XML возможностей, возвращённый libvirt"
 
 #: lib/launch-libvirt.c:743 lib/launch-libvirt.c:845 lib/libvirt-domain.c:397
 #: lib/libvirt-domain.c:481
@@ -4199,7 +4277,7 @@ msgstr "не удалось создать новый XPath-контекст"
 #: lib/launch-libvirt.c:753 lib/launch-libvirt.c:853 lib/launch-libvirt.c:869
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
-msgstr ""
+msgstr "не удалось вычислить XPath-выражение: %s"
 
 #: lib/launch-libvirt.c:792
 #, c-format
@@ -4215,91 +4293,108 @@ msgid ""
 "  export LIBGUESTFS_BACKEND=direct\n"
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
+"гипервизор libvirt не поддерживает qemu или KVM,\n"
+"поэтому мы не можем создать устройство libguestfs.\n"
+"Текущий внутренний механизм: «%s».\n"
+"Проверьте, что переменная окружения PATH установлена и содержит\n"
+"путь к qemu («qemu-system-*») или KVM («qemu-kvm», «kvm» и т.д.).\n"
+"Или попробуйте установить:\n"
+"  export LIBGUESTFS_BACKEND=libvirt:qemu:///session\n"
+"Или, если вы хотите, чтобы libguestfs запускал qemu напрямую, попробуйте:\n"
+"  export LIBGUESTFS_BACKEND=direct\n"
+"Для получения дополнительной помощи прочитайте справочную страницу guestfs"
+"(3) и ЧАВО libguestfs."
 
 #: lib/launch-libvirt.c:839
 msgid "unable to parse domain capabilities XML returned by libvirt"
-msgstr ""
+msgstr "не удалось разобрать XML возможностей домена, возвращённый libvirt"
 
 #: lib/launch-libvirt.c:1452 lib/launch-libvirt.c:1700 lib/qemu.c:297
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
-msgstr ""
+msgstr "realpath: не удалось преобразовать «%s» в абсолютный путь"
 
 #: lib/launch-libvirt.c:1530
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
+"libvirt не поддерживает протоколы драйвера curl qemu (ftp, http и т.д.); "
+"попробуйте установить LIBGUESTFS_BACKEND=direct"
 
 #: lib/launch-libvirt.c:1890
 msgid "could not define libvirt secret"
-msgstr ""
+msgstr "не удалось определить секрет libvirt"
 
 #: lib/launch-libvirt.c:1901
 msgid "rbd protocol secret must be base64 encoded"
-msgstr ""
+msgstr "секрет протокола rbd должен быть в кодировке base64"
 
 #: lib/launch-libvirt.c:1905
 #, c-format
 msgid "base64_decode_alloc: %m"
-msgstr ""
+msgstr "base64_decode_alloc: %m"
 
 #: lib/launch-libvirt.c:1923
 msgid "could not set libvirt secret value"
-msgstr ""
+msgstr "не удалось установить значение секрета libvirt"
 
 #: lib/launch-libvirt.c:1936
 msgid "could not get UUID from libvirt secret"
-msgstr ""
+msgstr "не удалось получить UUID из секрета libvirt"
 
 #: lib/launch-libvirt.c:2112
 msgid "could not destroy libvirt domain"
-msgstr ""
+msgstr "не удалось уничтожить домен libvirt"
 
 #: lib/launch-libvirt.c:2133 lib/launch-libvirt.c:2166
 #, c-format
 msgid "%s: internal error forming error message"
-msgstr ""
+msgstr "%s: внутренняя ошибка формирования сообщения об ошибке"
 
 #: lib/launch.c:66
 msgid "the libguestfs handle has already been launched"
-msgstr ""
+msgstr "дескриптор libguestfs уже был запущен"
 
 #: lib/launch.c:79
 #, c-format
 msgid ""
 "too many drives have been added, the current backend only supports %d drives"
 msgstr ""
+"добавлено слишком много дисков, текущий внутренний механизм поддерживает "
+"только %d дисков"
 
 #: lib/launch.c:208
 msgid "get-pid can only be called after launch"
-msgstr ""
+msgstr "get-pid можно вызывать только после запуска"
 
 #: lib/launch.c:214
 msgid "the current backend does not support ‘get-pid’"
-msgstr ""
+msgstr "текущий внутренний механизм не поддерживает «get-pid»"
 
 #: lib/launch.c:228
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
+"текущий внутренний механизм не позволяет запрашивать максимальное количество "
+"дисков"
 
 #: lib/launch.c:242
 msgid "qemu has not been launched yet"
-msgstr ""
+msgstr "qemu ещё не запущен"
 
 #: lib/launch.c:305
 #, c-format
 msgid "parameter ‘%s’ isn't allowed"
-msgstr ""
+msgstr "параметр «%s» не допускается"
 
 #: lib/libvirt-auth.c:96
 #, c-format
 msgid "unknown credential type ‘%s’"
-msgstr ""
+msgstr "неизвестный тип учётных данных «%s»"
 
 #: lib/libvirt-auth.c:101
 msgid "list of supported credentials is too long"
-msgstr ""
+msgstr "список поддерживаемых учётных данных слишком длинный"
 
 #: lib/libvirt-auth.c:166
 #, c-format
@@ -4307,6 +4402,8 @@ msgid ""
 "libvirt needs authentication to connect to libvirt URI %s\n"
 "(see also: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"
 msgstr ""
+"libvirt требует аутентификации для подключения к URI %s\n"
+"(см. также: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"
 
 #: lib/libvirt-auth.c:242
 #, c-format
@@ -4314,31 +4411,34 @@ msgid ""
 "%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
 "handler"
 msgstr ""
+"%s должен вызываться только из обработчика событий GUESTFS_EVENT_LIBVIRT_AUTH"
 
 #: lib/libvirt-auth.c:274 lib/libvirt-auth.c:294 lib/libvirt-auth.c:314
 #: lib/libvirt-auth.c:335
 msgid "credential index out of range"
-msgstr ""
+msgstr "индекс учётных данных вне допустимого диапазона"
 
 #: lib/libvirt-auth.c:355
 msgid ""
 "libvirt authentication APIs not available since this version of libguestfs "
 "was compiled without libvirt"
 msgstr ""
+"API аутентификации libvirt недоступны, так как эта версия libguestfs была "
+"скомпилирована без libvirt"
 
 #: lib/libvirt-domain.c:127
 #, c-format
 msgid "no libvirt domain called ‘%s’: %s"
-msgstr ""
+msgstr "нет домена libvirt с именем «%s»: %s"
 
 #: lib/libvirt-domain.c:217
 msgid "unknown readonlydisk parameter"
-msgstr ""
+msgstr "неизвестный параметр readonlydisk"
 
 #: lib/libvirt-domain.c:246
 #, c-format
 msgid "error getting domain info: %s"
-msgstr ""
+msgstr "ошибка получения информации о домене: %s"
 
 #: lib/libvirt-domain.c:252
 msgid ""
@@ -4347,6 +4447,11 @@ msgid ""
 "corruption.\n"
 "Use read-only access.  In most libguestfs tools use --ro."
 msgstr ""
+"ошибка: домен является работающей виртуальной машиной.\n"
+"Запись на диски работающей виртуальной машины может привести к повреждению "
+"диска.\n"
+"Используйте доступ только для чтения. В большинстве инструментов libguestfs "
+"используйте --ro."
 
 #: lib/libvirt-domain.c:339
 #, c-format
@@ -4354,6 +4459,8 @@ msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
+"%s: диск помечен <readonly/> в XML libvirt, а readonlydisk установлен в «"
+"error»"
 
 #: lib/libvirt-domain.c:415 lib/libvirt-domain.c:488
 msgid "unable to evaluate XPath expression"
@@ -4361,66 +4468,68 @@ msgstr "не удалось вычислить XPath-выражение"
 
 #: lib/libvirt-domain.c:434
 msgid "expected <seclabel/> to be an XML element"
-msgstr ""
+msgstr "ожидалось, что <seclabel/> будет элементом XML"
 
 #: lib/libvirt-domain.c:598
 #, c-format
 msgid "no secret with UUID ‘%s’: %s"
-msgstr ""
+msgstr "нет секрета с UUID «%s»: %s"
 
 #: lib/libvirt-domain.c:606
 #, c-format
 msgid "cannot get the value of the secret with UUID ‘%s’: %s"
-msgstr ""
+msgstr "не удаётся получить значение секрета с UUID «%s»: %s"
 
 #: lib/libvirt-domain.c:634
 #, c-format
 msgid "no secret for usage ‘%s’: %s"
-msgstr ""
+msgstr "нет секрета для использования «%s»: %s"
 
 #: lib/libvirt-domain.c:642
 #, c-format
 msgid "cannot get the value of the secret with usage ‘%s’: %s"
-msgstr ""
+msgstr "не удаётся получить значение секрета с использованием «%s»: %s"
 
 #: lib/libvirt-domain.c:784
 msgid "libvirt domain has no disks"
-msgstr ""
+msgstr "домен libvirt не имеет дисков"
 
 #: lib/libvirt-domain.c:801
 #, c-format
 msgid "error reading libvirt XML information: %s"
-msgstr ""
+msgstr "ошибка чтения информации XML libvirt: %s"
 
 #: lib/libvirt-domain.c:811
 msgid "unable to parse XML information returned by libvirt"
-msgstr ""
+msgstr "не удалось разобрать информацию XML, возвращённую libvirt"
 
 #: lib/libvirt-domain.c:832
 #, c-format
 msgid "no libvirt pool called ‘%s’: %s"
-msgstr ""
+msgstr "нет пула libvirt с именем «%s»: %s"
 
 #: lib/libvirt-domain.c:840
 #, c-format
 msgid "no volume called ‘%s’ in the libvirt pool ‘%s’: %s"
-msgstr ""
+msgstr "нет тома с именем «%s» в пуле libvirt «%s»: %s"
 
 #: lib/libvirt-domain.c:848
 #, c-format
 msgid "cannot get information of the libvirt volume ‘%s’: %s"
-msgstr ""
+msgstr "не удаётся получить информацию о томе libvirt «%s»: %s"
 
 #: lib/libvirt-domain.c:862
 #, c-format
 msgid "cannot get the filename of the libvirt volume ‘%s’: %s"
-msgstr ""
+msgstr "не удаётся получить имя файла тома libvirt «%s»: %s"
 
 #: lib/libvirt-domain.c:931
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
 msgstr ""
+"API add-domain недоступен, так как эта версия libguestfs была скомпилирована "
+"без libvirt"
 
 #: lib/proto.c:240
 #, c-format
@@ -4428,60 +4537,65 @@ msgid ""
 "check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
 "synchronization (bad!)\n"
 msgstr ""
+"check_daemon_socket: прочитано 0x%x от демона, ожидалось 0x%x. Потеряна "
+"синхронизация протокола (плохо!)\n"
 
 #: lib/proto.c:286
 msgid "xdr_guestfs_message_header failed"
-msgstr ""
+msgstr "xdr_guestfs_message_header не удался"
 
 #: lib/proto.c:295
 msgid "dispatch failed to marshal args"
-msgstr ""
+msgstr "dispatch не удалось маршализовать аргументы"
 
 #: lib/proto.c:389 lib/proto.c:895
 msgid "operation cancelled by user"
-msgstr ""
+msgstr "операция отменена пользователем"
 
 #: lib/proto.c:464
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
-msgstr ""
+msgstr "xdr_guestfs_chunk не удался (buf = %p, buflen = %zu)"
 
 #: lib/proto.c:562
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
-msgstr ""
+msgstr "получена магическая сигнатура от guestfsd, но в состоянии %d"
 
 #: lib/proto.c:581
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
-msgstr ""
+msgstr "длина сообщения (%u) > максимально возможного размера (%d)"
 
 #: lib/proto.c:851
 msgid "write to daemon socket"
-msgstr ""
+msgstr "запись в сокет демона"
 
 #: lib/proto.c:880
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr ""
+msgstr "receive_file_data: получен неожиданный флаг при чтении фрагментов файла"
 
 #: lib/proto.c:888
 msgid "failed to parse file chunk"
-msgstr ""
+msgstr "не удалось разобрать фрагмент файла"
 
 #: lib/proto.c:897
 msgid "file receive cancelled by daemon"
-msgstr ""
+msgstr "получение файла отменено демоном"
 
 #: lib/qemu.c:434
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
+"discard не может быть включён на этом диске: диск имеет наложение только для "
+"чтения"
 
 #: lib/qemu.c:441
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
+"discard не может быть включён на этом диске: вы должны указать формат файла"
 
 #: lib/qemu.c:451
 #, c-format
@@ -4489,6 +4603,8 @@ msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
+"discard не может быть включён на этом диске: qemu не поддерживает discard "
+"для файлов формата «%s»"
 
 #: lib/qemu.c:471
 #, c-format
@@ -4496,34 +4612,36 @@ msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
 "discard"
 msgstr ""
+"discard не может быть включён на этом диске: протокол «%s» не поддерживает "
+"discard"
 
 #: lib/rescue.c:38
 msgid "no console socket, the handle must be launched"
-msgstr ""
+msgstr "нет консольного сокета, дескриптор должен быть запущен"
 
 #: lib/rescue.c:44
 msgid "connection class does not support getting the console socket"
-msgstr ""
+msgstr "класс подключения не поддерживает получение консольного сокета"
 
 #: lib/tmpdirs.c:66
 #, c-format
 msgid "converting path to absolute path: %s: %s: realpath"
-msgstr ""
+msgstr "преобразование пути в абсолютный: %s: %s: realpath"
 
 #: lib/tmpdirs.c:73 lib/tmpdirs.c:80
 #, c-format
 msgid "setting temporary directory"
-msgstr ""
+msgstr "установка временного каталога"
 
 #: lib/tmpdirs.c:79
 #, c-format
 msgid "%s: %s: ‘%s’ is not a directory"
-msgstr ""
+msgstr "%s: %s: «%s» не является каталогом"
 
 #: lib/tmpdirs.c:197
 #, c-format
 msgid "%s: cannot create temporary directory"
-msgstr ""
+msgstr "%s: не удаётся создать временный каталог"
 
 #: lib/tmpdirs.c:199
 #, c-format
@@ -4534,11 +4652,16 @@ msgid ""
 "967509).  You can correct this by adjusting XDG_RUNTIME_DIR and possibly "
 "creating /run/user/%d with the right ownership."
 msgstr ""
+"%s: не удаётся создать временный каталог. Возможно, $XDG_RUNTIME_DIR "
+"указывает на каталог, в который мы не можем записывать, например, если вы "
+"использовали «su [пользователь]» для переключения на эту учётную запись (см. "
+"https://bugzilla.redhat.com/967509). Вы можете исправить это, скорректировав "
+"XDG_RUNTIME_DIR и, возможно, создав /run/user/%d с правильным владельцем."
 
 #: lib/tmpdirs.c:273
 #, c-format
 msgid "socket path too long: %s/%s"
-msgstr ""
+msgstr "путь к сокету слишком длинный: %s/%s"
 
 #: lib/tmpdirs.c:277
 #, c-format
@@ -4548,112 +4671,116 @@ msgstr "%s"
 #: lib/tmpdirs.c:325
 #, c-format
 msgid "stat: %s"
-msgstr ""
+msgstr "stat: %s"
 
 #: lib/tmpdirs.c:330
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
-msgstr ""
+msgstr "безопасность: кэшированное устройство %s не принадлежит UID %ju"
 
 #: lib/tmpdirs.c:336
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
+"безопасность: кэшированное устройство %s не является каталогом (режим %o)"
 
 #: lib/tmpdirs.c:342
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
+"безопасность: кэшированное устройство %s доступно для записи группе или "
+"другим (режим %o)"
 
 #: lib/version.c:158
 #, c-format
 msgid "could not parse integer in version number: %s"
-msgstr ""
+msgstr "не удалось разобрать целое число в номере версии: %s"
 
 #: lib/whole-file.c:84
 #, c-format
 msgid "read: %s: unexpected end of file"
-msgstr ""
+msgstr "read: %s: неожиданный конец файла"
 
 #: rescue/escape.c:141
 #, c-format
 msgid "attempting to sync filesystems ..."
-msgstr ""
+msgstr "попытка синхронизации файловых систем…"
 
 #: rescue/escape.c:148
 #, c-format
 msgid "unmounting filesystems ..."
-msgstr ""
+msgstr "размонтирование файловых систем…"
 
 #: rescue/escape.c:186
 #, c-format
 msgid "virt-rescue escape sequences:"
-msgstr ""
+msgstr "escape-последовательности virt-rescue:"
 
 #: rescue/escape.c:191
 #, c-format
 msgid " ? - print this message"
-msgstr ""
+msgstr " ? — вывести это сообщение"
 
 #: rescue/escape.c:196
 #, c-format
 msgid " h - print this message"
-msgstr ""
+msgstr " h — вывести это сообщение"
 
 #: rescue/escape.c:202
 #, c-format
 msgid " i - print inspection data"
-msgstr ""
+msgstr " i — вывести данные проверки"
 
 #: rescue/escape.c:208
 #, c-format
 msgid " q - quit virt-rescue"
-msgstr ""
+msgstr " q — выйти из virt-rescue"
 
 #: rescue/escape.c:213
 #, c-format
 msgid " s - sync the filesystems"
-msgstr ""
+msgstr " s — синхронизировать файловые системы"
 
 #: rescue/escape.c:218
 #, c-format
 msgid " u - unmount filesystems"
-msgstr ""
+msgstr " u — размонтировать файловые системы"
 
 #: rescue/escape.c:223
 #, c-format
 msgid " x - quit virt-rescue"
-msgstr ""
+msgstr " x — выйти из virt-rescue"
 
 #: rescue/escape.c:228
 #, c-format
 msgid " z - suspend virt-rescue"
-msgstr ""
+msgstr " z — приостановить virt-rescue"
 
 #: rescue/escape.c:231
 #, c-format
 msgid "to pass the escape key through to the rescue shell, type it twice"
 msgstr ""
+"чтобы передать клавишу Escape в оболочку восстановления, нажмите её дважды"
 
 #: rescue/escape.c:250
 #, c-format
 msgid "root device: %s"
-msgstr ""
+msgstr "корневое устройство: %s"
 
 #: rescue/escape.c:255
 #, c-format
 msgid "  product name: %s"
-msgstr ""
+msgstr "  название продукта: %s"
 
 #: rescue/escape.c:262
 #, c-format
 msgid "  type: %s"
-msgstr ""
+msgstr "  тип: %s"
 
 #: rescue/escape.c:269
 #, c-format
 msgid "  distro: %s"
-msgstr ""
+msgstr "  дистрибутив: %s"
 
 #: rescue/rescue.c:83
 #, c-format
@@ -4687,36 +4814,66 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: запуск оболочки восстановления на виртуальной машине\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
+"Использование:\n"
+"  %s [--параметры] -d имя_домена\n"
+"  %s [--параметры] -a диск.img [-a диск.img ...]\n"
+"Параметры:\n"
+"  -a|--add образ       Добавить образ\n"
+"  --append параметры_ядра Добавить параметры ядра\n"
+"  --blocksize[=512|4096]\n"
+"                       Установить размер сектора диска для параметра -a\n"
+"  -c|--connect uri     Указать URI libvirt для параметра -d\n"
+"  -d|--domain гость    Добавить диски из гостя libvirt\n"
+"  -e ^x|none           Установить или отключить клавишу Escape (по умолчанию "
+"^])\n"
+"  --format[=raw|..]    Принудительно задать формат диска для параметра -a\n"
+"  --help               Показать краткую справку\n"
+"  -i|--inspector       Автоматически монтировать файловые системы\n"
+"  -m|--mount устройство[:точка[:параметры[:тип_фс]]]\n"
+"                       Смонтировать устройство в точку (если опущено, /)\n"
+"  --memsize МБ         Установить размер памяти в мегабайтах\n"
+"  --network            Включить сеть\n"
+"  -r|--ro              Доступ только для чтения\n"
+"  --scratch[=N]        Добавить черновой(ые) диск(и)\n"
+"  --selinux            Только для обратной совместимости, ничего не делает\n"
+"  --smp N              Включить SMP с N >= 2 виртуальными CPU\n"
+"  -v|--verbose         Подробные сообщения\n"
+"  -V|--version         Показать версию и выйти\n"
+"  -w|--rw              Монтировать для чтения и записи\n"
+"  -x                   Трассировать вызовы API libguestfs\n"
+"Подробности см. на справочной странице %s(1).\n"
 
 #: rescue/rescue.c:200
 #, c-format
 msgid "could not parse --smp parameter ‘%s’"
-msgstr ""
+msgstr "не удалось разобрать параметр --smp «%s»"
 
 #: rescue/rescue.c:203
 #, c-format
 msgid "--smp parameter ‘%s’ should be >= 1"
-msgstr ""
+msgstr "параметр --smp «%s» должен быть >= 1"
 
 #: rescue/rescue.c:213
 #, c-format
 msgid "could not parse --scratch parameter ‘%s’"
-msgstr ""
+msgstr "не удалось разобрать параметр --scratch «%s»"
 
 #: rescue/rescue.c:216
 #, c-format
 msgid "--scratch parameter ‘%s’ should be >= 1"
-msgstr ""
+msgstr "параметр --scratch «%s» должен быть >= 1"
 
 #: rescue/rescue.c:222
 #, c-format
 msgid "could not parse memory size ‘%s’"
-msgstr ""
+msgstr "не удалось разобрать размер памяти «%s»"
 
 #: rescue/rescue.c:244
 #, c-format
 msgid "unrecognized escape key: %s"
-msgstr ""
+msgstr "нераспознанная клавиша Escape: %s"
 
 #: rescue/rescue.c:336
 #, c-format
@@ -4725,6 +4882,9 @@ msgid ""
 "Make sure to specify the argument for --format or --scratch like '--"
 "format=%s'.\n"
 msgstr ""
+"%s: ошибка: лишний аргумент «%s» в командной строке.\n"
+"Убедитесь, что вы указываете аргумент для --format или --scratch, например "
+"«--format=%s».\n"
 
 #: rescue/suggest.c:62
 #, c-format
@@ -4732,6 +4892,8 @@ msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
+"Проверка виртуальной машины или образа диска ...\n"
+"\n"
 
 #: rescue/suggest.c:81
 #, c-format
@@ -4740,6 +4902,11 @@ msgid ""
 "commands in virt-rescue (at the ><rescue> prompt) to mount the filesystems.\n"
 "\n"
 msgstr ""
+"Этот диск содержит одну или несколько операционных систем. Вы можете "
+"использовать эти\n"
+"команды монтирования в virt-rescue (в приглашении ><rescue>) для "
+"монтирования файловых систем.\n"
+"\n"
 
 #: rescue/suggest.c:96
 #, c-format
@@ -4749,6 +4916,10 @@ msgid ""
 "# %s\n"
 "\n"
 msgstr ""
+"# %s является корнем операционной системы %s\n"
+"# тип: %s, дистрибутив: %s, версия: %d.%d\n"
+"# %s\n"
+"\n"
 
 #: rescue/suggest.c:155
 #, c-format
@@ -4759,6 +4930,11 @@ msgid ""
 "filesystems that are not recognized by libguestfs, or to create partitions,\n"
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
+"Этот диск не содержит распознаваемых монтируемых файловых систем.\n"
+"\n"
+"Однако вы всё равно можете использовать virt-rescue на образе диска, чтобы\n"
+"попытаться смонтировать файловые системы, не распознаваемые libguestfs,\n"
+"или создать разделы, логические тома и файловые системы на пустом диске.\n"
 
 #: rescue/suggest.c:162
 #, c-format
@@ -4768,11 +4944,17 @@ msgid ""
 "><rescue> prompt) to mount these filesystems.\n"
 "\n"
 msgstr ""
+"Этот диск содержит одну или несколько файловых систем, но мы не распознаём\n"
+"никакой операционной системы. Вы можете использовать эти команды "
+"монтирования\n"
+"в virt-rescue (в приглашении ><rescue>) для монтирования этих файловых "
+"систем.\n"
+"\n"
 
 #: rescue/suggest.c:167
 #, c-format
 msgid "# %s has type ‘%s’\n"
-msgstr ""
+msgstr "# %s имеет тип «%s»\n"
 
 #: test-tool/test-tool.c:57
 #, c-format
@@ -4790,21 +4972,33 @@ msgid ""
 "  --version\n"
 "  -V             Display libguestfs version and exit\n"
 msgstr ""
+"libguestfs-test-tool: интерактивный инструмент тестирования\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
+"Использование:\n"
+"  libguestfs-test-tool [--параметры]\n"
+"Параметры:\n"
+"  --help         Показать использование\n"
+"  --qemudir каталог  Указать каталог исходного кода QEMU\n"
+"  --qemu qemu    Указать двоичный файл QEMU\n"
+"  --timeout n\n"
+"  -t n           Установить таймаут запуска (по умолчанию: %d секунд)\n"
+"  --version\n"
+"  -V             Показать версию libguestfs и выйти\n"
 
 #: test-tool/test-tool.c:129
 #, c-format
 msgid "invalid timeout: %s"
-msgstr ""
+msgstr "недопустимый таймаут: %s"
 
 #: test-tool/test-tool.c:151
 #, c-format
 msgid "unexpected command line option %d"
-msgstr ""
+msgstr "неожиданный параметр командной строки %d"
 
 #: test-tool/test-tool.c:156
 #, c-format
 msgid "extra arguments on the command line"
-msgstr ""
+msgstr "лишние аргументы в командной строке"
 
 #: test-tool/test-tool.c:175
 #, c-format
@@ -4812,6 +5006,8 @@ msgid ""
 "failed parsing environment variables.\n"
 "Check earlier messages, and the output of the ‘printenv’ command."
 msgstr ""
+"не удалось разобрать переменные окружения.\n"
+"Проверьте предыдущие сообщения и вывод команды «printenv»."
 
 #: test-tool/test-tool.c:319
 #, c-format
@@ -4819,16 +5015,18 @@ msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used."
 msgstr ""
+"Переменная окружения LIBGUESTFS_HV/LIBGUESTFS_QEMU уже установлена, поэтому\n"
+"параметры --qemu/--qemudir не могут быть использованы."
 
 #: test-tool/test-tool.c:325
 #, c-format
 msgid "binary ‘%s’ does not exist or is not executable"
-msgstr ""
+msgstr "двоичный файл «%s» не существует или не является исполняемым"
 
 #: test-tool/test-tool.c:337
 #, c-format
 msgid "path does not look like a qemu source directory: %s"
-msgstr ""
+msgstr "путь не похож на каталог исходного кода qemu: %s"
 
 #~ msgid "VirtualMachine"
 #~ msgstr "ВиртуальнаяМашина"
