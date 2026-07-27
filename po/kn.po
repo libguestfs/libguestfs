@@ -9,11 +9,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-13 14:09+0100\n"
-"PO-Revision-Date: 2026-07-13 10:38+0000\n"
-"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
+"PO-Revision-Date: 2026-07-27 18:46+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Kannada <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/kn/>\n"
 "Language: kn\n"
@@ -322,8 +322,7 @@ msgstr "ಒಂದು ಡ್ರೈವನ್ನು ಸ್ನಾಪ್‌ಶಾಟ�
 #: fish/cmds.c:523
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
-"ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು ಓದಲು ಮಾತ್ರ "
-"ಸೂಚಿಸು"
+"ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು ಓದಲು ಮಾತ್ರ ಸೂಚಿಸು"
 
 #: fish/cmds.c:524
 msgid "add a temporary scratch drive"
@@ -2355,7 +2354,8 @@ msgstr "UUID ಮೂಲಕ ಸ್ವಾಪ್ ವಿಭಾಗದಲ್ಲಿ ಸ�
 
 #: fish/cmds.c:1143
 msgid "sync disks, writes are flushed through to the disk image"
-msgstr "ಸಿಂಕ್ ಡಿಸ್ಕುಗಳನ್ನು, ಬರೆಯವಿಕೆಗಳನ್ನು ಡಿಸ್ಕ್ ಚಿತ್ರಿಕೆಯ ಮೂಲಕ ಹೊರತಳ್ಳಲಾಗುತ್ತದೆ"
+msgstr ""
+"ಸಿಂಕ್ ಡಿಸ್ಕುಗಳನ್ನು, ಬರೆಯವಿಕೆಗಳನ್ನು ಡಿಸ್ಕ್ ಚಿತ್ರಿಕೆಯ ಮೂಲಕ ಹೊರತಳ್ಳಲಾಗುತ್ತದೆ"
 
 #: fish/cmds.c:1144
 msgid "install the SYSLINUX bootloader"
@@ -3117,8 +3117,7 @@ msgstr "guestfish: ದೂರಸ್ಥ: ಪರಿಚಾರಕವು ಚಾಲನ�
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
-"guestfish: protocol error: ಪರಿಚಾರಕಕ್ಕೆ ಆರಂಭಿಕ ಸ್ವಾಗತ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲು "
-"ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
+"guestfish: protocol error: ಪರಿಚಾರಕಕ್ಕೆ ಆರಂಭಿಕ ಸ್ವಾಗತ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
 
 #: fish/rc.c:434
 #, c-format
@@ -3976,7 +3975,8 @@ msgstr "ನೀವು guestfs_launch ನ ಮೊದಲು guestfs_add_drive ಅನ
 
 #: lib/launch-direct.c:1026 lib/launch-libvirt.c:672
 msgid "qemu launched and contacted daemon, but state != READY"
-msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
+msgstr ""
+"qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
 #: lib/launch-libvirt.c:61
 #, c-format
@@ -4293,7 +4293,8 @@ msgstr "ಡೀಮನ್ ಸಾಕೆಟ್‌ಗೆ ಬರೆಯುವಲ್ಲ�
 
 #: lib/proto.c:880
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr "receive_file_data: ಕಡತದ ತುಣುಕಗಳು ಓದುವಾಗ ಅನಿರೀಕ್ಷಿತ ಫ್ಲಾಗ್ ಅನ್ನು ಪಡೆಯಲಾಗಿದೆ"
+msgstr ""
+"receive_file_data: ಕಡತದ ತುಣುಕಗಳು ಓದುವಾಗ ಅನಿರೀಕ್ಷಿತ ಫ್ಲಾಗ್ ಅನ್ನು ಪಡೆಯಲಾಗಿದೆ"
 
 #: lib/proto.c:888
 msgid "failed to parse file chunk"
