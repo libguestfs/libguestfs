@@ -9,11 +9,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-13 14:09+0100\n"
-"PO-Revision-Date: 2026-07-13 11:04+0000\n"
-"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
+"PO-Revision-Date: 2026-07-27 18:51+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Tamil <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ta/>\n"
 "Language: ta\n"
@@ -1223,7 +1223,8 @@ msgstr "inotify ஹாண்டிலை மூடு"
 
 #: fish/cmds.c:796
 msgid "return list of watched files that had events"
-msgstr "கவனிக்கப்பட்ட கோப்புகளிலிருந்து திரும்பிய பட்டியல்கள் நிகழ்வுகளைப் பெற்றிருந்தது"
+msgstr ""
+"கவனிக்கப்பட்ட கோப்புகளிலிருந்து திரும்பிய பட்டியல்கள் நிகழ்வுகளைப் பெற்றிருந்தது"
 
 #: fish/cmds.c:797
 msgid "create an inotify handle"
@@ -4286,7 +4287,8 @@ msgstr "டொமைன் சாக்கெட்டிற்கு எழு�
 
 #: lib/proto.c:880
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr "receive_file_data: கோப்பு சங்க்கை வாசிக்கும் போது  எதிர்பாராத கொடி பெறப்பட்டது"
+msgstr ""
+"receive_file_data: கோப்பு சங்க்கை வாசிக்கும் போது  எதிர்பாராத கொடி பெறப்பட்டது"
 
 #: lib/proto.c:888
 msgid "failed to parse file chunk"

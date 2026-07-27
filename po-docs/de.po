@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-14 14:59+0100\n"
-"PO-Revision-Date: 2026-07-13 11:38+0000\n"
-"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
+"PO-Revision-Date: 2026-07-27 19:13+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/de/>\n"
 "Language: de\n"
@@ -12080,8 +12080,8 @@ msgid ""
 "ruby(3)>, L<http://libguestfs.org/>."
 msgstr ""
 "L<virt-df(1)>, L<virt-filesystems(1)>, L<virt-resize(1)>, L<virt-rescue(1)>, "
-"L<guestfs(3)>, L<guestfish(1)>, L<truncate(1)>, L<fallocate(1)>, L<qemu-"
-"img(1)>, L<http://libguestfs.org/>."
+"L<guestfs(3)>, L<guestfish(1)>, L<truncate(1)>, L<fallocate(1)>, L<qemu-img"
+"(1)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.10.pod:3 docs/guestfs-release-notes-1.12.pod:3
@@ -71688,7 +71688,8 @@ msgstr ""
 " int\n"
 " guestfs_add_drive_opts_argv (guestfs_h *g,\n"
 "                              const char *filename,\n"
-"                              const struct guestfs_add_drive_opts_argv *optargs);\n"
+"                              const struct guestfs_add_drive_opts_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -71853,7 +71854,8 @@ msgstr ""
 " int\n"
 " guestfs_add_drive_scratch_argv (guestfs_h *g,\n"
 "                                 int64_t size,\n"
-"                                 const struct guestfs_add_drive_scratch_argv *optargs);\n"
+"                                 const struct guestfs_add_drive_scratch_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -72614,8 +72616,8 @@ msgid ""
 "See also C<guestfs_available>, C<guestfs_feature_available> and L<guestfs(3)/"
 "AVAILABILITY>."
 msgstr ""
-"Siehe auch C<guestfs_available>, C<guestfs_feature_available> und "
-"L<guestfs(3)/AVAILABILITY>."
+"Siehe auch C<guestfs_available>, C<guestfs_feature_available> und L<guestfs"
+"(3)/AVAILABILITY>."
 
 #. type: textblock
 #: lib/guestfs-actions.pod:1224
@@ -73381,7 +73383,8 @@ msgstr ""
 " int\n"
 " guestfs_btrfs_filesystem_resize_argv (guestfs_h *g,\n"
 "                                       const char *mountpoint,\n"
-"                                       const struct guestfs_btrfs_filesystem_resize_argv *optargs);\n"
+"                                       const struct "
+"guestfs_btrfs_filesystem_resize_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -75039,7 +75042,8 @@ msgstr ""
 "                                   const char *ctype,\n"
 "                                   const char *device,\n"
 "                                   const char *zdevice,\n"
-"                                   const struct guestfs_compress_device_out_argv *optargs);\n"
+"                                   const struct "
+"guestfs_compress_device_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -75134,7 +75138,8 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs);\n"
+"                            const struct guestfs_compress_out_argv *optargs)"
+";\n"
 "\n"
 
 #. type: textblock
@@ -75997,7 +76002,8 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs);\n"
+"                            const struct guestfs_compress_out_argv *optargs)"
+";\n"
 "\n"
 
 #. type: textblock
@@ -84176,7 +84182,8 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs);\n"
+"                            const struct guestfs_compress_out_argv *optargs)"
+";\n"
 "\n"
 
 #. type: textblock
@@ -98400,8 +98407,8 @@ msgid ""
 "libguestfs.org/>."
 msgstr ""
 "L<virt-df(1)>, L<virt-filesystems(1)>, L<virt-resize(1)>, L<virt-rescue(1)>, "
-"L<guestfs(3)>, L<guestfish(1)>, L<truncate(1)>, L<fallocate(1)>, L<qemu-"
-"img(1)>, L<http://libguestfs.org/>."
+"L<guestfs(3)>, L<guestfish(1)>, L<truncate(1)>, L<fallocate(1)>, L<qemu-img"
+"(1)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: rescue/virt-rescue.pod:3
@@ -99231,8 +99238,8 @@ msgid ""
 "libguestfs.org/>."
 msgstr ""
 "L<virt-df(1)>, L<virt-filesystems(1)>, L<virt-resize(1)>, L<virt-rescue(1)>, "
-"L<guestfs(3)>, L<guestfish(1)>, L<truncate(1)>, L<fallocate(1)>, L<qemu-"
-"img(1)>, L<http://libguestfs.org/>."
+"L<guestfs(3)>, L<guestfish(1)>, L<truncate(1)>, L<fallocate(1)>, L<qemu-img"
+"(1)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: test-tool/libguestfs-test-tool.pod:3

@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-14 14:59+0100\n"
-"PO-Revision-Date: 2026-07-13 11:48+0000\n"
-"Last-Translator: Andi Chandler <andi@gowling.com>\n"
+"PO-Revision-Date: 2026-07-27 19:23+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: English (United Kingdom) <https://translate.fedoraproject.org/"
 "projects/libguestfs/libguestfs-docs-master/en_GB/>\n"
 "Language: en_GB\n"
@@ -4355,8 +4355,8 @@ msgid ""
 "L<https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
 msgstr ""
-"L<https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools>"
+"L<https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools>"
 
 #. type: textblock
 #: docs/guestfs-faq.pod:125
@@ -4412,8 +4412,8 @@ msgid ""
 "For more information see L<https://bugzilla.redhat.com/show_bug.cgi?"
 "id=806106>."
 msgstr ""
-"For more information see L<https://bugzilla.redhat.com/show_bug.cgi?"
-"id=806106>."
+"For more information see L<https://bugzilla.redhat.com/"
+"show_bug.cgi?id=806106>."
 
 #. type: =head2
 #: docs/guestfs-faq.pod:144
@@ -4686,8 +4686,8 @@ msgid ""
 "For the latest builds, see: L<http://koji.fedoraproject.org/koji/packageinfo?"
 "packageID=8391>"
 msgstr ""
-"For the latest builds, see: L<http://koji.fedoraproject.org/koji/packageinfo?"
-"packageID=8391>"
+"For the latest builds, see: L<http://koji.fedoraproject.org/koji/"
+"packageinfo?packageID=8391>"
 
 #. type: =item
 #: docs/guestfs-faq.pod:268
@@ -4771,8 +4771,8 @@ msgid ""
 "keywords=guestfs&searchon=names&section=all&suite=squeeze-backports>"
 msgstr ""
 "Hilko Bengen has built libguestfs in squeeze backports: L<http://"
-"packages.debian.org/search?"
-"keywords=guestfs&searchon=names&section=all&suite=squeeze-backports>"
+"packages.debian.org/"
+"search?keywords=guestfs&searchon=names&section=all&suite=squeeze-backports>"
 
 #. type: =item
 #: docs/guestfs-faq.pod:305
@@ -5388,8 +5388,8 @@ msgid ""
 "backend or don't use NFS)."
 msgstr ""
 "Of course you can change the path to any directory you want.  You can share "
-"the appliance across machines that have the same architecture (eg. all "
-"x86-64), but note that libvirt will prevent you from sharing the appliance "
+"the appliance across machines that have the same architecture (eg. all x86-"
+"64), but note that libvirt will prevent you from sharing the appliance "
 "across NFS because of permissions problems (so either switch to the direct "
 "backend or don't use NFS)."
 
@@ -6170,8 +6170,8 @@ msgid ""
 "programs)."
 msgstr ""
 "In the source tree the license is in the file C<COPYING.LIB> (LGPLv2+ for "
-"the library and bindings) and C<COPYING> (GPLv2+ for the standalone "
-"programs)."
+"the library and bindings) and C<COPYING> (GPLv2+ for the standalone programs)"
+"."
 
 #. type: textblock
 #: docs/guestfs-faq.pod:906
@@ -6363,8 +6363,8 @@ msgid ""
 "output), or both."
 msgstr ""
 "You can use the same environment variables above.  Alternatively use the "
-"guestfish options -x (to trace commands) or -v (to get the full debug "
-"output), or both."
+"guestfish options -x (to trace commands) or -v (to get the full debug output)"
+", or both."
 
 #. type: textblock
 #: docs/guestfs-faq.pod:992
@@ -6844,12 +6844,12 @@ msgid ""
 "key differentiating factor of guestfish (and the libguestfs API in general) "
 "is the ability to automate changes."
 msgstr ""
-"L<guestfish(1)> is a program providing structured access to the "
-"L<guestfs(3)> API.  It happens to be a nice interactive shell too, but its "
-"primary purpose is structured access from shell scripts.  Think of it more "
-"like a language binding, like Python and other bindings, but for shell.  The "
-"key differentiating factor of guestfish (and the libguestfs API in general) "
-"is the ability to automate changes."
+"L<guestfish(1)> is a program providing structured access to the L<guestfs"
+"(3)> API.  It happens to be a nice interactive shell too, but its primary "
+"purpose is structured access from shell scripts.  Think of it more like a "
+"language binding, like Python and other bindings, but for shell.  The key "
+"differentiating factor of guestfish (and the libguestfs API in general) is "
+"the ability to automate changes."
 
 #. type: textblock
 #: docs/guestfs-faq.pod:1193
@@ -6906,8 +6906,7 @@ msgstr ""
 #. type: =head2
 #: docs/guestfs-faq.pod:1214
 msgid "What does \"no root device found in this operating system image\" mean?"
-msgstr ""
-"What does \"no root device found in this operating system image\" mean?"
+msgstr "What does \"no root device found in this operating system image\" mean?"
 
 #. type: textblock
 #: docs/guestfs-faq.pod:1217
@@ -10312,11 +10311,10 @@ msgid ""
 "(C<GUESTFS_MAX_CHUNK_SIZE>), so that neither the library nor the daemon need "
 "to keep much in memory."
 msgstr ""
-"This protocol allows the transfer of arbitrary sized files (no 32 bit "
-"limit), and also files where the size is not known in advance (eg. from "
-"pipes or sockets).  However the chunks are rather small "
-"(C<GUESTFS_MAX_CHUNK_SIZE>), so that neither the library nor the daemon need "
-"to keep much in memory."
+"This protocol allows the transfer of arbitrary sized files (no 32 bit limit)"
+", and also files where the size is not known in advance (eg. from pipes or "
+"sockets).  However the chunks are rather small (C<GUESTFS_MAX_CHUNK_SIZE>), "
+"so that neither the library nor the daemon need to keep much in memory."
 
 #. type: =head3
 #: docs/guestfs-internals.pod:330
@@ -11003,8 +11001,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-performance.pod:251
 msgid "Mounting disks is only necessary to get further filesystem information."
-msgstr ""
-"Mounting disks is only necessary to get further filesystem information."
+msgstr "Mounting disks is only necessary to get further filesystem information."
 
 #. type: textblock
 #: docs/guestfs-performance.pod:256
@@ -11632,9 +11629,9 @@ msgid ""
 "libguestfs E<ge> 1.22 and qemu E<ge> 1.5."
 msgstr ""
 "If the disk image is on a remote server which is accessible using SSH, HTTP, "
-"FTP, NBD, iSCSI, or similar, then you can open it directly.  See "
-"L<guestfish(1)/ADDING REMOTE STORAGE> for several examples.  This requires "
-"libguestfs E<ge> 1.22 and qemu E<ge> 1.5."
+"FTP, NBD, iSCSI, or similar, then you can open it directly.  See L<guestfish"
+"(1)/ADDING REMOTE STORAGE> for several examples.  This requires libguestfs "
+"E<ge> 1.22 and qemu E<ge> 1.5."
 
 #. type: =head1
 #: docs/guestfs-recipes.pod:24
@@ -11693,8 +11690,7 @@ msgstr "Checksum a file or device within a disk image"
 #. type: textblock
 #: docs/guestfs-recipes.pod:45
 msgid "To checksum a whole device, or a partition, LV etc within a disk image:"
-msgstr ""
-"To checksum a whole device, or a partition, LV etc within a disk image:"
+msgstr "To checksum a whole device, or a partition, LV etc within a disk image:"
 
 #. type: verbatim
 #: docs/guestfs-recipes.pod:47
@@ -12643,7 +12639,8 @@ msgstr ""
 " # xpath '//product_name' < xml\n"
 " Found 1 nodes:\n"
 " -- NODE --\n"
-" <product_name>Red Hat Enterprise Linux Server release 6.0 (Santiago)</product_name>\n"
+" <product_name>Red Hat Enterprise Linux Server release 6.0 (Santiago)</"
+"product_name>\n"
 "\n"
 
 #. type: =head1
@@ -13075,8 +13072,8 @@ msgid ""
 "inspector(1)>."
 msgstr ""
 "If you want to run the script on disk images (instead of libvirt virtual "
-"machines), change C<-d \"$1\"> to C<-a \"$1\">.  See also L<virt-"
-"inspector(1)>."
+"machines), change C<-d \"$1\"> to C<-a \"$1\">.  See also L<virt-inspector"
+"(1)>."
 
 #. type: =head1
 #: docs/guestfs-recipes.pod:613
@@ -13392,9 +13389,9 @@ msgid ""
 "L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-python(3)>, L<guestfs-"
 "ruby(3)>, L<http://libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
-"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
-"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -14058,8 +14055,8 @@ msgid ""
 "L<guestfish(1)>, L<http://libguestfs.org/>"
 msgstr ""
 "L<guestfs-examples(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, "
-"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, "
-"L<guestfish(1)>, L<http://libguestfs.org/>"
+"L<guestfs-recipes(1)>, L<guestfs-testing(1)>, L<guestfs(3)>, L<guestfish(1)>"
+", L<http://libguestfs.org/>"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.10.pod:158
@@ -14126,7 +14123,8 @@ msgid ""
 "\n"
 msgstr ""
 "   - guestfish strings can use escapes,\n"
-"     eg. ><fs> write /foo \"line 1\\nline 2\\n\"\n"
+"     eg. ><fs> write /foo \"line 1\\n"
+"line 2\\n\"\n"
 "\n"
 
 #. type: verbatim
@@ -14301,7 +14299,8 @@ msgid ""
 "\n"
 msgstr ""
 "   - virt-win-reg new option --unsafe-printable-strings allows printable\n"
-"     strings to be displayed in the output (unsafely: read the documentation\n"
+"     strings to be displayed in the output (unsafely: read the "
+"documentation\n"
 "     before using).\n"
 "\n"
 
@@ -14424,7 +14423,8 @@ msgid ""
 "     (thanks Nikita Menkovich).\n"
 "\n"
 msgstr ""
-"   - mkfs-opts can now set inode size and sector size on created filesystems\n"
+"   - mkfs-opts can now set inode size and sector size on created "
+"filesystems\n"
 "     (thanks Nikita Menkovich).\n"
 "\n"
 
@@ -14573,11 +14573,14 @@ msgid ""
 " - 721275 virt-resize in F16 should support btrfs\n"
 "\n"
 msgstr ""
-" - 602997 part-get-bootable gives wrong result with an unordered part layout\n"
-" - 661280 virt-rescue: panic when shutting down: \"/sbin/reboot: No such file or directory\"\n"
+" - 602997 part-get-bootable gives wrong result with an unordered part "
+"layout\n"
+" - 661280 virt-rescue: panic when shutting down: \"/sbin/reboot: No such "
+"file or directory\"\n"
 " - 700369 qemu-system-x86_64 says 'KVM not supported for this target'\n"
 " - 705200 guestmount attempt results in access denied\n"
-" - 714981 'list-filesystems' does not know about virtio 9p filesystems or detect existing mounts\n"
+" - 714981 'list-filesystems' does not know about virtio 9p filesystems or "
+"detect existing mounts\n"
 " - 717786 libguestfs python bindings should have an explicit close call\n"
 " - 721275 virt-resize in F16 should support btrfs\n"
 "\n"
@@ -14921,7 +14924,8 @@ msgid ""
 "   - Add support for guests with HP Smart Array disks (thanks Matthew Booth)\n"
 "\n"
 msgstr ""
-"   - Add support for guests with HP Smart Array disks (thanks Matthew Booth)\n"
+"   - Add support for guests with HP Smart Array disks (thanks Matthew Booth)"
+"\n"
 "\n"
 
 #. type: =head3
@@ -15131,24 +15135,35 @@ msgid ""
 " - 642821 virt-resize falls over on a disk image with a logical swap partition\n"
 "\n"
 msgstr ""
-" - 748266 libguestfs should detect versions of qemu which require -machine pc option\n"
+" - 748266 libguestfs should detect versions of qemu which require -machine "
+"pc option\n"
 " - 747290 libguestfs ignores <readonly/> in libvirt XML\n"
-" - 747287 Misleading error message when permission denied opening a disk image\n"
+" - 747287 Misleading error message when permission denied opening a disk "
+"image\n"
 " - 746295 virt-make-fs doesn't set partition ID\n"
 " - 744795 guestmount --live is not usable\n"
-" - 737944 virt-win-reg hyphen (delete key) syntax may be wrong, and is not documented\n"
-" - 733297 ruby event handlers fail with \"exception in callback: wrong argument type Proc (expected Data)\"\n"
-" - 731744 libguestfs should escape special/non-printing characters in debug output\n"
+" - 737944 virt-win-reg hyphen (delete key) syntax may be wrong, and is not "
+"documented\n"
+" - 733297 ruby event handlers fail with \"exception in callback: wrong "
+"argument type Proc (expected Data)\"\n"
+" - 731744 libguestfs should escape special/non-printing characters in debug "
+"output\n"
 " - 729887 appliance crashes running aug_init with flags=4\n"
-" - 729075 libguestfs confuses Hp_recovery partition with Windows root filesystem\n"
-" - 727178 error: luks_open: cryptsetup: error while loading shared libraries: libfipscheck.so.1: cannot open shared object file: No such file or directory\n"
-" - 726739 libguestfs: error: aug_get: no matching node, trying to find hostname\n"
+" - 729075 libguestfs confuses Hp_recovery partition with Windows root "
+"filesystem\n"
+" - 727178 error: luks_open: cryptsetup: error while loading shared "
+"libraries: libfipscheck.so.1: cannot open shared object file: No such file "
+"or directory\n"
+" - 726739 libguestfs: error: aug_get: no matching node, trying to find "
+"hostname\n"
 " - 723474 If hivex and/or pcre not installed, libguestfs fails to compile\n"
-" - 693359 virt-cat and virt-edit don't handle case sensitive NTFS paths properly\n"
+" - 693359 virt-cat and virt-edit don't handle case sensitive NTFS paths "
+"properly\n"
 " - 678231 virt-inspector reports unknown filesystem UUID\n"
 " - 671082 libguestfs does not work with kernel-rt\n"
 " - 666578 libguestfs: unknown filesystem label SWAP-sda2\n"
-" - 642821 virt-resize falls over on a disk image with a logical swap partition\n"
+" - 642821 virt-resize falls over on a disk image with a logical swap "
+"partition\n"
 "\n"
 
 #. type: =head1
@@ -15403,7 +15418,8 @@ msgid ""
 "     option has been added to replace this functionality\n"
 "\n"
 msgstr ""
-"   - virt-sysprep no longer requires xmlstarlet; a new virt-inspector --xpath\n"
+"   - virt-sysprep no longer requires xmlstarlet; a new virt-inspector --"
+"xpath\n"
 "     option has been added to replace this functionality\n"
 "\n"
 
@@ -15451,7 +15467,8 @@ msgid ""
 "   - fix a potential security problem with predictable /tmp names (Steve Kemp)\n"
 "\n"
 msgstr ""
-"   - fix a potential security problem with predictable /tmp names (Steve Kemp)\n"
+"   - fix a potential security problem with predictable /tmp names (Steve "
+"Kemp)\n"
 "\n"
 
 #. type: verbatim
@@ -15465,7 +15482,8 @@ msgid ""
 msgstr ""
 "  CVE-2011-4127, RHBZ#757071\n"
 "  Mitigate possible privilege escalation via SG_IO ioctl\n"
-"  For more information, see: https://github.com/libguestfs/libguestfs/commit/9a5f784d511a8f00a8386f316eab41fe660430db\n"
+"  For more information, see: https://github.com/libguestfs/libguestfs/commit/"
+"9a5f784d511a8f00a8386f316eab41fe660430db\n"
 "\n"
 
 #. type: verbatim
@@ -15627,11 +15645,14 @@ msgid ""
 " - 596761 Ctrl-\\ causes guestfish to abort\n"
 "\n"
 msgstr ""
-" - 769680 temporary directories created during appliance builds are not cleaned up on error\n"
+" - 769680 temporary directories created during appliance builds are not "
+"cleaned up on error\n"
 " - 761460 guestfs_utimens hangs on named pipes\n"
 " - 761451 guestfs_utimens cannot set times on a directory\n"
-" - 760775 \"guestfish: multi-boot operating systems are not supported by the -i option\" should be more explanatory\n"
-" - 760669 guestfish copy-in and <! (inline execution) don't mix well: pclose: No child processes\n"
+" - 760775 \"guestfish: multi-boot operating systems are not supported by "
+"the -i option\" should be more explanatory\n"
+" - 760669 guestfish copy-in and <! (inline execution) don't mix well: "
+"pclose: No child processes\n"
 " - 760000 libguestfs fails to compile with Ruby >= 1.9\n"
 " - 755729 Error message for resize2fs-M needs tweaking\n"
 " - 750889 Python code incompatible with Python v3.\n"
@@ -15920,7 +15941,8 @@ msgid ""
 msgstr ""
 "   - the new 'mount-local' API brings FUSE support directly into the\n"
 "     core libguestfs API\n"
-"     https://rwmj.wordpress.com/2012/05/14/tip-using-mount-local-api-from-c/#content\n"
+"     https://rwmj.wordpress.com/2012/05/14/tip-using-mount-local-api-from-c/"
+"#content\n"
 "\n"
 
 #. type: verbatim
@@ -16415,31 +16437,43 @@ msgid ""
 " - 635971 glob mkfs ext2 /dev/vd[b-t]1 does not expand\n"
 "\n"
 msgstr ""
-" - 822490 virt-ls error: \"libguestfs: error: checksum: path: parameter cannot be NULL\"\n"
+" - 822490 virt-ls error: \"libguestfs: error: checksum: path: parameter "
+"cannot be NULL\"\n"
 " - 816839 data overflow error when debug progress -1\n"
-" - 816098 virt-make-fs fails to make a btrfs filesystem because it doesn't allocate enough space\n"
+" - 816098 virt-make-fs fails to make a btrfs filesystem because it doesn't "
+"allocate enough space\n"
 " - 811872 inspection fails on ubuntu 10.04 guest with encrypted swap\n"
 " - 811650 guestfs_last_error not set when qemu fails early during launch\n"
-" - 811649 libguestfs cannot open disk images which are symlinks to files that contain ':' (colon) character\n"
-" - 811117 [RFE][virt-sysprep] net-hwaddr not removed from \"ifcfg-*\" files on rhel\n"
+" - 811649 libguestfs cannot open disk images which are symlinks to files "
+"that contain ':' (colon) character\n"
+" - 811117 [RFE][virt-sysprep] net-hwaddr not removed from \"ifcfg-*\" files "
+"on rhel\n"
 " - 811112 [RFE][virt-sysprep] hostname can not be changed on rhel system\n"
 " - 809361 inspection doesn't recognise Fedora 18 (grub2 + GPT)\n"
 " - 807905 mkfs blocksize option breaks when creating btrfs\n"
 " - 805070 virt-filesystems should show 'parents' of LV and RAID devices\n"
-" - 804464 libguestfs cannot be built when LINGUAS is different then ja or uk\n"
-" - 803664 libguestfs inspection fails on Windows XP: libguestfs: error: hivex: could not locate HKLM\\SYSTEM\\MountedDevices\n"
+" - 804464 libguestfs cannot be built when LINGUAS is different then ja or "
+"uk\n"
+" - 803664 libguestfs inspection fails on Windows XP: libguestfs: error: "
+"hivex: could not locate HKLM\\SYSTEM\\MountedDevices\n"
 " - 803533 guestfish: write error\n"
 " - 802389 event handlers for 'close' event doesn't work in remote mode\n"
-" - 802109 libguestfs uses putc on stderr, results in many individual 1 byte writes of debug messages\n"
+" - 802109 libguestfs uses putc on stderr, results in many individual 1 byte "
+"writes of debug messages\n"
 " - 801640 [RFE] the error reported by resize2fs-M need to be more clear\n"
 " - 801298 Possible null dereference and resource leaks\n"
 " - 801273 Document for set-pgroup need to be updated\n"
-" - 798196 virt-resize confuses format and output_format variables; using --output-format sets the input format\n"
-" - 797986 virt-resize on Windows XP in sysprep state causes \"UNMOUNTABLE_BOOT_VOLUME\" BSOD\n"
-" - 796520 [RFE] Prevent user from running some appliance configure commands after appliance boot up\n"
-" - 790721 multiprovider build error: RuntimeError: link: /tmp/.guestfs-0/kernel /tmp/.guestfs-0/kernel.10139: File exists\n"
+" - 798196 virt-resize confuses format and output_format variables; using --"
+"output-format sets the input format\n"
+" - 797986 virt-resize on Windows XP in sysprep state causes "
+"\"UNMOUNTABLE_BOOT_VOLUME\" BSOD\n"
+" - 796520 [RFE] Prevent user from running some appliance configure commands "
+"after appliance boot up\n"
+" - 790721 multiprovider build error: RuntimeError: link: /tmp/.guestfs-0/"
+"kernel /tmp/.guestfs-0/kernel.10139: File exists\n"
 " - 789960 guestfsd crash when try to mount non-exist disk\n"
-" - 789504 virt-df (other tools?) should not give up if a guest disk is missing\n"
+" - 789504 virt-df (other tools?) should not give up if a guest disk is "
+"missing\n"
 " - 788641 virt-edit doesn't preserve file permissions\n"
 " - 786215 libguestfs inspection does not recognise FreeDOS operating system\n"
 " - 786188 libguestfs inspection does not recognise FreeDOS install CD\n"
@@ -16447,8 +16481,10 @@ msgstr ""
 " - 784647 Libguestfs uses deprecated net-tools\n"
 " - 769304 virt-resize on RHEL 6 kernel fails to re-read the partition table\n"
 " - 755729 Error message for resize2fs-M needs tweaking\n"
-" - 701814 virt-win-reg fails on a libvirt guest that has no defined disk format: \"format parameter is empty or contains disallowed characters\"\n"
-" - 679737 libguestfs: improve error message when zerofree is not available in the appliance\n"
+" - 701814 virt-win-reg fails on a libvirt guest that has no defined disk "
+"format: \"format parameter is empty or contains disallowed characters\"\n"
+" - 679737 libguestfs: improve error message when zerofree is not available "
+"in the appliance\n"
 " - 635971 glob mkfs ext2 /dev/vd[b-t]1 does not expand\n"
 "\n"
 
@@ -16530,8 +16566,7 @@ msgstr "You can now hotplug drives (add and remove drives after launch)."
 #. type: textblock
 #: docs/guestfs-release-notes-1.20.pod:45
 msgid "Libguestfs can now handle E<gt> 25 disks, in all APIs, tools and tests."
-msgstr ""
-"Libguestfs can now handle E<gt> 25 disks, in all APIs, tools and tests."
+msgstr "Libguestfs can now handle E<gt> 25 disks, in all APIs, tools and tests."
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.20.pod:47
@@ -16592,7 +16627,9 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-release-notes-1.20.pod:73
 msgid "C<guestfish touch 'win:c:\\new_file'> now works as expected."
-msgstr "C<guestfish touch 'win:c:\\new_file'> now works as expected."
+msgstr ""
+"C<guestfish touch 'win:c:\\n"
+"ew_file'> now works as expected."
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.20.pod:75
@@ -16866,8 +16903,8 @@ msgid ""
 "For further information, see L<https://bugzilla.redhat.com/show_bug.cgi?"
 "id=788642>"
 msgstr ""
-"For further information, see L<https://bugzilla.redhat.com/show_bug.cgi?"
-"id=788642>"
+"For further information, see L<https://bugzilla.redhat.com/"
+"show_bug.cgi?id=788642>"
 
 #. type: verbatim
 #: docs/guestfs-release-notes-1.20.pod:215
@@ -28481,7 +28518,8 @@ msgstr ""
 " - txz-out - pack directory into compressed tarball (RHBZ#580556)\n"
 " - vfs-label - get the filesystem label\n"
 " - vfs-uuid - get the filesystem UUID\n"
-" - vgscan - rescan for LVM physical volumes, volume groups and logical volumes\n"
+" - vgscan - rescan for LVM physical volumes, volume groups and logical "
+"volumes\n"
 " - write - create a new file\n"
 " - zero-device - write zeroes to an entire device\n"
 "\n"
@@ -28502,7 +28540,8 @@ msgid ""
 "\n"
 msgstr ""
 " - Extend the generator to support testing optional features.\n"
-" - Stricter checks on input parameters to many calls (RHBZ#501893 RHBZ#501894)\n"
+" - Stricter checks on input parameters to many calls (RHBZ#501893 "
+"RHBZ#501894)\n"
 " - Extend the protocol to support sending arbitrary 8 bit data buffers.\n"
 " - Ship 'BUGS' file with releases.  This is a summary of the bugs in\n"
 "   the Red Hat Bugzilla database.\n"
@@ -28648,8 +28687,10 @@ msgid ""
 " - 484986 grub-install fails on virtio disk\n"
 "\n"
 msgstr ""
-" - 612178 guestfish: using -m option in conjunction with --listen option causes appliance to die\n"
-" - 610880 libguestfs should set broader read perms on tmpdir, so works in some situations when executed with umask 077\n"
+" - 612178 guestfish: using -m option in conjunction with --listen option "
+"causes appliance to die\n"
+" - 610880 libguestfs should set broader read perms on tmpdir, so works in "
+"some situations when executed with umask 077\n"
 " - 604691 OCaml bindings are not thread safe\n"
 " - 603870 Updates to Spanish translation\n"
 " - 602592 [RFE] expose guestfs_close in perl bindings\n"
@@ -28657,24 +28698,33 @@ msgstr ""
 " - 599464 mkfs-b does not support vfat/ntfs\n"
 " - 598807 add_cdrom does not work in RHEL 6\n"
 " - 598309 part-list and several other cmd failed on libguestfs on RHEL5\n"
-" - 597145 guestfish 'help' command should indicate error in exit status with an unknown command\n"
+" - 597145 guestfish 'help' command should indicate error in exit status with "
+"an unknown command\n"
 " - 597135 guestfish write-file cmd does not check \"size\" parameter\n"
-" - 597118 A warning should be given in the help of mke2journal-L for the length of label\n"
-" - 597112 get-e2uuid should use blkid instead of \"tune2fs -l\" to get filesystem UUID\n"
+" - 597118 A warning should be given in the help of mke2journal-L for the "
+"length of label\n"
+" - 597112 get-e2uuid should use blkid instead of \"tune2fs -l\" to get "
+"filesystem UUID\n"
 " - 596776 virt-inspector doesn't discover modprobe aliases on RHEL 3 guests\n"
 " - 596763 Updates to Spanish translation\n"
 " - 593292 Updates to Spanish translation\n"
 " - 592883 can not edit files on  images mounted with guestmount cmd\n"
 " - 592360 Updates to Spanish translation\n"
-" - 591250 virt-tar prints \"tar_in: tar subcommand failed on directory\" if the archive is compressed or not in the right format\n"
-" - 591155 virt-tar prints \"tar_in: tar subcommand failed on directory\" if a disk image is not writable\n"
+" - 591250 virt-tar prints \"tar_in: tar subcommand failed on directory\" if "
+"the archive is compressed or not in the right format\n"
+" - 591155 virt-tar prints \"tar_in: tar subcommand failed on directory\" if "
+"a disk image is not writable\n"
 " - 591142 virt-inspector should give an error for unrecognised disk images\n"
-" - 590167 virt-inspector and other virt tools should be able to handle filesystem-on-image VMs\n"
-" - 589039 guestfish read-file cmd will cause daemon hang when read large files\n"
+" - 590167 virt-inspector and other virt tools should be able to handle "
+"filesystem-on-image VMs\n"
+" - 589039 guestfish read-file cmd will cause daemon hang when read large "
+"files\n"
 " - 588851 guestfs_launch() returns -1, but guestfs_last_error() == NULL\n"
-" - 588763 libguestfs should use non-public or link-local addresses for appliance network\n"
+" - 588763 libguestfs should use non-public or link-local addresses for "
+"appliance network\n"
 " - 588733 Updates to Spanish translation\n"
-" - 588651 guestfish 'strings-e' cmd does not give proper error message or hint\n"
+" - 588651 guestfish 'strings-e' cmd does not give proper error message or "
+"hint\n"
 " - 587484 lvresize can't reduce size of a volumn\n"
 " - 585961 Updates to Spanish translation\n"
 " - 585223 ntfsresize should support shrinking filesystems\n"
@@ -28682,30 +28732,38 @@ msgstr ""
 " - 585221 resize2fs should support shrinking filesystems\n"
 " - 584038 Updates to Spanish translation\n"
 " - 583554 [FEAT] mknod-mode command is needed to set mode explicitly\n"
-" - 583242 [RFE] guestfish should print outputs in a suitable base (eg. octal for modes)\n"
+" - 583242 [RFE] guestfish should print outputs in a suitable base (eg. octal "
+"for modes)\n"
 " - 582993 guestfish eats words when tab completing case (in)sensitive paths\n"
 " - 582953 Misleading help information about lvcreate command\n"
 " - 582948 mknod command doesn't make block, character or FIFO devices\n"
 " - 582929 mknod doesn't check for invalid mode\n"
 " - 582901 guestfish chmod/umask commands do not check invalid mode value\n"
 " - 582899 guestfish:sparse is missed from command autocomplete list\n"
-" - 582891 [Feature Request] behaviour and return value of guestfish umask cmd should be changed\n"
+" - 582891 [Feature Request] behaviour and return value of guestfish umask "
+"cmd should be changed\n"
 " - 582548 [mknod] umask shouldn't take effect when mode is set explicitly\n"
 " - 582484 some guestfish sub commands can not handle special files properly\n"
 " - 582252 Updates to Spanish translation\n"
 " - 581501 Updates to Spanish translation\n"
-" - 580650 virt-inspector warns \"No grub default specified at /usr/lib/perl5/Sys/Guestfs/Lib.pm at [...]\"\n"
+" - 580650 virt-inspector warns \"No grub default specified at /usr/lib/perl5/"
+"Sys/Guestfs/Lib.pm at [...]\"\n"
 " - 580556 request for libguestfs to support .txz tarballs\n"
 " - 580246 tar-in command hangs if uploading more than available space\n"
 " - 580016 aug-ls in guestfish does not take augeas variable as argument\n"
-" - 579664 guestfish doesn't report error when there is not enough space for image allocation\n"
+" - 579664 guestfish doesn't report error when there is not enough space for "
+"image allocation\n"
 " - 579608 multiple commands in guestfish can not work for symbol links\n"
 " - 579155 libguestfs hangs if qemu doesn't start (in null vmchannel mode)\n"
-" - 578407 the prefix '-' in sub-command isn't handled by guestfish in remote control mode\n"
-" - 576879 libguestfs protocol loses synchronisation if you 'upload' before mounting disks\n"
-" - 559963 libguestfs Perl programs do set locale, but still localisation doesn't work\n"
+" - 578407 the prefix '-' in sub-command isn't handled by guestfish in remote "
+"control mode\n"
+" - 576879 libguestfs protocol loses synchronisation if you 'upload' before "
+"mounting disks\n"
+" - 559963 libguestfs Perl programs do set locale, but still localisation "
+"doesn't work\n"
 " - 521674 Perl modules are unversioned, but should carry version numbers\n"
-" - 516096 Race condition in test_swapon_label_0: /sbin/blockdev: BLKRRPART: Device or resource busy\n"
+" - 516096 Race condition in test_swapon_label_0: /sbin/blockdev: BLKRRPART: "
+"Device or resource busy\n"
 " - 507810 guestfish -i / virt-inspector cannot handle spaces in filenames\n"
 " - 502533 Updated Polish translation of libguestfs\n"
 " - 501894 Some String parameters should be OptString\n"
@@ -33638,7 +33696,8 @@ msgid ""
 "   backported to the other stable branches after more testing.\n"
 "\n"
 msgstr ""
-" - CVE-2010-3851 libguestfs: missing disk format specifier when adding a disk\n"
+" - CVE-2010-3851 libguestfs: missing disk format specifier when adding a "
+"disk\n"
 "   https://www.redhat.com/archives/libguestfs/2010-October/msg00036.html\n"
 "   This is comprehensively fixed in this release, and the fix will be\n"
 "   backported to the other stable branches after more testing.\n"
@@ -33759,34 +33818,44 @@ msgstr ""
 " - 646822 libguestfs trace mode should not print long binary strings\n"
 " - 646821 virt-df should have --uuid option\n"
 " - 646432 /dev/mapper paths should not be returned from guestfs_mountpoints\n"
-" - 643624 libguestfs tools documentation should describe how to quote guest domain names from shell\n"
+" - 643624 libguestfs tools documentation should describe how to quote guest "
+"domain names from shell\n"
 " - 642934 No way to specify disk format when adding a disk to libguestfs\n"
 " - 642933 guestfs_list_filesystems should be used in all possible places\n"
 " - 642932 guestmount options should match guestfish options\n"
 " - 642930 virt-inspector (Sys::Guestfs::Lib) should use C inspection APIs\n"
 " - 642929 C inspection code should ignore /dev/fd* in /etc/fstab\n"
-" - 642826 virt-resize converts any other image format to raw without notifying user, instructions do not account for this\n"
-" - 640961 Document that grub-install might be needed for old Linux guests after virt-resize\n"
+" - 642826 virt-resize converts any other image format to raw without "
+"notifying user, instructions do not account for this\n"
+" - 640961 Document that grub-install might be needed for old Linux guests "
+"after virt-resize\n"
 " - 639986 virt-df --csv does not properly quote \" in libvirt domain names\n"
 " - 639405 Interrupted cached appliance creation leaves libguestfs unusable\n"
 " - 638901 Appliance filename should not contain repository name\n"
 " - 638899 /dev/mapper paths should not be returned from C inspection APIs\n"
 " - 636918 Updates to Spanish translation\n"
-" - 636061 [abrt] guestfish-1.2.11-1.fc12: malloc_consolidate: Process /usr/bin/guestfish was killed by signal 11 (SIGSEGV)\n"
+" - 636061 [abrt] guestfish-1.2.11-1.fc12: malloc_consolidate: Process /usr/"
+"bin/guestfish was killed by signal 11 (SIGSEGV)\n"
 " - 635969 glob echo mkfs ext2 /dev/vd[b-t]1 prints garbage\n"
-" - 634246 guestfs_part_get_parttype returns \"loop\" when run against a partition, LV or filesystem\n"
+" - 634246 guestfs_part_get_parttype returns \"loop\" when run against a "
+"partition, LV or filesystem\n"
 " - 633766 virt-resize --shrink fails\n"
 " - 633357 Updates to Spanish translation\n"
-" - 633096 virt-resize calculates block device size incorrectly, doesn't work with qcow2 target\n"
+" - 633096 virt-resize calculates block device size incorrectly, doesn't work "
+"with qcow2 target\n"
 " - 629593 Dutch translation added\n"
 " - 627556 Updates to Spanish translations of libguestfs\n"
 " - 626843 Updates to Spanish translations\n"
-" - 619793 [RFE] Need a way to determine if a particular block device is a logical volume\n"
+" - 619793 [RFE] Need a way to determine if a particular block device is a "
+"logical volume\n"
 " - 618556 virt-rescue return none zero value when exit\n"
-" - 617200 mount operation failed and hung on some images which running in read-only mode\n"
-" - 610880 libguestfs should set broader read perms on tmpdir, so works in some situations when executed with umask 077\n"
+" - 617200 mount operation failed and hung on some images which running in "
+"read-only mode\n"
+" - 610880 libguestfs should set broader read perms on tmpdir, so works in "
+"some situations when executed with umask 077\n"
 " - 599503 document that mkmountpoint and umount-all cannot be mixed\n"
-" - 571714 Running virt-df on disk image relabels it, so qemu can no longer write to it.\n"
+" - 571714 Running virt-df on disk image relabels it, so qemu can no longer "
+"write to it.\n"
 " - 502533 Updated Polish translation of libguestfs\n"
 "\n"
 
@@ -34410,7 +34479,8 @@ msgid ""
 "   guestfs-ocaml(3), guestfs-python(3), guestfs-ruby(3).\n"
 "\n"
 msgstr ""
-" - New man pages containing programming examples: guestfs-examples(3) (C/C++),\n"
+" - New man pages containing programming examples: guestfs-examples(3) (C/C++)"
+",\n"
 "   guestfs-ocaml(3), guestfs-python(3), guestfs-ruby(3).\n"
 "\n"
 
@@ -34775,11 +34845,13 @@ msgid ""
 "\n"
 msgstr ""
 " - 663407 readlink and readlinklist returns /sysroot/ in some paths\n"
-" - 661280 virt-rescue: panic when shutting down: \"/sbin/reboot: No such file or directory\"\n"
+" - 661280 virt-rescue: panic when shutting down: \"/sbin/reboot: No such "
+"file or directory\"\n"
 " - 657499 checksum: wrong check sum type causes umount to fail\n"
 " - 655554 Whole disk paths are not made canonical by virt-inspector\n"
 " - 654638 openssl updated to 1.0.0b libguestfs depends on exact file names\n"
-" - 652796 ruby bindings not installed by 'make install', hence omitted from the binary distribution\n"
+" - 652796 ruby bindings not installed by 'make install', hence omitted from "
+"the binary distribution\n"
 "\n"
 
 #. type: =head1
@@ -34971,8 +35043,7 @@ msgstr "2009-09-13 (1.0.67)"
 #. type: textblock
 #: docs/guestfs-release-notes.pod:137
 msgid "L<https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html>"
-msgstr ""
-"L<https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html>"
+msgstr "L<https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html>"
 
 #. type: =item
 #: docs/guestfs-release-notes.pod:139
@@ -35097,8 +35168,7 @@ msgstr ""
 #. type: textblock
 #: docs/guestfs-security.pod:44
 msgid "Libguestfs provides a layered approach to protecting you from exploits:"
-msgstr ""
-"Libguestfs provides a layered approach to protecting you from exploits:"
+msgstr "Libguestfs provides a layered approach to protecting you from exploits:"
 
 #. type: verbatim
 #: docs/guestfs-security.pod:47
@@ -35966,8 +36036,8 @@ msgid ""
 "If you get an error, try enabling debugging (add C<-v> to the command "
 "line).  Also make sure that L<libguestfs-test-tool(1)> succeeds."
 msgstr ""
-"If you get an error, try enabling debugging (add C<-v> to the command "
-"line).  Also make sure that L<libguestfs-test-tool(1)> succeeds."
+"If you get an error, try enabling debugging (add C<-v> to the command line)"
+".  Also make sure that L<libguestfs-test-tool(1)> succeeds."
 
 #. type: =head2
 #: docs/guestfs-testing.pod:112
@@ -36785,7 +36855,8 @@ msgid ""
 "   less\n"
 "\n"
 msgstr ""
-" virt-win-reg --unsafe-printable-strings WindowsGuest 'HKEY_USERS\\username' |\n"
+" virt-win-reg --unsafe-printable-strings WindowsGuest 'HKEY_USERS\\username' "
+"|\n"
 "   less\n"
 "\n"
 
@@ -46415,8 +46486,7 @@ msgstr ""
 #. type: textblock
 #: erlang/examples/guestfs-erlang.pod:31
 msgid "C<G> is the libguestfs handle which you should pass to other functions."
-msgstr ""
-"C<G> is the libguestfs handle which you should pass to other functions."
+msgstr "C<G> is the libguestfs handle which you should pass to other functions."
 
 #. type: textblock
 #: erlang/examples/guestfs-erlang.pod:34
@@ -46513,8 +46583,8 @@ msgid ""
 "C<Msg> is the error message (string) and C<Errno> is the Unix error "
 "(integer)."
 msgstr ""
-"C<Msg> is the error message (string) and C<Errno> is the Unix error "
-"(integer)."
+"C<Msg> is the error message (string) and C<Errno> is the Unix error (integer)"
+"."
 
 #. type: textblock
 #: erlang/examples/guestfs-erlang.pod:68
@@ -46607,9 +46677,9 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "www.erlang.org/>.  L<http://libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
-"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
-"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -46754,9 +46824,9 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
-"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
-"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -46832,8 +46902,8 @@ msgid ""
 "This function returns the POSIX Access Control List (ACL) attached to "
 "C<path>.  The ACL is returned in \"long text form\" (see L<acl(5)>)."
 msgstr ""
-"This function returns the POSIX Access Control List (ACL) attached to "
-"C<path>.  The ACL is returned in \"long text form\" (see L<acl(5)>)."
+"This function returns the POSIX Access Control List (ACL) attached to C<path>"
+".  The ACL is returned in \"long text form\" (see L<acl(5)>)."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:44 fish/guestfish-actions.pod:70
@@ -50330,8 +50400,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:1488 lib/guestfs-actions.pod:2511
 msgid "If no capabilities are attached to a file, an empty string is returned."
-msgstr ""
-"If no capabilities are attached to a file, an empty string is returned."
+msgstr "If no capabilities are attached to a file, an empty string is returned."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:1490 fish/guestfish-actions.pod:1501
@@ -50363,8 +50432,8 @@ msgid ""
 "L<cap_from_text(3)>)."
 msgstr ""
 "This function sets the Linux capabilities attached to C<path>.  The "
-"capabilities set C<cap> should be passed in text form (see "
-"L<cap_from_text(3)>)."
+"capabilities set C<cap> should be passed in text form (see L<cap_from_text"
+"(3)>)."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:1504
@@ -55494,8 +55563,8 @@ msgid ""
 "It is just a wrapper around the C L<glob(3)> function with flags C<GLOB_MARK|"
 "GLOB_BRACE>.  See that manual page for more details."
 msgstr ""
-"It is just a wrapper around the C L<glob(3)> function with flags C<GLOB_MARK|"
-"GLOB_BRACE>.  See that manual page for more details."
+"It is just a wrapper around the C L<glob(3)> function with flags "
+"C<GLOB_MARK|GLOB_BRACE>.  See that manual page for more details."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3643 lib/guestfs-actions.pod:5980
@@ -55530,7 +55599,8 @@ msgid ""
 " grep regex path [extended:true|false] [fixed:true|false] [insensitive:true|false] [compressed:true|false]\n"
 "\n"
 msgstr ""
-" grep regex path [extended:true|false] [fixed:true|false] [insensitive:true|false] [compressed:true|false]\n"
+" grep regex path [extended:true|false] [fixed:true|false] "
+"[insensitive:true|false] [compressed:true|false]\n"
 "\n"
 
 #. type: textblock
@@ -55540,8 +55610,7 @@ msgstr ""
 #| "This calls the external C<grep> program and returns the matching lines."
 msgid ""
 "This calls the external L<grep(1)> program and returns the matching lines."
-msgstr ""
-"This calls the external C<grep> program and returns the matching lines."
+msgstr "This calls the external C<grep> program and returns the matching lines."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3662 lib/guestfs-actions.pod:6051
@@ -57825,11 +57894,11 @@ msgid ""
 "Windows 2008 Server are both version 6.1, but the former is C<Client> and "
 "the latter is C<Server>)."
 msgstr ""
-"For Windows guests, this returns the contents of the Registry key "
-"C<HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion> C<InstallationType> "
-"which is usually a string such as C<Client> or C<Server> (other values are "
-"possible).  This can be used to distinguish consumer and enterprise versions "
-"of Windows that have the same version number (for example, Windows 7 and "
+"For Windows guests, this returns the contents of the Registry key C<HKLM\\S"
+"oftware\\Microsoft\\Windows NT\\CurrentVersion> C<InstallationType> which is "
+"usually a string such as C<Client> or C<Server> (other values are possible)"
+".  This can be used to distinguish consumer and enterprise versions of "
+"Windows that have the same version number (for example, Windows 7 and "
 "Windows 2008 Server are both version 6.1, but the former is C<Client> and "
 "the latter is C<Server>)."
 
@@ -59394,8 +59463,8 @@ msgid ""
 "(C<|skip|>) you passed in then it means you have reached the end or the "
 "start of the journal."
 msgstr ""
-"The number of entries actually skipped is returned (note S<C<rskip E<ge> "
-"0>>).  If this is not the same as the absolute value of the skip parameter "
+"The number of entries actually skipped is returned (note S<C<rskip E<ge> 0>>)"
+".  If this is not the same as the absolute value of the skip parameter "
 "(C<|skip|>) you passed in then it means you have reached the end or the "
 "start of the journal."
 
@@ -60165,8 +60234,8 @@ msgid ""
 "This does not return logical volumes.  For that you will need to call L</"
 "lvs>."
 msgstr ""
-"This does not return logical volumes.  For that you will need to call L</"
-"lvs>."
+"This does not return logical volumes.  For that you will need to call L</lvs>"
+"."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:5762
@@ -61134,8 +61203,8 @@ msgid ""
 "This resizes (expands or shrinks) an existing LVM logical volume to "
 "C<mbytes>.  When reducing, data in the reduced part is lost."
 msgstr ""
-"This resizes (expands or shrinks) an existing LVM logical volume to "
-"C<mbytes>.  When reducing, data in the reduced part is lost."
+"This resizes (expands or shrinks) an existing LVM logical volume to C<mbytes>"
+".  When reducing, data in the reduced part is lost."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:6211
@@ -61192,8 +61261,8 @@ msgid ""
 "List all the logical volumes detected.  This is the equivalent of the "
 "L<lvs(8)> command."
 msgstr ""
-"List all the logical volumes detected.  This is the equivalent of the "
-"L<lvs(8)> command."
+"List all the logical volumes detected.  This is the equivalent of the L<lvs"
+"(8)> command."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:6231 lib/guestfs-actions.pod:9972
@@ -61228,8 +61297,8 @@ msgid ""
 "List all the logical volumes detected.  This is the equivalent of the "
 "L<lvs(8)> command.  The \"full\" version includes all fields."
 msgstr ""
-"List all the logical volumes detected.  This is the equivalent of the "
-"L<lvs(8)> command.  The \"full\" version includes all fields."
+"List all the logical volumes detected.  This is the equivalent of the L<lvs"
+"(8)> command.  The \"full\" version includes all fields."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:6249
@@ -61373,7 +61442,8 @@ msgid ""
 " md-create name 'devices ...' [missingbitmap:N] [nrdevices:N] [spare:N] [chunk:N] [level:..]\n"
 "\n"
 msgstr ""
-" md-create name 'devices ...' [missingbitmap:N] [nrdevices:N] [spare:N] [chunk:N] [level:..]\n"
+" md-create name 'devices ...' [missingbitmap:N] [nrdevices:N] [spare:N] "
+"[chunk:N] [level:..]\n"
 "\n"
 
 #. type: textblock
@@ -61862,8 +61932,7 @@ msgstr "The name of the temporary directory that was created is returned."
 #. type: textblock
 #: fish/guestfish-actions.pod:6498 lib/guestfs-actions.pod:10359
 msgid "The temporary directory is created with mode 0700 and is owned by root."
-msgstr ""
-"The temporary directory is created with mode 0700 and is owned by root."
+msgstr "The temporary directory is created with mode 0700 and is owned by root."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:6501 lib/guestfs-actions.pod:10362
@@ -61891,7 +61960,17 @@ msgid ""
 " mke2fs device [blockscount:N] [blocksize:N] [fragsize:N] [blockspergroup:N] [numberofgroups:N] [bytesperinode:N] [inodesize:N] [journalsize:N] [numberofinodes:N] [stridesize:N] [stripewidth:N] [maxonlineresize:N] [reservedblockspercentage:N] [mmpupdateinterval:N] [journaldevice:..] [label:..] [lastmounteddir:..] [creatoros:..] [fstype:..] [usagetype:..] [uuid:..] [forcecreate:true|false] [writesbandgrouponly:true|false] [lazyitableinit:true|false] [lazyjournalinit:true|false] [testfs:true|false] [discard:true|false] [quotatype:true|false] [extent:true|false] [filetype:true|false] [flexbg:true|false] [hasjournal:true|false] [journaldev:true|false] [largefile:true|false] [quota:true|false] [resizeinode:true|false] [sparsesuper:true|false] [uninitbg:true|false]\n"
 "\n"
 msgstr ""
-" mke2fs device [blockscount:N] [blocksize:N] [fragsize:N] [blockspergroup:N] [numberofgroups:N] [bytesperinode:N] [inodesize:N] [journalsize:N] [numberofinodes:N] [stridesize:N] [stripewidth:N] [maxonlineresize:N] [reservedblockspercentage:N] [mmpupdateinterval:N] [journaldevice:..] [label:..] [lastmounteddir:..] [creatoros:..] [fstype:..] [usagetype:..] [uuid:..] [forcecreate:true|false] [writesbandgrouponly:true|false] [lazyitableinit:true|false] [lazyjournalinit:true|false] [testfs:true|false] [discard:true|false] [quotatype:true|false] [extent:true|false] [filetype:true|false] [flexbg:true|false] [hasjournal:true|false] [journaldev:true|false] [largefile:true|false] [quota:true|false] [resizeinode:true|false] [sparsesuper:true|false] [uninitbg:true|false]\n"
+" mke2fs device [blockscount:N] [blocksize:N] [fragsize:N] [blockspergroup:N] "
+"[numberofgroups:N] [bytesperinode:N] [inodesize:N] [journalsize:N] "
+"[numberofinodes:N] [stridesize:N] [stripewidth:N] [maxonlineresize:N] "
+"[reservedblockspercentage:N] [mmpupdateinterval:N] [journaldevice:..] "
+"[label:..] [lastmounteddir:..] [creatoros:..] [fstype:..] [usagetype:..] "
+"[uuid:..] [forcecreate:true|false] [writesbandgrouponly:true|false] "
+"[lazyitableinit:true|false] [lazyjournalinit:true|false] [testfs:true|false] "
+"[discard:true|false] [quotatype:true|false] [extent:true|false] "
+"[filetype:true|false] [flexbg:true|false] [hasjournal:true|false] "
+"[journaldev:true|false] [largefile:true|false] [quota:true|false] "
+"[resizeinode:true|false] [sparsesuper:true|false] [uninitbg:true|false]\n"
 "\n"
 
 #. type: textblock
@@ -62076,8 +62155,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:6594 lib/guestfs-actions.pod:10576
 msgid "This creates an ext2 external journal on C<device> with label C<label>."
-msgstr ""
-"This creates an ext2 external journal on C<device> with label C<label>."
+msgstr "This creates an ext2 external journal on C<device> with label C<label>."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:6603
@@ -62291,7 +62369,8 @@ msgid ""
 " mkfs-btrfs 'devices ...' [allocstart:N] [bytecount:N] [datatype:..] [leafsize:N] [label:..] [metadata:..] [nodesize:N] [sectorsize:N]\n"
 "\n"
 msgstr ""
-" mkfs-btrfs 'devices ...' [allocstart:N] [bytecount:N] [datatype:..] [leafsize:N] [label:..] [metadata:..] [nodesize:N] [sectorsize:N]\n"
+" mkfs-btrfs 'devices ...' [allocstart:N] [bytecount:N] [datatype:..] "
+"[leafsize:N] [label:..] [metadata:..] [nodesize:N] [sectorsize:N]\n"
 "\n"
 
 #. type: textblock
@@ -62339,9 +62418,9 @@ msgid ""
 "ext2/3/4 filesystem.  C<mountpoint> is the directory under which we try to "
 "create the C<lost+found> directory."
 msgstr ""
-"Make the C<lost+found> directory, normally in the root directory of an "
-"ext2/3/4 filesystem.  C<mountpoint> is the directory under which we try to "
-"create the C<lost+found> directory."
+"Make the C<lost+found> directory, normally in the root directory of an ext2/"
+"3/4 filesystem.  C<mountpoint> is the directory under which we try to create "
+"the C<lost+found> directory."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:6728
@@ -62907,7 +62986,8 @@ msgid ""
 " mount-local localmountpoint [readonly:true|false] [options:..] [cachetimeout:N] [debugcalls:true|false]\n"
 "\n"
 msgstr ""
-" mount-local localmountpoint [readonly:true|false] [options:..] [cachetimeout:N] [debugcalls:true|false]\n"
+" mount-local localmountpoint [readonly:true|false] [options:..] "
+"[cachetimeout:N] [debugcalls:true|false]\n"
 "\n"
 
 #. type: textblock
@@ -63021,8 +63101,8 @@ msgid ""
 "L<guestfs(3)/MULTIPLE HANDLES AND MULTIPLE THREADS>)."
 msgstr ""
 "You may call this from a different thread than the one which called L</mount-"
-"local>, subject to the usual rules for threads and libguestfs (see "
-"L<guestfs(3)/MULTIPLE HANDLES AND MULTIPLE THREADS>)."
+"local>, subject to the usual rules for threads and libguestfs (see L<guestfs"
+"(3)/MULTIPLE HANDLES AND MULTIPLE THREADS>)."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7045
@@ -63468,7 +63548,9 @@ msgid ""
 " ntfsclone-out device (backupfile|-) [metadataonly:true|false] [rescue:true|false] [ignorefscheck:true|false] [preservetimestamps:true|false] [force:true|false]\n"
 "\n"
 msgstr ""
-" ntfsclone-out device (backupfile|-) [metadataonly:true|false] [rescue:true|false] [ignorefscheck:true|false] [preservetimestamps:true|false] [force:true|false]\n"
+" ntfsclone-out device (backupfile|-) [metadataonly:true|false] "
+"[rescue:true|false] [ignorefscheck:true|false] "
+"[preservetimestamps:true|false] [force:true|false]\n"
 "\n"
 
 #. type: textblock
@@ -63479,8 +63561,8 @@ msgid ""
 "L<ntfsclone(8)> tool."
 msgstr ""
 "Stream the NTFS filesystem C<device> to the local file C<backupfile>.  The "
-"format used for the backup file is a special format used by the "
-"L<ntfsclone(8)> tool."
+"format used for the backup file is a special format used by the L<ntfsclone"
+"(8)> tool."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7222 lib/guestfs-actions.pod:11737
@@ -64034,8 +64116,8 @@ msgid ""
 "parttype>)."
 msgstr ""
 "Note that only MBR (old DOS-style) partitions have type bytes.  You will get "
-"undefined results for other partition table types (see L</part-get-"
-"parttype>)."
+"undefined results for other partition table types (see L</part-get-parttype>)"
+"."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7444
@@ -64999,8 +65081,8 @@ msgid ""
 "List all the physical volumes detected.  This is the equivalent of the "
 "L<pvs(8)> command."
 msgstr ""
-"List all the physical volumes detected.  This is the equivalent of the "
-"L<pvs(8)> command."
+"List all the physical volumes detected.  This is the equivalent of the L<pvs"
+"(8)> command."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7811 lib/guestfs-actions.pod:12705
@@ -65035,8 +65117,8 @@ msgid ""
 "List all the physical volumes detected.  This is the equivalent of the "
 "L<pvs(8)> command.  The \"full\" version includes all fields."
 msgstr ""
-"List all the physical volumes detected.  This is the equivalent of the "
-"L<pvs(8)> command.  The \"full\" version includes all fields."
+"List all the physical volumes detected.  This is the equivalent of the L<pvs"
+"(8)> command.  The \"full\" version includes all fields."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:7829
@@ -66329,8 +66411,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:8397 lib/guestfs-actions.pod:13694
 msgid "You probably don't want to use this unless you know what you are doing."
-msgstr ""
-"You probably don't want to use this unless you know what you are doing."
+msgstr "You probably don't want to use this unless you know what you are doing."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8400 lib/guestfs-actions.pod:13697
@@ -66382,8 +66463,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:8423 lib/guestfs-actions.pod:13728
 msgid "If C<clear> is true, then the C<attrs> listed are cleared in the inode."
-msgstr ""
-"If C<clear> is true, then the C<attrs> listed are cleared in the inode."
+msgstr "If C<clear> is true, then the C<attrs> listed are cleared in the inode."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8426 lib/guestfs-actions.pod:13731
@@ -66900,8 +66980,8 @@ msgid ""
 "This affects whether commands are able to access the network (see "
 "L<guestfs(3)/RUNNING COMMANDS>)."
 msgstr ""
-"This affects whether commands are able to access the network (see "
-"L<guestfs(3)/RUNNING COMMANDS>)."
+"This affects whether commands are able to access the network (see L<guestfs"
+"(3)/RUNNING COMMANDS>)."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8653
@@ -67398,8 +67478,8 @@ msgid ""
 "This sets the SELinux security context of the daemon to the string "
 "C<context>."
 msgstr ""
-"This sets the SELinux security context of the daemon to the string "
-"C<context>."
+"This sets the SELinux security context of the daemon to the string C<context>"
+"."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8862 lib/guestfs-actions.pod:14313
@@ -67778,8 +67858,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:9046
 msgid "This is the same as L</sh>, but splits the result into a list of lines."
-msgstr ""
-"This is the same as L</sh>, but splits the result into a list of lines."
+msgstr "This is the same as L</sh>, but splits the result into a list of lines."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:9049
@@ -68065,8 +68144,7 @@ msgstr "b"
 #. type: textblock
 #: fish/guestfish-actions.pod:9159 lib/guestfs-actions.pod:14768
 msgid "16-bit big endian strings such as those encoded in UTF-16BE or UCS-2BE."
-msgstr ""
-"16-bit big endian strings such as those encoded in UTF-16BE or UCS-2BE."
+msgstr "16-bit big endian strings such as those encoded in UTF-16BE or UCS-2BE."
 
 #. type: =item
 #: fish/guestfish-actions.pod:9162 lib/guestfs-actions.pod:14771
@@ -68496,7 +68574,8 @@ msgid ""
 " tar-in (tarfile|-) directory [compress:..] [xattrs:true|false] [selinux:true|false] [acls:true|false] [keepdirlink:true|false]\n"
 "\n"
 msgstr ""
-" grep regex path [extended:true|false] [fixed:true|false] [insensitive:true|false] [compressed:true|false]\n"
+" grep regex path [extended:true|false] [fixed:true|false] "
+"[insensitive:true|false] [compressed:true|false]\n"
 "\n"
 
 #. type: textblock
@@ -68859,9 +68938,9 @@ msgid ""
 "L<e2fsck(8)>.  If this is C<0> then the number of mounts is disregarded.  "
 "This is the same as the L<tune2fs(8)> C<-c> option."
 msgstr ""
-"Set the number of mounts after which the filesystem is checked by "
-"L<e2fsck(8)>.  If this is C<0> then the number of mounts is disregarded.  "
-"This is the same as the tune2fs C<-c> option."
+"Set the number of mounts after which the filesystem is checked by L<e2fsck"
+"(8)>.  If this is C<0> then the number of mounts is disregarded.  This is "
+"the same as the tune2fs C<-c> option."
 
 #. type: =item
 #: fish/guestfish-actions.pod:9507 lib/guestfs-actions.pod:15377
@@ -70021,8 +70100,8 @@ msgid ""
 "List all the volumes groups detected.  This is the equivalent of the "
 "L<vgs(8)> command."
 msgstr ""
-"List all the volumes groups detected.  This is the equivalent of the "
-"L<vgs(8)> command."
+"List all the volumes groups detected.  This is the equivalent of the L<vgs"
+"(8)> command."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:9964 lib/guestfs-actions.pod:16107
@@ -70059,8 +70138,8 @@ msgid ""
 "List all the volumes groups detected.  This is the equivalent of the "
 "L<vgs(8)> command.  The \"full\" version includes all fields."
 msgstr ""
-"List all the volumes groups detected.  This is the equivalent of the "
-"L<vgs(8)> command.  The \"full\" version includes all fields."
+"List all the volumes groups detected.  This is the equivalent of the L<vgs"
+"(8)> command.  The \"full\" version includes all fields."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:9982
@@ -70345,7 +70424,9 @@ msgid ""
 " xfs-admin device [extunwritten:true|false] [imgfile:true|false] [v2log:true|false] [projid32bit:true|false] [lazycounter:true|false] [label:..] [uuid:..]\n"
 "\n"
 msgstr ""
-" xfs-admin device [extunwritten:true|false] [imgfile:true|false] [v2log:true|false] [projid32bit:true|false] [lazycounter:true|false] [label:..] [uuid:..]\n"
+" xfs-admin device [extunwritten:true|false] [imgfile:true|false] "
+"[v2log:true|false] [projid32bit:true|false] [lazycounter:true|false] "
+"[label:..] [uuid:..]\n"
 "\n"
 
 #. type: textblock
@@ -70398,7 +70479,8 @@ msgid ""
 " xfs-growfs path [datasec:true|false] [logsec:true|false] [rtsec:true|false] [datasize:N] [logsize:N] [rtsize:N] [rtextsize:N] [maxpct:N]\n"
 "\n"
 msgstr ""
-" xfs-growfs path [datasec:true|false] [logsec:true|false] [rtsec:true|false] [datasize:N] [logsize:N] [rtsize:N] [rtextsize:N] [maxpct:N]\n"
+" xfs-growfs path [datasec:true|false] [logsec:true|false] [rtsec:true|false] "
+"[datasize:N] [logsize:N] [rtsize:N] [rtextsize:N] [maxpct:N]\n"
 "\n"
 
 #. type: textblock
@@ -70525,7 +70607,9 @@ msgid ""
 " xfs-repair device [forcelogzero:true|false] [nomodify:true|false] [noprefetch:true|false] [forcegeometry:true|false] [maxmem:N] [ihashsize:N] [bhashsize:N] [agstride:N] [logdev:..] [rtdev:..]\n"
 "\n"
 msgstr ""
-" xfs-repair device [forcelogzero:true|false] [nomodify:true|false] [noprefetch:true|false] [forcegeometry:true|false] [maxmem:N] [ihashsize:N] [bhashsize:N] [agstride:N] [logdev:..] [rtdev:..]\n"
+" xfs-repair device [forcelogzero:true|false] [nomodify:true|false] "
+"[noprefetch:true|false] [forcegeometry:true|false] [maxmem:N] [ihashsize:N] "
+"[bhashsize:N] [agstride:N] [logdev:..] [rtdev:..]\n"
 "\n"
 
 #. type: textblock
@@ -72006,8 +72090,8 @@ msgid ""
 "C<guestfish -N "
 "[I<filename>=]lvfs[:I<name>[:I<filesystem>[:I<size>[:I<partition>]]]]>"
 msgstr ""
-"C<guestfish -N "
-"[I<filename>=]lvfs[:I<name>[:I<filesystem>[:I<size>[:I<partition>]]]]>"
+"C<guestfish -N [I<filename>=]lvfs[:I<name>[:I<filesystem>[:I<size>"
+"[:I<partition>]]]]>"
 
 #. type: textblock
 #: fish/guestfish-prepopts.pod:97
@@ -72041,8 +72125,8 @@ msgid ""
 "C<guestfish -N "
 "[I<filename>=]bootroot[:I<bootfs>[:I<rootfs>[:I<size>[:I<bootsize>[:I<partition>]]]]]>"
 msgstr ""
-"C<guestfish -N "
-"[I<filename>=]bootroot[:I<bootfs>[:I<rootfs>[:I<size>[:I<bootsize>[:I<partition>]]]]]>"
+"C<guestfish -N [I<filename>=]bootroot[:I<bootfs>[:I<rootfs>[:I<size>"
+"[:I<bootsize>[:I<partition>]]]]]>"
 
 #. type: textblock
 #: fish/guestfish-prepopts.pod:115
@@ -72079,8 +72163,8 @@ msgid ""
 "C<guestfish -N "
 "[I<filename>=]bootrootlv[:I<name>[:I<bootfs>[:I<rootfs>[:I<size>[:I<bootsize>[:I<partition>]]]]]]>"
 msgstr ""
-"C<guestfish -N "
-"[I<filename>=]bootrootlv[:I<name>[:I<bootfs>[:I<rootfs>[:I<size>[:I<bootsize>[:I<partition>]]]]]]>"
+"C<guestfish -N [I<filename>=]bootrootlv[:I<name>[:I<bootfs>[:I<rootfs>"
+"[:I<size>[:I<bootsize>[:I<partition>]]]]]]>"
 
 #. type: textblock
 #: fish/guestfish-prepopts.pod:132
@@ -75686,8 +75770,8 @@ msgid ""
 "STARTUP>."
 msgstr ""
 "Windows 8 \"fast startup\" can prevent guestfish from mounting NTFS "
-"partitions.  See L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST "
-"STARTUP>."
+"partitions.  See L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST STARTUP>"
+"."
 
 #. type: =head1
 #: fish/guestfish.pod:1344
@@ -75783,8 +75867,8 @@ msgid ""
 "The C<edit> command uses C<$EDITOR> as the editor.  If not set, it uses "
 "C<vi>."
 msgstr ""
-"The C<edit> command uses C<$EDITOR> as the editor.  If not set, it uses "
-"C<vi>."
+"The C<edit> command uses C<$EDITOR> as the editor.  If not set, it uses C<vi>"
+"."
 
 #. type: =item
 #: fish/guestfish.pod:1387
@@ -76074,8 +76158,8 @@ msgid ""
 "The C<more> command uses C<$PAGER> as the pager.  If not set, it uses "
 "C<more>."
 msgstr ""
-"The C<more> command uses C<$PAGER> as the pager.  If not set, it uses "
-"C<more>."
+"The C<more> command uses C<$PAGER> as the pager.  If not set, it uses C<more>"
+"."
 
 #. type: =item
 #: fish/guestfish.pod:1500 lib/guestfs.pod:1355 lib/guestfs.pod:3178
@@ -76542,9 +76626,9 @@ msgid ""
 "L<guestfish(1)> C<copy-in> command.  For anything more complex than a "
 "trivial copy, you are probably better off using guestfish directly."
 msgstr ""
-"This command is just a simple shell script wrapper around the "
-"L<guestfish(1)> C<copy-in> command.  For anything more complex than a "
-"trivial copy, you are probably better off using guestfish directly."
+"This command is just a simple shell script wrapper around the L<guestfish"
+"(1)> C<copy-in> command.  For anything more complex than a trivial copy, you "
+"are probably better off using guestfish directly."
 
 #. type: textblock
 #: fish/virt-copy-in.pod:39 fish/virt-copy-out.pod:34 fish/virt-tar-in.pod:36
@@ -76634,9 +76718,9 @@ msgid ""
 "L<guestfish(1)> C<copy-out> command.  For anything more complex than a "
 "trivial copy, you are probably better off using guestfish directly."
 msgstr ""
-"This command is just a simple shell script wrapper around the "
-"L<guestfish(1)> C<copy-out> command.  For anything more complex than a "
-"trivial copy, you are probably better off using guestfish directly."
+"This command is just a simple shell script wrapper around the L<guestfish"
+"(1)> C<copy-out> command.  For anything more complex than a trivial copy, "
+"you are probably better off using guestfish directly."
 
 #. type: textblock
 #: fish/virt-copy-out.pod:39
@@ -76719,9 +76803,9 @@ msgid ""
 "L<guestfish(1)> C<tar-in> command.  For anything more complex than a trivial "
 "copy, you are probably better off using guestfish directly."
 msgstr ""
-"This command is just a simple shell script wrapper around the "
-"L<guestfish(1)> C<tar-in> command.  For anything more complex than a trivial "
-"copy, you are probably better off using guestfish directly."
+"This command is just a simple shell script wrapper around the L<guestfish"
+"(1)> C<tar-in> command.  For anything more complex than a trivial copy, you "
+"are probably better off using guestfish directly."
 
 #. type: textblock
 #: fish/virt-tar-in.pod:41
@@ -76811,9 +76895,9 @@ msgid ""
 "L<guestfish(1)> C<tar-out> command.  For anything more complex than a "
 "trivial copy, you are probably better off using guestfish directly."
 msgstr ""
-"This command is just a simple shell script wrapper around the "
-"L<guestfish(1)> C<tar-out> command.  For anything more complex than a "
-"trivial copy, you are probably better off using guestfish directly."
+"This command is just a simple shell script wrapper around the L<guestfish"
+"(1)> C<tar-out> command.  For anything more complex than a trivial copy, you "
+"are probably better off using guestfish directly."
 
 #. type: textblock
 #: fish/virt-tar-out.pod:41
@@ -77167,8 +77251,7 @@ msgstr ""
 #. type: textblock
 #: fuse/guestmount.pod:115
 msgid "This means that scripts like the following have a nasty race condition:"
-msgstr ""
-"This means that scripts like the following have a nasty race condition:"
+msgstr "This means that scripts like the following have a nasty race condition:"
 
 #. type: verbatim
 #: fuse/guestmount.pod:118
@@ -77294,9 +77377,8 @@ msgid ""
 "L<guestfs(3)/MOUNT LOCAL>) then it is much easier to write a safe, race-free "
 "program."
 msgstr ""
-"Note that if you use the C<guestfs_mount_local> API directly (see "
-"L<guestfs(3)/MOUNT LOCAL>) then it is much easier to write a safe, race-free "
-"program."
+"Note that if you use the C<guestfs_mount_local> API directly (see L<guestfs"
+"(3)/MOUNT LOCAL>) then it is much easier to write a safe, race-free program."
 
 #. type: textblock
 #: fuse/guestmount.pod:164
@@ -78085,9 +78167,9 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "www.golang.org/>, L<http://libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
-"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
-"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -78441,9 +78523,9 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>, L<http://caml.inria.fr/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
-"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
-"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: verbatim
@@ -79221,7 +79303,8 @@ msgstr ""
 " int\n"
 " guestfs_add_drive_opts_argv (guestfs_h *g,\n"
 "                              const char *filename,\n"
-"                              const struct guestfs_add_drive_opts_argv *optargs);\n"
+"                              const struct guestfs_add_drive_opts_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -79411,7 +79494,8 @@ msgstr ""
 " int\n"
 " guestfs_add_drive_scratch_argv (guestfs_h *g,\n"
 "                                 int64_t size,\n"
-"                                 const struct guestfs_add_drive_scratch_argv *optargs);\n"
+"                                 const struct guestfs_add_drive_scratch_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -79875,9 +79959,9 @@ msgid ""
 "L<environ(3)>), or NULL if there was an error.  I<The caller must free the "
 "strings and the array after use>."
 msgstr ""
-"This function returns a NULL-terminated array of strings (like "
-"L<environ(3)>), or NULL if there was an error.  I<The caller must free the "
-"strings and the array after use>."
+"This function returns a NULL-terminated array of strings (like L<environ(3)>)"
+", or NULL if there was an error.  I<The caller must free the strings and the "
+"array after use>."
 
 #. type: textblock
 #: lib/guestfs-actions.pod:984 lib/guestfs-actions.pod:2741
@@ -80954,8 +81038,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:1727
 msgid "This is the \"va_list variant\" of L</guestfs_btrfs_filesystem_resize>."
-msgstr ""
-"This is the \"va_list variant\" of L</guestfs_btrfs_filesystem_resize>."
+msgstr "This is the \"va_list variant\" of L</guestfs_btrfs_filesystem_resize>."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:1731
@@ -80975,7 +81058,8 @@ msgstr ""
 " int\n"
 " guestfs_btrfs_filesystem_resize_argv (guestfs_h *g,\n"
 "                                       const char *mountpoint,\n"
-"                                       const struct guestfs_btrfs_filesystem_resize_argv *optargs);\n"
+"                                       const struct "
+"guestfs_btrfs_filesystem_resize_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -81523,7 +81607,8 @@ msgstr ""
 " int\n"
 " guestfs_is_chardev_opts_argv (guestfs_h *g,\n"
 "                               const char *path,\n"
-"                               const struct guestfs_is_chardev_opts_argv *optargs);\n"
+"                               const struct guestfs_is_chardev_opts_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -82552,8 +82637,8 @@ msgid ""
 msgstr ""
 "This long-running command can generate progress notification messages so "
 "that the caller can display a progress bar or indicator.  To receive these "
-"messages, the caller must register a progress event callback.  See "
-"L<guestfs(3)/GUESTFS_EVENT_PROGRESS>."
+"messages, the caller must register a progress event callback.  See L<guestfs"
+"(3)/GUESTFS_EVENT_PROGRESS>."
 
 #. type: textblock
 #: lib/guestfs-actions.pod:2909 lib/guestfs-actions.pod:14624
@@ -82664,7 +82749,8 @@ msgstr ""
 "                                   const char *ctype,\n"
 "                                   const char *device,\n"
 "                                   const char *zdevice,\n"
-"                                   const struct guestfs_compress_device_out_argv *optargs);\n"
+"                                   const struct "
+"guestfs_compress_device_out_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -82759,7 +82845,8 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs);\n"
+"                            const struct guestfs_compress_out_argv *optargs)"
+";\n"
 "\n"
 
 #. type: textblock
@@ -82971,7 +83058,8 @@ msgstr ""
 " guestfs_copy_device_to_device_argv (guestfs_h *g,\n"
 "                                     const char *src,\n"
 "                                     const char *dest,\n"
-"                                     const struct guestfs_copy_device_to_device_argv *optargs);\n"
+"                                     const struct "
+"guestfs_copy_device_to_device_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -83070,7 +83158,8 @@ msgstr ""
 " guestfs_copy_device_to_file_argv (guestfs_h *g,\n"
 "                                   const char *src,\n"
 "                                   const char *dest,\n"
-"                                   const struct guestfs_copy_device_to_file_argv *optargs);\n"
+"                                   const struct "
+"guestfs_copy_device_to_file_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -83161,7 +83250,8 @@ msgstr ""
 " guestfs_copy_file_to_device_argv (guestfs_h *g,\n"
 "                                   const char *src,\n"
 "                                   const char *dest,\n"
-"                                   const struct guestfs_copy_file_to_device_argv *optargs);\n"
+"                                   const struct "
+"guestfs_copy_file_to_device_argv *optargs);\n"
 "\n"
 
 #. type: textblock
@@ -83263,7 +83353,8 @@ msgstr ""
 " guestfs_copy_file_to_file_argv (guestfs_h *g,\n"
 "                                 const char *src,\n"
 "                                 const char *dest,\n"
-"                                 const struct guestfs_copy_file_to_file_argv *optargs);\n"
+"                                 const struct guestfs_copy_file_to_file_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -83726,7 +83817,8 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs);\n"
+"                            const struct guestfs_compress_out_argv *optargs)"
+";\n"
 "\n"
 
 #. type: textblock
@@ -87852,7 +87944,8 @@ msgstr ""
 " guestfs_inspect_get_icon_argv (guestfs_h *g,\n"
 "                                const char *root,\n"
 "                                size_t *size_r,\n"
-"                                const struct guestfs_inspect_get_icon_argv *optargs);\n"
+"                                const struct guestfs_inspect_get_icon_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -88580,7 +88673,8 @@ msgstr ""
 " int\n"
 " guestfs_is_blockdev_opts_argv (guestfs_h *g,\n"
 "                                const char *path,\n"
-"                                const struct guestfs_is_blockdev_opts_argv *optargs);\n"
+"                                const struct guestfs_is_blockdev_opts_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -88719,7 +88813,8 @@ msgstr ""
 " int\n"
 " guestfs_is_chardev_opts_argv (guestfs_h *g,\n"
 "                               const char *path,\n"
-"                               const struct guestfs_is_chardev_opts_argv *optargs);\n"
+"                               const struct guestfs_is_chardev_opts_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -88962,7 +89057,8 @@ msgstr ""
 " int\n"
 " guestfs_is_fifo_opts_argv (guestfs_h *g,\n"
 "                            const char *path,\n"
-"                            const struct guestfs_is_fifo_opts_argv *optargs);\n"
+"                            const struct guestfs_is_fifo_opts_argv *optargs)"
+";\n"
 "\n"
 
 #. type: textblock
@@ -89075,7 +89171,8 @@ msgstr ""
 " int\n"
 " guestfs_is_file_opts_argv (guestfs_h *g,\n"
 "                            const char *path,\n"
-"                            const struct guestfs_is_file_opts_argv *optargs);\n"
+"                            const struct guestfs_is_file_opts_argv *optargs)"
+";\n"
 "\n"
 
 #. type: textblock
@@ -89255,7 +89352,8 @@ msgstr ""
 " int\n"
 " guestfs_is_socket_opts_argv (guestfs_h *g,\n"
 "                              const char *path,\n"
-"                              const struct guestfs_is_socket_opts_argv *optargs);\n"
+"                              const struct guestfs_is_socket_opts_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -89474,8 +89572,8 @@ msgid ""
 "C<guestfs_journal_get_data_threshold>)."
 msgstr ""
 "The length of data may be truncated to the data threshold (see: "
-"C<guestfs_journal_set_data_threshold>, "
-"C<guestfs_journal_get_data_threshold>)."
+"C<guestfs_journal_set_data_threshold>, C<guestfs_journal_get_data_threshold>)"
+"."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:8630
@@ -93715,7 +93813,8 @@ msgstr ""
 "                            const char *ctype,\n"
 "                            const char *file,\n"
 "                            const char *zfile,\n"
-"                            const struct guestfs_compress_out_argv *optargs);\n"
+"                            const struct guestfs_compress_out_argv *optargs)"
+";\n"
 "\n"
 
 #. type: textblock
@@ -93874,7 +93973,8 @@ msgstr ""
 " guestfs_ntfsclone_out_argv (guestfs_h *g,\n"
 "                             const char *device,\n"
 "                             const char *backupfile,\n"
-"                             const struct guestfs_ntfsclone_out_argv *optargs);\n"
+"                             const struct guestfs_ntfsclone_out_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -94094,7 +94194,8 @@ msgstr ""
 " int\n"
 " guestfs_ntfsresize_opts_argv (guestfs_h *g,\n"
 "                               const char *device,\n"
-"                               const struct guestfs_ntfsresize_opts_argv *optargs);\n"
+"                               const struct guestfs_ntfsresize_opts_argv "
+"*optargs);\n"
 "\n"
 
 #. type: textblock
@@ -98387,7 +98488,8 @@ msgstr ""
 " guestfs_tar_out_opts_argv (guestfs_h *g,\n"
 "                            const char *directory,\n"
 "                            const char *tarfile,\n"
-"                            const struct guestfs_tar_out_opts_argv *optargs);\n"
+"                            const struct guestfs_tar_out_opts_argv *optargs)"
+";\n"
 "\n"
 
 #. type: textblock
@@ -98572,9 +98674,8 @@ msgid ""
 "C<guestfs_tune2fs_l>.  For precise details of how tune2fs works, see the "
 "L<tune2fs(8)> man page."
 msgstr ""
-"To get the current values of filesystem parameters, see "
-"C<guestfs_tune2fs_l>.  For precise details of how tune2fs works, see the "
-"L<tune2fs(8)> man page."
+"To get the current values of filesystem parameters, see C<guestfs_tune2fs_l>"
+".  For precise details of how tune2fs works, see the L<tune2fs(8)> man page."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:15436
@@ -98925,7 +99026,8 @@ msgid ""
 msgstr ""
 " int\n"
 " guestfs_umount_local_argv (guestfs_h *g,\n"
-"                            const struct guestfs_umount_local_argv *optargs);\n"
+"                            const struct guestfs_umount_local_argv *optargs)"
+";\n"
 "\n"
 
 #. type: textblock
@@ -99018,8 +99120,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:15746
 msgid "There are two common places that you might call C<guestfs_user_cancel>:"
-msgstr ""
-"There are two common places that you might call C<guestfs_user_cancel>:"
+msgstr "There are two common places that you might call C<guestfs_user_cancel>:"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:15748
@@ -103152,8 +103253,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs.pod:96
 msgid "The general structure of all libguestfs-using programs looks like this:"
-msgstr ""
-"The general structure of all libguestfs-using programs looks like this:"
+msgstr "The general structure of all libguestfs-using programs looks like this:"
 
 #. type: verbatim
 #: lib/guestfs.pod:99
@@ -103792,14 +103892,14 @@ msgid ""
 "using a label or UUID, use an ISO image instead."
 msgstr ""
 "However the fastest way to upload I<large numbers of arbitrary files> is to "
-"turn them into a squashfs or CD ISO (see L<mksquashfs(8)> and "
-"L<mkisofs(8)>), then attach this using L</guestfs_add_drive_ro>.  If you add "
-"the drive in a predictable way (eg. adding it last after all other drives) "
-"then you can get the device name from L</guestfs_list_devices> and mount it "
-"directly using L</guestfs_mount_ro>.  Note that squashfs images are "
-"sometimes non-portable between kernel versions, and they don't support "
-"labels or UUIDs.  If you want to pre-build an image or you need to mount it "
-"using a label or UUID, use an ISO image instead."
+"turn them into a squashfs or CD ISO (see L<mksquashfs(8)> and L<mkisofs(8)>)"
+", then attach this using L</guestfs_add_drive_ro>.  If you add the drive in "
+"a predictable way (eg. adding it last after all other drives) then you can "
+"get the device name from L</guestfs_list_devices> and mount it directly "
+"using L</guestfs_mount_ro>.  Note that squashfs images are sometimes non-"
+"portable between kernel versions, and they don't support labels or UUIDs.  "
+"If you want to pre-build an image or you need to mount it using a label or "
+"UUID, use an ISO image instead."
 
 #. type: =head2
 #: lib/guestfs.pod:336
@@ -104193,8 +104293,8 @@ msgid ""
 "Consult the journal documentation here: L<sd-journal(3)>, "
 "L<sd_journal_open(3)>."
 msgstr ""
-"Consult the journal documentation here: L<sd-journal(3)>, "
-"L<sd_journal_open(3)>."
+"Consult the journal documentation here: L<sd-journal(3)>, L<sd_journal_open"
+"(3)>."
 
 #. type: =head2
 #: lib/guestfs.pod:514
@@ -104417,8 +104517,8 @@ msgid ""
 "volume(s) can now be mounted in the usual way."
 msgstr ""
 "LVM volume groups on the device can be made visible by calling L</"
-"guestfs_vgscan> followed by L</guestfs_vg_activate_all>.  The logical "
-"volume(s) can now be mounted in the usual way."
+"guestfs_vgscan> followed by L</guestfs_vg_activate_all>.  The logical volume"
+"(s) can now be mounted in the usual way."
 
 #. type: textblock
 #: lib/guestfs.pod:615
@@ -106870,8 +106970,8 @@ msgid ""
 "CVE-2010-3851> below."
 msgstr ""
 "Firstly note there is a security issue with auto-detecting the format of a "
-"disk image.  It may or may not apply in your use case.  Read L</"
-"CVE-2010-3851> below."
+"disk image.  It may or may not apply in your use case.  Read L</CVE-2010-"
+"3851> below."
 
 #. type: textblock
 #: lib/guestfs.pod:1711
@@ -106999,8 +107099,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs.pod:1759
 msgid "L</guestfs_create> is equivalent to calling C<guestfs_create_flags(0)>."
-msgstr ""
-"L</guestfs_create> is equivalent to calling C<guestfs_create_flags(0)>."
+msgstr "L</guestfs_create> is equivalent to calling C<guestfs_create_flags(0)>."
 
 #. type: textblock
 #: lib/guestfs.pod:1761
@@ -107656,8 +107755,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs.pod:2011
 msgid "Use the following code to temporarily disable errors around a function:"
-msgstr ""
-"Use the following code to temporarily disable errors around a function:"
+msgstr "Use the following code to temporarily disable errors around a function:"
 
 #. type: =head2
 #: lib/guestfs.pod:2017
@@ -108245,8 +108343,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs.pod:2229
 msgid "The C<_BITMASK> suffix on each option name when specifying the bitmask."
-msgstr ""
-"The C<_BITMASK> suffix on each option name when specifying the bitmask."
+msgstr "The C<_BITMASK> suffix on each option name when specifying the bitmask."
 
 #. type: textblock
 #: lib/guestfs.pod:2234
@@ -108302,10 +108399,10 @@ msgstr ""
 "B<Note:> This section documents the generic event mechanism introduced in "
 "libguestfs 1.10, which you should use in new code if possible.  The old "
 "functions C<guestfs_set_log_message_callback>, "
-"C<guestfs_set_subprocess_quit_callback>, "
-"C<guestfs_set_launch_done_callback>, C<guestfs_set_close_callback> and "
-"C<guestfs_set_progress_callback> are no longer documented in this manual "
-"page.  Because of the ABI guarantee, the old functions continue to work."
+"C<guestfs_set_subprocess_quit_callback>, C<guestfs_set_launch_done_callback>"
+", C<guestfs_set_close_callback> and C<guestfs_set_progress_callback> are no "
+"longer documented in this manual page.  Because of the ABI guarantee, the "
+"old functions continue to work."
 
 #. type: textblock
 #: lib/guestfs.pod:2264
@@ -108869,8 +108966,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs.pod:2511
 msgid "A single event is returned as the name in lower case, eg. C<\"close\">."
-msgstr ""
-"A single event is returned as the name in lower case, eg. C<\"close\">."
+msgstr "A single event is returned as the name in lower case, eg. C<\"close\">."
 
 #. type: textblock
 #: lib/guestfs.pod:2513
@@ -108892,8 +108988,8 @@ msgid ""
 "On success this returns a string.  On error it returns NULL and sets "
 "C<errno>."
 msgstr ""
-"On success this returns a string.  On error it returns NULL and sets "
-"C<errno>."
+"On success this returns a string.  On error it returns NULL and sets C<errno>"
+"."
 
 #. type: textblock
 #: lib/guestfs.pod:2521
@@ -109723,8 +109819,8 @@ msgid ""
 "C<foo_>:"
 msgstr ""
 "If you need to modify keys while walking, then you have to jump back to the "
-"beginning of the loop.  For example, to delete all keys prefixed with "
-"C<foo_>:"
+"beginning of the loop.  For example, to delete all keys prefixed with C<foo_>"
+":"
 
 #. type: verbatim
 #: lib/guestfs.pod:2844
@@ -110098,9 +110194,9 @@ msgid ""
 msgstr ""
 "Although libguestfs probably does not impose any limit, the underlying host "
 "storage will.  If you store disk images on a host ext4 filesystem, then the "
-"maximum size will be limited by the maximum ext4 file size (currently 16 "
-"TB).  If you store disk images as host logical volumes then you are limited "
-"by the maximum size of an LV."
+"maximum size will be limited by the maximum ext4 file size (currently 16 TB)"
+".  If you store disk images as host logical volumes then you are limited by "
+"the maximum size of an LV."
 
 #. type: textblock
 #: lib/guestfs.pod:3013
@@ -110391,9 +110487,9 @@ msgid ""
 "java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
 "L<guestfs-python(3)>, L<guestfs-ruby(3)>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
-"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
-"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -110437,8 +110533,8 @@ msgid ""
 "Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, "
 "L<lvm(8)>, L<disktype(1)>."
 msgstr ""
-"Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, "
-"L<lvm(8)>, L<disktype(1)>."
+"Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, L<lvm"
+"(8)>, L<disktype(1)>."
 
 #. type: textblock
 #: lua/examples/guestfs-lua.pod:3
@@ -110794,9 +110890,9 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "www.lua.org/>, L<http://libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
-"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
-"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -110964,8 +111060,8 @@ msgid ""
 "string)."
 msgstr ""
 "Errors from libguestfs functions are mapped into the C<Guestfs.Error> "
-"exception.  This has a single parameter which is the error message (a "
-"string)."
+"exception.  This has a single parameter which is the error message (a string)"
+"."
 
 #. type: textblock
 #: ocaml/examples/guestfs-ocaml.pod:64
@@ -110992,9 +111088,9 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>, L<http://caml.inria.fr/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
-"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
-"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -111053,8 +111149,8 @@ msgid ""
 "Errors from libguestfs functions turn into calls to C<croak> (see "
 "L<Carp(3)>)."
 msgstr ""
-"Errors from libguestfs functions turn into calls to C<croak> (see "
-"L<Carp(3)>)."
+"Errors from libguestfs functions turn into calls to C<croak> (see L<Carp(3)>)"
+"."
 
 #. type: textblock
 #: perl/examples/guestfs-perl.pod:40
@@ -111070,9 +111166,9 @@ msgid ""
 "L<guestfs-ocaml(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-"
 "ruby(3)>, L<http://libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
-"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
-"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -111211,9 +111307,9 @@ msgid ""
 "L<guestfs-perl(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
-"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
-"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -112175,9 +112271,9 @@ msgid ""
 "L<guestfs-perl(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<http://"
 "libguestfs.org/>."
 msgstr ""
-"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-"
-"java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
-"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
+"L<guestfs(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>"
+", L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
@@ -112250,8 +112346,8 @@ msgid ""
 msgstr ""
 "If it fails (and/or exits with non-zero error code), please paste the "
 "I<complete, unedited> output of the test tool into a bug report.  More "
-"information about reporting bugs can be found on the L<http://libguestfs.org/"
-"> website."
+"information about reporting bugs can be found on the L<http://"
+"libguestfs.org/> website."
 
 #. type: =item
 #: test-tool/libguestfs-test-tool.pod:42
