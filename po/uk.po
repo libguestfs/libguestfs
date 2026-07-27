@@ -18,7 +18,7 @@ msgstr ""
 "enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-13 14:09+0100\n"
 "PO-Revision-Date: 2026-07-27 18:53+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/uk/>\n"
 "Language: uk\n"
@@ -1386,8 +1386,7 @@ msgstr ""
 
 #: fish/cmds.c:819
 msgid "return if Windows guest has group policy"
-msgstr ""
-"повертає значення того, чи має гостьова система Windows групові правила"
+msgstr "повертає значення того, чи має гостьова система Windows групові правила"
 
 #: fish/cmds.c:820
 msgid "get the path of the Windows software hive"
@@ -2886,8 +2885,7 @@ msgstr "remote: для ідентифікатора віддаленого пр�
 #: lib/libvirt-domain.c:137 lib/libvirt-domain.c:235
 #, c-format
 msgid "libguestfs live support was removed in libguestfs 1.48"
-msgstr ""
-"Підтримку портативної версії libguestfs було вилучено у libguestfs 1.48"
+msgstr "Підтримку портативної версії libguestfs було вилучено у libguestfs 1.48"
 
 #: fish/fish.c:302 fuse/guestmount.c:259 fuse/guestunmount.c:131
 #: rescue/rescue.c:225 test-tool/test-tool.c:123
@@ -4231,8 +4229,8 @@ msgstr ""
 msgid ""
 "get_hv: cannot get default hypervisor: the ‘%s’ backend returned no value"
 msgstr ""
-"get_hv: не вдалося отримати значення типового гіпервізора: модуль обробки "
-"«%s» не повернув жодного значення"
+"get_hv: не вдалося отримати значення типового гіпервізора: модуль обробки «%s"
+"» не повернув жодного значення"
 
 #: lib/handle.c:601
 #, c-format
