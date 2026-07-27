@@ -10,11 +10,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-13 14:09+0100\n"
-"PO-Revision-Date: 2026-07-13 10:46+0000\n"
-"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
+"PO-Revision-Date: 2026-07-27 18:47+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Marathi <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/mr/>\n"
 "Language: mr\n"
@@ -331,7 +331,8 @@ msgstr ""
 
 #: fish/cmds.c:525
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr "वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे ड्राइव्ह समाविष्ट करा"
+msgstr ""
+"वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे ड्राइव्ह समाविष्ट करा"
 
 #: fish/cmds.c:526
 msgid "allocate and add a disk file"
@@ -2520,7 +2521,8 @@ msgstr "LVM वॉल्यूम ग्रूप्स् (VGs) सूचीत
 
 #: fish/cmds.c:1201
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
-msgstr "LVM फिजिकल वॉल्यूम्स्, वॉल्यून ग्रूप्स् व लॉजिकल वॉल्यूम्स् करीता  करीता पुनःस्कॅन करा"
+msgstr ""
+"LVM फिजिकल वॉल्यूम्स्, वॉल्यून ग्रूप्स् व लॉजिकल वॉल्यूम्स् करीता  करीता पुनःस्कॅन करा"
 
 #: fish/cmds.c:1202
 msgid "get the UUID of a volume group"
@@ -2606,7 +2608,8 @@ msgstr "आंकुचीत फाइल अंतर्गत फाइल �
 
 #: fish/cmds.c:1232
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr "आदेशकरीता तपशील माहिती दाखवण्यासाठी -h <cmd> / help <cmd> याचा वापर करा."
+msgstr ""
+"आदेशकरीता तपशील माहिती दाखवण्यासाठी -h <cmd> / help <cmd> याचा वापर करा."
 
 #: fish/copy.c:42
 #, c-format
@@ -3206,12 +3209,14 @@ msgstr "guestfish: रिमोट: सर्व्हर कार्यरत 
 #: fish/rc.c:409 fish/rc.c:423
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr "guestfish: प्रोटोकॉल त्रुटी: प्रारंभीक ग्रिटींग सर्व्हरकडे पाठवणे अशक्य\n"
+msgstr ""
+"guestfish: प्रोटोकॉल त्रुटी: प्रारंभीक ग्रिटींग सर्व्हरकडे पाठवणे अशक्य\n"
 
 #: fish/rc.c:434
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr "guestfish: प्रोटोकॉल त्रुटी: सर्व्हर पासून प्रतिसाद डिकोड करण्यास अशक्य\n"
+msgstr ""
+"guestfish: प्रोटोकॉल त्रुटी: सर्व्हर पासून प्रतिसाद डिकोड करण्यास अशक्य\n"
 
 #: fish/reopen.c:43
 #, c-format
@@ -4565,7 +4570,8 @@ msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s
 #: lib/tmpdirs.c:342
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
-msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s ग्रूप किंवा इतर द्वारे लेखनजोगी आहे (मोड %o)"
+msgstr ""
+"सुरक्षा: कॅश्ड् अप्लायंस् %s ग्रूप किंवा इतर द्वारे लेखनजोगी आहे (मोड %o)"
 
 #: lib/version.c:158
 #, c-format

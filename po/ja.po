@@ -11,11 +11,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-13 14:09+0100\n"
-"PO-Revision-Date: 2026-07-13 10:35+0000\n"
-"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
+"PO-Revision-Date: 2026-07-27 18:46+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Japanese <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ja/>\n"
 "Language: ja\n"
@@ -93,8 +93,7 @@ msgstr ""
 #: common/options/inspect.c:161
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr ""
-"%s: いくつかのファイルシステムがマウントできませんでした（無視されました）\n"
+msgstr "%s: いくつかのファイルシステムがマウントできませんでした（無視されました）\n"
 
 #: common/options/inspect.c:178
 #, c-format
@@ -166,8 +165,7 @@ msgstr ""
 #: common/options/options.c:291
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
-msgstr ""
-"%s: これらのファイルシステムのどれかをマウントしたいということですか?\n"
+msgstr "%s: これらのファイルシステムのどれかをマウントしたいということですか?\n"
 
 #: common/options/options.c:304
 #, c-format
@@ -250,8 +248,7 @@ msgstr "%s: %s %s に対する拡張属性を取得中にエラーが発生し�
 #: common/visit/visit.c:147
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
-msgstr ""
-"%s: error: %s %s に対する xattr カウントを構文解析中にエラーが発生しました\n"
+msgstr "%s: error: %s %s に対する xattr カウントを構文解析中にエラーが発生しました\n"
 
 #: common/windows/windows.c:139
 #, c-format
@@ -339,8 +336,7 @@ msgstr "空の一時的なディスクを追加する"
 
 #: fish/cmds.c:525
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr ""
-"QEMU ブロックエミュレーションを使用するよう指定されたドライブを追加する"
+msgstr "QEMU ブロックエミュレーションを使用するよう指定されたドライブを追加する"
 
 #: fish/cmds.c:526
 msgid "allocate and add a disk file"
@@ -683,8 +679,7 @@ msgstr "デバイスの内容の MD5, SHAx または CRC チェックサムを�
 
 #: fish/cmds.c:631
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
-msgstr ""
-"ディレクトリにあるファイルの MD5, SHAx または CRC チェックサムを計算する"
+msgstr "ディレクトリにあるファイルの MD5, SHAx または CRC チェックサムを計算する"
 
 #: fish/cmds.c:632
 msgid "change file mode"
@@ -903,8 +898,8 @@ msgstr "ファイルまたはディレクトリが存在するかを確認する
 #: fish/cmds.c:696
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
 msgstr ""
-"ext2/3/4 または btrfs ファイルシステムに SYSLINUX ブートローダーをインストー"
-"ルします"
+"ext2/3/4 または btrfs ファイルシステムに SYSLINUX ブートローダーを"
+"インストールします"
 
 #: fish/cmds.c:697
 msgid "expand a f2fs filesystem"
@@ -1332,8 +1327,7 @@ msgstr "検査したオペレーティングシステムの種類を取得する
 
 #: fish/cmds.c:818
 msgid "get Windows CurrentControlSet of inspected operating system"
-msgstr ""
-"検出されたオペレーティングシステムの Windows CurrentControlSet を取得する"
+msgstr "検出されたオペレーティングシステムの Windows CurrentControlSet を取得する"
 
 #: fish/cmds.c:819
 msgid "return if Windows guest has group policy"
@@ -1361,8 +1355,7 @@ msgstr "インストールディスクの multipart フラグを取得する"
 
 #: fish/cmds.c:825
 msgid "get netinst (network installer) flag for install disk"
-msgstr ""
-"インストールディスクの netinst (ネットワークインストーラー) フラグを取得する"
+msgstr "インストールディスクの netinst (ネットワークインストーラー) フラグを取得する"
 
 #: fish/cmds.c:826 fish/cmds.c:827
 msgid "get list of applications installed in the operating system"
@@ -1888,8 +1881,7 @@ msgstr "バックアップファイルに NTFS を保存する"
 
 #: fish/cmds.c:981
 msgid "fix common errors and force Windows to check NTFS"
-msgstr ""
-"一般的なエラーを修正する、また強制的に Windows に NTFS をチェックさせる"
+msgstr "一般的なエラーを修正する、また強制的に Windows に NTFS をチェックさせる"
 
 #: fish/cmds.c:982
 msgid "resize an NTFS filesystem"
@@ -2109,8 +2101,7 @@ msgstr "ext2, ext3 または ext4 ファイルシステムの容量を最小容�
 
 #: fish/cmds.c:1057
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
-msgstr ""
-"ext2, ext3 または ext4 ファイルシステムの容量を（指定した容量に）変更する"
+msgstr "ext2, ext3 または ext4 ファイルシステムの容量を（指定した容量に）変更する"
 
 #: fish/cmds.c:1058
 msgid "remove a file"
@@ -2222,8 +2213,7 @@ msgstr "要求されたクレディンシャルを libvirt に渡す"
 
 #: fish/cmds.c:1095
 msgid "set libvirt credentials supported by calling program"
-msgstr ""
-"呼び出されたプログラムによりサポートされる libvirt クレディンシャルを設定する"
+msgstr "呼び出されたプログラムによりサポートされる libvirt クレディンシャルを設定する"
 
 #: fish/cmds.c:1096
 msgid "set memory allocated to the hypervisor"
@@ -2543,8 +2533,7 @@ msgstr "LVM ボリュームグループ (VG) を一覧表示する"
 
 #: fish/cmds.c:1201
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
-msgstr ""
-"LVM 物理ボリューム、ボリュームグループおよび論理ボリュームを再スキャンする"
+msgstr "LVM 物理ボリューム、ボリュームグループおよび論理ボリュームを再スキャンする"
 
 #: fish/cmds.c:1202
 msgid "get the UUID of a volume group"
@@ -2632,8 +2621,7 @@ msgstr "圧縮ファイルの中にあるファイルの形式を決定する"
 
 #: fish/cmds.c:1232
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr ""
-"コマンドの詳細なヘルプを表示するには -h <cmd> / help <cmd> を使用します。"
+msgstr "コマンドの詳細なヘルプを表示するには -h <cmd> / help <cmd> を使用します。"
 
 #: fish/copy.c:42
 #, c-format
@@ -2800,12 +2788,12 @@ msgstr ""
 "  --csv                出力結果をカンマ区切りの値(CSV形式)で表示します。\n"
 "  -d|--domain guest    libvirtゲストからディスクイメージを追加します。\n"
 "  --echo-keys          パスフレーズのエコーバックをオフにしません。\n"
-"  --extra              スワップとデータのファイルシステムの一覧を表示しま"
-"す。\n"
+"  --extra              スワップとデータのファイルシステムの一覧を表示します"
+"。\n"
 "  --filesystems        マウント可能なファイルシステムの一覧を表示します。\n"
 "  --format[=raw|..]    -a オプションのディスク形式を強制します。\n"
-"  -h|--human-readable  --long の出力結果を人間が読みやすいサイズに合わせま"
-"す。\n"
+"  -h|--human-readable  --long の出力結果を人間が読みやすいサイズに合わせます"
+"。\n"
 "  --help               簡易ヘルプを表示します。\n"
 "  --keys-from-stdin    標準入力からパスフレーズを読み込みます。\n"
 "  -l|--long            長い結果を表示します。\n"
@@ -2906,8 +2894,7 @@ msgstr "%s: 引数が多すぎます\n"
 #: fish/fish.c:1001
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
-msgstr ""
-"%s: 文字列に無効なエスケープシーケンス（オフセット %d から始まります）\n"
+msgstr "%s: 文字列に無効なエスケープシーケンス（オフセット %d から始まります）\n"
 
 #: fish/fish.c:1010
 #, c-format
@@ -3089,8 +3076,7 @@ msgstr "hexedit: 無効な範囲\n"
 #: fish/lcd.c:36
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
-msgstr ""
-"ローカルディレクトリを変更するには 'lcd directory' を使用してください\n"
+msgstr "ローカルディレクトリを変更するには 'lcd directory' を使用してください\n"
 
 #: fish/man.c:37
 #, c-format
@@ -3216,8 +3202,8 @@ msgid ""
 msgstr ""
 "準備済みのディスクイメージがローカルディレクトリの \"test1.img\" に書き込まれ"
 "ます。\n"
-" (-N オプションが複数指定されていると、\"test2.img\" などに書き込まれま"
-"す)。\n"
+" (-N オプションが複数指定されていると、\"test2.img\" などに書き込まれます)"
+"。\n"
 "タイプの前にファイル名を指定することにより、名前を上書きできます。例:\n"
 "\n"
 "  guestfish -N blank.img=fs\n"
@@ -3261,14 +3247,12 @@ msgstr "guestfish: remote: サーバーが稼働していないように思わ�
 #: fish/rc.c:409 fish/rc.c:423
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr ""
-"guestfish: プロトコルエラー: 初期メッセージをサーバーに送信できませんでした\n"
+msgstr "guestfish: プロトコルエラー: 初期メッセージをサーバーに送信できませんでした\n"
 
 #: fish/rc.c:434
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr ""
-"guestfish: プロトコルエラー: サーバーからの応答を解読できませんでした\n"
+msgstr "guestfish: プロトコルエラー: サーバーからの応答を解読できませんでした\n"
 
 #: fish/reopen.c:43
 #, c-format
@@ -3548,12 +3532,12 @@ msgstr ""
 "  --csv                出力結果をカンマ区切りの値(CSV形式)で表示します。\n"
 "  -d|--domain guest    libvirtゲストからディスクイメージを追加します。\n"
 "  --echo-keys          パスフレーズのエコーバックをオフにしません。\n"
-"  --extra              スワップとデータのファイルシステムの一覧を表示しま"
-"す。\n"
+"  --extra              スワップとデータのファイルシステムの一覧を表示します"
+"。\n"
 "  --filesystems        マウント可能なファイルシステムの一覧を表示します。\n"
 "  --format[=raw|..]    -a オプションのディスク形式を強制します。\n"
-"  -h|--human-readable  --long の出力結果を人間が読みやすいサイズに合わせま"
-"す。\n"
+"  -h|--human-readable  --long の出力結果を人間が読みやすいサイズに合わせます"
+"。\n"
 "  --help               簡易ヘルプを表示します。\n"
 "  --keys-from-stdin    標準入力からパスフレーズを読み込みます。\n"
 "  -l|--long            長い結果を表示します。\n"
@@ -3708,8 +3692,7 @@ msgstr "write_data: "
 
 #: lib/conn-socket.c:363
 msgid "error reading console messages from the appliance"
-msgstr ""
-"アプライアンスからコンソールメッセージを読み込み中にエラーが発生しました"
+msgstr "アプライアンスからコンソールメッセージを読み込み中にエラーが発生しました"
 
 #: lib/conn-socket.c:406
 msgid "console socket not connected"
@@ -3941,8 +3924,7 @@ msgstr "%s パラメーターが空です。もしくは、許可できない文
 
 #: lib/drives.c:727
 msgid "label parameter is empty, too long, or contains disallowed characters"
-msgstr ""
-"ラベルパラメーターが空白、長すぎます、または許可されない文字を含んでいます"
+msgstr "ラベルパラメーターが空白、長すぎます、または許可されない文字を含んでいます"
 
 #: lib/drives.c:733
 msgid "cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"
@@ -4395,8 +4377,7 @@ msgstr ""
 msgid ""
 "%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
 "handler"
-msgstr ""
-"%s は GUESTFS_EVENT_LIBVIRT_AUTH イベントハンドラーに中からのみ呼び出されます"
+msgstr "%s は GUESTFS_EVENT_LIBVIRT_AUTH イベントハンドラーに中からのみ呼び出されます"
 
 #: lib/libvirt-auth.c:274 lib/libvirt-auth.c:294 lib/libvirt-auth.c:314
 #: lib/libvirt-auth.c:335
@@ -4668,8 +4649,8 @@ msgstr ""
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
-"security: キャッシュされたアプライアンス %s がディレクトリではありません"
-"（モード %o）"
+"security: キャッシュされたアプライアンス %s がディレクトリではありません（"
+"モード %o）"
 
 #: lib/tmpdirs.c:342
 #, c-format
@@ -4850,12 +4831,12 @@ msgstr ""
 "  --csv                出力結果をカンマ区切りの値(CSV形式)で表示します。\n"
 "  -d|--domain guest    libvirtゲストからディスクイメージを追加します。\n"
 "  --echo-keys          パスフレーズのエコーバックをオフにしません。\n"
-"  --extra              スワップとデータのファイルシステムの一覧を表示しま"
-"す。\n"
+"  --extra              スワップとデータのファイルシステムの一覧を表示します"
+"。\n"
 "  --filesystems        マウント可能なファイルシステムの一覧を表示します。\n"
 "  --format[=raw|..]    -a オプションのディスク形式を強制します。\n"
-"  -h|--human-readable  --long の出力結果を人間が読みやすいサイズに合わせま"
-"す。\n"
+"  -h|--human-readable  --long の出力結果を人間が読みやすいサイズに合わせます"
+"。\n"
 "  --help               簡易ヘルプを表示します。\n"
 "  --keys-from-stdin    標準入力からパスフレーズを読み込みます。\n"
 "  -l|--long            長い結果を表示します。\n"
@@ -4958,8 +4939,8 @@ msgstr ""
 "\n"
 "しかしながら、libguestfs により認識できないファイルシステムのマウントを試行\n"
 "するため、または空のディスクにパーティション、論理ボリュームおよびファイル\n"
-"システムを作成するために、ディスクイメージにおいて virt-rescue を使用できま"
-"す。\n"
+"システムを作成するために、ディスクイメージにおいて virt-rescue を使用できます"
+"。\n"
 
 #: rescue/suggest.c:162
 #, c-format

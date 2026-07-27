@@ -15,11 +15,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-07-13 14:09+0100\n"
-"PO-Revision-Date: 2026-07-13 10:58+0000\n"
-"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
+"PO-Revision-Date: 2026-07-27 18:50+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/pl/>\n"
 "Language: pl\n"
@@ -1314,8 +1314,7 @@ msgstr "uzyskuje wariant produktu badanego systemu operacyjnego"
 
 #: fish/cmds.c:816
 msgid "return list of operating systems found by last inspection"
-msgstr ""
-"zwraca listę systemów operacyjnych odnalezionych przez ostatnie badanie"
+msgstr "zwraca listę systemów operacyjnych odnalezionych przez ostatnie badanie"
 
 #: fish/cmds.c:817
 msgid "get type of inspected operating system"
@@ -1548,8 +1547,7 @@ msgstr "wyświetla listę plików w katalogu (długi format)"
 
 #: fish/cmds.c:882
 msgid "list the files in a directory (long format with SELinux contexts)"
-msgstr ""
-"wyświetla listę plików w katalogu (długi format z kontekstem SELinuksa)"
+msgstr "wyświetla listę plików w katalogu (długi format z kontekstem SELinuksa)"
 
 #: fish/cmds.c:883 fish/cmds.c:884
 msgid "create a hard link"
@@ -2100,8 +2098,7 @@ msgstr "zmienia rozmiar systemu plików ext2, ext3 lub ext4 na minimalny"
 
 #: fish/cmds.c:1057
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
-msgstr ""
-"zmienia rozmiar systemu plików ext2, ext3 lub ext4 (za pomocą rozmiaru)"
+msgstr "zmienia rozmiar systemu plików ext2, ext3 lub ext4 (za pomocą rozmiaru)"
 
 #: fish/cmds.c:1058
 msgid "remove a file"
@@ -2625,8 +2622,8 @@ msgstr "ustala typ pliku wewnątrz skompresowanego pliku"
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "Należy użyć -h <polecenie>/help <polecenie>, aby wyświetlić szczegółową "
-"pomoc polecenia. Użyj -h <cmd>/help <cmd>, aby wyświetlić szczegółową pomoc "
-"o poleceniu."
+"pomoc polecenia. Użyj -h <cmd>/help <cmd>, aby wyświetlić szczegółową pomoc o"
+" poleceniu."
 
 #: fish/copy.c:42
 #, c-format
@@ -3966,8 +3963,8 @@ msgstr "<skrócone, pierwotny rozmiar %zu bajtów>"
 #: lib/errors.c:485
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
-"guestfs_launch się nie powiodło, proszę zobaczyć wcześniejsze komunikaty "
-"o błędach"
+"guestfs_launch się nie powiodło, proszę zobaczyć wcześniejsze komunikaty o "
+"błędach"
 
 #: lib/errors.c:488
 msgid ""
@@ -4450,8 +4447,7 @@ msgstr "błąd podczas odczytywania informacji XML biblioteki libvirt: %s"
 
 #: lib/libvirt-domain.c:811
 msgid "unable to parse XML information returned by libvirt"
-msgstr ""
-"nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
+msgstr "nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
 
 #: lib/libvirt-domain.c:832
 #, c-format
