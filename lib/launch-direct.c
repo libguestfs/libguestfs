@@ -878,7 +878,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     if (g->pgroup)
       setpgid (0, 0);
 
-    execvpe (data->qemu, argv, env);        /* Run qemu. */
+    /* Assign to environ since execvpe is a GNU extension. */
+    environ = env;
+    execvp (data->qemu, argv);  /* Run qemu. */
     perror (data->qemu);
     _exit (EXIT_FAILURE);
   }
