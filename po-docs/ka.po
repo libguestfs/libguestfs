@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-07-14 14:59+0100\n"
-"PO-Revision-Date: 2026-07-27 21:55+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-08-02 09:17+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ka/>\n"
 "Language: ka\n"
@@ -16177,6 +16176,8 @@ msgid ""
 " guestfish -a ssh://example.com/path/to/disk.img\n"
 "\n"
 msgstr ""
+" guestfish -a ssh://example.com/ბილიკი/დისკამდე.img\n"
+"\n"
 
 #. type: textblock
 #: docs/guestfs-release-notes-1.22.pod:81
@@ -33833,6 +33834,8 @@ msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<guestfs-examples(3)>, L<http://"
 "libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfish(1)>, L<guestfs-examples(3)>, L<http://"
+"libguestfs.org/>."
 
 #. type: textblock
 #: docs/guestfs-testing.pod:408 erlang/examples/guestfs-erlang.pod:116
@@ -34829,7 +34832,7 @@ msgstr ""
 #. type: =head4
 #: docs/internal-documentation.pod:464
 msgid "Function C<lib/command.c:finish_command>"
-msgstr ""
+msgstr "ფუნქცია C<lib/command.c:finish_command>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:466
@@ -35491,6 +35494,9 @@ msgid ""
 " guestfs_int_checkpoint_drives (guestfs_h *g)\n"
 "\n"
 msgstr ""
+" size_t\n"
+" guestfs_int_checkpoint_drives (guestfs_h *g)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:736
@@ -35722,6 +35728,9 @@ msgid ""
 " guestfs_int_launch_failed_error (guestfs_h *g)\n"
 "\n"
 msgstr ""
+" void\n"
+" guestfs_int_launch_failed_error (guestfs_h *g)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:832
@@ -37380,6 +37389,9 @@ msgid ""
 " guestfs_int_send_file (guestfs_h *g, const char *filename)\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_int_send_file (guestfs_h *g, const char *filename)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:1594
@@ -37573,6 +37585,9 @@ msgid ""
 " guestfs_int_recv_file (guestfs_h *g, const char *filename)\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_int_recv_file (guestfs_h *g, const char *filename)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:1679 docs/internal-documentation.pod:1688
@@ -45455,7 +45470,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:797
 msgid "See also L</filesystem-available>."
-msgstr ""
+msgstr "ასევე იხილეთ L</filesystem-available>."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:799
@@ -51479,7 +51494,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:3606
 msgid "See also: L</getxattrs>, L</lgetxattr>, L<attr(5)>."
-msgstr ""
+msgstr "ასევე იხილეთ: L</getxattrs>, L</lgetxattr>, L<attr(5)>."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3608 fish/guestfish-actions.pod:3623
@@ -51521,7 +51536,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:3621
 msgid "See also: L</lgetxattrs>, L<attr(5)>."
-msgstr ""
+msgstr "ასევე იხილეთ: L</lgetxattrs>, L<attr(5)>."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:3626
@@ -51961,6 +51976,8 @@ msgid ""
 " hivex-node-get-child nodeh name\n"
 "\n"
 msgstr ""
+" hivex-node-get-child nodeh სახელი\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3851 lib/guestfs-actions.pod:6343
@@ -52001,6 +52018,8 @@ msgid ""
 " hivex-node-name nodeh\n"
 "\n"
 msgstr ""
+" hivex-node-name nodeh\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3876 lib/guestfs-actions.pod:6381
@@ -52019,6 +52038,8 @@ msgid ""
 " hivex-node-parent nodeh\n"
 "\n"
 msgstr ""
+" hivex-node-parent nodeh\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3887 lib/guestfs-actions.pod:6399
@@ -52057,6 +52078,8 @@ msgid ""
 " hivex-node-values nodeh\n"
 "\n"
 msgstr ""
+" hivex-node-values nodeh\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3910 lib/guestfs-actions.pod:6438
@@ -52136,6 +52159,8 @@ msgid ""
 " hivex-value-string valueh\n"
 "\n"
 msgstr ""
+" hivex-value-string valueh\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3958 fish/guestfish-actions.pod:3986
@@ -52167,6 +52192,8 @@ msgid ""
 " hivex-value-type valueh\n"
 "\n"
 msgstr ""
+" hivex-value-type valueh\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3975 lib/guestfs-actions.pod:6567
@@ -52185,6 +52212,8 @@ msgid ""
 " hivex-value-utf8 valueh\n"
 "\n"
 msgstr ""
+" hivex-value-utf8 valueh\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:3996
@@ -52205,6 +52234,8 @@ msgid ""
 " hivex-value-value valueh\n"
 "\n"
 msgstr ""
+" hivex-value-value valueh\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:4010 lib/guestfs-actions.pod:6616
@@ -54908,7 +54939,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:5357
 msgid "See also L</journal-set-data-threshold>."
-msgstr ""
+msgstr "ასევე იხილეთ L</journal-set-data-threshold>."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:5362
@@ -55023,7 +55054,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:5412
 msgid "See also L</journal-get-data-threshold>."
-msgstr ""
+msgstr "ასევე იხილეთ L</journal-get-data-threshold>."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:5417
@@ -58958,6 +58989,8 @@ msgid ""
 " part-get-disk-guid device\n"
 "\n"
 msgstr ""
+" part-get-disk-guid მოწყობილობა\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7411 lib/guestfs-actions.pod:12086
@@ -59437,6 +59470,8 @@ msgid ""
 " part-set-disk-guid device guid\n"
 "\n"
 msgstr ""
+" part-set-disk-guid მოწყობილობა guid\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7612 lib/guestfs-actions.pod:12379
@@ -59811,6 +59846,8 @@ msgid ""
 " pvremove device\n"
 "\n"
 msgstr ""
+" pvremove მოწყობილობა\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7774 lib/guestfs-actions.pod:12650
@@ -59937,6 +59974,8 @@ msgid ""
 " pvuuid device\n"
 "\n"
 msgstr ""
+" pvuuid მოწყობილობა\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:7833 lib/guestfs-actions.pod:12742
@@ -60322,6 +60361,8 @@ msgid ""
 " resize2fs-M device\n"
 "\n"
 msgstr ""
+" resize2fs-M მოწყობილობა\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8047
@@ -60912,6 +60953,8 @@ msgid ""
 " set-backend-setting name val\n"
 "\n"
 msgstr ""
+" set-backend-setting სახელი მნიშვნ\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8340 lib/guestfs-actions.pod:13616
@@ -61306,6 +61349,8 @@ msgid ""
 " set-label mountable label\n"
 "\n"
 msgstr ""
+" set-label მიმაგრებადი ჭდე\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8535 lib/guestfs-actions.pod:13898
@@ -61946,6 +61991,8 @@ msgid ""
 " set-uuid-random device\n"
 "\n"
 msgstr ""
+" set-uuid-random მოწყობილობა\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:8831 lib/guestfs-actions.pod:14265
@@ -62072,7 +62119,7 @@ msgstr ""
 #. type: textblock
 #: fish/guestfish-actions.pod:8909
 msgid "See also: L</lsetxattr>, L<attr(5)>."
-msgstr ""
+msgstr "ასევე იხილეთ: L</lsetxattr>, L<attr(5)>."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:8914
@@ -63901,6 +63948,8 @@ msgid ""
 " vfs-type mountable\n"
 "\n"
 msgstr ""
+" vfs-type მომაგრებადი\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:9827 lib/guestfs-actions.pod:15890
@@ -64950,6 +64999,8 @@ msgid ""
 " zerofree device\n"
 "\n"
 msgstr ""
+" zerofree მოწყობილობა\n"
+"\n"
 
 #. type: textblock
 #: fish/guestfish-actions.pod:10328 lib/guestfs-actions.pod:16794
@@ -69977,6 +70028,8 @@ msgid ""
 " virt-copy-in -d MyGuest resolv.conf /etc\n"
 "\n"
 msgstr ""
+" virt-copy-in -d MyGuest resolv.conf /etc\n"
+"\n"
 
 #. type: textblock
 #: fish/virt-copy-in.pod:27 fish/virt-tar-in.pod:24
@@ -70934,6 +70987,8 @@ msgid ""
 " guestunmount --fd=<FD> mountpoint\n"
 "\n"
 msgstr ""
+" guestunmount --fd=<FD> მიმაგრებისწერტილი\n"
+"\n"
 
 #. type: textblock
 #: fuse/guestunmount.pod:13
@@ -70972,6 +71027,8 @@ msgid ""
 " guestunmount --fd=FD mountpoint\n"
 "\n"
 msgstr ""
+" guestunmount --fd=FD მიმაგრებისწერტილი\n"
+"\n"
 
 #. type: textblock
 #: fuse/guestunmount.pod:31
@@ -81617,7 +81674,7 @@ msgstr ""
 #: lib/guestfs-actions.pod:8359 lib/guestfs-actions.pod:8462
 #: lib/guestfs-actions.pod:8499
 msgid "See also C<guestfs_stat>."
-msgstr ""
+msgstr "ასევე იხილეთ C<guestfs_stat>."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:8087
@@ -87202,7 +87259,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:12074
 msgid "See also C<guestfs_part_set_bootable>."
-msgstr ""
+msgstr "ასევე იხილეთ C<guestfs_part_set_bootable>."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:12080
@@ -87806,7 +87863,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:12587
 msgid "See also C<guestfs_pread>."
-msgstr ""
+msgstr "ასევე იხილეთ C<guestfs_pread>."
 
 #. type: textblock
 #: lib/guestfs-actions.pod:12596
@@ -88063,7 +88120,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:12793
 msgid "See also C<guestfs_pwrite>."
-msgstr ""
+msgstr "ასევე იხილეთ C<guestfs_pwrite>."
 
 #. type: textblock
 #: lib/guestfs-actions.pod:12800
@@ -88355,7 +88412,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:13049
 msgid "See also: C<guestfs_lremovexattr>, L<attr(5)>."
-msgstr ""
+msgstr "ასევე იხილეთ: C<guestfs_lremovexattr>, L<attr(5)>."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:13058
@@ -90051,7 +90108,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:14399
 msgid "See also: C<guestfs_lsetxattr>, L<attr(5)>."
-msgstr ""
+msgstr "ასევე იხილეთ: C<guestfs_lsetxattr>, L<attr(5)>."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:14408
@@ -90170,7 +90227,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:14503
 msgid "See also: C<guestfs_part_add>"
-msgstr ""
+msgstr "ასევე იხილეთ: C<guestfs_part_add>"
 
 #. type: =head2
 #: lib/guestfs-actions.pod:14509
@@ -90248,7 +90305,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:14561
 msgid "See also: C<guestfs_part_list>"
-msgstr ""
+msgstr "ასევე იხილეთ: C<guestfs_part_list>"
 
 #. type: =head2
 #: lib/guestfs-actions.pod:14568
@@ -92461,7 +92518,7 @@ msgstr ""
 #. type: textblock
 #: lib/guestfs-actions.pod:16287
 msgid "See also C<guestfs_write>."
-msgstr ""
+msgstr "ასევე იხილეთ C<guestfs_write>."
 
 #. type: =head2
 #: lib/guestfs-actions.pod:16293
@@ -98304,7 +98361,7 @@ msgstr "B<Lua>"
 #. type: textblock
 #: lib/guestfs.pod:1162
 msgid "See L<guestfs-lua(3)>."
-msgstr ""
+msgstr "იხ. L<guestfs-lua(3)>."
 
 #. type: =item
 #: lib/guestfs.pod:1164
@@ -98351,7 +98408,7 @@ msgstr "B<Python>"
 #. type: textblock
 #: lib/guestfs.pod:1181
 msgid "See L<guestfs-python(3)>."
-msgstr ""
+msgstr "იხ. L<guestfs-python(3)>."
 
 #. type: =item
 #: lib/guestfs.pod:1183
