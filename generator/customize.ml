@@ -596,7 +596,7 @@ type flag = {
   flag_pod_longdesc : string;        (* multi-line description *)
 }
 and flag_type =
-| FlagBool of bool                  (* boolean is the default value *)
+| FlagBool of bool                   (* boolean, with default value *)
 | FlagPasswordCrypto of string
 
 let flags = [
