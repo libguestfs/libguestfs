@@ -9,9 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-07-13 14:09+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-07-29 11:00+0100\n"
 "PO-Revision-Date: 2026-07-27 18:49+0000\n"
 "Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
 "Language-Team: Odia <https://translate.fedoraproject.org/projects/libguestfs/"
@@ -263,8 +263,7 @@ msgstr "ଗୋଟିଏ ପ୍ରତିଛବି ନିର୍ମାଣ କରି
 #: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr ""
-"ଗୋଟିଏ ସ୍ପାର୍ଶ ପ୍ରତିଛବି ନିର୍ମାଣ କରିବା ପାଇଁ 'sparse file size' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
+msgstr "ଗୋଟିଏ ସ୍ପାର୍ଶ ପ୍ରତିଛବି ନିର୍ମାଣ କରିବା ପାଇଁ 'sparse file size' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
 #: fish/alloc.c:105
 #, c-format
@@ -935,8 +934,7 @@ msgstr "ସମସ୍ତ ଫାଇଲ ଏବଂ ଡିରେକ୍ଟୋରୀଗ
 
 #: fish/cmds.c:712
 msgid "find all files and directories, returning NUL-separated list"
-msgstr ""
-"ସମସ୍ତ ଫାଇଲ ଏବଂ ଡିରେକ୍ଟୋରୀଗୁଡ଼ିକୁ ଖୋଜନ୍ତୁ, NUL-ଦ୍ୱାରା ପୃଥକ ତାଲିକାକୁ ଫେରାଉଛି"
+msgstr "ସମସ୍ତ ଫାଇଲ ଏବଂ ଡିରେକ୍ଟୋରୀଗୁଡ଼ିକୁ ଖୋଜନ୍ତୁ, NUL-ଦ୍ୱାରା ପୃଥକ ତାଲିକାକୁ ଫେରାଉଛି"
 
 #: fish/cmds.c:713
 msgid "search the entries associated to the given inode"
@@ -2808,8 +2806,7 @@ msgstr ""
 
 #: fish/fish.c:1229
 msgid "display a list of commands or help on a command"
-msgstr ""
-"ନିର୍ଦ୍ଦେଶମାନଙ୍କର ଗୋଟିଏ ତାଲିକା ଦର୍ଶାନ୍ତୁ ଅଥବା ଗୋଟିଏ ନିର୍ଦ୍ଦେଶରେ ସହାୟତା ଦେଖାନ୍ତୁ"
+msgstr "ନିର୍ଦ୍ଦେଶମାନଙ୍କର ଗୋଟିଏ ତାଲିକା ଦର୍ଶାନ୍ତୁ ଅଥବା ଗୋଟିଏ ନିର୍ଦ୍ଦେଶରେ ସହାୟତା ଦେଖାନ୍ତୁ"
 
 #: fish/fish.c:1231
 msgid "quit guestfish"
@@ -2959,8 +2956,7 @@ msgstr ""
 #: fish/lcd.c:36
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
-msgstr ""
-"ସ୍ଥାନୀୟ ଡିରେକ୍ଟୋରୀକୁ ପରିବର୍ତ୍ତନ କରିବା ପାଇଁ 'lcd directory' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
+msgstr "ସ୍ଥାନୀୟ ଡିରେକ୍ଟୋରୀକୁ ପରିବର୍ତ୍ତନ କରିବା ପାଇଁ 'lcd directory' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
 #: fish/man.c:37
 #, c-format
@@ -3117,8 +3113,7 @@ msgstr "guestfish: remote: ସର୍ଭର ଚାଲୁନଥିବା ପରି
 #: fish/rc.c:409 fish/rc.c:423
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr ""
-"guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: ସର୍ଭରକୁ ପ୍ରାରମ୍ଭିକ ଆମନ୍ତ୍ରଣ ପଠାଇପାରିଲା ନାହିଁ\n"
+msgstr "guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: ସର୍ଭରକୁ ପ୍ରାରମ୍ଭିକ ଆମନ୍ତ୍ରଣ ପଠାଇପାରିଲା ନାହିଁ\n"
 
 #: fish/rc.c:434
 #, c-format
@@ -3181,7 +3176,7 @@ msgstr ""
 #: fish/run-3.c:890 fish/run-3.c:997 fish/run-3.c:1402 fish/run-3.c:1645
 #: fish/run-3.c:1704 fish/run-3.c:2682 fish/run-3.c:2999 fish/run-3.c:3280
 #: fish/run-3.c:3622 fish/run-3.c:3858 fish/run-4.c:401 fish/run-4.c:506
-#: fish/run-4.c:887 fish/run-4.c:1672 fish/run-4.c:2121 fish/run-4.c:2204
+#: fish/run-4.c:887 fish/run-4.c:1672 fish/run-4.c:2121 fish/run-4.c:2210
 #: fish/run-5.c:404 fish/run-5.c:630 fish/run-5.c:755 fish/run-5.c:809
 #: fish/run-5.c:1293 fish/run-5.c:1371 fish/run-5.c:1902 fish/run-5.c:3130
 #: fish/run-5.c:3331 fish/run-6.c:387 fish/run-6.c:1372 fish/run-6.c:1443
@@ -3201,7 +3196,7 @@ msgstr ""
 #: fish/run-3.c:896 fish/run-3.c:1003 fish/run-3.c:1408 fish/run-3.c:1651
 #: fish/run-3.c:1710 fish/run-3.c:2688 fish/run-3.c:3005 fish/run-3.c:3286
 #: fish/run-3.c:3628 fish/run-3.c:3864 fish/run-4.c:407 fish/run-4.c:512
-#: fish/run-4.c:893 fish/run-4.c:1678 fish/run-4.c:2127 fish/run-4.c:2210
+#: fish/run-4.c:893 fish/run-4.c:1678 fish/run-4.c:2127 fish/run-4.c:2216
 #: fish/run-5.c:410 fish/run-5.c:636 fish/run-5.c:761 fish/run-5.c:815
 #: fish/run-5.c:1299 fish/run-5.c:1377 fish/run-5.c:1908 fish/run-5.c:3136
 #: fish/run-5.c:3337 fish/run-6.c:393 fish/run-6.c:1378 fish/run-6.c:1449
@@ -3245,7 +3240,7 @@ msgstr ""
 #: fish/run-4.c:1302 fish/run-4.c:1392 fish/run-4.c:1459 fish/run-4.c:1503
 #: fish/run-4.c:1548 fish/run-4.c:1567 fish/run-4.c:1586 fish/run-4.c:1717
 #: fish/run-4.c:1730 fish/run-4.c:1767 fish/run-4.c:1811 fish/run-4.c:1854
-#: fish/run-4.c:1898 fish/run-4.c:2366 fish/run-5.c:560 fish/run-5.c:577
+#: fish/run-4.c:1898 fish/run-4.c:2375 fish/run-5.c:560 fish/run-5.c:577
 #: fish/run-5.c:594 fish/run-5.c:685 fish/run-5.c:702 fish/run-5.c:719
 #: fish/run-5.c:930 fish/run-5.c:1059 fish/run-5.c:1127 fish/run-5.c:1456
 #: fish/run-5.c:1620 fish/run-5.c:1668 fish/run-5.c:1712 fish/run-5.c:1830
@@ -3282,7 +3277,7 @@ msgstr ""
 #: fish/run-4.c:977 fish/run-4.c:1308 fish/run-4.c:1398 fish/run-4.c:1465
 #: fish/run-4.c:1509 fish/run-4.c:1554 fish/run-4.c:1573 fish/run-4.c:1592
 #: fish/run-4.c:1773 fish/run-4.c:1817 fish/run-4.c:1860 fish/run-4.c:1904
-#: fish/run-4.c:2372 fish/run-5.c:936 fish/run-5.c:1065 fish/run-5.c:1626
+#: fish/run-4.c:2381 fish/run-5.c:936 fish/run-5.c:1065 fish/run-5.c:1626
 #: fish/run-5.c:1674 fish/run-5.c:1718 fish/run-5.c:1836 fish/run-5.c:1864
 #: fish/run-5.c:1887 fish/run-5.c:1951 fish/run-5.c:2106 fish/run-5.c:2149
 #: fish/run-5.c:2193 fish/run-5.c:2237 fish/run-5.c:2374 fish/run-5.c:2492
@@ -3971,13 +3966,11 @@ msgstr ""
 
 #: lib/launch-direct.c:490
 msgid "you must call guestfs_add_drive before guestfs_launch"
-msgstr ""
-"ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
+msgstr "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
 
-#: lib/launch-direct.c:1026 lib/launch-libvirt.c:672
+#: lib/launch-direct.c:1028 lib/launch-libvirt.c:672
 msgid "qemu launched and contacted daemon, but state != READY"
-msgstr ""
-"qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
+msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
 #: lib/launch-libvirt.c:61
 #, c-format
@@ -4294,8 +4287,7 @@ msgstr "ଡେମନ ସକେଟରେ ଲେଖନ୍ତୁ"
 
 #: lib/proto.c:880
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr ""
-"receive_file_data: ଫାଇଲ ମାଳାକୁ ପଢ଼ିବା ସମୟରେ ଅପ୍ରତ୍ୟାଶିତ ଫ୍ଲାଗ ଗ୍ରହଣ ହୋଇଛି"
+msgstr "receive_file_data: ଫାଇଲ ମାଳାକୁ ପଢ଼ିବା ସମୟରେ ଅପ୍ରତ୍ୟାଶିତ ଫ୍ଲାଗ ଗ୍ରହଣ ହୋଇଛି"
 
 #: lib/proto.c:888
 msgid "failed to parse file chunk"
