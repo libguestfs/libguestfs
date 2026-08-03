@@ -661,6 +661,25 @@ The option is a no-op for guests that do not support SELinux.|};
     flag_pod_longdesc = "This is a compatibility option that does nothing.";
   };
 
+  { flag_name = "selinux-relabel-exclude";
+    flag_type = FlagStringMultiple "DIR";
+    flag_ml_var = "selinux_relabel_excludes";
+    flag_shortdesc = "Exclude directories from SELinux relabelling";
+    flag_pod_longdesc = {|Exclude directories from being relabelled.
+
+This advanced option lets you list directories in the guest which
+should not be relabelled, even when SELinux relabelling is
+enabled.  Use this carefully, as any changes that are made
+inside these directories during customization will have incorrect
+SELinux labels, leading to potential failures later, so you must
+be sure that the directories do not need relabelling.
+
+If in doubt, do not use this option.
+
+You can pass the option multiple times, eg.
+I<--selinux-relabel-exclude=/foo> I<--selinux-relabel-exclude=/bar>|};
+  };
+
 ]
 
 let rec generate_customize_cmdline_mli () =
