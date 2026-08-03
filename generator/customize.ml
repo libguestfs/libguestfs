@@ -674,16 +674,21 @@ let rec generate_customize_cmdline_mli () =
 
   pr {|type argspec = Getopt.keys * Getopt.spec * Getopt.doc
 val argspec : ?v2v:bool -> unit -> (argspec * string option * string) list * (unit -> ops)
-(** This returns a pair [(list, get_ops)].
+(** Return the argspec (a list of arguments, see {!Getopt} module)
+    with the full list of virt-customize options.
+
+    If the parameter [~v2v] is true then this excludes parameters
+    that should be excluded from virt-v2v.  For example
+    [--inject-qemu-ga] is excluded from the list because virt-v2v
+    decides itself whether and how to inject the QEMU guest agent.
+
+    This returns a pair [(list, get_ops)].
 
     [list] is a list of the command line arguments, plus some extra data.
 
     [get_ops] is a function you can call {i after} command line parsing
     which will return the actual operations specified by the user on the
-    command line.
-
-    If the parameter [~v2v] is true then this excludes parameters
-    that should be excluded from virt-v2v. *)|}
+    command line.  This can be passed to {!Customize_run.run} *)|}
 
 and generate_customize_cmdline_ml () =
   generate_header OCamlStyle GPLv2plus;
