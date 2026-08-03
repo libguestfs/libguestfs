@@ -598,6 +598,8 @@ type flag = {
 and flag_type =
 | FlagBool of bool                   (* boolean, with default value *)
 | FlagPasswordCrypto of string
+| FlagStringMultiple of string       (* string, may be used multiple times
+                                        to build a list *)
 
 let flags = [
   { flag_name = "no-logfile";
@@ -719,6 +721,8 @@ let rec argspec ?(v2v = false) () =
       pr "  let %s = ref %b in\n" var default
     | { flag_type = FlagPasswordCrypto _; flag_ml_var = var } ->
       pr "  let %s = ref None in\n" var
+    | { flag_type = FlagStringMultiple _; flag_ml_var = var } ->
+      pr "  let %s = ref [] in\n" var
   ) flags;
   pr {|
   let rec get_ops () = {
@@ -921,6 +925,17 @@ let rec argspec ?(v2v = false) () =
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S, false;\n" v longdesc
+    | { flag_type = FlagStringMultiple v; flag_ml_var = var; flag_name = name;
+        flag_shortdesc = shortdesc; flag_pod_longdesc = longdesc } ->
+      pr "    (\n";
+      pr "      [ L\"%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
+      pr "        List.push_back %s\n" var;
+      pr "      ),\n";
+      pr "      s_\"%s\"\n" shortdesc;
+      pr "    ),\n";
+      pr "    Some %S, %S, false;\n" v longdesc
   ) flags;
 
   pr "  ]
@@ -1044,6 +1059,9 @@ and generate_ops_struct_decl () =
         flag_name = name } ->
       pr "  %s : Password.password_crypto option;\n      (* --%s %s *)\n"
         var name v
+    | { flag_type = FlagStringMultiple _; flag_ml_var = var;
+        flag_name = name } ->
+      pr "  %s : string list;\n      (* --%s *)\n" var name
   ) flags;
   pr "}\n"
 
@@ -1067,6 +1085,8 @@ let generate_customize_synopsis_pod ?(v2v = false) () =
         | { flag_type = FlagBool _; flag_name = n } ->
           n, sprintf "[--%s]" n
         | { flag_type = FlagPasswordCrypto v; flag_name = n } ->
+          n, sprintf "[--%s %s]" n v
+        | { flag_type = FlagStringMultiple v; flag_name = n } ->
           n, sprintf "[--%s %s]" n v
       ) flags in
 
@@ -1110,6 +1130,9 @@ let generate_customize_options_pod ?(v2v = false) () =
         | { flag_type = FlagBool _; flag_name = n; flag_pod_longdesc = ld } ->
           n, sprintf "B<--%s>" n, ld
         | { flag_type = FlagPasswordCrypto v;
+            flag_name = n; flag_pod_longdesc = ld } ->
+          n, sprintf "B<--%s> %s" n v, ld
+        | { flag_type = FlagStringMultiple v;
             flag_name = n; flag_pod_longdesc = ld } ->
           n, sprintf "B<--%s> %s" n v, ld
       ) flags in
