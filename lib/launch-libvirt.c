@@ -338,12 +338,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
   params.current_proc_is_root = geteuid () == 0;
 
-  /* XXX: It should be possible to make this work. */
-  if (g->direct_mode) {
-    error (g, _("direct mode flag is not supported yet for libvirt backend"));
-    return -1;
-  }
-
   virGetVersion (&version_number, NULL, NULL);
   debug (g, "libvirt version = %lu", version_number);
 
