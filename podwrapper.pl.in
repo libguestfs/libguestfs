@@ -660,16 +660,17 @@ if ($text) {
 
 sub find_file
 {
-    my $input = shift;
+    my $n = shift;
     my $use_path = shift;
     local $_;
 
     my @search_path = (".");
     push (@search_path, @paths) if $use_path;
     foreach (@search_path) {
-        return "$_/$input" if -f "$_/$input";
+        return "$_/$n" if -f "$_/$n";
     }
-    die "$progname: $input: cannot find input file on path"
+    die ("$progname: $input: cannot find file '$n' on search path: " .
+         join (":", @search_path) . "\n")
 }
 
 sub read_whole_file
