@@ -64,7 +64,7 @@ return the default qemu binary name." };
     style = RErr, [Bool "selinux"], [];
     fish_alias = ["selinux"]; config_only = true;
     blocking = false;
-    deprecated_by = Replaced_by "selinux_relabel";
+    deprecated_by = Replaced_by "setfiles";
     shortdesc = "set SELinux enabled or disabled at appliance boot";
     longdesc = {|This sets the selinux flag that is passed to the appliance
 at boot time.  The default is C<selinux=0> (disabled).
@@ -79,7 +79,7 @@ see L<guestfs(3)>.|} };
     name = "get_selinux"; added = (1, 0, 67);
     style = RBool "selinux", [], [];
     blocking = false;
-    deprecated_by = Replaced_by "selinux_relabel";
+    deprecated_by = Replaced_by "setfiles";
     shortdesc = "get SELinux enabled flag";
     longdesc = {|This returns the current setting of the selinux flag which
 is passed to the appliance at boot time.  See C<guestfs_set_selinux>.
