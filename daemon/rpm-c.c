@@ -48,30 +48,32 @@
 
 #ifndef HAVE_LIBRPM
 
-value __attribute__((noreturn))
+value /* __attribute__((noreturn)) - GCC warns about return statement */
 guestfs_int_daemon_rpm_init (value unitv)
 {
   CAMLparam1 (unitv);
   caml_failwith ("no support for RPM guests because "
                  "librpm was missing at compile time");
+  /*NOTREACHED*/
+  CAMLreturn (Val_unit);
 }
 
 value __attribute__((noreturn))
 guestfs_int_daemon_rpm_start_iterator (value unitv)
 {
-  guestfs_int_daemon_rpm_init (unitv);
+  abort ();
 }
 
 value __attribute__((noreturn))
 guestfs_int_daemon_rpm_next_application (value unitv)
 {
-  guestfs_int_daemon_rpm_init (unitv);
+  abort ();
 }
 
 value __attribute__((noreturn))
 guestfs_int_daemon_rpm_end_iterator (value unitv)
 {
-  guestfs_int_daemon_rpm_init (unitv);
+  abort ();
 }
 
 #else /* HAVE_LIBRPM */
