@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-08-14 12:40+0100\n"
-"PO-Revision-Date: 2026-08-02 09:17+0000\n"
+"PO-Revision-Date: 2026-08-22 07:18+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ka/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:1 daemon/guestfsd.pod:1
@@ -1737,10 +1737,8 @@ msgstr ""
 #. type: =item
 #: common/mlcustomize/customize-options.pod:389
 #: common/mlcustomize/v2v-customize-options.pod:335
-#, fuzzy
-#| msgid "B<--selinux-relabel>"
 msgid "B<--selinux-relabel-at-boot>"
-msgstr "B<--selinux-relabel>"
+msgstr "B<--selinux-relabel-at-boot>"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:391
@@ -1761,10 +1759,8 @@ msgstr ""
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:398
 #: common/mlcustomize/v2v-customize-options.pod:344
-#, fuzzy
-#| msgid "The optional flags are:"
 msgid "The disadvantages are:"
-msgstr "არასავალდებულო ალმებია:"
+msgstr "ნაკლები:"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:404
@@ -1797,10 +1793,8 @@ msgstr ""
 #. type: =item
 #: common/mlcustomize/customize-options.pod:419
 #: common/mlcustomize/v2v-customize-options.pod:365
-#, fuzzy
-#| msgid "B<--selinux-relabel>"
 msgid "B<--selinux-relabel-exclude> DIR"
-msgstr "B<--selinux-relabel>"
+msgstr "B<--selinux-relabel-exclude> საქაღალდე"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:421
@@ -90136,18 +90130,14 @@ msgstr ""
 
 #. type: verbatim
 #: lib/guestfs-actions.pod:14335
-#, fuzzy, no-wrap
-#| msgid ""
-#| " GUESTFS_RSYNC_ARCHIVE, int archive,\n"
-#| " GUESTFS_RSYNC_DELETEDEST, int deletedest,\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " GUESTFS_SETFILES_FORCE, int force,\n"
 " GUESTFS_SETFILES_EXCLUDES, char *const *excludes,\n"
 "\n"
 msgstr ""
-" GUESTFS_RSYNC_ARCHIVE, int archive,\n"
-" GUESTFS_RSYNC_DELETEDEST, int deletedest,\n"
+" GUESTFS_SETFILES_FORCE, int force,\n"
+" GUESTFS_SETFILES_EXCLUDES, char *const *excludes,\n"
 "\n"
 
 #. type: textblock
