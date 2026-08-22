@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-08-14 12:40+0100\n"
-"PO-Revision-Date: 2026-08-05 17:20+0000\n"
+"PO-Revision-Date: 2026-08-15 14:18+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ru/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.8\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:1 daemon/guestfsd.pod:1
@@ -1936,10 +1936,8 @@ msgstr "Это опция совместимости, которая ничег�
 #. type: =item
 #: common/mlcustomize/customize-options.pod:389
 #: common/mlcustomize/v2v-customize-options.pod:335
-#, fuzzy
-#| msgid "B<--selinux-relabel>"
 msgid "B<--selinux-relabel-at-boot>"
-msgstr "B<--selinux-relabel>"
+msgstr "B<--selinux-relabel-at-boot>"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:391
@@ -1948,6 +1946,8 @@ msgid ""
 "This advanced option lets you defer SELinux relabelling until the first time "
 "the guest boots after conversion."
 msgstr ""
+"Эта расширенная опция позволяет отложить перемаркировку SELinux до первого "
+"запуска гостевой системы после преобразования."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:395
@@ -1956,14 +1956,14 @@ msgid ""
 "The advantage of doing this is that conversion is quicker and uses less "
 "memory."
 msgstr ""
+"Преимущество такого подхода в том, что преобразование выполняется быстрее и "
+"использует меньше памяти."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:398
 #: common/mlcustomize/v2v-customize-options.pod:344
-#, fuzzy
-#| msgid "The main steps are:"
 msgid "The disadvantages are:"
-msgstr "Основные шаги:"
+msgstr "Недостатки:"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:404
@@ -1972,18 +1972,21 @@ msgid ""
 "The guest will take I<much> longer to boot up and become ready the first "
 "time it boots."
 msgstr ""
+"Гостевая система будет загружаться I<значительно> дольше при первом запуске."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:409
 #: common/mlcustomize/v2v-customize-options.pod:355
 msgid "The guest will reboot at least once."
-msgstr ""
+msgstr "Гостевая система перезагрузится как минимум один раз."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:413
 #: common/mlcustomize/v2v-customize-options.pod:359
 msgid "SELinux relabelling problems cannot be detected during conversion."
 msgstr ""
+"Проблемы перемаркировки SELinux не могут быть обнаружены во время "
+"преобразования."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:417
@@ -1991,21 +1994,19 @@ msgstr ""
 #: common/mlcustomize/v2v-customize-options.pod:363
 #: common/mlcustomize/v2v-customize-options.pod:376
 msgid "If in doubt, do not use this option."
-msgstr ""
+msgstr "Если сомневаетесь, не используйте эту опцию."
 
 #. type: =item
 #: common/mlcustomize/customize-options.pod:419
 #: common/mlcustomize/v2v-customize-options.pod:365
-#, fuzzy
-#| msgid "B<--selinux-relabel>"
 msgid "B<--selinux-relabel-exclude> DIR"
-msgstr "B<--selinux-relabel>"
+msgstr "B<--selinux-relabel-exclude> КАТАЛОГ"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:421
 #: common/mlcustomize/v2v-customize-options.pod:367
 msgid "Exclude directories from being relabelled."
-msgstr ""
+msgstr "Исключить каталоги из перемаркировки SELinux."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:423
@@ -2018,6 +2019,12 @@ msgid ""
 "failures later, so you must be sure that the directories do not need "
 "relabelling."
 msgstr ""
+"Эта расширенная опция позволяет указать каталоги в гостевой системе, которые "
+"не должны подвергаться перемаркировке, даже если перемаркировка SELinux "
+"включена. Используйте её с осторожностью, поскольку любые изменения, "
+"вносимые в эти каталоги во время настройки, будут иметь неправильные метки "
+"SELinux, что может привести к потенциальным сбоям в дальнейшем. Поэтому вы "
+"должны быть уверены, что эти каталоги не нуждаются в перемаркировке."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:432
@@ -2026,6 +2033,8 @@ msgid ""
 "You can pass the option multiple times, eg.  I<--selinux-relabel-exclude=/"
 "foo> I<--selinux-relabel-exclude=/bar>"
 msgstr ""
+"Вы можете указать эту опцию несколько раз, например: I<--selinux-relabel-"
+"exclude=/foo> I<--selinux-relabel-exclude=/bar>"
 
 #. type: =item
 #: common/mlcustomize/customize-options.pod:435
@@ -50578,17 +50587,13 @@ msgstr ""
 
 #. type: =head3
 #: docs/internal-documentation.pod:3649
-#, fuzzy
-#| msgid "File F<daemon/internal.c>"
 msgid "File F<daemon/initrd.c>"
-msgstr "Файл F<daemon/internal.c>"
+msgstr "Файл F<daemon/initrd.c>"
 
 #. type: =head4
 #: docs/internal-documentation.pod:3651
-#, fuzzy
-#| msgid "Function C<daemon/xattr.c:split_attr_names>"
 msgid "Function C<daemon/initrd.c:skip_early_cpio_archive>"
-msgstr "Функция C<daemon/xattr.c:split_attr_names>"
+msgstr "Функция C<daemon/initrd.c:skip_early_cpio_archive>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:3653
@@ -50598,6 +50603,9 @@ msgid ""
 " skip_early_cpio_archive (int fd, off_t offset, off_t file_size)\n"
 "\n"
 msgstr ""
+" static off_t\n"
+" skip_early_cpio_archive (int fd, off_t offset, off_t file_size)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:3656
@@ -50608,6 +50616,11 @@ msgid ""
 "microcode.rst> in the kernel sources) followed by the main, compressed cpio "
 "archive containing the real initramfs contents."
 msgstr ""
+"Современные образы initramfs часто состоят из нескольких объединённых cpio-"
+"архивов: одного или нескольких несжатых архивов «early cpio» (используемых "
+"ядром/dracut для передачи микрокода ЦП и т.д., см. F<Documentation/x86/"
+"microcode.rst> в исходных кодах ядра), за которыми следует основной сжатый "
+"cpio-архив, содержащий реальное содержимое initramfs."
 
 #. type: textblock
 #: docs/internal-documentation.pod:3663
@@ -50618,13 +50631,16 @@ msgid ""
 "cpio archives are padded to a block boundary before the next archive is "
 "appended).  Returns C<-1> if the archive is truncated or malformed."
 msgstr ""
+"Эта функция анализирует один cpio-архив формата newc/crc, начинающийся со "
+"смещения C<offset> в файловом дескрипторе C<fd>, включая запись C<TRAILER!!!>"
+", и возвращает смещение следующего байта, округлённое вверх до границы 512 "
+"байт (ранние cpio-архивы дополняются до границы блока перед добавлением "
+"следующего архива). Возвращает C<-1>, если архив обрезан или повреждён."
 
 #. type: =head4
 #: docs/internal-documentation.pod:3670
-#, fuzzy
-#| msgid "Function C<daemon/utils.c:filter_list>"
 msgid "Function C<daemon/initrd.c:detect_initrd>"
-msgstr "Функция C<daemon/utils.c:filter_list>"
+msgstr "Функция C<daemon/initrd.c:detect_initrd>"
 
 #. type: verbatim
 #: docs/internal-documentation.pod:3672
@@ -50635,6 +50651,10 @@ msgid ""
 "                enum initrd_compression *compression_r)\n"
 "\n"
 msgstr ""
+" static int\n"
+" detect_initrd (const char *path, off_t *offset_r,\n"
+"                enum initrd_compression *compression_r)\n"
+"\n"
 
 #. type: textblock
 #: docs/internal-documentation.pod:3676
@@ -50643,16 +50663,16 @@ msgid ""
 "C<path>, skipping over any leading uncompressed early cpio archives, and "
 "detect its compression format (if any)  by looking at its magic bytes."
 msgstr ""
+"Определяет, где в C<path> начинается «настоящий» (возможно, сжатый) cpio-"
+"архив, пропуская все начальные несжатые ранние cpio-архивы, и определяет "
+"формат сжатия (если есть) по магическим байтам."
 
 #. type: textblock
 #: docs/internal-documentation.pod:3681
-#, fuzzy
-#| msgid "Returns C<0> on success.  Returns C<-1> on error, setting C<errno>."
 msgid ""
 "Returns 0 on success, or -1 on error (having already called C<reply_with_*>)."
 msgstr ""
-"Возвращает C<0> при успехе.  Возвращает C<-1> при ошибке, устанавливая "
-"C<errno>."
+"Возвращает 0 при успехе или -1 при ошибке (после вызова C<reply_with_*>)."
 
 #. type: =head3
 #: docs/internal-documentation.pod:3684
