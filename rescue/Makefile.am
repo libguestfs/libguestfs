@@ -18,6 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	test-compare-keys-len.c \
 	test-virt-rescue.pl \
 	test-virt-rescue-docs.sh \
 	test-virt-rescue-suggest.sh \
@@ -77,7 +78,13 @@ stamp-virt-rescue.pod: virt-rescue.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
+check_PROGRAMS = test-compare-keys-len
+
+test_compare_keys_len_SOURCES = test-compare-keys-len.c
+test_compare_keys_len_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
+
 TESTS = \
+	test-compare-keys-len \
 	test-virt-rescue-docs.sh
 
 if ENABLE_APPLIANCE
