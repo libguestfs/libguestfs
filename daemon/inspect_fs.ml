@@ -294,6 +294,8 @@ and check_package_format { distro } =
      Some PACKAGE_FORMAT_APK
   | Some DISTRO_VOID_LINUX ->
      Some PACKAGE_FORMAT_XBPS
+  | Some DISTRO_AOSCOS ->
+     Some PACKAGE_FORMAT_DEB
   | Some DISTRO_BUILDROOT
   | Some DISTRO_CIRROS
   | Some DISTRO_COREOS
@@ -393,6 +395,9 @@ and check_package_management { distro; version } =
 
   | Some DISTRO_OPENEULER->
      Some PACKAGE_MANAGEMENT_DNF
+
+  | Some DISTRO_AOSCOS ->
+     Some PACKAGE_MANAGEMENT_OMA
 
   | Some DISTRO_BUILDROOT
   | Some DISTRO_CIRROS
