@@ -15,6 +15,7 @@ dnl   MAGEIA=1       For Mageia.
 dnl   OPENMANDRIVA=1 For OpenMandriva.
 dnl   OPENCLOUDOS=1  For OpenCloudOS.
 dnl   TENCENTOS=1    For TencentOS.
+dnl   AOSCOS=1       For AOSCOS.
 
 /etc/ld.so.cache
 /lib/lsb/*
