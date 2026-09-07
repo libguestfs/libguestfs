@@ -69,6 +69,7 @@ and os_type =
 and distro =
   | DISTRO_ALPINE_LINUX
   | DISTRO_ALTLINUX
+  | DISTRO_AOSCOS
   | DISTRO_ARCHLINUX
   | DISTRO_BUILDROOT
   | DISTRO_CENTOS
@@ -123,6 +124,7 @@ and package_management =
   | PACKAGE_MANAGEMENT_APK
   | PACKAGE_MANAGEMENT_APT
   | PACKAGE_MANAGEMENT_DNF
+  | PACKAGE_MANAGEMENT_OMA
   | PACKAGE_MANAGEMENT_PACMAN
   | PACKAGE_MANAGEMENT_PISI
   | PACKAGE_MANAGEMENT_PORTAGE
@@ -211,6 +213,7 @@ and string_of_os_type = function
 and string_of_distro = function
   | DISTRO_ALPINE_LINUX -> "alpinelinux"
   | DISTRO_ALTLINUX -> "altlinux"
+  | DISTRO_AOSCOS -> "aoscos"
   | DISTRO_ARCHLINUX -> "archlinux"
   | DISTRO_BUILDROOT -> "buildroot"
   | DISTRO_CENTOS -> "centos"
@@ -267,6 +270,7 @@ and string_of_package_management = function
   | PACKAGE_MANAGEMENT_APK -> "apk"
   | PACKAGE_MANAGEMENT_APT -> "apt"
   | PACKAGE_MANAGEMENT_DNF -> "dnf"
+  | PACKAGE_MANAGEMENT_OMA -> "oma"
   | PACKAGE_MANAGEMENT_PACMAN -> "pacman"
   | PACKAGE_MANAGEMENT_PISI -> "pisi"
   | PACKAGE_MANAGEMENT_PORTAGE -> "portage"
