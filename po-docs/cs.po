@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2026-08-14 12:40+0100\n"
+"POT-Creation-Date: 2026-09-16 14:04+0100\n"
 "PO-Revision-Date: 2026-07-27 19:03+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/"
@@ -2100,6 +2100,28 @@ msgstr ""
 msgid ""
 "Note that if any such option is present on the command line, QEMU user "
 "networking will be automatically enabled for the libguestfs appliance."
+msgstr ""
+
+#. type: =item
+#: common/options/key-option.pod:41
+msgid "B<--key> NAMEB<:error>"
+msgstr ""
+
+#. type: =item
+#: common/options/key-option.pod:43
+msgid "B<--key> UUIDB<:error>"
+msgstr ""
+
+#. type: =item
+#: common/options/key-option.pod:45
+msgid "B<--key> B<all:error>"
+msgstr ""
+
+#. type: textblock
+#: common/options/key-option.pod:47
+msgid ""
+"Any encrypted device matching will cause an error.  S<I<--key all:error>> "
+"can be used to reject any disk image that contains an encrypted partition."
 msgstr ""
 
 #. type: =item

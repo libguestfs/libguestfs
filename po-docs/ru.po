@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2026-08-14 12:40+0100\n"
+"POT-Creation-Date: 2026-09-16 14:04+0100\n"
 "PO-Revision-Date: 2026-08-15 14:18+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
@@ -2385,6 +2385,34 @@ msgstr ""
 "Обратите внимание, что если какая-либо такая опция присутствует в командной "
 "строке, пользовательская сеть QEMU будет автоматически включена для "
 "устройства libguestfs."
+
+#. type: =item
+#: common/options/key-option.pod:41
+#, fuzzy
+#| msgid "B<--key> NAMEB<:clevis>"
+msgid "B<--key> NAMEB<:error>"
+msgstr "B<--key> ИМЯB<:clevis>"
+
+#. type: =item
+#: common/options/key-option.pod:43
+#, fuzzy
+#| msgid "B<--key> UUIDB<:clevis>"
+msgid "B<--key> UUIDB<:error>"
+msgstr "B<--key> UUIDB<:clevis>"
+
+#. type: =item
+#: common/options/key-option.pod:45
+#, fuzzy
+#| msgid "B<--key> B<all:clevis>"
+msgid "B<--key> B<all:error>"
+msgstr "B<--key> B<all:clevis>"
+
+#. type: textblock
+#: common/options/key-option.pod:47
+msgid ""
+"Any encrypted device matching will cause an error.  S<I<--key all:error>> "
+"can be used to reject any disk image that contains an encrypted partition."
+msgstr ""
 
 #. type: =item
 #: common/options/keys-from-stdin-option.pod:1
@@ -50632,8 +50660,8 @@ msgid ""
 "appended).  Returns C<-1> if the archive is truncated or malformed."
 msgstr ""
 "Эта функция анализирует один cpio-архив формата newc/crc, начинающийся со "
-"смещения C<offset> в файловом дескрипторе C<fd>, включая запись C<TRAILER!!!>"
-", и возвращает смещение следующего байта, округлённое вверх до границы 512 "
+"смещения C<offset> в файловом дескрипторе C<fd>, включая запись C<TRAILER!!!"
+">, и возвращает смещение следующего байта, округлённое вверх до границы 512 "
 "байт (ранние cpio-архивы дополняются до границы блока перед добавлением "
 "следующего архива). Возвращает C<-1>, если архив обрезан или повреждён."
 

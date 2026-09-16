@@ -159,37 +159,42 @@ msgstr "Ingrese la llave o la frase de acceso (\"%s\"): "
 msgid "size_t overflow"
 msgstr "size_t desbordado"
 
-#: common/options/keys.c:235
+#: common/options/keys.c:228
+#, c-format
+msgid "encrypted device %s matched --key ...:error"
+msgstr ""
+
+#: common/options/keys.c:239
 #, c-format
 msgid "could not read key from user"
 msgstr "no se pudo leer tecla desde usuario"
 
-#: common/options/keys.c:274
+#: common/options/keys.c:278
 #, c-format
 msgid "selector '%s': missing ID"
 msgstr "selector '%s': falta ID"
 
-#: common/options/keys.c:281
+#: common/options/keys.c:285
 #, c-format
 msgid "selector '%s': missing TYPE"
 msgstr "Selector '%s': TIPO desaparecido"
 
-#: common/options/keys.c:287
+#: common/options/keys.c:291
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
 msgstr "selector '%s': KEY_STRING ausente, o demasiados campos"
 
-#: common/options/keys.c:296
+#: common/options/keys.c:300
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
 msgstr "selector '%s': ausencia de FILENAME, o campos excesivos"
 
-#: common/options/keys.c:304
+#: common/options/keys.c:308
 #, c-format
 msgid "selector '%s': too many fields"
 msgstr "selector '%s': campos excesivos"
 
-#: common/options/keys.c:306
+#: common/options/keys.c:310
 #, c-format
 msgid "selector '%s': invalid TYPE"
 msgstr "selector '%s': TYPE no válido"
