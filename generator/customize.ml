@@ -678,6 +678,14 @@ The disadvantages are:
 
 =item *
 
+It is very difficult to know when this option can be safely used.
+Other common options such as I<--install> may conflict with it.
+Especially with systemd-based distributions, because of bugs in
+systemd, this option may not work at all
+(L<https://bugzilla.redhat.com/show_bug.cgi?id=2021835>).
+
+=item *
+
 The guest will take I<much> longer to boot up and become ready
 the first time it boots.
 
@@ -691,7 +699,7 @@ SELinux relabelling problems cannot be detected during conversion.
 
 =back
 
-If in doubt, do not use this option.|};
+B<If in doubt, do not use this option>.|};
   };
 
   { flag_name = "selinux-relabel-exclude";
@@ -707,7 +715,7 @@ inside these directories during customization will have incorrect
 SELinux labels, leading to potential failures later, so you must
 be sure that the directories do not need relabelling.
 
-If in doubt, do not use this option.
+B<If in doubt, do not use this option>.
 
 You can pass the option multiple times, eg.
 I<--selinux-relabel-exclude=/foo> I<--selinux-relabel-exclude=/bar>|};
