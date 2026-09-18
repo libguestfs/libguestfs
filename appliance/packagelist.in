@@ -13,6 +13,7 @@ dnl   FRUGALWARE=1  For Frugalware.
 dnl   MAGEIA=1      For Mageia.
 dnl   OPENCLOUDOS=1 For OpencloudOS.
 dnl   TENCENTOS=1   For TencentOS.
+dnl   AOSCOS=1      For AOSCOS.
 dnl
 dnl There is also a list of packages which are excluded if they appear
 dnl as dependencies of the packages below.  See: excludelist.in
@@ -262,6 +263,26 @@ ifelse(TENCENTOS,1,
   syslinux-extlinux
   systemd
   vim-minimal
+  xz
+  zstd
+)
+
+ifelse(AOSCOS,1,
+  cdrkit
+  cryptsetup
+  dhcpcd
+  gptfdisk
+  grub
+  iproute2
+  iputils
+  linux+kernel
+  lrzip
+  mtools
+  nilfs-utils
+  ntfs-3g
+  openssh
+  systemd
+  vim
   xz
   zstd
 )
