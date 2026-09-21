@@ -480,7 +480,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   int has_kvm;
   int force_tcg;
   int force_kvm;
+#ifdef __APPLE__
+  const char *accel_val = "hvf:tcg";
+#else
   const char *accel_val = "kvm:tcg";
+#endif
   const char *cpu_model;
   CLEANUP_FREE char *append = NULL;
   CLEANUP_FREE_STRING_LIST char **argv = NULL;
