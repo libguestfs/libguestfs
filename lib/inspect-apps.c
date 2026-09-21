@@ -32,14 +32,9 @@
 #endif
 
 #if defined __APPLE__ && defined __MACH__
-/* Define/include necessary items on MacOS X */
-#include <machine/endian.h>
-#define __BIG_ENDIAN    BIG_ENDIAN
-#define __LITTLE_ENDIAN   LITTLE_ENDIAN
-#define __BYTE_ORDER    BYTE_ORDER
 #include <libkern/OSByteOrder.h>
-#define __bswap_32      OSSwapConstInt32
-#endif /* __APPLE__ */
+#define le32toh(x) OSSwapLittleToHostInt32(x)
+#endif
 
 #include "ignore-value.h"
 
