@@ -62,6 +62,7 @@ let re_openmandriva =
   PCRE.compile "OpenMandriva.*release (\\d+)\\.(\\d+)\\.?(\\d+)? .*"
 let re_opencloudos = PCRE.compile "OpenCloudOS.*release (\\d+)"
 let re_tencentos = PCRE.compile "TencentOS.* (\\d+)\\.(\\d+)"
+let re_aoscos = PCRE.compile "AOSC OS.* (\\d+)\\.(\\d+)\\.?(\\d+)?"
 
 let arch_binaries =
   [ "/bin/bash"; "/bin/ls"; "/bin/echo"; "/bin/rm"; "/bin/sh" ]
@@ -146,6 +147,7 @@ and parse_os_release_version_id value data =
 and distro_of_os_release_id = function
   | "alpine" -> Some DISTRO_ALPINE_LINUX
   | "altlinux" -> Some DISTRO_ALTLINUX
+  | "aoscos" -> Some DISTRO_AOSCOS
   | "arch" -> Some DISTRO_ARCHLINUX
   | "centos" -> Some DISTRO_CENTOS
   | "circle" -> Some DISTRO_CIRCLE

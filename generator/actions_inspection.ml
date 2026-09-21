@@ -161,6 +161,10 @@ Alpine Linux.
 
 ALT Linux.
 
+=item "aoscos"
+
+AOSC OS.
+
 =item "archlinux"
 
 Arch Linux.
