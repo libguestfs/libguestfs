@@ -9,11 +9,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2026-08-12 14:53+0100\n"
-"PO-Revision-Date: 2026-07-27 18:50+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-09-21 11:54+0000\n"
+"Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-master/ru/>\n"
 "Language: ru\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.7.1\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #: common/options/config.c:72
 #, c-format
@@ -152,37 +152,42 @@ msgstr "Введите ключ или парольную фразу («%s»): "
 msgid "size_t overflow"
 msgstr "переполнение size_t"
 
-#: common/options/keys.c:235
+#: common/options/keys.c:228
+#, c-format
+msgid "encrypted device %s matched --key ...:error"
+msgstr "зашифрованное устройство %s сопоставлено --key ...:error"
+
+#: common/options/keys.c:239
 #, c-format
 msgid "could not read key from user"
 msgstr "не удалось прочитать ключ от пользователя"
 
-#: common/options/keys.c:274
+#: common/options/keys.c:278
 #, c-format
 msgid "selector '%s': missing ID"
 msgstr "селектор «%s»: отсутствует идентификатор"
 
-#: common/options/keys.c:281
+#: common/options/keys.c:285
 #, c-format
 msgid "selector '%s': missing TYPE"
 msgstr "селектор «%s»: отсутствует ТИП"
 
-#: common/options/keys.c:287
+#: common/options/keys.c:291
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
 msgstr "селектор «%s»: отсутствует КЛЮЧ_СТРОКА или слишком много полей"
 
-#: common/options/keys.c:296
+#: common/options/keys.c:300
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
 msgstr "селектор «%s»: отсутствует ИМЯ_ФАЙЛА или слишком много полей"
 
-#: common/options/keys.c:304
+#: common/options/keys.c:308
 #, c-format
 msgid "selector '%s': too many fields"
 msgstr "селектор «%s»: слишком много полей"
 
-#: common/options/keys.c:306
+#: common/options/keys.c:310
 #, c-format
 msgid "selector '%s': invalid TYPE"
 msgstr "селектор '%s': недопустимый ТИП"
