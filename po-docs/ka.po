@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2026-08-14 12:40+0100\n"
+"POT-Creation-Date: 2026-09-16 14:04+0100\n"
 "PO-Revision-Date: 2026-08-22 07:18+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
@@ -2125,6 +2125,34 @@ msgstr ""
 msgid ""
 "Note that if any such option is present on the command line, QEMU user "
 "networking will be automatically enabled for the libguestfs appliance."
+msgstr ""
+
+#. type: =item
+#: common/options/key-option.pod:41
+#, fuzzy
+#| msgid "B<--key> NAMEB<:clevis>"
+msgid "B<--key> NAMEB<:error>"
+msgstr "B<--key> NAMEB<:clevis>"
+
+#. type: =item
+#: common/options/key-option.pod:43
+#, fuzzy
+#| msgid "B<--key> UUIDB<:clevis>"
+msgid "B<--key> UUIDB<:error>"
+msgstr "B<--key> UUIDB<:clevis>"
+
+#. type: =item
+#: common/options/key-option.pod:45
+#, fuzzy
+#| msgid "B<--key> B<all:clevis>"
+msgid "B<--key> B<all:error>"
+msgstr "B<--key> B<all:clevis>"
+
+#. type: textblock
+#: common/options/key-option.pod:47
+msgid ""
+"Any encrypted device matching will cause an error.  S<I<--key all:error>> "
+"can be used to reject any disk image that contains an encrypted partition."
 msgstr ""
 
 #. type: =item

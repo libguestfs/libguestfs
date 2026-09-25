@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2026-08-14 12:40+0100\n"
+"POT-Creation-Date: 2026-09-16 14:04+0100\n"
 "PO-Revision-Date: 2026-07-27 19:34+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/"
@@ -2379,6 +2379,34 @@ msgstr ""
 "Nota que si cualquier opción está presente en la línea de instrucción, el "
 "usuario QEMU de red será habilitado automáticamente para el instrumento de "
 "libguestfs."
+
+#. type: =item
+#: common/options/key-option.pod:41
+#, fuzzy
+#| msgid "B<--ssh-inject> USER:file:FILENAME"
+msgid "B<--key> NAMEB<:error>"
+msgstr "B<--ssh-inject> USUARIO:archivo:NOMBRE‐ARCHIVO"
+
+#. type: =item
+#: common/options/key-option.pod:43
+#, fuzzy
+#| msgid "B<--ssh-inject> USER:file:FILENAME"
+msgid "B<--key> UUIDB<:error>"
+msgstr "B<--ssh-inject> USUARIO:archivo:NOMBRE‐ARCHIVO"
+
+#. type: =item
+#: common/options/key-option.pod:45
+#, fuzzy
+#| msgid "B<--ssh-inject> USER:file:FILENAME"
+msgid "B<--key> B<all:error>"
+msgstr "B<--ssh-inject> USUARIO:archivo:NOMBRE‐ARCHIVO"
+
+#. type: textblock
+#: common/options/key-option.pod:47
+msgid ""
+"Any encrypted device matching will cause an error.  S<I<--key all:error>> "
+"can be used to reject any disk image that contains an encrypted partition."
+msgstr ""
 
 #. type: =item
 #: common/options/keys-from-stdin-option.pod:1

@@ -114,37 +114,42 @@ msgstr "ਕੁੰਜੀ ਜਾਂ ਗੁਪਤਕੋਡ ਦਿਓ (\"%s\"): "
 msgid "size_t overflow"
 msgstr ""
 
-#: common/options/keys.c:235
+#: common/options/keys.c:228
+#, c-format
+msgid "encrypted device %s matched --key ...:error"
+msgstr ""
+
+#: common/options/keys.c:239
 #, c-format
 msgid "could not read key from user"
 msgstr ""
 
-#: common/options/keys.c:274
+#: common/options/keys.c:278
 #, c-format
 msgid "selector '%s': missing ID"
 msgstr ""
 
-#: common/options/keys.c:281
+#: common/options/keys.c:285
 #, c-format
 msgid "selector '%s': missing TYPE"
 msgstr ""
 
-#: common/options/keys.c:287
+#: common/options/keys.c:291
 #, c-format
 msgid "selector '%s': missing KEY_STRING, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:296
+#: common/options/keys.c:300
 #, c-format
 msgid "selector '%s': missing FILENAME, or too many fields"
 msgstr ""
 
-#: common/options/keys.c:304
+#: common/options/keys.c:308
 #, c-format
 msgid "selector '%s': too many fields"
 msgstr ""
 
-#: common/options/keys.c:306
+#: common/options/keys.c:310
 #, c-format
 msgid "selector '%s': invalid TYPE"
 msgstr ""
