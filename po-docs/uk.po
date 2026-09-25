@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-08-14 12:40+0100\n"
-"PO-Revision-Date: 2026-07-27 20:45+0000\n"
-"Last-Translator: GitHub webhook <noreply-webhook-github@weblate.org>\n"
+"PO-Revision-Date: 2026-09-05 08:18+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/uk/>\n"
 "Language: uk\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.7.1\n"
+"X-Generator: Weblate 2026.9\n"
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:1 daemon/guestfsd.pod:1
@@ -1421,10 +1421,8 @@ msgstr ""
 #: common/mlcustomize/customize-options.pod:174
 #: common/mlcustomize/v2v-customize-options.pod:164
 #: common/mlcustomize/v2v-customize-options.pod:174
-#, fuzzy
-#| msgid "See also: L<virt-sysprep(1)>."
 msgid "See also: L<virt-customize(1)/FIRSTBOOT>, I<--run>."
-msgstr "Див. також L<virt-sysprep(1)>."
+msgstr "Див. також L<virt-customize(1)/FIRSTBOOT>, I<--run>."
 
 #. type: =item
 #: common/mlcustomize/customize-options.pod:166
@@ -1975,10 +1973,8 @@ msgstr ""
 #. type: =item
 #: common/mlcustomize/customize-options.pod:389
 #: common/mlcustomize/v2v-customize-options.pod:335
-#, fuzzy
-#| msgid "B<--selinux-relabel>"
 msgid "B<--selinux-relabel-at-boot>"
-msgstr "B<--selinux-relabel>"
+msgstr "B<--selinux-relabel-at-boot>"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:391
@@ -1987,6 +1983,9 @@ msgid ""
 "This advanced option lets you defer SELinux relabelling until the first time "
 "the guest boots after conversion."
 msgstr ""
+"За допомогою цього додаткового параметра ви можете відкласти повторне "
+"визначення міток SELinux до першого завантаження гостьової системи після "
+"перетворення."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:395
@@ -1995,14 +1994,14 @@ msgid ""
 "The advantage of doing this is that conversion is quicker and uses less "
 "memory."
 msgstr ""
+"Перевагою такого підходу є те, що перетворення відбуваєтсья швидше і "
+"потребує менше пам'яті."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:398
 #: common/mlcustomize/v2v-customize-options.pod:344
-#, fuzzy
-#| msgid "The main steps are:"
 msgid "The disadvantages are:"
-msgstr "Основні кроки:"
+msgstr "Недоліки:"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:404
@@ -2011,42 +2010,42 @@ msgid ""
 "The guest will take I<much> longer to boot up and become ready the first "
 "time it boots."
 msgstr ""
+"Гостьова система завантажуватиметься вперше I<набагато> довше і набуде "
+"готовності лише після першого завантаження."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:409
 #: common/mlcustomize/v2v-customize-options.pod:355
 msgid "The guest will reboot at least once."
-msgstr ""
+msgstr "Гостьову систему доведеться принаймні один раз перезавантажити."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:413
 #: common/mlcustomize/v2v-customize-options.pod:359
 msgid "SELinux relabelling problems cannot be detected during conversion."
 msgstr ""
+"Під час перетворення не можна буде виявити проблеми із повторним визначенням "
+"міток SELinux."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:417
 #: common/mlcustomize/customize-options.pod:430
 #: common/mlcustomize/v2v-customize-options.pod:363
 #: common/mlcustomize/v2v-customize-options.pod:376
-#, fuzzy
-#| msgid "There are two ways to use this option."
 msgid "If in doubt, do not use this option."
-msgstr "Існує два способи використання цього параметра."
+msgstr "Якщо не певні, не користуйтеся цим параметром."
 
 #. type: =item
 #: common/mlcustomize/customize-options.pod:419
 #: common/mlcustomize/v2v-customize-options.pod:365
-#, fuzzy
-#| msgid "B<--selinux-relabel>"
 msgid "B<--selinux-relabel-exclude> DIR"
-msgstr "B<--selinux-relabel>"
+msgstr "B<--selinux-relabel-exclude> КАТАЛОГ"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:421
 #: common/mlcustomize/v2v-customize-options.pod:367
 msgid "Exclude directories from being relabelled."
-msgstr ""
+msgstr "Виключити каталоги з процедури повторного встановлення міток."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:423
@@ -2059,6 +2058,13 @@ msgid ""
 "failures later, so you must be sure that the directories do not need "
 "relabelling."
 msgstr ""
+"Цей додатковий параметр надає вам змогу перерахувати каталоги у гостьовій "
+"системі, для яких не слід повторно створювати мітки, навіть якщо увімкнено "
+"повторне встановлення міток SELinux. Використовуйте це обережно, оскільки "
+"будь-які зміни, внесені всередині цих каталогів під час налаштування, "
+"матимуть неправильні мітки SELinux, що призведе до потенційних збоїв "
+"пізніше, тому ви повинні переконатися, що каталоги не потребують повторного "
+"встановлення міток."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:432
@@ -2067,6 +2073,8 @@ msgid ""
 "You can pass the option multiple times, eg.  I<--selinux-relabel-exclude=/"
 "foo> I<--selinux-relabel-exclude=/bar>"
 msgstr ""
+"Цей параметр можна передавати декілька разів, приклад: I<--selinux-relabel-"
+"exclude=/щось> I<--selinux-relabel-exclude=/щещось>"
 
 #. type: =item
 #: common/mlcustomize/customize-options.pod:435
