@@ -45,11 +45,18 @@ let mount_vfs options vfs mountable mountpoint =
   );
 
   (* -t vfs *)
-  (match vfs with
-   | "" -> ()
-   | t ->
-      List.push_back args "-t";
-      List.push_back args t
+  (* For historical reasons, empty string or "auto" means use mount
+   * utility to auto-detect the filesystem.  We do this by omitting -t.
+   *)
+  let is_auto = match vfs with ""|"auto" -> true | _ -> false in
+
+  if is_auto then
+    ()
+  else (
+    match vfs with
+    | t ->
+       List.push_back args "-t";
+       List.push_back args t
   );
 
   List.push_back args mountable.m_device;
