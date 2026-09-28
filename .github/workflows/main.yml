@@ -87,6 +87,8 @@ jobs:
           export SKIP_TEST_NETWORK_SH=1
           # error: passt exited with status 1
           export SKIP_TEST_RSYNC_SH=1
+          # error: passt exited with status 1
+          export SKIP_TEST_IMMUTABLE_RESOLV_CONF_SH=1
           if ! make check; then
               find -name test-suite.log -exec cat {} \;
               exit 1
