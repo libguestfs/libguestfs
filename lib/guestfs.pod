@@ -1532,6 +1532,22 @@ On Fedora, install C<kernel-debuginfo> for the C<vmlinux> file
 (containing symbols).  Make sure the symbols precisely match the
 kernel being used.
 
+=head3 passt_log
+
+The direct backend supports:
+
+ export LIBGUESTFS_BACKEND_SETTINGS=passt_log
+
+When this is set, and the direct backend is using C<passt(1)> for
+user-mode networking (see L</guestfs_set_network>), passt is passed
+C<--log-file> pointing at a file inside the per-handle temporary
+directory, so that its debug/trace output (normally lost once passt
+daemonizes into the background) is preserved.  The path of the log
+file is printed via the usual debug channel when
+C<LIBGUESTFS_DEBUG=1> is also set.  Note the log file is removed,
+along with the rest of the temporary directory, when the handle is
+closed.
+
 =head2 ABI GUARANTEE
 
 We guarantee the libguestfs ABI (binary interface), for public,
