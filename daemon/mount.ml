@@ -55,8 +55,7 @@ let mount_vfs options vfs mountable mountpoint =
   else (
     match vfs with
     | t ->
-       List.push_back args "-t";
-       List.push_back args t
+       List.push_back_list args ["-t"; t]
   );
 
   List.push_back args mountable.m_device;
