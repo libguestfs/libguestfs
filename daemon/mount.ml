@@ -50,10 +50,22 @@ let mount_vfs options vfs mountable mountpoint =
    *)
   let is_auto = match vfs with ""|"auto" -> true | _ -> false in
 
-  if is_auto then
+  (* For ntfs, in Linux >= 7.2 the kernel overrides this to use the
+   * internal ntfs3.ko driver.  However for now we'd prefer to use
+   * ntfs-3g.  We have to detect this situation manually here.
+   *)
+  let is_ntfs =
+    try Blkid.vfs_type mountable |> String.starts_with ~prefix:"ntfs"
+    with Failure _ -> false in
+
+  if is_auto && is_ntfs then
+    List.push_back_list args ["-t"; "ntfs-3g"]
+  else if is_auto then
     ()
   else (
     match vfs with
+    | "ntfs" ->
+       List.push_back_list args ["-t"; "ntfs-3g"]
     | t ->
        List.push_back_list args ["-t"; t]
   );
