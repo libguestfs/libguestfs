@@ -81,7 +81,7 @@ let rec with_augeas ?name configfiles f =
               if match_ = errorpath then (
                 (* There's been an error - get the error details. *)
                 let get path =
-                  match aug_get_noerrors aug (errorpath ^ path) with
+                  match aug_get_noerrors aug (errorpath ^ "/" ^ path) with
                   | None -> "<missing>"
                   | Some v -> v
                 in
