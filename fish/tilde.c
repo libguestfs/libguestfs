@@ -118,16 +118,12 @@ expand_home (char *orig, const char *append)
 static const char *
 find_home_for_username (const char *username, size_t ulen)
 {
+  CLEANUP_FREE char *user = strndup (username, ulen);
   struct passwd *pw;
 
-  setpwent ();
-  while ((pw = getpwent ()) != NULL) {
-    if (strlen (pw->pw_name) == ulen &&
-        STREQLEN (username, pw->pw_name, ulen))
-      return pw->pw_dir;
-  }
-
-  return NULL;
+  pw = getpwnam (user);
+  if (!pw) return NULL;
+  return pw->pw_dir;
 }
 
 static const char *
@@ -136,11 +132,7 @@ find_home_for_current_user (void)
   struct passwd *pw;
   uid_t euid = geteuid ();
 
-  setpwent ();
-  while ((pw = getpwent ()) != NULL) {
-    if (pw->pw_uid == euid)
-      return pw->pw_dir;
-  }
-
-  return NULL;
+  pw = getpwuid (euid);
+  if (!pw) return NULL;
+  return pw->pw_dir;
 }
