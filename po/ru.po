@@ -9,9 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.39.12\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
-"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2026-08-12 14:53+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-09-21 13:17+0100\n"
 "PO-Revision-Date: 2026-09-21 11:54+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
@@ -4217,11 +4217,11 @@ msgstr "passt завершился с кодом %d"
 msgid "failed to parse passt PID from '%s'"
 msgstr "не удалось разобрать PID passt из «%s»"
 
-#: lib/launch-direct.c:490
+#: lib/launch-direct.c:494
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вы должны вызвать guestfs_add_drive перед guestfs_launch"
 
-#: lib/launch-direct.c:1028 lib/launch-libvirt.c:672
+#: lib/launch-direct.c:1032 lib/launch-libvirt.c:672
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu запущен и связался с демоном, но состояние != READY"
 
