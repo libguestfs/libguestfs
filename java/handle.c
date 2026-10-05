@@ -155,6 +155,15 @@ java_callback (guestfs_h *g,
     }
   }
 
+  /* Events run on the Java thread already inside a JNI call, so
+   * local refs created here stay live until that outer call returns.
+   */
+  if ((*env)->PushLocalFrame (env, 16) < 0) {
+    (*env)->ExceptionDescribe (env);
+    (*env)->ExceptionClear (env);
+    return;
+  }
+
   /* Convert the buffer and array to Java objects. */
   jbuf = (*env)->NewStringUTF (env, buf); // XXX size
 
@@ -175,6 +184,8 @@ java_callback (guestfs_h *g,
     (*env)->ExceptionDescribe (env);
     (*env)->ExceptionClear (env);
   }
+
+  (*env)->PopLocalFrame (env, NULL);
 }
 
 JNIEXPORT jint JNICALL
