@@ -610,7 +610,7 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
    */
 #ifdef ENABLE_PACKET_DUMP
   if (g->verbose)
-    guestfs_int_hexdump (buf_rtn, n, stdout);
+    guestfs_int_hexdump (*buf_rtn, n, stdout);
 #endif
 
   return 0;
