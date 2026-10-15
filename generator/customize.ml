@@ -721,6 +721,32 @@ You can pass the option multiple times, eg.
 I<--selinux-relabel-exclude=/foo> I<--selinux-relabel-exclude=/bar>|};
   };
 
+  { flag_name = "selinux-relabel-fhs";
+    flag_type = FlagBool false;
+    flag_ml_var = "selinux_relabel_fhs";
+    flag_shortdesc = "Only relabel FHS directories";
+    flag_pod_longdesc = {|This option lets you only relabel in
+Linux Filesystem Hierarchy Standard (FHS) mountpoints
+(L<https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard>).
+
+Specifically this means that a separate mountpoint which
+does not match a directory from the FHS is ignored.  For
+example if F</etc/fstab> contained:
+
+ /dev/sdb /database xfs defaults 0 0
+
+then F</database> would not be relabelled since that directory
+is not one listed in the FHS.
+
+This option only works at the fstab mountpoint level.  If
+F</> was the only mountpoint then everything underneath would
+still be relabelled even if not an FHS directory.
+
+Use this option with care, since incorrectly labelled files
+even outside the FHS may cause the guest to fail to boot.
+
+The default is to relabel the whole filesystem.|};
+  };
 ]
 
 let rec generate_customize_cmdline_mli () =
