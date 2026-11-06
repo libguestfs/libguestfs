@@ -148,6 +148,7 @@ guestfsd_SOURCES = \
 	internal.c \
 	is.c \
 	journal.c \
+	kill-procs.c \
 	labels.c \
 	ldm.c \
 	link.c \
