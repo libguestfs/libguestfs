@@ -30,7 +30,6 @@ check_PROGRAMS =
 TESTS_ENVIRONMENT = \
 	SKIP_TEST_COMMAND=$(shell ldd c-api/test-command |& grep -sq 'not a dynamic executable' || echo 1) \
 	SKIP_TEST_COMMAND_LINES=$(shell ldd c-api/test-command |& grep -sq 'not a dynamic executable' || echo 1) \
-	SKIP_TEST_COMMAND=$(shell ldd c-api/test-pwd |& grep -sq 'not a dynamic executable' || echo 1) \
 	NOEXEC_CHECK="$(top_builddir)/lib/.libs/libguestfs.so $(top_builddir)/daemon/guestfsd" \
 	$(top_builddir)/run --test
 #SKIP_TEST_CHECKSUM_8=$(shell if test `find ../initramfs -name squashfs.ko | wc -l` -eq 0; then echo 1; fi)
