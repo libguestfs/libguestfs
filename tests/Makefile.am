@@ -78,7 +78,9 @@ check_PROGRAMS += \
 	c-api/test-environment \
 	c-api/test-pwd \
 	c-api/test-event-string \
-	c-api/test-threads
+	c-api/test-threads \
+	c-api/test-sleep \
+	c-api/test-kill-procs
 if HAVE_LIBDL
 check_PROGRAMS += \
 	c-api/test-dlopen
@@ -98,7 +100,8 @@ TESTS += \
 	c-api/test-debug-to-file \
 	c-api/test-environment \
 	c-api/test-event-string \
-	c-api/test-threads
+	c-api/test-threads \
+	c-api/test-kill-procs
 if HAVE_LIBDL
 TESTS += \
 	c-api/test-dlopen
@@ -139,15 +142,18 @@ c_api_tests_LDADD = \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
-# This binary must be statically linked.  It is used for testing the
-# "guestfs_command" and "guestfs_command_lines" functions, as well as
-# tests in the tests/command/ directory.
+# These binaries must be statically linked.  They are used for testing
+# the "guestfs_command" and "guestfs_command_lines" functions, as well
+# as tests in the tests/command/ directory.
 
 c_api_test_command_SOURCES = c-api/test-command.c
 c_api_test_command_LDFLAGS = -all-static
 
 c_api_test_pwd_SOURCES = c-api/test-pwd.c
 c_api_test_pwd_LDFLAGS = -all-static
+
+c_api_test_sleep_SOURCES = c-api/test-sleep.c
+c_api_test_sleep_LDFLAGS = -all-static
 
 # Hand-written C API tests.
 
@@ -288,6 +294,21 @@ c_api_test_threads_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 c_api_test_threads_LDADD = \
+	$(top_builddir)/lib/libguestfs.la \
+	$(LTLIBTHREAD) \
+	$(LTLIBINTL) \
+	$(top_builddir)/gnulib/lib/libgnu.la
+
+c_api_test_kill_procs_SOURCES = c-api/test-kill-procs.c
+c_api_test_kill_procs_CPPFLAGS = \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/include \
+	-I$(top_srcdir)/gnulib/lib \
+	-I$(top_builddir)/gnulib/lib
+c_api_test_kill_procs_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+c_api_test_kill_procs_LDADD = \
 	$(top_builddir)/lib/libguestfs.la \
 	$(LTLIBTHREAD) \
 	$(LTLIBINTL) \

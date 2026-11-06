@@ -9632,4 +9632,19 @@ and generally looks like:
  [...]
 
 More information can be found by reading L<xfs_info(8)>.|} };
+
+  { defaults with
+    name = "kill_procs"; added = (1, 61, 5);
+    style = RErr, [], [];
+    shortdesc = "kill processes using the mounted filesystems";
+    longdesc = {|This call kills any processes inside the
+libguestfs appliance that are using the guest filesystem
+(ie. have the sysroot as their root).
+
+This is a best-effort call: it will silently succeed even if
+no processes are found or if the kill attempt fails.
+
+This is called after customization operations like
+C<guestfs_install> to clean up any daemons that may have
+been started by package installation scripts.|} };
 ]

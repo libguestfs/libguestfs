@@ -411,8 +411,10 @@ Makefile.in
 /tests/c-api/test-just-header-cxx
 /tests/c-api/test-last-errno
 /tests/c-api/test-last-errno-einval
+/tests/c-api/test-kill-procs
 /tests/c-api/test-private-data
 /tests/c-api/test-pwd
+/tests/c-api/test-sleep
 /tests/c-api/tests
 /tests/c-api/tests.c
 /tests/c-api/test-threads
