@@ -85,6 +85,7 @@ daemon/inotify.c
 daemon/internal.c
 daemon/is.c
 daemon/journal.c
+daemon/kill-procs.c
 daemon/labels.c
 daemon/ldm.c
 daemon/link.c
