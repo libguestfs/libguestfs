@@ -1669,11 +1669,9 @@ and generate_client_actions actions () =
 
   let handle_null_optargs optargs c_name =
     if optargs <> [] then (
-      pr "  struct guestfs_%s_argv optargs_null;\n" c_name;
-      pr "  if (!optargs) {\n";
-      pr "    optargs_null.bitmask = 0;\n";
-      pr "    optargs = &optargs_null;\n";
-      pr "  }\n\n";
+      pr "  const struct guestfs_%s_argv optargs_null = {0};\n" c_name;
+      pr "  if (!optargs)\n";
+      pr "    optargs = &optargs_null;\n\n"
     )
   in
 
