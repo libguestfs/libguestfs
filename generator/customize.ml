@@ -122,7 +122,7 @@ For example:
 
  virt-customize --chown '0:0:/var/log/audit.log'
 
-See also: I<--upload>.|};
+See also: I<--setxattr>, I<--upload>.|};
   };
 
   { op_name = "commands-from-file";
@@ -465,6 +465,30 @@ It scrubs the data so a guest could not recover it.
 It cannot delete directories, only regular files.
 
 =back|};
+  };
+
+  { op_name = "setxattr";
+    op_type = StringTriplet "FILE:NAME:VALUE";
+    op_discrim = "`SetXAttr";
+    op_exclude_v2v = false;
+    op_shortdesc = "Set an extended attribute, including SELinux label";
+    op_pod_longdesc = {|Set an extended attribute on a single file or
+directory.
+
+The most common use is to set the SELinux label of a file:
+
+ virt-customize --setxattr /etc/passwd:security.selinux:system_u:object_r:passwd_file_t:s0
+
+But other attributes can be set too, eg:
+
+ virt-customize --setxattr /home/user/file:user.md5:a1514c9bd...
+
+Note that the parameter has three colon-separated fields, the
+filename, the extended attribute name, and the extended attribute
+value.  The filename and attribute name cannot contain C<:> but
+the value can.
+
+See also: I<--chown>, I<--upload>.|};
   };
 
   { op_name = "ssh-inject";
