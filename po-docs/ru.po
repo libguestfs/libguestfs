@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
-"POT-Creation-Date: 2026-10-02 09:17+0100\n"
+"POT-Creation-Date: 2026-10-30 09:15+0000\n"
 "PO-Revision-Date: 2026-10-06 15:18+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
@@ -1979,8 +1979,8 @@ msgstr ""
 "Очень трудно определить, когда эту опцию можно безопасно использовать.  "
 "Другие распространённые опции, такие как I<--install>, могут конфликтовать с "
 "ней.  Особенно в дистрибутивах на основе systemd из-за ошибок в systemd эта "
-"опция может вообще не работать (L<https://bugzilla.redhat.com/"
-"show_bug.cgi?id=2021835>)."
+"опция может вообще не работать (L<https://bugzilla.redhat.com/show_bug.cgi?"
+"id=2021835>)."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:412
@@ -2056,12 +2056,77 @@ msgstr ""
 #. type: =item
 #: common/mlcustomize/customize-options.pod:443
 #: common/mlcustomize/v2v-customize-options.pod:389
-msgid "B<--ssh-inject> USER[:SELECTOR]"
-msgstr "B<--ssh-inject> ПОЛЬЗОВАТЕЛЬ[:СЕЛЕКТОР]"
+#, fuzzy
+#| msgid "B<--selinux-relabel>"
+msgid "B<--selinux-relabel-fhs>"
+msgstr "B<--selinux-relabel>"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:445
 #: common/mlcustomize/v2v-customize-options.pod:391
+msgid ""
+"This option lets you only relabel in Linux Filesystem Hierarchy Standard "
+"(FHS) mountpoints (L<https://en.wikipedia.org/wiki/"
+"Filesystem_Hierarchy_Standard>)."
+msgstr ""
+
+#. type: textblock
+#: common/mlcustomize/customize-options.pod:449
+#: common/mlcustomize/v2v-customize-options.pod:395
+msgid ""
+"Specifically this means that a separate mountpoint which does not match a "
+"directory from the FHS is ignored.  For example if F</etc/fstab> contained:"
+msgstr ""
+
+#. type: verbatim
+#: common/mlcustomize/customize-options.pod:453
+#: common/mlcustomize/v2v-customize-options.pod:399
+#, no-wrap
+msgid ""
+" /dev/sdb /database xfs defaults 0 0\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: common/mlcustomize/customize-options.pod:455
+#: common/mlcustomize/v2v-customize-options.pod:401
+msgid ""
+"then F</database> would not be relabelled since that directory is not one "
+"listed in the FHS."
+msgstr ""
+
+#. type: textblock
+#: common/mlcustomize/customize-options.pod:458
+#: common/mlcustomize/v2v-customize-options.pod:404
+msgid ""
+"This option only works at the fstab mountpoint level.  If F</> was the only "
+"mountpoint then everything underneath would still be relabelled even if not "
+"an FHS directory."
+msgstr ""
+
+#. type: textblock
+#: common/mlcustomize/customize-options.pod:462
+#: common/mlcustomize/v2v-customize-options.pod:408
+msgid ""
+"Use this option with care, since incorrectly labelled files even outside the "
+"FHS may cause the guest to fail to boot."
+msgstr ""
+
+#. type: textblock
+#: common/mlcustomize/customize-options.pod:465
+#: common/mlcustomize/v2v-customize-options.pod:411
+msgid "The default is to relabel the whole filesystem."
+msgstr ""
+
+#. type: =item
+#: common/mlcustomize/customize-options.pod:467
+#: common/mlcustomize/v2v-customize-options.pod:413
+msgid "B<--ssh-inject> USER[:SELECTOR]"
+msgstr "B<--ssh-inject> ПОЛЬЗОВАТЕЛЬ[:СЕЛЕКТОР]"
+
+#. type: textblock
+#: common/mlcustomize/customize-options.pod:469
+#: common/mlcustomize/v2v-customize-options.pod:415
 msgid ""
 "Inject an ssh key so the given C<USER> will be able to log in over ssh "
 "without supplying a password.  The C<USER> must exist already in the guest."
@@ -2070,15 +2135,15 @@ msgstr ""
 "ввода пароля. C<ПОЛЬЗОВАТЕЛЬ> уже должен существовать в гостевой системе."
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:449
-#: common/mlcustomize/v2v-customize-options.pod:395
+#: common/mlcustomize/customize-options.pod:473
+#: common/mlcustomize/v2v-customize-options.pod:419
 msgid ""
 "See L<virt-builder(1)/SSH KEYS> for the format of the C<SELECTOR> field."
 msgstr "Формат поля C<СЕЛЕКТОР> см. в L<virt-builder(1)/SSH КЛЮЧИ>."
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:452
-#: common/mlcustomize/v2v-customize-options.pod:398
+#: common/mlcustomize/customize-options.pod:476
+#: common/mlcustomize/v2v-customize-options.pod:422
 msgid ""
 "You can have multiple I<--ssh-inject> options, for different users and also "
 "for more keys for each user."
@@ -2088,14 +2153,14 @@ msgstr ""
 "пользователя."
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:455
-#: common/mlcustomize/v2v-customize-options.pod:401
+#: common/mlcustomize/customize-options.pod:479
+#: common/mlcustomize/v2v-customize-options.pod:425
 msgid "B<--tar-in> TARFILE:REMOTEDIR"
 msgstr "B<--tar-in> ТАР_ФАЙЛ:УДАЛЕННЫЙ_КАТАЛОГ"
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:457
-#: common/mlcustomize/v2v-customize-options.pod:403
+#: common/mlcustomize/customize-options.pod:481
+#: common/mlcustomize/v2v-customize-options.pod:427
 msgid ""
 "Copy local files or directories from a local tar file called C<TARFILE> into "
 "the disk image, placing them in the directory C<REMOTEDIR> (which must "
@@ -2108,14 +2173,14 @@ msgstr ""
 "несжатым (файлы F<.tar.gz> здесь работать не будут)"
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:463
-#: common/mlcustomize/v2v-customize-options.pod:409
+#: common/mlcustomize/customize-options.pod:487
+#: common/mlcustomize/v2v-customize-options.pod:433
 msgid "B<--timezone> TIMEZONE"
 msgstr "B<--timezone> ЧАСОВОЙ_ПОЯС"
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:465
-#: common/mlcustomize/v2v-customize-options.pod:411
+#: common/mlcustomize/customize-options.pod:489
+#: common/mlcustomize/v2v-customize-options.pod:435
 msgid ""
 "Set the default timezone of the guest to C<TIMEZONE>.  Use a location string "
 "like C<Europe/London>"
@@ -2124,26 +2189,26 @@ msgstr ""
 "строку местоположения, например C<Europe/London>"
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:468
-#: common/mlcustomize/v2v-customize-options.pod:414
+#: common/mlcustomize/customize-options.pod:492
+#: common/mlcustomize/v2v-customize-options.pod:438
 msgid "B<--touch> FILE"
 msgstr "B<--touch> ФАЙЛ"
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:470
-#: common/mlcustomize/v2v-customize-options.pod:416
+#: common/mlcustomize/customize-options.pod:494
+#: common/mlcustomize/v2v-customize-options.pod:440
 msgid "This command performs a L<touch(1)>-like operation on C<FILE>."
 msgstr "Эта команда выполняет операцию, аналогичную L<touch(1)>, над C<ФАЙЛ>."
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:472
-#: common/mlcustomize/v2v-customize-options.pod:418
+#: common/mlcustomize/customize-options.pod:496
+#: common/mlcustomize/v2v-customize-options.pod:442
 msgid "B<--truncate> FILE"
 msgstr "B<--truncate> ФАЙЛ"
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:474
-#: common/mlcustomize/v2v-customize-options.pod:420
+#: common/mlcustomize/customize-options.pod:498
+#: common/mlcustomize/v2v-customize-options.pod:444
 msgid ""
 "This command truncates C<FILE> to a zero-length file. The file must exist "
 "already."
@@ -2151,28 +2216,28 @@ msgstr ""
 "Эта команда урезает C<ФАЙЛ> до нулевой длины. Файл должен уже существовать."
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:477
-#: common/mlcustomize/v2v-customize-options.pod:423
+#: common/mlcustomize/customize-options.pod:501
+#: common/mlcustomize/v2v-customize-options.pod:447
 msgid "B<--truncate-recursive> PATH"
 msgstr "B<--truncate-recursive> ПУТЬ"
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:479
-#: common/mlcustomize/v2v-customize-options.pod:425
+#: common/mlcustomize/customize-options.pod:503
+#: common/mlcustomize/v2v-customize-options.pod:449
 msgid ""
 "This command recursively truncates all files under C<PATH> to zero-length."
 msgstr ""
 "Эта команда рекурсивно урезает все файлы внутри C<ПУТЬ> до нулевой длины."
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:481
-#: common/mlcustomize/v2v-customize-options.pod:427
+#: common/mlcustomize/customize-options.pod:505
+#: common/mlcustomize/v2v-customize-options.pod:451
 msgid "B<--uninstall> PKG,PKG.."
 msgstr "B<--uninstall> ПАКЕТ,ПАКЕТ.."
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:483
-#: common/mlcustomize/v2v-customize-options.pod:429
+#: common/mlcustomize/customize-options.pod:507
+#: common/mlcustomize/v2v-customize-options.pod:453
 msgid ""
 "Uninstall the named packages (a comma-separated list).  These are removed "
 "during the image build using the guest’s package manager (eg. apt, yum, "
@@ -2185,20 +2250,20 @@ msgstr ""
 "зависимых пакетов."
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:488
-#: common/mlcustomize/v2v-customize-options.pod:434
+#: common/mlcustomize/customize-options.pod:512
+#: common/mlcustomize/v2v-customize-options.pod:458
 msgid "See also I<--install>, I<--update>."
 msgstr "См. также I<--install>, I<--update>."
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:490
-#: common/mlcustomize/v2v-customize-options.pod:436
+#: common/mlcustomize/customize-options.pod:514
+#: common/mlcustomize/v2v-customize-options.pod:460
 msgid "B<--update>"
 msgstr "B<--update>"
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:492
-#: common/mlcustomize/v2v-customize-options.pod:438
+#: common/mlcustomize/customize-options.pod:516
+#: common/mlcustomize/v2v-customize-options.pod:462
 msgid ""
 "Do the equivalent of C<yum update>, C<apt-get upgrade>, or whatever command "
 "is required to update the packages already installed in the template to "
@@ -2209,20 +2274,20 @@ msgstr ""
 "их последних версий."
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:496
-#: common/mlcustomize/v2v-customize-options.pod:442
+#: common/mlcustomize/customize-options.pod:520
+#: common/mlcustomize/v2v-customize-options.pod:466
 msgid "See also I<--install>, I<--uninstall>."
 msgstr "См. также I<--install>, I<--uninstall>."
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:498
-#: common/mlcustomize/v2v-customize-options.pod:444
+#: common/mlcustomize/customize-options.pod:522
+#: common/mlcustomize/v2v-customize-options.pod:468
 msgid "B<--upload> FILE:DEST"
 msgstr "B<--upload> ФАЙЛ:НАЗНАЧЕНИЕ"
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:500
-#: common/mlcustomize/v2v-customize-options.pod:446
+#: common/mlcustomize/customize-options.pod:524
+#: common/mlcustomize/v2v-customize-options.pod:470
 msgid ""
 "Upload local file C<FILE> to destination C<DEST> in the disk image.  File "
 "owner and permissions from the original are preserved, so you should set "
@@ -2233,8 +2298,8 @@ msgstr ""
 "поэтому вы должны установить их так, как хотите видеть в образе диска."
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:504
-#: common/mlcustomize/v2v-customize-options.pod:450
+#: common/mlcustomize/customize-options.pod:528
+#: common/mlcustomize/v2v-customize-options.pod:474
 msgid ""
 "C<DEST> could be the final filename.  This can be used to rename the file on "
 "upload."
@@ -2243,8 +2308,8 @@ msgstr ""
 "переименования файла при загрузке."
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:507
-#: common/mlcustomize/v2v-customize-options.pod:453
+#: common/mlcustomize/customize-options.pod:531
+#: common/mlcustomize/v2v-customize-options.pod:477
 msgid ""
 "If C<DEST> is a directory name (which must already exist in the guest)  then "
 "the file is uploaded into that directory, and it keeps the same name as on "
@@ -2255,20 +2320,20 @@ msgstr ""
 "имя, что и в локальной файловой системе."
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:511
-#: common/mlcustomize/v2v-customize-options.pod:457
+#: common/mlcustomize/customize-options.pod:535
+#: common/mlcustomize/v2v-customize-options.pod:481
 msgid "See also: I<--mkdir>, I<--delete>, I<--scrub>."
 msgstr "См. также: I<--mkdir>, I<--delete>, I<--scrub>."
 
 #. type: =item
-#: common/mlcustomize/customize-options.pod:513
-#: common/mlcustomize/v2v-customize-options.pod:459
+#: common/mlcustomize/customize-options.pod:537
+#: common/mlcustomize/v2v-customize-options.pod:483
 msgid "B<--write> FILE:CONTENT"
 msgstr "B<--write> ФАЙЛ:СОДЕРЖИМОЕ"
 
 #. type: textblock
-#: common/mlcustomize/customize-options.pod:515
-#: common/mlcustomize/v2v-customize-options.pod:461
+#: common/mlcustomize/customize-options.pod:539
+#: common/mlcustomize/v2v-customize-options.pod:485
 msgid "Write C<CONTENT> to C<FILE>."
 msgstr "Записать C<СОДЕРЖИМОЕ> в C<ФАЙЛ>."
 
