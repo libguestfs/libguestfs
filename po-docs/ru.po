@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-10-30 09:15+0000\n"
-"PO-Revision-Date: 2026-10-06 15:18+0000\n"
+"PO-Revision-Date: 2026-11-02 14:27+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ru/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.10\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:1 daemon/guestfsd.pod:1
@@ -2056,10 +2056,8 @@ msgstr ""
 #. type: =item
 #: common/mlcustomize/customize-options.pod:443
 #: common/mlcustomize/v2v-customize-options.pod:389
-#, fuzzy
-#| msgid "B<--selinux-relabel>"
 msgid "B<--selinux-relabel-fhs>"
-msgstr "B<--selinux-relabel>"
+msgstr "B<--selinux-relabel-fhs>"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:445
@@ -2069,6 +2067,9 @@ msgid ""
 "(FHS) mountpoints (L<https://en.wikipedia.org/wiki/"
 "Filesystem_Hierarchy_Standard>)."
 msgstr ""
+"Этот параметр позволяет перемаркировать только точки монтирования согласно "
+"стандарту иерархии файловой системы Linux (FHS) (L<https://en.wikipedia.org/"
+"wiki/Filesystem_Hierarchy_Standard>)."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:449
@@ -2077,6 +2078,9 @@ msgid ""
 "Specifically this means that a separate mountpoint which does not match a "
 "directory from the FHS is ignored.  For example if F</etc/fstab> contained:"
 msgstr ""
+"В частности, это означает, что отдельная точка монтирования, не "
+"соответствующая каталогу из FHS, игнорируется.  Например, если F</etc/fstab> "
+"содержал:"
 
 #. type: verbatim
 #: common/mlcustomize/customize-options.pod:453
@@ -2086,6 +2090,8 @@ msgid ""
 " /dev/sdb /database xfs defaults 0 0\n"
 "\n"
 msgstr ""
+" /dev/sdb /database xfs defaults 0 0\n"
+"\n"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:455
@@ -2094,6 +2100,8 @@ msgid ""
 "then F</database> would not be relabelled since that directory is not one "
 "listed in the FHS."
 msgstr ""
+"то F</database> не был бы перемаркирован, поскольку этот каталог не указан в "
+"FHS."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:458
@@ -2103,6 +2111,9 @@ msgid ""
 "mountpoint then everything underneath would still be relabelled even if not "
 "an FHS directory."
 msgstr ""
+"Этот параметр работает только на уровне точек монтирования из fstab.  Если "
+"F</> был единственной точкой монтирования, то всё, что под ней, всё равно "
+"будет перемаркировано, даже если это не каталог из FHS."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:462
@@ -2111,12 +2122,14 @@ msgid ""
 "Use this option with care, since incorrectly labelled files even outside the "
 "FHS may cause the guest to fail to boot."
 msgstr ""
+"Используйте этот параметр осторожно, поскольку неправильно помеченные файлы "
+"даже вне FHS могут привести к тому, что гостевая система не загрузится."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:465
 #: common/mlcustomize/v2v-customize-options.pod:411
 msgid "The default is to relabel the whole filesystem."
-msgstr ""
+msgstr "По умолчанию перемаркируется вся файловая система."
 
 #. type: =item
 #: common/mlcustomize/customize-options.pod:467
