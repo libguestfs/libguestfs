@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-11-07 10:51+0000\n"
-"PO-Revision-Date: 2026-11-02 14:27+0000\n"
+"PO-Revision-Date: 2026-11-10 01:18+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/ru/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.10.1\n"
+"X-Generator: Weblate 2026.11.1\n"
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:1 daemon/guestfsd.pod:1
@@ -66024,22 +66024,17 @@ msgstr ""
 
 #. type: =head2
 #: fish/guestfish-actions.pod:5436
-#, fuzzy
-#| msgid "kill-subprocess"
 msgid "kill-procs"
-msgstr "kill-subprocess"
+msgstr "kill-procs"
 
 #. type: verbatim
 #: fish/guestfish-actions.pod:5438
-#, fuzzy, no-wrap
-#| msgid ""
-#| " kill-subprocess\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " kill-procs\n"
 "\n"
 msgstr ""
-" kill-subprocess\n"
+" kill-procs\n"
 "\n"
 
 #. type: textblock
@@ -66048,6 +66043,9 @@ msgid ""
 "This call kills any processes inside the libguestfs appliance that are using "
 "the guest filesystem (ie. have the sysroot as their root)."
 msgstr ""
+"Этот вызов завершает любые процессы внутри окружения libguestfs, которые "
+"используют гостевую файловую систему (т.е. имеют sysroot в качестве своего "
+"корня)."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:5444 lib/guestfs-actions.pod:8760
@@ -66055,6 +66053,8 @@ msgid ""
 "This is a best-effort call: it will silently succeed even if no processes "
 "are found or if the kill attempt fails."
 msgstr ""
+"Это вызов по мере возможности: он молча завершится успешно, даже если "
+"процессы не найдены или попытка завершения не удалась."
 
 #. type: textblock
 #: fish/guestfish-actions.pod:5447
@@ -66062,6 +66062,8 @@ msgid ""
 "This is called after customization operations like L</install> to clean up "
 "any daemons that may have been started by package installation scripts."
 msgstr ""
+"Вызывается после операций настройки, таких как L</install>, чтобы очистить "
+"любые демоны, которые могли быть запущены скриптами установки пакетов."
 
 #. type: =head2
 #: fish/guestfish-actions.pod:5451
@@ -82055,7 +82057,7 @@ msgstr ""
 #. type: =head2
 #: fish/guestfish.pod:1044
 msgid "REMOTE CONTROL DOES NOT WORK WITH I<-a> ETC. OPTIONS"
-msgstr "УДАЛЕННОЕ УПРАВЛЕНИЕ НЕ РАБОТАЕТ С ОПЦИЯМИ I<-a> И Т.Д."
+msgstr "УДАЛЁННОЕ УПРАВЛЕНИЕ НЕ РАБОТАЕТ С ПАРАМЕТРАМИ I<-a> И Т.Д."
 
 #. type: textblock
 #: fish/guestfish.pod:1046
@@ -86553,8 +86555,8 @@ msgid ""
 "This rarely-used option lets you emulate the behaviour of the deprecated "
 "C<guestfs_add_drive_with_if> call (q.v.)"
 msgstr ""
-"Эта редко используемая опция позволяет эмулировать поведение устаревшего "
-"вызова C<guestfs_add_drive_with_if> (см. выше)."
+"Эта редко используемый параметр позволяет эмулировать поведение устаревшего "
+"вызова C<guestfs_add_drive_with_if> (см. выше)"
 
 #. type: textblock
 #: lib/guestfs-actions.pod:513
@@ -97497,25 +97499,19 @@ msgstr ""
 
 #. type: =head2
 #: lib/guestfs-actions.pod:8751
-#, fuzzy
-#| msgid "guestfs_kill_subprocess"
 msgid "guestfs_kill_procs"
-msgstr "guestfs_kill_subprocess"
+msgstr "guestfs_kill_procs"
 
 #. type: verbatim
 #: lib/guestfs-actions.pod:8753
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_kill_subprocess (guestfs_h *g);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_kill_procs (guestfs_h *g);\n"
 "\n"
 msgstr ""
 " int\n"
-" guestfs_kill_subprocess (guestfs_h *g);\n"
+" guestfs_kill_procs (guestfs_h *g);\n"
 "\n"
 
 #. type: textblock
@@ -97525,13 +97521,14 @@ msgid ""
 "clean up any daemons that may have been started by package installation "
 "scripts."
 msgstr ""
+"Вызывается после операций настройки, таких как C<guestfs_install>, чтобы "
+"очистить любые демоны, которые могли быть запущены скриптами установки "
+"пакетов."
 
 #. type: textblock
 #: lib/guestfs-actions.pod:8769
-#, fuzzy
-#| msgid "(Added in 1.21.5)"
 msgid "(Added in 1.61.5)"
-msgstr "(Добавлено в 1.21.5)"
+msgstr "(Добавлено в 1.61.5)"
 
 #. type: =head2
 #: lib/guestfs-actions.pod:8771
