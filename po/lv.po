@@ -1,0 +1,5001 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat Inc.
+# This file is distributed under the same license as the libguestfs package.
+# Rihards Prieditis <rprieditis@gmail.com>, 2026.
+msgid ""
+msgstr ""
+"Project-Id-Version: libguestfs 1.61.6\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/"
+"enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2026-11-02 14:26+0000\n"
+"PO-Revision-Date: 2026-11-23 19:19+0000\n"
+"Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
+"Language-Team: Latvian <https://translate.fedoraproject.org/projects/"
+"libguestfs/libguestfs-master/lv/>\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= "
+"19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\n"
+"X-Generator: Weblate 2026.11.2\n"
+
+#: common/options/config.c:72
+#, c-format
+msgid "%s: line %d: error parsing configuration file: %s"
+msgstr "%s: %d. rinda: kļūda, parsējot konfigurācijas failu: %s"
+
+#: common/options/decrypt.c:52
+#, c-format
+msgid "string size overflow"
+msgstr "virknes izmēra pārpilde"
+
+#: common/options/decrypt.c:170
+#, c-format
+msgid ""
+"'clevis_luks_unlock', needed for decrypting %s, is unavailable in this "
+"libguestfs version"
+msgstr ""
+"„clevis_luks_unlock”, kas vajadzīgs %s atšifrēšanai, šajā libguestfs versijā "
+"nav pieejams"
+
+#: common/options/decrypt.c:184
+#, c-format
+msgid ""
+"could not find key to open LUKS encrypted %s.\n"
+"\n"
+"Try using --key on the command line.\n"
+"\n"
+"Original error: %s (%d)"
+msgstr ""
+"neizdevās atrast atslēgu LUKS šifrētā %s atvēršanai.\n"
+"\n"
+"Mēģiniet komandrindā izmantot --key.\n"
+"\n"
+"Sākotnējā kļūda: %s (%d)"
+
+#: common/options/inspect.c:78
+#, c-format
+msgid ""
+"%s: no operating system was found on this disk\n"
+"\n"
+"If using guestfish ‘-i’ option, remove this option and instead\n"
+"use the commands ‘run’ followed by ‘list-filesystems’.\n"
+"You can then mount filesystems you want by hand using the\n"
+"‘mount’ or ‘mount-ro’ command.\n"
+"\n"
+"If using guestmount ‘-i’, remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding ‘-m’ option(s).\n"
+"Use ‘virt-filesystems’ to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, this disk image won’t work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
+msgstr ""
+"%s: šajā diskā netika atrasta neviena operētājsistēma\n"
+"\n"
+"Ja izmantojat guestfish opciju „-i”, noņemiet to un tā vietā\n"
+"izmantojiet komandu „run”, pēc tam „list-filesystems”.\n"
+"Tad vajadzīgās failu sistēmas varat montēt manuāli ar\n"
+"komandu „mount” vai „mount-ro”.\n"
+"\n"
+"Ja izmantojat guestmount „-i”, noņemiet šo opciju un izvēlieties\n"
+"redzamās failu sistēmas, manuāli pievienojot opciju(-as) „-m”.\n"
+"Izmantojiet „virt-filesystems”, lai redzētu pieejamās failu sistēmas.\n"
+"\n"
+"Ja izmantojat citus virt rīkus, šis diska attēls ar\n"
+"šiem rīkiem nedarbosies.  Izmantojiet atbilstošās guestfish komandas\n"
+"(skatiet virt rīka rokasgrāmatas lapu).\n"
+
+#: common/options/inspect.c:99
+#, c-format
+msgid ""
+"%s: multi-boot operating systems are not supported\n"
+"\n"
+"If using guestfish ‘-i’ option, remove this option and instead\n"
+"use the commands ‘run’ followed by ‘list-filesystems’.\n"
+"You can then mount filesystems you want by hand using the\n"
+"‘mount’ or ‘mount-ro’ command.\n"
+"\n"
+"If using guestmount ‘-i’, remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding ‘-m’ option(s).\n"
+"Use ‘virt-filesystems’ to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, multi-boot operating systems won’t work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
+msgstr ""
+"%s: vairāku sāknējamu operētājsistēmu konfigurācijas netiek atbalstītas\n"
+"\n"
+"Ja izmantojat guestfish opciju „-i”, noņemiet to un tā vietā\n"
+"izmantojiet komandu „run”, pēc tam „list-filesystems”.\n"
+"Tad vajadzīgās failu sistēmas varat montēt manuāli ar\n"
+"komandu „mount” vai „mount-ro”.\n"
+"\n"
+"Ja izmantojat guestmount „-i”, noņemiet šo opciju un izvēlieties\n"
+"redzamās failu sistēmas, manuāli pievienojot opciju(-as) „-m”.\n"
+"Izmantojiet „virt-filesystems”, lai redzētu pieejamās failu sistēmas.\n"
+"\n"
+"Ja izmantojat citus virt rīkus, vairāku sāknējamu operētājsistēmu "
+"konfigurācijas\n"
+"ar šiem rīkiem nedarbosies.  Izmantojiet atbilstošās guestfish komandas\n"
+"(skatiet virt rīka rokasgrāmatas lapu).\n"
+
+#: common/options/inspect.c:161
+#, c-format
+msgid "%s: some filesystems could not be mounted (ignored)\n"
+msgstr "%s: dažas failu sistēmas nevarēja montēt (ignorēts)\n"
+
+#: common/options/inspect.c:178
+#, c-format
+msgid "Operating system: %s\n"
+msgstr "Operētājsistēma: %s\n"
+
+#: common/options/inspect.c:196
+#, c-format
+msgid "%s mounted on %s\n"
+msgstr "%s montēts uz %s\n"
+
+#: common/options/keys.c:69
+#, c-format
+msgid "Enter key or passphrase (\"%s\"): "
+msgstr "Ievadiet atslēgu vai paroles frāzi („%s”): "
+
+#: common/options/keys.c:189
+#, c-format
+msgid "size_t overflow"
+msgstr "size_t pārpilde"
+
+#: common/options/keys.c:228
+#, c-format
+msgid "encrypted device %s matched --key ...:error"
+msgstr "šifrētā ierīce %s atbilda --key ...:error"
+
+#: common/options/keys.c:239
+#, c-format
+msgid "could not read key from user"
+msgstr "neizdevās nolasīt atslēgu no lietotāja"
+
+#: common/options/keys.c:278
+#, c-format
+msgid "selector '%s': missing ID"
+msgstr "atlasītājs „%s”: trūkst ID"
+
+#: common/options/keys.c:285
+#, c-format
+msgid "selector '%s': missing TYPE"
+msgstr "atlasītājs „%s”: trūkst TYPE"
+
+#: common/options/keys.c:291
+#, c-format
+msgid "selector '%s': missing KEY_STRING, or too many fields"
+msgstr "atlasītājs „%s”: trūkst KEY_STRING vai pārāk daudz lauku"
+
+#: common/options/keys.c:300
+#, c-format
+msgid "selector '%s': missing FILENAME, or too many fields"
+msgstr "atlasītājs „%s”: trūkst FILENAME vai pārāk daudz lauku"
+
+#: common/options/keys.c:308
+#, c-format
+msgid "selector '%s': too many fields"
+msgstr "atlasītājs „%s”: pārāk daudz lauku"
+
+#: common/options/keys.c:310
+#, c-format
+msgid "selector '%s': invalid TYPE"
+msgstr "atlasītājs „%s”: nederīgs TYPE"
+
+#: common/options/options.c:283
+#, c-format
+msgid "%s: ‘%s’ could not be mounted.\n"
+msgstr "%s: „%s” nevarēja montēt.\n"
+
+#: common/options/options.c:287
+#, c-format
+msgid ""
+"%s: Check mount(8) man page to ensure options ‘%s’\n"
+"%s: are supported by the filesystem that is being mounted.\n"
+msgstr ""
+"%s: Pārbaudiet mount(8) rokasgrāmatas lapā, vai opcijas „%s”\n"
+"%s: atbalsta montējamā failu sistēma.\n"
+
+#: common/options/options.c:291
+#, c-format
+msgid "%s: Did you mean to mount one of these filesystems?\n"
+msgstr "%s: Vai vēlējāties montēt kādu no šīm failu sistēmām?\n"
+
+#: common/options/options.c:304
+#, c-format
+msgid "cannot determine the subvolume for %s: %s (%d)"
+msgstr "nevar noteikt %s apakšsējumu: %s (%d)"
+
+#: common/options/uri.c:119
+#, c-format
+msgid "%s: --add: could not parse URI ‘%s’\n"
+msgstr "%s: --add: neizdevās parsēt URI „%s”\n"
+
+#: common/options/uri.c:130
+#, c-format
+msgid "%s: %s: scheme of URI is NULL or empty\n"
+msgstr "%s: %s: URI shēma ir NULL vai tukša\n"
+
+#: common/options/uri.c:138
+#, c-format
+msgid "%s: %s: cannot have both a server name and a socket query parameter\n"
+msgstr ""
+"%s: %s: nevar būt vienlaikus servera nosaukums un ligzdas vaicājuma "
+"parametrs\n"
+
+#: common/parallel/domains.c:106 lib/libvirt-domain.c:106
+#, c-format
+msgid "could not connect to libvirt (code %d, domain %d): %s"
+msgstr "neizdevās savienoties ar libvirt (kods %d, domēns %d): %s"
+
+#: common/parallel/domains.c:114
+#, c-format
+msgid "could not get number of running domains (code %d, domain %d): %s"
+msgstr "neizdevās iegūt darbojošos domēnu skaitu (kods %d, domēns %d): %s"
+
+#: common/parallel/domains.c:125
+#, c-format
+msgid "could not list running domains (code %d, domain %d): %s"
+msgstr "neizdevās uzskaitīt darbojošos domēnus (kods %d, domēns %d): %s"
+
+#: common/parallel/domains.c:135
+#, c-format
+msgid "could not get number of inactive domains (code %d, domain %d): %s"
+msgstr "neizdevās iegūt neaktīvo domēnu skaitu (kods %d, domēns %d): %s"
+
+#: common/parallel/domains.c:146
+#, c-format
+msgid "could not list inactive domains (code %d, domain %d): %s"
+msgstr "neizdevās uzskaitīt neaktīvos domēnus (kods %d, domēns %d): %s"
+
+#: common/utils/utils.c:107
+#, c-format
+msgid "%s exited successfully"
+msgstr "%s veiksmīgi beidza darbu"
+
+#: common/utils/utils.c:110
+#, c-format
+msgid "%s exited with error status %d"
+msgstr "%s beidza darbu ar kļūdas statusu %d"
+
+#: common/utils/utils.c:114
+#, c-format
+msgid "%s killed by signal %d (%s)"
+msgstr "%s nogalināja signāls %d (%s)"
+
+#: common/utils/utils.c:118
+#, c-format
+msgid "%s stopped by signal %d (%s)"
+msgstr "%s apturēja signāls %d (%s)"
+
+#: common/utils/utils.c:122
+#, c-format
+msgid "%s exited for an unknown reason (status %d)"
+msgstr "%s beidza darbu nezināma iemesla dēļ (statuss %d)"
+
+#: common/visit/visit.c:133
+#, c-format
+msgid "%s: error getting extended attrs for %s %s\n"
+msgstr "%s: kļūda, iegūstot paplašinātos atribūtus %s %s\n"
+
+#: common/visit/visit.c:147
+#, c-format
+msgid "%s: error: cannot parse xattr count for %s %s\n"
+msgstr "%s: kļūda: nevar parsēt xattr skaitu %s %s\n"
+
+#: common/windows/windows.c:139
+#, c-format
+msgid "to use Windows drive letters, this must be a Windows guest"
+msgstr "lai izmantotu Windows diskdziņu burtus, tam jābūt Windows viesim"
+
+#: common/windows/windows.c:150
+#, c-format
+msgid "drive '%c:' not found."
+msgstr "diskdzinis „%c:” nav atrasts."
+
+#: fish/alloc.c:42
+#, c-format
+msgid "use 'alloc file size' to create an image\n"
+msgstr "lai izveidotu attēlu, izmantojiet „alloc fails izmērs”\n"
+
+#: fish/alloc.c:56
+#, c-format
+msgid "use 'sparse file size' to create a sparse image\n"
+msgstr "lai izveidotu retinātu attēlu, izmantojiet „sparse fails izmērs”\n"
+
+#: fish/alloc.c:105
+#, c-format
+msgid "%s: invalid integer parameter (%s returned %u)\n"
+msgstr "%s: nederīgs vesela skaitļa parametrs (%s atgrieza %u)\n"
+
+#: fish/cmds.c:508
+msgid "Command"
+msgstr "Komanda"
+
+#: fish/cmds.c:508
+msgid "Description"
+msgstr "Apraksts"
+
+#: fish/cmds.c:510
+msgid "delete the default POSIX ACL of a directory"
+msgstr "dzēst direktorijas noklusējuma POSIX ACL"
+
+#: fish/cmds.c:511
+msgid "get the POSIX ACL attached to a file"
+msgstr "iegūt failam piesaistīto POSIX ACL"
+
+#: fish/cmds.c:512
+msgid "set the POSIX ACL attached to a file"
+msgstr "iestatīt failam piesaistīto POSIX ACL"
+
+#: fish/cmds.c:514 fish/cmds.c:517 fish/cmds.c:528 fish/cmds.c:531
+#: fish/cmds.c:534 fish/cmds.c:554 fish/cmds.c:559 fish/cmds.c:578
+#: fish/cmds.c:622 fish/cmds.c:666 fish/cmds.c:675 fish/cmds.c:691
+#: fish/cmds.c:721 fish/cmds.c:787 fish/cmds.c:790 fish/cmds.c:868
+#: fish/cmds.c:921 fish/cmds.c:929 fish/cmds.c:973 fish/cmds.c:1014
+#: fish/cmds.c:1017 fish/cmds.c:1020 fish/cmds.c:1026 fish/cmds.c:1040
+#: fish/cmds.c:1049 fish/cmds.c:1068 fish/cmds.c:1071 fish/cmds.c:1077
+#: fish/cmds.c:1127 fish/cmds.c:1154 fish/cmds.c:1158 fish/cmds.c:1171
+#: fish/cmds.c:1174 fish/cmds.c:1183 fish/cmds.c:1205
+#, c-format
+msgid "alias for '%s'"
+msgstr "„%s” aizstājvārds"
+
+#: fish/cmds.c:519
+msgid "add a CD-ROM disk image to examine"
+msgstr "pievienot pārbaudāmu CD-ROM diska attēlu"
+
+#: fish/cmds.c:520
+msgid "add the disk(s) from a named libvirt domain"
+msgstr "pievienot disku(-us) no nosaukta libvirt domēna"
+
+#: fish/cmds.c:521
+msgid "add an image to examine or modify"
+msgstr "pievienot pārbaudāmu vai maināmu attēlu"
+
+#: fish/cmds.c:522
+msgid "add a drive in snapshot mode (read-only)"
+msgstr "pievienot diskdzini momentuzņēmuma režīmā (tikai lasāmu)"
+
+#: fish/cmds.c:523
+msgid "add a drive read-only specifying the QEMU block emulation to use"
+msgstr ""
+"pievienot tikai lasāmu diskdzini, norādot izmantojamo QEMU bloku emulāciju"
+
+#: fish/cmds.c:524
+msgid "add a temporary scratch drive"
+msgstr "pievienot pagaidu melnraksta diskdzini"
+
+#: fish/cmds.c:525
+msgid "add a drive specifying the QEMU block emulation to use"
+msgstr "pievienot diskdzini, norādot izmantojamo QEMU bloku emulāciju"
+
+#: fish/cmds.c:526
+msgid "allocate and add a disk file"
+msgstr "piešķirt un pievienot diska failu"
+
+#: fish/cmds.c:536
+msgid "clear Augeas path"
+msgstr "notīrīt Augeas ceļu"
+
+#: fish/cmds.c:537
+msgid "close the current Augeas handle"
+msgstr "aizvērt pašreizējo Augeas rokturi"
+
+#: fish/cmds.c:538
+msgid "define an Augeas node"
+msgstr "definēt Augeas mezglu"
+
+#: fish/cmds.c:539
+msgid "define an Augeas variable"
+msgstr "definēt Augeas mainīgo"
+
+#: fish/cmds.c:540
+msgid "look up the value of an Augeas path"
+msgstr "uzmeklēt Augeas ceļa vērtību"
+
+#: fish/cmds.c:541
+msgid "create a new Augeas handle"
+msgstr "izveidot jaunu Augeas rokturi"
+
+#: fish/cmds.c:542
+msgid "insert a sibling Augeas node"
+msgstr "ievietot blakus esošu Augeas mezglu"
+
+#: fish/cmds.c:543
+msgid "return the label from an Augeas path expression"
+msgstr "atgriezt etiķeti no Augeas ceļa izteiksmes"
+
+#: fish/cmds.c:544
+msgid "load files into the tree"
+msgstr "ielādēt failus kokā"
+
+#: fish/cmds.c:545
+msgid "list Augeas nodes under augpath"
+msgstr "uzskaitīt Augeas mezglus zem augpath"
+
+#: fish/cmds.c:546
+msgid "return Augeas nodes which match augpath"
+msgstr "atgriezt Augeas mezglus, kas atbilst augpath"
+
+#: fish/cmds.c:547
+msgid "move Augeas node"
+msgstr "pārvietot Augeas mezglu"
+
+#: fish/cmds.c:548
+msgid "remove an Augeas path"
+msgstr "noņemt Augeas ceļu"
+
+#: fish/cmds.c:549
+msgid "write all pending Augeas changes to disk"
+msgstr "ierakstīt diskā visas gaidošās Augeas izmaiņas"
+
+#: fish/cmds.c:550
+msgid "set Augeas path to value"
+msgstr "iestatīt Augeas ceļu uz vērtību"
+
+#: fish/cmds.c:551
+msgid "set multiple Augeas nodes"
+msgstr "iestatīt vairākus Augeas mezglus"
+
+#: fish/cmds.c:552
+msgid "add/remove an Augeas lens transformation"
+msgstr "pievienot/noņemt Augeas lēcas transformāciju"
+
+#: fish/cmds.c:556 fish/cmds.c:700
+msgid "test availability of some parts of the API"
+msgstr "pārbaudīt dažu API daļu pieejamību"
+
+#: fish/cmds.c:557
+msgid "return a list of all optional groups"
+msgstr "atgriezt visu neobligāto grupu sarakstu"
+
+#: fish/cmds.c:561
+msgid "upload base64-encoded data to file"
+msgstr "augšupielādēt failā base64 kodētus datus"
+
+#: fish/cmds.c:562
+msgid "download file and encode as base64"
+msgstr "lejupielādēt failu un kodēt kā base64"
+
+#: fish/cmds.c:563
+msgid "discard all blocks on a device"
+msgstr "atmest visus ierīces blokus"
+
+#: fish/cmds.c:564
+msgid "return true if discarded blocks are read as zeroes"
+msgstr "atgriezt patiesu, ja atmestie bloki tiek nolasīti kā nulles"
+
+#: fish/cmds.c:565
+msgid "print block device attributes"
+msgstr "izvadīt bloku ierīces atribūtus"
+
+#: fish/cmds.c:566
+msgid "flush device buffers"
+msgstr "izskalot ierīces buferus"
+
+#: fish/cmds.c:567
+msgid "get blocksize of block device"
+msgstr "iegūt bloku ierīces bloka izmēru"
+
+#: fish/cmds.c:568
+msgid "is block device set to read-only"
+msgstr "vai bloku ierīce ir iestatīta kā tikai lasāma"
+
+#: fish/cmds.c:569
+msgid "get total size of device in bytes"
+msgstr "iegūt ierīces kopējo izmēru baitos"
+
+#: fish/cmds.c:570
+msgid "get sectorsize of block device"
+msgstr "iegūt bloku ierīces sektora izmēru"
+
+#: fish/cmds.c:571
+msgid "get total size of device in 512-byte sectors"
+msgstr "iegūt ierīces kopējo izmēru 512 baitu sektoros"
+
+#: fish/cmds.c:572
+msgid "reread partition table"
+msgstr "atkārtoti nolasīt nodalījumu tabulu"
+
+#: fish/cmds.c:573
+msgid "set blocksize of block device"
+msgstr "iestatīt bloku ierīces bloka izmēru"
+
+#: fish/cmds.c:574
+msgid "set readahead"
+msgstr "iestatīt readahead"
+
+#: fish/cmds.c:575
+msgid "set block device to read-only"
+msgstr "iestatīt bloku ierīci kā tikai lasāmu"
+
+#: fish/cmds.c:576
+msgid "set block device to read-write"
+msgstr "iestatīt bloku ierīci kā lasāmu/rakstāmu"
+
+#: fish/cmds.c:580
+msgid "cancel a running or paused balance"
+msgstr "atcelt notiekošu vai pauzētu līdzsvarošanu"
+
+#: fish/cmds.c:581
+msgid "pause a running balance"
+msgstr "pauzēt notiekošu līdzsvarošanu"
+
+#: fish/cmds.c:582
+msgid "resume a paused balance"
+msgstr "atsākt pauzētu līdzsvarošanu"
+
+#: fish/cmds.c:583
+msgid "show the status of a running or paused balance"
+msgstr "rādīt notiekošas vai pauzētas līdzsvarošanas statusu"
+
+#: fish/cmds.c:584
+msgid "add devices to a btrfs filesystem"
+msgstr "pievienot ierīces btrfs failu sistēmai"
+
+#: fish/cmds.c:585
+msgid "remove devices from a btrfs filesystem"
+msgstr "noņemt ierīces no btrfs failu sistēmas"
+
+#: fish/cmds.c:586
+msgid "balance a btrfs filesystem"
+msgstr "līdzsvarot btrfs failu sistēmu"
+
+#: fish/cmds.c:587
+msgid "defragment a file or directory"
+msgstr "defragmentēt failu vai direktoriju"
+
+#: fish/cmds.c:588
+msgid "resize a btrfs filesystem"
+msgstr "mainīt btrfs failu sistēmas izmēru"
+
+#: fish/cmds.c:589
+msgid "list devices for btrfs filesystem"
+msgstr "uzskaitīt btrfs failu sistēmas ierīces"
+
+#: fish/cmds.c:590
+msgid "sync a btrfs filesystem"
+msgstr "sinhronizēt btrfs failu sistēmu"
+
+#: fish/cmds.c:591
+msgid "check a btrfs filesystem"
+msgstr "pārbaudīt btrfs failu sistēmu"
+
+#: fish/cmds.c:592
+msgid "create an image of a btrfs filesystem"
+msgstr "izveidot btrfs failu sistēmas attēlu"
+
+#: fish/cmds.c:593
+msgid "add a qgroup to a parent qgroup"
+msgstr "pievienot qgroup vecāka qgroup"
+
+#: fish/cmds.c:594
+msgid "create a subvolume quota group"
+msgstr "izveidot apakšsējuma kvotu grupu"
+
+#: fish/cmds.c:595
+msgid "destroy a subvolume quota group"
+msgstr "iznīcināt apakšsējuma kvotu grupu"
+
+#: fish/cmds.c:596
+msgid "limit the size of a subvolume"
+msgstr "ierobežot apakšsējuma izmēru"
+
+#: fish/cmds.c:597
+msgid "remove a qgroup from its parent qgroup"
+msgstr "noņemt qgroup no tās vecāka qgroup"
+
+#: fish/cmds.c:598
+msgid "show subvolume quota groups"
+msgstr "rādīt apakšsējumu kvotu grupas"
+
+#: fish/cmds.c:599
+msgid "enable or disable subvolume quota support"
+msgstr "iespējot vai atspējot apakšsējumu kvotu atbalstu"
+
+#: fish/cmds.c:600
+msgid ""
+"trash all qgroup numbers and scan the metadata again with the current config"
+msgstr ""
+"atmest visus qgroup numurus un no jauna skenēt metadatus ar pašreizējo "
+"konfigurāciju"
+
+#: fish/cmds.c:601
+msgid "replace a btrfs managed device with another device"
+msgstr "aizstāt btrfs pārvaldītu ierīci ar citu ierīci"
+
+#: fish/cmds.c:602
+msgid "recover the chunk tree of btrfs filesystem"
+msgstr "atkopt btrfs failu sistēmas gabalu koku"
+
+#: fish/cmds.c:603
+msgid "recover bad superblocks from good copies"
+msgstr "atkopt bojātus superblokus no labām kopijām"
+
+#: fish/cmds.c:604
+msgid "cancel a running scrub"
+msgstr "atcelt notiekošu attīrīšanu"
+
+#: fish/cmds.c:605
+msgid "run a full scrub on a btrfs filesystem"
+msgstr "palaist pilnu btrfs failu sistēmas attīrīšanu"
+
+#: fish/cmds.c:606
+msgid "resume a previously canceled or interrupted scrub"
+msgstr "atsākt iepriekš atceltu vai pārtrauktu attīrīšanu"
+
+#: fish/cmds.c:607
+msgid "read all data from all disks and verify checksums"
+msgstr "nolasīt visus datus no visiem diskiem un pārbaudīt kontrolsummas"
+
+#: fish/cmds.c:608
+msgid "show status of running or finished scrub"
+msgstr "rādīt notiekošas vai pabeigtas attīrīšanas statusu"
+
+#: fish/cmds.c:609
+msgid "enable or disable the seeding feature of device"
+msgstr "iespējot vai atspējot ierīces sēklošanas līdzekli"
+
+#: fish/cmds.c:610
+msgid "create a btrfs subvolume"
+msgstr "izveidot btrfs apakšsējumu"
+
+#: fish/cmds.c:611
+msgid "delete a btrfs subvolume or snapshot"
+msgstr "dzēst btrfs apakšsējumu vai momentuzņēmumu"
+
+#: fish/cmds.c:612
+msgid "get the default subvolume or snapshot of a filesystem"
+msgstr "iegūt failu sistēmas noklusējuma apakšsējumu vai momentuzņēmumu"
+
+#: fish/cmds.c:613
+msgid "list btrfs snapshots and subvolumes"
+msgstr "uzskaitīt btrfs momentuzņēmumus un apakšsējumus"
+
+#: fish/cmds.c:614
+msgid "set default btrfs subvolume"
+msgstr "iestatīt noklusējuma btrfs apakšsējumu"
+
+#: fish/cmds.c:615
+msgid "return detailed information of the subvolume"
+msgstr "atgriezt apakšsējuma detalizētu informāciju"
+
+#: fish/cmds.c:616
+msgid "create a btrfs snapshot"
+msgstr "izveidot btrfs momentuzņēmumu"
+
+#: fish/cmds.c:617
+msgid "enable extended inode refs"
+msgstr "iespējot paplašinātās inode atsauces"
+
+#: fish/cmds.c:618
+msgid "enable skinny metadata extent refs"
+msgstr "iespējot kompaktās metadatu ekstentu atsauces"
+
+#: fish/cmds.c:619
+msgid "enable or disable seeding of a btrfs device"
+msgstr "iespējot vai atspējot btrfs ierīces sēklošanu"
+
+#: fish/cmds.c:620
+msgid "return the C pointer to the guestfs_h handle"
+msgstr "atgriezt C rādītāju uz guestfs_h rokturi"
+
+#: fish/cmds.c:624
+msgid "return canonical device name"
+msgstr "atgriezt kanonisko ierīces nosaukumu"
+
+#: fish/cmds.c:625
+msgid "get the Linux capabilities attached to a file"
+msgstr "iegūt failam piesaistītās Linux spējas"
+
+#: fish/cmds.c:626
+msgid "set the Linux capabilities attached to a file"
+msgstr "iestatīt failam piesaistītās Linux spējas"
+
+#: fish/cmds.c:627
+msgid "return true path on case-insensitive filesystem"
+msgstr "atgriezt patieso ceļu reģistrnejutīgā failu sistēmā"
+
+#: fish/cmds.c:628
+msgid "list the contents of a file"
+msgstr "uzskaitīt faila saturu"
+
+#: fish/cmds.c:629
+msgid "compute MD5, SHAx or CRC checksum of file"
+msgstr "aprēķināt faila MD5, SHAx vai CRC kontrolsummu"
+
+#: fish/cmds.c:630
+msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
+msgstr "aprēķināt ierīces satura MD5, SHAx vai CRC kontrolsummu"
+
+#: fish/cmds.c:631
+msgid "compute MD5, SHAx or CRC checksum of files in a directory"
+msgstr "aprēķināt direktorijas failu MD5, SHAx vai CRC kontrolsummu"
+
+#: fish/cmds.c:632
+msgid "change file mode"
+msgstr "mainīt faila režīmu"
+
+#: fish/cmds.c:633 fish/cmds.c:856
+msgid "change file owner and group"
+msgstr "mainīt faila īpašnieku un grupu"
+
+#: fish/cmds.c:634
+msgid "remove a single per-backend settings string"
+msgstr "noņemt vienu aizmugursistēmas iestatījumu virkni"
+
+#: fish/cmds.c:635
+msgid "open an encrypted LUKS block device with Clevis and Tang"
+msgstr "atvērt šifrētu LUKS bloku ierīci ar Clevis un Tang"
+
+#: fish/cmds.c:636 fish/cmds.c:638
+msgid "run a command from the guest filesystem"
+msgstr "palaist komandu no viesa failu sistēmas"
+
+#: fish/cmds.c:637
+msgid "run a command, returning lines"
+msgstr "palaist komandu, atgriežot rindas"
+
+#: fish/cmds.c:639
+msgid "output compressed device"
+msgstr "izvadīt saspiestu ierīci"
+
+#: fish/cmds.c:640
+msgid "output compressed file"
+msgstr "izvadīt saspiestu failu"
+
+#: fish/cmds.c:641
+msgid "add hypervisor parameters"
+msgstr "pievienot hipervizora parametrus"
+
+#: fish/cmds.c:642
+msgid "copy the attributes of a path (file/directory) to another"
+msgstr "kopēt ceļa (faila/direktorijas) atribūtus uz citu"
+
+#: fish/cmds.c:643
+msgid "copy from source device to destination device"
+msgstr "kopēt no avota ierīces uz mērķa ierīci"
+
+#: fish/cmds.c:644
+msgid "copy from source device to destination file"
+msgstr "kopēt no avota ierīces uz mērķa failu"
+
+#: fish/cmds.c:645
+msgid "copy from source file to destination device"
+msgstr "kopēt no avota faila uz mērķa ierīci"
+
+#: fish/cmds.c:646
+msgid "copy from source file to destination file"
+msgstr "kopēt no avota faila uz mērķa failu"
+
+#: fish/cmds.c:647
+msgid "copy local files or directories into an image"
+msgstr "kopēt lokālus failus vai direktorijas attēlā"
+
+#: fish/cmds.c:648
+msgid "copy remote files or directories out of an image"
+msgstr "kopēt attālus failus vai direktorijas ārā no attēla"
+
+#: fish/cmds.c:649
+msgid "copy size bytes from source to destination using dd"
+msgstr "kopēt size baitus no avota uz mērķi, izmantojot dd"
+
+#: fish/cmds.c:650
+msgid "copy a file"
+msgstr "kopēt failu"
+
+#: fish/cmds.c:651 fish/cmds.c:652
+msgid "copy a file or directory recursively"
+msgstr "rekursīvi kopēt failu vai direktoriju"
+
+#: fish/cmds.c:653
+msgid "pack directory into cpio file"
+msgstr "iepakot direktoriju cpio failā"
+
+#: fish/cmds.c:654
+msgid "close an encrypted device"
+msgstr "aizvērt šifrētu ierīci"
+
+#: fish/cmds.c:655
+msgid "open an encrypted block device"
+msgstr "atvērt šifrētu bloku ierīci"
+
+#: fish/cmds.c:656
+msgid "copy from source to destination using dd"
+msgstr "kopēt no avota uz mērķi, izmantojot dd"
+
+#: fish/cmds.c:657
+msgid "debugging and internals"
+msgstr "atkļūdošana un iekšējā darbība"
+
+#: fish/cmds.c:658
+msgid "debug the drives (internal use only)"
+msgstr "atkļūdot diskdziņus (tikai iekšējai lietošanai)"
+
+#: fish/cmds.c:659
+msgid "upload a file to the appliance (internal use only)"
+msgstr "augšupielādēt failu palīgsistēmā (tikai iekšējai lietošanai)"
+
+#: fish/cmds.c:660
+msgid "delete a previously registered event handler"
+msgstr "dzēst iepriekš reģistrētu notikumu apdarinātāju"
+
+#: fish/cmds.c:661
+msgid "convert device to index"
+msgstr "pārveidot ierīci par indeksu"
+
+#: fish/cmds.c:662
+msgid "convert device index to name"
+msgstr "pārveidot ierīces indeksu par nosaukumu"
+
+#: fish/cmds.c:663
+msgid "report file system disk space usage"
+msgstr "ziņot failu sistēmas diska vietas lietojumu"
+
+#: fish/cmds.c:664
+msgid "report file system disk space usage (human readable)"
+msgstr "ziņot failu sistēmas diska vietas lietojumu (cilvēkam lasāmi)"
+
+#: fish/cmds.c:668
+msgid "create a blank disk image"
+msgstr "izveidot tukšu diska attēlu"
+
+#: fish/cmds.c:669
+msgid "detect the disk format of a disk image"
+msgstr "noteikt diska attēla diska formātu"
+
+#: fish/cmds.c:670
+msgid "return whether disk has a backing file"
+msgstr "atgriezt, vai diskam ir atbalsta fails"
+
+#: fish/cmds.c:671
+msgid "return virtual size of a disk"
+msgstr "atgriezt diska virtuālo izmēru"
+
+#: fish/cmds.c:672
+msgid "display an image"
+msgstr "parādīt attēlu"
+
+#: fish/cmds.c:673
+msgid "return kernel messages"
+msgstr "atgriezt kodola ziņojumus"
+
+#: fish/cmds.c:677
+msgid "download a file to the local machine"
+msgstr "lejupielādēt failu uz lokālo datoru"
+
+#: fish/cmds.c:678
+msgid "download the given data units from the disk"
+msgstr "lejupielādēt norādītās datu vienības no diska"
+
+#: fish/cmds.c:679 fish/cmds.c:979
+msgid "download a file to the local machine given its inode"
+msgstr "lejupielādēt failu uz lokālo datoru pēc tā inode"
+
+#: fish/cmds.c:680
+msgid "download a file to the local machine with offset and size"
+msgstr "lejupielādēt failu uz lokālo datoru ar nobīdi un izmēru"
+
+#: fish/cmds.c:681
+msgid "drop kernel page cache, dentries and inodes"
+msgstr "atmest kodola lappušu kešatmiņu, dentries un inodes"
+
+#: fish/cmds.c:682
+msgid "estimate file space usage"
+msgstr "novērtēt failu vietas lietojumu"
+
+#: fish/cmds.c:683 fish/cmds.c:684
+msgid "check an ext2/ext3 filesystem"
+msgstr "pārbaudīt ext2/ext3 failu sistēmu"
+
+#: fish/cmds.c:685
+msgid "display a line of text"
+msgstr "parādīt teksta rindu"
+
+#: fish/cmds.c:686
+msgid "echo arguments back to the client"
+msgstr "atbalsot argumentus atpakaļ klientam"
+
+#: fish/cmds.c:687
+msgid "edit a file"
+msgstr "rediģēt failu"
+
+#: fish/cmds.c:688 fish/cmds.c:689 fish/cmds.c:701 fish/cmds.c:702
+#: fish/cmds.c:761 fish/cmds.c:762 fish/cmds.c:1222 fish/cmds.c:1223
+#: fish/cmds.c:1228 fish/cmds.c:1229 fish/cmds.c:1231 fish/cmds.c:1232
+msgid "return lines matching a pattern"
+msgstr "atgriezt rindas, kas atbilst šablonam"
+
+#: fish/cmds.c:693
+msgid "test if two files have equal contents"
+msgstr "pārbaudīt, vai diviem failiem ir vienāds saturs"
+
+#: fish/cmds.c:694
+msgid "register a handler for an event or events"
+msgstr "reģistrēt apdarinātāju notikumam vai notikumiem"
+
+#: fish/cmds.c:695
+msgid "test if file or directory exists"
+msgstr "pārbaudīt, vai fails vai direktorija eksistē"
+
+#: fish/cmds.c:696
+msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
+msgstr "instalēt SYSLINUX sāknētāju ext2/3/4 vai btrfs failu sistēmā"
+
+#: fish/cmds.c:697
+msgid "expand a f2fs filesystem"
+msgstr "paplašināt f2fs failu sistēmu"
+
+#: fish/cmds.c:698 fish/cmds.c:699
+msgid "preallocate a file in the guest filesystem"
+msgstr "iepriekš piešķirt failu viesa failu sistēmā"
+
+#: fish/cmds.c:703
+msgid "determine file type"
+msgstr "noteikt faila tipu"
+
+#: fish/cmds.c:704
+msgid "detect the architecture of a binary file"
+msgstr "noteikt binārā faila arhitektūru"
+
+#: fish/cmds.c:705
+msgid "return the size of the file in bytes"
+msgstr "atgriezt faila izmēru baitos"
+
+#: fish/cmds.c:706
+msgid "check if filesystem is available"
+msgstr "pārbaudīt, vai failu sistēma ir pieejama"
+
+#: fish/cmds.c:707
+msgid "walk through the filesystem content"
+msgstr "pārstaigāt failu sistēmas saturu"
+
+#: fish/cmds.c:708
+msgid "fill a file with octets"
+msgstr "aizpildīt failu ar oktetiem"
+
+#: fish/cmds.c:709
+msgid "fill a directory with empty files"
+msgstr "aizpildīt direktoriju ar tukšiem failiem"
+
+#: fish/cmds.c:710
+msgid "fill a file with a repeating pattern of bytes"
+msgstr "aizpildīt failu ar atkārtotu baitu šablonu"
+
+#: fish/cmds.c:711
+msgid "find all files and directories"
+msgstr "atrast visus failus un direktorijas"
+
+#: fish/cmds.c:712
+msgid "find all files and directories, returning NUL-separated list"
+msgstr "atrast visus failus un direktorijas, atgriežot ar NUL atdalītu sarakstu"
+
+#: fish/cmds.c:713
+msgid "search the entries associated to the given inode"
+msgstr "meklēt ar norādīto inode saistītos ierakstus"
+
+#: fish/cmds.c:714
+msgid "find a filesystem by label"
+msgstr "atrast failu sistēmu pēc etiķetes"
+
+#: fish/cmds.c:715
+msgid "find a partition by label"
+msgstr "atrast nodalījumu pēc etiķetes"
+
+#: fish/cmds.c:716
+msgid "find a partition by UUID"
+msgstr "atrast nodalījumu pēc UUID"
+
+#: fish/cmds.c:717
+msgid "find a filesystem by UUID"
+msgstr "atrast failu sistēmu pēc UUID"
+
+#: fish/cmds.c:718
+msgid "run the filesystem checker"
+msgstr "palaist failu sistēmas pārbaudītāju"
+
+#: fish/cmds.c:719
+msgid "trim free space in a filesystem"
+msgstr "apgriezt brīvo vietu failu sistēmā"
+
+#: fish/cmds.c:723
+msgid "get the additional kernel options"
+msgstr "iegūt papildu kodola opcijas"
+
+#: fish/cmds.c:724 fish/cmds.c:726
+msgid "get the backend"
+msgstr "iegūt aizmugursistēmu"
+
+#: fish/cmds.c:725
+msgid "get autosync mode"
+msgstr "iegūt automātiskās sinhronizācijas režīmu"
+
+#: fish/cmds.c:727
+msgid "get a single per-backend settings string"
+msgstr "iegūt vienu aizmugursistēmas iestatījumu virkni"
+
+#: fish/cmds.c:728
+msgid "get per-backend settings"
+msgstr "iegūt aizmugursistēmas iestatījumus"
+
+#: fish/cmds.c:729
+msgid "get the appliance cache directory"
+msgstr "iegūt palīgsistēmas kešatmiņas direktoriju"
+
+#: fish/cmds.c:730
+msgid "get direct appliance mode flag"
+msgstr "iegūt tiešā palīgsistēmas režīma karogu"
+
+#: fish/cmds.c:731
+msgid "get ext2 file attributes of a file"
+msgstr "iegūt faila ext2 atribūtus"
+
+#: fish/cmds.c:732
+msgid "get ext2 file generation of a file"
+msgstr "iegūt faila ext2 paaudzi"
+
+#: fish/cmds.c:733
+msgid "get the ext2/3/4 filesystem label"
+msgstr "iegūt ext2/3/4 failu sistēmas etiķeti"
+
+#: fish/cmds.c:734
+msgid "get the ext2/3/4 filesystem UUID"
+msgstr "iegūt ext2/3/4 failu sistēmas UUID"
+
+#: fish/cmds.c:735
+msgid "get the hypervisor binary"
+msgstr "iegūt hipervizora bināro failu"
+
+#: fish/cmds.c:736
+msgid "get the handle identifier"
+msgstr "iegūt roktura identifikatoru"
+
+#: fish/cmds.c:737
+msgid "challenge of i'th requested credential"
+msgstr "i-tā pieprasītā akreditācijas datu vienuma izaicinājums"
+
+#: fish/cmds.c:738
+msgid "default result of i'th requested credential"
+msgstr "i-tā pieprasītā akreditācijas datu vienuma noklusējuma rezultāts"
+
+#: fish/cmds.c:739
+msgid "prompt of i'th requested credential"
+msgstr "i-tā pieprasītā akreditācijas datu vienuma uzvedne"
+
+#: fish/cmds.c:740
+msgid "get list of credentials requested by libvirt"
+msgstr "iegūt libvirt pieprasīto akreditācijas datu sarakstu"
+
+#: fish/cmds.c:741
+msgid "get memory allocated to the hypervisor"
+msgstr "iegūt hipervizoram piešķirto atmiņu"
+
+#: fish/cmds.c:742
+msgid "get enable network flag"
+msgstr "iegūt tīkla iespējošanas karogu"
+
+#: fish/cmds.c:743
+msgid "get the search path"
+msgstr "iegūt meklēšanas ceļu"
+
+#: fish/cmds.c:744
+msgid "get process group flag"
+msgstr "iegūt procesu grupas karogu"
+
+#: fish/cmds.c:745
+msgid "get PID of hypervisor"
+msgstr "iegūt hipervizora PID"
+
+#: fish/cmds.c:746
+msgid "get the program name"
+msgstr "iegūt programmas nosaukumu"
+
+#: fish/cmds.c:747
+msgid "get the hypervisor binary (usually qemu)"
+msgstr "iegūt hipervizora bināro failu (parasti qemu)"
+
+#: fish/cmds.c:748
+msgid "get recovery process enabled flag"
+msgstr "iegūt atkopšanas procesa iespējošanas karogu"
+
+#: fish/cmds.c:749
+msgid "get SELinux enabled flag"
+msgstr "iegūt SELinux iespējošanas karogu"
+
+#: fish/cmds.c:750
+msgid "get number of virtual CPUs in appliance"
+msgstr "iegūt virtuālo CPU skaitu palīgsistēmā"
+
+#: fish/cmds.c:751
+msgid "get the temporary directory for sockets and PID files"
+msgstr "iegūt pagaidu direktoriju ligzdām un PID failiem"
+
+#: fish/cmds.c:752
+msgid "get the temporary directory"
+msgstr "iegūt pagaidu direktoriju"
+
+#: fish/cmds.c:753
+msgid "get command trace enabled flag"
+msgstr "iegūt komandu izsekošanas iespējošanas karogu"
+
+#: fish/cmds.c:754
+msgid "get the current umask"
+msgstr "iegūt pašreizējo umask"
+
+#: fish/cmds.c:755
+msgid "get verbose mode"
+msgstr "iegūt detalizēto režīmu"
+
+#: fish/cmds.c:756
+msgid "get SELinux security context"
+msgstr "iegūt SELinux drošības kontekstu"
+
+#: fish/cmds.c:757 fish/cmds.c:870
+msgid "get a single extended attribute"
+msgstr "iegūt vienu paplašināto atribūtu"
+
+#: fish/cmds.c:758 fish/cmds.c:871
+msgid "list extended attributes of a file or directory"
+msgstr "uzskaitīt faila vai direktorijas paplašinātos atribūtus"
+
+#: fish/cmds.c:759
+msgid "expand wildcards in command"
+msgstr "izvērst aizstājējzīmes komandā"
+
+#: fish/cmds.c:760
+msgid "expand a wildcard path"
+msgstr "izvērst ceļu ar aizstājējzīmēm"
+
+#: fish/cmds.c:763
+msgid "install GRUB 1"
+msgstr "instalēt GRUB 1"
+
+#: fish/cmds.c:764
+msgid "return first 10 lines of a file"
+msgstr "atgriezt faila pirmās 10 rindas"
+
+#: fish/cmds.c:765
+msgid "return first N lines of a file"
+msgstr "atgriezt faila pirmās N rindas"
+
+#: fish/cmds.c:766
+msgid "dump a file in hexadecimal"
+msgstr "izmest failu heksadecimāli"
+
+#: fish/cmds.c:767
+msgid "edit with a hex editor"
+msgstr "rediģēt ar heksadecimālo redaktoru"
+
+#: fish/cmds.c:768
+msgid "close the current hivex handle"
+msgstr "aizvērt pašreizējo hivex rokturi"
+
+#: fish/cmds.c:769
+msgid "commit (write) changes back to the hive"
+msgstr "apņemt (ierakstīt) izmaiņas atpakaļ reģistra stropā"
+
+#: fish/cmds.c:770
+msgid "add a child node"
+msgstr "pievienot bērnmezglu"
+
+#: fish/cmds.c:771
+msgid "return list of nodes which are subkeys of node"
+msgstr "atgriezt mezglu sarakstu, kas ir mezgla apakšatslēgas"
+
+#: fish/cmds.c:772
+msgid "delete a node (recursively)"
+msgstr "dzēst mezglu (rekursīvi)"
+
+#: fish/cmds.c:773
+msgid "return the named child of node"
+msgstr "atgriezt mezgla nosaukto bērnu"
+
+#: fish/cmds.c:774
+msgid "return the named value"
+msgstr "atgriezt nosaukto vērtību"
+
+#: fish/cmds.c:775
+msgid "return the name of the node"
+msgstr "atgriezt mezgla nosaukumu"
+
+#: fish/cmds.c:776
+msgid "return the parent of node"
+msgstr "atgriezt mezgla vecāku"
+
+#: fish/cmds.c:777
+msgid "set or replace a single value in a node"
+msgstr "iestatīt vai aizstāt vienu vērtību mezglā"
+
+#: fish/cmds.c:778
+msgid "return list of values attached to node"
+msgstr "atgriezt mezglam piesaistīto vērtību sarakstu"
+
+#: fish/cmds.c:779
+msgid "open a Windows Registry hive file"
+msgstr "atvērt Windows reģistra stropa failu"
+
+#: fish/cmds.c:780
+msgid "return the root node of the hive"
+msgstr "atgriezt stropa saknes mezglu"
+
+#: fish/cmds.c:781
+msgid "return the key field from the (key, datatype, data) tuple"
+msgstr "atgriezt atslēgas lauku no korteža (atslēga, datu tips, dati)"
+
+#: fish/cmds.c:782 fish/cmds.c:784
+msgid "return the data field as a UTF-8 string"
+msgstr "atgriezt datu lauku kā UTF-8 virkni"
+
+#: fish/cmds.c:783
+msgid "return the data type from the (key, datatype, data) tuple"
+msgstr "atgriezt datu tipu no korteža (atslēga, datu tips, dati)"
+
+#: fish/cmds.c:785
+msgid "return the data field from the (key, datatype, data) tuple"
+msgstr "atgriezt datu lauku no korteža (atslēga, datu tips, dati)"
+
+#: fish/cmds.c:792
+msgid "list the contents of a single file in an initrd"
+msgstr "uzskaitīt viena initrd faila saturu"
+
+#: fish/cmds.c:793
+msgid "list files in an initrd"
+msgstr "uzskaitīt initrd failus"
+
+#: fish/cmds.c:794
+msgid "add an inotify watch"
+msgstr "pievienot inotify uzraudzību"
+
+#: fish/cmds.c:795
+msgid "close the inotify handle"
+msgstr "aizvērt inotify rokturi"
+
+#: fish/cmds.c:796
+msgid "return list of watched files that had events"
+msgstr "atgriezt uzraudzīto failu sarakstu, kuriem bija notikumi"
+
+#: fish/cmds.c:797
+msgid "create an inotify handle"
+msgstr "izveidot inotify rokturi"
+
+#: fish/cmds.c:798
+msgid "return list of inotify events"
+msgstr "atgriezt inotify notikumu sarakstu"
+
+#: fish/cmds.c:799
+msgid "remove an inotify watch"
+msgstr "noņemt inotify uzraudzību"
+
+#: fish/cmds.c:800
+msgid "get architecture of inspected operating system"
+msgstr "iegūt pārbaudītās operētājsistēmas arhitektūru"
+
+#: fish/cmds.c:801
+msgid "get the system build ID"
+msgstr "iegūt sistēmas būvējuma ID"
+
+#: fish/cmds.c:802
+msgid "get distro of inspected operating system"
+msgstr "iegūt pārbaudītās operētājsistēmas distribūciju"
+
+#: fish/cmds.c:803
+msgid "get drive letter mappings"
+msgstr "iegūt diskdziņu burtu kartējumus"
+
+#: fish/cmds.c:804
+msgid "get filesystems associated with inspected operating system"
+msgstr "iegūt ar pārbaudīto operētājsistēmu saistītās failu sistēmas"
+
+#: fish/cmds.c:805
+msgid "get format of inspected operating system"
+msgstr "iegūt pārbaudītās operētājsistēmas formātu"
+
+#: fish/cmds.c:806
+msgid "get hostname of the operating system"
+msgstr "iegūt operētājsistēmas resursdatora nosaukumu"
+
+#: fish/cmds.c:807
+msgid "get the icon corresponding to this operating system"
+msgstr "iegūt šai operētājsistēmai atbilstošo ikonu"
+
+#: fish/cmds.c:808
+msgid "get major version of inspected operating system"
+msgstr "iegūt pārbaudītās operētājsistēmas galveno versiju"
+
+#: fish/cmds.c:809
+msgid "get minor version of inspected operating system"
+msgstr "iegūt pārbaudītās operētājsistēmas apakšversiju"
+
+#: fish/cmds.c:810
+msgid "get mountpoints of inspected operating system"
+msgstr "iegūt pārbaudītās operētājsistēmas montēšanas punktus"
+
+#: fish/cmds.c:811
+msgid "get a possible osinfo short ID corresponding to this operating system"
+msgstr "iegūt iespējamo osinfo īso ID, kas atbilst šai operētājsistēmai"
+
+#: fish/cmds.c:812
+msgid "get package format used by the operating system"
+msgstr "iegūt operētājsistēmas izmantoto pakotņu formātu"
+
+#: fish/cmds.c:813
+msgid "get package management tool used by the operating system"
+msgstr "iegūt operētājsistēmas izmantoto pakotņu pārvaldības rīku"
+
+#: fish/cmds.c:814
+msgid "get product name of inspected operating system"
+msgstr "iegūt pārbaudītās operētājsistēmas produkta nosaukumu"
+
+#: fish/cmds.c:815
+msgid "get product variant of inspected operating system"
+msgstr "iegūt pārbaudītās operētājsistēmas produkta variantu"
+
+#: fish/cmds.c:816
+msgid "return list of operating systems found by last inspection"
+msgstr "atgriezt pēdējā pārbaudē atrasto operētājsistēmu sarakstu"
+
+#: fish/cmds.c:817
+msgid "get type of inspected operating system"
+msgstr "iegūt pārbaudītās operētājsistēmas tipu"
+
+#: fish/cmds.c:818
+msgid "get Windows CurrentControlSet of inspected operating system"
+msgstr "iegūt pārbaudītās operētājsistēmas Windows CurrentControlSet"
+
+#: fish/cmds.c:819
+msgid "return if Windows guest has group policy"
+msgstr "atgriezt, vai Windows viesim ir grupas politika"
+
+#: fish/cmds.c:820
+msgid "get the path of the Windows software hive"
+msgstr "iegūt Windows programmatūras stropa ceļu"
+
+#: fish/cmds.c:821
+msgid "get the path of the Windows system hive"
+msgstr "iegūt Windows sistēmas stropa ceļu"
+
+#: fish/cmds.c:822
+msgid "get Windows systemroot of inspected operating system"
+msgstr "iegūt pārbaudītās operētājsistēmas Windows systemroot"
+
+#: fish/cmds.c:823
+msgid "get live flag for install disk"
+msgstr "iegūt instalēšanas diska tiešsaistes (live) karogu"
+
+#: fish/cmds.c:824
+msgid "get multipart flag for install disk"
+msgstr "iegūt instalēšanas diska vairākdaļu karogu"
+
+#: fish/cmds.c:825
+msgid "get netinst (network installer) flag for install disk"
+msgstr "iegūt instalēšanas diska netinst (tīkla instalētāja) karogu"
+
+#: fish/cmds.c:826 fish/cmds.c:827
+msgid "get list of applications installed in the operating system"
+msgstr "iegūt operētājsistēmā instalēto lietotņu sarakstu"
+
+#: fish/cmds.c:828
+msgid "inspect disk and return list of operating systems found"
+msgstr "pārbaudīt disku un atgriezt atrasto operētājsistēmu sarakstu"
+
+#: fish/cmds.c:829
+msgid "cause the daemon to exit (internal use only)"
+msgstr "likt dēmonam beigt darbu (tikai iekšējai lietošanai)"
+
+#: fish/cmds.c:830
+msgid "test if block device"
+msgstr "pārbaudīt, vai ir bloku ierīce"
+
+#: fish/cmds.c:831
+msgid "test if character device"
+msgstr "pārbaudīt, vai ir rakstzīmju ierīce"
+
+#: fish/cmds.c:832
+msgid "is in configuration state"
+msgstr "vai ir konfigurēšanas stāvoklī"
+
+#: fish/cmds.c:833
+msgid "test if a directory"
+msgstr "pārbaudīt, vai ir direktorija"
+
+#: fish/cmds.c:834
+msgid "test if FIFO (named pipe)"
+msgstr "pārbaudīt, vai ir FIFO (nosaukts konveijers)"
+
+#: fish/cmds.c:835
+msgid "test if a regular file"
+msgstr "pārbaudīt, vai ir parasts fails"
+
+#: fish/cmds.c:836
+msgid "test if mountable is a logical volume"
+msgstr "pārbaudīt, vai montējamais ir loģiskais sējums"
+
+#: fish/cmds.c:837
+msgid "test if socket"
+msgstr "pārbaudīt, vai ir ligzda"
+
+#: fish/cmds.c:838
+msgid "test if symbolic link"
+msgstr "pārbaudīt, vai ir simboliskā saite"
+
+#: fish/cmds.c:839
+msgid "test if a device is a whole device"
+msgstr "pārbaudīt, vai ierīce ir vesela ierīce"
+
+#: fish/cmds.c:840
+msgid "test if a file contains all zero bytes"
+msgstr "pārbaudīt, vai fails satur tikai nulles baitus"
+
+#: fish/cmds.c:841
+msgid "test if a device contains all zero bytes"
+msgstr "pārbaudīt, vai ierīce satur tikai nulles baitus"
+
+#: fish/cmds.c:842
+msgid "get ISO information from primary volume descriptor of ISO file"
+msgstr "iegūt ISO informāciju no ISO faila primārā sējuma deskriptora"
+
+#: fish/cmds.c:843
+msgid "get ISO information from primary volume descriptor of device"
+msgstr "iegūt ISO informāciju no ierīces primārā sējuma deskriptora"
+
+#: fish/cmds.c:844
+msgid "close the systemd journal"
+msgstr "aizvērt systemd žurnālu"
+
+#: fish/cmds.c:845
+msgid "read the current journal entry"
+msgstr "nolasīt pašreizējo žurnāla ierakstu"
+
+#: fish/cmds.c:846
+msgid "get the data threshold for reading journal entries"
+msgstr "iegūt datu slieksni žurnāla ierakstu lasīšanai"
+
+#: fish/cmds.c:847
+msgid "get the timestamp of the current journal entry"
+msgstr "iegūt pašreizējā žurnāla ieraksta laikspiedolu"
+
+#: fish/cmds.c:848
+msgid "move to the next journal entry"
+msgstr "pāriet uz nākamo žurnāla ierakstu"
+
+#: fish/cmds.c:849
+msgid "open the systemd journal"
+msgstr "atvērt systemd žurnālu"
+
+#: fish/cmds.c:850
+msgid "set the data threshold for reading journal entries"
+msgstr "iestatīt datu slieksni žurnāla ierakstu lasīšanai"
+
+#: fish/cmds.c:851
+msgid "skip forwards or backwards in the journal"
+msgstr "izlaist žurnālā uz priekšu vai atpakaļ"
+
+#: fish/cmds.c:852
+msgid "kill processes using the mounted filesystems"
+msgstr "nogalināt procesus, kas izmanto montētās failu sistēmas"
+
+#: fish/cmds.c:853
+msgid "kill the hypervisor"
+msgstr "nogalināt hipervizoru"
+
+#: fish/cmds.c:854
+msgid "launch the backend"
+msgstr "palaist aizmugursistēmu"
+
+#: fish/cmds.c:855
+msgid "change working directory"
+msgstr "mainīt darba direktoriju"
+
+#: fish/cmds.c:857
+msgid "scan and create Windows dynamic disk volumes"
+msgstr "skenēt un izveidot Windows dinamisko disku sējumus"
+
+#: fish/cmds.c:858
+msgid "return the disks in a Windows dynamic disk group"
+msgstr "atgriezt Windows dinamisko disku grupas diskus"
+
+#: fish/cmds.c:859
+msgid "return the name of a Windows dynamic disk group"
+msgstr "atgriezt Windows dinamisko disku grupas nosaukumu"
+
+#: fish/cmds.c:860
+msgid "return the volumes in a Windows dynamic disk group"
+msgstr "atgriezt Windows dinamisko disku grupas sējumus"
+
+#: fish/cmds.c:861
+msgid "remove all Windows dynamic disk volumes"
+msgstr "noņemt visus Windows dinamisko disku sējumus"
+
+#: fish/cmds.c:862 fish/cmds.c:863
+msgid "scan for Windows dynamic disks"
+msgstr "skenēt Windows dinamiskos diskus"
+
+#: fish/cmds.c:864
+msgid "return the hint field of a Windows dynamic disk volume"
+msgstr "atgriezt Windows dinamisko disku sējuma norādes lauku"
+
+#: fish/cmds.c:865
+msgid "return the partitions in a Windows dynamic disk volume"
+msgstr "atgriezt Windows dinamisko disku sējuma nodalījumus"
+
+#: fish/cmds.c:866
+msgid "return the type of a Windows dynamic disk volume"
+msgstr "atgriezt Windows dinamisko disku sējuma tipu"
+
+#: fish/cmds.c:872
+msgid "list 9p filesystems"
+msgstr "uzskaitīt 9p failu sistēmas"
+
+#: fish/cmds.c:873
+msgid "list the block devices"
+msgstr "uzskaitīt bloku ierīces"
+
+#: fish/cmds.c:874
+msgid "mapping of disk labels to devices"
+msgstr "disku etiķešu kartējums uz ierīcēm"
+
+#: fish/cmds.c:875
+msgid "list device mapper devices"
+msgstr "uzskaitīt device mapper ierīces"
+
+#: fish/cmds.c:876
+msgid "list event handlers"
+msgstr "uzskaitīt notikumu apdarinātājus"
+
+#: fish/cmds.c:877
+msgid "list filesystems"
+msgstr "uzskaitīt failu sistēmas"
+
+#: fish/cmds.c:878
+msgid "list all Windows dynamic disk partitions"
+msgstr "uzskaitīt visus Windows dinamisko disku nodalījumus"
+
+#: fish/cmds.c:879
+msgid "list all Windows dynamic disk volumes"
+msgstr "uzskaitīt visus Windows dinamisko disku sējumus"
+
+#: fish/cmds.c:880
+msgid "list Linux md (RAID) devices"
+msgstr "uzskaitīt Linux md (RAID) ierīces"
+
+#: fish/cmds.c:881
+msgid "list the partitions"
+msgstr "uzskaitīt nodalījumus"
+
+#: fish/cmds.c:882
+msgid "list the files in a directory (long format)"
+msgstr "uzskaitīt direktorijas failus (garajā formātā)"
+
+#: fish/cmds.c:883
+msgid "list the files in a directory (long format with SELinux contexts)"
+msgstr "uzskaitīt direktorijas failus (garajā formātā ar SELinux kontekstiem)"
+
+#: fish/cmds.c:884 fish/cmds.c:885
+msgid "create a hard link"
+msgstr "izveidot cieto saiti"
+
+#: fish/cmds.c:886 fish/cmds.c:887
+msgid "create a symbolic link"
+msgstr "izveidot simbolisko saiti"
+
+#: fish/cmds.c:888 fish/cmds.c:1053
+msgid "remove extended attribute of a file or directory"
+msgstr "noņemt faila vai direktorijas paplašināto atribūtu"
+
+#: fish/cmds.c:889
+msgid "list the files in a directory"
+msgstr "uzskaitīt direktorijas failus"
+
+#: fish/cmds.c:890
+msgid "get list of files in a directory"
+msgstr "iegūt direktorijas failu sarakstu"
+
+#: fish/cmds.c:891 fish/cmds.c:1114
+msgid "set extended attribute of a file or directory"
+msgstr "iestatīt faila vai direktorijas paplašināto atribūtu"
+
+#: fish/cmds.c:892 fish/cmds.c:894
+msgid "get file information for a symbolic link"
+msgstr "iegūt simboliskās saites faila informāciju"
+
+#: fish/cmds.c:893 fish/cmds.c:895
+msgid "lstat on multiple files"
+msgstr "lstat vairākiem failiem"
+
+#: fish/cmds.c:896
+msgid "add a key on a LUKS encrypted device"
+msgstr "pievienot atslēgu LUKS šifrētā ierīcē"
+
+#: fish/cmds.c:897
+msgid "close a LUKS device"
+msgstr "aizvērt LUKS ierīci"
+
+#: fish/cmds.c:898 fish/cmds.c:899
+msgid "format a block device as a LUKS encrypted device"
+msgstr "formatēt bloku ierīci kā LUKS šifrētu ierīci"
+
+#: fish/cmds.c:900
+msgid "remove a key from a LUKS encrypted device"
+msgstr "noņemt atslēgu no LUKS šifrētas ierīces"
+
+#: fish/cmds.c:901
+msgid "open a LUKS-encrypted block device"
+msgstr "atvērt LUKS šifrētu bloku ierīci"
+
+#: fish/cmds.c:902
+msgid "open a LUKS-encrypted block device read-only"
+msgstr "atvērt LUKS šifrētu bloku ierīci tikai lasīšanai"
+
+#: fish/cmds.c:903
+msgid "get the UUID of a LUKS device"
+msgstr "iegūt LUKS ierīces UUID"
+
+#: fish/cmds.c:904
+msgid "create an LVM logical volume"
+msgstr "izveidot LVM loģisko sējumu"
+
+#: fish/cmds.c:905
+msgid "create an LVM logical volume in % remaining free space"
+msgstr "izveidot LVM loģisko sējumu % no atlikušās brīvās vietas"
+
+#: fish/cmds.c:906
+msgid "get canonical name of an LV"
+msgstr "iegūt LV kanonisko nosaukumu"
+
+#: fish/cmds.c:907
+msgid "clear LVM device filter"
+msgstr "notīrīt LVM ierīču filtru"
+
+#: fish/cmds.c:908
+msgid "remove all LVM LVs, VGs and PVs"
+msgstr "noņemt visus LVM LV, VG un PV"
+
+#: fish/cmds.c:909
+msgid "scan for LVM physical volumes, volume groups and logical volumes"
+msgstr "skenēt LVM fiziskos sējumus, sējumu grupas un loģiskos sējumus"
+
+#: fish/cmds.c:910
+msgid "set LVM device filter"
+msgstr "iestatīt LVM ierīču filtru"
+
+#: fish/cmds.c:911
+msgid "remove an LVM logical volume"
+msgstr "noņemt LVM loģisko sējumu"
+
+#: fish/cmds.c:912
+msgid "rename an LVM logical volume"
+msgstr "pārdēvēt LVM loģisko sējumu"
+
+#: fish/cmds.c:913
+msgid "resize an LVM logical volume"
+msgstr "mainīt LVM loģiskā sējuma izmēru"
+
+#: fish/cmds.c:914
+msgid "expand an LV to fill free space"
+msgstr "paplašināt LV, lai aizpildītu brīvo vietu"
+
+#: fish/cmds.c:915 fish/cmds.c:916
+msgid "list the LVM logical volumes (LVs)"
+msgstr "uzskaitīt LVM loģiskos sējumus (LV)"
+
+#: fish/cmds.c:917
+msgid "get the UUID of a logical volume"
+msgstr "iegūt loģiskā sējuma UUID"
+
+#: fish/cmds.c:918
+msgid "lgetxattr on multiple files"
+msgstr "lgetxattr vairākiem failiem"
+
+#: fish/cmds.c:919
+msgid "open the manual"
+msgstr "atvērt rokasgrāmatu"
+
+#: fish/cmds.c:923
+msgid "maximum number of disks that may be added"
+msgstr "maksimālais pievienojamo disku skaits"
+
+#: fish/cmds.c:924
+msgid "create a Linux md (RAID) device"
+msgstr "izveidot Linux md (RAID) ierīci"
+
+#: fish/cmds.c:925
+msgid "obtain metadata for an MD device"
+msgstr "iegūt MD ierīces metadatus"
+
+#: fish/cmds.c:926
+msgid "get underlying devices from an MD device"
+msgstr "iegūt MD ierīces pamatā esošās ierīces"
+
+#: fish/cmds.c:927
+msgid "stop a Linux md (RAID) device"
+msgstr "apturēt Linux md (RAID) ierīci"
+
+#: fish/cmds.c:931
+msgid "create a directory"
+msgstr "izveidot direktoriju"
+
+#: fish/cmds.c:932
+msgid "create a directory with a particular mode"
+msgstr "izveidot direktoriju ar noteiktu režīmu"
+
+#: fish/cmds.c:933
+msgid "create a directory and parents"
+msgstr "izveidot direktoriju un vecākdirektorijas"
+
+#: fish/cmds.c:934
+msgid "create a temporary directory"
+msgstr "izveidot pagaidu direktoriju"
+
+#: fish/cmds.c:935
+msgid "create an ext2/ext3/ext4 filesystem on device"
+msgstr "izveidot ierīcē ext2/ext3/ext4 failu sistēmu"
+
+#: fish/cmds.c:936 fish/cmds.c:937 fish/cmds.c:938
+msgid "make ext2/3/4 filesystem with external journal"
+msgstr "izveidot ext2/3/4 failu sistēmu ar ārēju žurnālu"
+
+#: fish/cmds.c:939
+msgid "make ext2/3/4 external journal"
+msgstr "izveidot ext2/3/4 ārējo žurnālu"
+
+#: fish/cmds.c:940
+msgid "make ext2/3/4 external journal with label"
+msgstr "izveidot ext2/3/4 ārējo žurnālu ar etiķeti"
+
+#: fish/cmds.c:941
+msgid "make ext2/3/4 external journal with UUID"
+msgstr "izveidot ext2/3/4 ārējo žurnālu ar UUID"
+
+#: fish/cmds.c:942
+msgid "make FIFO (named pipe)"
+msgstr "izveidot FIFO (nosauktu konveijeru)"
+
+#: fish/cmds.c:943
+msgid "make a filesystem"
+msgstr "izveidot failu sistēmu"
+
+#: fish/cmds.c:944
+msgid "make a filesystem with block size"
+msgstr "izveidot failu sistēmu ar bloka izmēru"
+
+#: fish/cmds.c:945
+msgid "create a btrfs filesystem"
+msgstr "izveidot btrfs failu sistēmu"
+
+#: fish/cmds.c:946
+msgid "make lost+found directory on an ext2/3/4 filesystem"
+msgstr "izveidot direktoriju lost+found ext2/3/4 failu sistēmā"
+
+#: fish/cmds.c:947
+msgid "create a mountpoint"
+msgstr "izveidot montēšanas punktu"
+
+#: fish/cmds.c:948
+msgid "make block, character or FIFO devices"
+msgstr "izveidot bloku, rakstzīmju vai FIFO ierīces"
+
+#: fish/cmds.c:949
+msgid "make block device node"
+msgstr "izveidot bloku ierīces mezglu"
+
+#: fish/cmds.c:950
+msgid "make char device node"
+msgstr "izveidot rakstzīmju ierīces mezglu"
+
+#: fish/cmds.c:951
+msgid "create a squashfs filesystem"
+msgstr "izveidot squashfs failu sistēmu"
+
+#: fish/cmds.c:952
+msgid "create a swap partition"
+msgstr "izveidot maiņatmiņas nodalījumu"
+
+#: fish/cmds.c:953
+msgid "create a swap partition with a label"
+msgstr "izveidot maiņatmiņas nodalījumu ar etiķeti"
+
+#: fish/cmds.c:954
+msgid "create a swap partition with an explicit UUID"
+msgstr "izveidot maiņatmiņas nodalījumu ar norādītu UUID"
+
+#: fish/cmds.c:955
+msgid "create a swap file"
+msgstr "izveidot maiņatmiņas failu"
+
+#: fish/cmds.c:956
+msgid "create a temporary file"
+msgstr "izveidot pagaidu failu"
+
+#: fish/cmds.c:957
+msgid "load a kernel module"
+msgstr "ielādēt kodola moduli"
+
+#: fish/cmds.c:958
+msgid "view a file"
+msgstr "skatīt failu"
+
+#: fish/cmds.c:959
+msgid "mount a guest disk at a position in the filesystem"
+msgstr "montēt viesa disku noteiktā failu sistēmas vietā"
+
+#: fish/cmds.c:960
+msgid "mount 9p filesystem"
+msgstr "montēt 9p failu sistēmu"
+
+#: fish/cmds.c:961
+msgid "mount on the local filesystem"
+msgstr "montēt lokālajā failu sistēmā"
+
+#: fish/cmds.c:962
+msgid "run main loop of mount on the local filesystem"
+msgstr "palaist montēšanas lokālajā failu sistēmā galveno ciklu"
+
+#: fish/cmds.c:963
+msgid "mount a file using the loop device"
+msgstr "montēt failu, izmantojot cilpas ierīci"
+
+#: fish/cmds.c:964
+msgid "mount a guest disk with mount options"
+msgstr "montēt viesa disku ar montēšanas opcijām"
+
+#: fish/cmds.c:965
+msgid "mount a guest disk, read-only"
+msgstr "montēt viesa disku tikai lasīšanai"
+
+#: fish/cmds.c:966
+msgid "mount a guest disk with mount options and vfstype"
+msgstr "montēt viesa disku ar montēšanas opcijām un vfstype"
+
+#: fish/cmds.c:967
+msgid "extract the device part of a mountable"
+msgstr "izvilkt montējamā ierīces daļu"
+
+#: fish/cmds.c:968
+msgid "extract the subvolume part of a mountable"
+msgstr "izvilkt montējamā apakšsējuma daļu"
+
+#: fish/cmds.c:969
+msgid "show mountpoints"
+msgstr "rādīt montēšanas punktus"
+
+#: fish/cmds.c:970
+msgid "show mounted filesystems"
+msgstr "rādīt montētās failu sistēmas"
+
+#: fish/cmds.c:971
+msgid "move a file"
+msgstr "pārvietot failu"
+
+#: fish/cmds.c:975
+msgid "negate a command"
+msgstr "noliegt komandu"
+
+#: fish/cmds.c:976
+msgid "return number of whole block devices (disks) added"
+msgstr "atgriezt pievienoto veselo bloku ierīču (disku) skaitu"
+
+#: fish/cmds.c:977
+msgid "probe NTFS volume"
+msgstr "zondēt NTFS sējumu"
+
+#: fish/cmds.c:978
+msgid "change file permissions on NTFS filesystem"
+msgstr "mainīt failu atļaujas NTFS failu sistēmā"
+
+#: fish/cmds.c:980
+msgid "restore NTFS from backup file"
+msgstr "atjaunot NTFS no dublējuma faila"
+
+#: fish/cmds.c:981
+msgid "save NTFS to backup file"
+msgstr "saglabāt NTFS dublējuma failā"
+
+#: fish/cmds.c:982
+msgid "fix common errors and force Windows to check NTFS"
+msgstr "izlabot biežākās kļūdas un likt Windows pārbaudīt NTFS"
+
+#: fish/cmds.c:983
+msgid "resize an NTFS filesystem"
+msgstr "mainīt NTFS failu sistēmas izmēru"
+
+#: fish/cmds.c:984
+msgid "resize an NTFS filesystem (with size)"
+msgstr "mainīt NTFS failu sistēmas izmēru (ar izmēru)"
+
+#: fish/cmds.c:985 fish/cmds.c:986
+msgid "parse the environment and set handle flags accordingly"
+msgstr "parsēt vidi un atbilstoši iestatīt roktura karogus"
+
+#: fish/cmds.c:987
+msgid "add a partition to the device"
+msgstr "pievienot ierīcei nodalījumu"
+
+#: fish/cmds.c:988
+msgid "delete a partition"
+msgstr "dzēst nodalījumu"
+
+#: fish/cmds.c:989
+msgid "partition whole disk with a single primary partition"
+msgstr "sadalīt visu disku ar vienu primāro nodalījumu"
+
+#: fish/cmds.c:990
+msgid "move backup GPT header to the end of the disk"
+msgstr "pārvietot GPT rezerves galveni uz diska beigām"
+
+#: fish/cmds.c:991
+msgid "return true if a partition is bootable"
+msgstr "atgriezt patiesu, ja nodalījums ir sāknējams"
+
+#: fish/cmds.c:992
+msgid "get the GUID of a GPT-partitioned disk"
+msgstr "iegūt GPT sadalīta diska GUID"
+
+#: fish/cmds.c:993
+msgid "get the attribute flags of a GPT partition"
+msgstr "iegūt GPT nodalījuma atribūtu karogus"
+
+#: fish/cmds.c:994
+msgid "get the GUID of a GPT partition"
+msgstr "iegūt GPT nodalījuma GUID"
+
+#: fish/cmds.c:995
+msgid "get the type GUID of a GPT partition"
+msgstr "iegūt GPT nodalījuma tipa GUID"
+
+#: fish/cmds.c:996
+msgid "get the MBR type byte (ID byte) from a partition"
+msgstr "iegūt nodalījuma MBR tipa baitu (ID baitu)"
+
+#: fish/cmds.c:997
+msgid "get the MBR partition type"
+msgstr "iegūt MBR nodalījuma tipu"
+
+#: fish/cmds.c:998
+msgid "get partition name"
+msgstr "iegūt nodalījuma nosaukumu"
+
+#: fish/cmds.c:999
+msgid "get the partition table type"
+msgstr "iegūt nodalījumu tabulas tipu"
+
+#: fish/cmds.c:1000
+msgid "create an empty partition table"
+msgstr "izveidot tukšu nodalījumu tabulu"
+
+#: fish/cmds.c:1001
+msgid "list partitions on a device"
+msgstr "uzskaitīt ierīces nodalījumus"
+
+#: fish/cmds.c:1002
+msgid "resize a partition"
+msgstr "mainīt nodalījuma izmēru"
+
+#: fish/cmds.c:1003
+msgid "make a partition bootable"
+msgstr "padarīt nodalījumu sāknējamu"
+
+#: fish/cmds.c:1004
+msgid "set the GUID of a GPT-partitioned disk"
+msgstr "iestatīt GPT sadalīta diska GUID"
+
+#: fish/cmds.c:1005
+msgid "set the GUID of a GPT-partitioned disk to random value"
+msgstr "iestatīt GPT sadalīta diska GUID uz nejaušu vērtību"
+
+#: fish/cmds.c:1006
+msgid "set the attribute flags of a GPT partition"
+msgstr "iestatīt GPT nodalījuma atribūtu karogus"
+
+#: fish/cmds.c:1007
+msgid "set the GUID of a GPT partition"
+msgstr "iestatīt GPT nodalījuma GUID"
+
+#: fish/cmds.c:1008
+msgid "set the type GUID of a GPT partition"
+msgstr "iestatīt GPT nodalījuma tipa GUID"
+
+#: fish/cmds.c:1009
+msgid "set the MBR type byte (ID byte) of a partition"
+msgstr "iestatīt nodalījuma MBR tipa baitu (ID baitu)"
+
+#: fish/cmds.c:1010
+msgid "set partition name"
+msgstr "iestatīt nodalījuma nosaukumu"
+
+#: fish/cmds.c:1011
+msgid "convert partition name to device name"
+msgstr "pārveidot nodalījuma nosaukumu par ierīces nosaukumu"
+
+#: fish/cmds.c:1012
+msgid "convert partition name to partition number"
+msgstr "pārveidot nodalījuma nosaukumu par nodalījuma numuru"
+
+#: fish/cmds.c:1022
+msgid "ping the guest daemon"
+msgstr "pingēt viesa dēmonu"
+
+#: fish/cmds.c:1023
+msgid "read part of a file"
+msgstr "nolasīt faila daļu"
+
+#: fish/cmds.c:1024
+msgid "read part of a device"
+msgstr "nolasīt ierīces daļu"
+
+#: fish/cmds.c:1028
+msgid "generate a new random UUID for a physical volume"
+msgstr "ģenerēt jaunu nejaušu UUID fiziskajam sējumam"
+
+#: fish/cmds.c:1029
+msgid "generate new random UUIDs for all physical volumes"
+msgstr "ģenerēt jaunus nejaušus UUID visiem fiziskajiem sējumiem"
+
+#: fish/cmds.c:1030
+msgid "create an LVM physical volume"
+msgstr "izveidot LVM fizisko sējumu"
+
+#: fish/cmds.c:1031
+msgid "remove an LVM physical volume"
+msgstr "noņemt LVM fizisko sējumu"
+
+#: fish/cmds.c:1032
+msgid "resize an LVM physical volume"
+msgstr "mainīt LVM fiziskā sējuma izmēru"
+
+#: fish/cmds.c:1033
+msgid "resize an LVM physical volume (with size)"
+msgstr "mainīt LVM fiziskā sējuma izmēru (ar izmēru)"
+
+#: fish/cmds.c:1034 fish/cmds.c:1035
+msgid "list the LVM physical volumes (PVs)"
+msgstr "uzskaitīt LVM fiziskos sējumus (PV)"
+
+#: fish/cmds.c:1036
+msgid "get the UUID of a physical volume"
+msgstr "iegūt fiziskā sējuma UUID"
+
+#: fish/cmds.c:1037
+msgid "write to part of a file"
+msgstr "rakstīt faila daļā"
+
+#: fish/cmds.c:1038
+msgid "write to part of a device"
+msgstr "rakstīt ierīces daļā"
+
+#: fish/cmds.c:1042
+msgid "read a file"
+msgstr "nolasīt failu"
+
+#: fish/cmds.c:1043
+msgid "read file as lines"
+msgstr "nolasīt failu kā rindas"
+
+#: fish/cmds.c:1044
+msgid "read directories entries"
+msgstr "nolasīt direktoriju ierakstus"
+
+#: fish/cmds.c:1045
+msgid "read the target of a symbolic link"
+msgstr "nolasīt simboliskās saites mērķi"
+
+#: fish/cmds.c:1046
+msgid "readlink on multiple files"
+msgstr "readlink vairākiem failiem"
+
+#: fish/cmds.c:1047
+msgid "canonicalized absolute pathname"
+msgstr "kanonizēts absolūtais ceļa nosaukums"
+
+#: fish/cmds.c:1051
+msgid "remount a filesystem with different options"
+msgstr "atkārtoti montēt failu sistēmu ar citām opcijām"
+
+#: fish/cmds.c:1052
+msgid "remove a disk image"
+msgstr "noņemt diska attēlu"
+
+#: fish/cmds.c:1054
+msgid "rename a file on the same filesystem"
+msgstr "pārdēvēt failu tajā pašā failu sistēmā"
+
+#: fish/cmds.c:1055
+msgid "close and reopen libguestfs handle"
+msgstr "aizvērt un atkārtoti atvērt libguestfs rokturi"
+
+#: fish/cmds.c:1056
+msgid "resize an ext2, ext3 or ext4 filesystem"
+msgstr "mainīt ext2, ext3 vai ext4 failu sistēmas izmēru"
+
+#: fish/cmds.c:1057
+msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
+msgstr "mainīt ext2, ext3 vai ext4 failu sistēmas izmēru uz minimālo"
+
+#: fish/cmds.c:1058
+msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
+msgstr "mainīt ext2, ext3 vai ext4 failu sistēmas izmēru (ar izmēru)"
+
+#: fish/cmds.c:1059
+msgid "remove a file"
+msgstr "noņemt failu"
+
+#: fish/cmds.c:1060
+msgid "remove a file ignoring errors"
+msgstr "noņemt failu, ignorējot kļūdas"
+
+#: fish/cmds.c:1061
+msgid "remove a file or directory recursively"
+msgstr "rekursīvi noņemt failu vai direktoriju"
+
+#: fish/cmds.c:1062
+msgid "remove a directory"
+msgstr "noņemt direktoriju"
+
+#: fish/cmds.c:1063
+msgid "remove a mountpoint"
+msgstr "noņemt montēšanas punktu"
+
+#: fish/cmds.c:1064
+msgid "synchronize the contents of two directories"
+msgstr "sinhronizēt divu direktoriju saturu"
+
+#: fish/cmds.c:1065
+msgid "synchronize host or remote filesystem with filesystem"
+msgstr "sinhronizēt resursdatora vai attālo failu sistēmu ar failu sistēmu"
+
+#: fish/cmds.c:1066
+msgid "synchronize filesystem with host or remote filesystem"
+msgstr "sinhronizēt failu sistēmu ar resursdatora vai attālo failu sistēmu"
+
+#: fish/cmds.c:1073
+msgid "scrub (securely wipe) a device"
+msgstr "attīrīt (droši notīrīt) ierīci"
+
+#: fish/cmds.c:1074
+msgid "scrub (securely wipe) a file"
+msgstr "attīrīt (droši notīrīt) failu"
+
+#: fish/cmds.c:1075
+msgid "scrub (securely wipe) free space"
+msgstr "attīrīt (droši notīrīt) brīvo vietu"
+
+#: fish/cmds.c:1079
+msgid "relabel parts of the filesystem"
+msgstr "pārmarķēt failu sistēmas daļas"
+
+#: fish/cmds.c:1080
+msgid "add options to kernel command line"
+msgstr "pievienot opcijas kodola komandrindai"
+
+#: fish/cmds.c:1081 fish/cmds.c:1083
+msgid "set the backend"
+msgstr "iestatīt aizmugursistēmu"
+
+#: fish/cmds.c:1082
+msgid "set autosync mode"
+msgstr "iestatīt automātiskās sinhronizācijas režīmu"
+
+#: fish/cmds.c:1084
+msgid "set a single per-backend settings string"
+msgstr "iestatīt vienu aizmugursistēmas iestatījumu virkni"
+
+#: fish/cmds.c:1085
+msgid "replace per-backend settings strings"
+msgstr "aizstāt aizmugursistēmas iestatījumu virknes"
+
+#: fish/cmds.c:1086
+msgid "set the appliance cache directory"
+msgstr "iestatīt palīgsistēmas kešatmiņas direktoriju"
+
+#: fish/cmds.c:1087
+msgid "enable or disable direct appliance mode"
+msgstr "iespējot vai atspējot tiešo palīgsistēmas režīmu"
+
+#: fish/cmds.c:1088
+msgid "set ext2 file attributes of a file"
+msgstr "iestatīt faila ext2 atribūtus"
+
+#: fish/cmds.c:1089
+msgid "set ext2 file generation of a file"
+msgstr "iestatīt faila ext2 paaudzi"
+
+#: fish/cmds.c:1090
+msgid "set the ext2/3/4 filesystem label"
+msgstr "iestatīt ext2/3/4 failu sistēmas etiķeti"
+
+#: fish/cmds.c:1091
+msgid "set the ext2/3/4 filesystem UUID"
+msgstr "iestatīt ext2/3/4 failu sistēmas UUID"
+
+#: fish/cmds.c:1092
+msgid "set the hypervisor binary"
+msgstr "iestatīt hipervizora bināro failu"
+
+#: fish/cmds.c:1093
+msgid "set the handle identifier"
+msgstr "iestatīt roktura identifikatoru"
+
+#: fish/cmds.c:1094
+msgid "set filesystem label"
+msgstr "iestatīt failu sistēmas etiķeti"
+
+#: fish/cmds.c:1095
+msgid "pass requested credential back to libvirt"
+msgstr "nodot pieprasītos akreditācijas datus atpakaļ libvirt"
+
+#: fish/cmds.c:1096
+msgid "set libvirt credentials supported by calling program"
+msgstr "iestatīt izsaucošās programmas atbalstītos libvirt akreditācijas datus"
+
+#: fish/cmds.c:1097
+msgid "set memory allocated to the hypervisor"
+msgstr "iestatīt hipervizoram piešķirto atmiņu"
+
+#: fish/cmds.c:1098
+msgid "set enable network flag"
+msgstr "iestatīt tīkla iespējošanas karogu"
+
+#: fish/cmds.c:1099
+msgid "set the search path"
+msgstr "iestatīt meklēšanas ceļu"
+
+#: fish/cmds.c:1100
+msgid "set process group flag"
+msgstr "iestatīt procesu grupas karogu"
+
+#: fish/cmds.c:1101
+msgid "set the program name"
+msgstr "iestatīt programmas nosaukumu"
+
+#: fish/cmds.c:1102
+msgid "set the hypervisor binary (usually qemu)"
+msgstr "iestatīt hipervizora bināro failu (parasti qemu)"
+
+#: fish/cmds.c:1103
+msgid "enable or disable the recovery process"
+msgstr "iespējot vai atspējot atkopšanas procesu"
+
+#: fish/cmds.c:1104
+msgid "set SELinux enabled or disabled at appliance boot"
+msgstr "iestatīt SELinux iespējošanu vai atspējošanu palīgsistēmas sāknēšanā"
+
+#: fish/cmds.c:1105
+msgid "set number of virtual CPUs in appliance"
+msgstr "iestatīt virtuālo CPU skaitu palīgsistēmā"
+
+#: fish/cmds.c:1106
+msgid "set the temporary directory"
+msgstr "iestatīt pagaidu direktoriju"
+
+#: fish/cmds.c:1107
+msgid "enable or disable command traces"
+msgstr "iespējot vai atspējot komandu izsekošanu"
+
+#: fish/cmds.c:1108
+msgid "set the filesystem UUID"
+msgstr "iestatīt failu sistēmas UUID"
+
+#: fish/cmds.c:1109
+msgid "set a random UUID for the filesystem"
+msgstr "iestatīt failu sistēmai nejaušu UUID"
+
+#: fish/cmds.c:1110
+msgid "set verbose mode"
+msgstr "iestatīt detalizēto režīmu"
+
+#: fish/cmds.c:1111
+msgid "set SELinux security context"
+msgstr "iestatīt SELinux drošības kontekstu"
+
+#: fish/cmds.c:1112
+msgid "set an environment variable"
+msgstr "iestatīt vides mainīgo"
+
+#: fish/cmds.c:1113
+msgid "low level relabel parts of the filesystem"
+msgstr "zema līmeņa failu sistēmas daļu pārmarķēšana"
+
+#: fish/cmds.c:1115 fish/cmds.c:1116
+msgid "create partitions on a block device"
+msgstr "izveidot nodalījumus bloku ierīcē"
+
+#: fish/cmds.c:1117
+msgid "modify a single partition on a block device"
+msgstr "mainīt vienu nodalījumu bloku ierīcē"
+
+#: fish/cmds.c:1118
+msgid "display the disk geometry from the partition table"
+msgstr "parādīt diska ģeometriju no nodalījumu tabulas"
+
+#: fish/cmds.c:1119
+msgid "display the kernel geometry"
+msgstr "parādīt kodola ģeometriju"
+
+#: fish/cmds.c:1120
+msgid "display the partition table"
+msgstr "parādīt nodalījumu tabulu"
+
+#: fish/cmds.c:1121 fish/cmds.c:1123
+msgid "run a command via the shell"
+msgstr "palaist komandu caur čaulu"
+
+#: fish/cmds.c:1122
+msgid "run a command via the shell returning lines"
+msgstr "palaist komandu caur čaulu, atgriežot rindas"
+
+#: fish/cmds.c:1124
+msgid "shutdown the hypervisor"
+msgstr "izslēgt hipervizoru"
+
+#: fish/cmds.c:1125
+msgid "sleep for some seconds"
+msgstr "gulēt dažas sekundes"
+
+#: fish/cmds.c:1129
+msgid "create a sparse disk image and add"
+msgstr "izveidot retinātu diska attēlu un pievienot"
+
+#: fish/cmds.c:1130 fish/cmds.c:1131
+msgid "get file information"
+msgstr "iegūt faila informāciju"
+
+#: fish/cmds.c:1132
+msgid "get file system statistics"
+msgstr "iegūt failu sistēmas statistiku"
+
+#: fish/cmds.c:1133 fish/cmds.c:1134
+msgid "print the printable strings in a file"
+msgstr "izvadīt drukājamās virknes failā"
+
+#: fish/cmds.c:1135
+msgid "list supported groups of commands"
+msgstr "uzskaitīt atbalstītās komandu grupas"
+
+#: fish/cmds.c:1136
+msgid "disable swap on device"
+msgstr "atspējot maiņatmiņu ierīcē"
+
+#: fish/cmds.c:1137
+msgid "disable swap on file"
+msgstr "atspējot maiņatmiņu failā"
+
+#: fish/cmds.c:1138
+msgid "disable swap on labeled swap partition"
+msgstr "atspējot maiņatmiņu nodalījumā ar etiķeti"
+
+#: fish/cmds.c:1139
+msgid "disable swap on swap partition by UUID"
+msgstr "atspējot maiņatmiņu nodalījumā pēc UUID"
+
+#: fish/cmds.c:1140
+msgid "enable swap on device"
+msgstr "iespējot maiņatmiņu ierīcē"
+
+#: fish/cmds.c:1141
+msgid "enable swap on file"
+msgstr "iespējot maiņatmiņu failā"
+
+#: fish/cmds.c:1142
+msgid "enable swap on labeled swap partition"
+msgstr "iespējot maiņatmiņu nodalījumā ar etiķeti"
+
+#: fish/cmds.c:1143
+msgid "enable swap on swap partition by UUID"
+msgstr "iespējot maiņatmiņu nodalījumā pēc UUID"
+
+#: fish/cmds.c:1144
+msgid "sync disks, writes are flushed through to the disk image"
+msgstr "sinhronizēt diskus, ieraksti tiek izskaloti līdz diska attēlam"
+
+#: fish/cmds.c:1145
+msgid "install the SYSLINUX bootloader"
+msgstr "instalēt SYSLINUX sāknētāju"
+
+#: fish/cmds.c:1146
+msgid "return last 10 lines of a file"
+msgstr "atgriezt faila pēdējās 10 rindas"
+
+#: fish/cmds.c:1147
+msgid "return last N lines of a file"
+msgstr "atgriezt faila pēdējās N rindas"
+
+#: fish/cmds.c:1148
+msgid "unpack tarfile to directory"
+msgstr "izpakot tar failu direktorijā"
+
+#: fish/cmds.c:1149
+msgid "pack directory into tarfile"
+msgstr "iepakot direktoriju tar failā"
+
+#: fish/cmds.c:1150 fish/cmds.c:1164
+msgid "unpack compressed tarball to directory"
+msgstr "izpakot saspiestu tar arhīvu direktorijā"
+
+#: fish/cmds.c:1151 fish/cmds.c:1165
+msgid "pack directory into compressed tarball"
+msgstr "iepakot direktoriju saspiestā tar arhīvā"
+
+#: fish/cmds.c:1152
+msgid "print elapsed time taken to run a command"
+msgstr "izvadīt komandas izpildes laiku"
+
+#: fish/cmds.c:1156
+msgid "update file timestamps or create a new file"
+msgstr "atjaunināt failu laikspiedolus vai izveidot jaunu failu"
+
+#: fish/cmds.c:1160
+msgid "truncate a file to zero size"
+msgstr "saīsināt failu līdz nulles izmēram"
+
+#: fish/cmds.c:1161
+msgid "truncate a file to a particular size"
+msgstr "saīsināt failu līdz noteiktam izmēram"
+
+#: fish/cmds.c:1162
+msgid "adjust ext2/ext3/ext4 filesystem parameters"
+msgstr "pielāgot ext2/ext3/ext4 failu sistēmas parametrus"
+
+#: fish/cmds.c:1163
+msgid "get ext2/ext3/ext4 superblock details"
+msgstr "iegūt ext2/ext3/ext4 superbloka informāciju"
+
+#: fish/cmds.c:1166
+msgid "set file mode creation mask (umask)"
+msgstr "iestatīt failu režīma izveides masku (umask)"
+
+#: fish/cmds.c:1167
+msgid "unmount a filesystem"
+msgstr "atmontēt failu sistēmu"
+
+#: fish/cmds.c:1168
+msgid "unmount all filesystems"
+msgstr "atmontēt visas failu sistēmas"
+
+#: fish/cmds.c:1169
+msgid "unmount a locally mounted filesystem"
+msgstr "atmontēt lokāli montētu failu sistēmu"
+
+#: fish/cmds.c:1176
+msgid "unset an environment variable"
+msgstr "noņemt vides mainīgo"
+
+#: fish/cmds.c:1177
+msgid "upload a file from the local machine"
+msgstr "augšupielādēt failu no lokālā datora"
+
+#: fish/cmds.c:1178
+msgid "upload a file from the local machine with offset"
+msgstr "augšupielādēt failu no lokālā datora ar nobīdi"
+
+#: fish/cmds.c:1179
+msgid "cancel the current upload or download operation"
+msgstr "atcelt pašreizējo augšupielādes vai lejupielādes darbību"
+
+#: fish/cmds.c:1180
+msgid "set timestamp of a file with nanosecond precision"
+msgstr "iestatīt faila laikspiedolu ar nanosekunžu precizitāti"
+
+#: fish/cmds.c:1181
+msgid "appliance kernel version"
+msgstr "palīgsistēmas kodola versija"
+
+#: fish/cmds.c:1185
+msgid "get the library version number"
+msgstr "iegūt bibliotēkas versijas numuru"
+
+#: fish/cmds.c:1186
+msgid "get the filesystem label"
+msgstr "iegūt failu sistēmas etiķeti"
+
+#: fish/cmds.c:1187
+msgid "get minimum filesystem size"
+msgstr "iegūt minimālo failu sistēmas izmēru"
+
+#: fish/cmds.c:1188
+msgid "get the Linux VFS type corresponding to a mounted device"
+msgstr "iegūt montētai ierīcei atbilstošo Linux VFS tipu"
+
+#: fish/cmds.c:1189
+msgid "get the filesystem UUID"
+msgstr "iegūt failu sistēmas UUID"
+
+#: fish/cmds.c:1190
+msgid "activate or deactivate some volume groups"
+msgstr "aktivizēt vai deaktivizēt dažas sējumu grupas"
+
+#: fish/cmds.c:1191
+msgid "activate or deactivate all volume groups"
+msgstr "aktivizēt vai deaktivizēt visas sējumu grupas"
+
+#: fish/cmds.c:1192
+msgid "generate a new random UUID for a volume group"
+msgstr "ģenerēt jaunu nejaušu UUID sējumu grupai"
+
+#: fish/cmds.c:1193
+msgid "generate new random UUIDs for all volume groups"
+msgstr "ģenerēt jaunus nejaušus UUID visām sējumu grupām"
+
+#: fish/cmds.c:1194
+msgid "create an LVM volume group"
+msgstr "izveidot LVM sējumu grupu"
+
+#: fish/cmds.c:1195
+msgid "get the LV UUIDs of all LVs in the volume group"
+msgstr "iegūt visu sējumu grupas LV UUID"
+
+#: fish/cmds.c:1196
+msgid "get volume group metadata"
+msgstr "iegūt sējumu grupas metadatus"
+
+#: fish/cmds.c:1197
+msgid "get the PV UUIDs containing the volume group"
+msgstr "iegūt PV UUID, kas satur sējumu grupu"
+
+#: fish/cmds.c:1198
+msgid "remove an LVM volume group"
+msgstr "noņemt LVM sējumu grupu"
+
+#: fish/cmds.c:1199
+msgid "rename an LVM volume group"
+msgstr "pārdēvēt LVM sējumu grupu"
+
+#: fish/cmds.c:1200 fish/cmds.c:1201
+msgid "list the LVM volume groups (VGs)"
+msgstr "uzskaitīt LVM sējumu grupas (VG)"
+
+#: fish/cmds.c:1202
+msgid "rescan for LVM physical volumes, volume groups and logical volumes"
+msgstr ""
+"atkārtoti skenēt LVM fiziskos sējumus, sējumu grupas un loģiskos sējumus"
+
+#: fish/cmds.c:1203
+msgid "get the UUID of a volume group"
+msgstr "iegūt sējumu grupas UUID"
+
+#: fish/cmds.c:1207
+msgid "count characters in a file"
+msgstr "saskaitīt rakstzīmes failā"
+
+#: fish/cmds.c:1208
+msgid "count lines in a file"
+msgstr "saskaitīt rindas failā"
+
+#: fish/cmds.c:1209
+msgid "count words in a file"
+msgstr "saskaitīt vārdus failā"
+
+#: fish/cmds.c:1210
+msgid "wipe a filesystem signature from a device"
+msgstr "notīrīt failu sistēmas parakstu no ierīces"
+
+#: fish/cmds.c:1211
+msgid "create a new file"
+msgstr "izveidot jaunu failu"
+
+#: fish/cmds.c:1212
+msgid "append content to end of file"
+msgstr "pievienot saturu faila beigās"
+
+#: fish/cmds.c:1213
+msgid "create a file"
+msgstr "izveidot failu"
+
+#: fish/cmds.c:1214
+msgid "change parameters of an XFS filesystem"
+msgstr "mainīt XFS failu sistēmas parametrus"
+
+#: fish/cmds.c:1215
+msgid "expand an existing XFS filesystem"
+msgstr "paplašināt esošu XFS failu sistēmu"
+
+#: fish/cmds.c:1216 fish/cmds.c:1217
+msgid "get information about the XFS filesystem"
+msgstr "iegūt informāciju par XFS failu sistēmu"
+
+#: fish/cmds.c:1218
+msgid "repair an XFS filesystem"
+msgstr "salabot XFS failu sistēmu"
+
+#: fish/cmds.c:1219
+msgid "destroy previously loaded yara rules"
+msgstr "iznīcināt iepriekš ielādētās yara kārtulas"
+
+#: fish/cmds.c:1220
+msgid "load yara rules within libguestfs"
+msgstr "ielādēt yara kārtulas libguestfs"
+
+#: fish/cmds.c:1221
+msgid "scan a file with the loaded yara rules"
+msgstr "skenēt failu ar ielādētajām yara kārtulām"
+
+#: fish/cmds.c:1224
+msgid "write zeroes to the device"
+msgstr "ierakstīt ierīcē nulles"
+
+#: fish/cmds.c:1225
+msgid "write zeroes to an entire device"
+msgstr "ierakstīt nulles visā ierīcē"
+
+#: fish/cmds.c:1226
+msgid "zero free space in a filesystem"
+msgstr "aizpildīt failu sistēmas brīvo vietu ar nullēm"
+
+#: fish/cmds.c:1227
+msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
+msgstr ""
+"aizpildīt neizmantotos inode un diska blokus ext2/3 failu sistēmā ar nullēm"
+
+#: fish/cmds.c:1230
+msgid "determine file type inside a compressed file"
+msgstr "noteikt faila tipu saspiesta faila iekšienē"
+
+#: fish/cmds.c:1233
+msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
+msgstr ""
+"Lai rādītu komandas detalizētu palīdzību, izmantojiet -h <komanda> / help "
+"<komanda>."
+
+#: fish/copy.c:42
+#, c-format
+msgid ""
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+msgstr ""
+"lai kopētu failus attēlā, izmantojiet „copy-in <local> [<local>...] "
+"<remotedir>”\n"
+
+#: fish/copy.c:70
+#, c-format
+msgid ""
+"use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
+"image\n"
+msgstr ""
+"lai kopētu failus ārā no attēla, izmantojiet „copy-out <remote> [<remote>"
+"...] <localdir>”\n"
+
+#: fish/display.c:48
+#, c-format
+msgid "display filename\n"
+msgstr "display faila_nosaukums\n"
+
+#: fish/edit.c:43
+#, c-format
+msgid "use '%s filename' to edit a file\n"
+msgstr "lai rediģētu failu, izmantojiet „%s faila_nosaukums”\n"
+
+#: fish/event-names.c:69
+#, c-format
+msgid "unknown event name: %s\n"
+msgstr "nezināms notikuma nosaukums: %s\n"
+
+#: fish/events.c:179
+#, c-format
+msgid "use 'event <name> <eventset> <script>' to register an event handler\n"
+msgstr ""
+"lai reģistrētu notikumu apdarinātāju, izmantojiet „event <name> <eventset> "
+"<script>”\n"
+
+#: fish/events.c:238
+#, c-format
+msgid "use 'delete-event <name>' to delete an event handler\n"
+msgstr "lai dzēstu notikumu apdarinātāju, izmantojiet „delete-event <name>”\n"
+
+#: fish/events.c:247
+#, c-format
+msgid "delete-event: %s: no such event handler\n"
+msgstr "delete-event: %s: šāda notikumu apdarinātāja nav\n"
+
+#: fish/events.c:297
+#, c-format
+msgid "use ‘list-events’ to list event handlers\n"
+msgstr "lai uzskaitītu notikumu apdarinātājus, izmantojiet „list-events”\n"
+
+#: fish/fish.c:114 fuse/guestmount.c:103 fuse/guestunmount.c:58
+#: rescue/rescue.c:80
+#, c-format
+msgid "Try ‘%s --help’ for more information.\n"
+msgstr "Plašākai informācijai mēģiniet „%s --help”.\n"
+
+#: fish/fish.c:117
+#, c-format
+msgid ""
+"%s: guest filesystem shell\n"
+"%s lets you edit virtual machine filesystems\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] cmd [: cmd : cmd ...]\n"
+"Options:\n"
+"  -h|--cmd-help        List available commands\n"
+"  -h|--cmd-help cmd    Display detailed help on ‘cmd’\n"
+"  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csh                Make --listen csh-compatible\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don’t turn off echo for passphrases\n"
+"  -f|--file file       Read commands from file\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  -i|--inspector       Automatically mount filesystems\n"
+"  --key selector       Specify a LUKS key\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  --listen             Listen for remote commands\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                       Mount dev on mnt (if omitted, /)\n"
+"  --network            Enable network\n"
+"  -N|--new [filename=]type\n"
+"                       Create prepared disk (test<N>.img or filename)\n"
+"  -n|--no-sync         Don’t autosync\n"
+"  --no-dest-paths      Don’t tab-complete paths from guest fs\n"
+"  --pipe-error         Pipe commands can detect write errors\n"
+"  --progress-bars      Enable progress bars even when not interactive\n"
+"  --no-progress-bars   Disable progress bars\n"
+"  --remote[=pid]       Send commands to remote %s\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            For backwards compat only, does nothing\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
+"  -x                   Echo each command before executing it\n"
+"\n"
+"To examine a disk image, ISO, hard disk, filesystem etc:\n"
+"  %s [--ro|--rw] -i -a /path/to/disk.img\n"
+"or\n"
+"  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
+"\n"
+"‘--ro’ is recommended to avoid any writes to the disk image.\n"
+"\n"
+"If ‘-i’ option fails run again without ‘-i’ and use ‘run’ +\n"
+"‘list-filesystems’ + ‘mount’ cmds.\n"
+"\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: viesa failu sistēmas čaula\n"
+"%s ļauj rediģēt virtuālo mašīnu failu sistēmas\n"
+"Autortiesības (C) 2009-2025 Red Hat Inc.\n"
+"Lietošana:\n"
+"  %s [--opcijas] komanda [: komanda : komanda ...]\n"
+"Opcijas:\n"
+"  -h|--cmd-help        Uzskaitīt pieejamās komandas\n"
+"  -h|--cmd-help cmd    Rādīt detalizētu palīdzību par „cmd”\n"
+"  -a|--add image       Pievienot attēlu\n"
+"  --blocksize[=512|4096]\n"
+"                       Iestatīt diska sektora izmēru opcijai -a\n"
+"  -c|--connect uri     Norādīt libvirt URI opcijai -d\n"
+"  --csh                Padarīt --listen saderīgu ar csh\n"
+"  -d|--domain guest    Pievienot diskus no libvirt viesa\n"
+"  --echo-keys          Neizslēgt paroles frāžu atbalsi\n"
+"  -f|--file file       Nolasīt komandas no faila\n"
+"  --format[=raw|..]    Piespiest diska formātu opcijai -a\n"
+"  --help               Rādīt īsu palīdzību\n"
+"  -i|--inspector       Automātiski montēt failu sistēmas\n"
+"  --key selector       Norādīt LUKS atslēgu\n"
+"  --keys-from-stdin    Nolasīt paroles frāzes no stdin\n"
+"  --listen             Klausīties attālās komandas\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                       Montēt dev uz mnt (ja izlaists, /)\n"
+"  --network            Iespējot tīklu\n"
+"  -N|--new [filename=]type\n"
+"                       Izveidot sagatavotu disku (test<N>.img vai filename)\n"
+"  -n|--no-sync         Nesinhronizēt automātiski\n"
+"  --no-dest-paths      Nepabeigt ar Tab ceļus no viesa fs\n"
+"  --pipe-error         Konveijera komandas var konstatēt rakstīšanas kļūdas\n"
+"  --progress-bars      Iespējot gaitas joslas arī neinteraktīvā režīmā\n"
+"  --no-progress-bars   Atspējot gaitas joslas\n"
+"  --remote[=pid]       Sūtīt komandas attālajam %s\n"
+"  -r|--ro              Montēt tikai lasīšanai\n"
+"  --selinux            Tikai atpakaļsaderībai, neko nedara\n"
+"  -v|--verbose         Detalizēti ziņojumi\n"
+"  -V|--version         Parādīt versiju un iziet\n"
+"  -w|--rw              Montēt lasīšanai/rakstīšanai\n"
+"  -x                   Atbalsot katru komandu pirms izpildes\n"
+"\n"
+"Lai pārbaudītu diska attēlu, ISO, cieto disku, failu sistēmu u. c.:\n"
+"  %s [--ro|--rw] -i -a /ceļš/uz/disk.img\n"
+"vai\n"
+"  %s [--ro|--rw] -i -d libvirt-domēna-nosaukums\n"
+"\n"
+"Ieteicams „--ro”, lai izvairītos no jebkādas rakstīšanas diska attēlā.\n"
+"\n"
+"Ja opcija „-i” neizdodas, palaidiet vēlreiz bez „-i” un izmantojiet komandas "
+"„run” +\n"
+"„list-filesystems” + „mount”.\n"
+"\n"
+"Plašāku informāciju skatiet rokasgrāmatas lapā %s(1).\n"
+
+#: fish/fish.c:264
+#, c-format
+msgid "--listen=PID: PID was not a number: %s"
+msgstr "--listen=PID: PID nebija skaitlis: %s"
+
+#: fish/fish.c:269
+#, c-format
+msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
+msgstr "remote: $GUESTFISH_PID jāiestata uz attālā procesa PID"
+
+#: fish/fish.c:290 fuse/guestmount.c:246 lib/libvirt-domain.c:94
+#: lib/libvirt-domain.c:137 lib/libvirt-domain.c:235
+#, c-format
+msgid "libguestfs live support was removed in libguestfs 1.48"
+msgstr "libguestfs live atbalsts tika noņemts libguestfs 1.48"
+
+#: fish/fish.c:302 fuse/guestmount.c:259 fuse/guestunmount.c:131
+#: rescue/rescue.c:225 test-tool/test-tool.c:123
+#, c-format
+msgid "unknown long option: %s (%d)"
+msgstr "nezināma garā opcija: %s (%d)"
+
+#: fish/fish.c:319
+#, c-format
+msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
+msgstr ""
+"%s: brīdinājums: opcija -D ir novecojusi, tā vietā izmantojiet --no-dest-"
+"paths\n"
+
+#: fish/fish.c:326
+#, c-format
+msgid "only one -f parameter can be given"
+msgstr "var norādīt tikai vienu parametru -f"
+
+#: fish/fish.c:509
+#, c-format
+msgid "cannot use --listen and --remote options at the same time"
+msgstr "opcijas --listen un --remote nevar izmantot vienlaikus"
+
+#: fish/fish.c:514
+#, c-format
+msgid "extra parameters on the command line with --listen flag"
+msgstr "komandrindā lieki parametri ar karogu --listen"
+
+#: fish/fish.c:517
+#, c-format
+msgid "cannot use --listen and --file options at the same time"
+msgstr "opcijas --listen un --file nevar izmantot vienlaikus"
+
+#: fish/fish.c:694
+#, c-format
+msgid ""
+"\n"
+"Welcome to guestfish, the guest filesystem shell for\n"
+"editing virtual machine filesystems and disk images.\n"
+"\n"
+"Type: ‘help’ for help on commands\n"
+"      ‘man’ to read the manual\n"
+"      ‘quit’ to quit the shell\n"
+"\n"
+msgstr ""
+"\n"
+"Laipni lūdzam guestfish — viesa failu sistēmas čaulā virtuālo mašīnu\n"
+"failu sistēmu un diska attēlu rediģēšanai.\n"
+"\n"
+"Ievadiet: „help” — palīdzībai par komandām\n"
+"          „man” — lai lasītu rokasgrāmatu\n"
+"          „quit” — lai izietu no čaulas\n"
+"\n"
+
+#: fish/fish.c:868 fish/fish.c:884
+#, c-format
+msgid "%s: command arguments not separated by whitespace\n"
+msgstr "%s: komandas argumenti nav atdalīti ar atstarpēm\n"
+
+#: fish/fish.c:878
+#, c-format
+msgid "%s: unterminated single quote\n"
+msgstr "%s: nenoslēgta vienpēdiņa\n"
+
+#: fish/fish.c:908
+#, c-format
+msgid "%s: internal error parsing string at ‘%s’\n"
+msgstr "%s: iekšēja kļūda, parsējot virkni pie „%s”\n"
+
+#: fish/fish.c:925
+#, c-format
+msgid "%s: too many arguments\n"
+msgstr "%s: pārāk daudz argumentu\n"
+
+#: fish/fish.c:1001
+#, c-format
+msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
+msgstr "%s: nederīga atsoļa secība virknē (sākot ar nobīdi %d)\n"
+
+#: fish/fish.c:1010
+#, c-format
+msgid "%s: unterminated double quote\n"
+msgstr "%s: nenoslēgtas dubultpēdiņas\n"
+
+#: fish/fish.c:1075
+#, c-format
+msgid "empty command on command line"
+msgstr "tukša komanda komandrindā"
+
+#: fish/fish.c:1229
+msgid "display a list of commands or help on a command"
+msgstr "parādīt komandu sarakstu vai komandas palīdzību"
+
+#: fish/fish.c:1231
+msgid "quit guestfish"
+msgstr "iziet no guestfish"
+
+#: fish/fish.c:1242
+#, c-format
+msgid ""
+"help - display a list of commands or help on a command\n"
+"     help --list\n"
+"     help cmd\n"
+"     help\n"
+msgstr ""
+"help — parādīt komandu sarakstu vai komandas palīdzību\n"
+"     help --list\n"
+"     help cmd\n"
+"     help\n"
+
+#: fish/fish.c:1251
+#, c-format
+msgid ""
+"quit - quit guestfish\n"
+"     quit\n"
+msgstr ""
+"quit — iziet no guestfish\n"
+"     quit\n"
+
+#: fish/fish.c:1256
+#, c-format
+msgid "%s: command not known: "
+msgstr "%s: komanda nav zināma: "
+
+#: fish/fish.c:1258
+#, c-format
+msgid "use 'help --list' to list all commands\n"
+msgstr "lai uzskaitītu visas komandas, izmantojiet „help --list”\n"
+
+#: fish/fish.c:1260
+#, c-format
+msgid "use -h to list all commands\n"
+msgstr "lai uzskaitītu visas komandas, izmantojiet -h\n"
+
+#: fish/fish.c:1280
+#, c-format
+msgid ""
+"Did you mean to open a disk image?  guestfish -a disk.img\n"
+"For a list of commands:             guestfish -h\n"
+"For complete documentation:         man guestfish\n"
+msgstr ""
+"Vai vēlējāties atvērt diska attēlu?  guestfish -a disk.img\n"
+"Komandu sarakstam:                  guestfish -h\n"
+"Pilnai dokumentācijai:              man guestfish\n"
+
+#: fish/fish.c:1291
+#, c-format
+msgid "%s:%d: libguestfs: error: %s\n"
+msgstr "%s:%d: libguestfs: kļūda: %s\n"
+
+#: fish/fish.c:1418
+#, c-format
+msgid "Runaway quote in string \"%s\"\n"
+msgstr "Nenoslēgtas pēdiņas virknē \"%s\"\n"
+
+#: fish/fish.c:1750
+#, c-format
+msgid ""
+"%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
+"or run \"inspect-os\" command)\n"
+msgstr ""
+"%s: lai izmantotu Windows diskdziņu burtus, jāpārbauda viesis (opcija \"-i\" "
+"vai komanda \"inspect-os\")\n"
+
+#: fish/fish.c:1756
+#, c-format
+msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
+msgstr "%s: lai izmantotu Windows diskdziņu burtus, tam jābūt Windows viesim\n"
+
+#: fish/fish.c:1770
+#, c-format
+msgid ""
+"%s: drive '%c:' not found.  To list available drives do:\n"
+"  inspect-get-drive-mappings %s\n"
+msgstr ""
+"%s: diskdzinis „%c:” nav atrasts.  Lai uzskaitītu pieejamos diskdziņus, "
+"izpildiet:\n"
+"  inspect-get-drive-mappings %s\n"
+
+#: fish/fish.c:1789
+#, c-format
+msgid ""
+"%s: to access '%c:', mount %s first.  One way to do this is:\n"
+"  umount-all\n"
+"  mount %s /\n"
+msgstr ""
+"%s: lai piekļūtu „%c:”, vispirms montējiet %s.  Viens veids, kā to izdarīt:\n"
+"  umount-all\n"
+"  mount %s /\n"
+
+#: fish/glob.c:74
+#, c-format
+msgid "use 'glob command [args...]'\n"
+msgstr "izmantojiet „glob komanda [argumenti...]”\n"
+
+#: fish/glob.c:142
+#, c-format
+msgid "glob: guestfs_glob_expand call failed: %s\n"
+msgstr "glob: guestfs_glob_expand izsaukums neizdevās: %s\n"
+
+#: fish/help.c:47
+#, c-format
+msgid ""
+"Add disk images to examine using the ‘-a’ or ‘-d’ options, or the ‘add’\n"
+"command.\n"
+"Or create a new disk image using ‘-N’, or the ‘alloc’ or ‘sparse’ commands.\n"
+"Once you have done this, use the ‘run’ command.\n"
+msgstr ""
+"Pievienojiet pārbaudāmos diska attēlus ar opcijām „-a” vai „-d” vai ar\n"
+"komandu „add”.\n"
+"Vai izveidojiet jaunu diska attēlu ar „-N” vai komandām „alloc” vai „sparse"
+"”.\n"
+"Kad tas izdarīts, izmantojiet komandu „run”.\n"
+
+#: fish/help.c:54
+#, c-format
+msgid ""
+"Find out what filesystems are available using ‘list-filesystems’ and then\n"
+"mount them to examine or modify the contents using ‘mount-ro’ or\n"
+"‘mount’.\n"
+msgstr ""
+"Noskaidrojiet pieejamās failu sistēmas ar „list-filesystems” un pēc tam\n"
+"montējiet tās ar „mount-ro” vai „mount”, lai pārbaudītu vai mainītu\n"
+"saturu.\n"
+
+#: fish/help.c:62
+#, c-format
+msgid ""
+"For more information about a command, use ‘help cmd’.\n"
+"\n"
+"To read the manual, type ‘man’.\n"
+msgstr ""
+"Plašākai informācijai par komandu izmantojiet „help cmd”.\n"
+"\n"
+"Lai lasītu rokasgrāmatu, ievadiet „man”.\n"
+
+#: fish/help.c:81
+#, c-format
+msgid "use 'help', 'help <cmd>' or 'help -l|--list' to list all commands\n"
+msgstr ""
+"lai uzskaitītu visas komandas, izmantojiet „help”, „help <cmd>” vai „help -"
+"l|--list”\n"
+
+#: fish/hexedit.c:46
+#, c-format
+msgid "hexedit (device|filename) [max | start max]\n"
+msgstr "hexedit (ierīce|faila_nosaukums) [max | start max]\n"
+
+#: fish/hexedit.c:57
+#, c-format
+msgid "hexedit: %s is a zero length file or device\n"
+msgstr "hexedit: %s ir nulles garuma fails vai ierīce\n"
+
+#: fish/hexedit.c:68
+#, c-format
+msgid ""
+"hexedit: %s is larger than %s. You must supply a limit using\n"
+"  'hexedit %s <max>' (eg. 'hexedit %s 1M') or a range using\n"
+"  'hexedit %s <start> <max>'.\n"
+msgstr ""
+"hexedit: %s ir lielāks par %s. Jānorāda ierobežojums ar\n"
+"  „hexedit %s <max>” (piem., „hexedit %s 1M”) vai diapazons ar\n"
+"  „hexedit %s <start> <max>”.\n"
+
+#: fish/hexedit.c:97
+#, c-format
+msgid "hexedit: invalid range\n"
+msgstr "hexedit: nederīgs diapazons\n"
+
+#: fish/lcd.c:36
+#, c-format
+msgid "use 'lcd directory' to change local directory\n"
+msgstr "lai mainītu lokālo direktoriju, izmantojiet „lcd direktorija”\n"
+
+#: fish/man.c:37
+#, c-format
+msgid "use ‘man’ without parameters to open the manual\n"
+msgstr "lai atvērtu rokasgrāmatu, izmantojiet „man” bez parametriem\n"
+
+#: fish/more.c:46
+#, c-format
+msgid "use '%s filename' to page a file\n"
+msgstr "lai lapotu failu, izmantojiet „%s faila_nosaukums”\n"
+
+#: fish/not.c:41
+#, c-format
+msgid "use 'not command [args...]'\n"
+msgstr "izmantojiet „not komanda [argumenti...]”\n"
+
+#: fish/prep-boot.c:37 fish/prep-boot.c:87 fish/prep-disk.c:35
+#: fish/prep-fs.c:37 fish/prep-lv.c:68 fish/prep-lv.c:109 fish/prep-part.c:35
+msgid "failed to allocate disk"
+msgstr "neizdevās piešķirt disku"
+
+#: fish/prep-boot.c:45 fish/prep-boot.c:95
+msgid "could not parse boot size"
+msgstr "neizdevās parsēt sāknēšanas izmēru"
+
+#: fish/prep-boot.c:49 fish/prep-boot.c:99
+#, c-format
+msgid "failed to get sector size of disk: %s"
+msgstr "neizdevās iegūt diska sektora izmēru: %s"
+
+#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44 fish/prep-lv.c:75
+#: fish/prep-lv.c:116 fish/prep-part.c:42
+#, c-format
+msgid "failed to partition disk: %s"
+msgstr "neizdevās sadalīt disku: %s"
+
+#: fish/prep-boot.c:58 fish/prep-boot.c:108
+#, c-format
+msgid "failed to add boot partition: %s"
+msgstr "neizdevās pievienot sāknēšanas nodalījumu: %s"
+
+#: fish/prep-boot.c:62 fish/prep-boot.c:112
+#, c-format
+msgid "failed to add root partition: %s"
+msgstr "neizdevās pievienot saknes nodalījumu: %s"
+
+#: fish/prep-boot.c:69 fish/prep-boot.c:124
+#, c-format
+msgid "failed to create boot filesystem: %s"
+msgstr "neizdevās izveidot sāknēšanas failu sistēmu: %s"
+
+#: fish/prep-boot.c:76 fish/prep-boot.c:145
+#, c-format
+msgid "failed to create root filesystem: %s"
+msgstr "neizdevās izveidot saknes failu sistēmu: %s"
+
+#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65 fish/prep-lv.c:81
+#: fish/prep-lv.c:106 fish/prep-lv.c:122
+msgid "incorrect format for LV name, use '/dev/VG/LV'"
+msgstr "nepareizs LV nosaukuma formāts, izmantojiet „/dev/VG/LV”"
+
+#: fish/prep-boot.c:131 fish/prep-lv.c:88 fish/prep-lv.c:129
+#, c-format
+msgid "failed to create PV: %s: %s"
+msgstr "neizdevās izveidot PV: %s: %s"
+
+#: fish/prep-boot.c:136 fish/prep-lv.c:93 fish/prep-lv.c:134
+#, c-format
+msgid "failed to create VG: %s: %s"
+msgstr "neizdevās izveidot VG: %s: %s"
+
+#: fish/prep-boot.c:141 fish/prep-lv.c:98 fish/prep-lv.c:139
+#, c-format
+msgid "failed to create LV: /dev/%s/%s: %s"
+msgstr "neizdevās izveidot LV: /dev/%s/%s: %s"
+
+#: fish/prep-fs.c:52 fish/prep-lv.c:144
+#, c-format
+msgid "failed to create filesystem (%s): %s"
+msgstr "neizdevās izveidot failu sistēmu (%s): %s"
+
+#: fish/prep.c:45
+#, c-format
+msgid ""
+"List of available prepared disk images:\n"
+"\n"
+msgstr ""
+"Pieejamo sagatavoto diska attēlu saraksts:\n"
+"\n"
+
+#: fish/prep.c:48
+#, c-format
+msgid ""
+"guestfish -N %-8s - %s\n"
+"\n"
+"%s\n"
+msgstr ""
+"guestfish -N %-8s - %s\n"
+"\n"
+"%s\n"
+
+#: fish/prep.c:56
+#, c-format
+msgid "  Optional parameters:\n"
+msgstr "  Neobligātie parametri:\n"
+
+#: fish/prep.c:63
+#, c-format
+msgid "<%s> %s (default: %s)\n"
+msgstr "<%s> %s (noklusējums: %s)\n"
+
+#: fish/prep.c:73
+#, c-format
+msgid ""
+"Prepared disk images are written to file \"test1.img\" in the local\n"
+"directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
+"You can override the name by providing a filename before the type, eg:\n"
+"\n"
+"  guestfish -N blank.img=fs\n"
+"\n"
+"For more information see the guestfish(1) manual.\n"
+msgstr ""
+"Sagatavotie diska attēli tiek ierakstīti failā \"test1.img\" lokālajā\n"
+"direktorijā.  (\"test2.img\" utt., ja opcija -N norādīta vairākas reizes).\n"
+"Nosaukumu var aizstāt, pirms tipa norādot faila nosaukumu, piem.:\n"
+"\n"
+"  guestfish -N blank.img=fs\n"
+"\n"
+"Plašāku informāciju skatiet guestfish(1) rokasgrāmatā.\n"
+
+#: fish/prep.c:109
+#, c-format
+msgid ""
+"-N parameter ‘%s’: no such prepared disk image known.\n"
+"Use 'guestfish -N help' to list possible values for the -N parameter."
+msgstr ""
+"-N parametrs „%s”: šāds sagatavotais diska attēls nav zināms.\n"
+"Lai uzskaitītu iespējamās parametra -N vērtības, izmantojiet „guestfish -N "
+"help”."
+
+#: fish/prep.c:162
+#, c-format
+msgid "guestfish: error creating prepared disk image ‘%s’ on ‘%s’: "
+msgstr "guestfish: kļūda, veidojot sagatavoto diska attēlu „%s” uz „%s”: "
+
+#: fish/rc.c:71
+#, c-format
+msgid "‘%s’ is not a directory or has insecure owner or permissions"
+msgstr "„%s” nav direktorija vai tai ir nedrošs īpašnieks vai atļaujas"
+
+#: fish/rc.c:288
+#, c-format
+msgid "guestfish: protocol error: could not read ‘hello’ message\n"
+msgstr "guestfish: protokola kļūda: neizdevās nolasīt ziņojumu „hello”\n"
+
+#: fish/rc.c:293
+#, c-format
+msgid ""
+"guestfish: protocol error: version mismatch, server version ‘%s’ does not "
+"match client version ‘%s’.  The two versions must match exactly.\n"
+msgstr ""
+"guestfish: protokola kļūda: versiju neatbilstība, servera versija „%s” "
+"neatbilst klienta versijai „%s”.  Abām versijām jāsakrīt precīzi.\n"
+
+#: fish/rc.c:378 fish/rc.c:392
+#, c-format
+msgid "guestfish: remote: looks like the server is not running\n"
+msgstr "guestfish: remote: šķiet, ka serveris nedarbojas\n"
+
+#: fish/rc.c:409 fish/rc.c:423
+#, c-format
+msgid "guestfish: protocol error: could not send initial greeting to server\n"
+msgstr ""
+"guestfish: protokola kļūda: neizdevās nosūtīt serverim sākotnējo sveicienu\n"
+
+#: fish/rc.c:434
+#, c-format
+msgid "guestfish: protocol error: could not decode reply from server\n"
+msgstr "guestfish: protokola kļūda: neizdevās dekodēt servera atbildi\n"
+
+#: fish/reopen.c:43
+#, c-format
+msgid "‘reopen’ command takes no parameters\n"
+msgstr "komanda „reopen” neņem parametrus\n"
+
+#: fish/reopen.c:56
+#, c-format
+msgid "reopen: guestfs_create: failed to create handle\n"
+msgstr "reopen: guestfs_create: neizdevās izveidot rokturi\n"
+
+#: fish/run-0.c:143 fish/run-0.c:161 fish/run-0.c:174 fish/run-0.c:202
+#: fish/run-0.c:350 fish/run-0.c:803 fish/run-0.c:816 fish/run-0.c:829
+#: fish/run-0.c:2092 fish/run-0.c:2165 fish/run-0.c:2536 fish/run-0.c:2627
+#: fish/run-0.c:2736 fish/run-0.c:2805 fish/run-1.c:301 fish/run-1.c:528
+#: fish/run-1.c:541 fish/run-1.c:554 fish/run-1.c:567 fish/run-1.c:679
+#: fish/run-1.c:692 fish/run-1.c:1162 fish/run-1.c:1175 fish/run-1.c:1188
+#: fish/run-1.c:1201 fish/run-1.c:1478 fish/run-1.c:1491 fish/run-1.c:2344
+#: fish/run-1.c:2388 fish/run-1.c:2401 fish/run-1.c:2414 fish/run-1.c:2427
+#: fish/run-1.c:2440 fish/run-1.c:2694 fish/run-1.c:2742 fish/run-1.c:2816
+#: fish/run-1.c:3000 fish/run-1.c:3013 fish/run-1.c:3062 fish/run-1.c:3143
+#: fish/run-1.c:3156 fish/run-1.c:3169 fish/run-1.c:3182 fish/run-1.c:3195
+#: fish/run-2.c:138 fish/run-2.c:202 fish/run-2.c:561 fish/run-2.c:801
+#: fish/run-2.c:814 fish/run-2.c:1117 fish/run-2.c:1369 fish/run-2.c:1450
+#: fish/run-2.c:1683 fish/run-2.c:1994 fish/run-2.c:2317 fish/run-2.c:2330
+#: fish/run-2.c:2492 fish/run-3.c:417 fish/run-3.c:987 fish/run-3.c:1353
+#: fish/run-3.c:1366 fish/run-3.c:1379 fish/run-3.c:1392 fish/run-3.c:1635
+#: fish/run-3.c:1694 fish/run-3.c:2464 fish/run-3.c:2477 fish/run-3.c:2490
+#: fish/run-3.c:2503 fish/run-3.c:2516 fish/run-3.c:2529 fish/run-3.c:2542
+#: fish/run-3.c:2555 fish/run-3.c:2568 fish/run-3.c:2581 fish/run-3.c:2594
+#: fish/run-3.c:2607 fish/run-3.c:2620 fish/run-3.c:2633 fish/run-3.c:2646
+#: fish/run-3.c:2659 fish/run-3.c:2672 fish/run-3.c:2948 fish/run-3.c:2989
+#: fish/run-3.c:3257 fish/run-3.c:3270 fish/run-3.c:3387 fish/run-3.c:3573
+#: fish/run-3.c:3586 fish/run-3.c:3599 fish/run-3.c:3612 fish/run-3.c:3695
+#: fish/run-4.c:181 fish/run-4.c:491 fish/run-4.c:1662 fish/run-4.c:2111
+#: fish/run-4.c:2194 fish/run-5.c:394 fish/run-5.c:469 fish/run-5.c:607
+#: fish/run-5.c:620 fish/run-5.c:732 fish/run-5.c:745 fish/run-5.c:1283
+#: fish/run-5.c:1361 fish/run-5.c:2334 fish/run-5.c:2426 fish/run-5.c:3003
+#: fish/run-5.c:3016 fish/run-5.c:3029 fish/run-5.c:3204 fish/run-5.c:3217
+#: fish/run-5.c:3230 fish/run-5.c:3243 fish/run-6.c:259 fish/run-6.c:367
+#: fish/run-6.c:1777 fish/run-6.c:1923 fish/run-6.c:1936 fish/run-6.c:2219
+#: fish/run-6.c:2238 fish/run-6.c:2251 fish/run-6.c:2264
+#, c-format
+msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
+msgstr "%s: „%s”: nederīga Būla vērtība, izmantojiet „true” vai „false”\n"
+
+#: fish/run-0.c:212 fish/run-0.c:360 fish/run-0.c:547 fish/run-0.c:620
+#: fish/run-0.c:839 fish/run-0.c:1853 fish/run-0.c:1973 fish/run-0.c:2102
+#: fish/run-0.c:2175 fish/run-0.c:2746 fish/run-1.c:311 fish/run-1.c:577
+#: fish/run-1.c:702 fish/run-1.c:1211 fish/run-1.c:1501 fish/run-1.c:2085
+#: fish/run-1.c:2450 fish/run-1.c:2704 fish/run-1.c:2881 fish/run-1.c:3023
+#: fish/run-1.c:3215 fish/run-2.c:235 fish/run-2.c:325 fish/run-2.c:824
+#: fish/run-2.c:1127 fish/run-2.c:1379 fish/run-2.c:1460 fish/run-2.c:1803
+#: fish/run-2.c:2340 fish/run-3.c:432 fish/run-3.c:494 fish/run-3.c:589
+#: fish/run-3.c:890 fish/run-3.c:997 fish/run-3.c:1402 fish/run-3.c:1645
+#: fish/run-3.c:1704 fish/run-3.c:2682 fish/run-3.c:2999 fish/run-3.c:3280
+#: fish/run-3.c:3622 fish/run-3.c:3858 fish/run-4.c:401 fish/run-4.c:506
+#: fish/run-4.c:887 fish/run-4.c:1672 fish/run-4.c:2121 fish/run-4.c:2210
+#: fish/run-5.c:404 fish/run-5.c:630 fish/run-5.c:755 fish/run-5.c:809
+#: fish/run-5.c:1293 fish/run-5.c:1371 fish/run-5.c:1902 fish/run-5.c:3130
+#: fish/run-5.c:3331 fish/run-6.c:387 fish/run-6.c:1372 fish/run-6.c:1443
+#: fish/run-6.c:1787 fish/run-6.c:1946 fish/run-6.c:2274
+#, c-format
+msgid "%s: unknown optional argument \"%s\"\n"
+msgstr "%s: nezināms neobligāts arguments \"%s\"\n"
+
+#: fish/run-0.c:218 fish/run-0.c:366 fish/run-0.c:553 fish/run-0.c:626
+#: fish/run-0.c:845 fish/run-0.c:1859 fish/run-0.c:1979 fish/run-0.c:2108
+#: fish/run-0.c:2181 fish/run-0.c:2752 fish/run-1.c:317 fish/run-1.c:583
+#: fish/run-1.c:708 fish/run-1.c:1217 fish/run-1.c:1507 fish/run-1.c:2091
+#: fish/run-1.c:2456 fish/run-1.c:2710 fish/run-1.c:2887 fish/run-1.c:3029
+#: fish/run-1.c:3221 fish/run-2.c:241 fish/run-2.c:331 fish/run-2.c:830
+#: fish/run-2.c:1133 fish/run-2.c:1385 fish/run-2.c:1466 fish/run-2.c:1809
+#: fish/run-2.c:2346 fish/run-3.c:438 fish/run-3.c:500 fish/run-3.c:595
+#: fish/run-3.c:896 fish/run-3.c:1003 fish/run-3.c:1408 fish/run-3.c:1651
+#: fish/run-3.c:1710 fish/run-3.c:2688 fish/run-3.c:3005 fish/run-3.c:3286
+#: fish/run-3.c:3628 fish/run-3.c:3864 fish/run-4.c:407 fish/run-4.c:512
+#: fish/run-4.c:893 fish/run-4.c:1678 fish/run-4.c:2127 fish/run-4.c:2216
+#: fish/run-5.c:410 fish/run-5.c:636 fish/run-5.c:761 fish/run-5.c:815
+#: fish/run-5.c:1299 fish/run-5.c:1377 fish/run-5.c:1908 fish/run-5.c:3136
+#: fish/run-5.c:3337 fish/run-6.c:393 fish/run-6.c:1378 fish/run-6.c:1449
+#: fish/run-6.c:1793 fish/run-6.c:1952 fish/run-6.c:2280
+#, c-format
+msgid "%s: optional argument \"%s\" given more than once\n"
+msgstr "%s: neobligātais arguments \"%s\" norādīts vairāk nekā vienu reizi\n"
+
+#: fish/run-0.c:531 fish/run-0.c:604 fish/run-0.c:714 fish/run-0.c:967
+#: fish/run-0.c:1106 fish/run-0.c:1146 fish/run-0.c:1160 fish/run-0.c:1198
+#: fish/run-0.c:1234 fish/run-0.c:1742 fish/run-0.c:1759 fish/run-0.c:1781
+#: fish/run-0.c:1814 fish/run-0.c:1837 fish/run-0.c:2070 fish/run-0.c:2152
+#: fish/run-0.c:2331 fish/run-0.c:2570 fish/run-0.c:2666 fish/run-1.c:288
+#: fish/run-1.c:632 fish/run-1.c:649 fish/run-1.c:666 fish/run-1.c:816
+#: fish/run-1.c:926 fish/run-1.c:1010 fish/run-1.c:1255 fish/run-1.c:1309
+#: fish/run-1.c:1346 fish/run-1.c:1432 fish/run-1.c:1667 fish/run-1.c:1686
+#: fish/run-1.c:1955 fish/run-1.c:2007 fish/run-1.c:2024 fish/run-1.c:2047
+#: fish/run-1.c:2070 fish/run-1.c:2156 fish/run-1.c:2175 fish/run-1.c:2194
+#: fish/run-1.c:2495 fish/run-1.c:2514 fish/run-1.c:2598 fish/run-1.c:2617
+#: fish/run-2.c:219 fish/run-2.c:280 fish/run-2.c:309 fish/run-2.c:503
+#: fish/run-2.c:623 fish/run-2.c:642 fish/run-2.c:754 fish/run-2.c:771
+#: fish/run-2.c:788 fish/run-2.c:923 fish/run-2.c:1198 fish/run-2.c:1235
+#: fish/run-2.c:1594 fish/run-2.c:1645 fish/run-2.c:1742 fish/run-2.c:1874
+#: fish/run-2.c:1979 fish/run-2.c:2032 fish/run-2.c:2051 fish/run-2.c:2089
+#: fish/run-2.c:2201 fish/run-2.c:2407 fish/run-2.c:2672 fish/run-3.c:484
+#: fish/run-3.c:573 fish/run-3.c:785 fish/run-3.c:835 fish/run-3.c:874
+#: fish/run-3.c:957 fish/run-3.c:970 fish/run-3.c:1444 fish/run-3.c:1483
+#: fish/run-3.c:1526 fish/run-3.c:1810 fish/run-3.c:2108 fish/run-3.c:2183
+#: fish/run-3.c:2200 fish/run-3.c:2217 fish/run-3.c:2234 fish/run-3.c:2251
+#: fish/run-3.c:2268 fish/run-3.c:2285 fish/run-3.c:2302 fish/run-3.c:2319
+#: fish/run-3.c:2336 fish/run-3.c:2353 fish/run-3.c:2370 fish/run-3.c:2387
+#: fish/run-3.c:2410 fish/run-3.c:2726 fish/run-3.c:2772 fish/run-3.c:2815
+#: fish/run-3.c:2859 fish/run-3.c:2878 fish/run-3.c:2897 fish/run-3.c:2970
+#: fish/run-3.c:3041 fish/run-3.c:3077 fish/run-3.c:3119 fish/run-3.c:3712
+#: fish/run-3.c:3735 fish/run-3.c:3763 fish/run-3.c:3780 fish/run-3.c:3803
+#: fish/run-3.c:3831 fish/run-3.c:3848 fish/run-3.c:3933 fish/run-3.c:3946
+#: fish/run-3.c:3959 fish/run-3.c:3972 fish/run-3.c:4101 fish/run-4.c:139
+#: fish/run-4.c:303 fish/run-4.c:444 fish/run-4.c:605 fish/run-4.c:648
+#: fish/run-4.c:697 fish/run-4.c:710 fish/run-4.c:751 fish/run-4.c:843
+#: fish/run-4.c:860 fish/run-4.c:877 fish/run-4.c:971 fish/run-4.c:1105
+#: fish/run-4.c:1302 fish/run-4.c:1392 fish/run-4.c:1459 fish/run-4.c:1503
+#: fish/run-4.c:1548 fish/run-4.c:1567 fish/run-4.c:1586 fish/run-4.c:1717
+#: fish/run-4.c:1730 fish/run-4.c:1767 fish/run-4.c:1811 fish/run-4.c:1854
+#: fish/run-4.c:1898 fish/run-4.c:2375 fish/run-5.c:560 fish/run-5.c:577
+#: fish/run-5.c:594 fish/run-5.c:685 fish/run-5.c:702 fish/run-5.c:719
+#: fish/run-5.c:930 fish/run-5.c:1059 fish/run-5.c:1127 fish/run-5.c:1456
+#: fish/run-5.c:1620 fish/run-5.c:1668 fish/run-5.c:1712 fish/run-5.c:1830
+#: fish/run-5.c:1858 fish/run-5.c:1881 fish/run-5.c:1945 fish/run-5.c:2100
+#: fish/run-5.c:2143 fish/run-5.c:2187 fish/run-5.c:2231 fish/run-5.c:2368
+#: fish/run-5.c:2486 fish/run-5.c:2505 fish/run-5.c:2524 fish/run-5.c:2602
+#: fish/run-5.c:2621 fish/run-5.c:2640 fish/run-5.c:2659 fish/run-5.c:2824
+#: fish/run-5.c:3046 fish/run-5.c:3063 fish/run-5.c:3080 fish/run-5.c:3097
+#: fish/run-5.c:3114 fish/run-5.c:3260 fish/run-5.c:3277 fish/run-5.c:3294
+#: fish/run-5.c:3311 fish/run-6.c:192 fish/run-6.c:503 fish/run-6.c:548
+#: fish/run-6.c:687 fish/run-6.c:706 fish/run-6.c:862 fish/run-6.c:898
+#: fish/run-6.c:1193 fish/run-6.c:1318 fish/run-6.c:1546 fish/run-6.c:1565
+#: fish/run-6.c:1610 fish/run-6.c:1629 fish/run-6.c:1711 fish/run-6.c:1857
+#: fish/run-6.c:1991 fish/run-6.c:2073 fish/run-6.c:2160
+#, c-format
+msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
+msgstr "%s: %s: nederīgs vesela skaitļa parametrs (%s atgrieza %u)\n"
+
+#: fish/run-0.c:537 fish/run-0.c:610 fish/run-0.c:720 fish/run-0.c:973
+#: fish/run-0.c:1787 fish/run-0.c:1820 fish/run-0.c:1843 fish/run-0.c:2076
+#: fish/run-0.c:2576 fish/run-0.c:2672 fish/run-1.c:932 fish/run-1.c:1016
+#: fish/run-1.c:1438 fish/run-1.c:1673 fish/run-1.c:1692 fish/run-1.c:1961
+#: fish/run-1.c:2030 fish/run-1.c:2053 fish/run-1.c:2162 fish/run-1.c:2181
+#: fish/run-1.c:2200 fish/run-1.c:2501 fish/run-1.c:2604 fish/run-2.c:225
+#: fish/run-2.c:315 fish/run-2.c:629 fish/run-2.c:648 fish/run-2.c:929
+#: fish/run-2.c:1600 fish/run-2.c:1651 fish/run-2.c:1748 fish/run-2.c:1985
+#: fish/run-2.c:2038 fish/run-2.c:2095 fish/run-2.c:2413 fish/run-3.c:579
+#: fish/run-3.c:791 fish/run-3.c:880 fish/run-3.c:1489 fish/run-3.c:1532
+#: fish/run-3.c:2114 fish/run-3.c:2393 fish/run-3.c:2416 fish/run-3.c:2732
+#: fish/run-3.c:2778 fish/run-3.c:2821 fish/run-3.c:2865 fish/run-3.c:2884
+#: fish/run-3.c:2903 fish/run-3.c:2976 fish/run-3.c:3083 fish/run-3.c:3125
+#: fish/run-3.c:3718 fish/run-3.c:3741 fish/run-3.c:3786 fish/run-3.c:3809
+#: fish/run-3.c:4107 fish/run-4.c:145 fish/run-4.c:309 fish/run-4.c:654
+#: fish/run-4.c:977 fish/run-4.c:1308 fish/run-4.c:1398 fish/run-4.c:1465
+#: fish/run-4.c:1509 fish/run-4.c:1554 fish/run-4.c:1573 fish/run-4.c:1592
+#: fish/run-4.c:1773 fish/run-4.c:1817 fish/run-4.c:1860 fish/run-4.c:1904
+#: fish/run-4.c:2381 fish/run-5.c:936 fish/run-5.c:1065 fish/run-5.c:1626
+#: fish/run-5.c:1674 fish/run-5.c:1718 fish/run-5.c:1836 fish/run-5.c:1864
+#: fish/run-5.c:1887 fish/run-5.c:1951 fish/run-5.c:2106 fish/run-5.c:2149
+#: fish/run-5.c:2193 fish/run-5.c:2237 fish/run-5.c:2374 fish/run-5.c:2492
+#: fish/run-5.c:2511 fish/run-5.c:2530 fish/run-5.c:2608 fish/run-5.c:2627
+#: fish/run-5.c:2646 fish/run-5.c:2665 fish/run-5.c:3120 fish/run-6.c:198
+#: fish/run-6.c:509 fish/run-6.c:693 fish/run-6.c:712 fish/run-6.c:1199
+#: fish/run-6.c:1324 fish/run-6.c:1552 fish/run-6.c:1571 fish/run-6.c:1616
+#: fish/run-6.c:2079 fish/run-6.c:2166
+#, c-format
+msgid "%s: %s: integer out of range\n"
+msgstr "%s: %s: vesels skaitlis ārpus diapazona\n"
+
+#: fish/setenv.c:40
+#, c-format
+msgid "use '%s VAR value' to set an environment variable\n"
+msgstr "lai iestatītu vides mainīgo, izmantojiet „%s MAINĪGAIS vērtība”\n"
+
+#: fish/setenv.c:62
+#, c-format
+msgid "use '%s VAR' to unset an environment variable\n"
+msgstr "lai noņemtu vides mainīgo, izmantojiet „%s MAINĪGAIS”\n"
+
+#: fish/supported.c:58
+msgid "yes"
+msgstr "jā"
+
+#: fish/supported.c:58
+msgid "no"
+msgstr "nē"
+
+#: fish/time.c:41
+#, c-format
+msgid "use 'time command [args...]'\n"
+msgstr "izmantojiet „time komanda [argumenti...]”\n"
+
+#: fuse/guestmount.c:106
+#, c-format
+msgid ""
+"%s: FUSE module for libguestfs\n"
+"%s lets you mount a virtual machine filesystem\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] mountpoint\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --fd=FD              Write to pipe FD when mountpoint is ready\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --fuse-help          Display extra FUSE options\n"
+"  -i|--inspector       Automatically mount filesystems\n"
+"  --help               Display help message and exit\n"
+"  --key selector       Specify a LUKS key\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
+"  --no-fork            Don't daemonize\n"
+"  -n|--no-sync         Don't autosync\n"
+"  -o|--option opt      Pass extra option to FUSE\n"
+"  --pid-file filename  Write PID to filename\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            For backwards compat only, does nothing\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
+"  -x|--trace           Trace guestfs API calls\n"
+msgstr ""
+"%s: libguestfs FUSE modulis\n"
+"%s ļauj montēt virtuālās mašīnas failu sistēmu\n"
+"Autortiesības (C) 2009-2025 Red Hat Inc.\n"
+"Lietošana:\n"
+"  %s [--opcijas] montēšanas_punkts\n"
+"Opcijas:\n"
+"  -a|--add image       Pievienot attēlu\n"
+"  --blocksize[=512|4096]\n"
+"                       Iestatīt diska sektora izmēru opcijai -a\n"
+"  -c|--connect uri     Norādīt libvirt URI opcijai -d\n"
+"  --dir-cache-timeout  Iestatīt readdir kešatmiņas noildzi (noklusējums 5 s)"
+"\n"
+"  -d|--domain guest    Pievienot diskus no libvirt viesa\n"
+"  --echo-keys          Neizslēgt paroles frāžu atbalsi\n"
+"  --fd=FD              Rakstīt konveijerā FD, kad montēšanas punkts ir "
+"gatavs\n"
+"  --format[=raw|..]    Piespiest diska formātu opcijai -a\n"
+"  --fuse-help          Rādīt papildu FUSE opcijas\n"
+"  -i|--inspector       Automātiski montēt failu sistēmas\n"
+"  --help               Parādīt palīdzības ziņojumu un iziet\n"
+"  --key selector       Norādīt LUKS atslēgu\n"
+"  --keys-from-stdin    Nolasīt paroles frāzes no stdin\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]] Montēt dev uz mnt (ja izlaists, /)\n"
+"  --no-fork            Nedarboties kā dēmonam\n"
+"  -n|--no-sync         Nesinhronizēt automātiski\n"
+"  -o|--option opt      Nodot FUSE papildu opciju\n"
+"  --pid-file filename  Ierakstīt PID failā filename\n"
+"  -r|--ro              Montēt tikai lasīšanai\n"
+"  --selinux            Tikai atpakaļsaderībai, neko nedara\n"
+"  -v|--verbose         Detalizēti ziņojumi\n"
+"  -V|--version         Parādīt versiju un iziet\n"
+"  -w|--rw              Montēt lasīšanai/rakstīšanai\n"
+"  -x|--trace           Izsekot guestfs API izsaukumus\n"
+
+#: fuse/guestmount.c:254
+#, c-format
+msgid "unable to parse --fd option value: %s"
+msgstr "nevar parsēt opcijas --fd vērtību: %s"
+
+#: fuse/guestmount.c:326 rescue/rescue.c:348
+#, c-format
+msgid "%s: error: you must specify at least one -a or -d option.\n"
+msgstr "%s: kļūda: jānorāda vismaz viena opcija -a vai -d.\n"
+
+#: fuse/guestmount.c:331
+#, c-format
+msgid "%s: error: you must specify either -i at least one -m option.\n"
+msgstr "%s: kļūda: jānorāda vai nu -i, vai vismaz viena opcija -m.\n"
+
+#: fuse/guestmount.c:339
+#, c-format
+msgid "you must specify a mountpoint in the host filesystem"
+msgstr "jānorāda montēšanas punkts resursdatora failu sistēmā"
+
+#: fuse/guestunmount.c:61
+#, c-format
+msgid ""
+"%s: clean up a mounted filesystem\n"
+"Copyright (C) 2013 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--fd=FD] mountpoint\n"
+"Options:\n"
+"  --fd=FD              Pipe file descriptor to monitor\n"
+"  --help               Display help message and exit\n"
+"  -q|--quiet           Don't print fusermount errors\n"
+"  --no-retry           Don't retry fusermount\n"
+"  --retry=N            Retry fusermount N times (default: 5)\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+msgstr ""
+"%s: sakopt montētu failu sistēmu\n"
+"Autortiesības (C) 2013 Red Hat Inc.\n"
+"Lietošana:\n"
+"  %s [--fd=FD] montēšanas_punkts\n"
+"Opcijas:\n"
+"  --fd=FD              Uzraudzāmais konveijera faila deskriptors\n"
+"  --help               Parādīt palīdzības ziņojumu un iziet\n"
+"  -q|--quiet           Neizvadīt fusermount kļūdas\n"
+"  --no-retry           Neatkārtot fusermount\n"
+"  --retry=N            Atkārtot fusermount N reizes (noklusējums: 5)\n"
+"  -v|--verbose         Detalizēti ziņojumi\n"
+"  -V|--version         Parādīt versiju un iziet\n"
+
+#: fuse/guestunmount.c:121
+#, c-format
+msgid "cannot parse fd option ‘%s’"
+msgstr "nevar parsēt fd opciju „%s”"
+
+#: fuse/guestunmount.c:127
+#, c-format
+msgid "cannot parse retries option or value is too large ‘%s’"
+msgstr "nevar parsēt retries opciju vai vērtība ir pārāk liela „%s”"
+
+#: fuse/guestunmount.c:158
+#, c-format
+msgid "you must specify a mountpoint in the host filesystem\n"
+msgstr "jānorāda montēšanas punkts resursdatora failu sistēmā\n"
+
+#: fuse/guestunmount.c:205
+#, c-format
+msgid "%s: failed to unmount %s: %s\n"
+msgstr "%s: neizdevās atmontēt %s: %s\n"
+
+#: fuse/guestunmount.c:216
+#, c-format
+msgid "%s: %s is not mounted: %s\n"
+msgstr "%s: %s nav montēts: %s\n"
+
+#: gnulib/lib/error.c:146
+msgid "Unknown system error"
+msgstr "Nezināma sistēmas kļūda"
+
+#: lib/appliance-kcmdline.c:74
+#, c-format
+msgid "open: %s"
+msgstr "open: %s"
+
+#: lib/appliance-kcmdline.c:83
+#, c-format
+msgid "%s: cannot read extfs magic in superblock"
+msgstr "%s: nevar nolasīt extfs maģisko vērtību superblokā"
+
+#: lib/appliance-kcmdline.c:90
+#, c-format
+msgid "%s: appliance is not an extfs filesystem"
+msgstr "%s: palīgsistēma nav extfs failu sistēma"
+
+#: lib/appliance-kcmdline.c:96
+#, c-format
+msgid "%s: cannot read UUID in superblock"
+msgstr "%s: nevar nolasīt UUID superblokā"
+
+#: lib/appliance.c:226
+#, c-format
+msgid ""
+"cannot find any suitable libguestfs supermin, fixed or old-style appliance "
+"on LIBGUESTFS_PATH (search path: %s)"
+msgstr ""
+"LIBGUESTFS_PATH neizdevās atrast nevienu piemērotu libguestfs supermin, "
+"fiksēto vai vecā stila palīgsistēmu (meklēšanas ceļš: %s)"
+
+#: lib/available.c:72 lib/available.c:96
+#, c-format
+msgid "%s: unknown group"
+msgstr "%s: nezināma grupa"
+
+#: lib/available.c:75
+#, c-format
+msgid "%s: group not available"
+msgstr "%s: grupa nav pieejama"
+
+#: lib/conn-socket.c:70
+msgid "accept_connection called twice"
+msgstr "accept_connection izsaukts divreiz"
+
+#: lib/conn-socket.c:149
+msgid "read_data: socket not connected"
+msgstr "read_data: ligzda nav savienota"
+
+#: lib/conn-socket.c:224
+msgid "can_read_data: socket not connected"
+msgstr "can_read_data: ligzda nav savienota"
+
+#: lib/conn-socket.c:253
+msgid "write_data: socket not connected"
+msgstr "write_data: ligzda nav savienota"
+
+#: lib/conn-socket.c:363
+msgid "error reading console messages from the appliance"
+msgstr "kļūda, lasot konsoles ziņojumus no palīgsistēmas"
+
+#: lib/conn-socket.c:406
+msgid "console socket not connected"
+msgstr "konsoles ligzda nav savienota"
+
+#: lib/copy-in-out.c:51
+#, c-format
+msgid "source ‘%s’ does not exist (or cannot be read)"
+msgstr "avots „%s” neeksistē (vai to nevar nolasīt)"
+
+#: lib/copy-in-out.c:60 lib/copy-in-out.c:142
+#, c-format
+msgid "target ‘%s’ is not a directory"
+msgstr "mērķis „%s” nav direktorija"
+
+#: lib/copy-in-out.c:179
+#, c-format
+msgid "‘%s’ is not a file or directory"
+msgstr "„%s” nav fails vai direktorija"
+
+#: lib/copy-in-out.c:245
+msgid "error: argument is zero length or longer than maximum permitted"
+msgstr "kļūda: arguments ir nulles garuma vai garāks par maksimāli atļauto"
+
+#: lib/create.c:66
+msgid "if using a backing file, size must be passed as -1"
+msgstr "izmantojot atbalsta failu, izmēram jābūt nodotam kā -1"
+
+#: lib/create.c:74
+#, c-format
+msgid "invalid size: %<PRIi64>"
+msgstr "nederīgs izmērs: %<PRIi64>"
+
+#: lib/create.c:82
+msgid "backingfile cannot be used for raw format disks"
+msgstr "neapstrādāta formāta diskiem backingfile nevar izmantot"
+
+#: lib/create.c:97
+#, c-format
+msgid "unsupported format ‘%s’"
+msgstr "neatbalstīts formāts „%s”"
+
+#: lib/create.c:109
+#, c-format
+msgid "cannot open block device: %s"
+msgstr "nevar atvērt bloku ierīci: %s"
+
+#: lib/create.c:127 lib/create.c:226
+#, c-format
+msgid "%s: close"
+msgstr "%s: close"
+
+#: lib/create.c:145
+msgid "backingformat parameter cannot be used with raw format"
+msgstr "parametru backingformat nevar izmantot ar neapstrādātu formātu"
+
+#: lib/create.c:155 lib/create.c:299
+#, c-format
+msgid "invalid value for preallocation parameter ‘%s’"
+msgstr "nederīga parametra preallocation vērtība „%s”"
+
+#: lib/create.c:161
+msgid "compat parameter cannot be used with raw format"
+msgstr "parametru compat nevar izmantot ar neapstrādātu formātu"
+
+#: lib/create.c:165
+msgid "clustersize parameter cannot be used with raw format"
+msgstr "parametru clustersize nevar izmantot ar neapstrādātu formātu"
+
+#: lib/create.c:172
+#, c-format
+msgid "refusing to overwrite char device ‘%s’"
+msgstr "atsakās pārrakstīt rakstzīmju ierīci „%s”"
+
+#: lib/create.c:182
+#, c-format
+msgid "cannot create raw file: %s"
+msgstr "nevar izveidot neapstrādātu failu: %s"
+
+#: lib/create.c:188
+#, c-format
+msgid "%s: truncate"
+msgstr "%s: truncate"
+
+#: lib/create.c:200
+#, c-format
+msgid "%s: fallocate"
+msgstr "%s: fallocate"
+
+#: lib/create.c:215
+#, c-format
+msgid "%s: write"
+msgstr "%s: write"
+
+#: lib/create.c:276
+#, c-format
+msgid "invalid value for backingformat parameter ‘%s’"
+msgstr "nederīga parametra backingformat vērtība „%s”"
+
+#: lib/create.c:307
+#, c-format
+msgid "invalid value for compat parameter ‘%s’"
+msgstr "nederīga parametra compat vērtība „%s”"
+
+#: lib/create.c:315
+#, c-format
+msgid "invalid value for clustersize parameter ‘%d’"
+msgstr "nederīga parametra clustersize vērtība „%d”"
+
+#: lib/drives.c:83
+msgid "this backend does not support adding read-only drives"
+msgstr "šī aizmugursistēma neatbalsta tikai lasāmu diskdziņu pievienošanu"
+
+#: lib/drives.c:174
+msgid "curl: you must specify exactly one server"
+msgstr "curl: jānorāda tieši viens serveris"
+
+#: lib/drives.c:180
+msgid "curl: only tcp transport is supported"
+msgstr "curl: tiek atbalstīts tikai tcp transports"
+
+#: lib/drives.c:185
+msgid "curl: pathname should not be an empty string"
+msgstr "curl: ceļa nosaukums nedrīkst būt tukša virkne"
+
+#: lib/drives.c:190
+msgid "curl: pathname must begin with a '/'"
+msgstr "curl: ceļa nosaukumam jāsākas ar „/”"
+
+#: lib/drives.c:214
+msgid "nbd: you cannot specify a username with this protocol"
+msgstr "nbd: ar šo protokolu nevar norādīt lietotājvārdu"
+
+#: lib/drives.c:218
+msgid "nbd: you cannot specify a secret with this protocol"
+msgstr "nbd: ar šo protokolu nevar norādīt noslēpumu"
+
+#: lib/drives.c:223
+msgid "nbd: you must specify exactly one server"
+msgstr "nbd: jānorāda tieši viens serveris"
+
+#: lib/drives.c:242
+msgid "rbd: only tcp transport is supported"
+msgstr "rbd: tiek atbalstīts tikai tcp transports"
+
+#: lib/drives.c:246
+msgid "rbd: port number must be specified"
+msgstr "rbd: jānorāda porta numurs"
+
+#: lib/drives.c:252
+msgid "rbd: image name parameter should not be an empty string"
+msgstr "rbd: attēla nosaukuma parametrs nedrīkst būt tukša virkne"
+
+#: lib/drives.c:257
+msgid "rbd: image name must not begin with a '/'"
+msgstr "rbd: attēla nosaukums nedrīkst sākties ar „/”"
+
+#: lib/drives.c:269
+msgid "ssh: you must specify exactly one server"
+msgstr "ssh: jānorāda tieši viens serveris"
+
+#: lib/drives.c:275
+msgid "ssh: only tcp transport is supported"
+msgstr "ssh: tiek atbalstīts tikai tcp transports"
+
+#: lib/drives.c:280
+msgid "ssh: pathname should not be an empty string"
+msgstr "ssh: ceļa nosaukums nedrīkst būt tukša virkne"
+
+#: lib/drives.c:285
+msgid "ssh: pathname must begin with a '/'"
+msgstr "ssh: ceļa nosaukumam jāsākas ar „/”"
+
+#: lib/drives.c:290
+msgid "ssh: username should not be an empty string"
+msgstr "ssh: lietotājvārds nedrīkst būt tukša virkne"
+
+#: lib/drives.c:302
+msgid "iscsi: you must specify exactly one server"
+msgstr "iscsi: jānorāda tieši viens serveris"
+
+#: lib/drives.c:308
+msgid "iscsi: only tcp transport is supported"
+msgstr "iscsi: tiek atbalstīts tikai tcp transports"
+
+#: lib/drives.c:313
+msgid "iscsi: target name should not be an empty string"
+msgstr "iscsi: mērķa nosaukums nedrīkst būt tukša virkne"
+
+#: lib/drives.c:318
+msgid "iscsi: target string must not begin with a '/'"
+msgstr "iscsi: mērķa virkne nedrīkst sākties ar „/”"
+
+#: lib/drives.c:345
+msgid "for device ‘/dev/null’, format must be ‘raw’"
+msgstr "ierīcei „/dev/null” formātam jābūt „raw”"
+
+#: lib/drives.c:590
+msgid "missing Unix domain socket path"
+msgstr "trūkst Unix domēna ligzdas ceļa"
+
+#: lib/drives.c:602
+#, c-format
+msgid "invalid port number ‘%s’"
+msgstr "nederīgs porta numurs „%s”"
+
+#: lib/drives.c:609
+#, c-format
+msgid "invalid hostname ‘%s’"
+msgstr "nederīgs resursdatora nosaukums „%s”"
+
+#: lib/drives.c:620
+#, c-format
+msgid "invalid hostname or server string ‘%s’"
+msgstr "nederīgs resursdatora nosaukums vai servera virkne „%s”"
+
+#: lib/drives.c:698
+msgid "discard parameter must be ‘disable’, ‘enable’ or ‘besteffort’"
+msgstr "parametram discard jābūt „disable”, „enable” vai „besteffort”"
+
+#: lib/drives.c:715
+msgid "discard support cannot be enabled on read-only drives"
+msgstr "tikai lasāmos diskdziņos discard atbalstu nevar iespējot"
+
+#: lib/drives.c:721
+#, c-format
+msgid "%s parameter is empty or contains disallowed characters"
+msgstr "parametrs %s ir tukšs vai satur neatļautas rakstzīmes"
+
+#: lib/drives.c:727
+msgid "label parameter is empty, too long, or contains disallowed characters"
+msgstr "parametrs label ir tukšs, pārāk garš vai satur neatļautas rakstzīmes"
+
+#: lib/drives.c:733
+msgid "cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"
+msgstr "parametram cachemode jābūt „writeback” (noklusējums) vai „unsafe”"
+
+#: lib/drives.c:738
+#, c-format
+msgid "%s parameter is invalid"
+msgstr "parametrs %s nav derīgs"
+
+#: lib/drives.c:745
+msgid "you cannot specify a server with file-backed disks"
+msgstr "ar failos balstītiem diskiem nevar norādīt serveri"
+
+#: lib/drives.c:750
+msgid "you cannot specify a username with file-backed disks"
+msgstr "ar failos balstītiem diskiem nevar norādīt lietotājvārdu"
+
+#: lib/drives.c:754
+msgid "you cannot specify a secret with file-backed disks"
+msgstr "ar failos balstītiem diskiem nevar norādīt noslēpumu"
+
+#: lib/drives.c:805
+#, c-format
+msgid "unknown protocol ‘%s’"
+msgstr "nezināms protokols „%s”"
+
+#: lib/drives.c:822 lib/drives.c:909
+msgid "hotplugging support was removed in libguestfs 1.48"
+msgstr "karstās pievienošanas atbalsts tika noņemts libguestfs 1.48"
+
+#: lib/drives.c:980
+#, c-format
+msgid "%s: device not found"
+msgstr "%s: ierīce nav atrasta"
+
+#: lib/drives.c:990
+msgid "drive index out of range"
+msgstr "diskdziņa indekss ārpus diapazona"
+
+#: lib/errors.c:426
+#, c-format
+msgid "libguestfs: error: %s\n"
+msgstr "libguestfs: kļūda: %s\n"
+
+#: lib/errors.c:454
+#, c-format
+msgid "<truncated, original size %zu bytes>"
+msgstr "<saīsināts, sākotnējais izmērs %zu baiti>"
+
+#: lib/errors.c:485
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr "guestfs_launch neizdevās, skatiet iepriekšējos kļūdu ziņojumus"
+
+#: lib/errors.c:488
+msgid ""
+"guestfs_launch failed.\n"
+"This usually means the libguestfs appliance failed to start or crashed.\n"
+msgstr ""
+"guestfs_launch neizdevās.\n"
+"Parasti tas nozīmē, ka libguestfs palīgsistēmai neizdevās palaisties vai tā "
+"avarēja.\n"
+
+#: lib/errors.c:501
+msgid ""
+"appliance closed the connection unexpectedly, see earlier error messages"
+msgstr ""
+"palīgsistēma negaidīti aizvēra savienojumu, skatiet iepriekšējos kļūdu "
+"ziņojumus"
+
+#: lib/errors.c:505
+msgid ""
+"appliance closed the connection unexpectedly.\n"
+"This usually means the libguestfs appliance crashed.\n"
+msgstr ""
+"palīgsistēma negaidīti aizvēra savienojumu.\n"
+"Parasti tas nozīmē, ka libguestfs palīgsistēma avarēja.\n"
+
+#: lib/errors.c:518
+msgid "appliance launch timed out, see earlier error messages"
+msgstr ""
+"palīgsistēmas palaišanai beidzās noildze, skatiet iepriekšējos kļūdu "
+"ziņojumus"
+
+#: lib/errors.c:521
+msgid ""
+"appliance launch timed out.\n"
+"This usually means the kernel or appliance hung during launch.\n"
+msgstr ""
+"palīgsistēmas palaišanai beidzās noildze.\n"
+"Parasti tas nozīmē, ka palaišanas laikā uzkārās kodols vai palīgsistēma.\n"
+
+#: lib/errors.c:551
+#, c-format
+msgid "%s, see debug messages above"
+msgstr "%s, skatiet augstāk esošos atkļūdošanas ziņojumus"
+
+#: lib/errors.c:553
+#, c-format
+msgid "%s: %s: %s, see debug messages above"
+msgstr "%s: %s: %s, skatiet augstāk esošos atkļūdošanas ziņojumus"
+
+#: lib/errors.c:558
+#, c-format
+msgid ""
+"%s.\n"
+"To see full error messages you may need to enable debugging.\n"
+msgstr ""
+"%s.\n"
+"Lai redzētu pilnus kļūdu ziņojumus, iespējams, jāiespējo atkļūdošana.\n"
+
+#: lib/errors.c:563
+#, c-format
+msgid ""
+"%s: %s: %s.\n"
+"To see full error messages you may need to enable debugging.\n"
+msgstr ""
+"%s: %s: %s.\n"
+"Lai redzētu pilnus kļūdu ziņojumus, iespējams, jāiespējo atkļūdošana.\n"
+
+#: lib/fuse.c:978
+msgid "filesystem is already mounted in another thread"
+msgstr "failu sistēma jau ir montēta citā pavedienā"
+
+#: lib/fuse.c:1002
+#, c-format
+msgid "fuse_opt_add_arg: %s"
+msgstr "fuse_opt_add_arg: %s"
+
+#: lib/fuse.c:1019
+#, c-format
+msgid "fuse_mount failed: %s, see error messages above"
+msgstr "fuse_mount neizdevās: %s, skatiet augstāk esošos kļūdu ziņojumus"
+
+#: lib/fuse.c:1038
+#, c-format
+msgid "fuse_new: %s"
+msgstr "fuse_new: %s"
+
+#: lib/fuse.c:1067
+msgid "you must call guestfs_mount_local first"
+msgstr "vispirms jāizsauc guestfs_mount_local"
+
+#: lib/fuse.c:1078
+#, c-format
+msgid ""
+"you must call ‘guestfs_mount’ first to mount a filesystem on '/'.\n"
+"Note: ‘%s’ is still mounted.  Use ‘guestunmount %s’ to clean up."
+msgstr ""
+"vispirms jāizsauc „guestfs_mount”, lai montētu failu sistēmu uz „/”.\n"
+"Piezīme: „%s” joprojām ir montēts.  Lai sakoptu, izmantojiet „guestunmount %s"
+"”."
+
+#: lib/fuse.c:1088
+#, c-format
+msgid "fuse_loop: %s"
+msgstr "fuse_loop: %s"
+
+#: lib/fuse.c:1139
+msgid "no filesystem is mounted"
+msgstr "neviena failu sistēma nav montēta"
+
+#: lib/fuse.c:1258
+msgid "could not initialize dir cache hashtables"
+msgstr "neizdevās inicializēt direktoriju kešatmiņas jaucējtabulas"
+
+#: lib/fuse.c:1517
+msgid ""
+"FUSE is not supported in this build of libguestfs because libfuse was not "
+"found when libguestfs was compiled"
+msgstr ""
+"šajā libguestfs būvējumā FUSE netiek atbalstīts, jo, kompilējot libguestfs, "
+"netika atrasta libfuse"
+
+#: lib/handle.c:133
+msgid ""
+"libguestfs was built with an invalid default backend, using ‘direct’ instead"
+msgstr ""
+"libguestfs tika būvēts ar nederīgu noklusējuma aizmugursistēmu, tā vietā "
+"tiek izmantota „direct”"
+
+#: lib/handle.c:135
+msgid "‘direct’ backend does not work"
+msgstr "aizmugursistēma „direct” nedarbojas"
+
+#: lib/handle.c:193 lib/handle.c:203
+#, c-format
+msgid "%s=%s: non-boolean value"
+msgstr "%s=%s: ne-Būla vērtība"
+
+#: lib/handle.c:245
+msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
+msgstr "LIBGUESTFS_MEMSIZE vērtība nav skaitliska"
+
+#: lib/handle.c:326
+#, c-format
+msgid "guestfs_close: called twice on the same handle\n"
+msgstr "guestfs_close: izsaukts divreiz tam pašam rokturim\n"
+
+#: lib/handle.c:564
+msgid "get_hv: cannot get default hypervisor before ‘launch’ is called"
+msgstr "get_hv: pirms „launch” izsaukšanas nevar iegūt noklusējuma hipervizoru"
+
+#: lib/handle.c:571
+#, c-format
+msgid ""
+"get_hv: cannot get default hypervisor: the ‘%s’ backend returned no value"
+msgstr ""
+"get_hv: nevar iegūt noklusējuma hipervizoru: aizmugursistēma „%s” neatgrieza "
+"vērtību"
+
+#: lib/handle.c:601
+#, c-format
+msgid "too small value for memsize (must be at least %d)"
+msgstr "memsize vērtība ir pārāk maza (jābūt vismaz %d)"
+
+#: lib/handle.c:718
+msgid ""
+"identifier must contain only alphanumeric characters, underscore or minus "
+"sign"
+msgstr ""
+"identifikators drīkst saturēt tikai burtciparu rakstzīmes, pasvītru vai "
+"mīnusa zīmi"
+
+#: lib/handle.c:824
+msgid "setting not found"
+msgstr "iestatījums nav atrasts"
+
+#: lib/info.c:81
+msgid "qemu-img info: JSON output did not contain ‘format’ key"
+msgstr "qemu-img info: JSON izvade nesaturēja atslēgu „format”"
+
+#: lib/info.c:104
+msgid "qemu-img info: JSON output did not contain ‘virtual-size’ key"
+msgstr "qemu-img info: JSON izvade nesaturēja atslēgu „virtual-size”"
+
+#: lib/info.c:126
+msgid "qemu-img info: JSON output was not an object"
+msgstr "qemu-img info: JSON izvade nebija objekts"
+
+#: lib/info.c:172
+msgid ""
+"qemu-img info command produced no output, but didn't return an error status "
+"code"
+msgstr ""
+"komanda qemu-img info neradīja izvadi, bet neatgrieza kļūdas statusa kodu"
+
+#: lib/info.c:207
+#, c-format
+msgid "qemu-img info: JSON parse error: %s"
+msgstr "qemu-img info: JSON parsēšanas kļūda: %s"
+
+#: lib/inspect-icon.c:730
+#, c-format
+msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
+msgstr "%s izmērs ir nesaprātīgi liels (%<PRIi64> baiti)"
+
+#: lib/launch-direct.c:155
+#, c-format
+msgid ""
+"current user is not a member of the KVM group (group ID %d). This user "
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
+"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
+"might need to log out and log in again)."
+msgstr ""
+"pašreizējais lietotājs nav KVM grupas (grupas ID %d) dalībnieks. Šis "
+"lietotājs nevar piekļūt /dev/kvm, tāpēc libguestfs var darboties ļoti lēni. "
+"Ieteicams izpildīt „chmod 0666 /dev/kvm” vai pievienot pašreizējo lietotāju "
+"KVM grupai (iespējams, būs jāizrakstās un jāpiesakās vēlreiz)."
+
+#: lib/launch-direct.c:391
+#, c-format
+msgid "passt was killed with signal %d"
+msgstr "passt tika nogalināts ar signālu %d"
+
+#: lib/launch-direct.c:396
+#, c-format
+msgid "internal error: unexpected exit status from passt (%d)"
+msgstr "iekšēja kļūda: negaidīts passt izejas statuss (%d)"
+
+#: lib/launch-direct.c:403
+#, c-format
+msgid "passt exited with status %d"
+msgstr "passt beidza darbu ar statusu %d"
+
+#: lib/launch-direct.c:424
+#, c-format
+msgid "failed to parse passt PID from '%s'"
+msgstr "neizdevās parsēt passt PID no „%s”"
+
+#: lib/launch-direct.c:494
+msgid "you must call guestfs_add_drive before guestfs_launch"
+msgstr "pirms guestfs_launch jāizsauc guestfs_add_drive"
+
+#: lib/launch-direct.c:1032 lib/launch-libvirt.c:672
+msgid "qemu launched and contacted daemon, but state != READY"
+msgstr "qemu palaists un sazinājās ar dēmonu, bet stāvoklis != READY"
+
+#: lib/launch-libvirt.c:61
+#, c-format
+msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
+msgstr "%s:%d: kļūda, veidojot libvirt XML pie izsaukuma \"%s\""
+
+#: lib/launch-libvirt.c:210
+msgid ""
+"could not auto-detect the format.\n"
+"If the format is known, pass the format to libguestfs, eg. using the\n"
+"‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
+msgstr ""
+"neizdevās automātiski noteikt formātu.\n"
+"Ja formāts ir zināms, nododiet to libguestfs, piem., ar opciju\n"
+"„--format” vai ar „add-drive” neobligāto argumentu „format”."
+
+#: lib/launch-libvirt.c:221
+msgid ""
+"could not auto-detect the format when using a non-file protocol.\n"
+"If the format is known, pass the format to libguestfs, eg. using the\n"
+"‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."
+msgstr ""
+"izmantojot ne-failu protokolu, neizdevās automātiski noteikt formātu.\n"
+"Ja formāts ir zināms, nododiet to libguestfs, piem., ar opciju\n"
+"„--format” vai ar „add-drive” neobligāto argumentu „format”."
+
+#: lib/launch-libvirt.c:343
+msgid "direct mode flag is not supported yet for libvirt backend"
+msgstr "libvirt aizmugursistēmai tiešā režīma karogs vēl netiek atbalstīts"
+
+#: lib/launch-libvirt.c:377
+#, c-format
+msgid "could not connect to libvirt (URI = %s)"
+msgstr "neizdevās savienoties ar libvirt (URI = %s)"
+
+#: lib/launch-libvirt.c:398
+msgid "could not get libvirt capabilities"
+msgstr "neizdevās iegūt libvirt spējas"
+
+#: lib/launch-libvirt.c:419
+msgid "could not get libvirt domain capabilities"
+msgstr "neizdevās iegūt libvirt domēna spējas"
+
+#: lib/launch-libvirt.c:605
+msgid "could not create appliance through libvirt. Original error from libvirt"
+msgstr "neizdevās izveidot palīgsistēmu caur libvirt. Sākotnējā libvirt kļūda"
+
+#: lib/launch-libvirt.c:737
+msgid "unable to parse capabilities XML returned by libvirt"
+msgstr "nevar parsēt libvirt atgriezto spēju XML"
+
+#: lib/launch-libvirt.c:743 lib/launch-libvirt.c:845 lib/libvirt-domain.c:397
+#: lib/libvirt-domain.c:481
+msgid "unable to create new XPath context"
+msgstr "nevar izveidot jaunu XPath kontekstu"
+
+#: lib/launch-libvirt.c:753 lib/launch-libvirt.c:853 lib/launch-libvirt.c:869
+#, c-format
+msgid "unable to evaluate XPath expression: %s"
+msgstr "nevar novērtēt XPath izteiksmi: %s"
+
+#: lib/launch-libvirt.c:792
+#, c-format
+msgid ""
+"libvirt hypervisor doesn’t support qemu or KVM,\n"
+"so we cannot create the libguestfs appliance.\n"
+"The current backend is ‘%s’.\n"
+"Check that the PATH environment variable is set and contains\n"
+"the path to the qemu (‘qemu-system-*’) or KVM (‘qemu-kvm’, ‘kvm’ etc).\n"
+"Or: try setting:\n"
+"  export LIBGUESTFS_BACKEND=libvirt:qemu:///session\n"
+"Or: if you want to have libguestfs run qemu directly, try:\n"
+"  export LIBGUESTFS_BACKEND=direct\n"
+"For further help, read the guestfs(3) man page and libguestfs FAQ."
+msgstr ""
+"libvirt hipervizors neatbalsta qemu vai KVM,\n"
+"tāpēc nevar izveidot libguestfs palīgsistēmu.\n"
+"Pašreizējā aizmugursistēma ir „%s”.\n"
+"Pārbaudiet, vai vides mainīgais PATH ir iestatīts un satur\n"
+"ceļu uz qemu („qemu-system-*”) vai KVM („qemu-kvm”, „kvm” u. c.).\n"
+"Vai: mēģiniet iestatīt:\n"
+"  export LIBGUESTFS_BACKEND=libvirt:qemu:///session\n"
+"Vai: ja vēlaties, lai libguestfs palaiž qemu tieši, mēģiniet:\n"
+"  export LIBGUESTFS_BACKEND=direct\n"
+"Papildu palīdzību skatiet guestfs(3) rokasgrāmatas lapā un libguestfs BUJ."
+
+#: lib/launch-libvirt.c:839
+msgid "unable to parse domain capabilities XML returned by libvirt"
+msgstr "nevar parsēt libvirt atgriezto domēna spēju XML"
+
+#: lib/launch-libvirt.c:1452 lib/launch-libvirt.c:1700 lib/qemu.c:297
+#, c-format
+msgid "realpath: could not convert ‘%s’ to absolute path"
+msgstr "realpath: neizdevās pārveidot „%s” par absolūto ceļu"
+
+#: lib/launch-libvirt.c:1530
+msgid ""
+"libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
+"try setting LIBGUESTFS_BACKEND=direct"
+msgstr ""
+"libvirt neatbalsta qemu curl draivera protokolus (ftp, http u. c.); mēģiniet "
+"iestatīt LIBGUESTFS_BACKEND=direct"
+
+#: lib/launch-libvirt.c:1890
+msgid "could not define libvirt secret"
+msgstr "neizdevās definēt libvirt noslēpumu"
+
+#: lib/launch-libvirt.c:1901
+msgid "rbd protocol secret must be base64 encoded"
+msgstr "rbd protokola noslēpumam jābūt base64 kodētam"
+
+#: lib/launch-libvirt.c:1905
+#, c-format
+msgid "base64_decode_alloc: %m"
+msgstr "base64_decode_alloc: %m"
+
+#: lib/launch-libvirt.c:1923
+msgid "could not set libvirt secret value"
+msgstr "neizdevās iestatīt libvirt noslēpuma vērtību"
+
+#: lib/launch-libvirt.c:1936
+msgid "could not get UUID from libvirt secret"
+msgstr "neizdevās iegūt UUID no libvirt noslēpuma"
+
+#: lib/launch-libvirt.c:2112
+msgid "could not destroy libvirt domain"
+msgstr "neizdevās iznīcināt libvirt domēnu"
+
+#: lib/launch-libvirt.c:2133 lib/launch-libvirt.c:2166
+#, c-format
+msgid "%s: internal error forming error message"
+msgstr "%s: iekšēja kļūda, veidojot kļūdas ziņojumu"
+
+#: lib/launch.c:66
+msgid "the libguestfs handle has already been launched"
+msgstr "libguestfs rokturis jau ir palaists"
+
+#: lib/launch.c:79
+#, c-format
+msgid ""
+"too many drives have been added, the current backend only supports %d drives"
+msgstr ""
+"pievienots pārāk daudz diskdziņu, pašreizējā aizmugursistēma atbalsta tikai "
+"%d diskdziņus"
+
+#: lib/launch.c:208
+msgid "get-pid can only be called after launch"
+msgstr "get-pid var izsaukt tikai pēc palaišanas"
+
+#: lib/launch.c:214
+msgid "the current backend does not support ‘get-pid’"
+msgstr "pašreizējā aizmugursistēma neatbalsta „get-pid”"
+
+#: lib/launch.c:228
+msgid "the current backend does not allow max disks to be queried"
+msgstr "pašreizējā aizmugursistēma neļauj vaicāt maksimālo disku skaitu"
+
+#: lib/launch.c:242
+msgid "qemu has not been launched yet"
+msgstr "qemu vēl nav palaists"
+
+#: lib/launch.c:305
+#, c-format
+msgid "parameter ‘%s’ isn't allowed"
+msgstr "parametrs „%s” nav atļauts"
+
+#: lib/libvirt-auth.c:96
+#, c-format
+msgid "unknown credential type ‘%s’"
+msgstr "nezināms akreditācijas datu tips „%s”"
+
+#: lib/libvirt-auth.c:101
+msgid "list of supported credentials is too long"
+msgstr "atbalstīto akreditācijas datu saraksts ir pārāk garš"
+
+#: lib/libvirt-auth.c:166
+#, c-format
+msgid ""
+"libvirt needs authentication to connect to libvirt URI %s\n"
+"(see also: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"
+msgstr ""
+"libvirt nepieciešama autentifikācija, lai savienotos ar libvirt URI %s\n"
+"(skatiet arī: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"
+
+#: lib/libvirt-auth.c:242
+#, c-format
+msgid ""
+"%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
+"handler"
+msgstr "%s jāizsauc tikai no GUESTFS_EVENT_LIBVIRT_AUTH notikumu apdarinātāja"
+
+#: lib/libvirt-auth.c:274 lib/libvirt-auth.c:294 lib/libvirt-auth.c:314
+#: lib/libvirt-auth.c:335
+msgid "credential index out of range"
+msgstr "akreditācijas datu indekss ārpus diapazona"
+
+#: lib/libvirt-auth.c:355
+msgid ""
+"libvirt authentication APIs not available since this version of libguestfs "
+"was compiled without libvirt"
+msgstr ""
+"libvirt autentifikācijas API nav pieejami, jo šī libguestfs versija tika "
+"kompilēta bez libvirt"
+
+#: lib/libvirt-domain.c:127
+#, c-format
+msgid "no libvirt domain called ‘%s’: %s"
+msgstr "nav libvirt domēna ar nosaukumu „%s”: %s"
+
+#: lib/libvirt-domain.c:217
+msgid "unknown readonlydisk parameter"
+msgstr "nezināms readonlydisk parametrs"
+
+#: lib/libvirt-domain.c:246
+#, c-format
+msgid "error getting domain info: %s"
+msgstr "kļūda, iegūstot domēna informāciju: %s"
+
+#: lib/libvirt-domain.c:252
+msgid ""
+"error: domain is a live virtual machine.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
+"Use read-only access.  In most libguestfs tools use --ro."
+msgstr ""
+"kļūda: domēns ir darbojoša virtuālā mašīna.\n"
+"Rakstīšana darbojošās virtuālās mašīnas diskos var bojāt diskus.\n"
+"Izmantojiet piekļuvi tikai lasīšanai.  Vairumā libguestfs rīku izmantojiet --"
+"ro."
+
+#: lib/libvirt-domain.c:339
+#, c-format
+msgid ""
+"%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
+"\"error\""
+msgstr ""
+"%s: disks libvirt XML ir atzīmēts kā <readonly/>, un readonlydisk tika "
+"iestatīts uz \"error\""
+
+#: lib/libvirt-domain.c:415 lib/libvirt-domain.c:488
+msgid "unable to evaluate XPath expression"
+msgstr "nevar novērtēt XPath izteiksmi"
+
+#: lib/libvirt-domain.c:434
+msgid "expected <seclabel/> to be an XML element"
+msgstr "gaidīts, ka <seclabel/> būs XML elements"
+
+#: lib/libvirt-domain.c:598
+#, c-format
+msgid "no secret with UUID ‘%s’: %s"
+msgstr "nav noslēpuma ar UUID „%s”: %s"
+
+#: lib/libvirt-domain.c:606
+#, c-format
+msgid "cannot get the value of the secret with UUID ‘%s’: %s"
+msgstr "nevar iegūt noslēpuma ar UUID „%s” vērtību: %s"
+
+#: lib/libvirt-domain.c:634
+#, c-format
+msgid "no secret for usage ‘%s’: %s"
+msgstr "nav noslēpuma lietojumam „%s”: %s"
+
+#: lib/libvirt-domain.c:642
+#, c-format
+msgid "cannot get the value of the secret with usage ‘%s’: %s"
+msgstr "nevar iegūt noslēpuma ar lietojumu „%s” vērtību: %s"
+
+#: lib/libvirt-domain.c:784
+msgid "libvirt domain has no disks"
+msgstr "libvirt domēnam nav disku"
+
+#: lib/libvirt-domain.c:801
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr "kļūda, lasot libvirt XML informāciju: %s"
+
+#: lib/libvirt-domain.c:811
+msgid "unable to parse XML information returned by libvirt"
+msgstr "nevar parsēt libvirt atgriezto XML informāciju"
+
+#: lib/libvirt-domain.c:832
+#, c-format
+msgid "no libvirt pool called ‘%s’: %s"
+msgstr "nav libvirt pūla ar nosaukumu „%s”: %s"
+
+#: lib/libvirt-domain.c:840
+#, c-format
+msgid "no volume called ‘%s’ in the libvirt pool ‘%s’: %s"
+msgstr "nav sējuma ar nosaukumu „%s” libvirt pūlā „%s”: %s"
+
+#: lib/libvirt-domain.c:848
+#, c-format
+msgid "cannot get information of the libvirt volume ‘%s’: %s"
+msgstr "nevar iegūt libvirt sējuma „%s” informāciju: %s"
+
+#: lib/libvirt-domain.c:862
+#, c-format
+msgid "cannot get the filename of the libvirt volume ‘%s’: %s"
+msgstr "nevar iegūt libvirt sējuma „%s” faila nosaukumu: %s"
+
+#: lib/libvirt-domain.c:931
+msgid ""
+"add-domain API not available since this version of libguestfs was compiled "
+"without libvirt"
+msgstr ""
+"add-domain API nav pieejams, jo šī libguestfs versija tika kompilēta bez "
+"libvirt"
+
+#: lib/proto.c:240
+#, c-format
+msgid ""
+"check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
+"synchronization (bad!)\n"
+msgstr ""
+"check_daemon_socket: no dēmona nolasīts 0x%x, gaidīts 0x%x.  Zaudēta "
+"protokola sinhronizācija (slikti!)\n"
+
+#: lib/proto.c:286
+msgid "xdr_guestfs_message_header failed"
+msgstr "xdr_guestfs_message_header neizdevās"
+
+#: lib/proto.c:295
+msgid "dispatch failed to marshal args"
+msgstr "dispatch neizdevās serializēt argumentus"
+
+#: lib/proto.c:389 lib/proto.c:895
+msgid "operation cancelled by user"
+msgstr "lietotājs atcēla darbību"
+
+#: lib/proto.c:464
+#, c-format
+msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
+msgstr "xdr_guestfs_chunk neizdevās (buf = %p, buflen = %zu)"
+
+#: lib/proto.c:562
+#, c-format
+msgid "received magic signature from guestfsd, but in state %d"
+msgstr "no guestfsd saņemts maģiskais paraksts, bet stāvoklī %d"
+
+#: lib/proto.c:581
+#, c-format
+msgid "message length (%u) > maximum possible size (%d)"
+msgstr "ziņojuma garums (%u) > maksimālais iespējamais izmērs (%d)"
+
+#: lib/proto.c:851
+msgid "write to daemon socket"
+msgstr "rakstīšana dēmona ligzdā"
+
+#: lib/proto.c:880
+msgid "receive_file_data: unexpected flag received when reading file chunks"
+msgstr "receive_file_data: lasot faila gabalus, saņemts negaidīts karogs"
+
+#: lib/proto.c:888
+msgid "failed to parse file chunk"
+msgstr "neizdevās parsēt faila gabalu"
+
+#: lib/proto.c:897
+msgid "file receive cancelled by daemon"
+msgstr "dēmons atcēla faila saņemšanu"
+
+#: lib/qemu.c:434
+msgid ""
+"discard cannot be enabled on this drive: the drive has a read-only overlay"
+msgstr ""
+"šim diskdzinim discard nevar iespējot: diskdzinim ir tikai lasāms pārklājums"
+
+#: lib/qemu.c:441
+msgid ""
+"discard cannot be enabled on this drive: you have to specify the format of "
+"the file"
+msgstr "šim diskdzinim discard nevar iespējot: jānorāda faila formāts"
+
+#: lib/qemu.c:451
+#, c-format
+msgid ""
+"discard cannot be enabled on this drive: qemu does not support discard for "
+"‘%s’ format files"
+msgstr ""
+"šim diskdzinim discard nevar iespējot: qemu neatbalsta discard „%s” formāta "
+"failiem"
+
+#: lib/qemu.c:471
+#, c-format
+msgid ""
+"discard cannot be enabled on this drive: protocol ‘%s’ does not support "
+"discard"
+msgstr ""
+"šim diskdzinim discard nevar iespējot: protokols „%s” neatbalsta discard"
+
+#: lib/rescue.c:38
+msgid "no console socket, the handle must be launched"
+msgstr "nav konsoles ligzdas, rokturim jābūt palaistam"
+
+#: lib/rescue.c:44
+msgid "connection class does not support getting the console socket"
+msgstr "savienojuma klase neatbalsta konsoles ligzdas iegūšanu"
+
+#: lib/tmpdirs.c:66
+#, c-format
+msgid "converting path to absolute path: %s: %s: realpath"
+msgstr "pārveido ceļu par absolūto ceļu: %s: %s: realpath"
+
+#: lib/tmpdirs.c:73 lib/tmpdirs.c:80
+#, c-format
+msgid "setting temporary directory"
+msgstr "iestata pagaidu direktoriju"
+
+#: lib/tmpdirs.c:79
+#, c-format
+msgid "%s: %s: ‘%s’ is not a directory"
+msgstr "%s: %s: „%s” nav direktorija"
+
+#: lib/tmpdirs.c:197
+#, c-format
+msgid "%s: cannot create temporary directory"
+msgstr "%s: nevar izveidot pagaidu direktoriju"
+
+#: lib/tmpdirs.c:199
+#, c-format
+msgid ""
+"%s: cannot create temporary directory.  It may be that $XDG_RUNTIME_DIR is "
+"pointing to a directory which we cannot write to, for example if you used "
+"‘su [user]’ to change to this user account (see https://bugzilla.redhat.com/"
+"967509).  You can correct this by adjusting XDG_RUNTIME_DIR and possibly "
+"creating /run/user/%d with the right ownership."
+msgstr ""
+"%s: nevar izveidot pagaidu direktoriju.  Iespējams, $XDG_RUNTIME_DIR norāda "
+"uz direktoriju, kurā nevaram rakstīt, piemēram, ja izmantojāt „su [user]”, "
+"lai pārslēgtos uz šo lietotāja kontu (skatiet https://bugzilla.redhat.com/"
+"967509).  To var labot, pielāgojot XDG_RUNTIME_DIR un, iespējams, "
+"izveidojot /run/user/%d ar pareizām īpašumtiesībām."
+
+#: lib/tmpdirs.c:273
+#, c-format
+msgid "socket path too long: %s/%s"
+msgstr "ligzdas ceļš ir pārāk garš: %s/%s"
+
+#: lib/tmpdirs.c:277
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: lib/tmpdirs.c:325
+#, c-format
+msgid "stat: %s"
+msgstr "stat: %s"
+
+#: lib/tmpdirs.c:330
+#, c-format
+msgid "security: cached appliance %s is not owned by UID %ju"
+msgstr "drošība: kešotās palīgsistēmas %s īpašnieks nav UID %ju"
+
+#: lib/tmpdirs.c:336
+#, c-format
+msgid "security: cached appliance %s is not a directory (mode %o)"
+msgstr "drošība: kešotā palīgsistēma %s nav direktorija (režīms %o)"
+
+#: lib/tmpdirs.c:342
+#, c-format
+msgid "security: cached appliance %s is writable by group or other (mode %o)"
+msgstr ""
+"drošība: kešotajā palīgsistēmā %s var rakstīt grupa vai citi (režīms %o)"
+
+#: lib/version.c:158
+#, c-format
+msgid "could not parse integer in version number: %s"
+msgstr "neizdevās parsēt veselu skaitli versijas numurā: %s"
+
+#: lib/whole-file.c:84
+#, c-format
+msgid "read: %s: unexpected end of file"
+msgstr "read: %s: negaidītas faila beigas"
+
+#: rescue/escape.c:141
+#, c-format
+msgid "attempting to sync filesystems ..."
+msgstr "mēģina sinhronizēt failu sistēmas ..."
+
+#: rescue/escape.c:148
+#, c-format
+msgid "unmounting filesystems ..."
+msgstr "atmontē failu sistēmas ..."
+
+#: rescue/escape.c:186
+#, c-format
+msgid "virt-rescue escape sequences:"
+msgstr "virt-rescue atsoļa secības:"
+
+#: rescue/escape.c:191
+#, c-format
+msgid " ? - print this message"
+msgstr " ? — izvadīt šo ziņojumu"
+
+#: rescue/escape.c:196
+#, c-format
+msgid " h - print this message"
+msgstr " h — izvadīt šo ziņojumu"
+
+#: rescue/escape.c:202
+#, c-format
+msgid " i - print inspection data"
+msgstr " i — izvadīt pārbaudes datus"
+
+#: rescue/escape.c:208
+#, c-format
+msgid " q - quit virt-rescue"
+msgstr " q — iziet no virt-rescue"
+
+#: rescue/escape.c:213
+#, c-format
+msgid " s - sync the filesystems"
+msgstr " s — sinhronizēt failu sistēmas"
+
+#: rescue/escape.c:218
+#, c-format
+msgid " u - unmount filesystems"
+msgstr " u — atmontēt failu sistēmas"
+
+#: rescue/escape.c:223
+#, c-format
+msgid " x - quit virt-rescue"
+msgstr " x — iziet no virt-rescue"
+
+#: rescue/escape.c:228
+#, c-format
+msgid " z - suspend virt-rescue"
+msgstr " z — apturēt virt-rescue"
+
+#: rescue/escape.c:231
+#, c-format
+msgid "to pass the escape key through to the rescue shell, type it twice"
+msgstr "lai nodotu atsoļa taustiņu glābšanas čaulai, nospiediet to divreiz"
+
+#: rescue/escape.c:250
+#, c-format
+msgid "root device: %s"
+msgstr "saknes ierīce: %s"
+
+#: rescue/escape.c:255
+#, c-format
+msgid "  product name: %s"
+msgstr "  produkta nosaukums: %s"
+
+#: rescue/escape.c:262
+#, c-format
+msgid "  type: %s"
+msgstr "  tips: %s"
+
+#: rescue/escape.c:269
+#, c-format
+msgid "  distro: %s"
+msgstr "  distribūcija: %s"
+
+#: rescue/rescue.c:83
+#, c-format
+msgid ""
+"%s: Run a rescue shell on a virtual machine\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --append kernelopts  Append kernel options\n"
+"  --blocksize[=512|4096]\n"
+"                       Set sector size of the disk for -a option\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  -e ^x|none           Set or disable escape key (default ^])\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  -i|--inspector       Automatically mount filesystems\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
+"  --memsize MB         Set memory size in megabytes\n"
+"  --network            Enable network\n"
+"  -r|--ro              Access read-only\n"
+"  --scratch[=N]        Add scratch disk(s)\n"
+"  --selinux            For backwards compat only, does nothing\n"
+"  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: Palaist virtuālajā mašīnā glābšanas čaulu\n"
+"Autortiesības (C) 2009-2025 Red Hat Inc.\n"
+"Lietošana:\n"
+"  %s [--opcijas] -d domēna_nosaukums\n"
+"  %s [--opcijas] -a disk.img [-a disk.img ...]\n"
+"Opcijas:\n"
+"  -a|--add image       Pievienot attēlu\n"
+"  --append kernelopts  Pievienot kodola opcijas\n"
+"  --blocksize[=512|4096]\n"
+"                       Iestatīt diska sektora izmēru opcijai -a\n"
+"  -c|--connect uri     Norādīt libvirt URI opcijai -d\n"
+"  -d|--domain guest    Pievienot diskus no libvirt viesa\n"
+"  -e ^x|none           Iestatīt vai atspējot atsoļa taustiņu (noklusējums ^])"
+"\n"
+"  --format[=raw|..]    Piespiest diska formātu opcijai -a\n"
+"  --help               Rādīt īsu palīdzību\n"
+"  -i|--inspector       Automātiski montēt failu sistēmas\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]] Montēt dev uz mnt (ja izlaists, /)\n"
+"  --memsize MB         Iestatīt atmiņas izmēru megabaitos\n"
+"  --network            Iespējot tīklu\n"
+"  -r|--ro              Piekļūt tikai lasīšanai\n"
+"  --scratch[=N]        Pievienot melnraksta disku(-us)\n"
+"  --selinux            Tikai atpakaļsaderībai, neko nedara\n"
+"  --smp N              Iespējot SMP ar N >= 2 virtuālajiem CPU\n"
+"  -v|--verbose         Detalizēti ziņojumi\n"
+"  -V|--version         Parādīt versiju un iziet\n"
+"  -w|--rw              Montēt lasīšanai/rakstīšanai\n"
+"  -x                   Izsekot libguestfs API izsaukumus\n"
+"Plašāku informāciju skatiet rokasgrāmatas lapā %s(1).\n"
+
+#: rescue/rescue.c:200
+#, c-format
+msgid "could not parse --smp parameter ‘%s’"
+msgstr "neizdevās parsēt parametru --smp „%s”"
+
+#: rescue/rescue.c:203
+#, c-format
+msgid "--smp parameter ‘%s’ should be >= 1"
+msgstr "parametram --smp „%s” jābūt >= 1"
+
+#: rescue/rescue.c:213
+#, c-format
+msgid "could not parse --scratch parameter ‘%s’"
+msgstr "neizdevās parsēt parametru --scratch „%s”"
+
+#: rescue/rescue.c:216
+#, c-format
+msgid "--scratch parameter ‘%s’ should be >= 1"
+msgstr "parametram --scratch „%s” jābūt >= 1"
+
+#: rescue/rescue.c:222
+#, c-format
+msgid "could not parse memory size ‘%s’"
+msgstr "neizdevās parsēt atmiņas izmēru „%s”"
+
+#: rescue/rescue.c:244
+#, c-format
+msgid "unrecognized escape key: %s"
+msgstr "neatpazīts atsoļa taustiņš: %s"
+
+#: rescue/rescue.c:336
+#, c-format
+msgid ""
+"%s: error: extra argument ‘%s’ on command line.\n"
+"Make sure to specify the argument for --format or --scratch like '--"
+"format=%s'.\n"
+msgstr ""
+"%s: kļūda: komandrindā lieks arguments „%s”.\n"
+"Pārliecinieties, ka --format vai --scratch argumentu norādāt šādi: „--"
+"format=%s”.\n"
+
+#: rescue/suggest.c:62
+#, c-format
+msgid ""
+"Inspecting the virtual machine or disk image ...\n"
+"\n"
+msgstr ""
+"Pārbauda virtuālo mašīnu vai diska attēlu ...\n"
+"\n"
+
+#: rescue/suggest.c:81
+#, c-format
+msgid ""
+"This disk contains one or more operating systems.  You can use these mount\n"
+"commands in virt-rescue (at the ><rescue> prompt) to mount the filesystems.\n"
+"\n"
+msgstr ""
+"Šajā diskā ir viena vai vairākas operētājsistēmas.  Lai montētu failu "
+"sistēmas,\n"
+"virt-rescue (uzvednē ><rescue>) varat izmantot šīs montēšanas komandas.\n"
+"\n"
+
+#: rescue/suggest.c:96
+#, c-format
+msgid ""
+"# %s is the root of a %s operating system\n"
+"# type: %s, distro: %s, version: %d.%d\n"
+"# %s\n"
+"\n"
+msgstr ""
+"# %s ir %s operētājsistēmas sakne\n"
+"# tips: %s, distribūcija: %s, versija: %d.%d\n"
+"# %s\n"
+"\n"
+
+#: rescue/suggest.c:155
+#, c-format
+msgid ""
+"This disk contains no mountable filesystems that we recognize.\n"
+"\n"
+"However you can still use virt-rescue on the disk image, to try to mount\n"
+"filesystems that are not recognized by libguestfs, or to create partitions,\n"
+"logical volumes and filesystems on a blank disk.\n"
+msgstr ""
+"Šajā diskā nav nevienas mums atpazīstamas montējamas failu sistēmas.\n"
+"\n"
+"Tomēr virt-rescue joprojām varat izmantot diska attēlā, lai mēģinātu montēt\n"
+"failu sistēmas, ko libguestfs neatpazīst, vai lai tukšā diskā izveidotu "
+"nodalījumus,\n"
+"loģiskos sējumus un failu sistēmas.\n"
+
+#: rescue/suggest.c:162
+#, c-format
+msgid ""
+"This disk contains one or more filesystems, but we don’t recognize any\n"
+"operating system.  You can use these mount commands in virt-rescue (at the\n"
+"><rescue> prompt) to mount these filesystems.\n"
+"\n"
+msgstr ""
+"Šajā diskā ir viena vai vairākas failu sistēmas, bet mēs neatpazīstam "
+"nevienu\n"
+"operētājsistēmu.  Lai montētu šīs failu sistēmas, virt-rescue (uzvednē\n"
+"><rescue>) varat izmantot šīs montēšanas komandas.\n"
+"\n"
+
+#: rescue/suggest.c:167
+#, c-format
+msgid "# %s has type ‘%s’\n"
+msgstr "# %s tips ir „%s”\n"
+
+#: test-tool/test-tool.c:57
+#, c-format
+msgid ""
+"libguestfs-test-tool: interactive test tool\n"
+"Copyright (C) 2009-2025 Red Hat Inc.\n"
+"Usage:\n"
+"  libguestfs-test-tool [--options]\n"
+"Options:\n"
+"  --help         Display usage\n"
+"  --qemudir dir  Specify QEMU source directory\n"
+"  --qemu qemu    Specify QEMU binary\n"
+"  --timeout n\n"
+"  -t n           Set launch timeout (default: %d seconds)\n"
+"  --version\n"
+"  -V             Display libguestfs version and exit\n"
+msgstr ""
+"libguestfs-test-tool: interaktīvs testēšanas rīks\n"
+"Autortiesības (C) 2009-2025 Red Hat Inc.\n"
+"Lietošana:\n"
+"  libguestfs-test-tool [--opcijas]\n"
+"Opcijas:\n"
+"  --help         Rādīt lietošanu\n"
+"  --qemudir dir  Norādīt QEMU pirmkoda direktoriju\n"
+"  --qemu qemu    Norādīt QEMU bināro failu\n"
+"  --timeout n\n"
+"  -t n           Iestatīt palaišanas noildzi (noklusējums: %d sekundes)\n"
+"  --version\n"
+"  -V             Parādīt libguestfs versiju un iziet\n"
+
+#: test-tool/test-tool.c:129
+#, c-format
+msgid "invalid timeout: %s"
+msgstr "nederīga noildze: %s"
+
+#: test-tool/test-tool.c:151
+#, c-format
+msgid "unexpected command line option %d"
+msgstr "negaidīta komandrindas opcija %d"
+
+#: test-tool/test-tool.c:156
+#, c-format
+msgid "extra arguments on the command line"
+msgstr "komandrindā lieki argumenti"
+
+#: test-tool/test-tool.c:175
+#, c-format
+msgid ""
+"failed parsing environment variables.\n"
+"Check earlier messages, and the output of the ‘printenv’ command."
+msgstr ""
+"neizdevās parsēt vides mainīgos.\n"
+"Pārbaudiet iepriekšējos ziņojumus un komandas „printenv” izvadi."
+
+#: test-tool/test-tool.c:319
+#, c-format
+msgid ""
+"LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
+"--qemu/--qemudir options cannot be used."
+msgstr ""
+"vides mainīgais LIBGUESTFS_HV/LIBGUESTFS_QEMU jau ir iestatīts, tāpēc\n"
+"opcijas --qemu/--qemudir nevar izmantot."
+
+#: test-tool/test-tool.c:325
+#, c-format
+msgid "binary ‘%s’ does not exist or is not executable"
+msgstr "binārais fails „%s” neeksistē vai nav izpildāms"
+
+#: test-tool/test-tool.c:337
+#, c-format
+msgid "path does not look like a qemu source directory: %s"
+msgstr "ceļš neizskatās pēc qemu pirmkoda direktorijas: %s"
