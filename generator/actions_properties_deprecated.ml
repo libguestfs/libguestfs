@@ -122,18 +122,9 @@ See C<guestfs_set_backend> and L<guestfs(3)/BACKEND>." };
     fish_alias = ["direct"]; config_only = true;
     blocking = false;
     shortdesc = "enable or disable direct appliance mode";
-    longdesc = {|If the direct appliance mode flag is enabled, then stdin and
-stdout are passed directly through to the appliance once it
-is launched.
-
-One consequence of this is that log messages aren't caught
-by the library and handled by C<guestfs_set_log_message_callback>,
-but go straight to stdout.
-
-You probably don't want to use this unless you know what you
-are doing.
-
-The default is disabled.|} };
+    longdesc = "\
+Since libguestfs E<ge> 1.60, this function
+always returns an error." };
 
   { defaults with
     name = "get_direct"; added = (1, 0, 72);
@@ -142,7 +133,8 @@ The default is disabled.|} };
     blocking = false;
     shortdesc = "get direct appliance mode flag";
     longdesc = "\
-Return the direct appliance mode flag." };
+Since libguestfs E<ge> 1.60, this function
+always returns false." };
 
 ]
 
