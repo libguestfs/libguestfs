@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.58.0\n"
 "Report-Msgid-Bugs-To: guestfs@lists.libguestfs.org\n"
 "POT-Creation-Date: 2026-10-30 09:15+0000\n"
-"PO-Revision-Date: 2026-09-16 14:27+0000\n"
+"PO-Revision-Date: 2026-11-02 14:27+0000\n"
 "Last-Translator: Emanuele Petriglia <inbox@emanuelepetriglia.com>\n"
 "Language-Team: Italian <https://translate.fedoraproject.org/projects/"
 "libguestfs/libguestfs-docs-master/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.1\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #. type: =head1
 #: appliance/libguestfs-make-fixed-appliance.pod:1 daemon/guestfsd.pod:1
@@ -2002,10 +2002,8 @@ msgstr ""
 #. type: =item
 #: common/mlcustomize/customize-options.pod:443
 #: common/mlcustomize/v2v-customize-options.pod:389
-#, fuzzy
-#| msgid "B<--selinux-relabel>"
 msgid "B<--selinux-relabel-fhs>"
-msgstr "B<--selinux-relabel>"
+msgstr "B<--selinux-relabel-fhs>"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:445
@@ -2015,6 +2013,9 @@ msgid ""
 "(FHS) mountpoints (L<https://en.wikipedia.org/wiki/"
 "Filesystem_Hierarchy_Standard>)."
 msgstr ""
+"Questa opzione consente di rietichettare solo nei punti di montaggio del "
+"Linux Filesystem Hierarchy Standard (FHS) (L<https://en.wikipedia.org/wiki/"
+"Filesystem_Hierarchy_Standard>)."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:449
@@ -2023,15 +2024,20 @@ msgid ""
 "Specifically this means that a separate mountpoint which does not match a "
 "directory from the FHS is ignored.  For example if F</etc/fstab> contained:"
 msgstr ""
+"In particolare ciò significa che un punto di montaggio separato che non "
+"corrisponde a una cartella dell'FHS viene ignorato. Per esempio se F</etc/"
+"fstab> contenesse:"
 
 #. type: verbatim
 #: common/mlcustomize/customize-options.pod:453
 #: common/mlcustomize/v2v-customize-options.pod:399
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 " /dev/sdb /database xfs defaults 0 0\n"
 "\n"
 msgstr ""
+" /dev/sdb /database xfs defaults 0 0\n"
+"\n"
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:455
@@ -2040,6 +2046,8 @@ msgid ""
 "then F</database> would not be relabelled since that directory is not one "
 "listed in the FHS."
 msgstr ""
+"allora F</database> non verrebbe rietichettata, perché quella cartella non è "
+"tra quelle elencate nell'FHS."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:458
@@ -2049,6 +2057,9 @@ msgid ""
 "mountpoint then everything underneath would still be relabelled even if not "
 "an FHS directory."
 msgstr ""
+"Questa opzione funziona solo a livello di punti di montaggio in fstab. Se "
+"F</> fosse l’unico punto di montaggio, tutto ciò che si trova al di sotto "
+"verrebbe comunque rietichettato, anche se non è una directory dell'FHS."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:462
@@ -2057,12 +2068,14 @@ msgid ""
 "Use this option with care, since incorrectly labelled files even outside the "
 "FHS may cause the guest to fail to boot."
 msgstr ""
+"Usare questa opzione con attenzione, perché file etichettati in modo errato, "
+"anche al di fuori dell'FHS, potrebbero impedire l'avvio del guest."
 
 #. type: textblock
 #: common/mlcustomize/customize-options.pod:465
 #: common/mlcustomize/v2v-customize-options.pod:411
 msgid "The default is to relabel the whole filesystem."
-msgstr ""
+msgstr "Per impostazione predefinita viene rietichettato l'intero filesystem."
 
 #. type: =item
 #: common/mlcustomize/customize-options.pod:467
