@@ -174,7 +174,7 @@ let xfs_info dev =
 
 let maxmem_re =
   PCRE.compile ~anchored:false ~dotall:true
-    {|Required memory for repair is greater tha. the maximum specified.*at least (\d+)\.|}
+    {|Required memory for repair is greater tha. the maximum specified.*at least (\d+)\.|} (* codespell:ignore tha *)
 
 let bad_agbno_in_agfl_re =
   PCRE.compile ~anchored:false {|bad agbno \d+ in agfl, agno \d+|}

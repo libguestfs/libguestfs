@@ -1,6 +1,30 @@
 [codespell]
 # Ref: https://github.com/codespell-project/codespell#using-a-config-file
-skip = .git,.gitignore,.gitattributes,*.svg,*.css,.codespellrc
+# po, po-docs: translations; common: git submodule (libguestfs-common)
+skip = .git,.git-meta,.gitignore,.gitattributes,.*cache,*.svg,*.css,*.po,*.pot,LINGUAS,./common,.codespellrc
 check-hidden = true
-# ignore-regex = 
-# ignore-words-list =
+# Ignore camelCase and PascalCase identifiers (OInt, CallInt, BufferIn, ...)
+ignore-regex = \b[a-z]+[A-Z]\w*\b|\b[A-Z][a-z]+[A-Z]\w*\b
+ignore-words-list =
+  # optional-int / buffer-in test parameter names in generator bindtests
+  oint,
+  bufferin,
+  # OCaml type/variable name for "struct" (a reserved-ish word)
+  struc,
+  # variable names: PATH copy, "y upper right", struct servent
+  pathc,
+  yur,
+  servent,
+  # GOST R34.11 checksum algorithm
+  gost,
+  # /dev/hda device name
+  hda,
+  # passt(1) and stap(1) tools
+  passt,
+  stap,
+  # Windows boot.ini /noexecute=optin
+  optin,
+  # placeholder in --with-extra="distroname=version"
+  distroname,
+  # contributor surname
+  collet
